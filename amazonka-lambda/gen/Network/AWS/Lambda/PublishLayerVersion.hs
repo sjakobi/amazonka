@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,267 +21,306 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer> from a ZIP archive. Each time you call @PublishLayerVersion@ with the same layer name, a new version is created.
+-- Creates an
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer>
+-- from a ZIP archive. Each time you call @PublishLayerVersion@ with the
+-- same layer name, a new version is created.
 --
---
--- Add layers to your function with 'CreateFunction' or 'UpdateFunctionConfiguration' .
+-- Add layers to your function with CreateFunction or
+-- UpdateFunctionConfiguration.
 module Network.AWS.Lambda.PublishLayerVersion
   ( -- * Creating a Request
-    publishLayerVersion,
-    PublishLayerVersion,
+    PublishLayerVersion (..),
+    newPublishLayerVersion,
 
     -- * Request Lenses
-    plvCompatibleRuntimes,
-    plvDescription,
-    plvLicenseInfo,
-    plvLayerName,
-    plvContent,
+    publishLayerVersion_compatibleRuntimes,
+    publishLayerVersion_description,
+    publishLayerVersion_licenseInfo,
+    publishLayerVersion_layerName,
+    publishLayerVersion_content,
 
     -- * Destructuring the Response
-    publishLayerVersionResponse,
-    PublishLayerVersionResponse,
+    PublishLayerVersionResponse (..),
+    newPublishLayerVersionResponse,
 
     -- * Response Lenses
-    plvrrsCreatedDate,
-    plvrrsLayerARN,
-    plvrrsVersion,
-    plvrrsLayerVersionARN,
-    plvrrsContent,
-    plvrrsCompatibleRuntimes,
-    plvrrsDescription,
-    plvrrsLicenseInfo,
-    plvrrsResponseStatus,
+    publishLayerVersionResponse_createdDate,
+    publishLayerVersionResponse_layerArn,
+    publishLayerVersionResponse_version,
+    publishLayerVersionResponse_layerVersionArn,
+    publishLayerVersionResponse_content,
+    publishLayerVersionResponse_compatibleRuntimes,
+    publishLayerVersionResponse_description,
+    publishLayerVersionResponse_licenseInfo,
+    publishLayerVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.LayerVersionContentOutput
+import Network.AWS.Lambda.Types.Runtime
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'publishLayerVersion' smart constructor.
+-- | /See:/ 'newPublishLayerVersion' smart constructor.
 data PublishLayerVersion = PublishLayerVersion'
-  { _plvCompatibleRuntimes ::
-      !(Maybe [Runtime]),
-    _plvDescription ::
-      !(Maybe Text),
-    _plvLicenseInfo ::
-      !(Maybe Text),
-    _plvLayerName :: !Text,
-    _plvContent ::
-      !LayerVersionContentInput
+  { -- | A list of compatible
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html function runtimes>.
+    -- Used for filtering with ListLayers and ListLayerVersions.
+    compatibleRuntimes :: Prelude.Maybe [Runtime],
+    -- | The description of the version.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The layer\'s software license. It can be any of the following:
+    --
+    -- -   An <https://spdx.org/licenses/ SPDX license identifier>. For
+    --     example, @MIT@.
+    --
+    -- -   The URL of a license hosted on the internet. For example,
+    --     @https:\/\/opensource.org\/licenses\/MIT@.
+    --
+    -- -   The full text of the license.
+    licenseInfo :: Prelude.Maybe Prelude.Text,
+    -- | The name or Amazon Resource Name (ARN) of the layer.
+    layerName :: Prelude.Text,
+    -- | The function layer archive.
+    content :: LayerVersionContentInput
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PublishLayerVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PublishLayerVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'plvCompatibleRuntimes' - A list of compatible <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html function runtimes> . Used for filtering with 'ListLayers' and 'ListLayerVersions' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'plvDescription' - The description of the version.
+-- 'compatibleRuntimes', 'publishLayerVersion_compatibleRuntimes' - A list of compatible
+-- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html function runtimes>.
+-- Used for filtering with ListLayers and ListLayerVersions.
 --
--- * 'plvLicenseInfo' - The layer's software license. It can be any of the following:     * An <https://spdx.org/licenses/ SPDX license identifier> . For example, @MIT@ .     * The URL of a license hosted on the internet. For example, @https://opensource.org/licenses/MIT@ .     * The full text of the license.
+-- 'description', 'publishLayerVersion_description' - The description of the version.
 --
--- * 'plvLayerName' - The name or Amazon Resource Name (ARN) of the layer.
+-- 'licenseInfo', 'publishLayerVersion_licenseInfo' - The layer\'s software license. It can be any of the following:
 --
--- * 'plvContent' - The function layer archive.
-publishLayerVersion ::
-  -- | 'plvLayerName'
-  Text ->
-  -- | 'plvContent'
+-- -   An <https://spdx.org/licenses/ SPDX license identifier>. For
+--     example, @MIT@.
+--
+-- -   The URL of a license hosted on the internet. For example,
+--     @https:\/\/opensource.org\/licenses\/MIT@.
+--
+-- -   The full text of the license.
+--
+-- 'layerName', 'publishLayerVersion_layerName' - The name or Amazon Resource Name (ARN) of the layer.
+--
+-- 'content', 'publishLayerVersion_content' - The function layer archive.
+newPublishLayerVersion ::
+  -- | 'layerName'
+  Prelude.Text ->
+  -- | 'content'
   LayerVersionContentInput ->
   PublishLayerVersion
-publishLayerVersion pLayerName_ pContent_ =
+newPublishLayerVersion pLayerName_ pContent_ =
   PublishLayerVersion'
-    { _plvCompatibleRuntimes =
-        Nothing,
-      _plvDescription = Nothing,
-      _plvLicenseInfo = Nothing,
-      _plvLayerName = pLayerName_,
-      _plvContent = pContent_
+    { compatibleRuntimes =
+        Prelude.Nothing,
+      description = Prelude.Nothing,
+      licenseInfo = Prelude.Nothing,
+      layerName = pLayerName_,
+      content = pContent_
     }
 
--- | A list of compatible <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html function runtimes> . Used for filtering with 'ListLayers' and 'ListLayerVersions' .
-plvCompatibleRuntimes :: Lens' PublishLayerVersion [Runtime]
-plvCompatibleRuntimes = lens _plvCompatibleRuntimes (\s a -> s {_plvCompatibleRuntimes = a}) . _Default . _Coerce
+-- | A list of compatible
+-- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html function runtimes>.
+-- Used for filtering with ListLayers and ListLayerVersions.
+publishLayerVersion_compatibleRuntimes :: Lens.Lens' PublishLayerVersion (Prelude.Maybe [Runtime])
+publishLayerVersion_compatibleRuntimes = Lens.lens (\PublishLayerVersion' {compatibleRuntimes} -> compatibleRuntimes) (\s@PublishLayerVersion' {} a -> s {compatibleRuntimes = a} :: PublishLayerVersion) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the version.
-plvDescription :: Lens' PublishLayerVersion (Maybe Text)
-plvDescription = lens _plvDescription (\s a -> s {_plvDescription = a})
+publishLayerVersion_description :: Lens.Lens' PublishLayerVersion (Prelude.Maybe Prelude.Text)
+publishLayerVersion_description = Lens.lens (\PublishLayerVersion' {description} -> description) (\s@PublishLayerVersion' {} a -> s {description = a} :: PublishLayerVersion)
 
--- | The layer's software license. It can be any of the following:     * An <https://spdx.org/licenses/ SPDX license identifier> . For example, @MIT@ .     * The URL of a license hosted on the internet. For example, @https://opensource.org/licenses/MIT@ .     * The full text of the license.
-plvLicenseInfo :: Lens' PublishLayerVersion (Maybe Text)
-plvLicenseInfo = lens _plvLicenseInfo (\s a -> s {_plvLicenseInfo = a})
+-- | The layer\'s software license. It can be any of the following:
+--
+-- -   An <https://spdx.org/licenses/ SPDX license identifier>. For
+--     example, @MIT@.
+--
+-- -   The URL of a license hosted on the internet. For example,
+--     @https:\/\/opensource.org\/licenses\/MIT@.
+--
+-- -   The full text of the license.
+publishLayerVersion_licenseInfo :: Lens.Lens' PublishLayerVersion (Prelude.Maybe Prelude.Text)
+publishLayerVersion_licenseInfo = Lens.lens (\PublishLayerVersion' {licenseInfo} -> licenseInfo) (\s@PublishLayerVersion' {} a -> s {licenseInfo = a} :: PublishLayerVersion)
 
 -- | The name or Amazon Resource Name (ARN) of the layer.
-plvLayerName :: Lens' PublishLayerVersion Text
-plvLayerName = lens _plvLayerName (\s a -> s {_plvLayerName = a})
+publishLayerVersion_layerName :: Lens.Lens' PublishLayerVersion Prelude.Text
+publishLayerVersion_layerName = Lens.lens (\PublishLayerVersion' {layerName} -> layerName) (\s@PublishLayerVersion' {} a -> s {layerName = a} :: PublishLayerVersion)
 
 -- | The function layer archive.
-plvContent :: Lens' PublishLayerVersion LayerVersionContentInput
-plvContent = lens _plvContent (\s a -> s {_plvContent = a})
+publishLayerVersion_content :: Lens.Lens' PublishLayerVersion LayerVersionContentInput
+publishLayerVersion_content = Lens.lens (\PublishLayerVersion' {content} -> content) (\s@PublishLayerVersion' {} a -> s {content = a} :: PublishLayerVersion)
 
-instance AWSRequest PublishLayerVersion where
+instance Prelude.AWSRequest PublishLayerVersion where
   type
     Rs PublishLayerVersion =
       PublishLayerVersionResponse
-  request = postJSON lambda
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PublishLayerVersionResponse'
-            <$> (x .?> "CreatedDate")
-            <*> (x .?> "LayerArn")
-            <*> (x .?> "Version")
-            <*> (x .?> "LayerVersionArn")
-            <*> (x .?> "Content")
-            <*> (x .?> "CompatibleRuntimes" .!@ mempty)
-            <*> (x .?> "Description")
-            <*> (x .?> "LicenseInfo")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreatedDate")
+            Prelude.<*> (x Prelude..?> "LayerArn")
+            Prelude.<*> (x Prelude..?> "Version")
+            Prelude.<*> (x Prelude..?> "LayerVersionArn")
+            Prelude.<*> (x Prelude..?> "Content")
+            Prelude.<*> ( x Prelude..?> "CompatibleRuntimes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "LicenseInfo")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PublishLayerVersion
+instance Prelude.Hashable PublishLayerVersion
 
-instance NFData PublishLayerVersion
+instance Prelude.NFData PublishLayerVersion
 
-instance ToHeaders PublishLayerVersion where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PublishLayerVersion where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON PublishLayerVersion where
+instance Prelude.ToJSON PublishLayerVersion where
   toJSON PublishLayerVersion' {..} =
-    object
-      ( catMaybes
-          [ ("CompatibleRuntimes" .=)
-              <$> _plvCompatibleRuntimes,
-            ("Description" .=) <$> _plvDescription,
-            ("LicenseInfo" .=) <$> _plvLicenseInfo,
-            Just ("Content" .= _plvContent)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CompatibleRuntimes" Prelude..=)
+              Prelude.<$> compatibleRuntimes,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("LicenseInfo" Prelude..=) Prelude.<$> licenseInfo,
+            Prelude.Just ("Content" Prelude..= content)
           ]
       )
 
-instance ToPath PublishLayerVersion where
+instance Prelude.ToPath PublishLayerVersion where
   toPath PublishLayerVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2018-10-31/layers/",
-        toBS _plvLayerName,
+        Prelude.toBS layerName,
         "/versions"
       ]
 
-instance ToQuery PublishLayerVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery PublishLayerVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'publishLayerVersionResponse' smart constructor.
+-- | /See:/ 'newPublishLayerVersionResponse' smart constructor.
 data PublishLayerVersionResponse = PublishLayerVersionResponse'
-  { _plvrrsCreatedDate ::
-      !(Maybe Text),
-    _plvrrsLayerARN ::
-      !(Maybe Text),
-    _plvrrsVersion ::
-      !( Maybe
-           Integer
-       ),
-    _plvrrsLayerVersionARN ::
-      !(Maybe Text),
-    _plvrrsContent ::
-      !( Maybe
-           LayerVersionContentOutput
-       ),
-    _plvrrsCompatibleRuntimes ::
-      !( Maybe
-           [Runtime]
-       ),
-    _plvrrsDescription ::
-      !(Maybe Text),
-    _plvrrsLicenseInfo ::
-      !(Maybe Text),
-    _plvrrsResponseStatus ::
-      !Int
+  { -- | The date that the layer version was created, in
+    -- <https://www.w3.org/TR/NOTE-datetime ISO-8601 format>
+    -- (YYYY-MM-DDThh:mm:ss.sTZD).
+    createdDate :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the layer.
+    layerArn :: Prelude.Maybe Prelude.Text,
+    -- | The version number.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | The ARN of the layer version.
+    layerVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | Details about the layer version.
+    content :: Prelude.Maybe LayerVersionContentOutput,
+    -- | The layer\'s compatible runtimes.
+    compatibleRuntimes :: Prelude.Maybe [Runtime],
+    -- | The description of the version.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The layer\'s software license.
+    licenseInfo :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PublishLayerVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PublishLayerVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'plvrrsCreatedDate' - The date that the layer version was created, in <https://www.w3.org/TR/NOTE-datetime ISO-8601 format> (YYYY-MM-DDThh:mm:ss.sTZD).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'plvrrsLayerARN' - The ARN of the layer.
+-- 'createdDate', 'publishLayerVersionResponse_createdDate' - The date that the layer version was created, in
+-- <https://www.w3.org/TR/NOTE-datetime ISO-8601 format>
+-- (YYYY-MM-DDThh:mm:ss.sTZD).
 --
--- * 'plvrrsVersion' - The version number.
+-- 'layerArn', 'publishLayerVersionResponse_layerArn' - The ARN of the layer.
 --
--- * 'plvrrsLayerVersionARN' - The ARN of the layer version.
+-- 'version', 'publishLayerVersionResponse_version' - The version number.
 --
--- * 'plvrrsContent' - Details about the layer version.
+-- 'layerVersionArn', 'publishLayerVersionResponse_layerVersionArn' - The ARN of the layer version.
 --
--- * 'plvrrsCompatibleRuntimes' - The layer's compatible runtimes.
+-- 'content', 'publishLayerVersionResponse_content' - Details about the layer version.
 --
--- * 'plvrrsDescription' - The description of the version.
+-- 'compatibleRuntimes', 'publishLayerVersionResponse_compatibleRuntimes' - The layer\'s compatible runtimes.
 --
--- * 'plvrrsLicenseInfo' - The layer's software license.
+-- 'description', 'publishLayerVersionResponse_description' - The description of the version.
 --
--- * 'plvrrsResponseStatus' - -- | The response status code.
-publishLayerVersionResponse ::
-  -- | 'plvrrsResponseStatus'
-  Int ->
+-- 'licenseInfo', 'publishLayerVersionResponse_licenseInfo' - The layer\'s software license.
+--
+-- 'httpStatus', 'publishLayerVersionResponse_httpStatus' - The response's http status code.
+newPublishLayerVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PublishLayerVersionResponse
-publishLayerVersionResponse pResponseStatus_ =
+newPublishLayerVersionResponse pHttpStatus_ =
   PublishLayerVersionResponse'
-    { _plvrrsCreatedDate =
-        Nothing,
-      _plvrrsLayerARN = Nothing,
-      _plvrrsVersion = Nothing,
-      _plvrrsLayerVersionARN = Nothing,
-      _plvrrsContent = Nothing,
-      _plvrrsCompatibleRuntimes = Nothing,
-      _plvrrsDescription = Nothing,
-      _plvrrsLicenseInfo = Nothing,
-      _plvrrsResponseStatus = pResponseStatus_
+    { createdDate =
+        Prelude.Nothing,
+      layerArn = Prelude.Nothing,
+      version = Prelude.Nothing,
+      layerVersionArn = Prelude.Nothing,
+      content = Prelude.Nothing,
+      compatibleRuntimes = Prelude.Nothing,
+      description = Prelude.Nothing,
+      licenseInfo = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The date that the layer version was created, in <https://www.w3.org/TR/NOTE-datetime ISO-8601 format> (YYYY-MM-DDThh:mm:ss.sTZD).
-plvrrsCreatedDate :: Lens' PublishLayerVersionResponse (Maybe Text)
-plvrrsCreatedDate = lens _plvrrsCreatedDate (\s a -> s {_plvrrsCreatedDate = a})
+-- | The date that the layer version was created, in
+-- <https://www.w3.org/TR/NOTE-datetime ISO-8601 format>
+-- (YYYY-MM-DDThh:mm:ss.sTZD).
+publishLayerVersionResponse_createdDate :: Lens.Lens' PublishLayerVersionResponse (Prelude.Maybe Prelude.Text)
+publishLayerVersionResponse_createdDate = Lens.lens (\PublishLayerVersionResponse' {createdDate} -> createdDate) (\s@PublishLayerVersionResponse' {} a -> s {createdDate = a} :: PublishLayerVersionResponse)
 
 -- | The ARN of the layer.
-plvrrsLayerARN :: Lens' PublishLayerVersionResponse (Maybe Text)
-plvrrsLayerARN = lens _plvrrsLayerARN (\s a -> s {_plvrrsLayerARN = a})
+publishLayerVersionResponse_layerArn :: Lens.Lens' PublishLayerVersionResponse (Prelude.Maybe Prelude.Text)
+publishLayerVersionResponse_layerArn = Lens.lens (\PublishLayerVersionResponse' {layerArn} -> layerArn) (\s@PublishLayerVersionResponse' {} a -> s {layerArn = a} :: PublishLayerVersionResponse)
 
 -- | The version number.
-plvrrsVersion :: Lens' PublishLayerVersionResponse (Maybe Integer)
-plvrrsVersion = lens _plvrrsVersion (\s a -> s {_plvrrsVersion = a})
+publishLayerVersionResponse_version :: Lens.Lens' PublishLayerVersionResponse (Prelude.Maybe Prelude.Integer)
+publishLayerVersionResponse_version = Lens.lens (\PublishLayerVersionResponse' {version} -> version) (\s@PublishLayerVersionResponse' {} a -> s {version = a} :: PublishLayerVersionResponse)
 
 -- | The ARN of the layer version.
-plvrrsLayerVersionARN :: Lens' PublishLayerVersionResponse (Maybe Text)
-plvrrsLayerVersionARN = lens _plvrrsLayerVersionARN (\s a -> s {_plvrrsLayerVersionARN = a})
+publishLayerVersionResponse_layerVersionArn :: Lens.Lens' PublishLayerVersionResponse (Prelude.Maybe Prelude.Text)
+publishLayerVersionResponse_layerVersionArn = Lens.lens (\PublishLayerVersionResponse' {layerVersionArn} -> layerVersionArn) (\s@PublishLayerVersionResponse' {} a -> s {layerVersionArn = a} :: PublishLayerVersionResponse)
 
 -- | Details about the layer version.
-plvrrsContent :: Lens' PublishLayerVersionResponse (Maybe LayerVersionContentOutput)
-plvrrsContent = lens _plvrrsContent (\s a -> s {_plvrrsContent = a})
+publishLayerVersionResponse_content :: Lens.Lens' PublishLayerVersionResponse (Prelude.Maybe LayerVersionContentOutput)
+publishLayerVersionResponse_content = Lens.lens (\PublishLayerVersionResponse' {content} -> content) (\s@PublishLayerVersionResponse' {} a -> s {content = a} :: PublishLayerVersionResponse)
 
--- | The layer's compatible runtimes.
-plvrrsCompatibleRuntimes :: Lens' PublishLayerVersionResponse [Runtime]
-plvrrsCompatibleRuntimes = lens _plvrrsCompatibleRuntimes (\s a -> s {_plvrrsCompatibleRuntimes = a}) . _Default . _Coerce
+-- | The layer\'s compatible runtimes.
+publishLayerVersionResponse_compatibleRuntimes :: Lens.Lens' PublishLayerVersionResponse (Prelude.Maybe [Runtime])
+publishLayerVersionResponse_compatibleRuntimes = Lens.lens (\PublishLayerVersionResponse' {compatibleRuntimes} -> compatibleRuntimes) (\s@PublishLayerVersionResponse' {} a -> s {compatibleRuntimes = a} :: PublishLayerVersionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the version.
-plvrrsDescription :: Lens' PublishLayerVersionResponse (Maybe Text)
-plvrrsDescription = lens _plvrrsDescription (\s a -> s {_plvrrsDescription = a})
+publishLayerVersionResponse_description :: Lens.Lens' PublishLayerVersionResponse (Prelude.Maybe Prelude.Text)
+publishLayerVersionResponse_description = Lens.lens (\PublishLayerVersionResponse' {description} -> description) (\s@PublishLayerVersionResponse' {} a -> s {description = a} :: PublishLayerVersionResponse)
 
--- | The layer's software license.
-plvrrsLicenseInfo :: Lens' PublishLayerVersionResponse (Maybe Text)
-plvrrsLicenseInfo = lens _plvrrsLicenseInfo (\s a -> s {_plvrrsLicenseInfo = a})
+-- | The layer\'s software license.
+publishLayerVersionResponse_licenseInfo :: Lens.Lens' PublishLayerVersionResponse (Prelude.Maybe Prelude.Text)
+publishLayerVersionResponse_licenseInfo = Lens.lens (\PublishLayerVersionResponse' {licenseInfo} -> licenseInfo) (\s@PublishLayerVersionResponse' {} a -> s {licenseInfo = a} :: PublishLayerVersionResponse)
 
--- | -- | The response status code.
-plvrrsResponseStatus :: Lens' PublishLayerVersionResponse Int
-plvrrsResponseStatus = lens _plvrrsResponseStatus (\s a -> s {_plvrrsResponseStatus = a})
+-- | The response's http status code.
+publishLayerVersionResponse_httpStatus :: Lens.Lens' PublishLayerVersionResponse Prelude.Int
+publishLayerVersionResponse_httpStatus = Lens.lens (\PublishLayerVersionResponse' {httpStatus} -> httpStatus) (\s@PublishLayerVersionResponse' {} a -> s {httpStatus = a} :: PublishLayerVersionResponse)
 
-instance NFData PublishLayerVersionResponse
+instance Prelude.NFData PublishLayerVersionResponse

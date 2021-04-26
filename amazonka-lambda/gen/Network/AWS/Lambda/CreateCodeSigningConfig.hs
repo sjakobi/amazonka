@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,168 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a code signing configuration. A <https://docs.aws.amazon.com/lambda/latest/dg/configuration-trustedcode.html code signing configuration> defines a list of allowed signing profiles and defines the code-signing validation policy (action to be taken if deployment validation checks fail).
+-- Creates a code signing configuration. A
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-trustedcode.html code signing configuration>
+-- defines a list of allowed signing profiles and defines the code-signing
+-- validation policy (action to be taken if deployment validation checks
+-- fail).
 module Network.AWS.Lambda.CreateCodeSigningConfig
   ( -- * Creating a Request
-    createCodeSigningConfig,
-    CreateCodeSigningConfig,
+    CreateCodeSigningConfig (..),
+    newCreateCodeSigningConfig,
 
     -- * Request Lenses
-    ccscDescription,
-    ccscCodeSigningPolicies,
-    ccscAllowedPublishers,
+    createCodeSigningConfig_description,
+    createCodeSigningConfig_codeSigningPolicies,
+    createCodeSigningConfig_allowedPublishers,
 
     -- * Destructuring the Response
-    createCodeSigningConfigResponse,
-    CreateCodeSigningConfigResponse,
+    CreateCodeSigningConfigResponse (..),
+    newCreateCodeSigningConfigResponse,
 
     -- * Response Lenses
-    ccscrrsResponseStatus,
-    ccscrrsCodeSigningConfig,
+    createCodeSigningConfigResponse_httpStatus,
+    createCodeSigningConfigResponse_codeSigningConfig,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.CodeSigningConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createCodeSigningConfig' smart constructor.
+-- | /See:/ 'newCreateCodeSigningConfig' smart constructor.
 data CreateCodeSigningConfig = CreateCodeSigningConfig'
-  { _ccscDescription ::
-      !(Maybe Text),
-    _ccscCodeSigningPolicies ::
-      !( Maybe
-           CodeSigningPolicies
-       ),
-    _ccscAllowedPublishers ::
-      !AllowedPublishers
+  { -- | Descriptive name for this code signing configuration.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The code signing policies define the actions to take if the validation
+    -- checks fail.
+    codeSigningPolicies :: Prelude.Maybe CodeSigningPolicies,
+    -- | Signing profiles for this code signing configuration.
+    allowedPublishers :: AllowedPublishers
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCodeSigningConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCodeSigningConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccscDescription' - Descriptive name for this code signing configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccscCodeSigningPolicies' - The code signing policies define the actions to take if the validation checks fail.
+-- 'description', 'createCodeSigningConfig_description' - Descriptive name for this code signing configuration.
 --
--- * 'ccscAllowedPublishers' - Signing profiles for this code signing configuration.
-createCodeSigningConfig ::
-  -- | 'ccscAllowedPublishers'
+-- 'codeSigningPolicies', 'createCodeSigningConfig_codeSigningPolicies' - The code signing policies define the actions to take if the validation
+-- checks fail.
+--
+-- 'allowedPublishers', 'createCodeSigningConfig_allowedPublishers' - Signing profiles for this code signing configuration.
+newCreateCodeSigningConfig ::
+  -- | 'allowedPublishers'
   AllowedPublishers ->
   CreateCodeSigningConfig
-createCodeSigningConfig pAllowedPublishers_ =
+newCreateCodeSigningConfig pAllowedPublishers_ =
   CreateCodeSigningConfig'
-    { _ccscDescription =
-        Nothing,
-      _ccscCodeSigningPolicies = Nothing,
-      _ccscAllowedPublishers = pAllowedPublishers_
+    { description =
+        Prelude.Nothing,
+      codeSigningPolicies = Prelude.Nothing,
+      allowedPublishers = pAllowedPublishers_
     }
 
 -- | Descriptive name for this code signing configuration.
-ccscDescription :: Lens' CreateCodeSigningConfig (Maybe Text)
-ccscDescription = lens _ccscDescription (\s a -> s {_ccscDescription = a})
+createCodeSigningConfig_description :: Lens.Lens' CreateCodeSigningConfig (Prelude.Maybe Prelude.Text)
+createCodeSigningConfig_description = Lens.lens (\CreateCodeSigningConfig' {description} -> description) (\s@CreateCodeSigningConfig' {} a -> s {description = a} :: CreateCodeSigningConfig)
 
--- | The code signing policies define the actions to take if the validation checks fail.
-ccscCodeSigningPolicies :: Lens' CreateCodeSigningConfig (Maybe CodeSigningPolicies)
-ccscCodeSigningPolicies = lens _ccscCodeSigningPolicies (\s a -> s {_ccscCodeSigningPolicies = a})
+-- | The code signing policies define the actions to take if the validation
+-- checks fail.
+createCodeSigningConfig_codeSigningPolicies :: Lens.Lens' CreateCodeSigningConfig (Prelude.Maybe CodeSigningPolicies)
+createCodeSigningConfig_codeSigningPolicies = Lens.lens (\CreateCodeSigningConfig' {codeSigningPolicies} -> codeSigningPolicies) (\s@CreateCodeSigningConfig' {} a -> s {codeSigningPolicies = a} :: CreateCodeSigningConfig)
 
 -- | Signing profiles for this code signing configuration.
-ccscAllowedPublishers :: Lens' CreateCodeSigningConfig AllowedPublishers
-ccscAllowedPublishers = lens _ccscAllowedPublishers (\s a -> s {_ccscAllowedPublishers = a})
+createCodeSigningConfig_allowedPublishers :: Lens.Lens' CreateCodeSigningConfig AllowedPublishers
+createCodeSigningConfig_allowedPublishers = Lens.lens (\CreateCodeSigningConfig' {allowedPublishers} -> allowedPublishers) (\s@CreateCodeSigningConfig' {} a -> s {allowedPublishers = a} :: CreateCodeSigningConfig)
 
-instance AWSRequest CreateCodeSigningConfig where
+instance Prelude.AWSRequest CreateCodeSigningConfig where
   type
     Rs CreateCodeSigningConfig =
       CreateCodeSigningConfigResponse
-  request = postJSON lambda
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateCodeSigningConfigResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "CodeSigningConfig")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "CodeSigningConfig")
       )
 
-instance Hashable CreateCodeSigningConfig
+instance Prelude.Hashable CreateCodeSigningConfig
 
-instance NFData CreateCodeSigningConfig
+instance Prelude.NFData CreateCodeSigningConfig
 
-instance ToHeaders CreateCodeSigningConfig where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateCodeSigningConfig where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateCodeSigningConfig where
+instance Prelude.ToJSON CreateCodeSigningConfig where
   toJSON CreateCodeSigningConfig' {..} =
-    object
-      ( catMaybes
-          [ ("Description" .=) <$> _ccscDescription,
-            ("CodeSigningPolicies" .=)
-              <$> _ccscCodeSigningPolicies,
-            Just
-              ("AllowedPublishers" .= _ccscAllowedPublishers)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Description" Prelude..=) Prelude.<$> description,
+            ("CodeSigningPolicies" Prelude..=)
+              Prelude.<$> codeSigningPolicies,
+            Prelude.Just
+              ("AllowedPublishers" Prelude..= allowedPublishers)
           ]
       )
 
-instance ToPath CreateCodeSigningConfig where
-  toPath = const "/2020-04-22/code-signing-configs/"
+instance Prelude.ToPath CreateCodeSigningConfig where
+  toPath =
+    Prelude.const "/2020-04-22/code-signing-configs/"
 
-instance ToQuery CreateCodeSigningConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateCodeSigningConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createCodeSigningConfigResponse' smart constructor.
+-- | /See:/ 'newCreateCodeSigningConfigResponse' smart constructor.
 data CreateCodeSigningConfigResponse = CreateCodeSigningConfigResponse'
-  { _ccscrrsResponseStatus ::
-      !Int,
-    _ccscrrsCodeSigningConfig ::
-      !CodeSigningConfig
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The code signing configuration.
+    codeSigningConfig :: CodeSigningConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCodeSigningConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCodeSigningConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccscrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccscrrsCodeSigningConfig' - The code signing configuration.
-createCodeSigningConfigResponse ::
-  -- | 'ccscrrsResponseStatus'
-  Int ->
-  -- | 'ccscrrsCodeSigningConfig'
+-- 'httpStatus', 'createCodeSigningConfigResponse_httpStatus' - The response's http status code.
+--
+-- 'codeSigningConfig', 'createCodeSigningConfigResponse_codeSigningConfig' - The code signing configuration.
+newCreateCodeSigningConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'codeSigningConfig'
   CodeSigningConfig ->
   CreateCodeSigningConfigResponse
-createCodeSigningConfigResponse
-  pResponseStatus_
+newCreateCodeSigningConfigResponse
+  pHttpStatus_
   pCodeSigningConfig_ =
     CreateCodeSigningConfigResponse'
-      { _ccscrrsResponseStatus =
-          pResponseStatus_,
-        _ccscrrsCodeSigningConfig =
-          pCodeSigningConfig_
+      { httpStatus =
+          pHttpStatus_,
+        codeSigningConfig = pCodeSigningConfig_
       }
 
--- | -- | The response status code.
-ccscrrsResponseStatus :: Lens' CreateCodeSigningConfigResponse Int
-ccscrrsResponseStatus = lens _ccscrrsResponseStatus (\s a -> s {_ccscrrsResponseStatus = a})
+-- | The response's http status code.
+createCodeSigningConfigResponse_httpStatus :: Lens.Lens' CreateCodeSigningConfigResponse Prelude.Int
+createCodeSigningConfigResponse_httpStatus = Lens.lens (\CreateCodeSigningConfigResponse' {httpStatus} -> httpStatus) (\s@CreateCodeSigningConfigResponse' {} a -> s {httpStatus = a} :: CreateCodeSigningConfigResponse)
 
 -- | The code signing configuration.
-ccscrrsCodeSigningConfig :: Lens' CreateCodeSigningConfigResponse CodeSigningConfig
-ccscrrsCodeSigningConfig = lens _ccscrrsCodeSigningConfig (\s a -> s {_ccscrrsCodeSigningConfig = a})
+createCodeSigningConfigResponse_codeSigningConfig :: Lens.Lens' CreateCodeSigningConfigResponse CodeSigningConfig
+createCodeSigningConfigResponse_codeSigningConfig = Lens.lens (\CreateCodeSigningConfigResponse' {codeSigningConfig} -> codeSigningConfig) (\s@CreateCodeSigningConfigResponse' {} a -> s {codeSigningConfig = a} :: CreateCodeSigningConfigResponse)
 
-instance NFData CreateCodeSigningConfigResponse
+instance
+  Prelude.NFData
+    CreateCodeSigningConfigResponse

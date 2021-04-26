@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lambda.Types.AllowedPublishers where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | List of signing profiles that can sign a code package.
 --
---
---
--- /See:/ 'allowedPublishers' smart constructor.
-newtype AllowedPublishers = AllowedPublishers'
-  { _apSigningProfileVersionARNs ::
-      List1 Text
+-- /See:/ 'newAllowedPublishers' smart constructor.
+data AllowedPublishers = AllowedPublishers'
+  { -- | The Amazon Resource Name (ARN) for each of the signing profiles. A
+    -- signing profile defines a trusted user who can sign a code package.
+    signingProfileVersionArns :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AllowedPublishers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AllowedPublishers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apSigningProfileVersionARNs' - The Amazon Resource Name (ARN) for each of the signing profiles. A signing profile defines a trusted user who can sign a code package.
-allowedPublishers ::
-  -- | 'apSigningProfileVersionARNs'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'signingProfileVersionArns', 'allowedPublishers_signingProfileVersionArns' - The Amazon Resource Name (ARN) for each of the signing profiles. A
+-- signing profile defines a trusted user who can sign a code package.
+newAllowedPublishers ::
+  -- | 'signingProfileVersionArns'
+  Prelude.NonEmpty Prelude.Text ->
   AllowedPublishers
-allowedPublishers pSigningProfileVersionARNs_ =
+newAllowedPublishers pSigningProfileVersionArns_ =
   AllowedPublishers'
-    { _apSigningProfileVersionARNs =
-        _List1 # pSigningProfileVersionARNs_
+    { signingProfileVersionArns =
+        Prelude._List1 Lens.# pSigningProfileVersionArns_
     }
 
--- | The Amazon Resource Name (ARN) for each of the signing profiles. A signing profile defines a trusted user who can sign a code package.
-apSigningProfileVersionARNs :: Lens' AllowedPublishers (NonEmpty Text)
-apSigningProfileVersionARNs = lens _apSigningProfileVersionARNs (\s a -> s {_apSigningProfileVersionARNs = a}) . _List1
+-- | The Amazon Resource Name (ARN) for each of the signing profiles. A
+-- signing profile defines a trusted user who can sign a code package.
+allowedPublishers_signingProfileVersionArns :: Lens.Lens' AllowedPublishers (Prelude.NonEmpty Prelude.Text)
+allowedPublishers_signingProfileVersionArns = Lens.lens (\AllowedPublishers' {signingProfileVersionArns} -> signingProfileVersionArns) (\s@AllowedPublishers' {} a -> s {signingProfileVersionArns = a} :: AllowedPublishers) Prelude.. Prelude._List1
 
-instance FromJSON AllowedPublishers where
+instance Prelude.FromJSON AllowedPublishers where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AllowedPublishers"
       ( \x ->
           AllowedPublishers'
-            <$> (x .: "SigningProfileVersionArns")
+            Prelude.<$> (x Prelude..: "SigningProfileVersionArns")
       )
 
-instance Hashable AllowedPublishers
+instance Prelude.Hashable AllowedPublishers
 
-instance NFData AllowedPublishers
+instance Prelude.NFData AllowedPublishers
 
-instance ToJSON AllowedPublishers where
+instance Prelude.ToJSON AllowedPublishers where
   toJSON AllowedPublishers' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "SigningProfileVersionArns"
-                  .= _apSigningProfileVersionARNs
+                  Prelude..= signingProfileVersionArns
               )
           ]
       )

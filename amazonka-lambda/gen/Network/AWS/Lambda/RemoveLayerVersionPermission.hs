@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes a statement from the permissions policy for a version of an <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer> . For more information, see 'AddLayerVersionPermission' .
+-- Removes a statement from the permissions policy for a version of an
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer>.
+-- For more information, see AddLayerVersionPermission.
 module Network.AWS.Lambda.RemoveLayerVersionPermission
   ( -- * Creating a Request
-    removeLayerVersionPermission,
-    RemoveLayerVersionPermission,
+    RemoveLayerVersionPermission (..),
+    newRemoveLayerVersionPermission,
 
     -- * Request Lenses
-    rlvpRevisionId,
-    rlvpLayerName,
-    rlvpVersionNumber,
-    rlvpStatementId,
+    removeLayerVersionPermission_revisionId,
+    removeLayerVersionPermission_layerName,
+    removeLayerVersionPermission_versionNumber,
+    removeLayerVersionPermission_statementId,
 
     -- * Destructuring the Response
-    removeLayerVersionPermissionResponse,
-    RemoveLayerVersionPermissionResponse,
+    RemoveLayerVersionPermissionResponse (..),
+    newRemoveLayerVersionPermissionResponse,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'removeLayerVersionPermission' smart constructor.
+-- | /See:/ 'newRemoveLayerVersionPermission' smart constructor.
 data RemoveLayerVersionPermission = RemoveLayerVersionPermission'
-  { _rlvpRevisionId ::
-      !(Maybe Text),
-    _rlvpLayerName ::
-      !Text,
-    _rlvpVersionNumber ::
-      !Integer,
-    _rlvpStatementId ::
-      !Text
+  { -- | Only update the policy if the revision ID matches the ID specified. Use
+    -- this option to avoid modifying a policy that has changed since you last
+    -- read it.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | The name or Amazon Resource Name (ARN) of the layer.
+    layerName :: Prelude.Text,
+    -- | The version number.
+    versionNumber :: Prelude.Integer,
+    -- | The identifier that was specified when the statement was added.
+    statementId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveLayerVersionPermission' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveLayerVersionPermission' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rlvpRevisionId' - Only update the policy if the revision ID matches the ID specified. Use this option to avoid modifying a policy that has changed since you last read it.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rlvpLayerName' - The name or Amazon Resource Name (ARN) of the layer.
+-- 'revisionId', 'removeLayerVersionPermission_revisionId' - Only update the policy if the revision ID matches the ID specified. Use
+-- this option to avoid modifying a policy that has changed since you last
+-- read it.
 --
--- * 'rlvpVersionNumber' - The version number.
+-- 'layerName', 'removeLayerVersionPermission_layerName' - The name or Amazon Resource Name (ARN) of the layer.
 --
--- * 'rlvpStatementId' - The identifier that was specified when the statement was added.
-removeLayerVersionPermission ::
-  -- | 'rlvpLayerName'
-  Text ->
-  -- | 'rlvpVersionNumber'
-  Integer ->
-  -- | 'rlvpStatementId'
-  Text ->
+-- 'versionNumber', 'removeLayerVersionPermission_versionNumber' - The version number.
+--
+-- 'statementId', 'removeLayerVersionPermission_statementId' - The identifier that was specified when the statement was added.
+newRemoveLayerVersionPermission ::
+  -- | 'layerName'
+  Prelude.Text ->
+  -- | 'versionNumber'
+  Prelude.Integer ->
+  -- | 'statementId'
+  Prelude.Text ->
   RemoveLayerVersionPermission
-removeLayerVersionPermission
+newRemoveLayerVersionPermission
   pLayerName_
   pVersionNumber_
   pStatementId_ =
     RemoveLayerVersionPermission'
-      { _rlvpRevisionId =
-          Nothing,
-        _rlvpLayerName = pLayerName_,
-        _rlvpVersionNumber = pVersionNumber_,
-        _rlvpStatementId = pStatementId_
+      { revisionId =
+          Prelude.Nothing,
+        layerName = pLayerName_,
+        versionNumber = pVersionNumber_,
+        statementId = pStatementId_
       }
 
--- | Only update the policy if the revision ID matches the ID specified. Use this option to avoid modifying a policy that has changed since you last read it.
-rlvpRevisionId :: Lens' RemoveLayerVersionPermission (Maybe Text)
-rlvpRevisionId = lens _rlvpRevisionId (\s a -> s {_rlvpRevisionId = a})
+-- | Only update the policy if the revision ID matches the ID specified. Use
+-- this option to avoid modifying a policy that has changed since you last
+-- read it.
+removeLayerVersionPermission_revisionId :: Lens.Lens' RemoveLayerVersionPermission (Prelude.Maybe Prelude.Text)
+removeLayerVersionPermission_revisionId = Lens.lens (\RemoveLayerVersionPermission' {revisionId} -> revisionId) (\s@RemoveLayerVersionPermission' {} a -> s {revisionId = a} :: RemoveLayerVersionPermission)
 
 -- | The name or Amazon Resource Name (ARN) of the layer.
-rlvpLayerName :: Lens' RemoveLayerVersionPermission Text
-rlvpLayerName = lens _rlvpLayerName (\s a -> s {_rlvpLayerName = a})
+removeLayerVersionPermission_layerName :: Lens.Lens' RemoveLayerVersionPermission Prelude.Text
+removeLayerVersionPermission_layerName = Lens.lens (\RemoveLayerVersionPermission' {layerName} -> layerName) (\s@RemoveLayerVersionPermission' {} a -> s {layerName = a} :: RemoveLayerVersionPermission)
 
 -- | The version number.
-rlvpVersionNumber :: Lens' RemoveLayerVersionPermission Integer
-rlvpVersionNumber = lens _rlvpVersionNumber (\s a -> s {_rlvpVersionNumber = a})
+removeLayerVersionPermission_versionNumber :: Lens.Lens' RemoveLayerVersionPermission Prelude.Integer
+removeLayerVersionPermission_versionNumber = Lens.lens (\RemoveLayerVersionPermission' {versionNumber} -> versionNumber) (\s@RemoveLayerVersionPermission' {} a -> s {versionNumber = a} :: RemoveLayerVersionPermission)
 
 -- | The identifier that was specified when the statement was added.
-rlvpStatementId :: Lens' RemoveLayerVersionPermission Text
-rlvpStatementId = lens _rlvpStatementId (\s a -> s {_rlvpStatementId = a})
+removeLayerVersionPermission_statementId :: Lens.Lens' RemoveLayerVersionPermission Prelude.Text
+removeLayerVersionPermission_statementId = Lens.lens (\RemoveLayerVersionPermission' {statementId} -> statementId) (\s@RemoveLayerVersionPermission' {} a -> s {statementId = a} :: RemoveLayerVersionPermission)
 
-instance AWSRequest RemoveLayerVersionPermission where
+instance
+  Prelude.AWSRequest
+    RemoveLayerVersionPermission
+  where
   type
     Rs RemoveLayerVersionPermission =
       RemoveLayerVersionPermissionResponse
-  request = delete lambda
+  request = Request.delete defaultService
   response =
-    receiveNull RemoveLayerVersionPermissionResponse'
+    Response.receiveNull
+      RemoveLayerVersionPermissionResponse'
 
-instance Hashable RemoveLayerVersionPermission
+instance
+  Prelude.Hashable
+    RemoveLayerVersionPermission
 
-instance NFData RemoveLayerVersionPermission
+instance Prelude.NFData RemoveLayerVersionPermission
 
-instance ToHeaders RemoveLayerVersionPermission where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    RemoveLayerVersionPermission
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RemoveLayerVersionPermission where
+instance Prelude.ToPath RemoveLayerVersionPermission where
   toPath RemoveLayerVersionPermission' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2018-10-31/layers/",
-        toBS _rlvpLayerName,
+        Prelude.toBS layerName,
         "/versions/",
-        toBS _rlvpVersionNumber,
+        Prelude.toBS versionNumber,
         "/policy/",
-        toBS _rlvpStatementId
+        Prelude.toBS statementId
       ]
 
-instance ToQuery RemoveLayerVersionPermission where
+instance Prelude.ToQuery RemoveLayerVersionPermission where
   toQuery RemoveLayerVersionPermission' {..} =
-    mconcat ["RevisionId" =: _rlvpRevisionId]
+    Prelude.mconcat
+      ["RevisionId" Prelude.=: revisionId]
 
--- | /See:/ 'removeLayerVersionPermissionResponse' smart constructor.
+-- | /See:/ 'newRemoveLayerVersionPermissionResponse' smart constructor.
 data RemoveLayerVersionPermissionResponse = RemoveLayerVersionPermissionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveLayerVersionPermissionResponse' with the minimum fields required to make a request.
-removeLayerVersionPermissionResponse ::
+-- |
+-- Create a value of 'RemoveLayerVersionPermissionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRemoveLayerVersionPermissionResponse ::
   RemoveLayerVersionPermissionResponse
-removeLayerVersionPermissionResponse =
+newRemoveLayerVersionPermissionResponse =
   RemoveLayerVersionPermissionResponse'
 
-instance NFData RemoveLayerVersionPermissionResponse
+instance
+  Prelude.NFData
+    RemoveLayerVersionPermissionResponse

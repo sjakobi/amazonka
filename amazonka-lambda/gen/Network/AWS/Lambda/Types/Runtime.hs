@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,166 +19,168 @@
 module Network.AWS.Lambda.Types.Runtime
   ( Runtime
       ( ..,
-        DOTNETCORE1_0,
-        DOTNETCORE2_0,
-        DOTNETCORE2_1,
-        DOTNETCORE3_1,
-        GO1_x,
-        JAVA11,
-        JAVA8,
-        JAVA8_AL2,
-        NODEJS10_x,
-        NODEJS12_x,
-        NODEJS14_x,
-        NODEJS4_3,
-        NODEJS4_3Edge,
-        NODEJS6_10,
-        NODEJS8_10,
-        Nodejs,
-        PYTHON2_7,
-        PYTHON3_6,
-        PYTHON3_7,
-        PYTHON3_8,
-        Provided,
-        Provided_AL2,
-        RUBY2_5,
-        RUBY2_7
+        RuntimeDOTNETCORE1_0,
+        RuntimeDOTNETCORE2_0,
+        RuntimeDOTNETCORE2_1,
+        RuntimeDOTNETCORE3_1,
+        RuntimeGO1_x,
+        RuntimeJAVA11,
+        RuntimeJAVA8,
+        RuntimeJAVA8_AL2,
+        RuntimeNODEJS10_x,
+        RuntimeNODEJS12_x,
+        RuntimeNODEJS14_x,
+        RuntimeNODEJS4_3,
+        RuntimeNODEJS4_3Edge,
+        RuntimeNODEJS6_10,
+        RuntimeNODEJS8_10,
+        RuntimeNodejs,
+        RuntimePYTHON2_7,
+        RuntimePYTHON3_6,
+        RuntimePYTHON3_7,
+        RuntimePYTHON3_8,
+        RuntimeProvided,
+        RuntimeProvided_AL2,
+        RuntimeRUBY2_5,
+        RuntimeRUBY2_7
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Runtime = Runtime' (CI Text)
+newtype Runtime = Runtime'
+  { fromRuntime ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DOTNETCORE1_0 :: Runtime
-pattern DOTNETCORE1_0 = Runtime' "dotnetcore1.0"
+pattern RuntimeDOTNETCORE1_0 :: Runtime
+pattern RuntimeDOTNETCORE1_0 = Runtime' "dotnetcore1.0"
 
-pattern DOTNETCORE2_0 :: Runtime
-pattern DOTNETCORE2_0 = Runtime' "dotnetcore2.0"
+pattern RuntimeDOTNETCORE2_0 :: Runtime
+pattern RuntimeDOTNETCORE2_0 = Runtime' "dotnetcore2.0"
 
-pattern DOTNETCORE2_1 :: Runtime
-pattern DOTNETCORE2_1 = Runtime' "dotnetcore2.1"
+pattern RuntimeDOTNETCORE2_1 :: Runtime
+pattern RuntimeDOTNETCORE2_1 = Runtime' "dotnetcore2.1"
 
-pattern DOTNETCORE3_1 :: Runtime
-pattern DOTNETCORE3_1 = Runtime' "dotnetcore3.1"
+pattern RuntimeDOTNETCORE3_1 :: Runtime
+pattern RuntimeDOTNETCORE3_1 = Runtime' "dotnetcore3.1"
 
-pattern GO1_x :: Runtime
-pattern GO1_x = Runtime' "go1.x"
+pattern RuntimeGO1_x :: Runtime
+pattern RuntimeGO1_x = Runtime' "go1.x"
 
-pattern JAVA11 :: Runtime
-pattern JAVA11 = Runtime' "java11"
+pattern RuntimeJAVA11 :: Runtime
+pattern RuntimeJAVA11 = Runtime' "java11"
 
-pattern JAVA8 :: Runtime
-pattern JAVA8 = Runtime' "java8"
+pattern RuntimeJAVA8 :: Runtime
+pattern RuntimeJAVA8 = Runtime' "java8"
 
-pattern JAVA8_AL2 :: Runtime
-pattern JAVA8_AL2 = Runtime' "java8.al2"
+pattern RuntimeJAVA8_AL2 :: Runtime
+pattern RuntimeJAVA8_AL2 = Runtime' "java8.al2"
 
-pattern NODEJS10_x :: Runtime
-pattern NODEJS10_x = Runtime' "nodejs10.x"
+pattern RuntimeNODEJS10_x :: Runtime
+pattern RuntimeNODEJS10_x = Runtime' "nodejs10.x"
 
-pattern NODEJS12_x :: Runtime
-pattern NODEJS12_x = Runtime' "nodejs12.x"
+pattern RuntimeNODEJS12_x :: Runtime
+pattern RuntimeNODEJS12_x = Runtime' "nodejs12.x"
 
-pattern NODEJS14_x :: Runtime
-pattern NODEJS14_x = Runtime' "nodejs14.x"
+pattern RuntimeNODEJS14_x :: Runtime
+pattern RuntimeNODEJS14_x = Runtime' "nodejs14.x"
 
-pattern NODEJS4_3 :: Runtime
-pattern NODEJS4_3 = Runtime' "nodejs4.3"
+pattern RuntimeNODEJS4_3 :: Runtime
+pattern RuntimeNODEJS4_3 = Runtime' "nodejs4.3"
 
-pattern NODEJS4_3Edge :: Runtime
-pattern NODEJS4_3Edge = Runtime' "nodejs4.3-edge"
+pattern RuntimeNODEJS4_3Edge :: Runtime
+pattern RuntimeNODEJS4_3Edge = Runtime' "nodejs4.3-edge"
 
-pattern NODEJS6_10 :: Runtime
-pattern NODEJS6_10 = Runtime' "nodejs6.10"
+pattern RuntimeNODEJS6_10 :: Runtime
+pattern RuntimeNODEJS6_10 = Runtime' "nodejs6.10"
 
-pattern NODEJS8_10 :: Runtime
-pattern NODEJS8_10 = Runtime' "nodejs8.10"
+pattern RuntimeNODEJS8_10 :: Runtime
+pattern RuntimeNODEJS8_10 = Runtime' "nodejs8.10"
 
-pattern Nodejs :: Runtime
-pattern Nodejs = Runtime' "nodejs"
+pattern RuntimeNodejs :: Runtime
+pattern RuntimeNodejs = Runtime' "nodejs"
 
-pattern PYTHON2_7 :: Runtime
-pattern PYTHON2_7 = Runtime' "python2.7"
+pattern RuntimePYTHON2_7 :: Runtime
+pattern RuntimePYTHON2_7 = Runtime' "python2.7"
 
-pattern PYTHON3_6 :: Runtime
-pattern PYTHON3_6 = Runtime' "python3.6"
+pattern RuntimePYTHON3_6 :: Runtime
+pattern RuntimePYTHON3_6 = Runtime' "python3.6"
 
-pattern PYTHON3_7 :: Runtime
-pattern PYTHON3_7 = Runtime' "python3.7"
+pattern RuntimePYTHON3_7 :: Runtime
+pattern RuntimePYTHON3_7 = Runtime' "python3.7"
 
-pattern PYTHON3_8 :: Runtime
-pattern PYTHON3_8 = Runtime' "python3.8"
+pattern RuntimePYTHON3_8 :: Runtime
+pattern RuntimePYTHON3_8 = Runtime' "python3.8"
 
-pattern Provided :: Runtime
-pattern Provided = Runtime' "provided"
+pattern RuntimeProvided :: Runtime
+pattern RuntimeProvided = Runtime' "provided"
 
-pattern Provided_AL2 :: Runtime
-pattern Provided_AL2 = Runtime' "provided.al2"
+pattern RuntimeProvided_AL2 :: Runtime
+pattern RuntimeProvided_AL2 = Runtime' "provided.al2"
 
-pattern RUBY2_5 :: Runtime
-pattern RUBY2_5 = Runtime' "ruby2.5"
+pattern RuntimeRUBY2_5 :: Runtime
+pattern RuntimeRUBY2_5 = Runtime' "ruby2.5"
 
-pattern RUBY2_7 :: Runtime
-pattern RUBY2_7 = Runtime' "ruby2.7"
+pattern RuntimeRUBY2_7 :: Runtime
+pattern RuntimeRUBY2_7 = Runtime' "ruby2.7"
 
 {-# COMPLETE
-  DOTNETCORE1_0,
-  DOTNETCORE2_0,
-  DOTNETCORE2_1,
-  DOTNETCORE3_1,
-  GO1_x,
-  JAVA11,
-  JAVA8,
-  JAVA8_AL2,
-  NODEJS10_x,
-  NODEJS12_x,
-  NODEJS14_x,
-  NODEJS4_3,
-  NODEJS4_3Edge,
-  NODEJS6_10,
-  NODEJS8_10,
-  Nodejs,
-  PYTHON2_7,
-  PYTHON3_6,
-  PYTHON3_7,
-  PYTHON3_8,
-  Provided,
-  Provided_AL2,
-  RUBY2_5,
-  RUBY2_7,
+  RuntimeDOTNETCORE1_0,
+  RuntimeDOTNETCORE2_0,
+  RuntimeDOTNETCORE2_1,
+  RuntimeDOTNETCORE3_1,
+  RuntimeGO1_x,
+  RuntimeJAVA11,
+  RuntimeJAVA8,
+  RuntimeJAVA8_AL2,
+  RuntimeNODEJS10_x,
+  RuntimeNODEJS12_x,
+  RuntimeNODEJS14_x,
+  RuntimeNODEJS4_3,
+  RuntimeNODEJS4_3Edge,
+  RuntimeNODEJS6_10,
+  RuntimeNODEJS8_10,
+  RuntimeNodejs,
+  RuntimePYTHON2_7,
+  RuntimePYTHON3_6,
+  RuntimePYTHON3_7,
+  RuntimePYTHON3_8,
+  RuntimeProvided,
+  RuntimeProvided_AL2,
+  RuntimeRUBY2_5,
+  RuntimeRUBY2_7,
   Runtime'
   #-}
 
-instance FromText Runtime where
-  parser = (Runtime' . mk) <$> takeText
+instance Prelude.FromText Runtime where
+  parser = Runtime' Prelude.<$> Prelude.takeText
 
-instance ToText Runtime where
-  toText (Runtime' ci) = original ci
+instance Prelude.ToText Runtime where
+  toText (Runtime' x) = x
 
-instance Hashable Runtime
+instance Prelude.Hashable Runtime
 
-instance NFData Runtime
+instance Prelude.NFData Runtime
 
-instance ToByteString Runtime
+instance Prelude.ToByteString Runtime
 
-instance ToQuery Runtime
+instance Prelude.ToQuery Runtime
 
-instance ToHeader Runtime
+instance Prelude.ToHeader Runtime
 
-instance ToJSON Runtime where
-  toJSON = toJSONText
+instance Prelude.ToJSON Runtime where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Runtime where
-  parseJSON = parseJSONText "Runtime"
+instance Prelude.FromJSON Runtime where
+  parseJSON = Prelude.parseJSONText "Runtime"

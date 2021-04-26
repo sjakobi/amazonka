@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,44 +19,51 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lambda.Types.OnFailure where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A destination for events that failed processing.
 --
---
---
--- /See:/ 'onFailure' smart constructor.
-newtype OnFailure = OnFailure'
-  { _ofDestination ::
-      Maybe Text
+-- /See:/ 'newOnFailure' smart constructor.
+data OnFailure = OnFailure'
+  { -- | The Amazon Resource Name (ARN) of the destination resource.
+    destination :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OnFailure' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OnFailure' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ofDestination' - The Amazon Resource Name (ARN) of the destination resource.
-onFailure ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'destination', 'onFailure_destination' - The Amazon Resource Name (ARN) of the destination resource.
+newOnFailure ::
   OnFailure
-onFailure = OnFailure' {_ofDestination = Nothing}
+newOnFailure =
+  OnFailure' {destination = Prelude.Nothing}
 
 -- | The Amazon Resource Name (ARN) of the destination resource.
-ofDestination :: Lens' OnFailure (Maybe Text)
-ofDestination = lens _ofDestination (\s a -> s {_ofDestination = a})
+onFailure_destination :: Lens.Lens' OnFailure (Prelude.Maybe Prelude.Text)
+onFailure_destination = Lens.lens (\OnFailure' {destination} -> destination) (\s@OnFailure' {} a -> s {destination = a} :: OnFailure)
 
-instance FromJSON OnFailure where
+instance Prelude.FromJSON OnFailure where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OnFailure"
-      (\x -> OnFailure' <$> (x .:? "Destination"))
+      ( \x ->
+          OnFailure' Prelude.<$> (x Prelude..:? "Destination")
+      )
 
-instance Hashable OnFailure
+instance Prelude.Hashable OnFailure
 
-instance NFData OnFailure
+instance Prelude.NFData OnFailure
 
-instance ToJSON OnFailure where
+instance Prelude.ToJSON OnFailure where
   toJSON OnFailure' {..} =
-    object
-      (catMaybes [("Destination" .=) <$> _ofDestination])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Destination" Prelude..=) Prelude.<$> destination]
+      )

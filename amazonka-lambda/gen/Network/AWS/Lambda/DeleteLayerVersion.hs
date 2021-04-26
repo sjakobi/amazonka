@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,104 +21,112 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a version of an <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer> . Deleted versions can no longer be viewed or added to functions. To avoid breaking functions, a copy of the version remains in Lambda until no functions refer to it.
+-- Deletes a version of an
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer>.
+-- Deleted versions can no longer be viewed or added to functions. To avoid
+-- breaking functions, a copy of the version remains in Lambda until no
+-- functions refer to it.
 module Network.AWS.Lambda.DeleteLayerVersion
   ( -- * Creating a Request
-    deleteLayerVersion,
-    DeleteLayerVersion,
+    DeleteLayerVersion (..),
+    newDeleteLayerVersion,
 
     -- * Request Lenses
-    dlvLayerName,
-    dlvVersionNumber,
+    deleteLayerVersion_layerName,
+    deleteLayerVersion_versionNumber,
 
     -- * Destructuring the Response
-    deleteLayerVersionResponse,
-    DeleteLayerVersionResponse,
+    DeleteLayerVersionResponse (..),
+    newDeleteLayerVersionResponse,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLayerVersion' smart constructor.
+-- | /See:/ 'newDeleteLayerVersion' smart constructor.
 data DeleteLayerVersion = DeleteLayerVersion'
-  { _dlvLayerName ::
-      !Text,
-    _dlvVersionNumber :: !Integer
+  { -- | The name or Amazon Resource Name (ARN) of the layer.
+    layerName :: Prelude.Text,
+    -- | The version number.
+    versionNumber :: Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLayerVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLayerVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlvLayerName' - The name or Amazon Resource Name (ARN) of the layer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlvVersionNumber' - The version number.
-deleteLayerVersion ::
-  -- | 'dlvLayerName'
-  Text ->
-  -- | 'dlvVersionNumber'
-  Integer ->
+-- 'layerName', 'deleteLayerVersion_layerName' - The name or Amazon Resource Name (ARN) of the layer.
+--
+-- 'versionNumber', 'deleteLayerVersion_versionNumber' - The version number.
+newDeleteLayerVersion ::
+  -- | 'layerName'
+  Prelude.Text ->
+  -- | 'versionNumber'
+  Prelude.Integer ->
   DeleteLayerVersion
-deleteLayerVersion pLayerName_ pVersionNumber_ =
+newDeleteLayerVersion pLayerName_ pVersionNumber_ =
   DeleteLayerVersion'
-    { _dlvLayerName = pLayerName_,
-      _dlvVersionNumber = pVersionNumber_
+    { layerName = pLayerName_,
+      versionNumber = pVersionNumber_
     }
 
 -- | The name or Amazon Resource Name (ARN) of the layer.
-dlvLayerName :: Lens' DeleteLayerVersion Text
-dlvLayerName = lens _dlvLayerName (\s a -> s {_dlvLayerName = a})
+deleteLayerVersion_layerName :: Lens.Lens' DeleteLayerVersion Prelude.Text
+deleteLayerVersion_layerName = Lens.lens (\DeleteLayerVersion' {layerName} -> layerName) (\s@DeleteLayerVersion' {} a -> s {layerName = a} :: DeleteLayerVersion)
 
 -- | The version number.
-dlvVersionNumber :: Lens' DeleteLayerVersion Integer
-dlvVersionNumber = lens _dlvVersionNumber (\s a -> s {_dlvVersionNumber = a})
+deleteLayerVersion_versionNumber :: Lens.Lens' DeleteLayerVersion Prelude.Integer
+deleteLayerVersion_versionNumber = Lens.lens (\DeleteLayerVersion' {versionNumber} -> versionNumber) (\s@DeleteLayerVersion' {} a -> s {versionNumber = a} :: DeleteLayerVersion)
 
-instance AWSRequest DeleteLayerVersion where
+instance Prelude.AWSRequest DeleteLayerVersion where
   type
     Rs DeleteLayerVersion =
       DeleteLayerVersionResponse
-  request = delete lambda
-  response = receiveNull DeleteLayerVersionResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteLayerVersionResponse'
 
-instance Hashable DeleteLayerVersion
+instance Prelude.Hashable DeleteLayerVersion
 
-instance NFData DeleteLayerVersion
+instance Prelude.NFData DeleteLayerVersion
 
-instance ToHeaders DeleteLayerVersion where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteLayerVersion where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteLayerVersion where
+instance Prelude.ToPath DeleteLayerVersion where
   toPath DeleteLayerVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2018-10-31/layers/",
-        toBS _dlvLayerName,
+        Prelude.toBS layerName,
         "/versions/",
-        toBS _dlvVersionNumber
+        Prelude.toBS versionNumber
       ]
 
-instance ToQuery DeleteLayerVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteLayerVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteLayerVersionResponse' smart constructor.
+-- | /See:/ 'newDeleteLayerVersionResponse' smart constructor.
 data DeleteLayerVersionResponse = DeleteLayerVersionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLayerVersionResponse' with the minimum fields required to make a request.
-deleteLayerVersionResponse ::
+-- |
+-- Create a value of 'DeleteLayerVersionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteLayerVersionResponse ::
   DeleteLayerVersionResponse
-deleteLayerVersionResponse =
+newDeleteLayerVersionResponse =
   DeleteLayerVersionResponse'
 
-instance NFData DeleteLayerVersionResponse
+instance Prelude.NFData DeleteLayerVersionResponse

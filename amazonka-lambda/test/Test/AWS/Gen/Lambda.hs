@@ -28,349 +28,349 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDeleteAlias $
---             deleteAlias
+--             newDeleteAlias
 --
 --         , requestPutFunctionCodeSigningConfig $
---             putFunctionCodeSigningConfig
+--             newPutFunctionCodeSigningConfig
 --
 --         , requestGetLayerVersionPolicy $
---             getLayerVersionPolicy
+--             newGetLayerVersionPolicy
 --
 --         , requestUpdateAlias $
---             updateAlias
+--             newUpdateAlias
 --
 --         , requestGetFunctionConfiguration $
---             getFunctionConfiguration
+--             newGetFunctionConfiguration
 --
 --         , requestUpdateEventSourceMapping $
---             updateEventSourceMapping
+--             newUpdateEventSourceMapping
 --
 --         , requestGetFunction $
---             getFunction
+--             newGetFunction
 --
 --         , requestListEventSourceMappings $
---             listEventSourceMappings
+--             newListEventSourceMappings
 --
 --         , requestDeleteEventSourceMapping $
---             deleteEventSourceMapping
+--             newDeleteEventSourceMapping
 --
---         , requestGetLayerVersionByARN $
---             getLayerVersionByARN
+--         , requestGetLayerVersionByArn $
+--             newGetLayerVersionByArn
 --
 --         , requestGetFunctionConcurrency $
---             getFunctionConcurrency
+--             newGetFunctionConcurrency
 --
 --         , requestCreateEventSourceMapping $
---             createEventSourceMapping
+--             newCreateEventSourceMapping
 --
 --         , requestDeleteFunctionConcurrency $
---             deleteFunctionConcurrency
+--             newDeleteFunctionConcurrency
 --
 --         , requestListProvisionedConcurrencyConfigs $
---             listProvisionedConcurrencyConfigs
+--             newListProvisionedConcurrencyConfigs
 --
 --         , requestDeleteProvisionedConcurrencyConfig $
---             deleteProvisionedConcurrencyConfig
+--             newDeleteProvisionedConcurrencyConfig
 --
 --         , requestUpdateFunctionCode $
---             updateFunctionCode
+--             newUpdateFunctionCode
 --
 --         , requestUpdateFunctionConfiguration $
---             updateFunctionConfiguration
+--             newUpdateFunctionConfiguration
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestListFunctions $
---             listFunctions
+--             newListFunctions
 --
 --         , requestListLayerVersions $
---             listLayerVersions
+--             newListLayerVersions
 --
 --         , requestInvoke $
---             invoke
+--             newInvoke
 --
 --         , requestDeleteLayerVersion $
---             deleteLayerVersion
+--             newDeleteLayerVersion
 --
 --         , requestCreateCodeSigningConfig $
---             createCodeSigningConfig
+--             newCreateCodeSigningConfig
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestGetAlias $
---             getAlias
+--             newGetAlias
 --
 --         , requestDeleteCodeSigningConfig $
---             deleteCodeSigningConfig
+--             newDeleteCodeSigningConfig
 --
 --         , requestUpdateCodeSigningConfig $
---             updateCodeSigningConfig
+--             newUpdateCodeSigningConfig
 --
 --         , requestListCodeSigningConfigs $
---             listCodeSigningConfigs
+--             newListCodeSigningConfigs
 --
 --         , requestDeleteFunctionEventInvokeConfig $
---             deleteFunctionEventInvokeConfig
+--             newDeleteFunctionEventInvokeConfig
 --
 --         , requestUpdateFunctionEventInvokeConfig $
---             updateFunctionEventInvokeConfig
+--             newUpdateFunctionEventInvokeConfig
 --
 --         , requestListFunctionEventInvokeConfigs $
---             listFunctionEventInvokeConfigs
+--             newListFunctionEventInvokeConfigs
 --
 --         , requestListVersionsByFunction $
---             listVersionsByFunction
+--             newListVersionsByFunction
 --
 --         , requestAddPermission $
---             addPermission
+--             newAddPermission
 --
 --         , requestGetLayerVersion $
---             getLayerVersion
+--             newGetLayerVersion
 --
 --         , requestDeleteFunctionCodeSigningConfig $
---             deleteFunctionCodeSigningConfig
+--             newDeleteFunctionCodeSigningConfig
 --
 --         , requestListFunctionsByCodeSigningConfig $
---             listFunctionsByCodeSigningConfig
+--             newListFunctionsByCodeSigningConfig
 --
 --         , requestRemoveLayerVersionPermission $
---             removeLayerVersionPermission
+--             newRemoveLayerVersionPermission
 --
 --         , requestGetProvisionedConcurrencyConfig $
---             getProvisionedConcurrencyConfig
+--             newGetProvisionedConcurrencyConfig
 --
 --         , requestCreateFunction $
---             createFunction
+--             newCreateFunction
 --
 --         , requestPutFunctionConcurrency $
---             putFunctionConcurrency
+--             newPutFunctionConcurrency
 --
 --         , requestGetPolicy $
---             getPolicy
+--             newGetPolicy
 --
 --         , requestPutProvisionedConcurrencyConfig $
---             putProvisionedConcurrencyConfig
+--             newPutProvisionedConcurrencyConfig
 --
 --         , requestAddLayerVersionPermission $
---             addLayerVersionPermission
+--             newAddLayerVersionPermission
 --
 --         , requestPublishVersion $
---             publishVersion
+--             newPublishVersion
 --
 --         , requestDeleteFunction $
---             deleteFunction
+--             newDeleteFunction
 --
 --         , requestGetEventSourceMapping $
---             getEventSourceMapping
+--             newGetEventSourceMapping
 --
 --         , requestListTags $
---             listTags
+--             newListTags
 --
 --         , requestPublishLayerVersion $
---             publishLayerVersion
+--             newPublishLayerVersion
 --
 --         , requestGetFunctionCodeSigningConfig $
---             getFunctionCodeSigningConfig
+--             newGetFunctionCodeSigningConfig
 --
 --         , requestPutFunctionEventInvokeConfig $
---             putFunctionEventInvokeConfig
+--             newPutFunctionEventInvokeConfig
 --
 --         , requestRemovePermission $
---             removePermission
+--             newRemovePermission
 --
 --         , requestCreateAlias $
---             createAlias
+--             newCreateAlias
 --
 --         , requestGetCodeSigningConfig $
---             getCodeSigningConfig
+--             newGetCodeSigningConfig
 --
 --         , requestGetFunctionEventInvokeConfig $
---             getFunctionEventInvokeConfig
+--             newGetFunctionEventInvokeConfig
 --
 --         , requestListLayers $
---             listLayers
+--             newListLayers
 --
 --         , requestListAliases $
---             listAliases
+--             newListAliases
 --
 --         , requestGetAccountSettings $
---             getAccountSettings
+--             newGetAccountSettings
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDeleteAlias $
---             deleteAliasResponse
+--             newDeleteAliasResponse
 --
 --         , responsePutFunctionCodeSigningConfig $
---             putFunctionCodeSigningConfigResponse
+--             newPutFunctionCodeSigningConfigResponse
 --
 --         , responseGetLayerVersionPolicy $
---             getLayerVersionPolicyResponse
+--             newGetLayerVersionPolicyResponse
 --
 --         , responseUpdateAlias $
---             aliasConfiguration
+--             newAliasConfiguration
 --
 --         , responseGetFunctionConfiguration $
---             functionConfiguration
+--             newFunctionConfiguration
 --
 --         , responseUpdateEventSourceMapping $
---             eventSourceMappingConfiguration
+--             newEventSourceMappingConfiguration
 --
 --         , responseGetFunction $
---             getFunctionResponse
+--             newGetFunctionResponse
 --
 --         , responseListEventSourceMappings $
---             listEventSourceMappingsResponse
+--             newListEventSourceMappingsResponse
 --
 --         , responseDeleteEventSourceMapping $
---             eventSourceMappingConfiguration
+--             newEventSourceMappingConfiguration
 --
---         , responseGetLayerVersionByARN $
---             getLayerVersionResponse
+--         , responseGetLayerVersionByArn $
+--             newGetLayerVersionResponse
 --
 --         , responseGetFunctionConcurrency $
---             getFunctionConcurrencyResponse
+--             newGetFunctionConcurrencyResponse
 --
 --         , responseCreateEventSourceMapping $
---             eventSourceMappingConfiguration
+--             newEventSourceMappingConfiguration
 --
 --         , responseDeleteFunctionConcurrency $
---             deleteFunctionConcurrencyResponse
+--             newDeleteFunctionConcurrencyResponse
 --
 --         , responseListProvisionedConcurrencyConfigs $
---             listProvisionedConcurrencyConfigsResponse
+--             newListProvisionedConcurrencyConfigsResponse
 --
 --         , responseDeleteProvisionedConcurrencyConfig $
---             deleteProvisionedConcurrencyConfigResponse
+--             newDeleteProvisionedConcurrencyConfigResponse
 --
 --         , responseUpdateFunctionCode $
---             functionConfiguration
+--             newFunctionConfiguration
 --
 --         , responseUpdateFunctionConfiguration $
---             functionConfiguration
+--             newFunctionConfiguration
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseListFunctions $
---             listFunctionsResponse
+--             newListFunctionsResponse
 --
 --         , responseListLayerVersions $
---             listLayerVersionsResponse
+--             newListLayerVersionsResponse
 --
 --         , responseInvoke $
---             invokeResponse
+--             newInvokeResponse
 --
 --         , responseDeleteLayerVersion $
---             deleteLayerVersionResponse
+--             newDeleteLayerVersionResponse
 --
 --         , responseCreateCodeSigningConfig $
---             createCodeSigningConfigResponse
+--             newCreateCodeSigningConfigResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseGetAlias $
---             aliasConfiguration
+--             newAliasConfiguration
 --
 --         , responseDeleteCodeSigningConfig $
---             deleteCodeSigningConfigResponse
+--             newDeleteCodeSigningConfigResponse
 --
 --         , responseUpdateCodeSigningConfig $
---             updateCodeSigningConfigResponse
+--             newUpdateCodeSigningConfigResponse
 --
 --         , responseListCodeSigningConfigs $
---             listCodeSigningConfigsResponse
+--             newListCodeSigningConfigsResponse
 --
 --         , responseDeleteFunctionEventInvokeConfig $
---             deleteFunctionEventInvokeConfigResponse
+--             newDeleteFunctionEventInvokeConfigResponse
 --
 --         , responseUpdateFunctionEventInvokeConfig $
---             functionEventInvokeConfig
+--             newFunctionEventInvokeConfig
 --
 --         , responseListFunctionEventInvokeConfigs $
---             listFunctionEventInvokeConfigsResponse
+--             newListFunctionEventInvokeConfigsResponse
 --
 --         , responseListVersionsByFunction $
---             listVersionsByFunctionResponse
+--             newListVersionsByFunctionResponse
 --
 --         , responseAddPermission $
---             addPermissionResponse
+--             newAddPermissionResponse
 --
 --         , responseGetLayerVersion $
---             getLayerVersionResponse
+--             newGetLayerVersionResponse
 --
 --         , responseDeleteFunctionCodeSigningConfig $
---             deleteFunctionCodeSigningConfigResponse
+--             newDeleteFunctionCodeSigningConfigResponse
 --
 --         , responseListFunctionsByCodeSigningConfig $
---             listFunctionsByCodeSigningConfigResponse
+--             newListFunctionsByCodeSigningConfigResponse
 --
 --         , responseRemoveLayerVersionPermission $
---             removeLayerVersionPermissionResponse
+--             newRemoveLayerVersionPermissionResponse
 --
 --         , responseGetProvisionedConcurrencyConfig $
---             getProvisionedConcurrencyConfigResponse
+--             newGetProvisionedConcurrencyConfigResponse
 --
 --         , responseCreateFunction $
---             functionConfiguration
+--             newFunctionConfiguration
 --
 --         , responsePutFunctionConcurrency $
---             concurrency
+--             newConcurrency
 --
 --         , responseGetPolicy $
---             getPolicyResponse
+--             newGetPolicyResponse
 --
 --         , responsePutProvisionedConcurrencyConfig $
---             putProvisionedConcurrencyConfigResponse
+--             newPutProvisionedConcurrencyConfigResponse
 --
 --         , responseAddLayerVersionPermission $
---             addLayerVersionPermissionResponse
+--             newAddLayerVersionPermissionResponse
 --
 --         , responsePublishVersion $
---             functionConfiguration
+--             newFunctionConfiguration
 --
 --         , responseDeleteFunction $
---             deleteFunctionResponse
+--             newDeleteFunctionResponse
 --
 --         , responseGetEventSourceMapping $
---             eventSourceMappingConfiguration
+--             newEventSourceMappingConfiguration
 --
 --         , responseListTags $
---             listTagsResponse
+--             newListTagsResponse
 --
 --         , responsePublishLayerVersion $
---             publishLayerVersionResponse
+--             newPublishLayerVersionResponse
 --
 --         , responseGetFunctionCodeSigningConfig $
---             getFunctionCodeSigningConfigResponse
+--             newGetFunctionCodeSigningConfigResponse
 --
 --         , responsePutFunctionEventInvokeConfig $
---             functionEventInvokeConfig
+--             newFunctionEventInvokeConfig
 --
 --         , responseRemovePermission $
---             removePermissionResponse
+--             newRemovePermissionResponse
 --
 --         , responseCreateAlias $
---             aliasConfiguration
+--             newAliasConfiguration
 --
 --         , responseGetCodeSigningConfig $
---             getCodeSigningConfigResponse
+--             newGetCodeSigningConfigResponse
 --
 --         , responseGetFunctionEventInvokeConfig $
---             functionEventInvokeConfig
+--             newFunctionEventInvokeConfig
 --
 --         , responseListLayers $
---             listLayersResponse
+--             newListLayersResponse
 --
 --         , responseListAliases $
---             listAliasesResponse
+--             newListAliasesResponse
 --
 --         , responseGetAccountSettings $
---             getAccountSettingsResponse
+--             newGetAccountSettingsResponse
 --
 --           ]
 --     ]
@@ -431,11 +431,11 @@ requestDeleteEventSourceMapping =
     "DeleteEventSourceMapping"
     "fixture/DeleteEventSourceMapping.yaml"
 
-requestGetLayerVersionByARN :: GetLayerVersionByARN -> TestTree
-requestGetLayerVersionByARN =
+requestGetLayerVersionByArn :: GetLayerVersionByArn -> TestTree
+requestGetLayerVersionByArn =
   req
-    "GetLayerVersionByARN"
-    "fixture/GetLayerVersionByARN.yaml"
+    "GetLayerVersionByArn"
+    "fixture/GetLayerVersionByArn.yaml"
 
 requestGetFunctionConcurrency :: GetFunctionConcurrency -> TestTree
 requestGetFunctionConcurrency =
@@ -726,7 +726,7 @@ responseDeleteAlias =
   res
     "DeleteAliasResponse"
     "fixture/DeleteAliasResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy DeleteAlias)
 
 responsePutFunctionCodeSigningConfig :: PutFunctionCodeSigningConfigResponse -> TestTree
@@ -734,7 +734,7 @@ responsePutFunctionCodeSigningConfig =
   res
     "PutFunctionCodeSigningConfigResponse"
     "fixture/PutFunctionCodeSigningConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy PutFunctionCodeSigningConfig)
 
 responseGetLayerVersionPolicy :: GetLayerVersionPolicyResponse -> TestTree
@@ -742,7 +742,7 @@ responseGetLayerVersionPolicy =
   res
     "GetLayerVersionPolicyResponse"
     "fixture/GetLayerVersionPolicyResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetLayerVersionPolicy)
 
 responseUpdateAlias :: AliasConfiguration -> TestTree
@@ -750,7 +750,7 @@ responseUpdateAlias =
   res
     "UpdateAliasResponse"
     "fixture/UpdateAliasResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy UpdateAlias)
 
 responseGetFunctionConfiguration :: FunctionConfiguration -> TestTree
@@ -758,7 +758,7 @@ responseGetFunctionConfiguration =
   res
     "GetFunctionConfigurationResponse"
     "fixture/GetFunctionConfigurationResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetFunctionConfiguration)
 
 responseUpdateEventSourceMapping :: EventSourceMappingConfiguration -> TestTree
@@ -766,7 +766,7 @@ responseUpdateEventSourceMapping =
   res
     "UpdateEventSourceMappingResponse"
     "fixture/UpdateEventSourceMappingResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy UpdateEventSourceMapping)
 
 responseGetFunction :: GetFunctionResponse -> TestTree
@@ -774,7 +774,7 @@ responseGetFunction =
   res
     "GetFunctionResponse"
     "fixture/GetFunctionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetFunction)
 
 responseListEventSourceMappings :: ListEventSourceMappingsResponse -> TestTree
@@ -782,7 +782,7 @@ responseListEventSourceMappings =
   res
     "ListEventSourceMappingsResponse"
     "fixture/ListEventSourceMappingsResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListEventSourceMappings)
 
 responseDeleteEventSourceMapping :: EventSourceMappingConfiguration -> TestTree
@@ -790,23 +790,23 @@ responseDeleteEventSourceMapping =
   res
     "DeleteEventSourceMappingResponse"
     "fixture/DeleteEventSourceMappingResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy DeleteEventSourceMapping)
 
-responseGetLayerVersionByARN :: GetLayerVersionResponse -> TestTree
-responseGetLayerVersionByARN =
+responseGetLayerVersionByArn :: GetLayerVersionResponse -> TestTree
+responseGetLayerVersionByArn =
   res
-    "GetLayerVersionByARNResponse"
-    "fixture/GetLayerVersionByARNResponse.proto"
-    lambda
-    (Proxy :: Proxy GetLayerVersionByARN)
+    "GetLayerVersionByArnResponse"
+    "fixture/GetLayerVersionByArnResponse.proto"
+    defaultService
+    (Proxy :: Proxy GetLayerVersionByArn)
 
 responseGetFunctionConcurrency :: GetFunctionConcurrencyResponse -> TestTree
 responseGetFunctionConcurrency =
   res
     "GetFunctionConcurrencyResponse"
     "fixture/GetFunctionConcurrencyResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetFunctionConcurrency)
 
 responseCreateEventSourceMapping :: EventSourceMappingConfiguration -> TestTree
@@ -814,7 +814,7 @@ responseCreateEventSourceMapping =
   res
     "CreateEventSourceMappingResponse"
     "fixture/CreateEventSourceMappingResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy CreateEventSourceMapping)
 
 responseDeleteFunctionConcurrency :: DeleteFunctionConcurrencyResponse -> TestTree
@@ -822,7 +822,7 @@ responseDeleteFunctionConcurrency =
   res
     "DeleteFunctionConcurrencyResponse"
     "fixture/DeleteFunctionConcurrencyResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy DeleteFunctionConcurrency)
 
 responseListProvisionedConcurrencyConfigs :: ListProvisionedConcurrencyConfigsResponse -> TestTree
@@ -830,7 +830,7 @@ responseListProvisionedConcurrencyConfigs =
   res
     "ListProvisionedConcurrencyConfigsResponse"
     "fixture/ListProvisionedConcurrencyConfigsResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListProvisionedConcurrencyConfigs)
 
 responseDeleteProvisionedConcurrencyConfig :: DeleteProvisionedConcurrencyConfigResponse -> TestTree
@@ -838,7 +838,7 @@ responseDeleteProvisionedConcurrencyConfig =
   res
     "DeleteProvisionedConcurrencyConfigResponse"
     "fixture/DeleteProvisionedConcurrencyConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy DeleteProvisionedConcurrencyConfig)
 
 responseUpdateFunctionCode :: FunctionConfiguration -> TestTree
@@ -846,7 +846,7 @@ responseUpdateFunctionCode =
   res
     "UpdateFunctionCodeResponse"
     "fixture/UpdateFunctionCodeResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy UpdateFunctionCode)
 
 responseUpdateFunctionConfiguration :: FunctionConfiguration -> TestTree
@@ -854,7 +854,7 @@ responseUpdateFunctionConfiguration =
   res
     "UpdateFunctionConfigurationResponse"
     "fixture/UpdateFunctionConfigurationResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy UpdateFunctionConfiguration)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -862,7 +862,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseListFunctions :: ListFunctionsResponse -> TestTree
@@ -870,7 +870,7 @@ responseListFunctions =
   res
     "ListFunctionsResponse"
     "fixture/ListFunctionsResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListFunctions)
 
 responseListLayerVersions :: ListLayerVersionsResponse -> TestTree
@@ -878,7 +878,7 @@ responseListLayerVersions =
   res
     "ListLayerVersionsResponse"
     "fixture/ListLayerVersionsResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListLayerVersions)
 
 responseInvoke :: InvokeResponse -> TestTree
@@ -886,7 +886,7 @@ responseInvoke =
   res
     "InvokeResponse"
     "fixture/InvokeResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy Invoke)
 
 responseDeleteLayerVersion :: DeleteLayerVersionResponse -> TestTree
@@ -894,7 +894,7 @@ responseDeleteLayerVersion =
   res
     "DeleteLayerVersionResponse"
     "fixture/DeleteLayerVersionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy DeleteLayerVersion)
 
 responseCreateCodeSigningConfig :: CreateCodeSigningConfigResponse -> TestTree
@@ -902,7 +902,7 @@ responseCreateCodeSigningConfig =
   res
     "CreateCodeSigningConfigResponse"
     "fixture/CreateCodeSigningConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy CreateCodeSigningConfig)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -910,7 +910,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseGetAlias :: AliasConfiguration -> TestTree
@@ -918,7 +918,7 @@ responseGetAlias =
   res
     "GetAliasResponse"
     "fixture/GetAliasResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetAlias)
 
 responseDeleteCodeSigningConfig :: DeleteCodeSigningConfigResponse -> TestTree
@@ -926,7 +926,7 @@ responseDeleteCodeSigningConfig =
   res
     "DeleteCodeSigningConfigResponse"
     "fixture/DeleteCodeSigningConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy DeleteCodeSigningConfig)
 
 responseUpdateCodeSigningConfig :: UpdateCodeSigningConfigResponse -> TestTree
@@ -934,7 +934,7 @@ responseUpdateCodeSigningConfig =
   res
     "UpdateCodeSigningConfigResponse"
     "fixture/UpdateCodeSigningConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy UpdateCodeSigningConfig)
 
 responseListCodeSigningConfigs :: ListCodeSigningConfigsResponse -> TestTree
@@ -942,7 +942,7 @@ responseListCodeSigningConfigs =
   res
     "ListCodeSigningConfigsResponse"
     "fixture/ListCodeSigningConfigsResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListCodeSigningConfigs)
 
 responseDeleteFunctionEventInvokeConfig :: DeleteFunctionEventInvokeConfigResponse -> TestTree
@@ -950,7 +950,7 @@ responseDeleteFunctionEventInvokeConfig =
   res
     "DeleteFunctionEventInvokeConfigResponse"
     "fixture/DeleteFunctionEventInvokeConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy DeleteFunctionEventInvokeConfig)
 
 responseUpdateFunctionEventInvokeConfig :: FunctionEventInvokeConfig -> TestTree
@@ -958,7 +958,7 @@ responseUpdateFunctionEventInvokeConfig =
   res
     "UpdateFunctionEventInvokeConfigResponse"
     "fixture/UpdateFunctionEventInvokeConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy UpdateFunctionEventInvokeConfig)
 
 responseListFunctionEventInvokeConfigs :: ListFunctionEventInvokeConfigsResponse -> TestTree
@@ -966,7 +966,7 @@ responseListFunctionEventInvokeConfigs =
   res
     "ListFunctionEventInvokeConfigsResponse"
     "fixture/ListFunctionEventInvokeConfigsResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListFunctionEventInvokeConfigs)
 
 responseListVersionsByFunction :: ListVersionsByFunctionResponse -> TestTree
@@ -974,7 +974,7 @@ responseListVersionsByFunction =
   res
     "ListVersionsByFunctionResponse"
     "fixture/ListVersionsByFunctionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListVersionsByFunction)
 
 responseAddPermission :: AddPermissionResponse -> TestTree
@@ -982,7 +982,7 @@ responseAddPermission =
   res
     "AddPermissionResponse"
     "fixture/AddPermissionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy AddPermission)
 
 responseGetLayerVersion :: GetLayerVersionResponse -> TestTree
@@ -990,7 +990,7 @@ responseGetLayerVersion =
   res
     "GetLayerVersionResponse"
     "fixture/GetLayerVersionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetLayerVersion)
 
 responseDeleteFunctionCodeSigningConfig :: DeleteFunctionCodeSigningConfigResponse -> TestTree
@@ -998,7 +998,7 @@ responseDeleteFunctionCodeSigningConfig =
   res
     "DeleteFunctionCodeSigningConfigResponse"
     "fixture/DeleteFunctionCodeSigningConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy DeleteFunctionCodeSigningConfig)
 
 responseListFunctionsByCodeSigningConfig :: ListFunctionsByCodeSigningConfigResponse -> TestTree
@@ -1006,7 +1006,7 @@ responseListFunctionsByCodeSigningConfig =
   res
     "ListFunctionsByCodeSigningConfigResponse"
     "fixture/ListFunctionsByCodeSigningConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListFunctionsByCodeSigningConfig)
 
 responseRemoveLayerVersionPermission :: RemoveLayerVersionPermissionResponse -> TestTree
@@ -1014,7 +1014,7 @@ responseRemoveLayerVersionPermission =
   res
     "RemoveLayerVersionPermissionResponse"
     "fixture/RemoveLayerVersionPermissionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy RemoveLayerVersionPermission)
 
 responseGetProvisionedConcurrencyConfig :: GetProvisionedConcurrencyConfigResponse -> TestTree
@@ -1022,7 +1022,7 @@ responseGetProvisionedConcurrencyConfig =
   res
     "GetProvisionedConcurrencyConfigResponse"
     "fixture/GetProvisionedConcurrencyConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetProvisionedConcurrencyConfig)
 
 responseCreateFunction :: FunctionConfiguration -> TestTree
@@ -1030,7 +1030,7 @@ responseCreateFunction =
   res
     "CreateFunctionResponse"
     "fixture/CreateFunctionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy CreateFunction)
 
 responsePutFunctionConcurrency :: Concurrency -> TestTree
@@ -1038,7 +1038,7 @@ responsePutFunctionConcurrency =
   res
     "PutFunctionConcurrencyResponse"
     "fixture/PutFunctionConcurrencyResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy PutFunctionConcurrency)
 
 responseGetPolicy :: GetPolicyResponse -> TestTree
@@ -1046,7 +1046,7 @@ responseGetPolicy =
   res
     "GetPolicyResponse"
     "fixture/GetPolicyResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetPolicy)
 
 responsePutProvisionedConcurrencyConfig :: PutProvisionedConcurrencyConfigResponse -> TestTree
@@ -1054,7 +1054,7 @@ responsePutProvisionedConcurrencyConfig =
   res
     "PutProvisionedConcurrencyConfigResponse"
     "fixture/PutProvisionedConcurrencyConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy PutProvisionedConcurrencyConfig)
 
 responseAddLayerVersionPermission :: AddLayerVersionPermissionResponse -> TestTree
@@ -1062,7 +1062,7 @@ responseAddLayerVersionPermission =
   res
     "AddLayerVersionPermissionResponse"
     "fixture/AddLayerVersionPermissionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy AddLayerVersionPermission)
 
 responsePublishVersion :: FunctionConfiguration -> TestTree
@@ -1070,7 +1070,7 @@ responsePublishVersion =
   res
     "PublishVersionResponse"
     "fixture/PublishVersionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy PublishVersion)
 
 responseDeleteFunction :: DeleteFunctionResponse -> TestTree
@@ -1078,7 +1078,7 @@ responseDeleteFunction =
   res
     "DeleteFunctionResponse"
     "fixture/DeleteFunctionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy DeleteFunction)
 
 responseGetEventSourceMapping :: EventSourceMappingConfiguration -> TestTree
@@ -1086,7 +1086,7 @@ responseGetEventSourceMapping =
   res
     "GetEventSourceMappingResponse"
     "fixture/GetEventSourceMappingResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetEventSourceMapping)
 
 responseListTags :: ListTagsResponse -> TestTree
@@ -1094,7 +1094,7 @@ responseListTags =
   res
     "ListTagsResponse"
     "fixture/ListTagsResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListTags)
 
 responsePublishLayerVersion :: PublishLayerVersionResponse -> TestTree
@@ -1102,7 +1102,7 @@ responsePublishLayerVersion =
   res
     "PublishLayerVersionResponse"
     "fixture/PublishLayerVersionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy PublishLayerVersion)
 
 responseGetFunctionCodeSigningConfig :: GetFunctionCodeSigningConfigResponse -> TestTree
@@ -1110,7 +1110,7 @@ responseGetFunctionCodeSigningConfig =
   res
     "GetFunctionCodeSigningConfigResponse"
     "fixture/GetFunctionCodeSigningConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetFunctionCodeSigningConfig)
 
 responsePutFunctionEventInvokeConfig :: FunctionEventInvokeConfig -> TestTree
@@ -1118,7 +1118,7 @@ responsePutFunctionEventInvokeConfig =
   res
     "PutFunctionEventInvokeConfigResponse"
     "fixture/PutFunctionEventInvokeConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy PutFunctionEventInvokeConfig)
 
 responseRemovePermission :: RemovePermissionResponse -> TestTree
@@ -1126,7 +1126,7 @@ responseRemovePermission =
   res
     "RemovePermissionResponse"
     "fixture/RemovePermissionResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy RemovePermission)
 
 responseCreateAlias :: AliasConfiguration -> TestTree
@@ -1134,7 +1134,7 @@ responseCreateAlias =
   res
     "CreateAliasResponse"
     "fixture/CreateAliasResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy CreateAlias)
 
 responseGetCodeSigningConfig :: GetCodeSigningConfigResponse -> TestTree
@@ -1142,7 +1142,7 @@ responseGetCodeSigningConfig =
   res
     "GetCodeSigningConfigResponse"
     "fixture/GetCodeSigningConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetCodeSigningConfig)
 
 responseGetFunctionEventInvokeConfig :: FunctionEventInvokeConfig -> TestTree
@@ -1150,7 +1150,7 @@ responseGetFunctionEventInvokeConfig =
   res
     "GetFunctionEventInvokeConfigResponse"
     "fixture/GetFunctionEventInvokeConfigResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetFunctionEventInvokeConfig)
 
 responseListLayers :: ListLayersResponse -> TestTree
@@ -1158,7 +1158,7 @@ responseListLayers =
   res
     "ListLayersResponse"
     "fixture/ListLayersResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListLayers)
 
 responseListAliases :: ListAliasesResponse -> TestTree
@@ -1166,7 +1166,7 @@ responseListAliases =
   res
     "ListAliasesResponse"
     "fixture/ListAliasesResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy ListAliases)
 
 responseGetAccountSettings :: GetAccountSettingsResponse -> TestTree
@@ -1174,5 +1174,5 @@ responseGetAccountSettings =
   res
     "GetAccountSettingsResponse"
     "fixture/GetAccountSettingsResponse.proto"
-    lambda
+    defaultService
     (Proxy :: Proxy GetAccountSettings)

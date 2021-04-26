@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Lambda.Types.LastUpdateStatus
   ( LastUpdateStatus
       ( ..,
-        Failed,
-        InProgress,
-        Successful
+        LastUpdateStatusFailed,
+        LastUpdateStatusInProgress,
+        LastUpdateStatusSuccessful
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LastUpdateStatus = LastUpdateStatus' (CI Text)
+newtype LastUpdateStatus = LastUpdateStatus'
+  { fromLastUpdateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: LastUpdateStatus
-pattern Failed = LastUpdateStatus' "Failed"
+pattern LastUpdateStatusFailed :: LastUpdateStatus
+pattern LastUpdateStatusFailed = LastUpdateStatus' "Failed"
 
-pattern InProgress :: LastUpdateStatus
-pattern InProgress = LastUpdateStatus' "InProgress"
+pattern LastUpdateStatusInProgress :: LastUpdateStatus
+pattern LastUpdateStatusInProgress = LastUpdateStatus' "InProgress"
 
-pattern Successful :: LastUpdateStatus
-pattern Successful = LastUpdateStatus' "Successful"
+pattern LastUpdateStatusSuccessful :: LastUpdateStatus
+pattern LastUpdateStatusSuccessful = LastUpdateStatus' "Successful"
 
 {-# COMPLETE
-  Failed,
-  InProgress,
-  Successful,
+  LastUpdateStatusFailed,
+  LastUpdateStatusInProgress,
+  LastUpdateStatusSuccessful,
   LastUpdateStatus'
   #-}
 
-instance FromText LastUpdateStatus where
-  parser = (LastUpdateStatus' . mk) <$> takeText
+instance Prelude.FromText LastUpdateStatus where
+  parser = LastUpdateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText LastUpdateStatus where
-  toText (LastUpdateStatus' ci) = original ci
+instance Prelude.ToText LastUpdateStatus where
+  toText (LastUpdateStatus' x) = x
 
-instance Hashable LastUpdateStatus
+instance Prelude.Hashable LastUpdateStatus
 
-instance NFData LastUpdateStatus
+instance Prelude.NFData LastUpdateStatus
 
-instance ToByteString LastUpdateStatus
+instance Prelude.ToByteString LastUpdateStatus
 
-instance ToQuery LastUpdateStatus
+instance Prelude.ToQuery LastUpdateStatus
 
-instance ToHeader LastUpdateStatus
+instance Prelude.ToHeader LastUpdateStatus
 
-instance FromJSON LastUpdateStatus where
-  parseJSON = parseJSONText "LastUpdateStatus"
+instance Prelude.FromJSON LastUpdateStatus where
+  parseJSON = Prelude.parseJSONText "LastUpdateStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layers> and shows information about the latest version of each. Specify a <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html runtime identifier> to list only layers that indicate that they're compatible with that runtime.
---
---
+-- Lists
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layers>
+-- and shows information about the latest version of each. Specify a
+-- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html runtime identifier>
+-- to list only layers that indicate that they\'re compatible with that
+-- runtime.
 --
 -- This operation returns paginated results.
 module Network.AWS.Lambda.ListLayers
   ( -- * Creating a Request
-    listLayers,
-    ListLayers,
+    ListLayers (..),
+    newListLayers,
 
     -- * Request Lenses
-    llMaxItems,
-    llCompatibleRuntime,
-    llMarker,
+    listLayers_maxItems,
+    listLayers_compatibleRuntime,
+    listLayers_marker,
 
     -- * Destructuring the Response
-    listLayersResponse,
-    ListLayersResponse,
+    ListLayersResponse (..),
+    newListLayersResponse,
 
     -- * Response Lenses
-    llrrsNextMarker,
-    llrrsLayers,
-    llrrsResponseStatus,
+    listLayersResponse_nextMarker,
+    listLayersResponse_layers,
+    listLayersResponse_httpStatus,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.LayersListItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listLayers' smart constructor.
+-- | /See:/ 'newListLayers' smart constructor.
 data ListLayers = ListLayers'
-  { _llMaxItems ::
-      !(Maybe Nat),
-    _llCompatibleRuntime :: !(Maybe Runtime),
-    _llMarker :: !(Maybe Text)
+  { -- | The maximum number of layers to return.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | A runtime identifier. For example, @go1.x@.
+    compatibleRuntime :: Prelude.Maybe Runtime,
+    -- | A pagination token returned by a previous call.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListLayers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListLayers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'llMaxItems' - The maximum number of layers to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'llCompatibleRuntime' - A runtime identifier. For example, @go1.x@ .
+-- 'maxItems', 'listLayers_maxItems' - The maximum number of layers to return.
 --
--- * 'llMarker' - A pagination token returned by a previous call.
-listLayers ::
+-- 'compatibleRuntime', 'listLayers_compatibleRuntime' - A runtime identifier. For example, @go1.x@.
+--
+-- 'marker', 'listLayers_marker' - A pagination token returned by a previous call.
+newListLayers ::
   ListLayers
-listLayers =
+newListLayers =
   ListLayers'
-    { _llMaxItems = Nothing,
-      _llCompatibleRuntime = Nothing,
-      _llMarker = Nothing
+    { maxItems = Prelude.Nothing,
+      compatibleRuntime = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The maximum number of layers to return.
-llMaxItems :: Lens' ListLayers (Maybe Natural)
-llMaxItems = lens _llMaxItems (\s a -> s {_llMaxItems = a}) . mapping _Nat
+listLayers_maxItems :: Lens.Lens' ListLayers (Prelude.Maybe Prelude.Natural)
+listLayers_maxItems = Lens.lens (\ListLayers' {maxItems} -> maxItems) (\s@ListLayers' {} a -> s {maxItems = a} :: ListLayers) Prelude.. Lens.mapping Prelude._Nat
 
--- | A runtime identifier. For example, @go1.x@ .
-llCompatibleRuntime :: Lens' ListLayers (Maybe Runtime)
-llCompatibleRuntime = lens _llCompatibleRuntime (\s a -> s {_llCompatibleRuntime = a})
+-- | A runtime identifier. For example, @go1.x@.
+listLayers_compatibleRuntime :: Lens.Lens' ListLayers (Prelude.Maybe Runtime)
+listLayers_compatibleRuntime = Lens.lens (\ListLayers' {compatibleRuntime} -> compatibleRuntime) (\s@ListLayers' {} a -> s {compatibleRuntime = a} :: ListLayers)
 
 -- | A pagination token returned by a previous call.
-llMarker :: Lens' ListLayers (Maybe Text)
-llMarker = lens _llMarker (\s a -> s {_llMarker = a})
+listLayers_marker :: Lens.Lens' ListLayers (Prelude.Maybe Prelude.Text)
+listLayers_marker = Lens.lens (\ListLayers' {marker} -> marker) (\s@ListLayers' {} a -> s {marker = a} :: ListLayers)
 
-instance AWSPager ListLayers where
+instance Pager.AWSPager ListLayers where
   page rq rs
-    | stop (rs ^. llrrsNextMarker) = Nothing
-    | stop (rs ^. llrrsLayers) = Nothing
-    | otherwise =
-      Just $ rq & llMarker .~ rs ^. llrrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listLayersResponse_nextMarker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listLayersResponse_layers Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listLayers_marker
+          Lens..~ rs
+          Lens.^? listLayersResponse_nextMarker Prelude.. Lens._Just
 
-instance AWSRequest ListLayers where
+instance Prelude.AWSRequest ListLayers where
   type Rs ListLayers = ListLayersResponse
-  request = get lambda
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListLayersResponse'
-            <$> (x .?> "NextMarker")
-            <*> (x .?> "Layers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextMarker")
+            Prelude.<*> (x Prelude..?> "Layers" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListLayers
+instance Prelude.Hashable ListLayers
 
-instance NFData ListLayers
+instance Prelude.NFData ListLayers
 
-instance ToHeaders ListLayers where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListLayers where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListLayers where
-  toPath = const "/2018-10-31/layers"
+instance Prelude.ToPath ListLayers where
+  toPath = Prelude.const "/2018-10-31/layers"
 
-instance ToQuery ListLayers where
+instance Prelude.ToQuery ListLayers where
   toQuery ListLayers' {..} =
-    mconcat
-      [ "MaxItems" =: _llMaxItems,
-        "CompatibleRuntime" =: _llCompatibleRuntime,
-        "Marker" =: _llMarker
+    Prelude.mconcat
+      [ "MaxItems" Prelude.=: maxItems,
+        "CompatibleRuntime" Prelude.=: compatibleRuntime,
+        "Marker" Prelude.=: marker
       ]
 
--- | /See:/ 'listLayersResponse' smart constructor.
+-- | /See:/ 'newListLayersResponse' smart constructor.
 data ListLayersResponse = ListLayersResponse'
-  { _llrrsNextMarker ::
-      !(Maybe Text),
-    _llrrsLayers ::
-      !(Maybe [LayersListItem]),
-    _llrrsResponseStatus :: !Int
+  { -- | A pagination token returned when the response doesn\'t contain all
+    -- layers.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | A list of function layers.
+    layers :: Prelude.Maybe [LayersListItem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListLayersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListLayersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'llrrsNextMarker' - A pagination token returned when the response doesn't contain all layers.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'llrrsLayers' - A list of function layers.
+-- 'nextMarker', 'listLayersResponse_nextMarker' - A pagination token returned when the response doesn\'t contain all
+-- layers.
 --
--- * 'llrrsResponseStatus' - -- | The response status code.
-listLayersResponse ::
-  -- | 'llrrsResponseStatus'
-  Int ->
+-- 'layers', 'listLayersResponse_layers' - A list of function layers.
+--
+-- 'httpStatus', 'listLayersResponse_httpStatus' - The response's http status code.
+newListLayersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListLayersResponse
-listLayersResponse pResponseStatus_ =
+newListLayersResponse pHttpStatus_ =
   ListLayersResponse'
-    { _llrrsNextMarker = Nothing,
-      _llrrsLayers = Nothing,
-      _llrrsResponseStatus = pResponseStatus_
+    { nextMarker = Prelude.Nothing,
+      layers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A pagination token returned when the response doesn't contain all layers.
-llrrsNextMarker :: Lens' ListLayersResponse (Maybe Text)
-llrrsNextMarker = lens _llrrsNextMarker (\s a -> s {_llrrsNextMarker = a})
+-- | A pagination token returned when the response doesn\'t contain all
+-- layers.
+listLayersResponse_nextMarker :: Lens.Lens' ListLayersResponse (Prelude.Maybe Prelude.Text)
+listLayersResponse_nextMarker = Lens.lens (\ListLayersResponse' {nextMarker} -> nextMarker) (\s@ListLayersResponse' {} a -> s {nextMarker = a} :: ListLayersResponse)
 
 -- | A list of function layers.
-llrrsLayers :: Lens' ListLayersResponse [LayersListItem]
-llrrsLayers = lens _llrrsLayers (\s a -> s {_llrrsLayers = a}) . _Default . _Coerce
+listLayersResponse_layers :: Lens.Lens' ListLayersResponse (Prelude.Maybe [LayersListItem])
+listLayersResponse_layers = Lens.lens (\ListLayersResponse' {layers} -> layers) (\s@ListLayersResponse' {} a -> s {layers = a} :: ListLayersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-llrrsResponseStatus :: Lens' ListLayersResponse Int
-llrrsResponseStatus = lens _llrrsResponseStatus (\s a -> s {_llrrsResponseStatus = a})
+-- | The response's http status code.
+listLayersResponse_httpStatus :: Lens.Lens' ListLayersResponse Prelude.Int
+listLayersResponse_httpStatus = Lens.lens (\ListLayersResponse' {httpStatus} -> httpStatus) (\s@ListLayersResponse' {} a -> s {httpStatus = a} :: ListLayersResponse)
 
-instance NFData ListLayersResponse
+instance Prelude.NFData ListLayersResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lambda.Types.FunctionCode where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The code for the Lambda function. You can specify either an object in Amazon S3, upload a .zip file archive deployment package directly, or specify the URI of a container image.
+-- | The code for the Lambda function. You can specify either an object in
+-- Amazon S3, upload a .zip file archive deployment package directly, or
+-- specify the URI of a container image.
 --
---
---
--- /See:/ 'functionCode' smart constructor.
+-- /See:/ 'newFunctionCode' smart constructor.
 data FunctionCode = FunctionCode'
-  { _fcImageURI ::
-      !(Maybe Text),
-    _fcS3Bucket :: !(Maybe Text),
-    _fcZipFile :: !(Maybe (Sensitive Base64)),
-    _fcS3ObjectVersion :: !(Maybe Text),
-    _fcS3Key :: !(Maybe Text)
+  { -- | URI of a container image in the Amazon ECR registry.
+    imageUri :: Prelude.Maybe Prelude.Text,
+    -- | An Amazon S3 bucket in the same AWS Region as your function. The bucket
+    -- can be in a different AWS account.
+    s3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The base64-encoded contents of the deployment package. AWS SDK and AWS
+    -- CLI clients handle the encoding for you.
+    zipFile :: Prelude.Maybe (Prelude.Sensitive Prelude.Base64),
+    -- | For versioned objects, the version of the deployment package object to
+    -- use.
+    s3ObjectVersion :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 key of the deployment package.
+    s3Key :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FunctionCode' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FunctionCode' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fcImageURI' - URI of a container image in the Amazon ECR registry.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fcS3Bucket' - An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
+-- 'imageUri', 'functionCode_imageUri' - URI of a container image in the Amazon ECR registry.
 --
--- * 'fcZipFile' - The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for you.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- 's3Bucket', 'functionCode_s3Bucket' - An Amazon S3 bucket in the same AWS Region as your function. The bucket
+-- can be in a different AWS account.
 --
--- * 'fcS3ObjectVersion' - For versioned objects, the version of the deployment package object to use.
+-- 'zipFile', 'functionCode_zipFile' - The base64-encoded contents of the deployment package. AWS SDK and AWS
+-- CLI clients handle the encoding for you.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
 --
--- * 'fcS3Key' - The Amazon S3 key of the deployment package.
-functionCode ::
+-- 's3ObjectVersion', 'functionCode_s3ObjectVersion' - For versioned objects, the version of the deployment package object to
+-- use.
+--
+-- 's3Key', 'functionCode_s3Key' - The Amazon S3 key of the deployment package.
+newFunctionCode ::
   FunctionCode
-functionCode =
+newFunctionCode =
   FunctionCode'
-    { _fcImageURI = Nothing,
-      _fcS3Bucket = Nothing,
-      _fcZipFile = Nothing,
-      _fcS3ObjectVersion = Nothing,
-      _fcS3Key = Nothing
+    { imageUri = Prelude.Nothing,
+      s3Bucket = Prelude.Nothing,
+      zipFile = Prelude.Nothing,
+      s3ObjectVersion = Prelude.Nothing,
+      s3Key = Prelude.Nothing
     }
 
 -- | URI of a container image in the Amazon ECR registry.
-fcImageURI :: Lens' FunctionCode (Maybe Text)
-fcImageURI = lens _fcImageURI (\s a -> s {_fcImageURI = a})
+functionCode_imageUri :: Lens.Lens' FunctionCode (Prelude.Maybe Prelude.Text)
+functionCode_imageUri = Lens.lens (\FunctionCode' {imageUri} -> imageUri) (\s@FunctionCode' {} a -> s {imageUri = a} :: FunctionCode)
 
--- | An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
-fcS3Bucket :: Lens' FunctionCode (Maybe Text)
-fcS3Bucket = lens _fcS3Bucket (\s a -> s {_fcS3Bucket = a})
+-- | An Amazon S3 bucket in the same AWS Region as your function. The bucket
+-- can be in a different AWS account.
+functionCode_s3Bucket :: Lens.Lens' FunctionCode (Prelude.Maybe Prelude.Text)
+functionCode_s3Bucket = Lens.lens (\FunctionCode' {s3Bucket} -> s3Bucket) (\s@FunctionCode' {} a -> s {s3Bucket = a} :: FunctionCode)
 
--- | The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for you.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-fcZipFile :: Lens' FunctionCode (Maybe ByteString)
-fcZipFile = lens _fcZipFile (\s a -> s {_fcZipFile = a}) . mapping (_Sensitive . _Base64)
+-- | The base64-encoded contents of the deployment package. AWS SDK and AWS
+-- CLI clients handle the encoding for you.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+functionCode_zipFile :: Lens.Lens' FunctionCode (Prelude.Maybe Prelude.ByteString)
+functionCode_zipFile = Lens.lens (\FunctionCode' {zipFile} -> zipFile) (\s@FunctionCode' {} a -> s {zipFile = a} :: FunctionCode) Prelude.. Lens.mapping (Prelude._Sensitive Prelude.. Prelude._Base64)
 
--- | For versioned objects, the version of the deployment package object to use.
-fcS3ObjectVersion :: Lens' FunctionCode (Maybe Text)
-fcS3ObjectVersion = lens _fcS3ObjectVersion (\s a -> s {_fcS3ObjectVersion = a})
+-- | For versioned objects, the version of the deployment package object to
+-- use.
+functionCode_s3ObjectVersion :: Lens.Lens' FunctionCode (Prelude.Maybe Prelude.Text)
+functionCode_s3ObjectVersion = Lens.lens (\FunctionCode' {s3ObjectVersion} -> s3ObjectVersion) (\s@FunctionCode' {} a -> s {s3ObjectVersion = a} :: FunctionCode)
 
 -- | The Amazon S3 key of the deployment package.
-fcS3Key :: Lens' FunctionCode (Maybe Text)
-fcS3Key = lens _fcS3Key (\s a -> s {_fcS3Key = a})
+functionCode_s3Key :: Lens.Lens' FunctionCode (Prelude.Maybe Prelude.Text)
+functionCode_s3Key = Lens.lens (\FunctionCode' {s3Key} -> s3Key) (\s@FunctionCode' {} a -> s {s3Key = a} :: FunctionCode)
 
-instance Hashable FunctionCode
+instance Prelude.Hashable FunctionCode
 
-instance NFData FunctionCode
+instance Prelude.NFData FunctionCode
 
-instance ToJSON FunctionCode where
+instance Prelude.ToJSON FunctionCode where
   toJSON FunctionCode' {..} =
-    object
-      ( catMaybes
-          [ ("ImageUri" .=) <$> _fcImageURI,
-            ("S3Bucket" .=) <$> _fcS3Bucket,
-            ("ZipFile" .=) <$> _fcZipFile,
-            ("S3ObjectVersion" .=) <$> _fcS3ObjectVersion,
-            ("S3Key" .=) <$> _fcS3Key
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ImageUri" Prelude..=) Prelude.<$> imageUri,
+            ("S3Bucket" Prelude..=) Prelude.<$> s3Bucket,
+            ("ZipFile" Prelude..=) Prelude.<$> zipFile,
+            ("S3ObjectVersion" Prelude..=)
+              Prelude.<$> s3ObjectVersion,
+            ("S3Key" Prelude..=) Prelude.<$> s3Key
           ]
       )

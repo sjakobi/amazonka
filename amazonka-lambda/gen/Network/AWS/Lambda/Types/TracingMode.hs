@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Lambda.Types.TracingMode
   ( TracingMode
       ( ..,
-        Active,
-        PassThrough
+        TracingModeActive,
+        TracingModePassThrough
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TracingMode = TracingMode' (CI Text)
+newtype TracingMode = TracingMode'
+  { fromTracingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: TracingMode
-pattern Active = TracingMode' "Active"
+pattern TracingModeActive :: TracingMode
+pattern TracingModeActive = TracingMode' "Active"
 
-pattern PassThrough :: TracingMode
-pattern PassThrough = TracingMode' "PassThrough"
+pattern TracingModePassThrough :: TracingMode
+pattern TracingModePassThrough = TracingMode' "PassThrough"
 
 {-# COMPLETE
-  Active,
-  PassThrough,
+  TracingModeActive,
+  TracingModePassThrough,
   TracingMode'
   #-}
 
-instance FromText TracingMode where
-  parser = (TracingMode' . mk) <$> takeText
+instance Prelude.FromText TracingMode where
+  parser = TracingMode' Prelude.<$> Prelude.takeText
 
-instance ToText TracingMode where
-  toText (TracingMode' ci) = original ci
+instance Prelude.ToText TracingMode where
+  toText (TracingMode' x) = x
 
-instance Hashable TracingMode
+instance Prelude.Hashable TracingMode
 
-instance NFData TracingMode
+instance Prelude.NFData TracingMode
 
-instance ToByteString TracingMode
+instance Prelude.ToByteString TracingMode
 
-instance ToQuery TracingMode
+instance Prelude.ToQuery TracingMode
 
-instance ToHeader TracingMode
+instance Prelude.ToHeader TracingMode
 
-instance ToJSON TracingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON TracingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TracingMode where
-  parseJSON = parseJSONText "TracingMode"
+instance Prelude.FromJSON TracingMode where
+  parseJSON = Prelude.parseJSONText "TracingMode"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,244 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the configuration for asynchronous invocation for a function, version, or alias.
+-- Updates the configuration for asynchronous invocation for a function,
+-- version, or alias.
 --
---
--- To configure options for asynchronous invocation, use 'PutFunctionEventInvokeConfig' .
+-- To configure options for asynchronous invocation, use
+-- PutFunctionEventInvokeConfig.
 module Network.AWS.Lambda.UpdateFunctionEventInvokeConfig
   ( -- * Creating a Request
-    updateFunctionEventInvokeConfig,
-    UpdateFunctionEventInvokeConfig,
+    UpdateFunctionEventInvokeConfig (..),
+    newUpdateFunctionEventInvokeConfig,
 
     -- * Request Lenses
-    ufeicMaximumEventAgeInSeconds,
-    ufeicQualifier,
-    ufeicDestinationConfig,
-    ufeicMaximumRetryAttempts,
-    ufeicFunctionName,
+    updateFunctionEventInvokeConfig_maximumEventAgeInSeconds,
+    updateFunctionEventInvokeConfig_qualifier,
+    updateFunctionEventInvokeConfig_destinationConfig,
+    updateFunctionEventInvokeConfig_maximumRetryAttempts,
+    updateFunctionEventInvokeConfig_functionName,
 
     -- * Destructuring the Response
-    functionEventInvokeConfig,
-    FunctionEventInvokeConfig,
+    FunctionEventInvokeConfig (..),
+    newFunctionEventInvokeConfig,
 
     -- * Response Lenses
-    feicMaximumEventAgeInSeconds,
-    feicFunctionARN,
-    feicDestinationConfig,
-    feicMaximumRetryAttempts,
-    feicLastModified,
+    functionEventInvokeConfig_maximumEventAgeInSeconds,
+    functionEventInvokeConfig_functionArn,
+    functionEventInvokeConfig_destinationConfig,
+    functionEventInvokeConfig_maximumRetryAttempts,
+    functionEventInvokeConfig_lastModified,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.DestinationConfig
+import Network.AWS.Lambda.Types.FunctionEventInvokeConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateFunctionEventInvokeConfig' smart constructor.
+-- | /See:/ 'newUpdateFunctionEventInvokeConfig' smart constructor.
 data UpdateFunctionEventInvokeConfig = UpdateFunctionEventInvokeConfig'
-  { _ufeicMaximumEventAgeInSeconds ::
-      !( Maybe
-           Nat
-       ),
-    _ufeicQualifier ::
-      !( Maybe
-           Text
-       ),
-    _ufeicDestinationConfig ::
-      !( Maybe
-           DestinationConfig
-       ),
-    _ufeicMaximumRetryAttempts ::
-      !( Maybe
-           Nat
-       ),
-    _ufeicFunctionName ::
-      !Text
+  { -- | The maximum age of a request that Lambda sends to a function for
+    -- processing.
+    maximumEventAgeInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | A version number or alias name.
+    qualifier :: Prelude.Maybe Prelude.Text,
+    -- | A destination for events after they have been sent to a function for
+    -- processing.
+    --
+    -- __Destinations__
+    --
+    -- -   __Function__ - The Amazon Resource Name (ARN) of a Lambda function.
+    --
+    -- -   __Queue__ - The ARN of an SQS queue.
+    --
+    -- -   __Topic__ - The ARN of an SNS topic.
+    --
+    -- -   __Event Bus__ - The ARN of an Amazon EventBridge event bus.
+    destinationConfig :: Prelude.Maybe DestinationConfig,
+    -- | The maximum number of times to retry when the function returns an error.
+    maximumRetryAttempts :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the Lambda function, version, or alias.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+    --     (with alias).
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    --
+    -- You can append a version number or alias to any of the formats. The
+    -- length constraint applies only to the full ARN. If you specify only the
+    -- function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFunctionEventInvokeConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFunctionEventInvokeConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufeicMaximumEventAgeInSeconds' - The maximum age of a request that Lambda sends to a function for processing.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufeicQualifier' - A version number or alias name.
+-- 'maximumEventAgeInSeconds', 'updateFunctionEventInvokeConfig_maximumEventAgeInSeconds' - The maximum age of a request that Lambda sends to a function for
+-- processing.
 --
--- * 'ufeicDestinationConfig' - A destination for events after they have been sent to a function for processing. __Destinations__      * __Function__ - The Amazon Resource Name (ARN) of a Lambda function.     * __Queue__ - The ARN of an SQS queue.     * __Topic__ - The ARN of an SNS topic.     * __Event Bus__ - The ARN of an Amazon EventBridge event bus.
+-- 'qualifier', 'updateFunctionEventInvokeConfig_qualifier' - A version number or alias name.
 --
--- * 'ufeicMaximumRetryAttempts' - The maximum number of times to retry when the function returns an error.
+-- 'destinationConfig', 'updateFunctionEventInvokeConfig_destinationConfig' - A destination for events after they have been sent to a function for
+-- processing.
 --
--- * 'ufeicFunctionName' - The name of the Lambda function, version, or alias. __Name formats__      * __Function name__ - @my-function@ (name-only), @my-function:v1@ (with alias).     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-updateFunctionEventInvokeConfig ::
-  -- | 'ufeicFunctionName'
-  Text ->
+-- __Destinations__
+--
+-- -   __Function__ - The Amazon Resource Name (ARN) of a Lambda function.
+--
+-- -   __Queue__ - The ARN of an SQS queue.
+--
+-- -   __Topic__ - The ARN of an SNS topic.
+--
+-- -   __Event Bus__ - The ARN of an Amazon EventBridge event bus.
+--
+-- 'maximumRetryAttempts', 'updateFunctionEventInvokeConfig_maximumRetryAttempts' - The maximum number of times to retry when the function returns an error.
+--
+-- 'functionName', 'updateFunctionEventInvokeConfig_functionName' - The name of the Lambda function, version, or alias.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+--     (with alias).
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- You can append a version number or alias to any of the formats. The
+-- length constraint applies only to the full ARN. If you specify only the
+-- function name, it is limited to 64 characters in length.
+newUpdateFunctionEventInvokeConfig ::
+  -- | 'functionName'
+  Prelude.Text ->
   UpdateFunctionEventInvokeConfig
-updateFunctionEventInvokeConfig pFunctionName_ =
+newUpdateFunctionEventInvokeConfig pFunctionName_ =
   UpdateFunctionEventInvokeConfig'
-    { _ufeicMaximumEventAgeInSeconds =
-        Nothing,
-      _ufeicQualifier = Nothing,
-      _ufeicDestinationConfig = Nothing,
-      _ufeicMaximumRetryAttempts = Nothing,
-      _ufeicFunctionName = pFunctionName_
+    { maximumEventAgeInSeconds =
+        Prelude.Nothing,
+      qualifier = Prelude.Nothing,
+      destinationConfig = Prelude.Nothing,
+      maximumRetryAttempts = Prelude.Nothing,
+      functionName = pFunctionName_
     }
 
--- | The maximum age of a request that Lambda sends to a function for processing.
-ufeicMaximumEventAgeInSeconds :: Lens' UpdateFunctionEventInvokeConfig (Maybe Natural)
-ufeicMaximumEventAgeInSeconds = lens _ufeicMaximumEventAgeInSeconds (\s a -> s {_ufeicMaximumEventAgeInSeconds = a}) . mapping _Nat
+-- | The maximum age of a request that Lambda sends to a function for
+-- processing.
+updateFunctionEventInvokeConfig_maximumEventAgeInSeconds :: Lens.Lens' UpdateFunctionEventInvokeConfig (Prelude.Maybe Prelude.Natural)
+updateFunctionEventInvokeConfig_maximumEventAgeInSeconds = Lens.lens (\UpdateFunctionEventInvokeConfig' {maximumEventAgeInSeconds} -> maximumEventAgeInSeconds) (\s@UpdateFunctionEventInvokeConfig' {} a -> s {maximumEventAgeInSeconds = a} :: UpdateFunctionEventInvokeConfig) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A version number or alias name.
-ufeicQualifier :: Lens' UpdateFunctionEventInvokeConfig (Maybe Text)
-ufeicQualifier = lens _ufeicQualifier (\s a -> s {_ufeicQualifier = a})
+updateFunctionEventInvokeConfig_qualifier :: Lens.Lens' UpdateFunctionEventInvokeConfig (Prelude.Maybe Prelude.Text)
+updateFunctionEventInvokeConfig_qualifier = Lens.lens (\UpdateFunctionEventInvokeConfig' {qualifier} -> qualifier) (\s@UpdateFunctionEventInvokeConfig' {} a -> s {qualifier = a} :: UpdateFunctionEventInvokeConfig)
 
--- | A destination for events after they have been sent to a function for processing. __Destinations__      * __Function__ - The Amazon Resource Name (ARN) of a Lambda function.     * __Queue__ - The ARN of an SQS queue.     * __Topic__ - The ARN of an SNS topic.     * __Event Bus__ - The ARN of an Amazon EventBridge event bus.
-ufeicDestinationConfig :: Lens' UpdateFunctionEventInvokeConfig (Maybe DestinationConfig)
-ufeicDestinationConfig = lens _ufeicDestinationConfig (\s a -> s {_ufeicDestinationConfig = a})
+-- | A destination for events after they have been sent to a function for
+-- processing.
+--
+-- __Destinations__
+--
+-- -   __Function__ - The Amazon Resource Name (ARN) of a Lambda function.
+--
+-- -   __Queue__ - The ARN of an SQS queue.
+--
+-- -   __Topic__ - The ARN of an SNS topic.
+--
+-- -   __Event Bus__ - The ARN of an Amazon EventBridge event bus.
+updateFunctionEventInvokeConfig_destinationConfig :: Lens.Lens' UpdateFunctionEventInvokeConfig (Prelude.Maybe DestinationConfig)
+updateFunctionEventInvokeConfig_destinationConfig = Lens.lens (\UpdateFunctionEventInvokeConfig' {destinationConfig} -> destinationConfig) (\s@UpdateFunctionEventInvokeConfig' {} a -> s {destinationConfig = a} :: UpdateFunctionEventInvokeConfig)
 
 -- | The maximum number of times to retry when the function returns an error.
-ufeicMaximumRetryAttempts :: Lens' UpdateFunctionEventInvokeConfig (Maybe Natural)
-ufeicMaximumRetryAttempts = lens _ufeicMaximumRetryAttempts (\s a -> s {_ufeicMaximumRetryAttempts = a}) . mapping _Nat
+updateFunctionEventInvokeConfig_maximumRetryAttempts :: Lens.Lens' UpdateFunctionEventInvokeConfig (Prelude.Maybe Prelude.Natural)
+updateFunctionEventInvokeConfig_maximumRetryAttempts = Lens.lens (\UpdateFunctionEventInvokeConfig' {maximumRetryAttempts} -> maximumRetryAttempts) (\s@UpdateFunctionEventInvokeConfig' {} a -> s {maximumRetryAttempts = a} :: UpdateFunctionEventInvokeConfig) Prelude.. Lens.mapping Prelude._Nat
 
--- | The name of the Lambda function, version, or alias. __Name formats__      * __Function name__ - @my-function@ (name-only), @my-function:v1@ (with alias).     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-ufeicFunctionName :: Lens' UpdateFunctionEventInvokeConfig Text
-ufeicFunctionName = lens _ufeicFunctionName (\s a -> s {_ufeicFunctionName = a})
+-- | The name of the Lambda function, version, or alias.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+--     (with alias).
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- You can append a version number or alias to any of the formats. The
+-- length constraint applies only to the full ARN. If you specify only the
+-- function name, it is limited to 64 characters in length.
+updateFunctionEventInvokeConfig_functionName :: Lens.Lens' UpdateFunctionEventInvokeConfig Prelude.Text
+updateFunctionEventInvokeConfig_functionName = Lens.lens (\UpdateFunctionEventInvokeConfig' {functionName} -> functionName) (\s@UpdateFunctionEventInvokeConfig' {} a -> s {functionName = a} :: UpdateFunctionEventInvokeConfig)
 
-instance AWSRequest UpdateFunctionEventInvokeConfig where
+instance
+  Prelude.AWSRequest
+    UpdateFunctionEventInvokeConfig
+  where
   type
     Rs UpdateFunctionEventInvokeConfig =
       FunctionEventInvokeConfig
-  request = postJSON lambda
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateFunctionEventInvokeConfig
+instance
+  Prelude.Hashable
+    UpdateFunctionEventInvokeConfig
 
-instance NFData UpdateFunctionEventInvokeConfig
+instance
+  Prelude.NFData
+    UpdateFunctionEventInvokeConfig
 
-instance ToHeaders UpdateFunctionEventInvokeConfig where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    UpdateFunctionEventInvokeConfig
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateFunctionEventInvokeConfig where
+instance
+  Prelude.ToJSON
+    UpdateFunctionEventInvokeConfig
+  where
   toJSON UpdateFunctionEventInvokeConfig' {..} =
-    object
-      ( catMaybes
-          [ ("MaximumEventAgeInSeconds" .=)
-              <$> _ufeicMaximumEventAgeInSeconds,
-            ("DestinationConfig" .=) <$> _ufeicDestinationConfig,
-            ("MaximumRetryAttempts" .=)
-              <$> _ufeicMaximumRetryAttempts
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaximumEventAgeInSeconds" Prelude..=)
+              Prelude.<$> maximumEventAgeInSeconds,
+            ("DestinationConfig" Prelude..=)
+              Prelude.<$> destinationConfig,
+            ("MaximumRetryAttempts" Prelude..=)
+              Prelude.<$> maximumRetryAttempts
           ]
       )
 
-instance ToPath UpdateFunctionEventInvokeConfig where
+instance
+  Prelude.ToPath
+    UpdateFunctionEventInvokeConfig
+  where
   toPath UpdateFunctionEventInvokeConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2019-09-25/functions/",
-        toBS _ufeicFunctionName,
+        Prelude.toBS functionName,
         "/event-invoke-config"
       ]
 
-instance ToQuery UpdateFunctionEventInvokeConfig where
+instance
+  Prelude.ToQuery
+    UpdateFunctionEventInvokeConfig
+  where
   toQuery UpdateFunctionEventInvokeConfig' {..} =
-    mconcat ["Qualifier" =: _ufeicQualifier]
+    Prelude.mconcat ["Qualifier" Prelude.=: qualifier]

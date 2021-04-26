@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lambda.Types.AccountUsage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The number of functions and amount of storage in use.
 --
---
---
--- /See:/ 'accountUsage' smart constructor.
+-- /See:/ 'newAccountUsage' smart constructor.
 data AccountUsage = AccountUsage'
-  { _auFunctionCount ::
-      !(Maybe Integer),
-    _auTotalCodeSize :: !(Maybe Integer)
+  { -- | The number of Lambda functions.
+    functionCount :: Prelude.Maybe Prelude.Integer,
+    -- | The amount of storage space, in bytes, that\'s being used by deployment
+    -- packages and layer archives.
+    totalCodeSize :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountUsage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountUsage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'auFunctionCount' - The number of Lambda functions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'auTotalCodeSize' - The amount of storage space, in bytes, that's being used by deployment packages and layer archives.
-accountUsage ::
+-- 'functionCount', 'accountUsage_functionCount' - The number of Lambda functions.
+--
+-- 'totalCodeSize', 'accountUsage_totalCodeSize' - The amount of storage space, in bytes, that\'s being used by deployment
+-- packages and layer archives.
+newAccountUsage ::
   AccountUsage
-accountUsage =
+newAccountUsage =
   AccountUsage'
-    { _auFunctionCount = Nothing,
-      _auTotalCodeSize = Nothing
+    { functionCount = Prelude.Nothing,
+      totalCodeSize = Prelude.Nothing
     }
 
 -- | The number of Lambda functions.
-auFunctionCount :: Lens' AccountUsage (Maybe Integer)
-auFunctionCount = lens _auFunctionCount (\s a -> s {_auFunctionCount = a})
+accountUsage_functionCount :: Lens.Lens' AccountUsage (Prelude.Maybe Prelude.Integer)
+accountUsage_functionCount = Lens.lens (\AccountUsage' {functionCount} -> functionCount) (\s@AccountUsage' {} a -> s {functionCount = a} :: AccountUsage)
 
--- | The amount of storage space, in bytes, that's being used by deployment packages and layer archives.
-auTotalCodeSize :: Lens' AccountUsage (Maybe Integer)
-auTotalCodeSize = lens _auTotalCodeSize (\s a -> s {_auTotalCodeSize = a})
+-- | The amount of storage space, in bytes, that\'s being used by deployment
+-- packages and layer archives.
+accountUsage_totalCodeSize :: Lens.Lens' AccountUsage (Prelude.Maybe Prelude.Integer)
+accountUsage_totalCodeSize = Lens.lens (\AccountUsage' {totalCodeSize} -> totalCodeSize) (\s@AccountUsage' {} a -> s {totalCodeSize = a} :: AccountUsage)
 
-instance FromJSON AccountUsage where
+instance Prelude.FromJSON AccountUsage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccountUsage"
       ( \x ->
           AccountUsage'
-            <$> (x .:? "FunctionCount") <*> (x .:? "TotalCodeSize")
+            Prelude.<$> (x Prelude..:? "FunctionCount")
+            Prelude.<*> (x Prelude..:? "TotalCodeSize")
       )
 
-instance Hashable AccountUsage
+instance Prelude.Hashable AccountUsage
 
-instance NFData AccountUsage
+instance Prelude.NFData AccountUsage

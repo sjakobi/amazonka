@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,314 +24,330 @@ import Network.AWS.Lambda.Types.EventSourcePosition
 import Network.AWS.Lambda.Types.FunctionResponseType
 import Network.AWS.Lambda.Types.SelfManagedEventSource
 import Network.AWS.Lambda.Types.SourceAccessConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A mapping between an AWS resource and an AWS Lambda function. See 'CreateEventSourceMapping' for details.
+-- | A mapping between an AWS resource and an AWS Lambda function. See
+-- CreateEventSourceMapping for details.
 --
---
---
--- /See:/ 'eventSourceMappingConfiguration' smart constructor.
+-- /See:/ 'newEventSourceMappingConfiguration' smart constructor.
 data EventSourceMappingConfiguration = EventSourceMappingConfiguration'
-  { _esmcEventSourceARN ::
-      !( Maybe
-           Text
-       ),
-    _esmcStateTransitionReason ::
-      !( Maybe
-           Text
-       ),
-    _esmcLastProcessingResult ::
-      !( Maybe
-           Text
-       ),
-    _esmcTopics ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       ),
-    _esmcMaximumRecordAgeInSeconds ::
-      !( Maybe
-           Int
-       ),
-    _esmcFunctionResponseTypes ::
-      !( Maybe
-           ( List1
-               FunctionResponseType
-           )
-       ),
-    _esmcQueues ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       ),
-    _esmcTumblingWindowInSeconds ::
-      !( Maybe
-           Nat
-       ),
-    _esmcFunctionARN ::
-      !( Maybe
-           Text
-       ),
-    _esmcStartingPositionTimestamp ::
-      !( Maybe
-           POSIX
-       ),
-    _esmcState ::
-      !( Maybe
-           Text
-       ),
-    _esmcMaximumBatchingWindowInSeconds ::
-      !( Maybe
-           Nat
-       ),
-    _esmcBatchSize ::
-      !( Maybe
-           Nat
-       ),
-    _esmcStartingPosition ::
-      !( Maybe
-           EventSourcePosition
-       ),
-    _esmcDestinationConfig ::
-      !( Maybe
-           DestinationConfig
-       ),
-    _esmcMaximumRetryAttempts ::
-      !( Maybe
-           Int
-       ),
-    _esmcLastModified ::
-      !( Maybe
-           POSIX
-       ),
-    _esmcParallelizationFactor ::
-      !( Maybe
-           Nat
-       ),
-    _esmcSelfManagedEventSource ::
-      !( Maybe
-           SelfManagedEventSource
-       ),
-    _esmcUUId ::
-      !( Maybe
-           Text
-       ),
-    _esmcBisectBatchOnFunctionError ::
-      !( Maybe
-           Bool
-       ),
-    _esmcSourceAccessConfigurations ::
-      !( Maybe
-           [SourceAccessConfiguration]
-       )
+  { -- | The Amazon Resource Name (ARN) of the event source.
+    eventSourceArn :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the last change to the event source mapping was made
+    -- by a user, or by the Lambda service.
+    stateTransitionReason :: Prelude.Maybe Prelude.Text,
+    -- | The result of the last AWS Lambda invocation of your Lambda function.
+    lastProcessingResult :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Kafka topic.
+    topics :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | (Streams) Discard records older than the specified age. The default
+    -- value is infinite (-1). When set to infinite (-1), failed records are
+    -- retried until the record expires.
+    maximumRecordAgeInSeconds :: Prelude.Maybe Prelude.Int,
+    -- | (Streams) A list of current response type enums applied to the event
+    -- source mapping.
+    functionResponseTypes :: Prelude.Maybe (Prelude.List1 FunctionResponseType),
+    -- | (MQ) The name of the Amazon MQ broker destination queue to consume.
+    queues :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | (Streams) The duration in seconds of a processing window. The range is
+    -- between 1 second up to 900 seconds.
+    tumblingWindowInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The ARN of the Lambda function.
+    functionArn :: Prelude.Maybe Prelude.Text,
+    -- | With @StartingPosition@ set to @AT_TIMESTAMP@, the time from which to
+    -- start reading.
+    startingPositionTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The state of the event source mapping. It can be one of the following:
+    -- @Creating@, @Enabling@, @Enabled@, @Disabling@, @Disabled@, @Updating@,
+    -- or @Deleting@.
+    state :: Prelude.Maybe Prelude.Text,
+    -- | (Streams and SQS standard queues) The maximum amount of time to gather
+    -- records before invoking the function, in seconds. The default value is
+    -- zero.
+    maximumBatchingWindowInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum number of items to retrieve in a single batch.
+    batchSize :: Prelude.Maybe Prelude.Nat,
+    -- | The position in a stream from which to start reading. Required for
+    -- Amazon Kinesis, Amazon DynamoDB, and Amazon MSK Streams sources.
+    -- @AT_TIMESTAMP@ is only supported for Amazon Kinesis streams.
+    startingPosition :: Prelude.Maybe EventSourcePosition,
+    -- | (Streams) An Amazon SQS queue or Amazon SNS topic destination for
+    -- discarded records.
+    destinationConfig :: Prelude.Maybe DestinationConfig,
+    -- | (Streams) Discard records after the specified number of retries. The
+    -- default value is infinite (-1). When set to infinite (-1), failed
+    -- records are retried until the record expires.
+    maximumRetryAttempts :: Prelude.Maybe Prelude.Int,
+    -- | The date that the event source mapping was last updated, or its state
+    -- changed.
+    lastModified :: Prelude.Maybe Prelude.POSIX,
+    -- | (Streams) The number of batches to process from each shard concurrently.
+    -- The default value is 1.
+    parallelizationFactor :: Prelude.Maybe Prelude.Nat,
+    -- | The Self-Managed Apache Kafka cluster for your event source.
+    selfManagedEventSource :: Prelude.Maybe SelfManagedEventSource,
+    -- | The identifier of the event source mapping.
+    uUID :: Prelude.Maybe Prelude.Text,
+    -- | (Streams) If the function returns an error, split the batch in two and
+    -- retry. The default value is false.
+    bisectBatchOnFunctionError :: Prelude.Maybe Prelude.Bool,
+    -- | An array of the authentication protocol, or the VPC components to secure
+    -- your event source.
+    sourceAccessConfigurations :: Prelude.Maybe [SourceAccessConfiguration]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventSourceMappingConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventSourceMappingConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esmcEventSourceARN' - The Amazon Resource Name (ARN) of the event source.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esmcStateTransitionReason' - Indicates whether the last change to the event source mapping was made by a user, or by the Lambda service.
+-- 'eventSourceArn', 'eventSourceMappingConfiguration_eventSourceArn' - The Amazon Resource Name (ARN) of the event source.
 --
--- * 'esmcLastProcessingResult' - The result of the last AWS Lambda invocation of your Lambda function.
+-- 'stateTransitionReason', 'eventSourceMappingConfiguration_stateTransitionReason' - Indicates whether the last change to the event source mapping was made
+-- by a user, or by the Lambda service.
 --
--- * 'esmcTopics' - The name of the Kafka topic.
+-- 'lastProcessingResult', 'eventSourceMappingConfiguration_lastProcessingResult' - The result of the last AWS Lambda invocation of your Lambda function.
 --
--- * 'esmcMaximumRecordAgeInSeconds' - (Streams) Discard records older than the specified age. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires.
+-- 'topics', 'eventSourceMappingConfiguration_topics' - The name of the Kafka topic.
 --
--- * 'esmcFunctionResponseTypes' - (Streams) A list of current response type enums applied to the event source mapping.
+-- 'maximumRecordAgeInSeconds', 'eventSourceMappingConfiguration_maximumRecordAgeInSeconds' - (Streams) Discard records older than the specified age. The default
+-- value is infinite (-1). When set to infinite (-1), failed records are
+-- retried until the record expires.
 --
--- * 'esmcQueues' - (MQ) The name of the Amazon MQ broker destination queue to consume.
+-- 'functionResponseTypes', 'eventSourceMappingConfiguration_functionResponseTypes' - (Streams) A list of current response type enums applied to the event
+-- source mapping.
 --
--- * 'esmcTumblingWindowInSeconds' - (Streams) The duration in seconds of a processing window. The range is between 1 second up to 900 seconds.
+-- 'queues', 'eventSourceMappingConfiguration_queues' - (MQ) The name of the Amazon MQ broker destination queue to consume.
 --
--- * 'esmcFunctionARN' - The ARN of the Lambda function.
+-- 'tumblingWindowInSeconds', 'eventSourceMappingConfiguration_tumblingWindowInSeconds' - (Streams) The duration in seconds of a processing window. The range is
+-- between 1 second up to 900 seconds.
 --
--- * 'esmcStartingPositionTimestamp' - With @StartingPosition@ set to @AT_TIMESTAMP@ , the time from which to start reading.
+-- 'functionArn', 'eventSourceMappingConfiguration_functionArn' - The ARN of the Lambda function.
 --
--- * 'esmcState' - The state of the event source mapping. It can be one of the following: @Creating@ , @Enabling@ , @Enabled@ , @Disabling@ , @Disabled@ , @Updating@ , or @Deleting@ .
+-- 'startingPositionTimestamp', 'eventSourceMappingConfiguration_startingPositionTimestamp' - With @StartingPosition@ set to @AT_TIMESTAMP@, the time from which to
+-- start reading.
 --
--- * 'esmcMaximumBatchingWindowInSeconds' - (Streams and SQS standard queues) The maximum amount of time to gather records before invoking the function, in seconds. The default value is zero.
+-- 'state', 'eventSourceMappingConfiguration_state' - The state of the event source mapping. It can be one of the following:
+-- @Creating@, @Enabling@, @Enabled@, @Disabling@, @Disabled@, @Updating@,
+-- or @Deleting@.
 --
--- * 'esmcBatchSize' - The maximum number of items to retrieve in a single batch.
+-- 'maximumBatchingWindowInSeconds', 'eventSourceMappingConfiguration_maximumBatchingWindowInSeconds' - (Streams and SQS standard queues) The maximum amount of time to gather
+-- records before invoking the function, in seconds. The default value is
+-- zero.
 --
--- * 'esmcStartingPosition' - The position in a stream from which to start reading. Required for Amazon Kinesis, Amazon DynamoDB, and Amazon MSK Streams sources. @AT_TIMESTAMP@ is only supported for Amazon Kinesis streams.
+-- 'batchSize', 'eventSourceMappingConfiguration_batchSize' - The maximum number of items to retrieve in a single batch.
 --
--- * 'esmcDestinationConfig' - (Streams) An Amazon SQS queue or Amazon SNS topic destination for discarded records.
+-- 'startingPosition', 'eventSourceMappingConfiguration_startingPosition' - The position in a stream from which to start reading. Required for
+-- Amazon Kinesis, Amazon DynamoDB, and Amazon MSK Streams sources.
+-- @AT_TIMESTAMP@ is only supported for Amazon Kinesis streams.
 --
--- * 'esmcMaximumRetryAttempts' - (Streams) Discard records after the specified number of retries. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires.
+-- 'destinationConfig', 'eventSourceMappingConfiguration_destinationConfig' - (Streams) An Amazon SQS queue or Amazon SNS topic destination for
+-- discarded records.
 --
--- * 'esmcLastModified' - The date that the event source mapping was last updated, or its state changed.
+-- 'maximumRetryAttempts', 'eventSourceMappingConfiguration_maximumRetryAttempts' - (Streams) Discard records after the specified number of retries. The
+-- default value is infinite (-1). When set to infinite (-1), failed
+-- records are retried until the record expires.
 --
--- * 'esmcParallelizationFactor' - (Streams) The number of batches to process from each shard concurrently. The default value is 1.
+-- 'lastModified', 'eventSourceMappingConfiguration_lastModified' - The date that the event source mapping was last updated, or its state
+-- changed.
 --
--- * 'esmcSelfManagedEventSource' - The Self-Managed Apache Kafka cluster for your event source.
+-- 'parallelizationFactor', 'eventSourceMappingConfiguration_parallelizationFactor' - (Streams) The number of batches to process from each shard concurrently.
+-- The default value is 1.
 --
--- * 'esmcUUId' - The identifier of the event source mapping.
+-- 'selfManagedEventSource', 'eventSourceMappingConfiguration_selfManagedEventSource' - The Self-Managed Apache Kafka cluster for your event source.
 --
--- * 'esmcBisectBatchOnFunctionError' - (Streams) If the function returns an error, split the batch in two and retry. The default value is false.
+-- 'uUID', 'eventSourceMappingConfiguration_uUID' - The identifier of the event source mapping.
 --
--- * 'esmcSourceAccessConfigurations' - An array of the authentication protocol, or the VPC components to secure your event source.
-eventSourceMappingConfiguration ::
+-- 'bisectBatchOnFunctionError', 'eventSourceMappingConfiguration_bisectBatchOnFunctionError' - (Streams) If the function returns an error, split the batch in two and
+-- retry. The default value is false.
+--
+-- 'sourceAccessConfigurations', 'eventSourceMappingConfiguration_sourceAccessConfigurations' - An array of the authentication protocol, or the VPC components to secure
+-- your event source.
+newEventSourceMappingConfiguration ::
   EventSourceMappingConfiguration
-eventSourceMappingConfiguration =
+newEventSourceMappingConfiguration =
   EventSourceMappingConfiguration'
-    { _esmcEventSourceARN =
-        Nothing,
-      _esmcStateTransitionReason = Nothing,
-      _esmcLastProcessingResult = Nothing,
-      _esmcTopics = Nothing,
-      _esmcMaximumRecordAgeInSeconds = Nothing,
-      _esmcFunctionResponseTypes = Nothing,
-      _esmcQueues = Nothing,
-      _esmcTumblingWindowInSeconds = Nothing,
-      _esmcFunctionARN = Nothing,
-      _esmcStartingPositionTimestamp = Nothing,
-      _esmcState = Nothing,
-      _esmcMaximumBatchingWindowInSeconds =
-        Nothing,
-      _esmcBatchSize = Nothing,
-      _esmcStartingPosition = Nothing,
-      _esmcDestinationConfig = Nothing,
-      _esmcMaximumRetryAttempts = Nothing,
-      _esmcLastModified = Nothing,
-      _esmcParallelizationFactor = Nothing,
-      _esmcSelfManagedEventSource = Nothing,
-      _esmcUUId = Nothing,
-      _esmcBisectBatchOnFunctionError = Nothing,
-      _esmcSourceAccessConfigurations = Nothing
+    { eventSourceArn =
+        Prelude.Nothing,
+      stateTransitionReason = Prelude.Nothing,
+      lastProcessingResult = Prelude.Nothing,
+      topics = Prelude.Nothing,
+      maximumRecordAgeInSeconds =
+        Prelude.Nothing,
+      functionResponseTypes = Prelude.Nothing,
+      queues = Prelude.Nothing,
+      tumblingWindowInSeconds = Prelude.Nothing,
+      functionArn = Prelude.Nothing,
+      startingPositionTimestamp =
+        Prelude.Nothing,
+      state = Prelude.Nothing,
+      maximumBatchingWindowInSeconds =
+        Prelude.Nothing,
+      batchSize = Prelude.Nothing,
+      startingPosition = Prelude.Nothing,
+      destinationConfig = Prelude.Nothing,
+      maximumRetryAttempts = Prelude.Nothing,
+      lastModified = Prelude.Nothing,
+      parallelizationFactor = Prelude.Nothing,
+      selfManagedEventSource = Prelude.Nothing,
+      uUID = Prelude.Nothing,
+      bisectBatchOnFunctionError =
+        Prelude.Nothing,
+      sourceAccessConfigurations =
+        Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the event source.
-esmcEventSourceARN :: Lens' EventSourceMappingConfiguration (Maybe Text)
-esmcEventSourceARN = lens _esmcEventSourceARN (\s a -> s {_esmcEventSourceARN = a})
+eventSourceMappingConfiguration_eventSourceArn :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Text)
+eventSourceMappingConfiguration_eventSourceArn = Lens.lens (\EventSourceMappingConfiguration' {eventSourceArn} -> eventSourceArn) (\s@EventSourceMappingConfiguration' {} a -> s {eventSourceArn = a} :: EventSourceMappingConfiguration)
 
--- | Indicates whether the last change to the event source mapping was made by a user, or by the Lambda service.
-esmcStateTransitionReason :: Lens' EventSourceMappingConfiguration (Maybe Text)
-esmcStateTransitionReason = lens _esmcStateTransitionReason (\s a -> s {_esmcStateTransitionReason = a})
+-- | Indicates whether the last change to the event source mapping was made
+-- by a user, or by the Lambda service.
+eventSourceMappingConfiguration_stateTransitionReason :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Text)
+eventSourceMappingConfiguration_stateTransitionReason = Lens.lens (\EventSourceMappingConfiguration' {stateTransitionReason} -> stateTransitionReason) (\s@EventSourceMappingConfiguration' {} a -> s {stateTransitionReason = a} :: EventSourceMappingConfiguration)
 
 -- | The result of the last AWS Lambda invocation of your Lambda function.
-esmcLastProcessingResult :: Lens' EventSourceMappingConfiguration (Maybe Text)
-esmcLastProcessingResult = lens _esmcLastProcessingResult (\s a -> s {_esmcLastProcessingResult = a})
+eventSourceMappingConfiguration_lastProcessingResult :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Text)
+eventSourceMappingConfiguration_lastProcessingResult = Lens.lens (\EventSourceMappingConfiguration' {lastProcessingResult} -> lastProcessingResult) (\s@EventSourceMappingConfiguration' {} a -> s {lastProcessingResult = a} :: EventSourceMappingConfiguration)
 
 -- | The name of the Kafka topic.
-esmcTopics :: Lens' EventSourceMappingConfiguration (Maybe (NonEmpty Text))
-esmcTopics = lens _esmcTopics (\s a -> s {_esmcTopics = a}) . mapping _List1
+eventSourceMappingConfiguration_topics :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+eventSourceMappingConfiguration_topics = Lens.lens (\EventSourceMappingConfiguration' {topics} -> topics) (\s@EventSourceMappingConfiguration' {} a -> s {topics = a} :: EventSourceMappingConfiguration) Prelude.. Lens.mapping Prelude._List1
 
--- | (Streams) Discard records older than the specified age. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires.
-esmcMaximumRecordAgeInSeconds :: Lens' EventSourceMappingConfiguration (Maybe Int)
-esmcMaximumRecordAgeInSeconds = lens _esmcMaximumRecordAgeInSeconds (\s a -> s {_esmcMaximumRecordAgeInSeconds = a})
+-- | (Streams) Discard records older than the specified age. The default
+-- value is infinite (-1). When set to infinite (-1), failed records are
+-- retried until the record expires.
+eventSourceMappingConfiguration_maximumRecordAgeInSeconds :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Int)
+eventSourceMappingConfiguration_maximumRecordAgeInSeconds = Lens.lens (\EventSourceMappingConfiguration' {maximumRecordAgeInSeconds} -> maximumRecordAgeInSeconds) (\s@EventSourceMappingConfiguration' {} a -> s {maximumRecordAgeInSeconds = a} :: EventSourceMappingConfiguration)
 
--- | (Streams) A list of current response type enums applied to the event source mapping.
-esmcFunctionResponseTypes :: Lens' EventSourceMappingConfiguration (Maybe (NonEmpty FunctionResponseType))
-esmcFunctionResponseTypes = lens _esmcFunctionResponseTypes (\s a -> s {_esmcFunctionResponseTypes = a}) . mapping _List1
+-- | (Streams) A list of current response type enums applied to the event
+-- source mapping.
+eventSourceMappingConfiguration_functionResponseTypes :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe (Prelude.NonEmpty FunctionResponseType))
+eventSourceMappingConfiguration_functionResponseTypes = Lens.lens (\EventSourceMappingConfiguration' {functionResponseTypes} -> functionResponseTypes) (\s@EventSourceMappingConfiguration' {} a -> s {functionResponseTypes = a} :: EventSourceMappingConfiguration) Prelude.. Lens.mapping Prelude._List1
 
 -- | (MQ) The name of the Amazon MQ broker destination queue to consume.
-esmcQueues :: Lens' EventSourceMappingConfiguration (Maybe (NonEmpty Text))
-esmcQueues = lens _esmcQueues (\s a -> s {_esmcQueues = a}) . mapping _List1
+eventSourceMappingConfiguration_queues :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+eventSourceMappingConfiguration_queues = Lens.lens (\EventSourceMappingConfiguration' {queues} -> queues) (\s@EventSourceMappingConfiguration' {} a -> s {queues = a} :: EventSourceMappingConfiguration) Prelude.. Lens.mapping Prelude._List1
 
--- | (Streams) The duration in seconds of a processing window. The range is between 1 second up to 900 seconds.
-esmcTumblingWindowInSeconds :: Lens' EventSourceMappingConfiguration (Maybe Natural)
-esmcTumblingWindowInSeconds = lens _esmcTumblingWindowInSeconds (\s a -> s {_esmcTumblingWindowInSeconds = a}) . mapping _Nat
+-- | (Streams) The duration in seconds of a processing window. The range is
+-- between 1 second up to 900 seconds.
+eventSourceMappingConfiguration_tumblingWindowInSeconds :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Natural)
+eventSourceMappingConfiguration_tumblingWindowInSeconds = Lens.lens (\EventSourceMappingConfiguration' {tumblingWindowInSeconds} -> tumblingWindowInSeconds) (\s@EventSourceMappingConfiguration' {} a -> s {tumblingWindowInSeconds = a} :: EventSourceMappingConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ARN of the Lambda function.
-esmcFunctionARN :: Lens' EventSourceMappingConfiguration (Maybe Text)
-esmcFunctionARN = lens _esmcFunctionARN (\s a -> s {_esmcFunctionARN = a})
+eventSourceMappingConfiguration_functionArn :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Text)
+eventSourceMappingConfiguration_functionArn = Lens.lens (\EventSourceMappingConfiguration' {functionArn} -> functionArn) (\s@EventSourceMappingConfiguration' {} a -> s {functionArn = a} :: EventSourceMappingConfiguration)
 
--- | With @StartingPosition@ set to @AT_TIMESTAMP@ , the time from which to start reading.
-esmcStartingPositionTimestamp :: Lens' EventSourceMappingConfiguration (Maybe UTCTime)
-esmcStartingPositionTimestamp = lens _esmcStartingPositionTimestamp (\s a -> s {_esmcStartingPositionTimestamp = a}) . mapping _Time
+-- | With @StartingPosition@ set to @AT_TIMESTAMP@, the time from which to
+-- start reading.
+eventSourceMappingConfiguration_startingPositionTimestamp :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.UTCTime)
+eventSourceMappingConfiguration_startingPositionTimestamp = Lens.lens (\EventSourceMappingConfiguration' {startingPositionTimestamp} -> startingPositionTimestamp) (\s@EventSourceMappingConfiguration' {} a -> s {startingPositionTimestamp = a} :: EventSourceMappingConfiguration) Prelude.. Lens.mapping Prelude._Time
 
--- | The state of the event source mapping. It can be one of the following: @Creating@ , @Enabling@ , @Enabled@ , @Disabling@ , @Disabled@ , @Updating@ , or @Deleting@ .
-esmcState :: Lens' EventSourceMappingConfiguration (Maybe Text)
-esmcState = lens _esmcState (\s a -> s {_esmcState = a})
+-- | The state of the event source mapping. It can be one of the following:
+-- @Creating@, @Enabling@, @Enabled@, @Disabling@, @Disabled@, @Updating@,
+-- or @Deleting@.
+eventSourceMappingConfiguration_state :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Text)
+eventSourceMappingConfiguration_state = Lens.lens (\EventSourceMappingConfiguration' {state} -> state) (\s@EventSourceMappingConfiguration' {} a -> s {state = a} :: EventSourceMappingConfiguration)
 
--- | (Streams and SQS standard queues) The maximum amount of time to gather records before invoking the function, in seconds. The default value is zero.
-esmcMaximumBatchingWindowInSeconds :: Lens' EventSourceMappingConfiguration (Maybe Natural)
-esmcMaximumBatchingWindowInSeconds = lens _esmcMaximumBatchingWindowInSeconds (\s a -> s {_esmcMaximumBatchingWindowInSeconds = a}) . mapping _Nat
+-- | (Streams and SQS standard queues) The maximum amount of time to gather
+-- records before invoking the function, in seconds. The default value is
+-- zero.
+eventSourceMappingConfiguration_maximumBatchingWindowInSeconds :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Natural)
+eventSourceMappingConfiguration_maximumBatchingWindowInSeconds = Lens.lens (\EventSourceMappingConfiguration' {maximumBatchingWindowInSeconds} -> maximumBatchingWindowInSeconds) (\s@EventSourceMappingConfiguration' {} a -> s {maximumBatchingWindowInSeconds = a} :: EventSourceMappingConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The maximum number of items to retrieve in a single batch.
-esmcBatchSize :: Lens' EventSourceMappingConfiguration (Maybe Natural)
-esmcBatchSize = lens _esmcBatchSize (\s a -> s {_esmcBatchSize = a}) . mapping _Nat
+eventSourceMappingConfiguration_batchSize :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Natural)
+eventSourceMappingConfiguration_batchSize = Lens.lens (\EventSourceMappingConfiguration' {batchSize} -> batchSize) (\s@EventSourceMappingConfiguration' {} a -> s {batchSize = a} :: EventSourceMappingConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
--- | The position in a stream from which to start reading. Required for Amazon Kinesis, Amazon DynamoDB, and Amazon MSK Streams sources. @AT_TIMESTAMP@ is only supported for Amazon Kinesis streams.
-esmcStartingPosition :: Lens' EventSourceMappingConfiguration (Maybe EventSourcePosition)
-esmcStartingPosition = lens _esmcStartingPosition (\s a -> s {_esmcStartingPosition = a})
+-- | The position in a stream from which to start reading. Required for
+-- Amazon Kinesis, Amazon DynamoDB, and Amazon MSK Streams sources.
+-- @AT_TIMESTAMP@ is only supported for Amazon Kinesis streams.
+eventSourceMappingConfiguration_startingPosition :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe EventSourcePosition)
+eventSourceMappingConfiguration_startingPosition = Lens.lens (\EventSourceMappingConfiguration' {startingPosition} -> startingPosition) (\s@EventSourceMappingConfiguration' {} a -> s {startingPosition = a} :: EventSourceMappingConfiguration)
 
--- | (Streams) An Amazon SQS queue or Amazon SNS topic destination for discarded records.
-esmcDestinationConfig :: Lens' EventSourceMappingConfiguration (Maybe DestinationConfig)
-esmcDestinationConfig = lens _esmcDestinationConfig (\s a -> s {_esmcDestinationConfig = a})
+-- | (Streams) An Amazon SQS queue or Amazon SNS topic destination for
+-- discarded records.
+eventSourceMappingConfiguration_destinationConfig :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe DestinationConfig)
+eventSourceMappingConfiguration_destinationConfig = Lens.lens (\EventSourceMappingConfiguration' {destinationConfig} -> destinationConfig) (\s@EventSourceMappingConfiguration' {} a -> s {destinationConfig = a} :: EventSourceMappingConfiguration)
 
--- | (Streams) Discard records after the specified number of retries. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires.
-esmcMaximumRetryAttempts :: Lens' EventSourceMappingConfiguration (Maybe Int)
-esmcMaximumRetryAttempts = lens _esmcMaximumRetryAttempts (\s a -> s {_esmcMaximumRetryAttempts = a})
+-- | (Streams) Discard records after the specified number of retries. The
+-- default value is infinite (-1). When set to infinite (-1), failed
+-- records are retried until the record expires.
+eventSourceMappingConfiguration_maximumRetryAttempts :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Int)
+eventSourceMappingConfiguration_maximumRetryAttempts = Lens.lens (\EventSourceMappingConfiguration' {maximumRetryAttempts} -> maximumRetryAttempts) (\s@EventSourceMappingConfiguration' {} a -> s {maximumRetryAttempts = a} :: EventSourceMappingConfiguration)
 
--- | The date that the event source mapping was last updated, or its state changed.
-esmcLastModified :: Lens' EventSourceMappingConfiguration (Maybe UTCTime)
-esmcLastModified = lens _esmcLastModified (\s a -> s {_esmcLastModified = a}) . mapping _Time
+-- | The date that the event source mapping was last updated, or its state
+-- changed.
+eventSourceMappingConfiguration_lastModified :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.UTCTime)
+eventSourceMappingConfiguration_lastModified = Lens.lens (\EventSourceMappingConfiguration' {lastModified} -> lastModified) (\s@EventSourceMappingConfiguration' {} a -> s {lastModified = a} :: EventSourceMappingConfiguration) Prelude.. Lens.mapping Prelude._Time
 
--- | (Streams) The number of batches to process from each shard concurrently. The default value is 1.
-esmcParallelizationFactor :: Lens' EventSourceMappingConfiguration (Maybe Natural)
-esmcParallelizationFactor = lens _esmcParallelizationFactor (\s a -> s {_esmcParallelizationFactor = a}) . mapping _Nat
+-- | (Streams) The number of batches to process from each shard concurrently.
+-- The default value is 1.
+eventSourceMappingConfiguration_parallelizationFactor :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Natural)
+eventSourceMappingConfiguration_parallelizationFactor = Lens.lens (\EventSourceMappingConfiguration' {parallelizationFactor} -> parallelizationFactor) (\s@EventSourceMappingConfiguration' {} a -> s {parallelizationFactor = a} :: EventSourceMappingConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The Self-Managed Apache Kafka cluster for your event source.
-esmcSelfManagedEventSource :: Lens' EventSourceMappingConfiguration (Maybe SelfManagedEventSource)
-esmcSelfManagedEventSource = lens _esmcSelfManagedEventSource (\s a -> s {_esmcSelfManagedEventSource = a})
+eventSourceMappingConfiguration_selfManagedEventSource :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe SelfManagedEventSource)
+eventSourceMappingConfiguration_selfManagedEventSource = Lens.lens (\EventSourceMappingConfiguration' {selfManagedEventSource} -> selfManagedEventSource) (\s@EventSourceMappingConfiguration' {} a -> s {selfManagedEventSource = a} :: EventSourceMappingConfiguration)
 
 -- | The identifier of the event source mapping.
-esmcUUId :: Lens' EventSourceMappingConfiguration (Maybe Text)
-esmcUUId = lens _esmcUUId (\s a -> s {_esmcUUId = a})
+eventSourceMappingConfiguration_uUID :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Text)
+eventSourceMappingConfiguration_uUID = Lens.lens (\EventSourceMappingConfiguration' {uUID} -> uUID) (\s@EventSourceMappingConfiguration' {} a -> s {uUID = a} :: EventSourceMappingConfiguration)
 
--- | (Streams) If the function returns an error, split the batch in two and retry. The default value is false.
-esmcBisectBatchOnFunctionError :: Lens' EventSourceMappingConfiguration (Maybe Bool)
-esmcBisectBatchOnFunctionError = lens _esmcBisectBatchOnFunctionError (\s a -> s {_esmcBisectBatchOnFunctionError = a})
+-- | (Streams) If the function returns an error, split the batch in two and
+-- retry. The default value is false.
+eventSourceMappingConfiguration_bisectBatchOnFunctionError :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe Prelude.Bool)
+eventSourceMappingConfiguration_bisectBatchOnFunctionError = Lens.lens (\EventSourceMappingConfiguration' {bisectBatchOnFunctionError} -> bisectBatchOnFunctionError) (\s@EventSourceMappingConfiguration' {} a -> s {bisectBatchOnFunctionError = a} :: EventSourceMappingConfiguration)
 
--- | An array of the authentication protocol, or the VPC components to secure your event source.
-esmcSourceAccessConfigurations :: Lens' EventSourceMappingConfiguration [SourceAccessConfiguration]
-esmcSourceAccessConfigurations = lens _esmcSourceAccessConfigurations (\s a -> s {_esmcSourceAccessConfigurations = a}) . _Default . _Coerce
+-- | An array of the authentication protocol, or the VPC components to secure
+-- your event source.
+eventSourceMappingConfiguration_sourceAccessConfigurations :: Lens.Lens' EventSourceMappingConfiguration (Prelude.Maybe [SourceAccessConfiguration])
+eventSourceMappingConfiguration_sourceAccessConfigurations = Lens.lens (\EventSourceMappingConfiguration' {sourceAccessConfigurations} -> sourceAccessConfigurations) (\s@EventSourceMappingConfiguration' {} a -> s {sourceAccessConfigurations = a} :: EventSourceMappingConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON EventSourceMappingConfiguration where
+instance
+  Prelude.FromJSON
+    EventSourceMappingConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventSourceMappingConfiguration"
       ( \x ->
           EventSourceMappingConfiguration'
-            <$> (x .:? "EventSourceArn")
-            <*> (x .:? "StateTransitionReason")
-            <*> (x .:? "LastProcessingResult")
-            <*> (x .:? "Topics")
-            <*> (x .:? "MaximumRecordAgeInSeconds")
-            <*> (x .:? "FunctionResponseTypes")
-            <*> (x .:? "Queues")
-            <*> (x .:? "TumblingWindowInSeconds")
-            <*> (x .:? "FunctionArn")
-            <*> (x .:? "StartingPositionTimestamp")
-            <*> (x .:? "State")
-            <*> (x .:? "MaximumBatchingWindowInSeconds")
-            <*> (x .:? "BatchSize")
-            <*> (x .:? "StartingPosition")
-            <*> (x .:? "DestinationConfig")
-            <*> (x .:? "MaximumRetryAttempts")
-            <*> (x .:? "LastModified")
-            <*> (x .:? "ParallelizationFactor")
-            <*> (x .:? "SelfManagedEventSource")
-            <*> (x .:? "UUID")
-            <*> (x .:? "BisectBatchOnFunctionError")
-            <*> (x .:? "SourceAccessConfigurations" .!= mempty)
+            Prelude.<$> (x Prelude..:? "EventSourceArn")
+            Prelude.<*> (x Prelude..:? "StateTransitionReason")
+            Prelude.<*> (x Prelude..:? "LastProcessingResult")
+            Prelude.<*> (x Prelude..:? "Topics")
+            Prelude.<*> (x Prelude..:? "MaximumRecordAgeInSeconds")
+            Prelude.<*> (x Prelude..:? "FunctionResponseTypes")
+            Prelude.<*> (x Prelude..:? "Queues")
+            Prelude.<*> (x Prelude..:? "TumblingWindowInSeconds")
+            Prelude.<*> (x Prelude..:? "FunctionArn")
+            Prelude.<*> (x Prelude..:? "StartingPositionTimestamp")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "MaximumBatchingWindowInSeconds")
+            Prelude.<*> (x Prelude..:? "BatchSize")
+            Prelude.<*> (x Prelude..:? "StartingPosition")
+            Prelude.<*> (x Prelude..:? "DestinationConfig")
+            Prelude.<*> (x Prelude..:? "MaximumRetryAttempts")
+            Prelude.<*> (x Prelude..:? "LastModified")
+            Prelude.<*> (x Prelude..:? "ParallelizationFactor")
+            Prelude.<*> (x Prelude..:? "SelfManagedEventSource")
+            Prelude.<*> (x Prelude..:? "UUID")
+            Prelude.<*> (x Prelude..:? "BisectBatchOnFunctionError")
+            Prelude.<*> ( x Prelude..:? "SourceAccessConfigurations"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable EventSourceMappingConfiguration
+instance
+  Prelude.Hashable
+    EventSourceMappingConfiguration
 
-instance NFData EventSourceMappingConfiguration
+instance
+  Prelude.NFData
+    EventSourceMappingConfiguration

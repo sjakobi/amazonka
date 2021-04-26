@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,152 +24,227 @@
 -- Returns the code signing configuration for the specified function.
 module Network.AWS.Lambda.GetFunctionCodeSigningConfig
   ( -- * Creating a Request
-    getFunctionCodeSigningConfig,
-    GetFunctionCodeSigningConfig,
+    GetFunctionCodeSigningConfig (..),
+    newGetFunctionCodeSigningConfig,
 
     -- * Request Lenses
-    gfcscFunctionName,
+    getFunctionCodeSigningConfig_functionName,
 
     -- * Destructuring the Response
-    getFunctionCodeSigningConfigResponse,
-    GetFunctionCodeSigningConfigResponse,
+    GetFunctionCodeSigningConfigResponse (..),
+    newGetFunctionCodeSigningConfigResponse,
 
     -- * Response Lenses
-    gfcscrrsResponseStatus,
-    gfcscrrsCodeSigningConfigARN,
-    gfcscrrsFunctionName,
+    getFunctionCodeSigningConfigResponse_httpStatus,
+    getFunctionCodeSigningConfigResponse_codeSigningConfigArn,
+    getFunctionCodeSigningConfigResponse_functionName,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getFunctionCodeSigningConfig' smart constructor.
-newtype GetFunctionCodeSigningConfig = GetFunctionCodeSigningConfig'
-  { _gfcscFunctionName ::
-      Text
+-- | /See:/ 'newGetFunctionCodeSigningConfig' smart constructor.
+data GetFunctionCodeSigningConfig = GetFunctionCodeSigningConfig'
+  { -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @MyFunction@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetFunctionCodeSigningConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetFunctionCodeSigningConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gfcscFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-getFunctionCodeSigningConfig ::
-  -- | 'gfcscFunctionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'functionName', 'getFunctionCodeSigningConfig_functionName' - The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+newGetFunctionCodeSigningConfig ::
+  -- | 'functionName'
+  Prelude.Text ->
   GetFunctionCodeSigningConfig
-getFunctionCodeSigningConfig pFunctionName_ =
+newGetFunctionCodeSigningConfig pFunctionName_ =
   GetFunctionCodeSigningConfig'
-    { _gfcscFunctionName =
+    { functionName =
         pFunctionName_
     }
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-gfcscFunctionName :: Lens' GetFunctionCodeSigningConfig Text
-gfcscFunctionName = lens _gfcscFunctionName (\s a -> s {_gfcscFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+getFunctionCodeSigningConfig_functionName :: Lens.Lens' GetFunctionCodeSigningConfig Prelude.Text
+getFunctionCodeSigningConfig_functionName = Lens.lens (\GetFunctionCodeSigningConfig' {functionName} -> functionName) (\s@GetFunctionCodeSigningConfig' {} a -> s {functionName = a} :: GetFunctionCodeSigningConfig)
 
-instance AWSRequest GetFunctionCodeSigningConfig where
+instance
+  Prelude.AWSRequest
+    GetFunctionCodeSigningConfig
+  where
   type
     Rs GetFunctionCodeSigningConfig =
       GetFunctionCodeSigningConfigResponse
-  request = get lambda
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetFunctionCodeSigningConfigResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "CodeSigningConfigArn")
-            <*> (x .:> "FunctionName")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "CodeSigningConfigArn")
+            Prelude.<*> (x Prelude..:> "FunctionName")
       )
 
-instance Hashable GetFunctionCodeSigningConfig
+instance
+  Prelude.Hashable
+    GetFunctionCodeSigningConfig
 
-instance NFData GetFunctionCodeSigningConfig
+instance Prelude.NFData GetFunctionCodeSigningConfig
 
-instance ToHeaders GetFunctionCodeSigningConfig where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    GetFunctionCodeSigningConfig
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetFunctionCodeSigningConfig where
+instance Prelude.ToPath GetFunctionCodeSigningConfig where
   toPath GetFunctionCodeSigningConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2020-06-30/functions/",
-        toBS _gfcscFunctionName,
+        Prelude.toBS functionName,
         "/code-signing-config"
       ]
 
-instance ToQuery GetFunctionCodeSigningConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery GetFunctionCodeSigningConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getFunctionCodeSigningConfigResponse' smart constructor.
+-- | /See:/ 'newGetFunctionCodeSigningConfigResponse' smart constructor.
 data GetFunctionCodeSigningConfigResponse = GetFunctionCodeSigningConfigResponse'
-  { _gfcscrrsResponseStatus ::
-      !Int,
-    _gfcscrrsCodeSigningConfigARN ::
-      !Text,
-    _gfcscrrsFunctionName ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The The Amazon Resource Name (ARN) of the code signing configuration.
+    codeSigningConfigArn :: Prelude.Text,
+    -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @MyFunction@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetFunctionCodeSigningConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetFunctionCodeSigningConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gfcscrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gfcscrrsCodeSigningConfigARN' - The The Amazon Resource Name (ARN) of the code signing configuration.
+-- 'httpStatus', 'getFunctionCodeSigningConfigResponse_httpStatus' - The response's http status code.
 --
--- * 'gfcscrrsFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-getFunctionCodeSigningConfigResponse ::
-  -- | 'gfcscrrsResponseStatus'
-  Int ->
-  -- | 'gfcscrrsCodeSigningConfigARN'
-  Text ->
-  -- | 'gfcscrrsFunctionName'
-  Text ->
+-- 'codeSigningConfigArn', 'getFunctionCodeSigningConfigResponse_codeSigningConfigArn' - The The Amazon Resource Name (ARN) of the code signing configuration.
+--
+-- 'functionName', 'getFunctionCodeSigningConfigResponse_functionName' - The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+newGetFunctionCodeSigningConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'codeSigningConfigArn'
+  Prelude.Text ->
+  -- | 'functionName'
+  Prelude.Text ->
   GetFunctionCodeSigningConfigResponse
-getFunctionCodeSigningConfigResponse
-  pResponseStatus_
-  pCodeSigningConfigARN_
+newGetFunctionCodeSigningConfigResponse
+  pHttpStatus_
+  pCodeSigningConfigArn_
   pFunctionName_ =
     GetFunctionCodeSigningConfigResponse'
-      { _gfcscrrsResponseStatus =
-          pResponseStatus_,
-        _gfcscrrsCodeSigningConfigARN =
-          pCodeSigningConfigARN_,
-        _gfcscrrsFunctionName =
-          pFunctionName_
+      { httpStatus =
+          pHttpStatus_,
+        codeSigningConfigArn =
+          pCodeSigningConfigArn_,
+        functionName = pFunctionName_
       }
 
--- | -- | The response status code.
-gfcscrrsResponseStatus :: Lens' GetFunctionCodeSigningConfigResponse Int
-gfcscrrsResponseStatus = lens _gfcscrrsResponseStatus (\s a -> s {_gfcscrrsResponseStatus = a})
+-- | The response's http status code.
+getFunctionCodeSigningConfigResponse_httpStatus :: Lens.Lens' GetFunctionCodeSigningConfigResponse Prelude.Int
+getFunctionCodeSigningConfigResponse_httpStatus = Lens.lens (\GetFunctionCodeSigningConfigResponse' {httpStatus} -> httpStatus) (\s@GetFunctionCodeSigningConfigResponse' {} a -> s {httpStatus = a} :: GetFunctionCodeSigningConfigResponse)
 
 -- | The The Amazon Resource Name (ARN) of the code signing configuration.
-gfcscrrsCodeSigningConfigARN :: Lens' GetFunctionCodeSigningConfigResponse Text
-gfcscrrsCodeSigningConfigARN = lens _gfcscrrsCodeSigningConfigARN (\s a -> s {_gfcscrrsCodeSigningConfigARN = a})
+getFunctionCodeSigningConfigResponse_codeSigningConfigArn :: Lens.Lens' GetFunctionCodeSigningConfigResponse Prelude.Text
+getFunctionCodeSigningConfigResponse_codeSigningConfigArn = Lens.lens (\GetFunctionCodeSigningConfigResponse' {codeSigningConfigArn} -> codeSigningConfigArn) (\s@GetFunctionCodeSigningConfigResponse' {} a -> s {codeSigningConfigArn = a} :: GetFunctionCodeSigningConfigResponse)
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-gfcscrrsFunctionName :: Lens' GetFunctionCodeSigningConfigResponse Text
-gfcscrrsFunctionName = lens _gfcscrrsFunctionName (\s a -> s {_gfcscrrsFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+getFunctionCodeSigningConfigResponse_functionName :: Lens.Lens' GetFunctionCodeSigningConfigResponse Prelude.Text
+getFunctionCodeSigningConfigResponse_functionName = Lens.lens (\GetFunctionCodeSigningConfigResponse' {functionName} -> functionName) (\s@GetFunctionCodeSigningConfigResponse' {} a -> s {functionName = a} :: GetFunctionCodeSigningConfigResponse)
 
-instance NFData GetFunctionCodeSigningConfigResponse
+instance
+  Prelude.NFData
+    GetFunctionCodeSigningConfigResponse

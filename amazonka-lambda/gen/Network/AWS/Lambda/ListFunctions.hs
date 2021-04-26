@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,213 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of Lambda functions, with the version-specific configuration of each. Lambda returns up to 50 functions per call.
+-- Returns a list of Lambda functions, with the version-specific
+-- configuration of each. Lambda returns up to 50 functions per call.
 --
---
--- Set @FunctionVersion@ to @ALL@ to include all published versions of each function in addition to the unpublished version. To get more information about a function or version, use 'GetFunction' .
---
+-- Set @FunctionVersion@ to @ALL@ to include all published versions of each
+-- function in addition to the unpublished version. To get more information
+-- about a function or version, use GetFunction.
 --
 -- This operation returns paginated results.
 module Network.AWS.Lambda.ListFunctions
   ( -- * Creating a Request
-    listFunctions,
-    ListFunctions,
+    ListFunctions (..),
+    newListFunctions,
 
     -- * Request Lenses
-    lfMasterRegion,
-    lfFunctionVersion,
-    lfMaxItems,
-    lfMarker,
+    listFunctions_masterRegion,
+    listFunctions_functionVersion,
+    listFunctions_maxItems,
+    listFunctions_marker,
 
     -- * Destructuring the Response
-    listFunctionsResponse,
-    ListFunctionsResponse,
+    ListFunctionsResponse (..),
+    newListFunctionsResponse,
 
     -- * Response Lenses
-    lfrrsFunctions,
-    lfrrsNextMarker,
-    lfrrsResponseStatus,
+    listFunctionsResponse_functions,
+    listFunctionsResponse_nextMarker,
+    listFunctionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.FunctionConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listFunctions' smart constructor.
+-- | /See:/ 'newListFunctions' smart constructor.
 data ListFunctions = ListFunctions'
-  { _lfMasterRegion ::
-      !(Maybe Text),
-    _lfFunctionVersion ::
-      !(Maybe FunctionVersion),
-    _lfMaxItems :: !(Maybe Nat),
-    _lfMarker :: !(Maybe Text)
+  { -- | For Lambda\@Edge functions, the AWS Region of the master function. For
+    -- example, @us-east-1@ filters the list of functions to only include
+    -- Lambda\@Edge functions replicated from a master function in US East (N.
+    -- Virginia). If specified, you must set @FunctionVersion@ to @ALL@.
+    masterRegion :: Prelude.Maybe Prelude.Text,
+    -- | Set to @ALL@ to include entries for all published versions of each
+    -- function.
+    functionVersion :: Prelude.Maybe FunctionVersion,
+    -- | The maximum number of functions to return.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the pagination token that\'s returned by a previous request to
+    -- retrieve the next page of results.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListFunctions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListFunctions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfMasterRegion' - For Lambda@Edge functions, the AWS Region of the master function. For example, @us-east-1@ filters the list of functions to only include Lambda@Edge functions replicated from a master function in US East (N. Virginia). If specified, you must set @FunctionVersion@ to @ALL@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lfFunctionVersion' - Set to @ALL@ to include entries for all published versions of each function.
+-- 'masterRegion', 'listFunctions_masterRegion' - For Lambda\@Edge functions, the AWS Region of the master function. For
+-- example, @us-east-1@ filters the list of functions to only include
+-- Lambda\@Edge functions replicated from a master function in US East (N.
+-- Virginia). If specified, you must set @FunctionVersion@ to @ALL@.
 --
--- * 'lfMaxItems' - The maximum number of functions to return.
+-- 'functionVersion', 'listFunctions_functionVersion' - Set to @ALL@ to include entries for all published versions of each
+-- function.
 --
--- * 'lfMarker' - Specify the pagination token that's returned by a previous request to retrieve the next page of results.
-listFunctions ::
+-- 'maxItems', 'listFunctions_maxItems' - The maximum number of functions to return.
+--
+-- 'marker', 'listFunctions_marker' - Specify the pagination token that\'s returned by a previous request to
+-- retrieve the next page of results.
+newListFunctions ::
   ListFunctions
-listFunctions =
+newListFunctions =
   ListFunctions'
-    { _lfMasterRegion = Nothing,
-      _lfFunctionVersion = Nothing,
-      _lfMaxItems = Nothing,
-      _lfMarker = Nothing
+    { masterRegion = Prelude.Nothing,
+      functionVersion = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | For Lambda@Edge functions, the AWS Region of the master function. For example, @us-east-1@ filters the list of functions to only include Lambda@Edge functions replicated from a master function in US East (N. Virginia). If specified, you must set @FunctionVersion@ to @ALL@ .
-lfMasterRegion :: Lens' ListFunctions (Maybe Text)
-lfMasterRegion = lens _lfMasterRegion (\s a -> s {_lfMasterRegion = a})
+-- | For Lambda\@Edge functions, the AWS Region of the master function. For
+-- example, @us-east-1@ filters the list of functions to only include
+-- Lambda\@Edge functions replicated from a master function in US East (N.
+-- Virginia). If specified, you must set @FunctionVersion@ to @ALL@.
+listFunctions_masterRegion :: Lens.Lens' ListFunctions (Prelude.Maybe Prelude.Text)
+listFunctions_masterRegion = Lens.lens (\ListFunctions' {masterRegion} -> masterRegion) (\s@ListFunctions' {} a -> s {masterRegion = a} :: ListFunctions)
 
--- | Set to @ALL@ to include entries for all published versions of each function.
-lfFunctionVersion :: Lens' ListFunctions (Maybe FunctionVersion)
-lfFunctionVersion = lens _lfFunctionVersion (\s a -> s {_lfFunctionVersion = a})
+-- | Set to @ALL@ to include entries for all published versions of each
+-- function.
+listFunctions_functionVersion :: Lens.Lens' ListFunctions (Prelude.Maybe FunctionVersion)
+listFunctions_functionVersion = Lens.lens (\ListFunctions' {functionVersion} -> functionVersion) (\s@ListFunctions' {} a -> s {functionVersion = a} :: ListFunctions)
 
 -- | The maximum number of functions to return.
-lfMaxItems :: Lens' ListFunctions (Maybe Natural)
-lfMaxItems = lens _lfMaxItems (\s a -> s {_lfMaxItems = a}) . mapping _Nat
+listFunctions_maxItems :: Lens.Lens' ListFunctions (Prelude.Maybe Prelude.Natural)
+listFunctions_maxItems = Lens.lens (\ListFunctions' {maxItems} -> maxItems) (\s@ListFunctions' {} a -> s {maxItems = a} :: ListFunctions) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the pagination token that's returned by a previous request to retrieve the next page of results.
-lfMarker :: Lens' ListFunctions (Maybe Text)
-lfMarker = lens _lfMarker (\s a -> s {_lfMarker = a})
+-- | Specify the pagination token that\'s returned by a previous request to
+-- retrieve the next page of results.
+listFunctions_marker :: Lens.Lens' ListFunctions (Prelude.Maybe Prelude.Text)
+listFunctions_marker = Lens.lens (\ListFunctions' {marker} -> marker) (\s@ListFunctions' {} a -> s {marker = a} :: ListFunctions)
 
-instance AWSPager ListFunctions where
+instance Pager.AWSPager ListFunctions where
   page rq rs
-    | stop (rs ^. lfrrsNextMarker) = Nothing
-    | stop (rs ^. lfrrsFunctions) = Nothing
-    | otherwise =
-      Just $ rq & lfMarker .~ rs ^. lfrrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listFunctionsResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listFunctionsResponse_functions Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listFunctions_marker
+          Lens..~ rs
+          Lens.^? listFunctionsResponse_nextMarker Prelude.. Lens._Just
 
-instance AWSRequest ListFunctions where
+instance Prelude.AWSRequest ListFunctions where
   type Rs ListFunctions = ListFunctionsResponse
-  request = get lambda
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListFunctionsResponse'
-            <$> (x .?> "Functions" .!@ mempty)
-            <*> (x .?> "NextMarker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Functions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextMarker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListFunctions
+instance Prelude.Hashable ListFunctions
 
-instance NFData ListFunctions
+instance Prelude.NFData ListFunctions
 
-instance ToHeaders ListFunctions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListFunctions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListFunctions where
-  toPath = const "/2015-03-31/functions/"
+instance Prelude.ToPath ListFunctions where
+  toPath = Prelude.const "/2015-03-31/functions/"
 
-instance ToQuery ListFunctions where
+instance Prelude.ToQuery ListFunctions where
   toQuery ListFunctions' {..} =
-    mconcat
-      [ "MasterRegion" =: _lfMasterRegion,
-        "FunctionVersion" =: _lfFunctionVersion,
-        "MaxItems" =: _lfMaxItems,
-        "Marker" =: _lfMarker
+    Prelude.mconcat
+      [ "MasterRegion" Prelude.=: masterRegion,
+        "FunctionVersion" Prelude.=: functionVersion,
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
       ]
 
 -- | A list of Lambda functions.
 --
---
---
--- /See:/ 'listFunctionsResponse' smart constructor.
+-- /See:/ 'newListFunctionsResponse' smart constructor.
 data ListFunctionsResponse = ListFunctionsResponse'
-  { _lfrrsFunctions ::
-      !( Maybe
-           [FunctionConfiguration]
-       ),
-    _lfrrsNextMarker ::
-      !(Maybe Text),
-    _lfrrsResponseStatus ::
-      !Int
+  { -- | A list of Lambda functions.
+    functions :: Prelude.Maybe [FunctionConfiguration],
+    -- | The pagination token that\'s included if more results are available.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListFunctionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListFunctionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfrrsFunctions' - A list of Lambda functions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lfrrsNextMarker' - The pagination token that's included if more results are available.
+-- 'functions', 'listFunctionsResponse_functions' - A list of Lambda functions.
 --
--- * 'lfrrsResponseStatus' - -- | The response status code.
-listFunctionsResponse ::
-  -- | 'lfrrsResponseStatus'
-  Int ->
+-- 'nextMarker', 'listFunctionsResponse_nextMarker' - The pagination token that\'s included if more results are available.
+--
+-- 'httpStatus', 'listFunctionsResponse_httpStatus' - The response's http status code.
+newListFunctionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListFunctionsResponse
-listFunctionsResponse pResponseStatus_ =
+newListFunctionsResponse pHttpStatus_ =
   ListFunctionsResponse'
-    { _lfrrsFunctions = Nothing,
-      _lfrrsNextMarker = Nothing,
-      _lfrrsResponseStatus = pResponseStatus_
+    { functions = Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of Lambda functions.
-lfrrsFunctions :: Lens' ListFunctionsResponse [FunctionConfiguration]
-lfrrsFunctions = lens _lfrrsFunctions (\s a -> s {_lfrrsFunctions = a}) . _Default . _Coerce
+listFunctionsResponse_functions :: Lens.Lens' ListFunctionsResponse (Prelude.Maybe [FunctionConfiguration])
+listFunctionsResponse_functions = Lens.lens (\ListFunctionsResponse' {functions} -> functions) (\s@ListFunctionsResponse' {} a -> s {functions = a} :: ListFunctionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The pagination token that's included if more results are available.
-lfrrsNextMarker :: Lens' ListFunctionsResponse (Maybe Text)
-lfrrsNextMarker = lens _lfrrsNextMarker (\s a -> s {_lfrrsNextMarker = a})
+-- | The pagination token that\'s included if more results are available.
+listFunctionsResponse_nextMarker :: Lens.Lens' ListFunctionsResponse (Prelude.Maybe Prelude.Text)
+listFunctionsResponse_nextMarker = Lens.lens (\ListFunctionsResponse' {nextMarker} -> nextMarker) (\s@ListFunctionsResponse' {} a -> s {nextMarker = a} :: ListFunctionsResponse)
 
--- | -- | The response status code.
-lfrrsResponseStatus :: Lens' ListFunctionsResponse Int
-lfrrsResponseStatus = lens _lfrrsResponseStatus (\s a -> s {_lfrrsResponseStatus = a})
+-- | The response's http status code.
+listFunctionsResponse_httpStatus :: Lens.Lens' ListFunctionsResponse Prelude.Int
+listFunctionsResponse_httpStatus = Lens.lens (\ListFunctionsResponse' {httpStatus} -> httpStatus) (\s@ListFunctionsResponse' {} a -> s {httpStatus = a} :: ListFunctionsResponse)
 
-instance NFData ListFunctionsResponse
+instance Prelude.NFData ListFunctionsResponse

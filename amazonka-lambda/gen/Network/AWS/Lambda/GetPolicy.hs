@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,191 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the <https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html resource-based IAM policy> for a function, version, or alias.
+-- Returns the
+-- <https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html resource-based IAM policy>
+-- for a function, version, or alias.
 module Network.AWS.Lambda.GetPolicy
   ( -- * Creating a Request
-    getPolicy,
-    GetPolicy,
+    GetPolicy (..),
+    newGetPolicy,
 
     -- * Request Lenses
-    gpQualifier,
-    gpFunctionName,
+    getPolicy_qualifier,
+    getPolicy_functionName,
 
     -- * Destructuring the Response
-    getPolicyResponse,
-    GetPolicyResponse,
+    GetPolicyResponse (..),
+    newGetPolicyResponse,
 
     -- * Response Lenses
-    gprrsRevisionId,
-    gprrsPolicy,
-    gprrsResponseStatus,
+    getPolicyResponse_revisionId,
+    getPolicyResponse_policy,
+    getPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getPolicy' smart constructor.
+-- | /See:/ 'newGetPolicy' smart constructor.
 data GetPolicy = GetPolicy'
-  { _gpQualifier ::
-      !(Maybe Text),
-    _gpFunctionName :: !Text
+  { -- | Specify a version or alias to get the policy for that resource.
+    qualifier :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Lambda function, version, or alias.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+    --     (with alias).
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    --
+    -- You can append a version number or alias to any of the formats. The
+    -- length constraint applies only to the full ARN. If you specify only the
+    -- function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpQualifier' - Specify a version or alias to get the policy for that resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpFunctionName' - The name of the Lambda function, version, or alias. __Name formats__      * __Function name__ - @my-function@ (name-only), @my-function:v1@ (with alias).     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-getPolicy ::
-  -- | 'gpFunctionName'
-  Text ->
+-- 'qualifier', 'getPolicy_qualifier' - Specify a version or alias to get the policy for that resource.
+--
+-- 'functionName', 'getPolicy_functionName' - The name of the Lambda function, version, or alias.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+--     (with alias).
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- You can append a version number or alias to any of the formats. The
+-- length constraint applies only to the full ARN. If you specify only the
+-- function name, it is limited to 64 characters in length.
+newGetPolicy ::
+  -- | 'functionName'
+  Prelude.Text ->
   GetPolicy
-getPolicy pFunctionName_ =
+newGetPolicy pFunctionName_ =
   GetPolicy'
-    { _gpQualifier = Nothing,
-      _gpFunctionName = pFunctionName_
+    { qualifier = Prelude.Nothing,
+      functionName = pFunctionName_
     }
 
 -- | Specify a version or alias to get the policy for that resource.
-gpQualifier :: Lens' GetPolicy (Maybe Text)
-gpQualifier = lens _gpQualifier (\s a -> s {_gpQualifier = a})
+getPolicy_qualifier :: Lens.Lens' GetPolicy (Prelude.Maybe Prelude.Text)
+getPolicy_qualifier = Lens.lens (\GetPolicy' {qualifier} -> qualifier) (\s@GetPolicy' {} a -> s {qualifier = a} :: GetPolicy)
 
--- | The name of the Lambda function, version, or alias. __Name formats__      * __Function name__ - @my-function@ (name-only), @my-function:v1@ (with alias).     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-gpFunctionName :: Lens' GetPolicy Text
-gpFunctionName = lens _gpFunctionName (\s a -> s {_gpFunctionName = a})
+-- | The name of the Lambda function, version, or alias.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+--     (with alias).
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- You can append a version number or alias to any of the formats. The
+-- length constraint applies only to the full ARN. If you specify only the
+-- function name, it is limited to 64 characters in length.
+getPolicy_functionName :: Lens.Lens' GetPolicy Prelude.Text
+getPolicy_functionName = Lens.lens (\GetPolicy' {functionName} -> functionName) (\s@GetPolicy' {} a -> s {functionName = a} :: GetPolicy)
 
-instance AWSRequest GetPolicy where
+instance Prelude.AWSRequest GetPolicy where
   type Rs GetPolicy = GetPolicyResponse
-  request = get lambda
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetPolicyResponse'
-            <$> (x .?> "RevisionId")
-            <*> (x .?> "Policy")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RevisionId")
+            Prelude.<*> (x Prelude..?> "Policy")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetPolicy
+instance Prelude.Hashable GetPolicy
 
-instance NFData GetPolicy
+instance Prelude.NFData GetPolicy
 
-instance ToHeaders GetPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetPolicy where
+instance Prelude.ToPath GetPolicy where
   toPath GetPolicy' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-03-31/functions/",
-        toBS _gpFunctionName,
+        Prelude.toBS functionName,
         "/policy"
       ]
 
-instance ToQuery GetPolicy where
+instance Prelude.ToQuery GetPolicy where
   toQuery GetPolicy' {..} =
-    mconcat ["Qualifier" =: _gpQualifier]
+    Prelude.mconcat ["Qualifier" Prelude.=: qualifier]
 
--- | /See:/ 'getPolicyResponse' smart constructor.
+-- | /See:/ 'newGetPolicyResponse' smart constructor.
 data GetPolicyResponse = GetPolicyResponse'
-  { _gprrsRevisionId ::
-      !(Maybe Text),
-    _gprrsPolicy :: !(Maybe Text),
-    _gprrsResponseStatus :: !Int
+  { -- | A unique identifier for the current revision of the policy.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | The resource-based policy.
+    policy :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gprrsRevisionId' - A unique identifier for the current revision of the policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gprrsPolicy' - The resource-based policy.
+-- 'revisionId', 'getPolicyResponse_revisionId' - A unique identifier for the current revision of the policy.
 --
--- * 'gprrsResponseStatus' - -- | The response status code.
-getPolicyResponse ::
-  -- | 'gprrsResponseStatus'
-  Int ->
+-- 'policy', 'getPolicyResponse_policy' - The resource-based policy.
+--
+-- 'httpStatus', 'getPolicyResponse_httpStatus' - The response's http status code.
+newGetPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetPolicyResponse
-getPolicyResponse pResponseStatus_ =
+newGetPolicyResponse pHttpStatus_ =
   GetPolicyResponse'
-    { _gprrsRevisionId = Nothing,
-      _gprrsPolicy = Nothing,
-      _gprrsResponseStatus = pResponseStatus_
+    { revisionId = Prelude.Nothing,
+      policy = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A unique identifier for the current revision of the policy.
-gprrsRevisionId :: Lens' GetPolicyResponse (Maybe Text)
-gprrsRevisionId = lens _gprrsRevisionId (\s a -> s {_gprrsRevisionId = a})
+getPolicyResponse_revisionId :: Lens.Lens' GetPolicyResponse (Prelude.Maybe Prelude.Text)
+getPolicyResponse_revisionId = Lens.lens (\GetPolicyResponse' {revisionId} -> revisionId) (\s@GetPolicyResponse' {} a -> s {revisionId = a} :: GetPolicyResponse)
 
 -- | The resource-based policy.
-gprrsPolicy :: Lens' GetPolicyResponse (Maybe Text)
-gprrsPolicy = lens _gprrsPolicy (\s a -> s {_gprrsPolicy = a})
+getPolicyResponse_policy :: Lens.Lens' GetPolicyResponse (Prelude.Maybe Prelude.Text)
+getPolicyResponse_policy = Lens.lens (\GetPolicyResponse' {policy} -> policy) (\s@GetPolicyResponse' {} a -> s {policy = a} :: GetPolicyResponse)
 
--- | -- | The response status code.
-gprrsResponseStatus :: Lens' GetPolicyResponse Int
-gprrsResponseStatus = lens _gprrsResponseStatus (\s a -> s {_gprrsResponseStatus = a})
+-- | The response's http status code.
+getPolicyResponse_httpStatus :: Lens.Lens' GetPolicyResponse Prelude.Int
+getPolicyResponse_httpStatus = Lens.lens (\GetPolicyResponse' {httpStatus} -> httpStatus) (\s@GetPolicyResponse' {} a -> s {httpStatus = a} :: GetPolicyResponse)
 
-instance NFData GetPolicyResponse
+instance Prelude.NFData GetPolicyResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Lambda.Types.LogType
   ( LogType
       ( ..,
-        None,
-        Tail
+        LogTypeNone,
+        LogTypeTail
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LogType = LogType' (CI Text)
+newtype LogType = LogType'
+  { fromLogType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern None :: LogType
-pattern None = LogType' "None"
+pattern LogTypeNone :: LogType
+pattern LogTypeNone = LogType' "None"
 
-pattern Tail :: LogType
-pattern Tail = LogType' "Tail"
+pattern LogTypeTail :: LogType
+pattern LogTypeTail = LogType' "Tail"
 
 {-# COMPLETE
-  None,
-  Tail,
+  LogTypeNone,
+  LogTypeTail,
   LogType'
   #-}
 
-instance FromText LogType where
-  parser = (LogType' . mk) <$> takeText
+instance Prelude.FromText LogType where
+  parser = LogType' Prelude.<$> Prelude.takeText
 
-instance ToText LogType where
-  toText (LogType' ci) = original ci
+instance Prelude.ToText LogType where
+  toText (LogType' x) = x
 
-instance Hashable LogType
+instance Prelude.Hashable LogType
 
-instance NFData LogType
+instance Prelude.NFData LogType
 
-instance ToByteString LogType
+instance Prelude.ToByteString LogType
 
-instance ToQuery LogType
+instance Prelude.ToQuery LogType
 
-instance ToHeader LogType
+instance Prelude.ToHeader LogType
 
-instance ToJSON LogType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LogType where
+  toJSON = Prelude.toJSONText

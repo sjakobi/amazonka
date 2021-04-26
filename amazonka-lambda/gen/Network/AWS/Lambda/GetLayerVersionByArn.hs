@@ -14,7 +14,7 @@
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
--- Module      : Network.AWS.Lambda.GetLayerVersion
+-- Module      : Network.AWS.Lambda.GetLayerVersionByArn
 -- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
@@ -24,14 +24,13 @@
 -- Returns information about a version of an
 -- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer>,
 -- with a link to download the layer archive that\'s valid for 10 minutes.
-module Network.AWS.Lambda.GetLayerVersion
+module Network.AWS.Lambda.GetLayerVersionByArn
   ( -- * Creating a Request
-    GetLayerVersion (..),
-    newGetLayerVersion,
+    GetLayerVersionByArn (..),
+    newGetLayerVersionByArn,
 
     -- * Request Lenses
-    getLayerVersion_layerName,
-    getLayerVersion_versionNumber,
+    getLayerVersionByArn_arn,
 
     -- * Destructuring the Response
     GetLayerVersionResponse (..),
@@ -58,68 +57,53 @@ import qualified Network.AWS.Prelude as Prelude
 import qualified Network.AWS.Request as Request
 import qualified Network.AWS.Response as Response
 
--- | /See:/ 'newGetLayerVersion' smart constructor.
-data GetLayerVersion = GetLayerVersion'
-  { -- | The name or Amazon Resource Name (ARN) of the layer.
-    layerName :: Prelude.Text,
-    -- | The version number.
-    versionNumber :: Prelude.Integer
+-- | /See:/ 'newGetLayerVersionByArn' smart constructor.
+data GetLayerVersionByArn = GetLayerVersionByArn'
+  { -- | The ARN of the layer version.
+    arn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
 -- |
--- Create a value of 'GetLayerVersion' with all optional fields omitted.
+-- Create a value of 'GetLayerVersionByArn' with all optional fields omitted.
 --
 -- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'layerName', 'getLayerVersion_layerName' - The name or Amazon Resource Name (ARN) of the layer.
---
--- 'versionNumber', 'getLayerVersion_versionNumber' - The version number.
-newGetLayerVersion ::
-  -- | 'layerName'
+-- 'arn', 'getLayerVersionByArn_arn' - The ARN of the layer version.
+newGetLayerVersionByArn ::
+  -- | 'arn'
   Prelude.Text ->
-  -- | 'versionNumber'
-  Prelude.Integer ->
-  GetLayerVersion
-newGetLayerVersion pLayerName_ pVersionNumber_ =
-  GetLayerVersion'
-    { layerName = pLayerName_,
-      versionNumber = pVersionNumber_
-    }
+  GetLayerVersionByArn
+newGetLayerVersionByArn pArn_ =
+  GetLayerVersionByArn' {arn = pArn_}
 
--- | The name or Amazon Resource Name (ARN) of the layer.
-getLayerVersion_layerName :: Lens.Lens' GetLayerVersion Prelude.Text
-getLayerVersion_layerName = Lens.lens (\GetLayerVersion' {layerName} -> layerName) (\s@GetLayerVersion' {} a -> s {layerName = a} :: GetLayerVersion)
+-- | The ARN of the layer version.
+getLayerVersionByArn_arn :: Lens.Lens' GetLayerVersionByArn Prelude.Text
+getLayerVersionByArn_arn = Lens.lens (\GetLayerVersionByArn' {arn} -> arn) (\s@GetLayerVersionByArn' {} a -> s {arn = a} :: GetLayerVersionByArn)
 
--- | The version number.
-getLayerVersion_versionNumber :: Lens.Lens' GetLayerVersion Prelude.Integer
-getLayerVersion_versionNumber = Lens.lens (\GetLayerVersion' {versionNumber} -> versionNumber) (\s@GetLayerVersion' {} a -> s {versionNumber = a} :: GetLayerVersion)
-
-instance Prelude.AWSRequest GetLayerVersion where
-  type Rs GetLayerVersion = GetLayerVersionResponse
+instance Prelude.AWSRequest GetLayerVersionByArn where
+  type
+    Rs GetLayerVersionByArn =
+      GetLayerVersionResponse
   request = Request.get defaultService
   response =
     Response.receiveJSON
       (\s h x -> Prelude.eitherParseJSON x)
 
-instance Prelude.Hashable GetLayerVersion
+instance Prelude.Hashable GetLayerVersionByArn
 
-instance Prelude.NFData GetLayerVersion
+instance Prelude.NFData GetLayerVersionByArn
 
-instance Prelude.ToHeaders GetLayerVersion where
+instance Prelude.ToHeaders GetLayerVersionByArn where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Prelude.ToPath GetLayerVersion where
-  toPath GetLayerVersion' {..} =
-    Prelude.mconcat
-      [ "/2018-10-31/layers/",
-        Prelude.toBS layerName,
-        "/versions/",
-        Prelude.toBS versionNumber
-      ]
+instance Prelude.ToPath GetLayerVersionByArn where
+  toPath = Prelude.const "/2018-10-31/layers"
 
-instance Prelude.ToQuery GetLayerVersion where
-  toQuery = Prelude.const Prelude.mempty
+instance Prelude.ToQuery GetLayerVersionByArn where
+  toQuery GetLayerVersionByArn' {..} =
+    Prelude.mconcat
+      ["Arn" Prelude.=: arn, "find=LayerVersion"]

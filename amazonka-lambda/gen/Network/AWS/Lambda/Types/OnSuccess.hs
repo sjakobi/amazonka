@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,44 +19,51 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lambda.Types.OnSuccess where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A destination for events that were processed successfully.
 --
---
---
--- /See:/ 'onSuccess' smart constructor.
-newtype OnSuccess = OnSuccess'
-  { _osDestination ::
-      Maybe Text
+-- /See:/ 'newOnSuccess' smart constructor.
+data OnSuccess = OnSuccess'
+  { -- | The Amazon Resource Name (ARN) of the destination resource.
+    destination :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OnSuccess' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OnSuccess' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osDestination' - The Amazon Resource Name (ARN) of the destination resource.
-onSuccess ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'destination', 'onSuccess_destination' - The Amazon Resource Name (ARN) of the destination resource.
+newOnSuccess ::
   OnSuccess
-onSuccess = OnSuccess' {_osDestination = Nothing}
+newOnSuccess =
+  OnSuccess' {destination = Prelude.Nothing}
 
 -- | The Amazon Resource Name (ARN) of the destination resource.
-osDestination :: Lens' OnSuccess (Maybe Text)
-osDestination = lens _osDestination (\s a -> s {_osDestination = a})
+onSuccess_destination :: Lens.Lens' OnSuccess (Prelude.Maybe Prelude.Text)
+onSuccess_destination = Lens.lens (\OnSuccess' {destination} -> destination) (\s@OnSuccess' {} a -> s {destination = a} :: OnSuccess)
 
-instance FromJSON OnSuccess where
+instance Prelude.FromJSON OnSuccess where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OnSuccess"
-      (\x -> OnSuccess' <$> (x .:? "Destination"))
+      ( \x ->
+          OnSuccess' Prelude.<$> (x Prelude..:? "Destination")
+      )
 
-instance Hashable OnSuccess
+instance Prelude.Hashable OnSuccess
 
-instance NFData OnSuccess
+instance Prelude.NFData OnSuccess
 
-instance ToJSON OnSuccess where
+instance Prelude.ToJSON OnSuccess where
   toJSON OnSuccess' {..} =
-    object
-      (catMaybes [("Destination" .=) <$> _osDestination])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Destination" Prelude..=) Prelude.<$> destination]
+      )

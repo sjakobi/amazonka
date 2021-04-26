@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Lambda.Types.EventSourcePosition
   ( EventSourcePosition
       ( ..,
-        AtTimestamp,
-        Latest,
-        TrimHorizon
+        EventSourcePositionATTIMESTAMP,
+        EventSourcePositionLATEST,
+        EventSourcePositionTRIMHORIZON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventSourcePosition
-  = EventSourcePosition'
-      ( CI
-          Text
-      )
+newtype EventSourcePosition = EventSourcePosition'
+  { fromEventSourcePosition ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AtTimestamp :: EventSourcePosition
-pattern AtTimestamp = EventSourcePosition' "AT_TIMESTAMP"
+pattern EventSourcePositionATTIMESTAMP :: EventSourcePosition
+pattern EventSourcePositionATTIMESTAMP = EventSourcePosition' "AT_TIMESTAMP"
 
-pattern Latest :: EventSourcePosition
-pattern Latest = EventSourcePosition' "LATEST"
+pattern EventSourcePositionLATEST :: EventSourcePosition
+pattern EventSourcePositionLATEST = EventSourcePosition' "LATEST"
 
-pattern TrimHorizon :: EventSourcePosition
-pattern TrimHorizon = EventSourcePosition' "TRIM_HORIZON"
+pattern EventSourcePositionTRIMHORIZON :: EventSourcePosition
+pattern EventSourcePositionTRIMHORIZON = EventSourcePosition' "TRIM_HORIZON"
 
 {-# COMPLETE
-  AtTimestamp,
-  Latest,
-  TrimHorizon,
+  EventSourcePositionATTIMESTAMP,
+  EventSourcePositionLATEST,
+  EventSourcePositionTRIMHORIZON,
   EventSourcePosition'
   #-}
 
-instance FromText EventSourcePosition where
-  parser = (EventSourcePosition' . mk) <$> takeText
+instance Prelude.FromText EventSourcePosition where
+  parser = EventSourcePosition' Prelude.<$> Prelude.takeText
 
-instance ToText EventSourcePosition where
-  toText (EventSourcePosition' ci) = original ci
+instance Prelude.ToText EventSourcePosition where
+  toText (EventSourcePosition' x) = x
 
-instance Hashable EventSourcePosition
+instance Prelude.Hashable EventSourcePosition
 
-instance NFData EventSourcePosition
+instance Prelude.NFData EventSourcePosition
 
-instance ToByteString EventSourcePosition
+instance Prelude.ToByteString EventSourcePosition
 
-instance ToQuery EventSourcePosition
+instance Prelude.ToQuery EventSourcePosition
 
-instance ToHeader EventSourcePosition
+instance Prelude.ToHeader EventSourcePosition
 
-instance ToJSON EventSourcePosition where
-  toJSON = toJSONText
+instance Prelude.ToJSON EventSourcePosition where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EventSourcePosition where
-  parseJSON = parseJSONText "EventSourcePosition"
+instance Prelude.FromJSON EventSourcePosition where
+  parseJSON = Prelude.parseJSONText "EventSourcePosition"

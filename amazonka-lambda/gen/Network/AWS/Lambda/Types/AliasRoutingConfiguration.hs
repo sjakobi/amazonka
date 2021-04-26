@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lambda.Types.AliasRoutingConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The <https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html traffic-shifting> configuration of a Lambda function alias.
+-- | The
+-- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html traffic-shifting>
+-- configuration of a Lambda function alias.
 --
---
---
--- /See:/ 'aliasRoutingConfiguration' smart constructor.
-newtype AliasRoutingConfiguration = AliasRoutingConfiguration'
-  { _arcAdditionalVersionWeights ::
-      Maybe
-        ( Map
-            Text
-            Double
-        )
+-- /See:/ 'newAliasRoutingConfiguration' smart constructor.
+data AliasRoutingConfiguration = AliasRoutingConfiguration'
+  { -- | The second version, and the percentage of traffic that\'s routed to it.
+    additionalVersionWeights :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Double)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AliasRoutingConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AliasRoutingConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'arcAdditionalVersionWeights' - The second version, and the percentage of traffic that's routed to it.
-aliasRoutingConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'additionalVersionWeights', 'aliasRoutingConfiguration_additionalVersionWeights' - The second version, and the percentage of traffic that\'s routed to it.
+newAliasRoutingConfiguration ::
   AliasRoutingConfiguration
-aliasRoutingConfiguration =
+newAliasRoutingConfiguration =
   AliasRoutingConfiguration'
-    { _arcAdditionalVersionWeights =
-        Nothing
+    { additionalVersionWeights =
+        Prelude.Nothing
     }
 
--- | The second version, and the percentage of traffic that's routed to it.
-arcAdditionalVersionWeights :: Lens' AliasRoutingConfiguration (HashMap Text Double)
-arcAdditionalVersionWeights = lens _arcAdditionalVersionWeights (\s a -> s {_arcAdditionalVersionWeights = a}) . _Default . _Map
+-- | The second version, and the percentage of traffic that\'s routed to it.
+aliasRoutingConfiguration_additionalVersionWeights :: Lens.Lens' AliasRoutingConfiguration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Double))
+aliasRoutingConfiguration_additionalVersionWeights = Lens.lens (\AliasRoutingConfiguration' {additionalVersionWeights} -> additionalVersionWeights) (\s@AliasRoutingConfiguration' {} a -> s {additionalVersionWeights = a} :: AliasRoutingConfiguration) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON AliasRoutingConfiguration where
+instance Prelude.FromJSON AliasRoutingConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AliasRoutingConfiguration"
       ( \x ->
           AliasRoutingConfiguration'
-            <$> (x .:? "AdditionalVersionWeights" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "AdditionalVersionWeights"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AliasRoutingConfiguration
+instance Prelude.Hashable AliasRoutingConfiguration
 
-instance NFData AliasRoutingConfiguration
+instance Prelude.NFData AliasRoutingConfiguration
 
-instance ToJSON AliasRoutingConfiguration where
+instance Prelude.ToJSON AliasRoutingConfiguration where
   toJSON AliasRoutingConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("AdditionalVersionWeights" .=)
-              <$> _arcAdditionalVersionWeights
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AdditionalVersionWeights" Prelude..=)
+              Prelude.<$> additionalVersionWeights
           ]
       )

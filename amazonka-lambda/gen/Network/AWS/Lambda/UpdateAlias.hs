@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,139 +21,202 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the configuration of a Lambda function <https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html alias> .
+-- Updates the configuration of a Lambda function
+-- <https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html alias>.
 module Network.AWS.Lambda.UpdateAlias
   ( -- * Creating a Request
-    updateAlias,
-    UpdateAlias,
+    UpdateAlias (..),
+    newUpdateAlias,
 
     -- * Request Lenses
-    uaRevisionId,
-    uaRoutingConfig,
-    uaFunctionVersion,
-    uaDescription,
-    uaFunctionName,
-    uaName,
+    updateAlias_revisionId,
+    updateAlias_routingConfig,
+    updateAlias_functionVersion,
+    updateAlias_description,
+    updateAlias_functionName,
+    updateAlias_name,
 
     -- * Destructuring the Response
-    aliasConfiguration,
-    AliasConfiguration,
+    AliasConfiguration (..),
+    newAliasConfiguration,
 
     -- * Response Lenses
-    acRevisionId,
-    acRoutingConfig,
-    acFunctionVersion,
-    acName,
-    acDescription,
-    acAliasARN,
+    aliasConfiguration_revisionId,
+    aliasConfiguration_routingConfig,
+    aliasConfiguration_functionVersion,
+    aliasConfiguration_name,
+    aliasConfiguration_description,
+    aliasConfiguration_aliasArn,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.AliasConfiguration
+import Network.AWS.Lambda.Types.AliasRoutingConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateAlias' smart constructor.
+-- | /See:/ 'newUpdateAlias' smart constructor.
 data UpdateAlias = UpdateAlias'
-  { _uaRevisionId ::
-      !(Maybe Text),
-    _uaRoutingConfig ::
-      !(Maybe AliasRoutingConfiguration),
-    _uaFunctionVersion :: !(Maybe Text),
-    _uaDescription :: !(Maybe Text),
-    _uaFunctionName :: !Text,
-    _uaName :: !Text
+  { -- | Only update the alias if the revision ID matches the ID that\'s
+    -- specified. Use this option to avoid modifying an alias that has changed
+    -- since you last read it.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | The
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing routing configuration>
+    -- of the alias.
+    routingConfig :: Prelude.Maybe AliasRoutingConfiguration,
+    -- | The function version that the alias invokes.
+    functionVersion :: Prelude.Maybe Prelude.Text,
+    -- | A description of the alias.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @MyFunction@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text,
+    -- | The name of the alias.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaRevisionId' - Only update the alias if the revision ID matches the ID that's specified. Use this option to avoid modifying an alias that has changed since you last read it.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uaRoutingConfig' - The <https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing routing configuration> of the alias.
+-- 'revisionId', 'updateAlias_revisionId' - Only update the alias if the revision ID matches the ID that\'s
+-- specified. Use this option to avoid modifying an alias that has changed
+-- since you last read it.
 --
--- * 'uaFunctionVersion' - The function version that the alias invokes.
+-- 'routingConfig', 'updateAlias_routingConfig' - The
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing routing configuration>
+-- of the alias.
 --
--- * 'uaDescription' - A description of the alias.
+-- 'functionVersion', 'updateAlias_functionVersion' - The function version that the alias invokes.
 --
--- * 'uaFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
+-- 'description', 'updateAlias_description' - A description of the alias.
 --
--- * 'uaName' - The name of the alias.
-updateAlias ::
-  -- | 'uaFunctionName'
-  Text ->
-  -- | 'uaName'
-  Text ->
+-- 'functionName', 'updateAlias_functionName' - The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+--
+-- 'name', 'updateAlias_name' - The name of the alias.
+newUpdateAlias ::
+  -- | 'functionName'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   UpdateAlias
-updateAlias pFunctionName_ pName_ =
+newUpdateAlias pFunctionName_ pName_ =
   UpdateAlias'
-    { _uaRevisionId = Nothing,
-      _uaRoutingConfig = Nothing,
-      _uaFunctionVersion = Nothing,
-      _uaDescription = Nothing,
-      _uaFunctionName = pFunctionName_,
-      _uaName = pName_
+    { revisionId = Prelude.Nothing,
+      routingConfig = Prelude.Nothing,
+      functionVersion = Prelude.Nothing,
+      description = Prelude.Nothing,
+      functionName = pFunctionName_,
+      name = pName_
     }
 
--- | Only update the alias if the revision ID matches the ID that's specified. Use this option to avoid modifying an alias that has changed since you last read it.
-uaRevisionId :: Lens' UpdateAlias (Maybe Text)
-uaRevisionId = lens _uaRevisionId (\s a -> s {_uaRevisionId = a})
+-- | Only update the alias if the revision ID matches the ID that\'s
+-- specified. Use this option to avoid modifying an alias that has changed
+-- since you last read it.
+updateAlias_revisionId :: Lens.Lens' UpdateAlias (Prelude.Maybe Prelude.Text)
+updateAlias_revisionId = Lens.lens (\UpdateAlias' {revisionId} -> revisionId) (\s@UpdateAlias' {} a -> s {revisionId = a} :: UpdateAlias)
 
--- | The <https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing routing configuration> of the alias.
-uaRoutingConfig :: Lens' UpdateAlias (Maybe AliasRoutingConfiguration)
-uaRoutingConfig = lens _uaRoutingConfig (\s a -> s {_uaRoutingConfig = a})
+-- | The
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing routing configuration>
+-- of the alias.
+updateAlias_routingConfig :: Lens.Lens' UpdateAlias (Prelude.Maybe AliasRoutingConfiguration)
+updateAlias_routingConfig = Lens.lens (\UpdateAlias' {routingConfig} -> routingConfig) (\s@UpdateAlias' {} a -> s {routingConfig = a} :: UpdateAlias)
 
 -- | The function version that the alias invokes.
-uaFunctionVersion :: Lens' UpdateAlias (Maybe Text)
-uaFunctionVersion = lens _uaFunctionVersion (\s a -> s {_uaFunctionVersion = a})
+updateAlias_functionVersion :: Lens.Lens' UpdateAlias (Prelude.Maybe Prelude.Text)
+updateAlias_functionVersion = Lens.lens (\UpdateAlias' {functionVersion} -> functionVersion) (\s@UpdateAlias' {} a -> s {functionVersion = a} :: UpdateAlias)
 
 -- | A description of the alias.
-uaDescription :: Lens' UpdateAlias (Maybe Text)
-uaDescription = lens _uaDescription (\s a -> s {_uaDescription = a})
+updateAlias_description :: Lens.Lens' UpdateAlias (Prelude.Maybe Prelude.Text)
+updateAlias_description = Lens.lens (\UpdateAlias' {description} -> description) (\s@UpdateAlias' {} a -> s {description = a} :: UpdateAlias)
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-uaFunctionName :: Lens' UpdateAlias Text
-uaFunctionName = lens _uaFunctionName (\s a -> s {_uaFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+updateAlias_functionName :: Lens.Lens' UpdateAlias Prelude.Text
+updateAlias_functionName = Lens.lens (\UpdateAlias' {functionName} -> functionName) (\s@UpdateAlias' {} a -> s {functionName = a} :: UpdateAlias)
 
 -- | The name of the alias.
-uaName :: Lens' UpdateAlias Text
-uaName = lens _uaName (\s a -> s {_uaName = a})
+updateAlias_name :: Lens.Lens' UpdateAlias Prelude.Text
+updateAlias_name = Lens.lens (\UpdateAlias' {name} -> name) (\s@UpdateAlias' {} a -> s {name = a} :: UpdateAlias)
 
-instance AWSRequest UpdateAlias where
+instance Prelude.AWSRequest UpdateAlias where
   type Rs UpdateAlias = AliasConfiguration
-  request = putJSON lambda
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateAlias
+instance Prelude.Hashable UpdateAlias
 
-instance NFData UpdateAlias
+instance Prelude.NFData UpdateAlias
 
-instance ToHeaders UpdateAlias where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateAlias where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateAlias where
+instance Prelude.ToJSON UpdateAlias where
   toJSON UpdateAlias' {..} =
-    object
-      ( catMaybes
-          [ ("RevisionId" .=) <$> _uaRevisionId,
-            ("RoutingConfig" .=) <$> _uaRoutingConfig,
-            ("FunctionVersion" .=) <$> _uaFunctionVersion,
-            ("Description" .=) <$> _uaDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RevisionId" Prelude..=) Prelude.<$> revisionId,
+            ("RoutingConfig" Prelude..=)
+              Prelude.<$> routingConfig,
+            ("FunctionVersion" Prelude..=)
+              Prelude.<$> functionVersion,
+            ("Description" Prelude..=) Prelude.<$> description
           ]
       )
 
-instance ToPath UpdateAlias where
+instance Prelude.ToPath UpdateAlias where
   toPath UpdateAlias' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-03-31/functions/",
-        toBS _uaFunctionName,
+        Prelude.toBS functionName,
         "/aliases/",
-        toBS _uaName
+        Prelude.toBS name
       ]
 
-instance ToQuery UpdateAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateAlias where
+  toQuery = Prelude.const Prelude.mempty

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,108 +19,110 @@
 module Network.AWS.Lambda.Types.StateReasonCode
   ( StateReasonCode
       ( ..,
-        SRCCreating,
-        SRCEniLimitExceeded,
-        SRCIdle,
-        SRCImageAccessDenied,
-        SRCImageDeleted,
-        SRCInsufficientRolePermissions,
-        SRCInternalError,
-        SRCInvalidConfiguration,
-        SRCInvalidImage,
-        SRCInvalidSecurityGroup,
-        SRCInvalidSubnet,
-        SRCRestoring,
-        SRCSubnetOutOfIPAddresses
+        StateReasonCodeCreating,
+        StateReasonCodeEniLimitExceeded,
+        StateReasonCodeIdle,
+        StateReasonCodeImageAccessDenied,
+        StateReasonCodeImageDeleted,
+        StateReasonCodeInsufficientRolePermissions,
+        StateReasonCodeInternalError,
+        StateReasonCodeInvalidConfiguration,
+        StateReasonCodeInvalidImage,
+        StateReasonCodeInvalidSecurityGroup,
+        StateReasonCodeInvalidSubnet,
+        StateReasonCodeRestoring,
+        StateReasonCodeSubnetOutOfIPAddresses
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StateReasonCode = StateReasonCode' (CI Text)
+newtype StateReasonCode = StateReasonCode'
+  { fromStateReasonCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SRCCreating :: StateReasonCode
-pattern SRCCreating = StateReasonCode' "Creating"
+pattern StateReasonCodeCreating :: StateReasonCode
+pattern StateReasonCodeCreating = StateReasonCode' "Creating"
 
-pattern SRCEniLimitExceeded :: StateReasonCode
-pattern SRCEniLimitExceeded = StateReasonCode' "EniLimitExceeded"
+pattern StateReasonCodeEniLimitExceeded :: StateReasonCode
+pattern StateReasonCodeEniLimitExceeded = StateReasonCode' "EniLimitExceeded"
 
-pattern SRCIdle :: StateReasonCode
-pattern SRCIdle = StateReasonCode' "Idle"
+pattern StateReasonCodeIdle :: StateReasonCode
+pattern StateReasonCodeIdle = StateReasonCode' "Idle"
 
-pattern SRCImageAccessDenied :: StateReasonCode
-pattern SRCImageAccessDenied = StateReasonCode' "ImageAccessDenied"
+pattern StateReasonCodeImageAccessDenied :: StateReasonCode
+pattern StateReasonCodeImageAccessDenied = StateReasonCode' "ImageAccessDenied"
 
-pattern SRCImageDeleted :: StateReasonCode
-pattern SRCImageDeleted = StateReasonCode' "ImageDeleted"
+pattern StateReasonCodeImageDeleted :: StateReasonCode
+pattern StateReasonCodeImageDeleted = StateReasonCode' "ImageDeleted"
 
-pattern SRCInsufficientRolePermissions :: StateReasonCode
-pattern SRCInsufficientRolePermissions = StateReasonCode' "InsufficientRolePermissions"
+pattern StateReasonCodeInsufficientRolePermissions :: StateReasonCode
+pattern StateReasonCodeInsufficientRolePermissions = StateReasonCode' "InsufficientRolePermissions"
 
-pattern SRCInternalError :: StateReasonCode
-pattern SRCInternalError = StateReasonCode' "InternalError"
+pattern StateReasonCodeInternalError :: StateReasonCode
+pattern StateReasonCodeInternalError = StateReasonCode' "InternalError"
 
-pattern SRCInvalidConfiguration :: StateReasonCode
-pattern SRCInvalidConfiguration = StateReasonCode' "InvalidConfiguration"
+pattern StateReasonCodeInvalidConfiguration :: StateReasonCode
+pattern StateReasonCodeInvalidConfiguration = StateReasonCode' "InvalidConfiguration"
 
-pattern SRCInvalidImage :: StateReasonCode
-pattern SRCInvalidImage = StateReasonCode' "InvalidImage"
+pattern StateReasonCodeInvalidImage :: StateReasonCode
+pattern StateReasonCodeInvalidImage = StateReasonCode' "InvalidImage"
 
-pattern SRCInvalidSecurityGroup :: StateReasonCode
-pattern SRCInvalidSecurityGroup = StateReasonCode' "InvalidSecurityGroup"
+pattern StateReasonCodeInvalidSecurityGroup :: StateReasonCode
+pattern StateReasonCodeInvalidSecurityGroup = StateReasonCode' "InvalidSecurityGroup"
 
-pattern SRCInvalidSubnet :: StateReasonCode
-pattern SRCInvalidSubnet = StateReasonCode' "InvalidSubnet"
+pattern StateReasonCodeInvalidSubnet :: StateReasonCode
+pattern StateReasonCodeInvalidSubnet = StateReasonCode' "InvalidSubnet"
 
-pattern SRCRestoring :: StateReasonCode
-pattern SRCRestoring = StateReasonCode' "Restoring"
+pattern StateReasonCodeRestoring :: StateReasonCode
+pattern StateReasonCodeRestoring = StateReasonCode' "Restoring"
 
-pattern SRCSubnetOutOfIPAddresses :: StateReasonCode
-pattern SRCSubnetOutOfIPAddresses = StateReasonCode' "SubnetOutOfIPAddresses"
+pattern StateReasonCodeSubnetOutOfIPAddresses :: StateReasonCode
+pattern StateReasonCodeSubnetOutOfIPAddresses = StateReasonCode' "SubnetOutOfIPAddresses"
 
 {-# COMPLETE
-  SRCCreating,
-  SRCEniLimitExceeded,
-  SRCIdle,
-  SRCImageAccessDenied,
-  SRCImageDeleted,
-  SRCInsufficientRolePermissions,
-  SRCInternalError,
-  SRCInvalidConfiguration,
-  SRCInvalidImage,
-  SRCInvalidSecurityGroup,
-  SRCInvalidSubnet,
-  SRCRestoring,
-  SRCSubnetOutOfIPAddresses,
+  StateReasonCodeCreating,
+  StateReasonCodeEniLimitExceeded,
+  StateReasonCodeIdle,
+  StateReasonCodeImageAccessDenied,
+  StateReasonCodeImageDeleted,
+  StateReasonCodeInsufficientRolePermissions,
+  StateReasonCodeInternalError,
+  StateReasonCodeInvalidConfiguration,
+  StateReasonCodeInvalidImage,
+  StateReasonCodeInvalidSecurityGroup,
+  StateReasonCodeInvalidSubnet,
+  StateReasonCodeRestoring,
+  StateReasonCodeSubnetOutOfIPAddresses,
   StateReasonCode'
   #-}
 
-instance FromText StateReasonCode where
-  parser = (StateReasonCode' . mk) <$> takeText
+instance Prelude.FromText StateReasonCode where
+  parser = StateReasonCode' Prelude.<$> Prelude.takeText
 
-instance ToText StateReasonCode where
-  toText (StateReasonCode' ci) = original ci
+instance Prelude.ToText StateReasonCode where
+  toText (StateReasonCode' x) = x
 
-instance Hashable StateReasonCode
+instance Prelude.Hashable StateReasonCode
 
-instance NFData StateReasonCode
+instance Prelude.NFData StateReasonCode
 
-instance ToByteString StateReasonCode
+instance Prelude.ToByteString StateReasonCode
 
-instance ToQuery StateReasonCode
+instance Prelude.ToQuery StateReasonCode
 
-instance ToHeader StateReasonCode
+instance Prelude.ToHeader StateReasonCode
 
-instance FromJSON StateReasonCode where
-  parseJSON = parseJSONText "StateReasonCode"
+instance Prelude.FromJSON StateReasonCode where
+  parseJSON = Prelude.parseJSONText "StateReasonCode"

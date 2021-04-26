@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,68 @@
 module Network.AWS.Lambda.Types.LayersListItem where
 
 import Network.AWS.Lambda.Types.LayerVersionsListItem
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about an <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer> .
+-- | Details about an
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer>.
 --
---
---
--- /See:/ 'layersListItem' smart constructor.
+-- /See:/ 'newLayersListItem' smart constructor.
 data LayersListItem = LayersListItem'
-  { _lliLayerARN ::
-      !(Maybe Text),
-    _lliLayerName :: !(Maybe Text),
-    _lliLatestMatchingVersion ::
-      !(Maybe LayerVersionsListItem)
+  { -- | The Amazon Resource Name (ARN) of the function layer.
+    layerArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the layer.
+    layerName :: Prelude.Maybe Prelude.Text,
+    -- | The newest version of the layer.
+    latestMatchingVersion :: Prelude.Maybe LayerVersionsListItem
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LayersListItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LayersListItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lliLayerARN' - The Amazon Resource Name (ARN) of the function layer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lliLayerName' - The name of the layer.
+-- 'layerArn', 'layersListItem_layerArn' - The Amazon Resource Name (ARN) of the function layer.
 --
--- * 'lliLatestMatchingVersion' - The newest version of the layer.
-layersListItem ::
+-- 'layerName', 'layersListItem_layerName' - The name of the layer.
+--
+-- 'latestMatchingVersion', 'layersListItem_latestMatchingVersion' - The newest version of the layer.
+newLayersListItem ::
   LayersListItem
-layersListItem =
+newLayersListItem =
   LayersListItem'
-    { _lliLayerARN = Nothing,
-      _lliLayerName = Nothing,
-      _lliLatestMatchingVersion = Nothing
+    { layerArn = Prelude.Nothing,
+      layerName = Prelude.Nothing,
+      latestMatchingVersion = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the function layer.
-lliLayerARN :: Lens' LayersListItem (Maybe Text)
-lliLayerARN = lens _lliLayerARN (\s a -> s {_lliLayerARN = a})
+layersListItem_layerArn :: Lens.Lens' LayersListItem (Prelude.Maybe Prelude.Text)
+layersListItem_layerArn = Lens.lens (\LayersListItem' {layerArn} -> layerArn) (\s@LayersListItem' {} a -> s {layerArn = a} :: LayersListItem)
 
 -- | The name of the layer.
-lliLayerName :: Lens' LayersListItem (Maybe Text)
-lliLayerName = lens _lliLayerName (\s a -> s {_lliLayerName = a})
+layersListItem_layerName :: Lens.Lens' LayersListItem (Prelude.Maybe Prelude.Text)
+layersListItem_layerName = Lens.lens (\LayersListItem' {layerName} -> layerName) (\s@LayersListItem' {} a -> s {layerName = a} :: LayersListItem)
 
 -- | The newest version of the layer.
-lliLatestMatchingVersion :: Lens' LayersListItem (Maybe LayerVersionsListItem)
-lliLatestMatchingVersion = lens _lliLatestMatchingVersion (\s a -> s {_lliLatestMatchingVersion = a})
+layersListItem_latestMatchingVersion :: Lens.Lens' LayersListItem (Prelude.Maybe LayerVersionsListItem)
+layersListItem_latestMatchingVersion = Lens.lens (\LayersListItem' {latestMatchingVersion} -> latestMatchingVersion) (\s@LayersListItem' {} a -> s {latestMatchingVersion = a} :: LayersListItem)
 
-instance FromJSON LayersListItem where
+instance Prelude.FromJSON LayersListItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LayersListItem"
       ( \x ->
           LayersListItem'
-            <$> (x .:? "LayerArn")
-            <*> (x .:? "LayerName")
-            <*> (x .:? "LatestMatchingVersion")
+            Prelude.<$> (x Prelude..:? "LayerArn")
+            Prelude.<*> (x Prelude..:? "LayerName")
+            Prelude.<*> (x Prelude..:? "LatestMatchingVersion")
       )
 
-instance Hashable LayersListItem
+instance Prelude.Hashable LayersListItem
 
-instance NFData LayersListItem
+instance Prelude.NFData LayersListItem

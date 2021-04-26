@@ -11,14 +11,19 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Lambda__
+-- AWS Lambda
 --
 -- __Overview__
 --
--- This is the /AWS Lambda API Reference/ . The AWS Lambda Developer Guide provides additional information. For the service overview, see <https://docs.aws.amazon.com/lambda/latest/dg/welcome.html What is AWS Lambda> , and for information about how the service works, see <https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html AWS Lambda: How it Works> in the __AWS Lambda Developer Guide__ .
+-- This is the /AWS Lambda API Reference/. The AWS Lambda Developer Guide
+-- provides additional information. For the service overview, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/welcome.html What is AWS Lambda>,
+-- and for information about how the service works, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html AWS Lambda: How it Works>
+-- in the __AWS Lambda Developer Guide__.
 module Network.AWS.Lambda
   ( -- * Service Configuration
-    lambda,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -53,14 +58,14 @@ module Network.AWS.Lambda
     -- ** EC2AccessDeniedException
     _EC2AccessDeniedException,
 
-    -- ** InvalidSubnetIdException
-    _InvalidSubnetIdException,
+    -- ** InvalidSubnetIDException
+    _InvalidSubnetIDException,
 
     -- ** EFSMountFailureException
     _EFSMountFailureException,
 
-    -- ** InvalidSecurityGroupIdException
-    _InvalidSecurityGroupIdException,
+    -- ** InvalidSecurityGroupIDException
+    _InvalidSecurityGroupIDException,
 
     -- ** EC2ThrottledException
     _EC2ThrottledException,
@@ -129,187 +134,358 @@ module Network.AWS.Lambda
     -- $waiters
 
     -- ** FunctionUpdated
-    functionUpdated,
+    newFunctionUpdated,
 
     -- ** FunctionExists
-    functionExists,
+    newFunctionExists,
 
     -- ** FunctionActive
-    functionActive,
+    newFunctionActive,
 
     -- * Operations
     -- $operations
 
     -- ** DeleteAlias
-    module Network.AWS.Lambda.DeleteAlias,
+    DeleteAlias (DeleteAlias'),
+    newDeleteAlias,
+    DeleteAliasResponse (DeleteAliasResponse'),
+    newDeleteAliasResponse,
 
     -- ** PutFunctionCodeSigningConfig
-    module Network.AWS.Lambda.PutFunctionCodeSigningConfig,
+    PutFunctionCodeSigningConfig (PutFunctionCodeSigningConfig'),
+    newPutFunctionCodeSigningConfig,
+    PutFunctionCodeSigningConfigResponse (PutFunctionCodeSigningConfigResponse'),
+    newPutFunctionCodeSigningConfigResponse,
 
     -- ** GetLayerVersionPolicy
-    module Network.AWS.Lambda.GetLayerVersionPolicy,
+    GetLayerVersionPolicy (GetLayerVersionPolicy'),
+    newGetLayerVersionPolicy,
+    GetLayerVersionPolicyResponse (GetLayerVersionPolicyResponse'),
+    newGetLayerVersionPolicyResponse,
 
     -- ** UpdateAlias
-    module Network.AWS.Lambda.UpdateAlias,
+    UpdateAlias (UpdateAlias'),
+    newUpdateAlias,
+    AliasConfiguration (AliasConfiguration'),
+    newAliasConfiguration,
 
     -- ** GetFunctionConfiguration
-    module Network.AWS.Lambda.GetFunctionConfiguration,
+    GetFunctionConfiguration (GetFunctionConfiguration'),
+    newGetFunctionConfiguration,
+    FunctionConfiguration (FunctionConfiguration'),
+    newFunctionConfiguration,
 
     -- ** UpdateEventSourceMapping
-    module Network.AWS.Lambda.UpdateEventSourceMapping,
+    UpdateEventSourceMapping (UpdateEventSourceMapping'),
+    newUpdateEventSourceMapping,
+    EventSourceMappingConfiguration (EventSourceMappingConfiguration'),
+    newEventSourceMappingConfiguration,
 
     -- ** GetFunction
-    module Network.AWS.Lambda.GetFunction,
+    GetFunction (GetFunction'),
+    newGetFunction,
+    GetFunctionResponse (GetFunctionResponse'),
+    newGetFunctionResponse,
 
     -- ** ListEventSourceMappings (Paginated)
-    module Network.AWS.Lambda.ListEventSourceMappings,
+    ListEventSourceMappings (ListEventSourceMappings'),
+    newListEventSourceMappings,
+    ListEventSourceMappingsResponse (ListEventSourceMappingsResponse'),
+    newListEventSourceMappingsResponse,
 
     -- ** DeleteEventSourceMapping
-    module Network.AWS.Lambda.DeleteEventSourceMapping,
+    DeleteEventSourceMapping (DeleteEventSourceMapping'),
+    newDeleteEventSourceMapping,
+    EventSourceMappingConfiguration (EventSourceMappingConfiguration'),
+    newEventSourceMappingConfiguration,
 
-    -- ** GetLayerVersionByARN
-    module Network.AWS.Lambda.GetLayerVersionByARN,
+    -- ** GetLayerVersionByArn
+    GetLayerVersionByArn (GetLayerVersionByArn'),
+    newGetLayerVersionByArn,
+    GetLayerVersionResponse (GetLayerVersionResponse'),
+    newGetLayerVersionResponse,
 
     -- ** GetFunctionConcurrency
-    module Network.AWS.Lambda.GetFunctionConcurrency,
+    GetFunctionConcurrency (GetFunctionConcurrency'),
+    newGetFunctionConcurrency,
+    GetFunctionConcurrencyResponse (GetFunctionConcurrencyResponse'),
+    newGetFunctionConcurrencyResponse,
 
     -- ** CreateEventSourceMapping
-    module Network.AWS.Lambda.CreateEventSourceMapping,
+    CreateEventSourceMapping (CreateEventSourceMapping'),
+    newCreateEventSourceMapping,
+    EventSourceMappingConfiguration (EventSourceMappingConfiguration'),
+    newEventSourceMappingConfiguration,
 
     -- ** DeleteFunctionConcurrency
-    module Network.AWS.Lambda.DeleteFunctionConcurrency,
+    DeleteFunctionConcurrency (DeleteFunctionConcurrency'),
+    newDeleteFunctionConcurrency,
+    DeleteFunctionConcurrencyResponse (DeleteFunctionConcurrencyResponse'),
+    newDeleteFunctionConcurrencyResponse,
 
     -- ** ListProvisionedConcurrencyConfigs (Paginated)
-    module Network.AWS.Lambda.ListProvisionedConcurrencyConfigs,
+    ListProvisionedConcurrencyConfigs (ListProvisionedConcurrencyConfigs'),
+    newListProvisionedConcurrencyConfigs,
+    ListProvisionedConcurrencyConfigsResponse (ListProvisionedConcurrencyConfigsResponse'),
+    newListProvisionedConcurrencyConfigsResponse,
 
     -- ** DeleteProvisionedConcurrencyConfig
-    module Network.AWS.Lambda.DeleteProvisionedConcurrencyConfig,
+    DeleteProvisionedConcurrencyConfig (DeleteProvisionedConcurrencyConfig'),
+    newDeleteProvisionedConcurrencyConfig,
+    DeleteProvisionedConcurrencyConfigResponse (DeleteProvisionedConcurrencyConfigResponse'),
+    newDeleteProvisionedConcurrencyConfigResponse,
 
     -- ** UpdateFunctionCode
-    module Network.AWS.Lambda.UpdateFunctionCode,
+    UpdateFunctionCode (UpdateFunctionCode'),
+    newUpdateFunctionCode,
+    FunctionConfiguration (FunctionConfiguration'),
+    newFunctionConfiguration,
 
     -- ** UpdateFunctionConfiguration
-    module Network.AWS.Lambda.UpdateFunctionConfiguration,
+    UpdateFunctionConfiguration (UpdateFunctionConfiguration'),
+    newUpdateFunctionConfiguration,
+    FunctionConfiguration (FunctionConfiguration'),
+    newFunctionConfiguration,
 
     -- ** UntagResource
-    module Network.AWS.Lambda.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** ListFunctions (Paginated)
-    module Network.AWS.Lambda.ListFunctions,
+    ListFunctions (ListFunctions'),
+    newListFunctions,
+    ListFunctionsResponse (ListFunctionsResponse'),
+    newListFunctionsResponse,
 
     -- ** ListLayerVersions (Paginated)
-    module Network.AWS.Lambda.ListLayerVersions,
+    ListLayerVersions (ListLayerVersions'),
+    newListLayerVersions,
+    ListLayerVersionsResponse (ListLayerVersionsResponse'),
+    newListLayerVersionsResponse,
 
     -- ** Invoke
-    module Network.AWS.Lambda.Invoke,
+    Invoke (Invoke'),
+    newInvoke,
+    InvokeResponse (InvokeResponse'),
+    newInvokeResponse,
 
     -- ** DeleteLayerVersion
-    module Network.AWS.Lambda.DeleteLayerVersion,
+    DeleteLayerVersion (DeleteLayerVersion'),
+    newDeleteLayerVersion,
+    DeleteLayerVersionResponse (DeleteLayerVersionResponse'),
+    newDeleteLayerVersionResponse,
 
     -- ** CreateCodeSigningConfig
-    module Network.AWS.Lambda.CreateCodeSigningConfig,
+    CreateCodeSigningConfig (CreateCodeSigningConfig'),
+    newCreateCodeSigningConfig,
+    CreateCodeSigningConfigResponse (CreateCodeSigningConfigResponse'),
+    newCreateCodeSigningConfigResponse,
 
     -- ** TagResource
-    module Network.AWS.Lambda.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** GetAlias
-    module Network.AWS.Lambda.GetAlias,
+    GetAlias (GetAlias'),
+    newGetAlias,
+    AliasConfiguration (AliasConfiguration'),
+    newAliasConfiguration,
 
     -- ** DeleteCodeSigningConfig
-    module Network.AWS.Lambda.DeleteCodeSigningConfig,
+    DeleteCodeSigningConfig (DeleteCodeSigningConfig'),
+    newDeleteCodeSigningConfig,
+    DeleteCodeSigningConfigResponse (DeleteCodeSigningConfigResponse'),
+    newDeleteCodeSigningConfigResponse,
 
     -- ** UpdateCodeSigningConfig
-    module Network.AWS.Lambda.UpdateCodeSigningConfig,
+    UpdateCodeSigningConfig (UpdateCodeSigningConfig'),
+    newUpdateCodeSigningConfig,
+    UpdateCodeSigningConfigResponse (UpdateCodeSigningConfigResponse'),
+    newUpdateCodeSigningConfigResponse,
 
     -- ** ListCodeSigningConfigs (Paginated)
-    module Network.AWS.Lambda.ListCodeSigningConfigs,
+    ListCodeSigningConfigs (ListCodeSigningConfigs'),
+    newListCodeSigningConfigs,
+    ListCodeSigningConfigsResponse (ListCodeSigningConfigsResponse'),
+    newListCodeSigningConfigsResponse,
 
     -- ** DeleteFunctionEventInvokeConfig
-    module Network.AWS.Lambda.DeleteFunctionEventInvokeConfig,
+    DeleteFunctionEventInvokeConfig (DeleteFunctionEventInvokeConfig'),
+    newDeleteFunctionEventInvokeConfig,
+    DeleteFunctionEventInvokeConfigResponse (DeleteFunctionEventInvokeConfigResponse'),
+    newDeleteFunctionEventInvokeConfigResponse,
 
     -- ** UpdateFunctionEventInvokeConfig
-    module Network.AWS.Lambda.UpdateFunctionEventInvokeConfig,
+    UpdateFunctionEventInvokeConfig (UpdateFunctionEventInvokeConfig'),
+    newUpdateFunctionEventInvokeConfig,
+    FunctionEventInvokeConfig (FunctionEventInvokeConfig'),
+    newFunctionEventInvokeConfig,
 
     -- ** ListFunctionEventInvokeConfigs (Paginated)
-    module Network.AWS.Lambda.ListFunctionEventInvokeConfigs,
+    ListFunctionEventInvokeConfigs (ListFunctionEventInvokeConfigs'),
+    newListFunctionEventInvokeConfigs,
+    ListFunctionEventInvokeConfigsResponse (ListFunctionEventInvokeConfigsResponse'),
+    newListFunctionEventInvokeConfigsResponse,
 
     -- ** ListVersionsByFunction (Paginated)
-    module Network.AWS.Lambda.ListVersionsByFunction,
+    ListVersionsByFunction (ListVersionsByFunction'),
+    newListVersionsByFunction,
+    ListVersionsByFunctionResponse (ListVersionsByFunctionResponse'),
+    newListVersionsByFunctionResponse,
 
     -- ** AddPermission
-    module Network.AWS.Lambda.AddPermission,
+    AddPermission (AddPermission'),
+    newAddPermission,
+    AddPermissionResponse (AddPermissionResponse'),
+    newAddPermissionResponse,
 
     -- ** GetLayerVersion
-    module Network.AWS.Lambda.GetLayerVersion,
+    GetLayerVersion (GetLayerVersion'),
+    newGetLayerVersion,
+    GetLayerVersionResponse (GetLayerVersionResponse'),
+    newGetLayerVersionResponse,
 
     -- ** DeleteFunctionCodeSigningConfig
-    module Network.AWS.Lambda.DeleteFunctionCodeSigningConfig,
+    DeleteFunctionCodeSigningConfig (DeleteFunctionCodeSigningConfig'),
+    newDeleteFunctionCodeSigningConfig,
+    DeleteFunctionCodeSigningConfigResponse (DeleteFunctionCodeSigningConfigResponse'),
+    newDeleteFunctionCodeSigningConfigResponse,
 
     -- ** ListFunctionsByCodeSigningConfig (Paginated)
-    module Network.AWS.Lambda.ListFunctionsByCodeSigningConfig,
+    ListFunctionsByCodeSigningConfig (ListFunctionsByCodeSigningConfig'),
+    newListFunctionsByCodeSigningConfig,
+    ListFunctionsByCodeSigningConfigResponse (ListFunctionsByCodeSigningConfigResponse'),
+    newListFunctionsByCodeSigningConfigResponse,
 
     -- ** RemoveLayerVersionPermission
-    module Network.AWS.Lambda.RemoveLayerVersionPermission,
+    RemoveLayerVersionPermission (RemoveLayerVersionPermission'),
+    newRemoveLayerVersionPermission,
+    RemoveLayerVersionPermissionResponse (RemoveLayerVersionPermissionResponse'),
+    newRemoveLayerVersionPermissionResponse,
 
     -- ** GetProvisionedConcurrencyConfig
-    module Network.AWS.Lambda.GetProvisionedConcurrencyConfig,
+    GetProvisionedConcurrencyConfig (GetProvisionedConcurrencyConfig'),
+    newGetProvisionedConcurrencyConfig,
+    GetProvisionedConcurrencyConfigResponse (GetProvisionedConcurrencyConfigResponse'),
+    newGetProvisionedConcurrencyConfigResponse,
 
     -- ** CreateFunction
-    module Network.AWS.Lambda.CreateFunction,
+    CreateFunction (CreateFunction'),
+    newCreateFunction,
+    FunctionConfiguration (FunctionConfiguration'),
+    newFunctionConfiguration,
 
     -- ** PutFunctionConcurrency
-    module Network.AWS.Lambda.PutFunctionConcurrency,
+    PutFunctionConcurrency (PutFunctionConcurrency'),
+    newPutFunctionConcurrency,
+    Concurrency (Concurrency'),
+    newConcurrency,
 
     -- ** GetPolicy
-    module Network.AWS.Lambda.GetPolicy,
+    GetPolicy (GetPolicy'),
+    newGetPolicy,
+    GetPolicyResponse (GetPolicyResponse'),
+    newGetPolicyResponse,
 
     -- ** PutProvisionedConcurrencyConfig
-    module Network.AWS.Lambda.PutProvisionedConcurrencyConfig,
+    PutProvisionedConcurrencyConfig (PutProvisionedConcurrencyConfig'),
+    newPutProvisionedConcurrencyConfig,
+    PutProvisionedConcurrencyConfigResponse (PutProvisionedConcurrencyConfigResponse'),
+    newPutProvisionedConcurrencyConfigResponse,
 
     -- ** AddLayerVersionPermission
-    module Network.AWS.Lambda.AddLayerVersionPermission,
+    AddLayerVersionPermission (AddLayerVersionPermission'),
+    newAddLayerVersionPermission,
+    AddLayerVersionPermissionResponse (AddLayerVersionPermissionResponse'),
+    newAddLayerVersionPermissionResponse,
 
     -- ** PublishVersion
-    module Network.AWS.Lambda.PublishVersion,
+    PublishVersion (PublishVersion'),
+    newPublishVersion,
+    FunctionConfiguration (FunctionConfiguration'),
+    newFunctionConfiguration,
 
     -- ** DeleteFunction
-    module Network.AWS.Lambda.DeleteFunction,
+    DeleteFunction (DeleteFunction'),
+    newDeleteFunction,
+    DeleteFunctionResponse (DeleteFunctionResponse'),
+    newDeleteFunctionResponse,
 
     -- ** GetEventSourceMapping
-    module Network.AWS.Lambda.GetEventSourceMapping,
+    GetEventSourceMapping (GetEventSourceMapping'),
+    newGetEventSourceMapping,
+    EventSourceMappingConfiguration (EventSourceMappingConfiguration'),
+    newEventSourceMappingConfiguration,
 
     -- ** ListTags
-    module Network.AWS.Lambda.ListTags,
+    ListTags (ListTags'),
+    newListTags,
+    ListTagsResponse (ListTagsResponse'),
+    newListTagsResponse,
 
     -- ** PublishLayerVersion
-    module Network.AWS.Lambda.PublishLayerVersion,
+    PublishLayerVersion (PublishLayerVersion'),
+    newPublishLayerVersion,
+    PublishLayerVersionResponse (PublishLayerVersionResponse'),
+    newPublishLayerVersionResponse,
 
     -- ** GetFunctionCodeSigningConfig
-    module Network.AWS.Lambda.GetFunctionCodeSigningConfig,
+    GetFunctionCodeSigningConfig (GetFunctionCodeSigningConfig'),
+    newGetFunctionCodeSigningConfig,
+    GetFunctionCodeSigningConfigResponse (GetFunctionCodeSigningConfigResponse'),
+    newGetFunctionCodeSigningConfigResponse,
 
     -- ** PutFunctionEventInvokeConfig
-    module Network.AWS.Lambda.PutFunctionEventInvokeConfig,
+    PutFunctionEventInvokeConfig (PutFunctionEventInvokeConfig'),
+    newPutFunctionEventInvokeConfig,
+    FunctionEventInvokeConfig (FunctionEventInvokeConfig'),
+    newFunctionEventInvokeConfig,
 
     -- ** RemovePermission
-    module Network.AWS.Lambda.RemovePermission,
+    RemovePermission (RemovePermission'),
+    newRemovePermission,
+    RemovePermissionResponse (RemovePermissionResponse'),
+    newRemovePermissionResponse,
 
     -- ** CreateAlias
-    module Network.AWS.Lambda.CreateAlias,
+    CreateAlias (CreateAlias'),
+    newCreateAlias,
+    AliasConfiguration (AliasConfiguration'),
+    newAliasConfiguration,
 
     -- ** GetCodeSigningConfig
-    module Network.AWS.Lambda.GetCodeSigningConfig,
+    GetCodeSigningConfig (GetCodeSigningConfig'),
+    newGetCodeSigningConfig,
+    GetCodeSigningConfigResponse (GetCodeSigningConfigResponse'),
+    newGetCodeSigningConfigResponse,
 
     -- ** GetFunctionEventInvokeConfig
-    module Network.AWS.Lambda.GetFunctionEventInvokeConfig,
+    GetFunctionEventInvokeConfig (GetFunctionEventInvokeConfig'),
+    newGetFunctionEventInvokeConfig,
+    FunctionEventInvokeConfig (FunctionEventInvokeConfig'),
+    newFunctionEventInvokeConfig,
 
     -- ** ListLayers (Paginated)
-    module Network.AWS.Lambda.ListLayers,
+    ListLayers (ListLayers'),
+    newListLayers,
+    ListLayersResponse (ListLayersResponse'),
+    newListLayersResponse,
 
     -- ** ListAliases (Paginated)
-    module Network.AWS.Lambda.ListAliases,
+    ListAliases (ListAliases'),
+    newListAliases,
+    ListAliasesResponse (ListAliasesResponse'),
+    newListAliasesResponse,
 
     -- ** GetAccountSettings
-    module Network.AWS.Lambda.GetAccountSettings,
+    GetAccountSettings (GetAccountSettings'),
+    newGetAccountSettings,
+    GetAccountSettingsResponse (GetAccountSettingsResponse'),
+    newGetAccountSettingsResponse,
 
     -- * Types
 
@@ -362,308 +538,152 @@ module Network.AWS.Lambda
     TracingMode (..),
 
     -- ** AccountLimit
-    AccountLimit,
-    accountLimit,
-    alCodeSizeUnzipped,
-    alConcurrentExecutions,
-    alUnreservedConcurrentExecutions,
-    alCodeSizeZipped,
-    alTotalCodeSize,
+    AccountLimit (AccountLimit'),
+    newAccountLimit,
 
     -- ** AccountUsage
-    AccountUsage,
-    accountUsage,
-    auFunctionCount,
-    auTotalCodeSize,
+    AccountUsage (AccountUsage'),
+    newAccountUsage,
 
     -- ** AliasConfiguration
-    AliasConfiguration,
-    aliasConfiguration,
-    acRevisionId,
-    acRoutingConfig,
-    acFunctionVersion,
-    acName,
-    acDescription,
-    acAliasARN,
+    AliasConfiguration (AliasConfiguration'),
+    newAliasConfiguration,
 
     -- ** AliasRoutingConfiguration
-    AliasRoutingConfiguration,
-    aliasRoutingConfiguration,
-    arcAdditionalVersionWeights,
+    AliasRoutingConfiguration (AliasRoutingConfiguration'),
+    newAliasRoutingConfiguration,
 
     -- ** AllowedPublishers
-    AllowedPublishers,
-    allowedPublishers,
-    apSigningProfileVersionARNs,
+    AllowedPublishers (AllowedPublishers'),
+    newAllowedPublishers,
 
     -- ** CodeSigningConfig
-    CodeSigningConfig,
-    codeSigningConfig,
-    cscDescription,
-    cscCodeSigningConfigId,
-    cscCodeSigningConfigARN,
-    cscAllowedPublishers,
-    cscCodeSigningPolicies,
-    cscLastModified,
+    CodeSigningConfig (CodeSigningConfig'),
+    newCodeSigningConfig,
 
     -- ** CodeSigningPolicies
-    CodeSigningPolicies,
-    codeSigningPolicies,
-    cspUntrustedArtifactOnDeployment,
+    CodeSigningPolicies (CodeSigningPolicies'),
+    newCodeSigningPolicies,
 
     -- ** Concurrency
-    Concurrency,
-    concurrency,
-    cReservedConcurrentExecutions,
+    Concurrency (Concurrency'),
+    newConcurrency,
 
     -- ** DeadLetterConfig
-    DeadLetterConfig,
-    deadLetterConfig,
-    dlcTargetARN,
+    DeadLetterConfig (DeadLetterConfig'),
+    newDeadLetterConfig,
 
     -- ** DestinationConfig
-    DestinationConfig,
-    destinationConfig,
-    dcOnFailure,
-    dcOnSuccess,
+    DestinationConfig (DestinationConfig'),
+    newDestinationConfig,
 
     -- ** Environment
-    Environment,
-    environment,
-    eVariables,
+    Environment (Environment'),
+    newEnvironment,
 
     -- ** EnvironmentError
-    EnvironmentError,
-    environmentError,
-    eeMessage,
-    eeErrorCode,
+    EnvironmentError (EnvironmentError'),
+    newEnvironmentError,
 
     -- ** EnvironmentResponse
-    EnvironmentResponse,
-    environmentResponse,
-    erVariables,
-    erError,
+    EnvironmentResponse (EnvironmentResponse'),
+    newEnvironmentResponse,
 
     -- ** EventSourceMappingConfiguration
-    EventSourceMappingConfiguration,
-    eventSourceMappingConfiguration,
-    esmcEventSourceARN,
-    esmcStateTransitionReason,
-    esmcLastProcessingResult,
-    esmcTopics,
-    esmcMaximumRecordAgeInSeconds,
-    esmcFunctionResponseTypes,
-    esmcQueues,
-    esmcTumblingWindowInSeconds,
-    esmcFunctionARN,
-    esmcStartingPositionTimestamp,
-    esmcState,
-    esmcMaximumBatchingWindowInSeconds,
-    esmcBatchSize,
-    esmcStartingPosition,
-    esmcDestinationConfig,
-    esmcMaximumRetryAttempts,
-    esmcLastModified,
-    esmcParallelizationFactor,
-    esmcSelfManagedEventSource,
-    esmcUUId,
-    esmcBisectBatchOnFunctionError,
-    esmcSourceAccessConfigurations,
+    EventSourceMappingConfiguration (EventSourceMappingConfiguration'),
+    newEventSourceMappingConfiguration,
 
     -- ** FileSystemConfig
-    FileSystemConfig,
-    fileSystemConfig,
-    fscARN,
-    fscLocalMountPath,
+    FileSystemConfig (FileSystemConfig'),
+    newFileSystemConfig,
 
     -- ** FunctionCode
-    FunctionCode,
-    functionCode,
-    fcImageURI,
-    fcS3Bucket,
-    fcZipFile,
-    fcS3ObjectVersion,
-    fcS3Key,
+    FunctionCode (FunctionCode'),
+    newFunctionCode,
 
     -- ** FunctionCodeLocation
-    FunctionCodeLocation,
-    functionCodeLocation,
-    fclImageURI,
-    fclResolvedImageURI,
-    fclLocation,
-    fclRepositoryType,
+    FunctionCodeLocation (FunctionCodeLocation'),
+    newFunctionCodeLocation,
 
     -- ** FunctionConfiguration
-    FunctionConfiguration,
-    functionConfiguration,
-    fcSigningProfileVersionARN,
-    fcLastUpdateStatus,
-    fcVPCConfig,
-    fcMemorySize,
-    fcMasterARN,
-    fcRevisionId,
-    fcLastUpdateStatusReasonCode,
-    fcCodeSha256,
-    fcStateReason,
-    fcTimeout,
-    fcHandler,
-    fcDeadLetterConfig,
-    fcFunctionName,
-    fcEnvironment,
-    fcVersion,
-    fcFunctionARN,
-    fcState,
-    fcKMSKeyARN,
-    fcRuntime,
-    fcRole,
-    fcSigningJobARN,
-    fcStateReasonCode,
-    fcImageConfigResponse,
-    fcTracingConfig,
-    fcDescription,
-    fcLastModified,
-    fcLastUpdateStatusReason,
-    fcLayers,
-    fcCodeSize,
-    fcFileSystemConfigs,
-    fcPackageType,
+    FunctionConfiguration (FunctionConfiguration'),
+    newFunctionConfiguration,
 
     -- ** FunctionEventInvokeConfig
-    FunctionEventInvokeConfig,
-    functionEventInvokeConfig,
-    feicMaximumEventAgeInSeconds,
-    feicFunctionARN,
-    feicDestinationConfig,
-    feicMaximumRetryAttempts,
-    feicLastModified,
+    FunctionEventInvokeConfig (FunctionEventInvokeConfig'),
+    newFunctionEventInvokeConfig,
 
     -- ** GetLayerVersionResponse
-    GetLayerVersionResponse,
-    getLayerVersionResponse,
-    glvrCreatedDate,
-    glvrLayerARN,
-    glvrVersion,
-    glvrLayerVersionARN,
-    glvrContent,
-    glvrCompatibleRuntimes,
-    glvrDescription,
-    glvrLicenseInfo,
+    GetLayerVersionResponse (GetLayerVersionResponse'),
+    newGetLayerVersionResponse,
 
     -- ** ImageConfig
-    ImageConfig,
-    imageConfig,
-    icWorkingDirectory,
-    icEntryPoint,
-    icCommand,
+    ImageConfig (ImageConfig'),
+    newImageConfig,
 
     -- ** ImageConfigError
-    ImageConfigError,
-    imageConfigError,
-    iceMessage,
-    iceErrorCode,
+    ImageConfigError (ImageConfigError'),
+    newImageConfigError,
 
     -- ** ImageConfigResponse
-    ImageConfigResponse,
-    imageConfigResponse,
-    icrImageConfig,
-    icrError,
+    ImageConfigResponse (ImageConfigResponse'),
+    newImageConfigResponse,
 
     -- ** Layer
-    Layer,
-    layer,
-    lSigningProfileVersionARN,
-    lARN,
-    lSigningJobARN,
-    lCodeSize,
+    Layer (Layer'),
+    newLayer,
 
     -- ** LayerVersionContentInput
-    LayerVersionContentInput,
-    layerVersionContentInput,
-    lvciS3Bucket,
-    lvciZipFile,
-    lvciS3ObjectVersion,
-    lvciS3Key,
+    LayerVersionContentInput (LayerVersionContentInput'),
+    newLayerVersionContentInput,
 
     -- ** LayerVersionContentOutput
-    LayerVersionContentOutput,
-    layerVersionContentOutput,
-    lvcoSigningProfileVersionARN,
-    lvcoCodeSha256,
-    lvcoSigningJobARN,
-    lvcoCodeSize,
-    lvcoLocation,
+    LayerVersionContentOutput (LayerVersionContentOutput'),
+    newLayerVersionContentOutput,
 
     -- ** LayerVersionsListItem
-    LayerVersionsListItem,
-    layerVersionsListItem,
-    lvliCreatedDate,
-    lvliVersion,
-    lvliLayerVersionARN,
-    lvliCompatibleRuntimes,
-    lvliDescription,
-    lvliLicenseInfo,
+    LayerVersionsListItem (LayerVersionsListItem'),
+    newLayerVersionsListItem,
 
     -- ** LayersListItem
-    LayersListItem,
-    layersListItem,
-    lliLayerARN,
-    lliLayerName,
-    lliLatestMatchingVersion,
+    LayersListItem (LayersListItem'),
+    newLayersListItem,
 
     -- ** OnFailure
-    OnFailure,
-    onFailure,
-    ofDestination,
+    OnFailure (OnFailure'),
+    newOnFailure,
 
     -- ** OnSuccess
-    OnSuccess,
-    onSuccess,
-    osDestination,
+    OnSuccess (OnSuccess'),
+    newOnSuccess,
 
     -- ** ProvisionedConcurrencyConfigListItem
-    ProvisionedConcurrencyConfigListItem,
-    provisionedConcurrencyConfigListItem,
-    pccliStatus,
-    pccliAvailableProvisionedConcurrentExecutions,
-    pccliRequestedProvisionedConcurrentExecutions,
-    pccliFunctionARN,
-    pccliAllocatedProvisionedConcurrentExecutions,
-    pccliLastModified,
-    pccliStatusReason,
+    ProvisionedConcurrencyConfigListItem (ProvisionedConcurrencyConfigListItem'),
+    newProvisionedConcurrencyConfigListItem,
 
     -- ** SelfManagedEventSource
-    SelfManagedEventSource,
-    selfManagedEventSource,
-    smesEndpoints,
+    SelfManagedEventSource (SelfManagedEventSource'),
+    newSelfManagedEventSource,
 
     -- ** SourceAccessConfiguration
-    SourceAccessConfiguration,
-    sourceAccessConfiguration,
-    sacURI,
-    sacType,
+    SourceAccessConfiguration (SourceAccessConfiguration'),
+    newSourceAccessConfiguration,
 
     -- ** TracingConfig
-    TracingConfig,
-    tracingConfig,
-    tcMode,
+    TracingConfig (TracingConfig'),
+    newTracingConfig,
 
     -- ** TracingConfigResponse
-    TracingConfigResponse,
-    tracingConfigResponse,
-    tcrMode,
+    TracingConfigResponse (TracingConfigResponse'),
+    newTracingConfigResponse,
 
-    -- ** VPCConfig
-    VPCConfig,
-    vpcConfig,
-    vcSecurityGroupIds,
-    vcSubnetIds,
+    -- ** VpcConfig
+    VpcConfig (VpcConfig'),
+    newVpcConfig,
 
-    -- ** VPCConfigResponse
-    VPCConfigResponse,
-    vpcConfigResponse,
-    vcrSecurityGroupIds,
-    vcrSubnetIds,
-    vcrVPCId,
+    -- ** VpcConfigResponse
+    VpcConfigResponse (VpcConfigResponse'),
+    newVpcConfigResponse,
   )
 where
 
@@ -692,11 +712,12 @@ import Network.AWS.Lambda.GetFunctionConcurrency
 import Network.AWS.Lambda.GetFunctionConfiguration
 import Network.AWS.Lambda.GetFunctionEventInvokeConfig
 import Network.AWS.Lambda.GetLayerVersion
-import Network.AWS.Lambda.GetLayerVersionByARN
+import Network.AWS.Lambda.GetLayerVersionByArn
 import Network.AWS.Lambda.GetLayerVersionPolicy
 import Network.AWS.Lambda.GetPolicy
 import Network.AWS.Lambda.GetProvisionedConcurrencyConfig
 import Network.AWS.Lambda.Invoke
+import Network.AWS.Lambda.Lens
 import Network.AWS.Lambda.ListAliases
 import Network.AWS.Lambda.ListCodeSigningConfigs
 import Network.AWS.Lambda.ListEventSourceMappings

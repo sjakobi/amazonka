@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Lambda.Types.CodeSigningPolicy
   ( CodeSigningPolicy
       ( ..,
-        Enforce,
-        Warn
+        CodeSigningPolicyEnforce,
+        CodeSigningPolicyWarn
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CodeSigningPolicy = CodeSigningPolicy' (CI Text)
+newtype CodeSigningPolicy = CodeSigningPolicy'
+  { fromCodeSigningPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Enforce :: CodeSigningPolicy
-pattern Enforce = CodeSigningPolicy' "Enforce"
+pattern CodeSigningPolicyEnforce :: CodeSigningPolicy
+pattern CodeSigningPolicyEnforce = CodeSigningPolicy' "Enforce"
 
-pattern Warn :: CodeSigningPolicy
-pattern Warn = CodeSigningPolicy' "Warn"
+pattern CodeSigningPolicyWarn :: CodeSigningPolicy
+pattern CodeSigningPolicyWarn = CodeSigningPolicy' "Warn"
 
 {-# COMPLETE
-  Enforce,
-  Warn,
+  CodeSigningPolicyEnforce,
+  CodeSigningPolicyWarn,
   CodeSigningPolicy'
   #-}
 
-instance FromText CodeSigningPolicy where
-  parser = (CodeSigningPolicy' . mk) <$> takeText
+instance Prelude.FromText CodeSigningPolicy where
+  parser = CodeSigningPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText CodeSigningPolicy where
-  toText (CodeSigningPolicy' ci) = original ci
+instance Prelude.ToText CodeSigningPolicy where
+  toText (CodeSigningPolicy' x) = x
 
-instance Hashable CodeSigningPolicy
+instance Prelude.Hashable CodeSigningPolicy
 
-instance NFData CodeSigningPolicy
+instance Prelude.NFData CodeSigningPolicy
 
-instance ToByteString CodeSigningPolicy
+instance Prelude.ToByteString CodeSigningPolicy
 
-instance ToQuery CodeSigningPolicy
+instance Prelude.ToQuery CodeSigningPolicy
 
-instance ToHeader CodeSigningPolicy
+instance Prelude.ToHeader CodeSigningPolicy
 
-instance ToJSON CodeSigningPolicy where
-  toJSON = toJSONText
+instance Prelude.ToJSON CodeSigningPolicy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CodeSigningPolicy where
-  parseJSON = parseJSONText "CodeSigningPolicy"
+instance Prelude.FromJSON CodeSigningPolicy where
+  parseJSON = Prelude.parseJSONText "CodeSigningPolicy"

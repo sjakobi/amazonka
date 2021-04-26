@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,47 +20,45 @@
 module Network.AWS.Lambda.Types.TracingConfigResponse where
 
 import Network.AWS.Lambda.Types.TracingMode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The function's AWS X-Ray tracing configuration.
+-- | The function\'s AWS X-Ray tracing configuration.
 --
---
---
--- /See:/ 'tracingConfigResponse' smart constructor.
-newtype TracingConfigResponse = TracingConfigResponse'
-  { _tcrMode ::
-      Maybe TracingMode
+-- /See:/ 'newTracingConfigResponse' smart constructor.
+data TracingConfigResponse = TracingConfigResponse'
+  { -- | The tracing mode.
+    mode :: Prelude.Maybe TracingMode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TracingConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TracingConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcrMode' - The tracing mode.
-tracingConfigResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'mode', 'tracingConfigResponse_mode' - The tracing mode.
+newTracingConfigResponse ::
   TracingConfigResponse
-tracingConfigResponse =
-  TracingConfigResponse' {_tcrMode = Nothing}
+newTracingConfigResponse =
+  TracingConfigResponse' {mode = Prelude.Nothing}
 
 -- | The tracing mode.
-tcrMode :: Lens' TracingConfigResponse (Maybe TracingMode)
-tcrMode = lens _tcrMode (\s a -> s {_tcrMode = a})
+tracingConfigResponse_mode :: Lens.Lens' TracingConfigResponse (Prelude.Maybe TracingMode)
+tracingConfigResponse_mode = Lens.lens (\TracingConfigResponse' {mode} -> mode) (\s@TracingConfigResponse' {} a -> s {mode = a} :: TracingConfigResponse)
 
-instance FromJSON TracingConfigResponse where
+instance Prelude.FromJSON TracingConfigResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TracingConfigResponse"
-      (\x -> TracingConfigResponse' <$> (x .:? "Mode"))
+      ( \x ->
+          TracingConfigResponse'
+            Prelude.<$> (x Prelude..:? "Mode")
+      )
 
-instance Hashable TracingConfigResponse
+instance Prelude.Hashable TracingConfigResponse
 
-instance NFData TracingConfigResponse
+instance Prelude.NFData TracingConfigResponse

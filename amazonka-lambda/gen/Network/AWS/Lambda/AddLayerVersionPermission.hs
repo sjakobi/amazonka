@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,241 +21,253 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds permissions to the resource-based policy of a version of an <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer> . Use this action to grant layer usage permission to other accounts. You can grant permission to a single account, all AWS accounts, or all accounts in an organization.
+-- Adds permissions to the resource-based policy of a version of an
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer>.
+-- Use this action to grant layer usage permission to other accounts. You
+-- can grant permission to a single account, all AWS accounts, or all
+-- accounts in an organization.
 --
---
--- To revoke permission, call 'RemoveLayerVersionPermission' with the statement ID that you specified when you added it.
+-- To revoke permission, call RemoveLayerVersionPermission with the
+-- statement ID that you specified when you added it.
 module Network.AWS.Lambda.AddLayerVersionPermission
   ( -- * Creating a Request
-    addLayerVersionPermission,
-    AddLayerVersionPermission,
+    AddLayerVersionPermission (..),
+    newAddLayerVersionPermission,
 
     -- * Request Lenses
-    alvpRevisionId,
-    alvpOrganizationId,
-    alvpLayerName,
-    alvpVersionNumber,
-    alvpStatementId,
-    alvpAction,
-    alvpPrincipal,
+    addLayerVersionPermission_revisionId,
+    addLayerVersionPermission_organizationId,
+    addLayerVersionPermission_layerName,
+    addLayerVersionPermission_versionNumber,
+    addLayerVersionPermission_statementId,
+    addLayerVersionPermission_action,
+    addLayerVersionPermission_principal,
 
     -- * Destructuring the Response
-    addLayerVersionPermissionResponse,
-    AddLayerVersionPermissionResponse,
+    AddLayerVersionPermissionResponse (..),
+    newAddLayerVersionPermissionResponse,
 
     -- * Response Lenses
-    alvprrsRevisionId,
-    alvprrsStatement,
-    alvprrsResponseStatus,
+    addLayerVersionPermissionResponse_revisionId,
+    addLayerVersionPermissionResponse_statement,
+    addLayerVersionPermissionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addLayerVersionPermission' smart constructor.
+-- | /See:/ 'newAddLayerVersionPermission' smart constructor.
 data AddLayerVersionPermission = AddLayerVersionPermission'
-  { _alvpRevisionId ::
-      !(Maybe Text),
-    _alvpOrganizationId ::
-      !(Maybe Text),
-    _alvpLayerName ::
-      !Text,
-    _alvpVersionNumber ::
-      !Integer,
-    _alvpStatementId ::
-      !Text,
-    _alvpAction ::
-      !Text,
-    _alvpPrincipal ::
-      !Text
+  { -- | Only update the policy if the revision ID matches the ID specified. Use
+    -- this option to avoid modifying a policy that has changed since you last
+    -- read it.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | With the principal set to @*@, grant permission to all accounts in the
+    -- specified organization.
+    organizationId :: Prelude.Maybe Prelude.Text,
+    -- | The name or Amazon Resource Name (ARN) of the layer.
+    layerName :: Prelude.Text,
+    -- | The version number.
+    versionNumber :: Prelude.Integer,
+    -- | An identifier that distinguishes the policy from others on the same
+    -- layer version.
+    statementId :: Prelude.Text,
+    -- | The API action that grants access to the layer. For example,
+    -- @lambda:GetLayerVersion@.
+    action :: Prelude.Text,
+    -- | An account ID, or @*@ to grant permission to all AWS accounts.
+    principal :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddLayerVersionPermission' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddLayerVersionPermission' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'alvpRevisionId' - Only update the policy if the revision ID matches the ID specified. Use this option to avoid modifying a policy that has changed since you last read it.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'alvpOrganizationId' - With the principal set to @*@ , grant permission to all accounts in the specified organization.
+-- 'revisionId', 'addLayerVersionPermission_revisionId' - Only update the policy if the revision ID matches the ID specified. Use
+-- this option to avoid modifying a policy that has changed since you last
+-- read it.
 --
--- * 'alvpLayerName' - The name or Amazon Resource Name (ARN) of the layer.
+-- 'organizationId', 'addLayerVersionPermission_organizationId' - With the principal set to @*@, grant permission to all accounts in the
+-- specified organization.
 --
--- * 'alvpVersionNumber' - The version number.
+-- 'layerName', 'addLayerVersionPermission_layerName' - The name or Amazon Resource Name (ARN) of the layer.
 --
--- * 'alvpStatementId' - An identifier that distinguishes the policy from others on the same layer version.
+-- 'versionNumber', 'addLayerVersionPermission_versionNumber' - The version number.
 --
--- * 'alvpAction' - The API action that grants access to the layer. For example, @lambda:GetLayerVersion@ .
+-- 'statementId', 'addLayerVersionPermission_statementId' - An identifier that distinguishes the policy from others on the same
+-- layer version.
 --
--- * 'alvpPrincipal' - An account ID, or @*@ to grant permission to all AWS accounts.
-addLayerVersionPermission ::
-  -- | 'alvpLayerName'
-  Text ->
-  -- | 'alvpVersionNumber'
-  Integer ->
-  -- | 'alvpStatementId'
-  Text ->
-  -- | 'alvpAction'
-  Text ->
-  -- | 'alvpPrincipal'
-  Text ->
+-- 'action', 'addLayerVersionPermission_action' - The API action that grants access to the layer. For example,
+-- @lambda:GetLayerVersion@.
+--
+-- 'principal', 'addLayerVersionPermission_principal' - An account ID, or @*@ to grant permission to all AWS accounts.
+newAddLayerVersionPermission ::
+  -- | 'layerName'
+  Prelude.Text ->
+  -- | 'versionNumber'
+  Prelude.Integer ->
+  -- | 'statementId'
+  Prelude.Text ->
+  -- | 'action'
+  Prelude.Text ->
+  -- | 'principal'
+  Prelude.Text ->
   AddLayerVersionPermission
-addLayerVersionPermission
+newAddLayerVersionPermission
   pLayerName_
   pVersionNumber_
   pStatementId_
   pAction_
   pPrincipal_ =
     AddLayerVersionPermission'
-      { _alvpRevisionId =
-          Nothing,
-        _alvpOrganizationId = Nothing,
-        _alvpLayerName = pLayerName_,
-        _alvpVersionNumber = pVersionNumber_,
-        _alvpStatementId = pStatementId_,
-        _alvpAction = pAction_,
-        _alvpPrincipal = pPrincipal_
+      { revisionId =
+          Prelude.Nothing,
+        organizationId = Prelude.Nothing,
+        layerName = pLayerName_,
+        versionNumber = pVersionNumber_,
+        statementId = pStatementId_,
+        action = pAction_,
+        principal = pPrincipal_
       }
 
--- | Only update the policy if the revision ID matches the ID specified. Use this option to avoid modifying a policy that has changed since you last read it.
-alvpRevisionId :: Lens' AddLayerVersionPermission (Maybe Text)
-alvpRevisionId = lens _alvpRevisionId (\s a -> s {_alvpRevisionId = a})
+-- | Only update the policy if the revision ID matches the ID specified. Use
+-- this option to avoid modifying a policy that has changed since you last
+-- read it.
+addLayerVersionPermission_revisionId :: Lens.Lens' AddLayerVersionPermission (Prelude.Maybe Prelude.Text)
+addLayerVersionPermission_revisionId = Lens.lens (\AddLayerVersionPermission' {revisionId} -> revisionId) (\s@AddLayerVersionPermission' {} a -> s {revisionId = a} :: AddLayerVersionPermission)
 
--- | With the principal set to @*@ , grant permission to all accounts in the specified organization.
-alvpOrganizationId :: Lens' AddLayerVersionPermission (Maybe Text)
-alvpOrganizationId = lens _alvpOrganizationId (\s a -> s {_alvpOrganizationId = a})
+-- | With the principal set to @*@, grant permission to all accounts in the
+-- specified organization.
+addLayerVersionPermission_organizationId :: Lens.Lens' AddLayerVersionPermission (Prelude.Maybe Prelude.Text)
+addLayerVersionPermission_organizationId = Lens.lens (\AddLayerVersionPermission' {organizationId} -> organizationId) (\s@AddLayerVersionPermission' {} a -> s {organizationId = a} :: AddLayerVersionPermission)
 
 -- | The name or Amazon Resource Name (ARN) of the layer.
-alvpLayerName :: Lens' AddLayerVersionPermission Text
-alvpLayerName = lens _alvpLayerName (\s a -> s {_alvpLayerName = a})
+addLayerVersionPermission_layerName :: Lens.Lens' AddLayerVersionPermission Prelude.Text
+addLayerVersionPermission_layerName = Lens.lens (\AddLayerVersionPermission' {layerName} -> layerName) (\s@AddLayerVersionPermission' {} a -> s {layerName = a} :: AddLayerVersionPermission)
 
 -- | The version number.
-alvpVersionNumber :: Lens' AddLayerVersionPermission Integer
-alvpVersionNumber = lens _alvpVersionNumber (\s a -> s {_alvpVersionNumber = a})
+addLayerVersionPermission_versionNumber :: Lens.Lens' AddLayerVersionPermission Prelude.Integer
+addLayerVersionPermission_versionNumber = Lens.lens (\AddLayerVersionPermission' {versionNumber} -> versionNumber) (\s@AddLayerVersionPermission' {} a -> s {versionNumber = a} :: AddLayerVersionPermission)
 
--- | An identifier that distinguishes the policy from others on the same layer version.
-alvpStatementId :: Lens' AddLayerVersionPermission Text
-alvpStatementId = lens _alvpStatementId (\s a -> s {_alvpStatementId = a})
+-- | An identifier that distinguishes the policy from others on the same
+-- layer version.
+addLayerVersionPermission_statementId :: Lens.Lens' AddLayerVersionPermission Prelude.Text
+addLayerVersionPermission_statementId = Lens.lens (\AddLayerVersionPermission' {statementId} -> statementId) (\s@AddLayerVersionPermission' {} a -> s {statementId = a} :: AddLayerVersionPermission)
 
--- | The API action that grants access to the layer. For example, @lambda:GetLayerVersion@ .
-alvpAction :: Lens' AddLayerVersionPermission Text
-alvpAction = lens _alvpAction (\s a -> s {_alvpAction = a})
+-- | The API action that grants access to the layer. For example,
+-- @lambda:GetLayerVersion@.
+addLayerVersionPermission_action :: Lens.Lens' AddLayerVersionPermission Prelude.Text
+addLayerVersionPermission_action = Lens.lens (\AddLayerVersionPermission' {action} -> action) (\s@AddLayerVersionPermission' {} a -> s {action = a} :: AddLayerVersionPermission)
 
 -- | An account ID, or @*@ to grant permission to all AWS accounts.
-alvpPrincipal :: Lens' AddLayerVersionPermission Text
-alvpPrincipal = lens _alvpPrincipal (\s a -> s {_alvpPrincipal = a})
+addLayerVersionPermission_principal :: Lens.Lens' AddLayerVersionPermission Prelude.Text
+addLayerVersionPermission_principal = Lens.lens (\AddLayerVersionPermission' {principal} -> principal) (\s@AddLayerVersionPermission' {} a -> s {principal = a} :: AddLayerVersionPermission)
 
-instance AWSRequest AddLayerVersionPermission where
+instance Prelude.AWSRequest AddLayerVersionPermission where
   type
     Rs AddLayerVersionPermission =
       AddLayerVersionPermissionResponse
-  request = postJSON lambda
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AddLayerVersionPermissionResponse'
-            <$> (x .?> "RevisionId")
-            <*> (x .?> "Statement")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RevisionId")
+            Prelude.<*> (x Prelude..?> "Statement")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AddLayerVersionPermission
+instance Prelude.Hashable AddLayerVersionPermission
 
-instance NFData AddLayerVersionPermission
+instance Prelude.NFData AddLayerVersionPermission
 
-instance ToHeaders AddLayerVersionPermission where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AddLayerVersionPermission where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON AddLayerVersionPermission where
+instance Prelude.ToJSON AddLayerVersionPermission where
   toJSON AddLayerVersionPermission' {..} =
-    object
-      ( catMaybes
-          [ ("OrganizationId" .=) <$> _alvpOrganizationId,
-            Just ("StatementId" .= _alvpStatementId),
-            Just ("Action" .= _alvpAction),
-            Just ("Principal" .= _alvpPrincipal)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OrganizationId" Prelude..=)
+              Prelude.<$> organizationId,
+            Prelude.Just ("StatementId" Prelude..= statementId),
+            Prelude.Just ("Action" Prelude..= action),
+            Prelude.Just ("Principal" Prelude..= principal)
           ]
       )
 
-instance ToPath AddLayerVersionPermission where
+instance Prelude.ToPath AddLayerVersionPermission where
   toPath AddLayerVersionPermission' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2018-10-31/layers/",
-        toBS _alvpLayerName,
+        Prelude.toBS layerName,
         "/versions/",
-        toBS _alvpVersionNumber,
+        Prelude.toBS versionNumber,
         "/policy"
       ]
 
-instance ToQuery AddLayerVersionPermission where
+instance Prelude.ToQuery AddLayerVersionPermission where
   toQuery AddLayerVersionPermission' {..} =
-    mconcat ["RevisionId" =: _alvpRevisionId]
+    Prelude.mconcat
+      ["RevisionId" Prelude.=: revisionId]
 
--- | /See:/ 'addLayerVersionPermissionResponse' smart constructor.
+-- | /See:/ 'newAddLayerVersionPermissionResponse' smart constructor.
 data AddLayerVersionPermissionResponse = AddLayerVersionPermissionResponse'
-  { _alvprrsRevisionId ::
-      !( Maybe
-           Text
-       ),
-    _alvprrsStatement ::
-      !( Maybe
-           Text
-       ),
-    _alvprrsResponseStatus ::
-      !Int
+  { -- | A unique identifier for the current revision of the policy.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | The permission statement.
+    statement :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddLayerVersionPermissionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddLayerVersionPermissionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'alvprrsRevisionId' - A unique identifier for the current revision of the policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'alvprrsStatement' - The permission statement.
+-- 'revisionId', 'addLayerVersionPermissionResponse_revisionId' - A unique identifier for the current revision of the policy.
 --
--- * 'alvprrsResponseStatus' - -- | The response status code.
-addLayerVersionPermissionResponse ::
-  -- | 'alvprrsResponseStatus'
-  Int ->
+-- 'statement', 'addLayerVersionPermissionResponse_statement' - The permission statement.
+--
+-- 'httpStatus', 'addLayerVersionPermissionResponse_httpStatus' - The response's http status code.
+newAddLayerVersionPermissionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddLayerVersionPermissionResponse
-addLayerVersionPermissionResponse pResponseStatus_ =
+newAddLayerVersionPermissionResponse pHttpStatus_ =
   AddLayerVersionPermissionResponse'
-    { _alvprrsRevisionId =
-        Nothing,
-      _alvprrsStatement = Nothing,
-      _alvprrsResponseStatus =
-        pResponseStatus_
+    { revisionId =
+        Prelude.Nothing,
+      statement = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A unique identifier for the current revision of the policy.
-alvprrsRevisionId :: Lens' AddLayerVersionPermissionResponse (Maybe Text)
-alvprrsRevisionId = lens _alvprrsRevisionId (\s a -> s {_alvprrsRevisionId = a})
+addLayerVersionPermissionResponse_revisionId :: Lens.Lens' AddLayerVersionPermissionResponse (Prelude.Maybe Prelude.Text)
+addLayerVersionPermissionResponse_revisionId = Lens.lens (\AddLayerVersionPermissionResponse' {revisionId} -> revisionId) (\s@AddLayerVersionPermissionResponse' {} a -> s {revisionId = a} :: AddLayerVersionPermissionResponse)
 
 -- | The permission statement.
-alvprrsStatement :: Lens' AddLayerVersionPermissionResponse (Maybe Text)
-alvprrsStatement = lens _alvprrsStatement (\s a -> s {_alvprrsStatement = a})
+addLayerVersionPermissionResponse_statement :: Lens.Lens' AddLayerVersionPermissionResponse (Prelude.Maybe Prelude.Text)
+addLayerVersionPermissionResponse_statement = Lens.lens (\AddLayerVersionPermissionResponse' {statement} -> statement) (\s@AddLayerVersionPermissionResponse' {} a -> s {statement = a} :: AddLayerVersionPermissionResponse)
 
--- | -- | The response status code.
-alvprrsResponseStatus :: Lens' AddLayerVersionPermissionResponse Int
-alvprrsResponseStatus = lens _alvprrsResponseStatus (\s a -> s {_alvprrsResponseStatus = a})
+-- | The response's http status code.
+addLayerVersionPermissionResponse_httpStatus :: Lens.Lens' AddLayerVersionPermissionResponse Prelude.Int
+addLayerVersionPermissionResponse_httpStatus = Lens.lens (\AddLayerVersionPermissionResponse' {httpStatus} -> httpStatus) (\s@AddLayerVersionPermissionResponse' {} a -> s {httpStatus = a} :: AddLayerVersionPermissionResponse)
 
-instance NFData AddLayerVersionPermissionResponse
+instance
+  Prelude.NFData
+    AddLayerVersionPermissionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lambda.Types.EnvironmentError where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Error messages for environment variables that couldn't be applied.
+-- | Error messages for environment variables that couldn\'t be applied.
 --
---
---
--- /See:/ 'environmentError' smart constructor.
+-- /See:/ 'newEnvironmentError' smart constructor.
 data EnvironmentError = EnvironmentError'
-  { _eeMessage ::
-      !(Maybe (Sensitive Text)),
-    _eeErrorCode :: !(Maybe Text)
+  { -- | The error message.
+    message :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The error code.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnvironmentError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnvironmentError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eeMessage' - The error message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eeErrorCode' - The error code.
-environmentError ::
+-- 'message', 'environmentError_message' - The error message.
+--
+-- 'errorCode', 'environmentError_errorCode' - The error code.
+newEnvironmentError ::
   EnvironmentError
-environmentError =
+newEnvironmentError =
   EnvironmentError'
-    { _eeMessage = Nothing,
-      _eeErrorCode = Nothing
+    { message = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The error message.
-eeMessage :: Lens' EnvironmentError (Maybe Text)
-eeMessage = lens _eeMessage (\s a -> s {_eeMessage = a}) . mapping _Sensitive
+environmentError_message :: Lens.Lens' EnvironmentError (Prelude.Maybe Prelude.Text)
+environmentError_message = Lens.lens (\EnvironmentError' {message} -> message) (\s@EnvironmentError' {} a -> s {message = a} :: EnvironmentError) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The error code.
-eeErrorCode :: Lens' EnvironmentError (Maybe Text)
-eeErrorCode = lens _eeErrorCode (\s a -> s {_eeErrorCode = a})
+environmentError_errorCode :: Lens.Lens' EnvironmentError (Prelude.Maybe Prelude.Text)
+environmentError_errorCode = Lens.lens (\EnvironmentError' {errorCode} -> errorCode) (\s@EnvironmentError' {} a -> s {errorCode = a} :: EnvironmentError)
 
-instance FromJSON EnvironmentError where
+instance Prelude.FromJSON EnvironmentError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EnvironmentError"
       ( \x ->
           EnvironmentError'
-            <$> (x .:? "Message") <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable EnvironmentError
+instance Prelude.Hashable EnvironmentError
 
-instance NFData EnvironmentError
+instance Prelude.NFData EnvironmentError

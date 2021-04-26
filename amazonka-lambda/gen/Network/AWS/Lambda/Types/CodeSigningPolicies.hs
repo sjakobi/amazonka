@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,73 @@
 module Network.AWS.Lambda.Types.CodeSigningPolicies where
 
 import Network.AWS.Lambda.Types.CodeSigningPolicy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Code signing configuration policies specifies the validation failure action for signature mismatch or expiry.
+-- | Code signing configuration policies specifies the validation failure
+-- action for signature mismatch or expiry.
 --
---
---
--- /See:/ 'codeSigningPolicies' smart constructor.
-newtype CodeSigningPolicies = CodeSigningPolicies'
-  { _cspUntrustedArtifactOnDeployment ::
-      Maybe CodeSigningPolicy
+-- /See:/ 'newCodeSigningPolicies' smart constructor.
+data CodeSigningPolicies = CodeSigningPolicies'
+  { -- | Code signing configuration policy for deployment validation failure. If
+    -- you set the policy to @Enforce@, Lambda blocks the deployment request if
+    -- signature validation checks fail. If you set the policy to @Warn@,
+    -- Lambda allows the deployment and creates a CloudWatch log.
+    --
+    -- Default value: @Warn@
+    untrustedArtifactOnDeployment :: Prelude.Maybe CodeSigningPolicy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CodeSigningPolicies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CodeSigningPolicies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cspUntrustedArtifactOnDeployment' - Code signing configuration policy for deployment validation failure. If you set the policy to @Enforce@ , Lambda blocks the deployment request if signature validation checks fail. If you set the policy to @Warn@ , Lambda allows the deployment and creates a CloudWatch log.  Default value: @Warn@
-codeSigningPolicies ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'untrustedArtifactOnDeployment', 'codeSigningPolicies_untrustedArtifactOnDeployment' - Code signing configuration policy for deployment validation failure. If
+-- you set the policy to @Enforce@, Lambda blocks the deployment request if
+-- signature validation checks fail. If you set the policy to @Warn@,
+-- Lambda allows the deployment and creates a CloudWatch log.
+--
+-- Default value: @Warn@
+newCodeSigningPolicies ::
   CodeSigningPolicies
-codeSigningPolicies =
+newCodeSigningPolicies =
   CodeSigningPolicies'
-    { _cspUntrustedArtifactOnDeployment =
-        Nothing
+    { untrustedArtifactOnDeployment =
+        Prelude.Nothing
     }
 
--- | Code signing configuration policy for deployment validation failure. If you set the policy to @Enforce@ , Lambda blocks the deployment request if signature validation checks fail. If you set the policy to @Warn@ , Lambda allows the deployment and creates a CloudWatch log.  Default value: @Warn@
-cspUntrustedArtifactOnDeployment :: Lens' CodeSigningPolicies (Maybe CodeSigningPolicy)
-cspUntrustedArtifactOnDeployment = lens _cspUntrustedArtifactOnDeployment (\s a -> s {_cspUntrustedArtifactOnDeployment = a})
+-- | Code signing configuration policy for deployment validation failure. If
+-- you set the policy to @Enforce@, Lambda blocks the deployment request if
+-- signature validation checks fail. If you set the policy to @Warn@,
+-- Lambda allows the deployment and creates a CloudWatch log.
+--
+-- Default value: @Warn@
+codeSigningPolicies_untrustedArtifactOnDeployment :: Lens.Lens' CodeSigningPolicies (Prelude.Maybe CodeSigningPolicy)
+codeSigningPolicies_untrustedArtifactOnDeployment = Lens.lens (\CodeSigningPolicies' {untrustedArtifactOnDeployment} -> untrustedArtifactOnDeployment) (\s@CodeSigningPolicies' {} a -> s {untrustedArtifactOnDeployment = a} :: CodeSigningPolicies)
 
-instance FromJSON CodeSigningPolicies where
+instance Prelude.FromJSON CodeSigningPolicies where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CodeSigningPolicies"
       ( \x ->
           CodeSigningPolicies'
-            <$> (x .:? "UntrustedArtifactOnDeployment")
+            Prelude.<$> (x Prelude..:? "UntrustedArtifactOnDeployment")
       )
 
-instance Hashable CodeSigningPolicies
+instance Prelude.Hashable CodeSigningPolicies
 
-instance NFData CodeSigningPolicies
+instance Prelude.NFData CodeSigningPolicies
 
-instance ToJSON CodeSigningPolicies where
+instance Prelude.ToJSON CodeSigningPolicies where
   toJSON CodeSigningPolicies' {..} =
-    object
-      ( catMaybes
-          [ ("UntrustedArtifactOnDeployment" .=)
-              <$> _cspUntrustedArtifactOnDeployment
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("UntrustedArtifactOnDeployment" Prelude..=)
+              Prelude.<$> untrustedArtifactOnDeployment
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,107 +21,118 @@ module Network.AWS.Lambda.Types.CodeSigningConfig where
 
 import Network.AWS.Lambda.Types.AllowedPublishers
 import Network.AWS.Lambda.Types.CodeSigningPolicies
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details about a Code signing configuration.
 --
---
---
--- /See:/ 'codeSigningConfig' smart constructor.
+-- /See:/ 'newCodeSigningConfig' smart constructor.
 data CodeSigningConfig = CodeSigningConfig'
-  { _cscDescription ::
-      !(Maybe Text),
-    _cscCodeSigningConfigId :: !Text,
-    _cscCodeSigningConfigARN :: !Text,
-    _cscAllowedPublishers ::
-      !AllowedPublishers,
-    _cscCodeSigningPolicies ::
-      !CodeSigningPolicies,
-    _cscLastModified :: !Text
+  { -- | Code signing configuration description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Unique identifer for the Code signing configuration.
+    codeSigningConfigId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Code signing configuration.
+    codeSigningConfigArn :: Prelude.Text,
+    -- | List of allowed publishers.
+    allowedPublishers :: AllowedPublishers,
+    -- | The code signing policy controls the validation failure action for
+    -- signature mismatch or expiry.
+    codeSigningPolicies :: CodeSigningPolicies,
+    -- | The date and time that the Code signing configuration was last modified,
+    -- in ISO-8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
+    lastModified :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CodeSigningConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CodeSigningConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cscDescription' - Code signing configuration description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cscCodeSigningConfigId' - Unique identifer for the Code signing configuration.
+-- 'description', 'codeSigningConfig_description' - Code signing configuration description.
 --
--- * 'cscCodeSigningConfigARN' - The Amazon Resource Name (ARN) of the Code signing configuration.
+-- 'codeSigningConfigId', 'codeSigningConfig_codeSigningConfigId' - Unique identifer for the Code signing configuration.
 --
--- * 'cscAllowedPublishers' - List of allowed publishers.
+-- 'codeSigningConfigArn', 'codeSigningConfig_codeSigningConfigArn' - The Amazon Resource Name (ARN) of the Code signing configuration.
 --
--- * 'cscCodeSigningPolicies' - The code signing policy controls the validation failure action for signature mismatch or expiry.
+-- 'allowedPublishers', 'codeSigningConfig_allowedPublishers' - List of allowed publishers.
 --
--- * 'cscLastModified' - The date and time that the Code signing configuration was last modified, in ISO-8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
-codeSigningConfig ::
-  -- | 'cscCodeSigningConfigId'
-  Text ->
-  -- | 'cscCodeSigningConfigARN'
-  Text ->
-  -- | 'cscAllowedPublishers'
+-- 'codeSigningPolicies', 'codeSigningConfig_codeSigningPolicies' - The code signing policy controls the validation failure action for
+-- signature mismatch or expiry.
+--
+-- 'lastModified', 'codeSigningConfig_lastModified' - The date and time that the Code signing configuration was last modified,
+-- in ISO-8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
+newCodeSigningConfig ::
+  -- | 'codeSigningConfigId'
+  Prelude.Text ->
+  -- | 'codeSigningConfigArn'
+  Prelude.Text ->
+  -- | 'allowedPublishers'
   AllowedPublishers ->
-  -- | 'cscCodeSigningPolicies'
+  -- | 'codeSigningPolicies'
   CodeSigningPolicies ->
-  -- | 'cscLastModified'
-  Text ->
+  -- | 'lastModified'
+  Prelude.Text ->
   CodeSigningConfig
-codeSigningConfig
+newCodeSigningConfig
   pCodeSigningConfigId_
-  pCodeSigningConfigARN_
+  pCodeSigningConfigArn_
   pAllowedPublishers_
   pCodeSigningPolicies_
   pLastModified_ =
     CodeSigningConfig'
-      { _cscDescription = Nothing,
-        _cscCodeSigningConfigId = pCodeSigningConfigId_,
-        _cscCodeSigningConfigARN = pCodeSigningConfigARN_,
-        _cscAllowedPublishers = pAllowedPublishers_,
-        _cscCodeSigningPolicies = pCodeSigningPolicies_,
-        _cscLastModified = pLastModified_
+      { description = Prelude.Nothing,
+        codeSigningConfigId = pCodeSigningConfigId_,
+        codeSigningConfigArn = pCodeSigningConfigArn_,
+        allowedPublishers = pAllowedPublishers_,
+        codeSigningPolicies = pCodeSigningPolicies_,
+        lastModified = pLastModified_
       }
 
 -- | Code signing configuration description.
-cscDescription :: Lens' CodeSigningConfig (Maybe Text)
-cscDescription = lens _cscDescription (\s a -> s {_cscDescription = a})
+codeSigningConfig_description :: Lens.Lens' CodeSigningConfig (Prelude.Maybe Prelude.Text)
+codeSigningConfig_description = Lens.lens (\CodeSigningConfig' {description} -> description) (\s@CodeSigningConfig' {} a -> s {description = a} :: CodeSigningConfig)
 
 -- | Unique identifer for the Code signing configuration.
-cscCodeSigningConfigId :: Lens' CodeSigningConfig Text
-cscCodeSigningConfigId = lens _cscCodeSigningConfigId (\s a -> s {_cscCodeSigningConfigId = a})
+codeSigningConfig_codeSigningConfigId :: Lens.Lens' CodeSigningConfig Prelude.Text
+codeSigningConfig_codeSigningConfigId = Lens.lens (\CodeSigningConfig' {codeSigningConfigId} -> codeSigningConfigId) (\s@CodeSigningConfig' {} a -> s {codeSigningConfigId = a} :: CodeSigningConfig)
 
 -- | The Amazon Resource Name (ARN) of the Code signing configuration.
-cscCodeSigningConfigARN :: Lens' CodeSigningConfig Text
-cscCodeSigningConfigARN = lens _cscCodeSigningConfigARN (\s a -> s {_cscCodeSigningConfigARN = a})
+codeSigningConfig_codeSigningConfigArn :: Lens.Lens' CodeSigningConfig Prelude.Text
+codeSigningConfig_codeSigningConfigArn = Lens.lens (\CodeSigningConfig' {codeSigningConfigArn} -> codeSigningConfigArn) (\s@CodeSigningConfig' {} a -> s {codeSigningConfigArn = a} :: CodeSigningConfig)
 
 -- | List of allowed publishers.
-cscAllowedPublishers :: Lens' CodeSigningConfig AllowedPublishers
-cscAllowedPublishers = lens _cscAllowedPublishers (\s a -> s {_cscAllowedPublishers = a})
+codeSigningConfig_allowedPublishers :: Lens.Lens' CodeSigningConfig AllowedPublishers
+codeSigningConfig_allowedPublishers = Lens.lens (\CodeSigningConfig' {allowedPublishers} -> allowedPublishers) (\s@CodeSigningConfig' {} a -> s {allowedPublishers = a} :: CodeSigningConfig)
 
--- | The code signing policy controls the validation failure action for signature mismatch or expiry.
-cscCodeSigningPolicies :: Lens' CodeSigningConfig CodeSigningPolicies
-cscCodeSigningPolicies = lens _cscCodeSigningPolicies (\s a -> s {_cscCodeSigningPolicies = a})
+-- | The code signing policy controls the validation failure action for
+-- signature mismatch or expiry.
+codeSigningConfig_codeSigningPolicies :: Lens.Lens' CodeSigningConfig CodeSigningPolicies
+codeSigningConfig_codeSigningPolicies = Lens.lens (\CodeSigningConfig' {codeSigningPolicies} -> codeSigningPolicies) (\s@CodeSigningConfig' {} a -> s {codeSigningPolicies = a} :: CodeSigningConfig)
 
--- | The date and time that the Code signing configuration was last modified, in ISO-8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
-cscLastModified :: Lens' CodeSigningConfig Text
-cscLastModified = lens _cscLastModified (\s a -> s {_cscLastModified = a})
+-- | The date and time that the Code signing configuration was last modified,
+-- in ISO-8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
+codeSigningConfig_lastModified :: Lens.Lens' CodeSigningConfig Prelude.Text
+codeSigningConfig_lastModified = Lens.lens (\CodeSigningConfig' {lastModified} -> lastModified) (\s@CodeSigningConfig' {} a -> s {lastModified = a} :: CodeSigningConfig)
 
-instance FromJSON CodeSigningConfig where
+instance Prelude.FromJSON CodeSigningConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CodeSigningConfig"
       ( \x ->
           CodeSigningConfig'
-            <$> (x .:? "Description")
-            <*> (x .: "CodeSigningConfigId")
-            <*> (x .: "CodeSigningConfigArn")
-            <*> (x .: "AllowedPublishers")
-            <*> (x .: "CodeSigningPolicies")
-            <*> (x .: "LastModified")
+            Prelude.<$> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..: "CodeSigningConfigId")
+            Prelude.<*> (x Prelude..: "CodeSigningConfigArn")
+            Prelude.<*> (x Prelude..: "AllowedPublishers")
+            Prelude.<*> (x Prelude..: "CodeSigningPolicies")
+            Prelude.<*> (x Prelude..: "LastModified")
       )
 
-instance Hashable CodeSigningConfig
+instance Prelude.Hashable CodeSigningConfig
 
-instance NFData CodeSigningConfig
+instance Prelude.NFData CodeSigningConfig

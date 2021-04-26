@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,97 +19,95 @@
 module Network.AWS.Lambda.Types.LastUpdateStatusReasonCode
   ( LastUpdateStatusReasonCode
       ( ..,
-        EniLimitExceeded,
-        ImageAccessDenied,
-        ImageDeleted,
-        InsufficientRolePermissions,
-        InternalError,
-        InvalidConfiguration,
-        InvalidImage,
-        InvalidSecurityGroup,
-        InvalidSubnet,
-        SubnetOutOfIPAddresses
+        LastUpdateStatusReasonCodeEniLimitExceeded,
+        LastUpdateStatusReasonCodeImageAccessDenied,
+        LastUpdateStatusReasonCodeImageDeleted,
+        LastUpdateStatusReasonCodeInsufficientRolePermissions,
+        LastUpdateStatusReasonCodeInternalError,
+        LastUpdateStatusReasonCodeInvalidConfiguration,
+        LastUpdateStatusReasonCodeInvalidImage,
+        LastUpdateStatusReasonCodeInvalidSecurityGroup,
+        LastUpdateStatusReasonCodeInvalidSubnet,
+        LastUpdateStatusReasonCodeSubnetOutOfIPAddresses
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LastUpdateStatusReasonCode
-  = LastUpdateStatusReasonCode'
-      ( CI
-          Text
-      )
+newtype LastUpdateStatusReasonCode = LastUpdateStatusReasonCode'
+  { fromLastUpdateStatusReasonCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EniLimitExceeded :: LastUpdateStatusReasonCode
-pattern EniLimitExceeded = LastUpdateStatusReasonCode' "EniLimitExceeded"
+pattern LastUpdateStatusReasonCodeEniLimitExceeded :: LastUpdateStatusReasonCode
+pattern LastUpdateStatusReasonCodeEniLimitExceeded = LastUpdateStatusReasonCode' "EniLimitExceeded"
 
-pattern ImageAccessDenied :: LastUpdateStatusReasonCode
-pattern ImageAccessDenied = LastUpdateStatusReasonCode' "ImageAccessDenied"
+pattern LastUpdateStatusReasonCodeImageAccessDenied :: LastUpdateStatusReasonCode
+pattern LastUpdateStatusReasonCodeImageAccessDenied = LastUpdateStatusReasonCode' "ImageAccessDenied"
 
-pattern ImageDeleted :: LastUpdateStatusReasonCode
-pattern ImageDeleted = LastUpdateStatusReasonCode' "ImageDeleted"
+pattern LastUpdateStatusReasonCodeImageDeleted :: LastUpdateStatusReasonCode
+pattern LastUpdateStatusReasonCodeImageDeleted = LastUpdateStatusReasonCode' "ImageDeleted"
 
-pattern InsufficientRolePermissions :: LastUpdateStatusReasonCode
-pattern InsufficientRolePermissions = LastUpdateStatusReasonCode' "InsufficientRolePermissions"
+pattern LastUpdateStatusReasonCodeInsufficientRolePermissions :: LastUpdateStatusReasonCode
+pattern LastUpdateStatusReasonCodeInsufficientRolePermissions = LastUpdateStatusReasonCode' "InsufficientRolePermissions"
 
-pattern InternalError :: LastUpdateStatusReasonCode
-pattern InternalError = LastUpdateStatusReasonCode' "InternalError"
+pattern LastUpdateStatusReasonCodeInternalError :: LastUpdateStatusReasonCode
+pattern LastUpdateStatusReasonCodeInternalError = LastUpdateStatusReasonCode' "InternalError"
 
-pattern InvalidConfiguration :: LastUpdateStatusReasonCode
-pattern InvalidConfiguration = LastUpdateStatusReasonCode' "InvalidConfiguration"
+pattern LastUpdateStatusReasonCodeInvalidConfiguration :: LastUpdateStatusReasonCode
+pattern LastUpdateStatusReasonCodeInvalidConfiguration = LastUpdateStatusReasonCode' "InvalidConfiguration"
 
-pattern InvalidImage :: LastUpdateStatusReasonCode
-pattern InvalidImage = LastUpdateStatusReasonCode' "InvalidImage"
+pattern LastUpdateStatusReasonCodeInvalidImage :: LastUpdateStatusReasonCode
+pattern LastUpdateStatusReasonCodeInvalidImage = LastUpdateStatusReasonCode' "InvalidImage"
 
-pattern InvalidSecurityGroup :: LastUpdateStatusReasonCode
-pattern InvalidSecurityGroup = LastUpdateStatusReasonCode' "InvalidSecurityGroup"
+pattern LastUpdateStatusReasonCodeInvalidSecurityGroup :: LastUpdateStatusReasonCode
+pattern LastUpdateStatusReasonCodeInvalidSecurityGroup = LastUpdateStatusReasonCode' "InvalidSecurityGroup"
 
-pattern InvalidSubnet :: LastUpdateStatusReasonCode
-pattern InvalidSubnet = LastUpdateStatusReasonCode' "InvalidSubnet"
+pattern LastUpdateStatusReasonCodeInvalidSubnet :: LastUpdateStatusReasonCode
+pattern LastUpdateStatusReasonCodeInvalidSubnet = LastUpdateStatusReasonCode' "InvalidSubnet"
 
-pattern SubnetOutOfIPAddresses :: LastUpdateStatusReasonCode
-pattern SubnetOutOfIPAddresses = LastUpdateStatusReasonCode' "SubnetOutOfIPAddresses"
+pattern LastUpdateStatusReasonCodeSubnetOutOfIPAddresses :: LastUpdateStatusReasonCode
+pattern LastUpdateStatusReasonCodeSubnetOutOfIPAddresses = LastUpdateStatusReasonCode' "SubnetOutOfIPAddresses"
 
 {-# COMPLETE
-  EniLimitExceeded,
-  ImageAccessDenied,
-  ImageDeleted,
-  InsufficientRolePermissions,
-  InternalError,
-  InvalidConfiguration,
-  InvalidImage,
-  InvalidSecurityGroup,
-  InvalidSubnet,
-  SubnetOutOfIPAddresses,
+  LastUpdateStatusReasonCodeEniLimitExceeded,
+  LastUpdateStatusReasonCodeImageAccessDenied,
+  LastUpdateStatusReasonCodeImageDeleted,
+  LastUpdateStatusReasonCodeInsufficientRolePermissions,
+  LastUpdateStatusReasonCodeInternalError,
+  LastUpdateStatusReasonCodeInvalidConfiguration,
+  LastUpdateStatusReasonCodeInvalidImage,
+  LastUpdateStatusReasonCodeInvalidSecurityGroup,
+  LastUpdateStatusReasonCodeInvalidSubnet,
+  LastUpdateStatusReasonCodeSubnetOutOfIPAddresses,
   LastUpdateStatusReasonCode'
   #-}
 
-instance FromText LastUpdateStatusReasonCode where
-  parser = (LastUpdateStatusReasonCode' . mk) <$> takeText
+instance Prelude.FromText LastUpdateStatusReasonCode where
+  parser = LastUpdateStatusReasonCode' Prelude.<$> Prelude.takeText
 
-instance ToText LastUpdateStatusReasonCode where
-  toText (LastUpdateStatusReasonCode' ci) = original ci
+instance Prelude.ToText LastUpdateStatusReasonCode where
+  toText (LastUpdateStatusReasonCode' x) = x
 
-instance Hashable LastUpdateStatusReasonCode
+instance Prelude.Hashable LastUpdateStatusReasonCode
 
-instance NFData LastUpdateStatusReasonCode
+instance Prelude.NFData LastUpdateStatusReasonCode
 
-instance ToByteString LastUpdateStatusReasonCode
+instance Prelude.ToByteString LastUpdateStatusReasonCode
 
-instance ToQuery LastUpdateStatusReasonCode
+instance Prelude.ToQuery LastUpdateStatusReasonCode
 
-instance ToHeader LastUpdateStatusReasonCode
+instance Prelude.ToHeader LastUpdateStatusReasonCode
 
-instance FromJSON LastUpdateStatusReasonCode where
-  parseJSON = parseJSONText "LastUpdateStatusReasonCode"
+instance Prelude.FromJSON LastUpdateStatusReasonCode where
+  parseJSON = Prelude.parseJSONText "LastUpdateStatusReasonCode"

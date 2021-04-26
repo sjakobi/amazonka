@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,198 +21,258 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list of configurations for asynchronous invocation for a function.
+-- Retrieves a list of configurations for asynchronous invocation for a
+-- function.
 --
---
--- To configure options for asynchronous invocation, use 'PutFunctionEventInvokeConfig' .
---
+-- To configure options for asynchronous invocation, use
+-- PutFunctionEventInvokeConfig.
 --
 -- This operation returns paginated results.
 module Network.AWS.Lambda.ListFunctionEventInvokeConfigs
   ( -- * Creating a Request
-    listFunctionEventInvokeConfigs,
-    ListFunctionEventInvokeConfigs,
+    ListFunctionEventInvokeConfigs (..),
+    newListFunctionEventInvokeConfigs,
 
     -- * Request Lenses
-    lfeicMaxItems,
-    lfeicMarker,
-    lfeicFunctionName,
+    listFunctionEventInvokeConfigs_maxItems,
+    listFunctionEventInvokeConfigs_marker,
+    listFunctionEventInvokeConfigs_functionName,
 
     -- * Destructuring the Response
-    listFunctionEventInvokeConfigsResponse,
-    ListFunctionEventInvokeConfigsResponse,
+    ListFunctionEventInvokeConfigsResponse (..),
+    newListFunctionEventInvokeConfigsResponse,
 
     -- * Response Lenses
-    lfeicrrsNextMarker,
-    lfeicrrsFunctionEventInvokeConfigs,
-    lfeicrrsResponseStatus,
+    listFunctionEventInvokeConfigsResponse_nextMarker,
+    listFunctionEventInvokeConfigsResponse_functionEventInvokeConfigs,
+    listFunctionEventInvokeConfigsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.FunctionEventInvokeConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listFunctionEventInvokeConfigs' smart constructor.
+-- | /See:/ 'newListFunctionEventInvokeConfigs' smart constructor.
 data ListFunctionEventInvokeConfigs = ListFunctionEventInvokeConfigs'
-  { _lfeicMaxItems ::
-      !( Maybe
-           Nat
-       ),
-    _lfeicMarker ::
-      !( Maybe
-           Text
-       ),
-    _lfeicFunctionName ::
-      !Text
+  { -- | The maximum number of configurations to return.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the pagination token that\'s returned by a previous request to
+    -- retrieve the next page of results.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @my-function@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListFunctionEventInvokeConfigs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListFunctionEventInvokeConfigs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfeicMaxItems' - The maximum number of configurations to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lfeicMarker' - Specify the pagination token that's returned by a previous request to retrieve the next page of results.
+-- 'maxItems', 'listFunctionEventInvokeConfigs_maxItems' - The maximum number of configurations to return.
 --
--- * 'lfeicFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @my-function@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-listFunctionEventInvokeConfigs ::
-  -- | 'lfeicFunctionName'
-  Text ->
+-- 'marker', 'listFunctionEventInvokeConfigs_marker' - Specify the pagination token that\'s returned by a previous request to
+-- retrieve the next page of results.
+--
+-- 'functionName', 'listFunctionEventInvokeConfigs_functionName' - The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+newListFunctionEventInvokeConfigs ::
+  -- | 'functionName'
+  Prelude.Text ->
   ListFunctionEventInvokeConfigs
-listFunctionEventInvokeConfigs pFunctionName_ =
+newListFunctionEventInvokeConfigs pFunctionName_ =
   ListFunctionEventInvokeConfigs'
-    { _lfeicMaxItems =
-        Nothing,
-      _lfeicMarker = Nothing,
-      _lfeicFunctionName = pFunctionName_
+    { maxItems =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      functionName = pFunctionName_
     }
 
 -- | The maximum number of configurations to return.
-lfeicMaxItems :: Lens' ListFunctionEventInvokeConfigs (Maybe Natural)
-lfeicMaxItems = lens _lfeicMaxItems (\s a -> s {_lfeicMaxItems = a}) . mapping _Nat
+listFunctionEventInvokeConfigs_maxItems :: Lens.Lens' ListFunctionEventInvokeConfigs (Prelude.Maybe Prelude.Natural)
+listFunctionEventInvokeConfigs_maxItems = Lens.lens (\ListFunctionEventInvokeConfigs' {maxItems} -> maxItems) (\s@ListFunctionEventInvokeConfigs' {} a -> s {maxItems = a} :: ListFunctionEventInvokeConfigs) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the pagination token that's returned by a previous request to retrieve the next page of results.
-lfeicMarker :: Lens' ListFunctionEventInvokeConfigs (Maybe Text)
-lfeicMarker = lens _lfeicMarker (\s a -> s {_lfeicMarker = a})
+-- | Specify the pagination token that\'s returned by a previous request to
+-- retrieve the next page of results.
+listFunctionEventInvokeConfigs_marker :: Lens.Lens' ListFunctionEventInvokeConfigs (Prelude.Maybe Prelude.Text)
+listFunctionEventInvokeConfigs_marker = Lens.lens (\ListFunctionEventInvokeConfigs' {marker} -> marker) (\s@ListFunctionEventInvokeConfigs' {} a -> s {marker = a} :: ListFunctionEventInvokeConfigs)
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @my-function@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-lfeicFunctionName :: Lens' ListFunctionEventInvokeConfigs Text
-lfeicFunctionName = lens _lfeicFunctionName (\s a -> s {_lfeicFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+listFunctionEventInvokeConfigs_functionName :: Lens.Lens' ListFunctionEventInvokeConfigs Prelude.Text
+listFunctionEventInvokeConfigs_functionName = Lens.lens (\ListFunctionEventInvokeConfigs' {functionName} -> functionName) (\s@ListFunctionEventInvokeConfigs' {} a -> s {functionName = a} :: ListFunctionEventInvokeConfigs)
 
-instance AWSPager ListFunctionEventInvokeConfigs where
+instance
+  Pager.AWSPager
+    ListFunctionEventInvokeConfigs
+  where
   page rq rs
-    | stop (rs ^. lfeicrrsNextMarker) = Nothing
-    | stop (rs ^. lfeicrrsFunctionEventInvokeConfigs) =
-      Nothing
-    | otherwise =
-      Just $ rq & lfeicMarker .~ rs ^. lfeicrrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listFunctionEventInvokeConfigsResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listFunctionEventInvokeConfigsResponse_functionEventInvokeConfigs
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listFunctionEventInvokeConfigs_marker
+          Lens..~ rs
+          Lens.^? listFunctionEventInvokeConfigsResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListFunctionEventInvokeConfigs where
+instance
+  Prelude.AWSRequest
+    ListFunctionEventInvokeConfigs
+  where
   type
     Rs ListFunctionEventInvokeConfigs =
       ListFunctionEventInvokeConfigsResponse
-  request = get lambda
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListFunctionEventInvokeConfigsResponse'
-            <$> (x .?> "NextMarker")
-            <*> (x .?> "FunctionEventInvokeConfigs" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextMarker")
+            Prelude.<*> ( x Prelude..?> "FunctionEventInvokeConfigs"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListFunctionEventInvokeConfigs
+instance
+  Prelude.Hashable
+    ListFunctionEventInvokeConfigs
 
-instance NFData ListFunctionEventInvokeConfigs
+instance
+  Prelude.NFData
+    ListFunctionEventInvokeConfigs
 
-instance ToHeaders ListFunctionEventInvokeConfigs where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ListFunctionEventInvokeConfigs
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListFunctionEventInvokeConfigs where
+instance
+  Prelude.ToPath
+    ListFunctionEventInvokeConfigs
+  where
   toPath ListFunctionEventInvokeConfigs' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2019-09-25/functions/",
-        toBS _lfeicFunctionName,
+        Prelude.toBS functionName,
         "/event-invoke-config/list"
       ]
 
-instance ToQuery ListFunctionEventInvokeConfigs where
+instance
+  Prelude.ToQuery
+    ListFunctionEventInvokeConfigs
+  where
   toQuery ListFunctionEventInvokeConfigs' {..} =
-    mconcat
-      [ "MaxItems" =: _lfeicMaxItems,
-        "Marker" =: _lfeicMarker
+    Prelude.mconcat
+      [ "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
       ]
 
--- | /See:/ 'listFunctionEventInvokeConfigsResponse' smart constructor.
+-- | /See:/ 'newListFunctionEventInvokeConfigsResponse' smart constructor.
 data ListFunctionEventInvokeConfigsResponse = ListFunctionEventInvokeConfigsResponse'
-  { _lfeicrrsNextMarker ::
-      !( Maybe
-           Text
-       ),
-    _lfeicrrsFunctionEventInvokeConfigs ::
-      !( Maybe
-           [FunctionEventInvokeConfig]
-       ),
-    _lfeicrrsResponseStatus ::
-      !Int
+  { -- | The pagination token that\'s included if more results are available.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | A list of configurations.
+    functionEventInvokeConfigs :: Prelude.Maybe [FunctionEventInvokeConfig],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListFunctionEventInvokeConfigsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListFunctionEventInvokeConfigsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfeicrrsNextMarker' - The pagination token that's included if more results are available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lfeicrrsFunctionEventInvokeConfigs' - A list of configurations.
+-- 'nextMarker', 'listFunctionEventInvokeConfigsResponse_nextMarker' - The pagination token that\'s included if more results are available.
 --
--- * 'lfeicrrsResponseStatus' - -- | The response status code.
-listFunctionEventInvokeConfigsResponse ::
-  -- | 'lfeicrrsResponseStatus'
-  Int ->
+-- 'functionEventInvokeConfigs', 'listFunctionEventInvokeConfigsResponse_functionEventInvokeConfigs' - A list of configurations.
+--
+-- 'httpStatus', 'listFunctionEventInvokeConfigsResponse_httpStatus' - The response's http status code.
+newListFunctionEventInvokeConfigsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListFunctionEventInvokeConfigsResponse
-listFunctionEventInvokeConfigsResponse
-  pResponseStatus_ =
+newListFunctionEventInvokeConfigsResponse
+  pHttpStatus_ =
     ListFunctionEventInvokeConfigsResponse'
-      { _lfeicrrsNextMarker =
-          Nothing,
-        _lfeicrrsFunctionEventInvokeConfigs =
-          Nothing,
-        _lfeicrrsResponseStatus =
-          pResponseStatus_
+      { nextMarker =
+          Prelude.Nothing,
+        functionEventInvokeConfigs =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The pagination token that's included if more results are available.
-lfeicrrsNextMarker :: Lens' ListFunctionEventInvokeConfigsResponse (Maybe Text)
-lfeicrrsNextMarker = lens _lfeicrrsNextMarker (\s a -> s {_lfeicrrsNextMarker = a})
+-- | The pagination token that\'s included if more results are available.
+listFunctionEventInvokeConfigsResponse_nextMarker :: Lens.Lens' ListFunctionEventInvokeConfigsResponse (Prelude.Maybe Prelude.Text)
+listFunctionEventInvokeConfigsResponse_nextMarker = Lens.lens (\ListFunctionEventInvokeConfigsResponse' {nextMarker} -> nextMarker) (\s@ListFunctionEventInvokeConfigsResponse' {} a -> s {nextMarker = a} :: ListFunctionEventInvokeConfigsResponse)
 
 -- | A list of configurations.
-lfeicrrsFunctionEventInvokeConfigs :: Lens' ListFunctionEventInvokeConfigsResponse [FunctionEventInvokeConfig]
-lfeicrrsFunctionEventInvokeConfigs = lens _lfeicrrsFunctionEventInvokeConfigs (\s a -> s {_lfeicrrsFunctionEventInvokeConfigs = a}) . _Default . _Coerce
+listFunctionEventInvokeConfigsResponse_functionEventInvokeConfigs :: Lens.Lens' ListFunctionEventInvokeConfigsResponse (Prelude.Maybe [FunctionEventInvokeConfig])
+listFunctionEventInvokeConfigsResponse_functionEventInvokeConfigs = Lens.lens (\ListFunctionEventInvokeConfigsResponse' {functionEventInvokeConfigs} -> functionEventInvokeConfigs) (\s@ListFunctionEventInvokeConfigsResponse' {} a -> s {functionEventInvokeConfigs = a} :: ListFunctionEventInvokeConfigsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lfeicrrsResponseStatus :: Lens' ListFunctionEventInvokeConfigsResponse Int
-lfeicrrsResponseStatus = lens _lfeicrrsResponseStatus (\s a -> s {_lfeicrrsResponseStatus = a})
+-- | The response's http status code.
+listFunctionEventInvokeConfigsResponse_httpStatus :: Lens.Lens' ListFunctionEventInvokeConfigsResponse Prelude.Int
+listFunctionEventInvokeConfigsResponse_httpStatus = Lens.lens (\ListFunctionEventInvokeConfigsResponse' {httpStatus} -> httpStatus) (\s@ListFunctionEventInvokeConfigsResponse' {} a -> s {httpStatus = a} :: ListFunctionEventInvokeConfigsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListFunctionEventInvokeConfigsResponse

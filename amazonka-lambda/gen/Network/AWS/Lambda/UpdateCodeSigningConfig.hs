@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,179 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Update the code signing configuration. Changes to the code signing configuration take effect the next time a user tries to deploy a code package to the function.
+-- Update the code signing configuration. Changes to the code signing
+-- configuration take effect the next time a user tries to deploy a code
+-- package to the function.
 module Network.AWS.Lambda.UpdateCodeSigningConfig
   ( -- * Creating a Request
-    updateCodeSigningConfig,
-    UpdateCodeSigningConfig,
+    UpdateCodeSigningConfig (..),
+    newUpdateCodeSigningConfig,
 
     -- * Request Lenses
-    ucscAllowedPublishers,
-    ucscDescription,
-    ucscCodeSigningPolicies,
-    ucscCodeSigningConfigARN,
+    updateCodeSigningConfig_allowedPublishers,
+    updateCodeSigningConfig_description,
+    updateCodeSigningConfig_codeSigningPolicies,
+    updateCodeSigningConfig_codeSigningConfigArn,
 
     -- * Destructuring the Response
-    updateCodeSigningConfigResponse,
-    UpdateCodeSigningConfigResponse,
+    UpdateCodeSigningConfigResponse (..),
+    newUpdateCodeSigningConfigResponse,
 
     -- * Response Lenses
-    ucscrrsResponseStatus,
-    ucscrrsCodeSigningConfig,
+    updateCodeSigningConfigResponse_httpStatus,
+    updateCodeSigningConfigResponse_codeSigningConfig,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.CodeSigningConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateCodeSigningConfig' smart constructor.
+-- | /See:/ 'newUpdateCodeSigningConfig' smart constructor.
 data UpdateCodeSigningConfig = UpdateCodeSigningConfig'
-  { _ucscAllowedPublishers ::
-      !( Maybe
-           AllowedPublishers
-       ),
-    _ucscDescription ::
-      !(Maybe Text),
-    _ucscCodeSigningPolicies ::
-      !( Maybe
-           CodeSigningPolicies
-       ),
-    _ucscCodeSigningConfigARN ::
-      !Text
+  { -- | Signing profiles for this code signing configuration.
+    allowedPublishers :: Prelude.Maybe AllowedPublishers,
+    -- | Descriptive name for this code signing configuration.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The code signing policy.
+    codeSigningPolicies :: Prelude.Maybe CodeSigningPolicies,
+    -- | The The Amazon Resource Name (ARN) of the code signing configuration.
+    codeSigningConfigArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCodeSigningConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateCodeSigningConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucscAllowedPublishers' - Signing profiles for this code signing configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucscDescription' - Descriptive name for this code signing configuration.
+-- 'allowedPublishers', 'updateCodeSigningConfig_allowedPublishers' - Signing profiles for this code signing configuration.
 --
--- * 'ucscCodeSigningPolicies' - The code signing policy.
+-- 'description', 'updateCodeSigningConfig_description' - Descriptive name for this code signing configuration.
 --
--- * 'ucscCodeSigningConfigARN' - The The Amazon Resource Name (ARN) of the code signing configuration.
-updateCodeSigningConfig ::
-  -- | 'ucscCodeSigningConfigARN'
-  Text ->
+-- 'codeSigningPolicies', 'updateCodeSigningConfig_codeSigningPolicies' - The code signing policy.
+--
+-- 'codeSigningConfigArn', 'updateCodeSigningConfig_codeSigningConfigArn' - The The Amazon Resource Name (ARN) of the code signing configuration.
+newUpdateCodeSigningConfig ::
+  -- | 'codeSigningConfigArn'
+  Prelude.Text ->
   UpdateCodeSigningConfig
-updateCodeSigningConfig pCodeSigningConfigARN_ =
+newUpdateCodeSigningConfig pCodeSigningConfigArn_ =
   UpdateCodeSigningConfig'
-    { _ucscAllowedPublishers =
-        Nothing,
-      _ucscDescription = Nothing,
-      _ucscCodeSigningPolicies = Nothing,
-      _ucscCodeSigningConfigARN = pCodeSigningConfigARN_
+    { allowedPublishers =
+        Prelude.Nothing,
+      description = Prelude.Nothing,
+      codeSigningPolicies = Prelude.Nothing,
+      codeSigningConfigArn = pCodeSigningConfigArn_
     }
 
 -- | Signing profiles for this code signing configuration.
-ucscAllowedPublishers :: Lens' UpdateCodeSigningConfig (Maybe AllowedPublishers)
-ucscAllowedPublishers = lens _ucscAllowedPublishers (\s a -> s {_ucscAllowedPublishers = a})
+updateCodeSigningConfig_allowedPublishers :: Lens.Lens' UpdateCodeSigningConfig (Prelude.Maybe AllowedPublishers)
+updateCodeSigningConfig_allowedPublishers = Lens.lens (\UpdateCodeSigningConfig' {allowedPublishers} -> allowedPublishers) (\s@UpdateCodeSigningConfig' {} a -> s {allowedPublishers = a} :: UpdateCodeSigningConfig)
 
 -- | Descriptive name for this code signing configuration.
-ucscDescription :: Lens' UpdateCodeSigningConfig (Maybe Text)
-ucscDescription = lens _ucscDescription (\s a -> s {_ucscDescription = a})
+updateCodeSigningConfig_description :: Lens.Lens' UpdateCodeSigningConfig (Prelude.Maybe Prelude.Text)
+updateCodeSigningConfig_description = Lens.lens (\UpdateCodeSigningConfig' {description} -> description) (\s@UpdateCodeSigningConfig' {} a -> s {description = a} :: UpdateCodeSigningConfig)
 
 -- | The code signing policy.
-ucscCodeSigningPolicies :: Lens' UpdateCodeSigningConfig (Maybe CodeSigningPolicies)
-ucscCodeSigningPolicies = lens _ucscCodeSigningPolicies (\s a -> s {_ucscCodeSigningPolicies = a})
+updateCodeSigningConfig_codeSigningPolicies :: Lens.Lens' UpdateCodeSigningConfig (Prelude.Maybe CodeSigningPolicies)
+updateCodeSigningConfig_codeSigningPolicies = Lens.lens (\UpdateCodeSigningConfig' {codeSigningPolicies} -> codeSigningPolicies) (\s@UpdateCodeSigningConfig' {} a -> s {codeSigningPolicies = a} :: UpdateCodeSigningConfig)
 
 -- | The The Amazon Resource Name (ARN) of the code signing configuration.
-ucscCodeSigningConfigARN :: Lens' UpdateCodeSigningConfig Text
-ucscCodeSigningConfigARN = lens _ucscCodeSigningConfigARN (\s a -> s {_ucscCodeSigningConfigARN = a})
+updateCodeSigningConfig_codeSigningConfigArn :: Lens.Lens' UpdateCodeSigningConfig Prelude.Text
+updateCodeSigningConfig_codeSigningConfigArn = Lens.lens (\UpdateCodeSigningConfig' {codeSigningConfigArn} -> codeSigningConfigArn) (\s@UpdateCodeSigningConfig' {} a -> s {codeSigningConfigArn = a} :: UpdateCodeSigningConfig)
 
-instance AWSRequest UpdateCodeSigningConfig where
+instance Prelude.AWSRequest UpdateCodeSigningConfig where
   type
     Rs UpdateCodeSigningConfig =
       UpdateCodeSigningConfigResponse
-  request = putJSON lambda
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateCodeSigningConfigResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "CodeSigningConfig")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "CodeSigningConfig")
       )
 
-instance Hashable UpdateCodeSigningConfig
+instance Prelude.Hashable UpdateCodeSigningConfig
 
-instance NFData UpdateCodeSigningConfig
+instance Prelude.NFData UpdateCodeSigningConfig
 
-instance ToHeaders UpdateCodeSigningConfig where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateCodeSigningConfig where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateCodeSigningConfig where
+instance Prelude.ToJSON UpdateCodeSigningConfig where
   toJSON UpdateCodeSigningConfig' {..} =
-    object
-      ( catMaybes
-          [ ("AllowedPublishers" .=) <$> _ucscAllowedPublishers,
-            ("Description" .=) <$> _ucscDescription,
-            ("CodeSigningPolicies" .=)
-              <$> _ucscCodeSigningPolicies
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AllowedPublishers" Prelude..=)
+              Prelude.<$> allowedPublishers,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("CodeSigningPolicies" Prelude..=)
+              Prelude.<$> codeSigningPolicies
           ]
       )
 
-instance ToPath UpdateCodeSigningConfig where
+instance Prelude.ToPath UpdateCodeSigningConfig where
   toPath UpdateCodeSigningConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2020-04-22/code-signing-configs/",
-        toBS _ucscCodeSigningConfigARN
+        Prelude.toBS codeSigningConfigArn
       ]
 
-instance ToQuery UpdateCodeSigningConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateCodeSigningConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateCodeSigningConfigResponse' smart constructor.
+-- | /See:/ 'newUpdateCodeSigningConfigResponse' smart constructor.
 data UpdateCodeSigningConfigResponse = UpdateCodeSigningConfigResponse'
-  { _ucscrrsResponseStatus ::
-      !Int,
-    _ucscrrsCodeSigningConfig ::
-      !CodeSigningConfig
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The code signing configuration
+    codeSigningConfig :: CodeSigningConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCodeSigningConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateCodeSigningConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucscrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucscrrsCodeSigningConfig' - The code signing configuration
-updateCodeSigningConfigResponse ::
-  -- | 'ucscrrsResponseStatus'
-  Int ->
-  -- | 'ucscrrsCodeSigningConfig'
+-- 'httpStatus', 'updateCodeSigningConfigResponse_httpStatus' - The response's http status code.
+--
+-- 'codeSigningConfig', 'updateCodeSigningConfigResponse_codeSigningConfig' - The code signing configuration
+newUpdateCodeSigningConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'codeSigningConfig'
   CodeSigningConfig ->
   UpdateCodeSigningConfigResponse
-updateCodeSigningConfigResponse
-  pResponseStatus_
+newUpdateCodeSigningConfigResponse
+  pHttpStatus_
   pCodeSigningConfig_ =
     UpdateCodeSigningConfigResponse'
-      { _ucscrrsResponseStatus =
-          pResponseStatus_,
-        _ucscrrsCodeSigningConfig =
-          pCodeSigningConfig_
+      { httpStatus =
+          pHttpStatus_,
+        codeSigningConfig = pCodeSigningConfig_
       }
 
--- | -- | The response status code.
-ucscrrsResponseStatus :: Lens' UpdateCodeSigningConfigResponse Int
-ucscrrsResponseStatus = lens _ucscrrsResponseStatus (\s a -> s {_ucscrrsResponseStatus = a})
+-- | The response's http status code.
+updateCodeSigningConfigResponse_httpStatus :: Lens.Lens' UpdateCodeSigningConfigResponse Prelude.Int
+updateCodeSigningConfigResponse_httpStatus = Lens.lens (\UpdateCodeSigningConfigResponse' {httpStatus} -> httpStatus) (\s@UpdateCodeSigningConfigResponse' {} a -> s {httpStatus = a} :: UpdateCodeSigningConfigResponse)
 
 -- | The code signing configuration
-ucscrrsCodeSigningConfig :: Lens' UpdateCodeSigningConfigResponse CodeSigningConfig
-ucscrrsCodeSigningConfig = lens _ucscrrsCodeSigningConfig (\s a -> s {_ucscrrsCodeSigningConfig = a})
+updateCodeSigningConfigResponse_codeSigningConfig :: Lens.Lens' UpdateCodeSigningConfigResponse CodeSigningConfig
+updateCodeSigningConfigResponse_codeSigningConfig = Lens.lens (\UpdateCodeSigningConfigResponse' {codeSigningConfig} -> codeSigningConfig) (\s@UpdateCodeSigningConfigResponse' {} a -> s {codeSigningConfig = a} :: UpdateCodeSigningConfigResponse)
 
-instance NFData UpdateCodeSigningConfigResponse
+instance
+  Prelude.NFData
+    UpdateCodeSigningConfigResponse

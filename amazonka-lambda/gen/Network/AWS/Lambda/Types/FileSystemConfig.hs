@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lambda.Types.FileSystemConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about the connection between a Lambda function and an Amazon EFS file system.
+-- | Details about the connection between a Lambda function and an Amazon EFS
+-- file system.
 --
---
---
--- /See:/ 'fileSystemConfig' smart constructor.
+-- /See:/ 'newFileSystemConfig' smart constructor.
 data FileSystemConfig = FileSystemConfig'
-  { _fscARN ::
-      !Text,
-    _fscLocalMountPath :: !Text
+  { -- | The Amazon Resource Name (ARN) of the Amazon EFS access point that
+    -- provides access to the file system.
+    arn :: Prelude.Text,
+    -- | The path where the function can access the file system, starting with
+    -- @\/mnt\/@.
+    localMountPath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FileSystemConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FileSystemConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fscARN' - The Amazon Resource Name (ARN) of the Amazon EFS access point that provides access to the file system.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fscLocalMountPath' - The path where the function can access the file system, starting with @/mnt/@ .
-fileSystemConfig ::
-  -- | 'fscARN'
-  Text ->
-  -- | 'fscLocalMountPath'
-  Text ->
+-- 'arn', 'fileSystemConfig_arn' - The Amazon Resource Name (ARN) of the Amazon EFS access point that
+-- provides access to the file system.
+--
+-- 'localMountPath', 'fileSystemConfig_localMountPath' - The path where the function can access the file system, starting with
+-- @\/mnt\/@.
+newFileSystemConfig ::
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'localMountPath'
+  Prelude.Text ->
   FileSystemConfig
-fileSystemConfig pARN_ pLocalMountPath_ =
+newFileSystemConfig pArn_ pLocalMountPath_ =
   FileSystemConfig'
-    { _fscARN = pARN_,
-      _fscLocalMountPath = pLocalMountPath_
+    { arn = pArn_,
+      localMountPath = pLocalMountPath_
     }
 
--- | The Amazon Resource Name (ARN) of the Amazon EFS access point that provides access to the file system.
-fscARN :: Lens' FileSystemConfig Text
-fscARN = lens _fscARN (\s a -> s {_fscARN = a})
+-- | The Amazon Resource Name (ARN) of the Amazon EFS access point that
+-- provides access to the file system.
+fileSystemConfig_arn :: Lens.Lens' FileSystemConfig Prelude.Text
+fileSystemConfig_arn = Lens.lens (\FileSystemConfig' {arn} -> arn) (\s@FileSystemConfig' {} a -> s {arn = a} :: FileSystemConfig)
 
--- | The path where the function can access the file system, starting with @/mnt/@ .
-fscLocalMountPath :: Lens' FileSystemConfig Text
-fscLocalMountPath = lens _fscLocalMountPath (\s a -> s {_fscLocalMountPath = a})
+-- | The path where the function can access the file system, starting with
+-- @\/mnt\/@.
+fileSystemConfig_localMountPath :: Lens.Lens' FileSystemConfig Prelude.Text
+fileSystemConfig_localMountPath = Lens.lens (\FileSystemConfig' {localMountPath} -> localMountPath) (\s@FileSystemConfig' {} a -> s {localMountPath = a} :: FileSystemConfig)
 
-instance FromJSON FileSystemConfig where
+instance Prelude.FromJSON FileSystemConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FileSystemConfig"
       ( \x ->
           FileSystemConfig'
-            <$> (x .: "Arn") <*> (x .: "LocalMountPath")
+            Prelude.<$> (x Prelude..: "Arn")
+            Prelude.<*> (x Prelude..: "LocalMountPath")
       )
 
-instance Hashable FileSystemConfig
+instance Prelude.Hashable FileSystemConfig
 
-instance NFData FileSystemConfig
+instance Prelude.NFData FileSystemConfig
 
-instance ToJSON FileSystemConfig where
+instance Prelude.ToJSON FileSystemConfig where
   toJSON FileSystemConfig' {..} =
-    object
-      ( catMaybes
-          [ Just ("Arn" .= _fscARN),
-            Just ("LocalMountPath" .= _fscLocalMountPath)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Arn" Prelude..= arn),
+            Prelude.Just
+              ("LocalMountPath" Prelude..= localMountPath)
           ]
       )

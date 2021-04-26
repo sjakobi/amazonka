@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,196 +21,295 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a Lambda function's code. If code signing is enabled for the function, the code package must be signed by a trusted publisher. For more information, see <https://docs.aws.amazon.com/lambda/latest/dg/configuration-trustedcode.html Configuring code signing> .
+-- Updates a Lambda function\'s code. If code signing is enabled for the
+-- function, the code package must be signed by a trusted publisher. For
+-- more information, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-trustedcode.html Configuring code signing>.
 --
+-- The function\'s code is locked when you publish a version. You can\'t
+-- modify the code of a published version, only the unpublished version.
 --
--- The function's code is locked when you publish a version. You can't modify the code of a published version, only the unpublished version.
+-- For a function defined as a container image, Lambda resolves the image
+-- tag to an image digest. In Amazon ECR, if you update the image tag to a
+-- new image, Lambda does not automatically update the function.
 module Network.AWS.Lambda.UpdateFunctionCode
   ( -- * Creating a Request
-    updateFunctionCode,
-    UpdateFunctionCode,
+    UpdateFunctionCode (..),
+    newUpdateFunctionCode,
 
     -- * Request Lenses
-    ufcImageURI,
-    ufcPublish,
-    ufcRevisionId,
-    ufcDryRun,
-    ufcS3Bucket,
-    ufcZipFile,
-    ufcS3ObjectVersion,
-    ufcS3Key,
-    ufcFunctionName,
+    updateFunctionCode_imageUri,
+    updateFunctionCode_publish,
+    updateFunctionCode_revisionId,
+    updateFunctionCode_dryRun,
+    updateFunctionCode_s3Bucket,
+    updateFunctionCode_zipFile,
+    updateFunctionCode_s3ObjectVersion,
+    updateFunctionCode_s3Key,
+    updateFunctionCode_functionName,
 
     -- * Destructuring the Response
-    functionConfiguration,
-    FunctionConfiguration,
+    FunctionConfiguration (..),
+    newFunctionConfiguration,
 
     -- * Response Lenses
-    fcSigningProfileVersionARN,
-    fcLastUpdateStatus,
-    fcVPCConfig,
-    fcMemorySize,
-    fcMasterARN,
-    fcRevisionId,
-    fcLastUpdateStatusReasonCode,
-    fcCodeSha256,
-    fcStateReason,
-    fcTimeout,
-    fcHandler,
-    fcDeadLetterConfig,
-    fcFunctionName,
-    fcEnvironment,
-    fcVersion,
-    fcFunctionARN,
-    fcState,
-    fcKMSKeyARN,
-    fcRuntime,
-    fcRole,
-    fcSigningJobARN,
-    fcStateReasonCode,
-    fcImageConfigResponse,
-    fcTracingConfig,
-    fcDescription,
-    fcLastModified,
-    fcLastUpdateStatusReason,
-    fcLayers,
-    fcCodeSize,
-    fcFileSystemConfigs,
-    fcPackageType,
+    functionConfiguration_signingProfileVersionArn,
+    functionConfiguration_lastUpdateStatus,
+    functionConfiguration_vpcConfig,
+    functionConfiguration_memorySize,
+    functionConfiguration_masterArn,
+    functionConfiguration_revisionId,
+    functionConfiguration_lastUpdateStatusReasonCode,
+    functionConfiguration_codeSha256,
+    functionConfiguration_stateReason,
+    functionConfiguration_timeout,
+    functionConfiguration_handler,
+    functionConfiguration_deadLetterConfig,
+    functionConfiguration_functionName,
+    functionConfiguration_environment,
+    functionConfiguration_version,
+    functionConfiguration_functionArn,
+    functionConfiguration_state,
+    functionConfiguration_kMSKeyArn,
+    functionConfiguration_runtime,
+    functionConfiguration_role,
+    functionConfiguration_signingJobArn,
+    functionConfiguration_stateReasonCode,
+    functionConfiguration_imageConfigResponse,
+    functionConfiguration_tracingConfig,
+    functionConfiguration_description,
+    functionConfiguration_lastModified,
+    functionConfiguration_lastUpdateStatusReason,
+    functionConfiguration_layers,
+    functionConfiguration_codeSize,
+    functionConfiguration_fileSystemConfigs,
+    functionConfiguration_packageType,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.DeadLetterConfig
+import Network.AWS.Lambda.Types.EnvironmentResponse
+import Network.AWS.Lambda.Types.FileSystemConfig
+import Network.AWS.Lambda.Types.FunctionConfiguration
+import Network.AWS.Lambda.Types.ImageConfigResponse
+import Network.AWS.Lambda.Types.LastUpdateStatus
+import Network.AWS.Lambda.Types.LastUpdateStatusReasonCode
+import Network.AWS.Lambda.Types.Layer
+import Network.AWS.Lambda.Types.PackageType
+import Network.AWS.Lambda.Types.Runtime
+import Network.AWS.Lambda.Types.State
+import Network.AWS.Lambda.Types.StateReasonCode
+import Network.AWS.Lambda.Types.TracingConfigResponse
+import Network.AWS.Lambda.Types.VpcConfigResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateFunctionCode' smart constructor.
+-- | /See:/ 'newUpdateFunctionCode' smart constructor.
 data UpdateFunctionCode = UpdateFunctionCode'
-  { _ufcImageURI ::
-      !(Maybe Text),
-    _ufcPublish :: !(Maybe Bool),
-    _ufcRevisionId :: !(Maybe Text),
-    _ufcDryRun :: !(Maybe Bool),
-    _ufcS3Bucket :: !(Maybe Text),
-    _ufcZipFile ::
-      !(Maybe (Sensitive Base64)),
-    _ufcS3ObjectVersion ::
-      !(Maybe Text),
-    _ufcS3Key :: !(Maybe Text),
-    _ufcFunctionName :: !Text
+  { -- | URI of a container image in the Amazon ECR registry.
+    imageUri :: Prelude.Maybe Prelude.Text,
+    -- | Set to true to publish a new version of the function after updating the
+    -- code. This has the same effect as calling PublishVersion separately.
+    publish :: Prelude.Maybe Prelude.Bool,
+    -- | Only update the function if the revision ID matches the ID that\'s
+    -- specified. Use this option to avoid modifying a function that has
+    -- changed since you last read it.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | Set to true to validate the request parameters and access permissions
+    -- without modifying the function code.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | An Amazon S3 bucket in the same AWS Region as your function. The bucket
+    -- can be in a different AWS account.
+    s3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The base64-encoded contents of the deployment package. AWS SDK and AWS
+    -- CLI clients handle the encoding for you.
+    zipFile :: Prelude.Maybe (Prelude.Sensitive Prelude.Base64),
+    -- | For versioned objects, the version of the deployment package object to
+    -- use.
+    s3ObjectVersion :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 key of the deployment package.
+    s3Key :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @my-function@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFunctionCode' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFunctionCode' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufcImageURI' - URI of a container image in the Amazon ECR registry.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufcPublish' - Set to true to publish a new version of the function after updating the code. This has the same effect as calling 'PublishVersion' separately.
+-- 'imageUri', 'updateFunctionCode_imageUri' - URI of a container image in the Amazon ECR registry.
 --
--- * 'ufcRevisionId' - Only update the function if the revision ID matches the ID that's specified. Use this option to avoid modifying a function that has changed since you last read it.
+-- 'publish', 'updateFunctionCode_publish' - Set to true to publish a new version of the function after updating the
+-- code. This has the same effect as calling PublishVersion separately.
 --
--- * 'ufcDryRun' - Set to true to validate the request parameters and access permissions without modifying the function code.
+-- 'revisionId', 'updateFunctionCode_revisionId' - Only update the function if the revision ID matches the ID that\'s
+-- specified. Use this option to avoid modifying a function that has
+-- changed since you last read it.
 --
--- * 'ufcS3Bucket' - An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
+-- 'dryRun', 'updateFunctionCode_dryRun' - Set to true to validate the request parameters and access permissions
+-- without modifying the function code.
 --
--- * 'ufcZipFile' - The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for you.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- 's3Bucket', 'updateFunctionCode_s3Bucket' - An Amazon S3 bucket in the same AWS Region as your function. The bucket
+-- can be in a different AWS account.
 --
--- * 'ufcS3ObjectVersion' - For versioned objects, the version of the deployment package object to use.
+-- 'zipFile', 'updateFunctionCode_zipFile' - The base64-encoded contents of the deployment package. AWS SDK and AWS
+-- CLI clients handle the encoding for you.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
 --
--- * 'ufcS3Key' - The Amazon S3 key of the deployment package.
+-- 's3ObjectVersion', 'updateFunctionCode_s3ObjectVersion' - For versioned objects, the version of the deployment package object to
+-- use.
 --
--- * 'ufcFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @my-function@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-updateFunctionCode ::
-  -- | 'ufcFunctionName'
-  Text ->
+-- 's3Key', 'updateFunctionCode_s3Key' - The Amazon S3 key of the deployment package.
+--
+-- 'functionName', 'updateFunctionCode_functionName' - The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+newUpdateFunctionCode ::
+  -- | 'functionName'
+  Prelude.Text ->
   UpdateFunctionCode
-updateFunctionCode pFunctionName_ =
+newUpdateFunctionCode pFunctionName_ =
   UpdateFunctionCode'
-    { _ufcImageURI = Nothing,
-      _ufcPublish = Nothing,
-      _ufcRevisionId = Nothing,
-      _ufcDryRun = Nothing,
-      _ufcS3Bucket = Nothing,
-      _ufcZipFile = Nothing,
-      _ufcS3ObjectVersion = Nothing,
-      _ufcS3Key = Nothing,
-      _ufcFunctionName = pFunctionName_
+    { imageUri = Prelude.Nothing,
+      publish = Prelude.Nothing,
+      revisionId = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      s3Bucket = Prelude.Nothing,
+      zipFile = Prelude.Nothing,
+      s3ObjectVersion = Prelude.Nothing,
+      s3Key = Prelude.Nothing,
+      functionName = pFunctionName_
     }
 
 -- | URI of a container image in the Amazon ECR registry.
-ufcImageURI :: Lens' UpdateFunctionCode (Maybe Text)
-ufcImageURI = lens _ufcImageURI (\s a -> s {_ufcImageURI = a})
+updateFunctionCode_imageUri :: Lens.Lens' UpdateFunctionCode (Prelude.Maybe Prelude.Text)
+updateFunctionCode_imageUri = Lens.lens (\UpdateFunctionCode' {imageUri} -> imageUri) (\s@UpdateFunctionCode' {} a -> s {imageUri = a} :: UpdateFunctionCode)
 
--- | Set to true to publish a new version of the function after updating the code. This has the same effect as calling 'PublishVersion' separately.
-ufcPublish :: Lens' UpdateFunctionCode (Maybe Bool)
-ufcPublish = lens _ufcPublish (\s a -> s {_ufcPublish = a})
+-- | Set to true to publish a new version of the function after updating the
+-- code. This has the same effect as calling PublishVersion separately.
+updateFunctionCode_publish :: Lens.Lens' UpdateFunctionCode (Prelude.Maybe Prelude.Bool)
+updateFunctionCode_publish = Lens.lens (\UpdateFunctionCode' {publish} -> publish) (\s@UpdateFunctionCode' {} a -> s {publish = a} :: UpdateFunctionCode)
 
--- | Only update the function if the revision ID matches the ID that's specified. Use this option to avoid modifying a function that has changed since you last read it.
-ufcRevisionId :: Lens' UpdateFunctionCode (Maybe Text)
-ufcRevisionId = lens _ufcRevisionId (\s a -> s {_ufcRevisionId = a})
+-- | Only update the function if the revision ID matches the ID that\'s
+-- specified. Use this option to avoid modifying a function that has
+-- changed since you last read it.
+updateFunctionCode_revisionId :: Lens.Lens' UpdateFunctionCode (Prelude.Maybe Prelude.Text)
+updateFunctionCode_revisionId = Lens.lens (\UpdateFunctionCode' {revisionId} -> revisionId) (\s@UpdateFunctionCode' {} a -> s {revisionId = a} :: UpdateFunctionCode)
 
--- | Set to true to validate the request parameters and access permissions without modifying the function code.
-ufcDryRun :: Lens' UpdateFunctionCode (Maybe Bool)
-ufcDryRun = lens _ufcDryRun (\s a -> s {_ufcDryRun = a})
+-- | Set to true to validate the request parameters and access permissions
+-- without modifying the function code.
+updateFunctionCode_dryRun :: Lens.Lens' UpdateFunctionCode (Prelude.Maybe Prelude.Bool)
+updateFunctionCode_dryRun = Lens.lens (\UpdateFunctionCode' {dryRun} -> dryRun) (\s@UpdateFunctionCode' {} a -> s {dryRun = a} :: UpdateFunctionCode)
 
--- | An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
-ufcS3Bucket :: Lens' UpdateFunctionCode (Maybe Text)
-ufcS3Bucket = lens _ufcS3Bucket (\s a -> s {_ufcS3Bucket = a})
+-- | An Amazon S3 bucket in the same AWS Region as your function. The bucket
+-- can be in a different AWS account.
+updateFunctionCode_s3Bucket :: Lens.Lens' UpdateFunctionCode (Prelude.Maybe Prelude.Text)
+updateFunctionCode_s3Bucket = Lens.lens (\UpdateFunctionCode' {s3Bucket} -> s3Bucket) (\s@UpdateFunctionCode' {} a -> s {s3Bucket = a} :: UpdateFunctionCode)
 
--- | The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for you.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-ufcZipFile :: Lens' UpdateFunctionCode (Maybe ByteString)
-ufcZipFile = lens _ufcZipFile (\s a -> s {_ufcZipFile = a}) . mapping (_Sensitive . _Base64)
+-- | The base64-encoded contents of the deployment package. AWS SDK and AWS
+-- CLI clients handle the encoding for you.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+updateFunctionCode_zipFile :: Lens.Lens' UpdateFunctionCode (Prelude.Maybe Prelude.ByteString)
+updateFunctionCode_zipFile = Lens.lens (\UpdateFunctionCode' {zipFile} -> zipFile) (\s@UpdateFunctionCode' {} a -> s {zipFile = a} :: UpdateFunctionCode) Prelude.. Lens.mapping (Prelude._Sensitive Prelude.. Prelude._Base64)
 
--- | For versioned objects, the version of the deployment package object to use.
-ufcS3ObjectVersion :: Lens' UpdateFunctionCode (Maybe Text)
-ufcS3ObjectVersion = lens _ufcS3ObjectVersion (\s a -> s {_ufcS3ObjectVersion = a})
+-- | For versioned objects, the version of the deployment package object to
+-- use.
+updateFunctionCode_s3ObjectVersion :: Lens.Lens' UpdateFunctionCode (Prelude.Maybe Prelude.Text)
+updateFunctionCode_s3ObjectVersion = Lens.lens (\UpdateFunctionCode' {s3ObjectVersion} -> s3ObjectVersion) (\s@UpdateFunctionCode' {} a -> s {s3ObjectVersion = a} :: UpdateFunctionCode)
 
 -- | The Amazon S3 key of the deployment package.
-ufcS3Key :: Lens' UpdateFunctionCode (Maybe Text)
-ufcS3Key = lens _ufcS3Key (\s a -> s {_ufcS3Key = a})
+updateFunctionCode_s3Key :: Lens.Lens' UpdateFunctionCode (Prelude.Maybe Prelude.Text)
+updateFunctionCode_s3Key = Lens.lens (\UpdateFunctionCode' {s3Key} -> s3Key) (\s@UpdateFunctionCode' {} a -> s {s3Key = a} :: UpdateFunctionCode)
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @my-function@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-ufcFunctionName :: Lens' UpdateFunctionCode Text
-ufcFunctionName = lens _ufcFunctionName (\s a -> s {_ufcFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+updateFunctionCode_functionName :: Lens.Lens' UpdateFunctionCode Prelude.Text
+updateFunctionCode_functionName = Lens.lens (\UpdateFunctionCode' {functionName} -> functionName) (\s@UpdateFunctionCode' {} a -> s {functionName = a} :: UpdateFunctionCode)
 
-instance AWSRequest UpdateFunctionCode where
+instance Prelude.AWSRequest UpdateFunctionCode where
   type Rs UpdateFunctionCode = FunctionConfiguration
-  request = putJSON lambda
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateFunctionCode
+instance Prelude.Hashable UpdateFunctionCode
 
-instance NFData UpdateFunctionCode
+instance Prelude.NFData UpdateFunctionCode
 
-instance ToHeaders UpdateFunctionCode where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateFunctionCode where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateFunctionCode where
+instance Prelude.ToJSON UpdateFunctionCode where
   toJSON UpdateFunctionCode' {..} =
-    object
-      ( catMaybes
-          [ ("ImageUri" .=) <$> _ufcImageURI,
-            ("Publish" .=) <$> _ufcPublish,
-            ("RevisionId" .=) <$> _ufcRevisionId,
-            ("DryRun" .=) <$> _ufcDryRun,
-            ("S3Bucket" .=) <$> _ufcS3Bucket,
-            ("ZipFile" .=) <$> _ufcZipFile,
-            ("S3ObjectVersion" .=) <$> _ufcS3ObjectVersion,
-            ("S3Key" .=) <$> _ufcS3Key
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ImageUri" Prelude..=) Prelude.<$> imageUri,
+            ("Publish" Prelude..=) Prelude.<$> publish,
+            ("RevisionId" Prelude..=) Prelude.<$> revisionId,
+            ("DryRun" Prelude..=) Prelude.<$> dryRun,
+            ("S3Bucket" Prelude..=) Prelude.<$> s3Bucket,
+            ("ZipFile" Prelude..=) Prelude.<$> zipFile,
+            ("S3ObjectVersion" Prelude..=)
+              Prelude.<$> s3ObjectVersion,
+            ("S3Key" Prelude..=) Prelude.<$> s3Key
           ]
       )
 
-instance ToPath UpdateFunctionCode where
+instance Prelude.ToPath UpdateFunctionCode where
   toPath UpdateFunctionCode' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-03-31/functions/",
-        toBS _ufcFunctionName,
+        Prelude.toBS functionName,
         "/code"
       ]
 
-instance ToQuery UpdateFunctionCode where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFunctionCode where
+  toQuery = Prelude.const Prelude.mempty

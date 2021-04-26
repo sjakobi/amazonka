@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.Lambda.Types.SourceAccessType
   ( SourceAccessType
       ( ..,
-        BasicAuth,
-        SaslScram256Auth,
-        SaslScram512Auth,
-        VPCSecurityGroup,
-        VPCSubnet
+        SourceAccessTypeBASICAUTH,
+        SourceAccessTypeSASLSCRAM256AUTH,
+        SourceAccessTypeSASLSCRAM512AUTH,
+        SourceAccessTypeVPCSECURITYGROUP,
+        SourceAccessTypeVPCSUBNET
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SourceAccessType = SourceAccessType' (CI Text)
+newtype SourceAccessType = SourceAccessType'
+  { fromSourceAccessType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BasicAuth :: SourceAccessType
-pattern BasicAuth = SourceAccessType' "BASIC_AUTH"
+pattern SourceAccessTypeBASICAUTH :: SourceAccessType
+pattern SourceAccessTypeBASICAUTH = SourceAccessType' "BASIC_AUTH"
 
-pattern SaslScram256Auth :: SourceAccessType
-pattern SaslScram256Auth = SourceAccessType' "SASL_SCRAM_256_AUTH"
+pattern SourceAccessTypeSASLSCRAM256AUTH :: SourceAccessType
+pattern SourceAccessTypeSASLSCRAM256AUTH = SourceAccessType' "SASL_SCRAM_256_AUTH"
 
-pattern SaslScram512Auth :: SourceAccessType
-pattern SaslScram512Auth = SourceAccessType' "SASL_SCRAM_512_AUTH"
+pattern SourceAccessTypeSASLSCRAM512AUTH :: SourceAccessType
+pattern SourceAccessTypeSASLSCRAM512AUTH = SourceAccessType' "SASL_SCRAM_512_AUTH"
 
-pattern VPCSecurityGroup :: SourceAccessType
-pattern VPCSecurityGroup = SourceAccessType' "VPC_SECURITY_GROUP"
+pattern SourceAccessTypeVPCSECURITYGROUP :: SourceAccessType
+pattern SourceAccessTypeVPCSECURITYGROUP = SourceAccessType' "VPC_SECURITY_GROUP"
 
-pattern VPCSubnet :: SourceAccessType
-pattern VPCSubnet = SourceAccessType' "VPC_SUBNET"
+pattern SourceAccessTypeVPCSUBNET :: SourceAccessType
+pattern SourceAccessTypeVPCSUBNET = SourceAccessType' "VPC_SUBNET"
 
 {-# COMPLETE
-  BasicAuth,
-  SaslScram256Auth,
-  SaslScram512Auth,
-  VPCSecurityGroup,
-  VPCSubnet,
+  SourceAccessTypeBASICAUTH,
+  SourceAccessTypeSASLSCRAM256AUTH,
+  SourceAccessTypeSASLSCRAM512AUTH,
+  SourceAccessTypeVPCSECURITYGROUP,
+  SourceAccessTypeVPCSUBNET,
   SourceAccessType'
   #-}
 
-instance FromText SourceAccessType where
-  parser = (SourceAccessType' . mk) <$> takeText
+instance Prelude.FromText SourceAccessType where
+  parser = SourceAccessType' Prelude.<$> Prelude.takeText
 
-instance ToText SourceAccessType where
-  toText (SourceAccessType' ci) = original ci
+instance Prelude.ToText SourceAccessType where
+  toText (SourceAccessType' x) = x
 
-instance Hashable SourceAccessType
+instance Prelude.Hashable SourceAccessType
 
-instance NFData SourceAccessType
+instance Prelude.NFData SourceAccessType
 
-instance ToByteString SourceAccessType
+instance Prelude.ToByteString SourceAccessType
 
-instance ToQuery SourceAccessType
+instance Prelude.ToQuery SourceAccessType
 
-instance ToHeader SourceAccessType
+instance Prelude.ToHeader SourceAccessType
 
-instance ToJSON SourceAccessType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SourceAccessType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SourceAccessType where
-  parseJSON = parseJSONText "SourceAccessType"
+instance Prelude.FromJSON SourceAccessType where
+  parseJSON = Prelude.parseJSONText "SourceAccessType"

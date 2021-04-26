@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a <https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html version> from the current code and configuration of a function. Use versions to create a snapshot of your function code and configuration that doesn't change.
+-- Creates a
+-- <https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html version>
+-- from the current code and configuration of a function. Use versions to
+-- create a snapshot of your function code and configuration that doesn\'t
+-- change.
 --
+-- AWS Lambda doesn\'t publish a version if the function\'s configuration
+-- and code haven\'t changed since the last version. Use UpdateFunctionCode
+-- or UpdateFunctionConfiguration to update the function before publishing
+-- a version.
 --
--- AWS Lambda doesn't publish a version if the function's configuration and code haven't changed since the last version. Use 'UpdateFunctionCode' or 'UpdateFunctionConfiguration' to update the function before publishing a version.
---
--- Clients can invoke versions directly or with an alias. To create an alias, use 'CreateAlias' .
+-- Clients can invoke versions directly or with an alias. To create an
+-- alias, use CreateAlias.
 module Network.AWS.Lambda.PublishVersion
   ( -- * Creating a Request
-    publishVersion,
-    PublishVersion,
+    PublishVersion (..),
+    newPublishVersion,
 
     -- * Request Lenses
-    pvRevisionId,
-    pvCodeSha256,
-    pvDescription,
-    pvFunctionName,
+    publishVersion_revisionId,
+    publishVersion_codeSha256,
+    publishVersion_description,
+    publishVersion_functionName,
 
     -- * Destructuring the Response
-    functionConfiguration,
-    FunctionConfiguration,
+    FunctionConfiguration (..),
+    newFunctionConfiguration,
 
     -- * Response Lenses
-    fcSigningProfileVersionARN,
-    fcLastUpdateStatus,
-    fcVPCConfig,
-    fcMemorySize,
-    fcMasterARN,
-    fcRevisionId,
-    fcLastUpdateStatusReasonCode,
-    fcCodeSha256,
-    fcStateReason,
-    fcTimeout,
-    fcHandler,
-    fcDeadLetterConfig,
-    fcFunctionName,
-    fcEnvironment,
-    fcVersion,
-    fcFunctionARN,
-    fcState,
-    fcKMSKeyARN,
-    fcRuntime,
-    fcRole,
-    fcSigningJobARN,
-    fcStateReasonCode,
-    fcImageConfigResponse,
-    fcTracingConfig,
-    fcDescription,
-    fcLastModified,
-    fcLastUpdateStatusReason,
-    fcLayers,
-    fcCodeSize,
-    fcFileSystemConfigs,
-    fcPackageType,
+    functionConfiguration_signingProfileVersionArn,
+    functionConfiguration_lastUpdateStatus,
+    functionConfiguration_vpcConfig,
+    functionConfiguration_memorySize,
+    functionConfiguration_masterArn,
+    functionConfiguration_revisionId,
+    functionConfiguration_lastUpdateStatusReasonCode,
+    functionConfiguration_codeSha256,
+    functionConfiguration_stateReason,
+    functionConfiguration_timeout,
+    functionConfiguration_handler,
+    functionConfiguration_deadLetterConfig,
+    functionConfiguration_functionName,
+    functionConfiguration_environment,
+    functionConfiguration_version,
+    functionConfiguration_functionArn,
+    functionConfiguration_state,
+    functionConfiguration_kMSKeyArn,
+    functionConfiguration_runtime,
+    functionConfiguration_role,
+    functionConfiguration_signingJobArn,
+    functionConfiguration_stateReasonCode,
+    functionConfiguration_imageConfigResponse,
+    functionConfiguration_tracingConfig,
+    functionConfiguration_description,
+    functionConfiguration_lastModified,
+    functionConfiguration_lastUpdateStatusReason,
+    functionConfiguration_layers,
+    functionConfiguration_codeSize,
+    functionConfiguration_fileSystemConfigs,
+    functionConfiguration_packageType,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.DeadLetterConfig
+import Network.AWS.Lambda.Types.EnvironmentResponse
+import Network.AWS.Lambda.Types.FileSystemConfig
+import Network.AWS.Lambda.Types.FunctionConfiguration
+import Network.AWS.Lambda.Types.ImageConfigResponse
+import Network.AWS.Lambda.Types.LastUpdateStatus
+import Network.AWS.Lambda.Types.LastUpdateStatusReasonCode
+import Network.AWS.Lambda.Types.Layer
+import Network.AWS.Lambda.Types.PackageType
+import Network.AWS.Lambda.Types.Runtime
+import Network.AWS.Lambda.Types.State
+import Network.AWS.Lambda.Types.StateReasonCode
+import Network.AWS.Lambda.Types.TracingConfigResponse
+import Network.AWS.Lambda.Types.VpcConfigResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'publishVersion' smart constructor.
+-- | /See:/ 'newPublishVersion' smart constructor.
 data PublishVersion = PublishVersion'
-  { _pvRevisionId ::
-      !(Maybe Text),
-    _pvCodeSha256 :: !(Maybe Text),
-    _pvDescription :: !(Maybe Text),
-    _pvFunctionName :: !Text
+  { -- | Only update the function if the revision ID matches the ID that\'s
+    -- specified. Use this option to avoid publishing a version if the function
+    -- configuration has changed since you last updated it.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | Only publish a version if the hash value matches the value that\'s
+    -- specified. Use this option to avoid publishing a version if the function
+    -- code has changed since you last updated it. You can get the hash for the
+    -- version that you uploaded from the output of UpdateFunctionCode.
+    codeSha256 :: Prelude.Maybe Prelude.Text,
+    -- | A description for the version to override the description in the
+    -- function configuration.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @MyFunction@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PublishVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PublishVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pvRevisionId' - Only update the function if the revision ID matches the ID that's specified. Use this option to avoid publishing a version if the function configuration has changed since you last updated it.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pvCodeSha256' - Only publish a version if the hash value matches the value that's specified. Use this option to avoid publishing a version if the function code has changed since you last updated it. You can get the hash for the version that you uploaded from the output of 'UpdateFunctionCode' .
+-- 'revisionId', 'publishVersion_revisionId' - Only update the function if the revision ID matches the ID that\'s
+-- specified. Use this option to avoid publishing a version if the function
+-- configuration has changed since you last updated it.
 --
--- * 'pvDescription' - A description for the version to override the description in the function configuration.
+-- 'codeSha256', 'publishVersion_codeSha256' - Only publish a version if the hash value matches the value that\'s
+-- specified. Use this option to avoid publishing a version if the function
+-- code has changed since you last updated it. You can get the hash for the
+-- version that you uploaded from the output of UpdateFunctionCode.
 --
--- * 'pvFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-publishVersion ::
-  -- | 'pvFunctionName'
-  Text ->
+-- 'description', 'publishVersion_description' - A description for the version to override the description in the
+-- function configuration.
+--
+-- 'functionName', 'publishVersion_functionName' - The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+newPublishVersion ::
+  -- | 'functionName'
+  Prelude.Text ->
   PublishVersion
-publishVersion pFunctionName_ =
+newPublishVersion pFunctionName_ =
   PublishVersion'
-    { _pvRevisionId = Nothing,
-      _pvCodeSha256 = Nothing,
-      _pvDescription = Nothing,
-      _pvFunctionName = pFunctionName_
+    { revisionId = Prelude.Nothing,
+      codeSha256 = Prelude.Nothing,
+      description = Prelude.Nothing,
+      functionName = pFunctionName_
     }
 
--- | Only update the function if the revision ID matches the ID that's specified. Use this option to avoid publishing a version if the function configuration has changed since you last updated it.
-pvRevisionId :: Lens' PublishVersion (Maybe Text)
-pvRevisionId = lens _pvRevisionId (\s a -> s {_pvRevisionId = a})
+-- | Only update the function if the revision ID matches the ID that\'s
+-- specified. Use this option to avoid publishing a version if the function
+-- configuration has changed since you last updated it.
+publishVersion_revisionId :: Lens.Lens' PublishVersion (Prelude.Maybe Prelude.Text)
+publishVersion_revisionId = Lens.lens (\PublishVersion' {revisionId} -> revisionId) (\s@PublishVersion' {} a -> s {revisionId = a} :: PublishVersion)
 
--- | Only publish a version if the hash value matches the value that's specified. Use this option to avoid publishing a version if the function code has changed since you last updated it. You can get the hash for the version that you uploaded from the output of 'UpdateFunctionCode' .
-pvCodeSha256 :: Lens' PublishVersion (Maybe Text)
-pvCodeSha256 = lens _pvCodeSha256 (\s a -> s {_pvCodeSha256 = a})
+-- | Only publish a version if the hash value matches the value that\'s
+-- specified. Use this option to avoid publishing a version if the function
+-- code has changed since you last updated it. You can get the hash for the
+-- version that you uploaded from the output of UpdateFunctionCode.
+publishVersion_codeSha256 :: Lens.Lens' PublishVersion (Prelude.Maybe Prelude.Text)
+publishVersion_codeSha256 = Lens.lens (\PublishVersion' {codeSha256} -> codeSha256) (\s@PublishVersion' {} a -> s {codeSha256 = a} :: PublishVersion)
 
--- | A description for the version to override the description in the function configuration.
-pvDescription :: Lens' PublishVersion (Maybe Text)
-pvDescription = lens _pvDescription (\s a -> s {_pvDescription = a})
+-- | A description for the version to override the description in the
+-- function configuration.
+publishVersion_description :: Lens.Lens' PublishVersion (Prelude.Maybe Prelude.Text)
+publishVersion_description = Lens.lens (\PublishVersion' {description} -> description) (\s@PublishVersion' {} a -> s {description = a} :: PublishVersion)
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-pvFunctionName :: Lens' PublishVersion Text
-pvFunctionName = lens _pvFunctionName (\s a -> s {_pvFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+publishVersion_functionName :: Lens.Lens' PublishVersion Prelude.Text
+publishVersion_functionName = Lens.lens (\PublishVersion' {functionName} -> functionName) (\s@PublishVersion' {} a -> s {functionName = a} :: PublishVersion)
 
-instance AWSRequest PublishVersion where
+instance Prelude.AWSRequest PublishVersion where
   type Rs PublishVersion = FunctionConfiguration
-  request = postJSON lambda
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable PublishVersion
+instance Prelude.Hashable PublishVersion
 
-instance NFData PublishVersion
+instance Prelude.NFData PublishVersion
 
-instance ToHeaders PublishVersion where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PublishVersion where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON PublishVersion where
+instance Prelude.ToJSON PublishVersion where
   toJSON PublishVersion' {..} =
-    object
-      ( catMaybes
-          [ ("RevisionId" .=) <$> _pvRevisionId,
-            ("CodeSha256" .=) <$> _pvCodeSha256,
-            ("Description" .=) <$> _pvDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RevisionId" Prelude..=) Prelude.<$> revisionId,
+            ("CodeSha256" Prelude..=) Prelude.<$> codeSha256,
+            ("Description" Prelude..=) Prelude.<$> description
           ]
       )
 
-instance ToPath PublishVersion where
+instance Prelude.ToPath PublishVersion where
   toPath PublishVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-03-31/functions/",
-        toBS _pvFunctionName,
+        Prelude.toBS functionName,
         "/versions"
       ]
 
-instance ToQuery PublishVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery PublishVersion where
+  toQuery = Prelude.const Prelude.mempty

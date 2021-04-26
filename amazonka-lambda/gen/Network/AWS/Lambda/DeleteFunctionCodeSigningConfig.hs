@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,101 +24,148 @@
 -- Removes the code signing configuration from the function.
 module Network.AWS.Lambda.DeleteFunctionCodeSigningConfig
   ( -- * Creating a Request
-    deleteFunctionCodeSigningConfig,
-    DeleteFunctionCodeSigningConfig,
+    DeleteFunctionCodeSigningConfig (..),
+    newDeleteFunctionCodeSigningConfig,
 
     -- * Request Lenses
-    dfcscFunctionName,
+    deleteFunctionCodeSigningConfig_functionName,
 
     -- * Destructuring the Response
-    deleteFunctionCodeSigningConfigResponse,
-    DeleteFunctionCodeSigningConfigResponse,
+    DeleteFunctionCodeSigningConfigResponse (..),
+    newDeleteFunctionCodeSigningConfigResponse,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteFunctionCodeSigningConfig' smart constructor.
-newtype DeleteFunctionCodeSigningConfig = DeleteFunctionCodeSigningConfig'
-  { _dfcscFunctionName ::
-      Text
+-- | /See:/ 'newDeleteFunctionCodeSigningConfig' smart constructor.
+data DeleteFunctionCodeSigningConfig = DeleteFunctionCodeSigningConfig'
+  { -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @MyFunction@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFunctionCodeSigningConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFunctionCodeSigningConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfcscFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-deleteFunctionCodeSigningConfig ::
-  -- | 'dfcscFunctionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'functionName', 'deleteFunctionCodeSigningConfig_functionName' - The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+newDeleteFunctionCodeSigningConfig ::
+  -- | 'functionName'
+  Prelude.Text ->
   DeleteFunctionCodeSigningConfig
-deleteFunctionCodeSigningConfig pFunctionName_ =
+newDeleteFunctionCodeSigningConfig pFunctionName_ =
   DeleteFunctionCodeSigningConfig'
-    { _dfcscFunctionName =
+    { functionName =
         pFunctionName_
     }
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-dfcscFunctionName :: Lens' DeleteFunctionCodeSigningConfig Text
-dfcscFunctionName = lens _dfcscFunctionName (\s a -> s {_dfcscFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+deleteFunctionCodeSigningConfig_functionName :: Lens.Lens' DeleteFunctionCodeSigningConfig Prelude.Text
+deleteFunctionCodeSigningConfig_functionName = Lens.lens (\DeleteFunctionCodeSigningConfig' {functionName} -> functionName) (\s@DeleteFunctionCodeSigningConfig' {} a -> s {functionName = a} :: DeleteFunctionCodeSigningConfig)
 
-instance AWSRequest DeleteFunctionCodeSigningConfig where
+instance
+  Prelude.AWSRequest
+    DeleteFunctionCodeSigningConfig
+  where
   type
     Rs DeleteFunctionCodeSigningConfig =
       DeleteFunctionCodeSigningConfigResponse
-  request = delete lambda
+  request = Request.delete defaultService
   response =
-    receiveNull
+    Response.receiveNull
       DeleteFunctionCodeSigningConfigResponse'
 
-instance Hashable DeleteFunctionCodeSigningConfig
+instance
+  Prelude.Hashable
+    DeleteFunctionCodeSigningConfig
 
-instance NFData DeleteFunctionCodeSigningConfig
+instance
+  Prelude.NFData
+    DeleteFunctionCodeSigningConfig
 
-instance ToHeaders DeleteFunctionCodeSigningConfig where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteFunctionCodeSigningConfig
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteFunctionCodeSigningConfig where
+instance
+  Prelude.ToPath
+    DeleteFunctionCodeSigningConfig
+  where
   toPath DeleteFunctionCodeSigningConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2020-06-30/functions/",
-        toBS _dfcscFunctionName,
+        Prelude.toBS functionName,
         "/code-signing-config"
       ]
 
-instance ToQuery DeleteFunctionCodeSigningConfig where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DeleteFunctionCodeSigningConfig
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFunctionCodeSigningConfigResponse' smart constructor.
+-- | /See:/ 'newDeleteFunctionCodeSigningConfigResponse' smart constructor.
 data DeleteFunctionCodeSigningConfigResponse = DeleteFunctionCodeSigningConfigResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFunctionCodeSigningConfigResponse' with the minimum fields required to make a request.
-deleteFunctionCodeSigningConfigResponse ::
+-- |
+-- Create a value of 'DeleteFunctionCodeSigningConfigResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteFunctionCodeSigningConfigResponse ::
   DeleteFunctionCodeSigningConfigResponse
-deleteFunctionCodeSigningConfigResponse =
+newDeleteFunctionCodeSigningConfigResponse =
   DeleteFunctionCodeSigningConfigResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DeleteFunctionCodeSigningConfigResponse

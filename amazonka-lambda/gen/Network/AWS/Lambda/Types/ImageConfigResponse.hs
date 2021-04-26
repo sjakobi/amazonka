@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +21,57 @@ module Network.AWS.Lambda.Types.ImageConfigResponse where
 
 import Network.AWS.Lambda.Types.ImageConfig
 import Network.AWS.Lambda.Types.ImageConfigError
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Response to GetFunctionConfiguration request.
 --
---
---
--- /See:/ 'imageConfigResponse' smart constructor.
+-- /See:/ 'newImageConfigResponse' smart constructor.
 data ImageConfigResponse = ImageConfigResponse'
-  { _icrImageConfig ::
-      !(Maybe ImageConfig),
-    _icrError ::
-      !(Maybe ImageConfigError)
+  { -- | Configuration values that override the container image Dockerfile.
+    imageConfig :: Prelude.Maybe ImageConfig,
+    -- | Error response to GetFunctionConfiguration.
+    error :: Prelude.Maybe ImageConfigError
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImageConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImageConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'icrImageConfig' - Configuration values that override the container image Dockerfile.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'icrError' - Error response to GetFunctionConfiguration.
-imageConfigResponse ::
+-- 'imageConfig', 'imageConfigResponse_imageConfig' - Configuration values that override the container image Dockerfile.
+--
+-- 'error', 'imageConfigResponse_error' - Error response to GetFunctionConfiguration.
+newImageConfigResponse ::
   ImageConfigResponse
-imageConfigResponse =
+newImageConfigResponse =
   ImageConfigResponse'
-    { _icrImageConfig = Nothing,
-      _icrError = Nothing
+    { imageConfig = Prelude.Nothing,
+      error = Prelude.Nothing
     }
 
 -- | Configuration values that override the container image Dockerfile.
-icrImageConfig :: Lens' ImageConfigResponse (Maybe ImageConfig)
-icrImageConfig = lens _icrImageConfig (\s a -> s {_icrImageConfig = a})
+imageConfigResponse_imageConfig :: Lens.Lens' ImageConfigResponse (Prelude.Maybe ImageConfig)
+imageConfigResponse_imageConfig = Lens.lens (\ImageConfigResponse' {imageConfig} -> imageConfig) (\s@ImageConfigResponse' {} a -> s {imageConfig = a} :: ImageConfigResponse)
 
 -- | Error response to GetFunctionConfiguration.
-icrError :: Lens' ImageConfigResponse (Maybe ImageConfigError)
-icrError = lens _icrError (\s a -> s {_icrError = a})
+imageConfigResponse_error :: Lens.Lens' ImageConfigResponse (Prelude.Maybe ImageConfigError)
+imageConfigResponse_error = Lens.lens (\ImageConfigResponse' {error} -> error) (\s@ImageConfigResponse' {} a -> s {error = a} :: ImageConfigResponse)
 
-instance FromJSON ImageConfigResponse where
+instance Prelude.FromJSON ImageConfigResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ImageConfigResponse"
       ( \x ->
           ImageConfigResponse'
-            <$> (x .:? "ImageConfig") <*> (x .:? "Error")
+            Prelude.<$> (x Prelude..:? "ImageConfig")
+            Prelude.<*> (x Prelude..:? "Error")
       )
 
-instance Hashable ImageConfigResponse
+instance Prelude.Hashable ImageConfigResponse
 
-instance NFData ImageConfigResponse
+instance Prelude.NFData ImageConfigResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,303 +23,434 @@
 --
 -- Modify the version-specific settings of a Lambda function.
 --
+-- When you update a function, Lambda provisions an instance of the
+-- function and its supporting resources. If your function connects to a
+-- VPC, this process can take a minute. During this time, you can\'t modify
+-- the function, but you can still invoke it. The @LastUpdateStatus@,
+-- @LastUpdateStatusReason@, and @LastUpdateStatusReasonCode@ fields in the
+-- response from GetFunctionConfiguration indicate when the update is
+-- complete and the function is processing events with the new
+-- configuration. For more information, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html Function States>.
 --
--- When you update a function, Lambda provisions an instance of the function and its supporting resources. If your function connects to a VPC, this process can take a minute. During this time, you can't modify the function, but you can still invoke it. The @LastUpdateStatus@ , @LastUpdateStatusReason@ , and @LastUpdateStatusReasonCode@ fields in the response from 'GetFunctionConfiguration' indicate when the update is complete and the function is processing events with the new configuration. For more information, see <https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html Function States> .
+-- These settings can vary between versions of a function and are locked
+-- when you publish a version. You can\'t modify the configuration of a
+-- published version, only the unpublished version.
 --
--- These settings can vary between versions of a function and are locked when you publish a version. You can't modify the configuration of a published version, only the unpublished version.
---
--- To configure function concurrency, use 'PutFunctionConcurrency' . To grant invoke permissions to an account or AWS service, use 'AddPermission' .
+-- To configure function concurrency, use PutFunctionConcurrency. To grant
+-- invoke permissions to an account or AWS service, use AddPermission.
 module Network.AWS.Lambda.UpdateFunctionConfiguration
   ( -- * Creating a Request
-    updateFunctionConfiguration,
-    UpdateFunctionConfiguration,
+    UpdateFunctionConfiguration (..),
+    newUpdateFunctionConfiguration,
 
     -- * Request Lenses
-    uVPCConfig,
-    uMemorySize,
-    uRevisionId,
-    uTimeout,
-    uHandler,
-    uDeadLetterConfig,
-    uImageConfig,
-    uEnvironment,
-    uKMSKeyARN,
-    uRuntime,
-    uRole,
-    uTracingConfig,
-    uDescription,
-    uLayers,
-    uFileSystemConfigs,
-    uFunctionName,
+    updateFunctionConfiguration_vpcConfig,
+    updateFunctionConfiguration_memorySize,
+    updateFunctionConfiguration_revisionId,
+    updateFunctionConfiguration_timeout,
+    updateFunctionConfiguration_handler,
+    updateFunctionConfiguration_deadLetterConfig,
+    updateFunctionConfiguration_imageConfig,
+    updateFunctionConfiguration_environment,
+    updateFunctionConfiguration_kMSKeyArn,
+    updateFunctionConfiguration_runtime,
+    updateFunctionConfiguration_role,
+    updateFunctionConfiguration_tracingConfig,
+    updateFunctionConfiguration_description,
+    updateFunctionConfiguration_layers,
+    updateFunctionConfiguration_fileSystemConfigs,
+    updateFunctionConfiguration_functionName,
 
     -- * Destructuring the Response
-    functionConfiguration,
-    FunctionConfiguration,
+    FunctionConfiguration (..),
+    newFunctionConfiguration,
 
     -- * Response Lenses
-    fcSigningProfileVersionARN,
-    fcLastUpdateStatus,
-    fcVPCConfig,
-    fcMemorySize,
-    fcMasterARN,
-    fcRevisionId,
-    fcLastUpdateStatusReasonCode,
-    fcCodeSha256,
-    fcStateReason,
-    fcTimeout,
-    fcHandler,
-    fcDeadLetterConfig,
-    fcFunctionName,
-    fcEnvironment,
-    fcVersion,
-    fcFunctionARN,
-    fcState,
-    fcKMSKeyARN,
-    fcRuntime,
-    fcRole,
-    fcSigningJobARN,
-    fcStateReasonCode,
-    fcImageConfigResponse,
-    fcTracingConfig,
-    fcDescription,
-    fcLastModified,
-    fcLastUpdateStatusReason,
-    fcLayers,
-    fcCodeSize,
-    fcFileSystemConfigs,
-    fcPackageType,
+    functionConfiguration_signingProfileVersionArn,
+    functionConfiguration_lastUpdateStatus,
+    functionConfiguration_vpcConfig,
+    functionConfiguration_memorySize,
+    functionConfiguration_masterArn,
+    functionConfiguration_revisionId,
+    functionConfiguration_lastUpdateStatusReasonCode,
+    functionConfiguration_codeSha256,
+    functionConfiguration_stateReason,
+    functionConfiguration_timeout,
+    functionConfiguration_handler,
+    functionConfiguration_deadLetterConfig,
+    functionConfiguration_functionName,
+    functionConfiguration_environment,
+    functionConfiguration_version,
+    functionConfiguration_functionArn,
+    functionConfiguration_state,
+    functionConfiguration_kMSKeyArn,
+    functionConfiguration_runtime,
+    functionConfiguration_role,
+    functionConfiguration_signingJobArn,
+    functionConfiguration_stateReasonCode,
+    functionConfiguration_imageConfigResponse,
+    functionConfiguration_tracingConfig,
+    functionConfiguration_description,
+    functionConfiguration_lastModified,
+    functionConfiguration_lastUpdateStatusReason,
+    functionConfiguration_layers,
+    functionConfiguration_codeSize,
+    functionConfiguration_fileSystemConfigs,
+    functionConfiguration_packageType,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.DeadLetterConfig
+import Network.AWS.Lambda.Types.EnvironmentResponse
+import Network.AWS.Lambda.Types.FileSystemConfig
+import Network.AWS.Lambda.Types.FunctionConfiguration
+import Network.AWS.Lambda.Types.ImageConfigResponse
+import Network.AWS.Lambda.Types.LastUpdateStatus
+import Network.AWS.Lambda.Types.LastUpdateStatusReasonCode
+import Network.AWS.Lambda.Types.Layer
+import Network.AWS.Lambda.Types.PackageType
+import Network.AWS.Lambda.Types.Runtime
+import Network.AWS.Lambda.Types.State
+import Network.AWS.Lambda.Types.StateReasonCode
+import Network.AWS.Lambda.Types.TracingConfigResponse
+import Network.AWS.Lambda.Types.VpcConfigResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateFunctionConfiguration' smart constructor.
+-- | /See:/ 'newUpdateFunctionConfiguration' smart constructor.
 data UpdateFunctionConfiguration = UpdateFunctionConfiguration'
-  { _uVPCConfig ::
-      !( Maybe
-           VPCConfig
-       ),
-    _uMemorySize ::
-      !(Maybe Nat),
-    _uRevisionId ::
-      !(Maybe Text),
-    _uTimeout ::
-      !(Maybe Nat),
-    _uHandler ::
-      !(Maybe Text),
-    _uDeadLetterConfig ::
-      !( Maybe
-           DeadLetterConfig
-       ),
-    _uImageConfig ::
-      !( Maybe
-           ImageConfig
-       ),
-    _uEnvironment ::
-      !( Maybe
-           Environment
-       ),
-    _uKMSKeyARN ::
-      !(Maybe Text),
-    _uRuntime ::
-      !( Maybe
-           Runtime
-       ),
-    _uRole ::
-      !(Maybe Text),
-    _uTracingConfig ::
-      !( Maybe
-           TracingConfig
-       ),
-    _uDescription ::
-      !(Maybe Text),
-    _uLayers ::
-      !(Maybe [Text]),
-    _uFileSystemConfigs ::
-      !( Maybe
-           [FileSystemConfig]
-       ),
-    _uFunctionName ::
-      !Text
+  { -- | For network connectivity to AWS resources in a VPC, specify a list of
+    -- security groups and subnets in the VPC. When you connect a function to a
+    -- VPC, it can only access resources and the internet through that VPC. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html VPC Settings>.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | The amount of memory available to the function at runtime. Increasing
+    -- the function\'s memory also increases its CPU allocation. The default
+    -- value is 128 MB. The value can be any multiple of 1 MB.
+    memorySize :: Prelude.Maybe Prelude.Nat,
+    -- | Only update the function if the revision ID matches the ID that\'s
+    -- specified. Use this option to avoid modifying a function that has
+    -- changed since you last read it.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | The amount of time that Lambda allows a function to run before stopping
+    -- it. The default is 3 seconds. The maximum allowed value is 900 seconds.
+    timeout :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the method within your code that Lambda calls to execute
+    -- your function. The format includes the file name. It can also include
+    -- namespaces and other qualifiers, depending on the runtime. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/programming-model-v2.html Programming Model>.
+    handler :: Prelude.Maybe Prelude.Text,
+    -- | A dead letter queue configuration that specifies the queue or topic
+    -- where Lambda sends asynchronous events when they fail processing. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#dlq Dead Letter Queues>.
+    deadLetterConfig :: Prelude.Maybe DeadLetterConfig,
+    -- | <https://docs.aws.amazon.com/lambda/latest/dg/images-parms.html Container image configuration values>
+    -- that override the values in the container image Dockerfile.
+    imageConfig :: Prelude.Maybe ImageConfig,
+    -- | Environment variables that are accessible from function code during
+    -- execution.
+    environment :: Prelude.Maybe Environment,
+    -- | The ARN of the AWS Key Management Service (AWS KMS) key that\'s used to
+    -- encrypt your function\'s environment variables. If it\'s not provided,
+    -- AWS Lambda uses a default service key.
+    kMSKeyArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the function\'s
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html runtime>.
+    runtime :: Prelude.Maybe Runtime,
+    -- | The Amazon Resource Name (ARN) of the function\'s execution role.
+    role' :: Prelude.Maybe Prelude.Text,
+    -- | Set @Mode@ to @Active@ to sample and trace a subset of incoming requests
+    -- with AWS X-Ray.
+    tracingConfig :: Prelude.Maybe TracingConfig,
+    -- | A description of the function.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A list of
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html function layers>
+    -- to add to the function\'s execution environment. Specify each layer by
+    -- its ARN, including the version.
+    layers :: Prelude.Maybe [Prelude.Text],
+    -- | Connection settings for an Amazon EFS file system.
+    fileSystemConfigs :: Prelude.Maybe [FileSystemConfig],
+    -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @my-function@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFunctionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFunctionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uVPCConfig' - For network connectivity to AWS resources in a VPC, specify a list of security groups and subnets in the VPC. When you connect a function to a VPC, it can only access resources and the internet through that VPC. For more information, see <https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html VPC Settings> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uMemorySize' - The amount of memory available to the function at runtime. Increasing the function's memory also increases its CPU allocation. The default value is 128 MB. The value can be any multiple of 1 MB.
+-- 'vpcConfig', 'updateFunctionConfiguration_vpcConfig' - For network connectivity to AWS resources in a VPC, specify a list of
+-- security groups and subnets in the VPC. When you connect a function to a
+-- VPC, it can only access resources and the internet through that VPC. For
+-- more information, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html VPC Settings>.
 --
--- * 'uRevisionId' - Only update the function if the revision ID matches the ID that's specified. Use this option to avoid modifying a function that has changed since you last read it.
+-- 'memorySize', 'updateFunctionConfiguration_memorySize' - The amount of memory available to the function at runtime. Increasing
+-- the function\'s memory also increases its CPU allocation. The default
+-- value is 128 MB. The value can be any multiple of 1 MB.
 --
--- * 'uTimeout' - The amount of time that Lambda allows a function to run before stopping it. The default is 3 seconds. The maximum allowed value is 900 seconds.
+-- 'revisionId', 'updateFunctionConfiguration_revisionId' - Only update the function if the revision ID matches the ID that\'s
+-- specified. Use this option to avoid modifying a function that has
+-- changed since you last read it.
 --
--- * 'uHandler' - The name of the method within your code that Lambda calls to execute your function. The format includes the file name. It can also include namespaces and other qualifiers, depending on the runtime. For more information, see <https://docs.aws.amazon.com/lambda/latest/dg/programming-model-v2.html Programming Model> .
+-- 'timeout', 'updateFunctionConfiguration_timeout' - The amount of time that Lambda allows a function to run before stopping
+-- it. The default is 3 seconds. The maximum allowed value is 900 seconds.
 --
--- * 'uDeadLetterConfig' - A dead letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing. For more information, see <https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#dlq Dead Letter Queues> .
+-- 'handler', 'updateFunctionConfiguration_handler' - The name of the method within your code that Lambda calls to execute
+-- your function. The format includes the file name. It can also include
+-- namespaces and other qualifiers, depending on the runtime. For more
+-- information, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/programming-model-v2.html Programming Model>.
 --
--- * 'uImageConfig' - <https://docs.aws.amazon.com/lambda/latest/dg/images-parms.html Container image configuration values> that override the values in the container image Dockerfile.
+-- 'deadLetterConfig', 'updateFunctionConfiguration_deadLetterConfig' - A dead letter queue configuration that specifies the queue or topic
+-- where Lambda sends asynchronous events when they fail processing. For
+-- more information, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#dlq Dead Letter Queues>.
 --
--- * 'uEnvironment' - Environment variables that are accessible from function code during execution.
+-- 'imageConfig', 'updateFunctionConfiguration_imageConfig' - <https://docs.aws.amazon.com/lambda/latest/dg/images-parms.html Container image configuration values>
+-- that override the values in the container image Dockerfile.
 --
--- * 'uKMSKeyARN' - The ARN of the AWS Key Management Service (AWS KMS) key that's used to encrypt your function's environment variables. If it's not provided, AWS Lambda uses a default service key.
+-- 'environment', 'updateFunctionConfiguration_environment' - Environment variables that are accessible from function code during
+-- execution.
 --
--- * 'uRuntime' - The identifier of the function's <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html runtime> .
+-- 'kMSKeyArn', 'updateFunctionConfiguration_kMSKeyArn' - The ARN of the AWS Key Management Service (AWS KMS) key that\'s used to
+-- encrypt your function\'s environment variables. If it\'s not provided,
+-- AWS Lambda uses a default service key.
 --
--- * 'uRole' - The Amazon Resource Name (ARN) of the function's execution role.
+-- 'runtime', 'updateFunctionConfiguration_runtime' - The identifier of the function\'s
+-- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html runtime>.
 --
--- * 'uTracingConfig' - Set @Mode@ to @Active@ to sample and trace a subset of incoming requests with AWS X-Ray.
+-- 'role'', 'updateFunctionConfiguration_role' - The Amazon Resource Name (ARN) of the function\'s execution role.
 --
--- * 'uDescription' - A description of the function.
+-- 'tracingConfig', 'updateFunctionConfiguration_tracingConfig' - Set @Mode@ to @Active@ to sample and trace a subset of incoming requests
+-- with AWS X-Ray.
 --
--- * 'uLayers' - A list of <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html function layers> to add to the function's execution environment. Specify each layer by its ARN, including the version.
+-- 'description', 'updateFunctionConfiguration_description' - A description of the function.
 --
--- * 'uFileSystemConfigs' - Connection settings for an Amazon EFS file system.
+-- 'layers', 'updateFunctionConfiguration_layers' - A list of
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html function layers>
+-- to add to the function\'s execution environment. Specify each layer by
+-- its ARN, including the version.
 --
--- * 'uFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @my-function@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-updateFunctionConfiguration ::
-  -- | 'uFunctionName'
-  Text ->
+-- 'fileSystemConfigs', 'updateFunctionConfiguration_fileSystemConfigs' - Connection settings for an Amazon EFS file system.
+--
+-- 'functionName', 'updateFunctionConfiguration_functionName' - The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+newUpdateFunctionConfiguration ::
+  -- | 'functionName'
+  Prelude.Text ->
   UpdateFunctionConfiguration
-updateFunctionConfiguration pFunctionName_ =
+newUpdateFunctionConfiguration pFunctionName_ =
   UpdateFunctionConfiguration'
-    { _uVPCConfig = Nothing,
-      _uMemorySize = Nothing,
-      _uRevisionId = Nothing,
-      _uTimeout = Nothing,
-      _uHandler = Nothing,
-      _uDeadLetterConfig = Nothing,
-      _uImageConfig = Nothing,
-      _uEnvironment = Nothing,
-      _uKMSKeyARN = Nothing,
-      _uRuntime = Nothing,
-      _uRole = Nothing,
-      _uTracingConfig = Nothing,
-      _uDescription = Nothing,
-      _uLayers = Nothing,
-      _uFileSystemConfigs = Nothing,
-      _uFunctionName = pFunctionName_
+    { vpcConfig =
+        Prelude.Nothing,
+      memorySize = Prelude.Nothing,
+      revisionId = Prelude.Nothing,
+      timeout = Prelude.Nothing,
+      handler = Prelude.Nothing,
+      deadLetterConfig = Prelude.Nothing,
+      imageConfig = Prelude.Nothing,
+      environment = Prelude.Nothing,
+      kMSKeyArn = Prelude.Nothing,
+      runtime = Prelude.Nothing,
+      role' = Prelude.Nothing,
+      tracingConfig = Prelude.Nothing,
+      description = Prelude.Nothing,
+      layers = Prelude.Nothing,
+      fileSystemConfigs = Prelude.Nothing,
+      functionName = pFunctionName_
     }
 
--- | For network connectivity to AWS resources in a VPC, specify a list of security groups and subnets in the VPC. When you connect a function to a VPC, it can only access resources and the internet through that VPC. For more information, see <https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html VPC Settings> .
-uVPCConfig :: Lens' UpdateFunctionConfiguration (Maybe VPCConfig)
-uVPCConfig = lens _uVPCConfig (\s a -> s {_uVPCConfig = a})
+-- | For network connectivity to AWS resources in a VPC, specify a list of
+-- security groups and subnets in the VPC. When you connect a function to a
+-- VPC, it can only access resources and the internet through that VPC. For
+-- more information, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html VPC Settings>.
+updateFunctionConfiguration_vpcConfig :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe VpcConfig)
+updateFunctionConfiguration_vpcConfig = Lens.lens (\UpdateFunctionConfiguration' {vpcConfig} -> vpcConfig) (\s@UpdateFunctionConfiguration' {} a -> s {vpcConfig = a} :: UpdateFunctionConfiguration)
 
--- | The amount of memory available to the function at runtime. Increasing the function's memory also increases its CPU allocation. The default value is 128 MB. The value can be any multiple of 1 MB.
-uMemorySize :: Lens' UpdateFunctionConfiguration (Maybe Natural)
-uMemorySize = lens _uMemorySize (\s a -> s {_uMemorySize = a}) . mapping _Nat
+-- | The amount of memory available to the function at runtime. Increasing
+-- the function\'s memory also increases its CPU allocation. The default
+-- value is 128 MB. The value can be any multiple of 1 MB.
+updateFunctionConfiguration_memorySize :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe Prelude.Natural)
+updateFunctionConfiguration_memorySize = Lens.lens (\UpdateFunctionConfiguration' {memorySize} -> memorySize) (\s@UpdateFunctionConfiguration' {} a -> s {memorySize = a} :: UpdateFunctionConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
--- | Only update the function if the revision ID matches the ID that's specified. Use this option to avoid modifying a function that has changed since you last read it.
-uRevisionId :: Lens' UpdateFunctionConfiguration (Maybe Text)
-uRevisionId = lens _uRevisionId (\s a -> s {_uRevisionId = a})
+-- | Only update the function if the revision ID matches the ID that\'s
+-- specified. Use this option to avoid modifying a function that has
+-- changed since you last read it.
+updateFunctionConfiguration_revisionId :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe Prelude.Text)
+updateFunctionConfiguration_revisionId = Lens.lens (\UpdateFunctionConfiguration' {revisionId} -> revisionId) (\s@UpdateFunctionConfiguration' {} a -> s {revisionId = a} :: UpdateFunctionConfiguration)
 
--- | The amount of time that Lambda allows a function to run before stopping it. The default is 3 seconds. The maximum allowed value is 900 seconds.
-uTimeout :: Lens' UpdateFunctionConfiguration (Maybe Natural)
-uTimeout = lens _uTimeout (\s a -> s {_uTimeout = a}) . mapping _Nat
+-- | The amount of time that Lambda allows a function to run before stopping
+-- it. The default is 3 seconds. The maximum allowed value is 900 seconds.
+updateFunctionConfiguration_timeout :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe Prelude.Natural)
+updateFunctionConfiguration_timeout = Lens.lens (\UpdateFunctionConfiguration' {timeout} -> timeout) (\s@UpdateFunctionConfiguration' {} a -> s {timeout = a} :: UpdateFunctionConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
--- | The name of the method within your code that Lambda calls to execute your function. The format includes the file name. It can also include namespaces and other qualifiers, depending on the runtime. For more information, see <https://docs.aws.amazon.com/lambda/latest/dg/programming-model-v2.html Programming Model> .
-uHandler :: Lens' UpdateFunctionConfiguration (Maybe Text)
-uHandler = lens _uHandler (\s a -> s {_uHandler = a})
+-- | The name of the method within your code that Lambda calls to execute
+-- your function. The format includes the file name. It can also include
+-- namespaces and other qualifiers, depending on the runtime. For more
+-- information, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/programming-model-v2.html Programming Model>.
+updateFunctionConfiguration_handler :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe Prelude.Text)
+updateFunctionConfiguration_handler = Lens.lens (\UpdateFunctionConfiguration' {handler} -> handler) (\s@UpdateFunctionConfiguration' {} a -> s {handler = a} :: UpdateFunctionConfiguration)
 
--- | A dead letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing. For more information, see <https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#dlq Dead Letter Queues> .
-uDeadLetterConfig :: Lens' UpdateFunctionConfiguration (Maybe DeadLetterConfig)
-uDeadLetterConfig = lens _uDeadLetterConfig (\s a -> s {_uDeadLetterConfig = a})
+-- | A dead letter queue configuration that specifies the queue or topic
+-- where Lambda sends asynchronous events when they fail processing. For
+-- more information, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#dlq Dead Letter Queues>.
+updateFunctionConfiguration_deadLetterConfig :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe DeadLetterConfig)
+updateFunctionConfiguration_deadLetterConfig = Lens.lens (\UpdateFunctionConfiguration' {deadLetterConfig} -> deadLetterConfig) (\s@UpdateFunctionConfiguration' {} a -> s {deadLetterConfig = a} :: UpdateFunctionConfiguration)
 
--- | <https://docs.aws.amazon.com/lambda/latest/dg/images-parms.html Container image configuration values> that override the values in the container image Dockerfile.
-uImageConfig :: Lens' UpdateFunctionConfiguration (Maybe ImageConfig)
-uImageConfig = lens _uImageConfig (\s a -> s {_uImageConfig = a})
+-- | <https://docs.aws.amazon.com/lambda/latest/dg/images-parms.html Container image configuration values>
+-- that override the values in the container image Dockerfile.
+updateFunctionConfiguration_imageConfig :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe ImageConfig)
+updateFunctionConfiguration_imageConfig = Lens.lens (\UpdateFunctionConfiguration' {imageConfig} -> imageConfig) (\s@UpdateFunctionConfiguration' {} a -> s {imageConfig = a} :: UpdateFunctionConfiguration)
 
--- | Environment variables that are accessible from function code during execution.
-uEnvironment :: Lens' UpdateFunctionConfiguration (Maybe Environment)
-uEnvironment = lens _uEnvironment (\s a -> s {_uEnvironment = a})
+-- | Environment variables that are accessible from function code during
+-- execution.
+updateFunctionConfiguration_environment :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe Environment)
+updateFunctionConfiguration_environment = Lens.lens (\UpdateFunctionConfiguration' {environment} -> environment) (\s@UpdateFunctionConfiguration' {} a -> s {environment = a} :: UpdateFunctionConfiguration)
 
--- | The ARN of the AWS Key Management Service (AWS KMS) key that's used to encrypt your function's environment variables. If it's not provided, AWS Lambda uses a default service key.
-uKMSKeyARN :: Lens' UpdateFunctionConfiguration (Maybe Text)
-uKMSKeyARN = lens _uKMSKeyARN (\s a -> s {_uKMSKeyARN = a})
+-- | The ARN of the AWS Key Management Service (AWS KMS) key that\'s used to
+-- encrypt your function\'s environment variables. If it\'s not provided,
+-- AWS Lambda uses a default service key.
+updateFunctionConfiguration_kMSKeyArn :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe Prelude.Text)
+updateFunctionConfiguration_kMSKeyArn = Lens.lens (\UpdateFunctionConfiguration' {kMSKeyArn} -> kMSKeyArn) (\s@UpdateFunctionConfiguration' {} a -> s {kMSKeyArn = a} :: UpdateFunctionConfiguration)
 
--- | The identifier of the function's <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html runtime> .
-uRuntime :: Lens' UpdateFunctionConfiguration (Maybe Runtime)
-uRuntime = lens _uRuntime (\s a -> s {_uRuntime = a})
+-- | The identifier of the function\'s
+-- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html runtime>.
+updateFunctionConfiguration_runtime :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe Runtime)
+updateFunctionConfiguration_runtime = Lens.lens (\UpdateFunctionConfiguration' {runtime} -> runtime) (\s@UpdateFunctionConfiguration' {} a -> s {runtime = a} :: UpdateFunctionConfiguration)
 
--- | The Amazon Resource Name (ARN) of the function's execution role.
-uRole :: Lens' UpdateFunctionConfiguration (Maybe Text)
-uRole = lens _uRole (\s a -> s {_uRole = a})
+-- | The Amazon Resource Name (ARN) of the function\'s execution role.
+updateFunctionConfiguration_role :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe Prelude.Text)
+updateFunctionConfiguration_role = Lens.lens (\UpdateFunctionConfiguration' {role'} -> role') (\s@UpdateFunctionConfiguration' {} a -> s {role' = a} :: UpdateFunctionConfiguration)
 
--- | Set @Mode@ to @Active@ to sample and trace a subset of incoming requests with AWS X-Ray.
-uTracingConfig :: Lens' UpdateFunctionConfiguration (Maybe TracingConfig)
-uTracingConfig = lens _uTracingConfig (\s a -> s {_uTracingConfig = a})
+-- | Set @Mode@ to @Active@ to sample and trace a subset of incoming requests
+-- with AWS X-Ray.
+updateFunctionConfiguration_tracingConfig :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe TracingConfig)
+updateFunctionConfiguration_tracingConfig = Lens.lens (\UpdateFunctionConfiguration' {tracingConfig} -> tracingConfig) (\s@UpdateFunctionConfiguration' {} a -> s {tracingConfig = a} :: UpdateFunctionConfiguration)
 
 -- | A description of the function.
-uDescription :: Lens' UpdateFunctionConfiguration (Maybe Text)
-uDescription = lens _uDescription (\s a -> s {_uDescription = a})
+updateFunctionConfiguration_description :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe Prelude.Text)
+updateFunctionConfiguration_description = Lens.lens (\UpdateFunctionConfiguration' {description} -> description) (\s@UpdateFunctionConfiguration' {} a -> s {description = a} :: UpdateFunctionConfiguration)
 
--- | A list of <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html function layers> to add to the function's execution environment. Specify each layer by its ARN, including the version.
-uLayers :: Lens' UpdateFunctionConfiguration [Text]
-uLayers = lens _uLayers (\s a -> s {_uLayers = a}) . _Default . _Coerce
+-- | A list of
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html function layers>
+-- to add to the function\'s execution environment. Specify each layer by
+-- its ARN, including the version.
+updateFunctionConfiguration_layers :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe [Prelude.Text])
+updateFunctionConfiguration_layers = Lens.lens (\UpdateFunctionConfiguration' {layers} -> layers) (\s@UpdateFunctionConfiguration' {} a -> s {layers = a} :: UpdateFunctionConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Connection settings for an Amazon EFS file system.
-uFileSystemConfigs :: Lens' UpdateFunctionConfiguration [FileSystemConfig]
-uFileSystemConfigs = lens _uFileSystemConfigs (\s a -> s {_uFileSystemConfigs = a}) . _Default . _Coerce
+updateFunctionConfiguration_fileSystemConfigs :: Lens.Lens' UpdateFunctionConfiguration (Prelude.Maybe [FileSystemConfig])
+updateFunctionConfiguration_fileSystemConfigs = Lens.lens (\UpdateFunctionConfiguration' {fileSystemConfigs} -> fileSystemConfigs) (\s@UpdateFunctionConfiguration' {} a -> s {fileSystemConfigs = a} :: UpdateFunctionConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @my-function@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-uFunctionName :: Lens' UpdateFunctionConfiguration Text
-uFunctionName = lens _uFunctionName (\s a -> s {_uFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+updateFunctionConfiguration_functionName :: Lens.Lens' UpdateFunctionConfiguration Prelude.Text
+updateFunctionConfiguration_functionName = Lens.lens (\UpdateFunctionConfiguration' {functionName} -> functionName) (\s@UpdateFunctionConfiguration' {} a -> s {functionName = a} :: UpdateFunctionConfiguration)
 
-instance AWSRequest UpdateFunctionConfiguration where
+instance
+  Prelude.AWSRequest
+    UpdateFunctionConfiguration
+  where
   type
     Rs UpdateFunctionConfiguration =
       FunctionConfiguration
-  request = putJSON lambda
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateFunctionConfiguration
+instance Prelude.Hashable UpdateFunctionConfiguration
 
-instance NFData UpdateFunctionConfiguration
+instance Prelude.NFData UpdateFunctionConfiguration
 
-instance ToHeaders UpdateFunctionConfiguration where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    UpdateFunctionConfiguration
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateFunctionConfiguration where
+instance Prelude.ToJSON UpdateFunctionConfiguration where
   toJSON UpdateFunctionConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("VpcConfig" .=) <$> _uVPCConfig,
-            ("MemorySize" .=) <$> _uMemorySize,
-            ("RevisionId" .=) <$> _uRevisionId,
-            ("Timeout" .=) <$> _uTimeout,
-            ("Handler" .=) <$> _uHandler,
-            ("DeadLetterConfig" .=) <$> _uDeadLetterConfig,
-            ("ImageConfig" .=) <$> _uImageConfig,
-            ("Environment" .=) <$> _uEnvironment,
-            ("KMSKeyArn" .=) <$> _uKMSKeyARN,
-            ("Runtime" .=) <$> _uRuntime,
-            ("Role" .=) <$> _uRole,
-            ("TracingConfig" .=) <$> _uTracingConfig,
-            ("Description" .=) <$> _uDescription,
-            ("Layers" .=) <$> _uLayers,
-            ("FileSystemConfigs" .=) <$> _uFileSystemConfigs
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VpcConfig" Prelude..=) Prelude.<$> vpcConfig,
+            ("MemorySize" Prelude..=) Prelude.<$> memorySize,
+            ("RevisionId" Prelude..=) Prelude.<$> revisionId,
+            ("Timeout" Prelude..=) Prelude.<$> timeout,
+            ("Handler" Prelude..=) Prelude.<$> handler,
+            ("DeadLetterConfig" Prelude..=)
+              Prelude.<$> deadLetterConfig,
+            ("ImageConfig" Prelude..=) Prelude.<$> imageConfig,
+            ("Environment" Prelude..=) Prelude.<$> environment,
+            ("KMSKeyArn" Prelude..=) Prelude.<$> kMSKeyArn,
+            ("Runtime" Prelude..=) Prelude.<$> runtime,
+            ("Role" Prelude..=) Prelude.<$> role',
+            ("TracingConfig" Prelude..=)
+              Prelude.<$> tracingConfig,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("Layers" Prelude..=) Prelude.<$> layers,
+            ("FileSystemConfigs" Prelude..=)
+              Prelude.<$> fileSystemConfigs
           ]
       )
 
-instance ToPath UpdateFunctionConfiguration where
+instance Prelude.ToPath UpdateFunctionConfiguration where
   toPath UpdateFunctionConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-03-31/functions/",
-        toBS _uFunctionName,
+        Prelude.toBS functionName,
         "/configuration"
       ]
 
-instance ToQuery UpdateFunctionConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFunctionConfiguration where
+  toQuery = Prelude.const Prelude.mempty

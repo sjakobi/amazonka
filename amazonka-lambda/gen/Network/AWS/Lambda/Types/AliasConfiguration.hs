@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,94 +20,104 @@
 module Network.AWS.Lambda.Types.AliasConfiguration where
 
 import Network.AWS.Lambda.Types.AliasRoutingConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides configuration information about a Lambda function <https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html alias> .
+-- | Provides configuration information about a Lambda function
+-- <https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html alias>.
 --
---
---
--- /See:/ 'aliasConfiguration' smart constructor.
+-- /See:/ 'newAliasConfiguration' smart constructor.
 data AliasConfiguration = AliasConfiguration'
-  { _acRevisionId ::
-      !(Maybe Text),
-    _acRoutingConfig ::
-      !( Maybe
-           AliasRoutingConfiguration
-       ),
-    _acFunctionVersion ::
-      !(Maybe Text),
-    _acName :: !(Maybe Text),
-    _acDescription :: !(Maybe Text),
-    _acAliasARN :: !(Maybe Text)
+  { -- | A unique identifier that changes when you update the alias.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | The
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html routing configuration>
+    -- of the alias.
+    routingConfig :: Prelude.Maybe AliasRoutingConfiguration,
+    -- | The function version that the alias invokes.
+    functionVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the alias.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A description of the alias.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the alias.
+    aliasArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AliasConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AliasConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acRevisionId' - A unique identifier that changes when you update the alias.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acRoutingConfig' - The <https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html routing configuration> of the alias.
+-- 'revisionId', 'aliasConfiguration_revisionId' - A unique identifier that changes when you update the alias.
 --
--- * 'acFunctionVersion' - The function version that the alias invokes.
+-- 'routingConfig', 'aliasConfiguration_routingConfig' - The
+-- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html routing configuration>
+-- of the alias.
 --
--- * 'acName' - The name of the alias.
+-- 'functionVersion', 'aliasConfiguration_functionVersion' - The function version that the alias invokes.
 --
--- * 'acDescription' - A description of the alias.
+-- 'name', 'aliasConfiguration_name' - The name of the alias.
 --
--- * 'acAliasARN' - The Amazon Resource Name (ARN) of the alias.
-aliasConfiguration ::
+-- 'description', 'aliasConfiguration_description' - A description of the alias.
+--
+-- 'aliasArn', 'aliasConfiguration_aliasArn' - The Amazon Resource Name (ARN) of the alias.
+newAliasConfiguration ::
   AliasConfiguration
-aliasConfiguration =
+newAliasConfiguration =
   AliasConfiguration'
-    { _acRevisionId = Nothing,
-      _acRoutingConfig = Nothing,
-      _acFunctionVersion = Nothing,
-      _acName = Nothing,
-      _acDescription = Nothing,
-      _acAliasARN = Nothing
+    { revisionId = Prelude.Nothing,
+      routingConfig = Prelude.Nothing,
+      functionVersion = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      aliasArn = Prelude.Nothing
     }
 
 -- | A unique identifier that changes when you update the alias.
-acRevisionId :: Lens' AliasConfiguration (Maybe Text)
-acRevisionId = lens _acRevisionId (\s a -> s {_acRevisionId = a})
+aliasConfiguration_revisionId :: Lens.Lens' AliasConfiguration (Prelude.Maybe Prelude.Text)
+aliasConfiguration_revisionId = Lens.lens (\AliasConfiguration' {revisionId} -> revisionId) (\s@AliasConfiguration' {} a -> s {revisionId = a} :: AliasConfiguration)
 
--- | The <https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html routing configuration> of the alias.
-acRoutingConfig :: Lens' AliasConfiguration (Maybe AliasRoutingConfiguration)
-acRoutingConfig = lens _acRoutingConfig (\s a -> s {_acRoutingConfig = a})
+-- | The
+-- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html routing configuration>
+-- of the alias.
+aliasConfiguration_routingConfig :: Lens.Lens' AliasConfiguration (Prelude.Maybe AliasRoutingConfiguration)
+aliasConfiguration_routingConfig = Lens.lens (\AliasConfiguration' {routingConfig} -> routingConfig) (\s@AliasConfiguration' {} a -> s {routingConfig = a} :: AliasConfiguration)
 
 -- | The function version that the alias invokes.
-acFunctionVersion :: Lens' AliasConfiguration (Maybe Text)
-acFunctionVersion = lens _acFunctionVersion (\s a -> s {_acFunctionVersion = a})
+aliasConfiguration_functionVersion :: Lens.Lens' AliasConfiguration (Prelude.Maybe Prelude.Text)
+aliasConfiguration_functionVersion = Lens.lens (\AliasConfiguration' {functionVersion} -> functionVersion) (\s@AliasConfiguration' {} a -> s {functionVersion = a} :: AliasConfiguration)
 
 -- | The name of the alias.
-acName :: Lens' AliasConfiguration (Maybe Text)
-acName = lens _acName (\s a -> s {_acName = a})
+aliasConfiguration_name :: Lens.Lens' AliasConfiguration (Prelude.Maybe Prelude.Text)
+aliasConfiguration_name = Lens.lens (\AliasConfiguration' {name} -> name) (\s@AliasConfiguration' {} a -> s {name = a} :: AliasConfiguration)
 
 -- | A description of the alias.
-acDescription :: Lens' AliasConfiguration (Maybe Text)
-acDescription = lens _acDescription (\s a -> s {_acDescription = a})
+aliasConfiguration_description :: Lens.Lens' AliasConfiguration (Prelude.Maybe Prelude.Text)
+aliasConfiguration_description = Lens.lens (\AliasConfiguration' {description} -> description) (\s@AliasConfiguration' {} a -> s {description = a} :: AliasConfiguration)
 
 -- | The Amazon Resource Name (ARN) of the alias.
-acAliasARN :: Lens' AliasConfiguration (Maybe Text)
-acAliasARN = lens _acAliasARN (\s a -> s {_acAliasARN = a})
+aliasConfiguration_aliasArn :: Lens.Lens' AliasConfiguration (Prelude.Maybe Prelude.Text)
+aliasConfiguration_aliasArn = Lens.lens (\AliasConfiguration' {aliasArn} -> aliasArn) (\s@AliasConfiguration' {} a -> s {aliasArn = a} :: AliasConfiguration)
 
-instance FromJSON AliasConfiguration where
+instance Prelude.FromJSON AliasConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AliasConfiguration"
       ( \x ->
           AliasConfiguration'
-            <$> (x .:? "RevisionId")
-            <*> (x .:? "RoutingConfig")
-            <*> (x .:? "FunctionVersion")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
-            <*> (x .:? "AliasArn")
+            Prelude.<$> (x Prelude..:? "RevisionId")
+            Prelude.<*> (x Prelude..:? "RoutingConfig")
+            Prelude.<*> (x Prelude..:? "FunctionVersion")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "AliasArn")
       )
 
-instance Hashable AliasConfiguration
+instance Prelude.Hashable AliasConfiguration
 
-instance NFData AliasConfiguration
+instance Prelude.NFData AliasConfiguration

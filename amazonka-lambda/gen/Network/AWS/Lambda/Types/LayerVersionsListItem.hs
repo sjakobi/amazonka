@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,102 +20,104 @@
 module Network.AWS.Lambda.Types.LayerVersionsListItem where
 
 import Network.AWS.Lambda.Types.Runtime
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about a version of an <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer> .
+-- | Details about a version of an
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html AWS Lambda layer>.
 --
---
---
--- /See:/ 'layerVersionsListItem' smart constructor.
+-- /See:/ 'newLayerVersionsListItem' smart constructor.
 data LayerVersionsListItem = LayerVersionsListItem'
-  { _lvliCreatedDate ::
-      !(Maybe Text),
-    _lvliVersion ::
-      !(Maybe Integer),
-    _lvliLayerVersionARN ::
-      !(Maybe Text),
-    _lvliCompatibleRuntimes ::
-      !(Maybe [Runtime]),
-    _lvliDescription ::
-      !(Maybe Text),
-    _lvliLicenseInfo ::
-      !(Maybe Text)
+  { -- | The date that the version was created, in ISO 8601 format. For example,
+    -- @2018-11-27T15:10:45.123+0000@.
+    createdDate :: Prelude.Maybe Prelude.Text,
+    -- | The version number.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | The ARN of the layer version.
+    layerVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The layer\'s compatible runtimes.
+    compatibleRuntimes :: Prelude.Maybe [Runtime],
+    -- | The description of the version.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The layer\'s open-source license.
+    licenseInfo :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LayerVersionsListItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LayerVersionsListItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lvliCreatedDate' - The date that the version was created, in ISO 8601 format. For example, @2018-11-27T15:10:45.123+0000@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lvliVersion' - The version number.
+-- 'createdDate', 'layerVersionsListItem_createdDate' - The date that the version was created, in ISO 8601 format. For example,
+-- @2018-11-27T15:10:45.123+0000@.
 --
--- * 'lvliLayerVersionARN' - The ARN of the layer version.
+-- 'version', 'layerVersionsListItem_version' - The version number.
 --
--- * 'lvliCompatibleRuntimes' - The layer's compatible runtimes.
+-- 'layerVersionArn', 'layerVersionsListItem_layerVersionArn' - The ARN of the layer version.
 --
--- * 'lvliDescription' - The description of the version.
+-- 'compatibleRuntimes', 'layerVersionsListItem_compatibleRuntimes' - The layer\'s compatible runtimes.
 --
--- * 'lvliLicenseInfo' - The layer's open-source license.
-layerVersionsListItem ::
+-- 'description', 'layerVersionsListItem_description' - The description of the version.
+--
+-- 'licenseInfo', 'layerVersionsListItem_licenseInfo' - The layer\'s open-source license.
+newLayerVersionsListItem ::
   LayerVersionsListItem
-layerVersionsListItem =
+newLayerVersionsListItem =
   LayerVersionsListItem'
-    { _lvliCreatedDate = Nothing,
-      _lvliVersion = Nothing,
-      _lvliLayerVersionARN = Nothing,
-      _lvliCompatibleRuntimes = Nothing,
-      _lvliDescription = Nothing,
-      _lvliLicenseInfo = Nothing
+    { createdDate =
+        Prelude.Nothing,
+      version = Prelude.Nothing,
+      layerVersionArn = Prelude.Nothing,
+      compatibleRuntimes = Prelude.Nothing,
+      description = Prelude.Nothing,
+      licenseInfo = Prelude.Nothing
     }
 
--- | The date that the version was created, in ISO 8601 format. For example, @2018-11-27T15:10:45.123+0000@ .
-lvliCreatedDate :: Lens' LayerVersionsListItem (Maybe Text)
-lvliCreatedDate = lens _lvliCreatedDate (\s a -> s {_lvliCreatedDate = a})
+-- | The date that the version was created, in ISO 8601 format. For example,
+-- @2018-11-27T15:10:45.123+0000@.
+layerVersionsListItem_createdDate :: Lens.Lens' LayerVersionsListItem (Prelude.Maybe Prelude.Text)
+layerVersionsListItem_createdDate = Lens.lens (\LayerVersionsListItem' {createdDate} -> createdDate) (\s@LayerVersionsListItem' {} a -> s {createdDate = a} :: LayerVersionsListItem)
 
 -- | The version number.
-lvliVersion :: Lens' LayerVersionsListItem (Maybe Integer)
-lvliVersion = lens _lvliVersion (\s a -> s {_lvliVersion = a})
+layerVersionsListItem_version :: Lens.Lens' LayerVersionsListItem (Prelude.Maybe Prelude.Integer)
+layerVersionsListItem_version = Lens.lens (\LayerVersionsListItem' {version} -> version) (\s@LayerVersionsListItem' {} a -> s {version = a} :: LayerVersionsListItem)
 
 -- | The ARN of the layer version.
-lvliLayerVersionARN :: Lens' LayerVersionsListItem (Maybe Text)
-lvliLayerVersionARN = lens _lvliLayerVersionARN (\s a -> s {_lvliLayerVersionARN = a})
+layerVersionsListItem_layerVersionArn :: Lens.Lens' LayerVersionsListItem (Prelude.Maybe Prelude.Text)
+layerVersionsListItem_layerVersionArn = Lens.lens (\LayerVersionsListItem' {layerVersionArn} -> layerVersionArn) (\s@LayerVersionsListItem' {} a -> s {layerVersionArn = a} :: LayerVersionsListItem)
 
--- | The layer's compatible runtimes.
-lvliCompatibleRuntimes :: Lens' LayerVersionsListItem [Runtime]
-lvliCompatibleRuntimes = lens _lvliCompatibleRuntimes (\s a -> s {_lvliCompatibleRuntimes = a}) . _Default . _Coerce
+-- | The layer\'s compatible runtimes.
+layerVersionsListItem_compatibleRuntimes :: Lens.Lens' LayerVersionsListItem (Prelude.Maybe [Runtime])
+layerVersionsListItem_compatibleRuntimes = Lens.lens (\LayerVersionsListItem' {compatibleRuntimes} -> compatibleRuntimes) (\s@LayerVersionsListItem' {} a -> s {compatibleRuntimes = a} :: LayerVersionsListItem) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the version.
-lvliDescription :: Lens' LayerVersionsListItem (Maybe Text)
-lvliDescription = lens _lvliDescription (\s a -> s {_lvliDescription = a})
+layerVersionsListItem_description :: Lens.Lens' LayerVersionsListItem (Prelude.Maybe Prelude.Text)
+layerVersionsListItem_description = Lens.lens (\LayerVersionsListItem' {description} -> description) (\s@LayerVersionsListItem' {} a -> s {description = a} :: LayerVersionsListItem)
 
--- | The layer's open-source license.
-lvliLicenseInfo :: Lens' LayerVersionsListItem (Maybe Text)
-lvliLicenseInfo = lens _lvliLicenseInfo (\s a -> s {_lvliLicenseInfo = a})
+-- | The layer\'s open-source license.
+layerVersionsListItem_licenseInfo :: Lens.Lens' LayerVersionsListItem (Prelude.Maybe Prelude.Text)
+layerVersionsListItem_licenseInfo = Lens.lens (\LayerVersionsListItem' {licenseInfo} -> licenseInfo) (\s@LayerVersionsListItem' {} a -> s {licenseInfo = a} :: LayerVersionsListItem)
 
-instance FromJSON LayerVersionsListItem where
+instance Prelude.FromJSON LayerVersionsListItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LayerVersionsListItem"
       ( \x ->
           LayerVersionsListItem'
-            <$> (x .:? "CreatedDate")
-            <*> (x .:? "Version")
-            <*> (x .:? "LayerVersionArn")
-            <*> (x .:? "CompatibleRuntimes" .!= mempty)
-            <*> (x .:? "Description")
-            <*> (x .:? "LicenseInfo")
+            Prelude.<$> (x Prelude..:? "CreatedDate")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "LayerVersionArn")
+            Prelude.<*> ( x Prelude..:? "CompatibleRuntimes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "LicenseInfo")
       )
 
-instance Hashable LayerVersionsListItem
+instance Prelude.Hashable LayerVersionsListItem
 
-instance NFData LayerVersionsListItem
+instance Prelude.NFData LayerVersionsListItem

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Lambda.Types.PackageType
   ( PackageType
       ( ..,
-        Image,
-        Zip
+        PackageTypeImage,
+        PackageTypeZip
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PackageType = PackageType' (CI Text)
+newtype PackageType = PackageType'
+  { fromPackageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Image :: PackageType
-pattern Image = PackageType' "Image"
+pattern PackageTypeImage :: PackageType
+pattern PackageTypeImage = PackageType' "Image"
 
-pattern Zip :: PackageType
-pattern Zip = PackageType' "Zip"
+pattern PackageTypeZip :: PackageType
+pattern PackageTypeZip = PackageType' "Zip"
 
 {-# COMPLETE
-  Image,
-  Zip,
+  PackageTypeImage,
+  PackageTypeZip,
   PackageType'
   #-}
 
-instance FromText PackageType where
-  parser = (PackageType' . mk) <$> takeText
+instance Prelude.FromText PackageType where
+  parser = PackageType' Prelude.<$> Prelude.takeText
 
-instance ToText PackageType where
-  toText (PackageType' ci) = original ci
+instance Prelude.ToText PackageType where
+  toText (PackageType' x) = x
 
-instance Hashable PackageType
+instance Prelude.Hashable PackageType
 
-instance NFData PackageType
+instance Prelude.NFData PackageType
 
-instance ToByteString PackageType
+instance Prelude.ToByteString PackageType
 
-instance ToQuery PackageType
+instance Prelude.ToQuery PackageType
 
-instance ToHeader PackageType
+instance Prelude.ToHeader PackageType
 
-instance ToJSON PackageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PackageType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PackageType where
-  parseJSON = parseJSONText "PackageType"
+instance Prelude.FromJSON PackageType where
+  parseJSON = Prelude.parseJSONText "PackageType"

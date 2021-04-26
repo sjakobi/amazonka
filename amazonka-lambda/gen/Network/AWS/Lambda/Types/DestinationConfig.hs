@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +21,67 @@ module Network.AWS.Lambda.Types.DestinationConfig where
 
 import Network.AWS.Lambda.Types.OnFailure
 import Network.AWS.Lambda.Types.OnSuccess
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A configuration object that specifies the destination of an event after Lambda processes it.
+-- | A configuration object that specifies the destination of an event after
+-- Lambda processes it.
 --
---
---
--- /See:/ 'destinationConfig' smart constructor.
+-- /See:/ 'newDestinationConfig' smart constructor.
 data DestinationConfig = DestinationConfig'
-  { _dcOnFailure ::
-      !(Maybe OnFailure),
-    _dcOnSuccess :: !(Maybe OnSuccess)
+  { -- | The destination configuration for failed invocations.
+    onFailure :: Prelude.Maybe OnFailure,
+    -- | The destination configuration for successful invocations.
+    onSuccess :: Prelude.Maybe OnSuccess
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DestinationConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DestinationConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcOnFailure' - The destination configuration for failed invocations.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcOnSuccess' - The destination configuration for successful invocations.
-destinationConfig ::
+-- 'onFailure', 'destinationConfig_onFailure' - The destination configuration for failed invocations.
+--
+-- 'onSuccess', 'destinationConfig_onSuccess' - The destination configuration for successful invocations.
+newDestinationConfig ::
   DestinationConfig
-destinationConfig =
+newDestinationConfig =
   DestinationConfig'
-    { _dcOnFailure = Nothing,
-      _dcOnSuccess = Nothing
+    { onFailure = Prelude.Nothing,
+      onSuccess = Prelude.Nothing
     }
 
 -- | The destination configuration for failed invocations.
-dcOnFailure :: Lens' DestinationConfig (Maybe OnFailure)
-dcOnFailure = lens _dcOnFailure (\s a -> s {_dcOnFailure = a})
+destinationConfig_onFailure :: Lens.Lens' DestinationConfig (Prelude.Maybe OnFailure)
+destinationConfig_onFailure = Lens.lens (\DestinationConfig' {onFailure} -> onFailure) (\s@DestinationConfig' {} a -> s {onFailure = a} :: DestinationConfig)
 
 -- | The destination configuration for successful invocations.
-dcOnSuccess :: Lens' DestinationConfig (Maybe OnSuccess)
-dcOnSuccess = lens _dcOnSuccess (\s a -> s {_dcOnSuccess = a})
+destinationConfig_onSuccess :: Lens.Lens' DestinationConfig (Prelude.Maybe OnSuccess)
+destinationConfig_onSuccess = Lens.lens (\DestinationConfig' {onSuccess} -> onSuccess) (\s@DestinationConfig' {} a -> s {onSuccess = a} :: DestinationConfig)
 
-instance FromJSON DestinationConfig where
+instance Prelude.FromJSON DestinationConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DestinationConfig"
       ( \x ->
           DestinationConfig'
-            <$> (x .:? "OnFailure") <*> (x .:? "OnSuccess")
+            Prelude.<$> (x Prelude..:? "OnFailure")
+            Prelude.<*> (x Prelude..:? "OnSuccess")
       )
 
-instance Hashable DestinationConfig
+instance Prelude.Hashable DestinationConfig
 
-instance NFData DestinationConfig
+instance Prelude.NFData DestinationConfig
 
-instance ToJSON DestinationConfig where
+instance Prelude.ToJSON DestinationConfig where
   toJSON DestinationConfig' {..} =
-    object
-      ( catMaybes
-          [ ("OnFailure" .=) <$> _dcOnFailure,
-            ("OnSuccess" .=) <$> _dcOnSuccess
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OnFailure" Prelude..=) Prelude.<$> onFailure,
+            ("OnSuccess" Prelude..=) Prelude.<$> onSuccess
           ]
       )

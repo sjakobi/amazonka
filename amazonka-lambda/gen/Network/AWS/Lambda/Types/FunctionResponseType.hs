@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.Lambda.Types.FunctionResponseType
   ( FunctionResponseType
       ( ..,
-        ReportBatchItemFailures
+        FunctionResponseTypeReportBatchItemFailures
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FunctionResponseType
-  = FunctionResponseType'
-      ( CI
-          Text
-      )
+newtype FunctionResponseType = FunctionResponseType'
+  { fromFunctionResponseType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ReportBatchItemFailures :: FunctionResponseType
-pattern ReportBatchItemFailures = FunctionResponseType' "ReportBatchItemFailures"
+pattern FunctionResponseTypeReportBatchItemFailures :: FunctionResponseType
+pattern FunctionResponseTypeReportBatchItemFailures = FunctionResponseType' "ReportBatchItemFailures"
 
 {-# COMPLETE
-  ReportBatchItemFailures,
+  FunctionResponseTypeReportBatchItemFailures,
   FunctionResponseType'
   #-}
 
-instance FromText FunctionResponseType where
-  parser = (FunctionResponseType' . mk) <$> takeText
+instance Prelude.FromText FunctionResponseType where
+  parser = FunctionResponseType' Prelude.<$> Prelude.takeText
 
-instance ToText FunctionResponseType where
-  toText (FunctionResponseType' ci) = original ci
+instance Prelude.ToText FunctionResponseType where
+  toText (FunctionResponseType' x) = x
 
-instance Hashable FunctionResponseType
+instance Prelude.Hashable FunctionResponseType
 
-instance NFData FunctionResponseType
+instance Prelude.NFData FunctionResponseType
 
-instance ToByteString FunctionResponseType
+instance Prelude.ToByteString FunctionResponseType
 
-instance ToQuery FunctionResponseType
+instance Prelude.ToQuery FunctionResponseType
 
-instance ToHeader FunctionResponseType
+instance Prelude.ToHeader FunctionResponseType
 
-instance ToJSON FunctionResponseType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FunctionResponseType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FunctionResponseType where
-  parseJSON = parseJSONText "FunctionResponseType"
+instance Prelude.FromJSON FunctionResponseType where
+  parseJSON = Prelude.parseJSONText "FunctionResponseType"

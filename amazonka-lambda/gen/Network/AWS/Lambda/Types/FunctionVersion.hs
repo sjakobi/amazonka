@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.Lambda.Types.FunctionVersion
   ( FunctionVersion
       ( ..,
-        All
+        FunctionVersionALL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FunctionVersion = FunctionVersion' (CI Text)
+newtype FunctionVersion = FunctionVersion'
+  { fromFunctionVersion ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: FunctionVersion
-pattern All = FunctionVersion' "ALL"
+pattern FunctionVersionALL :: FunctionVersion
+pattern FunctionVersionALL = FunctionVersion' "ALL"
 
 {-# COMPLETE
-  All,
+  FunctionVersionALL,
   FunctionVersion'
   #-}
 
-instance FromText FunctionVersion where
-  parser = (FunctionVersion' . mk) <$> takeText
+instance Prelude.FromText FunctionVersion where
+  parser = FunctionVersion' Prelude.<$> Prelude.takeText
 
-instance ToText FunctionVersion where
-  toText (FunctionVersion' ci) = original ci
+instance Prelude.ToText FunctionVersion where
+  toText (FunctionVersion' x) = x
 
-instance Hashable FunctionVersion
+instance Prelude.Hashable FunctionVersion
 
-instance NFData FunctionVersion
+instance Prelude.NFData FunctionVersion
 
-instance ToByteString FunctionVersion
+instance Prelude.ToByteString FunctionVersion
 
-instance ToQuery FunctionVersion
+instance Prelude.ToQuery FunctionVersion
 
-instance ToHeader FunctionVersion
+instance Prelude.ToHeader FunctionVersion
 
-instance ToJSON FunctionVersion where
-  toJSON = toJSONText
+instance Prelude.ToJSON FunctionVersion where
+  toJSON = Prelude.toJSONText

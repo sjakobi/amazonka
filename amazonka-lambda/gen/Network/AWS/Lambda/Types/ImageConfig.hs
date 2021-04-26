@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lambda.Types.ImageConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration values that override the container image Dockerfile settings. See <https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms Container settings> .
+-- | Configuration values that override the container image Dockerfile
+-- settings. See
+-- <https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms Container settings>.
 --
---
---
--- /See:/ 'imageConfig' smart constructor.
+-- /See:/ 'newImageConfig' smart constructor.
 data ImageConfig = ImageConfig'
-  { _icWorkingDirectory ::
-      !(Maybe Text),
-    _icEntryPoint :: !(Maybe [Text]),
-    _icCommand :: !(Maybe [Text])
+  { -- | Specifies the working directory.
+    workingDirectory :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the entry point to their application, which is typically the
+    -- location of the runtime executable.
+    entryPoint :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies parameters that you want to pass in with ENTRYPOINT.
+    command :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImageConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImageConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'icWorkingDirectory' - Specifies the working directory.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'icEntryPoint' - Specifies the entry point to their application, which is typically the location of the runtime executable.
+-- 'workingDirectory', 'imageConfig_workingDirectory' - Specifies the working directory.
 --
--- * 'icCommand' - Specifies parameters that you want to pass in with ENTRYPOINT.
-imageConfig ::
+-- 'entryPoint', 'imageConfig_entryPoint' - Specifies the entry point to their application, which is typically the
+-- location of the runtime executable.
+--
+-- 'command', 'imageConfig_command' - Specifies parameters that you want to pass in with ENTRYPOINT.
+newImageConfig ::
   ImageConfig
-imageConfig =
+newImageConfig =
   ImageConfig'
-    { _icWorkingDirectory = Nothing,
-      _icEntryPoint = Nothing,
-      _icCommand = Nothing
+    { workingDirectory = Prelude.Nothing,
+      entryPoint = Prelude.Nothing,
+      command = Prelude.Nothing
     }
 
 -- | Specifies the working directory.
-icWorkingDirectory :: Lens' ImageConfig (Maybe Text)
-icWorkingDirectory = lens _icWorkingDirectory (\s a -> s {_icWorkingDirectory = a})
+imageConfig_workingDirectory :: Lens.Lens' ImageConfig (Prelude.Maybe Prelude.Text)
+imageConfig_workingDirectory = Lens.lens (\ImageConfig' {workingDirectory} -> workingDirectory) (\s@ImageConfig' {} a -> s {workingDirectory = a} :: ImageConfig)
 
--- | Specifies the entry point to their application, which is typically the location of the runtime executable.
-icEntryPoint :: Lens' ImageConfig [Text]
-icEntryPoint = lens _icEntryPoint (\s a -> s {_icEntryPoint = a}) . _Default . _Coerce
+-- | Specifies the entry point to their application, which is typically the
+-- location of the runtime executable.
+imageConfig_entryPoint :: Lens.Lens' ImageConfig (Prelude.Maybe [Prelude.Text])
+imageConfig_entryPoint = Lens.lens (\ImageConfig' {entryPoint} -> entryPoint) (\s@ImageConfig' {} a -> s {entryPoint = a} :: ImageConfig) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Specifies parameters that you want to pass in with ENTRYPOINT.
-icCommand :: Lens' ImageConfig [Text]
-icCommand = lens _icCommand (\s a -> s {_icCommand = a}) . _Default . _Coerce
+imageConfig_command :: Lens.Lens' ImageConfig (Prelude.Maybe [Prelude.Text])
+imageConfig_command = Lens.lens (\ImageConfig' {command} -> command) (\s@ImageConfig' {} a -> s {command = a} :: ImageConfig) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ImageConfig where
+instance Prelude.FromJSON ImageConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ImageConfig"
       ( \x ->
           ImageConfig'
-            <$> (x .:? "WorkingDirectory")
-            <*> (x .:? "EntryPoint" .!= mempty)
-            <*> (x .:? "Command" .!= mempty)
+            Prelude.<$> (x Prelude..:? "WorkingDirectory")
+            Prelude.<*> ( x Prelude..:? "EntryPoint"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Command" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable ImageConfig
+instance Prelude.Hashable ImageConfig
 
-instance NFData ImageConfig
+instance Prelude.NFData ImageConfig
 
-instance ToJSON ImageConfig where
+instance Prelude.ToJSON ImageConfig where
   toJSON ImageConfig' {..} =
-    object
-      ( catMaybes
-          [ ("WorkingDirectory" .=) <$> _icWorkingDirectory,
-            ("EntryPoint" .=) <$> _icEntryPoint,
-            ("Command" .=) <$> _icCommand
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("WorkingDirectory" Prelude..=)
+              Prelude.<$> workingDirectory,
+            ("EntryPoint" Prelude..=) Prelude.<$> entryPoint,
+            ("Command" Prelude..=) Prelude.<$> command
           ]
       )

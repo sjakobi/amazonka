@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,119 +24,163 @@
 -- Deletes the provisioned concurrency configuration for a function.
 module Network.AWS.Lambda.DeleteProvisionedConcurrencyConfig
   ( -- * Creating a Request
-    deleteProvisionedConcurrencyConfig,
-    DeleteProvisionedConcurrencyConfig,
+    DeleteProvisionedConcurrencyConfig (..),
+    newDeleteProvisionedConcurrencyConfig,
 
     -- * Request Lenses
-    dpccFunctionName,
-    dpccQualifier,
+    deleteProvisionedConcurrencyConfig_functionName,
+    deleteProvisionedConcurrencyConfig_qualifier,
 
     -- * Destructuring the Response
-    deleteProvisionedConcurrencyConfigResponse,
-    DeleteProvisionedConcurrencyConfigResponse,
+    DeleteProvisionedConcurrencyConfigResponse (..),
+    newDeleteProvisionedConcurrencyConfigResponse,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteProvisionedConcurrencyConfig' smart constructor.
+-- | /See:/ 'newDeleteProvisionedConcurrencyConfig' smart constructor.
 data DeleteProvisionedConcurrencyConfig = DeleteProvisionedConcurrencyConfig'
-  { _dpccFunctionName ::
-      !Text,
-    _dpccQualifier ::
-      !Text
+  { -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @my-function@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text,
+    -- | The version number or alias name.
+    qualifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProvisionedConcurrencyConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProvisionedConcurrencyConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpccFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @my-function@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpccQualifier' - The version number or alias name.
-deleteProvisionedConcurrencyConfig ::
-  -- | 'dpccFunctionName'
-  Text ->
-  -- | 'dpccQualifier'
-  Text ->
+-- 'functionName', 'deleteProvisionedConcurrencyConfig_functionName' - The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+--
+-- 'qualifier', 'deleteProvisionedConcurrencyConfig_qualifier' - The version number or alias name.
+newDeleteProvisionedConcurrencyConfig ::
+  -- | 'functionName'
+  Prelude.Text ->
+  -- | 'qualifier'
+  Prelude.Text ->
   DeleteProvisionedConcurrencyConfig
-deleteProvisionedConcurrencyConfig
+newDeleteProvisionedConcurrencyConfig
   pFunctionName_
   pQualifier_ =
     DeleteProvisionedConcurrencyConfig'
-      { _dpccFunctionName =
+      { functionName =
           pFunctionName_,
-        _dpccQualifier = pQualifier_
+        qualifier = pQualifier_
       }
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @my-function@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-dpccFunctionName :: Lens' DeleteProvisionedConcurrencyConfig Text
-dpccFunctionName = lens _dpccFunctionName (\s a -> s {_dpccFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+deleteProvisionedConcurrencyConfig_functionName :: Lens.Lens' DeleteProvisionedConcurrencyConfig Prelude.Text
+deleteProvisionedConcurrencyConfig_functionName = Lens.lens (\DeleteProvisionedConcurrencyConfig' {functionName} -> functionName) (\s@DeleteProvisionedConcurrencyConfig' {} a -> s {functionName = a} :: DeleteProvisionedConcurrencyConfig)
 
 -- | The version number or alias name.
-dpccQualifier :: Lens' DeleteProvisionedConcurrencyConfig Text
-dpccQualifier = lens _dpccQualifier (\s a -> s {_dpccQualifier = a})
+deleteProvisionedConcurrencyConfig_qualifier :: Lens.Lens' DeleteProvisionedConcurrencyConfig Prelude.Text
+deleteProvisionedConcurrencyConfig_qualifier = Lens.lens (\DeleteProvisionedConcurrencyConfig' {qualifier} -> qualifier) (\s@DeleteProvisionedConcurrencyConfig' {} a -> s {qualifier = a} :: DeleteProvisionedConcurrencyConfig)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DeleteProvisionedConcurrencyConfig
   where
   type
     Rs DeleteProvisionedConcurrencyConfig =
       DeleteProvisionedConcurrencyConfigResponse
-  request = delete lambda
+  request = Request.delete defaultService
   response =
-    receiveNull
+    Response.receiveNull
       DeleteProvisionedConcurrencyConfigResponse'
 
-instance Hashable DeleteProvisionedConcurrencyConfig
+instance
+  Prelude.Hashable
+    DeleteProvisionedConcurrencyConfig
 
-instance NFData DeleteProvisionedConcurrencyConfig
+instance
+  Prelude.NFData
+    DeleteProvisionedConcurrencyConfig
 
-instance ToHeaders DeleteProvisionedConcurrencyConfig where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteProvisionedConcurrencyConfig
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteProvisionedConcurrencyConfig where
+instance
+  Prelude.ToPath
+    DeleteProvisionedConcurrencyConfig
+  where
   toPath DeleteProvisionedConcurrencyConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2019-09-30/functions/",
-        toBS _dpccFunctionName,
+        Prelude.toBS functionName,
         "/provisioned-concurrency"
       ]
 
-instance ToQuery DeleteProvisionedConcurrencyConfig where
+instance
+  Prelude.ToQuery
+    DeleteProvisionedConcurrencyConfig
+  where
   toQuery DeleteProvisionedConcurrencyConfig' {..} =
-    mconcat ["Qualifier" =: _dpccQualifier]
+    Prelude.mconcat ["Qualifier" Prelude.=: qualifier]
 
--- | /See:/ 'deleteProvisionedConcurrencyConfigResponse' smart constructor.
+-- | /See:/ 'newDeleteProvisionedConcurrencyConfigResponse' smart constructor.
 data DeleteProvisionedConcurrencyConfigResponse = DeleteProvisionedConcurrencyConfigResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProvisionedConcurrencyConfigResponse' with the minimum fields required to make a request.
-deleteProvisionedConcurrencyConfigResponse ::
+-- |
+-- Create a value of 'DeleteProvisionedConcurrencyConfigResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteProvisionedConcurrencyConfigResponse ::
   DeleteProvisionedConcurrencyConfigResponse
-deleteProvisionedConcurrencyConfigResponse =
+newDeleteProvisionedConcurrencyConfigResponse =
   DeleteProvisionedConcurrencyConfigResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DeleteProvisionedConcurrencyConfigResponse

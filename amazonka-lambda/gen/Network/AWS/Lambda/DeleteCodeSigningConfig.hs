@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,123 +21,120 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the code signing configuration. You can delete the code signing configuration only if no function is using it.
+-- Deletes the code signing configuration. You can delete the code signing
+-- configuration only if no function is using it.
 module Network.AWS.Lambda.DeleteCodeSigningConfig
   ( -- * Creating a Request
-    deleteCodeSigningConfig,
-    DeleteCodeSigningConfig,
+    DeleteCodeSigningConfig (..),
+    newDeleteCodeSigningConfig,
 
     -- * Request Lenses
-    dcscCodeSigningConfigARN,
+    deleteCodeSigningConfig_codeSigningConfigArn,
 
     -- * Destructuring the Response
-    deleteCodeSigningConfigResponse,
-    DeleteCodeSigningConfigResponse,
+    DeleteCodeSigningConfigResponse (..),
+    newDeleteCodeSigningConfigResponse,
 
     -- * Response Lenses
-    dcscrrsResponseStatus,
+    deleteCodeSigningConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteCodeSigningConfig' smart constructor.
-newtype DeleteCodeSigningConfig = DeleteCodeSigningConfig'
-  { _dcscCodeSigningConfigARN ::
-      Text
+-- | /See:/ 'newDeleteCodeSigningConfig' smart constructor.
+data DeleteCodeSigningConfig = DeleteCodeSigningConfig'
+  { -- | The The Amazon Resource Name (ARN) of the code signing configuration.
+    codeSigningConfigArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCodeSigningConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCodeSigningConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcscCodeSigningConfigARN' - The The Amazon Resource Name (ARN) of the code signing configuration.
-deleteCodeSigningConfig ::
-  -- | 'dcscCodeSigningConfigARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'codeSigningConfigArn', 'deleteCodeSigningConfig_codeSigningConfigArn' - The The Amazon Resource Name (ARN) of the code signing configuration.
+newDeleteCodeSigningConfig ::
+  -- | 'codeSigningConfigArn'
+  Prelude.Text ->
   DeleteCodeSigningConfig
-deleteCodeSigningConfig pCodeSigningConfigARN_ =
+newDeleteCodeSigningConfig pCodeSigningConfigArn_ =
   DeleteCodeSigningConfig'
-    { _dcscCodeSigningConfigARN =
-        pCodeSigningConfigARN_
+    { codeSigningConfigArn =
+        pCodeSigningConfigArn_
     }
 
 -- | The The Amazon Resource Name (ARN) of the code signing configuration.
-dcscCodeSigningConfigARN :: Lens' DeleteCodeSigningConfig Text
-dcscCodeSigningConfigARN = lens _dcscCodeSigningConfigARN (\s a -> s {_dcscCodeSigningConfigARN = a})
+deleteCodeSigningConfig_codeSigningConfigArn :: Lens.Lens' DeleteCodeSigningConfig Prelude.Text
+deleteCodeSigningConfig_codeSigningConfigArn = Lens.lens (\DeleteCodeSigningConfig' {codeSigningConfigArn} -> codeSigningConfigArn) (\s@DeleteCodeSigningConfig' {} a -> s {codeSigningConfigArn = a} :: DeleteCodeSigningConfig)
 
-instance AWSRequest DeleteCodeSigningConfig where
+instance Prelude.AWSRequest DeleteCodeSigningConfig where
   type
     Rs DeleteCodeSigningConfig =
       DeleteCodeSigningConfigResponse
-  request = delete lambda
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteCodeSigningConfigResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteCodeSigningConfig
+instance Prelude.Hashable DeleteCodeSigningConfig
 
-instance NFData DeleteCodeSigningConfig
+instance Prelude.NFData DeleteCodeSigningConfig
 
-instance ToHeaders DeleteCodeSigningConfig where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteCodeSigningConfig where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteCodeSigningConfig where
+instance Prelude.ToPath DeleteCodeSigningConfig where
   toPath DeleteCodeSigningConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2020-04-22/code-signing-configs/",
-        toBS _dcscCodeSigningConfigARN
+        Prelude.toBS codeSigningConfigArn
       ]
 
-instance ToQuery DeleteCodeSigningConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteCodeSigningConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteCodeSigningConfigResponse' smart constructor.
-newtype DeleteCodeSigningConfigResponse = DeleteCodeSigningConfigResponse'
-  { _dcscrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteCodeSigningConfigResponse' smart constructor.
+data DeleteCodeSigningConfigResponse = DeleteCodeSigningConfigResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCodeSigningConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCodeSigningConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcscrrsResponseStatus' - -- | The response status code.
-deleteCodeSigningConfigResponse ::
-  -- | 'dcscrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteCodeSigningConfigResponse_httpStatus' - The response's http status code.
+newDeleteCodeSigningConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteCodeSigningConfigResponse
-deleteCodeSigningConfigResponse pResponseStatus_ =
+newDeleteCodeSigningConfigResponse pHttpStatus_ =
   DeleteCodeSigningConfigResponse'
-    { _dcscrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dcscrrsResponseStatus :: Lens' DeleteCodeSigningConfigResponse Int
-dcscrrsResponseStatus = lens _dcscrrsResponseStatus (\s a -> s {_dcscrrsResponseStatus = a})
+-- | The response's http status code.
+deleteCodeSigningConfigResponse_httpStatus :: Lens.Lens' DeleteCodeSigningConfigResponse Prelude.Int
+deleteCodeSigningConfigResponse_httpStatus = Lens.lens (\DeleteCodeSigningConfigResponse' {httpStatus} -> httpStatus) (\s@DeleteCodeSigningConfigResponse' {} a -> s {httpStatus = a} :: DeleteCodeSigningConfigResponse)
 
-instance NFData DeleteCodeSigningConfigResponse
+instance
+  Prelude.NFData
+    DeleteCodeSigningConfigResponse

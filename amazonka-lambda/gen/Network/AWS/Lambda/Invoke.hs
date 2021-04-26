@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,214 +21,364 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Invokes a Lambda function. You can invoke a function synchronously (and wait for the response), or asynchronously. To invoke a function asynchronously, set @InvocationType@ to @Event@ .
+-- Invokes a Lambda function. You can invoke a function synchronously (and
+-- wait for the response), or asynchronously. To invoke a function
+-- asynchronously, set @InvocationType@ to @Event@.
 --
+-- For
+-- <https://docs.aws.amazon.com/lambda/latest/dg/invocation-sync.html synchronous invocation>,
+-- details about the function response, including errors, are included in
+-- the response body and headers. For either invocation type, you can find
+-- more information in the
+-- <https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html execution log>
+-- and
+-- <https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html trace>.
 --
--- For <https://docs.aws.amazon.com/lambda/latest/dg/invocation-sync.html synchronous invocation> , details about the function response, including errors, are included in the response body and headers. For either invocation type, you can find more information in the <https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html execution log> and <https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html trace> .
+-- When an error occurs, your function may be invoked multiple times. Retry
+-- behavior varies by error type, client, event source, and invocation
+-- type. For example, if you invoke a function asynchronously and it
+-- returns an error, Lambda executes the function up to two more times. For
+-- more information, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/retries-on-errors.html Retry Behavior>.
 --
--- When an error occurs, your function may be invoked multiple times. Retry behavior varies by error type, client, event source, and invocation type. For example, if you invoke a function asynchronously and it returns an error, Lambda executes the function up to two more times. For more information, see <https://docs.aws.amazon.com/lambda/latest/dg/retries-on-errors.html Retry Behavior> .
+-- For
+-- <https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html asynchronous invocation>,
+-- Lambda adds events to a queue before sending them to your function. If
+-- your function does not have enough capacity to keep up with the queue,
+-- events may be lost. Occasionally, your function may receive the same
+-- event multiple times, even if no error occurs. To retain events that
+-- were not processed, configure your function with a
+-- <https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#dlq dead-letter queue>.
 --
--- For <https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html asynchronous invocation> , Lambda adds events to a queue before sending them to your function. If your function does not have enough capacity to keep up with the queue, events may be lost. Occasionally, your function may receive the same event multiple times, even if no error occurs. To retain events that were not processed, configure your function with a <https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#dlq dead-letter queue> .
+-- The status code in the API response doesn\'t reflect function errors.
+-- Error codes are reserved for errors that prevent your function from
+-- executing, such as permissions errors,
+-- <https://docs.aws.amazon.com/lambda/latest/dg/limits.html limit errors>,
+-- or issues with your function\'s code and configuration. For example,
+-- Lambda returns @TooManyRequestsException@ if executing the function
+-- would cause you to exceed a concurrency limit at either the account
+-- level (@ConcurrentInvocationLimitExceeded@) or function level
+-- (@ReservedFunctionConcurrentInvocationLimitExceeded@).
 --
--- The status code in the API response doesn't reflect function errors. Error codes are reserved for errors that prevent your function from executing, such as permissions errors, <https://docs.aws.amazon.com/lambda/latest/dg/limits.html limit errors> , or issues with your function's code and configuration. For example, Lambda returns @TooManyRequestsException@ if executing the function would cause you to exceed a concurrency limit at either the account level (@ConcurrentInvocationLimitExceeded@ ) or function level (@ReservedFunctionConcurrentInvocationLimitExceeded@ ).
+-- For functions with a long timeout, your client might be disconnected
+-- during synchronous invocation while it waits for a response. Configure
+-- your HTTP client, SDK, firewall, proxy, or operating system to allow for
+-- long connections with timeout or keep-alive settings.
 --
--- For functions with a long timeout, your client might be disconnected during synchronous invocation while it waits for a response. Configure your HTTP client, SDK, firewall, proxy, or operating system to allow for long connections with timeout or keep-alive settings.
---
--- This operation requires permission for the <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awslambda.html lambda:InvokeFunction> action.
+-- This operation requires permission for the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awslambda.html lambda:InvokeFunction>
+-- action.
 module Network.AWS.Lambda.Invoke
   ( -- * Creating a Request
-    invoke,
-    Invoke,
+    Invoke (..),
+    newInvoke,
 
     -- * Request Lenses
-    iLogType,
-    iInvocationType,
-    iQualifier,
-    iClientContext,
-    iFunctionName,
-    iPayload,
+    invoke_logType,
+    invoke_invocationType,
+    invoke_qualifier,
+    invoke_clientContext,
+    invoke_functionName,
+    invoke_payload,
 
     -- * Destructuring the Response
-    invokeResponse,
-    InvokeResponse,
+    InvokeResponse (..),
+    newInvokeResponse,
 
     -- * Response Lenses
-    irrsPayload,
-    irrsLogResult,
-    irrsExecutedVersion,
-    irrsFunctionError,
-    irrsStatusCode,
+    invokeResponse_payload,
+    invokeResponse_logResult,
+    invokeResponse_executedVersion,
+    invokeResponse_functionError,
+    invokeResponse_statusCode,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'invoke' smart constructor.
+-- | /See:/ 'newInvoke' smart constructor.
 data Invoke = Invoke'
-  { _iLogType :: !(Maybe LogType),
-    _iInvocationType :: !(Maybe InvocationType),
-    _iQualifier :: !(Maybe Text),
-    _iClientContext :: !(Maybe Text),
-    _iFunctionName :: !Text,
-    _iPayload :: !ByteString
+  { -- | Set to @Tail@ to include the execution log in the response.
+    logType :: Prelude.Maybe LogType,
+    -- | Choose from the following options.
+    --
+    -- -   @RequestResponse@ (default) - Invoke the function synchronously.
+    --     Keep the connection open until the function returns a response or
+    --     times out. The API response includes the function response and
+    --     additional data.
+    --
+    -- -   @Event@ - Invoke the function asynchronously. Send events that fail
+    --     multiple times to the function\'s dead-letter queue (if it\'s
+    --     configured). The API response only includes a status code.
+    --
+    -- -   @DryRun@ - Validate parameter values and verify that the user or
+    --     role has permission to invoke the function.
+    invocationType :: Prelude.Maybe InvocationType,
+    -- | Specify a version or alias to invoke a published version of the
+    -- function.
+    qualifier :: Prelude.Maybe Prelude.Text,
+    -- | Up to 3583 bytes of base64-encoded data about the invoking client to
+    -- pass to the function in the context object.
+    clientContext :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Lambda function, version, or alias.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+    --     (with alias).
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    --
+    -- You can append a version number or alias to any of the formats. The
+    -- length constraint applies only to the full ARN. If you specify only the
+    -- function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text,
+    -- | The JSON that you want to provide to your Lambda function as input.
+    payload :: Prelude.ByteString
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Invoke' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Invoke' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iLogType' - Set to @Tail@ to include the execution log in the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iInvocationType' - Choose from the following options.     * @RequestResponse@ (default) - Invoke the function synchronously. Keep the connection open until the function returns a response or times out. The API response includes the function response and additional data.     * @Event@ - Invoke the function asynchronously. Send events that fail multiple times to the function's dead-letter queue (if it's configured). The API response only includes a status code.     * @DryRun@ - Validate parameter values and verify that the user or role has permission to invoke the function.
+-- 'logType', 'invoke_logType' - Set to @Tail@ to include the execution log in the response.
 --
--- * 'iQualifier' - Specify a version or alias to invoke a published version of the function.
+-- 'invocationType', 'invoke_invocationType' - Choose from the following options.
 --
--- * 'iClientContext' - Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
+-- -   @RequestResponse@ (default) - Invoke the function synchronously.
+--     Keep the connection open until the function returns a response or
+--     times out. The API response includes the function response and
+--     additional data.
 --
--- * 'iFunctionName' - The name of the Lambda function, version, or alias. __Name formats__      * __Function name__ - @my-function@ (name-only), @my-function:v1@ (with alias).     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
+-- -   @Event@ - Invoke the function asynchronously. Send events that fail
+--     multiple times to the function\'s dead-letter queue (if it\'s
+--     configured). The API response only includes a status code.
 --
--- * 'iPayload' - The JSON that you want to provide to your Lambda function as input.
-invoke ::
-  -- | 'iFunctionName'
-  Text ->
-  -- | 'iPayload'
-  ByteString ->
+-- -   @DryRun@ - Validate parameter values and verify that the user or
+--     role has permission to invoke the function.
+--
+-- 'qualifier', 'invoke_qualifier' - Specify a version or alias to invoke a published version of the
+-- function.
+--
+-- 'clientContext', 'invoke_clientContext' - Up to 3583 bytes of base64-encoded data about the invoking client to
+-- pass to the function in the context object.
+--
+-- 'functionName', 'invoke_functionName' - The name of the Lambda function, version, or alias.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+--     (with alias).
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- You can append a version number or alias to any of the formats. The
+-- length constraint applies only to the full ARN. If you specify only the
+-- function name, it is limited to 64 characters in length.
+--
+-- 'payload', 'invoke_payload' - The JSON that you want to provide to your Lambda function as input.
+newInvoke ::
+  -- | 'functionName'
+  Prelude.Text ->
+  -- | 'payload'
+  Prelude.ByteString ->
   Invoke
-invoke pFunctionName_ pPayload_ =
+newInvoke pFunctionName_ pPayload_ =
   Invoke'
-    { _iLogType = Nothing,
-      _iInvocationType = Nothing,
-      _iQualifier = Nothing,
-      _iClientContext = Nothing,
-      _iFunctionName = pFunctionName_,
-      _iPayload = pPayload_
+    { logType = Prelude.Nothing,
+      invocationType = Prelude.Nothing,
+      qualifier = Prelude.Nothing,
+      clientContext = Prelude.Nothing,
+      functionName = pFunctionName_,
+      payload = pPayload_
     }
 
 -- | Set to @Tail@ to include the execution log in the response.
-iLogType :: Lens' Invoke (Maybe LogType)
-iLogType = lens _iLogType (\s a -> s {_iLogType = a})
+invoke_logType :: Lens.Lens' Invoke (Prelude.Maybe LogType)
+invoke_logType = Lens.lens (\Invoke' {logType} -> logType) (\s@Invoke' {} a -> s {logType = a} :: Invoke)
 
--- | Choose from the following options.     * @RequestResponse@ (default) - Invoke the function synchronously. Keep the connection open until the function returns a response or times out. The API response includes the function response and additional data.     * @Event@ - Invoke the function asynchronously. Send events that fail multiple times to the function's dead-letter queue (if it's configured). The API response only includes a status code.     * @DryRun@ - Validate parameter values and verify that the user or role has permission to invoke the function.
-iInvocationType :: Lens' Invoke (Maybe InvocationType)
-iInvocationType = lens _iInvocationType (\s a -> s {_iInvocationType = a})
+-- | Choose from the following options.
+--
+-- -   @RequestResponse@ (default) - Invoke the function synchronously.
+--     Keep the connection open until the function returns a response or
+--     times out. The API response includes the function response and
+--     additional data.
+--
+-- -   @Event@ - Invoke the function asynchronously. Send events that fail
+--     multiple times to the function\'s dead-letter queue (if it\'s
+--     configured). The API response only includes a status code.
+--
+-- -   @DryRun@ - Validate parameter values and verify that the user or
+--     role has permission to invoke the function.
+invoke_invocationType :: Lens.Lens' Invoke (Prelude.Maybe InvocationType)
+invoke_invocationType = Lens.lens (\Invoke' {invocationType} -> invocationType) (\s@Invoke' {} a -> s {invocationType = a} :: Invoke)
 
--- | Specify a version or alias to invoke a published version of the function.
-iQualifier :: Lens' Invoke (Maybe Text)
-iQualifier = lens _iQualifier (\s a -> s {_iQualifier = a})
+-- | Specify a version or alias to invoke a published version of the
+-- function.
+invoke_qualifier :: Lens.Lens' Invoke (Prelude.Maybe Prelude.Text)
+invoke_qualifier = Lens.lens (\Invoke' {qualifier} -> qualifier) (\s@Invoke' {} a -> s {qualifier = a} :: Invoke)
 
--- | Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
-iClientContext :: Lens' Invoke (Maybe Text)
-iClientContext = lens _iClientContext (\s a -> s {_iClientContext = a})
+-- | Up to 3583 bytes of base64-encoded data about the invoking client to
+-- pass to the function in the context object.
+invoke_clientContext :: Lens.Lens' Invoke (Prelude.Maybe Prelude.Text)
+invoke_clientContext = Lens.lens (\Invoke' {clientContext} -> clientContext) (\s@Invoke' {} a -> s {clientContext = a} :: Invoke)
 
--- | The name of the Lambda function, version, or alias. __Name formats__      * __Function name__ - @my-function@ (name-only), @my-function:v1@ (with alias).     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:my-function@ .     * __Partial ARN__ - @123456789012:function:my-function@ . You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-iFunctionName :: Lens' Invoke Text
-iFunctionName = lens _iFunctionName (\s a -> s {_iFunctionName = a})
+-- | The name of the Lambda function, version, or alias.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+--     (with alias).
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
+--
+-- -   __Partial ARN__ - @123456789012:function:my-function@.
+--
+-- You can append a version number or alias to any of the formats. The
+-- length constraint applies only to the full ARN. If you specify only the
+-- function name, it is limited to 64 characters in length.
+invoke_functionName :: Lens.Lens' Invoke Prelude.Text
+invoke_functionName = Lens.lens (\Invoke' {functionName} -> functionName) (\s@Invoke' {} a -> s {functionName = a} :: Invoke)
 
 -- | The JSON that you want to provide to your Lambda function as input.
-iPayload :: Lens' Invoke ByteString
-iPayload = lens _iPayload (\s a -> s {_iPayload = a})
+invoke_payload :: Lens.Lens' Invoke Prelude.ByteString
+invoke_payload = Lens.lens (\Invoke' {payload} -> payload) (\s@Invoke' {} a -> s {payload = a} :: Invoke)
 
-instance AWSRequest Invoke where
+instance Prelude.AWSRequest Invoke where
   type Rs Invoke = InvokeResponse
-  request = postBody lambda
+  request = Request.postBody defaultService
   response =
-    receiveBytes
+    Response.receiveBytes
       ( \s h x ->
           InvokeResponse'
-            <$> (pure (Just x))
-            <*> (h .#? "X-Amz-Log-Result")
-            <*> (h .#? "X-Amz-Executed-Version")
-            <*> (h .#? "X-Amz-Function-Error")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.Just x))
+            Prelude.<*> (h Prelude..#? "X-Amz-Log-Result")
+            Prelude.<*> (h Prelude..#? "X-Amz-Executed-Version")
+            Prelude.<*> (h Prelude..#? "X-Amz-Function-Error")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable Invoke
+instance Prelude.Hashable Invoke
 
-instance NFData Invoke
+instance Prelude.NFData Invoke
 
-instance ToBody Invoke where
-  toBody = toBody . _iPayload
+instance Prelude.ToBody Invoke where
+  toBody = Prelude.toBody Prelude.. payload
 
-instance ToHeaders Invoke where
+instance Prelude.ToHeaders Invoke where
   toHeaders Invoke' {..} =
-    mconcat
-      [ "X-Amz-Log-Type" =# _iLogType,
-        "X-Amz-Invocation-Type" =# _iInvocationType,
-        "X-Amz-Client-Context" =# _iClientContext
+    Prelude.mconcat
+      [ "X-Amz-Log-Type" Prelude.=# logType,
+        "X-Amz-Invocation-Type" Prelude.=# invocationType,
+        "X-Amz-Client-Context" Prelude.=# clientContext
       ]
 
-instance ToPath Invoke where
+instance Prelude.ToPath Invoke where
   toPath Invoke' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-03-31/functions/",
-        toBS _iFunctionName,
+        Prelude.toBS functionName,
         "/invocations"
       ]
 
-instance ToQuery Invoke where
+instance Prelude.ToQuery Invoke where
   toQuery Invoke' {..} =
-    mconcat ["Qualifier" =: _iQualifier]
+    Prelude.mconcat ["Qualifier" Prelude.=: qualifier]
 
--- | /See:/ 'invokeResponse' smart constructor.
+-- | /See:/ 'newInvokeResponse' smart constructor.
 data InvokeResponse = InvokeResponse'
-  { _irrsPayload ::
-      !(Maybe ByteString),
-    _irrsLogResult :: !(Maybe Text),
-    _irrsExecutedVersion :: !(Maybe Text),
-    _irrsFunctionError :: !(Maybe Text),
-    _irrsStatusCode :: !Int
+  { -- | The response from the function, or an error object.
+    payload :: Prelude.Maybe Prelude.ByteString,
+    -- | The last 4 KB of the execution log, which is base64 encoded.
+    logResult :: Prelude.Maybe Prelude.Text,
+    -- | The version of the function that executed. When you invoke a function
+    -- with an alias, this indicates which version the alias resolved to.
+    executedVersion :: Prelude.Maybe Prelude.Text,
+    -- | If present, indicates that an error occurred during function execution.
+    -- Details about the error are included in the response payload.
+    functionError :: Prelude.Maybe Prelude.Text,
+    -- | The HTTP status code is in the 200 range for a successful request. For
+    -- the @RequestResponse@ invocation type, this status code is 200. For the
+    -- @Event@ invocation type, this status code is 202. For the @DryRun@
+    -- invocation type, the status code is 204.
+    statusCode :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InvokeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InvokeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'irrsPayload' - The response from the function, or an error object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'irrsLogResult' - The last 4 KB of the execution log, which is base64 encoded.
+-- 'payload', 'invokeResponse_payload' - The response from the function, or an error object.
 --
--- * 'irrsExecutedVersion' - The version of the function that executed. When you invoke a function with an alias, this indicates which version the alias resolved to.
+-- 'logResult', 'invokeResponse_logResult' - The last 4 KB of the execution log, which is base64 encoded.
 --
--- * 'irrsFunctionError' - If present, indicates that an error occurred during function execution. Details about the error are included in the response payload.
+-- 'executedVersion', 'invokeResponse_executedVersion' - The version of the function that executed. When you invoke a function
+-- with an alias, this indicates which version the alias resolved to.
 --
--- * 'irrsStatusCode' - The HTTP status code is in the 200 range for a successful request. For the @RequestResponse@ invocation type, this status code is 200. For the @Event@ invocation type, this status code is 202. For the @DryRun@ invocation type, the status code is 204.
-invokeResponse ::
-  -- | 'irrsStatusCode'
-  Int ->
+-- 'functionError', 'invokeResponse_functionError' - If present, indicates that an error occurred during function execution.
+-- Details about the error are included in the response payload.
+--
+-- 'statusCode', 'invokeResponse_statusCode' - The HTTP status code is in the 200 range for a successful request. For
+-- the @RequestResponse@ invocation type, this status code is 200. For the
+-- @Event@ invocation type, this status code is 202. For the @DryRun@
+-- invocation type, the status code is 204.
+newInvokeResponse ::
+  -- | 'statusCode'
+  Prelude.Int ->
   InvokeResponse
-invokeResponse pStatusCode_ =
+newInvokeResponse pStatusCode_ =
   InvokeResponse'
-    { _irrsPayload = Nothing,
-      _irrsLogResult = Nothing,
-      _irrsExecutedVersion = Nothing,
-      _irrsFunctionError = Nothing,
-      _irrsStatusCode = pStatusCode_
+    { payload = Prelude.Nothing,
+      logResult = Prelude.Nothing,
+      executedVersion = Prelude.Nothing,
+      functionError = Prelude.Nothing,
+      statusCode = pStatusCode_
     }
 
 -- | The response from the function, or an error object.
-irrsPayload :: Lens' InvokeResponse (Maybe ByteString)
-irrsPayload = lens _irrsPayload (\s a -> s {_irrsPayload = a})
+invokeResponse_payload :: Lens.Lens' InvokeResponse (Prelude.Maybe Prelude.ByteString)
+invokeResponse_payload = Lens.lens (\InvokeResponse' {payload} -> payload) (\s@InvokeResponse' {} a -> s {payload = a} :: InvokeResponse)
 
 -- | The last 4 KB of the execution log, which is base64 encoded.
-irrsLogResult :: Lens' InvokeResponse (Maybe Text)
-irrsLogResult = lens _irrsLogResult (\s a -> s {_irrsLogResult = a})
+invokeResponse_logResult :: Lens.Lens' InvokeResponse (Prelude.Maybe Prelude.Text)
+invokeResponse_logResult = Lens.lens (\InvokeResponse' {logResult} -> logResult) (\s@InvokeResponse' {} a -> s {logResult = a} :: InvokeResponse)
 
--- | The version of the function that executed. When you invoke a function with an alias, this indicates which version the alias resolved to.
-irrsExecutedVersion :: Lens' InvokeResponse (Maybe Text)
-irrsExecutedVersion = lens _irrsExecutedVersion (\s a -> s {_irrsExecutedVersion = a})
+-- | The version of the function that executed. When you invoke a function
+-- with an alias, this indicates which version the alias resolved to.
+invokeResponse_executedVersion :: Lens.Lens' InvokeResponse (Prelude.Maybe Prelude.Text)
+invokeResponse_executedVersion = Lens.lens (\InvokeResponse' {executedVersion} -> executedVersion) (\s@InvokeResponse' {} a -> s {executedVersion = a} :: InvokeResponse)
 
--- | If present, indicates that an error occurred during function execution. Details about the error are included in the response payload.
-irrsFunctionError :: Lens' InvokeResponse (Maybe Text)
-irrsFunctionError = lens _irrsFunctionError (\s a -> s {_irrsFunctionError = a})
+-- | If present, indicates that an error occurred during function execution.
+-- Details about the error are included in the response payload.
+invokeResponse_functionError :: Lens.Lens' InvokeResponse (Prelude.Maybe Prelude.Text)
+invokeResponse_functionError = Lens.lens (\InvokeResponse' {functionError} -> functionError) (\s@InvokeResponse' {} a -> s {functionError = a} :: InvokeResponse)
 
--- | The HTTP status code is in the 200 range for a successful request. For the @RequestResponse@ invocation type, this status code is 200. For the @Event@ invocation type, this status code is 202. For the @DryRun@ invocation type, the status code is 204.
-irrsStatusCode :: Lens' InvokeResponse Int
-irrsStatusCode = lens _irrsStatusCode (\s a -> s {_irrsStatusCode = a})
+-- | The HTTP status code is in the 200 range for a successful request. For
+-- the @RequestResponse@ invocation type, this status code is 200. For the
+-- @Event@ invocation type, this status code is 202. For the @DryRun@
+-- invocation type, the status code is 204.
+invokeResponse_statusCode :: Lens.Lens' InvokeResponse Prelude.Int
+invokeResponse_statusCode = Lens.lens (\InvokeResponse' {statusCode} -> statusCode) (\s@InvokeResponse' {} a -> s {statusCode = a} :: InvokeResponse)
 
-instance NFData InvokeResponse
+instance Prelude.NFData InvokeResponse

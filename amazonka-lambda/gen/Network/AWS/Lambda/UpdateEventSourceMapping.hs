@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,271 +21,391 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an event source mapping. You can change the function that AWS Lambda invokes, or pause invocation and resume later from the same location.
+-- Updates an event source mapping. You can change the function that AWS
+-- Lambda invokes, or pause invocation and resume later from the same
+-- location.
 --
+-- The following error handling options are only available for stream
+-- sources (DynamoDB and Kinesis):
 --
--- The following error handling options are only available for stream sources (DynamoDB and Kinesis):
+-- -   @BisectBatchOnFunctionError@ - If the function returns an error,
+--     split the batch in two and retry.
 --
---     * @BisectBatchOnFunctionError@ - If the function returns an error, split the batch in two and retry.
+-- -   @DestinationConfig@ - Send discarded records to an Amazon SQS queue
+--     or Amazon SNS topic.
 --
---     * @DestinationConfig@ - Send discarded records to an Amazon SQS queue or Amazon SNS topic.
+-- -   @MaximumRecordAgeInSeconds@ - Discard records older than the
+--     specified age. The default value is infinite (-1). When set to
+--     infinite (-1), failed records are retried until the record expires
 --
---     * @MaximumRecordAgeInSeconds@ - Discard records older than the specified age. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires
+-- -   @MaximumRetryAttempts@ - Discard records after the specified number
+--     of retries. The default value is infinite (-1). When set to infinite
+--     (-1), failed records are retried until the record expires.
 --
---     * @MaximumRetryAttempts@ - Discard records after the specified number of retries. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires.
---
---     * @ParallelizationFactor@ - Process multiple batches from each shard concurrently.
+-- -   @ParallelizationFactor@ - Process multiple batches from each shard
+--     concurrently.
 module Network.AWS.Lambda.UpdateEventSourceMapping
   ( -- * Creating a Request
-    updateEventSourceMapping,
-    UpdateEventSourceMapping,
+    UpdateEventSourceMapping (..),
+    newUpdateEventSourceMapping,
 
     -- * Request Lenses
-    uesmFunctionName,
-    uesmEnabled,
-    uesmMaximumRecordAgeInSeconds,
-    uesmFunctionResponseTypes,
-    uesmTumblingWindowInSeconds,
-    uesmMaximumBatchingWindowInSeconds,
-    uesmBatchSize,
-    uesmDestinationConfig,
-    uesmMaximumRetryAttempts,
-    uesmParallelizationFactor,
-    uesmBisectBatchOnFunctionError,
-    uesmSourceAccessConfigurations,
-    uesmUUId,
+    updateEventSourceMapping_functionName,
+    updateEventSourceMapping_enabled,
+    updateEventSourceMapping_maximumRecordAgeInSeconds,
+    updateEventSourceMapping_functionResponseTypes,
+    updateEventSourceMapping_tumblingWindowInSeconds,
+    updateEventSourceMapping_maximumBatchingWindowInSeconds,
+    updateEventSourceMapping_batchSize,
+    updateEventSourceMapping_destinationConfig,
+    updateEventSourceMapping_maximumRetryAttempts,
+    updateEventSourceMapping_parallelizationFactor,
+    updateEventSourceMapping_bisectBatchOnFunctionError,
+    updateEventSourceMapping_sourceAccessConfigurations,
+    updateEventSourceMapping_uUID,
 
     -- * Destructuring the Response
-    eventSourceMappingConfiguration,
-    EventSourceMappingConfiguration,
+    EventSourceMappingConfiguration (..),
+    newEventSourceMappingConfiguration,
 
     -- * Response Lenses
-    esmcEventSourceARN,
-    esmcStateTransitionReason,
-    esmcLastProcessingResult,
-    esmcTopics,
-    esmcMaximumRecordAgeInSeconds,
-    esmcFunctionResponseTypes,
-    esmcQueues,
-    esmcTumblingWindowInSeconds,
-    esmcFunctionARN,
-    esmcStartingPositionTimestamp,
-    esmcState,
-    esmcMaximumBatchingWindowInSeconds,
-    esmcBatchSize,
-    esmcStartingPosition,
-    esmcDestinationConfig,
-    esmcMaximumRetryAttempts,
-    esmcLastModified,
-    esmcParallelizationFactor,
-    esmcSelfManagedEventSource,
-    esmcUUId,
-    esmcBisectBatchOnFunctionError,
-    esmcSourceAccessConfigurations,
+    eventSourceMappingConfiguration_eventSourceArn,
+    eventSourceMappingConfiguration_stateTransitionReason,
+    eventSourceMappingConfiguration_lastProcessingResult,
+    eventSourceMappingConfiguration_topics,
+    eventSourceMappingConfiguration_maximumRecordAgeInSeconds,
+    eventSourceMappingConfiguration_functionResponseTypes,
+    eventSourceMappingConfiguration_queues,
+    eventSourceMappingConfiguration_tumblingWindowInSeconds,
+    eventSourceMappingConfiguration_functionArn,
+    eventSourceMappingConfiguration_startingPositionTimestamp,
+    eventSourceMappingConfiguration_state,
+    eventSourceMappingConfiguration_maximumBatchingWindowInSeconds,
+    eventSourceMappingConfiguration_batchSize,
+    eventSourceMappingConfiguration_startingPosition,
+    eventSourceMappingConfiguration_destinationConfig,
+    eventSourceMappingConfiguration_maximumRetryAttempts,
+    eventSourceMappingConfiguration_lastModified,
+    eventSourceMappingConfiguration_parallelizationFactor,
+    eventSourceMappingConfiguration_selfManagedEventSource,
+    eventSourceMappingConfiguration_uUID,
+    eventSourceMappingConfiguration_bisectBatchOnFunctionError,
+    eventSourceMappingConfiguration_sourceAccessConfigurations,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.DestinationConfig
+import Network.AWS.Lambda.Types.EventSourceMappingConfiguration
+import Network.AWS.Lambda.Types.EventSourcePosition
+import Network.AWS.Lambda.Types.FunctionResponseType
+import Network.AWS.Lambda.Types.SelfManagedEventSource
+import Network.AWS.Lambda.Types.SourceAccessConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateEventSourceMapping' smart constructor.
+-- | /See:/ 'newUpdateEventSourceMapping' smart constructor.
 data UpdateEventSourceMapping = UpdateEventSourceMapping'
-  { _uesmFunctionName ::
-      !(Maybe Text),
-    _uesmEnabled ::
-      !(Maybe Bool),
-    _uesmMaximumRecordAgeInSeconds ::
-      !(Maybe Int),
-    _uesmFunctionResponseTypes ::
-      !( Maybe
-           ( List1
-               FunctionResponseType
-           )
-       ),
-    _uesmTumblingWindowInSeconds ::
-      !(Maybe Nat),
-    _uesmMaximumBatchingWindowInSeconds ::
-      !(Maybe Nat),
-    _uesmBatchSize ::
-      !(Maybe Nat),
-    _uesmDestinationConfig ::
-      !( Maybe
-           DestinationConfig
-       ),
-    _uesmMaximumRetryAttempts ::
-      !(Maybe Int),
-    _uesmParallelizationFactor ::
-      !(Maybe Nat),
-    _uesmBisectBatchOnFunctionError ::
-      !(Maybe Bool),
-    _uesmSourceAccessConfigurations ::
-      !( Maybe
-           [SourceAccessConfiguration]
-       ),
-    _uesmUUId :: !Text
+  { -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @MyFunction@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+    --
+    -- -   __Version or Alias ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it\'s limited to 64 characters in length.
+    functionName :: Prelude.Maybe Prelude.Text,
+    -- | If true, the event source mapping is active. Set to false to pause
+    -- polling and invocation.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | (Streams) Discard records older than the specified age. The default
+    -- value is infinite (-1).
+    maximumRecordAgeInSeconds :: Prelude.Maybe Prelude.Int,
+    -- | (Streams) A list of current response type enums applied to the event
+    -- source mapping.
+    functionResponseTypes :: Prelude.Maybe (Prelude.List1 FunctionResponseType),
+    -- | (Streams) The duration in seconds of a processing window. The range is
+    -- between 1 second up to 900 seconds.
+    tumblingWindowInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | (Streams and SQS standard queues) The maximum amount of time to gather
+    -- records before invoking the function, in seconds.
+    maximumBatchingWindowInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum number of items to retrieve in a single batch.
+    --
+    -- -   __Amazon Kinesis__ - Default 100. Max 10,000.
+    --
+    -- -   __Amazon DynamoDB Streams__ - Default 100. Max 1,000.
+    --
+    -- -   __Amazon Simple Queue Service__ - Default 10. For standard queues
+    --     the max is 10,000. For FIFO queues the max is 10.
+    --
+    -- -   __Amazon Managed Streaming for Apache Kafka__ - Default 100. Max
+    --     10,000.
+    --
+    -- -   __Self-Managed Apache Kafka__ - Default 100. Max 10,000.
+    batchSize :: Prelude.Maybe Prelude.Nat,
+    -- | (Streams) An Amazon SQS queue or Amazon SNS topic destination for
+    -- discarded records.
+    destinationConfig :: Prelude.Maybe DestinationConfig,
+    -- | (Streams) Discard records after the specified number of retries. The
+    -- default value is infinite (-1). When set to infinite (-1), failed
+    -- records will be retried until the record expires.
+    maximumRetryAttempts :: Prelude.Maybe Prelude.Int,
+    -- | (Streams) The number of batches to process from each shard concurrently.
+    parallelizationFactor :: Prelude.Maybe Prelude.Nat,
+    -- | (Streams) If the function returns an error, split the batch in two and
+    -- retry.
+    bisectBatchOnFunctionError :: Prelude.Maybe Prelude.Bool,
+    -- | An array of the authentication protocol, or the VPC components to secure
+    -- your event source.
+    sourceAccessConfigurations :: Prelude.Maybe [SourceAccessConfiguration],
+    -- | The identifier of the event source mapping.
+    uUID :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateEventSourceMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateEventSourceMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uesmFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Version or Alias ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it's limited to 64 characters in length.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uesmEnabled' - If true, the event source mapping is active. Set to false to pause polling and invocation.
+-- 'functionName', 'updateEventSourceMapping_functionName' - The name of the Lambda function.
 --
--- * 'uesmMaximumRecordAgeInSeconds' - (Streams) Discard records older than the specified age. The default value is infinite (-1).
+-- __Name formats__
 --
--- * 'uesmFunctionResponseTypes' - (Streams) A list of current response type enums applied to the event source mapping.
+-- -   __Function name__ - @MyFunction@.
 --
--- * 'uesmTumblingWindowInSeconds' - (Streams) The duration in seconds of a processing window. The range is between 1 second up to 900 seconds.
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
 --
--- * 'uesmMaximumBatchingWindowInSeconds' - (Streams and SQS standard queues) The maximum amount of time to gather records before invoking the function, in seconds.
+-- -   __Version or Alias ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD@.
 --
--- * 'uesmBatchSize' - The maximum number of items to retrieve in a single batch.     * __Amazon Kinesis__ - Default 100. Max 10,000.     * __Amazon DynamoDB Streams__ - Default 100. Max 1,000.     * __Amazon Simple Queue Service__ - Default 10. For standard queues the max is 10,000. For FIFO queues the max is 10.     * __Amazon Managed Streaming for Apache Kafka__ - Default 100. Max 10,000.     * __Self-Managed Apache Kafka__ - Default 100. Max 10,000.
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
 --
--- * 'uesmDestinationConfig' - (Streams) An Amazon SQS queue or Amazon SNS topic destination for discarded records.
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it\'s limited to 64 characters in length.
 --
--- * 'uesmMaximumRetryAttempts' - (Streams) Discard records after the specified number of retries. The default value is infinite (-1). When set to infinite (-1), failed records will be retried until the record expires.
+-- 'enabled', 'updateEventSourceMapping_enabled' - If true, the event source mapping is active. Set to false to pause
+-- polling and invocation.
 --
--- * 'uesmParallelizationFactor' - (Streams) The number of batches to process from each shard concurrently.
+-- 'maximumRecordAgeInSeconds', 'updateEventSourceMapping_maximumRecordAgeInSeconds' - (Streams) Discard records older than the specified age. The default
+-- value is infinite (-1).
 --
--- * 'uesmBisectBatchOnFunctionError' - (Streams) If the function returns an error, split the batch in two and retry.
+-- 'functionResponseTypes', 'updateEventSourceMapping_functionResponseTypes' - (Streams) A list of current response type enums applied to the event
+-- source mapping.
 --
--- * 'uesmSourceAccessConfigurations' - An array of the authentication protocol, or the VPC components to secure your event source.
+-- 'tumblingWindowInSeconds', 'updateEventSourceMapping_tumblingWindowInSeconds' - (Streams) The duration in seconds of a processing window. The range is
+-- between 1 second up to 900 seconds.
 --
--- * 'uesmUUId' - The identifier of the event source mapping.
-updateEventSourceMapping ::
-  -- | 'uesmUUId'
-  Text ->
+-- 'maximumBatchingWindowInSeconds', 'updateEventSourceMapping_maximumBatchingWindowInSeconds' - (Streams and SQS standard queues) The maximum amount of time to gather
+-- records before invoking the function, in seconds.
+--
+-- 'batchSize', 'updateEventSourceMapping_batchSize' - The maximum number of items to retrieve in a single batch.
+--
+-- -   __Amazon Kinesis__ - Default 100. Max 10,000.
+--
+-- -   __Amazon DynamoDB Streams__ - Default 100. Max 1,000.
+--
+-- -   __Amazon Simple Queue Service__ - Default 10. For standard queues
+--     the max is 10,000. For FIFO queues the max is 10.
+--
+-- -   __Amazon Managed Streaming for Apache Kafka__ - Default 100. Max
+--     10,000.
+--
+-- -   __Self-Managed Apache Kafka__ - Default 100. Max 10,000.
+--
+-- 'destinationConfig', 'updateEventSourceMapping_destinationConfig' - (Streams) An Amazon SQS queue or Amazon SNS topic destination for
+-- discarded records.
+--
+-- 'maximumRetryAttempts', 'updateEventSourceMapping_maximumRetryAttempts' - (Streams) Discard records after the specified number of retries. The
+-- default value is infinite (-1). When set to infinite (-1), failed
+-- records will be retried until the record expires.
+--
+-- 'parallelizationFactor', 'updateEventSourceMapping_parallelizationFactor' - (Streams) The number of batches to process from each shard concurrently.
+--
+-- 'bisectBatchOnFunctionError', 'updateEventSourceMapping_bisectBatchOnFunctionError' - (Streams) If the function returns an error, split the batch in two and
+-- retry.
+--
+-- 'sourceAccessConfigurations', 'updateEventSourceMapping_sourceAccessConfigurations' - An array of the authentication protocol, or the VPC components to secure
+-- your event source.
+--
+-- 'uUID', 'updateEventSourceMapping_uUID' - The identifier of the event source mapping.
+newUpdateEventSourceMapping ::
+  -- | 'uUID'
+  Prelude.Text ->
   UpdateEventSourceMapping
-updateEventSourceMapping pUUId_ =
+newUpdateEventSourceMapping pUUID_ =
   UpdateEventSourceMapping'
-    { _uesmFunctionName =
-        Nothing,
-      _uesmEnabled = Nothing,
-      _uesmMaximumRecordAgeInSeconds = Nothing,
-      _uesmFunctionResponseTypes = Nothing,
-      _uesmTumblingWindowInSeconds = Nothing,
-      _uesmMaximumBatchingWindowInSeconds = Nothing,
-      _uesmBatchSize = Nothing,
-      _uesmDestinationConfig = Nothing,
-      _uesmMaximumRetryAttempts = Nothing,
-      _uesmParallelizationFactor = Nothing,
-      _uesmBisectBatchOnFunctionError = Nothing,
-      _uesmSourceAccessConfigurations = Nothing,
-      _uesmUUId = pUUId_
+    { functionName =
+        Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      maximumRecordAgeInSeconds = Prelude.Nothing,
+      functionResponseTypes = Prelude.Nothing,
+      tumblingWindowInSeconds = Prelude.Nothing,
+      maximumBatchingWindowInSeconds = Prelude.Nothing,
+      batchSize = Prelude.Nothing,
+      destinationConfig = Prelude.Nothing,
+      maximumRetryAttempts = Prelude.Nothing,
+      parallelizationFactor = Prelude.Nothing,
+      bisectBatchOnFunctionError = Prelude.Nothing,
+      sourceAccessConfigurations = Prelude.Nothing,
+      uUID = pUUID_
     }
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Version or Alias ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it's limited to 64 characters in length.
-uesmFunctionName :: Lens' UpdateEventSourceMapping (Maybe Text)
-uesmFunctionName = lens _uesmFunctionName (\s a -> s {_uesmFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Version or Alias ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it\'s limited to 64 characters in length.
+updateEventSourceMapping_functionName :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe Prelude.Text)
+updateEventSourceMapping_functionName = Lens.lens (\UpdateEventSourceMapping' {functionName} -> functionName) (\s@UpdateEventSourceMapping' {} a -> s {functionName = a} :: UpdateEventSourceMapping)
 
--- | If true, the event source mapping is active. Set to false to pause polling and invocation.
-uesmEnabled :: Lens' UpdateEventSourceMapping (Maybe Bool)
-uesmEnabled = lens _uesmEnabled (\s a -> s {_uesmEnabled = a})
+-- | If true, the event source mapping is active. Set to false to pause
+-- polling and invocation.
+updateEventSourceMapping_enabled :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe Prelude.Bool)
+updateEventSourceMapping_enabled = Lens.lens (\UpdateEventSourceMapping' {enabled} -> enabled) (\s@UpdateEventSourceMapping' {} a -> s {enabled = a} :: UpdateEventSourceMapping)
 
--- | (Streams) Discard records older than the specified age. The default value is infinite (-1).
-uesmMaximumRecordAgeInSeconds :: Lens' UpdateEventSourceMapping (Maybe Int)
-uesmMaximumRecordAgeInSeconds = lens _uesmMaximumRecordAgeInSeconds (\s a -> s {_uesmMaximumRecordAgeInSeconds = a})
+-- | (Streams) Discard records older than the specified age. The default
+-- value is infinite (-1).
+updateEventSourceMapping_maximumRecordAgeInSeconds :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe Prelude.Int)
+updateEventSourceMapping_maximumRecordAgeInSeconds = Lens.lens (\UpdateEventSourceMapping' {maximumRecordAgeInSeconds} -> maximumRecordAgeInSeconds) (\s@UpdateEventSourceMapping' {} a -> s {maximumRecordAgeInSeconds = a} :: UpdateEventSourceMapping)
 
--- | (Streams) A list of current response type enums applied to the event source mapping.
-uesmFunctionResponseTypes :: Lens' UpdateEventSourceMapping (Maybe (NonEmpty FunctionResponseType))
-uesmFunctionResponseTypes = lens _uesmFunctionResponseTypes (\s a -> s {_uesmFunctionResponseTypes = a}) . mapping _List1
+-- | (Streams) A list of current response type enums applied to the event
+-- source mapping.
+updateEventSourceMapping_functionResponseTypes :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe (Prelude.NonEmpty FunctionResponseType))
+updateEventSourceMapping_functionResponseTypes = Lens.lens (\UpdateEventSourceMapping' {functionResponseTypes} -> functionResponseTypes) (\s@UpdateEventSourceMapping' {} a -> s {functionResponseTypes = a} :: UpdateEventSourceMapping) Prelude.. Lens.mapping Prelude._List1
 
--- | (Streams) The duration in seconds of a processing window. The range is between 1 second up to 900 seconds.
-uesmTumblingWindowInSeconds :: Lens' UpdateEventSourceMapping (Maybe Natural)
-uesmTumblingWindowInSeconds = lens _uesmTumblingWindowInSeconds (\s a -> s {_uesmTumblingWindowInSeconds = a}) . mapping _Nat
+-- | (Streams) The duration in seconds of a processing window. The range is
+-- between 1 second up to 900 seconds.
+updateEventSourceMapping_tumblingWindowInSeconds :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe Prelude.Natural)
+updateEventSourceMapping_tumblingWindowInSeconds = Lens.lens (\UpdateEventSourceMapping' {tumblingWindowInSeconds} -> tumblingWindowInSeconds) (\s@UpdateEventSourceMapping' {} a -> s {tumblingWindowInSeconds = a} :: UpdateEventSourceMapping) Prelude.. Lens.mapping Prelude._Nat
 
--- | (Streams and SQS standard queues) The maximum amount of time to gather records before invoking the function, in seconds.
-uesmMaximumBatchingWindowInSeconds :: Lens' UpdateEventSourceMapping (Maybe Natural)
-uesmMaximumBatchingWindowInSeconds = lens _uesmMaximumBatchingWindowInSeconds (\s a -> s {_uesmMaximumBatchingWindowInSeconds = a}) . mapping _Nat
+-- | (Streams and SQS standard queues) The maximum amount of time to gather
+-- records before invoking the function, in seconds.
+updateEventSourceMapping_maximumBatchingWindowInSeconds :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe Prelude.Natural)
+updateEventSourceMapping_maximumBatchingWindowInSeconds = Lens.lens (\UpdateEventSourceMapping' {maximumBatchingWindowInSeconds} -> maximumBatchingWindowInSeconds) (\s@UpdateEventSourceMapping' {} a -> s {maximumBatchingWindowInSeconds = a} :: UpdateEventSourceMapping) Prelude.. Lens.mapping Prelude._Nat
 
--- | The maximum number of items to retrieve in a single batch.     * __Amazon Kinesis__ - Default 100. Max 10,000.     * __Amazon DynamoDB Streams__ - Default 100. Max 1,000.     * __Amazon Simple Queue Service__ - Default 10. For standard queues the max is 10,000. For FIFO queues the max is 10.     * __Amazon Managed Streaming for Apache Kafka__ - Default 100. Max 10,000.     * __Self-Managed Apache Kafka__ - Default 100. Max 10,000.
-uesmBatchSize :: Lens' UpdateEventSourceMapping (Maybe Natural)
-uesmBatchSize = lens _uesmBatchSize (\s a -> s {_uesmBatchSize = a}) . mapping _Nat
+-- | The maximum number of items to retrieve in a single batch.
+--
+-- -   __Amazon Kinesis__ - Default 100. Max 10,000.
+--
+-- -   __Amazon DynamoDB Streams__ - Default 100. Max 1,000.
+--
+-- -   __Amazon Simple Queue Service__ - Default 10. For standard queues
+--     the max is 10,000. For FIFO queues the max is 10.
+--
+-- -   __Amazon Managed Streaming for Apache Kafka__ - Default 100. Max
+--     10,000.
+--
+-- -   __Self-Managed Apache Kafka__ - Default 100. Max 10,000.
+updateEventSourceMapping_batchSize :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe Prelude.Natural)
+updateEventSourceMapping_batchSize = Lens.lens (\UpdateEventSourceMapping' {batchSize} -> batchSize) (\s@UpdateEventSourceMapping' {} a -> s {batchSize = a} :: UpdateEventSourceMapping) Prelude.. Lens.mapping Prelude._Nat
 
--- | (Streams) An Amazon SQS queue or Amazon SNS topic destination for discarded records.
-uesmDestinationConfig :: Lens' UpdateEventSourceMapping (Maybe DestinationConfig)
-uesmDestinationConfig = lens _uesmDestinationConfig (\s a -> s {_uesmDestinationConfig = a})
+-- | (Streams) An Amazon SQS queue or Amazon SNS topic destination for
+-- discarded records.
+updateEventSourceMapping_destinationConfig :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe DestinationConfig)
+updateEventSourceMapping_destinationConfig = Lens.lens (\UpdateEventSourceMapping' {destinationConfig} -> destinationConfig) (\s@UpdateEventSourceMapping' {} a -> s {destinationConfig = a} :: UpdateEventSourceMapping)
 
--- | (Streams) Discard records after the specified number of retries. The default value is infinite (-1). When set to infinite (-1), failed records will be retried until the record expires.
-uesmMaximumRetryAttempts :: Lens' UpdateEventSourceMapping (Maybe Int)
-uesmMaximumRetryAttempts = lens _uesmMaximumRetryAttempts (\s a -> s {_uesmMaximumRetryAttempts = a})
+-- | (Streams) Discard records after the specified number of retries. The
+-- default value is infinite (-1). When set to infinite (-1), failed
+-- records will be retried until the record expires.
+updateEventSourceMapping_maximumRetryAttempts :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe Prelude.Int)
+updateEventSourceMapping_maximumRetryAttempts = Lens.lens (\UpdateEventSourceMapping' {maximumRetryAttempts} -> maximumRetryAttempts) (\s@UpdateEventSourceMapping' {} a -> s {maximumRetryAttempts = a} :: UpdateEventSourceMapping)
 
 -- | (Streams) The number of batches to process from each shard concurrently.
-uesmParallelizationFactor :: Lens' UpdateEventSourceMapping (Maybe Natural)
-uesmParallelizationFactor = lens _uesmParallelizationFactor (\s a -> s {_uesmParallelizationFactor = a}) . mapping _Nat
+updateEventSourceMapping_parallelizationFactor :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe Prelude.Natural)
+updateEventSourceMapping_parallelizationFactor = Lens.lens (\UpdateEventSourceMapping' {parallelizationFactor} -> parallelizationFactor) (\s@UpdateEventSourceMapping' {} a -> s {parallelizationFactor = a} :: UpdateEventSourceMapping) Prelude.. Lens.mapping Prelude._Nat
 
--- | (Streams) If the function returns an error, split the batch in two and retry.
-uesmBisectBatchOnFunctionError :: Lens' UpdateEventSourceMapping (Maybe Bool)
-uesmBisectBatchOnFunctionError = lens _uesmBisectBatchOnFunctionError (\s a -> s {_uesmBisectBatchOnFunctionError = a})
+-- | (Streams) If the function returns an error, split the batch in two and
+-- retry.
+updateEventSourceMapping_bisectBatchOnFunctionError :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe Prelude.Bool)
+updateEventSourceMapping_bisectBatchOnFunctionError = Lens.lens (\UpdateEventSourceMapping' {bisectBatchOnFunctionError} -> bisectBatchOnFunctionError) (\s@UpdateEventSourceMapping' {} a -> s {bisectBatchOnFunctionError = a} :: UpdateEventSourceMapping)
 
--- | An array of the authentication protocol, or the VPC components to secure your event source.
-uesmSourceAccessConfigurations :: Lens' UpdateEventSourceMapping [SourceAccessConfiguration]
-uesmSourceAccessConfigurations = lens _uesmSourceAccessConfigurations (\s a -> s {_uesmSourceAccessConfigurations = a}) . _Default . _Coerce
+-- | An array of the authentication protocol, or the VPC components to secure
+-- your event source.
+updateEventSourceMapping_sourceAccessConfigurations :: Lens.Lens' UpdateEventSourceMapping (Prelude.Maybe [SourceAccessConfiguration])
+updateEventSourceMapping_sourceAccessConfigurations = Lens.lens (\UpdateEventSourceMapping' {sourceAccessConfigurations} -> sourceAccessConfigurations) (\s@UpdateEventSourceMapping' {} a -> s {sourceAccessConfigurations = a} :: UpdateEventSourceMapping) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The identifier of the event source mapping.
-uesmUUId :: Lens' UpdateEventSourceMapping Text
-uesmUUId = lens _uesmUUId (\s a -> s {_uesmUUId = a})
+updateEventSourceMapping_uUID :: Lens.Lens' UpdateEventSourceMapping Prelude.Text
+updateEventSourceMapping_uUID = Lens.lens (\UpdateEventSourceMapping' {uUID} -> uUID) (\s@UpdateEventSourceMapping' {} a -> s {uUID = a} :: UpdateEventSourceMapping)
 
-instance AWSRequest UpdateEventSourceMapping where
+instance Prelude.AWSRequest UpdateEventSourceMapping where
   type
     Rs UpdateEventSourceMapping =
       EventSourceMappingConfiguration
-  request = putJSON lambda
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateEventSourceMapping
+instance Prelude.Hashable UpdateEventSourceMapping
 
-instance NFData UpdateEventSourceMapping
+instance Prelude.NFData UpdateEventSourceMapping
 
-instance ToHeaders UpdateEventSourceMapping where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateEventSourceMapping where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateEventSourceMapping where
+instance Prelude.ToJSON UpdateEventSourceMapping where
   toJSON UpdateEventSourceMapping' {..} =
-    object
-      ( catMaybes
-          [ ("FunctionName" .=) <$> _uesmFunctionName,
-            ("Enabled" .=) <$> _uesmEnabled,
-            ("MaximumRecordAgeInSeconds" .=)
-              <$> _uesmMaximumRecordAgeInSeconds,
-            ("FunctionResponseTypes" .=)
-              <$> _uesmFunctionResponseTypes,
-            ("TumblingWindowInSeconds" .=)
-              <$> _uesmTumblingWindowInSeconds,
-            ("MaximumBatchingWindowInSeconds" .=)
-              <$> _uesmMaximumBatchingWindowInSeconds,
-            ("BatchSize" .=) <$> _uesmBatchSize,
-            ("DestinationConfig" .=) <$> _uesmDestinationConfig,
-            ("MaximumRetryAttempts" .=)
-              <$> _uesmMaximumRetryAttempts,
-            ("ParallelizationFactor" .=)
-              <$> _uesmParallelizationFactor,
-            ("BisectBatchOnFunctionError" .=)
-              <$> _uesmBisectBatchOnFunctionError,
-            ("SourceAccessConfigurations" .=)
-              <$> _uesmSourceAccessConfigurations
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FunctionName" Prelude..=)
+              Prelude.<$> functionName,
+            ("Enabled" Prelude..=) Prelude.<$> enabled,
+            ("MaximumRecordAgeInSeconds" Prelude..=)
+              Prelude.<$> maximumRecordAgeInSeconds,
+            ("FunctionResponseTypes" Prelude..=)
+              Prelude.<$> functionResponseTypes,
+            ("TumblingWindowInSeconds" Prelude..=)
+              Prelude.<$> tumblingWindowInSeconds,
+            ("MaximumBatchingWindowInSeconds" Prelude..=)
+              Prelude.<$> maximumBatchingWindowInSeconds,
+            ("BatchSize" Prelude..=) Prelude.<$> batchSize,
+            ("DestinationConfig" Prelude..=)
+              Prelude.<$> destinationConfig,
+            ("MaximumRetryAttempts" Prelude..=)
+              Prelude.<$> maximumRetryAttempts,
+            ("ParallelizationFactor" Prelude..=)
+              Prelude.<$> parallelizationFactor,
+            ("BisectBatchOnFunctionError" Prelude..=)
+              Prelude.<$> bisectBatchOnFunctionError,
+            ("SourceAccessConfigurations" Prelude..=)
+              Prelude.<$> sourceAccessConfigurations
           ]
       )
 
-instance ToPath UpdateEventSourceMapping where
+instance Prelude.ToPath UpdateEventSourceMapping where
   toPath UpdateEventSourceMapping' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-03-31/event-source-mappings/",
-        toBS _uesmUUId
+        Prelude.toBS uUID
       ]
 
-instance ToQuery UpdateEventSourceMapping where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateEventSourceMapping where
+  toQuery = Prelude.const Prelude.mempty

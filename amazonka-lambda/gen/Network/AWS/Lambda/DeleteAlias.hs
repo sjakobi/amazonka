@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,94 +21,141 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a Lambda function <https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html alias> .
+-- Deletes a Lambda function
+-- <https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html alias>.
 module Network.AWS.Lambda.DeleteAlias
   ( -- * Creating a Request
-    deleteAlias,
-    DeleteAlias,
+    DeleteAlias (..),
+    newDeleteAlias,
 
     -- * Request Lenses
-    daFunctionName,
-    daName,
+    deleteAlias_functionName,
+    deleteAlias_name,
 
     -- * Destructuring the Response
-    deleteAliasResponse,
-    DeleteAliasResponse,
+    DeleteAliasResponse (..),
+    newDeleteAliasResponse,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAlias' smart constructor.
+-- | /See:/ 'newDeleteAlias' smart constructor.
 data DeleteAlias = DeleteAlias'
-  { _daFunctionName ::
-      !Text,
-    _daName :: !Text
+  { -- | The name of the Lambda function.
+    --
+    -- __Name formats__
+    --
+    -- -   __Function name__ - @MyFunction@.
+    --
+    -- -   __Function ARN__ -
+    --     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+    --
+    -- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+    --
+    -- The length constraint applies only to the full ARN. If you specify only
+    -- the function name, it is limited to 64 characters in length.
+    functionName :: Prelude.Text,
+    -- | The name of the alias.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daFunctionName' - The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daName' - The name of the alias.
-deleteAlias ::
-  -- | 'daFunctionName'
-  Text ->
-  -- | 'daName'
-  Text ->
+-- 'functionName', 'deleteAlias_functionName' - The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+--
+-- 'name', 'deleteAlias_name' - The name of the alias.
+newDeleteAlias ::
+  -- | 'functionName'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   DeleteAlias
-deleteAlias pFunctionName_ pName_ =
+newDeleteAlias pFunctionName_ pName_ =
   DeleteAlias'
-    { _daFunctionName = pFunctionName_,
-      _daName = pName_
+    { functionName = pFunctionName_,
+      name = pName_
     }
 
--- | The name of the Lambda function. __Name formats__      * __Function name__ - @MyFunction@ .     * __Function ARN__ - @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@ .     * __Partial ARN__ - @123456789012:function:MyFunction@ . The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.
-daFunctionName :: Lens' DeleteAlias Text
-daFunctionName = lens _daFunctionName (\s a -> s {_daFunctionName = a})
+-- | The name of the Lambda function.
+--
+-- __Name formats__
+--
+-- -   __Function name__ - @MyFunction@.
+--
+-- -   __Function ARN__ -
+--     @arn:aws:lambda:us-west-2:123456789012:function:MyFunction@.
+--
+-- -   __Partial ARN__ - @123456789012:function:MyFunction@.
+--
+-- The length constraint applies only to the full ARN. If you specify only
+-- the function name, it is limited to 64 characters in length.
+deleteAlias_functionName :: Lens.Lens' DeleteAlias Prelude.Text
+deleteAlias_functionName = Lens.lens (\DeleteAlias' {functionName} -> functionName) (\s@DeleteAlias' {} a -> s {functionName = a} :: DeleteAlias)
 
 -- | The name of the alias.
-daName :: Lens' DeleteAlias Text
-daName = lens _daName (\s a -> s {_daName = a})
+deleteAlias_name :: Lens.Lens' DeleteAlias Prelude.Text
+deleteAlias_name = Lens.lens (\DeleteAlias' {name} -> name) (\s@DeleteAlias' {} a -> s {name = a} :: DeleteAlias)
 
-instance AWSRequest DeleteAlias where
+instance Prelude.AWSRequest DeleteAlias where
   type Rs DeleteAlias = DeleteAliasResponse
-  request = delete lambda
-  response = receiveNull DeleteAliasResponse'
+  request = Request.delete defaultService
+  response = Response.receiveNull DeleteAliasResponse'
 
-instance Hashable DeleteAlias
+instance Prelude.Hashable DeleteAlias
 
-instance NFData DeleteAlias
+instance Prelude.NFData DeleteAlias
 
-instance ToHeaders DeleteAlias where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteAlias where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteAlias where
+instance Prelude.ToPath DeleteAlias where
   toPath DeleteAlias' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-03-31/functions/",
-        toBS _daFunctionName,
+        Prelude.toBS functionName,
         "/aliases/",
-        toBS _daName
+        Prelude.toBS name
       ]
 
-instance ToQuery DeleteAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAliasResponse' smart constructor.
+-- | /See:/ 'newDeleteAliasResponse' smart constructor.
 data DeleteAliasResponse = DeleteAliasResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAliasResponse' with the minimum fields required to make a request.
-deleteAliasResponse ::
+-- |
+-- Create a value of 'DeleteAliasResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAliasResponse ::
   DeleteAliasResponse
-deleteAliasResponse = DeleteAliasResponse'
+newDeleteAliasResponse = DeleteAliasResponse'
 
-instance NFData DeleteAliasResponse
+instance Prelude.NFData DeleteAliasResponse

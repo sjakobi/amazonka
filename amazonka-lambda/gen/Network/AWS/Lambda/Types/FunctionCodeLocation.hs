@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lambda.Types.FunctionCodeLocation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about a function's deployment package.
+-- | Details about a function\'s deployment package.
 --
---
---
--- /See:/ 'functionCodeLocation' smart constructor.
+-- /See:/ 'newFunctionCodeLocation' smart constructor.
 data FunctionCodeLocation = FunctionCodeLocation'
-  { _fclImageURI ::
-      !(Maybe Text),
-    _fclResolvedImageURI ::
-      !(Maybe Text),
-    _fclLocation :: !(Maybe Text),
-    _fclRepositoryType ::
-      !(Maybe Text)
+  { -- | URI of a container image in the Amazon ECR registry.
+    imageUri :: Prelude.Maybe Prelude.Text,
+    -- | The resolved URI for the image.
+    resolvedImageUri :: Prelude.Maybe Prelude.Text,
+    -- | A presigned URL that you can use to download the deployment package.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The service that\'s hosting the file.
+    repositoryType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FunctionCodeLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FunctionCodeLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fclImageURI' - URI of a container image in the Amazon ECR registry.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fclResolvedImageURI' - The resolved URI for the image.
+-- 'imageUri', 'functionCodeLocation_imageUri' - URI of a container image in the Amazon ECR registry.
 --
--- * 'fclLocation' - A presigned URL that you can use to download the deployment package.
+-- 'resolvedImageUri', 'functionCodeLocation_resolvedImageUri' - The resolved URI for the image.
 --
--- * 'fclRepositoryType' - The service that's hosting the file.
-functionCodeLocation ::
+-- 'location', 'functionCodeLocation_location' - A presigned URL that you can use to download the deployment package.
+--
+-- 'repositoryType', 'functionCodeLocation_repositoryType' - The service that\'s hosting the file.
+newFunctionCodeLocation ::
   FunctionCodeLocation
-functionCodeLocation =
+newFunctionCodeLocation =
   FunctionCodeLocation'
-    { _fclImageURI = Nothing,
-      _fclResolvedImageURI = Nothing,
-      _fclLocation = Nothing,
-      _fclRepositoryType = Nothing
+    { imageUri = Prelude.Nothing,
+      resolvedImageUri = Prelude.Nothing,
+      location = Prelude.Nothing,
+      repositoryType = Prelude.Nothing
     }
 
 -- | URI of a container image in the Amazon ECR registry.
-fclImageURI :: Lens' FunctionCodeLocation (Maybe Text)
-fclImageURI = lens _fclImageURI (\s a -> s {_fclImageURI = a})
+functionCodeLocation_imageUri :: Lens.Lens' FunctionCodeLocation (Prelude.Maybe Prelude.Text)
+functionCodeLocation_imageUri = Lens.lens (\FunctionCodeLocation' {imageUri} -> imageUri) (\s@FunctionCodeLocation' {} a -> s {imageUri = a} :: FunctionCodeLocation)
 
 -- | The resolved URI for the image.
-fclResolvedImageURI :: Lens' FunctionCodeLocation (Maybe Text)
-fclResolvedImageURI = lens _fclResolvedImageURI (\s a -> s {_fclResolvedImageURI = a})
+functionCodeLocation_resolvedImageUri :: Lens.Lens' FunctionCodeLocation (Prelude.Maybe Prelude.Text)
+functionCodeLocation_resolvedImageUri = Lens.lens (\FunctionCodeLocation' {resolvedImageUri} -> resolvedImageUri) (\s@FunctionCodeLocation' {} a -> s {resolvedImageUri = a} :: FunctionCodeLocation)
 
 -- | A presigned URL that you can use to download the deployment package.
-fclLocation :: Lens' FunctionCodeLocation (Maybe Text)
-fclLocation = lens _fclLocation (\s a -> s {_fclLocation = a})
+functionCodeLocation_location :: Lens.Lens' FunctionCodeLocation (Prelude.Maybe Prelude.Text)
+functionCodeLocation_location = Lens.lens (\FunctionCodeLocation' {location} -> location) (\s@FunctionCodeLocation' {} a -> s {location = a} :: FunctionCodeLocation)
 
--- | The service that's hosting the file.
-fclRepositoryType :: Lens' FunctionCodeLocation (Maybe Text)
-fclRepositoryType = lens _fclRepositoryType (\s a -> s {_fclRepositoryType = a})
+-- | The service that\'s hosting the file.
+functionCodeLocation_repositoryType :: Lens.Lens' FunctionCodeLocation (Prelude.Maybe Prelude.Text)
+functionCodeLocation_repositoryType = Lens.lens (\FunctionCodeLocation' {repositoryType} -> repositoryType) (\s@FunctionCodeLocation' {} a -> s {repositoryType = a} :: FunctionCodeLocation)
 
-instance FromJSON FunctionCodeLocation where
+instance Prelude.FromJSON FunctionCodeLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FunctionCodeLocation"
       ( \x ->
           FunctionCodeLocation'
-            <$> (x .:? "ImageUri")
-            <*> (x .:? "ResolvedImageUri")
-            <*> (x .:? "Location")
-            <*> (x .:? "RepositoryType")
+            Prelude.<$> (x Prelude..:? "ImageUri")
+            Prelude.<*> (x Prelude..:? "ResolvedImageUri")
+            Prelude.<*> (x Prelude..:? "Location")
+            Prelude.<*> (x Prelude..:? "RepositoryType")
       )
 
-instance Hashable FunctionCodeLocation
+instance Prelude.Hashable FunctionCodeLocation
 
-instance NFData FunctionCodeLocation
+instance Prelude.NFData FunctionCodeLocation

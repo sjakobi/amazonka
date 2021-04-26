@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,37 +20,44 @@
 module Network.AWS.Lambda.Types.TracingConfig where
 
 import Network.AWS.Lambda.Types.TracingMode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The function's AWS X-Ray tracing configuration. To sample and record incoming requests, set @Mode@ to @Active@ .
+-- | The function\'s AWS X-Ray tracing configuration. To sample and record
+-- incoming requests, set @Mode@ to @Active@.
 --
---
---
--- /See:/ 'tracingConfig' smart constructor.
-newtype TracingConfig = TracingConfig'
-  { _tcMode ::
-      Maybe TracingMode
+-- /See:/ 'newTracingConfig' smart constructor.
+data TracingConfig = TracingConfig'
+  { -- | The tracing mode.
+    mode :: Prelude.Maybe TracingMode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TracingConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TracingConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcMode' - The tracing mode.
-tracingConfig ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'mode', 'tracingConfig_mode' - The tracing mode.
+newTracingConfig ::
   TracingConfig
-tracingConfig = TracingConfig' {_tcMode = Nothing}
+newTracingConfig =
+  TracingConfig' {mode = Prelude.Nothing}
 
 -- | The tracing mode.
-tcMode :: Lens' TracingConfig (Maybe TracingMode)
-tcMode = lens _tcMode (\s a -> s {_tcMode = a})
+tracingConfig_mode :: Lens.Lens' TracingConfig (Prelude.Maybe TracingMode)
+tracingConfig_mode = Lens.lens (\TracingConfig' {mode} -> mode) (\s@TracingConfig' {} a -> s {mode = a} :: TracingConfig)
 
-instance Hashable TracingConfig
+instance Prelude.Hashable TracingConfig
 
-instance NFData TracingConfig
+instance Prelude.NFData TracingConfig
 
-instance ToJSON TracingConfig where
+instance Prelude.ToJSON TracingConfig where
   toJSON TracingConfig' {..} =
-    object (catMaybes [("Mode" .=) <$> _tcMode])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Mode" Prelude..=) Prelude.<$> mode]
+      )

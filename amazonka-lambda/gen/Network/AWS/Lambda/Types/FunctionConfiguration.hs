@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -27,350 +31,381 @@ import Network.AWS.Lambda.Types.Runtime
 import Network.AWS.Lambda.Types.State
 import Network.AWS.Lambda.Types.StateReasonCode
 import Network.AWS.Lambda.Types.TracingConfigResponse
-import Network.AWS.Lambda.Types.VPCConfigResponse
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.Lambda.Types.VpcConfigResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about a function's configuration.
+-- | Details about a function\'s configuration.
 --
---
---
--- /See:/ 'functionConfiguration' smart constructor.
+-- /See:/ 'newFunctionConfiguration' smart constructor.
 data FunctionConfiguration = FunctionConfiguration'
-  { _fcSigningProfileVersionARN ::
-      !(Maybe Text),
-    _fcLastUpdateStatus ::
-      !(Maybe LastUpdateStatus),
-    _fcVPCConfig ::
-      !(Maybe VPCConfigResponse),
-    _fcMemorySize ::
-      !(Maybe Nat),
-    _fcMasterARN ::
-      !(Maybe Text),
-    _fcRevisionId ::
-      !(Maybe Text),
-    _fcLastUpdateStatusReasonCode ::
-      !( Maybe
-           LastUpdateStatusReasonCode
-       ),
-    _fcCodeSha256 ::
-      !(Maybe Text),
-    _fcStateReason ::
-      !(Maybe Text),
-    _fcTimeout :: !(Maybe Nat),
-    _fcHandler :: !(Maybe Text),
-    _fcDeadLetterConfig ::
-      !(Maybe DeadLetterConfig),
-    _fcFunctionName ::
-      !(Maybe Text),
-    _fcEnvironment ::
-      !( Maybe
-           EnvironmentResponse
-       ),
-    _fcVersion :: !(Maybe Text),
-    _fcFunctionARN ::
-      !(Maybe Text),
-    _fcState :: !(Maybe State),
-    _fcKMSKeyARN ::
-      !(Maybe Text),
-    _fcRuntime ::
-      !(Maybe Runtime),
-    _fcRole :: !(Maybe Text),
-    _fcSigningJobARN ::
-      !(Maybe Text),
-    _fcStateReasonCode ::
-      !(Maybe StateReasonCode),
-    _fcImageConfigResponse ::
-      !( Maybe
-           ImageConfigResponse
-       ),
-    _fcTracingConfig ::
-      !( Maybe
-           TracingConfigResponse
-       ),
-    _fcDescription ::
-      !(Maybe Text),
-    _fcLastModified ::
-      !(Maybe Text),
-    _fcLastUpdateStatusReason ::
-      !(Maybe Text),
-    _fcLayers ::
-      !(Maybe [Layer]),
-    _fcCodeSize ::
-      !(Maybe Integer),
-    _fcFileSystemConfigs ::
-      !(Maybe [FileSystemConfig]),
-    _fcPackageType ::
-      !(Maybe PackageType)
+  { -- | The ARN of the signing profile version.
+    signingProfileVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The status of the last update that was performed on the function. This
+    -- is first set to @Successful@ after function creation completes.
+    lastUpdateStatus :: Prelude.Maybe LastUpdateStatus,
+    -- | The function\'s networking configuration.
+    vpcConfig :: Prelude.Maybe VpcConfigResponse,
+    -- | The amount of memory available to the function at runtime.
+    memorySize :: Prelude.Maybe Prelude.Nat,
+    -- | For Lambda\@Edge functions, the ARN of the master function.
+    masterArn :: Prelude.Maybe Prelude.Text,
+    -- | The latest updated revision of the function or alias.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | The reason code for the last update that was performed on the function.
+    lastUpdateStatusReasonCode :: Prelude.Maybe LastUpdateStatusReasonCode,
+    -- | The SHA256 hash of the function\'s deployment package.
+    codeSha256 :: Prelude.Maybe Prelude.Text,
+    -- | The reason for the function\'s current state.
+    stateReason :: Prelude.Maybe Prelude.Text,
+    -- | The amount of time in seconds that Lambda allows a function to run
+    -- before stopping it.
+    timeout :: Prelude.Maybe Prelude.Nat,
+    -- | The function that Lambda calls to begin executing your function.
+    handler :: Prelude.Maybe Prelude.Text,
+    -- | The function\'s dead letter queue.
+    deadLetterConfig :: Prelude.Maybe DeadLetterConfig,
+    -- | The name of the function.
+    functionName :: Prelude.Maybe Prelude.Text,
+    -- | The function\'s environment variables.
+    environment :: Prelude.Maybe EnvironmentResponse,
+    -- | The version of the Lambda function.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The function\'s Amazon Resource Name (ARN).
+    functionArn :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the function. When the state is @Inactive@, you can
+    -- reactivate the function by invoking it.
+    state :: Prelude.Maybe State,
+    -- | The KMS key that\'s used to encrypt the function\'s environment
+    -- variables. This key is only returned if you\'ve configured a customer
+    -- managed CMK.
+    kMSKeyArn :: Prelude.Maybe Prelude.Text,
+    -- | The runtime environment for the Lambda function.
+    runtime :: Prelude.Maybe Runtime,
+    -- | The function\'s execution role.
+    role' :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the signing job.
+    signingJobArn :: Prelude.Maybe Prelude.Text,
+    -- | The reason code for the function\'s current state. When the code is
+    -- @Creating@, you can\'t invoke or modify the function.
+    stateReasonCode :: Prelude.Maybe StateReasonCode,
+    -- | The function\'s image configuration values.
+    imageConfigResponse :: Prelude.Maybe ImageConfigResponse,
+    -- | The function\'s AWS X-Ray tracing configuration.
+    tracingConfig :: Prelude.Maybe TracingConfigResponse,
+    -- | The function\'s description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the function was last updated, in
+    -- <https://www.w3.org/TR/NOTE-datetime ISO-8601 format>
+    -- (YYYY-MM-DDThh:mm:ss.sTZD).
+    lastModified :: Prelude.Maybe Prelude.Text,
+    -- | The reason for the last update that was performed on the function.
+    lastUpdateStatusReason :: Prelude.Maybe Prelude.Text,
+    -- | The function\'s
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html layers>.
+    layers :: Prelude.Maybe [Layer],
+    -- | The size of the function\'s deployment package, in bytes.
+    codeSize :: Prelude.Maybe Prelude.Integer,
+    -- | Connection settings for an Amazon EFS file system.
+    fileSystemConfigs :: Prelude.Maybe [FileSystemConfig],
+    -- | The type of deployment package. Set to @Image@ for container image and
+    -- set @Zip@ for .zip file archive.
+    packageType :: Prelude.Maybe PackageType
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FunctionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FunctionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fcSigningProfileVersionARN' - The ARN of the signing profile version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fcLastUpdateStatus' - The status of the last update that was performed on the function. This is first set to @Successful@ after function creation completes.
+-- 'signingProfileVersionArn', 'functionConfiguration_signingProfileVersionArn' - The ARN of the signing profile version.
 --
--- * 'fcVPCConfig' - The function's networking configuration.
+-- 'lastUpdateStatus', 'functionConfiguration_lastUpdateStatus' - The status of the last update that was performed on the function. This
+-- is first set to @Successful@ after function creation completes.
 --
--- * 'fcMemorySize' - The amount of memory available to the function at runtime.
+-- 'vpcConfig', 'functionConfiguration_vpcConfig' - The function\'s networking configuration.
 --
--- * 'fcMasterARN' - For Lambda@Edge functions, the ARN of the master function.
+-- 'memorySize', 'functionConfiguration_memorySize' - The amount of memory available to the function at runtime.
 --
--- * 'fcRevisionId' - The latest updated revision of the function or alias.
+-- 'masterArn', 'functionConfiguration_masterArn' - For Lambda\@Edge functions, the ARN of the master function.
 --
--- * 'fcLastUpdateStatusReasonCode' - The reason code for the last update that was performed on the function.
+-- 'revisionId', 'functionConfiguration_revisionId' - The latest updated revision of the function or alias.
 --
--- * 'fcCodeSha256' - The SHA256 hash of the function's deployment package.
+-- 'lastUpdateStatusReasonCode', 'functionConfiguration_lastUpdateStatusReasonCode' - The reason code for the last update that was performed on the function.
 --
--- * 'fcStateReason' - The reason for the function's current state.
+-- 'codeSha256', 'functionConfiguration_codeSha256' - The SHA256 hash of the function\'s deployment package.
 --
--- * 'fcTimeout' - The amount of time in seconds that Lambda allows a function to run before stopping it.
+-- 'stateReason', 'functionConfiguration_stateReason' - The reason for the function\'s current state.
 --
--- * 'fcHandler' - The function that Lambda calls to begin executing your function.
+-- 'timeout', 'functionConfiguration_timeout' - The amount of time in seconds that Lambda allows a function to run
+-- before stopping it.
 --
--- * 'fcDeadLetterConfig' - The function's dead letter queue.
+-- 'handler', 'functionConfiguration_handler' - The function that Lambda calls to begin executing your function.
 --
--- * 'fcFunctionName' - The name of the function.
+-- 'deadLetterConfig', 'functionConfiguration_deadLetterConfig' - The function\'s dead letter queue.
 --
--- * 'fcEnvironment' - The function's environment variables.
+-- 'functionName', 'functionConfiguration_functionName' - The name of the function.
 --
--- * 'fcVersion' - The version of the Lambda function.
+-- 'environment', 'functionConfiguration_environment' - The function\'s environment variables.
 --
--- * 'fcFunctionARN' - The function's Amazon Resource Name (ARN).
+-- 'version', 'functionConfiguration_version' - The version of the Lambda function.
 --
--- * 'fcState' - The current state of the function. When the state is @Inactive@ , you can reactivate the function by invoking it.
+-- 'functionArn', 'functionConfiguration_functionArn' - The function\'s Amazon Resource Name (ARN).
 --
--- * 'fcKMSKeyARN' - The KMS key that's used to encrypt the function's environment variables. This key is only returned if you've configured a customer managed CMK.
+-- 'state', 'functionConfiguration_state' - The current state of the function. When the state is @Inactive@, you can
+-- reactivate the function by invoking it.
 --
--- * 'fcRuntime' - The runtime environment for the Lambda function.
+-- 'kMSKeyArn', 'functionConfiguration_kMSKeyArn' - The KMS key that\'s used to encrypt the function\'s environment
+-- variables. This key is only returned if you\'ve configured a customer
+-- managed CMK.
 --
--- * 'fcRole' - The function's execution role.
+-- 'runtime', 'functionConfiguration_runtime' - The runtime environment for the Lambda function.
 --
--- * 'fcSigningJobARN' - The ARN of the signing job.
+-- 'role'', 'functionConfiguration_role' - The function\'s execution role.
 --
--- * 'fcStateReasonCode' - The reason code for the function's current state. When the code is @Creating@ , you can't invoke or modify the function.
+-- 'signingJobArn', 'functionConfiguration_signingJobArn' - The ARN of the signing job.
 --
--- * 'fcImageConfigResponse' - The function's image configuration values.
+-- 'stateReasonCode', 'functionConfiguration_stateReasonCode' - The reason code for the function\'s current state. When the code is
+-- @Creating@, you can\'t invoke or modify the function.
 --
--- * 'fcTracingConfig' - The function's AWS X-Ray tracing configuration.
+-- 'imageConfigResponse', 'functionConfiguration_imageConfigResponse' - The function\'s image configuration values.
 --
--- * 'fcDescription' - The function's description.
+-- 'tracingConfig', 'functionConfiguration_tracingConfig' - The function\'s AWS X-Ray tracing configuration.
 --
--- * 'fcLastModified' - The date and time that the function was last updated, in <https://www.w3.org/TR/NOTE-datetime ISO-8601 format> (YYYY-MM-DDThh:mm:ss.sTZD).
+-- 'description', 'functionConfiguration_description' - The function\'s description.
 --
--- * 'fcLastUpdateStatusReason' - The reason for the last update that was performed on the function.
+-- 'lastModified', 'functionConfiguration_lastModified' - The date and time that the function was last updated, in
+-- <https://www.w3.org/TR/NOTE-datetime ISO-8601 format>
+-- (YYYY-MM-DDThh:mm:ss.sTZD).
 --
--- * 'fcLayers' - The function's <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html layers> .
+-- 'lastUpdateStatusReason', 'functionConfiguration_lastUpdateStatusReason' - The reason for the last update that was performed on the function.
 --
--- * 'fcCodeSize' - The size of the function's deployment package, in bytes.
+-- 'layers', 'functionConfiguration_layers' - The function\'s
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html layers>.
 --
--- * 'fcFileSystemConfigs' - Connection settings for an Amazon EFS file system.
+-- 'codeSize', 'functionConfiguration_codeSize' - The size of the function\'s deployment package, in bytes.
 --
--- * 'fcPackageType' - The type of deployment package. Set to @Image@ for container image and set @Zip@ for .zip file archive.
-functionConfiguration ::
+-- 'fileSystemConfigs', 'functionConfiguration_fileSystemConfigs' - Connection settings for an Amazon EFS file system.
+--
+-- 'packageType', 'functionConfiguration_packageType' - The type of deployment package. Set to @Image@ for container image and
+-- set @Zip@ for .zip file archive.
+newFunctionConfiguration ::
   FunctionConfiguration
-functionConfiguration =
+newFunctionConfiguration =
   FunctionConfiguration'
-    { _fcSigningProfileVersionARN =
-        Nothing,
-      _fcLastUpdateStatus = Nothing,
-      _fcVPCConfig = Nothing,
-      _fcMemorySize = Nothing,
-      _fcMasterARN = Nothing,
-      _fcRevisionId = Nothing,
-      _fcLastUpdateStatusReasonCode = Nothing,
-      _fcCodeSha256 = Nothing,
-      _fcStateReason = Nothing,
-      _fcTimeout = Nothing,
-      _fcHandler = Nothing,
-      _fcDeadLetterConfig = Nothing,
-      _fcFunctionName = Nothing,
-      _fcEnvironment = Nothing,
-      _fcVersion = Nothing,
-      _fcFunctionARN = Nothing,
-      _fcState = Nothing,
-      _fcKMSKeyARN = Nothing,
-      _fcRuntime = Nothing,
-      _fcRole = Nothing,
-      _fcSigningJobARN = Nothing,
-      _fcStateReasonCode = Nothing,
-      _fcImageConfigResponse = Nothing,
-      _fcTracingConfig = Nothing,
-      _fcDescription = Nothing,
-      _fcLastModified = Nothing,
-      _fcLastUpdateStatusReason = Nothing,
-      _fcLayers = Nothing,
-      _fcCodeSize = Nothing,
-      _fcFileSystemConfigs = Nothing,
-      _fcPackageType = Nothing
+    { signingProfileVersionArn =
+        Prelude.Nothing,
+      lastUpdateStatus = Prelude.Nothing,
+      vpcConfig = Prelude.Nothing,
+      memorySize = Prelude.Nothing,
+      masterArn = Prelude.Nothing,
+      revisionId = Prelude.Nothing,
+      lastUpdateStatusReasonCode = Prelude.Nothing,
+      codeSha256 = Prelude.Nothing,
+      stateReason = Prelude.Nothing,
+      timeout = Prelude.Nothing,
+      handler = Prelude.Nothing,
+      deadLetterConfig = Prelude.Nothing,
+      functionName = Prelude.Nothing,
+      environment = Prelude.Nothing,
+      version = Prelude.Nothing,
+      functionArn = Prelude.Nothing,
+      state = Prelude.Nothing,
+      kMSKeyArn = Prelude.Nothing,
+      runtime = Prelude.Nothing,
+      role' = Prelude.Nothing,
+      signingJobArn = Prelude.Nothing,
+      stateReasonCode = Prelude.Nothing,
+      imageConfigResponse = Prelude.Nothing,
+      tracingConfig = Prelude.Nothing,
+      description = Prelude.Nothing,
+      lastModified = Prelude.Nothing,
+      lastUpdateStatusReason = Prelude.Nothing,
+      layers = Prelude.Nothing,
+      codeSize = Prelude.Nothing,
+      fileSystemConfigs = Prelude.Nothing,
+      packageType = Prelude.Nothing
     }
 
 -- | The ARN of the signing profile version.
-fcSigningProfileVersionARN :: Lens' FunctionConfiguration (Maybe Text)
-fcSigningProfileVersionARN = lens _fcSigningProfileVersionARN (\s a -> s {_fcSigningProfileVersionARN = a})
+functionConfiguration_signingProfileVersionArn :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_signingProfileVersionArn = Lens.lens (\FunctionConfiguration' {signingProfileVersionArn} -> signingProfileVersionArn) (\s@FunctionConfiguration' {} a -> s {signingProfileVersionArn = a} :: FunctionConfiguration)
 
--- | The status of the last update that was performed on the function. This is first set to @Successful@ after function creation completes.
-fcLastUpdateStatus :: Lens' FunctionConfiguration (Maybe LastUpdateStatus)
-fcLastUpdateStatus = lens _fcLastUpdateStatus (\s a -> s {_fcLastUpdateStatus = a})
+-- | The status of the last update that was performed on the function. This
+-- is first set to @Successful@ after function creation completes.
+functionConfiguration_lastUpdateStatus :: Lens.Lens' FunctionConfiguration (Prelude.Maybe LastUpdateStatus)
+functionConfiguration_lastUpdateStatus = Lens.lens (\FunctionConfiguration' {lastUpdateStatus} -> lastUpdateStatus) (\s@FunctionConfiguration' {} a -> s {lastUpdateStatus = a} :: FunctionConfiguration)
 
--- | The function's networking configuration.
-fcVPCConfig :: Lens' FunctionConfiguration (Maybe VPCConfigResponse)
-fcVPCConfig = lens _fcVPCConfig (\s a -> s {_fcVPCConfig = a})
+-- | The function\'s networking configuration.
+functionConfiguration_vpcConfig :: Lens.Lens' FunctionConfiguration (Prelude.Maybe VpcConfigResponse)
+functionConfiguration_vpcConfig = Lens.lens (\FunctionConfiguration' {vpcConfig} -> vpcConfig) (\s@FunctionConfiguration' {} a -> s {vpcConfig = a} :: FunctionConfiguration)
 
 -- | The amount of memory available to the function at runtime.
-fcMemorySize :: Lens' FunctionConfiguration (Maybe Natural)
-fcMemorySize = lens _fcMemorySize (\s a -> s {_fcMemorySize = a}) . mapping _Nat
+functionConfiguration_memorySize :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Natural)
+functionConfiguration_memorySize = Lens.lens (\FunctionConfiguration' {memorySize} -> memorySize) (\s@FunctionConfiguration' {} a -> s {memorySize = a} :: FunctionConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
--- | For Lambda@Edge functions, the ARN of the master function.
-fcMasterARN :: Lens' FunctionConfiguration (Maybe Text)
-fcMasterARN = lens _fcMasterARN (\s a -> s {_fcMasterARN = a})
+-- | For Lambda\@Edge functions, the ARN of the master function.
+functionConfiguration_masterArn :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_masterArn = Lens.lens (\FunctionConfiguration' {masterArn} -> masterArn) (\s@FunctionConfiguration' {} a -> s {masterArn = a} :: FunctionConfiguration)
 
 -- | The latest updated revision of the function or alias.
-fcRevisionId :: Lens' FunctionConfiguration (Maybe Text)
-fcRevisionId = lens _fcRevisionId (\s a -> s {_fcRevisionId = a})
+functionConfiguration_revisionId :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_revisionId = Lens.lens (\FunctionConfiguration' {revisionId} -> revisionId) (\s@FunctionConfiguration' {} a -> s {revisionId = a} :: FunctionConfiguration)
 
 -- | The reason code for the last update that was performed on the function.
-fcLastUpdateStatusReasonCode :: Lens' FunctionConfiguration (Maybe LastUpdateStatusReasonCode)
-fcLastUpdateStatusReasonCode = lens _fcLastUpdateStatusReasonCode (\s a -> s {_fcLastUpdateStatusReasonCode = a})
+functionConfiguration_lastUpdateStatusReasonCode :: Lens.Lens' FunctionConfiguration (Prelude.Maybe LastUpdateStatusReasonCode)
+functionConfiguration_lastUpdateStatusReasonCode = Lens.lens (\FunctionConfiguration' {lastUpdateStatusReasonCode} -> lastUpdateStatusReasonCode) (\s@FunctionConfiguration' {} a -> s {lastUpdateStatusReasonCode = a} :: FunctionConfiguration)
 
--- | The SHA256 hash of the function's deployment package.
-fcCodeSha256 :: Lens' FunctionConfiguration (Maybe Text)
-fcCodeSha256 = lens _fcCodeSha256 (\s a -> s {_fcCodeSha256 = a})
+-- | The SHA256 hash of the function\'s deployment package.
+functionConfiguration_codeSha256 :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_codeSha256 = Lens.lens (\FunctionConfiguration' {codeSha256} -> codeSha256) (\s@FunctionConfiguration' {} a -> s {codeSha256 = a} :: FunctionConfiguration)
 
--- | The reason for the function's current state.
-fcStateReason :: Lens' FunctionConfiguration (Maybe Text)
-fcStateReason = lens _fcStateReason (\s a -> s {_fcStateReason = a})
+-- | The reason for the function\'s current state.
+functionConfiguration_stateReason :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_stateReason = Lens.lens (\FunctionConfiguration' {stateReason} -> stateReason) (\s@FunctionConfiguration' {} a -> s {stateReason = a} :: FunctionConfiguration)
 
--- | The amount of time in seconds that Lambda allows a function to run before stopping it.
-fcTimeout :: Lens' FunctionConfiguration (Maybe Natural)
-fcTimeout = lens _fcTimeout (\s a -> s {_fcTimeout = a}) . mapping _Nat
+-- | The amount of time in seconds that Lambda allows a function to run
+-- before stopping it.
+functionConfiguration_timeout :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Natural)
+functionConfiguration_timeout = Lens.lens (\FunctionConfiguration' {timeout} -> timeout) (\s@FunctionConfiguration' {} a -> s {timeout = a} :: FunctionConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The function that Lambda calls to begin executing your function.
-fcHandler :: Lens' FunctionConfiguration (Maybe Text)
-fcHandler = lens _fcHandler (\s a -> s {_fcHandler = a})
+functionConfiguration_handler :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_handler = Lens.lens (\FunctionConfiguration' {handler} -> handler) (\s@FunctionConfiguration' {} a -> s {handler = a} :: FunctionConfiguration)
 
--- | The function's dead letter queue.
-fcDeadLetterConfig :: Lens' FunctionConfiguration (Maybe DeadLetterConfig)
-fcDeadLetterConfig = lens _fcDeadLetterConfig (\s a -> s {_fcDeadLetterConfig = a})
+-- | The function\'s dead letter queue.
+functionConfiguration_deadLetterConfig :: Lens.Lens' FunctionConfiguration (Prelude.Maybe DeadLetterConfig)
+functionConfiguration_deadLetterConfig = Lens.lens (\FunctionConfiguration' {deadLetterConfig} -> deadLetterConfig) (\s@FunctionConfiguration' {} a -> s {deadLetterConfig = a} :: FunctionConfiguration)
 
 -- | The name of the function.
-fcFunctionName :: Lens' FunctionConfiguration (Maybe Text)
-fcFunctionName = lens _fcFunctionName (\s a -> s {_fcFunctionName = a})
+functionConfiguration_functionName :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_functionName = Lens.lens (\FunctionConfiguration' {functionName} -> functionName) (\s@FunctionConfiguration' {} a -> s {functionName = a} :: FunctionConfiguration)
 
--- | The function's environment variables.
-fcEnvironment :: Lens' FunctionConfiguration (Maybe EnvironmentResponse)
-fcEnvironment = lens _fcEnvironment (\s a -> s {_fcEnvironment = a})
+-- | The function\'s environment variables.
+functionConfiguration_environment :: Lens.Lens' FunctionConfiguration (Prelude.Maybe EnvironmentResponse)
+functionConfiguration_environment = Lens.lens (\FunctionConfiguration' {environment} -> environment) (\s@FunctionConfiguration' {} a -> s {environment = a} :: FunctionConfiguration)
 
 -- | The version of the Lambda function.
-fcVersion :: Lens' FunctionConfiguration (Maybe Text)
-fcVersion = lens _fcVersion (\s a -> s {_fcVersion = a})
+functionConfiguration_version :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_version = Lens.lens (\FunctionConfiguration' {version} -> version) (\s@FunctionConfiguration' {} a -> s {version = a} :: FunctionConfiguration)
 
--- | The function's Amazon Resource Name (ARN).
-fcFunctionARN :: Lens' FunctionConfiguration (Maybe Text)
-fcFunctionARN = lens _fcFunctionARN (\s a -> s {_fcFunctionARN = a})
+-- | The function\'s Amazon Resource Name (ARN).
+functionConfiguration_functionArn :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_functionArn = Lens.lens (\FunctionConfiguration' {functionArn} -> functionArn) (\s@FunctionConfiguration' {} a -> s {functionArn = a} :: FunctionConfiguration)
 
--- | The current state of the function. When the state is @Inactive@ , you can reactivate the function by invoking it.
-fcState :: Lens' FunctionConfiguration (Maybe State)
-fcState = lens _fcState (\s a -> s {_fcState = a})
+-- | The current state of the function. When the state is @Inactive@, you can
+-- reactivate the function by invoking it.
+functionConfiguration_state :: Lens.Lens' FunctionConfiguration (Prelude.Maybe State)
+functionConfiguration_state = Lens.lens (\FunctionConfiguration' {state} -> state) (\s@FunctionConfiguration' {} a -> s {state = a} :: FunctionConfiguration)
 
--- | The KMS key that's used to encrypt the function's environment variables. This key is only returned if you've configured a customer managed CMK.
-fcKMSKeyARN :: Lens' FunctionConfiguration (Maybe Text)
-fcKMSKeyARN = lens _fcKMSKeyARN (\s a -> s {_fcKMSKeyARN = a})
+-- | The KMS key that\'s used to encrypt the function\'s environment
+-- variables. This key is only returned if you\'ve configured a customer
+-- managed CMK.
+functionConfiguration_kMSKeyArn :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_kMSKeyArn = Lens.lens (\FunctionConfiguration' {kMSKeyArn} -> kMSKeyArn) (\s@FunctionConfiguration' {} a -> s {kMSKeyArn = a} :: FunctionConfiguration)
 
 -- | The runtime environment for the Lambda function.
-fcRuntime :: Lens' FunctionConfiguration (Maybe Runtime)
-fcRuntime = lens _fcRuntime (\s a -> s {_fcRuntime = a})
+functionConfiguration_runtime :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Runtime)
+functionConfiguration_runtime = Lens.lens (\FunctionConfiguration' {runtime} -> runtime) (\s@FunctionConfiguration' {} a -> s {runtime = a} :: FunctionConfiguration)
 
--- | The function's execution role.
-fcRole :: Lens' FunctionConfiguration (Maybe Text)
-fcRole = lens _fcRole (\s a -> s {_fcRole = a})
+-- | The function\'s execution role.
+functionConfiguration_role :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_role = Lens.lens (\FunctionConfiguration' {role'} -> role') (\s@FunctionConfiguration' {} a -> s {role' = a} :: FunctionConfiguration)
 
 -- | The ARN of the signing job.
-fcSigningJobARN :: Lens' FunctionConfiguration (Maybe Text)
-fcSigningJobARN = lens _fcSigningJobARN (\s a -> s {_fcSigningJobARN = a})
+functionConfiguration_signingJobArn :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_signingJobArn = Lens.lens (\FunctionConfiguration' {signingJobArn} -> signingJobArn) (\s@FunctionConfiguration' {} a -> s {signingJobArn = a} :: FunctionConfiguration)
 
--- | The reason code for the function's current state. When the code is @Creating@ , you can't invoke or modify the function.
-fcStateReasonCode :: Lens' FunctionConfiguration (Maybe StateReasonCode)
-fcStateReasonCode = lens _fcStateReasonCode (\s a -> s {_fcStateReasonCode = a})
+-- | The reason code for the function\'s current state. When the code is
+-- @Creating@, you can\'t invoke or modify the function.
+functionConfiguration_stateReasonCode :: Lens.Lens' FunctionConfiguration (Prelude.Maybe StateReasonCode)
+functionConfiguration_stateReasonCode = Lens.lens (\FunctionConfiguration' {stateReasonCode} -> stateReasonCode) (\s@FunctionConfiguration' {} a -> s {stateReasonCode = a} :: FunctionConfiguration)
 
--- | The function's image configuration values.
-fcImageConfigResponse :: Lens' FunctionConfiguration (Maybe ImageConfigResponse)
-fcImageConfigResponse = lens _fcImageConfigResponse (\s a -> s {_fcImageConfigResponse = a})
+-- | The function\'s image configuration values.
+functionConfiguration_imageConfigResponse :: Lens.Lens' FunctionConfiguration (Prelude.Maybe ImageConfigResponse)
+functionConfiguration_imageConfigResponse = Lens.lens (\FunctionConfiguration' {imageConfigResponse} -> imageConfigResponse) (\s@FunctionConfiguration' {} a -> s {imageConfigResponse = a} :: FunctionConfiguration)
 
--- | The function's AWS X-Ray tracing configuration.
-fcTracingConfig :: Lens' FunctionConfiguration (Maybe TracingConfigResponse)
-fcTracingConfig = lens _fcTracingConfig (\s a -> s {_fcTracingConfig = a})
+-- | The function\'s AWS X-Ray tracing configuration.
+functionConfiguration_tracingConfig :: Lens.Lens' FunctionConfiguration (Prelude.Maybe TracingConfigResponse)
+functionConfiguration_tracingConfig = Lens.lens (\FunctionConfiguration' {tracingConfig} -> tracingConfig) (\s@FunctionConfiguration' {} a -> s {tracingConfig = a} :: FunctionConfiguration)
 
--- | The function's description.
-fcDescription :: Lens' FunctionConfiguration (Maybe Text)
-fcDescription = lens _fcDescription (\s a -> s {_fcDescription = a})
+-- | The function\'s description.
+functionConfiguration_description :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_description = Lens.lens (\FunctionConfiguration' {description} -> description) (\s@FunctionConfiguration' {} a -> s {description = a} :: FunctionConfiguration)
 
--- | The date and time that the function was last updated, in <https://www.w3.org/TR/NOTE-datetime ISO-8601 format> (YYYY-MM-DDThh:mm:ss.sTZD).
-fcLastModified :: Lens' FunctionConfiguration (Maybe Text)
-fcLastModified = lens _fcLastModified (\s a -> s {_fcLastModified = a})
+-- | The date and time that the function was last updated, in
+-- <https://www.w3.org/TR/NOTE-datetime ISO-8601 format>
+-- (YYYY-MM-DDThh:mm:ss.sTZD).
+functionConfiguration_lastModified :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_lastModified = Lens.lens (\FunctionConfiguration' {lastModified} -> lastModified) (\s@FunctionConfiguration' {} a -> s {lastModified = a} :: FunctionConfiguration)
 
 -- | The reason for the last update that was performed on the function.
-fcLastUpdateStatusReason :: Lens' FunctionConfiguration (Maybe Text)
-fcLastUpdateStatusReason = lens _fcLastUpdateStatusReason (\s a -> s {_fcLastUpdateStatusReason = a})
+functionConfiguration_lastUpdateStatusReason :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_lastUpdateStatusReason = Lens.lens (\FunctionConfiguration' {lastUpdateStatusReason} -> lastUpdateStatusReason) (\s@FunctionConfiguration' {} a -> s {lastUpdateStatusReason = a} :: FunctionConfiguration)
 
--- | The function's <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html layers> .
-fcLayers :: Lens' FunctionConfiguration [Layer]
-fcLayers = lens _fcLayers (\s a -> s {_fcLayers = a}) . _Default . _Coerce
+-- | The function\'s
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html layers>.
+functionConfiguration_layers :: Lens.Lens' FunctionConfiguration (Prelude.Maybe [Layer])
+functionConfiguration_layers = Lens.lens (\FunctionConfiguration' {layers} -> layers) (\s@FunctionConfiguration' {} a -> s {layers = a} :: FunctionConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The size of the function's deployment package, in bytes.
-fcCodeSize :: Lens' FunctionConfiguration (Maybe Integer)
-fcCodeSize = lens _fcCodeSize (\s a -> s {_fcCodeSize = a})
+-- | The size of the function\'s deployment package, in bytes.
+functionConfiguration_codeSize :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Integer)
+functionConfiguration_codeSize = Lens.lens (\FunctionConfiguration' {codeSize} -> codeSize) (\s@FunctionConfiguration' {} a -> s {codeSize = a} :: FunctionConfiguration)
 
 -- | Connection settings for an Amazon EFS file system.
-fcFileSystemConfigs :: Lens' FunctionConfiguration [FileSystemConfig]
-fcFileSystemConfigs = lens _fcFileSystemConfigs (\s a -> s {_fcFileSystemConfigs = a}) . _Default . _Coerce
+functionConfiguration_fileSystemConfigs :: Lens.Lens' FunctionConfiguration (Prelude.Maybe [FileSystemConfig])
+functionConfiguration_fileSystemConfigs = Lens.lens (\FunctionConfiguration' {fileSystemConfigs} -> fileSystemConfigs) (\s@FunctionConfiguration' {} a -> s {fileSystemConfigs = a} :: FunctionConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The type of deployment package. Set to @Image@ for container image and set @Zip@ for .zip file archive.
-fcPackageType :: Lens' FunctionConfiguration (Maybe PackageType)
-fcPackageType = lens _fcPackageType (\s a -> s {_fcPackageType = a})
+-- | The type of deployment package. Set to @Image@ for container image and
+-- set @Zip@ for .zip file archive.
+functionConfiguration_packageType :: Lens.Lens' FunctionConfiguration (Prelude.Maybe PackageType)
+functionConfiguration_packageType = Lens.lens (\FunctionConfiguration' {packageType} -> packageType) (\s@FunctionConfiguration' {} a -> s {packageType = a} :: FunctionConfiguration)
 
-instance FromJSON FunctionConfiguration where
+instance Prelude.FromJSON FunctionConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FunctionConfiguration"
       ( \x ->
           FunctionConfiguration'
-            <$> (x .:? "SigningProfileVersionArn")
-            <*> (x .:? "LastUpdateStatus")
-            <*> (x .:? "VpcConfig")
-            <*> (x .:? "MemorySize")
-            <*> (x .:? "MasterArn")
-            <*> (x .:? "RevisionId")
-            <*> (x .:? "LastUpdateStatusReasonCode")
-            <*> (x .:? "CodeSha256")
-            <*> (x .:? "StateReason")
-            <*> (x .:? "Timeout")
-            <*> (x .:? "Handler")
-            <*> (x .:? "DeadLetterConfig")
-            <*> (x .:? "FunctionName")
-            <*> (x .:? "Environment")
-            <*> (x .:? "Version")
-            <*> (x .:? "FunctionArn")
-            <*> (x .:? "State")
-            <*> (x .:? "KMSKeyArn")
-            <*> (x .:? "Runtime")
-            <*> (x .:? "Role")
-            <*> (x .:? "SigningJobArn")
-            <*> (x .:? "StateReasonCode")
-            <*> (x .:? "ImageConfigResponse")
-            <*> (x .:? "TracingConfig")
-            <*> (x .:? "Description")
-            <*> (x .:? "LastModified")
-            <*> (x .:? "LastUpdateStatusReason")
-            <*> (x .:? "Layers" .!= mempty)
-            <*> (x .:? "CodeSize")
-            <*> (x .:? "FileSystemConfigs" .!= mempty)
-            <*> (x .:? "PackageType")
+            Prelude.<$> (x Prelude..:? "SigningProfileVersionArn")
+            Prelude.<*> (x Prelude..:? "LastUpdateStatus")
+            Prelude.<*> (x Prelude..:? "VpcConfig")
+            Prelude.<*> (x Prelude..:? "MemorySize")
+            Prelude.<*> (x Prelude..:? "MasterArn")
+            Prelude.<*> (x Prelude..:? "RevisionId")
+            Prelude.<*> (x Prelude..:? "LastUpdateStatusReasonCode")
+            Prelude.<*> (x Prelude..:? "CodeSha256")
+            Prelude.<*> (x Prelude..:? "StateReason")
+            Prelude.<*> (x Prelude..:? "Timeout")
+            Prelude.<*> (x Prelude..:? "Handler")
+            Prelude.<*> (x Prelude..:? "DeadLetterConfig")
+            Prelude.<*> (x Prelude..:? "FunctionName")
+            Prelude.<*> (x Prelude..:? "Environment")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "FunctionArn")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "KMSKeyArn")
+            Prelude.<*> (x Prelude..:? "Runtime")
+            Prelude.<*> (x Prelude..:? "Role")
+            Prelude.<*> (x Prelude..:? "SigningJobArn")
+            Prelude.<*> (x Prelude..:? "StateReasonCode")
+            Prelude.<*> (x Prelude..:? "ImageConfigResponse")
+            Prelude.<*> (x Prelude..:? "TracingConfig")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "LastModified")
+            Prelude.<*> (x Prelude..:? "LastUpdateStatusReason")
+            Prelude.<*> (x Prelude..:? "Layers" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "CodeSize")
+            Prelude.<*> ( x Prelude..:? "FileSystemConfigs"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "PackageType")
       )
 
-instance Hashable FunctionConfiguration
+instance Prelude.Hashable FunctionConfiguration
 
-instance NFData FunctionConfiguration
+instance Prelude.NFData FunctionConfiguration

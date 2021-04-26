@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,101 +21,107 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns details about an event source mapping. You can get the identifier of a mapping from the output of 'ListEventSourceMappings' .
+-- Returns details about an event source mapping. You can get the
+-- identifier of a mapping from the output of ListEventSourceMappings.
 module Network.AWS.Lambda.GetEventSourceMapping
   ( -- * Creating a Request
-    getEventSourceMapping,
-    GetEventSourceMapping,
+    GetEventSourceMapping (..),
+    newGetEventSourceMapping,
 
     -- * Request Lenses
-    gesmUUId,
+    getEventSourceMapping_uUID,
 
     -- * Destructuring the Response
-    eventSourceMappingConfiguration,
-    EventSourceMappingConfiguration,
+    EventSourceMappingConfiguration (..),
+    newEventSourceMappingConfiguration,
 
     -- * Response Lenses
-    esmcEventSourceARN,
-    esmcStateTransitionReason,
-    esmcLastProcessingResult,
-    esmcTopics,
-    esmcMaximumRecordAgeInSeconds,
-    esmcFunctionResponseTypes,
-    esmcQueues,
-    esmcTumblingWindowInSeconds,
-    esmcFunctionARN,
-    esmcStartingPositionTimestamp,
-    esmcState,
-    esmcMaximumBatchingWindowInSeconds,
-    esmcBatchSize,
-    esmcStartingPosition,
-    esmcDestinationConfig,
-    esmcMaximumRetryAttempts,
-    esmcLastModified,
-    esmcParallelizationFactor,
-    esmcSelfManagedEventSource,
-    esmcUUId,
-    esmcBisectBatchOnFunctionError,
-    esmcSourceAccessConfigurations,
+    eventSourceMappingConfiguration_eventSourceArn,
+    eventSourceMappingConfiguration_stateTransitionReason,
+    eventSourceMappingConfiguration_lastProcessingResult,
+    eventSourceMappingConfiguration_topics,
+    eventSourceMappingConfiguration_maximumRecordAgeInSeconds,
+    eventSourceMappingConfiguration_functionResponseTypes,
+    eventSourceMappingConfiguration_queues,
+    eventSourceMappingConfiguration_tumblingWindowInSeconds,
+    eventSourceMappingConfiguration_functionArn,
+    eventSourceMappingConfiguration_startingPositionTimestamp,
+    eventSourceMappingConfiguration_state,
+    eventSourceMappingConfiguration_maximumBatchingWindowInSeconds,
+    eventSourceMappingConfiguration_batchSize,
+    eventSourceMappingConfiguration_startingPosition,
+    eventSourceMappingConfiguration_destinationConfig,
+    eventSourceMappingConfiguration_maximumRetryAttempts,
+    eventSourceMappingConfiguration_lastModified,
+    eventSourceMappingConfiguration_parallelizationFactor,
+    eventSourceMappingConfiguration_selfManagedEventSource,
+    eventSourceMappingConfiguration_uUID,
+    eventSourceMappingConfiguration_bisectBatchOnFunctionError,
+    eventSourceMappingConfiguration_sourceAccessConfigurations,
   )
 where
 
 import Network.AWS.Lambda.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lambda.Types.DestinationConfig
+import Network.AWS.Lambda.Types.EventSourceMappingConfiguration
+import Network.AWS.Lambda.Types.EventSourcePosition
+import Network.AWS.Lambda.Types.FunctionResponseType
+import Network.AWS.Lambda.Types.SelfManagedEventSource
+import Network.AWS.Lambda.Types.SourceAccessConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getEventSourceMapping' smart constructor.
-newtype GetEventSourceMapping = GetEventSourceMapping'
-  { _gesmUUId ::
-      Text
+-- | /See:/ 'newGetEventSourceMapping' smart constructor.
+data GetEventSourceMapping = GetEventSourceMapping'
+  { -- | The identifier of the event source mapping.
+    uUID :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetEventSourceMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetEventSourceMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gesmUUId' - The identifier of the event source mapping.
-getEventSourceMapping ::
-  -- | 'gesmUUId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'uUID', 'getEventSourceMapping_uUID' - The identifier of the event source mapping.
+newGetEventSourceMapping ::
+  -- | 'uUID'
+  Prelude.Text ->
   GetEventSourceMapping
-getEventSourceMapping pUUId_ =
-  GetEventSourceMapping' {_gesmUUId = pUUId_}
+newGetEventSourceMapping pUUID_ =
+  GetEventSourceMapping' {uUID = pUUID_}
 
 -- | The identifier of the event source mapping.
-gesmUUId :: Lens' GetEventSourceMapping Text
-gesmUUId = lens _gesmUUId (\s a -> s {_gesmUUId = a})
+getEventSourceMapping_uUID :: Lens.Lens' GetEventSourceMapping Prelude.Text
+getEventSourceMapping_uUID = Lens.lens (\GetEventSourceMapping' {uUID} -> uUID) (\s@GetEventSourceMapping' {} a -> s {uUID = a} :: GetEventSourceMapping)
 
-instance AWSRequest GetEventSourceMapping where
+instance Prelude.AWSRequest GetEventSourceMapping where
   type
     Rs GetEventSourceMapping =
       EventSourceMappingConfiguration
-  request = get lambda
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable GetEventSourceMapping
+instance Prelude.Hashable GetEventSourceMapping
 
-instance NFData GetEventSourceMapping
+instance Prelude.NFData GetEventSourceMapping
 
-instance ToHeaders GetEventSourceMapping where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetEventSourceMapping where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetEventSourceMapping where
+instance Prelude.ToPath GetEventSourceMapping where
   toPath GetEventSourceMapping' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-03-31/event-source-mappings/",
-        toBS _gesmUUId
+        Prelude.toBS uUID
       ]
 
-instance ToQuery GetEventSourceMapping where
-  toQuery = const mempty
+instance Prelude.ToQuery GetEventSourceMapping where
+  toQuery = Prelude.const Prelude.mempty
