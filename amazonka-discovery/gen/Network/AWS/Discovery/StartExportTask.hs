@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,167 +23,214 @@
 --
 -- Begins the export of discovered data to an S3 bucket.
 --
+-- If you specify @agentIds@ in a filter, the task exports up to 72 hours
+-- of detailed data collected by the identified Application Discovery
+-- Agent, including network, process, and performance details. A time range
+-- for exported agent data may be set by using @startTime@ and @endTime@.
+-- Export of detailed agent data is limited to five concurrently running
+-- exports.
 --
--- If you specify @agentIds@ in a filter, the task exports up to 72 hours of detailed data collected by the identified Application Discovery Agent, including network, process, and performance details. A time range for exported agent data may be set by using @startTime@ and @endTime@ . Export of detailed agent data is limited to five concurrently running exports.
---
--- If you do not include an @agentIds@ filter, summary data is exported that includes both AWS Agentless Discovery Connector data and summary data from AWS Discovery Agents. Export of summary data is limited to two exports per day.
+-- If you do not include an @agentIds@ filter, summary data is exported
+-- that includes both AWS Agentless Discovery Connector data and summary
+-- data from AWS Discovery Agents. Export of summary data is limited to two
+-- exports per day.
 module Network.AWS.Discovery.StartExportTask
   ( -- * Creating a Request
-    startExportTask,
-    StartExportTask,
+    StartExportTask (..),
+    newStartExportTask,
 
     -- * Request Lenses
-    setExportDataFormat,
-    setStartTime,
-    setEndTime,
-    setFilters,
+    startExportTask_exportDataFormat,
+    startExportTask_startTime,
+    startExportTask_endTime,
+    startExportTask_filters,
 
     -- * Destructuring the Response
-    startExportTaskResponse,
-    StartExportTaskResponse,
+    StartExportTaskResponse (..),
+    newStartExportTaskResponse,
 
     -- * Response Lenses
-    setrrsExportId,
-    setrrsResponseStatus,
+    startExportTaskResponse_exportId,
+    startExportTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.Discovery.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startExportTask' smart constructor.
+-- | /See:/ 'newStartExportTask' smart constructor.
 data StartExportTask = StartExportTask'
-  { _setExportDataFormat ::
-      !(Maybe [ExportDataFormat]),
-    _setStartTime :: !(Maybe POSIX),
-    _setEndTime :: !(Maybe POSIX),
-    _setFilters :: !(Maybe [ExportFilter])
+  { -- | The file format for the returned export data. Default value is @CSV@.
+    -- __Note:__ /The/ @GRAPHML@ /option has been deprecated./
+    exportDataFormat :: Prelude.Maybe [ExportDataFormat],
+    -- | The start timestamp for exported data from the single Application
+    -- Discovery Agent selected in the filters. If no value is specified, data
+    -- is exported starting from the first data collected by the agent.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The end timestamp for exported data from the single Application
+    -- Discovery Agent selected in the filters. If no value is specified,
+    -- exported data includes the most recent data collected by the agent.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | If a filter is present, it selects the single @agentId@ of the
+    -- Application Discovery Agent for which data is exported. The @agentId@
+    -- can be found in the results of the @DescribeAgents@ API or CLI. If no
+    -- filter is present, @startTime@ and @endTime@ are ignored and exported
+    -- data includes both Agentless Discovery Connector data and summary data
+    -- from Application Discovery agents.
+    filters :: Prelude.Maybe [ExportFilter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartExportTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartExportTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'setExportDataFormat' - The file format for the returned export data. Default value is @CSV@ . __Note:__ /The/ @GRAPHML@ /option has been deprecated./
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'setStartTime' - The start timestamp for exported data from the single Application Discovery Agent selected in the filters. If no value is specified, data is exported starting from the first data collected by the agent.
+-- 'exportDataFormat', 'startExportTask_exportDataFormat' - The file format for the returned export data. Default value is @CSV@.
+-- __Note:__ /The/ @GRAPHML@ /option has been deprecated./
 --
--- * 'setEndTime' - The end timestamp for exported data from the single Application Discovery Agent selected in the filters. If no value is specified, exported data includes the most recent data collected by the agent.
+-- 'startTime', 'startExportTask_startTime' - The start timestamp for exported data from the single Application
+-- Discovery Agent selected in the filters. If no value is specified, data
+-- is exported starting from the first data collected by the agent.
 --
--- * 'setFilters' - If a filter is present, it selects the single @agentId@ of the Application Discovery Agent for which data is exported. The @agentId@ can be found in the results of the @DescribeAgents@ API or CLI. If no filter is present, @startTime@ and @endTime@ are ignored and exported data includes both Agentless Discovery Connector data and summary data from Application Discovery agents.
-startExportTask ::
+-- 'endTime', 'startExportTask_endTime' - The end timestamp for exported data from the single Application
+-- Discovery Agent selected in the filters. If no value is specified,
+-- exported data includes the most recent data collected by the agent.
+--
+-- 'filters', 'startExportTask_filters' - If a filter is present, it selects the single @agentId@ of the
+-- Application Discovery Agent for which data is exported. The @agentId@
+-- can be found in the results of the @DescribeAgents@ API or CLI. If no
+-- filter is present, @startTime@ and @endTime@ are ignored and exported
+-- data includes both Agentless Discovery Connector data and summary data
+-- from Application Discovery agents.
+newStartExportTask ::
   StartExportTask
-startExportTask =
+newStartExportTask =
   StartExportTask'
-    { _setExportDataFormat = Nothing,
-      _setStartTime = Nothing,
-      _setEndTime = Nothing,
-      _setFilters = Nothing
+    { exportDataFormat =
+        Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | The file format for the returned export data. Default value is @CSV@ . __Note:__ /The/ @GRAPHML@ /option has been deprecated./
-setExportDataFormat :: Lens' StartExportTask [ExportDataFormat]
-setExportDataFormat = lens _setExportDataFormat (\s a -> s {_setExportDataFormat = a}) . _Default . _Coerce
+-- | The file format for the returned export data. Default value is @CSV@.
+-- __Note:__ /The/ @GRAPHML@ /option has been deprecated./
+startExportTask_exportDataFormat :: Lens.Lens' StartExportTask (Prelude.Maybe [ExportDataFormat])
+startExportTask_exportDataFormat = Lens.lens (\StartExportTask' {exportDataFormat} -> exportDataFormat) (\s@StartExportTask' {} a -> s {exportDataFormat = a} :: StartExportTask) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The start timestamp for exported data from the single Application Discovery Agent selected in the filters. If no value is specified, data is exported starting from the first data collected by the agent.
-setStartTime :: Lens' StartExportTask (Maybe UTCTime)
-setStartTime = lens _setStartTime (\s a -> s {_setStartTime = a}) . mapping _Time
+-- | The start timestamp for exported data from the single Application
+-- Discovery Agent selected in the filters. If no value is specified, data
+-- is exported starting from the first data collected by the agent.
+startExportTask_startTime :: Lens.Lens' StartExportTask (Prelude.Maybe Prelude.UTCTime)
+startExportTask_startTime = Lens.lens (\StartExportTask' {startTime} -> startTime) (\s@StartExportTask' {} a -> s {startTime = a} :: StartExportTask) Prelude.. Lens.mapping Prelude._Time
 
--- | The end timestamp for exported data from the single Application Discovery Agent selected in the filters. If no value is specified, exported data includes the most recent data collected by the agent.
-setEndTime :: Lens' StartExportTask (Maybe UTCTime)
-setEndTime = lens _setEndTime (\s a -> s {_setEndTime = a}) . mapping _Time
+-- | The end timestamp for exported data from the single Application
+-- Discovery Agent selected in the filters. If no value is specified,
+-- exported data includes the most recent data collected by the agent.
+startExportTask_endTime :: Lens.Lens' StartExportTask (Prelude.Maybe Prelude.UTCTime)
+startExportTask_endTime = Lens.lens (\StartExportTask' {endTime} -> endTime) (\s@StartExportTask' {} a -> s {endTime = a} :: StartExportTask) Prelude.. Lens.mapping Prelude._Time
 
--- | If a filter is present, it selects the single @agentId@ of the Application Discovery Agent for which data is exported. The @agentId@ can be found in the results of the @DescribeAgents@ API or CLI. If no filter is present, @startTime@ and @endTime@ are ignored and exported data includes both Agentless Discovery Connector data and summary data from Application Discovery agents.
-setFilters :: Lens' StartExportTask [ExportFilter]
-setFilters = lens _setFilters (\s a -> s {_setFilters = a}) . _Default . _Coerce
+-- | If a filter is present, it selects the single @agentId@ of the
+-- Application Discovery Agent for which data is exported. The @agentId@
+-- can be found in the results of the @DescribeAgents@ API or CLI. If no
+-- filter is present, @startTime@ and @endTime@ are ignored and exported
+-- data includes both Agentless Discovery Connector data and summary data
+-- from Application Discovery agents.
+startExportTask_filters :: Lens.Lens' StartExportTask (Prelude.Maybe [ExportFilter])
+startExportTask_filters = Lens.lens (\StartExportTask' {filters} -> filters) (\s@StartExportTask' {} a -> s {filters = a} :: StartExportTask) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest StartExportTask where
+instance Prelude.AWSRequest StartExportTask where
   type Rs StartExportTask = StartExportTaskResponse
-  request = postJSON discovery
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartExportTaskResponse'
-            <$> (x .?> "exportId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "exportId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartExportTask
+instance Prelude.Hashable StartExportTask
 
-instance NFData StartExportTask
+instance Prelude.NFData StartExportTask
 
-instance ToHeaders StartExportTask where
+instance Prelude.ToHeaders StartExportTask where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPoseidonService_V2015_11_01.StartExportTask" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPoseidonService_V2015_11_01.StartExportTask" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartExportTask where
+instance Prelude.ToJSON StartExportTask where
   toJSON StartExportTask' {..} =
-    object
-      ( catMaybes
-          [ ("exportDataFormat" .=) <$> _setExportDataFormat,
-            ("startTime" .=) <$> _setStartTime,
-            ("endTime" .=) <$> _setEndTime,
-            ("filters" .=) <$> _setFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("exportDataFormat" Prelude..=)
+              Prelude.<$> exportDataFormat,
+            ("startTime" Prelude..=) Prelude.<$> startTime,
+            ("endTime" Prelude..=) Prelude.<$> endTime,
+            ("filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath StartExportTask where
-  toPath = const "/"
+instance Prelude.ToPath StartExportTask where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartExportTask where
-  toQuery = const mempty
+instance Prelude.ToQuery StartExportTask where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startExportTaskResponse' smart constructor.
+-- | /See:/ 'newStartExportTaskResponse' smart constructor.
 data StartExportTaskResponse = StartExportTaskResponse'
-  { _setrrsExportId ::
-      !(Maybe Text),
-    _setrrsResponseStatus ::
-      !Int
+  { -- | A unique identifier used to query the status of an export request.
+    exportId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartExportTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartExportTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'setrrsExportId' - A unique identifier used to query the status of an export request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'setrrsResponseStatus' - -- | The response status code.
-startExportTaskResponse ::
-  -- | 'setrrsResponseStatus'
-  Int ->
+-- 'exportId', 'startExportTaskResponse_exportId' - A unique identifier used to query the status of an export request.
+--
+-- 'httpStatus', 'startExportTaskResponse_httpStatus' - The response's http status code.
+newStartExportTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartExportTaskResponse
-startExportTaskResponse pResponseStatus_ =
+newStartExportTaskResponse pHttpStatus_ =
   StartExportTaskResponse'
-    { _setrrsExportId = Nothing,
-      _setrrsResponseStatus = pResponseStatus_
+    { exportId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A unique identifier used to query the status of an export request.
-setrrsExportId :: Lens' StartExportTaskResponse (Maybe Text)
-setrrsExportId = lens _setrrsExportId (\s a -> s {_setrrsExportId = a})
+startExportTaskResponse_exportId :: Lens.Lens' StartExportTaskResponse (Prelude.Maybe Prelude.Text)
+startExportTaskResponse_exportId = Lens.lens (\StartExportTaskResponse' {exportId} -> exportId) (\s@StartExportTaskResponse' {} a -> s {exportId = a} :: StartExportTaskResponse)
 
--- | -- | The response status code.
-setrrsResponseStatus :: Lens' StartExportTaskResponse Int
-setrrsResponseStatus = lens _setrrsResponseStatus (\s a -> s {_setrrsResponseStatus = a})
+-- | The response's http status code.
+startExportTaskResponse_httpStatus :: Lens.Lens' StartExportTaskResponse Prelude.Int
+startExportTaskResponse_httpStatus = Lens.lens (\StartExportTaskResponse' {httpStatus} -> httpStatus) (\s@StartExportTaskResponse' {} a -> s {httpStatus = a} :: StartExportTaskResponse)
 
-instance NFData StartExportTaskResponse
+instance Prelude.NFData StartExportTaskResponse

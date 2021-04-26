@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,82 +20,97 @@
 module Network.AWS.Discovery.Types.ConfigurationTag where
 
 import Network.AWS.Discovery.Types.ConfigurationItemType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Tags for a configuration item. Tags are metadata that help you categorize IT assets.
+-- | Tags for a configuration item. Tags are metadata that help you
+-- categorize IT assets.
 --
---
---
--- /See:/ 'configurationTag' smart constructor.
+-- /See:/ 'newConfigurationTag' smart constructor.
 data ConfigurationTag = ConfigurationTag'
-  { _ctKey ::
-      !(Maybe Text),
-    _ctConfigurationId :: !(Maybe Text),
-    _ctValue :: !(Maybe Text),
-    _ctConfigurationType ::
-      !(Maybe ConfigurationItemType),
-    _ctTimeOfCreation :: !(Maybe POSIX)
+  { -- | A type of tag on which to filter. For example, /serverType/.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The configuration ID for the item to tag. You can specify a list of keys
+    -- and values.
+    configurationId :: Prelude.Maybe Prelude.Text,
+    -- | A value on which to filter. For example /key = serverType/ and /value =
+    -- web server/.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | A type of IT asset to tag.
+    configurationType :: Prelude.Maybe ConfigurationItemType,
+    -- | The time the configuration tag was created in Coordinated Universal Time
+    -- (UTC).
+    timeOfCreation :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigurationTag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigurationTag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctKey' - A type of tag on which to filter. For example, /serverType/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctConfigurationId' - The configuration ID for the item to tag. You can specify a list of keys and values.
+-- 'key', 'configurationTag_key' - A type of tag on which to filter. For example, /serverType/.
 --
--- * 'ctValue' - A value on which to filter. For example /key = serverType/ and /value = web server/ .
+-- 'configurationId', 'configurationTag_configurationId' - The configuration ID for the item to tag. You can specify a list of keys
+-- and values.
 --
--- * 'ctConfigurationType' - A type of IT asset to tag.
+-- 'value', 'configurationTag_value' - A value on which to filter. For example /key = serverType/ and /value =
+-- web server/.
 --
--- * 'ctTimeOfCreation' - The time the configuration tag was created in Coordinated Universal Time (UTC).
-configurationTag ::
+-- 'configurationType', 'configurationTag_configurationType' - A type of IT asset to tag.
+--
+-- 'timeOfCreation', 'configurationTag_timeOfCreation' - The time the configuration tag was created in Coordinated Universal Time
+-- (UTC).
+newConfigurationTag ::
   ConfigurationTag
-configurationTag =
+newConfigurationTag =
   ConfigurationTag'
-    { _ctKey = Nothing,
-      _ctConfigurationId = Nothing,
-      _ctValue = Nothing,
-      _ctConfigurationType = Nothing,
-      _ctTimeOfCreation = Nothing
+    { key = Prelude.Nothing,
+      configurationId = Prelude.Nothing,
+      value = Prelude.Nothing,
+      configurationType = Prelude.Nothing,
+      timeOfCreation = Prelude.Nothing
     }
 
--- | A type of tag on which to filter. For example, /serverType/ .
-ctKey :: Lens' ConfigurationTag (Maybe Text)
-ctKey = lens _ctKey (\s a -> s {_ctKey = a})
+-- | A type of tag on which to filter. For example, /serverType/.
+configurationTag_key :: Lens.Lens' ConfigurationTag (Prelude.Maybe Prelude.Text)
+configurationTag_key = Lens.lens (\ConfigurationTag' {key} -> key) (\s@ConfigurationTag' {} a -> s {key = a} :: ConfigurationTag)
 
--- | The configuration ID for the item to tag. You can specify a list of keys and values.
-ctConfigurationId :: Lens' ConfigurationTag (Maybe Text)
-ctConfigurationId = lens _ctConfigurationId (\s a -> s {_ctConfigurationId = a})
+-- | The configuration ID for the item to tag. You can specify a list of keys
+-- and values.
+configurationTag_configurationId :: Lens.Lens' ConfigurationTag (Prelude.Maybe Prelude.Text)
+configurationTag_configurationId = Lens.lens (\ConfigurationTag' {configurationId} -> configurationId) (\s@ConfigurationTag' {} a -> s {configurationId = a} :: ConfigurationTag)
 
--- | A value on which to filter. For example /key = serverType/ and /value = web server/ .
-ctValue :: Lens' ConfigurationTag (Maybe Text)
-ctValue = lens _ctValue (\s a -> s {_ctValue = a})
+-- | A value on which to filter. For example /key = serverType/ and /value =
+-- web server/.
+configurationTag_value :: Lens.Lens' ConfigurationTag (Prelude.Maybe Prelude.Text)
+configurationTag_value = Lens.lens (\ConfigurationTag' {value} -> value) (\s@ConfigurationTag' {} a -> s {value = a} :: ConfigurationTag)
 
 -- | A type of IT asset to tag.
-ctConfigurationType :: Lens' ConfigurationTag (Maybe ConfigurationItemType)
-ctConfigurationType = lens _ctConfigurationType (\s a -> s {_ctConfigurationType = a})
+configurationTag_configurationType :: Lens.Lens' ConfigurationTag (Prelude.Maybe ConfigurationItemType)
+configurationTag_configurationType = Lens.lens (\ConfigurationTag' {configurationType} -> configurationType) (\s@ConfigurationTag' {} a -> s {configurationType = a} :: ConfigurationTag)
 
--- | The time the configuration tag was created in Coordinated Universal Time (UTC).
-ctTimeOfCreation :: Lens' ConfigurationTag (Maybe UTCTime)
-ctTimeOfCreation = lens _ctTimeOfCreation (\s a -> s {_ctTimeOfCreation = a}) . mapping _Time
+-- | The time the configuration tag was created in Coordinated Universal Time
+-- (UTC).
+configurationTag_timeOfCreation :: Lens.Lens' ConfigurationTag (Prelude.Maybe Prelude.UTCTime)
+configurationTag_timeOfCreation = Lens.lens (\ConfigurationTag' {timeOfCreation} -> timeOfCreation) (\s@ConfigurationTag' {} a -> s {timeOfCreation = a} :: ConfigurationTag) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON ConfigurationTag where
+instance Prelude.FromJSON ConfigurationTag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConfigurationTag"
       ( \x ->
           ConfigurationTag'
-            <$> (x .:? "key")
-            <*> (x .:? "configurationId")
-            <*> (x .:? "value")
-            <*> (x .:? "configurationType")
-            <*> (x .:? "timeOfCreation")
+            Prelude.<$> (x Prelude..:? "key")
+            Prelude.<*> (x Prelude..:? "configurationId")
+            Prelude.<*> (x Prelude..:? "value")
+            Prelude.<*> (x Prelude..:? "configurationType")
+            Prelude.<*> (x Prelude..:? "timeOfCreation")
       )
 
-instance Hashable ConfigurationTag
+instance Prelude.Hashable ConfigurationTag
 
-instance NFData ConfigurationTag
+instance Prelude.NFData ConfigurationTag

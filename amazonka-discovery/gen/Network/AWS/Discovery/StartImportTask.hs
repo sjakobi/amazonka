@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,238 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts an import task, which allows you to import details of your on-premises environment directly into AWS Migration Hub without having to use the Application Discovery Service (ADS) tools such as the Discovery Connector or Discovery Agent. This gives you the option to perform migration assessment and planning directly from your imported data, including the ability to group your devices as applications and track their migration status.
---
+-- Starts an import task, which allows you to import details of your
+-- on-premises environment directly into AWS Migration Hub without having
+-- to use the Application Discovery Service (ADS) tools such as the
+-- Discovery Connector or Discovery Agent. This gives you the option to
+-- perform migration assessment and planning directly from your imported
+-- data, including the ability to group your devices as applications and
+-- track their migration status.
 --
 -- To start an import request, do this:
 --
---     * Download the specially formatted comma separated value (CSV) import template, which you can find here: <https://s3-us-west-2.amazonaws.com/templates-7cffcf56-bd96-4b1c-b45b-a5b42f282e46/import_template.csv https://s3-us-west-2.amazonaws.com/templates-7cffcf56-bd96-4b1c-b45b-a5b42f282e46/import_template.csv> .
+-- 1.  Download the specially formatted comma separated value (CSV) import
+--     template, which you can find here:
+--     <https://s3-us-west-2.amazonaws.com/templates-7cffcf56-bd96-4b1c-b45b-a5b42f282e46/import_template.csv>.
 --
---     * Fill out the template with your server and application data.
+-- 2.  Fill out the template with your server and application data.
 --
---     * Upload your import file to an Amazon S3 bucket, and make a note of it's Object URL. Your import file must be in the CSV format.
+-- 3.  Upload your import file to an Amazon S3 bucket, and make a note of
+--     it\'s Object URL. Your import file must be in the CSV format.
 --
---     * Use the console or the @StartImportTask@ command with the AWS CLI or one of the AWS SDKs to import the records from your file.
+-- 4.  Use the console or the @StartImportTask@ command with the AWS CLI or
+--     one of the AWS SDKs to import the records from your file.
 --
+-- For more information, including step-by-step procedures, see
+-- <https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-import.html Migration Hub Import>
+-- in the /AWS Application Discovery Service User Guide/.
 --
---
--- For more information, including step-by-step procedures, see <https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-import.html Migration Hub Import> in the /AWS Application Discovery Service User Guide/ .
+-- There are limits to the number of import tasks you can create (and
+-- delete) in an AWS account. For more information, see
+-- <https://docs.aws.amazon.com/application-discovery/latest/userguide/ads_service_limits.html AWS Application Discovery Service Limits>
+-- in the /AWS Application Discovery Service User Guide/.
 module Network.AWS.Discovery.StartImportTask
   ( -- * Creating a Request
-    startImportTask,
-    StartImportTask,
+    StartImportTask (..),
+    newStartImportTask,
 
     -- * Request Lenses
-    sitClientRequestToken,
-    sitName,
-    sitImportURL,
+    startImportTask_clientRequestToken,
+    startImportTask_name,
+    startImportTask_importUrl,
 
     -- * Destructuring the Response
-    startImportTaskResponse,
-    StartImportTaskResponse,
+    StartImportTaskResponse (..),
+    newStartImportTaskResponse,
 
     -- * Response Lenses
-    sitrrsTask,
-    sitrrsResponseStatus,
+    startImportTaskResponse_task,
+    startImportTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.Discovery.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Discovery.Types.ImportTask
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startImportTask' smart constructor.
+-- | /See:/ 'newStartImportTask' smart constructor.
 data StartImportTask = StartImportTask'
-  { _sitClientRequestToken ::
-      !(Maybe Text),
-    _sitName :: !Text,
-    _sitImportURL :: !Text
+  { -- | Optional. A unique token that you can provide to prevent the same import
+    -- request from occurring more than once. If you don\'t provide a token, a
+    -- token is automatically generated.
+    --
+    -- Sending more than one @StartImportTask@ request with the same client
+    -- request token will return information about the original import task
+    -- with that client request token.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | A descriptive name for this request. You can use this name to filter
+    -- future requests related to this import task, such as identifying
+    -- applications and servers that were included in this import task. We
+    -- recommend that you use a meaningful name for each import task.
+    name :: Prelude.Text,
+    -- | The URL for your import file that you\'ve uploaded to Amazon S3.
+    --
+    -- If you\'re using the AWS CLI, this URL is structured as follows:
+    -- @s3:\/\/BucketName\/ImportFileName.CSV@
+    importUrl :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartImportTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartImportTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sitClientRequestToken' - Optional. A unique token that you can provide to prevent the same import request from occurring more than once. If you don't provide a token, a token is automatically generated. Sending more than one @StartImportTask@ request with the same client request token will return information about the original import task with that client request token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sitName' - A descriptive name for this request. You can use this name to filter future requests related to this import task, such as identifying applications and servers that were included in this import task. We recommend that you use a meaningful name for each import task.
+-- 'clientRequestToken', 'startImportTask_clientRequestToken' - Optional. A unique token that you can provide to prevent the same import
+-- request from occurring more than once. If you don\'t provide a token, a
+-- token is automatically generated.
 --
--- * 'sitImportURL' - The URL for your import file that you've uploaded to Amazon S3.
-startImportTask ::
-  -- | 'sitName'
-  Text ->
-  -- | 'sitImportURL'
-  Text ->
+-- Sending more than one @StartImportTask@ request with the same client
+-- request token will return information about the original import task
+-- with that client request token.
+--
+-- 'name', 'startImportTask_name' - A descriptive name for this request. You can use this name to filter
+-- future requests related to this import task, such as identifying
+-- applications and servers that were included in this import task. We
+-- recommend that you use a meaningful name for each import task.
+--
+-- 'importUrl', 'startImportTask_importUrl' - The URL for your import file that you\'ve uploaded to Amazon S3.
+--
+-- If you\'re using the AWS CLI, this URL is structured as follows:
+-- @s3:\/\/BucketName\/ImportFileName.CSV@
+newStartImportTask ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'importUrl'
+  Prelude.Text ->
   StartImportTask
-startImportTask pName_ pImportURL_ =
+newStartImportTask pName_ pImportUrl_ =
   StartImportTask'
-    { _sitClientRequestToken = Nothing,
-      _sitName = pName_,
-      _sitImportURL = pImportURL_
+    { clientRequestToken =
+        Prelude.Nothing,
+      name = pName_,
+      importUrl = pImportUrl_
     }
 
--- | Optional. A unique token that you can provide to prevent the same import request from occurring more than once. If you don't provide a token, a token is automatically generated. Sending more than one @StartImportTask@ request with the same client request token will return information about the original import task with that client request token.
-sitClientRequestToken :: Lens' StartImportTask (Maybe Text)
-sitClientRequestToken = lens _sitClientRequestToken (\s a -> s {_sitClientRequestToken = a})
+-- | Optional. A unique token that you can provide to prevent the same import
+-- request from occurring more than once. If you don\'t provide a token, a
+-- token is automatically generated.
+--
+-- Sending more than one @StartImportTask@ request with the same client
+-- request token will return information about the original import task
+-- with that client request token.
+startImportTask_clientRequestToken :: Lens.Lens' StartImportTask (Prelude.Maybe Prelude.Text)
+startImportTask_clientRequestToken = Lens.lens (\StartImportTask' {clientRequestToken} -> clientRequestToken) (\s@StartImportTask' {} a -> s {clientRequestToken = a} :: StartImportTask)
 
--- | A descriptive name for this request. You can use this name to filter future requests related to this import task, such as identifying applications and servers that were included in this import task. We recommend that you use a meaningful name for each import task.
-sitName :: Lens' StartImportTask Text
-sitName = lens _sitName (\s a -> s {_sitName = a})
+-- | A descriptive name for this request. You can use this name to filter
+-- future requests related to this import task, such as identifying
+-- applications and servers that were included in this import task. We
+-- recommend that you use a meaningful name for each import task.
+startImportTask_name :: Lens.Lens' StartImportTask Prelude.Text
+startImportTask_name = Lens.lens (\StartImportTask' {name} -> name) (\s@StartImportTask' {} a -> s {name = a} :: StartImportTask)
 
--- | The URL for your import file that you've uploaded to Amazon S3.
-sitImportURL :: Lens' StartImportTask Text
-sitImportURL = lens _sitImportURL (\s a -> s {_sitImportURL = a})
+-- | The URL for your import file that you\'ve uploaded to Amazon S3.
+--
+-- If you\'re using the AWS CLI, this URL is structured as follows:
+-- @s3:\/\/BucketName\/ImportFileName.CSV@
+startImportTask_importUrl :: Lens.Lens' StartImportTask Prelude.Text
+startImportTask_importUrl = Lens.lens (\StartImportTask' {importUrl} -> importUrl) (\s@StartImportTask' {} a -> s {importUrl = a} :: StartImportTask)
 
-instance AWSRequest StartImportTask where
+instance Prelude.AWSRequest StartImportTask where
   type Rs StartImportTask = StartImportTaskResponse
-  request = postJSON discovery
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartImportTaskResponse'
-            <$> (x .?> "task") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "task")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartImportTask
+instance Prelude.Hashable StartImportTask
 
-instance NFData StartImportTask
+instance Prelude.NFData StartImportTask
 
-instance ToHeaders StartImportTask where
+instance Prelude.ToHeaders StartImportTask where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPoseidonService_V2015_11_01.StartImportTask" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPoseidonService_V2015_11_01.StartImportTask" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartImportTask where
+instance Prelude.ToJSON StartImportTask where
   toJSON StartImportTask' {..} =
-    object
-      ( catMaybes
-          [ ("clientRequestToken" .=)
-              <$> _sitClientRequestToken,
-            Just ("name" .= _sitName),
-            Just ("importUrl" .= _sitImportURL)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("clientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("importUrl" Prelude..= importUrl)
           ]
       )
 
-instance ToPath StartImportTask where
-  toPath = const "/"
+instance Prelude.ToPath StartImportTask where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartImportTask where
-  toQuery = const mempty
+instance Prelude.ToQuery StartImportTask where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startImportTaskResponse' smart constructor.
+-- | /See:/ 'newStartImportTaskResponse' smart constructor.
 data StartImportTaskResponse = StartImportTaskResponse'
-  { _sitrrsTask ::
-      !(Maybe ImportTask),
-    _sitrrsResponseStatus ::
-      !Int
+  { -- | An array of information related to the import task request including
+    -- status information, times, IDs, the Amazon S3 Object URL for the import
+    -- file, and more.
+    task :: Prelude.Maybe ImportTask,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartImportTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartImportTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sitrrsTask' - An array of information related to the import task request including status information, times, IDs, the Amazon S3 Object URL for the import file, and more.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sitrrsResponseStatus' - -- | The response status code.
-startImportTaskResponse ::
-  -- | 'sitrrsResponseStatus'
-  Int ->
+-- 'task', 'startImportTaskResponse_task' - An array of information related to the import task request including
+-- status information, times, IDs, the Amazon S3 Object URL for the import
+-- file, and more.
+--
+-- 'httpStatus', 'startImportTaskResponse_httpStatus' - The response's http status code.
+newStartImportTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartImportTaskResponse
-startImportTaskResponse pResponseStatus_ =
+newStartImportTaskResponse pHttpStatus_ =
   StartImportTaskResponse'
-    { _sitrrsTask = Nothing,
-      _sitrrsResponseStatus = pResponseStatus_
+    { task = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of information related to the import task request including status information, times, IDs, the Amazon S3 Object URL for the import file, and more.
-sitrrsTask :: Lens' StartImportTaskResponse (Maybe ImportTask)
-sitrrsTask = lens _sitrrsTask (\s a -> s {_sitrrsTask = a})
+-- | An array of information related to the import task request including
+-- status information, times, IDs, the Amazon S3 Object URL for the import
+-- file, and more.
+startImportTaskResponse_task :: Lens.Lens' StartImportTaskResponse (Prelude.Maybe ImportTask)
+startImportTaskResponse_task = Lens.lens (\StartImportTaskResponse' {task} -> task) (\s@StartImportTaskResponse' {} a -> s {task = a} :: StartImportTaskResponse)
 
--- | -- | The response status code.
-sitrrsResponseStatus :: Lens' StartImportTaskResponse Int
-sitrrsResponseStatus = lens _sitrrsResponseStatus (\s a -> s {_sitrrsResponseStatus = a})
+-- | The response's http status code.
+startImportTaskResponse_httpStatus :: Lens.Lens' StartImportTaskResponse Prelude.Int
+startImportTaskResponse_httpStatus = Lens.lens (\StartImportTaskResponse' {httpStatus} -> httpStatus) (\s@StartImportTaskResponse' {} a -> s {httpStatus = a} :: StartImportTaskResponse)
 
-instance NFData StartImportTaskResponse
+instance Prelude.NFData StartImportTaskResponse

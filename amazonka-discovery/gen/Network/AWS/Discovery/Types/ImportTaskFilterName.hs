@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Discovery.Types.ImportTaskFilterName
   ( ImportTaskFilterName
       ( ..,
-        ImportTaskId,
-        Name,
-        Status
+        ImportTaskFilterNameIMPORTTASKID,
+        ImportTaskFilterNameNAME,
+        ImportTaskFilterNameSTATUS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImportTaskFilterName
-  = ImportTaskFilterName'
-      ( CI
-          Text
-      )
+newtype ImportTaskFilterName = ImportTaskFilterName'
+  { fromImportTaskFilterName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ImportTaskId :: ImportTaskFilterName
-pattern ImportTaskId = ImportTaskFilterName' "IMPORT_TASK_ID"
+pattern ImportTaskFilterNameIMPORTTASKID :: ImportTaskFilterName
+pattern ImportTaskFilterNameIMPORTTASKID = ImportTaskFilterName' "IMPORT_TASK_ID"
 
-pattern Name :: ImportTaskFilterName
-pattern Name = ImportTaskFilterName' "NAME"
+pattern ImportTaskFilterNameNAME :: ImportTaskFilterName
+pattern ImportTaskFilterNameNAME = ImportTaskFilterName' "NAME"
 
-pattern Status :: ImportTaskFilterName
-pattern Status = ImportTaskFilterName' "STATUS"
+pattern ImportTaskFilterNameSTATUS :: ImportTaskFilterName
+pattern ImportTaskFilterNameSTATUS = ImportTaskFilterName' "STATUS"
 
 {-# COMPLETE
-  ImportTaskId,
-  Name,
-  Status,
+  ImportTaskFilterNameIMPORTTASKID,
+  ImportTaskFilterNameNAME,
+  ImportTaskFilterNameSTATUS,
   ImportTaskFilterName'
   #-}
 
-instance FromText ImportTaskFilterName where
-  parser = (ImportTaskFilterName' . mk) <$> takeText
+instance Prelude.FromText ImportTaskFilterName where
+  parser = ImportTaskFilterName' Prelude.<$> Prelude.takeText
 
-instance ToText ImportTaskFilterName where
-  toText (ImportTaskFilterName' ci) = original ci
+instance Prelude.ToText ImportTaskFilterName where
+  toText (ImportTaskFilterName' x) = x
 
-instance Hashable ImportTaskFilterName
+instance Prelude.Hashable ImportTaskFilterName
 
-instance NFData ImportTaskFilterName
+instance Prelude.NFData ImportTaskFilterName
 
-instance ToByteString ImportTaskFilterName
+instance Prelude.ToByteString ImportTaskFilterName
 
-instance ToQuery ImportTaskFilterName
+instance Prelude.ToQuery ImportTaskFilterName
 
-instance ToHeader ImportTaskFilterName
+instance Prelude.ToHeader ImportTaskFilterName
 
-instance ToJSON ImportTaskFilterName where
-  toJSON = toJSONText
+instance Prelude.ToJSON ImportTaskFilterName where
+  toJSON = Prelude.toJSONText

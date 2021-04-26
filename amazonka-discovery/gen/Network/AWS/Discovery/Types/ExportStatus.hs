@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Discovery.Types.ExportStatus
   ( ExportStatus
       ( ..,
-        Failed,
-        InProgress,
-        Succeeded
+        ExportStatusFAILED,
+        ExportStatusINPROGRESS,
+        ExportStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExportStatus = ExportStatus' (CI Text)
+newtype ExportStatus = ExportStatus'
+  { fromExportStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: ExportStatus
-pattern Failed = ExportStatus' "FAILED"
+pattern ExportStatusFAILED :: ExportStatus
+pattern ExportStatusFAILED = ExportStatus' "FAILED"
 
-pattern InProgress :: ExportStatus
-pattern InProgress = ExportStatus' "IN_PROGRESS"
+pattern ExportStatusINPROGRESS :: ExportStatus
+pattern ExportStatusINPROGRESS = ExportStatus' "IN_PROGRESS"
 
-pattern Succeeded :: ExportStatus
-pattern Succeeded = ExportStatus' "SUCCEEDED"
+pattern ExportStatusSUCCEEDED :: ExportStatus
+pattern ExportStatusSUCCEEDED = ExportStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  Failed,
-  InProgress,
-  Succeeded,
+  ExportStatusFAILED,
+  ExportStatusINPROGRESS,
+  ExportStatusSUCCEEDED,
   ExportStatus'
   #-}
 
-instance FromText ExportStatus where
-  parser = (ExportStatus' . mk) <$> takeText
+instance Prelude.FromText ExportStatus where
+  parser = ExportStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ExportStatus where
-  toText (ExportStatus' ci) = original ci
+instance Prelude.ToText ExportStatus where
+  toText (ExportStatus' x) = x
 
-instance Hashable ExportStatus
+instance Prelude.Hashable ExportStatus
 
-instance NFData ExportStatus
+instance Prelude.NFData ExportStatus
 
-instance ToByteString ExportStatus
+instance Prelude.ToByteString ExportStatus
 
-instance ToQuery ExportStatus
+instance Prelude.ToQuery ExportStatus
 
-instance ToHeader ExportStatus
+instance Prelude.ToHeader ExportStatus
 
-instance FromJSON ExportStatus where
-  parseJSON = parseJSONText "ExportStatus"
+instance Prelude.FromJSON ExportStatus where
+  parseJSON = Prelude.parseJSONText "ExportStatus"

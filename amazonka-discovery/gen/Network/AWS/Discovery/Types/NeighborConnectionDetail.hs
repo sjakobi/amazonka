@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,102 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Discovery.Types.NeighborConnectionDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details about neighboring servers.
 --
---
---
--- /See:/ 'neighborConnectionDetail' smart constructor.
+-- /See:/ 'newNeighborConnectionDetail' smart constructor.
 data NeighborConnectionDetail = NeighborConnectionDetail'
-  { _ncdTransportProtocol ::
-      !(Maybe Text),
-    _ncdDestinationPort ::
-      !(Maybe Int),
-    _ncdSourceServerId ::
-      !Text,
-    _ncdDestinationServerId ::
-      !Text,
-    _ncdConnectionsCount ::
-      !Integer
+  { -- | The network protocol used for the connection.
+    transportProtocol :: Prelude.Maybe Prelude.Text,
+    -- | The destination network port for the connection.
+    destinationPort :: Prelude.Maybe Prelude.Int,
+    -- | The ID of the server that opened the network connection.
+    sourceServerId :: Prelude.Text,
+    -- | The ID of the server that accepted the network connection.
+    destinationServerId :: Prelude.Text,
+    -- | The number of open network connections with the neighboring server.
+    connectionsCount :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NeighborConnectionDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NeighborConnectionDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncdTransportProtocol' - The network protocol used for the connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ncdDestinationPort' - The destination network port for the connection.
+-- 'transportProtocol', 'neighborConnectionDetail_transportProtocol' - The network protocol used for the connection.
 --
--- * 'ncdSourceServerId' - The ID of the server that opened the network connection.
+-- 'destinationPort', 'neighborConnectionDetail_destinationPort' - The destination network port for the connection.
 --
--- * 'ncdDestinationServerId' - The ID of the server that accepted the network connection.
+-- 'sourceServerId', 'neighborConnectionDetail_sourceServerId' - The ID of the server that opened the network connection.
 --
--- * 'ncdConnectionsCount' - The number of open network connections with the neighboring server.
-neighborConnectionDetail ::
-  -- | 'ncdSourceServerId'
-  Text ->
-  -- | 'ncdDestinationServerId'
-  Text ->
-  -- | 'ncdConnectionsCount'
-  Integer ->
+-- 'destinationServerId', 'neighborConnectionDetail_destinationServerId' - The ID of the server that accepted the network connection.
+--
+-- 'connectionsCount', 'neighborConnectionDetail_connectionsCount' - The number of open network connections with the neighboring server.
+newNeighborConnectionDetail ::
+  -- | 'sourceServerId'
+  Prelude.Text ->
+  -- | 'destinationServerId'
+  Prelude.Text ->
+  -- | 'connectionsCount'
+  Prelude.Integer ->
   NeighborConnectionDetail
-neighborConnectionDetail
+newNeighborConnectionDetail
   pSourceServerId_
   pDestinationServerId_
   pConnectionsCount_ =
     NeighborConnectionDetail'
-      { _ncdTransportProtocol =
-          Nothing,
-        _ncdDestinationPort = Nothing,
-        _ncdSourceServerId = pSourceServerId_,
-        _ncdDestinationServerId = pDestinationServerId_,
-        _ncdConnectionsCount = pConnectionsCount_
+      { transportProtocol =
+          Prelude.Nothing,
+        destinationPort = Prelude.Nothing,
+        sourceServerId = pSourceServerId_,
+        destinationServerId = pDestinationServerId_,
+        connectionsCount = pConnectionsCount_
       }
 
 -- | The network protocol used for the connection.
-ncdTransportProtocol :: Lens' NeighborConnectionDetail (Maybe Text)
-ncdTransportProtocol = lens _ncdTransportProtocol (\s a -> s {_ncdTransportProtocol = a})
+neighborConnectionDetail_transportProtocol :: Lens.Lens' NeighborConnectionDetail (Prelude.Maybe Prelude.Text)
+neighborConnectionDetail_transportProtocol = Lens.lens (\NeighborConnectionDetail' {transportProtocol} -> transportProtocol) (\s@NeighborConnectionDetail' {} a -> s {transportProtocol = a} :: NeighborConnectionDetail)
 
 -- | The destination network port for the connection.
-ncdDestinationPort :: Lens' NeighborConnectionDetail (Maybe Int)
-ncdDestinationPort = lens _ncdDestinationPort (\s a -> s {_ncdDestinationPort = a})
+neighborConnectionDetail_destinationPort :: Lens.Lens' NeighborConnectionDetail (Prelude.Maybe Prelude.Int)
+neighborConnectionDetail_destinationPort = Lens.lens (\NeighborConnectionDetail' {destinationPort} -> destinationPort) (\s@NeighborConnectionDetail' {} a -> s {destinationPort = a} :: NeighborConnectionDetail)
 
 -- | The ID of the server that opened the network connection.
-ncdSourceServerId :: Lens' NeighborConnectionDetail Text
-ncdSourceServerId = lens _ncdSourceServerId (\s a -> s {_ncdSourceServerId = a})
+neighborConnectionDetail_sourceServerId :: Lens.Lens' NeighborConnectionDetail Prelude.Text
+neighborConnectionDetail_sourceServerId = Lens.lens (\NeighborConnectionDetail' {sourceServerId} -> sourceServerId) (\s@NeighborConnectionDetail' {} a -> s {sourceServerId = a} :: NeighborConnectionDetail)
 
 -- | The ID of the server that accepted the network connection.
-ncdDestinationServerId :: Lens' NeighborConnectionDetail Text
-ncdDestinationServerId = lens _ncdDestinationServerId (\s a -> s {_ncdDestinationServerId = a})
+neighborConnectionDetail_destinationServerId :: Lens.Lens' NeighborConnectionDetail Prelude.Text
+neighborConnectionDetail_destinationServerId = Lens.lens (\NeighborConnectionDetail' {destinationServerId} -> destinationServerId) (\s@NeighborConnectionDetail' {} a -> s {destinationServerId = a} :: NeighborConnectionDetail)
 
 -- | The number of open network connections with the neighboring server.
-ncdConnectionsCount :: Lens' NeighborConnectionDetail Integer
-ncdConnectionsCount = lens _ncdConnectionsCount (\s a -> s {_ncdConnectionsCount = a})
+neighborConnectionDetail_connectionsCount :: Lens.Lens' NeighborConnectionDetail Prelude.Integer
+neighborConnectionDetail_connectionsCount = Lens.lens (\NeighborConnectionDetail' {connectionsCount} -> connectionsCount) (\s@NeighborConnectionDetail' {} a -> s {connectionsCount = a} :: NeighborConnectionDetail)
 
-instance FromJSON NeighborConnectionDetail where
+instance Prelude.FromJSON NeighborConnectionDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NeighborConnectionDetail"
       ( \x ->
           NeighborConnectionDetail'
-            <$> (x .:? "transportProtocol")
-            <*> (x .:? "destinationPort")
-            <*> (x .: "sourceServerId")
-            <*> (x .: "destinationServerId")
-            <*> (x .: "connectionsCount")
+            Prelude.<$> (x Prelude..:? "transportProtocol")
+            Prelude.<*> (x Prelude..:? "destinationPort")
+            Prelude.<*> (x Prelude..: "sourceServerId")
+            Prelude.<*> (x Prelude..: "destinationServerId")
+            Prelude.<*> (x Prelude..: "connectionsCount")
       )
 
-instance Hashable NeighborConnectionDetail
+instance Prelude.Hashable NeighborConnectionDetail
 
-instance NFData NeighborConnectionDetail
+instance Prelude.NFData NeighborConnectionDetail

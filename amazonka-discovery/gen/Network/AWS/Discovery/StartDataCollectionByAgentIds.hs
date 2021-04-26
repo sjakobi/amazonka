@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,141 +24,184 @@
 -- Instructs the specified agents or connectors to start collecting data.
 module Network.AWS.Discovery.StartDataCollectionByAgentIds
   ( -- * Creating a Request
-    startDataCollectionByAgentIds,
-    StartDataCollectionByAgentIds,
+    StartDataCollectionByAgentIds (..),
+    newStartDataCollectionByAgentIds,
 
     -- * Request Lenses
-    sAgentIds,
+    startDataCollectionByAgentIds_agentIds,
 
     -- * Destructuring the Response
-    startDataCollectionByAgentIdsResponse,
-    StartDataCollectionByAgentIdsResponse,
+    StartDataCollectionByAgentIdsResponse (..),
+    newStartDataCollectionByAgentIdsResponse,
 
     -- * Response Lenses
-    sdcbairrsAgentsConfigurationStatus,
-    sdcbairrsResponseStatus,
+    startDataCollectionByAgentIdsResponse_agentsConfigurationStatus,
+    startDataCollectionByAgentIdsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Discovery.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Discovery.Types.AgentConfigurationStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startDataCollectionByAgentIds' smart constructor.
-newtype StartDataCollectionByAgentIds = StartDataCollectionByAgentIds'
-  { _sAgentIds ::
-      [Text]
+-- | /See:/ 'newStartDataCollectionByAgentIds' smart constructor.
+data StartDataCollectionByAgentIds = StartDataCollectionByAgentIds'
+  { -- | The IDs of the agents or connectors from which to start collecting data.
+    -- If you send a request to an agent\/connector ID that you do not have
+    -- permission to contact, according to your AWS account, the service does
+    -- not throw an exception. Instead, it returns the error in the
+    -- /Description/ field. If you send a request to multiple
+    -- agents\/connectors and you do not have permission to contact some of
+    -- those agents\/connectors, the system does not throw an exception.
+    -- Instead, the system shows @Failed@ in the /Description/ field.
+    agentIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDataCollectionByAgentIds' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDataCollectionByAgentIds' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sAgentIds' - The IDs of the agents or connectors from which to start collecting data. If you send a request to an agent/connector ID that you do not have permission to contact, according to your AWS account, the service does not throw an exception. Instead, it returns the error in the /Description/ field. If you send a request to multiple agents/connectors and you do not have permission to contact some of those agents/connectors, the system does not throw an exception. Instead, the system shows @Failed@ in the /Description/ field.
-startDataCollectionByAgentIds ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'agentIds', 'startDataCollectionByAgentIds_agentIds' - The IDs of the agents or connectors from which to start collecting data.
+-- If you send a request to an agent\/connector ID that you do not have
+-- permission to contact, according to your AWS account, the service does
+-- not throw an exception. Instead, it returns the error in the
+-- /Description/ field. If you send a request to multiple
+-- agents\/connectors and you do not have permission to contact some of
+-- those agents\/connectors, the system does not throw an exception.
+-- Instead, the system shows @Failed@ in the /Description/ field.
+newStartDataCollectionByAgentIds ::
   StartDataCollectionByAgentIds
-startDataCollectionByAgentIds =
-  StartDataCollectionByAgentIds' {_sAgentIds = mempty}
+newStartDataCollectionByAgentIds =
+  StartDataCollectionByAgentIds'
+    { agentIds =
+        Prelude.mempty
+    }
 
--- | The IDs of the agents or connectors from which to start collecting data. If you send a request to an agent/connector ID that you do not have permission to contact, according to your AWS account, the service does not throw an exception. Instead, it returns the error in the /Description/ field. If you send a request to multiple agents/connectors and you do not have permission to contact some of those agents/connectors, the system does not throw an exception. Instead, the system shows @Failed@ in the /Description/ field.
-sAgentIds :: Lens' StartDataCollectionByAgentIds [Text]
-sAgentIds = lens _sAgentIds (\s a -> s {_sAgentIds = a}) . _Coerce
+-- | The IDs of the agents or connectors from which to start collecting data.
+-- If you send a request to an agent\/connector ID that you do not have
+-- permission to contact, according to your AWS account, the service does
+-- not throw an exception. Instead, it returns the error in the
+-- /Description/ field. If you send a request to multiple
+-- agents\/connectors and you do not have permission to contact some of
+-- those agents\/connectors, the system does not throw an exception.
+-- Instead, the system shows @Failed@ in the /Description/ field.
+startDataCollectionByAgentIds_agentIds :: Lens.Lens' StartDataCollectionByAgentIds [Prelude.Text]
+startDataCollectionByAgentIds_agentIds = Lens.lens (\StartDataCollectionByAgentIds' {agentIds} -> agentIds) (\s@StartDataCollectionByAgentIds' {} a -> s {agentIds = a} :: StartDataCollectionByAgentIds) Prelude.. Prelude._Coerce
 
-instance AWSRequest StartDataCollectionByAgentIds where
+instance
+  Prelude.AWSRequest
+    StartDataCollectionByAgentIds
+  where
   type
     Rs StartDataCollectionByAgentIds =
       StartDataCollectionByAgentIdsResponse
-  request = postJSON discovery
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartDataCollectionByAgentIdsResponse'
-            <$> (x .?> "agentsConfigurationStatus" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "agentsConfigurationStatus"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartDataCollectionByAgentIds
+instance
+  Prelude.Hashable
+    StartDataCollectionByAgentIds
 
-instance NFData StartDataCollectionByAgentIds
+instance Prelude.NFData StartDataCollectionByAgentIds
 
-instance ToHeaders StartDataCollectionByAgentIds where
+instance
+  Prelude.ToHeaders
+    StartDataCollectionByAgentIds
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPoseidonService_V2015_11_01.StartDataCollectionByAgentIds" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPoseidonService_V2015_11_01.StartDataCollectionByAgentIds" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartDataCollectionByAgentIds where
+instance Prelude.ToJSON StartDataCollectionByAgentIds where
   toJSON StartDataCollectionByAgentIds' {..} =
-    object
-      (catMaybes [Just ("agentIds" .= _sAgentIds)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("agentIds" Prelude..= agentIds)]
+      )
 
-instance ToPath StartDataCollectionByAgentIds where
-  toPath = const "/"
+instance Prelude.ToPath StartDataCollectionByAgentIds where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartDataCollectionByAgentIds where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    StartDataCollectionByAgentIds
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startDataCollectionByAgentIdsResponse' smart constructor.
+-- | /See:/ 'newStartDataCollectionByAgentIdsResponse' smart constructor.
 data StartDataCollectionByAgentIdsResponse = StartDataCollectionByAgentIdsResponse'
-  { _sdcbairrsAgentsConfigurationStatus ::
-      !( Maybe
-           [AgentConfigurationStatus]
-       ),
-    _sdcbairrsResponseStatus ::
-      !Int
+  { -- | Information about agents or the connector that were instructed to start
+    -- collecting data. Information includes the agent\/connector ID, a
+    -- description of the operation performed, and whether the agent\/connector
+    -- configuration was updated.
+    agentsConfigurationStatus :: Prelude.Maybe [AgentConfigurationStatus],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDataCollectionByAgentIdsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDataCollectionByAgentIdsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdcbairrsAgentsConfigurationStatus' - Information about agents or the connector that were instructed to start collecting data. Information includes the agent/connector ID, a description of the operation performed, and whether the agent/connector configuration was updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdcbairrsResponseStatus' - -- | The response status code.
-startDataCollectionByAgentIdsResponse ::
-  -- | 'sdcbairrsResponseStatus'
-  Int ->
+-- 'agentsConfigurationStatus', 'startDataCollectionByAgentIdsResponse_agentsConfigurationStatus' - Information about agents or the connector that were instructed to start
+-- collecting data. Information includes the agent\/connector ID, a
+-- description of the operation performed, and whether the agent\/connector
+-- configuration was updated.
+--
+-- 'httpStatus', 'startDataCollectionByAgentIdsResponse_httpStatus' - The response's http status code.
+newStartDataCollectionByAgentIdsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartDataCollectionByAgentIdsResponse
-startDataCollectionByAgentIdsResponse
-  pResponseStatus_ =
-    StartDataCollectionByAgentIdsResponse'
-      { _sdcbairrsAgentsConfigurationStatus =
-          Nothing,
-        _sdcbairrsResponseStatus =
-          pResponseStatus_
-      }
+newStartDataCollectionByAgentIdsResponse pHttpStatus_ =
+  StartDataCollectionByAgentIdsResponse'
+    { agentsConfigurationStatus =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | Information about agents or the connector that were instructed to start collecting data. Information includes the agent/connector ID, a description of the operation performed, and whether the agent/connector configuration was updated.
-sdcbairrsAgentsConfigurationStatus :: Lens' StartDataCollectionByAgentIdsResponse [AgentConfigurationStatus]
-sdcbairrsAgentsConfigurationStatus = lens _sdcbairrsAgentsConfigurationStatus (\s a -> s {_sdcbairrsAgentsConfigurationStatus = a}) . _Default . _Coerce
+-- | Information about agents or the connector that were instructed to start
+-- collecting data. Information includes the agent\/connector ID, a
+-- description of the operation performed, and whether the agent\/connector
+-- configuration was updated.
+startDataCollectionByAgentIdsResponse_agentsConfigurationStatus :: Lens.Lens' StartDataCollectionByAgentIdsResponse (Prelude.Maybe [AgentConfigurationStatus])
+startDataCollectionByAgentIdsResponse_agentsConfigurationStatus = Lens.lens (\StartDataCollectionByAgentIdsResponse' {agentsConfigurationStatus} -> agentsConfigurationStatus) (\s@StartDataCollectionByAgentIdsResponse' {} a -> s {agentsConfigurationStatus = a} :: StartDataCollectionByAgentIdsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-sdcbairrsResponseStatus :: Lens' StartDataCollectionByAgentIdsResponse Int
-sdcbairrsResponseStatus = lens _sdcbairrsResponseStatus (\s a -> s {_sdcbairrsResponseStatus = a})
+-- | The response's http status code.
+startDataCollectionByAgentIdsResponse_httpStatus :: Lens.Lens' StartDataCollectionByAgentIdsResponse Prelude.Int
+startDataCollectionByAgentIdsResponse_httpStatus = Lens.lens (\StartDataCollectionByAgentIdsResponse' {httpStatus} -> httpStatus) (\s@StartDataCollectionByAgentIdsResponse' {} a -> s {httpStatus = a} :: StartDataCollectionByAgentIdsResponse)
 
-instance NFData StartDataCollectionByAgentIdsResponse
+instance
+  Prelude.NFData
+    StartDataCollectionByAgentIdsResponse

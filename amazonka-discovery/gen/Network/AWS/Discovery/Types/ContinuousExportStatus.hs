@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.Discovery.Types.ContinuousExportStatus
   ( ContinuousExportStatus
       ( ..,
-        Active,
-        Error',
-        Inactive,
-        StartFailed,
-        StartInProgress,
-        StopFailed,
-        StopInProgress
+        ContinuousExportStatusACTIVE,
+        ContinuousExportStatusERROR,
+        ContinuousExportStatusINACTIVE,
+        ContinuousExportStatusSTARTFAILED,
+        ContinuousExportStatusSTARTINPROGRESS,
+        ContinuousExportStatusSTOPFAILED,
+        ContinuousExportStatusSTOPINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContinuousExportStatus
-  = ContinuousExportStatus'
-      ( CI
-          Text
-      )
+newtype ContinuousExportStatus = ContinuousExportStatus'
+  { fromContinuousExportStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ContinuousExportStatus
-pattern Active = ContinuousExportStatus' "ACTIVE"
+pattern ContinuousExportStatusACTIVE :: ContinuousExportStatus
+pattern ContinuousExportStatusACTIVE = ContinuousExportStatus' "ACTIVE"
 
-pattern Error' :: ContinuousExportStatus
-pattern Error' = ContinuousExportStatus' "ERROR"
+pattern ContinuousExportStatusERROR :: ContinuousExportStatus
+pattern ContinuousExportStatusERROR = ContinuousExportStatus' "ERROR"
 
-pattern Inactive :: ContinuousExportStatus
-pattern Inactive = ContinuousExportStatus' "INACTIVE"
+pattern ContinuousExportStatusINACTIVE :: ContinuousExportStatus
+pattern ContinuousExportStatusINACTIVE = ContinuousExportStatus' "INACTIVE"
 
-pattern StartFailed :: ContinuousExportStatus
-pattern StartFailed = ContinuousExportStatus' "START_FAILED"
+pattern ContinuousExportStatusSTARTFAILED :: ContinuousExportStatus
+pattern ContinuousExportStatusSTARTFAILED = ContinuousExportStatus' "START_FAILED"
 
-pattern StartInProgress :: ContinuousExportStatus
-pattern StartInProgress = ContinuousExportStatus' "START_IN_PROGRESS"
+pattern ContinuousExportStatusSTARTINPROGRESS :: ContinuousExportStatus
+pattern ContinuousExportStatusSTARTINPROGRESS = ContinuousExportStatus' "START_IN_PROGRESS"
 
-pattern StopFailed :: ContinuousExportStatus
-pattern StopFailed = ContinuousExportStatus' "STOP_FAILED"
+pattern ContinuousExportStatusSTOPFAILED :: ContinuousExportStatus
+pattern ContinuousExportStatusSTOPFAILED = ContinuousExportStatus' "STOP_FAILED"
 
-pattern StopInProgress :: ContinuousExportStatus
-pattern StopInProgress = ContinuousExportStatus' "STOP_IN_PROGRESS"
+pattern ContinuousExportStatusSTOPINPROGRESS :: ContinuousExportStatus
+pattern ContinuousExportStatusSTOPINPROGRESS = ContinuousExportStatus' "STOP_IN_PROGRESS"
 
 {-# COMPLETE
-  Active,
-  Error',
-  Inactive,
-  StartFailed,
-  StartInProgress,
-  StopFailed,
-  StopInProgress,
+  ContinuousExportStatusACTIVE,
+  ContinuousExportStatusERROR,
+  ContinuousExportStatusINACTIVE,
+  ContinuousExportStatusSTARTFAILED,
+  ContinuousExportStatusSTARTINPROGRESS,
+  ContinuousExportStatusSTOPFAILED,
+  ContinuousExportStatusSTOPINPROGRESS,
   ContinuousExportStatus'
   #-}
 
-instance FromText ContinuousExportStatus where
-  parser = (ContinuousExportStatus' . mk) <$> takeText
+instance Prelude.FromText ContinuousExportStatus where
+  parser = ContinuousExportStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ContinuousExportStatus where
-  toText (ContinuousExportStatus' ci) = original ci
+instance Prelude.ToText ContinuousExportStatus where
+  toText (ContinuousExportStatus' x) = x
 
-instance Hashable ContinuousExportStatus
+instance Prelude.Hashable ContinuousExportStatus
 
-instance NFData ContinuousExportStatus
+instance Prelude.NFData ContinuousExportStatus
 
-instance ToByteString ContinuousExportStatus
+instance Prelude.ToByteString ContinuousExportStatus
 
-instance ToQuery ContinuousExportStatus
+instance Prelude.ToQuery ContinuousExportStatus
 
-instance ToHeader ContinuousExportStatus
+instance Prelude.ToHeader ContinuousExportStatus
 
-instance FromJSON ContinuousExportStatus where
-  parseJSON = parseJSONText "ContinuousExportStatus"
+instance Prelude.FromJSON ContinuousExportStatus where
+  parseJSON = Prelude.parseJSONText "ContinuousExportStatus"

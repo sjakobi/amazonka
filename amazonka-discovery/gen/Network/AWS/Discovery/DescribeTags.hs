@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,182 +21,226 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list of configuration items that have tags as specified by the key-value pairs, name and value, passed to the optional parameter @filters@ .
---
+-- Retrieves a list of configuration items that have tags as specified by
+-- the key-value pairs, name and value, passed to the optional parameter
+-- @filters@.
 --
 -- There are three valid tag filter names:
 --
---     * tagKey
+-- -   tagKey
 --
---     * tagValue
+-- -   tagValue
 --
---     * configurationId
+-- -   configurationId
 --
---
---
--- Also, all configuration items associated with your user account that have tags can be listed if you call @DescribeTags@ as is without passing any parameters.
---
+-- Also, all configuration items associated with your user account that
+-- have tags can be listed if you call @DescribeTags@ as is without passing
+-- any parameters.
 --
 -- This operation returns paginated results.
 module Network.AWS.Discovery.DescribeTags
   ( -- * Creating a Request
-    describeTags,
-    DescribeTags,
+    DescribeTags (..),
+    newDescribeTags,
 
     -- * Request Lenses
-    dtNextToken,
-    dtMaxResults,
-    dtFilters,
+    describeTags_nextToken,
+    describeTags_maxResults,
+    describeTags_filters,
 
     -- * Destructuring the Response
-    describeTagsResponse,
-    DescribeTagsResponse,
+    DescribeTagsResponse (..),
+    newDescribeTagsResponse,
 
     -- * Response Lenses
-    dtrrsNextToken,
-    dtrrsTags,
-    dtrrsResponseStatus,
+    describeTagsResponse_nextToken,
+    describeTagsResponse_tags,
+    describeTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Discovery.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Discovery.Types.ConfigurationTag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeTags' smart constructor.
+-- | /See:/ 'newDescribeTags' smart constructor.
 data DescribeTags = DescribeTags'
-  { _dtNextToken ::
-      !(Maybe Text),
-    _dtMaxResults :: !(Maybe Int),
-    _dtFilters :: !(Maybe [TagFilter])
+  { -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The total number of items to return in a single page of output. The
+    -- maximum value is 100.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | You can filter the list using a /key/-/value/ format. You can separate
+    -- these items by using logical operators. Allowed filters include
+    -- @tagKey@, @tagValue@, and @configurationId@.
+    filters :: Prelude.Maybe [TagFilter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtNextToken' - A token to start the list. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtMaxResults' - The total number of items to return in a single page of output. The maximum value is 100.
+-- 'nextToken', 'describeTags_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 --
--- * 'dtFilters' - You can filter the list using a /key/ -/value/ format. You can separate these items by using logical operators. Allowed filters include @tagKey@ , @tagValue@ , and @configurationId@ .
-describeTags ::
+-- 'maxResults', 'describeTags_maxResults' - The total number of items to return in a single page of output. The
+-- maximum value is 100.
+--
+-- 'filters', 'describeTags_filters' - You can filter the list using a /key/-/value/ format. You can separate
+-- these items by using logical operators. Allowed filters include
+-- @tagKey@, @tagValue@, and @configurationId@.
+newDescribeTags ::
   DescribeTags
-describeTags =
+newDescribeTags =
   DescribeTags'
-    { _dtNextToken = Nothing,
-      _dtMaxResults = Nothing,
-      _dtFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | A token to start the list. Use this token to get the next set of results.
-dtNextToken :: Lens' DescribeTags (Maybe Text)
-dtNextToken = lens _dtNextToken (\s a -> s {_dtNextToken = a})
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+describeTags_nextToken :: Lens.Lens' DescribeTags (Prelude.Maybe Prelude.Text)
+describeTags_nextToken = Lens.lens (\DescribeTags' {nextToken} -> nextToken) (\s@DescribeTags' {} a -> s {nextToken = a} :: DescribeTags)
 
--- | The total number of items to return in a single page of output. The maximum value is 100.
-dtMaxResults :: Lens' DescribeTags (Maybe Int)
-dtMaxResults = lens _dtMaxResults (\s a -> s {_dtMaxResults = a})
+-- | The total number of items to return in a single page of output. The
+-- maximum value is 100.
+describeTags_maxResults :: Lens.Lens' DescribeTags (Prelude.Maybe Prelude.Int)
+describeTags_maxResults = Lens.lens (\DescribeTags' {maxResults} -> maxResults) (\s@DescribeTags' {} a -> s {maxResults = a} :: DescribeTags)
 
--- | You can filter the list using a /key/ -/value/ format. You can separate these items by using logical operators. Allowed filters include @tagKey@ , @tagValue@ , and @configurationId@ .
-dtFilters :: Lens' DescribeTags [TagFilter]
-dtFilters = lens _dtFilters (\s a -> s {_dtFilters = a}) . _Default . _Coerce
+-- | You can filter the list using a /key/-/value/ format. You can separate
+-- these items by using logical operators. Allowed filters include
+-- @tagKey@, @tagValue@, and @configurationId@.
+describeTags_filters :: Lens.Lens' DescribeTags (Prelude.Maybe [TagFilter])
+describeTags_filters = Lens.lens (\DescribeTags' {filters} -> filters) (\s@DescribeTags' {} a -> s {filters = a} :: DescribeTags) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeTags where
+instance Pager.AWSPager DescribeTags where
   page rq rs
-    | stop (rs ^. dtrrsNextToken) = Nothing
-    | stop (rs ^. dtrrsTags) = Nothing
-    | otherwise =
-      Just $ rq & dtNextToken .~ rs ^. dtrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeTagsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeTagsResponse_tags Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeTags_nextToken
+          Lens..~ rs
+          Lens.^? describeTagsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest DescribeTags where
+instance Prelude.AWSRequest DescribeTags where
   type Rs DescribeTags = DescribeTagsResponse
-  request = postJSON discovery
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTagsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTags
+instance Prelude.Hashable DescribeTags
 
-instance NFData DescribeTags
+instance Prelude.NFData DescribeTags
 
-instance ToHeaders DescribeTags where
+instance Prelude.ToHeaders DescribeTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPoseidonService_V2015_11_01.DescribeTags" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPoseidonService_V2015_11_01.DescribeTags" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTags where
+instance Prelude.ToJSON DescribeTags where
   toJSON DescribeTags' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _dtNextToken,
-            ("maxResults" .=) <$> _dtMaxResults,
-            ("filters" .=) <$> _dtFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath DescribeTags where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTags where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeTagsResponse' smart constructor.
+-- | /See:/ 'newDescribeTagsResponse' smart constructor.
 data DescribeTagsResponse = DescribeTagsResponse'
-  { _dtrrsNextToken ::
-      !(Maybe Text),
-    _dtrrsTags ::
-      !(Maybe [ConfigurationTag]),
-    _dtrrsResponseStatus :: !Int
+  { -- | The call returns a token. Use this token to get the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Depending on the input, this is a list of configuration items tagged
+    -- with a specific tag, or a list of tags for a specific configuration
+    -- item.
+    tags :: Prelude.Maybe [ConfigurationTag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrrsNextToken' - The call returns a token. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtrrsTags' - Depending on the input, this is a list of configuration items tagged with a specific tag, or a list of tags for a specific configuration item.
+-- 'nextToken', 'describeTagsResponse_nextToken' - The call returns a token. Use this token to get the next set of results.
 --
--- * 'dtrrsResponseStatus' - -- | The response status code.
-describeTagsResponse ::
-  -- | 'dtrrsResponseStatus'
-  Int ->
+-- 'tags', 'describeTagsResponse_tags' - Depending on the input, this is a list of configuration items tagged
+-- with a specific tag, or a list of tags for a specific configuration
+-- item.
+--
+-- 'httpStatus', 'describeTagsResponse_httpStatus' - The response's http status code.
+newDescribeTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTagsResponse
-describeTagsResponse pResponseStatus_ =
+newDescribeTagsResponse pHttpStatus_ =
   DescribeTagsResponse'
-    { _dtrrsNextToken = Nothing,
-      _dtrrsTags = Nothing,
-      _dtrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The call returns a token. Use this token to get the next set of results.
-dtrrsNextToken :: Lens' DescribeTagsResponse (Maybe Text)
-dtrrsNextToken = lens _dtrrsNextToken (\s a -> s {_dtrrsNextToken = a})
+describeTagsResponse_nextToken :: Lens.Lens' DescribeTagsResponse (Prelude.Maybe Prelude.Text)
+describeTagsResponse_nextToken = Lens.lens (\DescribeTagsResponse' {nextToken} -> nextToken) (\s@DescribeTagsResponse' {} a -> s {nextToken = a} :: DescribeTagsResponse)
 
--- | Depending on the input, this is a list of configuration items tagged with a specific tag, or a list of tags for a specific configuration item.
-dtrrsTags :: Lens' DescribeTagsResponse [ConfigurationTag]
-dtrrsTags = lens _dtrrsTags (\s a -> s {_dtrrsTags = a}) . _Default . _Coerce
+-- | Depending on the input, this is a list of configuration items tagged
+-- with a specific tag, or a list of tags for a specific configuration
+-- item.
+describeTagsResponse_tags :: Lens.Lens' DescribeTagsResponse (Prelude.Maybe [ConfigurationTag])
+describeTagsResponse_tags = Lens.lens (\DescribeTagsResponse' {tags} -> tags) (\s@DescribeTagsResponse' {} a -> s {tags = a} :: DescribeTagsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dtrrsResponseStatus :: Lens' DescribeTagsResponse Int
-dtrrsResponseStatus = lens _dtrrsResponseStatus (\s a -> s {_dtrrsResponseStatus = a})
+-- | The response's http status code.
+describeTagsResponse_httpStatus :: Lens.Lens' DescribeTagsResponse Prelude.Int
+describeTagsResponse_httpStatus = Lens.lens (\DescribeTagsResponse' {httpStatus} -> httpStatus) (\s@DescribeTagsResponse' {} a -> s {httpStatus = a} :: DescribeTagsResponse)
 
-instance NFData DescribeTagsResponse
+instance Prelude.NFData DescribeTagsResponse

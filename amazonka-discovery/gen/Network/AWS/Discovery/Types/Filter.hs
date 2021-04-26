@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,98 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Discovery.Types.Filter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A filter that can use conditional operators.
 --
+-- For more information about filters, see
+-- <https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-api-queries.html Querying Discovered Configuration Items>
+-- in the /AWS Application Discovery Service User Guide/.
 --
--- For more information about filters, see <https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-api-queries.html Querying Discovered Configuration Items> in the /AWS Application Discovery Service User Guide/ .
---
---
--- /See:/ 'filter'' smart constructor.
+-- /See:/ 'newFilter' smart constructor.
 data Filter = Filter'
-  { _fName :: !Text,
-    _fValues :: ![Text],
-    _fCondition :: !Text
+  { -- | The name of the filter.
+    name :: Prelude.Text,
+    -- | A string value on which to filter. For example, if you choose the
+    -- @destinationServer.osVersion@ filter name, you could specify @Ubuntu@
+    -- for the value.
+    values :: [Prelude.Text],
+    -- | A conditional operator. The following operators are valid: EQUALS,
+    -- NOT_EQUALS, CONTAINS, NOT_CONTAINS. If you specify multiple filters, the
+    -- system utilizes all filters as though concatenated by /AND/. If you
+    -- specify multiple values for a particular filter, the system
+    -- differentiates the values using /OR/. Calling either
+    -- /DescribeConfigurations/ or /ListConfigurations/ returns attributes of
+    -- matching configuration items.
+    condition :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Filter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Filter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fName' - The name of the filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fValues' - A string value on which to filter. For example, if you choose the @destinationServer.osVersion@ filter name, you could specify @Ubuntu@ for the value.
+-- 'name', 'filter_name' - The name of the filter.
 --
--- * 'fCondition' - A conditional operator. The following operators are valid: EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS. If you specify multiple filters, the system utilizes all filters as though concatenated by /AND/ . If you specify multiple values for a particular filter, the system differentiates the values using /OR/ . Calling either /DescribeConfigurations/ or /ListConfigurations/ returns attributes of matching configuration items.
-filter' ::
-  -- | 'fName'
-  Text ->
-  -- | 'fCondition'
-  Text ->
+-- 'values', 'filter_values' - A string value on which to filter. For example, if you choose the
+-- @destinationServer.osVersion@ filter name, you could specify @Ubuntu@
+-- for the value.
+--
+-- 'condition', 'filter_condition' - A conditional operator. The following operators are valid: EQUALS,
+-- NOT_EQUALS, CONTAINS, NOT_CONTAINS. If you specify multiple filters, the
+-- system utilizes all filters as though concatenated by /AND/. If you
+-- specify multiple values for a particular filter, the system
+-- differentiates the values using /OR/. Calling either
+-- /DescribeConfigurations/ or /ListConfigurations/ returns attributes of
+-- matching configuration items.
+newFilter ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'condition'
+  Prelude.Text ->
   Filter
-filter' pName_ pCondition_ =
+newFilter pName_ pCondition_ =
   Filter'
-    { _fName = pName_,
-      _fValues = mempty,
-      _fCondition = pCondition_
+    { name = pName_,
+      values = Prelude.mempty,
+      condition = pCondition_
     }
 
 -- | The name of the filter.
-fName :: Lens' Filter Text
-fName = lens _fName (\s a -> s {_fName = a})
+filter_name :: Lens.Lens' Filter Prelude.Text
+filter_name = Lens.lens (\Filter' {name} -> name) (\s@Filter' {} a -> s {name = a} :: Filter)
 
--- | A string value on which to filter. For example, if you choose the @destinationServer.osVersion@ filter name, you could specify @Ubuntu@ for the value.
-fValues :: Lens' Filter [Text]
-fValues = lens _fValues (\s a -> s {_fValues = a}) . _Coerce
+-- | A string value on which to filter. For example, if you choose the
+-- @destinationServer.osVersion@ filter name, you could specify @Ubuntu@
+-- for the value.
+filter_values :: Lens.Lens' Filter [Prelude.Text]
+filter_values = Lens.lens (\Filter' {values} -> values) (\s@Filter' {} a -> s {values = a} :: Filter) Prelude.. Prelude._Coerce
 
--- | A conditional operator. The following operators are valid: EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS. If you specify multiple filters, the system utilizes all filters as though concatenated by /AND/ . If you specify multiple values for a particular filter, the system differentiates the values using /OR/ . Calling either /DescribeConfigurations/ or /ListConfigurations/ returns attributes of matching configuration items.
-fCondition :: Lens' Filter Text
-fCondition = lens _fCondition (\s a -> s {_fCondition = a})
+-- | A conditional operator. The following operators are valid: EQUALS,
+-- NOT_EQUALS, CONTAINS, NOT_CONTAINS. If you specify multiple filters, the
+-- system utilizes all filters as though concatenated by /AND/. If you
+-- specify multiple values for a particular filter, the system
+-- differentiates the values using /OR/. Calling either
+-- /DescribeConfigurations/ or /ListConfigurations/ returns attributes of
+-- matching configuration items.
+filter_condition :: Lens.Lens' Filter Prelude.Text
+filter_condition = Lens.lens (\Filter' {condition} -> condition) (\s@Filter' {} a -> s {condition = a} :: Filter)
 
-instance Hashable Filter
+instance Prelude.Hashable Filter
 
-instance NFData Filter
+instance Prelude.NFData Filter
 
-instance ToJSON Filter where
+instance Prelude.ToJSON Filter where
   toJSON Filter' {..} =
-    object
-      ( catMaybes
-          [ Just ("name" .= _fName),
-            Just ("values" .= _fValues),
-            Just ("condition" .= _fCondition)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("values" Prelude..= values),
+            Prelude.Just ("condition" Prelude..= condition)
           ]
       )

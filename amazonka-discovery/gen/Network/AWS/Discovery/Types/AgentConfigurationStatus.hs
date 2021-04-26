@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Discovery.Types.AgentConfigurationStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about agents or connectors that were instructed to start collecting data. Information includes the agent/connector ID, a description of the operation, and whether the agent/connector configuration was updated.
+-- | Information about agents or connectors that were instructed to start
+-- collecting data. Information includes the agent\/connector ID, a
+-- description of the operation, and whether the agent\/connector
+-- configuration was updated.
 --
---
---
--- /See:/ 'agentConfigurationStatus' smart constructor.
+-- /See:/ 'newAgentConfigurationStatus' smart constructor.
 data AgentConfigurationStatus = AgentConfigurationStatus'
-  { _acsAgentId ::
-      !(Maybe Text),
-    _acsOperationSucceeded ::
-      !(Maybe Bool),
-    _acsDescription ::
-      !(Maybe Text)
+  { -- | The agent\/connector ID.
+    agentId :: Prelude.Maybe Prelude.Text,
+    -- | Information about the status of the @StartDataCollection@ and
+    -- @StopDataCollection@ operations. The system has recorded the data
+    -- collection operation. The agent\/connector receives this command the
+    -- next time it polls for a new command.
+    operationSucceeded :: Prelude.Maybe Prelude.Bool,
+    -- | A description of the operation performed.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AgentConfigurationStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AgentConfigurationStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acsAgentId' - The agent/connector ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acsOperationSucceeded' - Information about the status of the @StartDataCollection@ and @StopDataCollection@ operations. The system has recorded the data collection operation. The agent/connector receives this command the next time it polls for a new command.
+-- 'agentId', 'agentConfigurationStatus_agentId' - The agent\/connector ID.
 --
--- * 'acsDescription' - A description of the operation performed.
-agentConfigurationStatus ::
+-- 'operationSucceeded', 'agentConfigurationStatus_operationSucceeded' - Information about the status of the @StartDataCollection@ and
+-- @StopDataCollection@ operations. The system has recorded the data
+-- collection operation. The agent\/connector receives this command the
+-- next time it polls for a new command.
+--
+-- 'description', 'agentConfigurationStatus_description' - A description of the operation performed.
+newAgentConfigurationStatus ::
   AgentConfigurationStatus
-agentConfigurationStatus =
+newAgentConfigurationStatus =
   AgentConfigurationStatus'
-    { _acsAgentId = Nothing,
-      _acsOperationSucceeded = Nothing,
-      _acsDescription = Nothing
+    { agentId =
+        Prelude.Nothing,
+      operationSucceeded = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
--- | The agent/connector ID.
-acsAgentId :: Lens' AgentConfigurationStatus (Maybe Text)
-acsAgentId = lens _acsAgentId (\s a -> s {_acsAgentId = a})
+-- | The agent\/connector ID.
+agentConfigurationStatus_agentId :: Lens.Lens' AgentConfigurationStatus (Prelude.Maybe Prelude.Text)
+agentConfigurationStatus_agentId = Lens.lens (\AgentConfigurationStatus' {agentId} -> agentId) (\s@AgentConfigurationStatus' {} a -> s {agentId = a} :: AgentConfigurationStatus)
 
--- | Information about the status of the @StartDataCollection@ and @StopDataCollection@ operations. The system has recorded the data collection operation. The agent/connector receives this command the next time it polls for a new command.
-acsOperationSucceeded :: Lens' AgentConfigurationStatus (Maybe Bool)
-acsOperationSucceeded = lens _acsOperationSucceeded (\s a -> s {_acsOperationSucceeded = a})
+-- | Information about the status of the @StartDataCollection@ and
+-- @StopDataCollection@ operations. The system has recorded the data
+-- collection operation. The agent\/connector receives this command the
+-- next time it polls for a new command.
+agentConfigurationStatus_operationSucceeded :: Lens.Lens' AgentConfigurationStatus (Prelude.Maybe Prelude.Bool)
+agentConfigurationStatus_operationSucceeded = Lens.lens (\AgentConfigurationStatus' {operationSucceeded} -> operationSucceeded) (\s@AgentConfigurationStatus' {} a -> s {operationSucceeded = a} :: AgentConfigurationStatus)
 
 -- | A description of the operation performed.
-acsDescription :: Lens' AgentConfigurationStatus (Maybe Text)
-acsDescription = lens _acsDescription (\s a -> s {_acsDescription = a})
+agentConfigurationStatus_description :: Lens.Lens' AgentConfigurationStatus (Prelude.Maybe Prelude.Text)
+agentConfigurationStatus_description = Lens.lens (\AgentConfigurationStatus' {description} -> description) (\s@AgentConfigurationStatus' {} a -> s {description = a} :: AgentConfigurationStatus)
 
-instance FromJSON AgentConfigurationStatus where
+instance Prelude.FromJSON AgentConfigurationStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AgentConfigurationStatus"
       ( \x ->
           AgentConfigurationStatus'
-            <$> (x .:? "agentId")
-            <*> (x .:? "operationSucceeded")
-            <*> (x .:? "description")
+            Prelude.<$> (x Prelude..:? "agentId")
+            Prelude.<*> (x Prelude..:? "operationSucceeded")
+            Prelude.<*> (x Prelude..:? "description")
       )
 
-instance Hashable AgentConfigurationStatus
+instance Prelude.Hashable AgentConfigurationStatus
 
-instance NFData AgentConfigurationStatus
+instance Prelude.NFData AgentConfigurationStatus

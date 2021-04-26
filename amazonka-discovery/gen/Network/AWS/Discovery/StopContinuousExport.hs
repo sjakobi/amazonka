@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stop the continuous flow of agent's discovered data into Amazon Athena.
+-- Stop the continuous flow of agent\'s discovered data into Amazon Athena.
 module Network.AWS.Discovery.StopContinuousExport
   ( -- * Creating a Request
-    stopContinuousExport,
-    StopContinuousExport,
+    StopContinuousExport (..),
+    newStopContinuousExport,
 
     -- * Request Lenses
-    sceExportId,
+    stopContinuousExport_exportId,
 
     -- * Destructuring the Response
-    stopContinuousExportResponse,
-    StopContinuousExportResponse,
+    StopContinuousExportResponse (..),
+    newStopContinuousExportResponse,
 
     -- * Response Lenses
-    scerrsStartTime,
-    scerrsStopTime,
-    scerrsResponseStatus,
+    stopContinuousExportResponse_startTime,
+    stopContinuousExportResponse_stopTime,
+    stopContinuousExportResponse_httpStatus,
   )
 where
 
 import Network.AWS.Discovery.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopContinuousExport' smart constructor.
-newtype StopContinuousExport = StopContinuousExport'
-  { _sceExportId ::
-      Text
+-- | /See:/ 'newStopContinuousExport' smart constructor.
+data StopContinuousExport = StopContinuousExport'
+  { -- | The unique ID assigned to this export.
+    exportId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopContinuousExport' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopContinuousExport' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sceExportId' - The unique ID assigned to this export.
-stopContinuousExport ::
-  -- | 'sceExportId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'exportId', 'stopContinuousExport_exportId' - The unique ID assigned to this export.
+newStopContinuousExport ::
+  -- | 'exportId'
+  Prelude.Text ->
   StopContinuousExport
-stopContinuousExport pExportId_ =
-  StopContinuousExport' {_sceExportId = pExportId_}
+newStopContinuousExport pExportId_ =
+  StopContinuousExport' {exportId = pExportId_}
 
 -- | The unique ID assigned to this export.
-sceExportId :: Lens' StopContinuousExport Text
-sceExportId = lens _sceExportId (\s a -> s {_sceExportId = a})
+stopContinuousExport_exportId :: Lens.Lens' StopContinuousExport Prelude.Text
+stopContinuousExport_exportId = Lens.lens (\StopContinuousExport' {exportId} -> exportId) (\s@StopContinuousExport' {} a -> s {exportId = a} :: StopContinuousExport)
 
-instance AWSRequest StopContinuousExport where
+instance Prelude.AWSRequest StopContinuousExport where
   type
     Rs StopContinuousExport =
       StopContinuousExportResponse
-  request = postJSON discovery
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopContinuousExportResponse'
-            <$> (x .?> "startTime")
-            <*> (x .?> "stopTime")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "startTime")
+            Prelude.<*> (x Prelude..?> "stopTime")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopContinuousExport
+instance Prelude.Hashable StopContinuousExport
 
-instance NFData StopContinuousExport
+instance Prelude.NFData StopContinuousExport
 
-instance ToHeaders StopContinuousExport where
+instance Prelude.ToHeaders StopContinuousExport where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPoseidonService_V2015_11_01.StopContinuousExport" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPoseidonService_V2015_11_01.StopContinuousExport" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopContinuousExport where
+instance Prelude.ToJSON StopContinuousExport where
   toJSON StopContinuousExport' {..} =
-    object
-      (catMaybes [Just ("exportId" .= _sceExportId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("exportId" Prelude..= exportId)]
+      )
 
-instance ToPath StopContinuousExport where
-  toPath = const "/"
+instance Prelude.ToPath StopContinuousExport where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopContinuousExport where
-  toQuery = const mempty
+instance Prelude.ToQuery StopContinuousExport where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopContinuousExportResponse' smart constructor.
+-- | /See:/ 'newStopContinuousExportResponse' smart constructor.
 data StopContinuousExportResponse = StopContinuousExportResponse'
-  { _scerrsStartTime ::
-      !( Maybe
-           POSIX
-       ),
-    _scerrsStopTime ::
-      !( Maybe
-           POSIX
-       ),
-    _scerrsResponseStatus ::
-      !Int
+  { -- | Timestamp that represents when this continuous export started collecting
+    -- data.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Timestamp that represents when this continuous export was stopped.
+    stopTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopContinuousExportResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopContinuousExportResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scerrsStartTime' - Timestamp that represents when this continuous export started collecting data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scerrsStopTime' - Timestamp that represents when this continuous export was stopped.
+-- 'startTime', 'stopContinuousExportResponse_startTime' - Timestamp that represents when this continuous export started collecting
+-- data.
 --
--- * 'scerrsResponseStatus' - -- | The response status code.
-stopContinuousExportResponse ::
-  -- | 'scerrsResponseStatus'
-  Int ->
+-- 'stopTime', 'stopContinuousExportResponse_stopTime' - Timestamp that represents when this continuous export was stopped.
+--
+-- 'httpStatus', 'stopContinuousExportResponse_httpStatus' - The response's http status code.
+newStopContinuousExportResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopContinuousExportResponse
-stopContinuousExportResponse pResponseStatus_ =
+newStopContinuousExportResponse pHttpStatus_ =
   StopContinuousExportResponse'
-    { _scerrsStartTime =
-        Nothing,
-      _scerrsStopTime = Nothing,
-      _scerrsResponseStatus = pResponseStatus_
+    { startTime =
+        Prelude.Nothing,
+      stopTime = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Timestamp that represents when this continuous export started collecting data.
-scerrsStartTime :: Lens' StopContinuousExportResponse (Maybe UTCTime)
-scerrsStartTime = lens _scerrsStartTime (\s a -> s {_scerrsStartTime = a}) . mapping _Time
+-- | Timestamp that represents when this continuous export started collecting
+-- data.
+stopContinuousExportResponse_startTime :: Lens.Lens' StopContinuousExportResponse (Prelude.Maybe Prelude.UTCTime)
+stopContinuousExportResponse_startTime = Lens.lens (\StopContinuousExportResponse' {startTime} -> startTime) (\s@StopContinuousExportResponse' {} a -> s {startTime = a} :: StopContinuousExportResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | Timestamp that represents when this continuous export was stopped.
-scerrsStopTime :: Lens' StopContinuousExportResponse (Maybe UTCTime)
-scerrsStopTime = lens _scerrsStopTime (\s a -> s {_scerrsStopTime = a}) . mapping _Time
+stopContinuousExportResponse_stopTime :: Lens.Lens' StopContinuousExportResponse (Prelude.Maybe Prelude.UTCTime)
+stopContinuousExportResponse_stopTime = Lens.lens (\StopContinuousExportResponse' {stopTime} -> stopTime) (\s@StopContinuousExportResponse' {} a -> s {stopTime = a} :: StopContinuousExportResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-scerrsResponseStatus :: Lens' StopContinuousExportResponse Int
-scerrsResponseStatus = lens _scerrsResponseStatus (\s a -> s {_scerrsResponseStatus = a})
+-- | The response's http status code.
+stopContinuousExportResponse_httpStatus :: Lens.Lens' StopContinuousExportResponse Prelude.Int
+stopContinuousExportResponse_httpStatus = Lens.lens (\StopContinuousExportResponse' {httpStatus} -> httpStatus) (\s@StopContinuousExportResponse' {} a -> s {httpStatus = a} :: StopContinuousExportResponse)
 
-instance NFData StopContinuousExportResponse
+instance Prelude.NFData StopContinuousExportResponse

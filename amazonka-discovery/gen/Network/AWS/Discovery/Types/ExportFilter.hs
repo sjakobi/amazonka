@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Discovery.Types.ExportFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Used to select which agent's data is to be exported. A single agent ID may be selected for export using the <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_StartExportTask.html StartExportTask> action.
+-- | Used to select which agent\'s data is to be exported. A single agent ID
+-- may be selected for export using the
+-- <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_StartExportTask.html StartExportTask>
+-- action.
 --
---
---
--- /See:/ 'exportFilter' smart constructor.
+-- /See:/ 'newExportFilter' smart constructor.
 data ExportFilter = ExportFilter'
-  { _efName :: !Text,
-    _efValues :: ![Text],
-    _efCondition :: !Text
+  { -- | A single @ExportFilter@ name. Supported filters: @agentId@.
+    name :: Prelude.Text,
+    -- | A single @agentId@ for a Discovery Agent. An @agentId@ can be found
+    -- using the
+    -- <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeExportTasks.html DescribeAgents>
+    -- action. Typically an ADS @agentId@ is in the form @o-0123456789abcdef0@.
+    values :: [Prelude.Text],
+    -- | Supported condition: @EQUALS@
+    condition :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'efName' - A single @ExportFilter@ name. Supported filters: @agentId@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'efValues' - A single @agentId@ for a Discovery Agent. An @agentId@ can be found using the <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeExportTasks.html DescribeAgents> action. Typically an ADS @agentId@ is in the form @o-0123456789abcdef0@ .
+-- 'name', 'exportFilter_name' - A single @ExportFilter@ name. Supported filters: @agentId@.
 --
--- * 'efCondition' - Supported condition: @EQUALS@
-exportFilter ::
-  -- | 'efName'
-  Text ->
-  -- | 'efCondition'
-  Text ->
+-- 'values', 'exportFilter_values' - A single @agentId@ for a Discovery Agent. An @agentId@ can be found
+-- using the
+-- <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeExportTasks.html DescribeAgents>
+-- action. Typically an ADS @agentId@ is in the form @o-0123456789abcdef0@.
+--
+-- 'condition', 'exportFilter_condition' - Supported condition: @EQUALS@
+newExportFilter ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'condition'
+  Prelude.Text ->
   ExportFilter
-exportFilter pName_ pCondition_ =
+newExportFilter pName_ pCondition_ =
   ExportFilter'
-    { _efName = pName_,
-      _efValues = mempty,
-      _efCondition = pCondition_
+    { name = pName_,
+      values = Prelude.mempty,
+      condition = pCondition_
     }
 
--- | A single @ExportFilter@ name. Supported filters: @agentId@ .
-efName :: Lens' ExportFilter Text
-efName = lens _efName (\s a -> s {_efName = a})
+-- | A single @ExportFilter@ name. Supported filters: @agentId@.
+exportFilter_name :: Lens.Lens' ExportFilter Prelude.Text
+exportFilter_name = Lens.lens (\ExportFilter' {name} -> name) (\s@ExportFilter' {} a -> s {name = a} :: ExportFilter)
 
--- | A single @agentId@ for a Discovery Agent. An @agentId@ can be found using the <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeExportTasks.html DescribeAgents> action. Typically an ADS @agentId@ is in the form @o-0123456789abcdef0@ .
-efValues :: Lens' ExportFilter [Text]
-efValues = lens _efValues (\s a -> s {_efValues = a}) . _Coerce
+-- | A single @agentId@ for a Discovery Agent. An @agentId@ can be found
+-- using the
+-- <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeExportTasks.html DescribeAgents>
+-- action. Typically an ADS @agentId@ is in the form @o-0123456789abcdef0@.
+exportFilter_values :: Lens.Lens' ExportFilter [Prelude.Text]
+exportFilter_values = Lens.lens (\ExportFilter' {values} -> values) (\s@ExportFilter' {} a -> s {values = a} :: ExportFilter) Prelude.. Prelude._Coerce
 
 -- | Supported condition: @EQUALS@
-efCondition :: Lens' ExportFilter Text
-efCondition = lens _efCondition (\s a -> s {_efCondition = a})
+exportFilter_condition :: Lens.Lens' ExportFilter Prelude.Text
+exportFilter_condition = Lens.lens (\ExportFilter' {condition} -> condition) (\s@ExportFilter' {} a -> s {condition = a} :: ExportFilter)
 
-instance Hashable ExportFilter
+instance Prelude.Hashable ExportFilter
 
-instance NFData ExportFilter
+instance Prelude.NFData ExportFilter
 
-instance ToJSON ExportFilter where
+instance Prelude.ToJSON ExportFilter where
   toJSON ExportFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("name" .= _efName),
-            Just ("values" .= _efValues),
-            Just ("condition" .= _efCondition)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("values" Prelude..= values),
+            Prelude.Just ("condition" Prelude..= condition)
           ]
       )

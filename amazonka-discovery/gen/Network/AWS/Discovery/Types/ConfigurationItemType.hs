@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.Discovery.Types.ConfigurationItemType
   ( ConfigurationItemType
       ( ..,
-        Application,
-        Connection,
-        Process,
-        Server
+        ConfigurationItemTypeAPPLICATION,
+        ConfigurationItemTypeCONNECTION,
+        ConfigurationItemTypePROCESS,
+        ConfigurationItemTypeSERVER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConfigurationItemType
-  = ConfigurationItemType'
-      ( CI
-          Text
-      )
+newtype ConfigurationItemType = ConfigurationItemType'
+  { fromConfigurationItemType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Application :: ConfigurationItemType
-pattern Application = ConfigurationItemType' "APPLICATION"
+pattern ConfigurationItemTypeAPPLICATION :: ConfigurationItemType
+pattern ConfigurationItemTypeAPPLICATION = ConfigurationItemType' "APPLICATION"
 
-pattern Connection :: ConfigurationItemType
-pattern Connection = ConfigurationItemType' "CONNECTION"
+pattern ConfigurationItemTypeCONNECTION :: ConfigurationItemType
+pattern ConfigurationItemTypeCONNECTION = ConfigurationItemType' "CONNECTION"
 
-pattern Process :: ConfigurationItemType
-pattern Process = ConfigurationItemType' "PROCESS"
+pattern ConfigurationItemTypePROCESS :: ConfigurationItemType
+pattern ConfigurationItemTypePROCESS = ConfigurationItemType' "PROCESS"
 
-pattern Server :: ConfigurationItemType
-pattern Server = ConfigurationItemType' "SERVER"
+pattern ConfigurationItemTypeSERVER :: ConfigurationItemType
+pattern ConfigurationItemTypeSERVER = ConfigurationItemType' "SERVER"
 
 {-# COMPLETE
-  Application,
-  Connection,
-  Process,
-  Server,
+  ConfigurationItemTypeAPPLICATION,
+  ConfigurationItemTypeCONNECTION,
+  ConfigurationItemTypePROCESS,
+  ConfigurationItemTypeSERVER,
   ConfigurationItemType'
   #-}
 
-instance FromText ConfigurationItemType where
-  parser = (ConfigurationItemType' . mk) <$> takeText
+instance Prelude.FromText ConfigurationItemType where
+  parser = ConfigurationItemType' Prelude.<$> Prelude.takeText
 
-instance ToText ConfigurationItemType where
-  toText (ConfigurationItemType' ci) = original ci
+instance Prelude.ToText ConfigurationItemType where
+  toText (ConfigurationItemType' x) = x
 
-instance Hashable ConfigurationItemType
+instance Prelude.Hashable ConfigurationItemType
 
-instance NFData ConfigurationItemType
+instance Prelude.NFData ConfigurationItemType
 
-instance ToByteString ConfigurationItemType
+instance Prelude.ToByteString ConfigurationItemType
 
-instance ToQuery ConfigurationItemType
+instance Prelude.ToQuery ConfigurationItemType
 
-instance ToHeader ConfigurationItemType
+instance Prelude.ToHeader ConfigurationItemType
 
-instance ToJSON ConfigurationItemType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConfigurationItemType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ConfigurationItemType where
-  parseJSON = parseJSONText "ConfigurationItemType"
+instance Prelude.FromJSON ConfigurationItemType where
+  parseJSON = Prelude.parseJSONText "ConfigurationItemType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,142 +24,160 @@
 -- Instructs the specified agents or connectors to stop collecting data.
 module Network.AWS.Discovery.StopDataCollectionByAgentIds
   ( -- * Creating a Request
-    stopDataCollectionByAgentIds,
-    StopDataCollectionByAgentIds,
+    StopDataCollectionByAgentIds (..),
+    newStopDataCollectionByAgentIds,
 
     -- * Request Lenses
-    sdcbaiAgentIds,
+    stopDataCollectionByAgentIds_agentIds,
 
     -- * Destructuring the Response
-    stopDataCollectionByAgentIdsResponse,
-    StopDataCollectionByAgentIdsResponse,
+    StopDataCollectionByAgentIdsResponse (..),
+    newStopDataCollectionByAgentIdsResponse,
 
     -- * Response Lenses
-    srsAgentsConfigurationStatus,
-    srsResponseStatus,
+    stopDataCollectionByAgentIdsResponse_agentsConfigurationStatus,
+    stopDataCollectionByAgentIdsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Discovery.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Discovery.Types.AgentConfigurationStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopDataCollectionByAgentIds' smart constructor.
-newtype StopDataCollectionByAgentIds = StopDataCollectionByAgentIds'
-  { _sdcbaiAgentIds ::
-      [Text]
+-- | /See:/ 'newStopDataCollectionByAgentIds' smart constructor.
+data StopDataCollectionByAgentIds = StopDataCollectionByAgentIds'
+  { -- | The IDs of the agents or connectors from which to stop collecting data.
+    agentIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopDataCollectionByAgentIds' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopDataCollectionByAgentIds' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdcbaiAgentIds' - The IDs of the agents or connectors from which to stop collecting data.
-stopDataCollectionByAgentIds ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'agentIds', 'stopDataCollectionByAgentIds_agentIds' - The IDs of the agents or connectors from which to stop collecting data.
+newStopDataCollectionByAgentIds ::
   StopDataCollectionByAgentIds
-stopDataCollectionByAgentIds =
+newStopDataCollectionByAgentIds =
   StopDataCollectionByAgentIds'
-    { _sdcbaiAgentIds =
-        mempty
+    { agentIds =
+        Prelude.mempty
     }
 
 -- | The IDs of the agents or connectors from which to stop collecting data.
-sdcbaiAgentIds :: Lens' StopDataCollectionByAgentIds [Text]
-sdcbaiAgentIds = lens _sdcbaiAgentIds (\s a -> s {_sdcbaiAgentIds = a}) . _Coerce
+stopDataCollectionByAgentIds_agentIds :: Lens.Lens' StopDataCollectionByAgentIds [Prelude.Text]
+stopDataCollectionByAgentIds_agentIds = Lens.lens (\StopDataCollectionByAgentIds' {agentIds} -> agentIds) (\s@StopDataCollectionByAgentIds' {} a -> s {agentIds = a} :: StopDataCollectionByAgentIds) Prelude.. Prelude._Coerce
 
-instance AWSRequest StopDataCollectionByAgentIds where
+instance
+  Prelude.AWSRequest
+    StopDataCollectionByAgentIds
+  where
   type
     Rs StopDataCollectionByAgentIds =
       StopDataCollectionByAgentIdsResponse
-  request = postJSON discovery
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopDataCollectionByAgentIdsResponse'
-            <$> (x .?> "agentsConfigurationStatus" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "agentsConfigurationStatus"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopDataCollectionByAgentIds
+instance
+  Prelude.Hashable
+    StopDataCollectionByAgentIds
 
-instance NFData StopDataCollectionByAgentIds
+instance Prelude.NFData StopDataCollectionByAgentIds
 
-instance ToHeaders StopDataCollectionByAgentIds where
+instance
+  Prelude.ToHeaders
+    StopDataCollectionByAgentIds
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPoseidonService_V2015_11_01.StopDataCollectionByAgentIds" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPoseidonService_V2015_11_01.StopDataCollectionByAgentIds" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopDataCollectionByAgentIds where
+instance Prelude.ToJSON StopDataCollectionByAgentIds where
   toJSON StopDataCollectionByAgentIds' {..} =
-    object
-      (catMaybes [Just ("agentIds" .= _sdcbaiAgentIds)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("agentIds" Prelude..= agentIds)]
+      )
 
-instance ToPath StopDataCollectionByAgentIds where
-  toPath = const "/"
+instance Prelude.ToPath StopDataCollectionByAgentIds where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopDataCollectionByAgentIds where
-  toQuery = const mempty
+instance Prelude.ToQuery StopDataCollectionByAgentIds where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopDataCollectionByAgentIdsResponse' smart constructor.
+-- | /See:/ 'newStopDataCollectionByAgentIdsResponse' smart constructor.
 data StopDataCollectionByAgentIdsResponse = StopDataCollectionByAgentIdsResponse'
-  { _srsAgentsConfigurationStatus ::
-      !( Maybe
-           [AgentConfigurationStatus]
-       ),
-    _srsResponseStatus ::
-      !Int
+  { -- | Information about the agents or connector that were instructed to stop
+    -- collecting data. Information includes the agent\/connector ID, a
+    -- description of the operation performed, and whether the agent\/connector
+    -- configuration was updated.
+    agentsConfigurationStatus :: Prelude.Maybe [AgentConfigurationStatus],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopDataCollectionByAgentIdsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopDataCollectionByAgentIdsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsAgentsConfigurationStatus' - Information about the agents or connector that were instructed to stop collecting data. Information includes the agent/connector ID, a description of the operation performed, and whether the agent/connector configuration was updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srsResponseStatus' - -- | The response status code.
-stopDataCollectionByAgentIdsResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- 'agentsConfigurationStatus', 'stopDataCollectionByAgentIdsResponse_agentsConfigurationStatus' - Information about the agents or connector that were instructed to stop
+-- collecting data. Information includes the agent\/connector ID, a
+-- description of the operation performed, and whether the agent\/connector
+-- configuration was updated.
+--
+-- 'httpStatus', 'stopDataCollectionByAgentIdsResponse_httpStatus' - The response's http status code.
+newStopDataCollectionByAgentIdsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopDataCollectionByAgentIdsResponse
-stopDataCollectionByAgentIdsResponse pResponseStatus_ =
+newStopDataCollectionByAgentIdsResponse pHttpStatus_ =
   StopDataCollectionByAgentIdsResponse'
-    { _srsAgentsConfigurationStatus =
-        Nothing,
-      _srsResponseStatus = pResponseStatus_
+    { agentsConfigurationStatus =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Information about the agents or connector that were instructed to stop collecting data. Information includes the agent/connector ID, a description of the operation performed, and whether the agent/connector configuration was updated.
-srsAgentsConfigurationStatus :: Lens' StopDataCollectionByAgentIdsResponse [AgentConfigurationStatus]
-srsAgentsConfigurationStatus = lens _srsAgentsConfigurationStatus (\s a -> s {_srsAgentsConfigurationStatus = a}) . _Default . _Coerce
+-- | Information about the agents or connector that were instructed to stop
+-- collecting data. Information includes the agent\/connector ID, a
+-- description of the operation performed, and whether the agent\/connector
+-- configuration was updated.
+stopDataCollectionByAgentIdsResponse_agentsConfigurationStatus :: Lens.Lens' StopDataCollectionByAgentIdsResponse (Prelude.Maybe [AgentConfigurationStatus])
+stopDataCollectionByAgentIdsResponse_agentsConfigurationStatus = Lens.lens (\StopDataCollectionByAgentIdsResponse' {agentsConfigurationStatus} -> agentsConfigurationStatus) (\s@StopDataCollectionByAgentIdsResponse' {} a -> s {agentsConfigurationStatus = a} :: StopDataCollectionByAgentIdsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StopDataCollectionByAgentIdsResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+stopDataCollectionByAgentIdsResponse_httpStatus :: Lens.Lens' StopDataCollectionByAgentIdsResponse Prelude.Int
+stopDataCollectionByAgentIdsResponse_httpStatus = Lens.lens (\StopDataCollectionByAgentIdsResponse' {httpStatus} -> httpStatus) (\s@StopDataCollectionByAgentIdsResponse' {} a -> s {httpStatus = a} :: StopDataCollectionByAgentIdsResponse)
 
-instance NFData StopDataCollectionByAgentIdsResponse
+instance
+  Prelude.NFData
+    StopDataCollectionByAgentIdsResponse

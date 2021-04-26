@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,75 +20,69 @@
 module Network.AWS.Discovery.Types.BatchDeleteImportDataError where
 
 import Network.AWS.Discovery.Types.BatchDeleteImportDataErrorCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Error messages returned for each import task that you deleted as a response for this command.
+-- | Error messages returned for each import task that you deleted as a
+-- response for this command.
 --
---
---
--- /See:/ 'batchDeleteImportDataError' smart constructor.
+-- /See:/ 'newBatchDeleteImportDataError' smart constructor.
 data BatchDeleteImportDataError = BatchDeleteImportDataError'
-  { _bdideErrorDescription ::
-      !(Maybe Text),
-    _bdideImportTaskId ::
-      !(Maybe Text),
-    _bdideErrorCode ::
-      !( Maybe
-           BatchDeleteImportDataErrorCode
-       )
+  { -- | The description of the error that occurred for a specific import task.
+    errorDescription :: Prelude.Maybe Prelude.Text,
+    -- | The unique import ID associated with the error that occurred.
+    importTaskId :: Prelude.Maybe Prelude.Text,
+    -- | The type of error that occurred for a specific import task.
+    errorCode :: Prelude.Maybe BatchDeleteImportDataErrorCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDeleteImportDataError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDeleteImportDataError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdideErrorDescription' - The description of the error that occurred for a specific import task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdideImportTaskId' - The unique import ID associated with the error that occurred.
+-- 'errorDescription', 'batchDeleteImportDataError_errorDescription' - The description of the error that occurred for a specific import task.
 --
--- * 'bdideErrorCode' - The type of error that occurred for a specific import task.
-batchDeleteImportDataError ::
+-- 'importTaskId', 'batchDeleteImportDataError_importTaskId' - The unique import ID associated with the error that occurred.
+--
+-- 'errorCode', 'batchDeleteImportDataError_errorCode' - The type of error that occurred for a specific import task.
+newBatchDeleteImportDataError ::
   BatchDeleteImportDataError
-batchDeleteImportDataError =
+newBatchDeleteImportDataError =
   BatchDeleteImportDataError'
-    { _bdideErrorDescription =
-        Nothing,
-      _bdideImportTaskId = Nothing,
-      _bdideErrorCode = Nothing
+    { errorDescription =
+        Prelude.Nothing,
+      importTaskId = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The description of the error that occurred for a specific import task.
-bdideErrorDescription :: Lens' BatchDeleteImportDataError (Maybe Text)
-bdideErrorDescription = lens _bdideErrorDescription (\s a -> s {_bdideErrorDescription = a})
+batchDeleteImportDataError_errorDescription :: Lens.Lens' BatchDeleteImportDataError (Prelude.Maybe Prelude.Text)
+batchDeleteImportDataError_errorDescription = Lens.lens (\BatchDeleteImportDataError' {errorDescription} -> errorDescription) (\s@BatchDeleteImportDataError' {} a -> s {errorDescription = a} :: BatchDeleteImportDataError)
 
 -- | The unique import ID associated with the error that occurred.
-bdideImportTaskId :: Lens' BatchDeleteImportDataError (Maybe Text)
-bdideImportTaskId = lens _bdideImportTaskId (\s a -> s {_bdideImportTaskId = a})
+batchDeleteImportDataError_importTaskId :: Lens.Lens' BatchDeleteImportDataError (Prelude.Maybe Prelude.Text)
+batchDeleteImportDataError_importTaskId = Lens.lens (\BatchDeleteImportDataError' {importTaskId} -> importTaskId) (\s@BatchDeleteImportDataError' {} a -> s {importTaskId = a} :: BatchDeleteImportDataError)
 
 -- | The type of error that occurred for a specific import task.
-bdideErrorCode :: Lens' BatchDeleteImportDataError (Maybe BatchDeleteImportDataErrorCode)
-bdideErrorCode = lens _bdideErrorCode (\s a -> s {_bdideErrorCode = a})
+batchDeleteImportDataError_errorCode :: Lens.Lens' BatchDeleteImportDataError (Prelude.Maybe BatchDeleteImportDataErrorCode)
+batchDeleteImportDataError_errorCode = Lens.lens (\BatchDeleteImportDataError' {errorCode} -> errorCode) (\s@BatchDeleteImportDataError' {} a -> s {errorCode = a} :: BatchDeleteImportDataError)
 
-instance FromJSON BatchDeleteImportDataError where
+instance Prelude.FromJSON BatchDeleteImportDataError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchDeleteImportDataError"
       ( \x ->
           BatchDeleteImportDataError'
-            <$> (x .:? "errorDescription")
-            <*> (x .:? "importTaskId")
-            <*> (x .:? "errorCode")
+            Prelude.<$> (x Prelude..:? "errorDescription")
+            Prelude.<*> (x Prelude..:? "importTaskId")
+            Prelude.<*> (x Prelude..:? "errorCode")
       )
 
-instance Hashable BatchDeleteImportDataError
+instance Prelude.Hashable BatchDeleteImportDataError
 
-instance NFData BatchDeleteImportDataError
+instance Prelude.NFData BatchDeleteImportDataError

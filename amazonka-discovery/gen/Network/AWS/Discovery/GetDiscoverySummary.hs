@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,184 +23,182 @@
 --
 -- Retrieves a short summary of discovered assets.
 --
---
--- This API operation takes no request parameters and is called as is at the command prompt as shown in the example.
+-- This API operation takes no request parameters and is called as is at
+-- the command prompt as shown in the example.
 module Network.AWS.Discovery.GetDiscoverySummary
   ( -- * Creating a Request
-    getDiscoverySummary,
-    GetDiscoverySummary,
+    GetDiscoverySummary (..),
+    newGetDiscoverySummary,
 
     -- * Destructuring the Response
-    getDiscoverySummaryResponse,
-    GetDiscoverySummaryResponse,
+    GetDiscoverySummaryResponse (..),
+    newGetDiscoverySummaryResponse,
 
     -- * Response Lenses
-    gdsrrsServers,
-    gdsrrsAgentSummary,
-    gdsrrsConnectorSummary,
-    gdsrrsServersMappedToApplications,
-    gdsrrsApplications,
-    gdsrrsServersMappedtoTags,
-    gdsrrsResponseStatus,
+    getDiscoverySummaryResponse_servers,
+    getDiscoverySummaryResponse_agentSummary,
+    getDiscoverySummaryResponse_connectorSummary,
+    getDiscoverySummaryResponse_serversMappedToApplications,
+    getDiscoverySummaryResponse_applications,
+    getDiscoverySummaryResponse_serversMappedtoTags,
+    getDiscoverySummaryResponse_httpStatus,
   )
 where
 
 import Network.AWS.Discovery.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Discovery.Types.CustomerAgentInfo
+import Network.AWS.Discovery.Types.CustomerConnectorInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDiscoverySummary' smart constructor.
+-- | /See:/ 'newGetDiscoverySummary' smart constructor.
 data GetDiscoverySummary = GetDiscoverySummary'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDiscoverySummary' with the minimum fields required to make a request.
-getDiscoverySummary ::
+-- |
+-- Create a value of 'GetDiscoverySummary' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetDiscoverySummary ::
   GetDiscoverySummary
-getDiscoverySummary = GetDiscoverySummary'
+newGetDiscoverySummary = GetDiscoverySummary'
 
-instance AWSRequest GetDiscoverySummary where
+instance Prelude.AWSRequest GetDiscoverySummary where
   type
     Rs GetDiscoverySummary =
       GetDiscoverySummaryResponse
-  request = postJSON discovery
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDiscoverySummaryResponse'
-            <$> (x .?> "servers")
-            <*> (x .?> "agentSummary")
-            <*> (x .?> "connectorSummary")
-            <*> (x .?> "serversMappedToApplications")
-            <*> (x .?> "applications")
-            <*> (x .?> "serversMappedtoTags")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "servers")
+            Prelude.<*> (x Prelude..?> "agentSummary")
+            Prelude.<*> (x Prelude..?> "connectorSummary")
+            Prelude.<*> (x Prelude..?> "serversMappedToApplications")
+            Prelude.<*> (x Prelude..?> "applications")
+            Prelude.<*> (x Prelude..?> "serversMappedtoTags")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDiscoverySummary
+instance Prelude.Hashable GetDiscoverySummary
 
-instance NFData GetDiscoverySummary
+instance Prelude.NFData GetDiscoverySummary
 
-instance ToHeaders GetDiscoverySummary where
+instance Prelude.ToHeaders GetDiscoverySummary where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPoseidonService_V2015_11_01.GetDiscoverySummary" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPoseidonService_V2015_11_01.GetDiscoverySummary" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDiscoverySummary where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON GetDiscoverySummary where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetDiscoverySummary where
-  toPath = const "/"
+instance Prelude.ToPath GetDiscoverySummary where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDiscoverySummary where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDiscoverySummary where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDiscoverySummaryResponse' smart constructor.
+-- | /See:/ 'newGetDiscoverySummaryResponse' smart constructor.
 data GetDiscoverySummaryResponse = GetDiscoverySummaryResponse'
-  { _gdsrrsServers ::
-      !( Maybe
-           Integer
-       ),
-    _gdsrrsAgentSummary ::
-      !( Maybe
-           CustomerAgentInfo
-       ),
-    _gdsrrsConnectorSummary ::
-      !( Maybe
-           CustomerConnectorInfo
-       ),
-    _gdsrrsServersMappedToApplications ::
-      !( Maybe
-           Integer
-       ),
-    _gdsrrsApplications ::
-      !( Maybe
-           Integer
-       ),
-    _gdsrrsServersMappedtoTags ::
-      !( Maybe
-           Integer
-       ),
-    _gdsrrsResponseStatus ::
-      !Int
+  { -- | The number of servers discovered.
+    servers :: Prelude.Maybe Prelude.Integer,
+    -- | Details about discovered agents, including agent status and health.
+    agentSummary :: Prelude.Maybe CustomerAgentInfo,
+    -- | Details about discovered connectors, including connector status and
+    -- health.
+    connectorSummary :: Prelude.Maybe CustomerConnectorInfo,
+    -- | The number of servers mapped to applications.
+    serversMappedToApplications :: Prelude.Maybe Prelude.Integer,
+    -- | The number of applications discovered.
+    applications :: Prelude.Maybe Prelude.Integer,
+    -- | The number of servers mapped to tags.
+    serversMappedtoTags :: Prelude.Maybe Prelude.Integer,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDiscoverySummaryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDiscoverySummaryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdsrrsServers' - The number of servers discovered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdsrrsAgentSummary' - Details about discovered agents, including agent status and health.
+-- 'servers', 'getDiscoverySummaryResponse_servers' - The number of servers discovered.
 --
--- * 'gdsrrsConnectorSummary' - Details about discovered connectors, including connector status and health.
+-- 'agentSummary', 'getDiscoverySummaryResponse_agentSummary' - Details about discovered agents, including agent status and health.
 --
--- * 'gdsrrsServersMappedToApplications' - The number of servers mapped to applications.
+-- 'connectorSummary', 'getDiscoverySummaryResponse_connectorSummary' - Details about discovered connectors, including connector status and
+-- health.
 --
--- * 'gdsrrsApplications' - The number of applications discovered.
+-- 'serversMappedToApplications', 'getDiscoverySummaryResponse_serversMappedToApplications' - The number of servers mapped to applications.
 --
--- * 'gdsrrsServersMappedtoTags' - The number of servers mapped to tags.
+-- 'applications', 'getDiscoverySummaryResponse_applications' - The number of applications discovered.
 --
--- * 'gdsrrsResponseStatus' - -- | The response status code.
-getDiscoverySummaryResponse ::
-  -- | 'gdsrrsResponseStatus'
-  Int ->
+-- 'serversMappedtoTags', 'getDiscoverySummaryResponse_serversMappedtoTags' - The number of servers mapped to tags.
+--
+-- 'httpStatus', 'getDiscoverySummaryResponse_httpStatus' - The response's http status code.
+newGetDiscoverySummaryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDiscoverySummaryResponse
-getDiscoverySummaryResponse pResponseStatus_ =
+newGetDiscoverySummaryResponse pHttpStatus_ =
   GetDiscoverySummaryResponse'
-    { _gdsrrsServers =
-        Nothing,
-      _gdsrrsAgentSummary = Nothing,
-      _gdsrrsConnectorSummary = Nothing,
-      _gdsrrsServersMappedToApplications = Nothing,
-      _gdsrrsApplications = Nothing,
-      _gdsrrsServersMappedtoTags = Nothing,
-      _gdsrrsResponseStatus = pResponseStatus_
+    { servers =
+        Prelude.Nothing,
+      agentSummary = Prelude.Nothing,
+      connectorSummary = Prelude.Nothing,
+      serversMappedToApplications = Prelude.Nothing,
+      applications = Prelude.Nothing,
+      serversMappedtoTags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The number of servers discovered.
-gdsrrsServers :: Lens' GetDiscoverySummaryResponse (Maybe Integer)
-gdsrrsServers = lens _gdsrrsServers (\s a -> s {_gdsrrsServers = a})
+getDiscoverySummaryResponse_servers :: Lens.Lens' GetDiscoverySummaryResponse (Prelude.Maybe Prelude.Integer)
+getDiscoverySummaryResponse_servers = Lens.lens (\GetDiscoverySummaryResponse' {servers} -> servers) (\s@GetDiscoverySummaryResponse' {} a -> s {servers = a} :: GetDiscoverySummaryResponse)
 
 -- | Details about discovered agents, including agent status and health.
-gdsrrsAgentSummary :: Lens' GetDiscoverySummaryResponse (Maybe CustomerAgentInfo)
-gdsrrsAgentSummary = lens _gdsrrsAgentSummary (\s a -> s {_gdsrrsAgentSummary = a})
+getDiscoverySummaryResponse_agentSummary :: Lens.Lens' GetDiscoverySummaryResponse (Prelude.Maybe CustomerAgentInfo)
+getDiscoverySummaryResponse_agentSummary = Lens.lens (\GetDiscoverySummaryResponse' {agentSummary} -> agentSummary) (\s@GetDiscoverySummaryResponse' {} a -> s {agentSummary = a} :: GetDiscoverySummaryResponse)
 
--- | Details about discovered connectors, including connector status and health.
-gdsrrsConnectorSummary :: Lens' GetDiscoverySummaryResponse (Maybe CustomerConnectorInfo)
-gdsrrsConnectorSummary = lens _gdsrrsConnectorSummary (\s a -> s {_gdsrrsConnectorSummary = a})
+-- | Details about discovered connectors, including connector status and
+-- health.
+getDiscoverySummaryResponse_connectorSummary :: Lens.Lens' GetDiscoverySummaryResponse (Prelude.Maybe CustomerConnectorInfo)
+getDiscoverySummaryResponse_connectorSummary = Lens.lens (\GetDiscoverySummaryResponse' {connectorSummary} -> connectorSummary) (\s@GetDiscoverySummaryResponse' {} a -> s {connectorSummary = a} :: GetDiscoverySummaryResponse)
 
 -- | The number of servers mapped to applications.
-gdsrrsServersMappedToApplications :: Lens' GetDiscoverySummaryResponse (Maybe Integer)
-gdsrrsServersMappedToApplications = lens _gdsrrsServersMappedToApplications (\s a -> s {_gdsrrsServersMappedToApplications = a})
+getDiscoverySummaryResponse_serversMappedToApplications :: Lens.Lens' GetDiscoverySummaryResponse (Prelude.Maybe Prelude.Integer)
+getDiscoverySummaryResponse_serversMappedToApplications = Lens.lens (\GetDiscoverySummaryResponse' {serversMappedToApplications} -> serversMappedToApplications) (\s@GetDiscoverySummaryResponse' {} a -> s {serversMappedToApplications = a} :: GetDiscoverySummaryResponse)
 
 -- | The number of applications discovered.
-gdsrrsApplications :: Lens' GetDiscoverySummaryResponse (Maybe Integer)
-gdsrrsApplications = lens _gdsrrsApplications (\s a -> s {_gdsrrsApplications = a})
+getDiscoverySummaryResponse_applications :: Lens.Lens' GetDiscoverySummaryResponse (Prelude.Maybe Prelude.Integer)
+getDiscoverySummaryResponse_applications = Lens.lens (\GetDiscoverySummaryResponse' {applications} -> applications) (\s@GetDiscoverySummaryResponse' {} a -> s {applications = a} :: GetDiscoverySummaryResponse)
 
 -- | The number of servers mapped to tags.
-gdsrrsServersMappedtoTags :: Lens' GetDiscoverySummaryResponse (Maybe Integer)
-gdsrrsServersMappedtoTags = lens _gdsrrsServersMappedtoTags (\s a -> s {_gdsrrsServersMappedtoTags = a})
+getDiscoverySummaryResponse_serversMappedtoTags :: Lens.Lens' GetDiscoverySummaryResponse (Prelude.Maybe Prelude.Integer)
+getDiscoverySummaryResponse_serversMappedtoTags = Lens.lens (\GetDiscoverySummaryResponse' {serversMappedtoTags} -> serversMappedtoTags) (\s@GetDiscoverySummaryResponse' {} a -> s {serversMappedtoTags = a} :: GetDiscoverySummaryResponse)
 
--- | -- | The response status code.
-gdsrrsResponseStatus :: Lens' GetDiscoverySummaryResponse Int
-gdsrrsResponseStatus = lens _gdsrrsResponseStatus (\s a -> s {_gdsrrsResponseStatus = a})
+-- | The response's http status code.
+getDiscoverySummaryResponse_httpStatus :: Lens.Lens' GetDiscoverySummaryResponse Prelude.Int
+getDiscoverySummaryResponse_httpStatus = Lens.lens (\GetDiscoverySummaryResponse' {httpStatus} -> httpStatus) (\s@GetDiscoverySummaryResponse' {} a -> s {httpStatus = a} :: GetDiscoverySummaryResponse)
 
-instance NFData GetDiscoverySummaryResponse
+instance Prelude.NFData GetDiscoverySummaryResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,194 +21,210 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists exports as specified by ID. All continuous exports associated with your user account can be listed if you call @DescribeContinuousExports@ as is without passing any parameters.
---
---
+-- Lists exports as specified by ID. All continuous exports associated with
+-- your user account can be listed if you call @DescribeContinuousExports@
+-- as is without passing any parameters.
 --
 -- This operation returns paginated results.
 module Network.AWS.Discovery.DescribeContinuousExports
   ( -- * Creating a Request
-    describeContinuousExports,
-    DescribeContinuousExports,
+    DescribeContinuousExports (..),
+    newDescribeContinuousExports,
 
     -- * Request Lenses
-    dceNextToken,
-    dceMaxResults,
-    dceExportIds,
+    describeContinuousExports_nextToken,
+    describeContinuousExports_maxResults,
+    describeContinuousExports_exportIds,
 
     -- * Destructuring the Response
-    describeContinuousExportsResponse,
-    DescribeContinuousExportsResponse,
+    DescribeContinuousExportsResponse (..),
+    newDescribeContinuousExportsResponse,
 
     -- * Response Lenses
-    dcerrsNextToken,
-    dcerrsDescriptions,
-    dcerrsResponseStatus,
+    describeContinuousExportsResponse_nextToken,
+    describeContinuousExportsResponse_descriptions,
+    describeContinuousExportsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Discovery.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Discovery.Types.ContinuousExportDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeContinuousExports' smart constructor.
+-- | /See:/ 'newDescribeContinuousExports' smart constructor.
 data DescribeContinuousExports = DescribeContinuousExports'
-  { _dceNextToken ::
-      !(Maybe Text),
-    _dceMaxResults ::
-      !(Maybe Nat),
-    _dceExportIds ::
-      !(Maybe [Text])
+  { -- | The token from the previous call to @DescribeExportTasks@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A number between 1 and 100 specifying the maximum number of continuous
+    -- export descriptions returned.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The unique IDs assigned to the exports.
+    exportIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeContinuousExports' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeContinuousExports' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dceNextToken' - The token from the previous call to @DescribeExportTasks@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dceMaxResults' - A number between 1 and 100 specifying the maximum number of continuous export descriptions returned.
+-- 'nextToken', 'describeContinuousExports_nextToken' - The token from the previous call to @DescribeExportTasks@.
 --
--- * 'dceExportIds' - The unique IDs assigned to the exports.
-describeContinuousExports ::
+-- 'maxResults', 'describeContinuousExports_maxResults' - A number between 1 and 100 specifying the maximum number of continuous
+-- export descriptions returned.
+--
+-- 'exportIds', 'describeContinuousExports_exportIds' - The unique IDs assigned to the exports.
+newDescribeContinuousExports ::
   DescribeContinuousExports
-describeContinuousExports =
+newDescribeContinuousExports =
   DescribeContinuousExports'
-    { _dceNextToken = Nothing,
-      _dceMaxResults = Nothing,
-      _dceExportIds = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      exportIds = Prelude.Nothing
     }
 
--- | The token from the previous call to @DescribeExportTasks@ .
-dceNextToken :: Lens' DescribeContinuousExports (Maybe Text)
-dceNextToken = lens _dceNextToken (\s a -> s {_dceNextToken = a})
+-- | The token from the previous call to @DescribeExportTasks@.
+describeContinuousExports_nextToken :: Lens.Lens' DescribeContinuousExports (Prelude.Maybe Prelude.Text)
+describeContinuousExports_nextToken = Lens.lens (\DescribeContinuousExports' {nextToken} -> nextToken) (\s@DescribeContinuousExports' {} a -> s {nextToken = a} :: DescribeContinuousExports)
 
--- | A number between 1 and 100 specifying the maximum number of continuous export descriptions returned.
-dceMaxResults :: Lens' DescribeContinuousExports (Maybe Natural)
-dceMaxResults = lens _dceMaxResults (\s a -> s {_dceMaxResults = a}) . mapping _Nat
+-- | A number between 1 and 100 specifying the maximum number of continuous
+-- export descriptions returned.
+describeContinuousExports_maxResults :: Lens.Lens' DescribeContinuousExports (Prelude.Maybe Prelude.Natural)
+describeContinuousExports_maxResults = Lens.lens (\DescribeContinuousExports' {maxResults} -> maxResults) (\s@DescribeContinuousExports' {} a -> s {maxResults = a} :: DescribeContinuousExports) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The unique IDs assigned to the exports.
-dceExportIds :: Lens' DescribeContinuousExports [Text]
-dceExportIds = lens _dceExportIds (\s a -> s {_dceExportIds = a}) . _Default . _Coerce
+describeContinuousExports_exportIds :: Lens.Lens' DescribeContinuousExports (Prelude.Maybe [Prelude.Text])
+describeContinuousExports_exportIds = Lens.lens (\DescribeContinuousExports' {exportIds} -> exportIds) (\s@DescribeContinuousExports' {} a -> s {exportIds = a} :: DescribeContinuousExports) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeContinuousExports where
+instance Pager.AWSPager DescribeContinuousExports where
   page rq rs
-    | stop (rs ^. dcerrsNextToken) = Nothing
-    | stop (rs ^. dcerrsDescriptions) = Nothing
-    | otherwise =
-      Just $ rq & dceNextToken .~ rs ^. dcerrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeContinuousExportsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeContinuousExportsResponse_descriptions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeContinuousExports_nextToken
+          Lens..~ rs
+          Lens.^? describeContinuousExportsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeContinuousExports where
+instance Prelude.AWSRequest DescribeContinuousExports where
   type
     Rs DescribeContinuousExports =
       DescribeContinuousExportsResponse
-  request = postJSON discovery
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeContinuousExportsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "descriptions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "descriptions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeContinuousExports
+instance Prelude.Hashable DescribeContinuousExports
 
-instance NFData DescribeContinuousExports
+instance Prelude.NFData DescribeContinuousExports
 
-instance ToHeaders DescribeContinuousExports where
+instance Prelude.ToHeaders DescribeContinuousExports where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPoseidonService_V2015_11_01.DescribeContinuousExports" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPoseidonService_V2015_11_01.DescribeContinuousExports" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeContinuousExports where
+instance Prelude.ToJSON DescribeContinuousExports where
   toJSON DescribeContinuousExports' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _dceNextToken,
-            ("maxResults" .=) <$> _dceMaxResults,
-            ("exportIds" .=) <$> _dceExportIds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("exportIds" Prelude..=) Prelude.<$> exportIds
           ]
       )
 
-instance ToPath DescribeContinuousExports where
-  toPath = const "/"
+instance Prelude.ToPath DescribeContinuousExports where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeContinuousExports where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeContinuousExports where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeContinuousExportsResponse' smart constructor.
+-- | /See:/ 'newDescribeContinuousExportsResponse' smart constructor.
 data DescribeContinuousExportsResponse = DescribeContinuousExportsResponse'
-  { _dcerrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dcerrsDescriptions ::
-      !( Maybe
-           [ContinuousExportDescription]
-       ),
-    _dcerrsResponseStatus ::
-      !Int
+  { -- | The token from the previous call to @DescribeExportTasks@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of continuous export descriptions.
+    descriptions :: Prelude.Maybe [ContinuousExportDescription],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeContinuousExportsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeContinuousExportsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcerrsNextToken' - The token from the previous call to @DescribeExportTasks@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcerrsDescriptions' - A list of continuous export descriptions.
+-- 'nextToken', 'describeContinuousExportsResponse_nextToken' - The token from the previous call to @DescribeExportTasks@.
 --
--- * 'dcerrsResponseStatus' - -- | The response status code.
-describeContinuousExportsResponse ::
-  -- | 'dcerrsResponseStatus'
-  Int ->
+-- 'descriptions', 'describeContinuousExportsResponse_descriptions' - A list of continuous export descriptions.
+--
+-- 'httpStatus', 'describeContinuousExportsResponse_httpStatus' - The response's http status code.
+newDescribeContinuousExportsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeContinuousExportsResponse
-describeContinuousExportsResponse pResponseStatus_ =
+newDescribeContinuousExportsResponse pHttpStatus_ =
   DescribeContinuousExportsResponse'
-    { _dcerrsNextToken =
-        Nothing,
-      _dcerrsDescriptions = Nothing,
-      _dcerrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      descriptions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token from the previous call to @DescribeExportTasks@ .
-dcerrsNextToken :: Lens' DescribeContinuousExportsResponse (Maybe Text)
-dcerrsNextToken = lens _dcerrsNextToken (\s a -> s {_dcerrsNextToken = a})
+-- | The token from the previous call to @DescribeExportTasks@.
+describeContinuousExportsResponse_nextToken :: Lens.Lens' DescribeContinuousExportsResponse (Prelude.Maybe Prelude.Text)
+describeContinuousExportsResponse_nextToken = Lens.lens (\DescribeContinuousExportsResponse' {nextToken} -> nextToken) (\s@DescribeContinuousExportsResponse' {} a -> s {nextToken = a} :: DescribeContinuousExportsResponse)
 
 -- | A list of continuous export descriptions.
-dcerrsDescriptions :: Lens' DescribeContinuousExportsResponse [ContinuousExportDescription]
-dcerrsDescriptions = lens _dcerrsDescriptions (\s a -> s {_dcerrsDescriptions = a}) . _Default . _Coerce
+describeContinuousExportsResponse_descriptions :: Lens.Lens' DescribeContinuousExportsResponse (Prelude.Maybe [ContinuousExportDescription])
+describeContinuousExportsResponse_descriptions = Lens.lens (\DescribeContinuousExportsResponse' {descriptions} -> descriptions) (\s@DescribeContinuousExportsResponse' {} a -> s {descriptions = a} :: DescribeContinuousExportsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcerrsResponseStatus :: Lens' DescribeContinuousExportsResponse Int
-dcerrsResponseStatus = lens _dcerrsResponseStatus (\s a -> s {_dcerrsResponseStatus = a})
+-- | The response's http status code.
+describeContinuousExportsResponse_httpStatus :: Lens.Lens' DescribeContinuousExportsResponse Prelude.Int
+describeContinuousExportsResponse_httpStatus = Lens.lens (\DescribeContinuousExportsResponse' {httpStatus} -> httpStatus) (\s@DescribeContinuousExportsResponse' {} a -> s {httpStatus = a} :: DescribeContinuousExportsResponse)
 
-instance NFData DescribeContinuousExportsResponse
+instance
+  Prelude.NFData
+    DescribeContinuousExportsResponse

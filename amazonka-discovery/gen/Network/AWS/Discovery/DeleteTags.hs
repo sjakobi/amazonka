@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,134 +21,150 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the association between configuration items and one or more tags. This API accepts a list of multiple configuration items.
+-- Deletes the association between configuration items and one or more
+-- tags. This API accepts a list of multiple configuration items.
 module Network.AWS.Discovery.DeleteTags
   ( -- * Creating a Request
-    deleteTags,
-    DeleteTags,
+    DeleteTags (..),
+    newDeleteTags,
 
     -- * Request Lenses
-    dtTags,
-    dtConfigurationIds,
+    deleteTags_tags,
+    deleteTags_configurationIds,
 
     -- * Destructuring the Response
-    deleteTagsResponse,
-    DeleteTagsResponse,
+    DeleteTagsResponse (..),
+    newDeleteTagsResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
+    deleteTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Discovery.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTags' smart constructor.
+-- | /See:/ 'newDeleteTags' smart constructor.
 data DeleteTags = DeleteTags'
-  { _dtTags ::
-      !(Maybe [Tag]),
-    _dtConfigurationIds :: ![Text]
+  { -- | Tags that you want to delete from one or more configuration items.
+    -- Specify the tags that you want to delete in a /key/-/value/ format. For
+    -- example:
+    --
+    -- @{\"key\": \"serverType\", \"value\": \"webServer\"}@
+    tags :: Prelude.Maybe [Tag],
+    -- | A list of configuration items with tags that you want to delete.
+    configurationIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtTags' - Tags that you want to delete from one or more configuration items. Specify the tags that you want to delete in a /key/ -/value/ format. For example: @{"key": "serverType", "value": "webServer"}@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtConfigurationIds' - A list of configuration items with tags that you want to delete.
-deleteTags ::
+-- 'tags', 'deleteTags_tags' - Tags that you want to delete from one or more configuration items.
+-- Specify the tags that you want to delete in a /key/-/value/ format. For
+-- example:
+--
+-- @{\"key\": \"serverType\", \"value\": \"webServer\"}@
+--
+-- 'configurationIds', 'deleteTags_configurationIds' - A list of configuration items with tags that you want to delete.
+newDeleteTags ::
   DeleteTags
-deleteTags =
+newDeleteTags =
   DeleteTags'
-    { _dtTags = Nothing,
-      _dtConfigurationIds = mempty
+    { tags = Prelude.Nothing,
+      configurationIds = Prelude.mempty
     }
 
--- | Tags that you want to delete from one or more configuration items. Specify the tags that you want to delete in a /key/ -/value/ format. For example: @{"key": "serverType", "value": "webServer"}@
-dtTags :: Lens' DeleteTags [Tag]
-dtTags = lens _dtTags (\s a -> s {_dtTags = a}) . _Default . _Coerce
+-- | Tags that you want to delete from one or more configuration items.
+-- Specify the tags that you want to delete in a /key/-/value/ format. For
+-- example:
+--
+-- @{\"key\": \"serverType\", \"value\": \"webServer\"}@
+deleteTags_tags :: Lens.Lens' DeleteTags (Prelude.Maybe [Tag])
+deleteTags_tags = Lens.lens (\DeleteTags' {tags} -> tags) (\s@DeleteTags' {} a -> s {tags = a} :: DeleteTags) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of configuration items with tags that you want to delete.
-dtConfigurationIds :: Lens' DeleteTags [Text]
-dtConfigurationIds = lens _dtConfigurationIds (\s a -> s {_dtConfigurationIds = a}) . _Coerce
+deleteTags_configurationIds :: Lens.Lens' DeleteTags [Prelude.Text]
+deleteTags_configurationIds = Lens.lens (\DeleteTags' {configurationIds} -> configurationIds) (\s@DeleteTags' {} a -> s {configurationIds = a} :: DeleteTags) Prelude.. Prelude._Coerce
 
-instance AWSRequest DeleteTags where
+instance Prelude.AWSRequest DeleteTags where
   type Rs DeleteTags = DeleteTagsResponse
-  request = postJSON discovery
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteTagsResponse' <$> (pure (fromEnum s))
+          DeleteTagsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTags
+instance Prelude.Hashable DeleteTags
 
-instance NFData DeleteTags
+instance Prelude.NFData DeleteTags
 
-instance ToHeaders DeleteTags where
+instance Prelude.ToHeaders DeleteTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPoseidonService_V2015_11_01.DeleteTags" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPoseidonService_V2015_11_01.DeleteTags" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTags where
+instance Prelude.ToJSON DeleteTags where
   toJSON DeleteTags' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _dtTags,
-            Just ("configurationIds" .= _dtConfigurationIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ("configurationIds" Prelude..= configurationIds)
           ]
       )
 
-instance ToPath DeleteTags where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTags where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTagsResponse' smart constructor.
-newtype DeleteTagsResponse = DeleteTagsResponse'
-  { _drsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteTagsResponse' smart constructor.
+data DeleteTagsResponse = DeleteTagsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteTagsResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteTagsResponse_httpStatus' - The response's http status code.
+newDeleteTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTagsResponse
-deleteTagsResponse pResponseStatus_ =
-  DeleteTagsResponse'
-    { _drsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteTagsResponse pHttpStatus_ =
+  DeleteTagsResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteTagsResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteTagsResponse_httpStatus :: Lens.Lens' DeleteTagsResponse Prelude.Int
+deleteTagsResponse_httpStatus = Lens.lens (\DeleteTagsResponse' {httpStatus} -> httpStatus) (\s@DeleteTagsResponse' {} a -> s {httpStatus = a} :: DeleteTagsResponse)
 
-instance NFData DeleteTagsResponse
+instance Prelude.NFData DeleteTagsResponse

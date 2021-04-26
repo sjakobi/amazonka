@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,172 +21,189 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns an array of import tasks for your account, including status information, times, IDs, the Amazon S3 Object URL for the import file, and more.
+-- Returns an array of import tasks for your account, including status
+-- information, times, IDs, the Amazon S3 Object URL for the import file,
+-- and more.
 module Network.AWS.Discovery.DescribeImportTasks
   ( -- * Creating a Request
-    describeImportTasks,
-    DescribeImportTasks,
+    DescribeImportTasks (..),
+    newDescribeImportTasks,
 
     -- * Request Lenses
-    ditNextToken,
-    ditMaxResults,
-    ditFilters,
+    describeImportTasks_nextToken,
+    describeImportTasks_maxResults,
+    describeImportTasks_filters,
 
     -- * Destructuring the Response
-    describeImportTasksResponse,
-    DescribeImportTasksResponse,
+    DescribeImportTasksResponse (..),
+    newDescribeImportTasksResponse,
 
     -- * Response Lenses
-    ditrrsNextToken,
-    ditrrsTasks,
-    ditrrsResponseStatus,
+    describeImportTasksResponse_nextToken,
+    describeImportTasksResponse_tasks,
+    describeImportTasksResponse_httpStatus,
   )
 where
 
 import Network.AWS.Discovery.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Discovery.Types.ImportTask
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeImportTasks' smart constructor.
+-- | /See:/ 'newDescribeImportTasks' smart constructor.
 data DescribeImportTasks = DescribeImportTasks'
-  { _ditNextToken ::
-      !(Maybe Text),
-    _ditMaxResults :: !(Maybe Nat),
-    _ditFilters ::
-      !(Maybe [ImportTaskFilter])
+  { -- | The token to request a specific page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results that you want this request to return, up
+    -- to 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | An array of name-value pairs that you provide to filter the results for
+    -- the @DescribeImportTask@ request to a specific subset of results.
+    -- Currently, wildcard values aren\'t supported for filters.
+    filters :: Prelude.Maybe [ImportTaskFilter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeImportTasks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeImportTasks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ditNextToken' - The token to request a specific page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ditMaxResults' - The maximum number of results that you want this request to return, up to 100.
+-- 'nextToken', 'describeImportTasks_nextToken' - The token to request a specific page of results.
 --
--- * 'ditFilters' - An array of name-value pairs that you provide to filter the results for the @DescribeImportTask@ request to a specific subset of results. Currently, wildcard values aren't supported for filters.
-describeImportTasks ::
+-- 'maxResults', 'describeImportTasks_maxResults' - The maximum number of results that you want this request to return, up
+-- to 100.
+--
+-- 'filters', 'describeImportTasks_filters' - An array of name-value pairs that you provide to filter the results for
+-- the @DescribeImportTask@ request to a specific subset of results.
+-- Currently, wildcard values aren\'t supported for filters.
+newDescribeImportTasks ::
   DescribeImportTasks
-describeImportTasks =
+newDescribeImportTasks =
   DescribeImportTasks'
-    { _ditNextToken = Nothing,
-      _ditMaxResults = Nothing,
-      _ditFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token to request a specific page of results.
-ditNextToken :: Lens' DescribeImportTasks (Maybe Text)
-ditNextToken = lens _ditNextToken (\s a -> s {_ditNextToken = a})
+describeImportTasks_nextToken :: Lens.Lens' DescribeImportTasks (Prelude.Maybe Prelude.Text)
+describeImportTasks_nextToken = Lens.lens (\DescribeImportTasks' {nextToken} -> nextToken) (\s@DescribeImportTasks' {} a -> s {nextToken = a} :: DescribeImportTasks)
 
--- | The maximum number of results that you want this request to return, up to 100.
-ditMaxResults :: Lens' DescribeImportTasks (Maybe Natural)
-ditMaxResults = lens _ditMaxResults (\s a -> s {_ditMaxResults = a}) . mapping _Nat
+-- | The maximum number of results that you want this request to return, up
+-- to 100.
+describeImportTasks_maxResults :: Lens.Lens' DescribeImportTasks (Prelude.Maybe Prelude.Natural)
+describeImportTasks_maxResults = Lens.lens (\DescribeImportTasks' {maxResults} -> maxResults) (\s@DescribeImportTasks' {} a -> s {maxResults = a} :: DescribeImportTasks) Prelude.. Lens.mapping Prelude._Nat
 
--- | An array of name-value pairs that you provide to filter the results for the @DescribeImportTask@ request to a specific subset of results. Currently, wildcard values aren't supported for filters.
-ditFilters :: Lens' DescribeImportTasks [ImportTaskFilter]
-ditFilters = lens _ditFilters (\s a -> s {_ditFilters = a}) . _Default . _Coerce
+-- | An array of name-value pairs that you provide to filter the results for
+-- the @DescribeImportTask@ request to a specific subset of results.
+-- Currently, wildcard values aren\'t supported for filters.
+describeImportTasks_filters :: Lens.Lens' DescribeImportTasks (Prelude.Maybe [ImportTaskFilter])
+describeImportTasks_filters = Lens.lens (\DescribeImportTasks' {filters} -> filters) (\s@DescribeImportTasks' {} a -> s {filters = a} :: DescribeImportTasks) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeImportTasks where
+instance Prelude.AWSRequest DescribeImportTasks where
   type
     Rs DescribeImportTasks =
       DescribeImportTasksResponse
-  request = postJSON discovery
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeImportTasksResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "tasks" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "tasks" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeImportTasks
+instance Prelude.Hashable DescribeImportTasks
 
-instance NFData DescribeImportTasks
+instance Prelude.NFData DescribeImportTasks
 
-instance ToHeaders DescribeImportTasks where
+instance Prelude.ToHeaders DescribeImportTasks where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPoseidonService_V2015_11_01.DescribeImportTasks" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPoseidonService_V2015_11_01.DescribeImportTasks" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeImportTasks where
+instance Prelude.ToJSON DescribeImportTasks where
   toJSON DescribeImportTasks' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _ditNextToken,
-            ("maxResults" .=) <$> _ditMaxResults,
-            ("filters" .=) <$> _ditFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath DescribeImportTasks where
-  toPath = const "/"
+instance Prelude.ToPath DescribeImportTasks where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeImportTasks where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeImportTasks where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeImportTasksResponse' smart constructor.
+-- | /See:/ 'newDescribeImportTasksResponse' smart constructor.
 data DescribeImportTasksResponse = DescribeImportTasksResponse'
-  { _ditrrsNextToken ::
-      !(Maybe Text),
-    _ditrrsTasks ::
-      !( Maybe
-           [ImportTask]
-       ),
-    _ditrrsResponseStatus ::
-      !Int
+  { -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A returned array of import tasks that match any applied filters, up to
+    -- the specified number of maximum results.
+    tasks :: Prelude.Maybe [ImportTask],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeImportTasksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeImportTasksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ditrrsNextToken' - The token to request the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ditrrsTasks' - A returned array of import tasks that match any applied filters, up to the specified number of maximum results.
+-- 'nextToken', 'describeImportTasksResponse_nextToken' - The token to request the next page of results.
 --
--- * 'ditrrsResponseStatus' - -- | The response status code.
-describeImportTasksResponse ::
-  -- | 'ditrrsResponseStatus'
-  Int ->
+-- 'tasks', 'describeImportTasksResponse_tasks' - A returned array of import tasks that match any applied filters, up to
+-- the specified number of maximum results.
+--
+-- 'httpStatus', 'describeImportTasksResponse_httpStatus' - The response's http status code.
+newDescribeImportTasksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeImportTasksResponse
-describeImportTasksResponse pResponseStatus_ =
+newDescribeImportTasksResponse pHttpStatus_ =
   DescribeImportTasksResponse'
-    { _ditrrsNextToken =
-        Nothing,
-      _ditrrsTasks = Nothing,
-      _ditrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      tasks = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The token to request the next page of results.
-ditrrsNextToken :: Lens' DescribeImportTasksResponse (Maybe Text)
-ditrrsNextToken = lens _ditrrsNextToken (\s a -> s {_ditrrsNextToken = a})
+describeImportTasksResponse_nextToken :: Lens.Lens' DescribeImportTasksResponse (Prelude.Maybe Prelude.Text)
+describeImportTasksResponse_nextToken = Lens.lens (\DescribeImportTasksResponse' {nextToken} -> nextToken) (\s@DescribeImportTasksResponse' {} a -> s {nextToken = a} :: DescribeImportTasksResponse)
 
--- | A returned array of import tasks that match any applied filters, up to the specified number of maximum results.
-ditrrsTasks :: Lens' DescribeImportTasksResponse [ImportTask]
-ditrrsTasks = lens _ditrrsTasks (\s a -> s {_ditrrsTasks = a}) . _Default . _Coerce
+-- | A returned array of import tasks that match any applied filters, up to
+-- the specified number of maximum results.
+describeImportTasksResponse_tasks :: Lens.Lens' DescribeImportTasksResponse (Prelude.Maybe [ImportTask])
+describeImportTasksResponse_tasks = Lens.lens (\DescribeImportTasksResponse' {tasks} -> tasks) (\s@DescribeImportTasksResponse' {} a -> s {tasks = a} :: DescribeImportTasksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ditrrsResponseStatus :: Lens' DescribeImportTasksResponse Int
-ditrrsResponseStatus = lens _ditrrsResponseStatus (\s a -> s {_ditrrsResponseStatus = a})
+-- | The response's http status code.
+describeImportTasksResponse_httpStatus :: Lens.Lens' DescribeImportTasksResponse Prelude.Int
+describeImportTasksResponse_httpStatus = Lens.lens (\DescribeImportTasksResponse' {httpStatus} -> httpStatus) (\s@DescribeImportTasksResponse' {} a -> s {httpStatus = a} :: DescribeImportTasksResponse)
 
-instance NFData DescribeImportTasksResponse
+instance Prelude.NFData DescribeImportTasksResponse

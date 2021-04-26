@@ -28,145 +28,145 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDescribeExportTasks $
---             describeExportTasks
+--             newDescribeExportTasks
 --
 --         , requestDescribeTags $
---             describeTags
+--             newDescribeTags
 --
 --         , requestStartExportTask $
---             startExportTask
+--             newStartExportTask
 --
 --         , requestListConfigurations $
---             listConfigurations
+--             newListConfigurations
 --
 --         , requestCreateApplication $
---             createApplication
+--             newCreateApplication
 --
 --         , requestDescribeImportTasks $
---             describeImportTasks
+--             newDescribeImportTasks
 --
 --         , requestDeleteApplications $
---             deleteApplications
+--             newDeleteApplications
 --
 --         , requestGetDiscoverySummary $
---             getDiscoverySummary
+--             newGetDiscoverySummary
 --
 --         , requestDeleteTags $
---             deleteTags
+--             newDeleteTags
 --
 --         , requestDisassociateConfigurationItemsFromApplication $
---             disassociateConfigurationItemsFromApplication
+--             newDisassociateConfigurationItemsFromApplication
 --
 --         , requestStopDataCollectionByAgentIds $
---             stopDataCollectionByAgentIds
+--             newStopDataCollectionByAgentIds
 --
 --         , requestStartDataCollectionByAgentIds $
---             startDataCollectionByAgentIds
+--             newStartDataCollectionByAgentIds
 --
 --         , requestDescribeAgents $
---             describeAgents
+--             newDescribeAgents
 --
 --         , requestDescribeContinuousExports $
---             describeContinuousExports
+--             newDescribeContinuousExports
 --
 --         , requestStopContinuousExport $
---             stopContinuousExport
+--             newStopContinuousExport
 --
 --         , requestStartContinuousExport $
---             startContinuousExport
+--             newStartContinuousExport
 --
 --         , requestDescribeConfigurations $
---             describeConfigurations
+--             newDescribeConfigurations
 --
 --         , requestListServerNeighbors $
---             listServerNeighbors
+--             newListServerNeighbors
 --
 --         , requestAssociateConfigurationItemsToApplication $
---             associateConfigurationItemsToApplication
+--             newAssociateConfigurationItemsToApplication
 --
 --         , requestUpdateApplication $
---             updateApplication
+--             newUpdateApplication
 --
 --         , requestStartImportTask $
---             startImportTask
+--             newStartImportTask
 --
 --         , requestBatchDeleteImportData $
---             batchDeleteImportData
+--             newBatchDeleteImportData
 --
 --         , requestCreateTags $
---             createTags
+--             newCreateTags
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDescribeExportTasks $
---             describeExportTasksResponse
+--             newDescribeExportTasksResponse
 --
 --         , responseDescribeTags $
---             describeTagsResponse
+--             newDescribeTagsResponse
 --
 --         , responseStartExportTask $
---             startExportTaskResponse
+--             newStartExportTaskResponse
 --
 --         , responseListConfigurations $
---             listConfigurationsResponse
+--             newListConfigurationsResponse
 --
 --         , responseCreateApplication $
---             createApplicationResponse
+--             newCreateApplicationResponse
 --
 --         , responseDescribeImportTasks $
---             describeImportTasksResponse
+--             newDescribeImportTasksResponse
 --
 --         , responseDeleteApplications $
---             deleteApplicationsResponse
+--             newDeleteApplicationsResponse
 --
 --         , responseGetDiscoverySummary $
---             getDiscoverySummaryResponse
+--             newGetDiscoverySummaryResponse
 --
 --         , responseDeleteTags $
---             deleteTagsResponse
+--             newDeleteTagsResponse
 --
 --         , responseDisassociateConfigurationItemsFromApplication $
---             disassociateConfigurationItemsFromApplicationResponse
+--             newDisassociateConfigurationItemsFromApplicationResponse
 --
 --         , responseStopDataCollectionByAgentIds $
---             stopDataCollectionByAgentIdsResponse
+--             newStopDataCollectionByAgentIdsResponse
 --
 --         , responseStartDataCollectionByAgentIds $
---             startDataCollectionByAgentIdsResponse
+--             newStartDataCollectionByAgentIdsResponse
 --
 --         , responseDescribeAgents $
---             describeAgentsResponse
+--             newDescribeAgentsResponse
 --
 --         , responseDescribeContinuousExports $
---             describeContinuousExportsResponse
+--             newDescribeContinuousExportsResponse
 --
 --         , responseStopContinuousExport $
---             stopContinuousExportResponse
+--             newStopContinuousExportResponse
 --
 --         , responseStartContinuousExport $
---             startContinuousExportResponse
+--             newStartContinuousExportResponse
 --
 --         , responseDescribeConfigurations $
---             describeConfigurationsResponse
+--             newDescribeConfigurationsResponse
 --
 --         , responseListServerNeighbors $
---             listServerNeighborsResponse
+--             newListServerNeighborsResponse
 --
 --         , responseAssociateConfigurationItemsToApplication $
---             associateConfigurationItemsToApplicationResponse
+--             newAssociateConfigurationItemsToApplicationResponse
 --
 --         , responseUpdateApplication $
---             updateApplicationResponse
+--             newUpdateApplicationResponse
 --
 --         , responseStartImportTask $
---             startImportTaskResponse
+--             newStartImportTaskResponse
 --
 --         , responseBatchDeleteImportData $
---             batchDeleteImportDataResponse
+--             newBatchDeleteImportDataResponse
 --
 --         , responseCreateTags $
---             createTagsResponse
+--             newCreateTagsResponse
 --
 --           ]
 --     ]
@@ -318,7 +318,7 @@ responseDescribeExportTasks =
   res
     "DescribeExportTasksResponse"
     "fixture/DescribeExportTasksResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy DescribeExportTasks)
 
 responseDescribeTags :: DescribeTagsResponse -> TestTree
@@ -326,7 +326,7 @@ responseDescribeTags =
   res
     "DescribeTagsResponse"
     "fixture/DescribeTagsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy DescribeTags)
 
 responseStartExportTask :: StartExportTaskResponse -> TestTree
@@ -334,7 +334,7 @@ responseStartExportTask =
   res
     "StartExportTaskResponse"
     "fixture/StartExportTaskResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy StartExportTask)
 
 responseListConfigurations :: ListConfigurationsResponse -> TestTree
@@ -342,7 +342,7 @@ responseListConfigurations =
   res
     "ListConfigurationsResponse"
     "fixture/ListConfigurationsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy ListConfigurations)
 
 responseCreateApplication :: CreateApplicationResponse -> TestTree
@@ -350,7 +350,7 @@ responseCreateApplication =
   res
     "CreateApplicationResponse"
     "fixture/CreateApplicationResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy CreateApplication)
 
 responseDescribeImportTasks :: DescribeImportTasksResponse -> TestTree
@@ -358,7 +358,7 @@ responseDescribeImportTasks =
   res
     "DescribeImportTasksResponse"
     "fixture/DescribeImportTasksResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy DescribeImportTasks)
 
 responseDeleteApplications :: DeleteApplicationsResponse -> TestTree
@@ -366,7 +366,7 @@ responseDeleteApplications =
   res
     "DeleteApplicationsResponse"
     "fixture/DeleteApplicationsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy DeleteApplications)
 
 responseGetDiscoverySummary :: GetDiscoverySummaryResponse -> TestTree
@@ -374,7 +374,7 @@ responseGetDiscoverySummary =
   res
     "GetDiscoverySummaryResponse"
     "fixture/GetDiscoverySummaryResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy GetDiscoverySummary)
 
 responseDeleteTags :: DeleteTagsResponse -> TestTree
@@ -382,7 +382,7 @@ responseDeleteTags =
   res
     "DeleteTagsResponse"
     "fixture/DeleteTagsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy DeleteTags)
 
 responseDisassociateConfigurationItemsFromApplication :: DisassociateConfigurationItemsFromApplicationResponse -> TestTree
@@ -390,7 +390,7 @@ responseDisassociateConfigurationItemsFromApplication =
   res
     "DisassociateConfigurationItemsFromApplicationResponse"
     "fixture/DisassociateConfigurationItemsFromApplicationResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy DisassociateConfigurationItemsFromApplication)
 
 responseStopDataCollectionByAgentIds :: StopDataCollectionByAgentIdsResponse -> TestTree
@@ -398,7 +398,7 @@ responseStopDataCollectionByAgentIds =
   res
     "StopDataCollectionByAgentIdsResponse"
     "fixture/StopDataCollectionByAgentIdsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy StopDataCollectionByAgentIds)
 
 responseStartDataCollectionByAgentIds :: StartDataCollectionByAgentIdsResponse -> TestTree
@@ -406,7 +406,7 @@ responseStartDataCollectionByAgentIds =
   res
     "StartDataCollectionByAgentIdsResponse"
     "fixture/StartDataCollectionByAgentIdsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy StartDataCollectionByAgentIds)
 
 responseDescribeAgents :: DescribeAgentsResponse -> TestTree
@@ -414,7 +414,7 @@ responseDescribeAgents =
   res
     "DescribeAgentsResponse"
     "fixture/DescribeAgentsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy DescribeAgents)
 
 responseDescribeContinuousExports :: DescribeContinuousExportsResponse -> TestTree
@@ -422,7 +422,7 @@ responseDescribeContinuousExports =
   res
     "DescribeContinuousExportsResponse"
     "fixture/DescribeContinuousExportsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy DescribeContinuousExports)
 
 responseStopContinuousExport :: StopContinuousExportResponse -> TestTree
@@ -430,7 +430,7 @@ responseStopContinuousExport =
   res
     "StopContinuousExportResponse"
     "fixture/StopContinuousExportResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy StopContinuousExport)
 
 responseStartContinuousExport :: StartContinuousExportResponse -> TestTree
@@ -438,7 +438,7 @@ responseStartContinuousExport =
   res
     "StartContinuousExportResponse"
     "fixture/StartContinuousExportResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy StartContinuousExport)
 
 responseDescribeConfigurations :: DescribeConfigurationsResponse -> TestTree
@@ -446,7 +446,7 @@ responseDescribeConfigurations =
   res
     "DescribeConfigurationsResponse"
     "fixture/DescribeConfigurationsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy DescribeConfigurations)
 
 responseListServerNeighbors :: ListServerNeighborsResponse -> TestTree
@@ -454,7 +454,7 @@ responseListServerNeighbors =
   res
     "ListServerNeighborsResponse"
     "fixture/ListServerNeighborsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy ListServerNeighbors)
 
 responseAssociateConfigurationItemsToApplication :: AssociateConfigurationItemsToApplicationResponse -> TestTree
@@ -462,7 +462,7 @@ responseAssociateConfigurationItemsToApplication =
   res
     "AssociateConfigurationItemsToApplicationResponse"
     "fixture/AssociateConfigurationItemsToApplicationResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy AssociateConfigurationItemsToApplication)
 
 responseUpdateApplication :: UpdateApplicationResponse -> TestTree
@@ -470,7 +470,7 @@ responseUpdateApplication =
   res
     "UpdateApplicationResponse"
     "fixture/UpdateApplicationResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy UpdateApplication)
 
 responseStartImportTask :: StartImportTaskResponse -> TestTree
@@ -478,7 +478,7 @@ responseStartImportTask =
   res
     "StartImportTaskResponse"
     "fixture/StartImportTaskResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy StartImportTask)
 
 responseBatchDeleteImportData :: BatchDeleteImportDataResponse -> TestTree
@@ -486,7 +486,7 @@ responseBatchDeleteImportData =
   res
     "BatchDeleteImportDataResponse"
     "fixture/BatchDeleteImportDataResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy BatchDeleteImportData)
 
 responseCreateTags :: CreateTagsResponse -> TestTree
@@ -494,5 +494,5 @@ responseCreateTags =
   res
     "CreateTagsResponse"
     "fixture/CreateTagsResponse.proto"
-    discovery
+    defaultService
     (Proxy :: Proxy CreateTags)

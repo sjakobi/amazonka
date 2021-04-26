@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.Discovery.Types.AgentStatus
   ( AgentStatus
       ( ..,
-        Blacklisted,
-        Healthy,
-        Running,
-        Shutdown,
-        Unhealthy,
-        Unknown
+        AgentStatusBLACKLISTED,
+        AgentStatusHEALTHY,
+        AgentStatusRUNNING,
+        AgentStatusSHUTDOWN,
+        AgentStatusUNHEALTHY,
+        AgentStatusUNKNOWN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AgentStatus = AgentStatus' (CI Text)
+newtype AgentStatus = AgentStatus'
+  { fromAgentStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Blacklisted :: AgentStatus
-pattern Blacklisted = AgentStatus' "BLACKLISTED"
+pattern AgentStatusBLACKLISTED :: AgentStatus
+pattern AgentStatusBLACKLISTED = AgentStatus' "BLACKLISTED"
 
-pattern Healthy :: AgentStatus
-pattern Healthy = AgentStatus' "HEALTHY"
+pattern AgentStatusHEALTHY :: AgentStatus
+pattern AgentStatusHEALTHY = AgentStatus' "HEALTHY"
 
-pattern Running :: AgentStatus
-pattern Running = AgentStatus' "RUNNING"
+pattern AgentStatusRUNNING :: AgentStatus
+pattern AgentStatusRUNNING = AgentStatus' "RUNNING"
 
-pattern Shutdown :: AgentStatus
-pattern Shutdown = AgentStatus' "SHUTDOWN"
+pattern AgentStatusSHUTDOWN :: AgentStatus
+pattern AgentStatusSHUTDOWN = AgentStatus' "SHUTDOWN"
 
-pattern Unhealthy :: AgentStatus
-pattern Unhealthy = AgentStatus' "UNHEALTHY"
+pattern AgentStatusUNHEALTHY :: AgentStatus
+pattern AgentStatusUNHEALTHY = AgentStatus' "UNHEALTHY"
 
-pattern Unknown :: AgentStatus
-pattern Unknown = AgentStatus' "UNKNOWN"
+pattern AgentStatusUNKNOWN :: AgentStatus
+pattern AgentStatusUNKNOWN = AgentStatus' "UNKNOWN"
 
 {-# COMPLETE
-  Blacklisted,
-  Healthy,
-  Running,
-  Shutdown,
-  Unhealthy,
-  Unknown,
+  AgentStatusBLACKLISTED,
+  AgentStatusHEALTHY,
+  AgentStatusRUNNING,
+  AgentStatusSHUTDOWN,
+  AgentStatusUNHEALTHY,
+  AgentStatusUNKNOWN,
   AgentStatus'
   #-}
 
-instance FromText AgentStatus where
-  parser = (AgentStatus' . mk) <$> takeText
+instance Prelude.FromText AgentStatus where
+  parser = AgentStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AgentStatus where
-  toText (AgentStatus' ci) = original ci
+instance Prelude.ToText AgentStatus where
+  toText (AgentStatus' x) = x
 
-instance Hashable AgentStatus
+instance Prelude.Hashable AgentStatus
 
-instance NFData AgentStatus
+instance Prelude.NFData AgentStatus
 
-instance ToByteString AgentStatus
+instance Prelude.ToByteString AgentStatus
 
-instance ToQuery AgentStatus
+instance Prelude.ToQuery AgentStatus
 
-instance ToHeader AgentStatus
+instance Prelude.ToHeader AgentStatus
 
-instance FromJSON AgentStatus where
-  parseJSON = parseJSONText "AgentStatus"
+instance Prelude.FromJSON AgentStatus where
+  parseJSON = Prelude.parseJSONText "AgentStatus"

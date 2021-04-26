@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Discovery.Types.BatchDeleteImportDataErrorCode
   ( BatchDeleteImportDataErrorCode
       ( ..,
-        InternalServerError,
-        NotFound,
-        OverLimit
+        BatchDeleteImportDataErrorCodeINTERNALSERVERERROR,
+        BatchDeleteImportDataErrorCodeNOTFOUND,
+        BatchDeleteImportDataErrorCodeOVERLIMIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BatchDeleteImportDataErrorCode
-  = BatchDeleteImportDataErrorCode'
-      ( CI
-          Text
-      )
+newtype BatchDeleteImportDataErrorCode = BatchDeleteImportDataErrorCode'
+  { fromBatchDeleteImportDataErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InternalServerError :: BatchDeleteImportDataErrorCode
-pattern InternalServerError = BatchDeleteImportDataErrorCode' "INTERNAL_SERVER_ERROR"
+pattern BatchDeleteImportDataErrorCodeINTERNALSERVERERROR :: BatchDeleteImportDataErrorCode
+pattern BatchDeleteImportDataErrorCodeINTERNALSERVERERROR = BatchDeleteImportDataErrorCode' "INTERNAL_SERVER_ERROR"
 
-pattern NotFound :: BatchDeleteImportDataErrorCode
-pattern NotFound = BatchDeleteImportDataErrorCode' "NOT_FOUND"
+pattern BatchDeleteImportDataErrorCodeNOTFOUND :: BatchDeleteImportDataErrorCode
+pattern BatchDeleteImportDataErrorCodeNOTFOUND = BatchDeleteImportDataErrorCode' "NOT_FOUND"
 
-pattern OverLimit :: BatchDeleteImportDataErrorCode
-pattern OverLimit = BatchDeleteImportDataErrorCode' "OVER_LIMIT"
+pattern BatchDeleteImportDataErrorCodeOVERLIMIT :: BatchDeleteImportDataErrorCode
+pattern BatchDeleteImportDataErrorCodeOVERLIMIT = BatchDeleteImportDataErrorCode' "OVER_LIMIT"
 
 {-# COMPLETE
-  InternalServerError,
-  NotFound,
-  OverLimit,
+  BatchDeleteImportDataErrorCodeINTERNALSERVERERROR,
+  BatchDeleteImportDataErrorCodeNOTFOUND,
+  BatchDeleteImportDataErrorCodeOVERLIMIT,
   BatchDeleteImportDataErrorCode'
   #-}
 
-instance FromText BatchDeleteImportDataErrorCode where
-  parser = (BatchDeleteImportDataErrorCode' . mk) <$> takeText
+instance Prelude.FromText BatchDeleteImportDataErrorCode where
+  parser = BatchDeleteImportDataErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText BatchDeleteImportDataErrorCode where
-  toText (BatchDeleteImportDataErrorCode' ci) = original ci
+instance Prelude.ToText BatchDeleteImportDataErrorCode where
+  toText (BatchDeleteImportDataErrorCode' x) = x
 
-instance Hashable BatchDeleteImportDataErrorCode
+instance Prelude.Hashable BatchDeleteImportDataErrorCode
 
-instance NFData BatchDeleteImportDataErrorCode
+instance Prelude.NFData BatchDeleteImportDataErrorCode
 
-instance ToByteString BatchDeleteImportDataErrorCode
+instance Prelude.ToByteString BatchDeleteImportDataErrorCode
 
-instance ToQuery BatchDeleteImportDataErrorCode
+instance Prelude.ToQuery BatchDeleteImportDataErrorCode
 
-instance ToHeader BatchDeleteImportDataErrorCode
+instance Prelude.ToHeader BatchDeleteImportDataErrorCode
 
-instance FromJSON BatchDeleteImportDataErrorCode where
-  parseJSON = parseJSONText "BatchDeleteImportDataErrorCode"
+instance Prelude.FromJSON BatchDeleteImportDataErrorCode where
+  parseJSON = Prelude.parseJSONText "BatchDeleteImportDataErrorCode"
