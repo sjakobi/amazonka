@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.LexModels.Types.ExportType
   ( ExportType
       ( ..,
-        AlexaSkillsKit,
-        Lex
+        ExportTypeALEXASKILLSKIT,
+        ExportTypeLEX
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExportType = ExportType' (CI Text)
+newtype ExportType = ExportType'
+  { fromExportType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AlexaSkillsKit :: ExportType
-pattern AlexaSkillsKit = ExportType' "ALEXA_SKILLS_KIT"
+pattern ExportTypeALEXASKILLSKIT :: ExportType
+pattern ExportTypeALEXASKILLSKIT = ExportType' "ALEXA_SKILLS_KIT"
 
-pattern Lex :: ExportType
-pattern Lex = ExportType' "LEX"
+pattern ExportTypeLEX :: ExportType
+pattern ExportTypeLEX = ExportType' "LEX"
 
 {-# COMPLETE
-  AlexaSkillsKit,
-  Lex,
+  ExportTypeALEXASKILLSKIT,
+  ExportTypeLEX,
   ExportType'
   #-}
 
-instance FromText ExportType where
-  parser = (ExportType' . mk) <$> takeText
+instance Prelude.FromText ExportType where
+  parser = ExportType' Prelude.<$> Prelude.takeText
 
-instance ToText ExportType where
-  toText (ExportType' ci) = original ci
+instance Prelude.ToText ExportType where
+  toText (ExportType' x) = x
 
-instance Hashable ExportType
+instance Prelude.Hashable ExportType
 
-instance NFData ExportType
+instance Prelude.NFData ExportType
 
-instance ToByteString ExportType
+instance Prelude.ToByteString ExportType
 
-instance ToQuery ExportType
+instance Prelude.ToQuery ExportType
 
-instance ToHeader ExportType
+instance Prelude.ToHeader ExportType
 
-instance ToJSON ExportType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExportType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExportType where
-  parseJSON = parseJSONText "ExportType"
+instance Prelude.FromJSON ExportType where
+  parseJSON = Prelude.parseJSONText "ExportType"

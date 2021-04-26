@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.LexModels.Types.SlotConstraint
   ( SlotConstraint
       ( ..,
-        Optional,
-        Required
+        SlotConstraintOptional,
+        SlotConstraintRequired
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SlotConstraint = SlotConstraint' (CI Text)
+newtype SlotConstraint = SlotConstraint'
+  { fromSlotConstraint ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Optional :: SlotConstraint
-pattern Optional = SlotConstraint' "Optional"
+pattern SlotConstraintOptional :: SlotConstraint
+pattern SlotConstraintOptional = SlotConstraint' "Optional"
 
-pattern Required :: SlotConstraint
-pattern Required = SlotConstraint' "Required"
+pattern SlotConstraintRequired :: SlotConstraint
+pattern SlotConstraintRequired = SlotConstraint' "Required"
 
 {-# COMPLETE
-  Optional,
-  Required,
+  SlotConstraintOptional,
+  SlotConstraintRequired,
   SlotConstraint'
   #-}
 
-instance FromText SlotConstraint where
-  parser = (SlotConstraint' . mk) <$> takeText
+instance Prelude.FromText SlotConstraint where
+  parser = SlotConstraint' Prelude.<$> Prelude.takeText
 
-instance ToText SlotConstraint where
-  toText (SlotConstraint' ci) = original ci
+instance Prelude.ToText SlotConstraint where
+  toText (SlotConstraint' x) = x
 
-instance Hashable SlotConstraint
+instance Prelude.Hashable SlotConstraint
 
-instance NFData SlotConstraint
+instance Prelude.NFData SlotConstraint
 
-instance ToByteString SlotConstraint
+instance Prelude.ToByteString SlotConstraint
 
-instance ToQuery SlotConstraint
+instance Prelude.ToQuery SlotConstraint
 
-instance ToHeader SlotConstraint
+instance Prelude.ToHeader SlotConstraint
 
-instance ToJSON SlotConstraint where
-  toJSON = toJSONText
+instance Prelude.ToJSON SlotConstraint where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SlotConstraint where
-  parseJSON = parseJSONText "SlotConstraint"
+instance Prelude.FromJSON SlotConstraint where
+  parseJSON = Prelude.parseJSONText "SlotConstraint"

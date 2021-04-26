@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.LexModels.Types.ProcessBehavior
   ( ProcessBehavior
       ( ..,
-        Build,
-        Save
+        ProcessBehaviorBUILD,
+        ProcessBehaviorSAVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProcessBehavior = ProcessBehavior' (CI Text)
+newtype ProcessBehavior = ProcessBehavior'
+  { fromProcessBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Build :: ProcessBehavior
-pattern Build = ProcessBehavior' "BUILD"
+pattern ProcessBehaviorBUILD :: ProcessBehavior
+pattern ProcessBehaviorBUILD = ProcessBehavior' "BUILD"
 
-pattern Save :: ProcessBehavior
-pattern Save = ProcessBehavior' "SAVE"
+pattern ProcessBehaviorSAVE :: ProcessBehavior
+pattern ProcessBehaviorSAVE = ProcessBehavior' "SAVE"
 
 {-# COMPLETE
-  Build,
-  Save,
+  ProcessBehaviorBUILD,
+  ProcessBehaviorSAVE,
   ProcessBehavior'
   #-}
 
-instance FromText ProcessBehavior where
-  parser = (ProcessBehavior' . mk) <$> takeText
+instance Prelude.FromText ProcessBehavior where
+  parser = ProcessBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText ProcessBehavior where
-  toText (ProcessBehavior' ci) = original ci
+instance Prelude.ToText ProcessBehavior where
+  toText (ProcessBehavior' x) = x
 
-instance Hashable ProcessBehavior
+instance Prelude.Hashable ProcessBehavior
 
-instance NFData ProcessBehavior
+instance Prelude.NFData ProcessBehavior
 
-instance ToByteString ProcessBehavior
+instance Prelude.ToByteString ProcessBehavior
 
-instance ToQuery ProcessBehavior
+instance Prelude.ToQuery ProcessBehavior
 
-instance ToHeader ProcessBehavior
+instance Prelude.ToHeader ProcessBehavior
 
-instance ToJSON ProcessBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProcessBehavior where
+  toJSON = Prelude.toJSONText

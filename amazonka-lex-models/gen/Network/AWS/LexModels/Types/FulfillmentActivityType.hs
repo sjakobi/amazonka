@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.LexModels.Types.FulfillmentActivityType
   ( FulfillmentActivityType
       ( ..,
-        CodeHook,
-        ReturnIntent
+        FulfillmentActivityTypeCodeHook,
+        FulfillmentActivityTypeReturnIntent
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FulfillmentActivityType
-  = FulfillmentActivityType'
-      ( CI
-          Text
-      )
+newtype FulfillmentActivityType = FulfillmentActivityType'
+  { fromFulfillmentActivityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CodeHook :: FulfillmentActivityType
-pattern CodeHook = FulfillmentActivityType' "CodeHook"
+pattern FulfillmentActivityTypeCodeHook :: FulfillmentActivityType
+pattern FulfillmentActivityTypeCodeHook = FulfillmentActivityType' "CodeHook"
 
-pattern ReturnIntent :: FulfillmentActivityType
-pattern ReturnIntent = FulfillmentActivityType' "ReturnIntent"
+pattern FulfillmentActivityTypeReturnIntent :: FulfillmentActivityType
+pattern FulfillmentActivityTypeReturnIntent = FulfillmentActivityType' "ReturnIntent"
 
 {-# COMPLETE
-  CodeHook,
-  ReturnIntent,
+  FulfillmentActivityTypeCodeHook,
+  FulfillmentActivityTypeReturnIntent,
   FulfillmentActivityType'
   #-}
 
-instance FromText FulfillmentActivityType where
-  parser = (FulfillmentActivityType' . mk) <$> takeText
+instance Prelude.FromText FulfillmentActivityType where
+  parser = FulfillmentActivityType' Prelude.<$> Prelude.takeText
 
-instance ToText FulfillmentActivityType where
-  toText (FulfillmentActivityType' ci) = original ci
+instance Prelude.ToText FulfillmentActivityType where
+  toText (FulfillmentActivityType' x) = x
 
-instance Hashable FulfillmentActivityType
+instance Prelude.Hashable FulfillmentActivityType
 
-instance NFData FulfillmentActivityType
+instance Prelude.NFData FulfillmentActivityType
 
-instance ToByteString FulfillmentActivityType
+instance Prelude.ToByteString FulfillmentActivityType
 
-instance ToQuery FulfillmentActivityType
+instance Prelude.ToQuery FulfillmentActivityType
 
-instance ToHeader FulfillmentActivityType
+instance Prelude.ToHeader FulfillmentActivityType
 
-instance ToJSON FulfillmentActivityType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FulfillmentActivityType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FulfillmentActivityType where
-  parseJSON = parseJSONText "FulfillmentActivityType"
+instance Prelude.FromJSON FulfillmentActivityType where
+  parseJSON = Prelude.parseJSONText "FulfillmentActivityType"

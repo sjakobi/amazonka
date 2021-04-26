@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.LogSettingsResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types.Destination
 import Network.AWS.LexModels.Types.LogType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The settings for conversation logs.
 --
---
---
--- /See:/ 'logSettingsResponse' smart constructor.
+-- /See:/ 'newLogSettingsResponse' smart constructor.
 data LogSettingsResponse = LogSettingsResponse'
-  { _lResourceARN ::
-      !(Maybe Text),
-    _lLogType :: !(Maybe LogType),
-    _lKmsKeyARN :: !(Maybe Text),
-    _lDestination ::
-      !(Maybe Destination),
-    _lResourcePrefix ::
-      !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the CloudWatch Logs log group or S3
+    -- bucket where the logs are delivered.
+    resourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The type of logging that is enabled.
+    logType :: Prelude.Maybe LogType,
+    -- | The Amazon Resource Name (ARN) of the key used to encrypt audio logs in
+    -- an S3 bucket.
+    kmsKeyArn :: Prelude.Maybe Prelude.Text,
+    -- | The destination where logs are delivered.
+    destination :: Prelude.Maybe Destination,
+    -- | The resource prefix is the first part of the S3 object key within the S3
+    -- bucket that you specified to contain audio logs. For CloudWatch Logs it
+    -- is the prefix of the log stream name within the log group that you
+    -- specified.
+    resourcePrefix :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LogSettingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LogSettingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lResourceARN' - The Amazon Resource Name (ARN) of the CloudWatch Logs log group or S3 bucket where the logs are delivered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lLogType' - The type of logging that is enabled.
+-- 'resourceArn', 'logSettingsResponse_resourceArn' - The Amazon Resource Name (ARN) of the CloudWatch Logs log group or S3
+-- bucket where the logs are delivered.
 --
--- * 'lKmsKeyARN' - The Amazon Resource Name (ARN) of the key used to encrypt audio logs in an S3 bucket.
+-- 'logType', 'logSettingsResponse_logType' - The type of logging that is enabled.
 --
--- * 'lDestination' - The destination where logs are delivered.
+-- 'kmsKeyArn', 'logSettingsResponse_kmsKeyArn' - The Amazon Resource Name (ARN) of the key used to encrypt audio logs in
+-- an S3 bucket.
 --
--- * 'lResourcePrefix' - The resource prefix is the first part of the S3 object key within the S3 bucket that you specified to contain audio logs. For CloudWatch Logs it is the prefix of the log stream name within the log group that you specified.
-logSettingsResponse ::
+-- 'destination', 'logSettingsResponse_destination' - The destination where logs are delivered.
+--
+-- 'resourcePrefix', 'logSettingsResponse_resourcePrefix' - The resource prefix is the first part of the S3 object key within the S3
+-- bucket that you specified to contain audio logs. For CloudWatch Logs it
+-- is the prefix of the log stream name within the log group that you
+-- specified.
+newLogSettingsResponse ::
   LogSettingsResponse
-logSettingsResponse =
+newLogSettingsResponse =
   LogSettingsResponse'
-    { _lResourceARN = Nothing,
-      _lLogType = Nothing,
-      _lKmsKeyARN = Nothing,
-      _lDestination = Nothing,
-      _lResourcePrefix = Nothing
+    { resourceArn = Prelude.Nothing,
+      logType = Prelude.Nothing,
+      kmsKeyArn = Prelude.Nothing,
+      destination = Prelude.Nothing,
+      resourcePrefix = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the CloudWatch Logs log group or S3 bucket where the logs are delivered.
-lResourceARN :: Lens' LogSettingsResponse (Maybe Text)
-lResourceARN = lens _lResourceARN (\s a -> s {_lResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the CloudWatch Logs log group or S3
+-- bucket where the logs are delivered.
+logSettingsResponse_resourceArn :: Lens.Lens' LogSettingsResponse (Prelude.Maybe Prelude.Text)
+logSettingsResponse_resourceArn = Lens.lens (\LogSettingsResponse' {resourceArn} -> resourceArn) (\s@LogSettingsResponse' {} a -> s {resourceArn = a} :: LogSettingsResponse)
 
 -- | The type of logging that is enabled.
-lLogType :: Lens' LogSettingsResponse (Maybe LogType)
-lLogType = lens _lLogType (\s a -> s {_lLogType = a})
+logSettingsResponse_logType :: Lens.Lens' LogSettingsResponse (Prelude.Maybe LogType)
+logSettingsResponse_logType = Lens.lens (\LogSettingsResponse' {logType} -> logType) (\s@LogSettingsResponse' {} a -> s {logType = a} :: LogSettingsResponse)
 
--- | The Amazon Resource Name (ARN) of the key used to encrypt audio logs in an S3 bucket.
-lKmsKeyARN :: Lens' LogSettingsResponse (Maybe Text)
-lKmsKeyARN = lens _lKmsKeyARN (\s a -> s {_lKmsKeyARN = a})
+-- | The Amazon Resource Name (ARN) of the key used to encrypt audio logs in
+-- an S3 bucket.
+logSettingsResponse_kmsKeyArn :: Lens.Lens' LogSettingsResponse (Prelude.Maybe Prelude.Text)
+logSettingsResponse_kmsKeyArn = Lens.lens (\LogSettingsResponse' {kmsKeyArn} -> kmsKeyArn) (\s@LogSettingsResponse' {} a -> s {kmsKeyArn = a} :: LogSettingsResponse)
 
 -- | The destination where logs are delivered.
-lDestination :: Lens' LogSettingsResponse (Maybe Destination)
-lDestination = lens _lDestination (\s a -> s {_lDestination = a})
+logSettingsResponse_destination :: Lens.Lens' LogSettingsResponse (Prelude.Maybe Destination)
+logSettingsResponse_destination = Lens.lens (\LogSettingsResponse' {destination} -> destination) (\s@LogSettingsResponse' {} a -> s {destination = a} :: LogSettingsResponse)
 
--- | The resource prefix is the first part of the S3 object key within the S3 bucket that you specified to contain audio logs. For CloudWatch Logs it is the prefix of the log stream name within the log group that you specified.
-lResourcePrefix :: Lens' LogSettingsResponse (Maybe Text)
-lResourcePrefix = lens _lResourcePrefix (\s a -> s {_lResourcePrefix = a})
+-- | The resource prefix is the first part of the S3 object key within the S3
+-- bucket that you specified to contain audio logs. For CloudWatch Logs it
+-- is the prefix of the log stream name within the log group that you
+-- specified.
+logSettingsResponse_resourcePrefix :: Lens.Lens' LogSettingsResponse (Prelude.Maybe Prelude.Text)
+logSettingsResponse_resourcePrefix = Lens.lens (\LogSettingsResponse' {resourcePrefix} -> resourcePrefix) (\s@LogSettingsResponse' {} a -> s {resourcePrefix = a} :: LogSettingsResponse)
 
-instance FromJSON LogSettingsResponse where
+instance Prelude.FromJSON LogSettingsResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LogSettingsResponse"
       ( \x ->
           LogSettingsResponse'
-            <$> (x .:? "resourceArn")
-            <*> (x .:? "logType")
-            <*> (x .:? "kmsKeyArn")
-            <*> (x .:? "destination")
-            <*> (x .:? "resourcePrefix")
+            Prelude.<$> (x Prelude..:? "resourceArn")
+            Prelude.<*> (x Prelude..:? "logType")
+            Prelude.<*> (x Prelude..:? "kmsKeyArn")
+            Prelude.<*> (x Prelude..:? "destination")
+            Prelude.<*> (x Prelude..:? "resourcePrefix")
       )
 
-instance Hashable LogSettingsResponse
+instance Prelude.Hashable LogSettingsResponse
 
-instance NFData LogSettingsResponse
+instance Prelude.NFData LogSettingsResponse

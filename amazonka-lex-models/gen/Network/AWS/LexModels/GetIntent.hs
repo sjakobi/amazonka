@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,318 +21,392 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about an intent. In addition to the intent name, you must specify the intent version.
+-- Returns information about an intent. In addition to the intent name, you
+-- must specify the intent version.
 --
---
--- This operation requires permissions to perform the @lex:GetIntent@ action.
+-- This operation requires permissions to perform the @lex:GetIntent@
+-- action.
 module Network.AWS.LexModels.GetIntent
   ( -- * Creating a Request
-    getIntent,
-    GetIntent,
+    GetIntent (..),
+    newGetIntent,
 
     -- * Request Lenses
-    giName,
-    giVersion,
+    getIntent_name,
+    getIntent_version,
 
     -- * Destructuring the Response
-    getIntentResponse,
-    GetIntentResponse,
+    GetIntentResponse (..),
+    newGetIntentResponse,
 
     -- * Response Lenses
-    girrsKendraConfiguration,
-    girrsCreatedDate,
-    girrsParentIntentSignature,
-    girrsDialogCodeHook,
-    girrsConclusionStatement,
-    girrsLastUpdatedDate,
-    girrsInputContexts,
-    girrsVersion,
-    girrsRejectionStatement,
-    girrsName,
-    girrsSlots,
-    girrsFulfillmentActivity,
-    girrsSampleUtterances,
-    girrsDescription,
-    girrsConfirmationPrompt,
-    girrsOutputContexts,
-    girrsFollowUpPrompt,
-    girrsChecksum,
-    girrsResponseStatus,
+    getIntentResponse_kendraConfiguration,
+    getIntentResponse_createdDate,
+    getIntentResponse_parentIntentSignature,
+    getIntentResponse_dialogCodeHook,
+    getIntentResponse_conclusionStatement,
+    getIntentResponse_lastUpdatedDate,
+    getIntentResponse_inputContexts,
+    getIntentResponse_version,
+    getIntentResponse_rejectionStatement,
+    getIntentResponse_name,
+    getIntentResponse_slots,
+    getIntentResponse_fulfillmentActivity,
+    getIntentResponse_sampleUtterances,
+    getIntentResponse_description,
+    getIntentResponse_confirmationPrompt,
+    getIntentResponse_outputContexts,
+    getIntentResponse_followUpPrompt,
+    getIntentResponse_checksum,
+    getIntentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.LexModels.Types.CodeHook
+import Network.AWS.LexModels.Types.FollowUpPrompt
+import Network.AWS.LexModels.Types.FulfillmentActivity
+import Network.AWS.LexModels.Types.InputContext
+import Network.AWS.LexModels.Types.KendraConfiguration
+import Network.AWS.LexModels.Types.OutputContext
+import Network.AWS.LexModels.Types.Prompt
+import Network.AWS.LexModels.Types.Slot
+import Network.AWS.LexModels.Types.Statement
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getIntent' smart constructor.
+-- | /See:/ 'newGetIntent' smart constructor.
 data GetIntent = GetIntent'
-  { _giName :: !Text,
-    _giVersion :: !Text
+  { -- | The name of the intent. The name is case sensitive.
+    name :: Prelude.Text,
+    -- | The version of the intent.
+    version :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetIntent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetIntent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giName' - The name of the intent. The name is case sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'giVersion' - The version of the intent.
-getIntent ::
-  -- | 'giName'
-  Text ->
-  -- | 'giVersion'
-  Text ->
+-- 'name', 'getIntent_name' - The name of the intent. The name is case sensitive.
+--
+-- 'version', 'getIntent_version' - The version of the intent.
+newGetIntent ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'version'
+  Prelude.Text ->
   GetIntent
-getIntent pName_ pVersion_ =
-  GetIntent'
-    { _giName = pName_,
-      _giVersion = pVersion_
-    }
+newGetIntent pName_ pVersion_ =
+  GetIntent' {name = pName_, version = pVersion_}
 
 -- | The name of the intent. The name is case sensitive.
-giName :: Lens' GetIntent Text
-giName = lens _giName (\s a -> s {_giName = a})
+getIntent_name :: Lens.Lens' GetIntent Prelude.Text
+getIntent_name = Lens.lens (\GetIntent' {name} -> name) (\s@GetIntent' {} a -> s {name = a} :: GetIntent)
 
 -- | The version of the intent.
-giVersion :: Lens' GetIntent Text
-giVersion = lens _giVersion (\s a -> s {_giVersion = a})
+getIntent_version :: Lens.Lens' GetIntent Prelude.Text
+getIntent_version = Lens.lens (\GetIntent' {version} -> version) (\s@GetIntent' {} a -> s {version = a} :: GetIntent)
 
-instance AWSRequest GetIntent where
+instance Prelude.AWSRequest GetIntent where
   type Rs GetIntent = GetIntentResponse
-  request = get lexModels
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetIntentResponse'
-            <$> (x .?> "kendraConfiguration")
-            <*> (x .?> "createdDate")
-            <*> (x .?> "parentIntentSignature")
-            <*> (x .?> "dialogCodeHook")
-            <*> (x .?> "conclusionStatement")
-            <*> (x .?> "lastUpdatedDate")
-            <*> (x .?> "inputContexts" .!@ mempty)
-            <*> (x .?> "version")
-            <*> (x .?> "rejectionStatement")
-            <*> (x .?> "name")
-            <*> (x .?> "slots" .!@ mempty)
-            <*> (x .?> "fulfillmentActivity")
-            <*> (x .?> "sampleUtterances" .!@ mempty)
-            <*> (x .?> "description")
-            <*> (x .?> "confirmationPrompt")
-            <*> (x .?> "outputContexts" .!@ mempty)
-            <*> (x .?> "followUpPrompt")
-            <*> (x .?> "checksum")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "kendraConfiguration")
+            Prelude.<*> (x Prelude..?> "createdDate")
+            Prelude.<*> (x Prelude..?> "parentIntentSignature")
+            Prelude.<*> (x Prelude..?> "dialogCodeHook")
+            Prelude.<*> (x Prelude..?> "conclusionStatement")
+            Prelude.<*> (x Prelude..?> "lastUpdatedDate")
+            Prelude.<*> ( x Prelude..?> "inputContexts"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "version")
+            Prelude.<*> (x Prelude..?> "rejectionStatement")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "slots" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "fulfillmentActivity")
+            Prelude.<*> ( x Prelude..?> "sampleUtterances"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (x Prelude..?> "confirmationPrompt")
+            Prelude.<*> ( x Prelude..?> "outputContexts"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "followUpPrompt")
+            Prelude.<*> (x Prelude..?> "checksum")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetIntent
+instance Prelude.Hashable GetIntent
 
-instance NFData GetIntent
+instance Prelude.NFData GetIntent
 
-instance ToHeaders GetIntent where
+instance Prelude.ToHeaders GetIntent where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetIntent where
+instance Prelude.ToPath GetIntent where
   toPath GetIntent' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/intents/",
-        toBS _giName,
+        Prelude.toBS name,
         "/versions/",
-        toBS _giVersion
+        Prelude.toBS version
       ]
 
-instance ToQuery GetIntent where
-  toQuery = const mempty
+instance Prelude.ToQuery GetIntent where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getIntentResponse' smart constructor.
+-- | /See:/ 'newGetIntentResponse' smart constructor.
 data GetIntentResponse = GetIntentResponse'
-  { _girrsKendraConfiguration ::
-      !(Maybe KendraConfiguration),
-    _girrsCreatedDate :: !(Maybe POSIX),
-    _girrsParentIntentSignature ::
-      !(Maybe Text),
-    _girrsDialogCodeHook ::
-      !(Maybe CodeHook),
-    _girrsConclusionStatement ::
-      !(Maybe Statement),
-    _girrsLastUpdatedDate ::
-      !(Maybe POSIX),
-    _girrsInputContexts ::
-      !(Maybe [InputContext]),
-    _girrsVersion :: !(Maybe Text),
-    _girrsRejectionStatement ::
-      !(Maybe Statement),
-    _girrsName :: !(Maybe Text),
-    _girrsSlots :: !(Maybe [Slot]),
-    _girrsFulfillmentActivity ::
-      !(Maybe FulfillmentActivity),
-    _girrsSampleUtterances ::
-      !(Maybe [Text]),
-    _girrsDescription :: !(Maybe Text),
-    _girrsConfirmationPrompt ::
-      !(Maybe Prompt),
-    _girrsOutputContexts ::
-      !(Maybe [OutputContext]),
-    _girrsFollowUpPrompt ::
-      !(Maybe FollowUpPrompt),
-    _girrsChecksum :: !(Maybe Text),
-    _girrsResponseStatus :: !Int
+  { -- | Configuration information, if any, to connect to an Amazon Kendra index
+    -- with the @AMAZON.KendraSearchIntent@ intent.
+    kendraConfiguration :: Prelude.Maybe KendraConfiguration,
+    -- | The date that the intent was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | A unique identifier for a built-in intent.
+    parentIntentSignature :: Prelude.Maybe Prelude.Text,
+    -- | If defined in the bot, Amazon Amazon Lex invokes this Lambda function
+    -- for each user input. For more information, see PutIntent.
+    dialogCodeHook :: Prelude.Maybe CodeHook,
+    -- | After the Lambda function specified in the @fulfillmentActivity@ element
+    -- fulfills the intent, Amazon Lex conveys this statement to the user.
+    conclusionStatement :: Prelude.Maybe Statement,
+    -- | The date that the intent was updated. When you create a resource, the
+    -- creation date and the last updated date are the same.
+    lastUpdatedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | An array of @InputContext@ objects that lists the contexts that must be
+    -- active for Amazon Lex to choose the intent in a conversation with the
+    -- user.
+    inputContexts :: Prelude.Maybe [InputContext],
+    -- | The version of the intent.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | If the user answers \"no\" to the question defined in
+    -- @confirmationPrompt@, Amazon Lex responds with this statement to
+    -- acknowledge that the intent was canceled.
+    rejectionStatement :: Prelude.Maybe Statement,
+    -- | The name of the intent.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | An array of intent slots configured for the intent.
+    slots :: Prelude.Maybe [Slot],
+    -- | Describes how the intent is fulfilled. For more information, see
+    -- PutIntent.
+    fulfillmentActivity :: Prelude.Maybe FulfillmentActivity,
+    -- | An array of sample utterances configured for the intent.
+    sampleUtterances :: Prelude.Maybe [Prelude.Text],
+    -- | A description of the intent.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | If defined in the bot, Amazon Lex uses prompt to confirm the intent
+    -- before fulfilling the user\'s request. For more information, see
+    -- PutIntent.
+    confirmationPrompt :: Prelude.Maybe Prompt,
+    -- | An array of @OutputContext@ objects that lists the contexts that the
+    -- intent activates when the intent is fulfilled.
+    outputContexts :: Prelude.Maybe [OutputContext],
+    -- | If defined in the bot, Amazon Lex uses this prompt to solicit additional
+    -- user activity after the intent is fulfilled. For more information, see
+    -- PutIntent.
+    followUpPrompt :: Prelude.Maybe FollowUpPrompt,
+    -- | Checksum of the intent.
+    checksum :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetIntentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetIntentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'girrsKendraConfiguration' - Configuration information, if any, to connect to an Amazon Kendra index with the @AMAZON.KendraSearchIntent@ intent.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'girrsCreatedDate' - The date that the intent was created.
+-- 'kendraConfiguration', 'getIntentResponse_kendraConfiguration' - Configuration information, if any, to connect to an Amazon Kendra index
+-- with the @AMAZON.KendraSearchIntent@ intent.
 --
--- * 'girrsParentIntentSignature' - A unique identifier for a built-in intent.
+-- 'createdDate', 'getIntentResponse_createdDate' - The date that the intent was created.
 --
--- * 'girrsDialogCodeHook' - If defined in the bot, Amazon Amazon Lex invokes this Lambda function for each user input. For more information, see 'PutIntent' .
+-- 'parentIntentSignature', 'getIntentResponse_parentIntentSignature' - A unique identifier for a built-in intent.
 --
--- * 'girrsConclusionStatement' - After the Lambda function specified in the @fulfillmentActivity@ element fulfills the intent, Amazon Lex conveys this statement to the user.
+-- 'dialogCodeHook', 'getIntentResponse_dialogCodeHook' - If defined in the bot, Amazon Amazon Lex invokes this Lambda function
+-- for each user input. For more information, see PutIntent.
 --
--- * 'girrsLastUpdatedDate' - The date that the intent was updated. When you create a resource, the creation date and the last updated date are the same.
+-- 'conclusionStatement', 'getIntentResponse_conclusionStatement' - After the Lambda function specified in the @fulfillmentActivity@ element
+-- fulfills the intent, Amazon Lex conveys this statement to the user.
 --
--- * 'girrsInputContexts' - An array of @InputContext@ objects that lists the contexts that must be active for Amazon Lex to choose the intent in a conversation with the user.
+-- 'lastUpdatedDate', 'getIntentResponse_lastUpdatedDate' - The date that the intent was updated. When you create a resource, the
+-- creation date and the last updated date are the same.
 --
--- * 'girrsVersion' - The version of the intent.
+-- 'inputContexts', 'getIntentResponse_inputContexts' - An array of @InputContext@ objects that lists the contexts that must be
+-- active for Amazon Lex to choose the intent in a conversation with the
+-- user.
 --
--- * 'girrsRejectionStatement' - If the user answers "no" to the question defined in @confirmationPrompt@ , Amazon Lex responds with this statement to acknowledge that the intent was canceled.
+-- 'version', 'getIntentResponse_version' - The version of the intent.
 --
--- * 'girrsName' - The name of the intent.
+-- 'rejectionStatement', 'getIntentResponse_rejectionStatement' - If the user answers \"no\" to the question defined in
+-- @confirmationPrompt@, Amazon Lex responds with this statement to
+-- acknowledge that the intent was canceled.
 --
--- * 'girrsSlots' - An array of intent slots configured for the intent.
+-- 'name', 'getIntentResponse_name' - The name of the intent.
 --
--- * 'girrsFulfillmentActivity' - Describes how the intent is fulfilled. For more information, see 'PutIntent' .
+-- 'slots', 'getIntentResponse_slots' - An array of intent slots configured for the intent.
 --
--- * 'girrsSampleUtterances' - An array of sample utterances configured for the intent.
+-- 'fulfillmentActivity', 'getIntentResponse_fulfillmentActivity' - Describes how the intent is fulfilled. For more information, see
+-- PutIntent.
 --
--- * 'girrsDescription' - A description of the intent.
+-- 'sampleUtterances', 'getIntentResponse_sampleUtterances' - An array of sample utterances configured for the intent.
 --
--- * 'girrsConfirmationPrompt' - If defined in the bot, Amazon Lex uses prompt to confirm the intent before fulfilling the user's request. For more information, see 'PutIntent' .
+-- 'description', 'getIntentResponse_description' - A description of the intent.
 --
--- * 'girrsOutputContexts' - An array of @OutputContext@ objects that lists the contexts that the intent activates when the intent is fulfilled.
+-- 'confirmationPrompt', 'getIntentResponse_confirmationPrompt' - If defined in the bot, Amazon Lex uses prompt to confirm the intent
+-- before fulfilling the user\'s request. For more information, see
+-- PutIntent.
 --
--- * 'girrsFollowUpPrompt' - If defined in the bot, Amazon Lex uses this prompt to solicit additional user activity after the intent is fulfilled. For more information, see 'PutIntent' .
+-- 'outputContexts', 'getIntentResponse_outputContexts' - An array of @OutputContext@ objects that lists the contexts that the
+-- intent activates when the intent is fulfilled.
 --
--- * 'girrsChecksum' - Checksum of the intent.
+-- 'followUpPrompt', 'getIntentResponse_followUpPrompt' - If defined in the bot, Amazon Lex uses this prompt to solicit additional
+-- user activity after the intent is fulfilled. For more information, see
+-- PutIntent.
 --
--- * 'girrsResponseStatus' - -- | The response status code.
-getIntentResponse ::
-  -- | 'girrsResponseStatus'
-  Int ->
+-- 'checksum', 'getIntentResponse_checksum' - Checksum of the intent.
+--
+-- 'httpStatus', 'getIntentResponse_httpStatus' - The response's http status code.
+newGetIntentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetIntentResponse
-getIntentResponse pResponseStatus_ =
+newGetIntentResponse pHttpStatus_ =
   GetIntentResponse'
-    { _girrsKendraConfiguration =
-        Nothing,
-      _girrsCreatedDate = Nothing,
-      _girrsParentIntentSignature = Nothing,
-      _girrsDialogCodeHook = Nothing,
-      _girrsConclusionStatement = Nothing,
-      _girrsLastUpdatedDate = Nothing,
-      _girrsInputContexts = Nothing,
-      _girrsVersion = Nothing,
-      _girrsRejectionStatement = Nothing,
-      _girrsName = Nothing,
-      _girrsSlots = Nothing,
-      _girrsFulfillmentActivity = Nothing,
-      _girrsSampleUtterances = Nothing,
-      _girrsDescription = Nothing,
-      _girrsConfirmationPrompt = Nothing,
-      _girrsOutputContexts = Nothing,
-      _girrsFollowUpPrompt = Nothing,
-      _girrsChecksum = Nothing,
-      _girrsResponseStatus = pResponseStatus_
+    { kendraConfiguration =
+        Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      parentIntentSignature = Prelude.Nothing,
+      dialogCodeHook = Prelude.Nothing,
+      conclusionStatement = Prelude.Nothing,
+      lastUpdatedDate = Prelude.Nothing,
+      inputContexts = Prelude.Nothing,
+      version = Prelude.Nothing,
+      rejectionStatement = Prelude.Nothing,
+      name = Prelude.Nothing,
+      slots = Prelude.Nothing,
+      fulfillmentActivity = Prelude.Nothing,
+      sampleUtterances = Prelude.Nothing,
+      description = Prelude.Nothing,
+      confirmationPrompt = Prelude.Nothing,
+      outputContexts = Prelude.Nothing,
+      followUpPrompt = Prelude.Nothing,
+      checksum = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Configuration information, if any, to connect to an Amazon Kendra index with the @AMAZON.KendraSearchIntent@ intent.
-girrsKendraConfiguration :: Lens' GetIntentResponse (Maybe KendraConfiguration)
-girrsKendraConfiguration = lens _girrsKendraConfiguration (\s a -> s {_girrsKendraConfiguration = a})
+-- | Configuration information, if any, to connect to an Amazon Kendra index
+-- with the @AMAZON.KendraSearchIntent@ intent.
+getIntentResponse_kendraConfiguration :: Lens.Lens' GetIntentResponse (Prelude.Maybe KendraConfiguration)
+getIntentResponse_kendraConfiguration = Lens.lens (\GetIntentResponse' {kendraConfiguration} -> kendraConfiguration) (\s@GetIntentResponse' {} a -> s {kendraConfiguration = a} :: GetIntentResponse)
 
 -- | The date that the intent was created.
-girrsCreatedDate :: Lens' GetIntentResponse (Maybe UTCTime)
-girrsCreatedDate = lens _girrsCreatedDate (\s a -> s {_girrsCreatedDate = a}) . mapping _Time
+getIntentResponse_createdDate :: Lens.Lens' GetIntentResponse (Prelude.Maybe Prelude.UTCTime)
+getIntentResponse_createdDate = Lens.lens (\GetIntentResponse' {createdDate} -> createdDate) (\s@GetIntentResponse' {} a -> s {createdDate = a} :: GetIntentResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | A unique identifier for a built-in intent.
-girrsParentIntentSignature :: Lens' GetIntentResponse (Maybe Text)
-girrsParentIntentSignature = lens _girrsParentIntentSignature (\s a -> s {_girrsParentIntentSignature = a})
+getIntentResponse_parentIntentSignature :: Lens.Lens' GetIntentResponse (Prelude.Maybe Prelude.Text)
+getIntentResponse_parentIntentSignature = Lens.lens (\GetIntentResponse' {parentIntentSignature} -> parentIntentSignature) (\s@GetIntentResponse' {} a -> s {parentIntentSignature = a} :: GetIntentResponse)
 
--- | If defined in the bot, Amazon Amazon Lex invokes this Lambda function for each user input. For more information, see 'PutIntent' .
-girrsDialogCodeHook :: Lens' GetIntentResponse (Maybe CodeHook)
-girrsDialogCodeHook = lens _girrsDialogCodeHook (\s a -> s {_girrsDialogCodeHook = a})
+-- | If defined in the bot, Amazon Amazon Lex invokes this Lambda function
+-- for each user input. For more information, see PutIntent.
+getIntentResponse_dialogCodeHook :: Lens.Lens' GetIntentResponse (Prelude.Maybe CodeHook)
+getIntentResponse_dialogCodeHook = Lens.lens (\GetIntentResponse' {dialogCodeHook} -> dialogCodeHook) (\s@GetIntentResponse' {} a -> s {dialogCodeHook = a} :: GetIntentResponse)
 
--- | After the Lambda function specified in the @fulfillmentActivity@ element fulfills the intent, Amazon Lex conveys this statement to the user.
-girrsConclusionStatement :: Lens' GetIntentResponse (Maybe Statement)
-girrsConclusionStatement = lens _girrsConclusionStatement (\s a -> s {_girrsConclusionStatement = a})
+-- | After the Lambda function specified in the @fulfillmentActivity@ element
+-- fulfills the intent, Amazon Lex conveys this statement to the user.
+getIntentResponse_conclusionStatement :: Lens.Lens' GetIntentResponse (Prelude.Maybe Statement)
+getIntentResponse_conclusionStatement = Lens.lens (\GetIntentResponse' {conclusionStatement} -> conclusionStatement) (\s@GetIntentResponse' {} a -> s {conclusionStatement = a} :: GetIntentResponse)
 
--- | The date that the intent was updated. When you create a resource, the creation date and the last updated date are the same.
-girrsLastUpdatedDate :: Lens' GetIntentResponse (Maybe UTCTime)
-girrsLastUpdatedDate = lens _girrsLastUpdatedDate (\s a -> s {_girrsLastUpdatedDate = a}) . mapping _Time
+-- | The date that the intent was updated. When you create a resource, the
+-- creation date and the last updated date are the same.
+getIntentResponse_lastUpdatedDate :: Lens.Lens' GetIntentResponse (Prelude.Maybe Prelude.UTCTime)
+getIntentResponse_lastUpdatedDate = Lens.lens (\GetIntentResponse' {lastUpdatedDate} -> lastUpdatedDate) (\s@GetIntentResponse' {} a -> s {lastUpdatedDate = a} :: GetIntentResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | An array of @InputContext@ objects that lists the contexts that must be active for Amazon Lex to choose the intent in a conversation with the user.
-girrsInputContexts :: Lens' GetIntentResponse [InputContext]
-girrsInputContexts = lens _girrsInputContexts (\s a -> s {_girrsInputContexts = a}) . _Default . _Coerce
+-- | An array of @InputContext@ objects that lists the contexts that must be
+-- active for Amazon Lex to choose the intent in a conversation with the
+-- user.
+getIntentResponse_inputContexts :: Lens.Lens' GetIntentResponse (Prelude.Maybe [InputContext])
+getIntentResponse_inputContexts = Lens.lens (\GetIntentResponse' {inputContexts} -> inputContexts) (\s@GetIntentResponse' {} a -> s {inputContexts = a} :: GetIntentResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The version of the intent.
-girrsVersion :: Lens' GetIntentResponse (Maybe Text)
-girrsVersion = lens _girrsVersion (\s a -> s {_girrsVersion = a})
+getIntentResponse_version :: Lens.Lens' GetIntentResponse (Prelude.Maybe Prelude.Text)
+getIntentResponse_version = Lens.lens (\GetIntentResponse' {version} -> version) (\s@GetIntentResponse' {} a -> s {version = a} :: GetIntentResponse)
 
--- | If the user answers "no" to the question defined in @confirmationPrompt@ , Amazon Lex responds with this statement to acknowledge that the intent was canceled.
-girrsRejectionStatement :: Lens' GetIntentResponse (Maybe Statement)
-girrsRejectionStatement = lens _girrsRejectionStatement (\s a -> s {_girrsRejectionStatement = a})
+-- | If the user answers \"no\" to the question defined in
+-- @confirmationPrompt@, Amazon Lex responds with this statement to
+-- acknowledge that the intent was canceled.
+getIntentResponse_rejectionStatement :: Lens.Lens' GetIntentResponse (Prelude.Maybe Statement)
+getIntentResponse_rejectionStatement = Lens.lens (\GetIntentResponse' {rejectionStatement} -> rejectionStatement) (\s@GetIntentResponse' {} a -> s {rejectionStatement = a} :: GetIntentResponse)
 
 -- | The name of the intent.
-girrsName :: Lens' GetIntentResponse (Maybe Text)
-girrsName = lens _girrsName (\s a -> s {_girrsName = a})
+getIntentResponse_name :: Lens.Lens' GetIntentResponse (Prelude.Maybe Prelude.Text)
+getIntentResponse_name = Lens.lens (\GetIntentResponse' {name} -> name) (\s@GetIntentResponse' {} a -> s {name = a} :: GetIntentResponse)
 
 -- | An array of intent slots configured for the intent.
-girrsSlots :: Lens' GetIntentResponse [Slot]
-girrsSlots = lens _girrsSlots (\s a -> s {_girrsSlots = a}) . _Default . _Coerce
+getIntentResponse_slots :: Lens.Lens' GetIntentResponse (Prelude.Maybe [Slot])
+getIntentResponse_slots = Lens.lens (\GetIntentResponse' {slots} -> slots) (\s@GetIntentResponse' {} a -> s {slots = a} :: GetIntentResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Describes how the intent is fulfilled. For more information, see 'PutIntent' .
-girrsFulfillmentActivity :: Lens' GetIntentResponse (Maybe FulfillmentActivity)
-girrsFulfillmentActivity = lens _girrsFulfillmentActivity (\s a -> s {_girrsFulfillmentActivity = a})
+-- | Describes how the intent is fulfilled. For more information, see
+-- PutIntent.
+getIntentResponse_fulfillmentActivity :: Lens.Lens' GetIntentResponse (Prelude.Maybe FulfillmentActivity)
+getIntentResponse_fulfillmentActivity = Lens.lens (\GetIntentResponse' {fulfillmentActivity} -> fulfillmentActivity) (\s@GetIntentResponse' {} a -> s {fulfillmentActivity = a} :: GetIntentResponse)
 
 -- | An array of sample utterances configured for the intent.
-girrsSampleUtterances :: Lens' GetIntentResponse [Text]
-girrsSampleUtterances = lens _girrsSampleUtterances (\s a -> s {_girrsSampleUtterances = a}) . _Default . _Coerce
+getIntentResponse_sampleUtterances :: Lens.Lens' GetIntentResponse (Prelude.Maybe [Prelude.Text])
+getIntentResponse_sampleUtterances = Lens.lens (\GetIntentResponse' {sampleUtterances} -> sampleUtterances) (\s@GetIntentResponse' {} a -> s {sampleUtterances = a} :: GetIntentResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the intent.
-girrsDescription :: Lens' GetIntentResponse (Maybe Text)
-girrsDescription = lens _girrsDescription (\s a -> s {_girrsDescription = a})
+getIntentResponse_description :: Lens.Lens' GetIntentResponse (Prelude.Maybe Prelude.Text)
+getIntentResponse_description = Lens.lens (\GetIntentResponse' {description} -> description) (\s@GetIntentResponse' {} a -> s {description = a} :: GetIntentResponse)
 
--- | If defined in the bot, Amazon Lex uses prompt to confirm the intent before fulfilling the user's request. For more information, see 'PutIntent' .
-girrsConfirmationPrompt :: Lens' GetIntentResponse (Maybe Prompt)
-girrsConfirmationPrompt = lens _girrsConfirmationPrompt (\s a -> s {_girrsConfirmationPrompt = a})
+-- | If defined in the bot, Amazon Lex uses prompt to confirm the intent
+-- before fulfilling the user\'s request. For more information, see
+-- PutIntent.
+getIntentResponse_confirmationPrompt :: Lens.Lens' GetIntentResponse (Prelude.Maybe Prompt)
+getIntentResponse_confirmationPrompt = Lens.lens (\GetIntentResponse' {confirmationPrompt} -> confirmationPrompt) (\s@GetIntentResponse' {} a -> s {confirmationPrompt = a} :: GetIntentResponse)
 
--- | An array of @OutputContext@ objects that lists the contexts that the intent activates when the intent is fulfilled.
-girrsOutputContexts :: Lens' GetIntentResponse [OutputContext]
-girrsOutputContexts = lens _girrsOutputContexts (\s a -> s {_girrsOutputContexts = a}) . _Default . _Coerce
+-- | An array of @OutputContext@ objects that lists the contexts that the
+-- intent activates when the intent is fulfilled.
+getIntentResponse_outputContexts :: Lens.Lens' GetIntentResponse (Prelude.Maybe [OutputContext])
+getIntentResponse_outputContexts = Lens.lens (\GetIntentResponse' {outputContexts} -> outputContexts) (\s@GetIntentResponse' {} a -> s {outputContexts = a} :: GetIntentResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If defined in the bot, Amazon Lex uses this prompt to solicit additional user activity after the intent is fulfilled. For more information, see 'PutIntent' .
-girrsFollowUpPrompt :: Lens' GetIntentResponse (Maybe FollowUpPrompt)
-girrsFollowUpPrompt = lens _girrsFollowUpPrompt (\s a -> s {_girrsFollowUpPrompt = a})
+-- | If defined in the bot, Amazon Lex uses this prompt to solicit additional
+-- user activity after the intent is fulfilled. For more information, see
+-- PutIntent.
+getIntentResponse_followUpPrompt :: Lens.Lens' GetIntentResponse (Prelude.Maybe FollowUpPrompt)
+getIntentResponse_followUpPrompt = Lens.lens (\GetIntentResponse' {followUpPrompt} -> followUpPrompt) (\s@GetIntentResponse' {} a -> s {followUpPrompt = a} :: GetIntentResponse)
 
 -- | Checksum of the intent.
-girrsChecksum :: Lens' GetIntentResponse (Maybe Text)
-girrsChecksum = lens _girrsChecksum (\s a -> s {_girrsChecksum = a})
+getIntentResponse_checksum :: Lens.Lens' GetIntentResponse (Prelude.Maybe Prelude.Text)
+getIntentResponse_checksum = Lens.lens (\GetIntentResponse' {checksum} -> checksum) (\s@GetIntentResponse' {} a -> s {checksum = a} :: GetIntentResponse)
 
--- | -- | The response status code.
-girrsResponseStatus :: Lens' GetIntentResponse Int
-girrsResponseStatus = lens _girrsResponseStatus (\s a -> s {_girrsResponseStatus = a})
+-- | The response's http status code.
+getIntentResponse_httpStatus :: Lens.Lens' GetIntentResponse Prelude.Int
+getIntentResponse_httpStatus = Lens.lens (\GetIntentResponse' {httpStatus} -> httpStatus) (\s@GetIntentResponse' {} a -> s {httpStatus = a} :: GetIntentResponse)
 
-instance NFData GetIntentResponse
+instance Prelude.NFData GetIntentResponse

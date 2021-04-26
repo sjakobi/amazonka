@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,322 +21,463 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new version of the bot based on the @> LATEST@ version. If the @> LATEST@ version of this resource hasn't changed since you created the last version, Amazon Lex doesn't create a new version. It returns the last created version.
+-- Creates a new version of the bot based on the @$LATEST@ version. If the
+-- @$LATEST@ version of this resource hasn\'t changed since you created the
+-- last version, Amazon Lex doesn\'t create a new version. It returns the
+-- last created version.
 --
+-- You can update only the @$LATEST@ version of the bot. You can\'t update
+-- the numbered versions that you create with the @CreateBotVersion@
+-- operation.
 --
--- When you create the first version of a bot, Amazon Lex sets the version to 1. Subsequent versions increment by 1. For more information, see 'versioning-intro' .
+-- When you create the first version of a bot, Amazon Lex sets the version
+-- to 1. Subsequent versions increment by 1. For more information, see
+-- versioning-intro.
 --
--- This operation requires permission for the @lex:CreateBotVersion@ action.
+-- This operation requires permission for the @lex:CreateBotVersion@
+-- action.
 module Network.AWS.LexModels.CreateBotVersion
   ( -- * Creating a Request
-    createBotVersion,
-    CreateBotVersion,
+    CreateBotVersion (..),
+    newCreateBotVersion,
 
     -- * Request Lenses
-    cbvChecksum,
-    cbvName,
+    createBotVersion_checksum,
+    createBotVersion_name,
 
     -- * Destructuring the Response
-    createBotVersionResponse,
-    CreateBotVersionResponse,
+    CreateBotVersionResponse (..),
+    newCreateBotVersionResponse,
 
     -- * Response Lenses
-    cbvrrsAbortStatement,
-    cbvrrsCreatedDate,
-    cbvrrsStatus,
-    cbvrrsVoiceId,
-    cbvrrsLastUpdatedDate,
-    cbvrrsLocale,
-    cbvrrsClarificationPrompt,
-    cbvrrsEnableModelImprovements,
-    cbvrrsVersion,
-    cbvrrsIdleSessionTTLInSeconds,
-    cbvrrsName,
-    cbvrrsIntents,
-    cbvrrsFailureReason,
-    cbvrrsChildDirected,
-    cbvrrsDescription,
-    cbvrrsDetectSentiment,
-    cbvrrsChecksum,
-    cbvrrsResponseStatus,
+    createBotVersionResponse_abortStatement,
+    createBotVersionResponse_createdDate,
+    createBotVersionResponse_status,
+    createBotVersionResponse_voiceId,
+    createBotVersionResponse_lastUpdatedDate,
+    createBotVersionResponse_locale,
+    createBotVersionResponse_clarificationPrompt,
+    createBotVersionResponse_enableModelImprovements,
+    createBotVersionResponse_version,
+    createBotVersionResponse_idleSessionTTLInSeconds,
+    createBotVersionResponse_name,
+    createBotVersionResponse_intents,
+    createBotVersionResponse_failureReason,
+    createBotVersionResponse_childDirected,
+    createBotVersionResponse_description,
+    createBotVersionResponse_detectSentiment,
+    createBotVersionResponse_checksum,
+    createBotVersionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.LexModels.Types.Intent
+import Network.AWS.LexModels.Types.LexStatus
+import Network.AWS.LexModels.Types.Locale
+import Network.AWS.LexModels.Types.Prompt
+import Network.AWS.LexModels.Types.Statement
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createBotVersion' smart constructor.
+-- | /See:/ 'newCreateBotVersion' smart constructor.
 data CreateBotVersion = CreateBotVersion'
-  { _cbvChecksum ::
-      !(Maybe Text),
-    _cbvName :: !Text
+  { -- | Identifies a specific revision of the @$LATEST@ version of the bot. If
+    -- you specify a checksum and the @$LATEST@ version of the bot has a
+    -- different checksum, a @PreconditionFailedException@ exception is
+    -- returned and Amazon Lex doesn\'t publish a new version. If you don\'t
+    -- specify a checksum, Amazon Lex publishes the @$LATEST@ version.
+    checksum :: Prelude.Maybe Prelude.Text,
+    -- | The name of the bot that you want to create a new version of. The name
+    -- is case sensitive.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateBotVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateBotVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbvChecksum' - Identifies a specific revision of the @> LATEST@ version of the bot. If you specify a checksum and the @> LATEST@ version of the bot has a different checksum, a @PreconditionFailedException@ exception is returned and Amazon Lex doesn't publish a new version. If you don't specify a checksum, Amazon Lex publishes the @> LATEST@ version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbvName' - The name of the bot that you want to create a new version of. The name is case sensitive.
-createBotVersion ::
-  -- | 'cbvName'
-  Text ->
+-- 'checksum', 'createBotVersion_checksum' - Identifies a specific revision of the @$LATEST@ version of the bot. If
+-- you specify a checksum and the @$LATEST@ version of the bot has a
+-- different checksum, a @PreconditionFailedException@ exception is
+-- returned and Amazon Lex doesn\'t publish a new version. If you don\'t
+-- specify a checksum, Amazon Lex publishes the @$LATEST@ version.
+--
+-- 'name', 'createBotVersion_name' - The name of the bot that you want to create a new version of. The name
+-- is case sensitive.
+newCreateBotVersion ::
+  -- | 'name'
+  Prelude.Text ->
   CreateBotVersion
-createBotVersion pName_ =
+newCreateBotVersion pName_ =
   CreateBotVersion'
-    { _cbvChecksum = Nothing,
-      _cbvName = pName_
+    { checksum = Prelude.Nothing,
+      name = pName_
     }
 
--- | Identifies a specific revision of the @> LATEST@ version of the bot. If you specify a checksum and the @> LATEST@ version of the bot has a different checksum, a @PreconditionFailedException@ exception is returned and Amazon Lex doesn't publish a new version. If you don't specify a checksum, Amazon Lex publishes the @> LATEST@ version.
-cbvChecksum :: Lens' CreateBotVersion (Maybe Text)
-cbvChecksum = lens _cbvChecksum (\s a -> s {_cbvChecksum = a})
+-- | Identifies a specific revision of the @$LATEST@ version of the bot. If
+-- you specify a checksum and the @$LATEST@ version of the bot has a
+-- different checksum, a @PreconditionFailedException@ exception is
+-- returned and Amazon Lex doesn\'t publish a new version. If you don\'t
+-- specify a checksum, Amazon Lex publishes the @$LATEST@ version.
+createBotVersion_checksum :: Lens.Lens' CreateBotVersion (Prelude.Maybe Prelude.Text)
+createBotVersion_checksum = Lens.lens (\CreateBotVersion' {checksum} -> checksum) (\s@CreateBotVersion' {} a -> s {checksum = a} :: CreateBotVersion)
 
--- | The name of the bot that you want to create a new version of. The name is case sensitive.
-cbvName :: Lens' CreateBotVersion Text
-cbvName = lens _cbvName (\s a -> s {_cbvName = a})
+-- | The name of the bot that you want to create a new version of. The name
+-- is case sensitive.
+createBotVersion_name :: Lens.Lens' CreateBotVersion Prelude.Text
+createBotVersion_name = Lens.lens (\CreateBotVersion' {name} -> name) (\s@CreateBotVersion' {} a -> s {name = a} :: CreateBotVersion)
 
-instance AWSRequest CreateBotVersion where
+instance Prelude.AWSRequest CreateBotVersion where
   type Rs CreateBotVersion = CreateBotVersionResponse
-  request = postJSON lexModels
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateBotVersionResponse'
-            <$> (x .?> "abortStatement")
-            <*> (x .?> "createdDate")
-            <*> (x .?> "status")
-            <*> (x .?> "voiceId")
-            <*> (x .?> "lastUpdatedDate")
-            <*> (x .?> "locale")
-            <*> (x .?> "clarificationPrompt")
-            <*> (x .?> "enableModelImprovements")
-            <*> (x .?> "version")
-            <*> (x .?> "idleSessionTTLInSeconds")
-            <*> (x .?> "name")
-            <*> (x .?> "intents" .!@ mempty)
-            <*> (x .?> "failureReason")
-            <*> (x .?> "childDirected")
-            <*> (x .?> "description")
-            <*> (x .?> "detectSentiment")
-            <*> (x .?> "checksum")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "abortStatement")
+            Prelude.<*> (x Prelude..?> "createdDate")
+            Prelude.<*> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "voiceId")
+            Prelude.<*> (x Prelude..?> "lastUpdatedDate")
+            Prelude.<*> (x Prelude..?> "locale")
+            Prelude.<*> (x Prelude..?> "clarificationPrompt")
+            Prelude.<*> (x Prelude..?> "enableModelImprovements")
+            Prelude.<*> (x Prelude..?> "version")
+            Prelude.<*> (x Prelude..?> "idleSessionTTLInSeconds")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "intents" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "failureReason")
+            Prelude.<*> (x Prelude..?> "childDirected")
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (x Prelude..?> "detectSentiment")
+            Prelude.<*> (x Prelude..?> "checksum")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateBotVersion
+instance Prelude.Hashable CreateBotVersion
 
-instance NFData CreateBotVersion
+instance Prelude.NFData CreateBotVersion
 
-instance ToHeaders CreateBotVersion where
+instance Prelude.ToHeaders CreateBotVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateBotVersion where
+instance Prelude.ToJSON CreateBotVersion where
   toJSON CreateBotVersion' {..} =
-    object
-      (catMaybes [("checksum" .=) <$> _cbvChecksum])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("checksum" Prelude..=) Prelude.<$> checksum]
+      )
 
-instance ToPath CreateBotVersion where
+instance Prelude.ToPath CreateBotVersion where
   toPath CreateBotVersion' {..} =
-    mconcat ["/bots/", toBS _cbvName, "/versions"]
+    Prelude.mconcat
+      ["/bots/", Prelude.toBS name, "/versions"]
 
-instance ToQuery CreateBotVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateBotVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createBotVersionResponse' smart constructor.
+-- | /See:/ 'newCreateBotVersionResponse' smart constructor.
 data CreateBotVersionResponse = CreateBotVersionResponse'
-  { _cbvrrsAbortStatement ::
-      !(Maybe Statement),
-    _cbvrrsCreatedDate ::
-      !(Maybe POSIX),
-    _cbvrrsStatus ::
-      !(Maybe LexStatus),
-    _cbvrrsVoiceId ::
-      !(Maybe Text),
-    _cbvrrsLastUpdatedDate ::
-      !(Maybe POSIX),
-    _cbvrrsLocale ::
-      !(Maybe Locale),
-    _cbvrrsClarificationPrompt ::
-      !(Maybe Prompt),
-    _cbvrrsEnableModelImprovements ::
-      !(Maybe Bool),
-    _cbvrrsVersion ::
-      !(Maybe Text),
-    _cbvrrsIdleSessionTTLInSeconds ::
-      !(Maybe Nat),
-    _cbvrrsName ::
-      !(Maybe Text),
-    _cbvrrsIntents ::
-      !(Maybe [Intent]),
-    _cbvrrsFailureReason ::
-      !(Maybe Text),
-    _cbvrrsChildDirected ::
-      !(Maybe Bool),
-    _cbvrrsDescription ::
-      !(Maybe Text),
-    _cbvrrsDetectSentiment ::
-      !(Maybe Bool),
-    _cbvrrsChecksum ::
-      !(Maybe Text),
-    _cbvrrsResponseStatus ::
-      !Int
+  { -- | The message that Amazon Lex uses to cancel a conversation. For more
+    -- information, see PutBot.
+    abortStatement :: Prelude.Maybe Statement,
+    -- | The date when the bot version was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | When you send a request to create or update a bot, Amazon Lex sets the
+    -- @status@ response element to @BUILDING@. After Amazon Lex builds the
+    -- bot, it sets @status@ to @READY@. If Amazon Lex can\'t build the bot, it
+    -- sets @status@ to @FAILED@. Amazon Lex returns the reason for the failure
+    -- in the @failureReason@ response element.
+    status :: Prelude.Maybe LexStatus,
+    -- | The Amazon Polly voice ID that Amazon Lex uses for voice interactions
+    -- with the user.
+    voiceId :: Prelude.Maybe Prelude.Text,
+    -- | The date when the @$LATEST@ version of this bot was updated.
+    lastUpdatedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies the target locale for the bot.
+    locale :: Prelude.Maybe Locale,
+    -- | The message that Amazon Lex uses when it doesn\'t understand the user\'s
+    -- request. For more information, see PutBot.
+    clarificationPrompt :: Prelude.Maybe Prompt,
+    -- | Indicates whether the bot uses accuracy improvements. @true@ indicates
+    -- that the bot is using the improvements, otherwise, @false@.
+    enableModelImprovements :: Prelude.Maybe Prelude.Bool,
+    -- | The version of the bot.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The maximum time in seconds that Amazon Lex retains the data gathered in
+    -- a conversation. For more information, see PutBot.
+    idleSessionTTLInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the bot.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | An array of @Intent@ objects. For more information, see PutBot.
+    intents :: Prelude.Maybe [Intent],
+    -- | If @status@ is @FAILED@, Amazon Lex provides the reason that it failed
+    -- to build the bot.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | For each Amazon Lex bot created with the Amazon Lex Model Building
+    -- Service, you must specify whether your use of Amazon Lex is related to a
+    -- website, program, or other application that is directed or targeted, in
+    -- whole or in part, to children under age 13 and subject to the
+    -- Children\'s Online Privacy Protection Act (COPPA) by specifying @true@
+    -- or @false@ in the @childDirected@ field. By specifying @true@ in the
+    -- @childDirected@ field, you confirm that your use of Amazon Lex __is__
+    -- related to a website, program, or other application that is directed or
+    -- targeted, in whole or in part, to children under age 13 and subject to
+    -- COPPA. By specifying @false@ in the @childDirected@ field, you confirm
+    -- that your use of Amazon Lex __is not__ related to a website, program, or
+    -- other application that is directed or targeted, in whole or in part, to
+    -- children under age 13 and subject to COPPA. You may not specify a
+    -- default value for the @childDirected@ field that does not accurately
+    -- reflect whether your use of Amazon Lex is related to a website, program,
+    -- or other application that is directed or targeted, in whole or in part,
+    -- to children under age 13 and subject to COPPA.
+    --
+    -- If your use of Amazon Lex relates to a website, program, or other
+    -- application that is directed in whole or in part, to children under age
+    -- 13, you must obtain any required verifiable parental consent under
+    -- COPPA. For information regarding the use of Amazon Lex in connection
+    -- with websites, programs, or other applications that are directed or
+    -- targeted, in whole or in part, to children under age 13, see the
+    -- <https://aws.amazon.com/lex/faqs#data-security Amazon Lex FAQ.>
+    childDirected :: Prelude.Maybe Prelude.Bool,
+    -- | A description of the bot.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether utterances entered by the user should be sent to
+    -- Amazon Comprehend for sentiment analysis.
+    detectSentiment :: Prelude.Maybe Prelude.Bool,
+    -- | Checksum identifying the version of the bot that was created.
+    checksum :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateBotVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateBotVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbvrrsAbortStatement' - The message that Amazon Lex uses to cancel a conversation. For more information, see 'PutBot' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbvrrsCreatedDate' - The date when the bot version was created.
+-- 'abortStatement', 'createBotVersionResponse_abortStatement' - The message that Amazon Lex uses to cancel a conversation. For more
+-- information, see PutBot.
 --
--- * 'cbvrrsStatus' - When you send a request to create or update a bot, Amazon Lex sets the @status@ response element to @BUILDING@ . After Amazon Lex builds the bot, it sets @status@ to @READY@ . If Amazon Lex can't build the bot, it sets @status@ to @FAILED@ . Amazon Lex returns the reason for the failure in the @failureReason@ response element.
+-- 'createdDate', 'createBotVersionResponse_createdDate' - The date when the bot version was created.
 --
--- * 'cbvrrsVoiceId' - The Amazon Polly voice ID that Amazon Lex uses for voice interactions with the user.
+-- 'status', 'createBotVersionResponse_status' - When you send a request to create or update a bot, Amazon Lex sets the
+-- @status@ response element to @BUILDING@. After Amazon Lex builds the
+-- bot, it sets @status@ to @READY@. If Amazon Lex can\'t build the bot, it
+-- sets @status@ to @FAILED@. Amazon Lex returns the reason for the failure
+-- in the @failureReason@ response element.
 --
--- * 'cbvrrsLastUpdatedDate' - The date when the @> LATEST@ version of this bot was updated.
+-- 'voiceId', 'createBotVersionResponse_voiceId' - The Amazon Polly voice ID that Amazon Lex uses for voice interactions
+-- with the user.
 --
--- * 'cbvrrsLocale' - Specifies the target locale for the bot.
+-- 'lastUpdatedDate', 'createBotVersionResponse_lastUpdatedDate' - The date when the @$LATEST@ version of this bot was updated.
 --
--- * 'cbvrrsClarificationPrompt' - The message that Amazon Lex uses when it doesn't understand the user's request. For more information, see 'PutBot' .
+-- 'locale', 'createBotVersionResponse_locale' - Specifies the target locale for the bot.
 --
--- * 'cbvrrsEnableModelImprovements' - Indicates whether the bot uses accuracy improvements. @true@ indicates that the bot is using the improvements, otherwise, @false@ .
+-- 'clarificationPrompt', 'createBotVersionResponse_clarificationPrompt' - The message that Amazon Lex uses when it doesn\'t understand the user\'s
+-- request. For more information, see PutBot.
 --
--- * 'cbvrrsVersion' - The version of the bot.
+-- 'enableModelImprovements', 'createBotVersionResponse_enableModelImprovements' - Indicates whether the bot uses accuracy improvements. @true@ indicates
+-- that the bot is using the improvements, otherwise, @false@.
 --
--- * 'cbvrrsIdleSessionTTLInSeconds' - The maximum time in seconds that Amazon Lex retains the data gathered in a conversation. For more information, see 'PutBot' .
+-- 'version', 'createBotVersionResponse_version' - The version of the bot.
 --
--- * 'cbvrrsName' - The name of the bot.
+-- 'idleSessionTTLInSeconds', 'createBotVersionResponse_idleSessionTTLInSeconds' - The maximum time in seconds that Amazon Lex retains the data gathered in
+-- a conversation. For more information, see PutBot.
 --
--- * 'cbvrrsIntents' - An array of @Intent@ objects. For more information, see 'PutBot' .
+-- 'name', 'createBotVersionResponse_name' - The name of the bot.
 --
--- * 'cbvrrsFailureReason' - If @status@ is @FAILED@ , Amazon Lex provides the reason that it failed to build the bot.
+-- 'intents', 'createBotVersionResponse_intents' - An array of @Intent@ objects. For more information, see PutBot.
 --
--- * 'cbvrrsChildDirected' - For each Amazon Lex bot created with the Amazon Lex Model Building Service, you must specify whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to the Children's Online Privacy Protection Act (COPPA) by specifying @true@ or @false@ in the @childDirected@ field. By specifying @true@ in the @childDirected@ field, you confirm that your use of Amazon Lex __is__ related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. By specifying @false@ in the @childDirected@ field, you confirm that your use of Amazon Lex __is not__ related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. You may not specify a default value for the @childDirected@ field that does not accurately reflect whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. If your use of Amazon Lex relates to a website, program, or other application that is directed in whole or in part, to children under age 13, you must obtain any required verifiable parental consent under COPPA. For information regarding the use of Amazon Lex in connection with websites, programs, or other applications that are directed or targeted, in whole or in part, to children under age 13, see the <https://aws.amazon.com/lex/faqs#data-security Amazon Lex FAQ.>
+-- 'failureReason', 'createBotVersionResponse_failureReason' - If @status@ is @FAILED@, Amazon Lex provides the reason that it failed
+-- to build the bot.
 --
--- * 'cbvrrsDescription' - A description of the bot.
+-- 'childDirected', 'createBotVersionResponse_childDirected' - For each Amazon Lex bot created with the Amazon Lex Model Building
+-- Service, you must specify whether your use of Amazon Lex is related to a
+-- website, program, or other application that is directed or targeted, in
+-- whole or in part, to children under age 13 and subject to the
+-- Children\'s Online Privacy Protection Act (COPPA) by specifying @true@
+-- or @false@ in the @childDirected@ field. By specifying @true@ in the
+-- @childDirected@ field, you confirm that your use of Amazon Lex __is__
+-- related to a website, program, or other application that is directed or
+-- targeted, in whole or in part, to children under age 13 and subject to
+-- COPPA. By specifying @false@ in the @childDirected@ field, you confirm
+-- that your use of Amazon Lex __is not__ related to a website, program, or
+-- other application that is directed or targeted, in whole or in part, to
+-- children under age 13 and subject to COPPA. You may not specify a
+-- default value for the @childDirected@ field that does not accurately
+-- reflect whether your use of Amazon Lex is related to a website, program,
+-- or other application that is directed or targeted, in whole or in part,
+-- to children under age 13 and subject to COPPA.
 --
--- * 'cbvrrsDetectSentiment' - Indicates whether utterances entered by the user should be sent to Amazon Comprehend for sentiment analysis.
+-- If your use of Amazon Lex relates to a website, program, or other
+-- application that is directed in whole or in part, to children under age
+-- 13, you must obtain any required verifiable parental consent under
+-- COPPA. For information regarding the use of Amazon Lex in connection
+-- with websites, programs, or other applications that are directed or
+-- targeted, in whole or in part, to children under age 13, see the
+-- <https://aws.amazon.com/lex/faqs#data-security Amazon Lex FAQ.>
 --
--- * 'cbvrrsChecksum' - Checksum identifying the version of the bot that was created.
+-- 'description', 'createBotVersionResponse_description' - A description of the bot.
 --
--- * 'cbvrrsResponseStatus' - -- | The response status code.
-createBotVersionResponse ::
-  -- | 'cbvrrsResponseStatus'
-  Int ->
+-- 'detectSentiment', 'createBotVersionResponse_detectSentiment' - Indicates whether utterances entered by the user should be sent to
+-- Amazon Comprehend for sentiment analysis.
+--
+-- 'checksum', 'createBotVersionResponse_checksum' - Checksum identifying the version of the bot that was created.
+--
+-- 'httpStatus', 'createBotVersionResponse_httpStatus' - The response's http status code.
+newCreateBotVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateBotVersionResponse
-createBotVersionResponse pResponseStatus_ =
+newCreateBotVersionResponse pHttpStatus_ =
   CreateBotVersionResponse'
-    { _cbvrrsAbortStatement =
-        Nothing,
-      _cbvrrsCreatedDate = Nothing,
-      _cbvrrsStatus = Nothing,
-      _cbvrrsVoiceId = Nothing,
-      _cbvrrsLastUpdatedDate = Nothing,
-      _cbvrrsLocale = Nothing,
-      _cbvrrsClarificationPrompt = Nothing,
-      _cbvrrsEnableModelImprovements = Nothing,
-      _cbvrrsVersion = Nothing,
-      _cbvrrsIdleSessionTTLInSeconds = Nothing,
-      _cbvrrsName = Nothing,
-      _cbvrrsIntents = Nothing,
-      _cbvrrsFailureReason = Nothing,
-      _cbvrrsChildDirected = Nothing,
-      _cbvrrsDescription = Nothing,
-      _cbvrrsDetectSentiment = Nothing,
-      _cbvrrsChecksum = Nothing,
-      _cbvrrsResponseStatus = pResponseStatus_
+    { abortStatement =
+        Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      status = Prelude.Nothing,
+      voiceId = Prelude.Nothing,
+      lastUpdatedDate = Prelude.Nothing,
+      locale = Prelude.Nothing,
+      clarificationPrompt = Prelude.Nothing,
+      enableModelImprovements = Prelude.Nothing,
+      version = Prelude.Nothing,
+      idleSessionTTLInSeconds = Prelude.Nothing,
+      name = Prelude.Nothing,
+      intents = Prelude.Nothing,
+      failureReason = Prelude.Nothing,
+      childDirected = Prelude.Nothing,
+      description = Prelude.Nothing,
+      detectSentiment = Prelude.Nothing,
+      checksum = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The message that Amazon Lex uses to cancel a conversation. For more information, see 'PutBot' .
-cbvrrsAbortStatement :: Lens' CreateBotVersionResponse (Maybe Statement)
-cbvrrsAbortStatement = lens _cbvrrsAbortStatement (\s a -> s {_cbvrrsAbortStatement = a})
+-- | The message that Amazon Lex uses to cancel a conversation. For more
+-- information, see PutBot.
+createBotVersionResponse_abortStatement :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Statement)
+createBotVersionResponse_abortStatement = Lens.lens (\CreateBotVersionResponse' {abortStatement} -> abortStatement) (\s@CreateBotVersionResponse' {} a -> s {abortStatement = a} :: CreateBotVersionResponse)
 
 -- | The date when the bot version was created.
-cbvrrsCreatedDate :: Lens' CreateBotVersionResponse (Maybe UTCTime)
-cbvrrsCreatedDate = lens _cbvrrsCreatedDate (\s a -> s {_cbvrrsCreatedDate = a}) . mapping _Time
+createBotVersionResponse_createdDate :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.UTCTime)
+createBotVersionResponse_createdDate = Lens.lens (\CreateBotVersionResponse' {createdDate} -> createdDate) (\s@CreateBotVersionResponse' {} a -> s {createdDate = a} :: CreateBotVersionResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | When you send a request to create or update a bot, Amazon Lex sets the @status@ response element to @BUILDING@ . After Amazon Lex builds the bot, it sets @status@ to @READY@ . If Amazon Lex can't build the bot, it sets @status@ to @FAILED@ . Amazon Lex returns the reason for the failure in the @failureReason@ response element.
-cbvrrsStatus :: Lens' CreateBotVersionResponse (Maybe LexStatus)
-cbvrrsStatus = lens _cbvrrsStatus (\s a -> s {_cbvrrsStatus = a})
+-- | When you send a request to create or update a bot, Amazon Lex sets the
+-- @status@ response element to @BUILDING@. After Amazon Lex builds the
+-- bot, it sets @status@ to @READY@. If Amazon Lex can\'t build the bot, it
+-- sets @status@ to @FAILED@. Amazon Lex returns the reason for the failure
+-- in the @failureReason@ response element.
+createBotVersionResponse_status :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe LexStatus)
+createBotVersionResponse_status = Lens.lens (\CreateBotVersionResponse' {status} -> status) (\s@CreateBotVersionResponse' {} a -> s {status = a} :: CreateBotVersionResponse)
 
--- | The Amazon Polly voice ID that Amazon Lex uses for voice interactions with the user.
-cbvrrsVoiceId :: Lens' CreateBotVersionResponse (Maybe Text)
-cbvrrsVoiceId = lens _cbvrrsVoiceId (\s a -> s {_cbvrrsVoiceId = a})
+-- | The Amazon Polly voice ID that Amazon Lex uses for voice interactions
+-- with the user.
+createBotVersionResponse_voiceId :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.Text)
+createBotVersionResponse_voiceId = Lens.lens (\CreateBotVersionResponse' {voiceId} -> voiceId) (\s@CreateBotVersionResponse' {} a -> s {voiceId = a} :: CreateBotVersionResponse)
 
--- | The date when the @> LATEST@ version of this bot was updated.
-cbvrrsLastUpdatedDate :: Lens' CreateBotVersionResponse (Maybe UTCTime)
-cbvrrsLastUpdatedDate = lens _cbvrrsLastUpdatedDate (\s a -> s {_cbvrrsLastUpdatedDate = a}) . mapping _Time
+-- | The date when the @$LATEST@ version of this bot was updated.
+createBotVersionResponse_lastUpdatedDate :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.UTCTime)
+createBotVersionResponse_lastUpdatedDate = Lens.lens (\CreateBotVersionResponse' {lastUpdatedDate} -> lastUpdatedDate) (\s@CreateBotVersionResponse' {} a -> s {lastUpdatedDate = a} :: CreateBotVersionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | Specifies the target locale for the bot.
-cbvrrsLocale :: Lens' CreateBotVersionResponse (Maybe Locale)
-cbvrrsLocale = lens _cbvrrsLocale (\s a -> s {_cbvrrsLocale = a})
+createBotVersionResponse_locale :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Locale)
+createBotVersionResponse_locale = Lens.lens (\CreateBotVersionResponse' {locale} -> locale) (\s@CreateBotVersionResponse' {} a -> s {locale = a} :: CreateBotVersionResponse)
 
--- | The message that Amazon Lex uses when it doesn't understand the user's request. For more information, see 'PutBot' .
-cbvrrsClarificationPrompt :: Lens' CreateBotVersionResponse (Maybe Prompt)
-cbvrrsClarificationPrompt = lens _cbvrrsClarificationPrompt (\s a -> s {_cbvrrsClarificationPrompt = a})
+-- | The message that Amazon Lex uses when it doesn\'t understand the user\'s
+-- request. For more information, see PutBot.
+createBotVersionResponse_clarificationPrompt :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prompt)
+createBotVersionResponse_clarificationPrompt = Lens.lens (\CreateBotVersionResponse' {clarificationPrompt} -> clarificationPrompt) (\s@CreateBotVersionResponse' {} a -> s {clarificationPrompt = a} :: CreateBotVersionResponse)
 
--- | Indicates whether the bot uses accuracy improvements. @true@ indicates that the bot is using the improvements, otherwise, @false@ .
-cbvrrsEnableModelImprovements :: Lens' CreateBotVersionResponse (Maybe Bool)
-cbvrrsEnableModelImprovements = lens _cbvrrsEnableModelImprovements (\s a -> s {_cbvrrsEnableModelImprovements = a})
+-- | Indicates whether the bot uses accuracy improvements. @true@ indicates
+-- that the bot is using the improvements, otherwise, @false@.
+createBotVersionResponse_enableModelImprovements :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.Bool)
+createBotVersionResponse_enableModelImprovements = Lens.lens (\CreateBotVersionResponse' {enableModelImprovements} -> enableModelImprovements) (\s@CreateBotVersionResponse' {} a -> s {enableModelImprovements = a} :: CreateBotVersionResponse)
 
 -- | The version of the bot.
-cbvrrsVersion :: Lens' CreateBotVersionResponse (Maybe Text)
-cbvrrsVersion = lens _cbvrrsVersion (\s a -> s {_cbvrrsVersion = a})
+createBotVersionResponse_version :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.Text)
+createBotVersionResponse_version = Lens.lens (\CreateBotVersionResponse' {version} -> version) (\s@CreateBotVersionResponse' {} a -> s {version = a} :: CreateBotVersionResponse)
 
--- | The maximum time in seconds that Amazon Lex retains the data gathered in a conversation. For more information, see 'PutBot' .
-cbvrrsIdleSessionTTLInSeconds :: Lens' CreateBotVersionResponse (Maybe Natural)
-cbvrrsIdleSessionTTLInSeconds = lens _cbvrrsIdleSessionTTLInSeconds (\s a -> s {_cbvrrsIdleSessionTTLInSeconds = a}) . mapping _Nat
+-- | The maximum time in seconds that Amazon Lex retains the data gathered in
+-- a conversation. For more information, see PutBot.
+createBotVersionResponse_idleSessionTTLInSeconds :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.Natural)
+createBotVersionResponse_idleSessionTTLInSeconds = Lens.lens (\CreateBotVersionResponse' {idleSessionTTLInSeconds} -> idleSessionTTLInSeconds) (\s@CreateBotVersionResponse' {} a -> s {idleSessionTTLInSeconds = a} :: CreateBotVersionResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the bot.
-cbvrrsName :: Lens' CreateBotVersionResponse (Maybe Text)
-cbvrrsName = lens _cbvrrsName (\s a -> s {_cbvrrsName = a})
+createBotVersionResponse_name :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.Text)
+createBotVersionResponse_name = Lens.lens (\CreateBotVersionResponse' {name} -> name) (\s@CreateBotVersionResponse' {} a -> s {name = a} :: CreateBotVersionResponse)
 
--- | An array of @Intent@ objects. For more information, see 'PutBot' .
-cbvrrsIntents :: Lens' CreateBotVersionResponse [Intent]
-cbvrrsIntents = lens _cbvrrsIntents (\s a -> s {_cbvrrsIntents = a}) . _Default . _Coerce
+-- | An array of @Intent@ objects. For more information, see PutBot.
+createBotVersionResponse_intents :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe [Intent])
+createBotVersionResponse_intents = Lens.lens (\CreateBotVersionResponse' {intents} -> intents) (\s@CreateBotVersionResponse' {} a -> s {intents = a} :: CreateBotVersionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If @status@ is @FAILED@ , Amazon Lex provides the reason that it failed to build the bot.
-cbvrrsFailureReason :: Lens' CreateBotVersionResponse (Maybe Text)
-cbvrrsFailureReason = lens _cbvrrsFailureReason (\s a -> s {_cbvrrsFailureReason = a})
+-- | If @status@ is @FAILED@, Amazon Lex provides the reason that it failed
+-- to build the bot.
+createBotVersionResponse_failureReason :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.Text)
+createBotVersionResponse_failureReason = Lens.lens (\CreateBotVersionResponse' {failureReason} -> failureReason) (\s@CreateBotVersionResponse' {} a -> s {failureReason = a} :: CreateBotVersionResponse)
 
--- | For each Amazon Lex bot created with the Amazon Lex Model Building Service, you must specify whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to the Children's Online Privacy Protection Act (COPPA) by specifying @true@ or @false@ in the @childDirected@ field. By specifying @true@ in the @childDirected@ field, you confirm that your use of Amazon Lex __is__ related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. By specifying @false@ in the @childDirected@ field, you confirm that your use of Amazon Lex __is not__ related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. You may not specify a default value for the @childDirected@ field that does not accurately reflect whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. If your use of Amazon Lex relates to a website, program, or other application that is directed in whole or in part, to children under age 13, you must obtain any required verifiable parental consent under COPPA. For information regarding the use of Amazon Lex in connection with websites, programs, or other applications that are directed or targeted, in whole or in part, to children under age 13, see the <https://aws.amazon.com/lex/faqs#data-security Amazon Lex FAQ.>
-cbvrrsChildDirected :: Lens' CreateBotVersionResponse (Maybe Bool)
-cbvrrsChildDirected = lens _cbvrrsChildDirected (\s a -> s {_cbvrrsChildDirected = a})
+-- | For each Amazon Lex bot created with the Amazon Lex Model Building
+-- Service, you must specify whether your use of Amazon Lex is related to a
+-- website, program, or other application that is directed or targeted, in
+-- whole or in part, to children under age 13 and subject to the
+-- Children\'s Online Privacy Protection Act (COPPA) by specifying @true@
+-- or @false@ in the @childDirected@ field. By specifying @true@ in the
+-- @childDirected@ field, you confirm that your use of Amazon Lex __is__
+-- related to a website, program, or other application that is directed or
+-- targeted, in whole or in part, to children under age 13 and subject to
+-- COPPA. By specifying @false@ in the @childDirected@ field, you confirm
+-- that your use of Amazon Lex __is not__ related to a website, program, or
+-- other application that is directed or targeted, in whole or in part, to
+-- children under age 13 and subject to COPPA. You may not specify a
+-- default value for the @childDirected@ field that does not accurately
+-- reflect whether your use of Amazon Lex is related to a website, program,
+-- or other application that is directed or targeted, in whole or in part,
+-- to children under age 13 and subject to COPPA.
+--
+-- If your use of Amazon Lex relates to a website, program, or other
+-- application that is directed in whole or in part, to children under age
+-- 13, you must obtain any required verifiable parental consent under
+-- COPPA. For information regarding the use of Amazon Lex in connection
+-- with websites, programs, or other applications that are directed or
+-- targeted, in whole or in part, to children under age 13, see the
+-- <https://aws.amazon.com/lex/faqs#data-security Amazon Lex FAQ.>
+createBotVersionResponse_childDirected :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.Bool)
+createBotVersionResponse_childDirected = Lens.lens (\CreateBotVersionResponse' {childDirected} -> childDirected) (\s@CreateBotVersionResponse' {} a -> s {childDirected = a} :: CreateBotVersionResponse)
 
 -- | A description of the bot.
-cbvrrsDescription :: Lens' CreateBotVersionResponse (Maybe Text)
-cbvrrsDescription = lens _cbvrrsDescription (\s a -> s {_cbvrrsDescription = a})
+createBotVersionResponse_description :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.Text)
+createBotVersionResponse_description = Lens.lens (\CreateBotVersionResponse' {description} -> description) (\s@CreateBotVersionResponse' {} a -> s {description = a} :: CreateBotVersionResponse)
 
--- | Indicates whether utterances entered by the user should be sent to Amazon Comprehend for sentiment analysis.
-cbvrrsDetectSentiment :: Lens' CreateBotVersionResponse (Maybe Bool)
-cbvrrsDetectSentiment = lens _cbvrrsDetectSentiment (\s a -> s {_cbvrrsDetectSentiment = a})
+-- | Indicates whether utterances entered by the user should be sent to
+-- Amazon Comprehend for sentiment analysis.
+createBotVersionResponse_detectSentiment :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.Bool)
+createBotVersionResponse_detectSentiment = Lens.lens (\CreateBotVersionResponse' {detectSentiment} -> detectSentiment) (\s@CreateBotVersionResponse' {} a -> s {detectSentiment = a} :: CreateBotVersionResponse)
 
 -- | Checksum identifying the version of the bot that was created.
-cbvrrsChecksum :: Lens' CreateBotVersionResponse (Maybe Text)
-cbvrrsChecksum = lens _cbvrrsChecksum (\s a -> s {_cbvrrsChecksum = a})
+createBotVersionResponse_checksum :: Lens.Lens' CreateBotVersionResponse (Prelude.Maybe Prelude.Text)
+createBotVersionResponse_checksum = Lens.lens (\CreateBotVersionResponse' {checksum} -> checksum) (\s@CreateBotVersionResponse' {} a -> s {checksum = a} :: CreateBotVersionResponse)
 
--- | -- | The response status code.
-cbvrrsResponseStatus :: Lens' CreateBotVersionResponse Int
-cbvrrsResponseStatus = lens _cbvrrsResponseStatus (\s a -> s {_cbvrrsResponseStatus = a})
+-- | The response's http status code.
+createBotVersionResponse_httpStatus :: Lens.Lens' CreateBotVersionResponse Prelude.Int
+createBotVersionResponse_httpStatus = Lens.lens (\CreateBotVersionResponse' {httpStatus} -> httpStatus) (\s@CreateBotVersionResponse' {} a -> s {httpStatus = a} :: CreateBotVersionResponse)
 
-instance NFData CreateBotVersionResponse
+instance Prelude.NFData CreateBotVersionResponse

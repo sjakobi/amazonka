@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.LexModels.Types.ContentType
   ( ContentType
       ( ..,
-        CustomPayload,
-        PlainText,
-        Ssml
+        ContentTypeCustomPayload,
+        ContentTypePlainText,
+        ContentTypeSSML
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContentType = ContentType' (CI Text)
+newtype ContentType = ContentType'
+  { fromContentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CustomPayload :: ContentType
-pattern CustomPayload = ContentType' "CustomPayload"
+pattern ContentTypeCustomPayload :: ContentType
+pattern ContentTypeCustomPayload = ContentType' "CustomPayload"
 
-pattern PlainText :: ContentType
-pattern PlainText = ContentType' "PlainText"
+pattern ContentTypePlainText :: ContentType
+pattern ContentTypePlainText = ContentType' "PlainText"
 
-pattern Ssml :: ContentType
-pattern Ssml = ContentType' "SSML"
+pattern ContentTypeSSML :: ContentType
+pattern ContentTypeSSML = ContentType' "SSML"
 
 {-# COMPLETE
-  CustomPayload,
-  PlainText,
-  Ssml,
+  ContentTypeCustomPayload,
+  ContentTypePlainText,
+  ContentTypeSSML,
   ContentType'
   #-}
 
-instance FromText ContentType where
-  parser = (ContentType' . mk) <$> takeText
+instance Prelude.FromText ContentType where
+  parser = ContentType' Prelude.<$> Prelude.takeText
 
-instance ToText ContentType where
-  toText (ContentType' ci) = original ci
+instance Prelude.ToText ContentType where
+  toText (ContentType' x) = x
 
-instance Hashable ContentType
+instance Prelude.Hashable ContentType
 
-instance NFData ContentType
+instance Prelude.NFData ContentType
 
-instance ToByteString ContentType
+instance Prelude.ToByteString ContentType
 
-instance ToQuery ContentType
+instance Prelude.ToQuery ContentType
 
-instance ToHeader ContentType
+instance Prelude.ToHeader ContentType
 
-instance ToJSON ContentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContentType where
-  parseJSON = parseJSONText "ContentType"
+instance Prelude.FromJSON ContentType where
+  parseJSON = Prelude.parseJSONText "ContentType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.ConversationLogsResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types.LogSettingsResponse
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about conversation log settings.
 --
---
---
--- /See:/ 'conversationLogsResponse' smart constructor.
+-- /See:/ 'newConversationLogsResponse' smart constructor.
 data ConversationLogsResponse = ConversationLogsResponse'
-  { _cIamRoleARN ::
-      !(Maybe Text),
-    _cLogSettings ::
-      !( Maybe
-           [LogSettingsResponse]
-       )
+  { -- | The Amazon Resource Name (ARN) of the IAM role used to write your logs
+    -- to CloudWatch Logs or an S3 bucket.
+    iamRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The settings for your conversation logs. You can log text, audio, or
+    -- both.
+    logSettings :: Prelude.Maybe [LogSettingsResponse]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConversationLogsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConversationLogsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cIamRoleARN' - The Amazon Resource Name (ARN) of the IAM role used to write your logs to CloudWatch Logs or an S3 bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cLogSettings' - The settings for your conversation logs. You can log text, audio, or both.
-conversationLogsResponse ::
+-- 'iamRoleArn', 'conversationLogsResponse_iamRoleArn' - The Amazon Resource Name (ARN) of the IAM role used to write your logs
+-- to CloudWatch Logs or an S3 bucket.
+--
+-- 'logSettings', 'conversationLogsResponse_logSettings' - The settings for your conversation logs. You can log text, audio, or
+-- both.
+newConversationLogsResponse ::
   ConversationLogsResponse
-conversationLogsResponse =
+newConversationLogsResponse =
   ConversationLogsResponse'
-    { _cIamRoleARN = Nothing,
-      _cLogSettings = Nothing
+    { iamRoleArn =
+        Prelude.Nothing,
+      logSettings = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the IAM role used to write your logs to CloudWatch Logs or an S3 bucket.
-cIamRoleARN :: Lens' ConversationLogsResponse (Maybe Text)
-cIamRoleARN = lens _cIamRoleARN (\s a -> s {_cIamRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role used to write your logs
+-- to CloudWatch Logs or an S3 bucket.
+conversationLogsResponse_iamRoleArn :: Lens.Lens' ConversationLogsResponse (Prelude.Maybe Prelude.Text)
+conversationLogsResponse_iamRoleArn = Lens.lens (\ConversationLogsResponse' {iamRoleArn} -> iamRoleArn) (\s@ConversationLogsResponse' {} a -> s {iamRoleArn = a} :: ConversationLogsResponse)
 
--- | The settings for your conversation logs. You can log text, audio, or both.
-cLogSettings :: Lens' ConversationLogsResponse [LogSettingsResponse]
-cLogSettings = lens _cLogSettings (\s a -> s {_cLogSettings = a}) . _Default . _Coerce
+-- | The settings for your conversation logs. You can log text, audio, or
+-- both.
+conversationLogsResponse_logSettings :: Lens.Lens' ConversationLogsResponse (Prelude.Maybe [LogSettingsResponse])
+conversationLogsResponse_logSettings = Lens.lens (\ConversationLogsResponse' {logSettings} -> logSettings) (\s@ConversationLogsResponse' {} a -> s {logSettings = a} :: ConversationLogsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ConversationLogsResponse where
+instance Prelude.FromJSON ConversationLogsResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConversationLogsResponse"
       ( \x ->
           ConversationLogsResponse'
-            <$> (x .:? "iamRoleArn")
-            <*> (x .:? "logSettings" .!= mempty)
+            Prelude.<$> (x Prelude..:? "iamRoleArn")
+            Prelude.<*> ( x Prelude..:? "logSettings"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ConversationLogsResponse
+instance Prelude.Hashable ConversationLogsResponse
 
-instance NFData ConversationLogsResponse
+instance Prelude.NFData ConversationLogsResponse

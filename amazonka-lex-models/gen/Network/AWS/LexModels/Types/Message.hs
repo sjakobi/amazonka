@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.Message where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types.ContentType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The message object that provides the message text and its type.
 --
---
---
--- /See:/ 'message' smart constructor.
+-- /See:/ 'newMessage' smart constructor.
 data Message = Message'
-  { _mGroupNumber ::
-      !(Maybe Nat),
-    _mContentType :: !ContentType,
-    _mContent :: !Text
+  { -- | Identifies the message group that the message belongs to. When a group
+    -- is assigned to a message, Amazon Lex returns one message from each group
+    -- in the response.
+    groupNumber :: Prelude.Maybe Prelude.Nat,
+    -- | The content type of the message string.
+    contentType :: ContentType,
+    -- | The text of the message.
+    content :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Message' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Message' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mGroupNumber' - Identifies the message group that the message belongs to. When a group is assigned to a message, Amazon Lex returns one message from each group in the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mContentType' - The content type of the message string.
+-- 'groupNumber', 'message_groupNumber' - Identifies the message group that the message belongs to. When a group
+-- is assigned to a message, Amazon Lex returns one message from each group
+-- in the response.
 --
--- * 'mContent' - The text of the message.
-message ::
-  -- | 'mContentType'
+-- 'contentType', 'message_contentType' - The content type of the message string.
+--
+-- 'content', 'message_content' - The text of the message.
+newMessage ::
+  -- | 'contentType'
   ContentType ->
-  -- | 'mContent'
-  Text ->
+  -- | 'content'
+  Prelude.Text ->
   Message
-message pContentType_ pContent_ =
+newMessage pContentType_ pContent_ =
   Message'
-    { _mGroupNumber = Nothing,
-      _mContentType = pContentType_,
-      _mContent = pContent_
+    { groupNumber = Prelude.Nothing,
+      contentType = pContentType_,
+      content = pContent_
     }
 
--- | Identifies the message group that the message belongs to. When a group is assigned to a message, Amazon Lex returns one message from each group in the response.
-mGroupNumber :: Lens' Message (Maybe Natural)
-mGroupNumber = lens _mGroupNumber (\s a -> s {_mGroupNumber = a}) . mapping _Nat
+-- | Identifies the message group that the message belongs to. When a group
+-- is assigned to a message, Amazon Lex returns one message from each group
+-- in the response.
+message_groupNumber :: Lens.Lens' Message (Prelude.Maybe Prelude.Natural)
+message_groupNumber = Lens.lens (\Message' {groupNumber} -> groupNumber) (\s@Message' {} a -> s {groupNumber = a} :: Message) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The content type of the message string.
-mContentType :: Lens' Message ContentType
-mContentType = lens _mContentType (\s a -> s {_mContentType = a})
+message_contentType :: Lens.Lens' Message ContentType
+message_contentType = Lens.lens (\Message' {contentType} -> contentType) (\s@Message' {} a -> s {contentType = a} :: Message)
 
 -- | The text of the message.
-mContent :: Lens' Message Text
-mContent = lens _mContent (\s a -> s {_mContent = a})
+message_content :: Lens.Lens' Message Prelude.Text
+message_content = Lens.lens (\Message' {content} -> content) (\s@Message' {} a -> s {content = a} :: Message)
 
-instance FromJSON Message where
+instance Prelude.FromJSON Message where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Message"
       ( \x ->
           Message'
-            <$> (x .:? "groupNumber")
-            <*> (x .: "contentType")
-            <*> (x .: "content")
+            Prelude.<$> (x Prelude..:? "groupNumber")
+            Prelude.<*> (x Prelude..: "contentType")
+            Prelude.<*> (x Prelude..: "content")
       )
 
-instance Hashable Message
+instance Prelude.Hashable Message
 
-instance NFData Message
+instance Prelude.NFData Message
 
-instance ToJSON Message where
+instance Prelude.ToJSON Message where
   toJSON Message' {..} =
-    object
-      ( catMaybes
-          [ ("groupNumber" .=) <$> _mGroupNumber,
-            Just ("contentType" .= _mContentType),
-            Just ("content" .= _mContent)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("groupNumber" Prelude..=) Prelude.<$> groupNumber,
+            Prelude.Just ("contentType" Prelude..= contentType),
+            Prelude.Just ("content" Prelude..= content)
           ]
       )

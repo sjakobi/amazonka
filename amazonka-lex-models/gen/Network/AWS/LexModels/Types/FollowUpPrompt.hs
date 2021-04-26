@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.FollowUpPrompt where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types.Prompt
 import Network.AWS.LexModels.Types.Statement
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A prompt for additional activity after an intent is fulfilled. For example, after the @OrderPizza@ intent is fulfilled, you might prompt the user to find out whether the user wants to order drinks.
+-- | A prompt for additional activity after an intent is fulfilled. For
+-- example, after the @OrderPizza@ intent is fulfilled, you might prompt
+-- the user to find out whether the user wants to order drinks.
 --
---
---
--- /See:/ 'followUpPrompt' smart constructor.
+-- /See:/ 'newFollowUpPrompt' smart constructor.
 data FollowUpPrompt = FollowUpPrompt'
-  { _fupPrompt ::
-      !Prompt,
-    _fupRejectionStatement :: !Statement
+  { -- | Prompts for information from the user.
+    prompt :: Prompt,
+    -- | If the user answers \"no\" to the question defined in the @prompt@
+    -- field, Amazon Lex responds with this statement to acknowledge that the
+    -- intent was canceled.
+    rejectionStatement :: Statement
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FollowUpPrompt' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FollowUpPrompt' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fupPrompt' - Prompts for information from the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fupRejectionStatement' - If the user answers "no" to the question defined in the @prompt@ field, Amazon Lex responds with this statement to acknowledge that the intent was canceled.
-followUpPrompt ::
-  -- | 'fupPrompt'
+-- 'prompt', 'followUpPrompt_prompt' - Prompts for information from the user.
+--
+-- 'rejectionStatement', 'followUpPrompt_rejectionStatement' - If the user answers \"no\" to the question defined in the @prompt@
+-- field, Amazon Lex responds with this statement to acknowledge that the
+-- intent was canceled.
+newFollowUpPrompt ::
+  -- | 'prompt'
   Prompt ->
-  -- | 'fupRejectionStatement'
+  -- | 'rejectionStatement'
   Statement ->
   FollowUpPrompt
-followUpPrompt pPrompt_ pRejectionStatement_ =
+newFollowUpPrompt pPrompt_ pRejectionStatement_ =
   FollowUpPrompt'
-    { _fupPrompt = pPrompt_,
-      _fupRejectionStatement = pRejectionStatement_
+    { prompt = pPrompt_,
+      rejectionStatement = pRejectionStatement_
     }
 
 -- | Prompts for information from the user.
-fupPrompt :: Lens' FollowUpPrompt Prompt
-fupPrompt = lens _fupPrompt (\s a -> s {_fupPrompt = a})
+followUpPrompt_prompt :: Lens.Lens' FollowUpPrompt Prompt
+followUpPrompt_prompt = Lens.lens (\FollowUpPrompt' {prompt} -> prompt) (\s@FollowUpPrompt' {} a -> s {prompt = a} :: FollowUpPrompt)
 
--- | If the user answers "no" to the question defined in the @prompt@ field, Amazon Lex responds with this statement to acknowledge that the intent was canceled.
-fupRejectionStatement :: Lens' FollowUpPrompt Statement
-fupRejectionStatement = lens _fupRejectionStatement (\s a -> s {_fupRejectionStatement = a})
+-- | If the user answers \"no\" to the question defined in the @prompt@
+-- field, Amazon Lex responds with this statement to acknowledge that the
+-- intent was canceled.
+followUpPrompt_rejectionStatement :: Lens.Lens' FollowUpPrompt Statement
+followUpPrompt_rejectionStatement = Lens.lens (\FollowUpPrompt' {rejectionStatement} -> rejectionStatement) (\s@FollowUpPrompt' {} a -> s {rejectionStatement = a} :: FollowUpPrompt)
 
-instance FromJSON FollowUpPrompt where
+instance Prelude.FromJSON FollowUpPrompt where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FollowUpPrompt"
       ( \x ->
           FollowUpPrompt'
-            <$> (x .: "prompt") <*> (x .: "rejectionStatement")
+            Prelude.<$> (x Prelude..: "prompt")
+            Prelude.<*> (x Prelude..: "rejectionStatement")
       )
 
-instance Hashable FollowUpPrompt
+instance Prelude.Hashable FollowUpPrompt
 
-instance NFData FollowUpPrompt
+instance Prelude.NFData FollowUpPrompt
 
-instance ToJSON FollowUpPrompt where
+instance Prelude.ToJSON FollowUpPrompt where
   toJSON FollowUpPrompt' {..} =
-    object
-      ( catMaybes
-          [ Just ("prompt" .= _fupPrompt),
-            Just
-              ("rejectionStatement" .= _fupRejectionStatement)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("prompt" Prelude..= prompt),
+            Prelude.Just
+              ( "rejectionStatement"
+                  Prelude..= rejectionStatement
+              )
           ]
       )

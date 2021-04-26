@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,96 +19,95 @@
 module Network.AWS.LexModels.Types.Locale
   ( Locale
       ( ..,
-        DeDe,
-        EnAu,
-        EnGb,
-        EnUs,
-        Es419,
-        EsEs,
-        EsUs,
-        FrCa,
-        FrFr,
-        ItIt
+        LocaleDeDE,
+        LocaleEnAU,
+        LocaleEnGB,
+        LocaleEnUS,
+        LocaleEs419,
+        LocaleEsES,
+        LocaleEsUS,
+        LocaleFrCA,
+        LocaleFrFR,
+        LocaleItIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Locale = Locale' (CI Text)
+newtype Locale = Locale' {fromLocale :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DeDe :: Locale
-pattern DeDe = Locale' "de-DE"
+pattern LocaleDeDE :: Locale
+pattern LocaleDeDE = Locale' "de-DE"
 
-pattern EnAu :: Locale
-pattern EnAu = Locale' "en-AU"
+pattern LocaleEnAU :: Locale
+pattern LocaleEnAU = Locale' "en-AU"
 
-pattern EnGb :: Locale
-pattern EnGb = Locale' "en-GB"
+pattern LocaleEnGB :: Locale
+pattern LocaleEnGB = Locale' "en-GB"
 
-pattern EnUs :: Locale
-pattern EnUs = Locale' "en-US"
+pattern LocaleEnUS :: Locale
+pattern LocaleEnUS = Locale' "en-US"
 
-pattern Es419 :: Locale
-pattern Es419 = Locale' "es-419"
+pattern LocaleEs419 :: Locale
+pattern LocaleEs419 = Locale' "es-419"
 
-pattern EsEs :: Locale
-pattern EsEs = Locale' "es-ES"
+pattern LocaleEsES :: Locale
+pattern LocaleEsES = Locale' "es-ES"
 
-pattern EsUs :: Locale
-pattern EsUs = Locale' "es-US"
+pattern LocaleEsUS :: Locale
+pattern LocaleEsUS = Locale' "es-US"
 
-pattern FrCa :: Locale
-pattern FrCa = Locale' "fr-CA"
+pattern LocaleFrCA :: Locale
+pattern LocaleFrCA = Locale' "fr-CA"
 
-pattern FrFr :: Locale
-pattern FrFr = Locale' "fr-FR"
+pattern LocaleFrFR :: Locale
+pattern LocaleFrFR = Locale' "fr-FR"
 
-pattern ItIt :: Locale
-pattern ItIt = Locale' "it-IT"
+pattern LocaleItIT :: Locale
+pattern LocaleItIT = Locale' "it-IT"
 
 {-# COMPLETE
-  DeDe,
-  EnAu,
-  EnGb,
-  EnUs,
-  Es419,
-  EsEs,
-  EsUs,
-  FrCa,
-  FrFr,
-  ItIt,
+  LocaleDeDE,
+  LocaleEnAU,
+  LocaleEnGB,
+  LocaleEnUS,
+  LocaleEs419,
+  LocaleEsES,
+  LocaleEsUS,
+  LocaleFrCA,
+  LocaleFrFR,
+  LocaleItIT,
   Locale'
   #-}
 
-instance FromText Locale where
-  parser = (Locale' . mk) <$> takeText
+instance Prelude.FromText Locale where
+  parser = Locale' Prelude.<$> Prelude.takeText
 
-instance ToText Locale where
-  toText (Locale' ci) = original ci
+instance Prelude.ToText Locale where
+  toText (Locale' x) = x
 
-instance Hashable Locale
+instance Prelude.Hashable Locale
 
-instance NFData Locale
+instance Prelude.NFData Locale
 
-instance ToByteString Locale
+instance Prelude.ToByteString Locale
 
-instance ToQuery Locale
+instance Prelude.ToQuery Locale
 
-instance ToHeader Locale
+instance Prelude.ToHeader Locale
 
-instance ToJSON Locale where
-  toJSON = toJSONText
+instance Prelude.ToJSON Locale where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Locale where
-  parseJSON = parseJSONText "Locale"
+instance Prelude.FromJSON Locale where
+  parseJSON = Prelude.parseJSONText "Locale"

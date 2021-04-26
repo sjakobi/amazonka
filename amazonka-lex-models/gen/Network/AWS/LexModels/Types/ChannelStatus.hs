@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.LexModels.Types.ChannelStatus
   ( ChannelStatus
       ( ..,
-        CSCreated,
-        CSFailed,
-        CSInProgress
+        ChannelStatusCREATED,
+        ChannelStatusFAILED,
+        ChannelStatusINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChannelStatus = ChannelStatus' (CI Text)
+newtype ChannelStatus = ChannelStatus'
+  { fromChannelStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSCreated :: ChannelStatus
-pattern CSCreated = ChannelStatus' "CREATED"
+pattern ChannelStatusCREATED :: ChannelStatus
+pattern ChannelStatusCREATED = ChannelStatus' "CREATED"
 
-pattern CSFailed :: ChannelStatus
-pattern CSFailed = ChannelStatus' "FAILED"
+pattern ChannelStatusFAILED :: ChannelStatus
+pattern ChannelStatusFAILED = ChannelStatus' "FAILED"
 
-pattern CSInProgress :: ChannelStatus
-pattern CSInProgress = ChannelStatus' "IN_PROGRESS"
+pattern ChannelStatusINPROGRESS :: ChannelStatus
+pattern ChannelStatusINPROGRESS = ChannelStatus' "IN_PROGRESS"
 
 {-# COMPLETE
-  CSCreated,
-  CSFailed,
-  CSInProgress,
+  ChannelStatusCREATED,
+  ChannelStatusFAILED,
+  ChannelStatusINPROGRESS,
   ChannelStatus'
   #-}
 
-instance FromText ChannelStatus where
-  parser = (ChannelStatus' . mk) <$> takeText
+instance Prelude.FromText ChannelStatus where
+  parser = ChannelStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ChannelStatus where
-  toText (ChannelStatus' ci) = original ci
+instance Prelude.ToText ChannelStatus where
+  toText (ChannelStatus' x) = x
 
-instance Hashable ChannelStatus
+instance Prelude.Hashable ChannelStatus
 
-instance NFData ChannelStatus
+instance Prelude.NFData ChannelStatus
 
-instance ToByteString ChannelStatus
+instance Prelude.ToByteString ChannelStatus
 
-instance ToQuery ChannelStatus
+instance Prelude.ToQuery ChannelStatus
 
-instance ToHeader ChannelStatus
+instance Prelude.ToHeader ChannelStatus
 
-instance FromJSON ChannelStatus where
-  parseJSON = parseJSONText "ChannelStatus"
+instance Prelude.FromJSON ChannelStatus where
+  parseJSON = Prelude.parseJSONText "ChannelStatus"

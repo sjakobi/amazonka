@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.SlotTypeMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about a slot type..
 --
---
---
--- /See:/ 'slotTypeMetadata' smart constructor.
+-- /See:/ 'newSlotTypeMetadata' smart constructor.
 data SlotTypeMetadata = SlotTypeMetadata'
-  { _stmCreatedDate ::
-      !(Maybe POSIX),
-    _stmLastUpdatedDate :: !(Maybe POSIX),
-    _stmVersion :: !(Maybe Text),
-    _stmName :: !(Maybe Text),
-    _stmDescription :: !(Maybe Text)
+  { -- | The date that the slot type was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The date that the slot type was updated. When you create a resource, the
+    -- creation date and last updated date are the same.
+    lastUpdatedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The version of the slot type.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of the slot type.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A description of the slot type.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SlotTypeMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SlotTypeMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stmCreatedDate' - The date that the slot type was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stmLastUpdatedDate' - The date that the slot type was updated. When you create a resource, the creation date and last updated date are the same.
+-- 'createdDate', 'slotTypeMetadata_createdDate' - The date that the slot type was created.
 --
--- * 'stmVersion' - The version of the slot type.
+-- 'lastUpdatedDate', 'slotTypeMetadata_lastUpdatedDate' - The date that the slot type was updated. When you create a resource, the
+-- creation date and last updated date are the same.
 --
--- * 'stmName' - The name of the slot type.
+-- 'version', 'slotTypeMetadata_version' - The version of the slot type.
 --
--- * 'stmDescription' - A description of the slot type.
-slotTypeMetadata ::
+-- 'name', 'slotTypeMetadata_name' - The name of the slot type.
+--
+-- 'description', 'slotTypeMetadata_description' - A description of the slot type.
+newSlotTypeMetadata ::
   SlotTypeMetadata
-slotTypeMetadata =
+newSlotTypeMetadata =
   SlotTypeMetadata'
-    { _stmCreatedDate = Nothing,
-      _stmLastUpdatedDate = Nothing,
-      _stmVersion = Nothing,
-      _stmName = Nothing,
-      _stmDescription = Nothing
+    { createdDate = Prelude.Nothing,
+      lastUpdatedDate = Prelude.Nothing,
+      version = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The date that the slot type was created.
-stmCreatedDate :: Lens' SlotTypeMetadata (Maybe UTCTime)
-stmCreatedDate = lens _stmCreatedDate (\s a -> s {_stmCreatedDate = a}) . mapping _Time
+slotTypeMetadata_createdDate :: Lens.Lens' SlotTypeMetadata (Prelude.Maybe Prelude.UTCTime)
+slotTypeMetadata_createdDate = Lens.lens (\SlotTypeMetadata' {createdDate} -> createdDate) (\s@SlotTypeMetadata' {} a -> s {createdDate = a} :: SlotTypeMetadata) Prelude.. Lens.mapping Prelude._Time
 
--- | The date that the slot type was updated. When you create a resource, the creation date and last updated date are the same.
-stmLastUpdatedDate :: Lens' SlotTypeMetadata (Maybe UTCTime)
-stmLastUpdatedDate = lens _stmLastUpdatedDate (\s a -> s {_stmLastUpdatedDate = a}) . mapping _Time
+-- | The date that the slot type was updated. When you create a resource, the
+-- creation date and last updated date are the same.
+slotTypeMetadata_lastUpdatedDate :: Lens.Lens' SlotTypeMetadata (Prelude.Maybe Prelude.UTCTime)
+slotTypeMetadata_lastUpdatedDate = Lens.lens (\SlotTypeMetadata' {lastUpdatedDate} -> lastUpdatedDate) (\s@SlotTypeMetadata' {} a -> s {lastUpdatedDate = a} :: SlotTypeMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The version of the slot type.
-stmVersion :: Lens' SlotTypeMetadata (Maybe Text)
-stmVersion = lens _stmVersion (\s a -> s {_stmVersion = a})
+slotTypeMetadata_version :: Lens.Lens' SlotTypeMetadata (Prelude.Maybe Prelude.Text)
+slotTypeMetadata_version = Lens.lens (\SlotTypeMetadata' {version} -> version) (\s@SlotTypeMetadata' {} a -> s {version = a} :: SlotTypeMetadata)
 
 -- | The name of the slot type.
-stmName :: Lens' SlotTypeMetadata (Maybe Text)
-stmName = lens _stmName (\s a -> s {_stmName = a})
+slotTypeMetadata_name :: Lens.Lens' SlotTypeMetadata (Prelude.Maybe Prelude.Text)
+slotTypeMetadata_name = Lens.lens (\SlotTypeMetadata' {name} -> name) (\s@SlotTypeMetadata' {} a -> s {name = a} :: SlotTypeMetadata)
 
 -- | A description of the slot type.
-stmDescription :: Lens' SlotTypeMetadata (Maybe Text)
-stmDescription = lens _stmDescription (\s a -> s {_stmDescription = a})
+slotTypeMetadata_description :: Lens.Lens' SlotTypeMetadata (Prelude.Maybe Prelude.Text)
+slotTypeMetadata_description = Lens.lens (\SlotTypeMetadata' {description} -> description) (\s@SlotTypeMetadata' {} a -> s {description = a} :: SlotTypeMetadata)
 
-instance FromJSON SlotTypeMetadata where
+instance Prelude.FromJSON SlotTypeMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SlotTypeMetadata"
       ( \x ->
           SlotTypeMetadata'
-            <$> (x .:? "createdDate")
-            <*> (x .:? "lastUpdatedDate")
-            <*> (x .:? "version")
-            <*> (x .:? "name")
-            <*> (x .:? "description")
+            Prelude.<$> (x Prelude..:? "createdDate")
+            Prelude.<*> (x Prelude..:? "lastUpdatedDate")
+            Prelude.<*> (x Prelude..:? "version")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "description")
       )
 
-instance Hashable SlotTypeMetadata
+instance Prelude.Hashable SlotTypeMetadata
 
-instance NFData SlotTypeMetadata
+instance Prelude.NFData SlotTypeMetadata

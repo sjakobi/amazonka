@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.LexModels.Types.Destination
   ( Destination
       ( ..,
-        CloudwatchLogs,
-        S3
+        DestinationCLOUDWATCHLOGS,
+        DestinationS3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Destination = Destination' (CI Text)
+newtype Destination = Destination'
+  { fromDestination ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CloudwatchLogs :: Destination
-pattern CloudwatchLogs = Destination' "CLOUDWATCH_LOGS"
+pattern DestinationCLOUDWATCHLOGS :: Destination
+pattern DestinationCLOUDWATCHLOGS = Destination' "CLOUDWATCH_LOGS"
 
-pattern S3 :: Destination
-pattern S3 = Destination' "S3"
+pattern DestinationS3 :: Destination
+pattern DestinationS3 = Destination' "S3"
 
 {-# COMPLETE
-  CloudwatchLogs,
-  S3,
+  DestinationCLOUDWATCHLOGS,
+  DestinationS3,
   Destination'
   #-}
 
-instance FromText Destination where
-  parser = (Destination' . mk) <$> takeText
+instance Prelude.FromText Destination where
+  parser = Destination' Prelude.<$> Prelude.takeText
 
-instance ToText Destination where
-  toText (Destination' ci) = original ci
+instance Prelude.ToText Destination where
+  toText (Destination' x) = x
 
-instance Hashable Destination
+instance Prelude.Hashable Destination
 
-instance NFData Destination
+instance Prelude.NFData Destination
 
-instance ToByteString Destination
+instance Prelude.ToByteString Destination
 
-instance ToQuery Destination
+instance Prelude.ToQuery Destination
 
-instance ToHeader Destination
+instance Prelude.ToHeader Destination
 
-instance ToJSON Destination where
-  toJSON = toJSONText
+instance Prelude.ToJSON Destination where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Destination where
-  parseJSON = parseJSONText "Destination"
+instance Prelude.FromJSON Destination where
+  parseJSON = Prelude.parseJSONText "Destination"

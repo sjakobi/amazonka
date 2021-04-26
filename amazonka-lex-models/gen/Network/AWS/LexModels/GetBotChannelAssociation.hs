@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,278 +21,303 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the association between an Amazon Lex bot and a messaging platform.
+-- Returns information about the association between an Amazon Lex bot and
+-- a messaging platform.
 --
---
--- This operation requires permissions for the @lex:GetBotChannelAssociation@ action.
+-- This operation requires permissions for the
+-- @lex:GetBotChannelAssociation@ action.
 module Network.AWS.LexModels.GetBotChannelAssociation
   ( -- * Creating a Request
-    getBotChannelAssociation,
-    GetBotChannelAssociation,
+    GetBotChannelAssociation (..),
+    newGetBotChannelAssociation,
 
     -- * Request Lenses
-    gName,
-    gBotName,
-    gBotAlias,
+    getBotChannelAssociation_name,
+    getBotChannelAssociation_botName,
+    getBotChannelAssociation_botAlias,
 
     -- * Destructuring the Response
-    getBotChannelAssociationResponse,
-    GetBotChannelAssociationResponse,
+    GetBotChannelAssociationResponse (..),
+    newGetBotChannelAssociationResponse,
 
     -- * Response Lenses
-    gbcarrsBotAlias,
-    gbcarrsCreatedDate,
-    gbcarrsStatus,
-    gbcarrsBotConfiguration,
-    gbcarrsBotName,
-    gbcarrsName,
-    gbcarrsFailureReason,
-    gbcarrsDescription,
-    gbcarrsType,
-    gbcarrsResponseStatus,
+    getBotChannelAssociationResponse_botAlias,
+    getBotChannelAssociationResponse_createdDate,
+    getBotChannelAssociationResponse_status,
+    getBotChannelAssociationResponse_botConfiguration,
+    getBotChannelAssociationResponse_botName,
+    getBotChannelAssociationResponse_name,
+    getBotChannelAssociationResponse_failureReason,
+    getBotChannelAssociationResponse_description,
+    getBotChannelAssociationResponse_type,
+    getBotChannelAssociationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.LexModels.Types.ChannelStatus
+import Network.AWS.LexModels.Types.ChannelType
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getBotChannelAssociation' smart constructor.
+-- | /See:/ 'newGetBotChannelAssociation' smart constructor.
 data GetBotChannelAssociation = GetBotChannelAssociation'
-  { _gName ::
-      !Text,
-    _gBotName :: !Text,
-    _gBotAlias :: !Text
+  { -- | The name of the association between the bot and the channel. The name is
+    -- case sensitive.
+    name :: Prelude.Text,
+    -- | The name of the Amazon Lex bot.
+    botName :: Prelude.Text,
+    -- | An alias pointing to the specific version of the Amazon Lex bot to which
+    -- this association is being made.
+    botAlias :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBotChannelAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBotChannelAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gName' - The name of the association between the bot and the channel. The name is case sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gBotName' - The name of the Amazon Lex bot.
+-- 'name', 'getBotChannelAssociation_name' - The name of the association between the bot and the channel. The name is
+-- case sensitive.
 --
--- * 'gBotAlias' - An alias pointing to the specific version of the Amazon Lex bot to which this association is being made.
-getBotChannelAssociation ::
-  -- | 'gName'
-  Text ->
-  -- | 'gBotName'
-  Text ->
-  -- | 'gBotAlias'
-  Text ->
+-- 'botName', 'getBotChannelAssociation_botName' - The name of the Amazon Lex bot.
+--
+-- 'botAlias', 'getBotChannelAssociation_botAlias' - An alias pointing to the specific version of the Amazon Lex bot to which
+-- this association is being made.
+newGetBotChannelAssociation ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'botName'
+  Prelude.Text ->
+  -- | 'botAlias'
+  Prelude.Text ->
   GetBotChannelAssociation
-getBotChannelAssociation pName_ pBotName_ pBotAlias_ =
-  GetBotChannelAssociation'
-    { _gName = pName_,
-      _gBotName = pBotName_,
-      _gBotAlias = pBotAlias_
-    }
+newGetBotChannelAssociation
+  pName_
+  pBotName_
+  pBotAlias_ =
+    GetBotChannelAssociation'
+      { name = pName_,
+        botName = pBotName_,
+        botAlias = pBotAlias_
+      }
 
--- | The name of the association between the bot and the channel. The name is case sensitive.
-gName :: Lens' GetBotChannelAssociation Text
-gName = lens _gName (\s a -> s {_gName = a})
+-- | The name of the association between the bot and the channel. The name is
+-- case sensitive.
+getBotChannelAssociation_name :: Lens.Lens' GetBotChannelAssociation Prelude.Text
+getBotChannelAssociation_name = Lens.lens (\GetBotChannelAssociation' {name} -> name) (\s@GetBotChannelAssociation' {} a -> s {name = a} :: GetBotChannelAssociation)
 
 -- | The name of the Amazon Lex bot.
-gBotName :: Lens' GetBotChannelAssociation Text
-gBotName = lens _gBotName (\s a -> s {_gBotName = a})
+getBotChannelAssociation_botName :: Lens.Lens' GetBotChannelAssociation Prelude.Text
+getBotChannelAssociation_botName = Lens.lens (\GetBotChannelAssociation' {botName} -> botName) (\s@GetBotChannelAssociation' {} a -> s {botName = a} :: GetBotChannelAssociation)
 
--- | An alias pointing to the specific version of the Amazon Lex bot to which this association is being made.
-gBotAlias :: Lens' GetBotChannelAssociation Text
-gBotAlias = lens _gBotAlias (\s a -> s {_gBotAlias = a})
+-- | An alias pointing to the specific version of the Amazon Lex bot to which
+-- this association is being made.
+getBotChannelAssociation_botAlias :: Lens.Lens' GetBotChannelAssociation Prelude.Text
+getBotChannelAssociation_botAlias = Lens.lens (\GetBotChannelAssociation' {botAlias} -> botAlias) (\s@GetBotChannelAssociation' {} a -> s {botAlias = a} :: GetBotChannelAssociation)
 
-instance AWSRequest GetBotChannelAssociation where
+instance Prelude.AWSRequest GetBotChannelAssociation where
   type
     Rs GetBotChannelAssociation =
       GetBotChannelAssociationResponse
-  request = get lexModels
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetBotChannelAssociationResponse'
-            <$> (x .?> "botAlias")
-            <*> (x .?> "createdDate")
-            <*> (x .?> "status")
-            <*> (x .?> "botConfiguration" .!@ mempty)
-            <*> (x .?> "botName")
-            <*> (x .?> "name")
-            <*> (x .?> "failureReason")
-            <*> (x .?> "description")
-            <*> (x .?> "type")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "botAlias")
+            Prelude.<*> (x Prelude..?> "createdDate")
+            Prelude.<*> (x Prelude..?> "status")
+            Prelude.<*> ( x Prelude..?> "botConfiguration"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "botName")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "failureReason")
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (x Prelude..?> "type")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBotChannelAssociation
+instance Prelude.Hashable GetBotChannelAssociation
 
-instance NFData GetBotChannelAssociation
+instance Prelude.NFData GetBotChannelAssociation
 
-instance ToHeaders GetBotChannelAssociation where
+instance Prelude.ToHeaders GetBotChannelAssociation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetBotChannelAssociation where
+instance Prelude.ToPath GetBotChannelAssociation where
   toPath GetBotChannelAssociation' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/bots/",
-        toBS _gBotName,
+        Prelude.toBS botName,
         "/aliases/",
-        toBS _gBotAlias,
+        Prelude.toBS botAlias,
         "/channels/",
-        toBS _gName
+        Prelude.toBS name
       ]
 
-instance ToQuery GetBotChannelAssociation where
-  toQuery = const mempty
+instance Prelude.ToQuery GetBotChannelAssociation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getBotChannelAssociationResponse' smart constructor.
+-- | /See:/ 'newGetBotChannelAssociationResponse' smart constructor.
 data GetBotChannelAssociationResponse = GetBotChannelAssociationResponse'
-  { _gbcarrsBotAlias ::
-      !( Maybe
-           Text
-       ),
-    _gbcarrsCreatedDate ::
-      !( Maybe
-           POSIX
-       ),
-    _gbcarrsStatus ::
-      !( Maybe
-           ChannelStatus
-       ),
-    _gbcarrsBotConfiguration ::
-      !( Maybe
-           ( Sensitive
-               ( Map
-                   Text
-                   Text
-               )
-           )
-       ),
-    _gbcarrsBotName ::
-      !( Maybe
-           Text
-       ),
-    _gbcarrsName ::
-      !( Maybe
-           Text
-       ),
-    _gbcarrsFailureReason ::
-      !( Maybe
-           Text
-       ),
-    _gbcarrsDescription ::
-      !( Maybe
-           Text
-       ),
-    _gbcarrsType ::
-      !( Maybe
-           ChannelType
-       ),
-    _gbcarrsResponseStatus ::
-      !Int
+  { -- | An alias pointing to the specific version of the Amazon Lex bot to which
+    -- this association is being made.
+    botAlias :: Prelude.Maybe Prelude.Text,
+    -- | The date that the association between the bot and the channel was
+    -- created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the bot channel.
+    --
+    -- -   @CREATED@ - The channel has been created and is ready for use.
+    --
+    -- -   @IN_PROGRESS@ - Channel creation is in progress.
+    --
+    -- -   @FAILED@ - There was an error creating the channel. For information
+    --     about the reason for the failure, see the @failureReason@ field.
+    status :: Prelude.Maybe ChannelStatus,
+    -- | Provides information that the messaging platform needs to communicate
+    -- with the Amazon Lex bot.
+    botConfiguration :: Prelude.Maybe (Prelude.Sensitive (Prelude.Map Prelude.Text Prelude.Text)),
+    -- | The name of the Amazon Lex bot.
+    botName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the association between the bot and the channel.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | If @status@ is @FAILED@, Amazon Lex provides the reason that it failed
+    -- to create the association.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | A description of the association between the bot and the channel.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The type of the messaging platform.
+    type' :: Prelude.Maybe ChannelType,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBotChannelAssociationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBotChannelAssociationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbcarrsBotAlias' - An alias pointing to the specific version of the Amazon Lex bot to which this association is being made.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbcarrsCreatedDate' - The date that the association between the bot and the channel was created.
+-- 'botAlias', 'getBotChannelAssociationResponse_botAlias' - An alias pointing to the specific version of the Amazon Lex bot to which
+-- this association is being made.
 --
--- * 'gbcarrsStatus' - The status of the bot channel.      * @CREATED@ - The channel has been created and is ready for use.     * @IN_PROGRESS@ - Channel creation is in progress.     * @FAILED@ - There was an error creating the channel. For information about the reason for the failure, see the @failureReason@ field.
+-- 'createdDate', 'getBotChannelAssociationResponse_createdDate' - The date that the association between the bot and the channel was
+-- created.
 --
--- * 'gbcarrsBotConfiguration' - Provides information that the messaging platform needs to communicate with the Amazon Lex bot.
+-- 'status', 'getBotChannelAssociationResponse_status' - The status of the bot channel.
 --
--- * 'gbcarrsBotName' - The name of the Amazon Lex bot.
+-- -   @CREATED@ - The channel has been created and is ready for use.
 --
--- * 'gbcarrsName' - The name of the association between the bot and the channel.
+-- -   @IN_PROGRESS@ - Channel creation is in progress.
 --
--- * 'gbcarrsFailureReason' - If @status@ is @FAILED@ , Amazon Lex provides the reason that it failed to create the association.
+-- -   @FAILED@ - There was an error creating the channel. For information
+--     about the reason for the failure, see the @failureReason@ field.
 --
--- * 'gbcarrsDescription' - A description of the association between the bot and the channel.
+-- 'botConfiguration', 'getBotChannelAssociationResponse_botConfiguration' - Provides information that the messaging platform needs to communicate
+-- with the Amazon Lex bot.
 --
--- * 'gbcarrsType' - The type of the messaging platform.
+-- 'botName', 'getBotChannelAssociationResponse_botName' - The name of the Amazon Lex bot.
 --
--- * 'gbcarrsResponseStatus' - -- | The response status code.
-getBotChannelAssociationResponse ::
-  -- | 'gbcarrsResponseStatus'
-  Int ->
+-- 'name', 'getBotChannelAssociationResponse_name' - The name of the association between the bot and the channel.
+--
+-- 'failureReason', 'getBotChannelAssociationResponse_failureReason' - If @status@ is @FAILED@, Amazon Lex provides the reason that it failed
+-- to create the association.
+--
+-- 'description', 'getBotChannelAssociationResponse_description' - A description of the association between the bot and the channel.
+--
+-- 'type'', 'getBotChannelAssociationResponse_type' - The type of the messaging platform.
+--
+-- 'httpStatus', 'getBotChannelAssociationResponse_httpStatus' - The response's http status code.
+newGetBotChannelAssociationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBotChannelAssociationResponse
-getBotChannelAssociationResponse pResponseStatus_ =
+newGetBotChannelAssociationResponse pHttpStatus_ =
   GetBotChannelAssociationResponse'
-    { _gbcarrsBotAlias =
-        Nothing,
-      _gbcarrsCreatedDate = Nothing,
-      _gbcarrsStatus = Nothing,
-      _gbcarrsBotConfiguration = Nothing,
-      _gbcarrsBotName = Nothing,
-      _gbcarrsName = Nothing,
-      _gbcarrsFailureReason = Nothing,
-      _gbcarrsDescription = Nothing,
-      _gbcarrsType = Nothing,
-      _gbcarrsResponseStatus = pResponseStatus_
+    { botAlias =
+        Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      status = Prelude.Nothing,
+      botConfiguration = Prelude.Nothing,
+      botName = Prelude.Nothing,
+      name = Prelude.Nothing,
+      failureReason = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An alias pointing to the specific version of the Amazon Lex bot to which this association is being made.
-gbcarrsBotAlias :: Lens' GetBotChannelAssociationResponse (Maybe Text)
-gbcarrsBotAlias = lens _gbcarrsBotAlias (\s a -> s {_gbcarrsBotAlias = a})
+-- | An alias pointing to the specific version of the Amazon Lex bot to which
+-- this association is being made.
+getBotChannelAssociationResponse_botAlias :: Lens.Lens' GetBotChannelAssociationResponse (Prelude.Maybe Prelude.Text)
+getBotChannelAssociationResponse_botAlias = Lens.lens (\GetBotChannelAssociationResponse' {botAlias} -> botAlias) (\s@GetBotChannelAssociationResponse' {} a -> s {botAlias = a} :: GetBotChannelAssociationResponse)
 
--- | The date that the association between the bot and the channel was created.
-gbcarrsCreatedDate :: Lens' GetBotChannelAssociationResponse (Maybe UTCTime)
-gbcarrsCreatedDate = lens _gbcarrsCreatedDate (\s a -> s {_gbcarrsCreatedDate = a}) . mapping _Time
+-- | The date that the association between the bot and the channel was
+-- created.
+getBotChannelAssociationResponse_createdDate :: Lens.Lens' GetBotChannelAssociationResponse (Prelude.Maybe Prelude.UTCTime)
+getBotChannelAssociationResponse_createdDate = Lens.lens (\GetBotChannelAssociationResponse' {createdDate} -> createdDate) (\s@GetBotChannelAssociationResponse' {} a -> s {createdDate = a} :: GetBotChannelAssociationResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The status of the bot channel.      * @CREATED@ - The channel has been created and is ready for use.     * @IN_PROGRESS@ - Channel creation is in progress.     * @FAILED@ - There was an error creating the channel. For information about the reason for the failure, see the @failureReason@ field.
-gbcarrsStatus :: Lens' GetBotChannelAssociationResponse (Maybe ChannelStatus)
-gbcarrsStatus = lens _gbcarrsStatus (\s a -> s {_gbcarrsStatus = a})
+-- | The status of the bot channel.
+--
+-- -   @CREATED@ - The channel has been created and is ready for use.
+--
+-- -   @IN_PROGRESS@ - Channel creation is in progress.
+--
+-- -   @FAILED@ - There was an error creating the channel. For information
+--     about the reason for the failure, see the @failureReason@ field.
+getBotChannelAssociationResponse_status :: Lens.Lens' GetBotChannelAssociationResponse (Prelude.Maybe ChannelStatus)
+getBotChannelAssociationResponse_status = Lens.lens (\GetBotChannelAssociationResponse' {status} -> status) (\s@GetBotChannelAssociationResponse' {} a -> s {status = a} :: GetBotChannelAssociationResponse)
 
--- | Provides information that the messaging platform needs to communicate with the Amazon Lex bot.
-gbcarrsBotConfiguration :: Lens' GetBotChannelAssociationResponse (Maybe (HashMap Text Text))
-gbcarrsBotConfiguration = lens _gbcarrsBotConfiguration (\s a -> s {_gbcarrsBotConfiguration = a}) . mapping (_Sensitive . _Map)
+-- | Provides information that the messaging platform needs to communicate
+-- with the Amazon Lex bot.
+getBotChannelAssociationResponse_botConfiguration :: Lens.Lens' GetBotChannelAssociationResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getBotChannelAssociationResponse_botConfiguration = Lens.lens (\GetBotChannelAssociationResponse' {botConfiguration} -> botConfiguration) (\s@GetBotChannelAssociationResponse' {} a -> s {botConfiguration = a} :: GetBotChannelAssociationResponse) Prelude.. Lens.mapping (Prelude._Sensitive Prelude.. Prelude._Map)
 
 -- | The name of the Amazon Lex bot.
-gbcarrsBotName :: Lens' GetBotChannelAssociationResponse (Maybe Text)
-gbcarrsBotName = lens _gbcarrsBotName (\s a -> s {_gbcarrsBotName = a})
+getBotChannelAssociationResponse_botName :: Lens.Lens' GetBotChannelAssociationResponse (Prelude.Maybe Prelude.Text)
+getBotChannelAssociationResponse_botName = Lens.lens (\GetBotChannelAssociationResponse' {botName} -> botName) (\s@GetBotChannelAssociationResponse' {} a -> s {botName = a} :: GetBotChannelAssociationResponse)
 
 -- | The name of the association between the bot and the channel.
-gbcarrsName :: Lens' GetBotChannelAssociationResponse (Maybe Text)
-gbcarrsName = lens _gbcarrsName (\s a -> s {_gbcarrsName = a})
+getBotChannelAssociationResponse_name :: Lens.Lens' GetBotChannelAssociationResponse (Prelude.Maybe Prelude.Text)
+getBotChannelAssociationResponse_name = Lens.lens (\GetBotChannelAssociationResponse' {name} -> name) (\s@GetBotChannelAssociationResponse' {} a -> s {name = a} :: GetBotChannelAssociationResponse)
 
--- | If @status@ is @FAILED@ , Amazon Lex provides the reason that it failed to create the association.
-gbcarrsFailureReason :: Lens' GetBotChannelAssociationResponse (Maybe Text)
-gbcarrsFailureReason = lens _gbcarrsFailureReason (\s a -> s {_gbcarrsFailureReason = a})
+-- | If @status@ is @FAILED@, Amazon Lex provides the reason that it failed
+-- to create the association.
+getBotChannelAssociationResponse_failureReason :: Lens.Lens' GetBotChannelAssociationResponse (Prelude.Maybe Prelude.Text)
+getBotChannelAssociationResponse_failureReason = Lens.lens (\GetBotChannelAssociationResponse' {failureReason} -> failureReason) (\s@GetBotChannelAssociationResponse' {} a -> s {failureReason = a} :: GetBotChannelAssociationResponse)
 
 -- | A description of the association between the bot and the channel.
-gbcarrsDescription :: Lens' GetBotChannelAssociationResponse (Maybe Text)
-gbcarrsDescription = lens _gbcarrsDescription (\s a -> s {_gbcarrsDescription = a})
+getBotChannelAssociationResponse_description :: Lens.Lens' GetBotChannelAssociationResponse (Prelude.Maybe Prelude.Text)
+getBotChannelAssociationResponse_description = Lens.lens (\GetBotChannelAssociationResponse' {description} -> description) (\s@GetBotChannelAssociationResponse' {} a -> s {description = a} :: GetBotChannelAssociationResponse)
 
 -- | The type of the messaging platform.
-gbcarrsType :: Lens' GetBotChannelAssociationResponse (Maybe ChannelType)
-gbcarrsType = lens _gbcarrsType (\s a -> s {_gbcarrsType = a})
+getBotChannelAssociationResponse_type :: Lens.Lens' GetBotChannelAssociationResponse (Prelude.Maybe ChannelType)
+getBotChannelAssociationResponse_type = Lens.lens (\GetBotChannelAssociationResponse' {type'} -> type') (\s@GetBotChannelAssociationResponse' {} a -> s {type' = a} :: GetBotChannelAssociationResponse)
 
--- | -- | The response status code.
-gbcarrsResponseStatus :: Lens' GetBotChannelAssociationResponse Int
-gbcarrsResponseStatus = lens _gbcarrsResponseStatus (\s a -> s {_gbcarrsResponseStatus = a})
+-- | The response's http status code.
+getBotChannelAssociationResponse_httpStatus :: Lens.Lens' GetBotChannelAssociationResponse Prelude.Int
+getBotChannelAssociationResponse_httpStatus = Lens.lens (\GetBotChannelAssociationResponse' {httpStatus} -> httpStatus) (\s@GetBotChannelAssociationResponse' {} a -> s {httpStatus = a} :: GetBotChannelAssociationResponse)
 
-instance NFData GetBotChannelAssociationResponse
+instance
+  Prelude.NFData
+    GetBotChannelAssociationResponse

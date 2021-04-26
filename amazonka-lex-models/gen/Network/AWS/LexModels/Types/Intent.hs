@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.Intent where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Identifies the specific version of an intent.
 --
---
---
--- /See:/ 'intent' smart constructor.
+-- /See:/ 'newIntent' smart constructor.
 data Intent = Intent'
-  { _iIntentName :: !Text,
-    _iIntentVersion :: !Text
+  { -- | The name of the intent.
+    intentName :: Prelude.Text,
+    -- | The version of the intent.
+    intentVersion :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Intent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Intent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iIntentName' - The name of the intent.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iIntentVersion' - The version of the intent.
-intent ::
-  -- | 'iIntentName'
-  Text ->
-  -- | 'iIntentVersion'
-  Text ->
+-- 'intentName', 'intent_intentName' - The name of the intent.
+--
+-- 'intentVersion', 'intent_intentVersion' - The version of the intent.
+newIntent ::
+  -- | 'intentName'
+  Prelude.Text ->
+  -- | 'intentVersion'
+  Prelude.Text ->
   Intent
-intent pIntentName_ pIntentVersion_ =
+newIntent pIntentName_ pIntentVersion_ =
   Intent'
-    { _iIntentName = pIntentName_,
-      _iIntentVersion = pIntentVersion_
+    { intentName = pIntentName_,
+      intentVersion = pIntentVersion_
     }
 
 -- | The name of the intent.
-iIntentName :: Lens' Intent Text
-iIntentName = lens _iIntentName (\s a -> s {_iIntentName = a})
+intent_intentName :: Lens.Lens' Intent Prelude.Text
+intent_intentName = Lens.lens (\Intent' {intentName} -> intentName) (\s@Intent' {} a -> s {intentName = a} :: Intent)
 
 -- | The version of the intent.
-iIntentVersion :: Lens' Intent Text
-iIntentVersion = lens _iIntentVersion (\s a -> s {_iIntentVersion = a})
+intent_intentVersion :: Lens.Lens' Intent Prelude.Text
+intent_intentVersion = Lens.lens (\Intent' {intentVersion} -> intentVersion) (\s@Intent' {} a -> s {intentVersion = a} :: Intent)
 
-instance FromJSON Intent where
+instance Prelude.FromJSON Intent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Intent"
       ( \x ->
           Intent'
-            <$> (x .: "intentName") <*> (x .: "intentVersion")
+            Prelude.<$> (x Prelude..: "intentName")
+            Prelude.<*> (x Prelude..: "intentVersion")
       )
 
-instance Hashable Intent
+instance Prelude.Hashable Intent
 
-instance NFData Intent
+instance Prelude.NFData Intent
 
-instance ToJSON Intent where
+instance Prelude.ToJSON Intent where
   toJSON Intent' {..} =
-    object
-      ( catMaybes
-          [ Just ("intentName" .= _iIntentName),
-            Just ("intentVersion" .= _iIntentVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("intentName" Prelude..= intentName),
+            Prelude.Just
+              ("intentVersion" Prelude..= intentVersion)
           ]
       )

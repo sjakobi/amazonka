@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.SlotDefaultValueSpec where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types.SlotDefaultValue
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the default values for a slot. Default values are used when Amazon Lex hasn't determined a value for a slot.
+-- | Contains the default values for a slot. Default values are used when
+-- Amazon Lex hasn\'t determined a value for a slot.
 --
---
---
--- /See:/ 'slotDefaultValueSpec' smart constructor.
-newtype SlotDefaultValueSpec = SlotDefaultValueSpec'
-  { _sdvsDefaultValueList ::
-      [SlotDefaultValue]
+-- /See:/ 'newSlotDefaultValueSpec' smart constructor.
+data SlotDefaultValueSpec = SlotDefaultValueSpec'
+  { -- | The default values for a slot. You can specify more than one default.
+    -- For example, you can specify a default value to use from a matching
+    -- context variable, a session attribute, or a fixed value.
+    --
+    -- The default value chosen is selected based on the order that you specify
+    -- them in the list. For example, if you specify a context variable and a
+    -- fixed value in that order, Amazon Lex uses the context variable if it is
+    -- available, else it uses the fixed value.
+    defaultValueList :: [SlotDefaultValue]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SlotDefaultValueSpec' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SlotDefaultValueSpec' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdvsDefaultValueList' - The default values for a slot. You can specify more than one default. For example, you can specify a default value to use from a matching context variable, a session attribute, or a fixed value. The default value chosen is selected based on the order that you specify them in the list. For example, if you specify a context variable and a fixed value in that order, Amazon Lex uses the context variable if it is available, else it uses the fixed value.
-slotDefaultValueSpec ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'defaultValueList', 'slotDefaultValueSpec_defaultValueList' - The default values for a slot. You can specify more than one default.
+-- For example, you can specify a default value to use from a matching
+-- context variable, a session attribute, or a fixed value.
+--
+-- The default value chosen is selected based on the order that you specify
+-- them in the list. For example, if you specify a context variable and a
+-- fixed value in that order, Amazon Lex uses the context variable if it is
+-- available, else it uses the fixed value.
+newSlotDefaultValueSpec ::
   SlotDefaultValueSpec
-slotDefaultValueSpec =
+newSlotDefaultValueSpec =
   SlotDefaultValueSpec'
-    { _sdvsDefaultValueList =
-        mempty
+    { defaultValueList =
+        Prelude.mempty
     }
 
--- | The default values for a slot. You can specify more than one default. For example, you can specify a default value to use from a matching context variable, a session attribute, or a fixed value. The default value chosen is selected based on the order that you specify them in the list. For example, if you specify a context variable and a fixed value in that order, Amazon Lex uses the context variable if it is available, else it uses the fixed value.
-sdvsDefaultValueList :: Lens' SlotDefaultValueSpec [SlotDefaultValue]
-sdvsDefaultValueList = lens _sdvsDefaultValueList (\s a -> s {_sdvsDefaultValueList = a}) . _Coerce
+-- | The default values for a slot. You can specify more than one default.
+-- For example, you can specify a default value to use from a matching
+-- context variable, a session attribute, or a fixed value.
+--
+-- The default value chosen is selected based on the order that you specify
+-- them in the list. For example, if you specify a context variable and a
+-- fixed value in that order, Amazon Lex uses the context variable if it is
+-- available, else it uses the fixed value.
+slotDefaultValueSpec_defaultValueList :: Lens.Lens' SlotDefaultValueSpec [SlotDefaultValue]
+slotDefaultValueSpec_defaultValueList = Lens.lens (\SlotDefaultValueSpec' {defaultValueList} -> defaultValueList) (\s@SlotDefaultValueSpec' {} a -> s {defaultValueList = a} :: SlotDefaultValueSpec) Prelude.. Prelude._Coerce
 
-instance FromJSON SlotDefaultValueSpec where
+instance Prelude.FromJSON SlotDefaultValueSpec where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SlotDefaultValueSpec"
       ( \x ->
           SlotDefaultValueSpec'
-            <$> (x .:? "defaultValueList" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "defaultValueList"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable SlotDefaultValueSpec
+instance Prelude.Hashable SlotDefaultValueSpec
 
-instance NFData SlotDefaultValueSpec
+instance Prelude.NFData SlotDefaultValueSpec
 
-instance ToJSON SlotDefaultValueSpec where
+instance Prelude.ToJSON SlotDefaultValueSpec where
   toJSON SlotDefaultValueSpec' {..} =
-    object
-      ( catMaybes
-          [Just ("defaultValueList" .= _sdvsDefaultValueList)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("defaultValueList" Prelude..= defaultValueList)
+          ]
       )

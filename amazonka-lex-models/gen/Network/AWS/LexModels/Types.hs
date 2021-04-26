@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types
   ( -- * Service Configuration
-    lexModels,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -78,231 +81,131 @@ module Network.AWS.LexModels.Types
 
     -- * BotAliasMetadata
     BotAliasMetadata (..),
-    botAliasMetadata,
-    bamCreatedDate,
-    bamBotName,
-    bamLastUpdatedDate,
-    bamBotVersion,
-    bamName,
-    bamDescription,
-    bamChecksum,
-    bamConversationLogs,
+    newBotAliasMetadata,
 
     -- * BotChannelAssociation
     BotChannelAssociation (..),
-    botChannelAssociation,
-    bcaBotAlias,
-    bcaCreatedDate,
-    bcaStatus,
-    bcaBotConfiguration,
-    bcaBotName,
-    bcaName,
-    bcaFailureReason,
-    bcaDescription,
-    bcaType,
+    newBotChannelAssociation,
 
     -- * BotMetadata
     BotMetadata (..),
-    botMetadata,
-    bmCreatedDate,
-    bmStatus,
-    bmLastUpdatedDate,
-    bmVersion,
-    bmName,
-    bmDescription,
+    newBotMetadata,
 
     -- * BuiltinIntentMetadata
     BuiltinIntentMetadata (..),
-    builtinIntentMetadata,
-    bimSignature,
-    bimSupportedLocales,
+    newBuiltinIntentMetadata,
 
     -- * BuiltinIntentSlot
     BuiltinIntentSlot (..),
-    builtinIntentSlot,
-    bisName,
+    newBuiltinIntentSlot,
 
     -- * BuiltinSlotTypeMetadata
     BuiltinSlotTypeMetadata (..),
-    builtinSlotTypeMetadata,
-    bstmSignature,
-    bstmSupportedLocales,
+    newBuiltinSlotTypeMetadata,
 
     -- * CodeHook
     CodeHook (..),
-    codeHook,
-    chUri,
-    chMessageVersion,
+    newCodeHook,
 
     -- * ConversationLogsRequest
     ConversationLogsRequest (..),
-    conversationLogsRequest,
-    clrLogSettings,
-    clrIamRoleARN,
+    newConversationLogsRequest,
 
     -- * ConversationLogsResponse
     ConversationLogsResponse (..),
-    conversationLogsResponse,
-    cIamRoleARN,
-    cLogSettings,
+    newConversationLogsResponse,
 
     -- * EnumerationValue
     EnumerationValue (..),
-    enumerationValue,
-    evSynonyms,
-    evValue,
+    newEnumerationValue,
 
     -- * FollowUpPrompt
     FollowUpPrompt (..),
-    followUpPrompt,
-    fupPrompt,
-    fupRejectionStatement,
+    newFollowUpPrompt,
 
     -- * FulfillmentActivity
     FulfillmentActivity (..),
-    fulfillmentActivity,
-    faCodeHook,
-    faType,
+    newFulfillmentActivity,
 
     -- * InputContext
     InputContext (..),
-    inputContext,
-    icName,
+    newInputContext,
 
     -- * Intent
     Intent (..),
-    intent,
-    iIntentName,
-    iIntentVersion,
+    newIntent,
 
     -- * IntentMetadata
     IntentMetadata (..),
-    intentMetadata,
-    imCreatedDate,
-    imLastUpdatedDate,
-    imVersion,
-    imName,
-    imDescription,
+    newIntentMetadata,
 
     -- * KendraConfiguration
     KendraConfiguration (..),
-    kendraConfiguration,
-    kcQueryFilterString,
-    kcKendraIndex,
-    kcRole,
+    newKendraConfiguration,
 
     -- * LogSettingsRequest
     LogSettingsRequest (..),
-    logSettingsRequest,
-    lsrKmsKeyARN,
-    lsrLogType,
-    lsrDestination,
-    lsrResourceARN,
+    newLogSettingsRequest,
 
     -- * LogSettingsResponse
     LogSettingsResponse (..),
-    logSettingsResponse,
-    lResourceARN,
-    lLogType,
-    lKmsKeyARN,
-    lDestination,
-    lResourcePrefix,
+    newLogSettingsResponse,
 
     -- * Message
     Message (..),
-    message,
-    mGroupNumber,
-    mContentType,
-    mContent,
+    newMessage,
 
     -- * OutputContext
     OutputContext (..),
-    outputContext,
-    ocName,
-    ocTimeToLiveInSeconds,
-    ocTurnsToLive,
+    newOutputContext,
 
     -- * Prompt
     Prompt (..),
-    prompt,
-    pResponseCard,
-    pMessages,
-    pMaxAttempts,
+    newPrompt,
 
     -- * Slot
     Slot (..),
-    slot,
-    sloResponseCard,
-    sloValueElicitationPrompt,
-    sloSlotType,
-    sloSlotTypeVersion,
-    sloPriority,
-    sloSampleUtterances,
-    sloDescription,
-    sloDefaultValueSpec,
-    sloObfuscationSetting,
-    sloName,
-    sloSlotConstraint,
+    newSlot,
 
     -- * SlotDefaultValue
     SlotDefaultValue (..),
-    slotDefaultValue,
-    sdvDefaultValue,
+    newSlotDefaultValue,
 
     -- * SlotDefaultValueSpec
     SlotDefaultValueSpec (..),
-    slotDefaultValueSpec,
-    sdvsDefaultValueList,
+    newSlotDefaultValueSpec,
 
     -- * SlotTypeConfiguration
     SlotTypeConfiguration (..),
-    slotTypeConfiguration,
-    stcRegexConfiguration,
+    newSlotTypeConfiguration,
 
     -- * SlotTypeMetadata
     SlotTypeMetadata (..),
-    slotTypeMetadata,
-    stmCreatedDate,
-    stmLastUpdatedDate,
-    stmVersion,
-    stmName,
-    stmDescription,
+    newSlotTypeMetadata,
 
     -- * SlotTypeRegexConfiguration
     SlotTypeRegexConfiguration (..),
-    slotTypeRegexConfiguration,
-    strcPattern,
+    newSlotTypeRegexConfiguration,
 
     -- * Statement
     Statement (..),
-    statement,
-    sResponseCard,
-    sMessages,
+    newStatement,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * UtteranceData
     UtteranceData (..),
-    utteranceData,
-    udUtteranceString,
-    udDistinctUsers,
-    udCount,
-    udFirstUtteredDate,
-    udLastUtteredDate,
+    newUtteranceData,
 
     -- * UtteranceList
     UtteranceList (..),
-    utteranceList,
-    ulBotVersion,
-    ulUtterances,
+    newUtteranceList,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types.BotAliasMetadata
 import Network.AWS.LexModels.Types.BotChannelAssociation
 import Network.AWS.LexModels.Types.BotMetadata
@@ -352,115 +255,146 @@ import Network.AWS.LexModels.Types.StatusType
 import Network.AWS.LexModels.Types.Tag
 import Network.AWS.LexModels.Types.UtteranceData
 import Network.AWS.LexModels.Types.UtteranceList
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-04-19@ of the Amazon Lex Model Building Service SDK configuration.
-lexModels :: Service
-lexModels =
-  Service
-    { _svcAbbrev = "LexModels",
-      _svcSigner = v4,
-      _svcPrefix = "models.lex",
-      _svcVersion = "2017-04-19",
-      _svcEndpoint = defaultEndpoint lexModels,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "LexModels",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "LexModels",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "models.lex",
+      Prelude._svcVersion = "2017-04-19",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "LexModels",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The resource specified in the request was not found. Check the resource and try again.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The resource specified in the request was not found. Check the resource
+-- and try again.
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError lexModels "NotFoundException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
+    Prelude.. Prelude.hasStatus 404
 
--- | The request is not well formed. For example, a value is invalid or a required field is missing. Check the field values, and try again.
-_BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request is not well formed. For example, a value is invalid or a
+-- required field is missing. Check the field values, and try again.
+_BadRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadRequestException =
-  _MatchServiceError lexModels "BadRequestException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "BadRequestException"
+    Prelude.. Prelude.hasStatus 400
 
--- | The resource that you are attempting to delete is referred to by another resource. Use this information to remove references to the resource that you are trying to delete.
+-- | The resource that you are attempting to delete is referred to by another
+-- resource. Use this information to remove references to the resource that
+-- you are trying to delete.
 --
+-- The body of the exception contains a JSON object that describes the
+-- resource.
 --
--- The body of the exception contains a JSON object that describes the resource.
+-- @{ \"resourceType\": BOT | BOTALIAS | BOTCHANNEL | INTENT,@
 --
--- @{ "resourceType": BOT | BOTALIAS | BOTCHANNEL | INTENT,@
+-- @\"resourceReference\": {@
 --
--- @"resourceReference": {@
---
--- @"name": /string/ , "version": /string/ } }@
-_ResourceInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- @\"name\": string, \"version\": string } }@
+_ResourceInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUseException =
-  _MatchServiceError
-    lexModels
+  Prelude._MatchServiceError
+    defaultService
     "ResourceInUseException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The request exceeded a limit. Try your request again.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    lexModels
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
 
 -- | There was a conflict processing the request. Try your request again.
-_ConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictException =
-  _MatchServiceError lexModels "ConflictException"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "ConflictException"
+    Prelude.. Prelude.hasStatus 409
 
 -- | An internal Amazon Lex error occurred. Try your request again.
-_InternalFailureException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalFailureException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalFailureException =
-  _MatchServiceError
-    lexModels
+  Prelude._MatchServiceError
+    defaultService
     "InternalFailureException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
--- | The checksum of the resource that you are trying to change does not match the checksum in the request. Check the resource's checksum and try again.
-_PreconditionFailedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The checksum of the resource that you are trying to change does not
+-- match the checksum in the request. Check the resource\'s checksum and
+-- try again.
+_PreconditionFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PreconditionFailedException =
-  _MatchServiceError
-    lexModels
+  Prelude._MatchServiceError
+    defaultService
     "PreconditionFailedException"
-    . hasStatus 412
+    Prelude.. Prelude.hasStatus 412

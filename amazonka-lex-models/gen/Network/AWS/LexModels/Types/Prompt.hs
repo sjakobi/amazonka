@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.Prompt where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types.Message
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Obtains information from the user. To define a prompt, provide one or more messages and specify the number of attempts to get information from the user. If you provide more than one message, Amazon Lex chooses one of the messages to use to prompt the user. For more information, see 'how-it-works' .
+-- | Obtains information from the user. To define a prompt, provide one or
+-- more messages and specify the number of attempts to get information from
+-- the user. If you provide more than one message, Amazon Lex chooses one
+-- of the messages to use to prompt the user. For more information, see
+-- how-it-works.
 --
---
---
--- /See:/ 'prompt' smart constructor.
+-- /See:/ 'newPrompt' smart constructor.
 data Prompt = Prompt'
-  { _pResponseCard ::
-      !(Maybe Text),
-    _pMessages :: !(List1 Message),
-    _pMaxAttempts :: !Nat
+  { -- | A response card. Amazon Lex uses this prompt at runtime, in the
+    -- @PostText@ API response. It substitutes session attributes and slot
+    -- values for placeholders in the response card. For more information, see
+    -- ex-resp-card.
+    responseCard :: Prelude.Maybe Prelude.Text,
+    -- | An array of objects, each of which provides a message string and its
+    -- type. You can specify the message string in plain text or in Speech
+    -- Synthesis Markup Language (SSML).
+    messages :: Prelude.List1 Message,
+    -- | The number of times to prompt the user for information.
+    maxAttempts :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Prompt' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Prompt' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pResponseCard' - A response card. Amazon Lex uses this prompt at runtime, in the @PostText@ API response. It substitutes session attributes and slot values for placeholders in the response card. For more information, see 'ex-resp-card' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pMessages' - An array of objects, each of which provides a message string and its type. You can specify the message string in plain text or in Speech Synthesis Markup Language (SSML).
+-- 'responseCard', 'prompt_responseCard' - A response card. Amazon Lex uses this prompt at runtime, in the
+-- @PostText@ API response. It substitutes session attributes and slot
+-- values for placeholders in the response card. For more information, see
+-- ex-resp-card.
 --
--- * 'pMaxAttempts' - The number of times to prompt the user for information.
-prompt ::
-  -- | 'pMessages'
-  NonEmpty Message ->
-  -- | 'pMaxAttempts'
-  Natural ->
+-- 'messages', 'prompt_messages' - An array of objects, each of which provides a message string and its
+-- type. You can specify the message string in plain text or in Speech
+-- Synthesis Markup Language (SSML).
+--
+-- 'maxAttempts', 'prompt_maxAttempts' - The number of times to prompt the user for information.
+newPrompt ::
+  -- | 'messages'
+  Prelude.NonEmpty Message ->
+  -- | 'maxAttempts'
+  Prelude.Natural ->
   Prompt
-prompt pMessages_ pMaxAttempts_ =
+newPrompt pMessages_ pMaxAttempts_ =
   Prompt'
-    { _pResponseCard = Nothing,
-      _pMessages = _List1 # pMessages_,
-      _pMaxAttempts = _Nat # pMaxAttempts_
+    { responseCard = Prelude.Nothing,
+      messages = Prelude._List1 Lens.# pMessages_,
+      maxAttempts = Prelude._Nat Lens.# pMaxAttempts_
     }
 
--- | A response card. Amazon Lex uses this prompt at runtime, in the @PostText@ API response. It substitutes session attributes and slot values for placeholders in the response card. For more information, see 'ex-resp-card' .
-pResponseCard :: Lens' Prompt (Maybe Text)
-pResponseCard = lens _pResponseCard (\s a -> s {_pResponseCard = a})
+-- | A response card. Amazon Lex uses this prompt at runtime, in the
+-- @PostText@ API response. It substitutes session attributes and slot
+-- values for placeholders in the response card. For more information, see
+-- ex-resp-card.
+prompt_responseCard :: Lens.Lens' Prompt (Prelude.Maybe Prelude.Text)
+prompt_responseCard = Lens.lens (\Prompt' {responseCard} -> responseCard) (\s@Prompt' {} a -> s {responseCard = a} :: Prompt)
 
--- | An array of objects, each of which provides a message string and its type. You can specify the message string in plain text or in Speech Synthesis Markup Language (SSML).
-pMessages :: Lens' Prompt (NonEmpty Message)
-pMessages = lens _pMessages (\s a -> s {_pMessages = a}) . _List1
+-- | An array of objects, each of which provides a message string and its
+-- type. You can specify the message string in plain text or in Speech
+-- Synthesis Markup Language (SSML).
+prompt_messages :: Lens.Lens' Prompt (Prelude.NonEmpty Message)
+prompt_messages = Lens.lens (\Prompt' {messages} -> messages) (\s@Prompt' {} a -> s {messages = a} :: Prompt) Prelude.. Prelude._List1
 
 -- | The number of times to prompt the user for information.
-pMaxAttempts :: Lens' Prompt Natural
-pMaxAttempts = lens _pMaxAttempts (\s a -> s {_pMaxAttempts = a}) . _Nat
+prompt_maxAttempts :: Lens.Lens' Prompt Prelude.Natural
+prompt_maxAttempts = Lens.lens (\Prompt' {maxAttempts} -> maxAttempts) (\s@Prompt' {} a -> s {maxAttempts = a} :: Prompt) Prelude.. Prelude._Nat
 
-instance FromJSON Prompt where
+instance Prelude.FromJSON Prompt where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Prompt"
       ( \x ->
           Prompt'
-            <$> (x .:? "responseCard")
-            <*> (x .: "messages")
-            <*> (x .: "maxAttempts")
+            Prelude.<$> (x Prelude..:? "responseCard")
+            Prelude.<*> (x Prelude..: "messages")
+            Prelude.<*> (x Prelude..: "maxAttempts")
       )
 
-instance Hashable Prompt
+instance Prelude.Hashable Prompt
 
-instance NFData Prompt
+instance Prelude.NFData Prompt
 
-instance ToJSON Prompt where
+instance Prelude.ToJSON Prompt where
   toJSON Prompt' {..} =
-    object
-      ( catMaybes
-          [ ("responseCard" .=) <$> _pResponseCard,
-            Just ("messages" .= _pMessages),
-            Just ("maxAttempts" .= _pMaxAttempts)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("responseCard" Prelude..=)
+              Prelude.<$> responseCard,
+            Prelude.Just ("messages" Prelude..= messages),
+            Prelude.Just ("maxAttempts" Prelude..= maxAttempts)
           ]
       )

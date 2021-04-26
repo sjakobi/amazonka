@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,275 +21,297 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new version of a slot type based on the @> LATEST@ version of the specified slot type. If the @> LATEST@ version of this resource has not changed since the last version that you created, Amazon Lex doesn't create a new version. It returns the last version that you created.
+-- Creates a new version of a slot type based on the @$LATEST@ version of
+-- the specified slot type. If the @$LATEST@ version of this resource has
+-- not changed since the last version that you created, Amazon Lex doesn\'t
+-- create a new version. It returns the last version that you created.
 --
+-- You can update only the @$LATEST@ version of a slot type. You can\'t
+-- update the numbered versions that you create with the
+-- @CreateSlotTypeVersion@ operation.
 --
--- When you create a version of a slot type, Amazon Lex sets the version to 1. Subsequent versions increment by 1. For more information, see 'versioning-intro' .
+-- When you create a version of a slot type, Amazon Lex sets the version to
+-- 1. Subsequent versions increment by 1. For more information, see
+-- versioning-intro.
 --
--- This operation requires permissions for the @lex:CreateSlotTypeVersion@ action.
+-- This operation requires permissions for the @lex:CreateSlotTypeVersion@
+-- action.
 module Network.AWS.LexModels.CreateSlotTypeVersion
   ( -- * Creating a Request
-    createSlotTypeVersion,
-    CreateSlotTypeVersion,
+    CreateSlotTypeVersion (..),
+    newCreateSlotTypeVersion,
 
     -- * Request Lenses
-    cstvChecksum,
-    cstvName,
+    createSlotTypeVersion_checksum,
+    createSlotTypeVersion_name,
 
     -- * Destructuring the Response
-    createSlotTypeVersionResponse,
-    CreateSlotTypeVersionResponse,
+    CreateSlotTypeVersionResponse (..),
+    newCreateSlotTypeVersionResponse,
 
     -- * Response Lenses
-    cstvrrsSlotTypeConfigurations,
-    cstvrrsCreatedDate,
-    cstvrrsEnumerationValues,
-    cstvrrsLastUpdatedDate,
-    cstvrrsValueSelectionStrategy,
-    cstvrrsVersion,
-    cstvrrsName,
-    cstvrrsParentSlotTypeSignature,
-    cstvrrsDescription,
-    cstvrrsChecksum,
-    cstvrrsResponseStatus,
+    createSlotTypeVersionResponse_slotTypeConfigurations,
+    createSlotTypeVersionResponse_createdDate,
+    createSlotTypeVersionResponse_enumerationValues,
+    createSlotTypeVersionResponse_lastUpdatedDate,
+    createSlotTypeVersionResponse_valueSelectionStrategy,
+    createSlotTypeVersionResponse_version,
+    createSlotTypeVersionResponse_name,
+    createSlotTypeVersionResponse_parentSlotTypeSignature,
+    createSlotTypeVersionResponse_description,
+    createSlotTypeVersionResponse_checksum,
+    createSlotTypeVersionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.LexModels.Types.EnumerationValue
+import Network.AWS.LexModels.Types.SlotTypeConfiguration
+import Network.AWS.LexModels.Types.SlotValueSelectionStrategy
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createSlotTypeVersion' smart constructor.
+-- | /See:/ 'newCreateSlotTypeVersion' smart constructor.
 data CreateSlotTypeVersion = CreateSlotTypeVersion'
-  { _cstvChecksum ::
-      !(Maybe Text),
-    _cstvName :: !Text
+  { -- | Checksum for the @$LATEST@ version of the slot type that you want to
+    -- publish. If you specify a checksum and the @$LATEST@ version of the slot
+    -- type has a different checksum, Amazon Lex returns a
+    -- @PreconditionFailedException@ exception and doesn\'t publish the new
+    -- version. If you don\'t specify a checksum, Amazon Lex publishes the
+    -- @$LATEST@ version.
+    checksum :: Prelude.Maybe Prelude.Text,
+    -- | The name of the slot type that you want to create a new version for. The
+    -- name is case sensitive.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSlotTypeVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSlotTypeVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cstvChecksum' - Checksum for the @> LATEST@ version of the slot type that you want to publish. If you specify a checksum and the @> LATEST@ version of the slot type has a different checksum, Amazon Lex returns a @PreconditionFailedException@ exception and doesn't publish the new version. If you don't specify a checksum, Amazon Lex publishes the @> LATEST@ version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cstvName' - The name of the slot type that you want to create a new version for. The name is case sensitive.
-createSlotTypeVersion ::
-  -- | 'cstvName'
-  Text ->
+-- 'checksum', 'createSlotTypeVersion_checksum' - Checksum for the @$LATEST@ version of the slot type that you want to
+-- publish. If you specify a checksum and the @$LATEST@ version of the slot
+-- type has a different checksum, Amazon Lex returns a
+-- @PreconditionFailedException@ exception and doesn\'t publish the new
+-- version. If you don\'t specify a checksum, Amazon Lex publishes the
+-- @$LATEST@ version.
+--
+-- 'name', 'createSlotTypeVersion_name' - The name of the slot type that you want to create a new version for. The
+-- name is case sensitive.
+newCreateSlotTypeVersion ::
+  -- | 'name'
+  Prelude.Text ->
   CreateSlotTypeVersion
-createSlotTypeVersion pName_ =
+newCreateSlotTypeVersion pName_ =
   CreateSlotTypeVersion'
-    { _cstvChecksum = Nothing,
-      _cstvName = pName_
+    { checksum = Prelude.Nothing,
+      name = pName_
     }
 
--- | Checksum for the @> LATEST@ version of the slot type that you want to publish. If you specify a checksum and the @> LATEST@ version of the slot type has a different checksum, Amazon Lex returns a @PreconditionFailedException@ exception and doesn't publish the new version. If you don't specify a checksum, Amazon Lex publishes the @> LATEST@ version.
-cstvChecksum :: Lens' CreateSlotTypeVersion (Maybe Text)
-cstvChecksum = lens _cstvChecksum (\s a -> s {_cstvChecksum = a})
+-- | Checksum for the @$LATEST@ version of the slot type that you want to
+-- publish. If you specify a checksum and the @$LATEST@ version of the slot
+-- type has a different checksum, Amazon Lex returns a
+-- @PreconditionFailedException@ exception and doesn\'t publish the new
+-- version. If you don\'t specify a checksum, Amazon Lex publishes the
+-- @$LATEST@ version.
+createSlotTypeVersion_checksum :: Lens.Lens' CreateSlotTypeVersion (Prelude.Maybe Prelude.Text)
+createSlotTypeVersion_checksum = Lens.lens (\CreateSlotTypeVersion' {checksum} -> checksum) (\s@CreateSlotTypeVersion' {} a -> s {checksum = a} :: CreateSlotTypeVersion)
 
--- | The name of the slot type that you want to create a new version for. The name is case sensitive.
-cstvName :: Lens' CreateSlotTypeVersion Text
-cstvName = lens _cstvName (\s a -> s {_cstvName = a})
+-- | The name of the slot type that you want to create a new version for. The
+-- name is case sensitive.
+createSlotTypeVersion_name :: Lens.Lens' CreateSlotTypeVersion Prelude.Text
+createSlotTypeVersion_name = Lens.lens (\CreateSlotTypeVersion' {name} -> name) (\s@CreateSlotTypeVersion' {} a -> s {name = a} :: CreateSlotTypeVersion)
 
-instance AWSRequest CreateSlotTypeVersion where
+instance Prelude.AWSRequest CreateSlotTypeVersion where
   type
     Rs CreateSlotTypeVersion =
       CreateSlotTypeVersionResponse
-  request = postJSON lexModels
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateSlotTypeVersionResponse'
-            <$> (x .?> "slotTypeConfigurations" .!@ mempty)
-            <*> (x .?> "createdDate")
-            <*> (x .?> "enumerationValues" .!@ mempty)
-            <*> (x .?> "lastUpdatedDate")
-            <*> (x .?> "valueSelectionStrategy")
-            <*> (x .?> "version")
-            <*> (x .?> "name")
-            <*> (x .?> "parentSlotTypeSignature")
-            <*> (x .?> "description")
-            <*> (x .?> "checksum")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "slotTypeConfigurations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "createdDate")
+            Prelude.<*> ( x Prelude..?> "enumerationValues"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "lastUpdatedDate")
+            Prelude.<*> (x Prelude..?> "valueSelectionStrategy")
+            Prelude.<*> (x Prelude..?> "version")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "parentSlotTypeSignature")
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (x Prelude..?> "checksum")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSlotTypeVersion
+instance Prelude.Hashable CreateSlotTypeVersion
 
-instance NFData CreateSlotTypeVersion
+instance Prelude.NFData CreateSlotTypeVersion
 
-instance ToHeaders CreateSlotTypeVersion where
+instance Prelude.ToHeaders CreateSlotTypeVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateSlotTypeVersion where
+instance Prelude.ToJSON CreateSlotTypeVersion where
   toJSON CreateSlotTypeVersion' {..} =
-    object
-      (catMaybes [("checksum" .=) <$> _cstvChecksum])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("checksum" Prelude..=) Prelude.<$> checksum]
+      )
 
-instance ToPath CreateSlotTypeVersion where
+instance Prelude.ToPath CreateSlotTypeVersion where
   toPath CreateSlotTypeVersion' {..} =
-    mconcat
-      ["/slottypes/", toBS _cstvName, "/versions"]
+    Prelude.mconcat
+      ["/slottypes/", Prelude.toBS name, "/versions"]
 
-instance ToQuery CreateSlotTypeVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateSlotTypeVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createSlotTypeVersionResponse' smart constructor.
+-- | /See:/ 'newCreateSlotTypeVersionResponse' smart constructor.
 data CreateSlotTypeVersionResponse = CreateSlotTypeVersionResponse'
-  { _cstvrrsSlotTypeConfigurations ::
-      !( Maybe
-           [SlotTypeConfiguration]
-       ),
-    _cstvrrsCreatedDate ::
-      !( Maybe
-           POSIX
-       ),
-    _cstvrrsEnumerationValues ::
-      !( Maybe
-           [EnumerationValue]
-       ),
-    _cstvrrsLastUpdatedDate ::
-      !( Maybe
-           POSIX
-       ),
-    _cstvrrsValueSelectionStrategy ::
-      !( Maybe
-           SlotValueSelectionStrategy
-       ),
-    _cstvrrsVersion ::
-      !( Maybe
-           Text
-       ),
-    _cstvrrsName ::
-      !( Maybe
-           Text
-       ),
-    _cstvrrsParentSlotTypeSignature ::
-      !( Maybe
-           Text
-       ),
-    _cstvrrsDescription ::
-      !( Maybe
-           Text
-       ),
-    _cstvrrsChecksum ::
-      !( Maybe
-           Text
-       ),
-    _cstvrrsResponseStatus ::
-      !Int
+  { -- | Configuration information that extends the parent built-in slot type.
+    slotTypeConfigurations :: Prelude.Maybe [SlotTypeConfiguration],
+    -- | The date that the slot type was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | A list of @EnumerationValue@ objects that defines the values that the
+    -- slot type can take.
+    enumerationValues :: Prelude.Maybe [EnumerationValue],
+    -- | The date that the slot type was updated. When you create a resource, the
+    -- creation date and last update date are the same.
+    lastUpdatedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The strategy that Amazon Lex uses to determine the value of the slot.
+    -- For more information, see PutSlotType.
+    valueSelectionStrategy :: Prelude.Maybe SlotValueSelectionStrategy,
+    -- | The version assigned to the new slot type version.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of the slot type.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The built-in slot type used a the parent of the slot type.
+    parentSlotTypeSignature :: Prelude.Maybe Prelude.Text,
+    -- | A description of the slot type.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Checksum of the @$LATEST@ version of the slot type.
+    checksum :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSlotTypeVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSlotTypeVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cstvrrsSlotTypeConfigurations' - Configuration information that extends the parent built-in slot type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cstvrrsCreatedDate' - The date that the slot type was created.
+-- 'slotTypeConfigurations', 'createSlotTypeVersionResponse_slotTypeConfigurations' - Configuration information that extends the parent built-in slot type.
 --
--- * 'cstvrrsEnumerationValues' - A list of @EnumerationValue@ objects that defines the values that the slot type can take.
+-- 'createdDate', 'createSlotTypeVersionResponse_createdDate' - The date that the slot type was created.
 --
--- * 'cstvrrsLastUpdatedDate' - The date that the slot type was updated. When you create a resource, the creation date and last update date are the same.
+-- 'enumerationValues', 'createSlotTypeVersionResponse_enumerationValues' - A list of @EnumerationValue@ objects that defines the values that the
+-- slot type can take.
 --
--- * 'cstvrrsValueSelectionStrategy' - The strategy that Amazon Lex uses to determine the value of the slot. For more information, see 'PutSlotType' .
+-- 'lastUpdatedDate', 'createSlotTypeVersionResponse_lastUpdatedDate' - The date that the slot type was updated. When you create a resource, the
+-- creation date and last update date are the same.
 --
--- * 'cstvrrsVersion' - The version assigned to the new slot type version.
+-- 'valueSelectionStrategy', 'createSlotTypeVersionResponse_valueSelectionStrategy' - The strategy that Amazon Lex uses to determine the value of the slot.
+-- For more information, see PutSlotType.
 --
--- * 'cstvrrsName' - The name of the slot type.
+-- 'version', 'createSlotTypeVersionResponse_version' - The version assigned to the new slot type version.
 --
--- * 'cstvrrsParentSlotTypeSignature' - The built-in slot type used a the parent of the slot type.
+-- 'name', 'createSlotTypeVersionResponse_name' - The name of the slot type.
 --
--- * 'cstvrrsDescription' - A description of the slot type.
+-- 'parentSlotTypeSignature', 'createSlotTypeVersionResponse_parentSlotTypeSignature' - The built-in slot type used a the parent of the slot type.
 --
--- * 'cstvrrsChecksum' - Checksum of the @> LATEST@ version of the slot type.
+-- 'description', 'createSlotTypeVersionResponse_description' - A description of the slot type.
 --
--- * 'cstvrrsResponseStatus' - -- | The response status code.
-createSlotTypeVersionResponse ::
-  -- | 'cstvrrsResponseStatus'
-  Int ->
+-- 'checksum', 'createSlotTypeVersionResponse_checksum' - Checksum of the @$LATEST@ version of the slot type.
+--
+-- 'httpStatus', 'createSlotTypeVersionResponse_httpStatus' - The response's http status code.
+newCreateSlotTypeVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSlotTypeVersionResponse
-createSlotTypeVersionResponse pResponseStatus_ =
+newCreateSlotTypeVersionResponse pHttpStatus_ =
   CreateSlotTypeVersionResponse'
-    { _cstvrrsSlotTypeConfigurations =
-        Nothing,
-      _cstvrrsCreatedDate = Nothing,
-      _cstvrrsEnumerationValues = Nothing,
-      _cstvrrsLastUpdatedDate = Nothing,
-      _cstvrrsValueSelectionStrategy = Nothing,
-      _cstvrrsVersion = Nothing,
-      _cstvrrsName = Nothing,
-      _cstvrrsParentSlotTypeSignature = Nothing,
-      _cstvrrsDescription = Nothing,
-      _cstvrrsChecksum = Nothing,
-      _cstvrrsResponseStatus = pResponseStatus_
+    { slotTypeConfigurations =
+        Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      enumerationValues = Prelude.Nothing,
+      lastUpdatedDate = Prelude.Nothing,
+      valueSelectionStrategy = Prelude.Nothing,
+      version = Prelude.Nothing,
+      name = Prelude.Nothing,
+      parentSlotTypeSignature = Prelude.Nothing,
+      description = Prelude.Nothing,
+      checksum = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Configuration information that extends the parent built-in slot type.
-cstvrrsSlotTypeConfigurations :: Lens' CreateSlotTypeVersionResponse [SlotTypeConfiguration]
-cstvrrsSlotTypeConfigurations = lens _cstvrrsSlotTypeConfigurations (\s a -> s {_cstvrrsSlotTypeConfigurations = a}) . _Default . _Coerce
+createSlotTypeVersionResponse_slotTypeConfigurations :: Lens.Lens' CreateSlotTypeVersionResponse (Prelude.Maybe [SlotTypeConfiguration])
+createSlotTypeVersionResponse_slotTypeConfigurations = Lens.lens (\CreateSlotTypeVersionResponse' {slotTypeConfigurations} -> slotTypeConfigurations) (\s@CreateSlotTypeVersionResponse' {} a -> s {slotTypeConfigurations = a} :: CreateSlotTypeVersionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date that the slot type was created.
-cstvrrsCreatedDate :: Lens' CreateSlotTypeVersionResponse (Maybe UTCTime)
-cstvrrsCreatedDate = lens _cstvrrsCreatedDate (\s a -> s {_cstvrrsCreatedDate = a}) . mapping _Time
+createSlotTypeVersionResponse_createdDate :: Lens.Lens' CreateSlotTypeVersionResponse (Prelude.Maybe Prelude.UTCTime)
+createSlotTypeVersionResponse_createdDate = Lens.lens (\CreateSlotTypeVersionResponse' {createdDate} -> createdDate) (\s@CreateSlotTypeVersionResponse' {} a -> s {createdDate = a} :: CreateSlotTypeVersionResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | A list of @EnumerationValue@ objects that defines the values that the slot type can take.
-cstvrrsEnumerationValues :: Lens' CreateSlotTypeVersionResponse [EnumerationValue]
-cstvrrsEnumerationValues = lens _cstvrrsEnumerationValues (\s a -> s {_cstvrrsEnumerationValues = a}) . _Default . _Coerce
+-- | A list of @EnumerationValue@ objects that defines the values that the
+-- slot type can take.
+createSlotTypeVersionResponse_enumerationValues :: Lens.Lens' CreateSlotTypeVersionResponse (Prelude.Maybe [EnumerationValue])
+createSlotTypeVersionResponse_enumerationValues = Lens.lens (\CreateSlotTypeVersionResponse' {enumerationValues} -> enumerationValues) (\s@CreateSlotTypeVersionResponse' {} a -> s {enumerationValues = a} :: CreateSlotTypeVersionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The date that the slot type was updated. When you create a resource, the creation date and last update date are the same.
-cstvrrsLastUpdatedDate :: Lens' CreateSlotTypeVersionResponse (Maybe UTCTime)
-cstvrrsLastUpdatedDate = lens _cstvrrsLastUpdatedDate (\s a -> s {_cstvrrsLastUpdatedDate = a}) . mapping _Time
+-- | The date that the slot type was updated. When you create a resource, the
+-- creation date and last update date are the same.
+createSlotTypeVersionResponse_lastUpdatedDate :: Lens.Lens' CreateSlotTypeVersionResponse (Prelude.Maybe Prelude.UTCTime)
+createSlotTypeVersionResponse_lastUpdatedDate = Lens.lens (\CreateSlotTypeVersionResponse' {lastUpdatedDate} -> lastUpdatedDate) (\s@CreateSlotTypeVersionResponse' {} a -> s {lastUpdatedDate = a} :: CreateSlotTypeVersionResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The strategy that Amazon Lex uses to determine the value of the slot. For more information, see 'PutSlotType' .
-cstvrrsValueSelectionStrategy :: Lens' CreateSlotTypeVersionResponse (Maybe SlotValueSelectionStrategy)
-cstvrrsValueSelectionStrategy = lens _cstvrrsValueSelectionStrategy (\s a -> s {_cstvrrsValueSelectionStrategy = a})
+-- | The strategy that Amazon Lex uses to determine the value of the slot.
+-- For more information, see PutSlotType.
+createSlotTypeVersionResponse_valueSelectionStrategy :: Lens.Lens' CreateSlotTypeVersionResponse (Prelude.Maybe SlotValueSelectionStrategy)
+createSlotTypeVersionResponse_valueSelectionStrategy = Lens.lens (\CreateSlotTypeVersionResponse' {valueSelectionStrategy} -> valueSelectionStrategy) (\s@CreateSlotTypeVersionResponse' {} a -> s {valueSelectionStrategy = a} :: CreateSlotTypeVersionResponse)
 
 -- | The version assigned to the new slot type version.
-cstvrrsVersion :: Lens' CreateSlotTypeVersionResponse (Maybe Text)
-cstvrrsVersion = lens _cstvrrsVersion (\s a -> s {_cstvrrsVersion = a})
+createSlotTypeVersionResponse_version :: Lens.Lens' CreateSlotTypeVersionResponse (Prelude.Maybe Prelude.Text)
+createSlotTypeVersionResponse_version = Lens.lens (\CreateSlotTypeVersionResponse' {version} -> version) (\s@CreateSlotTypeVersionResponse' {} a -> s {version = a} :: CreateSlotTypeVersionResponse)
 
 -- | The name of the slot type.
-cstvrrsName :: Lens' CreateSlotTypeVersionResponse (Maybe Text)
-cstvrrsName = lens _cstvrrsName (\s a -> s {_cstvrrsName = a})
+createSlotTypeVersionResponse_name :: Lens.Lens' CreateSlotTypeVersionResponse (Prelude.Maybe Prelude.Text)
+createSlotTypeVersionResponse_name = Lens.lens (\CreateSlotTypeVersionResponse' {name} -> name) (\s@CreateSlotTypeVersionResponse' {} a -> s {name = a} :: CreateSlotTypeVersionResponse)
 
 -- | The built-in slot type used a the parent of the slot type.
-cstvrrsParentSlotTypeSignature :: Lens' CreateSlotTypeVersionResponse (Maybe Text)
-cstvrrsParentSlotTypeSignature = lens _cstvrrsParentSlotTypeSignature (\s a -> s {_cstvrrsParentSlotTypeSignature = a})
+createSlotTypeVersionResponse_parentSlotTypeSignature :: Lens.Lens' CreateSlotTypeVersionResponse (Prelude.Maybe Prelude.Text)
+createSlotTypeVersionResponse_parentSlotTypeSignature = Lens.lens (\CreateSlotTypeVersionResponse' {parentSlotTypeSignature} -> parentSlotTypeSignature) (\s@CreateSlotTypeVersionResponse' {} a -> s {parentSlotTypeSignature = a} :: CreateSlotTypeVersionResponse)
 
 -- | A description of the slot type.
-cstvrrsDescription :: Lens' CreateSlotTypeVersionResponse (Maybe Text)
-cstvrrsDescription = lens _cstvrrsDescription (\s a -> s {_cstvrrsDescription = a})
+createSlotTypeVersionResponse_description :: Lens.Lens' CreateSlotTypeVersionResponse (Prelude.Maybe Prelude.Text)
+createSlotTypeVersionResponse_description = Lens.lens (\CreateSlotTypeVersionResponse' {description} -> description) (\s@CreateSlotTypeVersionResponse' {} a -> s {description = a} :: CreateSlotTypeVersionResponse)
 
--- | Checksum of the @> LATEST@ version of the slot type.
-cstvrrsChecksum :: Lens' CreateSlotTypeVersionResponse (Maybe Text)
-cstvrrsChecksum = lens _cstvrrsChecksum (\s a -> s {_cstvrrsChecksum = a})
+-- | Checksum of the @$LATEST@ version of the slot type.
+createSlotTypeVersionResponse_checksum :: Lens.Lens' CreateSlotTypeVersionResponse (Prelude.Maybe Prelude.Text)
+createSlotTypeVersionResponse_checksum = Lens.lens (\CreateSlotTypeVersionResponse' {checksum} -> checksum) (\s@CreateSlotTypeVersionResponse' {} a -> s {checksum = a} :: CreateSlotTypeVersionResponse)
 
--- | -- | The response status code.
-cstvrrsResponseStatus :: Lens' CreateSlotTypeVersionResponse Int
-cstvrrsResponseStatus = lens _cstvrrsResponseStatus (\s a -> s {_cstvrrsResponseStatus = a})
+-- | The response's http status code.
+createSlotTypeVersionResponse_httpStatus :: Lens.Lens' CreateSlotTypeVersionResponse Prelude.Int
+createSlotTypeVersionResponse_httpStatus = Lens.lens (\CreateSlotTypeVersionResponse' {httpStatus} -> httpStatus) (\s@CreateSlotTypeVersionResponse' {} a -> s {httpStatus = a} :: CreateSlotTypeVersionResponse)
 
-instance NFData CreateSlotTypeVersionResponse
+instance Prelude.NFData CreateSlotTypeVersionResponse

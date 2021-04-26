@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,213 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about an Amazon Lex bot alias. For more information about aliases, see 'versioning-aliases' .
---
+-- Returns information about an Amazon Lex bot alias. For more information
+-- about aliases, see versioning-aliases.
 --
 -- This operation requires permissions for the @lex:GetBotAlias@ action.
 module Network.AWS.LexModels.GetBotAlias
   ( -- * Creating a Request
-    getBotAlias,
-    GetBotAlias,
+    GetBotAlias (..),
+    newGetBotAlias,
 
     -- * Request Lenses
-    gbaName,
-    gbaBotName,
+    getBotAlias_name,
+    getBotAlias_botName,
 
     -- * Destructuring the Response
-    getBotAliasResponse,
-    GetBotAliasResponse,
+    GetBotAliasResponse (..),
+    newGetBotAliasResponse,
 
     -- * Response Lenses
-    gbarrsCreatedDate,
-    gbarrsBotName,
-    gbarrsLastUpdatedDate,
-    gbarrsBotVersion,
-    gbarrsName,
-    gbarrsDescription,
-    gbarrsChecksum,
-    gbarrsConversationLogs,
-    gbarrsResponseStatus,
+    getBotAliasResponse_createdDate,
+    getBotAliasResponse_botName,
+    getBotAliasResponse_lastUpdatedDate,
+    getBotAliasResponse_botVersion,
+    getBotAliasResponse_name,
+    getBotAliasResponse_description,
+    getBotAliasResponse_checksum,
+    getBotAliasResponse_conversationLogs,
+    getBotAliasResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.LexModels.Types.ConversationLogsResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getBotAlias' smart constructor.
+-- | /See:/ 'newGetBotAlias' smart constructor.
 data GetBotAlias = GetBotAlias'
-  { _gbaName :: !Text,
-    _gbaBotName :: !Text
+  { -- | The name of the bot alias. The name is case sensitive.
+    name :: Prelude.Text,
+    -- | The name of the bot.
+    botName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBotAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBotAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbaName' - The name of the bot alias. The name is case sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbaBotName' - The name of the bot.
-getBotAlias ::
-  -- | 'gbaName'
-  Text ->
-  -- | 'gbaBotName'
-  Text ->
+-- 'name', 'getBotAlias_name' - The name of the bot alias. The name is case sensitive.
+--
+-- 'botName', 'getBotAlias_botName' - The name of the bot.
+newGetBotAlias ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'botName'
+  Prelude.Text ->
   GetBotAlias
-getBotAlias pName_ pBotName_ =
-  GetBotAlias'
-    { _gbaName = pName_,
-      _gbaBotName = pBotName_
-    }
+newGetBotAlias pName_ pBotName_ =
+  GetBotAlias' {name = pName_, botName = pBotName_}
 
 -- | The name of the bot alias. The name is case sensitive.
-gbaName :: Lens' GetBotAlias Text
-gbaName = lens _gbaName (\s a -> s {_gbaName = a})
+getBotAlias_name :: Lens.Lens' GetBotAlias Prelude.Text
+getBotAlias_name = Lens.lens (\GetBotAlias' {name} -> name) (\s@GetBotAlias' {} a -> s {name = a} :: GetBotAlias)
 
 -- | The name of the bot.
-gbaBotName :: Lens' GetBotAlias Text
-gbaBotName = lens _gbaBotName (\s a -> s {_gbaBotName = a})
+getBotAlias_botName :: Lens.Lens' GetBotAlias Prelude.Text
+getBotAlias_botName = Lens.lens (\GetBotAlias' {botName} -> botName) (\s@GetBotAlias' {} a -> s {botName = a} :: GetBotAlias)
 
-instance AWSRequest GetBotAlias where
+instance Prelude.AWSRequest GetBotAlias where
   type Rs GetBotAlias = GetBotAliasResponse
-  request = get lexModels
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetBotAliasResponse'
-            <$> (x .?> "createdDate")
-            <*> (x .?> "botName")
-            <*> (x .?> "lastUpdatedDate")
-            <*> (x .?> "botVersion")
-            <*> (x .?> "name")
-            <*> (x .?> "description")
-            <*> (x .?> "checksum")
-            <*> (x .?> "conversationLogs")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "createdDate")
+            Prelude.<*> (x Prelude..?> "botName")
+            Prelude.<*> (x Prelude..?> "lastUpdatedDate")
+            Prelude.<*> (x Prelude..?> "botVersion")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (x Prelude..?> "checksum")
+            Prelude.<*> (x Prelude..?> "conversationLogs")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBotAlias
+instance Prelude.Hashable GetBotAlias
 
-instance NFData GetBotAlias
+instance Prelude.NFData GetBotAlias
 
-instance ToHeaders GetBotAlias where
+instance Prelude.ToHeaders GetBotAlias where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetBotAlias where
+instance Prelude.ToPath GetBotAlias where
   toPath GetBotAlias' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/bots/",
-        toBS _gbaBotName,
+        Prelude.toBS botName,
         "/aliases/",
-        toBS _gbaName
+        Prelude.toBS name
       ]
 
-instance ToQuery GetBotAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery GetBotAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getBotAliasResponse' smart constructor.
+-- | /See:/ 'newGetBotAliasResponse' smart constructor.
 data GetBotAliasResponse = GetBotAliasResponse'
-  { _gbarrsCreatedDate ::
-      !(Maybe POSIX),
-    _gbarrsBotName :: !(Maybe Text),
-    _gbarrsLastUpdatedDate ::
-      !(Maybe POSIX),
-    _gbarrsBotVersion ::
-      !(Maybe Text),
-    _gbarrsName :: !(Maybe Text),
-    _gbarrsDescription ::
-      !(Maybe Text),
-    _gbarrsChecksum ::
-      !(Maybe Text),
-    _gbarrsConversationLogs ::
-      !( Maybe
-           ConversationLogsResponse
-       ),
-    _gbarrsResponseStatus :: !Int
+  { -- | The date that the bot alias was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the bot that the alias points to.
+    botName :: Prelude.Maybe Prelude.Text,
+    -- | The date that the bot alias was updated. When you create a resource, the
+    -- creation date and the last updated date are the same.
+    lastUpdatedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The version of the bot that the alias points to.
+    botVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the bot alias.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A description of the bot alias.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Checksum of the bot alias.
+    checksum :: Prelude.Maybe Prelude.Text,
+    -- | The settings that determine how Amazon Lex uses conversation logs for
+    -- the alias.
+    conversationLogs :: Prelude.Maybe ConversationLogsResponse,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBotAliasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBotAliasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbarrsCreatedDate' - The date that the bot alias was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbarrsBotName' - The name of the bot that the alias points to.
+-- 'createdDate', 'getBotAliasResponse_createdDate' - The date that the bot alias was created.
 --
--- * 'gbarrsLastUpdatedDate' - The date that the bot alias was updated. When you create a resource, the creation date and the last updated date are the same.
+-- 'botName', 'getBotAliasResponse_botName' - The name of the bot that the alias points to.
 --
--- * 'gbarrsBotVersion' - The version of the bot that the alias points to.
+-- 'lastUpdatedDate', 'getBotAliasResponse_lastUpdatedDate' - The date that the bot alias was updated. When you create a resource, the
+-- creation date and the last updated date are the same.
 --
--- * 'gbarrsName' - The name of the bot alias.
+-- 'botVersion', 'getBotAliasResponse_botVersion' - The version of the bot that the alias points to.
 --
--- * 'gbarrsDescription' - A description of the bot alias.
+-- 'name', 'getBotAliasResponse_name' - The name of the bot alias.
 --
--- * 'gbarrsChecksum' - Checksum of the bot alias.
+-- 'description', 'getBotAliasResponse_description' - A description of the bot alias.
 --
--- * 'gbarrsConversationLogs' - The settings that determine how Amazon Lex uses conversation logs for the alias.
+-- 'checksum', 'getBotAliasResponse_checksum' - Checksum of the bot alias.
 --
--- * 'gbarrsResponseStatus' - -- | The response status code.
-getBotAliasResponse ::
-  -- | 'gbarrsResponseStatus'
-  Int ->
+-- 'conversationLogs', 'getBotAliasResponse_conversationLogs' - The settings that determine how Amazon Lex uses conversation logs for
+-- the alias.
+--
+-- 'httpStatus', 'getBotAliasResponse_httpStatus' - The response's http status code.
+newGetBotAliasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBotAliasResponse
-getBotAliasResponse pResponseStatus_ =
+newGetBotAliasResponse pHttpStatus_ =
   GetBotAliasResponse'
-    { _gbarrsCreatedDate = Nothing,
-      _gbarrsBotName = Nothing,
-      _gbarrsLastUpdatedDate = Nothing,
-      _gbarrsBotVersion = Nothing,
-      _gbarrsName = Nothing,
-      _gbarrsDescription = Nothing,
-      _gbarrsChecksum = Nothing,
-      _gbarrsConversationLogs = Nothing,
-      _gbarrsResponseStatus = pResponseStatus_
+    { createdDate = Prelude.Nothing,
+      botName = Prelude.Nothing,
+      lastUpdatedDate = Prelude.Nothing,
+      botVersion = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      checksum = Prelude.Nothing,
+      conversationLogs = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The date that the bot alias was created.
-gbarrsCreatedDate :: Lens' GetBotAliasResponse (Maybe UTCTime)
-gbarrsCreatedDate = lens _gbarrsCreatedDate (\s a -> s {_gbarrsCreatedDate = a}) . mapping _Time
+getBotAliasResponse_createdDate :: Lens.Lens' GetBotAliasResponse (Prelude.Maybe Prelude.UTCTime)
+getBotAliasResponse_createdDate = Lens.lens (\GetBotAliasResponse' {createdDate} -> createdDate) (\s@GetBotAliasResponse' {} a -> s {createdDate = a} :: GetBotAliasResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the bot that the alias points to.
-gbarrsBotName :: Lens' GetBotAliasResponse (Maybe Text)
-gbarrsBotName = lens _gbarrsBotName (\s a -> s {_gbarrsBotName = a})
+getBotAliasResponse_botName :: Lens.Lens' GetBotAliasResponse (Prelude.Maybe Prelude.Text)
+getBotAliasResponse_botName = Lens.lens (\GetBotAliasResponse' {botName} -> botName) (\s@GetBotAliasResponse' {} a -> s {botName = a} :: GetBotAliasResponse)
 
--- | The date that the bot alias was updated. When you create a resource, the creation date and the last updated date are the same.
-gbarrsLastUpdatedDate :: Lens' GetBotAliasResponse (Maybe UTCTime)
-gbarrsLastUpdatedDate = lens _gbarrsLastUpdatedDate (\s a -> s {_gbarrsLastUpdatedDate = a}) . mapping _Time
+-- | The date that the bot alias was updated. When you create a resource, the
+-- creation date and the last updated date are the same.
+getBotAliasResponse_lastUpdatedDate :: Lens.Lens' GetBotAliasResponse (Prelude.Maybe Prelude.UTCTime)
+getBotAliasResponse_lastUpdatedDate = Lens.lens (\GetBotAliasResponse' {lastUpdatedDate} -> lastUpdatedDate) (\s@GetBotAliasResponse' {} a -> s {lastUpdatedDate = a} :: GetBotAliasResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The version of the bot that the alias points to.
-gbarrsBotVersion :: Lens' GetBotAliasResponse (Maybe Text)
-gbarrsBotVersion = lens _gbarrsBotVersion (\s a -> s {_gbarrsBotVersion = a})
+getBotAliasResponse_botVersion :: Lens.Lens' GetBotAliasResponse (Prelude.Maybe Prelude.Text)
+getBotAliasResponse_botVersion = Lens.lens (\GetBotAliasResponse' {botVersion} -> botVersion) (\s@GetBotAliasResponse' {} a -> s {botVersion = a} :: GetBotAliasResponse)
 
 -- | The name of the bot alias.
-gbarrsName :: Lens' GetBotAliasResponse (Maybe Text)
-gbarrsName = lens _gbarrsName (\s a -> s {_gbarrsName = a})
+getBotAliasResponse_name :: Lens.Lens' GetBotAliasResponse (Prelude.Maybe Prelude.Text)
+getBotAliasResponse_name = Lens.lens (\GetBotAliasResponse' {name} -> name) (\s@GetBotAliasResponse' {} a -> s {name = a} :: GetBotAliasResponse)
 
 -- | A description of the bot alias.
-gbarrsDescription :: Lens' GetBotAliasResponse (Maybe Text)
-gbarrsDescription = lens _gbarrsDescription (\s a -> s {_gbarrsDescription = a})
+getBotAliasResponse_description :: Lens.Lens' GetBotAliasResponse (Prelude.Maybe Prelude.Text)
+getBotAliasResponse_description = Lens.lens (\GetBotAliasResponse' {description} -> description) (\s@GetBotAliasResponse' {} a -> s {description = a} :: GetBotAliasResponse)
 
 -- | Checksum of the bot alias.
-gbarrsChecksum :: Lens' GetBotAliasResponse (Maybe Text)
-gbarrsChecksum = lens _gbarrsChecksum (\s a -> s {_gbarrsChecksum = a})
+getBotAliasResponse_checksum :: Lens.Lens' GetBotAliasResponse (Prelude.Maybe Prelude.Text)
+getBotAliasResponse_checksum = Lens.lens (\GetBotAliasResponse' {checksum} -> checksum) (\s@GetBotAliasResponse' {} a -> s {checksum = a} :: GetBotAliasResponse)
 
--- | The settings that determine how Amazon Lex uses conversation logs for the alias.
-gbarrsConversationLogs :: Lens' GetBotAliasResponse (Maybe ConversationLogsResponse)
-gbarrsConversationLogs = lens _gbarrsConversationLogs (\s a -> s {_gbarrsConversationLogs = a})
+-- | The settings that determine how Amazon Lex uses conversation logs for
+-- the alias.
+getBotAliasResponse_conversationLogs :: Lens.Lens' GetBotAliasResponse (Prelude.Maybe ConversationLogsResponse)
+getBotAliasResponse_conversationLogs = Lens.lens (\GetBotAliasResponse' {conversationLogs} -> conversationLogs) (\s@GetBotAliasResponse' {} a -> s {conversationLogs = a} :: GetBotAliasResponse)
 
--- | -- | The response status code.
-gbarrsResponseStatus :: Lens' GetBotAliasResponse Int
-gbarrsResponseStatus = lens _gbarrsResponseStatus (\s a -> s {_gbarrsResponseStatus = a})
+-- | The response's http status code.
+getBotAliasResponse_httpStatus :: Lens.Lens' GetBotAliasResponse Prelude.Int
+getBotAliasResponse_httpStatus = Lens.lens (\GetBotAliasResponse' {httpStatus} -> httpStatus) (\s@GetBotAliasResponse' {} a -> s {httpStatus = a} :: GetBotAliasResponse)
 
-instance NFData GetBotAliasResponse
+instance Prelude.NFData GetBotAliasResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.LexModels.Types.ChannelType
   ( ChannelType
       ( ..,
-        Facebook,
-        Kik,
-        Slack,
-        TwilioSms
+        ChannelTypeFacebook,
+        ChannelTypeKik,
+        ChannelTypeSlack,
+        ChannelTypeTwilioSms
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChannelType = ChannelType' (CI Text)
+newtype ChannelType = ChannelType'
+  { fromChannelType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Facebook :: ChannelType
-pattern Facebook = ChannelType' "Facebook"
+pattern ChannelTypeFacebook :: ChannelType
+pattern ChannelTypeFacebook = ChannelType' "Facebook"
 
-pattern Kik :: ChannelType
-pattern Kik = ChannelType' "Kik"
+pattern ChannelTypeKik :: ChannelType
+pattern ChannelTypeKik = ChannelType' "Kik"
 
-pattern Slack :: ChannelType
-pattern Slack = ChannelType' "Slack"
+pattern ChannelTypeSlack :: ChannelType
+pattern ChannelTypeSlack = ChannelType' "Slack"
 
-pattern TwilioSms :: ChannelType
-pattern TwilioSms = ChannelType' "Twilio-Sms"
+pattern ChannelTypeTwilioSms :: ChannelType
+pattern ChannelTypeTwilioSms = ChannelType' "Twilio-Sms"
 
 {-# COMPLETE
-  Facebook,
-  Kik,
-  Slack,
-  TwilioSms,
+  ChannelTypeFacebook,
+  ChannelTypeKik,
+  ChannelTypeSlack,
+  ChannelTypeTwilioSms,
   ChannelType'
   #-}
 
-instance FromText ChannelType where
-  parser = (ChannelType' . mk) <$> takeText
+instance Prelude.FromText ChannelType where
+  parser = ChannelType' Prelude.<$> Prelude.takeText
 
-instance ToText ChannelType where
-  toText (ChannelType' ci) = original ci
+instance Prelude.ToText ChannelType where
+  toText (ChannelType' x) = x
 
-instance Hashable ChannelType
+instance Prelude.Hashable ChannelType
 
-instance NFData ChannelType
+instance Prelude.NFData ChannelType
 
-instance ToByteString ChannelType
+instance Prelude.ToByteString ChannelType
 
-instance ToQuery ChannelType
+instance Prelude.ToQuery ChannelType
 
-instance ToHeader ChannelType
+instance Prelude.ToHeader ChannelType
 
-instance FromJSON ChannelType where
-  parseJSON = parseJSONText "ChannelType"
+instance Prelude.FromJSON ChannelType where
+  parseJSON = Prelude.parseJSONText "ChannelType"

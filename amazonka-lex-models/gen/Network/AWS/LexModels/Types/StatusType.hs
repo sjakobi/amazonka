@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.LexModels.Types.StatusType
   ( StatusType
       ( ..,
-        Detected,
-        Missed
+        StatusTypeDetected,
+        StatusTypeMissed
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StatusType = StatusType' (CI Text)
+newtype StatusType = StatusType'
+  { fromStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Detected :: StatusType
-pattern Detected = StatusType' "Detected"
+pattern StatusTypeDetected :: StatusType
+pattern StatusTypeDetected = StatusType' "Detected"
 
-pattern Missed :: StatusType
-pattern Missed = StatusType' "Missed"
+pattern StatusTypeMissed :: StatusType
+pattern StatusTypeMissed = StatusType' "Missed"
 
 {-# COMPLETE
-  Detected,
-  Missed,
+  StatusTypeDetected,
+  StatusTypeMissed,
   StatusType'
   #-}
 
-instance FromText StatusType where
-  parser = (StatusType' . mk) <$> takeText
+instance Prelude.FromText StatusType where
+  parser = StatusType' Prelude.<$> Prelude.takeText
 
-instance ToText StatusType where
-  toText (StatusType' ci) = original ci
+instance Prelude.ToText StatusType where
+  toText (StatusType' x) = x
 
-instance Hashable StatusType
+instance Prelude.Hashable StatusType
 
-instance NFData StatusType
+instance Prelude.NFData StatusType
 
-instance ToByteString StatusType
+instance Prelude.ToByteString StatusType
 
-instance ToQuery StatusType
+instance Prelude.ToQuery StatusType
 
-instance ToHeader StatusType
+instance Prelude.ToHeader StatusType
 
-instance ToJSON StatusType where
-  toJSON = toJSONText
+instance Prelude.ToJSON StatusType where
+  toJSON = Prelude.toJSONText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,130 +19,180 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.BotChannelAssociation where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types.ChannelStatus
 import Network.AWS.LexModels.Types.ChannelType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents an association between an Amazon Lex bot and an external messaging platform.
+-- | Represents an association between an Amazon Lex bot and an external
+-- messaging platform.
 --
---
---
--- /See:/ 'botChannelAssociation' smart constructor.
+-- /See:/ 'newBotChannelAssociation' smart constructor.
 data BotChannelAssociation = BotChannelAssociation'
-  { _bcaBotAlias ::
-      !(Maybe Text),
-    _bcaCreatedDate ::
-      !(Maybe POSIX),
-    _bcaStatus ::
-      !(Maybe ChannelStatus),
-    _bcaBotConfiguration ::
-      !( Maybe
-           ( Sensitive
-               (Map Text Text)
-           )
-       ),
-    _bcaBotName ::
-      !(Maybe Text),
-    _bcaName :: !(Maybe Text),
-    _bcaFailureReason ::
-      !(Maybe Text),
-    _bcaDescription ::
-      !(Maybe Text),
-    _bcaType ::
-      !(Maybe ChannelType)
+  { -- | An alias pointing to the specific version of the Amazon Lex bot to which
+    -- this association is being made.
+    botAlias :: Prelude.Maybe Prelude.Text,
+    -- | The date that the association between the Amazon Lex bot and the channel
+    -- was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the bot channel.
+    --
+    -- -   @CREATED@ - The channel has been created and is ready for use.
+    --
+    -- -   @IN_PROGRESS@ - Channel creation is in progress.
+    --
+    -- -   @FAILED@ - There was an error creating the channel. For information
+    --     about the reason for the failure, see the @failureReason@ field.
+    status :: Prelude.Maybe ChannelStatus,
+    -- | Provides information necessary to communicate with the messaging
+    -- platform.
+    botConfiguration :: Prelude.Maybe (Prelude.Sensitive (Prelude.Map Prelude.Text Prelude.Text)),
+    -- | The name of the Amazon Lex bot to which this association is being made.
+    --
+    -- Currently, Amazon Lex supports associations with Facebook and Slack, and
+    -- Twilio.
+    botName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the association between the bot and the channel.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | If @status@ is @FAILED@, Amazon Lex provides the reason that it failed
+    -- to create the association.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | A text description of the association you are creating.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the type of association by indicating the type of channel
+    -- being established between the Amazon Lex bot and the external messaging
+    -- platform.
+    type' :: Prelude.Maybe ChannelType
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BotChannelAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BotChannelAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bcaBotAlias' - An alias pointing to the specific version of the Amazon Lex bot to which this association is being made.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bcaCreatedDate' - The date that the association between the Amazon Lex bot and the channel was created.
+-- 'botAlias', 'botChannelAssociation_botAlias' - An alias pointing to the specific version of the Amazon Lex bot to which
+-- this association is being made.
 --
--- * 'bcaStatus' - The status of the bot channel.      * @CREATED@ - The channel has been created and is ready for use.     * @IN_PROGRESS@ - Channel creation is in progress.     * @FAILED@ - There was an error creating the channel. For information about the reason for the failure, see the @failureReason@ field.
+-- 'createdDate', 'botChannelAssociation_createdDate' - The date that the association between the Amazon Lex bot and the channel
+-- was created.
 --
--- * 'bcaBotConfiguration' - Provides information necessary to communicate with the messaging platform.
+-- 'status', 'botChannelAssociation_status' - The status of the bot channel.
 --
--- * 'bcaBotName' - The name of the Amazon Lex bot to which this association is being made.
+-- -   @CREATED@ - The channel has been created and is ready for use.
 --
--- * 'bcaName' - The name of the association between the bot and the channel.
+-- -   @IN_PROGRESS@ - Channel creation is in progress.
 --
--- * 'bcaFailureReason' - If @status@ is @FAILED@ , Amazon Lex provides the reason that it failed to create the association.
+-- -   @FAILED@ - There was an error creating the channel. For information
+--     about the reason for the failure, see the @failureReason@ field.
 --
--- * 'bcaDescription' - A text description of the association you are creating.
+-- 'botConfiguration', 'botChannelAssociation_botConfiguration' - Provides information necessary to communicate with the messaging
+-- platform.
 --
--- * 'bcaType' - Specifies the type of association by indicating the type of channel being established between the Amazon Lex bot and the external messaging platform.
-botChannelAssociation ::
+-- 'botName', 'botChannelAssociation_botName' - The name of the Amazon Lex bot to which this association is being made.
+--
+-- Currently, Amazon Lex supports associations with Facebook and Slack, and
+-- Twilio.
+--
+-- 'name', 'botChannelAssociation_name' - The name of the association between the bot and the channel.
+--
+-- 'failureReason', 'botChannelAssociation_failureReason' - If @status@ is @FAILED@, Amazon Lex provides the reason that it failed
+-- to create the association.
+--
+-- 'description', 'botChannelAssociation_description' - A text description of the association you are creating.
+--
+-- 'type'', 'botChannelAssociation_type' - Specifies the type of association by indicating the type of channel
+-- being established between the Amazon Lex bot and the external messaging
+-- platform.
+newBotChannelAssociation ::
   BotChannelAssociation
-botChannelAssociation =
+newBotChannelAssociation =
   BotChannelAssociation'
-    { _bcaBotAlias = Nothing,
-      _bcaCreatedDate = Nothing,
-      _bcaStatus = Nothing,
-      _bcaBotConfiguration = Nothing,
-      _bcaBotName = Nothing,
-      _bcaName = Nothing,
-      _bcaFailureReason = Nothing,
-      _bcaDescription = Nothing,
-      _bcaType = Nothing
+    { botAlias = Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      status = Prelude.Nothing,
+      botConfiguration = Prelude.Nothing,
+      botName = Prelude.Nothing,
+      name = Prelude.Nothing,
+      failureReason = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | An alias pointing to the specific version of the Amazon Lex bot to which this association is being made.
-bcaBotAlias :: Lens' BotChannelAssociation (Maybe Text)
-bcaBotAlias = lens _bcaBotAlias (\s a -> s {_bcaBotAlias = a})
+-- | An alias pointing to the specific version of the Amazon Lex bot to which
+-- this association is being made.
+botChannelAssociation_botAlias :: Lens.Lens' BotChannelAssociation (Prelude.Maybe Prelude.Text)
+botChannelAssociation_botAlias = Lens.lens (\BotChannelAssociation' {botAlias} -> botAlias) (\s@BotChannelAssociation' {} a -> s {botAlias = a} :: BotChannelAssociation)
 
--- | The date that the association between the Amazon Lex bot and the channel was created.
-bcaCreatedDate :: Lens' BotChannelAssociation (Maybe UTCTime)
-bcaCreatedDate = lens _bcaCreatedDate (\s a -> s {_bcaCreatedDate = a}) . mapping _Time
+-- | The date that the association between the Amazon Lex bot and the channel
+-- was created.
+botChannelAssociation_createdDate :: Lens.Lens' BotChannelAssociation (Prelude.Maybe Prelude.UTCTime)
+botChannelAssociation_createdDate = Lens.lens (\BotChannelAssociation' {createdDate} -> createdDate) (\s@BotChannelAssociation' {} a -> s {createdDate = a} :: BotChannelAssociation) Prelude.. Lens.mapping Prelude._Time
 
--- | The status of the bot channel.      * @CREATED@ - The channel has been created and is ready for use.     * @IN_PROGRESS@ - Channel creation is in progress.     * @FAILED@ - There was an error creating the channel. For information about the reason for the failure, see the @failureReason@ field.
-bcaStatus :: Lens' BotChannelAssociation (Maybe ChannelStatus)
-bcaStatus = lens _bcaStatus (\s a -> s {_bcaStatus = a})
+-- | The status of the bot channel.
+--
+-- -   @CREATED@ - The channel has been created and is ready for use.
+--
+-- -   @IN_PROGRESS@ - Channel creation is in progress.
+--
+-- -   @FAILED@ - There was an error creating the channel. For information
+--     about the reason for the failure, see the @failureReason@ field.
+botChannelAssociation_status :: Lens.Lens' BotChannelAssociation (Prelude.Maybe ChannelStatus)
+botChannelAssociation_status = Lens.lens (\BotChannelAssociation' {status} -> status) (\s@BotChannelAssociation' {} a -> s {status = a} :: BotChannelAssociation)
 
--- | Provides information necessary to communicate with the messaging platform.
-bcaBotConfiguration :: Lens' BotChannelAssociation (Maybe (HashMap Text Text))
-bcaBotConfiguration = lens _bcaBotConfiguration (\s a -> s {_bcaBotConfiguration = a}) . mapping (_Sensitive . _Map)
+-- | Provides information necessary to communicate with the messaging
+-- platform.
+botChannelAssociation_botConfiguration :: Lens.Lens' BotChannelAssociation (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+botChannelAssociation_botConfiguration = Lens.lens (\BotChannelAssociation' {botConfiguration} -> botConfiguration) (\s@BotChannelAssociation' {} a -> s {botConfiguration = a} :: BotChannelAssociation) Prelude.. Lens.mapping (Prelude._Sensitive Prelude.. Prelude._Map)
 
 -- | The name of the Amazon Lex bot to which this association is being made.
-bcaBotName :: Lens' BotChannelAssociation (Maybe Text)
-bcaBotName = lens _bcaBotName (\s a -> s {_bcaBotName = a})
+--
+-- Currently, Amazon Lex supports associations with Facebook and Slack, and
+-- Twilio.
+botChannelAssociation_botName :: Lens.Lens' BotChannelAssociation (Prelude.Maybe Prelude.Text)
+botChannelAssociation_botName = Lens.lens (\BotChannelAssociation' {botName} -> botName) (\s@BotChannelAssociation' {} a -> s {botName = a} :: BotChannelAssociation)
 
 -- | The name of the association between the bot and the channel.
-bcaName :: Lens' BotChannelAssociation (Maybe Text)
-bcaName = lens _bcaName (\s a -> s {_bcaName = a})
+botChannelAssociation_name :: Lens.Lens' BotChannelAssociation (Prelude.Maybe Prelude.Text)
+botChannelAssociation_name = Lens.lens (\BotChannelAssociation' {name} -> name) (\s@BotChannelAssociation' {} a -> s {name = a} :: BotChannelAssociation)
 
--- | If @status@ is @FAILED@ , Amazon Lex provides the reason that it failed to create the association.
-bcaFailureReason :: Lens' BotChannelAssociation (Maybe Text)
-bcaFailureReason = lens _bcaFailureReason (\s a -> s {_bcaFailureReason = a})
+-- | If @status@ is @FAILED@, Amazon Lex provides the reason that it failed
+-- to create the association.
+botChannelAssociation_failureReason :: Lens.Lens' BotChannelAssociation (Prelude.Maybe Prelude.Text)
+botChannelAssociation_failureReason = Lens.lens (\BotChannelAssociation' {failureReason} -> failureReason) (\s@BotChannelAssociation' {} a -> s {failureReason = a} :: BotChannelAssociation)
 
 -- | A text description of the association you are creating.
-bcaDescription :: Lens' BotChannelAssociation (Maybe Text)
-bcaDescription = lens _bcaDescription (\s a -> s {_bcaDescription = a})
+botChannelAssociation_description :: Lens.Lens' BotChannelAssociation (Prelude.Maybe Prelude.Text)
+botChannelAssociation_description = Lens.lens (\BotChannelAssociation' {description} -> description) (\s@BotChannelAssociation' {} a -> s {description = a} :: BotChannelAssociation)
 
--- | Specifies the type of association by indicating the type of channel being established between the Amazon Lex bot and the external messaging platform.
-bcaType :: Lens' BotChannelAssociation (Maybe ChannelType)
-bcaType = lens _bcaType (\s a -> s {_bcaType = a})
+-- | Specifies the type of association by indicating the type of channel
+-- being established between the Amazon Lex bot and the external messaging
+-- platform.
+botChannelAssociation_type :: Lens.Lens' BotChannelAssociation (Prelude.Maybe ChannelType)
+botChannelAssociation_type = Lens.lens (\BotChannelAssociation' {type'} -> type') (\s@BotChannelAssociation' {} a -> s {type' = a} :: BotChannelAssociation)
 
-instance FromJSON BotChannelAssociation where
+instance Prelude.FromJSON BotChannelAssociation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BotChannelAssociation"
       ( \x ->
           BotChannelAssociation'
-            <$> (x .:? "botAlias")
-            <*> (x .:? "createdDate")
-            <*> (x .:? "status")
-            <*> (x .:? "botConfiguration" .!= mempty)
-            <*> (x .:? "botName")
-            <*> (x .:? "name")
-            <*> (x .:? "failureReason")
-            <*> (x .:? "description")
-            <*> (x .:? "type")
+            Prelude.<$> (x Prelude..:? "botAlias")
+            Prelude.<*> (x Prelude..:? "createdDate")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> ( x Prelude..:? "botConfiguration"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "botName")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "failureReason")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "type")
       )
 
-instance Hashable BotChannelAssociation
+instance Prelude.Hashable BotChannelAssociation
 
-instance NFData BotChannelAssociation
+instance Prelude.NFData BotChannelAssociation

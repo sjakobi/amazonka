@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,110 +21,124 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specific version of a bot. To delete all versions of a bot, use the 'DeleteBot' operation.
+-- Deletes a specific version of a bot. To delete all versions of a bot,
+-- use the DeleteBot operation.
 --
---
--- This operation requires permissions for the @lex:DeleteBotVersion@ action.
+-- This operation requires permissions for the @lex:DeleteBotVersion@
+-- action.
 module Network.AWS.LexModels.DeleteBotVersion
   ( -- * Creating a Request
-    deleteBotVersion,
-    DeleteBotVersion,
+    DeleteBotVersion (..),
+    newDeleteBotVersion,
 
     -- * Request Lenses
-    dbvName,
-    dbvVersion,
+    deleteBotVersion_name,
+    deleteBotVersion_version,
 
     -- * Destructuring the Response
-    deleteBotVersionResponse,
-    DeleteBotVersionResponse,
+    DeleteBotVersionResponse (..),
+    newDeleteBotVersionResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteBotVersion' smart constructor.
+-- | /See:/ 'newDeleteBotVersion' smart constructor.
 data DeleteBotVersion = DeleteBotVersion'
-  { _dbvName ::
-      !Text,
-    _dbvVersion :: !Text
+  { -- | The name of the bot.
+    name :: Prelude.Text,
+    -- | The version of the bot to delete. You cannot delete the @$LATEST@
+    -- version of the bot. To delete the @$LATEST@ version, use the DeleteBot
+    -- operation.
+    version :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBotVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBotVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbvName' - The name of the bot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbvVersion' - The version of the bot to delete. You cannot delete the @> LATEST@ version of the bot. To delete the @> LATEST@ version, use the 'DeleteBot' operation.
-deleteBotVersion ::
-  -- | 'dbvName'
-  Text ->
-  -- | 'dbvVersion'
-  Text ->
+-- 'name', 'deleteBotVersion_name' - The name of the bot.
+--
+-- 'version', 'deleteBotVersion_version' - The version of the bot to delete. You cannot delete the @$LATEST@
+-- version of the bot. To delete the @$LATEST@ version, use the DeleteBot
+-- operation.
+newDeleteBotVersion ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'version'
+  Prelude.Text ->
   DeleteBotVersion
-deleteBotVersion pName_ pVersion_ =
+newDeleteBotVersion pName_ pVersion_ =
   DeleteBotVersion'
-    { _dbvName = pName_,
-      _dbvVersion = pVersion_
+    { name = pName_,
+      version = pVersion_
     }
 
 -- | The name of the bot.
-dbvName :: Lens' DeleteBotVersion Text
-dbvName = lens _dbvName (\s a -> s {_dbvName = a})
+deleteBotVersion_name :: Lens.Lens' DeleteBotVersion Prelude.Text
+deleteBotVersion_name = Lens.lens (\DeleteBotVersion' {name} -> name) (\s@DeleteBotVersion' {} a -> s {name = a} :: DeleteBotVersion)
 
--- | The version of the bot to delete. You cannot delete the @> LATEST@ version of the bot. To delete the @> LATEST@ version, use the 'DeleteBot' operation.
-dbvVersion :: Lens' DeleteBotVersion Text
-dbvVersion = lens _dbvVersion (\s a -> s {_dbvVersion = a})
+-- | The version of the bot to delete. You cannot delete the @$LATEST@
+-- version of the bot. To delete the @$LATEST@ version, use the DeleteBot
+-- operation.
+deleteBotVersion_version :: Lens.Lens' DeleteBotVersion Prelude.Text
+deleteBotVersion_version = Lens.lens (\DeleteBotVersion' {version} -> version) (\s@DeleteBotVersion' {} a -> s {version = a} :: DeleteBotVersion)
 
-instance AWSRequest DeleteBotVersion where
+instance Prelude.AWSRequest DeleteBotVersion where
   type Rs DeleteBotVersion = DeleteBotVersionResponse
-  request = delete lexModels
-  response = receiveNull DeleteBotVersionResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteBotVersionResponse'
 
-instance Hashable DeleteBotVersion
+instance Prelude.Hashable DeleteBotVersion
 
-instance NFData DeleteBotVersion
+instance Prelude.NFData DeleteBotVersion
 
-instance ToHeaders DeleteBotVersion where
+instance Prelude.ToHeaders DeleteBotVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteBotVersion where
+instance Prelude.ToPath DeleteBotVersion where
   toPath DeleteBotVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/bots/",
-        toBS _dbvName,
+        Prelude.toBS name,
         "/versions/",
-        toBS _dbvVersion
+        Prelude.toBS version
       ]
 
-instance ToQuery DeleteBotVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteBotVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteBotVersionResponse' smart constructor.
+-- | /See:/ 'newDeleteBotVersionResponse' smart constructor.
 data DeleteBotVersionResponse = DeleteBotVersionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBotVersionResponse' with the minimum fields required to make a request.
-deleteBotVersionResponse ::
+-- |
+-- Create a value of 'DeleteBotVersionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteBotVersionResponse ::
   DeleteBotVersionResponse
-deleteBotVersionResponse = DeleteBotVersionResponse'
+newDeleteBotVersionResponse =
+  DeleteBotVersionResponse'
 
-instance NFData DeleteBotVersionResponse
+instance Prelude.NFData DeleteBotVersionResponse

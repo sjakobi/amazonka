@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.Statement where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types.Message
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A collection of messages that convey information to the user. At runtime, Amazon Lex selects the message to convey.
+-- | A collection of messages that convey information to the user. At
+-- runtime, Amazon Lex selects the message to convey.
 --
---
---
--- /See:/ 'statement' smart constructor.
+-- /See:/ 'newStatement' smart constructor.
 data Statement = Statement'
-  { _sResponseCard ::
-      !(Maybe Text),
-    _sMessages :: !(List1 Message)
+  { -- | At runtime, if the client is using the
+    -- <http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html PostText>
+    -- API, Amazon Lex includes the response card in the response. It
+    -- substitutes all of the session attributes and slot values for
+    -- placeholders in the response card.
+    responseCard :: Prelude.Maybe Prelude.Text,
+    -- | A collection of message objects.
+    messages :: Prelude.List1 Message
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Statement' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Statement' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sResponseCard' - At runtime, if the client is using the <http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html PostText> API, Amazon Lex includes the response card in the response. It substitutes all of the session attributes and slot values for placeholders in the response card.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sMessages' - A collection of message objects.
-statement ::
-  -- | 'sMessages'
-  NonEmpty Message ->
+-- 'responseCard', 'statement_responseCard' - At runtime, if the client is using the
+-- <http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html PostText>
+-- API, Amazon Lex includes the response card in the response. It
+-- substitutes all of the session attributes and slot values for
+-- placeholders in the response card.
+--
+-- 'messages', 'statement_messages' - A collection of message objects.
+newStatement ::
+  -- | 'messages'
+  Prelude.NonEmpty Message ->
   Statement
-statement pMessages_ =
+newStatement pMessages_ =
   Statement'
-    { _sResponseCard = Nothing,
-      _sMessages = _List1 # pMessages_
+    { responseCard = Prelude.Nothing,
+      messages = Prelude._List1 Lens.# pMessages_
     }
 
--- | At runtime, if the client is using the <http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html PostText> API, Amazon Lex includes the response card in the response. It substitutes all of the session attributes and slot values for placeholders in the response card.
-sResponseCard :: Lens' Statement (Maybe Text)
-sResponseCard = lens _sResponseCard (\s a -> s {_sResponseCard = a})
+-- | At runtime, if the client is using the
+-- <http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html PostText>
+-- API, Amazon Lex includes the response card in the response. It
+-- substitutes all of the session attributes and slot values for
+-- placeholders in the response card.
+statement_responseCard :: Lens.Lens' Statement (Prelude.Maybe Prelude.Text)
+statement_responseCard = Lens.lens (\Statement' {responseCard} -> responseCard) (\s@Statement' {} a -> s {responseCard = a} :: Statement)
 
 -- | A collection of message objects.
-sMessages :: Lens' Statement (NonEmpty Message)
-sMessages = lens _sMessages (\s a -> s {_sMessages = a}) . _List1
+statement_messages :: Lens.Lens' Statement (Prelude.NonEmpty Message)
+statement_messages = Lens.lens (\Statement' {messages} -> messages) (\s@Statement' {} a -> s {messages = a} :: Statement) Prelude.. Prelude._List1
 
-instance FromJSON Statement where
+instance Prelude.FromJSON Statement where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Statement"
       ( \x ->
           Statement'
-            <$> (x .:? "responseCard") <*> (x .: "messages")
+            Prelude.<$> (x Prelude..:? "responseCard")
+            Prelude.<*> (x Prelude..: "messages")
       )
 
-instance Hashable Statement
+instance Prelude.Hashable Statement
 
-instance NFData Statement
+instance Prelude.NFData Statement
 
-instance ToJSON Statement where
+instance Prelude.ToJSON Statement where
   toJSON Statement' {..} =
-    object
-      ( catMaybes
-          [ ("responseCard" .=) <$> _sResponseCard,
-            Just ("messages" .= _sMessages)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("responseCard" Prelude..=)
+              Prelude.<$> responseCard,
+            Prelude.Just ("messages" Prelude..= messages)
           ]
       )

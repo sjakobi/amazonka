@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.LexModels.Types.ImportStatus
   ( ImportStatus
       ( ..,
-        ISComplete,
-        ISFailed,
-        ISInProgress
+        ImportStatusCOMPLETE,
+        ImportStatusFAILED,
+        ImportStatusINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImportStatus = ImportStatus' (CI Text)
+newtype ImportStatus = ImportStatus'
+  { fromImportStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISComplete :: ImportStatus
-pattern ISComplete = ImportStatus' "COMPLETE"
+pattern ImportStatusCOMPLETE :: ImportStatus
+pattern ImportStatusCOMPLETE = ImportStatus' "COMPLETE"
 
-pattern ISFailed :: ImportStatus
-pattern ISFailed = ImportStatus' "FAILED"
+pattern ImportStatusFAILED :: ImportStatus
+pattern ImportStatusFAILED = ImportStatus' "FAILED"
 
-pattern ISInProgress :: ImportStatus
-pattern ISInProgress = ImportStatus' "IN_PROGRESS"
+pattern ImportStatusINPROGRESS :: ImportStatus
+pattern ImportStatusINPROGRESS = ImportStatus' "IN_PROGRESS"
 
 {-# COMPLETE
-  ISComplete,
-  ISFailed,
-  ISInProgress,
+  ImportStatusCOMPLETE,
+  ImportStatusFAILED,
+  ImportStatusINPROGRESS,
   ImportStatus'
   #-}
 
-instance FromText ImportStatus where
-  parser = (ImportStatus' . mk) <$> takeText
+instance Prelude.FromText ImportStatus where
+  parser = ImportStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ImportStatus where
-  toText (ImportStatus' ci) = original ci
+instance Prelude.ToText ImportStatus where
+  toText (ImportStatus' x) = x
 
-instance Hashable ImportStatus
+instance Prelude.Hashable ImportStatus
 
-instance NFData ImportStatus
+instance Prelude.NFData ImportStatus
 
-instance ToByteString ImportStatus
+instance Prelude.ToByteString ImportStatus
 
-instance ToQuery ImportStatus
+instance Prelude.ToQuery ImportStatus
 
-instance ToHeader ImportStatus
+instance Prelude.ToHeader ImportStatus
 
-instance FromJSON ImportStatus where
-  parseJSON = parseJSONText "ImportStatus"
+instance Prelude.FromJSON ImportStatus where
+  parseJSON = Prelude.parseJSONText "ImportStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,182 +21,222 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Use the @GetUtterancesView@ operation to get information about the utterances that your users have made to your bot. You can use this list to tune the utterances that your bot responds to.
+-- Use the @GetUtterancesView@ operation to get information about the
+-- utterances that your users have made to your bot. You can use this list
+-- to tune the utterances that your bot responds to.
 --
+-- For example, say that you have created a bot to order flowers. After
+-- your users have used your bot for a while, use the @GetUtterancesView@
+-- operation to see the requests that they have made and whether they have
+-- been successful. You might find that the utterance \"I want flowers\" is
+-- not being recognized. You could add this utterance to the @OrderFlowers@
+-- intent so that your bot recognizes that utterance.
 --
--- For example, say that you have created a bot to order flowers. After your users have used your bot for a while, use the @GetUtterancesView@ operation to see the requests that they have made and whether they have been successful. You might find that the utterance "I want flowers" is not being recognized. You could add this utterance to the @OrderFlowers@ intent so that your bot recognizes that utterance.
+-- After you publish a new version of a bot, you can get information about
+-- the old version and the new so that you can compare the performance
+-- across the two versions.
 --
--- After you publish a new version of a bot, you can get information about the old version and the new so that you can compare the performance across the two versions.
+-- Utterance statistics are generated once a day. Data is available for the
+-- last 15 days. You can request information for up to 5 versions of your
+-- bot in each request. Amazon Lex returns the most frequent utterances
+-- received by the bot in the last 15 days. The response contains
+-- information about a maximum of 100 utterances for each version.
 --
--- Utterance statistics are generated once a day. Data is available for the last 15 days. You can request information for up to 5 versions of your bot in each request. Amazon Lex returns the most frequent utterances received by the bot in the last 15 days. The response contains information about a maximum of 100 utterances for each version.
+-- If you set @childDirected@ field to true when you created your bot, or
+-- if you opted out of participating in improving Amazon Lex, utterances
+-- are not available.
 --
--- If you set @childDirected@ field to true when you created your bot, or if you opted out of participating in improving Amazon Lex, utterances are not available.
---
--- This operation requires permissions for the @lex:GetUtterancesView@ action.
+-- This operation requires permissions for the @lex:GetUtterancesView@
+-- action.
 module Network.AWS.LexModels.GetUtterancesView
   ( -- * Creating a Request
-    getUtterancesView,
-    GetUtterancesView,
+    GetUtterancesView (..),
+    newGetUtterancesView,
 
     -- * Request Lenses
-    guvBotName,
-    guvBotVersions,
-    guvStatusType,
+    getUtterancesView_botName,
+    getUtterancesView_botVersions,
+    getUtterancesView_statusType,
 
     -- * Destructuring the Response
-    getUtterancesViewResponse,
-    GetUtterancesViewResponse,
+    GetUtterancesViewResponse (..),
+    newGetUtterancesViewResponse,
 
     -- * Response Lenses
-    guvrrsBotName,
-    guvrrsUtterances,
-    guvrrsResponseStatus,
+    getUtterancesViewResponse_botName,
+    getUtterancesViewResponse_utterances,
+    getUtterancesViewResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.LexModels.Types.UtteranceList
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getUtterancesView' smart constructor.
+-- | /See:/ 'newGetUtterancesView' smart constructor.
 data GetUtterancesView = GetUtterancesView'
-  { _guvBotName ::
-      !Text,
-    _guvBotVersions :: !(List1 Text),
-    _guvStatusType :: !StatusType
+  { -- | The name of the bot for which utterance information should be returned.
+    botName :: Prelude.Text,
+    -- | An array of bot versions for which utterance information should be
+    -- returned. The limit is 5 versions per request.
+    botVersions :: Prelude.List1 Prelude.Text,
+    -- | To return utterances that were recognized and handled, use @Detected@.
+    -- To return utterances that were not recognized, use @Missed@.
+    statusType :: StatusType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUtterancesView' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUtterancesView' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'guvBotName' - The name of the bot for which utterance information should be returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'guvBotVersions' - An array of bot versions for which utterance information should be returned. The limit is 5 versions per request.
+-- 'botName', 'getUtterancesView_botName' - The name of the bot for which utterance information should be returned.
 --
--- * 'guvStatusType' - To return utterances that were recognized and handled, use @Detected@ . To return utterances that were not recognized, use @Missed@ .
-getUtterancesView ::
-  -- | 'guvBotName'
-  Text ->
-  -- | 'guvBotVersions'
-  NonEmpty Text ->
-  -- | 'guvStatusType'
+-- 'botVersions', 'getUtterancesView_botVersions' - An array of bot versions for which utterance information should be
+-- returned. The limit is 5 versions per request.
+--
+-- 'statusType', 'getUtterancesView_statusType' - To return utterances that were recognized and handled, use @Detected@.
+-- To return utterances that were not recognized, use @Missed@.
+newGetUtterancesView ::
+  -- | 'botName'
+  Prelude.Text ->
+  -- | 'botVersions'
+  Prelude.NonEmpty Prelude.Text ->
+  -- | 'statusType'
   StatusType ->
   GetUtterancesView
-getUtterancesView
+newGetUtterancesView
   pBotName_
   pBotVersions_
   pStatusType_ =
     GetUtterancesView'
-      { _guvBotName = pBotName_,
-        _guvBotVersions = _List1 # pBotVersions_,
-        _guvStatusType = pStatusType_
+      { botName = pBotName_,
+        botVersions = Prelude._List1 Lens.# pBotVersions_,
+        statusType = pStatusType_
       }
 
 -- | The name of the bot for which utterance information should be returned.
-guvBotName :: Lens' GetUtterancesView Text
-guvBotName = lens _guvBotName (\s a -> s {_guvBotName = a})
+getUtterancesView_botName :: Lens.Lens' GetUtterancesView Prelude.Text
+getUtterancesView_botName = Lens.lens (\GetUtterancesView' {botName} -> botName) (\s@GetUtterancesView' {} a -> s {botName = a} :: GetUtterancesView)
 
--- | An array of bot versions for which utterance information should be returned. The limit is 5 versions per request.
-guvBotVersions :: Lens' GetUtterancesView (NonEmpty Text)
-guvBotVersions = lens _guvBotVersions (\s a -> s {_guvBotVersions = a}) . _List1
+-- | An array of bot versions for which utterance information should be
+-- returned. The limit is 5 versions per request.
+getUtterancesView_botVersions :: Lens.Lens' GetUtterancesView (Prelude.NonEmpty Prelude.Text)
+getUtterancesView_botVersions = Lens.lens (\GetUtterancesView' {botVersions} -> botVersions) (\s@GetUtterancesView' {} a -> s {botVersions = a} :: GetUtterancesView) Prelude.. Prelude._List1
 
--- | To return utterances that were recognized and handled, use @Detected@ . To return utterances that were not recognized, use @Missed@ .
-guvStatusType :: Lens' GetUtterancesView StatusType
-guvStatusType = lens _guvStatusType (\s a -> s {_guvStatusType = a})
+-- | To return utterances that were recognized and handled, use @Detected@.
+-- To return utterances that were not recognized, use @Missed@.
+getUtterancesView_statusType :: Lens.Lens' GetUtterancesView StatusType
+getUtterancesView_statusType = Lens.lens (\GetUtterancesView' {statusType} -> statusType) (\s@GetUtterancesView' {} a -> s {statusType = a} :: GetUtterancesView)
 
-instance AWSRequest GetUtterancesView where
+instance Prelude.AWSRequest GetUtterancesView where
   type Rs GetUtterancesView = GetUtterancesViewResponse
-  request = get lexModels
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetUtterancesViewResponse'
-            <$> (x .?> "botName")
-            <*> (x .?> "utterances" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "botName")
+            Prelude.<*> ( x Prelude..?> "utterances"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetUtterancesView
+instance Prelude.Hashable GetUtterancesView
 
-instance NFData GetUtterancesView
+instance Prelude.NFData GetUtterancesView
 
-instance ToHeaders GetUtterancesView where
+instance Prelude.ToHeaders GetUtterancesView where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetUtterancesView where
+instance Prelude.ToPath GetUtterancesView where
   toPath GetUtterancesView' {..} =
-    mconcat ["/bots/", toBS _guvBotName, "/utterances"]
+    Prelude.mconcat
+      ["/bots/", Prelude.toBS botName, "/utterances"]
 
-instance ToQuery GetUtterancesView where
+instance Prelude.ToQuery GetUtterancesView where
   toQuery GetUtterancesView' {..} =
-    mconcat
+    Prelude.mconcat
       [ "bot_versions"
-          =: toQueryList "member" _guvBotVersions,
-        "status_type" =: _guvStatusType,
+          Prelude.=: Prelude.toQueryList "member" botVersions,
+        "status_type" Prelude.=: statusType,
         "view=aggregation"
       ]
 
--- | /See:/ 'getUtterancesViewResponse' smart constructor.
+-- | /See:/ 'newGetUtterancesViewResponse' smart constructor.
 data GetUtterancesViewResponse = GetUtterancesViewResponse'
-  { _guvrrsBotName ::
-      !(Maybe Text),
-    _guvrrsUtterances ::
-      !( Maybe
-           [UtteranceList]
-       ),
-    _guvrrsResponseStatus ::
-      !Int
+  { -- | The name of the bot for which utterance information was returned.
+    botName :: Prelude.Maybe Prelude.Text,
+    -- | An array of UtteranceList objects, each containing a list of
+    -- UtteranceData objects describing the utterances that were processed by
+    -- your bot. The response contains a maximum of 100 @UtteranceData@ objects
+    -- for each version. Amazon Lex returns the most frequent utterances
+    -- received by the bot in the last 15 days.
+    utterances :: Prelude.Maybe [UtteranceList],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUtterancesViewResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUtterancesViewResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'guvrrsBotName' - The name of the bot for which utterance information was returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'guvrrsUtterances' - An array of 'UtteranceList' objects, each containing a list of 'UtteranceData' objects describing the utterances that were processed by your bot. The response contains a maximum of 100 @UtteranceData@ objects for each version. Amazon Lex returns the most frequent utterances received by the bot in the last 15 days.
+-- 'botName', 'getUtterancesViewResponse_botName' - The name of the bot for which utterance information was returned.
 --
--- * 'guvrrsResponseStatus' - -- | The response status code.
-getUtterancesViewResponse ::
-  -- | 'guvrrsResponseStatus'
-  Int ->
+-- 'utterances', 'getUtterancesViewResponse_utterances' - An array of UtteranceList objects, each containing a list of
+-- UtteranceData objects describing the utterances that were processed by
+-- your bot. The response contains a maximum of 100 @UtteranceData@ objects
+-- for each version. Amazon Lex returns the most frequent utterances
+-- received by the bot in the last 15 days.
+--
+-- 'httpStatus', 'getUtterancesViewResponse_httpStatus' - The response's http status code.
+newGetUtterancesViewResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetUtterancesViewResponse
-getUtterancesViewResponse pResponseStatus_ =
+newGetUtterancesViewResponse pHttpStatus_ =
   GetUtterancesViewResponse'
-    { _guvrrsBotName =
-        Nothing,
-      _guvrrsUtterances = Nothing,
-      _guvrrsResponseStatus = pResponseStatus_
+    { botName =
+        Prelude.Nothing,
+      utterances = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the bot for which utterance information was returned.
-guvrrsBotName :: Lens' GetUtterancesViewResponse (Maybe Text)
-guvrrsBotName = lens _guvrrsBotName (\s a -> s {_guvrrsBotName = a})
+getUtterancesViewResponse_botName :: Lens.Lens' GetUtterancesViewResponse (Prelude.Maybe Prelude.Text)
+getUtterancesViewResponse_botName = Lens.lens (\GetUtterancesViewResponse' {botName} -> botName) (\s@GetUtterancesViewResponse' {} a -> s {botName = a} :: GetUtterancesViewResponse)
 
--- | An array of 'UtteranceList' objects, each containing a list of 'UtteranceData' objects describing the utterances that were processed by your bot. The response contains a maximum of 100 @UtteranceData@ objects for each version. Amazon Lex returns the most frequent utterances received by the bot in the last 15 days.
-guvrrsUtterances :: Lens' GetUtterancesViewResponse [UtteranceList]
-guvrrsUtterances = lens _guvrrsUtterances (\s a -> s {_guvrrsUtterances = a}) . _Default . _Coerce
+-- | An array of UtteranceList objects, each containing a list of
+-- UtteranceData objects describing the utterances that were processed by
+-- your bot. The response contains a maximum of 100 @UtteranceData@ objects
+-- for each version. Amazon Lex returns the most frequent utterances
+-- received by the bot in the last 15 days.
+getUtterancesViewResponse_utterances :: Lens.Lens' GetUtterancesViewResponse (Prelude.Maybe [UtteranceList])
+getUtterancesViewResponse_utterances = Lens.lens (\GetUtterancesViewResponse' {utterances} -> utterances) (\s@GetUtterancesViewResponse' {} a -> s {utterances = a} :: GetUtterancesViewResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-guvrrsResponseStatus :: Lens' GetUtterancesViewResponse Int
-guvrrsResponseStatus = lens _guvrrsResponseStatus (\s a -> s {_guvrrsResponseStatus = a})
+-- | The response's http status code.
+getUtterancesViewResponse_httpStatus :: Lens.Lens' GetUtterancesViewResponse Prelude.Int
+getUtterancesViewResponse_httpStatus = Lens.lens (\GetUtterancesViewResponse' {httpStatus} -> httpStatus) (\s@GetUtterancesViewResponse' {} a -> s {httpStatus = a} :: GetUtterancesViewResponse)
 
-instance NFData GetUtterancesViewResponse
+instance Prelude.NFData GetUtterancesViewResponse

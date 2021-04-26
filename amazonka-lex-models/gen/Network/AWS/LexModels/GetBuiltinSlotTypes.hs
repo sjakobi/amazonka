@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,187 +23,237 @@
 --
 -- Gets a list of built-in slot types that meet the specified criteria.
 --
+-- For a list of built-in slot types, see
+-- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference Slot Type Reference>
+-- in the /Alexa Skills Kit/.
 --
--- For a list of built-in slot types, see <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference Slot Type Reference> in the /Alexa Skills Kit/ .
---
--- This operation requires permission for the @lex:GetBuiltInSlotTypes@ action.
---
+-- This operation requires permission for the @lex:GetBuiltInSlotTypes@
+-- action.
 --
 -- This operation returns paginated results.
 module Network.AWS.LexModels.GetBuiltinSlotTypes
   ( -- * Creating a Request
-    getBuiltinSlotTypes,
-    GetBuiltinSlotTypes,
+    GetBuiltinSlotTypes (..),
+    newGetBuiltinSlotTypes,
 
     -- * Request Lenses
-    gbstSignatureContains,
-    gbstNextToken,
-    gbstMaxResults,
-    gbstLocale,
+    getBuiltinSlotTypes_signatureContains,
+    getBuiltinSlotTypes_nextToken,
+    getBuiltinSlotTypes_maxResults,
+    getBuiltinSlotTypes_locale,
 
     -- * Destructuring the Response
-    getBuiltinSlotTypesResponse,
-    GetBuiltinSlotTypesResponse,
+    GetBuiltinSlotTypesResponse (..),
+    newGetBuiltinSlotTypesResponse,
 
     -- * Response Lenses
-    gbstrrsSlotTypes,
-    gbstrrsNextToken,
-    gbstrrsResponseStatus,
+    getBuiltinSlotTypesResponse_slotTypes,
+    getBuiltinSlotTypesResponse_nextToken,
+    getBuiltinSlotTypesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.LexModels.Types.BuiltinSlotTypeMetadata
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getBuiltinSlotTypes' smart constructor.
+-- | /See:/ 'newGetBuiltinSlotTypes' smart constructor.
 data GetBuiltinSlotTypes = GetBuiltinSlotTypes'
-  { _gbstSignatureContains ::
-      !(Maybe Text),
-    _gbstNextToken :: !(Maybe Text),
-    _gbstMaxResults :: !(Maybe Nat),
-    _gbstLocale :: !(Maybe Locale)
+  { -- | Substring to match in built-in slot type signatures. A slot type will be
+    -- returned if any part of its signature matches the substring. For
+    -- example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\"
+    signatureContains :: Prelude.Maybe Prelude.Text,
+    -- | A pagination token that fetches the next page of slot types. If the
+    -- response to this API call is truncated, Amazon Lex returns a pagination
+    -- token in the response. To fetch the next page of slot types, specify the
+    -- pagination token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of slot types to return in the response. The default
+    -- is 10.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A list of locales that the slot type supports.
+    locale :: Prelude.Maybe Locale
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBuiltinSlotTypes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBuiltinSlotTypes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbstSignatureContains' - Substring to match in built-in slot type signatures. A slot type will be returned if any part of its signature matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbstNextToken' - A pagination token that fetches the next page of slot types. If the response to this API call is truncated, Amazon Lex returns a pagination token in the response. To fetch the next page of slot types, specify the pagination token in the next request.
+-- 'signatureContains', 'getBuiltinSlotTypes_signatureContains' - Substring to match in built-in slot type signatures. A slot type will be
+-- returned if any part of its signature matches the substring. For
+-- example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\"
 --
--- * 'gbstMaxResults' - The maximum number of slot types to return in the response. The default is 10.
+-- 'nextToken', 'getBuiltinSlotTypes_nextToken' - A pagination token that fetches the next page of slot types. If the
+-- response to this API call is truncated, Amazon Lex returns a pagination
+-- token in the response. To fetch the next page of slot types, specify the
+-- pagination token in the next request.
 --
--- * 'gbstLocale' - A list of locales that the slot type supports.
-getBuiltinSlotTypes ::
+-- 'maxResults', 'getBuiltinSlotTypes_maxResults' - The maximum number of slot types to return in the response. The default
+-- is 10.
+--
+-- 'locale', 'getBuiltinSlotTypes_locale' - A list of locales that the slot type supports.
+newGetBuiltinSlotTypes ::
   GetBuiltinSlotTypes
-getBuiltinSlotTypes =
+newGetBuiltinSlotTypes =
   GetBuiltinSlotTypes'
-    { _gbstSignatureContains =
-        Nothing,
-      _gbstNextToken = Nothing,
-      _gbstMaxResults = Nothing,
-      _gbstLocale = Nothing
+    { signatureContains =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      locale = Prelude.Nothing
     }
 
--- | Substring to match in built-in slot type signatures. A slot type will be returned if any part of its signature matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."
-gbstSignatureContains :: Lens' GetBuiltinSlotTypes (Maybe Text)
-gbstSignatureContains = lens _gbstSignatureContains (\s a -> s {_gbstSignatureContains = a})
+-- | Substring to match in built-in slot type signatures. A slot type will be
+-- returned if any part of its signature matches the substring. For
+-- example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\"
+getBuiltinSlotTypes_signatureContains :: Lens.Lens' GetBuiltinSlotTypes (Prelude.Maybe Prelude.Text)
+getBuiltinSlotTypes_signatureContains = Lens.lens (\GetBuiltinSlotTypes' {signatureContains} -> signatureContains) (\s@GetBuiltinSlotTypes' {} a -> s {signatureContains = a} :: GetBuiltinSlotTypes)
 
--- | A pagination token that fetches the next page of slot types. If the response to this API call is truncated, Amazon Lex returns a pagination token in the response. To fetch the next page of slot types, specify the pagination token in the next request.
-gbstNextToken :: Lens' GetBuiltinSlotTypes (Maybe Text)
-gbstNextToken = lens _gbstNextToken (\s a -> s {_gbstNextToken = a})
+-- | A pagination token that fetches the next page of slot types. If the
+-- response to this API call is truncated, Amazon Lex returns a pagination
+-- token in the response. To fetch the next page of slot types, specify the
+-- pagination token in the next request.
+getBuiltinSlotTypes_nextToken :: Lens.Lens' GetBuiltinSlotTypes (Prelude.Maybe Prelude.Text)
+getBuiltinSlotTypes_nextToken = Lens.lens (\GetBuiltinSlotTypes' {nextToken} -> nextToken) (\s@GetBuiltinSlotTypes' {} a -> s {nextToken = a} :: GetBuiltinSlotTypes)
 
--- | The maximum number of slot types to return in the response. The default is 10.
-gbstMaxResults :: Lens' GetBuiltinSlotTypes (Maybe Natural)
-gbstMaxResults = lens _gbstMaxResults (\s a -> s {_gbstMaxResults = a}) . mapping _Nat
+-- | The maximum number of slot types to return in the response. The default
+-- is 10.
+getBuiltinSlotTypes_maxResults :: Lens.Lens' GetBuiltinSlotTypes (Prelude.Maybe Prelude.Natural)
+getBuiltinSlotTypes_maxResults = Lens.lens (\GetBuiltinSlotTypes' {maxResults} -> maxResults) (\s@GetBuiltinSlotTypes' {} a -> s {maxResults = a} :: GetBuiltinSlotTypes) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A list of locales that the slot type supports.
-gbstLocale :: Lens' GetBuiltinSlotTypes (Maybe Locale)
-gbstLocale = lens _gbstLocale (\s a -> s {_gbstLocale = a})
+getBuiltinSlotTypes_locale :: Lens.Lens' GetBuiltinSlotTypes (Prelude.Maybe Locale)
+getBuiltinSlotTypes_locale = Lens.lens (\GetBuiltinSlotTypes' {locale} -> locale) (\s@GetBuiltinSlotTypes' {} a -> s {locale = a} :: GetBuiltinSlotTypes)
 
-instance AWSPager GetBuiltinSlotTypes where
+instance Pager.AWSPager GetBuiltinSlotTypes where
   page rq rs
-    | stop (rs ^. gbstrrsNextToken) = Nothing
-    | stop (rs ^. gbstrrsSlotTypes) = Nothing
-    | otherwise =
-      Just $ rq & gbstNextToken .~ rs ^. gbstrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getBuiltinSlotTypesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getBuiltinSlotTypesResponse_slotTypes
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getBuiltinSlotTypes_nextToken
+          Lens..~ rs
+          Lens.^? getBuiltinSlotTypesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetBuiltinSlotTypes where
+instance Prelude.AWSRequest GetBuiltinSlotTypes where
   type
     Rs GetBuiltinSlotTypes =
       GetBuiltinSlotTypesResponse
-  request = get lexModels
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetBuiltinSlotTypesResponse'
-            <$> (x .?> "slotTypes" .!@ mempty)
-            <*> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "slotTypes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBuiltinSlotTypes
+instance Prelude.Hashable GetBuiltinSlotTypes
 
-instance NFData GetBuiltinSlotTypes
+instance Prelude.NFData GetBuiltinSlotTypes
 
-instance ToHeaders GetBuiltinSlotTypes where
+instance Prelude.ToHeaders GetBuiltinSlotTypes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetBuiltinSlotTypes where
-  toPath = const "/builtins/slottypes/"
+instance Prelude.ToPath GetBuiltinSlotTypes where
+  toPath = Prelude.const "/builtins/slottypes/"
 
-instance ToQuery GetBuiltinSlotTypes where
+instance Prelude.ToQuery GetBuiltinSlotTypes where
   toQuery GetBuiltinSlotTypes' {..} =
-    mconcat
-      [ "signatureContains" =: _gbstSignatureContains,
-        "nextToken" =: _gbstNextToken,
-        "maxResults" =: _gbstMaxResults,
-        "locale" =: _gbstLocale
+    Prelude.mconcat
+      [ "signatureContains" Prelude.=: signatureContains,
+        "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "locale" Prelude.=: locale
       ]
 
--- | /See:/ 'getBuiltinSlotTypesResponse' smart constructor.
+-- | /See:/ 'newGetBuiltinSlotTypesResponse' smart constructor.
 data GetBuiltinSlotTypesResponse = GetBuiltinSlotTypesResponse'
-  { _gbstrrsSlotTypes ::
-      !( Maybe
-           [BuiltinSlotTypeMetadata]
-       ),
-    _gbstrrsNextToken ::
-      !(Maybe Text),
-    _gbstrrsResponseStatus ::
-      !Int
+  { -- | An array of @BuiltInSlotTypeMetadata@ objects, one entry for each slot
+    -- type returned.
+    slotTypes :: Prelude.Maybe [BuiltinSlotTypeMetadata],
+    -- | If the response is truncated, the response includes a pagination token
+    -- that you can use in your next request to fetch the next page of slot
+    -- types.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBuiltinSlotTypesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBuiltinSlotTypesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbstrrsSlotTypes' - An array of @BuiltInSlotTypeMetadata@ objects, one entry for each slot type returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbstrrsNextToken' - If the response is truncated, the response includes a pagination token that you can use in your next request to fetch the next page of slot types.
+-- 'slotTypes', 'getBuiltinSlotTypesResponse_slotTypes' - An array of @BuiltInSlotTypeMetadata@ objects, one entry for each slot
+-- type returned.
 --
--- * 'gbstrrsResponseStatus' - -- | The response status code.
-getBuiltinSlotTypesResponse ::
-  -- | 'gbstrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'getBuiltinSlotTypesResponse_nextToken' - If the response is truncated, the response includes a pagination token
+-- that you can use in your next request to fetch the next page of slot
+-- types.
+--
+-- 'httpStatus', 'getBuiltinSlotTypesResponse_httpStatus' - The response's http status code.
+newGetBuiltinSlotTypesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBuiltinSlotTypesResponse
-getBuiltinSlotTypesResponse pResponseStatus_ =
+newGetBuiltinSlotTypesResponse pHttpStatus_ =
   GetBuiltinSlotTypesResponse'
-    { _gbstrrsSlotTypes =
-        Nothing,
-      _gbstrrsNextToken = Nothing,
-      _gbstrrsResponseStatus = pResponseStatus_
+    { slotTypes =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of @BuiltInSlotTypeMetadata@ objects, one entry for each slot type returned.
-gbstrrsSlotTypes :: Lens' GetBuiltinSlotTypesResponse [BuiltinSlotTypeMetadata]
-gbstrrsSlotTypes = lens _gbstrrsSlotTypes (\s a -> s {_gbstrrsSlotTypes = a}) . _Default . _Coerce
+-- | An array of @BuiltInSlotTypeMetadata@ objects, one entry for each slot
+-- type returned.
+getBuiltinSlotTypesResponse_slotTypes :: Lens.Lens' GetBuiltinSlotTypesResponse (Prelude.Maybe [BuiltinSlotTypeMetadata])
+getBuiltinSlotTypesResponse_slotTypes = Lens.lens (\GetBuiltinSlotTypesResponse' {slotTypes} -> slotTypes) (\s@GetBuiltinSlotTypesResponse' {} a -> s {slotTypes = a} :: GetBuiltinSlotTypesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If the response is truncated, the response includes a pagination token that you can use in your next request to fetch the next page of slot types.
-gbstrrsNextToken :: Lens' GetBuiltinSlotTypesResponse (Maybe Text)
-gbstrrsNextToken = lens _gbstrrsNextToken (\s a -> s {_gbstrrsNextToken = a})
+-- | If the response is truncated, the response includes a pagination token
+-- that you can use in your next request to fetch the next page of slot
+-- types.
+getBuiltinSlotTypesResponse_nextToken :: Lens.Lens' GetBuiltinSlotTypesResponse (Prelude.Maybe Prelude.Text)
+getBuiltinSlotTypesResponse_nextToken = Lens.lens (\GetBuiltinSlotTypesResponse' {nextToken} -> nextToken) (\s@GetBuiltinSlotTypesResponse' {} a -> s {nextToken = a} :: GetBuiltinSlotTypesResponse)
 
--- | -- | The response status code.
-gbstrrsResponseStatus :: Lens' GetBuiltinSlotTypesResponse Int
-gbstrrsResponseStatus = lens _gbstrrsResponseStatus (\s a -> s {_gbstrrsResponseStatus = a})
+-- | The response's http status code.
+getBuiltinSlotTypesResponse_httpStatus :: Lens.Lens' GetBuiltinSlotTypesResponse Prelude.Int
+getBuiltinSlotTypesResponse_httpStatus = Lens.lens (\GetBuiltinSlotTypesResponse' {httpStatus} -> httpStatus) (\s@GetBuiltinSlotTypesResponse' {} a -> s {httpStatus = a} :: GetBuiltinSlotTypesResponse)
 
-instance NFData GetBuiltinSlotTypesResponse
+instance Prelude.NFData GetBuiltinSlotTypesResponse

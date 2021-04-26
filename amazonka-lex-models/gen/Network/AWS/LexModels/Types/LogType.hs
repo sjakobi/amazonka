@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.LexModels.Types.LogType
   ( LogType
       ( ..,
-        Audio,
-        Text
+        LogTypeAUDIO,
+        LogTypeTEXT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LogType = LogType' (CI Text)
+newtype LogType = LogType'
+  { fromLogType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Audio :: LogType
-pattern Audio = LogType' "AUDIO"
+pattern LogTypeAUDIO :: LogType
+pattern LogTypeAUDIO = LogType' "AUDIO"
 
-pattern Text :: LogType
-pattern Text = LogType' "TEXT"
+pattern LogTypeTEXT :: LogType
+pattern LogTypeTEXT = LogType' "TEXT"
 
 {-# COMPLETE
-  Audio,
-  Text,
+  LogTypeAUDIO,
+  LogTypeTEXT,
   LogType'
   #-}
 
-instance FromText LogType where
-  parser = (LogType' . mk) <$> takeText
+instance Prelude.FromText LogType where
+  parser = LogType' Prelude.<$> Prelude.takeText
 
-instance ToText LogType where
-  toText (LogType' ci) = original ci
+instance Prelude.ToText LogType where
+  toText (LogType' x) = x
 
-instance Hashable LogType
+instance Prelude.Hashable LogType
 
-instance NFData LogType
+instance Prelude.NFData LogType
 
-instance ToByteString LogType
+instance Prelude.ToByteString LogType
 
-instance ToQuery LogType
+instance Prelude.ToQuery LogType
 
-instance ToHeader LogType
+instance Prelude.ToHeader LogType
 
-instance ToJSON LogType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LogType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LogType where
-  parseJSON = parseJSONText "LogType"
+instance Prelude.FromJSON LogType where
+  parseJSON = Prelude.parseJSONText "LogType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,167 +23,215 @@
 --
 -- Returns intent information as follows:
 --
+-- -   If you specify the @nameContains@ field, returns the @$LATEST@
+--     version of all intents that contain the specified string.
 --
---     * If you specify the @nameContains@ field, returns the @> LATEST@ version of all intents that contain the specified string.
---
---     * If you don't specify the @nameContains@ field, returns information about the @> LATEST@ version of all intents.
---
---
+-- -   If you don\'t specify the @nameContains@ field, returns information
+--     about the @$LATEST@ version of all intents.
 --
 -- The operation requires permission for the @lex:GetIntents@ action.
---
 --
 -- This operation returns paginated results.
 module Network.AWS.LexModels.GetIntents
   ( -- * Creating a Request
-    getIntents,
-    GetIntents,
+    GetIntents (..),
+    newGetIntents,
 
     -- * Request Lenses
-    giNextToken,
-    giNameContains,
-    giMaxResults,
+    getIntents_nextToken,
+    getIntents_nameContains,
+    getIntents_maxResults,
 
     -- * Destructuring the Response
-    getIntentsResponse,
-    GetIntentsResponse,
+    GetIntentsResponse (..),
+    newGetIntentsResponse,
 
     -- * Response Lenses
-    ggrsNextToken,
-    ggrsIntents,
-    ggrsResponseStatus,
+    getIntentsResponse_nextToken,
+    getIntentsResponse_intents,
+    getIntentsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.LexModels.Types.IntentMetadata
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getIntents' smart constructor.
+-- | /See:/ 'newGetIntents' smart constructor.
 data GetIntents = GetIntents'
-  { _giNextToken ::
-      !(Maybe Text),
-    _giNameContains :: !(Maybe Text),
-    _giMaxResults :: !(Maybe Nat)
+  { -- | A pagination token that fetches the next page of intents. If the
+    -- response to this API call is truncated, Amazon Lex returns a pagination
+    -- token in the response. To fetch the next page of intents, specify the
+    -- pagination token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Substring to match in intent names. An intent will be returned if any
+    -- part of its name matches the substring. For example, \"xyz\" matches
+    -- both \"xyzabc\" and \"abcxyz.\"
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of intents to return in the response. The default is
+    -- 10.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetIntents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetIntents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giNextToken' - A pagination token that fetches the next page of intents. If the response to this API call is truncated, Amazon Lex returns a pagination token in the response. To fetch the next page of intents, specify the pagination token in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'giNameContains' - Substring to match in intent names. An intent will be returned if any part of its name matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."
+-- 'nextToken', 'getIntents_nextToken' - A pagination token that fetches the next page of intents. If the
+-- response to this API call is truncated, Amazon Lex returns a pagination
+-- token in the response. To fetch the next page of intents, specify the
+-- pagination token in the next request.
 --
--- * 'giMaxResults' - The maximum number of intents to return in the response. The default is 10.
-getIntents ::
+-- 'nameContains', 'getIntents_nameContains' - Substring to match in intent names. An intent will be returned if any
+-- part of its name matches the substring. For example, \"xyz\" matches
+-- both \"xyzabc\" and \"abcxyz.\"
+--
+-- 'maxResults', 'getIntents_maxResults' - The maximum number of intents to return in the response. The default is
+-- 10.
+newGetIntents ::
   GetIntents
-getIntents =
+newGetIntents =
   GetIntents'
-    { _giNextToken = Nothing,
-      _giNameContains = Nothing,
-      _giMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | A pagination token that fetches the next page of intents. If the response to this API call is truncated, Amazon Lex returns a pagination token in the response. To fetch the next page of intents, specify the pagination token in the next request.
-giNextToken :: Lens' GetIntents (Maybe Text)
-giNextToken = lens _giNextToken (\s a -> s {_giNextToken = a})
+-- | A pagination token that fetches the next page of intents. If the
+-- response to this API call is truncated, Amazon Lex returns a pagination
+-- token in the response. To fetch the next page of intents, specify the
+-- pagination token in the next request.
+getIntents_nextToken :: Lens.Lens' GetIntents (Prelude.Maybe Prelude.Text)
+getIntents_nextToken = Lens.lens (\GetIntents' {nextToken} -> nextToken) (\s@GetIntents' {} a -> s {nextToken = a} :: GetIntents)
 
--- | Substring to match in intent names. An intent will be returned if any part of its name matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."
-giNameContains :: Lens' GetIntents (Maybe Text)
-giNameContains = lens _giNameContains (\s a -> s {_giNameContains = a})
+-- | Substring to match in intent names. An intent will be returned if any
+-- part of its name matches the substring. For example, \"xyz\" matches
+-- both \"xyzabc\" and \"abcxyz.\"
+getIntents_nameContains :: Lens.Lens' GetIntents (Prelude.Maybe Prelude.Text)
+getIntents_nameContains = Lens.lens (\GetIntents' {nameContains} -> nameContains) (\s@GetIntents' {} a -> s {nameContains = a} :: GetIntents)
 
--- | The maximum number of intents to return in the response. The default is 10.
-giMaxResults :: Lens' GetIntents (Maybe Natural)
-giMaxResults = lens _giMaxResults (\s a -> s {_giMaxResults = a}) . mapping _Nat
+-- | The maximum number of intents to return in the response. The default is
+-- 10.
+getIntents_maxResults :: Lens.Lens' GetIntents (Prelude.Maybe Prelude.Natural)
+getIntents_maxResults = Lens.lens (\GetIntents' {maxResults} -> maxResults) (\s@GetIntents' {} a -> s {maxResults = a} :: GetIntents) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager GetIntents where
+instance Pager.AWSPager GetIntents where
   page rq rs
-    | stop (rs ^. ggrsNextToken) = Nothing
-    | stop (rs ^. ggrsIntents) = Nothing
-    | otherwise =
-      Just $ rq & giNextToken .~ rs ^. ggrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getIntentsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getIntentsResponse_intents Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getIntents_nextToken
+          Lens..~ rs
+          Lens.^? getIntentsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest GetIntents where
+instance Prelude.AWSRequest GetIntents where
   type Rs GetIntents = GetIntentsResponse
-  request = get lexModels
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetIntentsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "intents" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "intents" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetIntents
+instance Prelude.Hashable GetIntents
 
-instance NFData GetIntents
+instance Prelude.NFData GetIntents
 
-instance ToHeaders GetIntents where
+instance Prelude.ToHeaders GetIntents where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetIntents where
-  toPath = const "/intents/"
+instance Prelude.ToPath GetIntents where
+  toPath = Prelude.const "/intents/"
 
-instance ToQuery GetIntents where
+instance Prelude.ToQuery GetIntents where
   toQuery GetIntents' {..} =
-    mconcat
-      [ "nextToken" =: _giNextToken,
-        "nameContains" =: _giNameContains,
-        "maxResults" =: _giMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "nameContains" Prelude.=: nameContains,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'getIntentsResponse' smart constructor.
+-- | /See:/ 'newGetIntentsResponse' smart constructor.
 data GetIntentsResponse = GetIntentsResponse'
-  { _ggrsNextToken ::
-      !(Maybe Text),
-    _ggrsIntents ::
-      !(Maybe [IntentMetadata]),
-    _ggrsResponseStatus :: !Int
+  { -- | If the response is truncated, the response includes a pagination token
+    -- that you can specify in your next request to fetch the next page of
+    -- intents.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @Intent@ objects. For more information, see PutBot.
+    intents :: Prelude.Maybe [IntentMetadata],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetIntentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetIntentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggrsNextToken' - If the response is truncated, the response includes a pagination token that you can specify in your next request to fetch the next page of intents.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggrsIntents' - An array of @Intent@ objects. For more information, see 'PutBot' .
+-- 'nextToken', 'getIntentsResponse_nextToken' - If the response is truncated, the response includes a pagination token
+-- that you can specify in your next request to fetch the next page of
+-- intents.
 --
--- * 'ggrsResponseStatus' - -- | The response status code.
-getIntentsResponse ::
-  -- | 'ggrsResponseStatus'
-  Int ->
+-- 'intents', 'getIntentsResponse_intents' - An array of @Intent@ objects. For more information, see PutBot.
+--
+-- 'httpStatus', 'getIntentsResponse_httpStatus' - The response's http status code.
+newGetIntentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetIntentsResponse
-getIntentsResponse pResponseStatus_ =
+newGetIntentsResponse pHttpStatus_ =
   GetIntentsResponse'
-    { _ggrsNextToken = Nothing,
-      _ggrsIntents = Nothing,
-      _ggrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      intents = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the response is truncated, the response includes a pagination token that you can specify in your next request to fetch the next page of intents.
-ggrsNextToken :: Lens' GetIntentsResponse (Maybe Text)
-ggrsNextToken = lens _ggrsNextToken (\s a -> s {_ggrsNextToken = a})
+-- | If the response is truncated, the response includes a pagination token
+-- that you can specify in your next request to fetch the next page of
+-- intents.
+getIntentsResponse_nextToken :: Lens.Lens' GetIntentsResponse (Prelude.Maybe Prelude.Text)
+getIntentsResponse_nextToken = Lens.lens (\GetIntentsResponse' {nextToken} -> nextToken) (\s@GetIntentsResponse' {} a -> s {nextToken = a} :: GetIntentsResponse)
 
--- | An array of @Intent@ objects. For more information, see 'PutBot' .
-ggrsIntents :: Lens' GetIntentsResponse [IntentMetadata]
-ggrsIntents = lens _ggrsIntents (\s a -> s {_ggrsIntents = a}) . _Default . _Coerce
+-- | An array of @Intent@ objects. For more information, see PutBot.
+getIntentsResponse_intents :: Lens.Lens' GetIntentsResponse (Prelude.Maybe [IntentMetadata])
+getIntentsResponse_intents = Lens.lens (\GetIntentsResponse' {intents} -> intents) (\s@GetIntentsResponse' {} a -> s {intents = a} :: GetIntentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ggrsResponseStatus :: Lens' GetIntentsResponse Int
-ggrsResponseStatus = lens _ggrsResponseStatus (\s a -> s {_ggrsResponseStatus = a})
+-- | The response's http status code.
+getIntentsResponse_httpStatus :: Lens.Lens' GetIntentsResponse Prelude.Int
+getIntentsResponse_httpStatus = Lens.lens (\GetIntentsResponse' {httpStatus} -> httpStatus) (\s@GetIntentsResponse' {} a -> s {httpStatus = a} :: GetIntentsResponse)
 
-instance NFData GetIntentsResponse
+instance Prelude.NFData GetIntentsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,108 +23,116 @@
 --
 -- Deletes an alias for the specified bot.
 --
---
--- You can't delete an alias that is used in the association between a bot and a messaging channel. If an alias is used in a channel association, the @DeleteBot@ operation returns a @ResourceInUseException@ exception that includes a reference to the channel association that refers to the bot. You can remove the reference to the alias by deleting the channel association. If you get the same exception again, delete the referring association until the @DeleteBotAlias@ operation is successful.
+-- You can\'t delete an alias that is used in the association between a bot
+-- and a messaging channel. If an alias is used in a channel association,
+-- the @DeleteBot@ operation returns a @ResourceInUseException@ exception
+-- that includes a reference to the channel association that refers to the
+-- bot. You can remove the reference to the alias by deleting the channel
+-- association. If you get the same exception again, delete the referring
+-- association until the @DeleteBotAlias@ operation is successful.
 module Network.AWS.LexModels.DeleteBotAlias
   ( -- * Creating a Request
-    deleteBotAlias,
-    DeleteBotAlias,
+    DeleteBotAlias (..),
+    newDeleteBotAlias,
 
     -- * Request Lenses
-    dbaName,
-    dbaBotName,
+    deleteBotAlias_name,
+    deleteBotAlias_botName,
 
     -- * Destructuring the Response
-    deleteBotAliasResponse,
-    DeleteBotAliasResponse,
+    DeleteBotAliasResponse (..),
+    newDeleteBotAliasResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteBotAlias' smart constructor.
+-- | /See:/ 'newDeleteBotAlias' smart constructor.
 data DeleteBotAlias = DeleteBotAlias'
-  { _dbaName ::
-      !Text,
-    _dbaBotName :: !Text
+  { -- | The name of the alias to delete. The name is case sensitive.
+    name :: Prelude.Text,
+    -- | The name of the bot that the alias points to.
+    botName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBotAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBotAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbaName' - The name of the alias to delete. The name is case sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbaBotName' - The name of the bot that the alias points to.
-deleteBotAlias ::
-  -- | 'dbaName'
-  Text ->
-  -- | 'dbaBotName'
-  Text ->
+-- 'name', 'deleteBotAlias_name' - The name of the alias to delete. The name is case sensitive.
+--
+-- 'botName', 'deleteBotAlias_botName' - The name of the bot that the alias points to.
+newDeleteBotAlias ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'botName'
+  Prelude.Text ->
   DeleteBotAlias
-deleteBotAlias pName_ pBotName_ =
-  DeleteBotAlias'
-    { _dbaName = pName_,
-      _dbaBotName = pBotName_
-    }
+newDeleteBotAlias pName_ pBotName_ =
+  DeleteBotAlias' {name = pName_, botName = pBotName_}
 
 -- | The name of the alias to delete. The name is case sensitive.
-dbaName :: Lens' DeleteBotAlias Text
-dbaName = lens _dbaName (\s a -> s {_dbaName = a})
+deleteBotAlias_name :: Lens.Lens' DeleteBotAlias Prelude.Text
+deleteBotAlias_name = Lens.lens (\DeleteBotAlias' {name} -> name) (\s@DeleteBotAlias' {} a -> s {name = a} :: DeleteBotAlias)
 
 -- | The name of the bot that the alias points to.
-dbaBotName :: Lens' DeleteBotAlias Text
-dbaBotName = lens _dbaBotName (\s a -> s {_dbaBotName = a})
+deleteBotAlias_botName :: Lens.Lens' DeleteBotAlias Prelude.Text
+deleteBotAlias_botName = Lens.lens (\DeleteBotAlias' {botName} -> botName) (\s@DeleteBotAlias' {} a -> s {botName = a} :: DeleteBotAlias)
 
-instance AWSRequest DeleteBotAlias where
+instance Prelude.AWSRequest DeleteBotAlias where
   type Rs DeleteBotAlias = DeleteBotAliasResponse
-  request = delete lexModels
-  response = receiveNull DeleteBotAliasResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteBotAliasResponse'
 
-instance Hashable DeleteBotAlias
+instance Prelude.Hashable DeleteBotAlias
 
-instance NFData DeleteBotAlias
+instance Prelude.NFData DeleteBotAlias
 
-instance ToHeaders DeleteBotAlias where
+instance Prelude.ToHeaders DeleteBotAlias where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteBotAlias where
+instance Prelude.ToPath DeleteBotAlias where
   toPath DeleteBotAlias' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/bots/",
-        toBS _dbaBotName,
+        Prelude.toBS botName,
         "/aliases/",
-        toBS _dbaName
+        Prelude.toBS name
       ]
 
-instance ToQuery DeleteBotAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteBotAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteBotAliasResponse' smart constructor.
+-- | /See:/ 'newDeleteBotAliasResponse' smart constructor.
 data DeleteBotAliasResponse = DeleteBotAliasResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBotAliasResponse' with the minimum fields required to make a request.
-deleteBotAliasResponse ::
+-- |
+-- Create a value of 'DeleteBotAliasResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteBotAliasResponse ::
   DeleteBotAliasResponse
-deleteBotAliasResponse = DeleteBotAliasResponse'
+newDeleteBotAliasResponse = DeleteBotAliasResponse'
 
-instance NFData DeleteBotAliasResponse
+instance Prelude.NFData DeleteBotAliasResponse

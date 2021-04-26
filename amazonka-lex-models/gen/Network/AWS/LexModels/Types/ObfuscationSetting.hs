@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.LexModels.Types.ObfuscationSetting
   ( ObfuscationSetting
       ( ..,
-        DefaultObfuscation,
-        None
+        ObfuscationSettingDEFAULTOBFUSCATION,
+        ObfuscationSettingNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ObfuscationSetting
-  = ObfuscationSetting'
-      ( CI
-          Text
-      )
+newtype ObfuscationSetting = ObfuscationSetting'
+  { fromObfuscationSetting ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DefaultObfuscation :: ObfuscationSetting
-pattern DefaultObfuscation = ObfuscationSetting' "DEFAULT_OBFUSCATION"
+pattern ObfuscationSettingDEFAULTOBFUSCATION :: ObfuscationSetting
+pattern ObfuscationSettingDEFAULTOBFUSCATION = ObfuscationSetting' "DEFAULT_OBFUSCATION"
 
-pattern None :: ObfuscationSetting
-pattern None = ObfuscationSetting' "NONE"
+pattern ObfuscationSettingNONE :: ObfuscationSetting
+pattern ObfuscationSettingNONE = ObfuscationSetting' "NONE"
 
 {-# COMPLETE
-  DefaultObfuscation,
-  None,
+  ObfuscationSettingDEFAULTOBFUSCATION,
+  ObfuscationSettingNONE,
   ObfuscationSetting'
   #-}
 
-instance FromText ObfuscationSetting where
-  parser = (ObfuscationSetting' . mk) <$> takeText
+instance Prelude.FromText ObfuscationSetting where
+  parser = ObfuscationSetting' Prelude.<$> Prelude.takeText
 
-instance ToText ObfuscationSetting where
-  toText (ObfuscationSetting' ci) = original ci
+instance Prelude.ToText ObfuscationSetting where
+  toText (ObfuscationSetting' x) = x
 
-instance Hashable ObfuscationSetting
+instance Prelude.Hashable ObfuscationSetting
 
-instance NFData ObfuscationSetting
+instance Prelude.NFData ObfuscationSetting
 
-instance ToByteString ObfuscationSetting
+instance Prelude.ToByteString ObfuscationSetting
 
-instance ToQuery ObfuscationSetting
+instance Prelude.ToQuery ObfuscationSetting
 
-instance ToHeader ObfuscationSetting
+instance Prelude.ToHeader ObfuscationSetting
 
-instance ToJSON ObfuscationSetting where
-  toJSON = toJSONText
+instance Prelude.ToJSON ObfuscationSetting where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ObfuscationSetting where
-  parseJSON = parseJSONText "ObfuscationSetting"
+instance Prelude.FromJSON ObfuscationSetting where
+  parseJSON = Prelude.parseJSONText "ObfuscationSetting"

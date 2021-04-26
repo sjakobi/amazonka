@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.CodeHook where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies a Lambda function that verifies requests to a bot or fulfills the user's request to a bot..
+-- | Specifies a Lambda function that verifies requests to a bot or fulfills
+-- the user\'s request to a bot..
 --
---
---
--- /See:/ 'codeHook' smart constructor.
+-- /See:/ 'newCodeHook' smart constructor.
 data CodeHook = CodeHook'
-  { _chUri :: !Text,
-    _chMessageVersion :: !Text
+  { -- | The Amazon Resource Name (ARN) of the Lambda function.
+    uri :: Prelude.Text,
+    -- | The version of the request-response that you want Amazon Lex to use to
+    -- invoke your Lambda function. For more information, see using-lambda.
+    messageVersion :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CodeHook' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CodeHook' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chUri' - The Amazon Resource Name (ARN) of the Lambda function.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'chMessageVersion' - The version of the request-response that you want Amazon Lex to use to invoke your Lambda function. For more information, see 'using-lambda' .
-codeHook ::
-  -- | 'chUri'
-  Text ->
-  -- | 'chMessageVersion'
-  Text ->
+-- 'uri', 'codeHook_uri' - The Amazon Resource Name (ARN) of the Lambda function.
+--
+-- 'messageVersion', 'codeHook_messageVersion' - The version of the request-response that you want Amazon Lex to use to
+-- invoke your Lambda function. For more information, see using-lambda.
+newCodeHook ::
+  -- | 'uri'
+  Prelude.Text ->
+  -- | 'messageVersion'
+  Prelude.Text ->
   CodeHook
-codeHook pUri_ pMessageVersion_ =
+newCodeHook pUri_ pMessageVersion_ =
   CodeHook'
-    { _chUri = pUri_,
-      _chMessageVersion = pMessageVersion_
+    { uri = pUri_,
+      messageVersion = pMessageVersion_
     }
 
 -- | The Amazon Resource Name (ARN) of the Lambda function.
-chUri :: Lens' CodeHook Text
-chUri = lens _chUri (\s a -> s {_chUri = a})
+codeHook_uri :: Lens.Lens' CodeHook Prelude.Text
+codeHook_uri = Lens.lens (\CodeHook' {uri} -> uri) (\s@CodeHook' {} a -> s {uri = a} :: CodeHook)
 
--- | The version of the request-response that you want Amazon Lex to use to invoke your Lambda function. For more information, see 'using-lambda' .
-chMessageVersion :: Lens' CodeHook Text
-chMessageVersion = lens _chMessageVersion (\s a -> s {_chMessageVersion = a})
+-- | The version of the request-response that you want Amazon Lex to use to
+-- invoke your Lambda function. For more information, see using-lambda.
+codeHook_messageVersion :: Lens.Lens' CodeHook Prelude.Text
+codeHook_messageVersion = Lens.lens (\CodeHook' {messageVersion} -> messageVersion) (\s@CodeHook' {} a -> s {messageVersion = a} :: CodeHook)
 
-instance FromJSON CodeHook where
+instance Prelude.FromJSON CodeHook where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CodeHook"
       ( \x ->
           CodeHook'
-            <$> (x .: "uri") <*> (x .: "messageVersion")
+            Prelude.<$> (x Prelude..: "uri")
+            Prelude.<*> (x Prelude..: "messageVersion")
       )
 
-instance Hashable CodeHook
+instance Prelude.Hashable CodeHook
 
-instance NFData CodeHook
+instance Prelude.NFData CodeHook
 
-instance ToJSON CodeHook where
+instance Prelude.ToJSON CodeHook where
   toJSON CodeHook' {..} =
-    object
-      ( catMaybes
-          [ Just ("uri" .= _chUri),
-            Just ("messageVersion" .= _chMessageVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("uri" Prelude..= uri),
+            Prelude.Just
+              ("messageVersion" Prelude..= messageVersion)
           ]
       )

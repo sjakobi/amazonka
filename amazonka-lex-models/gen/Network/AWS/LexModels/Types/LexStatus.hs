@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.LexModels.Types.LexStatus
   ( LexStatus
       ( ..,
-        Building,
-        Failed,
-        NotBuilt,
-        Ready,
-        ReadyBasicTesting
+        LexStatusBUILDING,
+        LexStatusFAILED,
+        LexStatusNOTBUILT,
+        LexStatusREADY,
+        LexStatusREADYBASICTESTING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LexStatus = LexStatus' (CI Text)
+newtype LexStatus = LexStatus'
+  { fromLexStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Building :: LexStatus
-pattern Building = LexStatus' "BUILDING"
+pattern LexStatusBUILDING :: LexStatus
+pattern LexStatusBUILDING = LexStatus' "BUILDING"
 
-pattern Failed :: LexStatus
-pattern Failed = LexStatus' "FAILED"
+pattern LexStatusFAILED :: LexStatus
+pattern LexStatusFAILED = LexStatus' "FAILED"
 
-pattern NotBuilt :: LexStatus
-pattern NotBuilt = LexStatus' "NOT_BUILT"
+pattern LexStatusNOTBUILT :: LexStatus
+pattern LexStatusNOTBUILT = LexStatus' "NOT_BUILT"
 
-pattern Ready :: LexStatus
-pattern Ready = LexStatus' "READY"
+pattern LexStatusREADY :: LexStatus
+pattern LexStatusREADY = LexStatus' "READY"
 
-pattern ReadyBasicTesting :: LexStatus
-pattern ReadyBasicTesting = LexStatus' "READY_BASIC_TESTING"
+pattern LexStatusREADYBASICTESTING :: LexStatus
+pattern LexStatusREADYBASICTESTING = LexStatus' "READY_BASIC_TESTING"
 
 {-# COMPLETE
-  Building,
-  Failed,
-  NotBuilt,
-  Ready,
-  ReadyBasicTesting,
+  LexStatusBUILDING,
+  LexStatusFAILED,
+  LexStatusNOTBUILT,
+  LexStatusREADY,
+  LexStatusREADYBASICTESTING,
   LexStatus'
   #-}
 
-instance FromText LexStatus where
-  parser = (LexStatus' . mk) <$> takeText
+instance Prelude.FromText LexStatus where
+  parser = LexStatus' Prelude.<$> Prelude.takeText
 
-instance ToText LexStatus where
-  toText (LexStatus' ci) = original ci
+instance Prelude.ToText LexStatus where
+  toText (LexStatus' x) = x
 
-instance Hashable LexStatus
+instance Prelude.Hashable LexStatus
 
-instance NFData LexStatus
+instance Prelude.NFData LexStatus
 
-instance ToByteString LexStatus
+instance Prelude.ToByteString LexStatus
 
-instance ToQuery LexStatus
+instance Prelude.ToQuery LexStatus
 
-instance ToHeader LexStatus
+instance Prelude.ToHeader LexStatus
 
-instance FromJSON LexStatus where
-  parseJSON = parseJSONText "LexStatus"
+instance Prelude.FromJSON LexStatus where
+  parseJSON = Prelude.parseJSONText "LexStatus"

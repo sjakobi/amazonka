@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,182 +23,241 @@
 --
 -- Gets a list of built-in intents that meet the specified criteria.
 --
---
--- This operation requires permission for the @lex:GetBuiltinIntents@ action.
---
+-- This operation requires permission for the @lex:GetBuiltinIntents@
+-- action.
 --
 -- This operation returns paginated results.
 module Network.AWS.LexModels.GetBuiltinIntents
   ( -- * Creating a Request
-    getBuiltinIntents,
-    GetBuiltinIntents,
+    GetBuiltinIntents (..),
+    newGetBuiltinIntents,
 
     -- * Request Lenses
-    gbiSignatureContains,
-    gbiNextToken,
-    gbiMaxResults,
-    gbiLocale,
+    getBuiltinIntents_signatureContains,
+    getBuiltinIntents_nextToken,
+    getBuiltinIntents_maxResults,
+    getBuiltinIntents_locale,
 
     -- * Destructuring the Response
-    getBuiltinIntentsResponse,
-    GetBuiltinIntentsResponse,
+    GetBuiltinIntentsResponse (..),
+    newGetBuiltinIntentsResponse,
 
     -- * Response Lenses
-    gbirbrsNextToken,
-    gbirbrsIntents,
-    gbirbrsResponseStatus,
+    getBuiltinIntentsResponse_nextToken,
+    getBuiltinIntentsResponse_intents,
+    getBuiltinIntentsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.LexModels.Types.BuiltinIntentMetadata
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getBuiltinIntents' smart constructor.
+-- | /See:/ 'newGetBuiltinIntents' smart constructor.
 data GetBuiltinIntents = GetBuiltinIntents'
-  { _gbiSignatureContains ::
-      !(Maybe Text),
-    _gbiNextToken :: !(Maybe Text),
-    _gbiMaxResults :: !(Maybe Nat),
-    _gbiLocale :: !(Maybe Locale)
+  { -- | Substring to match in built-in intent signatures. An intent will be
+    -- returned if any part of its signature matches the substring. For
+    -- example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\" To find the
+    -- signature for an intent, see
+    -- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
+    -- in the /Alexa Skills Kit/.
+    signatureContains :: Prelude.Maybe Prelude.Text,
+    -- | A pagination token that fetches the next page of intents. If this API
+    -- call is truncated, Amazon Lex returns a pagination token in the
+    -- response. To fetch the next page of intents, use the pagination token in
+    -- the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of intents to return in the response. The default is
+    -- 10.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A list of locales that the intent supports.
+    locale :: Prelude.Maybe Locale
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBuiltinIntents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBuiltinIntents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbiSignatureContains' - Substring to match in built-in intent signatures. An intent will be returned if any part of its signature matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz." To find the signature for an intent, see <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents> in the /Alexa Skills Kit/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbiNextToken' - A pagination token that fetches the next page of intents. If this API call is truncated, Amazon Lex returns a pagination token in the response. To fetch the next page of intents, use the pagination token in the next request.
+-- 'signatureContains', 'getBuiltinIntents_signatureContains' - Substring to match in built-in intent signatures. An intent will be
+-- returned if any part of its signature matches the substring. For
+-- example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\" To find the
+-- signature for an intent, see
+-- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
+-- in the /Alexa Skills Kit/.
 --
--- * 'gbiMaxResults' - The maximum number of intents to return in the response. The default is 10.
+-- 'nextToken', 'getBuiltinIntents_nextToken' - A pagination token that fetches the next page of intents. If this API
+-- call is truncated, Amazon Lex returns a pagination token in the
+-- response. To fetch the next page of intents, use the pagination token in
+-- the next request.
 --
--- * 'gbiLocale' - A list of locales that the intent supports.
-getBuiltinIntents ::
+-- 'maxResults', 'getBuiltinIntents_maxResults' - The maximum number of intents to return in the response. The default is
+-- 10.
+--
+-- 'locale', 'getBuiltinIntents_locale' - A list of locales that the intent supports.
+newGetBuiltinIntents ::
   GetBuiltinIntents
-getBuiltinIntents =
+newGetBuiltinIntents =
   GetBuiltinIntents'
-    { _gbiSignatureContains = Nothing,
-      _gbiNextToken = Nothing,
-      _gbiMaxResults = Nothing,
-      _gbiLocale = Nothing
+    { signatureContains =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      locale = Prelude.Nothing
     }
 
--- | Substring to match in built-in intent signatures. An intent will be returned if any part of its signature matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz." To find the signature for an intent, see <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents> in the /Alexa Skills Kit/ .
-gbiSignatureContains :: Lens' GetBuiltinIntents (Maybe Text)
-gbiSignatureContains = lens _gbiSignatureContains (\s a -> s {_gbiSignatureContains = a})
+-- | Substring to match in built-in intent signatures. An intent will be
+-- returned if any part of its signature matches the substring. For
+-- example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\" To find the
+-- signature for an intent, see
+-- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
+-- in the /Alexa Skills Kit/.
+getBuiltinIntents_signatureContains :: Lens.Lens' GetBuiltinIntents (Prelude.Maybe Prelude.Text)
+getBuiltinIntents_signatureContains = Lens.lens (\GetBuiltinIntents' {signatureContains} -> signatureContains) (\s@GetBuiltinIntents' {} a -> s {signatureContains = a} :: GetBuiltinIntents)
 
--- | A pagination token that fetches the next page of intents. If this API call is truncated, Amazon Lex returns a pagination token in the response. To fetch the next page of intents, use the pagination token in the next request.
-gbiNextToken :: Lens' GetBuiltinIntents (Maybe Text)
-gbiNextToken = lens _gbiNextToken (\s a -> s {_gbiNextToken = a})
+-- | A pagination token that fetches the next page of intents. If this API
+-- call is truncated, Amazon Lex returns a pagination token in the
+-- response. To fetch the next page of intents, use the pagination token in
+-- the next request.
+getBuiltinIntents_nextToken :: Lens.Lens' GetBuiltinIntents (Prelude.Maybe Prelude.Text)
+getBuiltinIntents_nextToken = Lens.lens (\GetBuiltinIntents' {nextToken} -> nextToken) (\s@GetBuiltinIntents' {} a -> s {nextToken = a} :: GetBuiltinIntents)
 
--- | The maximum number of intents to return in the response. The default is 10.
-gbiMaxResults :: Lens' GetBuiltinIntents (Maybe Natural)
-gbiMaxResults = lens _gbiMaxResults (\s a -> s {_gbiMaxResults = a}) . mapping _Nat
+-- | The maximum number of intents to return in the response. The default is
+-- 10.
+getBuiltinIntents_maxResults :: Lens.Lens' GetBuiltinIntents (Prelude.Maybe Prelude.Natural)
+getBuiltinIntents_maxResults = Lens.lens (\GetBuiltinIntents' {maxResults} -> maxResults) (\s@GetBuiltinIntents' {} a -> s {maxResults = a} :: GetBuiltinIntents) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A list of locales that the intent supports.
-gbiLocale :: Lens' GetBuiltinIntents (Maybe Locale)
-gbiLocale = lens _gbiLocale (\s a -> s {_gbiLocale = a})
+getBuiltinIntents_locale :: Lens.Lens' GetBuiltinIntents (Prelude.Maybe Locale)
+getBuiltinIntents_locale = Lens.lens (\GetBuiltinIntents' {locale} -> locale) (\s@GetBuiltinIntents' {} a -> s {locale = a} :: GetBuiltinIntents)
 
-instance AWSPager GetBuiltinIntents where
+instance Pager.AWSPager GetBuiltinIntents where
   page rq rs
-    | stop (rs ^. gbirbrsNextToken) = Nothing
-    | stop (rs ^. gbirbrsIntents) = Nothing
-    | otherwise =
-      Just $ rq & gbiNextToken .~ rs ^. gbirbrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getBuiltinIntentsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getBuiltinIntentsResponse_intents
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getBuiltinIntents_nextToken
+          Lens..~ rs
+          Lens.^? getBuiltinIntentsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetBuiltinIntents where
+instance Prelude.AWSRequest GetBuiltinIntents where
   type Rs GetBuiltinIntents = GetBuiltinIntentsResponse
-  request = get lexModels
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetBuiltinIntentsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "intents" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "intents" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBuiltinIntents
+instance Prelude.Hashable GetBuiltinIntents
 
-instance NFData GetBuiltinIntents
+instance Prelude.NFData GetBuiltinIntents
 
-instance ToHeaders GetBuiltinIntents where
+instance Prelude.ToHeaders GetBuiltinIntents where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetBuiltinIntents where
-  toPath = const "/builtins/intents/"
+instance Prelude.ToPath GetBuiltinIntents where
+  toPath = Prelude.const "/builtins/intents/"
 
-instance ToQuery GetBuiltinIntents where
+instance Prelude.ToQuery GetBuiltinIntents where
   toQuery GetBuiltinIntents' {..} =
-    mconcat
-      [ "signatureContains" =: _gbiSignatureContains,
-        "nextToken" =: _gbiNextToken,
-        "maxResults" =: _gbiMaxResults,
-        "locale" =: _gbiLocale
+    Prelude.mconcat
+      [ "signatureContains" Prelude.=: signatureContains,
+        "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "locale" Prelude.=: locale
       ]
 
--- | /See:/ 'getBuiltinIntentsResponse' smart constructor.
+-- | /See:/ 'newGetBuiltinIntentsResponse' smart constructor.
 data GetBuiltinIntentsResponse = GetBuiltinIntentsResponse'
-  { _gbirbrsNextToken ::
-      !(Maybe Text),
-    _gbirbrsIntents ::
-      !( Maybe
-           [BuiltinIntentMetadata]
-       ),
-    _gbirbrsResponseStatus ::
-      !Int
+  { -- | A pagination token that fetches the next page of intents. If the
+    -- response to this API call is truncated, Amazon Lex returns a pagination
+    -- token in the response. To fetch the next page of intents, specify the
+    -- pagination token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @builtinIntentMetadata@ objects, one for each intent in the
+    -- response.
+    intents :: Prelude.Maybe [BuiltinIntentMetadata],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBuiltinIntentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBuiltinIntentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbirbrsNextToken' - A pagination token that fetches the next page of intents. If the response to this API call is truncated, Amazon Lex returns a pagination token in the response. To fetch the next page of intents, specify the pagination token in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbirbrsIntents' - An array of @builtinIntentMetadata@ objects, one for each intent in the response.
+-- 'nextToken', 'getBuiltinIntentsResponse_nextToken' - A pagination token that fetches the next page of intents. If the
+-- response to this API call is truncated, Amazon Lex returns a pagination
+-- token in the response. To fetch the next page of intents, specify the
+-- pagination token in the next request.
 --
--- * 'gbirbrsResponseStatus' - -- | The response status code.
-getBuiltinIntentsResponse ::
-  -- | 'gbirbrsResponseStatus'
-  Int ->
+-- 'intents', 'getBuiltinIntentsResponse_intents' - An array of @builtinIntentMetadata@ objects, one for each intent in the
+-- response.
+--
+-- 'httpStatus', 'getBuiltinIntentsResponse_httpStatus' - The response's http status code.
+newGetBuiltinIntentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBuiltinIntentsResponse
-getBuiltinIntentsResponse pResponseStatus_ =
+newGetBuiltinIntentsResponse pHttpStatus_ =
   GetBuiltinIntentsResponse'
-    { _gbirbrsNextToken =
-        Nothing,
-      _gbirbrsIntents = Nothing,
-      _gbirbrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      intents = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A pagination token that fetches the next page of intents. If the response to this API call is truncated, Amazon Lex returns a pagination token in the response. To fetch the next page of intents, specify the pagination token in the next request.
-gbirbrsNextToken :: Lens' GetBuiltinIntentsResponse (Maybe Text)
-gbirbrsNextToken = lens _gbirbrsNextToken (\s a -> s {_gbirbrsNextToken = a})
+-- | A pagination token that fetches the next page of intents. If the
+-- response to this API call is truncated, Amazon Lex returns a pagination
+-- token in the response. To fetch the next page of intents, specify the
+-- pagination token in the next request.
+getBuiltinIntentsResponse_nextToken :: Lens.Lens' GetBuiltinIntentsResponse (Prelude.Maybe Prelude.Text)
+getBuiltinIntentsResponse_nextToken = Lens.lens (\GetBuiltinIntentsResponse' {nextToken} -> nextToken) (\s@GetBuiltinIntentsResponse' {} a -> s {nextToken = a} :: GetBuiltinIntentsResponse)
 
--- | An array of @builtinIntentMetadata@ objects, one for each intent in the response.
-gbirbrsIntents :: Lens' GetBuiltinIntentsResponse [BuiltinIntentMetadata]
-gbirbrsIntents = lens _gbirbrsIntents (\s a -> s {_gbirbrsIntents = a}) . _Default . _Coerce
+-- | An array of @builtinIntentMetadata@ objects, one for each intent in the
+-- response.
+getBuiltinIntentsResponse_intents :: Lens.Lens' GetBuiltinIntentsResponse (Prelude.Maybe [BuiltinIntentMetadata])
+getBuiltinIntentsResponse_intents = Lens.lens (\GetBuiltinIntentsResponse' {intents} -> intents) (\s@GetBuiltinIntentsResponse' {} a -> s {intents = a} :: GetBuiltinIntentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gbirbrsResponseStatus :: Lens' GetBuiltinIntentsResponse Int
-gbirbrsResponseStatus = lens _gbirbrsResponseStatus (\s a -> s {_gbirbrsResponseStatus = a})
+-- | The response's http status code.
+getBuiltinIntentsResponse_httpStatus :: Lens.Lens' GetBuiltinIntentsResponse Prelude.Int
+getBuiltinIntentsResponse_httpStatus = Lens.lens (\GetBuiltinIntentsResponse' {httpStatus} -> httpStatus) (\s@GetBuiltinIntentsResponse' {} a -> s {httpStatus = a} :: GetBuiltinIntentsResponse)
 
-instance NFData GetBuiltinIntentsResponse
+instance Prelude.NFData GetBuiltinIntentsResponse

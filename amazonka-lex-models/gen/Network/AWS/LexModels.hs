@@ -11,12 +11,14 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon Lex Build-Time Actions__
+-- Amazon Lex Build-Time Actions
 --
--- Amazon Lex is an AWS service for building conversational voice and text interfaces. Use these actions to create, update, and delete conversational bots for new and existing client applications.
+-- Amazon Lex is an AWS service for building conversational voice and text
+-- interfaces. Use these actions to create, update, and delete
+-- conversational bots for new and existing client applications.
 module Network.AWS.LexModels
   ( -- * Service Configuration
-    lexModels,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -49,121 +51,238 @@ module Network.AWS.LexModels
     -- $operations
 
     -- ** DeleteSlotTypeVersion
-    module Network.AWS.LexModels.DeleteSlotTypeVersion,
+    DeleteSlotTypeVersion (DeleteSlotTypeVersion'),
+    newDeleteSlotTypeVersion,
+    DeleteSlotTypeVersionResponse (DeleteSlotTypeVersionResponse'),
+    newDeleteSlotTypeVersionResponse,
 
     -- ** GetBots (Paginated)
-    module Network.AWS.LexModels.GetBots,
+    GetBots (GetBots'),
+    newGetBots,
+    GetBotsResponse (GetBotsResponse'),
+    newGetBotsResponse,
 
     -- ** GetSlotTypes (Paginated)
-    module Network.AWS.LexModels.GetSlotTypes,
+    GetSlotTypes (GetSlotTypes'),
+    newGetSlotTypes,
+    GetSlotTypesResponse (GetSlotTypesResponse'),
+    newGetSlotTypesResponse,
 
     -- ** DeleteUtterances
-    module Network.AWS.LexModels.DeleteUtterances,
+    DeleteUtterances (DeleteUtterances'),
+    newDeleteUtterances,
+    DeleteUtterancesResponse (DeleteUtterancesResponse'),
+    newDeleteUtterancesResponse,
 
     -- ** GetBotAlias
-    module Network.AWS.LexModels.GetBotAlias,
+    GetBotAlias (GetBotAlias'),
+    newGetBotAlias,
+    GetBotAliasResponse (GetBotAliasResponse'),
+    newGetBotAliasResponse,
 
     -- ** GetBotChannelAssociations (Paginated)
-    module Network.AWS.LexModels.GetBotChannelAssociations,
+    GetBotChannelAssociations (GetBotChannelAssociations'),
+    newGetBotChannelAssociations,
+    GetBotChannelAssociationsResponse (GetBotChannelAssociationsResponse'),
+    newGetBotChannelAssociationsResponse,
 
     -- ** PutBotAlias
-    module Network.AWS.LexModels.PutBotAlias,
+    PutBotAlias (PutBotAlias'),
+    newPutBotAlias,
+    PutBotAliasResponse (PutBotAliasResponse'),
+    newPutBotAliasResponse,
 
     -- ** GetUtterancesView
-    module Network.AWS.LexModels.GetUtterancesView,
+    GetUtterancesView (GetUtterancesView'),
+    newGetUtterancesView,
+    GetUtterancesViewResponse (GetUtterancesViewResponse'),
+    newGetUtterancesViewResponse,
 
     -- ** UntagResource
-    module Network.AWS.LexModels.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** GetBuiltinIntent
-    module Network.AWS.LexModels.GetBuiltinIntent,
+    GetBuiltinIntent (GetBuiltinIntent'),
+    newGetBuiltinIntent,
+    GetBuiltinIntentResponse (GetBuiltinIntentResponse'),
+    newGetBuiltinIntentResponse,
 
     -- ** GetSlotTypeVersions (Paginated)
-    module Network.AWS.LexModels.GetSlotTypeVersions,
+    GetSlotTypeVersions (GetSlotTypeVersions'),
+    newGetSlotTypeVersions,
+    GetSlotTypeVersionsResponse (GetSlotTypeVersionsResponse'),
+    newGetSlotTypeVersionsResponse,
 
     -- ** GetBuiltinSlotTypes (Paginated)
-    module Network.AWS.LexModels.GetBuiltinSlotTypes,
+    GetBuiltinSlotTypes (GetBuiltinSlotTypes'),
+    newGetBuiltinSlotTypes,
+    GetBuiltinSlotTypesResponse (GetBuiltinSlotTypesResponse'),
+    newGetBuiltinSlotTypesResponse,
 
     -- ** PutBot
-    module Network.AWS.LexModels.PutBot,
+    PutBot (PutBot'),
+    newPutBot,
+    PutBotResponse (PutBotResponse'),
+    newPutBotResponse,
 
     -- ** TagResource
-    module Network.AWS.LexModels.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** DeleteSlotType
-    module Network.AWS.LexModels.DeleteSlotType,
+    DeleteSlotType (DeleteSlotType'),
+    newDeleteSlotType,
+    DeleteSlotTypeResponse (DeleteSlotTypeResponse'),
+    newDeleteSlotTypeResponse,
 
     -- ** PutIntent
-    module Network.AWS.LexModels.PutIntent,
+    PutIntent (PutIntent'),
+    newPutIntent,
+    PutIntentResponse (PutIntentResponse'),
+    newPutIntentResponse,
 
     -- ** GetBotChannelAssociation
-    module Network.AWS.LexModels.GetBotChannelAssociation,
+    GetBotChannelAssociation (GetBotChannelAssociation'),
+    newGetBotChannelAssociation,
+    GetBotChannelAssociationResponse (GetBotChannelAssociationResponse'),
+    newGetBotChannelAssociationResponse,
 
     -- ** CreateIntentVersion
-    module Network.AWS.LexModels.CreateIntentVersion,
+    CreateIntentVersion (CreateIntentVersion'),
+    newCreateIntentVersion,
+    CreateIntentVersionResponse (CreateIntentVersionResponse'),
+    newCreateIntentVersionResponse,
 
     -- ** GetExport
-    module Network.AWS.LexModels.GetExport,
+    GetExport (GetExport'),
+    newGetExport,
+    GetExportResponse (GetExportResponse'),
+    newGetExportResponse,
 
     -- ** GetSlotType
-    module Network.AWS.LexModels.GetSlotType,
+    GetSlotType (GetSlotType'),
+    newGetSlotType,
+    GetSlotTypeResponse (GetSlotTypeResponse'),
+    newGetSlotTypeResponse,
 
     -- ** DeleteIntentVersion
-    module Network.AWS.LexModels.DeleteIntentVersion,
+    DeleteIntentVersion (DeleteIntentVersion'),
+    newDeleteIntentVersion,
+    DeleteIntentVersionResponse (DeleteIntentVersionResponse'),
+    newDeleteIntentVersionResponse,
 
     -- ** CreateBotVersion
-    module Network.AWS.LexModels.CreateBotVersion,
+    CreateBotVersion (CreateBotVersion'),
+    newCreateBotVersion,
+    CreateBotVersionResponse (CreateBotVersionResponse'),
+    newCreateBotVersionResponse,
 
     -- ** GetBot
-    module Network.AWS.LexModels.GetBot,
+    GetBot (GetBot'),
+    newGetBot,
+    GetBotResponse (GetBotResponse'),
+    newGetBotResponse,
 
     -- ** GetBotAliases (Paginated)
-    module Network.AWS.LexModels.GetBotAliases,
+    GetBotAliases (GetBotAliases'),
+    newGetBotAliases,
+    GetBotAliasesResponse (GetBotAliasesResponse'),
+    newGetBotAliasesResponse,
 
     -- ** GetIntents (Paginated)
-    module Network.AWS.LexModels.GetIntents,
+    GetIntents (GetIntents'),
+    newGetIntents,
+    GetIntentsResponse (GetIntentsResponse'),
+    newGetIntentsResponse,
 
     -- ** GetBotVersions (Paginated)
-    module Network.AWS.LexModels.GetBotVersions,
+    GetBotVersions (GetBotVersions'),
+    newGetBotVersions,
+    GetBotVersionsResponse (GetBotVersionsResponse'),
+    newGetBotVersionsResponse,
 
     -- ** DeleteBotAlias
-    module Network.AWS.LexModels.DeleteBotAlias,
+    DeleteBotAlias (DeleteBotAlias'),
+    newDeleteBotAlias,
+    DeleteBotAliasResponse (DeleteBotAliasResponse'),
+    newDeleteBotAliasResponse,
 
     -- ** GetImport
-    module Network.AWS.LexModels.GetImport,
+    GetImport (GetImport'),
+    newGetImport,
+    GetImportResponse (GetImportResponse'),
+    newGetImportResponse,
 
     -- ** GetIntentVersions (Paginated)
-    module Network.AWS.LexModels.GetIntentVersions,
+    GetIntentVersions (GetIntentVersions'),
+    newGetIntentVersions,
+    GetIntentVersionsResponse (GetIntentVersionsResponse'),
+    newGetIntentVersionsResponse,
 
     -- ** GetBuiltinIntents (Paginated)
-    module Network.AWS.LexModels.GetBuiltinIntents,
+    GetBuiltinIntents (GetBuiltinIntents'),
+    newGetBuiltinIntents,
+    GetBuiltinIntentsResponse (GetBuiltinIntentsResponse'),
+    newGetBuiltinIntentsResponse,
 
     -- ** DeleteBot
-    module Network.AWS.LexModels.DeleteBot,
+    DeleteBot (DeleteBot'),
+    newDeleteBot,
+    DeleteBotResponse (DeleteBotResponse'),
+    newDeleteBotResponse,
 
     -- ** PutSlotType
-    module Network.AWS.LexModels.PutSlotType,
+    PutSlotType (PutSlotType'),
+    newPutSlotType,
+    PutSlotTypeResponse (PutSlotTypeResponse'),
+    newPutSlotTypeResponse,
 
     -- ** StartImport
-    module Network.AWS.LexModels.StartImport,
+    StartImport (StartImport'),
+    newStartImport,
+    StartImportResponse (StartImportResponse'),
+    newStartImportResponse,
 
     -- ** DeleteIntent
-    module Network.AWS.LexModels.DeleteIntent,
+    DeleteIntent (DeleteIntent'),
+    newDeleteIntent,
+    DeleteIntentResponse (DeleteIntentResponse'),
+    newDeleteIntentResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.LexModels.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** CreateSlotTypeVersion
-    module Network.AWS.LexModels.CreateSlotTypeVersion,
+    CreateSlotTypeVersion (CreateSlotTypeVersion'),
+    newCreateSlotTypeVersion,
+    CreateSlotTypeVersionResponse (CreateSlotTypeVersionResponse'),
+    newCreateSlotTypeVersionResponse,
 
     -- ** GetIntent
-    module Network.AWS.LexModels.GetIntent,
+    GetIntent (GetIntent'),
+    newGetIntent,
+    GetIntentResponse (GetIntentResponse'),
+    newGetIntentResponse,
 
     -- ** DeleteBotVersion
-    module Network.AWS.LexModels.DeleteBotVersion,
+    DeleteBotVersion (DeleteBotVersion'),
+    newDeleteBotVersion,
+    DeleteBotVersionResponse (DeleteBotVersionResponse'),
+    newDeleteBotVersionResponse,
 
     -- ** DeleteBotChannelAssociation
-    module Network.AWS.LexModels.DeleteBotChannelAssociation,
+    DeleteBotChannelAssociation (DeleteBotChannelAssociation'),
+    newDeleteBotChannelAssociation,
+    DeleteBotChannelAssociationResponse (DeleteBotChannelAssociationResponse'),
+    newDeleteBotChannelAssociationResponse,
 
     -- * Types
 
@@ -222,228 +341,128 @@ module Network.AWS.LexModels
     StatusType (..),
 
     -- ** BotAliasMetadata
-    BotAliasMetadata,
-    botAliasMetadata,
-    bamCreatedDate,
-    bamBotName,
-    bamLastUpdatedDate,
-    bamBotVersion,
-    bamName,
-    bamDescription,
-    bamChecksum,
-    bamConversationLogs,
+    BotAliasMetadata (BotAliasMetadata'),
+    newBotAliasMetadata,
 
     -- ** BotChannelAssociation
-    BotChannelAssociation,
-    botChannelAssociation,
-    bcaBotAlias,
-    bcaCreatedDate,
-    bcaStatus,
-    bcaBotConfiguration,
-    bcaBotName,
-    bcaName,
-    bcaFailureReason,
-    bcaDescription,
-    bcaType,
+    BotChannelAssociation (BotChannelAssociation'),
+    newBotChannelAssociation,
 
     -- ** BotMetadata
-    BotMetadata,
-    botMetadata,
-    bmCreatedDate,
-    bmStatus,
-    bmLastUpdatedDate,
-    bmVersion,
-    bmName,
-    bmDescription,
+    BotMetadata (BotMetadata'),
+    newBotMetadata,
 
     -- ** BuiltinIntentMetadata
-    BuiltinIntentMetadata,
-    builtinIntentMetadata,
-    bimSignature,
-    bimSupportedLocales,
+    BuiltinIntentMetadata (BuiltinIntentMetadata'),
+    newBuiltinIntentMetadata,
 
     -- ** BuiltinIntentSlot
-    BuiltinIntentSlot,
-    builtinIntentSlot,
-    bisName,
+    BuiltinIntentSlot (BuiltinIntentSlot'),
+    newBuiltinIntentSlot,
 
     -- ** BuiltinSlotTypeMetadata
-    BuiltinSlotTypeMetadata,
-    builtinSlotTypeMetadata,
-    bstmSignature,
-    bstmSupportedLocales,
+    BuiltinSlotTypeMetadata (BuiltinSlotTypeMetadata'),
+    newBuiltinSlotTypeMetadata,
 
     -- ** CodeHook
-    CodeHook,
-    codeHook,
-    chUri,
-    chMessageVersion,
+    CodeHook (CodeHook'),
+    newCodeHook,
 
     -- ** ConversationLogsRequest
-    ConversationLogsRequest,
-    conversationLogsRequest,
-    clrLogSettings,
-    clrIamRoleARN,
+    ConversationLogsRequest (ConversationLogsRequest'),
+    newConversationLogsRequest,
 
     -- ** ConversationLogsResponse
-    ConversationLogsResponse,
-    conversationLogsResponse,
-    cIamRoleARN,
-    cLogSettings,
+    ConversationLogsResponse (ConversationLogsResponse'),
+    newConversationLogsResponse,
 
     -- ** EnumerationValue
-    EnumerationValue,
-    enumerationValue,
-    evSynonyms,
-    evValue,
+    EnumerationValue (EnumerationValue'),
+    newEnumerationValue,
 
     -- ** FollowUpPrompt
-    FollowUpPrompt,
-    followUpPrompt,
-    fupPrompt,
-    fupRejectionStatement,
+    FollowUpPrompt (FollowUpPrompt'),
+    newFollowUpPrompt,
 
     -- ** FulfillmentActivity
-    FulfillmentActivity,
-    fulfillmentActivity,
-    faCodeHook,
-    faType,
+    FulfillmentActivity (FulfillmentActivity'),
+    newFulfillmentActivity,
 
     -- ** InputContext
-    InputContext,
-    inputContext,
-    icName,
+    InputContext (InputContext'),
+    newInputContext,
 
     -- ** Intent
-    Intent,
-    intent,
-    iIntentName,
-    iIntentVersion,
+    Intent (Intent'),
+    newIntent,
 
     -- ** IntentMetadata
-    IntentMetadata,
-    intentMetadata,
-    imCreatedDate,
-    imLastUpdatedDate,
-    imVersion,
-    imName,
-    imDescription,
+    IntentMetadata (IntentMetadata'),
+    newIntentMetadata,
 
     -- ** KendraConfiguration
-    KendraConfiguration,
-    kendraConfiguration,
-    kcQueryFilterString,
-    kcKendraIndex,
-    kcRole,
+    KendraConfiguration (KendraConfiguration'),
+    newKendraConfiguration,
 
     -- ** LogSettingsRequest
-    LogSettingsRequest,
-    logSettingsRequest,
-    lsrKmsKeyARN,
-    lsrLogType,
-    lsrDestination,
-    lsrResourceARN,
+    LogSettingsRequest (LogSettingsRequest'),
+    newLogSettingsRequest,
 
     -- ** LogSettingsResponse
-    LogSettingsResponse,
-    logSettingsResponse,
-    lResourceARN,
-    lLogType,
-    lKmsKeyARN,
-    lDestination,
-    lResourcePrefix,
+    LogSettingsResponse (LogSettingsResponse'),
+    newLogSettingsResponse,
 
     -- ** Message
-    Message,
-    message,
-    mGroupNumber,
-    mContentType,
-    mContent,
+    Message (Message'),
+    newMessage,
 
     -- ** OutputContext
-    OutputContext,
-    outputContext,
-    ocName,
-    ocTimeToLiveInSeconds,
-    ocTurnsToLive,
+    OutputContext (OutputContext'),
+    newOutputContext,
 
     -- ** Prompt
-    Prompt,
-    prompt,
-    pResponseCard,
-    pMessages,
-    pMaxAttempts,
+    Prompt (Prompt'),
+    newPrompt,
 
     -- ** Slot
-    Slot,
-    slot,
-    sloResponseCard,
-    sloValueElicitationPrompt,
-    sloSlotType,
-    sloSlotTypeVersion,
-    sloPriority,
-    sloSampleUtterances,
-    sloDescription,
-    sloDefaultValueSpec,
-    sloObfuscationSetting,
-    sloName,
-    sloSlotConstraint,
+    Slot (Slot'),
+    newSlot,
 
     -- ** SlotDefaultValue
-    SlotDefaultValue,
-    slotDefaultValue,
-    sdvDefaultValue,
+    SlotDefaultValue (SlotDefaultValue'),
+    newSlotDefaultValue,
 
     -- ** SlotDefaultValueSpec
-    SlotDefaultValueSpec,
-    slotDefaultValueSpec,
-    sdvsDefaultValueList,
+    SlotDefaultValueSpec (SlotDefaultValueSpec'),
+    newSlotDefaultValueSpec,
 
     -- ** SlotTypeConfiguration
-    SlotTypeConfiguration,
-    slotTypeConfiguration,
-    stcRegexConfiguration,
+    SlotTypeConfiguration (SlotTypeConfiguration'),
+    newSlotTypeConfiguration,
 
     -- ** SlotTypeMetadata
-    SlotTypeMetadata,
-    slotTypeMetadata,
-    stmCreatedDate,
-    stmLastUpdatedDate,
-    stmVersion,
-    stmName,
-    stmDescription,
+    SlotTypeMetadata (SlotTypeMetadata'),
+    newSlotTypeMetadata,
 
     -- ** SlotTypeRegexConfiguration
-    SlotTypeRegexConfiguration,
-    slotTypeRegexConfiguration,
-    strcPattern,
+    SlotTypeRegexConfiguration (SlotTypeRegexConfiguration'),
+    newSlotTypeRegexConfiguration,
 
     -- ** Statement
-    Statement,
-    statement,
-    sResponseCard,
-    sMessages,
+    Statement (Statement'),
+    newStatement,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** UtteranceData
-    UtteranceData,
-    utteranceData,
-    udUtteranceString,
-    udDistinctUsers,
-    udCount,
-    udFirstUtteredDate,
-    udLastUtteredDate,
+    UtteranceData (UtteranceData'),
+    newUtteranceData,
 
     -- ** UtteranceList
-    UtteranceList,
-    utteranceList,
-    ulBotVersion,
-    ulUtterances,
+    UtteranceList (UtteranceList'),
+    newUtteranceList,
   )
 where
 
@@ -478,6 +497,7 @@ import Network.AWS.LexModels.GetSlotType
 import Network.AWS.LexModels.GetSlotTypeVersions
 import Network.AWS.LexModels.GetSlotTypes
 import Network.AWS.LexModels.GetUtterancesView
+import Network.AWS.LexModels.Lens
 import Network.AWS.LexModels.ListTagsForResource
 import Network.AWS.LexModels.PutBot
 import Network.AWS.LexModels.PutBotAlias

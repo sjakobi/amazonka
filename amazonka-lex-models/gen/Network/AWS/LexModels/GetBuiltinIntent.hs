@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,149 +23,167 @@
 --
 -- Returns information about a built-in intent.
 --
---
--- This operation requires permission for the @lex:GetBuiltinIntent@ action.
+-- This operation requires permission for the @lex:GetBuiltinIntent@
+-- action.
 module Network.AWS.LexModels.GetBuiltinIntent
   ( -- * Creating a Request
-    getBuiltinIntent,
-    GetBuiltinIntent,
+    GetBuiltinIntent (..),
+    newGetBuiltinIntent,
 
     -- * Request Lenses
-    gbiSignature,
+    getBuiltinIntent_signature,
 
     -- * Destructuring the Response
-    getBuiltinIntentResponse,
-    GetBuiltinIntentResponse,
+    GetBuiltinIntentResponse (..),
+    newGetBuiltinIntentResponse,
 
     -- * Response Lenses
-    gbirrsSlots,
-    gbirrsSignature,
-    gbirrsSupportedLocales,
-    gbirrsResponseStatus,
+    getBuiltinIntentResponse_slots,
+    getBuiltinIntentResponse_signature,
+    getBuiltinIntentResponse_supportedLocales,
+    getBuiltinIntentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.LexModels.Types.BuiltinIntentSlot
+import Network.AWS.LexModels.Types.Locale
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getBuiltinIntent' smart constructor.
-newtype GetBuiltinIntent = GetBuiltinIntent'
-  { _gbiSignature ::
-      Text
+-- | /See:/ 'newGetBuiltinIntent' smart constructor.
+data GetBuiltinIntent = GetBuiltinIntent'
+  { -- | The unique identifier for a built-in intent. To find the signature for
+    -- an intent, see
+    -- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
+    -- in the /Alexa Skills Kit/.
+    signature :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBuiltinIntent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBuiltinIntent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbiSignature' - The unique identifier for a built-in intent. To find the signature for an intent, see <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents> in the /Alexa Skills Kit/ .
-getBuiltinIntent ::
-  -- | 'gbiSignature'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'signature', 'getBuiltinIntent_signature' - The unique identifier for a built-in intent. To find the signature for
+-- an intent, see
+-- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
+-- in the /Alexa Skills Kit/.
+newGetBuiltinIntent ::
+  -- | 'signature'
+  Prelude.Text ->
   GetBuiltinIntent
-getBuiltinIntent pSignature_ =
-  GetBuiltinIntent' {_gbiSignature = pSignature_}
+newGetBuiltinIntent pSignature_ =
+  GetBuiltinIntent' {signature = pSignature_}
 
--- | The unique identifier for a built-in intent. To find the signature for an intent, see <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents> in the /Alexa Skills Kit/ .
-gbiSignature :: Lens' GetBuiltinIntent Text
-gbiSignature = lens _gbiSignature (\s a -> s {_gbiSignature = a})
+-- | The unique identifier for a built-in intent. To find the signature for
+-- an intent, see
+-- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
+-- in the /Alexa Skills Kit/.
+getBuiltinIntent_signature :: Lens.Lens' GetBuiltinIntent Prelude.Text
+getBuiltinIntent_signature = Lens.lens (\GetBuiltinIntent' {signature} -> signature) (\s@GetBuiltinIntent' {} a -> s {signature = a} :: GetBuiltinIntent)
 
-instance AWSRequest GetBuiltinIntent where
+instance Prelude.AWSRequest GetBuiltinIntent where
   type Rs GetBuiltinIntent = GetBuiltinIntentResponse
-  request = get lexModels
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetBuiltinIntentResponse'
-            <$> (x .?> "slots" .!@ mempty)
-            <*> (x .?> "signature")
-            <*> (x .?> "supportedLocales" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "slots" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "signature")
+            Prelude.<*> ( x Prelude..?> "supportedLocales"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBuiltinIntent
+instance Prelude.Hashable GetBuiltinIntent
 
-instance NFData GetBuiltinIntent
+instance Prelude.NFData GetBuiltinIntent
 
-instance ToHeaders GetBuiltinIntent where
+instance Prelude.ToHeaders GetBuiltinIntent where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetBuiltinIntent where
+instance Prelude.ToPath GetBuiltinIntent where
   toPath GetBuiltinIntent' {..} =
-    mconcat ["/builtins/intents/", toBS _gbiSignature]
+    Prelude.mconcat
+      ["/builtins/intents/", Prelude.toBS signature]
 
-instance ToQuery GetBuiltinIntent where
-  toQuery = const mempty
+instance Prelude.ToQuery GetBuiltinIntent where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getBuiltinIntentResponse' smart constructor.
+-- | /See:/ 'newGetBuiltinIntentResponse' smart constructor.
 data GetBuiltinIntentResponse = GetBuiltinIntentResponse'
-  { _gbirrsSlots ::
-      !( Maybe
-           [BuiltinIntentSlot]
-       ),
-    _gbirrsSignature ::
-      !(Maybe Text),
-    _gbirrsSupportedLocales ::
-      !(Maybe [Locale]),
-    _gbirrsResponseStatus ::
-      !Int
+  { -- | An array of @BuiltinIntentSlot@ objects, one entry for each slot type in
+    -- the intent.
+    slots :: Prelude.Maybe [BuiltinIntentSlot],
+    -- | The unique identifier for a built-in intent.
+    signature :: Prelude.Maybe Prelude.Text,
+    -- | A list of locales that the intent supports.
+    supportedLocales :: Prelude.Maybe [Locale],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBuiltinIntentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBuiltinIntentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbirrsSlots' - An array of @BuiltinIntentSlot@ objects, one entry for each slot type in the intent.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbirrsSignature' - The unique identifier for a built-in intent.
+-- 'slots', 'getBuiltinIntentResponse_slots' - An array of @BuiltinIntentSlot@ objects, one entry for each slot type in
+-- the intent.
 --
--- * 'gbirrsSupportedLocales' - A list of locales that the intent supports.
+-- 'signature', 'getBuiltinIntentResponse_signature' - The unique identifier for a built-in intent.
 --
--- * 'gbirrsResponseStatus' - -- | The response status code.
-getBuiltinIntentResponse ::
-  -- | 'gbirrsResponseStatus'
-  Int ->
+-- 'supportedLocales', 'getBuiltinIntentResponse_supportedLocales' - A list of locales that the intent supports.
+--
+-- 'httpStatus', 'getBuiltinIntentResponse_httpStatus' - The response's http status code.
+newGetBuiltinIntentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBuiltinIntentResponse
-getBuiltinIntentResponse pResponseStatus_ =
+newGetBuiltinIntentResponse pHttpStatus_ =
   GetBuiltinIntentResponse'
-    { _gbirrsSlots = Nothing,
-      _gbirrsSignature = Nothing,
-      _gbirrsSupportedLocales = Nothing,
-      _gbirrsResponseStatus = pResponseStatus_
+    { slots = Prelude.Nothing,
+      signature = Prelude.Nothing,
+      supportedLocales = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of @BuiltinIntentSlot@ objects, one entry for each slot type in the intent.
-gbirrsSlots :: Lens' GetBuiltinIntentResponse [BuiltinIntentSlot]
-gbirrsSlots = lens _gbirrsSlots (\s a -> s {_gbirrsSlots = a}) . _Default . _Coerce
+-- | An array of @BuiltinIntentSlot@ objects, one entry for each slot type in
+-- the intent.
+getBuiltinIntentResponse_slots :: Lens.Lens' GetBuiltinIntentResponse (Prelude.Maybe [BuiltinIntentSlot])
+getBuiltinIntentResponse_slots = Lens.lens (\GetBuiltinIntentResponse' {slots} -> slots) (\s@GetBuiltinIntentResponse' {} a -> s {slots = a} :: GetBuiltinIntentResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The unique identifier for a built-in intent.
-gbirrsSignature :: Lens' GetBuiltinIntentResponse (Maybe Text)
-gbirrsSignature = lens _gbirrsSignature (\s a -> s {_gbirrsSignature = a})
+getBuiltinIntentResponse_signature :: Lens.Lens' GetBuiltinIntentResponse (Prelude.Maybe Prelude.Text)
+getBuiltinIntentResponse_signature = Lens.lens (\GetBuiltinIntentResponse' {signature} -> signature) (\s@GetBuiltinIntentResponse' {} a -> s {signature = a} :: GetBuiltinIntentResponse)
 
 -- | A list of locales that the intent supports.
-gbirrsSupportedLocales :: Lens' GetBuiltinIntentResponse [Locale]
-gbirrsSupportedLocales = lens _gbirrsSupportedLocales (\s a -> s {_gbirrsSupportedLocales = a}) . _Default . _Coerce
+getBuiltinIntentResponse_supportedLocales :: Lens.Lens' GetBuiltinIntentResponse (Prelude.Maybe [Locale])
+getBuiltinIntentResponse_supportedLocales = Lens.lens (\GetBuiltinIntentResponse' {supportedLocales} -> supportedLocales) (\s@GetBuiltinIntentResponse' {} a -> s {supportedLocales = a} :: GetBuiltinIntentResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gbirrsResponseStatus :: Lens' GetBuiltinIntentResponse Int
-gbirrsResponseStatus = lens _gbirrsResponseStatus (\s a -> s {_gbirrsResponseStatus = a})
+-- | The response's http status code.
+getBuiltinIntentResponse_httpStatus :: Lens.Lens' GetBuiltinIntentResponse Prelude.Int
+getBuiltinIntentResponse_httpStatus = Lens.lens (\GetBuiltinIntentResponse' {httpStatus} -> httpStatus) (\s@GetBuiltinIntentResponse' {} a -> s {httpStatus = a} :: GetBuiltinIntentResponse)
 
-instance NFData GetBuiltinIntentResponse
+instance Prelude.NFData GetBuiltinIntentResponse

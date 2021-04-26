@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexModels.Types.BuiltinIntentMetadata where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexModels.Types.Locale
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides metadata for a built-in intent.
 --
---
---
--- /See:/ 'builtinIntentMetadata' smart constructor.
+-- /See:/ 'newBuiltinIntentMetadata' smart constructor.
 data BuiltinIntentMetadata = BuiltinIntentMetadata'
-  { _bimSignature ::
-      !(Maybe Text),
-    _bimSupportedLocales ::
-      !(Maybe [Locale])
+  { -- | A unique identifier for the built-in intent. To find the signature for
+    -- an intent, see
+    -- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
+    -- in the /Alexa Skills Kit/.
+    signature :: Prelude.Maybe Prelude.Text,
+    -- | A list of identifiers for the locales that the intent supports.
+    supportedLocales :: Prelude.Maybe [Locale]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BuiltinIntentMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BuiltinIntentMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bimSignature' - A unique identifier for the built-in intent. To find the signature for an intent, see <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents> in the /Alexa Skills Kit/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bimSupportedLocales' - A list of identifiers for the locales that the intent supports.
-builtinIntentMetadata ::
+-- 'signature', 'builtinIntentMetadata_signature' - A unique identifier for the built-in intent. To find the signature for
+-- an intent, see
+-- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
+-- in the /Alexa Skills Kit/.
+--
+-- 'supportedLocales', 'builtinIntentMetadata_supportedLocales' - A list of identifiers for the locales that the intent supports.
+newBuiltinIntentMetadata ::
   BuiltinIntentMetadata
-builtinIntentMetadata =
+newBuiltinIntentMetadata =
   BuiltinIntentMetadata'
-    { _bimSignature = Nothing,
-      _bimSupportedLocales = Nothing
+    { signature = Prelude.Nothing,
+      supportedLocales = Prelude.Nothing
     }
 
--- | A unique identifier for the built-in intent. To find the signature for an intent, see <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents> in the /Alexa Skills Kit/ .
-bimSignature :: Lens' BuiltinIntentMetadata (Maybe Text)
-bimSignature = lens _bimSignature (\s a -> s {_bimSignature = a})
+-- | A unique identifier for the built-in intent. To find the signature for
+-- an intent, see
+-- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
+-- in the /Alexa Skills Kit/.
+builtinIntentMetadata_signature :: Lens.Lens' BuiltinIntentMetadata (Prelude.Maybe Prelude.Text)
+builtinIntentMetadata_signature = Lens.lens (\BuiltinIntentMetadata' {signature} -> signature) (\s@BuiltinIntentMetadata' {} a -> s {signature = a} :: BuiltinIntentMetadata)
 
 -- | A list of identifiers for the locales that the intent supports.
-bimSupportedLocales :: Lens' BuiltinIntentMetadata [Locale]
-bimSupportedLocales = lens _bimSupportedLocales (\s a -> s {_bimSupportedLocales = a}) . _Default . _Coerce
+builtinIntentMetadata_supportedLocales :: Lens.Lens' BuiltinIntentMetadata (Prelude.Maybe [Locale])
+builtinIntentMetadata_supportedLocales = Lens.lens (\BuiltinIntentMetadata' {supportedLocales} -> supportedLocales) (\s@BuiltinIntentMetadata' {} a -> s {supportedLocales = a} :: BuiltinIntentMetadata) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON BuiltinIntentMetadata where
+instance Prelude.FromJSON BuiltinIntentMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BuiltinIntentMetadata"
       ( \x ->
           BuiltinIntentMetadata'
-            <$> (x .:? "signature")
-            <*> (x .:? "supportedLocales" .!= mempty)
+            Prelude.<$> (x Prelude..:? "signature")
+            Prelude.<*> ( x Prelude..:? "supportedLocales"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable BuiltinIntentMetadata
+instance Prelude.Hashable BuiltinIntentMetadata
 
-instance NFData BuiltinIntentMetadata
+instance Prelude.NFData BuiltinIntentMetadata
