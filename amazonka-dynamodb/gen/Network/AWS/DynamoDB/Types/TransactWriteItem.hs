@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,72 +23,78 @@ import Network.AWS.DynamoDB.Types.ConditionCheck
 import Network.AWS.DynamoDB.Types.Delete
 import Network.AWS.DynamoDB.Types.Put
 import Network.AWS.DynamoDB.Types.Update
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of requests that can perform update, put, delete, or check operations on multiple items in one or more tables atomically.
+-- | A list of requests that can perform update, put, delete, or check
+-- operations on multiple items in one or more tables atomically.
 --
---
---
--- /See:/ 'transactWriteItem' smart constructor.
+-- /See:/ 'newTransactWriteItem' smart constructor.
 data TransactWriteItem = TransactWriteItem'
-  { _twiPut ::
-      !(Maybe Put),
-    _twiConditionCheck ::
-      !(Maybe ConditionCheck),
-    _twiUpdate :: !(Maybe Update),
-    _twiDelete :: !(Maybe Delete)
+  { -- | A request to perform a @PutItem@ operation.
+    put :: Prelude.Maybe Put,
+    -- | A request to perform a check item operation.
+    conditionCheck :: Prelude.Maybe ConditionCheck,
+    -- | A request to perform an @UpdateItem@ operation.
+    update :: Prelude.Maybe Update,
+    -- | A request to perform a @DeleteItem@ operation.
+    delete' :: Prelude.Maybe Delete
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransactWriteItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransactWriteItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'twiPut' - A request to perform a @PutItem@ operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'twiConditionCheck' - A request to perform a check item operation.
+-- 'put', 'transactWriteItem_put' - A request to perform a @PutItem@ operation.
 --
--- * 'twiUpdate' - A request to perform an @UpdateItem@ operation.
+-- 'conditionCheck', 'transactWriteItem_conditionCheck' - A request to perform a check item operation.
 --
--- * 'twiDelete' - A request to perform a @DeleteItem@ operation.
-transactWriteItem ::
+-- 'update', 'transactWriteItem_update' - A request to perform an @UpdateItem@ operation.
+--
+-- 'delete'', 'transactWriteItem_delete' - A request to perform a @DeleteItem@ operation.
+newTransactWriteItem ::
   TransactWriteItem
-transactWriteItem =
+newTransactWriteItem =
   TransactWriteItem'
-    { _twiPut = Nothing,
-      _twiConditionCheck = Nothing,
-      _twiUpdate = Nothing,
-      _twiDelete = Nothing
+    { put = Prelude.Nothing,
+      conditionCheck = Prelude.Nothing,
+      update = Prelude.Nothing,
+      delete' = Prelude.Nothing
     }
 
 -- | A request to perform a @PutItem@ operation.
-twiPut :: Lens' TransactWriteItem (Maybe Put)
-twiPut = lens _twiPut (\s a -> s {_twiPut = a})
+transactWriteItem_put :: Lens.Lens' TransactWriteItem (Prelude.Maybe Put)
+transactWriteItem_put = Lens.lens (\TransactWriteItem' {put} -> put) (\s@TransactWriteItem' {} a -> s {put = a} :: TransactWriteItem)
 
 -- | A request to perform a check item operation.
-twiConditionCheck :: Lens' TransactWriteItem (Maybe ConditionCheck)
-twiConditionCheck = lens _twiConditionCheck (\s a -> s {_twiConditionCheck = a})
+transactWriteItem_conditionCheck :: Lens.Lens' TransactWriteItem (Prelude.Maybe ConditionCheck)
+transactWriteItem_conditionCheck = Lens.lens (\TransactWriteItem' {conditionCheck} -> conditionCheck) (\s@TransactWriteItem' {} a -> s {conditionCheck = a} :: TransactWriteItem)
 
 -- | A request to perform an @UpdateItem@ operation.
-twiUpdate :: Lens' TransactWriteItem (Maybe Update)
-twiUpdate = lens _twiUpdate (\s a -> s {_twiUpdate = a})
+transactWriteItem_update :: Lens.Lens' TransactWriteItem (Prelude.Maybe Update)
+transactWriteItem_update = Lens.lens (\TransactWriteItem' {update} -> update) (\s@TransactWriteItem' {} a -> s {update = a} :: TransactWriteItem)
 
 -- | A request to perform a @DeleteItem@ operation.
-twiDelete :: Lens' TransactWriteItem (Maybe Delete)
-twiDelete = lens _twiDelete (\s a -> s {_twiDelete = a})
+transactWriteItem_delete :: Lens.Lens' TransactWriteItem (Prelude.Maybe Delete)
+transactWriteItem_delete = Lens.lens (\TransactWriteItem' {delete'} -> delete') (\s@TransactWriteItem' {} a -> s {delete' = a} :: TransactWriteItem)
 
-instance Hashable TransactWriteItem
+instance Prelude.Hashable TransactWriteItem
 
-instance NFData TransactWriteItem
+instance Prelude.NFData TransactWriteItem
 
-instance ToJSON TransactWriteItem where
+instance Prelude.ToJSON TransactWriteItem where
   toJSON TransactWriteItem' {..} =
-    object
-      ( catMaybes
-          [ ("Put" .=) <$> _twiPut,
-            ("ConditionCheck" .=) <$> _twiConditionCheck,
-            ("Update" .=) <$> _twiUpdate,
-            ("Delete" .=) <$> _twiDelete
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Put" Prelude..=) Prelude.<$> put,
+            ("ConditionCheck" Prelude..=)
+              Prelude.<$> conditionCheck,
+            ("Update" Prelude..=) Prelude.<$> update,
+            ("Delete" Prelude..=) Prelude.<$> delete'
           ]
       )

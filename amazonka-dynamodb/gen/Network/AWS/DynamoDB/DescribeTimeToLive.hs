@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,141 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gives a description of the Time to Live (TTL) status on the specified table.
+-- Gives a description of the Time to Live (TTL) status on the specified
+-- table.
 module Network.AWS.DynamoDB.DescribeTimeToLive
   ( -- * Creating a Request
-    describeTimeToLive,
-    DescribeTimeToLive,
+    DescribeTimeToLive (..),
+    newDescribeTimeToLive,
 
     -- * Request Lenses
-    dttlTableName,
+    describeTimeToLive_tableName,
 
     -- * Destructuring the Response
-    describeTimeToLiveResponse,
-    DescribeTimeToLiveResponse,
+    DescribeTimeToLiveResponse (..),
+    newDescribeTimeToLiveResponse,
 
     -- * Response Lenses
-    dttlrrsTimeToLiveDescription,
-    dttlrrsResponseStatus,
+    describeTimeToLiveResponse_timeToLiveDescription,
+    describeTimeToLiveResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.TimeToLiveDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeTimeToLive' smart constructor.
-newtype DescribeTimeToLive = DescribeTimeToLive'
-  { _dttlTableName ::
-      Text
+-- | /See:/ 'newDescribeTimeToLive' smart constructor.
+data DescribeTimeToLive = DescribeTimeToLive'
+  { -- | The name of the table to be described.
+    tableName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTimeToLive' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTimeToLive' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dttlTableName' - The name of the table to be described.
-describeTimeToLive ::
-  -- | 'dttlTableName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'tableName', 'describeTimeToLive_tableName' - The name of the table to be described.
+newDescribeTimeToLive ::
+  -- | 'tableName'
+  Prelude.Text ->
   DescribeTimeToLive
-describeTimeToLive pTableName_ =
-  DescribeTimeToLive' {_dttlTableName = pTableName_}
+newDescribeTimeToLive pTableName_ =
+  DescribeTimeToLive' {tableName = pTableName_}
 
 -- | The name of the table to be described.
-dttlTableName :: Lens' DescribeTimeToLive Text
-dttlTableName = lens _dttlTableName (\s a -> s {_dttlTableName = a})
+describeTimeToLive_tableName :: Lens.Lens' DescribeTimeToLive Prelude.Text
+describeTimeToLive_tableName = Lens.lens (\DescribeTimeToLive' {tableName} -> tableName) (\s@DescribeTimeToLive' {} a -> s {tableName = a} :: DescribeTimeToLive)
 
-instance AWSRequest DescribeTimeToLive where
+instance Prelude.AWSRequest DescribeTimeToLive where
   type
     Rs DescribeTimeToLive =
       DescribeTimeToLiveResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTimeToLiveResponse'
-            <$> (x .?> "TimeToLiveDescription")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TimeToLiveDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTimeToLive
+instance Prelude.Hashable DescribeTimeToLive
 
-instance NFData DescribeTimeToLive
+instance Prelude.NFData DescribeTimeToLive
 
-instance ToHeaders DescribeTimeToLive where
+instance Prelude.ToHeaders DescribeTimeToLive where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DynamoDB_20120810.DescribeTimeToLive" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DynamoDB_20120810.DescribeTimeToLive" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTimeToLive where
+instance Prelude.ToJSON DescribeTimeToLive where
   toJSON DescribeTimeToLive' {..} =
-    object
-      (catMaybes [Just ("TableName" .= _dttlTableName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("TableName" Prelude..= tableName)]
+      )
 
-instance ToPath DescribeTimeToLive where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTimeToLive where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTimeToLive where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeTimeToLive where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeTimeToLiveResponse' smart constructor.
+-- | /See:/ 'newDescribeTimeToLiveResponse' smart constructor.
 data DescribeTimeToLiveResponse = DescribeTimeToLiveResponse'
-  { _dttlrrsTimeToLiveDescription ::
-      !( Maybe
-           TimeToLiveDescription
-       ),
-    _dttlrrsResponseStatus ::
-      !Int
+  { timeToLiveDescription :: Prelude.Maybe TimeToLiveDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTimeToLiveResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTimeToLiveResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dttlrrsTimeToLiveDescription' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dttlrrsResponseStatus' - -- | The response status code.
-describeTimeToLiveResponse ::
-  -- | 'dttlrrsResponseStatus'
-  Int ->
+-- 'timeToLiveDescription', 'describeTimeToLiveResponse_timeToLiveDescription' -
+--
+-- 'httpStatus', 'describeTimeToLiveResponse_httpStatus' - The response's http status code.
+newDescribeTimeToLiveResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTimeToLiveResponse
-describeTimeToLiveResponse pResponseStatus_ =
+newDescribeTimeToLiveResponse pHttpStatus_ =
   DescribeTimeToLiveResponse'
-    { _dttlrrsTimeToLiveDescription =
-        Nothing,
-      _dttlrrsResponseStatus = pResponseStatus_
+    { timeToLiveDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- |
-dttlrrsTimeToLiveDescription :: Lens' DescribeTimeToLiveResponse (Maybe TimeToLiveDescription)
-dttlrrsTimeToLiveDescription = lens _dttlrrsTimeToLiveDescription (\s a -> s {_dttlrrsTimeToLiveDescription = a})
+describeTimeToLiveResponse_timeToLiveDescription :: Lens.Lens' DescribeTimeToLiveResponse (Prelude.Maybe TimeToLiveDescription)
+describeTimeToLiveResponse_timeToLiveDescription = Lens.lens (\DescribeTimeToLiveResponse' {timeToLiveDescription} -> timeToLiveDescription) (\s@DescribeTimeToLiveResponse' {} a -> s {timeToLiveDescription = a} :: DescribeTimeToLiveResponse)
 
--- | -- | The response status code.
-dttlrrsResponseStatus :: Lens' DescribeTimeToLiveResponse Int
-dttlrrsResponseStatus = lens _dttlrrsResponseStatus (\s a -> s {_dttlrrsResponseStatus = a})
+-- | The response's http status code.
+describeTimeToLiveResponse_httpStatus :: Lens.Lens' DescribeTimeToLiveResponse Prelude.Int
+describeTimeToLiveResponse_httpStatus = Lens.lens (\DescribeTimeToLiveResponse' {httpStatus} -> httpStatus) (\s@DescribeTimeToLiveResponse' {} a -> s {httpStatus = a} :: DescribeTimeToLiveResponse)
 
-instance NFData DescribeTimeToLiveResponse
+instance Prelude.NFData DescribeTimeToLiveResponse

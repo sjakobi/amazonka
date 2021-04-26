@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,128 +21,155 @@ module Network.AWS.DynamoDB.Types.ReplicaGlobalSecondaryIndexSettingsDescription
 
 import Network.AWS.DynamoDB.Types.AutoScalingSettingsDescription
 import Network.AWS.DynamoDB.Types.IndexStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the properties of a global secondary index.
 --
---
---
--- /See:/ 'replicaGlobalSecondaryIndexSettingsDescription' smart constructor.
+-- /See:/ 'newReplicaGlobalSecondaryIndexSettingsDescription' smart constructor.
 data ReplicaGlobalSecondaryIndexSettingsDescription = ReplicaGlobalSecondaryIndexSettingsDescription'
-  { _rgsisdProvisionedWriteCapacityUnits ::
-      !( Maybe
-           Nat
-       ),
-    _rgsisdProvisionedReadCapacityUnits ::
-      !( Maybe
-           Nat
-       ),
-    _rgsisdProvisionedReadCapacityAutoScalingSettings ::
-      !( Maybe
-           AutoScalingSettingsDescription
-       ),
-    _rgsisdProvisionedWriteCapacityAutoScalingSettings ::
-      !( Maybe
-           AutoScalingSettingsDescription
-       ),
-    _rgsisdIndexStatus ::
-      !( Maybe
-           IndexStatus
-       ),
-    _rgsisdIndexName ::
-      !Text
+  { -- | The maximum number of writes consumed per second before DynamoDB returns
+    -- a @ThrottlingException@.
+    provisionedWriteCapacityUnits :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum number of strongly consistent reads consumed per second
+    -- before DynamoDB returns a @ThrottlingException@.
+    provisionedReadCapacityUnits :: Prelude.Maybe Prelude.Nat,
+    -- | Auto scaling settings for a global secondary index replica\'s read
+    -- capacity units.
+    provisionedReadCapacityAutoScalingSettings :: Prelude.Maybe AutoScalingSettingsDescription,
+    -- | Auto scaling settings for a global secondary index replica\'s write
+    -- capacity units.
+    provisionedWriteCapacityAutoScalingSettings :: Prelude.Maybe AutoScalingSettingsDescription,
+    -- | The current status of the global secondary index:
+    --
+    -- -   @CREATING@ - The global secondary index is being created.
+    --
+    -- -   @UPDATING@ - The global secondary index is being updated.
+    --
+    -- -   @DELETING@ - The global secondary index is being deleted.
+    --
+    -- -   @ACTIVE@ - The global secondary index is ready for use.
+    indexStatus :: Prelude.Maybe IndexStatus,
+    -- | The name of the global secondary index. The name must be unique among
+    -- all other indexes on this table.
+    indexName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicaGlobalSecondaryIndexSettingsDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicaGlobalSecondaryIndexSettingsDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgsisdProvisionedWriteCapacityUnits' - The maximum number of writes consumed per second before DynamoDB returns a @ThrottlingException@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgsisdProvisionedReadCapacityUnits' - The maximum number of strongly consistent reads consumed per second before DynamoDB returns a @ThrottlingException@ .
+-- 'provisionedWriteCapacityUnits', 'replicaGlobalSecondaryIndexSettingsDescription_provisionedWriteCapacityUnits' - The maximum number of writes consumed per second before DynamoDB returns
+-- a @ThrottlingException@.
 --
--- * 'rgsisdProvisionedReadCapacityAutoScalingSettings' - Auto scaling settings for a global secondary index replica's read capacity units.
+-- 'provisionedReadCapacityUnits', 'replicaGlobalSecondaryIndexSettingsDescription_provisionedReadCapacityUnits' - The maximum number of strongly consistent reads consumed per second
+-- before DynamoDB returns a @ThrottlingException@.
 --
--- * 'rgsisdProvisionedWriteCapacityAutoScalingSettings' - Auto scaling settings for a global secondary index replica's write capacity units.
+-- 'provisionedReadCapacityAutoScalingSettings', 'replicaGlobalSecondaryIndexSettingsDescription_provisionedReadCapacityAutoScalingSettings' - Auto scaling settings for a global secondary index replica\'s read
+-- capacity units.
 --
--- * 'rgsisdIndexStatus' - The current status of the global secondary index:     * @CREATING@ - The global secondary index is being created.     * @UPDATING@ - The global secondary index is being updated.     * @DELETING@ - The global secondary index is being deleted.     * @ACTIVE@ - The global secondary index is ready for use.
+-- 'provisionedWriteCapacityAutoScalingSettings', 'replicaGlobalSecondaryIndexSettingsDescription_provisionedWriteCapacityAutoScalingSettings' - Auto scaling settings for a global secondary index replica\'s write
+-- capacity units.
 --
--- * 'rgsisdIndexName' - The name of the global secondary index. The name must be unique among all other indexes on this table.
-replicaGlobalSecondaryIndexSettingsDescription ::
-  -- | 'rgsisdIndexName'
-  Text ->
+-- 'indexStatus', 'replicaGlobalSecondaryIndexSettingsDescription_indexStatus' - The current status of the global secondary index:
+--
+-- -   @CREATING@ - The global secondary index is being created.
+--
+-- -   @UPDATING@ - The global secondary index is being updated.
+--
+-- -   @DELETING@ - The global secondary index is being deleted.
+--
+-- -   @ACTIVE@ - The global secondary index is ready for use.
+--
+-- 'indexName', 'replicaGlobalSecondaryIndexSettingsDescription_indexName' - The name of the global secondary index. The name must be unique among
+-- all other indexes on this table.
+newReplicaGlobalSecondaryIndexSettingsDescription ::
+  -- | 'indexName'
+  Prelude.Text ->
   ReplicaGlobalSecondaryIndexSettingsDescription
-replicaGlobalSecondaryIndexSettingsDescription
+newReplicaGlobalSecondaryIndexSettingsDescription
   pIndexName_ =
     ReplicaGlobalSecondaryIndexSettingsDescription'
-      { _rgsisdProvisionedWriteCapacityUnits =
-          Nothing,
-        _rgsisdProvisionedReadCapacityUnits =
-          Nothing,
-        _rgsisdProvisionedReadCapacityAutoScalingSettings =
-          Nothing,
-        _rgsisdProvisionedWriteCapacityAutoScalingSettings =
-          Nothing,
-        _rgsisdIndexStatus =
-          Nothing,
-        _rgsisdIndexName =
-          pIndexName_
+      { provisionedWriteCapacityUnits =
+          Prelude.Nothing,
+        provisionedReadCapacityUnits =
+          Prelude.Nothing,
+        provisionedReadCapacityAutoScalingSettings =
+          Prelude.Nothing,
+        provisionedWriteCapacityAutoScalingSettings =
+          Prelude.Nothing,
+        indexStatus =
+          Prelude.Nothing,
+        indexName = pIndexName_
       }
 
--- | The maximum number of writes consumed per second before DynamoDB returns a @ThrottlingException@ .
-rgsisdProvisionedWriteCapacityUnits :: Lens' ReplicaGlobalSecondaryIndexSettingsDescription (Maybe Natural)
-rgsisdProvisionedWriteCapacityUnits = lens _rgsisdProvisionedWriteCapacityUnits (\s a -> s {_rgsisdProvisionedWriteCapacityUnits = a}) . mapping _Nat
+-- | The maximum number of writes consumed per second before DynamoDB returns
+-- a @ThrottlingException@.
+replicaGlobalSecondaryIndexSettingsDescription_provisionedWriteCapacityUnits :: Lens.Lens' ReplicaGlobalSecondaryIndexSettingsDescription (Prelude.Maybe Prelude.Natural)
+replicaGlobalSecondaryIndexSettingsDescription_provisionedWriteCapacityUnits = Lens.lens (\ReplicaGlobalSecondaryIndexSettingsDescription' {provisionedWriteCapacityUnits} -> provisionedWriteCapacityUnits) (\s@ReplicaGlobalSecondaryIndexSettingsDescription' {} a -> s {provisionedWriteCapacityUnits = a} :: ReplicaGlobalSecondaryIndexSettingsDescription) Prelude.. Lens.mapping Prelude._Nat
 
--- | The maximum number of strongly consistent reads consumed per second before DynamoDB returns a @ThrottlingException@ .
-rgsisdProvisionedReadCapacityUnits :: Lens' ReplicaGlobalSecondaryIndexSettingsDescription (Maybe Natural)
-rgsisdProvisionedReadCapacityUnits = lens _rgsisdProvisionedReadCapacityUnits (\s a -> s {_rgsisdProvisionedReadCapacityUnits = a}) . mapping _Nat
+-- | The maximum number of strongly consistent reads consumed per second
+-- before DynamoDB returns a @ThrottlingException@.
+replicaGlobalSecondaryIndexSettingsDescription_provisionedReadCapacityUnits :: Lens.Lens' ReplicaGlobalSecondaryIndexSettingsDescription (Prelude.Maybe Prelude.Natural)
+replicaGlobalSecondaryIndexSettingsDescription_provisionedReadCapacityUnits = Lens.lens (\ReplicaGlobalSecondaryIndexSettingsDescription' {provisionedReadCapacityUnits} -> provisionedReadCapacityUnits) (\s@ReplicaGlobalSecondaryIndexSettingsDescription' {} a -> s {provisionedReadCapacityUnits = a} :: ReplicaGlobalSecondaryIndexSettingsDescription) Prelude.. Lens.mapping Prelude._Nat
 
--- | Auto scaling settings for a global secondary index replica's read capacity units.
-rgsisdProvisionedReadCapacityAutoScalingSettings :: Lens' ReplicaGlobalSecondaryIndexSettingsDescription (Maybe AutoScalingSettingsDescription)
-rgsisdProvisionedReadCapacityAutoScalingSettings = lens _rgsisdProvisionedReadCapacityAutoScalingSettings (\s a -> s {_rgsisdProvisionedReadCapacityAutoScalingSettings = a})
+-- | Auto scaling settings for a global secondary index replica\'s read
+-- capacity units.
+replicaGlobalSecondaryIndexSettingsDescription_provisionedReadCapacityAutoScalingSettings :: Lens.Lens' ReplicaGlobalSecondaryIndexSettingsDescription (Prelude.Maybe AutoScalingSettingsDescription)
+replicaGlobalSecondaryIndexSettingsDescription_provisionedReadCapacityAutoScalingSettings = Lens.lens (\ReplicaGlobalSecondaryIndexSettingsDescription' {provisionedReadCapacityAutoScalingSettings} -> provisionedReadCapacityAutoScalingSettings) (\s@ReplicaGlobalSecondaryIndexSettingsDescription' {} a -> s {provisionedReadCapacityAutoScalingSettings = a} :: ReplicaGlobalSecondaryIndexSettingsDescription)
 
--- | Auto scaling settings for a global secondary index replica's write capacity units.
-rgsisdProvisionedWriteCapacityAutoScalingSettings :: Lens' ReplicaGlobalSecondaryIndexSettingsDescription (Maybe AutoScalingSettingsDescription)
-rgsisdProvisionedWriteCapacityAutoScalingSettings = lens _rgsisdProvisionedWriteCapacityAutoScalingSettings (\s a -> s {_rgsisdProvisionedWriteCapacityAutoScalingSettings = a})
+-- | Auto scaling settings for a global secondary index replica\'s write
+-- capacity units.
+replicaGlobalSecondaryIndexSettingsDescription_provisionedWriteCapacityAutoScalingSettings :: Lens.Lens' ReplicaGlobalSecondaryIndexSettingsDescription (Prelude.Maybe AutoScalingSettingsDescription)
+replicaGlobalSecondaryIndexSettingsDescription_provisionedWriteCapacityAutoScalingSettings = Lens.lens (\ReplicaGlobalSecondaryIndexSettingsDescription' {provisionedWriteCapacityAutoScalingSettings} -> provisionedWriteCapacityAutoScalingSettings) (\s@ReplicaGlobalSecondaryIndexSettingsDescription' {} a -> s {provisionedWriteCapacityAutoScalingSettings = a} :: ReplicaGlobalSecondaryIndexSettingsDescription)
 
--- | The current status of the global secondary index:     * @CREATING@ - The global secondary index is being created.     * @UPDATING@ - The global secondary index is being updated.     * @DELETING@ - The global secondary index is being deleted.     * @ACTIVE@ - The global secondary index is ready for use.
-rgsisdIndexStatus :: Lens' ReplicaGlobalSecondaryIndexSettingsDescription (Maybe IndexStatus)
-rgsisdIndexStatus = lens _rgsisdIndexStatus (\s a -> s {_rgsisdIndexStatus = a})
+-- | The current status of the global secondary index:
+--
+-- -   @CREATING@ - The global secondary index is being created.
+--
+-- -   @UPDATING@ - The global secondary index is being updated.
+--
+-- -   @DELETING@ - The global secondary index is being deleted.
+--
+-- -   @ACTIVE@ - The global secondary index is ready for use.
+replicaGlobalSecondaryIndexSettingsDescription_indexStatus :: Lens.Lens' ReplicaGlobalSecondaryIndexSettingsDescription (Prelude.Maybe IndexStatus)
+replicaGlobalSecondaryIndexSettingsDescription_indexStatus = Lens.lens (\ReplicaGlobalSecondaryIndexSettingsDescription' {indexStatus} -> indexStatus) (\s@ReplicaGlobalSecondaryIndexSettingsDescription' {} a -> s {indexStatus = a} :: ReplicaGlobalSecondaryIndexSettingsDescription)
 
--- | The name of the global secondary index. The name must be unique among all other indexes on this table.
-rgsisdIndexName :: Lens' ReplicaGlobalSecondaryIndexSettingsDescription Text
-rgsisdIndexName = lens _rgsisdIndexName (\s a -> s {_rgsisdIndexName = a})
+-- | The name of the global secondary index. The name must be unique among
+-- all other indexes on this table.
+replicaGlobalSecondaryIndexSettingsDescription_indexName :: Lens.Lens' ReplicaGlobalSecondaryIndexSettingsDescription Prelude.Text
+replicaGlobalSecondaryIndexSettingsDescription_indexName = Lens.lens (\ReplicaGlobalSecondaryIndexSettingsDescription' {indexName} -> indexName) (\s@ReplicaGlobalSecondaryIndexSettingsDescription' {} a -> s {indexName = a} :: ReplicaGlobalSecondaryIndexSettingsDescription)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ReplicaGlobalSecondaryIndexSettingsDescription
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReplicaGlobalSecondaryIndexSettingsDescription"
       ( \x ->
           ReplicaGlobalSecondaryIndexSettingsDescription'
-            <$> (x .:? "ProvisionedWriteCapacityUnits")
-            <*> (x .:? "ProvisionedReadCapacityUnits")
-            <*> (x .:? "ProvisionedReadCapacityAutoScalingSettings")
-            <*> (x .:? "ProvisionedWriteCapacityAutoScalingSettings")
-            <*> (x .:? "IndexStatus")
-            <*> (x .: "IndexName")
+            Prelude.<$> (x Prelude..:? "ProvisionedWriteCapacityUnits")
+              Prelude.<*> (x Prelude..:? "ProvisionedReadCapacityUnits")
+              Prelude.<*> ( x
+                              Prelude..:? "ProvisionedReadCapacityAutoScalingSettings"
+                          )
+              Prelude.<*> ( x
+                              Prelude..:? "ProvisionedWriteCapacityAutoScalingSettings"
+                          )
+              Prelude.<*> (x Prelude..:? "IndexStatus")
+              Prelude.<*> (x Prelude..: "IndexName")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ReplicaGlobalSecondaryIndexSettingsDescription
 
 instance
-  NFData
+  Prelude.NFData
     ReplicaGlobalSecondaryIndexSettingsDescription

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +21,70 @@ module Network.AWS.DynamoDB.Types.WriteRequest where
 
 import Network.AWS.DynamoDB.Types.DeleteRequest
 import Network.AWS.DynamoDB.Types.PutRequest
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents an operation to perform - either @DeleteItem@ or @PutItem@ . You can only request one of these operations, not both, in a single @WriteRequest@ . If you do need to perform both of these operations, you need to provide two separate @WriteRequest@ objects.
+-- | Represents an operation to perform - either @DeleteItem@ or @PutItem@.
+-- You can only request one of these operations, not both, in a single
+-- @WriteRequest@. If you do need to perform both of these operations, you
+-- need to provide two separate @WriteRequest@ objects.
 --
---
---
--- /See:/ 'writeRequest' smart constructor.
+-- /See:/ 'newWriteRequest' smart constructor.
 data WriteRequest = WriteRequest'
-  { _wrDeleteRequest ::
-      !(Maybe DeleteRequest),
-    _wrPutRequest :: !(Maybe PutRequest)
+  { -- | A request to perform a @DeleteItem@ operation.
+    deleteRequest :: Prelude.Maybe DeleteRequest,
+    -- | A request to perform a @PutItem@ operation.
+    putRequest :: Prelude.Maybe PutRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WriteRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WriteRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wrDeleteRequest' - A request to perform a @DeleteItem@ operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wrPutRequest' - A request to perform a @PutItem@ operation.
-writeRequest ::
+-- 'deleteRequest', 'writeRequest_deleteRequest' - A request to perform a @DeleteItem@ operation.
+--
+-- 'putRequest', 'writeRequest_putRequest' - A request to perform a @PutItem@ operation.
+newWriteRequest ::
   WriteRequest
-writeRequest =
+newWriteRequest =
   WriteRequest'
-    { _wrDeleteRequest = Nothing,
-      _wrPutRequest = Nothing
+    { deleteRequest = Prelude.Nothing,
+      putRequest = Prelude.Nothing
     }
 
 -- | A request to perform a @DeleteItem@ operation.
-wrDeleteRequest :: Lens' WriteRequest (Maybe DeleteRequest)
-wrDeleteRequest = lens _wrDeleteRequest (\s a -> s {_wrDeleteRequest = a})
+writeRequest_deleteRequest :: Lens.Lens' WriteRequest (Prelude.Maybe DeleteRequest)
+writeRequest_deleteRequest = Lens.lens (\WriteRequest' {deleteRequest} -> deleteRequest) (\s@WriteRequest' {} a -> s {deleteRequest = a} :: WriteRequest)
 
 -- | A request to perform a @PutItem@ operation.
-wrPutRequest :: Lens' WriteRequest (Maybe PutRequest)
-wrPutRequest = lens _wrPutRequest (\s a -> s {_wrPutRequest = a})
+writeRequest_putRequest :: Lens.Lens' WriteRequest (Prelude.Maybe PutRequest)
+writeRequest_putRequest = Lens.lens (\WriteRequest' {putRequest} -> putRequest) (\s@WriteRequest' {} a -> s {putRequest = a} :: WriteRequest)
 
-instance FromJSON WriteRequest where
+instance Prelude.FromJSON WriteRequest where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WriteRequest"
       ( \x ->
           WriteRequest'
-            <$> (x .:? "DeleteRequest") <*> (x .:? "PutRequest")
+            Prelude.<$> (x Prelude..:? "DeleteRequest")
+            Prelude.<*> (x Prelude..:? "PutRequest")
       )
 
-instance Hashable WriteRequest
+instance Prelude.Hashable WriteRequest
 
-instance NFData WriteRequest
+instance Prelude.NFData WriteRequest
 
-instance ToJSON WriteRequest where
+instance Prelude.ToJSON WriteRequest where
   toJSON WriteRequest' {..} =
-    object
-      ( catMaybes
-          [ ("DeleteRequest" .=) <$> _wrDeleteRequest,
-            ("PutRequest" .=) <$> _wrPutRequest
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DeleteRequest" Prelude..=)
+              Prelude.<$> deleteRequest,
+            ("PutRequest" Prelude..=) Prelude.<$> putRequest
           ]
       )

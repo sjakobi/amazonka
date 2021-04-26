@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,115 @@
 module Network.AWS.DynamoDB.Types.Projection where
 
 import Network.AWS.DynamoDB.Types.ProjectionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents attributes that are copied (projected) from the table into an index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
+-- | Represents attributes that are copied (projected) from the table into an
+-- index. These are in addition to the primary key attributes and index key
+-- attributes, which are automatically projected.
 --
---
---
--- /See:/ 'projection' smart constructor.
+-- /See:/ 'newProjection' smart constructor.
 data Projection = Projection'
-  { _pNonKeyAttributes ::
-      !(Maybe (List1 Text)),
-    _pProjectionType :: !(Maybe ProjectionType)
+  { -- | Represents the non-key attribute names which will be projected into the
+    -- index.
+    --
+    -- For local secondary indexes, the total count of @NonKeyAttributes@
+    -- summed across all of the local secondary indexes, must not exceed 20. If
+    -- you project the same attribute into two different indexes, this counts
+    -- as two distinct attributes when determining the total.
+    nonKeyAttributes :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The set of attributes that are projected into the index:
+    --
+    -- -   @KEYS_ONLY@ - Only the index and primary keys are projected into the
+    --     index.
+    --
+    -- -   @INCLUDE@ - In addition to the attributes described in @KEYS_ONLY@,
+    --     the secondary index will include other non-key attributes that you
+    --     specify.
+    --
+    -- -   @ALL@ - All of the table attributes are projected into the index.
+    projectionType :: Prelude.Maybe ProjectionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Projection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Projection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pNonKeyAttributes' - Represents the non-key attribute names which will be projected into the index. For local secondary indexes, the total count of @NonKeyAttributes@ summed across all of the local secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pProjectionType' - The set of attributes that are projected into the index:     * @KEYS_ONLY@ - Only the index and primary keys are projected into the index.     * @INCLUDE@ - In addition to the attributes described in @KEYS_ONLY@ , the secondary index will include other non-key attributes that you specify.     * @ALL@ - All of the table attributes are projected into the index.
-projection ::
+-- 'nonKeyAttributes', 'projection_nonKeyAttributes' - Represents the non-key attribute names which will be projected into the
+-- index.
+--
+-- For local secondary indexes, the total count of @NonKeyAttributes@
+-- summed across all of the local secondary indexes, must not exceed 20. If
+-- you project the same attribute into two different indexes, this counts
+-- as two distinct attributes when determining the total.
+--
+-- 'projectionType', 'projection_projectionType' - The set of attributes that are projected into the index:
+--
+-- -   @KEYS_ONLY@ - Only the index and primary keys are projected into the
+--     index.
+--
+-- -   @INCLUDE@ - In addition to the attributes described in @KEYS_ONLY@,
+--     the secondary index will include other non-key attributes that you
+--     specify.
+--
+-- -   @ALL@ - All of the table attributes are projected into the index.
+newProjection ::
   Projection
-projection =
+newProjection =
   Projection'
-    { _pNonKeyAttributes = Nothing,
-      _pProjectionType = Nothing
+    { nonKeyAttributes = Prelude.Nothing,
+      projectionType = Prelude.Nothing
     }
 
--- | Represents the non-key attribute names which will be projected into the index. For local secondary indexes, the total count of @NonKeyAttributes@ summed across all of the local secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.
-pNonKeyAttributes :: Lens' Projection (Maybe (NonEmpty Text))
-pNonKeyAttributes = lens _pNonKeyAttributes (\s a -> s {_pNonKeyAttributes = a}) . mapping _List1
+-- | Represents the non-key attribute names which will be projected into the
+-- index.
+--
+-- For local secondary indexes, the total count of @NonKeyAttributes@
+-- summed across all of the local secondary indexes, must not exceed 20. If
+-- you project the same attribute into two different indexes, this counts
+-- as two distinct attributes when determining the total.
+projection_nonKeyAttributes :: Lens.Lens' Projection (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+projection_nonKeyAttributes = Lens.lens (\Projection' {nonKeyAttributes} -> nonKeyAttributes) (\s@Projection' {} a -> s {nonKeyAttributes = a} :: Projection) Prelude.. Lens.mapping Prelude._List1
 
--- | The set of attributes that are projected into the index:     * @KEYS_ONLY@ - Only the index and primary keys are projected into the index.     * @INCLUDE@ - In addition to the attributes described in @KEYS_ONLY@ , the secondary index will include other non-key attributes that you specify.     * @ALL@ - All of the table attributes are projected into the index.
-pProjectionType :: Lens' Projection (Maybe ProjectionType)
-pProjectionType = lens _pProjectionType (\s a -> s {_pProjectionType = a})
+-- | The set of attributes that are projected into the index:
+--
+-- -   @KEYS_ONLY@ - Only the index and primary keys are projected into the
+--     index.
+--
+-- -   @INCLUDE@ - In addition to the attributes described in @KEYS_ONLY@,
+--     the secondary index will include other non-key attributes that you
+--     specify.
+--
+-- -   @ALL@ - All of the table attributes are projected into the index.
+projection_projectionType :: Lens.Lens' Projection (Prelude.Maybe ProjectionType)
+projection_projectionType = Lens.lens (\Projection' {projectionType} -> projectionType) (\s@Projection' {} a -> s {projectionType = a} :: Projection)
 
-instance FromJSON Projection where
+instance Prelude.FromJSON Projection where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Projection"
       ( \x ->
           Projection'
-            <$> (x .:? "NonKeyAttributes")
-            <*> (x .:? "ProjectionType")
+            Prelude.<$> (x Prelude..:? "NonKeyAttributes")
+            Prelude.<*> (x Prelude..:? "ProjectionType")
       )
 
-instance Hashable Projection
+instance Prelude.Hashable Projection
 
-instance NFData Projection
+instance Prelude.NFData Projection
 
-instance ToJSON Projection where
+instance Prelude.ToJSON Projection where
   toJSON Projection' {..} =
-    object
-      ( catMaybes
-          [ ("NonKeyAttributes" .=) <$> _pNonKeyAttributes,
-            ("ProjectionType" .=) <$> _pProjectionType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NonKeyAttributes" Prelude..=)
+              Prelude.<$> nonKeyAttributes,
+            ("ProjectionType" Prelude..=)
+              Prelude.<$> projectionType
           ]
       )

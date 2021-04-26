@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,292 +21,751 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new item already exists in the specified table, the new item completely replaces the existing item. You can perform a conditional put operation (add a new item if one with the specified primary key doesn't exist), or replace an existing item if it has certain attribute values. You can return the item's attribute values in the same operation, using the @ReturnValues@ parameter.
+-- Creates a new item, or replaces an old item with a new item. If an item
+-- that has the same primary key as the new item already exists in the
+-- specified table, the new item completely replaces the existing item. You
+-- can perform a conditional put operation (add a new item if one with the
+-- specified primary key doesn\'t exist), or replace an existing item if it
+-- has certain attribute values. You can return the item\'s attribute
+-- values in the same operation, using the @ReturnValues@ parameter.
 --
+-- This topic provides general information about the @PutItem@ API.
 --
--- /Important:/ This topic provides general information about the @PutItem@ API.
+-- For information on how to call the @PutItem@ API using the AWS SDK in
+-- specific languages, see the following:
 --
--- For information on how to call the @PutItem@ API using the AWS SDK in specific languages, see the following:
+-- -   <http://docs.aws.amazon.com/goto/aws-cli/dynamodb-2012-08-10/PutItem PutItem in the AWS Command Line Interface>
 --
---     * <http://docs.aws.amazon.com/goto/aws-cli/dynamodb-2012-08-10/PutItem PutItem in the AWS Command Line Interface>
+-- -   <http://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for .NET>
 --
---     * <http://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for .NET>
+-- -   <http://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for C++>
 --
---     * <http://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for C++>
+-- -   <http://docs.aws.amazon.com/goto/SdkForGoV1/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for Go>
 --
---     * <http://docs.aws.amazon.com/goto/SdkForGoV1/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for Go>
+-- -   <http://docs.aws.amazon.com/goto/SdkForJava/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for Java>
 --
---     * <http://docs.aws.amazon.com/goto/SdkForJava/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for Java>
+-- -   <http://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for JavaScript>
 --
---     * <http://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for JavaScript>
+-- -   <http://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for PHP V3>
 --
---     * <http://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for PHP V3>
+-- -   <http://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for Python>
 --
---     * <http://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for Python>
+-- -   <http://docs.aws.amazon.com/goto/SdkForRubyV2/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for Ruby V2>
 --
---     * <http://docs.aws.amazon.com/goto/SdkForRubyV2/dynamodb-2012-08-10/PutItem PutItem in the AWS SDK for Ruby V2>
+-- When you add an item, the primary key attributes are the only required
+-- attributes. Attribute values cannot be null.
 --
+-- Empty String and Binary attribute values are allowed. Attribute values
+-- of type String and Binary must have a length greater than zero if the
+-- attribute is used as a key attribute for a table or index. Set type
+-- attributes cannot be empty.
 --
+-- Invalid Requests with empty values will be rejected with a
+-- @ValidationException@ exception.
 --
--- When you add an item, the primary key attributes are the only required attributes. Attribute values cannot be null.
+-- To prevent a new item from replacing an existing item, use a conditional
+-- expression that contains the @attribute_not_exists@ function with the
+-- name of the attribute being used as the partition key for the table.
+-- Since every record must contain that attribute, the
+-- @attribute_not_exists@ function will only succeed if no matching item
+-- exists.
 --
--- Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a length greater than zero if the attribute is used as a key attribute for a table or index. Set type attributes cannot be empty.
---
--- Invalid Requests with empty values will be rejected with a @ValidationException@ exception.
---
--- For more information about @PutItem@ , see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html Working with Items> in the /Amazon DynamoDB Developer Guide/ .
+-- For more information about @PutItem@, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html Working with Items>
+-- in the /Amazon DynamoDB Developer Guide/.
 module Network.AWS.DynamoDB.PutItem
   ( -- * Creating a Request
-    putItem,
-    PutItem,
+    PutItem (..),
+    newPutItem,
 
     -- * Request Lenses
-    piExpected,
-    piExpressionAttributeValues,
-    piReturnItemCollectionMetrics,
-    piExpressionAttributeNames,
-    piReturnValues,
-    piConditionExpression,
-    piReturnConsumedCapacity,
-    piConditionalOperator,
-    piTableName,
-    piItem,
+    putItem_expected,
+    putItem_expressionAttributeValues,
+    putItem_returnItemCollectionMetrics,
+    putItem_expressionAttributeNames,
+    putItem_returnValues,
+    putItem_conditionExpression,
+    putItem_returnConsumedCapacity,
+    putItem_conditionalOperator,
+    putItem_tableName,
+    putItem_item,
 
     -- * Destructuring the Response
-    putItemResponse,
-    PutItemResponse,
+    PutItemResponse (..),
+    newPutItemResponse,
 
     -- * Response Lenses
-    pirrsItemCollectionMetrics,
-    pirrsAttributes,
-    pirrsConsumedCapacity,
-    pirrsResponseStatus,
+    putItemResponse_itemCollectionMetrics,
+    putItemResponse_attributes,
+    putItemResponse_consumedCapacity,
+    putItemResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.AttributeValue
+import Network.AWS.DynamoDB.Types.ConsumedCapacity
+import Network.AWS.DynamoDB.Types.ItemCollectionMetrics
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @PutItem@ operation.
 --
---
---
--- /See:/ 'putItem' smart constructor.
+-- /See:/ 'newPutItem' smart constructor.
 data PutItem = PutItem'
-  { _piExpected ::
-      !(Maybe (Map Text ExpectedAttributeValue)),
-    _piExpressionAttributeValues ::
-      !(Maybe (Map Text AttributeValue)),
-    _piReturnItemCollectionMetrics ::
-      !(Maybe ReturnItemCollectionMetrics),
-    _piExpressionAttributeNames ::
-      !(Maybe (Map Text Text)),
-    _piReturnValues :: !(Maybe ReturnValue),
-    _piConditionExpression :: !(Maybe Text),
-    _piReturnConsumedCapacity ::
-      !(Maybe ReturnConsumedCapacity),
-    _piConditionalOperator ::
-      !(Maybe ConditionalOperator),
-    _piTableName :: !Text,
-    _piItem :: !(Map Text AttributeValue)
+  { -- | This is a legacy parameter. Use @ConditionExpression@ instead. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html Expected>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    expected :: Prelude.Maybe (Prelude.Map Prelude.Text ExpectedAttributeValue),
+    -- | One or more values that can be substituted in an expression.
+    --
+    -- Use the __:__ (colon) character in an expression to dereference an
+    -- attribute value. For example, suppose that you wanted to check whether
+    -- the value of the /ProductStatus/ attribute was one of the following:
+    --
+    -- @Available | Backordered | Discontinued@
+    --
+    -- You would first need to specify @ExpressionAttributeValues@ as follows:
+    --
+    -- @{ \":avail\":{\"S\":\"Available\"}, \":back\":{\"S\":\"Backordered\"}, \":disc\":{\"S\":\"Discontinued\"} }@
+    --
+    -- You could then use these values in an expression, such as this:
+    --
+    -- @ProductStatus IN (:avail, :back, :disc)@
+    --
+    -- For more information on expression attribute values, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    expressionAttributeValues :: Prelude.Maybe (Prelude.Map Prelude.Text AttributeValue),
+    -- | Determines whether item collection metrics are returned. If set to
+    -- @SIZE@, the response includes statistics about item collections, if any,
+    -- that were modified during the operation are returned in the response. If
+    -- set to @NONE@ (the default), no statistics are returned.
+    returnItemCollectionMetrics :: Prelude.Maybe ReturnItemCollectionMetrics,
+    -- | One or more substitution tokens for attribute names in an expression.
+    -- The following are some use cases for using @ExpressionAttributeNames@:
+    --
+    -- -   To access an attribute whose name conflicts with a DynamoDB reserved
+    --     word.
+    --
+    -- -   To create a placeholder for repeating occurrences of an attribute
+    --     name in an expression.
+    --
+    -- -   To prevent special characters in an attribute name from being
+    --     misinterpreted in an expression.
+    --
+    -- Use the __#__ character in an expression to dereference an attribute
+    -- name. For example, consider the following attribute name:
+    --
+    -- -   @Percentile@
+    --
+    -- The name of this attribute conflicts with a reserved word, so it cannot
+    -- be used directly in an expression. (For the complete list of reserved
+    -- words, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html Reserved Words>
+    -- in the /Amazon DynamoDB Developer Guide/). To work around this, you
+    -- could specify the following for @ExpressionAttributeNames@:
+    --
+    -- -   @{\"#P\":\"Percentile\"}@
+    --
+    -- You could then use this substitution in an expression, as in this
+    -- example:
+    --
+    -- -   @#P = :val@
+    --
+    -- Tokens that begin with the __:__ character are /expression attribute
+    -- values/, which are placeholders for the actual value at runtime.
+    --
+    -- For more information on expression attribute names, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    expressionAttributeNames :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Use @ReturnValues@ if you want to get the item attributes as they
+    -- appeared before they were updated with the @PutItem@ request. For
+    -- @PutItem@, the valid values are:
+    --
+    -- -   @NONE@ - If @ReturnValues@ is not specified, or if its value is
+    --     @NONE@, then nothing is returned. (This setting is the default for
+    --     @ReturnValues@.)
+    --
+    -- -   @ALL_OLD@ - If @PutItem@ overwrote an attribute name-value pair,
+    --     then the content of the old item is returned.
+    --
+    -- The @ReturnValues@ parameter is used by several DynamoDB operations;
+    -- however, @PutItem@ does not recognize any values other than @NONE@ or
+    -- @ALL_OLD@.
+    returnValues :: Prelude.Maybe ReturnValue,
+    -- | A condition that must be satisfied in order for a conditional @PutItem@
+    -- operation to succeed.
+    --
+    -- An expression can contain any of the following:
+    --
+    -- -   Functions:
+    --     @attribute_exists | attribute_not_exists | attribute_type | contains | begins_with | size@
+    --
+    --     These function names are case-sensitive.
+    --
+    -- -   Comparison operators: @= | \<> | \< | > | \<= | >= | BETWEEN | IN @
+    --
+    -- -   Logical operators: @AND | OR | NOT@
+    --
+    -- For more information on condition expressions, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    conditionExpression :: Prelude.Maybe Prelude.Text,
+    returnConsumedCapacity :: Prelude.Maybe ReturnConsumedCapacity,
+    -- | This is a legacy parameter. Use @ConditionExpression@ instead. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    conditionalOperator :: Prelude.Maybe ConditionalOperator,
+    -- | The name of the table to contain the item.
+    tableName :: Prelude.Text,
+    -- | A map of attribute name\/value pairs, one for each attribute. Only the
+    -- primary key attributes are required; you can optionally provide other
+    -- attribute name-value pairs for the item.
+    --
+    -- You must provide all of the attributes for the primary key. For example,
+    -- with a simple primary key, you only need to provide a value for the
+    -- partition key. For a composite primary key, you must provide both values
+    -- for both the partition key and the sort key.
+    --
+    -- If you specify any attributes that are part of an index key, then the
+    -- data types for those attributes must match those of the schema in the
+    -- table\'s attribute definition.
+    --
+    -- Empty String and Binary attribute values are allowed. Attribute values
+    -- of type String and Binary must have a length greater than zero if the
+    -- attribute is used as a key attribute for a table or index.
+    --
+    -- For more information about primary keys, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey Primary Key>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    --
+    -- Each element in the @Item@ map is an @AttributeValue@ object.
+    item :: Prelude.Map Prelude.Text AttributeValue
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'piExpected' - This is a legacy parameter. Use @ConditionExpression@ instead. For more information, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html Expected> in the /Amazon DynamoDB Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'piExpressionAttributeValues' - One or more values that can be substituted in an expression. Use the __:__ (colon) character in an expression to dereference an attribute value. For example, suppose that you wanted to check whether the value of the /ProductStatus/ attribute was one of the following:  @Available | Backordered | Discontinued@  You would first need to specify @ExpressionAttributeValues@ as follows: @{ ":avail":{"S":"Available"}, ":back":{"S":"Backordered"}, ":disc":{"S":"Discontinued"} }@  You could then use these values in an expression, such as this: @ProductStatus IN (:avail, :back, :disc)@  For more information on expression attribute values, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions> in the /Amazon DynamoDB Developer Guide/ .
+-- 'expected', 'putItem_expected' - This is a legacy parameter. Use @ConditionExpression@ instead. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html Expected>
+-- in the /Amazon DynamoDB Developer Guide/.
 --
--- * 'piReturnItemCollectionMetrics' - Determines whether item collection metrics are returned. If set to @SIZE@ , the response includes statistics about item collections, if any, that were modified during the operation are returned in the response. If set to @NONE@ (the default), no statistics are returned.
+-- 'expressionAttributeValues', 'putItem_expressionAttributeValues' - One or more values that can be substituted in an expression.
 --
--- * 'piExpressionAttributeNames' - One or more substitution tokens for attribute names in an expression. The following are some use cases for using @ExpressionAttributeNames@ :     * To access an attribute whose name conflicts with a DynamoDB reserved word.     * To create a placeholder for repeating occurrences of an attribute name in an expression.     * To prevent special characters in an attribute name from being misinterpreted in an expression. Use the __#__ character in an expression to dereference an attribute name. For example, consider the following attribute name:     * @Percentile@  The name of this attribute conflicts with a reserved word, so it cannot be used directly in an expression. (For the complete list of reserved words, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html Reserved Words> in the /Amazon DynamoDB Developer Guide/ ). To work around this, you could specify the following for @ExpressionAttributeNames@ :     * @{"#P":"Percentile"}@  You could then use this substitution in an expression, as in this example:     * @#P = :val@  For more information on expression attribute names, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes> in the /Amazon DynamoDB Developer Guide/ .
+-- Use the __:__ (colon) character in an expression to dereference an
+-- attribute value. For example, suppose that you wanted to check whether
+-- the value of the /ProductStatus/ attribute was one of the following:
 --
--- * 'piReturnValues' - Use @ReturnValues@ if you want to get the item attributes as they appeared before they were updated with the @PutItem@ request. For @PutItem@ , the valid values are:     * @NONE@ - If @ReturnValues@ is not specified, or if its value is @NONE@ , then nothing is returned. (This setting is the default for @ReturnValues@ .)     * @ALL_OLD@ - If @PutItem@ overwrote an attribute name-value pair, then the content of the old item is returned.
+-- @Available | Backordered | Discontinued@
 --
--- * 'piConditionExpression' - A condition that must be satisfied in order for a conditional @PutItem@ operation to succeed. An expression can contain any of the following:     * Functions: @attribute_exists | attribute_not_exists | attribute_type | contains | begins_with | size@  These function names are case-sensitive.     * Comparison operators: @= | <> | < | > | <= | >= | BETWEEN | IN @      * Logical operators: @AND | OR | NOT@  For more information on condition expressions, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions> in the /Amazon DynamoDB Developer Guide/ .
+-- You would first need to specify @ExpressionAttributeValues@ as follows:
 --
--- * 'piReturnConsumedCapacity' - Undocumented member.
+-- @{ \":avail\":{\"S\":\"Available\"}, \":back\":{\"S\":\"Backordered\"}, \":disc\":{\"S\":\"Discontinued\"} }@
 --
--- * 'piConditionalOperator' - This is a legacy parameter. Use @ConditionExpression@ instead. For more information, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator> in the /Amazon DynamoDB Developer Guide/ .
+-- You could then use these values in an expression, such as this:
 --
--- * 'piTableName' - The name of the table to contain the item.
+-- @ProductStatus IN (:avail, :back, :disc)@
 --
--- * 'piItem' - A map of attribute name/value pairs, one for each attribute. Only the primary key attributes are required; you can optionally provide other attribute name-value pairs for the item. You must provide all of the attributes for the primary key. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide both values for both the partition key and the sort key. If you specify any attributes that are part of an index key, then the data types for those attributes must match those of the schema in the table's attribute definition. Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a length greater than zero if the attribute is used as a key attribute for a table or index. For more information about primary keys, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey Primary Key> in the /Amazon DynamoDB Developer Guide/ . Each element in the @Item@ map is an @AttributeValue@ object.
-putItem ::
-  -- | 'piTableName'
-  Text ->
+-- For more information on expression attribute values, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'returnItemCollectionMetrics', 'putItem_returnItemCollectionMetrics' - Determines whether item collection metrics are returned. If set to
+-- @SIZE@, the response includes statistics about item collections, if any,
+-- that were modified during the operation are returned in the response. If
+-- set to @NONE@ (the default), no statistics are returned.
+--
+-- 'expressionAttributeNames', 'putItem_expressionAttributeNames' - One or more substitution tokens for attribute names in an expression.
+-- The following are some use cases for using @ExpressionAttributeNames@:
+--
+-- -   To access an attribute whose name conflicts with a DynamoDB reserved
+--     word.
+--
+-- -   To create a placeholder for repeating occurrences of an attribute
+--     name in an expression.
+--
+-- -   To prevent special characters in an attribute name from being
+--     misinterpreted in an expression.
+--
+-- Use the __#__ character in an expression to dereference an attribute
+-- name. For example, consider the following attribute name:
+--
+-- -   @Percentile@
+--
+-- The name of this attribute conflicts with a reserved word, so it cannot
+-- be used directly in an expression. (For the complete list of reserved
+-- words, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html Reserved Words>
+-- in the /Amazon DynamoDB Developer Guide/). To work around this, you
+-- could specify the following for @ExpressionAttributeNames@:
+--
+-- -   @{\"#P\":\"Percentile\"}@
+--
+-- You could then use this substitution in an expression, as in this
+-- example:
+--
+-- -   @#P = :val@
+--
+-- Tokens that begin with the __:__ character are /expression attribute
+-- values/, which are placeholders for the actual value at runtime.
+--
+-- For more information on expression attribute names, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'returnValues', 'putItem_returnValues' - Use @ReturnValues@ if you want to get the item attributes as they
+-- appeared before they were updated with the @PutItem@ request. For
+-- @PutItem@, the valid values are:
+--
+-- -   @NONE@ - If @ReturnValues@ is not specified, or if its value is
+--     @NONE@, then nothing is returned. (This setting is the default for
+--     @ReturnValues@.)
+--
+-- -   @ALL_OLD@ - If @PutItem@ overwrote an attribute name-value pair,
+--     then the content of the old item is returned.
+--
+-- The @ReturnValues@ parameter is used by several DynamoDB operations;
+-- however, @PutItem@ does not recognize any values other than @NONE@ or
+-- @ALL_OLD@.
+--
+-- 'conditionExpression', 'putItem_conditionExpression' - A condition that must be satisfied in order for a conditional @PutItem@
+-- operation to succeed.
+--
+-- An expression can contain any of the following:
+--
+-- -   Functions:
+--     @attribute_exists | attribute_not_exists | attribute_type | contains | begins_with | size@
+--
+--     These function names are case-sensitive.
+--
+-- -   Comparison operators: @= | \<> | \< | > | \<= | >= | BETWEEN | IN @
+--
+-- -   Logical operators: @AND | OR | NOT@
+--
+-- For more information on condition expressions, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'returnConsumedCapacity', 'putItem_returnConsumedCapacity' - Undocumented member.
+--
+-- 'conditionalOperator', 'putItem_conditionalOperator' - This is a legacy parameter. Use @ConditionExpression@ instead. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'tableName', 'putItem_tableName' - The name of the table to contain the item.
+--
+-- 'item', 'putItem_item' - A map of attribute name\/value pairs, one for each attribute. Only the
+-- primary key attributes are required; you can optionally provide other
+-- attribute name-value pairs for the item.
+--
+-- You must provide all of the attributes for the primary key. For example,
+-- with a simple primary key, you only need to provide a value for the
+-- partition key. For a composite primary key, you must provide both values
+-- for both the partition key and the sort key.
+--
+-- If you specify any attributes that are part of an index key, then the
+-- data types for those attributes must match those of the schema in the
+-- table\'s attribute definition.
+--
+-- Empty String and Binary attribute values are allowed. Attribute values
+-- of type String and Binary must have a length greater than zero if the
+-- attribute is used as a key attribute for a table or index.
+--
+-- For more information about primary keys, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey Primary Key>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- Each element in the @Item@ map is an @AttributeValue@ object.
+newPutItem ::
+  -- | 'tableName'
+  Prelude.Text ->
   PutItem
-putItem pTableName_ =
+newPutItem pTableName_ =
   PutItem'
-    { _piExpected = Nothing,
-      _piExpressionAttributeValues = Nothing,
-      _piReturnItemCollectionMetrics = Nothing,
-      _piExpressionAttributeNames = Nothing,
-      _piReturnValues = Nothing,
-      _piConditionExpression = Nothing,
-      _piReturnConsumedCapacity = Nothing,
-      _piConditionalOperator = Nothing,
-      _piTableName = pTableName_,
-      _piItem = mempty
+    { expected = Prelude.Nothing,
+      expressionAttributeValues = Prelude.Nothing,
+      returnItemCollectionMetrics = Prelude.Nothing,
+      expressionAttributeNames = Prelude.Nothing,
+      returnValues = Prelude.Nothing,
+      conditionExpression = Prelude.Nothing,
+      returnConsumedCapacity = Prelude.Nothing,
+      conditionalOperator = Prelude.Nothing,
+      tableName = pTableName_,
+      item = Prelude.mempty
     }
 
--- | This is a legacy parameter. Use @ConditionExpression@ instead. For more information, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html Expected> in the /Amazon DynamoDB Developer Guide/ .
-piExpected :: Lens' PutItem (HashMap Text ExpectedAttributeValue)
-piExpected = lens _piExpected (\s a -> s {_piExpected = a}) . _Default . _Map
+-- | This is a legacy parameter. Use @ConditionExpression@ instead. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html Expected>
+-- in the /Amazon DynamoDB Developer Guide/.
+putItem_expected :: Lens.Lens' PutItem (Prelude.Maybe (Prelude.HashMap Prelude.Text ExpectedAttributeValue))
+putItem_expected = Lens.lens (\PutItem' {expected} -> expected) (\s@PutItem' {} a -> s {expected = a} :: PutItem) Prelude.. Lens.mapping Prelude._Map
 
--- | One or more values that can be substituted in an expression. Use the __:__ (colon) character in an expression to dereference an attribute value. For example, suppose that you wanted to check whether the value of the /ProductStatus/ attribute was one of the following:  @Available | Backordered | Discontinued@  You would first need to specify @ExpressionAttributeValues@ as follows: @{ ":avail":{"S":"Available"}, ":back":{"S":"Backordered"}, ":disc":{"S":"Discontinued"} }@  You could then use these values in an expression, such as this: @ProductStatus IN (:avail, :back, :disc)@  For more information on expression attribute values, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions> in the /Amazon DynamoDB Developer Guide/ .
-piExpressionAttributeValues :: Lens' PutItem (HashMap Text AttributeValue)
-piExpressionAttributeValues = lens _piExpressionAttributeValues (\s a -> s {_piExpressionAttributeValues = a}) . _Default . _Map
+-- | One or more values that can be substituted in an expression.
+--
+-- Use the __:__ (colon) character in an expression to dereference an
+-- attribute value. For example, suppose that you wanted to check whether
+-- the value of the /ProductStatus/ attribute was one of the following:
+--
+-- @Available | Backordered | Discontinued@
+--
+-- You would first need to specify @ExpressionAttributeValues@ as follows:
+--
+-- @{ \":avail\":{\"S\":\"Available\"}, \":back\":{\"S\":\"Backordered\"}, \":disc\":{\"S\":\"Discontinued\"} }@
+--
+-- You could then use these values in an expression, such as this:
+--
+-- @ProductStatus IN (:avail, :back, :disc)@
+--
+-- For more information on expression attribute values, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions>
+-- in the /Amazon DynamoDB Developer Guide/.
+putItem_expressionAttributeValues :: Lens.Lens' PutItem (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
+putItem_expressionAttributeValues = Lens.lens (\PutItem' {expressionAttributeValues} -> expressionAttributeValues) (\s@PutItem' {} a -> s {expressionAttributeValues = a} :: PutItem) Prelude.. Lens.mapping Prelude._Map
 
--- | Determines whether item collection metrics are returned. If set to @SIZE@ , the response includes statistics about item collections, if any, that were modified during the operation are returned in the response. If set to @NONE@ (the default), no statistics are returned.
-piReturnItemCollectionMetrics :: Lens' PutItem (Maybe ReturnItemCollectionMetrics)
-piReturnItemCollectionMetrics = lens _piReturnItemCollectionMetrics (\s a -> s {_piReturnItemCollectionMetrics = a})
+-- | Determines whether item collection metrics are returned. If set to
+-- @SIZE@, the response includes statistics about item collections, if any,
+-- that were modified during the operation are returned in the response. If
+-- set to @NONE@ (the default), no statistics are returned.
+putItem_returnItemCollectionMetrics :: Lens.Lens' PutItem (Prelude.Maybe ReturnItemCollectionMetrics)
+putItem_returnItemCollectionMetrics = Lens.lens (\PutItem' {returnItemCollectionMetrics} -> returnItemCollectionMetrics) (\s@PutItem' {} a -> s {returnItemCollectionMetrics = a} :: PutItem)
 
--- | One or more substitution tokens for attribute names in an expression. The following are some use cases for using @ExpressionAttributeNames@ :     * To access an attribute whose name conflicts with a DynamoDB reserved word.     * To create a placeholder for repeating occurrences of an attribute name in an expression.     * To prevent special characters in an attribute name from being misinterpreted in an expression. Use the __#__ character in an expression to dereference an attribute name. For example, consider the following attribute name:     * @Percentile@  The name of this attribute conflicts with a reserved word, so it cannot be used directly in an expression. (For the complete list of reserved words, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html Reserved Words> in the /Amazon DynamoDB Developer Guide/ ). To work around this, you could specify the following for @ExpressionAttributeNames@ :     * @{"#P":"Percentile"}@  You could then use this substitution in an expression, as in this example:     * @#P = :val@  For more information on expression attribute names, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes> in the /Amazon DynamoDB Developer Guide/ .
-piExpressionAttributeNames :: Lens' PutItem (HashMap Text Text)
-piExpressionAttributeNames = lens _piExpressionAttributeNames (\s a -> s {_piExpressionAttributeNames = a}) . _Default . _Map
+-- | One or more substitution tokens for attribute names in an expression.
+-- The following are some use cases for using @ExpressionAttributeNames@:
+--
+-- -   To access an attribute whose name conflicts with a DynamoDB reserved
+--     word.
+--
+-- -   To create a placeholder for repeating occurrences of an attribute
+--     name in an expression.
+--
+-- -   To prevent special characters in an attribute name from being
+--     misinterpreted in an expression.
+--
+-- Use the __#__ character in an expression to dereference an attribute
+-- name. For example, consider the following attribute name:
+--
+-- -   @Percentile@
+--
+-- The name of this attribute conflicts with a reserved word, so it cannot
+-- be used directly in an expression. (For the complete list of reserved
+-- words, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html Reserved Words>
+-- in the /Amazon DynamoDB Developer Guide/). To work around this, you
+-- could specify the following for @ExpressionAttributeNames@:
+--
+-- -   @{\"#P\":\"Percentile\"}@
+--
+-- You could then use this substitution in an expression, as in this
+-- example:
+--
+-- -   @#P = :val@
+--
+-- Tokens that begin with the __:__ character are /expression attribute
+-- values/, which are placeholders for the actual value at runtime.
+--
+-- For more information on expression attribute names, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
+-- in the /Amazon DynamoDB Developer Guide/.
+putItem_expressionAttributeNames :: Lens.Lens' PutItem (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+putItem_expressionAttributeNames = Lens.lens (\PutItem' {expressionAttributeNames} -> expressionAttributeNames) (\s@PutItem' {} a -> s {expressionAttributeNames = a} :: PutItem) Prelude.. Lens.mapping Prelude._Map
 
--- | Use @ReturnValues@ if you want to get the item attributes as they appeared before they were updated with the @PutItem@ request. For @PutItem@ , the valid values are:     * @NONE@ - If @ReturnValues@ is not specified, or if its value is @NONE@ , then nothing is returned. (This setting is the default for @ReturnValues@ .)     * @ALL_OLD@ - If @PutItem@ overwrote an attribute name-value pair, then the content of the old item is returned.
-piReturnValues :: Lens' PutItem (Maybe ReturnValue)
-piReturnValues = lens _piReturnValues (\s a -> s {_piReturnValues = a})
+-- | Use @ReturnValues@ if you want to get the item attributes as they
+-- appeared before they were updated with the @PutItem@ request. For
+-- @PutItem@, the valid values are:
+--
+-- -   @NONE@ - If @ReturnValues@ is not specified, or if its value is
+--     @NONE@, then nothing is returned. (This setting is the default for
+--     @ReturnValues@.)
+--
+-- -   @ALL_OLD@ - If @PutItem@ overwrote an attribute name-value pair,
+--     then the content of the old item is returned.
+--
+-- The @ReturnValues@ parameter is used by several DynamoDB operations;
+-- however, @PutItem@ does not recognize any values other than @NONE@ or
+-- @ALL_OLD@.
+putItem_returnValues :: Lens.Lens' PutItem (Prelude.Maybe ReturnValue)
+putItem_returnValues = Lens.lens (\PutItem' {returnValues} -> returnValues) (\s@PutItem' {} a -> s {returnValues = a} :: PutItem)
 
--- | A condition that must be satisfied in order for a conditional @PutItem@ operation to succeed. An expression can contain any of the following:     * Functions: @attribute_exists | attribute_not_exists | attribute_type | contains | begins_with | size@  These function names are case-sensitive.     * Comparison operators: @= | <> | < | > | <= | >= | BETWEEN | IN @      * Logical operators: @AND | OR | NOT@  For more information on condition expressions, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions> in the /Amazon DynamoDB Developer Guide/ .
-piConditionExpression :: Lens' PutItem (Maybe Text)
-piConditionExpression = lens _piConditionExpression (\s a -> s {_piConditionExpression = a})
+-- | A condition that must be satisfied in order for a conditional @PutItem@
+-- operation to succeed.
+--
+-- An expression can contain any of the following:
+--
+-- -   Functions:
+--     @attribute_exists | attribute_not_exists | attribute_type | contains | begins_with | size@
+--
+--     These function names are case-sensitive.
+--
+-- -   Comparison operators: @= | \<> | \< | > | \<= | >= | BETWEEN | IN @
+--
+-- -   Logical operators: @AND | OR | NOT@
+--
+-- For more information on condition expressions, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions>
+-- in the /Amazon DynamoDB Developer Guide/.
+putItem_conditionExpression :: Lens.Lens' PutItem (Prelude.Maybe Prelude.Text)
+putItem_conditionExpression = Lens.lens (\PutItem' {conditionExpression} -> conditionExpression) (\s@PutItem' {} a -> s {conditionExpression = a} :: PutItem)
 
 -- | Undocumented member.
-piReturnConsumedCapacity :: Lens' PutItem (Maybe ReturnConsumedCapacity)
-piReturnConsumedCapacity = lens _piReturnConsumedCapacity (\s a -> s {_piReturnConsumedCapacity = a})
+putItem_returnConsumedCapacity :: Lens.Lens' PutItem (Prelude.Maybe ReturnConsumedCapacity)
+putItem_returnConsumedCapacity = Lens.lens (\PutItem' {returnConsumedCapacity} -> returnConsumedCapacity) (\s@PutItem' {} a -> s {returnConsumedCapacity = a} :: PutItem)
 
--- | This is a legacy parameter. Use @ConditionExpression@ instead. For more information, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator> in the /Amazon DynamoDB Developer Guide/ .
-piConditionalOperator :: Lens' PutItem (Maybe ConditionalOperator)
-piConditionalOperator = lens _piConditionalOperator (\s a -> s {_piConditionalOperator = a})
+-- | This is a legacy parameter. Use @ConditionExpression@ instead. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator>
+-- in the /Amazon DynamoDB Developer Guide/.
+putItem_conditionalOperator :: Lens.Lens' PutItem (Prelude.Maybe ConditionalOperator)
+putItem_conditionalOperator = Lens.lens (\PutItem' {conditionalOperator} -> conditionalOperator) (\s@PutItem' {} a -> s {conditionalOperator = a} :: PutItem)
 
 -- | The name of the table to contain the item.
-piTableName :: Lens' PutItem Text
-piTableName = lens _piTableName (\s a -> s {_piTableName = a})
+putItem_tableName :: Lens.Lens' PutItem Prelude.Text
+putItem_tableName = Lens.lens (\PutItem' {tableName} -> tableName) (\s@PutItem' {} a -> s {tableName = a} :: PutItem)
 
--- | A map of attribute name/value pairs, one for each attribute. Only the primary key attributes are required; you can optionally provide other attribute name-value pairs for the item. You must provide all of the attributes for the primary key. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide both values for both the partition key and the sort key. If you specify any attributes that are part of an index key, then the data types for those attributes must match those of the schema in the table's attribute definition. Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a length greater than zero if the attribute is used as a key attribute for a table or index. For more information about primary keys, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey Primary Key> in the /Amazon DynamoDB Developer Guide/ . Each element in the @Item@ map is an @AttributeValue@ object.
-piItem :: Lens' PutItem (HashMap Text AttributeValue)
-piItem = lens _piItem (\s a -> s {_piItem = a}) . _Map
+-- | A map of attribute name\/value pairs, one for each attribute. Only the
+-- primary key attributes are required; you can optionally provide other
+-- attribute name-value pairs for the item.
+--
+-- You must provide all of the attributes for the primary key. For example,
+-- with a simple primary key, you only need to provide a value for the
+-- partition key. For a composite primary key, you must provide both values
+-- for both the partition key and the sort key.
+--
+-- If you specify any attributes that are part of an index key, then the
+-- data types for those attributes must match those of the schema in the
+-- table\'s attribute definition.
+--
+-- Empty String and Binary attribute values are allowed. Attribute values
+-- of type String and Binary must have a length greater than zero if the
+-- attribute is used as a key attribute for a table or index.
+--
+-- For more information about primary keys, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey Primary Key>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- Each element in the @Item@ map is an @AttributeValue@ object.
+putItem_item :: Lens.Lens' PutItem (Prelude.HashMap Prelude.Text AttributeValue)
+putItem_item = Lens.lens (\PutItem' {item} -> item) (\s@PutItem' {} a -> s {item = a} :: PutItem) Prelude.. Prelude._Map
 
-instance AWSRequest PutItem where
+instance Prelude.AWSRequest PutItem where
   type Rs PutItem = PutItemResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutItemResponse'
-            <$> (x .?> "ItemCollectionMetrics")
-            <*> (x .?> "Attributes" .!@ mempty)
-            <*> (x .?> "ConsumedCapacity")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ItemCollectionMetrics")
+            Prelude.<*> ( x Prelude..?> "Attributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "ConsumedCapacity")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutItem
+instance Prelude.Hashable PutItem
 
-instance NFData PutItem
+instance Prelude.NFData PutItem
 
-instance ToHeaders PutItem where
+instance Prelude.ToHeaders PutItem where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DynamoDB_20120810.PutItem" :: ByteString),
+              Prelude.=# ("DynamoDB_20120810.PutItem" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutItem where
+instance Prelude.ToJSON PutItem where
   toJSON PutItem' {..} =
-    object
-      ( catMaybes
-          [ ("Expected" .=) <$> _piExpected,
-            ("ExpressionAttributeValues" .=)
-              <$> _piExpressionAttributeValues,
-            ("ReturnItemCollectionMetrics" .=)
-              <$> _piReturnItemCollectionMetrics,
-            ("ExpressionAttributeNames" .=)
-              <$> _piExpressionAttributeNames,
-            ("ReturnValues" .=) <$> _piReturnValues,
-            ("ConditionExpression" .=)
-              <$> _piConditionExpression,
-            ("ReturnConsumedCapacity" .=)
-              <$> _piReturnConsumedCapacity,
-            ("ConditionalOperator" .=)
-              <$> _piConditionalOperator,
-            Just ("TableName" .= _piTableName),
-            Just ("Item" .= _piItem)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Expected" Prelude..=) Prelude.<$> expected,
+            ("ExpressionAttributeValues" Prelude..=)
+              Prelude.<$> expressionAttributeValues,
+            ("ReturnItemCollectionMetrics" Prelude..=)
+              Prelude.<$> returnItemCollectionMetrics,
+            ("ExpressionAttributeNames" Prelude..=)
+              Prelude.<$> expressionAttributeNames,
+            ("ReturnValues" Prelude..=) Prelude.<$> returnValues,
+            ("ConditionExpression" Prelude..=)
+              Prelude.<$> conditionExpression,
+            ("ReturnConsumedCapacity" Prelude..=)
+              Prelude.<$> returnConsumedCapacity,
+            ("ConditionalOperator" Prelude..=)
+              Prelude.<$> conditionalOperator,
+            Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just ("Item" Prelude..= item)
           ]
       )
 
-instance ToPath PutItem where
-  toPath = const "/"
+instance Prelude.ToPath PutItem where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutItem where
-  toQuery = const mempty
+instance Prelude.ToQuery PutItem where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @PutItem@ operation.
 --
---
---
--- /See:/ 'putItemResponse' smart constructor.
+-- /See:/ 'newPutItemResponse' smart constructor.
 data PutItemResponse = PutItemResponse'
-  { _pirrsItemCollectionMetrics ::
-      !(Maybe ItemCollectionMetrics),
-    _pirrsAttributes ::
-      !(Maybe (Map Text AttributeValue)),
-    _pirrsConsumedCapacity ::
-      !(Maybe ConsumedCapacity),
-    _pirrsResponseStatus :: !Int
+  { -- | Information about item collections, if any, that were affected by the
+    -- @PutItem@ operation. @ItemCollectionMetrics@ is only returned if the
+    -- @ReturnItemCollectionMetrics@ parameter was specified. If the table does
+    -- not have any local secondary indexes, this information is not returned
+    -- in the response.
+    --
+    -- Each @ItemCollectionMetrics@ element consists of:
+    --
+    -- -   @ItemCollectionKey@ - The partition key value of the item
+    --     collection. This is the same as the partition key value of the item
+    --     itself.
+    --
+    -- -   @SizeEstimateRangeGB@ - An estimate of item collection size, in
+    --     gigabytes. This value is a two-element array containing a lower
+    --     bound and an upper bound for the estimate. The estimate includes the
+    --     size of all the items in the table, plus the size of all attributes
+    --     projected into all of the local secondary indexes on that table. Use
+    --     this estimate to measure whether a local secondary index is
+    --     approaching its size limit.
+    --
+    --     The estimate is subject to change over time; therefore, do not rely
+    --     on the precision or accuracy of the estimate.
+    itemCollectionMetrics :: Prelude.Maybe ItemCollectionMetrics,
+    -- | The attribute values as they appeared before the @PutItem@ operation,
+    -- but only if @ReturnValues@ is specified as @ALL_OLD@ in the request.
+    -- Each element consists of an attribute name and an attribute value.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text AttributeValue),
+    -- | The capacity units consumed by the @PutItem@ operation. The data
+    -- returned includes the total provisioned throughput consumed, along with
+    -- statistics for the table and any indexes involved in the operation.
+    -- @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@
+    -- parameter was specified. For more information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Read\/Write Capacity Mode>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    consumedCapacity :: Prelude.Maybe ConsumedCapacity,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutItemResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutItemResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pirrsItemCollectionMetrics' - Information about item collections, if any, that were affected by the @PutItem@ operation. @ItemCollectionMetrics@ is only returned if the @ReturnItemCollectionMetrics@ parameter was specified. If the table does not have any local secondary indexes, this information is not returned in the response. Each @ItemCollectionMetrics@ element consists of:     * @ItemCollectionKey@ - The partition key value of the item collection. This is the same as the partition key value of the item itself.     * @SizeEstimateRangeGB@ - An estimate of item collection size, in gigabytes. This value is a two-element array containing a lower bound and an upper bound for the estimate. The estimate includes the size of all the items in the table, plus the size of all attributes projected into all of the local secondary indexes on that table. Use this estimate to measure whether a local secondary index is approaching its size limit. The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pirrsAttributes' - The attribute values as they appeared before the @PutItem@ operation, but only if @ReturnValues@ is specified as @ALL_OLD@ in the request. Each element consists of an attribute name and an attribute value.
+-- 'itemCollectionMetrics', 'putItemResponse_itemCollectionMetrics' - Information about item collections, if any, that were affected by the
+-- @PutItem@ operation. @ItemCollectionMetrics@ is only returned if the
+-- @ReturnItemCollectionMetrics@ parameter was specified. If the table does
+-- not have any local secondary indexes, this information is not returned
+-- in the response.
 --
--- * 'pirrsConsumedCapacity' - The capacity units consumed by the @PutItem@ operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@ parameter was specified. For more information, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Read/Write Capacity Mode> in the /Amazon DynamoDB Developer Guide/ .
+-- Each @ItemCollectionMetrics@ element consists of:
 --
--- * 'pirrsResponseStatus' - -- | The response status code.
-putItemResponse ::
-  -- | 'pirrsResponseStatus'
-  Int ->
+-- -   @ItemCollectionKey@ - The partition key value of the item
+--     collection. This is the same as the partition key value of the item
+--     itself.
+--
+-- -   @SizeEstimateRangeGB@ - An estimate of item collection size, in
+--     gigabytes. This value is a two-element array containing a lower
+--     bound and an upper bound for the estimate. The estimate includes the
+--     size of all the items in the table, plus the size of all attributes
+--     projected into all of the local secondary indexes on that table. Use
+--     this estimate to measure whether a local secondary index is
+--     approaching its size limit.
+--
+--     The estimate is subject to change over time; therefore, do not rely
+--     on the precision or accuracy of the estimate.
+--
+-- 'attributes', 'putItemResponse_attributes' - The attribute values as they appeared before the @PutItem@ operation,
+-- but only if @ReturnValues@ is specified as @ALL_OLD@ in the request.
+-- Each element consists of an attribute name and an attribute value.
+--
+-- 'consumedCapacity', 'putItemResponse_consumedCapacity' - The capacity units consumed by the @PutItem@ operation. The data
+-- returned includes the total provisioned throughput consumed, along with
+-- statistics for the table and any indexes involved in the operation.
+-- @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@
+-- parameter was specified. For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Read\/Write Capacity Mode>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'httpStatus', 'putItemResponse_httpStatus' - The response's http status code.
+newPutItemResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutItemResponse
-putItemResponse pResponseStatus_ =
+newPutItemResponse pHttpStatus_ =
   PutItemResponse'
-    { _pirrsItemCollectionMetrics =
-        Nothing,
-      _pirrsAttributes = Nothing,
-      _pirrsConsumedCapacity = Nothing,
-      _pirrsResponseStatus = pResponseStatus_
+    { itemCollectionMetrics =
+        Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      consumedCapacity = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Information about item collections, if any, that were affected by the @PutItem@ operation. @ItemCollectionMetrics@ is only returned if the @ReturnItemCollectionMetrics@ parameter was specified. If the table does not have any local secondary indexes, this information is not returned in the response. Each @ItemCollectionMetrics@ element consists of:     * @ItemCollectionKey@ - The partition key value of the item collection. This is the same as the partition key value of the item itself.     * @SizeEstimateRangeGB@ - An estimate of item collection size, in gigabytes. This value is a two-element array containing a lower bound and an upper bound for the estimate. The estimate includes the size of all the items in the table, plus the size of all attributes projected into all of the local secondary indexes on that table. Use this estimate to measure whether a local secondary index is approaching its size limit. The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
-pirrsItemCollectionMetrics :: Lens' PutItemResponse (Maybe ItemCollectionMetrics)
-pirrsItemCollectionMetrics = lens _pirrsItemCollectionMetrics (\s a -> s {_pirrsItemCollectionMetrics = a})
+-- | Information about item collections, if any, that were affected by the
+-- @PutItem@ operation. @ItemCollectionMetrics@ is only returned if the
+-- @ReturnItemCollectionMetrics@ parameter was specified. If the table does
+-- not have any local secondary indexes, this information is not returned
+-- in the response.
+--
+-- Each @ItemCollectionMetrics@ element consists of:
+--
+-- -   @ItemCollectionKey@ - The partition key value of the item
+--     collection. This is the same as the partition key value of the item
+--     itself.
+--
+-- -   @SizeEstimateRangeGB@ - An estimate of item collection size, in
+--     gigabytes. This value is a two-element array containing a lower
+--     bound and an upper bound for the estimate. The estimate includes the
+--     size of all the items in the table, plus the size of all attributes
+--     projected into all of the local secondary indexes on that table. Use
+--     this estimate to measure whether a local secondary index is
+--     approaching its size limit.
+--
+--     The estimate is subject to change over time; therefore, do not rely
+--     on the precision or accuracy of the estimate.
+putItemResponse_itemCollectionMetrics :: Lens.Lens' PutItemResponse (Prelude.Maybe ItemCollectionMetrics)
+putItemResponse_itemCollectionMetrics = Lens.lens (\PutItemResponse' {itemCollectionMetrics} -> itemCollectionMetrics) (\s@PutItemResponse' {} a -> s {itemCollectionMetrics = a} :: PutItemResponse)
 
--- | The attribute values as they appeared before the @PutItem@ operation, but only if @ReturnValues@ is specified as @ALL_OLD@ in the request. Each element consists of an attribute name and an attribute value.
-pirrsAttributes :: Lens' PutItemResponse (HashMap Text AttributeValue)
-pirrsAttributes = lens _pirrsAttributes (\s a -> s {_pirrsAttributes = a}) . _Default . _Map
+-- | The attribute values as they appeared before the @PutItem@ operation,
+-- but only if @ReturnValues@ is specified as @ALL_OLD@ in the request.
+-- Each element consists of an attribute name and an attribute value.
+putItemResponse_attributes :: Lens.Lens' PutItemResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
+putItemResponse_attributes = Lens.lens (\PutItemResponse' {attributes} -> attributes) (\s@PutItemResponse' {} a -> s {attributes = a} :: PutItemResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | The capacity units consumed by the @PutItem@ operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@ parameter was specified. For more information, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Read/Write Capacity Mode> in the /Amazon DynamoDB Developer Guide/ .
-pirrsConsumedCapacity :: Lens' PutItemResponse (Maybe ConsumedCapacity)
-pirrsConsumedCapacity = lens _pirrsConsumedCapacity (\s a -> s {_pirrsConsumedCapacity = a})
+-- | The capacity units consumed by the @PutItem@ operation. The data
+-- returned includes the total provisioned throughput consumed, along with
+-- statistics for the table and any indexes involved in the operation.
+-- @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@
+-- parameter was specified. For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Read\/Write Capacity Mode>
+-- in the /Amazon DynamoDB Developer Guide/.
+putItemResponse_consumedCapacity :: Lens.Lens' PutItemResponse (Prelude.Maybe ConsumedCapacity)
+putItemResponse_consumedCapacity = Lens.lens (\PutItemResponse' {consumedCapacity} -> consumedCapacity) (\s@PutItemResponse' {} a -> s {consumedCapacity = a} :: PutItemResponse)
 
--- | -- | The response status code.
-pirrsResponseStatus :: Lens' PutItemResponse Int
-pirrsResponseStatus = lens _pirrsResponseStatus (\s a -> s {_pirrsResponseStatus = a})
+-- | The response's http status code.
+putItemResponse_httpStatus :: Lens.Lens' PutItemResponse Prelude.Int
+putItemResponse_httpStatus = Lens.lens (\PutItemResponse' {httpStatus} -> httpStatus) (\s@PutItemResponse' {} a -> s {httpStatus = a} :: PutItemResponse)
 
-instance NFData PutItemResponse
+instance Prelude.NFData PutItemResponse

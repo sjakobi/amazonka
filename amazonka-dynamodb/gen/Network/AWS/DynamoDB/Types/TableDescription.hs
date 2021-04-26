@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -27,243 +31,818 @@ import Network.AWS.DynamoDB.Types.RestoreSummary
 import Network.AWS.DynamoDB.Types.SSEDescription
 import Network.AWS.DynamoDB.Types.StreamSpecification
 import Network.AWS.DynamoDB.Types.TableStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the properties of a table.
 --
---
---
--- /See:/ 'tableDescription' smart constructor.
+-- /See:/ 'newTableDescription' smart constructor.
 data TableDescription = TableDescription'
-  { _tdGlobalTableVersion ::
-      !(Maybe Text),
-    _tdLocalSecondaryIndexes ::
-      !( Maybe
-           [LocalSecondaryIndexDescription]
-       ),
-    _tdRestoreSummary ::
-      !(Maybe RestoreSummary),
-    _tdStreamSpecification ::
-      !(Maybe StreamSpecification),
-    _tdGlobalSecondaryIndexes ::
-      !( Maybe
-           [GlobalSecondaryIndexDescription]
-       ),
-    _tdTableName :: !(Maybe Text),
-    _tdKeySchema ::
-      !(Maybe (List1 KeySchemaElement)),
-    _tdTableARN :: !(Maybe Text),
-    _tdTableId :: !(Maybe Text),
-    _tdAttributeDefinitions ::
-      !(Maybe [AttributeDefinition]),
-    _tdTableSizeBytes :: !(Maybe Integer),
-    _tdBillingModeSummary ::
-      !(Maybe BillingModeSummary),
-    _tdLatestStreamLabel :: !(Maybe Text),
-    _tdArchivalSummary ::
-      !(Maybe ArchivalSummary),
-    _tdItemCount :: !(Maybe Integer),
-    _tdSSEDescription ::
-      !(Maybe SSEDescription),
-    _tdReplicas ::
-      !(Maybe [ReplicaDescription]),
-    _tdCreationDateTime :: !(Maybe POSIX),
-    _tdTableStatus ::
-      !(Maybe TableStatus),
-    _tdProvisionedThroughput ::
-      !( Maybe
-           ProvisionedThroughputDescription
-       ),
-    _tdLatestStreamARN :: !(Maybe Text)
+  { -- | Represents the version of
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html global tables>
+    -- in use, if the table is replicated across AWS Regions.
+    globalTableVersion :: Prelude.Maybe Prelude.Text,
+    -- | Represents one or more local secondary indexes on the table. Each index
+    -- is scoped to a given partition key value. Tables with one or more local
+    -- secondary indexes are subject to an item collection size limit, where
+    -- the amount of data within a given item collection cannot exceed 10 GB.
+    -- Each element is composed of:
+    --
+    -- -   @IndexName@ - The name of the local secondary index.
+    --
+    -- -   @KeySchema@ - Specifies the complete index key schema. The attribute
+    --     names in the key schema must be between 1 and 255 characters
+    --     (inclusive). The key schema must begin with the same partition key
+    --     as the table.
+    --
+    -- -   @Projection@ - Specifies attributes that are copied (projected) from
+    --     the table into the index. These are in addition to the primary key
+    --     attributes and index key attributes, which are automatically
+    --     projected. Each attribute specification is composed of:
+    --
+    --     -   @ProjectionType@ - One of the following:
+    --
+    --         -   @KEYS_ONLY@ - Only the index and primary keys are projected
+    --             into the index.
+    --
+    --         -   @INCLUDE@ - Only the specified table attributes are
+    --             projected into the index. The list of projected attributes
+    --             is in @NonKeyAttributes@.
+    --
+    --         -   @ALL@ - All of the table attributes are projected into the
+    --             index.
+    --
+    --     -   @NonKeyAttributes@ - A list of one or more non-key attribute
+    --         names that are projected into the secondary index. The total
+    --         count of attributes provided in @NonKeyAttributes@, summed
+    --         across all of the secondary indexes, must not exceed 20. If you
+    --         project the same attribute into two different indexes, this
+    --         counts as two distinct attributes when determining the total.
+    --
+    -- -   @IndexSizeBytes@ - Represents the total size of the index, in bytes.
+    --     DynamoDB updates this value approximately every six hours. Recent
+    --     changes might not be reflected in this value.
+    --
+    -- -   @ItemCount@ - Represents the number of items in the index. DynamoDB
+    --     updates this value approximately every six hours. Recent changes
+    --     might not be reflected in this value.
+    --
+    -- If the table is in the @DELETING@ state, no information about indexes
+    -- will be returned.
+    localSecondaryIndexes :: Prelude.Maybe [LocalSecondaryIndexDescription],
+    -- | Contains details for the restore.
+    restoreSummary :: Prelude.Maybe RestoreSummary,
+    -- | The current DynamoDB Streams configuration for the table.
+    streamSpecification :: Prelude.Maybe StreamSpecification,
+    -- | The global secondary indexes, if any, on the table. Each index is scoped
+    -- to a given partition key value. Each element is composed of:
+    --
+    -- -   @Backfilling@ - If true, then the index is currently in the
+    --     backfilling phase. Backfilling occurs only when a new global
+    --     secondary index is added to the table. It is the process by which
+    --     DynamoDB populates the new index with data from the table. (This
+    --     attribute does not appear for indexes that were created during a
+    --     @CreateTable@ operation.)
+    --
+    --     You can delete an index that is being created during the
+    --     @Backfilling@ phase when @IndexStatus@ is set to CREATING and
+    --     @Backfilling@ is true. You can\'t delete the index that is being
+    --     created when @IndexStatus@ is set to CREATING and @Backfilling@ is
+    --     false. (This attribute does not appear for indexes that were created
+    --     during a @CreateTable@ operation.)
+    --
+    -- -   @IndexName@ - The name of the global secondary index.
+    --
+    -- -   @IndexSizeBytes@ - The total size of the global secondary index, in
+    --     bytes. DynamoDB updates this value approximately every six hours.
+    --     Recent changes might not be reflected in this value.
+    --
+    -- -   @IndexStatus@ - The current status of the global secondary index:
+    --
+    --     -   @CREATING@ - The index is being created.
+    --
+    --     -   @UPDATING@ - The index is being updated.
+    --
+    --     -   @DELETING@ - The index is being deleted.
+    --
+    --     -   @ACTIVE@ - The index is ready for use.
+    --
+    -- -   @ItemCount@ - The number of items in the global secondary index.
+    --     DynamoDB updates this value approximately every six hours. Recent
+    --     changes might not be reflected in this value.
+    --
+    -- -   @KeySchema@ - Specifies the complete index key schema. The attribute
+    --     names in the key schema must be between 1 and 255 characters
+    --     (inclusive). The key schema must begin with the same partition key
+    --     as the table.
+    --
+    -- -   @Projection@ - Specifies attributes that are copied (projected) from
+    --     the table into the index. These are in addition to the primary key
+    --     attributes and index key attributes, which are automatically
+    --     projected. Each attribute specification is composed of:
+    --
+    --     -   @ProjectionType@ - One of the following:
+    --
+    --         -   @KEYS_ONLY@ - Only the index and primary keys are projected
+    --             into the index.
+    --
+    --         -   @INCLUDE@ - In addition to the attributes described in
+    --             @KEYS_ONLY@, the secondary index will include other non-key
+    --             attributes that you specify.
+    --
+    --         -   @ALL@ - All of the table attributes are projected into the
+    --             index.
+    --
+    --     -   @NonKeyAttributes@ - A list of one or more non-key attribute
+    --         names that are projected into the secondary index. The total
+    --         count of attributes provided in @NonKeyAttributes@, summed
+    --         across all of the secondary indexes, must not exceed 20. If you
+    --         project the same attribute into two different indexes, this
+    --         counts as two distinct attributes when determining the total.
+    --
+    -- -   @ProvisionedThroughput@ - The provisioned throughput settings for
+    --     the global secondary index, consisting of read and write capacity
+    --     units, along with data about increases and decreases.
+    --
+    -- If the table is in the @DELETING@ state, no information about indexes
+    -- will be returned.
+    globalSecondaryIndexes :: Prelude.Maybe [GlobalSecondaryIndexDescription],
+    -- | The name of the table.
+    tableName :: Prelude.Maybe Prelude.Text,
+    -- | The primary key structure for the table. Each @KeySchemaElement@
+    -- consists of:
+    --
+    -- -   @AttributeName@ - The name of the attribute.
+    --
+    -- -   @KeyType@ - The role of the attribute:
+    --
+    --     -   @HASH@ - partition key
+    --
+    --     -   @RANGE@ - sort key
+    --
+    --     The partition key of an item is also known as its /hash attribute/.
+    --     The term \"hash attribute\" derives from DynamoDB\'s usage of an
+    --     internal hash function to evenly distribute data items across
+    --     partitions, based on their partition key values.
+    --
+    --     The sort key of an item is also known as its /range attribute/. The
+    --     term \"range attribute\" derives from the way DynamoDB stores items
+    --     with the same partition key physically close together, in sorted
+    --     order by the sort key value.
+    --
+    -- For more information about primary keys, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey Primary Key>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    keySchema :: Prelude.Maybe (Prelude.List1 KeySchemaElement),
+    -- | The Amazon Resource Name (ARN) that uniquely identifies the table.
+    tableArn :: Prelude.Maybe Prelude.Text,
+    -- | Unique identifier for the table for which the backup was created.
+    tableId :: Prelude.Maybe Prelude.Text,
+    -- | An array of @AttributeDefinition@ objects. Each of these objects
+    -- describes one attribute in the table and index key schema.
+    --
+    -- Each @AttributeDefinition@ object in this array is composed of:
+    --
+    -- -   @AttributeName@ - The name of the attribute.
+    --
+    -- -   @AttributeType@ - The data type for the attribute.
+    attributeDefinitions :: Prelude.Maybe [AttributeDefinition],
+    -- | The total size of the specified table, in bytes. DynamoDB updates this
+    -- value approximately every six hours. Recent changes might not be
+    -- reflected in this value.
+    tableSizeBytes :: Prelude.Maybe Prelude.Integer,
+    -- | Contains the details for the read\/write capacity mode.
+    billingModeSummary :: Prelude.Maybe BillingModeSummary,
+    -- | A timestamp, in ISO 8601 format, for this stream.
+    --
+    -- Note that @LatestStreamLabel@ is not a unique identifier for the stream,
+    -- because it is possible that a stream from another table might have the
+    -- same timestamp. However, the combination of the following three elements
+    -- is guaranteed to be unique:
+    --
+    -- -   AWS customer ID
+    --
+    -- -   Table name
+    --
+    -- -   @StreamLabel@
+    latestStreamLabel :: Prelude.Maybe Prelude.Text,
+    -- | Contains information about the table archive.
+    archivalSummary :: Prelude.Maybe ArchivalSummary,
+    -- | The number of items in the specified table. DynamoDB updates this value
+    -- approximately every six hours. Recent changes might not be reflected in
+    -- this value.
+    itemCount :: Prelude.Maybe Prelude.Integer,
+    -- | The description of the server-side encryption status on the specified
+    -- table.
+    sSEDescription :: Prelude.Maybe SSEDescription,
+    -- | Represents replicas of the table.
+    replicas :: Prelude.Maybe [ReplicaDescription],
+    -- | The date and time when the table was created, in
+    -- <http://www.epochconverter.com/ UNIX epoch time> format.
+    creationDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The current state of the table:
+    --
+    -- -   @CREATING@ - The table is being created.
+    --
+    -- -   @UPDATING@ - The table is being updated.
+    --
+    -- -   @DELETING@ - The table is being deleted.
+    --
+    -- -   @ACTIVE@ - The table is ready for use.
+    --
+    -- -   @INACCESSIBLE_ENCRYPTION_CREDENTIALS@ - The AWS KMS key used to
+    --     encrypt the table in inaccessible. Table operations may fail due to
+    --     failure to use the AWS KMS key. DynamoDB will initiate the table
+    --     archival process when a table\'s AWS KMS key remains inaccessible
+    --     for more than seven days.
+    --
+    -- -   @ARCHIVING@ - The table is being archived. Operations are not
+    --     allowed until archival is complete.
+    --
+    -- -   @ARCHIVED@ - The table has been archived. See the ArchivalReason for
+    --     more information.
+    tableStatus :: Prelude.Maybe TableStatus,
+    -- | The provisioned throughput settings for the table, consisting of read
+    -- and write capacity units, along with data about increases and decreases.
+    provisionedThroughput :: Prelude.Maybe ProvisionedThroughputDescription,
+    -- | The Amazon Resource Name (ARN) that uniquely identifies the latest
+    -- stream for this table.
+    latestStreamArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TableDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TableDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdGlobalTableVersion' - Represents the version of <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html global tables> in use, if the table is replicated across AWS Regions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdLocalSecondaryIndexes' - Represents one or more local secondary indexes on the table. Each index is scoped to a given partition key value. Tables with one or more local secondary indexes are subject to an item collection size limit, where the amount of data within a given item collection cannot exceed 10 GB. Each element is composed of:     * @IndexName@ - The name of the local secondary index.     * @KeySchema@ - Specifies the complete index key schema. The attribute names in the key schema must be between 1 and 255 characters (inclusive). The key schema must begin with the same partition key as the table.     * @Projection@ - Specifies attributes that are copied (projected) from the table into the index. These are in addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute specification is composed of:     * @ProjectionType@ - One of the following:     * @KEYS_ONLY@ - Only the index and primary keys are projected into the index.     * @INCLUDE@ - Only the specified table attributes are projected into the index. The list of projected attributes is in @NonKeyAttributes@ .     * @ALL@ - All of the table attributes are projected into the index.     * @NonKeyAttributes@ - A list of one or more non-key attribute names that are projected into the secondary index. The total count of attributes provided in @NonKeyAttributes@ , summed across all of the secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.     * @IndexSizeBytes@ - Represents the total size of the index, in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.     * @ItemCount@ - Represents the number of items in the index. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value. If the table is in the @DELETING@ state, no information about indexes will be returned.
+-- 'globalTableVersion', 'tableDescription_globalTableVersion' - Represents the version of
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html global tables>
+-- in use, if the table is replicated across AWS Regions.
 --
--- * 'tdRestoreSummary' - Contains details for the restore.
+-- 'localSecondaryIndexes', 'tableDescription_localSecondaryIndexes' - Represents one or more local secondary indexes on the table. Each index
+-- is scoped to a given partition key value. Tables with one or more local
+-- secondary indexes are subject to an item collection size limit, where
+-- the amount of data within a given item collection cannot exceed 10 GB.
+-- Each element is composed of:
 --
--- * 'tdStreamSpecification' - The current DynamoDB Streams configuration for the table.
+-- -   @IndexName@ - The name of the local secondary index.
 --
--- * 'tdGlobalSecondaryIndexes' - The global secondary indexes, if any, on the table. Each index is scoped to a given partition key value. Each element is composed of:     * @Backfilling@ - If true, then the index is currently in the backfilling phase. Backfilling occurs only when a new global secondary index is added to the table. It is the process by which DynamoDB populates the new index with data from the table. (This attribute does not appear for indexes that were created during a @CreateTable@ operation.)  You can delete an index that is being created during the @Backfilling@ phase when @IndexStatus@ is set to CREATING and @Backfilling@ is true. You can't delete the index that is being created when @IndexStatus@ is set to CREATING and @Backfilling@ is false. (This attribute does not appear for indexes that were created during a @CreateTable@ operation.)     * @IndexName@ - The name of the global secondary index.     * @IndexSizeBytes@ - The total size of the global secondary index, in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.      * @IndexStatus@ - The current status of the global secondary index:     * @CREATING@ - The index is being created.     * @UPDATING@ - The index is being updated.     * @DELETING@ - The index is being deleted.     * @ACTIVE@ - The index is ready for use.     * @ItemCount@ - The number of items in the global secondary index. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.      * @KeySchema@ - Specifies the complete index key schema. The attribute names in the key schema must be between 1 and 255 characters (inclusive). The key schema must begin with the same partition key as the table.     * @Projection@ - Specifies attributes that are copied (projected) from the table into the index. These are in addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute specification is composed of:     * @ProjectionType@ - One of the following:     * @KEYS_ONLY@ - Only the index and primary keys are projected into the index.     * @INCLUDE@ - In addition to the attributes described in @KEYS_ONLY@ , the secondary index will include other non-key attributes that you specify.     * @ALL@ - All of the table attributes are projected into the index.     * @NonKeyAttributes@ - A list of one or more non-key attribute names that are projected into the secondary index. The total count of attributes provided in @NonKeyAttributes@ , summed across all of the secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.     * @ProvisionedThroughput@ - The provisioned throughput settings for the global secondary index, consisting of read and write capacity units, along with data about increases and decreases.  If the table is in the @DELETING@ state, no information about indexes will be returned.
+-- -   @KeySchema@ - Specifies the complete index key schema. The attribute
+--     names in the key schema must be between 1 and 255 characters
+--     (inclusive). The key schema must begin with the same partition key
+--     as the table.
 --
--- * 'tdTableName' - The name of the table.
+-- -   @Projection@ - Specifies attributes that are copied (projected) from
+--     the table into the index. These are in addition to the primary key
+--     attributes and index key attributes, which are automatically
+--     projected. Each attribute specification is composed of:
 --
--- * 'tdKeySchema' - The primary key structure for the table. Each @KeySchemaElement@ consists of:     * @AttributeName@ - The name of the attribute.     * @KeyType@ - The role of the attribute:     * @HASH@ - partition key     * @RANGE@ - sort key For more information about primary keys, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey Primary Key> in the /Amazon DynamoDB Developer Guide/ .
+--     -   @ProjectionType@ - One of the following:
 --
--- * 'tdTableARN' - The Amazon Resource Name (ARN) that uniquely identifies the table.
+--         -   @KEYS_ONLY@ - Only the index and primary keys are projected
+--             into the index.
 --
--- * 'tdTableId' - Unique identifier for the table for which the backup was created.
+--         -   @INCLUDE@ - Only the specified table attributes are
+--             projected into the index. The list of projected attributes
+--             is in @NonKeyAttributes@.
 --
--- * 'tdAttributeDefinitions' - An array of @AttributeDefinition@ objects. Each of these objects describes one attribute in the table and index key schema. Each @AttributeDefinition@ object in this array is composed of:     * @AttributeName@ - The name of the attribute.     * @AttributeType@ - The data type for the attribute.
+--         -   @ALL@ - All of the table attributes are projected into the
+--             index.
 --
--- * 'tdTableSizeBytes' - The total size of the specified table, in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
+--     -   @NonKeyAttributes@ - A list of one or more non-key attribute
+--         names that are projected into the secondary index. The total
+--         count of attributes provided in @NonKeyAttributes@, summed
+--         across all of the secondary indexes, must not exceed 20. If you
+--         project the same attribute into two different indexes, this
+--         counts as two distinct attributes when determining the total.
 --
--- * 'tdBillingModeSummary' - Contains the details for the read/write capacity mode.
+-- -   @IndexSizeBytes@ - Represents the total size of the index, in bytes.
+--     DynamoDB updates this value approximately every six hours. Recent
+--     changes might not be reflected in this value.
 --
--- * 'tdLatestStreamLabel' - A timestamp, in ISO 8601 format, for this stream. Note that @LatestStreamLabel@ is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:     * AWS customer ID     * Table name     * @StreamLabel@
+-- -   @ItemCount@ - Represents the number of items in the index. DynamoDB
+--     updates this value approximately every six hours. Recent changes
+--     might not be reflected in this value.
 --
--- * 'tdArchivalSummary' - Contains information about the table archive.
+-- If the table is in the @DELETING@ state, no information about indexes
+-- will be returned.
 --
--- * 'tdItemCount' - The number of items in the specified table. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
+-- 'restoreSummary', 'tableDescription_restoreSummary' - Contains details for the restore.
 --
--- * 'tdSSEDescription' - The description of the server-side encryption status on the specified table.
+-- 'streamSpecification', 'tableDescription_streamSpecification' - The current DynamoDB Streams configuration for the table.
 --
--- * 'tdReplicas' - Represents replicas of the table.
+-- 'globalSecondaryIndexes', 'tableDescription_globalSecondaryIndexes' - The global secondary indexes, if any, on the table. Each index is scoped
+-- to a given partition key value. Each element is composed of:
 --
--- * 'tdCreationDateTime' - The date and time when the table was created, in <http://www.epochconverter.com/ UNIX epoch time> format.
+-- -   @Backfilling@ - If true, then the index is currently in the
+--     backfilling phase. Backfilling occurs only when a new global
+--     secondary index is added to the table. It is the process by which
+--     DynamoDB populates the new index with data from the table. (This
+--     attribute does not appear for indexes that were created during a
+--     @CreateTable@ operation.)
 --
--- * 'tdTableStatus' - The current state of the table:     * @CREATING@ - The table is being created.     * @UPDATING@ - The table is being updated.     * @DELETING@ - The table is being deleted.     * @ACTIVE@ - The table is ready for use.     * @INACCESSIBLE_ENCRYPTION_CREDENTIALS@ - The AWS KMS key used to encrypt the table in inaccessible. Table operations may fail due to failure to use the AWS KMS key. DynamoDB will initiate the table archival process when a table's AWS KMS key remains inaccessible for more than seven days.      * @ARCHIVING@ - The table is being archived. Operations are not allowed until archival is complete.      * @ARCHIVED@ - The table has been archived. See the ArchivalReason for more information.
+--     You can delete an index that is being created during the
+--     @Backfilling@ phase when @IndexStatus@ is set to CREATING and
+--     @Backfilling@ is true. You can\'t delete the index that is being
+--     created when @IndexStatus@ is set to CREATING and @Backfilling@ is
+--     false. (This attribute does not appear for indexes that were created
+--     during a @CreateTable@ operation.)
 --
--- * 'tdProvisionedThroughput' - The provisioned throughput settings for the table, consisting of read and write capacity units, along with data about increases and decreases.
+-- -   @IndexName@ - The name of the global secondary index.
 --
--- * 'tdLatestStreamARN' - The Amazon Resource Name (ARN) that uniquely identifies the latest stream for this table.
-tableDescription ::
+-- -   @IndexSizeBytes@ - The total size of the global secondary index, in
+--     bytes. DynamoDB updates this value approximately every six hours.
+--     Recent changes might not be reflected in this value.
+--
+-- -   @IndexStatus@ - The current status of the global secondary index:
+--
+--     -   @CREATING@ - The index is being created.
+--
+--     -   @UPDATING@ - The index is being updated.
+--
+--     -   @DELETING@ - The index is being deleted.
+--
+--     -   @ACTIVE@ - The index is ready for use.
+--
+-- -   @ItemCount@ - The number of items in the global secondary index.
+--     DynamoDB updates this value approximately every six hours. Recent
+--     changes might not be reflected in this value.
+--
+-- -   @KeySchema@ - Specifies the complete index key schema. The attribute
+--     names in the key schema must be between 1 and 255 characters
+--     (inclusive). The key schema must begin with the same partition key
+--     as the table.
+--
+-- -   @Projection@ - Specifies attributes that are copied (projected) from
+--     the table into the index. These are in addition to the primary key
+--     attributes and index key attributes, which are automatically
+--     projected. Each attribute specification is composed of:
+--
+--     -   @ProjectionType@ - One of the following:
+--
+--         -   @KEYS_ONLY@ - Only the index and primary keys are projected
+--             into the index.
+--
+--         -   @INCLUDE@ - In addition to the attributes described in
+--             @KEYS_ONLY@, the secondary index will include other non-key
+--             attributes that you specify.
+--
+--         -   @ALL@ - All of the table attributes are projected into the
+--             index.
+--
+--     -   @NonKeyAttributes@ - A list of one or more non-key attribute
+--         names that are projected into the secondary index. The total
+--         count of attributes provided in @NonKeyAttributes@, summed
+--         across all of the secondary indexes, must not exceed 20. If you
+--         project the same attribute into two different indexes, this
+--         counts as two distinct attributes when determining the total.
+--
+-- -   @ProvisionedThroughput@ - The provisioned throughput settings for
+--     the global secondary index, consisting of read and write capacity
+--     units, along with data about increases and decreases.
+--
+-- If the table is in the @DELETING@ state, no information about indexes
+-- will be returned.
+--
+-- 'tableName', 'tableDescription_tableName' - The name of the table.
+--
+-- 'keySchema', 'tableDescription_keySchema' - The primary key structure for the table. Each @KeySchemaElement@
+-- consists of:
+--
+-- -   @AttributeName@ - The name of the attribute.
+--
+-- -   @KeyType@ - The role of the attribute:
+--
+--     -   @HASH@ - partition key
+--
+--     -   @RANGE@ - sort key
+--
+--     The partition key of an item is also known as its /hash attribute/.
+--     The term \"hash attribute\" derives from DynamoDB\'s usage of an
+--     internal hash function to evenly distribute data items across
+--     partitions, based on their partition key values.
+--
+--     The sort key of an item is also known as its /range attribute/. The
+--     term \"range attribute\" derives from the way DynamoDB stores items
+--     with the same partition key physically close together, in sorted
+--     order by the sort key value.
+--
+-- For more information about primary keys, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey Primary Key>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'tableArn', 'tableDescription_tableArn' - The Amazon Resource Name (ARN) that uniquely identifies the table.
+--
+-- 'tableId', 'tableDescription_tableId' - Unique identifier for the table for which the backup was created.
+--
+-- 'attributeDefinitions', 'tableDescription_attributeDefinitions' - An array of @AttributeDefinition@ objects. Each of these objects
+-- describes one attribute in the table and index key schema.
+--
+-- Each @AttributeDefinition@ object in this array is composed of:
+--
+-- -   @AttributeName@ - The name of the attribute.
+--
+-- -   @AttributeType@ - The data type for the attribute.
+--
+-- 'tableSizeBytes', 'tableDescription_tableSizeBytes' - The total size of the specified table, in bytes. DynamoDB updates this
+-- value approximately every six hours. Recent changes might not be
+-- reflected in this value.
+--
+-- 'billingModeSummary', 'tableDescription_billingModeSummary' - Contains the details for the read\/write capacity mode.
+--
+-- 'latestStreamLabel', 'tableDescription_latestStreamLabel' - A timestamp, in ISO 8601 format, for this stream.
+--
+-- Note that @LatestStreamLabel@ is not a unique identifier for the stream,
+-- because it is possible that a stream from another table might have the
+-- same timestamp. However, the combination of the following three elements
+-- is guaranteed to be unique:
+--
+-- -   AWS customer ID
+--
+-- -   Table name
+--
+-- -   @StreamLabel@
+--
+-- 'archivalSummary', 'tableDescription_archivalSummary' - Contains information about the table archive.
+--
+-- 'itemCount', 'tableDescription_itemCount' - The number of items in the specified table. DynamoDB updates this value
+-- approximately every six hours. Recent changes might not be reflected in
+-- this value.
+--
+-- 'sSEDescription', 'tableDescription_sSEDescription' - The description of the server-side encryption status on the specified
+-- table.
+--
+-- 'replicas', 'tableDescription_replicas' - Represents replicas of the table.
+--
+-- 'creationDateTime', 'tableDescription_creationDateTime' - The date and time when the table was created, in
+-- <http://www.epochconverter.com/ UNIX epoch time> format.
+--
+-- 'tableStatus', 'tableDescription_tableStatus' - The current state of the table:
+--
+-- -   @CREATING@ - The table is being created.
+--
+-- -   @UPDATING@ - The table is being updated.
+--
+-- -   @DELETING@ - The table is being deleted.
+--
+-- -   @ACTIVE@ - The table is ready for use.
+--
+-- -   @INACCESSIBLE_ENCRYPTION_CREDENTIALS@ - The AWS KMS key used to
+--     encrypt the table in inaccessible. Table operations may fail due to
+--     failure to use the AWS KMS key. DynamoDB will initiate the table
+--     archival process when a table\'s AWS KMS key remains inaccessible
+--     for more than seven days.
+--
+-- -   @ARCHIVING@ - The table is being archived. Operations are not
+--     allowed until archival is complete.
+--
+-- -   @ARCHIVED@ - The table has been archived. See the ArchivalReason for
+--     more information.
+--
+-- 'provisionedThroughput', 'tableDescription_provisionedThroughput' - The provisioned throughput settings for the table, consisting of read
+-- and write capacity units, along with data about increases and decreases.
+--
+-- 'latestStreamArn', 'tableDescription_latestStreamArn' - The Amazon Resource Name (ARN) that uniquely identifies the latest
+-- stream for this table.
+newTableDescription ::
   TableDescription
-tableDescription =
+newTableDescription =
   TableDescription'
-    { _tdGlobalTableVersion = Nothing,
-      _tdLocalSecondaryIndexes = Nothing,
-      _tdRestoreSummary = Nothing,
-      _tdStreamSpecification = Nothing,
-      _tdGlobalSecondaryIndexes = Nothing,
-      _tdTableName = Nothing,
-      _tdKeySchema = Nothing,
-      _tdTableARN = Nothing,
-      _tdTableId = Nothing,
-      _tdAttributeDefinitions = Nothing,
-      _tdTableSizeBytes = Nothing,
-      _tdBillingModeSummary = Nothing,
-      _tdLatestStreamLabel = Nothing,
-      _tdArchivalSummary = Nothing,
-      _tdItemCount = Nothing,
-      _tdSSEDescription = Nothing,
-      _tdReplicas = Nothing,
-      _tdCreationDateTime = Nothing,
-      _tdTableStatus = Nothing,
-      _tdProvisionedThroughput = Nothing,
-      _tdLatestStreamARN = Nothing
+    { globalTableVersion =
+        Prelude.Nothing,
+      localSecondaryIndexes = Prelude.Nothing,
+      restoreSummary = Prelude.Nothing,
+      streamSpecification = Prelude.Nothing,
+      globalSecondaryIndexes = Prelude.Nothing,
+      tableName = Prelude.Nothing,
+      keySchema = Prelude.Nothing,
+      tableArn = Prelude.Nothing,
+      tableId = Prelude.Nothing,
+      attributeDefinitions = Prelude.Nothing,
+      tableSizeBytes = Prelude.Nothing,
+      billingModeSummary = Prelude.Nothing,
+      latestStreamLabel = Prelude.Nothing,
+      archivalSummary = Prelude.Nothing,
+      itemCount = Prelude.Nothing,
+      sSEDescription = Prelude.Nothing,
+      replicas = Prelude.Nothing,
+      creationDateTime = Prelude.Nothing,
+      tableStatus = Prelude.Nothing,
+      provisionedThroughput = Prelude.Nothing,
+      latestStreamArn = Prelude.Nothing
     }
 
--- | Represents the version of <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html global tables> in use, if the table is replicated across AWS Regions.
-tdGlobalTableVersion :: Lens' TableDescription (Maybe Text)
-tdGlobalTableVersion = lens _tdGlobalTableVersion (\s a -> s {_tdGlobalTableVersion = a})
+-- | Represents the version of
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html global tables>
+-- in use, if the table is replicated across AWS Regions.
+tableDescription_globalTableVersion :: Lens.Lens' TableDescription (Prelude.Maybe Prelude.Text)
+tableDescription_globalTableVersion = Lens.lens (\TableDescription' {globalTableVersion} -> globalTableVersion) (\s@TableDescription' {} a -> s {globalTableVersion = a} :: TableDescription)
 
--- | Represents one or more local secondary indexes on the table. Each index is scoped to a given partition key value. Tables with one or more local secondary indexes are subject to an item collection size limit, where the amount of data within a given item collection cannot exceed 10 GB. Each element is composed of:     * @IndexName@ - The name of the local secondary index.     * @KeySchema@ - Specifies the complete index key schema. The attribute names in the key schema must be between 1 and 255 characters (inclusive). The key schema must begin with the same partition key as the table.     * @Projection@ - Specifies attributes that are copied (projected) from the table into the index. These are in addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute specification is composed of:     * @ProjectionType@ - One of the following:     * @KEYS_ONLY@ - Only the index and primary keys are projected into the index.     * @INCLUDE@ - Only the specified table attributes are projected into the index. The list of projected attributes is in @NonKeyAttributes@ .     * @ALL@ - All of the table attributes are projected into the index.     * @NonKeyAttributes@ - A list of one or more non-key attribute names that are projected into the secondary index. The total count of attributes provided in @NonKeyAttributes@ , summed across all of the secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.     * @IndexSizeBytes@ - Represents the total size of the index, in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.     * @ItemCount@ - Represents the number of items in the index. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value. If the table is in the @DELETING@ state, no information about indexes will be returned.
-tdLocalSecondaryIndexes :: Lens' TableDescription [LocalSecondaryIndexDescription]
-tdLocalSecondaryIndexes = lens _tdLocalSecondaryIndexes (\s a -> s {_tdLocalSecondaryIndexes = a}) . _Default . _Coerce
+-- | Represents one or more local secondary indexes on the table. Each index
+-- is scoped to a given partition key value. Tables with one or more local
+-- secondary indexes are subject to an item collection size limit, where
+-- the amount of data within a given item collection cannot exceed 10 GB.
+-- Each element is composed of:
+--
+-- -   @IndexName@ - The name of the local secondary index.
+--
+-- -   @KeySchema@ - Specifies the complete index key schema. The attribute
+--     names in the key schema must be between 1 and 255 characters
+--     (inclusive). The key schema must begin with the same partition key
+--     as the table.
+--
+-- -   @Projection@ - Specifies attributes that are copied (projected) from
+--     the table into the index. These are in addition to the primary key
+--     attributes and index key attributes, which are automatically
+--     projected. Each attribute specification is composed of:
+--
+--     -   @ProjectionType@ - One of the following:
+--
+--         -   @KEYS_ONLY@ - Only the index and primary keys are projected
+--             into the index.
+--
+--         -   @INCLUDE@ - Only the specified table attributes are
+--             projected into the index. The list of projected attributes
+--             is in @NonKeyAttributes@.
+--
+--         -   @ALL@ - All of the table attributes are projected into the
+--             index.
+--
+--     -   @NonKeyAttributes@ - A list of one or more non-key attribute
+--         names that are projected into the secondary index. The total
+--         count of attributes provided in @NonKeyAttributes@, summed
+--         across all of the secondary indexes, must not exceed 20. If you
+--         project the same attribute into two different indexes, this
+--         counts as two distinct attributes when determining the total.
+--
+-- -   @IndexSizeBytes@ - Represents the total size of the index, in bytes.
+--     DynamoDB updates this value approximately every six hours. Recent
+--     changes might not be reflected in this value.
+--
+-- -   @ItemCount@ - Represents the number of items in the index. DynamoDB
+--     updates this value approximately every six hours. Recent changes
+--     might not be reflected in this value.
+--
+-- If the table is in the @DELETING@ state, no information about indexes
+-- will be returned.
+tableDescription_localSecondaryIndexes :: Lens.Lens' TableDescription (Prelude.Maybe [LocalSecondaryIndexDescription])
+tableDescription_localSecondaryIndexes = Lens.lens (\TableDescription' {localSecondaryIndexes} -> localSecondaryIndexes) (\s@TableDescription' {} a -> s {localSecondaryIndexes = a} :: TableDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Contains details for the restore.
-tdRestoreSummary :: Lens' TableDescription (Maybe RestoreSummary)
-tdRestoreSummary = lens _tdRestoreSummary (\s a -> s {_tdRestoreSummary = a})
+tableDescription_restoreSummary :: Lens.Lens' TableDescription (Prelude.Maybe RestoreSummary)
+tableDescription_restoreSummary = Lens.lens (\TableDescription' {restoreSummary} -> restoreSummary) (\s@TableDescription' {} a -> s {restoreSummary = a} :: TableDescription)
 
 -- | The current DynamoDB Streams configuration for the table.
-tdStreamSpecification :: Lens' TableDescription (Maybe StreamSpecification)
-tdStreamSpecification = lens _tdStreamSpecification (\s a -> s {_tdStreamSpecification = a})
+tableDescription_streamSpecification :: Lens.Lens' TableDescription (Prelude.Maybe StreamSpecification)
+tableDescription_streamSpecification = Lens.lens (\TableDescription' {streamSpecification} -> streamSpecification) (\s@TableDescription' {} a -> s {streamSpecification = a} :: TableDescription)
 
--- | The global secondary indexes, if any, on the table. Each index is scoped to a given partition key value. Each element is composed of:     * @Backfilling@ - If true, then the index is currently in the backfilling phase. Backfilling occurs only when a new global secondary index is added to the table. It is the process by which DynamoDB populates the new index with data from the table. (This attribute does not appear for indexes that were created during a @CreateTable@ operation.)  You can delete an index that is being created during the @Backfilling@ phase when @IndexStatus@ is set to CREATING and @Backfilling@ is true. You can't delete the index that is being created when @IndexStatus@ is set to CREATING and @Backfilling@ is false. (This attribute does not appear for indexes that were created during a @CreateTable@ operation.)     * @IndexName@ - The name of the global secondary index.     * @IndexSizeBytes@ - The total size of the global secondary index, in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.      * @IndexStatus@ - The current status of the global secondary index:     * @CREATING@ - The index is being created.     * @UPDATING@ - The index is being updated.     * @DELETING@ - The index is being deleted.     * @ACTIVE@ - The index is ready for use.     * @ItemCount@ - The number of items in the global secondary index. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.      * @KeySchema@ - Specifies the complete index key schema. The attribute names in the key schema must be between 1 and 255 characters (inclusive). The key schema must begin with the same partition key as the table.     * @Projection@ - Specifies attributes that are copied (projected) from the table into the index. These are in addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute specification is composed of:     * @ProjectionType@ - One of the following:     * @KEYS_ONLY@ - Only the index and primary keys are projected into the index.     * @INCLUDE@ - In addition to the attributes described in @KEYS_ONLY@ , the secondary index will include other non-key attributes that you specify.     * @ALL@ - All of the table attributes are projected into the index.     * @NonKeyAttributes@ - A list of one or more non-key attribute names that are projected into the secondary index. The total count of attributes provided in @NonKeyAttributes@ , summed across all of the secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.     * @ProvisionedThroughput@ - The provisioned throughput settings for the global secondary index, consisting of read and write capacity units, along with data about increases and decreases.  If the table is in the @DELETING@ state, no information about indexes will be returned.
-tdGlobalSecondaryIndexes :: Lens' TableDescription [GlobalSecondaryIndexDescription]
-tdGlobalSecondaryIndexes = lens _tdGlobalSecondaryIndexes (\s a -> s {_tdGlobalSecondaryIndexes = a}) . _Default . _Coerce
+-- | The global secondary indexes, if any, on the table. Each index is scoped
+-- to a given partition key value. Each element is composed of:
+--
+-- -   @Backfilling@ - If true, then the index is currently in the
+--     backfilling phase. Backfilling occurs only when a new global
+--     secondary index is added to the table. It is the process by which
+--     DynamoDB populates the new index with data from the table. (This
+--     attribute does not appear for indexes that were created during a
+--     @CreateTable@ operation.)
+--
+--     You can delete an index that is being created during the
+--     @Backfilling@ phase when @IndexStatus@ is set to CREATING and
+--     @Backfilling@ is true. You can\'t delete the index that is being
+--     created when @IndexStatus@ is set to CREATING and @Backfilling@ is
+--     false. (This attribute does not appear for indexes that were created
+--     during a @CreateTable@ operation.)
+--
+-- -   @IndexName@ - The name of the global secondary index.
+--
+-- -   @IndexSizeBytes@ - The total size of the global secondary index, in
+--     bytes. DynamoDB updates this value approximately every six hours.
+--     Recent changes might not be reflected in this value.
+--
+-- -   @IndexStatus@ - The current status of the global secondary index:
+--
+--     -   @CREATING@ - The index is being created.
+--
+--     -   @UPDATING@ - The index is being updated.
+--
+--     -   @DELETING@ - The index is being deleted.
+--
+--     -   @ACTIVE@ - The index is ready for use.
+--
+-- -   @ItemCount@ - The number of items in the global secondary index.
+--     DynamoDB updates this value approximately every six hours. Recent
+--     changes might not be reflected in this value.
+--
+-- -   @KeySchema@ - Specifies the complete index key schema. The attribute
+--     names in the key schema must be between 1 and 255 characters
+--     (inclusive). The key schema must begin with the same partition key
+--     as the table.
+--
+-- -   @Projection@ - Specifies attributes that are copied (projected) from
+--     the table into the index. These are in addition to the primary key
+--     attributes and index key attributes, which are automatically
+--     projected. Each attribute specification is composed of:
+--
+--     -   @ProjectionType@ - One of the following:
+--
+--         -   @KEYS_ONLY@ - Only the index and primary keys are projected
+--             into the index.
+--
+--         -   @INCLUDE@ - In addition to the attributes described in
+--             @KEYS_ONLY@, the secondary index will include other non-key
+--             attributes that you specify.
+--
+--         -   @ALL@ - All of the table attributes are projected into the
+--             index.
+--
+--     -   @NonKeyAttributes@ - A list of one or more non-key attribute
+--         names that are projected into the secondary index. The total
+--         count of attributes provided in @NonKeyAttributes@, summed
+--         across all of the secondary indexes, must not exceed 20. If you
+--         project the same attribute into two different indexes, this
+--         counts as two distinct attributes when determining the total.
+--
+-- -   @ProvisionedThroughput@ - The provisioned throughput settings for
+--     the global secondary index, consisting of read and write capacity
+--     units, along with data about increases and decreases.
+--
+-- If the table is in the @DELETING@ state, no information about indexes
+-- will be returned.
+tableDescription_globalSecondaryIndexes :: Lens.Lens' TableDescription (Prelude.Maybe [GlobalSecondaryIndexDescription])
+tableDescription_globalSecondaryIndexes = Lens.lens (\TableDescription' {globalSecondaryIndexes} -> globalSecondaryIndexes) (\s@TableDescription' {} a -> s {globalSecondaryIndexes = a} :: TableDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the table.
-tdTableName :: Lens' TableDescription (Maybe Text)
-tdTableName = lens _tdTableName (\s a -> s {_tdTableName = a})
+tableDescription_tableName :: Lens.Lens' TableDescription (Prelude.Maybe Prelude.Text)
+tableDescription_tableName = Lens.lens (\TableDescription' {tableName} -> tableName) (\s@TableDescription' {} a -> s {tableName = a} :: TableDescription)
 
--- | The primary key structure for the table. Each @KeySchemaElement@ consists of:     * @AttributeName@ - The name of the attribute.     * @KeyType@ - The role of the attribute:     * @HASH@ - partition key     * @RANGE@ - sort key For more information about primary keys, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey Primary Key> in the /Amazon DynamoDB Developer Guide/ .
-tdKeySchema :: Lens' TableDescription (Maybe (NonEmpty KeySchemaElement))
-tdKeySchema = lens _tdKeySchema (\s a -> s {_tdKeySchema = a}) . mapping _List1
+-- | The primary key structure for the table. Each @KeySchemaElement@
+-- consists of:
+--
+-- -   @AttributeName@ - The name of the attribute.
+--
+-- -   @KeyType@ - The role of the attribute:
+--
+--     -   @HASH@ - partition key
+--
+--     -   @RANGE@ - sort key
+--
+--     The partition key of an item is also known as its /hash attribute/.
+--     The term \"hash attribute\" derives from DynamoDB\'s usage of an
+--     internal hash function to evenly distribute data items across
+--     partitions, based on their partition key values.
+--
+--     The sort key of an item is also known as its /range attribute/. The
+--     term \"range attribute\" derives from the way DynamoDB stores items
+--     with the same partition key physically close together, in sorted
+--     order by the sort key value.
+--
+-- For more information about primary keys, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey Primary Key>
+-- in the /Amazon DynamoDB Developer Guide/.
+tableDescription_keySchema :: Lens.Lens' TableDescription (Prelude.Maybe (Prelude.NonEmpty KeySchemaElement))
+tableDescription_keySchema = Lens.lens (\TableDescription' {keySchema} -> keySchema) (\s@TableDescription' {} a -> s {keySchema = a} :: TableDescription) Prelude.. Lens.mapping Prelude._List1
 
 -- | The Amazon Resource Name (ARN) that uniquely identifies the table.
-tdTableARN :: Lens' TableDescription (Maybe Text)
-tdTableARN = lens _tdTableARN (\s a -> s {_tdTableARN = a})
+tableDescription_tableArn :: Lens.Lens' TableDescription (Prelude.Maybe Prelude.Text)
+tableDescription_tableArn = Lens.lens (\TableDescription' {tableArn} -> tableArn) (\s@TableDescription' {} a -> s {tableArn = a} :: TableDescription)
 
 -- | Unique identifier for the table for which the backup was created.
-tdTableId :: Lens' TableDescription (Maybe Text)
-tdTableId = lens _tdTableId (\s a -> s {_tdTableId = a})
+tableDescription_tableId :: Lens.Lens' TableDescription (Prelude.Maybe Prelude.Text)
+tableDescription_tableId = Lens.lens (\TableDescription' {tableId} -> tableId) (\s@TableDescription' {} a -> s {tableId = a} :: TableDescription)
 
--- | An array of @AttributeDefinition@ objects. Each of these objects describes one attribute in the table and index key schema. Each @AttributeDefinition@ object in this array is composed of:     * @AttributeName@ - The name of the attribute.     * @AttributeType@ - The data type for the attribute.
-tdAttributeDefinitions :: Lens' TableDescription [AttributeDefinition]
-tdAttributeDefinitions = lens _tdAttributeDefinitions (\s a -> s {_tdAttributeDefinitions = a}) . _Default . _Coerce
+-- | An array of @AttributeDefinition@ objects. Each of these objects
+-- describes one attribute in the table and index key schema.
+--
+-- Each @AttributeDefinition@ object in this array is composed of:
+--
+-- -   @AttributeName@ - The name of the attribute.
+--
+-- -   @AttributeType@ - The data type for the attribute.
+tableDescription_attributeDefinitions :: Lens.Lens' TableDescription (Prelude.Maybe [AttributeDefinition])
+tableDescription_attributeDefinitions = Lens.lens (\TableDescription' {attributeDefinitions} -> attributeDefinitions) (\s@TableDescription' {} a -> s {attributeDefinitions = a} :: TableDescription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The total size of the specified table, in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
-tdTableSizeBytes :: Lens' TableDescription (Maybe Integer)
-tdTableSizeBytes = lens _tdTableSizeBytes (\s a -> s {_tdTableSizeBytes = a})
+-- | The total size of the specified table, in bytes. DynamoDB updates this
+-- value approximately every six hours. Recent changes might not be
+-- reflected in this value.
+tableDescription_tableSizeBytes :: Lens.Lens' TableDescription (Prelude.Maybe Prelude.Integer)
+tableDescription_tableSizeBytes = Lens.lens (\TableDescription' {tableSizeBytes} -> tableSizeBytes) (\s@TableDescription' {} a -> s {tableSizeBytes = a} :: TableDescription)
 
--- | Contains the details for the read/write capacity mode.
-tdBillingModeSummary :: Lens' TableDescription (Maybe BillingModeSummary)
-tdBillingModeSummary = lens _tdBillingModeSummary (\s a -> s {_tdBillingModeSummary = a})
+-- | Contains the details for the read\/write capacity mode.
+tableDescription_billingModeSummary :: Lens.Lens' TableDescription (Prelude.Maybe BillingModeSummary)
+tableDescription_billingModeSummary = Lens.lens (\TableDescription' {billingModeSummary} -> billingModeSummary) (\s@TableDescription' {} a -> s {billingModeSummary = a} :: TableDescription)
 
--- | A timestamp, in ISO 8601 format, for this stream. Note that @LatestStreamLabel@ is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:     * AWS customer ID     * Table name     * @StreamLabel@
-tdLatestStreamLabel :: Lens' TableDescription (Maybe Text)
-tdLatestStreamLabel = lens _tdLatestStreamLabel (\s a -> s {_tdLatestStreamLabel = a})
+-- | A timestamp, in ISO 8601 format, for this stream.
+--
+-- Note that @LatestStreamLabel@ is not a unique identifier for the stream,
+-- because it is possible that a stream from another table might have the
+-- same timestamp. However, the combination of the following three elements
+-- is guaranteed to be unique:
+--
+-- -   AWS customer ID
+--
+-- -   Table name
+--
+-- -   @StreamLabel@
+tableDescription_latestStreamLabel :: Lens.Lens' TableDescription (Prelude.Maybe Prelude.Text)
+tableDescription_latestStreamLabel = Lens.lens (\TableDescription' {latestStreamLabel} -> latestStreamLabel) (\s@TableDescription' {} a -> s {latestStreamLabel = a} :: TableDescription)
 
 -- | Contains information about the table archive.
-tdArchivalSummary :: Lens' TableDescription (Maybe ArchivalSummary)
-tdArchivalSummary = lens _tdArchivalSummary (\s a -> s {_tdArchivalSummary = a})
+tableDescription_archivalSummary :: Lens.Lens' TableDescription (Prelude.Maybe ArchivalSummary)
+tableDescription_archivalSummary = Lens.lens (\TableDescription' {archivalSummary} -> archivalSummary) (\s@TableDescription' {} a -> s {archivalSummary = a} :: TableDescription)
 
--- | The number of items in the specified table. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
-tdItemCount :: Lens' TableDescription (Maybe Integer)
-tdItemCount = lens _tdItemCount (\s a -> s {_tdItemCount = a})
+-- | The number of items in the specified table. DynamoDB updates this value
+-- approximately every six hours. Recent changes might not be reflected in
+-- this value.
+tableDescription_itemCount :: Lens.Lens' TableDescription (Prelude.Maybe Prelude.Integer)
+tableDescription_itemCount = Lens.lens (\TableDescription' {itemCount} -> itemCount) (\s@TableDescription' {} a -> s {itemCount = a} :: TableDescription)
 
--- | The description of the server-side encryption status on the specified table.
-tdSSEDescription :: Lens' TableDescription (Maybe SSEDescription)
-tdSSEDescription = lens _tdSSEDescription (\s a -> s {_tdSSEDescription = a})
+-- | The description of the server-side encryption status on the specified
+-- table.
+tableDescription_sSEDescription :: Lens.Lens' TableDescription (Prelude.Maybe SSEDescription)
+tableDescription_sSEDescription = Lens.lens (\TableDescription' {sSEDescription} -> sSEDescription) (\s@TableDescription' {} a -> s {sSEDescription = a} :: TableDescription)
 
 -- | Represents replicas of the table.
-tdReplicas :: Lens' TableDescription [ReplicaDescription]
-tdReplicas = lens _tdReplicas (\s a -> s {_tdReplicas = a}) . _Default . _Coerce
+tableDescription_replicas :: Lens.Lens' TableDescription (Prelude.Maybe [ReplicaDescription])
+tableDescription_replicas = Lens.lens (\TableDescription' {replicas} -> replicas) (\s@TableDescription' {} a -> s {replicas = a} :: TableDescription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The date and time when the table was created, in <http://www.epochconverter.com/ UNIX epoch time> format.
-tdCreationDateTime :: Lens' TableDescription (Maybe UTCTime)
-tdCreationDateTime = lens _tdCreationDateTime (\s a -> s {_tdCreationDateTime = a}) . mapping _Time
+-- | The date and time when the table was created, in
+-- <http://www.epochconverter.com/ UNIX epoch time> format.
+tableDescription_creationDateTime :: Lens.Lens' TableDescription (Prelude.Maybe Prelude.UTCTime)
+tableDescription_creationDateTime = Lens.lens (\TableDescription' {creationDateTime} -> creationDateTime) (\s@TableDescription' {} a -> s {creationDateTime = a} :: TableDescription) Prelude.. Lens.mapping Prelude._Time
 
--- | The current state of the table:     * @CREATING@ - The table is being created.     * @UPDATING@ - The table is being updated.     * @DELETING@ - The table is being deleted.     * @ACTIVE@ - The table is ready for use.     * @INACCESSIBLE_ENCRYPTION_CREDENTIALS@ - The AWS KMS key used to encrypt the table in inaccessible. Table operations may fail due to failure to use the AWS KMS key. DynamoDB will initiate the table archival process when a table's AWS KMS key remains inaccessible for more than seven days.      * @ARCHIVING@ - The table is being archived. Operations are not allowed until archival is complete.      * @ARCHIVED@ - The table has been archived. See the ArchivalReason for more information.
-tdTableStatus :: Lens' TableDescription (Maybe TableStatus)
-tdTableStatus = lens _tdTableStatus (\s a -> s {_tdTableStatus = a})
+-- | The current state of the table:
+--
+-- -   @CREATING@ - The table is being created.
+--
+-- -   @UPDATING@ - The table is being updated.
+--
+-- -   @DELETING@ - The table is being deleted.
+--
+-- -   @ACTIVE@ - The table is ready for use.
+--
+-- -   @INACCESSIBLE_ENCRYPTION_CREDENTIALS@ - The AWS KMS key used to
+--     encrypt the table in inaccessible. Table operations may fail due to
+--     failure to use the AWS KMS key. DynamoDB will initiate the table
+--     archival process when a table\'s AWS KMS key remains inaccessible
+--     for more than seven days.
+--
+-- -   @ARCHIVING@ - The table is being archived. Operations are not
+--     allowed until archival is complete.
+--
+-- -   @ARCHIVED@ - The table has been archived. See the ArchivalReason for
+--     more information.
+tableDescription_tableStatus :: Lens.Lens' TableDescription (Prelude.Maybe TableStatus)
+tableDescription_tableStatus = Lens.lens (\TableDescription' {tableStatus} -> tableStatus) (\s@TableDescription' {} a -> s {tableStatus = a} :: TableDescription)
 
--- | The provisioned throughput settings for the table, consisting of read and write capacity units, along with data about increases and decreases.
-tdProvisionedThroughput :: Lens' TableDescription (Maybe ProvisionedThroughputDescription)
-tdProvisionedThroughput = lens _tdProvisionedThroughput (\s a -> s {_tdProvisionedThroughput = a})
+-- | The provisioned throughput settings for the table, consisting of read
+-- and write capacity units, along with data about increases and decreases.
+tableDescription_provisionedThroughput :: Lens.Lens' TableDescription (Prelude.Maybe ProvisionedThroughputDescription)
+tableDescription_provisionedThroughput = Lens.lens (\TableDescription' {provisionedThroughput} -> provisionedThroughput) (\s@TableDescription' {} a -> s {provisionedThroughput = a} :: TableDescription)
 
--- | The Amazon Resource Name (ARN) that uniquely identifies the latest stream for this table.
-tdLatestStreamARN :: Lens' TableDescription (Maybe Text)
-tdLatestStreamARN = lens _tdLatestStreamARN (\s a -> s {_tdLatestStreamARN = a})
+-- | The Amazon Resource Name (ARN) that uniquely identifies the latest
+-- stream for this table.
+tableDescription_latestStreamArn :: Lens.Lens' TableDescription (Prelude.Maybe Prelude.Text)
+tableDescription_latestStreamArn = Lens.lens (\TableDescription' {latestStreamArn} -> latestStreamArn) (\s@TableDescription' {} a -> s {latestStreamArn = a} :: TableDescription)
 
-instance FromJSON TableDescription where
+instance Prelude.FromJSON TableDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TableDescription"
       ( \x ->
           TableDescription'
-            <$> (x .:? "GlobalTableVersion")
-            <*> (x .:? "LocalSecondaryIndexes" .!= mempty)
-            <*> (x .:? "RestoreSummary")
-            <*> (x .:? "StreamSpecification")
-            <*> (x .:? "GlobalSecondaryIndexes" .!= mempty)
-            <*> (x .:? "TableName")
-            <*> (x .:? "KeySchema")
-            <*> (x .:? "TableArn")
-            <*> (x .:? "TableId")
-            <*> (x .:? "AttributeDefinitions" .!= mempty)
-            <*> (x .:? "TableSizeBytes")
-            <*> (x .:? "BillingModeSummary")
-            <*> (x .:? "LatestStreamLabel")
-            <*> (x .:? "ArchivalSummary")
-            <*> (x .:? "ItemCount")
-            <*> (x .:? "SSEDescription")
-            <*> (x .:? "Replicas" .!= mempty)
-            <*> (x .:? "CreationDateTime")
-            <*> (x .:? "TableStatus")
-            <*> (x .:? "ProvisionedThroughput")
-            <*> (x .:? "LatestStreamArn")
+            Prelude.<$> (x Prelude..:? "GlobalTableVersion")
+            Prelude.<*> ( x Prelude..:? "LocalSecondaryIndexes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "RestoreSummary")
+            Prelude.<*> (x Prelude..:? "StreamSpecification")
+            Prelude.<*> ( x Prelude..:? "GlobalSecondaryIndexes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "TableName")
+            Prelude.<*> (x Prelude..:? "KeySchema")
+            Prelude.<*> (x Prelude..:? "TableArn")
+            Prelude.<*> (x Prelude..:? "TableId")
+            Prelude.<*> ( x Prelude..:? "AttributeDefinitions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "TableSizeBytes")
+            Prelude.<*> (x Prelude..:? "BillingModeSummary")
+            Prelude.<*> (x Prelude..:? "LatestStreamLabel")
+            Prelude.<*> (x Prelude..:? "ArchivalSummary")
+            Prelude.<*> (x Prelude..:? "ItemCount")
+            Prelude.<*> (x Prelude..:? "SSEDescription")
+            Prelude.<*> (x Prelude..:? "Replicas" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "CreationDateTime")
+            Prelude.<*> (x Prelude..:? "TableStatus")
+            Prelude.<*> (x Prelude..:? "ProvisionedThroughput")
+            Prelude.<*> (x Prelude..:? "LatestStreamArn")
       )
 
-instance Hashable TableDescription
+instance Prelude.Hashable TableDescription
 
-instance NFData TableDescription
+instance Prelude.NFData TableDescription

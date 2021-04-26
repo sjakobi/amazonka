@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.DynamoDB.Types.ContributorInsightsStatus
   ( ContributorInsightsStatus
       ( ..,
-        Disabled,
-        Disabling,
-        Enabled,
-        Enabling,
-        Failed
+        ContributorInsightsStatusDISABLED,
+        ContributorInsightsStatusDISABLING,
+        ContributorInsightsStatusENABLED,
+        ContributorInsightsStatusENABLING,
+        ContributorInsightsStatusFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContributorInsightsStatus
-  = ContributorInsightsStatus'
-      ( CI
-          Text
-      )
+newtype ContributorInsightsStatus = ContributorInsightsStatus'
+  { fromContributorInsightsStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: ContributorInsightsStatus
-pattern Disabled = ContributorInsightsStatus' "DISABLED"
+pattern ContributorInsightsStatusDISABLED :: ContributorInsightsStatus
+pattern ContributorInsightsStatusDISABLED = ContributorInsightsStatus' "DISABLED"
 
-pattern Disabling :: ContributorInsightsStatus
-pattern Disabling = ContributorInsightsStatus' "DISABLING"
+pattern ContributorInsightsStatusDISABLING :: ContributorInsightsStatus
+pattern ContributorInsightsStatusDISABLING = ContributorInsightsStatus' "DISABLING"
 
-pattern Enabled :: ContributorInsightsStatus
-pattern Enabled = ContributorInsightsStatus' "ENABLED"
+pattern ContributorInsightsStatusENABLED :: ContributorInsightsStatus
+pattern ContributorInsightsStatusENABLED = ContributorInsightsStatus' "ENABLED"
 
-pattern Enabling :: ContributorInsightsStatus
-pattern Enabling = ContributorInsightsStatus' "ENABLING"
+pattern ContributorInsightsStatusENABLING :: ContributorInsightsStatus
+pattern ContributorInsightsStatusENABLING = ContributorInsightsStatus' "ENABLING"
 
-pattern Failed :: ContributorInsightsStatus
-pattern Failed = ContributorInsightsStatus' "FAILED"
+pattern ContributorInsightsStatusFAILED :: ContributorInsightsStatus
+pattern ContributorInsightsStatusFAILED = ContributorInsightsStatus' "FAILED"
 
 {-# COMPLETE
-  Disabled,
-  Disabling,
-  Enabled,
-  Enabling,
-  Failed,
+  ContributorInsightsStatusDISABLED,
+  ContributorInsightsStatusDISABLING,
+  ContributorInsightsStatusENABLED,
+  ContributorInsightsStatusENABLING,
+  ContributorInsightsStatusFAILED,
   ContributorInsightsStatus'
   #-}
 
-instance FromText ContributorInsightsStatus where
-  parser = (ContributorInsightsStatus' . mk) <$> takeText
+instance Prelude.FromText ContributorInsightsStatus where
+  parser = ContributorInsightsStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ContributorInsightsStatus where
-  toText (ContributorInsightsStatus' ci) = original ci
+instance Prelude.ToText ContributorInsightsStatus where
+  toText (ContributorInsightsStatus' x) = x
 
-instance Hashable ContributorInsightsStatus
+instance Prelude.Hashable ContributorInsightsStatus
 
-instance NFData ContributorInsightsStatus
+instance Prelude.NFData ContributorInsightsStatus
 
-instance ToByteString ContributorInsightsStatus
+instance Prelude.ToByteString ContributorInsightsStatus
 
-instance ToQuery ContributorInsightsStatus
+instance Prelude.ToQuery ContributorInsightsStatus
 
-instance ToHeader ContributorInsightsStatus
+instance Prelude.ToHeader ContributorInsightsStatus
 
-instance FromJSON ContributorInsightsStatus where
-  parseJSON = parseJSONText "ContributorInsightsStatus"
+instance Prelude.FromJSON ContributorInsightsStatus where
+  parseJSON = Prelude.parseJSONText "ContributorInsightsStatus"

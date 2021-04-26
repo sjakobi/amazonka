@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,129 +24,136 @@
 -- Describes an existing table export.
 module Network.AWS.DynamoDB.DescribeExport
   ( -- * Creating a Request
-    describeExport,
-    DescribeExport,
+    DescribeExport (..),
+    newDescribeExport,
 
     -- * Request Lenses
-    deExportARN,
+    describeExport_exportArn,
 
     -- * Destructuring the Response
-    describeExportResponse,
-    DescribeExportResponse,
+    DescribeExportResponse (..),
+    newDescribeExportResponse,
 
     -- * Response Lenses
-    derersExportDescription,
-    derersResponseStatus,
+    describeExportResponse_exportDescription,
+    describeExportResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.ExportDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeExport' smart constructor.
-newtype DescribeExport = DescribeExport'
-  { _deExportARN ::
-      Text
+-- | /See:/ 'newDescribeExport' smart constructor.
+data DescribeExport = DescribeExport'
+  { -- | The Amazon Resource Name (ARN) associated with the export.
+    exportArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExport' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExport' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deExportARN' - The Amazon Resource Name (ARN) associated with the export.
-describeExport ::
-  -- | 'deExportARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'exportArn', 'describeExport_exportArn' - The Amazon Resource Name (ARN) associated with the export.
+newDescribeExport ::
+  -- | 'exportArn'
+  Prelude.Text ->
   DescribeExport
-describeExport pExportARN_ =
-  DescribeExport' {_deExportARN = pExportARN_}
+newDescribeExport pExportArn_ =
+  DescribeExport' {exportArn = pExportArn_}
 
 -- | The Amazon Resource Name (ARN) associated with the export.
-deExportARN :: Lens' DescribeExport Text
-deExportARN = lens _deExportARN (\s a -> s {_deExportARN = a})
+describeExport_exportArn :: Lens.Lens' DescribeExport Prelude.Text
+describeExport_exportArn = Lens.lens (\DescribeExport' {exportArn} -> exportArn) (\s@DescribeExport' {} a -> s {exportArn = a} :: DescribeExport)
 
-instance AWSRequest DescribeExport where
+instance Prelude.AWSRequest DescribeExport where
   type Rs DescribeExport = DescribeExportResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeExportResponse'
-            <$> (x .?> "ExportDescription") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ExportDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeExport
+instance Prelude.Hashable DescribeExport
 
-instance NFData DescribeExport
+instance Prelude.NFData DescribeExport
 
-instance ToHeaders DescribeExport where
+instance Prelude.ToHeaders DescribeExport where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DynamoDB_20120810.DescribeExport" :: ByteString),
+              Prelude.=# ( "DynamoDB_20120810.DescribeExport" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeExport where
+instance Prelude.ToJSON DescribeExport where
   toJSON DescribeExport' {..} =
-    object
-      (catMaybes [Just ("ExportArn" .= _deExportARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ExportArn" Prelude..= exportArn)]
+      )
 
-instance ToPath DescribeExport where
-  toPath = const "/"
+instance Prelude.ToPath DescribeExport where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeExport where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeExport where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeExportResponse' smart constructor.
+-- | /See:/ 'newDescribeExportResponse' smart constructor.
 data DescribeExportResponse = DescribeExportResponse'
-  { _derersExportDescription ::
-      !( Maybe
-           ExportDescription
-       ),
-    _derersResponseStatus ::
-      !Int
+  { -- | Represents the properties of the export.
+    exportDescription :: Prelude.Maybe ExportDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExportResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExportResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derersExportDescription' - Represents the properties of the export.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'derersResponseStatus' - -- | The response status code.
-describeExportResponse ::
-  -- | 'derersResponseStatus'
-  Int ->
+-- 'exportDescription', 'describeExportResponse_exportDescription' - Represents the properties of the export.
+--
+-- 'httpStatus', 'describeExportResponse_httpStatus' - The response's http status code.
+newDescribeExportResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeExportResponse
-describeExportResponse pResponseStatus_ =
+newDescribeExportResponse pHttpStatus_ =
   DescribeExportResponse'
-    { _derersExportDescription =
-        Nothing,
-      _derersResponseStatus = pResponseStatus_
+    { exportDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Represents the properties of the export.
-derersExportDescription :: Lens' DescribeExportResponse (Maybe ExportDescription)
-derersExportDescription = lens _derersExportDescription (\s a -> s {_derersExportDescription = a})
+describeExportResponse_exportDescription :: Lens.Lens' DescribeExportResponse (Prelude.Maybe ExportDescription)
+describeExportResponse_exportDescription = Lens.lens (\DescribeExportResponse' {exportDescription} -> exportDescription) (\s@DescribeExportResponse' {} a -> s {exportDescription = a} :: DescribeExportResponse)
 
--- | -- | The response status code.
-derersResponseStatus :: Lens' DescribeExportResponse Int
-derersResponseStatus = lens _derersResponseStatus (\s a -> s {_derersResponseStatus = a})
+-- | The response's http status code.
+describeExportResponse_httpStatus :: Lens.Lens' DescribeExportResponse Prelude.Int
+describeExportResponse_httpStatus = Lens.lens (\DescribeExportResponse' {httpStatus} -> httpStatus) (\s@DescribeExportResponse' {} a -> s {httpStatus = a} :: DescribeExportResponse)
 
-instance NFData DescribeExportResponse
+instance Prelude.NFData DescribeExportResponse

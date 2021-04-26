@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +21,68 @@ module Network.AWS.DynamoDB.Types.BatchStatementResponse where
 
 import Network.AWS.DynamoDB.Types.AttributeValue
 import Network.AWS.DynamoDB.Types.BatchStatementError
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A PartiQL batch statement response..
 --
---
---
--- /See:/ 'batchStatementResponse' smart constructor.
+-- /See:/ 'newBatchStatementResponse' smart constructor.
 data BatchStatementResponse = BatchStatementResponse'
-  { _bsrTableName ::
-      !(Maybe Text),
-    _bsrItem ::
-      !( Maybe
-           ( Map
-               Text
-               AttributeValue
-           )
-       ),
-    _bsrError ::
-      !( Maybe
-           BatchStatementError
-       )
+  { -- | The table name associated with a failed PartiQL batch statement.
+    tableName :: Prelude.Maybe Prelude.Text,
+    -- | A DynamoDB item associated with a BatchStatementResponse
+    item :: Prelude.Maybe (Prelude.Map Prelude.Text AttributeValue),
+    -- | The error associated with a failed PartiQL batch statement.
+    error :: Prelude.Maybe BatchStatementError
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchStatementResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchStatementResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsrTableName' - The table name associated with a failed PartiQL batch statement.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bsrItem' - A DynamoDB item associated with a BatchStatementResponse
+-- 'tableName', 'batchStatementResponse_tableName' - The table name associated with a failed PartiQL batch statement.
 --
--- * 'bsrError' - The error associated with a failed PartiQL batch statement.
-batchStatementResponse ::
+-- 'item', 'batchStatementResponse_item' - A DynamoDB item associated with a BatchStatementResponse
+--
+-- 'error', 'batchStatementResponse_error' - The error associated with a failed PartiQL batch statement.
+newBatchStatementResponse ::
   BatchStatementResponse
-batchStatementResponse =
+newBatchStatementResponse =
   BatchStatementResponse'
-    { _bsrTableName = Nothing,
-      _bsrItem = Nothing,
-      _bsrError = Nothing
+    { tableName =
+        Prelude.Nothing,
+      item = Prelude.Nothing,
+      error = Prelude.Nothing
     }
 
 -- | The table name associated with a failed PartiQL batch statement.
-bsrTableName :: Lens' BatchStatementResponse (Maybe Text)
-bsrTableName = lens _bsrTableName (\s a -> s {_bsrTableName = a})
+batchStatementResponse_tableName :: Lens.Lens' BatchStatementResponse (Prelude.Maybe Prelude.Text)
+batchStatementResponse_tableName = Lens.lens (\BatchStatementResponse' {tableName} -> tableName) (\s@BatchStatementResponse' {} a -> s {tableName = a} :: BatchStatementResponse)
 
 -- | A DynamoDB item associated with a BatchStatementResponse
-bsrItem :: Lens' BatchStatementResponse (HashMap Text AttributeValue)
-bsrItem = lens _bsrItem (\s a -> s {_bsrItem = a}) . _Default . _Map
+batchStatementResponse_item :: Lens.Lens' BatchStatementResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
+batchStatementResponse_item = Lens.lens (\BatchStatementResponse' {item} -> item) (\s@BatchStatementResponse' {} a -> s {item = a} :: BatchStatementResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | The error associated with a failed PartiQL batch statement.
-bsrError :: Lens' BatchStatementResponse (Maybe BatchStatementError)
-bsrError = lens _bsrError (\s a -> s {_bsrError = a})
+batchStatementResponse_error :: Lens.Lens' BatchStatementResponse (Prelude.Maybe BatchStatementError)
+batchStatementResponse_error = Lens.lens (\BatchStatementResponse' {error} -> error) (\s@BatchStatementResponse' {} a -> s {error = a} :: BatchStatementResponse)
 
-instance FromJSON BatchStatementResponse where
+instance Prelude.FromJSON BatchStatementResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchStatementResponse"
       ( \x ->
           BatchStatementResponse'
-            <$> (x .:? "TableName")
-            <*> (x .:? "Item" .!= mempty)
-            <*> (x .:? "Error")
+            Prelude.<$> (x Prelude..:? "TableName")
+            Prelude.<*> (x Prelude..:? "Item" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Error")
       )
 
-instance Hashable BatchStatementResponse
+instance Prelude.Hashable BatchStatementResponse
 
-instance NFData BatchStatementResponse
+instance Prelude.NFData BatchStatementResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,88 +22,133 @@ module Network.AWS.DynamoDB.Types.GlobalSecondaryIndexInfo where
 import Network.AWS.DynamoDB.Types.KeySchemaElement
 import Network.AWS.DynamoDB.Types.Projection
 import Network.AWS.DynamoDB.Types.ProvisionedThroughput
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the properties of a global secondary index for the table when the backup was created.
+-- | Represents the properties of a global secondary index for the table when
+-- the backup was created.
 --
---
---
--- /See:/ 'globalSecondaryIndexInfo' smart constructor.
+-- /See:/ 'newGlobalSecondaryIndexInfo' smart constructor.
 data GlobalSecondaryIndexInfo = GlobalSecondaryIndexInfo'
-  { _gsiiIndexName ::
-      !(Maybe Text),
-    _gsiiKeySchema ::
-      !( Maybe
-           ( List1
-               KeySchemaElement
-           )
-       ),
-    _gsiiProjection ::
-      !(Maybe Projection),
-    _gsiiProvisionedThroughput ::
-      !( Maybe
-           ProvisionedThroughput
-       )
+  { -- | The name of the global secondary index.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | The complete key schema for a global secondary index, which consists of
+    -- one or more pairs of attribute names and key types:
+    --
+    -- -   @HASH@ - partition key
+    --
+    -- -   @RANGE@ - sort key
+    --
+    -- The partition key of an item is also known as its /hash attribute/. The
+    -- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+    -- hash function to evenly distribute data items across partitions, based
+    -- on their partition key values.
+    --
+    -- The sort key of an item is also known as its /range attribute/. The term
+    -- \"range attribute\" derives from the way DynamoDB stores items with the
+    -- same partition key physically close together, in sorted order by the
+    -- sort key value.
+    keySchema :: Prelude.Maybe (Prelude.List1 KeySchemaElement),
+    -- | Represents attributes that are copied (projected) from the table into
+    -- the global secondary index. These are in addition to the primary key
+    -- attributes and index key attributes, which are automatically projected.
+    projection :: Prelude.Maybe Projection,
+    -- | Represents the provisioned throughput settings for the specified global
+    -- secondary index.
+    provisionedThroughput :: Prelude.Maybe ProvisionedThroughput
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GlobalSecondaryIndexInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GlobalSecondaryIndexInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsiiIndexName' - The name of the global secondary index.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsiiKeySchema' - The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key types:     * @HASH@ - partition key     * @RANGE@ - sort key
+-- 'indexName', 'globalSecondaryIndexInfo_indexName' - The name of the global secondary index.
 --
--- * 'gsiiProjection' - Represents attributes that are copied (projected) from the table into the global secondary index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
+-- 'keySchema', 'globalSecondaryIndexInfo_keySchema' - The complete key schema for a global secondary index, which consists of
+-- one or more pairs of attribute names and key types:
 --
--- * 'gsiiProvisionedThroughput' - Represents the provisioned throughput settings for the specified global secondary index.
-globalSecondaryIndexInfo ::
+-- -   @HASH@ - partition key
+--
+-- -   @RANGE@ - sort key
+--
+-- The partition key of an item is also known as its /hash attribute/. The
+-- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+-- hash function to evenly distribute data items across partitions, based
+-- on their partition key values.
+--
+-- The sort key of an item is also known as its /range attribute/. The term
+-- \"range attribute\" derives from the way DynamoDB stores items with the
+-- same partition key physically close together, in sorted order by the
+-- sort key value.
+--
+-- 'projection', 'globalSecondaryIndexInfo_projection' - Represents attributes that are copied (projected) from the table into
+-- the global secondary index. These are in addition to the primary key
+-- attributes and index key attributes, which are automatically projected.
+--
+-- 'provisionedThroughput', 'globalSecondaryIndexInfo_provisionedThroughput' - Represents the provisioned throughput settings for the specified global
+-- secondary index.
+newGlobalSecondaryIndexInfo ::
   GlobalSecondaryIndexInfo
-globalSecondaryIndexInfo =
+newGlobalSecondaryIndexInfo =
   GlobalSecondaryIndexInfo'
-    { _gsiiIndexName = Nothing,
-      _gsiiKeySchema = Nothing,
-      _gsiiProjection = Nothing,
-      _gsiiProvisionedThroughput = Nothing
+    { indexName =
+        Prelude.Nothing,
+      keySchema = Prelude.Nothing,
+      projection = Prelude.Nothing,
+      provisionedThroughput = Prelude.Nothing
     }
 
 -- | The name of the global secondary index.
-gsiiIndexName :: Lens' GlobalSecondaryIndexInfo (Maybe Text)
-gsiiIndexName = lens _gsiiIndexName (\s a -> s {_gsiiIndexName = a})
+globalSecondaryIndexInfo_indexName :: Lens.Lens' GlobalSecondaryIndexInfo (Prelude.Maybe Prelude.Text)
+globalSecondaryIndexInfo_indexName = Lens.lens (\GlobalSecondaryIndexInfo' {indexName} -> indexName) (\s@GlobalSecondaryIndexInfo' {} a -> s {indexName = a} :: GlobalSecondaryIndexInfo)
 
--- | The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key types:     * @HASH@ - partition key     * @RANGE@ - sort key
-gsiiKeySchema :: Lens' GlobalSecondaryIndexInfo (Maybe (NonEmpty KeySchemaElement))
-gsiiKeySchema = lens _gsiiKeySchema (\s a -> s {_gsiiKeySchema = a}) . mapping _List1
+-- | The complete key schema for a global secondary index, which consists of
+-- one or more pairs of attribute names and key types:
+--
+-- -   @HASH@ - partition key
+--
+-- -   @RANGE@ - sort key
+--
+-- The partition key of an item is also known as its /hash attribute/. The
+-- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+-- hash function to evenly distribute data items across partitions, based
+-- on their partition key values.
+--
+-- The sort key of an item is also known as its /range attribute/. The term
+-- \"range attribute\" derives from the way DynamoDB stores items with the
+-- same partition key physically close together, in sorted order by the
+-- sort key value.
+globalSecondaryIndexInfo_keySchema :: Lens.Lens' GlobalSecondaryIndexInfo (Prelude.Maybe (Prelude.NonEmpty KeySchemaElement))
+globalSecondaryIndexInfo_keySchema = Lens.lens (\GlobalSecondaryIndexInfo' {keySchema} -> keySchema) (\s@GlobalSecondaryIndexInfo' {} a -> s {keySchema = a} :: GlobalSecondaryIndexInfo) Prelude.. Lens.mapping Prelude._List1
 
--- | Represents attributes that are copied (projected) from the table into the global secondary index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-gsiiProjection :: Lens' GlobalSecondaryIndexInfo (Maybe Projection)
-gsiiProjection = lens _gsiiProjection (\s a -> s {_gsiiProjection = a})
+-- | Represents attributes that are copied (projected) from the table into
+-- the global secondary index. These are in addition to the primary key
+-- attributes and index key attributes, which are automatically projected.
+globalSecondaryIndexInfo_projection :: Lens.Lens' GlobalSecondaryIndexInfo (Prelude.Maybe Projection)
+globalSecondaryIndexInfo_projection = Lens.lens (\GlobalSecondaryIndexInfo' {projection} -> projection) (\s@GlobalSecondaryIndexInfo' {} a -> s {projection = a} :: GlobalSecondaryIndexInfo)
 
--- | Represents the provisioned throughput settings for the specified global secondary index.
-gsiiProvisionedThroughput :: Lens' GlobalSecondaryIndexInfo (Maybe ProvisionedThroughput)
-gsiiProvisionedThroughput = lens _gsiiProvisionedThroughput (\s a -> s {_gsiiProvisionedThroughput = a})
+-- | Represents the provisioned throughput settings for the specified global
+-- secondary index.
+globalSecondaryIndexInfo_provisionedThroughput :: Lens.Lens' GlobalSecondaryIndexInfo (Prelude.Maybe ProvisionedThroughput)
+globalSecondaryIndexInfo_provisionedThroughput = Lens.lens (\GlobalSecondaryIndexInfo' {provisionedThroughput} -> provisionedThroughput) (\s@GlobalSecondaryIndexInfo' {} a -> s {provisionedThroughput = a} :: GlobalSecondaryIndexInfo)
 
-instance FromJSON GlobalSecondaryIndexInfo where
+instance Prelude.FromJSON GlobalSecondaryIndexInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GlobalSecondaryIndexInfo"
       ( \x ->
           GlobalSecondaryIndexInfo'
-            <$> (x .:? "IndexName")
-            <*> (x .:? "KeySchema")
-            <*> (x .:? "Projection")
-            <*> (x .:? "ProvisionedThroughput")
+            Prelude.<$> (x Prelude..:? "IndexName")
+            Prelude.<*> (x Prelude..:? "KeySchema")
+            Prelude.<*> (x Prelude..:? "Projection")
+            Prelude.<*> (x Prelude..:? "ProvisionedThroughput")
       )
 
-instance Hashable GlobalSecondaryIndexInfo
+instance Prelude.Hashable GlobalSecondaryIndexInfo
 
-instance NFData GlobalSecondaryIndexInfo
+instance Prelude.NFData GlobalSecondaryIndexInfo

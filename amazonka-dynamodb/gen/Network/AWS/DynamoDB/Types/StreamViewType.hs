@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.DynamoDB.Types.StreamViewType
   ( StreamViewType
       ( ..,
-        SVTKeysOnly,
-        SVTNewAndOldImages,
-        SVTNewImage,
-        SVTOldImage
+        StreamViewTypeKEYSONLY,
+        StreamViewTypeNEWANDOLDIMAGES,
+        StreamViewTypeNEWIMAGE,
+        StreamViewTypeOLDIMAGE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StreamViewType = StreamViewType' (CI Text)
+newtype StreamViewType = StreamViewType'
+  { fromStreamViewType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SVTKeysOnly :: StreamViewType
-pattern SVTKeysOnly = StreamViewType' "KEYS_ONLY"
+pattern StreamViewTypeKEYSONLY :: StreamViewType
+pattern StreamViewTypeKEYSONLY = StreamViewType' "KEYS_ONLY"
 
-pattern SVTNewAndOldImages :: StreamViewType
-pattern SVTNewAndOldImages = StreamViewType' "NEW_AND_OLD_IMAGES"
+pattern StreamViewTypeNEWANDOLDIMAGES :: StreamViewType
+pattern StreamViewTypeNEWANDOLDIMAGES = StreamViewType' "NEW_AND_OLD_IMAGES"
 
-pattern SVTNewImage :: StreamViewType
-pattern SVTNewImage = StreamViewType' "NEW_IMAGE"
+pattern StreamViewTypeNEWIMAGE :: StreamViewType
+pattern StreamViewTypeNEWIMAGE = StreamViewType' "NEW_IMAGE"
 
-pattern SVTOldImage :: StreamViewType
-pattern SVTOldImage = StreamViewType' "OLD_IMAGE"
+pattern StreamViewTypeOLDIMAGE :: StreamViewType
+pattern StreamViewTypeOLDIMAGE = StreamViewType' "OLD_IMAGE"
 
 {-# COMPLETE
-  SVTKeysOnly,
-  SVTNewAndOldImages,
-  SVTNewImage,
-  SVTOldImage,
+  StreamViewTypeKEYSONLY,
+  StreamViewTypeNEWANDOLDIMAGES,
+  StreamViewTypeNEWIMAGE,
+  StreamViewTypeOLDIMAGE,
   StreamViewType'
   #-}
 
-instance FromText StreamViewType where
-  parser = (StreamViewType' . mk) <$> takeText
+instance Prelude.FromText StreamViewType where
+  parser = StreamViewType' Prelude.<$> Prelude.takeText
 
-instance ToText StreamViewType where
-  toText (StreamViewType' ci) = original ci
+instance Prelude.ToText StreamViewType where
+  toText (StreamViewType' x) = x
 
-instance Hashable StreamViewType
+instance Prelude.Hashable StreamViewType
 
-instance NFData StreamViewType
+instance Prelude.NFData StreamViewType
 
-instance ToByteString StreamViewType
+instance Prelude.ToByteString StreamViewType
 
-instance ToQuery StreamViewType
+instance Prelude.ToQuery StreamViewType
 
-instance ToHeader StreamViewType
+instance Prelude.ToHeader StreamViewType
 
-instance ToJSON StreamViewType where
-  toJSON = toJSONText
+instance Prelude.ToJSON StreamViewType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StreamViewType where
-  parseJSON = parseJSONText "StreamViewType"
+instance Prelude.FromJSON StreamViewType where
+  parseJSON = Prelude.parseJSONText "StreamViewType"

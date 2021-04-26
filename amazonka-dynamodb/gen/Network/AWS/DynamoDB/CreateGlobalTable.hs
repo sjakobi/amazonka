@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,184 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a global table from an existing table. A global table creates a replication relationship between two or more DynamoDB tables with the same table name in the provided Regions.
+-- Creates a global table from an existing table. A global table creates a
+-- replication relationship between two or more DynamoDB tables with the
+-- same table name in the provided Regions.
 --
+-- This operation only applies to
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html Version 2017.11.29>
+-- of global tables.
 --
--- If you want to add a new replica table to a global table, each of the following conditions must be true:
+-- If you want to add a new replica table to a global table, each of the
+-- following conditions must be true:
 --
---     * The table must have the same primary key as all of the other replicas.
+-- -   The table must have the same primary key as all of the other
+--     replicas.
 --
---     * The table must have the same name as all of the other replicas.
+-- -   The table must have the same name as all of the other replicas.
 --
---     * The table must have DynamoDB Streams enabled, with the stream containing both the new and the old images of the item.
+-- -   The table must have DynamoDB Streams enabled, with the stream
+--     containing both the new and the old images of the item.
 --
---     * None of the replica tables in the global table can contain any data.
+-- -   None of the replica tables in the global table can contain any data.
 --
+-- If global secondary indexes are specified, then the following conditions
+-- must also be met:
 --
+-- -   The global secondary indexes must have the same name.
 --
--- If global secondary indexes are specified, then the following conditions must also be met:
+-- -   The global secondary indexes must have the same hash key and sort
+--     key (if present).
 --
---     * The global secondary indexes must have the same name.
+-- If local secondary indexes are specified, then the following conditions
+-- must also be met:
 --
---     * The global secondary indexes must have the same hash key and sort key (if present).
+-- -   The local secondary indexes must have the same name.
 --
+-- -   The local secondary indexes must have the same hash key and sort key
+--     (if present).
 --
+-- Write capacity settings should be set consistently across your replica
+-- tables and secondary indexes. DynamoDB strongly recommends enabling auto
+-- scaling to manage the write capacity settings for all of your global
+-- tables replicas and indexes.
 --
--- If local secondary indexes are specified, then the following conditions must also be met:
---
---     * The local secondary indexes must have the same name.
---
---     * The local secondary indexes must have the same hash key and sort key (if present).
---
---
---
--- /Important:/ Write capacity settings should be set consistently across your replica tables and secondary indexes. DynamoDB strongly recommends enabling auto scaling to manage the write capacity settings for all of your global tables replicas and indexes.
---
--- If you prefer to manage write capacity settings manually, you should provision equal replicated write capacity units to your replica tables. You should also provision equal replicated write capacity units to matching secondary indexes across your global table.
+-- If you prefer to manage write capacity settings manually, you should
+-- provision equal replicated write capacity units to your replica tables.
+-- You should also provision equal replicated write capacity units to
+-- matching secondary indexes across your global table.
 module Network.AWS.DynamoDB.CreateGlobalTable
   ( -- * Creating a Request
-    createGlobalTable,
-    CreateGlobalTable,
+    CreateGlobalTable (..),
+    newCreateGlobalTable,
 
     -- * Request Lenses
-    cgtGlobalTableName,
-    cgtReplicationGroup,
+    createGlobalTable_globalTableName,
+    createGlobalTable_replicationGroup,
 
     -- * Destructuring the Response
-    createGlobalTableResponse,
-    CreateGlobalTableResponse,
+    CreateGlobalTableResponse (..),
+    newCreateGlobalTableResponse,
 
     -- * Response Lenses
-    cgtrrsGlobalTableDescription,
-    cgtrrsResponseStatus,
+    createGlobalTableResponse_globalTableDescription,
+    createGlobalTableResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.GlobalTableDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createGlobalTable' smart constructor.
+-- | /See:/ 'newCreateGlobalTable' smart constructor.
 data CreateGlobalTable = CreateGlobalTable'
-  { _cgtGlobalTableName ::
-      !Text,
-    _cgtReplicationGroup :: ![Replica]
+  { -- | The global table name.
+    globalTableName :: Prelude.Text,
+    -- | The Regions where the global table needs to be created.
+    replicationGroup :: [Replica]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGlobalTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGlobalTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgtGlobalTableName' - The global table name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgtReplicationGroup' - The Regions where the global table needs to be created.
-createGlobalTable ::
-  -- | 'cgtGlobalTableName'
-  Text ->
+-- 'globalTableName', 'createGlobalTable_globalTableName' - The global table name.
+--
+-- 'replicationGroup', 'createGlobalTable_replicationGroup' - The Regions where the global table needs to be created.
+newCreateGlobalTable ::
+  -- | 'globalTableName'
+  Prelude.Text ->
   CreateGlobalTable
-createGlobalTable pGlobalTableName_ =
+newCreateGlobalTable pGlobalTableName_ =
   CreateGlobalTable'
-    { _cgtGlobalTableName =
+    { globalTableName =
         pGlobalTableName_,
-      _cgtReplicationGroup = mempty
+      replicationGroup = Prelude.mempty
     }
 
 -- | The global table name.
-cgtGlobalTableName :: Lens' CreateGlobalTable Text
-cgtGlobalTableName = lens _cgtGlobalTableName (\s a -> s {_cgtGlobalTableName = a})
+createGlobalTable_globalTableName :: Lens.Lens' CreateGlobalTable Prelude.Text
+createGlobalTable_globalTableName = Lens.lens (\CreateGlobalTable' {globalTableName} -> globalTableName) (\s@CreateGlobalTable' {} a -> s {globalTableName = a} :: CreateGlobalTable)
 
 -- | The Regions where the global table needs to be created.
-cgtReplicationGroup :: Lens' CreateGlobalTable [Replica]
-cgtReplicationGroup = lens _cgtReplicationGroup (\s a -> s {_cgtReplicationGroup = a}) . _Coerce
+createGlobalTable_replicationGroup :: Lens.Lens' CreateGlobalTable [Replica]
+createGlobalTable_replicationGroup = Lens.lens (\CreateGlobalTable' {replicationGroup} -> replicationGroup) (\s@CreateGlobalTable' {} a -> s {replicationGroup = a} :: CreateGlobalTable) Prelude.. Prelude._Coerce
 
-instance AWSRequest CreateGlobalTable where
+instance Prelude.AWSRequest CreateGlobalTable where
   type Rs CreateGlobalTable = CreateGlobalTableResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateGlobalTableResponse'
-            <$> (x .?> "GlobalTableDescription")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GlobalTableDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateGlobalTable
+instance Prelude.Hashable CreateGlobalTable
 
-instance NFData CreateGlobalTable
+instance Prelude.NFData CreateGlobalTable
 
-instance ToHeaders CreateGlobalTable where
+instance Prelude.ToHeaders CreateGlobalTable where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DynamoDB_20120810.CreateGlobalTable" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DynamoDB_20120810.CreateGlobalTable" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateGlobalTable where
+instance Prelude.ToJSON CreateGlobalTable where
   toJSON CreateGlobalTable' {..} =
-    object
-      ( catMaybes
-          [ Just ("GlobalTableName" .= _cgtGlobalTableName),
-            Just ("ReplicationGroup" .= _cgtReplicationGroup)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("GlobalTableName" Prelude..= globalTableName),
+            Prelude.Just
+              ("ReplicationGroup" Prelude..= replicationGroup)
           ]
       )
 
-instance ToPath CreateGlobalTable where
-  toPath = const "/"
+instance Prelude.ToPath CreateGlobalTable where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateGlobalTable where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateGlobalTable where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createGlobalTableResponse' smart constructor.
+-- | /See:/ 'newCreateGlobalTableResponse' smart constructor.
 data CreateGlobalTableResponse = CreateGlobalTableResponse'
-  { _cgtrrsGlobalTableDescription ::
-      !( Maybe
-           GlobalTableDescription
-       ),
-    _cgtrrsResponseStatus ::
-      !Int
+  { -- | Contains the details of the global table.
+    globalTableDescription :: Prelude.Maybe GlobalTableDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGlobalTableResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGlobalTableResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgtrrsGlobalTableDescription' - Contains the details of the global table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgtrrsResponseStatus' - -- | The response status code.
-createGlobalTableResponse ::
-  -- | 'cgtrrsResponseStatus'
-  Int ->
+-- 'globalTableDescription', 'createGlobalTableResponse_globalTableDescription' - Contains the details of the global table.
+--
+-- 'httpStatus', 'createGlobalTableResponse_httpStatus' - The response's http status code.
+newCreateGlobalTableResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateGlobalTableResponse
-createGlobalTableResponse pResponseStatus_ =
+newCreateGlobalTableResponse pHttpStatus_ =
   CreateGlobalTableResponse'
-    { _cgtrrsGlobalTableDescription =
-        Nothing,
-      _cgtrrsResponseStatus = pResponseStatus_
+    { globalTableDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Contains the details of the global table.
-cgtrrsGlobalTableDescription :: Lens' CreateGlobalTableResponse (Maybe GlobalTableDescription)
-cgtrrsGlobalTableDescription = lens _cgtrrsGlobalTableDescription (\s a -> s {_cgtrrsGlobalTableDescription = a})
+createGlobalTableResponse_globalTableDescription :: Lens.Lens' CreateGlobalTableResponse (Prelude.Maybe GlobalTableDescription)
+createGlobalTableResponse_globalTableDescription = Lens.lens (\CreateGlobalTableResponse' {globalTableDescription} -> globalTableDescription) (\s@CreateGlobalTableResponse' {} a -> s {globalTableDescription = a} :: CreateGlobalTableResponse)
 
--- | -- | The response status code.
-cgtrrsResponseStatus :: Lens' CreateGlobalTableResponse Int
-cgtrrsResponseStatus = lens _cgtrrsResponseStatus (\s a -> s {_cgtrrsResponseStatus = a})
+-- | The response's http status code.
+createGlobalTableResponse_httpStatus :: Lens.Lens' CreateGlobalTableResponse Prelude.Int
+createGlobalTableResponse_httpStatus = Lens.lens (\CreateGlobalTableResponse' {httpStatus} -> httpStatus) (\s@CreateGlobalTableResponse' {} a -> s {httpStatus = a} :: CreateGlobalTableResponse)
 
-instance NFData CreateGlobalTableResponse
+instance Prelude.NFData CreateGlobalTableResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DynamoDB.Types.BillingMode
   ( BillingMode
       ( ..,
-        PayPerRequest,
-        Provisioned
+        BillingModePAYPERREQUEST,
+        BillingModePROVISIONED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BillingMode = BillingMode' (CI Text)
+newtype BillingMode = BillingMode'
+  { fromBillingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PayPerRequest :: BillingMode
-pattern PayPerRequest = BillingMode' "PAY_PER_REQUEST"
+pattern BillingModePAYPERREQUEST :: BillingMode
+pattern BillingModePAYPERREQUEST = BillingMode' "PAY_PER_REQUEST"
 
-pattern Provisioned :: BillingMode
-pattern Provisioned = BillingMode' "PROVISIONED"
+pattern BillingModePROVISIONED :: BillingMode
+pattern BillingModePROVISIONED = BillingMode' "PROVISIONED"
 
 {-# COMPLETE
-  PayPerRequest,
-  Provisioned,
+  BillingModePAYPERREQUEST,
+  BillingModePROVISIONED,
   BillingMode'
   #-}
 
-instance FromText BillingMode where
-  parser = (BillingMode' . mk) <$> takeText
+instance Prelude.FromText BillingMode where
+  parser = BillingMode' Prelude.<$> Prelude.takeText
 
-instance ToText BillingMode where
-  toText (BillingMode' ci) = original ci
+instance Prelude.ToText BillingMode where
+  toText (BillingMode' x) = x
 
-instance Hashable BillingMode
+instance Prelude.Hashable BillingMode
 
-instance NFData BillingMode
+instance Prelude.NFData BillingMode
 
-instance ToByteString BillingMode
+instance Prelude.ToByteString BillingMode
 
-instance ToQuery BillingMode
+instance Prelude.ToQuery BillingMode
 
-instance ToHeader BillingMode
+instance Prelude.ToHeader BillingMode
 
-instance ToJSON BillingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON BillingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BillingMode where
-  parseJSON = parseJSONText "BillingMode"
+instance Prelude.FromJSON BillingMode where
+  parseJSON = Prelude.parseJSONText "BillingMode"

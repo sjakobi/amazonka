@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +21,120 @@ module Network.AWS.DynamoDB.Types.LocalSecondaryIndexInfo where
 
 import Network.AWS.DynamoDB.Types.KeySchemaElement
 import Network.AWS.DynamoDB.Types.Projection
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the properties of a local secondary index for the table when the backup was created.
+-- | Represents the properties of a local secondary index for the table when
+-- the backup was created.
 --
---
---
--- /See:/ 'localSecondaryIndexInfo' smart constructor.
+-- /See:/ 'newLocalSecondaryIndexInfo' smart constructor.
 data LocalSecondaryIndexInfo = LocalSecondaryIndexInfo'
-  { _lsiiIndexName ::
-      !(Maybe Text),
-    _lsiiKeySchema ::
-      !( Maybe
-           ( List1
-               KeySchemaElement
-           )
-       ),
-    _lsiiProjection ::
-      !(Maybe Projection)
+  { -- | Represents the name of the local secondary index.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | The complete key schema for a local secondary index, which consists of
+    -- one or more pairs of attribute names and key types:
+    --
+    -- -   @HASH@ - partition key
+    --
+    -- -   @RANGE@ - sort key
+    --
+    -- The partition key of an item is also known as its /hash attribute/. The
+    -- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+    -- hash function to evenly distribute data items across partitions, based
+    -- on their partition key values.
+    --
+    -- The sort key of an item is also known as its /range attribute/. The term
+    -- \"range attribute\" derives from the way DynamoDB stores items with the
+    -- same partition key physically close together, in sorted order by the
+    -- sort key value.
+    keySchema :: Prelude.Maybe (Prelude.List1 KeySchemaElement),
+    -- | Represents attributes that are copied (projected) from the table into
+    -- the global secondary index. These are in addition to the primary key
+    -- attributes and index key attributes, which are automatically projected.
+    projection :: Prelude.Maybe Projection
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LocalSecondaryIndexInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LocalSecondaryIndexInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsiiIndexName' - Represents the name of the local secondary index.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsiiKeySchema' - The complete key schema for a local secondary index, which consists of one or more pairs of attribute names and key types:     * @HASH@ - partition key     * @RANGE@ - sort key
+-- 'indexName', 'localSecondaryIndexInfo_indexName' - Represents the name of the local secondary index.
 --
--- * 'lsiiProjection' - Represents attributes that are copied (projected) from the table into the global secondary index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-localSecondaryIndexInfo ::
+-- 'keySchema', 'localSecondaryIndexInfo_keySchema' - The complete key schema for a local secondary index, which consists of
+-- one or more pairs of attribute names and key types:
+--
+-- -   @HASH@ - partition key
+--
+-- -   @RANGE@ - sort key
+--
+-- The partition key of an item is also known as its /hash attribute/. The
+-- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+-- hash function to evenly distribute data items across partitions, based
+-- on their partition key values.
+--
+-- The sort key of an item is also known as its /range attribute/. The term
+-- \"range attribute\" derives from the way DynamoDB stores items with the
+-- same partition key physically close together, in sorted order by the
+-- sort key value.
+--
+-- 'projection', 'localSecondaryIndexInfo_projection' - Represents attributes that are copied (projected) from the table into
+-- the global secondary index. These are in addition to the primary key
+-- attributes and index key attributes, which are automatically projected.
+newLocalSecondaryIndexInfo ::
   LocalSecondaryIndexInfo
-localSecondaryIndexInfo =
+newLocalSecondaryIndexInfo =
   LocalSecondaryIndexInfo'
-    { _lsiiIndexName = Nothing,
-      _lsiiKeySchema = Nothing,
-      _lsiiProjection = Nothing
+    { indexName =
+        Prelude.Nothing,
+      keySchema = Prelude.Nothing,
+      projection = Prelude.Nothing
     }
 
 -- | Represents the name of the local secondary index.
-lsiiIndexName :: Lens' LocalSecondaryIndexInfo (Maybe Text)
-lsiiIndexName = lens _lsiiIndexName (\s a -> s {_lsiiIndexName = a})
+localSecondaryIndexInfo_indexName :: Lens.Lens' LocalSecondaryIndexInfo (Prelude.Maybe Prelude.Text)
+localSecondaryIndexInfo_indexName = Lens.lens (\LocalSecondaryIndexInfo' {indexName} -> indexName) (\s@LocalSecondaryIndexInfo' {} a -> s {indexName = a} :: LocalSecondaryIndexInfo)
 
--- | The complete key schema for a local secondary index, which consists of one or more pairs of attribute names and key types:     * @HASH@ - partition key     * @RANGE@ - sort key
-lsiiKeySchema :: Lens' LocalSecondaryIndexInfo (Maybe (NonEmpty KeySchemaElement))
-lsiiKeySchema = lens _lsiiKeySchema (\s a -> s {_lsiiKeySchema = a}) . mapping _List1
+-- | The complete key schema for a local secondary index, which consists of
+-- one or more pairs of attribute names and key types:
+--
+-- -   @HASH@ - partition key
+--
+-- -   @RANGE@ - sort key
+--
+-- The partition key of an item is also known as its /hash attribute/. The
+-- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+-- hash function to evenly distribute data items across partitions, based
+-- on their partition key values.
+--
+-- The sort key of an item is also known as its /range attribute/. The term
+-- \"range attribute\" derives from the way DynamoDB stores items with the
+-- same partition key physically close together, in sorted order by the
+-- sort key value.
+localSecondaryIndexInfo_keySchema :: Lens.Lens' LocalSecondaryIndexInfo (Prelude.Maybe (Prelude.NonEmpty KeySchemaElement))
+localSecondaryIndexInfo_keySchema = Lens.lens (\LocalSecondaryIndexInfo' {keySchema} -> keySchema) (\s@LocalSecondaryIndexInfo' {} a -> s {keySchema = a} :: LocalSecondaryIndexInfo) Prelude.. Lens.mapping Prelude._List1
 
--- | Represents attributes that are copied (projected) from the table into the global secondary index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-lsiiProjection :: Lens' LocalSecondaryIndexInfo (Maybe Projection)
-lsiiProjection = lens _lsiiProjection (\s a -> s {_lsiiProjection = a})
+-- | Represents attributes that are copied (projected) from the table into
+-- the global secondary index. These are in addition to the primary key
+-- attributes and index key attributes, which are automatically projected.
+localSecondaryIndexInfo_projection :: Lens.Lens' LocalSecondaryIndexInfo (Prelude.Maybe Projection)
+localSecondaryIndexInfo_projection = Lens.lens (\LocalSecondaryIndexInfo' {projection} -> projection) (\s@LocalSecondaryIndexInfo' {} a -> s {projection = a} :: LocalSecondaryIndexInfo)
 
-instance FromJSON LocalSecondaryIndexInfo where
+instance Prelude.FromJSON LocalSecondaryIndexInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LocalSecondaryIndexInfo"
       ( \x ->
           LocalSecondaryIndexInfo'
-            <$> (x .:? "IndexName")
-            <*> (x .:? "KeySchema")
-            <*> (x .:? "Projection")
+            Prelude.<$> (x Prelude..:? "IndexName")
+            Prelude.<*> (x Prelude..:? "KeySchema")
+            Prelude.<*> (x Prelude..:? "Projection")
       )
 
-instance Hashable LocalSecondaryIndexInfo
+instance Prelude.Hashable LocalSecondaryIndexInfo
 
-instance NFData LocalSecondaryIndexInfo
+instance Prelude.NFData LocalSecondaryIndexInfo

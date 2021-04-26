@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,75 +20,70 @@
 module Network.AWS.DynamoDB.Types.BatchStatementRequest where
 
 import Network.AWS.DynamoDB.Types.AttributeValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A PartiQL batch statement request.
 --
---
---
--- /See:/ 'batchStatementRequest' smart constructor.
+-- /See:/ 'newBatchStatementRequest' smart constructor.
 data BatchStatementRequest = BatchStatementRequest'
-  { _bsrConsistentRead ::
-      !(Maybe Bool),
-    _bsrParameters ::
-      !( Maybe
-           (List1 AttributeValue)
-       ),
-    _bsrStatement :: !Text
+  { -- | The read consistency of the PartiQL batch request.
+    consistentRead :: Prelude.Maybe Prelude.Bool,
+    -- | The parameters associated with a PartiQL statement in the batch request.
+    parameters :: Prelude.Maybe (Prelude.List1 AttributeValue),
+    -- | A valid PartiQL statement.
+    statement :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchStatementRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchStatementRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsrConsistentRead' - The read consistency of the PartiQL batch request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bsrParameters' - The parameters associated with a PartiQL statement in the batch request.
+-- 'consistentRead', 'batchStatementRequest_consistentRead' - The read consistency of the PartiQL batch request.
 --
--- * 'bsrStatement' - A valid PartiQL statement.
-batchStatementRequest ::
-  -- | 'bsrStatement'
-  Text ->
+-- 'parameters', 'batchStatementRequest_parameters' - The parameters associated with a PartiQL statement in the batch request.
+--
+-- 'statement', 'batchStatementRequest_statement' - A valid PartiQL statement.
+newBatchStatementRequest ::
+  -- | 'statement'
+  Prelude.Text ->
   BatchStatementRequest
-batchStatementRequest pStatement_ =
+newBatchStatementRequest pStatement_ =
   BatchStatementRequest'
-    { _bsrConsistentRead =
-        Nothing,
-      _bsrParameters = Nothing,
-      _bsrStatement = pStatement_
+    { consistentRead =
+        Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      statement = pStatement_
     }
 
 -- | The read consistency of the PartiQL batch request.
-bsrConsistentRead :: Lens' BatchStatementRequest (Maybe Bool)
-bsrConsistentRead = lens _bsrConsistentRead (\s a -> s {_bsrConsistentRead = a})
+batchStatementRequest_consistentRead :: Lens.Lens' BatchStatementRequest (Prelude.Maybe Prelude.Bool)
+batchStatementRequest_consistentRead = Lens.lens (\BatchStatementRequest' {consistentRead} -> consistentRead) (\s@BatchStatementRequest' {} a -> s {consistentRead = a} :: BatchStatementRequest)
 
 -- | The parameters associated with a PartiQL statement in the batch request.
-bsrParameters :: Lens' BatchStatementRequest (Maybe (NonEmpty AttributeValue))
-bsrParameters = lens _bsrParameters (\s a -> s {_bsrParameters = a}) . mapping _List1
+batchStatementRequest_parameters :: Lens.Lens' BatchStatementRequest (Prelude.Maybe (Prelude.NonEmpty AttributeValue))
+batchStatementRequest_parameters = Lens.lens (\BatchStatementRequest' {parameters} -> parameters) (\s@BatchStatementRequest' {} a -> s {parameters = a} :: BatchStatementRequest) Prelude.. Lens.mapping Prelude._List1
 
 -- | A valid PartiQL statement.
-bsrStatement :: Lens' BatchStatementRequest Text
-bsrStatement = lens _bsrStatement (\s a -> s {_bsrStatement = a})
+batchStatementRequest_statement :: Lens.Lens' BatchStatementRequest Prelude.Text
+batchStatementRequest_statement = Lens.lens (\BatchStatementRequest' {statement} -> statement) (\s@BatchStatementRequest' {} a -> s {statement = a} :: BatchStatementRequest)
 
-instance Hashable BatchStatementRequest
+instance Prelude.Hashable BatchStatementRequest
 
-instance NFData BatchStatementRequest
+instance Prelude.NFData BatchStatementRequest
 
-instance ToJSON BatchStatementRequest where
+instance Prelude.ToJSON BatchStatementRequest where
   toJSON BatchStatementRequest' {..} =
-    object
-      ( catMaybes
-          [ ("ConsistentRead" .=) <$> _bsrConsistentRead,
-            ("Parameters" .=) <$> _bsrParameters,
-            Just ("Statement" .= _bsrStatement)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ConsistentRead" Prelude..=)
+              Prelude.<$> consistentRead,
+            ("Parameters" Prelude..=) Prelude.<$> parameters,
+            Prelude.Just ("Statement" Prelude..= statement)
           ]
       )

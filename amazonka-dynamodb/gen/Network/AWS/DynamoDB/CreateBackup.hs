@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,158 +23,184 @@
 --
 -- Creates a backup for an existing table.
 --
+-- Each time you create an on-demand backup, the entire table data is
+-- backed up. There is no limit to the number of on-demand backups that can
+-- be taken.
 --
--- Each time you create an on-demand backup, the entire table data is backed up. There is no limit to the number of on-demand backups that can be taken.
---
--- When you create an on-demand backup, a time marker of the request is cataloged, and the backup is created asynchronously, by applying all changes until the time of the request to the last full table snapshot. Backup requests are processed instantaneously and become available for restore within minutes.
+-- When you create an on-demand backup, a time marker of the request is
+-- cataloged, and the backup is created asynchronously, by applying all
+-- changes until the time of the request to the last full table snapshot.
+-- Backup requests are processed instantaneously and become available for
+-- restore within minutes.
 --
 -- You can call @CreateBackup@ at a maximum rate of 50 times per second.
 --
--- All backups in DynamoDB work without consuming any provisioned throughput on the table.
+-- All backups in DynamoDB work without consuming any provisioned
+-- throughput on the table.
 --
--- If you submit a backup request on 2018-12-14 at 14:25:00, the backup is guaranteed to contain all data committed to the table up to 14:24:00, and data committed after 14:26:00 will not be. The backup might contain data modifications made between 14:24:00 and 14:26:00. On-demand backup does not support causal consistency.
+-- If you submit a backup request on 2018-12-14 at 14:25:00, the backup is
+-- guaranteed to contain all data committed to the table up to 14:24:00,
+-- and data committed after 14:26:00 will not be. The backup might contain
+-- data modifications made between 14:24:00 and 14:26:00. On-demand backup
+-- does not support causal consistency.
 --
 -- Along with data, the following are also included on the backups:
 --
---     * Global secondary indexes (GSIs)
+-- -   Global secondary indexes (GSIs)
 --
---     * Local secondary indexes (LSIs)
+-- -   Local secondary indexes (LSIs)
 --
---     * Streams
+-- -   Streams
 --
---     * Provisioned read and write capacity
+-- -   Provisioned read and write capacity
 module Network.AWS.DynamoDB.CreateBackup
   ( -- * Creating a Request
-    createBackup,
-    CreateBackup,
+    CreateBackup (..),
+    newCreateBackup,
 
     -- * Request Lenses
-    cbTableName,
-    cbBackupName,
+    createBackup_tableName,
+    createBackup_backupName,
 
     -- * Destructuring the Response
-    createBackupResponse,
-    CreateBackupResponse,
+    CreateBackupResponse (..),
+    newCreateBackupResponse,
 
     -- * Response Lenses
-    cbrrsBackupDetails,
-    cbrrsResponseStatus,
+    createBackupResponse_backupDetails,
+    createBackupResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.BackupDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createBackup' smart constructor.
+-- | /See:/ 'newCreateBackup' smart constructor.
 data CreateBackup = CreateBackup'
-  { _cbTableName ::
-      !Text,
-    _cbBackupName :: !Text
+  { -- | The name of the table.
+    tableName :: Prelude.Text,
+    -- | Specified name for the backup.
+    backupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateBackup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateBackup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbTableName' - The name of the table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbBackupName' - Specified name for the backup.
-createBackup ::
-  -- | 'cbTableName'
-  Text ->
-  -- | 'cbBackupName'
-  Text ->
+-- 'tableName', 'createBackup_tableName' - The name of the table.
+--
+-- 'backupName', 'createBackup_backupName' - Specified name for the backup.
+newCreateBackup ::
+  -- | 'tableName'
+  Prelude.Text ->
+  -- | 'backupName'
+  Prelude.Text ->
   CreateBackup
-createBackup pTableName_ pBackupName_ =
+newCreateBackup pTableName_ pBackupName_ =
   CreateBackup'
-    { _cbTableName = pTableName_,
-      _cbBackupName = pBackupName_
+    { tableName = pTableName_,
+      backupName = pBackupName_
     }
 
 -- | The name of the table.
-cbTableName :: Lens' CreateBackup Text
-cbTableName = lens _cbTableName (\s a -> s {_cbTableName = a})
+createBackup_tableName :: Lens.Lens' CreateBackup Prelude.Text
+createBackup_tableName = Lens.lens (\CreateBackup' {tableName} -> tableName) (\s@CreateBackup' {} a -> s {tableName = a} :: CreateBackup)
 
 -- | Specified name for the backup.
-cbBackupName :: Lens' CreateBackup Text
-cbBackupName = lens _cbBackupName (\s a -> s {_cbBackupName = a})
+createBackup_backupName :: Lens.Lens' CreateBackup Prelude.Text
+createBackup_backupName = Lens.lens (\CreateBackup' {backupName} -> backupName) (\s@CreateBackup' {} a -> s {backupName = a} :: CreateBackup)
 
-instance AWSRequest CreateBackup where
+instance Prelude.AWSRequest CreateBackup where
   type Rs CreateBackup = CreateBackupResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateBackupResponse'
-            <$> (x .?> "BackupDetails") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "BackupDetails")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateBackup
+instance Prelude.Hashable CreateBackup
 
-instance NFData CreateBackup
+instance Prelude.NFData CreateBackup
 
-instance ToHeaders CreateBackup where
+instance Prelude.ToHeaders CreateBackup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DynamoDB_20120810.CreateBackup" :: ByteString),
+              Prelude.=# ( "DynamoDB_20120810.CreateBackup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateBackup where
+instance Prelude.ToJSON CreateBackup where
   toJSON CreateBackup' {..} =
-    object
-      ( catMaybes
-          [ Just ("TableName" .= _cbTableName),
-            Just ("BackupName" .= _cbBackupName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just ("BackupName" Prelude..= backupName)
           ]
       )
 
-instance ToPath CreateBackup where
-  toPath = const "/"
+instance Prelude.ToPath CreateBackup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateBackup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateBackup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createBackupResponse' smart constructor.
+-- | /See:/ 'newCreateBackupResponse' smart constructor.
 data CreateBackupResponse = CreateBackupResponse'
-  { _cbrrsBackupDetails ::
-      !(Maybe BackupDetails),
-    _cbrrsResponseStatus :: !Int
+  { -- | Contains the details of the backup created for the table.
+    backupDetails :: Prelude.Maybe BackupDetails,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateBackupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateBackupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbrrsBackupDetails' - Contains the details of the backup created for the table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbrrsResponseStatus' - -- | The response status code.
-createBackupResponse ::
-  -- | 'cbrrsResponseStatus'
-  Int ->
+-- 'backupDetails', 'createBackupResponse_backupDetails' - Contains the details of the backup created for the table.
+--
+-- 'httpStatus', 'createBackupResponse_httpStatus' - The response's http status code.
+newCreateBackupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateBackupResponse
-createBackupResponse pResponseStatus_ =
+newCreateBackupResponse pHttpStatus_ =
   CreateBackupResponse'
-    { _cbrrsBackupDetails =
-        Nothing,
-      _cbrrsResponseStatus = pResponseStatus_
+    { backupDetails =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Contains the details of the backup created for the table.
-cbrrsBackupDetails :: Lens' CreateBackupResponse (Maybe BackupDetails)
-cbrrsBackupDetails = lens _cbrrsBackupDetails (\s a -> s {_cbrrsBackupDetails = a})
+createBackupResponse_backupDetails :: Lens.Lens' CreateBackupResponse (Prelude.Maybe BackupDetails)
+createBackupResponse_backupDetails = Lens.lens (\CreateBackupResponse' {backupDetails} -> backupDetails) (\s@CreateBackupResponse' {} a -> s {backupDetails = a} :: CreateBackupResponse)
 
--- | -- | The response status code.
-cbrrsResponseStatus :: Lens' CreateBackupResponse Int
-cbrrsResponseStatus = lens _cbrrsResponseStatus (\s a -> s {_cbrrsResponseStatus = a})
+-- | The response's http status code.
+createBackupResponse_httpStatus :: Lens.Lens' CreateBackupResponse Prelude.Int
+createBackupResponse_httpStatus = Lens.lens (\CreateBackupResponse' {httpStatus} -> httpStatus) (\s@CreateBackupResponse' {} a -> s {httpStatus = a} :: CreateBackupResponse)
 
-instance NFData CreateBackupResponse
+instance Prelude.NFData CreateBackupResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,182 +21,181 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of ContributorInsightsSummary for a table and all its global secondary indexes.
+-- Returns a list of ContributorInsightsSummary for a table and all its
+-- global secondary indexes.
 module Network.AWS.DynamoDB.ListContributorInsights
   ( -- * Creating a Request
-    listContributorInsights,
-    ListContributorInsights,
+    ListContributorInsights (..),
+    newListContributorInsights,
 
     -- * Request Lenses
-    lciNextToken,
-    lciTableName,
-    lciMaxResults,
+    listContributorInsights_nextToken,
+    listContributorInsights_tableName,
+    listContributorInsights_maxResults,
 
     -- * Destructuring the Response
-    listContributorInsightsResponse,
-    ListContributorInsightsResponse,
+    ListContributorInsightsResponse (..),
+    newListContributorInsightsResponse,
 
     -- * Response Lenses
-    lcirrsContributorInsightsSummaries,
-    lcirrsNextToken,
-    lcirrsResponseStatus,
+    listContributorInsightsResponse_contributorInsightsSummaries,
+    listContributorInsightsResponse_nextToken,
+    listContributorInsightsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.ContributorInsightsSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listContributorInsights' smart constructor.
+-- | /See:/ 'newListContributorInsights' smart constructor.
 data ListContributorInsights = ListContributorInsights'
-  { _lciNextToken ::
-      !(Maybe Text),
-    _lciTableName ::
-      !(Maybe Text),
-    _lciMaxResults ::
-      !(Maybe Int)
+  { -- | A token to for the desired page, if there is one.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the table.
+    tableName :: Prelude.Maybe Prelude.Text,
+    -- | Maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListContributorInsights' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListContributorInsights' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lciNextToken' - A token to for the desired page, if there is one.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lciTableName' - The name of the table.
+-- 'nextToken', 'listContributorInsights_nextToken' - A token to for the desired page, if there is one.
 --
--- * 'lciMaxResults' - Maximum number of results to return per page.
-listContributorInsights ::
+-- 'tableName', 'listContributorInsights_tableName' - The name of the table.
+--
+-- 'maxResults', 'listContributorInsights_maxResults' - Maximum number of results to return per page.
+newListContributorInsights ::
   ListContributorInsights
-listContributorInsights =
+newListContributorInsights =
   ListContributorInsights'
-    { _lciNextToken = Nothing,
-      _lciTableName = Nothing,
-      _lciMaxResults = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      tableName = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
 -- | A token to for the desired page, if there is one.
-lciNextToken :: Lens' ListContributorInsights (Maybe Text)
-lciNextToken = lens _lciNextToken (\s a -> s {_lciNextToken = a})
+listContributorInsights_nextToken :: Lens.Lens' ListContributorInsights (Prelude.Maybe Prelude.Text)
+listContributorInsights_nextToken = Lens.lens (\ListContributorInsights' {nextToken} -> nextToken) (\s@ListContributorInsights' {} a -> s {nextToken = a} :: ListContributorInsights)
 
 -- | The name of the table.
-lciTableName :: Lens' ListContributorInsights (Maybe Text)
-lciTableName = lens _lciTableName (\s a -> s {_lciTableName = a})
+listContributorInsights_tableName :: Lens.Lens' ListContributorInsights (Prelude.Maybe Prelude.Text)
+listContributorInsights_tableName = Lens.lens (\ListContributorInsights' {tableName} -> tableName) (\s@ListContributorInsights' {} a -> s {tableName = a} :: ListContributorInsights)
 
 -- | Maximum number of results to return per page.
-lciMaxResults :: Lens' ListContributorInsights (Maybe Int)
-lciMaxResults = lens _lciMaxResults (\s a -> s {_lciMaxResults = a})
+listContributorInsights_maxResults :: Lens.Lens' ListContributorInsights (Prelude.Maybe Prelude.Int)
+listContributorInsights_maxResults = Lens.lens (\ListContributorInsights' {maxResults} -> maxResults) (\s@ListContributorInsights' {} a -> s {maxResults = a} :: ListContributorInsights)
 
-instance AWSRequest ListContributorInsights where
+instance Prelude.AWSRequest ListContributorInsights where
   type
     Rs ListContributorInsights =
       ListContributorInsightsResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListContributorInsightsResponse'
-            <$> (x .?> "ContributorInsightsSummaries" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ContributorInsightsSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListContributorInsights
+instance Prelude.Hashable ListContributorInsights
 
-instance NFData ListContributorInsights
+instance Prelude.NFData ListContributorInsights
 
-instance ToHeaders ListContributorInsights where
+instance Prelude.ToHeaders ListContributorInsights where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DynamoDB_20120810.ListContributorInsights" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DynamoDB_20120810.ListContributorInsights" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListContributorInsights where
+instance Prelude.ToJSON ListContributorInsights where
   toJSON ListContributorInsights' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lciNextToken,
-            ("TableName" .=) <$> _lciTableName,
-            ("MaxResults" .=) <$> _lciMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("TableName" Prelude..=) Prelude.<$> tableName,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListContributorInsights where
-  toPath = const "/"
+instance Prelude.ToPath ListContributorInsights where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListContributorInsights where
-  toQuery = const mempty
+instance Prelude.ToQuery ListContributorInsights where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listContributorInsightsResponse' smart constructor.
+-- | /See:/ 'newListContributorInsightsResponse' smart constructor.
 data ListContributorInsightsResponse = ListContributorInsightsResponse'
-  { _lcirrsContributorInsightsSummaries ::
-      !( Maybe
-           [ContributorInsightsSummary]
-       ),
-    _lcirrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lcirrsResponseStatus ::
-      !Int
+  { -- | A list of ContributorInsightsSummary.
+    contributorInsightsSummaries :: Prelude.Maybe [ContributorInsightsSummary],
+    -- | A token to go to the next page if there is one.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListContributorInsightsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListContributorInsightsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcirrsContributorInsightsSummaries' - A list of ContributorInsightsSummary.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcirrsNextToken' - A token to go to the next page if there is one.
+-- 'contributorInsightsSummaries', 'listContributorInsightsResponse_contributorInsightsSummaries' - A list of ContributorInsightsSummary.
 --
--- * 'lcirrsResponseStatus' - -- | The response status code.
-listContributorInsightsResponse ::
-  -- | 'lcirrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listContributorInsightsResponse_nextToken' - A token to go to the next page if there is one.
+--
+-- 'httpStatus', 'listContributorInsightsResponse_httpStatus' - The response's http status code.
+newListContributorInsightsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListContributorInsightsResponse
-listContributorInsightsResponse pResponseStatus_ =
+newListContributorInsightsResponse pHttpStatus_ =
   ListContributorInsightsResponse'
-    { _lcirrsContributorInsightsSummaries =
-        Nothing,
-      _lcirrsNextToken = Nothing,
-      _lcirrsResponseStatus = pResponseStatus_
+    { contributorInsightsSummaries =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of ContributorInsightsSummary.
-lcirrsContributorInsightsSummaries :: Lens' ListContributorInsightsResponse [ContributorInsightsSummary]
-lcirrsContributorInsightsSummaries = lens _lcirrsContributorInsightsSummaries (\s a -> s {_lcirrsContributorInsightsSummaries = a}) . _Default . _Coerce
+listContributorInsightsResponse_contributorInsightsSummaries :: Lens.Lens' ListContributorInsightsResponse (Prelude.Maybe [ContributorInsightsSummary])
+listContributorInsightsResponse_contributorInsightsSummaries = Lens.lens (\ListContributorInsightsResponse' {contributorInsightsSummaries} -> contributorInsightsSummaries) (\s@ListContributorInsightsResponse' {} a -> s {contributorInsightsSummaries = a} :: ListContributorInsightsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A token to go to the next page if there is one.
-lcirrsNextToken :: Lens' ListContributorInsightsResponse (Maybe Text)
-lcirrsNextToken = lens _lcirrsNextToken (\s a -> s {_lcirrsNextToken = a})
+listContributorInsightsResponse_nextToken :: Lens.Lens' ListContributorInsightsResponse (Prelude.Maybe Prelude.Text)
+listContributorInsightsResponse_nextToken = Lens.lens (\ListContributorInsightsResponse' {nextToken} -> nextToken) (\s@ListContributorInsightsResponse' {} a -> s {nextToken = a} :: ListContributorInsightsResponse)
 
--- | -- | The response status code.
-lcirrsResponseStatus :: Lens' ListContributorInsightsResponse Int
-lcirrsResponseStatus = lens _lcirrsResponseStatus (\s a -> s {_lcirrsResponseStatus = a})
+-- | The response's http status code.
+listContributorInsightsResponse_httpStatus :: Lens.Lens' ListContributorInsightsResponse Prelude.Int
+listContributorInsightsResponse_httpStatus = Lens.lens (\ListContributorInsightsResponse' {httpStatus} -> httpStatus) (\s@ListContributorInsightsResponse' {} a -> s {httpStatus = a} :: ListContributorInsightsResponse)
 
-instance NFData ListContributorInsightsResponse
+instance
+  Prelude.NFData
+    ListContributorInsightsResponse

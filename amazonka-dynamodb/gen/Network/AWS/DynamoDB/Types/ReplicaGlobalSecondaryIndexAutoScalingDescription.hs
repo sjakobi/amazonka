@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,101 +21,115 @@ module Network.AWS.DynamoDB.Types.ReplicaGlobalSecondaryIndexAutoScalingDescript
 
 import Network.AWS.DynamoDB.Types.AutoScalingSettingsDescription
 import Network.AWS.DynamoDB.Types.IndexStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the auto scaling configuration for a replica global secondary index.
+-- | Represents the auto scaling configuration for a replica global secondary
+-- index.
 --
---
---
--- /See:/ 'replicaGlobalSecondaryIndexAutoScalingDescription' smart constructor.
+-- /See:/ 'newReplicaGlobalSecondaryIndexAutoScalingDescription' smart constructor.
 data ReplicaGlobalSecondaryIndexAutoScalingDescription = ReplicaGlobalSecondaryIndexAutoScalingDescription'
-  { _rgsiasdIndexName ::
-      !( Maybe
-           Text
-       ),
-    _rgsiasdProvisionedReadCapacityAutoScalingSettings ::
-      !( Maybe
-           AutoScalingSettingsDescription
-       ),
-    _rgsiasdProvisionedWriteCapacityAutoScalingSettings ::
-      !( Maybe
-           AutoScalingSettingsDescription
-       ),
-    _rgsiasdIndexStatus ::
-      !( Maybe
-           IndexStatus
-       )
+  { -- | The name of the global secondary index.
+    indexName :: Prelude.Maybe Prelude.Text,
+    provisionedReadCapacityAutoScalingSettings :: Prelude.Maybe AutoScalingSettingsDescription,
+    provisionedWriteCapacityAutoScalingSettings :: Prelude.Maybe AutoScalingSettingsDescription,
+    -- | The current state of the replica global secondary index:
+    --
+    -- -   @CREATING@ - The index is being created.
+    --
+    -- -   @UPDATING@ - The index is being updated.
+    --
+    -- -   @DELETING@ - The index is being deleted.
+    --
+    -- -   @ACTIVE@ - The index is ready for use.
+    indexStatus :: Prelude.Maybe IndexStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicaGlobalSecondaryIndexAutoScalingDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicaGlobalSecondaryIndexAutoScalingDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgsiasdIndexName' - The name of the global secondary index.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgsiasdProvisionedReadCapacityAutoScalingSettings' - Undocumented member.
+-- 'indexName', 'replicaGlobalSecondaryIndexAutoScalingDescription_indexName' - The name of the global secondary index.
 --
--- * 'rgsiasdProvisionedWriteCapacityAutoScalingSettings' - Undocumented member.
+-- 'provisionedReadCapacityAutoScalingSettings', 'replicaGlobalSecondaryIndexAutoScalingDescription_provisionedReadCapacityAutoScalingSettings' - Undocumented member.
 --
--- * 'rgsiasdIndexStatus' - The current state of the replica global secondary index:     * @CREATING@ - The index is being created.     * @UPDATING@ - The index is being updated.     * @DELETING@ - The index is being deleted.     * @ACTIVE@ - The index is ready for use.
-replicaGlobalSecondaryIndexAutoScalingDescription ::
+-- 'provisionedWriteCapacityAutoScalingSettings', 'replicaGlobalSecondaryIndexAutoScalingDescription_provisionedWriteCapacityAutoScalingSettings' - Undocumented member.
+--
+-- 'indexStatus', 'replicaGlobalSecondaryIndexAutoScalingDescription_indexStatus' - The current state of the replica global secondary index:
+--
+-- -   @CREATING@ - The index is being created.
+--
+-- -   @UPDATING@ - The index is being updated.
+--
+-- -   @DELETING@ - The index is being deleted.
+--
+-- -   @ACTIVE@ - The index is ready for use.
+newReplicaGlobalSecondaryIndexAutoScalingDescription ::
   ReplicaGlobalSecondaryIndexAutoScalingDescription
-replicaGlobalSecondaryIndexAutoScalingDescription =
+newReplicaGlobalSecondaryIndexAutoScalingDescription =
   ReplicaGlobalSecondaryIndexAutoScalingDescription'
-    { _rgsiasdIndexName =
-        Nothing,
-      _rgsiasdProvisionedReadCapacityAutoScalingSettings =
-        Nothing,
-      _rgsiasdProvisionedWriteCapacityAutoScalingSettings =
-        Nothing,
-      _rgsiasdIndexStatus =
-        Nothing
+    { indexName =
+        Prelude.Nothing,
+      provisionedReadCapacityAutoScalingSettings =
+        Prelude.Nothing,
+      provisionedWriteCapacityAutoScalingSettings =
+        Prelude.Nothing,
+      indexStatus =
+        Prelude.Nothing
     }
 
 -- | The name of the global secondary index.
-rgsiasdIndexName :: Lens' ReplicaGlobalSecondaryIndexAutoScalingDescription (Maybe Text)
-rgsiasdIndexName = lens _rgsiasdIndexName (\s a -> s {_rgsiasdIndexName = a})
+replicaGlobalSecondaryIndexAutoScalingDescription_indexName :: Lens.Lens' ReplicaGlobalSecondaryIndexAutoScalingDescription (Prelude.Maybe Prelude.Text)
+replicaGlobalSecondaryIndexAutoScalingDescription_indexName = Lens.lens (\ReplicaGlobalSecondaryIndexAutoScalingDescription' {indexName} -> indexName) (\s@ReplicaGlobalSecondaryIndexAutoScalingDescription' {} a -> s {indexName = a} :: ReplicaGlobalSecondaryIndexAutoScalingDescription)
 
 -- | Undocumented member.
-rgsiasdProvisionedReadCapacityAutoScalingSettings :: Lens' ReplicaGlobalSecondaryIndexAutoScalingDescription (Maybe AutoScalingSettingsDescription)
-rgsiasdProvisionedReadCapacityAutoScalingSettings = lens _rgsiasdProvisionedReadCapacityAutoScalingSettings (\s a -> s {_rgsiasdProvisionedReadCapacityAutoScalingSettings = a})
+replicaGlobalSecondaryIndexAutoScalingDescription_provisionedReadCapacityAutoScalingSettings :: Lens.Lens' ReplicaGlobalSecondaryIndexAutoScalingDescription (Prelude.Maybe AutoScalingSettingsDescription)
+replicaGlobalSecondaryIndexAutoScalingDescription_provisionedReadCapacityAutoScalingSettings = Lens.lens (\ReplicaGlobalSecondaryIndexAutoScalingDescription' {provisionedReadCapacityAutoScalingSettings} -> provisionedReadCapacityAutoScalingSettings) (\s@ReplicaGlobalSecondaryIndexAutoScalingDescription' {} a -> s {provisionedReadCapacityAutoScalingSettings = a} :: ReplicaGlobalSecondaryIndexAutoScalingDescription)
 
 -- | Undocumented member.
-rgsiasdProvisionedWriteCapacityAutoScalingSettings :: Lens' ReplicaGlobalSecondaryIndexAutoScalingDescription (Maybe AutoScalingSettingsDescription)
-rgsiasdProvisionedWriteCapacityAutoScalingSettings = lens _rgsiasdProvisionedWriteCapacityAutoScalingSettings (\s a -> s {_rgsiasdProvisionedWriteCapacityAutoScalingSettings = a})
+replicaGlobalSecondaryIndexAutoScalingDescription_provisionedWriteCapacityAutoScalingSettings :: Lens.Lens' ReplicaGlobalSecondaryIndexAutoScalingDescription (Prelude.Maybe AutoScalingSettingsDescription)
+replicaGlobalSecondaryIndexAutoScalingDescription_provisionedWriteCapacityAutoScalingSettings = Lens.lens (\ReplicaGlobalSecondaryIndexAutoScalingDescription' {provisionedWriteCapacityAutoScalingSettings} -> provisionedWriteCapacityAutoScalingSettings) (\s@ReplicaGlobalSecondaryIndexAutoScalingDescription' {} a -> s {provisionedWriteCapacityAutoScalingSettings = a} :: ReplicaGlobalSecondaryIndexAutoScalingDescription)
 
--- | The current state of the replica global secondary index:     * @CREATING@ - The index is being created.     * @UPDATING@ - The index is being updated.     * @DELETING@ - The index is being deleted.     * @ACTIVE@ - The index is ready for use.
-rgsiasdIndexStatus :: Lens' ReplicaGlobalSecondaryIndexAutoScalingDescription (Maybe IndexStatus)
-rgsiasdIndexStatus = lens _rgsiasdIndexStatus (\s a -> s {_rgsiasdIndexStatus = a})
+-- | The current state of the replica global secondary index:
+--
+-- -   @CREATING@ - The index is being created.
+--
+-- -   @UPDATING@ - The index is being updated.
+--
+-- -   @DELETING@ - The index is being deleted.
+--
+-- -   @ACTIVE@ - The index is ready for use.
+replicaGlobalSecondaryIndexAutoScalingDescription_indexStatus :: Lens.Lens' ReplicaGlobalSecondaryIndexAutoScalingDescription (Prelude.Maybe IndexStatus)
+replicaGlobalSecondaryIndexAutoScalingDescription_indexStatus = Lens.lens (\ReplicaGlobalSecondaryIndexAutoScalingDescription' {indexStatus} -> indexStatus) (\s@ReplicaGlobalSecondaryIndexAutoScalingDescription' {} a -> s {indexStatus = a} :: ReplicaGlobalSecondaryIndexAutoScalingDescription)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ReplicaGlobalSecondaryIndexAutoScalingDescription
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReplicaGlobalSecondaryIndexAutoScalingDescription"
       ( \x ->
           ReplicaGlobalSecondaryIndexAutoScalingDescription'
-            <$> (x .:? "IndexName")
-              <*> (x .:? "ProvisionedReadCapacityAutoScalingSettings")
-              <*> (x .:? "ProvisionedWriteCapacityAutoScalingSettings")
-              <*> (x .:? "IndexStatus")
+            Prelude.<$> (x Prelude..:? "IndexName")
+              Prelude.<*> ( x
+                              Prelude..:? "ProvisionedReadCapacityAutoScalingSettings"
+                          )
+              Prelude.<*> ( x
+                              Prelude..:? "ProvisionedWriteCapacityAutoScalingSettings"
+                          )
+              Prelude.<*> (x Prelude..:? "IndexStatus")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ReplicaGlobalSecondaryIndexAutoScalingDescription
 
 instance
-  NFData
+  Prelude.NFData
     ReplicaGlobalSecondaryIndexAutoScalingDescription

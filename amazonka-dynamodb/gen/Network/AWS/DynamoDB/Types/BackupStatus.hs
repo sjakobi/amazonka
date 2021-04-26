@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.DynamoDB.Types.BackupStatus
   ( BackupStatus
       ( ..,
-        BSAvailable,
-        BSCreating,
-        BSDeleted
+        BackupStatusAVAILABLE,
+        BackupStatusCREATING,
+        BackupStatusDELETED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BackupStatus = BackupStatus' (CI Text)
+newtype BackupStatus = BackupStatus'
+  { fromBackupStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BSAvailable :: BackupStatus
-pattern BSAvailable = BackupStatus' "AVAILABLE"
+pattern BackupStatusAVAILABLE :: BackupStatus
+pattern BackupStatusAVAILABLE = BackupStatus' "AVAILABLE"
 
-pattern BSCreating :: BackupStatus
-pattern BSCreating = BackupStatus' "CREATING"
+pattern BackupStatusCREATING :: BackupStatus
+pattern BackupStatusCREATING = BackupStatus' "CREATING"
 
-pattern BSDeleted :: BackupStatus
-pattern BSDeleted = BackupStatus' "DELETED"
+pattern BackupStatusDELETED :: BackupStatus
+pattern BackupStatusDELETED = BackupStatus' "DELETED"
 
 {-# COMPLETE
-  BSAvailable,
-  BSCreating,
-  BSDeleted,
+  BackupStatusAVAILABLE,
+  BackupStatusCREATING,
+  BackupStatusDELETED,
   BackupStatus'
   #-}
 
-instance FromText BackupStatus where
-  parser = (BackupStatus' . mk) <$> takeText
+instance Prelude.FromText BackupStatus where
+  parser = BackupStatus' Prelude.<$> Prelude.takeText
 
-instance ToText BackupStatus where
-  toText (BackupStatus' ci) = original ci
+instance Prelude.ToText BackupStatus where
+  toText (BackupStatus' x) = x
 
-instance Hashable BackupStatus
+instance Prelude.Hashable BackupStatus
 
-instance NFData BackupStatus
+instance Prelude.NFData BackupStatus
 
-instance ToByteString BackupStatus
+instance Prelude.ToByteString BackupStatus
 
-instance ToQuery BackupStatus
+instance Prelude.ToQuery BackupStatus
 
-instance ToHeader BackupStatus
+instance Prelude.ToHeader BackupStatus
 
-instance FromJSON BackupStatus where
-  parseJSON = parseJSONText "BackupStatus"
+instance Prelude.FromJSON BackupStatus where
+  parseJSON = Prelude.parseJSONText "BackupStatus"

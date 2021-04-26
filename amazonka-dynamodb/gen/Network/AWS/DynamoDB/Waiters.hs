@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -14,39 +16,44 @@
 module Network.AWS.DynamoDB.Waiters where
 
 import Network.AWS.DynamoDB.DescribeTable
+import Network.AWS.DynamoDB.Lens
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Waiter
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.DynamoDB.DescribeTable' every 20 seconds until a successful state is reached. An error is returned after 25 failed checks.
-tableNotExists :: Wait DescribeTable
-tableNotExists =
-  Wait
-    { _waitName = "TableNotExists",
-      _waitAttempts = 25,
-      _waitDelay = 20,
-      _waitAcceptors =
-        [ matchError
+newTableNotExists :: Waiter.Wait DescribeTable
+newTableNotExists =
+  Waiter.Wait
+    { Waiter._waitName = "TableNotExists",
+      Waiter._waitAttempts = 25,
+      Waiter._waitDelay = 20,
+      Waiter._waitAcceptors =
+        [ Waiter.matchError
             "ResourceNotFoundException"
-            AcceptSuccess
+            Waiter.AcceptSuccess
         ]
     }
 
 -- | Polls 'Network.AWS.DynamoDB.DescribeTable' every 20 seconds until a successful state is reached. An error is returned after 25 failed checks.
-tableExists :: Wait DescribeTable
-tableExists =
-  Wait
-    { _waitName = "TableExists",
-      _waitAttempts = 25,
-      _waitDelay = 20,
-      _waitAcceptors =
-        [ matchAll
+newTableExists :: Waiter.Wait DescribeTable
+newTableExists =
+  Waiter.Wait
+    { Waiter._waitName = "TableExists",
+      Waiter._waitAttempts = 25,
+      Waiter._waitDelay = 20,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "ACTIVE"
-            AcceptSuccess
-            ( desrsTable . _Just . tdTableStatus . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( describeTableResponse_table Prelude.. Lens._Just
+                Prelude.. tableDescription_tableStatus
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "ResourceNotFoundException" AcceptRetry
+          Waiter.matchError
+            "ResourceNotFoundException"
+            Waiter.AcceptRetry
         ]
     }

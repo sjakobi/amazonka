@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,75 @@
 module Network.AWS.DynamoDB.Types.ReturnConsumedCapacity
   ( ReturnConsumedCapacity
       ( ..,
-        Indexes,
-        None,
-        Total
+        ReturnConsumedCapacityINDEXES,
+        ReturnConsumedCapacityNONE,
+        ReturnConsumedCapacityTOTAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Determines the level of detail about provisioned throughput consumption that is returned in the response:
+-- | Determines the level of detail about provisioned throughput consumption
+-- that is returned in the response:
 --
+-- -   @INDEXES@ - The response includes the aggregate @ConsumedCapacity@
+--     for the operation, together with @ConsumedCapacity@ for each table
+--     and secondary index that was accessed.
 --
---     * @INDEXES@ - The response includes the aggregate @ConsumedCapacity@ for the operation, together with @ConsumedCapacity@ for each table and secondary index that was accessed.
+--     Note that some operations, such as @GetItem@ and @BatchGetItem@, do
+--     not access any indexes at all. In these cases, specifying @INDEXES@
+--     will only return @ConsumedCapacity@ information for table(s).
 --
--- Note that some operations, such as @GetItem@ and @BatchGetItem@ , do not access any indexes at all. In these cases, specifying @INDEXES@ will only return @ConsumedCapacity@ information for table(s).
+-- -   @TOTAL@ - The response includes only the aggregate
+--     @ConsumedCapacity@ for the operation.
 --
---     * @TOTAL@ - The response includes only the aggregate @ConsumedCapacity@ for the operation.
---
---     * @NONE@ - No @ConsumedCapacity@ details are included in the response.
-data ReturnConsumedCapacity
-  = ReturnConsumedCapacity'
-      ( CI
-          Text
-      )
+-- -   @NONE@ - No @ConsumedCapacity@ details are included in the response.
+newtype ReturnConsumedCapacity = ReturnConsumedCapacity'
+  { fromReturnConsumedCapacity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Indexes :: ReturnConsumedCapacity
-pattern Indexes = ReturnConsumedCapacity' "INDEXES"
+pattern ReturnConsumedCapacityINDEXES :: ReturnConsumedCapacity
+pattern ReturnConsumedCapacityINDEXES = ReturnConsumedCapacity' "INDEXES"
 
-pattern None :: ReturnConsumedCapacity
-pattern None = ReturnConsumedCapacity' "NONE"
+pattern ReturnConsumedCapacityNONE :: ReturnConsumedCapacity
+pattern ReturnConsumedCapacityNONE = ReturnConsumedCapacity' "NONE"
 
-pattern Total :: ReturnConsumedCapacity
-pattern Total = ReturnConsumedCapacity' "TOTAL"
+pattern ReturnConsumedCapacityTOTAL :: ReturnConsumedCapacity
+pattern ReturnConsumedCapacityTOTAL = ReturnConsumedCapacity' "TOTAL"
 
 {-# COMPLETE
-  Indexes,
-  None,
-  Total,
+  ReturnConsumedCapacityINDEXES,
+  ReturnConsumedCapacityNONE,
+  ReturnConsumedCapacityTOTAL,
   ReturnConsumedCapacity'
   #-}
 
-instance FromText ReturnConsumedCapacity where
-  parser = (ReturnConsumedCapacity' . mk) <$> takeText
+instance Prelude.FromText ReturnConsumedCapacity where
+  parser = ReturnConsumedCapacity' Prelude.<$> Prelude.takeText
 
-instance ToText ReturnConsumedCapacity where
-  toText (ReturnConsumedCapacity' ci) = original ci
+instance Prelude.ToText ReturnConsumedCapacity where
+  toText (ReturnConsumedCapacity' x) = x
 
-instance Hashable ReturnConsumedCapacity
+instance Prelude.Hashable ReturnConsumedCapacity
 
-instance NFData ReturnConsumedCapacity
+instance Prelude.NFData ReturnConsumedCapacity
 
-instance ToByteString ReturnConsumedCapacity
+instance Prelude.ToByteString ReturnConsumedCapacity
 
-instance ToQuery ReturnConsumedCapacity
+instance Prelude.ToQuery ReturnConsumedCapacity
 
-instance ToHeader ReturnConsumedCapacity
+instance Prelude.ToHeader ReturnConsumedCapacity
 
-instance ToJSON ReturnConsumedCapacity where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReturnConsumedCapacity where
+  toJSON = Prelude.toJSONText

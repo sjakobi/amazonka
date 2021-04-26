@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.DynamoDB.Types.ContinuousBackupsStatus
   ( ContinuousBackupsStatus
       ( ..,
-        CBSDisabled,
-        CBSEnabled
+        ContinuousBackupsStatusDISABLED,
+        ContinuousBackupsStatusENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContinuousBackupsStatus
-  = ContinuousBackupsStatus'
-      ( CI
-          Text
-      )
+newtype ContinuousBackupsStatus = ContinuousBackupsStatus'
+  { fromContinuousBackupsStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CBSDisabled :: ContinuousBackupsStatus
-pattern CBSDisabled = ContinuousBackupsStatus' "DISABLED"
+pattern ContinuousBackupsStatusDISABLED :: ContinuousBackupsStatus
+pattern ContinuousBackupsStatusDISABLED = ContinuousBackupsStatus' "DISABLED"
 
-pattern CBSEnabled :: ContinuousBackupsStatus
-pattern CBSEnabled = ContinuousBackupsStatus' "ENABLED"
+pattern ContinuousBackupsStatusENABLED :: ContinuousBackupsStatus
+pattern ContinuousBackupsStatusENABLED = ContinuousBackupsStatus' "ENABLED"
 
 {-# COMPLETE
-  CBSDisabled,
-  CBSEnabled,
+  ContinuousBackupsStatusDISABLED,
+  ContinuousBackupsStatusENABLED,
   ContinuousBackupsStatus'
   #-}
 
-instance FromText ContinuousBackupsStatus where
-  parser = (ContinuousBackupsStatus' . mk) <$> takeText
+instance Prelude.FromText ContinuousBackupsStatus where
+  parser = ContinuousBackupsStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ContinuousBackupsStatus where
-  toText (ContinuousBackupsStatus' ci) = original ci
+instance Prelude.ToText ContinuousBackupsStatus where
+  toText (ContinuousBackupsStatus' x) = x
 
-instance Hashable ContinuousBackupsStatus
+instance Prelude.Hashable ContinuousBackupsStatus
 
-instance NFData ContinuousBackupsStatus
+instance Prelude.NFData ContinuousBackupsStatus
 
-instance ToByteString ContinuousBackupsStatus
+instance Prelude.ToByteString ContinuousBackupsStatus
 
-instance ToQuery ContinuousBackupsStatus
+instance Prelude.ToQuery ContinuousBackupsStatus
 
-instance ToHeader ContinuousBackupsStatus
+instance Prelude.ToHeader ContinuousBackupsStatus
 
-instance FromJSON ContinuousBackupsStatus where
-  parseJSON = parseJSONText "ContinuousBackupsStatus"
+instance Prelude.FromJSON ContinuousBackupsStatus where
+  parseJSON = Prelude.parseJSONText "ContinuousBackupsStatus"

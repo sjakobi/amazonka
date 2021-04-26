@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,298 +21,315 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Restores the specified table to the specified point in time within @EarliestRestorableDateTime@ and @LatestRestorableDateTime@ . You can restore your table to any point in time during the last 35 days. Any number of users can execute up to 4 concurrent restores (any type of restore) in a given account.
+-- Restores the specified table to the specified point in time within
+-- @EarliestRestorableDateTime@ and @LatestRestorableDateTime@. You can
+-- restore your table to any point in time during the last 35 days. Any
+-- number of users can execute up to 4 concurrent restores (any type of
+-- restore) in a given account.
 --
+-- When you restore using point in time recovery, DynamoDB restores your
+-- table data to the state based on the selected date and time
+-- (day:hour:minute:second) to a new table.
 --
--- When you restore using point in time recovery, DynamoDB restores your table data to the state based on the selected date and time (day:hour:minute:second) to a new table.
+-- Along with data, the following are also included on the new restored
+-- table using point in time recovery:
 --
--- Along with data, the following are also included on the new restored table using point in time recovery:
+-- -   Global secondary indexes (GSIs)
 --
---     * Global secondary indexes (GSIs)
+-- -   Local secondary indexes (LSIs)
 --
---     * Local secondary indexes (LSIs)
+-- -   Provisioned read and write capacity
 --
---     * Provisioned read and write capacity
+-- -   Encryption settings
 --
---     * Encryption settings
---
--- /Important:/ All these settings come from the current settings of the source table at the time of restore.
---
---
+--     All these settings come from the current settings of the source
+--     table at the time of restore.
 --
 -- You must manually set up the following on the restored table:
 --
---     * Auto scaling policies
+-- -   Auto scaling policies
 --
---     * IAM policies
+-- -   IAM policies
 --
---     * Amazon CloudWatch metrics and alarms
+-- -   Amazon CloudWatch metrics and alarms
 --
---     * Tags
+-- -   Tags
 --
---     * Stream settings
+-- -   Stream settings
 --
---     * Time to Live (TTL) settings
+-- -   Time to Live (TTL) settings
 --
---     * Point in time recovery settings
+-- -   Point in time recovery settings
 module Network.AWS.DynamoDB.RestoreTableToPointInTime
   ( -- * Creating a Request
-    restoreTableToPointInTime,
-    RestoreTableToPointInTime,
+    RestoreTableToPointInTime (..),
+    newRestoreTableToPointInTime,
 
     -- * Request Lenses
-    rttpitSourceTableName,
-    rttpitRestoreDateTime,
-    rttpitProvisionedThroughputOverride,
-    rttpitGlobalSecondaryIndexOverride,
-    rttpitBillingModeOverride,
-    rttpitSSESpecificationOverride,
-    rttpitSourceTableARN,
-    rttpitLocalSecondaryIndexOverride,
-    rttpitUseLatestRestorableTime,
-    rttpitTargetTableName,
+    restoreTableToPointInTime_sourceTableName,
+    restoreTableToPointInTime_restoreDateTime,
+    restoreTableToPointInTime_provisionedThroughputOverride,
+    restoreTableToPointInTime_globalSecondaryIndexOverride,
+    restoreTableToPointInTime_billingModeOverride,
+    restoreTableToPointInTime_sSESpecificationOverride,
+    restoreTableToPointInTime_sourceTableArn,
+    restoreTableToPointInTime_localSecondaryIndexOverride,
+    restoreTableToPointInTime_useLatestRestorableTime,
+    restoreTableToPointInTime_targetTableName,
 
     -- * Destructuring the Response
-    restoreTableToPointInTimeResponse,
-    RestoreTableToPointInTimeResponse,
+    RestoreTableToPointInTimeResponse (..),
+    newRestoreTableToPointInTimeResponse,
 
     -- * Response Lenses
-    rttpitrrsTableDescription,
-    rttpitrrsResponseStatus,
+    restoreTableToPointInTimeResponse_tableDescription,
+    restoreTableToPointInTimeResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.TableDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'restoreTableToPointInTime' smart constructor.
+-- | /See:/ 'newRestoreTableToPointInTime' smart constructor.
 data RestoreTableToPointInTime = RestoreTableToPointInTime'
-  { _rttpitSourceTableName ::
-      !(Maybe Text),
-    _rttpitRestoreDateTime ::
-      !(Maybe POSIX),
-    _rttpitProvisionedThroughputOverride ::
-      !( Maybe
-           ProvisionedThroughput
-       ),
-    _rttpitGlobalSecondaryIndexOverride ::
-      !( Maybe
-           [GlobalSecondaryIndex]
-       ),
-    _rttpitBillingModeOverride ::
-      !( Maybe
-           BillingMode
-       ),
-    _rttpitSSESpecificationOverride ::
-      !( Maybe
-           SSESpecification
-       ),
-    _rttpitSourceTableARN ::
-      !(Maybe Text),
-    _rttpitLocalSecondaryIndexOverride ::
-      !( Maybe
-           [LocalSecondaryIndex]
-       ),
-    _rttpitUseLatestRestorableTime ::
-      !(Maybe Bool),
-    _rttpitTargetTableName ::
-      !Text
+  { -- | Name of the source table that is being restored.
+    sourceTableName :: Prelude.Maybe Prelude.Text,
+    -- | Time in the past to restore the table to.
+    restoreDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Provisioned throughput settings for the restored table.
+    provisionedThroughputOverride :: Prelude.Maybe ProvisionedThroughput,
+    -- | List of global secondary indexes for the restored table. The indexes
+    -- provided should match existing secondary indexes. You can choose to
+    -- exclude some or all of the indexes at the time of restore.
+    globalSecondaryIndexOverride :: Prelude.Maybe [GlobalSecondaryIndex],
+    -- | The billing mode of the restored table.
+    billingModeOverride :: Prelude.Maybe BillingMode,
+    -- | The new server-side encryption settings for the restored table.
+    sSESpecificationOverride :: Prelude.Maybe SSESpecification,
+    -- | The DynamoDB table that will be restored. This value is an Amazon
+    -- Resource Name (ARN).
+    sourceTableArn :: Prelude.Maybe Prelude.Text,
+    -- | List of local secondary indexes for the restored table. The indexes
+    -- provided should match existing secondary indexes. You can choose to
+    -- exclude some or all of the indexes at the time of restore.
+    localSecondaryIndexOverride :: Prelude.Maybe [LocalSecondaryIndex],
+    -- | Restore the table to the latest possible time.
+    -- @LatestRestorableDateTime@ is typically 5 minutes before the current
+    -- time.
+    useLatestRestorableTime :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the new table to which it must be restored to.
+    targetTableName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreTableToPointInTime' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreTableToPointInTime' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rttpitSourceTableName' - Name of the source table that is being restored.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rttpitRestoreDateTime' - Time in the past to restore the table to.
+-- 'sourceTableName', 'restoreTableToPointInTime_sourceTableName' - Name of the source table that is being restored.
 --
--- * 'rttpitProvisionedThroughputOverride' - Provisioned throughput settings for the restored table.
+-- 'restoreDateTime', 'restoreTableToPointInTime_restoreDateTime' - Time in the past to restore the table to.
 --
--- * 'rttpitGlobalSecondaryIndexOverride' - List of global secondary indexes for the restored table. The indexes provided should match existing secondary indexes. You can choose to exclude some or all of the indexes at the time of restore.
+-- 'provisionedThroughputOverride', 'restoreTableToPointInTime_provisionedThroughputOverride' - Provisioned throughput settings for the restored table.
 --
--- * 'rttpitBillingModeOverride' - The billing mode of the restored table.
+-- 'globalSecondaryIndexOverride', 'restoreTableToPointInTime_globalSecondaryIndexOverride' - List of global secondary indexes for the restored table. The indexes
+-- provided should match existing secondary indexes. You can choose to
+-- exclude some or all of the indexes at the time of restore.
 --
--- * 'rttpitSSESpecificationOverride' - The new server-side encryption settings for the restored table.
+-- 'billingModeOverride', 'restoreTableToPointInTime_billingModeOverride' - The billing mode of the restored table.
 --
--- * 'rttpitSourceTableARN' - The DynamoDB table that will be restored. This value is an Amazon Resource Name (ARN).
+-- 'sSESpecificationOverride', 'restoreTableToPointInTime_sSESpecificationOverride' - The new server-side encryption settings for the restored table.
 --
--- * 'rttpitLocalSecondaryIndexOverride' - List of local secondary indexes for the restored table. The indexes provided should match existing secondary indexes. You can choose to exclude some or all of the indexes at the time of restore.
+-- 'sourceTableArn', 'restoreTableToPointInTime_sourceTableArn' - The DynamoDB table that will be restored. This value is an Amazon
+-- Resource Name (ARN).
 --
--- * 'rttpitUseLatestRestorableTime' - Restore the table to the latest possible time. @LatestRestorableDateTime@ is typically 5 minutes before the current time.
+-- 'localSecondaryIndexOverride', 'restoreTableToPointInTime_localSecondaryIndexOverride' - List of local secondary indexes for the restored table. The indexes
+-- provided should match existing secondary indexes. You can choose to
+-- exclude some or all of the indexes at the time of restore.
 --
--- * 'rttpitTargetTableName' - The name of the new table to which it must be restored to.
-restoreTableToPointInTime ::
-  -- | 'rttpitTargetTableName'
-  Text ->
+-- 'useLatestRestorableTime', 'restoreTableToPointInTime_useLatestRestorableTime' - Restore the table to the latest possible time.
+-- @LatestRestorableDateTime@ is typically 5 minutes before the current
+-- time.
+--
+-- 'targetTableName', 'restoreTableToPointInTime_targetTableName' - The name of the new table to which it must be restored to.
+newRestoreTableToPointInTime ::
+  -- | 'targetTableName'
+  Prelude.Text ->
   RestoreTableToPointInTime
-restoreTableToPointInTime pTargetTableName_ =
+newRestoreTableToPointInTime pTargetTableName_ =
   RestoreTableToPointInTime'
-    { _rttpitSourceTableName =
-        Nothing,
-      _rttpitRestoreDateTime = Nothing,
-      _rttpitProvisionedThroughputOverride = Nothing,
-      _rttpitGlobalSecondaryIndexOverride = Nothing,
-      _rttpitBillingModeOverride = Nothing,
-      _rttpitSSESpecificationOverride = Nothing,
-      _rttpitSourceTableARN = Nothing,
-      _rttpitLocalSecondaryIndexOverride = Nothing,
-      _rttpitUseLatestRestorableTime = Nothing,
-      _rttpitTargetTableName = pTargetTableName_
+    { sourceTableName =
+        Prelude.Nothing,
+      restoreDateTime = Prelude.Nothing,
+      provisionedThroughputOverride = Prelude.Nothing,
+      globalSecondaryIndexOverride = Prelude.Nothing,
+      billingModeOverride = Prelude.Nothing,
+      sSESpecificationOverride = Prelude.Nothing,
+      sourceTableArn = Prelude.Nothing,
+      localSecondaryIndexOverride = Prelude.Nothing,
+      useLatestRestorableTime = Prelude.Nothing,
+      targetTableName = pTargetTableName_
     }
 
 -- | Name of the source table that is being restored.
-rttpitSourceTableName :: Lens' RestoreTableToPointInTime (Maybe Text)
-rttpitSourceTableName = lens _rttpitSourceTableName (\s a -> s {_rttpitSourceTableName = a})
+restoreTableToPointInTime_sourceTableName :: Lens.Lens' RestoreTableToPointInTime (Prelude.Maybe Prelude.Text)
+restoreTableToPointInTime_sourceTableName = Lens.lens (\RestoreTableToPointInTime' {sourceTableName} -> sourceTableName) (\s@RestoreTableToPointInTime' {} a -> s {sourceTableName = a} :: RestoreTableToPointInTime)
 
 -- | Time in the past to restore the table to.
-rttpitRestoreDateTime :: Lens' RestoreTableToPointInTime (Maybe UTCTime)
-rttpitRestoreDateTime = lens _rttpitRestoreDateTime (\s a -> s {_rttpitRestoreDateTime = a}) . mapping _Time
+restoreTableToPointInTime_restoreDateTime :: Lens.Lens' RestoreTableToPointInTime (Prelude.Maybe Prelude.UTCTime)
+restoreTableToPointInTime_restoreDateTime = Lens.lens (\RestoreTableToPointInTime' {restoreDateTime} -> restoreDateTime) (\s@RestoreTableToPointInTime' {} a -> s {restoreDateTime = a} :: RestoreTableToPointInTime) Prelude.. Lens.mapping Prelude._Time
 
 -- | Provisioned throughput settings for the restored table.
-rttpitProvisionedThroughputOverride :: Lens' RestoreTableToPointInTime (Maybe ProvisionedThroughput)
-rttpitProvisionedThroughputOverride = lens _rttpitProvisionedThroughputOverride (\s a -> s {_rttpitProvisionedThroughputOverride = a})
+restoreTableToPointInTime_provisionedThroughputOverride :: Lens.Lens' RestoreTableToPointInTime (Prelude.Maybe ProvisionedThroughput)
+restoreTableToPointInTime_provisionedThroughputOverride = Lens.lens (\RestoreTableToPointInTime' {provisionedThroughputOverride} -> provisionedThroughputOverride) (\s@RestoreTableToPointInTime' {} a -> s {provisionedThroughputOverride = a} :: RestoreTableToPointInTime)
 
--- | List of global secondary indexes for the restored table. The indexes provided should match existing secondary indexes. You can choose to exclude some or all of the indexes at the time of restore.
-rttpitGlobalSecondaryIndexOverride :: Lens' RestoreTableToPointInTime [GlobalSecondaryIndex]
-rttpitGlobalSecondaryIndexOverride = lens _rttpitGlobalSecondaryIndexOverride (\s a -> s {_rttpitGlobalSecondaryIndexOverride = a}) . _Default . _Coerce
+-- | List of global secondary indexes for the restored table. The indexes
+-- provided should match existing secondary indexes. You can choose to
+-- exclude some or all of the indexes at the time of restore.
+restoreTableToPointInTime_globalSecondaryIndexOverride :: Lens.Lens' RestoreTableToPointInTime (Prelude.Maybe [GlobalSecondaryIndex])
+restoreTableToPointInTime_globalSecondaryIndexOverride = Lens.lens (\RestoreTableToPointInTime' {globalSecondaryIndexOverride} -> globalSecondaryIndexOverride) (\s@RestoreTableToPointInTime' {} a -> s {globalSecondaryIndexOverride = a} :: RestoreTableToPointInTime) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The billing mode of the restored table.
-rttpitBillingModeOverride :: Lens' RestoreTableToPointInTime (Maybe BillingMode)
-rttpitBillingModeOverride = lens _rttpitBillingModeOverride (\s a -> s {_rttpitBillingModeOverride = a})
+restoreTableToPointInTime_billingModeOverride :: Lens.Lens' RestoreTableToPointInTime (Prelude.Maybe BillingMode)
+restoreTableToPointInTime_billingModeOverride = Lens.lens (\RestoreTableToPointInTime' {billingModeOverride} -> billingModeOverride) (\s@RestoreTableToPointInTime' {} a -> s {billingModeOverride = a} :: RestoreTableToPointInTime)
 
 -- | The new server-side encryption settings for the restored table.
-rttpitSSESpecificationOverride :: Lens' RestoreTableToPointInTime (Maybe SSESpecification)
-rttpitSSESpecificationOverride = lens _rttpitSSESpecificationOverride (\s a -> s {_rttpitSSESpecificationOverride = a})
+restoreTableToPointInTime_sSESpecificationOverride :: Lens.Lens' RestoreTableToPointInTime (Prelude.Maybe SSESpecification)
+restoreTableToPointInTime_sSESpecificationOverride = Lens.lens (\RestoreTableToPointInTime' {sSESpecificationOverride} -> sSESpecificationOverride) (\s@RestoreTableToPointInTime' {} a -> s {sSESpecificationOverride = a} :: RestoreTableToPointInTime)
 
--- | The DynamoDB table that will be restored. This value is an Amazon Resource Name (ARN).
-rttpitSourceTableARN :: Lens' RestoreTableToPointInTime (Maybe Text)
-rttpitSourceTableARN = lens _rttpitSourceTableARN (\s a -> s {_rttpitSourceTableARN = a})
+-- | The DynamoDB table that will be restored. This value is an Amazon
+-- Resource Name (ARN).
+restoreTableToPointInTime_sourceTableArn :: Lens.Lens' RestoreTableToPointInTime (Prelude.Maybe Prelude.Text)
+restoreTableToPointInTime_sourceTableArn = Lens.lens (\RestoreTableToPointInTime' {sourceTableArn} -> sourceTableArn) (\s@RestoreTableToPointInTime' {} a -> s {sourceTableArn = a} :: RestoreTableToPointInTime)
 
--- | List of local secondary indexes for the restored table. The indexes provided should match existing secondary indexes. You can choose to exclude some or all of the indexes at the time of restore.
-rttpitLocalSecondaryIndexOverride :: Lens' RestoreTableToPointInTime [LocalSecondaryIndex]
-rttpitLocalSecondaryIndexOverride = lens _rttpitLocalSecondaryIndexOverride (\s a -> s {_rttpitLocalSecondaryIndexOverride = a}) . _Default . _Coerce
+-- | List of local secondary indexes for the restored table. The indexes
+-- provided should match existing secondary indexes. You can choose to
+-- exclude some or all of the indexes at the time of restore.
+restoreTableToPointInTime_localSecondaryIndexOverride :: Lens.Lens' RestoreTableToPointInTime (Prelude.Maybe [LocalSecondaryIndex])
+restoreTableToPointInTime_localSecondaryIndexOverride = Lens.lens (\RestoreTableToPointInTime' {localSecondaryIndexOverride} -> localSecondaryIndexOverride) (\s@RestoreTableToPointInTime' {} a -> s {localSecondaryIndexOverride = a} :: RestoreTableToPointInTime) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Restore the table to the latest possible time. @LatestRestorableDateTime@ is typically 5 minutes before the current time.
-rttpitUseLatestRestorableTime :: Lens' RestoreTableToPointInTime (Maybe Bool)
-rttpitUseLatestRestorableTime = lens _rttpitUseLatestRestorableTime (\s a -> s {_rttpitUseLatestRestorableTime = a})
+-- | Restore the table to the latest possible time.
+-- @LatestRestorableDateTime@ is typically 5 minutes before the current
+-- time.
+restoreTableToPointInTime_useLatestRestorableTime :: Lens.Lens' RestoreTableToPointInTime (Prelude.Maybe Prelude.Bool)
+restoreTableToPointInTime_useLatestRestorableTime = Lens.lens (\RestoreTableToPointInTime' {useLatestRestorableTime} -> useLatestRestorableTime) (\s@RestoreTableToPointInTime' {} a -> s {useLatestRestorableTime = a} :: RestoreTableToPointInTime)
 
 -- | The name of the new table to which it must be restored to.
-rttpitTargetTableName :: Lens' RestoreTableToPointInTime Text
-rttpitTargetTableName = lens _rttpitTargetTableName (\s a -> s {_rttpitTargetTableName = a})
+restoreTableToPointInTime_targetTableName :: Lens.Lens' RestoreTableToPointInTime Prelude.Text
+restoreTableToPointInTime_targetTableName = Lens.lens (\RestoreTableToPointInTime' {targetTableName} -> targetTableName) (\s@RestoreTableToPointInTime' {} a -> s {targetTableName = a} :: RestoreTableToPointInTime)
 
-instance AWSRequest RestoreTableToPointInTime where
+instance Prelude.AWSRequest RestoreTableToPointInTime where
   type
     Rs RestoreTableToPointInTime =
       RestoreTableToPointInTimeResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RestoreTableToPointInTimeResponse'
-            <$> (x .?> "TableDescription") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TableDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RestoreTableToPointInTime
+instance Prelude.Hashable RestoreTableToPointInTime
 
-instance NFData RestoreTableToPointInTime
+instance Prelude.NFData RestoreTableToPointInTime
 
-instance ToHeaders RestoreTableToPointInTime where
+instance Prelude.ToHeaders RestoreTableToPointInTime where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DynamoDB_20120810.RestoreTableToPointInTime" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DynamoDB_20120810.RestoreTableToPointInTime" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RestoreTableToPointInTime where
+instance Prelude.ToJSON RestoreTableToPointInTime where
   toJSON RestoreTableToPointInTime' {..} =
-    object
-      ( catMaybes
-          [ ("SourceTableName" .=) <$> _rttpitSourceTableName,
-            ("RestoreDateTime" .=) <$> _rttpitRestoreDateTime,
-            ("ProvisionedThroughputOverride" .=)
-              <$> _rttpitProvisionedThroughputOverride,
-            ("GlobalSecondaryIndexOverride" .=)
-              <$> _rttpitGlobalSecondaryIndexOverride,
-            ("BillingModeOverride" .=)
-              <$> _rttpitBillingModeOverride,
-            ("SSESpecificationOverride" .=)
-              <$> _rttpitSSESpecificationOverride,
-            ("SourceTableArn" .=) <$> _rttpitSourceTableARN,
-            ("LocalSecondaryIndexOverride" .=)
-              <$> _rttpitLocalSecondaryIndexOverride,
-            ("UseLatestRestorableTime" .=)
-              <$> _rttpitUseLatestRestorableTime,
-            Just ("TargetTableName" .= _rttpitTargetTableName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SourceTableName" Prelude..=)
+              Prelude.<$> sourceTableName,
+            ("RestoreDateTime" Prelude..=)
+              Prelude.<$> restoreDateTime,
+            ("ProvisionedThroughputOverride" Prelude..=)
+              Prelude.<$> provisionedThroughputOverride,
+            ("GlobalSecondaryIndexOverride" Prelude..=)
+              Prelude.<$> globalSecondaryIndexOverride,
+            ("BillingModeOverride" Prelude..=)
+              Prelude.<$> billingModeOverride,
+            ("SSESpecificationOverride" Prelude..=)
+              Prelude.<$> sSESpecificationOverride,
+            ("SourceTableArn" Prelude..=)
+              Prelude.<$> sourceTableArn,
+            ("LocalSecondaryIndexOverride" Prelude..=)
+              Prelude.<$> localSecondaryIndexOverride,
+            ("UseLatestRestorableTime" Prelude..=)
+              Prelude.<$> useLatestRestorableTime,
+            Prelude.Just
+              ("TargetTableName" Prelude..= targetTableName)
           ]
       )
 
-instance ToPath RestoreTableToPointInTime where
-  toPath = const "/"
+instance Prelude.ToPath RestoreTableToPointInTime where
+  toPath = Prelude.const "/"
 
-instance ToQuery RestoreTableToPointInTime where
-  toQuery = const mempty
+instance Prelude.ToQuery RestoreTableToPointInTime where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'restoreTableToPointInTimeResponse' smart constructor.
+-- | /See:/ 'newRestoreTableToPointInTimeResponse' smart constructor.
 data RestoreTableToPointInTimeResponse = RestoreTableToPointInTimeResponse'
-  { _rttpitrrsTableDescription ::
-      !( Maybe
-           TableDescription
-       ),
-    _rttpitrrsResponseStatus ::
-      !Int
+  { -- | Represents the properties of a table.
+    tableDescription :: Prelude.Maybe TableDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreTableToPointInTimeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreTableToPointInTimeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rttpitrrsTableDescription' - Represents the properties of a table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rttpitrrsResponseStatus' - -- | The response status code.
-restoreTableToPointInTimeResponse ::
-  -- | 'rttpitrrsResponseStatus'
-  Int ->
+-- 'tableDescription', 'restoreTableToPointInTimeResponse_tableDescription' - Represents the properties of a table.
+--
+-- 'httpStatus', 'restoreTableToPointInTimeResponse_httpStatus' - The response's http status code.
+newRestoreTableToPointInTimeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RestoreTableToPointInTimeResponse
-restoreTableToPointInTimeResponse pResponseStatus_ =
+newRestoreTableToPointInTimeResponse pHttpStatus_ =
   RestoreTableToPointInTimeResponse'
-    { _rttpitrrsTableDescription =
-        Nothing,
-      _rttpitrrsResponseStatus =
-        pResponseStatus_
+    { tableDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Represents the properties of a table.
-rttpitrrsTableDescription :: Lens' RestoreTableToPointInTimeResponse (Maybe TableDescription)
-rttpitrrsTableDescription = lens _rttpitrrsTableDescription (\s a -> s {_rttpitrrsTableDescription = a})
+restoreTableToPointInTimeResponse_tableDescription :: Lens.Lens' RestoreTableToPointInTimeResponse (Prelude.Maybe TableDescription)
+restoreTableToPointInTimeResponse_tableDescription = Lens.lens (\RestoreTableToPointInTimeResponse' {tableDescription} -> tableDescription) (\s@RestoreTableToPointInTimeResponse' {} a -> s {tableDescription = a} :: RestoreTableToPointInTimeResponse)
 
--- | -- | The response status code.
-rttpitrrsResponseStatus :: Lens' RestoreTableToPointInTimeResponse Int
-rttpitrrsResponseStatus = lens _rttpitrrsResponseStatus (\s a -> s {_rttpitrrsResponseStatus = a})
+-- | The response's http status code.
+restoreTableToPointInTimeResponse_httpStatus :: Lens.Lens' RestoreTableToPointInTimeResponse Prelude.Int
+restoreTableToPointInTimeResponse_httpStatus = Lens.lens (\RestoreTableToPointInTimeResponse' {httpStatus} -> httpStatus) (\s@RestoreTableToPointInTimeResponse' {} a -> s {httpStatus = a} :: RestoreTableToPointInTimeResponse)
 
-instance NFData RestoreTableToPointInTimeResponse
+instance
+  Prelude.NFData
+    RestoreTableToPointInTimeResponse

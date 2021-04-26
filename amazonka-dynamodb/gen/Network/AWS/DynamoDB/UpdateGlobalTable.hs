@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or removes replicas in the specified global table. The global table must already exist to be able to use this operation. Any replica to be added must be empty, have the same name as the global table, have the same key schema, have DynamoDB Streams enabled, and have the same provisioned and maximum write capacity units.
+-- Adds or removes replicas in the specified global table. The global table
+-- must already exist to be able to use this operation. Any replica to be
+-- added must be empty, have the same name as the global table, have the
+-- same key schema, have DynamoDB Streams enabled, and have the same
+-- provisioned and maximum write capacity units.
 --
+-- Although you can use @UpdateGlobalTable@ to add replicas and remove
+-- replicas in a single request, for simplicity we recommend that you issue
+-- separate requests for adding or removing replicas.
 --
--- If global secondary indexes are specified, then the following conditions must also be met:
+-- If global secondary indexes are specified, then the following conditions
+-- must also be met:
 --
---     * The global secondary indexes must have the same name.
+-- -   The global secondary indexes must have the same name.
 --
---     * The global secondary indexes must have the same hash key and sort key (if present).
+-- -   The global secondary indexes must have the same hash key and sort
+--     key (if present).
 --
---     * The global secondary indexes must have the same provisioned and maximum write capacity units.
+-- -   The global secondary indexes must have the same provisioned and
+--     maximum write capacity units.
 module Network.AWS.DynamoDB.UpdateGlobalTable
   ( -- * Creating a Request
-    updateGlobalTable,
-    UpdateGlobalTable,
+    UpdateGlobalTable (..),
+    newUpdateGlobalTable,
 
     -- * Request Lenses
-    ugtGlobalTableName,
-    ugtReplicaUpdates,
+    updateGlobalTable_globalTableName,
+    updateGlobalTable_replicaUpdates,
 
     -- * Destructuring the Response
-    updateGlobalTableResponse,
-    UpdateGlobalTableResponse,
+    UpdateGlobalTableResponse (..),
+    newUpdateGlobalTableResponse,
 
     -- * Response Lenses
-    ugtrrsGlobalTableDescription,
-    ugtrrsResponseStatus,
+    updateGlobalTableResponse_globalTableDescription,
+    updateGlobalTableResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.GlobalTableDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateGlobalTable' smart constructor.
+-- | /See:/ 'newUpdateGlobalTable' smart constructor.
 data UpdateGlobalTable = UpdateGlobalTable'
-  { _ugtGlobalTableName ::
-      !Text,
-    _ugtReplicaUpdates ::
-      ![ReplicaUpdate]
+  { -- | The global table name.
+    globalTableName :: Prelude.Text,
+    -- | A list of Regions that should be added or removed from the global table.
+    replicaUpdates :: [ReplicaUpdate]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateGlobalTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateGlobalTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ugtGlobalTableName' - The global table name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ugtReplicaUpdates' - A list of Regions that should be added or removed from the global table.
-updateGlobalTable ::
-  -- | 'ugtGlobalTableName'
-  Text ->
+-- 'globalTableName', 'updateGlobalTable_globalTableName' - The global table name.
+--
+-- 'replicaUpdates', 'updateGlobalTable_replicaUpdates' - A list of Regions that should be added or removed from the global table.
+newUpdateGlobalTable ::
+  -- | 'globalTableName'
+  Prelude.Text ->
   UpdateGlobalTable
-updateGlobalTable pGlobalTableName_ =
+newUpdateGlobalTable pGlobalTableName_ =
   UpdateGlobalTable'
-    { _ugtGlobalTableName =
+    { globalTableName =
         pGlobalTableName_,
-      _ugtReplicaUpdates = mempty
+      replicaUpdates = Prelude.mempty
     }
 
 -- | The global table name.
-ugtGlobalTableName :: Lens' UpdateGlobalTable Text
-ugtGlobalTableName = lens _ugtGlobalTableName (\s a -> s {_ugtGlobalTableName = a})
+updateGlobalTable_globalTableName :: Lens.Lens' UpdateGlobalTable Prelude.Text
+updateGlobalTable_globalTableName = Lens.lens (\UpdateGlobalTable' {globalTableName} -> globalTableName) (\s@UpdateGlobalTable' {} a -> s {globalTableName = a} :: UpdateGlobalTable)
 
 -- | A list of Regions that should be added or removed from the global table.
-ugtReplicaUpdates :: Lens' UpdateGlobalTable [ReplicaUpdate]
-ugtReplicaUpdates = lens _ugtReplicaUpdates (\s a -> s {_ugtReplicaUpdates = a}) . _Coerce
+updateGlobalTable_replicaUpdates :: Lens.Lens' UpdateGlobalTable [ReplicaUpdate]
+updateGlobalTable_replicaUpdates = Lens.lens (\UpdateGlobalTable' {replicaUpdates} -> replicaUpdates) (\s@UpdateGlobalTable' {} a -> s {replicaUpdates = a} :: UpdateGlobalTable) Prelude.. Prelude._Coerce
 
-instance AWSRequest UpdateGlobalTable where
+instance Prelude.AWSRequest UpdateGlobalTable where
   type Rs UpdateGlobalTable = UpdateGlobalTableResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateGlobalTableResponse'
-            <$> (x .?> "GlobalTableDescription")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GlobalTableDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateGlobalTable
+instance Prelude.Hashable UpdateGlobalTable
 
-instance NFData UpdateGlobalTable
+instance Prelude.NFData UpdateGlobalTable
 
-instance ToHeaders UpdateGlobalTable where
+instance Prelude.ToHeaders UpdateGlobalTable where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DynamoDB_20120810.UpdateGlobalTable" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DynamoDB_20120810.UpdateGlobalTable" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateGlobalTable where
+instance Prelude.ToJSON UpdateGlobalTable where
   toJSON UpdateGlobalTable' {..} =
-    object
-      ( catMaybes
-          [ Just ("GlobalTableName" .= _ugtGlobalTableName),
-            Just ("ReplicaUpdates" .= _ugtReplicaUpdates)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("GlobalTableName" Prelude..= globalTableName),
+            Prelude.Just
+              ("ReplicaUpdates" Prelude..= replicaUpdates)
           ]
       )
 
-instance ToPath UpdateGlobalTable where
-  toPath = const "/"
+instance Prelude.ToPath UpdateGlobalTable where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateGlobalTable where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateGlobalTable where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateGlobalTableResponse' smart constructor.
+-- | /See:/ 'newUpdateGlobalTableResponse' smart constructor.
 data UpdateGlobalTableResponse = UpdateGlobalTableResponse'
-  { _ugtrrsGlobalTableDescription ::
-      !( Maybe
-           GlobalTableDescription
-       ),
-    _ugtrrsResponseStatus ::
-      !Int
+  { -- | Contains the details of the global table.
+    globalTableDescription :: Prelude.Maybe GlobalTableDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateGlobalTableResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateGlobalTableResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ugtrrsGlobalTableDescription' - Contains the details of the global table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ugtrrsResponseStatus' - -- | The response status code.
-updateGlobalTableResponse ::
-  -- | 'ugtrrsResponseStatus'
-  Int ->
+-- 'globalTableDescription', 'updateGlobalTableResponse_globalTableDescription' - Contains the details of the global table.
+--
+-- 'httpStatus', 'updateGlobalTableResponse_httpStatus' - The response's http status code.
+newUpdateGlobalTableResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateGlobalTableResponse
-updateGlobalTableResponse pResponseStatus_ =
+newUpdateGlobalTableResponse pHttpStatus_ =
   UpdateGlobalTableResponse'
-    { _ugtrrsGlobalTableDescription =
-        Nothing,
-      _ugtrrsResponseStatus = pResponseStatus_
+    { globalTableDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Contains the details of the global table.
-ugtrrsGlobalTableDescription :: Lens' UpdateGlobalTableResponse (Maybe GlobalTableDescription)
-ugtrrsGlobalTableDescription = lens _ugtrrsGlobalTableDescription (\s a -> s {_ugtrrsGlobalTableDescription = a})
+updateGlobalTableResponse_globalTableDescription :: Lens.Lens' UpdateGlobalTableResponse (Prelude.Maybe GlobalTableDescription)
+updateGlobalTableResponse_globalTableDescription = Lens.lens (\UpdateGlobalTableResponse' {globalTableDescription} -> globalTableDescription) (\s@UpdateGlobalTableResponse' {} a -> s {globalTableDescription = a} :: UpdateGlobalTableResponse)
 
--- | -- | The response status code.
-ugtrrsResponseStatus :: Lens' UpdateGlobalTableResponse Int
-ugtrrsResponseStatus = lens _ugtrrsResponseStatus (\s a -> s {_ugtrrsResponseStatus = a})
+-- | The response's http status code.
+updateGlobalTableResponse_httpStatus :: Lens.Lens' UpdateGlobalTableResponse Prelude.Int
+updateGlobalTableResponse_httpStatus = Lens.lens (\UpdateGlobalTableResponse' {httpStatus} -> httpStatus) (\s@UpdateGlobalTableResponse' {} a -> s {httpStatus = a} :: UpdateGlobalTableResponse)
 
-instance NFData UpdateGlobalTableResponse
+instance Prelude.NFData UpdateGlobalTableResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,66 @@
 module Network.AWS.DynamoDB.Types.AutoScalingPolicyDescription where
 
 import Network.AWS.DynamoDB.Types.AutoScalingTargetTrackingScalingPolicyConfigurationDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the properties of the scaling policy.
 --
---
---
--- /See:/ 'autoScalingPolicyDescription' smart constructor.
+-- /See:/ 'newAutoScalingPolicyDescription' smart constructor.
 data AutoScalingPolicyDescription = AutoScalingPolicyDescription'
-  { _aspdPolicyName ::
-      !(Maybe Text),
-    _aspdTargetTrackingScalingPolicyConfiguration ::
-      !( Maybe
-           AutoScalingTargetTrackingScalingPolicyConfigurationDescription
-       )
+  { -- | The name of the scaling policy.
+    policyName :: Prelude.Maybe Prelude.Text,
+    -- | Represents a target tracking scaling policy configuration.
+    targetTrackingScalingPolicyConfiguration :: Prelude.Maybe AutoScalingTargetTrackingScalingPolicyConfigurationDescription
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoScalingPolicyDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoScalingPolicyDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aspdPolicyName' - The name of the scaling policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aspdTargetTrackingScalingPolicyConfiguration' - Represents a target tracking scaling policy configuration.
-autoScalingPolicyDescription ::
+-- 'policyName', 'autoScalingPolicyDescription_policyName' - The name of the scaling policy.
+--
+-- 'targetTrackingScalingPolicyConfiguration', 'autoScalingPolicyDescription_targetTrackingScalingPolicyConfiguration' - Represents a target tracking scaling policy configuration.
+newAutoScalingPolicyDescription ::
   AutoScalingPolicyDescription
-autoScalingPolicyDescription =
+newAutoScalingPolicyDescription =
   AutoScalingPolicyDescription'
-    { _aspdPolicyName =
-        Nothing,
-      _aspdTargetTrackingScalingPolicyConfiguration =
-        Nothing
+    { policyName =
+        Prelude.Nothing,
+      targetTrackingScalingPolicyConfiguration =
+        Prelude.Nothing
     }
 
 -- | The name of the scaling policy.
-aspdPolicyName :: Lens' AutoScalingPolicyDescription (Maybe Text)
-aspdPolicyName = lens _aspdPolicyName (\s a -> s {_aspdPolicyName = a})
+autoScalingPolicyDescription_policyName :: Lens.Lens' AutoScalingPolicyDescription (Prelude.Maybe Prelude.Text)
+autoScalingPolicyDescription_policyName = Lens.lens (\AutoScalingPolicyDescription' {policyName} -> policyName) (\s@AutoScalingPolicyDescription' {} a -> s {policyName = a} :: AutoScalingPolicyDescription)
 
 -- | Represents a target tracking scaling policy configuration.
-aspdTargetTrackingScalingPolicyConfiguration :: Lens' AutoScalingPolicyDescription (Maybe AutoScalingTargetTrackingScalingPolicyConfigurationDescription)
-aspdTargetTrackingScalingPolicyConfiguration = lens _aspdTargetTrackingScalingPolicyConfiguration (\s a -> s {_aspdTargetTrackingScalingPolicyConfiguration = a})
+autoScalingPolicyDescription_targetTrackingScalingPolicyConfiguration :: Lens.Lens' AutoScalingPolicyDescription (Prelude.Maybe AutoScalingTargetTrackingScalingPolicyConfigurationDescription)
+autoScalingPolicyDescription_targetTrackingScalingPolicyConfiguration = Lens.lens (\AutoScalingPolicyDescription' {targetTrackingScalingPolicyConfiguration} -> targetTrackingScalingPolicyConfiguration) (\s@AutoScalingPolicyDescription' {} a -> s {targetTrackingScalingPolicyConfiguration = a} :: AutoScalingPolicyDescription)
 
-instance FromJSON AutoScalingPolicyDescription where
+instance
+  Prelude.FromJSON
+    AutoScalingPolicyDescription
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoScalingPolicyDescription"
       ( \x ->
           AutoScalingPolicyDescription'
-            <$> (x .:? "PolicyName")
-            <*> (x .:? "TargetTrackingScalingPolicyConfiguration")
+            Prelude.<$> (x Prelude..:? "PolicyName")
+            Prelude.<*> ( x
+                            Prelude..:? "TargetTrackingScalingPolicyConfiguration"
+                        )
       )
 
-instance Hashable AutoScalingPolicyDescription
+instance
+  Prelude.Hashable
+    AutoScalingPolicyDescription
 
-instance NFData AutoScalingPolicyDescription
+instance Prelude.NFData AutoScalingPolicyDescription

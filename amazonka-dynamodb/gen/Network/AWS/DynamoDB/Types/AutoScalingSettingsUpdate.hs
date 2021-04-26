@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,97 +20,100 @@
 module Network.AWS.DynamoDB.Types.AutoScalingSettingsUpdate where
 
 import Network.AWS.DynamoDB.Types.AutoScalingPolicyUpdate
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the auto scaling settings to be modified for a global table or global secondary index.
+-- | Represents the auto scaling settings to be modified for a global table
+-- or global secondary index.
 --
---
---
--- /See:/ 'autoScalingSettingsUpdate' smart constructor.
+-- /See:/ 'newAutoScalingSettingsUpdate' smart constructor.
 data AutoScalingSettingsUpdate = AutoScalingSettingsUpdate'
-  { _assuScalingPolicyUpdate ::
-      !( Maybe
-           AutoScalingPolicyUpdate
-       ),
-    _assuMinimumUnits ::
-      !(Maybe Nat),
-    _assuMaximumUnits ::
-      !(Maybe Nat),
-    _assuAutoScalingRoleARN ::
-      !(Maybe Text),
-    _assuAutoScalingDisabled ::
-      !(Maybe Bool)
+  { -- | The scaling policy to apply for scaling target global table or global
+    -- secondary index capacity units.
+    scalingPolicyUpdate :: Prelude.Maybe AutoScalingPolicyUpdate,
+    -- | The minimum capacity units that a global table or global secondary index
+    -- should be scaled down to.
+    minimumUnits :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum capacity units that a global table or global secondary index
+    -- should be scaled up to.
+    maximumUnits :: Prelude.Maybe Prelude.Nat,
+    -- | Role ARN used for configuring auto scaling policy.
+    autoScalingRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | Disabled auto scaling for this global table or global secondary index.
+    autoScalingDisabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoScalingSettingsUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoScalingSettingsUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'assuScalingPolicyUpdate' - The scaling policy to apply for scaling target global table or global secondary index capacity units.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'assuMinimumUnits' - The minimum capacity units that a global table or global secondary index should be scaled down to.
+-- 'scalingPolicyUpdate', 'autoScalingSettingsUpdate_scalingPolicyUpdate' - The scaling policy to apply for scaling target global table or global
+-- secondary index capacity units.
 --
--- * 'assuMaximumUnits' - The maximum capacity units that a global table or global secondary index should be scaled up to.
+-- 'minimumUnits', 'autoScalingSettingsUpdate_minimumUnits' - The minimum capacity units that a global table or global secondary index
+-- should be scaled down to.
 --
--- * 'assuAutoScalingRoleARN' - Role ARN used for configuring auto scaling policy.
+-- 'maximumUnits', 'autoScalingSettingsUpdate_maximumUnits' - The maximum capacity units that a global table or global secondary index
+-- should be scaled up to.
 --
--- * 'assuAutoScalingDisabled' - Disabled auto scaling for this global table or global secondary index.
-autoScalingSettingsUpdate ::
+-- 'autoScalingRoleArn', 'autoScalingSettingsUpdate_autoScalingRoleArn' - Role ARN used for configuring auto scaling policy.
+--
+-- 'autoScalingDisabled', 'autoScalingSettingsUpdate_autoScalingDisabled' - Disabled auto scaling for this global table or global secondary index.
+newAutoScalingSettingsUpdate ::
   AutoScalingSettingsUpdate
-autoScalingSettingsUpdate =
+newAutoScalingSettingsUpdate =
   AutoScalingSettingsUpdate'
-    { _assuScalingPolicyUpdate =
-        Nothing,
-      _assuMinimumUnits = Nothing,
-      _assuMaximumUnits = Nothing,
-      _assuAutoScalingRoleARN = Nothing,
-      _assuAutoScalingDisabled = Nothing
+    { scalingPolicyUpdate =
+        Prelude.Nothing,
+      minimumUnits = Prelude.Nothing,
+      maximumUnits = Prelude.Nothing,
+      autoScalingRoleArn = Prelude.Nothing,
+      autoScalingDisabled = Prelude.Nothing
     }
 
--- | The scaling policy to apply for scaling target global table or global secondary index capacity units.
-assuScalingPolicyUpdate :: Lens' AutoScalingSettingsUpdate (Maybe AutoScalingPolicyUpdate)
-assuScalingPolicyUpdate = lens _assuScalingPolicyUpdate (\s a -> s {_assuScalingPolicyUpdate = a})
+-- | The scaling policy to apply for scaling target global table or global
+-- secondary index capacity units.
+autoScalingSettingsUpdate_scalingPolicyUpdate :: Lens.Lens' AutoScalingSettingsUpdate (Prelude.Maybe AutoScalingPolicyUpdate)
+autoScalingSettingsUpdate_scalingPolicyUpdate = Lens.lens (\AutoScalingSettingsUpdate' {scalingPolicyUpdate} -> scalingPolicyUpdate) (\s@AutoScalingSettingsUpdate' {} a -> s {scalingPolicyUpdate = a} :: AutoScalingSettingsUpdate)
 
--- | The minimum capacity units that a global table or global secondary index should be scaled down to.
-assuMinimumUnits :: Lens' AutoScalingSettingsUpdate (Maybe Natural)
-assuMinimumUnits = lens _assuMinimumUnits (\s a -> s {_assuMinimumUnits = a}) . mapping _Nat
+-- | The minimum capacity units that a global table or global secondary index
+-- should be scaled down to.
+autoScalingSettingsUpdate_minimumUnits :: Lens.Lens' AutoScalingSettingsUpdate (Prelude.Maybe Prelude.Natural)
+autoScalingSettingsUpdate_minimumUnits = Lens.lens (\AutoScalingSettingsUpdate' {minimumUnits} -> minimumUnits) (\s@AutoScalingSettingsUpdate' {} a -> s {minimumUnits = a} :: AutoScalingSettingsUpdate) Prelude.. Lens.mapping Prelude._Nat
 
--- | The maximum capacity units that a global table or global secondary index should be scaled up to.
-assuMaximumUnits :: Lens' AutoScalingSettingsUpdate (Maybe Natural)
-assuMaximumUnits = lens _assuMaximumUnits (\s a -> s {_assuMaximumUnits = a}) . mapping _Nat
+-- | The maximum capacity units that a global table or global secondary index
+-- should be scaled up to.
+autoScalingSettingsUpdate_maximumUnits :: Lens.Lens' AutoScalingSettingsUpdate (Prelude.Maybe Prelude.Natural)
+autoScalingSettingsUpdate_maximumUnits = Lens.lens (\AutoScalingSettingsUpdate' {maximumUnits} -> maximumUnits) (\s@AutoScalingSettingsUpdate' {} a -> s {maximumUnits = a} :: AutoScalingSettingsUpdate) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Role ARN used for configuring auto scaling policy.
-assuAutoScalingRoleARN :: Lens' AutoScalingSettingsUpdate (Maybe Text)
-assuAutoScalingRoleARN = lens _assuAutoScalingRoleARN (\s a -> s {_assuAutoScalingRoleARN = a})
+autoScalingSettingsUpdate_autoScalingRoleArn :: Lens.Lens' AutoScalingSettingsUpdate (Prelude.Maybe Prelude.Text)
+autoScalingSettingsUpdate_autoScalingRoleArn = Lens.lens (\AutoScalingSettingsUpdate' {autoScalingRoleArn} -> autoScalingRoleArn) (\s@AutoScalingSettingsUpdate' {} a -> s {autoScalingRoleArn = a} :: AutoScalingSettingsUpdate)
 
 -- | Disabled auto scaling for this global table or global secondary index.
-assuAutoScalingDisabled :: Lens' AutoScalingSettingsUpdate (Maybe Bool)
-assuAutoScalingDisabled = lens _assuAutoScalingDisabled (\s a -> s {_assuAutoScalingDisabled = a})
+autoScalingSettingsUpdate_autoScalingDisabled :: Lens.Lens' AutoScalingSettingsUpdate (Prelude.Maybe Prelude.Bool)
+autoScalingSettingsUpdate_autoScalingDisabled = Lens.lens (\AutoScalingSettingsUpdate' {autoScalingDisabled} -> autoScalingDisabled) (\s@AutoScalingSettingsUpdate' {} a -> s {autoScalingDisabled = a} :: AutoScalingSettingsUpdate)
 
-instance Hashable AutoScalingSettingsUpdate
+instance Prelude.Hashable AutoScalingSettingsUpdate
 
-instance NFData AutoScalingSettingsUpdate
+instance Prelude.NFData AutoScalingSettingsUpdate
 
-instance ToJSON AutoScalingSettingsUpdate where
+instance Prelude.ToJSON AutoScalingSettingsUpdate where
   toJSON AutoScalingSettingsUpdate' {..} =
-    object
-      ( catMaybes
-          [ ("ScalingPolicyUpdate" .=)
-              <$> _assuScalingPolicyUpdate,
-            ("MinimumUnits" .=) <$> _assuMinimumUnits,
-            ("MaximumUnits" .=) <$> _assuMaximumUnits,
-            ("AutoScalingRoleArn" .=)
-              <$> _assuAutoScalingRoleARN,
-            ("AutoScalingDisabled" .=)
-              <$> _assuAutoScalingDisabled
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ScalingPolicyUpdate" Prelude..=)
+              Prelude.<$> scalingPolicyUpdate,
+            ("MinimumUnits" Prelude..=) Prelude.<$> minimumUnits,
+            ("MaximumUnits" Prelude..=) Prelude.<$> maximumUnits,
+            ("AutoScalingRoleArn" Prelude..=)
+              Prelude.<$> autoScalingRoleArn,
+            ("AutoScalingDisabled" Prelude..=)
+              Prelude.<$> autoScalingDisabled
           ]
       )

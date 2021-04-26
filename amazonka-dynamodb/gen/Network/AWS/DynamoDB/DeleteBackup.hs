@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,123 +23,139 @@
 --
 -- Deletes an existing backup of a table.
 --
---
 -- You can call @DeleteBackup@ at a maximum rate of 10 times per second.
 module Network.AWS.DynamoDB.DeleteBackup
   ( -- * Creating a Request
-    deleteBackup,
-    DeleteBackup,
+    DeleteBackup (..),
+    newDeleteBackup,
 
     -- * Request Lenses
-    dbBackupARN,
+    deleteBackup_backupArn,
 
     -- * Destructuring the Response
-    deleteBackupResponse,
-    DeleteBackupResponse,
+    DeleteBackupResponse (..),
+    newDeleteBackupResponse,
 
     -- * Response Lenses
-    dbrrsBackupDescription,
-    dbrrsResponseStatus,
+    deleteBackupResponse_backupDescription,
+    deleteBackupResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.BackupDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteBackup' smart constructor.
-newtype DeleteBackup = DeleteBackup'
-  { _dbBackupARN ::
-      Text
+-- | /See:/ 'newDeleteBackup' smart constructor.
+data DeleteBackup = DeleteBackup'
+  { -- | The ARN associated with the backup.
+    backupArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBackup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBackup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbBackupARN' - The ARN associated with the backup.
-deleteBackup ::
-  -- | 'dbBackupARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'backupArn', 'deleteBackup_backupArn' - The ARN associated with the backup.
+newDeleteBackup ::
+  -- | 'backupArn'
+  Prelude.Text ->
   DeleteBackup
-deleteBackup pBackupARN_ =
-  DeleteBackup' {_dbBackupARN = pBackupARN_}
+newDeleteBackup pBackupArn_ =
+  DeleteBackup' {backupArn = pBackupArn_}
 
 -- | The ARN associated with the backup.
-dbBackupARN :: Lens' DeleteBackup Text
-dbBackupARN = lens _dbBackupARN (\s a -> s {_dbBackupARN = a})
+deleteBackup_backupArn :: Lens.Lens' DeleteBackup Prelude.Text
+deleteBackup_backupArn = Lens.lens (\DeleteBackup' {backupArn} -> backupArn) (\s@DeleteBackup' {} a -> s {backupArn = a} :: DeleteBackup)
 
-instance AWSRequest DeleteBackup where
+instance Prelude.AWSRequest DeleteBackup where
   type Rs DeleteBackup = DeleteBackupResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteBackupResponse'
-            <$> (x .?> "BackupDescription") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "BackupDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteBackup
+instance Prelude.Hashable DeleteBackup
 
-instance NFData DeleteBackup
+instance Prelude.NFData DeleteBackup
 
-instance ToHeaders DeleteBackup where
+instance Prelude.ToHeaders DeleteBackup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DynamoDB_20120810.DeleteBackup" :: ByteString),
+              Prelude.=# ( "DynamoDB_20120810.DeleteBackup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteBackup where
+instance Prelude.ToJSON DeleteBackup where
   toJSON DeleteBackup' {..} =
-    object
-      (catMaybes [Just ("BackupArn" .= _dbBackupARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("BackupArn" Prelude..= backupArn)]
+      )
 
-instance ToPath DeleteBackup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteBackup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteBackup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteBackup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteBackupResponse' smart constructor.
+-- | /See:/ 'newDeleteBackupResponse' smart constructor.
 data DeleteBackupResponse = DeleteBackupResponse'
-  { _dbrrsBackupDescription ::
-      !(Maybe BackupDescription),
-    _dbrrsResponseStatus :: !Int
+  { -- | Contains the description of the backup created for the table.
+    backupDescription :: Prelude.Maybe BackupDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBackupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBackupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbrrsBackupDescription' - Contains the description of the backup created for the table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbrrsResponseStatus' - -- | The response status code.
-deleteBackupResponse ::
-  -- | 'dbrrsResponseStatus'
-  Int ->
+-- 'backupDescription', 'deleteBackupResponse_backupDescription' - Contains the description of the backup created for the table.
+--
+-- 'httpStatus', 'deleteBackupResponse_httpStatus' - The response's http status code.
+newDeleteBackupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteBackupResponse
-deleteBackupResponse pResponseStatus_ =
+newDeleteBackupResponse pHttpStatus_ =
   DeleteBackupResponse'
-    { _dbrrsBackupDescription =
-        Nothing,
-      _dbrrsResponseStatus = pResponseStatus_
+    { backupDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Contains the description of the backup created for the table.
-dbrrsBackupDescription :: Lens' DeleteBackupResponse (Maybe BackupDescription)
-dbrrsBackupDescription = lens _dbrrsBackupDescription (\s a -> s {_dbrrsBackupDescription = a})
+deleteBackupResponse_backupDescription :: Lens.Lens' DeleteBackupResponse (Prelude.Maybe BackupDescription)
+deleteBackupResponse_backupDescription = Lens.lens (\DeleteBackupResponse' {backupDescription} -> backupDescription) (\s@DeleteBackupResponse' {} a -> s {backupDescription = a} :: DeleteBackupResponse)
 
--- | -- | The response status code.
-dbrrsResponseStatus :: Lens' DeleteBackupResponse Int
-dbrrsResponseStatus = lens _dbrrsResponseStatus (\s a -> s {_dbrrsResponseStatus = a})
+-- | The response's http status code.
+deleteBackupResponse_httpStatus :: Lens.Lens' DeleteBackupResponse Prelude.Int
+deleteBackupResponse_httpStatus = Lens.lens (\DeleteBackupResponse' {httpStatus} -> httpStatus) (\s@DeleteBackupResponse' {} a -> s {httpStatus = a} :: DeleteBackupResponse)
 
-instance NFData DeleteBackupResponse
+instance Prelude.NFData DeleteBackupResponse

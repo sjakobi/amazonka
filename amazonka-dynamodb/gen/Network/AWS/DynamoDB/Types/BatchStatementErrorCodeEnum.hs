@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,102 +19,100 @@
 module Network.AWS.DynamoDB.Types.BatchStatementErrorCodeEnum
   ( BatchStatementErrorCodeEnum
       ( ..,
-        AccessDenied,
-        ConditionalCheckFailed,
-        DuplicateItem,
-        InternalServerError,
-        ItemCollectionSizeLimitExceeded,
-        ProvisionedThroughputExceeded,
-        RequestLimitExceeded,
-        ResourceNotFound,
-        ThrottlingError,
-        TransactionConflict,
-        ValidationError
+        BatchStatementErrorCodeEnumAccessDenied,
+        BatchStatementErrorCodeEnumConditionalCheckFailed,
+        BatchStatementErrorCodeEnumDuplicateItem,
+        BatchStatementErrorCodeEnumInternalServerError,
+        BatchStatementErrorCodeEnumItemCollectionSizeLimitExceeded,
+        BatchStatementErrorCodeEnumProvisionedThroughputExceeded,
+        BatchStatementErrorCodeEnumRequestLimitExceeded,
+        BatchStatementErrorCodeEnumResourceNotFound,
+        BatchStatementErrorCodeEnumThrottlingError,
+        BatchStatementErrorCodeEnumTransactionConflict,
+        BatchStatementErrorCodeEnumValidationError
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BatchStatementErrorCodeEnum
-  = BatchStatementErrorCodeEnum'
-      ( CI
-          Text
-      )
+newtype BatchStatementErrorCodeEnum = BatchStatementErrorCodeEnum'
+  { fromBatchStatementErrorCodeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccessDenied :: BatchStatementErrorCodeEnum
-pattern AccessDenied = BatchStatementErrorCodeEnum' "AccessDenied"
+pattern BatchStatementErrorCodeEnumAccessDenied :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumAccessDenied = BatchStatementErrorCodeEnum' "AccessDenied"
 
-pattern ConditionalCheckFailed :: BatchStatementErrorCodeEnum
-pattern ConditionalCheckFailed = BatchStatementErrorCodeEnum' "ConditionalCheckFailed"
+pattern BatchStatementErrorCodeEnumConditionalCheckFailed :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumConditionalCheckFailed = BatchStatementErrorCodeEnum' "ConditionalCheckFailed"
 
-pattern DuplicateItem :: BatchStatementErrorCodeEnum
-pattern DuplicateItem = BatchStatementErrorCodeEnum' "DuplicateItem"
+pattern BatchStatementErrorCodeEnumDuplicateItem :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumDuplicateItem = BatchStatementErrorCodeEnum' "DuplicateItem"
 
-pattern InternalServerError :: BatchStatementErrorCodeEnum
-pattern InternalServerError = BatchStatementErrorCodeEnum' "InternalServerError"
+pattern BatchStatementErrorCodeEnumInternalServerError :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumInternalServerError = BatchStatementErrorCodeEnum' "InternalServerError"
 
-pattern ItemCollectionSizeLimitExceeded :: BatchStatementErrorCodeEnum
-pattern ItemCollectionSizeLimitExceeded = BatchStatementErrorCodeEnum' "ItemCollectionSizeLimitExceeded"
+pattern BatchStatementErrorCodeEnumItemCollectionSizeLimitExceeded :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumItemCollectionSizeLimitExceeded = BatchStatementErrorCodeEnum' "ItemCollectionSizeLimitExceeded"
 
-pattern ProvisionedThroughputExceeded :: BatchStatementErrorCodeEnum
-pattern ProvisionedThroughputExceeded = BatchStatementErrorCodeEnum' "ProvisionedThroughputExceeded"
+pattern BatchStatementErrorCodeEnumProvisionedThroughputExceeded :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumProvisionedThroughputExceeded = BatchStatementErrorCodeEnum' "ProvisionedThroughputExceeded"
 
-pattern RequestLimitExceeded :: BatchStatementErrorCodeEnum
-pattern RequestLimitExceeded = BatchStatementErrorCodeEnum' "RequestLimitExceeded"
+pattern BatchStatementErrorCodeEnumRequestLimitExceeded :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumRequestLimitExceeded = BatchStatementErrorCodeEnum' "RequestLimitExceeded"
 
-pattern ResourceNotFound :: BatchStatementErrorCodeEnum
-pattern ResourceNotFound = BatchStatementErrorCodeEnum' "ResourceNotFound"
+pattern BatchStatementErrorCodeEnumResourceNotFound :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumResourceNotFound = BatchStatementErrorCodeEnum' "ResourceNotFound"
 
-pattern ThrottlingError :: BatchStatementErrorCodeEnum
-pattern ThrottlingError = BatchStatementErrorCodeEnum' "ThrottlingError"
+pattern BatchStatementErrorCodeEnumThrottlingError :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumThrottlingError = BatchStatementErrorCodeEnum' "ThrottlingError"
 
-pattern TransactionConflict :: BatchStatementErrorCodeEnum
-pattern TransactionConflict = BatchStatementErrorCodeEnum' "TransactionConflict"
+pattern BatchStatementErrorCodeEnumTransactionConflict :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumTransactionConflict = BatchStatementErrorCodeEnum' "TransactionConflict"
 
-pattern ValidationError :: BatchStatementErrorCodeEnum
-pattern ValidationError = BatchStatementErrorCodeEnum' "ValidationError"
+pattern BatchStatementErrorCodeEnumValidationError :: BatchStatementErrorCodeEnum
+pattern BatchStatementErrorCodeEnumValidationError = BatchStatementErrorCodeEnum' "ValidationError"
 
 {-# COMPLETE
-  AccessDenied,
-  ConditionalCheckFailed,
-  DuplicateItem,
-  InternalServerError,
-  ItemCollectionSizeLimitExceeded,
-  ProvisionedThroughputExceeded,
-  RequestLimitExceeded,
-  ResourceNotFound,
-  ThrottlingError,
-  TransactionConflict,
-  ValidationError,
+  BatchStatementErrorCodeEnumAccessDenied,
+  BatchStatementErrorCodeEnumConditionalCheckFailed,
+  BatchStatementErrorCodeEnumDuplicateItem,
+  BatchStatementErrorCodeEnumInternalServerError,
+  BatchStatementErrorCodeEnumItemCollectionSizeLimitExceeded,
+  BatchStatementErrorCodeEnumProvisionedThroughputExceeded,
+  BatchStatementErrorCodeEnumRequestLimitExceeded,
+  BatchStatementErrorCodeEnumResourceNotFound,
+  BatchStatementErrorCodeEnumThrottlingError,
+  BatchStatementErrorCodeEnumTransactionConflict,
+  BatchStatementErrorCodeEnumValidationError,
   BatchStatementErrorCodeEnum'
   #-}
 
-instance FromText BatchStatementErrorCodeEnum where
-  parser = (BatchStatementErrorCodeEnum' . mk) <$> takeText
+instance Prelude.FromText BatchStatementErrorCodeEnum where
+  parser = BatchStatementErrorCodeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText BatchStatementErrorCodeEnum where
-  toText (BatchStatementErrorCodeEnum' ci) = original ci
+instance Prelude.ToText BatchStatementErrorCodeEnum where
+  toText (BatchStatementErrorCodeEnum' x) = x
 
-instance Hashable BatchStatementErrorCodeEnum
+instance Prelude.Hashable BatchStatementErrorCodeEnum
 
-instance NFData BatchStatementErrorCodeEnum
+instance Prelude.NFData BatchStatementErrorCodeEnum
 
-instance ToByteString BatchStatementErrorCodeEnum
+instance Prelude.ToByteString BatchStatementErrorCodeEnum
 
-instance ToQuery BatchStatementErrorCodeEnum
+instance Prelude.ToQuery BatchStatementErrorCodeEnum
 
-instance ToHeader BatchStatementErrorCodeEnum
+instance Prelude.ToHeader BatchStatementErrorCodeEnum
 
-instance FromJSON BatchStatementErrorCodeEnum where
-  parseJSON = parseJSONText "BatchStatementErrorCodeEnum"
+instance Prelude.FromJSON BatchStatementErrorCodeEnum where
+  parseJSON = Prelude.parseJSONText "BatchStatementErrorCodeEnum"

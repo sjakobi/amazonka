@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,56 +20,57 @@
 module Network.AWS.DynamoDB.Types.BatchStatementError where
 
 import Network.AWS.DynamoDB.Types.BatchStatementErrorCodeEnum
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An error associated with a statement in a PartiQL batch that was run.
 --
---
---
--- /See:/ 'batchStatementError' smart constructor.
+-- /See:/ 'newBatchStatementError' smart constructor.
 data BatchStatementError = BatchStatementError'
-  { _bseMessage ::
-      !(Maybe Text),
-    _bseCode ::
-      !( Maybe
-           BatchStatementErrorCodeEnum
-       )
+  { -- | The error message associated with the PartiQL batch resposne.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The error code associated with the failed PartiQL batch statement.
+    code :: Prelude.Maybe BatchStatementErrorCodeEnum
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchStatementError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchStatementError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bseMessage' - The error message associated with the PartiQL batch resposne.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bseCode' - The error code associated with the failed PartiQL batch statement.
-batchStatementError ::
+-- 'message', 'batchStatementError_message' - The error message associated with the PartiQL batch resposne.
+--
+-- 'code', 'batchStatementError_code' - The error code associated with the failed PartiQL batch statement.
+newBatchStatementError ::
   BatchStatementError
-batchStatementError =
+newBatchStatementError =
   BatchStatementError'
-    { _bseMessage = Nothing,
-      _bseCode = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The error message associated with the PartiQL batch resposne.
-bseMessage :: Lens' BatchStatementError (Maybe Text)
-bseMessage = lens _bseMessage (\s a -> s {_bseMessage = a})
+batchStatementError_message :: Lens.Lens' BatchStatementError (Prelude.Maybe Prelude.Text)
+batchStatementError_message = Lens.lens (\BatchStatementError' {message} -> message) (\s@BatchStatementError' {} a -> s {message = a} :: BatchStatementError)
 
 -- | The error code associated with the failed PartiQL batch statement.
-bseCode :: Lens' BatchStatementError (Maybe BatchStatementErrorCodeEnum)
-bseCode = lens _bseCode (\s a -> s {_bseCode = a})
+batchStatementError_code :: Lens.Lens' BatchStatementError (Prelude.Maybe BatchStatementErrorCodeEnum)
+batchStatementError_code = Lens.lens (\BatchStatementError' {code} -> code) (\s@BatchStatementError' {} a -> s {code = a} :: BatchStatementError)
 
-instance FromJSON BatchStatementError where
+instance Prelude.FromJSON BatchStatementError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchStatementError"
       ( \x ->
           BatchStatementError'
-            <$> (x .:? "Message") <*> (x .:? "Code")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Code")
       )
 
-instance Hashable BatchStatementError
+instance Prelude.Hashable BatchStatementError
 
-instance NFData BatchStatementError
+instance Prelude.NFData BatchStatementError

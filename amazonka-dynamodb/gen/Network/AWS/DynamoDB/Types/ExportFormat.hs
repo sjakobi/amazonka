@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DynamoDB.Types.ExportFormat
   ( ExportFormat
       ( ..,
-        DynamodbJSON,
-        Ion
+        ExportFormatDYNAMODBJSON,
+        ExportFormatION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExportFormat = ExportFormat' (CI Text)
+newtype ExportFormat = ExportFormat'
+  { fromExportFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DynamodbJSON :: ExportFormat
-pattern DynamodbJSON = ExportFormat' "DYNAMODB_JSON"
+pattern ExportFormatDYNAMODBJSON :: ExportFormat
+pattern ExportFormatDYNAMODBJSON = ExportFormat' "DYNAMODB_JSON"
 
-pattern Ion :: ExportFormat
-pattern Ion = ExportFormat' "ION"
+pattern ExportFormatION :: ExportFormat
+pattern ExportFormatION = ExportFormat' "ION"
 
 {-# COMPLETE
-  DynamodbJSON,
-  Ion,
+  ExportFormatDYNAMODBJSON,
+  ExportFormatION,
   ExportFormat'
   #-}
 
-instance FromText ExportFormat where
-  parser = (ExportFormat' . mk) <$> takeText
+instance Prelude.FromText ExportFormat where
+  parser = ExportFormat' Prelude.<$> Prelude.takeText
 
-instance ToText ExportFormat where
-  toText (ExportFormat' ci) = original ci
+instance Prelude.ToText ExportFormat where
+  toText (ExportFormat' x) = x
 
-instance Hashable ExportFormat
+instance Prelude.Hashable ExportFormat
 
-instance NFData ExportFormat
+instance Prelude.NFData ExportFormat
 
-instance ToByteString ExportFormat
+instance Prelude.ToByteString ExportFormat
 
-instance ToQuery ExportFormat
+instance Prelude.ToQuery ExportFormat
 
-instance ToHeader ExportFormat
+instance Prelude.ToHeader ExportFormat
 
-instance ToJSON ExportFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExportFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExportFormat where
-  parseJSON = parseJSONText "ExportFormat"
+instance Prelude.FromJSON ExportFormat where
+  parseJSON = Prelude.parseJSONText "ExportFormat"

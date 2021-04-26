@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.DynamoDB.Types.SSEStatus
   ( SSEStatus
       ( ..,
-        SSESDisabled,
-        SSESDisabling,
-        SSESEnabled,
-        SSESEnabling,
-        SSESUpdating
+        SSEStatusDISABLED,
+        SSEStatusDISABLING,
+        SSEStatusENABLED,
+        SSEStatusENABLING,
+        SSEStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SSEStatus = SSEStatus' (CI Text)
+newtype SSEStatus = SSEStatus'
+  { fromSSEStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSESDisabled :: SSEStatus
-pattern SSESDisabled = SSEStatus' "DISABLED"
+pattern SSEStatusDISABLED :: SSEStatus
+pattern SSEStatusDISABLED = SSEStatus' "DISABLED"
 
-pattern SSESDisabling :: SSEStatus
-pattern SSESDisabling = SSEStatus' "DISABLING"
+pattern SSEStatusDISABLING :: SSEStatus
+pattern SSEStatusDISABLING = SSEStatus' "DISABLING"
 
-pattern SSESEnabled :: SSEStatus
-pattern SSESEnabled = SSEStatus' "ENABLED"
+pattern SSEStatusENABLED :: SSEStatus
+pattern SSEStatusENABLED = SSEStatus' "ENABLED"
 
-pattern SSESEnabling :: SSEStatus
-pattern SSESEnabling = SSEStatus' "ENABLING"
+pattern SSEStatusENABLING :: SSEStatus
+pattern SSEStatusENABLING = SSEStatus' "ENABLING"
 
-pattern SSESUpdating :: SSEStatus
-pattern SSESUpdating = SSEStatus' "UPDATING"
+pattern SSEStatusUPDATING :: SSEStatus
+pattern SSEStatusUPDATING = SSEStatus' "UPDATING"
 
 {-# COMPLETE
-  SSESDisabled,
-  SSESDisabling,
-  SSESEnabled,
-  SSESEnabling,
-  SSESUpdating,
+  SSEStatusDISABLED,
+  SSEStatusDISABLING,
+  SSEStatusENABLED,
+  SSEStatusENABLING,
+  SSEStatusUPDATING,
   SSEStatus'
   #-}
 
-instance FromText SSEStatus where
-  parser = (SSEStatus' . mk) <$> takeText
+instance Prelude.FromText SSEStatus where
+  parser = SSEStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SSEStatus where
-  toText (SSEStatus' ci) = original ci
+instance Prelude.ToText SSEStatus where
+  toText (SSEStatus' x) = x
 
-instance Hashable SSEStatus
+instance Prelude.Hashable SSEStatus
 
-instance NFData SSEStatus
+instance Prelude.NFData SSEStatus
 
-instance ToByteString SSEStatus
+instance Prelude.ToByteString SSEStatus
 
-instance ToQuery SSEStatus
+instance Prelude.ToQuery SSEStatus
 
-instance ToHeader SSEStatus
+instance Prelude.ToHeader SSEStatus
 
-instance FromJSON SSEStatus where
-  parseJSON = parseJSONText "SSEStatus"
+instance Prelude.FromJSON SSEStatus where
+  parseJSON = Prelude.parseJSONText "SSEStatus"

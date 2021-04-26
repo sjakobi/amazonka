@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.DynamoDB.Types.TableStatus
   ( TableStatus
       ( ..,
-        TSActive,
-        TSArchived,
-        TSArchiving,
-        TSCreating,
-        TSDeleting,
-        TSInaccessibleEncryptionCredentials,
-        TSUpdating
+        TableStatusACTIVE,
+        TableStatusARCHIVED,
+        TableStatusARCHIVING,
+        TableStatusCREATING,
+        TableStatusDELETING,
+        TableStatusINACCESSIBLEENCRYPTIONCREDENTIALS,
+        TableStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TableStatus = TableStatus' (CI Text)
+newtype TableStatus = TableStatus'
+  { fromTableStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSActive :: TableStatus
-pattern TSActive = TableStatus' "ACTIVE"
+pattern TableStatusACTIVE :: TableStatus
+pattern TableStatusACTIVE = TableStatus' "ACTIVE"
 
-pattern TSArchived :: TableStatus
-pattern TSArchived = TableStatus' "ARCHIVED"
+pattern TableStatusARCHIVED :: TableStatus
+pattern TableStatusARCHIVED = TableStatus' "ARCHIVED"
 
-pattern TSArchiving :: TableStatus
-pattern TSArchiving = TableStatus' "ARCHIVING"
+pattern TableStatusARCHIVING :: TableStatus
+pattern TableStatusARCHIVING = TableStatus' "ARCHIVING"
 
-pattern TSCreating :: TableStatus
-pattern TSCreating = TableStatus' "CREATING"
+pattern TableStatusCREATING :: TableStatus
+pattern TableStatusCREATING = TableStatus' "CREATING"
 
-pattern TSDeleting :: TableStatus
-pattern TSDeleting = TableStatus' "DELETING"
+pattern TableStatusDELETING :: TableStatus
+pattern TableStatusDELETING = TableStatus' "DELETING"
 
-pattern TSInaccessibleEncryptionCredentials :: TableStatus
-pattern TSInaccessibleEncryptionCredentials = TableStatus' "INACCESSIBLE_ENCRYPTION_CREDENTIALS"
+pattern TableStatusINACCESSIBLEENCRYPTIONCREDENTIALS :: TableStatus
+pattern TableStatusINACCESSIBLEENCRYPTIONCREDENTIALS = TableStatus' "INACCESSIBLE_ENCRYPTION_CREDENTIALS"
 
-pattern TSUpdating :: TableStatus
-pattern TSUpdating = TableStatus' "UPDATING"
+pattern TableStatusUPDATING :: TableStatus
+pattern TableStatusUPDATING = TableStatus' "UPDATING"
 
 {-# COMPLETE
-  TSActive,
-  TSArchived,
-  TSArchiving,
-  TSCreating,
-  TSDeleting,
-  TSInaccessibleEncryptionCredentials,
-  TSUpdating,
+  TableStatusACTIVE,
+  TableStatusARCHIVED,
+  TableStatusARCHIVING,
+  TableStatusCREATING,
+  TableStatusDELETING,
+  TableStatusINACCESSIBLEENCRYPTIONCREDENTIALS,
+  TableStatusUPDATING,
   TableStatus'
   #-}
 
-instance FromText TableStatus where
-  parser = (TableStatus' . mk) <$> takeText
+instance Prelude.FromText TableStatus where
+  parser = TableStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TableStatus where
-  toText (TableStatus' ci) = original ci
+instance Prelude.ToText TableStatus where
+  toText (TableStatus' x) = x
 
-instance Hashable TableStatus
+instance Prelude.Hashable TableStatus
 
-instance NFData TableStatus
+instance Prelude.NFData TableStatus
 
-instance ToByteString TableStatus
+instance Prelude.ToByteString TableStatus
 
-instance ToQuery TableStatus
+instance Prelude.ToQuery TableStatus
 
-instance ToHeader TableStatus
+instance Prelude.ToHeader TableStatus
 
-instance FromJSON TableStatus where
-  parseJSON = parseJSONText "TableStatus"
+instance Prelude.FromJSON TableStatus where
+  parseJSON = Prelude.parseJSONText "TableStatus"

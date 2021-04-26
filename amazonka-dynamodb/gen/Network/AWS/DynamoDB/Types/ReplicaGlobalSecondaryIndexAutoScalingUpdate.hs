@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,76 +20,69 @@
 module Network.AWS.DynamoDB.Types.ReplicaGlobalSecondaryIndexAutoScalingUpdate where
 
 import Network.AWS.DynamoDB.Types.AutoScalingSettingsUpdate
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the auto scaling settings of a global secondary index for a replica that will be modified.
+-- | Represents the auto scaling settings of a global secondary index for a
+-- replica that will be modified.
 --
---
---
--- /See:/ 'replicaGlobalSecondaryIndexAutoScalingUpdate' smart constructor.
+-- /See:/ 'newReplicaGlobalSecondaryIndexAutoScalingUpdate' smart constructor.
 data ReplicaGlobalSecondaryIndexAutoScalingUpdate = ReplicaGlobalSecondaryIndexAutoScalingUpdate'
-  { _rgsiasuIndexName ::
-      !( Maybe
-           Text
-       ),
-    _rgsiasuProvisionedReadCapacityAutoScalingUpdate ::
-      !( Maybe
-           AutoScalingSettingsUpdate
-       )
+  { -- | The name of the global secondary index.
+    indexName :: Prelude.Maybe Prelude.Text,
+    provisionedReadCapacityAutoScalingUpdate :: Prelude.Maybe AutoScalingSettingsUpdate
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicaGlobalSecondaryIndexAutoScalingUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicaGlobalSecondaryIndexAutoScalingUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgsiasuIndexName' - The name of the global secondary index.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgsiasuProvisionedReadCapacityAutoScalingUpdate' - Undocumented member.
-replicaGlobalSecondaryIndexAutoScalingUpdate ::
+-- 'indexName', 'replicaGlobalSecondaryIndexAutoScalingUpdate_indexName' - The name of the global secondary index.
+--
+-- 'provisionedReadCapacityAutoScalingUpdate', 'replicaGlobalSecondaryIndexAutoScalingUpdate_provisionedReadCapacityAutoScalingUpdate' - Undocumented member.
+newReplicaGlobalSecondaryIndexAutoScalingUpdate ::
   ReplicaGlobalSecondaryIndexAutoScalingUpdate
-replicaGlobalSecondaryIndexAutoScalingUpdate =
+newReplicaGlobalSecondaryIndexAutoScalingUpdate =
   ReplicaGlobalSecondaryIndexAutoScalingUpdate'
-    { _rgsiasuIndexName =
-        Nothing,
-      _rgsiasuProvisionedReadCapacityAutoScalingUpdate =
-        Nothing
+    { indexName =
+        Prelude.Nothing,
+      provisionedReadCapacityAutoScalingUpdate =
+        Prelude.Nothing
     }
 
 -- | The name of the global secondary index.
-rgsiasuIndexName :: Lens' ReplicaGlobalSecondaryIndexAutoScalingUpdate (Maybe Text)
-rgsiasuIndexName = lens _rgsiasuIndexName (\s a -> s {_rgsiasuIndexName = a})
+replicaGlobalSecondaryIndexAutoScalingUpdate_indexName :: Lens.Lens' ReplicaGlobalSecondaryIndexAutoScalingUpdate (Prelude.Maybe Prelude.Text)
+replicaGlobalSecondaryIndexAutoScalingUpdate_indexName = Lens.lens (\ReplicaGlobalSecondaryIndexAutoScalingUpdate' {indexName} -> indexName) (\s@ReplicaGlobalSecondaryIndexAutoScalingUpdate' {} a -> s {indexName = a} :: ReplicaGlobalSecondaryIndexAutoScalingUpdate)
 
 -- | Undocumented member.
-rgsiasuProvisionedReadCapacityAutoScalingUpdate :: Lens' ReplicaGlobalSecondaryIndexAutoScalingUpdate (Maybe AutoScalingSettingsUpdate)
-rgsiasuProvisionedReadCapacityAutoScalingUpdate = lens _rgsiasuProvisionedReadCapacityAutoScalingUpdate (\s a -> s {_rgsiasuProvisionedReadCapacityAutoScalingUpdate = a})
+replicaGlobalSecondaryIndexAutoScalingUpdate_provisionedReadCapacityAutoScalingUpdate :: Lens.Lens' ReplicaGlobalSecondaryIndexAutoScalingUpdate (Prelude.Maybe AutoScalingSettingsUpdate)
+replicaGlobalSecondaryIndexAutoScalingUpdate_provisionedReadCapacityAutoScalingUpdate = Lens.lens (\ReplicaGlobalSecondaryIndexAutoScalingUpdate' {provisionedReadCapacityAutoScalingUpdate} -> provisionedReadCapacityAutoScalingUpdate) (\s@ReplicaGlobalSecondaryIndexAutoScalingUpdate' {} a -> s {provisionedReadCapacityAutoScalingUpdate = a} :: ReplicaGlobalSecondaryIndexAutoScalingUpdate)
 
 instance
-  Hashable
+  Prelude.Hashable
     ReplicaGlobalSecondaryIndexAutoScalingUpdate
 
 instance
-  NFData
+  Prelude.NFData
     ReplicaGlobalSecondaryIndexAutoScalingUpdate
 
 instance
-  ToJSON
+  Prelude.ToJSON
     ReplicaGlobalSecondaryIndexAutoScalingUpdate
   where
   toJSON
     ReplicaGlobalSecondaryIndexAutoScalingUpdate' {..} =
-      object
-        ( catMaybes
-            [ ("IndexName" .=) <$> _rgsiasuIndexName,
-              ("ProvisionedReadCapacityAutoScalingUpdate" .=)
-                <$> _rgsiasuProvisionedReadCapacityAutoScalingUpdate
+      Prelude.object
+        ( Prelude.catMaybes
+            [ ("IndexName" Prelude..=) Prelude.<$> indexName,
+              ( "ProvisionedReadCapacityAutoScalingUpdate"
+                  Prelude..=
+              )
+                Prelude.<$> provisionedReadCapacityAutoScalingUpdate
             ]
         )

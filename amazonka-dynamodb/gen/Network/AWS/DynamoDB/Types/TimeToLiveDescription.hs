@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,58 @@
 module Network.AWS.DynamoDB.Types.TimeToLiveDescription where
 
 import Network.AWS.DynamoDB.Types.TimeToLiveStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The description of the Time to Live (TTL) status on the specified table.
 --
---
---
--- /See:/ 'timeToLiveDescription' smart constructor.
+-- /See:/ 'newTimeToLiveDescription' smart constructor.
 data TimeToLiveDescription = TimeToLiveDescription'
-  { _ttldTimeToLiveStatus ::
-      !(Maybe TimeToLiveStatus),
-    _ttldAttributeName ::
-      !(Maybe Text)
+  { -- | The TTL status for the table.
+    timeToLiveStatus :: Prelude.Maybe TimeToLiveStatus,
+    -- | The name of the TTL attribute for items in the table.
+    attributeName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimeToLiveDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimeToLiveDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ttldTimeToLiveStatus' - The TTL status for the table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ttldAttributeName' - The name of the TTL attribute for items in the table.
-timeToLiveDescription ::
+-- 'timeToLiveStatus', 'timeToLiveDescription_timeToLiveStatus' - The TTL status for the table.
+--
+-- 'attributeName', 'timeToLiveDescription_attributeName' - The name of the TTL attribute for items in the table.
+newTimeToLiveDescription ::
   TimeToLiveDescription
-timeToLiveDescription =
+newTimeToLiveDescription =
   TimeToLiveDescription'
-    { _ttldTimeToLiveStatus =
-        Nothing,
-      _ttldAttributeName = Nothing
+    { timeToLiveStatus =
+        Prelude.Nothing,
+      attributeName = Prelude.Nothing
     }
 
 -- | The TTL status for the table.
-ttldTimeToLiveStatus :: Lens' TimeToLiveDescription (Maybe TimeToLiveStatus)
-ttldTimeToLiveStatus = lens _ttldTimeToLiveStatus (\s a -> s {_ttldTimeToLiveStatus = a})
+timeToLiveDescription_timeToLiveStatus :: Lens.Lens' TimeToLiveDescription (Prelude.Maybe TimeToLiveStatus)
+timeToLiveDescription_timeToLiveStatus = Lens.lens (\TimeToLiveDescription' {timeToLiveStatus} -> timeToLiveStatus) (\s@TimeToLiveDescription' {} a -> s {timeToLiveStatus = a} :: TimeToLiveDescription)
 
 -- | The name of the TTL attribute for items in the table.
-ttldAttributeName :: Lens' TimeToLiveDescription (Maybe Text)
-ttldAttributeName = lens _ttldAttributeName (\s a -> s {_ttldAttributeName = a})
+timeToLiveDescription_attributeName :: Lens.Lens' TimeToLiveDescription (Prelude.Maybe Prelude.Text)
+timeToLiveDescription_attributeName = Lens.lens (\TimeToLiveDescription' {attributeName} -> attributeName) (\s@TimeToLiveDescription' {} a -> s {attributeName = a} :: TimeToLiveDescription)
 
-instance FromJSON TimeToLiveDescription where
+instance Prelude.FromJSON TimeToLiveDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimeToLiveDescription"
       ( \x ->
           TimeToLiveDescription'
-            <$> (x .:? "TimeToLiveStatus")
-            <*> (x .:? "AttributeName")
+            Prelude.<$> (x Prelude..:? "TimeToLiveStatus")
+            Prelude.<*> (x Prelude..:? "AttributeName")
       )
 
-instance Hashable TimeToLiveDescription
+instance Prelude.Hashable TimeToLiveDescription
 
-instance NFData TimeToLiveDescription
+instance Prelude.NFData TimeToLiveDescription

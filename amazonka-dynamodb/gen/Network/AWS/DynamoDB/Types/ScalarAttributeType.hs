@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.DynamoDB.Types.ScalarAttributeType
   ( ScalarAttributeType
       ( ..,
-        B,
-        N,
-        S
+        ScalarAttributeTypeB,
+        ScalarAttributeTypeN,
+        ScalarAttributeTypeS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalarAttributeType
-  = ScalarAttributeType'
-      ( CI
-          Text
-      )
+newtype ScalarAttributeType = ScalarAttributeType'
+  { fromScalarAttributeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern B :: ScalarAttributeType
-pattern B = ScalarAttributeType' "B"
+pattern ScalarAttributeTypeB :: ScalarAttributeType
+pattern ScalarAttributeTypeB = ScalarAttributeType' "B"
 
-pattern N :: ScalarAttributeType
-pattern N = ScalarAttributeType' "N"
+pattern ScalarAttributeTypeN :: ScalarAttributeType
+pattern ScalarAttributeTypeN = ScalarAttributeType' "N"
 
-pattern S :: ScalarAttributeType
-pattern S = ScalarAttributeType' "S"
+pattern ScalarAttributeTypeS :: ScalarAttributeType
+pattern ScalarAttributeTypeS = ScalarAttributeType' "S"
 
 {-# COMPLETE
-  B,
-  N,
-  S,
+  ScalarAttributeTypeB,
+  ScalarAttributeTypeN,
+  ScalarAttributeTypeS,
   ScalarAttributeType'
   #-}
 
-instance FromText ScalarAttributeType where
-  parser = (ScalarAttributeType' . mk) <$> takeText
+instance Prelude.FromText ScalarAttributeType where
+  parser = ScalarAttributeType' Prelude.<$> Prelude.takeText
 
-instance ToText ScalarAttributeType where
-  toText (ScalarAttributeType' ci) = original ci
+instance Prelude.ToText ScalarAttributeType where
+  toText (ScalarAttributeType' x) = x
 
-instance Hashable ScalarAttributeType
+instance Prelude.Hashable ScalarAttributeType
 
-instance NFData ScalarAttributeType
+instance Prelude.NFData ScalarAttributeType
 
-instance ToByteString ScalarAttributeType
+instance Prelude.ToByteString ScalarAttributeType
 
-instance ToQuery ScalarAttributeType
+instance Prelude.ToQuery ScalarAttributeType
 
-instance ToHeader ScalarAttributeType
+instance Prelude.ToHeader ScalarAttributeType
 
-instance ToJSON ScalarAttributeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScalarAttributeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScalarAttributeType where
-  parseJSON = parseJSONText "ScalarAttributeType"
+instance Prelude.FromJSON ScalarAttributeType where
+  parseJSON = Prelude.parseJSONText "ScalarAttributeType"

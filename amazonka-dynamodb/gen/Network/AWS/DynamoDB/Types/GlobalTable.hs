@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,59 @@
 module Network.AWS.DynamoDB.Types.GlobalTable where
 
 import Network.AWS.DynamoDB.Types.Replica
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the properties of a global table.
 --
---
---
--- /See:/ 'globalTable' smart constructor.
+-- /See:/ 'newGlobalTable' smart constructor.
 data GlobalTable = GlobalTable'
-  { _gtGlobalTableName ::
-      !(Maybe Text),
-    _gtReplicationGroup :: !(Maybe [Replica])
+  { -- | The global table name.
+    globalTableName :: Prelude.Maybe Prelude.Text,
+    -- | The Regions where the global table has replicas.
+    replicationGroup :: Prelude.Maybe [Replica]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GlobalTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GlobalTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtGlobalTableName' - The global table name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtReplicationGroup' - The Regions where the global table has replicas.
-globalTable ::
+-- 'globalTableName', 'globalTable_globalTableName' - The global table name.
+--
+-- 'replicationGroup', 'globalTable_replicationGroup' - The Regions where the global table has replicas.
+newGlobalTable ::
   GlobalTable
-globalTable =
+newGlobalTable =
   GlobalTable'
-    { _gtGlobalTableName = Nothing,
-      _gtReplicationGroup = Nothing
+    { globalTableName = Prelude.Nothing,
+      replicationGroup = Prelude.Nothing
     }
 
 -- | The global table name.
-gtGlobalTableName :: Lens' GlobalTable (Maybe Text)
-gtGlobalTableName = lens _gtGlobalTableName (\s a -> s {_gtGlobalTableName = a})
+globalTable_globalTableName :: Lens.Lens' GlobalTable (Prelude.Maybe Prelude.Text)
+globalTable_globalTableName = Lens.lens (\GlobalTable' {globalTableName} -> globalTableName) (\s@GlobalTable' {} a -> s {globalTableName = a} :: GlobalTable)
 
 -- | The Regions where the global table has replicas.
-gtReplicationGroup :: Lens' GlobalTable [Replica]
-gtReplicationGroup = lens _gtReplicationGroup (\s a -> s {_gtReplicationGroup = a}) . _Default . _Coerce
+globalTable_replicationGroup :: Lens.Lens' GlobalTable (Prelude.Maybe [Replica])
+globalTable_replicationGroup = Lens.lens (\GlobalTable' {replicationGroup} -> replicationGroup) (\s@GlobalTable' {} a -> s {replicationGroup = a} :: GlobalTable) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON GlobalTable where
+instance Prelude.FromJSON GlobalTable where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GlobalTable"
       ( \x ->
           GlobalTable'
-            <$> (x .:? "GlobalTableName")
-            <*> (x .:? "ReplicationGroup" .!= mempty)
+            Prelude.<$> (x Prelude..:? "GlobalTableName")
+            Prelude.<*> ( x Prelude..:? "ReplicationGroup"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable GlobalTable
+instance Prelude.Hashable GlobalTable
 
-instance NFData GlobalTable
+instance Prelude.NFData GlobalTable

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,65 +22,71 @@ module Network.AWS.DynamoDB.Types.BackupDescription where
 import Network.AWS.DynamoDB.Types.BackupDetails
 import Network.AWS.DynamoDB.Types.SourceTableDetails
 import Network.AWS.DynamoDB.Types.SourceTableFeatureDetails
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the description of the backup created for the table.
 --
---
---
--- /See:/ 'backupDescription' smart constructor.
+-- /See:/ 'newBackupDescription' smart constructor.
 data BackupDescription = BackupDescription'
-  { _bdSourceTableDetails ::
-      !(Maybe SourceTableDetails),
-    _bdBackupDetails ::
-      !(Maybe BackupDetails),
-    _bdSourceTableFeatureDetails ::
-      !(Maybe SourceTableFeatureDetails)
+  { -- | Contains the details of the table when the backup was created.
+    sourceTableDetails :: Prelude.Maybe SourceTableDetails,
+    -- | Contains the details of the backup created for the table.
+    backupDetails :: Prelude.Maybe BackupDetails,
+    -- | Contains the details of the features enabled on the table when the
+    -- backup was created. For example, LSIs, GSIs, streams, TTL.
+    sourceTableFeatureDetails :: Prelude.Maybe SourceTableFeatureDetails
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BackupDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BackupDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdSourceTableDetails' - Contains the details of the table when the backup was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdBackupDetails' - Contains the details of the backup created for the table.
+-- 'sourceTableDetails', 'backupDescription_sourceTableDetails' - Contains the details of the table when the backup was created.
 --
--- * 'bdSourceTableFeatureDetails' - Contains the details of the features enabled on the table when the backup was created. For example, LSIs, GSIs, streams, TTL.
-backupDescription ::
+-- 'backupDetails', 'backupDescription_backupDetails' - Contains the details of the backup created for the table.
+--
+-- 'sourceTableFeatureDetails', 'backupDescription_sourceTableFeatureDetails' - Contains the details of the features enabled on the table when the
+-- backup was created. For example, LSIs, GSIs, streams, TTL.
+newBackupDescription ::
   BackupDescription
-backupDescription =
+newBackupDescription =
   BackupDescription'
-    { _bdSourceTableDetails = Nothing,
-      _bdBackupDetails = Nothing,
-      _bdSourceTableFeatureDetails = Nothing
+    { sourceTableDetails =
+        Prelude.Nothing,
+      backupDetails = Prelude.Nothing,
+      sourceTableFeatureDetails = Prelude.Nothing
     }
 
 -- | Contains the details of the table when the backup was created.
-bdSourceTableDetails :: Lens' BackupDescription (Maybe SourceTableDetails)
-bdSourceTableDetails = lens _bdSourceTableDetails (\s a -> s {_bdSourceTableDetails = a})
+backupDescription_sourceTableDetails :: Lens.Lens' BackupDescription (Prelude.Maybe SourceTableDetails)
+backupDescription_sourceTableDetails = Lens.lens (\BackupDescription' {sourceTableDetails} -> sourceTableDetails) (\s@BackupDescription' {} a -> s {sourceTableDetails = a} :: BackupDescription)
 
 -- | Contains the details of the backup created for the table.
-bdBackupDetails :: Lens' BackupDescription (Maybe BackupDetails)
-bdBackupDetails = lens _bdBackupDetails (\s a -> s {_bdBackupDetails = a})
+backupDescription_backupDetails :: Lens.Lens' BackupDescription (Prelude.Maybe BackupDetails)
+backupDescription_backupDetails = Lens.lens (\BackupDescription' {backupDetails} -> backupDetails) (\s@BackupDescription' {} a -> s {backupDetails = a} :: BackupDescription)
 
--- | Contains the details of the features enabled on the table when the backup was created. For example, LSIs, GSIs, streams, TTL.
-bdSourceTableFeatureDetails :: Lens' BackupDescription (Maybe SourceTableFeatureDetails)
-bdSourceTableFeatureDetails = lens _bdSourceTableFeatureDetails (\s a -> s {_bdSourceTableFeatureDetails = a})
+-- | Contains the details of the features enabled on the table when the
+-- backup was created. For example, LSIs, GSIs, streams, TTL.
+backupDescription_sourceTableFeatureDetails :: Lens.Lens' BackupDescription (Prelude.Maybe SourceTableFeatureDetails)
+backupDescription_sourceTableFeatureDetails = Lens.lens (\BackupDescription' {sourceTableFeatureDetails} -> sourceTableFeatureDetails) (\s@BackupDescription' {} a -> s {sourceTableFeatureDetails = a} :: BackupDescription)
 
-instance FromJSON BackupDescription where
+instance Prelude.FromJSON BackupDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BackupDescription"
       ( \x ->
           BackupDescription'
-            <$> (x .:? "SourceTableDetails")
-            <*> (x .:? "BackupDetails")
-            <*> (x .:? "SourceTableFeatureDetails")
+            Prelude.<$> (x Prelude..:? "SourceTableDetails")
+            Prelude.<*> (x Prelude..:? "BackupDetails")
+            Prelude.<*> (x Prelude..:? "SourceTableFeatureDetails")
       )
 
-instance Hashable BackupDescription
+instance Prelude.Hashable BackupDescription
 
-instance NFData BackupDescription
+instance Prelude.NFData BackupDescription

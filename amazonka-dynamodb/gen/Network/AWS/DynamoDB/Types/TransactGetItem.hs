@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,40 +20,51 @@
 module Network.AWS.DynamoDB.Types.TransactGetItem where
 
 import Network.AWS.DynamoDB.Types.Get
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies an item to be retrieved as part of the transaction.
 --
---
---
--- /See:/ 'transactGetItem' smart constructor.
-newtype TransactGetItem = TransactGetItem'
-  { _tgiGet ::
-      Get
+-- /See:/ 'newTransactGetItem' smart constructor.
+data TransactGetItem = TransactGetItem'
+  { -- | Contains the primary key that identifies the item to get, together with
+    -- the name of the table that contains the item, and optionally the
+    -- specific attributes of the item to retrieve.
+    get' :: Get
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransactGetItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransactGetItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgiGet' - Contains the primary key that identifies the item to get, together with the name of the table that contains the item, and optionally the specific attributes of the item to retrieve.
-transactGetItem ::
-  -- | 'tgiGet'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'get'', 'transactGetItem_get' - Contains the primary key that identifies the item to get, together with
+-- the name of the table that contains the item, and optionally the
+-- specific attributes of the item to retrieve.
+newTransactGetItem ::
+  -- | 'get''
   Get ->
   TransactGetItem
-transactGetItem pGet_ =
-  TransactGetItem' {_tgiGet = pGet_}
+newTransactGetItem pGet_ =
+  TransactGetItem' {get' = pGet_}
 
--- | Contains the primary key that identifies the item to get, together with the name of the table that contains the item, and optionally the specific attributes of the item to retrieve.
-tgiGet :: Lens' TransactGetItem Get
-tgiGet = lens _tgiGet (\s a -> s {_tgiGet = a})
+-- | Contains the primary key that identifies the item to get, together with
+-- the name of the table that contains the item, and optionally the
+-- specific attributes of the item to retrieve.
+transactGetItem_get :: Lens.Lens' TransactGetItem Get
+transactGetItem_get = Lens.lens (\TransactGetItem' {get'} -> get') (\s@TransactGetItem' {} a -> s {get' = a} :: TransactGetItem)
 
-instance Hashable TransactGetItem
+instance Prelude.Hashable TransactGetItem
 
-instance NFData TransactGetItem
+instance Prelude.NFData TransactGetItem
 
-instance ToJSON TransactGetItem where
+instance Prelude.ToJSON TransactGetItem where
   toJSON TransactGetItem' {..} =
-    object (catMaybes [Just ("Get" .= _tgiGet)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Get" Prelude..= get')]
+      )

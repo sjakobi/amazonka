@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,138 +22,167 @@ module Network.AWS.DynamoDB.Types.SourceTableDetails where
 import Network.AWS.DynamoDB.Types.BillingMode
 import Network.AWS.DynamoDB.Types.KeySchemaElement
 import Network.AWS.DynamoDB.Types.ProvisionedThroughput
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the details of the table when the backup was created.
 --
---
---
--- /See:/ 'sourceTableDetails' smart constructor.
+-- /See:/ 'newSourceTableDetails' smart constructor.
 data SourceTableDetails = SourceTableDetails'
-  { _stdTableARN ::
-      !(Maybe Text),
-    _stdBillingMode ::
-      !(Maybe BillingMode),
-    _stdTableSizeBytes ::
-      !(Maybe Integer),
-    _stdItemCount :: !(Maybe Nat),
-    _stdTableName :: !Text,
-    _stdTableId :: !Text,
-    _stdKeySchema ::
-      !(List1 KeySchemaElement),
-    _stdTableCreationDateTime ::
-      !POSIX,
-    _stdProvisionedThroughput ::
-      !ProvisionedThroughput
+  { -- | ARN of the table for which backup was created.
+    tableArn :: Prelude.Maybe Prelude.Text,
+    -- | Controls how you are charged for read and write throughput and how you
+    -- manage capacity. This setting can be changed later.
+    --
+    -- -   @PROVISIONED@ - Sets the read\/write capacity mode to @PROVISIONED@.
+    --     We recommend using @PROVISIONED@ for predictable workloads.
+    --
+    -- -   @PAY_PER_REQUEST@ - Sets the read\/write capacity mode to
+    --     @PAY_PER_REQUEST@. We recommend using @PAY_PER_REQUEST@ for
+    --     unpredictable workloads.
+    billingMode :: Prelude.Maybe BillingMode,
+    -- | Size of the table in bytes. Note that this is an approximate value.
+    tableSizeBytes :: Prelude.Maybe Prelude.Integer,
+    -- | Number of items in the table. Note that this is an approximate value.
+    itemCount :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the table for which the backup was created.
+    tableName :: Prelude.Text,
+    -- | Unique identifier for the table for which the backup was created.
+    tableId :: Prelude.Text,
+    -- | Schema of the table.
+    keySchema :: Prelude.List1 KeySchemaElement,
+    -- | Time when the source table was created.
+    tableCreationDateTime :: Prelude.POSIX,
+    -- | Read IOPs and Write IOPS on the table when the backup was created.
+    provisionedThroughput :: ProvisionedThroughput
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SourceTableDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SourceTableDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stdTableARN' - ARN of the table for which backup was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stdBillingMode' - Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed later.     * @PROVISIONED@ - Sets the read/write capacity mode to @PROVISIONED@ . We recommend using @PROVISIONED@ for predictable workloads.     * @PAY_PER_REQUEST@ - Sets the read/write capacity mode to @PAY_PER_REQUEST@ . We recommend using @PAY_PER_REQUEST@ for unpredictable workloads.
+-- 'tableArn', 'sourceTableDetails_tableArn' - ARN of the table for which backup was created.
 --
--- * 'stdTableSizeBytes' - Size of the table in bytes. Note that this is an approximate value.
+-- 'billingMode', 'sourceTableDetails_billingMode' - Controls how you are charged for read and write throughput and how you
+-- manage capacity. This setting can be changed later.
 --
--- * 'stdItemCount' - Number of items in the table. Note that this is an approximate value.
+-- -   @PROVISIONED@ - Sets the read\/write capacity mode to @PROVISIONED@.
+--     We recommend using @PROVISIONED@ for predictable workloads.
 --
--- * 'stdTableName' - The name of the table for which the backup was created.
+-- -   @PAY_PER_REQUEST@ - Sets the read\/write capacity mode to
+--     @PAY_PER_REQUEST@. We recommend using @PAY_PER_REQUEST@ for
+--     unpredictable workloads.
 --
--- * 'stdTableId' - Unique identifier for the table for which the backup was created.
+-- 'tableSizeBytes', 'sourceTableDetails_tableSizeBytes' - Size of the table in bytes. Note that this is an approximate value.
 --
--- * 'stdKeySchema' - Schema of the table.
+-- 'itemCount', 'sourceTableDetails_itemCount' - Number of items in the table. Note that this is an approximate value.
 --
--- * 'stdTableCreationDateTime' - Time when the source table was created.
+-- 'tableName', 'sourceTableDetails_tableName' - The name of the table for which the backup was created.
 --
--- * 'stdProvisionedThroughput' - Read IOPs and Write IOPS on the table when the backup was created.
-sourceTableDetails ::
-  -- | 'stdTableName'
-  Text ->
-  -- | 'stdTableId'
-  Text ->
-  -- | 'stdKeySchema'
-  NonEmpty KeySchemaElement ->
-  -- | 'stdTableCreationDateTime'
-  UTCTime ->
-  -- | 'stdProvisionedThroughput'
+-- 'tableId', 'sourceTableDetails_tableId' - Unique identifier for the table for which the backup was created.
+--
+-- 'keySchema', 'sourceTableDetails_keySchema' - Schema of the table.
+--
+-- 'tableCreationDateTime', 'sourceTableDetails_tableCreationDateTime' - Time when the source table was created.
+--
+-- 'provisionedThroughput', 'sourceTableDetails_provisionedThroughput' - Read IOPs and Write IOPS on the table when the backup was created.
+newSourceTableDetails ::
+  -- | 'tableName'
+  Prelude.Text ->
+  -- | 'tableId'
+  Prelude.Text ->
+  -- | 'keySchema'
+  Prelude.NonEmpty KeySchemaElement ->
+  -- | 'tableCreationDateTime'
+  Prelude.UTCTime ->
+  -- | 'provisionedThroughput'
   ProvisionedThroughput ->
   SourceTableDetails
-sourceTableDetails
+newSourceTableDetails
   pTableName_
   pTableId_
   pKeySchema_
   pTableCreationDateTime_
   pProvisionedThroughput_ =
     SourceTableDetails'
-      { _stdTableARN = Nothing,
-        _stdBillingMode = Nothing,
-        _stdTableSizeBytes = Nothing,
-        _stdItemCount = Nothing,
-        _stdTableName = pTableName_,
-        _stdTableId = pTableId_,
-        _stdKeySchema = _List1 # pKeySchema_,
-        _stdTableCreationDateTime =
-          _Time # pTableCreationDateTime_,
-        _stdProvisionedThroughput = pProvisionedThroughput_
+      { tableArn = Prelude.Nothing,
+        billingMode = Prelude.Nothing,
+        tableSizeBytes = Prelude.Nothing,
+        itemCount = Prelude.Nothing,
+        tableName = pTableName_,
+        tableId = pTableId_,
+        keySchema = Prelude._List1 Lens.# pKeySchema_,
+        tableCreationDateTime =
+          Prelude._Time Lens.# pTableCreationDateTime_,
+        provisionedThroughput = pProvisionedThroughput_
       }
 
 -- | ARN of the table for which backup was created.
-stdTableARN :: Lens' SourceTableDetails (Maybe Text)
-stdTableARN = lens _stdTableARN (\s a -> s {_stdTableARN = a})
+sourceTableDetails_tableArn :: Lens.Lens' SourceTableDetails (Prelude.Maybe Prelude.Text)
+sourceTableDetails_tableArn = Lens.lens (\SourceTableDetails' {tableArn} -> tableArn) (\s@SourceTableDetails' {} a -> s {tableArn = a} :: SourceTableDetails)
 
--- | Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed later.     * @PROVISIONED@ - Sets the read/write capacity mode to @PROVISIONED@ . We recommend using @PROVISIONED@ for predictable workloads.     * @PAY_PER_REQUEST@ - Sets the read/write capacity mode to @PAY_PER_REQUEST@ . We recommend using @PAY_PER_REQUEST@ for unpredictable workloads.
-stdBillingMode :: Lens' SourceTableDetails (Maybe BillingMode)
-stdBillingMode = lens _stdBillingMode (\s a -> s {_stdBillingMode = a})
+-- | Controls how you are charged for read and write throughput and how you
+-- manage capacity. This setting can be changed later.
+--
+-- -   @PROVISIONED@ - Sets the read\/write capacity mode to @PROVISIONED@.
+--     We recommend using @PROVISIONED@ for predictable workloads.
+--
+-- -   @PAY_PER_REQUEST@ - Sets the read\/write capacity mode to
+--     @PAY_PER_REQUEST@. We recommend using @PAY_PER_REQUEST@ for
+--     unpredictable workloads.
+sourceTableDetails_billingMode :: Lens.Lens' SourceTableDetails (Prelude.Maybe BillingMode)
+sourceTableDetails_billingMode = Lens.lens (\SourceTableDetails' {billingMode} -> billingMode) (\s@SourceTableDetails' {} a -> s {billingMode = a} :: SourceTableDetails)
 
 -- | Size of the table in bytes. Note that this is an approximate value.
-stdTableSizeBytes :: Lens' SourceTableDetails (Maybe Integer)
-stdTableSizeBytes = lens _stdTableSizeBytes (\s a -> s {_stdTableSizeBytes = a})
+sourceTableDetails_tableSizeBytes :: Lens.Lens' SourceTableDetails (Prelude.Maybe Prelude.Integer)
+sourceTableDetails_tableSizeBytes = Lens.lens (\SourceTableDetails' {tableSizeBytes} -> tableSizeBytes) (\s@SourceTableDetails' {} a -> s {tableSizeBytes = a} :: SourceTableDetails)
 
 -- | Number of items in the table. Note that this is an approximate value.
-stdItemCount :: Lens' SourceTableDetails (Maybe Natural)
-stdItemCount = lens _stdItemCount (\s a -> s {_stdItemCount = a}) . mapping _Nat
+sourceTableDetails_itemCount :: Lens.Lens' SourceTableDetails (Prelude.Maybe Prelude.Natural)
+sourceTableDetails_itemCount = Lens.lens (\SourceTableDetails' {itemCount} -> itemCount) (\s@SourceTableDetails' {} a -> s {itemCount = a} :: SourceTableDetails) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the table for which the backup was created.
-stdTableName :: Lens' SourceTableDetails Text
-stdTableName = lens _stdTableName (\s a -> s {_stdTableName = a})
+sourceTableDetails_tableName :: Lens.Lens' SourceTableDetails Prelude.Text
+sourceTableDetails_tableName = Lens.lens (\SourceTableDetails' {tableName} -> tableName) (\s@SourceTableDetails' {} a -> s {tableName = a} :: SourceTableDetails)
 
 -- | Unique identifier for the table for which the backup was created.
-stdTableId :: Lens' SourceTableDetails Text
-stdTableId = lens _stdTableId (\s a -> s {_stdTableId = a})
+sourceTableDetails_tableId :: Lens.Lens' SourceTableDetails Prelude.Text
+sourceTableDetails_tableId = Lens.lens (\SourceTableDetails' {tableId} -> tableId) (\s@SourceTableDetails' {} a -> s {tableId = a} :: SourceTableDetails)
 
 -- | Schema of the table.
-stdKeySchema :: Lens' SourceTableDetails (NonEmpty KeySchemaElement)
-stdKeySchema = lens _stdKeySchema (\s a -> s {_stdKeySchema = a}) . _List1
+sourceTableDetails_keySchema :: Lens.Lens' SourceTableDetails (Prelude.NonEmpty KeySchemaElement)
+sourceTableDetails_keySchema = Lens.lens (\SourceTableDetails' {keySchema} -> keySchema) (\s@SourceTableDetails' {} a -> s {keySchema = a} :: SourceTableDetails) Prelude.. Prelude._List1
 
 -- | Time when the source table was created.
-stdTableCreationDateTime :: Lens' SourceTableDetails UTCTime
-stdTableCreationDateTime = lens _stdTableCreationDateTime (\s a -> s {_stdTableCreationDateTime = a}) . _Time
+sourceTableDetails_tableCreationDateTime :: Lens.Lens' SourceTableDetails Prelude.UTCTime
+sourceTableDetails_tableCreationDateTime = Lens.lens (\SourceTableDetails' {tableCreationDateTime} -> tableCreationDateTime) (\s@SourceTableDetails' {} a -> s {tableCreationDateTime = a} :: SourceTableDetails) Prelude.. Prelude._Time
 
 -- | Read IOPs and Write IOPS on the table when the backup was created.
-stdProvisionedThroughput :: Lens' SourceTableDetails ProvisionedThroughput
-stdProvisionedThroughput = lens _stdProvisionedThroughput (\s a -> s {_stdProvisionedThroughput = a})
+sourceTableDetails_provisionedThroughput :: Lens.Lens' SourceTableDetails ProvisionedThroughput
+sourceTableDetails_provisionedThroughput = Lens.lens (\SourceTableDetails' {provisionedThroughput} -> provisionedThroughput) (\s@SourceTableDetails' {} a -> s {provisionedThroughput = a} :: SourceTableDetails)
 
-instance FromJSON SourceTableDetails where
+instance Prelude.FromJSON SourceTableDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SourceTableDetails"
       ( \x ->
           SourceTableDetails'
-            <$> (x .:? "TableArn")
-            <*> (x .:? "BillingMode")
-            <*> (x .:? "TableSizeBytes")
-            <*> (x .:? "ItemCount")
-            <*> (x .: "TableName")
-            <*> (x .: "TableId")
-            <*> (x .: "KeySchema")
-            <*> (x .: "TableCreationDateTime")
-            <*> (x .: "ProvisionedThroughput")
+            Prelude.<$> (x Prelude..:? "TableArn")
+            Prelude.<*> (x Prelude..:? "BillingMode")
+            Prelude.<*> (x Prelude..:? "TableSizeBytes")
+            Prelude.<*> (x Prelude..:? "ItemCount")
+            Prelude.<*> (x Prelude..: "TableName")
+            Prelude.<*> (x Prelude..: "TableId")
+            Prelude.<*> (x Prelude..: "KeySchema")
+            Prelude.<*> (x Prelude..: "TableCreationDateTime")
+            Prelude.<*> (x Prelude..: "ProvisionedThroughput")
       )
 
-instance Hashable SourceTableDetails
+instance Prelude.Hashable SourceTableDetails
 
-instance NFData SourceTableDetails
+instance Prelude.NFData SourceTableDetails

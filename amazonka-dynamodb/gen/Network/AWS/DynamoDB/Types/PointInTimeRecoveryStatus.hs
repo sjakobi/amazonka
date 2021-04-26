@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.DynamoDB.Types.PointInTimeRecoveryStatus
   ( PointInTimeRecoveryStatus
       ( ..,
-        PITRSDisabled,
-        PITRSEnabled
+        PointInTimeRecoveryStatusDISABLED,
+        PointInTimeRecoveryStatusENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PointInTimeRecoveryStatus
-  = PointInTimeRecoveryStatus'
-      ( CI
-          Text
-      )
+newtype PointInTimeRecoveryStatus = PointInTimeRecoveryStatus'
+  { fromPointInTimeRecoveryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PITRSDisabled :: PointInTimeRecoveryStatus
-pattern PITRSDisabled = PointInTimeRecoveryStatus' "DISABLED"
+pattern PointInTimeRecoveryStatusDISABLED :: PointInTimeRecoveryStatus
+pattern PointInTimeRecoveryStatusDISABLED = PointInTimeRecoveryStatus' "DISABLED"
 
-pattern PITRSEnabled :: PointInTimeRecoveryStatus
-pattern PITRSEnabled = PointInTimeRecoveryStatus' "ENABLED"
+pattern PointInTimeRecoveryStatusENABLED :: PointInTimeRecoveryStatus
+pattern PointInTimeRecoveryStatusENABLED = PointInTimeRecoveryStatus' "ENABLED"
 
 {-# COMPLETE
-  PITRSDisabled,
-  PITRSEnabled,
+  PointInTimeRecoveryStatusDISABLED,
+  PointInTimeRecoveryStatusENABLED,
   PointInTimeRecoveryStatus'
   #-}
 
-instance FromText PointInTimeRecoveryStatus where
-  parser = (PointInTimeRecoveryStatus' . mk) <$> takeText
+instance Prelude.FromText PointInTimeRecoveryStatus where
+  parser = PointInTimeRecoveryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PointInTimeRecoveryStatus where
-  toText (PointInTimeRecoveryStatus' ci) = original ci
+instance Prelude.ToText PointInTimeRecoveryStatus where
+  toText (PointInTimeRecoveryStatus' x) = x
 
-instance Hashable PointInTimeRecoveryStatus
+instance Prelude.Hashable PointInTimeRecoveryStatus
 
-instance NFData PointInTimeRecoveryStatus
+instance Prelude.NFData PointInTimeRecoveryStatus
 
-instance ToByteString PointInTimeRecoveryStatus
+instance Prelude.ToByteString PointInTimeRecoveryStatus
 
-instance ToQuery PointInTimeRecoveryStatus
+instance Prelude.ToQuery PointInTimeRecoveryStatus
 
-instance ToHeader PointInTimeRecoveryStatus
+instance Prelude.ToHeader PointInTimeRecoveryStatus
 
-instance FromJSON PointInTimeRecoveryStatus where
-  parseJSON = parseJSONText "PointInTimeRecoveryStatus"
+instance Prelude.FromJSON PointInTimeRecoveryStatus where
+  parseJSON = Prelude.parseJSONText "PointInTimeRecoveryStatus"

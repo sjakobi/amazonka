@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,60 @@
 module Network.AWS.DynamoDB.Types.ExportSummary where
 
 import Network.AWS.DynamoDB.Types.ExportStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary information about an export task.
 --
---
---
--- /See:/ 'exportSummary' smart constructor.
+-- /See:/ 'newExportSummary' smart constructor.
 data ExportSummary = ExportSummary'
-  { _esExportStatus ::
-      !(Maybe ExportStatus),
-    _esExportARN :: !(Maybe Text)
+  { -- | Export can be in one of the following states: IN_PROGRESS, COMPLETED, or
+    -- FAILED.
+    exportStatus :: Prelude.Maybe ExportStatus,
+    -- | The Amazon Resource Name (ARN) of the export.
+    exportArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esExportStatus' - Export can be in one of the following states: IN_PROGRESS, COMPLETED, or FAILED.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esExportARN' - The Amazon Resource Name (ARN) of the export.
-exportSummary ::
+-- 'exportStatus', 'exportSummary_exportStatus' - Export can be in one of the following states: IN_PROGRESS, COMPLETED, or
+-- FAILED.
+--
+-- 'exportArn', 'exportSummary_exportArn' - The Amazon Resource Name (ARN) of the export.
+newExportSummary ::
   ExportSummary
-exportSummary =
+newExportSummary =
   ExportSummary'
-    { _esExportStatus = Nothing,
-      _esExportARN = Nothing
+    { exportStatus = Prelude.Nothing,
+      exportArn = Prelude.Nothing
     }
 
--- | Export can be in one of the following states: IN_PROGRESS, COMPLETED, or FAILED.
-esExportStatus :: Lens' ExportSummary (Maybe ExportStatus)
-esExportStatus = lens _esExportStatus (\s a -> s {_esExportStatus = a})
+-- | Export can be in one of the following states: IN_PROGRESS, COMPLETED, or
+-- FAILED.
+exportSummary_exportStatus :: Lens.Lens' ExportSummary (Prelude.Maybe ExportStatus)
+exportSummary_exportStatus = Lens.lens (\ExportSummary' {exportStatus} -> exportStatus) (\s@ExportSummary' {} a -> s {exportStatus = a} :: ExportSummary)
 
 -- | The Amazon Resource Name (ARN) of the export.
-esExportARN :: Lens' ExportSummary (Maybe Text)
-esExportARN = lens _esExportARN (\s a -> s {_esExportARN = a})
+exportSummary_exportArn :: Lens.Lens' ExportSummary (Prelude.Maybe Prelude.Text)
+exportSummary_exportArn = Lens.lens (\ExportSummary' {exportArn} -> exportArn) (\s@ExportSummary' {} a -> s {exportArn = a} :: ExportSummary)
 
-instance FromJSON ExportSummary where
+instance Prelude.FromJSON ExportSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExportSummary"
       ( \x ->
           ExportSummary'
-            <$> (x .:? "ExportStatus") <*> (x .:? "ExportArn")
+            Prelude.<$> (x Prelude..:? "ExportStatus")
+            Prelude.<*> (x Prelude..:? "ExportArn")
       )
 
-instance Hashable ExportSummary
+instance Prelude.Hashable ExportSummary
 
-instance NFData ExportSummary
+instance Prelude.NFData ExportSummary

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,85 +22,156 @@ module Network.AWS.DynamoDB.Types.GlobalSecondaryIndex where
 import Network.AWS.DynamoDB.Types.KeySchemaElement
 import Network.AWS.DynamoDB.Types.Projection
 import Network.AWS.DynamoDB.Types.ProvisionedThroughput
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the properties of a global secondary index.
 --
---
---
--- /See:/ 'globalSecondaryIndex' smart constructor.
+-- /See:/ 'newGlobalSecondaryIndex' smart constructor.
 data GlobalSecondaryIndex = GlobalSecondaryIndex'
-  { _gsiProvisionedThroughput ::
-      !( Maybe
-           ProvisionedThroughput
-       ),
-    _gsiIndexName :: !Text,
-    _gsiKeySchema ::
-      !(List1 KeySchemaElement),
-    _gsiProjection :: !Projection
+  { -- | Represents the provisioned throughput settings for the specified global
+    -- secondary index.
+    --
+    -- For current minimum and maximum provisioned throughput values, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    provisionedThroughput :: Prelude.Maybe ProvisionedThroughput,
+    -- | The name of the global secondary index. The name must be unique among
+    -- all other indexes on this table.
+    indexName :: Prelude.Text,
+    -- | The complete key schema for a global secondary index, which consists of
+    -- one or more pairs of attribute names and key types:
+    --
+    -- -   @HASH@ - partition key
+    --
+    -- -   @RANGE@ - sort key
+    --
+    -- The partition key of an item is also known as its /hash attribute/. The
+    -- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+    -- hash function to evenly distribute data items across partitions, based
+    -- on their partition key values.
+    --
+    -- The sort key of an item is also known as its /range attribute/. The term
+    -- \"range attribute\" derives from the way DynamoDB stores items with the
+    -- same partition key physically close together, in sorted order by the
+    -- sort key value.
+    keySchema :: Prelude.List1 KeySchemaElement,
+    -- | Represents attributes that are copied (projected) from the table into
+    -- the global secondary index. These are in addition to the primary key
+    -- attributes and index key attributes, which are automatically projected.
+    projection :: Projection
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GlobalSecondaryIndex' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GlobalSecondaryIndex' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsiProvisionedThroughput' - Represents the provisioned throughput settings for the specified global secondary index. For current minimum and maximum provisioned throughput values, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas> in the /Amazon DynamoDB Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsiIndexName' - The name of the global secondary index. The name must be unique among all other indexes on this table.
+-- 'provisionedThroughput', 'globalSecondaryIndex_provisionedThroughput' - Represents the provisioned throughput settings for the specified global
+-- secondary index.
 --
--- * 'gsiKeySchema' - The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key types:     * @HASH@ - partition key     * @RANGE@ - sort key
+-- For current minimum and maximum provisioned throughput values, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+-- in the /Amazon DynamoDB Developer Guide/.
 --
--- * 'gsiProjection' - Represents attributes that are copied (projected) from the table into the global secondary index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-globalSecondaryIndex ::
-  -- | 'gsiIndexName'
-  Text ->
-  -- | 'gsiKeySchema'
-  NonEmpty KeySchemaElement ->
-  -- | 'gsiProjection'
+-- 'indexName', 'globalSecondaryIndex_indexName' - The name of the global secondary index. The name must be unique among
+-- all other indexes on this table.
+--
+-- 'keySchema', 'globalSecondaryIndex_keySchema' - The complete key schema for a global secondary index, which consists of
+-- one or more pairs of attribute names and key types:
+--
+-- -   @HASH@ - partition key
+--
+-- -   @RANGE@ - sort key
+--
+-- The partition key of an item is also known as its /hash attribute/. The
+-- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+-- hash function to evenly distribute data items across partitions, based
+-- on their partition key values.
+--
+-- The sort key of an item is also known as its /range attribute/. The term
+-- \"range attribute\" derives from the way DynamoDB stores items with the
+-- same partition key physically close together, in sorted order by the
+-- sort key value.
+--
+-- 'projection', 'globalSecondaryIndex_projection' - Represents attributes that are copied (projected) from the table into
+-- the global secondary index. These are in addition to the primary key
+-- attributes and index key attributes, which are automatically projected.
+newGlobalSecondaryIndex ::
+  -- | 'indexName'
+  Prelude.Text ->
+  -- | 'keySchema'
+  Prelude.NonEmpty KeySchemaElement ->
+  -- | 'projection'
   Projection ->
   GlobalSecondaryIndex
-globalSecondaryIndex
+newGlobalSecondaryIndex
   pIndexName_
   pKeySchema_
   pProjection_ =
     GlobalSecondaryIndex'
-      { _gsiProvisionedThroughput =
-          Nothing,
-        _gsiIndexName = pIndexName_,
-        _gsiKeySchema = _List1 # pKeySchema_,
-        _gsiProjection = pProjection_
+      { provisionedThroughput =
+          Prelude.Nothing,
+        indexName = pIndexName_,
+        keySchema = Prelude._List1 Lens.# pKeySchema_,
+        projection = pProjection_
       }
 
--- | Represents the provisioned throughput settings for the specified global secondary index. For current minimum and maximum provisioned throughput values, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas> in the /Amazon DynamoDB Developer Guide/ .
-gsiProvisionedThroughput :: Lens' GlobalSecondaryIndex (Maybe ProvisionedThroughput)
-gsiProvisionedThroughput = lens _gsiProvisionedThroughput (\s a -> s {_gsiProvisionedThroughput = a})
+-- | Represents the provisioned throughput settings for the specified global
+-- secondary index.
+--
+-- For current minimum and maximum provisioned throughput values, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+-- in the /Amazon DynamoDB Developer Guide/.
+globalSecondaryIndex_provisionedThroughput :: Lens.Lens' GlobalSecondaryIndex (Prelude.Maybe ProvisionedThroughput)
+globalSecondaryIndex_provisionedThroughput = Lens.lens (\GlobalSecondaryIndex' {provisionedThroughput} -> provisionedThroughput) (\s@GlobalSecondaryIndex' {} a -> s {provisionedThroughput = a} :: GlobalSecondaryIndex)
 
--- | The name of the global secondary index. The name must be unique among all other indexes on this table.
-gsiIndexName :: Lens' GlobalSecondaryIndex Text
-gsiIndexName = lens _gsiIndexName (\s a -> s {_gsiIndexName = a})
+-- | The name of the global secondary index. The name must be unique among
+-- all other indexes on this table.
+globalSecondaryIndex_indexName :: Lens.Lens' GlobalSecondaryIndex Prelude.Text
+globalSecondaryIndex_indexName = Lens.lens (\GlobalSecondaryIndex' {indexName} -> indexName) (\s@GlobalSecondaryIndex' {} a -> s {indexName = a} :: GlobalSecondaryIndex)
 
--- | The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key types:     * @HASH@ - partition key     * @RANGE@ - sort key
-gsiKeySchema :: Lens' GlobalSecondaryIndex (NonEmpty KeySchemaElement)
-gsiKeySchema = lens _gsiKeySchema (\s a -> s {_gsiKeySchema = a}) . _List1
+-- | The complete key schema for a global secondary index, which consists of
+-- one or more pairs of attribute names and key types:
+--
+-- -   @HASH@ - partition key
+--
+-- -   @RANGE@ - sort key
+--
+-- The partition key of an item is also known as its /hash attribute/. The
+-- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+-- hash function to evenly distribute data items across partitions, based
+-- on their partition key values.
+--
+-- The sort key of an item is also known as its /range attribute/. The term
+-- \"range attribute\" derives from the way DynamoDB stores items with the
+-- same partition key physically close together, in sorted order by the
+-- sort key value.
+globalSecondaryIndex_keySchema :: Lens.Lens' GlobalSecondaryIndex (Prelude.NonEmpty KeySchemaElement)
+globalSecondaryIndex_keySchema = Lens.lens (\GlobalSecondaryIndex' {keySchema} -> keySchema) (\s@GlobalSecondaryIndex' {} a -> s {keySchema = a} :: GlobalSecondaryIndex) Prelude.. Prelude._List1
 
--- | Represents attributes that are copied (projected) from the table into the global secondary index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-gsiProjection :: Lens' GlobalSecondaryIndex Projection
-gsiProjection = lens _gsiProjection (\s a -> s {_gsiProjection = a})
+-- | Represents attributes that are copied (projected) from the table into
+-- the global secondary index. These are in addition to the primary key
+-- attributes and index key attributes, which are automatically projected.
+globalSecondaryIndex_projection :: Lens.Lens' GlobalSecondaryIndex Projection
+globalSecondaryIndex_projection = Lens.lens (\GlobalSecondaryIndex' {projection} -> projection) (\s@GlobalSecondaryIndex' {} a -> s {projection = a} :: GlobalSecondaryIndex)
 
-instance Hashable GlobalSecondaryIndex
+instance Prelude.Hashable GlobalSecondaryIndex
 
-instance NFData GlobalSecondaryIndex
+instance Prelude.NFData GlobalSecondaryIndex
 
-instance ToJSON GlobalSecondaryIndex where
+instance Prelude.ToJSON GlobalSecondaryIndex where
   toJSON GlobalSecondaryIndex' {..} =
-    object
-      ( catMaybes
-          [ ("ProvisionedThroughput" .=)
-              <$> _gsiProvisionedThroughput,
-            Just ("IndexName" .= _gsiIndexName),
-            Just ("KeySchema" .= _gsiKeySchema),
-            Just ("Projection" .= _gsiProjection)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ProvisionedThroughput" Prelude..=)
+              Prelude.<$> provisionedThroughput,
+            Prelude.Just ("IndexName" Prelude..= indexName),
+            Prelude.Just ("KeySchema" Prelude..= keySchema),
+            Prelude.Just ("Projection" Prelude..= projection)
           ]
       )

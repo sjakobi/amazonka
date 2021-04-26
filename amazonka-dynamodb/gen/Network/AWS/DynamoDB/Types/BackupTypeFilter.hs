@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.DynamoDB.Types.BackupTypeFilter
   ( BackupTypeFilter
       ( ..,
-        BTFAWSBackup,
-        BTFAll,
-        BTFSystem,
-        BTFUser
+        BackupTypeFilterALL,
+        BackupTypeFilterAWSBACKUP,
+        BackupTypeFilterSYSTEM,
+        BackupTypeFilterUSER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BackupTypeFilter = BackupTypeFilter' (CI Text)
+newtype BackupTypeFilter = BackupTypeFilter'
+  { fromBackupTypeFilter ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BTFAWSBackup :: BackupTypeFilter
-pattern BTFAWSBackup = BackupTypeFilter' "AWS_BACKUP"
+pattern BackupTypeFilterALL :: BackupTypeFilter
+pattern BackupTypeFilterALL = BackupTypeFilter' "ALL"
 
-pattern BTFAll :: BackupTypeFilter
-pattern BTFAll = BackupTypeFilter' "ALL"
+pattern BackupTypeFilterAWSBACKUP :: BackupTypeFilter
+pattern BackupTypeFilterAWSBACKUP = BackupTypeFilter' "AWS_BACKUP"
 
-pattern BTFSystem :: BackupTypeFilter
-pattern BTFSystem = BackupTypeFilter' "SYSTEM"
+pattern BackupTypeFilterSYSTEM :: BackupTypeFilter
+pattern BackupTypeFilterSYSTEM = BackupTypeFilter' "SYSTEM"
 
-pattern BTFUser :: BackupTypeFilter
-pattern BTFUser = BackupTypeFilter' "USER"
+pattern BackupTypeFilterUSER :: BackupTypeFilter
+pattern BackupTypeFilterUSER = BackupTypeFilter' "USER"
 
 {-# COMPLETE
-  BTFAWSBackup,
-  BTFAll,
-  BTFSystem,
-  BTFUser,
+  BackupTypeFilterALL,
+  BackupTypeFilterAWSBACKUP,
+  BackupTypeFilterSYSTEM,
+  BackupTypeFilterUSER,
   BackupTypeFilter'
   #-}
 
-instance FromText BackupTypeFilter where
-  parser = (BackupTypeFilter' . mk) <$> takeText
+instance Prelude.FromText BackupTypeFilter where
+  parser = BackupTypeFilter' Prelude.<$> Prelude.takeText
 
-instance ToText BackupTypeFilter where
-  toText (BackupTypeFilter' ci) = original ci
+instance Prelude.ToText BackupTypeFilter where
+  toText (BackupTypeFilter' x) = x
 
-instance Hashable BackupTypeFilter
+instance Prelude.Hashable BackupTypeFilter
 
-instance NFData BackupTypeFilter
+instance Prelude.NFData BackupTypeFilter
 
-instance ToByteString BackupTypeFilter
+instance Prelude.ToByteString BackupTypeFilter
 
-instance ToQuery BackupTypeFilter
+instance Prelude.ToQuery BackupTypeFilter
 
-instance ToHeader BackupTypeFilter
+instance Prelude.ToHeader BackupTypeFilter
 
-instance ToJSON BackupTypeFilter where
-  toJSON = toJSONText
+instance Prelude.ToJSON BackupTypeFilter where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.DynamoDB.Types.ReplicaStatus
   ( ReplicaStatus
       ( ..,
-        Active,
-        Creating,
-        CreationFailed,
-        Deleting,
-        InaccessibleEncryptionCredentials,
-        RegionDisabled,
-        Updating
+        ReplicaStatusACTIVE,
+        ReplicaStatusCREATING,
+        ReplicaStatusCREATIONFAILED,
+        ReplicaStatusDELETING,
+        ReplicaStatusINACCESSIBLEENCRYPTIONCREDENTIALS,
+        ReplicaStatusREGIONDISABLED,
+        ReplicaStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReplicaStatus = ReplicaStatus' (CI Text)
+newtype ReplicaStatus = ReplicaStatus'
+  { fromReplicaStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ReplicaStatus
-pattern Active = ReplicaStatus' "ACTIVE"
+pattern ReplicaStatusACTIVE :: ReplicaStatus
+pattern ReplicaStatusACTIVE = ReplicaStatus' "ACTIVE"
 
-pattern Creating :: ReplicaStatus
-pattern Creating = ReplicaStatus' "CREATING"
+pattern ReplicaStatusCREATING :: ReplicaStatus
+pattern ReplicaStatusCREATING = ReplicaStatus' "CREATING"
 
-pattern CreationFailed :: ReplicaStatus
-pattern CreationFailed = ReplicaStatus' "CREATION_FAILED"
+pattern ReplicaStatusCREATIONFAILED :: ReplicaStatus
+pattern ReplicaStatusCREATIONFAILED = ReplicaStatus' "CREATION_FAILED"
 
-pattern Deleting :: ReplicaStatus
-pattern Deleting = ReplicaStatus' "DELETING"
+pattern ReplicaStatusDELETING :: ReplicaStatus
+pattern ReplicaStatusDELETING = ReplicaStatus' "DELETING"
 
-pattern InaccessibleEncryptionCredentials :: ReplicaStatus
-pattern InaccessibleEncryptionCredentials = ReplicaStatus' "INACCESSIBLE_ENCRYPTION_CREDENTIALS"
+pattern ReplicaStatusINACCESSIBLEENCRYPTIONCREDENTIALS :: ReplicaStatus
+pattern ReplicaStatusINACCESSIBLEENCRYPTIONCREDENTIALS = ReplicaStatus' "INACCESSIBLE_ENCRYPTION_CREDENTIALS"
 
-pattern RegionDisabled :: ReplicaStatus
-pattern RegionDisabled = ReplicaStatus' "REGION_DISABLED"
+pattern ReplicaStatusREGIONDISABLED :: ReplicaStatus
+pattern ReplicaStatusREGIONDISABLED = ReplicaStatus' "REGION_DISABLED"
 
-pattern Updating :: ReplicaStatus
-pattern Updating = ReplicaStatus' "UPDATING"
+pattern ReplicaStatusUPDATING :: ReplicaStatus
+pattern ReplicaStatusUPDATING = ReplicaStatus' "UPDATING"
 
 {-# COMPLETE
-  Active,
-  Creating,
-  CreationFailed,
-  Deleting,
-  InaccessibleEncryptionCredentials,
-  RegionDisabled,
-  Updating,
+  ReplicaStatusACTIVE,
+  ReplicaStatusCREATING,
+  ReplicaStatusCREATIONFAILED,
+  ReplicaStatusDELETING,
+  ReplicaStatusINACCESSIBLEENCRYPTIONCREDENTIALS,
+  ReplicaStatusREGIONDISABLED,
+  ReplicaStatusUPDATING,
   ReplicaStatus'
   #-}
 
-instance FromText ReplicaStatus where
-  parser = (ReplicaStatus' . mk) <$> takeText
+instance Prelude.FromText ReplicaStatus where
+  parser = ReplicaStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReplicaStatus where
-  toText (ReplicaStatus' ci) = original ci
+instance Prelude.ToText ReplicaStatus where
+  toText (ReplicaStatus' x) = x
 
-instance Hashable ReplicaStatus
+instance Prelude.Hashable ReplicaStatus
 
-instance NFData ReplicaStatus
+instance Prelude.NFData ReplicaStatus
 
-instance ToByteString ReplicaStatus
+instance Prelude.ToByteString ReplicaStatus
 
-instance ToQuery ReplicaStatus
+instance Prelude.ToQuery ReplicaStatus
 
-instance ToHeader ReplicaStatus
+instance Prelude.ToHeader ReplicaStatus
 
-instance FromJSON ReplicaStatus where
-  parseJSON = parseJSONText "ReplicaStatus"
+instance Prelude.FromJSON ReplicaStatus where
+  parseJSON = Prelude.parseJSONText "ReplicaStatus"

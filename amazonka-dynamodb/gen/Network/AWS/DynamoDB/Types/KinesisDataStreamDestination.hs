@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,75 +20,73 @@
 module Network.AWS.DynamoDB.Types.KinesisDataStreamDestination where
 
 import Network.AWS.DynamoDB.Types.DestinationStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Kinesis data stream destination.
 --
---
---
--- /See:/ 'kinesisDataStreamDestination' smart constructor.
+-- /See:/ 'newKinesisDataStreamDestination' smart constructor.
 data KinesisDataStreamDestination = KinesisDataStreamDestination'
-  { _kdsdDestinationStatusDescription ::
-      !(Maybe Text),
-    _kdsdStreamARN ::
-      !(Maybe Text),
-    _kdsdDestinationStatus ::
-      !( Maybe
-           DestinationStatus
-       )
+  { -- | The human-readable string that corresponds to the replica status.
+    destinationStatusDescription :: Prelude.Maybe Prelude.Text,
+    -- | The ARN for a specific Kinesis data stream.
+    streamArn :: Prelude.Maybe Prelude.Text,
+    -- | The current status of replication.
+    destinationStatus :: Prelude.Maybe DestinationStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KinesisDataStreamDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KinesisDataStreamDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kdsdDestinationStatusDescription' - The human-readable string that corresponds to the replica status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kdsdStreamARN' - The ARN for a specific Kinesis data stream.
+-- 'destinationStatusDescription', 'kinesisDataStreamDestination_destinationStatusDescription' - The human-readable string that corresponds to the replica status.
 --
--- * 'kdsdDestinationStatus' - The current status of replication.
-kinesisDataStreamDestination ::
+-- 'streamArn', 'kinesisDataStreamDestination_streamArn' - The ARN for a specific Kinesis data stream.
+--
+-- 'destinationStatus', 'kinesisDataStreamDestination_destinationStatus' - The current status of replication.
+newKinesisDataStreamDestination ::
   KinesisDataStreamDestination
-kinesisDataStreamDestination =
+newKinesisDataStreamDestination =
   KinesisDataStreamDestination'
-    { _kdsdDestinationStatusDescription =
-        Nothing,
-      _kdsdStreamARN = Nothing,
-      _kdsdDestinationStatus = Nothing
+    { destinationStatusDescription =
+        Prelude.Nothing,
+      streamArn = Prelude.Nothing,
+      destinationStatus = Prelude.Nothing
     }
 
 -- | The human-readable string that corresponds to the replica status.
-kdsdDestinationStatusDescription :: Lens' KinesisDataStreamDestination (Maybe Text)
-kdsdDestinationStatusDescription = lens _kdsdDestinationStatusDescription (\s a -> s {_kdsdDestinationStatusDescription = a})
+kinesisDataStreamDestination_destinationStatusDescription :: Lens.Lens' KinesisDataStreamDestination (Prelude.Maybe Prelude.Text)
+kinesisDataStreamDestination_destinationStatusDescription = Lens.lens (\KinesisDataStreamDestination' {destinationStatusDescription} -> destinationStatusDescription) (\s@KinesisDataStreamDestination' {} a -> s {destinationStatusDescription = a} :: KinesisDataStreamDestination)
 
 -- | The ARN for a specific Kinesis data stream.
-kdsdStreamARN :: Lens' KinesisDataStreamDestination (Maybe Text)
-kdsdStreamARN = lens _kdsdStreamARN (\s a -> s {_kdsdStreamARN = a})
+kinesisDataStreamDestination_streamArn :: Lens.Lens' KinesisDataStreamDestination (Prelude.Maybe Prelude.Text)
+kinesisDataStreamDestination_streamArn = Lens.lens (\KinesisDataStreamDestination' {streamArn} -> streamArn) (\s@KinesisDataStreamDestination' {} a -> s {streamArn = a} :: KinesisDataStreamDestination)
 
 -- | The current status of replication.
-kdsdDestinationStatus :: Lens' KinesisDataStreamDestination (Maybe DestinationStatus)
-kdsdDestinationStatus = lens _kdsdDestinationStatus (\s a -> s {_kdsdDestinationStatus = a})
+kinesisDataStreamDestination_destinationStatus :: Lens.Lens' KinesisDataStreamDestination (Prelude.Maybe DestinationStatus)
+kinesisDataStreamDestination_destinationStatus = Lens.lens (\KinesisDataStreamDestination' {destinationStatus} -> destinationStatus) (\s@KinesisDataStreamDestination' {} a -> s {destinationStatus = a} :: KinesisDataStreamDestination)
 
-instance FromJSON KinesisDataStreamDestination where
+instance
+  Prelude.FromJSON
+    KinesisDataStreamDestination
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KinesisDataStreamDestination"
       ( \x ->
           KinesisDataStreamDestination'
-            <$> (x .:? "DestinationStatusDescription")
-            <*> (x .:? "StreamArn")
-            <*> (x .:? "DestinationStatus")
+            Prelude.<$> (x Prelude..:? "DestinationStatusDescription")
+            Prelude.<*> (x Prelude..:? "StreamArn")
+            Prelude.<*> (x Prelude..:? "DestinationStatus")
       )
 
-instance Hashable KinesisDataStreamDestination
+instance
+  Prelude.Hashable
+    KinesisDataStreamDestination
 
-instance NFData KinesisDataStreamDestination
+instance Prelude.NFData KinesisDataStreamDestination

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,148 +19,253 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DynamoDB.Types.AttributeValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the data for an attribute.
 --
+-- Each attribute value is described as a name-value pair. The name is the
+-- data type, and the value is the data itself.
 --
--- Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
+-- For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
+-- in the /Amazon DynamoDB Developer Guide/.
 --
--- For more information, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types> in the /Amazon DynamoDB Developer Guide/ .
---
---
--- /See:/ 'attributeValue' smart constructor.
+-- /See:/ 'newAttributeValue' smart constructor.
 data AttributeValue = AttributeValue'
-  { _avBS ::
-      !(Maybe [Base64]),
-    _avBOOL :: !(Maybe Bool),
-    _avN :: !(Maybe Text),
-    _avS :: !(Maybe Text),
-    _avNULL :: !(Maybe Bool),
-    _avM ::
-      !(Maybe (Map Text AttributeValue)),
-    _avB :: !(Maybe Base64),
-    _avL :: !(Maybe [AttributeValue]),
-    _avSS :: !(Maybe [Text]),
-    _avNS :: !(Maybe [Text])
+  { -- | An attribute of type Binary Set. For example:
+    --
+    -- @\"BS\": [\"U3Vubnk=\", \"UmFpbnk=\", \"U25vd3k=\"]@
+    bS :: Prelude.Maybe [Prelude.Base64],
+    -- | An attribute of type Boolean. For example:
+    --
+    -- @\"BOOL\": true@
+    bOOL :: Prelude.Maybe Prelude.Bool,
+    -- | An attribute of type Number. For example:
+    --
+    -- @\"N\": \"123.45\"@
+    --
+    -- Numbers are sent across the network to DynamoDB as strings, to maximize
+    -- compatibility across languages and libraries. However, DynamoDB treats
+    -- them as number type attributes for mathematical operations.
+    n :: Prelude.Maybe Prelude.Text,
+    -- | An attribute of type String. For example:
+    --
+    -- @\"S\": \"Hello\"@
+    s :: Prelude.Maybe Prelude.Text,
+    -- | An attribute of type Null. For example:
+    --
+    -- @\"NULL\": true@
+    nULL :: Prelude.Maybe Prelude.Bool,
+    -- | An attribute of type Map. For example:
+    --
+    -- @\"M\": {\"Name\": {\"S\": \"Joe\"}, \"Age\": {\"N\": \"35\"}}@
+    m :: Prelude.Maybe (Prelude.Map Prelude.Text AttributeValue),
+    -- | An attribute of type Binary. For example:
+    --
+    -- @\"B\": \"dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk\"@
+    b :: Prelude.Maybe Prelude.Base64,
+    -- | An attribute of type List. For example:
+    --
+    -- @\"L\": [ {\"S\": \"Cookies\"} , {\"S\": \"Coffee\"}, {\"N\", \"3.14159\"}]@
+    l :: Prelude.Maybe [AttributeValue],
+    -- | An attribute of type String Set. For example:
+    --
+    -- @\"SS\": [\"Giraffe\", \"Hippo\" ,\"Zebra\"]@
+    sS :: Prelude.Maybe [Prelude.Text],
+    -- | An attribute of type Number Set. For example:
+    --
+    -- @\"NS\": [\"42.2\", \"-19\", \"7.5\", \"3.14\"]@
+    --
+    -- Numbers are sent across the network to DynamoDB as strings, to maximize
+    -- compatibility across languages and libraries. However, DynamoDB treats
+    -- them as number type attributes for mathematical operations.
+    nS :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttributeValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttributeValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avBS' - An attribute of type Binary Set. For example: @"BS": ["U3Vubnk=", "UmFpbnk=", "U25vd3k="]@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avBOOL' - An attribute of type Boolean. For example: @"BOOL": true@
+-- 'bS', 'attributeValue_bS' - An attribute of type Binary Set. For example:
 --
--- * 'avN' - An attribute of type Number. For example: @"N": "123.45"@  Numbers are sent across the network to DynamoDB as strings, to maximize compatibility across languages and libraries. However, DynamoDB treats them as number type attributes for mathematical operations.
+-- @\"BS\": [\"U3Vubnk=\", \"UmFpbnk=\", \"U25vd3k=\"]@
 --
--- * 'avS' - An attribute of type String. For example: @"S": "Hello"@
+-- 'bOOL', 'attributeValue_bOOL' - An attribute of type Boolean. For example:
 --
--- * 'avNULL' - An attribute of type Null. For example: @"NULL": true@
+-- @\"BOOL\": true@
 --
--- * 'avM' - An attribute of type Map. For example: @"M": {"Name": {"S": "Joe"}, "Age": {"N": "35"}}@
+-- 'n', 'attributeValue_n' - An attribute of type Number. For example:
 --
--- * 'avB' - An attribute of type Binary. For example: @"B": "dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk"@ -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- @\"N\": \"123.45\"@
 --
--- * 'avL' - An attribute of type List. For example: @"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]@
+-- Numbers are sent across the network to DynamoDB as strings, to maximize
+-- compatibility across languages and libraries. However, DynamoDB treats
+-- them as number type attributes for mathematical operations.
 --
--- * 'avSS' - An attribute of type String Set. For example: @"SS": ["Giraffe", "Hippo" ,"Zebra"]@
+-- 's', 'attributeValue_s' - An attribute of type String. For example:
 --
--- * 'avNS' - An attribute of type Number Set. For example: @"NS": ["42.2", "-19", "7.5", "3.14"]@  Numbers are sent across the network to DynamoDB as strings, to maximize compatibility across languages and libraries. However, DynamoDB treats them as number type attributes for mathematical operations.
-attributeValue ::
+-- @\"S\": \"Hello\"@
+--
+-- 'nULL', 'attributeValue_nULL' - An attribute of type Null. For example:
+--
+-- @\"NULL\": true@
+--
+-- 'm', 'attributeValue_m' - An attribute of type Map. For example:
+--
+-- @\"M\": {\"Name\": {\"S\": \"Joe\"}, \"Age\": {\"N\": \"35\"}}@
+--
+-- 'b', 'attributeValue_b' - An attribute of type Binary. For example:
+--
+-- @\"B\": \"dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk\"@--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+--
+-- 'l', 'attributeValue_l' - An attribute of type List. For example:
+--
+-- @\"L\": [ {\"S\": \"Cookies\"} , {\"S\": \"Coffee\"}, {\"N\", \"3.14159\"}]@
+--
+-- 'sS', 'attributeValue_sS' - An attribute of type String Set. For example:
+--
+-- @\"SS\": [\"Giraffe\", \"Hippo\" ,\"Zebra\"]@
+--
+-- 'nS', 'attributeValue_nS' - An attribute of type Number Set. For example:
+--
+-- @\"NS\": [\"42.2\", \"-19\", \"7.5\", \"3.14\"]@
+--
+-- Numbers are sent across the network to DynamoDB as strings, to maximize
+-- compatibility across languages and libraries. However, DynamoDB treats
+-- them as number type attributes for mathematical operations.
+newAttributeValue ::
   AttributeValue
-attributeValue =
+newAttributeValue =
   AttributeValue'
-    { _avBS = Nothing,
-      _avBOOL = Nothing,
-      _avN = Nothing,
-      _avS = Nothing,
-      _avNULL = Nothing,
-      _avM = Nothing,
-      _avB = Nothing,
-      _avL = Nothing,
-      _avSS = Nothing,
-      _avNS = Nothing
+    { bS = Prelude.Nothing,
+      bOOL = Prelude.Nothing,
+      n = Prelude.Nothing,
+      s = Prelude.Nothing,
+      nULL = Prelude.Nothing,
+      m = Prelude.Nothing,
+      b = Prelude.Nothing,
+      l = Prelude.Nothing,
+      sS = Prelude.Nothing,
+      nS = Prelude.Nothing
     }
 
--- | An attribute of type Binary Set. For example: @"BS": ["U3Vubnk=", "UmFpbnk=", "U25vd3k="]@
-avBS :: Lens' AttributeValue [ByteString]
-avBS = lens _avBS (\s a -> s {_avBS = a}) . _Default . _Coerce
+-- | An attribute of type Binary Set. For example:
+--
+-- @\"BS\": [\"U3Vubnk=\", \"UmFpbnk=\", \"U25vd3k=\"]@
+attributeValue_bS :: Lens.Lens' AttributeValue (Prelude.Maybe [Prelude.ByteString])
+attributeValue_bS = Lens.lens (\AttributeValue' {bS} -> bS) (\s@AttributeValue' {} a -> s {bS = a} :: AttributeValue) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An attribute of type Boolean. For example: @"BOOL": true@
-avBOOL :: Lens' AttributeValue (Maybe Bool)
-avBOOL = lens _avBOOL (\s a -> s {_avBOOL = a})
+-- | An attribute of type Boolean. For example:
+--
+-- @\"BOOL\": true@
+attributeValue_bOOL :: Lens.Lens' AttributeValue (Prelude.Maybe Prelude.Bool)
+attributeValue_bOOL = Lens.lens (\AttributeValue' {bOOL} -> bOOL) (\s@AttributeValue' {} a -> s {bOOL = a} :: AttributeValue)
 
--- | An attribute of type Number. For example: @"N": "123.45"@  Numbers are sent across the network to DynamoDB as strings, to maximize compatibility across languages and libraries. However, DynamoDB treats them as number type attributes for mathematical operations.
-avN :: Lens' AttributeValue (Maybe Text)
-avN = lens _avN (\s a -> s {_avN = a})
+-- | An attribute of type Number. For example:
+--
+-- @\"N\": \"123.45\"@
+--
+-- Numbers are sent across the network to DynamoDB as strings, to maximize
+-- compatibility across languages and libraries. However, DynamoDB treats
+-- them as number type attributes for mathematical operations.
+attributeValue_n :: Lens.Lens' AttributeValue (Prelude.Maybe Prelude.Text)
+attributeValue_n = Lens.lens (\AttributeValue' {n} -> n) (\s@AttributeValue' {} a -> s {n = a} :: AttributeValue)
 
--- | An attribute of type String. For example: @"S": "Hello"@
-avS :: Lens' AttributeValue (Maybe Text)
-avS = lens _avS (\s a -> s {_avS = a})
+-- | An attribute of type String. For example:
+--
+-- @\"S\": \"Hello\"@
+attributeValue_s :: Lens.Lens' AttributeValue (Prelude.Maybe Prelude.Text)
+attributeValue_s = Lens.lens (\AttributeValue' {s} -> s) (\s@AttributeValue' {} a -> s {s = a} :: AttributeValue)
 
--- | An attribute of type Null. For example: @"NULL": true@
-avNULL :: Lens' AttributeValue (Maybe Bool)
-avNULL = lens _avNULL (\s a -> s {_avNULL = a})
+-- | An attribute of type Null. For example:
+--
+-- @\"NULL\": true@
+attributeValue_nULL :: Lens.Lens' AttributeValue (Prelude.Maybe Prelude.Bool)
+attributeValue_nULL = Lens.lens (\AttributeValue' {nULL} -> nULL) (\s@AttributeValue' {} a -> s {nULL = a} :: AttributeValue)
 
--- | An attribute of type Map. For example: @"M": {"Name": {"S": "Joe"}, "Age": {"N": "35"}}@
-avM :: Lens' AttributeValue (HashMap Text AttributeValue)
-avM = lens _avM (\s a -> s {_avM = a}) . _Default . _Map
+-- | An attribute of type Map. For example:
+--
+-- @\"M\": {\"Name\": {\"S\": \"Joe\"}, \"Age\": {\"N\": \"35\"}}@
+attributeValue_m :: Lens.Lens' AttributeValue (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
+attributeValue_m = Lens.lens (\AttributeValue' {m} -> m) (\s@AttributeValue' {} a -> s {m = a} :: AttributeValue) Prelude.. Lens.mapping Prelude._Map
 
--- | An attribute of type Binary. For example: @"B": "dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk"@ -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-avB :: Lens' AttributeValue (Maybe ByteString)
-avB = lens _avB (\s a -> s {_avB = a}) . mapping _Base64
+-- | An attribute of type Binary. For example:
+--
+-- @\"B\": \"dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk\"@--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+attributeValue_b :: Lens.Lens' AttributeValue (Prelude.Maybe Prelude.ByteString)
+attributeValue_b = Lens.lens (\AttributeValue' {b} -> b) (\s@AttributeValue' {} a -> s {b = a} :: AttributeValue) Prelude.. Lens.mapping Prelude._Base64
 
--- | An attribute of type List. For example: @"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]@
-avL :: Lens' AttributeValue [AttributeValue]
-avL = lens _avL (\s a -> s {_avL = a}) . _Default . _Coerce
+-- | An attribute of type List. For example:
+--
+-- @\"L\": [ {\"S\": \"Cookies\"} , {\"S\": \"Coffee\"}, {\"N\", \"3.14159\"}]@
+attributeValue_l :: Lens.Lens' AttributeValue (Prelude.Maybe [AttributeValue])
+attributeValue_l = Lens.lens (\AttributeValue' {l} -> l) (\s@AttributeValue' {} a -> s {l = a} :: AttributeValue) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An attribute of type String Set. For example: @"SS": ["Giraffe", "Hippo" ,"Zebra"]@
-avSS :: Lens' AttributeValue [Text]
-avSS = lens _avSS (\s a -> s {_avSS = a}) . _Default . _Coerce
+-- | An attribute of type String Set. For example:
+--
+-- @\"SS\": [\"Giraffe\", \"Hippo\" ,\"Zebra\"]@
+attributeValue_sS :: Lens.Lens' AttributeValue (Prelude.Maybe [Prelude.Text])
+attributeValue_sS = Lens.lens (\AttributeValue' {sS} -> sS) (\s@AttributeValue' {} a -> s {sS = a} :: AttributeValue) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An attribute of type Number Set. For example: @"NS": ["42.2", "-19", "7.5", "3.14"]@  Numbers are sent across the network to DynamoDB as strings, to maximize compatibility across languages and libraries. However, DynamoDB treats them as number type attributes for mathematical operations.
-avNS :: Lens' AttributeValue [Text]
-avNS = lens _avNS (\s a -> s {_avNS = a}) . _Default . _Coerce
+-- | An attribute of type Number Set. For example:
+--
+-- @\"NS\": [\"42.2\", \"-19\", \"7.5\", \"3.14\"]@
+--
+-- Numbers are sent across the network to DynamoDB as strings, to maximize
+-- compatibility across languages and libraries. However, DynamoDB treats
+-- them as number type attributes for mathematical operations.
+attributeValue_nS :: Lens.Lens' AttributeValue (Prelude.Maybe [Prelude.Text])
+attributeValue_nS = Lens.lens (\AttributeValue' {nS} -> nS) (\s@AttributeValue' {} a -> s {nS = a} :: AttributeValue) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON AttributeValue where
+instance Prelude.FromJSON AttributeValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttributeValue"
       ( \x ->
           AttributeValue'
-            <$> (x .:? "BS" .!= mempty)
-            <*> (x .:? "BOOL")
-            <*> (x .:? "N")
-            <*> (x .:? "S")
-            <*> (x .:? "NULL")
-            <*> (x .:? "M" .!= mempty)
-            <*> (x .:? "B")
-            <*> (x .:? "L" .!= mempty)
-            <*> (x .:? "SS" .!= mempty)
-            <*> (x .:? "NS" .!= mempty)
+            Prelude.<$> (x Prelude..:? "BS" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "BOOL")
+            Prelude.<*> (x Prelude..:? "N")
+            Prelude.<*> (x Prelude..:? "S")
+            Prelude.<*> (x Prelude..:? "NULL")
+            Prelude.<*> (x Prelude..:? "M" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "B")
+            Prelude.<*> (x Prelude..:? "L" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "SS" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "NS" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable AttributeValue
+instance Prelude.Hashable AttributeValue
 
-instance NFData AttributeValue
+instance Prelude.NFData AttributeValue
 
-instance ToJSON AttributeValue where
+instance Prelude.ToJSON AttributeValue where
   toJSON AttributeValue' {..} =
-    object
-      ( catMaybes
-          [ ("BS" .=) <$> _avBS,
-            ("BOOL" .=) <$> _avBOOL,
-            ("N" .=) <$> _avN,
-            ("S" .=) <$> _avS,
-            ("NULL" .=) <$> _avNULL,
-            ("M" .=) <$> _avM,
-            ("B" .=) <$> _avB,
-            ("L" .=) <$> _avL,
-            ("SS" .=) <$> _avSS,
-            ("NS" .=) <$> _avNS
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("BS" Prelude..=) Prelude.<$> bS,
+            ("BOOL" Prelude..=) Prelude.<$> bOOL,
+            ("N" Prelude..=) Prelude.<$> n,
+            ("S" Prelude..=) Prelude.<$> s,
+            ("NULL" Prelude..=) Prelude.<$> nULL,
+            ("M" Prelude..=) Prelude.<$> m,
+            ("B" Prelude..=) Prelude.<$> b,
+            ("L" Prelude..=) Prelude.<$> l,
+            ("SS" Prelude..=) Prelude.<$> sS,
+            ("NS" Prelude..=) Prelude.<$> nS
           ]
       )

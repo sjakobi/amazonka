@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.DynamoDB.Types.DestinationStatus
   ( DestinationStatus
       ( ..,
-        DSActive,
-        DSDisabled,
-        DSDisabling,
-        DSEnableFailed,
-        DSEnabling
+        DestinationStatusACTIVE,
+        DestinationStatusDISABLED,
+        DestinationStatusDISABLING,
+        DestinationStatusENABLEFAILED,
+        DestinationStatusENABLING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DestinationStatus = DestinationStatus' (CI Text)
+newtype DestinationStatus = DestinationStatus'
+  { fromDestinationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSActive :: DestinationStatus
-pattern DSActive = DestinationStatus' "ACTIVE"
+pattern DestinationStatusACTIVE :: DestinationStatus
+pattern DestinationStatusACTIVE = DestinationStatus' "ACTIVE"
 
-pattern DSDisabled :: DestinationStatus
-pattern DSDisabled = DestinationStatus' "DISABLED"
+pattern DestinationStatusDISABLED :: DestinationStatus
+pattern DestinationStatusDISABLED = DestinationStatus' "DISABLED"
 
-pattern DSDisabling :: DestinationStatus
-pattern DSDisabling = DestinationStatus' "DISABLING"
+pattern DestinationStatusDISABLING :: DestinationStatus
+pattern DestinationStatusDISABLING = DestinationStatus' "DISABLING"
 
-pattern DSEnableFailed :: DestinationStatus
-pattern DSEnableFailed = DestinationStatus' "ENABLE_FAILED"
+pattern DestinationStatusENABLEFAILED :: DestinationStatus
+pattern DestinationStatusENABLEFAILED = DestinationStatus' "ENABLE_FAILED"
 
-pattern DSEnabling :: DestinationStatus
-pattern DSEnabling = DestinationStatus' "ENABLING"
+pattern DestinationStatusENABLING :: DestinationStatus
+pattern DestinationStatusENABLING = DestinationStatus' "ENABLING"
 
 {-# COMPLETE
-  DSActive,
-  DSDisabled,
-  DSDisabling,
-  DSEnableFailed,
-  DSEnabling,
+  DestinationStatusACTIVE,
+  DestinationStatusDISABLED,
+  DestinationStatusDISABLING,
+  DestinationStatusENABLEFAILED,
+  DestinationStatusENABLING,
   DestinationStatus'
   #-}
 
-instance FromText DestinationStatus where
-  parser = (DestinationStatus' . mk) <$> takeText
+instance Prelude.FromText DestinationStatus where
+  parser = DestinationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DestinationStatus where
-  toText (DestinationStatus' ci) = original ci
+instance Prelude.ToText DestinationStatus where
+  toText (DestinationStatus' x) = x
 
-instance Hashable DestinationStatus
+instance Prelude.Hashable DestinationStatus
 
-instance NFData DestinationStatus
+instance Prelude.NFData DestinationStatus
 
-instance ToByteString DestinationStatus
+instance Prelude.ToByteString DestinationStatus
 
-instance ToQuery DestinationStatus
+instance Prelude.ToQuery DestinationStatus
 
-instance ToHeader DestinationStatus
+instance Prelude.ToHeader DestinationStatus
 
-instance FromJSON DestinationStatus where
-  parseJSON = parseJSONText "DestinationStatus"
+instance Prelude.FromJSON DestinationStatus where
+  parseJSON = Prelude.parseJSONText "DestinationStatus"

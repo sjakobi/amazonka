@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.DynamoDB.Types.ProjectionType
   ( ProjectionType
       ( ..,
-        All,
-        Include,
-        KeysOnly
+        ProjectionTypeALL,
+        ProjectionTypeINCLUDE,
+        ProjectionTypeKEYSONLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProjectionType = ProjectionType' (CI Text)
+newtype ProjectionType = ProjectionType'
+  { fromProjectionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: ProjectionType
-pattern All = ProjectionType' "ALL"
+pattern ProjectionTypeALL :: ProjectionType
+pattern ProjectionTypeALL = ProjectionType' "ALL"
 
-pattern Include :: ProjectionType
-pattern Include = ProjectionType' "INCLUDE"
+pattern ProjectionTypeINCLUDE :: ProjectionType
+pattern ProjectionTypeINCLUDE = ProjectionType' "INCLUDE"
 
-pattern KeysOnly :: ProjectionType
-pattern KeysOnly = ProjectionType' "KEYS_ONLY"
+pattern ProjectionTypeKEYSONLY :: ProjectionType
+pattern ProjectionTypeKEYSONLY = ProjectionType' "KEYS_ONLY"
 
 {-# COMPLETE
-  All,
-  Include,
-  KeysOnly,
+  ProjectionTypeALL,
+  ProjectionTypeINCLUDE,
+  ProjectionTypeKEYSONLY,
   ProjectionType'
   #-}
 
-instance FromText ProjectionType where
-  parser = (ProjectionType' . mk) <$> takeText
+instance Prelude.FromText ProjectionType where
+  parser = ProjectionType' Prelude.<$> Prelude.takeText
 
-instance ToText ProjectionType where
-  toText (ProjectionType' ci) = original ci
+instance Prelude.ToText ProjectionType where
+  toText (ProjectionType' x) = x
 
-instance Hashable ProjectionType
+instance Prelude.Hashable ProjectionType
 
-instance NFData ProjectionType
+instance Prelude.NFData ProjectionType
 
-instance ToByteString ProjectionType
+instance Prelude.ToByteString ProjectionType
 
-instance ToQuery ProjectionType
+instance Prelude.ToQuery ProjectionType
 
-instance ToHeader ProjectionType
+instance Prelude.ToHeader ProjectionType
 
-instance ToJSON ProjectionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProjectionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProjectionType where
-  parseJSON = parseJSONText "ProjectionType"
+instance Prelude.FromJSON ProjectionType where
+  parseJSON = Prelude.parseJSONText "ProjectionType"

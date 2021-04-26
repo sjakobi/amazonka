@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,85 +22,77 @@ module Network.AWS.DynamoDB.Types.ReplicationGroupUpdate where
 import Network.AWS.DynamoDB.Types.CreateReplicationGroupMemberAction
 import Network.AWS.DynamoDB.Types.DeleteReplicationGroupMemberAction
 import Network.AWS.DynamoDB.Types.UpdateReplicationGroupMemberAction
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents one of the following:
 --
+-- -   A new replica to be added to an existing regional table or global
+--     table. This request invokes the @CreateTableReplica@ action in the
+--     destination Region.
 --
---     * A new replica to be added to an existing regional table or global table. This request invokes the @CreateTableReplica@ action in the destination Region.
+-- -   New parameters for an existing replica. This request invokes the
+--     @UpdateTable@ action in the destination Region.
 --
---     * New parameters for an existing replica. This request invokes the @UpdateTable@ action in the destination Region.
+-- -   An existing replica to be deleted. The request invokes the
+--     @DeleteTableReplica@ action in the destination Region, deleting the
+--     replica and all if its items in the destination Region.
 --
---     * An existing replica to be deleted. The request invokes the @DeleteTableReplica@ action in the destination Region, deleting the replica and all if its items in the destination Region.
---
---
---
---
--- /See:/ 'replicationGroupUpdate' smart constructor.
+-- /See:/ 'newReplicationGroupUpdate' smart constructor.
 data ReplicationGroupUpdate = ReplicationGroupUpdate'
-  { _rguCreate ::
-      !( Maybe
-           CreateReplicationGroupMemberAction
-       ),
-    _rguUpdate ::
-      !( Maybe
-           UpdateReplicationGroupMemberAction
-       ),
-    _rguDelete ::
-      !( Maybe
-           DeleteReplicationGroupMemberAction
-       )
+  { -- | The parameters required for creating a replica for the table.
+    create :: Prelude.Maybe CreateReplicationGroupMemberAction,
+    -- | The parameters required for updating a replica for the table.
+    update :: Prelude.Maybe UpdateReplicationGroupMemberAction,
+    -- | The parameters required for deleting a replica for the table.
+    delete' :: Prelude.Maybe DeleteReplicationGroupMemberAction
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicationGroupUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicationGroupUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rguCreate' - The parameters required for creating a replica for the table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rguUpdate' - The parameters required for updating a replica for the table.
+-- 'create', 'replicationGroupUpdate_create' - The parameters required for creating a replica for the table.
 --
--- * 'rguDelete' - The parameters required for deleting a replica for the table.
-replicationGroupUpdate ::
+-- 'update', 'replicationGroupUpdate_update' - The parameters required for updating a replica for the table.
+--
+-- 'delete'', 'replicationGroupUpdate_delete' - The parameters required for deleting a replica for the table.
+newReplicationGroupUpdate ::
   ReplicationGroupUpdate
-replicationGroupUpdate =
+newReplicationGroupUpdate =
   ReplicationGroupUpdate'
-    { _rguCreate = Nothing,
-      _rguUpdate = Nothing,
-      _rguDelete = Nothing
+    { create = Prelude.Nothing,
+      update = Prelude.Nothing,
+      delete' = Prelude.Nothing
     }
 
 -- | The parameters required for creating a replica for the table.
-rguCreate :: Lens' ReplicationGroupUpdate (Maybe CreateReplicationGroupMemberAction)
-rguCreate = lens _rguCreate (\s a -> s {_rguCreate = a})
+replicationGroupUpdate_create :: Lens.Lens' ReplicationGroupUpdate (Prelude.Maybe CreateReplicationGroupMemberAction)
+replicationGroupUpdate_create = Lens.lens (\ReplicationGroupUpdate' {create} -> create) (\s@ReplicationGroupUpdate' {} a -> s {create = a} :: ReplicationGroupUpdate)
 
 -- | The parameters required for updating a replica for the table.
-rguUpdate :: Lens' ReplicationGroupUpdate (Maybe UpdateReplicationGroupMemberAction)
-rguUpdate = lens _rguUpdate (\s a -> s {_rguUpdate = a})
+replicationGroupUpdate_update :: Lens.Lens' ReplicationGroupUpdate (Prelude.Maybe UpdateReplicationGroupMemberAction)
+replicationGroupUpdate_update = Lens.lens (\ReplicationGroupUpdate' {update} -> update) (\s@ReplicationGroupUpdate' {} a -> s {update = a} :: ReplicationGroupUpdate)
 
 -- | The parameters required for deleting a replica for the table.
-rguDelete :: Lens' ReplicationGroupUpdate (Maybe DeleteReplicationGroupMemberAction)
-rguDelete = lens _rguDelete (\s a -> s {_rguDelete = a})
+replicationGroupUpdate_delete :: Lens.Lens' ReplicationGroupUpdate (Prelude.Maybe DeleteReplicationGroupMemberAction)
+replicationGroupUpdate_delete = Lens.lens (\ReplicationGroupUpdate' {delete'} -> delete') (\s@ReplicationGroupUpdate' {} a -> s {delete' = a} :: ReplicationGroupUpdate)
 
-instance Hashable ReplicationGroupUpdate
+instance Prelude.Hashable ReplicationGroupUpdate
 
-instance NFData ReplicationGroupUpdate
+instance Prelude.NFData ReplicationGroupUpdate
 
-instance ToJSON ReplicationGroupUpdate where
+instance Prelude.ToJSON ReplicationGroupUpdate where
   toJSON ReplicationGroupUpdate' {..} =
-    object
-      ( catMaybes
-          [ ("Create" .=) <$> _rguCreate,
-            ("Update" .=) <$> _rguUpdate,
-            ("Delete" .=) <$> _rguDelete
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Create" Prelude..=) Prelude.<$> create,
+            ("Update" Prelude..=) Prelude.<$> update,
+            ("Delete" Prelude..=) Prelude.<$> delete'
           ]
       )

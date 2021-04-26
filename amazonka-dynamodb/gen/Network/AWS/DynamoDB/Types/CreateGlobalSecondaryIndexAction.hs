@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,96 +22,117 @@ module Network.AWS.DynamoDB.Types.CreateGlobalSecondaryIndexAction where
 import Network.AWS.DynamoDB.Types.KeySchemaElement
 import Network.AWS.DynamoDB.Types.Projection
 import Network.AWS.DynamoDB.Types.ProvisionedThroughput
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a new global secondary index to be added to an existing table.
+-- | Represents a new global secondary index to be added to an existing
+-- table.
 --
---
---
--- /See:/ 'createGlobalSecondaryIndexAction' smart constructor.
+-- /See:/ 'newCreateGlobalSecondaryIndexAction' smart constructor.
 data CreateGlobalSecondaryIndexAction = CreateGlobalSecondaryIndexAction'
-  { _cgsiaProvisionedThroughput ::
-      !( Maybe
-           ProvisionedThroughput
-       ),
-    _cgsiaIndexName ::
-      !Text,
-    _cgsiaKeySchema ::
-      !( List1
-           KeySchemaElement
-       ),
-    _cgsiaProjection ::
-      !Projection
+  { -- | Represents the provisioned throughput settings for the specified global
+    -- secondary index.
+    --
+    -- For current minimum and maximum provisioned throughput values, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    provisionedThroughput :: Prelude.Maybe ProvisionedThroughput,
+    -- | The name of the global secondary index to be created.
+    indexName :: Prelude.Text,
+    -- | The key schema for the global secondary index.
+    keySchema :: Prelude.List1 KeySchemaElement,
+    -- | Represents attributes that are copied (projected) from the table into an
+    -- index. These are in addition to the primary key attributes and index key
+    -- attributes, which are automatically projected.
+    projection :: Projection
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGlobalSecondaryIndexAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGlobalSecondaryIndexAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgsiaProvisionedThroughput' - Represents the provisioned throughput settings for the specified global secondary index. For current minimum and maximum provisioned throughput values, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas> in the /Amazon DynamoDB Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgsiaIndexName' - The name of the global secondary index to be created.
+-- 'provisionedThroughput', 'createGlobalSecondaryIndexAction_provisionedThroughput' - Represents the provisioned throughput settings for the specified global
+-- secondary index.
 --
--- * 'cgsiaKeySchema' - The key schema for the global secondary index.
+-- For current minimum and maximum provisioned throughput values, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+-- in the /Amazon DynamoDB Developer Guide/.
 --
--- * 'cgsiaProjection' - Represents attributes that are copied (projected) from the table into an index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-createGlobalSecondaryIndexAction ::
-  -- | 'cgsiaIndexName'
-  Text ->
-  -- | 'cgsiaKeySchema'
-  NonEmpty KeySchemaElement ->
-  -- | 'cgsiaProjection'
+-- 'indexName', 'createGlobalSecondaryIndexAction_indexName' - The name of the global secondary index to be created.
+--
+-- 'keySchema', 'createGlobalSecondaryIndexAction_keySchema' - The key schema for the global secondary index.
+--
+-- 'projection', 'createGlobalSecondaryIndexAction_projection' - Represents attributes that are copied (projected) from the table into an
+-- index. These are in addition to the primary key attributes and index key
+-- attributes, which are automatically projected.
+newCreateGlobalSecondaryIndexAction ::
+  -- | 'indexName'
+  Prelude.Text ->
+  -- | 'keySchema'
+  Prelude.NonEmpty KeySchemaElement ->
+  -- | 'projection'
   Projection ->
   CreateGlobalSecondaryIndexAction
-createGlobalSecondaryIndexAction
+newCreateGlobalSecondaryIndexAction
   pIndexName_
   pKeySchema_
   pProjection_ =
     CreateGlobalSecondaryIndexAction'
-      { _cgsiaProvisionedThroughput =
-          Nothing,
-        _cgsiaIndexName = pIndexName_,
-        _cgsiaKeySchema = _List1 # pKeySchema_,
-        _cgsiaProjection = pProjection_
+      { provisionedThroughput =
+          Prelude.Nothing,
+        indexName = pIndexName_,
+        keySchema =
+          Prelude._List1 Lens.# pKeySchema_,
+        projection = pProjection_
       }
 
--- | Represents the provisioned throughput settings for the specified global secondary index. For current minimum and maximum provisioned throughput values, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas> in the /Amazon DynamoDB Developer Guide/ .
-cgsiaProvisionedThroughput :: Lens' CreateGlobalSecondaryIndexAction (Maybe ProvisionedThroughput)
-cgsiaProvisionedThroughput = lens _cgsiaProvisionedThroughput (\s a -> s {_cgsiaProvisionedThroughput = a})
+-- | Represents the provisioned throughput settings for the specified global
+-- secondary index.
+--
+-- For current minimum and maximum provisioned throughput values, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+-- in the /Amazon DynamoDB Developer Guide/.
+createGlobalSecondaryIndexAction_provisionedThroughput :: Lens.Lens' CreateGlobalSecondaryIndexAction (Prelude.Maybe ProvisionedThroughput)
+createGlobalSecondaryIndexAction_provisionedThroughput = Lens.lens (\CreateGlobalSecondaryIndexAction' {provisionedThroughput} -> provisionedThroughput) (\s@CreateGlobalSecondaryIndexAction' {} a -> s {provisionedThroughput = a} :: CreateGlobalSecondaryIndexAction)
 
 -- | The name of the global secondary index to be created.
-cgsiaIndexName :: Lens' CreateGlobalSecondaryIndexAction Text
-cgsiaIndexName = lens _cgsiaIndexName (\s a -> s {_cgsiaIndexName = a})
+createGlobalSecondaryIndexAction_indexName :: Lens.Lens' CreateGlobalSecondaryIndexAction Prelude.Text
+createGlobalSecondaryIndexAction_indexName = Lens.lens (\CreateGlobalSecondaryIndexAction' {indexName} -> indexName) (\s@CreateGlobalSecondaryIndexAction' {} a -> s {indexName = a} :: CreateGlobalSecondaryIndexAction)
 
 -- | The key schema for the global secondary index.
-cgsiaKeySchema :: Lens' CreateGlobalSecondaryIndexAction (NonEmpty KeySchemaElement)
-cgsiaKeySchema = lens _cgsiaKeySchema (\s a -> s {_cgsiaKeySchema = a}) . _List1
+createGlobalSecondaryIndexAction_keySchema :: Lens.Lens' CreateGlobalSecondaryIndexAction (Prelude.NonEmpty KeySchemaElement)
+createGlobalSecondaryIndexAction_keySchema = Lens.lens (\CreateGlobalSecondaryIndexAction' {keySchema} -> keySchema) (\s@CreateGlobalSecondaryIndexAction' {} a -> s {keySchema = a} :: CreateGlobalSecondaryIndexAction) Prelude.. Prelude._List1
 
--- | Represents attributes that are copied (projected) from the table into an index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-cgsiaProjection :: Lens' CreateGlobalSecondaryIndexAction Projection
-cgsiaProjection = lens _cgsiaProjection (\s a -> s {_cgsiaProjection = a})
+-- | Represents attributes that are copied (projected) from the table into an
+-- index. These are in addition to the primary key attributes and index key
+-- attributes, which are automatically projected.
+createGlobalSecondaryIndexAction_projection :: Lens.Lens' CreateGlobalSecondaryIndexAction Projection
+createGlobalSecondaryIndexAction_projection = Lens.lens (\CreateGlobalSecondaryIndexAction' {projection} -> projection) (\s@CreateGlobalSecondaryIndexAction' {} a -> s {projection = a} :: CreateGlobalSecondaryIndexAction)
 
-instance Hashable CreateGlobalSecondaryIndexAction
+instance
+  Prelude.Hashable
+    CreateGlobalSecondaryIndexAction
 
-instance NFData CreateGlobalSecondaryIndexAction
+instance
+  Prelude.NFData
+    CreateGlobalSecondaryIndexAction
 
-instance ToJSON CreateGlobalSecondaryIndexAction where
+instance
+  Prelude.ToJSON
+    CreateGlobalSecondaryIndexAction
+  where
   toJSON CreateGlobalSecondaryIndexAction' {..} =
-    object
-      ( catMaybes
-          [ ("ProvisionedThroughput" .=)
-              <$> _cgsiaProvisionedThroughput,
-            Just ("IndexName" .= _cgsiaIndexName),
-            Just ("KeySchema" .= _cgsiaKeySchema),
-            Just ("Projection" .= _cgsiaProjection)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ProvisionedThroughput" Prelude..=)
+              Prelude.<$> provisionedThroughput,
+            Prelude.Just ("IndexName" Prelude..= indexName),
+            Prelude.Just ("KeySchema" Prelude..= keySchema),
+            Prelude.Just ("Projection" Prelude..= projection)
           ]
       )

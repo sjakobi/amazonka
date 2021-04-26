@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.DynamoDB.Types.ReturnValue
   ( ReturnValue
       ( ..,
-        RVAllNew,
-        RVAllOld,
-        RVNone,
-        RVUpdatedNew,
-        RVUpdatedOld
+        ReturnValueALLNEW,
+        ReturnValueALLOLD,
+        ReturnValueNONE,
+        ReturnValueUPDATEDNEW,
+        ReturnValueUPDATEDOLD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReturnValue = ReturnValue' (CI Text)
+newtype ReturnValue = ReturnValue'
+  { fromReturnValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RVAllNew :: ReturnValue
-pattern RVAllNew = ReturnValue' "ALL_NEW"
+pattern ReturnValueALLNEW :: ReturnValue
+pattern ReturnValueALLNEW = ReturnValue' "ALL_NEW"
 
-pattern RVAllOld :: ReturnValue
-pattern RVAllOld = ReturnValue' "ALL_OLD"
+pattern ReturnValueALLOLD :: ReturnValue
+pattern ReturnValueALLOLD = ReturnValue' "ALL_OLD"
 
-pattern RVNone :: ReturnValue
-pattern RVNone = ReturnValue' "NONE"
+pattern ReturnValueNONE :: ReturnValue
+pattern ReturnValueNONE = ReturnValue' "NONE"
 
-pattern RVUpdatedNew :: ReturnValue
-pattern RVUpdatedNew = ReturnValue' "UPDATED_NEW"
+pattern ReturnValueUPDATEDNEW :: ReturnValue
+pattern ReturnValueUPDATEDNEW = ReturnValue' "UPDATED_NEW"
 
-pattern RVUpdatedOld :: ReturnValue
-pattern RVUpdatedOld = ReturnValue' "UPDATED_OLD"
+pattern ReturnValueUPDATEDOLD :: ReturnValue
+pattern ReturnValueUPDATEDOLD = ReturnValue' "UPDATED_OLD"
 
 {-# COMPLETE
-  RVAllNew,
-  RVAllOld,
-  RVNone,
-  RVUpdatedNew,
-  RVUpdatedOld,
+  ReturnValueALLNEW,
+  ReturnValueALLOLD,
+  ReturnValueNONE,
+  ReturnValueUPDATEDNEW,
+  ReturnValueUPDATEDOLD,
   ReturnValue'
   #-}
 
-instance FromText ReturnValue where
-  parser = (ReturnValue' . mk) <$> takeText
+instance Prelude.FromText ReturnValue where
+  parser = ReturnValue' Prelude.<$> Prelude.takeText
 
-instance ToText ReturnValue where
-  toText (ReturnValue' ci) = original ci
+instance Prelude.ToText ReturnValue where
+  toText (ReturnValue' x) = x
 
-instance Hashable ReturnValue
+instance Prelude.Hashable ReturnValue
 
-instance NFData ReturnValue
+instance Prelude.NFData ReturnValue
 
-instance ToByteString ReturnValue
+instance Prelude.ToByteString ReturnValue
 
-instance ToQuery ReturnValue
+instance Prelude.ToQuery ReturnValue
 
-instance ToHeader ReturnValue
+instance Prelude.ToHeader ReturnValue
 
-instance ToJSON ReturnValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReturnValue where
+  toJSON = Prelude.toJSONText

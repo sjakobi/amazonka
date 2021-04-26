@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,103 +24,108 @@ import Network.AWS.DynamoDB.Types.LocalSecondaryIndexInfo
 import Network.AWS.DynamoDB.Types.SSEDescription
 import Network.AWS.DynamoDB.Types.StreamSpecification
 import Network.AWS.DynamoDB.Types.TimeToLiveDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the details of the features enabled on the table when the backup was created. For example, LSIs, GSIs, streams, TTL.
+-- | Contains the details of the features enabled on the table when the
+-- backup was created. For example, LSIs, GSIs, streams, TTL.
 --
---
---
--- /See:/ 'sourceTableFeatureDetails' smart constructor.
+-- /See:/ 'newSourceTableFeatureDetails' smart constructor.
 data SourceTableFeatureDetails = SourceTableFeatureDetails'
-  { _stfdLocalSecondaryIndexes ::
-      !( Maybe
-           [LocalSecondaryIndexInfo]
-       ),
-    _stfdGlobalSecondaryIndexes ::
-      !( Maybe
-           [GlobalSecondaryIndexInfo]
-       ),
-    _stfdTimeToLiveDescription ::
-      !( Maybe
-           TimeToLiveDescription
-       ),
-    _stfdSSEDescription ::
-      !( Maybe
-           SSEDescription
-       ),
-    _stfdStreamDescription ::
-      !( Maybe
-           StreamSpecification
-       )
+  { -- | Represents the LSI properties for the table when the backup was created.
+    -- It includes the IndexName, KeySchema and Projection for the LSIs on the
+    -- table at the time of backup.
+    localSecondaryIndexes :: Prelude.Maybe [LocalSecondaryIndexInfo],
+    -- | Represents the GSI properties for the table when the backup was created.
+    -- It includes the IndexName, KeySchema, Projection, and
+    -- ProvisionedThroughput for the GSIs on the table at the time of backup.
+    globalSecondaryIndexes :: Prelude.Maybe [GlobalSecondaryIndexInfo],
+    -- | Time to Live settings on the table when the backup was created.
+    timeToLiveDescription :: Prelude.Maybe TimeToLiveDescription,
+    -- | The description of the server-side encryption status on the table when
+    -- the backup was created.
+    sSEDescription :: Prelude.Maybe SSEDescription,
+    -- | Stream settings on the table when the backup was created.
+    streamDescription :: Prelude.Maybe StreamSpecification
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SourceTableFeatureDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SourceTableFeatureDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stfdLocalSecondaryIndexes' - Represents the LSI properties for the table when the backup was created. It includes the IndexName, KeySchema and Projection for the LSIs on the table at the time of backup.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stfdGlobalSecondaryIndexes' - Represents the GSI properties for the table when the backup was created. It includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the GSIs on the table at the time of backup.
+-- 'localSecondaryIndexes', 'sourceTableFeatureDetails_localSecondaryIndexes' - Represents the LSI properties for the table when the backup was created.
+-- It includes the IndexName, KeySchema and Projection for the LSIs on the
+-- table at the time of backup.
 --
--- * 'stfdTimeToLiveDescription' - Time to Live settings on the table when the backup was created.
+-- 'globalSecondaryIndexes', 'sourceTableFeatureDetails_globalSecondaryIndexes' - Represents the GSI properties for the table when the backup was created.
+-- It includes the IndexName, KeySchema, Projection, and
+-- ProvisionedThroughput for the GSIs on the table at the time of backup.
 --
--- * 'stfdSSEDescription' - The description of the server-side encryption status on the table when the backup was created.
+-- 'timeToLiveDescription', 'sourceTableFeatureDetails_timeToLiveDescription' - Time to Live settings on the table when the backup was created.
 --
--- * 'stfdStreamDescription' - Stream settings on the table when the backup was created.
-sourceTableFeatureDetails ::
+-- 'sSEDescription', 'sourceTableFeatureDetails_sSEDescription' - The description of the server-side encryption status on the table when
+-- the backup was created.
+--
+-- 'streamDescription', 'sourceTableFeatureDetails_streamDescription' - Stream settings on the table when the backup was created.
+newSourceTableFeatureDetails ::
   SourceTableFeatureDetails
-sourceTableFeatureDetails =
+newSourceTableFeatureDetails =
   SourceTableFeatureDetails'
-    { _stfdLocalSecondaryIndexes =
-        Nothing,
-      _stfdGlobalSecondaryIndexes = Nothing,
-      _stfdTimeToLiveDescription = Nothing,
-      _stfdSSEDescription = Nothing,
-      _stfdStreamDescription = Nothing
+    { localSecondaryIndexes =
+        Prelude.Nothing,
+      globalSecondaryIndexes = Prelude.Nothing,
+      timeToLiveDescription = Prelude.Nothing,
+      sSEDescription = Prelude.Nothing,
+      streamDescription = Prelude.Nothing
     }
 
--- | Represents the LSI properties for the table when the backup was created. It includes the IndexName, KeySchema and Projection for the LSIs on the table at the time of backup.
-stfdLocalSecondaryIndexes :: Lens' SourceTableFeatureDetails [LocalSecondaryIndexInfo]
-stfdLocalSecondaryIndexes = lens _stfdLocalSecondaryIndexes (\s a -> s {_stfdLocalSecondaryIndexes = a}) . _Default . _Coerce
+-- | Represents the LSI properties for the table when the backup was created.
+-- It includes the IndexName, KeySchema and Projection for the LSIs on the
+-- table at the time of backup.
+sourceTableFeatureDetails_localSecondaryIndexes :: Lens.Lens' SourceTableFeatureDetails (Prelude.Maybe [LocalSecondaryIndexInfo])
+sourceTableFeatureDetails_localSecondaryIndexes = Lens.lens (\SourceTableFeatureDetails' {localSecondaryIndexes} -> localSecondaryIndexes) (\s@SourceTableFeatureDetails' {} a -> s {localSecondaryIndexes = a} :: SourceTableFeatureDetails) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Represents the GSI properties for the table when the backup was created. It includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the GSIs on the table at the time of backup.
-stfdGlobalSecondaryIndexes :: Lens' SourceTableFeatureDetails [GlobalSecondaryIndexInfo]
-stfdGlobalSecondaryIndexes = lens _stfdGlobalSecondaryIndexes (\s a -> s {_stfdGlobalSecondaryIndexes = a}) . _Default . _Coerce
+-- | Represents the GSI properties for the table when the backup was created.
+-- It includes the IndexName, KeySchema, Projection, and
+-- ProvisionedThroughput for the GSIs on the table at the time of backup.
+sourceTableFeatureDetails_globalSecondaryIndexes :: Lens.Lens' SourceTableFeatureDetails (Prelude.Maybe [GlobalSecondaryIndexInfo])
+sourceTableFeatureDetails_globalSecondaryIndexes = Lens.lens (\SourceTableFeatureDetails' {globalSecondaryIndexes} -> globalSecondaryIndexes) (\s@SourceTableFeatureDetails' {} a -> s {globalSecondaryIndexes = a} :: SourceTableFeatureDetails) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Time to Live settings on the table when the backup was created.
-stfdTimeToLiveDescription :: Lens' SourceTableFeatureDetails (Maybe TimeToLiveDescription)
-stfdTimeToLiveDescription = lens _stfdTimeToLiveDescription (\s a -> s {_stfdTimeToLiveDescription = a})
+sourceTableFeatureDetails_timeToLiveDescription :: Lens.Lens' SourceTableFeatureDetails (Prelude.Maybe TimeToLiveDescription)
+sourceTableFeatureDetails_timeToLiveDescription = Lens.lens (\SourceTableFeatureDetails' {timeToLiveDescription} -> timeToLiveDescription) (\s@SourceTableFeatureDetails' {} a -> s {timeToLiveDescription = a} :: SourceTableFeatureDetails)
 
--- | The description of the server-side encryption status on the table when the backup was created.
-stfdSSEDescription :: Lens' SourceTableFeatureDetails (Maybe SSEDescription)
-stfdSSEDescription = lens _stfdSSEDescription (\s a -> s {_stfdSSEDescription = a})
+-- | The description of the server-side encryption status on the table when
+-- the backup was created.
+sourceTableFeatureDetails_sSEDescription :: Lens.Lens' SourceTableFeatureDetails (Prelude.Maybe SSEDescription)
+sourceTableFeatureDetails_sSEDescription = Lens.lens (\SourceTableFeatureDetails' {sSEDescription} -> sSEDescription) (\s@SourceTableFeatureDetails' {} a -> s {sSEDescription = a} :: SourceTableFeatureDetails)
 
 -- | Stream settings on the table when the backup was created.
-stfdStreamDescription :: Lens' SourceTableFeatureDetails (Maybe StreamSpecification)
-stfdStreamDescription = lens _stfdStreamDescription (\s a -> s {_stfdStreamDescription = a})
+sourceTableFeatureDetails_streamDescription :: Lens.Lens' SourceTableFeatureDetails (Prelude.Maybe StreamSpecification)
+sourceTableFeatureDetails_streamDescription = Lens.lens (\SourceTableFeatureDetails' {streamDescription} -> streamDescription) (\s@SourceTableFeatureDetails' {} a -> s {streamDescription = a} :: SourceTableFeatureDetails)
 
-instance FromJSON SourceTableFeatureDetails where
+instance Prelude.FromJSON SourceTableFeatureDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SourceTableFeatureDetails"
       ( \x ->
           SourceTableFeatureDetails'
-            <$> (x .:? "LocalSecondaryIndexes" .!= mempty)
-            <*> (x .:? "GlobalSecondaryIndexes" .!= mempty)
-            <*> (x .:? "TimeToLiveDescription")
-            <*> (x .:? "SSEDescription")
-            <*> (x .:? "StreamDescription")
+            Prelude.<$> ( x Prelude..:? "LocalSecondaryIndexes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "GlobalSecondaryIndexes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "TimeToLiveDescription")
+            Prelude.<*> (x Prelude..:? "SSEDescription")
+            Prelude.<*> (x Prelude..:? "StreamDescription")
       )
 
-instance Hashable SourceTableFeatureDetails
+instance Prelude.Hashable SourceTableFeatureDetails
 
-instance NFData SourceTableFeatureDetails
+instance Prelude.NFData SourceTableFeatureDetails

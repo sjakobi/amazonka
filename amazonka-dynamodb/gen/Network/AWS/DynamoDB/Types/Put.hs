@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,96 +21,127 @@ module Network.AWS.DynamoDB.Types.Put where
 
 import Network.AWS.DynamoDB.Types.AttributeValue
 import Network.AWS.DynamoDB.Types.ReturnValuesOnConditionCheckFailure
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a request to perform a @PutItem@ operation.
 --
---
---
--- /See:/ 'put' smart constructor.
+-- /See:/ 'newPut' smart constructor.
 data Put = Put'
-  { _pExpressionAttributeValues ::
-      !(Maybe (Map Text AttributeValue)),
-    _pReturnValuesOnConditionCheckFailure ::
-      !(Maybe ReturnValuesOnConditionCheckFailure),
-    _pExpressionAttributeNames ::
-      !(Maybe (Map Text Text)),
-    _pConditionExpression :: !(Maybe Text),
-    _pItem :: !(Map Text AttributeValue),
-    _pTableName :: !Text
+  { -- | One or more values that can be substituted in an expression.
+    expressionAttributeValues :: Prelude.Maybe (Prelude.Map Prelude.Text AttributeValue),
+    -- | Use @ReturnValuesOnConditionCheckFailure@ to get the item attributes if
+    -- the @Put@ condition fails. For @ReturnValuesOnConditionCheckFailure@,
+    -- the valid values are: NONE and ALL_OLD.
+    returnValuesOnConditionCheckFailure :: Prelude.Maybe ReturnValuesOnConditionCheckFailure,
+    -- | One or more substitution tokens for attribute names in an expression.
+    expressionAttributeNames :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A condition that must be satisfied in order for a conditional update to
+    -- succeed.
+    conditionExpression :: Prelude.Maybe Prelude.Text,
+    -- | A map of attribute name to attribute values, representing the primary
+    -- key of the item to be written by @PutItem@. All of the table\'s primary
+    -- key attributes must be specified, and their data types must match those
+    -- of the table\'s key schema. If any attributes are present in the item
+    -- that are part of an index key schema for the table, their types must
+    -- match the index key schema.
+    item :: Prelude.Map Prelude.Text AttributeValue,
+    -- | Name of the table in which to write the item.
+    tableName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Put' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Put' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pExpressionAttributeValues' - One or more values that can be substituted in an expression.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pReturnValuesOnConditionCheckFailure' - Use @ReturnValuesOnConditionCheckFailure@ to get the item attributes if the @Put@ condition fails. For @ReturnValuesOnConditionCheckFailure@ , the valid values are: NONE and ALL_OLD.
+-- 'expressionAttributeValues', 'put_expressionAttributeValues' - One or more values that can be substituted in an expression.
 --
--- * 'pExpressionAttributeNames' - One or more substitution tokens for attribute names in an expression.
+-- 'returnValuesOnConditionCheckFailure', 'put_returnValuesOnConditionCheckFailure' - Use @ReturnValuesOnConditionCheckFailure@ to get the item attributes if
+-- the @Put@ condition fails. For @ReturnValuesOnConditionCheckFailure@,
+-- the valid values are: NONE and ALL_OLD.
 --
--- * 'pConditionExpression' - A condition that must be satisfied in order for a conditional update to succeed.
+-- 'expressionAttributeNames', 'put_expressionAttributeNames' - One or more substitution tokens for attribute names in an expression.
 --
--- * 'pItem' - A map of attribute name to attribute values, representing the primary key of the item to be written by @PutItem@ . All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema. If any attributes are present in the item that are part of an index key schema for the table, their types must match the index key schema.
+-- 'conditionExpression', 'put_conditionExpression' - A condition that must be satisfied in order for a conditional update to
+-- succeed.
 --
--- * 'pTableName' - Name of the table in which to write the item.
-put ::
-  -- | 'pTableName'
-  Text ->
+-- 'item', 'put_item' - A map of attribute name to attribute values, representing the primary
+-- key of the item to be written by @PutItem@. All of the table\'s primary
+-- key attributes must be specified, and their data types must match those
+-- of the table\'s key schema. If any attributes are present in the item
+-- that are part of an index key schema for the table, their types must
+-- match the index key schema.
+--
+-- 'tableName', 'put_tableName' - Name of the table in which to write the item.
+newPut ::
+  -- | 'tableName'
+  Prelude.Text ->
   Put
-put pTableName_ =
+newPut pTableName_ =
   Put'
-    { _pExpressionAttributeValues = Nothing,
-      _pReturnValuesOnConditionCheckFailure = Nothing,
-      _pExpressionAttributeNames = Nothing,
-      _pConditionExpression = Nothing,
-      _pItem = mempty,
-      _pTableName = pTableName_
+    { expressionAttributeValues = Prelude.Nothing,
+      returnValuesOnConditionCheckFailure =
+        Prelude.Nothing,
+      expressionAttributeNames = Prelude.Nothing,
+      conditionExpression = Prelude.Nothing,
+      item = Prelude.mempty,
+      tableName = pTableName_
     }
 
 -- | One or more values that can be substituted in an expression.
-pExpressionAttributeValues :: Lens' Put (HashMap Text AttributeValue)
-pExpressionAttributeValues = lens _pExpressionAttributeValues (\s a -> s {_pExpressionAttributeValues = a}) . _Default . _Map
+put_expressionAttributeValues :: Lens.Lens' Put (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
+put_expressionAttributeValues = Lens.lens (\Put' {expressionAttributeValues} -> expressionAttributeValues) (\s@Put' {} a -> s {expressionAttributeValues = a} :: Put) Prelude.. Lens.mapping Prelude._Map
 
--- | Use @ReturnValuesOnConditionCheckFailure@ to get the item attributes if the @Put@ condition fails. For @ReturnValuesOnConditionCheckFailure@ , the valid values are: NONE and ALL_OLD.
-pReturnValuesOnConditionCheckFailure :: Lens' Put (Maybe ReturnValuesOnConditionCheckFailure)
-pReturnValuesOnConditionCheckFailure = lens _pReturnValuesOnConditionCheckFailure (\s a -> s {_pReturnValuesOnConditionCheckFailure = a})
+-- | Use @ReturnValuesOnConditionCheckFailure@ to get the item attributes if
+-- the @Put@ condition fails. For @ReturnValuesOnConditionCheckFailure@,
+-- the valid values are: NONE and ALL_OLD.
+put_returnValuesOnConditionCheckFailure :: Lens.Lens' Put (Prelude.Maybe ReturnValuesOnConditionCheckFailure)
+put_returnValuesOnConditionCheckFailure = Lens.lens (\Put' {returnValuesOnConditionCheckFailure} -> returnValuesOnConditionCheckFailure) (\s@Put' {} a -> s {returnValuesOnConditionCheckFailure = a} :: Put)
 
 -- | One or more substitution tokens for attribute names in an expression.
-pExpressionAttributeNames :: Lens' Put (HashMap Text Text)
-pExpressionAttributeNames = lens _pExpressionAttributeNames (\s a -> s {_pExpressionAttributeNames = a}) . _Default . _Map
+put_expressionAttributeNames :: Lens.Lens' Put (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+put_expressionAttributeNames = Lens.lens (\Put' {expressionAttributeNames} -> expressionAttributeNames) (\s@Put' {} a -> s {expressionAttributeNames = a} :: Put) Prelude.. Lens.mapping Prelude._Map
 
--- | A condition that must be satisfied in order for a conditional update to succeed.
-pConditionExpression :: Lens' Put (Maybe Text)
-pConditionExpression = lens _pConditionExpression (\s a -> s {_pConditionExpression = a})
+-- | A condition that must be satisfied in order for a conditional update to
+-- succeed.
+put_conditionExpression :: Lens.Lens' Put (Prelude.Maybe Prelude.Text)
+put_conditionExpression = Lens.lens (\Put' {conditionExpression} -> conditionExpression) (\s@Put' {} a -> s {conditionExpression = a} :: Put)
 
--- | A map of attribute name to attribute values, representing the primary key of the item to be written by @PutItem@ . All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema. If any attributes are present in the item that are part of an index key schema for the table, their types must match the index key schema.
-pItem :: Lens' Put (HashMap Text AttributeValue)
-pItem = lens _pItem (\s a -> s {_pItem = a}) . _Map
+-- | A map of attribute name to attribute values, representing the primary
+-- key of the item to be written by @PutItem@. All of the table\'s primary
+-- key attributes must be specified, and their data types must match those
+-- of the table\'s key schema. If any attributes are present in the item
+-- that are part of an index key schema for the table, their types must
+-- match the index key schema.
+put_item :: Lens.Lens' Put (Prelude.HashMap Prelude.Text AttributeValue)
+put_item = Lens.lens (\Put' {item} -> item) (\s@Put' {} a -> s {item = a} :: Put) Prelude.. Prelude._Map
 
 -- | Name of the table in which to write the item.
-pTableName :: Lens' Put Text
-pTableName = lens _pTableName (\s a -> s {_pTableName = a})
+put_tableName :: Lens.Lens' Put Prelude.Text
+put_tableName = Lens.lens (\Put' {tableName} -> tableName) (\s@Put' {} a -> s {tableName = a} :: Put)
 
-instance Hashable Put
+instance Prelude.Hashable Put
 
-instance NFData Put
+instance Prelude.NFData Put
 
-instance ToJSON Put where
+instance Prelude.ToJSON Put where
   toJSON Put' {..} =
-    object
-      ( catMaybes
-          [ ("ExpressionAttributeValues" .=)
-              <$> _pExpressionAttributeValues,
-            ("ReturnValuesOnConditionCheckFailure" .=)
-              <$> _pReturnValuesOnConditionCheckFailure,
-            ("ExpressionAttributeNames" .=)
-              <$> _pExpressionAttributeNames,
-            ("ConditionExpression" .=) <$> _pConditionExpression,
-            Just ("Item" .= _pItem),
-            Just ("TableName" .= _pTableName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ExpressionAttributeValues" Prelude..=)
+              Prelude.<$> expressionAttributeValues,
+            ("ReturnValuesOnConditionCheckFailure" Prelude..=)
+              Prelude.<$> returnValuesOnConditionCheckFailure,
+            ("ExpressionAttributeNames" Prelude..=)
+              Prelude.<$> expressionAttributeNames,
+            ("ConditionExpression" Prelude..=)
+              Prelude.<$> conditionExpression,
+            Prelude.Just ("Item" Prelude..= item),
+            Prelude.Just ("TableName" Prelude..= tableName)
           ]
       )

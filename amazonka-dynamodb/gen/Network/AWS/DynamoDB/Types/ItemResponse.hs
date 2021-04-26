@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,39 +20,45 @@
 module Network.AWS.DynamoDB.Types.ItemResponse where
 
 import Network.AWS.DynamoDB.Types.AttributeValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details for the requested item.
 --
---
---
--- /See:/ 'itemResponse' smart constructor.
-newtype ItemResponse = ItemResponse'
-  { _irItem ::
-      Maybe (Map Text AttributeValue)
+-- /See:/ 'newItemResponse' smart constructor.
+data ItemResponse = ItemResponse'
+  { -- | Map of attribute data consisting of the data type and attribute value.
+    item :: Prelude.Maybe (Prelude.Map Prelude.Text AttributeValue)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ItemResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ItemResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'irItem' - Map of attribute data consisting of the data type and attribute value.
-itemResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'item', 'itemResponse_item' - Map of attribute data consisting of the data type and attribute value.
+newItemResponse ::
   ItemResponse
-itemResponse = ItemResponse' {_irItem = Nothing}
+newItemResponse =
+  ItemResponse' {item = Prelude.Nothing}
 
 -- | Map of attribute data consisting of the data type and attribute value.
-irItem :: Lens' ItemResponse (HashMap Text AttributeValue)
-irItem = lens _irItem (\s a -> s {_irItem = a}) . _Default . _Map
+itemResponse_item :: Lens.Lens' ItemResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
+itemResponse_item = Lens.lens (\ItemResponse' {item} -> item) (\s@ItemResponse' {} a -> s {item = a} :: ItemResponse) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON ItemResponse where
+instance Prelude.FromJSON ItemResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ItemResponse"
-      (\x -> ItemResponse' <$> (x .:? "Item" .!= mempty))
+      ( \x ->
+          ItemResponse'
+            Prelude.<$> (x Prelude..:? "Item" Prelude..!= Prelude.mempty)
+      )
 
-instance Hashable ItemResponse
+instance Prelude.Hashable ItemResponse
 
-instance NFData ItemResponse
+instance Prelude.NFData ItemResponse

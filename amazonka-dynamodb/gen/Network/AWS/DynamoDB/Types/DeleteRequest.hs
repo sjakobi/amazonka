@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,43 +20,61 @@
 module Network.AWS.DynamoDB.Types.DeleteRequest where
 
 import Network.AWS.DynamoDB.Types.AttributeValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a request to perform a @DeleteItem@ operation on an item.
 --
---
---
--- /See:/ 'deleteRequest' smart constructor.
-newtype DeleteRequest = DeleteRequest'
-  { _drKey ::
-      Map Text AttributeValue
+-- /See:/ 'newDeleteRequest' smart constructor.
+data DeleteRequest = DeleteRequest'
+  { -- | A map of attribute name to attribute values, representing the primary
+    -- key of the item to delete. All of the table\'s primary key attributes
+    -- must be specified, and their data types must match those of the table\'s
+    -- key schema.
+    key :: Prelude.Map Prelude.Text AttributeValue
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drKey' - A map of attribute name to attribute values, representing the primary key of the item to delete. All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema.
-deleteRequest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'key', 'deleteRequest_key' - A map of attribute name to attribute values, representing the primary
+-- key of the item to delete. All of the table\'s primary key attributes
+-- must be specified, and their data types must match those of the table\'s
+-- key schema.
+newDeleteRequest ::
   DeleteRequest
-deleteRequest = DeleteRequest' {_drKey = mempty}
+newDeleteRequest =
+  DeleteRequest' {key = Prelude.mempty}
 
--- | A map of attribute name to attribute values, representing the primary key of the item to delete. All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema.
-drKey :: Lens' DeleteRequest (HashMap Text AttributeValue)
-drKey = lens _drKey (\s a -> s {_drKey = a}) . _Map
+-- | A map of attribute name to attribute values, representing the primary
+-- key of the item to delete. All of the table\'s primary key attributes
+-- must be specified, and their data types must match those of the table\'s
+-- key schema.
+deleteRequest_key :: Lens.Lens' DeleteRequest (Prelude.HashMap Prelude.Text AttributeValue)
+deleteRequest_key = Lens.lens (\DeleteRequest' {key} -> key) (\s@DeleteRequest' {} a -> s {key = a} :: DeleteRequest) Prelude.. Prelude._Map
 
-instance FromJSON DeleteRequest where
+instance Prelude.FromJSON DeleteRequest where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeleteRequest"
-      (\x -> DeleteRequest' <$> (x .:? "Key" .!= mempty))
+      ( \x ->
+          DeleteRequest'
+            Prelude.<$> (x Prelude..:? "Key" Prelude..!= Prelude.mempty)
+      )
 
-instance Hashable DeleteRequest
+instance Prelude.Hashable DeleteRequest
 
-instance NFData DeleteRequest
+instance Prelude.NFData DeleteRequest
 
-instance ToJSON DeleteRequest where
+instance Prelude.ToJSON DeleteRequest where
   toJSON DeleteRequest' {..} =
-    object (catMaybes [Just ("Key" .= _drKey)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Key" Prelude..= key)]
+      )

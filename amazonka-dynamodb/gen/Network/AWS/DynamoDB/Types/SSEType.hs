@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DynamoDB.Types.SSEType
   ( SSEType
       ( ..,
-        AES256,
-        KMS
+        SSETypeAES256,
+        SSETypeKMS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SSEType = SSEType' (CI Text)
+newtype SSEType = SSEType'
+  { fromSSEType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AES256 :: SSEType
-pattern AES256 = SSEType' "AES256"
+pattern SSETypeAES256 :: SSEType
+pattern SSETypeAES256 = SSEType' "AES256"
 
-pattern KMS :: SSEType
-pattern KMS = SSEType' "KMS"
+pattern SSETypeKMS :: SSEType
+pattern SSETypeKMS = SSEType' "KMS"
 
 {-# COMPLETE
-  AES256,
-  KMS,
+  SSETypeAES256,
+  SSETypeKMS,
   SSEType'
   #-}
 
-instance FromText SSEType where
-  parser = (SSEType' . mk) <$> takeText
+instance Prelude.FromText SSEType where
+  parser = SSEType' Prelude.<$> Prelude.takeText
 
-instance ToText SSEType where
-  toText (SSEType' ci) = original ci
+instance Prelude.ToText SSEType where
+  toText (SSEType' x) = x
 
-instance Hashable SSEType
+instance Prelude.Hashable SSEType
 
-instance NFData SSEType
+instance Prelude.NFData SSEType
 
-instance ToByteString SSEType
+instance Prelude.ToByteString SSEType
 
-instance ToQuery SSEType
+instance Prelude.ToQuery SSEType
 
-instance ToHeader SSEType
+instance Prelude.ToHeader SSEType
 
-instance ToJSON SSEType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SSEType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SSEType where
-  parseJSON = parseJSONText "SSEType"
+instance Prelude.FromJSON SSEType where
+  parseJSON = Prelude.parseJSONText "SSEType"

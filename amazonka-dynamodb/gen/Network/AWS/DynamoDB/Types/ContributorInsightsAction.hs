@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.DynamoDB.Types.ContributorInsightsAction
   ( ContributorInsightsAction
       ( ..,
-        Disable,
-        Enable
+        ContributorInsightsActionDISABLE,
+        ContributorInsightsActionENABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContributorInsightsAction
-  = ContributorInsightsAction'
-      ( CI
-          Text
-      )
+newtype ContributorInsightsAction = ContributorInsightsAction'
+  { fromContributorInsightsAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disable :: ContributorInsightsAction
-pattern Disable = ContributorInsightsAction' "DISABLE"
+pattern ContributorInsightsActionDISABLE :: ContributorInsightsAction
+pattern ContributorInsightsActionDISABLE = ContributorInsightsAction' "DISABLE"
 
-pattern Enable :: ContributorInsightsAction
-pattern Enable = ContributorInsightsAction' "ENABLE"
+pattern ContributorInsightsActionENABLE :: ContributorInsightsAction
+pattern ContributorInsightsActionENABLE = ContributorInsightsAction' "ENABLE"
 
 {-# COMPLETE
-  Disable,
-  Enable,
+  ContributorInsightsActionDISABLE,
+  ContributorInsightsActionENABLE,
   ContributorInsightsAction'
   #-}
 
-instance FromText ContributorInsightsAction where
-  parser = (ContributorInsightsAction' . mk) <$> takeText
+instance Prelude.FromText ContributorInsightsAction where
+  parser = ContributorInsightsAction' Prelude.<$> Prelude.takeText
 
-instance ToText ContributorInsightsAction where
-  toText (ContributorInsightsAction' ci) = original ci
+instance Prelude.ToText ContributorInsightsAction where
+  toText (ContributorInsightsAction' x) = x
 
-instance Hashable ContributorInsightsAction
+instance Prelude.Hashable ContributorInsightsAction
 
-instance NFData ContributorInsightsAction
+instance Prelude.NFData ContributorInsightsAction
 
-instance ToByteString ContributorInsightsAction
+instance Prelude.ToByteString ContributorInsightsAction
 
-instance ToQuery ContributorInsightsAction
+instance Prelude.ToQuery ContributorInsightsAction
 
-instance ToHeader ContributorInsightsAction
+instance Prelude.ToHeader ContributorInsightsAction
 
-instance ToJSON ContributorInsightsAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContributorInsightsAction where
+  toJSON = Prelude.toJSONText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DynamoDB.Types.KinesisStreamingDestinationInput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'kinesisStreamingDestinationInput' smart constructor.
+-- | /See:/ 'newKinesisStreamingDestinationInput' smart constructor.
 data KinesisStreamingDestinationInput = KinesisStreamingDestinationInput'
-  { _ksdiTableName ::
-      !Text,
-    _ksdiStreamARN ::
-      !Text
+  { -- | The name of the DynamoDB table.
+    tableName :: Prelude.Text,
+    -- | The ARN for a Kinesis data stream.
+    streamArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KinesisStreamingDestinationInput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KinesisStreamingDestinationInput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ksdiTableName' - The name of the DynamoDB table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ksdiStreamARN' - The ARN for a Kinesis data stream.
-kinesisStreamingDestinationInput ::
-  -- | 'ksdiTableName'
-  Text ->
-  -- | 'ksdiStreamARN'
-  Text ->
+-- 'tableName', 'kinesisStreamingDestinationInput_tableName' - The name of the DynamoDB table.
+--
+-- 'streamArn', 'kinesisStreamingDestinationInput_streamArn' - The ARN for a Kinesis data stream.
+newKinesisStreamingDestinationInput ::
+  -- | 'tableName'
+  Prelude.Text ->
+  -- | 'streamArn'
+  Prelude.Text ->
   KinesisStreamingDestinationInput
-kinesisStreamingDestinationInput
+newKinesisStreamingDestinationInput
   pTableName_
-  pStreamARN_ =
+  pStreamArn_ =
     KinesisStreamingDestinationInput'
-      { _ksdiTableName =
+      { tableName =
           pTableName_,
-        _ksdiStreamARN = pStreamARN_
+        streamArn = pStreamArn_
       }
 
 -- | The name of the DynamoDB table.
-ksdiTableName :: Lens' KinesisStreamingDestinationInput Text
-ksdiTableName = lens _ksdiTableName (\s a -> s {_ksdiTableName = a})
+kinesisStreamingDestinationInput_tableName :: Lens.Lens' KinesisStreamingDestinationInput Prelude.Text
+kinesisStreamingDestinationInput_tableName = Lens.lens (\KinesisStreamingDestinationInput' {tableName} -> tableName) (\s@KinesisStreamingDestinationInput' {} a -> s {tableName = a} :: KinesisStreamingDestinationInput)
 
 -- | The ARN for a Kinesis data stream.
-ksdiStreamARN :: Lens' KinesisStreamingDestinationInput Text
-ksdiStreamARN = lens _ksdiStreamARN (\s a -> s {_ksdiStreamARN = a})
+kinesisStreamingDestinationInput_streamArn :: Lens.Lens' KinesisStreamingDestinationInput Prelude.Text
+kinesisStreamingDestinationInput_streamArn = Lens.lens (\KinesisStreamingDestinationInput' {streamArn} -> streamArn) (\s@KinesisStreamingDestinationInput' {} a -> s {streamArn = a} :: KinesisStreamingDestinationInput)
 
-instance Hashable KinesisStreamingDestinationInput
+instance
+  Prelude.Hashable
+    KinesisStreamingDestinationInput
 
-instance NFData KinesisStreamingDestinationInput
+instance
+  Prelude.NFData
+    KinesisStreamingDestinationInput
 
-instance ToJSON KinesisStreamingDestinationInput where
+instance
+  Prelude.ToJSON
+    KinesisStreamingDestinationInput
+  where
   toJSON KinesisStreamingDestinationInput' {..} =
-    object
-      ( catMaybes
-          [ Just ("TableName" .= _ksdiTableName),
-            Just ("StreamArn" .= _ksdiStreamARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just ("StreamArn" Prelude..= streamArn)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DynamoDB.Types.FailureException where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a failure a contributor insights operation.
 --
---
---
--- /See:/ 'failureException' smart constructor.
+-- /See:/ 'newFailureException' smart constructor.
 data FailureException = FailureException'
-  { _feExceptionName ::
-      !(Maybe Text),
-    _feExceptionDescription ::
-      !(Maybe Text)
+  { -- | Exception name.
+    exceptionName :: Prelude.Maybe Prelude.Text,
+    -- | Description of the failure.
+    exceptionDescription :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailureException' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailureException' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'feExceptionName' - Exception name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'feExceptionDescription' - Description of the failure.
-failureException ::
+-- 'exceptionName', 'failureException_exceptionName' - Exception name.
+--
+-- 'exceptionDescription', 'failureException_exceptionDescription' - Description of the failure.
+newFailureException ::
   FailureException
-failureException =
+newFailureException =
   FailureException'
-    { _feExceptionName = Nothing,
-      _feExceptionDescription = Nothing
+    { exceptionName = Prelude.Nothing,
+      exceptionDescription = Prelude.Nothing
     }
 
 -- | Exception name.
-feExceptionName :: Lens' FailureException (Maybe Text)
-feExceptionName = lens _feExceptionName (\s a -> s {_feExceptionName = a})
+failureException_exceptionName :: Lens.Lens' FailureException (Prelude.Maybe Prelude.Text)
+failureException_exceptionName = Lens.lens (\FailureException' {exceptionName} -> exceptionName) (\s@FailureException' {} a -> s {exceptionName = a} :: FailureException)
 
 -- | Description of the failure.
-feExceptionDescription :: Lens' FailureException (Maybe Text)
-feExceptionDescription = lens _feExceptionDescription (\s a -> s {_feExceptionDescription = a})
+failureException_exceptionDescription :: Lens.Lens' FailureException (Prelude.Maybe Prelude.Text)
+failureException_exceptionDescription = Lens.lens (\FailureException' {exceptionDescription} -> exceptionDescription) (\s@FailureException' {} a -> s {exceptionDescription = a} :: FailureException)
 
-instance FromJSON FailureException where
+instance Prelude.FromJSON FailureException where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FailureException"
       ( \x ->
           FailureException'
-            <$> (x .:? "ExceptionName")
-            <*> (x .:? "ExceptionDescription")
+            Prelude.<$> (x Prelude..:? "ExceptionName")
+            Prelude.<*> (x Prelude..:? "ExceptionDescription")
       )
 
-instance Hashable FailureException
+instance Prelude.Hashable FailureException
 
-instance NFData FailureException
+instance Prelude.NFData FailureException

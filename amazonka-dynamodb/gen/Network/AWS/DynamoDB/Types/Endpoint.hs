@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DynamoDB.Types.Endpoint where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An endpoint information details.
 --
---
---
--- /See:/ 'endpoint' smart constructor.
+-- /See:/ 'newEndpoint' smart constructor.
 data Endpoint = Endpoint'
-  { _eAddress :: !Text,
-    _eCachePeriodInMinutes :: !Integer
+  { -- | IP address of the endpoint.
+    address :: Prelude.Text,
+    -- | Endpoint cache time to live (TTL) value.
+    cachePeriodInMinutes :: Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Endpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Endpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eAddress' - IP address of the endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eCachePeriodInMinutes' - Endpoint cache time to live (TTL) value.
-endpoint ::
-  -- | 'eAddress'
-  Text ->
-  -- | 'eCachePeriodInMinutes'
-  Integer ->
+-- 'address', 'endpoint_address' - IP address of the endpoint.
+--
+-- 'cachePeriodInMinutes', 'endpoint_cachePeriodInMinutes' - Endpoint cache time to live (TTL) value.
+newEndpoint ::
+  -- | 'address'
+  Prelude.Text ->
+  -- | 'cachePeriodInMinutes'
+  Prelude.Integer ->
   Endpoint
-endpoint pAddress_ pCachePeriodInMinutes_ =
+newEndpoint pAddress_ pCachePeriodInMinutes_ =
   Endpoint'
-    { _eAddress = pAddress_,
-      _eCachePeriodInMinutes = pCachePeriodInMinutes_
+    { address = pAddress_,
+      cachePeriodInMinutes = pCachePeriodInMinutes_
     }
 
 -- | IP address of the endpoint.
-eAddress :: Lens' Endpoint Text
-eAddress = lens _eAddress (\s a -> s {_eAddress = a})
+endpoint_address :: Lens.Lens' Endpoint Prelude.Text
+endpoint_address = Lens.lens (\Endpoint' {address} -> address) (\s@Endpoint' {} a -> s {address = a} :: Endpoint)
 
 -- | Endpoint cache time to live (TTL) value.
-eCachePeriodInMinutes :: Lens' Endpoint Integer
-eCachePeriodInMinutes = lens _eCachePeriodInMinutes (\s a -> s {_eCachePeriodInMinutes = a})
+endpoint_cachePeriodInMinutes :: Lens.Lens' Endpoint Prelude.Integer
+endpoint_cachePeriodInMinutes = Lens.lens (\Endpoint' {cachePeriodInMinutes} -> cachePeriodInMinutes) (\s@Endpoint' {} a -> s {cachePeriodInMinutes = a} :: Endpoint)
 
-instance FromJSON Endpoint where
+instance Prelude.FromJSON Endpoint where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Endpoint"
       ( \x ->
           Endpoint'
-            <$> (x .: "Address") <*> (x .: "CachePeriodInMinutes")
+            Prelude.<$> (x Prelude..: "Address")
+            Prelude.<*> (x Prelude..: "CachePeriodInMinutes")
       )
 
-instance Hashable Endpoint
+instance Prelude.Hashable Endpoint
 
-instance NFData Endpoint
+instance Prelude.NFData Endpoint

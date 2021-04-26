@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,209 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation allows you to perform reads and singleton writes on data stored in DynamoDB, using PartiQL.
+-- This operation allows you to perform reads and singleton writes on data
+-- stored in DynamoDB, using PartiQL.
 module Network.AWS.DynamoDB.ExecuteStatement
   ( -- * Creating a Request
-    executeStatement,
-    ExecuteStatement,
+    ExecuteStatement (..),
+    newExecuteStatement,
 
     -- * Request Lenses
-    esNextToken,
-    esConsistentRead,
-    esParameters,
-    esStatement,
+    executeStatement_nextToken,
+    executeStatement_consistentRead,
+    executeStatement_parameters,
+    executeStatement_statement,
 
     -- * Destructuring the Response
-    executeStatementResponse,
-    ExecuteStatementResponse,
+    ExecuteStatementResponse (..),
+    newExecuteStatementResponse,
 
     -- * Response Lenses
-    esrrsNextToken,
-    esrrsItems,
-    esrrsResponseStatus,
+    executeStatementResponse_nextToken,
+    executeStatementResponse_items,
+    executeStatementResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.AttributeValue
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'executeStatement' smart constructor.
+-- | /See:/ 'newExecuteStatement' smart constructor.
 data ExecuteStatement = ExecuteStatement'
-  { _esNextToken ::
-      !(Maybe Text),
-    _esConsistentRead :: !(Maybe Bool),
-    _esParameters ::
-      !(Maybe (List1 AttributeValue)),
-    _esStatement :: !Text
+  { -- | Set this value to get remaining results, if @NextToken@ was returned in
+    -- the statement response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The consistency of a read operation. If set to @true@, then a strongly
+    -- consistent read is used; otherwise, an eventually consistent read is
+    -- used.
+    consistentRead :: Prelude.Maybe Prelude.Bool,
+    -- | The parameters for the PartiQL statement, if any.
+    parameters :: Prelude.Maybe (Prelude.List1 AttributeValue),
+    -- | The PartiQL statement representing the operation to run.
+    statement :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExecuteStatement' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExecuteStatement' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esNextToken' - Set this value to get remaining results, if @NextToken@ was returned in the statement response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esConsistentRead' - The consistency of a read operation. If set to @true@ , then a strongly consistent read is used; otherwise, an eventually consistent read is used.
+-- 'nextToken', 'executeStatement_nextToken' - Set this value to get remaining results, if @NextToken@ was returned in
+-- the statement response.
 --
--- * 'esParameters' - The parameters for the PartiQL statement, if any.
+-- 'consistentRead', 'executeStatement_consistentRead' - The consistency of a read operation. If set to @true@, then a strongly
+-- consistent read is used; otherwise, an eventually consistent read is
+-- used.
 --
--- * 'esStatement' - The PartiQL statement representing the operation to run.
-executeStatement ::
-  -- | 'esStatement'
-  Text ->
+-- 'parameters', 'executeStatement_parameters' - The parameters for the PartiQL statement, if any.
+--
+-- 'statement', 'executeStatement_statement' - The PartiQL statement representing the operation to run.
+newExecuteStatement ::
+  -- | 'statement'
+  Prelude.Text ->
   ExecuteStatement
-executeStatement pStatement_ =
+newExecuteStatement pStatement_ =
   ExecuteStatement'
-    { _esNextToken = Nothing,
-      _esConsistentRead = Nothing,
-      _esParameters = Nothing,
-      _esStatement = pStatement_
+    { nextToken = Prelude.Nothing,
+      consistentRead = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      statement = pStatement_
     }
 
--- | Set this value to get remaining results, if @NextToken@ was returned in the statement response.
-esNextToken :: Lens' ExecuteStatement (Maybe Text)
-esNextToken = lens _esNextToken (\s a -> s {_esNextToken = a})
+-- | Set this value to get remaining results, if @NextToken@ was returned in
+-- the statement response.
+executeStatement_nextToken :: Lens.Lens' ExecuteStatement (Prelude.Maybe Prelude.Text)
+executeStatement_nextToken = Lens.lens (\ExecuteStatement' {nextToken} -> nextToken) (\s@ExecuteStatement' {} a -> s {nextToken = a} :: ExecuteStatement)
 
--- | The consistency of a read operation. If set to @true@ , then a strongly consistent read is used; otherwise, an eventually consistent read is used.
-esConsistentRead :: Lens' ExecuteStatement (Maybe Bool)
-esConsistentRead = lens _esConsistentRead (\s a -> s {_esConsistentRead = a})
+-- | The consistency of a read operation. If set to @true@, then a strongly
+-- consistent read is used; otherwise, an eventually consistent read is
+-- used.
+executeStatement_consistentRead :: Lens.Lens' ExecuteStatement (Prelude.Maybe Prelude.Bool)
+executeStatement_consistentRead = Lens.lens (\ExecuteStatement' {consistentRead} -> consistentRead) (\s@ExecuteStatement' {} a -> s {consistentRead = a} :: ExecuteStatement)
 
 -- | The parameters for the PartiQL statement, if any.
-esParameters :: Lens' ExecuteStatement (Maybe (NonEmpty AttributeValue))
-esParameters = lens _esParameters (\s a -> s {_esParameters = a}) . mapping _List1
+executeStatement_parameters :: Lens.Lens' ExecuteStatement (Prelude.Maybe (Prelude.NonEmpty AttributeValue))
+executeStatement_parameters = Lens.lens (\ExecuteStatement' {parameters} -> parameters) (\s@ExecuteStatement' {} a -> s {parameters = a} :: ExecuteStatement) Prelude.. Lens.mapping Prelude._List1
 
 -- | The PartiQL statement representing the operation to run.
-esStatement :: Lens' ExecuteStatement Text
-esStatement = lens _esStatement (\s a -> s {_esStatement = a})
+executeStatement_statement :: Lens.Lens' ExecuteStatement Prelude.Text
+executeStatement_statement = Lens.lens (\ExecuteStatement' {statement} -> statement) (\s@ExecuteStatement' {} a -> s {statement = a} :: ExecuteStatement)
 
-instance AWSRequest ExecuteStatement where
+instance Prelude.AWSRequest ExecuteStatement where
   type Rs ExecuteStatement = ExecuteStatementResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ExecuteStatementResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Items" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Items" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ExecuteStatement
+instance Prelude.Hashable ExecuteStatement
 
-instance NFData ExecuteStatement
+instance Prelude.NFData ExecuteStatement
 
-instance ToHeaders ExecuteStatement where
+instance Prelude.ToHeaders ExecuteStatement where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DynamoDB_20120810.ExecuteStatement" :: ByteString),
+              Prelude.=# ( "DynamoDB_20120810.ExecuteStatement" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ExecuteStatement where
+instance Prelude.ToJSON ExecuteStatement where
   toJSON ExecuteStatement' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _esNextToken,
-            ("ConsistentRead" .=) <$> _esConsistentRead,
-            ("Parameters" .=) <$> _esParameters,
-            Just ("Statement" .= _esStatement)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("ConsistentRead" Prelude..=)
+              Prelude.<$> consistentRead,
+            ("Parameters" Prelude..=) Prelude.<$> parameters,
+            Prelude.Just ("Statement" Prelude..= statement)
           ]
       )
 
-instance ToPath ExecuteStatement where
-  toPath = const "/"
+instance Prelude.ToPath ExecuteStatement where
+  toPath = Prelude.const "/"
 
-instance ToQuery ExecuteStatement where
-  toQuery = const mempty
+instance Prelude.ToQuery ExecuteStatement where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'executeStatementResponse' smart constructor.
+-- | /See:/ 'newExecuteStatementResponse' smart constructor.
 data ExecuteStatementResponse = ExecuteStatementResponse'
-  { _esrrsNextToken ::
-      !(Maybe Text),
-    _esrrsItems ::
-      !( Maybe
-           [ Map
-               Text
-               AttributeValue
-           ]
-       ),
-    _esrrsResponseStatus ::
-      !Int
+  { -- | If the response of a read request exceeds the response payload limit
+    -- DynamoDB will set this value in the response. If set, you can use that
+    -- this value in the subsequent request to get the remaining results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | If a read operation was used, this property will contain the result of
+    -- the reade operation; a map of attribute names and their values. For the
+    -- write operations this value will be empty.
+    items :: Prelude.Maybe [Prelude.Map Prelude.Text AttributeValue],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExecuteStatementResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExecuteStatementResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esrrsNextToken' - If the response of a read request exceeds the response payload limit DynamoDB will set this value in the response. If set, you can use that this value in the subsequent request to get the remaining results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esrrsItems' - If a read operation was used, this property will contain the result of the reade operation; a map of attribute names and their values. For the write operations this value will be empty.
+-- 'nextToken', 'executeStatementResponse_nextToken' - If the response of a read request exceeds the response payload limit
+-- DynamoDB will set this value in the response. If set, you can use that
+-- this value in the subsequent request to get the remaining results.
 --
--- * 'esrrsResponseStatus' - -- | The response status code.
-executeStatementResponse ::
-  -- | 'esrrsResponseStatus'
-  Int ->
+-- 'items', 'executeStatementResponse_items' - If a read operation was used, this property will contain the result of
+-- the reade operation; a map of attribute names and their values. For the
+-- write operations this value will be empty.
+--
+-- 'httpStatus', 'executeStatementResponse_httpStatus' - The response's http status code.
+newExecuteStatementResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ExecuteStatementResponse
-executeStatementResponse pResponseStatus_ =
+newExecuteStatementResponse pHttpStatus_ =
   ExecuteStatementResponse'
-    { _esrrsNextToken =
-        Nothing,
-      _esrrsItems = Nothing,
-      _esrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      items = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the response of a read request exceeds the response payload limit DynamoDB will set this value in the response. If set, you can use that this value in the subsequent request to get the remaining results.
-esrrsNextToken :: Lens' ExecuteStatementResponse (Maybe Text)
-esrrsNextToken = lens _esrrsNextToken (\s a -> s {_esrrsNextToken = a})
+-- | If the response of a read request exceeds the response payload limit
+-- DynamoDB will set this value in the response. If set, you can use that
+-- this value in the subsequent request to get the remaining results.
+executeStatementResponse_nextToken :: Lens.Lens' ExecuteStatementResponse (Prelude.Maybe Prelude.Text)
+executeStatementResponse_nextToken = Lens.lens (\ExecuteStatementResponse' {nextToken} -> nextToken) (\s@ExecuteStatementResponse' {} a -> s {nextToken = a} :: ExecuteStatementResponse)
 
--- | If a read operation was used, this property will contain the result of the reade operation; a map of attribute names and their values. For the write operations this value will be empty.
-esrrsItems :: Lens' ExecuteStatementResponse [HashMap Text AttributeValue]
-esrrsItems = lens _esrrsItems (\s a -> s {_esrrsItems = a}) . _Default . _Coerce
+-- | If a read operation was used, this property will contain the result of
+-- the reade operation; a map of attribute names and their values. For the
+-- write operations this value will be empty.
+executeStatementResponse_items :: Lens.Lens' ExecuteStatementResponse (Prelude.Maybe [Prelude.HashMap Prelude.Text AttributeValue])
+executeStatementResponse_items = Lens.lens (\ExecuteStatementResponse' {items} -> items) (\s@ExecuteStatementResponse' {} a -> s {items = a} :: ExecuteStatementResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-esrrsResponseStatus :: Lens' ExecuteStatementResponse Int
-esrrsResponseStatus = lens _esrrsResponseStatus (\s a -> s {_esrrsResponseStatus = a})
+-- | The response's http status code.
+executeStatementResponse_httpStatus :: Lens.Lens' ExecuteStatementResponse Prelude.Int
+executeStatementResponse_httpStatus = Lens.lens (\ExecuteStatementResponse' {httpStatus} -> httpStatus) (\s@ExecuteStatementResponse' {} a -> s {httpStatus = a} :: ExecuteStatementResponse)
 
-instance NFData ExecuteStatementResponse
+instance Prelude.NFData ExecuteStatementResponse

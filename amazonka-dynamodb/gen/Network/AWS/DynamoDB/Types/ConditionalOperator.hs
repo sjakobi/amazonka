@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.DynamoDB.Types.ConditionalOperator
   ( ConditionalOperator
       ( ..,
-        And,
-        OR
+        ConditionalOperatorAND,
+        ConditionalOperatorOR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConditionalOperator
-  = ConditionalOperator'
-      ( CI
-          Text
-      )
+newtype ConditionalOperator = ConditionalOperator'
+  { fromConditionalOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern And :: ConditionalOperator
-pattern And = ConditionalOperator' "AND"
+pattern ConditionalOperatorAND :: ConditionalOperator
+pattern ConditionalOperatorAND = ConditionalOperator' "AND"
 
-pattern OR :: ConditionalOperator
-pattern OR = ConditionalOperator' "OR"
+pattern ConditionalOperatorOR :: ConditionalOperator
+pattern ConditionalOperatorOR = ConditionalOperator' "OR"
 
 {-# COMPLETE
-  And,
-  OR,
+  ConditionalOperatorAND,
+  ConditionalOperatorOR,
   ConditionalOperator'
   #-}
 
-instance FromText ConditionalOperator where
-  parser = (ConditionalOperator' . mk) <$> takeText
+instance Prelude.FromText ConditionalOperator where
+  parser = ConditionalOperator' Prelude.<$> Prelude.takeText
 
-instance ToText ConditionalOperator where
-  toText (ConditionalOperator' ci) = original ci
+instance Prelude.ToText ConditionalOperator where
+  toText (ConditionalOperator' x) = x
 
-instance Hashable ConditionalOperator
+instance Prelude.Hashable ConditionalOperator
 
-instance NFData ConditionalOperator
+instance Prelude.NFData ConditionalOperator
 
-instance ToByteString ConditionalOperator
+instance Prelude.ToByteString ConditionalOperator
 
-instance ToQuery ConditionalOperator
+instance Prelude.ToQuery ConditionalOperator
 
-instance ToHeader ConditionalOperator
+instance Prelude.ToHeader ConditionalOperator
 
-instance ToJSON ConditionalOperator where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConditionalOperator where
+  toJSON = Prelude.toJSONText

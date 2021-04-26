@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DynamoDB.Types.S3SseAlgorithm
   ( S3SseAlgorithm
       ( ..,
-        SSAAES256,
-        SSAKMS
+        S3SseAlgorithmAES256,
+        S3SseAlgorithmKMS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data S3SseAlgorithm = S3SseAlgorithm' (CI Text)
+newtype S3SseAlgorithm = S3SseAlgorithm'
+  { fromS3SseAlgorithm ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSAAES256 :: S3SseAlgorithm
-pattern SSAAES256 = S3SseAlgorithm' "AES256"
+pattern S3SseAlgorithmAES256 :: S3SseAlgorithm
+pattern S3SseAlgorithmAES256 = S3SseAlgorithm' "AES256"
 
-pattern SSAKMS :: S3SseAlgorithm
-pattern SSAKMS = S3SseAlgorithm' "KMS"
+pattern S3SseAlgorithmKMS :: S3SseAlgorithm
+pattern S3SseAlgorithmKMS = S3SseAlgorithm' "KMS"
 
 {-# COMPLETE
-  SSAAES256,
-  SSAKMS,
+  S3SseAlgorithmAES256,
+  S3SseAlgorithmKMS,
   S3SseAlgorithm'
   #-}
 
-instance FromText S3SseAlgorithm where
-  parser = (S3SseAlgorithm' . mk) <$> takeText
+instance Prelude.FromText S3SseAlgorithm where
+  parser = S3SseAlgorithm' Prelude.<$> Prelude.takeText
 
-instance ToText S3SseAlgorithm where
-  toText (S3SseAlgorithm' ci) = original ci
+instance Prelude.ToText S3SseAlgorithm where
+  toText (S3SseAlgorithm' x) = x
 
-instance Hashable S3SseAlgorithm
+instance Prelude.Hashable S3SseAlgorithm
 
-instance NFData S3SseAlgorithm
+instance Prelude.NFData S3SseAlgorithm
 
-instance ToByteString S3SseAlgorithm
+instance Prelude.ToByteString S3SseAlgorithm
 
-instance ToQuery S3SseAlgorithm
+instance Prelude.ToQuery S3SseAlgorithm
 
-instance ToHeader S3SseAlgorithm
+instance Prelude.ToHeader S3SseAlgorithm
 
-instance ToJSON S3SseAlgorithm where
-  toJSON = toJSONText
+instance Prelude.ToJSON S3SseAlgorithm where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON S3SseAlgorithm where
-  parseJSON = parseJSONText "S3SseAlgorithm"
+instance Prelude.FromJSON S3SseAlgorithm where
+  parseJSON = Prelude.parseJSONText "S3SseAlgorithm"

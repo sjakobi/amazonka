@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,126 +21,179 @@ module Network.AWS.DynamoDB.Types.BackupSummary where
 
 import Network.AWS.DynamoDB.Types.BackupStatus
 import Network.AWS.DynamoDB.Types.BackupType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains details for the backup.
 --
---
---
--- /See:/ 'backupSummary' smart constructor.
+-- /See:/ 'newBackupSummary' smart constructor.
 data BackupSummary = BackupSummary'
-  { _bsTableName ::
-      !(Maybe Text),
-    _bsBackupName :: !(Maybe Text),
-    _bsBackupType :: !(Maybe BackupType),
-    _bsBackupCreationDateTime :: !(Maybe POSIX),
-    _bsTableARN :: !(Maybe Text),
-    _bsTableId :: !(Maybe Text),
-    _bsBackupARN :: !(Maybe Text),
-    _bsBackupExpiryDateTime :: !(Maybe POSIX),
-    _bsBackupSizeBytes :: !(Maybe Nat),
-    _bsBackupStatus :: !(Maybe BackupStatus)
+  { -- | Name of the table.
+    tableName :: Prelude.Maybe Prelude.Text,
+    -- | Name of the specified backup.
+    backupName :: Prelude.Maybe Prelude.Text,
+    -- | BackupType:
+    --
+    -- -   @USER@ - You create and manage these using the on-demand backup
+    --     feature.
+    --
+    -- -   @SYSTEM@ - If you delete a table with point-in-time recovery
+    --     enabled, a @SYSTEM@ backup is automatically created and is retained
+    --     for 35 days (at no additional cost). System backups allow you to
+    --     restore the deleted table to the state it was in just before the
+    --     point of deletion.
+    --
+    -- -   @AWS_BACKUP@ - On-demand backup created by you from AWS Backup
+    --     service.
+    backupType :: Prelude.Maybe BackupType,
+    -- | Time at which the backup was created.
+    backupCreationDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | ARN associated with the table.
+    tableArn :: Prelude.Maybe Prelude.Text,
+    -- | Unique identifier for the table.
+    tableId :: Prelude.Maybe Prelude.Text,
+    -- | ARN associated with the backup.
+    backupArn :: Prelude.Maybe Prelude.Text,
+    -- | Time at which the automatic on-demand backup created by DynamoDB will
+    -- expire. This @SYSTEM@ on-demand backup expires automatically 35 days
+    -- after its creation.
+    backupExpiryDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Size of the backup in bytes.
+    backupSizeBytes :: Prelude.Maybe Prelude.Nat,
+    -- | Backup can be in one of the following states: CREATING, ACTIVE, DELETED.
+    backupStatus :: Prelude.Maybe BackupStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BackupSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BackupSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsTableName' - Name of the table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bsBackupName' - Name of the specified backup.
+-- 'tableName', 'backupSummary_tableName' - Name of the table.
 --
--- * 'bsBackupType' - BackupType:     * @USER@ - You create and manage these using the on-demand backup feature.     * @SYSTEM@ - If you delete a table with point-in-time recovery enabled, a @SYSTEM@ backup is automatically created and is retained for 35 days (at no additional cost). System backups allow you to restore the deleted table to the state it was in just before the point of deletion.      * @AWS_BACKUP@ - On-demand backup created by you from AWS Backup service.
+-- 'backupName', 'backupSummary_backupName' - Name of the specified backup.
 --
--- * 'bsBackupCreationDateTime' - Time at which the backup was created.
+-- 'backupType', 'backupSummary_backupType' - BackupType:
 --
--- * 'bsTableARN' - ARN associated with the table.
+-- -   @USER@ - You create and manage these using the on-demand backup
+--     feature.
 --
--- * 'bsTableId' - Unique identifier for the table.
+-- -   @SYSTEM@ - If you delete a table with point-in-time recovery
+--     enabled, a @SYSTEM@ backup is automatically created and is retained
+--     for 35 days (at no additional cost). System backups allow you to
+--     restore the deleted table to the state it was in just before the
+--     point of deletion.
 --
--- * 'bsBackupARN' - ARN associated with the backup.
+-- -   @AWS_BACKUP@ - On-demand backup created by you from AWS Backup
+--     service.
 --
--- * 'bsBackupExpiryDateTime' - Time at which the automatic on-demand backup created by DynamoDB will expire. This @SYSTEM@ on-demand backup expires automatically 35 days after its creation.
+-- 'backupCreationDateTime', 'backupSummary_backupCreationDateTime' - Time at which the backup was created.
 --
--- * 'bsBackupSizeBytes' - Size of the backup in bytes.
+-- 'tableArn', 'backupSummary_tableArn' - ARN associated with the table.
 --
--- * 'bsBackupStatus' - Backup can be in one of the following states: CREATING, ACTIVE, DELETED.
-backupSummary ::
+-- 'tableId', 'backupSummary_tableId' - Unique identifier for the table.
+--
+-- 'backupArn', 'backupSummary_backupArn' - ARN associated with the backup.
+--
+-- 'backupExpiryDateTime', 'backupSummary_backupExpiryDateTime' - Time at which the automatic on-demand backup created by DynamoDB will
+-- expire. This @SYSTEM@ on-demand backup expires automatically 35 days
+-- after its creation.
+--
+-- 'backupSizeBytes', 'backupSummary_backupSizeBytes' - Size of the backup in bytes.
+--
+-- 'backupStatus', 'backupSummary_backupStatus' - Backup can be in one of the following states: CREATING, ACTIVE, DELETED.
+newBackupSummary ::
   BackupSummary
-backupSummary =
+newBackupSummary =
   BackupSummary'
-    { _bsTableName = Nothing,
-      _bsBackupName = Nothing,
-      _bsBackupType = Nothing,
-      _bsBackupCreationDateTime = Nothing,
-      _bsTableARN = Nothing,
-      _bsTableId = Nothing,
-      _bsBackupARN = Nothing,
-      _bsBackupExpiryDateTime = Nothing,
-      _bsBackupSizeBytes = Nothing,
-      _bsBackupStatus = Nothing
+    { tableName = Prelude.Nothing,
+      backupName = Prelude.Nothing,
+      backupType = Prelude.Nothing,
+      backupCreationDateTime = Prelude.Nothing,
+      tableArn = Prelude.Nothing,
+      tableId = Prelude.Nothing,
+      backupArn = Prelude.Nothing,
+      backupExpiryDateTime = Prelude.Nothing,
+      backupSizeBytes = Prelude.Nothing,
+      backupStatus = Prelude.Nothing
     }
 
 -- | Name of the table.
-bsTableName :: Lens' BackupSummary (Maybe Text)
-bsTableName = lens _bsTableName (\s a -> s {_bsTableName = a})
+backupSummary_tableName :: Lens.Lens' BackupSummary (Prelude.Maybe Prelude.Text)
+backupSummary_tableName = Lens.lens (\BackupSummary' {tableName} -> tableName) (\s@BackupSummary' {} a -> s {tableName = a} :: BackupSummary)
 
 -- | Name of the specified backup.
-bsBackupName :: Lens' BackupSummary (Maybe Text)
-bsBackupName = lens _bsBackupName (\s a -> s {_bsBackupName = a})
+backupSummary_backupName :: Lens.Lens' BackupSummary (Prelude.Maybe Prelude.Text)
+backupSummary_backupName = Lens.lens (\BackupSummary' {backupName} -> backupName) (\s@BackupSummary' {} a -> s {backupName = a} :: BackupSummary)
 
--- | BackupType:     * @USER@ - You create and manage these using the on-demand backup feature.     * @SYSTEM@ - If you delete a table with point-in-time recovery enabled, a @SYSTEM@ backup is automatically created and is retained for 35 days (at no additional cost). System backups allow you to restore the deleted table to the state it was in just before the point of deletion.      * @AWS_BACKUP@ - On-demand backup created by you from AWS Backup service.
-bsBackupType :: Lens' BackupSummary (Maybe BackupType)
-bsBackupType = lens _bsBackupType (\s a -> s {_bsBackupType = a})
+-- | BackupType:
+--
+-- -   @USER@ - You create and manage these using the on-demand backup
+--     feature.
+--
+-- -   @SYSTEM@ - If you delete a table with point-in-time recovery
+--     enabled, a @SYSTEM@ backup is automatically created and is retained
+--     for 35 days (at no additional cost). System backups allow you to
+--     restore the deleted table to the state it was in just before the
+--     point of deletion.
+--
+-- -   @AWS_BACKUP@ - On-demand backup created by you from AWS Backup
+--     service.
+backupSummary_backupType :: Lens.Lens' BackupSummary (Prelude.Maybe BackupType)
+backupSummary_backupType = Lens.lens (\BackupSummary' {backupType} -> backupType) (\s@BackupSummary' {} a -> s {backupType = a} :: BackupSummary)
 
 -- | Time at which the backup was created.
-bsBackupCreationDateTime :: Lens' BackupSummary (Maybe UTCTime)
-bsBackupCreationDateTime = lens _bsBackupCreationDateTime (\s a -> s {_bsBackupCreationDateTime = a}) . mapping _Time
+backupSummary_backupCreationDateTime :: Lens.Lens' BackupSummary (Prelude.Maybe Prelude.UTCTime)
+backupSummary_backupCreationDateTime = Lens.lens (\BackupSummary' {backupCreationDateTime} -> backupCreationDateTime) (\s@BackupSummary' {} a -> s {backupCreationDateTime = a} :: BackupSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | ARN associated with the table.
-bsTableARN :: Lens' BackupSummary (Maybe Text)
-bsTableARN = lens _bsTableARN (\s a -> s {_bsTableARN = a})
+backupSummary_tableArn :: Lens.Lens' BackupSummary (Prelude.Maybe Prelude.Text)
+backupSummary_tableArn = Lens.lens (\BackupSummary' {tableArn} -> tableArn) (\s@BackupSummary' {} a -> s {tableArn = a} :: BackupSummary)
 
 -- | Unique identifier for the table.
-bsTableId :: Lens' BackupSummary (Maybe Text)
-bsTableId = lens _bsTableId (\s a -> s {_bsTableId = a})
+backupSummary_tableId :: Lens.Lens' BackupSummary (Prelude.Maybe Prelude.Text)
+backupSummary_tableId = Lens.lens (\BackupSummary' {tableId} -> tableId) (\s@BackupSummary' {} a -> s {tableId = a} :: BackupSummary)
 
 -- | ARN associated with the backup.
-bsBackupARN :: Lens' BackupSummary (Maybe Text)
-bsBackupARN = lens _bsBackupARN (\s a -> s {_bsBackupARN = a})
+backupSummary_backupArn :: Lens.Lens' BackupSummary (Prelude.Maybe Prelude.Text)
+backupSummary_backupArn = Lens.lens (\BackupSummary' {backupArn} -> backupArn) (\s@BackupSummary' {} a -> s {backupArn = a} :: BackupSummary)
 
--- | Time at which the automatic on-demand backup created by DynamoDB will expire. This @SYSTEM@ on-demand backup expires automatically 35 days after its creation.
-bsBackupExpiryDateTime :: Lens' BackupSummary (Maybe UTCTime)
-bsBackupExpiryDateTime = lens _bsBackupExpiryDateTime (\s a -> s {_bsBackupExpiryDateTime = a}) . mapping _Time
+-- | Time at which the automatic on-demand backup created by DynamoDB will
+-- expire. This @SYSTEM@ on-demand backup expires automatically 35 days
+-- after its creation.
+backupSummary_backupExpiryDateTime :: Lens.Lens' BackupSummary (Prelude.Maybe Prelude.UTCTime)
+backupSummary_backupExpiryDateTime = Lens.lens (\BackupSummary' {backupExpiryDateTime} -> backupExpiryDateTime) (\s@BackupSummary' {} a -> s {backupExpiryDateTime = a} :: BackupSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Size of the backup in bytes.
-bsBackupSizeBytes :: Lens' BackupSummary (Maybe Natural)
-bsBackupSizeBytes = lens _bsBackupSizeBytes (\s a -> s {_bsBackupSizeBytes = a}) . mapping _Nat
+backupSummary_backupSizeBytes :: Lens.Lens' BackupSummary (Prelude.Maybe Prelude.Natural)
+backupSummary_backupSizeBytes = Lens.lens (\BackupSummary' {backupSizeBytes} -> backupSizeBytes) (\s@BackupSummary' {} a -> s {backupSizeBytes = a} :: BackupSummary) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Backup can be in one of the following states: CREATING, ACTIVE, DELETED.
-bsBackupStatus :: Lens' BackupSummary (Maybe BackupStatus)
-bsBackupStatus = lens _bsBackupStatus (\s a -> s {_bsBackupStatus = a})
+backupSummary_backupStatus :: Lens.Lens' BackupSummary (Prelude.Maybe BackupStatus)
+backupSummary_backupStatus = Lens.lens (\BackupSummary' {backupStatus} -> backupStatus) (\s@BackupSummary' {} a -> s {backupStatus = a} :: BackupSummary)
 
-instance FromJSON BackupSummary where
+instance Prelude.FromJSON BackupSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BackupSummary"
       ( \x ->
           BackupSummary'
-            <$> (x .:? "TableName")
-            <*> (x .:? "BackupName")
-            <*> (x .:? "BackupType")
-            <*> (x .:? "BackupCreationDateTime")
-            <*> (x .:? "TableArn")
-            <*> (x .:? "TableId")
-            <*> (x .:? "BackupArn")
-            <*> (x .:? "BackupExpiryDateTime")
-            <*> (x .:? "BackupSizeBytes")
-            <*> (x .:? "BackupStatus")
+            Prelude.<$> (x Prelude..:? "TableName")
+            Prelude.<*> (x Prelude..:? "BackupName")
+            Prelude.<*> (x Prelude..:? "BackupType")
+            Prelude.<*> (x Prelude..:? "BackupCreationDateTime")
+            Prelude.<*> (x Prelude..:? "TableArn")
+            Prelude.<*> (x Prelude..:? "TableId")
+            Prelude.<*> (x Prelude..:? "BackupArn")
+            Prelude.<*> (x Prelude..:? "BackupExpiryDateTime")
+            Prelude.<*> (x Prelude..:? "BackupSizeBytes")
+            Prelude.<*> (x Prelude..:? "BackupStatus")
       )
 
-instance Hashable BackupSummary
+instance Prelude.Hashable BackupSummary
 
-instance NFData BackupSummary
+instance Prelude.NFData BackupSummary

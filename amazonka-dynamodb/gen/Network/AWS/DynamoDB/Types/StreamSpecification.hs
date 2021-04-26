@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,116 @@
 module Network.AWS.DynamoDB.Types.StreamSpecification where
 
 import Network.AWS.DynamoDB.Types.StreamViewType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the DynamoDB Streams configuration for a table in DynamoDB.
 --
---
---
--- /See:/ 'streamSpecification' smart constructor.
+-- /See:/ 'newStreamSpecification' smart constructor.
 data StreamSpecification = StreamSpecification'
-  { _ssStreamViewType ::
-      !(Maybe StreamViewType),
-    _ssStreamEnabled :: !Bool
+  { -- | When an item in the table is modified, @StreamViewType@ determines what
+    -- information is written to the stream for this table. Valid values for
+    -- @StreamViewType@ are:
+    --
+    -- -   @KEYS_ONLY@ - Only the key attributes of the modified item are
+    --     written to the stream.
+    --
+    -- -   @NEW_IMAGE@ - The entire item, as it appears after it was modified,
+    --     is written to the stream.
+    --
+    -- -   @OLD_IMAGE@ - The entire item, as it appeared before it was
+    --     modified, is written to the stream.
+    --
+    -- -   @NEW_AND_OLD_IMAGES@ - Both the new and the old item images of the
+    --     item are written to the stream.
+    streamViewType :: Prelude.Maybe StreamViewType,
+    -- | Indicates whether DynamoDB Streams is enabled (true) or disabled (false)
+    -- on the table.
+    streamEnabled :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StreamSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StreamSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssStreamViewType' - When an item in the table is modified, @StreamViewType@ determines what information is written to the stream for this table. Valid values for @StreamViewType@ are:     * @KEYS_ONLY@ - Only the key attributes of the modified item are written to the stream.     * @NEW_IMAGE@ - The entire item, as it appears after it was modified, is written to the stream.     * @OLD_IMAGE@ - The entire item, as it appeared before it was modified, is written to the stream.     * @NEW_AND_OLD_IMAGES@ - Both the new and the old item images of the item are written to the stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssStreamEnabled' - Indicates whether DynamoDB Streams is enabled (true) or disabled (false) on the table.
-streamSpecification ::
-  -- | 'ssStreamEnabled'
-  Bool ->
+-- 'streamViewType', 'streamSpecification_streamViewType' - When an item in the table is modified, @StreamViewType@ determines what
+-- information is written to the stream for this table. Valid values for
+-- @StreamViewType@ are:
+--
+-- -   @KEYS_ONLY@ - Only the key attributes of the modified item are
+--     written to the stream.
+--
+-- -   @NEW_IMAGE@ - The entire item, as it appears after it was modified,
+--     is written to the stream.
+--
+-- -   @OLD_IMAGE@ - The entire item, as it appeared before it was
+--     modified, is written to the stream.
+--
+-- -   @NEW_AND_OLD_IMAGES@ - Both the new and the old item images of the
+--     item are written to the stream.
+--
+-- 'streamEnabled', 'streamSpecification_streamEnabled' - Indicates whether DynamoDB Streams is enabled (true) or disabled (false)
+-- on the table.
+newStreamSpecification ::
+  -- | 'streamEnabled'
+  Prelude.Bool ->
   StreamSpecification
-streamSpecification pStreamEnabled_ =
+newStreamSpecification pStreamEnabled_ =
   StreamSpecification'
-    { _ssStreamViewType = Nothing,
-      _ssStreamEnabled = pStreamEnabled_
+    { streamViewType =
+        Prelude.Nothing,
+      streamEnabled = pStreamEnabled_
     }
 
--- | When an item in the table is modified, @StreamViewType@ determines what information is written to the stream for this table. Valid values for @StreamViewType@ are:     * @KEYS_ONLY@ - Only the key attributes of the modified item are written to the stream.     * @NEW_IMAGE@ - The entire item, as it appears after it was modified, is written to the stream.     * @OLD_IMAGE@ - The entire item, as it appeared before it was modified, is written to the stream.     * @NEW_AND_OLD_IMAGES@ - Both the new and the old item images of the item are written to the stream.
-ssStreamViewType :: Lens' StreamSpecification (Maybe StreamViewType)
-ssStreamViewType = lens _ssStreamViewType (\s a -> s {_ssStreamViewType = a})
+-- | When an item in the table is modified, @StreamViewType@ determines what
+-- information is written to the stream for this table. Valid values for
+-- @StreamViewType@ are:
+--
+-- -   @KEYS_ONLY@ - Only the key attributes of the modified item are
+--     written to the stream.
+--
+-- -   @NEW_IMAGE@ - The entire item, as it appears after it was modified,
+--     is written to the stream.
+--
+-- -   @OLD_IMAGE@ - The entire item, as it appeared before it was
+--     modified, is written to the stream.
+--
+-- -   @NEW_AND_OLD_IMAGES@ - Both the new and the old item images of the
+--     item are written to the stream.
+streamSpecification_streamViewType :: Lens.Lens' StreamSpecification (Prelude.Maybe StreamViewType)
+streamSpecification_streamViewType = Lens.lens (\StreamSpecification' {streamViewType} -> streamViewType) (\s@StreamSpecification' {} a -> s {streamViewType = a} :: StreamSpecification)
 
--- | Indicates whether DynamoDB Streams is enabled (true) or disabled (false) on the table.
-ssStreamEnabled :: Lens' StreamSpecification Bool
-ssStreamEnabled = lens _ssStreamEnabled (\s a -> s {_ssStreamEnabled = a})
+-- | Indicates whether DynamoDB Streams is enabled (true) or disabled (false)
+-- on the table.
+streamSpecification_streamEnabled :: Lens.Lens' StreamSpecification Prelude.Bool
+streamSpecification_streamEnabled = Lens.lens (\StreamSpecification' {streamEnabled} -> streamEnabled) (\s@StreamSpecification' {} a -> s {streamEnabled = a} :: StreamSpecification)
 
-instance FromJSON StreamSpecification where
+instance Prelude.FromJSON StreamSpecification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StreamSpecification"
       ( \x ->
           StreamSpecification'
-            <$> (x .:? "StreamViewType") <*> (x .: "StreamEnabled")
+            Prelude.<$> (x Prelude..:? "StreamViewType")
+            Prelude.<*> (x Prelude..: "StreamEnabled")
       )
 
-instance Hashable StreamSpecification
+instance Prelude.Hashable StreamSpecification
 
-instance NFData StreamSpecification
+instance Prelude.NFData StreamSpecification
 
-instance ToJSON StreamSpecification where
+instance Prelude.ToJSON StreamSpecification where
   toJSON StreamSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("StreamViewType" .=) <$> _ssStreamViewType,
-            Just ("StreamEnabled" .= _ssStreamEnabled)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StreamViewType" Prelude..=)
+              Prelude.<$> streamViewType,
+            Prelude.Just
+              ("StreamEnabled" Prelude..= streamEnabled)
           ]
       )

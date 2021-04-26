@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,153 +23,276 @@ import Network.AWS.DynamoDB.Types.IndexStatus
 import Network.AWS.DynamoDB.Types.KeySchemaElement
 import Network.AWS.DynamoDB.Types.Projection
 import Network.AWS.DynamoDB.Types.ProvisionedThroughputDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the properties of a global secondary index.
 --
---
---
--- /See:/ 'globalSecondaryIndexDescription' smart constructor.
+-- /See:/ 'newGlobalSecondaryIndexDescription' smart constructor.
 data GlobalSecondaryIndexDescription = GlobalSecondaryIndexDescription'
-  { _gsidIndexName ::
-      !( Maybe
-           Text
-       ),
-    _gsidKeySchema ::
-      !( Maybe
-           ( List1
-               KeySchemaElement
-           )
-       ),
-    _gsidIndexARN ::
-      !( Maybe
-           Text
-       ),
-    _gsidProjection ::
-      !( Maybe
-           Projection
-       ),
-    _gsidIndexSizeBytes ::
-      !( Maybe
-           Integer
-       ),
-    _gsidBackfilling ::
-      !( Maybe
-           Bool
-       ),
-    _gsidItemCount ::
-      !( Maybe
-           Integer
-       ),
-    _gsidProvisionedThroughput ::
-      !( Maybe
-           ProvisionedThroughputDescription
-       ),
-    _gsidIndexStatus ::
-      !( Maybe
-           IndexStatus
-       )
+  { -- | The name of the global secondary index.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | The complete key schema for a global secondary index, which consists of
+    -- one or more pairs of attribute names and key types:
+    --
+    -- -   @HASH@ - partition key
+    --
+    -- -   @RANGE@ - sort key
+    --
+    -- The partition key of an item is also known as its /hash attribute/. The
+    -- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+    -- hash function to evenly distribute data items across partitions, based
+    -- on their partition key values.
+    --
+    -- The sort key of an item is also known as its /range attribute/. The term
+    -- \"range attribute\" derives from the way DynamoDB stores items with the
+    -- same partition key physically close together, in sorted order by the
+    -- sort key value.
+    keySchema :: Prelude.Maybe (Prelude.List1 KeySchemaElement),
+    -- | The Amazon Resource Name (ARN) that uniquely identifies the index.
+    indexArn :: Prelude.Maybe Prelude.Text,
+    -- | Represents attributes that are copied (projected) from the table into
+    -- the global secondary index. These are in addition to the primary key
+    -- attributes and index key attributes, which are automatically projected.
+    projection :: Prelude.Maybe Projection,
+    -- | The total size of the specified index, in bytes. DynamoDB updates this
+    -- value approximately every six hours. Recent changes might not be
+    -- reflected in this value.
+    indexSizeBytes :: Prelude.Maybe Prelude.Integer,
+    -- | Indicates whether the index is currently backfilling. /Backfilling/ is
+    -- the process of reading items from the table and determining whether they
+    -- can be added to the index. (Not all items will qualify: For example, a
+    -- partition key cannot have any duplicate values.) If an item can be added
+    -- to the index, DynamoDB will do so. After all items have been processed,
+    -- the backfilling operation is complete and @Backfilling@ is false.
+    --
+    -- You can delete an index that is being created during the @Backfilling@
+    -- phase when @IndexStatus@ is set to CREATING and @Backfilling@ is true.
+    -- You can\'t delete the index that is being created when @IndexStatus@ is
+    -- set to CREATING and @Backfilling@ is false.
+    --
+    -- For indexes that were created during a @CreateTable@ operation, the
+    -- @Backfilling@ attribute does not appear in the @DescribeTable@ output.
+    backfilling :: Prelude.Maybe Prelude.Bool,
+    -- | The number of items in the specified index. DynamoDB updates this value
+    -- approximately every six hours. Recent changes might not be reflected in
+    -- this value.
+    itemCount :: Prelude.Maybe Prelude.Integer,
+    -- | Represents the provisioned throughput settings for the specified global
+    -- secondary index.
+    --
+    -- For current minimum and maximum provisioned throughput values, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    provisionedThroughput :: Prelude.Maybe ProvisionedThroughputDescription,
+    -- | The current state of the global secondary index:
+    --
+    -- -   @CREATING@ - The index is being created.
+    --
+    -- -   @UPDATING@ - The index is being updated.
+    --
+    -- -   @DELETING@ - The index is being deleted.
+    --
+    -- -   @ACTIVE@ - The index is ready for use.
+    indexStatus :: Prelude.Maybe IndexStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GlobalSecondaryIndexDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GlobalSecondaryIndexDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsidIndexName' - The name of the global secondary index.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsidKeySchema' - The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key types:     * @HASH@ - partition key     * @RANGE@ - sort key
+-- 'indexName', 'globalSecondaryIndexDescription_indexName' - The name of the global secondary index.
 --
--- * 'gsidIndexARN' - The Amazon Resource Name (ARN) that uniquely identifies the index.
+-- 'keySchema', 'globalSecondaryIndexDescription_keySchema' - The complete key schema for a global secondary index, which consists of
+-- one or more pairs of attribute names and key types:
 --
--- * 'gsidProjection' - Represents attributes that are copied (projected) from the table into the global secondary index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
+-- -   @HASH@ - partition key
 --
--- * 'gsidIndexSizeBytes' - The total size of the specified index, in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
+-- -   @RANGE@ - sort key
 --
--- * 'gsidBackfilling' - Indicates whether the index is currently backfilling. /Backfilling/ is the process of reading items from the table and determining whether they can be added to the index. (Not all items will qualify: For example, a partition key cannot have any duplicate values.) If an item can be added to the index, DynamoDB will do so. After all items have been processed, the backfilling operation is complete and @Backfilling@ is false. You can delete an index that is being created during the @Backfilling@ phase when @IndexStatus@ is set to CREATING and @Backfilling@ is true. You can't delete the index that is being created when @IndexStatus@ is set to CREATING and @Backfilling@ is false.
+-- The partition key of an item is also known as its /hash attribute/. The
+-- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+-- hash function to evenly distribute data items across partitions, based
+-- on their partition key values.
 --
--- * 'gsidItemCount' - The number of items in the specified index. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
+-- The sort key of an item is also known as its /range attribute/. The term
+-- \"range attribute\" derives from the way DynamoDB stores items with the
+-- same partition key physically close together, in sorted order by the
+-- sort key value.
 --
--- * 'gsidProvisionedThroughput' - Represents the provisioned throughput settings for the specified global secondary index. For current minimum and maximum provisioned throughput values, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas> in the /Amazon DynamoDB Developer Guide/ .
+-- 'indexArn', 'globalSecondaryIndexDescription_indexArn' - The Amazon Resource Name (ARN) that uniquely identifies the index.
 --
--- * 'gsidIndexStatus' - The current state of the global secondary index:     * @CREATING@ - The index is being created.     * @UPDATING@ - The index is being updated.     * @DELETING@ - The index is being deleted.     * @ACTIVE@ - The index is ready for use.
-globalSecondaryIndexDescription ::
+-- 'projection', 'globalSecondaryIndexDescription_projection' - Represents attributes that are copied (projected) from the table into
+-- the global secondary index. These are in addition to the primary key
+-- attributes and index key attributes, which are automatically projected.
+--
+-- 'indexSizeBytes', 'globalSecondaryIndexDescription_indexSizeBytes' - The total size of the specified index, in bytes. DynamoDB updates this
+-- value approximately every six hours. Recent changes might not be
+-- reflected in this value.
+--
+-- 'backfilling', 'globalSecondaryIndexDescription_backfilling' - Indicates whether the index is currently backfilling. /Backfilling/ is
+-- the process of reading items from the table and determining whether they
+-- can be added to the index. (Not all items will qualify: For example, a
+-- partition key cannot have any duplicate values.) If an item can be added
+-- to the index, DynamoDB will do so. After all items have been processed,
+-- the backfilling operation is complete and @Backfilling@ is false.
+--
+-- You can delete an index that is being created during the @Backfilling@
+-- phase when @IndexStatus@ is set to CREATING and @Backfilling@ is true.
+-- You can\'t delete the index that is being created when @IndexStatus@ is
+-- set to CREATING and @Backfilling@ is false.
+--
+-- For indexes that were created during a @CreateTable@ operation, the
+-- @Backfilling@ attribute does not appear in the @DescribeTable@ output.
+--
+-- 'itemCount', 'globalSecondaryIndexDescription_itemCount' - The number of items in the specified index. DynamoDB updates this value
+-- approximately every six hours. Recent changes might not be reflected in
+-- this value.
+--
+-- 'provisionedThroughput', 'globalSecondaryIndexDescription_provisionedThroughput' - Represents the provisioned throughput settings for the specified global
+-- secondary index.
+--
+-- For current minimum and maximum provisioned throughput values, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'indexStatus', 'globalSecondaryIndexDescription_indexStatus' - The current state of the global secondary index:
+--
+-- -   @CREATING@ - The index is being created.
+--
+-- -   @UPDATING@ - The index is being updated.
+--
+-- -   @DELETING@ - The index is being deleted.
+--
+-- -   @ACTIVE@ - The index is ready for use.
+newGlobalSecondaryIndexDescription ::
   GlobalSecondaryIndexDescription
-globalSecondaryIndexDescription =
+newGlobalSecondaryIndexDescription =
   GlobalSecondaryIndexDescription'
-    { _gsidIndexName =
-        Nothing,
-      _gsidKeySchema = Nothing,
-      _gsidIndexARN = Nothing,
-      _gsidProjection = Nothing,
-      _gsidIndexSizeBytes = Nothing,
-      _gsidBackfilling = Nothing,
-      _gsidItemCount = Nothing,
-      _gsidProvisionedThroughput = Nothing,
-      _gsidIndexStatus = Nothing
+    { indexName =
+        Prelude.Nothing,
+      keySchema = Prelude.Nothing,
+      indexArn = Prelude.Nothing,
+      projection = Prelude.Nothing,
+      indexSizeBytes = Prelude.Nothing,
+      backfilling = Prelude.Nothing,
+      itemCount = Prelude.Nothing,
+      provisionedThroughput = Prelude.Nothing,
+      indexStatus = Prelude.Nothing
     }
 
 -- | The name of the global secondary index.
-gsidIndexName :: Lens' GlobalSecondaryIndexDescription (Maybe Text)
-gsidIndexName = lens _gsidIndexName (\s a -> s {_gsidIndexName = a})
+globalSecondaryIndexDescription_indexName :: Lens.Lens' GlobalSecondaryIndexDescription (Prelude.Maybe Prelude.Text)
+globalSecondaryIndexDescription_indexName = Lens.lens (\GlobalSecondaryIndexDescription' {indexName} -> indexName) (\s@GlobalSecondaryIndexDescription' {} a -> s {indexName = a} :: GlobalSecondaryIndexDescription)
 
--- | The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key types:     * @HASH@ - partition key     * @RANGE@ - sort key
-gsidKeySchema :: Lens' GlobalSecondaryIndexDescription (Maybe (NonEmpty KeySchemaElement))
-gsidKeySchema = lens _gsidKeySchema (\s a -> s {_gsidKeySchema = a}) . mapping _List1
+-- | The complete key schema for a global secondary index, which consists of
+-- one or more pairs of attribute names and key types:
+--
+-- -   @HASH@ - partition key
+--
+-- -   @RANGE@ - sort key
+--
+-- The partition key of an item is also known as its /hash attribute/. The
+-- term \"hash attribute\" derives from DynamoDB\'s usage of an internal
+-- hash function to evenly distribute data items across partitions, based
+-- on their partition key values.
+--
+-- The sort key of an item is also known as its /range attribute/. The term
+-- \"range attribute\" derives from the way DynamoDB stores items with the
+-- same partition key physically close together, in sorted order by the
+-- sort key value.
+globalSecondaryIndexDescription_keySchema :: Lens.Lens' GlobalSecondaryIndexDescription (Prelude.Maybe (Prelude.NonEmpty KeySchemaElement))
+globalSecondaryIndexDescription_keySchema = Lens.lens (\GlobalSecondaryIndexDescription' {keySchema} -> keySchema) (\s@GlobalSecondaryIndexDescription' {} a -> s {keySchema = a} :: GlobalSecondaryIndexDescription) Prelude.. Lens.mapping Prelude._List1
 
 -- | The Amazon Resource Name (ARN) that uniquely identifies the index.
-gsidIndexARN :: Lens' GlobalSecondaryIndexDescription (Maybe Text)
-gsidIndexARN = lens _gsidIndexARN (\s a -> s {_gsidIndexARN = a})
+globalSecondaryIndexDescription_indexArn :: Lens.Lens' GlobalSecondaryIndexDescription (Prelude.Maybe Prelude.Text)
+globalSecondaryIndexDescription_indexArn = Lens.lens (\GlobalSecondaryIndexDescription' {indexArn} -> indexArn) (\s@GlobalSecondaryIndexDescription' {} a -> s {indexArn = a} :: GlobalSecondaryIndexDescription)
 
--- | Represents attributes that are copied (projected) from the table into the global secondary index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-gsidProjection :: Lens' GlobalSecondaryIndexDescription (Maybe Projection)
-gsidProjection = lens _gsidProjection (\s a -> s {_gsidProjection = a})
+-- | Represents attributes that are copied (projected) from the table into
+-- the global secondary index. These are in addition to the primary key
+-- attributes and index key attributes, which are automatically projected.
+globalSecondaryIndexDescription_projection :: Lens.Lens' GlobalSecondaryIndexDescription (Prelude.Maybe Projection)
+globalSecondaryIndexDescription_projection = Lens.lens (\GlobalSecondaryIndexDescription' {projection} -> projection) (\s@GlobalSecondaryIndexDescription' {} a -> s {projection = a} :: GlobalSecondaryIndexDescription)
 
--- | The total size of the specified index, in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
-gsidIndexSizeBytes :: Lens' GlobalSecondaryIndexDescription (Maybe Integer)
-gsidIndexSizeBytes = lens _gsidIndexSizeBytes (\s a -> s {_gsidIndexSizeBytes = a})
+-- | The total size of the specified index, in bytes. DynamoDB updates this
+-- value approximately every six hours. Recent changes might not be
+-- reflected in this value.
+globalSecondaryIndexDescription_indexSizeBytes :: Lens.Lens' GlobalSecondaryIndexDescription (Prelude.Maybe Prelude.Integer)
+globalSecondaryIndexDescription_indexSizeBytes = Lens.lens (\GlobalSecondaryIndexDescription' {indexSizeBytes} -> indexSizeBytes) (\s@GlobalSecondaryIndexDescription' {} a -> s {indexSizeBytes = a} :: GlobalSecondaryIndexDescription)
 
--- | Indicates whether the index is currently backfilling. /Backfilling/ is the process of reading items from the table and determining whether they can be added to the index. (Not all items will qualify: For example, a partition key cannot have any duplicate values.) If an item can be added to the index, DynamoDB will do so. After all items have been processed, the backfilling operation is complete and @Backfilling@ is false. You can delete an index that is being created during the @Backfilling@ phase when @IndexStatus@ is set to CREATING and @Backfilling@ is true. You can't delete the index that is being created when @IndexStatus@ is set to CREATING and @Backfilling@ is false.
-gsidBackfilling :: Lens' GlobalSecondaryIndexDescription (Maybe Bool)
-gsidBackfilling = lens _gsidBackfilling (\s a -> s {_gsidBackfilling = a})
+-- | Indicates whether the index is currently backfilling. /Backfilling/ is
+-- the process of reading items from the table and determining whether they
+-- can be added to the index. (Not all items will qualify: For example, a
+-- partition key cannot have any duplicate values.) If an item can be added
+-- to the index, DynamoDB will do so. After all items have been processed,
+-- the backfilling operation is complete and @Backfilling@ is false.
+--
+-- You can delete an index that is being created during the @Backfilling@
+-- phase when @IndexStatus@ is set to CREATING and @Backfilling@ is true.
+-- You can\'t delete the index that is being created when @IndexStatus@ is
+-- set to CREATING and @Backfilling@ is false.
+--
+-- For indexes that were created during a @CreateTable@ operation, the
+-- @Backfilling@ attribute does not appear in the @DescribeTable@ output.
+globalSecondaryIndexDescription_backfilling :: Lens.Lens' GlobalSecondaryIndexDescription (Prelude.Maybe Prelude.Bool)
+globalSecondaryIndexDescription_backfilling = Lens.lens (\GlobalSecondaryIndexDescription' {backfilling} -> backfilling) (\s@GlobalSecondaryIndexDescription' {} a -> s {backfilling = a} :: GlobalSecondaryIndexDescription)
 
--- | The number of items in the specified index. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
-gsidItemCount :: Lens' GlobalSecondaryIndexDescription (Maybe Integer)
-gsidItemCount = lens _gsidItemCount (\s a -> s {_gsidItemCount = a})
+-- | The number of items in the specified index. DynamoDB updates this value
+-- approximately every six hours. Recent changes might not be reflected in
+-- this value.
+globalSecondaryIndexDescription_itemCount :: Lens.Lens' GlobalSecondaryIndexDescription (Prelude.Maybe Prelude.Integer)
+globalSecondaryIndexDescription_itemCount = Lens.lens (\GlobalSecondaryIndexDescription' {itemCount} -> itemCount) (\s@GlobalSecondaryIndexDescription' {} a -> s {itemCount = a} :: GlobalSecondaryIndexDescription)
 
--- | Represents the provisioned throughput settings for the specified global secondary index. For current minimum and maximum provisioned throughput values, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas> in the /Amazon DynamoDB Developer Guide/ .
-gsidProvisionedThroughput :: Lens' GlobalSecondaryIndexDescription (Maybe ProvisionedThroughputDescription)
-gsidProvisionedThroughput = lens _gsidProvisionedThroughput (\s a -> s {_gsidProvisionedThroughput = a})
+-- | Represents the provisioned throughput settings for the specified global
+-- secondary index.
+--
+-- For current minimum and maximum provisioned throughput values, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+-- in the /Amazon DynamoDB Developer Guide/.
+globalSecondaryIndexDescription_provisionedThroughput :: Lens.Lens' GlobalSecondaryIndexDescription (Prelude.Maybe ProvisionedThroughputDescription)
+globalSecondaryIndexDescription_provisionedThroughput = Lens.lens (\GlobalSecondaryIndexDescription' {provisionedThroughput} -> provisionedThroughput) (\s@GlobalSecondaryIndexDescription' {} a -> s {provisionedThroughput = a} :: GlobalSecondaryIndexDescription)
 
--- | The current state of the global secondary index:     * @CREATING@ - The index is being created.     * @UPDATING@ - The index is being updated.     * @DELETING@ - The index is being deleted.     * @ACTIVE@ - The index is ready for use.
-gsidIndexStatus :: Lens' GlobalSecondaryIndexDescription (Maybe IndexStatus)
-gsidIndexStatus = lens _gsidIndexStatus (\s a -> s {_gsidIndexStatus = a})
+-- | The current state of the global secondary index:
+--
+-- -   @CREATING@ - The index is being created.
+--
+-- -   @UPDATING@ - The index is being updated.
+--
+-- -   @DELETING@ - The index is being deleted.
+--
+-- -   @ACTIVE@ - The index is ready for use.
+globalSecondaryIndexDescription_indexStatus :: Lens.Lens' GlobalSecondaryIndexDescription (Prelude.Maybe IndexStatus)
+globalSecondaryIndexDescription_indexStatus = Lens.lens (\GlobalSecondaryIndexDescription' {indexStatus} -> indexStatus) (\s@GlobalSecondaryIndexDescription' {} a -> s {indexStatus = a} :: GlobalSecondaryIndexDescription)
 
-instance FromJSON GlobalSecondaryIndexDescription where
+instance
+  Prelude.FromJSON
+    GlobalSecondaryIndexDescription
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GlobalSecondaryIndexDescription"
       ( \x ->
           GlobalSecondaryIndexDescription'
-            <$> (x .:? "IndexName")
-            <*> (x .:? "KeySchema")
-            <*> (x .:? "IndexArn")
-            <*> (x .:? "Projection")
-            <*> (x .:? "IndexSizeBytes")
-            <*> (x .:? "Backfilling")
-            <*> (x .:? "ItemCount")
-            <*> (x .:? "ProvisionedThroughput")
-            <*> (x .:? "IndexStatus")
+            Prelude.<$> (x Prelude..:? "IndexName")
+            Prelude.<*> (x Prelude..:? "KeySchema")
+            Prelude.<*> (x Prelude..:? "IndexArn")
+            Prelude.<*> (x Prelude..:? "Projection")
+            Prelude.<*> (x Prelude..:? "IndexSizeBytes")
+            Prelude.<*> (x Prelude..:? "Backfilling")
+            Prelude.<*> (x Prelude..:? "ItemCount")
+            Prelude.<*> (x Prelude..:? "ProvisionedThroughput")
+            Prelude.<*> (x Prelude..:? "IndexStatus")
       )
 
-instance Hashable GlobalSecondaryIndexDescription
+instance
+  Prelude.Hashable
+    GlobalSecondaryIndexDescription
 
-instance NFData GlobalSecondaryIndexDescription
+instance
+  Prelude.NFData
+    GlobalSecondaryIndexDescription

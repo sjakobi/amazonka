@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,209 +22,260 @@ module Network.AWS.DynamoDB.Types.ExportDescription where
 import Network.AWS.DynamoDB.Types.ExportFormat
 import Network.AWS.DynamoDB.Types.ExportStatus
 import Network.AWS.DynamoDB.Types.S3SseAlgorithm
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the properties of the exported table.
 --
---
---
--- /See:/ 'exportDescription' smart constructor.
+-- /See:/ 'newExportDescription' smart constructor.
 data ExportDescription = ExportDescription'
-  { _edExportFormat ::
-      !(Maybe ExportFormat),
-    _edExportTime :: !(Maybe POSIX),
-    _edBilledSizeBytes :: !(Maybe Nat),
-    _edS3Bucket :: !(Maybe Text),
-    _edTableARN :: !(Maybe Text),
-    _edTableId :: !(Maybe Text),
-    _edFailureMessage :: !(Maybe Text),
-    _edExportStatus ::
-      !(Maybe ExportStatus),
-    _edStartTime :: !(Maybe POSIX),
-    _edFailureCode :: !(Maybe Text),
-    _edEndTime :: !(Maybe POSIX),
-    _edS3BucketOwner :: !(Maybe Text),
-    _edExportARN :: !(Maybe Text),
-    _edItemCount :: !(Maybe Nat),
-    _edExportManifest :: !(Maybe Text),
-    _edS3Prefix :: !(Maybe Text),
-    _edS3SseKMSKeyId :: !(Maybe Text),
-    _edClientToken :: !(Maybe Text),
-    _edS3SseAlgorithm ::
-      !(Maybe S3SseAlgorithm)
+  { -- | The format of the exported data. Valid values for @ExportFormat@ are
+    -- @DYNAMODB_JSON@ or @ION@.
+    exportFormat :: Prelude.Maybe ExportFormat,
+    -- | Point in time from which table data was exported.
+    exportTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The billable size of the table export.
+    billedSizeBytes :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the Amazon S3 bucket containing the export.
+    s3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the table that was exported.
+    tableArn :: Prelude.Maybe Prelude.Text,
+    -- | Unique ID of the table that was exported.
+    tableId :: Prelude.Maybe Prelude.Text,
+    -- | Export failure reason description.
+    failureMessage :: Prelude.Maybe Prelude.Text,
+    -- | Export can be in one of the following states: IN_PROGRESS, COMPLETED, or
+    -- FAILED.
+    exportStatus :: Prelude.Maybe ExportStatus,
+    -- | The time at which the export task began.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Status code for the result of the failed export.
+    failureCode :: Prelude.Maybe Prelude.Text,
+    -- | The time at which the export task completed.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the AWS account that owns the bucket containing the export.
+    s3BucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the table export.
+    exportArn :: Prelude.Maybe Prelude.Text,
+    -- | The number of items exported.
+    itemCount :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the manifest file for the export task.
+    exportManifest :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 bucket prefix used as the file name and path of the
+    -- exported snapshot.
+    s3Prefix :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the AWS KMS managed key used to encrypt the S3 bucket where
+    -- export data is stored (if applicable).
+    s3SseKmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The client token that was provided for the export task. A client token
+    -- makes calls to @ExportTableToPointInTimeInput@ idempotent, meaning that
+    -- multiple identical calls have the same effect as one single call.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | Type of encryption used on the bucket where export data is stored. Valid
+    -- values for @S3SseAlgorithm@ are:
+    --
+    -- -   @AES256@ - server-side encryption with Amazon S3 managed keys
+    --
+    -- -   @KMS@ - server-side encryption with AWS KMS managed keys
+    s3SseAlgorithm :: Prelude.Maybe S3SseAlgorithm
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'edExportFormat' - The format of the exported data. Valid values for @ExportFormat@ are @DYNAMODB_JSON@ or @ION@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'edExportTime' - Point in time from which table data was exported.
+-- 'exportFormat', 'exportDescription_exportFormat' - The format of the exported data. Valid values for @ExportFormat@ are
+-- @DYNAMODB_JSON@ or @ION@.
 --
--- * 'edBilledSizeBytes' - The billable size of the table export.
+-- 'exportTime', 'exportDescription_exportTime' - Point in time from which table data was exported.
 --
--- * 'edS3Bucket' - The name of the Amazon S3 bucket containing the export.
+-- 'billedSizeBytes', 'exportDescription_billedSizeBytes' - The billable size of the table export.
 --
--- * 'edTableARN' - The Amazon Resource Name (ARN) of the table that was exported.
+-- 's3Bucket', 'exportDescription_s3Bucket' - The name of the Amazon S3 bucket containing the export.
 --
--- * 'edTableId' - Unique ID of the table that was exported.
+-- 'tableArn', 'exportDescription_tableArn' - The Amazon Resource Name (ARN) of the table that was exported.
 --
--- * 'edFailureMessage' - Export failure reason description.
+-- 'tableId', 'exportDescription_tableId' - Unique ID of the table that was exported.
 --
--- * 'edExportStatus' - Export can be in one of the following states: IN_PROGRESS, COMPLETED, or FAILED.
+-- 'failureMessage', 'exportDescription_failureMessage' - Export failure reason description.
 --
--- * 'edStartTime' - The time at which the export task began.
+-- 'exportStatus', 'exportDescription_exportStatus' - Export can be in one of the following states: IN_PROGRESS, COMPLETED, or
+-- FAILED.
 --
--- * 'edFailureCode' - Status code for the result of the failed export.
+-- 'startTime', 'exportDescription_startTime' - The time at which the export task began.
 --
--- * 'edEndTime' - The time at which the export task completed.
+-- 'failureCode', 'exportDescription_failureCode' - Status code for the result of the failed export.
 --
--- * 'edS3BucketOwner' - The ID of the AWS account that owns the bucket containing the export.
+-- 'endTime', 'exportDescription_endTime' - The time at which the export task completed.
 --
--- * 'edExportARN' - The Amazon Resource Name (ARN) of the table export.
+-- 's3BucketOwner', 'exportDescription_s3BucketOwner' - The ID of the AWS account that owns the bucket containing the export.
 --
--- * 'edItemCount' - The number of items exported.
+-- 'exportArn', 'exportDescription_exportArn' - The Amazon Resource Name (ARN) of the table export.
 --
--- * 'edExportManifest' - The name of the manifest file for the export task.
+-- 'itemCount', 'exportDescription_itemCount' - The number of items exported.
 --
--- * 'edS3Prefix' - The Amazon S3 bucket prefix used as the file name and path of the exported snapshot.
+-- 'exportManifest', 'exportDescription_exportManifest' - The name of the manifest file for the export task.
 --
--- * 'edS3SseKMSKeyId' - The ID of the AWS KMS managed key used to encrypt the S3 bucket where export data is stored (if applicable).
+-- 's3Prefix', 'exportDescription_s3Prefix' - The Amazon S3 bucket prefix used as the file name and path of the
+-- exported snapshot.
 --
--- * 'edClientToken' - The client token that was provided for the export task. A client token makes calls to @ExportTableToPointInTimeInput@ idempotent, meaning that multiple identical calls have the same effect as one single call.
+-- 's3SseKmsKeyId', 'exportDescription_s3SseKmsKeyId' - The ID of the AWS KMS managed key used to encrypt the S3 bucket where
+-- export data is stored (if applicable).
 --
--- * 'edS3SseAlgorithm' - Type of encryption used on the bucket where export data is stored. Valid values for @S3SseAlgorithm@ are:     * @AES256@ - server-side encryption with Amazon S3 managed keys     * @KMS@ - server-side encryption with AWS KMS managed keys
-exportDescription ::
+-- 'clientToken', 'exportDescription_clientToken' - The client token that was provided for the export task. A client token
+-- makes calls to @ExportTableToPointInTimeInput@ idempotent, meaning that
+-- multiple identical calls have the same effect as one single call.
+--
+-- 's3SseAlgorithm', 'exportDescription_s3SseAlgorithm' - Type of encryption used on the bucket where export data is stored. Valid
+-- values for @S3SseAlgorithm@ are:
+--
+-- -   @AES256@ - server-side encryption with Amazon S3 managed keys
+--
+-- -   @KMS@ - server-side encryption with AWS KMS managed keys
+newExportDescription ::
   ExportDescription
-exportDescription =
+newExportDescription =
   ExportDescription'
-    { _edExportFormat = Nothing,
-      _edExportTime = Nothing,
-      _edBilledSizeBytes = Nothing,
-      _edS3Bucket = Nothing,
-      _edTableARN = Nothing,
-      _edTableId = Nothing,
-      _edFailureMessage = Nothing,
-      _edExportStatus = Nothing,
-      _edStartTime = Nothing,
-      _edFailureCode = Nothing,
-      _edEndTime = Nothing,
-      _edS3BucketOwner = Nothing,
-      _edExportARN = Nothing,
-      _edItemCount = Nothing,
-      _edExportManifest = Nothing,
-      _edS3Prefix = Nothing,
-      _edS3SseKMSKeyId = Nothing,
-      _edClientToken = Nothing,
-      _edS3SseAlgorithm = Nothing
+    { exportFormat = Prelude.Nothing,
+      exportTime = Prelude.Nothing,
+      billedSizeBytes = Prelude.Nothing,
+      s3Bucket = Prelude.Nothing,
+      tableArn = Prelude.Nothing,
+      tableId = Prelude.Nothing,
+      failureMessage = Prelude.Nothing,
+      exportStatus = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      failureCode = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      s3BucketOwner = Prelude.Nothing,
+      exportArn = Prelude.Nothing,
+      itemCount = Prelude.Nothing,
+      exportManifest = Prelude.Nothing,
+      s3Prefix = Prelude.Nothing,
+      s3SseKmsKeyId = Prelude.Nothing,
+      clientToken = Prelude.Nothing,
+      s3SseAlgorithm = Prelude.Nothing
     }
 
--- | The format of the exported data. Valid values for @ExportFormat@ are @DYNAMODB_JSON@ or @ION@ .
-edExportFormat :: Lens' ExportDescription (Maybe ExportFormat)
-edExportFormat = lens _edExportFormat (\s a -> s {_edExportFormat = a})
+-- | The format of the exported data. Valid values for @ExportFormat@ are
+-- @DYNAMODB_JSON@ or @ION@.
+exportDescription_exportFormat :: Lens.Lens' ExportDescription (Prelude.Maybe ExportFormat)
+exportDescription_exportFormat = Lens.lens (\ExportDescription' {exportFormat} -> exportFormat) (\s@ExportDescription' {} a -> s {exportFormat = a} :: ExportDescription)
 
 -- | Point in time from which table data was exported.
-edExportTime :: Lens' ExportDescription (Maybe UTCTime)
-edExportTime = lens _edExportTime (\s a -> s {_edExportTime = a}) . mapping _Time
+exportDescription_exportTime :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.UTCTime)
+exportDescription_exportTime = Lens.lens (\ExportDescription' {exportTime} -> exportTime) (\s@ExportDescription' {} a -> s {exportTime = a} :: ExportDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The billable size of the table export.
-edBilledSizeBytes :: Lens' ExportDescription (Maybe Natural)
-edBilledSizeBytes = lens _edBilledSizeBytes (\s a -> s {_edBilledSizeBytes = a}) . mapping _Nat
+exportDescription_billedSizeBytes :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Natural)
+exportDescription_billedSizeBytes = Lens.lens (\ExportDescription' {billedSizeBytes} -> billedSizeBytes) (\s@ExportDescription' {} a -> s {billedSizeBytes = a} :: ExportDescription) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the Amazon S3 bucket containing the export.
-edS3Bucket :: Lens' ExportDescription (Maybe Text)
-edS3Bucket = lens _edS3Bucket (\s a -> s {_edS3Bucket = a})
+exportDescription_s3Bucket :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_s3Bucket = Lens.lens (\ExportDescription' {s3Bucket} -> s3Bucket) (\s@ExportDescription' {} a -> s {s3Bucket = a} :: ExportDescription)
 
 -- | The Amazon Resource Name (ARN) of the table that was exported.
-edTableARN :: Lens' ExportDescription (Maybe Text)
-edTableARN = lens _edTableARN (\s a -> s {_edTableARN = a})
+exportDescription_tableArn :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_tableArn = Lens.lens (\ExportDescription' {tableArn} -> tableArn) (\s@ExportDescription' {} a -> s {tableArn = a} :: ExportDescription)
 
 -- | Unique ID of the table that was exported.
-edTableId :: Lens' ExportDescription (Maybe Text)
-edTableId = lens _edTableId (\s a -> s {_edTableId = a})
+exportDescription_tableId :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_tableId = Lens.lens (\ExportDescription' {tableId} -> tableId) (\s@ExportDescription' {} a -> s {tableId = a} :: ExportDescription)
 
 -- | Export failure reason description.
-edFailureMessage :: Lens' ExportDescription (Maybe Text)
-edFailureMessage = lens _edFailureMessage (\s a -> s {_edFailureMessage = a})
+exportDescription_failureMessage :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_failureMessage = Lens.lens (\ExportDescription' {failureMessage} -> failureMessage) (\s@ExportDescription' {} a -> s {failureMessage = a} :: ExportDescription)
 
--- | Export can be in one of the following states: IN_PROGRESS, COMPLETED, or FAILED.
-edExportStatus :: Lens' ExportDescription (Maybe ExportStatus)
-edExportStatus = lens _edExportStatus (\s a -> s {_edExportStatus = a})
+-- | Export can be in one of the following states: IN_PROGRESS, COMPLETED, or
+-- FAILED.
+exportDescription_exportStatus :: Lens.Lens' ExportDescription (Prelude.Maybe ExportStatus)
+exportDescription_exportStatus = Lens.lens (\ExportDescription' {exportStatus} -> exportStatus) (\s@ExportDescription' {} a -> s {exportStatus = a} :: ExportDescription)
 
 -- | The time at which the export task began.
-edStartTime :: Lens' ExportDescription (Maybe UTCTime)
-edStartTime = lens _edStartTime (\s a -> s {_edStartTime = a}) . mapping _Time
+exportDescription_startTime :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.UTCTime)
+exportDescription_startTime = Lens.lens (\ExportDescription' {startTime} -> startTime) (\s@ExportDescription' {} a -> s {startTime = a} :: ExportDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | Status code for the result of the failed export.
-edFailureCode :: Lens' ExportDescription (Maybe Text)
-edFailureCode = lens _edFailureCode (\s a -> s {_edFailureCode = a})
+exportDescription_failureCode :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_failureCode = Lens.lens (\ExportDescription' {failureCode} -> failureCode) (\s@ExportDescription' {} a -> s {failureCode = a} :: ExportDescription)
 
 -- | The time at which the export task completed.
-edEndTime :: Lens' ExportDescription (Maybe UTCTime)
-edEndTime = lens _edEndTime (\s a -> s {_edEndTime = a}) . mapping _Time
+exportDescription_endTime :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.UTCTime)
+exportDescription_endTime = Lens.lens (\ExportDescription' {endTime} -> endTime) (\s@ExportDescription' {} a -> s {endTime = a} :: ExportDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the AWS account that owns the bucket containing the export.
-edS3BucketOwner :: Lens' ExportDescription (Maybe Text)
-edS3BucketOwner = lens _edS3BucketOwner (\s a -> s {_edS3BucketOwner = a})
+exportDescription_s3BucketOwner :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_s3BucketOwner = Lens.lens (\ExportDescription' {s3BucketOwner} -> s3BucketOwner) (\s@ExportDescription' {} a -> s {s3BucketOwner = a} :: ExportDescription)
 
 -- | The Amazon Resource Name (ARN) of the table export.
-edExportARN :: Lens' ExportDescription (Maybe Text)
-edExportARN = lens _edExportARN (\s a -> s {_edExportARN = a})
+exportDescription_exportArn :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_exportArn = Lens.lens (\ExportDescription' {exportArn} -> exportArn) (\s@ExportDescription' {} a -> s {exportArn = a} :: ExportDescription)
 
 -- | The number of items exported.
-edItemCount :: Lens' ExportDescription (Maybe Natural)
-edItemCount = lens _edItemCount (\s a -> s {_edItemCount = a}) . mapping _Nat
+exportDescription_itemCount :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Natural)
+exportDescription_itemCount = Lens.lens (\ExportDescription' {itemCount} -> itemCount) (\s@ExportDescription' {} a -> s {itemCount = a} :: ExportDescription) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the manifest file for the export task.
-edExportManifest :: Lens' ExportDescription (Maybe Text)
-edExportManifest = lens _edExportManifest (\s a -> s {_edExportManifest = a})
+exportDescription_exportManifest :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_exportManifest = Lens.lens (\ExportDescription' {exportManifest} -> exportManifest) (\s@ExportDescription' {} a -> s {exportManifest = a} :: ExportDescription)
 
--- | The Amazon S3 bucket prefix used as the file name and path of the exported snapshot.
-edS3Prefix :: Lens' ExportDescription (Maybe Text)
-edS3Prefix = lens _edS3Prefix (\s a -> s {_edS3Prefix = a})
+-- | The Amazon S3 bucket prefix used as the file name and path of the
+-- exported snapshot.
+exportDescription_s3Prefix :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_s3Prefix = Lens.lens (\ExportDescription' {s3Prefix} -> s3Prefix) (\s@ExportDescription' {} a -> s {s3Prefix = a} :: ExportDescription)
 
--- | The ID of the AWS KMS managed key used to encrypt the S3 bucket where export data is stored (if applicable).
-edS3SseKMSKeyId :: Lens' ExportDescription (Maybe Text)
-edS3SseKMSKeyId = lens _edS3SseKMSKeyId (\s a -> s {_edS3SseKMSKeyId = a})
+-- | The ID of the AWS KMS managed key used to encrypt the S3 bucket where
+-- export data is stored (if applicable).
+exportDescription_s3SseKmsKeyId :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_s3SseKmsKeyId = Lens.lens (\ExportDescription' {s3SseKmsKeyId} -> s3SseKmsKeyId) (\s@ExportDescription' {} a -> s {s3SseKmsKeyId = a} :: ExportDescription)
 
--- | The client token that was provided for the export task. A client token makes calls to @ExportTableToPointInTimeInput@ idempotent, meaning that multiple identical calls have the same effect as one single call.
-edClientToken :: Lens' ExportDescription (Maybe Text)
-edClientToken = lens _edClientToken (\s a -> s {_edClientToken = a})
+-- | The client token that was provided for the export task. A client token
+-- makes calls to @ExportTableToPointInTimeInput@ idempotent, meaning that
+-- multiple identical calls have the same effect as one single call.
+exportDescription_clientToken :: Lens.Lens' ExportDescription (Prelude.Maybe Prelude.Text)
+exportDescription_clientToken = Lens.lens (\ExportDescription' {clientToken} -> clientToken) (\s@ExportDescription' {} a -> s {clientToken = a} :: ExportDescription)
 
--- | Type of encryption used on the bucket where export data is stored. Valid values for @S3SseAlgorithm@ are:     * @AES256@ - server-side encryption with Amazon S3 managed keys     * @KMS@ - server-side encryption with AWS KMS managed keys
-edS3SseAlgorithm :: Lens' ExportDescription (Maybe S3SseAlgorithm)
-edS3SseAlgorithm = lens _edS3SseAlgorithm (\s a -> s {_edS3SseAlgorithm = a})
+-- | Type of encryption used on the bucket where export data is stored. Valid
+-- values for @S3SseAlgorithm@ are:
+--
+-- -   @AES256@ - server-side encryption with Amazon S3 managed keys
+--
+-- -   @KMS@ - server-side encryption with AWS KMS managed keys
+exportDescription_s3SseAlgorithm :: Lens.Lens' ExportDescription (Prelude.Maybe S3SseAlgorithm)
+exportDescription_s3SseAlgorithm = Lens.lens (\ExportDescription' {s3SseAlgorithm} -> s3SseAlgorithm) (\s@ExportDescription' {} a -> s {s3SseAlgorithm = a} :: ExportDescription)
 
-instance FromJSON ExportDescription where
+instance Prelude.FromJSON ExportDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExportDescription"
       ( \x ->
           ExportDescription'
-            <$> (x .:? "ExportFormat")
-            <*> (x .:? "ExportTime")
-            <*> (x .:? "BilledSizeBytes")
-            <*> (x .:? "S3Bucket")
-            <*> (x .:? "TableArn")
-            <*> (x .:? "TableId")
-            <*> (x .:? "FailureMessage")
-            <*> (x .:? "ExportStatus")
-            <*> (x .:? "StartTime")
-            <*> (x .:? "FailureCode")
-            <*> (x .:? "EndTime")
-            <*> (x .:? "S3BucketOwner")
-            <*> (x .:? "ExportArn")
-            <*> (x .:? "ItemCount")
-            <*> (x .:? "ExportManifest")
-            <*> (x .:? "S3Prefix")
-            <*> (x .:? "S3SseKmsKeyId")
-            <*> (x .:? "ClientToken")
-            <*> (x .:? "S3SseAlgorithm")
+            Prelude.<$> (x Prelude..:? "ExportFormat")
+            Prelude.<*> (x Prelude..:? "ExportTime")
+            Prelude.<*> (x Prelude..:? "BilledSizeBytes")
+            Prelude.<*> (x Prelude..:? "S3Bucket")
+            Prelude.<*> (x Prelude..:? "TableArn")
+            Prelude.<*> (x Prelude..:? "TableId")
+            Prelude.<*> (x Prelude..:? "FailureMessage")
+            Prelude.<*> (x Prelude..:? "ExportStatus")
+            Prelude.<*> (x Prelude..:? "StartTime")
+            Prelude.<*> (x Prelude..:? "FailureCode")
+            Prelude.<*> (x Prelude..:? "EndTime")
+            Prelude.<*> (x Prelude..:? "S3BucketOwner")
+            Prelude.<*> (x Prelude..:? "ExportArn")
+            Prelude.<*> (x Prelude..:? "ItemCount")
+            Prelude.<*> (x Prelude..:? "ExportManifest")
+            Prelude.<*> (x Prelude..:? "S3Prefix")
+            Prelude.<*> (x Prelude..:? "S3SseKmsKeyId")
+            Prelude.<*> (x Prelude..:? "ClientToken")
+            Prelude.<*> (x Prelude..:? "S3SseAlgorithm")
       )
 
-instance Hashable ExportDescription
+instance Prelude.Hashable ExportDescription
 
-instance NFData ExportDescription
+instance Prelude.NFData ExportDescription

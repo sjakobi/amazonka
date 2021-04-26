@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,95 +21,107 @@ module Network.AWS.DynamoDB.Types.ReplicaSettingsUpdate where
 
 import Network.AWS.DynamoDB.Types.AutoScalingSettingsUpdate
 import Network.AWS.DynamoDB.Types.ReplicaGlobalSecondaryIndexSettingsUpdate
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the settings for a global table in a Region that will be modified.
+-- | Represents the settings for a global table in a Region that will be
+-- modified.
 --
---
---
--- /See:/ 'replicaSettingsUpdate' smart constructor.
+-- /See:/ 'newReplicaSettingsUpdate' smart constructor.
 data ReplicaSettingsUpdate = ReplicaSettingsUpdate'
-  { _rsuReplicaGlobalSecondaryIndexSettingsUpdate ::
-      !( Maybe
-           ( List1
-               ReplicaGlobalSecondaryIndexSettingsUpdate
-           )
-       ),
-    _rsuReplicaProvisionedReadCapacityUnits ::
-      !(Maybe Nat),
-    _rsuReplicaProvisionedReadCapacityAutoScalingSettingsUpdate ::
-      !( Maybe
-           AutoScalingSettingsUpdate
-       ),
-    _rsuRegionName :: !Text
+  { -- | Represents the settings of a global secondary index for a global table
+    -- that will be modified.
+    replicaGlobalSecondaryIndexSettingsUpdate :: Prelude.Maybe (Prelude.List1 ReplicaGlobalSecondaryIndexSettingsUpdate),
+    -- | The maximum number of strongly consistent reads consumed per second
+    -- before DynamoDB returns a @ThrottlingException@. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput Specifying Read and Write Requirements>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    replicaProvisionedReadCapacityUnits :: Prelude.Maybe Prelude.Nat,
+    -- | Auto scaling settings for managing a global table replica\'s read
+    -- capacity units.
+    replicaProvisionedReadCapacityAutoScalingSettingsUpdate :: Prelude.Maybe AutoScalingSettingsUpdate,
+    -- | The Region of the replica to be added.
+    regionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicaSettingsUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicaSettingsUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsuReplicaGlobalSecondaryIndexSettingsUpdate' - Represents the settings of a global secondary index for a global table that will be modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsuReplicaProvisionedReadCapacityUnits' - The maximum number of strongly consistent reads consumed per second before DynamoDB returns a @ThrottlingException@ . For more information, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput Specifying Read and Write Requirements> in the /Amazon DynamoDB Developer Guide/ .
+-- 'replicaGlobalSecondaryIndexSettingsUpdate', 'replicaSettingsUpdate_replicaGlobalSecondaryIndexSettingsUpdate' - Represents the settings of a global secondary index for a global table
+-- that will be modified.
 --
--- * 'rsuReplicaProvisionedReadCapacityAutoScalingSettingsUpdate' - Auto scaling settings for managing a global table replica's read capacity units.
+-- 'replicaProvisionedReadCapacityUnits', 'replicaSettingsUpdate_replicaProvisionedReadCapacityUnits' - The maximum number of strongly consistent reads consumed per second
+-- before DynamoDB returns a @ThrottlingException@. For more information,
+-- see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput Specifying Read and Write Requirements>
+-- in the /Amazon DynamoDB Developer Guide/.
 --
--- * 'rsuRegionName' - The Region of the replica to be added.
-replicaSettingsUpdate ::
-  -- | 'rsuRegionName'
-  Text ->
+-- 'replicaProvisionedReadCapacityAutoScalingSettingsUpdate', 'replicaSettingsUpdate_replicaProvisionedReadCapacityAutoScalingSettingsUpdate' - Auto scaling settings for managing a global table replica\'s read
+-- capacity units.
+--
+-- 'regionName', 'replicaSettingsUpdate_regionName' - The Region of the replica to be added.
+newReplicaSettingsUpdate ::
+  -- | 'regionName'
+  Prelude.Text ->
   ReplicaSettingsUpdate
-replicaSettingsUpdate pRegionName_ =
+newReplicaSettingsUpdate pRegionName_ =
   ReplicaSettingsUpdate'
-    { _rsuReplicaGlobalSecondaryIndexSettingsUpdate =
-        Nothing,
-      _rsuReplicaProvisionedReadCapacityUnits = Nothing,
-      _rsuReplicaProvisionedReadCapacityAutoScalingSettingsUpdate =
-        Nothing,
-      _rsuRegionName = pRegionName_
+    { replicaGlobalSecondaryIndexSettingsUpdate =
+        Prelude.Nothing,
+      replicaProvisionedReadCapacityUnits =
+        Prelude.Nothing,
+      replicaProvisionedReadCapacityAutoScalingSettingsUpdate =
+        Prelude.Nothing,
+      regionName = pRegionName_
     }
 
--- | Represents the settings of a global secondary index for a global table that will be modified.
-rsuReplicaGlobalSecondaryIndexSettingsUpdate :: Lens' ReplicaSettingsUpdate (Maybe (NonEmpty ReplicaGlobalSecondaryIndexSettingsUpdate))
-rsuReplicaGlobalSecondaryIndexSettingsUpdate = lens _rsuReplicaGlobalSecondaryIndexSettingsUpdate (\s a -> s {_rsuReplicaGlobalSecondaryIndexSettingsUpdate = a}) . mapping _List1
+-- | Represents the settings of a global secondary index for a global table
+-- that will be modified.
+replicaSettingsUpdate_replicaGlobalSecondaryIndexSettingsUpdate :: Lens.Lens' ReplicaSettingsUpdate (Prelude.Maybe (Prelude.NonEmpty ReplicaGlobalSecondaryIndexSettingsUpdate))
+replicaSettingsUpdate_replicaGlobalSecondaryIndexSettingsUpdate = Lens.lens (\ReplicaSettingsUpdate' {replicaGlobalSecondaryIndexSettingsUpdate} -> replicaGlobalSecondaryIndexSettingsUpdate) (\s@ReplicaSettingsUpdate' {} a -> s {replicaGlobalSecondaryIndexSettingsUpdate = a} :: ReplicaSettingsUpdate) Prelude.. Lens.mapping Prelude._List1
 
--- | The maximum number of strongly consistent reads consumed per second before DynamoDB returns a @ThrottlingException@ . For more information, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput Specifying Read and Write Requirements> in the /Amazon DynamoDB Developer Guide/ .
-rsuReplicaProvisionedReadCapacityUnits :: Lens' ReplicaSettingsUpdate (Maybe Natural)
-rsuReplicaProvisionedReadCapacityUnits = lens _rsuReplicaProvisionedReadCapacityUnits (\s a -> s {_rsuReplicaProvisionedReadCapacityUnits = a}) . mapping _Nat
+-- | The maximum number of strongly consistent reads consumed per second
+-- before DynamoDB returns a @ThrottlingException@. For more information,
+-- see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput Specifying Read and Write Requirements>
+-- in the /Amazon DynamoDB Developer Guide/.
+replicaSettingsUpdate_replicaProvisionedReadCapacityUnits :: Lens.Lens' ReplicaSettingsUpdate (Prelude.Maybe Prelude.Natural)
+replicaSettingsUpdate_replicaProvisionedReadCapacityUnits = Lens.lens (\ReplicaSettingsUpdate' {replicaProvisionedReadCapacityUnits} -> replicaProvisionedReadCapacityUnits) (\s@ReplicaSettingsUpdate' {} a -> s {replicaProvisionedReadCapacityUnits = a} :: ReplicaSettingsUpdate) Prelude.. Lens.mapping Prelude._Nat
 
--- | Auto scaling settings for managing a global table replica's read capacity units.
-rsuReplicaProvisionedReadCapacityAutoScalingSettingsUpdate :: Lens' ReplicaSettingsUpdate (Maybe AutoScalingSettingsUpdate)
-rsuReplicaProvisionedReadCapacityAutoScalingSettingsUpdate = lens _rsuReplicaProvisionedReadCapacityAutoScalingSettingsUpdate (\s a -> s {_rsuReplicaProvisionedReadCapacityAutoScalingSettingsUpdate = a})
+-- | Auto scaling settings for managing a global table replica\'s read
+-- capacity units.
+replicaSettingsUpdate_replicaProvisionedReadCapacityAutoScalingSettingsUpdate :: Lens.Lens' ReplicaSettingsUpdate (Prelude.Maybe AutoScalingSettingsUpdate)
+replicaSettingsUpdate_replicaProvisionedReadCapacityAutoScalingSettingsUpdate = Lens.lens (\ReplicaSettingsUpdate' {replicaProvisionedReadCapacityAutoScalingSettingsUpdate} -> replicaProvisionedReadCapacityAutoScalingSettingsUpdate) (\s@ReplicaSettingsUpdate' {} a -> s {replicaProvisionedReadCapacityAutoScalingSettingsUpdate = a} :: ReplicaSettingsUpdate)
 
 -- | The Region of the replica to be added.
-rsuRegionName :: Lens' ReplicaSettingsUpdate Text
-rsuRegionName = lens _rsuRegionName (\s a -> s {_rsuRegionName = a})
+replicaSettingsUpdate_regionName :: Lens.Lens' ReplicaSettingsUpdate Prelude.Text
+replicaSettingsUpdate_regionName = Lens.lens (\ReplicaSettingsUpdate' {regionName} -> regionName) (\s@ReplicaSettingsUpdate' {} a -> s {regionName = a} :: ReplicaSettingsUpdate)
 
-instance Hashable ReplicaSettingsUpdate
+instance Prelude.Hashable ReplicaSettingsUpdate
 
-instance NFData ReplicaSettingsUpdate
+instance Prelude.NFData ReplicaSettingsUpdate
 
-instance ToJSON ReplicaSettingsUpdate where
+instance Prelude.ToJSON ReplicaSettingsUpdate where
   toJSON ReplicaSettingsUpdate' {..} =
-    object
-      ( catMaybes
-          [ ("ReplicaGlobalSecondaryIndexSettingsUpdate" .=)
-              <$> _rsuReplicaGlobalSecondaryIndexSettingsUpdate,
-            ("ReplicaProvisionedReadCapacityUnits" .=)
-              <$> _rsuReplicaProvisionedReadCapacityUnits,
-            ( "ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate"
-                .=
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ( "ReplicaGlobalSecondaryIndexSettingsUpdate"
+                Prelude..=
             )
-              <$> _rsuReplicaProvisionedReadCapacityAutoScalingSettingsUpdate,
-            Just ("RegionName" .= _rsuRegionName)
+              Prelude.<$> replicaGlobalSecondaryIndexSettingsUpdate,
+            ("ReplicaProvisionedReadCapacityUnits" Prelude..=)
+              Prelude.<$> replicaProvisionedReadCapacityUnits,
+            ( "ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate"
+                Prelude..=
+            )
+              Prelude.<$> replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
+            Prelude.Just ("RegionName" Prelude..= regionName)
           ]
       )

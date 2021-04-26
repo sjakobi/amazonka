@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,112 +19,110 @@
 module Network.AWS.DynamoDB.Types.ComparisonOperator
   ( ComparisonOperator
       ( ..,
-        BeginsWith,
-        Between,
-        Contains,
-        EQ',
-        GE,
-        GT',
-        IN,
-        LE,
-        LT',
-        NE,
-        NotContains,
-        NotNull,
-        Null
+        ComparisonOperatorBEGINSWITH,
+        ComparisonOperatorBETWEEN,
+        ComparisonOperatorCONTAINS,
+        ComparisonOperatorEQ,
+        ComparisonOperatorGE,
+        ComparisonOperatorGT,
+        ComparisonOperatorIN,
+        ComparisonOperatorLE,
+        ComparisonOperatorLT,
+        ComparisonOperatorNE,
+        ComparisonOperatorNOTCONTAINS,
+        ComparisonOperatorNOTNULL,
+        ComparisonOperatorNULL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComparisonOperator
-  = ComparisonOperator'
-      ( CI
-          Text
-      )
+newtype ComparisonOperator = ComparisonOperator'
+  { fromComparisonOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BeginsWith :: ComparisonOperator
-pattern BeginsWith = ComparisonOperator' "BEGINS_WITH"
+pattern ComparisonOperatorBEGINSWITH :: ComparisonOperator
+pattern ComparisonOperatorBEGINSWITH = ComparisonOperator' "BEGINS_WITH"
 
-pattern Between :: ComparisonOperator
-pattern Between = ComparisonOperator' "BETWEEN"
+pattern ComparisonOperatorBETWEEN :: ComparisonOperator
+pattern ComparisonOperatorBETWEEN = ComparisonOperator' "BETWEEN"
 
-pattern Contains :: ComparisonOperator
-pattern Contains = ComparisonOperator' "CONTAINS"
+pattern ComparisonOperatorCONTAINS :: ComparisonOperator
+pattern ComparisonOperatorCONTAINS = ComparisonOperator' "CONTAINS"
 
-pattern EQ' :: ComparisonOperator
-pattern EQ' = ComparisonOperator' "EQ"
+pattern ComparisonOperatorEQ :: ComparisonOperator
+pattern ComparisonOperatorEQ = ComparisonOperator' "EQ"
 
-pattern GE :: ComparisonOperator
-pattern GE = ComparisonOperator' "GE"
+pattern ComparisonOperatorGE :: ComparisonOperator
+pattern ComparisonOperatorGE = ComparisonOperator' "GE"
 
-pattern GT' :: ComparisonOperator
-pattern GT' = ComparisonOperator' "GT"
+pattern ComparisonOperatorGT :: ComparisonOperator
+pattern ComparisonOperatorGT = ComparisonOperator' "GT"
 
-pattern IN :: ComparisonOperator
-pattern IN = ComparisonOperator' "IN"
+pattern ComparisonOperatorIN :: ComparisonOperator
+pattern ComparisonOperatorIN = ComparisonOperator' "IN"
 
-pattern LE :: ComparisonOperator
-pattern LE = ComparisonOperator' "LE"
+pattern ComparisonOperatorLE :: ComparisonOperator
+pattern ComparisonOperatorLE = ComparisonOperator' "LE"
 
-pattern LT' :: ComparisonOperator
-pattern LT' = ComparisonOperator' "LT"
+pattern ComparisonOperatorLT :: ComparisonOperator
+pattern ComparisonOperatorLT = ComparisonOperator' "LT"
 
-pattern NE :: ComparisonOperator
-pattern NE = ComparisonOperator' "NE"
+pattern ComparisonOperatorNE :: ComparisonOperator
+pattern ComparisonOperatorNE = ComparisonOperator' "NE"
 
-pattern NotContains :: ComparisonOperator
-pattern NotContains = ComparisonOperator' "NOT_CONTAINS"
+pattern ComparisonOperatorNOTCONTAINS :: ComparisonOperator
+pattern ComparisonOperatorNOTCONTAINS = ComparisonOperator' "NOT_CONTAINS"
 
-pattern NotNull :: ComparisonOperator
-pattern NotNull = ComparisonOperator' "NOT_NULL"
+pattern ComparisonOperatorNOTNULL :: ComparisonOperator
+pattern ComparisonOperatorNOTNULL = ComparisonOperator' "NOT_NULL"
 
-pattern Null :: ComparisonOperator
-pattern Null = ComparisonOperator' "NULL"
+pattern ComparisonOperatorNULL :: ComparisonOperator
+pattern ComparisonOperatorNULL = ComparisonOperator' "NULL"
 
 {-# COMPLETE
-  BeginsWith,
-  Between,
-  Contains,
-  EQ',
-  GE,
-  GT',
-  IN,
-  LE,
-  LT',
-  NE,
-  NotContains,
-  NotNull,
-  Null,
+  ComparisonOperatorBEGINSWITH,
+  ComparisonOperatorBETWEEN,
+  ComparisonOperatorCONTAINS,
+  ComparisonOperatorEQ,
+  ComparisonOperatorGE,
+  ComparisonOperatorGT,
+  ComparisonOperatorIN,
+  ComparisonOperatorLE,
+  ComparisonOperatorLT,
+  ComparisonOperatorNE,
+  ComparisonOperatorNOTCONTAINS,
+  ComparisonOperatorNOTNULL,
+  ComparisonOperatorNULL,
   ComparisonOperator'
   #-}
 
-instance FromText ComparisonOperator where
-  parser = (ComparisonOperator' . mk) <$> takeText
+instance Prelude.FromText ComparisonOperator where
+  parser = ComparisonOperator' Prelude.<$> Prelude.takeText
 
-instance ToText ComparisonOperator where
-  toText (ComparisonOperator' ci) = original ci
+instance Prelude.ToText ComparisonOperator where
+  toText (ComparisonOperator' x) = x
 
-instance Hashable ComparisonOperator
+instance Prelude.Hashable ComparisonOperator
 
-instance NFData ComparisonOperator
+instance Prelude.NFData ComparisonOperator
 
-instance ToByteString ComparisonOperator
+instance Prelude.ToByteString ComparisonOperator
 
-instance ToQuery ComparisonOperator
+instance Prelude.ToQuery ComparisonOperator
 
-instance ToHeader ComparisonOperator
+instance Prelude.ToHeader ComparisonOperator
 
-instance ToJSON ComparisonOperator where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComparisonOperator where
+  toJSON = Prelude.toJSONText

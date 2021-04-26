@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DynamoDB.Types
   ( -- * Service Configuration
-    dynamoDB,
+    defaultService,
 
     -- * Errors
     _InvalidExportTimeException,
@@ -142,742 +145,383 @@ module Network.AWS.DynamoDB.Types
 
     -- * ArchivalSummary
     ArchivalSummary (..),
-    archivalSummary,
-    asArchivalBackupARN,
-    asArchivalReason,
-    asArchivalDateTime,
+    newArchivalSummary,
 
     -- * AttributeDefinition
     AttributeDefinition (..),
-    attributeDefinition,
-    adAttributeName,
-    adAttributeType,
+    newAttributeDefinition,
 
     -- * AttributeValue
     AttributeValue (..),
-    attributeValue,
-    avBS,
-    avBOOL,
-    avN,
-    avS,
-    avNULL,
-    avM,
-    avB,
-    avL,
-    avSS,
-    avNS,
+    newAttributeValue,
 
     -- * AttributeValueUpdate
     AttributeValueUpdate (..),
-    attributeValueUpdate,
-    avuAction,
-    avuValue,
+    newAttributeValueUpdate,
 
     -- * AutoScalingPolicyDescription
     AutoScalingPolicyDescription (..),
-    autoScalingPolicyDescription,
-    aspdPolicyName,
-    aspdTargetTrackingScalingPolicyConfiguration,
+    newAutoScalingPolicyDescription,
 
     -- * AutoScalingPolicyUpdate
     AutoScalingPolicyUpdate (..),
-    autoScalingPolicyUpdate,
-    aspuPolicyName,
-    aspuTargetTrackingScalingPolicyConfiguration,
+    newAutoScalingPolicyUpdate,
 
     -- * AutoScalingSettingsDescription
     AutoScalingSettingsDescription (..),
-    autoScalingSettingsDescription,
-    assdScalingPolicies,
-    assdMinimumUnits,
-    assdMaximumUnits,
-    assdAutoScalingRoleARN,
-    assdAutoScalingDisabled,
+    newAutoScalingSettingsDescription,
 
     -- * AutoScalingSettingsUpdate
     AutoScalingSettingsUpdate (..),
-    autoScalingSettingsUpdate,
-    assuScalingPolicyUpdate,
-    assuMinimumUnits,
-    assuMaximumUnits,
-    assuAutoScalingRoleARN,
-    assuAutoScalingDisabled,
+    newAutoScalingSettingsUpdate,
 
     -- * AutoScalingTargetTrackingScalingPolicyConfigurationDescription
     AutoScalingTargetTrackingScalingPolicyConfigurationDescription (..),
-    autoScalingTargetTrackingScalingPolicyConfigurationDescription,
-    asttspcdDisableScaleIn,
-    asttspcdScaleOutCooldown,
-    asttspcdScaleInCooldown,
-    asttspcdTargetValue,
+    newAutoScalingTargetTrackingScalingPolicyConfigurationDescription,
 
     -- * AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
     AutoScalingTargetTrackingScalingPolicyConfigurationUpdate (..),
-    autoScalingTargetTrackingScalingPolicyConfigurationUpdate,
-    asttspcuDisableScaleIn,
-    asttspcuScaleOutCooldown,
-    asttspcuScaleInCooldown,
-    asttspcuTargetValue,
+    newAutoScalingTargetTrackingScalingPolicyConfigurationUpdate,
 
     -- * BackupDescription
     BackupDescription (..),
-    backupDescription,
-    bdSourceTableDetails,
-    bdBackupDetails,
-    bdSourceTableFeatureDetails,
+    newBackupDescription,
 
     -- * BackupDetails
     BackupDetails (..),
-    backupDetails,
-    bdBackupExpiryDateTime,
-    bdBackupSizeBytes,
-    bdBackupARN,
-    bdBackupName,
-    bdBackupStatus,
-    bdBackupType,
-    bdBackupCreationDateTime,
+    newBackupDetails,
 
     -- * BackupSummary
     BackupSummary (..),
-    backupSummary,
-    bsTableName,
-    bsBackupName,
-    bsBackupType,
-    bsBackupCreationDateTime,
-    bsTableARN,
-    bsTableId,
-    bsBackupARN,
-    bsBackupExpiryDateTime,
-    bsBackupSizeBytes,
-    bsBackupStatus,
+    newBackupSummary,
 
     -- * BatchStatementError
     BatchStatementError (..),
-    batchStatementError,
-    bseMessage,
-    bseCode,
+    newBatchStatementError,
 
     -- * BatchStatementRequest
     BatchStatementRequest (..),
-    batchStatementRequest,
-    bsrConsistentRead,
-    bsrParameters,
-    bsrStatement,
+    newBatchStatementRequest,
 
     -- * BatchStatementResponse
     BatchStatementResponse (..),
-    batchStatementResponse,
-    bsrTableName,
-    bsrItem,
-    bsrError,
+    newBatchStatementResponse,
 
     -- * BillingModeSummary
     BillingModeSummary (..),
-    billingModeSummary,
-    bmsBillingMode,
-    bmsLastUpdateToPayPerRequestDateTime,
+    newBillingModeSummary,
 
     -- * Capacity
     Capacity (..),
-    capacity,
-    cWriteCapacityUnits,
-    cCapacityUnits,
-    cReadCapacityUnits,
+    newCapacity,
 
     -- * Condition
     Condition (..),
-    condition,
-    cAttributeValueList,
-    cComparisonOperator,
+    newCondition,
 
     -- * ConditionCheck
     ConditionCheck (..),
-    conditionCheck,
-    cExpressionAttributeValues,
-    cReturnValuesOnConditionCheckFailure,
-    cExpressionAttributeNames,
-    cKey,
-    cTableName,
-    cConditionExpression,
+    newConditionCheck,
 
     -- * ConsumedCapacity
     ConsumedCapacity (..),
-    consumedCapacity,
-    ccLocalSecondaryIndexes,
-    ccGlobalSecondaryIndexes,
-    ccTableName,
-    ccWriteCapacityUnits,
-    ccCapacityUnits,
-    ccTable,
-    ccReadCapacityUnits,
+    newConsumedCapacity,
 
     -- * ContinuousBackupsDescription
     ContinuousBackupsDescription (..),
-    continuousBackupsDescription,
-    cbdPointInTimeRecoveryDescription,
-    cbdContinuousBackupsStatus,
+    newContinuousBackupsDescription,
 
     -- * ContributorInsightsSummary
     ContributorInsightsSummary (..),
-    contributorInsightsSummary,
-    cisTableName,
-    cisIndexName,
-    cisContributorInsightsStatus,
+    newContributorInsightsSummary,
 
     -- * CreateGlobalSecondaryIndexAction
     CreateGlobalSecondaryIndexAction (..),
-    createGlobalSecondaryIndexAction,
-    cgsiaProvisionedThroughput,
-    cgsiaIndexName,
-    cgsiaKeySchema,
-    cgsiaProjection,
+    newCreateGlobalSecondaryIndexAction,
 
     -- * CreateReplicaAction
     CreateReplicaAction (..),
-    createReplicaAction,
-    craRegionName,
+    newCreateReplicaAction,
 
     -- * CreateReplicationGroupMemberAction
     CreateReplicationGroupMemberAction (..),
-    createReplicationGroupMemberAction,
-    crgmaGlobalSecondaryIndexes,
-    crgmaProvisionedThroughputOverride,
-    crgmaKMSMasterKeyId,
-    crgmaRegionName,
+    newCreateReplicationGroupMemberAction,
 
     -- * Delete
     Delete (..),
-    delete',
-    dExpressionAttributeValues,
-    dReturnValuesOnConditionCheckFailure,
-    dExpressionAttributeNames,
-    dConditionExpression,
-    dKey,
-    dTableName,
+    newDelete,
 
     -- * DeleteGlobalSecondaryIndexAction
     DeleteGlobalSecondaryIndexAction (..),
-    deleteGlobalSecondaryIndexAction,
-    dgsiaIndexName,
+    newDeleteGlobalSecondaryIndexAction,
 
     -- * DeleteReplicaAction
     DeleteReplicaAction (..),
-    deleteReplicaAction,
-    draRegionName,
+    newDeleteReplicaAction,
 
     -- * DeleteReplicationGroupMemberAction
     DeleteReplicationGroupMemberAction (..),
-    deleteReplicationGroupMemberAction,
-    drgmaRegionName,
+    newDeleteReplicationGroupMemberAction,
 
     -- * DeleteRequest
     DeleteRequest (..),
-    deleteRequest,
-    drKey,
+    newDeleteRequest,
 
     -- * Endpoint
     Endpoint (..),
-    endpoint,
-    eAddress,
-    eCachePeriodInMinutes,
+    newEndpoint,
 
     -- * ExpectedAttributeValue
     ExpectedAttributeValue (..),
-    expectedAttributeValue,
-    eavComparisonOperator,
-    eavExists,
-    eavValue,
-    eavAttributeValueList,
+    newExpectedAttributeValue,
 
     -- * ExportDescription
     ExportDescription (..),
-    exportDescription,
-    edExportFormat,
-    edExportTime,
-    edBilledSizeBytes,
-    edS3Bucket,
-    edTableARN,
-    edTableId,
-    edFailureMessage,
-    edExportStatus,
-    edStartTime,
-    edFailureCode,
-    edEndTime,
-    edS3BucketOwner,
-    edExportARN,
-    edItemCount,
-    edExportManifest,
-    edS3Prefix,
-    edS3SseKMSKeyId,
-    edClientToken,
-    edS3SseAlgorithm,
+    newExportDescription,
 
     -- * ExportSummary
     ExportSummary (..),
-    exportSummary,
-    esExportStatus,
-    esExportARN,
+    newExportSummary,
 
     -- * FailureException
     FailureException (..),
-    failureException,
-    feExceptionName,
-    feExceptionDescription,
+    newFailureException,
 
     -- * Get
     Get (..),
-    get',
-    getProjectionExpression,
-    getExpressionAttributeNames,
-    getKey,
-    getTableName,
+    newGet,
 
     -- * GlobalSecondaryIndex
     GlobalSecondaryIndex (..),
-    globalSecondaryIndex,
-    gsiProvisionedThroughput,
-    gsiIndexName,
-    gsiKeySchema,
-    gsiProjection,
+    newGlobalSecondaryIndex,
 
     -- * GlobalSecondaryIndexAutoScalingUpdate
     GlobalSecondaryIndexAutoScalingUpdate (..),
-    globalSecondaryIndexAutoScalingUpdate,
-    gsiasuIndexName,
-    gsiasuProvisionedWriteCapacityAutoScalingUpdate,
+    newGlobalSecondaryIndexAutoScalingUpdate,
 
     -- * GlobalSecondaryIndexDescription
     GlobalSecondaryIndexDescription (..),
-    globalSecondaryIndexDescription,
-    gsidIndexName,
-    gsidKeySchema,
-    gsidIndexARN,
-    gsidProjection,
-    gsidIndexSizeBytes,
-    gsidBackfilling,
-    gsidItemCount,
-    gsidProvisionedThroughput,
-    gsidIndexStatus,
+    newGlobalSecondaryIndexDescription,
 
     -- * GlobalSecondaryIndexInfo
     GlobalSecondaryIndexInfo (..),
-    globalSecondaryIndexInfo,
-    gsiiIndexName,
-    gsiiKeySchema,
-    gsiiProjection,
-    gsiiProvisionedThroughput,
+    newGlobalSecondaryIndexInfo,
 
     -- * GlobalSecondaryIndexUpdate
     GlobalSecondaryIndexUpdate (..),
-    globalSecondaryIndexUpdate,
-    gsiuCreate,
-    gsiuUpdate,
-    gsiuDelete,
+    newGlobalSecondaryIndexUpdate,
 
     -- * GlobalTable
     GlobalTable (..),
-    globalTable,
-    gtGlobalTableName,
-    gtReplicationGroup,
+    newGlobalTable,
 
     -- * GlobalTableDescription
     GlobalTableDescription (..),
-    globalTableDescription,
-    gtdGlobalTableName,
-    gtdGlobalTableStatus,
-    gtdReplicationGroup,
-    gtdCreationDateTime,
-    gtdGlobalTableARN,
+    newGlobalTableDescription,
 
     -- * GlobalTableGlobalSecondaryIndexSettingsUpdate
     GlobalTableGlobalSecondaryIndexSettingsUpdate (..),
-    globalTableGlobalSecondaryIndexSettingsUpdate,
-    gtgsisuProvisionedWriteCapacityAutoScalingSettingsUpdate,
-    gtgsisuProvisionedWriteCapacityUnits,
-    gtgsisuIndexName,
+    newGlobalTableGlobalSecondaryIndexSettingsUpdate,
 
     -- * ItemCollectionMetrics
     ItemCollectionMetrics (..),
-    itemCollectionMetrics,
-    icmItemCollectionKey,
-    icmSizeEstimateRangeGB,
+    newItemCollectionMetrics,
 
     -- * ItemResponse
     ItemResponse (..),
-    itemResponse,
-    irItem,
+    newItemResponse,
 
     -- * KeySchemaElement
     KeySchemaElement (..),
-    keySchemaElement,
-    kseAttributeName,
-    kseKeyType,
+    newKeySchemaElement,
 
     -- * KeysAndAttributes
     KeysAndAttributes (..),
-    keysAndAttributes,
-    kaaProjectionExpression,
-    kaaConsistentRead,
-    kaaExpressionAttributeNames,
-    kaaAttributesToGet,
-    kaaKeys,
+    newKeysAndAttributes,
 
     -- * KinesisDataStreamDestination
     KinesisDataStreamDestination (..),
-    kinesisDataStreamDestination,
-    kdsdDestinationStatusDescription,
-    kdsdStreamARN,
-    kdsdDestinationStatus,
+    newKinesisDataStreamDestination,
 
     -- * KinesisStreamingDestinationInput
     KinesisStreamingDestinationInput (..),
-    kinesisStreamingDestinationInput,
-    ksdiTableName,
-    ksdiStreamARN,
+    newKinesisStreamingDestinationInput,
 
     -- * KinesisStreamingDestinationOutput
     KinesisStreamingDestinationOutput (..),
-    kinesisStreamingDestinationOutput,
-    ksdoTableName,
-    ksdoStreamARN,
-    ksdoDestinationStatus,
+    newKinesisStreamingDestinationOutput,
 
     -- * LocalSecondaryIndex
     LocalSecondaryIndex (..),
-    localSecondaryIndex,
-    lsiIndexName,
-    lsiKeySchema,
-    lsiProjection,
+    newLocalSecondaryIndex,
 
     -- * LocalSecondaryIndexDescription
     LocalSecondaryIndexDescription (..),
-    localSecondaryIndexDescription,
-    lsidIndexName,
-    lsidKeySchema,
-    lsidIndexARN,
-    lsidProjection,
-    lsidIndexSizeBytes,
-    lsidItemCount,
+    newLocalSecondaryIndexDescription,
 
     -- * LocalSecondaryIndexInfo
     LocalSecondaryIndexInfo (..),
-    localSecondaryIndexInfo,
-    lsiiIndexName,
-    lsiiKeySchema,
-    lsiiProjection,
+    newLocalSecondaryIndexInfo,
 
     -- * ParameterizedStatement
     ParameterizedStatement (..),
-    parameterizedStatement,
-    psParameters,
-    psStatement,
+    newParameterizedStatement,
 
     -- * PointInTimeRecoveryDescription
     PointInTimeRecoveryDescription (..),
-    pointInTimeRecoveryDescription,
-    pitrdLatestRestorableDateTime,
-    pitrdEarliestRestorableDateTime,
-    pitrdPointInTimeRecoveryStatus,
+    newPointInTimeRecoveryDescription,
 
     -- * PointInTimeRecoverySpecification
     PointInTimeRecoverySpecification (..),
-    pointInTimeRecoverySpecification,
-    pitrsPointInTimeRecoveryEnabled,
+    newPointInTimeRecoverySpecification,
 
     -- * Projection
     Projection (..),
-    projection,
-    pNonKeyAttributes,
-    pProjectionType,
+    newProjection,
 
     -- * ProvisionedThroughput
     ProvisionedThroughput (..),
-    provisionedThroughput,
-    ptReadCapacityUnits,
-    ptWriteCapacityUnits,
+    newProvisionedThroughput,
 
     -- * ProvisionedThroughputDescription
     ProvisionedThroughputDescription (..),
-    provisionedThroughputDescription,
-    ptdLastDecreaseDateTime,
-    ptdLastIncreaseDateTime,
-    ptdWriteCapacityUnits,
-    ptdNumberOfDecreasesToday,
-    ptdReadCapacityUnits,
+    newProvisionedThroughputDescription,
 
     -- * ProvisionedThroughputOverride
     ProvisionedThroughputOverride (..),
-    provisionedThroughputOverride,
-    ptoReadCapacityUnits,
+    newProvisionedThroughputOverride,
 
     -- * Put
     Put (..),
-    put,
-    pExpressionAttributeValues,
-    pReturnValuesOnConditionCheckFailure,
-    pExpressionAttributeNames,
-    pConditionExpression,
-    pItem,
-    pTableName,
+    newPut,
 
     -- * PutRequest
     PutRequest (..),
-    putRequest,
-    prItem,
+    newPutRequest,
 
     -- * Replica
     Replica (..),
-    replica,
-    rRegionName,
+    newReplica,
 
     -- * ReplicaAutoScalingDescription
     ReplicaAutoScalingDescription (..),
-    replicaAutoScalingDescription,
-    rasdRegionName,
-    rasdReplicaProvisionedReadCapacityAutoScalingSettings,
-    rasdGlobalSecondaryIndexes,
-    rasdReplicaProvisionedWriteCapacityAutoScalingSettings,
-    rasdReplicaStatus,
+    newReplicaAutoScalingDescription,
 
     -- * ReplicaAutoScalingUpdate
     ReplicaAutoScalingUpdate (..),
-    replicaAutoScalingUpdate,
-    rasuReplicaProvisionedReadCapacityAutoScalingUpdate,
-    rasuReplicaGlobalSecondaryIndexUpdates,
-    rasuRegionName,
+    newReplicaAutoScalingUpdate,
 
     -- * ReplicaDescription
     ReplicaDescription (..),
-    replicaDescription,
-    rdRegionName,
-    rdGlobalSecondaryIndexes,
-    rdProvisionedThroughputOverride,
-    rdKMSMasterKeyId,
-    rdReplicaStatusDescription,
-    rdReplicaStatusPercentProgress,
-    rdReplicaStatus,
-    rdReplicaInaccessibleDateTime,
+    newReplicaDescription,
 
     -- * ReplicaGlobalSecondaryIndex
     ReplicaGlobalSecondaryIndex (..),
-    replicaGlobalSecondaryIndex,
-    rgsiProvisionedThroughputOverride,
-    rgsiIndexName,
+    newReplicaGlobalSecondaryIndex,
 
     -- * ReplicaGlobalSecondaryIndexAutoScalingDescription
     ReplicaGlobalSecondaryIndexAutoScalingDescription (..),
-    replicaGlobalSecondaryIndexAutoScalingDescription,
-    rgsiasdIndexName,
-    rgsiasdProvisionedReadCapacityAutoScalingSettings,
-    rgsiasdProvisionedWriteCapacityAutoScalingSettings,
-    rgsiasdIndexStatus,
+    newReplicaGlobalSecondaryIndexAutoScalingDescription,
 
     -- * ReplicaGlobalSecondaryIndexAutoScalingUpdate
     ReplicaGlobalSecondaryIndexAutoScalingUpdate (..),
-    replicaGlobalSecondaryIndexAutoScalingUpdate,
-    rgsiasuIndexName,
-    rgsiasuProvisionedReadCapacityAutoScalingUpdate,
+    newReplicaGlobalSecondaryIndexAutoScalingUpdate,
 
     -- * ReplicaGlobalSecondaryIndexDescription
     ReplicaGlobalSecondaryIndexDescription (..),
-    replicaGlobalSecondaryIndexDescription,
-    rgsidIndexName,
-    rgsidProvisionedThroughputOverride,
+    newReplicaGlobalSecondaryIndexDescription,
 
     -- * ReplicaGlobalSecondaryIndexSettingsDescription
     ReplicaGlobalSecondaryIndexSettingsDescription (..),
-    replicaGlobalSecondaryIndexSettingsDescription,
-    rgsisdProvisionedWriteCapacityUnits,
-    rgsisdProvisionedReadCapacityUnits,
-    rgsisdProvisionedReadCapacityAutoScalingSettings,
-    rgsisdProvisionedWriteCapacityAutoScalingSettings,
-    rgsisdIndexStatus,
-    rgsisdIndexName,
+    newReplicaGlobalSecondaryIndexSettingsDescription,
 
     -- * ReplicaGlobalSecondaryIndexSettingsUpdate
     ReplicaGlobalSecondaryIndexSettingsUpdate (..),
-    replicaGlobalSecondaryIndexSettingsUpdate,
-    rgsisuProvisionedReadCapacityUnits,
-    rgsisuProvisionedReadCapacityAutoScalingSettingsUpdate,
-    rgsisuIndexName,
+    newReplicaGlobalSecondaryIndexSettingsUpdate,
 
     -- * ReplicaSettingsDescription
     ReplicaSettingsDescription (..),
-    replicaSettingsDescription,
-    rsdReplicaBillingModeSummary,
-    rsdReplicaProvisionedReadCapacityAutoScalingSettings,
-    rsdReplicaProvisionedWriteCapacityAutoScalingSettings,
-    rsdReplicaGlobalSecondaryIndexSettings,
-    rsdReplicaProvisionedWriteCapacityUnits,
-    rsdReplicaStatus,
-    rsdReplicaProvisionedReadCapacityUnits,
-    rsdRegionName,
+    newReplicaSettingsDescription,
 
     -- * ReplicaSettingsUpdate
     ReplicaSettingsUpdate (..),
-    replicaSettingsUpdate,
-    rsuReplicaGlobalSecondaryIndexSettingsUpdate,
-    rsuReplicaProvisionedReadCapacityUnits,
-    rsuReplicaProvisionedReadCapacityAutoScalingSettingsUpdate,
-    rsuRegionName,
+    newReplicaSettingsUpdate,
 
     -- * ReplicaUpdate
     ReplicaUpdate (..),
-    replicaUpdate,
-    ruCreate,
-    ruDelete,
+    newReplicaUpdate,
 
     -- * ReplicationGroupUpdate
     ReplicationGroupUpdate (..),
-    replicationGroupUpdate,
-    rguCreate,
-    rguUpdate,
-    rguDelete,
+    newReplicationGroupUpdate,
 
     -- * RestoreSummary
     RestoreSummary (..),
-    restoreSummary,
-    rsSourceBackupARN,
-    rsSourceTableARN,
-    rsRestoreDateTime,
-    rsRestoreInProgress,
+    newRestoreSummary,
 
     -- * SSEDescription
     SSEDescription (..),
-    sSEDescription,
-    ssedStatus,
-    ssedKMSMasterKeyARN,
-    ssedInaccessibleEncryptionDateTime,
-    ssedSSEType,
+    newSSEDescription,
 
     -- * SSESpecification
     SSESpecification (..),
-    sSESpecification,
-    ssesKMSMasterKeyId,
-    ssesEnabled,
-    ssesSSEType,
+    newSSESpecification,
 
     -- * SourceTableDetails
     SourceTableDetails (..),
-    sourceTableDetails,
-    stdTableARN,
-    stdBillingMode,
-    stdTableSizeBytes,
-    stdItemCount,
-    stdTableName,
-    stdTableId,
-    stdKeySchema,
-    stdTableCreationDateTime,
-    stdProvisionedThroughput,
+    newSourceTableDetails,
 
     -- * SourceTableFeatureDetails
     SourceTableFeatureDetails (..),
-    sourceTableFeatureDetails,
-    stfdLocalSecondaryIndexes,
-    stfdGlobalSecondaryIndexes,
-    stfdTimeToLiveDescription,
-    stfdSSEDescription,
-    stfdStreamDescription,
+    newSourceTableFeatureDetails,
 
     -- * StreamSpecification
     StreamSpecification (..),
-    streamSpecification,
-    ssStreamViewType,
-    ssStreamEnabled,
+    newStreamSpecification,
 
     -- * TableAutoScalingDescription
     TableAutoScalingDescription (..),
-    tableAutoScalingDescription,
-    tasdTableName,
-    tasdReplicas,
-    tasdTableStatus,
+    newTableAutoScalingDescription,
 
     -- * TableDescription
     TableDescription (..),
-    tableDescription,
-    tdGlobalTableVersion,
-    tdLocalSecondaryIndexes,
-    tdRestoreSummary,
-    tdStreamSpecification,
-    tdGlobalSecondaryIndexes,
-    tdTableName,
-    tdKeySchema,
-    tdTableARN,
-    tdTableId,
-    tdAttributeDefinitions,
-    tdTableSizeBytes,
-    tdBillingModeSummary,
-    tdLatestStreamLabel,
-    tdArchivalSummary,
-    tdItemCount,
-    tdSSEDescription,
-    tdReplicas,
-    tdCreationDateTime,
-    tdTableStatus,
-    tdProvisionedThroughput,
-    tdLatestStreamARN,
+    newTableDescription,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * TimeToLiveDescription
     TimeToLiveDescription (..),
-    timeToLiveDescription,
-    ttldTimeToLiveStatus,
-    ttldAttributeName,
+    newTimeToLiveDescription,
 
     -- * TimeToLiveSpecification
     TimeToLiveSpecification (..),
-    timeToLiveSpecification,
-    ttlsEnabled,
-    ttlsAttributeName,
+    newTimeToLiveSpecification,
 
     -- * TransactGetItem
     TransactGetItem (..),
-    transactGetItem,
-    tgiGet,
+    newTransactGetItem,
 
     -- * TransactWriteItem
     TransactWriteItem (..),
-    transactWriteItem,
-    twiPut,
-    twiConditionCheck,
-    twiUpdate,
-    twiDelete,
+    newTransactWriteItem,
 
     -- * Update
     Update (..),
-    update,
-    uExpressionAttributeValues,
-    uReturnValuesOnConditionCheckFailure,
-    uExpressionAttributeNames,
-    uConditionExpression,
-    uKey,
-    uUpdateExpression,
-    uTableName,
+    newUpdate,
 
     -- * UpdateGlobalSecondaryIndexAction
     UpdateGlobalSecondaryIndexAction (..),
-    updateGlobalSecondaryIndexAction,
-    ugsiaIndexName,
-    ugsiaProvisionedThroughput,
+    newUpdateGlobalSecondaryIndexAction,
 
     -- * UpdateReplicationGroupMemberAction
     UpdateReplicationGroupMemberAction (..),
-    updateReplicationGroupMemberAction,
-    urgmaGlobalSecondaryIndexes,
-    urgmaProvisionedThroughputOverride,
-    urgmaKMSMasterKeyId,
-    urgmaRegionName,
+    newUpdateReplicationGroupMemberAction,
 
     -- * WriteRequest
     WriteRequest (..),
-    writeRequest,
-    wrDeleteRequest,
-    wrPutRequest,
+    newWriteRequest,
   )
 where
 
@@ -1008,382 +652,465 @@ import Network.AWS.DynamoDB.Types.Update
 import Network.AWS.DynamoDB.Types.UpdateGlobalSecondaryIndexAction
 import Network.AWS.DynamoDB.Types.UpdateReplicationGroupMemberAction
 import Network.AWS.DynamoDB.Types.WriteRequest
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2012-08-10@ of the Amazon DynamoDB SDK configuration.
-dynamoDB :: Service
-dynamoDB =
-  Service
-    { _svcAbbrev = "DynamoDB",
-      _svcSigner = v4,
-      _svcPrefix = "dynamodb",
-      _svcVersion = "2012-08-10",
-      _svcEndpoint = defaultEndpoint dynamoDB,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "DynamoDB",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "DynamoDB",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "dynamodb",
+      Prelude._svcVersion = "2012-08-10",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "DynamoDB",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
-          e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
-          e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
-          e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | has
-          ( hasCode "TransactionInProgressException"
-              . hasStatus 400
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "still_processing"
-      | otherwise = Nothing
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Lens.has
+          ( Prelude.hasCode "TransactionInProgressException"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "still_processing"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The specified @ExportTime@ is outside of the point in time recovery window.
-_InvalidExportTimeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified @ExportTime@ is outside of the point in time recovery
+-- window.
+_InvalidExportTimeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidExportTimeException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "InvalidExportTimeException"
 
 -- | A target table with the specified name already exists.
-_TableAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TableAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TableAlreadyExistsException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "TableAlreadyExistsException"
 
 -- | The specified global table already exists.
-_GlobalTableAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_GlobalTableAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _GlobalTableAlreadyExistsException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "GlobalTableAlreadyExistsException"
 
 -- | A condition specified in the operation could not be evaluated.
-_ConditionalCheckFailedException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConditionalCheckFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConditionalCheckFailedException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "ConditionalCheckFailedException"
 
 -- | The specified replica is already part of the global table.
-_ReplicaAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_ReplicaAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReplicaAlreadyExistsException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "ReplicaAlreadyExistsException"
 
 -- | The transaction with the given request token is already in progress.
-_TransactionInProgressException :: AsError a => Getting (First ServiceError) a ServiceError
+_TransactionInProgressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TransactionInProgressException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "TransactionInProgressException"
 
 -- | The specified global table does not exist.
-_GlobalTableNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_GlobalTableNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _GlobalTableNotFoundException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "GlobalTableNotFoundException"
 
--- | An invalid restore time was specified. RestoreDateTime must be between EarliestRestorableDateTime and LatestRestorableDateTime.
-_InvalidRestoreTimeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An invalid restore time was specified. RestoreDateTime must be between
+-- EarliestRestorableDateTime and LatestRestorableDateTime.
+_InvalidRestoreTimeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRestoreTimeException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRestoreTimeException"
 
 -- | Point in time recovery has not yet been enabled for this source table.
-_PointInTimeRecoveryUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_PointInTimeRecoveryUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PointInTimeRecoveryUnavailableException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "PointInTimeRecoveryUnavailableException"
 
 -- | The specified export was not found.
-_ExportNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ExportNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ExportNotFoundException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "ExportNotFoundException"
 
--- | There is another ongoing conflicting backup control plane operation on the table. The backup is either being created, deleted or restored to a table.
-_BackupInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | There is another ongoing conflicting backup control plane operation on
+-- the table. The backup is either being created, deleted or restored to a
+-- table.
+_BackupInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BackupInUseException =
-  _MatchServiceError dynamoDB "BackupInUseException"
+  Prelude._MatchServiceError
+    defaultService
+    "BackupInUseException"
 
 -- | Backups have not yet been enabled for this table.
-_ContinuousBackupsUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_ContinuousBackupsUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ContinuousBackupsUnavailableException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "ContinuousBackupsUnavailableException"
 
 -- | There was a conflict when writing to the specified S3 bucket.
-_ExportConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+_ExportConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ExportConflictException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "ExportConflictException"
 
--- | There was an attempt to insert an item with the same primary key as an item that already exists in the DynamoDB table.
-_DuplicateItemException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | There was an attempt to insert an item with the same primary key as an
+-- item that already exists in the DynamoDB table.
+_DuplicateItemException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DuplicateItemException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "DuplicateItemException"
 
--- | A target table with the specified name is either being created or deleted.
-_TableInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A target table with the specified name is either being created or
+-- deleted.
+_TableInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TableInUseException =
-  _MatchServiceError dynamoDB "TableInUseException"
+  Prelude._MatchServiceError
+    defaultService
+    "TableInUseException"
 
--- | Operation was rejected because there is an ongoing transaction for the item.
-_TransactionConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Operation was rejected because there is an ongoing transaction for the
+-- item.
+_TransactionConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TransactionConflictException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "TransactionConflictException"
 
 -- | An error occurred on the server side.
-_InternalServerError :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalServerError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerError =
-  _MatchServiceError dynamoDB "InternalServerError"
+  Prelude._MatchServiceError
+    defaultService
+    "InternalServerError"
 
--- | Throughput exceeds the current throughput quota for your account. Please contact AWS Support at <https://aws.amazon.com/support AWS Support> to request a quota increase.
-_RequestLimitExceeded :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Throughput exceeds the current throughput quota for your account. Please
+-- contact AWS Support at <https://aws.amazon.com/support AWS Support> to
+-- request a quota increase.
+_RequestLimitExceeded :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RequestLimitExceeded =
-  _MatchServiceError dynamoDB "RequestLimitExceeded"
+  Prelude._MatchServiceError
+    defaultService
+    "RequestLimitExceeded"
 
--- | An item collection is too large. This exception is only returned for tables that have one or more local secondary indexes.
-_ItemCollectionSizeLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An item collection is too large. This exception is only returned for
+-- tables that have one or more local secondary indexes.
+_ItemCollectionSizeLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ItemCollectionSizeLimitExceededException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "ItemCollectionSizeLimitExceededException"
 
 -- | The specified replica is no longer part of the global table.
-_ReplicaNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ReplicaNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReplicaNotFoundException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "ReplicaNotFoundException"
 
 -- | The entire transaction request was canceled.
 --
+-- DynamoDB cancels a @TransactWriteItems@ request under the following
+-- circumstances:
 --
--- DynamoDB cancels a @TransactWriteItems@ request under the following circumstances:
+-- -   A condition in one of the condition expressions is not met.
 --
---     * A condition in one of the condition expressions is not met.
+-- -   A table in the @TransactWriteItems@ request is in a different
+--     account or region.
 --
---     * A table in the @TransactWriteItems@ request is in a different account or region.
+-- -   More than one action in the @TransactWriteItems@ operation targets
+--     the same item.
 --
---     * More than one action in the @TransactWriteItems@ operation targets the same item.
+-- -   There is insufficient provisioned capacity for the transaction to be
+--     completed.
 --
---     * There is insufficient provisioned capacity for the transaction to be completed.
+-- -   An item size becomes too large (larger than 400 KB), or a local
+--     secondary index (LSI) becomes too large, or a similar validation
+--     error occurs because of changes made by the transaction.
 --
---     * An item size becomes too large (larger than 400 KB), or a local secondary index (LSI) becomes too large, or a similar validation error occurs because of changes made by the transaction.
+-- -   There is a user error, such as an invalid data format.
 --
---     * There is a user error, such as an invalid data format.
+-- DynamoDB cancels a @TransactGetItems@ request under the following
+-- circumstances:
 --
+-- -   There is an ongoing @TransactGetItems@ operation that conflicts with
+--     a concurrent @PutItem@, @UpdateItem@, @DeleteItem@ or
+--     @TransactWriteItems@ request. In this case the @TransactGetItems@
+--     operation fails with a @TransactionCanceledException@.
 --
+-- -   A table in the @TransactGetItems@ request is in a different account
+--     or region.
 --
--- DynamoDB cancels a @TransactGetItems@ request under the following circumstances:
+-- -   There is insufficient provisioned capacity for the transaction to be
+--     completed.
 --
---     * There is an ongoing @TransactGetItems@ operation that conflicts with a concurrent @PutItem@ , @UpdateItem@ , @DeleteItem@ or @TransactWriteItems@ request. In this case the @TransactGetItems@ operation fails with a @TransactionCanceledException@ .
+-- -   There is a user error, such as an invalid data format.
 --
---     * A table in the @TransactGetItems@ request is in a different account or region.
---
---     * There is insufficient provisioned capacity for the transaction to be completed.
---
---     * There is a user error, such as an invalid data format.
---
---
+-- If using Java, DynamoDB lists the cancellation reasons on the
+-- @CancellationReasons@ property. This property is not set for other
+-- languages. Transaction cancellation reasons are ordered in the order of
+-- requested items, if an item has no error it will have @NONE@ code and
+-- @Null@ message.
 --
 -- Cancellation reason codes and possible error messages:
 --
---     * No Errors:
+-- -   No Errors:
 --
---     * Code: @NONE@
+--     -   Code: @NONE@
 --
---     * Message: @null@
+--     -   Message: @null@
 --
+-- -   Conditional Check Failed:
 --
+--     -   Code: @ConditionalCheckFailed@
 --
---     * Conditional Check Failed:
+--     -   Message: The conditional request failed.
 --
---     * Code: @ConditionalCheckFailed@
+-- -   Item Collection Size Limit Exceeded:
 --
---     * Message: The conditional request failed.
+--     -   Code: @ItemCollectionSizeLimitExceeded@
 --
+--     -   Message: Collection size exceeded.
 --
+-- -   Transaction Conflict:
 --
---     * Item Collection Size Limit Exceeded:
+--     -   Code: @TransactionConflict@
 --
---     * Code: @ItemCollectionSizeLimitExceeded@
+--     -   Message: Transaction is ongoing for the item.
 --
---     * Message: Collection size exceeded.
+-- -   Provisioned Throughput Exceeded:
 --
+--     -   Code: @ProvisionedThroughputExceeded@
 --
+--     -   Messages:
 --
---     * Transaction Conflict:
+--         -   The level of configured provisioned throughput for the table
+--             was exceeded. Consider increasing your provisioning level
+--             with the UpdateTable API.
 --
---     * Code: @TransactionConflict@
+--             This Message is received when provisioned throughput is
+--             exceeded is on a provisioned DynamoDB table.
 --
---     * Message: Transaction is ongoing for the item.
+--         -   The level of configured provisioned throughput for one or
+--             more global secondary indexes of the table was exceeded.
+--             Consider increasing your provisioning level for the
+--             under-provisioned global secondary indexes with the
+--             UpdateTable API.
 --
+--             This message is returned when provisioned throughput is
+--             exceeded is on a provisioned GSI.
 --
+-- -   Throttling Error:
 --
---     * Provisioned Throughput Exceeded:
+--     -   Code: @ThrottlingError@
 --
---     * Code: @ProvisionedThroughputExceeded@
+--     -   Messages:
 --
---     * Messages:
+--         -   Throughput exceeds the current capacity of your table or
+--             index. DynamoDB is automatically scaling your table or index
+--             so please try again shortly. If exceptions persist, check if
+--             you have a hot key:
+--             https:\/\/docs.aws.amazon.com\/amazondynamodb\/latest\/developerguide\/bp-partition-key-design.html.
 --
---     * The level of configured provisioned throughput for the table was exceeded. Consider increasing your provisioning level with the UpdateTable API.
+--             This message is returned when writes get throttled on an
+--             On-Demand table as DynamoDB is automatically scaling the
+--             table.
 --
---     * The level of configured provisioned throughput for one or more global secondary indexes of the table was exceeded. Consider increasing your provisioning level for the under-provisioned global secondary indexes with the UpdateTable API.
+--         -   Throughput exceeds the current capacity for one or more
+--             global secondary indexes. DynamoDB is automatically scaling
+--             your index so please try again shortly.
 --
+--             This message is returned when when writes get throttled on
+--             an On-Demand GSI as DynamoDB is automatically scaling the
+--             GSI.
 --
+-- -   Validation Error:
 --
+--     -   Code: @ValidationError@
 --
+--     -   Messages:
 --
---     * Throttling Error:
+--         -   One or more parameter values were invalid.
 --
---     * Code: @ThrottlingError@
+--         -   The update expression attempted to update the secondary
+--             index key beyond allowed size limits.
 --
---     * Messages:
+--         -   The update expression attempted to update the secondary
+--             index key to unsupported type.
 --
---     * Throughput exceeds the current capacity of your table or index. DynamoDB is automatically scaling your table or index so please try again shortly. If exceptions persist, check if you have a hot key: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html.
+--         -   An operand in the update expression has an incorrect data
+--             type.
 --
---     * Throughput exceeds the current capacity for one or more global secondary indexes. DynamoDB is automatically scaling your index so please try again shortly.
+--         -   Item size to update has exceeded the maximum allowed size.
 --
+--         -   Number overflow. Attempting to store a number with magnitude
+--             larger than supported range.
 --
+--         -   Type mismatch for attribute to update.
 --
+--         -   Nesting Levels have exceeded supported limits.
 --
+--         -   The document path provided in the update expression is
+--             invalid for update.
 --
---     * Validation Error:
---
---     * Code: @ValidationError@
---
---     * Messages:
---
---     * One or more parameter values were invalid.
---
---     * The update expression attempted to update the secondary index key beyond allowed size limits.
---
---     * The update expression attempted to update the secondary index key to unsupported type.
---
---     * An operand in the update expression has an incorrect data type.
---
---     * Item size to update has exceeded the maximum allowed size.
---
---     * Number overflow. Attempting to store a number with magnitude larger than supported range.
---
---     * Type mismatch for attribute to update.
---
---     * Nesting Levels have exceeded supported limits.
---
---     * The document path provided in the update expression is invalid for update.
---
---     * The provided expression refers to an attribute that does not exist in the item.
-_TransactionCanceledException :: AsError a => Getting (First ServiceError) a ServiceError
+--         -   The provided expression refers to an attribute that does not
+--             exist in the item.
+_TransactionCanceledException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TransactionCanceledException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "TransactionCanceledException"
 
--- | The operation conflicts with the resource's availability. For example, you attempted to recreate an existing table, or tried to delete a table currently in the @CREATING@ state.
-_ResourceInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The operation conflicts with the resource\'s availability. For example,
+-- you attempted to recreate an existing table, or tried to delete a table
+-- currently in the @CREATING@ state.
+_ResourceInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUseException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "ResourceInUseException"
 
--- | There is no limit to the number of daily on-demand backups that can be taken.
+-- | There is no limit to the number of daily on-demand backups that can be
+-- taken.
 --
+-- Up to 50 simultaneous table operations are allowed per account. These
+-- operations include @CreateTable@, @UpdateTable@,
+-- @DeleteTable@,@UpdateTimeToLive@, @RestoreTableFromBackup@, and
+-- @RestoreTableToPointInTime@.
 --
--- Up to 50 simultaneous table operations are allowed per account. These operations include @CreateTable@ , @UpdateTable@ , @DeleteTable@ ,@UpdateTimeToLive@ , @RestoreTableFromBackup@ , and @RestoreTableToPointInTime@ .
---
--- The only exception is when you are creating a table with one or more secondary indexes. You can have up to 25 such requests running at a time; however, if the table or index specifications are complex, DynamoDB might temporarily reduce the number of concurrent operations.
+-- The only exception is when you are creating a table with one or more
+-- secondary indexes. You can have up to 25 such requests running at a
+-- time; however, if the table or index specifications are complex,
+-- DynamoDB might temporarily reduce the number of concurrent operations.
 --
 -- There is a soft account quota of 256 tables.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
--- | Your request rate is too high. The AWS SDKs for DynamoDB automatically retry requests that receive this exception. Your request is eventually successful, unless your retry queue is too large to finish. Reduce the frequency of requests and use exponential backoff. For more information, go to <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.Errors.html#Programming.Errors.RetryAndBackoff Error Retries and Exponential Backoff> in the /Amazon DynamoDB Developer Guide/ .
-_ProvisionedThroughputExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Your request rate is too high. The AWS SDKs for DynamoDB automatically
+-- retry requests that receive this exception. Your request is eventually
+-- successful, unless your retry queue is too large to finish. Reduce the
+-- frequency of requests and use exponential backoff. For more information,
+-- go to
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.Errors.html#Programming.Errors.RetryAndBackoff Error Retries and Exponential Backoff>
+-- in the /Amazon DynamoDB Developer Guide/.
+_ProvisionedThroughputExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ProvisionedThroughputExceededException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "ProvisionedThroughputExceededException"
 
--- | The operation tried to access a nonexistent table or index. The resource might not be specified correctly, or its status might not be @ACTIVE@ .
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The operation tried to access a nonexistent table or index. The resource
+-- might not be specified correctly, or its status might not be @ACTIVE@.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
--- | DynamoDB rejected the request because you retried a request with a different payload but with an idempotent token that was already used.
-_IdempotentParameterMismatchException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | DynamoDB rejected the request because you retried a request with a
+-- different payload but with an idempotent token that was already used.
+_IdempotentParameterMismatchException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IdempotentParameterMismatchException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "IdempotentParameterMismatchException"
 
 -- | Backup not found for the given BackupARN.
-_BackupNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_BackupNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BackupNotFoundException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "BackupNotFoundException"
 
 -- | The operation tried to access a nonexistent index.
-_IndexNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_IndexNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IndexNotFoundException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "IndexNotFoundException"
 
--- | A source table with the name @TableName@ does not currently exist within the subscriber's account.
-_TableNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A source table with the name @TableName@ does not currently exist within
+-- the subscriber\'s account.
+_TableNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TableNotFoundException =
-  _MatchServiceError
-    dynamoDB
+  Prelude._MatchServiceError
+    defaultService
     "TableNotFoundException"

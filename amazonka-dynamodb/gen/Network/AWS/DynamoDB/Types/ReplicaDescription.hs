@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,119 +22,203 @@ module Network.AWS.DynamoDB.Types.ReplicaDescription where
 import Network.AWS.DynamoDB.Types.ProvisionedThroughputOverride
 import Network.AWS.DynamoDB.Types.ReplicaGlobalSecondaryIndexDescription
 import Network.AWS.DynamoDB.Types.ReplicaStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the details of the replica.
 --
---
---
--- /See:/ 'replicaDescription' smart constructor.
+-- /See:/ 'newReplicaDescription' smart constructor.
 data ReplicaDescription = ReplicaDescription'
-  { _rdRegionName ::
-      !(Maybe Text),
-    _rdGlobalSecondaryIndexes ::
-      !( Maybe
-           [ReplicaGlobalSecondaryIndexDescription]
-       ),
-    _rdProvisionedThroughputOverride ::
-      !( Maybe
-           ProvisionedThroughputOverride
-       ),
-    _rdKMSMasterKeyId ::
-      !(Maybe Text),
-    _rdReplicaStatusDescription ::
-      !(Maybe Text),
-    _rdReplicaStatusPercentProgress ::
-      !(Maybe Text),
-    _rdReplicaStatus ::
-      !(Maybe ReplicaStatus),
-    _rdReplicaInaccessibleDateTime ::
-      !(Maybe POSIX)
+  { -- | The name of the Region.
+    regionName :: Prelude.Maybe Prelude.Text,
+    -- | Replica-specific global secondary index settings.
+    globalSecondaryIndexes :: Prelude.Maybe [ReplicaGlobalSecondaryIndexDescription],
+    -- | Replica-specific provisioned throughput. If not described, uses the
+    -- source table\'s provisioned throughput settings.
+    provisionedThroughputOverride :: Prelude.Maybe ProvisionedThroughputOverride,
+    -- | The AWS KMS customer master key (CMK) of the replica that will be used
+    -- for AWS KMS encryption.
+    kMSMasterKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Detailed information about the replica status.
+    replicaStatusDescription :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the progress of a Create, Update, or Delete action on the
+    -- replica as a percentage.
+    replicaStatusPercentProgress :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the replica:
+    --
+    -- -   @CREATING@ - The replica is being created.
+    --
+    -- -   @UPDATING@ - The replica is being updated.
+    --
+    -- -   @DELETING@ - The replica is being deleted.
+    --
+    -- -   @ACTIVE@ - The replica is ready for use.
+    --
+    -- -   @REGION_DISABLED@ - The replica is inaccessible because the AWS
+    --     Region has been disabled.
+    --
+    --     If the AWS Region remains inaccessible for more than 20 hours,
+    --     DynamoDB will remove this replica from the replication group. The
+    --     replica will not be deleted and replication will stop from and to
+    --     this region.
+    --
+    -- -   @INACCESSIBLE_ENCRYPTION_CREDENTIALS @ - The AWS KMS key used to
+    --     encrypt the table is inaccessible.
+    --
+    --     If the AWS KMS key remains inaccessible for more than 20 hours,
+    --     DynamoDB will remove this replica from the replication group. The
+    --     replica will not be deleted and replication will stop from and to
+    --     this region.
+    replicaStatus :: Prelude.Maybe ReplicaStatus,
+    -- | The time at which the replica was first detected as inaccessible. To
+    -- determine cause of inaccessibility check the @ReplicaStatus@ property.
+    replicaInaccessibleDateTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicaDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicaDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdRegionName' - The name of the Region.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdGlobalSecondaryIndexes' - Replica-specific global secondary index settings.
+-- 'regionName', 'replicaDescription_regionName' - The name of the Region.
 --
--- * 'rdProvisionedThroughputOverride' - Replica-specific provisioned throughput. If not described, uses the source table's provisioned throughput settings.
+-- 'globalSecondaryIndexes', 'replicaDescription_globalSecondaryIndexes' - Replica-specific global secondary index settings.
 --
--- * 'rdKMSMasterKeyId' - The AWS KMS customer master key (CMK) of the replica that will be used for AWS KMS encryption.
+-- 'provisionedThroughputOverride', 'replicaDescription_provisionedThroughputOverride' - Replica-specific provisioned throughput. If not described, uses the
+-- source table\'s provisioned throughput settings.
 --
--- * 'rdReplicaStatusDescription' - Detailed information about the replica status.
+-- 'kMSMasterKeyId', 'replicaDescription_kMSMasterKeyId' - The AWS KMS customer master key (CMK) of the replica that will be used
+-- for AWS KMS encryption.
 --
--- * 'rdReplicaStatusPercentProgress' - Specifies the progress of a Create, Update, or Delete action on the replica as a percentage.
+-- 'replicaStatusDescription', 'replicaDescription_replicaStatusDescription' - Detailed information about the replica status.
 --
--- * 'rdReplicaStatus' - The current state of the replica:     * @CREATING@ - The replica is being created.     * @UPDATING@ - The replica is being updated.     * @DELETING@ - The replica is being deleted.     * @ACTIVE@ - The replica is ready for use.     * @REGION_DISABLED@ - The replica is inaccessible because the AWS Region has been disabled.     * @INACCESSIBLE_ENCRYPTION_CREDENTIALS @ - The AWS KMS key used to encrypt the table is inaccessible.
+-- 'replicaStatusPercentProgress', 'replicaDescription_replicaStatusPercentProgress' - Specifies the progress of a Create, Update, or Delete action on the
+-- replica as a percentage.
 --
--- * 'rdReplicaInaccessibleDateTime' - The time at which the replica was first detected as inaccessible. To determine cause of inaccessibility check the @ReplicaStatus@ property.
-replicaDescription ::
+-- 'replicaStatus', 'replicaDescription_replicaStatus' - The current state of the replica:
+--
+-- -   @CREATING@ - The replica is being created.
+--
+-- -   @UPDATING@ - The replica is being updated.
+--
+-- -   @DELETING@ - The replica is being deleted.
+--
+-- -   @ACTIVE@ - The replica is ready for use.
+--
+-- -   @REGION_DISABLED@ - The replica is inaccessible because the AWS
+--     Region has been disabled.
+--
+--     If the AWS Region remains inaccessible for more than 20 hours,
+--     DynamoDB will remove this replica from the replication group. The
+--     replica will not be deleted and replication will stop from and to
+--     this region.
+--
+-- -   @INACCESSIBLE_ENCRYPTION_CREDENTIALS @ - The AWS KMS key used to
+--     encrypt the table is inaccessible.
+--
+--     If the AWS KMS key remains inaccessible for more than 20 hours,
+--     DynamoDB will remove this replica from the replication group. The
+--     replica will not be deleted and replication will stop from and to
+--     this region.
+--
+-- 'replicaInaccessibleDateTime', 'replicaDescription_replicaInaccessibleDateTime' - The time at which the replica was first detected as inaccessible. To
+-- determine cause of inaccessibility check the @ReplicaStatus@ property.
+newReplicaDescription ::
   ReplicaDescription
-replicaDescription =
+newReplicaDescription =
   ReplicaDescription'
-    { _rdRegionName = Nothing,
-      _rdGlobalSecondaryIndexes = Nothing,
-      _rdProvisionedThroughputOverride = Nothing,
-      _rdKMSMasterKeyId = Nothing,
-      _rdReplicaStatusDescription = Nothing,
-      _rdReplicaStatusPercentProgress = Nothing,
-      _rdReplicaStatus = Nothing,
-      _rdReplicaInaccessibleDateTime = Nothing
+    { regionName = Prelude.Nothing,
+      globalSecondaryIndexes = Prelude.Nothing,
+      provisionedThroughputOverride = Prelude.Nothing,
+      kMSMasterKeyId = Prelude.Nothing,
+      replicaStatusDescription = Prelude.Nothing,
+      replicaStatusPercentProgress = Prelude.Nothing,
+      replicaStatus = Prelude.Nothing,
+      replicaInaccessibleDateTime = Prelude.Nothing
     }
 
 -- | The name of the Region.
-rdRegionName :: Lens' ReplicaDescription (Maybe Text)
-rdRegionName = lens _rdRegionName (\s a -> s {_rdRegionName = a})
+replicaDescription_regionName :: Lens.Lens' ReplicaDescription (Prelude.Maybe Prelude.Text)
+replicaDescription_regionName = Lens.lens (\ReplicaDescription' {regionName} -> regionName) (\s@ReplicaDescription' {} a -> s {regionName = a} :: ReplicaDescription)
 
 -- | Replica-specific global secondary index settings.
-rdGlobalSecondaryIndexes :: Lens' ReplicaDescription [ReplicaGlobalSecondaryIndexDescription]
-rdGlobalSecondaryIndexes = lens _rdGlobalSecondaryIndexes (\s a -> s {_rdGlobalSecondaryIndexes = a}) . _Default . _Coerce
+replicaDescription_globalSecondaryIndexes :: Lens.Lens' ReplicaDescription (Prelude.Maybe [ReplicaGlobalSecondaryIndexDescription])
+replicaDescription_globalSecondaryIndexes = Lens.lens (\ReplicaDescription' {globalSecondaryIndexes} -> globalSecondaryIndexes) (\s@ReplicaDescription' {} a -> s {globalSecondaryIndexes = a} :: ReplicaDescription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Replica-specific provisioned throughput. If not described, uses the source table's provisioned throughput settings.
-rdProvisionedThroughputOverride :: Lens' ReplicaDescription (Maybe ProvisionedThroughputOverride)
-rdProvisionedThroughputOverride = lens _rdProvisionedThroughputOverride (\s a -> s {_rdProvisionedThroughputOverride = a})
+-- | Replica-specific provisioned throughput. If not described, uses the
+-- source table\'s provisioned throughput settings.
+replicaDescription_provisionedThroughputOverride :: Lens.Lens' ReplicaDescription (Prelude.Maybe ProvisionedThroughputOverride)
+replicaDescription_provisionedThroughputOverride = Lens.lens (\ReplicaDescription' {provisionedThroughputOverride} -> provisionedThroughputOverride) (\s@ReplicaDescription' {} a -> s {provisionedThroughputOverride = a} :: ReplicaDescription)
 
--- | The AWS KMS customer master key (CMK) of the replica that will be used for AWS KMS encryption.
-rdKMSMasterKeyId :: Lens' ReplicaDescription (Maybe Text)
-rdKMSMasterKeyId = lens _rdKMSMasterKeyId (\s a -> s {_rdKMSMasterKeyId = a})
+-- | The AWS KMS customer master key (CMK) of the replica that will be used
+-- for AWS KMS encryption.
+replicaDescription_kMSMasterKeyId :: Lens.Lens' ReplicaDescription (Prelude.Maybe Prelude.Text)
+replicaDescription_kMSMasterKeyId = Lens.lens (\ReplicaDescription' {kMSMasterKeyId} -> kMSMasterKeyId) (\s@ReplicaDescription' {} a -> s {kMSMasterKeyId = a} :: ReplicaDescription)
 
 -- | Detailed information about the replica status.
-rdReplicaStatusDescription :: Lens' ReplicaDescription (Maybe Text)
-rdReplicaStatusDescription = lens _rdReplicaStatusDescription (\s a -> s {_rdReplicaStatusDescription = a})
+replicaDescription_replicaStatusDescription :: Lens.Lens' ReplicaDescription (Prelude.Maybe Prelude.Text)
+replicaDescription_replicaStatusDescription = Lens.lens (\ReplicaDescription' {replicaStatusDescription} -> replicaStatusDescription) (\s@ReplicaDescription' {} a -> s {replicaStatusDescription = a} :: ReplicaDescription)
 
--- | Specifies the progress of a Create, Update, or Delete action on the replica as a percentage.
-rdReplicaStatusPercentProgress :: Lens' ReplicaDescription (Maybe Text)
-rdReplicaStatusPercentProgress = lens _rdReplicaStatusPercentProgress (\s a -> s {_rdReplicaStatusPercentProgress = a})
+-- | Specifies the progress of a Create, Update, or Delete action on the
+-- replica as a percentage.
+replicaDescription_replicaStatusPercentProgress :: Lens.Lens' ReplicaDescription (Prelude.Maybe Prelude.Text)
+replicaDescription_replicaStatusPercentProgress = Lens.lens (\ReplicaDescription' {replicaStatusPercentProgress} -> replicaStatusPercentProgress) (\s@ReplicaDescription' {} a -> s {replicaStatusPercentProgress = a} :: ReplicaDescription)
 
--- | The current state of the replica:     * @CREATING@ - The replica is being created.     * @UPDATING@ - The replica is being updated.     * @DELETING@ - The replica is being deleted.     * @ACTIVE@ - The replica is ready for use.     * @REGION_DISABLED@ - The replica is inaccessible because the AWS Region has been disabled.     * @INACCESSIBLE_ENCRYPTION_CREDENTIALS @ - The AWS KMS key used to encrypt the table is inaccessible.
-rdReplicaStatus :: Lens' ReplicaDescription (Maybe ReplicaStatus)
-rdReplicaStatus = lens _rdReplicaStatus (\s a -> s {_rdReplicaStatus = a})
+-- | The current state of the replica:
+--
+-- -   @CREATING@ - The replica is being created.
+--
+-- -   @UPDATING@ - The replica is being updated.
+--
+-- -   @DELETING@ - The replica is being deleted.
+--
+-- -   @ACTIVE@ - The replica is ready for use.
+--
+-- -   @REGION_DISABLED@ - The replica is inaccessible because the AWS
+--     Region has been disabled.
+--
+--     If the AWS Region remains inaccessible for more than 20 hours,
+--     DynamoDB will remove this replica from the replication group. The
+--     replica will not be deleted and replication will stop from and to
+--     this region.
+--
+-- -   @INACCESSIBLE_ENCRYPTION_CREDENTIALS @ - The AWS KMS key used to
+--     encrypt the table is inaccessible.
+--
+--     If the AWS KMS key remains inaccessible for more than 20 hours,
+--     DynamoDB will remove this replica from the replication group. The
+--     replica will not be deleted and replication will stop from and to
+--     this region.
+replicaDescription_replicaStatus :: Lens.Lens' ReplicaDescription (Prelude.Maybe ReplicaStatus)
+replicaDescription_replicaStatus = Lens.lens (\ReplicaDescription' {replicaStatus} -> replicaStatus) (\s@ReplicaDescription' {} a -> s {replicaStatus = a} :: ReplicaDescription)
 
--- | The time at which the replica was first detected as inaccessible. To determine cause of inaccessibility check the @ReplicaStatus@ property.
-rdReplicaInaccessibleDateTime :: Lens' ReplicaDescription (Maybe UTCTime)
-rdReplicaInaccessibleDateTime = lens _rdReplicaInaccessibleDateTime (\s a -> s {_rdReplicaInaccessibleDateTime = a}) . mapping _Time
+-- | The time at which the replica was first detected as inaccessible. To
+-- determine cause of inaccessibility check the @ReplicaStatus@ property.
+replicaDescription_replicaInaccessibleDateTime :: Lens.Lens' ReplicaDescription (Prelude.Maybe Prelude.UTCTime)
+replicaDescription_replicaInaccessibleDateTime = Lens.lens (\ReplicaDescription' {replicaInaccessibleDateTime} -> replicaInaccessibleDateTime) (\s@ReplicaDescription' {} a -> s {replicaInaccessibleDateTime = a} :: ReplicaDescription) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON ReplicaDescription where
+instance Prelude.FromJSON ReplicaDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReplicaDescription"
       ( \x ->
           ReplicaDescription'
-            <$> (x .:? "RegionName")
-            <*> (x .:? "GlobalSecondaryIndexes" .!= mempty)
-            <*> (x .:? "ProvisionedThroughputOverride")
-            <*> (x .:? "KMSMasterKeyId")
-            <*> (x .:? "ReplicaStatusDescription")
-            <*> (x .:? "ReplicaStatusPercentProgress")
-            <*> (x .:? "ReplicaStatus")
-            <*> (x .:? "ReplicaInaccessibleDateTime")
+            Prelude.<$> (x Prelude..:? "RegionName")
+            Prelude.<*> ( x Prelude..:? "GlobalSecondaryIndexes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ProvisionedThroughputOverride")
+            Prelude.<*> (x Prelude..:? "KMSMasterKeyId")
+            Prelude.<*> (x Prelude..:? "ReplicaStatusDescription")
+            Prelude.<*> (x Prelude..:? "ReplicaStatusPercentProgress")
+            Prelude.<*> (x Prelude..:? "ReplicaStatus")
+            Prelude.<*> (x Prelude..:? "ReplicaInaccessibleDateTime")
       )
 
-instance Hashable ReplicaDescription
+instance Prelude.Hashable ReplicaDescription
 
-instance NFData ReplicaDescription
+instance Prelude.NFData ReplicaDescription

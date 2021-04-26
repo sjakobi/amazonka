@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,117 +21,137 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops replication from the DynamoDB table to the Kinesis data stream. This is done without deleting either of the resources.
+-- Stops replication from the DynamoDB table to the Kinesis data stream.
+-- This is done without deleting either of the resources.
 module Network.AWS.DynamoDB.DisableKinesisStreamingDestination
   ( -- * Creating a Request
-    disableKinesisStreamingDestination,
-    DisableKinesisStreamingDestination,
+    DisableKinesisStreamingDestination (..),
+    newDisableKinesisStreamingDestination,
 
     -- * Request Lenses
-    dksdTableName,
-    dksdStreamARN,
+    disableKinesisStreamingDestination_tableName,
+    disableKinesisStreamingDestination_streamArn,
 
     -- * Destructuring the Response
-    kinesisStreamingDestinationOutput,
-    KinesisStreamingDestinationOutput,
+    KinesisStreamingDestinationOutput (..),
+    newKinesisStreamingDestinationOutput,
 
     -- * Response Lenses
-    ksdoTableName,
-    ksdoStreamARN,
-    ksdoDestinationStatus,
+    kinesisStreamingDestinationOutput_tableName,
+    kinesisStreamingDestinationOutput_streamArn,
+    kinesisStreamingDestinationOutput_destinationStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.DestinationStatus
+import Network.AWS.DynamoDB.Types.KinesisStreamingDestinationOutput
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disableKinesisStreamingDestination' smart constructor.
+-- | /See:/ 'newDisableKinesisStreamingDestination' smart constructor.
 data DisableKinesisStreamingDestination = DisableKinesisStreamingDestination'
-  { _dksdTableName ::
-      !Text,
-    _dksdStreamARN ::
-      !Text
+  { -- | The name of the DynamoDB table.
+    tableName :: Prelude.Text,
+    -- | The ARN for a Kinesis data stream.
+    streamArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableKinesisStreamingDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableKinesisStreamingDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dksdTableName' - The name of the DynamoDB table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dksdStreamARN' - The ARN for a Kinesis data stream.
-disableKinesisStreamingDestination ::
-  -- | 'dksdTableName'
-  Text ->
-  -- | 'dksdStreamARN'
-  Text ->
+-- 'tableName', 'disableKinesisStreamingDestination_tableName' - The name of the DynamoDB table.
+--
+-- 'streamArn', 'disableKinesisStreamingDestination_streamArn' - The ARN for a Kinesis data stream.
+newDisableKinesisStreamingDestination ::
+  -- | 'tableName'
+  Prelude.Text ->
+  -- | 'streamArn'
+  Prelude.Text ->
   DisableKinesisStreamingDestination
-disableKinesisStreamingDestination
+newDisableKinesisStreamingDestination
   pTableName_
-  pStreamARN_ =
+  pStreamArn_ =
     DisableKinesisStreamingDestination'
-      { _dksdTableName =
+      { tableName =
           pTableName_,
-        _dksdStreamARN = pStreamARN_
+        streamArn = pStreamArn_
       }
 
 -- | The name of the DynamoDB table.
-dksdTableName :: Lens' DisableKinesisStreamingDestination Text
-dksdTableName = lens _dksdTableName (\s a -> s {_dksdTableName = a})
+disableKinesisStreamingDestination_tableName :: Lens.Lens' DisableKinesisStreamingDestination Prelude.Text
+disableKinesisStreamingDestination_tableName = Lens.lens (\DisableKinesisStreamingDestination' {tableName} -> tableName) (\s@DisableKinesisStreamingDestination' {} a -> s {tableName = a} :: DisableKinesisStreamingDestination)
 
 -- | The ARN for a Kinesis data stream.
-dksdStreamARN :: Lens' DisableKinesisStreamingDestination Text
-dksdStreamARN = lens _dksdStreamARN (\s a -> s {_dksdStreamARN = a})
+disableKinesisStreamingDestination_streamArn :: Lens.Lens' DisableKinesisStreamingDestination Prelude.Text
+disableKinesisStreamingDestination_streamArn = Lens.lens (\DisableKinesisStreamingDestination' {streamArn} -> streamArn) (\s@DisableKinesisStreamingDestination' {} a -> s {streamArn = a} :: DisableKinesisStreamingDestination)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DisableKinesisStreamingDestination
   where
   type
     Rs DisableKinesisStreamingDestination =
       KinesisStreamingDestinationOutput
-  request = postJSON dynamoDB
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable DisableKinesisStreamingDestination
+instance
+  Prelude.Hashable
+    DisableKinesisStreamingDestination
 
-instance NFData DisableKinesisStreamingDestination
+instance
+  Prelude.NFData
+    DisableKinesisStreamingDestination
 
-instance ToHeaders DisableKinesisStreamingDestination where
+instance
+  Prelude.ToHeaders
+    DisableKinesisStreamingDestination
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DynamoDB_20120810.DisableKinesisStreamingDestination" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DynamoDB_20120810.DisableKinesisStreamingDestination" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisableKinesisStreamingDestination where
+instance
+  Prelude.ToJSON
+    DisableKinesisStreamingDestination
+  where
   toJSON DisableKinesisStreamingDestination' {..} =
-    object
-      ( catMaybes
-          [ Just ("TableName" .= _dksdTableName),
-            Just ("StreamArn" .= _dksdStreamARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just ("StreamArn" Prelude..= streamArn)
           ]
       )
 
-instance ToPath DisableKinesisStreamingDestination where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DisableKinesisStreamingDestination
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisableKinesisStreamingDestination where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DisableKinesisStreamingDestination
+  where
+  toQuery = Prelude.const Prelude.mempty

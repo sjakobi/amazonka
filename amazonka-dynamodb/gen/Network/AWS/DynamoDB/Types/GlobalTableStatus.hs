@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.DynamoDB.Types.GlobalTableStatus
   ( GlobalTableStatus
       ( ..,
-        GTSActive,
-        GTSCreating,
-        GTSDeleting,
-        GTSUpdating
+        GlobalTableStatusACTIVE,
+        GlobalTableStatusCREATING,
+        GlobalTableStatusDELETING,
+        GlobalTableStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GlobalTableStatus = GlobalTableStatus' (CI Text)
+newtype GlobalTableStatus = GlobalTableStatus'
+  { fromGlobalTableStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GTSActive :: GlobalTableStatus
-pattern GTSActive = GlobalTableStatus' "ACTIVE"
+pattern GlobalTableStatusACTIVE :: GlobalTableStatus
+pattern GlobalTableStatusACTIVE = GlobalTableStatus' "ACTIVE"
 
-pattern GTSCreating :: GlobalTableStatus
-pattern GTSCreating = GlobalTableStatus' "CREATING"
+pattern GlobalTableStatusCREATING :: GlobalTableStatus
+pattern GlobalTableStatusCREATING = GlobalTableStatus' "CREATING"
 
-pattern GTSDeleting :: GlobalTableStatus
-pattern GTSDeleting = GlobalTableStatus' "DELETING"
+pattern GlobalTableStatusDELETING :: GlobalTableStatus
+pattern GlobalTableStatusDELETING = GlobalTableStatus' "DELETING"
 
-pattern GTSUpdating :: GlobalTableStatus
-pattern GTSUpdating = GlobalTableStatus' "UPDATING"
+pattern GlobalTableStatusUPDATING :: GlobalTableStatus
+pattern GlobalTableStatusUPDATING = GlobalTableStatus' "UPDATING"
 
 {-# COMPLETE
-  GTSActive,
-  GTSCreating,
-  GTSDeleting,
-  GTSUpdating,
+  GlobalTableStatusACTIVE,
+  GlobalTableStatusCREATING,
+  GlobalTableStatusDELETING,
+  GlobalTableStatusUPDATING,
   GlobalTableStatus'
   #-}
 
-instance FromText GlobalTableStatus where
-  parser = (GlobalTableStatus' . mk) <$> takeText
+instance Prelude.FromText GlobalTableStatus where
+  parser = GlobalTableStatus' Prelude.<$> Prelude.takeText
 
-instance ToText GlobalTableStatus where
-  toText (GlobalTableStatus' ci) = original ci
+instance Prelude.ToText GlobalTableStatus where
+  toText (GlobalTableStatus' x) = x
 
-instance Hashable GlobalTableStatus
+instance Prelude.Hashable GlobalTableStatus
 
-instance NFData GlobalTableStatus
+instance Prelude.NFData GlobalTableStatus
 
-instance ToByteString GlobalTableStatus
+instance Prelude.ToByteString GlobalTableStatus
 
-instance ToQuery GlobalTableStatus
+instance Prelude.ToQuery GlobalTableStatus
 
-instance ToHeader GlobalTableStatus
+instance Prelude.ToHeader GlobalTableStatus
 
-instance FromJSON GlobalTableStatus where
-  parseJSON = parseJSONText "GlobalTableStatus"
+instance Prelude.FromJSON GlobalTableStatus where
+  parseJSON = Prelude.parseJSONText "GlobalTableStatus"

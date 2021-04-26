@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +21,65 @@ module Network.AWS.DynamoDB.Types.ReplicaUpdate where
 
 import Network.AWS.DynamoDB.Types.CreateReplicaAction
 import Network.AWS.DynamoDB.Types.DeleteReplicaAction
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents one of the following:
 --
+-- -   A new replica to be added to an existing global table.
 --
---     * A new replica to be added to an existing global table.
+-- -   New parameters for an existing replica.
 --
---     * New parameters for an existing replica.
+-- -   An existing replica to be removed from an existing global table.
 --
---     * An existing replica to be removed from an existing global table.
---
---
---
---
--- /See:/ 'replicaUpdate' smart constructor.
+-- /See:/ 'newReplicaUpdate' smart constructor.
 data ReplicaUpdate = ReplicaUpdate'
-  { _ruCreate ::
-      !(Maybe CreateReplicaAction),
-    _ruDelete :: !(Maybe DeleteReplicaAction)
+  { -- | The parameters required for creating a replica on an existing global
+    -- table.
+    create :: Prelude.Maybe CreateReplicaAction,
+    -- | The name of the existing replica to be removed.
+    delete' :: Prelude.Maybe DeleteReplicaAction
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicaUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicaUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ruCreate' - The parameters required for creating a replica on an existing global table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ruDelete' - The name of the existing replica to be removed.
-replicaUpdate ::
+-- 'create', 'replicaUpdate_create' - The parameters required for creating a replica on an existing global
+-- table.
+--
+-- 'delete'', 'replicaUpdate_delete' - The name of the existing replica to be removed.
+newReplicaUpdate ::
   ReplicaUpdate
-replicaUpdate =
+newReplicaUpdate =
   ReplicaUpdate'
-    { _ruCreate = Nothing,
-      _ruDelete = Nothing
+    { create = Prelude.Nothing,
+      delete' = Prelude.Nothing
     }
 
--- | The parameters required for creating a replica on an existing global table.
-ruCreate :: Lens' ReplicaUpdate (Maybe CreateReplicaAction)
-ruCreate = lens _ruCreate (\s a -> s {_ruCreate = a})
+-- | The parameters required for creating a replica on an existing global
+-- table.
+replicaUpdate_create :: Lens.Lens' ReplicaUpdate (Prelude.Maybe CreateReplicaAction)
+replicaUpdate_create = Lens.lens (\ReplicaUpdate' {create} -> create) (\s@ReplicaUpdate' {} a -> s {create = a} :: ReplicaUpdate)
 
 -- | The name of the existing replica to be removed.
-ruDelete :: Lens' ReplicaUpdate (Maybe DeleteReplicaAction)
-ruDelete = lens _ruDelete (\s a -> s {_ruDelete = a})
+replicaUpdate_delete :: Lens.Lens' ReplicaUpdate (Prelude.Maybe DeleteReplicaAction)
+replicaUpdate_delete = Lens.lens (\ReplicaUpdate' {delete'} -> delete') (\s@ReplicaUpdate' {} a -> s {delete' = a} :: ReplicaUpdate)
 
-instance Hashable ReplicaUpdate
+instance Prelude.Hashable ReplicaUpdate
 
-instance NFData ReplicaUpdate
+instance Prelude.NFData ReplicaUpdate
 
-instance ToJSON ReplicaUpdate where
+instance Prelude.ToJSON ReplicaUpdate where
   toJSON ReplicaUpdate' {..} =
-    object
-      ( catMaybes
-          [ ("Create" .=) <$> _ruCreate,
-            ("Delete" .=) <$> _ruDelete
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Create" Prelude..=) Prelude.<$> create,
+            ("Delete" Prelude..=) Prelude.<$> delete'
           ]
       )

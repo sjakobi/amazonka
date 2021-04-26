@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Checks the status of continuous backups and point in time recovery on the specified table. Continuous backups are @ENABLED@ on all tables at table creation. If point in time recovery is enabled, @PointInTimeRecoveryStatus@ will be set to ENABLED.
+-- Checks the status of continuous backups and point in time recovery on
+-- the specified table. Continuous backups are @ENABLED@ on all tables at
+-- table creation. If point in time recovery is enabled,
+-- @PointInTimeRecoveryStatus@ will be set to ENABLED.
 --
+-- After continuous backups and point in time recovery are enabled, you can
+-- restore to any point in time within @EarliestRestorableDateTime@ and
+-- @LatestRestorableDateTime@.
 --
--- After continuous backups and point in time recovery are enabled, you can restore to any point in time within @EarliestRestorableDateTime@ and @LatestRestorableDateTime@ .
+-- @LatestRestorableDateTime@ is typically 5 minutes before the current
+-- time. You can restore your table to any point in time during the last 35
+-- days.
 --
--- @LatestRestorableDateTime@ is typically 5 minutes before the current time. You can restore your table to any point in time during the last 35 days.
---
--- You can call @DescribeContinuousBackups@ at a maximum rate of 10 times per second.
+-- You can call @DescribeContinuousBackups@ at a maximum rate of 10 times
+-- per second.
 module Network.AWS.DynamoDB.DescribeContinuousBackups
   ( -- * Creating a Request
-    describeContinuousBackups,
-    DescribeContinuousBackups,
+    DescribeContinuousBackups (..),
+    newDescribeContinuousBackups,
 
     -- * Request Lenses
-    dcbTableName,
+    describeContinuousBackups_tableName,
 
     -- * Destructuring the Response
-    describeContinuousBackupsResponse,
-    DescribeContinuousBackupsResponse,
+    DescribeContinuousBackupsResponse (..),
+    newDescribeContinuousBackupsResponse,
 
     -- * Response Lenses
-    dcbrrsContinuousBackupsDescription,
-    dcbrrsResponseStatus,
+    describeContinuousBackupsResponse_continuousBackupsDescription,
+    describeContinuousBackupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DynamoDB.Types.ContinuousBackupsDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeContinuousBackups' smart constructor.
-newtype DescribeContinuousBackups = DescribeContinuousBackups'
-  { _dcbTableName ::
-      Text
+-- | /See:/ 'newDescribeContinuousBackups' smart constructor.
+data DescribeContinuousBackups = DescribeContinuousBackups'
+  { -- | Name of the table for which the customer wants to check the continuous
+    -- backups and point in time recovery settings.
+    tableName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeContinuousBackups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeContinuousBackups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcbTableName' - Name of the table for which the customer wants to check the continuous backups and point in time recovery settings.
-describeContinuousBackups ::
-  -- | 'dcbTableName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'tableName', 'describeContinuousBackups_tableName' - Name of the table for which the customer wants to check the continuous
+-- backups and point in time recovery settings.
+newDescribeContinuousBackups ::
+  -- | 'tableName'
+  Prelude.Text ->
   DescribeContinuousBackups
-describeContinuousBackups pTableName_ =
-  DescribeContinuousBackups'
-    { _dcbTableName =
-        pTableName_
-    }
+newDescribeContinuousBackups pTableName_ =
+  DescribeContinuousBackups' {tableName = pTableName_}
 
--- | Name of the table for which the customer wants to check the continuous backups and point in time recovery settings.
-dcbTableName :: Lens' DescribeContinuousBackups Text
-dcbTableName = lens _dcbTableName (\s a -> s {_dcbTableName = a})
+-- | Name of the table for which the customer wants to check the continuous
+-- backups and point in time recovery settings.
+describeContinuousBackups_tableName :: Lens.Lens' DescribeContinuousBackups Prelude.Text
+describeContinuousBackups_tableName = Lens.lens (\DescribeContinuousBackups' {tableName} -> tableName) (\s@DescribeContinuousBackups' {} a -> s {tableName = a} :: DescribeContinuousBackups)
 
-instance AWSRequest DescribeContinuousBackups where
+instance Prelude.AWSRequest DescribeContinuousBackups where
   type
     Rs DescribeContinuousBackups =
       DescribeContinuousBackupsResponse
-  request = postJSON dynamoDB
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeContinuousBackupsResponse'
-            <$> (x .?> "ContinuousBackupsDescription")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ContinuousBackupsDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeContinuousBackups
+instance Prelude.Hashable DescribeContinuousBackups
 
-instance NFData DescribeContinuousBackups
+instance Prelude.NFData DescribeContinuousBackups
 
-instance ToHeaders DescribeContinuousBackups where
+instance Prelude.ToHeaders DescribeContinuousBackups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DynamoDB_20120810.DescribeContinuousBackups" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DynamoDB_20120810.DescribeContinuousBackups" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeContinuousBackups where
+instance Prelude.ToJSON DescribeContinuousBackups where
   toJSON DescribeContinuousBackups' {..} =
-    object
-      (catMaybes [Just ("TableName" .= _dcbTableName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("TableName" Prelude..= tableName)]
+      )
 
-instance ToPath DescribeContinuousBackups where
-  toPath = const "/"
+instance Prelude.ToPath DescribeContinuousBackups where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeContinuousBackups where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeContinuousBackups where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeContinuousBackupsResponse' smart constructor.
+-- | /See:/ 'newDescribeContinuousBackupsResponse' smart constructor.
 data DescribeContinuousBackupsResponse = DescribeContinuousBackupsResponse'
-  { _dcbrrsContinuousBackupsDescription ::
-      !( Maybe
-           ContinuousBackupsDescription
-       ),
-    _dcbrrsResponseStatus ::
-      !Int
+  { -- | Represents the continuous backups and point in time recovery settings on
+    -- the table.
+    continuousBackupsDescription :: Prelude.Maybe ContinuousBackupsDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeContinuousBackupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeContinuousBackupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcbrrsContinuousBackupsDescription' - Represents the continuous backups and point in time recovery settings on the table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcbrrsResponseStatus' - -- | The response status code.
-describeContinuousBackupsResponse ::
-  -- | 'dcbrrsResponseStatus'
-  Int ->
+-- 'continuousBackupsDescription', 'describeContinuousBackupsResponse_continuousBackupsDescription' - Represents the continuous backups and point in time recovery settings on
+-- the table.
+--
+-- 'httpStatus', 'describeContinuousBackupsResponse_httpStatus' - The response's http status code.
+newDescribeContinuousBackupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeContinuousBackupsResponse
-describeContinuousBackupsResponse pResponseStatus_ =
+newDescribeContinuousBackupsResponse pHttpStatus_ =
   DescribeContinuousBackupsResponse'
-    { _dcbrrsContinuousBackupsDescription =
-        Nothing,
-      _dcbrrsResponseStatus = pResponseStatus_
+    { continuousBackupsDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Represents the continuous backups and point in time recovery settings on the table.
-dcbrrsContinuousBackupsDescription :: Lens' DescribeContinuousBackupsResponse (Maybe ContinuousBackupsDescription)
-dcbrrsContinuousBackupsDescription = lens _dcbrrsContinuousBackupsDescription (\s a -> s {_dcbrrsContinuousBackupsDescription = a})
+-- | Represents the continuous backups and point in time recovery settings on
+-- the table.
+describeContinuousBackupsResponse_continuousBackupsDescription :: Lens.Lens' DescribeContinuousBackupsResponse (Prelude.Maybe ContinuousBackupsDescription)
+describeContinuousBackupsResponse_continuousBackupsDescription = Lens.lens (\DescribeContinuousBackupsResponse' {continuousBackupsDescription} -> continuousBackupsDescription) (\s@DescribeContinuousBackupsResponse' {} a -> s {continuousBackupsDescription = a} :: DescribeContinuousBackupsResponse)
 
--- | -- | The response status code.
-dcbrrsResponseStatus :: Lens' DescribeContinuousBackupsResponse Int
-dcbrrsResponseStatus = lens _dcbrrsResponseStatus (\s a -> s {_dcbrrsResponseStatus = a})
+-- | The response's http status code.
+describeContinuousBackupsResponse_httpStatus :: Lens.Lens' DescribeContinuousBackupsResponse Prelude.Int
+describeContinuousBackupsResponse_httpStatus = Lens.lens (\DescribeContinuousBackupsResponse' {httpStatus} -> httpStatus) (\s@DescribeContinuousBackupsResponse' {} a -> s {httpStatus = a} :: DescribeContinuousBackupsResponse)
 
-instance NFData DescribeContinuousBackupsResponse
+instance
+  Prelude.NFData
+    DescribeContinuousBackupsResponse
