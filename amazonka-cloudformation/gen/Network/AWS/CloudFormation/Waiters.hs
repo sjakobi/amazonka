@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,281 +18,421 @@ module Network.AWS.CloudFormation.Waiters where
 import Network.AWS.CloudFormation.DescribeChangeSet
 import Network.AWS.CloudFormation.DescribeStacks
 import Network.AWS.CloudFormation.DescribeTypeRegistration
+import Network.AWS.CloudFormation.Lens
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Waiter
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.CloudFormation.DescribeChangeSet' every 30 seconds until a successful state is reached. An error is returned after 120 failed checks.
-changeSetCreateComplete :: Wait DescribeChangeSet
-changeSetCreateComplete =
-  Wait
-    { _waitName = "ChangeSetCreateComplete",
-      _waitAttempts = 120,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newChangeSetCreateComplete :: Waiter.Wait DescribeChangeSet
+newChangeSetCreateComplete =
+  Waiter.Wait
+    { Waiter._waitName =
+        "ChangeSetCreateComplete",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "CREATE_COMPLETE"
-            AcceptSuccess
-            (desrsStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeChangeSetResponse_status
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "FAILED"
-            AcceptFailure
-            (desrsStatus . to toTextCI),
-          matchError "ValidationError" AcceptFailure
+            Waiter.AcceptFailure
+            ( describeChangeSetResponse_status
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchError
+            "ValidationError"
+            Waiter.AcceptFailure
         ]
     }
 
 -- | Polls 'Network.AWS.CloudFormation.DescribeStacks' every 30 seconds until a successful state is reached. An error is returned after 120 failed checks.
-stackRollbackComplete :: Wait DescribeStacks
-stackRollbackComplete =
-  Wait
-    { _waitName = "StackRollbackComplete",
-      _waitAttempts = 120,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newStackRollbackComplete :: Waiter.Wait DescribeStacks
+newStackRollbackComplete =
+  Waiter.Wait
+    { Waiter._waitName =
+        "StackRollbackComplete",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "UPDATE_ROLLBACK_COMPLETE"
-            AcceptSuccess
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "UPDATE_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "UPDATE_ROLLBACK_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "DELETE_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "ValidationError" AcceptFailure
+          Waiter.matchError
+            "ValidationError"
+            Waiter.AcceptFailure
         ]
     }
 
 -- | Polls 'Network.AWS.CloudFormation.DescribeStacks' every 30 seconds until a successful state is reached. An error is returned after 120 failed checks.
-stackDeleteComplete :: Wait DescribeStacks
-stackDeleteComplete =
-  Wait
-    { _waitName = "StackDeleteComplete",
-      _waitAttempts = 120,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newStackDeleteComplete :: Waiter.Wait DescribeStacks
+newStackDeleteComplete =
+  Waiter.Wait
+    { Waiter._waitName =
+        "StackDeleteComplete",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "DELETE_COMPLETE"
-            AcceptSuccess
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "ValidationError" AcceptSuccess,
-          matchAny
+          Waiter.matchError
+            "ValidationError"
+            Waiter.AcceptSuccess,
+          Waiter.matchAny
             "DELETE_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "CREATE_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "ROLLBACK_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "UPDATE_ROLLBACK_IN_PROGRESS"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "UPDATE_ROLLBACK_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "UPDATE_ROLLBACK_COMPLETE"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.CloudFormation.DescribeStacks' every 5 seconds until a successful state is reached. An error is returned after 20 failed checks.
-stackExists :: Wait DescribeStacks
-stackExists =
-  Wait
-    { _waitName = "StackExists",
-      _waitAttempts = 20,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchStatus 200 AcceptSuccess,
-          matchError "ValidationError" AcceptRetry
+newStackExists :: Waiter.Wait DescribeStacks
+newStackExists =
+  Waiter.Wait
+    { Waiter._waitName = "StackExists",
+      Waiter._waitAttempts = 20,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchStatus 200 Waiter.AcceptSuccess,
+          Waiter.matchError
+            "ValidationError"
+            Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.CloudFormation.DescribeStacks' every 30 seconds until a successful state is reached. An error is returned after 120 failed checks.
-stackUpdateComplete :: Wait DescribeStacks
-stackUpdateComplete =
-  Wait
-    { _waitName = "StackUpdateComplete",
-      _waitAttempts = 120,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newStackUpdateComplete :: Waiter.Wait DescribeStacks
+newStackUpdateComplete =
+  Waiter.Wait
+    { Waiter._waitName =
+        "StackUpdateComplete",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "UPDATE_COMPLETE"
-            AcceptSuccess
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "UPDATE_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "UPDATE_ROLLBACK_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "UPDATE_ROLLBACK_COMPLETE"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "ValidationError" AcceptFailure
+          Waiter.matchError
+            "ValidationError"
+            Waiter.AcceptFailure
         ]
     }
 
 -- | Polls 'Network.AWS.CloudFormation.DescribeStacks' every 30 seconds until a successful state is reached. An error is returned after 120 failed checks.
-stackCreateComplete :: Wait DescribeStacks
-stackCreateComplete =
-  Wait
-    { _waitName = "StackCreateComplete",
-      _waitAttempts = 120,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newStackCreateComplete :: Waiter.Wait DescribeStacks
+newStackCreateComplete =
+  Waiter.Wait
+    { Waiter._waitName =
+        "StackCreateComplete",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "CREATE_COMPLETE"
-            AcceptSuccess
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "CREATE_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "DELETE_COMPLETE"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "DELETE_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "ROLLBACK_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "ROLLBACK_COMPLETE"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "ValidationError" AcceptFailure
+          Waiter.matchError
+            "ValidationError"
+            Waiter.AcceptFailure
         ]
     }
 
 -- | Polls 'Network.AWS.CloudFormation.DescribeTypeRegistration' every 30 seconds until a successful state is reached. An error is returned after 120 failed checks.
-typeRegistrationComplete :: Wait DescribeTypeRegistration
-typeRegistrationComplete =
-  Wait
-    { _waitName = "TypeRegistrationComplete",
-      _waitAttempts = 120,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newTypeRegistrationComplete :: Waiter.Wait DescribeTypeRegistration
+newTypeRegistrationComplete =
+  Waiter.Wait
+    { Waiter._waitName =
+        "TypeRegistrationComplete",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "COMPLETE"
-            AcceptSuccess
-            (dtrrrsProgressStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeTypeRegistrationResponse_progressStatus
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "FAILED"
-            AcceptFailure
-            (dtrrrsProgressStatus . to toTextCI)
+            Waiter.AcceptFailure
+            ( describeTypeRegistrationResponse_progressStatus
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            )
         ]
     }
 
 -- | Polls 'Network.AWS.CloudFormation.DescribeStacks' every 30 seconds until a successful state is reached. An error is returned after 120 failed checks.
-stackImportComplete :: Wait DescribeStacks
-stackImportComplete =
-  Wait
-    { _waitName = "StackImportComplete",
-      _waitAttempts = 120,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newStackImportComplete :: Waiter.Wait DescribeStacks
+newStackImportComplete =
+  Waiter.Wait
+    { Waiter._waitName =
+        "StackImportComplete",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "IMPORT_COMPLETE"
-            AcceptSuccess
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "ROLLBACK_COMPLETE"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "ROLLBACK_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "IMPORT_ROLLBACK_IN_PROGRESS"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "IMPORT_ROLLBACK_FAILED"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "IMPORT_ROLLBACK_COMPLETE"
-            AcceptFailure
-            ( folding (concatOf dsrrsStacks) . sStackStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeStacksResponse_stacks Prelude.. Lens._Just)
+                )
+                Prelude.. stack_stackStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "ValidationError" AcceptFailure
+          Waiter.matchError
+            "ValidationError"
+            Waiter.AcceptFailure
         ]
     }

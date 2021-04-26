@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,186 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Marks an extension or extension version as @DEPRECATED@ in the CloudFormation registry, removing it from active use. Deprecated extensions or extension versions cannot be used in CloudFormation operations.
+-- Marks an extension or extension version as @DEPRECATED@ in the
+-- CloudFormation registry, removing it from active use. Deprecated
+-- extensions or extension versions cannot be used in CloudFormation
+-- operations.
 --
+-- To deregister an entire extension, you must individually deregister all
+-- active versions of that extension. If an extension has only a single
+-- active version, deregistering that version results in the extension
+-- itself being deregistered and marked as deprecated in the registry.
 --
--- To deregister an entire extension, you must individually deregister all active versions of that extension. If an extension has only a single active version, deregistering that version results in the extension itself being deregistered and marked as deprecated in the registry.
+-- You cannot deregister the default version of an extension if there are
+-- other active version of that extension. If you do deregister the default
+-- version of an extension, the textensionype itself is deregistered as
+-- well and marked as deprecated.
 --
--- You cannot deregister the default version of an extension if there are other active version of that extension. If you do deregister the default version of an extension, the textensionype itself is deregistered as well and marked as deprecated.
---
--- To view the deprecation status of an extension or extension version, use <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html DescribeType> .
+-- To view the deprecation status of an extension or extension version, use
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html DescribeType>.
 module Network.AWS.CloudFormation.DeregisterType
   ( -- * Creating a Request
-    deregisterType,
-    DeregisterType,
+    DeregisterType (..),
+    newDeregisterType,
 
     -- * Request Lenses
-    dtTypeName,
-    dtARN,
-    dtVersionId,
-    dtType,
+    deregisterType_typeName,
+    deregisterType_arn,
+    deregisterType_versionId,
+    deregisterType_type,
 
     -- * Destructuring the Response
-    deregisterTypeResponse,
-    DeregisterTypeResponse,
+    DeregisterTypeResponse (..),
+    newDeregisterTypeResponse,
 
     -- * Response Lenses
-    derrsResponseStatus,
+    deregisterTypeResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deregisterType' smart constructor.
+-- | /See:/ 'newDeregisterType' smart constructor.
 data DeregisterType = DeregisterType'
-  { _dtTypeName ::
-      !(Maybe Text),
-    _dtARN :: !(Maybe Text),
-    _dtVersionId :: !(Maybe Text),
-    _dtType :: !(Maybe RegistryType)
+  { -- | The name of the extension.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    typeName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the extension.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a specific version of the extension. The version ID is the
+    -- value at the end of the Amazon Resource Name (ARN) assigned to the
+    -- extension version when it is registered.
+    versionId :: Prelude.Maybe Prelude.Text,
+    -- | The kind of extension.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    type' :: Prelude.Maybe RegistryType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtTypeName' - The name of the extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtARN' - The Amazon Resource Name (ARN) of the extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
+-- 'typeName', 'deregisterType_typeName' - The name of the extension.
 --
--- * 'dtVersionId' - The ID of a specific version of the extension. The version ID is the value at the end of the Amazon Resource Name (ARN) assigned to the extension version when it is registered.
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
 --
--- * 'dtType' - The kind of extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-deregisterType ::
+-- 'arn', 'deregisterType_arn' - The Amazon Resource Name (ARN) of the extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+--
+-- 'versionId', 'deregisterType_versionId' - The ID of a specific version of the extension. The version ID is the
+-- value at the end of the Amazon Resource Name (ARN) assigned to the
+-- extension version when it is registered.
+--
+-- 'type'', 'deregisterType_type' - The kind of extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+newDeregisterType ::
   DeregisterType
-deregisterType =
+newDeregisterType =
   DeregisterType'
-    { _dtTypeName = Nothing,
-      _dtARN = Nothing,
-      _dtVersionId = Nothing,
-      _dtType = Nothing
+    { typeName = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      versionId = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The name of the extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-dtTypeName :: Lens' DeregisterType (Maybe Text)
-dtTypeName = lens _dtTypeName (\s a -> s {_dtTypeName = a})
+-- | The name of the extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+deregisterType_typeName :: Lens.Lens' DeregisterType (Prelude.Maybe Prelude.Text)
+deregisterType_typeName = Lens.lens (\DeregisterType' {typeName} -> typeName) (\s@DeregisterType' {} a -> s {typeName = a} :: DeregisterType)
 
--- | The Amazon Resource Name (ARN) of the extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-dtARN :: Lens' DeregisterType (Maybe Text)
-dtARN = lens _dtARN (\s a -> s {_dtARN = a})
+-- | The Amazon Resource Name (ARN) of the extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+deregisterType_arn :: Lens.Lens' DeregisterType (Prelude.Maybe Prelude.Text)
+deregisterType_arn = Lens.lens (\DeregisterType' {arn} -> arn) (\s@DeregisterType' {} a -> s {arn = a} :: DeregisterType)
 
--- | The ID of a specific version of the extension. The version ID is the value at the end of the Amazon Resource Name (ARN) assigned to the extension version when it is registered.
-dtVersionId :: Lens' DeregisterType (Maybe Text)
-dtVersionId = lens _dtVersionId (\s a -> s {_dtVersionId = a})
+-- | The ID of a specific version of the extension. The version ID is the
+-- value at the end of the Amazon Resource Name (ARN) assigned to the
+-- extension version when it is registered.
+deregisterType_versionId :: Lens.Lens' DeregisterType (Prelude.Maybe Prelude.Text)
+deregisterType_versionId = Lens.lens (\DeregisterType' {versionId} -> versionId) (\s@DeregisterType' {} a -> s {versionId = a} :: DeregisterType)
 
--- | The kind of extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-dtType :: Lens' DeregisterType (Maybe RegistryType)
-dtType = lens _dtType (\s a -> s {_dtType = a})
+-- | The kind of extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+deregisterType_type :: Lens.Lens' DeregisterType (Prelude.Maybe RegistryType)
+deregisterType_type = Lens.lens (\DeregisterType' {type'} -> type') (\s@DeregisterType' {} a -> s {type' = a} :: DeregisterType)
 
-instance AWSRequest DeregisterType where
+instance Prelude.AWSRequest DeregisterType where
   type Rs DeregisterType = DeregisterTypeResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeregisterTypeResult"
       ( \s h x ->
-          DeregisterTypeResponse' <$> (pure (fromEnum s))
+          DeregisterTypeResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeregisterType
+instance Prelude.Hashable DeregisterType
 
-instance NFData DeregisterType
+instance Prelude.NFData DeregisterType
 
-instance ToHeaders DeregisterType where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeregisterType where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeregisterType where
-  toPath = const "/"
+instance Prelude.ToPath DeregisterType where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeregisterType where
+instance Prelude.ToQuery DeregisterType where
   toQuery DeregisterType' {..} =
-    mconcat
-      [ "Action" =: ("DeregisterType" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "TypeName" =: _dtTypeName,
-        "Arn" =: _dtARN,
-        "VersionId" =: _dtVersionId,
-        "Type" =: _dtType
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeregisterType" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "TypeName" Prelude.=: typeName,
+        "Arn" Prelude.=: arn,
+        "VersionId" Prelude.=: versionId,
+        "Type" Prelude.=: type'
       ]
 
--- | /See:/ 'deregisterTypeResponse' smart constructor.
-newtype DeregisterTypeResponse = DeregisterTypeResponse'
-  { _derrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeregisterTypeResponse' smart constructor.
+data DeregisterTypeResponse = DeregisterTypeResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterTypeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterTypeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derrsResponseStatus' - -- | The response status code.
-deregisterTypeResponse ::
-  -- | 'derrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deregisterTypeResponse_httpStatus' - The response's http status code.
+newDeregisterTypeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeregisterTypeResponse
-deregisterTypeResponse pResponseStatus_ =
-  DeregisterTypeResponse'
-    { _derrsResponseStatus =
-        pResponseStatus_
-    }
+newDeregisterTypeResponse pHttpStatus_ =
+  DeregisterTypeResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-derrsResponseStatus :: Lens' DeregisterTypeResponse Int
-derrsResponseStatus = lens _derrsResponseStatus (\s a -> s {_derrsResponseStatus = a})
+-- | The response's http status code.
+deregisterTypeResponse_httpStatus :: Lens.Lens' DeregisterTypeResponse Prelude.Int
+deregisterTypeResponse_httpStatus = Lens.lens (\DeregisterTypeResponse' {httpStatus} -> httpStatus) (\s@DeregisterTypeResponse' {} a -> s {httpStatus = a} :: DeregisterTypeResponse)
 
-instance NFData DeregisterTypeResponse
+instance Prelude.NFData DeregisterTypeResponse

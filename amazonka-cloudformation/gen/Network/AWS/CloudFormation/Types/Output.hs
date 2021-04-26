@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFormation.Types.Output where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The Output data type.
 --
---
---
--- /See:/ 'output' smart constructor.
+-- /See:/ 'newOutput' smart constructor.
 data Output = Output'
-  { _oOutputKey :: !(Maybe Text),
-    _oOutputValue :: !(Maybe Text),
-    _oDescription :: !(Maybe Text),
-    _oExportName :: !(Maybe Text)
+  { -- | The key associated with the output.
+    outputKey :: Prelude.Maybe Prelude.Text,
+    -- | The value associated with the output.
+    outputValue :: Prelude.Maybe Prelude.Text,
+    -- | User defined description associated with the output.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the export associated with the output.
+    exportName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Output' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Output' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oOutputKey' - The key associated with the output.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oOutputValue' - The value associated with the output.
+-- 'outputKey', 'output_outputKey' - The key associated with the output.
 --
--- * 'oDescription' - User defined description associated with the output.
+-- 'outputValue', 'output_outputValue' - The value associated with the output.
 --
--- * 'oExportName' - The name of the export associated with the output.
-output ::
+-- 'description', 'output_description' - User defined description associated with the output.
+--
+-- 'exportName', 'output_exportName' - The name of the export associated with the output.
+newOutput ::
   Output
-output =
+newOutput =
   Output'
-    { _oOutputKey = Nothing,
-      _oOutputValue = Nothing,
-      _oDescription = Nothing,
-      _oExportName = Nothing
+    { outputKey = Prelude.Nothing,
+      outputValue = Prelude.Nothing,
+      description = Prelude.Nothing,
+      exportName = Prelude.Nothing
     }
 
 -- | The key associated with the output.
-oOutputKey :: Lens' Output (Maybe Text)
-oOutputKey = lens _oOutputKey (\s a -> s {_oOutputKey = a})
+output_outputKey :: Lens.Lens' Output (Prelude.Maybe Prelude.Text)
+output_outputKey = Lens.lens (\Output' {outputKey} -> outputKey) (\s@Output' {} a -> s {outputKey = a} :: Output)
 
 -- | The value associated with the output.
-oOutputValue :: Lens' Output (Maybe Text)
-oOutputValue = lens _oOutputValue (\s a -> s {_oOutputValue = a})
+output_outputValue :: Lens.Lens' Output (Prelude.Maybe Prelude.Text)
+output_outputValue = Lens.lens (\Output' {outputValue} -> outputValue) (\s@Output' {} a -> s {outputValue = a} :: Output)
 
 -- | User defined description associated with the output.
-oDescription :: Lens' Output (Maybe Text)
-oDescription = lens _oDescription (\s a -> s {_oDescription = a})
+output_description :: Lens.Lens' Output (Prelude.Maybe Prelude.Text)
+output_description = Lens.lens (\Output' {description} -> description) (\s@Output' {} a -> s {description = a} :: Output)
 
 -- | The name of the export associated with the output.
-oExportName :: Lens' Output (Maybe Text)
-oExportName = lens _oExportName (\s a -> s {_oExportName = a})
+output_exportName :: Lens.Lens' Output (Prelude.Maybe Prelude.Text)
+output_exportName = Lens.lens (\Output' {exportName} -> exportName) (\s@Output' {} a -> s {exportName = a} :: Output)
 
-instance FromXML Output where
+instance Prelude.FromXML Output where
   parseXML x =
     Output'
-      <$> (x .@? "OutputKey")
-      <*> (x .@? "OutputValue")
-      <*> (x .@? "Description")
-      <*> (x .@? "ExportName")
+      Prelude.<$> (x Prelude..@? "OutputKey")
+      Prelude.<*> (x Prelude..@? "OutputValue")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "ExportName")
 
-instance Hashable Output
+instance Prelude.Hashable Output
 
-instance NFData Output
+instance Prelude.NFData Output

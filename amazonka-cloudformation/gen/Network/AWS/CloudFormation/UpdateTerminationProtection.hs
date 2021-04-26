@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates termination protection for the specified stack. If a user attempts to delete a stack with termination protection enabled, the operation fails and the stack remains unchanged. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted> in the /AWS CloudFormation User Guide/ .
+-- Updates termination protection for the specified stack. If a user
+-- attempts to delete a stack with termination protection enabled, the
+-- operation fails and the stack remains unchanged. For more information,
+-- see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted>
+-- in the /AWS CloudFormation User Guide/.
 --
---
--- For <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks> , termination protection is set on the root stack and cannot be changed directly on the nested stack.
+-- For
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks>,
+-- termination protection is set on the root stack and cannot be changed
+-- directly on the nested stack.
 module Network.AWS.CloudFormation.UpdateTerminationProtection
   ( -- * Creating a Request
-    updateTerminationProtection,
-    UpdateTerminationProtection,
+    UpdateTerminationProtection (..),
+    newUpdateTerminationProtection,
 
     -- * Request Lenses
-    utpEnableTerminationProtection,
-    utpStackName,
+    updateTerminationProtection_enableTerminationProtection,
+    updateTerminationProtection_stackName,
 
     -- * Destructuring the Response
-    updateTerminationProtectionResponse,
-    UpdateTerminationProtectionResponse,
+    UpdateTerminationProtectionResponse (..),
+    newUpdateTerminationProtectionResponse,
 
     -- * Response Lenses
-    utprrsStackId,
-    utprrsResponseStatus,
+    updateTerminationProtectionResponse_stackId,
+    updateTerminationProtectionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateTerminationProtection' smart constructor.
+-- | /See:/ 'newUpdateTerminationProtection' smart constructor.
 data UpdateTerminationProtection = UpdateTerminationProtection'
-  { _utpEnableTerminationProtection ::
-      !Bool,
-    _utpStackName ::
-      !Text
+  { -- | Whether to enable termination protection on the specified stack.
+    enableTerminationProtection :: Prelude.Bool,
+    -- | The name or unique ID of the stack for which you want to set termination
+    -- protection.
+    stackName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTerminationProtection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTerminationProtection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utpEnableTerminationProtection' - Whether to enable termination protection on the specified stack.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utpStackName' - The name or unique ID of the stack for which you want to set termination protection.
-updateTerminationProtection ::
-  -- | 'utpEnableTerminationProtection'
-  Bool ->
-  -- | 'utpStackName'
-  Text ->
+-- 'enableTerminationProtection', 'updateTerminationProtection_enableTerminationProtection' - Whether to enable termination protection on the specified stack.
+--
+-- 'stackName', 'updateTerminationProtection_stackName' - The name or unique ID of the stack for which you want to set termination
+-- protection.
+newUpdateTerminationProtection ::
+  -- | 'enableTerminationProtection'
+  Prelude.Bool ->
+  -- | 'stackName'
+  Prelude.Text ->
   UpdateTerminationProtection
-updateTerminationProtection
+newUpdateTerminationProtection
   pEnableTerminationProtection_
   pStackName_ =
     UpdateTerminationProtection'
-      { _utpEnableTerminationProtection =
+      { enableTerminationProtection =
           pEnableTerminationProtection_,
-        _utpStackName = pStackName_
+        stackName = pStackName_
       }
 
 -- | Whether to enable termination protection on the specified stack.
-utpEnableTerminationProtection :: Lens' UpdateTerminationProtection Bool
-utpEnableTerminationProtection = lens _utpEnableTerminationProtection (\s a -> s {_utpEnableTerminationProtection = a})
+updateTerminationProtection_enableTerminationProtection :: Lens.Lens' UpdateTerminationProtection Prelude.Bool
+updateTerminationProtection_enableTerminationProtection = Lens.lens (\UpdateTerminationProtection' {enableTerminationProtection} -> enableTerminationProtection) (\s@UpdateTerminationProtection' {} a -> s {enableTerminationProtection = a} :: UpdateTerminationProtection)
 
--- | The name or unique ID of the stack for which you want to set termination protection.
-utpStackName :: Lens' UpdateTerminationProtection Text
-utpStackName = lens _utpStackName (\s a -> s {_utpStackName = a})
+-- | The name or unique ID of the stack for which you want to set termination
+-- protection.
+updateTerminationProtection_stackName :: Lens.Lens' UpdateTerminationProtection Prelude.Text
+updateTerminationProtection_stackName = Lens.lens (\UpdateTerminationProtection' {stackName} -> stackName) (\s@UpdateTerminationProtection' {} a -> s {stackName = a} :: UpdateTerminationProtection)
 
-instance AWSRequest UpdateTerminationProtection where
+instance
+  Prelude.AWSRequest
+    UpdateTerminationProtection
+  where
   type
     Rs UpdateTerminationProtection =
       UpdateTerminationProtectionResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "UpdateTerminationProtectionResult"
       ( \s h x ->
           UpdateTerminationProtectionResponse'
-            <$> (x .@? "StackId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "StackId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateTerminationProtection
+instance Prelude.Hashable UpdateTerminationProtection
 
-instance NFData UpdateTerminationProtection
+instance Prelude.NFData UpdateTerminationProtection
 
-instance ToHeaders UpdateTerminationProtection where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    UpdateTerminationProtection
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateTerminationProtection where
-  toPath = const "/"
+instance Prelude.ToPath UpdateTerminationProtection where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateTerminationProtection where
+instance Prelude.ToQuery UpdateTerminationProtection where
   toQuery UpdateTerminationProtection' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("UpdateTerminationProtection" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
+          Prelude.=: ( "UpdateTerminationProtection" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
         "EnableTerminationProtection"
-          =: _utpEnableTerminationProtection,
-        "StackName" =: _utpStackName
+          Prelude.=: enableTerminationProtection,
+        "StackName" Prelude.=: stackName
       ]
 
--- | /See:/ 'updateTerminationProtectionResponse' smart constructor.
+-- | /See:/ 'newUpdateTerminationProtectionResponse' smart constructor.
 data UpdateTerminationProtectionResponse = UpdateTerminationProtectionResponse'
-  { _utprrsStackId ::
-      !( Maybe
-           Text
-       ),
-    _utprrsResponseStatus ::
-      !Int
+  { -- | The unique ID of the stack.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTerminationProtectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTerminationProtectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utprrsStackId' - The unique ID of the stack.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utprrsResponseStatus' - -- | The response status code.
-updateTerminationProtectionResponse ::
-  -- | 'utprrsResponseStatus'
-  Int ->
+-- 'stackId', 'updateTerminationProtectionResponse_stackId' - The unique ID of the stack.
+--
+-- 'httpStatus', 'updateTerminationProtectionResponse_httpStatus' - The response's http status code.
+newUpdateTerminationProtectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateTerminationProtectionResponse
-updateTerminationProtectionResponse pResponseStatus_ =
+newUpdateTerminationProtectionResponse pHttpStatus_ =
   UpdateTerminationProtectionResponse'
-    { _utprrsStackId =
-        Nothing,
-      _utprrsResponseStatus =
-        pResponseStatus_
+    { stackId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique ID of the stack.
-utprrsStackId :: Lens' UpdateTerminationProtectionResponse (Maybe Text)
-utprrsStackId = lens _utprrsStackId (\s a -> s {_utprrsStackId = a})
+updateTerminationProtectionResponse_stackId :: Lens.Lens' UpdateTerminationProtectionResponse (Prelude.Maybe Prelude.Text)
+updateTerminationProtectionResponse_stackId = Lens.lens (\UpdateTerminationProtectionResponse' {stackId} -> stackId) (\s@UpdateTerminationProtectionResponse' {} a -> s {stackId = a} :: UpdateTerminationProtectionResponse)
 
--- | -- | The response status code.
-utprrsResponseStatus :: Lens' UpdateTerminationProtectionResponse Int
-utprrsResponseStatus = lens _utprrsResponseStatus (\s a -> s {_utprrsResponseStatus = a})
+-- | The response's http status code.
+updateTerminationProtectionResponse_httpStatus :: Lens.Lens' UpdateTerminationProtectionResponse Prelude.Int
+updateTerminationProtectionResponse_httpStatus = Lens.lens (\UpdateTerminationProtectionResponse' {httpStatus} -> httpStatus) (\s@UpdateTerminationProtectionResponse' {} a -> s {httpStatus = a} :: UpdateTerminationProtectionResponse)
 
-instance NFData UpdateTerminationProtectionResponse
+instance
+  Prelude.NFData
+    UpdateTerminationProtectionResponse

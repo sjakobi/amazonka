@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFormation.Types.AccountLimit where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The AccountLimit data type.
 --
---
 -- CloudFormation has the following limits per account:
 --
---     * Number of concurrent resources
+-- -   Number of concurrent resources
 --
---     * Number of stacks
+-- -   Number of stacks
 --
---     * Number of stack outputs
+-- -   Number of stack outputs
 --
+-- For more information about these account limits, and other
+-- CloudFormation limits, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html AWS CloudFormation Limits>
+-- in the /AWS CloudFormation User Guide/.
 --
---
--- For more information about these account limits, and other CloudFormation limits, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html AWS CloudFormation Limits> in the /AWS CloudFormation User Guide/ .
---
---
--- /See:/ 'accountLimit' smart constructor.
+-- /See:/ 'newAccountLimit' smart constructor.
 data AccountLimit = AccountLimit'
-  { _alName ::
-      !(Maybe Text),
-    _alValue :: !(Maybe Int)
+  { -- | The name of the account limit.
+    --
+    -- Values: @ConcurrentResourcesLimit@ | @StackLimit@ | @StackOutputsLimit@
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value that is associated with the account limit name.
+    value :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountLimit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountLimit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'alName' - The name of the account limit. Values: @ConcurrentResourcesLimit@ | @StackLimit@ | @StackOutputsLimit@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'alValue' - The value that is associated with the account limit name.
-accountLimit ::
+-- 'name', 'accountLimit_name' - The name of the account limit.
+--
+-- Values: @ConcurrentResourcesLimit@ | @StackLimit@ | @StackOutputsLimit@
+--
+-- 'value', 'accountLimit_value' - The value that is associated with the account limit name.
+newAccountLimit ::
   AccountLimit
-accountLimit =
+newAccountLimit =
   AccountLimit'
-    { _alName = Nothing,
-      _alValue = Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
--- | The name of the account limit. Values: @ConcurrentResourcesLimit@ | @StackLimit@ | @StackOutputsLimit@
-alName :: Lens' AccountLimit (Maybe Text)
-alName = lens _alName (\s a -> s {_alName = a})
+-- | The name of the account limit.
+--
+-- Values: @ConcurrentResourcesLimit@ | @StackLimit@ | @StackOutputsLimit@
+accountLimit_name :: Lens.Lens' AccountLimit (Prelude.Maybe Prelude.Text)
+accountLimit_name = Lens.lens (\AccountLimit' {name} -> name) (\s@AccountLimit' {} a -> s {name = a} :: AccountLimit)
 
 -- | The value that is associated with the account limit name.
-alValue :: Lens' AccountLimit (Maybe Int)
-alValue = lens _alValue (\s a -> s {_alValue = a})
+accountLimit_value :: Lens.Lens' AccountLimit (Prelude.Maybe Prelude.Int)
+accountLimit_value = Lens.lens (\AccountLimit' {value} -> value) (\s@AccountLimit' {} a -> s {value = a} :: AccountLimit)
 
-instance FromXML AccountLimit where
+instance Prelude.FromXML AccountLimit where
   parseXML x =
     AccountLimit'
-      <$> (x .@? "Name") <*> (x .@? "Value")
+      Prelude.<$> (x Prelude..@? "Name")
+      Prelude.<*> (x Prelude..@? "Value")
 
-instance Hashable AccountLimit
+instance Prelude.Hashable AccountLimit
 
-instance NFData AccountLimit
+instance Prelude.NFData AccountLimit

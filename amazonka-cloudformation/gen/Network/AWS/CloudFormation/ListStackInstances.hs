@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,219 +21,329 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns summary information about stack instances that are associated with the specified stack set. You can filter for stack instances that are associated with a specific AWS account name or Region, or that have a specific status.
---
---
+-- Returns summary information about stack instances that are associated
+-- with the specified stack set. You can filter for stack instances that
+-- are associated with a specific AWS account name or Region, or that have
+-- a specific status.
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudFormation.ListStackInstances
   ( -- * Creating a Request
-    listStackInstances,
-    ListStackInstances,
+    ListStackInstances (..),
+    newListStackInstances,
 
     -- * Request Lenses
-    lsiNextToken,
-    lsiStackInstanceAccount,
-    lsiMaxResults,
-    lsiCallAs,
-    lsiStackInstanceRegion,
-    lsiFilters,
-    lsiStackSetName,
+    listStackInstances_nextToken,
+    listStackInstances_stackInstanceAccount,
+    listStackInstances_maxResults,
+    listStackInstances_callAs,
+    listStackInstances_stackInstanceRegion,
+    listStackInstances_filters,
+    listStackInstances_stackSetName,
 
     -- * Destructuring the Response
-    listStackInstancesResponse,
-    ListStackInstancesResponse,
+    ListStackInstancesResponse (..),
+    newListStackInstancesResponse,
 
     -- * Response Lenses
-    lsirrsNextToken,
-    lsirrsSummaries,
-    lsirrsResponseStatus,
+    listStackInstancesResponse_nextToken,
+    listStackInstancesResponse_summaries,
+    listStackInstancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFormation.Types.StackInstanceSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listStackInstances' smart constructor.
+-- | /See:/ 'newListStackInstances' smart constructor.
 data ListStackInstances = ListStackInstances'
-  { _lsiNextToken ::
-      !(Maybe Text),
-    _lsiStackInstanceAccount ::
-      !(Maybe Text),
-    _lsiMaxResults :: !(Maybe Nat),
-    _lsiCallAs :: !(Maybe CallAs),
-    _lsiStackInstanceRegion ::
-      !(Maybe Text),
-    _lsiFilters ::
-      !(Maybe [StackInstanceFilter]),
-    _lsiStackSetName :: !Text
+  { -- | If the previous request didn\'t return all of the remaining results, the
+    -- response\'s @NextToken@ parameter value is set to a token. To retrieve
+    -- the next set of results, call @ListStackInstances@ again and assign that
+    -- token to the request object\'s @NextToken@ parameter. If there are no
+    -- remaining results, the previous response object\'s @NextToken@ parameter
+    -- is set to @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS account that you want to list stack instances for.
+    stackInstanceAccount :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned with a single call. If the
+    -- number of available results exceeds this maximum, the response includes
+    -- a @NextToken@ value that you can assign to the @NextToken@ request
+    -- parameter to get the next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | [Service-managed permissions] Specifies whether you are acting as an
+    -- account administrator in the organization\'s management account or as a
+    -- delegated administrator in a member account.
+    --
+    -- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+    -- self-managed permissions.
+    --
+    -- -   If you are signed in to the management account, specify @SELF@.
+    --
+    -- -   If you are signed in to a delegated administrator account, specify
+    --     @DELEGATED_ADMIN@.
+    --
+    --     Your AWS account must be registered as a delegated administrator in
+    --     the management account. For more information, see
+    --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+    --     in the /AWS CloudFormation User Guide/.
+    callAs :: Prelude.Maybe CallAs,
+    -- | The name of the Region where you want to list stack instances.
+    stackInstanceRegion :: Prelude.Maybe Prelude.Text,
+    -- | The status that stack instances are filtered by.
+    filters :: Prelude.Maybe [StackInstanceFilter],
+    -- | The name or unique ID of the stack set that you want to list stack
+    -- instances for.
+    stackSetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListStackInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListStackInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsiNextToken' - If the previous request didn't return all of the remaining results, the response's @NextToken@ parameter value is set to a token. To retrieve the next set of results, call @ListStackInstances@ again and assign that token to the request object's @NextToken@ parameter. If there are no remaining results, the previous response object's @NextToken@ parameter is set to @null@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsiStackInstanceAccount' - The name of the AWS account that you want to list stack instances for.
+-- 'nextToken', 'listStackInstances_nextToken' - If the previous request didn\'t return all of the remaining results, the
+-- response\'s @NextToken@ parameter value is set to a token. To retrieve
+-- the next set of results, call @ListStackInstances@ again and assign that
+-- token to the request object\'s @NextToken@ parameter. If there are no
+-- remaining results, the previous response object\'s @NextToken@ parameter
+-- is set to @null@.
 --
--- * 'lsiMaxResults' - The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a @NextToken@ value that you can assign to the @NextToken@ request parameter to get the next set of results.
+-- 'stackInstanceAccount', 'listStackInstances_stackInstanceAccount' - The name of the AWS account that you want to list stack instances for.
 --
--- * 'lsiCallAs' - [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. By default, @SELF@ is specified. Use @SELF@ for stack sets with self-managed permissions.     * If you are signed in to the management account, specify @SELF@ .     * If you are signed in to a delegated administrator account, specify @DELEGATED_ADMIN@ . Your AWS account must be registered as a delegated administrator in the management account. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator> in the /AWS CloudFormation User Guide/ .
+-- 'maxResults', 'listStackInstances_maxResults' - The maximum number of results to be returned with a single call. If the
+-- number of available results exceeds this maximum, the response includes
+-- a @NextToken@ value that you can assign to the @NextToken@ request
+-- parameter to get the next set of results.
 --
--- * 'lsiStackInstanceRegion' - The name of the Region where you want to list stack instances.
+-- 'callAs', 'listStackInstances_callAs' - [Service-managed permissions] Specifies whether you are acting as an
+-- account administrator in the organization\'s management account or as a
+-- delegated administrator in a member account.
 --
--- * 'lsiFilters' - The status that stack instances are filtered by.
+-- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+-- self-managed permissions.
 --
--- * 'lsiStackSetName' - The name or unique ID of the stack set that you want to list stack instances for.
-listStackInstances ::
-  -- | 'lsiStackSetName'
-  Text ->
+-- -   If you are signed in to the management account, specify @SELF@.
+--
+-- -   If you are signed in to a delegated administrator account, specify
+--     @DELEGATED_ADMIN@.
+--
+--     Your AWS account must be registered as a delegated administrator in
+--     the management account. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+--     in the /AWS CloudFormation User Guide/.
+--
+-- 'stackInstanceRegion', 'listStackInstances_stackInstanceRegion' - The name of the Region where you want to list stack instances.
+--
+-- 'filters', 'listStackInstances_filters' - The status that stack instances are filtered by.
+--
+-- 'stackSetName', 'listStackInstances_stackSetName' - The name or unique ID of the stack set that you want to list stack
+-- instances for.
+newListStackInstances ::
+  -- | 'stackSetName'
+  Prelude.Text ->
   ListStackInstances
-listStackInstances pStackSetName_ =
+newListStackInstances pStackSetName_ =
   ListStackInstances'
-    { _lsiNextToken = Nothing,
-      _lsiStackInstanceAccount = Nothing,
-      _lsiMaxResults = Nothing,
-      _lsiCallAs = Nothing,
-      _lsiStackInstanceRegion = Nothing,
-      _lsiFilters = Nothing,
-      _lsiStackSetName = pStackSetName_
+    { nextToken = Prelude.Nothing,
+      stackInstanceAccount = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      callAs = Prelude.Nothing,
+      stackInstanceRegion = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      stackSetName = pStackSetName_
     }
 
--- | If the previous request didn't return all of the remaining results, the response's @NextToken@ parameter value is set to a token. To retrieve the next set of results, call @ListStackInstances@ again and assign that token to the request object's @NextToken@ parameter. If there are no remaining results, the previous response object's @NextToken@ parameter is set to @null@ .
-lsiNextToken :: Lens' ListStackInstances (Maybe Text)
-lsiNextToken = lens _lsiNextToken (\s a -> s {_lsiNextToken = a})
+-- | If the previous request didn\'t return all of the remaining results, the
+-- response\'s @NextToken@ parameter value is set to a token. To retrieve
+-- the next set of results, call @ListStackInstances@ again and assign that
+-- token to the request object\'s @NextToken@ parameter. If there are no
+-- remaining results, the previous response object\'s @NextToken@ parameter
+-- is set to @null@.
+listStackInstances_nextToken :: Lens.Lens' ListStackInstances (Prelude.Maybe Prelude.Text)
+listStackInstances_nextToken = Lens.lens (\ListStackInstances' {nextToken} -> nextToken) (\s@ListStackInstances' {} a -> s {nextToken = a} :: ListStackInstances)
 
 -- | The name of the AWS account that you want to list stack instances for.
-lsiStackInstanceAccount :: Lens' ListStackInstances (Maybe Text)
-lsiStackInstanceAccount = lens _lsiStackInstanceAccount (\s a -> s {_lsiStackInstanceAccount = a})
+listStackInstances_stackInstanceAccount :: Lens.Lens' ListStackInstances (Prelude.Maybe Prelude.Text)
+listStackInstances_stackInstanceAccount = Lens.lens (\ListStackInstances' {stackInstanceAccount} -> stackInstanceAccount) (\s@ListStackInstances' {} a -> s {stackInstanceAccount = a} :: ListStackInstances)
 
--- | The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a @NextToken@ value that you can assign to the @NextToken@ request parameter to get the next set of results.
-lsiMaxResults :: Lens' ListStackInstances (Maybe Natural)
-lsiMaxResults = lens _lsiMaxResults (\s a -> s {_lsiMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to be returned with a single call. If the
+-- number of available results exceeds this maximum, the response includes
+-- a @NextToken@ value that you can assign to the @NextToken@ request
+-- parameter to get the next set of results.
+listStackInstances_maxResults :: Lens.Lens' ListStackInstances (Prelude.Maybe Prelude.Natural)
+listStackInstances_maxResults = Lens.lens (\ListStackInstances' {maxResults} -> maxResults) (\s@ListStackInstances' {} a -> s {maxResults = a} :: ListStackInstances) Prelude.. Lens.mapping Prelude._Nat
 
--- | [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. By default, @SELF@ is specified. Use @SELF@ for stack sets with self-managed permissions.     * If you are signed in to the management account, specify @SELF@ .     * If you are signed in to a delegated administrator account, specify @DELEGATED_ADMIN@ . Your AWS account must be registered as a delegated administrator in the management account. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator> in the /AWS CloudFormation User Guide/ .
-lsiCallAs :: Lens' ListStackInstances (Maybe CallAs)
-lsiCallAs = lens _lsiCallAs (\s a -> s {_lsiCallAs = a})
+-- | [Service-managed permissions] Specifies whether you are acting as an
+-- account administrator in the organization\'s management account or as a
+-- delegated administrator in a member account.
+--
+-- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+-- self-managed permissions.
+--
+-- -   If you are signed in to the management account, specify @SELF@.
+--
+-- -   If you are signed in to a delegated administrator account, specify
+--     @DELEGATED_ADMIN@.
+--
+--     Your AWS account must be registered as a delegated administrator in
+--     the management account. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+--     in the /AWS CloudFormation User Guide/.
+listStackInstances_callAs :: Lens.Lens' ListStackInstances (Prelude.Maybe CallAs)
+listStackInstances_callAs = Lens.lens (\ListStackInstances' {callAs} -> callAs) (\s@ListStackInstances' {} a -> s {callAs = a} :: ListStackInstances)
 
 -- | The name of the Region where you want to list stack instances.
-lsiStackInstanceRegion :: Lens' ListStackInstances (Maybe Text)
-lsiStackInstanceRegion = lens _lsiStackInstanceRegion (\s a -> s {_lsiStackInstanceRegion = a})
+listStackInstances_stackInstanceRegion :: Lens.Lens' ListStackInstances (Prelude.Maybe Prelude.Text)
+listStackInstances_stackInstanceRegion = Lens.lens (\ListStackInstances' {stackInstanceRegion} -> stackInstanceRegion) (\s@ListStackInstances' {} a -> s {stackInstanceRegion = a} :: ListStackInstances)
 
 -- | The status that stack instances are filtered by.
-lsiFilters :: Lens' ListStackInstances [StackInstanceFilter]
-lsiFilters = lens _lsiFilters (\s a -> s {_lsiFilters = a}) . _Default . _Coerce
+listStackInstances_filters :: Lens.Lens' ListStackInstances (Prelude.Maybe [StackInstanceFilter])
+listStackInstances_filters = Lens.lens (\ListStackInstances' {filters} -> filters) (\s@ListStackInstances' {} a -> s {filters = a} :: ListStackInstances) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name or unique ID of the stack set that you want to list stack instances for.
-lsiStackSetName :: Lens' ListStackInstances Text
-lsiStackSetName = lens _lsiStackSetName (\s a -> s {_lsiStackSetName = a})
+-- | The name or unique ID of the stack set that you want to list stack
+-- instances for.
+listStackInstances_stackSetName :: Lens.Lens' ListStackInstances Prelude.Text
+listStackInstances_stackSetName = Lens.lens (\ListStackInstances' {stackSetName} -> stackSetName) (\s@ListStackInstances' {} a -> s {stackSetName = a} :: ListStackInstances)
 
-instance AWSPager ListStackInstances where
+instance Pager.AWSPager ListStackInstances where
   page rq rs
-    | stop (rs ^. lsirrsNextToken) = Nothing
-    | stop (rs ^. lsirrsSummaries) = Nothing
-    | otherwise =
-      Just $ rq & lsiNextToken .~ rs ^. lsirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listStackInstancesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listStackInstancesResponse_summaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listStackInstances_nextToken
+          Lens..~ rs
+          Lens.^? listStackInstancesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListStackInstances where
+instance Prelude.AWSRequest ListStackInstances where
   type
     Rs ListStackInstances =
       ListStackInstancesResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListStackInstancesResult"
       ( \s h x ->
           ListStackInstancesResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "Summaries" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "Summaries" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListStackInstances
+instance Prelude.Hashable ListStackInstances
 
-instance NFData ListStackInstances
+instance Prelude.NFData ListStackInstances
 
-instance ToHeaders ListStackInstances where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListStackInstances where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListStackInstances where
-  toPath = const "/"
+instance Prelude.ToPath ListStackInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListStackInstances where
+instance Prelude.ToQuery ListStackInstances where
   toQuery ListStackInstances' {..} =
-    mconcat
-      [ "Action" =: ("ListStackInstances" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "NextToken" =: _lsiNextToken,
-        "StackInstanceAccount" =: _lsiStackInstanceAccount,
-        "MaxResults" =: _lsiMaxResults,
-        "CallAs" =: _lsiCallAs,
-        "StackInstanceRegion" =: _lsiStackInstanceRegion,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListStackInstances" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "StackInstanceAccount"
+          Prelude.=: stackInstanceAccount,
+        "MaxResults" Prelude.=: maxResults,
+        "CallAs" Prelude.=: callAs,
+        "StackInstanceRegion" Prelude.=: stackInstanceRegion,
         "Filters"
-          =: toQuery (toQueryList "member" <$> _lsiFilters),
-        "StackSetName" =: _lsiStackSetName
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> filters),
+        "StackSetName" Prelude.=: stackSetName
       ]
 
--- | /See:/ 'listStackInstancesResponse' smart constructor.
+-- | /See:/ 'newListStackInstancesResponse' smart constructor.
 data ListStackInstancesResponse = ListStackInstancesResponse'
-  { _lsirrsNextToken ::
-      !(Maybe Text),
-    _lsirrsSummaries ::
-      !( Maybe
-           [StackInstanceSummary]
-       ),
-    _lsirrsResponseStatus ::
-      !Int
+  { -- | If the request doesn\'t return all of the remaining results, @NextToken@
+    -- is set to a token. To retrieve the next set of results, call
+    -- @ListStackInstances@ again and assign that token to the request
+    -- object\'s @NextToken@ parameter. If the request returns all results,
+    -- @NextToken@ is set to @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @StackInstanceSummary@ structures that contain information
+    -- about the specified stack instances.
+    summaries :: Prelude.Maybe [StackInstanceSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListStackInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListStackInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsirrsNextToken' - If the request doesn't return all of the remaining results, @NextToken@ is set to a token. To retrieve the next set of results, call @ListStackInstances@ again and assign that token to the request object's @NextToken@ parameter. If the request returns all results, @NextToken@ is set to @null@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsirrsSummaries' - A list of @StackInstanceSummary@ structures that contain information about the specified stack instances.
+-- 'nextToken', 'listStackInstancesResponse_nextToken' - If the request doesn\'t return all of the remaining results, @NextToken@
+-- is set to a token. To retrieve the next set of results, call
+-- @ListStackInstances@ again and assign that token to the request
+-- object\'s @NextToken@ parameter. If the request returns all results,
+-- @NextToken@ is set to @null@.
 --
--- * 'lsirrsResponseStatus' - -- | The response status code.
-listStackInstancesResponse ::
-  -- | 'lsirrsResponseStatus'
-  Int ->
+-- 'summaries', 'listStackInstancesResponse_summaries' - A list of @StackInstanceSummary@ structures that contain information
+-- about the specified stack instances.
+--
+-- 'httpStatus', 'listStackInstancesResponse_httpStatus' - The response's http status code.
+newListStackInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListStackInstancesResponse
-listStackInstancesResponse pResponseStatus_ =
+newListStackInstancesResponse pHttpStatus_ =
   ListStackInstancesResponse'
-    { _lsirrsNextToken =
-        Nothing,
-      _lsirrsSummaries = Nothing,
-      _lsirrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      summaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the request doesn't return all of the remaining results, @NextToken@ is set to a token. To retrieve the next set of results, call @ListStackInstances@ again and assign that token to the request object's @NextToken@ parameter. If the request returns all results, @NextToken@ is set to @null@ .
-lsirrsNextToken :: Lens' ListStackInstancesResponse (Maybe Text)
-lsirrsNextToken = lens _lsirrsNextToken (\s a -> s {_lsirrsNextToken = a})
+-- | If the request doesn\'t return all of the remaining results, @NextToken@
+-- is set to a token. To retrieve the next set of results, call
+-- @ListStackInstances@ again and assign that token to the request
+-- object\'s @NextToken@ parameter. If the request returns all results,
+-- @NextToken@ is set to @null@.
+listStackInstancesResponse_nextToken :: Lens.Lens' ListStackInstancesResponse (Prelude.Maybe Prelude.Text)
+listStackInstancesResponse_nextToken = Lens.lens (\ListStackInstancesResponse' {nextToken} -> nextToken) (\s@ListStackInstancesResponse' {} a -> s {nextToken = a} :: ListStackInstancesResponse)
 
--- | A list of @StackInstanceSummary@ structures that contain information about the specified stack instances.
-lsirrsSummaries :: Lens' ListStackInstancesResponse [StackInstanceSummary]
-lsirrsSummaries = lens _lsirrsSummaries (\s a -> s {_lsirrsSummaries = a}) . _Default . _Coerce
+-- | A list of @StackInstanceSummary@ structures that contain information
+-- about the specified stack instances.
+listStackInstancesResponse_summaries :: Lens.Lens' ListStackInstancesResponse (Prelude.Maybe [StackInstanceSummary])
+listStackInstancesResponse_summaries = Lens.lens (\ListStackInstancesResponse' {summaries} -> summaries) (\s@ListStackInstancesResponse' {} a -> s {summaries = a} :: ListStackInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsirrsResponseStatus :: Lens' ListStackInstancesResponse Int
-lsirrsResponseStatus = lens _lsirrsResponseStatus (\s a -> s {_lsirrsResponseStatus = a})
+-- | The response's http status code.
+listStackInstancesResponse_httpStatus :: Lens.Lens' ListStackInstancesResponse Prelude.Int
+listStackInstancesResponse_httpStatus = Lens.lens (\ListStackInstancesResponse' {httpStatus} -> httpStatus) (\s@ListStackInstancesResponse' {} a -> s {httpStatus = a} :: ListStackInstancesResponse)
 
-instance NFData ListStackInstancesResponse
+instance Prelude.NFData ListStackInstancesResponse

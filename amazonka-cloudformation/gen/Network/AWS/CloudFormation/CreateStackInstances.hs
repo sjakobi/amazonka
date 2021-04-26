@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,207 +21,428 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates stack instances for the specified accounts, within the specified Regions. A stack instance refers to a stack in a specific account and Region. You must specify at least one value for either @Accounts@ or @DeploymentTargets@ , and you must specify at least one value for @Regions@ .
+-- Creates stack instances for the specified accounts, within the specified
+-- Regions. A stack instance refers to a stack in a specific account and
+-- Region. You must specify at least one value for either @Accounts@ or
+-- @DeploymentTargets@, and you must specify at least one value for
+-- @Regions@.
 module Network.AWS.CloudFormation.CreateStackInstances
   ( -- * Creating a Request
-    createStackInstances,
-    CreateStackInstances,
+    CreateStackInstances (..),
+    newCreateStackInstances,
 
     -- * Request Lenses
-    csiParameterOverrides,
-    csiDeploymentTargets,
-    csiOperationId,
-    csiCallAs,
-    csiOperationPreferences,
-    csiAccounts,
-    csiStackSetName,
-    csiRegions,
+    createStackInstances_parameterOverrides,
+    createStackInstances_deploymentTargets,
+    createStackInstances_operationId,
+    createStackInstances_callAs,
+    createStackInstances_operationPreferences,
+    createStackInstances_accounts,
+    createStackInstances_stackSetName,
+    createStackInstances_regions,
 
     -- * Destructuring the Response
-    createStackInstancesResponse,
-    CreateStackInstancesResponse,
+    CreateStackInstancesResponse (..),
+    newCreateStackInstancesResponse,
 
     -- * Response Lenses
-    csirrsOperationId,
-    csirrsResponseStatus,
+    createStackInstancesResponse_operationId,
+    createStackInstancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createStackInstances' smart constructor.
+-- | /See:/ 'newCreateStackInstances' smart constructor.
 data CreateStackInstances = CreateStackInstances'
-  { _csiParameterOverrides ::
-      !(Maybe [Parameter]),
-    _csiDeploymentTargets ::
-      !(Maybe DeploymentTargets),
-    _csiOperationId ::
-      !(Maybe Text),
-    _csiCallAs :: !(Maybe CallAs),
-    _csiOperationPreferences ::
-      !( Maybe
-           StackSetOperationPreferences
-       ),
-    _csiAccounts ::
-      !(Maybe [Text]),
-    _csiStackSetName :: !Text,
-    _csiRegions :: ![Text]
+  { -- | A list of stack set parameters whose values you want to override in the
+    -- selected stack instances.
+    --
+    -- Any overridden parameter values will be applied to all stack instances
+    -- in the specified accounts and Regions. When specifying parameters and
+    -- their values, be aware of how AWS CloudFormation sets parameter values
+    -- during stack instance operations:
+    --
+    -- -   To override the current value for a parameter, include the parameter
+    --     and specify its value.
+    --
+    -- -   To leave a parameter set to its present value, you can do one of the
+    --     following:
+    --
+    --     -   Do not include the parameter in the list.
+    --
+    --     -   Include the parameter and specify @UsePreviousValue@ as @true@.
+    --         (You cannot specify both a value and set @UsePreviousValue@ to
+    --         @true@.)
+    --
+    -- -   To set all overridden parameter back to the values specified in the
+    --     stack set, specify a parameter list but do not include any
+    --     parameters.
+    --
+    -- -   To leave all parameters set to their present values, do not specify
+    --     this property at all.
+    --
+    -- During stack set updates, any parameter values overridden for a stack
+    -- instance are not updated, but retain their overridden value.
+    --
+    -- You can only override the parameter /values/ that are specified in the
+    -- stack set; to add or delete a parameter itself, use
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html UpdateStackSet>
+    -- to update the stack set template.
+    parameterOverrides :: Prelude.Maybe [Parameter],
+    -- | [Service-managed permissions] The AWS Organizations accounts for which
+    -- to create stack instances in the specified Regions.
+    --
+    -- You can specify @Accounts@ or @DeploymentTargets@, but not both.
+    deploymentTargets :: Prelude.Maybe DeploymentTargets,
+    -- | The unique identifier for this stack set operation.
+    --
+    -- The operation ID also functions as an idempotency token, to ensure that
+    -- AWS CloudFormation performs the stack set operation only once, even if
+    -- you retry the request multiple times. You might retry stack set
+    -- operation requests to ensure that AWS CloudFormation successfully
+    -- received them.
+    --
+    -- If you don\'t specify an operation ID, the SDK generates one
+    -- automatically.
+    --
+    -- Repeating this stack set operation with a new operation ID retries all
+    -- stack instances whose status is @OUTDATED@.
+    operationId :: Prelude.Maybe Prelude.Text,
+    -- | [Service-managed permissions] Specifies whether you are acting as an
+    -- account administrator in the organization\'s management account or as a
+    -- delegated administrator in a member account.
+    --
+    -- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+    -- self-managed permissions.
+    --
+    -- -   If you are signed in to the management account, specify @SELF@.
+    --
+    -- -   If you are signed in to a delegated administrator account, specify
+    --     @DELEGATED_ADMIN@.
+    --
+    --     Your AWS account must be registered as a delegated administrator in
+    --     the management account. For more information, see
+    --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+    --     in the /AWS CloudFormation User Guide/.
+    callAs :: Prelude.Maybe CallAs,
+    -- | Preferences for how AWS CloudFormation performs this stack set
+    -- operation.
+    operationPreferences :: Prelude.Maybe StackSetOperationPreferences,
+    -- | [Self-managed permissions] The names of one or more AWS accounts that
+    -- you want to create stack instances in the specified Region(s) for.
+    --
+    -- You can specify @Accounts@ or @DeploymentTargets@, but not both.
+    accounts :: Prelude.Maybe [Prelude.Text],
+    -- | The name or unique ID of the stack set that you want to create stack
+    -- instances from.
+    stackSetName :: Prelude.Text,
+    -- | The names of one or more Regions where you want to create stack
+    -- instances using the specified AWS account(s).
+    regions :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStackInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStackInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csiParameterOverrides' - A list of stack set parameters whose values you want to override in the selected stack instances. Any overridden parameter values will be applied to all stack instances in the specified accounts and Regions. When specifying parameters and their values, be aware of how AWS CloudFormation sets parameter values during stack instance operations:     * To override the current value for a parameter, include the parameter and specify its value.     * To leave a parameter set to its present value, you can do one of the following:     * Do not include the parameter in the list.     * Include the parameter and specify @UsePreviousValue@ as @true@ . (You cannot specify both a value and set @UsePreviousValue@ to @true@ .)     * To set all overridden parameter back to the values specified in the stack set, specify a parameter list but do not include any parameters.     * To leave all parameters set to their present values, do not specify this property at all. During stack set updates, any parameter values overridden for a stack instance are not updated, but retain their overridden value. You can only override the parameter /values/ that are specified in the stack set; to add or delete a parameter itself, use <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html UpdateStackSet> to update the stack set template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csiDeploymentTargets' - [Service-managed permissions] The AWS Organizations accounts for which to create stack instances in the specified Regions. You can specify @Accounts@ or @DeploymentTargets@ , but not both.
+-- 'parameterOverrides', 'createStackInstances_parameterOverrides' - A list of stack set parameters whose values you want to override in the
+-- selected stack instances.
 --
--- * 'csiOperationId' - The unique identifier for this stack set operation.  The operation ID also functions as an idempotency token, to ensure that AWS CloudFormation performs the stack set operation only once, even if you retry the request multiple times. You might retry stack set operation requests to ensure that AWS CloudFormation successfully received them. If you don't specify an operation ID, the SDK generates one automatically.  Repeating this stack set operation with a new operation ID retries all stack instances whose status is @OUTDATED@ .
+-- Any overridden parameter values will be applied to all stack instances
+-- in the specified accounts and Regions. When specifying parameters and
+-- their values, be aware of how AWS CloudFormation sets parameter values
+-- during stack instance operations:
 --
--- * 'csiCallAs' - [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. By default, @SELF@ is specified. Use @SELF@ for stack sets with self-managed permissions.     * If you are signed in to the management account, specify @SELF@ .     * If you are signed in to a delegated administrator account, specify @DELEGATED_ADMIN@ . Your AWS account must be registered as a delegated administrator in the management account. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator> in the /AWS CloudFormation User Guide/ .
+-- -   To override the current value for a parameter, include the parameter
+--     and specify its value.
 --
--- * 'csiOperationPreferences' - Preferences for how AWS CloudFormation performs this stack set operation.
+-- -   To leave a parameter set to its present value, you can do one of the
+--     following:
 --
--- * 'csiAccounts' - [Self-managed permissions] The names of one or more AWS accounts that you want to create stack instances in the specified Region(s) for. You can specify @Accounts@ or @DeploymentTargets@ , but not both.
+--     -   Do not include the parameter in the list.
 --
--- * 'csiStackSetName' - The name or unique ID of the stack set that you want to create stack instances from.
+--     -   Include the parameter and specify @UsePreviousValue@ as @true@.
+--         (You cannot specify both a value and set @UsePreviousValue@ to
+--         @true@.)
 --
--- * 'csiRegions' - The names of one or more Regions where you want to create stack instances using the specified AWS account(s).
-createStackInstances ::
-  -- | 'csiStackSetName'
-  Text ->
+-- -   To set all overridden parameter back to the values specified in the
+--     stack set, specify a parameter list but do not include any
+--     parameters.
+--
+-- -   To leave all parameters set to their present values, do not specify
+--     this property at all.
+--
+-- During stack set updates, any parameter values overridden for a stack
+-- instance are not updated, but retain their overridden value.
+--
+-- You can only override the parameter /values/ that are specified in the
+-- stack set; to add or delete a parameter itself, use
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html UpdateStackSet>
+-- to update the stack set template.
+--
+-- 'deploymentTargets', 'createStackInstances_deploymentTargets' - [Service-managed permissions] The AWS Organizations accounts for which
+-- to create stack instances in the specified Regions.
+--
+-- You can specify @Accounts@ or @DeploymentTargets@, but not both.
+--
+-- 'operationId', 'createStackInstances_operationId' - The unique identifier for this stack set operation.
+--
+-- The operation ID also functions as an idempotency token, to ensure that
+-- AWS CloudFormation performs the stack set operation only once, even if
+-- you retry the request multiple times. You might retry stack set
+-- operation requests to ensure that AWS CloudFormation successfully
+-- received them.
+--
+-- If you don\'t specify an operation ID, the SDK generates one
+-- automatically.
+--
+-- Repeating this stack set operation with a new operation ID retries all
+-- stack instances whose status is @OUTDATED@.
+--
+-- 'callAs', 'createStackInstances_callAs' - [Service-managed permissions] Specifies whether you are acting as an
+-- account administrator in the organization\'s management account or as a
+-- delegated administrator in a member account.
+--
+-- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+-- self-managed permissions.
+--
+-- -   If you are signed in to the management account, specify @SELF@.
+--
+-- -   If you are signed in to a delegated administrator account, specify
+--     @DELEGATED_ADMIN@.
+--
+--     Your AWS account must be registered as a delegated administrator in
+--     the management account. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+--     in the /AWS CloudFormation User Guide/.
+--
+-- 'operationPreferences', 'createStackInstances_operationPreferences' - Preferences for how AWS CloudFormation performs this stack set
+-- operation.
+--
+-- 'accounts', 'createStackInstances_accounts' - [Self-managed permissions] The names of one or more AWS accounts that
+-- you want to create stack instances in the specified Region(s) for.
+--
+-- You can specify @Accounts@ or @DeploymentTargets@, but not both.
+--
+-- 'stackSetName', 'createStackInstances_stackSetName' - The name or unique ID of the stack set that you want to create stack
+-- instances from.
+--
+-- 'regions', 'createStackInstances_regions' - The names of one or more Regions where you want to create stack
+-- instances using the specified AWS account(s).
+newCreateStackInstances ::
+  -- | 'stackSetName'
+  Prelude.Text ->
   CreateStackInstances
-createStackInstances pStackSetName_ =
+newCreateStackInstances pStackSetName_ =
   CreateStackInstances'
-    { _csiParameterOverrides =
-        Nothing,
-      _csiDeploymentTargets = Nothing,
-      _csiOperationId = Nothing,
-      _csiCallAs = Nothing,
-      _csiOperationPreferences = Nothing,
-      _csiAccounts = Nothing,
-      _csiStackSetName = pStackSetName_,
-      _csiRegions = mempty
+    { parameterOverrides =
+        Prelude.Nothing,
+      deploymentTargets = Prelude.Nothing,
+      operationId = Prelude.Nothing,
+      callAs = Prelude.Nothing,
+      operationPreferences = Prelude.Nothing,
+      accounts = Prelude.Nothing,
+      stackSetName = pStackSetName_,
+      regions = Prelude.mempty
     }
 
--- | A list of stack set parameters whose values you want to override in the selected stack instances. Any overridden parameter values will be applied to all stack instances in the specified accounts and Regions. When specifying parameters and their values, be aware of how AWS CloudFormation sets parameter values during stack instance operations:     * To override the current value for a parameter, include the parameter and specify its value.     * To leave a parameter set to its present value, you can do one of the following:     * Do not include the parameter in the list.     * Include the parameter and specify @UsePreviousValue@ as @true@ . (You cannot specify both a value and set @UsePreviousValue@ to @true@ .)     * To set all overridden parameter back to the values specified in the stack set, specify a parameter list but do not include any parameters.     * To leave all parameters set to their present values, do not specify this property at all. During stack set updates, any parameter values overridden for a stack instance are not updated, but retain their overridden value. You can only override the parameter /values/ that are specified in the stack set; to add or delete a parameter itself, use <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html UpdateStackSet> to update the stack set template.
-csiParameterOverrides :: Lens' CreateStackInstances [Parameter]
-csiParameterOverrides = lens _csiParameterOverrides (\s a -> s {_csiParameterOverrides = a}) . _Default . _Coerce
+-- | A list of stack set parameters whose values you want to override in the
+-- selected stack instances.
+--
+-- Any overridden parameter values will be applied to all stack instances
+-- in the specified accounts and Regions. When specifying parameters and
+-- their values, be aware of how AWS CloudFormation sets parameter values
+-- during stack instance operations:
+--
+-- -   To override the current value for a parameter, include the parameter
+--     and specify its value.
+--
+-- -   To leave a parameter set to its present value, you can do one of the
+--     following:
+--
+--     -   Do not include the parameter in the list.
+--
+--     -   Include the parameter and specify @UsePreviousValue@ as @true@.
+--         (You cannot specify both a value and set @UsePreviousValue@ to
+--         @true@.)
+--
+-- -   To set all overridden parameter back to the values specified in the
+--     stack set, specify a parameter list but do not include any
+--     parameters.
+--
+-- -   To leave all parameters set to their present values, do not specify
+--     this property at all.
+--
+-- During stack set updates, any parameter values overridden for a stack
+-- instance are not updated, but retain their overridden value.
+--
+-- You can only override the parameter /values/ that are specified in the
+-- stack set; to add or delete a parameter itself, use
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html UpdateStackSet>
+-- to update the stack set template.
+createStackInstances_parameterOverrides :: Lens.Lens' CreateStackInstances (Prelude.Maybe [Parameter])
+createStackInstances_parameterOverrides = Lens.lens (\CreateStackInstances' {parameterOverrides} -> parameterOverrides) (\s@CreateStackInstances' {} a -> s {parameterOverrides = a} :: CreateStackInstances) Prelude.. Lens.mapping Prelude._Coerce
 
--- | [Service-managed permissions] The AWS Organizations accounts for which to create stack instances in the specified Regions. You can specify @Accounts@ or @DeploymentTargets@ , but not both.
-csiDeploymentTargets :: Lens' CreateStackInstances (Maybe DeploymentTargets)
-csiDeploymentTargets = lens _csiDeploymentTargets (\s a -> s {_csiDeploymentTargets = a})
+-- | [Service-managed permissions] The AWS Organizations accounts for which
+-- to create stack instances in the specified Regions.
+--
+-- You can specify @Accounts@ or @DeploymentTargets@, but not both.
+createStackInstances_deploymentTargets :: Lens.Lens' CreateStackInstances (Prelude.Maybe DeploymentTargets)
+createStackInstances_deploymentTargets = Lens.lens (\CreateStackInstances' {deploymentTargets} -> deploymentTargets) (\s@CreateStackInstances' {} a -> s {deploymentTargets = a} :: CreateStackInstances)
 
--- | The unique identifier for this stack set operation.  The operation ID also functions as an idempotency token, to ensure that AWS CloudFormation performs the stack set operation only once, even if you retry the request multiple times. You might retry stack set operation requests to ensure that AWS CloudFormation successfully received them. If you don't specify an operation ID, the SDK generates one automatically.  Repeating this stack set operation with a new operation ID retries all stack instances whose status is @OUTDATED@ .
-csiOperationId :: Lens' CreateStackInstances (Maybe Text)
-csiOperationId = lens _csiOperationId (\s a -> s {_csiOperationId = a})
+-- | The unique identifier for this stack set operation.
+--
+-- The operation ID also functions as an idempotency token, to ensure that
+-- AWS CloudFormation performs the stack set operation only once, even if
+-- you retry the request multiple times. You might retry stack set
+-- operation requests to ensure that AWS CloudFormation successfully
+-- received them.
+--
+-- If you don\'t specify an operation ID, the SDK generates one
+-- automatically.
+--
+-- Repeating this stack set operation with a new operation ID retries all
+-- stack instances whose status is @OUTDATED@.
+createStackInstances_operationId :: Lens.Lens' CreateStackInstances (Prelude.Maybe Prelude.Text)
+createStackInstances_operationId = Lens.lens (\CreateStackInstances' {operationId} -> operationId) (\s@CreateStackInstances' {} a -> s {operationId = a} :: CreateStackInstances)
 
--- | [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. By default, @SELF@ is specified. Use @SELF@ for stack sets with self-managed permissions.     * If you are signed in to the management account, specify @SELF@ .     * If you are signed in to a delegated administrator account, specify @DELEGATED_ADMIN@ . Your AWS account must be registered as a delegated administrator in the management account. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator> in the /AWS CloudFormation User Guide/ .
-csiCallAs :: Lens' CreateStackInstances (Maybe CallAs)
-csiCallAs = lens _csiCallAs (\s a -> s {_csiCallAs = a})
+-- | [Service-managed permissions] Specifies whether you are acting as an
+-- account administrator in the organization\'s management account or as a
+-- delegated administrator in a member account.
+--
+-- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+-- self-managed permissions.
+--
+-- -   If you are signed in to the management account, specify @SELF@.
+--
+-- -   If you are signed in to a delegated administrator account, specify
+--     @DELEGATED_ADMIN@.
+--
+--     Your AWS account must be registered as a delegated administrator in
+--     the management account. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+--     in the /AWS CloudFormation User Guide/.
+createStackInstances_callAs :: Lens.Lens' CreateStackInstances (Prelude.Maybe CallAs)
+createStackInstances_callAs = Lens.lens (\CreateStackInstances' {callAs} -> callAs) (\s@CreateStackInstances' {} a -> s {callAs = a} :: CreateStackInstances)
 
--- | Preferences for how AWS CloudFormation performs this stack set operation.
-csiOperationPreferences :: Lens' CreateStackInstances (Maybe StackSetOperationPreferences)
-csiOperationPreferences = lens _csiOperationPreferences (\s a -> s {_csiOperationPreferences = a})
+-- | Preferences for how AWS CloudFormation performs this stack set
+-- operation.
+createStackInstances_operationPreferences :: Lens.Lens' CreateStackInstances (Prelude.Maybe StackSetOperationPreferences)
+createStackInstances_operationPreferences = Lens.lens (\CreateStackInstances' {operationPreferences} -> operationPreferences) (\s@CreateStackInstances' {} a -> s {operationPreferences = a} :: CreateStackInstances)
 
--- | [Self-managed permissions] The names of one or more AWS accounts that you want to create stack instances in the specified Region(s) for. You can specify @Accounts@ or @DeploymentTargets@ , but not both.
-csiAccounts :: Lens' CreateStackInstances [Text]
-csiAccounts = lens _csiAccounts (\s a -> s {_csiAccounts = a}) . _Default . _Coerce
+-- | [Self-managed permissions] The names of one or more AWS accounts that
+-- you want to create stack instances in the specified Region(s) for.
+--
+-- You can specify @Accounts@ or @DeploymentTargets@, but not both.
+createStackInstances_accounts :: Lens.Lens' CreateStackInstances (Prelude.Maybe [Prelude.Text])
+createStackInstances_accounts = Lens.lens (\CreateStackInstances' {accounts} -> accounts) (\s@CreateStackInstances' {} a -> s {accounts = a} :: CreateStackInstances) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name or unique ID of the stack set that you want to create stack instances from.
-csiStackSetName :: Lens' CreateStackInstances Text
-csiStackSetName = lens _csiStackSetName (\s a -> s {_csiStackSetName = a})
+-- | The name or unique ID of the stack set that you want to create stack
+-- instances from.
+createStackInstances_stackSetName :: Lens.Lens' CreateStackInstances Prelude.Text
+createStackInstances_stackSetName = Lens.lens (\CreateStackInstances' {stackSetName} -> stackSetName) (\s@CreateStackInstances' {} a -> s {stackSetName = a} :: CreateStackInstances)
 
--- | The names of one or more Regions where you want to create stack instances using the specified AWS account(s).
-csiRegions :: Lens' CreateStackInstances [Text]
-csiRegions = lens _csiRegions (\s a -> s {_csiRegions = a}) . _Coerce
+-- | The names of one or more Regions where you want to create stack
+-- instances using the specified AWS account(s).
+createStackInstances_regions :: Lens.Lens' CreateStackInstances [Prelude.Text]
+createStackInstances_regions = Lens.lens (\CreateStackInstances' {regions} -> regions) (\s@CreateStackInstances' {} a -> s {regions = a} :: CreateStackInstances) Prelude.. Prelude._Coerce
 
-instance AWSRequest CreateStackInstances where
+instance Prelude.AWSRequest CreateStackInstances where
   type
     Rs CreateStackInstances =
       CreateStackInstancesResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateStackInstancesResult"
       ( \s h x ->
           CreateStackInstancesResponse'
-            <$> (x .@? "OperationId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "OperationId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateStackInstances
+instance Prelude.Hashable CreateStackInstances
 
-instance NFData CreateStackInstances
+instance Prelude.NFData CreateStackInstances
 
-instance ToHeaders CreateStackInstances where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateStackInstances where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateStackInstances where
-  toPath = const "/"
+instance Prelude.ToPath CreateStackInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateStackInstances where
+instance Prelude.ToQuery CreateStackInstances where
   toQuery CreateStackInstances' {..} =
-    mconcat
-      [ "Action" =: ("CreateStackInstances" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateStackInstances" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
         "ParameterOverrides"
-          =: toQuery
-            (toQueryList "member" <$> _csiParameterOverrides),
-        "DeploymentTargets" =: _csiDeploymentTargets,
-        "OperationId" =: _csiOperationId,
-        "CallAs" =: _csiCallAs,
-        "OperationPreferences" =: _csiOperationPreferences,
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> parameterOverrides
+            ),
+        "DeploymentTargets" Prelude.=: deploymentTargets,
+        "OperationId" Prelude.=: operationId,
+        "CallAs" Prelude.=: callAs,
+        "OperationPreferences"
+          Prelude.=: operationPreferences,
         "Accounts"
-          =: toQuery (toQueryList "member" <$> _csiAccounts),
-        "StackSetName" =: _csiStackSetName,
-        "Regions" =: toQueryList "member" _csiRegions
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> accounts),
+        "StackSetName" Prelude.=: stackSetName,
+        "Regions"
+          Prelude.=: Prelude.toQueryList "member" regions
       ]
 
--- | /See:/ 'createStackInstancesResponse' smart constructor.
+-- | /See:/ 'newCreateStackInstancesResponse' smart constructor.
 data CreateStackInstancesResponse = CreateStackInstancesResponse'
-  { _csirrsOperationId ::
-      !(Maybe Text),
-    _csirrsResponseStatus ::
-      !Int
+  { -- | The unique identifier for this stack set operation.
+    operationId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStackInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStackInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csirrsOperationId' - The unique identifier for this stack set operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csirrsResponseStatus' - -- | The response status code.
-createStackInstancesResponse ::
-  -- | 'csirrsResponseStatus'
-  Int ->
+-- 'operationId', 'createStackInstancesResponse_operationId' - The unique identifier for this stack set operation.
+--
+-- 'httpStatus', 'createStackInstancesResponse_httpStatus' - The response's http status code.
+newCreateStackInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateStackInstancesResponse
-createStackInstancesResponse pResponseStatus_ =
+newCreateStackInstancesResponse pHttpStatus_ =
   CreateStackInstancesResponse'
-    { _csirrsOperationId =
-        Nothing,
-      _csirrsResponseStatus = pResponseStatus_
+    { operationId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique identifier for this stack set operation.
-csirrsOperationId :: Lens' CreateStackInstancesResponse (Maybe Text)
-csirrsOperationId = lens _csirrsOperationId (\s a -> s {_csirrsOperationId = a})
+createStackInstancesResponse_operationId :: Lens.Lens' CreateStackInstancesResponse (Prelude.Maybe Prelude.Text)
+createStackInstancesResponse_operationId = Lens.lens (\CreateStackInstancesResponse' {operationId} -> operationId) (\s@CreateStackInstancesResponse' {} a -> s {operationId = a} :: CreateStackInstancesResponse)
 
--- | -- | The response status code.
-csirrsResponseStatus :: Lens' CreateStackInstancesResponse Int
-csirrsResponseStatus = lens _csirrsResponseStatus (\s a -> s {_csirrsResponseStatus = a})
+-- | The response's http status code.
+createStackInstancesResponse_httpStatus :: Lens.Lens' CreateStackInstancesResponse Prelude.Int
+createStackInstancesResponse_httpStatus = Lens.lens (\CreateStackInstancesResponse' {httpStatus} -> httpStatus) (\s@CreateStackInstancesResponse' {} a -> s {httpStatus = a} :: CreateStackInstancesResponse)
 
-instance NFData CreateStackInstancesResponse
+instance Prelude.NFData CreateStackInstancesResponse

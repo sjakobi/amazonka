@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,154 @@
 module Network.AWS.CloudFormation.Types.AccountGateResult where
 
 import Network.AWS.CloudFormation.Types.AccountGateStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Structure that contains the results of the account gate function which AWS CloudFormation invokes, if present, before proceeding with a stack set operation in an account and Region.
+-- | Structure that contains the results of the account gate function which
+-- AWS CloudFormation invokes, if present, before proceeding with a stack
+-- set operation in an account and Region.
 --
+-- For each account and Region, AWS CloudFormation lets you specify a
+-- Lamdba function that encapsulates any requirements that must be met
+-- before CloudFormation can proceed with a stack set operation in that
+-- account and Region. CloudFormation invokes the function each time a
+-- stack set operation is requested for that account and Region; if the
+-- function returns @FAILED@, CloudFormation cancels the operation in that
+-- account and Region, and sets the stack set operation result status for
+-- that account and Region to @FAILED@.
 --
--- For each account and Region, AWS CloudFormation lets you specify a Lamdba function that encapsulates any requirements that must be met before CloudFormation can proceed with a stack set operation in that account and Region. CloudFormation invokes the function each time a stack set operation is requested for that account and Region; if the function returns @FAILED@ , CloudFormation cancels the operation in that account and Region, and sets the stack set operation result status for that account and Region to @FAILED@ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-account-gating.html Configuring a target account gate>.
 --
--- For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-account-gating.html Configuring a target account gate> .
---
---
--- /See:/ 'accountGateResult' smart constructor.
+-- /See:/ 'newAccountGateResult' smart constructor.
 data AccountGateResult = AccountGateResult'
-  { _agrStatus ::
-      !(Maybe AccountGateStatus),
-    _agrStatusReason :: !(Maybe Text)
+  { -- | The status of the account gate function.
+    --
+    -- -   @SUCCEEDED@: The account gate function has determined that the
+    --     account and Region passes any requirements for a stack set operation
+    --     to occur. AWS CloudFormation proceeds with the stack operation in
+    --     that account and Region.
+    --
+    -- -   @FAILED@: The account gate function has determined that the account
+    --     and Region does not meet the requirements for a stack set operation
+    --     to occur. AWS CloudFormation cancels the stack set operation in that
+    --     account and Region, and sets the stack set operation result status
+    --     for that account and Region to @FAILED@.
+    --
+    -- -   @SKIPPED@: AWS CloudFormation has skipped calling the account gate
+    --     function for this account and Region, for one of the following
+    --     reasons:
+    --
+    --     -   An account gate function has not been specified for the account
+    --         and Region. AWS CloudFormation proceeds with the stack set
+    --         operation in this account and Region.
+    --
+    --     -   The @AWSCloudFormationStackSetExecutionRole@ of the stack set
+    --         adminstration account lacks permissions to invoke the function.
+    --         AWS CloudFormation proceeds with the stack set operation in this
+    --         account and Region.
+    --
+    --     -   Either no action is necessary, or no action is possible, on the
+    --         stack. AWS CloudFormation skips the stack set operation in this
+    --         account and Region.
+    status :: Prelude.Maybe AccountGateStatus,
+    -- | The reason for the account gate status assigned to this account and
+    -- Region for the stack set operation.
+    statusReason :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountGateResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountGateResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'agrStatus' - The status of the account gate function.     * @SUCCEEDED@ : The account gate function has determined that the account and Region passes any requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in that account and Region.      * @FAILED@ : The account gate function has determined that the account and Region does not meet the requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in that account and Region, and sets the stack set operation result status for that account and Region to @FAILED@ .      * @SKIPPED@ : AWS CloudFormation has skipped calling the account gate function for this account and Region, for one of the following reasons:     * An account gate function has not been specified for the account and Region. AWS CloudFormation proceeds with the stack set operation in this account and Region.     * The @AWSCloudFormationStackSetExecutionRole@ of the stack set adminstration account lacks permissions to invoke the function. AWS CloudFormation proceeds with the stack set operation in this account and Region.     * Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack set operation in this account and Region.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'agrStatusReason' - The reason for the account gate status assigned to this account and Region for the stack set operation.
-accountGateResult ::
+-- 'status', 'accountGateResult_status' - The status of the account gate function.
+--
+-- -   @SUCCEEDED@: The account gate function has determined that the
+--     account and Region passes any requirements for a stack set operation
+--     to occur. AWS CloudFormation proceeds with the stack operation in
+--     that account and Region.
+--
+-- -   @FAILED@: The account gate function has determined that the account
+--     and Region does not meet the requirements for a stack set operation
+--     to occur. AWS CloudFormation cancels the stack set operation in that
+--     account and Region, and sets the stack set operation result status
+--     for that account and Region to @FAILED@.
+--
+-- -   @SKIPPED@: AWS CloudFormation has skipped calling the account gate
+--     function for this account and Region, for one of the following
+--     reasons:
+--
+--     -   An account gate function has not been specified for the account
+--         and Region. AWS CloudFormation proceeds with the stack set
+--         operation in this account and Region.
+--
+--     -   The @AWSCloudFormationStackSetExecutionRole@ of the stack set
+--         adminstration account lacks permissions to invoke the function.
+--         AWS CloudFormation proceeds with the stack set operation in this
+--         account and Region.
+--
+--     -   Either no action is necessary, or no action is possible, on the
+--         stack. AWS CloudFormation skips the stack set operation in this
+--         account and Region.
+--
+-- 'statusReason', 'accountGateResult_statusReason' - The reason for the account gate status assigned to this account and
+-- Region for the stack set operation.
+newAccountGateResult ::
   AccountGateResult
-accountGateResult =
+newAccountGateResult =
   AccountGateResult'
-    { _agrStatus = Nothing,
-      _agrStatusReason = Nothing
+    { status = Prelude.Nothing,
+      statusReason = Prelude.Nothing
     }
 
--- | The status of the account gate function.     * @SUCCEEDED@ : The account gate function has determined that the account and Region passes any requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in that account and Region.      * @FAILED@ : The account gate function has determined that the account and Region does not meet the requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in that account and Region, and sets the stack set operation result status for that account and Region to @FAILED@ .      * @SKIPPED@ : AWS CloudFormation has skipped calling the account gate function for this account and Region, for one of the following reasons:     * An account gate function has not been specified for the account and Region. AWS CloudFormation proceeds with the stack set operation in this account and Region.     * The @AWSCloudFormationStackSetExecutionRole@ of the stack set adminstration account lacks permissions to invoke the function. AWS CloudFormation proceeds with the stack set operation in this account and Region.     * Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack set operation in this account and Region.
-agrStatus :: Lens' AccountGateResult (Maybe AccountGateStatus)
-agrStatus = lens _agrStatus (\s a -> s {_agrStatus = a})
+-- | The status of the account gate function.
+--
+-- -   @SUCCEEDED@: The account gate function has determined that the
+--     account and Region passes any requirements for a stack set operation
+--     to occur. AWS CloudFormation proceeds with the stack operation in
+--     that account and Region.
+--
+-- -   @FAILED@: The account gate function has determined that the account
+--     and Region does not meet the requirements for a stack set operation
+--     to occur. AWS CloudFormation cancels the stack set operation in that
+--     account and Region, and sets the stack set operation result status
+--     for that account and Region to @FAILED@.
+--
+-- -   @SKIPPED@: AWS CloudFormation has skipped calling the account gate
+--     function for this account and Region, for one of the following
+--     reasons:
+--
+--     -   An account gate function has not been specified for the account
+--         and Region. AWS CloudFormation proceeds with the stack set
+--         operation in this account and Region.
+--
+--     -   The @AWSCloudFormationStackSetExecutionRole@ of the stack set
+--         adminstration account lacks permissions to invoke the function.
+--         AWS CloudFormation proceeds with the stack set operation in this
+--         account and Region.
+--
+--     -   Either no action is necessary, or no action is possible, on the
+--         stack. AWS CloudFormation skips the stack set operation in this
+--         account and Region.
+accountGateResult_status :: Lens.Lens' AccountGateResult (Prelude.Maybe AccountGateStatus)
+accountGateResult_status = Lens.lens (\AccountGateResult' {status} -> status) (\s@AccountGateResult' {} a -> s {status = a} :: AccountGateResult)
 
--- | The reason for the account gate status assigned to this account and Region for the stack set operation.
-agrStatusReason :: Lens' AccountGateResult (Maybe Text)
-agrStatusReason = lens _agrStatusReason (\s a -> s {_agrStatusReason = a})
+-- | The reason for the account gate status assigned to this account and
+-- Region for the stack set operation.
+accountGateResult_statusReason :: Lens.Lens' AccountGateResult (Prelude.Maybe Prelude.Text)
+accountGateResult_statusReason = Lens.lens (\AccountGateResult' {statusReason} -> statusReason) (\s@AccountGateResult' {} a -> s {statusReason = a} :: AccountGateResult)
 
-instance FromXML AccountGateResult where
+instance Prelude.FromXML AccountGateResult where
   parseXML x =
     AccountGateResult'
-      <$> (x .@? "Status") <*> (x .@? "StatusReason")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "StatusReason")
 
-instance Hashable AccountGateResult
+instance Prelude.Hashable AccountGateResult
 
-instance NFData AccountGateResult
+instance Prelude.NFData AccountGateResult

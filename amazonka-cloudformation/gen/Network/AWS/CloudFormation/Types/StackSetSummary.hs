@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,108 +23,210 @@ import Network.AWS.CloudFormation.Types.AutoDeployment
 import Network.AWS.CloudFormation.Types.PermissionModels
 import Network.AWS.CloudFormation.Types.StackDriftStatus
 import Network.AWS.CloudFormation.Types.StackSetStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The structures that contain summary information about the specified stack set.
+-- | The structures that contain summary information about the specified
+-- stack set.
 --
---
---
--- /See:/ 'stackSetSummary' smart constructor.
+-- /See:/ 'newStackSetSummary' smart constructor.
 data StackSetSummary = StackSetSummary'
-  { _sssStatus ::
-      !(Maybe StackSetStatus),
-    _sssPermissionModel ::
-      !(Maybe PermissionModels),
-    _sssLastDriftCheckTimestamp ::
-      !(Maybe ISO8601),
-    _sssDriftStatus ::
-      !(Maybe StackDriftStatus),
-    _sssStackSetId :: !(Maybe Text),
-    _sssAutoDeployment ::
-      !(Maybe AutoDeployment),
-    _sssDescription :: !(Maybe Text),
-    _sssStackSetName :: !(Maybe Text)
+  { -- | The status of the stack set.
+    status :: Prelude.Maybe StackSetStatus,
+    -- | Describes how the IAM roles required for stack set operations are
+    -- created.
+    --
+    -- -   With @self-managed@ permissions, you must create the administrator
+    --     and execution roles required to deploy to target accounts. For more
+    --     information, see
+    --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html Grant Self-Managed Stack Set Permissions>.
+    --
+    -- -   With @service-managed@ permissions, StackSets automatically creates
+    --     the IAM roles required to deploy to accounts managed by AWS
+    --     Organizations. For more information, see
+    --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html Grant Service-Managed Stack Set Permissions>.
+    permissionModel :: Prelude.Maybe PermissionModels,
+    -- | Most recent time when CloudFormation performed a drift detection
+    -- operation on the stack set. This value will be @NULL@ for any stack set
+    -- on which drift detection has not yet been performed.
+    lastDriftCheckTimestamp :: Prelude.Maybe Prelude.ISO8601,
+    -- | Status of the stack set\'s actual configuration compared to its expected
+    -- template and parameter configuration. A stack set is considered to have
+    -- drifted if one or more of its stack instances have drifted from their
+    -- expected template and parameter configuration.
+    --
+    -- -   @DRIFTED@: One or more of the stack instances belonging to the stack
+    --     set stack differs from the expected template and parameter
+    --     configuration. A stack instance is considered to have drifted if one
+    --     or more of the resources in the associated stack have drifted.
+    --
+    -- -   @NOT_CHECKED@: AWS CloudFormation has not checked the stack set for
+    --     drift.
+    --
+    -- -   @IN_SYNC@: All of the stack instances belonging to the stack set
+    --     stack match from the expected template and parameter configuration.
+    --
+    -- -   @UNKNOWN@: This value is reserved for future use.
+    driftStatus :: Prelude.Maybe StackDriftStatus,
+    -- | The ID of the stack set.
+    stackSetId :: Prelude.Maybe Prelude.Text,
+    -- | [Service-managed permissions] Describes whether StackSets automatically
+    -- deploys to AWS Organizations accounts that are added to a target
+    -- organizational unit (OU).
+    autoDeployment :: Prelude.Maybe AutoDeployment,
+    -- | A description of the stack set that you specify when the stack set is
+    -- created or updated.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stack set.
+    stackSetName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StackSetSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StackSetSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sssStatus' - The status of the stack set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sssPermissionModel' - Describes how the IAM roles required for stack set operations are created.     * With @self-managed@ permissions, you must create the administrator and execution roles required to deploy to target accounts. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html Grant Self-Managed Stack Set Permissions> .     * With @service-managed@ permissions, StackSets automatically creates the IAM roles required to deploy to accounts managed by AWS Organizations. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html Grant Service-Managed Stack Set Permissions> .
+-- 'status', 'stackSetSummary_status' - The status of the stack set.
 --
--- * 'sssLastDriftCheckTimestamp' - Most recent time when CloudFormation performed a drift detection operation on the stack set. This value will be @NULL@ for any stack set on which drift detection has not yet been performed.
+-- 'permissionModel', 'stackSetSummary_permissionModel' - Describes how the IAM roles required for stack set operations are
+-- created.
 --
--- * 'sssDriftStatus' - Status of the stack set's actual configuration compared to its expected template and parameter configuration. A stack set is considered to have drifted if one or more of its stack instances have drifted from their expected template and parameter configuration.     * @DRIFTED@ : One or more of the stack instances belonging to the stack set stack differs from the expected template and parameter configuration. A stack instance is considered to have drifted if one or more of the resources in the associated stack have drifted.     * @NOT_CHECKED@ : AWS CloudFormation has not checked the stack set for drift.     * @IN_SYNC@ : All of the stack instances belonging to the stack set stack match from the expected template and parameter configuration.     * @UNKNOWN@ : This value is reserved for future use.
+-- -   With @self-managed@ permissions, you must create the administrator
+--     and execution roles required to deploy to target accounts. For more
+--     information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html Grant Self-Managed Stack Set Permissions>.
 --
--- * 'sssStackSetId' - The ID of the stack set.
+-- -   With @service-managed@ permissions, StackSets automatically creates
+--     the IAM roles required to deploy to accounts managed by AWS
+--     Organizations. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html Grant Service-Managed Stack Set Permissions>.
 --
--- * 'sssAutoDeployment' - [Service-managed permissions] Describes whether StackSets automatically deploys to AWS Organizations accounts that are added to a target organizational unit (OU).
+-- 'lastDriftCheckTimestamp', 'stackSetSummary_lastDriftCheckTimestamp' - Most recent time when CloudFormation performed a drift detection
+-- operation on the stack set. This value will be @NULL@ for any stack set
+-- on which drift detection has not yet been performed.
 --
--- * 'sssDescription' - A description of the stack set that you specify when the stack set is created or updated.
+-- 'driftStatus', 'stackSetSummary_driftStatus' - Status of the stack set\'s actual configuration compared to its expected
+-- template and parameter configuration. A stack set is considered to have
+-- drifted if one or more of its stack instances have drifted from their
+-- expected template and parameter configuration.
 --
--- * 'sssStackSetName' - The name of the stack set.
-stackSetSummary ::
+-- -   @DRIFTED@: One or more of the stack instances belonging to the stack
+--     set stack differs from the expected template and parameter
+--     configuration. A stack instance is considered to have drifted if one
+--     or more of the resources in the associated stack have drifted.
+--
+-- -   @NOT_CHECKED@: AWS CloudFormation has not checked the stack set for
+--     drift.
+--
+-- -   @IN_SYNC@: All of the stack instances belonging to the stack set
+--     stack match from the expected template and parameter configuration.
+--
+-- -   @UNKNOWN@: This value is reserved for future use.
+--
+-- 'stackSetId', 'stackSetSummary_stackSetId' - The ID of the stack set.
+--
+-- 'autoDeployment', 'stackSetSummary_autoDeployment' - [Service-managed permissions] Describes whether StackSets automatically
+-- deploys to AWS Organizations accounts that are added to a target
+-- organizational unit (OU).
+--
+-- 'description', 'stackSetSummary_description' - A description of the stack set that you specify when the stack set is
+-- created or updated.
+--
+-- 'stackSetName', 'stackSetSummary_stackSetName' - The name of the stack set.
+newStackSetSummary ::
   StackSetSummary
-stackSetSummary =
+newStackSetSummary =
   StackSetSummary'
-    { _sssStatus = Nothing,
-      _sssPermissionModel = Nothing,
-      _sssLastDriftCheckTimestamp = Nothing,
-      _sssDriftStatus = Nothing,
-      _sssStackSetId = Nothing,
-      _sssAutoDeployment = Nothing,
-      _sssDescription = Nothing,
-      _sssStackSetName = Nothing
+    { status = Prelude.Nothing,
+      permissionModel = Prelude.Nothing,
+      lastDriftCheckTimestamp = Prelude.Nothing,
+      driftStatus = Prelude.Nothing,
+      stackSetId = Prelude.Nothing,
+      autoDeployment = Prelude.Nothing,
+      description = Prelude.Nothing,
+      stackSetName = Prelude.Nothing
     }
 
 -- | The status of the stack set.
-sssStatus :: Lens' StackSetSummary (Maybe StackSetStatus)
-sssStatus = lens _sssStatus (\s a -> s {_sssStatus = a})
+stackSetSummary_status :: Lens.Lens' StackSetSummary (Prelude.Maybe StackSetStatus)
+stackSetSummary_status = Lens.lens (\StackSetSummary' {status} -> status) (\s@StackSetSummary' {} a -> s {status = a} :: StackSetSummary)
 
--- | Describes how the IAM roles required for stack set operations are created.     * With @self-managed@ permissions, you must create the administrator and execution roles required to deploy to target accounts. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html Grant Self-Managed Stack Set Permissions> .     * With @service-managed@ permissions, StackSets automatically creates the IAM roles required to deploy to accounts managed by AWS Organizations. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html Grant Service-Managed Stack Set Permissions> .
-sssPermissionModel :: Lens' StackSetSummary (Maybe PermissionModels)
-sssPermissionModel = lens _sssPermissionModel (\s a -> s {_sssPermissionModel = a})
+-- | Describes how the IAM roles required for stack set operations are
+-- created.
+--
+-- -   With @self-managed@ permissions, you must create the administrator
+--     and execution roles required to deploy to target accounts. For more
+--     information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html Grant Self-Managed Stack Set Permissions>.
+--
+-- -   With @service-managed@ permissions, StackSets automatically creates
+--     the IAM roles required to deploy to accounts managed by AWS
+--     Organizations. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html Grant Service-Managed Stack Set Permissions>.
+stackSetSummary_permissionModel :: Lens.Lens' StackSetSummary (Prelude.Maybe PermissionModels)
+stackSetSummary_permissionModel = Lens.lens (\StackSetSummary' {permissionModel} -> permissionModel) (\s@StackSetSummary' {} a -> s {permissionModel = a} :: StackSetSummary)
 
--- | Most recent time when CloudFormation performed a drift detection operation on the stack set. This value will be @NULL@ for any stack set on which drift detection has not yet been performed.
-sssLastDriftCheckTimestamp :: Lens' StackSetSummary (Maybe UTCTime)
-sssLastDriftCheckTimestamp = lens _sssLastDriftCheckTimestamp (\s a -> s {_sssLastDriftCheckTimestamp = a}) . mapping _Time
+-- | Most recent time when CloudFormation performed a drift detection
+-- operation on the stack set. This value will be @NULL@ for any stack set
+-- on which drift detection has not yet been performed.
+stackSetSummary_lastDriftCheckTimestamp :: Lens.Lens' StackSetSummary (Prelude.Maybe Prelude.UTCTime)
+stackSetSummary_lastDriftCheckTimestamp = Lens.lens (\StackSetSummary' {lastDriftCheckTimestamp} -> lastDriftCheckTimestamp) (\s@StackSetSummary' {} a -> s {lastDriftCheckTimestamp = a} :: StackSetSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | Status of the stack set's actual configuration compared to its expected template and parameter configuration. A stack set is considered to have drifted if one or more of its stack instances have drifted from their expected template and parameter configuration.     * @DRIFTED@ : One or more of the stack instances belonging to the stack set stack differs from the expected template and parameter configuration. A stack instance is considered to have drifted if one or more of the resources in the associated stack have drifted.     * @NOT_CHECKED@ : AWS CloudFormation has not checked the stack set for drift.     * @IN_SYNC@ : All of the stack instances belonging to the stack set stack match from the expected template and parameter configuration.     * @UNKNOWN@ : This value is reserved for future use.
-sssDriftStatus :: Lens' StackSetSummary (Maybe StackDriftStatus)
-sssDriftStatus = lens _sssDriftStatus (\s a -> s {_sssDriftStatus = a})
+-- | Status of the stack set\'s actual configuration compared to its expected
+-- template and parameter configuration. A stack set is considered to have
+-- drifted if one or more of its stack instances have drifted from their
+-- expected template and parameter configuration.
+--
+-- -   @DRIFTED@: One or more of the stack instances belonging to the stack
+--     set stack differs from the expected template and parameter
+--     configuration. A stack instance is considered to have drifted if one
+--     or more of the resources in the associated stack have drifted.
+--
+-- -   @NOT_CHECKED@: AWS CloudFormation has not checked the stack set for
+--     drift.
+--
+-- -   @IN_SYNC@: All of the stack instances belonging to the stack set
+--     stack match from the expected template and parameter configuration.
+--
+-- -   @UNKNOWN@: This value is reserved for future use.
+stackSetSummary_driftStatus :: Lens.Lens' StackSetSummary (Prelude.Maybe StackDriftStatus)
+stackSetSummary_driftStatus = Lens.lens (\StackSetSummary' {driftStatus} -> driftStatus) (\s@StackSetSummary' {} a -> s {driftStatus = a} :: StackSetSummary)
 
 -- | The ID of the stack set.
-sssStackSetId :: Lens' StackSetSummary (Maybe Text)
-sssStackSetId = lens _sssStackSetId (\s a -> s {_sssStackSetId = a})
+stackSetSummary_stackSetId :: Lens.Lens' StackSetSummary (Prelude.Maybe Prelude.Text)
+stackSetSummary_stackSetId = Lens.lens (\StackSetSummary' {stackSetId} -> stackSetId) (\s@StackSetSummary' {} a -> s {stackSetId = a} :: StackSetSummary)
 
--- | [Service-managed permissions] Describes whether StackSets automatically deploys to AWS Organizations accounts that are added to a target organizational unit (OU).
-sssAutoDeployment :: Lens' StackSetSummary (Maybe AutoDeployment)
-sssAutoDeployment = lens _sssAutoDeployment (\s a -> s {_sssAutoDeployment = a})
+-- | [Service-managed permissions] Describes whether StackSets automatically
+-- deploys to AWS Organizations accounts that are added to a target
+-- organizational unit (OU).
+stackSetSummary_autoDeployment :: Lens.Lens' StackSetSummary (Prelude.Maybe AutoDeployment)
+stackSetSummary_autoDeployment = Lens.lens (\StackSetSummary' {autoDeployment} -> autoDeployment) (\s@StackSetSummary' {} a -> s {autoDeployment = a} :: StackSetSummary)
 
--- | A description of the stack set that you specify when the stack set is created or updated.
-sssDescription :: Lens' StackSetSummary (Maybe Text)
-sssDescription = lens _sssDescription (\s a -> s {_sssDescription = a})
+-- | A description of the stack set that you specify when the stack set is
+-- created or updated.
+stackSetSummary_description :: Lens.Lens' StackSetSummary (Prelude.Maybe Prelude.Text)
+stackSetSummary_description = Lens.lens (\StackSetSummary' {description} -> description) (\s@StackSetSummary' {} a -> s {description = a} :: StackSetSummary)
 
 -- | The name of the stack set.
-sssStackSetName :: Lens' StackSetSummary (Maybe Text)
-sssStackSetName = lens _sssStackSetName (\s a -> s {_sssStackSetName = a})
+stackSetSummary_stackSetName :: Lens.Lens' StackSetSummary (Prelude.Maybe Prelude.Text)
+stackSetSummary_stackSetName = Lens.lens (\StackSetSummary' {stackSetName} -> stackSetName) (\s@StackSetSummary' {} a -> s {stackSetName = a} :: StackSetSummary)
 
-instance FromXML StackSetSummary where
+instance Prelude.FromXML StackSetSummary where
   parseXML x =
     StackSetSummary'
-      <$> (x .@? "Status")
-      <*> (x .@? "PermissionModel")
-      <*> (x .@? "LastDriftCheckTimestamp")
-      <*> (x .@? "DriftStatus")
-      <*> (x .@? "StackSetId")
-      <*> (x .@? "AutoDeployment")
-      <*> (x .@? "Description")
-      <*> (x .@? "StackSetName")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "PermissionModel")
+      Prelude.<*> (x Prelude..@? "LastDriftCheckTimestamp")
+      Prelude.<*> (x Prelude..@? "DriftStatus")
+      Prelude.<*> (x Prelude..@? "StackSetId")
+      Prelude.<*> (x Prelude..@? "AutoDeployment")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "StackSetName")
 
-instance Hashable StackSetSummary
+instance Prelude.Hashable StackSetSummary
 
-instance NFData StackSetSummary
+instance Prelude.NFData StackSetSummary

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.CloudFormation.Types.StackSetOperationAction
   ( StackSetOperationAction
       ( ..,
-        Create,
-        Delete,
-        DetectDrift,
-        Update
+        StackSetOperationActionCREATE,
+        StackSetOperationActionDELETE,
+        StackSetOperationActionDETECTDRIFT,
+        StackSetOperationActionUPDATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackSetOperationAction
-  = StackSetOperationAction'
-      ( CI
-          Text
-      )
+newtype StackSetOperationAction = StackSetOperationAction'
+  { fromStackSetOperationAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Create :: StackSetOperationAction
-pattern Create = StackSetOperationAction' "CREATE"
+pattern StackSetOperationActionCREATE :: StackSetOperationAction
+pattern StackSetOperationActionCREATE = StackSetOperationAction' "CREATE"
 
-pattern Delete :: StackSetOperationAction
-pattern Delete = StackSetOperationAction' "DELETE"
+pattern StackSetOperationActionDELETE :: StackSetOperationAction
+pattern StackSetOperationActionDELETE = StackSetOperationAction' "DELETE"
 
-pattern DetectDrift :: StackSetOperationAction
-pattern DetectDrift = StackSetOperationAction' "DETECT_DRIFT"
+pattern StackSetOperationActionDETECTDRIFT :: StackSetOperationAction
+pattern StackSetOperationActionDETECTDRIFT = StackSetOperationAction' "DETECT_DRIFT"
 
-pattern Update :: StackSetOperationAction
-pattern Update = StackSetOperationAction' "UPDATE"
+pattern StackSetOperationActionUPDATE :: StackSetOperationAction
+pattern StackSetOperationActionUPDATE = StackSetOperationAction' "UPDATE"
 
 {-# COMPLETE
-  Create,
-  Delete,
-  DetectDrift,
-  Update,
+  StackSetOperationActionCREATE,
+  StackSetOperationActionDELETE,
+  StackSetOperationActionDETECTDRIFT,
+  StackSetOperationActionUPDATE,
   StackSetOperationAction'
   #-}
 
-instance FromText StackSetOperationAction where
-  parser = (StackSetOperationAction' . mk) <$> takeText
+instance Prelude.FromText StackSetOperationAction where
+  parser = StackSetOperationAction' Prelude.<$> Prelude.takeText
 
-instance ToText StackSetOperationAction where
-  toText (StackSetOperationAction' ci) = original ci
+instance Prelude.ToText StackSetOperationAction where
+  toText (StackSetOperationAction' x) = x
 
-instance Hashable StackSetOperationAction
+instance Prelude.Hashable StackSetOperationAction
 
-instance NFData StackSetOperationAction
+instance Prelude.NFData StackSetOperationAction
 
-instance ToByteString StackSetOperationAction
+instance Prelude.ToByteString StackSetOperationAction
 
-instance ToQuery StackSetOperationAction
+instance Prelude.ToQuery StackSetOperationAction
 
-instance ToHeader StackSetOperationAction
+instance Prelude.ToHeader StackSetOperationAction
 
-instance FromXML StackSetOperationAction where
-  parseXML = parseXMLText "StackSetOperationAction"
+instance Prelude.FromXML StackSetOperationAction where
+  parseXML = Prelude.parseXMLText "StackSetOperationAction"

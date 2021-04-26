@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudFormation.Types.DeprecatedStatus
   ( DeprecatedStatus
       ( ..,
-        Deprecated,
-        Live
+        DeprecatedStatusDEPRECATED,
+        DeprecatedStatusLIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeprecatedStatus = DeprecatedStatus' (CI Text)
+newtype DeprecatedStatus = DeprecatedStatus'
+  { fromDeprecatedStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Deprecated :: DeprecatedStatus
-pattern Deprecated = DeprecatedStatus' "DEPRECATED"
+pattern DeprecatedStatusDEPRECATED :: DeprecatedStatus
+pattern DeprecatedStatusDEPRECATED = DeprecatedStatus' "DEPRECATED"
 
-pattern Live :: DeprecatedStatus
-pattern Live = DeprecatedStatus' "LIVE"
+pattern DeprecatedStatusLIVE :: DeprecatedStatus
+pattern DeprecatedStatusLIVE = DeprecatedStatus' "LIVE"
 
 {-# COMPLETE
-  Deprecated,
-  Live,
+  DeprecatedStatusDEPRECATED,
+  DeprecatedStatusLIVE,
   DeprecatedStatus'
   #-}
 
-instance FromText DeprecatedStatus where
-  parser = (DeprecatedStatus' . mk) <$> takeText
+instance Prelude.FromText DeprecatedStatus where
+  parser = DeprecatedStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DeprecatedStatus where
-  toText (DeprecatedStatus' ci) = original ci
+instance Prelude.ToText DeprecatedStatus where
+  toText (DeprecatedStatus' x) = x
 
-instance Hashable DeprecatedStatus
+instance Prelude.Hashable DeprecatedStatus
 
-instance NFData DeprecatedStatus
+instance Prelude.NFData DeprecatedStatus
 
-instance ToByteString DeprecatedStatus
+instance Prelude.ToByteString DeprecatedStatus
 
-instance ToQuery DeprecatedStatus
+instance Prelude.ToQuery DeprecatedStatus
 
-instance ToHeader DeprecatedStatus
+instance Prelude.ToHeader DeprecatedStatus
 
-instance FromXML DeprecatedStatus where
-  parseXML = parseXMLText "DeprecatedStatus"
+instance Prelude.FromXML DeprecatedStatus where
+  parseXML = Prelude.parseXMLText "DeprecatedStatus"

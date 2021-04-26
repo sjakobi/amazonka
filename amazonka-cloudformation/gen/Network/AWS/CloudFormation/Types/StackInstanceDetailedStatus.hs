@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.CloudFormation.Types.StackInstanceDetailedStatus
   ( StackInstanceDetailedStatus
       ( ..,
-        SIDSCancelled,
-        SIDSFailed,
-        SIDSInoperable,
-        SIDSPending,
-        SIDSRunning,
-        SIDSSucceeded
+        StackInstanceDetailedStatusCANCELLED,
+        StackInstanceDetailedStatusFAILED,
+        StackInstanceDetailedStatusINOPERABLE,
+        StackInstanceDetailedStatusPENDING,
+        StackInstanceDetailedStatusRUNNING,
+        StackInstanceDetailedStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackInstanceDetailedStatus
-  = StackInstanceDetailedStatus'
-      ( CI
-          Text
-      )
+newtype StackInstanceDetailedStatus = StackInstanceDetailedStatus'
+  { fromStackInstanceDetailedStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SIDSCancelled :: StackInstanceDetailedStatus
-pattern SIDSCancelled = StackInstanceDetailedStatus' "CANCELLED"
+pattern StackInstanceDetailedStatusCANCELLED :: StackInstanceDetailedStatus
+pattern StackInstanceDetailedStatusCANCELLED = StackInstanceDetailedStatus' "CANCELLED"
 
-pattern SIDSFailed :: StackInstanceDetailedStatus
-pattern SIDSFailed = StackInstanceDetailedStatus' "FAILED"
+pattern StackInstanceDetailedStatusFAILED :: StackInstanceDetailedStatus
+pattern StackInstanceDetailedStatusFAILED = StackInstanceDetailedStatus' "FAILED"
 
-pattern SIDSInoperable :: StackInstanceDetailedStatus
-pattern SIDSInoperable = StackInstanceDetailedStatus' "INOPERABLE"
+pattern StackInstanceDetailedStatusINOPERABLE :: StackInstanceDetailedStatus
+pattern StackInstanceDetailedStatusINOPERABLE = StackInstanceDetailedStatus' "INOPERABLE"
 
-pattern SIDSPending :: StackInstanceDetailedStatus
-pattern SIDSPending = StackInstanceDetailedStatus' "PENDING"
+pattern StackInstanceDetailedStatusPENDING :: StackInstanceDetailedStatus
+pattern StackInstanceDetailedStatusPENDING = StackInstanceDetailedStatus' "PENDING"
 
-pattern SIDSRunning :: StackInstanceDetailedStatus
-pattern SIDSRunning = StackInstanceDetailedStatus' "RUNNING"
+pattern StackInstanceDetailedStatusRUNNING :: StackInstanceDetailedStatus
+pattern StackInstanceDetailedStatusRUNNING = StackInstanceDetailedStatus' "RUNNING"
 
-pattern SIDSSucceeded :: StackInstanceDetailedStatus
-pattern SIDSSucceeded = StackInstanceDetailedStatus' "SUCCEEDED"
+pattern StackInstanceDetailedStatusSUCCEEDED :: StackInstanceDetailedStatus
+pattern StackInstanceDetailedStatusSUCCEEDED = StackInstanceDetailedStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  SIDSCancelled,
-  SIDSFailed,
-  SIDSInoperable,
-  SIDSPending,
-  SIDSRunning,
-  SIDSSucceeded,
+  StackInstanceDetailedStatusCANCELLED,
+  StackInstanceDetailedStatusFAILED,
+  StackInstanceDetailedStatusINOPERABLE,
+  StackInstanceDetailedStatusPENDING,
+  StackInstanceDetailedStatusRUNNING,
+  StackInstanceDetailedStatusSUCCEEDED,
   StackInstanceDetailedStatus'
   #-}
 
-instance FromText StackInstanceDetailedStatus where
-  parser = (StackInstanceDetailedStatus' . mk) <$> takeText
+instance Prelude.FromText StackInstanceDetailedStatus where
+  parser = StackInstanceDetailedStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StackInstanceDetailedStatus where
-  toText (StackInstanceDetailedStatus' ci) = original ci
+instance Prelude.ToText StackInstanceDetailedStatus where
+  toText (StackInstanceDetailedStatus' x) = x
 
-instance Hashable StackInstanceDetailedStatus
+instance Prelude.Hashable StackInstanceDetailedStatus
 
-instance NFData StackInstanceDetailedStatus
+instance Prelude.NFData StackInstanceDetailedStatus
 
-instance ToByteString StackInstanceDetailedStatus
+instance Prelude.ToByteString StackInstanceDetailedStatus
 
-instance ToQuery StackInstanceDetailedStatus
+instance Prelude.ToQuery StackInstanceDetailedStatus
 
-instance ToHeader StackInstanceDetailedStatus
+instance Prelude.ToHeader StackInstanceDetailedStatus
 
-instance FromXML StackInstanceDetailedStatus where
-  parseXML = parseXMLText "StackInstanceDetailedStatus"
+instance Prelude.FromXML StackInstanceDetailedStatus where
+  parseXML = Prelude.parseXMLText "StackInstanceDetailedStatus"

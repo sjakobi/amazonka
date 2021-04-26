@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,225 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the stack instance that's associated with the specified stack set, AWS account, and Region.
+-- Returns the stack instance that\'s associated with the specified stack
+-- set, AWS account, and Region.
 --
---
--- For a list of stack instances that are associated with a specific stack set, use 'ListStackInstances' .
+-- For a list of stack instances that are associated with a specific stack
+-- set, use ListStackInstances.
 module Network.AWS.CloudFormation.DescribeStackInstance
   ( -- * Creating a Request
-    describeStackInstance,
-    DescribeStackInstance,
+    DescribeStackInstance (..),
+    newDescribeStackInstance,
 
     -- * Request Lenses
-    dsiCallAs,
-    dsiStackSetName,
-    dsiStackInstanceAccount,
-    dsiStackInstanceRegion,
+    describeStackInstance_callAs,
+    describeStackInstance_stackSetName,
+    describeStackInstance_stackInstanceAccount,
+    describeStackInstance_stackInstanceRegion,
 
     -- * Destructuring the Response
-    describeStackInstanceResponse,
-    DescribeStackInstanceResponse,
+    DescribeStackInstanceResponse (..),
+    newDescribeStackInstanceResponse,
 
     -- * Response Lenses
-    dsirrsStackInstance,
-    dsirrsResponseStatus,
+    describeStackInstanceResponse_stackInstance,
+    describeStackInstanceResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFormation.Types.StackInstance
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeStackInstance' smart constructor.
+-- | /See:/ 'newDescribeStackInstance' smart constructor.
 data DescribeStackInstance = DescribeStackInstance'
-  { _dsiCallAs ::
-      !(Maybe CallAs),
-    _dsiStackSetName :: !Text,
-    _dsiStackInstanceAccount ::
-      !Text,
-    _dsiStackInstanceRegion ::
-      !Text
+  { -- | [Service-managed permissions] Specifies whether you are acting as an
+    -- account administrator in the organization\'s management account or as a
+    -- delegated administrator in a member account.
+    --
+    -- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+    -- self-managed permissions.
+    --
+    -- -   If you are signed in to the management account, specify @SELF@.
+    --
+    -- -   If you are signed in to a delegated administrator account, specify
+    --     @DELEGATED_ADMIN@.
+    --
+    --     Your AWS account must be registered as a delegated administrator in
+    --     the management account. For more information, see
+    --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+    --     in the /AWS CloudFormation User Guide/.
+    callAs :: Prelude.Maybe CallAs,
+    -- | The name or the unique stack ID of the stack set that you want to get
+    -- stack instance information for.
+    stackSetName :: Prelude.Text,
+    -- | The ID of an AWS account that\'s associated with this stack instance.
+    stackInstanceAccount :: Prelude.Text,
+    -- | The name of a Region that\'s associated with this stack instance.
+    stackInstanceRegion :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStackInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStackInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsiCallAs' - [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. By default, @SELF@ is specified. Use @SELF@ for stack sets with self-managed permissions.     * If you are signed in to the management account, specify @SELF@ .     * If you are signed in to a delegated administrator account, specify @DELEGATED_ADMIN@ . Your AWS account must be registered as a delegated administrator in the management account. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator> in the /AWS CloudFormation User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsiStackSetName' - The name or the unique stack ID of the stack set that you want to get stack instance information for.
+-- 'callAs', 'describeStackInstance_callAs' - [Service-managed permissions] Specifies whether you are acting as an
+-- account administrator in the organization\'s management account or as a
+-- delegated administrator in a member account.
 --
--- * 'dsiStackInstanceAccount' - The ID of an AWS account that's associated with this stack instance.
+-- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+-- self-managed permissions.
 --
--- * 'dsiStackInstanceRegion' - The name of a Region that's associated with this stack instance.
-describeStackInstance ::
-  -- | 'dsiStackSetName'
-  Text ->
-  -- | 'dsiStackInstanceAccount'
-  Text ->
-  -- | 'dsiStackInstanceRegion'
-  Text ->
+-- -   If you are signed in to the management account, specify @SELF@.
+--
+-- -   If you are signed in to a delegated administrator account, specify
+--     @DELEGATED_ADMIN@.
+--
+--     Your AWS account must be registered as a delegated administrator in
+--     the management account. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+--     in the /AWS CloudFormation User Guide/.
+--
+-- 'stackSetName', 'describeStackInstance_stackSetName' - The name or the unique stack ID of the stack set that you want to get
+-- stack instance information for.
+--
+-- 'stackInstanceAccount', 'describeStackInstance_stackInstanceAccount' - The ID of an AWS account that\'s associated with this stack instance.
+--
+-- 'stackInstanceRegion', 'describeStackInstance_stackInstanceRegion' - The name of a Region that\'s associated with this stack instance.
+newDescribeStackInstance ::
+  -- | 'stackSetName'
+  Prelude.Text ->
+  -- | 'stackInstanceAccount'
+  Prelude.Text ->
+  -- | 'stackInstanceRegion'
+  Prelude.Text ->
   DescribeStackInstance
-describeStackInstance
+newDescribeStackInstance
   pStackSetName_
   pStackInstanceAccount_
   pStackInstanceRegion_ =
     DescribeStackInstance'
-      { _dsiCallAs = Nothing,
-        _dsiStackSetName = pStackSetName_,
-        _dsiStackInstanceAccount = pStackInstanceAccount_,
-        _dsiStackInstanceRegion = pStackInstanceRegion_
+      { callAs = Prelude.Nothing,
+        stackSetName = pStackSetName_,
+        stackInstanceAccount = pStackInstanceAccount_,
+        stackInstanceRegion = pStackInstanceRegion_
       }
 
--- | [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. By default, @SELF@ is specified. Use @SELF@ for stack sets with self-managed permissions.     * If you are signed in to the management account, specify @SELF@ .     * If you are signed in to a delegated administrator account, specify @DELEGATED_ADMIN@ . Your AWS account must be registered as a delegated administrator in the management account. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator> in the /AWS CloudFormation User Guide/ .
-dsiCallAs :: Lens' DescribeStackInstance (Maybe CallAs)
-dsiCallAs = lens _dsiCallAs (\s a -> s {_dsiCallAs = a})
+-- | [Service-managed permissions] Specifies whether you are acting as an
+-- account administrator in the organization\'s management account or as a
+-- delegated administrator in a member account.
+--
+-- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+-- self-managed permissions.
+--
+-- -   If you are signed in to the management account, specify @SELF@.
+--
+-- -   If you are signed in to a delegated administrator account, specify
+--     @DELEGATED_ADMIN@.
+--
+--     Your AWS account must be registered as a delegated administrator in
+--     the management account. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+--     in the /AWS CloudFormation User Guide/.
+describeStackInstance_callAs :: Lens.Lens' DescribeStackInstance (Prelude.Maybe CallAs)
+describeStackInstance_callAs = Lens.lens (\DescribeStackInstance' {callAs} -> callAs) (\s@DescribeStackInstance' {} a -> s {callAs = a} :: DescribeStackInstance)
 
--- | The name or the unique stack ID of the stack set that you want to get stack instance information for.
-dsiStackSetName :: Lens' DescribeStackInstance Text
-dsiStackSetName = lens _dsiStackSetName (\s a -> s {_dsiStackSetName = a})
+-- | The name or the unique stack ID of the stack set that you want to get
+-- stack instance information for.
+describeStackInstance_stackSetName :: Lens.Lens' DescribeStackInstance Prelude.Text
+describeStackInstance_stackSetName = Lens.lens (\DescribeStackInstance' {stackSetName} -> stackSetName) (\s@DescribeStackInstance' {} a -> s {stackSetName = a} :: DescribeStackInstance)
 
--- | The ID of an AWS account that's associated with this stack instance.
-dsiStackInstanceAccount :: Lens' DescribeStackInstance Text
-dsiStackInstanceAccount = lens _dsiStackInstanceAccount (\s a -> s {_dsiStackInstanceAccount = a})
+-- | The ID of an AWS account that\'s associated with this stack instance.
+describeStackInstance_stackInstanceAccount :: Lens.Lens' DescribeStackInstance Prelude.Text
+describeStackInstance_stackInstanceAccount = Lens.lens (\DescribeStackInstance' {stackInstanceAccount} -> stackInstanceAccount) (\s@DescribeStackInstance' {} a -> s {stackInstanceAccount = a} :: DescribeStackInstance)
 
--- | The name of a Region that's associated with this stack instance.
-dsiStackInstanceRegion :: Lens' DescribeStackInstance Text
-dsiStackInstanceRegion = lens _dsiStackInstanceRegion (\s a -> s {_dsiStackInstanceRegion = a})
+-- | The name of a Region that\'s associated with this stack instance.
+describeStackInstance_stackInstanceRegion :: Lens.Lens' DescribeStackInstance Prelude.Text
+describeStackInstance_stackInstanceRegion = Lens.lens (\DescribeStackInstance' {stackInstanceRegion} -> stackInstanceRegion) (\s@DescribeStackInstance' {} a -> s {stackInstanceRegion = a} :: DescribeStackInstance)
 
-instance AWSRequest DescribeStackInstance where
+instance Prelude.AWSRequest DescribeStackInstance where
   type
     Rs DescribeStackInstance =
       DescribeStackInstanceResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeStackInstanceResult"
       ( \s h x ->
           DescribeStackInstanceResponse'
-            <$> (x .@? "StackInstance") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "StackInstance")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeStackInstance
+instance Prelude.Hashable DescribeStackInstance
 
-instance NFData DescribeStackInstance
+instance Prelude.NFData DescribeStackInstance
 
-instance ToHeaders DescribeStackInstance where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeStackInstance where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeStackInstance where
-  toPath = const "/"
+instance Prelude.ToPath DescribeStackInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeStackInstance where
+instance Prelude.ToQuery DescribeStackInstance where
   toQuery DescribeStackInstance' {..} =
-    mconcat
-      [ "Action" =: ("DescribeStackInstance" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "CallAs" =: _dsiCallAs,
-        "StackSetName" =: _dsiStackSetName,
-        "StackInstanceAccount" =: _dsiStackInstanceAccount,
-        "StackInstanceRegion" =: _dsiStackInstanceRegion
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeStackInstance" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "CallAs" Prelude.=: callAs,
+        "StackSetName" Prelude.=: stackSetName,
+        "StackInstanceAccount"
+          Prelude.=: stackInstanceAccount,
+        "StackInstanceRegion" Prelude.=: stackInstanceRegion
       ]
 
--- | /See:/ 'describeStackInstanceResponse' smart constructor.
+-- | /See:/ 'newDescribeStackInstanceResponse' smart constructor.
 data DescribeStackInstanceResponse = DescribeStackInstanceResponse'
-  { _dsirrsStackInstance ::
-      !( Maybe
-           StackInstance
-       ),
-    _dsirrsResponseStatus ::
-      !Int
+  { -- | The stack instance that matches the specified request parameters.
+    stackInstance :: Prelude.Maybe StackInstance,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStackInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStackInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsirrsStackInstance' - The stack instance that matches the specified request parameters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsirrsResponseStatus' - -- | The response status code.
-describeStackInstanceResponse ::
-  -- | 'dsirrsResponseStatus'
-  Int ->
+-- 'stackInstance', 'describeStackInstanceResponse_stackInstance' - The stack instance that matches the specified request parameters.
+--
+-- 'httpStatus', 'describeStackInstanceResponse_httpStatus' - The response's http status code.
+newDescribeStackInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeStackInstanceResponse
-describeStackInstanceResponse pResponseStatus_ =
+newDescribeStackInstanceResponse pHttpStatus_ =
   DescribeStackInstanceResponse'
-    { _dsirrsStackInstance =
-        Nothing,
-      _dsirrsResponseStatus = pResponseStatus_
+    { stackInstance =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The stack instance that matches the specified request parameters.
-dsirrsStackInstance :: Lens' DescribeStackInstanceResponse (Maybe StackInstance)
-dsirrsStackInstance = lens _dsirrsStackInstance (\s a -> s {_dsirrsStackInstance = a})
+describeStackInstanceResponse_stackInstance :: Lens.Lens' DescribeStackInstanceResponse (Prelude.Maybe StackInstance)
+describeStackInstanceResponse_stackInstance = Lens.lens (\DescribeStackInstanceResponse' {stackInstance} -> stackInstance) (\s@DescribeStackInstanceResponse' {} a -> s {stackInstance = a} :: DescribeStackInstanceResponse)
 
--- | -- | The response status code.
-dsirrsResponseStatus :: Lens' DescribeStackInstanceResponse Int
-dsirrsResponseStatus = lens _dsirrsResponseStatus (\s a -> s {_dsirrsResponseStatus = a})
+-- | The response's http status code.
+describeStackInstanceResponse_httpStatus :: Lens.Lens' DescribeStackInstanceResponse Prelude.Int
+describeStackInstanceResponse_httpStatus = Lens.lens (\DescribeStackInstanceResponse' {httpStatus} -> httpStatus) (\s@DescribeStackInstanceResponse' {} a -> s {httpStatus = a} :: DescribeStackInstanceResponse)
 
-instance NFData DescribeStackInstanceResponse
+instance Prelude.NFData DescribeStackInstanceResponse

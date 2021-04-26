@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,82 +20,123 @@
 module Network.AWS.CloudFormation.Types.PropertyDifference where
 
 import Network.AWS.CloudFormation.Types.DifferenceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a resource property whose actual value differs from its expected value, as defined in the stack template and any values specified as template parameters. These will be present only for resources whose @StackResourceDriftStatus@ is @MODIFIED@ . For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html Detecting Unregulated Configuration Changes to Stacks and Resources> .
+-- | Information about a resource property whose actual value differs from
+-- its expected value, as defined in the stack template and any values
+-- specified as template parameters. These will be present only for
+-- resources whose @StackResourceDriftStatus@ is @MODIFIED@. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html Detecting Unregulated Configuration Changes to Stacks and Resources>.
 --
---
---
--- /See:/ 'propertyDifference' smart constructor.
+-- /See:/ 'newPropertyDifference' smart constructor.
 data PropertyDifference = PropertyDifference'
-  { _pdPropertyPath ::
-      !Text,
-    _pdExpectedValue :: !Text,
-    _pdActualValue :: !Text,
-    _pdDifferenceType ::
-      !DifferenceType
+  { -- | The fully-qualified path to the resource property.
+    propertyPath :: Prelude.Text,
+    -- | The expected property value of the resource property, as defined in the
+    -- stack template and any values specified as template parameters.
+    expectedValue :: Prelude.Text,
+    -- | The actual property value of the resource property.
+    actualValue :: Prelude.Text,
+    -- | The type of property difference.
+    --
+    -- -   @ADD@: A value has been added to a resource property that is an
+    --     array or list data type.
+    --
+    -- -   @REMOVE@: The property has been removed from the current resource
+    --     configuration.
+    --
+    -- -   @NOT_EQUAL@: The current property value differs from its expected
+    --     value (as defined in the stack template and any values specified as
+    --     template parameters).
+    differenceType :: DifferenceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PropertyDifference' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PropertyDifference' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdPropertyPath' - The fully-qualified path to the resource property.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdExpectedValue' - The expected property value of the resource property, as defined in the stack template and any values specified as template parameters.
+-- 'propertyPath', 'propertyDifference_propertyPath' - The fully-qualified path to the resource property.
 --
--- * 'pdActualValue' - The actual property value of the resource property.
+-- 'expectedValue', 'propertyDifference_expectedValue' - The expected property value of the resource property, as defined in the
+-- stack template and any values specified as template parameters.
 --
--- * 'pdDifferenceType' - The type of property difference.     * @ADD@ : A value has been added to a resource property that is an array or list data type.     * @REMOVE@ : The property has been removed from the current resource configuration.     * @NOT_EQUAL@ : The current property value differs from its expected value (as defined in the stack template and any values specified as template parameters).
-propertyDifference ::
-  -- | 'pdPropertyPath'
-  Text ->
-  -- | 'pdExpectedValue'
-  Text ->
-  -- | 'pdActualValue'
-  Text ->
-  -- | 'pdDifferenceType'
+-- 'actualValue', 'propertyDifference_actualValue' - The actual property value of the resource property.
+--
+-- 'differenceType', 'propertyDifference_differenceType' - The type of property difference.
+--
+-- -   @ADD@: A value has been added to a resource property that is an
+--     array or list data type.
+--
+-- -   @REMOVE@: The property has been removed from the current resource
+--     configuration.
+--
+-- -   @NOT_EQUAL@: The current property value differs from its expected
+--     value (as defined in the stack template and any values specified as
+--     template parameters).
+newPropertyDifference ::
+  -- | 'propertyPath'
+  Prelude.Text ->
+  -- | 'expectedValue'
+  Prelude.Text ->
+  -- | 'actualValue'
+  Prelude.Text ->
+  -- | 'differenceType'
   DifferenceType ->
   PropertyDifference
-propertyDifference
+newPropertyDifference
   pPropertyPath_
   pExpectedValue_
   pActualValue_
   pDifferenceType_ =
     PropertyDifference'
-      { _pdPropertyPath =
-          pPropertyPath_,
-        _pdExpectedValue = pExpectedValue_,
-        _pdActualValue = pActualValue_,
-        _pdDifferenceType = pDifferenceType_
+      { propertyPath = pPropertyPath_,
+        expectedValue = pExpectedValue_,
+        actualValue = pActualValue_,
+        differenceType = pDifferenceType_
       }
 
 -- | The fully-qualified path to the resource property.
-pdPropertyPath :: Lens' PropertyDifference Text
-pdPropertyPath = lens _pdPropertyPath (\s a -> s {_pdPropertyPath = a})
+propertyDifference_propertyPath :: Lens.Lens' PropertyDifference Prelude.Text
+propertyDifference_propertyPath = Lens.lens (\PropertyDifference' {propertyPath} -> propertyPath) (\s@PropertyDifference' {} a -> s {propertyPath = a} :: PropertyDifference)
 
--- | The expected property value of the resource property, as defined in the stack template and any values specified as template parameters.
-pdExpectedValue :: Lens' PropertyDifference Text
-pdExpectedValue = lens _pdExpectedValue (\s a -> s {_pdExpectedValue = a})
+-- | The expected property value of the resource property, as defined in the
+-- stack template and any values specified as template parameters.
+propertyDifference_expectedValue :: Lens.Lens' PropertyDifference Prelude.Text
+propertyDifference_expectedValue = Lens.lens (\PropertyDifference' {expectedValue} -> expectedValue) (\s@PropertyDifference' {} a -> s {expectedValue = a} :: PropertyDifference)
 
 -- | The actual property value of the resource property.
-pdActualValue :: Lens' PropertyDifference Text
-pdActualValue = lens _pdActualValue (\s a -> s {_pdActualValue = a})
+propertyDifference_actualValue :: Lens.Lens' PropertyDifference Prelude.Text
+propertyDifference_actualValue = Lens.lens (\PropertyDifference' {actualValue} -> actualValue) (\s@PropertyDifference' {} a -> s {actualValue = a} :: PropertyDifference)
 
--- | The type of property difference.     * @ADD@ : A value has been added to a resource property that is an array or list data type.     * @REMOVE@ : The property has been removed from the current resource configuration.     * @NOT_EQUAL@ : The current property value differs from its expected value (as defined in the stack template and any values specified as template parameters).
-pdDifferenceType :: Lens' PropertyDifference DifferenceType
-pdDifferenceType = lens _pdDifferenceType (\s a -> s {_pdDifferenceType = a})
+-- | The type of property difference.
+--
+-- -   @ADD@: A value has been added to a resource property that is an
+--     array or list data type.
+--
+-- -   @REMOVE@: The property has been removed from the current resource
+--     configuration.
+--
+-- -   @NOT_EQUAL@: The current property value differs from its expected
+--     value (as defined in the stack template and any values specified as
+--     template parameters).
+propertyDifference_differenceType :: Lens.Lens' PropertyDifference DifferenceType
+propertyDifference_differenceType = Lens.lens (\PropertyDifference' {differenceType} -> differenceType) (\s@PropertyDifference' {} a -> s {differenceType = a} :: PropertyDifference)
 
-instance FromXML PropertyDifference where
+instance Prelude.FromXML PropertyDifference where
   parseXML x =
     PropertyDifference'
-      <$> (x .@ "PropertyPath")
-      <*> (x .@ "ExpectedValue")
-      <*> (x .@ "ActualValue")
-      <*> (x .@ "DifferenceType")
+      Prelude.<$> (x Prelude..@ "PropertyPath")
+      Prelude.<*> (x Prelude..@ "ExpectedValue")
+      Prelude.<*> (x Prelude..@ "ActualValue")
+      Prelude.<*> (x Prelude..@ "DifferenceType")
 
-instance Hashable PropertyDifference
+instance Prelude.Hashable PropertyDifference
 
-instance NFData PropertyDifference
+instance Prelude.NFData PropertyDifference

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,93 +21,196 @@ module Network.AWS.CloudFormation.Types.StackSetOperationSummary where
 
 import Network.AWS.CloudFormation.Types.StackSetOperationAction
 import Network.AWS.CloudFormation.Types.StackSetOperationStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The structures that contain summary information about the specified operation.
+-- | The structures that contain summary information about the specified
+-- operation.
 --
---
---
--- /See:/ 'stackSetOperationSummary' smart constructor.
+-- /See:/ 'newStackSetOperationSummary' smart constructor.
 data StackSetOperationSummary = StackSetOperationSummary'
-  { _ssosCreationTimestamp ::
-      !(Maybe ISO8601),
-    _ssosStatus ::
-      !( Maybe
-           StackSetOperationStatus
-       ),
-    _ssosEndTimestamp ::
-      !(Maybe ISO8601),
-    _ssosOperationId ::
-      !(Maybe Text),
-    _ssosAction ::
-      !( Maybe
-           StackSetOperationAction
-       )
+  { -- | The time at which the operation was initiated. Note that the creation
+    -- times for the stack set operation might differ from the creation time of
+    -- the individual stacks themselves. This is because AWS CloudFormation
+    -- needs to perform preparatory work for the operation, such as dispatching
+    -- the work to the requested Regions, before actually creating the first
+    -- stacks.
+    creationTimestamp :: Prelude.Maybe Prelude.ISO8601,
+    -- | The overall status of the operation.
+    --
+    -- -   @FAILED@: The operation exceeded the specified failure tolerance.
+    --     The failure tolerance value that you\'ve set for an operation is
+    --     applied for each Region during stack create and update operations.
+    --     If the number of failed stacks within a Region exceeds the failure
+    --     tolerance, the status of the operation in the Region is set to
+    --     @FAILED@. This in turn sets the status of the operation as a whole
+    --     to @FAILED@, and AWS CloudFormation cancels the operation in any
+    --     remaining Regions.
+    --
+    -- -   @QUEUED@: [Service-managed permissions] For automatic deployments
+    --     that require a sequence of operations, the operation is queued to be
+    --     performed. For more information, see the
+    --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-status-codes stack set operation status codes>
+    --     in the AWS CloudFormation User Guide.
+    --
+    -- -   @RUNNING@: The operation is currently being performed.
+    --
+    -- -   @STOPPED@: The user has cancelled the operation.
+    --
+    -- -   @STOPPING@: The operation is in the process of stopping, at user
+    --     request.
+    --
+    -- -   @SUCCEEDED@: The operation completed creating or updating all the
+    --     specified stacks without exceeding the failure tolerance for the
+    --     operation.
+    status :: Prelude.Maybe StackSetOperationStatus,
+    -- | The time at which the stack set operation ended, across all accounts and
+    -- Regions specified. Note that this doesn\'t necessarily mean that the
+    -- stack set operation was successful, or even attempted, in each account
+    -- or Region.
+    endTimestamp :: Prelude.Maybe Prelude.ISO8601,
+    -- | The unique ID of the stack set operation.
+    operationId :: Prelude.Maybe Prelude.Text,
+    -- | The type of operation: @CREATE@, @UPDATE@, or @DELETE@. Create and
+    -- delete operations affect only the specified stack instances that are
+    -- associated with the specified stack set. Update operations affect both
+    -- the stack set itself as well as /all/ associated stack set instances.
+    action :: Prelude.Maybe StackSetOperationAction
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StackSetOperationSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StackSetOperationSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssosCreationTimestamp' - The time at which the operation was initiated. Note that the creation times for the stack set operation might differ from the creation time of the individual stacks themselves. This is because AWS CloudFormation needs to perform preparatory work for the operation, such as dispatching the work to the requested Regions, before actually creating the first stacks.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssosStatus' - The overall status of the operation.     * @FAILED@ : The operation exceeded the specified failure tolerance. The failure tolerance value that you've set for an operation is applied for each Region during stack create and update operations. If the number of failed stacks within a Region exceeds the failure tolerance, the status of the operation in the Region is set to @FAILED@ . This in turn sets the status of the operation as a whole to @FAILED@ , and AWS CloudFormation cancels the operation in any remaining Regions.     * @QUEUED@ : [Service-managed permissions] For automatic deployments that require a sequence of operations, the operation is queued to be performed. For more information, see the <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-status-codes stack set operation status codes> in the AWS CloudFormation User Guide.     * @RUNNING@ : The operation is currently being performed.     * @STOPPED@ : The user has cancelled the operation.     * @STOPPING@ : The operation is in the process of stopping, at user request.      * @SUCCEEDED@ : The operation completed creating or updating all the specified stacks without exceeding the failure tolerance for the operation.
+-- 'creationTimestamp', 'stackSetOperationSummary_creationTimestamp' - The time at which the operation was initiated. Note that the creation
+-- times for the stack set operation might differ from the creation time of
+-- the individual stacks themselves. This is because AWS CloudFormation
+-- needs to perform preparatory work for the operation, such as dispatching
+-- the work to the requested Regions, before actually creating the first
+-- stacks.
 --
--- * 'ssosEndTimestamp' - The time at which the stack set operation ended, across all accounts and Regions specified. Note that this doesn't necessarily mean that the stack set operation was successful, or even attempted, in each account or Region.
+-- 'status', 'stackSetOperationSummary_status' - The overall status of the operation.
 --
--- * 'ssosOperationId' - The unique ID of the stack set operation.
+-- -   @FAILED@: The operation exceeded the specified failure tolerance.
+--     The failure tolerance value that you\'ve set for an operation is
+--     applied for each Region during stack create and update operations.
+--     If the number of failed stacks within a Region exceeds the failure
+--     tolerance, the status of the operation in the Region is set to
+--     @FAILED@. This in turn sets the status of the operation as a whole
+--     to @FAILED@, and AWS CloudFormation cancels the operation in any
+--     remaining Regions.
 --
--- * 'ssosAction' - The type of operation: @CREATE@ , @UPDATE@ , or @DELETE@ . Create and delete operations affect only the specified stack instances that are associated with the specified stack set. Update operations affect both the stack set itself as well as /all/ associated stack set instances.
-stackSetOperationSummary ::
+-- -   @QUEUED@: [Service-managed permissions] For automatic deployments
+--     that require a sequence of operations, the operation is queued to be
+--     performed. For more information, see the
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-status-codes stack set operation status codes>
+--     in the AWS CloudFormation User Guide.
+--
+-- -   @RUNNING@: The operation is currently being performed.
+--
+-- -   @STOPPED@: The user has cancelled the operation.
+--
+-- -   @STOPPING@: The operation is in the process of stopping, at user
+--     request.
+--
+-- -   @SUCCEEDED@: The operation completed creating or updating all the
+--     specified stacks without exceeding the failure tolerance for the
+--     operation.
+--
+-- 'endTimestamp', 'stackSetOperationSummary_endTimestamp' - The time at which the stack set operation ended, across all accounts and
+-- Regions specified. Note that this doesn\'t necessarily mean that the
+-- stack set operation was successful, or even attempted, in each account
+-- or Region.
+--
+-- 'operationId', 'stackSetOperationSummary_operationId' - The unique ID of the stack set operation.
+--
+-- 'action', 'stackSetOperationSummary_action' - The type of operation: @CREATE@, @UPDATE@, or @DELETE@. Create and
+-- delete operations affect only the specified stack instances that are
+-- associated with the specified stack set. Update operations affect both
+-- the stack set itself as well as /all/ associated stack set instances.
+newStackSetOperationSummary ::
   StackSetOperationSummary
-stackSetOperationSummary =
+newStackSetOperationSummary =
   StackSetOperationSummary'
-    { _ssosCreationTimestamp =
-        Nothing,
-      _ssosStatus = Nothing,
-      _ssosEndTimestamp = Nothing,
-      _ssosOperationId = Nothing,
-      _ssosAction = Nothing
+    { creationTimestamp =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      endTimestamp = Prelude.Nothing,
+      operationId = Prelude.Nothing,
+      action = Prelude.Nothing
     }
 
--- | The time at which the operation was initiated. Note that the creation times for the stack set operation might differ from the creation time of the individual stacks themselves. This is because AWS CloudFormation needs to perform preparatory work for the operation, such as dispatching the work to the requested Regions, before actually creating the first stacks.
-ssosCreationTimestamp :: Lens' StackSetOperationSummary (Maybe UTCTime)
-ssosCreationTimestamp = lens _ssosCreationTimestamp (\s a -> s {_ssosCreationTimestamp = a}) . mapping _Time
+-- | The time at which the operation was initiated. Note that the creation
+-- times for the stack set operation might differ from the creation time of
+-- the individual stacks themselves. This is because AWS CloudFormation
+-- needs to perform preparatory work for the operation, such as dispatching
+-- the work to the requested Regions, before actually creating the first
+-- stacks.
+stackSetOperationSummary_creationTimestamp :: Lens.Lens' StackSetOperationSummary (Prelude.Maybe Prelude.UTCTime)
+stackSetOperationSummary_creationTimestamp = Lens.lens (\StackSetOperationSummary' {creationTimestamp} -> creationTimestamp) (\s@StackSetOperationSummary' {} a -> s {creationTimestamp = a} :: StackSetOperationSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | The overall status of the operation.     * @FAILED@ : The operation exceeded the specified failure tolerance. The failure tolerance value that you've set for an operation is applied for each Region during stack create and update operations. If the number of failed stacks within a Region exceeds the failure tolerance, the status of the operation in the Region is set to @FAILED@ . This in turn sets the status of the operation as a whole to @FAILED@ , and AWS CloudFormation cancels the operation in any remaining Regions.     * @QUEUED@ : [Service-managed permissions] For automatic deployments that require a sequence of operations, the operation is queued to be performed. For more information, see the <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-status-codes stack set operation status codes> in the AWS CloudFormation User Guide.     * @RUNNING@ : The operation is currently being performed.     * @STOPPED@ : The user has cancelled the operation.     * @STOPPING@ : The operation is in the process of stopping, at user request.      * @SUCCEEDED@ : The operation completed creating or updating all the specified stacks without exceeding the failure tolerance for the operation.
-ssosStatus :: Lens' StackSetOperationSummary (Maybe StackSetOperationStatus)
-ssosStatus = lens _ssosStatus (\s a -> s {_ssosStatus = a})
+-- | The overall status of the operation.
+--
+-- -   @FAILED@: The operation exceeded the specified failure tolerance.
+--     The failure tolerance value that you\'ve set for an operation is
+--     applied for each Region during stack create and update operations.
+--     If the number of failed stacks within a Region exceeds the failure
+--     tolerance, the status of the operation in the Region is set to
+--     @FAILED@. This in turn sets the status of the operation as a whole
+--     to @FAILED@, and AWS CloudFormation cancels the operation in any
+--     remaining Regions.
+--
+-- -   @QUEUED@: [Service-managed permissions] For automatic deployments
+--     that require a sequence of operations, the operation is queued to be
+--     performed. For more information, see the
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-status-codes stack set operation status codes>
+--     in the AWS CloudFormation User Guide.
+--
+-- -   @RUNNING@: The operation is currently being performed.
+--
+-- -   @STOPPED@: The user has cancelled the operation.
+--
+-- -   @STOPPING@: The operation is in the process of stopping, at user
+--     request.
+--
+-- -   @SUCCEEDED@: The operation completed creating or updating all the
+--     specified stacks without exceeding the failure tolerance for the
+--     operation.
+stackSetOperationSummary_status :: Lens.Lens' StackSetOperationSummary (Prelude.Maybe StackSetOperationStatus)
+stackSetOperationSummary_status = Lens.lens (\StackSetOperationSummary' {status} -> status) (\s@StackSetOperationSummary' {} a -> s {status = a} :: StackSetOperationSummary)
 
--- | The time at which the stack set operation ended, across all accounts and Regions specified. Note that this doesn't necessarily mean that the stack set operation was successful, or even attempted, in each account or Region.
-ssosEndTimestamp :: Lens' StackSetOperationSummary (Maybe UTCTime)
-ssosEndTimestamp = lens _ssosEndTimestamp (\s a -> s {_ssosEndTimestamp = a}) . mapping _Time
+-- | The time at which the stack set operation ended, across all accounts and
+-- Regions specified. Note that this doesn\'t necessarily mean that the
+-- stack set operation was successful, or even attempted, in each account
+-- or Region.
+stackSetOperationSummary_endTimestamp :: Lens.Lens' StackSetOperationSummary (Prelude.Maybe Prelude.UTCTime)
+stackSetOperationSummary_endTimestamp = Lens.lens (\StackSetOperationSummary' {endTimestamp} -> endTimestamp) (\s@StackSetOperationSummary' {} a -> s {endTimestamp = a} :: StackSetOperationSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The unique ID of the stack set operation.
-ssosOperationId :: Lens' StackSetOperationSummary (Maybe Text)
-ssosOperationId = lens _ssosOperationId (\s a -> s {_ssosOperationId = a})
+stackSetOperationSummary_operationId :: Lens.Lens' StackSetOperationSummary (Prelude.Maybe Prelude.Text)
+stackSetOperationSummary_operationId = Lens.lens (\StackSetOperationSummary' {operationId} -> operationId) (\s@StackSetOperationSummary' {} a -> s {operationId = a} :: StackSetOperationSummary)
 
--- | The type of operation: @CREATE@ , @UPDATE@ , or @DELETE@ . Create and delete operations affect only the specified stack instances that are associated with the specified stack set. Update operations affect both the stack set itself as well as /all/ associated stack set instances.
-ssosAction :: Lens' StackSetOperationSummary (Maybe StackSetOperationAction)
-ssosAction = lens _ssosAction (\s a -> s {_ssosAction = a})
+-- | The type of operation: @CREATE@, @UPDATE@, or @DELETE@. Create and
+-- delete operations affect only the specified stack instances that are
+-- associated with the specified stack set. Update operations affect both
+-- the stack set itself as well as /all/ associated stack set instances.
+stackSetOperationSummary_action :: Lens.Lens' StackSetOperationSummary (Prelude.Maybe StackSetOperationAction)
+stackSetOperationSummary_action = Lens.lens (\StackSetOperationSummary' {action} -> action) (\s@StackSetOperationSummary' {} a -> s {action = a} :: StackSetOperationSummary)
 
-instance FromXML StackSetOperationSummary where
+instance Prelude.FromXML StackSetOperationSummary where
   parseXML x =
     StackSetOperationSummary'
-      <$> (x .@? "CreationTimestamp")
-      <*> (x .@? "Status")
-      <*> (x .@? "EndTimestamp")
-      <*> (x .@? "OperationId")
-      <*> (x .@? "Action")
+      Prelude.<$> (x Prelude..@? "CreationTimestamp")
+      Prelude.<*> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "EndTimestamp")
+      Prelude.<*> (x Prelude..@? "OperationId")
+      Prelude.<*> (x Prelude..@? "Action")
 
-instance Hashable StackSetOperationSummary
+instance Prelude.Hashable StackSetOperationSummary
 
-instance NFData StackSetOperationSummary
+instance Prelude.NFData StackSetOperationSummary

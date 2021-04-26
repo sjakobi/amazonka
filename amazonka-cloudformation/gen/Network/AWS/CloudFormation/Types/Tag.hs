@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFormation.Types.Tag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Tag type enables you to specify a key-value pair that can be used to store information about an AWS CloudFormation stack.
+-- | The Tag type enables you to specify a key-value pair that can be used to
+-- store information about an AWS CloudFormation stack.
 --
---
---
--- /See:/ 'tag' smart constructor.
-data Tag = Tag' {_tagKey :: !Text, _tagValue :: !Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newTag' smart constructor.
+data Tag = Tag'
+  { -- | /Required/. A string used to identify this tag. You can specify a
+    -- maximum of 128 characters for a tag key. Tags owned by Amazon Web
+    -- Services (AWS) have the reserved prefix: @aws:@.
+    key :: Prelude.Text,
+    -- | /Required/. A string containing the value for this tag. You can specify
+    -- a maximum of 256 characters for a tag value.
+    value :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tagKey' - /Required/ . A string used to identify this tag. You can specify a maximum of 128 characters for a tag key. Tags owned by Amazon Web Services (AWS) have the reserved prefix: @aws:@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tagValue' - /Required/ . A string containing the value for this tag. You can specify a maximum of 256 characters for a tag value.
-tag ::
-  -- | 'tagKey'
-  Text ->
-  -- | 'tagValue'
-  Text ->
+-- 'key', 'tag_key' - /Required/. A string used to identify this tag. You can specify a
+-- maximum of 128 characters for a tag key. Tags owned by Amazon Web
+-- Services (AWS) have the reserved prefix: @aws:@.
+--
+-- 'value', 'tag_value' - /Required/. A string containing the value for this tag. You can specify
+-- a maximum of 256 characters for a tag value.
+newTag ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   Tag
-tag pKey_ pValue_ =
-  Tag' {_tagKey = pKey_, _tagValue = pValue_}
+newTag pKey_ pValue_ =
+  Tag' {key = pKey_, value = pValue_}
 
--- | /Required/ . A string used to identify this tag. You can specify a maximum of 128 characters for a tag key. Tags owned by Amazon Web Services (AWS) have the reserved prefix: @aws:@ .
-tagKey :: Lens' Tag Text
-tagKey = lens _tagKey (\s a -> s {_tagKey = a})
+-- | /Required/. A string used to identify this tag. You can specify a
+-- maximum of 128 characters for a tag key. Tags owned by Amazon Web
+-- Services (AWS) have the reserved prefix: @aws:@.
+tag_key :: Lens.Lens' Tag Prelude.Text
+tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
--- | /Required/ . A string containing the value for this tag. You can specify a maximum of 256 characters for a tag value.
-tagValue :: Lens' Tag Text
-tagValue = lens _tagValue (\s a -> s {_tagValue = a})
+-- | /Required/. A string containing the value for this tag. You can specify
+-- a maximum of 256 characters for a tag value.
+tag_value :: Lens.Lens' Tag Prelude.Text
+tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
-instance FromXML Tag where
-  parseXML x = Tag' <$> (x .@ "Key") <*> (x .@ "Value")
+instance Prelude.FromXML Tag where
+  parseXML x =
+    Tag'
+      Prelude.<$> (x Prelude..@ "Key")
+      Prelude.<*> (x Prelude..@ "Value")
 
-instance Hashable Tag
+instance Prelude.Hashable Tag
 
-instance NFData Tag
+instance Prelude.NFData Tag
 
-instance ToQuery Tag where
+instance Prelude.ToQuery Tag where
   toQuery Tag' {..} =
-    mconcat ["Key" =: _tagKey, "Value" =: _tagValue]
+    Prelude.mconcat
+      ["Key" Prelude.=: key, "Value" Prelude.=: value]

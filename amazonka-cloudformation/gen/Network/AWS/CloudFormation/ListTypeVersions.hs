@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,187 +24,293 @@
 -- Returns summary information about the versions of an extension.
 module Network.AWS.CloudFormation.ListTypeVersions
   ( -- * Creating a Request
-    listTypeVersions,
-    ListTypeVersions,
+    ListTypeVersions (..),
+    newListTypeVersions,
 
     -- * Request Lenses
-    ltvTypeName,
-    ltvNextToken,
-    ltvMaxResults,
-    ltvARN,
-    ltvDeprecatedStatus,
-    ltvType,
+    listTypeVersions_typeName,
+    listTypeVersions_nextToken,
+    listTypeVersions_maxResults,
+    listTypeVersions_arn,
+    listTypeVersions_deprecatedStatus,
+    listTypeVersions_type,
 
     -- * Destructuring the Response
-    listTypeVersionsResponse,
-    ListTypeVersionsResponse,
+    ListTypeVersionsResponse (..),
+    newListTypeVersionsResponse,
 
     -- * Response Lenses
-    ltvrrsNextToken,
-    ltvrrsTypeVersionSummaries,
-    ltvrrsResponseStatus,
+    listTypeVersionsResponse_nextToken,
+    listTypeVersionsResponse_typeVersionSummaries,
+    listTypeVersionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFormation.Types.TypeVersionSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTypeVersions' smart constructor.
+-- | /See:/ 'newListTypeVersions' smart constructor.
 data ListTypeVersions = ListTypeVersions'
-  { _ltvTypeName ::
-      !(Maybe Text),
-    _ltvNextToken :: !(Maybe Text),
-    _ltvMaxResults :: !(Maybe Nat),
-    _ltvARN :: !(Maybe Text),
-    _ltvDeprecatedStatus ::
-      !(Maybe DeprecatedStatus),
-    _ltvType :: !(Maybe RegistryType)
+  { -- | The name of the extension for which you want version summary
+    -- information.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    typeName :: Prelude.Maybe Prelude.Text,
+    -- | If the previous paginated request didn\'t return all of the remaining
+    -- results, the response object\'s @NextToken@ parameter value is set to a
+    -- token. To retrieve the next set of results, call this action again and
+    -- assign that token to the request object\'s @NextToken@ parameter. If
+    -- there are no remaining results, the previous response object\'s
+    -- @NextToken@ parameter is set to @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned with a single call. If the
+    -- number of available results exceeds this maximum, the response includes
+    -- a @NextToken@ value that you can assign to the @NextToken@ request
+    -- parameter to get the next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The Amazon Resource Name (ARN) of the extension for which you want
+    -- version summary information.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The deprecation status of the extension versions that you want to get
+    -- summary information about.
+    --
+    -- Valid values include:
+    --
+    -- -   @LIVE@: The extension version is registered and can be used in
+    --     CloudFormation operations, dependent on its provisioning behavior
+    --     and visibility scope.
+    --
+    -- -   @DEPRECATED@: The extension version has been deregistered and can no
+    --     longer be used in CloudFormation operations.
+    --
+    -- The default is @LIVE@.
+    deprecatedStatus :: Prelude.Maybe DeprecatedStatus,
+    -- | The kind of the extension.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    type' :: Prelude.Maybe RegistryType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTypeVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTypeVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltvTypeName' - The name of the extension for which you want version summary information. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltvNextToken' - If the previous paginated request didn't return all of the remaining results, the response object's @NextToken@ parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's @NextToken@ parameter. If there are no remaining results, the previous response object's @NextToken@ parameter is set to @null@ .
+-- 'typeName', 'listTypeVersions_typeName' - The name of the extension for which you want version summary
+-- information.
 --
--- * 'ltvMaxResults' - The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a @NextToken@ value that you can assign to the @NextToken@ request parameter to get the next set of results.
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
 --
--- * 'ltvARN' - The Amazon Resource Name (ARN) of the extension for which you want version summary information. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
+-- 'nextToken', 'listTypeVersions_nextToken' - If the previous paginated request didn\'t return all of the remaining
+-- results, the response object\'s @NextToken@ parameter value is set to a
+-- token. To retrieve the next set of results, call this action again and
+-- assign that token to the request object\'s @NextToken@ parameter. If
+-- there are no remaining results, the previous response object\'s
+-- @NextToken@ parameter is set to @null@.
 --
--- * 'ltvDeprecatedStatus' - The deprecation status of the extension versions that you want to get summary information about. Valid values include:     * @LIVE@ : The extension version is registered and can be used in CloudFormation operations, dependent on its provisioning behavior and visibility scope.     * @DEPRECATED@ : The extension version has been deregistered and can no longer be used in CloudFormation operations.  The default is @LIVE@ .
+-- 'maxResults', 'listTypeVersions_maxResults' - The maximum number of results to be returned with a single call. If the
+-- number of available results exceeds this maximum, the response includes
+-- a @NextToken@ value that you can assign to the @NextToken@ request
+-- parameter to get the next set of results.
 --
--- * 'ltvType' - The kind of the extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-listTypeVersions ::
+-- 'arn', 'listTypeVersions_arn' - The Amazon Resource Name (ARN) of the extension for which you want
+-- version summary information.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+--
+-- 'deprecatedStatus', 'listTypeVersions_deprecatedStatus' - The deprecation status of the extension versions that you want to get
+-- summary information about.
+--
+-- Valid values include:
+--
+-- -   @LIVE@: The extension version is registered and can be used in
+--     CloudFormation operations, dependent on its provisioning behavior
+--     and visibility scope.
+--
+-- -   @DEPRECATED@: The extension version has been deregistered and can no
+--     longer be used in CloudFormation operations.
+--
+-- The default is @LIVE@.
+--
+-- 'type'', 'listTypeVersions_type' - The kind of the extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+newListTypeVersions ::
   ListTypeVersions
-listTypeVersions =
+newListTypeVersions =
   ListTypeVersions'
-    { _ltvTypeName = Nothing,
-      _ltvNextToken = Nothing,
-      _ltvMaxResults = Nothing,
-      _ltvARN = Nothing,
-      _ltvDeprecatedStatus = Nothing,
-      _ltvType = Nothing
+    { typeName = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      deprecatedStatus = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The name of the extension for which you want version summary information. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-ltvTypeName :: Lens' ListTypeVersions (Maybe Text)
-ltvTypeName = lens _ltvTypeName (\s a -> s {_ltvTypeName = a})
+-- | The name of the extension for which you want version summary
+-- information.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+listTypeVersions_typeName :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Text)
+listTypeVersions_typeName = Lens.lens (\ListTypeVersions' {typeName} -> typeName) (\s@ListTypeVersions' {} a -> s {typeName = a} :: ListTypeVersions)
 
--- | If the previous paginated request didn't return all of the remaining results, the response object's @NextToken@ parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's @NextToken@ parameter. If there are no remaining results, the previous response object's @NextToken@ parameter is set to @null@ .
-ltvNextToken :: Lens' ListTypeVersions (Maybe Text)
-ltvNextToken = lens _ltvNextToken (\s a -> s {_ltvNextToken = a})
+-- | If the previous paginated request didn\'t return all of the remaining
+-- results, the response object\'s @NextToken@ parameter value is set to a
+-- token. To retrieve the next set of results, call this action again and
+-- assign that token to the request object\'s @NextToken@ parameter. If
+-- there are no remaining results, the previous response object\'s
+-- @NextToken@ parameter is set to @null@.
+listTypeVersions_nextToken :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Text)
+listTypeVersions_nextToken = Lens.lens (\ListTypeVersions' {nextToken} -> nextToken) (\s@ListTypeVersions' {} a -> s {nextToken = a} :: ListTypeVersions)
 
--- | The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a @NextToken@ value that you can assign to the @NextToken@ request parameter to get the next set of results.
-ltvMaxResults :: Lens' ListTypeVersions (Maybe Natural)
-ltvMaxResults = lens _ltvMaxResults (\s a -> s {_ltvMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to be returned with a single call. If the
+-- number of available results exceeds this maximum, the response includes
+-- a @NextToken@ value that you can assign to the @NextToken@ request
+-- parameter to get the next set of results.
+listTypeVersions_maxResults :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Natural)
+listTypeVersions_maxResults = Lens.lens (\ListTypeVersions' {maxResults} -> maxResults) (\s@ListTypeVersions' {} a -> s {maxResults = a} :: ListTypeVersions) Prelude.. Lens.mapping Prelude._Nat
 
--- | The Amazon Resource Name (ARN) of the extension for which you want version summary information. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-ltvARN :: Lens' ListTypeVersions (Maybe Text)
-ltvARN = lens _ltvARN (\s a -> s {_ltvARN = a})
+-- | The Amazon Resource Name (ARN) of the extension for which you want
+-- version summary information.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+listTypeVersions_arn :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Text)
+listTypeVersions_arn = Lens.lens (\ListTypeVersions' {arn} -> arn) (\s@ListTypeVersions' {} a -> s {arn = a} :: ListTypeVersions)
 
--- | The deprecation status of the extension versions that you want to get summary information about. Valid values include:     * @LIVE@ : The extension version is registered and can be used in CloudFormation operations, dependent on its provisioning behavior and visibility scope.     * @DEPRECATED@ : The extension version has been deregistered and can no longer be used in CloudFormation operations.  The default is @LIVE@ .
-ltvDeprecatedStatus :: Lens' ListTypeVersions (Maybe DeprecatedStatus)
-ltvDeprecatedStatus = lens _ltvDeprecatedStatus (\s a -> s {_ltvDeprecatedStatus = a})
+-- | The deprecation status of the extension versions that you want to get
+-- summary information about.
+--
+-- Valid values include:
+--
+-- -   @LIVE@: The extension version is registered and can be used in
+--     CloudFormation operations, dependent on its provisioning behavior
+--     and visibility scope.
+--
+-- -   @DEPRECATED@: The extension version has been deregistered and can no
+--     longer be used in CloudFormation operations.
+--
+-- The default is @LIVE@.
+listTypeVersions_deprecatedStatus :: Lens.Lens' ListTypeVersions (Prelude.Maybe DeprecatedStatus)
+listTypeVersions_deprecatedStatus = Lens.lens (\ListTypeVersions' {deprecatedStatus} -> deprecatedStatus) (\s@ListTypeVersions' {} a -> s {deprecatedStatus = a} :: ListTypeVersions)
 
--- | The kind of the extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-ltvType :: Lens' ListTypeVersions (Maybe RegistryType)
-ltvType = lens _ltvType (\s a -> s {_ltvType = a})
+-- | The kind of the extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+listTypeVersions_type :: Lens.Lens' ListTypeVersions (Prelude.Maybe RegistryType)
+listTypeVersions_type = Lens.lens (\ListTypeVersions' {type'} -> type') (\s@ListTypeVersions' {} a -> s {type' = a} :: ListTypeVersions)
 
-instance AWSRequest ListTypeVersions where
+instance Prelude.AWSRequest ListTypeVersions where
   type Rs ListTypeVersions = ListTypeVersionsResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListTypeVersionsResult"
       ( \s h x ->
           ListTypeVersionsResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "TypeVersionSummaries" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "TypeVersionSummaries"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTypeVersions
+instance Prelude.Hashable ListTypeVersions
 
-instance NFData ListTypeVersions
+instance Prelude.NFData ListTypeVersions
 
-instance ToHeaders ListTypeVersions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListTypeVersions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListTypeVersions where
-  toPath = const "/"
+instance Prelude.ToPath ListTypeVersions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTypeVersions where
+instance Prelude.ToQuery ListTypeVersions where
   toQuery ListTypeVersions' {..} =
-    mconcat
-      [ "Action" =: ("ListTypeVersions" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "TypeName" =: _ltvTypeName,
-        "NextToken" =: _ltvNextToken,
-        "MaxResults" =: _ltvMaxResults,
-        "Arn" =: _ltvARN,
-        "DeprecatedStatus" =: _ltvDeprecatedStatus,
-        "Type" =: _ltvType
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListTypeVersions" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "TypeName" Prelude.=: typeName,
+        "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults,
+        "Arn" Prelude.=: arn,
+        "DeprecatedStatus" Prelude.=: deprecatedStatus,
+        "Type" Prelude.=: type'
       ]
 
--- | /See:/ 'listTypeVersionsResponse' smart constructor.
+-- | /See:/ 'newListTypeVersionsResponse' smart constructor.
 data ListTypeVersionsResponse = ListTypeVersionsResponse'
-  { _ltvrrsNextToken ::
-      !(Maybe Text),
-    _ltvrrsTypeVersionSummaries ::
-      !( Maybe
-           [TypeVersionSummary]
-       ),
-    _ltvrrsResponseStatus ::
-      !Int
+  { -- | If the request doesn\'t return all of the remaining results, @NextToken@
+    -- is set to a token. To retrieve the next set of results, call this action
+    -- again and assign that token to the request object\'s @NextToken@
+    -- parameter. If the request returns all results, @NextToken@ is set to
+    -- @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @TypeVersionSummary@ structures that contain information about
+    -- the specified extension\'s versions.
+    typeVersionSummaries :: Prelude.Maybe [TypeVersionSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTypeVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTypeVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltvrrsNextToken' - If the request doesn't return all of the remaining results, @NextToken@ is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's @NextToken@ parameter. If the request returns all results, @NextToken@ is set to @null@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltvrrsTypeVersionSummaries' - A list of @TypeVersionSummary@ structures that contain information about the specified extension's versions.
+-- 'nextToken', 'listTypeVersionsResponse_nextToken' - If the request doesn\'t return all of the remaining results, @NextToken@
+-- is set to a token. To retrieve the next set of results, call this action
+-- again and assign that token to the request object\'s @NextToken@
+-- parameter. If the request returns all results, @NextToken@ is set to
+-- @null@.
 --
--- * 'ltvrrsResponseStatus' - -- | The response status code.
-listTypeVersionsResponse ::
-  -- | 'ltvrrsResponseStatus'
-  Int ->
+-- 'typeVersionSummaries', 'listTypeVersionsResponse_typeVersionSummaries' - A list of @TypeVersionSummary@ structures that contain information about
+-- the specified extension\'s versions.
+--
+-- 'httpStatus', 'listTypeVersionsResponse_httpStatus' - The response's http status code.
+newListTypeVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTypeVersionsResponse
-listTypeVersionsResponse pResponseStatus_ =
+newListTypeVersionsResponse pHttpStatus_ =
   ListTypeVersionsResponse'
-    { _ltvrrsNextToken =
-        Nothing,
-      _ltvrrsTypeVersionSummaries = Nothing,
-      _ltvrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      typeVersionSummaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the request doesn't return all of the remaining results, @NextToken@ is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's @NextToken@ parameter. If the request returns all results, @NextToken@ is set to @null@ .
-ltvrrsNextToken :: Lens' ListTypeVersionsResponse (Maybe Text)
-ltvrrsNextToken = lens _ltvrrsNextToken (\s a -> s {_ltvrrsNextToken = a})
+-- | If the request doesn\'t return all of the remaining results, @NextToken@
+-- is set to a token. To retrieve the next set of results, call this action
+-- again and assign that token to the request object\'s @NextToken@
+-- parameter. If the request returns all results, @NextToken@ is set to
+-- @null@.
+listTypeVersionsResponse_nextToken :: Lens.Lens' ListTypeVersionsResponse (Prelude.Maybe Prelude.Text)
+listTypeVersionsResponse_nextToken = Lens.lens (\ListTypeVersionsResponse' {nextToken} -> nextToken) (\s@ListTypeVersionsResponse' {} a -> s {nextToken = a} :: ListTypeVersionsResponse)
 
--- | A list of @TypeVersionSummary@ structures that contain information about the specified extension's versions.
-ltvrrsTypeVersionSummaries :: Lens' ListTypeVersionsResponse [TypeVersionSummary]
-ltvrrsTypeVersionSummaries = lens _ltvrrsTypeVersionSummaries (\s a -> s {_ltvrrsTypeVersionSummaries = a}) . _Default . _Coerce
+-- | A list of @TypeVersionSummary@ structures that contain information about
+-- the specified extension\'s versions.
+listTypeVersionsResponse_typeVersionSummaries :: Lens.Lens' ListTypeVersionsResponse (Prelude.Maybe [TypeVersionSummary])
+listTypeVersionsResponse_typeVersionSummaries = Lens.lens (\ListTypeVersionsResponse' {typeVersionSummaries} -> typeVersionSummaries) (\s@ListTypeVersionsResponse' {} a -> s {typeVersionSummaries = a} :: ListTypeVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltvrrsResponseStatus :: Lens' ListTypeVersionsResponse Int
-ltvrrsResponseStatus = lens _ltvrrsResponseStatus (\s a -> s {_ltvrrsResponseStatus = a})
+-- | The response's http status code.
+listTypeVersionsResponse_httpStatus :: Lens.Lens' ListTypeVersionsResponse Prelude.Int
+listTypeVersionsResponse_httpStatus = Lens.lens (\ListTypeVersionsResponse' {httpStatus} -> httpStatus) (\s@ListTypeVersionsResponse' {} a -> s {httpStatus = a} :: ListTypeVersionsResponse)
 
-instance NFData ListTypeVersionsResponse
+instance Prelude.NFData ListTypeVersionsResponse

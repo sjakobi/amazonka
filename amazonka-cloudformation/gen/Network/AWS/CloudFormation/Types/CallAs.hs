@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,49 @@
 module Network.AWS.CloudFormation.Types.CallAs
   ( CallAs
       ( ..,
-        DelegatedAdmin,
-        Self
+        CallAsDELEGATEDADMIN,
+        CallAsSELF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CallAs = CallAs' (CI Text)
+newtype CallAs = CallAs' {fromCallAs :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DelegatedAdmin :: CallAs
-pattern DelegatedAdmin = CallAs' "DELEGATED_ADMIN"
+pattern CallAsDELEGATEDADMIN :: CallAs
+pattern CallAsDELEGATEDADMIN = CallAs' "DELEGATED_ADMIN"
 
-pattern Self :: CallAs
-pattern Self = CallAs' "SELF"
+pattern CallAsSELF :: CallAs
+pattern CallAsSELF = CallAs' "SELF"
 
 {-# COMPLETE
-  DelegatedAdmin,
-  Self,
+  CallAsDELEGATEDADMIN,
+  CallAsSELF,
   CallAs'
   #-}
 
-instance FromText CallAs where
-  parser = (CallAs' . mk) <$> takeText
+instance Prelude.FromText CallAs where
+  parser = CallAs' Prelude.<$> Prelude.takeText
 
-instance ToText CallAs where
-  toText (CallAs' ci) = original ci
+instance Prelude.ToText CallAs where
+  toText (CallAs' x) = x
 
-instance Hashable CallAs
+instance Prelude.Hashable CallAs
 
-instance NFData CallAs
+instance Prelude.NFData CallAs
 
-instance ToByteString CallAs
+instance Prelude.ToByteString CallAs
 
-instance ToQuery CallAs
+instance Prelude.ToQuery CallAs
 
-instance ToHeader CallAs
+instance Prelude.ToHeader CallAs

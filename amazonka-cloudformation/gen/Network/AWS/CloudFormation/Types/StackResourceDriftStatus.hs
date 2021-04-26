@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.CloudFormation.Types.StackResourceDriftStatus
   ( StackResourceDriftStatus
       ( ..,
-        Deleted,
-        InSync,
-        Modified,
-        NotChecked
+        StackResourceDriftStatusDELETED,
+        StackResourceDriftStatusINSYNC,
+        StackResourceDriftStatusMODIFIED,
+        StackResourceDriftStatusNOTCHECKED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackResourceDriftStatus
-  = StackResourceDriftStatus'
-      ( CI
-          Text
-      )
+newtype StackResourceDriftStatus = StackResourceDriftStatus'
+  { fromStackResourceDriftStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Deleted :: StackResourceDriftStatus
-pattern Deleted = StackResourceDriftStatus' "DELETED"
+pattern StackResourceDriftStatusDELETED :: StackResourceDriftStatus
+pattern StackResourceDriftStatusDELETED = StackResourceDriftStatus' "DELETED"
 
-pattern InSync :: StackResourceDriftStatus
-pattern InSync = StackResourceDriftStatus' "IN_SYNC"
+pattern StackResourceDriftStatusINSYNC :: StackResourceDriftStatus
+pattern StackResourceDriftStatusINSYNC = StackResourceDriftStatus' "IN_SYNC"
 
-pattern Modified :: StackResourceDriftStatus
-pattern Modified = StackResourceDriftStatus' "MODIFIED"
+pattern StackResourceDriftStatusMODIFIED :: StackResourceDriftStatus
+pattern StackResourceDriftStatusMODIFIED = StackResourceDriftStatus' "MODIFIED"
 
-pattern NotChecked :: StackResourceDriftStatus
-pattern NotChecked = StackResourceDriftStatus' "NOT_CHECKED"
+pattern StackResourceDriftStatusNOTCHECKED :: StackResourceDriftStatus
+pattern StackResourceDriftStatusNOTCHECKED = StackResourceDriftStatus' "NOT_CHECKED"
 
 {-# COMPLETE
-  Deleted,
-  InSync,
-  Modified,
-  NotChecked,
+  StackResourceDriftStatusDELETED,
+  StackResourceDriftStatusINSYNC,
+  StackResourceDriftStatusMODIFIED,
+  StackResourceDriftStatusNOTCHECKED,
   StackResourceDriftStatus'
   #-}
 
-instance FromText StackResourceDriftStatus where
-  parser = (StackResourceDriftStatus' . mk) <$> takeText
+instance Prelude.FromText StackResourceDriftStatus where
+  parser = StackResourceDriftStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StackResourceDriftStatus where
-  toText (StackResourceDriftStatus' ci) = original ci
+instance Prelude.ToText StackResourceDriftStatus where
+  toText (StackResourceDriftStatus' x) = x
 
-instance Hashable StackResourceDriftStatus
+instance Prelude.Hashable StackResourceDriftStatus
 
-instance NFData StackResourceDriftStatus
+instance Prelude.NFData StackResourceDriftStatus
 
-instance ToByteString StackResourceDriftStatus
+instance Prelude.ToByteString StackResourceDriftStatus
 
-instance ToQuery StackResourceDriftStatus
+instance Prelude.ToQuery StackResourceDriftStatus
 
-instance ToHeader StackResourceDriftStatus
+instance Prelude.ToHeader StackResourceDriftStatus
 
-instance FromXML StackResourceDriftStatus where
-  parseXML = parseXMLText "StackResourceDriftStatus"
+instance Prelude.FromXML StackResourceDriftStatus where
+  parseXML = Prelude.parseXMLText "StackResourceDriftStatus"

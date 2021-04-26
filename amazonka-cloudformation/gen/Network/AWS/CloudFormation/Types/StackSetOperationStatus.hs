@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.CloudFormation.Types.StackSetOperationStatus
   ( StackSetOperationStatus
       ( ..,
-        SSOSFailed,
-        SSOSQueued,
-        SSOSRunning,
-        SSOSStopped,
-        SSOSStopping,
-        SSOSSucceeded
+        StackSetOperationStatusFAILED,
+        StackSetOperationStatusQUEUED,
+        StackSetOperationStatusRUNNING,
+        StackSetOperationStatusSTOPPED,
+        StackSetOperationStatusSTOPPING,
+        StackSetOperationStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackSetOperationStatus
-  = StackSetOperationStatus'
-      ( CI
-          Text
-      )
+newtype StackSetOperationStatus = StackSetOperationStatus'
+  { fromStackSetOperationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSOSFailed :: StackSetOperationStatus
-pattern SSOSFailed = StackSetOperationStatus' "FAILED"
+pattern StackSetOperationStatusFAILED :: StackSetOperationStatus
+pattern StackSetOperationStatusFAILED = StackSetOperationStatus' "FAILED"
 
-pattern SSOSQueued :: StackSetOperationStatus
-pattern SSOSQueued = StackSetOperationStatus' "QUEUED"
+pattern StackSetOperationStatusQUEUED :: StackSetOperationStatus
+pattern StackSetOperationStatusQUEUED = StackSetOperationStatus' "QUEUED"
 
-pattern SSOSRunning :: StackSetOperationStatus
-pattern SSOSRunning = StackSetOperationStatus' "RUNNING"
+pattern StackSetOperationStatusRUNNING :: StackSetOperationStatus
+pattern StackSetOperationStatusRUNNING = StackSetOperationStatus' "RUNNING"
 
-pattern SSOSStopped :: StackSetOperationStatus
-pattern SSOSStopped = StackSetOperationStatus' "STOPPED"
+pattern StackSetOperationStatusSTOPPED :: StackSetOperationStatus
+pattern StackSetOperationStatusSTOPPED = StackSetOperationStatus' "STOPPED"
 
-pattern SSOSStopping :: StackSetOperationStatus
-pattern SSOSStopping = StackSetOperationStatus' "STOPPING"
+pattern StackSetOperationStatusSTOPPING :: StackSetOperationStatus
+pattern StackSetOperationStatusSTOPPING = StackSetOperationStatus' "STOPPING"
 
-pattern SSOSSucceeded :: StackSetOperationStatus
-pattern SSOSSucceeded = StackSetOperationStatus' "SUCCEEDED"
+pattern StackSetOperationStatusSUCCEEDED :: StackSetOperationStatus
+pattern StackSetOperationStatusSUCCEEDED = StackSetOperationStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  SSOSFailed,
-  SSOSQueued,
-  SSOSRunning,
-  SSOSStopped,
-  SSOSStopping,
-  SSOSSucceeded,
+  StackSetOperationStatusFAILED,
+  StackSetOperationStatusQUEUED,
+  StackSetOperationStatusRUNNING,
+  StackSetOperationStatusSTOPPED,
+  StackSetOperationStatusSTOPPING,
+  StackSetOperationStatusSUCCEEDED,
   StackSetOperationStatus'
   #-}
 
-instance FromText StackSetOperationStatus where
-  parser = (StackSetOperationStatus' . mk) <$> takeText
+instance Prelude.FromText StackSetOperationStatus where
+  parser = StackSetOperationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StackSetOperationStatus where
-  toText (StackSetOperationStatus' ci) = original ci
+instance Prelude.ToText StackSetOperationStatus where
+  toText (StackSetOperationStatus' x) = x
 
-instance Hashable StackSetOperationStatus
+instance Prelude.Hashable StackSetOperationStatus
 
-instance NFData StackSetOperationStatus
+instance Prelude.NFData StackSetOperationStatus
 
-instance ToByteString StackSetOperationStatus
+instance Prelude.ToByteString StackSetOperationStatus
 
-instance ToQuery StackSetOperationStatus
+instance Prelude.ToQuery StackSetOperationStatus
 
-instance ToHeader StackSetOperationStatus
+instance Prelude.ToHeader StackSetOperationStatus
 
-instance FromXML StackSetOperationStatus where
-  parseXML = parseXMLText "StackSetOperationStatus"
+instance Prelude.FromXML StackSetOperationStatus where
+  parseXML = Prelude.parseXMLText "StackSetOperationStatus"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,110 +19,112 @@
 module Network.AWS.CloudFormation.Types.HandlerErrorCode
   ( HandlerErrorCode
       ( ..,
-        AccessDenied,
-        AlreadyExists,
-        GeneralServiceException,
-        InternalFailure,
-        InvalidCredentials,
-        InvalidRequest,
-        NetworkFailure,
-        NotFound,
-        NotStabilized,
-        NotUpdatable,
-        ResourceConflict,
-        ServiceInternalError,
-        ServiceLimitExceeded,
-        Throttling
+        HandlerErrorCodeAccessDenied,
+        HandlerErrorCodeAlreadyExists,
+        HandlerErrorCodeGeneralServiceException,
+        HandlerErrorCodeInternalFailure,
+        HandlerErrorCodeInvalidCredentials,
+        HandlerErrorCodeInvalidRequest,
+        HandlerErrorCodeNetworkFailure,
+        HandlerErrorCodeNotFound,
+        HandlerErrorCodeNotStabilized,
+        HandlerErrorCodeNotUpdatable,
+        HandlerErrorCodeResourceConflict,
+        HandlerErrorCodeServiceInternalError,
+        HandlerErrorCodeServiceLimitExceeded,
+        HandlerErrorCodeThrottling
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HandlerErrorCode = HandlerErrorCode' (CI Text)
+newtype HandlerErrorCode = HandlerErrorCode'
+  { fromHandlerErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccessDenied :: HandlerErrorCode
-pattern AccessDenied = HandlerErrorCode' "AccessDenied"
+pattern HandlerErrorCodeAccessDenied :: HandlerErrorCode
+pattern HandlerErrorCodeAccessDenied = HandlerErrorCode' "AccessDenied"
 
-pattern AlreadyExists :: HandlerErrorCode
-pattern AlreadyExists = HandlerErrorCode' "AlreadyExists"
+pattern HandlerErrorCodeAlreadyExists :: HandlerErrorCode
+pattern HandlerErrorCodeAlreadyExists = HandlerErrorCode' "AlreadyExists"
 
-pattern GeneralServiceException :: HandlerErrorCode
-pattern GeneralServiceException = HandlerErrorCode' "GeneralServiceException"
+pattern HandlerErrorCodeGeneralServiceException :: HandlerErrorCode
+pattern HandlerErrorCodeGeneralServiceException = HandlerErrorCode' "GeneralServiceException"
 
-pattern InternalFailure :: HandlerErrorCode
-pattern InternalFailure = HandlerErrorCode' "InternalFailure"
+pattern HandlerErrorCodeInternalFailure :: HandlerErrorCode
+pattern HandlerErrorCodeInternalFailure = HandlerErrorCode' "InternalFailure"
 
-pattern InvalidCredentials :: HandlerErrorCode
-pattern InvalidCredentials = HandlerErrorCode' "InvalidCredentials"
+pattern HandlerErrorCodeInvalidCredentials :: HandlerErrorCode
+pattern HandlerErrorCodeInvalidCredentials = HandlerErrorCode' "InvalidCredentials"
 
-pattern InvalidRequest :: HandlerErrorCode
-pattern InvalidRequest = HandlerErrorCode' "InvalidRequest"
+pattern HandlerErrorCodeInvalidRequest :: HandlerErrorCode
+pattern HandlerErrorCodeInvalidRequest = HandlerErrorCode' "InvalidRequest"
 
-pattern NetworkFailure :: HandlerErrorCode
-pattern NetworkFailure = HandlerErrorCode' "NetworkFailure"
+pattern HandlerErrorCodeNetworkFailure :: HandlerErrorCode
+pattern HandlerErrorCodeNetworkFailure = HandlerErrorCode' "NetworkFailure"
 
-pattern NotFound :: HandlerErrorCode
-pattern NotFound = HandlerErrorCode' "NotFound"
+pattern HandlerErrorCodeNotFound :: HandlerErrorCode
+pattern HandlerErrorCodeNotFound = HandlerErrorCode' "NotFound"
 
-pattern NotStabilized :: HandlerErrorCode
-pattern NotStabilized = HandlerErrorCode' "NotStabilized"
+pattern HandlerErrorCodeNotStabilized :: HandlerErrorCode
+pattern HandlerErrorCodeNotStabilized = HandlerErrorCode' "NotStabilized"
 
-pattern NotUpdatable :: HandlerErrorCode
-pattern NotUpdatable = HandlerErrorCode' "NotUpdatable"
+pattern HandlerErrorCodeNotUpdatable :: HandlerErrorCode
+pattern HandlerErrorCodeNotUpdatable = HandlerErrorCode' "NotUpdatable"
 
-pattern ResourceConflict :: HandlerErrorCode
-pattern ResourceConflict = HandlerErrorCode' "ResourceConflict"
+pattern HandlerErrorCodeResourceConflict :: HandlerErrorCode
+pattern HandlerErrorCodeResourceConflict = HandlerErrorCode' "ResourceConflict"
 
-pattern ServiceInternalError :: HandlerErrorCode
-pattern ServiceInternalError = HandlerErrorCode' "ServiceInternalError"
+pattern HandlerErrorCodeServiceInternalError :: HandlerErrorCode
+pattern HandlerErrorCodeServiceInternalError = HandlerErrorCode' "ServiceInternalError"
 
-pattern ServiceLimitExceeded :: HandlerErrorCode
-pattern ServiceLimitExceeded = HandlerErrorCode' "ServiceLimitExceeded"
+pattern HandlerErrorCodeServiceLimitExceeded :: HandlerErrorCode
+pattern HandlerErrorCodeServiceLimitExceeded = HandlerErrorCode' "ServiceLimitExceeded"
 
-pattern Throttling :: HandlerErrorCode
-pattern Throttling = HandlerErrorCode' "Throttling"
+pattern HandlerErrorCodeThrottling :: HandlerErrorCode
+pattern HandlerErrorCodeThrottling = HandlerErrorCode' "Throttling"
 
 {-# COMPLETE
-  AccessDenied,
-  AlreadyExists,
-  GeneralServiceException,
-  InternalFailure,
-  InvalidCredentials,
-  InvalidRequest,
-  NetworkFailure,
-  NotFound,
-  NotStabilized,
-  NotUpdatable,
-  ResourceConflict,
-  ServiceInternalError,
-  ServiceLimitExceeded,
-  Throttling,
+  HandlerErrorCodeAccessDenied,
+  HandlerErrorCodeAlreadyExists,
+  HandlerErrorCodeGeneralServiceException,
+  HandlerErrorCodeInternalFailure,
+  HandlerErrorCodeInvalidCredentials,
+  HandlerErrorCodeInvalidRequest,
+  HandlerErrorCodeNetworkFailure,
+  HandlerErrorCodeNotFound,
+  HandlerErrorCodeNotStabilized,
+  HandlerErrorCodeNotUpdatable,
+  HandlerErrorCodeResourceConflict,
+  HandlerErrorCodeServiceInternalError,
+  HandlerErrorCodeServiceLimitExceeded,
+  HandlerErrorCodeThrottling,
   HandlerErrorCode'
   #-}
 
-instance FromText HandlerErrorCode where
-  parser = (HandlerErrorCode' . mk) <$> takeText
+instance Prelude.FromText HandlerErrorCode where
+  parser = HandlerErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText HandlerErrorCode where
-  toText (HandlerErrorCode' ci) = original ci
+instance Prelude.ToText HandlerErrorCode where
+  toText (HandlerErrorCode' x) = x
 
-instance Hashable HandlerErrorCode
+instance Prelude.Hashable HandlerErrorCode
 
-instance NFData HandlerErrorCode
+instance Prelude.NFData HandlerErrorCode
 
-instance ToByteString HandlerErrorCode
+instance Prelude.ToByteString HandlerErrorCode
 
-instance ToQuery HandlerErrorCode
+instance Prelude.ToQuery HandlerErrorCode
 
-instance ToHeader HandlerErrorCode
+instance Prelude.ToHeader HandlerErrorCode

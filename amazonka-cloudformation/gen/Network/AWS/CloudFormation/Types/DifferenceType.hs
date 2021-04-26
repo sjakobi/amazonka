@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CloudFormation.Types.DifferenceType
   ( DifferenceType
       ( ..,
-        Add,
-        NotEqual,
-        Remove
+        DifferenceTypeADD,
+        DifferenceTypeNOTEQUAL,
+        DifferenceTypeREMOVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DifferenceType = DifferenceType' (CI Text)
+newtype DifferenceType = DifferenceType'
+  { fromDifferenceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Add :: DifferenceType
-pattern Add = DifferenceType' "ADD"
+pattern DifferenceTypeADD :: DifferenceType
+pattern DifferenceTypeADD = DifferenceType' "ADD"
 
-pattern NotEqual :: DifferenceType
-pattern NotEqual = DifferenceType' "NOT_EQUAL"
+pattern DifferenceTypeNOTEQUAL :: DifferenceType
+pattern DifferenceTypeNOTEQUAL = DifferenceType' "NOT_EQUAL"
 
-pattern Remove :: DifferenceType
-pattern Remove = DifferenceType' "REMOVE"
+pattern DifferenceTypeREMOVE :: DifferenceType
+pattern DifferenceTypeREMOVE = DifferenceType' "REMOVE"
 
 {-# COMPLETE
-  Add,
-  NotEqual,
-  Remove,
+  DifferenceTypeADD,
+  DifferenceTypeNOTEQUAL,
+  DifferenceTypeREMOVE,
   DifferenceType'
   #-}
 
-instance FromText DifferenceType where
-  parser = (DifferenceType' . mk) <$> takeText
+instance Prelude.FromText DifferenceType where
+  parser = DifferenceType' Prelude.<$> Prelude.takeText
 
-instance ToText DifferenceType where
-  toText (DifferenceType' ci) = original ci
+instance Prelude.ToText DifferenceType where
+  toText (DifferenceType' x) = x
 
-instance Hashable DifferenceType
+instance Prelude.Hashable DifferenceType
 
-instance NFData DifferenceType
+instance Prelude.NFData DifferenceType
 
-instance ToByteString DifferenceType
+instance Prelude.ToByteString DifferenceType
 
-instance ToQuery DifferenceType
+instance Prelude.ToQuery DifferenceType
 
-instance ToHeader DifferenceType
+instance Prelude.ToHeader DifferenceType
 
-instance FromXML DifferenceType where
-  parseXML = parseXMLText "DifferenceType"
+instance Prelude.FromXML DifferenceType where
+  parseXML = Prelude.parseXMLText "DifferenceType"

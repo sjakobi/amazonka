@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,179 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Specify the default version of an extension. The default version of an extension will be used in CloudFormation operations.
+-- Specify the default version of an extension. The default version of an
+-- extension will be used in CloudFormation operations.
 module Network.AWS.CloudFormation.SetTypeDefaultVersion
   ( -- * Creating a Request
-    setTypeDefaultVersion,
-    SetTypeDefaultVersion,
+    SetTypeDefaultVersion (..),
+    newSetTypeDefaultVersion,
 
     -- * Request Lenses
-    stdvTypeName,
-    stdvARN,
-    stdvVersionId,
-    stdvType,
+    setTypeDefaultVersion_typeName,
+    setTypeDefaultVersion_arn,
+    setTypeDefaultVersion_versionId,
+    setTypeDefaultVersion_type,
 
     -- * Destructuring the Response
-    setTypeDefaultVersionResponse,
-    SetTypeDefaultVersionResponse,
+    SetTypeDefaultVersionResponse (..),
+    newSetTypeDefaultVersionResponse,
 
     -- * Response Lenses
-    stdvrrsResponseStatus,
+    setTypeDefaultVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'setTypeDefaultVersion' smart constructor.
+-- | /See:/ 'newSetTypeDefaultVersion' smart constructor.
 data SetTypeDefaultVersion = SetTypeDefaultVersion'
-  { _stdvTypeName ::
-      !(Maybe Text),
-    _stdvARN :: !(Maybe Text),
-    _stdvVersionId ::
-      !(Maybe Text),
-    _stdvType ::
-      !(Maybe RegistryType)
+  { -- | The name of the extension.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    typeName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the extension for which you want
+    -- version summary information.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a specific version of the extension. The version ID is the
+    -- value at the end of the Amazon Resource Name (ARN) assigned to the
+    -- extension version when it is registered.
+    versionId :: Prelude.Maybe Prelude.Text,
+    -- | The kind of extension.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    type' :: Prelude.Maybe RegistryType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetTypeDefaultVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetTypeDefaultVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stdvTypeName' - The name of the extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stdvARN' - The Amazon Resource Name (ARN) of the extension for which you want version summary information. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
+-- 'typeName', 'setTypeDefaultVersion_typeName' - The name of the extension.
 --
--- * 'stdvVersionId' - The ID of a specific version of the extension. The version ID is the value at the end of the Amazon Resource Name (ARN) assigned to the extension version when it is registered.
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
 --
--- * 'stdvType' - The kind of extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-setTypeDefaultVersion ::
+-- 'arn', 'setTypeDefaultVersion_arn' - The Amazon Resource Name (ARN) of the extension for which you want
+-- version summary information.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+--
+-- 'versionId', 'setTypeDefaultVersion_versionId' - The ID of a specific version of the extension. The version ID is the
+-- value at the end of the Amazon Resource Name (ARN) assigned to the
+-- extension version when it is registered.
+--
+-- 'type'', 'setTypeDefaultVersion_type' - The kind of extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+newSetTypeDefaultVersion ::
   SetTypeDefaultVersion
-setTypeDefaultVersion =
+newSetTypeDefaultVersion =
   SetTypeDefaultVersion'
-    { _stdvTypeName = Nothing,
-      _stdvARN = Nothing,
-      _stdvVersionId = Nothing,
-      _stdvType = Nothing
+    { typeName = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      versionId = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The name of the extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-stdvTypeName :: Lens' SetTypeDefaultVersion (Maybe Text)
-stdvTypeName = lens _stdvTypeName (\s a -> s {_stdvTypeName = a})
+-- | The name of the extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+setTypeDefaultVersion_typeName :: Lens.Lens' SetTypeDefaultVersion (Prelude.Maybe Prelude.Text)
+setTypeDefaultVersion_typeName = Lens.lens (\SetTypeDefaultVersion' {typeName} -> typeName) (\s@SetTypeDefaultVersion' {} a -> s {typeName = a} :: SetTypeDefaultVersion)
 
--- | The Amazon Resource Name (ARN) of the extension for which you want version summary information. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-stdvARN :: Lens' SetTypeDefaultVersion (Maybe Text)
-stdvARN = lens _stdvARN (\s a -> s {_stdvARN = a})
+-- | The Amazon Resource Name (ARN) of the extension for which you want
+-- version summary information.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+setTypeDefaultVersion_arn :: Lens.Lens' SetTypeDefaultVersion (Prelude.Maybe Prelude.Text)
+setTypeDefaultVersion_arn = Lens.lens (\SetTypeDefaultVersion' {arn} -> arn) (\s@SetTypeDefaultVersion' {} a -> s {arn = a} :: SetTypeDefaultVersion)
 
--- | The ID of a specific version of the extension. The version ID is the value at the end of the Amazon Resource Name (ARN) assigned to the extension version when it is registered.
-stdvVersionId :: Lens' SetTypeDefaultVersion (Maybe Text)
-stdvVersionId = lens _stdvVersionId (\s a -> s {_stdvVersionId = a})
+-- | The ID of a specific version of the extension. The version ID is the
+-- value at the end of the Amazon Resource Name (ARN) assigned to the
+-- extension version when it is registered.
+setTypeDefaultVersion_versionId :: Lens.Lens' SetTypeDefaultVersion (Prelude.Maybe Prelude.Text)
+setTypeDefaultVersion_versionId = Lens.lens (\SetTypeDefaultVersion' {versionId} -> versionId) (\s@SetTypeDefaultVersion' {} a -> s {versionId = a} :: SetTypeDefaultVersion)
 
--- | The kind of extension. Conditional: You must specify either @TypeName@ and @Type@ , or @Arn@ .
-stdvType :: Lens' SetTypeDefaultVersion (Maybe RegistryType)
-stdvType = lens _stdvType (\s a -> s {_stdvType = a})
+-- | The kind of extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+setTypeDefaultVersion_type :: Lens.Lens' SetTypeDefaultVersion (Prelude.Maybe RegistryType)
+setTypeDefaultVersion_type = Lens.lens (\SetTypeDefaultVersion' {type'} -> type') (\s@SetTypeDefaultVersion' {} a -> s {type' = a} :: SetTypeDefaultVersion)
 
-instance AWSRequest SetTypeDefaultVersion where
+instance Prelude.AWSRequest SetTypeDefaultVersion where
   type
     Rs SetTypeDefaultVersion =
       SetTypeDefaultVersionResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "SetTypeDefaultVersionResult"
       ( \s h x ->
           SetTypeDefaultVersionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SetTypeDefaultVersion
+instance Prelude.Hashable SetTypeDefaultVersion
 
-instance NFData SetTypeDefaultVersion
+instance Prelude.NFData SetTypeDefaultVersion
 
-instance ToHeaders SetTypeDefaultVersion where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SetTypeDefaultVersion where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath SetTypeDefaultVersion where
-  toPath = const "/"
+instance Prelude.ToPath SetTypeDefaultVersion where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetTypeDefaultVersion where
+instance Prelude.ToQuery SetTypeDefaultVersion where
   toQuery SetTypeDefaultVersion' {..} =
-    mconcat
-      [ "Action" =: ("SetTypeDefaultVersion" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "TypeName" =: _stdvTypeName,
-        "Arn" =: _stdvARN,
-        "VersionId" =: _stdvVersionId,
-        "Type" =: _stdvType
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("SetTypeDefaultVersion" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "TypeName" Prelude.=: typeName,
+        "Arn" Prelude.=: arn,
+        "VersionId" Prelude.=: versionId,
+        "Type" Prelude.=: type'
       ]
 
--- | /See:/ 'setTypeDefaultVersionResponse' smart constructor.
-newtype SetTypeDefaultVersionResponse = SetTypeDefaultVersionResponse'
-  { _stdvrrsResponseStatus ::
-      Int
+-- | /See:/ 'newSetTypeDefaultVersionResponse' smart constructor.
+data SetTypeDefaultVersionResponse = SetTypeDefaultVersionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetTypeDefaultVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetTypeDefaultVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stdvrrsResponseStatus' - -- | The response status code.
-setTypeDefaultVersionResponse ::
-  -- | 'stdvrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'setTypeDefaultVersionResponse_httpStatus' - The response's http status code.
+newSetTypeDefaultVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SetTypeDefaultVersionResponse
-setTypeDefaultVersionResponse pResponseStatus_ =
+newSetTypeDefaultVersionResponse pHttpStatus_ =
   SetTypeDefaultVersionResponse'
-    { _stdvrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-stdvrrsResponseStatus :: Lens' SetTypeDefaultVersionResponse Int
-stdvrrsResponseStatus = lens _stdvrrsResponseStatus (\s a -> s {_stdvrrsResponseStatus = a})
+-- | The response's http status code.
+setTypeDefaultVersionResponse_httpStatus :: Lens.Lens' SetTypeDefaultVersionResponse Prelude.Int
+setTypeDefaultVersionResponse_httpStatus = Lens.lens (\SetTypeDefaultVersionResponse' {httpStatus} -> httpStatus) (\s@SetTypeDefaultVersionResponse' {} a -> s {httpStatus = a} :: SetTypeDefaultVersionResponse)
 
-instance NFData SetTypeDefaultVersionResponse
+instance Prelude.NFData SetTypeDefaultVersionResponse

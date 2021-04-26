@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.CloudFormation.Types.StackDriftDetectionStatus
   ( StackDriftDetectionStatus
       ( ..,
-        DetectionComplete,
-        DetectionFailed,
-        DetectionInProgress
+        StackDriftDetectionStatusDETECTIONCOMPLETE,
+        StackDriftDetectionStatusDETECTIONFAILED,
+        StackDriftDetectionStatusDETECTIONINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackDriftDetectionStatus
-  = StackDriftDetectionStatus'
-      ( CI
-          Text
-      )
+newtype StackDriftDetectionStatus = StackDriftDetectionStatus'
+  { fromStackDriftDetectionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DetectionComplete :: StackDriftDetectionStatus
-pattern DetectionComplete = StackDriftDetectionStatus' "DETECTION_COMPLETE"
+pattern StackDriftDetectionStatusDETECTIONCOMPLETE :: StackDriftDetectionStatus
+pattern StackDriftDetectionStatusDETECTIONCOMPLETE = StackDriftDetectionStatus' "DETECTION_COMPLETE"
 
-pattern DetectionFailed :: StackDriftDetectionStatus
-pattern DetectionFailed = StackDriftDetectionStatus' "DETECTION_FAILED"
+pattern StackDriftDetectionStatusDETECTIONFAILED :: StackDriftDetectionStatus
+pattern StackDriftDetectionStatusDETECTIONFAILED = StackDriftDetectionStatus' "DETECTION_FAILED"
 
-pattern DetectionInProgress :: StackDriftDetectionStatus
-pattern DetectionInProgress = StackDriftDetectionStatus' "DETECTION_IN_PROGRESS"
+pattern StackDriftDetectionStatusDETECTIONINPROGRESS :: StackDriftDetectionStatus
+pattern StackDriftDetectionStatusDETECTIONINPROGRESS = StackDriftDetectionStatus' "DETECTION_IN_PROGRESS"
 
 {-# COMPLETE
-  DetectionComplete,
-  DetectionFailed,
-  DetectionInProgress,
+  StackDriftDetectionStatusDETECTIONCOMPLETE,
+  StackDriftDetectionStatusDETECTIONFAILED,
+  StackDriftDetectionStatusDETECTIONINPROGRESS,
   StackDriftDetectionStatus'
   #-}
 
-instance FromText StackDriftDetectionStatus where
-  parser = (StackDriftDetectionStatus' . mk) <$> takeText
+instance Prelude.FromText StackDriftDetectionStatus where
+  parser = StackDriftDetectionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StackDriftDetectionStatus where
-  toText (StackDriftDetectionStatus' ci) = original ci
+instance Prelude.ToText StackDriftDetectionStatus where
+  toText (StackDriftDetectionStatus' x) = x
 
-instance Hashable StackDriftDetectionStatus
+instance Prelude.Hashable StackDriftDetectionStatus
 
-instance NFData StackDriftDetectionStatus
+instance Prelude.NFData StackDriftDetectionStatus
 
-instance ToByteString StackDriftDetectionStatus
+instance Prelude.ToByteString StackDriftDetectionStatus
 
-instance ToQuery StackDriftDetectionStatus
+instance Prelude.ToQuery StackDriftDetectionStatus
 
-instance ToHeader StackDriftDetectionStatus
+instance Prelude.ToHeader StackDriftDetectionStatus
 
-instance FromXML StackDriftDetectionStatus where
-  parseXML = parseXMLText "StackDriftDetectionStatus"
+instance Prelude.FromXML StackDriftDetectionStatus where
+  parseXML = Prelude.parseXMLText "StackDriftDetectionStatus"

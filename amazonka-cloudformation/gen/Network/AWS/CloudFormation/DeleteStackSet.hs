@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,124 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a stack set. Before you can delete a stack set, all of its member stack instances must be deleted. For more information about how to do this, see 'DeleteStackInstances' .
+-- Deletes a stack set. Before you can delete a stack set, all of its
+-- member stack instances must be deleted. For more information about how
+-- to do this, see DeleteStackInstances.
 module Network.AWS.CloudFormation.DeleteStackSet
   ( -- * Creating a Request
-    deleteStackSet,
-    DeleteStackSet,
+    DeleteStackSet (..),
+    newDeleteStackSet,
 
     -- * Request Lenses
-    dssCallAs,
-    dssStackSetName,
+    deleteStackSet_callAs,
+    deleteStackSet_stackSetName,
 
     -- * Destructuring the Response
-    deleteStackSetResponse,
-    DeleteStackSetResponse,
+    DeleteStackSetResponse (..),
+    newDeleteStackSetResponse,
 
     -- * Response Lenses
-    dssrrsResponseStatus,
+    deleteStackSetResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteStackSet' smart constructor.
+-- | /See:/ 'newDeleteStackSet' smart constructor.
 data DeleteStackSet = DeleteStackSet'
-  { _dssCallAs ::
-      !(Maybe CallAs),
-    _dssStackSetName :: !Text
+  { -- | [Service-managed permissions] Specifies whether you are acting as an
+    -- account administrator in the organization\'s management account or as a
+    -- delegated administrator in a member account.
+    --
+    -- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+    -- self-managed permissions.
+    --
+    -- -   If you are signed in to the management account, specify @SELF@.
+    --
+    -- -   If you are signed in to a delegated administrator account, specify
+    --     @DELEGATED_ADMIN@.
+    --
+    --     Your AWS account must be registered as a delegated administrator in
+    --     the management account. For more information, see
+    --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+    --     in the /AWS CloudFormation User Guide/.
+    callAs :: Prelude.Maybe CallAs,
+    -- | The name or unique ID of the stack set that you\'re deleting. You can
+    -- obtain this value by running ListStackSets.
+    stackSetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteStackSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteStackSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dssCallAs' - [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. By default, @SELF@ is specified. Use @SELF@ for stack sets with self-managed permissions.     * If you are signed in to the management account, specify @SELF@ .     * If you are signed in to a delegated administrator account, specify @DELEGATED_ADMIN@ . Your AWS account must be registered as a delegated administrator in the management account. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator> in the /AWS CloudFormation User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dssStackSetName' - The name or unique ID of the stack set that you're deleting. You can obtain this value by running 'ListStackSets' .
-deleteStackSet ::
-  -- | 'dssStackSetName'
-  Text ->
+-- 'callAs', 'deleteStackSet_callAs' - [Service-managed permissions] Specifies whether you are acting as an
+-- account administrator in the organization\'s management account or as a
+-- delegated administrator in a member account.
+--
+-- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+-- self-managed permissions.
+--
+-- -   If you are signed in to the management account, specify @SELF@.
+--
+-- -   If you are signed in to a delegated administrator account, specify
+--     @DELEGATED_ADMIN@.
+--
+--     Your AWS account must be registered as a delegated administrator in
+--     the management account. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+--     in the /AWS CloudFormation User Guide/.
+--
+-- 'stackSetName', 'deleteStackSet_stackSetName' - The name or unique ID of the stack set that you\'re deleting. You can
+-- obtain this value by running ListStackSets.
+newDeleteStackSet ::
+  -- | 'stackSetName'
+  Prelude.Text ->
   DeleteStackSet
-deleteStackSet pStackSetName_ =
+newDeleteStackSet pStackSetName_ =
   DeleteStackSet'
-    { _dssCallAs = Nothing,
-      _dssStackSetName = pStackSetName_
+    { callAs = Prelude.Nothing,
+      stackSetName = pStackSetName_
     }
 
--- | [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. By default, @SELF@ is specified. Use @SELF@ for stack sets with self-managed permissions.     * If you are signed in to the management account, specify @SELF@ .     * If you are signed in to a delegated administrator account, specify @DELEGATED_ADMIN@ . Your AWS account must be registered as a delegated administrator in the management account. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator> in the /AWS CloudFormation User Guide/ .
-dssCallAs :: Lens' DeleteStackSet (Maybe CallAs)
-dssCallAs = lens _dssCallAs (\s a -> s {_dssCallAs = a})
+-- | [Service-managed permissions] Specifies whether you are acting as an
+-- account administrator in the organization\'s management account or as a
+-- delegated administrator in a member account.
+--
+-- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+-- self-managed permissions.
+--
+-- -   If you are signed in to the management account, specify @SELF@.
+--
+-- -   If you are signed in to a delegated administrator account, specify
+--     @DELEGATED_ADMIN@.
+--
+--     Your AWS account must be registered as a delegated administrator in
+--     the management account. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+--     in the /AWS CloudFormation User Guide/.
+deleteStackSet_callAs :: Lens.Lens' DeleteStackSet (Prelude.Maybe CallAs)
+deleteStackSet_callAs = Lens.lens (\DeleteStackSet' {callAs} -> callAs) (\s@DeleteStackSet' {} a -> s {callAs = a} :: DeleteStackSet)
 
--- | The name or unique ID of the stack set that you're deleting. You can obtain this value by running 'ListStackSets' .
-dssStackSetName :: Lens' DeleteStackSet Text
-dssStackSetName = lens _dssStackSetName (\s a -> s {_dssStackSetName = a})
+-- | The name or unique ID of the stack set that you\'re deleting. You can
+-- obtain this value by running ListStackSets.
+deleteStackSet_stackSetName :: Lens.Lens' DeleteStackSet Prelude.Text
+deleteStackSet_stackSetName = Lens.lens (\DeleteStackSet' {stackSetName} -> stackSetName) (\s@DeleteStackSet' {} a -> s {stackSetName = a} :: DeleteStackSet)
 
-instance AWSRequest DeleteStackSet where
+instance Prelude.AWSRequest DeleteStackSet where
   type Rs DeleteStackSet = DeleteStackSetResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteStackSetResult"
       ( \s h x ->
-          DeleteStackSetResponse' <$> (pure (fromEnum s))
+          DeleteStackSetResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteStackSet
+instance Prelude.Hashable DeleteStackSet
 
-instance NFData DeleteStackSet
+instance Prelude.NFData DeleteStackSet
 
-instance ToHeaders DeleteStackSet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteStackSet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteStackSet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteStackSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteStackSet where
+instance Prelude.ToQuery DeleteStackSet where
   toQuery DeleteStackSet' {..} =
-    mconcat
-      [ "Action" =: ("DeleteStackSet" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "CallAs" =: _dssCallAs,
-        "StackSetName" =: _dssStackSetName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteStackSet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "CallAs" Prelude.=: callAs,
+        "StackSetName" Prelude.=: stackSetName
       ]
 
--- | /See:/ 'deleteStackSetResponse' smart constructor.
-newtype DeleteStackSetResponse = DeleteStackSetResponse'
-  { _dssrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteStackSetResponse' smart constructor.
+data DeleteStackSetResponse = DeleteStackSetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteStackSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteStackSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dssrrsResponseStatus' - -- | The response status code.
-deleteStackSetResponse ::
-  -- | 'dssrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteStackSetResponse_httpStatus' - The response's http status code.
+newDeleteStackSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteStackSetResponse
-deleteStackSetResponse pResponseStatus_ =
-  DeleteStackSetResponse'
-    { _dssrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteStackSetResponse pHttpStatus_ =
+  DeleteStackSetResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dssrrsResponseStatus :: Lens' DeleteStackSetResponse Int
-dssrrsResponseStatus = lens _dssrrsResponseStatus (\s a -> s {_dssrrsResponseStatus = a})
+-- | The response's http status code.
+deleteStackSetResponse_httpStatus :: Lens.Lens' DeleteStackSetResponse Prelude.Int
+deleteStackSetResponse_httpStatus = Lens.lens (\DeleteStackSetResponse' {httpStatus} -> httpStatus) (\s@DeleteStackSetResponse' {} a -> s {httpStatus = a} :: DeleteStackSetResponse)
 
-instance NFData DeleteStackSetResponse
+instance Prelude.NFData DeleteStackSetResponse

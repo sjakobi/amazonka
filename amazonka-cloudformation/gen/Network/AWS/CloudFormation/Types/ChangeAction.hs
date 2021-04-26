@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.CloudFormation.Types.ChangeAction
   ( ChangeAction
       ( ..,
-        CAAdd,
-        CADynamic,
-        CAImport,
-        CAModify,
-        CARemove
+        ChangeActionAdd,
+        ChangeActionDynamic,
+        ChangeActionImport,
+        ChangeActionModify,
+        ChangeActionRemove
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChangeAction = ChangeAction' (CI Text)
+newtype ChangeAction = ChangeAction'
+  { fromChangeAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CAAdd :: ChangeAction
-pattern CAAdd = ChangeAction' "Add"
+pattern ChangeActionAdd :: ChangeAction
+pattern ChangeActionAdd = ChangeAction' "Add"
 
-pattern CADynamic :: ChangeAction
-pattern CADynamic = ChangeAction' "Dynamic"
+pattern ChangeActionDynamic :: ChangeAction
+pattern ChangeActionDynamic = ChangeAction' "Dynamic"
 
-pattern CAImport :: ChangeAction
-pattern CAImport = ChangeAction' "Import"
+pattern ChangeActionImport :: ChangeAction
+pattern ChangeActionImport = ChangeAction' "Import"
 
-pattern CAModify :: ChangeAction
-pattern CAModify = ChangeAction' "Modify"
+pattern ChangeActionModify :: ChangeAction
+pattern ChangeActionModify = ChangeAction' "Modify"
 
-pattern CARemove :: ChangeAction
-pattern CARemove = ChangeAction' "Remove"
+pattern ChangeActionRemove :: ChangeAction
+pattern ChangeActionRemove = ChangeAction' "Remove"
 
 {-# COMPLETE
-  CAAdd,
-  CADynamic,
-  CAImport,
-  CAModify,
-  CARemove,
+  ChangeActionAdd,
+  ChangeActionDynamic,
+  ChangeActionImport,
+  ChangeActionModify,
+  ChangeActionRemove,
   ChangeAction'
   #-}
 
-instance FromText ChangeAction where
-  parser = (ChangeAction' . mk) <$> takeText
+instance Prelude.FromText ChangeAction where
+  parser = ChangeAction' Prelude.<$> Prelude.takeText
 
-instance ToText ChangeAction where
-  toText (ChangeAction' ci) = original ci
+instance Prelude.ToText ChangeAction where
+  toText (ChangeAction' x) = x
 
-instance Hashable ChangeAction
+instance Prelude.Hashable ChangeAction
 
-instance NFData ChangeAction
+instance Prelude.NFData ChangeAction
 
-instance ToByteString ChangeAction
+instance Prelude.ToByteString ChangeAction
 
-instance ToQuery ChangeAction
+instance Prelude.ToQuery ChangeAction
 
-instance ToHeader ChangeAction
+instance Prelude.ToHeader ChangeAction
 
-instance FromXML ChangeAction where
-  parseXML = parseXMLText "ChangeAction"
+instance Prelude.FromXML ChangeAction where
+  parseXML = Prelude.parseXMLText "ChangeAction"

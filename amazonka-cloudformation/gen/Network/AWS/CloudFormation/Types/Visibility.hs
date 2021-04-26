@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudFormation.Types.Visibility
   ( Visibility
       ( ..,
-        Private,
-        Public
+        VisibilityPRIVATE,
+        VisibilityPUBLIC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Visibility = Visibility' (CI Text)
+newtype Visibility = Visibility'
+  { fromVisibility ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Private :: Visibility
-pattern Private = Visibility' "PRIVATE"
+pattern VisibilityPRIVATE :: Visibility
+pattern VisibilityPRIVATE = Visibility' "PRIVATE"
 
-pattern Public :: Visibility
-pattern Public = Visibility' "PUBLIC"
+pattern VisibilityPUBLIC :: Visibility
+pattern VisibilityPUBLIC = Visibility' "PUBLIC"
 
 {-# COMPLETE
-  Private,
-  Public,
+  VisibilityPRIVATE,
+  VisibilityPUBLIC,
   Visibility'
   #-}
 
-instance FromText Visibility where
-  parser = (Visibility' . mk) <$> takeText
+instance Prelude.FromText Visibility where
+  parser = Visibility' Prelude.<$> Prelude.takeText
 
-instance ToText Visibility where
-  toText (Visibility' ci) = original ci
+instance Prelude.ToText Visibility where
+  toText (Visibility' x) = x
 
-instance Hashable Visibility
+instance Prelude.Hashable Visibility
 
-instance NFData Visibility
+instance Prelude.NFData Visibility
 
-instance ToByteString Visibility
+instance Prelude.ToByteString Visibility
 
-instance ToQuery Visibility
+instance Prelude.ToQuery Visibility
 
-instance ToHeader Visibility
+instance Prelude.ToHeader Visibility
 
-instance FromXML Visibility where
-  parseXML = parseXMLText "Visibility"
+instance Prelude.FromXML Visibility where
+  parseXML = Prelude.parseXMLText "Visibility"

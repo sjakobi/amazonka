@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudFormation.Types.StackSetStatus
   ( StackSetStatus
       ( ..,
-        SSSActive,
-        SSSDeleted
+        StackSetStatusACTIVE,
+        StackSetStatusDELETED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackSetStatus = StackSetStatus' (CI Text)
+newtype StackSetStatus = StackSetStatus'
+  { fromStackSetStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSSActive :: StackSetStatus
-pattern SSSActive = StackSetStatus' "ACTIVE"
+pattern StackSetStatusACTIVE :: StackSetStatus
+pattern StackSetStatusACTIVE = StackSetStatus' "ACTIVE"
 
-pattern SSSDeleted :: StackSetStatus
-pattern SSSDeleted = StackSetStatus' "DELETED"
+pattern StackSetStatusDELETED :: StackSetStatus
+pattern StackSetStatusDELETED = StackSetStatus' "DELETED"
 
 {-# COMPLETE
-  SSSActive,
-  SSSDeleted,
+  StackSetStatusACTIVE,
+  StackSetStatusDELETED,
   StackSetStatus'
   #-}
 
-instance FromText StackSetStatus where
-  parser = (StackSetStatus' . mk) <$> takeText
+instance Prelude.FromText StackSetStatus where
+  parser = StackSetStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StackSetStatus where
-  toText (StackSetStatus' ci) = original ci
+instance Prelude.ToText StackSetStatus where
+  toText (StackSetStatus' x) = x
 
-instance Hashable StackSetStatus
+instance Prelude.Hashable StackSetStatus
 
-instance NFData StackSetStatus
+instance Prelude.NFData StackSetStatus
 
-instance ToByteString StackSetStatus
+instance Prelude.ToByteString StackSetStatus
 
-instance ToQuery StackSetStatus
+instance Prelude.ToQuery StackSetStatus
 
-instance ToHeader StackSetStatus
+instance Prelude.ToHeader StackSetStatus
 
-instance FromXML StackSetStatus where
-  parseXML = parseXMLText "StackSetStatus"
+instance Prelude.FromXML StackSetStatus where
+  parseXML = Prelude.parseXMLText "StackSetStatus"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,57 @@
 module Network.AWS.CloudFormation.Types.ChangeSetType
   ( ChangeSetType
       ( ..,
-        CSTCreate,
-        CSTImport,
-        CSTUpdate
+        ChangeSetTypeCREATE,
+        ChangeSetTypeIMPORT,
+        ChangeSetTypeUPDATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChangeSetType = ChangeSetType' (CI Text)
+newtype ChangeSetType = ChangeSetType'
+  { fromChangeSetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSTCreate :: ChangeSetType
-pattern CSTCreate = ChangeSetType' "CREATE"
+pattern ChangeSetTypeCREATE :: ChangeSetType
+pattern ChangeSetTypeCREATE = ChangeSetType' "CREATE"
 
-pattern CSTImport :: ChangeSetType
-pattern CSTImport = ChangeSetType' "IMPORT"
+pattern ChangeSetTypeIMPORT :: ChangeSetType
+pattern ChangeSetTypeIMPORT = ChangeSetType' "IMPORT"
 
-pattern CSTUpdate :: ChangeSetType
-pattern CSTUpdate = ChangeSetType' "UPDATE"
+pattern ChangeSetTypeUPDATE :: ChangeSetType
+pattern ChangeSetTypeUPDATE = ChangeSetType' "UPDATE"
 
 {-# COMPLETE
-  CSTCreate,
-  CSTImport,
-  CSTUpdate,
+  ChangeSetTypeCREATE,
+  ChangeSetTypeIMPORT,
+  ChangeSetTypeUPDATE,
   ChangeSetType'
   #-}
 
-instance FromText ChangeSetType where
-  parser = (ChangeSetType' . mk) <$> takeText
+instance Prelude.FromText ChangeSetType where
+  parser = ChangeSetType' Prelude.<$> Prelude.takeText
 
-instance ToText ChangeSetType where
-  toText (ChangeSetType' ci) = original ci
+instance Prelude.ToText ChangeSetType where
+  toText (ChangeSetType' x) = x
 
-instance Hashable ChangeSetType
+instance Prelude.Hashable ChangeSetType
 
-instance NFData ChangeSetType
+instance Prelude.NFData ChangeSetType
 
-instance ToByteString ChangeSetType
+instance Prelude.ToByteString ChangeSetType
 
-instance ToQuery ChangeSetType
+instance Prelude.ToQuery ChangeSetType
 
-instance ToHeader ChangeSetType
+instance Prelude.ToHeader ChangeSetType

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudFormation.Types.TemplateStage
   ( TemplateStage
       ( ..,
-        Original,
-        Processed
+        TemplateStageOriginal,
+        TemplateStageProcessed
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TemplateStage = TemplateStage' (CI Text)
+newtype TemplateStage = TemplateStage'
+  { fromTemplateStage ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Original :: TemplateStage
-pattern Original = TemplateStage' "Original"
+pattern TemplateStageOriginal :: TemplateStage
+pattern TemplateStageOriginal = TemplateStage' "Original"
 
-pattern Processed :: TemplateStage
-pattern Processed = TemplateStage' "Processed"
+pattern TemplateStageProcessed :: TemplateStage
+pattern TemplateStageProcessed = TemplateStage' "Processed"
 
 {-# COMPLETE
-  Original,
-  Processed,
+  TemplateStageOriginal,
+  TemplateStageProcessed,
   TemplateStage'
   #-}
 
-instance FromText TemplateStage where
-  parser = (TemplateStage' . mk) <$> takeText
+instance Prelude.FromText TemplateStage where
+  parser = TemplateStage' Prelude.<$> Prelude.takeText
 
-instance ToText TemplateStage where
-  toText (TemplateStage' ci) = original ci
+instance Prelude.ToText TemplateStage where
+  toText (TemplateStage' x) = x
 
-instance Hashable TemplateStage
+instance Prelude.Hashable TemplateStage
 
-instance NFData TemplateStage
+instance Prelude.NFData TemplateStage
 
-instance ToByteString TemplateStage
+instance Prelude.ToByteString TemplateStage
 
-instance ToQuery TemplateStage
+instance Prelude.ToQuery TemplateStage
 
-instance ToHeader TemplateStage
+instance Prelude.ToHeader TemplateStage
 
-instance FromXML TemplateStage where
-  parseXML = parseXMLText "TemplateStage"
+instance Prelude.FromXML TemplateStage where
+  parseXML = Prelude.parseXMLText "TemplateStage"

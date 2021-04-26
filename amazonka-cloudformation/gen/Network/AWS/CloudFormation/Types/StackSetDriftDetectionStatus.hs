@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.CloudFormation.Types.StackSetDriftDetectionStatus
   ( StackSetDriftDetectionStatus
       ( ..,
-        SSDDSCompleted,
-        SSDDSFailed,
-        SSDDSInProgress,
-        SSDDSPartialSuccess,
-        SSDDSStopped
+        StackSetDriftDetectionStatusCOMPLETED,
+        StackSetDriftDetectionStatusFAILED,
+        StackSetDriftDetectionStatusINPROGRESS,
+        StackSetDriftDetectionStatusPARTIALSUCCESS,
+        StackSetDriftDetectionStatusSTOPPED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackSetDriftDetectionStatus
-  = StackSetDriftDetectionStatus'
-      ( CI
-          Text
-      )
+newtype StackSetDriftDetectionStatus = StackSetDriftDetectionStatus'
+  { fromStackSetDriftDetectionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSDDSCompleted :: StackSetDriftDetectionStatus
-pattern SSDDSCompleted = StackSetDriftDetectionStatus' "COMPLETED"
+pattern StackSetDriftDetectionStatusCOMPLETED :: StackSetDriftDetectionStatus
+pattern StackSetDriftDetectionStatusCOMPLETED = StackSetDriftDetectionStatus' "COMPLETED"
 
-pattern SSDDSFailed :: StackSetDriftDetectionStatus
-pattern SSDDSFailed = StackSetDriftDetectionStatus' "FAILED"
+pattern StackSetDriftDetectionStatusFAILED :: StackSetDriftDetectionStatus
+pattern StackSetDriftDetectionStatusFAILED = StackSetDriftDetectionStatus' "FAILED"
 
-pattern SSDDSInProgress :: StackSetDriftDetectionStatus
-pattern SSDDSInProgress = StackSetDriftDetectionStatus' "IN_PROGRESS"
+pattern StackSetDriftDetectionStatusINPROGRESS :: StackSetDriftDetectionStatus
+pattern StackSetDriftDetectionStatusINPROGRESS = StackSetDriftDetectionStatus' "IN_PROGRESS"
 
-pattern SSDDSPartialSuccess :: StackSetDriftDetectionStatus
-pattern SSDDSPartialSuccess = StackSetDriftDetectionStatus' "PARTIAL_SUCCESS"
+pattern StackSetDriftDetectionStatusPARTIALSUCCESS :: StackSetDriftDetectionStatus
+pattern StackSetDriftDetectionStatusPARTIALSUCCESS = StackSetDriftDetectionStatus' "PARTIAL_SUCCESS"
 
-pattern SSDDSStopped :: StackSetDriftDetectionStatus
-pattern SSDDSStopped = StackSetDriftDetectionStatus' "STOPPED"
+pattern StackSetDriftDetectionStatusSTOPPED :: StackSetDriftDetectionStatus
+pattern StackSetDriftDetectionStatusSTOPPED = StackSetDriftDetectionStatus' "STOPPED"
 
 {-# COMPLETE
-  SSDDSCompleted,
-  SSDDSFailed,
-  SSDDSInProgress,
-  SSDDSPartialSuccess,
-  SSDDSStopped,
+  StackSetDriftDetectionStatusCOMPLETED,
+  StackSetDriftDetectionStatusFAILED,
+  StackSetDriftDetectionStatusINPROGRESS,
+  StackSetDriftDetectionStatusPARTIALSUCCESS,
+  StackSetDriftDetectionStatusSTOPPED,
   StackSetDriftDetectionStatus'
   #-}
 
-instance FromText StackSetDriftDetectionStatus where
-  parser = (StackSetDriftDetectionStatus' . mk) <$> takeText
+instance Prelude.FromText StackSetDriftDetectionStatus where
+  parser = StackSetDriftDetectionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StackSetDriftDetectionStatus where
-  toText (StackSetDriftDetectionStatus' ci) = original ci
+instance Prelude.ToText StackSetDriftDetectionStatus where
+  toText (StackSetDriftDetectionStatus' x) = x
 
-instance Hashable StackSetDriftDetectionStatus
+instance Prelude.Hashable StackSetDriftDetectionStatus
 
-instance NFData StackSetDriftDetectionStatus
+instance Prelude.NFData StackSetDriftDetectionStatus
 
-instance ToByteString StackSetDriftDetectionStatus
+instance Prelude.ToByteString StackSetDriftDetectionStatus
 
-instance ToQuery StackSetDriftDetectionStatus
+instance Prelude.ToQuery StackSetDriftDetectionStatus
 
-instance ToHeader StackSetDriftDetectionStatus
+instance Prelude.ToHeader StackSetDriftDetectionStatus
 
-instance FromXML StackSetDriftDetectionStatus where
-  parseXML = parseXMLText "StackSetDriftDetectionStatus"
+instance Prelude.FromXML StackSetDriftDetectionStatus where
+  parseXML = Prelude.parseXMLText "StackSetDriftDetectionStatus"

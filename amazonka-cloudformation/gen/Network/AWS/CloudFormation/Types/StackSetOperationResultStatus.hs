@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.CloudFormation.Types.StackSetOperationResultStatus
   ( StackSetOperationResultStatus
       ( ..,
-        SSORSCancelled,
-        SSORSFailed,
-        SSORSPending,
-        SSORSRunning,
-        SSORSSucceeded
+        StackSetOperationResultStatusCANCELLED,
+        StackSetOperationResultStatusFAILED,
+        StackSetOperationResultStatusPENDING,
+        StackSetOperationResultStatusRUNNING,
+        StackSetOperationResultStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackSetOperationResultStatus
-  = StackSetOperationResultStatus'
-      ( CI
-          Text
-      )
+newtype StackSetOperationResultStatus = StackSetOperationResultStatus'
+  { fromStackSetOperationResultStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSORSCancelled :: StackSetOperationResultStatus
-pattern SSORSCancelled = StackSetOperationResultStatus' "CANCELLED"
+pattern StackSetOperationResultStatusCANCELLED :: StackSetOperationResultStatus
+pattern StackSetOperationResultStatusCANCELLED = StackSetOperationResultStatus' "CANCELLED"
 
-pattern SSORSFailed :: StackSetOperationResultStatus
-pattern SSORSFailed = StackSetOperationResultStatus' "FAILED"
+pattern StackSetOperationResultStatusFAILED :: StackSetOperationResultStatus
+pattern StackSetOperationResultStatusFAILED = StackSetOperationResultStatus' "FAILED"
 
-pattern SSORSPending :: StackSetOperationResultStatus
-pattern SSORSPending = StackSetOperationResultStatus' "PENDING"
+pattern StackSetOperationResultStatusPENDING :: StackSetOperationResultStatus
+pattern StackSetOperationResultStatusPENDING = StackSetOperationResultStatus' "PENDING"
 
-pattern SSORSRunning :: StackSetOperationResultStatus
-pattern SSORSRunning = StackSetOperationResultStatus' "RUNNING"
+pattern StackSetOperationResultStatusRUNNING :: StackSetOperationResultStatus
+pattern StackSetOperationResultStatusRUNNING = StackSetOperationResultStatus' "RUNNING"
 
-pattern SSORSSucceeded :: StackSetOperationResultStatus
-pattern SSORSSucceeded = StackSetOperationResultStatus' "SUCCEEDED"
+pattern StackSetOperationResultStatusSUCCEEDED :: StackSetOperationResultStatus
+pattern StackSetOperationResultStatusSUCCEEDED = StackSetOperationResultStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  SSORSCancelled,
-  SSORSFailed,
-  SSORSPending,
-  SSORSRunning,
-  SSORSSucceeded,
+  StackSetOperationResultStatusCANCELLED,
+  StackSetOperationResultStatusFAILED,
+  StackSetOperationResultStatusPENDING,
+  StackSetOperationResultStatusRUNNING,
+  StackSetOperationResultStatusSUCCEEDED,
   StackSetOperationResultStatus'
   #-}
 
-instance FromText StackSetOperationResultStatus where
-  parser = (StackSetOperationResultStatus' . mk) <$> takeText
+instance Prelude.FromText StackSetOperationResultStatus where
+  parser = StackSetOperationResultStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StackSetOperationResultStatus where
-  toText (StackSetOperationResultStatus' ci) = original ci
+instance Prelude.ToText StackSetOperationResultStatus where
+  toText (StackSetOperationResultStatus' x) = x
 
-instance Hashable StackSetOperationResultStatus
+instance Prelude.Hashable StackSetOperationResultStatus
 
-instance NFData StackSetOperationResultStatus
+instance Prelude.NFData StackSetOperationResultStatus
 
-instance ToByteString StackSetOperationResultStatus
+instance Prelude.ToByteString StackSetOperationResultStatus
 
-instance ToQuery StackSetOperationResultStatus
+instance Prelude.ToQuery StackSetOperationResultStatus
 
-instance ToHeader StackSetOperationResultStatus
+instance Prelude.ToHeader StackSetOperationResultStatus
 
-instance FromXML StackSetOperationResultStatus where
-  parseXML = parseXMLText "StackSetOperationResultStatus"
+instance Prelude.FromXML StackSetOperationResultStatus where
+  parseXML = Prelude.parseXMLText "StackSetOperationResultStatus"

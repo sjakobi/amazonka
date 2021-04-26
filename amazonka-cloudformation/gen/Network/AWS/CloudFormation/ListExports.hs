@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,139 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all exported output values in the account and Region in which you call this action. Use this action to see the exported output values that you can import into other stacks. To import values, use the <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html @Fn::ImportValue@ > function.
+-- Lists all exported output values in the account and Region in which you
+-- call this action. Use this action to see the exported output values that
+-- you can import into other stacks. To import values, use the
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html Fn::ImportValue>
+-- function.
 --
---
--- For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-exports.html AWS CloudFormation Export Stack Output Values> .
---
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-exports.html AWS CloudFormation Export Stack Output Values>.
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudFormation.ListExports
   ( -- * Creating a Request
-    listExports,
-    ListExports,
+    ListExports (..),
+    newListExports,
 
     -- * Request Lenses
-    leNextToken,
+    listExports_nextToken,
 
     -- * Destructuring the Response
-    listExportsResponse,
-    ListExportsResponse,
+    ListExportsResponse (..),
+    newListExportsResponse,
 
     -- * Response Lenses
-    lerrsExports,
-    lerrsNextToken,
-    lerrsResponseStatus,
+    listExportsResponse_exports,
+    listExportsResponse_nextToken,
+    listExportsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFormation.Types.Export
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listExports' smart constructor.
-newtype ListExports = ListExports'
-  { _leNextToken ::
-      Maybe Text
+-- | /See:/ 'newListExports' smart constructor.
+data ListExports = ListExports'
+  { -- | A string (provided by the ListExports response output) that identifies
+    -- the next page of exported output values that you asked to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListExports' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListExports' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'leNextToken' - A string (provided by the 'ListExports' response output) that identifies the next page of exported output values that you asked to retrieve.
-listExports ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listExports_nextToken' - A string (provided by the ListExports response output) that identifies
+-- the next page of exported output values that you asked to retrieve.
+newListExports ::
   ListExports
-listExports = ListExports' {_leNextToken = Nothing}
+newListExports =
+  ListExports' {nextToken = Prelude.Nothing}
 
--- | A string (provided by the 'ListExports' response output) that identifies the next page of exported output values that you asked to retrieve.
-leNextToken :: Lens' ListExports (Maybe Text)
-leNextToken = lens _leNextToken (\s a -> s {_leNextToken = a})
+-- | A string (provided by the ListExports response output) that identifies
+-- the next page of exported output values that you asked to retrieve.
+listExports_nextToken :: Lens.Lens' ListExports (Prelude.Maybe Prelude.Text)
+listExports_nextToken = Lens.lens (\ListExports' {nextToken} -> nextToken) (\s@ListExports' {} a -> s {nextToken = a} :: ListExports)
 
-instance AWSPager ListExports where
+instance Pager.AWSPager ListExports where
   page rq rs
-    | stop (rs ^. lerrsNextToken) = Nothing
-    | stop (rs ^. lerrsExports) = Nothing
-    | otherwise =
-      Just $ rq & leNextToken .~ rs ^. lerrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listExportsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listExportsResponse_exports Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listExports_nextToken
+          Lens..~ rs
+          Lens.^? listExportsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListExports where
+instance Prelude.AWSRequest ListExports where
   type Rs ListExports = ListExportsResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListExportsResult"
       ( \s h x ->
           ListExportsResponse'
-            <$> ( x .@? "Exports" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Exports" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListExports
+instance Prelude.Hashable ListExports
 
-instance NFData ListExports
+instance Prelude.NFData ListExports
 
-instance ToHeaders ListExports where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListExports where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListExports where
-  toPath = const "/"
+instance Prelude.ToPath ListExports where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListExports where
+instance Prelude.ToQuery ListExports where
   toQuery ListExports' {..} =
-    mconcat
-      [ "Action" =: ("ListExports" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "NextToken" =: _leNextToken
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListExports" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken
       ]
 
--- | /See:/ 'listExportsResponse' smart constructor.
+-- | /See:/ 'newListExportsResponse' smart constructor.
 data ListExportsResponse = ListExportsResponse'
-  { _lerrsExports ::
-      !(Maybe [Export]),
-    _lerrsNextToken ::
-      !(Maybe Text),
-    _lerrsResponseStatus :: !Int
+  { -- | The output for the ListExports action.
+    exports :: Prelude.Maybe [Export],
+    -- | If the output exceeds 100 exported output values, a string that
+    -- identifies the next page of exports. If there is no additional page,
+    -- this value is null.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListExportsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListExportsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lerrsExports' - The output for the 'ListExports' action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lerrsNextToken' - If the output exceeds 100 exported output values, a string that identifies the next page of exports. If there is no additional page, this value is null.
+-- 'exports', 'listExportsResponse_exports' - The output for the ListExports action.
 --
--- * 'lerrsResponseStatus' - -- | The response status code.
-listExportsResponse ::
-  -- | 'lerrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listExportsResponse_nextToken' - If the output exceeds 100 exported output values, a string that
+-- identifies the next page of exports. If there is no additional page,
+-- this value is null.
+--
+-- 'httpStatus', 'listExportsResponse_httpStatus' - The response's http status code.
+newListExportsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListExportsResponse
-listExportsResponse pResponseStatus_ =
+newListExportsResponse pHttpStatus_ =
   ListExportsResponse'
-    { _lerrsExports = Nothing,
-      _lerrsNextToken = Nothing,
-      _lerrsResponseStatus = pResponseStatus_
+    { exports = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The output for the 'ListExports' action.
-lerrsExports :: Lens' ListExportsResponse [Export]
-lerrsExports = lens _lerrsExports (\s a -> s {_lerrsExports = a}) . _Default . _Coerce
+-- | The output for the ListExports action.
+listExportsResponse_exports :: Lens.Lens' ListExportsResponse (Prelude.Maybe [Export])
+listExportsResponse_exports = Lens.lens (\ListExportsResponse' {exports} -> exports) (\s@ListExportsResponse' {} a -> s {exports = a} :: ListExportsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If the output exceeds 100 exported output values, a string that identifies the next page of exports. If there is no additional page, this value is null.
-lerrsNextToken :: Lens' ListExportsResponse (Maybe Text)
-lerrsNextToken = lens _lerrsNextToken (\s a -> s {_lerrsNextToken = a})
+-- | If the output exceeds 100 exported output values, a string that
+-- identifies the next page of exports. If there is no additional page,
+-- this value is null.
+listExportsResponse_nextToken :: Lens.Lens' ListExportsResponse (Prelude.Maybe Prelude.Text)
+listExportsResponse_nextToken = Lens.lens (\ListExportsResponse' {nextToken} -> nextToken) (\s@ListExportsResponse' {} a -> s {nextToken = a} :: ListExportsResponse)
 
--- | -- | The response status code.
-lerrsResponseStatus :: Lens' ListExportsResponse Int
-lerrsResponseStatus = lens _lerrsResponseStatus (\s a -> s {_lerrsResponseStatus = a})
+-- | The response's http status code.
+listExportsResponse_httpStatus :: Lens.Lens' ListExportsResponse Prelude.Int
+listExportsResponse_httpStatus = Lens.lens (\ListExportsResponse' {httpStatus} -> httpStatus) (\s@ListExportsResponse' {} a -> s {httpStatus = a} :: ListExportsResponse)
 
-instance NFData ListExportsResponse
+instance Prelude.NFData ListExportsResponse

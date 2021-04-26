@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,341 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns summary information about extension that have been registered with CloudFormation.
+-- Returns summary information about extension that have been registered
+-- with CloudFormation.
 module Network.AWS.CloudFormation.ListTypes
   ( -- * Creating a Request
-    listTypes,
-    ListTypes,
+    ListTypes (..),
+    newListTypes,
 
     -- * Request Lenses
-    ltNextToken,
-    ltMaxResults,
-    ltDeprecatedStatus,
-    ltProvisioningType,
-    ltVisibility,
-    ltType,
+    listTypes_nextToken,
+    listTypes_maxResults,
+    listTypes_deprecatedStatus,
+    listTypes_provisioningType,
+    listTypes_visibility,
+    listTypes_type,
 
     -- * Destructuring the Response
-    listTypesResponse,
-    ListTypesResponse,
+    ListTypesResponse (..),
+    newListTypesResponse,
 
     -- * Response Lenses
-    ltrrsNextToken,
-    ltrrsTypeSummaries,
-    ltrrsResponseStatus,
+    listTypesResponse_nextToken,
+    listTypesResponse_typeSummaries,
+    listTypesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFormation.Types.TypeSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTypes' smart constructor.
+-- | /See:/ 'newListTypes' smart constructor.
 data ListTypes = ListTypes'
-  { _ltNextToken ::
-      !(Maybe Text),
-    _ltMaxResults :: !(Maybe Nat),
-    _ltDeprecatedStatus :: !(Maybe DeprecatedStatus),
-    _ltProvisioningType :: !(Maybe ProvisioningType),
-    _ltVisibility :: !(Maybe Visibility),
-    _ltType :: !(Maybe RegistryType)
+  { -- | If the previous paginated request didn\'t return all of the remaining
+    -- results, the response object\'s @NextToken@ parameter value is set to a
+    -- token. To retrieve the next set of results, call this action again and
+    -- assign that token to the request object\'s @NextToken@ parameter. If
+    -- there are no remaining results, the previous response object\'s
+    -- @NextToken@ parameter is set to @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned with a single call. If the
+    -- number of available results exceeds this maximum, the response includes
+    -- a @NextToken@ value that you can assign to the @NextToken@ request
+    -- parameter to get the next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The deprecation status of the extension that you want to get summary
+    -- information about.
+    --
+    -- Valid values include:
+    --
+    -- -   @LIVE@: The extension is registered for use in CloudFormation
+    --     operations.
+    --
+    -- -   @DEPRECATED@: The extension has been deregistered and can no longer
+    --     be used in CloudFormation operations.
+    deprecatedStatus :: Prelude.Maybe DeprecatedStatus,
+    -- | The provisioning behavior of the type. AWS CloudFormation determines the
+    -- provisioning type during registration, based on the types of handlers in
+    -- the schema handler package submitted.
+    --
+    -- Valid values include:
+    --
+    -- -   @FULLY_MUTABLE@: The extension includes an update handler to process
+    --     updates to the extension during stack update operations.
+    --
+    -- -   @IMMUTABLE@: The extension does not include an update handler, so
+    --     the extension cannot be updated and must instead be replaced during
+    --     stack update operations.
+    --
+    -- -   @NON_PROVISIONABLE@: The extension does not include create, read,
+    --     and delete handlers, and therefore cannot actually be provisioned.
+    provisioningType :: Prelude.Maybe ProvisioningType,
+    -- | The scope at which the extension is visible and usable in CloudFormation
+    -- operations.
+    --
+    -- Valid values include:
+    --
+    -- -   @PRIVATE@: The extension is only visible and usable within the
+    --     account in which it is registered. Currently, AWS CloudFormation
+    --     marks any extension you create as @PRIVATE@.
+    --
+    -- -   @PUBLIC@: The extension is publically visible and usable within any
+    --     Amazon account.
+    --
+    -- The default is @PRIVATE@.
+    visibility :: Prelude.Maybe Visibility,
+    -- | The type of extension.
+    type' :: Prelude.Maybe RegistryType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTypes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTypes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltNextToken' - If the previous paginated request didn't return all of the remaining results, the response object's @NextToken@ parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's @NextToken@ parameter. If there are no remaining results, the previous response object's @NextToken@ parameter is set to @null@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltMaxResults' - The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a @NextToken@ value that you can assign to the @NextToken@ request parameter to get the next set of results.
+-- 'nextToken', 'listTypes_nextToken' - If the previous paginated request didn\'t return all of the remaining
+-- results, the response object\'s @NextToken@ parameter value is set to a
+-- token. To retrieve the next set of results, call this action again and
+-- assign that token to the request object\'s @NextToken@ parameter. If
+-- there are no remaining results, the previous response object\'s
+-- @NextToken@ parameter is set to @null@.
 --
--- * 'ltDeprecatedStatus' - The deprecation status of the extension that you want to get summary information about. Valid values include:     * @LIVE@ : The extension is registered for use in CloudFormation operations.     * @DEPRECATED@ : The extension has been deregistered and can no longer be used in CloudFormation operations.
+-- 'maxResults', 'listTypes_maxResults' - The maximum number of results to be returned with a single call. If the
+-- number of available results exceeds this maximum, the response includes
+-- a @NextToken@ value that you can assign to the @NextToken@ request
+-- parameter to get the next set of results.
 --
--- * 'ltProvisioningType' - The provisioning behavior of the type. AWS CloudFormation determines the provisioning type during registration, based on the types of handlers in the schema handler package submitted. Valid values include:     * @FULLY_MUTABLE@ : The extension includes an update handler to process updates to the extension during stack update operations.     * @IMMUTABLE@ : The extension does not include an update handler, so the extension cannot be updated and must instead be replaced during stack update operations.     * @NON_PROVISIONABLE@ : The extension does not include create, read, and delete handlers, and therefore cannot actually be provisioned.
+-- 'deprecatedStatus', 'listTypes_deprecatedStatus' - The deprecation status of the extension that you want to get summary
+-- information about.
 --
--- * 'ltVisibility' - The scope at which the extension is visible and usable in CloudFormation operations. Valid values include:     * @PRIVATE@ : The extension is only visible and usable within the account in which it is registered. Currently, AWS CloudFormation marks any extension you create as @PRIVATE@ .     * @PUBLIC@ : The extension is publically visible and usable within any Amazon account. The default is @PRIVATE@ .
+-- Valid values include:
 --
--- * 'ltType' - The type of extension.
-listTypes ::
+-- -   @LIVE@: The extension is registered for use in CloudFormation
+--     operations.
+--
+-- -   @DEPRECATED@: The extension has been deregistered and can no longer
+--     be used in CloudFormation operations.
+--
+-- 'provisioningType', 'listTypes_provisioningType' - The provisioning behavior of the type. AWS CloudFormation determines the
+-- provisioning type during registration, based on the types of handlers in
+-- the schema handler package submitted.
+--
+-- Valid values include:
+--
+-- -   @FULLY_MUTABLE@: The extension includes an update handler to process
+--     updates to the extension during stack update operations.
+--
+-- -   @IMMUTABLE@: The extension does not include an update handler, so
+--     the extension cannot be updated and must instead be replaced during
+--     stack update operations.
+--
+-- -   @NON_PROVISIONABLE@: The extension does not include create, read,
+--     and delete handlers, and therefore cannot actually be provisioned.
+--
+-- 'visibility', 'listTypes_visibility' - The scope at which the extension is visible and usable in CloudFormation
+-- operations.
+--
+-- Valid values include:
+--
+-- -   @PRIVATE@: The extension is only visible and usable within the
+--     account in which it is registered. Currently, AWS CloudFormation
+--     marks any extension you create as @PRIVATE@.
+--
+-- -   @PUBLIC@: The extension is publically visible and usable within any
+--     Amazon account.
+--
+-- The default is @PRIVATE@.
+--
+-- 'type'', 'listTypes_type' - The type of extension.
+newListTypes ::
   ListTypes
-listTypes =
+newListTypes =
   ListTypes'
-    { _ltNextToken = Nothing,
-      _ltMaxResults = Nothing,
-      _ltDeprecatedStatus = Nothing,
-      _ltProvisioningType = Nothing,
-      _ltVisibility = Nothing,
-      _ltType = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      deprecatedStatus = Prelude.Nothing,
+      provisioningType = Prelude.Nothing,
+      visibility = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | If the previous paginated request didn't return all of the remaining results, the response object's @NextToken@ parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's @NextToken@ parameter. If there are no remaining results, the previous response object's @NextToken@ parameter is set to @null@ .
-ltNextToken :: Lens' ListTypes (Maybe Text)
-ltNextToken = lens _ltNextToken (\s a -> s {_ltNextToken = a})
+-- | If the previous paginated request didn\'t return all of the remaining
+-- results, the response object\'s @NextToken@ parameter value is set to a
+-- token. To retrieve the next set of results, call this action again and
+-- assign that token to the request object\'s @NextToken@ parameter. If
+-- there are no remaining results, the previous response object\'s
+-- @NextToken@ parameter is set to @null@.
+listTypes_nextToken :: Lens.Lens' ListTypes (Prelude.Maybe Prelude.Text)
+listTypes_nextToken = Lens.lens (\ListTypes' {nextToken} -> nextToken) (\s@ListTypes' {} a -> s {nextToken = a} :: ListTypes)
 
--- | The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a @NextToken@ value that you can assign to the @NextToken@ request parameter to get the next set of results.
-ltMaxResults :: Lens' ListTypes (Maybe Natural)
-ltMaxResults = lens _ltMaxResults (\s a -> s {_ltMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to be returned with a single call. If the
+-- number of available results exceeds this maximum, the response includes
+-- a @NextToken@ value that you can assign to the @NextToken@ request
+-- parameter to get the next set of results.
+listTypes_maxResults :: Lens.Lens' ListTypes (Prelude.Maybe Prelude.Natural)
+listTypes_maxResults = Lens.lens (\ListTypes' {maxResults} -> maxResults) (\s@ListTypes' {} a -> s {maxResults = a} :: ListTypes) Prelude.. Lens.mapping Prelude._Nat
 
--- | The deprecation status of the extension that you want to get summary information about. Valid values include:     * @LIVE@ : The extension is registered for use in CloudFormation operations.     * @DEPRECATED@ : The extension has been deregistered and can no longer be used in CloudFormation operations.
-ltDeprecatedStatus :: Lens' ListTypes (Maybe DeprecatedStatus)
-ltDeprecatedStatus = lens _ltDeprecatedStatus (\s a -> s {_ltDeprecatedStatus = a})
+-- | The deprecation status of the extension that you want to get summary
+-- information about.
+--
+-- Valid values include:
+--
+-- -   @LIVE@: The extension is registered for use in CloudFormation
+--     operations.
+--
+-- -   @DEPRECATED@: The extension has been deregistered and can no longer
+--     be used in CloudFormation operations.
+listTypes_deprecatedStatus :: Lens.Lens' ListTypes (Prelude.Maybe DeprecatedStatus)
+listTypes_deprecatedStatus = Lens.lens (\ListTypes' {deprecatedStatus} -> deprecatedStatus) (\s@ListTypes' {} a -> s {deprecatedStatus = a} :: ListTypes)
 
--- | The provisioning behavior of the type. AWS CloudFormation determines the provisioning type during registration, based on the types of handlers in the schema handler package submitted. Valid values include:     * @FULLY_MUTABLE@ : The extension includes an update handler to process updates to the extension during stack update operations.     * @IMMUTABLE@ : The extension does not include an update handler, so the extension cannot be updated and must instead be replaced during stack update operations.     * @NON_PROVISIONABLE@ : The extension does not include create, read, and delete handlers, and therefore cannot actually be provisioned.
-ltProvisioningType :: Lens' ListTypes (Maybe ProvisioningType)
-ltProvisioningType = lens _ltProvisioningType (\s a -> s {_ltProvisioningType = a})
+-- | The provisioning behavior of the type. AWS CloudFormation determines the
+-- provisioning type during registration, based on the types of handlers in
+-- the schema handler package submitted.
+--
+-- Valid values include:
+--
+-- -   @FULLY_MUTABLE@: The extension includes an update handler to process
+--     updates to the extension during stack update operations.
+--
+-- -   @IMMUTABLE@: The extension does not include an update handler, so
+--     the extension cannot be updated and must instead be replaced during
+--     stack update operations.
+--
+-- -   @NON_PROVISIONABLE@: The extension does not include create, read,
+--     and delete handlers, and therefore cannot actually be provisioned.
+listTypes_provisioningType :: Lens.Lens' ListTypes (Prelude.Maybe ProvisioningType)
+listTypes_provisioningType = Lens.lens (\ListTypes' {provisioningType} -> provisioningType) (\s@ListTypes' {} a -> s {provisioningType = a} :: ListTypes)
 
--- | The scope at which the extension is visible and usable in CloudFormation operations. Valid values include:     * @PRIVATE@ : The extension is only visible and usable within the account in which it is registered. Currently, AWS CloudFormation marks any extension you create as @PRIVATE@ .     * @PUBLIC@ : The extension is publically visible and usable within any Amazon account. The default is @PRIVATE@ .
-ltVisibility :: Lens' ListTypes (Maybe Visibility)
-ltVisibility = lens _ltVisibility (\s a -> s {_ltVisibility = a})
+-- | The scope at which the extension is visible and usable in CloudFormation
+-- operations.
+--
+-- Valid values include:
+--
+-- -   @PRIVATE@: The extension is only visible and usable within the
+--     account in which it is registered. Currently, AWS CloudFormation
+--     marks any extension you create as @PRIVATE@.
+--
+-- -   @PUBLIC@: The extension is publically visible and usable within any
+--     Amazon account.
+--
+-- The default is @PRIVATE@.
+listTypes_visibility :: Lens.Lens' ListTypes (Prelude.Maybe Visibility)
+listTypes_visibility = Lens.lens (\ListTypes' {visibility} -> visibility) (\s@ListTypes' {} a -> s {visibility = a} :: ListTypes)
 
 -- | The type of extension.
-ltType :: Lens' ListTypes (Maybe RegistryType)
-ltType = lens _ltType (\s a -> s {_ltType = a})
+listTypes_type :: Lens.Lens' ListTypes (Prelude.Maybe RegistryType)
+listTypes_type = Lens.lens (\ListTypes' {type'} -> type') (\s@ListTypes' {} a -> s {type' = a} :: ListTypes)
 
-instance AWSRequest ListTypes where
+instance Prelude.AWSRequest ListTypes where
   type Rs ListTypes = ListTypesResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListTypesResult"
       ( \s h x ->
           ListTypesResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "TypeSummaries" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "TypeSummaries"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTypes
+instance Prelude.Hashable ListTypes
 
-instance NFData ListTypes
+instance Prelude.NFData ListTypes
 
-instance ToHeaders ListTypes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListTypes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListTypes where
-  toPath = const "/"
+instance Prelude.ToPath ListTypes where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTypes where
+instance Prelude.ToQuery ListTypes where
   toQuery ListTypes' {..} =
-    mconcat
-      [ "Action" =: ("ListTypes" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "NextToken" =: _ltNextToken,
-        "MaxResults" =: _ltMaxResults,
-        "DeprecatedStatus" =: _ltDeprecatedStatus,
-        "ProvisioningType" =: _ltProvisioningType,
-        "Visibility" =: _ltVisibility,
-        "Type" =: _ltType
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListTypes" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults,
+        "DeprecatedStatus" Prelude.=: deprecatedStatus,
+        "ProvisioningType" Prelude.=: provisioningType,
+        "Visibility" Prelude.=: visibility,
+        "Type" Prelude.=: type'
       ]
 
--- | /See:/ 'listTypesResponse' smart constructor.
+-- | /See:/ 'newListTypesResponse' smart constructor.
 data ListTypesResponse = ListTypesResponse'
-  { _ltrrsNextToken ::
-      !(Maybe Text),
-    _ltrrsTypeSummaries ::
-      !(Maybe [TypeSummary]),
-    _ltrrsResponseStatus :: !Int
+  { -- | If the request doesn\'t return all of the remaining results, @NextToken@
+    -- is set to a token. To retrieve the next set of results, call this action
+    -- again and assign that token to the request object\'s @NextToken@
+    -- parameter. If the request returns all results, @NextToken@ is set to
+    -- @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @TypeSummary@ structures that contain information about the
+    -- specified extensions.
+    typeSummaries :: Prelude.Maybe [TypeSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTypesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTypesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrrsNextToken' - If the request doesn't return all of the remaining results, @NextToken@ is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's @NextToken@ parameter. If the request returns all results, @NextToken@ is set to @null@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrrsTypeSummaries' - A list of @TypeSummary@ structures that contain information about the specified extensions.
+-- 'nextToken', 'listTypesResponse_nextToken' - If the request doesn\'t return all of the remaining results, @NextToken@
+-- is set to a token. To retrieve the next set of results, call this action
+-- again and assign that token to the request object\'s @NextToken@
+-- parameter. If the request returns all results, @NextToken@ is set to
+-- @null@.
 --
--- * 'ltrrsResponseStatus' - -- | The response status code.
-listTypesResponse ::
-  -- | 'ltrrsResponseStatus'
-  Int ->
+-- 'typeSummaries', 'listTypesResponse_typeSummaries' - A list of @TypeSummary@ structures that contain information about the
+-- specified extensions.
+--
+-- 'httpStatus', 'listTypesResponse_httpStatus' - The response's http status code.
+newListTypesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTypesResponse
-listTypesResponse pResponseStatus_ =
+newListTypesResponse pHttpStatus_ =
   ListTypesResponse'
-    { _ltrrsNextToken = Nothing,
-      _ltrrsTypeSummaries = Nothing,
-      _ltrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      typeSummaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the request doesn't return all of the remaining results, @NextToken@ is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's @NextToken@ parameter. If the request returns all results, @NextToken@ is set to @null@ .
-ltrrsNextToken :: Lens' ListTypesResponse (Maybe Text)
-ltrrsNextToken = lens _ltrrsNextToken (\s a -> s {_ltrrsNextToken = a})
+-- | If the request doesn\'t return all of the remaining results, @NextToken@
+-- is set to a token. To retrieve the next set of results, call this action
+-- again and assign that token to the request object\'s @NextToken@
+-- parameter. If the request returns all results, @NextToken@ is set to
+-- @null@.
+listTypesResponse_nextToken :: Lens.Lens' ListTypesResponse (Prelude.Maybe Prelude.Text)
+listTypesResponse_nextToken = Lens.lens (\ListTypesResponse' {nextToken} -> nextToken) (\s@ListTypesResponse' {} a -> s {nextToken = a} :: ListTypesResponse)
 
--- | A list of @TypeSummary@ structures that contain information about the specified extensions.
-ltrrsTypeSummaries :: Lens' ListTypesResponse [TypeSummary]
-ltrrsTypeSummaries = lens _ltrrsTypeSummaries (\s a -> s {_ltrrsTypeSummaries = a}) . _Default . _Coerce
+-- | A list of @TypeSummary@ structures that contain information about the
+-- specified extensions.
+listTypesResponse_typeSummaries :: Lens.Lens' ListTypesResponse (Prelude.Maybe [TypeSummary])
+listTypesResponse_typeSummaries = Lens.lens (\ListTypesResponse' {typeSummaries} -> typeSummaries) (\s@ListTypesResponse' {} a -> s {typeSummaries = a} :: ListTypesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltrrsResponseStatus :: Lens' ListTypesResponse Int
-ltrrsResponseStatus = lens _ltrrsResponseStatus (\s a -> s {_ltrrsResponseStatus = a})
+-- | The response's http status code.
+listTypesResponse_httpStatus :: Lens.Lens' ListTypesResponse Prelude.Int
+listTypesResponse_httpStatus = Lens.lens (\ListTypesResponse' {httpStatus} -> httpStatus) (\s@ListTypesResponse' {} a -> s {httpStatus = a} :: ListTypesResponse)
 
-instance NFData ListTypesResponse
+instance Prelude.NFData ListTypesResponse

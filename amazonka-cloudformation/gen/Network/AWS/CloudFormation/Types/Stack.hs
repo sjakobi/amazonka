@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -22,246 +26,371 @@ import Network.AWS.CloudFormation.Types.RollbackConfiguration
 import Network.AWS.CloudFormation.Types.StackDriftInformation
 import Network.AWS.CloudFormation.Types.StackStatus
 import Network.AWS.CloudFormation.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The Stack data type.
 --
---
---
--- /See:/ 'stack' smart constructor.
+-- /See:/ 'newStack' smart constructor.
 data Stack = Stack'
-  { _sOutputs :: !(Maybe [Output]),
-    _sDriftInformation :: !(Maybe StackDriftInformation),
-    _sRoleARN :: !(Maybe Text),
-    _sDeletionTime :: !(Maybe ISO8601),
-    _sCapabilities :: !(Maybe [Capability]),
-    _sStackStatusReason :: !(Maybe Text),
-    _sEnableTerminationProtection :: !(Maybe Bool),
-    _sStackId :: !(Maybe Text),
-    _sNotificationARNs :: !(Maybe [Text]),
-    _sRootId :: !(Maybe Text),
-    _sTags :: !(Maybe [Tag]),
-    _sChangeSetId :: !(Maybe Text),
-    _sTimeoutInMinutes :: !(Maybe Nat),
-    _sParentId :: !(Maybe Text),
-    _sRollbackConfiguration ::
-      !(Maybe RollbackConfiguration),
-    _sDescription :: !(Maybe Text),
-    _sDisableRollback :: !(Maybe Bool),
-    _sParameters :: !(Maybe [Parameter]),
-    _sLastUpdatedTime :: !(Maybe ISO8601),
-    _sStackName :: !Text,
-    _sCreationTime :: !ISO8601,
-    _sStackStatus :: !StackStatus
+  { -- | A list of output structures.
+    outputs :: Prelude.Maybe [Output],
+    -- | Information on whether a stack\'s actual configuration differs, or has
+    -- /drifted/, from it\'s expected configuration, as defined in the stack
+    -- template and any values specified as template parameters. For more
+    -- information, see
+    -- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html Detecting Unregulated Configuration Changes to Stacks and Resources>.
+    driftInformation :: Prelude.Maybe StackDriftInformation,
+    -- | The Amazon Resource Name (ARN) of an AWS Identity and Access Management
+    -- (IAM) role that is associated with the stack. During a stack operation,
+    -- AWS CloudFormation uses this role\'s credentials to make calls on your
+    -- behalf.
+    roleARN :: Prelude.Maybe Prelude.Text,
+    -- | The time the stack was deleted.
+    deletionTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The capabilities allowed in the stack.
+    capabilities :: Prelude.Maybe [Capability],
+    -- | Success\/failure message associated with the stack status.
+    stackStatusReason :: Prelude.Maybe Prelude.Text,
+    -- | Whether termination protection is enabled for the stack.
+    --
+    -- For
+    -- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks>,
+    -- termination protection is set on the root stack and cannot be changed
+    -- directly on the nested stack. For more information, see
+    -- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted>
+    -- in the /AWS CloudFormation User Guide/.
+    enableTerminationProtection :: Prelude.Maybe Prelude.Bool,
+    -- | Unique identifier of the stack.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | SNS topic ARNs to which stack related events are published.
+    notificationARNs :: Prelude.Maybe [Prelude.Text],
+    -- | For nested stacks--stacks created as resources for another stack--the
+    -- stack ID of the top-level stack to which the nested stack ultimately
+    -- belongs.
+    --
+    -- For more information, see
+    -- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks>
+    -- in the /AWS CloudFormation User Guide/.
+    rootId :: Prelude.Maybe Prelude.Text,
+    -- | A list of @Tag@s that specify information about the stack.
+    tags :: Prelude.Maybe [Tag],
+    -- | The unique ID of the change set.
+    changeSetId :: Prelude.Maybe Prelude.Text,
+    -- | The amount of time within which stack creation should complete.
+    timeoutInMinutes :: Prelude.Maybe Prelude.Nat,
+    -- | For nested stacks--stacks created as resources for another stack--the
+    -- stack ID of the direct parent of this stack. For the first level of
+    -- nested stacks, the root stack is also the parent stack.
+    --
+    -- For more information, see
+    -- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks>
+    -- in the /AWS CloudFormation User Guide/.
+    parentId :: Prelude.Maybe Prelude.Text,
+    -- | The rollback triggers for AWS CloudFormation to monitor during stack
+    -- creation and updating operations, and for the specified monitoring
+    -- period afterwards.
+    rollbackConfiguration :: Prelude.Maybe RollbackConfiguration,
+    -- | A user-defined description associated with the stack.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Boolean to enable or disable rollback on stack creation failures:
+    --
+    -- -   @true@: disable rollback
+    --
+    -- -   @false@: enable rollback
+    disableRollback :: Prelude.Maybe Prelude.Bool,
+    -- | A list of @Parameter@ structures.
+    parameters :: Prelude.Maybe [Parameter],
+    -- | The time the stack was last updated. This field will only be returned if
+    -- the stack has been updated at least once.
+    lastUpdatedTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name associated with the stack.
+    stackName :: Prelude.Text,
+    -- | The time at which the stack was created.
+    creationTime :: Prelude.ISO8601,
+    -- | Current status of the stack.
+    stackStatus :: StackStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Stack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Stack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sOutputs' - A list of output structures.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sDriftInformation' - Information on whether a stack's actual configuration differs, or has /drifted/ , from it's expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html Detecting Unregulated Configuration Changes to Stacks and Resources> .
+-- 'outputs', 'stack_outputs' - A list of output structures.
 --
--- * 'sRoleARN' - The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that is associated with the stack. During a stack operation, AWS CloudFormation uses this role's credentials to make calls on your behalf.
+-- 'driftInformation', 'stack_driftInformation' - Information on whether a stack\'s actual configuration differs, or has
+-- /drifted/, from it\'s expected configuration, as defined in the stack
+-- template and any values specified as template parameters. For more
+-- information, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html Detecting Unregulated Configuration Changes to Stacks and Resources>.
 --
--- * 'sDeletionTime' - The time the stack was deleted.
+-- 'roleARN', 'stack_roleARN' - The Amazon Resource Name (ARN) of an AWS Identity and Access Management
+-- (IAM) role that is associated with the stack. During a stack operation,
+-- AWS CloudFormation uses this role\'s credentials to make calls on your
+-- behalf.
 --
--- * 'sCapabilities' - The capabilities allowed in the stack.
+-- 'deletionTime', 'stack_deletionTime' - The time the stack was deleted.
 --
--- * 'sStackStatusReason' - Success/failure message associated with the stack status.
+-- 'capabilities', 'stack_capabilities' - The capabilities allowed in the stack.
 --
--- * 'sEnableTerminationProtection' - Whether termination protection is enabled for the stack. For <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks> , termination protection is set on the root stack and cannot be changed directly on the nested stack. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted> in the /AWS CloudFormation User Guide/ .
+-- 'stackStatusReason', 'stack_stackStatusReason' - Success\/failure message associated with the stack status.
 --
--- * 'sStackId' - Unique identifier of the stack.
+-- 'enableTerminationProtection', 'stack_enableTerminationProtection' - Whether termination protection is enabled for the stack.
 --
--- * 'sNotificationARNs' - SNS topic ARNs to which stack related events are published.
+-- For
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks>,
+-- termination protection is set on the root stack and cannot be changed
+-- directly on the nested stack. For more information, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted>
+-- in the /AWS CloudFormation User Guide/.
 --
--- * 'sRootId' - For nested stacks--stacks created as resources for another stack--the stack ID of the top-level stack to which the nested stack ultimately belongs. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
+-- 'stackId', 'stack_stackId' - Unique identifier of the stack.
 --
--- * 'sTags' - A list of @Tag@ s that specify information about the stack.
+-- 'notificationARNs', 'stack_notificationARNs' - SNS topic ARNs to which stack related events are published.
 --
--- * 'sChangeSetId' - The unique ID of the change set.
+-- 'rootId', 'stack_rootId' - For nested stacks--stacks created as resources for another stack--the
+-- stack ID of the top-level stack to which the nested stack ultimately
+-- belongs.
 --
--- * 'sTimeoutInMinutes' - The amount of time within which stack creation should complete.
+-- For more information, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks>
+-- in the /AWS CloudFormation User Guide/.
 --
--- * 'sParentId' - For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack. For the first level of nested stacks, the root stack is also the parent stack. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
+-- 'tags', 'stack_tags' - A list of @Tag@s that specify information about the stack.
 --
--- * 'sRollbackConfiguration' - The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+-- 'changeSetId', 'stack_changeSetId' - The unique ID of the change set.
 --
--- * 'sDescription' - A user-defined description associated with the stack.
+-- 'timeoutInMinutes', 'stack_timeoutInMinutes' - The amount of time within which stack creation should complete.
 --
--- * 'sDisableRollback' - Boolean to enable or disable rollback on stack creation failures:     * @true@ : disable rollback     * @false@ : enable rollback
+-- 'parentId', 'stack_parentId' - For nested stacks--stacks created as resources for another stack--the
+-- stack ID of the direct parent of this stack. For the first level of
+-- nested stacks, the root stack is also the parent stack.
 --
--- * 'sParameters' - A list of @Parameter@ structures.
+-- For more information, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks>
+-- in the /AWS CloudFormation User Guide/.
 --
--- * 'sLastUpdatedTime' - The time the stack was last updated. This field will only be returned if the stack has been updated at least once.
+-- 'rollbackConfiguration', 'stack_rollbackConfiguration' - The rollback triggers for AWS CloudFormation to monitor during stack
+-- creation and updating operations, and for the specified monitoring
+-- period afterwards.
 --
--- * 'sStackName' - The name associated with the stack.
+-- 'description', 'stack_description' - A user-defined description associated with the stack.
 --
--- * 'sCreationTime' - The time at which the stack was created.
+-- 'disableRollback', 'stack_disableRollback' - Boolean to enable or disable rollback on stack creation failures:
 --
--- * 'sStackStatus' - Current status of the stack.
-stack ::
-  -- | 'sStackName'
-  Text ->
-  -- | 'sCreationTime'
-  UTCTime ->
-  -- | 'sStackStatus'
+-- -   @true@: disable rollback
+--
+-- -   @false@: enable rollback
+--
+-- 'parameters', 'stack_parameters' - A list of @Parameter@ structures.
+--
+-- 'lastUpdatedTime', 'stack_lastUpdatedTime' - The time the stack was last updated. This field will only be returned if
+-- the stack has been updated at least once.
+--
+-- 'stackName', 'stack_stackName' - The name associated with the stack.
+--
+-- 'creationTime', 'stack_creationTime' - The time at which the stack was created.
+--
+-- 'stackStatus', 'stack_stackStatus' - Current status of the stack.
+newStack ::
+  -- | 'stackName'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'stackStatus'
   StackStatus ->
   Stack
-stack pStackName_ pCreationTime_ pStackStatus_ =
+newStack pStackName_ pCreationTime_ pStackStatus_ =
   Stack'
-    { _sOutputs = Nothing,
-      _sDriftInformation = Nothing,
-      _sRoleARN = Nothing,
-      _sDeletionTime = Nothing,
-      _sCapabilities = Nothing,
-      _sStackStatusReason = Nothing,
-      _sEnableTerminationProtection = Nothing,
-      _sStackId = Nothing,
-      _sNotificationARNs = Nothing,
-      _sRootId = Nothing,
-      _sTags = Nothing,
-      _sChangeSetId = Nothing,
-      _sTimeoutInMinutes = Nothing,
-      _sParentId = Nothing,
-      _sRollbackConfiguration = Nothing,
-      _sDescription = Nothing,
-      _sDisableRollback = Nothing,
-      _sParameters = Nothing,
-      _sLastUpdatedTime = Nothing,
-      _sStackName = pStackName_,
-      _sCreationTime = _Time # pCreationTime_,
-      _sStackStatus = pStackStatus_
+    { outputs = Prelude.Nothing,
+      driftInformation = Prelude.Nothing,
+      roleARN = Prelude.Nothing,
+      deletionTime = Prelude.Nothing,
+      capabilities = Prelude.Nothing,
+      stackStatusReason = Prelude.Nothing,
+      enableTerminationProtection = Prelude.Nothing,
+      stackId = Prelude.Nothing,
+      notificationARNs = Prelude.Nothing,
+      rootId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      changeSetId = Prelude.Nothing,
+      timeoutInMinutes = Prelude.Nothing,
+      parentId = Prelude.Nothing,
+      rollbackConfiguration = Prelude.Nothing,
+      description = Prelude.Nothing,
+      disableRollback = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      lastUpdatedTime = Prelude.Nothing,
+      stackName = pStackName_,
+      creationTime = Prelude._Time Lens.# pCreationTime_,
+      stackStatus = pStackStatus_
     }
 
 -- | A list of output structures.
-sOutputs :: Lens' Stack [Output]
-sOutputs = lens _sOutputs (\s a -> s {_sOutputs = a}) . _Default . _Coerce
+stack_outputs :: Lens.Lens' Stack (Prelude.Maybe [Output])
+stack_outputs = Lens.lens (\Stack' {outputs} -> outputs) (\s@Stack' {} a -> s {outputs = a} :: Stack) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Information on whether a stack's actual configuration differs, or has /drifted/ , from it's expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html Detecting Unregulated Configuration Changes to Stacks and Resources> .
-sDriftInformation :: Lens' Stack (Maybe StackDriftInformation)
-sDriftInformation = lens _sDriftInformation (\s a -> s {_sDriftInformation = a})
+-- | Information on whether a stack\'s actual configuration differs, or has
+-- /drifted/, from it\'s expected configuration, as defined in the stack
+-- template and any values specified as template parameters. For more
+-- information, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html Detecting Unregulated Configuration Changes to Stacks and Resources>.
+stack_driftInformation :: Lens.Lens' Stack (Prelude.Maybe StackDriftInformation)
+stack_driftInformation = Lens.lens (\Stack' {driftInformation} -> driftInformation) (\s@Stack' {} a -> s {driftInformation = a} :: Stack)
 
--- | The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that is associated with the stack. During a stack operation, AWS CloudFormation uses this role's credentials to make calls on your behalf.
-sRoleARN :: Lens' Stack (Maybe Text)
-sRoleARN = lens _sRoleARN (\s a -> s {_sRoleARN = a})
+-- | The Amazon Resource Name (ARN) of an AWS Identity and Access Management
+-- (IAM) role that is associated with the stack. During a stack operation,
+-- AWS CloudFormation uses this role\'s credentials to make calls on your
+-- behalf.
+stack_roleARN :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_roleARN = Lens.lens (\Stack' {roleARN} -> roleARN) (\s@Stack' {} a -> s {roleARN = a} :: Stack)
 
 -- | The time the stack was deleted.
-sDeletionTime :: Lens' Stack (Maybe UTCTime)
-sDeletionTime = lens _sDeletionTime (\s a -> s {_sDeletionTime = a}) . mapping _Time
+stack_deletionTime :: Lens.Lens' Stack (Prelude.Maybe Prelude.UTCTime)
+stack_deletionTime = Lens.lens (\Stack' {deletionTime} -> deletionTime) (\s@Stack' {} a -> s {deletionTime = a} :: Stack) Prelude.. Lens.mapping Prelude._Time
 
 -- | The capabilities allowed in the stack.
-sCapabilities :: Lens' Stack [Capability]
-sCapabilities = lens _sCapabilities (\s a -> s {_sCapabilities = a}) . _Default . _Coerce
+stack_capabilities :: Lens.Lens' Stack (Prelude.Maybe [Capability])
+stack_capabilities = Lens.lens (\Stack' {capabilities} -> capabilities) (\s@Stack' {} a -> s {capabilities = a} :: Stack) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Success/failure message associated with the stack status.
-sStackStatusReason :: Lens' Stack (Maybe Text)
-sStackStatusReason = lens _sStackStatusReason (\s a -> s {_sStackStatusReason = a})
+-- | Success\/failure message associated with the stack status.
+stack_stackStatusReason :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_stackStatusReason = Lens.lens (\Stack' {stackStatusReason} -> stackStatusReason) (\s@Stack' {} a -> s {stackStatusReason = a} :: Stack)
 
--- | Whether termination protection is enabled for the stack. For <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks> , termination protection is set on the root stack and cannot be changed directly on the nested stack. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted> in the /AWS CloudFormation User Guide/ .
-sEnableTerminationProtection :: Lens' Stack (Maybe Bool)
-sEnableTerminationProtection = lens _sEnableTerminationProtection (\s a -> s {_sEnableTerminationProtection = a})
+-- | Whether termination protection is enabled for the stack.
+--
+-- For
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks>,
+-- termination protection is set on the root stack and cannot be changed
+-- directly on the nested stack. For more information, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted>
+-- in the /AWS CloudFormation User Guide/.
+stack_enableTerminationProtection :: Lens.Lens' Stack (Prelude.Maybe Prelude.Bool)
+stack_enableTerminationProtection = Lens.lens (\Stack' {enableTerminationProtection} -> enableTerminationProtection) (\s@Stack' {} a -> s {enableTerminationProtection = a} :: Stack)
 
 -- | Unique identifier of the stack.
-sStackId :: Lens' Stack (Maybe Text)
-sStackId = lens _sStackId (\s a -> s {_sStackId = a})
+stack_stackId :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_stackId = Lens.lens (\Stack' {stackId} -> stackId) (\s@Stack' {} a -> s {stackId = a} :: Stack)
 
 -- | SNS topic ARNs to which stack related events are published.
-sNotificationARNs :: Lens' Stack [Text]
-sNotificationARNs = lens _sNotificationARNs (\s a -> s {_sNotificationARNs = a}) . _Default . _Coerce
+stack_notificationARNs :: Lens.Lens' Stack (Prelude.Maybe [Prelude.Text])
+stack_notificationARNs = Lens.lens (\Stack' {notificationARNs} -> notificationARNs) (\s@Stack' {} a -> s {notificationARNs = a} :: Stack) Prelude.. Lens.mapping Prelude._Coerce
 
--- | For nested stacks--stacks created as resources for another stack--the stack ID of the top-level stack to which the nested stack ultimately belongs. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
-sRootId :: Lens' Stack (Maybe Text)
-sRootId = lens _sRootId (\s a -> s {_sRootId = a})
+-- | For nested stacks--stacks created as resources for another stack--the
+-- stack ID of the top-level stack to which the nested stack ultimately
+-- belongs.
+--
+-- For more information, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks>
+-- in the /AWS CloudFormation User Guide/.
+stack_rootId :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_rootId = Lens.lens (\Stack' {rootId} -> rootId) (\s@Stack' {} a -> s {rootId = a} :: Stack)
 
--- | A list of @Tag@ s that specify information about the stack.
-sTags :: Lens' Stack [Tag]
-sTags = lens _sTags (\s a -> s {_sTags = a}) . _Default . _Coerce
+-- | A list of @Tag@s that specify information about the stack.
+stack_tags :: Lens.Lens' Stack (Prelude.Maybe [Tag])
+stack_tags = Lens.lens (\Stack' {tags} -> tags) (\s@Stack' {} a -> s {tags = a} :: Stack) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The unique ID of the change set.
-sChangeSetId :: Lens' Stack (Maybe Text)
-sChangeSetId = lens _sChangeSetId (\s a -> s {_sChangeSetId = a})
+stack_changeSetId :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_changeSetId = Lens.lens (\Stack' {changeSetId} -> changeSetId) (\s@Stack' {} a -> s {changeSetId = a} :: Stack)
 
 -- | The amount of time within which stack creation should complete.
-sTimeoutInMinutes :: Lens' Stack (Maybe Natural)
-sTimeoutInMinutes = lens _sTimeoutInMinutes (\s a -> s {_sTimeoutInMinutes = a}) . mapping _Nat
+stack_timeoutInMinutes :: Lens.Lens' Stack (Prelude.Maybe Prelude.Natural)
+stack_timeoutInMinutes = Lens.lens (\Stack' {timeoutInMinutes} -> timeoutInMinutes) (\s@Stack' {} a -> s {timeoutInMinutes = a} :: Stack) Prelude.. Lens.mapping Prelude._Nat
 
--- | For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack. For the first level of nested stacks, the root stack is also the parent stack. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
-sParentId :: Lens' Stack (Maybe Text)
-sParentId = lens _sParentId (\s a -> s {_sParentId = a})
+-- | For nested stacks--stacks created as resources for another stack--the
+-- stack ID of the direct parent of this stack. For the first level of
+-- nested stacks, the root stack is also the parent stack.
+--
+-- For more information, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks>
+-- in the /AWS CloudFormation User Guide/.
+stack_parentId :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_parentId = Lens.lens (\Stack' {parentId} -> parentId) (\s@Stack' {} a -> s {parentId = a} :: Stack)
 
--- | The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
-sRollbackConfiguration :: Lens' Stack (Maybe RollbackConfiguration)
-sRollbackConfiguration = lens _sRollbackConfiguration (\s a -> s {_sRollbackConfiguration = a})
+-- | The rollback triggers for AWS CloudFormation to monitor during stack
+-- creation and updating operations, and for the specified monitoring
+-- period afterwards.
+stack_rollbackConfiguration :: Lens.Lens' Stack (Prelude.Maybe RollbackConfiguration)
+stack_rollbackConfiguration = Lens.lens (\Stack' {rollbackConfiguration} -> rollbackConfiguration) (\s@Stack' {} a -> s {rollbackConfiguration = a} :: Stack)
 
 -- | A user-defined description associated with the stack.
-sDescription :: Lens' Stack (Maybe Text)
-sDescription = lens _sDescription (\s a -> s {_sDescription = a})
+stack_description :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_description = Lens.lens (\Stack' {description} -> description) (\s@Stack' {} a -> s {description = a} :: Stack)
 
--- | Boolean to enable or disable rollback on stack creation failures:     * @true@ : disable rollback     * @false@ : enable rollback
-sDisableRollback :: Lens' Stack (Maybe Bool)
-sDisableRollback = lens _sDisableRollback (\s a -> s {_sDisableRollback = a})
+-- | Boolean to enable or disable rollback on stack creation failures:
+--
+-- -   @true@: disable rollback
+--
+-- -   @false@: enable rollback
+stack_disableRollback :: Lens.Lens' Stack (Prelude.Maybe Prelude.Bool)
+stack_disableRollback = Lens.lens (\Stack' {disableRollback} -> disableRollback) (\s@Stack' {} a -> s {disableRollback = a} :: Stack)
 
 -- | A list of @Parameter@ structures.
-sParameters :: Lens' Stack [Parameter]
-sParameters = lens _sParameters (\s a -> s {_sParameters = a}) . _Default . _Coerce
+stack_parameters :: Lens.Lens' Stack (Prelude.Maybe [Parameter])
+stack_parameters = Lens.lens (\Stack' {parameters} -> parameters) (\s@Stack' {} a -> s {parameters = a} :: Stack) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The time the stack was last updated. This field will only be returned if the stack has been updated at least once.
-sLastUpdatedTime :: Lens' Stack (Maybe UTCTime)
-sLastUpdatedTime = lens _sLastUpdatedTime (\s a -> s {_sLastUpdatedTime = a}) . mapping _Time
+-- | The time the stack was last updated. This field will only be returned if
+-- the stack has been updated at least once.
+stack_lastUpdatedTime :: Lens.Lens' Stack (Prelude.Maybe Prelude.UTCTime)
+stack_lastUpdatedTime = Lens.lens (\Stack' {lastUpdatedTime} -> lastUpdatedTime) (\s@Stack' {} a -> s {lastUpdatedTime = a} :: Stack) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name associated with the stack.
-sStackName :: Lens' Stack Text
-sStackName = lens _sStackName (\s a -> s {_sStackName = a})
+stack_stackName :: Lens.Lens' Stack Prelude.Text
+stack_stackName = Lens.lens (\Stack' {stackName} -> stackName) (\s@Stack' {} a -> s {stackName = a} :: Stack)
 
 -- | The time at which the stack was created.
-sCreationTime :: Lens' Stack UTCTime
-sCreationTime = lens _sCreationTime (\s a -> s {_sCreationTime = a}) . _Time
+stack_creationTime :: Lens.Lens' Stack Prelude.UTCTime
+stack_creationTime = Lens.lens (\Stack' {creationTime} -> creationTime) (\s@Stack' {} a -> s {creationTime = a} :: Stack) Prelude.. Prelude._Time
 
 -- | Current status of the stack.
-sStackStatus :: Lens' Stack StackStatus
-sStackStatus = lens _sStackStatus (\s a -> s {_sStackStatus = a})
+stack_stackStatus :: Lens.Lens' Stack StackStatus
+stack_stackStatus = Lens.lens (\Stack' {stackStatus} -> stackStatus) (\s@Stack' {} a -> s {stackStatus = a} :: Stack)
 
-instance FromXML Stack where
+instance Prelude.FromXML Stack where
   parseXML x =
     Stack'
-      <$> ( x .@? "Outputs" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "DriftInformation")
-      <*> (x .@? "RoleARN")
-      <*> (x .@? "DeletionTime")
-      <*> ( x .@? "Capabilities" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "StackStatusReason")
-      <*> (x .@? "EnableTerminationProtection")
-      <*> (x .@? "StackId")
-      <*> ( x .@? "NotificationARNs" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "RootId")
-      <*> ( x .@? "Tags" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "ChangeSetId")
-      <*> (x .@? "TimeoutInMinutes")
-      <*> (x .@? "ParentId")
-      <*> (x .@? "RollbackConfiguration")
-      <*> (x .@? "Description")
-      <*> (x .@? "DisableRollback")
-      <*> ( x .@? "Parameters" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "LastUpdatedTime")
-      <*> (x .@ "StackName")
-      <*> (x .@ "CreationTime")
-      <*> (x .@ "StackStatus")
+      Prelude.<$> ( x Prelude..@? "Outputs" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "DriftInformation")
+      Prelude.<*> (x Prelude..@? "RoleARN")
+      Prelude.<*> (x Prelude..@? "DeletionTime")
+      Prelude.<*> ( x Prelude..@? "Capabilities"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "StackStatusReason")
+      Prelude.<*> (x Prelude..@? "EnableTerminationProtection")
+      Prelude.<*> (x Prelude..@? "StackId")
+      Prelude.<*> ( x Prelude..@? "NotificationARNs"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "RootId")
+      Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "ChangeSetId")
+      Prelude.<*> (x Prelude..@? "TimeoutInMinutes")
+      Prelude.<*> (x Prelude..@? "ParentId")
+      Prelude.<*> (x Prelude..@? "RollbackConfiguration")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "DisableRollback")
+      Prelude.<*> ( x Prelude..@? "Parameters"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "LastUpdatedTime")
+      Prelude.<*> (x Prelude..@ "StackName")
+      Prelude.<*> (x Prelude..@ "CreationTime")
+      Prelude.<*> (x Prelude..@ "StackStatus")
 
-instance Hashable Stack
+instance Prelude.Hashable Stack
 
-instance NFData Stack
+instance Prelude.NFData Stack

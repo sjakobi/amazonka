@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,193 +23,215 @@
 --
 -- Reports progress of a resource handler to CloudFormation.
 --
---
--- Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> . Do not use this API in your code.
+-- Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+-- Do not use this API in your code.
 module Network.AWS.CloudFormation.RecordHandlerProgress
   ( -- * Creating a Request
-    recordHandlerProgress,
-    RecordHandlerProgress,
+    RecordHandlerProgress (..),
+    newRecordHandlerProgress,
 
     -- * Request Lenses
-    rhpStatusMessage,
-    rhpResourceModel,
-    rhpClientRequestToken,
-    rhpCurrentOperationStatus,
-    rhpErrorCode,
-    rhpBearerToken,
-    rhpOperationStatus,
+    recordHandlerProgress_statusMessage,
+    recordHandlerProgress_resourceModel,
+    recordHandlerProgress_clientRequestToken,
+    recordHandlerProgress_currentOperationStatus,
+    recordHandlerProgress_errorCode,
+    recordHandlerProgress_bearerToken,
+    recordHandlerProgress_operationStatus,
 
     -- * Destructuring the Response
-    recordHandlerProgressResponse,
-    RecordHandlerProgressResponse,
+    RecordHandlerProgressResponse (..),
+    newRecordHandlerProgressResponse,
 
     -- * Response Lenses
-    rhprrsResponseStatus,
+    recordHandlerProgressResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'recordHandlerProgress' smart constructor.
+-- | /See:/ 'newRecordHandlerProgress' smart constructor.
 data RecordHandlerProgress = RecordHandlerProgress'
-  { _rhpStatusMessage ::
-      !(Maybe Text),
-    _rhpResourceModel ::
-      !(Maybe Text),
-    _rhpClientRequestToken ::
-      !(Maybe Text),
-    _rhpCurrentOperationStatus ::
-      !(Maybe OperationStatus),
-    _rhpErrorCode ::
-      !(Maybe HandlerErrorCode),
-    _rhpBearerToken :: !Text,
-    _rhpOperationStatus ::
-      !OperationStatus
+  { -- | Reserved for use by the
+    -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | Reserved for use by the
+    -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+    resourceModel :: Prelude.Maybe Prelude.Text,
+    -- | Reserved for use by the
+    -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | Reserved for use by the
+    -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+    currentOperationStatus :: Prelude.Maybe OperationStatus,
+    -- | Reserved for use by the
+    -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+    errorCode :: Prelude.Maybe HandlerErrorCode,
+    -- | Reserved for use by the
+    -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+    bearerToken :: Prelude.Text,
+    -- | Reserved for use by the
+    -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+    operationStatus :: OperationStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RecordHandlerProgress' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RecordHandlerProgress' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rhpStatusMessage' - Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rhpResourceModel' - Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
+-- 'statusMessage', 'recordHandlerProgress_statusMessage' - Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
 --
--- * 'rhpClientRequestToken' - Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
+-- 'resourceModel', 'recordHandlerProgress_resourceModel' - Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
 --
--- * 'rhpCurrentOperationStatus' - Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
+-- 'clientRequestToken', 'recordHandlerProgress_clientRequestToken' - Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
 --
--- * 'rhpErrorCode' - Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
+-- 'currentOperationStatus', 'recordHandlerProgress_currentOperationStatus' - Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
 --
--- * 'rhpBearerToken' - Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
+-- 'errorCode', 'recordHandlerProgress_errorCode' - Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
 --
--- * 'rhpOperationStatus' - Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
-recordHandlerProgress ::
-  -- | 'rhpBearerToken'
-  Text ->
-  -- | 'rhpOperationStatus'
+-- 'bearerToken', 'recordHandlerProgress_bearerToken' - Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+--
+-- 'operationStatus', 'recordHandlerProgress_operationStatus' - Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+newRecordHandlerProgress ::
+  -- | 'bearerToken'
+  Prelude.Text ->
+  -- | 'operationStatus'
   OperationStatus ->
   RecordHandlerProgress
-recordHandlerProgress pBearerToken_ pOperationStatus_ =
-  RecordHandlerProgress'
-    { _rhpStatusMessage = Nothing,
-      _rhpResourceModel = Nothing,
-      _rhpClientRequestToken = Nothing,
-      _rhpCurrentOperationStatus = Nothing,
-      _rhpErrorCode = Nothing,
-      _rhpBearerToken = pBearerToken_,
-      _rhpOperationStatus = pOperationStatus_
-    }
+newRecordHandlerProgress
+  pBearerToken_
+  pOperationStatus_ =
+    RecordHandlerProgress'
+      { statusMessage =
+          Prelude.Nothing,
+        resourceModel = Prelude.Nothing,
+        clientRequestToken = Prelude.Nothing,
+        currentOperationStatus = Prelude.Nothing,
+        errorCode = Prelude.Nothing,
+        bearerToken = pBearerToken_,
+        operationStatus = pOperationStatus_
+      }
 
--- | Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
-rhpStatusMessage :: Lens' RecordHandlerProgress (Maybe Text)
-rhpStatusMessage = lens _rhpStatusMessage (\s a -> s {_rhpStatusMessage = a})
+-- | Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+recordHandlerProgress_statusMessage :: Lens.Lens' RecordHandlerProgress (Prelude.Maybe Prelude.Text)
+recordHandlerProgress_statusMessage = Lens.lens (\RecordHandlerProgress' {statusMessage} -> statusMessage) (\s@RecordHandlerProgress' {} a -> s {statusMessage = a} :: RecordHandlerProgress)
 
--- | Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
-rhpResourceModel :: Lens' RecordHandlerProgress (Maybe Text)
-rhpResourceModel = lens _rhpResourceModel (\s a -> s {_rhpResourceModel = a})
+-- | Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+recordHandlerProgress_resourceModel :: Lens.Lens' RecordHandlerProgress (Prelude.Maybe Prelude.Text)
+recordHandlerProgress_resourceModel = Lens.lens (\RecordHandlerProgress' {resourceModel} -> resourceModel) (\s@RecordHandlerProgress' {} a -> s {resourceModel = a} :: RecordHandlerProgress)
 
--- | Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
-rhpClientRequestToken :: Lens' RecordHandlerProgress (Maybe Text)
-rhpClientRequestToken = lens _rhpClientRequestToken (\s a -> s {_rhpClientRequestToken = a})
+-- | Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+recordHandlerProgress_clientRequestToken :: Lens.Lens' RecordHandlerProgress (Prelude.Maybe Prelude.Text)
+recordHandlerProgress_clientRequestToken = Lens.lens (\RecordHandlerProgress' {clientRequestToken} -> clientRequestToken) (\s@RecordHandlerProgress' {} a -> s {clientRequestToken = a} :: RecordHandlerProgress)
 
--- | Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
-rhpCurrentOperationStatus :: Lens' RecordHandlerProgress (Maybe OperationStatus)
-rhpCurrentOperationStatus = lens _rhpCurrentOperationStatus (\s a -> s {_rhpCurrentOperationStatus = a})
+-- | Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+recordHandlerProgress_currentOperationStatus :: Lens.Lens' RecordHandlerProgress (Prelude.Maybe OperationStatus)
+recordHandlerProgress_currentOperationStatus = Lens.lens (\RecordHandlerProgress' {currentOperationStatus} -> currentOperationStatus) (\s@RecordHandlerProgress' {} a -> s {currentOperationStatus = a} :: RecordHandlerProgress)
 
--- | Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
-rhpErrorCode :: Lens' RecordHandlerProgress (Maybe HandlerErrorCode)
-rhpErrorCode = lens _rhpErrorCode (\s a -> s {_rhpErrorCode = a})
+-- | Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+recordHandlerProgress_errorCode :: Lens.Lens' RecordHandlerProgress (Prelude.Maybe HandlerErrorCode)
+recordHandlerProgress_errorCode = Lens.lens (\RecordHandlerProgress' {errorCode} -> errorCode) (\s@RecordHandlerProgress' {} a -> s {errorCode = a} :: RecordHandlerProgress)
 
--- | Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
-rhpBearerToken :: Lens' RecordHandlerProgress Text
-rhpBearerToken = lens _rhpBearerToken (\s a -> s {_rhpBearerToken = a})
+-- | Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+recordHandlerProgress_bearerToken :: Lens.Lens' RecordHandlerProgress Prelude.Text
+recordHandlerProgress_bearerToken = Lens.lens (\RecordHandlerProgress' {bearerToken} -> bearerToken) (\s@RecordHandlerProgress' {} a -> s {bearerToken = a} :: RecordHandlerProgress)
 
--- | Reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> .
-rhpOperationStatus :: Lens' RecordHandlerProgress OperationStatus
-rhpOperationStatus = lens _rhpOperationStatus (\s a -> s {_rhpOperationStatus = a})
+-- | Reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+recordHandlerProgress_operationStatus :: Lens.Lens' RecordHandlerProgress OperationStatus
+recordHandlerProgress_operationStatus = Lens.lens (\RecordHandlerProgress' {operationStatus} -> operationStatus) (\s@RecordHandlerProgress' {} a -> s {operationStatus = a} :: RecordHandlerProgress)
 
-instance AWSRequest RecordHandlerProgress where
+instance Prelude.AWSRequest RecordHandlerProgress where
   type
     Rs RecordHandlerProgress =
       RecordHandlerProgressResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "RecordHandlerProgressResult"
       ( \s h x ->
           RecordHandlerProgressResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RecordHandlerProgress
+instance Prelude.Hashable RecordHandlerProgress
 
-instance NFData RecordHandlerProgress
+instance Prelude.NFData RecordHandlerProgress
 
-instance ToHeaders RecordHandlerProgress where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RecordHandlerProgress where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RecordHandlerProgress where
-  toPath = const "/"
+instance Prelude.ToPath RecordHandlerProgress where
+  toPath = Prelude.const "/"
 
-instance ToQuery RecordHandlerProgress where
+instance Prelude.ToQuery RecordHandlerProgress where
   toQuery RecordHandlerProgress' {..} =
-    mconcat
-      [ "Action" =: ("RecordHandlerProgress" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "StatusMessage" =: _rhpStatusMessage,
-        "ResourceModel" =: _rhpResourceModel,
-        "ClientRequestToken" =: _rhpClientRequestToken,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("RecordHandlerProgress" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "StatusMessage" Prelude.=: statusMessage,
+        "ResourceModel" Prelude.=: resourceModel,
+        "ClientRequestToken" Prelude.=: clientRequestToken,
         "CurrentOperationStatus"
-          =: _rhpCurrentOperationStatus,
-        "ErrorCode" =: _rhpErrorCode,
-        "BearerToken" =: _rhpBearerToken,
-        "OperationStatus" =: _rhpOperationStatus
+          Prelude.=: currentOperationStatus,
+        "ErrorCode" Prelude.=: errorCode,
+        "BearerToken" Prelude.=: bearerToken,
+        "OperationStatus" Prelude.=: operationStatus
       ]
 
--- | /See:/ 'recordHandlerProgressResponse' smart constructor.
-newtype RecordHandlerProgressResponse = RecordHandlerProgressResponse'
-  { _rhprrsResponseStatus ::
-      Int
+-- | /See:/ 'newRecordHandlerProgressResponse' smart constructor.
+data RecordHandlerProgressResponse = RecordHandlerProgressResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RecordHandlerProgressResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RecordHandlerProgressResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rhprrsResponseStatus' - -- | The response status code.
-recordHandlerProgressResponse ::
-  -- | 'rhprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'recordHandlerProgressResponse_httpStatus' - The response's http status code.
+newRecordHandlerProgressResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RecordHandlerProgressResponse
-recordHandlerProgressResponse pResponseStatus_ =
+newRecordHandlerProgressResponse pHttpStatus_ =
   RecordHandlerProgressResponse'
-    { _rhprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-rhprrsResponseStatus :: Lens' RecordHandlerProgressResponse Int
-rhprrsResponseStatus = lens _rhprrsResponseStatus (\s a -> s {_rhprrsResponseStatus = a})
+-- | The response's http status code.
+recordHandlerProgressResponse_httpStatus :: Lens.Lens' RecordHandlerProgressResponse Prelude.Int
+recordHandlerProgressResponse_httpStatus = Lens.lens (\RecordHandlerProgressResponse' {httpStatus} -> httpStatus) (\s@RecordHandlerProgressResponse' {} a -> s {httpStatus = a} :: RecordHandlerProgressResponse)
 
-instance NFData RecordHandlerProgressResponse
+instance Prelude.NFData RecordHandlerProgressResponse

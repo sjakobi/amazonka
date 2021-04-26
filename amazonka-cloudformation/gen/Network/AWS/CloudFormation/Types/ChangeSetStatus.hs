@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,83 +19,85 @@
 module Network.AWS.CloudFormation.Types.ChangeSetStatus
   ( ChangeSetStatus
       ( ..,
-        CSSCreateComplete,
-        CSSCreateInProgress,
-        CSSCreatePending,
-        CSSDeleteComplete,
-        CSSDeleteFailed,
-        CSSDeleteInProgress,
-        CSSDeletePending,
-        CSSFailed
+        ChangeSetStatusCREATECOMPLETE,
+        ChangeSetStatusCREATEINPROGRESS,
+        ChangeSetStatusCREATEPENDING,
+        ChangeSetStatusDELETECOMPLETE,
+        ChangeSetStatusDELETEFAILED,
+        ChangeSetStatusDELETEINPROGRESS,
+        ChangeSetStatusDELETEPENDING,
+        ChangeSetStatusFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChangeSetStatus = ChangeSetStatus' (CI Text)
+newtype ChangeSetStatus = ChangeSetStatus'
+  { fromChangeSetStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSSCreateComplete :: ChangeSetStatus
-pattern CSSCreateComplete = ChangeSetStatus' "CREATE_COMPLETE"
+pattern ChangeSetStatusCREATECOMPLETE :: ChangeSetStatus
+pattern ChangeSetStatusCREATECOMPLETE = ChangeSetStatus' "CREATE_COMPLETE"
 
-pattern CSSCreateInProgress :: ChangeSetStatus
-pattern CSSCreateInProgress = ChangeSetStatus' "CREATE_IN_PROGRESS"
+pattern ChangeSetStatusCREATEINPROGRESS :: ChangeSetStatus
+pattern ChangeSetStatusCREATEINPROGRESS = ChangeSetStatus' "CREATE_IN_PROGRESS"
 
-pattern CSSCreatePending :: ChangeSetStatus
-pattern CSSCreatePending = ChangeSetStatus' "CREATE_PENDING"
+pattern ChangeSetStatusCREATEPENDING :: ChangeSetStatus
+pattern ChangeSetStatusCREATEPENDING = ChangeSetStatus' "CREATE_PENDING"
 
-pattern CSSDeleteComplete :: ChangeSetStatus
-pattern CSSDeleteComplete = ChangeSetStatus' "DELETE_COMPLETE"
+pattern ChangeSetStatusDELETECOMPLETE :: ChangeSetStatus
+pattern ChangeSetStatusDELETECOMPLETE = ChangeSetStatus' "DELETE_COMPLETE"
 
-pattern CSSDeleteFailed :: ChangeSetStatus
-pattern CSSDeleteFailed = ChangeSetStatus' "DELETE_FAILED"
+pattern ChangeSetStatusDELETEFAILED :: ChangeSetStatus
+pattern ChangeSetStatusDELETEFAILED = ChangeSetStatus' "DELETE_FAILED"
 
-pattern CSSDeleteInProgress :: ChangeSetStatus
-pattern CSSDeleteInProgress = ChangeSetStatus' "DELETE_IN_PROGRESS"
+pattern ChangeSetStatusDELETEINPROGRESS :: ChangeSetStatus
+pattern ChangeSetStatusDELETEINPROGRESS = ChangeSetStatus' "DELETE_IN_PROGRESS"
 
-pattern CSSDeletePending :: ChangeSetStatus
-pattern CSSDeletePending = ChangeSetStatus' "DELETE_PENDING"
+pattern ChangeSetStatusDELETEPENDING :: ChangeSetStatus
+pattern ChangeSetStatusDELETEPENDING = ChangeSetStatus' "DELETE_PENDING"
 
-pattern CSSFailed :: ChangeSetStatus
-pattern CSSFailed = ChangeSetStatus' "FAILED"
+pattern ChangeSetStatusFAILED :: ChangeSetStatus
+pattern ChangeSetStatusFAILED = ChangeSetStatus' "FAILED"
 
 {-# COMPLETE
-  CSSCreateComplete,
-  CSSCreateInProgress,
-  CSSCreatePending,
-  CSSDeleteComplete,
-  CSSDeleteFailed,
-  CSSDeleteInProgress,
-  CSSDeletePending,
-  CSSFailed,
+  ChangeSetStatusCREATECOMPLETE,
+  ChangeSetStatusCREATEINPROGRESS,
+  ChangeSetStatusCREATEPENDING,
+  ChangeSetStatusDELETECOMPLETE,
+  ChangeSetStatusDELETEFAILED,
+  ChangeSetStatusDELETEINPROGRESS,
+  ChangeSetStatusDELETEPENDING,
+  ChangeSetStatusFAILED,
   ChangeSetStatus'
   #-}
 
-instance FromText ChangeSetStatus where
-  parser = (ChangeSetStatus' . mk) <$> takeText
+instance Prelude.FromText ChangeSetStatus where
+  parser = ChangeSetStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ChangeSetStatus where
-  toText (ChangeSetStatus' ci) = original ci
+instance Prelude.ToText ChangeSetStatus where
+  toText (ChangeSetStatus' x) = x
 
-instance Hashable ChangeSetStatus
+instance Prelude.Hashable ChangeSetStatus
 
-instance NFData ChangeSetStatus
+instance Prelude.NFData ChangeSetStatus
 
-instance ToByteString ChangeSetStatus
+instance Prelude.ToByteString ChangeSetStatus
 
-instance ToQuery ChangeSetStatus
+instance Prelude.ToQuery ChangeSetStatus
 
-instance ToHeader ChangeSetStatus
+instance Prelude.ToHeader ChangeSetStatus
 
-instance FromXML ChangeSetStatus where
-  parseXML = parseXMLText "ChangeSetStatus"
+instance Prelude.FromXML ChangeSetStatus where
+  parseXML = Prelude.parseXMLText "ChangeSetStatus"

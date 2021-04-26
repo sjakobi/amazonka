@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,159 +23,185 @@
 --
 -- Returns a description of the specified resource in the specified stack.
 --
---
--- For deleted stacks, DescribeStackResource returns resource information for up to 90 days after the stack has been deleted.
+-- For deleted stacks, DescribeStackResource returns resource information
+-- for up to 90 days after the stack has been deleted.
 module Network.AWS.CloudFormation.DescribeStackResource
   ( -- * Creating a Request
-    describeStackResource,
-    DescribeStackResource,
+    DescribeStackResource (..),
+    newDescribeStackResource,
 
     -- * Request Lenses
-    dsrStackName,
-    dsrLogicalResourceId,
+    describeStackResource_stackName,
+    describeStackResource_logicalResourceId,
 
     -- * Destructuring the Response
-    describeStackResourceResponse,
-    DescribeStackResourceResponse,
+    DescribeStackResourceResponse (..),
+    newDescribeStackResourceResponse,
 
     -- * Response Lenses
-    dsrrrsStackResourceDetail,
-    dsrrrsResponseStatus,
+    describeStackResourceResponse_stackResourceDetail,
+    describeStackResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFormation.Types.StackResourceDetail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input for 'DescribeStackResource' action.
+-- | The input for DescribeStackResource action.
 --
---
---
--- /See:/ 'describeStackResource' smart constructor.
+-- /See:/ 'newDescribeStackResource' smart constructor.
 data DescribeStackResource = DescribeStackResource'
-  { _dsrStackName ::
-      !Text,
-    _dsrLogicalResourceId ::
-      !Text
+  { -- | The name or the unique stack ID that is associated with the stack, which
+    -- are not always interchangeable:
+    --
+    -- -   Running stacks: You can specify either the stack\'s name or its
+    --     unique stack ID.
+    --
+    -- -   Deleted stacks: You must specify the unique stack ID.
+    --
+    -- Default: There is no default value.
+    stackName :: Prelude.Text,
+    -- | The logical name of the resource as specified in the template.
+    --
+    -- Default: There is no default value.
+    logicalResourceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStackResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStackResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrStackName' - The name or the unique stack ID that is associated with the stack, which are not always interchangeable:     * Running stacks: You can specify either the stack's name or its unique stack ID.     * Deleted stacks: You must specify the unique stack ID. Default: There is no default value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrLogicalResourceId' - The logical name of the resource as specified in the template. Default: There is no default value.
-describeStackResource ::
-  -- | 'dsrStackName'
-  Text ->
-  -- | 'dsrLogicalResourceId'
-  Text ->
+-- 'stackName', 'describeStackResource_stackName' - The name or the unique stack ID that is associated with the stack, which
+-- are not always interchangeable:
+--
+-- -   Running stacks: You can specify either the stack\'s name or its
+--     unique stack ID.
+--
+-- -   Deleted stacks: You must specify the unique stack ID.
+--
+-- Default: There is no default value.
+--
+-- 'logicalResourceId', 'describeStackResource_logicalResourceId' - The logical name of the resource as specified in the template.
+--
+-- Default: There is no default value.
+newDescribeStackResource ::
+  -- | 'stackName'
+  Prelude.Text ->
+  -- | 'logicalResourceId'
+  Prelude.Text ->
   DescribeStackResource
-describeStackResource pStackName_ pLogicalResourceId_ =
-  DescribeStackResource'
-    { _dsrStackName = pStackName_,
-      _dsrLogicalResourceId = pLogicalResourceId_
-    }
+newDescribeStackResource
+  pStackName_
+  pLogicalResourceId_ =
+    DescribeStackResource'
+      { stackName = pStackName_,
+        logicalResourceId = pLogicalResourceId_
+      }
 
--- | The name or the unique stack ID that is associated with the stack, which are not always interchangeable:     * Running stacks: You can specify either the stack's name or its unique stack ID.     * Deleted stacks: You must specify the unique stack ID. Default: There is no default value.
-dsrStackName :: Lens' DescribeStackResource Text
-dsrStackName = lens _dsrStackName (\s a -> s {_dsrStackName = a})
+-- | The name or the unique stack ID that is associated with the stack, which
+-- are not always interchangeable:
+--
+-- -   Running stacks: You can specify either the stack\'s name or its
+--     unique stack ID.
+--
+-- -   Deleted stacks: You must specify the unique stack ID.
+--
+-- Default: There is no default value.
+describeStackResource_stackName :: Lens.Lens' DescribeStackResource Prelude.Text
+describeStackResource_stackName = Lens.lens (\DescribeStackResource' {stackName} -> stackName) (\s@DescribeStackResource' {} a -> s {stackName = a} :: DescribeStackResource)
 
--- | The logical name of the resource as specified in the template. Default: There is no default value.
-dsrLogicalResourceId :: Lens' DescribeStackResource Text
-dsrLogicalResourceId = lens _dsrLogicalResourceId (\s a -> s {_dsrLogicalResourceId = a})
+-- | The logical name of the resource as specified in the template.
+--
+-- Default: There is no default value.
+describeStackResource_logicalResourceId :: Lens.Lens' DescribeStackResource Prelude.Text
+describeStackResource_logicalResourceId = Lens.lens (\DescribeStackResource' {logicalResourceId} -> logicalResourceId) (\s@DescribeStackResource' {} a -> s {logicalResourceId = a} :: DescribeStackResource)
 
-instance AWSRequest DescribeStackResource where
+instance Prelude.AWSRequest DescribeStackResource where
   type
     Rs DescribeStackResource =
       DescribeStackResourceResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeStackResourceResult"
       ( \s h x ->
           DescribeStackResourceResponse'
-            <$> (x .@? "StackResourceDetail")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "StackResourceDetail")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeStackResource
+instance Prelude.Hashable DescribeStackResource
 
-instance NFData DescribeStackResource
+instance Prelude.NFData DescribeStackResource
 
-instance ToHeaders DescribeStackResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeStackResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeStackResource where
-  toPath = const "/"
+instance Prelude.ToPath DescribeStackResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeStackResource where
+instance Prelude.ToQuery DescribeStackResource where
   toQuery DescribeStackResource' {..} =
-    mconcat
-      [ "Action" =: ("DescribeStackResource" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "StackName" =: _dsrStackName,
-        "LogicalResourceId" =: _dsrLogicalResourceId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeStackResource" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "StackName" Prelude.=: stackName,
+        "LogicalResourceId" Prelude.=: logicalResourceId
       ]
 
--- | The output for a 'DescribeStackResource' action.
+-- | The output for a DescribeStackResource action.
 --
---
---
--- /See:/ 'describeStackResourceResponse' smart constructor.
+-- /See:/ 'newDescribeStackResourceResponse' smart constructor.
 data DescribeStackResourceResponse = DescribeStackResourceResponse'
-  { _dsrrrsStackResourceDetail ::
-      !( Maybe
-           StackResourceDetail
-       ),
-    _dsrrrsResponseStatus ::
-      !Int
+  { -- | A @StackResourceDetail@ structure containing the description of the
+    -- specified resource in the specified stack.
+    stackResourceDetail :: Prelude.Maybe StackResourceDetail,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStackResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStackResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrrsStackResourceDetail' - A @StackResourceDetail@ structure containing the description of the specified resource in the specified stack.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrrsResponseStatus' - -- | The response status code.
-describeStackResourceResponse ::
-  -- | 'dsrrrsResponseStatus'
-  Int ->
+-- 'stackResourceDetail', 'describeStackResourceResponse_stackResourceDetail' - A @StackResourceDetail@ structure containing the description of the
+-- specified resource in the specified stack.
+--
+-- 'httpStatus', 'describeStackResourceResponse_httpStatus' - The response's http status code.
+newDescribeStackResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeStackResourceResponse
-describeStackResourceResponse pResponseStatus_ =
+newDescribeStackResourceResponse pHttpStatus_ =
   DescribeStackResourceResponse'
-    { _dsrrrsStackResourceDetail =
-        Nothing,
-      _dsrrrsResponseStatus = pResponseStatus_
+    { stackResourceDetail =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A @StackResourceDetail@ structure containing the description of the specified resource in the specified stack.
-dsrrrsStackResourceDetail :: Lens' DescribeStackResourceResponse (Maybe StackResourceDetail)
-dsrrrsStackResourceDetail = lens _dsrrrsStackResourceDetail (\s a -> s {_dsrrrsStackResourceDetail = a})
+-- | A @StackResourceDetail@ structure containing the description of the
+-- specified resource in the specified stack.
+describeStackResourceResponse_stackResourceDetail :: Lens.Lens' DescribeStackResourceResponse (Prelude.Maybe StackResourceDetail)
+describeStackResourceResponse_stackResourceDetail = Lens.lens (\DescribeStackResourceResponse' {stackResourceDetail} -> stackResourceDetail) (\s@DescribeStackResourceResponse' {} a -> s {stackResourceDetail = a} :: DescribeStackResourceResponse)
 
--- | -- | The response status code.
-dsrrrsResponseStatus :: Lens' DescribeStackResourceResponse Int
-dsrrrsResponseStatus = lens _dsrrrsResponseStatus (\s a -> s {_dsrrrsResponseStatus = a})
+-- | The response's http status code.
+describeStackResourceResponse_httpStatus :: Lens.Lens' DescribeStackResourceResponse Prelude.Int
+describeStackResourceResponse_httpStatus = Lens.lens (\DescribeStackResourceResponse' {httpStatus} -> httpStatus) (\s@DescribeStackResourceResponse' {} a -> s {httpStatus = a} :: DescribeStackResourceResponse)
 
-instance NFData DescribeStackResourceResponse
+instance Prelude.NFData DescribeStackResourceResponse

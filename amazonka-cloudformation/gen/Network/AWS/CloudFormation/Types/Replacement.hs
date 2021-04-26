@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CloudFormation.Types.Replacement
   ( Replacement
       ( ..,
-        Conditional,
-        False',
-        True'
+        ReplacementConditional,
+        ReplacementFalse,
+        ReplacementTrue
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Replacement = Replacement' (CI Text)
+newtype Replacement = Replacement'
+  { fromReplacement ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Conditional :: Replacement
-pattern Conditional = Replacement' "Conditional"
+pattern ReplacementConditional :: Replacement
+pattern ReplacementConditional = Replacement' "Conditional"
 
-pattern False' :: Replacement
-pattern False' = Replacement' "False"
+pattern ReplacementFalse :: Replacement
+pattern ReplacementFalse = Replacement' "False"
 
-pattern True' :: Replacement
-pattern True' = Replacement' "True"
+pattern ReplacementTrue :: Replacement
+pattern ReplacementTrue = Replacement' "True"
 
 {-# COMPLETE
-  Conditional,
-  False',
-  True',
+  ReplacementConditional,
+  ReplacementFalse,
+  ReplacementTrue,
   Replacement'
   #-}
 
-instance FromText Replacement where
-  parser = (Replacement' . mk) <$> takeText
+instance Prelude.FromText Replacement where
+  parser = Replacement' Prelude.<$> Prelude.takeText
 
-instance ToText Replacement where
-  toText (Replacement' ci) = original ci
+instance Prelude.ToText Replacement where
+  toText (Replacement' x) = x
 
-instance Hashable Replacement
+instance Prelude.Hashable Replacement
 
-instance NFData Replacement
+instance Prelude.NFData Replacement
 
-instance ToByteString Replacement
+instance Prelude.ToByteString Replacement
 
-instance ToQuery Replacement
+instance Prelude.ToQuery Replacement
 
-instance ToHeader Replacement
+instance Prelude.ToHeader Replacement
 
-instance FromXML Replacement where
-  parseXML = parseXMLText "Replacement"
+instance Prelude.FromXML Replacement where
+  parseXML = Prelude.parseXMLText "Replacement"

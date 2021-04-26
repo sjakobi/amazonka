@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.CloudFormation.Types.RequiresRecreation
   ( RequiresRecreation
       ( ..,
-        Always,
-        Conditionally,
-        Never
+        RequiresRecreationAlways,
+        RequiresRecreationConditionally,
+        RequiresRecreationNever
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RequiresRecreation
-  = RequiresRecreation'
-      ( CI
-          Text
-      )
+newtype RequiresRecreation = RequiresRecreation'
+  { fromRequiresRecreation ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Always :: RequiresRecreation
-pattern Always = RequiresRecreation' "Always"
+pattern RequiresRecreationAlways :: RequiresRecreation
+pattern RequiresRecreationAlways = RequiresRecreation' "Always"
 
-pattern Conditionally :: RequiresRecreation
-pattern Conditionally = RequiresRecreation' "Conditionally"
+pattern RequiresRecreationConditionally :: RequiresRecreation
+pattern RequiresRecreationConditionally = RequiresRecreation' "Conditionally"
 
-pattern Never :: RequiresRecreation
-pattern Never = RequiresRecreation' "Never"
+pattern RequiresRecreationNever :: RequiresRecreation
+pattern RequiresRecreationNever = RequiresRecreation' "Never"
 
 {-# COMPLETE
-  Always,
-  Conditionally,
-  Never,
+  RequiresRecreationAlways,
+  RequiresRecreationConditionally,
+  RequiresRecreationNever,
   RequiresRecreation'
   #-}
 
-instance FromText RequiresRecreation where
-  parser = (RequiresRecreation' . mk) <$> takeText
+instance Prelude.FromText RequiresRecreation where
+  parser = RequiresRecreation' Prelude.<$> Prelude.takeText
 
-instance ToText RequiresRecreation where
-  toText (RequiresRecreation' ci) = original ci
+instance Prelude.ToText RequiresRecreation where
+  toText (RequiresRecreation' x) = x
 
-instance Hashable RequiresRecreation
+instance Prelude.Hashable RequiresRecreation
 
-instance NFData RequiresRecreation
+instance Prelude.NFData RequiresRecreation
 
-instance ToByteString RequiresRecreation
+instance Prelude.ToByteString RequiresRecreation
 
-instance ToQuery RequiresRecreation
+instance Prelude.ToQuery RequiresRecreation
 
-instance ToHeader RequiresRecreation
+instance Prelude.ToHeader RequiresRecreation
 
-instance FromXML RequiresRecreation where
-  parseXML = parseXMLText "RequiresRecreation"
+instance Prelude.FromXML RequiresRecreation where
+  parseXML = Prelude.parseXMLText "RequiresRecreation"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.CloudFormation.Types.ExecutionStatus
   ( ExecutionStatus
       ( ..,
-        Available,
-        ExecuteComplete,
-        ExecuteFailed,
-        ExecuteInProgress,
-        Obsolete,
-        Unavailable
+        ExecutionStatusAVAILABLE,
+        ExecutionStatusEXECUTECOMPLETE,
+        ExecutionStatusEXECUTEFAILED,
+        ExecutionStatusEXECUTEINPROGRESS,
+        ExecutionStatusOBSOLETE,
+        ExecutionStatusUNAVAILABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExecutionStatus = ExecutionStatus' (CI Text)
+newtype ExecutionStatus = ExecutionStatus'
+  { fromExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: ExecutionStatus
-pattern Available = ExecutionStatus' "AVAILABLE"
+pattern ExecutionStatusAVAILABLE :: ExecutionStatus
+pattern ExecutionStatusAVAILABLE = ExecutionStatus' "AVAILABLE"
 
-pattern ExecuteComplete :: ExecutionStatus
-pattern ExecuteComplete = ExecutionStatus' "EXECUTE_COMPLETE"
+pattern ExecutionStatusEXECUTECOMPLETE :: ExecutionStatus
+pattern ExecutionStatusEXECUTECOMPLETE = ExecutionStatus' "EXECUTE_COMPLETE"
 
-pattern ExecuteFailed :: ExecutionStatus
-pattern ExecuteFailed = ExecutionStatus' "EXECUTE_FAILED"
+pattern ExecutionStatusEXECUTEFAILED :: ExecutionStatus
+pattern ExecutionStatusEXECUTEFAILED = ExecutionStatus' "EXECUTE_FAILED"
 
-pattern ExecuteInProgress :: ExecutionStatus
-pattern ExecuteInProgress = ExecutionStatus' "EXECUTE_IN_PROGRESS"
+pattern ExecutionStatusEXECUTEINPROGRESS :: ExecutionStatus
+pattern ExecutionStatusEXECUTEINPROGRESS = ExecutionStatus' "EXECUTE_IN_PROGRESS"
 
-pattern Obsolete :: ExecutionStatus
-pattern Obsolete = ExecutionStatus' "OBSOLETE"
+pattern ExecutionStatusOBSOLETE :: ExecutionStatus
+pattern ExecutionStatusOBSOLETE = ExecutionStatus' "OBSOLETE"
 
-pattern Unavailable :: ExecutionStatus
-pattern Unavailable = ExecutionStatus' "UNAVAILABLE"
+pattern ExecutionStatusUNAVAILABLE :: ExecutionStatus
+pattern ExecutionStatusUNAVAILABLE = ExecutionStatus' "UNAVAILABLE"
 
 {-# COMPLETE
-  Available,
-  ExecuteComplete,
-  ExecuteFailed,
-  ExecuteInProgress,
-  Obsolete,
-  Unavailable,
+  ExecutionStatusAVAILABLE,
+  ExecutionStatusEXECUTECOMPLETE,
+  ExecutionStatusEXECUTEFAILED,
+  ExecutionStatusEXECUTEINPROGRESS,
+  ExecutionStatusOBSOLETE,
+  ExecutionStatusUNAVAILABLE,
   ExecutionStatus'
   #-}
 
-instance FromText ExecutionStatus where
-  parser = (ExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText ExecutionStatus where
+  parser = ExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ExecutionStatus where
-  toText (ExecutionStatus' ci) = original ci
+instance Prelude.ToText ExecutionStatus where
+  toText (ExecutionStatus' x) = x
 
-instance Hashable ExecutionStatus
+instance Prelude.Hashable ExecutionStatus
 
-instance NFData ExecutionStatus
+instance Prelude.NFData ExecutionStatus
 
-instance ToByteString ExecutionStatus
+instance Prelude.ToByteString ExecutionStatus
 
-instance ToQuery ExecutionStatus
+instance Prelude.ToQuery ExecutionStatus
 
-instance ToHeader ExecutionStatus
+instance Prelude.ToHeader ExecutionStatus
 
-instance FromXML ExecutionStatus where
-  parseXML = parseXMLText "ExecutionStatus"
+instance Prelude.FromXML ExecutionStatus where
+  parseXML = Prelude.parseXMLText "ExecutionStatus"

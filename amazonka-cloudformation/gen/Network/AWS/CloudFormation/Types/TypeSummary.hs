@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,86 +20,102 @@
 module Network.AWS.CloudFormation.Types.TypeSummary where
 
 import Network.AWS.CloudFormation.Types.RegistryType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains summary information about the specified CloudFormation type.
 --
---
---
--- /See:/ 'typeSummary' smart constructor.
+-- /See:/ 'newTypeSummary' smart constructor.
 data TypeSummary = TypeSummary'
-  { _tsTypeName ::
-      !(Maybe Text),
-    _tsLastUpdated :: !(Maybe ISO8601),
-    _tsDefaultVersionId :: !(Maybe Text),
-    _tsDescription :: !(Maybe Text),
-    _tsType :: !(Maybe RegistryType),
-    _tsTypeARN :: !(Maybe Text)
+  { -- | The name of the type.
+    typeName :: Prelude.Maybe Prelude.Text,
+    -- | When the current default version of the type was registered.
+    lastUpdated :: Prelude.Maybe Prelude.ISO8601,
+    -- | The ID of the default version of the type. The default version is used
+    -- when the type version is not specified.
+    --
+    -- To set the default version of a type, use @ SetTypeDefaultVersion @.
+    defaultVersionId :: Prelude.Maybe Prelude.Text,
+    -- | The description of the type.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The kind of type.
+    type' :: Prelude.Maybe RegistryType,
+    -- | The Amazon Resource Name (ARN) of the type.
+    typeArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TypeSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TypeSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsTypeName' - The name of the type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tsLastUpdated' - When the current default version of the type was registered.
+-- 'typeName', 'typeSummary_typeName' - The name of the type.
 --
--- * 'tsDefaultVersionId' - The ID of the default version of the type. The default version is used when the type version is not specified. To set the default version of a type, use @'SetTypeDefaultVersion' @ .
+-- 'lastUpdated', 'typeSummary_lastUpdated' - When the current default version of the type was registered.
 --
--- * 'tsDescription' - The description of the type.
+-- 'defaultVersionId', 'typeSummary_defaultVersionId' - The ID of the default version of the type. The default version is used
+-- when the type version is not specified.
 --
--- * 'tsType' - The kind of type.
+-- To set the default version of a type, use @ SetTypeDefaultVersion @.
 --
--- * 'tsTypeARN' - The Amazon Resource Name (ARN) of the type.
-typeSummary ::
+-- 'description', 'typeSummary_description' - The description of the type.
+--
+-- 'type'', 'typeSummary_type' - The kind of type.
+--
+-- 'typeArn', 'typeSummary_typeArn' - The Amazon Resource Name (ARN) of the type.
+newTypeSummary ::
   TypeSummary
-typeSummary =
+newTypeSummary =
   TypeSummary'
-    { _tsTypeName = Nothing,
-      _tsLastUpdated = Nothing,
-      _tsDefaultVersionId = Nothing,
-      _tsDescription = Nothing,
-      _tsType = Nothing,
-      _tsTypeARN = Nothing
+    { typeName = Prelude.Nothing,
+      lastUpdated = Prelude.Nothing,
+      defaultVersionId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      typeArn = Prelude.Nothing
     }
 
 -- | The name of the type.
-tsTypeName :: Lens' TypeSummary (Maybe Text)
-tsTypeName = lens _tsTypeName (\s a -> s {_tsTypeName = a})
+typeSummary_typeName :: Lens.Lens' TypeSummary (Prelude.Maybe Prelude.Text)
+typeSummary_typeName = Lens.lens (\TypeSummary' {typeName} -> typeName) (\s@TypeSummary' {} a -> s {typeName = a} :: TypeSummary)
 
 -- | When the current default version of the type was registered.
-tsLastUpdated :: Lens' TypeSummary (Maybe UTCTime)
-tsLastUpdated = lens _tsLastUpdated (\s a -> s {_tsLastUpdated = a}) . mapping _Time
+typeSummary_lastUpdated :: Lens.Lens' TypeSummary (Prelude.Maybe Prelude.UTCTime)
+typeSummary_lastUpdated = Lens.lens (\TypeSummary' {lastUpdated} -> lastUpdated) (\s@TypeSummary' {} a -> s {lastUpdated = a} :: TypeSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | The ID of the default version of the type. The default version is used when the type version is not specified. To set the default version of a type, use @'SetTypeDefaultVersion' @ .
-tsDefaultVersionId :: Lens' TypeSummary (Maybe Text)
-tsDefaultVersionId = lens _tsDefaultVersionId (\s a -> s {_tsDefaultVersionId = a})
+-- | The ID of the default version of the type. The default version is used
+-- when the type version is not specified.
+--
+-- To set the default version of a type, use @ SetTypeDefaultVersion @.
+typeSummary_defaultVersionId :: Lens.Lens' TypeSummary (Prelude.Maybe Prelude.Text)
+typeSummary_defaultVersionId = Lens.lens (\TypeSummary' {defaultVersionId} -> defaultVersionId) (\s@TypeSummary' {} a -> s {defaultVersionId = a} :: TypeSummary)
 
 -- | The description of the type.
-tsDescription :: Lens' TypeSummary (Maybe Text)
-tsDescription = lens _tsDescription (\s a -> s {_tsDescription = a})
+typeSummary_description :: Lens.Lens' TypeSummary (Prelude.Maybe Prelude.Text)
+typeSummary_description = Lens.lens (\TypeSummary' {description} -> description) (\s@TypeSummary' {} a -> s {description = a} :: TypeSummary)
 
 -- | The kind of type.
-tsType :: Lens' TypeSummary (Maybe RegistryType)
-tsType = lens _tsType (\s a -> s {_tsType = a})
+typeSummary_type :: Lens.Lens' TypeSummary (Prelude.Maybe RegistryType)
+typeSummary_type = Lens.lens (\TypeSummary' {type'} -> type') (\s@TypeSummary' {} a -> s {type' = a} :: TypeSummary)
 
 -- | The Amazon Resource Name (ARN) of the type.
-tsTypeARN :: Lens' TypeSummary (Maybe Text)
-tsTypeARN = lens _tsTypeARN (\s a -> s {_tsTypeARN = a})
+typeSummary_typeArn :: Lens.Lens' TypeSummary (Prelude.Maybe Prelude.Text)
+typeSummary_typeArn = Lens.lens (\TypeSummary' {typeArn} -> typeArn) (\s@TypeSummary' {} a -> s {typeArn = a} :: TypeSummary)
 
-instance FromXML TypeSummary where
+instance Prelude.FromXML TypeSummary where
   parseXML x =
     TypeSummary'
-      <$> (x .@? "TypeName")
-      <*> (x .@? "LastUpdated")
-      <*> (x .@? "DefaultVersionId")
-      <*> (x .@? "Description")
-      <*> (x .@? "Type")
-      <*> (x .@? "TypeArn")
+      Prelude.<$> (x Prelude..@? "TypeName")
+      Prelude.<*> (x Prelude..@? "LastUpdated")
+      Prelude.<*> (x Prelude..@? "DefaultVersionId")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "Type")
+      Prelude.<*> (x Prelude..@? "TypeArn")
 
-instance Hashable TypeSummary
+instance Prelude.Hashable TypeSummary
 
-instance NFData TypeSummary
+instance Prelude.NFData TypeSummary

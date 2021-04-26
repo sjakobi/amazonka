@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudFormation.Types.EvaluationType
   ( EvaluationType
       ( ..,
-        Dynamic,
-        Static
+        EvaluationTypeDynamic,
+        EvaluationTypeStatic
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EvaluationType = EvaluationType' (CI Text)
+newtype EvaluationType = EvaluationType'
+  { fromEvaluationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Dynamic :: EvaluationType
-pattern Dynamic = EvaluationType' "Dynamic"
+pattern EvaluationTypeDynamic :: EvaluationType
+pattern EvaluationTypeDynamic = EvaluationType' "Dynamic"
 
-pattern Static :: EvaluationType
-pattern Static = EvaluationType' "Static"
+pattern EvaluationTypeStatic :: EvaluationType
+pattern EvaluationTypeStatic = EvaluationType' "Static"
 
 {-# COMPLETE
-  Dynamic,
-  Static,
+  EvaluationTypeDynamic,
+  EvaluationTypeStatic,
   EvaluationType'
   #-}
 
-instance FromText EvaluationType where
-  parser = (EvaluationType' . mk) <$> takeText
+instance Prelude.FromText EvaluationType where
+  parser = EvaluationType' Prelude.<$> Prelude.takeText
 
-instance ToText EvaluationType where
-  toText (EvaluationType' ci) = original ci
+instance Prelude.ToText EvaluationType where
+  toText (EvaluationType' x) = x
 
-instance Hashable EvaluationType
+instance Prelude.Hashable EvaluationType
 
-instance NFData EvaluationType
+instance Prelude.NFData EvaluationType
 
-instance ToByteString EvaluationType
+instance Prelude.ToByteString EvaluationType
 
-instance ToQuery EvaluationType
+instance Prelude.ToQuery EvaluationType
 
-instance ToHeader EvaluationType
+instance Prelude.ToHeader EvaluationType
 
-instance FromXML EvaluationType where
-  parseXML = parseXMLText "EvaluationType"
+instance Prelude.FromXML EvaluationType where
+  parseXML = Prelude.parseXMLText "EvaluationType"

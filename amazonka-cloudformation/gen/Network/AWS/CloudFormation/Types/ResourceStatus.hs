@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,123 +19,125 @@
 module Network.AWS.CloudFormation.Types.ResourceStatus
   ( ResourceStatus
       ( ..,
-        CreateComplete,
-        CreateFailed,
-        CreateInProgress,
-        DeleteComplete,
-        DeleteFailed,
-        DeleteInProgress,
-        DeleteSkipped,
-        ImportComplete,
-        ImportFailed,
-        ImportInProgress,
-        ImportRollbackComplete,
-        ImportRollbackFailed,
-        ImportRollbackInProgress,
-        UpdateComplete,
-        UpdateFailed,
-        UpdateInProgress
+        ResourceStatusCREATECOMPLETE,
+        ResourceStatusCREATEFAILED,
+        ResourceStatusCREATEINPROGRESS,
+        ResourceStatusDELETECOMPLETE,
+        ResourceStatusDELETEFAILED,
+        ResourceStatusDELETEINPROGRESS,
+        ResourceStatusDELETESKIPPED,
+        ResourceStatusIMPORTCOMPLETE,
+        ResourceStatusIMPORTFAILED,
+        ResourceStatusIMPORTINPROGRESS,
+        ResourceStatusIMPORTROLLBACKCOMPLETE,
+        ResourceStatusIMPORTROLLBACKFAILED,
+        ResourceStatusIMPORTROLLBACKINPROGRESS,
+        ResourceStatusUPDATECOMPLETE,
+        ResourceStatusUPDATEFAILED,
+        ResourceStatusUPDATEINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceStatus = ResourceStatus' (CI Text)
+newtype ResourceStatus = ResourceStatus'
+  { fromResourceStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateComplete :: ResourceStatus
-pattern CreateComplete = ResourceStatus' "CREATE_COMPLETE"
+pattern ResourceStatusCREATECOMPLETE :: ResourceStatus
+pattern ResourceStatusCREATECOMPLETE = ResourceStatus' "CREATE_COMPLETE"
 
-pattern CreateFailed :: ResourceStatus
-pattern CreateFailed = ResourceStatus' "CREATE_FAILED"
+pattern ResourceStatusCREATEFAILED :: ResourceStatus
+pattern ResourceStatusCREATEFAILED = ResourceStatus' "CREATE_FAILED"
 
-pattern CreateInProgress :: ResourceStatus
-pattern CreateInProgress = ResourceStatus' "CREATE_IN_PROGRESS"
+pattern ResourceStatusCREATEINPROGRESS :: ResourceStatus
+pattern ResourceStatusCREATEINPROGRESS = ResourceStatus' "CREATE_IN_PROGRESS"
 
-pattern DeleteComplete :: ResourceStatus
-pattern DeleteComplete = ResourceStatus' "DELETE_COMPLETE"
+pattern ResourceStatusDELETECOMPLETE :: ResourceStatus
+pattern ResourceStatusDELETECOMPLETE = ResourceStatus' "DELETE_COMPLETE"
 
-pattern DeleteFailed :: ResourceStatus
-pattern DeleteFailed = ResourceStatus' "DELETE_FAILED"
+pattern ResourceStatusDELETEFAILED :: ResourceStatus
+pattern ResourceStatusDELETEFAILED = ResourceStatus' "DELETE_FAILED"
 
-pattern DeleteInProgress :: ResourceStatus
-pattern DeleteInProgress = ResourceStatus' "DELETE_IN_PROGRESS"
+pattern ResourceStatusDELETEINPROGRESS :: ResourceStatus
+pattern ResourceStatusDELETEINPROGRESS = ResourceStatus' "DELETE_IN_PROGRESS"
 
-pattern DeleteSkipped :: ResourceStatus
-pattern DeleteSkipped = ResourceStatus' "DELETE_SKIPPED"
+pattern ResourceStatusDELETESKIPPED :: ResourceStatus
+pattern ResourceStatusDELETESKIPPED = ResourceStatus' "DELETE_SKIPPED"
 
-pattern ImportComplete :: ResourceStatus
-pattern ImportComplete = ResourceStatus' "IMPORT_COMPLETE"
+pattern ResourceStatusIMPORTCOMPLETE :: ResourceStatus
+pattern ResourceStatusIMPORTCOMPLETE = ResourceStatus' "IMPORT_COMPLETE"
 
-pattern ImportFailed :: ResourceStatus
-pattern ImportFailed = ResourceStatus' "IMPORT_FAILED"
+pattern ResourceStatusIMPORTFAILED :: ResourceStatus
+pattern ResourceStatusIMPORTFAILED = ResourceStatus' "IMPORT_FAILED"
 
-pattern ImportInProgress :: ResourceStatus
-pattern ImportInProgress = ResourceStatus' "IMPORT_IN_PROGRESS"
+pattern ResourceStatusIMPORTINPROGRESS :: ResourceStatus
+pattern ResourceStatusIMPORTINPROGRESS = ResourceStatus' "IMPORT_IN_PROGRESS"
 
-pattern ImportRollbackComplete :: ResourceStatus
-pattern ImportRollbackComplete = ResourceStatus' "IMPORT_ROLLBACK_COMPLETE"
+pattern ResourceStatusIMPORTROLLBACKCOMPLETE :: ResourceStatus
+pattern ResourceStatusIMPORTROLLBACKCOMPLETE = ResourceStatus' "IMPORT_ROLLBACK_COMPLETE"
 
-pattern ImportRollbackFailed :: ResourceStatus
-pattern ImportRollbackFailed = ResourceStatus' "IMPORT_ROLLBACK_FAILED"
+pattern ResourceStatusIMPORTROLLBACKFAILED :: ResourceStatus
+pattern ResourceStatusIMPORTROLLBACKFAILED = ResourceStatus' "IMPORT_ROLLBACK_FAILED"
 
-pattern ImportRollbackInProgress :: ResourceStatus
-pattern ImportRollbackInProgress = ResourceStatus' "IMPORT_ROLLBACK_IN_PROGRESS"
+pattern ResourceStatusIMPORTROLLBACKINPROGRESS :: ResourceStatus
+pattern ResourceStatusIMPORTROLLBACKINPROGRESS = ResourceStatus' "IMPORT_ROLLBACK_IN_PROGRESS"
 
-pattern UpdateComplete :: ResourceStatus
-pattern UpdateComplete = ResourceStatus' "UPDATE_COMPLETE"
+pattern ResourceStatusUPDATECOMPLETE :: ResourceStatus
+pattern ResourceStatusUPDATECOMPLETE = ResourceStatus' "UPDATE_COMPLETE"
 
-pattern UpdateFailed :: ResourceStatus
-pattern UpdateFailed = ResourceStatus' "UPDATE_FAILED"
+pattern ResourceStatusUPDATEFAILED :: ResourceStatus
+pattern ResourceStatusUPDATEFAILED = ResourceStatus' "UPDATE_FAILED"
 
-pattern UpdateInProgress :: ResourceStatus
-pattern UpdateInProgress = ResourceStatus' "UPDATE_IN_PROGRESS"
+pattern ResourceStatusUPDATEINPROGRESS :: ResourceStatus
+pattern ResourceStatusUPDATEINPROGRESS = ResourceStatus' "UPDATE_IN_PROGRESS"
 
 {-# COMPLETE
-  CreateComplete,
-  CreateFailed,
-  CreateInProgress,
-  DeleteComplete,
-  DeleteFailed,
-  DeleteInProgress,
-  DeleteSkipped,
-  ImportComplete,
-  ImportFailed,
-  ImportInProgress,
-  ImportRollbackComplete,
-  ImportRollbackFailed,
-  ImportRollbackInProgress,
-  UpdateComplete,
-  UpdateFailed,
-  UpdateInProgress,
+  ResourceStatusCREATECOMPLETE,
+  ResourceStatusCREATEFAILED,
+  ResourceStatusCREATEINPROGRESS,
+  ResourceStatusDELETECOMPLETE,
+  ResourceStatusDELETEFAILED,
+  ResourceStatusDELETEINPROGRESS,
+  ResourceStatusDELETESKIPPED,
+  ResourceStatusIMPORTCOMPLETE,
+  ResourceStatusIMPORTFAILED,
+  ResourceStatusIMPORTINPROGRESS,
+  ResourceStatusIMPORTROLLBACKCOMPLETE,
+  ResourceStatusIMPORTROLLBACKFAILED,
+  ResourceStatusIMPORTROLLBACKINPROGRESS,
+  ResourceStatusUPDATECOMPLETE,
+  ResourceStatusUPDATEFAILED,
+  ResourceStatusUPDATEINPROGRESS,
   ResourceStatus'
   #-}
 
-instance FromText ResourceStatus where
-  parser = (ResourceStatus' . mk) <$> takeText
+instance Prelude.FromText ResourceStatus where
+  parser = ResourceStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceStatus where
-  toText (ResourceStatus' ci) = original ci
+instance Prelude.ToText ResourceStatus where
+  toText (ResourceStatus' x) = x
 
-instance Hashable ResourceStatus
+instance Prelude.Hashable ResourceStatus
 
-instance NFData ResourceStatus
+instance Prelude.NFData ResourceStatus
 
-instance ToByteString ResourceStatus
+instance Prelude.ToByteString ResourceStatus
 
-instance ToQuery ResourceStatus
+instance Prelude.ToQuery ResourceStatus
 
-instance ToHeader ResourceStatus
+instance Prelude.ToHeader ResourceStatus
 
-instance FromXML ResourceStatus where
-  parseXML = parseXMLText "ResourceStatus"
+instance Prelude.FromXML ResourceStatus where
+  parseXML = Prelude.parseXMLText "ResourceStatus"

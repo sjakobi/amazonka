@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,193 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops an in-progress operation on a stack set and its associated stack instances.
+-- Stops an in-progress operation on a stack set and its associated stack
+-- instances.
 module Network.AWS.CloudFormation.StopStackSetOperation
   ( -- * Creating a Request
-    stopStackSetOperation,
-    StopStackSetOperation,
+    StopStackSetOperation (..),
+    newStopStackSetOperation,
 
     -- * Request Lenses
-    sssoCallAs,
-    sssoStackSetName,
-    sssoOperationId,
+    stopStackSetOperation_callAs,
+    stopStackSetOperation_stackSetName,
+    stopStackSetOperation_operationId,
 
     -- * Destructuring the Response
-    stopStackSetOperationResponse,
-    StopStackSetOperationResponse,
+    StopStackSetOperationResponse (..),
+    newStopStackSetOperationResponse,
 
     -- * Response Lenses
-    sssorrsResponseStatus,
+    stopStackSetOperationResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopStackSetOperation' smart constructor.
+-- | /See:/ 'newStopStackSetOperation' smart constructor.
 data StopStackSetOperation = StopStackSetOperation'
-  { _sssoCallAs ::
-      !(Maybe CallAs),
-    _sssoStackSetName :: !Text,
-    _sssoOperationId :: !Text
+  { -- | [Service-managed permissions] Specifies whether you are acting as an
+    -- account administrator in the organization\'s management account or as a
+    -- delegated administrator in a member account.
+    --
+    -- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+    -- self-managed permissions.
+    --
+    -- -   If you are signed in to the management account, specify @SELF@.
+    --
+    -- -   If you are signed in to a delegated administrator account, specify
+    --     @DELEGATED_ADMIN@.
+    --
+    --     Your AWS account must be registered as a delegated administrator in
+    --     the management account. For more information, see
+    --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+    --     in the /AWS CloudFormation User Guide/.
+    callAs :: Prelude.Maybe CallAs,
+    -- | The name or unique ID of the stack set that you want to stop the
+    -- operation for.
+    stackSetName :: Prelude.Text,
+    -- | The ID of the stack operation.
+    operationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopStackSetOperation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopStackSetOperation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sssoCallAs' - [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. By default, @SELF@ is specified. Use @SELF@ for stack sets with self-managed permissions.     * If you are signed in to the management account, specify @SELF@ .     * If you are signed in to a delegated administrator account, specify @DELEGATED_ADMIN@ . Your AWS account must be registered as a delegated administrator in the management account. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator> in the /AWS CloudFormation User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sssoStackSetName' - The name or unique ID of the stack set that you want to stop the operation for.
+-- 'callAs', 'stopStackSetOperation_callAs' - [Service-managed permissions] Specifies whether you are acting as an
+-- account administrator in the organization\'s management account or as a
+-- delegated administrator in a member account.
 --
--- * 'sssoOperationId' - The ID of the stack operation.
-stopStackSetOperation ::
-  -- | 'sssoStackSetName'
-  Text ->
-  -- | 'sssoOperationId'
-  Text ->
+-- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+-- self-managed permissions.
+--
+-- -   If you are signed in to the management account, specify @SELF@.
+--
+-- -   If you are signed in to a delegated administrator account, specify
+--     @DELEGATED_ADMIN@.
+--
+--     Your AWS account must be registered as a delegated administrator in
+--     the management account. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+--     in the /AWS CloudFormation User Guide/.
+--
+-- 'stackSetName', 'stopStackSetOperation_stackSetName' - The name or unique ID of the stack set that you want to stop the
+-- operation for.
+--
+-- 'operationId', 'stopStackSetOperation_operationId' - The ID of the stack operation.
+newStopStackSetOperation ::
+  -- | 'stackSetName'
+  Prelude.Text ->
+  -- | 'operationId'
+  Prelude.Text ->
   StopStackSetOperation
-stopStackSetOperation pStackSetName_ pOperationId_ =
+newStopStackSetOperation pStackSetName_ pOperationId_ =
   StopStackSetOperation'
-    { _sssoCallAs = Nothing,
-      _sssoStackSetName = pStackSetName_,
-      _sssoOperationId = pOperationId_
+    { callAs = Prelude.Nothing,
+      stackSetName = pStackSetName_,
+      operationId = pOperationId_
     }
 
--- | [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. By default, @SELF@ is specified. Use @SELF@ for stack sets with self-managed permissions.     * If you are signed in to the management account, specify @SELF@ .     * If you are signed in to a delegated administrator account, specify @DELEGATED_ADMIN@ . Your AWS account must be registered as a delegated administrator in the management account. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator> in the /AWS CloudFormation User Guide/ .
-sssoCallAs :: Lens' StopStackSetOperation (Maybe CallAs)
-sssoCallAs = lens _sssoCallAs (\s a -> s {_sssoCallAs = a})
+-- | [Service-managed permissions] Specifies whether you are acting as an
+-- account administrator in the organization\'s management account or as a
+-- delegated administrator in a member account.
+--
+-- By default, @SELF@ is specified. Use @SELF@ for stack sets with
+-- self-managed permissions.
+--
+-- -   If you are signed in to the management account, specify @SELF@.
+--
+-- -   If you are signed in to a delegated administrator account, specify
+--     @DELEGATED_ADMIN@.
+--
+--     Your AWS account must be registered as a delegated administrator in
+--     the management account. For more information, see
+--     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
+--     in the /AWS CloudFormation User Guide/.
+stopStackSetOperation_callAs :: Lens.Lens' StopStackSetOperation (Prelude.Maybe CallAs)
+stopStackSetOperation_callAs = Lens.lens (\StopStackSetOperation' {callAs} -> callAs) (\s@StopStackSetOperation' {} a -> s {callAs = a} :: StopStackSetOperation)
 
--- | The name or unique ID of the stack set that you want to stop the operation for.
-sssoStackSetName :: Lens' StopStackSetOperation Text
-sssoStackSetName = lens _sssoStackSetName (\s a -> s {_sssoStackSetName = a})
+-- | The name or unique ID of the stack set that you want to stop the
+-- operation for.
+stopStackSetOperation_stackSetName :: Lens.Lens' StopStackSetOperation Prelude.Text
+stopStackSetOperation_stackSetName = Lens.lens (\StopStackSetOperation' {stackSetName} -> stackSetName) (\s@StopStackSetOperation' {} a -> s {stackSetName = a} :: StopStackSetOperation)
 
 -- | The ID of the stack operation.
-sssoOperationId :: Lens' StopStackSetOperation Text
-sssoOperationId = lens _sssoOperationId (\s a -> s {_sssoOperationId = a})
+stopStackSetOperation_operationId :: Lens.Lens' StopStackSetOperation Prelude.Text
+stopStackSetOperation_operationId = Lens.lens (\StopStackSetOperation' {operationId} -> operationId) (\s@StopStackSetOperation' {} a -> s {operationId = a} :: StopStackSetOperation)
 
-instance AWSRequest StopStackSetOperation where
+instance Prelude.AWSRequest StopStackSetOperation where
   type
     Rs StopStackSetOperation =
       StopStackSetOperationResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "StopStackSetOperationResult"
       ( \s h x ->
           StopStackSetOperationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopStackSetOperation
+instance Prelude.Hashable StopStackSetOperation
 
-instance NFData StopStackSetOperation
+instance Prelude.NFData StopStackSetOperation
 
-instance ToHeaders StopStackSetOperation where
-  toHeaders = const mempty
+instance Prelude.ToHeaders StopStackSetOperation where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath StopStackSetOperation where
-  toPath = const "/"
+instance Prelude.ToPath StopStackSetOperation where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopStackSetOperation where
+instance Prelude.ToQuery StopStackSetOperation where
   toQuery StopStackSetOperation' {..} =
-    mconcat
-      [ "Action" =: ("StopStackSetOperation" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "CallAs" =: _sssoCallAs,
-        "StackSetName" =: _sssoStackSetName,
-        "OperationId" =: _sssoOperationId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("StopStackSetOperation" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "CallAs" Prelude.=: callAs,
+        "StackSetName" Prelude.=: stackSetName,
+        "OperationId" Prelude.=: operationId
       ]
 
--- | /See:/ 'stopStackSetOperationResponse' smart constructor.
-newtype StopStackSetOperationResponse = StopStackSetOperationResponse'
-  { _sssorrsResponseStatus ::
-      Int
+-- | /See:/ 'newStopStackSetOperationResponse' smart constructor.
+data StopStackSetOperationResponse = StopStackSetOperationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopStackSetOperationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopStackSetOperationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sssorrsResponseStatus' - -- | The response status code.
-stopStackSetOperationResponse ::
-  -- | 'sssorrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'stopStackSetOperationResponse_httpStatus' - The response's http status code.
+newStopStackSetOperationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopStackSetOperationResponse
-stopStackSetOperationResponse pResponseStatus_ =
+newStopStackSetOperationResponse pHttpStatus_ =
   StopStackSetOperationResponse'
-    { _sssorrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-sssorrsResponseStatus :: Lens' StopStackSetOperationResponse Int
-sssorrsResponseStatus = lens _sssorrsResponseStatus (\s a -> s {_sssorrsResponseStatus = a})
+-- | The response's http status code.
+stopStackSetOperationResponse_httpStatus :: Lens.Lens' StopStackSetOperationResponse Prelude.Int
+stopStackSetOperationResponse_httpStatus = Lens.lens (\StopStackSetOperationResponse' {httpStatus} -> httpStatus) (\s@StopStackSetOperationResponse' {} a -> s {httpStatus = a} :: StopStackSetOperationResponse)
 
-instance NFData StopStackSetOperationResponse
+instance Prelude.NFData StopStackSetOperationResponse

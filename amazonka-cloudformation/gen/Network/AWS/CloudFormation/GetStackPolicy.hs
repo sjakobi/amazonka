@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,131 +21,141 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the stack policy for a specified stack. If a stack doesn't have a policy, a null value is returned.
+-- Returns the stack policy for a specified stack. If a stack doesn\'t have
+-- a policy, a null value is returned.
 module Network.AWS.CloudFormation.GetStackPolicy
   ( -- * Creating a Request
-    getStackPolicy,
-    GetStackPolicy,
+    GetStackPolicy (..),
+    newGetStackPolicy,
 
     -- * Request Lenses
-    gspStackName,
+    getStackPolicy_stackName,
 
     -- * Destructuring the Response
-    getStackPolicyResponse,
-    GetStackPolicyResponse,
+    GetStackPolicyResponse (..),
+    newGetStackPolicyResponse,
 
     -- * Response Lenses
-    gsprrsStackPolicyBody,
-    gsprrsResponseStatus,
+    getStackPolicyResponse_stackPolicyBody,
+    getStackPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input for the 'GetStackPolicy' action.
+-- | The input for the GetStackPolicy action.
 --
---
---
--- /See:/ 'getStackPolicy' smart constructor.
-newtype GetStackPolicy = GetStackPolicy'
-  { _gspStackName ::
-      Text
+-- /See:/ 'newGetStackPolicy' smart constructor.
+data GetStackPolicy = GetStackPolicy'
+  { -- | The name or unique stack ID that is associated with the stack whose
+    -- policy you want to get.
+    stackName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStackPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStackPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gspStackName' - The name or unique stack ID that is associated with the stack whose policy you want to get.
-getStackPolicy ::
-  -- | 'gspStackName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'stackName', 'getStackPolicy_stackName' - The name or unique stack ID that is associated with the stack whose
+-- policy you want to get.
+newGetStackPolicy ::
+  -- | 'stackName'
+  Prelude.Text ->
   GetStackPolicy
-getStackPolicy pStackName_ =
-  GetStackPolicy' {_gspStackName = pStackName_}
+newGetStackPolicy pStackName_ =
+  GetStackPolicy' {stackName = pStackName_}
 
--- | The name or unique stack ID that is associated with the stack whose policy you want to get.
-gspStackName :: Lens' GetStackPolicy Text
-gspStackName = lens _gspStackName (\s a -> s {_gspStackName = a})
+-- | The name or unique stack ID that is associated with the stack whose
+-- policy you want to get.
+getStackPolicy_stackName :: Lens.Lens' GetStackPolicy Prelude.Text
+getStackPolicy_stackName = Lens.lens (\GetStackPolicy' {stackName} -> stackName) (\s@GetStackPolicy' {} a -> s {stackName = a} :: GetStackPolicy)
 
-instance AWSRequest GetStackPolicy where
+instance Prelude.AWSRequest GetStackPolicy where
   type Rs GetStackPolicy = GetStackPolicyResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetStackPolicyResult"
       ( \s h x ->
           GetStackPolicyResponse'
-            <$> (x .@? "StackPolicyBody") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "StackPolicyBody")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetStackPolicy
+instance Prelude.Hashable GetStackPolicy
 
-instance NFData GetStackPolicy
+instance Prelude.NFData GetStackPolicy
 
-instance ToHeaders GetStackPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetStackPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetStackPolicy where
-  toPath = const "/"
+instance Prelude.ToPath GetStackPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetStackPolicy where
+instance Prelude.ToQuery GetStackPolicy where
   toQuery GetStackPolicy' {..} =
-    mconcat
-      [ "Action" =: ("GetStackPolicy" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "StackName" =: _gspStackName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetStackPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "StackName" Prelude.=: stackName
       ]
 
--- | The output for the 'GetStackPolicy' action.
+-- | The output for the GetStackPolicy action.
 --
---
---
--- /See:/ 'getStackPolicyResponse' smart constructor.
+-- /See:/ 'newGetStackPolicyResponse' smart constructor.
 data GetStackPolicyResponse = GetStackPolicyResponse'
-  { _gsprrsStackPolicyBody ::
-      !(Maybe Text),
-    _gsprrsResponseStatus ::
-      !Int
+  { -- | Structure containing the stack policy body. (For more information, go to
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html Prevent Updates to Stack Resources>
+    -- in the AWS CloudFormation User Guide.)
+    stackPolicyBody :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStackPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStackPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsprrsStackPolicyBody' - Structure containing the stack policy body. (For more information, go to <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html Prevent Updates to Stack Resources> in the AWS CloudFormation User Guide.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsprrsResponseStatus' - -- | The response status code.
-getStackPolicyResponse ::
-  -- | 'gsprrsResponseStatus'
-  Int ->
+-- 'stackPolicyBody', 'getStackPolicyResponse_stackPolicyBody' - Structure containing the stack policy body. (For more information, go to
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html Prevent Updates to Stack Resources>
+-- in the AWS CloudFormation User Guide.)
+--
+-- 'httpStatus', 'getStackPolicyResponse_httpStatus' - The response's http status code.
+newGetStackPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetStackPolicyResponse
-getStackPolicyResponse pResponseStatus_ =
+newGetStackPolicyResponse pHttpStatus_ =
   GetStackPolicyResponse'
-    { _gsprrsStackPolicyBody =
-        Nothing,
-      _gsprrsResponseStatus = pResponseStatus_
+    { stackPolicyBody =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Structure containing the stack policy body. (For more information, go to <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html Prevent Updates to Stack Resources> in the AWS CloudFormation User Guide.)
-gsprrsStackPolicyBody :: Lens' GetStackPolicyResponse (Maybe Text)
-gsprrsStackPolicyBody = lens _gsprrsStackPolicyBody (\s a -> s {_gsprrsStackPolicyBody = a})
+-- | Structure containing the stack policy body. (For more information, go to
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html Prevent Updates to Stack Resources>
+-- in the AWS CloudFormation User Guide.)
+getStackPolicyResponse_stackPolicyBody :: Lens.Lens' GetStackPolicyResponse (Prelude.Maybe Prelude.Text)
+getStackPolicyResponse_stackPolicyBody = Lens.lens (\GetStackPolicyResponse' {stackPolicyBody} -> stackPolicyBody) (\s@GetStackPolicyResponse' {} a -> s {stackPolicyBody = a} :: GetStackPolicyResponse)
 
--- | -- | The response status code.
-gsprrsResponseStatus :: Lens' GetStackPolicyResponse Int
-gsprrsResponseStatus = lens _gsprrsResponseStatus (\s a -> s {_gsprrsResponseStatus = a})
+-- | The response's http status code.
+getStackPolicyResponse_httpStatus :: Lens.Lens' GetStackPolicyResponse Prelude.Int
+getStackPolicyResponse_httpStatus = Lens.lens (\GetStackPolicyResponse' {httpStatus} -> httpStatus) (\s@GetStackPolicyResponse' {} a -> s {httpStatus = a} :: GetStackPolicyResponse)
 
-instance NFData GetStackPolicyResponse
+instance Prelude.NFData GetStackPolicyResponse

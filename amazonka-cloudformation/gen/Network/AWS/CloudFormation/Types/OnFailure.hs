@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,57 @@
 module Network.AWS.CloudFormation.Types.OnFailure
   ( OnFailure
       ( ..,
-        OFDelete,
-        OFDoNothing,
-        OFRollback
+        OnFailureDELETE,
+        OnFailureDONOTHING,
+        OnFailureROLLBACK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OnFailure = OnFailure' (CI Text)
+newtype OnFailure = OnFailure'
+  { fromOnFailure ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OFDelete :: OnFailure
-pattern OFDelete = OnFailure' "DELETE"
+pattern OnFailureDELETE :: OnFailure
+pattern OnFailureDELETE = OnFailure' "DELETE"
 
-pattern OFDoNothing :: OnFailure
-pattern OFDoNothing = OnFailure' "DO_NOTHING"
+pattern OnFailureDONOTHING :: OnFailure
+pattern OnFailureDONOTHING = OnFailure' "DO_NOTHING"
 
-pattern OFRollback :: OnFailure
-pattern OFRollback = OnFailure' "ROLLBACK"
+pattern OnFailureROLLBACK :: OnFailure
+pattern OnFailureROLLBACK = OnFailure' "ROLLBACK"
 
 {-# COMPLETE
-  OFDelete,
-  OFDoNothing,
-  OFRollback,
+  OnFailureDELETE,
+  OnFailureDONOTHING,
+  OnFailureROLLBACK,
   OnFailure'
   #-}
 
-instance FromText OnFailure where
-  parser = (OnFailure' . mk) <$> takeText
+instance Prelude.FromText OnFailure where
+  parser = OnFailure' Prelude.<$> Prelude.takeText
 
-instance ToText OnFailure where
-  toText (OnFailure' ci) = original ci
+instance Prelude.ToText OnFailure where
+  toText (OnFailure' x) = x
 
-instance Hashable OnFailure
+instance Prelude.Hashable OnFailure
 
-instance NFData OnFailure
+instance Prelude.NFData OnFailure
 
-instance ToByteString OnFailure
+instance Prelude.ToByteString OnFailure
 
-instance ToQuery OnFailure
+instance Prelude.ToQuery OnFailure
 
-instance ToHeader OnFailure
+instance Prelude.ToHeader OnFailure

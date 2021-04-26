@@ -11,18 +11,32 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS CloudFormation__
+-- AWS CloudFormation
 --
--- AWS CloudFormation allows you to create and manage AWS infrastructure deployments predictably and repeatedly. You can use AWS CloudFormation to leverage AWS products, such as Amazon Elastic Compute Cloud, Amazon Elastic Block Store, Amazon Simple Notification Service, Elastic Load Balancing, and Auto Scaling to build highly-reliable, highly scalable, cost-effective applications without creating or configuring the underlying AWS infrastructure.
+-- AWS CloudFormation allows you to create and manage AWS infrastructure
+-- deployments predictably and repeatedly. You can use AWS CloudFormation
+-- to leverage AWS products, such as Amazon Elastic Compute Cloud, Amazon
+-- Elastic Block Store, Amazon Simple Notification Service, Elastic Load
+-- Balancing, and Auto Scaling to build highly-reliable, highly scalable,
+-- cost-effective applications without creating or configuring the
+-- underlying AWS infrastructure.
 --
--- With AWS CloudFormation, you declare all of your resources and dependencies in a template file. The template defines a collection of resources as a single unit called a stack. AWS CloudFormation creates and deletes all member resources of the stack together and manages all dependencies between the resources for you.
+-- With AWS CloudFormation, you declare all of your resources and
+-- dependencies in a template file. The template defines a collection of
+-- resources as a single unit called a stack. AWS CloudFormation creates
+-- and deletes all member resources of the stack together and manages all
+-- dependencies between the resources for you.
 --
--- For more information about AWS CloudFormation, see the <http://aws.amazon.com/cloudformation/ AWS CloudFormation Product Page> .
+-- For more information about AWS CloudFormation, see the
+-- <http://aws.amazon.com/cloudformation/ AWS CloudFormation Product Page>.
 --
--- Amazon CloudFormation makes use of other AWS products. If you need additional technical information about a specific AWS product, you can find the product's technical documentation at <https://docs.aws.amazon.com/ docs.aws.amazon.com> .
+-- Amazon CloudFormation makes use of other AWS products. If you need
+-- additional technical information about a specific AWS product, you can
+-- find the product\'s technical documentation at
+-- <https://docs.aws.amazon.com/ docs.aws.amazon.com>.
 module Network.AWS.CloudFormation
   ( -- * Service Configuration
-    cloudFormation,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -91,196 +105,361 @@ module Network.AWS.CloudFormation
     -- $waiters
 
     -- ** ChangeSetCreateComplete
-    changeSetCreateComplete,
+    newChangeSetCreateComplete,
 
     -- ** StackRollbackComplete
-    stackRollbackComplete,
+    newStackRollbackComplete,
 
     -- ** StackDeleteComplete
-    stackDeleteComplete,
+    newStackDeleteComplete,
 
     -- ** StackExists
-    stackExists,
+    newStackExists,
 
     -- ** StackUpdateComplete
-    stackUpdateComplete,
+    newStackUpdateComplete,
 
     -- ** StackCreateComplete
-    stackCreateComplete,
+    newStackCreateComplete,
 
     -- ** TypeRegistrationComplete
-    typeRegistrationComplete,
+    newTypeRegistrationComplete,
 
     -- ** StackImportComplete
-    stackImportComplete,
+    newStackImportComplete,
 
     -- * Operations
     -- $operations
 
     -- ** DescribeStackResourceDrifts
-    module Network.AWS.CloudFormation.DescribeStackResourceDrifts,
+    DescribeStackResourceDrifts (DescribeStackResourceDrifts'),
+    newDescribeStackResourceDrifts,
+    DescribeStackResourceDriftsResponse (DescribeStackResourceDriftsResponse'),
+    newDescribeStackResourceDriftsResponse,
 
     -- ** ListImports (Paginated)
-    module Network.AWS.CloudFormation.ListImports,
+    ListImports (ListImports'),
+    newListImports,
+    ListImportsResponse (ListImportsResponse'),
+    newListImportsResponse,
 
     -- ** DescribeStackEvents (Paginated)
-    module Network.AWS.CloudFormation.DescribeStackEvents,
+    DescribeStackEvents (DescribeStackEvents'),
+    newDescribeStackEvents,
+    DescribeStackEventsResponse (DescribeStackEventsResponse'),
+    newDescribeStackEventsResponse,
 
     -- ** StopStackSetOperation
-    module Network.AWS.CloudFormation.StopStackSetOperation,
+    StopStackSetOperation (StopStackSetOperation'),
+    newStopStackSetOperation,
+    StopStackSetOperationResponse (StopStackSetOperationResponse'),
+    newStopStackSetOperationResponse,
 
     -- ** DescribeChangeSet (Paginated)
-    module Network.AWS.CloudFormation.DescribeChangeSet,
+    DescribeChangeSet (DescribeChangeSet'),
+    newDescribeChangeSet,
+    DescribeChangeSetResponse (DescribeChangeSetResponse'),
+    newDescribeChangeSetResponse,
 
     -- ** DescribeStackResource
-    module Network.AWS.CloudFormation.DescribeStackResource,
+    DescribeStackResource (DescribeStackResource'),
+    newDescribeStackResource,
+    DescribeStackResourceResponse (DescribeStackResourceResponse'),
+    newDescribeStackResourceResponse,
 
     -- ** DetectStackResourceDrift
-    module Network.AWS.CloudFormation.DetectStackResourceDrift,
+    DetectStackResourceDrift (DetectStackResourceDrift'),
+    newDetectStackResourceDrift,
+    DetectStackResourceDriftResponse (DetectStackResourceDriftResponse'),
+    newDetectStackResourceDriftResponse,
 
     -- ** ExecuteChangeSet
-    module Network.AWS.CloudFormation.ExecuteChangeSet,
+    ExecuteChangeSet (ExecuteChangeSet'),
+    newExecuteChangeSet,
+    ExecuteChangeSetResponse (ExecuteChangeSetResponse'),
+    newExecuteChangeSetResponse,
 
     -- ** SetTypeDefaultVersion
-    module Network.AWS.CloudFormation.SetTypeDefaultVersion,
+    SetTypeDefaultVersion (SetTypeDefaultVersion'),
+    newSetTypeDefaultVersion,
+    SetTypeDefaultVersionResponse (SetTypeDefaultVersionResponse'),
+    newSetTypeDefaultVersionResponse,
 
     -- ** RecordHandlerProgress
-    module Network.AWS.CloudFormation.RecordHandlerProgress,
+    RecordHandlerProgress (RecordHandlerProgress'),
+    newRecordHandlerProgress,
+    RecordHandlerProgressResponse (RecordHandlerProgressResponse'),
+    newRecordHandlerProgressResponse,
 
     -- ** ListStackSetOperations (Paginated)
-    module Network.AWS.CloudFormation.ListStackSetOperations,
+    ListStackSetOperations (ListStackSetOperations'),
+    newListStackSetOperations,
+    ListStackSetOperationsResponse (ListStackSetOperationsResponse'),
+    newListStackSetOperationsResponse,
 
     -- ** CreateStackInstances
-    module Network.AWS.CloudFormation.CreateStackInstances,
+    CreateStackInstances (CreateStackInstances'),
+    newCreateStackInstances,
+    CreateStackInstancesResponse (CreateStackInstancesResponse'),
+    newCreateStackInstancesResponse,
 
     -- ** GetStackPolicy
-    module Network.AWS.CloudFormation.GetStackPolicy,
+    GetStackPolicy (GetStackPolicy'),
+    newGetStackPolicy,
+    GetStackPolicyResponse (GetStackPolicyResponse'),
+    newGetStackPolicyResponse,
 
     -- ** DescribeStacks (Paginated)
-    module Network.AWS.CloudFormation.DescribeStacks,
+    DescribeStacks (DescribeStacks'),
+    newDescribeStacks,
+    DescribeStacksResponse (DescribeStacksResponse'),
+    newDescribeStacksResponse,
 
     -- ** DeleteStackSet
-    module Network.AWS.CloudFormation.DeleteStackSet,
+    DeleteStackSet (DeleteStackSet'),
+    newDeleteStackSet,
+    DeleteStackSetResponse (DeleteStackSetResponse'),
+    newDeleteStackSetResponse,
 
     -- ** EstimateTemplateCost
-    module Network.AWS.CloudFormation.EstimateTemplateCost,
+    EstimateTemplateCost (EstimateTemplateCost'),
+    newEstimateTemplateCost,
+    EstimateTemplateCostResponse (EstimateTemplateCostResponse'),
+    newEstimateTemplateCostResponse,
 
     -- ** UpdateStackSet
-    module Network.AWS.CloudFormation.UpdateStackSet,
+    UpdateStackSet (UpdateStackSet'),
+    newUpdateStackSet,
+    UpdateStackSetResponse (UpdateStackSetResponse'),
+    newUpdateStackSetResponse,
 
     -- ** DescribeAccountLimits (Paginated)
-    module Network.AWS.CloudFormation.DescribeAccountLimits,
+    DescribeAccountLimits (DescribeAccountLimits'),
+    newDescribeAccountLimits,
+    DescribeAccountLimitsResponse (DescribeAccountLimitsResponse'),
+    newDescribeAccountLimitsResponse,
 
     -- ** CreateStack
-    module Network.AWS.CloudFormation.CreateStack,
+    CreateStack (CreateStack'),
+    newCreateStack,
+    CreateStackResponse (CreateStackResponse'),
+    newCreateStackResponse,
 
     -- ** DescribeStackInstance
-    module Network.AWS.CloudFormation.DescribeStackInstance,
+    DescribeStackInstance (DescribeStackInstance'),
+    newDescribeStackInstance,
+    DescribeStackInstanceResponse (DescribeStackInstanceResponse'),
+    newDescribeStackInstanceResponse,
 
     -- ** GetTemplateSummary
-    module Network.AWS.CloudFormation.GetTemplateSummary,
+    GetTemplateSummary (GetTemplateSummary'),
+    newGetTemplateSummary,
+    GetTemplateSummaryResponse (GetTemplateSummaryResponse'),
+    newGetTemplateSummaryResponse,
 
     -- ** ListStacks (Paginated)
-    module Network.AWS.CloudFormation.ListStacks,
+    ListStacks (ListStacks'),
+    newListStacks,
+    ListStacksResponse (ListStacksResponse'),
+    newListStacksResponse,
 
     -- ** DeleteStack
-    module Network.AWS.CloudFormation.DeleteStack,
+    DeleteStack (DeleteStack'),
+    newDeleteStack,
+    DeleteStackResponse (DeleteStackResponse'),
+    newDeleteStackResponse,
 
     -- ** UpdateStack
-    module Network.AWS.CloudFormation.UpdateStack,
+    UpdateStack (UpdateStack'),
+    newUpdateStack,
+    UpdateStackResponse (UpdateStackResponse'),
+    newUpdateStackResponse,
 
     -- ** DetectStackDrift
-    module Network.AWS.CloudFormation.DetectStackDrift,
+    DetectStackDrift (DetectStackDrift'),
+    newDetectStackDrift,
+    DetectStackDriftResponse (DetectStackDriftResponse'),
+    newDetectStackDriftResponse,
 
     -- ** DescribeStackSetOperation
-    module Network.AWS.CloudFormation.DescribeStackSetOperation,
+    DescribeStackSetOperation (DescribeStackSetOperation'),
+    newDescribeStackSetOperation,
+    DescribeStackSetOperationResponse (DescribeStackSetOperationResponse'),
+    newDescribeStackSetOperationResponse,
 
     -- ** DescribeTypeRegistration
-    module Network.AWS.CloudFormation.DescribeTypeRegistration,
+    DescribeTypeRegistration (DescribeTypeRegistration'),
+    newDescribeTypeRegistration,
+    DescribeTypeRegistrationResponse (DescribeTypeRegistrationResponse'),
+    newDescribeTypeRegistrationResponse,
 
     -- ** SetStackPolicy
-    module Network.AWS.CloudFormation.SetStackPolicy,
+    SetStackPolicy (SetStackPolicy'),
+    newSetStackPolicy,
+    SetStackPolicyResponse (SetStackPolicyResponse'),
+    newSetStackPolicyResponse,
 
     -- ** SignalResource
-    module Network.AWS.CloudFormation.SignalResource,
+    SignalResource (SignalResource'),
+    newSignalResource,
+    SignalResourceResponse (SignalResourceResponse'),
+    newSignalResourceResponse,
 
     -- ** DescribeStackSet
-    module Network.AWS.CloudFormation.DescribeStackSet,
+    DescribeStackSet (DescribeStackSet'),
+    newDescribeStackSet,
+    DescribeStackSetResponse (DescribeStackSetResponse'),
+    newDescribeStackSetResponse,
 
     -- ** ListStackSetOperationResults (Paginated)
-    module Network.AWS.CloudFormation.ListStackSetOperationResults,
+    ListStackSetOperationResults (ListStackSetOperationResults'),
+    newListStackSetOperationResults,
+    ListStackSetOperationResultsResponse (ListStackSetOperationResultsResponse'),
+    newListStackSetOperationResultsResponse,
 
     -- ** CancelUpdateStack
-    module Network.AWS.CloudFormation.CancelUpdateStack,
+    CancelUpdateStack (CancelUpdateStack'),
+    newCancelUpdateStack,
+    CancelUpdateStackResponse (CancelUpdateStackResponse'),
+    newCancelUpdateStackResponse,
 
     -- ** ListTypes
-    module Network.AWS.CloudFormation.ListTypes,
+    ListTypes (ListTypes'),
+    newListTypes,
+    ListTypesResponse (ListTypesResponse'),
+    newListTypesResponse,
 
     -- ** RegisterType
-    module Network.AWS.CloudFormation.RegisterType,
+    RegisterType (RegisterType'),
+    newRegisterType,
+    RegisterTypeResponse (RegisterTypeResponse'),
+    newRegisterTypeResponse,
 
     -- ** ListStackInstances (Paginated)
-    module Network.AWS.CloudFormation.ListStackInstances,
+    ListStackInstances (ListStackInstances'),
+    newListStackInstances,
+    ListStackInstancesResponse (ListStackInstancesResponse'),
+    newListStackInstancesResponse,
 
     -- ** DetectStackSetDrift
-    module Network.AWS.CloudFormation.DetectStackSetDrift,
+    DetectStackSetDrift (DetectStackSetDrift'),
+    newDetectStackSetDrift,
+    DetectStackSetDriftResponse (DetectStackSetDriftResponse'),
+    newDetectStackSetDriftResponse,
 
     -- ** ContinueUpdateRollback
-    module Network.AWS.CloudFormation.ContinueUpdateRollback,
+    ContinueUpdateRollback (ContinueUpdateRollback'),
+    newContinueUpdateRollback,
+    ContinueUpdateRollbackResponse (ContinueUpdateRollbackResponse'),
+    newContinueUpdateRollbackResponse,
 
     -- ** ValidateTemplate
-    module Network.AWS.CloudFormation.ValidateTemplate,
+    ValidateTemplate (ValidateTemplate'),
+    newValidateTemplate,
+    ValidateTemplateResponse (ValidateTemplateResponse'),
+    newValidateTemplateResponse,
 
     -- ** GetTemplate
-    module Network.AWS.CloudFormation.GetTemplate,
+    GetTemplate (GetTemplate'),
+    newGetTemplate,
+    GetTemplateResponse (GetTemplateResponse'),
+    newGetTemplateResponse,
 
     -- ** UpdateTerminationProtection
-    module Network.AWS.CloudFormation.UpdateTerminationProtection,
+    UpdateTerminationProtection (UpdateTerminationProtection'),
+    newUpdateTerminationProtection,
+    UpdateTerminationProtectionResponse (UpdateTerminationProtectionResponse'),
+    newUpdateTerminationProtectionResponse,
 
     -- ** ListTypeVersions
-    module Network.AWS.CloudFormation.ListTypeVersions,
+    ListTypeVersions (ListTypeVersions'),
+    newListTypeVersions,
+    ListTypeVersionsResponse (ListTypeVersionsResponse'),
+    newListTypeVersionsResponse,
 
     -- ** ListTypeRegistrations
-    module Network.AWS.CloudFormation.ListTypeRegistrations,
+    ListTypeRegistrations (ListTypeRegistrations'),
+    newListTypeRegistrations,
+    ListTypeRegistrationsResponse (ListTypeRegistrationsResponse'),
+    newListTypeRegistrationsResponse,
 
     -- ** DeregisterType
-    module Network.AWS.CloudFormation.DeregisterType,
+    DeregisterType (DeregisterType'),
+    newDeregisterType,
+    DeregisterTypeResponse (DeregisterTypeResponse'),
+    newDeregisterTypeResponse,
 
     -- ** CreateStackSet
-    module Network.AWS.CloudFormation.CreateStackSet,
+    CreateStackSet (CreateStackSet'),
+    newCreateStackSet,
+    CreateStackSetResponse (CreateStackSetResponse'),
+    newCreateStackSetResponse,
 
     -- ** CreateChangeSet
-    module Network.AWS.CloudFormation.CreateChangeSet,
+    CreateChangeSet (CreateChangeSet'),
+    newCreateChangeSet,
+    CreateChangeSetResponse (CreateChangeSetResponse'),
+    newCreateChangeSetResponse,
 
     -- ** ListExports (Paginated)
-    module Network.AWS.CloudFormation.ListExports,
+    ListExports (ListExports'),
+    newListExports,
+    ListExportsResponse (ListExportsResponse'),
+    newListExportsResponse,
 
     -- ** DescribeType
-    module Network.AWS.CloudFormation.DescribeType,
+    DescribeType (DescribeType'),
+    newDescribeType,
+    DescribeTypeResponse (DescribeTypeResponse'),
+    newDescribeTypeResponse,
 
     -- ** ListStackResources (Paginated)
-    module Network.AWS.CloudFormation.ListStackResources,
+    ListStackResources (ListStackResources'),
+    newListStackResources,
+    ListStackResourcesResponse (ListStackResourcesResponse'),
+    newListStackResourcesResponse,
 
     -- ** DeleteStackInstances
-    module Network.AWS.CloudFormation.DeleteStackInstances,
+    DeleteStackInstances (DeleteStackInstances'),
+    newDeleteStackInstances,
+    DeleteStackInstancesResponse (DeleteStackInstancesResponse'),
+    newDeleteStackInstancesResponse,
 
     -- ** ListStackSets (Paginated)
-    module Network.AWS.CloudFormation.ListStackSets,
+    ListStackSets (ListStackSets'),
+    newListStackSets,
+    ListStackSetsResponse (ListStackSetsResponse'),
+    newListStackSetsResponse,
 
     -- ** DescribeStackDriftDetectionStatus
-    module Network.AWS.CloudFormation.DescribeStackDriftDetectionStatus,
+    DescribeStackDriftDetectionStatus (DescribeStackDriftDetectionStatus'),
+    newDescribeStackDriftDetectionStatus,
+    DescribeStackDriftDetectionStatusResponse (DescribeStackDriftDetectionStatusResponse'),
+    newDescribeStackDriftDetectionStatusResponse,
 
     -- ** UpdateStackInstances
-    module Network.AWS.CloudFormation.UpdateStackInstances,
+    UpdateStackInstances (UpdateStackInstances'),
+    newUpdateStackInstances,
+    UpdateStackInstancesResponse (UpdateStackInstancesResponse'),
+    newUpdateStackInstancesResponse,
 
     -- ** ListChangeSets (Paginated)
-    module Network.AWS.CloudFormation.ListChangeSets,
+    ListChangeSets (ListChangeSets'),
+    newListChangeSets,
+    ListChangeSetsResponse (ListChangeSetsResponse'),
+    newListChangeSetsResponse,
 
     -- ** DeleteChangeSet
-    module Network.AWS.CloudFormation.DeleteChangeSet,
+    DeleteChangeSet (DeleteChangeSet'),
+    newDeleteChangeSet,
+    DeleteChangeSetResponse (DeleteChangeSetResponse'),
+    newDeleteChangeSetResponse,
 
     -- ** DescribeStackResources
-    module Network.AWS.CloudFormation.DescribeStackResources,
+    DescribeStackResources (DescribeStackResources'),
+    newDescribeStackResources,
+    DescribeStackResourcesResponse (DescribeStackResourcesResponse'),
+    newDescribeStackResourcesResponse,
 
     -- * Types
 
@@ -402,468 +581,196 @@ module Network.AWS.CloudFormation
     Visibility (..),
 
     -- ** AccountGateResult
-    AccountGateResult,
-    accountGateResult,
-    agrStatus,
-    agrStatusReason,
+    AccountGateResult (AccountGateResult'),
+    newAccountGateResult,
 
     -- ** AccountLimit
-    AccountLimit,
-    accountLimit,
-    alName,
-    alValue,
+    AccountLimit (AccountLimit'),
+    newAccountLimit,
 
     -- ** AutoDeployment
-    AutoDeployment,
-    autoDeployment,
-    adEnabled,
-    adRetainStacksOnAccountRemoval,
+    AutoDeployment (AutoDeployment'),
+    newAutoDeployment,
 
     -- ** Change
-    Change,
-    change,
-    cResourceChange,
-    cType,
+    Change (Change'),
+    newChange,
 
     -- ** ChangeSetSummary
-    ChangeSetSummary,
-    changeSetSummary,
-    cssRootChangeSetId,
-    cssStatus,
-    cssCreationTime,
-    cssIncludeNestedStacks,
-    cssStackName,
-    cssExecutionStatus,
-    cssStackId,
-    cssParentChangeSetId,
-    cssChangeSetId,
-    cssDescription,
-    cssChangeSetName,
-    cssStatusReason,
+    ChangeSetSummary (ChangeSetSummary'),
+    newChangeSetSummary,
 
     -- ** DeploymentTargets
-    DeploymentTargets,
-    deploymentTargets,
-    dtOrganizationalUnitIds,
-    dtAccounts,
+    DeploymentTargets (DeploymentTargets'),
+    newDeploymentTargets,
 
     -- ** Export
-    Export,
-    export',
-    eExportingStackId,
-    eName,
-    eValue,
+    Export (Export'),
+    newExport,
 
     -- ** LoggingConfig
-    LoggingConfig,
-    loggingConfig,
-    lcLogRoleARN,
-    lcLogGroupName,
+    LoggingConfig (LoggingConfig'),
+    newLoggingConfig,
 
     -- ** ModuleInfo
-    ModuleInfo,
-    moduleInfo,
-    miLogicalIdHierarchy,
-    miTypeHierarchy,
+    ModuleInfo (ModuleInfo'),
+    newModuleInfo,
 
     -- ** Output
-    Output,
-    output,
-    oOutputKey,
-    oOutputValue,
-    oDescription,
-    oExportName,
+    Output (Output'),
+    newOutput,
 
     -- ** Parameter
-    Parameter,
-    parameter,
-    pParameterValue,
-    pUsePreviousValue,
-    pParameterKey,
-    pResolvedValue,
+    Parameter (Parameter'),
+    newParameter,
 
     -- ** ParameterConstraints
-    ParameterConstraints,
-    parameterConstraints,
-    pcAllowedValues,
+    ParameterConstraints (ParameterConstraints'),
+    newParameterConstraints,
 
     -- ** ParameterDeclaration
-    ParameterDeclaration,
-    parameterDeclaration,
-    pdParameterConstraints,
-    pdParameterType,
-    pdParameterKey,
-    pdDescription,
-    pdNoEcho,
-    pdDefaultValue,
+    ParameterDeclaration (ParameterDeclaration'),
+    newParameterDeclaration,
 
     -- ** PhysicalResourceIdContextKeyValuePair
-    PhysicalResourceIdContextKeyValuePair,
-    physicalResourceIdContextKeyValuePair,
-    prickvpKey,
-    prickvpValue,
+    PhysicalResourceIdContextKeyValuePair (PhysicalResourceIdContextKeyValuePair'),
+    newPhysicalResourceIdContextKeyValuePair,
 
     -- ** PropertyDifference
-    PropertyDifference,
-    propertyDifference,
-    pdPropertyPath,
-    pdExpectedValue,
-    pdActualValue,
-    pdDifferenceType,
+    PropertyDifference (PropertyDifference'),
+    newPropertyDifference,
 
     -- ** ResourceChange
-    ResourceChange,
-    resourceChange,
-    rcPhysicalResourceId,
-    rcResourceType,
-    rcScope,
-    rcDetails,
-    rcModuleInfo,
-    rcLogicalResourceId,
-    rcChangeSetId,
-    rcAction,
-    rcReplacement,
+    ResourceChange (ResourceChange'),
+    newResourceChange,
 
     -- ** ResourceChangeDetail
-    ResourceChangeDetail,
-    resourceChangeDetail,
-    rcdEvaluation,
-    rcdChangeSource,
-    rcdCausingEntity,
-    rcdTarget,
+    ResourceChangeDetail (ResourceChangeDetail'),
+    newResourceChangeDetail,
 
     -- ** ResourceIdentifierSummary
-    ResourceIdentifierSummary,
-    resourceIdentifierSummary,
-    risResourceIdentifiers,
-    risResourceType,
-    risLogicalResourceIds,
+    ResourceIdentifierSummary (ResourceIdentifierSummary'),
+    newResourceIdentifierSummary,
 
     -- ** ResourceTargetDefinition
-    ResourceTargetDefinition,
-    resourceTargetDefinition,
-    rtdRequiresRecreation,
-    rtdName,
-    rtdAttribute,
+    ResourceTargetDefinition (ResourceTargetDefinition'),
+    newResourceTargetDefinition,
 
     -- ** ResourceToImport
-    ResourceToImport,
-    resourceToImport,
-    rtiResourceType,
-    rtiLogicalResourceId,
-    rtiResourceIdentifier,
+    ResourceToImport (ResourceToImport'),
+    newResourceToImport,
 
     -- ** RollbackConfiguration
-    RollbackConfiguration,
-    rollbackConfiguration,
-    rcMonitoringTimeInMinutes,
-    rcRollbackTriggers,
+    RollbackConfiguration (RollbackConfiguration'),
+    newRollbackConfiguration,
 
     -- ** RollbackTrigger
-    RollbackTrigger,
-    rollbackTrigger,
-    rtARN,
-    rtType,
+    RollbackTrigger (RollbackTrigger'),
+    newRollbackTrigger,
 
     -- ** Stack
-    Stack,
-    stack,
-    sOutputs,
-    sDriftInformation,
-    sRoleARN,
-    sDeletionTime,
-    sCapabilities,
-    sStackStatusReason,
-    sEnableTerminationProtection,
-    sStackId,
-    sNotificationARNs,
-    sRootId,
-    sTags,
-    sChangeSetId,
-    sTimeoutInMinutes,
-    sParentId,
-    sRollbackConfiguration,
-    sDescription,
-    sDisableRollback,
-    sParameters,
-    sLastUpdatedTime,
-    sStackName,
-    sCreationTime,
-    sStackStatus,
+    Stack (Stack'),
+    newStack,
 
     -- ** StackDriftInformation
-    StackDriftInformation,
-    stackDriftInformation,
-    sdiLastCheckTimestamp,
-    sdiStackDriftStatus,
+    StackDriftInformation (StackDriftInformation'),
+    newStackDriftInformation,
 
     -- ** StackDriftInformationSummary
-    StackDriftInformationSummary,
-    stackDriftInformationSummary,
-    sdisLastCheckTimestamp,
-    sdisStackDriftStatus,
+    StackDriftInformationSummary (StackDriftInformationSummary'),
+    newStackDriftInformationSummary,
 
     -- ** StackEvent
-    StackEvent,
-    stackEvent,
-    seResourceProperties,
-    sePhysicalResourceId,
-    seResourceType,
-    seResourceStatusReason,
-    seLogicalResourceId,
-    seResourceStatus,
-    seClientRequestToken,
-    seStackId,
-    seEventId,
-    seStackName,
-    seTimestamp,
+    StackEvent (StackEvent'),
+    newStackEvent,
 
     -- ** StackInstance
-    StackInstance,
-    stackInstance,
-    siStatus,
-    siParameterOverrides,
-    siStackId,
-    siStackInstanceStatus,
-    siOrganizationalUnitId,
-    siLastDriftCheckTimestamp,
-    siDriftStatus,
-    siAccount,
-    siStackSetId,
-    siRegion,
-    siStatusReason,
+    StackInstance (StackInstance'),
+    newStackInstance,
 
     -- ** StackInstanceComprehensiveStatus
-    StackInstanceComprehensiveStatus,
-    stackInstanceComprehensiveStatus,
-    sicsDetailedStatus,
+    StackInstanceComprehensiveStatus (StackInstanceComprehensiveStatus'),
+    newStackInstanceComprehensiveStatus,
 
     -- ** StackInstanceFilter
-    StackInstanceFilter,
-    stackInstanceFilter,
-    sifValues,
-    sifName,
+    StackInstanceFilter (StackInstanceFilter'),
+    newStackInstanceFilter,
 
     -- ** StackInstanceSummary
-    StackInstanceSummary,
-    stackInstanceSummary,
-    sisStatus,
-    sisStackId,
-    sisStackInstanceStatus,
-    sisOrganizationalUnitId,
-    sisLastDriftCheckTimestamp,
-    sisDriftStatus,
-    sisAccount,
-    sisStackSetId,
-    sisRegion,
-    sisStatusReason,
+    StackInstanceSummary (StackInstanceSummary'),
+    newStackInstanceSummary,
 
     -- ** StackResource
-    StackResource,
-    stackResource,
-    srDriftInformation,
-    srStackName,
-    srStackId,
-    srPhysicalResourceId,
-    srResourceStatusReason,
-    srModuleInfo,
-    srDescription,
-    srLogicalResourceId,
-    srResourceType,
-    srTimestamp,
-    srResourceStatus,
+    StackResource (StackResource'),
+    newStackResource,
 
     -- ** StackResourceDetail
-    StackResourceDetail,
-    stackResourceDetail,
-    staDriftInformation,
-    staStackName,
-    staStackId,
-    staMetadata,
-    staPhysicalResourceId,
-    staResourceStatusReason,
-    staModuleInfo,
-    staDescription,
-    staLogicalResourceId,
-    staResourceType,
-    staLastUpdatedTimestamp,
-    staResourceStatus,
+    StackResourceDetail (StackResourceDetail'),
+    newStackResourceDetail,
 
     -- ** StackResourceDrift
-    StackResourceDrift,
-    stackResourceDrift,
-    srdActualProperties,
-    srdPhysicalResourceIdContext,
-    srdPhysicalResourceId,
-    srdExpectedProperties,
-    srdModuleInfo,
-    srdPropertyDifferences,
-    srdStackId,
-    srdLogicalResourceId,
-    srdResourceType,
-    srdStackResourceDriftStatus,
-    srdTimestamp,
+    StackResourceDrift (StackResourceDrift'),
+    newStackResourceDrift,
 
     -- ** StackResourceDriftInformation
-    StackResourceDriftInformation,
-    stackResourceDriftInformation,
-    srdiLastCheckTimestamp,
-    srdiStackResourceDriftStatus,
+    StackResourceDriftInformation (StackResourceDriftInformation'),
+    newStackResourceDriftInformation,
 
     -- ** StackResourceDriftInformationSummary
-    StackResourceDriftInformationSummary,
-    stackResourceDriftInformationSummary,
-    srdisLastCheckTimestamp,
-    srdisStackResourceDriftStatus,
+    StackResourceDriftInformationSummary (StackResourceDriftInformationSummary'),
+    newStackResourceDriftInformationSummary,
 
     -- ** StackResourceSummary
-    StackResourceSummary,
-    stackResourceSummary,
-    srsDriftInformation,
-    srsPhysicalResourceId,
-    srsResourceStatusReason,
-    srsModuleInfo,
-    srsLogicalResourceId,
-    srsResourceType,
-    srsLastUpdatedTimestamp,
-    srsResourceStatus,
+    StackResourceSummary (StackResourceSummary'),
+    newStackResourceSummary,
 
     -- ** StackSet
-    StackSet,
-    stackSet,
-    ssStatus,
-    ssPermissionModel,
-    ssExecutionRoleName,
-    ssCapabilities,
-    ssOrganizationalUnitIds,
-    ssAdministrationRoleARN,
-    ssStackSetDriftDetectionDetails,
-    ssStackSetId,
-    ssTags,
-    ssStackSetARN,
-    ssAutoDeployment,
-    ssDescription,
-    ssStackSetName,
-    ssTemplateBody,
-    ssParameters,
+    StackSet (StackSet'),
+    newStackSet,
 
     -- ** StackSetDriftDetectionDetails
-    StackSetDriftDetectionDetails,
-    stackSetDriftDetectionDetails,
-    ssdddInSyncStackInstancesCount,
-    ssdddFailedStackInstancesCount,
-    ssdddDriftedStackInstancesCount,
-    ssdddInProgressStackInstancesCount,
-    ssdddLastDriftCheckTimestamp,
-    ssdddDriftStatus,
-    ssdddDriftDetectionStatus,
-    ssdddTotalStackInstancesCount,
+    StackSetDriftDetectionDetails (StackSetDriftDetectionDetails'),
+    newStackSetDriftDetectionDetails,
 
     -- ** StackSetOperation
-    StackSetOperation,
-    stackSetOperation,
-    ssoCreationTimestamp,
-    ssoStatus,
-    ssoExecutionRoleName,
-    ssoEndTimestamp,
-    ssoDeploymentTargets,
-    ssoOperationId,
-    ssoOperationPreferences,
-    ssoAdministrationRoleARN,
-    ssoStackSetDriftDetectionDetails,
-    ssoStackSetId,
-    ssoAction,
-    ssoRetainStacks,
+    StackSetOperation (StackSetOperation'),
+    newStackSetOperation,
 
     -- ** StackSetOperationPreferences
-    StackSetOperationPreferences,
-    stackSetOperationPreferences,
-    ssopMaxConcurrentPercentage,
-    ssopRegionOrder,
-    ssopFailureToleranceCount,
-    ssopMaxConcurrentCount,
-    ssopFailureTolerancePercentage,
+    StackSetOperationPreferences (StackSetOperationPreferences'),
+    newStackSetOperationPreferences,
 
     -- ** StackSetOperationResultSummary
-    StackSetOperationResultSummary,
-    stackSetOperationResultSummary,
-    ssorsAccountGateResult,
-    ssorsStatus,
-    ssorsOrganizationalUnitId,
-    ssorsAccount,
-    ssorsRegion,
-    ssorsStatusReason,
+    StackSetOperationResultSummary (StackSetOperationResultSummary'),
+    newStackSetOperationResultSummary,
 
     -- ** StackSetOperationSummary
-    StackSetOperationSummary,
-    stackSetOperationSummary,
-    ssosCreationTimestamp,
-    ssosStatus,
-    ssosEndTimestamp,
-    ssosOperationId,
-    ssosAction,
+    StackSetOperationSummary (StackSetOperationSummary'),
+    newStackSetOperationSummary,
 
     -- ** StackSetSummary
-    StackSetSummary,
-    stackSetSummary,
-    sssStatus,
-    sssPermissionModel,
-    sssLastDriftCheckTimestamp,
-    sssDriftStatus,
-    sssStackSetId,
-    sssAutoDeployment,
-    sssDescription,
-    sssStackSetName,
+    StackSetSummary (StackSetSummary'),
+    newStackSetSummary,
 
     -- ** StackSummary
-    StackSummary,
-    stackSummary,
-    ssDriftInformation,
-    ssDeletionTime,
-    ssTemplateDescription,
-    ssStackStatusReason,
-    ssStackId,
-    ssRootId,
-    ssParentId,
-    ssLastUpdatedTime,
-    ssStackName,
-    ssCreationTime,
-    ssStackStatus,
+    StackSummary (StackSummary'),
+    newStackSummary,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TemplateParameter
-    TemplateParameter,
-    templateParameter,
-    tpParameterKey,
-    tpDescription,
-    tpNoEcho,
-    tpDefaultValue,
+    TemplateParameter (TemplateParameter'),
+    newTemplateParameter,
 
     -- ** TypeSummary
-    TypeSummary,
-    typeSummary,
-    tsTypeName,
-    tsLastUpdated,
-    tsDefaultVersionId,
-    tsDescription,
-    tsType,
-    tsTypeARN,
+    TypeSummary (TypeSummary'),
+    newTypeSummary,
 
     -- ** TypeVersionSummary
-    TypeVersionSummary,
-    typeVersionSummary,
-    tvsTypeName,
-    tvsARN,
-    tvsVersionId,
-    tvsDescription,
-    tvsIsDefaultVersion,
-    tvsType,
-    tvsTimeCreated,
+    TypeVersionSummary (TypeVersionSummary'),
+    newTypeVersionSummary,
   )
 where
 
@@ -899,6 +806,7 @@ import Network.AWS.CloudFormation.ExecuteChangeSet
 import Network.AWS.CloudFormation.GetStackPolicy
 import Network.AWS.CloudFormation.GetTemplate
 import Network.AWS.CloudFormation.GetTemplateSummary
+import Network.AWS.CloudFormation.Lens
 import Network.AWS.CloudFormation.ListChangeSets
 import Network.AWS.CloudFormation.ListExports
 import Network.AWS.CloudFormation.ListImports

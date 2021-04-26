@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +21,60 @@ module Network.AWS.CloudFormation.Types.Change where
 
 import Network.AWS.CloudFormation.Types.ChangeType
 import Network.AWS.CloudFormation.Types.ResourceChange
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The @Change@ structure describes the changes AWS CloudFormation will perform if you execute the change set.
+-- | The @Change@ structure describes the changes AWS CloudFormation will
+-- perform if you execute the change set.
 --
---
---
--- /See:/ 'change' smart constructor.
+-- /See:/ 'newChange' smart constructor.
 data Change = Change'
-  { _cResourceChange ::
-      !(Maybe ResourceChange),
-    _cType :: !(Maybe ChangeType)
+  { -- | A @ResourceChange@ structure that describes the resource and action that
+    -- AWS CloudFormation will perform.
+    resourceChange :: Prelude.Maybe ResourceChange,
+    -- | The type of entity that AWS CloudFormation changes. Currently, the only
+    -- entity type is @Resource@.
+    type' :: Prelude.Maybe ChangeType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Change' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Change' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cResourceChange' - A @ResourceChange@ structure that describes the resource and action that AWS CloudFormation will perform.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cType' - The type of entity that AWS CloudFormation changes. Currently, the only entity type is @Resource@ .
-change ::
+-- 'resourceChange', 'change_resourceChange' - A @ResourceChange@ structure that describes the resource and action that
+-- AWS CloudFormation will perform.
+--
+-- 'type'', 'change_type' - The type of entity that AWS CloudFormation changes. Currently, the only
+-- entity type is @Resource@.
+newChange ::
   Change
-change =
+newChange =
   Change'
-    { _cResourceChange = Nothing,
-      _cType = Nothing
+    { resourceChange = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | A @ResourceChange@ structure that describes the resource and action that AWS CloudFormation will perform.
-cResourceChange :: Lens' Change (Maybe ResourceChange)
-cResourceChange = lens _cResourceChange (\s a -> s {_cResourceChange = a})
+-- | A @ResourceChange@ structure that describes the resource and action that
+-- AWS CloudFormation will perform.
+change_resourceChange :: Lens.Lens' Change (Prelude.Maybe ResourceChange)
+change_resourceChange = Lens.lens (\Change' {resourceChange} -> resourceChange) (\s@Change' {} a -> s {resourceChange = a} :: Change)
 
--- | The type of entity that AWS CloudFormation changes. Currently, the only entity type is @Resource@ .
-cType :: Lens' Change (Maybe ChangeType)
-cType = lens _cType (\s a -> s {_cType = a})
+-- | The type of entity that AWS CloudFormation changes. Currently, the only
+-- entity type is @Resource@.
+change_type :: Lens.Lens' Change (Prelude.Maybe ChangeType)
+change_type = Lens.lens (\Change' {type'} -> type') (\s@Change' {} a -> s {type' = a} :: Change)
 
-instance FromXML Change where
+instance Prelude.FromXML Change where
   parseXML x =
     Change'
-      <$> (x .@? "ResourceChange") <*> (x .@? "Type")
+      Prelude.<$> (x Prelude..@? "ResourceChange")
+      Prelude.<*> (x Prelude..@? "Type")
 
-instance Hashable Change
+instance Prelude.Hashable Change
 
-instance NFData Change
+instance Prelude.NFData Change

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CloudFormation.Types.ProvisioningType
   ( ProvisioningType
       ( ..,
-        FullyMutable,
-        Immutable,
-        NonProvisionable
+        ProvisioningTypeFULLYMUTABLE,
+        ProvisioningTypeIMMUTABLE,
+        ProvisioningTypeNONPROVISIONABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProvisioningType = ProvisioningType' (CI Text)
+newtype ProvisioningType = ProvisioningType'
+  { fromProvisioningType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FullyMutable :: ProvisioningType
-pattern FullyMutable = ProvisioningType' "FULLY_MUTABLE"
+pattern ProvisioningTypeFULLYMUTABLE :: ProvisioningType
+pattern ProvisioningTypeFULLYMUTABLE = ProvisioningType' "FULLY_MUTABLE"
 
-pattern Immutable :: ProvisioningType
-pattern Immutable = ProvisioningType' "IMMUTABLE"
+pattern ProvisioningTypeIMMUTABLE :: ProvisioningType
+pattern ProvisioningTypeIMMUTABLE = ProvisioningType' "IMMUTABLE"
 
-pattern NonProvisionable :: ProvisioningType
-pattern NonProvisionable = ProvisioningType' "NON_PROVISIONABLE"
+pattern ProvisioningTypeNONPROVISIONABLE :: ProvisioningType
+pattern ProvisioningTypeNONPROVISIONABLE = ProvisioningType' "NON_PROVISIONABLE"
 
 {-# COMPLETE
-  FullyMutable,
-  Immutable,
-  NonProvisionable,
+  ProvisioningTypeFULLYMUTABLE,
+  ProvisioningTypeIMMUTABLE,
+  ProvisioningTypeNONPROVISIONABLE,
   ProvisioningType'
   #-}
 
-instance FromText ProvisioningType where
-  parser = (ProvisioningType' . mk) <$> takeText
+instance Prelude.FromText ProvisioningType where
+  parser = ProvisioningType' Prelude.<$> Prelude.takeText
 
-instance ToText ProvisioningType where
-  toText (ProvisioningType' ci) = original ci
+instance Prelude.ToText ProvisioningType where
+  toText (ProvisioningType' x) = x
 
-instance Hashable ProvisioningType
+instance Prelude.Hashable ProvisioningType
 
-instance NFData ProvisioningType
+instance Prelude.NFData ProvisioningType
 
-instance ToByteString ProvisioningType
+instance Prelude.ToByteString ProvisioningType
 
-instance ToQuery ProvisioningType
+instance Prelude.ToQuery ProvisioningType
 
-instance ToHeader ProvisioningType
+instance Prelude.ToHeader ProvisioningType
 
-instance FromXML ProvisioningType where
-  parseXML = parseXMLText "ProvisioningType"
+instance Prelude.FromXML ProvisioningType where
+  parseXML = Prelude.parseXMLText "ProvisioningType"

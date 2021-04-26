@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFormation.Types
   ( -- * Service Configuration
-    cloudFormation,
+    defaultService,
 
     -- * Errors
     _InsufficientCapabilitiesException,
@@ -154,467 +157,195 @@ module Network.AWS.CloudFormation.Types
 
     -- * AccountGateResult
     AccountGateResult (..),
-    accountGateResult,
-    agrStatus,
-    agrStatusReason,
+    newAccountGateResult,
 
     -- * AccountLimit
     AccountLimit (..),
-    accountLimit,
-    alName,
-    alValue,
+    newAccountLimit,
 
     -- * AutoDeployment
     AutoDeployment (..),
-    autoDeployment,
-    adEnabled,
-    adRetainStacksOnAccountRemoval,
+    newAutoDeployment,
 
     -- * Change
     Change (..),
-    change,
-    cResourceChange,
-    cType,
+    newChange,
 
     -- * ChangeSetSummary
     ChangeSetSummary (..),
-    changeSetSummary,
-    cssRootChangeSetId,
-    cssStatus,
-    cssCreationTime,
-    cssIncludeNestedStacks,
-    cssStackName,
-    cssExecutionStatus,
-    cssStackId,
-    cssParentChangeSetId,
-    cssChangeSetId,
-    cssDescription,
-    cssChangeSetName,
-    cssStatusReason,
+    newChangeSetSummary,
 
     -- * DeploymentTargets
     DeploymentTargets (..),
-    deploymentTargets,
-    dtOrganizationalUnitIds,
-    dtAccounts,
+    newDeploymentTargets,
 
     -- * Export
     Export (..),
-    export',
-    eExportingStackId,
-    eName,
-    eValue,
+    newExport,
 
     -- * LoggingConfig
     LoggingConfig (..),
-    loggingConfig,
-    lcLogRoleARN,
-    lcLogGroupName,
+    newLoggingConfig,
 
     -- * ModuleInfo
     ModuleInfo (..),
-    moduleInfo,
-    miLogicalIdHierarchy,
-    miTypeHierarchy,
+    newModuleInfo,
 
     -- * Output
     Output (..),
-    output,
-    oOutputKey,
-    oOutputValue,
-    oDescription,
-    oExportName,
+    newOutput,
 
     -- * Parameter
     Parameter (..),
-    parameter,
-    pParameterValue,
-    pUsePreviousValue,
-    pParameterKey,
-    pResolvedValue,
+    newParameter,
 
     -- * ParameterConstraints
     ParameterConstraints (..),
-    parameterConstraints,
-    pcAllowedValues,
+    newParameterConstraints,
 
     -- * ParameterDeclaration
     ParameterDeclaration (..),
-    parameterDeclaration,
-    pdParameterConstraints,
-    pdParameterType,
-    pdParameterKey,
-    pdDescription,
-    pdNoEcho,
-    pdDefaultValue,
+    newParameterDeclaration,
 
     -- * PhysicalResourceIdContextKeyValuePair
     PhysicalResourceIdContextKeyValuePair (..),
-    physicalResourceIdContextKeyValuePair,
-    prickvpKey,
-    prickvpValue,
+    newPhysicalResourceIdContextKeyValuePair,
 
     -- * PropertyDifference
     PropertyDifference (..),
-    propertyDifference,
-    pdPropertyPath,
-    pdExpectedValue,
-    pdActualValue,
-    pdDifferenceType,
+    newPropertyDifference,
 
     -- * ResourceChange
     ResourceChange (..),
-    resourceChange,
-    rcPhysicalResourceId,
-    rcResourceType,
-    rcScope,
-    rcDetails,
-    rcModuleInfo,
-    rcLogicalResourceId,
-    rcChangeSetId,
-    rcAction,
-    rcReplacement,
+    newResourceChange,
 
     -- * ResourceChangeDetail
     ResourceChangeDetail (..),
-    resourceChangeDetail,
-    rcdEvaluation,
-    rcdChangeSource,
-    rcdCausingEntity,
-    rcdTarget,
+    newResourceChangeDetail,
 
     -- * ResourceIdentifierSummary
     ResourceIdentifierSummary (..),
-    resourceIdentifierSummary,
-    risResourceIdentifiers,
-    risResourceType,
-    risLogicalResourceIds,
+    newResourceIdentifierSummary,
 
     -- * ResourceTargetDefinition
     ResourceTargetDefinition (..),
-    resourceTargetDefinition,
-    rtdRequiresRecreation,
-    rtdName,
-    rtdAttribute,
+    newResourceTargetDefinition,
 
     -- * ResourceToImport
     ResourceToImport (..),
-    resourceToImport,
-    rtiResourceType,
-    rtiLogicalResourceId,
-    rtiResourceIdentifier,
+    newResourceToImport,
 
     -- * RollbackConfiguration
     RollbackConfiguration (..),
-    rollbackConfiguration,
-    rcMonitoringTimeInMinutes,
-    rcRollbackTriggers,
+    newRollbackConfiguration,
 
     -- * RollbackTrigger
     RollbackTrigger (..),
-    rollbackTrigger,
-    rtARN,
-    rtType,
+    newRollbackTrigger,
 
     -- * Stack
     Stack (..),
-    stack,
-    sOutputs,
-    sDriftInformation,
-    sRoleARN,
-    sDeletionTime,
-    sCapabilities,
-    sStackStatusReason,
-    sEnableTerminationProtection,
-    sStackId,
-    sNotificationARNs,
-    sRootId,
-    sTags,
-    sChangeSetId,
-    sTimeoutInMinutes,
-    sParentId,
-    sRollbackConfiguration,
-    sDescription,
-    sDisableRollback,
-    sParameters,
-    sLastUpdatedTime,
-    sStackName,
-    sCreationTime,
-    sStackStatus,
+    newStack,
 
     -- * StackDriftInformation
     StackDriftInformation (..),
-    stackDriftInformation,
-    sdiLastCheckTimestamp,
-    sdiStackDriftStatus,
+    newStackDriftInformation,
 
     -- * StackDriftInformationSummary
     StackDriftInformationSummary (..),
-    stackDriftInformationSummary,
-    sdisLastCheckTimestamp,
-    sdisStackDriftStatus,
+    newStackDriftInformationSummary,
 
     -- * StackEvent
     StackEvent (..),
-    stackEvent,
-    seResourceProperties,
-    sePhysicalResourceId,
-    seResourceType,
-    seResourceStatusReason,
-    seLogicalResourceId,
-    seResourceStatus,
-    seClientRequestToken,
-    seStackId,
-    seEventId,
-    seStackName,
-    seTimestamp,
+    newStackEvent,
 
     -- * StackInstance
     StackInstance (..),
-    stackInstance,
-    siStatus,
-    siParameterOverrides,
-    siStackId,
-    siStackInstanceStatus,
-    siOrganizationalUnitId,
-    siLastDriftCheckTimestamp,
-    siDriftStatus,
-    siAccount,
-    siStackSetId,
-    siRegion,
-    siStatusReason,
+    newStackInstance,
 
     -- * StackInstanceComprehensiveStatus
     StackInstanceComprehensiveStatus (..),
-    stackInstanceComprehensiveStatus,
-    sicsDetailedStatus,
+    newStackInstanceComprehensiveStatus,
 
     -- * StackInstanceFilter
     StackInstanceFilter (..),
-    stackInstanceFilter,
-    sifValues,
-    sifName,
+    newStackInstanceFilter,
 
     -- * StackInstanceSummary
     StackInstanceSummary (..),
-    stackInstanceSummary,
-    sisStatus,
-    sisStackId,
-    sisStackInstanceStatus,
-    sisOrganizationalUnitId,
-    sisLastDriftCheckTimestamp,
-    sisDriftStatus,
-    sisAccount,
-    sisStackSetId,
-    sisRegion,
-    sisStatusReason,
+    newStackInstanceSummary,
 
     -- * StackResource
     StackResource (..),
-    stackResource,
-    srDriftInformation,
-    srStackName,
-    srStackId,
-    srPhysicalResourceId,
-    srResourceStatusReason,
-    srModuleInfo,
-    srDescription,
-    srLogicalResourceId,
-    srResourceType,
-    srTimestamp,
-    srResourceStatus,
+    newStackResource,
 
     -- * StackResourceDetail
     StackResourceDetail (..),
-    stackResourceDetail,
-    staDriftInformation,
-    staStackName,
-    staStackId,
-    staMetadata,
-    staPhysicalResourceId,
-    staResourceStatusReason,
-    staModuleInfo,
-    staDescription,
-    staLogicalResourceId,
-    staResourceType,
-    staLastUpdatedTimestamp,
-    staResourceStatus,
+    newStackResourceDetail,
 
     -- * StackResourceDrift
     StackResourceDrift (..),
-    stackResourceDrift,
-    srdActualProperties,
-    srdPhysicalResourceIdContext,
-    srdPhysicalResourceId,
-    srdExpectedProperties,
-    srdModuleInfo,
-    srdPropertyDifferences,
-    srdStackId,
-    srdLogicalResourceId,
-    srdResourceType,
-    srdStackResourceDriftStatus,
-    srdTimestamp,
+    newStackResourceDrift,
 
     -- * StackResourceDriftInformation
     StackResourceDriftInformation (..),
-    stackResourceDriftInformation,
-    srdiLastCheckTimestamp,
-    srdiStackResourceDriftStatus,
+    newStackResourceDriftInformation,
 
     -- * StackResourceDriftInformationSummary
     StackResourceDriftInformationSummary (..),
-    stackResourceDriftInformationSummary,
-    srdisLastCheckTimestamp,
-    srdisStackResourceDriftStatus,
+    newStackResourceDriftInformationSummary,
 
     -- * StackResourceSummary
     StackResourceSummary (..),
-    stackResourceSummary,
-    srsDriftInformation,
-    srsPhysicalResourceId,
-    srsResourceStatusReason,
-    srsModuleInfo,
-    srsLogicalResourceId,
-    srsResourceType,
-    srsLastUpdatedTimestamp,
-    srsResourceStatus,
+    newStackResourceSummary,
 
     -- * StackSet
     StackSet (..),
-    stackSet,
-    ssStatus,
-    ssPermissionModel,
-    ssExecutionRoleName,
-    ssCapabilities,
-    ssOrganizationalUnitIds,
-    ssAdministrationRoleARN,
-    ssStackSetDriftDetectionDetails,
-    ssStackSetId,
-    ssTags,
-    ssStackSetARN,
-    ssAutoDeployment,
-    ssDescription,
-    ssStackSetName,
-    ssTemplateBody,
-    ssParameters,
+    newStackSet,
 
     -- * StackSetDriftDetectionDetails
     StackSetDriftDetectionDetails (..),
-    stackSetDriftDetectionDetails,
-    ssdddInSyncStackInstancesCount,
-    ssdddFailedStackInstancesCount,
-    ssdddDriftedStackInstancesCount,
-    ssdddInProgressStackInstancesCount,
-    ssdddLastDriftCheckTimestamp,
-    ssdddDriftStatus,
-    ssdddDriftDetectionStatus,
-    ssdddTotalStackInstancesCount,
+    newStackSetDriftDetectionDetails,
 
     -- * StackSetOperation
     StackSetOperation (..),
-    stackSetOperation,
-    ssoCreationTimestamp,
-    ssoStatus,
-    ssoExecutionRoleName,
-    ssoEndTimestamp,
-    ssoDeploymentTargets,
-    ssoOperationId,
-    ssoOperationPreferences,
-    ssoAdministrationRoleARN,
-    ssoStackSetDriftDetectionDetails,
-    ssoStackSetId,
-    ssoAction,
-    ssoRetainStacks,
+    newStackSetOperation,
 
     -- * StackSetOperationPreferences
     StackSetOperationPreferences (..),
-    stackSetOperationPreferences,
-    ssopMaxConcurrentPercentage,
-    ssopRegionOrder,
-    ssopFailureToleranceCount,
-    ssopMaxConcurrentCount,
-    ssopFailureTolerancePercentage,
+    newStackSetOperationPreferences,
 
     -- * StackSetOperationResultSummary
     StackSetOperationResultSummary (..),
-    stackSetOperationResultSummary,
-    ssorsAccountGateResult,
-    ssorsStatus,
-    ssorsOrganizationalUnitId,
-    ssorsAccount,
-    ssorsRegion,
-    ssorsStatusReason,
+    newStackSetOperationResultSummary,
 
     -- * StackSetOperationSummary
     StackSetOperationSummary (..),
-    stackSetOperationSummary,
-    ssosCreationTimestamp,
-    ssosStatus,
-    ssosEndTimestamp,
-    ssosOperationId,
-    ssosAction,
+    newStackSetOperationSummary,
 
     -- * StackSetSummary
     StackSetSummary (..),
-    stackSetSummary,
-    sssStatus,
-    sssPermissionModel,
-    sssLastDriftCheckTimestamp,
-    sssDriftStatus,
-    sssStackSetId,
-    sssAutoDeployment,
-    sssDescription,
-    sssStackSetName,
+    newStackSetSummary,
 
     -- * StackSummary
     StackSummary (..),
-    stackSummary,
-    ssDriftInformation,
-    ssDeletionTime,
-    ssTemplateDescription,
-    ssStackStatusReason,
-    ssStackId,
-    ssRootId,
-    ssParentId,
-    ssLastUpdatedTime,
-    ssStackName,
-    ssCreationTime,
-    ssStackStatus,
+    newStackSummary,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * TemplateParameter
     TemplateParameter (..),
-    templateParameter,
-    tpParameterKey,
-    tpDescription,
-    tpNoEcho,
-    tpDefaultValue,
+    newTemplateParameter,
 
     -- * TypeSummary
     TypeSummary (..),
-    typeSummary,
-    tsTypeName,
-    tsLastUpdated,
-    tsDefaultVersionId,
-    tsDescription,
-    tsType,
-    tsTypeARN,
+    newTypeSummary,
 
     -- * TypeVersionSummary
     TypeVersionSummary (..),
-    typeVersionSummary,
-    tvsTypeName,
-    tvsARN,
-    tvsVersionId,
-    tvsDescription,
-    tvsIsDefaultVersion,
-    tvsType,
-    tvsTimeCreated,
+    newTypeVersionSummary,
   )
 where
 
@@ -705,220 +436,253 @@ import Network.AWS.CloudFormation.Types.TemplateStage
 import Network.AWS.CloudFormation.Types.TypeSummary
 import Network.AWS.CloudFormation.Types.TypeVersionSummary
 import Network.AWS.CloudFormation.Types.Visibility
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2010-05-15@ of the Amazon CloudFormation SDK configuration.
-cloudFormation :: Service
-cloudFormation =
-  Service
-    { _svcAbbrev = "CloudFormation",
-      _svcSigner = v4,
-      _svcPrefix = "cloudformation",
-      _svcVersion = "2010-05-15",
-      _svcEndpoint = defaultEndpoint cloudFormation,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseXMLError "CloudFormation",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "CloudFormation",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "cloudformation",
+      Prelude._svcVersion = "2010-05-15",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseXMLError "CloudFormation",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The template contains resources with capabilities that weren't specified in the Capabilities parameter.
-_InsufficientCapabilitiesException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The template contains resources with capabilities that weren\'t
+-- specified in the Capabilities parameter.
+_InsufficientCapabilitiesException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientCapabilitiesException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientCapabilitiesException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Another operation has been performed on this stack set since the specified operation was performed.
-_StaleRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Another operation has been performed on this stack set since the
+-- specified operation was performed.
+_StaleRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _StaleRequestException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "StaleRequestException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | The specified ID refers to an operation that doesn't exist.
-_OperationNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified ID refers to an operation that doesn\'t exist.
+_OperationNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationNotFoundException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "OperationNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | The specified change set can't be used to update the stack. For example, the change set status might be @CREATE_IN_PROGRESS@ , or the stack status might be @UPDATE_IN_PROGRESS@ .
-_InvalidChangeSetStatusException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified change set can\'t be used to update the stack. For
+-- example, the change set status might be @CREATE_IN_PROGRESS@, or the
+-- stack status might be @UPDATE_IN_PROGRESS@.
+_InvalidChangeSetStatusException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidChangeSetStatusException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "InvalidChangeSetStatus"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified name is already in use.
-_NameAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_NameAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NameAlreadyExistsException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "NameAlreadyExistsException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | You can't yet delete this stack set, because it still contains one or more stack instances. Delete all stack instances from the stack set before deleting the stack set.
-_StackSetNotEmptyException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You can\'t yet delete this stack set, because it still contains one or
+-- more stack instances. Delete all stack instances from the stack set
+-- before deleting the stack set.
+_StackSetNotEmptyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _StackSetNotEmptyException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "StackSetNotEmptyException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | The specified operation isn't valid.
-_InvalidOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified operation isn\'t valid.
+_InvalidOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidOperationException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "InvalidOperationException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Error reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> . CloudFormation does not return this error to users.
-_OperationStatusCheckFailedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Error reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+-- CloudFormation does not return this error to users.
+_OperationStatusCheckFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationStatusCheckFailedException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "ConditionalCheckFailed"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified change set name or ID doesn't exit. To view valid change sets for a stack, use the @ListChangeSets@ action.
-_ChangeSetNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified change set name or ID doesn\'t exit. To view valid change
+-- sets for a stack, use the @ListChangeSets@ action.
+_ChangeSetNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ChangeSetNotFoundException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "ChangeSetNotFound"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | The specified stack set doesn't exist.
-_StackSetNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified stack set doesn\'t exist.
+_StackSetNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _StackSetNotFoundException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "StackSetNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | Another operation is currently in progress for this stack set. Only one operation can be performed for a stack set at a given time.
-_OperationInProgressException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Another operation is currently in progress for this stack set. Only one
+-- operation can be performed for a stack set at a given time.
+_OperationInProgressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationInProgressException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "OperationInProgressException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The specified resource exists, but has been changed.
-_CreatedButModifiedException :: AsError a => Getting (First ServiceError) a ServiceError
+_CreatedButModifiedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CreatedButModifiedException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "CreatedButModifiedException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | A client request token already exists.
-_TokenAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TokenAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TokenAlreadyExistsException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "TokenAlreadyExistsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified type does not exist in the CloudFormation registry.
-_TypeNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_TypeNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TypeNotFoundException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "TypeNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
 -- | The quota for the resource has already been reached.
 --
---
--- For information on resource and stack limitations, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html Limits> in the /AWS CloudFormation User Guide/ .
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- For information on resource and stack limitations, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html Limits>
+-- in the /AWS CloudFormation User Guide/.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | An error occurred during a CloudFormation registry operation.
-_CFNRegistryException :: AsError a => Getting (First ServiceError) a ServiceError
+_CFNRegistryException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CFNRegistryException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "CFNRegistryException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified operation ID already exists.
-_OperationIdAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_OperationIdAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationIdAlreadyExistsException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "OperationIdAlreadyExistsException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The resource with the name requested already exists.
-_AlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_AlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AlreadyExistsException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "AlreadyExistsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Error reserved for use by the <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI> . CloudFormation does not return this error to users.
-_InvalidStateTransitionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Error reserved for use by the
+-- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html CloudFormation CLI>.
+-- CloudFormation does not return this error to users.
+_InvalidStateTransitionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidStateTransitionException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "InvalidStateTransition"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified stack instance doesn't exist.
-_StackInstanceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified stack instance doesn\'t exist.
+_StackInstanceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _StackInstanceNotFoundException =
-  _MatchServiceError
-    cloudFormation
+  Prelude._MatchServiceError
+    defaultService
     "StackInstanceNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404

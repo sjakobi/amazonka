@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,196 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the ID and status of each active change set for a stack. For example, AWS CloudFormation lists change sets that are in the @CREATE_IN_PROGRESS@ or @CREATE_PENDING@ state.
---
---
+-- Returns the ID and status of each active change set for a stack. For
+-- example, AWS CloudFormation lists change sets that are in the
+-- @CREATE_IN_PROGRESS@ or @CREATE_PENDING@ state.
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudFormation.ListChangeSets
   ( -- * Creating a Request
-    listChangeSets,
-    ListChangeSets,
+    ListChangeSets (..),
+    newListChangeSets,
 
     -- * Request Lenses
-    lcsNextToken,
-    lcsStackName,
+    listChangeSets_nextToken,
+    listChangeSets_stackName,
 
     -- * Destructuring the Response
-    listChangeSetsResponse,
-    ListChangeSetsResponse,
+    ListChangeSetsResponse (..),
+    newListChangeSetsResponse,
 
     -- * Response Lenses
-    lcsrrsNextToken,
-    lcsrrsSummaries,
-    lcsrrsResponseStatus,
+    listChangeSetsResponse_nextToken,
+    listChangeSetsResponse_summaries,
+    listChangeSetsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFormation.Types.ChangeSetSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input for the 'ListChangeSets' action.
+-- | The input for the ListChangeSets action.
 --
---
---
--- /See:/ 'listChangeSets' smart constructor.
+-- /See:/ 'newListChangeSets' smart constructor.
 data ListChangeSets = ListChangeSets'
-  { _lcsNextToken ::
-      !(Maybe Text),
-    _lcsStackName :: !Text
+  { -- | A string (provided by the ListChangeSets response output) that
+    -- identifies the next page of change sets that you want to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name or the Amazon Resource Name (ARN) of the stack for which you
+    -- want to list change sets.
+    stackName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListChangeSets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListChangeSets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcsNextToken' - A string (provided by the 'ListChangeSets' response output) that identifies the next page of change sets that you want to retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcsStackName' - The name or the Amazon Resource Name (ARN) of the stack for which you want to list change sets.
-listChangeSets ::
-  -- | 'lcsStackName'
-  Text ->
+-- 'nextToken', 'listChangeSets_nextToken' - A string (provided by the ListChangeSets response output) that
+-- identifies the next page of change sets that you want to retrieve.
+--
+-- 'stackName', 'listChangeSets_stackName' - The name or the Amazon Resource Name (ARN) of the stack for which you
+-- want to list change sets.
+newListChangeSets ::
+  -- | 'stackName'
+  Prelude.Text ->
   ListChangeSets
-listChangeSets pStackName_ =
+newListChangeSets pStackName_ =
   ListChangeSets'
-    { _lcsNextToken = Nothing,
-      _lcsStackName = pStackName_
+    { nextToken = Prelude.Nothing,
+      stackName = pStackName_
     }
 
--- | A string (provided by the 'ListChangeSets' response output) that identifies the next page of change sets that you want to retrieve.
-lcsNextToken :: Lens' ListChangeSets (Maybe Text)
-lcsNextToken = lens _lcsNextToken (\s a -> s {_lcsNextToken = a})
+-- | A string (provided by the ListChangeSets response output) that
+-- identifies the next page of change sets that you want to retrieve.
+listChangeSets_nextToken :: Lens.Lens' ListChangeSets (Prelude.Maybe Prelude.Text)
+listChangeSets_nextToken = Lens.lens (\ListChangeSets' {nextToken} -> nextToken) (\s@ListChangeSets' {} a -> s {nextToken = a} :: ListChangeSets)
 
--- | The name or the Amazon Resource Name (ARN) of the stack for which you want to list change sets.
-lcsStackName :: Lens' ListChangeSets Text
-lcsStackName = lens _lcsStackName (\s a -> s {_lcsStackName = a})
+-- | The name or the Amazon Resource Name (ARN) of the stack for which you
+-- want to list change sets.
+listChangeSets_stackName :: Lens.Lens' ListChangeSets Prelude.Text
+listChangeSets_stackName = Lens.lens (\ListChangeSets' {stackName} -> stackName) (\s@ListChangeSets' {} a -> s {stackName = a} :: ListChangeSets)
 
-instance AWSPager ListChangeSets where
+instance Pager.AWSPager ListChangeSets where
   page rq rs
-    | stop (rs ^. lcsrrsNextToken) = Nothing
-    | stop (rs ^. lcsrrsSummaries) = Nothing
-    | otherwise =
-      Just $ rq & lcsNextToken .~ rs ^. lcsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listChangeSetsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listChangeSetsResponse_summaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listChangeSets_nextToken
+          Lens..~ rs
+          Lens.^? listChangeSetsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListChangeSets where
+instance Prelude.AWSRequest ListChangeSets where
   type Rs ListChangeSets = ListChangeSetsResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListChangeSetsResult"
       ( \s h x ->
           ListChangeSetsResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "Summaries" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "Summaries" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListChangeSets
+instance Prelude.Hashable ListChangeSets
 
-instance NFData ListChangeSets
+instance Prelude.NFData ListChangeSets
 
-instance ToHeaders ListChangeSets where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListChangeSets where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListChangeSets where
-  toPath = const "/"
+instance Prelude.ToPath ListChangeSets where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListChangeSets where
+instance Prelude.ToQuery ListChangeSets where
   toQuery ListChangeSets' {..} =
-    mconcat
-      [ "Action" =: ("ListChangeSets" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "NextToken" =: _lcsNextToken,
-        "StackName" =: _lcsStackName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListChangeSets" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "StackName" Prelude.=: stackName
       ]
 
--- | The output for the 'ListChangeSets' action.
+-- | The output for the ListChangeSets action.
 --
---
---
--- /See:/ 'listChangeSetsResponse' smart constructor.
+-- /See:/ 'newListChangeSetsResponse' smart constructor.
 data ListChangeSetsResponse = ListChangeSetsResponse'
-  { _lcsrrsNextToken ::
-      !(Maybe Text),
-    _lcsrrsSummaries ::
-      !( Maybe
-           [ChangeSetSummary]
-       ),
-    _lcsrrsResponseStatus ::
-      !Int
+  { -- | If the output exceeds 1 MB, a string that identifies the next page of
+    -- change sets. If there is no additional page, this value is null.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @ChangeSetSummary@ structures that provides the ID and status
+    -- of each change set for the specified stack.
+    summaries :: Prelude.Maybe [ChangeSetSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListChangeSetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListChangeSetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcsrrsNextToken' - If the output exceeds 1 MB, a string that identifies the next page of change sets. If there is no additional page, this value is null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcsrrsSummaries' - A list of @ChangeSetSummary@ structures that provides the ID and status of each change set for the specified stack.
+-- 'nextToken', 'listChangeSetsResponse_nextToken' - If the output exceeds 1 MB, a string that identifies the next page of
+-- change sets. If there is no additional page, this value is null.
 --
--- * 'lcsrrsResponseStatus' - -- | The response status code.
-listChangeSetsResponse ::
-  -- | 'lcsrrsResponseStatus'
-  Int ->
+-- 'summaries', 'listChangeSetsResponse_summaries' - A list of @ChangeSetSummary@ structures that provides the ID and status
+-- of each change set for the specified stack.
+--
+-- 'httpStatus', 'listChangeSetsResponse_httpStatus' - The response's http status code.
+newListChangeSetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListChangeSetsResponse
-listChangeSetsResponse pResponseStatus_ =
+newListChangeSetsResponse pHttpStatus_ =
   ListChangeSetsResponse'
-    { _lcsrrsNextToken = Nothing,
-      _lcsrrsSummaries = Nothing,
-      _lcsrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      summaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the output exceeds 1 MB, a string that identifies the next page of change sets. If there is no additional page, this value is null.
-lcsrrsNextToken :: Lens' ListChangeSetsResponse (Maybe Text)
-lcsrrsNextToken = lens _lcsrrsNextToken (\s a -> s {_lcsrrsNextToken = a})
+-- | If the output exceeds 1 MB, a string that identifies the next page of
+-- change sets. If there is no additional page, this value is null.
+listChangeSetsResponse_nextToken :: Lens.Lens' ListChangeSetsResponse (Prelude.Maybe Prelude.Text)
+listChangeSetsResponse_nextToken = Lens.lens (\ListChangeSetsResponse' {nextToken} -> nextToken) (\s@ListChangeSetsResponse' {} a -> s {nextToken = a} :: ListChangeSetsResponse)
 
--- | A list of @ChangeSetSummary@ structures that provides the ID and status of each change set for the specified stack.
-lcsrrsSummaries :: Lens' ListChangeSetsResponse [ChangeSetSummary]
-lcsrrsSummaries = lens _lcsrrsSummaries (\s a -> s {_lcsrrsSummaries = a}) . _Default . _Coerce
+-- | A list of @ChangeSetSummary@ structures that provides the ID and status
+-- of each change set for the specified stack.
+listChangeSetsResponse_summaries :: Lens.Lens' ListChangeSetsResponse (Prelude.Maybe [ChangeSetSummary])
+listChangeSetsResponse_summaries = Lens.lens (\ListChangeSetsResponse' {summaries} -> summaries) (\s@ListChangeSetsResponse' {} a -> s {summaries = a} :: ListChangeSetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lcsrrsResponseStatus :: Lens' ListChangeSetsResponse Int
-lcsrrsResponseStatus = lens _lcsrrsResponseStatus (\s a -> s {_lcsrrsResponseStatus = a})
+-- | The response's http status code.
+listChangeSetsResponse_httpStatus :: Lens.Lens' ListChangeSetsResponse Prelude.Int
+listChangeSetsResponse_httpStatus = Lens.lens (\ListChangeSetsResponse' {httpStatus} -> httpStatus) (\s@ListChangeSetsResponse' {} a -> s {httpStatus = a} :: ListChangeSetsResponse)
 
-instance NFData ListChangeSetsResponse
+instance Prelude.NFData ListChangeSetsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudFormation.Types.PermissionModels
   ( PermissionModels
       ( ..,
-        SelfManaged,
-        ServiceManaged
+        PermissionModelsSELFMANAGED,
+        PermissionModelsSERVICEMANAGED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PermissionModels = PermissionModels' (CI Text)
+newtype PermissionModels = PermissionModels'
+  { fromPermissionModels ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SelfManaged :: PermissionModels
-pattern SelfManaged = PermissionModels' "SELF_MANAGED"
+pattern PermissionModelsSELFMANAGED :: PermissionModels
+pattern PermissionModelsSELFMANAGED = PermissionModels' "SELF_MANAGED"
 
-pattern ServiceManaged :: PermissionModels
-pattern ServiceManaged = PermissionModels' "SERVICE_MANAGED"
+pattern PermissionModelsSERVICEMANAGED :: PermissionModels
+pattern PermissionModelsSERVICEMANAGED = PermissionModels' "SERVICE_MANAGED"
 
 {-# COMPLETE
-  SelfManaged,
-  ServiceManaged,
+  PermissionModelsSELFMANAGED,
+  PermissionModelsSERVICEMANAGED,
   PermissionModels'
   #-}
 
-instance FromText PermissionModels where
-  parser = (PermissionModels' . mk) <$> takeText
+instance Prelude.FromText PermissionModels where
+  parser = PermissionModels' Prelude.<$> Prelude.takeText
 
-instance ToText PermissionModels where
-  toText (PermissionModels' ci) = original ci
+instance Prelude.ToText PermissionModels where
+  toText (PermissionModels' x) = x
 
-instance Hashable PermissionModels
+instance Prelude.Hashable PermissionModels
 
-instance NFData PermissionModels
+instance Prelude.NFData PermissionModels
 
-instance ToByteString PermissionModels
+instance Prelude.ToByteString PermissionModels
 
-instance ToQuery PermissionModels
+instance Prelude.ToQuery PermissionModels
 
-instance ToHeader PermissionModels
+instance Prelude.ToHeader PermissionModels
 
-instance FromXML PermissionModels where
-  parseXML = parseXMLText "PermissionModels"
+instance Prelude.FromXML PermissionModels where
+  parseXML = Prelude.parseXMLText "PermissionModels"

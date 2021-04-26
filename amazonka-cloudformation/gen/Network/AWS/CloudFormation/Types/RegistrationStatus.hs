@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.CloudFormation.Types.RegistrationStatus
   ( RegistrationStatus
       ( ..,
-        RSComplete,
-        RSFailed,
-        RSInProgress
+        RegistrationStatusCOMPLETE,
+        RegistrationStatusFAILED,
+        RegistrationStatusINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RegistrationStatus
-  = RegistrationStatus'
-      ( CI
-          Text
-      )
+newtype RegistrationStatus = RegistrationStatus'
+  { fromRegistrationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSComplete :: RegistrationStatus
-pattern RSComplete = RegistrationStatus' "COMPLETE"
+pattern RegistrationStatusCOMPLETE :: RegistrationStatus
+pattern RegistrationStatusCOMPLETE = RegistrationStatus' "COMPLETE"
 
-pattern RSFailed :: RegistrationStatus
-pattern RSFailed = RegistrationStatus' "FAILED"
+pattern RegistrationStatusFAILED :: RegistrationStatus
+pattern RegistrationStatusFAILED = RegistrationStatus' "FAILED"
 
-pattern RSInProgress :: RegistrationStatus
-pattern RSInProgress = RegistrationStatus' "IN_PROGRESS"
+pattern RegistrationStatusINPROGRESS :: RegistrationStatus
+pattern RegistrationStatusINPROGRESS = RegistrationStatus' "IN_PROGRESS"
 
 {-# COMPLETE
-  RSComplete,
-  RSFailed,
-  RSInProgress,
+  RegistrationStatusCOMPLETE,
+  RegistrationStatusFAILED,
+  RegistrationStatusINPROGRESS,
   RegistrationStatus'
   #-}
 
-instance FromText RegistrationStatus where
-  parser = (RegistrationStatus' . mk) <$> takeText
+instance Prelude.FromText RegistrationStatus where
+  parser = RegistrationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText RegistrationStatus where
-  toText (RegistrationStatus' ci) = original ci
+instance Prelude.ToText RegistrationStatus where
+  toText (RegistrationStatus' x) = x
 
-instance Hashable RegistrationStatus
+instance Prelude.Hashable RegistrationStatus
 
-instance NFData RegistrationStatus
+instance Prelude.NFData RegistrationStatus
 
-instance ToByteString RegistrationStatus
+instance Prelude.ToByteString RegistrationStatus
 
-instance ToQuery RegistrationStatus
+instance Prelude.ToQuery RegistrationStatus
 
-instance ToHeader RegistrationStatus
+instance Prelude.ToHeader RegistrationStatus
 
-instance FromXML RegistrationStatus where
-  parseXML = parseXMLText "RegistrationStatus"
+instance Prelude.FromXML RegistrationStatus where
+  parseXML = Prelude.parseXMLText "RegistrationStatus"

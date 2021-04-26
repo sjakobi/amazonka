@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.CloudFormation.Types.StackDriftStatus
   ( StackDriftStatus
       ( ..,
-        SDSDrifted,
-        SDSInSync,
-        SDSNotChecked,
-        SDSUnknown
+        StackDriftStatusDRIFTED,
+        StackDriftStatusINSYNC,
+        StackDriftStatusNOTCHECKED,
+        StackDriftStatusUNKNOWN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackDriftStatus = StackDriftStatus' (CI Text)
+newtype StackDriftStatus = StackDriftStatus'
+  { fromStackDriftStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SDSDrifted :: StackDriftStatus
-pattern SDSDrifted = StackDriftStatus' "DRIFTED"
+pattern StackDriftStatusDRIFTED :: StackDriftStatus
+pattern StackDriftStatusDRIFTED = StackDriftStatus' "DRIFTED"
 
-pattern SDSInSync :: StackDriftStatus
-pattern SDSInSync = StackDriftStatus' "IN_SYNC"
+pattern StackDriftStatusINSYNC :: StackDriftStatus
+pattern StackDriftStatusINSYNC = StackDriftStatus' "IN_SYNC"
 
-pattern SDSNotChecked :: StackDriftStatus
-pattern SDSNotChecked = StackDriftStatus' "NOT_CHECKED"
+pattern StackDriftStatusNOTCHECKED :: StackDriftStatus
+pattern StackDriftStatusNOTCHECKED = StackDriftStatus' "NOT_CHECKED"
 
-pattern SDSUnknown :: StackDriftStatus
-pattern SDSUnknown = StackDriftStatus' "UNKNOWN"
+pattern StackDriftStatusUNKNOWN :: StackDriftStatus
+pattern StackDriftStatusUNKNOWN = StackDriftStatus' "UNKNOWN"
 
 {-# COMPLETE
-  SDSDrifted,
-  SDSInSync,
-  SDSNotChecked,
-  SDSUnknown,
+  StackDriftStatusDRIFTED,
+  StackDriftStatusINSYNC,
+  StackDriftStatusNOTCHECKED,
+  StackDriftStatusUNKNOWN,
   StackDriftStatus'
   #-}
 
-instance FromText StackDriftStatus where
-  parser = (StackDriftStatus' . mk) <$> takeText
+instance Prelude.FromText StackDriftStatus where
+  parser = StackDriftStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StackDriftStatus where
-  toText (StackDriftStatus' ci) = original ci
+instance Prelude.ToText StackDriftStatus where
+  toText (StackDriftStatus' x) = x
 
-instance Hashable StackDriftStatus
+instance Prelude.Hashable StackDriftStatus
 
-instance NFData StackDriftStatus
+instance Prelude.NFData StackDriftStatus
 
-instance ToByteString StackDriftStatus
+instance Prelude.ToByteString StackDriftStatus
 
-instance ToQuery StackDriftStatus
+instance Prelude.ToQuery StackDriftStatus
 
-instance ToHeader StackDriftStatus
+instance Prelude.ToHeader StackDriftStatus
 
-instance FromXML StackDriftStatus where
-  parseXML = parseXMLText "StackDriftStatus"
+instance Prelude.FromXML StackDriftStatus where
+  parseXML = Prelude.parseXMLText "StackDriftStatus"

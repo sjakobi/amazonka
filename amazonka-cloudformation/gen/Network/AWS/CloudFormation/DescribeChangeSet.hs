@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,384 +21,473 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the inputs for the change set and a list of changes that AWS CloudFormation will make if you execute the change set. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html Updating Stacks Using Change Sets> in the AWS CloudFormation User Guide.
---
---
+-- Returns the inputs for the change set and a list of changes that AWS
+-- CloudFormation will make if you execute the change set. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html Updating Stacks Using Change Sets>
+-- in the AWS CloudFormation User Guide.
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudFormation.DescribeChangeSet
   ( -- * Creating a Request
-    describeChangeSet,
-    DescribeChangeSet,
+    DescribeChangeSet (..),
+    newDescribeChangeSet,
 
     -- * Request Lenses
-    dcsNextToken,
-    dcsStackName,
-    dcsChangeSetName,
+    describeChangeSet_nextToken,
+    describeChangeSet_stackName,
+    describeChangeSet_changeSetName,
 
     -- * Destructuring the Response
-    describeChangeSetResponse,
-    DescribeChangeSetResponse,
+    DescribeChangeSetResponse (..),
+    newDescribeChangeSetResponse,
 
     -- * Response Lenses
-    desrsRootChangeSetId,
-    desrsNextToken,
-    desrsCreationTime,
-    desrsIncludeNestedStacks,
-    desrsStackName,
-    desrsCapabilities,
-    desrsExecutionStatus,
-    desrsStackId,
-    desrsNotificationARNs,
-    desrsChanges,
-    desrsParentChangeSetId,
-    desrsTags,
-    desrsChangeSetId,
-    desrsRollbackConfiguration,
-    desrsDescription,
-    desrsChangeSetName,
-    desrsStatusReason,
-    desrsParameters,
-    desrsResponseStatus,
-    desrsStatus,
+    describeChangeSetResponse_rootChangeSetId,
+    describeChangeSetResponse_nextToken,
+    describeChangeSetResponse_creationTime,
+    describeChangeSetResponse_includeNestedStacks,
+    describeChangeSetResponse_stackName,
+    describeChangeSetResponse_capabilities,
+    describeChangeSetResponse_executionStatus,
+    describeChangeSetResponse_stackId,
+    describeChangeSetResponse_notificationARNs,
+    describeChangeSetResponse_changes,
+    describeChangeSetResponse_parentChangeSetId,
+    describeChangeSetResponse_tags,
+    describeChangeSetResponse_changeSetId,
+    describeChangeSetResponse_rollbackConfiguration,
+    describeChangeSetResponse_description,
+    describeChangeSetResponse_changeSetName,
+    describeChangeSetResponse_statusReason,
+    describeChangeSetResponse_parameters,
+    describeChangeSetResponse_httpStatus,
+    describeChangeSetResponse_status,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFormation.Types.Capability
+import Network.AWS.CloudFormation.Types.Change
+import Network.AWS.CloudFormation.Types.ChangeSetStatus
+import Network.AWS.CloudFormation.Types.ExecutionStatus
+import Network.AWS.CloudFormation.Types.Parameter
+import Network.AWS.CloudFormation.Types.RollbackConfiguration
+import Network.AWS.CloudFormation.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input for the 'DescribeChangeSet' action.
+-- | The input for the DescribeChangeSet action.
 --
---
---
--- /See:/ 'describeChangeSet' smart constructor.
+-- /See:/ 'newDescribeChangeSet' smart constructor.
 data DescribeChangeSet = DescribeChangeSet'
-  { _dcsNextToken ::
-      !(Maybe Text),
-    _dcsStackName :: !(Maybe Text),
-    _dcsChangeSetName :: !Text
+  { -- | A string (provided by the DescribeChangeSet response output) that
+    -- identifies the next page of information that you want to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | If you specified the name of a change set, specify the stack name or ID
+    -- (ARN) of the change set you want to describe.
+    stackName :: Prelude.Maybe Prelude.Text,
+    -- | The name or Amazon Resource Name (ARN) of the change set that you want
+    -- to describe.
+    changeSetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeChangeSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeChangeSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsNextToken' - A string (provided by the 'DescribeChangeSet' response output) that identifies the next page of information that you want to retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsStackName' - If you specified the name of a change set, specify the stack name or ID (ARN) of the change set you want to describe.
+-- 'nextToken', 'describeChangeSet_nextToken' - A string (provided by the DescribeChangeSet response output) that
+-- identifies the next page of information that you want to retrieve.
 --
--- * 'dcsChangeSetName' - The name or Amazon Resource Name (ARN) of the change set that you want to describe.
-describeChangeSet ::
-  -- | 'dcsChangeSetName'
-  Text ->
+-- 'stackName', 'describeChangeSet_stackName' - If you specified the name of a change set, specify the stack name or ID
+-- (ARN) of the change set you want to describe.
+--
+-- 'changeSetName', 'describeChangeSet_changeSetName' - The name or Amazon Resource Name (ARN) of the change set that you want
+-- to describe.
+newDescribeChangeSet ::
+  -- | 'changeSetName'
+  Prelude.Text ->
   DescribeChangeSet
-describeChangeSet pChangeSetName_ =
+newDescribeChangeSet pChangeSetName_ =
   DescribeChangeSet'
-    { _dcsNextToken = Nothing,
-      _dcsStackName = Nothing,
-      _dcsChangeSetName = pChangeSetName_
+    { nextToken = Prelude.Nothing,
+      stackName = Prelude.Nothing,
+      changeSetName = pChangeSetName_
     }
 
--- | A string (provided by the 'DescribeChangeSet' response output) that identifies the next page of information that you want to retrieve.
-dcsNextToken :: Lens' DescribeChangeSet (Maybe Text)
-dcsNextToken = lens _dcsNextToken (\s a -> s {_dcsNextToken = a})
+-- | A string (provided by the DescribeChangeSet response output) that
+-- identifies the next page of information that you want to retrieve.
+describeChangeSet_nextToken :: Lens.Lens' DescribeChangeSet (Prelude.Maybe Prelude.Text)
+describeChangeSet_nextToken = Lens.lens (\DescribeChangeSet' {nextToken} -> nextToken) (\s@DescribeChangeSet' {} a -> s {nextToken = a} :: DescribeChangeSet)
 
--- | If you specified the name of a change set, specify the stack name or ID (ARN) of the change set you want to describe.
-dcsStackName :: Lens' DescribeChangeSet (Maybe Text)
-dcsStackName = lens _dcsStackName (\s a -> s {_dcsStackName = a})
+-- | If you specified the name of a change set, specify the stack name or ID
+-- (ARN) of the change set you want to describe.
+describeChangeSet_stackName :: Lens.Lens' DescribeChangeSet (Prelude.Maybe Prelude.Text)
+describeChangeSet_stackName = Lens.lens (\DescribeChangeSet' {stackName} -> stackName) (\s@DescribeChangeSet' {} a -> s {stackName = a} :: DescribeChangeSet)
 
--- | The name or Amazon Resource Name (ARN) of the change set that you want to describe.
-dcsChangeSetName :: Lens' DescribeChangeSet Text
-dcsChangeSetName = lens _dcsChangeSetName (\s a -> s {_dcsChangeSetName = a})
+-- | The name or Amazon Resource Name (ARN) of the change set that you want
+-- to describe.
+describeChangeSet_changeSetName :: Lens.Lens' DescribeChangeSet Prelude.Text
+describeChangeSet_changeSetName = Lens.lens (\DescribeChangeSet' {changeSetName} -> changeSetName) (\s@DescribeChangeSet' {} a -> s {changeSetName = a} :: DescribeChangeSet)
 
-instance AWSPager DescribeChangeSet where
+instance Pager.AWSPager DescribeChangeSet where
   page rq rs
-    | stop (rs ^. desrsNextToken) = Nothing
-    | stop (rs ^. desrsChanges) = Nothing
-    | otherwise =
-      Just $ rq & dcsNextToken .~ rs ^. desrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeChangeSetResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeChangeSetResponse_changes
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeChangeSet_nextToken
+          Lens..~ rs
+          Lens.^? describeChangeSetResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeChangeSet where
+instance Prelude.AWSRequest DescribeChangeSet where
   type Rs DescribeChangeSet = DescribeChangeSetResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeChangeSetResult"
       ( \s h x ->
           DescribeChangeSetResponse'
-            <$> (x .@? "RootChangeSetId")
-            <*> (x .@? "NextToken")
-            <*> (x .@? "CreationTime")
-            <*> (x .@? "IncludeNestedStacks")
-            <*> (x .@? "StackName")
-            <*> ( x .@? "Capabilities" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "ExecutionStatus")
-            <*> (x .@? "StackId")
-            <*> ( x .@? "NotificationARNs" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> ( x .@? "Changes" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "ParentChangeSetId")
-            <*> ( x .@? "Tags" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "ChangeSetId")
-            <*> (x .@? "RollbackConfiguration")
-            <*> (x .@? "Description")
-            <*> (x .@? "ChangeSetName")
-            <*> (x .@? "StatusReason")
-            <*> ( x .@? "Parameters" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
-            <*> (x .@ "Status")
+            Prelude.<$> (x Prelude..@? "RootChangeSetId")
+            Prelude.<*> (x Prelude..@? "NextToken")
+            Prelude.<*> (x Prelude..@? "CreationTime")
+            Prelude.<*> (x Prelude..@? "IncludeNestedStacks")
+            Prelude.<*> (x Prelude..@? "StackName")
+            Prelude.<*> ( x Prelude..@? "Capabilities"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "ExecutionStatus")
+            Prelude.<*> (x Prelude..@? "StackId")
+            Prelude.<*> ( x Prelude..@? "NotificationARNs"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> ( x Prelude..@? "Changes" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "ParentChangeSetId")
+            Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "ChangeSetId")
+            Prelude.<*> (x Prelude..@? "RollbackConfiguration")
+            Prelude.<*> (x Prelude..@? "Description")
+            Prelude.<*> (x Prelude..@? "ChangeSetName")
+            Prelude.<*> (x Prelude..@? "StatusReason")
+            Prelude.<*> ( x Prelude..@? "Parameters"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "Status")
       )
 
-instance Hashable DescribeChangeSet
+instance Prelude.Hashable DescribeChangeSet
 
-instance NFData DescribeChangeSet
+instance Prelude.NFData DescribeChangeSet
 
-instance ToHeaders DescribeChangeSet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeChangeSet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeChangeSet where
-  toPath = const "/"
+instance Prelude.ToPath DescribeChangeSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeChangeSet where
+instance Prelude.ToQuery DescribeChangeSet where
   toQuery DescribeChangeSet' {..} =
-    mconcat
-      [ "Action" =: ("DescribeChangeSet" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "NextToken" =: _dcsNextToken,
-        "StackName" =: _dcsStackName,
-        "ChangeSetName" =: _dcsChangeSetName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeChangeSet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "StackName" Prelude.=: stackName,
+        "ChangeSetName" Prelude.=: changeSetName
       ]
 
--- | The output for the 'DescribeChangeSet' action.
+-- | The output for the DescribeChangeSet action.
 --
---
---
--- /See:/ 'describeChangeSetResponse' smart constructor.
+-- /See:/ 'newDescribeChangeSetResponse' smart constructor.
 data DescribeChangeSetResponse = DescribeChangeSetResponse'
-  { _desrsRootChangeSetId ::
-      !(Maybe Text),
-    _desrsNextToken ::
-      !(Maybe Text),
-    _desrsCreationTime ::
-      !(Maybe ISO8601),
-    _desrsIncludeNestedStacks ::
-      !(Maybe Bool),
-    _desrsStackName ::
-      !(Maybe Text),
-    _desrsCapabilities ::
-      !( Maybe
-           [Capability]
-       ),
-    _desrsExecutionStatus ::
-      !( Maybe
-           ExecutionStatus
-       ),
-    _desrsStackId ::
-      !(Maybe Text),
-    _desrsNotificationARNs ::
-      !(Maybe [Text]),
-    _desrsChanges ::
-      !(Maybe [Change]),
-    _desrsParentChangeSetId ::
-      !(Maybe Text),
-    _desrsTags ::
-      !(Maybe [Tag]),
-    _desrsChangeSetId ::
-      !(Maybe Text),
-    _desrsRollbackConfiguration ::
-      !( Maybe
-           RollbackConfiguration
-       ),
-    _desrsDescription ::
-      !(Maybe Text),
-    _desrsChangeSetName ::
-      !(Maybe Text),
-    _desrsStatusReason ::
-      !(Maybe Text),
-    _desrsParameters ::
-      !( Maybe
-           [Parameter]
-       ),
-    _desrsResponseStatus ::
-      !Int,
-    _desrsStatus ::
-      !ChangeSetStatus
+  { -- | Specifies the change set ID of the root change set in the current nested
+    -- change set hierarchy.
+    rootChangeSetId :: Prelude.Maybe Prelude.Text,
+    -- | If the output exceeds 1 MB, a string that identifies the next page of
+    -- changes. If there is no additional page, this value is null.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The start time when the change set was created, in UTC.
+    creationTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | Verifies if @IncludeNestedStacks@ is set to @True@.
+    includeNestedStacks :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the stack that is associated with the change set.
+    stackName :: Prelude.Maybe Prelude.Text,
+    -- | If you execute the change set, the list of capabilities that were
+    -- explicitly acknowledged when the change set was created.
+    capabilities :: Prelude.Maybe [Capability],
+    -- | If the change set execution status is @AVAILABLE@, you can execute the
+    -- change set. If you can’t execute the change set, the status indicates
+    -- why. For example, a change set might be in an @UNAVAILABLE@ state
+    -- because AWS CloudFormation is still creating it or in an @OBSOLETE@
+    -- state because the stack was already updated.
+    executionStatus :: Prelude.Maybe ExecutionStatus,
+    -- | The ARN of the stack that is associated with the change set.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | The ARNs of the Amazon Simple Notification Service (Amazon SNS) topics
+    -- that will be associated with the stack if you execute the change set.
+    notificationARNs :: Prelude.Maybe [Prelude.Text],
+    -- | A list of @Change@ structures that describes the resources AWS
+    -- CloudFormation changes if you execute the change set.
+    changes :: Prelude.Maybe [Change],
+    -- | Specifies the change set ID of the parent change set in the current
+    -- nested change set hierarchy.
+    parentChangeSetId :: Prelude.Maybe Prelude.Text,
+    -- | If you execute the change set, the tags that will be associated with the
+    -- stack.
+    tags :: Prelude.Maybe [Tag],
+    -- | The ARN of the change set.
+    changeSetId :: Prelude.Maybe Prelude.Text,
+    -- | The rollback triggers for AWS CloudFormation to monitor during stack
+    -- creation and updating operations, and for the specified monitoring
+    -- period afterwards.
+    rollbackConfiguration :: Prelude.Maybe RollbackConfiguration,
+    -- | Information about the change set.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the change set.
+    changeSetName :: Prelude.Maybe Prelude.Text,
+    -- | A description of the change set\'s status. For example, if your attempt
+    -- to create a change set failed, AWS CloudFormation shows the error
+    -- message.
+    statusReason :: Prelude.Maybe Prelude.Text,
+    -- | A list of @Parameter@ structures that describes the input parameters and
+    -- their values used to create the change set. For more information, see
+    -- the
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html Parameter>
+    -- data type.
+    parameters :: Prelude.Maybe [Parameter],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The current status of the change set, such as @CREATE_IN_PROGRESS@,
+    -- @CREATE_COMPLETE@, or @FAILED@.
+    status :: ChangeSetStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeChangeSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeChangeSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsRootChangeSetId' - Specifies the change set ID of the root change set in the current nested change set hierarchy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsNextToken' - If the output exceeds 1 MB, a string that identifies the next page of changes. If there is no additional page, this value is null.
+-- 'rootChangeSetId', 'describeChangeSetResponse_rootChangeSetId' - Specifies the change set ID of the root change set in the current nested
+-- change set hierarchy.
 --
--- * 'desrsCreationTime' - The start time when the change set was created, in UTC.
+-- 'nextToken', 'describeChangeSetResponse_nextToken' - If the output exceeds 1 MB, a string that identifies the next page of
+-- changes. If there is no additional page, this value is null.
 --
--- * 'desrsIncludeNestedStacks' - Verifies if @IncludeNestedStacks@ is set to @True@ .
+-- 'creationTime', 'describeChangeSetResponse_creationTime' - The start time when the change set was created, in UTC.
 --
--- * 'desrsStackName' - The name of the stack that is associated with the change set.
+-- 'includeNestedStacks', 'describeChangeSetResponse_includeNestedStacks' - Verifies if @IncludeNestedStacks@ is set to @True@.
 --
--- * 'desrsCapabilities' - If you execute the change set, the list of capabilities that were explicitly acknowledged when the change set was created.
+-- 'stackName', 'describeChangeSetResponse_stackName' - The name of the stack that is associated with the change set.
 --
--- * 'desrsExecutionStatus' - If the change set execution status is @AVAILABLE@ , you can execute the change set. If you can’t execute the change set, the status indicates why. For example, a change set might be in an @UNAVAILABLE@ state because AWS CloudFormation is still creating it or in an @OBSOLETE@ state because the stack was already updated.
+-- 'capabilities', 'describeChangeSetResponse_capabilities' - If you execute the change set, the list of capabilities that were
+-- explicitly acknowledged when the change set was created.
 --
--- * 'desrsStackId' - The ARN of the stack that is associated with the change set.
+-- 'executionStatus', 'describeChangeSetResponse_executionStatus' - If the change set execution status is @AVAILABLE@, you can execute the
+-- change set. If you can’t execute the change set, the status indicates
+-- why. For example, a change set might be in an @UNAVAILABLE@ state
+-- because AWS CloudFormation is still creating it or in an @OBSOLETE@
+-- state because the stack was already updated.
 --
--- * 'desrsNotificationARNs' - The ARNs of the Amazon Simple Notification Service (Amazon SNS) topics that will be associated with the stack if you execute the change set.
+-- 'stackId', 'describeChangeSetResponse_stackId' - The ARN of the stack that is associated with the change set.
 --
--- * 'desrsChanges' - A list of @Change@ structures that describes the resources AWS CloudFormation changes if you execute the change set.
+-- 'notificationARNs', 'describeChangeSetResponse_notificationARNs' - The ARNs of the Amazon Simple Notification Service (Amazon SNS) topics
+-- that will be associated with the stack if you execute the change set.
 --
--- * 'desrsParentChangeSetId' - Specifies the change set ID of the parent change set in the current nested change set hierarchy.
+-- 'changes', 'describeChangeSetResponse_changes' - A list of @Change@ structures that describes the resources AWS
+-- CloudFormation changes if you execute the change set.
 --
--- * 'desrsTags' - If you execute the change set, the tags that will be associated with the stack.
+-- 'parentChangeSetId', 'describeChangeSetResponse_parentChangeSetId' - Specifies the change set ID of the parent change set in the current
+-- nested change set hierarchy.
 --
--- * 'desrsChangeSetId' - The ARN of the change set.
+-- 'tags', 'describeChangeSetResponse_tags' - If you execute the change set, the tags that will be associated with the
+-- stack.
 --
--- * 'desrsRollbackConfiguration' - The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+-- 'changeSetId', 'describeChangeSetResponse_changeSetId' - The ARN of the change set.
 --
--- * 'desrsDescription' - Information about the change set.
+-- 'rollbackConfiguration', 'describeChangeSetResponse_rollbackConfiguration' - The rollback triggers for AWS CloudFormation to monitor during stack
+-- creation and updating operations, and for the specified monitoring
+-- period afterwards.
 --
--- * 'desrsChangeSetName' - The name of the change set.
+-- 'description', 'describeChangeSetResponse_description' - Information about the change set.
 --
--- * 'desrsStatusReason' - A description of the change set's status. For example, if your attempt to create a change set failed, AWS CloudFormation shows the error message.
+-- 'changeSetName', 'describeChangeSetResponse_changeSetName' - The name of the change set.
 --
--- * 'desrsParameters' - A list of @Parameter@ structures that describes the input parameters and their values used to create the change set. For more information, see the <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html Parameter> data type.
+-- 'statusReason', 'describeChangeSetResponse_statusReason' - A description of the change set\'s status. For example, if your attempt
+-- to create a change set failed, AWS CloudFormation shows the error
+-- message.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
+-- 'parameters', 'describeChangeSetResponse_parameters' - A list of @Parameter@ structures that describes the input parameters and
+-- their values used to create the change set. For more information, see
+-- the
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html Parameter>
+-- data type.
 --
--- * 'desrsStatus' - The current status of the change set, such as @CREATE_IN_PROGRESS@ , @CREATE_COMPLETE@ , or @FAILED@ .
-describeChangeSetResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
-  -- | 'desrsStatus'
+-- 'httpStatus', 'describeChangeSetResponse_httpStatus' - The response's http status code.
+--
+-- 'status', 'describeChangeSetResponse_status' - The current status of the change set, such as @CREATE_IN_PROGRESS@,
+-- @CREATE_COMPLETE@, or @FAILED@.
+newDescribeChangeSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'status'
   ChangeSetStatus ->
   DescribeChangeSetResponse
-describeChangeSetResponse pResponseStatus_ pStatus_ =
+newDescribeChangeSetResponse pHttpStatus_ pStatus_ =
   DescribeChangeSetResponse'
-    { _desrsRootChangeSetId =
-        Nothing,
-      _desrsNextToken = Nothing,
-      _desrsCreationTime = Nothing,
-      _desrsIncludeNestedStacks = Nothing,
-      _desrsStackName = Nothing,
-      _desrsCapabilities = Nothing,
-      _desrsExecutionStatus = Nothing,
-      _desrsStackId = Nothing,
-      _desrsNotificationARNs = Nothing,
-      _desrsChanges = Nothing,
-      _desrsParentChangeSetId = Nothing,
-      _desrsTags = Nothing,
-      _desrsChangeSetId = Nothing,
-      _desrsRollbackConfiguration = Nothing,
-      _desrsDescription = Nothing,
-      _desrsChangeSetName = Nothing,
-      _desrsStatusReason = Nothing,
-      _desrsParameters = Nothing,
-      _desrsResponseStatus = pResponseStatus_,
-      _desrsStatus = pStatus_
+    { rootChangeSetId =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      includeNestedStacks = Prelude.Nothing,
+      stackName = Prelude.Nothing,
+      capabilities = Prelude.Nothing,
+      executionStatus = Prelude.Nothing,
+      stackId = Prelude.Nothing,
+      notificationARNs = Prelude.Nothing,
+      changes = Prelude.Nothing,
+      parentChangeSetId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      changeSetId = Prelude.Nothing,
+      rollbackConfiguration = Prelude.Nothing,
+      description = Prelude.Nothing,
+      changeSetName = Prelude.Nothing,
+      statusReason = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      status = pStatus_
     }
 
--- | Specifies the change set ID of the root change set in the current nested change set hierarchy.
-desrsRootChangeSetId :: Lens' DescribeChangeSetResponse (Maybe Text)
-desrsRootChangeSetId = lens _desrsRootChangeSetId (\s a -> s {_desrsRootChangeSetId = a})
+-- | Specifies the change set ID of the root change set in the current nested
+-- change set hierarchy.
+describeChangeSetResponse_rootChangeSetId :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.Text)
+describeChangeSetResponse_rootChangeSetId = Lens.lens (\DescribeChangeSetResponse' {rootChangeSetId} -> rootChangeSetId) (\s@DescribeChangeSetResponse' {} a -> s {rootChangeSetId = a} :: DescribeChangeSetResponse)
 
--- | If the output exceeds 1 MB, a string that identifies the next page of changes. If there is no additional page, this value is null.
-desrsNextToken :: Lens' DescribeChangeSetResponse (Maybe Text)
-desrsNextToken = lens _desrsNextToken (\s a -> s {_desrsNextToken = a})
+-- | If the output exceeds 1 MB, a string that identifies the next page of
+-- changes. If there is no additional page, this value is null.
+describeChangeSetResponse_nextToken :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.Text)
+describeChangeSetResponse_nextToken = Lens.lens (\DescribeChangeSetResponse' {nextToken} -> nextToken) (\s@DescribeChangeSetResponse' {} a -> s {nextToken = a} :: DescribeChangeSetResponse)
 
 -- | The start time when the change set was created, in UTC.
-desrsCreationTime :: Lens' DescribeChangeSetResponse (Maybe UTCTime)
-desrsCreationTime = lens _desrsCreationTime (\s a -> s {_desrsCreationTime = a}) . mapping _Time
+describeChangeSetResponse_creationTime :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.UTCTime)
+describeChangeSetResponse_creationTime = Lens.lens (\DescribeChangeSetResponse' {creationTime} -> creationTime) (\s@DescribeChangeSetResponse' {} a -> s {creationTime = a} :: DescribeChangeSetResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | Verifies if @IncludeNestedStacks@ is set to @True@ .
-desrsIncludeNestedStacks :: Lens' DescribeChangeSetResponse (Maybe Bool)
-desrsIncludeNestedStacks = lens _desrsIncludeNestedStacks (\s a -> s {_desrsIncludeNestedStacks = a})
+-- | Verifies if @IncludeNestedStacks@ is set to @True@.
+describeChangeSetResponse_includeNestedStacks :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.Bool)
+describeChangeSetResponse_includeNestedStacks = Lens.lens (\DescribeChangeSetResponse' {includeNestedStacks} -> includeNestedStacks) (\s@DescribeChangeSetResponse' {} a -> s {includeNestedStacks = a} :: DescribeChangeSetResponse)
 
 -- | The name of the stack that is associated with the change set.
-desrsStackName :: Lens' DescribeChangeSetResponse (Maybe Text)
-desrsStackName = lens _desrsStackName (\s a -> s {_desrsStackName = a})
+describeChangeSetResponse_stackName :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.Text)
+describeChangeSetResponse_stackName = Lens.lens (\DescribeChangeSetResponse' {stackName} -> stackName) (\s@DescribeChangeSetResponse' {} a -> s {stackName = a} :: DescribeChangeSetResponse)
 
--- | If you execute the change set, the list of capabilities that were explicitly acknowledged when the change set was created.
-desrsCapabilities :: Lens' DescribeChangeSetResponse [Capability]
-desrsCapabilities = lens _desrsCapabilities (\s a -> s {_desrsCapabilities = a}) . _Default . _Coerce
+-- | If you execute the change set, the list of capabilities that were
+-- explicitly acknowledged when the change set was created.
+describeChangeSetResponse_capabilities :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe [Capability])
+describeChangeSetResponse_capabilities = Lens.lens (\DescribeChangeSetResponse' {capabilities} -> capabilities) (\s@DescribeChangeSetResponse' {} a -> s {capabilities = a} :: DescribeChangeSetResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If the change set execution status is @AVAILABLE@ , you can execute the change set. If you can’t execute the change set, the status indicates why. For example, a change set might be in an @UNAVAILABLE@ state because AWS CloudFormation is still creating it or in an @OBSOLETE@ state because the stack was already updated.
-desrsExecutionStatus :: Lens' DescribeChangeSetResponse (Maybe ExecutionStatus)
-desrsExecutionStatus = lens _desrsExecutionStatus (\s a -> s {_desrsExecutionStatus = a})
+-- | If the change set execution status is @AVAILABLE@, you can execute the
+-- change set. If you can’t execute the change set, the status indicates
+-- why. For example, a change set might be in an @UNAVAILABLE@ state
+-- because AWS CloudFormation is still creating it or in an @OBSOLETE@
+-- state because the stack was already updated.
+describeChangeSetResponse_executionStatus :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe ExecutionStatus)
+describeChangeSetResponse_executionStatus = Lens.lens (\DescribeChangeSetResponse' {executionStatus} -> executionStatus) (\s@DescribeChangeSetResponse' {} a -> s {executionStatus = a} :: DescribeChangeSetResponse)
 
 -- | The ARN of the stack that is associated with the change set.
-desrsStackId :: Lens' DescribeChangeSetResponse (Maybe Text)
-desrsStackId = lens _desrsStackId (\s a -> s {_desrsStackId = a})
+describeChangeSetResponse_stackId :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.Text)
+describeChangeSetResponse_stackId = Lens.lens (\DescribeChangeSetResponse' {stackId} -> stackId) (\s@DescribeChangeSetResponse' {} a -> s {stackId = a} :: DescribeChangeSetResponse)
 
--- | The ARNs of the Amazon Simple Notification Service (Amazon SNS) topics that will be associated with the stack if you execute the change set.
-desrsNotificationARNs :: Lens' DescribeChangeSetResponse [Text]
-desrsNotificationARNs = lens _desrsNotificationARNs (\s a -> s {_desrsNotificationARNs = a}) . _Default . _Coerce
+-- | The ARNs of the Amazon Simple Notification Service (Amazon SNS) topics
+-- that will be associated with the stack if you execute the change set.
+describeChangeSetResponse_notificationARNs :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe [Prelude.Text])
+describeChangeSetResponse_notificationARNs = Lens.lens (\DescribeChangeSetResponse' {notificationARNs} -> notificationARNs) (\s@DescribeChangeSetResponse' {} a -> s {notificationARNs = a} :: DescribeChangeSetResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of @Change@ structures that describes the resources AWS CloudFormation changes if you execute the change set.
-desrsChanges :: Lens' DescribeChangeSetResponse [Change]
-desrsChanges = lens _desrsChanges (\s a -> s {_desrsChanges = a}) . _Default . _Coerce
+-- | A list of @Change@ structures that describes the resources AWS
+-- CloudFormation changes if you execute the change set.
+describeChangeSetResponse_changes :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe [Change])
+describeChangeSetResponse_changes = Lens.lens (\DescribeChangeSetResponse' {changes} -> changes) (\s@DescribeChangeSetResponse' {} a -> s {changes = a} :: DescribeChangeSetResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies the change set ID of the parent change set in the current nested change set hierarchy.
-desrsParentChangeSetId :: Lens' DescribeChangeSetResponse (Maybe Text)
-desrsParentChangeSetId = lens _desrsParentChangeSetId (\s a -> s {_desrsParentChangeSetId = a})
+-- | Specifies the change set ID of the parent change set in the current
+-- nested change set hierarchy.
+describeChangeSetResponse_parentChangeSetId :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.Text)
+describeChangeSetResponse_parentChangeSetId = Lens.lens (\DescribeChangeSetResponse' {parentChangeSetId} -> parentChangeSetId) (\s@DescribeChangeSetResponse' {} a -> s {parentChangeSetId = a} :: DescribeChangeSetResponse)
 
--- | If you execute the change set, the tags that will be associated with the stack.
-desrsTags :: Lens' DescribeChangeSetResponse [Tag]
-desrsTags = lens _desrsTags (\s a -> s {_desrsTags = a}) . _Default . _Coerce
+-- | If you execute the change set, the tags that will be associated with the
+-- stack.
+describeChangeSetResponse_tags :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe [Tag])
+describeChangeSetResponse_tags = Lens.lens (\DescribeChangeSetResponse' {tags} -> tags) (\s@DescribeChangeSetResponse' {} a -> s {tags = a} :: DescribeChangeSetResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ARN of the change set.
-desrsChangeSetId :: Lens' DescribeChangeSetResponse (Maybe Text)
-desrsChangeSetId = lens _desrsChangeSetId (\s a -> s {_desrsChangeSetId = a})
+describeChangeSetResponse_changeSetId :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.Text)
+describeChangeSetResponse_changeSetId = Lens.lens (\DescribeChangeSetResponse' {changeSetId} -> changeSetId) (\s@DescribeChangeSetResponse' {} a -> s {changeSetId = a} :: DescribeChangeSetResponse)
 
--- | The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
-desrsRollbackConfiguration :: Lens' DescribeChangeSetResponse (Maybe RollbackConfiguration)
-desrsRollbackConfiguration = lens _desrsRollbackConfiguration (\s a -> s {_desrsRollbackConfiguration = a})
+-- | The rollback triggers for AWS CloudFormation to monitor during stack
+-- creation and updating operations, and for the specified monitoring
+-- period afterwards.
+describeChangeSetResponse_rollbackConfiguration :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe RollbackConfiguration)
+describeChangeSetResponse_rollbackConfiguration = Lens.lens (\DescribeChangeSetResponse' {rollbackConfiguration} -> rollbackConfiguration) (\s@DescribeChangeSetResponse' {} a -> s {rollbackConfiguration = a} :: DescribeChangeSetResponse)
 
 -- | Information about the change set.
-desrsDescription :: Lens' DescribeChangeSetResponse (Maybe Text)
-desrsDescription = lens _desrsDescription (\s a -> s {_desrsDescription = a})
+describeChangeSetResponse_description :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.Text)
+describeChangeSetResponse_description = Lens.lens (\DescribeChangeSetResponse' {description} -> description) (\s@DescribeChangeSetResponse' {} a -> s {description = a} :: DescribeChangeSetResponse)
 
 -- | The name of the change set.
-desrsChangeSetName :: Lens' DescribeChangeSetResponse (Maybe Text)
-desrsChangeSetName = lens _desrsChangeSetName (\s a -> s {_desrsChangeSetName = a})
+describeChangeSetResponse_changeSetName :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.Text)
+describeChangeSetResponse_changeSetName = Lens.lens (\DescribeChangeSetResponse' {changeSetName} -> changeSetName) (\s@DescribeChangeSetResponse' {} a -> s {changeSetName = a} :: DescribeChangeSetResponse)
 
--- | A description of the change set's status. For example, if your attempt to create a change set failed, AWS CloudFormation shows the error message.
-desrsStatusReason :: Lens' DescribeChangeSetResponse (Maybe Text)
-desrsStatusReason = lens _desrsStatusReason (\s a -> s {_desrsStatusReason = a})
+-- | A description of the change set\'s status. For example, if your attempt
+-- to create a change set failed, AWS CloudFormation shows the error
+-- message.
+describeChangeSetResponse_statusReason :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe Prelude.Text)
+describeChangeSetResponse_statusReason = Lens.lens (\DescribeChangeSetResponse' {statusReason} -> statusReason) (\s@DescribeChangeSetResponse' {} a -> s {statusReason = a} :: DescribeChangeSetResponse)
 
--- | A list of @Parameter@ structures that describes the input parameters and their values used to create the change set. For more information, see the <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html Parameter> data type.
-desrsParameters :: Lens' DescribeChangeSetResponse [Parameter]
-desrsParameters = lens _desrsParameters (\s a -> s {_desrsParameters = a}) . _Default . _Coerce
+-- | A list of @Parameter@ structures that describes the input parameters and
+-- their values used to create the change set. For more information, see
+-- the
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html Parameter>
+-- data type.
+describeChangeSetResponse_parameters :: Lens.Lens' DescribeChangeSetResponse (Prelude.Maybe [Parameter])
+describeChangeSetResponse_parameters = Lens.lens (\DescribeChangeSetResponse' {parameters} -> parameters) (\s@DescribeChangeSetResponse' {} a -> s {parameters = a} :: DescribeChangeSetResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeChangeSetResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeChangeSetResponse_httpStatus :: Lens.Lens' DescribeChangeSetResponse Prelude.Int
+describeChangeSetResponse_httpStatus = Lens.lens (\DescribeChangeSetResponse' {httpStatus} -> httpStatus) (\s@DescribeChangeSetResponse' {} a -> s {httpStatus = a} :: DescribeChangeSetResponse)
 
--- | The current status of the change set, such as @CREATE_IN_PROGRESS@ , @CREATE_COMPLETE@ , or @FAILED@ .
-desrsStatus :: Lens' DescribeChangeSetResponse ChangeSetStatus
-desrsStatus = lens _desrsStatus (\s a -> s {_desrsStatus = a})
+-- | The current status of the change set, such as @CREATE_IN_PROGRESS@,
+-- @CREATE_COMPLETE@, or @FAILED@.
+describeChangeSetResponse_status :: Lens.Lens' DescribeChangeSetResponse ChangeSetStatus
+describeChangeSetResponse_status = Lens.lens (\DescribeChangeSetResponse' {status} -> status) (\s@DescribeChangeSetResponse' {} a -> s {status = a} :: DescribeChangeSetResponse)
 
-instance NFData DescribeChangeSetResponse
+instance Prelude.NFData DescribeChangeSetResponse

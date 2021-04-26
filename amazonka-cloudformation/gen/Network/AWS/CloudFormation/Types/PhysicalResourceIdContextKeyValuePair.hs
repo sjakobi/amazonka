@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFormation.Types.PhysicalResourceIdContextKeyValuePair where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation uses context key-value pairs in cases where a resource's logical and physical IDs are not enough to uniquely identify that resource. Each context key-value pair specifies a resource that contains the targeted resource.
+-- | Context information that enables AWS CloudFormation to uniquely identify
+-- a resource. AWS CloudFormation uses context key-value pairs in cases
+-- where a resource\'s logical and physical IDs are not enough to uniquely
+-- identify that resource. Each context key-value pair specifies a resource
+-- that contains the targeted resource.
 --
---
---
--- /See:/ 'physicalResourceIdContextKeyValuePair' smart constructor.
+-- /See:/ 'newPhysicalResourceIdContextKeyValuePair' smart constructor.
 data PhysicalResourceIdContextKeyValuePair = PhysicalResourceIdContextKeyValuePair'
-  { _prickvpKey ::
-      !Text,
-    _prickvpValue ::
-      !Text
+  { -- | The resource context key.
+    key :: Prelude.Text,
+    -- | The resource context value.
+    value :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PhysicalResourceIdContextKeyValuePair' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PhysicalResourceIdContextKeyValuePair' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prickvpKey' - The resource context key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prickvpValue' - The resource context value.
-physicalResourceIdContextKeyValuePair ::
-  -- | 'prickvpKey'
-  Text ->
-  -- | 'prickvpValue'
-  Text ->
+-- 'key', 'physicalResourceIdContextKeyValuePair_key' - The resource context key.
+--
+-- 'value', 'physicalResourceIdContextKeyValuePair_value' - The resource context value.
+newPhysicalResourceIdContextKeyValuePair ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   PhysicalResourceIdContextKeyValuePair
-physicalResourceIdContextKeyValuePair pKey_ pValue_ =
-  PhysicalResourceIdContextKeyValuePair'
-    { _prickvpKey =
-        pKey_,
-      _prickvpValue = pValue_
-    }
+newPhysicalResourceIdContextKeyValuePair
+  pKey_
+  pValue_ =
+    PhysicalResourceIdContextKeyValuePair'
+      { key = pKey_,
+        value = pValue_
+      }
 
 -- | The resource context key.
-prickvpKey :: Lens' PhysicalResourceIdContextKeyValuePair Text
-prickvpKey = lens _prickvpKey (\s a -> s {_prickvpKey = a})
+physicalResourceIdContextKeyValuePair_key :: Lens.Lens' PhysicalResourceIdContextKeyValuePair Prelude.Text
+physicalResourceIdContextKeyValuePair_key = Lens.lens (\PhysicalResourceIdContextKeyValuePair' {key} -> key) (\s@PhysicalResourceIdContextKeyValuePair' {} a -> s {key = a} :: PhysicalResourceIdContextKeyValuePair)
 
 -- | The resource context value.
-prickvpValue :: Lens' PhysicalResourceIdContextKeyValuePair Text
-prickvpValue = lens _prickvpValue (\s a -> s {_prickvpValue = a})
+physicalResourceIdContextKeyValuePair_value :: Lens.Lens' PhysicalResourceIdContextKeyValuePair Prelude.Text
+physicalResourceIdContextKeyValuePair_value = Lens.lens (\PhysicalResourceIdContextKeyValuePair' {value} -> value) (\s@PhysicalResourceIdContextKeyValuePair' {} a -> s {value = a} :: PhysicalResourceIdContextKeyValuePair)
 
 instance
-  FromXML
+  Prelude.FromXML
     PhysicalResourceIdContextKeyValuePair
   where
   parseXML x =
     PhysicalResourceIdContextKeyValuePair'
-      <$> (x .@ "Key") <*> (x .@ "Value")
+      Prelude.<$> (x Prelude..@ "Key")
+      Prelude.<*> (x Prelude..@ "Value")
 
 instance
-  Hashable
+  Prelude.Hashable
     PhysicalResourceIdContextKeyValuePair
 
-instance NFData PhysicalResourceIdContextKeyValuePair
+instance
+  Prelude.NFData
+    PhysicalResourceIdContextKeyValuePair

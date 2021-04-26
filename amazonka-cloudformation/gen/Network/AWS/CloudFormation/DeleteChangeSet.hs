@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified change set. Deleting change sets ensures that no one executes the wrong change set.
+-- Deletes the specified change set. Deleting change sets ensures that no
+-- one executes the wrong change set.
 --
+-- If the call successfully completes, AWS CloudFormation successfully
+-- deleted the change set.
 --
--- If the call successfully completes, AWS CloudFormation successfully deleted the change set.
---
--- If @IncludeNestedStacks@ specifies @True@ during the creation of the nested change set, then @DeleteChangeSet@ will delete all change sets that belong to the stacks hierarchy and will also delete all change sets for nested stacks with the status of @REVIEW_IN_PROGRESS@ .
+-- If @IncludeNestedStacks@ specifies @True@ during the creation of the
+-- nested change set, then @DeleteChangeSet@ will delete all change sets
+-- that belong to the stacks hierarchy and will also delete all change sets
+-- for nested stacks with the status of @REVIEW_IN_PROGRESS@.
 module Network.AWS.CloudFormation.DeleteChangeSet
   ( -- * Creating a Request
-    deleteChangeSet,
-    DeleteChangeSet,
+    DeleteChangeSet (..),
+    newDeleteChangeSet,
 
     -- * Request Lenses
-    dcscStackName,
-    dcscChangeSetName,
+    deleteChangeSet_stackName,
+    deleteChangeSet_changeSetName,
 
     -- * Destructuring the Response
-    deleteChangeSetResponse,
-    DeleteChangeSetResponse,
+    DeleteChangeSetResponse (..),
+    newDeleteChangeSetResponse,
 
     -- * Response Lenses
-    dcsrrsResponseStatus,
+    deleteChangeSetResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input for the 'DeleteChangeSet' action.
+-- | The input for the DeleteChangeSet action.
 --
---
---
--- /See:/ 'deleteChangeSet' smart constructor.
+-- /See:/ 'newDeleteChangeSet' smart constructor.
 data DeleteChangeSet = DeleteChangeSet'
-  { _dcscStackName ::
-      !(Maybe Text),
-    _dcscChangeSetName :: !Text
+  { -- | If you specified the name of a change set to delete, specify the stack
+    -- name or ID (ARN) that is associated with it.
+    stackName :: Prelude.Maybe Prelude.Text,
+    -- | The name or Amazon Resource Name (ARN) of the change set that you want
+    -- to delete.
+    changeSetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteChangeSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteChangeSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcscStackName' - If you specified the name of a change set to delete, specify the stack name or ID (ARN) that is associated with it.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcscChangeSetName' - The name or Amazon Resource Name (ARN) of the change set that you want to delete.
-deleteChangeSet ::
-  -- | 'dcscChangeSetName'
-  Text ->
+-- 'stackName', 'deleteChangeSet_stackName' - If you specified the name of a change set to delete, specify the stack
+-- name or ID (ARN) that is associated with it.
+--
+-- 'changeSetName', 'deleteChangeSet_changeSetName' - The name or Amazon Resource Name (ARN) of the change set that you want
+-- to delete.
+newDeleteChangeSet ::
+  -- | 'changeSetName'
+  Prelude.Text ->
   DeleteChangeSet
-deleteChangeSet pChangeSetName_ =
+newDeleteChangeSet pChangeSetName_ =
   DeleteChangeSet'
-    { _dcscStackName = Nothing,
-      _dcscChangeSetName = pChangeSetName_
+    { stackName = Prelude.Nothing,
+      changeSetName = pChangeSetName_
     }
 
--- | If you specified the name of a change set to delete, specify the stack name or ID (ARN) that is associated with it.
-dcscStackName :: Lens' DeleteChangeSet (Maybe Text)
-dcscStackName = lens _dcscStackName (\s a -> s {_dcscStackName = a})
+-- | If you specified the name of a change set to delete, specify the stack
+-- name or ID (ARN) that is associated with it.
+deleteChangeSet_stackName :: Lens.Lens' DeleteChangeSet (Prelude.Maybe Prelude.Text)
+deleteChangeSet_stackName = Lens.lens (\DeleteChangeSet' {stackName} -> stackName) (\s@DeleteChangeSet' {} a -> s {stackName = a} :: DeleteChangeSet)
 
--- | The name or Amazon Resource Name (ARN) of the change set that you want to delete.
-dcscChangeSetName :: Lens' DeleteChangeSet Text
-dcscChangeSetName = lens _dcscChangeSetName (\s a -> s {_dcscChangeSetName = a})
+-- | The name or Amazon Resource Name (ARN) of the change set that you want
+-- to delete.
+deleteChangeSet_changeSetName :: Lens.Lens' DeleteChangeSet Prelude.Text
+deleteChangeSet_changeSetName = Lens.lens (\DeleteChangeSet' {changeSetName} -> changeSetName) (\s@DeleteChangeSet' {} a -> s {changeSetName = a} :: DeleteChangeSet)
 
-instance AWSRequest DeleteChangeSet where
+instance Prelude.AWSRequest DeleteChangeSet where
   type Rs DeleteChangeSet = DeleteChangeSetResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteChangeSetResult"
       ( \s h x ->
-          DeleteChangeSetResponse' <$> (pure (fromEnum s))
+          DeleteChangeSetResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteChangeSet
+instance Prelude.Hashable DeleteChangeSet
 
-instance NFData DeleteChangeSet
+instance Prelude.NFData DeleteChangeSet
 
-instance ToHeaders DeleteChangeSet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteChangeSet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteChangeSet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteChangeSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteChangeSet where
+instance Prelude.ToQuery DeleteChangeSet where
   toQuery DeleteChangeSet' {..} =
-    mconcat
-      [ "Action" =: ("DeleteChangeSet" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "StackName" =: _dcscStackName,
-        "ChangeSetName" =: _dcscChangeSetName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteChangeSet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "StackName" Prelude.=: stackName,
+        "ChangeSetName" Prelude.=: changeSetName
       ]
 
--- | The output for the 'DeleteChangeSet' action.
+-- | The output for the DeleteChangeSet action.
 --
---
---
--- /See:/ 'deleteChangeSetResponse' smart constructor.
-newtype DeleteChangeSetResponse = DeleteChangeSetResponse'
-  { _dcsrrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteChangeSetResponse' smart constructor.
+data DeleteChangeSetResponse = DeleteChangeSetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteChangeSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteChangeSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsrrsResponseStatus' - -- | The response status code.
-deleteChangeSetResponse ::
-  -- | 'dcsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteChangeSetResponse_httpStatus' - The response's http status code.
+newDeleteChangeSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteChangeSetResponse
-deleteChangeSetResponse pResponseStatus_ =
-  DeleteChangeSetResponse'
-    { _dcsrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteChangeSetResponse pHttpStatus_ =
+  DeleteChangeSetResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dcsrrsResponseStatus :: Lens' DeleteChangeSetResponse Int
-dcsrrsResponseStatus = lens _dcsrrsResponseStatus (\s a -> s {_dcsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteChangeSetResponse_httpStatus :: Lens.Lens' DeleteChangeSetResponse Prelude.Int
+deleteChangeSetResponse_httpStatus = Lens.lens (\DeleteChangeSetResponse' {httpStatus} -> httpStatus) (\s@DeleteChangeSetResponse' {} a -> s {httpStatus = a} :: DeleteChangeSetResponse)
 
-instance NFData DeleteChangeSetResponse
+instance Prelude.NFData DeleteChangeSetResponse

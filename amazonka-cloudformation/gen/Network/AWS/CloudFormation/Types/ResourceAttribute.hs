@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.CloudFormation.Types.ResourceAttribute
   ( ResourceAttribute
       ( ..,
-        CreationPolicy,
-        DeletionPolicy,
-        Metadata,
-        Properties,
-        Tags,
-        UpdatePolicy
+        ResourceAttributeCreationPolicy,
+        ResourceAttributeDeletionPolicy,
+        ResourceAttributeMetadata,
+        ResourceAttributeProperties,
+        ResourceAttributeTags,
+        ResourceAttributeUpdatePolicy
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceAttribute = ResourceAttribute' (CI Text)
+newtype ResourceAttribute = ResourceAttribute'
+  { fromResourceAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreationPolicy :: ResourceAttribute
-pattern CreationPolicy = ResourceAttribute' "CreationPolicy"
+pattern ResourceAttributeCreationPolicy :: ResourceAttribute
+pattern ResourceAttributeCreationPolicy = ResourceAttribute' "CreationPolicy"
 
-pattern DeletionPolicy :: ResourceAttribute
-pattern DeletionPolicy = ResourceAttribute' "DeletionPolicy"
+pattern ResourceAttributeDeletionPolicy :: ResourceAttribute
+pattern ResourceAttributeDeletionPolicy = ResourceAttribute' "DeletionPolicy"
 
-pattern Metadata :: ResourceAttribute
-pattern Metadata = ResourceAttribute' "Metadata"
+pattern ResourceAttributeMetadata :: ResourceAttribute
+pattern ResourceAttributeMetadata = ResourceAttribute' "Metadata"
 
-pattern Properties :: ResourceAttribute
-pattern Properties = ResourceAttribute' "Properties"
+pattern ResourceAttributeProperties :: ResourceAttribute
+pattern ResourceAttributeProperties = ResourceAttribute' "Properties"
 
-pattern Tags :: ResourceAttribute
-pattern Tags = ResourceAttribute' "Tags"
+pattern ResourceAttributeTags :: ResourceAttribute
+pattern ResourceAttributeTags = ResourceAttribute' "Tags"
 
-pattern UpdatePolicy :: ResourceAttribute
-pattern UpdatePolicy = ResourceAttribute' "UpdatePolicy"
+pattern ResourceAttributeUpdatePolicy :: ResourceAttribute
+pattern ResourceAttributeUpdatePolicy = ResourceAttribute' "UpdatePolicy"
 
 {-# COMPLETE
-  CreationPolicy,
-  DeletionPolicy,
-  Metadata,
-  Properties,
-  Tags,
-  UpdatePolicy,
+  ResourceAttributeCreationPolicy,
+  ResourceAttributeDeletionPolicy,
+  ResourceAttributeMetadata,
+  ResourceAttributeProperties,
+  ResourceAttributeTags,
+  ResourceAttributeUpdatePolicy,
   ResourceAttribute'
   #-}
 
-instance FromText ResourceAttribute where
-  parser = (ResourceAttribute' . mk) <$> takeText
+instance Prelude.FromText ResourceAttribute where
+  parser = ResourceAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceAttribute where
-  toText (ResourceAttribute' ci) = original ci
+instance Prelude.ToText ResourceAttribute where
+  toText (ResourceAttribute' x) = x
 
-instance Hashable ResourceAttribute
+instance Prelude.Hashable ResourceAttribute
 
-instance NFData ResourceAttribute
+instance Prelude.NFData ResourceAttribute
 
-instance ToByteString ResourceAttribute
+instance Prelude.ToByteString ResourceAttribute
 
-instance ToQuery ResourceAttribute
+instance Prelude.ToQuery ResourceAttribute
 
-instance ToHeader ResourceAttribute
+instance Prelude.ToHeader ResourceAttribute
 
-instance FromXML ResourceAttribute where
-  parseXML = parseXMLText "ResourceAttribute"
+instance Prelude.FromXML ResourceAttribute where
+  parseXML = Prelude.parseXMLText "ResourceAttribute"

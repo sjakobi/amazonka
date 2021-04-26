@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.CloudFormation.Types.StackInstanceStatus
   ( StackInstanceStatus
       ( ..,
-        Current,
-        Inoperable,
-        Outdated
+        StackInstanceStatusCURRENT,
+        StackInstanceStatusINOPERABLE,
+        StackInstanceStatusOUTDATED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackInstanceStatus
-  = StackInstanceStatus'
-      ( CI
-          Text
-      )
+newtype StackInstanceStatus = StackInstanceStatus'
+  { fromStackInstanceStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Current :: StackInstanceStatus
-pattern Current = StackInstanceStatus' "CURRENT"
+pattern StackInstanceStatusCURRENT :: StackInstanceStatus
+pattern StackInstanceStatusCURRENT = StackInstanceStatus' "CURRENT"
 
-pattern Inoperable :: StackInstanceStatus
-pattern Inoperable = StackInstanceStatus' "INOPERABLE"
+pattern StackInstanceStatusINOPERABLE :: StackInstanceStatus
+pattern StackInstanceStatusINOPERABLE = StackInstanceStatus' "INOPERABLE"
 
-pattern Outdated :: StackInstanceStatus
-pattern Outdated = StackInstanceStatus' "OUTDATED"
+pattern StackInstanceStatusOUTDATED :: StackInstanceStatus
+pattern StackInstanceStatusOUTDATED = StackInstanceStatus' "OUTDATED"
 
 {-# COMPLETE
-  Current,
-  Inoperable,
-  Outdated,
+  StackInstanceStatusCURRENT,
+  StackInstanceStatusINOPERABLE,
+  StackInstanceStatusOUTDATED,
   StackInstanceStatus'
   #-}
 
-instance FromText StackInstanceStatus where
-  parser = (StackInstanceStatus' . mk) <$> takeText
+instance Prelude.FromText StackInstanceStatus where
+  parser = StackInstanceStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StackInstanceStatus where
-  toText (StackInstanceStatus' ci) = original ci
+instance Prelude.ToText StackInstanceStatus where
+  toText (StackInstanceStatus' x) = x
 
-instance Hashable StackInstanceStatus
+instance Prelude.Hashable StackInstanceStatus
 
-instance NFData StackInstanceStatus
+instance Prelude.NFData StackInstanceStatus
 
-instance ToByteString StackInstanceStatus
+instance Prelude.ToByteString StackInstanceStatus
 
-instance ToQuery StackInstanceStatus
+instance Prelude.ToQuery StackInstanceStatus
 
-instance ToHeader StackInstanceStatus
+instance Prelude.ToHeader StackInstanceStatus
 
-instance FromXML StackInstanceStatus where
-  parseXML = parseXMLText "StackInstanceStatus"
+instance Prelude.FromXML StackInstanceStatus where
+  parseXML = Prelude.parseXMLText "StackInstanceStatus"

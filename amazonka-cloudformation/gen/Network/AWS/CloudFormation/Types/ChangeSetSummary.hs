@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,144 +21,179 @@ module Network.AWS.CloudFormation.Types.ChangeSetSummary where
 
 import Network.AWS.CloudFormation.Types.ChangeSetStatus
 import Network.AWS.CloudFormation.Types.ExecutionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The @ChangeSetSummary@ structure describes a change set, its status, and the stack with which it's associated.
+-- | The @ChangeSetSummary@ structure describes a change set, its status, and
+-- the stack with which it\'s associated.
 --
---
---
--- /See:/ 'changeSetSummary' smart constructor.
+-- /See:/ 'newChangeSetSummary' smart constructor.
 data ChangeSetSummary = ChangeSetSummary'
-  { _cssRootChangeSetId ::
-      !(Maybe Text),
-    _cssStatus ::
-      !(Maybe ChangeSetStatus),
-    _cssCreationTime :: !(Maybe ISO8601),
-    _cssIncludeNestedStacks ::
-      !(Maybe Bool),
-    _cssStackName :: !(Maybe Text),
-    _cssExecutionStatus ::
-      !(Maybe ExecutionStatus),
-    _cssStackId :: !(Maybe Text),
-    _cssParentChangeSetId ::
-      !(Maybe Text),
-    _cssChangeSetId :: !(Maybe Text),
-    _cssDescription :: !(Maybe Text),
-    _cssChangeSetName :: !(Maybe Text),
-    _cssStatusReason :: !(Maybe Text)
+  { -- | The root change set ID.
+    rootChangeSetId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the change set, such as @CREATE_IN_PROGRESS@,
+    -- @CREATE_COMPLETE@, or @FAILED@.
+    status :: Prelude.Maybe ChangeSetStatus,
+    -- | The start time when the change set was created, in UTC.
+    creationTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | Specifies the current setting of @IncludeNestedStacks@ for the change
+    -- set.
+    includeNestedStacks :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the stack with which the change set is associated.
+    stackName :: Prelude.Maybe Prelude.Text,
+    -- | If the change set execution status is @AVAILABLE@, you can execute the
+    -- change set. If you can’t execute the change set, the status indicates
+    -- why. For example, a change set might be in an @UNAVAILABLE@ state
+    -- because AWS CloudFormation is still creating it or in an @OBSOLETE@
+    -- state because the stack was already updated.
+    executionStatus :: Prelude.Maybe ExecutionStatus,
+    -- | The ID of the stack with which the change set is associated.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | The parent change set ID.
+    parentChangeSetId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the change set.
+    changeSetId :: Prelude.Maybe Prelude.Text,
+    -- | Descriptive information about the change set.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the change set.
+    changeSetName :: Prelude.Maybe Prelude.Text,
+    -- | A description of the change set\'s status. For example, if your change
+    -- set is in the @FAILED@ state, AWS CloudFormation shows the error
+    -- message.
+    statusReason :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChangeSetSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChangeSetSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cssRootChangeSetId' - The root change set ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cssStatus' - The state of the change set, such as @CREATE_IN_PROGRESS@ , @CREATE_COMPLETE@ , or @FAILED@ .
+-- 'rootChangeSetId', 'changeSetSummary_rootChangeSetId' - The root change set ID.
 --
--- * 'cssCreationTime' - The start time when the change set was created, in UTC.
+-- 'status', 'changeSetSummary_status' - The state of the change set, such as @CREATE_IN_PROGRESS@,
+-- @CREATE_COMPLETE@, or @FAILED@.
 --
--- * 'cssIncludeNestedStacks' - Specifies the current setting of @IncludeNestedStacks@ for the change set.
+-- 'creationTime', 'changeSetSummary_creationTime' - The start time when the change set was created, in UTC.
 --
--- * 'cssStackName' - The name of the stack with which the change set is associated.
+-- 'includeNestedStacks', 'changeSetSummary_includeNestedStacks' - Specifies the current setting of @IncludeNestedStacks@ for the change
+-- set.
 --
--- * 'cssExecutionStatus' - If the change set execution status is @AVAILABLE@ , you can execute the change set. If you can’t execute the change set, the status indicates why. For example, a change set might be in an @UNAVAILABLE@ state because AWS CloudFormation is still creating it or in an @OBSOLETE@ state because the stack was already updated.
+-- 'stackName', 'changeSetSummary_stackName' - The name of the stack with which the change set is associated.
 --
--- * 'cssStackId' - The ID of the stack with which the change set is associated.
+-- 'executionStatus', 'changeSetSummary_executionStatus' - If the change set execution status is @AVAILABLE@, you can execute the
+-- change set. If you can’t execute the change set, the status indicates
+-- why. For example, a change set might be in an @UNAVAILABLE@ state
+-- because AWS CloudFormation is still creating it or in an @OBSOLETE@
+-- state because the stack was already updated.
 --
--- * 'cssParentChangeSetId' - The parent change set ID.
+-- 'stackId', 'changeSetSummary_stackId' - The ID of the stack with which the change set is associated.
 --
--- * 'cssChangeSetId' - The ID of the change set.
+-- 'parentChangeSetId', 'changeSetSummary_parentChangeSetId' - The parent change set ID.
 --
--- * 'cssDescription' - Descriptive information about the change set.
+-- 'changeSetId', 'changeSetSummary_changeSetId' - The ID of the change set.
 --
--- * 'cssChangeSetName' - The name of the change set.
+-- 'description', 'changeSetSummary_description' - Descriptive information about the change set.
 --
--- * 'cssStatusReason' - A description of the change set's status. For example, if your change set is in the @FAILED@ state, AWS CloudFormation shows the error message.
-changeSetSummary ::
+-- 'changeSetName', 'changeSetSummary_changeSetName' - The name of the change set.
+--
+-- 'statusReason', 'changeSetSummary_statusReason' - A description of the change set\'s status. For example, if your change
+-- set is in the @FAILED@ state, AWS CloudFormation shows the error
+-- message.
+newChangeSetSummary ::
   ChangeSetSummary
-changeSetSummary =
+newChangeSetSummary =
   ChangeSetSummary'
-    { _cssRootChangeSetId = Nothing,
-      _cssStatus = Nothing,
-      _cssCreationTime = Nothing,
-      _cssIncludeNestedStacks = Nothing,
-      _cssStackName = Nothing,
-      _cssExecutionStatus = Nothing,
-      _cssStackId = Nothing,
-      _cssParentChangeSetId = Nothing,
-      _cssChangeSetId = Nothing,
-      _cssDescription = Nothing,
-      _cssChangeSetName = Nothing,
-      _cssStatusReason = Nothing
+    { rootChangeSetId =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      includeNestedStacks = Prelude.Nothing,
+      stackName = Prelude.Nothing,
+      executionStatus = Prelude.Nothing,
+      stackId = Prelude.Nothing,
+      parentChangeSetId = Prelude.Nothing,
+      changeSetId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      changeSetName = Prelude.Nothing,
+      statusReason = Prelude.Nothing
     }
 
 -- | The root change set ID.
-cssRootChangeSetId :: Lens' ChangeSetSummary (Maybe Text)
-cssRootChangeSetId = lens _cssRootChangeSetId (\s a -> s {_cssRootChangeSetId = a})
+changeSetSummary_rootChangeSetId :: Lens.Lens' ChangeSetSummary (Prelude.Maybe Prelude.Text)
+changeSetSummary_rootChangeSetId = Lens.lens (\ChangeSetSummary' {rootChangeSetId} -> rootChangeSetId) (\s@ChangeSetSummary' {} a -> s {rootChangeSetId = a} :: ChangeSetSummary)
 
--- | The state of the change set, such as @CREATE_IN_PROGRESS@ , @CREATE_COMPLETE@ , or @FAILED@ .
-cssStatus :: Lens' ChangeSetSummary (Maybe ChangeSetStatus)
-cssStatus = lens _cssStatus (\s a -> s {_cssStatus = a})
+-- | The state of the change set, such as @CREATE_IN_PROGRESS@,
+-- @CREATE_COMPLETE@, or @FAILED@.
+changeSetSummary_status :: Lens.Lens' ChangeSetSummary (Prelude.Maybe ChangeSetStatus)
+changeSetSummary_status = Lens.lens (\ChangeSetSummary' {status} -> status) (\s@ChangeSetSummary' {} a -> s {status = a} :: ChangeSetSummary)
 
 -- | The start time when the change set was created, in UTC.
-cssCreationTime :: Lens' ChangeSetSummary (Maybe UTCTime)
-cssCreationTime = lens _cssCreationTime (\s a -> s {_cssCreationTime = a}) . mapping _Time
+changeSetSummary_creationTime :: Lens.Lens' ChangeSetSummary (Prelude.Maybe Prelude.UTCTime)
+changeSetSummary_creationTime = Lens.lens (\ChangeSetSummary' {creationTime} -> creationTime) (\s@ChangeSetSummary' {} a -> s {creationTime = a} :: ChangeSetSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | Specifies the current setting of @IncludeNestedStacks@ for the change set.
-cssIncludeNestedStacks :: Lens' ChangeSetSummary (Maybe Bool)
-cssIncludeNestedStacks = lens _cssIncludeNestedStacks (\s a -> s {_cssIncludeNestedStacks = a})
+-- | Specifies the current setting of @IncludeNestedStacks@ for the change
+-- set.
+changeSetSummary_includeNestedStacks :: Lens.Lens' ChangeSetSummary (Prelude.Maybe Prelude.Bool)
+changeSetSummary_includeNestedStacks = Lens.lens (\ChangeSetSummary' {includeNestedStacks} -> includeNestedStacks) (\s@ChangeSetSummary' {} a -> s {includeNestedStacks = a} :: ChangeSetSummary)
 
 -- | The name of the stack with which the change set is associated.
-cssStackName :: Lens' ChangeSetSummary (Maybe Text)
-cssStackName = lens _cssStackName (\s a -> s {_cssStackName = a})
+changeSetSummary_stackName :: Lens.Lens' ChangeSetSummary (Prelude.Maybe Prelude.Text)
+changeSetSummary_stackName = Lens.lens (\ChangeSetSummary' {stackName} -> stackName) (\s@ChangeSetSummary' {} a -> s {stackName = a} :: ChangeSetSummary)
 
--- | If the change set execution status is @AVAILABLE@ , you can execute the change set. If you can’t execute the change set, the status indicates why. For example, a change set might be in an @UNAVAILABLE@ state because AWS CloudFormation is still creating it or in an @OBSOLETE@ state because the stack was already updated.
-cssExecutionStatus :: Lens' ChangeSetSummary (Maybe ExecutionStatus)
-cssExecutionStatus = lens _cssExecutionStatus (\s a -> s {_cssExecutionStatus = a})
+-- | If the change set execution status is @AVAILABLE@, you can execute the
+-- change set. If you can’t execute the change set, the status indicates
+-- why. For example, a change set might be in an @UNAVAILABLE@ state
+-- because AWS CloudFormation is still creating it or in an @OBSOLETE@
+-- state because the stack was already updated.
+changeSetSummary_executionStatus :: Lens.Lens' ChangeSetSummary (Prelude.Maybe ExecutionStatus)
+changeSetSummary_executionStatus = Lens.lens (\ChangeSetSummary' {executionStatus} -> executionStatus) (\s@ChangeSetSummary' {} a -> s {executionStatus = a} :: ChangeSetSummary)
 
 -- | The ID of the stack with which the change set is associated.
-cssStackId :: Lens' ChangeSetSummary (Maybe Text)
-cssStackId = lens _cssStackId (\s a -> s {_cssStackId = a})
+changeSetSummary_stackId :: Lens.Lens' ChangeSetSummary (Prelude.Maybe Prelude.Text)
+changeSetSummary_stackId = Lens.lens (\ChangeSetSummary' {stackId} -> stackId) (\s@ChangeSetSummary' {} a -> s {stackId = a} :: ChangeSetSummary)
 
 -- | The parent change set ID.
-cssParentChangeSetId :: Lens' ChangeSetSummary (Maybe Text)
-cssParentChangeSetId = lens _cssParentChangeSetId (\s a -> s {_cssParentChangeSetId = a})
+changeSetSummary_parentChangeSetId :: Lens.Lens' ChangeSetSummary (Prelude.Maybe Prelude.Text)
+changeSetSummary_parentChangeSetId = Lens.lens (\ChangeSetSummary' {parentChangeSetId} -> parentChangeSetId) (\s@ChangeSetSummary' {} a -> s {parentChangeSetId = a} :: ChangeSetSummary)
 
 -- | The ID of the change set.
-cssChangeSetId :: Lens' ChangeSetSummary (Maybe Text)
-cssChangeSetId = lens _cssChangeSetId (\s a -> s {_cssChangeSetId = a})
+changeSetSummary_changeSetId :: Lens.Lens' ChangeSetSummary (Prelude.Maybe Prelude.Text)
+changeSetSummary_changeSetId = Lens.lens (\ChangeSetSummary' {changeSetId} -> changeSetId) (\s@ChangeSetSummary' {} a -> s {changeSetId = a} :: ChangeSetSummary)
 
 -- | Descriptive information about the change set.
-cssDescription :: Lens' ChangeSetSummary (Maybe Text)
-cssDescription = lens _cssDescription (\s a -> s {_cssDescription = a})
+changeSetSummary_description :: Lens.Lens' ChangeSetSummary (Prelude.Maybe Prelude.Text)
+changeSetSummary_description = Lens.lens (\ChangeSetSummary' {description} -> description) (\s@ChangeSetSummary' {} a -> s {description = a} :: ChangeSetSummary)
 
 -- | The name of the change set.
-cssChangeSetName :: Lens' ChangeSetSummary (Maybe Text)
-cssChangeSetName = lens _cssChangeSetName (\s a -> s {_cssChangeSetName = a})
+changeSetSummary_changeSetName :: Lens.Lens' ChangeSetSummary (Prelude.Maybe Prelude.Text)
+changeSetSummary_changeSetName = Lens.lens (\ChangeSetSummary' {changeSetName} -> changeSetName) (\s@ChangeSetSummary' {} a -> s {changeSetName = a} :: ChangeSetSummary)
 
--- | A description of the change set's status. For example, if your change set is in the @FAILED@ state, AWS CloudFormation shows the error message.
-cssStatusReason :: Lens' ChangeSetSummary (Maybe Text)
-cssStatusReason = lens _cssStatusReason (\s a -> s {_cssStatusReason = a})
+-- | A description of the change set\'s status. For example, if your change
+-- set is in the @FAILED@ state, AWS CloudFormation shows the error
+-- message.
+changeSetSummary_statusReason :: Lens.Lens' ChangeSetSummary (Prelude.Maybe Prelude.Text)
+changeSetSummary_statusReason = Lens.lens (\ChangeSetSummary' {statusReason} -> statusReason) (\s@ChangeSetSummary' {} a -> s {statusReason = a} :: ChangeSetSummary)
 
-instance FromXML ChangeSetSummary where
+instance Prelude.FromXML ChangeSetSummary where
   parseXML x =
     ChangeSetSummary'
-      <$> (x .@? "RootChangeSetId")
-      <*> (x .@? "Status")
-      <*> (x .@? "CreationTime")
-      <*> (x .@? "IncludeNestedStacks")
-      <*> (x .@? "StackName")
-      <*> (x .@? "ExecutionStatus")
-      <*> (x .@? "StackId")
-      <*> (x .@? "ParentChangeSetId")
-      <*> (x .@? "ChangeSetId")
-      <*> (x .@? "Description")
-      <*> (x .@? "ChangeSetName")
-      <*> (x .@? "StatusReason")
+      Prelude.<$> (x Prelude..@? "RootChangeSetId")
+      Prelude.<*> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "CreationTime")
+      Prelude.<*> (x Prelude..@? "IncludeNestedStacks")
+      Prelude.<*> (x Prelude..@? "StackName")
+      Prelude.<*> (x Prelude..@? "ExecutionStatus")
+      Prelude.<*> (x Prelude..@? "StackId")
+      Prelude.<*> (x Prelude..@? "ParentChangeSetId")
+      Prelude.<*> (x Prelude..@? "ChangeSetId")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "ChangeSetName")
+      Prelude.<*> (x Prelude..@? "StatusReason")
 
-instance Hashable ChangeSetSummary
+instance Prelude.Hashable ChangeSetSummary
 
-instance NFData ChangeSetSummary
+instance Prelude.NFData ChangeSetSummary

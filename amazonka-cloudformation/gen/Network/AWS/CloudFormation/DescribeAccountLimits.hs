@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,168 +21,184 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves your account's AWS CloudFormation limits, such as the maximum number of stacks that you can create in your account. For more information about account limits, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html AWS CloudFormation Limits> in the /AWS CloudFormation User Guide/ .
---
---
+-- Retrieves your account\'s AWS CloudFormation limits, such as the maximum
+-- number of stacks that you can create in your account. For more
+-- information about account limits, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html AWS CloudFormation Limits>
+-- in the /AWS CloudFormation User Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudFormation.DescribeAccountLimits
   ( -- * Creating a Request
-    describeAccountLimits,
-    DescribeAccountLimits,
+    DescribeAccountLimits (..),
+    newDescribeAccountLimits,
 
     -- * Request Lenses
-    dalNextToken,
+    describeAccountLimits_nextToken,
 
     -- * Destructuring the Response
-    describeAccountLimitsResponse,
-    DescribeAccountLimitsResponse,
+    DescribeAccountLimitsResponse (..),
+    newDescribeAccountLimitsResponse,
 
     -- * Response Lenses
-    dalrrsAccountLimits,
-    dalrrsNextToken,
-    dalrrsResponseStatus,
+    describeAccountLimitsResponse_accountLimits,
+    describeAccountLimitsResponse_nextToken,
+    describeAccountLimitsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFormation.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFormation.Types.AccountLimit
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input for the 'DescribeAccountLimits' action.
+-- | The input for the DescribeAccountLimits action.
 --
---
---
--- /See:/ 'describeAccountLimits' smart constructor.
-newtype DescribeAccountLimits = DescribeAccountLimits'
-  { _dalNextToken ::
-      Maybe Text
+-- /See:/ 'newDescribeAccountLimits' smart constructor.
+data DescribeAccountLimits = DescribeAccountLimits'
+  { -- | A string that identifies the next page of limits that you want to
+    -- retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountLimits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountLimits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dalNextToken' - A string that identifies the next page of limits that you want to retrieve.
-describeAccountLimits ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'describeAccountLimits_nextToken' - A string that identifies the next page of limits that you want to
+-- retrieve.
+newDescribeAccountLimits ::
   DescribeAccountLimits
-describeAccountLimits =
-  DescribeAccountLimits' {_dalNextToken = Nothing}
+newDescribeAccountLimits =
+  DescribeAccountLimits' {nextToken = Prelude.Nothing}
 
--- | A string that identifies the next page of limits that you want to retrieve.
-dalNextToken :: Lens' DescribeAccountLimits (Maybe Text)
-dalNextToken = lens _dalNextToken (\s a -> s {_dalNextToken = a})
+-- | A string that identifies the next page of limits that you want to
+-- retrieve.
+describeAccountLimits_nextToken :: Lens.Lens' DescribeAccountLimits (Prelude.Maybe Prelude.Text)
+describeAccountLimits_nextToken = Lens.lens (\DescribeAccountLimits' {nextToken} -> nextToken) (\s@DescribeAccountLimits' {} a -> s {nextToken = a} :: DescribeAccountLimits)
 
-instance AWSPager DescribeAccountLimits where
+instance Pager.AWSPager DescribeAccountLimits where
   page rq rs
-    | stop (rs ^. dalrrsNextToken) = Nothing
-    | stop (rs ^. dalrrsAccountLimits) = Nothing
-    | otherwise =
-      Just $ rq & dalNextToken .~ rs ^. dalrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeAccountLimitsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeAccountLimitsResponse_accountLimits
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeAccountLimits_nextToken
+          Lens..~ rs
+          Lens.^? describeAccountLimitsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeAccountLimits where
+instance Prelude.AWSRequest DescribeAccountLimits where
   type
     Rs DescribeAccountLimits =
       DescribeAccountLimitsResponse
-  request = postQuery cloudFormation
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeAccountLimitsResult"
       ( \s h x ->
           DescribeAccountLimitsResponse'
-            <$> ( x .@? "AccountLimits" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "AccountLimits"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAccountLimits
+instance Prelude.Hashable DescribeAccountLimits
 
-instance NFData DescribeAccountLimits
+instance Prelude.NFData DescribeAccountLimits
 
-instance ToHeaders DescribeAccountLimits where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeAccountLimits where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeAccountLimits where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAccountLimits where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAccountLimits where
+instance Prelude.ToQuery DescribeAccountLimits where
   toQuery DescribeAccountLimits' {..} =
-    mconcat
-      [ "Action" =: ("DescribeAccountLimits" :: ByteString),
-        "Version" =: ("2010-05-15" :: ByteString),
-        "NextToken" =: _dalNextToken
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeAccountLimits" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken
       ]
 
--- | The output for the 'DescribeAccountLimits' action.
+-- | The output for the DescribeAccountLimits action.
 --
---
---
--- /See:/ 'describeAccountLimitsResponse' smart constructor.
+-- /See:/ 'newDescribeAccountLimitsResponse' smart constructor.
 data DescribeAccountLimitsResponse = DescribeAccountLimitsResponse'
-  { _dalrrsAccountLimits ::
-      !( Maybe
-           [AccountLimit]
-       ),
-    _dalrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dalrrsResponseStatus ::
-      !Int
+  { -- | An account limit structure that contain a list of AWS CloudFormation
+    -- account limits and their values.
+    accountLimits :: Prelude.Maybe [AccountLimit],
+    -- | If the output exceeds 1 MB in size, a string that identifies the next
+    -- page of limits. If no additional page exists, this value is null.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountLimitsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountLimitsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dalrrsAccountLimits' - An account limit structure that contain a list of AWS CloudFormation account limits and their values.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dalrrsNextToken' - If the output exceeds 1 MB in size, a string that identifies the next page of limits. If no additional page exists, this value is null.
+-- 'accountLimits', 'describeAccountLimitsResponse_accountLimits' - An account limit structure that contain a list of AWS CloudFormation
+-- account limits and their values.
 --
--- * 'dalrrsResponseStatus' - -- | The response status code.
-describeAccountLimitsResponse ::
-  -- | 'dalrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'describeAccountLimitsResponse_nextToken' - If the output exceeds 1 MB in size, a string that identifies the next
+-- page of limits. If no additional page exists, this value is null.
+--
+-- 'httpStatus', 'describeAccountLimitsResponse_httpStatus' - The response's http status code.
+newDescribeAccountLimitsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAccountLimitsResponse
-describeAccountLimitsResponse pResponseStatus_ =
+newDescribeAccountLimitsResponse pHttpStatus_ =
   DescribeAccountLimitsResponse'
-    { _dalrrsAccountLimits =
-        Nothing,
-      _dalrrsNextToken = Nothing,
-      _dalrrsResponseStatus = pResponseStatus_
+    { accountLimits =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An account limit structure that contain a list of AWS CloudFormation account limits and their values.
-dalrrsAccountLimits :: Lens' DescribeAccountLimitsResponse [AccountLimit]
-dalrrsAccountLimits = lens _dalrrsAccountLimits (\s a -> s {_dalrrsAccountLimits = a}) . _Default . _Coerce
+-- | An account limit structure that contain a list of AWS CloudFormation
+-- account limits and their values.
+describeAccountLimitsResponse_accountLimits :: Lens.Lens' DescribeAccountLimitsResponse (Prelude.Maybe [AccountLimit])
+describeAccountLimitsResponse_accountLimits = Lens.lens (\DescribeAccountLimitsResponse' {accountLimits} -> accountLimits) (\s@DescribeAccountLimitsResponse' {} a -> s {accountLimits = a} :: DescribeAccountLimitsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If the output exceeds 1 MB in size, a string that identifies the next page of limits. If no additional page exists, this value is null.
-dalrrsNextToken :: Lens' DescribeAccountLimitsResponse (Maybe Text)
-dalrrsNextToken = lens _dalrrsNextToken (\s a -> s {_dalrrsNextToken = a})
+-- | If the output exceeds 1 MB in size, a string that identifies the next
+-- page of limits. If no additional page exists, this value is null.
+describeAccountLimitsResponse_nextToken :: Lens.Lens' DescribeAccountLimitsResponse (Prelude.Maybe Prelude.Text)
+describeAccountLimitsResponse_nextToken = Lens.lens (\DescribeAccountLimitsResponse' {nextToken} -> nextToken) (\s@DescribeAccountLimitsResponse' {} a -> s {nextToken = a} :: DescribeAccountLimitsResponse)
 
--- | -- | The response status code.
-dalrrsResponseStatus :: Lens' DescribeAccountLimitsResponse Int
-dalrrsResponseStatus = lens _dalrrsResponseStatus (\s a -> s {_dalrrsResponseStatus = a})
+-- | The response's http status code.
+describeAccountLimitsResponse_httpStatus :: Lens.Lens' DescribeAccountLimitsResponse Prelude.Int
+describeAccountLimitsResponse_httpStatus = Lens.lens (\DescribeAccountLimitsResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountLimitsResponse' {} a -> s {httpStatus = a} :: DescribeAccountLimitsResponse)
 
-instance NFData DescribeAccountLimitsResponse
+instance Prelude.NFData DescribeAccountLimitsResponse

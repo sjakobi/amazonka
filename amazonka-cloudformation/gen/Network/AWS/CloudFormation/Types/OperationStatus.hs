@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,62 @@
 module Network.AWS.CloudFormation.Types.OperationStatus
   ( OperationStatus
       ( ..,
-        OSFailed,
-        OSInProgress,
-        OSPending,
-        OSSuccess
+        OperationStatusFAILED,
+        OperationStatusINPROGRESS,
+        OperationStatusPENDING,
+        OperationStatusSUCCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationStatus = OperationStatus' (CI Text)
+newtype OperationStatus = OperationStatus'
+  { fromOperationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OSFailed :: OperationStatus
-pattern OSFailed = OperationStatus' "FAILED"
+pattern OperationStatusFAILED :: OperationStatus
+pattern OperationStatusFAILED = OperationStatus' "FAILED"
 
-pattern OSInProgress :: OperationStatus
-pattern OSInProgress = OperationStatus' "IN_PROGRESS"
+pattern OperationStatusINPROGRESS :: OperationStatus
+pattern OperationStatusINPROGRESS = OperationStatus' "IN_PROGRESS"
 
-pattern OSPending :: OperationStatus
-pattern OSPending = OperationStatus' "PENDING"
+pattern OperationStatusPENDING :: OperationStatus
+pattern OperationStatusPENDING = OperationStatus' "PENDING"
 
-pattern OSSuccess :: OperationStatus
-pattern OSSuccess = OperationStatus' "SUCCESS"
+pattern OperationStatusSUCCESS :: OperationStatus
+pattern OperationStatusSUCCESS = OperationStatus' "SUCCESS"
 
 {-# COMPLETE
-  OSFailed,
-  OSInProgress,
-  OSPending,
-  OSSuccess,
+  OperationStatusFAILED,
+  OperationStatusINPROGRESS,
+  OperationStatusPENDING,
+  OperationStatusSUCCESS,
   OperationStatus'
   #-}
 
-instance FromText OperationStatus where
-  parser = (OperationStatus' . mk) <$> takeText
+instance Prelude.FromText OperationStatus where
+  parser = OperationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText OperationStatus where
-  toText (OperationStatus' ci) = original ci
+instance Prelude.ToText OperationStatus where
+  toText (OperationStatus' x) = x
 
-instance Hashable OperationStatus
+instance Prelude.Hashable OperationStatus
 
-instance NFData OperationStatus
+instance Prelude.NFData OperationStatus
 
-instance ToByteString OperationStatus
+instance Prelude.ToByteString OperationStatus
 
-instance ToQuery OperationStatus
+instance Prelude.ToQuery OperationStatus
 
-instance ToHeader OperationStatus
+instance Prelude.ToHeader OperationStatus
