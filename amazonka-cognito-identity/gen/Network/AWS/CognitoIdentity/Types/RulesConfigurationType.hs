@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,56 +20,63 @@
 module Network.AWS.CognitoIdentity.Types.RulesConfigurationType where
 
 import Network.AWS.CognitoIdentity.Types.MappingRule
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A container for rules.
 --
---
---
--- /See:/ 'rulesConfigurationType' smart constructor.
-newtype RulesConfigurationType = RulesConfigurationType'
-  { _rctRules ::
-      List1 MappingRule
+-- /See:/ 'newRulesConfigurationType' smart constructor.
+data RulesConfigurationType = RulesConfigurationType'
+  { -- | An array of rules. You can specify up to 25 rules per identity provider.
+    --
+    -- Rules are evaluated in order. The first one to match specifies the role.
+    rules :: Prelude.List1 MappingRule
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RulesConfigurationType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RulesConfigurationType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rctRules' - An array of rules. You can specify up to 25 rules per identity provider. Rules are evaluated in order. The first one to match specifies the role.
-rulesConfigurationType ::
-  -- | 'rctRules'
-  NonEmpty MappingRule ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'rules', 'rulesConfigurationType_rules' - An array of rules. You can specify up to 25 rules per identity provider.
+--
+-- Rules are evaluated in order. The first one to match specifies the role.
+newRulesConfigurationType ::
+  -- | 'rules'
+  Prelude.NonEmpty MappingRule ->
   RulesConfigurationType
-rulesConfigurationType pRules_ =
+newRulesConfigurationType pRules_ =
   RulesConfigurationType'
-    { _rctRules =
-        _List1 # pRules_
+    { rules =
+        Prelude._List1 Lens.# pRules_
     }
 
--- | An array of rules. You can specify up to 25 rules per identity provider. Rules are evaluated in order. The first one to match specifies the role.
-rctRules :: Lens' RulesConfigurationType (NonEmpty MappingRule)
-rctRules = lens _rctRules (\s a -> s {_rctRules = a}) . _List1
+-- | An array of rules. You can specify up to 25 rules per identity provider.
+--
+-- Rules are evaluated in order. The first one to match specifies the role.
+rulesConfigurationType_rules :: Lens.Lens' RulesConfigurationType (Prelude.NonEmpty MappingRule)
+rulesConfigurationType_rules = Lens.lens (\RulesConfigurationType' {rules} -> rules) (\s@RulesConfigurationType' {} a -> s {rules = a} :: RulesConfigurationType) Prelude.. Prelude._List1
 
-instance FromJSON RulesConfigurationType where
+instance Prelude.FromJSON RulesConfigurationType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RulesConfigurationType"
-      (\x -> RulesConfigurationType' <$> (x .: "Rules"))
+      ( \x ->
+          RulesConfigurationType'
+            Prelude.<$> (x Prelude..: "Rules")
+      )
 
-instance Hashable RulesConfigurationType
+instance Prelude.Hashable RulesConfigurationType
 
-instance NFData RulesConfigurationType
+instance Prelude.NFData RulesConfigurationType
 
-instance ToJSON RulesConfigurationType where
+instance Prelude.ToJSON RulesConfigurationType where
   toJSON RulesConfigurationType' {..} =
-    object (catMaybes [Just ("Rules" .= _rctRules)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Rules" Prelude..= rules)]
+      )

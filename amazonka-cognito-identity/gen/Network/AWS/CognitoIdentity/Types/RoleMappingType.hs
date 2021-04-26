@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CognitoIdentity.Types.RoleMappingType
   ( RoleMappingType
       ( ..,
-        Rules,
-        Token
+        RoleMappingTypeRules,
+        RoleMappingTypeToken
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RoleMappingType = RoleMappingType' (CI Text)
+newtype RoleMappingType = RoleMappingType'
+  { fromRoleMappingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Rules :: RoleMappingType
-pattern Rules = RoleMappingType' "Rules"
+pattern RoleMappingTypeRules :: RoleMappingType
+pattern RoleMappingTypeRules = RoleMappingType' "Rules"
 
-pattern Token :: RoleMappingType
-pattern Token = RoleMappingType' "Token"
+pattern RoleMappingTypeToken :: RoleMappingType
+pattern RoleMappingTypeToken = RoleMappingType' "Token"
 
 {-# COMPLETE
-  Rules,
-  Token,
+  RoleMappingTypeRules,
+  RoleMappingTypeToken,
   RoleMappingType'
   #-}
 
-instance FromText RoleMappingType where
-  parser = (RoleMappingType' . mk) <$> takeText
+instance Prelude.FromText RoleMappingType where
+  parser = RoleMappingType' Prelude.<$> Prelude.takeText
 
-instance ToText RoleMappingType where
-  toText (RoleMappingType' ci) = original ci
+instance Prelude.ToText RoleMappingType where
+  toText (RoleMappingType' x) = x
 
-instance Hashable RoleMappingType
+instance Prelude.Hashable RoleMappingType
 
-instance NFData RoleMappingType
+instance Prelude.NFData RoleMappingType
 
-instance ToByteString RoleMappingType
+instance Prelude.ToByteString RoleMappingType
 
-instance ToQuery RoleMappingType
+instance Prelude.ToQuery RoleMappingType
 
-instance ToHeader RoleMappingType
+instance Prelude.ToHeader RoleMappingType
 
-instance ToJSON RoleMappingType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RoleMappingType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RoleMappingType where
-  parseJSON = parseJSONText "RoleMappingType"
+instance Prelude.FromJSON RoleMappingType where
+  parseJSON = Prelude.parseJSONText "RoleMappingType"

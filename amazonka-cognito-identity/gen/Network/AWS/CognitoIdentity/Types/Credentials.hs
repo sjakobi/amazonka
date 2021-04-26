@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentity.Types.Credentials where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Credentials for the provided identity ID.
 --
---
---
--- /See:/ 'credentials' smart constructor.
+-- /See:/ 'newCredentials' smart constructor.
 data Credentials = Credentials'
-  { _cExpiration ::
-      !(Maybe POSIX),
-    _cSecretKey :: !(Maybe Text),
-    _cAccessKeyId :: !(Maybe Text),
-    _cSessionToken :: !(Maybe Text)
+  { -- | The date at which these credentials will expire.
+    expiration :: Prelude.Maybe Prelude.POSIX,
+    -- | The Secret Access Key portion of the credentials
+    secretKey :: Prelude.Maybe Prelude.Text,
+    -- | The Access Key portion of the credentials.
+    accessKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The Session Token portion of the credentials
+    sessionToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Credentials' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Credentials' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cExpiration' - The date at which these credentials will expire.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cSecretKey' - The Secret Access Key portion of the credentials
+-- 'expiration', 'credentials_expiration' - The date at which these credentials will expire.
 --
--- * 'cAccessKeyId' - The Access Key portion of the credentials.
+-- 'secretKey', 'credentials_secretKey' - The Secret Access Key portion of the credentials
 --
--- * 'cSessionToken' - The Session Token portion of the credentials
-credentials ::
+-- 'accessKeyId', 'credentials_accessKeyId' - The Access Key portion of the credentials.
+--
+-- 'sessionToken', 'credentials_sessionToken' - The Session Token portion of the credentials
+newCredentials ::
   Credentials
-credentials =
+newCredentials =
   Credentials'
-    { _cExpiration = Nothing,
-      _cSecretKey = Nothing,
-      _cAccessKeyId = Nothing,
-      _cSessionToken = Nothing
+    { expiration = Prelude.Nothing,
+      secretKey = Prelude.Nothing,
+      accessKeyId = Prelude.Nothing,
+      sessionToken = Prelude.Nothing
     }
 
 -- | The date at which these credentials will expire.
-cExpiration :: Lens' Credentials (Maybe UTCTime)
-cExpiration = lens _cExpiration (\s a -> s {_cExpiration = a}) . mapping _Time
+credentials_expiration :: Lens.Lens' Credentials (Prelude.Maybe Prelude.UTCTime)
+credentials_expiration = Lens.lens (\Credentials' {expiration} -> expiration) (\s@Credentials' {} a -> s {expiration = a} :: Credentials) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Secret Access Key portion of the credentials
-cSecretKey :: Lens' Credentials (Maybe Text)
-cSecretKey = lens _cSecretKey (\s a -> s {_cSecretKey = a})
+credentials_secretKey :: Lens.Lens' Credentials (Prelude.Maybe Prelude.Text)
+credentials_secretKey = Lens.lens (\Credentials' {secretKey} -> secretKey) (\s@Credentials' {} a -> s {secretKey = a} :: Credentials)
 
 -- | The Access Key portion of the credentials.
-cAccessKeyId :: Lens' Credentials (Maybe Text)
-cAccessKeyId = lens _cAccessKeyId (\s a -> s {_cAccessKeyId = a})
+credentials_accessKeyId :: Lens.Lens' Credentials (Prelude.Maybe Prelude.Text)
+credentials_accessKeyId = Lens.lens (\Credentials' {accessKeyId} -> accessKeyId) (\s@Credentials' {} a -> s {accessKeyId = a} :: Credentials)
 
 -- | The Session Token portion of the credentials
-cSessionToken :: Lens' Credentials (Maybe Text)
-cSessionToken = lens _cSessionToken (\s a -> s {_cSessionToken = a})
+credentials_sessionToken :: Lens.Lens' Credentials (Prelude.Maybe Prelude.Text)
+credentials_sessionToken = Lens.lens (\Credentials' {sessionToken} -> sessionToken) (\s@Credentials' {} a -> s {sessionToken = a} :: Credentials)
 
-instance FromJSON Credentials where
+instance Prelude.FromJSON Credentials where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Credentials"
       ( \x ->
           Credentials'
-            <$> (x .:? "Expiration")
-            <*> (x .:? "SecretKey")
-            <*> (x .:? "AccessKeyId")
-            <*> (x .:? "SessionToken")
+            Prelude.<$> (x Prelude..:? "Expiration")
+            Prelude.<*> (x Prelude..:? "SecretKey")
+            Prelude.<*> (x Prelude..:? "AccessKeyId")
+            Prelude.<*> (x Prelude..:? "SessionToken")
       )
 
-instance Hashable Credentials
+instance Prelude.Hashable Credentials
 
-instance NFData Credentials
+instance Prelude.NFData Credentials

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,61 +20,59 @@
 module Network.AWS.CognitoIdentity.Types.UnprocessedIdentityId where
 
 import Network.AWS.CognitoIdentity.Types.CognitoErrorCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An array of UnprocessedIdentityId objects, each of which contains an ErrorCode and IdentityId.
+-- | An array of UnprocessedIdentityId objects, each of which contains an
+-- ErrorCode and IdentityId.
 --
---
---
--- /See:/ 'unprocessedIdentityId' smart constructor.
+-- /See:/ 'newUnprocessedIdentityId' smart constructor.
 data UnprocessedIdentityId = UnprocessedIdentityId'
-  { _uiiIdentityId ::
-      !(Maybe Text),
-    _uiiErrorCode ::
-      !(Maybe CognitoErrorCode)
+  { -- | A unique identifier in the format REGION:GUID.
+    identityId :: Prelude.Maybe Prelude.Text,
+    -- | The error code indicating the type of error that occurred.
+    errorCode :: Prelude.Maybe CognitoErrorCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UnprocessedIdentityId' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UnprocessedIdentityId' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uiiIdentityId' - A unique identifier in the format REGION:GUID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uiiErrorCode' - The error code indicating the type of error that occurred.
-unprocessedIdentityId ::
+-- 'identityId', 'unprocessedIdentityId_identityId' - A unique identifier in the format REGION:GUID.
+--
+-- 'errorCode', 'unprocessedIdentityId_errorCode' - The error code indicating the type of error that occurred.
+newUnprocessedIdentityId ::
   UnprocessedIdentityId
-unprocessedIdentityId =
+newUnprocessedIdentityId =
   UnprocessedIdentityId'
-    { _uiiIdentityId = Nothing,
-      _uiiErrorCode = Nothing
+    { identityId =
+        Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | A unique identifier in the format REGION:GUID.
-uiiIdentityId :: Lens' UnprocessedIdentityId (Maybe Text)
-uiiIdentityId = lens _uiiIdentityId (\s a -> s {_uiiIdentityId = a})
+unprocessedIdentityId_identityId :: Lens.Lens' UnprocessedIdentityId (Prelude.Maybe Prelude.Text)
+unprocessedIdentityId_identityId = Lens.lens (\UnprocessedIdentityId' {identityId} -> identityId) (\s@UnprocessedIdentityId' {} a -> s {identityId = a} :: UnprocessedIdentityId)
 
 -- | The error code indicating the type of error that occurred.
-uiiErrorCode :: Lens' UnprocessedIdentityId (Maybe CognitoErrorCode)
-uiiErrorCode = lens _uiiErrorCode (\s a -> s {_uiiErrorCode = a})
+unprocessedIdentityId_errorCode :: Lens.Lens' UnprocessedIdentityId (Prelude.Maybe CognitoErrorCode)
+unprocessedIdentityId_errorCode = Lens.lens (\UnprocessedIdentityId' {errorCode} -> errorCode) (\s@UnprocessedIdentityId' {} a -> s {errorCode = a} :: UnprocessedIdentityId)
 
-instance FromJSON UnprocessedIdentityId where
+instance Prelude.FromJSON UnprocessedIdentityId where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UnprocessedIdentityId"
       ( \x ->
           UnprocessedIdentityId'
-            <$> (x .:? "IdentityId") <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "IdentityId")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable UnprocessedIdentityId
+instance Prelude.Hashable UnprocessedIdentityId
 
-instance NFData UnprocessedIdentityId
+instance Prelude.NFData UnprocessedIdentityId

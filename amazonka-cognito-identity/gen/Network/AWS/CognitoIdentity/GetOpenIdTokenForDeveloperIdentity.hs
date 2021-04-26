@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,240 +21,306 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers (or retrieves) a Cognito @IdentityId@ and an OpenID Connect token for a user authenticated by your backend authentication process. Supplying multiple logins will create an implicit linked account. You can only specify one developer provider as part of the @Logins@ map, which is linked to the identity pool. The developer provider is the "domain" by which Cognito will refer to your users.
+-- Registers (or retrieves) a Cognito @IdentityId@ and an OpenID Connect
+-- token for a user authenticated by your backend authentication process.
+-- Supplying multiple logins will create an implicit linked account. You
+-- can only specify one developer provider as part of the @Logins@ map,
+-- which is linked to the identity pool. The developer provider is the
+-- \"domain\" by which Cognito will refer to your users.
 --
---
--- You can use @GetOpenIdTokenForDeveloperIdentity@ to create a new identity and to link new logins (that is, user credentials issued by a public provider or developer provider) to an existing identity. When you want to create a new identity, the @IdentityId@ should be null. When you want to associate a new login with an existing authenticated/unauthenticated identity, you can do so by providing the existing @IdentityId@ . This API will create the identity in the specified @IdentityPoolId@ .
+-- You can use @GetOpenIdTokenForDeveloperIdentity@ to create a new
+-- identity and to link new logins (that is, user credentials issued by a
+-- public provider or developer provider) to an existing identity. When you
+-- want to create a new identity, the @IdentityId@ should be null. When you
+-- want to associate a new login with an existing
+-- authenticated\/unauthenticated identity, you can do so by providing the
+-- existing @IdentityId@. This API will create the identity in the
+-- specified @IdentityPoolId@.
 --
 -- You must use AWS Developer credentials to call this API.
 module Network.AWS.CognitoIdentity.GetOpenIdTokenForDeveloperIdentity
   ( -- * Creating a Request
-    getOpenIdTokenForDeveloperIdentity,
-    GetOpenIdTokenForDeveloperIdentity,
+    GetOpenIdTokenForDeveloperIdentity (..),
+    newGetOpenIdTokenForDeveloperIdentity,
 
     -- * Request Lenses
-    goitfdiTokenDuration,
-    goitfdiIdentityId,
-    goitfdiPrincipalTags,
-    goitfdiIdentityPoolId,
-    goitfdiLogins,
+    getOpenIdTokenForDeveloperIdentity_tokenDuration,
+    getOpenIdTokenForDeveloperIdentity_identityId,
+    getOpenIdTokenForDeveloperIdentity_principalTags,
+    getOpenIdTokenForDeveloperIdentity_identityPoolId,
+    getOpenIdTokenForDeveloperIdentity_logins,
 
     -- * Destructuring the Response
-    getOpenIdTokenForDeveloperIdentityResponse,
-    GetOpenIdTokenForDeveloperIdentityResponse,
+    GetOpenIdTokenForDeveloperIdentityResponse (..),
+    newGetOpenIdTokenForDeveloperIdentityResponse,
 
     -- * Response Lenses
-    goitfdirrsIdentityId,
-    goitfdirrsToken,
-    goitfdirrsResponseStatus,
+    getOpenIdTokenForDeveloperIdentityResponse_identityId,
+    getOpenIdTokenForDeveloperIdentityResponse_token,
+    getOpenIdTokenForDeveloperIdentityResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentity.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Input to the @GetOpenIdTokenForDeveloperIdentity@ action.
 --
---
---
--- /See:/ 'getOpenIdTokenForDeveloperIdentity' smart constructor.
+-- /See:/ 'newGetOpenIdTokenForDeveloperIdentity' smart constructor.
 data GetOpenIdTokenForDeveloperIdentity = GetOpenIdTokenForDeveloperIdentity'
-  { _goitfdiTokenDuration ::
-      !( Maybe
-           Nat
-       ),
-    _goitfdiIdentityId ::
-      !( Maybe
-           Text
-       ),
-    _goitfdiPrincipalTags ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _goitfdiIdentityPoolId ::
-      !Text,
-    _goitfdiLogins ::
-      !( Map
-           Text
-           Text
-       )
+  { -- | The expiration time of the token, in seconds. You can specify a custom
+    -- expiration time for the token so that you can cache it. If you don\'t
+    -- provide an expiration time, the token is valid for 15 minutes. You can
+    -- exchange the token with Amazon STS for temporary AWS credentials, which
+    -- are valid for a maximum of one hour. The maximum token duration you can
+    -- set is 24 hours. You should take care in setting the expiration time for
+    -- a token, as there are significant security implications: an attacker
+    -- could use a leaked token to access your AWS resources for the token\'s
+    -- duration.
+    --
+    -- Please provide for a small grace period, usually no more than 5 minutes,
+    -- to account for clock skew.
+    tokenDuration :: Prelude.Maybe Prelude.Nat,
+    -- | A unique identifier in the format REGION:GUID.
+    identityId :: Prelude.Maybe Prelude.Text,
+    -- | Use this operation to configure attribute mappings for custom providers.
+    principalTags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | An identity pool ID in the format REGION:GUID.
+    identityPoolId :: Prelude.Text,
+    -- | A set of optional name-value pairs that map provider names to provider
+    -- tokens. Each name-value pair represents a user from a public provider or
+    -- developer provider. If the user is from a developer provider, the
+    -- name-value pair will follow the syntax
+    -- @\"developer_provider_name\": \"developer_user_identifier\"@. The
+    -- developer provider is the \"domain\" by which Cognito will refer to your
+    -- users; you provided this domain while creating\/updating the identity
+    -- pool. The developer user identifier is an identifier from your backend
+    -- that uniquely identifies a user. When you create an identity pool, you
+    -- can specify the supported logins.
+    logins :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOpenIdTokenForDeveloperIdentity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOpenIdTokenForDeveloperIdentity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'goitfdiTokenDuration' - The expiration time of the token, in seconds. You can specify a custom expiration time for the token so that you can cache it. If you don't provide an expiration time, the token is valid for 15 minutes. You can exchange the token with Amazon STS for temporary AWS credentials, which are valid for a maximum of one hour. The maximum token duration you can set is 24 hours. You should take care in setting the expiration time for a token, as there are significant security implications: an attacker could use a leaked token to access your AWS resources for the token's duration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'goitfdiIdentityId' - A unique identifier in the format REGION:GUID.
+-- 'tokenDuration', 'getOpenIdTokenForDeveloperIdentity_tokenDuration' - The expiration time of the token, in seconds. You can specify a custom
+-- expiration time for the token so that you can cache it. If you don\'t
+-- provide an expiration time, the token is valid for 15 minutes. You can
+-- exchange the token with Amazon STS for temporary AWS credentials, which
+-- are valid for a maximum of one hour. The maximum token duration you can
+-- set is 24 hours. You should take care in setting the expiration time for
+-- a token, as there are significant security implications: an attacker
+-- could use a leaked token to access your AWS resources for the token\'s
+-- duration.
 --
--- * 'goitfdiPrincipalTags' - Use this operation to configure attribute mappings for custom providers.
+-- Please provide for a small grace period, usually no more than 5 minutes,
+-- to account for clock skew.
 --
--- * 'goitfdiIdentityPoolId' - An identity pool ID in the format REGION:GUID.
+-- 'identityId', 'getOpenIdTokenForDeveloperIdentity_identityId' - A unique identifier in the format REGION:GUID.
 --
--- * 'goitfdiLogins' - A set of optional name-value pairs that map provider names to provider tokens. Each name-value pair represents a user from a public provider or developer provider. If the user is from a developer provider, the name-value pair will follow the syntax @"developer_provider_name": "developer_user_identifier"@ . The developer provider is the "domain" by which Cognito will refer to your users; you provided this domain while creating/updating the identity pool. The developer user identifier is an identifier from your backend that uniquely identifies a user. When you create an identity pool, you can specify the supported logins.
-getOpenIdTokenForDeveloperIdentity ::
-  -- | 'goitfdiIdentityPoolId'
-  Text ->
+-- 'principalTags', 'getOpenIdTokenForDeveloperIdentity_principalTags' - Use this operation to configure attribute mappings for custom providers.
+--
+-- 'identityPoolId', 'getOpenIdTokenForDeveloperIdentity_identityPoolId' - An identity pool ID in the format REGION:GUID.
+--
+-- 'logins', 'getOpenIdTokenForDeveloperIdentity_logins' - A set of optional name-value pairs that map provider names to provider
+-- tokens. Each name-value pair represents a user from a public provider or
+-- developer provider. If the user is from a developer provider, the
+-- name-value pair will follow the syntax
+-- @\"developer_provider_name\": \"developer_user_identifier\"@. The
+-- developer provider is the \"domain\" by which Cognito will refer to your
+-- users; you provided this domain while creating\/updating the identity
+-- pool. The developer user identifier is an identifier from your backend
+-- that uniquely identifies a user. When you create an identity pool, you
+-- can specify the supported logins.
+newGetOpenIdTokenForDeveloperIdentity ::
+  -- | 'identityPoolId'
+  Prelude.Text ->
   GetOpenIdTokenForDeveloperIdentity
-getOpenIdTokenForDeveloperIdentity pIdentityPoolId_ =
-  GetOpenIdTokenForDeveloperIdentity'
-    { _goitfdiTokenDuration =
-        Nothing,
-      _goitfdiIdentityId = Nothing,
-      _goitfdiPrincipalTags = Nothing,
-      _goitfdiIdentityPoolId =
-        pIdentityPoolId_,
-      _goitfdiLogins = mempty
-    }
+newGetOpenIdTokenForDeveloperIdentity
+  pIdentityPoolId_ =
+    GetOpenIdTokenForDeveloperIdentity'
+      { tokenDuration =
+          Prelude.Nothing,
+        identityId = Prelude.Nothing,
+        principalTags = Prelude.Nothing,
+        identityPoolId = pIdentityPoolId_,
+        logins = Prelude.mempty
+      }
 
--- | The expiration time of the token, in seconds. You can specify a custom expiration time for the token so that you can cache it. If you don't provide an expiration time, the token is valid for 15 minutes. You can exchange the token with Amazon STS for temporary AWS credentials, which are valid for a maximum of one hour. The maximum token duration you can set is 24 hours. You should take care in setting the expiration time for a token, as there are significant security implications: an attacker could use a leaked token to access your AWS resources for the token's duration.
-goitfdiTokenDuration :: Lens' GetOpenIdTokenForDeveloperIdentity (Maybe Natural)
-goitfdiTokenDuration = lens _goitfdiTokenDuration (\s a -> s {_goitfdiTokenDuration = a}) . mapping _Nat
+-- | The expiration time of the token, in seconds. You can specify a custom
+-- expiration time for the token so that you can cache it. If you don\'t
+-- provide an expiration time, the token is valid for 15 minutes. You can
+-- exchange the token with Amazon STS for temporary AWS credentials, which
+-- are valid for a maximum of one hour. The maximum token duration you can
+-- set is 24 hours. You should take care in setting the expiration time for
+-- a token, as there are significant security implications: an attacker
+-- could use a leaked token to access your AWS resources for the token\'s
+-- duration.
+--
+-- Please provide for a small grace period, usually no more than 5 minutes,
+-- to account for clock skew.
+getOpenIdTokenForDeveloperIdentity_tokenDuration :: Lens.Lens' GetOpenIdTokenForDeveloperIdentity (Prelude.Maybe Prelude.Natural)
+getOpenIdTokenForDeveloperIdentity_tokenDuration = Lens.lens (\GetOpenIdTokenForDeveloperIdentity' {tokenDuration} -> tokenDuration) (\s@GetOpenIdTokenForDeveloperIdentity' {} a -> s {tokenDuration = a} :: GetOpenIdTokenForDeveloperIdentity) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A unique identifier in the format REGION:GUID.
-goitfdiIdentityId :: Lens' GetOpenIdTokenForDeveloperIdentity (Maybe Text)
-goitfdiIdentityId = lens _goitfdiIdentityId (\s a -> s {_goitfdiIdentityId = a})
+getOpenIdTokenForDeveloperIdentity_identityId :: Lens.Lens' GetOpenIdTokenForDeveloperIdentity (Prelude.Maybe Prelude.Text)
+getOpenIdTokenForDeveloperIdentity_identityId = Lens.lens (\GetOpenIdTokenForDeveloperIdentity' {identityId} -> identityId) (\s@GetOpenIdTokenForDeveloperIdentity' {} a -> s {identityId = a} :: GetOpenIdTokenForDeveloperIdentity)
 
 -- | Use this operation to configure attribute mappings for custom providers.
-goitfdiPrincipalTags :: Lens' GetOpenIdTokenForDeveloperIdentity (HashMap Text Text)
-goitfdiPrincipalTags = lens _goitfdiPrincipalTags (\s a -> s {_goitfdiPrincipalTags = a}) . _Default . _Map
+getOpenIdTokenForDeveloperIdentity_principalTags :: Lens.Lens' GetOpenIdTokenForDeveloperIdentity (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getOpenIdTokenForDeveloperIdentity_principalTags = Lens.lens (\GetOpenIdTokenForDeveloperIdentity' {principalTags} -> principalTags) (\s@GetOpenIdTokenForDeveloperIdentity' {} a -> s {principalTags = a} :: GetOpenIdTokenForDeveloperIdentity) Prelude.. Lens.mapping Prelude._Map
 
 -- | An identity pool ID in the format REGION:GUID.
-goitfdiIdentityPoolId :: Lens' GetOpenIdTokenForDeveloperIdentity Text
-goitfdiIdentityPoolId = lens _goitfdiIdentityPoolId (\s a -> s {_goitfdiIdentityPoolId = a})
+getOpenIdTokenForDeveloperIdentity_identityPoolId :: Lens.Lens' GetOpenIdTokenForDeveloperIdentity Prelude.Text
+getOpenIdTokenForDeveloperIdentity_identityPoolId = Lens.lens (\GetOpenIdTokenForDeveloperIdentity' {identityPoolId} -> identityPoolId) (\s@GetOpenIdTokenForDeveloperIdentity' {} a -> s {identityPoolId = a} :: GetOpenIdTokenForDeveloperIdentity)
 
--- | A set of optional name-value pairs that map provider names to provider tokens. Each name-value pair represents a user from a public provider or developer provider. If the user is from a developer provider, the name-value pair will follow the syntax @"developer_provider_name": "developer_user_identifier"@ . The developer provider is the "domain" by which Cognito will refer to your users; you provided this domain while creating/updating the identity pool. The developer user identifier is an identifier from your backend that uniquely identifies a user. When you create an identity pool, you can specify the supported logins.
-goitfdiLogins :: Lens' GetOpenIdTokenForDeveloperIdentity (HashMap Text Text)
-goitfdiLogins = lens _goitfdiLogins (\s a -> s {_goitfdiLogins = a}) . _Map
+-- | A set of optional name-value pairs that map provider names to provider
+-- tokens. Each name-value pair represents a user from a public provider or
+-- developer provider. If the user is from a developer provider, the
+-- name-value pair will follow the syntax
+-- @\"developer_provider_name\": \"developer_user_identifier\"@. The
+-- developer provider is the \"domain\" by which Cognito will refer to your
+-- users; you provided this domain while creating\/updating the identity
+-- pool. The developer user identifier is an identifier from your backend
+-- that uniquely identifies a user. When you create an identity pool, you
+-- can specify the supported logins.
+getOpenIdTokenForDeveloperIdentity_logins :: Lens.Lens' GetOpenIdTokenForDeveloperIdentity (Prelude.HashMap Prelude.Text Prelude.Text)
+getOpenIdTokenForDeveloperIdentity_logins = Lens.lens (\GetOpenIdTokenForDeveloperIdentity' {logins} -> logins) (\s@GetOpenIdTokenForDeveloperIdentity' {} a -> s {logins = a} :: GetOpenIdTokenForDeveloperIdentity) Prelude.. Prelude._Map
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetOpenIdTokenForDeveloperIdentity
   where
   type
     Rs GetOpenIdTokenForDeveloperIdentity =
       GetOpenIdTokenForDeveloperIdentityResponse
-  request = postJSON cognitoIdentity
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetOpenIdTokenForDeveloperIdentityResponse'
-            <$> (x .?> "IdentityId")
-            <*> (x .?> "Token")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "IdentityId")
+              Prelude.<*> (x Prelude..?> "Token")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetOpenIdTokenForDeveloperIdentity
+instance
+  Prelude.Hashable
+    GetOpenIdTokenForDeveloperIdentity
 
-instance NFData GetOpenIdTokenForDeveloperIdentity
+instance
+  Prelude.NFData
+    GetOpenIdTokenForDeveloperIdentity
 
-instance ToHeaders GetOpenIdTokenForDeveloperIdentity where
+instance
+  Prelude.ToHeaders
+    GetOpenIdTokenForDeveloperIdentity
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityService.GetOpenIdTokenForDeveloperIdentity" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityService.GetOpenIdTokenForDeveloperIdentity" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetOpenIdTokenForDeveloperIdentity where
+instance
+  Prelude.ToJSON
+    GetOpenIdTokenForDeveloperIdentity
+  where
   toJSON GetOpenIdTokenForDeveloperIdentity' {..} =
-    object
-      ( catMaybes
-          [ ("TokenDuration" .=) <$> _goitfdiTokenDuration,
-            ("IdentityId" .=) <$> _goitfdiIdentityId,
-            ("PrincipalTags" .=) <$> _goitfdiPrincipalTags,
-            Just ("IdentityPoolId" .= _goitfdiIdentityPoolId),
-            Just ("Logins" .= _goitfdiLogins)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TokenDuration" Prelude..=)
+              Prelude.<$> tokenDuration,
+            ("IdentityId" Prelude..=) Prelude.<$> identityId,
+            ("PrincipalTags" Prelude..=)
+              Prelude.<$> principalTags,
+            Prelude.Just
+              ("IdentityPoolId" Prelude..= identityPoolId),
+            Prelude.Just ("Logins" Prelude..= logins)
           ]
       )
 
-instance ToPath GetOpenIdTokenForDeveloperIdentity where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    GetOpenIdTokenForDeveloperIdentity
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetOpenIdTokenForDeveloperIdentity where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetOpenIdTokenForDeveloperIdentity
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Returned in response to a successful @GetOpenIdTokenForDeveloperIdentity@ request.
+-- | Returned in response to a successful
+-- @GetOpenIdTokenForDeveloperIdentity@ request.
 --
---
---
--- /See:/ 'getOpenIdTokenForDeveloperIdentityResponse' smart constructor.
+-- /See:/ 'newGetOpenIdTokenForDeveloperIdentityResponse' smart constructor.
 data GetOpenIdTokenForDeveloperIdentityResponse = GetOpenIdTokenForDeveloperIdentityResponse'
-  { _goitfdirrsIdentityId ::
-      !( Maybe
-           Text
-       ),
-    _goitfdirrsToken ::
-      !( Maybe
-           Text
-       ),
-    _goitfdirrsResponseStatus ::
-      !Int
+  { -- | A unique identifier in the format REGION:GUID.
+    identityId :: Prelude.Maybe Prelude.Text,
+    -- | An OpenID token.
+    token :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOpenIdTokenForDeveloperIdentityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOpenIdTokenForDeveloperIdentityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'goitfdirrsIdentityId' - A unique identifier in the format REGION:GUID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'goitfdirrsToken' - An OpenID token.
+-- 'identityId', 'getOpenIdTokenForDeveloperIdentityResponse_identityId' - A unique identifier in the format REGION:GUID.
 --
--- * 'goitfdirrsResponseStatus' - -- | The response status code.
-getOpenIdTokenForDeveloperIdentityResponse ::
-  -- | 'goitfdirrsResponseStatus'
-  Int ->
+-- 'token', 'getOpenIdTokenForDeveloperIdentityResponse_token' - An OpenID token.
+--
+-- 'httpStatus', 'getOpenIdTokenForDeveloperIdentityResponse_httpStatus' - The response's http status code.
+newGetOpenIdTokenForDeveloperIdentityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetOpenIdTokenForDeveloperIdentityResponse
-getOpenIdTokenForDeveloperIdentityResponse
-  pResponseStatus_ =
+newGetOpenIdTokenForDeveloperIdentityResponse
+  pHttpStatus_ =
     GetOpenIdTokenForDeveloperIdentityResponse'
-      { _goitfdirrsIdentityId =
-          Nothing,
-        _goitfdirrsToken = Nothing,
-        _goitfdirrsResponseStatus =
-          pResponseStatus_
+      { identityId =
+          Prelude.Nothing,
+        token = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A unique identifier in the format REGION:GUID.
-goitfdirrsIdentityId :: Lens' GetOpenIdTokenForDeveloperIdentityResponse (Maybe Text)
-goitfdirrsIdentityId = lens _goitfdirrsIdentityId (\s a -> s {_goitfdirrsIdentityId = a})
+getOpenIdTokenForDeveloperIdentityResponse_identityId :: Lens.Lens' GetOpenIdTokenForDeveloperIdentityResponse (Prelude.Maybe Prelude.Text)
+getOpenIdTokenForDeveloperIdentityResponse_identityId = Lens.lens (\GetOpenIdTokenForDeveloperIdentityResponse' {identityId} -> identityId) (\s@GetOpenIdTokenForDeveloperIdentityResponse' {} a -> s {identityId = a} :: GetOpenIdTokenForDeveloperIdentityResponse)
 
 -- | An OpenID token.
-goitfdirrsToken :: Lens' GetOpenIdTokenForDeveloperIdentityResponse (Maybe Text)
-goitfdirrsToken = lens _goitfdirrsToken (\s a -> s {_goitfdirrsToken = a})
+getOpenIdTokenForDeveloperIdentityResponse_token :: Lens.Lens' GetOpenIdTokenForDeveloperIdentityResponse (Prelude.Maybe Prelude.Text)
+getOpenIdTokenForDeveloperIdentityResponse_token = Lens.lens (\GetOpenIdTokenForDeveloperIdentityResponse' {token} -> token) (\s@GetOpenIdTokenForDeveloperIdentityResponse' {} a -> s {token = a} :: GetOpenIdTokenForDeveloperIdentityResponse)
 
--- | -- | The response status code.
-goitfdirrsResponseStatus :: Lens' GetOpenIdTokenForDeveloperIdentityResponse Int
-goitfdirrsResponseStatus = lens _goitfdirrsResponseStatus (\s a -> s {_goitfdirrsResponseStatus = a})
+-- | The response's http status code.
+getOpenIdTokenForDeveloperIdentityResponse_httpStatus :: Lens.Lens' GetOpenIdTokenForDeveloperIdentityResponse Prelude.Int
+getOpenIdTokenForDeveloperIdentityResponse_httpStatus = Lens.lens (\GetOpenIdTokenForDeveloperIdentityResponse' {httpStatus} -> httpStatus) (\s@GetOpenIdTokenForDeveloperIdentityResponse' {} a -> s {httpStatus = a} :: GetOpenIdTokenForDeveloperIdentityResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetOpenIdTokenForDeveloperIdentityResponse

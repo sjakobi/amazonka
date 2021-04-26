@@ -11,18 +11,30 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon Cognito Federated Identities__
+-- Amazon Cognito Federated Identities
 --
--- Amazon Cognito Federated Identities is a web service that delivers scoped temporary credentials to mobile devices and other untrusted environments. It uniquely identifies a device and supplies the user with a consistent identity over the lifetime of an application.
+-- Amazon Cognito Federated Identities is a web service that delivers
+-- scoped temporary credentials to mobile devices and other untrusted
+-- environments. It uniquely identifies a device and supplies the user with
+-- a consistent identity over the lifetime of an application.
 --
--- Using Amazon Cognito Federated Identities, you can enable authentication with one or more third-party identity providers (Facebook, Google, or Login with Amazon) or an Amazon Cognito user pool, and you can also choose to support unauthenticated access from your app. Cognito delivers a unique identifier for each user and acts as an OpenID token provider trusted by AWS Security Token Service (STS) to access temporary, limited-privilege AWS credentials.
+-- Using Amazon Cognito Federated Identities, you can enable authentication
+-- with one or more third-party identity providers (Facebook, Google, or
+-- Login with Amazon) or an Amazon Cognito user pool, and you can also
+-- choose to support unauthenticated access from your app. Cognito delivers
+-- a unique identifier for each user and acts as an OpenID token provider
+-- trusted by AWS Security Token Service (STS) to access temporary,
+-- limited-privilege AWS credentials.
 --
--- For a description of the authentication flow from the Amazon Cognito Developer Guide see <https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html Authentication Flow> .
+-- For a description of the authentication flow from the Amazon Cognito
+-- Developer Guide see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html Authentication Flow>.
 --
--- For more information see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html Amazon Cognito Federated Identities> .
+-- For more information see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html Amazon Cognito Federated Identities>.
 module Network.AWS.CognitoIdentity
   ( -- * Service Configuration
-    cognitoIdentity,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -67,73 +79,142 @@ module Network.AWS.CognitoIdentity
     -- $operations
 
     -- ** DescribeIdentityPool
-    module Network.AWS.CognitoIdentity.DescribeIdentityPool,
+    DescribeIdentityPool (DescribeIdentityPool'),
+    newDescribeIdentityPool,
+    IdentityPool (IdentityPool'),
+    newIdentityPool,
 
     -- ** GetOpenIdTokenForDeveloperIdentity
-    module Network.AWS.CognitoIdentity.GetOpenIdTokenForDeveloperIdentity,
+    GetOpenIdTokenForDeveloperIdentity (GetOpenIdTokenForDeveloperIdentity'),
+    newGetOpenIdTokenForDeveloperIdentity,
+    GetOpenIdTokenForDeveloperIdentityResponse (GetOpenIdTokenForDeveloperIdentityResponse'),
+    newGetOpenIdTokenForDeveloperIdentityResponse,
 
     -- ** GetOpenIdToken
-    module Network.AWS.CognitoIdentity.GetOpenIdToken,
+    GetOpenIdToken (GetOpenIdToken'),
+    newGetOpenIdToken,
+    GetOpenIdTokenResponse (GetOpenIdTokenResponse'),
+    newGetOpenIdTokenResponse,
 
     -- ** DeleteIdentities
-    module Network.AWS.CognitoIdentity.DeleteIdentities,
+    DeleteIdentities (DeleteIdentities'),
+    newDeleteIdentities,
+    DeleteIdentitiesResponse (DeleteIdentitiesResponse'),
+    newDeleteIdentitiesResponse,
 
     -- ** MergeDeveloperIdentities
-    module Network.AWS.CognitoIdentity.MergeDeveloperIdentities,
+    MergeDeveloperIdentities (MergeDeveloperIdentities'),
+    newMergeDeveloperIdentities,
+    MergeDeveloperIdentitiesResponse (MergeDeveloperIdentitiesResponse'),
+    newMergeDeveloperIdentitiesResponse,
 
     -- ** CreateIdentityPool
-    module Network.AWS.CognitoIdentity.CreateIdentityPool,
+    CreateIdentityPool (CreateIdentityPool'),
+    newCreateIdentityPool,
+    IdentityPool (IdentityPool'),
+    newIdentityPool,
 
     -- ** GetPrincipalTagAttributeMap
-    module Network.AWS.CognitoIdentity.GetPrincipalTagAttributeMap,
+    GetPrincipalTagAttributeMap (GetPrincipalTagAttributeMap'),
+    newGetPrincipalTagAttributeMap,
+    GetPrincipalTagAttributeMapResponse (GetPrincipalTagAttributeMapResponse'),
+    newGetPrincipalTagAttributeMapResponse,
 
     -- ** UpdateIdentityPool
-    module Network.AWS.CognitoIdentity.UpdateIdentityPool,
+    UpdateIdentityPool (UpdateIdentityPool'),
+    newUpdateIdentityPool,
+    IdentityPool (IdentityPool'),
+    newIdentityPool,
 
     -- ** UntagResource
-    module Network.AWS.CognitoIdentity.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** DeleteIdentityPool
-    module Network.AWS.CognitoIdentity.DeleteIdentityPool,
+    DeleteIdentityPool (DeleteIdentityPool'),
+    newDeleteIdentityPool,
+    DeleteIdentityPoolResponse (DeleteIdentityPoolResponse'),
+    newDeleteIdentityPoolResponse,
 
     -- ** GetIdentityPoolRoles
-    module Network.AWS.CognitoIdentity.GetIdentityPoolRoles,
+    GetIdentityPoolRoles (GetIdentityPoolRoles'),
+    newGetIdentityPoolRoles,
+    GetIdentityPoolRolesResponse (GetIdentityPoolRolesResponse'),
+    newGetIdentityPoolRolesResponse,
 
     -- ** TagResource
-    module Network.AWS.CognitoIdentity.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** UnlinkIdentity
-    module Network.AWS.CognitoIdentity.UnlinkIdentity,
+    UnlinkIdentity (UnlinkIdentity'),
+    newUnlinkIdentity,
+    UnlinkIdentityResponse (UnlinkIdentityResponse'),
+    newUnlinkIdentityResponse,
 
     -- ** LookupDeveloperIdentity
-    module Network.AWS.CognitoIdentity.LookupDeveloperIdentity,
+    LookupDeveloperIdentity (LookupDeveloperIdentity'),
+    newLookupDeveloperIdentity,
+    LookupDeveloperIdentityResponse (LookupDeveloperIdentityResponse'),
+    newLookupDeveloperIdentityResponse,
 
     -- ** SetIdentityPoolRoles
-    module Network.AWS.CognitoIdentity.SetIdentityPoolRoles,
+    SetIdentityPoolRoles (SetIdentityPoolRoles'),
+    newSetIdentityPoolRoles,
+    SetIdentityPoolRolesResponse (SetIdentityPoolRolesResponse'),
+    newSetIdentityPoolRolesResponse,
 
     -- ** ListIdentityPools (Paginated)
-    module Network.AWS.CognitoIdentity.ListIdentityPools,
+    ListIdentityPools (ListIdentityPools'),
+    newListIdentityPools,
+    ListIdentityPoolsResponse (ListIdentityPoolsResponse'),
+    newListIdentityPoolsResponse,
 
     -- ** DescribeIdentity
-    module Network.AWS.CognitoIdentity.DescribeIdentity,
+    DescribeIdentity (DescribeIdentity'),
+    newDescribeIdentity,
+    IdentityDescription (IdentityDescription'),
+    newIdentityDescription,
 
     -- ** GetCredentialsForIdentity
-    module Network.AWS.CognitoIdentity.GetCredentialsForIdentity,
+    GetCredentialsForIdentity (GetCredentialsForIdentity'),
+    newGetCredentialsForIdentity,
+    GetCredentialsForIdentityResponse (GetCredentialsForIdentityResponse'),
+    newGetCredentialsForIdentityResponse,
 
     -- ** UnlinkDeveloperIdentity
-    module Network.AWS.CognitoIdentity.UnlinkDeveloperIdentity,
+    UnlinkDeveloperIdentity (UnlinkDeveloperIdentity'),
+    newUnlinkDeveloperIdentity,
+    UnlinkDeveloperIdentityResponse (UnlinkDeveloperIdentityResponse'),
+    newUnlinkDeveloperIdentityResponse,
 
     -- ** GetId
-    module Network.AWS.CognitoIdentity.GetId,
+    GetId (GetId'),
+    newGetId,
+    GetIdResponse (GetIdResponse'),
+    newGetIdResponse,
 
     -- ** ListIdentities
-    module Network.AWS.CognitoIdentity.ListIdentities,
+    ListIdentities (ListIdentities'),
+    newListIdentities,
+    ListIdentitiesResponse (ListIdentitiesResponse'),
+    newListIdentitiesResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.CognitoIdentity.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** SetPrincipalTagAttributeMap
-    module Network.AWS.CognitoIdentity.SetPrincipalTagAttributeMap,
+    SetPrincipalTagAttributeMap (SetPrincipalTagAttributeMap'),
+    newSetPrincipalTagAttributeMap,
+    SetPrincipalTagAttributeMapResponse (SetPrincipalTagAttributeMapResponse'),
+    newSetPrincipalTagAttributeMapResponse,
 
     -- * Types
 
@@ -150,73 +231,40 @@ module Network.AWS.CognitoIdentity
     RoleMappingType (..),
 
     -- ** CognitoIdentityProvider
-    CognitoIdentityProvider,
-    cognitoIdentityProvider,
-    cipClientId,
-    cipProviderName,
-    cipServerSideTokenCheck,
+    CognitoIdentityProvider (CognitoIdentityProvider'),
+    newCognitoIdentityProvider,
 
     -- ** Credentials
-    Credentials,
-    credentials,
-    cExpiration,
-    cSecretKey,
-    cAccessKeyId,
-    cSessionToken,
+    Credentials (Credentials'),
+    newCredentials,
 
     -- ** IdentityDescription
-    IdentityDescription,
-    identityDescription,
-    idLastModifiedDate,
-    idCreationDate,
-    idIdentityId,
-    idLogins,
+    IdentityDescription (IdentityDescription'),
+    newIdentityDescription,
 
     -- ** IdentityPool
-    IdentityPool,
-    identityPool,
-    ipAllowClassicFlow,
-    ipSamlProviderARNs,
-    ipIdentityPoolTags,
-    ipOpenIdConnectProviderARNs,
-    ipSupportedLoginProviders,
-    ipCognitoIdentityProviders,
-    ipDeveloperProviderName,
-    ipIdentityPoolId,
-    ipIdentityPoolName,
-    ipAllowUnauthenticatedIdentities,
+    IdentityPool (IdentityPool'),
+    newIdentityPool,
 
     -- ** IdentityPoolShortDescription
-    IdentityPoolShortDescription,
-    identityPoolShortDescription,
-    ipsdIdentityPoolId,
-    ipsdIdentityPoolName,
+    IdentityPoolShortDescription (IdentityPoolShortDescription'),
+    newIdentityPoolShortDescription,
 
     -- ** MappingRule
-    MappingRule,
-    mappingRule,
-    mrClaim,
-    mrMatchType,
-    mrValue,
-    mrRoleARN,
+    MappingRule (MappingRule'),
+    newMappingRule,
 
     -- ** RoleMapping
-    RoleMapping,
-    roleMapping,
-    rmAmbiguousRoleResolution,
-    rmRulesConfiguration,
-    rmType,
+    RoleMapping (RoleMapping'),
+    newRoleMapping,
 
     -- ** RulesConfigurationType
-    RulesConfigurationType,
-    rulesConfigurationType,
-    rctRules,
+    RulesConfigurationType (RulesConfigurationType'),
+    newRulesConfigurationType,
 
     -- ** UnprocessedIdentityId
-    UnprocessedIdentityId,
-    unprocessedIdentityId,
-    uiiIdentityId,
-    uiiErrorCode,
+    UnprocessedIdentityId (UnprocessedIdentityId'),
+    newUnprocessedIdentityId,
   )
 where
 
@@ -231,6 +279,7 @@ import Network.AWS.CognitoIdentity.GetIdentityPoolRoles
 import Network.AWS.CognitoIdentity.GetOpenIdToken
 import Network.AWS.CognitoIdentity.GetOpenIdTokenForDeveloperIdentity
 import Network.AWS.CognitoIdentity.GetPrincipalTagAttributeMap
+import Network.AWS.CognitoIdentity.Lens
 import Network.AWS.CognitoIdentity.ListIdentities
 import Network.AWS.CognitoIdentity.ListIdentityPools
 import Network.AWS.CognitoIdentity.ListTagsForResource

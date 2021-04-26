@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CognitoIdentity.Types.CognitoErrorCode
   ( CognitoErrorCode
       ( ..,
-        AccessDenied,
-        InternalServerError
+        CognitoErrorCodeAccessDenied,
+        CognitoErrorCodeInternalServerError
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CognitoErrorCode = CognitoErrorCode' (CI Text)
+newtype CognitoErrorCode = CognitoErrorCode'
+  { fromCognitoErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccessDenied :: CognitoErrorCode
-pattern AccessDenied = CognitoErrorCode' "AccessDenied"
+pattern CognitoErrorCodeAccessDenied :: CognitoErrorCode
+pattern CognitoErrorCodeAccessDenied = CognitoErrorCode' "AccessDenied"
 
-pattern InternalServerError :: CognitoErrorCode
-pattern InternalServerError = CognitoErrorCode' "InternalServerError"
+pattern CognitoErrorCodeInternalServerError :: CognitoErrorCode
+pattern CognitoErrorCodeInternalServerError = CognitoErrorCode' "InternalServerError"
 
 {-# COMPLETE
-  AccessDenied,
-  InternalServerError,
+  CognitoErrorCodeAccessDenied,
+  CognitoErrorCodeInternalServerError,
   CognitoErrorCode'
   #-}
 
-instance FromText CognitoErrorCode where
-  parser = (CognitoErrorCode' . mk) <$> takeText
+instance Prelude.FromText CognitoErrorCode where
+  parser = CognitoErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText CognitoErrorCode where
-  toText (CognitoErrorCode' ci) = original ci
+instance Prelude.ToText CognitoErrorCode where
+  toText (CognitoErrorCode' x) = x
 
-instance Hashable CognitoErrorCode
+instance Prelude.Hashable CognitoErrorCode
 
-instance NFData CognitoErrorCode
+instance Prelude.NFData CognitoErrorCode
 
-instance ToByteString CognitoErrorCode
+instance Prelude.ToByteString CognitoErrorCode
 
-instance ToQuery CognitoErrorCode
+instance Prelude.ToQuery CognitoErrorCode
 
-instance ToHeader CognitoErrorCode
+instance Prelude.ToHeader CognitoErrorCode
 
-instance FromJSON CognitoErrorCode where
-  parseJSON = parseJSONText "CognitoErrorCode"
+instance Prelude.FromJSON CognitoErrorCode where
+  parseJSON = Prelude.parseJSONText "CognitoErrorCode"

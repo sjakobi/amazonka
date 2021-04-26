@@ -28,145 +28,145 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDescribeIdentityPool $
---             describeIdentityPool
+--             newDescribeIdentityPool
 --
 --         , requestGetOpenIdTokenForDeveloperIdentity $
---             getOpenIdTokenForDeveloperIdentity
+--             newGetOpenIdTokenForDeveloperIdentity
 --
 --         , requestGetOpenIdToken $
---             getOpenIdToken
+--             newGetOpenIdToken
 --
 --         , requestDeleteIdentities $
---             deleteIdentities
+--             newDeleteIdentities
 --
 --         , requestMergeDeveloperIdentities $
---             mergeDeveloperIdentities
+--             newMergeDeveloperIdentities
 --
 --         , requestCreateIdentityPool $
---             createIdentityPool
+--             newCreateIdentityPool
 --
 --         , requestGetPrincipalTagAttributeMap $
---             getPrincipalTagAttributeMap
+--             newGetPrincipalTagAttributeMap
 --
 --         , requestUpdateIdentityPool $
---             updateIdentityPool
+--             newUpdateIdentityPool
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestDeleteIdentityPool $
---             deleteIdentityPool
+--             newDeleteIdentityPool
 --
 --         , requestGetIdentityPoolRoles $
---             getIdentityPoolRoles
+--             newGetIdentityPoolRoles
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestUnlinkIdentity $
---             unlinkIdentity
+--             newUnlinkIdentity
 --
 --         , requestLookupDeveloperIdentity $
---             lookupDeveloperIdentity
+--             newLookupDeveloperIdentity
 --
 --         , requestSetIdentityPoolRoles $
---             setIdentityPoolRoles
+--             newSetIdentityPoolRoles
 --
 --         , requestListIdentityPools $
---             listIdentityPools
+--             newListIdentityPools
 --
 --         , requestDescribeIdentity $
---             describeIdentity
+--             newDescribeIdentity
 --
 --         , requestGetCredentialsForIdentity $
---             getCredentialsForIdentity
+--             newGetCredentialsForIdentity
 --
 --         , requestUnlinkDeveloperIdentity $
---             unlinkDeveloperIdentity
+--             newUnlinkDeveloperIdentity
 --
 --         , requestGetId $
---             getId
+--             newGetId
 --
 --         , requestListIdentities $
---             listIdentities
+--             newListIdentities
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestSetPrincipalTagAttributeMap $
---             setPrincipalTagAttributeMap
+--             newSetPrincipalTagAttributeMap
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDescribeIdentityPool $
---             identityPool
+--             newIdentityPool
 --
 --         , responseGetOpenIdTokenForDeveloperIdentity $
---             getOpenIdTokenForDeveloperIdentityResponse
+--             newGetOpenIdTokenForDeveloperIdentityResponse
 --
 --         , responseGetOpenIdToken $
---             getOpenIdTokenResponse
+--             newGetOpenIdTokenResponse
 --
 --         , responseDeleteIdentities $
---             deleteIdentitiesResponse
+--             newDeleteIdentitiesResponse
 --
 --         , responseMergeDeveloperIdentities $
---             mergeDeveloperIdentitiesResponse
+--             newMergeDeveloperIdentitiesResponse
 --
 --         , responseCreateIdentityPool $
---             identityPool
+--             newIdentityPool
 --
 --         , responseGetPrincipalTagAttributeMap $
---             getPrincipalTagAttributeMapResponse
+--             newGetPrincipalTagAttributeMapResponse
 --
 --         , responseUpdateIdentityPool $
---             identityPool
+--             newIdentityPool
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseDeleteIdentityPool $
---             deleteIdentityPoolResponse
+--             newDeleteIdentityPoolResponse
 --
 --         , responseGetIdentityPoolRoles $
---             getIdentityPoolRolesResponse
+--             newGetIdentityPoolRolesResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseUnlinkIdentity $
---             unlinkIdentityResponse
+--             newUnlinkIdentityResponse
 --
 --         , responseLookupDeveloperIdentity $
---             lookupDeveloperIdentityResponse
+--             newLookupDeveloperIdentityResponse
 --
 --         , responseSetIdentityPoolRoles $
---             setIdentityPoolRolesResponse
+--             newSetIdentityPoolRolesResponse
 --
 --         , responseListIdentityPools $
---             listIdentityPoolsResponse
+--             newListIdentityPoolsResponse
 --
 --         , responseDescribeIdentity $
---             identityDescription
+--             newIdentityDescription
 --
 --         , responseGetCredentialsForIdentity $
---             getCredentialsForIdentityResponse
+--             newGetCredentialsForIdentityResponse
 --
 --         , responseUnlinkDeveloperIdentity $
---             unlinkDeveloperIdentityResponse
+--             newUnlinkDeveloperIdentityResponse
 --
 --         , responseGetId $
---             getIdResponse
+--             newGetIdResponse
 --
 --         , responseListIdentities $
---             listIdentitiesResponse
+--             newListIdentitiesResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseSetPrincipalTagAttributeMap $
---             setPrincipalTagAttributeMapResponse
+--             newSetPrincipalTagAttributeMapResponse
 --
 --           ]
 --     ]
@@ -318,7 +318,7 @@ responseDescribeIdentityPool =
   res
     "DescribeIdentityPoolResponse"
     "fixture/DescribeIdentityPoolResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy DescribeIdentityPool)
 
 responseGetOpenIdTokenForDeveloperIdentity :: GetOpenIdTokenForDeveloperIdentityResponse -> TestTree
@@ -326,7 +326,7 @@ responseGetOpenIdTokenForDeveloperIdentity =
   res
     "GetOpenIdTokenForDeveloperIdentityResponse"
     "fixture/GetOpenIdTokenForDeveloperIdentityResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy GetOpenIdTokenForDeveloperIdentity)
 
 responseGetOpenIdToken :: GetOpenIdTokenResponse -> TestTree
@@ -334,7 +334,7 @@ responseGetOpenIdToken =
   res
     "GetOpenIdTokenResponse"
     "fixture/GetOpenIdTokenResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy GetOpenIdToken)
 
 responseDeleteIdentities :: DeleteIdentitiesResponse -> TestTree
@@ -342,7 +342,7 @@ responseDeleteIdentities =
   res
     "DeleteIdentitiesResponse"
     "fixture/DeleteIdentitiesResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy DeleteIdentities)
 
 responseMergeDeveloperIdentities :: MergeDeveloperIdentitiesResponse -> TestTree
@@ -350,7 +350,7 @@ responseMergeDeveloperIdentities =
   res
     "MergeDeveloperIdentitiesResponse"
     "fixture/MergeDeveloperIdentitiesResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy MergeDeveloperIdentities)
 
 responseCreateIdentityPool :: IdentityPool -> TestTree
@@ -358,7 +358,7 @@ responseCreateIdentityPool =
   res
     "CreateIdentityPoolResponse"
     "fixture/CreateIdentityPoolResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy CreateIdentityPool)
 
 responseGetPrincipalTagAttributeMap :: GetPrincipalTagAttributeMapResponse -> TestTree
@@ -366,7 +366,7 @@ responseGetPrincipalTagAttributeMap =
   res
     "GetPrincipalTagAttributeMapResponse"
     "fixture/GetPrincipalTagAttributeMapResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy GetPrincipalTagAttributeMap)
 
 responseUpdateIdentityPool :: IdentityPool -> TestTree
@@ -374,7 +374,7 @@ responseUpdateIdentityPool =
   res
     "UpdateIdentityPoolResponse"
     "fixture/UpdateIdentityPoolResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy UpdateIdentityPool)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -382,7 +382,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseDeleteIdentityPool :: DeleteIdentityPoolResponse -> TestTree
@@ -390,7 +390,7 @@ responseDeleteIdentityPool =
   res
     "DeleteIdentityPoolResponse"
     "fixture/DeleteIdentityPoolResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy DeleteIdentityPool)
 
 responseGetIdentityPoolRoles :: GetIdentityPoolRolesResponse -> TestTree
@@ -398,7 +398,7 @@ responseGetIdentityPoolRoles =
   res
     "GetIdentityPoolRolesResponse"
     "fixture/GetIdentityPoolRolesResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy GetIdentityPoolRoles)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -406,7 +406,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseUnlinkIdentity :: UnlinkIdentityResponse -> TestTree
@@ -414,7 +414,7 @@ responseUnlinkIdentity =
   res
     "UnlinkIdentityResponse"
     "fixture/UnlinkIdentityResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy UnlinkIdentity)
 
 responseLookupDeveloperIdentity :: LookupDeveloperIdentityResponse -> TestTree
@@ -422,7 +422,7 @@ responseLookupDeveloperIdentity =
   res
     "LookupDeveloperIdentityResponse"
     "fixture/LookupDeveloperIdentityResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy LookupDeveloperIdentity)
 
 responseSetIdentityPoolRoles :: SetIdentityPoolRolesResponse -> TestTree
@@ -430,7 +430,7 @@ responseSetIdentityPoolRoles =
   res
     "SetIdentityPoolRolesResponse"
     "fixture/SetIdentityPoolRolesResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy SetIdentityPoolRoles)
 
 responseListIdentityPools :: ListIdentityPoolsResponse -> TestTree
@@ -438,7 +438,7 @@ responseListIdentityPools =
   res
     "ListIdentityPoolsResponse"
     "fixture/ListIdentityPoolsResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy ListIdentityPools)
 
 responseDescribeIdentity :: IdentityDescription -> TestTree
@@ -446,7 +446,7 @@ responseDescribeIdentity =
   res
     "DescribeIdentityResponse"
     "fixture/DescribeIdentityResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy DescribeIdentity)
 
 responseGetCredentialsForIdentity :: GetCredentialsForIdentityResponse -> TestTree
@@ -454,7 +454,7 @@ responseGetCredentialsForIdentity =
   res
     "GetCredentialsForIdentityResponse"
     "fixture/GetCredentialsForIdentityResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy GetCredentialsForIdentity)
 
 responseUnlinkDeveloperIdentity :: UnlinkDeveloperIdentityResponse -> TestTree
@@ -462,7 +462,7 @@ responseUnlinkDeveloperIdentity =
   res
     "UnlinkDeveloperIdentityResponse"
     "fixture/UnlinkDeveloperIdentityResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy UnlinkDeveloperIdentity)
 
 responseGetId :: GetIdResponse -> TestTree
@@ -470,7 +470,7 @@ responseGetId =
   res
     "GetIdResponse"
     "fixture/GetIdResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy GetId)
 
 responseListIdentities :: ListIdentitiesResponse -> TestTree
@@ -478,7 +478,7 @@ responseListIdentities =
   res
     "ListIdentitiesResponse"
     "fixture/ListIdentitiesResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy ListIdentities)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -486,7 +486,7 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseSetPrincipalTagAttributeMap :: SetPrincipalTagAttributeMapResponse -> TestTree
@@ -494,5 +494,5 @@ responseSetPrincipalTagAttributeMap =
   res
     "SetPrincipalTagAttributeMapResponse"
     "fixture/SetPrincipalTagAttributeMapResponse.proto"
-    cognitoIdentity
+    defaultService
     (Proxy :: Proxy SetPrincipalTagAttributeMap)

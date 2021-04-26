@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.CognitoIdentity.Types.MappingRuleMatchType
   ( MappingRuleMatchType
       ( ..,
-        Contains,
-        Equals,
-        NotEqual,
-        StartsWith
+        MappingRuleMatchTypeContains,
+        MappingRuleMatchTypeEquals,
+        MappingRuleMatchTypeNotEqual,
+        MappingRuleMatchTypeStartsWith
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MappingRuleMatchType
-  = MappingRuleMatchType'
-      ( CI
-          Text
-      )
+newtype MappingRuleMatchType = MappingRuleMatchType'
+  { fromMappingRuleMatchType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Contains :: MappingRuleMatchType
-pattern Contains = MappingRuleMatchType' "Contains"
+pattern MappingRuleMatchTypeContains :: MappingRuleMatchType
+pattern MappingRuleMatchTypeContains = MappingRuleMatchType' "Contains"
 
-pattern Equals :: MappingRuleMatchType
-pattern Equals = MappingRuleMatchType' "Equals"
+pattern MappingRuleMatchTypeEquals :: MappingRuleMatchType
+pattern MappingRuleMatchTypeEquals = MappingRuleMatchType' "Equals"
 
-pattern NotEqual :: MappingRuleMatchType
-pattern NotEqual = MappingRuleMatchType' "NotEqual"
+pattern MappingRuleMatchTypeNotEqual :: MappingRuleMatchType
+pattern MappingRuleMatchTypeNotEqual = MappingRuleMatchType' "NotEqual"
 
-pattern StartsWith :: MappingRuleMatchType
-pattern StartsWith = MappingRuleMatchType' "StartsWith"
+pattern MappingRuleMatchTypeStartsWith :: MappingRuleMatchType
+pattern MappingRuleMatchTypeStartsWith = MappingRuleMatchType' "StartsWith"
 
 {-# COMPLETE
-  Contains,
-  Equals,
-  NotEqual,
-  StartsWith,
+  MappingRuleMatchTypeContains,
+  MappingRuleMatchTypeEquals,
+  MappingRuleMatchTypeNotEqual,
+  MappingRuleMatchTypeStartsWith,
   MappingRuleMatchType'
   #-}
 
-instance FromText MappingRuleMatchType where
-  parser = (MappingRuleMatchType' . mk) <$> takeText
+instance Prelude.FromText MappingRuleMatchType where
+  parser = MappingRuleMatchType' Prelude.<$> Prelude.takeText
 
-instance ToText MappingRuleMatchType where
-  toText (MappingRuleMatchType' ci) = original ci
+instance Prelude.ToText MappingRuleMatchType where
+  toText (MappingRuleMatchType' x) = x
 
-instance Hashable MappingRuleMatchType
+instance Prelude.Hashable MappingRuleMatchType
 
-instance NFData MappingRuleMatchType
+instance Prelude.NFData MappingRuleMatchType
 
-instance ToByteString MappingRuleMatchType
+instance Prelude.ToByteString MappingRuleMatchType
 
-instance ToQuery MappingRuleMatchType
+instance Prelude.ToQuery MappingRuleMatchType
 
-instance ToHeader MappingRuleMatchType
+instance Prelude.ToHeader MappingRuleMatchType
 
-instance ToJSON MappingRuleMatchType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MappingRuleMatchType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MappingRuleMatchType where
-  parseJSON = parseJSONText "MappingRuleMatchType"
+instance Prelude.FromJSON MappingRuleMatchType where
+  parseJSON = Prelude.parseJSONText "MappingRuleMatchType"

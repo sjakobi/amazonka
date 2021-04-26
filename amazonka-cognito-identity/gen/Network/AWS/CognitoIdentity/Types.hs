@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentity.Types
   ( -- * Service Configuration
-    cognitoIdentity,
+    defaultService,
 
     -- * Errors
     _ResourceConflictException,
@@ -40,72 +43,39 @@ module Network.AWS.CognitoIdentity.Types
 
     -- * CognitoIdentityProvider
     CognitoIdentityProvider (..),
-    cognitoIdentityProvider,
-    cipClientId,
-    cipProviderName,
-    cipServerSideTokenCheck,
+    newCognitoIdentityProvider,
 
     -- * Credentials
     Credentials (..),
-    credentials,
-    cExpiration,
-    cSecretKey,
-    cAccessKeyId,
-    cSessionToken,
+    newCredentials,
 
     -- * IdentityDescription
     IdentityDescription (..),
-    identityDescription,
-    idLastModifiedDate,
-    idCreationDate,
-    idIdentityId,
-    idLogins,
+    newIdentityDescription,
 
     -- * IdentityPool
     IdentityPool (..),
-    identityPool,
-    ipAllowClassicFlow,
-    ipSamlProviderARNs,
-    ipIdentityPoolTags,
-    ipOpenIdConnectProviderARNs,
-    ipSupportedLoginProviders,
-    ipCognitoIdentityProviders,
-    ipDeveloperProviderName,
-    ipIdentityPoolId,
-    ipIdentityPoolName,
-    ipAllowUnauthenticatedIdentities,
+    newIdentityPool,
 
     -- * IdentityPoolShortDescription
     IdentityPoolShortDescription (..),
-    identityPoolShortDescription,
-    ipsdIdentityPoolId,
-    ipsdIdentityPoolName,
+    newIdentityPoolShortDescription,
 
     -- * MappingRule
     MappingRule (..),
-    mappingRule,
-    mrClaim,
-    mrMatchType,
-    mrValue,
-    mrRoleARN,
+    newMappingRule,
 
     -- * RoleMapping
     RoleMapping (..),
-    roleMapping,
-    rmAmbiguousRoleResolution,
-    rmRulesConfiguration,
-    rmType,
+    newRoleMapping,
 
     -- * RulesConfigurationType
     RulesConfigurationType (..),
-    rulesConfigurationType,
-    rctRules,
+    newRulesConfigurationType,
 
     -- * UnprocessedIdentityId
     UnprocessedIdentityId (..),
-    unprocessedIdentityId,
-    uiiIdentityId,
-    uiiErrorCode,
+    newUnprocessedIdentityId,
   )
 where
 
@@ -122,134 +92,160 @@ import Network.AWS.CognitoIdentity.Types.RoleMapping
 import Network.AWS.CognitoIdentity.Types.RoleMappingType
 import Network.AWS.CognitoIdentity.Types.RulesConfigurationType
 import Network.AWS.CognitoIdentity.Types.UnprocessedIdentityId
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2014-06-30@ of the Amazon Cognito Identity SDK configuration.
-cognitoIdentity :: Service
-cognitoIdentity =
-  Service
-    { _svcAbbrev = "CognitoIdentity",
-      _svcSigner = v4,
-      _svcPrefix = "cognito-identity",
-      _svcVersion = "2014-06-30",
-      _svcEndpoint = defaultEndpoint cognitoIdentity,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "CognitoIdentity",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "CognitoIdentity",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "cognito-identity",
+      Prelude._svcVersion = "2014-06-30",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "CognitoIdentity",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | Thrown when a user tries to use a login which is already linked to another account.
-_ResourceConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Thrown when a user tries to use a login which is already linked to
+-- another account.
+_ResourceConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceConflictException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "ResourceConflictException"
 
--- | Thrown when the service encounters an error during processing the request.
-_InternalErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Thrown when the service encounters an error during processing the
+-- request.
+_InternalErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalErrorException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "InternalErrorException"
 
 -- | Thrown if there are parallel requests to modify a resource.
-_ConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentModificationException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentModificationException"
 
--- | An exception thrown when a dependent service such as Facebook or Twitter is not responding
-_ExternalServiceException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An exception thrown when a dependent service such as Facebook or Twitter
+-- is not responding
+_ExternalServiceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ExternalServiceException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "ExternalServiceException"
 
 -- | Thrown for missing or bad input parameter(s).
-_InvalidParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterException"
 
--- | Thrown if the identity pool has no role associated for the given auth type (auth/unauth) or if the AssumeRole fails.
-_InvalidIdentityPoolConfigurationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Thrown if the identity pool has no role associated for the given auth
+-- type (auth\/unauth) or if the AssumeRole fails.
+_InvalidIdentityPoolConfigurationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidIdentityPoolConfigurationException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "InvalidIdentityPoolConfigurationException"
 
 -- | Thrown when the total number of user pools has exceeded a preset limit.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
--- | The provided developer user identifier is already registered with Cognito under a different identity ID.
-_DeveloperUserAlreadyRegisteredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The provided developer user identifier is already registered with
+-- Cognito under a different identity ID.
+_DeveloperUserAlreadyRegisteredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DeveloperUserAlreadyRegisteredException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "DeveloperUserAlreadyRegisteredException"
 
--- | Thrown when the requested resource (for example, a dataset or record) does not exist.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Thrown when the requested resource (for example, a dataset or record)
+-- does not exist.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
 -- | Thrown when a user is not authorized to access the requested resource.
-_NotAuthorizedException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotAuthorizedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotAuthorizedException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "NotAuthorizedException"
 
 -- | Thrown when a request is throttled.
-_TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyRequestsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyRequestsException =
-  _MatchServiceError
-    cognitoIdentity
+  Prelude._MatchServiceError
+    defaultService
     "TooManyRequestsException"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CognitoIdentity.Types.AmbiguousRoleResolutionType
   ( AmbiguousRoleResolutionType
       ( ..,
-        AuthenticatedRole,
-        Deny
+        AmbiguousRoleResolutionTypeAuthenticatedRole,
+        AmbiguousRoleResolutionTypeDeny
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AmbiguousRoleResolutionType
-  = AmbiguousRoleResolutionType'
-      ( CI
-          Text
-      )
+newtype AmbiguousRoleResolutionType = AmbiguousRoleResolutionType'
+  { fromAmbiguousRoleResolutionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AuthenticatedRole :: AmbiguousRoleResolutionType
-pattern AuthenticatedRole = AmbiguousRoleResolutionType' "AuthenticatedRole"
+pattern AmbiguousRoleResolutionTypeAuthenticatedRole :: AmbiguousRoleResolutionType
+pattern AmbiguousRoleResolutionTypeAuthenticatedRole = AmbiguousRoleResolutionType' "AuthenticatedRole"
 
-pattern Deny :: AmbiguousRoleResolutionType
-pattern Deny = AmbiguousRoleResolutionType' "Deny"
+pattern AmbiguousRoleResolutionTypeDeny :: AmbiguousRoleResolutionType
+pattern AmbiguousRoleResolutionTypeDeny = AmbiguousRoleResolutionType' "Deny"
 
 {-# COMPLETE
-  AuthenticatedRole,
-  Deny,
+  AmbiguousRoleResolutionTypeAuthenticatedRole,
+  AmbiguousRoleResolutionTypeDeny,
   AmbiguousRoleResolutionType'
   #-}
 
-instance FromText AmbiguousRoleResolutionType where
-  parser = (AmbiguousRoleResolutionType' . mk) <$> takeText
+instance Prelude.FromText AmbiguousRoleResolutionType where
+  parser = AmbiguousRoleResolutionType' Prelude.<$> Prelude.takeText
 
-instance ToText AmbiguousRoleResolutionType where
-  toText (AmbiguousRoleResolutionType' ci) = original ci
+instance Prelude.ToText AmbiguousRoleResolutionType where
+  toText (AmbiguousRoleResolutionType' x) = x
 
-instance Hashable AmbiguousRoleResolutionType
+instance Prelude.Hashable AmbiguousRoleResolutionType
 
-instance NFData AmbiguousRoleResolutionType
+instance Prelude.NFData AmbiguousRoleResolutionType
 
-instance ToByteString AmbiguousRoleResolutionType
+instance Prelude.ToByteString AmbiguousRoleResolutionType
 
-instance ToQuery AmbiguousRoleResolutionType
+instance Prelude.ToQuery AmbiguousRoleResolutionType
 
-instance ToHeader AmbiguousRoleResolutionType
+instance Prelude.ToHeader AmbiguousRoleResolutionType
 
-instance ToJSON AmbiguousRoleResolutionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AmbiguousRoleResolutionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AmbiguousRoleResolutionType where
-  parseJSON = parseJSONText "AmbiguousRoleResolutionType"
+instance Prelude.FromJSON AmbiguousRoleResolutionType where
+  parseJSON = Prelude.parseJSONText "AmbiguousRoleResolutionType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,109 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentity.Types.CognitoIdentityProvider where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A provider representing an Amazon Cognito user pool and its client ID.
 --
---
---
--- /See:/ 'cognitoIdentityProvider' smart constructor.
+-- /See:/ 'newCognitoIdentityProvider' smart constructor.
 data CognitoIdentityProvider = CognitoIdentityProvider'
-  { _cipClientId ::
-      !(Maybe Text),
-    _cipProviderName ::
-      !(Maybe Text),
-    _cipServerSideTokenCheck ::
-      !(Maybe Bool)
+  { -- | The client ID for the Amazon Cognito user pool.
+    clientId :: Prelude.Maybe Prelude.Text,
+    -- | The provider name for an Amazon Cognito user pool. For example,
+    -- @cognito-idp.us-east-1.amazonaws.com\/us-east-1_123456789@.
+    providerName :: Prelude.Maybe Prelude.Text,
+    -- | TRUE if server-side token validation is enabled for the identity
+    -- provider’s token.
+    --
+    -- Once you set @ServerSideTokenCheck@ to TRUE for an identity pool, that
+    -- identity pool will check with the integrated user pools to make sure
+    -- that the user has not been globally signed out or deleted before the
+    -- identity pool provides an OIDC token or AWS credentials for the user.
+    --
+    -- If the user is signed out or deleted, the identity pool will return a
+    -- 400 Not Authorized error.
+    serverSideTokenCheck :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CognitoIdentityProvider' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CognitoIdentityProvider' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cipClientId' - The client ID for the Amazon Cognito user pool.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cipProviderName' - The provider name for an Amazon Cognito user pool. For example, @cognito-idp.us-east-1.amazonaws.com/us-east-1_123456789@ .
+-- 'clientId', 'cognitoIdentityProvider_clientId' - The client ID for the Amazon Cognito user pool.
 --
--- * 'cipServerSideTokenCheck' - TRUE if server-side token validation is enabled for the identity provider’s token. Once you set @ServerSideTokenCheck@ to TRUE for an identity pool, that identity pool will check with the integrated user pools to make sure that the user has not been globally signed out or deleted before the identity pool provides an OIDC token or AWS credentials for the user. If the user is signed out or deleted, the identity pool will return a 400 Not Authorized error.
-cognitoIdentityProvider ::
+-- 'providerName', 'cognitoIdentityProvider_providerName' - The provider name for an Amazon Cognito user pool. For example,
+-- @cognito-idp.us-east-1.amazonaws.com\/us-east-1_123456789@.
+--
+-- 'serverSideTokenCheck', 'cognitoIdentityProvider_serverSideTokenCheck' - TRUE if server-side token validation is enabled for the identity
+-- provider’s token.
+--
+-- Once you set @ServerSideTokenCheck@ to TRUE for an identity pool, that
+-- identity pool will check with the integrated user pools to make sure
+-- that the user has not been globally signed out or deleted before the
+-- identity pool provides an OIDC token or AWS credentials for the user.
+--
+-- If the user is signed out or deleted, the identity pool will return a
+-- 400 Not Authorized error.
+newCognitoIdentityProvider ::
   CognitoIdentityProvider
-cognitoIdentityProvider =
+newCognitoIdentityProvider =
   CognitoIdentityProvider'
-    { _cipClientId = Nothing,
-      _cipProviderName = Nothing,
-      _cipServerSideTokenCheck = Nothing
+    { clientId =
+        Prelude.Nothing,
+      providerName = Prelude.Nothing,
+      serverSideTokenCheck = Prelude.Nothing
     }
 
 -- | The client ID for the Amazon Cognito user pool.
-cipClientId :: Lens' CognitoIdentityProvider (Maybe Text)
-cipClientId = lens _cipClientId (\s a -> s {_cipClientId = a})
+cognitoIdentityProvider_clientId :: Lens.Lens' CognitoIdentityProvider (Prelude.Maybe Prelude.Text)
+cognitoIdentityProvider_clientId = Lens.lens (\CognitoIdentityProvider' {clientId} -> clientId) (\s@CognitoIdentityProvider' {} a -> s {clientId = a} :: CognitoIdentityProvider)
 
--- | The provider name for an Amazon Cognito user pool. For example, @cognito-idp.us-east-1.amazonaws.com/us-east-1_123456789@ .
-cipProviderName :: Lens' CognitoIdentityProvider (Maybe Text)
-cipProviderName = lens _cipProviderName (\s a -> s {_cipProviderName = a})
+-- | The provider name for an Amazon Cognito user pool. For example,
+-- @cognito-idp.us-east-1.amazonaws.com\/us-east-1_123456789@.
+cognitoIdentityProvider_providerName :: Lens.Lens' CognitoIdentityProvider (Prelude.Maybe Prelude.Text)
+cognitoIdentityProvider_providerName = Lens.lens (\CognitoIdentityProvider' {providerName} -> providerName) (\s@CognitoIdentityProvider' {} a -> s {providerName = a} :: CognitoIdentityProvider)
 
--- | TRUE if server-side token validation is enabled for the identity provider’s token. Once you set @ServerSideTokenCheck@ to TRUE for an identity pool, that identity pool will check with the integrated user pools to make sure that the user has not been globally signed out or deleted before the identity pool provides an OIDC token or AWS credentials for the user. If the user is signed out or deleted, the identity pool will return a 400 Not Authorized error.
-cipServerSideTokenCheck :: Lens' CognitoIdentityProvider (Maybe Bool)
-cipServerSideTokenCheck = lens _cipServerSideTokenCheck (\s a -> s {_cipServerSideTokenCheck = a})
+-- | TRUE if server-side token validation is enabled for the identity
+-- provider’s token.
+--
+-- Once you set @ServerSideTokenCheck@ to TRUE for an identity pool, that
+-- identity pool will check with the integrated user pools to make sure
+-- that the user has not been globally signed out or deleted before the
+-- identity pool provides an OIDC token or AWS credentials for the user.
+--
+-- If the user is signed out or deleted, the identity pool will return a
+-- 400 Not Authorized error.
+cognitoIdentityProvider_serverSideTokenCheck :: Lens.Lens' CognitoIdentityProvider (Prelude.Maybe Prelude.Bool)
+cognitoIdentityProvider_serverSideTokenCheck = Lens.lens (\CognitoIdentityProvider' {serverSideTokenCheck} -> serverSideTokenCheck) (\s@CognitoIdentityProvider' {} a -> s {serverSideTokenCheck = a} :: CognitoIdentityProvider)
 
-instance FromJSON CognitoIdentityProvider where
+instance Prelude.FromJSON CognitoIdentityProvider where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CognitoIdentityProvider"
       ( \x ->
           CognitoIdentityProvider'
-            <$> (x .:? "ClientId")
-            <*> (x .:? "ProviderName")
-            <*> (x .:? "ServerSideTokenCheck")
+            Prelude.<$> (x Prelude..:? "ClientId")
+            Prelude.<*> (x Prelude..:? "ProviderName")
+            Prelude.<*> (x Prelude..:? "ServerSideTokenCheck")
       )
 
-instance Hashable CognitoIdentityProvider
+instance Prelude.Hashable CognitoIdentityProvider
 
-instance NFData CognitoIdentityProvider
+instance Prelude.NFData CognitoIdentityProvider
 
-instance ToJSON CognitoIdentityProvider where
+instance Prelude.ToJSON CognitoIdentityProvider where
   toJSON CognitoIdentityProvider' {..} =
-    object
-      ( catMaybes
-          [ ("ClientId" .=) <$> _cipClientId,
-            ("ProviderName" .=) <$> _cipProviderName,
-            ("ServerSideTokenCheck" .=)
-              <$> _cipServerSideTokenCheck
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ClientId" Prelude..=) Prelude.<$> clientId,
+            ("ProviderName" Prelude..=) Prelude.<$> providerName,
+            ("ServerSideTokenCheck" Prelude..=)
+              Prelude.<$> serverSideTokenCheck
           ]
       )

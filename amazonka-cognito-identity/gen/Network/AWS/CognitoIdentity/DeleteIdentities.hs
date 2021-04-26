@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,158 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes identities from an identity pool. You can specify a list of 1-60 identities that you want to delete.
---
+-- Deletes identities from an identity pool. You can specify a list of 1-60
+-- identities that you want to delete.
 --
 -- You must use AWS Developer credentials to call this API.
 module Network.AWS.CognitoIdentity.DeleteIdentities
   ( -- * Creating a Request
-    deleteIdentities,
-    DeleteIdentities,
+    DeleteIdentities (..),
+    newDeleteIdentities,
 
     -- * Request Lenses
-    diIdentityIdsToDelete,
+    deleteIdentities_identityIdsToDelete,
 
     -- * Destructuring the Response
-    deleteIdentitiesResponse,
-    DeleteIdentitiesResponse,
+    DeleteIdentitiesResponse (..),
+    newDeleteIdentitiesResponse,
 
     -- * Response Lenses
-    dirrsUnprocessedIdentityIds,
-    dirrsResponseStatus,
+    deleteIdentitiesResponse_unprocessedIdentityIds,
+    deleteIdentitiesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentity.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentity.Types.UnprocessedIdentityId
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Input to the @DeleteIdentities@ action.
 --
---
---
--- /See:/ 'deleteIdentities' smart constructor.
-newtype DeleteIdentities = DeleteIdentities'
-  { _diIdentityIdsToDelete ::
-      List1 Text
+-- /See:/ 'newDeleteIdentities' smart constructor.
+data DeleteIdentities = DeleteIdentities'
+  { -- | A list of 1-60 identities that you want to delete.
+    identityIdsToDelete :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIdentities' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteIdentities' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diIdentityIdsToDelete' - A list of 1-60 identities that you want to delete.
-deleteIdentities ::
-  -- | 'diIdentityIdsToDelete'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'identityIdsToDelete', 'deleteIdentities_identityIdsToDelete' - A list of 1-60 identities that you want to delete.
+newDeleteIdentities ::
+  -- | 'identityIdsToDelete'
+  Prelude.NonEmpty Prelude.Text ->
   DeleteIdentities
-deleteIdentities pIdentityIdsToDelete_ =
+newDeleteIdentities pIdentityIdsToDelete_ =
   DeleteIdentities'
-    { _diIdentityIdsToDelete =
-        _List1 # pIdentityIdsToDelete_
+    { identityIdsToDelete =
+        Prelude._List1 Lens.# pIdentityIdsToDelete_
     }
 
 -- | A list of 1-60 identities that you want to delete.
-diIdentityIdsToDelete :: Lens' DeleteIdentities (NonEmpty Text)
-diIdentityIdsToDelete = lens _diIdentityIdsToDelete (\s a -> s {_diIdentityIdsToDelete = a}) . _List1
+deleteIdentities_identityIdsToDelete :: Lens.Lens' DeleteIdentities (Prelude.NonEmpty Prelude.Text)
+deleteIdentities_identityIdsToDelete = Lens.lens (\DeleteIdentities' {identityIdsToDelete} -> identityIdsToDelete) (\s@DeleteIdentities' {} a -> s {identityIdsToDelete = a} :: DeleteIdentities) Prelude.. Prelude._List1
 
-instance AWSRequest DeleteIdentities where
+instance Prelude.AWSRequest DeleteIdentities where
   type Rs DeleteIdentities = DeleteIdentitiesResponse
-  request = postJSON cognitoIdentity
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteIdentitiesResponse'
-            <$> (x .?> "UnprocessedIdentityIds" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "UnprocessedIdentityIds"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteIdentities
+instance Prelude.Hashable DeleteIdentities
 
-instance NFData DeleteIdentities
+instance Prelude.NFData DeleteIdentities
 
-instance ToHeaders DeleteIdentities where
+instance Prelude.ToHeaders DeleteIdentities where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityService.DeleteIdentities" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityService.DeleteIdentities" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteIdentities where
+instance Prelude.ToJSON DeleteIdentities where
   toJSON DeleteIdentities' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("IdentityIdsToDelete" .= _diIdentityIdsToDelete)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "IdentityIdsToDelete"
+                  Prelude..= identityIdsToDelete
+              )
           ]
       )
 
-instance ToPath DeleteIdentities where
-  toPath = const "/"
+instance Prelude.ToPath DeleteIdentities where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteIdentities where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteIdentities where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Returned in response to a successful @DeleteIdentities@ operation.
 --
---
---
--- /See:/ 'deleteIdentitiesResponse' smart constructor.
+-- /See:/ 'newDeleteIdentitiesResponse' smart constructor.
 data DeleteIdentitiesResponse = DeleteIdentitiesResponse'
-  { _dirrsUnprocessedIdentityIds ::
-      !( Maybe
-           [UnprocessedIdentityId]
-       ),
-    _dirrsResponseStatus ::
-      !Int
+  { -- | An array of UnprocessedIdentityId objects, each of which contains an
+    -- ErrorCode and IdentityId.
+    unprocessedIdentityIds :: Prelude.Maybe [UnprocessedIdentityId],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIdentitiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteIdentitiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dirrsUnprocessedIdentityIds' - An array of UnprocessedIdentityId objects, each of which contains an ErrorCode and IdentityId.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dirrsResponseStatus' - -- | The response status code.
-deleteIdentitiesResponse ::
-  -- | 'dirrsResponseStatus'
-  Int ->
+-- 'unprocessedIdentityIds', 'deleteIdentitiesResponse_unprocessedIdentityIds' - An array of UnprocessedIdentityId objects, each of which contains an
+-- ErrorCode and IdentityId.
+--
+-- 'httpStatus', 'deleteIdentitiesResponse_httpStatus' - The response's http status code.
+newDeleteIdentitiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteIdentitiesResponse
-deleteIdentitiesResponse pResponseStatus_ =
+newDeleteIdentitiesResponse pHttpStatus_ =
   DeleteIdentitiesResponse'
-    { _dirrsUnprocessedIdentityIds =
-        Nothing,
-      _dirrsResponseStatus = pResponseStatus_
+    { unprocessedIdentityIds =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of UnprocessedIdentityId objects, each of which contains an ErrorCode and IdentityId.
-dirrsUnprocessedIdentityIds :: Lens' DeleteIdentitiesResponse [UnprocessedIdentityId]
-dirrsUnprocessedIdentityIds = lens _dirrsUnprocessedIdentityIds (\s a -> s {_dirrsUnprocessedIdentityIds = a}) . _Default . _Coerce
+-- | An array of UnprocessedIdentityId objects, each of which contains an
+-- ErrorCode and IdentityId.
+deleteIdentitiesResponse_unprocessedIdentityIds :: Lens.Lens' DeleteIdentitiesResponse (Prelude.Maybe [UnprocessedIdentityId])
+deleteIdentitiesResponse_unprocessedIdentityIds = Lens.lens (\DeleteIdentitiesResponse' {unprocessedIdentityIds} -> unprocessedIdentityIds) (\s@DeleteIdentitiesResponse' {} a -> s {unprocessedIdentityIds = a} :: DeleteIdentitiesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dirrsResponseStatus :: Lens' DeleteIdentitiesResponse Int
-dirrsResponseStatus = lens _dirrsResponseStatus (\s a -> s {_dirrsResponseStatus = a})
+-- | The response's http status code.
+deleteIdentitiesResponse_httpStatus :: Lens.Lens' DeleteIdentitiesResponse Prelude.Int
+deleteIdentitiesResponse_httpStatus = Lens.lens (\DeleteIdentitiesResponse' {httpStatus} -> httpStatus) (\s@DeleteIdentitiesResponse' {} a -> s {httpStatus = a} :: DeleteIdentitiesResponse)
 
-instance NFData DeleteIdentitiesResponse
+instance Prelude.NFData DeleteIdentitiesResponse

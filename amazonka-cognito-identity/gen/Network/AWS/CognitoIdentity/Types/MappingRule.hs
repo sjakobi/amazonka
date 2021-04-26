@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,90 +20,106 @@
 module Network.AWS.CognitoIdentity.Types.MappingRule where
 
 import Network.AWS.CognitoIdentity.Types.MappingRuleMatchType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A rule that maps a claim name, a claim value, and a match type to a role ARN.
+-- | A rule that maps a claim name, a claim value, and a match type to a role
+-- ARN.
 --
---
---
--- /See:/ 'mappingRule' smart constructor.
+-- /See:/ 'newMappingRule' smart constructor.
 data MappingRule = MappingRule'
-  { _mrClaim :: !Text,
-    _mrMatchType :: !MappingRuleMatchType,
-    _mrValue :: !Text,
-    _mrRoleARN :: !Text
+  { -- | The claim name that must be present in the token, for example,
+    -- \"isAdmin\" or \"paid\".
+    claim :: Prelude.Text,
+    -- | The match condition that specifies how closely the claim value in the
+    -- IdP token must match @Value@.
+    matchType :: MappingRuleMatchType,
+    -- | A brief string that the claim must match, for example, \"paid\" or
+    -- \"yes\".
+    value :: Prelude.Text,
+    -- | The role ARN.
+    roleARN :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MappingRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MappingRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mrClaim' - The claim name that must be present in the token, for example, "isAdmin" or "paid".
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mrMatchType' - The match condition that specifies how closely the claim value in the IdP token must match @Value@ .
+-- 'claim', 'mappingRule_claim' - The claim name that must be present in the token, for example,
+-- \"isAdmin\" or \"paid\".
 --
--- * 'mrValue' - A brief string that the claim must match, for example, "paid" or "yes".
+-- 'matchType', 'mappingRule_matchType' - The match condition that specifies how closely the claim value in the
+-- IdP token must match @Value@.
 --
--- * 'mrRoleARN' - The role ARN.
-mappingRule ::
-  -- | 'mrClaim'
-  Text ->
-  -- | 'mrMatchType'
+-- 'value', 'mappingRule_value' - A brief string that the claim must match, for example, \"paid\" or
+-- \"yes\".
+--
+-- 'roleARN', 'mappingRule_roleARN' - The role ARN.
+newMappingRule ::
+  -- | 'claim'
+  Prelude.Text ->
+  -- | 'matchType'
   MappingRuleMatchType ->
-  -- | 'mrValue'
-  Text ->
-  -- | 'mrRoleARN'
-  Text ->
+  -- | 'value'
+  Prelude.Text ->
+  -- | 'roleARN'
+  Prelude.Text ->
   MappingRule
-mappingRule pClaim_ pMatchType_ pValue_ pRoleARN_ =
+newMappingRule pClaim_ pMatchType_ pValue_ pRoleARN_ =
   MappingRule'
-    { _mrClaim = pClaim_,
-      _mrMatchType = pMatchType_,
-      _mrValue = pValue_,
-      _mrRoleARN = pRoleARN_
+    { claim = pClaim_,
+      matchType = pMatchType_,
+      value = pValue_,
+      roleARN = pRoleARN_
     }
 
--- | The claim name that must be present in the token, for example, "isAdmin" or "paid".
-mrClaim :: Lens' MappingRule Text
-mrClaim = lens _mrClaim (\s a -> s {_mrClaim = a})
+-- | The claim name that must be present in the token, for example,
+-- \"isAdmin\" or \"paid\".
+mappingRule_claim :: Lens.Lens' MappingRule Prelude.Text
+mappingRule_claim = Lens.lens (\MappingRule' {claim} -> claim) (\s@MappingRule' {} a -> s {claim = a} :: MappingRule)
 
--- | The match condition that specifies how closely the claim value in the IdP token must match @Value@ .
-mrMatchType :: Lens' MappingRule MappingRuleMatchType
-mrMatchType = lens _mrMatchType (\s a -> s {_mrMatchType = a})
+-- | The match condition that specifies how closely the claim value in the
+-- IdP token must match @Value@.
+mappingRule_matchType :: Lens.Lens' MappingRule MappingRuleMatchType
+mappingRule_matchType = Lens.lens (\MappingRule' {matchType} -> matchType) (\s@MappingRule' {} a -> s {matchType = a} :: MappingRule)
 
--- | A brief string that the claim must match, for example, "paid" or "yes".
-mrValue :: Lens' MappingRule Text
-mrValue = lens _mrValue (\s a -> s {_mrValue = a})
+-- | A brief string that the claim must match, for example, \"paid\" or
+-- \"yes\".
+mappingRule_value :: Lens.Lens' MappingRule Prelude.Text
+mappingRule_value = Lens.lens (\MappingRule' {value} -> value) (\s@MappingRule' {} a -> s {value = a} :: MappingRule)
 
 -- | The role ARN.
-mrRoleARN :: Lens' MappingRule Text
-mrRoleARN = lens _mrRoleARN (\s a -> s {_mrRoleARN = a})
+mappingRule_roleARN :: Lens.Lens' MappingRule Prelude.Text
+mappingRule_roleARN = Lens.lens (\MappingRule' {roleARN} -> roleARN) (\s@MappingRule' {} a -> s {roleARN = a} :: MappingRule)
 
-instance FromJSON MappingRule where
+instance Prelude.FromJSON MappingRule where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MappingRule"
       ( \x ->
           MappingRule'
-            <$> (x .: "Claim")
-            <*> (x .: "MatchType")
-            <*> (x .: "Value")
-            <*> (x .: "RoleARN")
+            Prelude.<$> (x Prelude..: "Claim")
+            Prelude.<*> (x Prelude..: "MatchType")
+            Prelude.<*> (x Prelude..: "Value")
+            Prelude.<*> (x Prelude..: "RoleARN")
       )
 
-instance Hashable MappingRule
+instance Prelude.Hashable MappingRule
 
-instance NFData MappingRule
+instance Prelude.NFData MappingRule
 
-instance ToJSON MappingRule where
+instance Prelude.ToJSON MappingRule where
   toJSON MappingRule' {..} =
-    object
-      ( catMaybes
-          [ Just ("Claim" .= _mrClaim),
-            Just ("MatchType" .= _mrMatchType),
-            Just ("Value" .= _mrValue),
-            Just ("RoleARN" .= _mrRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Claim" Prelude..= claim),
+            Prelude.Just ("MatchType" Prelude..= matchType),
+            Prelude.Just ("Value" Prelude..= value),
+            Prelude.Just ("RoleARN" Prelude..= roleARN)
           ]
       )
