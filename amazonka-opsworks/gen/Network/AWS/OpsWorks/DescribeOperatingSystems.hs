@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,133 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the operating systems that are supported by AWS OpsWorks Stacks.
+-- Describes the operating systems that are supported by AWS OpsWorks
+-- Stacks.
 module Network.AWS.OpsWorks.DescribeOperatingSystems
   ( -- * Creating a Request
-    describeOperatingSystems,
-    DescribeOperatingSystems,
+    DescribeOperatingSystems (..),
+    newDescribeOperatingSystems,
 
     -- * Destructuring the Response
-    describeOperatingSystemsResponse,
-    DescribeOperatingSystemsResponse,
+    DescribeOperatingSystemsResponse (..),
+    newDescribeOperatingSystemsResponse,
 
     -- * Response Lenses
-    dosrrsOperatingSystems,
-    dosrrsResponseStatus,
+    describeOperatingSystemsResponse_operatingSystems,
+    describeOperatingSystemsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorks.Types.OperatingSystem
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeOperatingSystems' smart constructor.
+-- | /See:/ 'newDescribeOperatingSystems' smart constructor.
 data DescribeOperatingSystems = DescribeOperatingSystems'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeOperatingSystems' with the minimum fields required to make a request.
-describeOperatingSystems ::
+-- |
+-- Create a value of 'DescribeOperatingSystems' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeOperatingSystems ::
   DescribeOperatingSystems
-describeOperatingSystems = DescribeOperatingSystems'
+newDescribeOperatingSystems =
+  DescribeOperatingSystems'
 
-instance AWSRequest DescribeOperatingSystems where
+instance Prelude.AWSRequest DescribeOperatingSystems where
   type
     Rs DescribeOperatingSystems =
       DescribeOperatingSystemsResponse
-  request = postJSON opsWorks
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeOperatingSystemsResponse'
-            <$> (x .?> "OperatingSystems" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "OperatingSystems"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeOperatingSystems
+instance Prelude.Hashable DescribeOperatingSystems
 
-instance NFData DescribeOperatingSystems
+instance Prelude.NFData DescribeOperatingSystems
 
-instance ToHeaders DescribeOperatingSystems where
+instance Prelude.ToHeaders DescribeOperatingSystems where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorks_20130218.DescribeOperatingSystems" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorks_20130218.DescribeOperatingSystems" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeOperatingSystems where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DescribeOperatingSystems where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DescribeOperatingSystems where
-  toPath = const "/"
+instance Prelude.ToPath DescribeOperatingSystems where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeOperatingSystems where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeOperatingSystems where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The response to a @DescribeOperatingSystems@ request.
 --
---
---
--- /See:/ 'describeOperatingSystemsResponse' smart constructor.
+-- /See:/ 'newDescribeOperatingSystemsResponse' smart constructor.
 data DescribeOperatingSystemsResponse = DescribeOperatingSystemsResponse'
-  { _dosrrsOperatingSystems ::
-      !( Maybe
-           [OperatingSystem]
-       ),
-    _dosrrsResponseStatus ::
-      !Int
+  { -- | Contains information in response to a @DescribeOperatingSystems@
+    -- request.
+    operatingSystems :: Prelude.Maybe [OperatingSystem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeOperatingSystemsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeOperatingSystemsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dosrrsOperatingSystems' - Contains information in response to a @DescribeOperatingSystems@ request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dosrrsResponseStatus' - -- | The response status code.
-describeOperatingSystemsResponse ::
-  -- | 'dosrrsResponseStatus'
-  Int ->
+-- 'operatingSystems', 'describeOperatingSystemsResponse_operatingSystems' - Contains information in response to a @DescribeOperatingSystems@
+-- request.
+--
+-- 'httpStatus', 'describeOperatingSystemsResponse_httpStatus' - The response's http status code.
+newDescribeOperatingSystemsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeOperatingSystemsResponse
-describeOperatingSystemsResponse pResponseStatus_ =
+newDescribeOperatingSystemsResponse pHttpStatus_ =
   DescribeOperatingSystemsResponse'
-    { _dosrrsOperatingSystems =
-        Nothing,
-      _dosrrsResponseStatus = pResponseStatus_
+    { operatingSystems =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Contains information in response to a @DescribeOperatingSystems@ request.
-dosrrsOperatingSystems :: Lens' DescribeOperatingSystemsResponse [OperatingSystem]
-dosrrsOperatingSystems = lens _dosrrsOperatingSystems (\s a -> s {_dosrrsOperatingSystems = a}) . _Default . _Coerce
+-- | Contains information in response to a @DescribeOperatingSystems@
+-- request.
+describeOperatingSystemsResponse_operatingSystems :: Lens.Lens' DescribeOperatingSystemsResponse (Prelude.Maybe [OperatingSystem])
+describeOperatingSystemsResponse_operatingSystems = Lens.lens (\DescribeOperatingSystemsResponse' {operatingSystems} -> operatingSystems) (\s@DescribeOperatingSystemsResponse' {} a -> s {operatingSystems = a} :: DescribeOperatingSystemsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dosrrsResponseStatus :: Lens' DescribeOperatingSystemsResponse Int
-dosrrsResponseStatus = lens _dosrrsResponseStatus (\s a -> s {_dosrrsResponseStatus = a})
+-- | The response's http status code.
+describeOperatingSystemsResponse_httpStatus :: Lens.Lens' DescribeOperatingSystemsResponse Prelude.Int
+describeOperatingSystemsResponse_httpStatus = Lens.lens (\DescribeOperatingSystemsResponse' {httpStatus} -> httpStatus) (\s@DescribeOperatingSystemsResponse' {} a -> s {httpStatus = a} :: DescribeOperatingSystemsResponse)
 
-instance NFData DescribeOperatingSystemsResponse
+instance
+  Prelude.NFData
+    DescribeOperatingSystemsResponse

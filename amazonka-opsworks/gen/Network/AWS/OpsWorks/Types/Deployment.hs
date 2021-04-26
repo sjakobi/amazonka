@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,145 +19,202 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.Deployment where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types.DeploymentCommand
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a deployment of a stack or app.
 --
---
---
--- /See:/ 'deployment' smart constructor.
+-- /See:/ 'newDeployment' smart constructor.
 data Deployment = Deployment'
-  { _dInstanceIds ::
-      !(Maybe [Text]),
-    _dStatus :: !(Maybe Text),
-    _dDeploymentId :: !(Maybe Text),
-    _dAppId :: !(Maybe Text),
-    _dIAMUserARN :: !(Maybe Text),
-    _dDuration :: !(Maybe Int),
-    _dStackId :: !(Maybe Text),
-    _dComment :: !(Maybe Text),
-    _dCustomJSON :: !(Maybe Text),
-    _dCompletedAt :: !(Maybe Text),
-    _dCreatedAt :: !(Maybe Text),
-    _dCommand :: !(Maybe DeploymentCommand)
+  { -- | The IDs of the target instances.
+    instanceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The deployment status:
+    --
+    -- -   running
+    --
+    -- -   successful
+    --
+    -- -   failed
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The deployment ID.
+    deploymentId :: Prelude.Maybe Prelude.Text,
+    -- | The app ID.
+    appId :: Prelude.Maybe Prelude.Text,
+    -- | The user\'s IAM ARN.
+    iamUserArn :: Prelude.Maybe Prelude.Text,
+    -- | The deployment duration.
+    duration :: Prelude.Maybe Prelude.Int,
+    -- | The stack ID.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | A user-defined comment.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | A string that contains user-defined custom JSON. It can be used to
+    -- override the corresponding default stack configuration attribute values
+    -- for stack or to pass data to recipes. The string should be in the
+    -- following format:
+    --
+    -- @\"{\\\"key1\\\": \\\"value1\\\", \\\"key2\\\": \\\"value2\\\",...}\"@
+    --
+    -- For more information on custom JSON, see
+    -- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html Use Custom JSON to Modify the Stack Configuration Attributes>.
+    customJson :: Prelude.Maybe Prelude.Text,
+    -- | Date when the deployment completed.
+    completedAt :: Prelude.Maybe Prelude.Text,
+    -- | Date when the deployment was created.
+    createdAt :: Prelude.Maybe Prelude.Text,
+    -- | Used to specify a stack or deployment command.
+    command :: Prelude.Maybe DeploymentCommand
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Deployment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Deployment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dInstanceIds' - The IDs of the target instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dStatus' - The deployment status:     * running     * successful     * failed
+-- 'instanceIds', 'deployment_instanceIds' - The IDs of the target instances.
 --
--- * 'dDeploymentId' - The deployment ID.
+-- 'status', 'deployment_status' - The deployment status:
 --
--- * 'dAppId' - The app ID.
+-- -   running
 --
--- * 'dIAMUserARN' - The user's IAM ARN.
+-- -   successful
 --
--- * 'dDuration' - The deployment duration.
+-- -   failed
 --
--- * 'dStackId' - The stack ID.
+-- 'deploymentId', 'deployment_deploymentId' - The deployment ID.
 --
--- * 'dComment' - A user-defined comment.
+-- 'appId', 'deployment_appId' - The app ID.
 --
--- * 'dCustomJSON' - A string that contains user-defined custom JSON. It can be used to override the corresponding default stack configuration attribute values for stack or to pass data to recipes. The string should be in the following format: @"{\"key1\": \"value1\", \"key2\": \"value2\",...}"@  For more information on custom JSON, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html Use Custom JSON to Modify the Stack Configuration Attributes> .
+-- 'iamUserArn', 'deployment_iamUserArn' - The user\'s IAM ARN.
 --
--- * 'dCompletedAt' - Date when the deployment completed.
+-- 'duration', 'deployment_duration' - The deployment duration.
 --
--- * 'dCreatedAt' - Date when the deployment was created.
+-- 'stackId', 'deployment_stackId' - The stack ID.
 --
--- * 'dCommand' - Used to specify a stack or deployment command.
-deployment ::
+-- 'comment', 'deployment_comment' - A user-defined comment.
+--
+-- 'customJson', 'deployment_customJson' - A string that contains user-defined custom JSON. It can be used to
+-- override the corresponding default stack configuration attribute values
+-- for stack or to pass data to recipes. The string should be in the
+-- following format:
+--
+-- @\"{\\\"key1\\\": \\\"value1\\\", \\\"key2\\\": \\\"value2\\\",...}\"@
+--
+-- For more information on custom JSON, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html Use Custom JSON to Modify the Stack Configuration Attributes>.
+--
+-- 'completedAt', 'deployment_completedAt' - Date when the deployment completed.
+--
+-- 'createdAt', 'deployment_createdAt' - Date when the deployment was created.
+--
+-- 'command', 'deployment_command' - Used to specify a stack or deployment command.
+newDeployment ::
   Deployment
-deployment =
+newDeployment =
   Deployment'
-    { _dInstanceIds = Nothing,
-      _dStatus = Nothing,
-      _dDeploymentId = Nothing,
-      _dAppId = Nothing,
-      _dIAMUserARN = Nothing,
-      _dDuration = Nothing,
-      _dStackId = Nothing,
-      _dComment = Nothing,
-      _dCustomJSON = Nothing,
-      _dCompletedAt = Nothing,
-      _dCreatedAt = Nothing,
-      _dCommand = Nothing
+    { instanceIds = Prelude.Nothing,
+      status = Prelude.Nothing,
+      deploymentId = Prelude.Nothing,
+      appId = Prelude.Nothing,
+      iamUserArn = Prelude.Nothing,
+      duration = Prelude.Nothing,
+      stackId = Prelude.Nothing,
+      comment = Prelude.Nothing,
+      customJson = Prelude.Nothing,
+      completedAt = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      command = Prelude.Nothing
     }
 
 -- | The IDs of the target instances.
-dInstanceIds :: Lens' Deployment [Text]
-dInstanceIds = lens _dInstanceIds (\s a -> s {_dInstanceIds = a}) . _Default . _Coerce
+deployment_instanceIds :: Lens.Lens' Deployment (Prelude.Maybe [Prelude.Text])
+deployment_instanceIds = Lens.lens (\Deployment' {instanceIds} -> instanceIds) (\s@Deployment' {} a -> s {instanceIds = a} :: Deployment) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The deployment status:     * running     * successful     * failed
-dStatus :: Lens' Deployment (Maybe Text)
-dStatus = lens _dStatus (\s a -> s {_dStatus = a})
+-- | The deployment status:
+--
+-- -   running
+--
+-- -   successful
+--
+-- -   failed
+deployment_status :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_status = Lens.lens (\Deployment' {status} -> status) (\s@Deployment' {} a -> s {status = a} :: Deployment)
 
 -- | The deployment ID.
-dDeploymentId :: Lens' Deployment (Maybe Text)
-dDeploymentId = lens _dDeploymentId (\s a -> s {_dDeploymentId = a})
+deployment_deploymentId :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_deploymentId = Lens.lens (\Deployment' {deploymentId} -> deploymentId) (\s@Deployment' {} a -> s {deploymentId = a} :: Deployment)
 
 -- | The app ID.
-dAppId :: Lens' Deployment (Maybe Text)
-dAppId = lens _dAppId (\s a -> s {_dAppId = a})
+deployment_appId :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_appId = Lens.lens (\Deployment' {appId} -> appId) (\s@Deployment' {} a -> s {appId = a} :: Deployment)
 
--- | The user's IAM ARN.
-dIAMUserARN :: Lens' Deployment (Maybe Text)
-dIAMUserARN = lens _dIAMUserARN (\s a -> s {_dIAMUserARN = a})
+-- | The user\'s IAM ARN.
+deployment_iamUserArn :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_iamUserArn = Lens.lens (\Deployment' {iamUserArn} -> iamUserArn) (\s@Deployment' {} a -> s {iamUserArn = a} :: Deployment)
 
 -- | The deployment duration.
-dDuration :: Lens' Deployment (Maybe Int)
-dDuration = lens _dDuration (\s a -> s {_dDuration = a})
+deployment_duration :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Int)
+deployment_duration = Lens.lens (\Deployment' {duration} -> duration) (\s@Deployment' {} a -> s {duration = a} :: Deployment)
 
 -- | The stack ID.
-dStackId :: Lens' Deployment (Maybe Text)
-dStackId = lens _dStackId (\s a -> s {_dStackId = a})
+deployment_stackId :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_stackId = Lens.lens (\Deployment' {stackId} -> stackId) (\s@Deployment' {} a -> s {stackId = a} :: Deployment)
 
 -- | A user-defined comment.
-dComment :: Lens' Deployment (Maybe Text)
-dComment = lens _dComment (\s a -> s {_dComment = a})
+deployment_comment :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_comment = Lens.lens (\Deployment' {comment} -> comment) (\s@Deployment' {} a -> s {comment = a} :: Deployment)
 
--- | A string that contains user-defined custom JSON. It can be used to override the corresponding default stack configuration attribute values for stack or to pass data to recipes. The string should be in the following format: @"{\"key1\": \"value1\", \"key2\": \"value2\",...}"@  For more information on custom JSON, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html Use Custom JSON to Modify the Stack Configuration Attributes> .
-dCustomJSON :: Lens' Deployment (Maybe Text)
-dCustomJSON = lens _dCustomJSON (\s a -> s {_dCustomJSON = a})
+-- | A string that contains user-defined custom JSON. It can be used to
+-- override the corresponding default stack configuration attribute values
+-- for stack or to pass data to recipes. The string should be in the
+-- following format:
+--
+-- @\"{\\\"key1\\\": \\\"value1\\\", \\\"key2\\\": \\\"value2\\\",...}\"@
+--
+-- For more information on custom JSON, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html Use Custom JSON to Modify the Stack Configuration Attributes>.
+deployment_customJson :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_customJson = Lens.lens (\Deployment' {customJson} -> customJson) (\s@Deployment' {} a -> s {customJson = a} :: Deployment)
 
 -- | Date when the deployment completed.
-dCompletedAt :: Lens' Deployment (Maybe Text)
-dCompletedAt = lens _dCompletedAt (\s a -> s {_dCompletedAt = a})
+deployment_completedAt :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_completedAt = Lens.lens (\Deployment' {completedAt} -> completedAt) (\s@Deployment' {} a -> s {completedAt = a} :: Deployment)
 
 -- | Date when the deployment was created.
-dCreatedAt :: Lens' Deployment (Maybe Text)
-dCreatedAt = lens _dCreatedAt (\s a -> s {_dCreatedAt = a})
+deployment_createdAt :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_createdAt = Lens.lens (\Deployment' {createdAt} -> createdAt) (\s@Deployment' {} a -> s {createdAt = a} :: Deployment)
 
 -- | Used to specify a stack or deployment command.
-dCommand :: Lens' Deployment (Maybe DeploymentCommand)
-dCommand = lens _dCommand (\s a -> s {_dCommand = a})
+deployment_command :: Lens.Lens' Deployment (Prelude.Maybe DeploymentCommand)
+deployment_command = Lens.lens (\Deployment' {command} -> command) (\s@Deployment' {} a -> s {command = a} :: Deployment)
 
-instance FromJSON Deployment where
+instance Prelude.FromJSON Deployment where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Deployment"
       ( \x ->
           Deployment'
-            <$> (x .:? "InstanceIds" .!= mempty)
-            <*> (x .:? "Status")
-            <*> (x .:? "DeploymentId")
-            <*> (x .:? "AppId")
-            <*> (x .:? "IamUserArn")
-            <*> (x .:? "Duration")
-            <*> (x .:? "StackId")
-            <*> (x .:? "Comment")
-            <*> (x .:? "CustomJson")
-            <*> (x .:? "CompletedAt")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "Command")
+            Prelude.<$> ( x Prelude..:? "InstanceIds"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "DeploymentId")
+            Prelude.<*> (x Prelude..:? "AppId")
+            Prelude.<*> (x Prelude..:? "IamUserArn")
+            Prelude.<*> (x Prelude..:? "Duration")
+            Prelude.<*> (x Prelude..:? "StackId")
+            Prelude.<*> (x Prelude..:? "Comment")
+            Prelude.<*> (x Prelude..:? "CustomJson")
+            Prelude.<*> (x Prelude..:? "CompletedAt")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "Command")
       )
 
-instance Hashable Deployment
+instance Prelude.Hashable Deployment
 
-instance NFData Deployment
+instance Prelude.NFData Deployment

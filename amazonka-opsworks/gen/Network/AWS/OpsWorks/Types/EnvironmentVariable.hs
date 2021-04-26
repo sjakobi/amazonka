@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,105 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.EnvironmentVariable where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents an app's environment variable.
+-- | Represents an app\'s environment variable.
 --
---
---
--- /See:/ 'environmentVariable' smart constructor.
+-- /See:/ 'newEnvironmentVariable' smart constructor.
 data EnvironmentVariable = EnvironmentVariable'
-  { _evSecure ::
-      !(Maybe Bool),
-    _evKey :: !Text,
-    _evValue :: !Text
+  { -- | (Optional) Whether the variable\'s value will be returned by the
+    -- DescribeApps action. To conceal an environment variable\'s value, set
+    -- @Secure@ to @true@. @DescribeApps@ then returns @*****FILTERED*****@
+    -- instead of the actual value. The default value for @Secure@ is @false@.
+    secure :: Prelude.Maybe Prelude.Bool,
+    -- | (Required) The environment variable\'s name, which can consist of up to
+    -- 64 characters and must be specified. The name can contain upper- and
+    -- lowercase letters, numbers, and underscores (_), but it must start with
+    -- a letter or underscore.
+    key :: Prelude.Text,
+    -- | (Optional) The environment variable\'s value, which can be left empty.
+    -- If you specify a value, it can contain up to 256 characters, which must
+    -- all be printable.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnvironmentVariable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnvironmentVariable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'evSecure' - (Optional) Whether the variable's value will be returned by the 'DescribeApps' action. To conceal an environment variable's value, set @Secure@ to @true@ . @DescribeApps@ then returns @*****FILTERED*****@ instead of the actual value. The default value for @Secure@ is @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'evKey' - (Required) The environment variable's name, which can consist of up to 64 characters and must be specified. The name can contain upper- and lowercase letters, numbers, and underscores (_), but it must start with a letter or underscore.
+-- 'secure', 'environmentVariable_secure' - (Optional) Whether the variable\'s value will be returned by the
+-- DescribeApps action. To conceal an environment variable\'s value, set
+-- @Secure@ to @true@. @DescribeApps@ then returns @*****FILTERED*****@
+-- instead of the actual value. The default value for @Secure@ is @false@.
 --
--- * 'evValue' - (Optional) The environment variable's value, which can be left empty. If you specify a value, it can contain up to 256 characters, which must all be printable.
-environmentVariable ::
-  -- | 'evKey'
-  Text ->
-  -- | 'evValue'
-  Text ->
+-- 'key', 'environmentVariable_key' - (Required) The environment variable\'s name, which can consist of up to
+-- 64 characters and must be specified. The name can contain upper- and
+-- lowercase letters, numbers, and underscores (_), but it must start with
+-- a letter or underscore.
+--
+-- 'value', 'environmentVariable_value' - (Optional) The environment variable\'s value, which can be left empty.
+-- If you specify a value, it can contain up to 256 characters, which must
+-- all be printable.
+newEnvironmentVariable ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   EnvironmentVariable
-environmentVariable pKey_ pValue_ =
+newEnvironmentVariable pKey_ pValue_ =
   EnvironmentVariable'
-    { _evSecure = Nothing,
-      _evKey = pKey_,
-      _evValue = pValue_
+    { secure = Prelude.Nothing,
+      key = pKey_,
+      value = pValue_
     }
 
--- | (Optional) Whether the variable's value will be returned by the 'DescribeApps' action. To conceal an environment variable's value, set @Secure@ to @true@ . @DescribeApps@ then returns @*****FILTERED*****@ instead of the actual value. The default value for @Secure@ is @false@ .
-evSecure :: Lens' EnvironmentVariable (Maybe Bool)
-evSecure = lens _evSecure (\s a -> s {_evSecure = a})
+-- | (Optional) Whether the variable\'s value will be returned by the
+-- DescribeApps action. To conceal an environment variable\'s value, set
+-- @Secure@ to @true@. @DescribeApps@ then returns @*****FILTERED*****@
+-- instead of the actual value. The default value for @Secure@ is @false@.
+environmentVariable_secure :: Lens.Lens' EnvironmentVariable (Prelude.Maybe Prelude.Bool)
+environmentVariable_secure = Lens.lens (\EnvironmentVariable' {secure} -> secure) (\s@EnvironmentVariable' {} a -> s {secure = a} :: EnvironmentVariable)
 
--- | (Required) The environment variable's name, which can consist of up to 64 characters and must be specified. The name can contain upper- and lowercase letters, numbers, and underscores (_), but it must start with a letter or underscore.
-evKey :: Lens' EnvironmentVariable Text
-evKey = lens _evKey (\s a -> s {_evKey = a})
+-- | (Required) The environment variable\'s name, which can consist of up to
+-- 64 characters and must be specified. The name can contain upper- and
+-- lowercase letters, numbers, and underscores (_), but it must start with
+-- a letter or underscore.
+environmentVariable_key :: Lens.Lens' EnvironmentVariable Prelude.Text
+environmentVariable_key = Lens.lens (\EnvironmentVariable' {key} -> key) (\s@EnvironmentVariable' {} a -> s {key = a} :: EnvironmentVariable)
 
--- | (Optional) The environment variable's value, which can be left empty. If you specify a value, it can contain up to 256 characters, which must all be printable.
-evValue :: Lens' EnvironmentVariable Text
-evValue = lens _evValue (\s a -> s {_evValue = a})
+-- | (Optional) The environment variable\'s value, which can be left empty.
+-- If you specify a value, it can contain up to 256 characters, which must
+-- all be printable.
+environmentVariable_value :: Lens.Lens' EnvironmentVariable Prelude.Text
+environmentVariable_value = Lens.lens (\EnvironmentVariable' {value} -> value) (\s@EnvironmentVariable' {} a -> s {value = a} :: EnvironmentVariable)
 
-instance FromJSON EnvironmentVariable where
+instance Prelude.FromJSON EnvironmentVariable where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EnvironmentVariable"
       ( \x ->
           EnvironmentVariable'
-            <$> (x .:? "Secure") <*> (x .: "Key") <*> (x .: "Value")
+            Prelude.<$> (x Prelude..:? "Secure")
+            Prelude.<*> (x Prelude..: "Key")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable EnvironmentVariable
+instance Prelude.Hashable EnvironmentVariable
 
-instance NFData EnvironmentVariable
+instance Prelude.NFData EnvironmentVariable
 
-instance ToJSON EnvironmentVariable where
+instance Prelude.ToJSON EnvironmentVariable where
   toJSON EnvironmentVariable' {..} =
-    object
-      ( catMaybes
-          [ ("Secure" .=) <$> _evSecure,
-            Just ("Key" .= _evKey),
-            Just ("Value" .= _evValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Secure" Prelude..=) Prelude.<$> secure,
+            Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

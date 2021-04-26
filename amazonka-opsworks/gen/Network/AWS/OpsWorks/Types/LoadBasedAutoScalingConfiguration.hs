@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,98 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.LoadBasedAutoScalingConfiguration where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types.AutoScalingThresholds
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a layer's load-based auto scaling configuration.
+-- | Describes a layer\'s load-based auto scaling configuration.
 --
---
---
--- /See:/ 'loadBasedAutoScalingConfiguration' smart constructor.
+-- /See:/ 'newLoadBasedAutoScalingConfiguration' smart constructor.
 data LoadBasedAutoScalingConfiguration = LoadBasedAutoScalingConfiguration'
-  { _lbascDownScaling ::
-      !( Maybe
-           AutoScalingThresholds
-       ),
-    _lbascEnable ::
-      !( Maybe
-           Bool
-       ),
-    _lbascLayerId ::
-      !( Maybe
-           Text
-       ),
-    _lbascUpScaling ::
-      !( Maybe
-           AutoScalingThresholds
-       )
+  { -- | An @AutoScalingThresholds@ object that describes the downscaling
+    -- configuration, which defines how and when AWS OpsWorks Stacks reduces
+    -- the number of instances.
+    downScaling :: Prelude.Maybe AutoScalingThresholds,
+    -- | Whether load-based auto scaling is enabled for the layer.
+    enable :: Prelude.Maybe Prelude.Bool,
+    -- | The layer ID.
+    layerId :: Prelude.Maybe Prelude.Text,
+    -- | An @AutoScalingThresholds@ object that describes the upscaling
+    -- configuration, which defines how and when AWS OpsWorks Stacks increases
+    -- the number of instances.
+    upScaling :: Prelude.Maybe AutoScalingThresholds
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoadBasedAutoScalingConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoadBasedAutoScalingConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbascDownScaling' - An @AutoScalingThresholds@ object that describes the downscaling configuration, which defines how and when AWS OpsWorks Stacks reduces the number of instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbascEnable' - Whether load-based auto scaling is enabled for the layer.
+-- 'downScaling', 'loadBasedAutoScalingConfiguration_downScaling' - An @AutoScalingThresholds@ object that describes the downscaling
+-- configuration, which defines how and when AWS OpsWorks Stacks reduces
+-- the number of instances.
 --
--- * 'lbascLayerId' - The layer ID.
+-- 'enable', 'loadBasedAutoScalingConfiguration_enable' - Whether load-based auto scaling is enabled for the layer.
 --
--- * 'lbascUpScaling' - An @AutoScalingThresholds@ object that describes the upscaling configuration, which defines how and when AWS OpsWorks Stacks increases the number of instances.
-loadBasedAutoScalingConfiguration ::
+-- 'layerId', 'loadBasedAutoScalingConfiguration_layerId' - The layer ID.
+--
+-- 'upScaling', 'loadBasedAutoScalingConfiguration_upScaling' - An @AutoScalingThresholds@ object that describes the upscaling
+-- configuration, which defines how and when AWS OpsWorks Stacks increases
+-- the number of instances.
+newLoadBasedAutoScalingConfiguration ::
   LoadBasedAutoScalingConfiguration
-loadBasedAutoScalingConfiguration =
+newLoadBasedAutoScalingConfiguration =
   LoadBasedAutoScalingConfiguration'
-    { _lbascDownScaling =
-        Nothing,
-      _lbascEnable = Nothing,
-      _lbascLayerId = Nothing,
-      _lbascUpScaling = Nothing
+    { downScaling =
+        Prelude.Nothing,
+      enable = Prelude.Nothing,
+      layerId = Prelude.Nothing,
+      upScaling = Prelude.Nothing
     }
 
--- | An @AutoScalingThresholds@ object that describes the downscaling configuration, which defines how and when AWS OpsWorks Stacks reduces the number of instances.
-lbascDownScaling :: Lens' LoadBasedAutoScalingConfiguration (Maybe AutoScalingThresholds)
-lbascDownScaling = lens _lbascDownScaling (\s a -> s {_lbascDownScaling = a})
+-- | An @AutoScalingThresholds@ object that describes the downscaling
+-- configuration, which defines how and when AWS OpsWorks Stacks reduces
+-- the number of instances.
+loadBasedAutoScalingConfiguration_downScaling :: Lens.Lens' LoadBasedAutoScalingConfiguration (Prelude.Maybe AutoScalingThresholds)
+loadBasedAutoScalingConfiguration_downScaling = Lens.lens (\LoadBasedAutoScalingConfiguration' {downScaling} -> downScaling) (\s@LoadBasedAutoScalingConfiguration' {} a -> s {downScaling = a} :: LoadBasedAutoScalingConfiguration)
 
 -- | Whether load-based auto scaling is enabled for the layer.
-lbascEnable :: Lens' LoadBasedAutoScalingConfiguration (Maybe Bool)
-lbascEnable = lens _lbascEnable (\s a -> s {_lbascEnable = a})
+loadBasedAutoScalingConfiguration_enable :: Lens.Lens' LoadBasedAutoScalingConfiguration (Prelude.Maybe Prelude.Bool)
+loadBasedAutoScalingConfiguration_enable = Lens.lens (\LoadBasedAutoScalingConfiguration' {enable} -> enable) (\s@LoadBasedAutoScalingConfiguration' {} a -> s {enable = a} :: LoadBasedAutoScalingConfiguration)
 
 -- | The layer ID.
-lbascLayerId :: Lens' LoadBasedAutoScalingConfiguration (Maybe Text)
-lbascLayerId = lens _lbascLayerId (\s a -> s {_lbascLayerId = a})
+loadBasedAutoScalingConfiguration_layerId :: Lens.Lens' LoadBasedAutoScalingConfiguration (Prelude.Maybe Prelude.Text)
+loadBasedAutoScalingConfiguration_layerId = Lens.lens (\LoadBasedAutoScalingConfiguration' {layerId} -> layerId) (\s@LoadBasedAutoScalingConfiguration' {} a -> s {layerId = a} :: LoadBasedAutoScalingConfiguration)
 
--- | An @AutoScalingThresholds@ object that describes the upscaling configuration, which defines how and when AWS OpsWorks Stacks increases the number of instances.
-lbascUpScaling :: Lens' LoadBasedAutoScalingConfiguration (Maybe AutoScalingThresholds)
-lbascUpScaling = lens _lbascUpScaling (\s a -> s {_lbascUpScaling = a})
+-- | An @AutoScalingThresholds@ object that describes the upscaling
+-- configuration, which defines how and when AWS OpsWorks Stacks increases
+-- the number of instances.
+loadBasedAutoScalingConfiguration_upScaling :: Lens.Lens' LoadBasedAutoScalingConfiguration (Prelude.Maybe AutoScalingThresholds)
+loadBasedAutoScalingConfiguration_upScaling = Lens.lens (\LoadBasedAutoScalingConfiguration' {upScaling} -> upScaling) (\s@LoadBasedAutoScalingConfiguration' {} a -> s {upScaling = a} :: LoadBasedAutoScalingConfiguration)
 
-instance FromJSON LoadBasedAutoScalingConfiguration where
+instance
+  Prelude.FromJSON
+    LoadBasedAutoScalingConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LoadBasedAutoScalingConfiguration"
       ( \x ->
           LoadBasedAutoScalingConfiguration'
-            <$> (x .:? "DownScaling")
-            <*> (x .:? "Enable")
-            <*> (x .:? "LayerId")
-            <*> (x .:? "UpScaling")
+            Prelude.<$> (x Prelude..:? "DownScaling")
+            Prelude.<*> (x Prelude..:? "Enable")
+            Prelude.<*> (x Prelude..:? "LayerId")
+            Prelude.<*> (x Prelude..:? "UpScaling")
       )
 
-instance Hashable LoadBasedAutoScalingConfiguration
+instance
+  Prelude.Hashable
+    LoadBasedAutoScalingConfiguration
 
-instance NFData LoadBasedAutoScalingConfiguration
+instance
+  Prelude.NFData
+    LoadBasedAutoScalingConfiguration

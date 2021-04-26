@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.DataSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an app's data source.
+-- | Describes an app\'s data source.
 --
---
---
--- /See:/ 'dataSource' smart constructor.
+-- /See:/ 'newDataSource' smart constructor.
 data DataSource = DataSource'
-  { _dsARN ::
-      !(Maybe Text),
-    _dsType :: !(Maybe Text),
-    _dsDatabaseName :: !(Maybe Text)
+  { -- | The data source\'s ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The data source\'s type, @AutoSelectOpsworksMysqlInstance@,
+    -- @OpsworksMysqlInstance@, @RdsDbInstance@, or @None@.
+    type' :: Prelude.Maybe Prelude.Text,
+    -- | The database name.
+    databaseName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsARN' - The data source's ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsType' - The data source's type, @AutoSelectOpsworksMysqlInstance@ , @OpsworksMysqlInstance@ , @RdsDbInstance@ , or @None@ .
+-- 'arn', 'dataSource_arn' - The data source\'s ARN.
 --
--- * 'dsDatabaseName' - The database name.
-dataSource ::
+-- 'type'', 'dataSource_type' - The data source\'s type, @AutoSelectOpsworksMysqlInstance@,
+-- @OpsworksMysqlInstance@, @RdsDbInstance@, or @None@.
+--
+-- 'databaseName', 'dataSource_databaseName' - The database name.
+newDataSource ::
   DataSource
-dataSource =
+newDataSource =
   DataSource'
-    { _dsARN = Nothing,
-      _dsType = Nothing,
-      _dsDatabaseName = Nothing
+    { arn = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      databaseName = Prelude.Nothing
     }
 
--- | The data source's ARN.
-dsARN :: Lens' DataSource (Maybe Text)
-dsARN = lens _dsARN (\s a -> s {_dsARN = a})
+-- | The data source\'s ARN.
+dataSource_arn :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Text)
+dataSource_arn = Lens.lens (\DataSource' {arn} -> arn) (\s@DataSource' {} a -> s {arn = a} :: DataSource)
 
--- | The data source's type, @AutoSelectOpsworksMysqlInstance@ , @OpsworksMysqlInstance@ , @RdsDbInstance@ , or @None@ .
-dsType :: Lens' DataSource (Maybe Text)
-dsType = lens _dsType (\s a -> s {_dsType = a})
+-- | The data source\'s type, @AutoSelectOpsworksMysqlInstance@,
+-- @OpsworksMysqlInstance@, @RdsDbInstance@, or @None@.
+dataSource_type :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Text)
+dataSource_type = Lens.lens (\DataSource' {type'} -> type') (\s@DataSource' {} a -> s {type' = a} :: DataSource)
 
 -- | The database name.
-dsDatabaseName :: Lens' DataSource (Maybe Text)
-dsDatabaseName = lens _dsDatabaseName (\s a -> s {_dsDatabaseName = a})
+dataSource_databaseName :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Text)
+dataSource_databaseName = Lens.lens (\DataSource' {databaseName} -> databaseName) (\s@DataSource' {} a -> s {databaseName = a} :: DataSource)
 
-instance FromJSON DataSource where
+instance Prelude.FromJSON DataSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DataSource"
       ( \x ->
           DataSource'
-            <$> (x .:? "Arn")
-            <*> (x .:? "Type")
-            <*> (x .:? "DatabaseName")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "DatabaseName")
       )
 
-instance Hashable DataSource
+instance Prelude.Hashable DataSource
 
-instance NFData DataSource
+instance Prelude.NFData DataSource
 
-instance ToJSON DataSource where
+instance Prelude.ToJSON DataSource where
   toJSON DataSource' {..} =
-    object
-      ( catMaybes
-          [ ("Arn" .=) <$> _dsARN,
-            ("Type" .=) <$> _dsType,
-            ("DatabaseName" .=) <$> _dsDatabaseName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Arn" Prelude..=) Prelude.<$> arn,
+            ("Type" Prelude..=) Prelude.<$> type',
+            ("DatabaseName" Prelude..=)
+              Prelude.<$> databaseName
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.OpsWorks.Types.AppType
   ( AppType
       ( ..,
-        AWSFlowRuby,
-        Java,
-        Nodejs,
-        Other,
-        PHP,
-        Rails,
-        Static
+        AppTypeAwsFlowRuby,
+        AppTypeJava,
+        AppTypeNodejs,
+        AppTypeOther,
+        AppTypePhp,
+        AppTypeRails,
+        AppTypeStatic
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppType = AppType' (CI Text)
+newtype AppType = AppType'
+  { fromAppType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSFlowRuby :: AppType
-pattern AWSFlowRuby = AppType' "aws-flow-ruby"
+pattern AppTypeAwsFlowRuby :: AppType
+pattern AppTypeAwsFlowRuby = AppType' "aws-flow-ruby"
 
-pattern Java :: AppType
-pattern Java = AppType' "java"
+pattern AppTypeJava :: AppType
+pattern AppTypeJava = AppType' "java"
 
-pattern Nodejs :: AppType
-pattern Nodejs = AppType' "nodejs"
+pattern AppTypeNodejs :: AppType
+pattern AppTypeNodejs = AppType' "nodejs"
 
-pattern Other :: AppType
-pattern Other = AppType' "other"
+pattern AppTypeOther :: AppType
+pattern AppTypeOther = AppType' "other"
 
-pattern PHP :: AppType
-pattern PHP = AppType' "php"
+pattern AppTypePhp :: AppType
+pattern AppTypePhp = AppType' "php"
 
-pattern Rails :: AppType
-pattern Rails = AppType' "rails"
+pattern AppTypeRails :: AppType
+pattern AppTypeRails = AppType' "rails"
 
-pattern Static :: AppType
-pattern Static = AppType' "static"
+pattern AppTypeStatic :: AppType
+pattern AppTypeStatic = AppType' "static"
 
 {-# COMPLETE
-  AWSFlowRuby,
-  Java,
-  Nodejs,
-  Other,
-  PHP,
-  Rails,
-  Static,
+  AppTypeAwsFlowRuby,
+  AppTypeJava,
+  AppTypeNodejs,
+  AppTypeOther,
+  AppTypePhp,
+  AppTypeRails,
+  AppTypeStatic,
   AppType'
   #-}
 
-instance FromText AppType where
-  parser = (AppType' . mk) <$> takeText
+instance Prelude.FromText AppType where
+  parser = AppType' Prelude.<$> Prelude.takeText
 
-instance ToText AppType where
-  toText (AppType' ci) = original ci
+instance Prelude.ToText AppType where
+  toText (AppType' x) = x
 
-instance Hashable AppType
+instance Prelude.Hashable AppType
 
-instance NFData AppType
+instance Prelude.NFData AppType
 
-instance ToByteString AppType
+instance Prelude.ToByteString AppType
 
-instance ToQuery AppType
+instance Prelude.ToQuery AppType
 
-instance ToHeader AppType
+instance Prelude.ToHeader AppType
 
-instance ToJSON AppType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AppType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AppType where
-  parseJSON = parseJSONText "AppType"
+instance Prelude.FromJSON AppType where
+  parseJSON = Prelude.parseJSONText "AppType"

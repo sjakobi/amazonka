@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes time-based auto scaling configurations for specified instances.
+-- Describes time-based auto scaling configurations for specified
+-- instances.
 --
+-- You must specify at least one of the parameters.
 --
--- __Required Permissions__ : To use this action, an IAM user must have a Show, Deploy, or Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information about user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Show, Deploy, or Manage permissions level for the stack, or an attached
+-- policy that explicitly grants permissions. For more information about
+-- user permissions, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.DescribeTimeBasedAutoScaling
   ( -- * Creating a Request
-    describeTimeBasedAutoScaling,
-    DescribeTimeBasedAutoScaling,
+    DescribeTimeBasedAutoScaling (..),
+    newDescribeTimeBasedAutoScaling,
 
     -- * Request Lenses
-    dtbasInstanceIds,
+    describeTimeBasedAutoScaling_instanceIds,
 
     -- * Destructuring the Response
-    describeTimeBasedAutoScalingResponse,
-    DescribeTimeBasedAutoScalingResponse,
+    DescribeTimeBasedAutoScalingResponse (..),
+    newDescribeTimeBasedAutoScalingResponse,
 
     -- * Response Lenses
-    dtbasrrsTimeBasedAutoScalingConfigurations,
-    dtbasrrsResponseStatus,
+    describeTimeBasedAutoScalingResponse_timeBasedAutoScalingConfigurations,
+    describeTimeBasedAutoScalingResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorks.Types.TimeBasedAutoScalingConfiguration
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeTimeBasedAutoScaling' smart constructor.
-newtype DescribeTimeBasedAutoScaling = DescribeTimeBasedAutoScaling'
-  { _dtbasInstanceIds ::
-      [Text]
+-- | /See:/ 'newDescribeTimeBasedAutoScaling' smart constructor.
+data DescribeTimeBasedAutoScaling = DescribeTimeBasedAutoScaling'
+  { -- | An array of instance IDs.
+    instanceIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTimeBasedAutoScaling' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTimeBasedAutoScaling' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtbasInstanceIds' - An array of instance IDs.
-describeTimeBasedAutoScaling ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instanceIds', 'describeTimeBasedAutoScaling_instanceIds' - An array of instance IDs.
+newDescribeTimeBasedAutoScaling ::
   DescribeTimeBasedAutoScaling
-describeTimeBasedAutoScaling =
+newDescribeTimeBasedAutoScaling =
   DescribeTimeBasedAutoScaling'
-    { _dtbasInstanceIds =
-        mempty
+    { instanceIds =
+        Prelude.mempty
     }
 
 -- | An array of instance IDs.
-dtbasInstanceIds :: Lens' DescribeTimeBasedAutoScaling [Text]
-dtbasInstanceIds = lens _dtbasInstanceIds (\s a -> s {_dtbasInstanceIds = a}) . _Coerce
+describeTimeBasedAutoScaling_instanceIds :: Lens.Lens' DescribeTimeBasedAutoScaling [Prelude.Text]
+describeTimeBasedAutoScaling_instanceIds = Lens.lens (\DescribeTimeBasedAutoScaling' {instanceIds} -> instanceIds) (\s@DescribeTimeBasedAutoScaling' {} a -> s {instanceIds = a} :: DescribeTimeBasedAutoScaling) Prelude.. Prelude._Coerce
 
-instance AWSRequest DescribeTimeBasedAutoScaling where
+instance
+  Prelude.AWSRequest
+    DescribeTimeBasedAutoScaling
+  where
   type
     Rs DescribeTimeBasedAutoScaling =
       DescribeTimeBasedAutoScalingResponse
-  request = postJSON opsWorks
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTimeBasedAutoScalingResponse'
-            <$> ( x .?> "TimeBasedAutoScalingConfigurations"
-                    .!@ mempty
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "TimeBasedAutoScalingConfigurations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTimeBasedAutoScaling
+instance
+  Prelude.Hashable
+    DescribeTimeBasedAutoScaling
 
-instance NFData DescribeTimeBasedAutoScaling
+instance Prelude.NFData DescribeTimeBasedAutoScaling
 
-instance ToHeaders DescribeTimeBasedAutoScaling where
+instance
+  Prelude.ToHeaders
+    DescribeTimeBasedAutoScaling
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorks_20130218.DescribeTimeBasedAutoScaling" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorks_20130218.DescribeTimeBasedAutoScaling" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTimeBasedAutoScaling where
+instance Prelude.ToJSON DescribeTimeBasedAutoScaling where
   toJSON DescribeTimeBasedAutoScaling' {..} =
-    object
-      ( catMaybes
-          [Just ("InstanceIds" .= _dtbasInstanceIds)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("InstanceIds" Prelude..= instanceIds)
+          ]
       )
 
-instance ToPath DescribeTimeBasedAutoScaling where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTimeBasedAutoScaling where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTimeBasedAutoScaling where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeTimeBasedAutoScaling where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeTimeBasedAutoScaling@ request.
 --
---
---
--- /See:/ 'describeTimeBasedAutoScalingResponse' smart constructor.
+-- /See:/ 'newDescribeTimeBasedAutoScalingResponse' smart constructor.
 data DescribeTimeBasedAutoScalingResponse = DescribeTimeBasedAutoScalingResponse'
-  { _dtbasrrsTimeBasedAutoScalingConfigurations ::
-      !( Maybe
-           [TimeBasedAutoScalingConfiguration]
-       ),
-    _dtbasrrsResponseStatus ::
-      !Int
+  { -- | An array of @TimeBasedAutoScalingConfiguration@ objects that describe
+    -- the configuration for the specified instances.
+    timeBasedAutoScalingConfigurations :: Prelude.Maybe [TimeBasedAutoScalingConfiguration],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTimeBasedAutoScalingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTimeBasedAutoScalingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtbasrrsTimeBasedAutoScalingConfigurations' - An array of @TimeBasedAutoScalingConfiguration@ objects that describe the configuration for the specified instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtbasrrsResponseStatus' - -- | The response status code.
-describeTimeBasedAutoScalingResponse ::
-  -- | 'dtbasrrsResponseStatus'
-  Int ->
+-- 'timeBasedAutoScalingConfigurations', 'describeTimeBasedAutoScalingResponse_timeBasedAutoScalingConfigurations' - An array of @TimeBasedAutoScalingConfiguration@ objects that describe
+-- the configuration for the specified instances.
+--
+-- 'httpStatus', 'describeTimeBasedAutoScalingResponse_httpStatus' - The response's http status code.
+newDescribeTimeBasedAutoScalingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTimeBasedAutoScalingResponse
-describeTimeBasedAutoScalingResponse pResponseStatus_ =
+newDescribeTimeBasedAutoScalingResponse pHttpStatus_ =
   DescribeTimeBasedAutoScalingResponse'
-    { _dtbasrrsTimeBasedAutoScalingConfigurations =
-        Nothing,
-      _dtbasrrsResponseStatus =
-        pResponseStatus_
+    { timeBasedAutoScalingConfigurations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of @TimeBasedAutoScalingConfiguration@ objects that describe the configuration for the specified instances.
-dtbasrrsTimeBasedAutoScalingConfigurations :: Lens' DescribeTimeBasedAutoScalingResponse [TimeBasedAutoScalingConfiguration]
-dtbasrrsTimeBasedAutoScalingConfigurations = lens _dtbasrrsTimeBasedAutoScalingConfigurations (\s a -> s {_dtbasrrsTimeBasedAutoScalingConfigurations = a}) . _Default . _Coerce
+-- | An array of @TimeBasedAutoScalingConfiguration@ objects that describe
+-- the configuration for the specified instances.
+describeTimeBasedAutoScalingResponse_timeBasedAutoScalingConfigurations :: Lens.Lens' DescribeTimeBasedAutoScalingResponse (Prelude.Maybe [TimeBasedAutoScalingConfiguration])
+describeTimeBasedAutoScalingResponse_timeBasedAutoScalingConfigurations = Lens.lens (\DescribeTimeBasedAutoScalingResponse' {timeBasedAutoScalingConfigurations} -> timeBasedAutoScalingConfigurations) (\s@DescribeTimeBasedAutoScalingResponse' {} a -> s {timeBasedAutoScalingConfigurations = a} :: DescribeTimeBasedAutoScalingResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dtbasrrsResponseStatus :: Lens' DescribeTimeBasedAutoScalingResponse Int
-dtbasrrsResponseStatus = lens _dtbasrrsResponseStatus (\s a -> s {_dtbasrrsResponseStatus = a})
+-- | The response's http status code.
+describeTimeBasedAutoScalingResponse_httpStatus :: Lens.Lens' DescribeTimeBasedAutoScalingResponse Prelude.Int
+describeTimeBasedAutoScalingResponse_httpStatus = Lens.lens (\DescribeTimeBasedAutoScalingResponse' {httpStatus} -> httpStatus) (\s@DescribeTimeBasedAutoScalingResponse' {} a -> s {httpStatus = a} :: DescribeTimeBasedAutoScalingResponse)
 
-instance NFData DescribeTimeBasedAutoScalingResponse
+instance
+  Prelude.NFData
+    DescribeTimeBasedAutoScalingResponse

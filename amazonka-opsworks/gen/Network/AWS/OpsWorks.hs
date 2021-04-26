@@ -11,74 +11,89 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS OpsWorks__
+-- AWS OpsWorks
 --
--- Welcome to the /AWS OpsWorks Stacks API Reference/ . This guide provides descriptions, syntax, and usage examples for AWS OpsWorks Stacks actions and data types, including common parameters and error codes.
+-- Welcome to the /AWS OpsWorks Stacks API Reference/. This guide provides
+-- descriptions, syntax, and usage examples for AWS OpsWorks Stacks actions
+-- and data types, including common parameters and error codes.
 --
--- AWS OpsWorks Stacks is an application management service that provides an integrated experience for overseeing the complete application lifecycle. For information about this product, go to the <http://aws.amazon.com/opsworks/ AWS OpsWorks> details page.
+-- AWS OpsWorks Stacks is an application management service that provides
+-- an integrated experience for overseeing the complete application
+-- lifecycle. For information about this product, go to the
+-- <http://aws.amazon.com/opsworks/ AWS OpsWorks> details page.
 --
 -- __SDKs and CLI__
 --
--- The most common way to use the AWS OpsWorks Stacks API is by using the AWS Command Line Interface (CLI) or by using one of the AWS SDKs to implement applications in your preferred language. For more information, see:
+-- The most common way to use the AWS OpsWorks Stacks API is by using the
+-- AWS Command Line Interface (CLI) or by using one of the AWS SDKs to
+-- implement applications in your preferred language. For more information,
+-- see:
 --
---     * <https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html AWS CLI>
+-- -   <https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html AWS CLI>
 --
---     * <https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/opsworks/AWSOpsWorksClient.html AWS SDK for Java>
+-- -   <https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/opsworks/AWSOpsWorksClient.html AWS SDK for Java>
 --
---     * <https://docs.aws.amazon.com/sdkfornet/latest/apidocs/html/N_Amazon_OpsWorks.htm AWS SDK for .NET>
+-- -   <https://docs.aws.amazon.com/sdkfornet/latest/apidocs/html/N_Amazon_OpsWorks.htm AWS SDK for .NET>
 --
---     * <https://docs.aws.amazon.com/aws-sdk-php-2/latest/class-Aws.OpsWorks.OpsWorksClient.html AWS SDK for PHP 2>
+-- -   <https://docs.aws.amazon.com/aws-sdk-php-2/latest/class-Aws.OpsWorks.OpsWorksClient.html AWS SDK for PHP 2>
 --
---     * <http://docs.aws.amazon.com/sdkforruby/api/ AWS SDK for Ruby>
+-- -   <http://docs.aws.amazon.com/sdkforruby/api/ AWS SDK for Ruby>
 --
---     * <http://aws.amazon.com/documentation/sdkforjavascript/ AWS SDK for Node.js>
+-- -   <http://aws.amazon.com/documentation/sdkforjavascript/ AWS SDK for Node.js>
 --
---     * <http://docs.pythonboto.org/en/latest/ref/opsworks.html AWS SDK for Python(Boto)>
---
---
+-- -   <http://docs.pythonboto.org/en/latest/ref/opsworks.html AWS SDK for Python(Boto)>
 --
 -- __Endpoints__
 --
--- AWS OpsWorks Stacks supports the following endpoints, all HTTPS. You must connect to one of the following endpoints. Stacks can only be accessed or managed within the endpoint in which they are created.
+-- AWS OpsWorks Stacks supports the following endpoints, all HTTPS. You
+-- must connect to one of the following endpoints. Stacks can only be
+-- accessed or managed within the endpoint in which they are created.
 --
---     * opsworks.us-east-1.amazonaws.com
+-- -   opsworks.us-east-1.amazonaws.com
 --
---     * opsworks.us-east-2.amazonaws.com
+-- -   opsworks.us-east-2.amazonaws.com
 --
---     * opsworks.us-west-1.amazonaws.com
+-- -   opsworks.us-west-1.amazonaws.com
 --
---     * opsworks.us-west-2.amazonaws.com
+-- -   opsworks.us-west-2.amazonaws.com
 --
---     * opsworks.ca-central-1.amazonaws.com (API only; not available in the AWS console)
+-- -   opsworks.ca-central-1.amazonaws.com (API only; not available in the
+--     AWS console)
 --
---     * opsworks.eu-west-1.amazonaws.com
+-- -   opsworks.eu-west-1.amazonaws.com
 --
---     * opsworks.eu-west-2.amazonaws.com
+-- -   opsworks.eu-west-2.amazonaws.com
 --
---     * opsworks.eu-west-3.amazonaws.com
+-- -   opsworks.eu-west-3.amazonaws.com
 --
---     * opsworks.eu-central-1.amazonaws.com
+-- -   opsworks.eu-central-1.amazonaws.com
 --
---     * opsworks.ap-northeast-1.amazonaws.com
+-- -   opsworks.ap-northeast-1.amazonaws.com
 --
---     * opsworks.ap-northeast-2.amazonaws.com
+-- -   opsworks.ap-northeast-2.amazonaws.com
 --
---     * opsworks.ap-south-1.amazonaws.com
+-- -   opsworks.ap-south-1.amazonaws.com
 --
---     * opsworks.ap-southeast-1.amazonaws.com
+-- -   opsworks.ap-southeast-1.amazonaws.com
 --
---     * opsworks.ap-southeast-2.amazonaws.com
+-- -   opsworks.ap-southeast-2.amazonaws.com
 --
---     * opsworks.sa-east-1.amazonaws.com
---
---
+-- -   opsworks.sa-east-1.amazonaws.com
 --
 -- __Chef Versions__
 --
--- When you call 'CreateStack' , 'CloneStack' , or 'UpdateStack' we recommend you use the @ConfigurationManager@ parameter to specify the Chef version. The recommended and default value for Linux stacks is currently 12. Windows stacks use Chef 12.2. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-chef11.html Chef Versions> .
+-- When you call CreateStack, CloneStack, or UpdateStack we recommend you
+-- use the @ConfigurationManager@ parameter to specify the Chef version.
+-- The recommended and default value for Linux stacks is currently 12.
+-- Windows stacks use Chef 12.2. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-chef11.html Chef Versions>.
+--
+-- You can specify Chef 12, 11.10, or 11.4 for your Linux stack. We
+-- recommend migrating your existing Linux stacks to Chef 12 as soon as
+-- possible.
 module Network.AWS.OpsWorks
   ( -- * Service Configuration
-    opsWorks,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -93,247 +108,469 @@ module Network.AWS.OpsWorks
     -- $waiters
 
     -- ** InstanceTerminated
-    instanceTerminated,
+    newInstanceTerminated,
 
     -- ** InstanceRegistered
-    instanceRegistered,
+    newInstanceRegistered,
 
     -- ** AppExists
-    appExists,
+    newAppExists,
 
     -- ** InstanceOnline
-    instanceOnline,
+    newInstanceOnline,
 
     -- ** InstanceStopped
-    instanceStopped,
+    newInstanceStopped,
 
     -- ** DeploymentSuccessful
-    deploymentSuccessful,
+    newDeploymentSuccessful,
 
     -- * Operations
     -- $operations
 
     -- ** DescribeInstances
-    module Network.AWS.OpsWorks.DescribeInstances,
+    DescribeInstances (DescribeInstances'),
+    newDescribeInstances,
+    DescribeInstancesResponse (DescribeInstancesResponse'),
+    newDescribeInstancesResponse,
 
     -- ** DescribeDeployments
-    module Network.AWS.OpsWorks.DescribeDeployments,
+    DescribeDeployments (DescribeDeployments'),
+    newDescribeDeployments,
+    DescribeDeploymentsResponse (DescribeDeploymentsResponse'),
+    newDescribeDeploymentsResponse,
 
     -- ** UpdateMyUserProfile
-    module Network.AWS.OpsWorks.UpdateMyUserProfile,
+    UpdateMyUserProfile (UpdateMyUserProfile'),
+    newUpdateMyUserProfile,
+    UpdateMyUserProfileResponse (UpdateMyUserProfileResponse'),
+    newUpdateMyUserProfileResponse,
 
-    -- ** DeregisterElasticIP
-    module Network.AWS.OpsWorks.DeregisterElasticIP,
+    -- ** DeregisterElasticIp
+    DeregisterElasticIp (DeregisterElasticIp'),
+    newDeregisterElasticIp,
+    DeregisterElasticIpResponse (DeregisterElasticIpResponse'),
+    newDeregisterElasticIpResponse,
 
     -- ** SetTimeBasedAutoScaling
-    module Network.AWS.OpsWorks.SetTimeBasedAutoScaling,
+    SetTimeBasedAutoScaling (SetTimeBasedAutoScaling'),
+    newSetTimeBasedAutoScaling,
+    SetTimeBasedAutoScalingResponse (SetTimeBasedAutoScalingResponse'),
+    newSetTimeBasedAutoScalingResponse,
 
-    -- ** DescribeRDSDBInstances
-    module Network.AWS.OpsWorks.DescribeRDSDBInstances,
+    -- ** DescribeRdsDbInstances
+    DescribeRdsDbInstances (DescribeRdsDbInstances'),
+    newDescribeRdsDbInstances,
+    DescribeRdsDbInstancesResponse (DescribeRdsDbInstancesResponse'),
+    newDescribeRdsDbInstancesResponse,
 
     -- ** AttachElasticLoadBalancer
-    module Network.AWS.OpsWorks.AttachElasticLoadBalancer,
+    AttachElasticLoadBalancer (AttachElasticLoadBalancer'),
+    newAttachElasticLoadBalancer,
+    AttachElasticLoadBalancerResponse (AttachElasticLoadBalancerResponse'),
+    newAttachElasticLoadBalancerResponse,
 
     -- ** StartInstance
-    module Network.AWS.OpsWorks.StartInstance,
+    StartInstance (StartInstance'),
+    newStartInstance,
+    StartInstanceResponse (StartInstanceResponse'),
+    newStartInstanceResponse,
 
     -- ** SetPermission
-    module Network.AWS.OpsWorks.SetPermission,
+    SetPermission (SetPermission'),
+    newSetPermission,
+    SetPermissionResponse (SetPermissionResponse'),
+    newSetPermissionResponse,
 
     -- ** RegisterVolume
-    module Network.AWS.OpsWorks.RegisterVolume,
+    RegisterVolume (RegisterVolume'),
+    newRegisterVolume,
+    RegisterVolumeResponse (RegisterVolumeResponse'),
+    newRegisterVolumeResponse,
 
     -- ** StopInstance
-    module Network.AWS.OpsWorks.StopInstance,
+    StopInstance (StopInstance'),
+    newStopInstance,
+    StopInstanceResponse (StopInstanceResponse'),
+    newStopInstanceResponse,
 
     -- ** DescribeEcsClusters (Paginated)
-    module Network.AWS.OpsWorks.DescribeEcsClusters,
+    DescribeEcsClusters (DescribeEcsClusters'),
+    newDescribeEcsClusters,
+    DescribeEcsClustersResponse (DescribeEcsClustersResponse'),
+    newDescribeEcsClustersResponse,
 
     -- ** DescribeVolumes
-    module Network.AWS.OpsWorks.DescribeVolumes,
+    DescribeVolumes (DescribeVolumes'),
+    newDescribeVolumes,
+    DescribeVolumesResponse (DescribeVolumesResponse'),
+    newDescribeVolumesResponse,
 
     -- ** DescribeOperatingSystems
-    module Network.AWS.OpsWorks.DescribeOperatingSystems,
+    DescribeOperatingSystems (DescribeOperatingSystems'),
+    newDescribeOperatingSystems,
+    DescribeOperatingSystemsResponse (DescribeOperatingSystemsResponse'),
+    newDescribeOperatingSystemsResponse,
 
-    -- ** DisassociateElasticIP
-    module Network.AWS.OpsWorks.DisassociateElasticIP,
+    -- ** DisassociateElasticIp
+    DisassociateElasticIp (DisassociateElasticIp'),
+    newDisassociateElasticIp,
+    DisassociateElasticIpResponse (DisassociateElasticIpResponse'),
+    newDisassociateElasticIpResponse,
 
     -- ** StartStack
-    module Network.AWS.OpsWorks.StartStack,
+    StartStack (StartStack'),
+    newStartStack,
+    StartStackResponse (StartStackResponse'),
+    newStartStackResponse,
 
     -- ** StopStack
-    module Network.AWS.OpsWorks.StopStack,
+    StopStack (StopStack'),
+    newStopStack,
+    StopStackResponse (StopStackResponse'),
+    newStopStackResponse,
 
-    -- ** RegisterRDSDBInstance
-    module Network.AWS.OpsWorks.RegisterRDSDBInstance,
+    -- ** RegisterRdsDbInstance
+    RegisterRdsDbInstance (RegisterRdsDbInstance'),
+    newRegisterRdsDbInstance,
+    RegisterRdsDbInstanceResponse (RegisterRdsDbInstanceResponse'),
+    newRegisterRdsDbInstanceResponse,
 
     -- ** DescribeServiceErrors
-    module Network.AWS.OpsWorks.DescribeServiceErrors,
+    DescribeServiceErrors (DescribeServiceErrors'),
+    newDescribeServiceErrors,
+    DescribeServiceErrorsResponse (DescribeServiceErrorsResponse'),
+    newDescribeServiceErrorsResponse,
 
     -- ** DescribeTimeBasedAutoScaling
-    module Network.AWS.OpsWorks.DescribeTimeBasedAutoScaling,
+    DescribeTimeBasedAutoScaling (DescribeTimeBasedAutoScaling'),
+    newDescribeTimeBasedAutoScaling,
+    DescribeTimeBasedAutoScalingResponse (DescribeTimeBasedAutoScalingResponse'),
+    newDescribeTimeBasedAutoScalingResponse,
 
     -- ** UpdateUserProfile
-    module Network.AWS.OpsWorks.UpdateUserProfile,
+    UpdateUserProfile (UpdateUserProfile'),
+    newUpdateUserProfile,
+    UpdateUserProfileResponse (UpdateUserProfileResponse'),
+    newUpdateUserProfileResponse,
 
     -- ** DescribeMyUserProfile
-    module Network.AWS.OpsWorks.DescribeMyUserProfile,
+    DescribeMyUserProfile (DescribeMyUserProfile'),
+    newDescribeMyUserProfile,
+    DescribeMyUserProfileResponse (DescribeMyUserProfileResponse'),
+    newDescribeMyUserProfileResponse,
 
     -- ** UntagResource
-    module Network.AWS.OpsWorks.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** DeleteUserProfile
-    module Network.AWS.OpsWorks.DeleteUserProfile,
+    DeleteUserProfile (DeleteUserProfile'),
+    newDeleteUserProfile,
+    DeleteUserProfileResponse (DeleteUserProfileResponse'),
+    newDeleteUserProfileResponse,
 
     -- ** AssignInstance
-    module Network.AWS.OpsWorks.AssignInstance,
+    AssignInstance (AssignInstance'),
+    newAssignInstance,
+    AssignInstanceResponse (AssignInstanceResponse'),
+    newAssignInstanceResponse,
 
     -- ** DetachElasticLoadBalancer
-    module Network.AWS.OpsWorks.DetachElasticLoadBalancer,
+    DetachElasticLoadBalancer (DetachElasticLoadBalancer'),
+    newDetachElasticLoadBalancer,
+    DetachElasticLoadBalancerResponse (DetachElasticLoadBalancerResponse'),
+    newDetachElasticLoadBalancerResponse,
 
     -- ** DescribeStackProvisioningParameters
-    module Network.AWS.OpsWorks.DescribeStackProvisioningParameters,
+    DescribeStackProvisioningParameters (DescribeStackProvisioningParameters'),
+    newDescribeStackProvisioningParameters,
+    DescribeStackProvisioningParametersResponse (DescribeStackProvisioningParametersResponse'),
+    newDescribeStackProvisioningParametersResponse,
 
     -- ** DeregisterVolume
-    module Network.AWS.OpsWorks.DeregisterVolume,
+    DeregisterVolume (DeregisterVolume'),
+    newDeregisterVolume,
+    DeregisterVolumeResponse (DeregisterVolumeResponse'),
+    newDeregisterVolumeResponse,
 
     -- ** DescribeStacks
-    module Network.AWS.OpsWorks.DescribeStacks,
+    DescribeStacks (DescribeStacks'),
+    newDescribeStacks,
+    DescribeStacksResponse (DescribeStacksResponse'),
+    newDescribeStacksResponse,
 
     -- ** DeleteInstance
-    module Network.AWS.OpsWorks.DeleteInstance,
+    DeleteInstance (DeleteInstance'),
+    newDeleteInstance,
+    DeleteInstanceResponse (DeleteInstanceResponse'),
+    newDeleteInstanceResponse,
 
     -- ** RebootInstance
-    module Network.AWS.OpsWorks.RebootInstance,
+    RebootInstance (RebootInstance'),
+    newRebootInstance,
+    RebootInstanceResponse (RebootInstanceResponse'),
+    newRebootInstanceResponse,
 
     -- ** TagResource
-    module Network.AWS.OpsWorks.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** UpdateInstance
-    module Network.AWS.OpsWorks.UpdateInstance,
+    UpdateInstance (UpdateInstance'),
+    newUpdateInstance,
+    UpdateInstanceResponse (UpdateInstanceResponse'),
+    newUpdateInstanceResponse,
 
     -- ** CloneStack
-    module Network.AWS.OpsWorks.CloneStack,
+    CloneStack (CloneStack'),
+    newCloneStack,
+    CloneStackResponse (CloneStackResponse'),
+    newCloneStackResponse,
 
-    -- ** RegisterElasticIP
-    module Network.AWS.OpsWorks.RegisterElasticIP,
+    -- ** RegisterElasticIp
+    RegisterElasticIp (RegisterElasticIp'),
+    newRegisterElasticIp,
+    RegisterElasticIpResponse (RegisterElasticIpResponse'),
+    newRegisterElasticIpResponse,
 
     -- ** DescribeAgentVersions
-    module Network.AWS.OpsWorks.DescribeAgentVersions,
+    DescribeAgentVersions (DescribeAgentVersions'),
+    newDescribeAgentVersions,
+    DescribeAgentVersionsResponse (DescribeAgentVersionsResponse'),
+    newDescribeAgentVersionsResponse,
 
     -- ** UpdateLayer
-    module Network.AWS.OpsWorks.UpdateLayer,
+    UpdateLayer (UpdateLayer'),
+    newUpdateLayer,
+    UpdateLayerResponse (UpdateLayerResponse'),
+    newUpdateLayerResponse,
 
     -- ** CreateStack
-    module Network.AWS.OpsWorks.CreateStack,
+    CreateStack (CreateStack'),
+    newCreateStack,
+    CreateStackResponse (CreateStackResponse'),
+    newCreateStackResponse,
 
     -- ** UnassignVolume
-    module Network.AWS.OpsWorks.UnassignVolume,
+    UnassignVolume (UnassignVolume'),
+    newUnassignVolume,
+    UnassignVolumeResponse (UnassignVolumeResponse'),
+    newUnassignVolumeResponse,
 
     -- ** GrantAccess
-    module Network.AWS.OpsWorks.GrantAccess,
+    GrantAccess (GrantAccess'),
+    newGrantAccess,
+    GrantAccessResponse (GrantAccessResponse'),
+    newGrantAccessResponse,
 
     -- ** DeleteLayer
-    module Network.AWS.OpsWorks.DeleteLayer,
+    DeleteLayer (DeleteLayer'),
+    newDeleteLayer,
+    DeleteLayerResponse (DeleteLayerResponse'),
+    newDeleteLayerResponse,
 
     -- ** DescribeApps
-    module Network.AWS.OpsWorks.DescribeApps,
+    DescribeApps (DescribeApps'),
+    newDescribeApps,
+    DescribeAppsResponse (DescribeAppsResponse'),
+    newDescribeAppsResponse,
 
     -- ** DeregisterEcsCluster
-    module Network.AWS.OpsWorks.DeregisterEcsCluster,
+    DeregisterEcsCluster (DeregisterEcsCluster'),
+    newDeregisterEcsCluster,
+    DeregisterEcsClusterResponse (DeregisterEcsClusterResponse'),
+    newDeregisterEcsClusterResponse,
 
     -- ** DescribeStackSummary
-    module Network.AWS.OpsWorks.DescribeStackSummary,
+    DescribeStackSummary (DescribeStackSummary'),
+    newDescribeStackSummary,
+    DescribeStackSummaryResponse (DescribeStackSummaryResponse'),
+    newDescribeStackSummaryResponse,
 
     -- ** DeleteStack
-    module Network.AWS.OpsWorks.DeleteStack,
+    DeleteStack (DeleteStack'),
+    newDeleteStack,
+    DeleteStackResponse (DeleteStackResponse'),
+    newDeleteStackResponse,
 
     -- ** SetLoadBasedAutoScaling
-    module Network.AWS.OpsWorks.SetLoadBasedAutoScaling,
+    SetLoadBasedAutoScaling (SetLoadBasedAutoScaling'),
+    newSetLoadBasedAutoScaling,
+    SetLoadBasedAutoScalingResponse (SetLoadBasedAutoScalingResponse'),
+    newSetLoadBasedAutoScalingResponse,
 
     -- ** CreateLayer
-    module Network.AWS.OpsWorks.CreateLayer,
+    CreateLayer (CreateLayer'),
+    newCreateLayer,
+    CreateLayerResponse (CreateLayerResponse'),
+    newCreateLayerResponse,
 
     -- ** UpdateStack
-    module Network.AWS.OpsWorks.UpdateStack,
+    UpdateStack (UpdateStack'),
+    newUpdateStack,
+    UpdateStackResponse (UpdateStackResponse'),
+    newUpdateStackResponse,
 
     -- ** DescribeUserProfiles
-    module Network.AWS.OpsWorks.DescribeUserProfiles,
+    DescribeUserProfiles (DescribeUserProfiles'),
+    newDescribeUserProfiles,
+    DescribeUserProfilesResponse (DescribeUserProfilesResponse'),
+    newDescribeUserProfilesResponse,
 
     -- ** DescribeElasticLoadBalancers
-    module Network.AWS.OpsWorks.DescribeElasticLoadBalancers,
+    DescribeElasticLoadBalancers (DescribeElasticLoadBalancers'),
+    newDescribeElasticLoadBalancers,
+    DescribeElasticLoadBalancersResponse (DescribeElasticLoadBalancersResponse'),
+    newDescribeElasticLoadBalancersResponse,
 
     -- ** DescribeCommands
-    module Network.AWS.OpsWorks.DescribeCommands,
+    DescribeCommands (DescribeCommands'),
+    newDescribeCommands,
+    DescribeCommandsResponse (DescribeCommandsResponse'),
+    newDescribeCommandsResponse,
 
     -- ** UpdateVolume
-    module Network.AWS.OpsWorks.UpdateVolume,
+    UpdateVolume (UpdateVolume'),
+    newUpdateVolume,
+    UpdateVolumeResponse (UpdateVolumeResponse'),
+    newUpdateVolumeResponse,
 
     -- ** AssignVolume
-    module Network.AWS.OpsWorks.AssignVolume,
+    AssignVolume (AssignVolume'),
+    newAssignVolume,
+    AssignVolumeResponse (AssignVolumeResponse'),
+    newAssignVolumeResponse,
 
-    -- ** DescribeRAIdArrays
-    module Network.AWS.OpsWorks.DescribeRAIdArrays,
+    -- ** DescribeRaidArrays
+    DescribeRaidArrays (DescribeRaidArrays'),
+    newDescribeRaidArrays,
+    DescribeRaidArraysResponse (DescribeRaidArraysResponse'),
+    newDescribeRaidArraysResponse,
 
     -- ** DeregisterInstance
-    module Network.AWS.OpsWorks.DeregisterInstance,
+    DeregisterInstance (DeregisterInstance'),
+    newDeregisterInstance,
+    DeregisterInstanceResponse (DeregisterInstanceResponse'),
+    newDeregisterInstanceResponse,
 
     -- ** RegisterEcsCluster
-    module Network.AWS.OpsWorks.RegisterEcsCluster,
+    RegisterEcsCluster (RegisterEcsCluster'),
+    newRegisterEcsCluster,
+    RegisterEcsClusterResponse (RegisterEcsClusterResponse'),
+    newRegisterEcsClusterResponse,
 
     -- ** CreateUserProfile
-    module Network.AWS.OpsWorks.CreateUserProfile,
+    CreateUserProfile (CreateUserProfile'),
+    newCreateUserProfile,
+    CreateUserProfileResponse (CreateUserProfileResponse'),
+    newCreateUserProfileResponse,
 
-    -- ** UpdateRDSDBInstance
-    module Network.AWS.OpsWorks.UpdateRDSDBInstance,
+    -- ** UpdateRdsDbInstance
+    UpdateRdsDbInstance (UpdateRdsDbInstance'),
+    newUpdateRdsDbInstance,
+    UpdateRdsDbInstanceResponse (UpdateRdsDbInstanceResponse'),
+    newUpdateRdsDbInstanceResponse,
 
     -- ** UnassignInstance
-    module Network.AWS.OpsWorks.UnassignInstance,
+    UnassignInstance (UnassignInstance'),
+    newUnassignInstance,
+    UnassignInstanceResponse (UnassignInstanceResponse'),
+    newUnassignInstanceResponse,
 
     -- ** ListTags
-    module Network.AWS.OpsWorks.ListTags,
+    ListTags (ListTags'),
+    newListTags,
+    ListTagsResponse (ListTagsResponse'),
+    newListTagsResponse,
 
     -- ** DescribeLoadBasedAutoScaling
-    module Network.AWS.OpsWorks.DescribeLoadBasedAutoScaling,
+    DescribeLoadBasedAutoScaling (DescribeLoadBasedAutoScaling'),
+    newDescribeLoadBasedAutoScaling,
+    DescribeLoadBasedAutoScalingResponse (DescribeLoadBasedAutoScalingResponse'),
+    newDescribeLoadBasedAutoScalingResponse,
 
     -- ** RegisterInstance
-    module Network.AWS.OpsWorks.RegisterInstance,
+    RegisterInstance (RegisterInstance'),
+    newRegisterInstance,
+    RegisterInstanceResponse (RegisterInstanceResponse'),
+    newRegisterInstanceResponse,
 
     -- ** DeleteApp
-    module Network.AWS.OpsWorks.DeleteApp,
+    DeleteApp (DeleteApp'),
+    newDeleteApp,
+    DeleteAppResponse (DeleteAppResponse'),
+    newDeleteAppResponse,
 
     -- ** UpdateApp
-    module Network.AWS.OpsWorks.UpdateApp,
+    UpdateApp (UpdateApp'),
+    newUpdateApp,
+    UpdateAppResponse (UpdateAppResponse'),
+    newUpdateAppResponse,
 
-    -- ** AssociateElasticIP
-    module Network.AWS.OpsWorks.AssociateElasticIP,
+    -- ** AssociateElasticIp
+    AssociateElasticIp (AssociateElasticIp'),
+    newAssociateElasticIp,
+    AssociateElasticIpResponse (AssociateElasticIpResponse'),
+    newAssociateElasticIpResponse,
 
-    -- ** UpdateElasticIP
-    module Network.AWS.OpsWorks.UpdateElasticIP,
+    -- ** UpdateElasticIp
+    UpdateElasticIp (UpdateElasticIp'),
+    newUpdateElasticIp,
+    UpdateElasticIpResponse (UpdateElasticIpResponse'),
+    newUpdateElasticIpResponse,
 
     -- ** DescribePermissions
-    module Network.AWS.OpsWorks.DescribePermissions,
+    DescribePermissions (DescribePermissions'),
+    newDescribePermissions,
+    DescribePermissionsResponse (DescribePermissionsResponse'),
+    newDescribePermissionsResponse,
 
     -- ** GetHostnameSuggestion
-    module Network.AWS.OpsWorks.GetHostnameSuggestion,
+    GetHostnameSuggestion (GetHostnameSuggestion'),
+    newGetHostnameSuggestion,
+    GetHostnameSuggestionResponse (GetHostnameSuggestionResponse'),
+    newGetHostnameSuggestionResponse,
 
     -- ** CreateInstance
-    module Network.AWS.OpsWorks.CreateInstance,
+    CreateInstance (CreateInstance'),
+    newCreateInstance,
+    CreateInstanceResponse (CreateInstanceResponse'),
+    newCreateInstanceResponse,
 
     -- ** DescribeLayers
-    module Network.AWS.OpsWorks.DescribeLayers,
+    DescribeLayers (DescribeLayers'),
+    newDescribeLayers,
+    DescribeLayersResponse (DescribeLayersResponse'),
+    newDescribeLayersResponse,
 
     -- ** CreateApp
-    module Network.AWS.OpsWorks.CreateApp,
+    CreateApp (CreateApp'),
+    newCreateApp,
+    CreateAppResponse (CreateAppResponse'),
+    newCreateAppResponse,
 
     -- ** CreateDeployment
-    module Network.AWS.OpsWorks.CreateDeployment,
+    CreateDeployment (CreateDeployment'),
+    newCreateDeployment,
+    CreateDeploymentResponse (CreateDeploymentResponse'),
+    newCreateDeploymentResponse,
 
-    -- ** DeregisterRDSDBInstance
-    module Network.AWS.OpsWorks.DeregisterRDSDBInstance,
+    -- ** DeregisterRdsDbInstance
+    DeregisterRdsDbInstance (DeregisterRdsDbInstance'),
+    newDeregisterRdsDbInstance,
+    DeregisterRdsDbInstanceResponse (DeregisterRdsDbInstanceResponse'),
+    newDeregisterRdsDbInstanceResponse,
 
-    -- ** DescribeElasticIPs
-    module Network.AWS.OpsWorks.DescribeElasticIPs,
+    -- ** DescribeElasticIps
+    DescribeElasticIps (DescribeElasticIps'),
+    newDescribeElasticIps,
+    DescribeElasticIpsResponse (DescribeElasticIpsResponse'),
+    newDescribeElasticIpsResponse,
 
     -- * Types
 
@@ -383,502 +620,182 @@ module Network.AWS.OpsWorks
     VolumeType (..),
 
     -- ** AgentVersion
-    AgentVersion,
-    agentVersion,
-    avVersion,
-    avConfigurationManager,
+    AgentVersion (AgentVersion'),
+    newAgentVersion,
 
     -- ** App
-    App,
-    app,
-    appSSLConfiguration,
-    appAppSource,
-    appAppId,
-    appDataSources,
-    appStackId,
-    appDomains,
-    appEnableSSL,
-    appShortname,
-    appCreatedAt,
-    appEnvironment,
-    appAttributes,
-    appName,
-    appDescription,
-    appType,
+    App (App'),
+    newApp,
 
     -- ** AutoScalingThresholds
-    AutoScalingThresholds,
-    autoScalingThresholds,
-    astLoadThreshold,
-    astCPUThreshold,
-    astMemoryThreshold,
-    astAlarms,
-    astIgnoreMetricsTime,
-    astThresholdsWaitTime,
-    astInstanceCount,
+    AutoScalingThresholds (AutoScalingThresholds'),
+    newAutoScalingThresholds,
 
     -- ** BlockDeviceMapping
-    BlockDeviceMapping,
-    blockDeviceMapping,
-    bdmEBS,
-    bdmNoDevice,
-    bdmVirtualName,
-    bdmDeviceName,
+    BlockDeviceMapping (BlockDeviceMapping'),
+    newBlockDeviceMapping,
 
     -- ** ChefConfiguration
-    ChefConfiguration,
-    chefConfiguration,
-    ccManageBerkshelf,
-    ccBerkshelfVersion,
+    ChefConfiguration (ChefConfiguration'),
+    newChefConfiguration,
 
     -- ** CloudWatchLogsConfiguration
-    CloudWatchLogsConfiguration,
-    cloudWatchLogsConfiguration,
-    cwlcEnabled,
-    cwlcLogStreams,
+    CloudWatchLogsConfiguration (CloudWatchLogsConfiguration'),
+    newCloudWatchLogsConfiguration,
 
     -- ** CloudWatchLogsLogStream
-    CloudWatchLogsLogStream,
-    cloudWatchLogsLogStream,
-    cwllsMultiLineStartPattern,
-    cwllsInitialPosition,
-    cwllsBatchCount,
-    cwllsFile,
-    cwllsFileFingerprintLines,
-    cwllsLogGroupName,
-    cwllsBatchSize,
-    cwllsBufferDuration,
-    cwllsEncoding,
-    cwllsTimeZone,
-    cwllsDatetimeFormat,
+    CloudWatchLogsLogStream (CloudWatchLogsLogStream'),
+    newCloudWatchLogsLogStream,
 
     -- ** Command
-    Command,
-    command,
-    cLogURL,
-    cStatus,
-    cDeploymentId,
-    cInstanceId,
-    cCompletedAt,
-    cCreatedAt,
-    cExitCode,
-    cCommandId,
-    cAcknowledgedAt,
-    cType,
+    Command (Command'),
+    newCommand,
 
     -- ** DataSource
-    DataSource,
-    dataSource,
-    dsARN,
-    dsType,
-    dsDatabaseName,
+    DataSource (DataSource'),
+    newDataSource,
 
     -- ** Deployment
-    Deployment,
-    deployment,
-    dInstanceIds,
-    dStatus,
-    dDeploymentId,
-    dAppId,
-    dIAMUserARN,
-    dDuration,
-    dStackId,
-    dComment,
-    dCustomJSON,
-    dCompletedAt,
-    dCreatedAt,
-    dCommand,
+    Deployment (Deployment'),
+    newDeployment,
 
     -- ** DeploymentCommand
-    DeploymentCommand,
-    deploymentCommand,
-    dcArgs,
-    dcName,
+    DeploymentCommand (DeploymentCommand'),
+    newDeploymentCommand,
 
-    -- ** EBSBlockDevice
-    EBSBlockDevice,
-    ebsBlockDevice,
-    ebdDeleteOnTermination,
-    ebdSnapshotId,
-    ebdVolumeType,
-    ebdVolumeSize,
-    ebdIOPS,
+    -- ** EbsBlockDevice
+    EbsBlockDevice (EbsBlockDevice'),
+    newEbsBlockDevice,
 
     -- ** EcsCluster
-    EcsCluster,
-    ecsCluster,
-    ecStackId,
-    ecEcsClusterName,
-    ecRegisteredAt,
-    ecEcsClusterARN,
+    EcsCluster (EcsCluster'),
+    newEcsCluster,
 
-    -- ** ElasticIP
-    ElasticIP,
-    elasticIP,
-    eiInstanceId,
-    eiIP,
-    eiDomain,
-    eiName,
-    eiRegion,
+    -- ** ElasticIp
+    ElasticIp (ElasticIp'),
+    newElasticIp,
 
     -- ** ElasticLoadBalancer
-    ElasticLoadBalancer,
-    elasticLoadBalancer,
-    elbAvailabilityZones,
-    elbStackId,
-    elbElasticLoadBalancerName,
-    elbSubnetIds,
-    elbDNSName,
-    elbLayerId,
-    elbEC2InstanceIds,
-    elbRegion,
-    elbVPCId,
+    ElasticLoadBalancer (ElasticLoadBalancer'),
+    newElasticLoadBalancer,
 
     -- ** EnvironmentVariable
-    EnvironmentVariable,
-    environmentVariable,
-    evSecure,
-    evKey,
-    evValue,
+    EnvironmentVariable (EnvironmentVariable'),
+    newEnvironmentVariable,
 
     -- ** Instance
-    Instance,
-    instance',
-    iHostname,
-    iPlatform,
-    iSecurityGroupIds,
-    iSSHHostRsaKeyFingerprint,
-    iInstanceProfileARN,
-    iVirtualizationType,
-    iPrivateDNS,
-    iElasticIP,
-    iStatus,
-    iInstallUpdatesOnBoot,
-    iInstanceId,
-    iReportedAgentVersion,
-    iInstanceType,
-    iSSHHostDsaKeyFingerprint,
-    iEBSOptimized,
-    iRootDeviceType,
-    iStackId,
-    iAgentVersion,
-    iRootDeviceVolumeId,
-    iSSHKeyName,
-    iPublicDNS,
-    iAMIId,
-    iARN,
-    iCreatedAt,
-    iLayerIds,
-    iArchitecture,
-    iTenancy,
-    iAutoScalingType,
-    iAvailabilityZone,
-    iOS,
-    iPrivateIP,
-    iInfrastructureClass,
-    iBlockDeviceMappings,
-    iSubnetId,
-    iEcsContainerInstanceARN,
-    iRegisteredBy,
-    iReportedOS,
-    iPublicIP,
-    iEC2InstanceId,
-    iEcsClusterARN,
-    iLastServiceErrorId,
+    Instance (Instance'),
+    newInstance,
 
     -- ** InstanceIdentity
-    InstanceIdentity,
-    instanceIdentity,
-    iiDocument,
-    iiSignature,
+    InstanceIdentity (InstanceIdentity'),
+    newInstanceIdentity,
 
     -- ** InstancesCount
-    InstancesCount,
-    instancesCount,
-    icOnline,
-    icSetupFailed,
-    icRegistering,
-    icBooting,
-    icStopFailed,
-    icStartFailed,
-    icRunningSetup,
-    icTerminated,
-    icPending,
-    icTerminating,
-    icShuttingDown,
-    icAssigning,
-    icStopped,
-    icRebooting,
-    icRegistered,
-    icRequested,
-    icDeregistering,
-    icStopping,
-    icUnassigning,
-    icConnectionLost,
+    InstancesCount (InstancesCount'),
+    newInstancesCount,
 
     -- ** Layer
-    Layer,
-    layer,
-    lInstallUpdatesOnBoot,
-    lCustomInstanceProfileARN,
-    lCustomSecurityGroupIds,
-    lPackages,
-    lEnableAutoHealing,
-    lVolumeConfigurations,
-    lStackId,
-    lCustomJSON,
-    lDefaultRecipes,
-    lARN,
-    lShortname,
-    lCreatedAt,
-    lAttributes,
-    lName,
-    lCloudWatchLogsConfiguration,
-    lAutoAssignElasticIPs,
-    lLayerId,
-    lDefaultSecurityGroupNames,
-    lType,
-    lUseEBSOptimizedInstances,
-    lCustomRecipes,
-    lAutoAssignPublicIPs,
-    lLifecycleEventConfiguration,
+    Layer (Layer'),
+    newLayer,
 
     -- ** LifecycleEventConfiguration
-    LifecycleEventConfiguration,
-    lifecycleEventConfiguration,
-    lecShutdown,
+    LifecycleEventConfiguration (LifecycleEventConfiguration'),
+    newLifecycleEventConfiguration,
 
     -- ** LoadBasedAutoScalingConfiguration
-    LoadBasedAutoScalingConfiguration,
-    loadBasedAutoScalingConfiguration,
-    lbascDownScaling,
-    lbascEnable,
-    lbascLayerId,
-    lbascUpScaling,
+    LoadBasedAutoScalingConfiguration (LoadBasedAutoScalingConfiguration'),
+    newLoadBasedAutoScalingConfiguration,
 
     -- ** OperatingSystem
-    OperatingSystem,
-    operatingSystem,
-    osSupported,
-    osConfigurationManagers,
-    osId,
-    osReportedVersion,
-    osName,
-    osType,
-    osReportedName,
+    OperatingSystem (OperatingSystem'),
+    newOperatingSystem,
 
     -- ** OperatingSystemConfigurationManager
-    OperatingSystemConfigurationManager,
-    operatingSystemConfigurationManager,
-    oscmVersion,
-    oscmName,
+    OperatingSystemConfigurationManager (OperatingSystemConfigurationManager'),
+    newOperatingSystemConfigurationManager,
 
     -- ** Permission
-    Permission,
-    permission,
-    pAllowSudo,
-    pIAMUserARN,
-    pStackId,
-    pAllowSSH,
-    pLevel,
+    Permission (Permission'),
+    newPermission,
 
-    -- ** RAIdArray
-    RAIdArray,
-    rAIdArray,
-    raiaNumberOfDisks,
-    raiaInstanceId,
-    raiaStackId,
-    raiaDevice,
-    raiaCreatedAt,
-    raiaRAIdArrayId,
-    raiaAvailabilityZone,
-    raiaName,
-    raiaMountPoint,
-    raiaVolumeType,
-    raiaRAIdLevel,
-    raiaIOPS,
-    raiaSize,
+    -- ** RaidArray
+    RaidArray (RaidArray'),
+    newRaidArray,
 
-    -- ** RDSDBInstance
-    RDSDBInstance,
-    rdsDBInstance,
-    rdiRDSDBInstanceARN,
-    rdiDBUser,
-    rdiAddress,
-    rdiStackId,
-    rdiMissingOnRDS,
-    rdiDBInstanceIdentifier,
-    rdiDBPassword,
-    rdiEngine,
-    rdiRegion,
+    -- ** RdsDbInstance
+    RdsDbInstance (RdsDbInstance'),
+    newRdsDbInstance,
 
     -- ** Recipes
-    Recipes,
-    recipes,
-    rShutdown,
-    rConfigure,
-    rUndeploy,
-    rSetup,
-    rDeploy,
+    Recipes (Recipes'),
+    newRecipes,
 
-    -- ** ReportedOS
-    ReportedOS,
-    reportedOS,
-    roVersion,
-    roName,
-    roFamily,
-
-    -- ** SSLConfiguration
-    SSLConfiguration,
-    sslConfiguration,
-    scPrivateKey,
-    scCertificate,
-    scChain,
+    -- ** ReportedOs
+    ReportedOs (ReportedOs'),
+    newReportedOs,
 
     -- ** SelfUserProfile
-    SelfUserProfile,
-    selfUserProfile,
-    supIAMUserARN,
-    supSSHUsername,
-    supName,
-    supSSHPublicKey,
+    SelfUserProfile (SelfUserProfile'),
+    newSelfUserProfile,
 
     -- ** ServiceError'
-    ServiceError',
-    serviceError',
-    seInstanceId,
-    seStackId,
-    seMessage,
-    seServiceErrorId,
-    seCreatedAt,
-    seType,
+    ServiceError' (ServiceError''),
+    newServiceError',
 
     -- ** ShutdownEventConfiguration
-    ShutdownEventConfiguration,
-    shutdownEventConfiguration,
-    secExecutionTimeout,
-    secDelayUntilElbConnectionsDrained,
+    ShutdownEventConfiguration (ShutdownEventConfiguration'),
+    newShutdownEventConfiguration,
 
     -- ** Source
-    Source,
-    source,
-    sSSHKey,
-    sPassword,
-    sUsername,
-    sURL,
-    sRevision,
-    sType,
+    Source (Source'),
+    newSource,
+
+    -- ** SslConfiguration
+    SslConfiguration (SslConfiguration'),
+    newSslConfiguration,
 
     -- ** Stack
-    Stack,
-    stack,
-    staDefaultOS,
-    staUseOpsworksSecurityGroups,
-    staCustomCookbooksSource,
-    staServiceRoleARN,
-    staDefaultAvailabilityZone,
-    staStackId,
-    staAgentVersion,
-    staCustomJSON,
-    staARN,
-    staCreatedAt,
-    staDefaultRootDeviceType,
-    staAttributes,
-    staName,
-    staDefaultInstanceProfileARN,
-    staHostnameTheme,
-    staDefaultSSHKeyName,
-    staConfigurationManager,
-    staRegion,
-    staVPCId,
-    staChefConfiguration,
-    staDefaultSubnetId,
-    staUseCustomCookbooks,
+    Stack (Stack'),
+    newStack,
 
     -- ** StackConfigurationManager
-    StackConfigurationManager,
-    stackConfigurationManager,
-    scmVersion,
-    scmName,
+    StackConfigurationManager (StackConfigurationManager'),
+    newStackConfigurationManager,
 
     -- ** StackSummary
-    StackSummary,
-    stackSummary,
-    sssStackId,
-    sssLayersCount,
-    sssARN,
-    sssName,
-    sssInstancesCount,
-    sssAppsCount,
+    StackSummary (StackSummary'),
+    newStackSummary,
 
     -- ** TemporaryCredential
-    TemporaryCredential,
-    temporaryCredential,
-    tcValidForInMinutes,
-    tcInstanceId,
-    tcPassword,
-    tcUsername,
+    TemporaryCredential (TemporaryCredential'),
+    newTemporaryCredential,
 
     -- ** TimeBasedAutoScalingConfiguration
-    TimeBasedAutoScalingConfiguration,
-    timeBasedAutoScalingConfiguration,
-    tbascInstanceId,
-    tbascAutoScalingSchedule,
+    TimeBasedAutoScalingConfiguration (TimeBasedAutoScalingConfiguration'),
+    newTimeBasedAutoScalingConfiguration,
 
     -- ** UserProfile
-    UserProfile,
-    userProfile,
-    upIAMUserARN,
-    upAllowSelfManagement,
-    upSSHUsername,
-    upName,
-    upSSHPublicKey,
+    UserProfile (UserProfile'),
+    newUserProfile,
 
     -- ** Volume
-    Volume,
-    volume,
-    vStatus,
-    vInstanceId,
-    vEC2VolumeId,
-    vEncrypted,
-    vDevice,
-    vVolumeId,
-    vRAIdArrayId,
-    vAvailabilityZone,
-    vName,
-    vMountPoint,
-    vVolumeType,
-    vRegion,
-    vIOPS,
-    vSize,
+    Volume (Volume'),
+    newVolume,
 
     -- ** VolumeConfiguration
-    VolumeConfiguration,
-    volumeConfiguration,
-    vcEncrypted,
-    vcVolumeType,
-    vcRAIdLevel,
-    vcIOPS,
-    vcMountPoint,
-    vcNumberOfDisks,
-    vcSize,
+    VolumeConfiguration (VolumeConfiguration'),
+    newVolumeConfiguration,
 
     -- ** WeeklyAutoScalingSchedule
-    WeeklyAutoScalingSchedule,
-    weeklyAutoScalingSchedule,
-    wassThursday,
-    wassFriday,
-    wassTuesday,
-    wassMonday,
-    wassSunday,
-    wassSaturday,
-    wassWednesday,
+    WeeklyAutoScalingSchedule (WeeklyAutoScalingSchedule'),
+    newWeeklyAutoScalingSchedule,
   )
 where
 
 import Network.AWS.OpsWorks.AssignInstance
 import Network.AWS.OpsWorks.AssignVolume
-import Network.AWS.OpsWorks.AssociateElasticIP
+import Network.AWS.OpsWorks.AssociateElasticIp
 import Network.AWS.OpsWorks.AttachElasticLoadBalancer
 import Network.AWS.OpsWorks.CloneStack
 import Network.AWS.OpsWorks.CreateApp
@@ -893,16 +810,16 @@ import Network.AWS.OpsWorks.DeleteLayer
 import Network.AWS.OpsWorks.DeleteStack
 import Network.AWS.OpsWorks.DeleteUserProfile
 import Network.AWS.OpsWorks.DeregisterEcsCluster
-import Network.AWS.OpsWorks.DeregisterElasticIP
+import Network.AWS.OpsWorks.DeregisterElasticIp
 import Network.AWS.OpsWorks.DeregisterInstance
-import Network.AWS.OpsWorks.DeregisterRDSDBInstance
+import Network.AWS.OpsWorks.DeregisterRdsDbInstance
 import Network.AWS.OpsWorks.DeregisterVolume
 import Network.AWS.OpsWorks.DescribeAgentVersions
 import Network.AWS.OpsWorks.DescribeApps
 import Network.AWS.OpsWorks.DescribeCommands
 import Network.AWS.OpsWorks.DescribeDeployments
 import Network.AWS.OpsWorks.DescribeEcsClusters
-import Network.AWS.OpsWorks.DescribeElasticIPs
+import Network.AWS.OpsWorks.DescribeElasticIps
 import Network.AWS.OpsWorks.DescribeElasticLoadBalancers
 import Network.AWS.OpsWorks.DescribeInstances
 import Network.AWS.OpsWorks.DescribeLayers
@@ -910,8 +827,8 @@ import Network.AWS.OpsWorks.DescribeLoadBasedAutoScaling
 import Network.AWS.OpsWorks.DescribeMyUserProfile
 import Network.AWS.OpsWorks.DescribeOperatingSystems
 import Network.AWS.OpsWorks.DescribePermissions
-import Network.AWS.OpsWorks.DescribeRAIdArrays
-import Network.AWS.OpsWorks.DescribeRDSDBInstances
+import Network.AWS.OpsWorks.DescribeRaidArrays
+import Network.AWS.OpsWorks.DescribeRdsDbInstances
 import Network.AWS.OpsWorks.DescribeServiceErrors
 import Network.AWS.OpsWorks.DescribeStackProvisioningParameters
 import Network.AWS.OpsWorks.DescribeStackSummary
@@ -920,15 +837,16 @@ import Network.AWS.OpsWorks.DescribeTimeBasedAutoScaling
 import Network.AWS.OpsWorks.DescribeUserProfiles
 import Network.AWS.OpsWorks.DescribeVolumes
 import Network.AWS.OpsWorks.DetachElasticLoadBalancer
-import Network.AWS.OpsWorks.DisassociateElasticIP
+import Network.AWS.OpsWorks.DisassociateElasticIp
 import Network.AWS.OpsWorks.GetHostnameSuggestion
 import Network.AWS.OpsWorks.GrantAccess
+import Network.AWS.OpsWorks.Lens
 import Network.AWS.OpsWorks.ListTags
 import Network.AWS.OpsWorks.RebootInstance
 import Network.AWS.OpsWorks.RegisterEcsCluster
-import Network.AWS.OpsWorks.RegisterElasticIP
+import Network.AWS.OpsWorks.RegisterElasticIp
 import Network.AWS.OpsWorks.RegisterInstance
-import Network.AWS.OpsWorks.RegisterRDSDBInstance
+import Network.AWS.OpsWorks.RegisterRdsDbInstance
 import Network.AWS.OpsWorks.RegisterVolume
 import Network.AWS.OpsWorks.SetLoadBasedAutoScaling
 import Network.AWS.OpsWorks.SetPermission
@@ -943,11 +861,11 @@ import Network.AWS.OpsWorks.UnassignInstance
 import Network.AWS.OpsWorks.UnassignVolume
 import Network.AWS.OpsWorks.UntagResource
 import Network.AWS.OpsWorks.UpdateApp
-import Network.AWS.OpsWorks.UpdateElasticIP
+import Network.AWS.OpsWorks.UpdateElasticIp
 import Network.AWS.OpsWorks.UpdateInstance
 import Network.AWS.OpsWorks.UpdateLayer
 import Network.AWS.OpsWorks.UpdateMyUserProfile
-import Network.AWS.OpsWorks.UpdateRDSDBInstance
+import Network.AWS.OpsWorks.UpdateRdsDbInstance
 import Network.AWS.OpsWorks.UpdateStack
 import Network.AWS.OpsWorks.UpdateUserProfile
 import Network.AWS.OpsWorks.UpdateVolume

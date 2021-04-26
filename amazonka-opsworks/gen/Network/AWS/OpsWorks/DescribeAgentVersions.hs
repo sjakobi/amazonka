@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,167 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the available AWS OpsWorks Stacks agent versions. You must specify a stack ID or a configuration manager. @DescribeAgentVersions@ returns a list of available agent versions for the specified stack or configuration manager.
+-- Describes the available AWS OpsWorks Stacks agent versions. You must
+-- specify a stack ID or a configuration manager. @DescribeAgentVersions@
+-- returns a list of available agent versions for the specified stack or
+-- configuration manager.
 module Network.AWS.OpsWorks.DescribeAgentVersions
   ( -- * Creating a Request
-    describeAgentVersions,
-    DescribeAgentVersions,
+    DescribeAgentVersions (..),
+    newDescribeAgentVersions,
 
     -- * Request Lenses
-    davStackId,
-    davConfigurationManager,
+    describeAgentVersions_stackId,
+    describeAgentVersions_configurationManager,
 
     -- * Destructuring the Response
-    describeAgentVersionsResponse,
-    DescribeAgentVersionsResponse,
+    DescribeAgentVersionsResponse (..),
+    newDescribeAgentVersionsResponse,
 
     -- * Response Lenses
-    davrrsAgentVersions,
-    davrrsResponseStatus,
+    describeAgentVersionsResponse_agentVersions,
+    describeAgentVersionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorks.Types.AgentVersion
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAgentVersions' smart constructor.
+-- | /See:/ 'newDescribeAgentVersions' smart constructor.
 data DescribeAgentVersions = DescribeAgentVersions'
-  { _davStackId ::
-      !(Maybe Text),
-    _davConfigurationManager ::
-      !( Maybe
-           StackConfigurationManager
-       )
+  { -- | The stack ID.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | The configuration manager.
+    configurationManager :: Prelude.Maybe StackConfigurationManager
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAgentVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAgentVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'davStackId' - The stack ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'davConfigurationManager' - The configuration manager.
-describeAgentVersions ::
+-- 'stackId', 'describeAgentVersions_stackId' - The stack ID.
+--
+-- 'configurationManager', 'describeAgentVersions_configurationManager' - The configuration manager.
+newDescribeAgentVersions ::
   DescribeAgentVersions
-describeAgentVersions =
+newDescribeAgentVersions =
   DescribeAgentVersions'
-    { _davStackId = Nothing,
-      _davConfigurationManager = Nothing
+    { stackId = Prelude.Nothing,
+      configurationManager = Prelude.Nothing
     }
 
 -- | The stack ID.
-davStackId :: Lens' DescribeAgentVersions (Maybe Text)
-davStackId = lens _davStackId (\s a -> s {_davStackId = a})
+describeAgentVersions_stackId :: Lens.Lens' DescribeAgentVersions (Prelude.Maybe Prelude.Text)
+describeAgentVersions_stackId = Lens.lens (\DescribeAgentVersions' {stackId} -> stackId) (\s@DescribeAgentVersions' {} a -> s {stackId = a} :: DescribeAgentVersions)
 
 -- | The configuration manager.
-davConfigurationManager :: Lens' DescribeAgentVersions (Maybe StackConfigurationManager)
-davConfigurationManager = lens _davConfigurationManager (\s a -> s {_davConfigurationManager = a})
+describeAgentVersions_configurationManager :: Lens.Lens' DescribeAgentVersions (Prelude.Maybe StackConfigurationManager)
+describeAgentVersions_configurationManager = Lens.lens (\DescribeAgentVersions' {configurationManager} -> configurationManager) (\s@DescribeAgentVersions' {} a -> s {configurationManager = a} :: DescribeAgentVersions)
 
-instance AWSRequest DescribeAgentVersions where
+instance Prelude.AWSRequest DescribeAgentVersions where
   type
     Rs DescribeAgentVersions =
       DescribeAgentVersionsResponse
-  request = postJSON opsWorks
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAgentVersionsResponse'
-            <$> (x .?> "AgentVersions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "AgentVersions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAgentVersions
+instance Prelude.Hashable DescribeAgentVersions
 
-instance NFData DescribeAgentVersions
+instance Prelude.NFData DescribeAgentVersions
 
-instance ToHeaders DescribeAgentVersions where
+instance Prelude.ToHeaders DescribeAgentVersions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorks_20130218.DescribeAgentVersions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorks_20130218.DescribeAgentVersions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAgentVersions where
+instance Prelude.ToJSON DescribeAgentVersions where
   toJSON DescribeAgentVersions' {..} =
-    object
-      ( catMaybes
-          [ ("StackId" .=) <$> _davStackId,
-            ("ConfigurationManager" .=)
-              <$> _davConfigurationManager
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StackId" Prelude..=) Prelude.<$> stackId,
+            ("ConfigurationManager" Prelude..=)
+              Prelude.<$> configurationManager
           ]
       )
 
-instance ToPath DescribeAgentVersions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAgentVersions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAgentVersions where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAgentVersions where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeAgentVersions@ request.
 --
---
---
--- /See:/ 'describeAgentVersionsResponse' smart constructor.
+-- /See:/ 'newDescribeAgentVersionsResponse' smart constructor.
 data DescribeAgentVersionsResponse = DescribeAgentVersionsResponse'
-  { _davrrsAgentVersions ::
-      !( Maybe
-           [AgentVersion]
-       ),
-    _davrrsResponseStatus ::
-      !Int
+  { -- | The agent versions for the specified stack or configuration manager.
+    -- Note that this value is the complete version number, not the abbreviated
+    -- number used by the console.
+    agentVersions :: Prelude.Maybe [AgentVersion],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAgentVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAgentVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'davrrsAgentVersions' - The agent versions for the specified stack or configuration manager. Note that this value is the complete version number, not the abbreviated number used by the console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'davrrsResponseStatus' - -- | The response status code.
-describeAgentVersionsResponse ::
-  -- | 'davrrsResponseStatus'
-  Int ->
+-- 'agentVersions', 'describeAgentVersionsResponse_agentVersions' - The agent versions for the specified stack or configuration manager.
+-- Note that this value is the complete version number, not the abbreviated
+-- number used by the console.
+--
+-- 'httpStatus', 'describeAgentVersionsResponse_httpStatus' - The response's http status code.
+newDescribeAgentVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAgentVersionsResponse
-describeAgentVersionsResponse pResponseStatus_ =
+newDescribeAgentVersionsResponse pHttpStatus_ =
   DescribeAgentVersionsResponse'
-    { _davrrsAgentVersions =
-        Nothing,
-      _davrrsResponseStatus = pResponseStatus_
+    { agentVersions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The agent versions for the specified stack or configuration manager. Note that this value is the complete version number, not the abbreviated number used by the console.
-davrrsAgentVersions :: Lens' DescribeAgentVersionsResponse [AgentVersion]
-davrrsAgentVersions = lens _davrrsAgentVersions (\s a -> s {_davrrsAgentVersions = a}) . _Default . _Coerce
+-- | The agent versions for the specified stack or configuration manager.
+-- Note that this value is the complete version number, not the abbreviated
+-- number used by the console.
+describeAgentVersionsResponse_agentVersions :: Lens.Lens' DescribeAgentVersionsResponse (Prelude.Maybe [AgentVersion])
+describeAgentVersionsResponse_agentVersions = Lens.lens (\DescribeAgentVersionsResponse' {agentVersions} -> agentVersions) (\s@DescribeAgentVersionsResponse' {} a -> s {agentVersions = a} :: DescribeAgentVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-davrrsResponseStatus :: Lens' DescribeAgentVersionsResponse Int
-davrrsResponseStatus = lens _davrrsResponseStatus (\s a -> s {_davrrsResponseStatus = a})
+-- | The response's http status code.
+describeAgentVersionsResponse_httpStatus :: Lens.Lens' DescribeAgentVersionsResponse Prelude.Int
+describeAgentVersionsResponse_httpStatus = Lens.lens (\DescribeAgentVersionsResponse' {httpStatus} -> httpStatus) (\s@DescribeAgentVersionsResponse' {} a -> s {httpStatus = a} :: DescribeAgentVersionsResponse)
 
-instance NFData DescribeAgentVersionsResponse
+instance Prelude.NFData DescribeAgentVersionsResponse

@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types
   ( -- * Service Configuration
-    opsWorks,
+    defaultService,
 
     -- * Errors
     _ValidationException,
@@ -64,499 +67,179 @@ module Network.AWS.OpsWorks.Types
 
     -- * AgentVersion
     AgentVersion (..),
-    agentVersion,
-    avVersion,
-    avConfigurationManager,
+    newAgentVersion,
 
     -- * App
     App (..),
-    app,
-    appSSLConfiguration,
-    appAppSource,
-    appAppId,
-    appDataSources,
-    appStackId,
-    appDomains,
-    appEnableSSL,
-    appShortname,
-    appCreatedAt,
-    appEnvironment,
-    appAttributes,
-    appName,
-    appDescription,
-    appType,
+    newApp,
 
     -- * AutoScalingThresholds
     AutoScalingThresholds (..),
-    autoScalingThresholds,
-    astLoadThreshold,
-    astCPUThreshold,
-    astMemoryThreshold,
-    astAlarms,
-    astIgnoreMetricsTime,
-    astThresholdsWaitTime,
-    astInstanceCount,
+    newAutoScalingThresholds,
 
     -- * BlockDeviceMapping
     BlockDeviceMapping (..),
-    blockDeviceMapping,
-    bdmEBS,
-    bdmNoDevice,
-    bdmVirtualName,
-    bdmDeviceName,
+    newBlockDeviceMapping,
 
     -- * ChefConfiguration
     ChefConfiguration (..),
-    chefConfiguration,
-    ccManageBerkshelf,
-    ccBerkshelfVersion,
+    newChefConfiguration,
 
     -- * CloudWatchLogsConfiguration
     CloudWatchLogsConfiguration (..),
-    cloudWatchLogsConfiguration,
-    cwlcEnabled,
-    cwlcLogStreams,
+    newCloudWatchLogsConfiguration,
 
     -- * CloudWatchLogsLogStream
     CloudWatchLogsLogStream (..),
-    cloudWatchLogsLogStream,
-    cwllsMultiLineStartPattern,
-    cwllsInitialPosition,
-    cwllsBatchCount,
-    cwllsFile,
-    cwllsFileFingerprintLines,
-    cwllsLogGroupName,
-    cwllsBatchSize,
-    cwllsBufferDuration,
-    cwllsEncoding,
-    cwllsTimeZone,
-    cwllsDatetimeFormat,
+    newCloudWatchLogsLogStream,
 
     -- * Command
     Command (..),
-    command,
-    cLogURL,
-    cStatus,
-    cDeploymentId,
-    cInstanceId,
-    cCompletedAt,
-    cCreatedAt,
-    cExitCode,
-    cCommandId,
-    cAcknowledgedAt,
-    cType,
+    newCommand,
 
     -- * DataSource
     DataSource (..),
-    dataSource,
-    dsARN,
-    dsType,
-    dsDatabaseName,
+    newDataSource,
 
     -- * Deployment
     Deployment (..),
-    deployment,
-    dInstanceIds,
-    dStatus,
-    dDeploymentId,
-    dAppId,
-    dIAMUserARN,
-    dDuration,
-    dStackId,
-    dComment,
-    dCustomJSON,
-    dCompletedAt,
-    dCreatedAt,
-    dCommand,
+    newDeployment,
 
     -- * DeploymentCommand
     DeploymentCommand (..),
-    deploymentCommand,
-    dcArgs,
-    dcName,
+    newDeploymentCommand,
 
-    -- * EBSBlockDevice
-    EBSBlockDevice (..),
-    ebsBlockDevice,
-    ebdDeleteOnTermination,
-    ebdSnapshotId,
-    ebdVolumeType,
-    ebdVolumeSize,
-    ebdIOPS,
+    -- * EbsBlockDevice
+    EbsBlockDevice (..),
+    newEbsBlockDevice,
 
     -- * EcsCluster
     EcsCluster (..),
-    ecsCluster,
-    ecStackId,
-    ecEcsClusterName,
-    ecRegisteredAt,
-    ecEcsClusterARN,
+    newEcsCluster,
 
-    -- * ElasticIP
-    ElasticIP (..),
-    elasticIP,
-    eiInstanceId,
-    eiIP,
-    eiDomain,
-    eiName,
-    eiRegion,
+    -- * ElasticIp
+    ElasticIp (..),
+    newElasticIp,
 
     -- * ElasticLoadBalancer
     ElasticLoadBalancer (..),
-    elasticLoadBalancer,
-    elbAvailabilityZones,
-    elbStackId,
-    elbElasticLoadBalancerName,
-    elbSubnetIds,
-    elbDNSName,
-    elbLayerId,
-    elbEC2InstanceIds,
-    elbRegion,
-    elbVPCId,
+    newElasticLoadBalancer,
 
     -- * EnvironmentVariable
     EnvironmentVariable (..),
-    environmentVariable,
-    evSecure,
-    evKey,
-    evValue,
+    newEnvironmentVariable,
 
     -- * Instance
     Instance (..),
-    instance',
-    iHostname,
-    iPlatform,
-    iSecurityGroupIds,
-    iSSHHostRsaKeyFingerprint,
-    iInstanceProfileARN,
-    iVirtualizationType,
-    iPrivateDNS,
-    iElasticIP,
-    iStatus,
-    iInstallUpdatesOnBoot,
-    iInstanceId,
-    iReportedAgentVersion,
-    iInstanceType,
-    iSSHHostDsaKeyFingerprint,
-    iEBSOptimized,
-    iRootDeviceType,
-    iStackId,
-    iAgentVersion,
-    iRootDeviceVolumeId,
-    iSSHKeyName,
-    iPublicDNS,
-    iAMIId,
-    iARN,
-    iCreatedAt,
-    iLayerIds,
-    iArchitecture,
-    iTenancy,
-    iAutoScalingType,
-    iAvailabilityZone,
-    iOS,
-    iPrivateIP,
-    iInfrastructureClass,
-    iBlockDeviceMappings,
-    iSubnetId,
-    iEcsContainerInstanceARN,
-    iRegisteredBy,
-    iReportedOS,
-    iPublicIP,
-    iEC2InstanceId,
-    iEcsClusterARN,
-    iLastServiceErrorId,
+    newInstance,
 
     -- * InstanceIdentity
     InstanceIdentity (..),
-    instanceIdentity,
-    iiDocument,
-    iiSignature,
+    newInstanceIdentity,
 
     -- * InstancesCount
     InstancesCount (..),
-    instancesCount,
-    icOnline,
-    icSetupFailed,
-    icRegistering,
-    icBooting,
-    icStopFailed,
-    icStartFailed,
-    icRunningSetup,
-    icTerminated,
-    icPending,
-    icTerminating,
-    icShuttingDown,
-    icAssigning,
-    icStopped,
-    icRebooting,
-    icRegistered,
-    icRequested,
-    icDeregistering,
-    icStopping,
-    icUnassigning,
-    icConnectionLost,
+    newInstancesCount,
 
     -- * Layer
     Layer (..),
-    layer,
-    lInstallUpdatesOnBoot,
-    lCustomInstanceProfileARN,
-    lCustomSecurityGroupIds,
-    lPackages,
-    lEnableAutoHealing,
-    lVolumeConfigurations,
-    lStackId,
-    lCustomJSON,
-    lDefaultRecipes,
-    lARN,
-    lShortname,
-    lCreatedAt,
-    lAttributes,
-    lName,
-    lCloudWatchLogsConfiguration,
-    lAutoAssignElasticIPs,
-    lLayerId,
-    lDefaultSecurityGroupNames,
-    lType,
-    lUseEBSOptimizedInstances,
-    lCustomRecipes,
-    lAutoAssignPublicIPs,
-    lLifecycleEventConfiguration,
+    newLayer,
 
     -- * LifecycleEventConfiguration
     LifecycleEventConfiguration (..),
-    lifecycleEventConfiguration,
-    lecShutdown,
+    newLifecycleEventConfiguration,
 
     -- * LoadBasedAutoScalingConfiguration
     LoadBasedAutoScalingConfiguration (..),
-    loadBasedAutoScalingConfiguration,
-    lbascDownScaling,
-    lbascEnable,
-    lbascLayerId,
-    lbascUpScaling,
+    newLoadBasedAutoScalingConfiguration,
 
     -- * OperatingSystem
     OperatingSystem (..),
-    operatingSystem,
-    osSupported,
-    osConfigurationManagers,
-    osId,
-    osReportedVersion,
-    osName,
-    osType,
-    osReportedName,
+    newOperatingSystem,
 
     -- * OperatingSystemConfigurationManager
     OperatingSystemConfigurationManager (..),
-    operatingSystemConfigurationManager,
-    oscmVersion,
-    oscmName,
+    newOperatingSystemConfigurationManager,
 
     -- * Permission
     Permission (..),
-    permission,
-    pAllowSudo,
-    pIAMUserARN,
-    pStackId,
-    pAllowSSH,
-    pLevel,
+    newPermission,
 
-    -- * RAIdArray
-    RAIdArray (..),
-    rAIdArray,
-    raiaNumberOfDisks,
-    raiaInstanceId,
-    raiaStackId,
-    raiaDevice,
-    raiaCreatedAt,
-    raiaRAIdArrayId,
-    raiaAvailabilityZone,
-    raiaName,
-    raiaMountPoint,
-    raiaVolumeType,
-    raiaRAIdLevel,
-    raiaIOPS,
-    raiaSize,
+    -- * RaidArray
+    RaidArray (..),
+    newRaidArray,
 
-    -- * RDSDBInstance
-    RDSDBInstance (..),
-    rdsDBInstance,
-    rdiRDSDBInstanceARN,
-    rdiDBUser,
-    rdiAddress,
-    rdiStackId,
-    rdiMissingOnRDS,
-    rdiDBInstanceIdentifier,
-    rdiDBPassword,
-    rdiEngine,
-    rdiRegion,
+    -- * RdsDbInstance
+    RdsDbInstance (..),
+    newRdsDbInstance,
 
     -- * Recipes
     Recipes (..),
-    recipes,
-    rShutdown,
-    rConfigure,
-    rUndeploy,
-    rSetup,
-    rDeploy,
+    newRecipes,
 
-    -- * ReportedOS
-    ReportedOS (..),
-    reportedOS,
-    roVersion,
-    roName,
-    roFamily,
-
-    -- * SSLConfiguration
-    SSLConfiguration (..),
-    sslConfiguration,
-    scPrivateKey,
-    scCertificate,
-    scChain,
+    -- * ReportedOs
+    ReportedOs (..),
+    newReportedOs,
 
     -- * SelfUserProfile
     SelfUserProfile (..),
-    selfUserProfile,
-    supIAMUserARN,
-    supSSHUsername,
-    supName,
-    supSSHPublicKey,
+    newSelfUserProfile,
 
     -- * ServiceError'
     ServiceError' (..),
-    serviceError',
-    seInstanceId,
-    seStackId,
-    seMessage,
-    seServiceErrorId,
-    seCreatedAt,
-    seType,
+    newServiceError',
 
     -- * ShutdownEventConfiguration
     ShutdownEventConfiguration (..),
-    shutdownEventConfiguration,
-    secExecutionTimeout,
-    secDelayUntilElbConnectionsDrained,
+    newShutdownEventConfiguration,
 
     -- * Source
     Source (..),
-    source,
-    sSSHKey,
-    sPassword,
-    sUsername,
-    sURL,
-    sRevision,
-    sType,
+    newSource,
+
+    -- * SslConfiguration
+    SslConfiguration (..),
+    newSslConfiguration,
 
     -- * Stack
     Stack (..),
-    stack,
-    staDefaultOS,
-    staUseOpsworksSecurityGroups,
-    staCustomCookbooksSource,
-    staServiceRoleARN,
-    staDefaultAvailabilityZone,
-    staStackId,
-    staAgentVersion,
-    staCustomJSON,
-    staARN,
-    staCreatedAt,
-    staDefaultRootDeviceType,
-    staAttributes,
-    staName,
-    staDefaultInstanceProfileARN,
-    staHostnameTheme,
-    staDefaultSSHKeyName,
-    staConfigurationManager,
-    staRegion,
-    staVPCId,
-    staChefConfiguration,
-    staDefaultSubnetId,
-    staUseCustomCookbooks,
+    newStack,
 
     -- * StackConfigurationManager
     StackConfigurationManager (..),
-    stackConfigurationManager,
-    scmVersion,
-    scmName,
+    newStackConfigurationManager,
 
     -- * StackSummary
     StackSummary (..),
-    stackSummary,
-    sssStackId,
-    sssLayersCount,
-    sssARN,
-    sssName,
-    sssInstancesCount,
-    sssAppsCount,
+    newStackSummary,
 
     -- * TemporaryCredential
     TemporaryCredential (..),
-    temporaryCredential,
-    tcValidForInMinutes,
-    tcInstanceId,
-    tcPassword,
-    tcUsername,
+    newTemporaryCredential,
 
     -- * TimeBasedAutoScalingConfiguration
     TimeBasedAutoScalingConfiguration (..),
-    timeBasedAutoScalingConfiguration,
-    tbascInstanceId,
-    tbascAutoScalingSchedule,
+    newTimeBasedAutoScalingConfiguration,
 
     -- * UserProfile
     UserProfile (..),
-    userProfile,
-    upIAMUserARN,
-    upAllowSelfManagement,
-    upSSHUsername,
-    upName,
-    upSSHPublicKey,
+    newUserProfile,
 
     -- * Volume
     Volume (..),
-    volume,
-    vStatus,
-    vInstanceId,
-    vEC2VolumeId,
-    vEncrypted,
-    vDevice,
-    vVolumeId,
-    vRAIdArrayId,
-    vAvailabilityZone,
-    vName,
-    vMountPoint,
-    vVolumeType,
-    vRegion,
-    vIOPS,
-    vSize,
+    newVolume,
 
     -- * VolumeConfiguration
     VolumeConfiguration (..),
-    volumeConfiguration,
-    vcEncrypted,
-    vcVolumeType,
-    vcRAIdLevel,
-    vcIOPS,
-    vcMountPoint,
-    vcNumberOfDisks,
-    vcSize,
+    newVolumeConfiguration,
 
     -- * WeeklyAutoScalingSchedule
     WeeklyAutoScalingSchedule (..),
-    weeklyAutoScalingSchedule,
-    wassThursday,
-    wassFriday,
-    wassTuesday,
-    wassMonday,
-    wassSunday,
-    wassSaturday,
-    wassWednesday,
+    newWeeklyAutoScalingSchedule,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types.AgentVersion
 import Network.AWS.OpsWorks.Types.App
 import Network.AWS.OpsWorks.Types.AppAttributesKeys
@@ -576,9 +259,9 @@ import Network.AWS.OpsWorks.Types.DataSource
 import Network.AWS.OpsWorks.Types.Deployment
 import Network.AWS.OpsWorks.Types.DeploymentCommand
 import Network.AWS.OpsWorks.Types.DeploymentCommandName
-import Network.AWS.OpsWorks.Types.EBSBlockDevice
+import Network.AWS.OpsWorks.Types.EbsBlockDevice
 import Network.AWS.OpsWorks.Types.EcsCluster
-import Network.AWS.OpsWorks.Types.ElasticIP
+import Network.AWS.OpsWorks.Types.ElasticIp
 import Network.AWS.OpsWorks.Types.ElasticLoadBalancer
 import Network.AWS.OpsWorks.Types.EnvironmentVariable
 import Network.AWS.OpsWorks.Types.Instance
@@ -592,17 +275,17 @@ import Network.AWS.OpsWorks.Types.LoadBasedAutoScalingConfiguration
 import Network.AWS.OpsWorks.Types.OperatingSystem
 import Network.AWS.OpsWorks.Types.OperatingSystemConfigurationManager
 import Network.AWS.OpsWorks.Types.Permission
-import Network.AWS.OpsWorks.Types.RAIdArray
-import Network.AWS.OpsWorks.Types.RDSDBInstance
+import Network.AWS.OpsWorks.Types.RaidArray
+import Network.AWS.OpsWorks.Types.RdsDbInstance
 import Network.AWS.OpsWorks.Types.Recipes
-import Network.AWS.OpsWorks.Types.ReportedOS
+import Network.AWS.OpsWorks.Types.ReportedOs
 import Network.AWS.OpsWorks.Types.RootDeviceType
-import Network.AWS.OpsWorks.Types.SSLConfiguration
 import Network.AWS.OpsWorks.Types.SelfUserProfile
 import Network.AWS.OpsWorks.Types.ServiceError'
 import Network.AWS.OpsWorks.Types.ShutdownEventConfiguration
 import Network.AWS.OpsWorks.Types.Source
 import Network.AWS.OpsWorks.Types.SourceType
+import Network.AWS.OpsWorks.Types.SslConfiguration
 import Network.AWS.OpsWorks.Types.Stack
 import Network.AWS.OpsWorks.Types.StackAttributesKeys
 import Network.AWS.OpsWorks.Types.StackConfigurationManager
@@ -615,68 +298,89 @@ import Network.AWS.OpsWorks.Types.Volume
 import Network.AWS.OpsWorks.Types.VolumeConfiguration
 import Network.AWS.OpsWorks.Types.VolumeType
 import Network.AWS.OpsWorks.Types.WeeklyAutoScalingSchedule
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2013-02-18@ of the Amazon OpsWorks SDK configuration.
-opsWorks :: Service
-opsWorks =
-  Service
-    { _svcAbbrev = "OpsWorks",
-      _svcSigner = v4,
-      _svcPrefix = "opsworks",
-      _svcVersion = "2013-02-18",
-      _svcEndpoint = defaultEndpoint opsWorks,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "OpsWorks",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "OpsWorks",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "opsworks",
+      Prelude._svcVersion = "2013-02-18",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "OpsWorks",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | Indicates that a request was not valid.
-_ValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ValidationException =
-  _MatchServiceError opsWorks "ValidationException"
+  Prelude._MatchServiceError
+    defaultService
+    "ValidationException"
 
 -- | Indicates that a resource was not found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    opsWorks
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"

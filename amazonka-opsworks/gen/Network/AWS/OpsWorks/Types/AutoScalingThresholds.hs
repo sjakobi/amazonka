@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,126 +19,195 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.AutoScalingThresholds where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a load-based auto scaling upscaling or downscaling threshold configuration, which specifies when AWS OpsWorks Stacks starts or stops load-based instances.
+-- | Describes a load-based auto scaling upscaling or downscaling threshold
+-- configuration, which specifies when AWS OpsWorks Stacks starts or stops
+-- load-based instances.
 --
---
---
--- /See:/ 'autoScalingThresholds' smart constructor.
+-- /See:/ 'newAutoScalingThresholds' smart constructor.
 data AutoScalingThresholds = AutoScalingThresholds'
-  { _astLoadThreshold ::
-      !(Maybe Double),
-    _astCPUThreshold ::
-      !(Maybe Double),
-    _astMemoryThreshold ::
-      !(Maybe Double),
-    _astAlarms ::
-      !(Maybe [Text]),
-    _astIgnoreMetricsTime ::
-      !(Maybe Nat),
-    _astThresholdsWaitTime ::
-      !(Maybe Nat),
-    _astInstanceCount ::
-      !(Maybe Int)
+  { -- | The load threshold. A value of -1 disables the threshold. For more
+    -- information about how load is computed, see
+    -- <http://en.wikipedia.org/wiki/Load_%28computing%29 Load (computing)>.
+    loadThreshold :: Prelude.Maybe Prelude.Double,
+    -- | The CPU utilization threshold, as a percent of the available CPU. A
+    -- value of -1 disables the threshold.
+    cpuThreshold :: Prelude.Maybe Prelude.Double,
+    -- | The memory utilization threshold, as a percent of the available memory.
+    -- A value of -1 disables the threshold.
+    memoryThreshold :: Prelude.Maybe Prelude.Double,
+    -- | Custom Cloudwatch auto scaling alarms, to be used as thresholds. This
+    -- parameter takes a list of up to five alarm names, which are case
+    -- sensitive and must be in the same region as the stack.
+    --
+    -- To use custom alarms, you must update your service role to allow
+    -- @cloudwatch:DescribeAlarms@. You can either have AWS OpsWorks Stacks
+    -- update the role for you when you first use this feature or you can edit
+    -- the role manually. For more information, see
+    -- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-servicerole.html Allowing AWS OpsWorks Stacks to Act on Your Behalf>.
+    alarms :: Prelude.Maybe [Prelude.Text],
+    -- | The amount of time (in minutes) after a scaling event occurs that AWS
+    -- OpsWorks Stacks should ignore metrics and suppress additional scaling
+    -- events. For example, AWS OpsWorks Stacks adds new instances following an
+    -- upscaling event but the instances won\'t start reducing the load until
+    -- they have been booted and configured. There is no point in raising
+    -- additional scaling events during that operation, which typically takes
+    -- several minutes. @IgnoreMetricsTime@ allows you to direct AWS OpsWorks
+    -- Stacks to suppress scaling events long enough to get the new instances
+    -- online.
+    ignoreMetricsTime :: Prelude.Maybe Prelude.Nat,
+    -- | The amount of time, in minutes, that the load must exceed a threshold
+    -- before more instances are added or removed.
+    thresholdsWaitTime :: Prelude.Maybe Prelude.Nat,
+    -- | The number of instances to add or remove when the load exceeds a
+    -- threshold.
+    instanceCount :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoScalingThresholds' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoScalingThresholds' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'astLoadThreshold' - The load threshold. A value of -1 disables the threshold. For more information about how load is computed, see <http://en.wikipedia.org/wiki/Load_%28computing%29 Load (computing)> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'astCPUThreshold' - The CPU utilization threshold, as a percent of the available CPU. A value of -1 disables the threshold.
+-- 'loadThreshold', 'autoScalingThresholds_loadThreshold' - The load threshold. A value of -1 disables the threshold. For more
+-- information about how load is computed, see
+-- <http://en.wikipedia.org/wiki/Load_%28computing%29 Load (computing)>.
 --
--- * 'astMemoryThreshold' - The memory utilization threshold, as a percent of the available memory. A value of -1 disables the threshold.
+-- 'cpuThreshold', 'autoScalingThresholds_cpuThreshold' - The CPU utilization threshold, as a percent of the available CPU. A
+-- value of -1 disables the threshold.
 --
--- * 'astAlarms' - Custom Cloudwatch auto scaling alarms, to be used as thresholds. This parameter takes a list of up to five alarm names, which are case sensitive and must be in the same region as the stack.
+-- 'memoryThreshold', 'autoScalingThresholds_memoryThreshold' - The memory utilization threshold, as a percent of the available memory.
+-- A value of -1 disables the threshold.
 --
--- * 'astIgnoreMetricsTime' - The amount of time (in minutes) after a scaling event occurs that AWS OpsWorks Stacks should ignore metrics and suppress additional scaling events. For example, AWS OpsWorks Stacks adds new instances following an upscaling event but the instances won't start reducing the load until they have been booted and configured. There is no point in raising additional scaling events during that operation, which typically takes several minutes. @IgnoreMetricsTime@ allows you to direct AWS OpsWorks Stacks to suppress scaling events long enough to get the new instances online.
+-- 'alarms', 'autoScalingThresholds_alarms' - Custom Cloudwatch auto scaling alarms, to be used as thresholds. This
+-- parameter takes a list of up to five alarm names, which are case
+-- sensitive and must be in the same region as the stack.
 --
--- * 'astThresholdsWaitTime' - The amount of time, in minutes, that the load must exceed a threshold before more instances are added or removed.
+-- To use custom alarms, you must update your service role to allow
+-- @cloudwatch:DescribeAlarms@. You can either have AWS OpsWorks Stacks
+-- update the role for you when you first use this feature or you can edit
+-- the role manually. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-servicerole.html Allowing AWS OpsWorks Stacks to Act on Your Behalf>.
 --
--- * 'astInstanceCount' - The number of instances to add or remove when the load exceeds a threshold.
-autoScalingThresholds ::
+-- 'ignoreMetricsTime', 'autoScalingThresholds_ignoreMetricsTime' - The amount of time (in minutes) after a scaling event occurs that AWS
+-- OpsWorks Stacks should ignore metrics and suppress additional scaling
+-- events. For example, AWS OpsWorks Stacks adds new instances following an
+-- upscaling event but the instances won\'t start reducing the load until
+-- they have been booted and configured. There is no point in raising
+-- additional scaling events during that operation, which typically takes
+-- several minutes. @IgnoreMetricsTime@ allows you to direct AWS OpsWorks
+-- Stacks to suppress scaling events long enough to get the new instances
+-- online.
+--
+-- 'thresholdsWaitTime', 'autoScalingThresholds_thresholdsWaitTime' - The amount of time, in minutes, that the load must exceed a threshold
+-- before more instances are added or removed.
+--
+-- 'instanceCount', 'autoScalingThresholds_instanceCount' - The number of instances to add or remove when the load exceeds a
+-- threshold.
+newAutoScalingThresholds ::
   AutoScalingThresholds
-autoScalingThresholds =
+newAutoScalingThresholds =
   AutoScalingThresholds'
-    { _astLoadThreshold = Nothing,
-      _astCPUThreshold = Nothing,
-      _astMemoryThreshold = Nothing,
-      _astAlarms = Nothing,
-      _astIgnoreMetricsTime = Nothing,
-      _astThresholdsWaitTime = Nothing,
-      _astInstanceCount = Nothing
+    { loadThreshold =
+        Prelude.Nothing,
+      cpuThreshold = Prelude.Nothing,
+      memoryThreshold = Prelude.Nothing,
+      alarms = Prelude.Nothing,
+      ignoreMetricsTime = Prelude.Nothing,
+      thresholdsWaitTime = Prelude.Nothing,
+      instanceCount = Prelude.Nothing
     }
 
--- | The load threshold. A value of -1 disables the threshold. For more information about how load is computed, see <http://en.wikipedia.org/wiki/Load_%28computing%29 Load (computing)> .
-astLoadThreshold :: Lens' AutoScalingThresholds (Maybe Double)
-astLoadThreshold = lens _astLoadThreshold (\s a -> s {_astLoadThreshold = a})
+-- | The load threshold. A value of -1 disables the threshold. For more
+-- information about how load is computed, see
+-- <http://en.wikipedia.org/wiki/Load_%28computing%29 Load (computing)>.
+autoScalingThresholds_loadThreshold :: Lens.Lens' AutoScalingThresholds (Prelude.Maybe Prelude.Double)
+autoScalingThresholds_loadThreshold = Lens.lens (\AutoScalingThresholds' {loadThreshold} -> loadThreshold) (\s@AutoScalingThresholds' {} a -> s {loadThreshold = a} :: AutoScalingThresholds)
 
--- | The CPU utilization threshold, as a percent of the available CPU. A value of -1 disables the threshold.
-astCPUThreshold :: Lens' AutoScalingThresholds (Maybe Double)
-astCPUThreshold = lens _astCPUThreshold (\s a -> s {_astCPUThreshold = a})
+-- | The CPU utilization threshold, as a percent of the available CPU. A
+-- value of -1 disables the threshold.
+autoScalingThresholds_cpuThreshold :: Lens.Lens' AutoScalingThresholds (Prelude.Maybe Prelude.Double)
+autoScalingThresholds_cpuThreshold = Lens.lens (\AutoScalingThresholds' {cpuThreshold} -> cpuThreshold) (\s@AutoScalingThresholds' {} a -> s {cpuThreshold = a} :: AutoScalingThresholds)
 
--- | The memory utilization threshold, as a percent of the available memory. A value of -1 disables the threshold.
-astMemoryThreshold :: Lens' AutoScalingThresholds (Maybe Double)
-astMemoryThreshold = lens _astMemoryThreshold (\s a -> s {_astMemoryThreshold = a})
+-- | The memory utilization threshold, as a percent of the available memory.
+-- A value of -1 disables the threshold.
+autoScalingThresholds_memoryThreshold :: Lens.Lens' AutoScalingThresholds (Prelude.Maybe Prelude.Double)
+autoScalingThresholds_memoryThreshold = Lens.lens (\AutoScalingThresholds' {memoryThreshold} -> memoryThreshold) (\s@AutoScalingThresholds' {} a -> s {memoryThreshold = a} :: AutoScalingThresholds)
 
--- | Custom Cloudwatch auto scaling alarms, to be used as thresholds. This parameter takes a list of up to five alarm names, which are case sensitive and must be in the same region as the stack.
-astAlarms :: Lens' AutoScalingThresholds [Text]
-astAlarms = lens _astAlarms (\s a -> s {_astAlarms = a}) . _Default . _Coerce
+-- | Custom Cloudwatch auto scaling alarms, to be used as thresholds. This
+-- parameter takes a list of up to five alarm names, which are case
+-- sensitive and must be in the same region as the stack.
+--
+-- To use custom alarms, you must update your service role to allow
+-- @cloudwatch:DescribeAlarms@. You can either have AWS OpsWorks Stacks
+-- update the role for you when you first use this feature or you can edit
+-- the role manually. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-servicerole.html Allowing AWS OpsWorks Stacks to Act on Your Behalf>.
+autoScalingThresholds_alarms :: Lens.Lens' AutoScalingThresholds (Prelude.Maybe [Prelude.Text])
+autoScalingThresholds_alarms = Lens.lens (\AutoScalingThresholds' {alarms} -> alarms) (\s@AutoScalingThresholds' {} a -> s {alarms = a} :: AutoScalingThresholds) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The amount of time (in minutes) after a scaling event occurs that AWS OpsWorks Stacks should ignore metrics and suppress additional scaling events. For example, AWS OpsWorks Stacks adds new instances following an upscaling event but the instances won't start reducing the load until they have been booted and configured. There is no point in raising additional scaling events during that operation, which typically takes several minutes. @IgnoreMetricsTime@ allows you to direct AWS OpsWorks Stacks to suppress scaling events long enough to get the new instances online.
-astIgnoreMetricsTime :: Lens' AutoScalingThresholds (Maybe Natural)
-astIgnoreMetricsTime = lens _astIgnoreMetricsTime (\s a -> s {_astIgnoreMetricsTime = a}) . mapping _Nat
+-- | The amount of time (in minutes) after a scaling event occurs that AWS
+-- OpsWorks Stacks should ignore metrics and suppress additional scaling
+-- events. For example, AWS OpsWorks Stacks adds new instances following an
+-- upscaling event but the instances won\'t start reducing the load until
+-- they have been booted and configured. There is no point in raising
+-- additional scaling events during that operation, which typically takes
+-- several minutes. @IgnoreMetricsTime@ allows you to direct AWS OpsWorks
+-- Stacks to suppress scaling events long enough to get the new instances
+-- online.
+autoScalingThresholds_ignoreMetricsTime :: Lens.Lens' AutoScalingThresholds (Prelude.Maybe Prelude.Natural)
+autoScalingThresholds_ignoreMetricsTime = Lens.lens (\AutoScalingThresholds' {ignoreMetricsTime} -> ignoreMetricsTime) (\s@AutoScalingThresholds' {} a -> s {ignoreMetricsTime = a} :: AutoScalingThresholds) Prelude.. Lens.mapping Prelude._Nat
 
--- | The amount of time, in minutes, that the load must exceed a threshold before more instances are added or removed.
-astThresholdsWaitTime :: Lens' AutoScalingThresholds (Maybe Natural)
-astThresholdsWaitTime = lens _astThresholdsWaitTime (\s a -> s {_astThresholdsWaitTime = a}) . mapping _Nat
+-- | The amount of time, in minutes, that the load must exceed a threshold
+-- before more instances are added or removed.
+autoScalingThresholds_thresholdsWaitTime :: Lens.Lens' AutoScalingThresholds (Prelude.Maybe Prelude.Natural)
+autoScalingThresholds_thresholdsWaitTime = Lens.lens (\AutoScalingThresholds' {thresholdsWaitTime} -> thresholdsWaitTime) (\s@AutoScalingThresholds' {} a -> s {thresholdsWaitTime = a} :: AutoScalingThresholds) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of instances to add or remove when the load exceeds a threshold.
-astInstanceCount :: Lens' AutoScalingThresholds (Maybe Int)
-astInstanceCount = lens _astInstanceCount (\s a -> s {_astInstanceCount = a})
+-- | The number of instances to add or remove when the load exceeds a
+-- threshold.
+autoScalingThresholds_instanceCount :: Lens.Lens' AutoScalingThresholds (Prelude.Maybe Prelude.Int)
+autoScalingThresholds_instanceCount = Lens.lens (\AutoScalingThresholds' {instanceCount} -> instanceCount) (\s@AutoScalingThresholds' {} a -> s {instanceCount = a} :: AutoScalingThresholds)
 
-instance FromJSON AutoScalingThresholds where
+instance Prelude.FromJSON AutoScalingThresholds where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoScalingThresholds"
       ( \x ->
           AutoScalingThresholds'
-            <$> (x .:? "LoadThreshold")
-            <*> (x .:? "CpuThreshold")
-            <*> (x .:? "MemoryThreshold")
-            <*> (x .:? "Alarms" .!= mempty)
-            <*> (x .:? "IgnoreMetricsTime")
-            <*> (x .:? "ThresholdsWaitTime")
-            <*> (x .:? "InstanceCount")
+            Prelude.<$> (x Prelude..:? "LoadThreshold")
+            Prelude.<*> (x Prelude..:? "CpuThreshold")
+            Prelude.<*> (x Prelude..:? "MemoryThreshold")
+            Prelude.<*> (x Prelude..:? "Alarms" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "IgnoreMetricsTime")
+            Prelude.<*> (x Prelude..:? "ThresholdsWaitTime")
+            Prelude.<*> (x Prelude..:? "InstanceCount")
       )
 
-instance Hashable AutoScalingThresholds
+instance Prelude.Hashable AutoScalingThresholds
 
-instance NFData AutoScalingThresholds
+instance Prelude.NFData AutoScalingThresholds
 
-instance ToJSON AutoScalingThresholds where
+instance Prelude.ToJSON AutoScalingThresholds where
   toJSON AutoScalingThresholds' {..} =
-    object
-      ( catMaybes
-          [ ("LoadThreshold" .=) <$> _astLoadThreshold,
-            ("CpuThreshold" .=) <$> _astCPUThreshold,
-            ("MemoryThreshold" .=) <$> _astMemoryThreshold,
-            ("Alarms" .=) <$> _astAlarms,
-            ("IgnoreMetricsTime" .=) <$> _astIgnoreMetricsTime,
-            ("ThresholdsWaitTime" .=) <$> _astThresholdsWaitTime,
-            ("InstanceCount" .=) <$> _astInstanceCount
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LoadThreshold" Prelude..=)
+              Prelude.<$> loadThreshold,
+            ("CpuThreshold" Prelude..=) Prelude.<$> cpuThreshold,
+            ("MemoryThreshold" Prelude..=)
+              Prelude.<$> memoryThreshold,
+            ("Alarms" Prelude..=) Prelude.<$> alarms,
+            ("IgnoreMetricsTime" Prelude..=)
+              Prelude.<$> ignoreMetricsTime,
+            ("ThresholdsWaitTime" Prelude..=)
+              Prelude.<$> thresholdsWaitTime,
+            ("InstanceCount" Prelude..=)
+              Prelude.<$> instanceCount
           ]
       )

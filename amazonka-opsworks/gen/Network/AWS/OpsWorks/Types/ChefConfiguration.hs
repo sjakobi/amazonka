@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.ChefConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the Chef configuration.
 --
---
---
--- /See:/ 'chefConfiguration' smart constructor.
+-- /See:/ 'newChefConfiguration' smart constructor.
 data ChefConfiguration = ChefConfiguration'
-  { _ccManageBerkshelf ::
-      !(Maybe Bool),
-    _ccBerkshelfVersion ::
-      !(Maybe Text)
+  { -- | Whether to enable Berkshelf.
+    manageBerkshelf :: Prelude.Maybe Prelude.Bool,
+    -- | The Berkshelf version.
+    berkshelfVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChefConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChefConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccManageBerkshelf' - Whether to enable Berkshelf.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccBerkshelfVersion' - The Berkshelf version.
-chefConfiguration ::
+-- 'manageBerkshelf', 'chefConfiguration_manageBerkshelf' - Whether to enable Berkshelf.
+--
+-- 'berkshelfVersion', 'chefConfiguration_berkshelfVersion' - The Berkshelf version.
+newChefConfiguration ::
   ChefConfiguration
-chefConfiguration =
+newChefConfiguration =
   ChefConfiguration'
-    { _ccManageBerkshelf = Nothing,
-      _ccBerkshelfVersion = Nothing
+    { manageBerkshelf =
+        Prelude.Nothing,
+      berkshelfVersion = Prelude.Nothing
     }
 
 -- | Whether to enable Berkshelf.
-ccManageBerkshelf :: Lens' ChefConfiguration (Maybe Bool)
-ccManageBerkshelf = lens _ccManageBerkshelf (\s a -> s {_ccManageBerkshelf = a})
+chefConfiguration_manageBerkshelf :: Lens.Lens' ChefConfiguration (Prelude.Maybe Prelude.Bool)
+chefConfiguration_manageBerkshelf = Lens.lens (\ChefConfiguration' {manageBerkshelf} -> manageBerkshelf) (\s@ChefConfiguration' {} a -> s {manageBerkshelf = a} :: ChefConfiguration)
 
 -- | The Berkshelf version.
-ccBerkshelfVersion :: Lens' ChefConfiguration (Maybe Text)
-ccBerkshelfVersion = lens _ccBerkshelfVersion (\s a -> s {_ccBerkshelfVersion = a})
+chefConfiguration_berkshelfVersion :: Lens.Lens' ChefConfiguration (Prelude.Maybe Prelude.Text)
+chefConfiguration_berkshelfVersion = Lens.lens (\ChefConfiguration' {berkshelfVersion} -> berkshelfVersion) (\s@ChefConfiguration' {} a -> s {berkshelfVersion = a} :: ChefConfiguration)
 
-instance FromJSON ChefConfiguration where
+instance Prelude.FromJSON ChefConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChefConfiguration"
       ( \x ->
           ChefConfiguration'
-            <$> (x .:? "ManageBerkshelf")
-            <*> (x .:? "BerkshelfVersion")
+            Prelude.<$> (x Prelude..:? "ManageBerkshelf")
+            Prelude.<*> (x Prelude..:? "BerkshelfVersion")
       )
 
-instance Hashable ChefConfiguration
+instance Prelude.Hashable ChefConfiguration
 
-instance NFData ChefConfiguration
+instance Prelude.NFData ChefConfiguration
 
-instance ToJSON ChefConfiguration where
+instance Prelude.ToJSON ChefConfiguration where
   toJSON ChefConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("ManageBerkshelf" .=) <$> _ccManageBerkshelf,
-            ("BerkshelfVersion" .=) <$> _ccBerkshelfVersion
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ManageBerkshelf" Prelude..=)
+              Prelude.<$> manageBerkshelf,
+            ("BerkshelfVersion" Prelude..=)
+              Prelude.<$> berkshelfVersion
           ]
       )

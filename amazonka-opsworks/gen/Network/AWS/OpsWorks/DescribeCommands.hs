@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,158 +23,192 @@
 --
 -- Describes the results of specified commands.
 --
+-- This call accepts only one resource-identifying parameter.
 --
--- __Required Permissions__ : To use this action, an IAM user must have a Show, Deploy, or Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information about user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Show, Deploy, or Manage permissions level for the stack, or an attached
+-- policy that explicitly grants permissions. For more information about
+-- user permissions, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.DescribeCommands
   ( -- * Creating a Request
-    describeCommands,
-    DescribeCommands,
+    DescribeCommands (..),
+    newDescribeCommands,
 
     -- * Request Lenses
-    dcDeploymentId,
-    dcInstanceId,
-    dcCommandIds,
+    describeCommands_deploymentId,
+    describeCommands_instanceId,
+    describeCommands_commandIds,
 
     -- * Destructuring the Response
-    describeCommandsResponse,
-    DescribeCommandsResponse,
+    DescribeCommandsResponse (..),
+    newDescribeCommandsResponse,
 
     -- * Response Lenses
-    dcrrsCommands,
-    dcrrsResponseStatus,
+    describeCommandsResponse_commands,
+    describeCommandsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorks.Types.Command
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCommands' smart constructor.
+-- | /See:/ 'newDescribeCommands' smart constructor.
 data DescribeCommands = DescribeCommands'
-  { _dcDeploymentId ::
-      !(Maybe Text),
-    _dcInstanceId :: !(Maybe Text),
-    _dcCommandIds :: !(Maybe [Text])
+  { -- | The deployment ID. If you include this parameter, @DescribeCommands@
+    -- returns a description of the commands associated with the specified
+    -- deployment.
+    deploymentId :: Prelude.Maybe Prelude.Text,
+    -- | The instance ID. If you include this parameter, @DescribeCommands@
+    -- returns a description of the commands associated with the specified
+    -- instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | An array of command IDs. If you include this parameter,
+    -- @DescribeCommands@ returns a description of the specified commands.
+    -- Otherwise, it returns a description of every command.
+    commandIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCommands' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCommands' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcDeploymentId' - The deployment ID. If you include this parameter, @DescribeCommands@ returns a description of the commands associated with the specified deployment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcInstanceId' - The instance ID. If you include this parameter, @DescribeCommands@ returns a description of the commands associated with the specified instance.
+-- 'deploymentId', 'describeCommands_deploymentId' - The deployment ID. If you include this parameter, @DescribeCommands@
+-- returns a description of the commands associated with the specified
+-- deployment.
 --
--- * 'dcCommandIds' - An array of command IDs. If you include this parameter, @DescribeCommands@ returns a description of the specified commands. Otherwise, it returns a description of every command.
-describeCommands ::
+-- 'instanceId', 'describeCommands_instanceId' - The instance ID. If you include this parameter, @DescribeCommands@
+-- returns a description of the commands associated with the specified
+-- instance.
+--
+-- 'commandIds', 'describeCommands_commandIds' - An array of command IDs. If you include this parameter,
+-- @DescribeCommands@ returns a description of the specified commands.
+-- Otherwise, it returns a description of every command.
+newDescribeCommands ::
   DescribeCommands
-describeCommands =
+newDescribeCommands =
   DescribeCommands'
-    { _dcDeploymentId = Nothing,
-      _dcInstanceId = Nothing,
-      _dcCommandIds = Nothing
+    { deploymentId = Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      commandIds = Prelude.Nothing
     }
 
--- | The deployment ID. If you include this parameter, @DescribeCommands@ returns a description of the commands associated with the specified deployment.
-dcDeploymentId :: Lens' DescribeCommands (Maybe Text)
-dcDeploymentId = lens _dcDeploymentId (\s a -> s {_dcDeploymentId = a})
+-- | The deployment ID. If you include this parameter, @DescribeCommands@
+-- returns a description of the commands associated with the specified
+-- deployment.
+describeCommands_deploymentId :: Lens.Lens' DescribeCommands (Prelude.Maybe Prelude.Text)
+describeCommands_deploymentId = Lens.lens (\DescribeCommands' {deploymentId} -> deploymentId) (\s@DescribeCommands' {} a -> s {deploymentId = a} :: DescribeCommands)
 
--- | The instance ID. If you include this parameter, @DescribeCommands@ returns a description of the commands associated with the specified instance.
-dcInstanceId :: Lens' DescribeCommands (Maybe Text)
-dcInstanceId = lens _dcInstanceId (\s a -> s {_dcInstanceId = a})
+-- | The instance ID. If you include this parameter, @DescribeCommands@
+-- returns a description of the commands associated with the specified
+-- instance.
+describeCommands_instanceId :: Lens.Lens' DescribeCommands (Prelude.Maybe Prelude.Text)
+describeCommands_instanceId = Lens.lens (\DescribeCommands' {instanceId} -> instanceId) (\s@DescribeCommands' {} a -> s {instanceId = a} :: DescribeCommands)
 
--- | An array of command IDs. If you include this parameter, @DescribeCommands@ returns a description of the specified commands. Otherwise, it returns a description of every command.
-dcCommandIds :: Lens' DescribeCommands [Text]
-dcCommandIds = lens _dcCommandIds (\s a -> s {_dcCommandIds = a}) . _Default . _Coerce
+-- | An array of command IDs. If you include this parameter,
+-- @DescribeCommands@ returns a description of the specified commands.
+-- Otherwise, it returns a description of every command.
+describeCommands_commandIds :: Lens.Lens' DescribeCommands (Prelude.Maybe [Prelude.Text])
+describeCommands_commandIds = Lens.lens (\DescribeCommands' {commandIds} -> commandIds) (\s@DescribeCommands' {} a -> s {commandIds = a} :: DescribeCommands) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeCommands where
+instance Prelude.AWSRequest DescribeCommands where
   type Rs DescribeCommands = DescribeCommandsResponse
-  request = postJSON opsWorks
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCommandsResponse'
-            <$> (x .?> "Commands" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Commands" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCommands
+instance Prelude.Hashable DescribeCommands
 
-instance NFData DescribeCommands
+instance Prelude.NFData DescribeCommands
 
-instance ToHeaders DescribeCommands where
+instance Prelude.ToHeaders DescribeCommands where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.DescribeCommands" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.DescribeCommands" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeCommands where
+instance Prelude.ToJSON DescribeCommands where
   toJSON DescribeCommands' {..} =
-    object
-      ( catMaybes
-          [ ("DeploymentId" .=) <$> _dcDeploymentId,
-            ("InstanceId" .=) <$> _dcInstanceId,
-            ("CommandIds" .=) <$> _dcCommandIds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DeploymentId" Prelude..=)
+              Prelude.<$> deploymentId,
+            ("InstanceId" Prelude..=) Prelude.<$> instanceId,
+            ("CommandIds" Prelude..=) Prelude.<$> commandIds
           ]
       )
 
-instance ToPath DescribeCommands where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCommands where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCommands where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeCommands where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeCommands@ request.
 --
---
---
--- /See:/ 'describeCommandsResponse' smart constructor.
+-- /See:/ 'newDescribeCommandsResponse' smart constructor.
 data DescribeCommandsResponse = DescribeCommandsResponse'
-  { _dcrrsCommands ::
-      !(Maybe [Command]),
-    _dcrrsResponseStatus ::
-      !Int
+  { -- | An array of @Command@ objects that describe each of the specified
+    -- commands.
+    commands :: Prelude.Maybe [Command],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCommandsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCommandsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsCommands' - An array of @Command@ objects that describe each of the specified commands.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-describeCommandsResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- 'commands', 'describeCommandsResponse_commands' - An array of @Command@ objects that describe each of the specified
+-- commands.
+--
+-- 'httpStatus', 'describeCommandsResponse_httpStatus' - The response's http status code.
+newDescribeCommandsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCommandsResponse
-describeCommandsResponse pResponseStatus_ =
+newDescribeCommandsResponse pHttpStatus_ =
   DescribeCommandsResponse'
-    { _dcrrsCommands = Nothing,
-      _dcrrsResponseStatus = pResponseStatus_
+    { commands =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of @Command@ objects that describe each of the specified commands.
-dcrrsCommands :: Lens' DescribeCommandsResponse [Command]
-dcrrsCommands = lens _dcrrsCommands (\s a -> s {_dcrrsCommands = a}) . _Default . _Coerce
+-- | An array of @Command@ objects that describe each of the specified
+-- commands.
+describeCommandsResponse_commands :: Lens.Lens' DescribeCommandsResponse (Prelude.Maybe [Command])
+describeCommandsResponse_commands = Lens.lens (\DescribeCommandsResponse' {commands} -> commands) (\s@DescribeCommandsResponse' {} a -> s {commands = a} :: DescribeCommandsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DescribeCommandsResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+describeCommandsResponse_httpStatus :: Lens.Lens' DescribeCommandsResponse Prelude.Int
+describeCommandsResponse_httpStatus = Lens.lens (\DescribeCommandsResponse' {httpStatus} -> httpStatus) (\s@DescribeCommandsResponse' {} a -> s {httpStatus = a} :: DescribeCommandsResponse)
 
-instance NFData DescribeCommandsResponse
+instance Prelude.NFData DescribeCommandsResponse

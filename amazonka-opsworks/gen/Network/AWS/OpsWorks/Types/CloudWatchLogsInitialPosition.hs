@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.OpsWorks.Types.CloudWatchLogsInitialPosition
   ( CloudWatchLogsInitialPosition
       ( ..,
-        EndOfFile,
-        StartOfFile
+        CloudWatchLogsInitialPositionEndOfFile,
+        CloudWatchLogsInitialPositionStartOfFile
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies where to start to read data (start_of_file or end_of_file). The default is start_of_file. It's only used if there is no state persisted for that log stream.
-data CloudWatchLogsInitialPosition
-  = CloudWatchLogsInitialPosition'
-      ( CI
-          Text
-      )
+-- | Specifies where to start to read data (start_of_file or end_of_file).
+-- The default is start_of_file. It\'s only used if there is no state
+-- persisted for that log stream.
+newtype CloudWatchLogsInitialPosition = CloudWatchLogsInitialPosition'
+  { fromCloudWatchLogsInitialPosition ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EndOfFile :: CloudWatchLogsInitialPosition
-pattern EndOfFile = CloudWatchLogsInitialPosition' "end_of_file"
+pattern CloudWatchLogsInitialPositionEndOfFile :: CloudWatchLogsInitialPosition
+pattern CloudWatchLogsInitialPositionEndOfFile = CloudWatchLogsInitialPosition' "end_of_file"
 
-pattern StartOfFile :: CloudWatchLogsInitialPosition
-pattern StartOfFile = CloudWatchLogsInitialPosition' "start_of_file"
+pattern CloudWatchLogsInitialPositionStartOfFile :: CloudWatchLogsInitialPosition
+pattern CloudWatchLogsInitialPositionStartOfFile = CloudWatchLogsInitialPosition' "start_of_file"
 
 {-# COMPLETE
-  EndOfFile,
-  StartOfFile,
+  CloudWatchLogsInitialPositionEndOfFile,
+  CloudWatchLogsInitialPositionStartOfFile,
   CloudWatchLogsInitialPosition'
   #-}
 
-instance FromText CloudWatchLogsInitialPosition where
-  parser = (CloudWatchLogsInitialPosition' . mk) <$> takeText
+instance Prelude.FromText CloudWatchLogsInitialPosition where
+  parser = CloudWatchLogsInitialPosition' Prelude.<$> Prelude.takeText
 
-instance ToText CloudWatchLogsInitialPosition where
-  toText (CloudWatchLogsInitialPosition' ci) = original ci
+instance Prelude.ToText CloudWatchLogsInitialPosition where
+  toText (CloudWatchLogsInitialPosition' x) = x
 
-instance Hashable CloudWatchLogsInitialPosition
+instance Prelude.Hashable CloudWatchLogsInitialPosition
 
-instance NFData CloudWatchLogsInitialPosition
+instance Prelude.NFData CloudWatchLogsInitialPosition
 
-instance ToByteString CloudWatchLogsInitialPosition
+instance Prelude.ToByteString CloudWatchLogsInitialPosition
 
-instance ToQuery CloudWatchLogsInitialPosition
+instance Prelude.ToQuery CloudWatchLogsInitialPosition
 
-instance ToHeader CloudWatchLogsInitialPosition
+instance Prelude.ToHeader CloudWatchLogsInitialPosition
 
-instance ToJSON CloudWatchLogsInitialPosition where
-  toJSON = toJSONText
+instance Prelude.ToJSON CloudWatchLogsInitialPosition where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CloudWatchLogsInitialPosition where
-  parseJSON = parseJSONText "CloudWatchLogsInitialPosition"
+instance Prelude.FromJSON CloudWatchLogsInitialPosition where
+  parseJSON = Prelude.parseJSONText "CloudWatchLogsInitialPosition"

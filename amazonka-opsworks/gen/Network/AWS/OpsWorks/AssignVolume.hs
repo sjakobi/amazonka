@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,106 +21,128 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Assigns one of the stack's registered Amazon EBS volumes to a specified instance. The volume must first be registered with the stack by calling 'RegisterVolume' . After you register the volume, you must call 'UpdateVolume' to specify a mount point before calling @AssignVolume@ . For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html Resource Management> .
+-- Assigns one of the stack\'s registered Amazon EBS volumes to a specified
+-- instance. The volume must first be registered with the stack by calling
+-- RegisterVolume. After you register the volume, you must call
+-- UpdateVolume to specify a mount point before calling @AssignVolume@. For
+-- more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html Resource Management>.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack, or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.AssignVolume
   ( -- * Creating a Request
-    assignVolume,
-    AssignVolume,
+    AssignVolume (..),
+    newAssignVolume,
 
     -- * Request Lenses
-    avInstanceId,
-    avVolumeId,
+    assignVolume_instanceId,
+    assignVolume_volumeId,
 
     -- * Destructuring the Response
-    assignVolumeResponse,
-    AssignVolumeResponse,
+    AssignVolumeResponse (..),
+    newAssignVolumeResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'assignVolume' smart constructor.
+-- | /See:/ 'newAssignVolume' smart constructor.
 data AssignVolume = AssignVolume'
-  { _avInstanceId ::
-      !(Maybe Text),
-    _avVolumeId :: !Text
+  { -- | The instance ID.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The volume ID.
+    volumeId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssignVolume' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssignVolume' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avInstanceId' - The instance ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avVolumeId' - The volume ID.
-assignVolume ::
-  -- | 'avVolumeId'
-  Text ->
+-- 'instanceId', 'assignVolume_instanceId' - The instance ID.
+--
+-- 'volumeId', 'assignVolume_volumeId' - The volume ID.
+newAssignVolume ::
+  -- | 'volumeId'
+  Prelude.Text ->
   AssignVolume
-assignVolume pVolumeId_ =
+newAssignVolume pVolumeId_ =
   AssignVolume'
-    { _avInstanceId = Nothing,
-      _avVolumeId = pVolumeId_
+    { instanceId = Prelude.Nothing,
+      volumeId = pVolumeId_
     }
 
 -- | The instance ID.
-avInstanceId :: Lens' AssignVolume (Maybe Text)
-avInstanceId = lens _avInstanceId (\s a -> s {_avInstanceId = a})
+assignVolume_instanceId :: Lens.Lens' AssignVolume (Prelude.Maybe Prelude.Text)
+assignVolume_instanceId = Lens.lens (\AssignVolume' {instanceId} -> instanceId) (\s@AssignVolume' {} a -> s {instanceId = a} :: AssignVolume)
 
 -- | The volume ID.
-avVolumeId :: Lens' AssignVolume Text
-avVolumeId = lens _avVolumeId (\s a -> s {_avVolumeId = a})
+assignVolume_volumeId :: Lens.Lens' AssignVolume Prelude.Text
+assignVolume_volumeId = Lens.lens (\AssignVolume' {volumeId} -> volumeId) (\s@AssignVolume' {} a -> s {volumeId = a} :: AssignVolume)
 
-instance AWSRequest AssignVolume where
+instance Prelude.AWSRequest AssignVolume where
   type Rs AssignVolume = AssignVolumeResponse
-  request = postJSON opsWorks
-  response = receiveNull AssignVolumeResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull AssignVolumeResponse'
 
-instance Hashable AssignVolume
+instance Prelude.Hashable AssignVolume
 
-instance NFData AssignVolume
+instance Prelude.NFData AssignVolume
 
-instance ToHeaders AssignVolume where
+instance Prelude.ToHeaders AssignVolume where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.AssignVolume" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.AssignVolume" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssignVolume where
+instance Prelude.ToJSON AssignVolume where
   toJSON AssignVolume' {..} =
-    object
-      ( catMaybes
-          [ ("InstanceId" .=) <$> _avInstanceId,
-            Just ("VolumeId" .= _avVolumeId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("InstanceId" Prelude..=) Prelude.<$> instanceId,
+            Prelude.Just ("VolumeId" Prelude..= volumeId)
           ]
       )
 
-instance ToPath AssignVolume where
-  toPath = const "/"
+instance Prelude.ToPath AssignVolume where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssignVolume where
-  toQuery = const mempty
+instance Prelude.ToQuery AssignVolume where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'assignVolumeResponse' smart constructor.
+-- | /See:/ 'newAssignVolumeResponse' smart constructor.
 data AssignVolumeResponse = AssignVolumeResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssignVolumeResponse' with the minimum fields required to make a request.
-assignVolumeResponse ::
+-- |
+-- Create a value of 'AssignVolumeResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAssignVolumeResponse ::
   AssignVolumeResponse
-assignVolumeResponse = AssignVolumeResponse'
+newAssignVolumeResponse = AssignVolumeResponse'
 
-instance NFData AssignVolumeResponse
+instance Prelude.NFData AssignVolumeResponse

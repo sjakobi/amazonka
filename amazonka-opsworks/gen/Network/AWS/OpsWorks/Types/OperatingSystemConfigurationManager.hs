@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.OperatingSystemConfigurationManager where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A block that contains information about the configuration manager (Chef) and the versions of the configuration manager that are supported for an operating system.
+-- | A block that contains information about the configuration manager (Chef)
+-- and the versions of the configuration manager that are supported for an
+-- operating system.
 --
---
---
--- /See:/ 'operatingSystemConfigurationManager' smart constructor.
+-- /See:/ 'newOperatingSystemConfigurationManager' smart constructor.
 data OperatingSystemConfigurationManager = OperatingSystemConfigurationManager'
-  { _oscmVersion ::
-      !( Maybe
-           Text
-       ),
-    _oscmName ::
-      !( Maybe
-           Text
-       )
+  { -- | The versions of the configuration manager that are supported by an
+    -- operating system.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of the configuration manager, which is Chef.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OperatingSystemConfigurationManager' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OperatingSystemConfigurationManager' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oscmVersion' - The versions of the configuration manager that are supported by an operating system.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oscmName' - The name of the configuration manager, which is Chef.
-operatingSystemConfigurationManager ::
+-- 'version', 'operatingSystemConfigurationManager_version' - The versions of the configuration manager that are supported by an
+-- operating system.
+--
+-- 'name', 'operatingSystemConfigurationManager_name' - The name of the configuration manager, which is Chef.
+newOperatingSystemConfigurationManager ::
   OperatingSystemConfigurationManager
-operatingSystemConfigurationManager =
+newOperatingSystemConfigurationManager =
   OperatingSystemConfigurationManager'
-    { _oscmVersion =
-        Nothing,
-      _oscmName = Nothing
+    { version =
+        Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
--- | The versions of the configuration manager that are supported by an operating system.
-oscmVersion :: Lens' OperatingSystemConfigurationManager (Maybe Text)
-oscmVersion = lens _oscmVersion (\s a -> s {_oscmVersion = a})
+-- | The versions of the configuration manager that are supported by an
+-- operating system.
+operatingSystemConfigurationManager_version :: Lens.Lens' OperatingSystemConfigurationManager (Prelude.Maybe Prelude.Text)
+operatingSystemConfigurationManager_version = Lens.lens (\OperatingSystemConfigurationManager' {version} -> version) (\s@OperatingSystemConfigurationManager' {} a -> s {version = a} :: OperatingSystemConfigurationManager)
 
 -- | The name of the configuration manager, which is Chef.
-oscmName :: Lens' OperatingSystemConfigurationManager (Maybe Text)
-oscmName = lens _oscmName (\s a -> s {_oscmName = a})
+operatingSystemConfigurationManager_name :: Lens.Lens' OperatingSystemConfigurationManager (Prelude.Maybe Prelude.Text)
+operatingSystemConfigurationManager_name = Lens.lens (\OperatingSystemConfigurationManager' {name} -> name) (\s@OperatingSystemConfigurationManager' {} a -> s {name = a} :: OperatingSystemConfigurationManager)
 
-instance FromJSON OperatingSystemConfigurationManager where
+instance
+  Prelude.FromJSON
+    OperatingSystemConfigurationManager
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OperatingSystemConfigurationManager"
       ( \x ->
           OperatingSystemConfigurationManager'
-            <$> (x .:? "Version") <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable OperatingSystemConfigurationManager
+instance
+  Prelude.Hashable
+    OperatingSystemConfigurationManager
 
-instance NFData OperatingSystemConfigurationManager
+instance
+  Prelude.NFData
+    OperatingSystemConfigurationManager

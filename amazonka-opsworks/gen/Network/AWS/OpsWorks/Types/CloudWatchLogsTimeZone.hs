@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.OpsWorks.Types.CloudWatchLogsTimeZone
   ( CloudWatchLogsTimeZone
       ( ..,
-        Local,
-        Utc
+        CloudWatchLogsTimeZoneLOCAL,
+        CloudWatchLogsTimeZoneUTC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The preferred time zone for logs streamed to CloudWatch Logs. Valid values are @LOCAL@ and @UTC@ , for Coordinated Universal Time.
-data CloudWatchLogsTimeZone
-  = CloudWatchLogsTimeZone'
-      ( CI
-          Text
-      )
+-- | The preferred time zone for logs streamed to CloudWatch Logs. Valid
+-- values are @LOCAL@ and @UTC@, for Coordinated Universal Time.
+newtype CloudWatchLogsTimeZone = CloudWatchLogsTimeZone'
+  { fromCloudWatchLogsTimeZone ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Local :: CloudWatchLogsTimeZone
-pattern Local = CloudWatchLogsTimeZone' "LOCAL"
+pattern CloudWatchLogsTimeZoneLOCAL :: CloudWatchLogsTimeZone
+pattern CloudWatchLogsTimeZoneLOCAL = CloudWatchLogsTimeZone' "LOCAL"
 
-pattern Utc :: CloudWatchLogsTimeZone
-pattern Utc = CloudWatchLogsTimeZone' "UTC"
+pattern CloudWatchLogsTimeZoneUTC :: CloudWatchLogsTimeZone
+pattern CloudWatchLogsTimeZoneUTC = CloudWatchLogsTimeZone' "UTC"
 
 {-# COMPLETE
-  Local,
-  Utc,
+  CloudWatchLogsTimeZoneLOCAL,
+  CloudWatchLogsTimeZoneUTC,
   CloudWatchLogsTimeZone'
   #-}
 
-instance FromText CloudWatchLogsTimeZone where
-  parser = (CloudWatchLogsTimeZone' . mk) <$> takeText
+instance Prelude.FromText CloudWatchLogsTimeZone where
+  parser = CloudWatchLogsTimeZone' Prelude.<$> Prelude.takeText
 
-instance ToText CloudWatchLogsTimeZone where
-  toText (CloudWatchLogsTimeZone' ci) = original ci
+instance Prelude.ToText CloudWatchLogsTimeZone where
+  toText (CloudWatchLogsTimeZone' x) = x
 
-instance Hashable CloudWatchLogsTimeZone
+instance Prelude.Hashable CloudWatchLogsTimeZone
 
-instance NFData CloudWatchLogsTimeZone
+instance Prelude.NFData CloudWatchLogsTimeZone
 
-instance ToByteString CloudWatchLogsTimeZone
+instance Prelude.ToByteString CloudWatchLogsTimeZone
 
-instance ToQuery CloudWatchLogsTimeZone
+instance Prelude.ToQuery CloudWatchLogsTimeZone
 
-instance ToHeader CloudWatchLogsTimeZone
+instance Prelude.ToHeader CloudWatchLogsTimeZone
 
-instance ToJSON CloudWatchLogsTimeZone where
-  toJSON = toJSONText
+instance Prelude.ToJSON CloudWatchLogsTimeZone where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CloudWatchLogsTimeZone where
-  parseJSON = parseJSONText "CloudWatchLogsTimeZone"
+instance Prelude.FromJSON CloudWatchLogsTimeZone where
+  parseJSON = Prelude.parseJSONText "CloudWatchLogsTimeZone"

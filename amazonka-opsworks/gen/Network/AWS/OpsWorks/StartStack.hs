@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,87 +21,109 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts a stack's instances.
+-- Starts a stack\'s instances.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack, or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.StartStack
   ( -- * Creating a Request
-    startStack,
-    StartStack,
+    StartStack (..),
+    newStartStack,
 
     -- * Request Lenses
-    ssStackId,
+    startStack_stackId,
 
     -- * Destructuring the Response
-    startStackResponse,
-    StartStackResponse,
+    StartStackResponse (..),
+    newStartStackResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startStack' smart constructor.
-newtype StartStack = StartStack' {_ssStackId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newStartStack' smart constructor.
+data StartStack = StartStack'
+  { -- | The stack ID.
+    stackId :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartStack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartStack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssStackId' - The stack ID.
-startStack ::
-  -- | 'ssStackId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'stackId', 'startStack_stackId' - The stack ID.
+newStartStack ::
+  -- | 'stackId'
+  Prelude.Text ->
   StartStack
-startStack pStackId_ =
-  StartStack' {_ssStackId = pStackId_}
+newStartStack pStackId_ =
+  StartStack' {stackId = pStackId_}
 
 -- | The stack ID.
-ssStackId :: Lens' StartStack Text
-ssStackId = lens _ssStackId (\s a -> s {_ssStackId = a})
+startStack_stackId :: Lens.Lens' StartStack Prelude.Text
+startStack_stackId = Lens.lens (\StartStack' {stackId} -> stackId) (\s@StartStack' {} a -> s {stackId = a} :: StartStack)
 
-instance AWSRequest StartStack where
+instance Prelude.AWSRequest StartStack where
   type Rs StartStack = StartStackResponse
-  request = postJSON opsWorks
-  response = receiveNull StartStackResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull StartStackResponse'
 
-instance Hashable StartStack
+instance Prelude.Hashable StartStack
 
-instance NFData StartStack
+instance Prelude.NFData StartStack
 
-instance ToHeaders StartStack where
+instance Prelude.ToHeaders StartStack where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.StartStack" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.StartStack" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartStack where
+instance Prelude.ToJSON StartStack where
   toJSON StartStack' {..} =
-    object (catMaybes [Just ("StackId" .= _ssStackId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("StackId" Prelude..= stackId)]
+      )
 
-instance ToPath StartStack where
-  toPath = const "/"
+instance Prelude.ToPath StartStack where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartStack where
-  toQuery = const mempty
+instance Prelude.ToQuery StartStack where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startStackResponse' smart constructor.
+-- | /See:/ 'newStartStackResponse' smart constructor.
 data StartStackResponse = StartStackResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartStackResponse' with the minimum fields required to make a request.
-startStackResponse ::
+-- |
+-- Create a value of 'StartStackResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStartStackResponse ::
   StartStackResponse
-startStackResponse = StartStackResponse'
+newStartStackResponse = StartStackResponse'
 
-instance NFData StartStackResponse
+instance Prelude.NFData StartStackResponse

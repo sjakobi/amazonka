@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,98 +21,112 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Unassigns an assigned Amazon EBS volume. The volume remains registered with the stack. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html Resource Management> .
+-- Unassigns an assigned Amazon EBS volume. The volume remains registered
+-- with the stack. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html Resource Management>.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack, or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.UnassignVolume
   ( -- * Creating a Request
-    unassignVolume,
-    UnassignVolume,
+    UnassignVolume (..),
+    newUnassignVolume,
 
     -- * Request Lenses
-    uvVolumeId,
+    unassignVolume_volumeId,
 
     -- * Destructuring the Response
-    unassignVolumeResponse,
-    UnassignVolumeResponse,
+    UnassignVolumeResponse (..),
+    newUnassignVolumeResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'unassignVolume' smart constructor.
-newtype UnassignVolume = UnassignVolume'
-  { _uvVolumeId ::
-      Text
+-- | /See:/ 'newUnassignVolume' smart constructor.
+data UnassignVolume = UnassignVolume'
+  { -- | The volume ID.
+    volumeId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UnassignVolume' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UnassignVolume' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uvVolumeId' - The volume ID.
-unassignVolume ::
-  -- | 'uvVolumeId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'volumeId', 'unassignVolume_volumeId' - The volume ID.
+newUnassignVolume ::
+  -- | 'volumeId'
+  Prelude.Text ->
   UnassignVolume
-unassignVolume pVolumeId_ =
-  UnassignVolume' {_uvVolumeId = pVolumeId_}
+newUnassignVolume pVolumeId_ =
+  UnassignVolume' {volumeId = pVolumeId_}
 
 -- | The volume ID.
-uvVolumeId :: Lens' UnassignVolume Text
-uvVolumeId = lens _uvVolumeId (\s a -> s {_uvVolumeId = a})
+unassignVolume_volumeId :: Lens.Lens' UnassignVolume Prelude.Text
+unassignVolume_volumeId = Lens.lens (\UnassignVolume' {volumeId} -> volumeId) (\s@UnassignVolume' {} a -> s {volumeId = a} :: UnassignVolume)
 
-instance AWSRequest UnassignVolume where
+instance Prelude.AWSRequest UnassignVolume where
   type Rs UnassignVolume = UnassignVolumeResponse
-  request = postJSON opsWorks
-  response = receiveNull UnassignVolumeResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull UnassignVolumeResponse'
 
-instance Hashable UnassignVolume
+instance Prelude.Hashable UnassignVolume
 
-instance NFData UnassignVolume
+instance Prelude.NFData UnassignVolume
 
-instance ToHeaders UnassignVolume where
+instance Prelude.ToHeaders UnassignVolume where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.UnassignVolume" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.UnassignVolume" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UnassignVolume where
+instance Prelude.ToJSON UnassignVolume where
   toJSON UnassignVolume' {..} =
-    object
-      (catMaybes [Just ("VolumeId" .= _uvVolumeId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("VolumeId" Prelude..= volumeId)]
+      )
 
-instance ToPath UnassignVolume where
-  toPath = const "/"
+instance Prelude.ToPath UnassignVolume where
+  toPath = Prelude.const "/"
 
-instance ToQuery UnassignVolume where
-  toQuery = const mempty
+instance Prelude.ToQuery UnassignVolume where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'unassignVolumeResponse' smart constructor.
+-- | /See:/ 'newUnassignVolumeResponse' smart constructor.
 data UnassignVolumeResponse = UnassignVolumeResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UnassignVolumeResponse' with the minimum fields required to make a request.
-unassignVolumeResponse ::
+-- |
+-- Create a value of 'UnassignVolumeResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUnassignVolumeResponse ::
   UnassignVolumeResponse
-unassignVolumeResponse = UnassignVolumeResponse'
+newUnassignVolumeResponse = UnassignVolumeResponse'
 
-instance NFData UnassignVolumeResponse
+instance Prelude.NFData UnassignVolumeResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,207 +21,236 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers instances that were created outside of AWS OpsWorks Stacks with a specified stack.
+-- Registers instances that were created outside of AWS OpsWorks Stacks
+-- with a specified stack.
 --
+-- We do not recommend using this action to register instances. The
+-- complete registration operation includes two tasks: installing the AWS
+-- OpsWorks Stacks agent on the instance, and registering the instance with
+-- the stack. @RegisterInstance@ handles only the second step. You should
+-- instead use the AWS CLI @register@ command, which performs the entire
+-- registration operation. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/registered-instances-register.html Registering an Instance with an AWS OpsWorks Stacks Stack>.
 --
--- Registered instances have the same requirements as instances that are created by using the 'CreateInstance' API. For example, registered instances must be running a supported Linux-based operating system, and they must have a supported instance type. For more information about requirements for instances that you want to register, see <https://docs.aws.amazon.com/opsworks/latest/userguide/registered-instances-register-registering-preparer.html Preparing the Instance> .
+-- Registered instances have the same requirements as instances that are
+-- created by using the CreateInstance API. For example, registered
+-- instances must be running a supported Linux-based operating system, and
+-- they must have a supported instance type. For more information about
+-- requirements for instances that you want to register, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/registered-instances-register-registering-preparer.html Preparing the Instance>.
 --
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.RegisterInstance
   ( -- * Creating a Request
-    registerInstance,
-    RegisterInstance,
+    RegisterInstance (..),
+    newRegisterInstance,
 
     -- * Request Lenses
-    riHostname,
-    riRsaPublicKey,
-    riInstanceIdentity,
-    riPrivateIP,
-    riRsaPublicKeyFingerprint,
-    riPublicIP,
-    riStackId,
+    registerInstance_hostname,
+    registerInstance_rsaPublicKey,
+    registerInstance_instanceIdentity,
+    registerInstance_privateIp,
+    registerInstance_rsaPublicKeyFingerprint,
+    registerInstance_publicIp,
+    registerInstance_stackId,
 
     -- * Destructuring the Response
-    registerInstanceResponse,
-    RegisterInstanceResponse,
+    RegisterInstanceResponse (..),
+    newRegisterInstanceResponse,
 
     -- * Response Lenses
-    rirrsInstanceId,
-    rirrsResponseStatus,
+    registerInstanceResponse_instanceId,
+    registerInstanceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'registerInstance' smart constructor.
+-- | /See:/ 'newRegisterInstance' smart constructor.
 data RegisterInstance = RegisterInstance'
-  { _riHostname ::
-      !(Maybe Text),
-    _riRsaPublicKey :: !(Maybe Text),
-    _riInstanceIdentity ::
-      !(Maybe InstanceIdentity),
-    _riPrivateIP :: !(Maybe Text),
-    _riRsaPublicKeyFingerprint ::
-      !(Maybe Text),
-    _riPublicIP :: !(Maybe Text),
-    _riStackId :: !Text
+  { -- | The instance\'s hostname.
+    hostname :: Prelude.Maybe Prelude.Text,
+    -- | The instances public RSA key. This key is used to encrypt communication
+    -- between the instance and the service.
+    rsaPublicKey :: Prelude.Maybe Prelude.Text,
+    -- | An InstanceIdentity object that contains the instance\'s identity.
+    instanceIdentity :: Prelude.Maybe InstanceIdentity,
+    -- | The instance\'s private IP address.
+    privateIp :: Prelude.Maybe Prelude.Text,
+    -- | The instances public RSA key fingerprint.
+    rsaPublicKeyFingerprint :: Prelude.Maybe Prelude.Text,
+    -- | The instance\'s public IP address.
+    publicIp :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the stack that the instance is to be registered with.
+    stackId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'riHostname' - The instance's hostname.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'riRsaPublicKey' - The instances public RSA key. This key is used to encrypt communication between the instance and the service.
+-- 'hostname', 'registerInstance_hostname' - The instance\'s hostname.
 --
--- * 'riInstanceIdentity' - An InstanceIdentity object that contains the instance's identity.
+-- 'rsaPublicKey', 'registerInstance_rsaPublicKey' - The instances public RSA key. This key is used to encrypt communication
+-- between the instance and the service.
 --
--- * 'riPrivateIP' - The instance's private IP address.
+-- 'instanceIdentity', 'registerInstance_instanceIdentity' - An InstanceIdentity object that contains the instance\'s identity.
 --
--- * 'riRsaPublicKeyFingerprint' - The instances public RSA key fingerprint.
+-- 'privateIp', 'registerInstance_privateIp' - The instance\'s private IP address.
 --
--- * 'riPublicIP' - The instance's public IP address.
+-- 'rsaPublicKeyFingerprint', 'registerInstance_rsaPublicKeyFingerprint' - The instances public RSA key fingerprint.
 --
--- * 'riStackId' - The ID of the stack that the instance is to be registered with.
-registerInstance ::
-  -- | 'riStackId'
-  Text ->
+-- 'publicIp', 'registerInstance_publicIp' - The instance\'s public IP address.
+--
+-- 'stackId', 'registerInstance_stackId' - The ID of the stack that the instance is to be registered with.
+newRegisterInstance ::
+  -- | 'stackId'
+  Prelude.Text ->
   RegisterInstance
-registerInstance pStackId_ =
+newRegisterInstance pStackId_ =
   RegisterInstance'
-    { _riHostname = Nothing,
-      _riRsaPublicKey = Nothing,
-      _riInstanceIdentity = Nothing,
-      _riPrivateIP = Nothing,
-      _riRsaPublicKeyFingerprint = Nothing,
-      _riPublicIP = Nothing,
-      _riStackId = pStackId_
+    { hostname = Prelude.Nothing,
+      rsaPublicKey = Prelude.Nothing,
+      instanceIdentity = Prelude.Nothing,
+      privateIp = Prelude.Nothing,
+      rsaPublicKeyFingerprint = Prelude.Nothing,
+      publicIp = Prelude.Nothing,
+      stackId = pStackId_
     }
 
--- | The instance's hostname.
-riHostname :: Lens' RegisterInstance (Maybe Text)
-riHostname = lens _riHostname (\s a -> s {_riHostname = a})
+-- | The instance\'s hostname.
+registerInstance_hostname :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
+registerInstance_hostname = Lens.lens (\RegisterInstance' {hostname} -> hostname) (\s@RegisterInstance' {} a -> s {hostname = a} :: RegisterInstance)
 
--- | The instances public RSA key. This key is used to encrypt communication between the instance and the service.
-riRsaPublicKey :: Lens' RegisterInstance (Maybe Text)
-riRsaPublicKey = lens _riRsaPublicKey (\s a -> s {_riRsaPublicKey = a})
+-- | The instances public RSA key. This key is used to encrypt communication
+-- between the instance and the service.
+registerInstance_rsaPublicKey :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
+registerInstance_rsaPublicKey = Lens.lens (\RegisterInstance' {rsaPublicKey} -> rsaPublicKey) (\s@RegisterInstance' {} a -> s {rsaPublicKey = a} :: RegisterInstance)
 
--- | An InstanceIdentity object that contains the instance's identity.
-riInstanceIdentity :: Lens' RegisterInstance (Maybe InstanceIdentity)
-riInstanceIdentity = lens _riInstanceIdentity (\s a -> s {_riInstanceIdentity = a})
+-- | An InstanceIdentity object that contains the instance\'s identity.
+registerInstance_instanceIdentity :: Lens.Lens' RegisterInstance (Prelude.Maybe InstanceIdentity)
+registerInstance_instanceIdentity = Lens.lens (\RegisterInstance' {instanceIdentity} -> instanceIdentity) (\s@RegisterInstance' {} a -> s {instanceIdentity = a} :: RegisterInstance)
 
--- | The instance's private IP address.
-riPrivateIP :: Lens' RegisterInstance (Maybe Text)
-riPrivateIP = lens _riPrivateIP (\s a -> s {_riPrivateIP = a})
+-- | The instance\'s private IP address.
+registerInstance_privateIp :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
+registerInstance_privateIp = Lens.lens (\RegisterInstance' {privateIp} -> privateIp) (\s@RegisterInstance' {} a -> s {privateIp = a} :: RegisterInstance)
 
 -- | The instances public RSA key fingerprint.
-riRsaPublicKeyFingerprint :: Lens' RegisterInstance (Maybe Text)
-riRsaPublicKeyFingerprint = lens _riRsaPublicKeyFingerprint (\s a -> s {_riRsaPublicKeyFingerprint = a})
+registerInstance_rsaPublicKeyFingerprint :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
+registerInstance_rsaPublicKeyFingerprint = Lens.lens (\RegisterInstance' {rsaPublicKeyFingerprint} -> rsaPublicKeyFingerprint) (\s@RegisterInstance' {} a -> s {rsaPublicKeyFingerprint = a} :: RegisterInstance)
 
--- | The instance's public IP address.
-riPublicIP :: Lens' RegisterInstance (Maybe Text)
-riPublicIP = lens _riPublicIP (\s a -> s {_riPublicIP = a})
+-- | The instance\'s public IP address.
+registerInstance_publicIp :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
+registerInstance_publicIp = Lens.lens (\RegisterInstance' {publicIp} -> publicIp) (\s@RegisterInstance' {} a -> s {publicIp = a} :: RegisterInstance)
 
 -- | The ID of the stack that the instance is to be registered with.
-riStackId :: Lens' RegisterInstance Text
-riStackId = lens _riStackId (\s a -> s {_riStackId = a})
+registerInstance_stackId :: Lens.Lens' RegisterInstance Prelude.Text
+registerInstance_stackId = Lens.lens (\RegisterInstance' {stackId} -> stackId) (\s@RegisterInstance' {} a -> s {stackId = a} :: RegisterInstance)
 
-instance AWSRequest RegisterInstance where
+instance Prelude.AWSRequest RegisterInstance where
   type Rs RegisterInstance = RegisterInstanceResponse
-  request = postJSON opsWorks
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RegisterInstanceResponse'
-            <$> (x .?> "InstanceId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "InstanceId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterInstance
+instance Prelude.Hashable RegisterInstance
 
-instance NFData RegisterInstance
+instance Prelude.NFData RegisterInstance
 
-instance ToHeaders RegisterInstance where
+instance Prelude.ToHeaders RegisterInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.RegisterInstance" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.RegisterInstance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterInstance where
+instance Prelude.ToJSON RegisterInstance where
   toJSON RegisterInstance' {..} =
-    object
-      ( catMaybes
-          [ ("Hostname" .=) <$> _riHostname,
-            ("RsaPublicKey" .=) <$> _riRsaPublicKey,
-            ("InstanceIdentity" .=) <$> _riInstanceIdentity,
-            ("PrivateIp" .=) <$> _riPrivateIP,
-            ("RsaPublicKeyFingerprint" .=)
-              <$> _riRsaPublicKeyFingerprint,
-            ("PublicIp" .=) <$> _riPublicIP,
-            Just ("StackId" .= _riStackId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Hostname" Prelude..=) Prelude.<$> hostname,
+            ("RsaPublicKey" Prelude..=) Prelude.<$> rsaPublicKey,
+            ("InstanceIdentity" Prelude..=)
+              Prelude.<$> instanceIdentity,
+            ("PrivateIp" Prelude..=) Prelude.<$> privateIp,
+            ("RsaPublicKeyFingerprint" Prelude..=)
+              Prelude.<$> rsaPublicKeyFingerprint,
+            ("PublicIp" Prelude..=) Prelude.<$> publicIp,
+            Prelude.Just ("StackId" Prelude..= stackId)
           ]
       )
 
-instance ToPath RegisterInstance where
-  toPath = const "/"
+instance Prelude.ToPath RegisterInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterInstance where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @RegisterInstanceResult@ request.
 --
---
---
--- /See:/ 'registerInstanceResponse' smart constructor.
+-- /See:/ 'newRegisterInstanceResponse' smart constructor.
 data RegisterInstanceResponse = RegisterInstanceResponse'
-  { _rirrsInstanceId ::
-      !(Maybe Text),
-    _rirrsResponseStatus ::
-      !Int
+  { -- | The registered instance\'s AWS OpsWorks Stacks ID.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rirrsInstanceId' - The registered instance's AWS OpsWorks Stacks ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rirrsResponseStatus' - -- | The response status code.
-registerInstanceResponse ::
-  -- | 'rirrsResponseStatus'
-  Int ->
+-- 'instanceId', 'registerInstanceResponse_instanceId' - The registered instance\'s AWS OpsWorks Stacks ID.
+--
+-- 'httpStatus', 'registerInstanceResponse_httpStatus' - The response's http status code.
+newRegisterInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterInstanceResponse
-registerInstanceResponse pResponseStatus_ =
+newRegisterInstanceResponse pHttpStatus_ =
   RegisterInstanceResponse'
-    { _rirrsInstanceId =
-        Nothing,
-      _rirrsResponseStatus = pResponseStatus_
+    { instanceId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The registered instance's AWS OpsWorks Stacks ID.
-rirrsInstanceId :: Lens' RegisterInstanceResponse (Maybe Text)
-rirrsInstanceId = lens _rirrsInstanceId (\s a -> s {_rirrsInstanceId = a})
+-- | The registered instance\'s AWS OpsWorks Stacks ID.
+registerInstanceResponse_instanceId :: Lens.Lens' RegisterInstanceResponse (Prelude.Maybe Prelude.Text)
+registerInstanceResponse_instanceId = Lens.lens (\RegisterInstanceResponse' {instanceId} -> instanceId) (\s@RegisterInstanceResponse' {} a -> s {instanceId = a} :: RegisterInstanceResponse)
 
--- | -- | The response status code.
-rirrsResponseStatus :: Lens' RegisterInstanceResponse Int
-rirrsResponseStatus = lens _rirrsResponseStatus (\s a -> s {_rirrsResponseStatus = a})
+-- | The response's http status code.
+registerInstanceResponse_httpStatus :: Lens.Lens' RegisterInstanceResponse Prelude.Int
+registerInstanceResponse_httpStatus = Lens.lens (\RegisterInstanceResponse' {httpStatus} -> httpStatus) (\s@RegisterInstanceResponse' {} a -> s {httpStatus = a} :: RegisterInstanceResponse)
 
-instance NFData RegisterInstanceResponse
+instance Prelude.NFData RegisterInstanceResponse

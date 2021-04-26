@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,106 +19,108 @@
 module Network.AWS.OpsWorks.Types.LayerType
   ( LayerType
       ( ..,
-        LTAWSFlowRuby,
-        LTCustom,
-        LTDBMaster,
-        LTEcsCluster,
-        LTJavaApp,
-        LTLB,
-        LTMemcached,
-        LTMonitoringMaster,
-        LTNodejsApp,
-        LTPHPApp,
-        LTRailsApp,
-        LTWeb
+        LayerTypeAwsFlowRuby,
+        LayerTypeCustom,
+        LayerTypeDbMaster,
+        LayerTypeEcsCluster,
+        LayerTypeJavaApp,
+        LayerTypeLB,
+        LayerTypeMemcached,
+        LayerTypeMonitoringMaster,
+        LayerTypeNodejsApp,
+        LayerTypePhpApp,
+        LayerTypeRailsApp,
+        LayerTypeWeb
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LayerType = LayerType' (CI Text)
+newtype LayerType = LayerType'
+  { fromLayerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LTAWSFlowRuby :: LayerType
-pattern LTAWSFlowRuby = LayerType' "aws-flow-ruby"
+pattern LayerTypeAwsFlowRuby :: LayerType
+pattern LayerTypeAwsFlowRuby = LayerType' "aws-flow-ruby"
 
-pattern LTCustom :: LayerType
-pattern LTCustom = LayerType' "custom"
+pattern LayerTypeCustom :: LayerType
+pattern LayerTypeCustom = LayerType' "custom"
 
-pattern LTDBMaster :: LayerType
-pattern LTDBMaster = LayerType' "db-master"
+pattern LayerTypeDbMaster :: LayerType
+pattern LayerTypeDbMaster = LayerType' "db-master"
 
-pattern LTEcsCluster :: LayerType
-pattern LTEcsCluster = LayerType' "ecs-cluster"
+pattern LayerTypeEcsCluster :: LayerType
+pattern LayerTypeEcsCluster = LayerType' "ecs-cluster"
 
-pattern LTJavaApp :: LayerType
-pattern LTJavaApp = LayerType' "java-app"
+pattern LayerTypeJavaApp :: LayerType
+pattern LayerTypeJavaApp = LayerType' "java-app"
 
-pattern LTLB :: LayerType
-pattern LTLB = LayerType' "lb"
+pattern LayerTypeLB :: LayerType
+pattern LayerTypeLB = LayerType' "lb"
 
-pattern LTMemcached :: LayerType
-pattern LTMemcached = LayerType' "memcached"
+pattern LayerTypeMemcached :: LayerType
+pattern LayerTypeMemcached = LayerType' "memcached"
 
-pattern LTMonitoringMaster :: LayerType
-pattern LTMonitoringMaster = LayerType' "monitoring-master"
+pattern LayerTypeMonitoringMaster :: LayerType
+pattern LayerTypeMonitoringMaster = LayerType' "monitoring-master"
 
-pattern LTNodejsApp :: LayerType
-pattern LTNodejsApp = LayerType' "nodejs-app"
+pattern LayerTypeNodejsApp :: LayerType
+pattern LayerTypeNodejsApp = LayerType' "nodejs-app"
 
-pattern LTPHPApp :: LayerType
-pattern LTPHPApp = LayerType' "php-app"
+pattern LayerTypePhpApp :: LayerType
+pattern LayerTypePhpApp = LayerType' "php-app"
 
-pattern LTRailsApp :: LayerType
-pattern LTRailsApp = LayerType' "rails-app"
+pattern LayerTypeRailsApp :: LayerType
+pattern LayerTypeRailsApp = LayerType' "rails-app"
 
-pattern LTWeb :: LayerType
-pattern LTWeb = LayerType' "web"
+pattern LayerTypeWeb :: LayerType
+pattern LayerTypeWeb = LayerType' "web"
 
 {-# COMPLETE
-  LTAWSFlowRuby,
-  LTCustom,
-  LTDBMaster,
-  LTEcsCluster,
-  LTJavaApp,
-  LTLB,
-  LTMemcached,
-  LTMonitoringMaster,
-  LTNodejsApp,
-  LTPHPApp,
-  LTRailsApp,
-  LTWeb,
+  LayerTypeAwsFlowRuby,
+  LayerTypeCustom,
+  LayerTypeDbMaster,
+  LayerTypeEcsCluster,
+  LayerTypeJavaApp,
+  LayerTypeLB,
+  LayerTypeMemcached,
+  LayerTypeMonitoringMaster,
+  LayerTypeNodejsApp,
+  LayerTypePhpApp,
+  LayerTypeRailsApp,
+  LayerTypeWeb,
   LayerType'
   #-}
 
-instance FromText LayerType where
-  parser = (LayerType' . mk) <$> takeText
+instance Prelude.FromText LayerType where
+  parser = LayerType' Prelude.<$> Prelude.takeText
 
-instance ToText LayerType where
-  toText (LayerType' ci) = original ci
+instance Prelude.ToText LayerType where
+  toText (LayerType' x) = x
 
-instance Hashable LayerType
+instance Prelude.Hashable LayerType
 
-instance NFData LayerType
+instance Prelude.NFData LayerType
 
-instance ToByteString LayerType
+instance Prelude.ToByteString LayerType
 
-instance ToQuery LayerType
+instance Prelude.ToQuery LayerType
 
-instance ToHeader LayerType
+instance Prelude.ToHeader LayerType
 
-instance ToJSON LayerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LayerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LayerType where
-  parseJSON = parseJSONText "LayerType"
+instance Prelude.FromJSON LayerType where
+  parseJSON = Prelude.parseJSONText "LayerType"

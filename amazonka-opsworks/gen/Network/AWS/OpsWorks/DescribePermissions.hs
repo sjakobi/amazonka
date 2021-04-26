@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,155 +23,200 @@
 --
 -- Describes the permissions for a specified stack.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack, or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.DescribePermissions
   ( -- * Creating a Request
-    describePermissions,
-    DescribePermissions,
+    DescribePermissions (..),
+    newDescribePermissions,
 
     -- * Request Lenses
-    dpIAMUserARN,
-    dpStackId,
+    describePermissions_iamUserArn,
+    describePermissions_stackId,
 
     -- * Destructuring the Response
-    describePermissionsResponse,
-    DescribePermissionsResponse,
+    DescribePermissionsResponse (..),
+    newDescribePermissionsResponse,
 
     -- * Response Lenses
-    dprrsPermissions,
-    dprrsResponseStatus,
+    describePermissionsResponse_permissions,
+    describePermissionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorks.Types.Permission
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describePermissions' smart constructor.
+-- | /See:/ 'newDescribePermissions' smart constructor.
 data DescribePermissions = DescribePermissions'
-  { _dpIAMUserARN ::
-      !(Maybe Text),
-    _dpStackId :: !(Maybe Text)
+  { -- | The user\'s IAM ARN. This can also be a federated user\'s ARN. For more
+    -- information about IAM ARNs, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers>.
+    iamUserArn :: Prelude.Maybe Prelude.Text,
+    -- | The stack ID.
+    stackId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpIAMUserARN' - The user's IAM ARN. This can also be a federated user's ARN. For more information about IAM ARNs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpStackId' - The stack ID.
-describePermissions ::
+-- 'iamUserArn', 'describePermissions_iamUserArn' - The user\'s IAM ARN. This can also be a federated user\'s ARN. For more
+-- information about IAM ARNs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers>.
+--
+-- 'stackId', 'describePermissions_stackId' - The stack ID.
+newDescribePermissions ::
   DescribePermissions
-describePermissions =
+newDescribePermissions =
   DescribePermissions'
-    { _dpIAMUserARN = Nothing,
-      _dpStackId = Nothing
+    { iamUserArn = Prelude.Nothing,
+      stackId = Prelude.Nothing
     }
 
--- | The user's IAM ARN. This can also be a federated user's ARN. For more information about IAM ARNs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers> .
-dpIAMUserARN :: Lens' DescribePermissions (Maybe Text)
-dpIAMUserARN = lens _dpIAMUserARN (\s a -> s {_dpIAMUserARN = a})
+-- | The user\'s IAM ARN. This can also be a federated user\'s ARN. For more
+-- information about IAM ARNs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers>.
+describePermissions_iamUserArn :: Lens.Lens' DescribePermissions (Prelude.Maybe Prelude.Text)
+describePermissions_iamUserArn = Lens.lens (\DescribePermissions' {iamUserArn} -> iamUserArn) (\s@DescribePermissions' {} a -> s {iamUserArn = a} :: DescribePermissions)
 
 -- | The stack ID.
-dpStackId :: Lens' DescribePermissions (Maybe Text)
-dpStackId = lens _dpStackId (\s a -> s {_dpStackId = a})
+describePermissions_stackId :: Lens.Lens' DescribePermissions (Prelude.Maybe Prelude.Text)
+describePermissions_stackId = Lens.lens (\DescribePermissions' {stackId} -> stackId) (\s@DescribePermissions' {} a -> s {stackId = a} :: DescribePermissions)
 
-instance AWSRequest DescribePermissions where
+instance Prelude.AWSRequest DescribePermissions where
   type
     Rs DescribePermissions =
       DescribePermissionsResponse
-  request = postJSON opsWorks
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribePermissionsResponse'
-            <$> (x .?> "Permissions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Permissions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribePermissions
+instance Prelude.Hashable DescribePermissions
 
-instance NFData DescribePermissions
+instance Prelude.NFData DescribePermissions
 
-instance ToHeaders DescribePermissions where
+instance Prelude.ToHeaders DescribePermissions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorks_20130218.DescribePermissions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorks_20130218.DescribePermissions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribePermissions where
+instance Prelude.ToJSON DescribePermissions where
   toJSON DescribePermissions' {..} =
-    object
-      ( catMaybes
-          [ ("IamUserArn" .=) <$> _dpIAMUserARN,
-            ("StackId" .=) <$> _dpStackId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IamUserArn" Prelude..=) Prelude.<$> iamUserArn,
+            ("StackId" Prelude..=) Prelude.<$> stackId
           ]
       )
 
-instance ToPath DescribePermissions where
-  toPath = const "/"
+instance Prelude.ToPath DescribePermissions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribePermissions where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribePermissions where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribePermissions@ request.
 --
---
---
--- /See:/ 'describePermissionsResponse' smart constructor.
+-- /See:/ 'newDescribePermissionsResponse' smart constructor.
 data DescribePermissionsResponse = DescribePermissionsResponse'
-  { _dprrsPermissions ::
-      !( Maybe
-           [Permission]
-       ),
-    _dprrsResponseStatus ::
-      !Int
+  { -- | An array of @Permission@ objects that describe the stack permissions.
+    --
+    -- -   If the request object contains only a stack ID, the array contains a
+    --     @Permission@ object with permissions for each of the stack IAM ARNs.
+    --
+    -- -   If the request object contains only an IAM ARN, the array contains a
+    --     @Permission@ object with permissions for each of the user\'s stack
+    --     IDs.
+    --
+    -- -   If the request contains a stack ID and an IAM ARN, the array
+    --     contains a single @Permission@ object with permissions for the
+    --     specified stack and IAM ARN.
+    permissions :: Prelude.Maybe [Permission],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePermissionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePermissionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dprrsPermissions' - An array of @Permission@ objects that describe the stack permissions.     * If the request object contains only a stack ID, the array contains a @Permission@ object with permissions for each of the stack IAM ARNs.     * If the request object contains only an IAM ARN, the array contains a @Permission@ object with permissions for each of the user's stack IDs.     * If the request contains a stack ID and an IAM ARN, the array contains a single @Permission@ object with permissions for the specified stack and IAM ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dprrsResponseStatus' - -- | The response status code.
-describePermissionsResponse ::
-  -- | 'dprrsResponseStatus'
-  Int ->
+-- 'permissions', 'describePermissionsResponse_permissions' - An array of @Permission@ objects that describe the stack permissions.
+--
+-- -   If the request object contains only a stack ID, the array contains a
+--     @Permission@ object with permissions for each of the stack IAM ARNs.
+--
+-- -   If the request object contains only an IAM ARN, the array contains a
+--     @Permission@ object with permissions for each of the user\'s stack
+--     IDs.
+--
+-- -   If the request contains a stack ID and an IAM ARN, the array
+--     contains a single @Permission@ object with permissions for the
+--     specified stack and IAM ARN.
+--
+-- 'httpStatus', 'describePermissionsResponse_httpStatus' - The response's http status code.
+newDescribePermissionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribePermissionsResponse
-describePermissionsResponse pResponseStatus_ =
+newDescribePermissionsResponse pHttpStatus_ =
   DescribePermissionsResponse'
-    { _dprrsPermissions =
-        Nothing,
-      _dprrsResponseStatus = pResponseStatus_
+    { permissions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of @Permission@ objects that describe the stack permissions.     * If the request object contains only a stack ID, the array contains a @Permission@ object with permissions for each of the stack IAM ARNs.     * If the request object contains only an IAM ARN, the array contains a @Permission@ object with permissions for each of the user's stack IDs.     * If the request contains a stack ID and an IAM ARN, the array contains a single @Permission@ object with permissions for the specified stack and IAM ARN.
-dprrsPermissions :: Lens' DescribePermissionsResponse [Permission]
-dprrsPermissions = lens _dprrsPermissions (\s a -> s {_dprrsPermissions = a}) . _Default . _Coerce
+-- | An array of @Permission@ objects that describe the stack permissions.
+--
+-- -   If the request object contains only a stack ID, the array contains a
+--     @Permission@ object with permissions for each of the stack IAM ARNs.
+--
+-- -   If the request object contains only an IAM ARN, the array contains a
+--     @Permission@ object with permissions for each of the user\'s stack
+--     IDs.
+--
+-- -   If the request contains a stack ID and an IAM ARN, the array
+--     contains a single @Permission@ object with permissions for the
+--     specified stack and IAM ARN.
+describePermissionsResponse_permissions :: Lens.Lens' DescribePermissionsResponse (Prelude.Maybe [Permission])
+describePermissionsResponse_permissions = Lens.lens (\DescribePermissionsResponse' {permissions} -> permissions) (\s@DescribePermissionsResponse' {} a -> s {permissions = a} :: DescribePermissionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dprrsResponseStatus :: Lens' DescribePermissionsResponse Int
-dprrsResponseStatus = lens _dprrsResponseStatus (\s a -> s {_dprrsResponseStatus = a})
+-- | The response's http status code.
+describePermissionsResponse_httpStatus :: Lens.Lens' DescribePermissionsResponse Prelude.Int
+describePermissionsResponse_httpStatus = Lens.lens (\DescribePermissionsResponse' {httpStatus} -> httpStatus) (\s@DescribePermissionsResponse' {} a -> s {httpStatus = a} :: DescribePermissionsResponse)
 
-instance NFData DescribePermissionsResponse
+instance Prelude.NFData DescribePermissionsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.OpsWorks.Types.AutoScalingType
   ( AutoScalingType
       ( ..,
-        Load,
-        Timer
+        AutoScalingTypeLoad,
+        AutoScalingTypeTimer
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoScalingType = AutoScalingType' (CI Text)
+newtype AutoScalingType = AutoScalingType'
+  { fromAutoScalingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Load :: AutoScalingType
-pattern Load = AutoScalingType' "load"
+pattern AutoScalingTypeLoad :: AutoScalingType
+pattern AutoScalingTypeLoad = AutoScalingType' "load"
 
-pattern Timer :: AutoScalingType
-pattern Timer = AutoScalingType' "timer"
+pattern AutoScalingTypeTimer :: AutoScalingType
+pattern AutoScalingTypeTimer = AutoScalingType' "timer"
 
 {-# COMPLETE
-  Load,
-  Timer,
+  AutoScalingTypeLoad,
+  AutoScalingTypeTimer,
   AutoScalingType'
   #-}
 
-instance FromText AutoScalingType where
-  parser = (AutoScalingType' . mk) <$> takeText
+instance Prelude.FromText AutoScalingType where
+  parser = AutoScalingType' Prelude.<$> Prelude.takeText
 
-instance ToText AutoScalingType where
-  toText (AutoScalingType' ci) = original ci
+instance Prelude.ToText AutoScalingType where
+  toText (AutoScalingType' x) = x
 
-instance Hashable AutoScalingType
+instance Prelude.Hashable AutoScalingType
 
-instance NFData AutoScalingType
+instance Prelude.NFData AutoScalingType
 
-instance ToByteString AutoScalingType
+instance Prelude.ToByteString AutoScalingType
 
-instance ToQuery AutoScalingType
+instance Prelude.ToQuery AutoScalingType
 
-instance ToHeader AutoScalingType
+instance Prelude.ToHeader AutoScalingType
 
-instance ToJSON AutoScalingType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutoScalingType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AutoScalingType where
-  parseJSON = parseJSONText "AutoScalingType"
+instance Prelude.FromJSON AutoScalingType where
+  parseJSON = Prelude.parseJSONText "AutoScalingType"

@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.OpsWorks" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.OpsWorks.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.OpsWorks" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,8 +37,8 @@ source-repository head
   subdir:   amazonka-opsworks
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
@@ -49,7 +47,7 @@ library
     Network.AWS.OpsWorks
     Network.AWS.OpsWorks.AssignInstance
     Network.AWS.OpsWorks.AssignVolume
-    Network.AWS.OpsWorks.AssociateElasticIP
+    Network.AWS.OpsWorks.AssociateElasticIp
     Network.AWS.OpsWorks.AttachElasticLoadBalancer
     Network.AWS.OpsWorks.CloneStack
     Network.AWS.OpsWorks.CreateApp
@@ -64,16 +62,16 @@ library
     Network.AWS.OpsWorks.DeleteStack
     Network.AWS.OpsWorks.DeleteUserProfile
     Network.AWS.OpsWorks.DeregisterEcsCluster
-    Network.AWS.OpsWorks.DeregisterElasticIP
+    Network.AWS.OpsWorks.DeregisterElasticIp
     Network.AWS.OpsWorks.DeregisterInstance
-    Network.AWS.OpsWorks.DeregisterRDSDBInstance
+    Network.AWS.OpsWorks.DeregisterRdsDbInstance
     Network.AWS.OpsWorks.DeregisterVolume
     Network.AWS.OpsWorks.DescribeAgentVersions
     Network.AWS.OpsWorks.DescribeApps
     Network.AWS.OpsWorks.DescribeCommands
     Network.AWS.OpsWorks.DescribeDeployments
     Network.AWS.OpsWorks.DescribeEcsClusters
-    Network.AWS.OpsWorks.DescribeElasticIPs
+    Network.AWS.OpsWorks.DescribeElasticIps
     Network.AWS.OpsWorks.DescribeElasticLoadBalancers
     Network.AWS.OpsWorks.DescribeInstances
     Network.AWS.OpsWorks.DescribeLayers
@@ -81,8 +79,8 @@ library
     Network.AWS.OpsWorks.DescribeMyUserProfile
     Network.AWS.OpsWorks.DescribeOperatingSystems
     Network.AWS.OpsWorks.DescribePermissions
-    Network.AWS.OpsWorks.DescribeRAIdArrays
-    Network.AWS.OpsWorks.DescribeRDSDBInstances
+    Network.AWS.OpsWorks.DescribeRaidArrays
+    Network.AWS.OpsWorks.DescribeRdsDbInstances
     Network.AWS.OpsWorks.DescribeServiceErrors
     Network.AWS.OpsWorks.DescribeStackProvisioningParameters
     Network.AWS.OpsWorks.DescribeStacks
@@ -91,15 +89,16 @@ library
     Network.AWS.OpsWorks.DescribeUserProfiles
     Network.AWS.OpsWorks.DescribeVolumes
     Network.AWS.OpsWorks.DetachElasticLoadBalancer
-    Network.AWS.OpsWorks.DisassociateElasticIP
+    Network.AWS.OpsWorks.DisassociateElasticIp
     Network.AWS.OpsWorks.GetHostnameSuggestion
     Network.AWS.OpsWorks.GrantAccess
+    Network.AWS.OpsWorks.Lens
     Network.AWS.OpsWorks.ListTags
     Network.AWS.OpsWorks.RebootInstance
     Network.AWS.OpsWorks.RegisterEcsCluster
-    Network.AWS.OpsWorks.RegisterElasticIP
+    Network.AWS.OpsWorks.RegisterElasticIp
     Network.AWS.OpsWorks.RegisterInstance
-    Network.AWS.OpsWorks.RegisterRDSDBInstance
+    Network.AWS.OpsWorks.RegisterRdsDbInstance
     Network.AWS.OpsWorks.RegisterVolume
     Network.AWS.OpsWorks.SetLoadBasedAutoScaling
     Network.AWS.OpsWorks.SetPermission
@@ -110,21 +109,6 @@ library
     Network.AWS.OpsWorks.StopStack
     Network.AWS.OpsWorks.TagResource
     Network.AWS.OpsWorks.Types
-    Network.AWS.OpsWorks.UnassignInstance
-    Network.AWS.OpsWorks.UnassignVolume
-    Network.AWS.OpsWorks.UntagResource
-    Network.AWS.OpsWorks.UpdateApp
-    Network.AWS.OpsWorks.UpdateElasticIP
-    Network.AWS.OpsWorks.UpdateInstance
-    Network.AWS.OpsWorks.UpdateLayer
-    Network.AWS.OpsWorks.UpdateMyUserProfile
-    Network.AWS.OpsWorks.UpdateRDSDBInstance
-    Network.AWS.OpsWorks.UpdateStack
-    Network.AWS.OpsWorks.UpdateUserProfile
-    Network.AWS.OpsWorks.UpdateVolume
-    Network.AWS.OpsWorks.Waiters
-
-  other-modules:
     Network.AWS.OpsWorks.Types.AgentVersion
     Network.AWS.OpsWorks.Types.App
     Network.AWS.OpsWorks.Types.AppAttributesKeys
@@ -144,9 +128,9 @@ library
     Network.AWS.OpsWorks.Types.Deployment
     Network.AWS.OpsWorks.Types.DeploymentCommand
     Network.AWS.OpsWorks.Types.DeploymentCommandName
-    Network.AWS.OpsWorks.Types.EBSBlockDevice
+    Network.AWS.OpsWorks.Types.EbsBlockDevice
     Network.AWS.OpsWorks.Types.EcsCluster
-    Network.AWS.OpsWorks.Types.ElasticIP
+    Network.AWS.OpsWorks.Types.ElasticIp
     Network.AWS.OpsWorks.Types.ElasticLoadBalancer
     Network.AWS.OpsWorks.Types.EnvironmentVariable
     Network.AWS.OpsWorks.Types.Instance
@@ -160,17 +144,17 @@ library
     Network.AWS.OpsWorks.Types.OperatingSystem
     Network.AWS.OpsWorks.Types.OperatingSystemConfigurationManager
     Network.AWS.OpsWorks.Types.Permission
-    Network.AWS.OpsWorks.Types.RAIdArray
-    Network.AWS.OpsWorks.Types.RDSDBInstance
+    Network.AWS.OpsWorks.Types.RaidArray
+    Network.AWS.OpsWorks.Types.RdsDbInstance
     Network.AWS.OpsWorks.Types.Recipes
-    Network.AWS.OpsWorks.Types.ReportedOS
+    Network.AWS.OpsWorks.Types.ReportedOs
     Network.AWS.OpsWorks.Types.RootDeviceType
     Network.AWS.OpsWorks.Types.SelfUserProfile
     Network.AWS.OpsWorks.Types.ServiceError'
     Network.AWS.OpsWorks.Types.ShutdownEventConfiguration
     Network.AWS.OpsWorks.Types.Source
     Network.AWS.OpsWorks.Types.SourceType
-    Network.AWS.OpsWorks.Types.SSLConfiguration
+    Network.AWS.OpsWorks.Types.SslConfiguration
     Network.AWS.OpsWorks.Types.Stack
     Network.AWS.OpsWorks.Types.StackAttributesKeys
     Network.AWS.OpsWorks.Types.StackConfigurationManager
@@ -183,11 +167,24 @@ library
     Network.AWS.OpsWorks.Types.VolumeConfiguration
     Network.AWS.OpsWorks.Types.VolumeType
     Network.AWS.OpsWorks.Types.WeeklyAutoScalingSchedule
+    Network.AWS.OpsWorks.UnassignInstance
+    Network.AWS.OpsWorks.UnassignVolume
+    Network.AWS.OpsWorks.UntagResource
+    Network.AWS.OpsWorks.UpdateApp
+    Network.AWS.OpsWorks.UpdateElasticIp
+    Network.AWS.OpsWorks.UpdateInstance
+    Network.AWS.OpsWorks.UpdateLayer
+    Network.AWS.OpsWorks.UpdateMyUserProfile
+    Network.AWS.OpsWorks.UpdateRdsDbInstance
+    Network.AWS.OpsWorks.UpdateStack
+    Network.AWS.OpsWorks.UpdateUserProfile
+    Network.AWS.OpsWorks.UpdateVolume
+    Network.AWS.OpsWorks.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-opsworks-test
   type:             exitcode-stdio-1.0

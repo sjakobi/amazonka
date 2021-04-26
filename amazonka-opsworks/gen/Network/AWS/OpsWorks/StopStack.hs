@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,85 +23,107 @@
 --
 -- Stops a specified stack.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack, or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.StopStack
   ( -- * Creating a Request
-    stopStack,
-    StopStack,
+    StopStack (..),
+    newStopStack,
 
     -- * Request Lenses
-    sStackId,
+    stopStack_stackId,
 
     -- * Destructuring the Response
-    stopStackResponse,
-    StopStackResponse,
+    StopStackResponse (..),
+    newStopStackResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopStack' smart constructor.
-newtype StopStack = StopStack' {_sStackId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newStopStack' smart constructor.
+data StopStack = StopStack'
+  { -- | The stack ID.
+    stackId :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopStack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopStack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sStackId' - The stack ID.
-stopStack ::
-  -- | 'sStackId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'stackId', 'stopStack_stackId' - The stack ID.
+newStopStack ::
+  -- | 'stackId'
+  Prelude.Text ->
   StopStack
-stopStack pStackId_ =
-  StopStack' {_sStackId = pStackId_}
+newStopStack pStackId_ =
+  StopStack' {stackId = pStackId_}
 
 -- | The stack ID.
-sStackId :: Lens' StopStack Text
-sStackId = lens _sStackId (\s a -> s {_sStackId = a})
+stopStack_stackId :: Lens.Lens' StopStack Prelude.Text
+stopStack_stackId = Lens.lens (\StopStack' {stackId} -> stackId) (\s@StopStack' {} a -> s {stackId = a} :: StopStack)
 
-instance AWSRequest StopStack where
+instance Prelude.AWSRequest StopStack where
   type Rs StopStack = StopStackResponse
-  request = postJSON opsWorks
-  response = receiveNull StopStackResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull StopStackResponse'
 
-instance Hashable StopStack
+instance Prelude.Hashable StopStack
 
-instance NFData StopStack
+instance Prelude.NFData StopStack
 
-instance ToHeaders StopStack where
+instance Prelude.ToHeaders StopStack where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.StopStack" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.StopStack" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopStack where
+instance Prelude.ToJSON StopStack where
   toJSON StopStack' {..} =
-    object (catMaybes [Just ("StackId" .= _sStackId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("StackId" Prelude..= stackId)]
+      )
 
-instance ToPath StopStack where
-  toPath = const "/"
+instance Prelude.ToPath StopStack where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopStack where
-  toQuery = const mempty
+instance Prelude.ToQuery StopStack where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopStackResponse' smart constructor.
+-- | /See:/ 'newStopStackResponse' smart constructor.
 data StopStackResponse = StopStackResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopStackResponse' with the minimum fields required to make a request.
-stopStackResponse ::
+-- |
+-- Create a value of 'StopStackResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStopStackResponse ::
   StopStackResponse
-stopStackResponse = StopStackResponse'
+newStopStackResponse = StopStackResponse'
 
-instance NFData StopStackResponse
+instance Prelude.NFData StopStackResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,147 +23,152 @@
 --
 -- Describe specified users.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have an attached policy that explicitly grants permissions. For more information about user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have an
+-- attached policy that explicitly grants permissions. For more information
+-- about user permissions, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.DescribeUserProfiles
   ( -- * Creating a Request
-    describeUserProfiles,
-    DescribeUserProfiles,
+    DescribeUserProfiles (..),
+    newDescribeUserProfiles,
 
     -- * Request Lenses
-    dupIAMUserARNs,
+    describeUserProfiles_iamUserArns,
 
     -- * Destructuring the Response
-    describeUserProfilesResponse,
-    DescribeUserProfilesResponse,
+    DescribeUserProfilesResponse (..),
+    newDescribeUserProfilesResponse,
 
     -- * Response Lenses
-    duprrsUserProfiles,
-    duprrsResponseStatus,
+    describeUserProfilesResponse_userProfiles,
+    describeUserProfilesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorks.Types.UserProfile
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeUserProfiles' smart constructor.
-newtype DescribeUserProfiles = DescribeUserProfiles'
-  { _dupIAMUserARNs ::
-      Maybe [Text]
+-- | /See:/ 'newDescribeUserProfiles' smart constructor.
+data DescribeUserProfiles = DescribeUserProfiles'
+  { -- | An array of IAM or federated user ARNs that identify the users to be
+    -- described.
+    iamUserArns :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserProfiles' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserProfiles' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dupIAMUserARNs' - An array of IAM or federated user ARNs that identify the users to be described.
-describeUserProfiles ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'iamUserArns', 'describeUserProfiles_iamUserArns' - An array of IAM or federated user ARNs that identify the users to be
+-- described.
+newDescribeUserProfiles ::
   DescribeUserProfiles
-describeUserProfiles =
-  DescribeUserProfiles' {_dupIAMUserARNs = Nothing}
+newDescribeUserProfiles =
+  DescribeUserProfiles'
+    { iamUserArns =
+        Prelude.Nothing
+    }
 
--- | An array of IAM or federated user ARNs that identify the users to be described.
-dupIAMUserARNs :: Lens' DescribeUserProfiles [Text]
-dupIAMUserARNs = lens _dupIAMUserARNs (\s a -> s {_dupIAMUserARNs = a}) . _Default . _Coerce
+-- | An array of IAM or federated user ARNs that identify the users to be
+-- described.
+describeUserProfiles_iamUserArns :: Lens.Lens' DescribeUserProfiles (Prelude.Maybe [Prelude.Text])
+describeUserProfiles_iamUserArns = Lens.lens (\DescribeUserProfiles' {iamUserArns} -> iamUserArns) (\s@DescribeUserProfiles' {} a -> s {iamUserArns = a} :: DescribeUserProfiles) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeUserProfiles where
+instance Prelude.AWSRequest DescribeUserProfiles where
   type
     Rs DescribeUserProfiles =
       DescribeUserProfilesResponse
-  request = postJSON opsWorks
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeUserProfilesResponse'
-            <$> (x .?> "UserProfiles" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "UserProfiles"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeUserProfiles
+instance Prelude.Hashable DescribeUserProfiles
 
-instance NFData DescribeUserProfiles
+instance Prelude.NFData DescribeUserProfiles
 
-instance ToHeaders DescribeUserProfiles where
+instance Prelude.ToHeaders DescribeUserProfiles where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorks_20130218.DescribeUserProfiles" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorks_20130218.DescribeUserProfiles" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeUserProfiles where
+instance Prelude.ToJSON DescribeUserProfiles where
   toJSON DescribeUserProfiles' {..} =
-    object
-      (catMaybes [("IamUserArns" .=) <$> _dupIAMUserARNs])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("IamUserArns" Prelude..=) Prelude.<$> iamUserArns]
+      )
 
-instance ToPath DescribeUserProfiles where
-  toPath = const "/"
+instance Prelude.ToPath DescribeUserProfiles where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeUserProfiles where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeUserProfiles where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeUserProfiles@ request.
 --
---
---
--- /See:/ 'describeUserProfilesResponse' smart constructor.
+-- /See:/ 'newDescribeUserProfilesResponse' smart constructor.
 data DescribeUserProfilesResponse = DescribeUserProfilesResponse'
-  { _duprrsUserProfiles ::
-      !( Maybe
-           [UserProfile]
-       ),
-    _duprrsResponseStatus ::
-      !Int
+  { -- | A @Users@ object that describes the specified users.
+    userProfiles :: Prelude.Maybe [UserProfile],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserProfilesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserProfilesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duprrsUserProfiles' - A @Users@ object that describes the specified users.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duprrsResponseStatus' - -- | The response status code.
-describeUserProfilesResponse ::
-  -- | 'duprrsResponseStatus'
-  Int ->
+-- 'userProfiles', 'describeUserProfilesResponse_userProfiles' - A @Users@ object that describes the specified users.
+--
+-- 'httpStatus', 'describeUserProfilesResponse_httpStatus' - The response's http status code.
+newDescribeUserProfilesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeUserProfilesResponse
-describeUserProfilesResponse pResponseStatus_ =
+newDescribeUserProfilesResponse pHttpStatus_ =
   DescribeUserProfilesResponse'
-    { _duprrsUserProfiles =
-        Nothing,
-      _duprrsResponseStatus = pResponseStatus_
+    { userProfiles =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A @Users@ object that describes the specified users.
-duprrsUserProfiles :: Lens' DescribeUserProfilesResponse [UserProfile]
-duprrsUserProfiles = lens _duprrsUserProfiles (\s a -> s {_duprrsUserProfiles = a}) . _Default . _Coerce
+describeUserProfilesResponse_userProfiles :: Lens.Lens' DescribeUserProfilesResponse (Prelude.Maybe [UserProfile])
+describeUserProfilesResponse_userProfiles = Lens.lens (\DescribeUserProfilesResponse' {userProfiles} -> userProfiles) (\s@DescribeUserProfilesResponse' {} a -> s {userProfiles = a} :: DescribeUserProfilesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-duprrsResponseStatus :: Lens' DescribeUserProfilesResponse Int
-duprrsResponseStatus = lens _duprrsResponseStatus (\s a -> s {_duprrsResponseStatus = a})
+-- | The response's http status code.
+describeUserProfilesResponse_httpStatus :: Lens.Lens' DescribeUserProfilesResponse Prelude.Int
+describeUserProfilesResponse_httpStatus = Lens.lens (\DescribeUserProfilesResponse' {httpStatus} -> httpStatus) (\s@DescribeUserProfilesResponse' {} a -> s {httpStatus = a} :: DescribeUserProfilesResponse)
 
-instance NFData DescribeUserProfilesResponse
+instance Prelude.NFData DescribeUserProfilesResponse

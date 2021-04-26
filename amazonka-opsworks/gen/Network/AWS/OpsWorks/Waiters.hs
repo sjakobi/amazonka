@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -13,305 +15,566 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Waiters where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.DescribeApps
 import Network.AWS.OpsWorks.DescribeDeployments
 import Network.AWS.OpsWorks.DescribeInstances
+import Network.AWS.OpsWorks.Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Waiter
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.OpsWorks.DescribeInstances' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-instanceTerminated :: Wait DescribeInstances
-instanceTerminated =
-  Wait
-    { _waitName = "InstanceTerminated",
-      _waitAttempts = 40,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newInstanceTerminated :: Waiter.Wait DescribeInstances
+newInstanceTerminated =
+  Waiter.Wait
+    { Waiter._waitName =
+        "InstanceTerminated",
+      Waiter._waitAttempts = 40,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "terminated"
-            AcceptSuccess
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "ResourceNotFoundException" AcceptSuccess,
-          matchAny
+          Waiter.matchError
+            "ResourceNotFoundException"
+            Waiter.AcceptSuccess,
+          Waiter.matchAny
             "booting"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "online"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "pending"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "rebooting"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "requested"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "running_setup"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "setup_failed"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "start_failed"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.OpsWorks.DescribeInstances' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-instanceRegistered :: Wait DescribeInstances
-instanceRegistered =
-  Wait
-    { _waitName = "InstanceRegistered",
-      _waitAttempts = 40,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newInstanceRegistered :: Waiter.Wait DescribeInstances
+newInstanceRegistered =
+  Waiter.Wait
+    { Waiter._waitName =
+        "InstanceRegistered",
+      Waiter._waitAttempts = 40,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "registered"
-            AcceptSuccess
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "setup_failed"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "shutting_down"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stopped"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stopping"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "terminating"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "terminated"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stop_failed"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.OpsWorks.DescribeApps' every 1 seconds until a successful state is reached. An error is returned after 40 failed checks.
-appExists :: Wait DescribeApps
-appExists =
-  Wait
-    { _waitName = "AppExists",
-      _waitAttempts = 40,
-      _waitDelay = 1,
-      _waitAcceptors =
-        [ matchStatus 200 AcceptSuccess,
-          matchStatus 400 AcceptFailure
+newAppExists :: Waiter.Wait DescribeApps
+newAppExists =
+  Waiter.Wait
+    { Waiter._waitName = "AppExists",
+      Waiter._waitAttempts = 40,
+      Waiter._waitDelay = 1,
+      Waiter._waitAcceptors =
+        [ Waiter.matchStatus 200 Waiter.AcceptSuccess,
+          Waiter.matchStatus 400 Waiter.AcceptFailure
         ]
     }
 
 -- | Polls 'Network.AWS.OpsWorks.DescribeInstances' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-instanceOnline :: Wait DescribeInstances
-instanceOnline =
-  Wait
-    { _waitName = "InstanceOnline",
-      _waitAttempts = 40,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newInstanceOnline :: Waiter.Wait DescribeInstances
+newInstanceOnline =
+  Waiter.Wait
+    { Waiter._waitName = "InstanceOnline",
+      Waiter._waitAttempts = 40,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "online"
-            AcceptSuccess
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "setup_failed"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "shutting_down"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "start_failed"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stopped"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stopping"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "terminating"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "terminated"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stop_failed"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.OpsWorks.DescribeInstances' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-instanceStopped :: Wait DescribeInstances
-instanceStopped =
-  Wait
-    { _waitName = "InstanceStopped",
-      _waitAttempts = 40,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newInstanceStopped :: Waiter.Wait DescribeInstances
+newInstanceStopped =
+  Waiter.Wait
+    { Waiter._waitName = "InstanceStopped",
+      Waiter._waitAttempts = 40,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "stopped"
-            AcceptSuccess
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "booting"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "pending"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "rebooting"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "requested"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "running_setup"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "setup_failed"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "start_failed"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stop_failed"
-            AcceptFailure
-            ( folding (concatOf dirrsInstances) . iStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_instances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instance_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.OpsWorks.DescribeDeployments' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-deploymentSuccessful :: Wait DescribeDeployments
-deploymentSuccessful =
-  Wait
-    { _waitName = "DeploymentSuccessful",
-      _waitAttempts = 40,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newDeploymentSuccessful :: Waiter.Wait DescribeDeployments
+newDeploymentSuccessful =
+  Waiter.Wait
+    { Waiter._waitName =
+        "DeploymentSuccessful",
+      Waiter._waitAttempts = 40,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "successful"
-            AcceptSuccess
-            ( folding (concatOf ddrrsDeployments)
-                . dStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeDeploymentsResponse_deployments
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. deployment_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "failed"
-            AcceptFailure
-            ( folding (concatOf ddrrsDeployments)
-                . dStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeDeploymentsResponse_deployments
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. deployment_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }

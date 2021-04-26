@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.ServiceError' where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an AWS OpsWorks Stacks service error.
 --
---
---
--- /See:/ 'serviceError'' smart constructor.
+-- /See:/ 'newServiceError'' smart constructor.
 data ServiceError' = ServiceError''
-  { _seInstanceId ::
-      !(Maybe Text),
-    _seStackId :: !(Maybe Text),
-    _seMessage :: !(Maybe Text),
-    _seServiceErrorId :: !(Maybe Text),
-    _seCreatedAt :: !(Maybe Text),
-    _seType :: !(Maybe Text)
+  { -- | The instance ID.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The stack ID.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | A message that describes the error.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The error ID.
+    serviceErrorId :: Prelude.Maybe Prelude.Text,
+    -- | When the error occurred.
+    createdAt :: Prelude.Maybe Prelude.Text,
+    -- | The error type.
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceError'' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceError'' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seInstanceId' - The instance ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seStackId' - The stack ID.
+-- 'instanceId', 'serviceError'_instanceId' - The instance ID.
 --
--- * 'seMessage' - A message that describes the error.
+-- 'stackId', 'serviceError'_stackId' - The stack ID.
 --
--- * 'seServiceErrorId' - The error ID.
+-- 'message', 'serviceError'_message' - A message that describes the error.
 --
--- * 'seCreatedAt' - When the error occurred.
+-- 'serviceErrorId', 'serviceError'_serviceErrorId' - The error ID.
 --
--- * 'seType' - The error type.
-serviceError' ::
+-- 'createdAt', 'serviceError'_createdAt' - When the error occurred.
+--
+-- 'type'', 'serviceError'_type' - The error type.
+newServiceError' ::
   ServiceError'
-serviceError' =
+newServiceError' =
   ServiceError''
-    { _seInstanceId = Nothing,
-      _seStackId = Nothing,
-      _seMessage = Nothing,
-      _seServiceErrorId = Nothing,
-      _seCreatedAt = Nothing,
-      _seType = Nothing
+    { instanceId = Prelude.Nothing,
+      stackId = Prelude.Nothing,
+      message = Prelude.Nothing,
+      serviceErrorId = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The instance ID.
-seInstanceId :: Lens' ServiceError' (Maybe Text)
-seInstanceId = lens _seInstanceId (\s a -> s {_seInstanceId = a})
+serviceError'_instanceId :: Lens.Lens' ServiceError' (Prelude.Maybe Prelude.Text)
+serviceError'_instanceId = Lens.lens (\ServiceError'' {instanceId} -> instanceId) (\s@ServiceError'' {} a -> s {instanceId = a} :: ServiceError')
 
 -- | The stack ID.
-seStackId :: Lens' ServiceError' (Maybe Text)
-seStackId = lens _seStackId (\s a -> s {_seStackId = a})
+serviceError'_stackId :: Lens.Lens' ServiceError' (Prelude.Maybe Prelude.Text)
+serviceError'_stackId = Lens.lens (\ServiceError'' {stackId} -> stackId) (\s@ServiceError'' {} a -> s {stackId = a} :: ServiceError')
 
 -- | A message that describes the error.
-seMessage :: Lens' ServiceError' (Maybe Text)
-seMessage = lens _seMessage (\s a -> s {_seMessage = a})
+serviceError'_message :: Lens.Lens' ServiceError' (Prelude.Maybe Prelude.Text)
+serviceError'_message = Lens.lens (\ServiceError'' {message} -> message) (\s@ServiceError'' {} a -> s {message = a} :: ServiceError')
 
 -- | The error ID.
-seServiceErrorId :: Lens' ServiceError' (Maybe Text)
-seServiceErrorId = lens _seServiceErrorId (\s a -> s {_seServiceErrorId = a})
+serviceError'_serviceErrorId :: Lens.Lens' ServiceError' (Prelude.Maybe Prelude.Text)
+serviceError'_serviceErrorId = Lens.lens (\ServiceError'' {serviceErrorId} -> serviceErrorId) (\s@ServiceError'' {} a -> s {serviceErrorId = a} :: ServiceError')
 
 -- | When the error occurred.
-seCreatedAt :: Lens' ServiceError' (Maybe Text)
-seCreatedAt = lens _seCreatedAt (\s a -> s {_seCreatedAt = a})
+serviceError'_createdAt :: Lens.Lens' ServiceError' (Prelude.Maybe Prelude.Text)
+serviceError'_createdAt = Lens.lens (\ServiceError'' {createdAt} -> createdAt) (\s@ServiceError'' {} a -> s {createdAt = a} :: ServiceError')
 
 -- | The error type.
-seType :: Lens' ServiceError' (Maybe Text)
-seType = lens _seType (\s a -> s {_seType = a})
+serviceError'_type :: Lens.Lens' ServiceError' (Prelude.Maybe Prelude.Text)
+serviceError'_type = Lens.lens (\ServiceError'' {type'} -> type') (\s@ServiceError'' {} a -> s {type' = a} :: ServiceError')
 
-instance FromJSON ServiceError' where
+instance Prelude.FromJSON ServiceError' where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServiceError'"
       ( \x ->
           ServiceError''
-            <$> (x .:? "InstanceId")
-            <*> (x .:? "StackId")
-            <*> (x .:? "Message")
-            <*> (x .:? "ServiceErrorId")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "InstanceId")
+            Prelude.<*> (x Prelude..:? "StackId")
+            Prelude.<*> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "ServiceErrorId")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable ServiceError'
+instance Prelude.Hashable ServiceError'
 
-instance NFData ServiceError'
+instance Prelude.NFData ServiceError'

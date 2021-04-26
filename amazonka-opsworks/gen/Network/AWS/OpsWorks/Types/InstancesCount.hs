@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,216 +19,237 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.InstancesCount where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes how many instances a stack has for each status.
 --
---
---
--- /See:/ 'instancesCount' smart constructor.
+-- /See:/ 'newInstancesCount' smart constructor.
 data InstancesCount = InstancesCount'
-  { _icOnline ::
-      !(Maybe Int),
-    _icSetupFailed :: !(Maybe Int),
-    _icRegistering :: !(Maybe Int),
-    _icBooting :: !(Maybe Int),
-    _icStopFailed :: !(Maybe Int),
-    _icStartFailed :: !(Maybe Int),
-    _icRunningSetup :: !(Maybe Int),
-    _icTerminated :: !(Maybe Int),
-    _icPending :: !(Maybe Int),
-    _icTerminating :: !(Maybe Int),
-    _icShuttingDown :: !(Maybe Int),
-    _icAssigning :: !(Maybe Int),
-    _icStopped :: !(Maybe Int),
-    _icRebooting :: !(Maybe Int),
-    _icRegistered :: !(Maybe Int),
-    _icRequested :: !(Maybe Int),
-    _icDeregistering :: !(Maybe Int),
-    _icStopping :: !(Maybe Int),
-    _icUnassigning :: !(Maybe Int),
-    _icConnectionLost :: !(Maybe Int)
+  { -- | The number of instances with @online@ status.
+    online :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @setup_failed@ status.
+    setupFailed :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances in the Registering state.
+    registering :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @booting@ status.
+    booting :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @stop_failed@ status.
+    stopFailed :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @start_failed@ status.
+    startFailed :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @running_setup@ status.
+    runningSetup :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @terminated@ status.
+    terminated :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @pending@ status.
+    pending :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @terminating@ status.
+    terminating :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @shutting_down@ status.
+    shuttingDown :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances in the Assigning state.
+    assigning :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @stopped@ status.
+    stopped :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @rebooting@ status.
+    rebooting :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances in the Registered state.
+    registered :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @requested@ status.
+    requested :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances in the Deregistering state.
+    deregistering :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @stopping@ status.
+    stopping :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances in the Unassigning state.
+    unassigning :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances with @connection_lost@ status.
+    connectionLost :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstancesCount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstancesCount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'icOnline' - The number of instances with @online@ status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'icSetupFailed' - The number of instances with @setup_failed@ status.
+-- 'online', 'instancesCount_online' - The number of instances with @online@ status.
 --
--- * 'icRegistering' - The number of instances in the Registering state.
+-- 'setupFailed', 'instancesCount_setupFailed' - The number of instances with @setup_failed@ status.
 --
--- * 'icBooting' - The number of instances with @booting@ status.
+-- 'registering', 'instancesCount_registering' - The number of instances in the Registering state.
 --
--- * 'icStopFailed' - The number of instances with @stop_failed@ status.
+-- 'booting', 'instancesCount_booting' - The number of instances with @booting@ status.
 --
--- * 'icStartFailed' - The number of instances with @start_failed@ status.
+-- 'stopFailed', 'instancesCount_stopFailed' - The number of instances with @stop_failed@ status.
 --
--- * 'icRunningSetup' - The number of instances with @running_setup@ status.
+-- 'startFailed', 'instancesCount_startFailed' - The number of instances with @start_failed@ status.
 --
--- * 'icTerminated' - The number of instances with @terminated@ status.
+-- 'runningSetup', 'instancesCount_runningSetup' - The number of instances with @running_setup@ status.
 --
--- * 'icPending' - The number of instances with @pending@ status.
+-- 'terminated', 'instancesCount_terminated' - The number of instances with @terminated@ status.
 --
--- * 'icTerminating' - The number of instances with @terminating@ status.
+-- 'pending', 'instancesCount_pending' - The number of instances with @pending@ status.
 --
--- * 'icShuttingDown' - The number of instances with @shutting_down@ status.
+-- 'terminating', 'instancesCount_terminating' - The number of instances with @terminating@ status.
 --
--- * 'icAssigning' - The number of instances in the Assigning state.
+-- 'shuttingDown', 'instancesCount_shuttingDown' - The number of instances with @shutting_down@ status.
 --
--- * 'icStopped' - The number of instances with @stopped@ status.
+-- 'assigning', 'instancesCount_assigning' - The number of instances in the Assigning state.
 --
--- * 'icRebooting' - The number of instances with @rebooting@ status.
+-- 'stopped', 'instancesCount_stopped' - The number of instances with @stopped@ status.
 --
--- * 'icRegistered' - The number of instances in the Registered state.
+-- 'rebooting', 'instancesCount_rebooting' - The number of instances with @rebooting@ status.
 --
--- * 'icRequested' - The number of instances with @requested@ status.
+-- 'registered', 'instancesCount_registered' - The number of instances in the Registered state.
 --
--- * 'icDeregistering' - The number of instances in the Deregistering state.
+-- 'requested', 'instancesCount_requested' - The number of instances with @requested@ status.
 --
--- * 'icStopping' - The number of instances with @stopping@ status.
+-- 'deregistering', 'instancesCount_deregistering' - The number of instances in the Deregistering state.
 --
--- * 'icUnassigning' - The number of instances in the Unassigning state.
+-- 'stopping', 'instancesCount_stopping' - The number of instances with @stopping@ status.
 --
--- * 'icConnectionLost' - The number of instances with @connection_lost@ status.
-instancesCount ::
+-- 'unassigning', 'instancesCount_unassigning' - The number of instances in the Unassigning state.
+--
+-- 'connectionLost', 'instancesCount_connectionLost' - The number of instances with @connection_lost@ status.
+newInstancesCount ::
   InstancesCount
-instancesCount =
+newInstancesCount =
   InstancesCount'
-    { _icOnline = Nothing,
-      _icSetupFailed = Nothing,
-      _icRegistering = Nothing,
-      _icBooting = Nothing,
-      _icStopFailed = Nothing,
-      _icStartFailed = Nothing,
-      _icRunningSetup = Nothing,
-      _icTerminated = Nothing,
-      _icPending = Nothing,
-      _icTerminating = Nothing,
-      _icShuttingDown = Nothing,
-      _icAssigning = Nothing,
-      _icStopped = Nothing,
-      _icRebooting = Nothing,
-      _icRegistered = Nothing,
-      _icRequested = Nothing,
-      _icDeregistering = Nothing,
-      _icStopping = Nothing,
-      _icUnassigning = Nothing,
-      _icConnectionLost = Nothing
+    { online = Prelude.Nothing,
+      setupFailed = Prelude.Nothing,
+      registering = Prelude.Nothing,
+      booting = Prelude.Nothing,
+      stopFailed = Prelude.Nothing,
+      startFailed = Prelude.Nothing,
+      runningSetup = Prelude.Nothing,
+      terminated = Prelude.Nothing,
+      pending = Prelude.Nothing,
+      terminating = Prelude.Nothing,
+      shuttingDown = Prelude.Nothing,
+      assigning = Prelude.Nothing,
+      stopped = Prelude.Nothing,
+      rebooting = Prelude.Nothing,
+      registered = Prelude.Nothing,
+      requested = Prelude.Nothing,
+      deregistering = Prelude.Nothing,
+      stopping = Prelude.Nothing,
+      unassigning = Prelude.Nothing,
+      connectionLost = Prelude.Nothing
     }
 
 -- | The number of instances with @online@ status.
-icOnline :: Lens' InstancesCount (Maybe Int)
-icOnline = lens _icOnline (\s a -> s {_icOnline = a})
+instancesCount_online :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_online = Lens.lens (\InstancesCount' {online} -> online) (\s@InstancesCount' {} a -> s {online = a} :: InstancesCount)
 
 -- | The number of instances with @setup_failed@ status.
-icSetupFailed :: Lens' InstancesCount (Maybe Int)
-icSetupFailed = lens _icSetupFailed (\s a -> s {_icSetupFailed = a})
+instancesCount_setupFailed :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_setupFailed = Lens.lens (\InstancesCount' {setupFailed} -> setupFailed) (\s@InstancesCount' {} a -> s {setupFailed = a} :: InstancesCount)
 
 -- | The number of instances in the Registering state.
-icRegistering :: Lens' InstancesCount (Maybe Int)
-icRegistering = lens _icRegistering (\s a -> s {_icRegistering = a})
+instancesCount_registering :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_registering = Lens.lens (\InstancesCount' {registering} -> registering) (\s@InstancesCount' {} a -> s {registering = a} :: InstancesCount)
 
 -- | The number of instances with @booting@ status.
-icBooting :: Lens' InstancesCount (Maybe Int)
-icBooting = lens _icBooting (\s a -> s {_icBooting = a})
+instancesCount_booting :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_booting = Lens.lens (\InstancesCount' {booting} -> booting) (\s@InstancesCount' {} a -> s {booting = a} :: InstancesCount)
 
 -- | The number of instances with @stop_failed@ status.
-icStopFailed :: Lens' InstancesCount (Maybe Int)
-icStopFailed = lens _icStopFailed (\s a -> s {_icStopFailed = a})
+instancesCount_stopFailed :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_stopFailed = Lens.lens (\InstancesCount' {stopFailed} -> stopFailed) (\s@InstancesCount' {} a -> s {stopFailed = a} :: InstancesCount)
 
 -- | The number of instances with @start_failed@ status.
-icStartFailed :: Lens' InstancesCount (Maybe Int)
-icStartFailed = lens _icStartFailed (\s a -> s {_icStartFailed = a})
+instancesCount_startFailed :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_startFailed = Lens.lens (\InstancesCount' {startFailed} -> startFailed) (\s@InstancesCount' {} a -> s {startFailed = a} :: InstancesCount)
 
 -- | The number of instances with @running_setup@ status.
-icRunningSetup :: Lens' InstancesCount (Maybe Int)
-icRunningSetup = lens _icRunningSetup (\s a -> s {_icRunningSetup = a})
+instancesCount_runningSetup :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_runningSetup = Lens.lens (\InstancesCount' {runningSetup} -> runningSetup) (\s@InstancesCount' {} a -> s {runningSetup = a} :: InstancesCount)
 
 -- | The number of instances with @terminated@ status.
-icTerminated :: Lens' InstancesCount (Maybe Int)
-icTerminated = lens _icTerminated (\s a -> s {_icTerminated = a})
+instancesCount_terminated :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_terminated = Lens.lens (\InstancesCount' {terminated} -> terminated) (\s@InstancesCount' {} a -> s {terminated = a} :: InstancesCount)
 
 -- | The number of instances with @pending@ status.
-icPending :: Lens' InstancesCount (Maybe Int)
-icPending = lens _icPending (\s a -> s {_icPending = a})
+instancesCount_pending :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_pending = Lens.lens (\InstancesCount' {pending} -> pending) (\s@InstancesCount' {} a -> s {pending = a} :: InstancesCount)
 
 -- | The number of instances with @terminating@ status.
-icTerminating :: Lens' InstancesCount (Maybe Int)
-icTerminating = lens _icTerminating (\s a -> s {_icTerminating = a})
+instancesCount_terminating :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_terminating = Lens.lens (\InstancesCount' {terminating} -> terminating) (\s@InstancesCount' {} a -> s {terminating = a} :: InstancesCount)
 
 -- | The number of instances with @shutting_down@ status.
-icShuttingDown :: Lens' InstancesCount (Maybe Int)
-icShuttingDown = lens _icShuttingDown (\s a -> s {_icShuttingDown = a})
+instancesCount_shuttingDown :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_shuttingDown = Lens.lens (\InstancesCount' {shuttingDown} -> shuttingDown) (\s@InstancesCount' {} a -> s {shuttingDown = a} :: InstancesCount)
 
 -- | The number of instances in the Assigning state.
-icAssigning :: Lens' InstancesCount (Maybe Int)
-icAssigning = lens _icAssigning (\s a -> s {_icAssigning = a})
+instancesCount_assigning :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_assigning = Lens.lens (\InstancesCount' {assigning} -> assigning) (\s@InstancesCount' {} a -> s {assigning = a} :: InstancesCount)
 
 -- | The number of instances with @stopped@ status.
-icStopped :: Lens' InstancesCount (Maybe Int)
-icStopped = lens _icStopped (\s a -> s {_icStopped = a})
+instancesCount_stopped :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_stopped = Lens.lens (\InstancesCount' {stopped} -> stopped) (\s@InstancesCount' {} a -> s {stopped = a} :: InstancesCount)
 
 -- | The number of instances with @rebooting@ status.
-icRebooting :: Lens' InstancesCount (Maybe Int)
-icRebooting = lens _icRebooting (\s a -> s {_icRebooting = a})
+instancesCount_rebooting :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_rebooting = Lens.lens (\InstancesCount' {rebooting} -> rebooting) (\s@InstancesCount' {} a -> s {rebooting = a} :: InstancesCount)
 
 -- | The number of instances in the Registered state.
-icRegistered :: Lens' InstancesCount (Maybe Int)
-icRegistered = lens _icRegistered (\s a -> s {_icRegistered = a})
+instancesCount_registered :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_registered = Lens.lens (\InstancesCount' {registered} -> registered) (\s@InstancesCount' {} a -> s {registered = a} :: InstancesCount)
 
 -- | The number of instances with @requested@ status.
-icRequested :: Lens' InstancesCount (Maybe Int)
-icRequested = lens _icRequested (\s a -> s {_icRequested = a})
+instancesCount_requested :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_requested = Lens.lens (\InstancesCount' {requested} -> requested) (\s@InstancesCount' {} a -> s {requested = a} :: InstancesCount)
 
 -- | The number of instances in the Deregistering state.
-icDeregistering :: Lens' InstancesCount (Maybe Int)
-icDeregistering = lens _icDeregistering (\s a -> s {_icDeregistering = a})
+instancesCount_deregistering :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_deregistering = Lens.lens (\InstancesCount' {deregistering} -> deregistering) (\s@InstancesCount' {} a -> s {deregistering = a} :: InstancesCount)
 
 -- | The number of instances with @stopping@ status.
-icStopping :: Lens' InstancesCount (Maybe Int)
-icStopping = lens _icStopping (\s a -> s {_icStopping = a})
+instancesCount_stopping :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_stopping = Lens.lens (\InstancesCount' {stopping} -> stopping) (\s@InstancesCount' {} a -> s {stopping = a} :: InstancesCount)
 
 -- | The number of instances in the Unassigning state.
-icUnassigning :: Lens' InstancesCount (Maybe Int)
-icUnassigning = lens _icUnassigning (\s a -> s {_icUnassigning = a})
+instancesCount_unassigning :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_unassigning = Lens.lens (\InstancesCount' {unassigning} -> unassigning) (\s@InstancesCount' {} a -> s {unassigning = a} :: InstancesCount)
 
 -- | The number of instances with @connection_lost@ status.
-icConnectionLost :: Lens' InstancesCount (Maybe Int)
-icConnectionLost = lens _icConnectionLost (\s a -> s {_icConnectionLost = a})
+instancesCount_connectionLost :: Lens.Lens' InstancesCount (Prelude.Maybe Prelude.Int)
+instancesCount_connectionLost = Lens.lens (\InstancesCount' {connectionLost} -> connectionLost) (\s@InstancesCount' {} a -> s {connectionLost = a} :: InstancesCount)
 
-instance FromJSON InstancesCount where
+instance Prelude.FromJSON InstancesCount where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstancesCount"
       ( \x ->
           InstancesCount'
-            <$> (x .:? "Online")
-            <*> (x .:? "SetupFailed")
-            <*> (x .:? "Registering")
-            <*> (x .:? "Booting")
-            <*> (x .:? "StopFailed")
-            <*> (x .:? "StartFailed")
-            <*> (x .:? "RunningSetup")
-            <*> (x .:? "Terminated")
-            <*> (x .:? "Pending")
-            <*> (x .:? "Terminating")
-            <*> (x .:? "ShuttingDown")
-            <*> (x .:? "Assigning")
-            <*> (x .:? "Stopped")
-            <*> (x .:? "Rebooting")
-            <*> (x .:? "Registered")
-            <*> (x .:? "Requested")
-            <*> (x .:? "Deregistering")
-            <*> (x .:? "Stopping")
-            <*> (x .:? "Unassigning")
-            <*> (x .:? "ConnectionLost")
+            Prelude.<$> (x Prelude..:? "Online")
+            Prelude.<*> (x Prelude..:? "SetupFailed")
+            Prelude.<*> (x Prelude..:? "Registering")
+            Prelude.<*> (x Prelude..:? "Booting")
+            Prelude.<*> (x Prelude..:? "StopFailed")
+            Prelude.<*> (x Prelude..:? "StartFailed")
+            Prelude.<*> (x Prelude..:? "RunningSetup")
+            Prelude.<*> (x Prelude..:? "Terminated")
+            Prelude.<*> (x Prelude..:? "Pending")
+            Prelude.<*> (x Prelude..:? "Terminating")
+            Prelude.<*> (x Prelude..:? "ShuttingDown")
+            Prelude.<*> (x Prelude..:? "Assigning")
+            Prelude.<*> (x Prelude..:? "Stopped")
+            Prelude.<*> (x Prelude..:? "Rebooting")
+            Prelude.<*> (x Prelude..:? "Registered")
+            Prelude.<*> (x Prelude..:? "Requested")
+            Prelude.<*> (x Prelude..:? "Deregistering")
+            Prelude.<*> (x Prelude..:? "Stopping")
+            Prelude.<*> (x Prelude..:? "Unassigning")
+            Prelude.<*> (x Prelude..:? "ConnectionLost")
       )
 
-instance Hashable InstancesCount
+instance Prelude.Hashable InstancesCount
 
-instance NFData InstancesCount
+instance Prelude.NFData InstancesCount

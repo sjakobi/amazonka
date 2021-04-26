@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.InstanceIdentity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains a description of an Amazon EC2 instance from the Amazon EC2 metadata service. For more information, see <https://docs.aws.amazon.com/sdkfornet/latest/apidocs/Index.html Instance Metadata and User Data> .
+-- | Contains a description of an Amazon EC2 instance from the Amazon EC2
+-- metadata service. For more information, see
+-- <https://docs.aws.amazon.com/sdkfornet/latest/apidocs/Index.html Instance Metadata and User Data>.
 --
---
---
--- /See:/ 'instanceIdentity' smart constructor.
+-- /See:/ 'newInstanceIdentity' smart constructor.
 data InstanceIdentity = InstanceIdentity'
-  { _iiDocument ::
-      !(Maybe Text),
-    _iiSignature :: !(Maybe Text)
+  { -- | A JSON document that contains the metadata.
+    document :: Prelude.Maybe Prelude.Text,
+    -- | A signature that can be used to verify the document\'s accuracy and
+    -- authenticity.
+    signature :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceIdentity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceIdentity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iiDocument' - A JSON document that contains the metadata.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iiSignature' - A signature that can be used to verify the document's accuracy and authenticity.
-instanceIdentity ::
+-- 'document', 'instanceIdentity_document' - A JSON document that contains the metadata.
+--
+-- 'signature', 'instanceIdentity_signature' - A signature that can be used to verify the document\'s accuracy and
+-- authenticity.
+newInstanceIdentity ::
   InstanceIdentity
-instanceIdentity =
+newInstanceIdentity =
   InstanceIdentity'
-    { _iiDocument = Nothing,
-      _iiSignature = Nothing
+    { document = Prelude.Nothing,
+      signature = Prelude.Nothing
     }
 
 -- | A JSON document that contains the metadata.
-iiDocument :: Lens' InstanceIdentity (Maybe Text)
-iiDocument = lens _iiDocument (\s a -> s {_iiDocument = a})
+instanceIdentity_document :: Lens.Lens' InstanceIdentity (Prelude.Maybe Prelude.Text)
+instanceIdentity_document = Lens.lens (\InstanceIdentity' {document} -> document) (\s@InstanceIdentity' {} a -> s {document = a} :: InstanceIdentity)
 
--- | A signature that can be used to verify the document's accuracy and authenticity.
-iiSignature :: Lens' InstanceIdentity (Maybe Text)
-iiSignature = lens _iiSignature (\s a -> s {_iiSignature = a})
+-- | A signature that can be used to verify the document\'s accuracy and
+-- authenticity.
+instanceIdentity_signature :: Lens.Lens' InstanceIdentity (Prelude.Maybe Prelude.Text)
+instanceIdentity_signature = Lens.lens (\InstanceIdentity' {signature} -> signature) (\s@InstanceIdentity' {} a -> s {signature = a} :: InstanceIdentity)
 
-instance Hashable InstanceIdentity
+instance Prelude.Hashable InstanceIdentity
 
-instance NFData InstanceIdentity
+instance Prelude.NFData InstanceIdentity
 
-instance ToJSON InstanceIdentity where
+instance Prelude.ToJSON InstanceIdentity where
   toJSON InstanceIdentity' {..} =
-    object
-      ( catMaybes
-          [ ("Document" .=) <$> _iiDocument,
-            ("Signature" .=) <$> _iiSignature
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Document" Prelude..=) Prelude.<$> document,
+            ("Signature" Prelude..=) Prelude.<$> signature
           ]
       )

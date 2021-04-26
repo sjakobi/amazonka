@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.ShutdownEventConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The Shutdown event configuration.
 --
---
---
--- /See:/ 'shutdownEventConfiguration' smart constructor.
+-- /See:/ 'newShutdownEventConfiguration' smart constructor.
 data ShutdownEventConfiguration = ShutdownEventConfiguration'
-  { _secExecutionTimeout ::
-      !(Maybe Int),
-    _secDelayUntilElbConnectionsDrained ::
-      !(Maybe Bool)
+  { -- | The time, in seconds, that AWS OpsWorks Stacks will wait after
+    -- triggering a Shutdown event before shutting down an instance.
+    executionTimeout :: Prelude.Maybe Prelude.Int,
+    -- | Whether to enable Elastic Load Balancing connection draining. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain Connection Draining>
+    delayUntilElbConnectionsDrained :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ShutdownEventConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ShutdownEventConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'secExecutionTimeout' - The time, in seconds, that AWS OpsWorks Stacks will wait after triggering a Shutdown event before shutting down an instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'secDelayUntilElbConnectionsDrained' - Whether to enable Elastic Load Balancing connection draining. For more information, see <https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain Connection Draining>
-shutdownEventConfiguration ::
+-- 'executionTimeout', 'shutdownEventConfiguration_executionTimeout' - The time, in seconds, that AWS OpsWorks Stacks will wait after
+-- triggering a Shutdown event before shutting down an instance.
+--
+-- 'delayUntilElbConnectionsDrained', 'shutdownEventConfiguration_delayUntilElbConnectionsDrained' - Whether to enable Elastic Load Balancing connection draining. For more
+-- information, see
+-- <https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain Connection Draining>
+newShutdownEventConfiguration ::
   ShutdownEventConfiguration
-shutdownEventConfiguration =
+newShutdownEventConfiguration =
   ShutdownEventConfiguration'
-    { _secExecutionTimeout =
-        Nothing,
-      _secDelayUntilElbConnectionsDrained = Nothing
+    { executionTimeout =
+        Prelude.Nothing,
+      delayUntilElbConnectionsDrained =
+        Prelude.Nothing
     }
 
--- | The time, in seconds, that AWS OpsWorks Stacks will wait after triggering a Shutdown event before shutting down an instance.
-secExecutionTimeout :: Lens' ShutdownEventConfiguration (Maybe Int)
-secExecutionTimeout = lens _secExecutionTimeout (\s a -> s {_secExecutionTimeout = a})
+-- | The time, in seconds, that AWS OpsWorks Stacks will wait after
+-- triggering a Shutdown event before shutting down an instance.
+shutdownEventConfiguration_executionTimeout :: Lens.Lens' ShutdownEventConfiguration (Prelude.Maybe Prelude.Int)
+shutdownEventConfiguration_executionTimeout = Lens.lens (\ShutdownEventConfiguration' {executionTimeout} -> executionTimeout) (\s@ShutdownEventConfiguration' {} a -> s {executionTimeout = a} :: ShutdownEventConfiguration)
 
--- | Whether to enable Elastic Load Balancing connection draining. For more information, see <https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain Connection Draining>
-secDelayUntilElbConnectionsDrained :: Lens' ShutdownEventConfiguration (Maybe Bool)
-secDelayUntilElbConnectionsDrained = lens _secDelayUntilElbConnectionsDrained (\s a -> s {_secDelayUntilElbConnectionsDrained = a})
+-- | Whether to enable Elastic Load Balancing connection draining. For more
+-- information, see
+-- <https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain Connection Draining>
+shutdownEventConfiguration_delayUntilElbConnectionsDrained :: Lens.Lens' ShutdownEventConfiguration (Prelude.Maybe Prelude.Bool)
+shutdownEventConfiguration_delayUntilElbConnectionsDrained = Lens.lens (\ShutdownEventConfiguration' {delayUntilElbConnectionsDrained} -> delayUntilElbConnectionsDrained) (\s@ShutdownEventConfiguration' {} a -> s {delayUntilElbConnectionsDrained = a} :: ShutdownEventConfiguration)
 
-instance FromJSON ShutdownEventConfiguration where
+instance Prelude.FromJSON ShutdownEventConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ShutdownEventConfiguration"
       ( \x ->
           ShutdownEventConfiguration'
-            <$> (x .:? "ExecutionTimeout")
-            <*> (x .:? "DelayUntilElbConnectionsDrained")
+            Prelude.<$> (x Prelude..:? "ExecutionTimeout")
+            Prelude.<*> (x Prelude..:? "DelayUntilElbConnectionsDrained")
       )
 
-instance Hashable ShutdownEventConfiguration
+instance Prelude.Hashable ShutdownEventConfiguration
 
-instance NFData ShutdownEventConfiguration
+instance Prelude.NFData ShutdownEventConfiguration
 
-instance ToJSON ShutdownEventConfiguration where
+instance Prelude.ToJSON ShutdownEventConfiguration where
   toJSON ShutdownEventConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("ExecutionTimeout" .=) <$> _secExecutionTimeout,
-            ("DelayUntilElbConnectionsDrained" .=)
-              <$> _secDelayUntilElbConnectionsDrained
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ExecutionTimeout" Prelude..=)
+              Prelude.<$> executionTimeout,
+            ("DelayUntilElbConnectionsDrained" Prelude..=)
+              Prelude.<$> delayUntilElbConnectionsDrained
           ]
       )

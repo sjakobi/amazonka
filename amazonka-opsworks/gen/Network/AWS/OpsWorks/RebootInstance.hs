@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,98 +21,111 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Reboots a specified instance. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html Starting, Stopping, and Rebooting Instances> .
+-- Reboots a specified instance. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html Starting, Stopping, and Rebooting Instances>.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack, or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.RebootInstance
   ( -- * Creating a Request
-    rebootInstance,
-    RebootInstance,
+    RebootInstance (..),
+    newRebootInstance,
 
     -- * Request Lenses
-    riInstanceId,
+    rebootInstance_instanceId,
 
     -- * Destructuring the Response
-    rebootInstanceResponse,
-    RebootInstanceResponse,
+    RebootInstanceResponse (..),
+    newRebootInstanceResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'rebootInstance' smart constructor.
-newtype RebootInstance = RebootInstance'
-  { _riInstanceId ::
-      Text
+-- | /See:/ 'newRebootInstance' smart constructor.
+data RebootInstance = RebootInstance'
+  { -- | The instance ID.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebootInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'riInstanceId' - The instance ID.
-rebootInstance ::
-  -- | 'riInstanceId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instanceId', 'rebootInstance_instanceId' - The instance ID.
+newRebootInstance ::
+  -- | 'instanceId'
+  Prelude.Text ->
   RebootInstance
-rebootInstance pInstanceId_ =
-  RebootInstance' {_riInstanceId = pInstanceId_}
+newRebootInstance pInstanceId_ =
+  RebootInstance' {instanceId = pInstanceId_}
 
 -- | The instance ID.
-riInstanceId :: Lens' RebootInstance Text
-riInstanceId = lens _riInstanceId (\s a -> s {_riInstanceId = a})
+rebootInstance_instanceId :: Lens.Lens' RebootInstance Prelude.Text
+rebootInstance_instanceId = Lens.lens (\RebootInstance' {instanceId} -> instanceId) (\s@RebootInstance' {} a -> s {instanceId = a} :: RebootInstance)
 
-instance AWSRequest RebootInstance where
+instance Prelude.AWSRequest RebootInstance where
   type Rs RebootInstance = RebootInstanceResponse
-  request = postJSON opsWorks
-  response = receiveNull RebootInstanceResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull RebootInstanceResponse'
 
-instance Hashable RebootInstance
+instance Prelude.Hashable RebootInstance
 
-instance NFData RebootInstance
+instance Prelude.NFData RebootInstance
 
-instance ToHeaders RebootInstance where
+instance Prelude.ToHeaders RebootInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.RebootInstance" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.RebootInstance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RebootInstance where
+instance Prelude.ToJSON RebootInstance where
   toJSON RebootInstance' {..} =
-    object
-      (catMaybes [Just ("InstanceId" .= _riInstanceId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("InstanceId" Prelude..= instanceId)]
+      )
 
-instance ToPath RebootInstance where
-  toPath = const "/"
+instance Prelude.ToPath RebootInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery RebootInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery RebootInstance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'rebootInstanceResponse' smart constructor.
+-- | /See:/ 'newRebootInstanceResponse' smart constructor.
 data RebootInstanceResponse = RebootInstanceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootInstanceResponse' with the minimum fields required to make a request.
-rebootInstanceResponse ::
+-- |
+-- Create a value of 'RebootInstanceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRebootInstanceResponse ::
   RebootInstanceResponse
-rebootInstanceResponse = RebootInstanceResponse'
+newRebootInstanceResponse = RebootInstanceResponse'
 
-instance NFData RebootInstanceResponse
+instance Prelude.NFData RebootInstanceResponse

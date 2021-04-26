@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,106 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops a specified instance. When you stop a standard instance, the data disappears and must be reinstalled when you restart the instance. You can stop an Amazon EBS-backed instance without losing data. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html Starting, Stopping, and Rebooting Instances> .
+-- Stops a specified instance. When you stop a standard instance, the data
+-- disappears and must be reinstalled when you restart the instance. You
+-- can stop an Amazon EBS-backed instance without losing data. For more
+-- information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html Starting, Stopping, and Rebooting Instances>.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack, or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.StopInstance
   ( -- * Creating a Request
-    stopInstance,
-    StopInstance,
+    StopInstance (..),
+    newStopInstance,
 
     -- * Request Lenses
-    sForce,
-    sInstanceId,
+    stopInstance_force,
+    stopInstance_instanceId,
 
     -- * Destructuring the Response
-    stopInstanceResponse,
-    StopInstanceResponse,
+    StopInstanceResponse (..),
+    newStopInstanceResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopInstance' smart constructor.
+-- | /See:/ 'newStopInstance' smart constructor.
 data StopInstance = StopInstance'
-  { _sForce ::
-      !(Maybe Bool),
-    _sInstanceId :: !Text
+  { -- | Specifies whether to force an instance to stop. If the instance\'s root
+    -- device type is @ebs@, or EBS-backed, adding the @Force@ parameter to the
+    -- @StopInstances@ API call disassociates the AWS OpsWorks Stacks instance
+    -- from EC2, and forces deletion of /only/ the OpsWorks Stacks instance.
+    -- You must also delete the formerly-associated instance in EC2 after
+    -- troubleshooting and replacing the AWS OpsWorks Stacks instance with a
+    -- new one.
+    force :: Prelude.Maybe Prelude.Bool,
+    -- | The instance ID.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sForce' - Specifies whether to force an instance to stop. If the instance's root device type is @ebs@ , or EBS-backed, adding the @Force@ parameter to the @StopInstances@ API call disassociates the AWS OpsWorks Stacks instance from EC2, and forces deletion of /only/ the OpsWorks Stacks instance. You must also delete the formerly-associated instance in EC2 after troubleshooting and replacing the AWS OpsWorks Stacks instance with a new one.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sInstanceId' - The instance ID.
-stopInstance ::
-  -- | 'sInstanceId'
-  Text ->
+-- 'force', 'stopInstance_force' - Specifies whether to force an instance to stop. If the instance\'s root
+-- device type is @ebs@, or EBS-backed, adding the @Force@ parameter to the
+-- @StopInstances@ API call disassociates the AWS OpsWorks Stacks instance
+-- from EC2, and forces deletion of /only/ the OpsWorks Stacks instance.
+-- You must also delete the formerly-associated instance in EC2 after
+-- troubleshooting and replacing the AWS OpsWorks Stacks instance with a
+-- new one.
+--
+-- 'instanceId', 'stopInstance_instanceId' - The instance ID.
+newStopInstance ::
+  -- | 'instanceId'
+  Prelude.Text ->
   StopInstance
-stopInstance pInstanceId_ =
+newStopInstance pInstanceId_ =
   StopInstance'
-    { _sForce = Nothing,
-      _sInstanceId = pInstanceId_
+    { force = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | Specifies whether to force an instance to stop. If the instance's root device type is @ebs@ , or EBS-backed, adding the @Force@ parameter to the @StopInstances@ API call disassociates the AWS OpsWorks Stacks instance from EC2, and forces deletion of /only/ the OpsWorks Stacks instance. You must also delete the formerly-associated instance in EC2 after troubleshooting and replacing the AWS OpsWorks Stacks instance with a new one.
-sForce :: Lens' StopInstance (Maybe Bool)
-sForce = lens _sForce (\s a -> s {_sForce = a})
+-- | Specifies whether to force an instance to stop. If the instance\'s root
+-- device type is @ebs@, or EBS-backed, adding the @Force@ parameter to the
+-- @StopInstances@ API call disassociates the AWS OpsWorks Stacks instance
+-- from EC2, and forces deletion of /only/ the OpsWorks Stacks instance.
+-- You must also delete the formerly-associated instance in EC2 after
+-- troubleshooting and replacing the AWS OpsWorks Stacks instance with a
+-- new one.
+stopInstance_force :: Lens.Lens' StopInstance (Prelude.Maybe Prelude.Bool)
+stopInstance_force = Lens.lens (\StopInstance' {force} -> force) (\s@StopInstance' {} a -> s {force = a} :: StopInstance)
 
 -- | The instance ID.
-sInstanceId :: Lens' StopInstance Text
-sInstanceId = lens _sInstanceId (\s a -> s {_sInstanceId = a})
+stopInstance_instanceId :: Lens.Lens' StopInstance Prelude.Text
+stopInstance_instanceId = Lens.lens (\StopInstance' {instanceId} -> instanceId) (\s@StopInstance' {} a -> s {instanceId = a} :: StopInstance)
 
-instance AWSRequest StopInstance where
+instance Prelude.AWSRequest StopInstance where
   type Rs StopInstance = StopInstanceResponse
-  request = postJSON opsWorks
-  response = receiveNull StopInstanceResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull StopInstanceResponse'
 
-instance Hashable StopInstance
+instance Prelude.Hashable StopInstance
 
-instance NFData StopInstance
+instance Prelude.NFData StopInstance
 
-instance ToHeaders StopInstance where
+instance Prelude.ToHeaders StopInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.StopInstance" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.StopInstance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopInstance where
+instance Prelude.ToJSON StopInstance where
   toJSON StopInstance' {..} =
-    object
-      ( catMaybes
-          [ ("Force" .=) <$> _sForce,
-            Just ("InstanceId" .= _sInstanceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Force" Prelude..=) Prelude.<$> force,
+            Prelude.Just ("InstanceId" Prelude..= instanceId)
           ]
       )
 
-instance ToPath StopInstance where
-  toPath = const "/"
+instance Prelude.ToPath StopInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery StopInstance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopInstanceResponse' smart constructor.
+-- | /See:/ 'newStopInstanceResponse' smart constructor.
 data StopInstanceResponse = StopInstanceResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopInstanceResponse' with the minimum fields required to make a request.
-stopInstanceResponse ::
+-- |
+-- Create a value of 'StopInstanceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStopInstanceResponse ::
   StopInstanceResponse
-stopInstanceResponse = StopInstanceResponse'
+newStopInstanceResponse = StopInstanceResponse'
 
-instance NFData StopInstanceResponse
+instance Prelude.NFData StopInstanceResponse

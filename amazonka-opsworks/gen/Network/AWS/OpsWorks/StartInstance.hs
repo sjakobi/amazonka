@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,98 +21,111 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts a specified instance. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html Starting, Stopping, and Rebooting Instances> .
+-- Starts a specified instance. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html Starting, Stopping, and Rebooting Instances>.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack, or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.StartInstance
   ( -- * Creating a Request
-    startInstance,
-    StartInstance,
+    StartInstance (..),
+    newStartInstance,
 
     -- * Request Lenses
-    siInstanceId,
+    startInstance_instanceId,
 
     -- * Destructuring the Response
-    startInstanceResponse,
-    StartInstanceResponse,
+    StartInstanceResponse (..),
+    newStartInstanceResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startInstance' smart constructor.
-newtype StartInstance = StartInstance'
-  { _siInstanceId ::
-      Text
+-- | /See:/ 'newStartInstance' smart constructor.
+data StartInstance = StartInstance'
+  { -- | The instance ID.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siInstanceId' - The instance ID.
-startInstance ::
-  -- | 'siInstanceId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instanceId', 'startInstance_instanceId' - The instance ID.
+newStartInstance ::
+  -- | 'instanceId'
+  Prelude.Text ->
   StartInstance
-startInstance pInstanceId_ =
-  StartInstance' {_siInstanceId = pInstanceId_}
+newStartInstance pInstanceId_ =
+  StartInstance' {instanceId = pInstanceId_}
 
 -- | The instance ID.
-siInstanceId :: Lens' StartInstance Text
-siInstanceId = lens _siInstanceId (\s a -> s {_siInstanceId = a})
+startInstance_instanceId :: Lens.Lens' StartInstance Prelude.Text
+startInstance_instanceId = Lens.lens (\StartInstance' {instanceId} -> instanceId) (\s@StartInstance' {} a -> s {instanceId = a} :: StartInstance)
 
-instance AWSRequest StartInstance where
+instance Prelude.AWSRequest StartInstance where
   type Rs StartInstance = StartInstanceResponse
-  request = postJSON opsWorks
-  response = receiveNull StartInstanceResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull StartInstanceResponse'
 
-instance Hashable StartInstance
+instance Prelude.Hashable StartInstance
 
-instance NFData StartInstance
+instance Prelude.NFData StartInstance
 
-instance ToHeaders StartInstance where
+instance Prelude.ToHeaders StartInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.StartInstance" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.StartInstance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartInstance where
+instance Prelude.ToJSON StartInstance where
   toJSON StartInstance' {..} =
-    object
-      (catMaybes [Just ("InstanceId" .= _siInstanceId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("InstanceId" Prelude..= instanceId)]
+      )
 
-instance ToPath StartInstance where
-  toPath = const "/"
+instance Prelude.ToPath StartInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery StartInstance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startInstanceResponse' smart constructor.
+-- | /See:/ 'newStartInstanceResponse' smart constructor.
 data StartInstanceResponse = StartInstanceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartInstanceResponse' with the minimum fields required to make a request.
-startInstanceResponse ::
+-- |
+-- Create a value of 'StartInstanceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStartInstanceResponse ::
   StartInstanceResponse
-startInstanceResponse = StartInstanceResponse'
+newStartInstanceResponse = StartInstanceResponse'
 
-instance NFData StartInstanceResponse
+instance Prelude.NFData StartInstanceResponse

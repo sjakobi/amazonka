@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,107 +24,115 @@
 -- Removes tags from a specified stack or layer.
 module Network.AWS.OpsWorks.UntagResource
   ( -- * Creating a Request
-    untagResource,
-    UntagResource,
+    UntagResource (..),
+    newUntagResource,
 
     -- * Request Lenses
-    urResourceARN,
-    urTagKeys,
+    untagResource_resourceArn,
+    untagResource_tagKeys,
 
     -- * Destructuring the Response
-    untagResourceResponse,
-    UntagResourceResponse,
+    UntagResourceResponse (..),
+    newUntagResourceResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagResource' smart constructor.
+-- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { _urResourceARN ::
-      !Text,
-    _urTagKeys :: ![Text]
+  { -- | The stack or layer\'s Amazon Resource Number (ARN).
+    resourceArn :: Prelude.Text,
+    -- | A list of the keys of tags to be removed from a stack or layer.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urResourceARN' - The stack or layer's Amazon Resource Number (ARN).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urTagKeys' - A list of the keys of tags to be removed from a stack or layer.
-untagResource ::
-  -- | 'urResourceARN'
-  Text ->
+-- 'resourceArn', 'untagResource_resourceArn' - The stack or layer\'s Amazon Resource Number (ARN).
+--
+-- 'tagKeys', 'untagResource_tagKeys' - A list of the keys of tags to be removed from a stack or layer.
+newUntagResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   UntagResource
-untagResource pResourceARN_ =
+newUntagResource pResourceArn_ =
   UntagResource'
-    { _urResourceARN = pResourceARN_,
-      _urTagKeys = mempty
+    { resourceArn = pResourceArn_,
+      tagKeys = Prelude.mempty
     }
 
--- | The stack or layer's Amazon Resource Number (ARN).
-urResourceARN :: Lens' UntagResource Text
-urResourceARN = lens _urResourceARN (\s a -> s {_urResourceARN = a})
+-- | The stack or layer\'s Amazon Resource Number (ARN).
+untagResource_resourceArn :: Lens.Lens' UntagResource Prelude.Text
+untagResource_resourceArn = Lens.lens (\UntagResource' {resourceArn} -> resourceArn) (\s@UntagResource' {} a -> s {resourceArn = a} :: UntagResource)
 
 -- | A list of the keys of tags to be removed from a stack or layer.
-urTagKeys :: Lens' UntagResource [Text]
-urTagKeys = lens _urTagKeys (\s a -> s {_urTagKeys = a}) . _Coerce
+untagResource_tagKeys :: Lens.Lens' UntagResource [Prelude.Text]
+untagResource_tagKeys = Lens.lens (\UntagResource' {tagKeys} -> tagKeys) (\s@UntagResource' {} a -> s {tagKeys = a} :: UntagResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagResource where
+instance Prelude.AWSRequest UntagResource where
   type Rs UntagResource = UntagResourceResponse
-  request = postJSON opsWorks
-  response = receiveNull UntagResourceResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull UntagResourceResponse'
 
-instance Hashable UntagResource
+instance Prelude.Hashable UntagResource
 
-instance NFData UntagResource
+instance Prelude.NFData UntagResource
 
-instance ToHeaders UntagResource where
+instance Prelude.ToHeaders UntagResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.UntagResource" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.UntagResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UntagResource where
+instance Prelude.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceArn" .= _urResourceARN),
-            Just ("TagKeys" .= _urTagKeys)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceArn" Prelude..= resourceArn),
+            Prelude.Just ("TagKeys" Prelude..= tagKeys)
           ]
       )
 
-instance ToPath UntagResource where
-  toPath = const "/"
+instance Prelude.ToPath UntagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery UntagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'untagResourceResponse' smart constructor.
+-- | /See:/ 'newUntagResourceResponse' smart constructor.
 data UntagResourceResponse = UntagResourceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResourceResponse' with the minimum fields required to make a request.
-untagResourceResponse ::
+-- |
+-- Create a value of 'UntagResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUntagResourceResponse ::
   UntagResourceResponse
-untagResourceResponse = UntagResourceResponse'
+newUntagResourceResponse = UntagResourceResponse'
 
-instance NFData UntagResourceResponse
+instance Prelude.NFData UntagResourceResponse

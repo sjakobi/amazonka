@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.OpsWorks.Types.Architecture
   ( Architecture
       ( ..,
-        I386,
-        X86_64
+        ArchitectureI386,
+        ArchitectureX8664
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Architecture = Architecture' (CI Text)
+newtype Architecture = Architecture'
+  { fromArchitecture ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern I386 :: Architecture
-pattern I386 = Architecture' "i386"
+pattern ArchitectureI386 :: Architecture
+pattern ArchitectureI386 = Architecture' "i386"
 
-pattern X86_64 :: Architecture
-pattern X86_64 = Architecture' "x86_64"
+pattern ArchitectureX8664 :: Architecture
+pattern ArchitectureX8664 = Architecture' "x86_64"
 
 {-# COMPLETE
-  I386,
-  X86_64,
+  ArchitectureI386,
+  ArchitectureX8664,
   Architecture'
   #-}
 
-instance FromText Architecture where
-  parser = (Architecture' . mk) <$> takeText
+instance Prelude.FromText Architecture where
+  parser = Architecture' Prelude.<$> Prelude.takeText
 
-instance ToText Architecture where
-  toText (Architecture' ci) = original ci
+instance Prelude.ToText Architecture where
+  toText (Architecture' x) = x
 
-instance Hashable Architecture
+instance Prelude.Hashable Architecture
 
-instance NFData Architecture
+instance Prelude.NFData Architecture
 
-instance ToByteString Architecture
+instance Prelude.ToByteString Architecture
 
-instance ToQuery Architecture
+instance Prelude.ToQuery Architecture
 
-instance ToHeader Architecture
+instance Prelude.ToHeader Architecture
 
-instance ToJSON Architecture where
-  toJSON = toJSONText
+instance Prelude.ToJSON Architecture where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Architecture where
-  parseJSON = parseJSONText "Architecture"
+instance Prelude.FromJSON Architecture where
+  parseJSON = Prelude.parseJSONText "Architecture"

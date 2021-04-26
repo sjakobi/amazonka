@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,110 +19,108 @@
 module Network.AWS.OpsWorks.Types.DeploymentCommandName
   ( DeploymentCommandName
       ( ..,
-        Configure,
-        Deploy,
-        ExecuteRecipes,
-        InstallDependencies,
-        Restart,
-        Rollback,
-        Setup,
-        Start,
-        Stop,
-        Undeploy,
-        UpdateCustomCookbooks,
-        UpdateDependencies
+        DeploymentCommandNameConfigure,
+        DeploymentCommandNameDeploy,
+        DeploymentCommandNameExecuteRecipes,
+        DeploymentCommandNameInstallDependencies,
+        DeploymentCommandNameRestart,
+        DeploymentCommandNameRollback,
+        DeploymentCommandNameSetup,
+        DeploymentCommandNameStart,
+        DeploymentCommandNameStop,
+        DeploymentCommandNameUndeploy,
+        DeploymentCommandNameUpdateCustomCookbooks,
+        DeploymentCommandNameUpdateDependencies
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeploymentCommandName
-  = DeploymentCommandName'
-      ( CI
-          Text
-      )
+newtype DeploymentCommandName = DeploymentCommandName'
+  { fromDeploymentCommandName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Configure :: DeploymentCommandName
-pattern Configure = DeploymentCommandName' "configure"
+pattern DeploymentCommandNameConfigure :: DeploymentCommandName
+pattern DeploymentCommandNameConfigure = DeploymentCommandName' "configure"
 
-pattern Deploy :: DeploymentCommandName
-pattern Deploy = DeploymentCommandName' "deploy"
+pattern DeploymentCommandNameDeploy :: DeploymentCommandName
+pattern DeploymentCommandNameDeploy = DeploymentCommandName' "deploy"
 
-pattern ExecuteRecipes :: DeploymentCommandName
-pattern ExecuteRecipes = DeploymentCommandName' "execute_recipes"
+pattern DeploymentCommandNameExecuteRecipes :: DeploymentCommandName
+pattern DeploymentCommandNameExecuteRecipes = DeploymentCommandName' "execute_recipes"
 
-pattern InstallDependencies :: DeploymentCommandName
-pattern InstallDependencies = DeploymentCommandName' "install_dependencies"
+pattern DeploymentCommandNameInstallDependencies :: DeploymentCommandName
+pattern DeploymentCommandNameInstallDependencies = DeploymentCommandName' "install_dependencies"
 
-pattern Restart :: DeploymentCommandName
-pattern Restart = DeploymentCommandName' "restart"
+pattern DeploymentCommandNameRestart :: DeploymentCommandName
+pattern DeploymentCommandNameRestart = DeploymentCommandName' "restart"
 
-pattern Rollback :: DeploymentCommandName
-pattern Rollback = DeploymentCommandName' "rollback"
+pattern DeploymentCommandNameRollback :: DeploymentCommandName
+pattern DeploymentCommandNameRollback = DeploymentCommandName' "rollback"
 
-pattern Setup :: DeploymentCommandName
-pattern Setup = DeploymentCommandName' "setup"
+pattern DeploymentCommandNameSetup :: DeploymentCommandName
+pattern DeploymentCommandNameSetup = DeploymentCommandName' "setup"
 
-pattern Start :: DeploymentCommandName
-pattern Start = DeploymentCommandName' "start"
+pattern DeploymentCommandNameStart :: DeploymentCommandName
+pattern DeploymentCommandNameStart = DeploymentCommandName' "start"
 
-pattern Stop :: DeploymentCommandName
-pattern Stop = DeploymentCommandName' "stop"
+pattern DeploymentCommandNameStop :: DeploymentCommandName
+pattern DeploymentCommandNameStop = DeploymentCommandName' "stop"
 
-pattern Undeploy :: DeploymentCommandName
-pattern Undeploy = DeploymentCommandName' "undeploy"
+pattern DeploymentCommandNameUndeploy :: DeploymentCommandName
+pattern DeploymentCommandNameUndeploy = DeploymentCommandName' "undeploy"
 
-pattern UpdateCustomCookbooks :: DeploymentCommandName
-pattern UpdateCustomCookbooks = DeploymentCommandName' "update_custom_cookbooks"
+pattern DeploymentCommandNameUpdateCustomCookbooks :: DeploymentCommandName
+pattern DeploymentCommandNameUpdateCustomCookbooks = DeploymentCommandName' "update_custom_cookbooks"
 
-pattern UpdateDependencies :: DeploymentCommandName
-pattern UpdateDependencies = DeploymentCommandName' "update_dependencies"
+pattern DeploymentCommandNameUpdateDependencies :: DeploymentCommandName
+pattern DeploymentCommandNameUpdateDependencies = DeploymentCommandName' "update_dependencies"
 
 {-# COMPLETE
-  Configure,
-  Deploy,
-  ExecuteRecipes,
-  InstallDependencies,
-  Restart,
-  Rollback,
-  Setup,
-  Start,
-  Stop,
-  Undeploy,
-  UpdateCustomCookbooks,
-  UpdateDependencies,
+  DeploymentCommandNameConfigure,
+  DeploymentCommandNameDeploy,
+  DeploymentCommandNameExecuteRecipes,
+  DeploymentCommandNameInstallDependencies,
+  DeploymentCommandNameRestart,
+  DeploymentCommandNameRollback,
+  DeploymentCommandNameSetup,
+  DeploymentCommandNameStart,
+  DeploymentCommandNameStop,
+  DeploymentCommandNameUndeploy,
+  DeploymentCommandNameUpdateCustomCookbooks,
+  DeploymentCommandNameUpdateDependencies,
   DeploymentCommandName'
   #-}
 
-instance FromText DeploymentCommandName where
-  parser = (DeploymentCommandName' . mk) <$> takeText
+instance Prelude.FromText DeploymentCommandName where
+  parser = DeploymentCommandName' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentCommandName where
-  toText (DeploymentCommandName' ci) = original ci
+instance Prelude.ToText DeploymentCommandName where
+  toText (DeploymentCommandName' x) = x
 
-instance Hashable DeploymentCommandName
+instance Prelude.Hashable DeploymentCommandName
 
-instance NFData DeploymentCommandName
+instance Prelude.NFData DeploymentCommandName
 
-instance ToByteString DeploymentCommandName
+instance Prelude.ToByteString DeploymentCommandName
 
-instance ToQuery DeploymentCommandName
+instance Prelude.ToQuery DeploymentCommandName
 
-instance ToHeader DeploymentCommandName
+instance Prelude.ToHeader DeploymentCommandName
 
-instance ToJSON DeploymentCommandName where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeploymentCommandName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeploymentCommandName where
-  parseJSON = parseJSONText "DeploymentCommandName"
+instance Prelude.FromJSON DeploymentCommandName where
+  parseJSON = Prelude.parseJSONText "DeploymentCommandName"

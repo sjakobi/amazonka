@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,173 +19,142 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.WeeklyAutoScalingSchedule where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a time-based instance's auto scaling schedule. The schedule consists of a set of key-value pairs.
+-- | Describes a time-based instance\'s auto scaling schedule. The schedule
+-- consists of a set of key-value pairs.
 --
+-- -   The key is the time period (a UTC hour) and must be an integer from
+--     0 - 23.
 --
---     * The key is the time period (a UTC hour) and must be an integer from 0 - 23.
+-- -   The value indicates whether the instance should be online or offline
+--     for the specified period, and must be set to \"on\" or \"off\"
 --
---     * The value indicates whether the instance should be online or offline for the specified period, and must be set to "on" or "off"
+-- The default setting for all time periods is off, so you use the
+-- following parameters primarily to specify the online periods. You don\'t
+-- have to explicitly specify offline periods unless you want to change an
+-- online period to an offline period.
 --
+-- The following example specifies that the instance should be online for
+-- four hours, from UTC 1200 - 1600. It will be off for the remainder of
+-- the day.
 --
+-- @ { \"12\":\"on\", \"13\":\"on\", \"14\":\"on\", \"15\":\"on\" } @
 --
--- The default setting for all time periods is off, so you use the following parameters primarily to specify the online periods. You don't have to explicitly specify offline periods unless you want to change an online period to an offline period.
---
--- The following example specifies that the instance should be online for four hours, from UTC 1200 - 1600. It will be off for the remainder of the day.
---
--- @{ "12":"on", "13":"on", "14":"on", "15":"on" } @
---
---
--- /See:/ 'weeklyAutoScalingSchedule' smart constructor.
+-- /See:/ 'newWeeklyAutoScalingSchedule' smart constructor.
 data WeeklyAutoScalingSchedule = WeeklyAutoScalingSchedule'
-  { _wassThursday ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _wassFriday ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _wassTuesday ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _wassMonday ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _wassSunday ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _wassSaturday ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _wassWednesday ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       )
+  { -- | The schedule for Thursday.
+    thursday :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The schedule for Friday.
+    friday :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The schedule for Tuesday.
+    tuesday :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The schedule for Monday.
+    monday :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The schedule for Sunday.
+    sunday :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The schedule for Saturday.
+    saturday :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The schedule for Wednesday.
+    wednesday :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WeeklyAutoScalingSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WeeklyAutoScalingSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wassThursday' - The schedule for Thursday.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wassFriday' - The schedule for Friday.
+-- 'thursday', 'weeklyAutoScalingSchedule_thursday' - The schedule for Thursday.
 --
--- * 'wassTuesday' - The schedule for Tuesday.
+-- 'friday', 'weeklyAutoScalingSchedule_friday' - The schedule for Friday.
 --
--- * 'wassMonday' - The schedule for Monday.
+-- 'tuesday', 'weeklyAutoScalingSchedule_tuesday' - The schedule for Tuesday.
 --
--- * 'wassSunday' - The schedule for Sunday.
+-- 'monday', 'weeklyAutoScalingSchedule_monday' - The schedule for Monday.
 --
--- * 'wassSaturday' - The schedule for Saturday.
+-- 'sunday', 'weeklyAutoScalingSchedule_sunday' - The schedule for Sunday.
 --
--- * 'wassWednesday' - The schedule for Wednesday.
-weeklyAutoScalingSchedule ::
+-- 'saturday', 'weeklyAutoScalingSchedule_saturday' - The schedule for Saturday.
+--
+-- 'wednesday', 'weeklyAutoScalingSchedule_wednesday' - The schedule for Wednesday.
+newWeeklyAutoScalingSchedule ::
   WeeklyAutoScalingSchedule
-weeklyAutoScalingSchedule =
+newWeeklyAutoScalingSchedule =
   WeeklyAutoScalingSchedule'
-    { _wassThursday = Nothing,
-      _wassFriday = Nothing,
-      _wassTuesday = Nothing,
-      _wassMonday = Nothing,
-      _wassSunday = Nothing,
-      _wassSaturday = Nothing,
-      _wassWednesday = Nothing
+    { thursday =
+        Prelude.Nothing,
+      friday = Prelude.Nothing,
+      tuesday = Prelude.Nothing,
+      monday = Prelude.Nothing,
+      sunday = Prelude.Nothing,
+      saturday = Prelude.Nothing,
+      wednesday = Prelude.Nothing
     }
 
 -- | The schedule for Thursday.
-wassThursday :: Lens' WeeklyAutoScalingSchedule (HashMap Text Text)
-wassThursday = lens _wassThursday (\s a -> s {_wassThursday = a}) . _Default . _Map
+weeklyAutoScalingSchedule_thursday :: Lens.Lens' WeeklyAutoScalingSchedule (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+weeklyAutoScalingSchedule_thursday = Lens.lens (\WeeklyAutoScalingSchedule' {thursday} -> thursday) (\s@WeeklyAutoScalingSchedule' {} a -> s {thursday = a} :: WeeklyAutoScalingSchedule) Prelude.. Lens.mapping Prelude._Map
 
 -- | The schedule for Friday.
-wassFriday :: Lens' WeeklyAutoScalingSchedule (HashMap Text Text)
-wassFriday = lens _wassFriday (\s a -> s {_wassFriday = a}) . _Default . _Map
+weeklyAutoScalingSchedule_friday :: Lens.Lens' WeeklyAutoScalingSchedule (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+weeklyAutoScalingSchedule_friday = Lens.lens (\WeeklyAutoScalingSchedule' {friday} -> friday) (\s@WeeklyAutoScalingSchedule' {} a -> s {friday = a} :: WeeklyAutoScalingSchedule) Prelude.. Lens.mapping Prelude._Map
 
 -- | The schedule for Tuesday.
-wassTuesday :: Lens' WeeklyAutoScalingSchedule (HashMap Text Text)
-wassTuesday = lens _wassTuesday (\s a -> s {_wassTuesday = a}) . _Default . _Map
+weeklyAutoScalingSchedule_tuesday :: Lens.Lens' WeeklyAutoScalingSchedule (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+weeklyAutoScalingSchedule_tuesday = Lens.lens (\WeeklyAutoScalingSchedule' {tuesday} -> tuesday) (\s@WeeklyAutoScalingSchedule' {} a -> s {tuesday = a} :: WeeklyAutoScalingSchedule) Prelude.. Lens.mapping Prelude._Map
 
 -- | The schedule for Monday.
-wassMonday :: Lens' WeeklyAutoScalingSchedule (HashMap Text Text)
-wassMonday = lens _wassMonday (\s a -> s {_wassMonday = a}) . _Default . _Map
+weeklyAutoScalingSchedule_monday :: Lens.Lens' WeeklyAutoScalingSchedule (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+weeklyAutoScalingSchedule_monday = Lens.lens (\WeeklyAutoScalingSchedule' {monday} -> monday) (\s@WeeklyAutoScalingSchedule' {} a -> s {monday = a} :: WeeklyAutoScalingSchedule) Prelude.. Lens.mapping Prelude._Map
 
 -- | The schedule for Sunday.
-wassSunday :: Lens' WeeklyAutoScalingSchedule (HashMap Text Text)
-wassSunday = lens _wassSunday (\s a -> s {_wassSunday = a}) . _Default . _Map
+weeklyAutoScalingSchedule_sunday :: Lens.Lens' WeeklyAutoScalingSchedule (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+weeklyAutoScalingSchedule_sunday = Lens.lens (\WeeklyAutoScalingSchedule' {sunday} -> sunday) (\s@WeeklyAutoScalingSchedule' {} a -> s {sunday = a} :: WeeklyAutoScalingSchedule) Prelude.. Lens.mapping Prelude._Map
 
 -- | The schedule for Saturday.
-wassSaturday :: Lens' WeeklyAutoScalingSchedule (HashMap Text Text)
-wassSaturday = lens _wassSaturday (\s a -> s {_wassSaturday = a}) . _Default . _Map
+weeklyAutoScalingSchedule_saturday :: Lens.Lens' WeeklyAutoScalingSchedule (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+weeklyAutoScalingSchedule_saturday = Lens.lens (\WeeklyAutoScalingSchedule' {saturday} -> saturday) (\s@WeeklyAutoScalingSchedule' {} a -> s {saturday = a} :: WeeklyAutoScalingSchedule) Prelude.. Lens.mapping Prelude._Map
 
 -- | The schedule for Wednesday.
-wassWednesday :: Lens' WeeklyAutoScalingSchedule (HashMap Text Text)
-wassWednesday = lens _wassWednesday (\s a -> s {_wassWednesday = a}) . _Default . _Map
+weeklyAutoScalingSchedule_wednesday :: Lens.Lens' WeeklyAutoScalingSchedule (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+weeklyAutoScalingSchedule_wednesday = Lens.lens (\WeeklyAutoScalingSchedule' {wednesday} -> wednesday) (\s@WeeklyAutoScalingSchedule' {} a -> s {wednesday = a} :: WeeklyAutoScalingSchedule) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON WeeklyAutoScalingSchedule where
+instance Prelude.FromJSON WeeklyAutoScalingSchedule where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WeeklyAutoScalingSchedule"
       ( \x ->
           WeeklyAutoScalingSchedule'
-            <$> (x .:? "Thursday" .!= mempty)
-            <*> (x .:? "Friday" .!= mempty)
-            <*> (x .:? "Tuesday" .!= mempty)
-            <*> (x .:? "Monday" .!= mempty)
-            <*> (x .:? "Sunday" .!= mempty)
-            <*> (x .:? "Saturday" .!= mempty)
-            <*> (x .:? "Wednesday" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Thursday" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Friday" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Tuesday" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Monday" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Sunday" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Saturday" Prelude..!= Prelude.mempty)
+            Prelude.<*> ( x Prelude..:? "Wednesday"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable WeeklyAutoScalingSchedule
+instance Prelude.Hashable WeeklyAutoScalingSchedule
 
-instance NFData WeeklyAutoScalingSchedule
+instance Prelude.NFData WeeklyAutoScalingSchedule
 
-instance ToJSON WeeklyAutoScalingSchedule where
+instance Prelude.ToJSON WeeklyAutoScalingSchedule where
   toJSON WeeklyAutoScalingSchedule' {..} =
-    object
-      ( catMaybes
-          [ ("Thursday" .=) <$> _wassThursday,
-            ("Friday" .=) <$> _wassFriday,
-            ("Tuesday" .=) <$> _wassTuesday,
-            ("Monday" .=) <$> _wassMonday,
-            ("Sunday" .=) <$> _wassSunday,
-            ("Saturday" .=) <$> _wassSaturday,
-            ("Wednesday" .=) <$> _wassWednesday
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Thursday" Prelude..=) Prelude.<$> thursday,
+            ("Friday" Prelude..=) Prelude.<$> friday,
+            ("Tuesday" Prelude..=) Prelude.<$> tuesday,
+            ("Monday" Prelude..=) Prelude.<$> monday,
+            ("Sunday" Prelude..=) Prelude.<$> sunday,
+            ("Saturday" Prelude..=) Prelude.<$> saturday,
+            ("Wednesday" Prelude..=) Prelude.<$> wednesday
           ]
       )

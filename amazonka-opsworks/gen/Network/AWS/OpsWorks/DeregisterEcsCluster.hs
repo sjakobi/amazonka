@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,115 +21,120 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deregisters a specified Amazon ECS cluster from a stack. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-ecscluster.html#workinglayers-ecscluster-delete Resource Management> .
+-- Deregisters a specified Amazon ECS cluster from a stack. For more
+-- information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-ecscluster.html#workinglayers-ecscluster-delete Resource Management>.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html>.
 module Network.AWS.OpsWorks.DeregisterEcsCluster
   ( -- * Creating a Request
-    deregisterEcsCluster,
-    DeregisterEcsCluster,
+    DeregisterEcsCluster (..),
+    newDeregisterEcsCluster,
 
     -- * Request Lenses
-    decEcsClusterARN,
+    deregisterEcsCluster_ecsClusterArn,
 
     -- * Destructuring the Response
-    deregisterEcsClusterResponse,
-    DeregisterEcsClusterResponse,
+    DeregisterEcsClusterResponse (..),
+    newDeregisterEcsClusterResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deregisterEcsCluster' smart constructor.
-newtype DeregisterEcsCluster = DeregisterEcsCluster'
-  { _decEcsClusterARN ::
-      Text
+-- | /See:/ 'newDeregisterEcsCluster' smart constructor.
+data DeregisterEcsCluster = DeregisterEcsCluster'
+  { -- | The cluster\'s Amazon Resource Number (ARN).
+    ecsClusterArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterEcsCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterEcsCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'decEcsClusterARN' - The cluster's Amazon Resource Number (ARN).
-deregisterEcsCluster ::
-  -- | 'decEcsClusterARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ecsClusterArn', 'deregisterEcsCluster_ecsClusterArn' - The cluster\'s Amazon Resource Number (ARN).
+newDeregisterEcsCluster ::
+  -- | 'ecsClusterArn'
+  Prelude.Text ->
   DeregisterEcsCluster
-deregisterEcsCluster pEcsClusterARN_ =
+newDeregisterEcsCluster pEcsClusterArn_ =
   DeregisterEcsCluster'
-    { _decEcsClusterARN =
-        pEcsClusterARN_
+    { ecsClusterArn =
+        pEcsClusterArn_
     }
 
--- | The cluster's Amazon Resource Number (ARN).
-decEcsClusterARN :: Lens' DeregisterEcsCluster Text
-decEcsClusterARN = lens _decEcsClusterARN (\s a -> s {_decEcsClusterARN = a})
+-- | The cluster\'s Amazon Resource Number (ARN).
+deregisterEcsCluster_ecsClusterArn :: Lens.Lens' DeregisterEcsCluster Prelude.Text
+deregisterEcsCluster_ecsClusterArn = Lens.lens (\DeregisterEcsCluster' {ecsClusterArn} -> ecsClusterArn) (\s@DeregisterEcsCluster' {} a -> s {ecsClusterArn = a} :: DeregisterEcsCluster)
 
-instance AWSRequest DeregisterEcsCluster where
+instance Prelude.AWSRequest DeregisterEcsCluster where
   type
     Rs DeregisterEcsCluster =
       DeregisterEcsClusterResponse
-  request = postJSON opsWorks
-  response = receiveNull DeregisterEcsClusterResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeregisterEcsClusterResponse'
 
-instance Hashable DeregisterEcsCluster
+instance Prelude.Hashable DeregisterEcsCluster
 
-instance NFData DeregisterEcsCluster
+instance Prelude.NFData DeregisterEcsCluster
 
-instance ToHeaders DeregisterEcsCluster where
+instance Prelude.ToHeaders DeregisterEcsCluster where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorks_20130218.DeregisterEcsCluster" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorks_20130218.DeregisterEcsCluster" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeregisterEcsCluster where
+instance Prelude.ToJSON DeregisterEcsCluster where
   toJSON DeregisterEcsCluster' {..} =
-    object
-      ( catMaybes
-          [Just ("EcsClusterArn" .= _decEcsClusterARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("EcsClusterArn" Prelude..= ecsClusterArn)
+          ]
       )
 
-instance ToPath DeregisterEcsCluster where
-  toPath = const "/"
+instance Prelude.ToPath DeregisterEcsCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeregisterEcsCluster where
-  toQuery = const mempty
+instance Prelude.ToQuery DeregisterEcsCluster where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deregisterEcsClusterResponse' smart constructor.
+-- | /See:/ 'newDeregisterEcsClusterResponse' smart constructor.
 data DeregisterEcsClusterResponse = DeregisterEcsClusterResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterEcsClusterResponse' with the minimum fields required to make a request.
-deregisterEcsClusterResponse ::
+-- |
+-- Create a value of 'DeregisterEcsClusterResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeregisterEcsClusterResponse ::
   DeregisterEcsClusterResponse
-deregisterEcsClusterResponse =
+newDeregisterEcsClusterResponse =
   DeregisterEcsClusterResponse'
 
-instance NFData DeregisterEcsClusterResponse
+instance Prelude.NFData DeregisterEcsClusterResponse

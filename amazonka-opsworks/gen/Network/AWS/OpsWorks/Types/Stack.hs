@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,240 +19,342 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.Stack where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types.ChefConfiguration
 import Network.AWS.OpsWorks.Types.RootDeviceType
 import Network.AWS.OpsWorks.Types.Source
 import Network.AWS.OpsWorks.Types.StackAttributesKeys
 import Network.AWS.OpsWorks.Types.StackConfigurationManager
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a stack.
 --
---
---
--- /See:/ 'stack' smart constructor.
+-- /See:/ 'newStack' smart constructor.
 data Stack = Stack'
-  { _staDefaultOS :: !(Maybe Text),
-    _staUseOpsworksSecurityGroups :: !(Maybe Bool),
-    _staCustomCookbooksSource :: !(Maybe Source),
-    _staServiceRoleARN :: !(Maybe Text),
-    _staDefaultAvailabilityZone :: !(Maybe Text),
-    _staStackId :: !(Maybe Text),
-    _staAgentVersion :: !(Maybe Text),
-    _staCustomJSON :: !(Maybe Text),
-    _staARN :: !(Maybe Text),
-    _staCreatedAt :: !(Maybe Text),
-    _staDefaultRootDeviceType :: !(Maybe RootDeviceType),
-    _staAttributes ::
-      !(Maybe (Map StackAttributesKeys (Maybe Text))),
-    _staName :: !(Maybe Text),
-    _staDefaultInstanceProfileARN :: !(Maybe Text),
-    _staHostnameTheme :: !(Maybe Text),
-    _staDefaultSSHKeyName :: !(Maybe Text),
-    _staConfigurationManager ::
-      !(Maybe StackConfigurationManager),
-    _staRegion :: !(Maybe Text),
-    _staVPCId :: !(Maybe Text),
-    _staChefConfiguration :: !(Maybe ChefConfiguration),
-    _staDefaultSubnetId :: !(Maybe Text),
-    _staUseCustomCookbooks :: !(Maybe Bool)
+  { -- | The stack\'s default operating system.
+    defaultOs :: Prelude.Maybe Prelude.Text,
+    -- | Whether the stack automatically associates the AWS OpsWorks Stacks
+    -- built-in security groups with the stack\'s layers.
+    useOpsworksSecurityGroups :: Prelude.Maybe Prelude.Bool,
+    -- | Contains the information required to retrieve an app or cookbook from a
+    -- repository. For more information, see
+    -- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html Adding Apps>
+    -- or
+    -- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html Cookbooks and Recipes>.
+    customCookbooksSource :: Prelude.Maybe Source,
+    -- | The stack AWS Identity and Access Management (IAM) role.
+    serviceRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The stack\'s default Availability Zone. For more information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and Endpoints>.
+    defaultAvailabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The stack ID.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | The agent version. This parameter is set to @LATEST@ for auto-update. or
+    -- a version number for a fixed agent version.
+    agentVersion :: Prelude.Maybe Prelude.Text,
+    -- | A JSON object that contains user-defined attributes to be added to the
+    -- stack configuration and deployment attributes. You can use custom JSON
+    -- to override the corresponding default stack configuration attribute
+    -- values or to pass data to recipes. The string should be in the following
+    -- format:
+    --
+    -- @\"{\\\"key1\\\": \\\"value1\\\", \\\"key2\\\": \\\"value2\\\",...}\"@
+    --
+    -- For more information on custom JSON, see
+    -- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html Use Custom JSON to Modify the Stack Configuration Attributes>.
+    customJson :: Prelude.Maybe Prelude.Text,
+    -- | The stack\'s ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The date when the stack was created.
+    createdAt :: Prelude.Maybe Prelude.Text,
+    -- | The default root device type. This value is used by default for all
+    -- instances in the stack, but you can override it when you create an
+    -- instance. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device Storage for the Root Device>.
+    defaultRootDeviceType :: Prelude.Maybe RootDeviceType,
+    -- | The stack\'s attributes.
+    attributes :: Prelude.Maybe (Prelude.Map StackAttributesKeys (Maybe Text)),
+    -- | The stack name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of an IAM profile that is the default profile for all of the
+    -- stack\'s EC2 instances. For more information about IAM ARNs, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers>.
+    defaultInstanceProfileArn :: Prelude.Maybe Prelude.Text,
+    -- | The stack host name theme, with spaces replaced by underscores.
+    hostnameTheme :: Prelude.Maybe Prelude.Text,
+    -- | A default Amazon EC2 key pair for the stack\'s instances. You can
+    -- override this value when you create or update an instance.
+    defaultSshKeyName :: Prelude.Maybe Prelude.Text,
+    -- | The configuration manager.
+    configurationManager :: Prelude.Maybe StackConfigurationManager,
+    -- | The stack AWS region, such as \"ap-northeast-2\". For more information
+    -- about AWS regions, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and Endpoints>.
+    region :: Prelude.Maybe Prelude.Text,
+    -- | The VPC ID; applicable only if the stack is running in a VPC.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | A @ChefConfiguration@ object that specifies whether to enable Berkshelf
+    -- and the Berkshelf version. For more information, see
+    -- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html Create a New Stack>.
+    chefConfiguration :: Prelude.Maybe ChefConfiguration,
+    -- | The default subnet ID; applicable only if the stack is running in a VPC.
+    defaultSubnetId :: Prelude.Maybe Prelude.Text,
+    -- | Whether the stack uses custom cookbooks.
+    useCustomCookbooks :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Stack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Stack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'staDefaultOS' - The stack's default operating system.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'staUseOpsworksSecurityGroups' - Whether the stack automatically associates the AWS OpsWorks Stacks built-in security groups with the stack's layers.
+-- 'defaultOs', 'stack_defaultOs' - The stack\'s default operating system.
 --
--- * 'staCustomCookbooksSource' - Contains the information required to retrieve an app or cookbook from a repository. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html Adding Apps> or <https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html Cookbooks and Recipes> .
+-- 'useOpsworksSecurityGroups', 'stack_useOpsworksSecurityGroups' - Whether the stack automatically associates the AWS OpsWorks Stacks
+-- built-in security groups with the stack\'s layers.
 --
--- * 'staServiceRoleARN' - The stack AWS Identity and Access Management (IAM) role.
+-- 'customCookbooksSource', 'stack_customCookbooksSource' - Contains the information required to retrieve an app or cookbook from a
+-- repository. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html Adding Apps>
+-- or
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html Cookbooks and Recipes>.
 --
--- * 'staDefaultAvailabilityZone' - The stack's default Availability Zone. For more information, see <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and Endpoints> .
+-- 'serviceRoleArn', 'stack_serviceRoleArn' - The stack AWS Identity and Access Management (IAM) role.
 --
--- * 'staStackId' - The stack ID.
+-- 'defaultAvailabilityZone', 'stack_defaultAvailabilityZone' - The stack\'s default Availability Zone. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and Endpoints>.
 --
--- * 'staAgentVersion' - The agent version. This parameter is set to @LATEST@ for auto-update. or a version number for a fixed agent version.
+-- 'stackId', 'stack_stackId' - The stack ID.
 --
--- * 'staCustomJSON' - A JSON object that contains user-defined attributes to be added to the stack configuration and deployment attributes. You can use custom JSON to override the corresponding default stack configuration attribute values or to pass data to recipes. The string should be in the following format: @"{\"key1\": \"value1\", \"key2\": \"value2\",...}"@  For more information on custom JSON, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html Use Custom JSON to Modify the Stack Configuration Attributes> .
+-- 'agentVersion', 'stack_agentVersion' - The agent version. This parameter is set to @LATEST@ for auto-update. or
+-- a version number for a fixed agent version.
 --
--- * 'staARN' - The stack's ARN.
+-- 'customJson', 'stack_customJson' - A JSON object that contains user-defined attributes to be added to the
+-- stack configuration and deployment attributes. You can use custom JSON
+-- to override the corresponding default stack configuration attribute
+-- values or to pass data to recipes. The string should be in the following
+-- format:
 --
--- * 'staCreatedAt' - The date when the stack was created.
+-- @\"{\\\"key1\\\": \\\"value1\\\", \\\"key2\\\": \\\"value2\\\",...}\"@
 --
--- * 'staDefaultRootDeviceType' - The default root device type. This value is used by default for all instances in the stack, but you can override it when you create an instance. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device Storage for the Root Device> .
+-- For more information on custom JSON, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html Use Custom JSON to Modify the Stack Configuration Attributes>.
 --
--- * 'staAttributes' - The stack's attributes.
+-- 'arn', 'stack_arn' - The stack\'s ARN.
 --
--- * 'staName' - The stack name.
+-- 'createdAt', 'stack_createdAt' - The date when the stack was created.
 --
--- * 'staDefaultInstanceProfileARN' - The ARN of an IAM profile that is the default profile for all of the stack's EC2 instances. For more information about IAM ARNs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers> .
+-- 'defaultRootDeviceType', 'stack_defaultRootDeviceType' - The default root device type. This value is used by default for all
+-- instances in the stack, but you can override it when you create an
+-- instance. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device Storage for the Root Device>.
 --
--- * 'staHostnameTheme' - The stack host name theme, with spaces replaced by underscores.
+-- 'attributes', 'stack_attributes' - The stack\'s attributes.
 --
--- * 'staDefaultSSHKeyName' - A default Amazon EC2 key pair for the stack's instances. You can override this value when you create or update an instance.
+-- 'name', 'stack_name' - The stack name.
 --
--- * 'staConfigurationManager' - The configuration manager.
+-- 'defaultInstanceProfileArn', 'stack_defaultInstanceProfileArn' - The ARN of an IAM profile that is the default profile for all of the
+-- stack\'s EC2 instances. For more information about IAM ARNs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers>.
 --
--- * 'staRegion' - The stack AWS region, such as "ap-northeast-2". For more information about AWS regions, see <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and Endpoints> .
+-- 'hostnameTheme', 'stack_hostnameTheme' - The stack host name theme, with spaces replaced by underscores.
 --
--- * 'staVPCId' - The VPC ID; applicable only if the stack is running in a VPC.
+-- 'defaultSshKeyName', 'stack_defaultSshKeyName' - A default Amazon EC2 key pair for the stack\'s instances. You can
+-- override this value when you create or update an instance.
 --
--- * 'staChefConfiguration' - A @ChefConfiguration@ object that specifies whether to enable Berkshelf and the Berkshelf version. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html Create a New Stack> .
+-- 'configurationManager', 'stack_configurationManager' - The configuration manager.
 --
--- * 'staDefaultSubnetId' - The default subnet ID; applicable only if the stack is running in a VPC.
+-- 'region', 'stack_region' - The stack AWS region, such as \"ap-northeast-2\". For more information
+-- about AWS regions, see
+-- <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and Endpoints>.
 --
--- * 'staUseCustomCookbooks' - Whether the stack uses custom cookbooks.
-stack ::
+-- 'vpcId', 'stack_vpcId' - The VPC ID; applicable only if the stack is running in a VPC.
+--
+-- 'chefConfiguration', 'stack_chefConfiguration' - A @ChefConfiguration@ object that specifies whether to enable Berkshelf
+-- and the Berkshelf version. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html Create a New Stack>.
+--
+-- 'defaultSubnetId', 'stack_defaultSubnetId' - The default subnet ID; applicable only if the stack is running in a VPC.
+--
+-- 'useCustomCookbooks', 'stack_useCustomCookbooks' - Whether the stack uses custom cookbooks.
+newStack ::
   Stack
-stack =
+newStack =
   Stack'
-    { _staDefaultOS = Nothing,
-      _staUseOpsworksSecurityGroups = Nothing,
-      _staCustomCookbooksSource = Nothing,
-      _staServiceRoleARN = Nothing,
-      _staDefaultAvailabilityZone = Nothing,
-      _staStackId = Nothing,
-      _staAgentVersion = Nothing,
-      _staCustomJSON = Nothing,
-      _staARN = Nothing,
-      _staCreatedAt = Nothing,
-      _staDefaultRootDeviceType = Nothing,
-      _staAttributes = Nothing,
-      _staName = Nothing,
-      _staDefaultInstanceProfileARN = Nothing,
-      _staHostnameTheme = Nothing,
-      _staDefaultSSHKeyName = Nothing,
-      _staConfigurationManager = Nothing,
-      _staRegion = Nothing,
-      _staVPCId = Nothing,
-      _staChefConfiguration = Nothing,
-      _staDefaultSubnetId = Nothing,
-      _staUseCustomCookbooks = Nothing
+    { defaultOs = Prelude.Nothing,
+      useOpsworksSecurityGroups = Prelude.Nothing,
+      customCookbooksSource = Prelude.Nothing,
+      serviceRoleArn = Prelude.Nothing,
+      defaultAvailabilityZone = Prelude.Nothing,
+      stackId = Prelude.Nothing,
+      agentVersion = Prelude.Nothing,
+      customJson = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      defaultRootDeviceType = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      name = Prelude.Nothing,
+      defaultInstanceProfileArn = Prelude.Nothing,
+      hostnameTheme = Prelude.Nothing,
+      defaultSshKeyName = Prelude.Nothing,
+      configurationManager = Prelude.Nothing,
+      region = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      chefConfiguration = Prelude.Nothing,
+      defaultSubnetId = Prelude.Nothing,
+      useCustomCookbooks = Prelude.Nothing
     }
 
--- | The stack's default operating system.
-staDefaultOS :: Lens' Stack (Maybe Text)
-staDefaultOS = lens _staDefaultOS (\s a -> s {_staDefaultOS = a})
+-- | The stack\'s default operating system.
+stack_defaultOs :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_defaultOs = Lens.lens (\Stack' {defaultOs} -> defaultOs) (\s@Stack' {} a -> s {defaultOs = a} :: Stack)
 
--- | Whether the stack automatically associates the AWS OpsWorks Stacks built-in security groups with the stack's layers.
-staUseOpsworksSecurityGroups :: Lens' Stack (Maybe Bool)
-staUseOpsworksSecurityGroups = lens _staUseOpsworksSecurityGroups (\s a -> s {_staUseOpsworksSecurityGroups = a})
+-- | Whether the stack automatically associates the AWS OpsWorks Stacks
+-- built-in security groups with the stack\'s layers.
+stack_useOpsworksSecurityGroups :: Lens.Lens' Stack (Prelude.Maybe Prelude.Bool)
+stack_useOpsworksSecurityGroups = Lens.lens (\Stack' {useOpsworksSecurityGroups} -> useOpsworksSecurityGroups) (\s@Stack' {} a -> s {useOpsworksSecurityGroups = a} :: Stack)
 
--- | Contains the information required to retrieve an app or cookbook from a repository. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html Adding Apps> or <https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html Cookbooks and Recipes> .
-staCustomCookbooksSource :: Lens' Stack (Maybe Source)
-staCustomCookbooksSource = lens _staCustomCookbooksSource (\s a -> s {_staCustomCookbooksSource = a})
+-- | Contains the information required to retrieve an app or cookbook from a
+-- repository. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html Adding Apps>
+-- or
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html Cookbooks and Recipes>.
+stack_customCookbooksSource :: Lens.Lens' Stack (Prelude.Maybe Source)
+stack_customCookbooksSource = Lens.lens (\Stack' {customCookbooksSource} -> customCookbooksSource) (\s@Stack' {} a -> s {customCookbooksSource = a} :: Stack)
 
 -- | The stack AWS Identity and Access Management (IAM) role.
-staServiceRoleARN :: Lens' Stack (Maybe Text)
-staServiceRoleARN = lens _staServiceRoleARN (\s a -> s {_staServiceRoleARN = a})
+stack_serviceRoleArn :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_serviceRoleArn = Lens.lens (\Stack' {serviceRoleArn} -> serviceRoleArn) (\s@Stack' {} a -> s {serviceRoleArn = a} :: Stack)
 
--- | The stack's default Availability Zone. For more information, see <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and Endpoints> .
-staDefaultAvailabilityZone :: Lens' Stack (Maybe Text)
-staDefaultAvailabilityZone = lens _staDefaultAvailabilityZone (\s a -> s {_staDefaultAvailabilityZone = a})
+-- | The stack\'s default Availability Zone. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and Endpoints>.
+stack_defaultAvailabilityZone :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_defaultAvailabilityZone = Lens.lens (\Stack' {defaultAvailabilityZone} -> defaultAvailabilityZone) (\s@Stack' {} a -> s {defaultAvailabilityZone = a} :: Stack)
 
 -- | The stack ID.
-staStackId :: Lens' Stack (Maybe Text)
-staStackId = lens _staStackId (\s a -> s {_staStackId = a})
+stack_stackId :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_stackId = Lens.lens (\Stack' {stackId} -> stackId) (\s@Stack' {} a -> s {stackId = a} :: Stack)
 
--- | The agent version. This parameter is set to @LATEST@ for auto-update. or a version number for a fixed agent version.
-staAgentVersion :: Lens' Stack (Maybe Text)
-staAgentVersion = lens _staAgentVersion (\s a -> s {_staAgentVersion = a})
+-- | The agent version. This parameter is set to @LATEST@ for auto-update. or
+-- a version number for a fixed agent version.
+stack_agentVersion :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_agentVersion = Lens.lens (\Stack' {agentVersion} -> agentVersion) (\s@Stack' {} a -> s {agentVersion = a} :: Stack)
 
--- | A JSON object that contains user-defined attributes to be added to the stack configuration and deployment attributes. You can use custom JSON to override the corresponding default stack configuration attribute values or to pass data to recipes. The string should be in the following format: @"{\"key1\": \"value1\", \"key2\": \"value2\",...}"@  For more information on custom JSON, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html Use Custom JSON to Modify the Stack Configuration Attributes> .
-staCustomJSON :: Lens' Stack (Maybe Text)
-staCustomJSON = lens _staCustomJSON (\s a -> s {_staCustomJSON = a})
+-- | A JSON object that contains user-defined attributes to be added to the
+-- stack configuration and deployment attributes. You can use custom JSON
+-- to override the corresponding default stack configuration attribute
+-- values or to pass data to recipes. The string should be in the following
+-- format:
+--
+-- @\"{\\\"key1\\\": \\\"value1\\\", \\\"key2\\\": \\\"value2\\\",...}\"@
+--
+-- For more information on custom JSON, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html Use Custom JSON to Modify the Stack Configuration Attributes>.
+stack_customJson :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_customJson = Lens.lens (\Stack' {customJson} -> customJson) (\s@Stack' {} a -> s {customJson = a} :: Stack)
 
--- | The stack's ARN.
-staARN :: Lens' Stack (Maybe Text)
-staARN = lens _staARN (\s a -> s {_staARN = a})
+-- | The stack\'s ARN.
+stack_arn :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_arn = Lens.lens (\Stack' {arn} -> arn) (\s@Stack' {} a -> s {arn = a} :: Stack)
 
 -- | The date when the stack was created.
-staCreatedAt :: Lens' Stack (Maybe Text)
-staCreatedAt = lens _staCreatedAt (\s a -> s {_staCreatedAt = a})
+stack_createdAt :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_createdAt = Lens.lens (\Stack' {createdAt} -> createdAt) (\s@Stack' {} a -> s {createdAt = a} :: Stack)
 
--- | The default root device type. This value is used by default for all instances in the stack, but you can override it when you create an instance. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device Storage for the Root Device> .
-staDefaultRootDeviceType :: Lens' Stack (Maybe RootDeviceType)
-staDefaultRootDeviceType = lens _staDefaultRootDeviceType (\s a -> s {_staDefaultRootDeviceType = a})
+-- | The default root device type. This value is used by default for all
+-- instances in the stack, but you can override it when you create an
+-- instance. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device Storage for the Root Device>.
+stack_defaultRootDeviceType :: Lens.Lens' Stack (Prelude.Maybe RootDeviceType)
+stack_defaultRootDeviceType = Lens.lens (\Stack' {defaultRootDeviceType} -> defaultRootDeviceType) (\s@Stack' {} a -> s {defaultRootDeviceType = a} :: Stack)
 
--- | The stack's attributes.
-staAttributes :: Lens' Stack (HashMap StackAttributesKeys (Maybe Text))
-staAttributes = lens _staAttributes (\s a -> s {_staAttributes = a}) . _Default . _Map
+-- | The stack\'s attributes.
+stack_attributes :: Lens.Lens' Stack (Prelude.Maybe (Prelude.HashMap StackAttributesKeys (Maybe Text)))
+stack_attributes = Lens.lens (\Stack' {attributes} -> attributes) (\s@Stack' {} a -> s {attributes = a} :: Stack) Prelude.. Lens.mapping Prelude._Map
 
 -- | The stack name.
-staName :: Lens' Stack (Maybe Text)
-staName = lens _staName (\s a -> s {_staName = a})
+stack_name :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_name = Lens.lens (\Stack' {name} -> name) (\s@Stack' {} a -> s {name = a} :: Stack)
 
--- | The ARN of an IAM profile that is the default profile for all of the stack's EC2 instances. For more information about IAM ARNs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers> .
-staDefaultInstanceProfileARN :: Lens' Stack (Maybe Text)
-staDefaultInstanceProfileARN = lens _staDefaultInstanceProfileARN (\s a -> s {_staDefaultInstanceProfileARN = a})
+-- | The ARN of an IAM profile that is the default profile for all of the
+-- stack\'s EC2 instances. For more information about IAM ARNs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers>.
+stack_defaultInstanceProfileArn :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_defaultInstanceProfileArn = Lens.lens (\Stack' {defaultInstanceProfileArn} -> defaultInstanceProfileArn) (\s@Stack' {} a -> s {defaultInstanceProfileArn = a} :: Stack)
 
 -- | The stack host name theme, with spaces replaced by underscores.
-staHostnameTheme :: Lens' Stack (Maybe Text)
-staHostnameTheme = lens _staHostnameTheme (\s a -> s {_staHostnameTheme = a})
+stack_hostnameTheme :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_hostnameTheme = Lens.lens (\Stack' {hostnameTheme} -> hostnameTheme) (\s@Stack' {} a -> s {hostnameTheme = a} :: Stack)
 
--- | A default Amazon EC2 key pair for the stack's instances. You can override this value when you create or update an instance.
-staDefaultSSHKeyName :: Lens' Stack (Maybe Text)
-staDefaultSSHKeyName = lens _staDefaultSSHKeyName (\s a -> s {_staDefaultSSHKeyName = a})
+-- | A default Amazon EC2 key pair for the stack\'s instances. You can
+-- override this value when you create or update an instance.
+stack_defaultSshKeyName :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_defaultSshKeyName = Lens.lens (\Stack' {defaultSshKeyName} -> defaultSshKeyName) (\s@Stack' {} a -> s {defaultSshKeyName = a} :: Stack)
 
 -- | The configuration manager.
-staConfigurationManager :: Lens' Stack (Maybe StackConfigurationManager)
-staConfigurationManager = lens _staConfigurationManager (\s a -> s {_staConfigurationManager = a})
+stack_configurationManager :: Lens.Lens' Stack (Prelude.Maybe StackConfigurationManager)
+stack_configurationManager = Lens.lens (\Stack' {configurationManager} -> configurationManager) (\s@Stack' {} a -> s {configurationManager = a} :: Stack)
 
--- | The stack AWS region, such as "ap-northeast-2". For more information about AWS regions, see <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and Endpoints> .
-staRegion :: Lens' Stack (Maybe Text)
-staRegion = lens _staRegion (\s a -> s {_staRegion = a})
+-- | The stack AWS region, such as \"ap-northeast-2\". For more information
+-- about AWS regions, see
+-- <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and Endpoints>.
+stack_region :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_region = Lens.lens (\Stack' {region} -> region) (\s@Stack' {} a -> s {region = a} :: Stack)
 
 -- | The VPC ID; applicable only if the stack is running in a VPC.
-staVPCId :: Lens' Stack (Maybe Text)
-staVPCId = lens _staVPCId (\s a -> s {_staVPCId = a})
+stack_vpcId :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_vpcId = Lens.lens (\Stack' {vpcId} -> vpcId) (\s@Stack' {} a -> s {vpcId = a} :: Stack)
 
--- | A @ChefConfiguration@ object that specifies whether to enable Berkshelf and the Berkshelf version. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html Create a New Stack> .
-staChefConfiguration :: Lens' Stack (Maybe ChefConfiguration)
-staChefConfiguration = lens _staChefConfiguration (\s a -> s {_staChefConfiguration = a})
+-- | A @ChefConfiguration@ object that specifies whether to enable Berkshelf
+-- and the Berkshelf version. For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html Create a New Stack>.
+stack_chefConfiguration :: Lens.Lens' Stack (Prelude.Maybe ChefConfiguration)
+stack_chefConfiguration = Lens.lens (\Stack' {chefConfiguration} -> chefConfiguration) (\s@Stack' {} a -> s {chefConfiguration = a} :: Stack)
 
 -- | The default subnet ID; applicable only if the stack is running in a VPC.
-staDefaultSubnetId :: Lens' Stack (Maybe Text)
-staDefaultSubnetId = lens _staDefaultSubnetId (\s a -> s {_staDefaultSubnetId = a})
+stack_defaultSubnetId :: Lens.Lens' Stack (Prelude.Maybe Prelude.Text)
+stack_defaultSubnetId = Lens.lens (\Stack' {defaultSubnetId} -> defaultSubnetId) (\s@Stack' {} a -> s {defaultSubnetId = a} :: Stack)
 
 -- | Whether the stack uses custom cookbooks.
-staUseCustomCookbooks :: Lens' Stack (Maybe Bool)
-staUseCustomCookbooks = lens _staUseCustomCookbooks (\s a -> s {_staUseCustomCookbooks = a})
+stack_useCustomCookbooks :: Lens.Lens' Stack (Prelude.Maybe Prelude.Bool)
+stack_useCustomCookbooks = Lens.lens (\Stack' {useCustomCookbooks} -> useCustomCookbooks) (\s@Stack' {} a -> s {useCustomCookbooks = a} :: Stack)
 
-instance FromJSON Stack where
+instance Prelude.FromJSON Stack where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Stack"
       ( \x ->
           Stack'
-            <$> (x .:? "DefaultOs")
-            <*> (x .:? "UseOpsworksSecurityGroups")
-            <*> (x .:? "CustomCookbooksSource")
-            <*> (x .:? "ServiceRoleArn")
-            <*> (x .:? "DefaultAvailabilityZone")
-            <*> (x .:? "StackId")
-            <*> (x .:? "AgentVersion")
-            <*> (x .:? "CustomJson")
-            <*> (x .:? "Arn")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "DefaultRootDeviceType")
-            <*> (x .:? "Attributes" .!= mempty)
-            <*> (x .:? "Name")
-            <*> (x .:? "DefaultInstanceProfileArn")
-            <*> (x .:? "HostnameTheme")
-            <*> (x .:? "DefaultSshKeyName")
-            <*> (x .:? "ConfigurationManager")
-            <*> (x .:? "Region")
-            <*> (x .:? "VpcId")
-            <*> (x .:? "ChefConfiguration")
-            <*> (x .:? "DefaultSubnetId")
-            <*> (x .:? "UseCustomCookbooks")
+            Prelude.<$> (x Prelude..:? "DefaultOs")
+            Prelude.<*> (x Prelude..:? "UseOpsworksSecurityGroups")
+            Prelude.<*> (x Prelude..:? "CustomCookbooksSource")
+            Prelude.<*> (x Prelude..:? "ServiceRoleArn")
+            Prelude.<*> (x Prelude..:? "DefaultAvailabilityZone")
+            Prelude.<*> (x Prelude..:? "StackId")
+            Prelude.<*> (x Prelude..:? "AgentVersion")
+            Prelude.<*> (x Prelude..:? "CustomJson")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "DefaultRootDeviceType")
+            Prelude.<*> ( x Prelude..:? "Attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "DefaultInstanceProfileArn")
+            Prelude.<*> (x Prelude..:? "HostnameTheme")
+            Prelude.<*> (x Prelude..:? "DefaultSshKeyName")
+            Prelude.<*> (x Prelude..:? "ConfigurationManager")
+            Prelude.<*> (x Prelude..:? "Region")
+            Prelude.<*> (x Prelude..:? "VpcId")
+            Prelude.<*> (x Prelude..:? "ChefConfiguration")
+            Prelude.<*> (x Prelude..:? "DefaultSubnetId")
+            Prelude.<*> (x Prelude..:? "UseCustomCookbooks")
       )
 
-instance Hashable Stack
+instance Prelude.Hashable Stack
 
-instance NFData Stack
+instance Prelude.NFData Stack

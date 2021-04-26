@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,90 +21,112 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specified layer. You must first stop and then delete all associated instances or unassign registered instances. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-delete.html How to Delete a Layer> .
+-- Deletes a specified layer. You must first stop and then delete all
+-- associated instances or unassign registered instances. For more
+-- information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-delete.html How to Delete a Layer>.
 --
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack, or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.DeleteLayer
   ( -- * Creating a Request
-    deleteLayer,
-    DeleteLayer,
+    DeleteLayer (..),
+    newDeleteLayer,
 
     -- * Request Lenses
-    dlLayerId,
+    deleteLayer_layerId,
 
     -- * Destructuring the Response
-    deleteLayerResponse,
-    DeleteLayerResponse,
+    DeleteLayerResponse (..),
+    newDeleteLayerResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLayer' smart constructor.
-newtype DeleteLayer = DeleteLayer'
-  { _dlLayerId ::
-      Text
+-- | /See:/ 'newDeleteLayer' smart constructor.
+data DeleteLayer = DeleteLayer'
+  { -- | The layer ID.
+    layerId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLayer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLayer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlLayerId' - The layer ID.
-deleteLayer ::
-  -- | 'dlLayerId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'layerId', 'deleteLayer_layerId' - The layer ID.
+newDeleteLayer ::
+  -- | 'layerId'
+  Prelude.Text ->
   DeleteLayer
-deleteLayer pLayerId_ =
-  DeleteLayer' {_dlLayerId = pLayerId_}
+newDeleteLayer pLayerId_ =
+  DeleteLayer' {layerId = pLayerId_}
 
 -- | The layer ID.
-dlLayerId :: Lens' DeleteLayer Text
-dlLayerId = lens _dlLayerId (\s a -> s {_dlLayerId = a})
+deleteLayer_layerId :: Lens.Lens' DeleteLayer Prelude.Text
+deleteLayer_layerId = Lens.lens (\DeleteLayer' {layerId} -> layerId) (\s@DeleteLayer' {} a -> s {layerId = a} :: DeleteLayer)
 
-instance AWSRequest DeleteLayer where
+instance Prelude.AWSRequest DeleteLayer where
   type Rs DeleteLayer = DeleteLayerResponse
-  request = postJSON opsWorks
-  response = receiveNull DeleteLayerResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull DeleteLayerResponse'
 
-instance Hashable DeleteLayer
+instance Prelude.Hashable DeleteLayer
 
-instance NFData DeleteLayer
+instance Prelude.NFData DeleteLayer
 
-instance ToHeaders DeleteLayer where
+instance Prelude.ToHeaders DeleteLayer where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.DeleteLayer" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.DeleteLayer" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteLayer where
+instance Prelude.ToJSON DeleteLayer where
   toJSON DeleteLayer' {..} =
-    object (catMaybes [Just ("LayerId" .= _dlLayerId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("LayerId" Prelude..= layerId)]
+      )
 
-instance ToPath DeleteLayer where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLayer where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLayer where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteLayer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteLayerResponse' smart constructor.
+-- | /See:/ 'newDeleteLayerResponse' smart constructor.
 data DeleteLayerResponse = DeleteLayerResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLayerResponse' with the minimum fields required to make a request.
-deleteLayerResponse ::
+-- |
+-- Create a value of 'DeleteLayerResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteLayerResponse ::
   DeleteLayerResponse
-deleteLayerResponse = DeleteLayerResponse'
+newDeleteLayerResponse = DeleteLayerResponse'
 
-instance NFData DeleteLayerResponse
+instance Prelude.NFData DeleteLayerResponse

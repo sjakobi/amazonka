@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,116 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.OperatingSystem where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types.OperatingSystemConfigurationManager
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes supported operating systems in AWS OpsWorks Stacks.
 --
---
---
--- /See:/ 'operatingSystem' smart constructor.
+-- /See:/ 'newOperatingSystem' smart constructor.
 data OperatingSystem = OperatingSystem'
-  { _osSupported ::
-      !(Maybe Bool),
-    _osConfigurationManagers ::
-      !( Maybe
-           [OperatingSystemConfigurationManager]
-       ),
-    _osId :: !(Maybe Text),
-    _osReportedVersion :: !(Maybe Text),
-    _osName :: !(Maybe Text),
-    _osType :: !(Maybe Text),
-    _osReportedName :: !(Maybe Text)
+  { -- | Indicates that an operating system is not supported for new instances.
+    supported :: Prelude.Maybe Prelude.Bool,
+    -- | Supported configuration manager name and versions for an AWS OpsWorks
+    -- Stacks operating system.
+    configurationManagers :: Prelude.Maybe [OperatingSystemConfigurationManager],
+    -- | The ID of a supported operating system, such as @Amazon Linux 2018.03@.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The version of the operating system, including the release and edition,
+    -- if applicable.
+    reportedVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the operating system, such as @Amazon Linux 2018.03@.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The type of a supported operating system, either @Linux@ or @Windows@.
+    type' :: Prelude.Maybe Prelude.Text,
+    -- | A short name for the operating system manufacturer.
+    reportedName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OperatingSystem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OperatingSystem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osSupported' - Indicates that an operating system is not supported for new instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'osConfigurationManagers' - Supported configuration manager name and versions for an AWS OpsWorks Stacks operating system.
+-- 'supported', 'operatingSystem_supported' - Indicates that an operating system is not supported for new instances.
 --
--- * 'osId' - The ID of a supported operating system, such as @Amazon Linux 2018.03@ .
+-- 'configurationManagers', 'operatingSystem_configurationManagers' - Supported configuration manager name and versions for an AWS OpsWorks
+-- Stacks operating system.
 --
--- * 'osReportedVersion' - The version of the operating system, including the release and edition, if applicable.
+-- 'id', 'operatingSystem_id' - The ID of a supported operating system, such as @Amazon Linux 2018.03@.
 --
--- * 'osName' - The name of the operating system, such as @Amazon Linux 2018.03@ .
+-- 'reportedVersion', 'operatingSystem_reportedVersion' - The version of the operating system, including the release and edition,
+-- if applicable.
 --
--- * 'osType' - The type of a supported operating system, either @Linux@ or @Windows@ .
+-- 'name', 'operatingSystem_name' - The name of the operating system, such as @Amazon Linux 2018.03@.
 --
--- * 'osReportedName' - A short name for the operating system manufacturer.
-operatingSystem ::
+-- 'type'', 'operatingSystem_type' - The type of a supported operating system, either @Linux@ or @Windows@.
+--
+-- 'reportedName', 'operatingSystem_reportedName' - A short name for the operating system manufacturer.
+newOperatingSystem ::
   OperatingSystem
-operatingSystem =
+newOperatingSystem =
   OperatingSystem'
-    { _osSupported = Nothing,
-      _osConfigurationManagers = Nothing,
-      _osId = Nothing,
-      _osReportedVersion = Nothing,
-      _osName = Nothing,
-      _osType = Nothing,
-      _osReportedName = Nothing
+    { supported = Prelude.Nothing,
+      configurationManagers = Prelude.Nothing,
+      id = Prelude.Nothing,
+      reportedVersion = Prelude.Nothing,
+      name = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      reportedName = Prelude.Nothing
     }
 
 -- | Indicates that an operating system is not supported for new instances.
-osSupported :: Lens' OperatingSystem (Maybe Bool)
-osSupported = lens _osSupported (\s a -> s {_osSupported = a})
+operatingSystem_supported :: Lens.Lens' OperatingSystem (Prelude.Maybe Prelude.Bool)
+operatingSystem_supported = Lens.lens (\OperatingSystem' {supported} -> supported) (\s@OperatingSystem' {} a -> s {supported = a} :: OperatingSystem)
 
--- | Supported configuration manager name and versions for an AWS OpsWorks Stacks operating system.
-osConfigurationManagers :: Lens' OperatingSystem [OperatingSystemConfigurationManager]
-osConfigurationManagers = lens _osConfigurationManagers (\s a -> s {_osConfigurationManagers = a}) . _Default . _Coerce
+-- | Supported configuration manager name and versions for an AWS OpsWorks
+-- Stacks operating system.
+operatingSystem_configurationManagers :: Lens.Lens' OperatingSystem (Prelude.Maybe [OperatingSystemConfigurationManager])
+operatingSystem_configurationManagers = Lens.lens (\OperatingSystem' {configurationManagers} -> configurationManagers) (\s@OperatingSystem' {} a -> s {configurationManagers = a} :: OperatingSystem) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The ID of a supported operating system, such as @Amazon Linux 2018.03@ .
-osId :: Lens' OperatingSystem (Maybe Text)
-osId = lens _osId (\s a -> s {_osId = a})
+-- | The ID of a supported operating system, such as @Amazon Linux 2018.03@.
+operatingSystem_id :: Lens.Lens' OperatingSystem (Prelude.Maybe Prelude.Text)
+operatingSystem_id = Lens.lens (\OperatingSystem' {id} -> id) (\s@OperatingSystem' {} a -> s {id = a} :: OperatingSystem)
 
--- | The version of the operating system, including the release and edition, if applicable.
-osReportedVersion :: Lens' OperatingSystem (Maybe Text)
-osReportedVersion = lens _osReportedVersion (\s a -> s {_osReportedVersion = a})
+-- | The version of the operating system, including the release and edition,
+-- if applicable.
+operatingSystem_reportedVersion :: Lens.Lens' OperatingSystem (Prelude.Maybe Prelude.Text)
+operatingSystem_reportedVersion = Lens.lens (\OperatingSystem' {reportedVersion} -> reportedVersion) (\s@OperatingSystem' {} a -> s {reportedVersion = a} :: OperatingSystem)
 
--- | The name of the operating system, such as @Amazon Linux 2018.03@ .
-osName :: Lens' OperatingSystem (Maybe Text)
-osName = lens _osName (\s a -> s {_osName = a})
+-- | The name of the operating system, such as @Amazon Linux 2018.03@.
+operatingSystem_name :: Lens.Lens' OperatingSystem (Prelude.Maybe Prelude.Text)
+operatingSystem_name = Lens.lens (\OperatingSystem' {name} -> name) (\s@OperatingSystem' {} a -> s {name = a} :: OperatingSystem)
 
--- | The type of a supported operating system, either @Linux@ or @Windows@ .
-osType :: Lens' OperatingSystem (Maybe Text)
-osType = lens _osType (\s a -> s {_osType = a})
+-- | The type of a supported operating system, either @Linux@ or @Windows@.
+operatingSystem_type :: Lens.Lens' OperatingSystem (Prelude.Maybe Prelude.Text)
+operatingSystem_type = Lens.lens (\OperatingSystem' {type'} -> type') (\s@OperatingSystem' {} a -> s {type' = a} :: OperatingSystem)
 
 -- | A short name for the operating system manufacturer.
-osReportedName :: Lens' OperatingSystem (Maybe Text)
-osReportedName = lens _osReportedName (\s a -> s {_osReportedName = a})
+operatingSystem_reportedName :: Lens.Lens' OperatingSystem (Prelude.Maybe Prelude.Text)
+operatingSystem_reportedName = Lens.lens (\OperatingSystem' {reportedName} -> reportedName) (\s@OperatingSystem' {} a -> s {reportedName = a} :: OperatingSystem)
 
-instance FromJSON OperatingSystem where
+instance Prelude.FromJSON OperatingSystem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OperatingSystem"
       ( \x ->
           OperatingSystem'
-            <$> (x .:? "Supported")
-            <*> (x .:? "ConfigurationManagers" .!= mempty)
-            <*> (x .:? "Id")
-            <*> (x .:? "ReportedVersion")
-            <*> (x .:? "Name")
-            <*> (x .:? "Type")
-            <*> (x .:? "ReportedName")
+            Prelude.<$> (x Prelude..:? "Supported")
+            Prelude.<*> ( x Prelude..:? "ConfigurationManagers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "ReportedVersion")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "ReportedName")
       )
 
-instance Hashable OperatingSystem
+instance Prelude.Hashable OperatingSystem
 
-instance NFData OperatingSystem
+instance Prelude.NFData OperatingSystem

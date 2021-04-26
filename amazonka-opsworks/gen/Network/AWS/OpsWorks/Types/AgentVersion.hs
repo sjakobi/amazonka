@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.AgentVersion where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types.StackConfigurationManager
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an agent version.
 --
---
---
--- /See:/ 'agentVersion' smart constructor.
+-- /See:/ 'newAgentVersion' smart constructor.
 data AgentVersion = AgentVersion'
-  { _avVersion ::
-      !(Maybe Text),
-    _avConfigurationManager ::
-      !(Maybe StackConfigurationManager)
+  { -- | The agent version.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The configuration manager.
+    configurationManager :: Prelude.Maybe StackConfigurationManager
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AgentVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AgentVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avVersion' - The agent version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avConfigurationManager' - The configuration manager.
-agentVersion ::
+-- 'version', 'agentVersion_version' - The agent version.
+--
+-- 'configurationManager', 'agentVersion_configurationManager' - The configuration manager.
+newAgentVersion ::
   AgentVersion
-agentVersion =
+newAgentVersion =
   AgentVersion'
-    { _avVersion = Nothing,
-      _avConfigurationManager = Nothing
+    { version = Prelude.Nothing,
+      configurationManager = Prelude.Nothing
     }
 
 -- | The agent version.
-avVersion :: Lens' AgentVersion (Maybe Text)
-avVersion = lens _avVersion (\s a -> s {_avVersion = a})
+agentVersion_version :: Lens.Lens' AgentVersion (Prelude.Maybe Prelude.Text)
+agentVersion_version = Lens.lens (\AgentVersion' {version} -> version) (\s@AgentVersion' {} a -> s {version = a} :: AgentVersion)
 
 -- | The configuration manager.
-avConfigurationManager :: Lens' AgentVersion (Maybe StackConfigurationManager)
-avConfigurationManager = lens _avConfigurationManager (\s a -> s {_avConfigurationManager = a})
+agentVersion_configurationManager :: Lens.Lens' AgentVersion (Prelude.Maybe StackConfigurationManager)
+agentVersion_configurationManager = Lens.lens (\AgentVersion' {configurationManager} -> configurationManager) (\s@AgentVersion' {} a -> s {configurationManager = a} :: AgentVersion)
 
-instance FromJSON AgentVersion where
+instance Prelude.FromJSON AgentVersion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AgentVersion"
       ( \x ->
           AgentVersion'
-            <$> (x .:? "Version") <*> (x .:? "ConfigurationManager")
+            Prelude.<$> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "ConfigurationManager")
       )
 
-instance Hashable AgentVersion
+instance Prelude.Hashable AgentVersion
 
-instance NFData AgentVersion
+instance Prelude.NFData AgentVersion

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,125 +21,141 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specified instance, which terminates the associated Amazon EC2 instance. You must stop an instance before you can delete it.
+-- Deletes a specified instance, which terminates the associated Amazon EC2
+-- instance. You must stop an instance before you can delete it.
 --
+-- For more information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-delete.html Deleting Instances>.
 --
--- For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-delete.html Deleting Instances> .
---
--- __Required Permissions__ : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that explicitly grants permissions. For more information on user permissions, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions> .
+-- __Required Permissions__: To use this action, an IAM user must have a
+-- Manage permissions level for the stack, or an attached policy that
+-- explicitly grants permissions. For more information on user permissions,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>.
 module Network.AWS.OpsWorks.DeleteInstance
   ( -- * Creating a Request
-    deleteInstance,
-    DeleteInstance,
+    DeleteInstance (..),
+    newDeleteInstance,
 
     -- * Request Lenses
-    diDeleteVolumes,
-    diDeleteElasticIP,
-    diInstanceId,
+    deleteInstance_deleteVolumes,
+    deleteInstance_deleteElasticIp,
+    deleteInstance_instanceId,
 
     -- * Destructuring the Response
-    deleteInstanceResponse,
-    DeleteInstanceResponse,
+    DeleteInstanceResponse (..),
+    newDeleteInstanceResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteInstance' smart constructor.
+-- | /See:/ 'newDeleteInstance' smart constructor.
 data DeleteInstance = DeleteInstance'
-  { _diDeleteVolumes ::
-      !(Maybe Bool),
-    _diDeleteElasticIP :: !(Maybe Bool),
-    _diInstanceId :: !Text
+  { -- | Whether to delete the instance\'s Amazon EBS volumes.
+    deleteVolumes :: Prelude.Maybe Prelude.Bool,
+    -- | Whether to delete the instance Elastic IP address.
+    deleteElasticIp :: Prelude.Maybe Prelude.Bool,
+    -- | The instance ID.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diDeleteVolumes' - Whether to delete the instance's Amazon EBS volumes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diDeleteElasticIP' - Whether to delete the instance Elastic IP address.
+-- 'deleteVolumes', 'deleteInstance_deleteVolumes' - Whether to delete the instance\'s Amazon EBS volumes.
 --
--- * 'diInstanceId' - The instance ID.
-deleteInstance ::
-  -- | 'diInstanceId'
-  Text ->
+-- 'deleteElasticIp', 'deleteInstance_deleteElasticIp' - Whether to delete the instance Elastic IP address.
+--
+-- 'instanceId', 'deleteInstance_instanceId' - The instance ID.
+newDeleteInstance ::
+  -- | 'instanceId'
+  Prelude.Text ->
   DeleteInstance
-deleteInstance pInstanceId_ =
+newDeleteInstance pInstanceId_ =
   DeleteInstance'
-    { _diDeleteVolumes = Nothing,
-      _diDeleteElasticIP = Nothing,
-      _diInstanceId = pInstanceId_
+    { deleteVolumes = Prelude.Nothing,
+      deleteElasticIp = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | Whether to delete the instance's Amazon EBS volumes.
-diDeleteVolumes :: Lens' DeleteInstance (Maybe Bool)
-diDeleteVolumes = lens _diDeleteVolumes (\s a -> s {_diDeleteVolumes = a})
+-- | Whether to delete the instance\'s Amazon EBS volumes.
+deleteInstance_deleteVolumes :: Lens.Lens' DeleteInstance (Prelude.Maybe Prelude.Bool)
+deleteInstance_deleteVolumes = Lens.lens (\DeleteInstance' {deleteVolumes} -> deleteVolumes) (\s@DeleteInstance' {} a -> s {deleteVolumes = a} :: DeleteInstance)
 
 -- | Whether to delete the instance Elastic IP address.
-diDeleteElasticIP :: Lens' DeleteInstance (Maybe Bool)
-diDeleteElasticIP = lens _diDeleteElasticIP (\s a -> s {_diDeleteElasticIP = a})
+deleteInstance_deleteElasticIp :: Lens.Lens' DeleteInstance (Prelude.Maybe Prelude.Bool)
+deleteInstance_deleteElasticIp = Lens.lens (\DeleteInstance' {deleteElasticIp} -> deleteElasticIp) (\s@DeleteInstance' {} a -> s {deleteElasticIp = a} :: DeleteInstance)
 
 -- | The instance ID.
-diInstanceId :: Lens' DeleteInstance Text
-diInstanceId = lens _diInstanceId (\s a -> s {_diInstanceId = a})
+deleteInstance_instanceId :: Lens.Lens' DeleteInstance Prelude.Text
+deleteInstance_instanceId = Lens.lens (\DeleteInstance' {instanceId} -> instanceId) (\s@DeleteInstance' {} a -> s {instanceId = a} :: DeleteInstance)
 
-instance AWSRequest DeleteInstance where
+instance Prelude.AWSRequest DeleteInstance where
   type Rs DeleteInstance = DeleteInstanceResponse
-  request = postJSON opsWorks
-  response = receiveNull DeleteInstanceResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteInstanceResponse'
 
-instance Hashable DeleteInstance
+instance Prelude.Hashable DeleteInstance
 
-instance NFData DeleteInstance
+instance Prelude.NFData DeleteInstance
 
-instance ToHeaders DeleteInstance where
+instance Prelude.ToHeaders DeleteInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OpsWorks_20130218.DeleteInstance" :: ByteString),
+              Prelude.=# ( "OpsWorks_20130218.DeleteInstance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteInstance where
+instance Prelude.ToJSON DeleteInstance where
   toJSON DeleteInstance' {..} =
-    object
-      ( catMaybes
-          [ ("DeleteVolumes" .=) <$> _diDeleteVolumes,
-            ("DeleteElasticIp" .=) <$> _diDeleteElasticIP,
-            Just ("InstanceId" .= _diInstanceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DeleteVolumes" Prelude..=)
+              Prelude.<$> deleteVolumes,
+            ("DeleteElasticIp" Prelude..=)
+              Prelude.<$> deleteElasticIp,
+            Prelude.Just ("InstanceId" Prelude..= instanceId)
           ]
       )
 
-instance ToPath DeleteInstance where
-  toPath = const "/"
+instance Prelude.ToPath DeleteInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteInstance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteInstanceResponse' smart constructor.
+-- | /See:/ 'newDeleteInstanceResponse' smart constructor.
 data DeleteInstanceResponse = DeleteInstanceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInstanceResponse' with the minimum fields required to make a request.
-deleteInstanceResponse ::
+-- |
+-- Create a value of 'DeleteInstanceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteInstanceResponse ::
   DeleteInstanceResponse
-deleteInstanceResponse = DeleteInstanceResponse'
+newDeleteInstanceResponse = DeleteInstanceResponse'
 
-instance NFData DeleteInstanceResponse
+instance Prelude.NFData DeleteInstanceResponse

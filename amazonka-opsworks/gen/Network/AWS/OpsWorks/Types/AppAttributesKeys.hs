@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.OpsWorks.Types.AppAttributesKeys
   ( AppAttributesKeys
       ( ..,
-        AWSFlowRubySettings,
-        AutoBundleOnDeploy,
-        DocumentRoot,
-        RailsEnv
+        AppAttributesKeysAutoBundleOnDeploy,
+        AppAttributesKeysAwsFlowRubySettings,
+        AppAttributesKeysDocumentRoot,
+        AppAttributesKeysRailsEnv
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppAttributesKeys = AppAttributesKeys' (CI Text)
+newtype AppAttributesKeys = AppAttributesKeys'
+  { fromAppAttributesKeys ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSFlowRubySettings :: AppAttributesKeys
-pattern AWSFlowRubySettings = AppAttributesKeys' "AwsFlowRubySettings"
+pattern AppAttributesKeysAutoBundleOnDeploy :: AppAttributesKeys
+pattern AppAttributesKeysAutoBundleOnDeploy = AppAttributesKeys' "AutoBundleOnDeploy"
 
-pattern AutoBundleOnDeploy :: AppAttributesKeys
-pattern AutoBundleOnDeploy = AppAttributesKeys' "AutoBundleOnDeploy"
+pattern AppAttributesKeysAwsFlowRubySettings :: AppAttributesKeys
+pattern AppAttributesKeysAwsFlowRubySettings = AppAttributesKeys' "AwsFlowRubySettings"
 
-pattern DocumentRoot :: AppAttributesKeys
-pattern DocumentRoot = AppAttributesKeys' "DocumentRoot"
+pattern AppAttributesKeysDocumentRoot :: AppAttributesKeys
+pattern AppAttributesKeysDocumentRoot = AppAttributesKeys' "DocumentRoot"
 
-pattern RailsEnv :: AppAttributesKeys
-pattern RailsEnv = AppAttributesKeys' "RailsEnv"
+pattern AppAttributesKeysRailsEnv :: AppAttributesKeys
+pattern AppAttributesKeysRailsEnv = AppAttributesKeys' "RailsEnv"
 
 {-# COMPLETE
-  AWSFlowRubySettings,
-  AutoBundleOnDeploy,
-  DocumentRoot,
-  RailsEnv,
+  AppAttributesKeysAutoBundleOnDeploy,
+  AppAttributesKeysAwsFlowRubySettings,
+  AppAttributesKeysDocumentRoot,
+  AppAttributesKeysRailsEnv,
   AppAttributesKeys'
   #-}
 
-instance FromText AppAttributesKeys where
-  parser = (AppAttributesKeys' . mk) <$> takeText
+instance Prelude.FromText AppAttributesKeys where
+  parser = AppAttributesKeys' Prelude.<$> Prelude.takeText
 
-instance ToText AppAttributesKeys where
-  toText (AppAttributesKeys' ci) = original ci
+instance Prelude.ToText AppAttributesKeys where
+  toText (AppAttributesKeys' x) = x
 
-instance Hashable AppAttributesKeys
+instance Prelude.Hashable AppAttributesKeys
 
-instance NFData AppAttributesKeys
+instance Prelude.NFData AppAttributesKeys
 
-instance ToByteString AppAttributesKeys
+instance Prelude.ToByteString AppAttributesKeys
 
-instance ToQuery AppAttributesKeys
+instance Prelude.ToQuery AppAttributesKeys
 
-instance ToHeader AppAttributesKeys
+instance Prelude.ToHeader AppAttributesKeys
 
-instance ToJSON AppAttributesKeys where
-  toJSON = toJSONText
+instance Prelude.ToJSON AppAttributesKeys where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AppAttributesKeys where
-  parseJSON = parseJSONText "AppAttributesKeys"
+instance Prelude.FromJSON AppAttributesKeys where
+  parseJSON = Prelude.parseJSONText "AppAttributesKeys"

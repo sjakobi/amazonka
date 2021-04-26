@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,135 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.Permission where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes stack or user permissions.
 --
---
---
--- /See:/ 'permission' smart constructor.
+-- /See:/ 'newPermission' smart constructor.
 data Permission = Permission'
-  { _pAllowSudo ::
-      !(Maybe Bool),
-    _pIAMUserARN :: !(Maybe Text),
-    _pStackId :: !(Maybe Text),
-    _pAllowSSH :: !(Maybe Bool),
-    _pLevel :: !(Maybe Text)
+  { -- | Whether the user can use __sudo__.
+    allowSudo :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) for an AWS Identity and Access Management
+    -- (IAM) role. For more information about IAM ARNs, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers>.
+    iamUserArn :: Prelude.Maybe Prelude.Text,
+    -- | A stack ID.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | Whether the user can use SSH.
+    allowSsh :: Prelude.Maybe Prelude.Bool,
+    -- | The user\'s permission level, which must be the following:
+    --
+    -- -   @deny@
+    --
+    -- -   @show@
+    --
+    -- -   @deploy@
+    --
+    -- -   @manage@
+    --
+    -- -   @iam_only@
+    --
+    -- For more information on the permissions associated with these levels,
+    -- see
+    -- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>
+    level :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Permission' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Permission' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pAllowSudo' - Whether the user can use __sudo__ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pIAMUserARN' - The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role. For more information about IAM ARNs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers> .
+-- 'allowSudo', 'permission_allowSudo' - Whether the user can use __sudo__.
 --
--- * 'pStackId' - A stack ID.
+-- 'iamUserArn', 'permission_iamUserArn' - The Amazon Resource Name (ARN) for an AWS Identity and Access Management
+-- (IAM) role. For more information about IAM ARNs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers>.
 --
--- * 'pAllowSSH' - Whether the user can use SSH.
+-- 'stackId', 'permission_stackId' - A stack ID.
 --
--- * 'pLevel' - The user's permission level, which must be the following:     * @deny@      * @show@      * @deploy@      * @manage@      * @iam_only@  For more information on the permissions associated with these levels, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>
-permission ::
+-- 'allowSsh', 'permission_allowSsh' - Whether the user can use SSH.
+--
+-- 'level', 'permission_level' - The user\'s permission level, which must be the following:
+--
+-- -   @deny@
+--
+-- -   @show@
+--
+-- -   @deploy@
+--
+-- -   @manage@
+--
+-- -   @iam_only@
+--
+-- For more information on the permissions associated with these levels,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>
+newPermission ::
   Permission
-permission =
+newPermission =
   Permission'
-    { _pAllowSudo = Nothing,
-      _pIAMUserARN = Nothing,
-      _pStackId = Nothing,
-      _pAllowSSH = Nothing,
-      _pLevel = Nothing
+    { allowSudo = Prelude.Nothing,
+      iamUserArn = Prelude.Nothing,
+      stackId = Prelude.Nothing,
+      allowSsh = Prelude.Nothing,
+      level = Prelude.Nothing
     }
 
--- | Whether the user can use __sudo__ .
-pAllowSudo :: Lens' Permission (Maybe Bool)
-pAllowSudo = lens _pAllowSudo (\s a -> s {_pAllowSudo = a})
+-- | Whether the user can use __sudo__.
+permission_allowSudo :: Lens.Lens' Permission (Prelude.Maybe Prelude.Bool)
+permission_allowSudo = Lens.lens (\Permission' {allowSudo} -> allowSudo) (\s@Permission' {} a -> s {allowSudo = a} :: Permission)
 
--- | The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role. For more information about IAM ARNs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers> .
-pIAMUserARN :: Lens' Permission (Maybe Text)
-pIAMUserARN = lens _pIAMUserARN (\s a -> s {_pIAMUserARN = a})
+-- | The Amazon Resource Name (ARN) for an AWS Identity and Access Management
+-- (IAM) role. For more information about IAM ARNs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html Using Identifiers>.
+permission_iamUserArn :: Lens.Lens' Permission (Prelude.Maybe Prelude.Text)
+permission_iamUserArn = Lens.lens (\Permission' {iamUserArn} -> iamUserArn) (\s@Permission' {} a -> s {iamUserArn = a} :: Permission)
 
 -- | A stack ID.
-pStackId :: Lens' Permission (Maybe Text)
-pStackId = lens _pStackId (\s a -> s {_pStackId = a})
+permission_stackId :: Lens.Lens' Permission (Prelude.Maybe Prelude.Text)
+permission_stackId = Lens.lens (\Permission' {stackId} -> stackId) (\s@Permission' {} a -> s {stackId = a} :: Permission)
 
 -- | Whether the user can use SSH.
-pAllowSSH :: Lens' Permission (Maybe Bool)
-pAllowSSH = lens _pAllowSSH (\s a -> s {_pAllowSSH = a})
+permission_allowSsh :: Lens.Lens' Permission (Prelude.Maybe Prelude.Bool)
+permission_allowSsh = Lens.lens (\Permission' {allowSsh} -> allowSsh) (\s@Permission' {} a -> s {allowSsh = a} :: Permission)
 
--- | The user's permission level, which must be the following:     * @deny@      * @show@      * @deploy@      * @manage@      * @iam_only@  For more information on the permissions associated with these levels, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>
-pLevel :: Lens' Permission (Maybe Text)
-pLevel = lens _pLevel (\s a -> s {_pLevel = a})
+-- | The user\'s permission level, which must be the following:
+--
+-- -   @deny@
+--
+-- -   @show@
+--
+-- -   @deploy@
+--
+-- -   @manage@
+--
+-- -   @iam_only@
+--
+-- For more information on the permissions associated with these levels,
+-- see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html Managing User Permissions>
+permission_level :: Lens.Lens' Permission (Prelude.Maybe Prelude.Text)
+permission_level = Lens.lens (\Permission' {level} -> level) (\s@Permission' {} a -> s {level = a} :: Permission)
 
-instance FromJSON Permission where
+instance Prelude.FromJSON Permission where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Permission"
       ( \x ->
           Permission'
-            <$> (x .:? "AllowSudo")
-            <*> (x .:? "IamUserArn")
-            <*> (x .:? "StackId")
-            <*> (x .:? "AllowSsh")
-            <*> (x .:? "Level")
+            Prelude.<$> (x Prelude..:? "AllowSudo")
+            Prelude.<*> (x Prelude..:? "IamUserArn")
+            Prelude.<*> (x Prelude..:? "StackId")
+            Prelude.<*> (x Prelude..:? "AllowSsh")
+            Prelude.<*> (x Prelude..:? "Level")
       )
 
-instance Hashable Permission
+instance Prelude.Hashable Permission
 
-instance NFData Permission
+instance Prelude.NFData Permission

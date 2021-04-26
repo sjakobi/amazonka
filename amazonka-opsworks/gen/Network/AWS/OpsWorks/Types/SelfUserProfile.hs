@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.SelfUserProfile where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a user's SSH information.
+-- | Describes a user\'s SSH information.
 --
---
---
--- /See:/ 'selfUserProfile' smart constructor.
+-- /See:/ 'newSelfUserProfile' smart constructor.
 data SelfUserProfile = SelfUserProfile'
-  { _supIAMUserARN ::
-      !(Maybe Text),
-    _supSSHUsername :: !(Maybe Text),
-    _supName :: !(Maybe Text),
-    _supSSHPublicKey :: !(Maybe Text)
+  { -- | The user\'s IAM ARN.
+    iamUserArn :: Prelude.Maybe Prelude.Text,
+    -- | The user\'s SSH user name.
+    sshUsername :: Prelude.Maybe Prelude.Text,
+    -- | The user\'s name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The user\'s SSH public key.
+    sshPublicKey :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SelfUserProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SelfUserProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'supIAMUserARN' - The user's IAM ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'supSSHUsername' - The user's SSH user name.
+-- 'iamUserArn', 'selfUserProfile_iamUserArn' - The user\'s IAM ARN.
 --
--- * 'supName' - The user's name.
+-- 'sshUsername', 'selfUserProfile_sshUsername' - The user\'s SSH user name.
 --
--- * 'supSSHPublicKey' - The user's SSH public key.
-selfUserProfile ::
+-- 'name', 'selfUserProfile_name' - The user\'s name.
+--
+-- 'sshPublicKey', 'selfUserProfile_sshPublicKey' - The user\'s SSH public key.
+newSelfUserProfile ::
   SelfUserProfile
-selfUserProfile =
+newSelfUserProfile =
   SelfUserProfile'
-    { _supIAMUserARN = Nothing,
-      _supSSHUsername = Nothing,
-      _supName = Nothing,
-      _supSSHPublicKey = Nothing
+    { iamUserArn = Prelude.Nothing,
+      sshUsername = Prelude.Nothing,
+      name = Prelude.Nothing,
+      sshPublicKey = Prelude.Nothing
     }
 
--- | The user's IAM ARN.
-supIAMUserARN :: Lens' SelfUserProfile (Maybe Text)
-supIAMUserARN = lens _supIAMUserARN (\s a -> s {_supIAMUserARN = a})
+-- | The user\'s IAM ARN.
+selfUserProfile_iamUserArn :: Lens.Lens' SelfUserProfile (Prelude.Maybe Prelude.Text)
+selfUserProfile_iamUserArn = Lens.lens (\SelfUserProfile' {iamUserArn} -> iamUserArn) (\s@SelfUserProfile' {} a -> s {iamUserArn = a} :: SelfUserProfile)
 
--- | The user's SSH user name.
-supSSHUsername :: Lens' SelfUserProfile (Maybe Text)
-supSSHUsername = lens _supSSHUsername (\s a -> s {_supSSHUsername = a})
+-- | The user\'s SSH user name.
+selfUserProfile_sshUsername :: Lens.Lens' SelfUserProfile (Prelude.Maybe Prelude.Text)
+selfUserProfile_sshUsername = Lens.lens (\SelfUserProfile' {sshUsername} -> sshUsername) (\s@SelfUserProfile' {} a -> s {sshUsername = a} :: SelfUserProfile)
 
--- | The user's name.
-supName :: Lens' SelfUserProfile (Maybe Text)
-supName = lens _supName (\s a -> s {_supName = a})
+-- | The user\'s name.
+selfUserProfile_name :: Lens.Lens' SelfUserProfile (Prelude.Maybe Prelude.Text)
+selfUserProfile_name = Lens.lens (\SelfUserProfile' {name} -> name) (\s@SelfUserProfile' {} a -> s {name = a} :: SelfUserProfile)
 
--- | The user's SSH public key.
-supSSHPublicKey :: Lens' SelfUserProfile (Maybe Text)
-supSSHPublicKey = lens _supSSHPublicKey (\s a -> s {_supSSHPublicKey = a})
+-- | The user\'s SSH public key.
+selfUserProfile_sshPublicKey :: Lens.Lens' SelfUserProfile (Prelude.Maybe Prelude.Text)
+selfUserProfile_sshPublicKey = Lens.lens (\SelfUserProfile' {sshPublicKey} -> sshPublicKey) (\s@SelfUserProfile' {} a -> s {sshPublicKey = a} :: SelfUserProfile)
 
-instance FromJSON SelfUserProfile where
+instance Prelude.FromJSON SelfUserProfile where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SelfUserProfile"
       ( \x ->
           SelfUserProfile'
-            <$> (x .:? "IamUserArn")
-            <*> (x .:? "SshUsername")
-            <*> (x .:? "Name")
-            <*> (x .:? "SshPublicKey")
+            Prelude.<$> (x Prelude..:? "IamUserArn")
+            Prelude.<*> (x Prelude..:? "SshUsername")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "SshPublicKey")
       )
 
-instance Hashable SelfUserProfile
+instance Prelude.Hashable SelfUserProfile
 
-instance NFData SelfUserProfile
+instance Prelude.NFData SelfUserProfile

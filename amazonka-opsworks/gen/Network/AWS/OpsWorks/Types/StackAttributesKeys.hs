@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.OpsWorks.Types.StackAttributesKeys
   ( StackAttributesKeys
       ( ..,
-        Color
+        StackAttributesKeysColor
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackAttributesKeys
-  = StackAttributesKeys'
-      ( CI
-          Text
-      )
+newtype StackAttributesKeys = StackAttributesKeys'
+  { fromStackAttributesKeys ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Color :: StackAttributesKeys
-pattern Color = StackAttributesKeys' "Color"
+pattern StackAttributesKeysColor :: StackAttributesKeys
+pattern StackAttributesKeysColor = StackAttributesKeys' "Color"
 
 {-# COMPLETE
-  Color,
+  StackAttributesKeysColor,
   StackAttributesKeys'
   #-}
 
-instance FromText StackAttributesKeys where
-  parser = (StackAttributesKeys' . mk) <$> takeText
+instance Prelude.FromText StackAttributesKeys where
+  parser = StackAttributesKeys' Prelude.<$> Prelude.takeText
 
-instance ToText StackAttributesKeys where
-  toText (StackAttributesKeys' ci) = original ci
+instance Prelude.ToText StackAttributesKeys where
+  toText (StackAttributesKeys' x) = x
 
-instance Hashable StackAttributesKeys
+instance Prelude.Hashable StackAttributesKeys
 
-instance NFData StackAttributesKeys
+instance Prelude.NFData StackAttributesKeys
 
-instance ToByteString StackAttributesKeys
+instance Prelude.ToByteString StackAttributesKeys
 
-instance ToQuery StackAttributesKeys
+instance Prelude.ToQuery StackAttributesKeys
 
-instance ToHeader StackAttributesKeys
+instance Prelude.ToHeader StackAttributesKeys
 
-instance ToJSON StackAttributesKeys where
-  toJSON = toJSONText
+instance Prelude.ToJSON StackAttributesKeys where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StackAttributesKeys where
-  parseJSON = parseJSONText "StackAttributesKeys"
+instance Prelude.FromJSON StackAttributesKeys where
+  parseJSON = Prelude.parseJSONText "StackAttributesKeys"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,169 +19,225 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorks.Types.App where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorks.Types.AppAttributesKeys
 import Network.AWS.OpsWorks.Types.AppType
 import Network.AWS.OpsWorks.Types.DataSource
 import Network.AWS.OpsWorks.Types.EnvironmentVariable
-import Network.AWS.OpsWorks.Types.SSLConfiguration
 import Network.AWS.OpsWorks.Types.Source
-import Network.AWS.Prelude
+import Network.AWS.OpsWorks.Types.SslConfiguration
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A description of the app.
 --
---
---
--- /See:/ 'app' smart constructor.
+-- /See:/ 'newApp' smart constructor.
 data App = App'
-  { _appSSLConfiguration ::
-      !(Maybe SSLConfiguration),
-    _appAppSource :: !(Maybe Source),
-    _appAppId :: !(Maybe Text),
-    _appDataSources :: !(Maybe [DataSource]),
-    _appStackId :: !(Maybe Text),
-    _appDomains :: !(Maybe [Text]),
-    _appEnableSSL :: !(Maybe Bool),
-    _appShortname :: !(Maybe Text),
-    _appCreatedAt :: !(Maybe Text),
-    _appEnvironment :: !(Maybe [EnvironmentVariable]),
-    _appAttributes ::
-      !(Maybe (Map AppAttributesKeys Text)),
-    _appName :: !(Maybe Text),
-    _appDescription :: !(Maybe Text),
-    _appType :: !(Maybe AppType)
+  { -- | An @SslConfiguration@ object with the SSL configuration.
+    sslConfiguration :: Prelude.Maybe SslConfiguration,
+    -- | A @Source@ object that describes the app repository.
+    appSource :: Prelude.Maybe Source,
+    -- | The app ID.
+    appId :: Prelude.Maybe Prelude.Text,
+    -- | The app\'s data sources.
+    dataSources :: Prelude.Maybe [DataSource],
+    -- | The app stack ID.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | The app vhost settings with multiple domains separated by commas. For
+    -- example: @\'www.example.com, example.com\'@
+    domains :: Prelude.Maybe [Prelude.Text],
+    -- | Whether to enable SSL for the app.
+    enableSsl :: Prelude.Maybe Prelude.Bool,
+    -- | The app\'s short name.
+    shortname :: Prelude.Maybe Prelude.Text,
+    -- | When the app was created.
+    createdAt :: Prelude.Maybe Prelude.Text,
+    -- | An array of @EnvironmentVariable@ objects that specify environment
+    -- variables to be associated with the app. After you deploy the app, these
+    -- variables are defined on the associated app server instances. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment Environment Variables>.
+    --
+    -- There is no specific limit on the number of environment variables.
+    -- However, the size of the associated data structure - which includes the
+    -- variable names, values, and protected flag values - cannot exceed 20 KB.
+    -- This limit should accommodate most if not all use cases, but if you do
+    -- exceed it, you will cause an exception (API) with an \"Environment: is
+    -- too large (maximum is 20 KB)\" message.
+    environment :: Prelude.Maybe [EnvironmentVariable],
+    -- | The stack attributes.
+    attributes :: Prelude.Maybe (Prelude.Map AppAttributesKeys Prelude.Text),
+    -- | The app name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A description of the app.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The app type.
+    type' :: Prelude.Maybe AppType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'App' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'App' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'appSSLConfiguration' - An @SslConfiguration@ object with the SSL configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'appAppSource' - A @Source@ object that describes the app repository.
+-- 'sslConfiguration', 'app_sslConfiguration' - An @SslConfiguration@ object with the SSL configuration.
 --
--- * 'appAppId' - The app ID.
+-- 'appSource', 'app_appSource' - A @Source@ object that describes the app repository.
 --
--- * 'appDataSources' - The app's data sources.
+-- 'appId', 'app_appId' - The app ID.
 --
--- * 'appStackId' - The app stack ID.
+-- 'dataSources', 'app_dataSources' - The app\'s data sources.
 --
--- * 'appDomains' - The app vhost settings with multiple domains separated by commas. For example: @'www.example.com, example.com'@
+-- 'stackId', 'app_stackId' - The app stack ID.
 --
--- * 'appEnableSSL' - Whether to enable SSL for the app.
+-- 'domains', 'app_domains' - The app vhost settings with multiple domains separated by commas. For
+-- example: @\'www.example.com, example.com\'@
 --
--- * 'appShortname' - The app's short name.
+-- 'enableSsl', 'app_enableSsl' - Whether to enable SSL for the app.
 --
--- * 'appCreatedAt' - When the app was created.
+-- 'shortname', 'app_shortname' - The app\'s short name.
 --
--- * 'appEnvironment' - An array of @EnvironmentVariable@ objects that specify environment variables to be associated with the app. After you deploy the app, these variables are defined on the associated app server instances. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment Environment Variables> .
+-- 'createdAt', 'app_createdAt' - When the app was created.
 --
--- * 'appAttributes' - The stack attributes.
+-- 'environment', 'app_environment' - An array of @EnvironmentVariable@ objects that specify environment
+-- variables to be associated with the app. After you deploy the app, these
+-- variables are defined on the associated app server instances. For more
+-- information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment Environment Variables>.
 --
--- * 'appName' - The app name.
+-- There is no specific limit on the number of environment variables.
+-- However, the size of the associated data structure - which includes the
+-- variable names, values, and protected flag values - cannot exceed 20 KB.
+-- This limit should accommodate most if not all use cases, but if you do
+-- exceed it, you will cause an exception (API) with an \"Environment: is
+-- too large (maximum is 20 KB)\" message.
 --
--- * 'appDescription' - A description of the app.
+-- 'attributes', 'app_attributes' - The stack attributes.
 --
--- * 'appType' - The app type.
-app ::
+-- 'name', 'app_name' - The app name.
+--
+-- 'description', 'app_description' - A description of the app.
+--
+-- 'type'', 'app_type' - The app type.
+newApp ::
   App
-app =
+newApp =
   App'
-    { _appSSLConfiguration = Nothing,
-      _appAppSource = Nothing,
-      _appAppId = Nothing,
-      _appDataSources = Nothing,
-      _appStackId = Nothing,
-      _appDomains = Nothing,
-      _appEnableSSL = Nothing,
-      _appShortname = Nothing,
-      _appCreatedAt = Nothing,
-      _appEnvironment = Nothing,
-      _appAttributes = Nothing,
-      _appName = Nothing,
-      _appDescription = Nothing,
-      _appType = Nothing
+    { sslConfiguration = Prelude.Nothing,
+      appSource = Prelude.Nothing,
+      appId = Prelude.Nothing,
+      dataSources = Prelude.Nothing,
+      stackId = Prelude.Nothing,
+      domains = Prelude.Nothing,
+      enableSsl = Prelude.Nothing,
+      shortname = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      environment = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | An @SslConfiguration@ object with the SSL configuration.
-appSSLConfiguration :: Lens' App (Maybe SSLConfiguration)
-appSSLConfiguration = lens _appSSLConfiguration (\s a -> s {_appSSLConfiguration = a})
+app_sslConfiguration :: Lens.Lens' App (Prelude.Maybe SslConfiguration)
+app_sslConfiguration = Lens.lens (\App' {sslConfiguration} -> sslConfiguration) (\s@App' {} a -> s {sslConfiguration = a} :: App)
 
 -- | A @Source@ object that describes the app repository.
-appAppSource :: Lens' App (Maybe Source)
-appAppSource = lens _appAppSource (\s a -> s {_appAppSource = a})
+app_appSource :: Lens.Lens' App (Prelude.Maybe Source)
+app_appSource = Lens.lens (\App' {appSource} -> appSource) (\s@App' {} a -> s {appSource = a} :: App)
 
 -- | The app ID.
-appAppId :: Lens' App (Maybe Text)
-appAppId = lens _appAppId (\s a -> s {_appAppId = a})
+app_appId :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
+app_appId = Lens.lens (\App' {appId} -> appId) (\s@App' {} a -> s {appId = a} :: App)
 
--- | The app's data sources.
-appDataSources :: Lens' App [DataSource]
-appDataSources = lens _appDataSources (\s a -> s {_appDataSources = a}) . _Default . _Coerce
+-- | The app\'s data sources.
+app_dataSources :: Lens.Lens' App (Prelude.Maybe [DataSource])
+app_dataSources = Lens.lens (\App' {dataSources} -> dataSources) (\s@App' {} a -> s {dataSources = a} :: App) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The app stack ID.
-appStackId :: Lens' App (Maybe Text)
-appStackId = lens _appStackId (\s a -> s {_appStackId = a})
+app_stackId :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
+app_stackId = Lens.lens (\App' {stackId} -> stackId) (\s@App' {} a -> s {stackId = a} :: App)
 
--- | The app vhost settings with multiple domains separated by commas. For example: @'www.example.com, example.com'@
-appDomains :: Lens' App [Text]
-appDomains = lens _appDomains (\s a -> s {_appDomains = a}) . _Default . _Coerce
+-- | The app vhost settings with multiple domains separated by commas. For
+-- example: @\'www.example.com, example.com\'@
+app_domains :: Lens.Lens' App (Prelude.Maybe [Prelude.Text])
+app_domains = Lens.lens (\App' {domains} -> domains) (\s@App' {} a -> s {domains = a} :: App) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Whether to enable SSL for the app.
-appEnableSSL :: Lens' App (Maybe Bool)
-appEnableSSL = lens _appEnableSSL (\s a -> s {_appEnableSSL = a})
+app_enableSsl :: Lens.Lens' App (Prelude.Maybe Prelude.Bool)
+app_enableSsl = Lens.lens (\App' {enableSsl} -> enableSsl) (\s@App' {} a -> s {enableSsl = a} :: App)
 
--- | The app's short name.
-appShortname :: Lens' App (Maybe Text)
-appShortname = lens _appShortname (\s a -> s {_appShortname = a})
+-- | The app\'s short name.
+app_shortname :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
+app_shortname = Lens.lens (\App' {shortname} -> shortname) (\s@App' {} a -> s {shortname = a} :: App)
 
 -- | When the app was created.
-appCreatedAt :: Lens' App (Maybe Text)
-appCreatedAt = lens _appCreatedAt (\s a -> s {_appCreatedAt = a})
+app_createdAt :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
+app_createdAt = Lens.lens (\App' {createdAt} -> createdAt) (\s@App' {} a -> s {createdAt = a} :: App)
 
--- | An array of @EnvironmentVariable@ objects that specify environment variables to be associated with the app. After you deploy the app, these variables are defined on the associated app server instances. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment Environment Variables> .
-appEnvironment :: Lens' App [EnvironmentVariable]
-appEnvironment = lens _appEnvironment (\s a -> s {_appEnvironment = a}) . _Default . _Coerce
+-- | An array of @EnvironmentVariable@ objects that specify environment
+-- variables to be associated with the app. After you deploy the app, these
+-- variables are defined on the associated app server instances. For more
+-- information, see
+-- <https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment Environment Variables>.
+--
+-- There is no specific limit on the number of environment variables.
+-- However, the size of the associated data structure - which includes the
+-- variable names, values, and protected flag values - cannot exceed 20 KB.
+-- This limit should accommodate most if not all use cases, but if you do
+-- exceed it, you will cause an exception (API) with an \"Environment: is
+-- too large (maximum is 20 KB)\" message.
+app_environment :: Lens.Lens' App (Prelude.Maybe [EnvironmentVariable])
+app_environment = Lens.lens (\App' {environment} -> environment) (\s@App' {} a -> s {environment = a} :: App) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The stack attributes.
-appAttributes :: Lens' App (HashMap AppAttributesKeys Text)
-appAttributes = lens _appAttributes (\s a -> s {_appAttributes = a}) . _Default . _Map
+app_attributes :: Lens.Lens' App (Prelude.Maybe (Prelude.HashMap AppAttributesKeys Prelude.Text))
+app_attributes = Lens.lens (\App' {attributes} -> attributes) (\s@App' {} a -> s {attributes = a} :: App) Prelude.. Lens.mapping Prelude._Map
 
 -- | The app name.
-appName :: Lens' App (Maybe Text)
-appName = lens _appName (\s a -> s {_appName = a})
+app_name :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
+app_name = Lens.lens (\App' {name} -> name) (\s@App' {} a -> s {name = a} :: App)
 
 -- | A description of the app.
-appDescription :: Lens' App (Maybe Text)
-appDescription = lens _appDescription (\s a -> s {_appDescription = a})
+app_description :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
+app_description = Lens.lens (\App' {description} -> description) (\s@App' {} a -> s {description = a} :: App)
 
 -- | The app type.
-appType :: Lens' App (Maybe AppType)
-appType = lens _appType (\s a -> s {_appType = a})
+app_type :: Lens.Lens' App (Prelude.Maybe AppType)
+app_type = Lens.lens (\App' {type'} -> type') (\s@App' {} a -> s {type' = a} :: App)
 
-instance FromJSON App where
+instance Prelude.FromJSON App where
   parseJSON =
-    withObject
+    Prelude.withObject
       "App"
       ( \x ->
           App'
-            <$> (x .:? "SslConfiguration")
-            <*> (x .:? "AppSource")
-            <*> (x .:? "AppId")
-            <*> (x .:? "DataSources" .!= mempty)
-            <*> (x .:? "StackId")
-            <*> (x .:? "Domains" .!= mempty)
-            <*> (x .:? "EnableSsl")
-            <*> (x .:? "Shortname")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "Environment" .!= mempty)
-            <*> (x .:? "Attributes" .!= mempty)
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "SslConfiguration")
+            Prelude.<*> (x Prelude..:? "AppSource")
+            Prelude.<*> (x Prelude..:? "AppId")
+            Prelude.<*> ( x Prelude..:? "DataSources"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "StackId")
+            Prelude.<*> (x Prelude..:? "Domains" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "EnableSsl")
+            Prelude.<*> (x Prelude..:? "Shortname")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> ( x Prelude..:? "Environment"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "Attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable App
+instance Prelude.Hashable App
 
-instance NFData App
+instance Prelude.NFData App
