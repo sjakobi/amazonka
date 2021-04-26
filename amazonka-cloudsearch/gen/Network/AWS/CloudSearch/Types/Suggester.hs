@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,69 @@
 module Network.AWS.CloudSearch.Types.Suggester where
 
 import Network.AWS.CloudSearch.Types.DocumentSuggesterOptions
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration information for a search suggester. Each suggester has a unique name and specifies the text field you want to use for suggestions. The following options can be configured for a suggester: @FuzzyMatching@ , @SortExpression@ .
+-- | Configuration information for a search suggester. Each suggester has a
+-- unique name and specifies the text field you want to use for
+-- suggestions. The following options can be configured for a suggester:
+-- @FuzzyMatching@, @SortExpression@.
 --
---
---
--- /See:/ 'suggester' smart constructor.
+-- /See:/ 'newSuggester' smart constructor.
 data Suggester = Suggester'
-  { _sSuggesterName :: !Text,
-    _sDocumentSuggesterOptions ::
-      !DocumentSuggesterOptions
+  { suggesterName :: Prelude.Text,
+    documentSuggesterOptions :: DocumentSuggesterOptions
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Suggester' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Suggester' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sSuggesterName' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sDocumentSuggesterOptions' - Undocumented member.
-suggester ::
-  -- | 'sSuggesterName'
-  Text ->
-  -- | 'sDocumentSuggesterOptions'
+-- 'suggesterName', 'suggester_suggesterName' - Undocumented member.
+--
+-- 'documentSuggesterOptions', 'suggester_documentSuggesterOptions' - Undocumented member.
+newSuggester ::
+  -- | 'suggesterName'
+  Prelude.Text ->
+  -- | 'documentSuggesterOptions'
   DocumentSuggesterOptions ->
   Suggester
-suggester pSuggesterName_ pDocumentSuggesterOptions_ =
-  Suggester'
-    { _sSuggesterName = pSuggesterName_,
-      _sDocumentSuggesterOptions =
-        pDocumentSuggesterOptions_
-    }
+newSuggester
+  pSuggesterName_
+  pDocumentSuggesterOptions_ =
+    Suggester'
+      { suggesterName = pSuggesterName_,
+        documentSuggesterOptions =
+          pDocumentSuggesterOptions_
+      }
 
 -- | Undocumented member.
-sSuggesterName :: Lens' Suggester Text
-sSuggesterName = lens _sSuggesterName (\s a -> s {_sSuggesterName = a})
+suggester_suggesterName :: Lens.Lens' Suggester Prelude.Text
+suggester_suggesterName = Lens.lens (\Suggester' {suggesterName} -> suggesterName) (\s@Suggester' {} a -> s {suggesterName = a} :: Suggester)
 
 -- | Undocumented member.
-sDocumentSuggesterOptions :: Lens' Suggester DocumentSuggesterOptions
-sDocumentSuggesterOptions = lens _sDocumentSuggesterOptions (\s a -> s {_sDocumentSuggesterOptions = a})
+suggester_documentSuggesterOptions :: Lens.Lens' Suggester DocumentSuggesterOptions
+suggester_documentSuggesterOptions = Lens.lens (\Suggester' {documentSuggesterOptions} -> documentSuggesterOptions) (\s@Suggester' {} a -> s {documentSuggesterOptions = a} :: Suggester)
 
-instance FromXML Suggester where
+instance Prelude.FromXML Suggester where
   parseXML x =
     Suggester'
-      <$> (x .@ "SuggesterName")
-      <*> (x .@ "DocumentSuggesterOptions")
+      Prelude.<$> (x Prelude..@ "SuggesterName")
+      Prelude.<*> (x Prelude..@ "DocumentSuggesterOptions")
 
-instance Hashable Suggester
+instance Prelude.Hashable Suggester
 
-instance NFData Suggester
+instance Prelude.NFData Suggester
 
-instance ToQuery Suggester where
+instance Prelude.ToQuery Suggester where
   toQuery Suggester' {..} =
-    mconcat
-      [ "SuggesterName" =: _sSuggesterName,
+    Prelude.mconcat
+      [ "SuggesterName" Prelude.=: suggesterName,
         "DocumentSuggesterOptions"
-          =: _sDocumentSuggesterOptions
+          Prelude.=: documentSuggesterOptions
       ]

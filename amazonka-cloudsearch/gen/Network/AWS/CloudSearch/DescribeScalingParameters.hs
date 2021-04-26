@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the scaling parameters configured for a domain. A domain's scaling parameters specify the desired search instance type and replication count. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html Configuring Scaling Options> in the /Amazon CloudSearch Developer Guide/ .
+-- Gets the scaling parameters configured for a domain. A domain\'s scaling
+-- parameters specify the desired search instance type and replication
+-- count. For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html Configuring Scaling Options>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DescribeScalingParameters
   ( -- * Creating a Request
-    describeScalingParameters,
-    DescribeScalingParameters,
+    DescribeScalingParameters (..),
+    newDescribeScalingParameters,
 
     -- * Request Lenses
-    dspDomainName,
+    describeScalingParameters_domainName,
 
     -- * Destructuring the Response
-    describeScalingParametersResponse,
-    DescribeScalingParametersResponse,
+    DescribeScalingParametersResponse (..),
+    newDescribeScalingParametersResponse,
 
     -- * Response Lenses
-    dsprrsResponseStatus,
-    dsprrsScalingParameters,
+    describeScalingParametersResponse_httpStatus,
+    describeScalingParametersResponse_scalingParameters,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.ScalingParametersStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DescribeScalingParameters' @ operation. Specifies the name of the domain you want to describe.
+-- | Container for the parameters to the @DescribeScalingParameters@
+-- operation. Specifies the name of the domain you want to describe.
 --
---
---
--- /See:/ 'describeScalingParameters' smart constructor.
-newtype DescribeScalingParameters = DescribeScalingParameters'
-  { _dspDomainName ::
-      Text
+-- /See:/ 'newDescribeScalingParameters' smart constructor.
+data DescribeScalingParameters = DescribeScalingParameters'
+  { domainName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScalingParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScalingParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dspDomainName' - Undocumented member.
-describeScalingParameters ::
-  -- | 'dspDomainName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'describeScalingParameters_domainName' - Undocumented member.
+newDescribeScalingParameters ::
+  -- | 'domainName'
+  Prelude.Text ->
   DescribeScalingParameters
-describeScalingParameters pDomainName_ =
+newDescribeScalingParameters pDomainName_ =
   DescribeScalingParameters'
-    { _dspDomainName =
+    { domainName =
         pDomainName_
     }
 
 -- | Undocumented member.
-dspDomainName :: Lens' DescribeScalingParameters Text
-dspDomainName = lens _dspDomainName (\s a -> s {_dspDomainName = a})
+describeScalingParameters_domainName :: Lens.Lens' DescribeScalingParameters Prelude.Text
+describeScalingParameters_domainName = Lens.lens (\DescribeScalingParameters' {domainName} -> domainName) (\s@DescribeScalingParameters' {} a -> s {domainName = a} :: DescribeScalingParameters)
 
-instance AWSRequest DescribeScalingParameters where
+instance Prelude.AWSRequest DescribeScalingParameters where
   type
     Rs DescribeScalingParameters =
       DescribeScalingParametersResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeScalingParametersResult"
       ( \s h x ->
           DescribeScalingParametersResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "ScalingParameters")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "ScalingParameters")
       )
 
-instance Hashable DescribeScalingParameters
+instance Prelude.Hashable DescribeScalingParameters
 
-instance NFData DescribeScalingParameters
+instance Prelude.NFData DescribeScalingParameters
 
-instance ToHeaders DescribeScalingParameters where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeScalingParameters where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeScalingParameters where
-  toPath = const "/"
+instance Prelude.ToPath DescribeScalingParameters where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeScalingParameters where
+instance Prelude.ToQuery DescribeScalingParameters where
   toQuery DescribeScalingParameters' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeScalingParameters" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "DomainName" =: _dspDomainName
+          Prelude.=: ("DescribeScalingParameters" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName
       ]
 
--- | The result of a @DescribeScalingParameters@ request. Contains the scaling parameters configured for the domain specified in the request.
+-- | The result of a @DescribeScalingParameters@ request. Contains the
+-- scaling parameters configured for the domain specified in the request.
 --
---
---
--- /See:/ 'describeScalingParametersResponse' smart constructor.
+-- /See:/ 'newDescribeScalingParametersResponse' smart constructor.
 data DescribeScalingParametersResponse = DescribeScalingParametersResponse'
-  { _dsprrsResponseStatus ::
-      !Int,
-    _dsprrsScalingParameters ::
-      !ScalingParametersStatus
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    scalingParameters :: ScalingParametersStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScalingParametersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScalingParametersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsprrsScalingParameters' - Undocumented member.
-describeScalingParametersResponse ::
-  -- | 'dsprrsResponseStatus'
-  Int ->
-  -- | 'dsprrsScalingParameters'
+-- 'httpStatus', 'describeScalingParametersResponse_httpStatus' - The response's http status code.
+--
+-- 'scalingParameters', 'describeScalingParametersResponse_scalingParameters' - Undocumented member.
+newDescribeScalingParametersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'scalingParameters'
   ScalingParametersStatus ->
   DescribeScalingParametersResponse
-describeScalingParametersResponse
-  pResponseStatus_
+newDescribeScalingParametersResponse
+  pHttpStatus_
   pScalingParameters_ =
     DescribeScalingParametersResponse'
-      { _dsprrsResponseStatus =
-          pResponseStatus_,
-        _dsprrsScalingParameters =
-          pScalingParameters_
+      { httpStatus =
+          pHttpStatus_,
+        scalingParameters = pScalingParameters_
       }
 
--- | -- | The response status code.
-dsprrsResponseStatus :: Lens' DescribeScalingParametersResponse Int
-dsprrsResponseStatus = lens _dsprrsResponseStatus (\s a -> s {_dsprrsResponseStatus = a})
+-- | The response's http status code.
+describeScalingParametersResponse_httpStatus :: Lens.Lens' DescribeScalingParametersResponse Prelude.Int
+describeScalingParametersResponse_httpStatus = Lens.lens (\DescribeScalingParametersResponse' {httpStatus} -> httpStatus) (\s@DescribeScalingParametersResponse' {} a -> s {httpStatus = a} :: DescribeScalingParametersResponse)
 
 -- | Undocumented member.
-dsprrsScalingParameters :: Lens' DescribeScalingParametersResponse ScalingParametersStatus
-dsprrsScalingParameters = lens _dsprrsScalingParameters (\s a -> s {_dsprrsScalingParameters = a})
+describeScalingParametersResponse_scalingParameters :: Lens.Lens' DescribeScalingParametersResponse ScalingParametersStatus
+describeScalingParametersResponse_scalingParameters = Lens.lens (\DescribeScalingParametersResponse' {scalingParameters} -> scalingParameters) (\s@DescribeScalingParametersResponse' {} a -> s {scalingParameters = a} :: DescribeScalingParametersResponse)
 
-instance NFData DescribeScalingParametersResponse
+instance
+  Prelude.NFData
+    DescribeScalingParametersResponse

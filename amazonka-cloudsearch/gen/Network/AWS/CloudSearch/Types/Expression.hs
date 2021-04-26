@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types.Expression where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A named expression that can be evaluated at search time. Can be used to sort the search results, define other expressions, or return computed information in the search results.
+-- | A named expression that can be evaluated at search time. Can be used to
+-- sort the search results, define other expressions, or return computed
+-- information in the search results.
 --
---
---
--- /See:/ 'expression' smart constructor.
+-- /See:/ 'newExpression' smart constructor.
 data Expression = Expression'
-  { _eExpressionName ::
-      !Text,
-    _eExpressionValue :: !Text
+  { expressionName :: Prelude.Text,
+    expressionValue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Expression' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Expression' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eExpressionName' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eExpressionValue' - Undocumented member.
-expression ::
-  -- | 'eExpressionName'
-  Text ->
-  -- | 'eExpressionValue'
-  Text ->
+-- 'expressionName', 'expression_expressionName' - Undocumented member.
+--
+-- 'expressionValue', 'expression_expressionValue' - Undocumented member.
+newExpression ::
+  -- | 'expressionName'
+  Prelude.Text ->
+  -- | 'expressionValue'
+  Prelude.Text ->
   Expression
-expression pExpressionName_ pExpressionValue_ =
+newExpression pExpressionName_ pExpressionValue_ =
   Expression'
-    { _eExpressionName = pExpressionName_,
-      _eExpressionValue = pExpressionValue_
+    { expressionName = pExpressionName_,
+      expressionValue = pExpressionValue_
     }
 
 -- | Undocumented member.
-eExpressionName :: Lens' Expression Text
-eExpressionName = lens _eExpressionName (\s a -> s {_eExpressionName = a})
+expression_expressionName :: Lens.Lens' Expression Prelude.Text
+expression_expressionName = Lens.lens (\Expression' {expressionName} -> expressionName) (\s@Expression' {} a -> s {expressionName = a} :: Expression)
 
 -- | Undocumented member.
-eExpressionValue :: Lens' Expression Text
-eExpressionValue = lens _eExpressionValue (\s a -> s {_eExpressionValue = a})
+expression_expressionValue :: Lens.Lens' Expression Prelude.Text
+expression_expressionValue = Lens.lens (\Expression' {expressionValue} -> expressionValue) (\s@Expression' {} a -> s {expressionValue = a} :: Expression)
 
-instance FromXML Expression where
+instance Prelude.FromXML Expression where
   parseXML x =
     Expression'
-      <$> (x .@ "ExpressionName") <*> (x .@ "ExpressionValue")
+      Prelude.<$> (x Prelude..@ "ExpressionName")
+      Prelude.<*> (x Prelude..@ "ExpressionValue")
 
-instance Hashable Expression
+instance Prelude.Hashable Expression
 
-instance NFData Expression
+instance Prelude.NFData Expression
 
-instance ToQuery Expression where
+instance Prelude.ToQuery Expression where
   toQuery Expression' {..} =
-    mconcat
-      [ "ExpressionName" =: _eExpressionName,
-        "ExpressionValue" =: _eExpressionValue
+    Prelude.mconcat
+      [ "ExpressionName" Prelude.=: expressionName,
+        "ExpressionValue" Prelude.=: expressionValue
       ]

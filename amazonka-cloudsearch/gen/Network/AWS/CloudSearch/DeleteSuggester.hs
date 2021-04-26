@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,152 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a suggester. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html Getting Search Suggestions> in the /Amazon CloudSearch Developer Guide/ .
+-- Deletes a suggester. For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html Getting Search Suggestions>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DeleteSuggester
   ( -- * Creating a Request
-    deleteSuggester,
-    DeleteSuggester,
+    DeleteSuggester (..),
+    newDeleteSuggester,
 
     -- * Request Lenses
-    dssDomainName,
-    dssSuggesterName,
+    deleteSuggester_domainName,
+    deleteSuggester_suggesterName,
 
     -- * Destructuring the Response
-    deleteSuggesterResponse,
-    DeleteSuggesterResponse,
+    DeleteSuggesterResponse (..),
+    newDeleteSuggesterResponse,
 
     -- * Response Lenses
-    dsrrsResponseStatus,
-    dsrrsSuggester,
+    deleteSuggesterResponse_httpStatus,
+    deleteSuggesterResponse_suggester,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.SuggesterStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DeleteSuggester' @ operation. Specifies the name of the domain you want to update and name of the suggester you want to delete.
+-- | Container for the parameters to the @DeleteSuggester@ operation.
+-- Specifies the name of the domain you want to update and name of the
+-- suggester you want to delete.
 --
---
---
--- /See:/ 'deleteSuggester' smart constructor.
+-- /See:/ 'newDeleteSuggester' smart constructor.
 data DeleteSuggester = DeleteSuggester'
-  { _dssDomainName ::
-      !Text,
-    _dssSuggesterName :: !Text
+  { domainName :: Prelude.Text,
+    -- | Specifies the name of the suggester you want to delete.
+    suggesterName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSuggester' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSuggester' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dssDomainName' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dssSuggesterName' - Specifies the name of the suggester you want to delete.
-deleteSuggester ::
-  -- | 'dssDomainName'
-  Text ->
-  -- | 'dssSuggesterName'
-  Text ->
+-- 'domainName', 'deleteSuggester_domainName' - Undocumented member.
+--
+-- 'suggesterName', 'deleteSuggester_suggesterName' - Specifies the name of the suggester you want to delete.
+newDeleteSuggester ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'suggesterName'
+  Prelude.Text ->
   DeleteSuggester
-deleteSuggester pDomainName_ pSuggesterName_ =
+newDeleteSuggester pDomainName_ pSuggesterName_ =
   DeleteSuggester'
-    { _dssDomainName = pDomainName_,
-      _dssSuggesterName = pSuggesterName_
+    { domainName = pDomainName_,
+      suggesterName = pSuggesterName_
     }
 
 -- | Undocumented member.
-dssDomainName :: Lens' DeleteSuggester Text
-dssDomainName = lens _dssDomainName (\s a -> s {_dssDomainName = a})
+deleteSuggester_domainName :: Lens.Lens' DeleteSuggester Prelude.Text
+deleteSuggester_domainName = Lens.lens (\DeleteSuggester' {domainName} -> domainName) (\s@DeleteSuggester' {} a -> s {domainName = a} :: DeleteSuggester)
 
 -- | Specifies the name of the suggester you want to delete.
-dssSuggesterName :: Lens' DeleteSuggester Text
-dssSuggesterName = lens _dssSuggesterName (\s a -> s {_dssSuggesterName = a})
+deleteSuggester_suggesterName :: Lens.Lens' DeleteSuggester Prelude.Text
+deleteSuggester_suggesterName = Lens.lens (\DeleteSuggester' {suggesterName} -> suggesterName) (\s@DeleteSuggester' {} a -> s {suggesterName = a} :: DeleteSuggester)
 
-instance AWSRequest DeleteSuggester where
+instance Prelude.AWSRequest DeleteSuggester where
   type Rs DeleteSuggester = DeleteSuggesterResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteSuggesterResult"
       ( \s h x ->
           DeleteSuggesterResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "Suggester")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "Suggester")
       )
 
-instance Hashable DeleteSuggester
+instance Prelude.Hashable DeleteSuggester
 
-instance NFData DeleteSuggester
+instance Prelude.NFData DeleteSuggester
 
-instance ToHeaders DeleteSuggester where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteSuggester where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteSuggester where
-  toPath = const "/"
+instance Prelude.ToPath DeleteSuggester where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteSuggester where
+instance Prelude.ToQuery DeleteSuggester where
   toQuery DeleteSuggester' {..} =
-    mconcat
-      [ "Action" =: ("DeleteSuggester" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "DomainName" =: _dssDomainName,
-        "SuggesterName" =: _dssSuggesterName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteSuggester" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName,
+        "SuggesterName" Prelude.=: suggesterName
       ]
 
--- | The result of a @DeleteSuggester@ request. Contains the status of the deleted suggester.
+-- | The result of a @DeleteSuggester@ request. Contains the status of the
+-- deleted suggester.
 --
---
---
--- /See:/ 'deleteSuggesterResponse' smart constructor.
+-- /See:/ 'newDeleteSuggesterResponse' smart constructor.
 data DeleteSuggesterResponse = DeleteSuggesterResponse'
-  { _dsrrsResponseStatus ::
-      !Int,
-    _dsrrsSuggester ::
-      !SuggesterStatus
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The status of the suggester being deleted.
+    suggester :: SuggesterStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSuggesterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSuggesterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsSuggester' - The status of the suggester being deleted.
-deleteSuggesterResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
-  -- | 'dsrrsSuggester'
+-- 'httpStatus', 'deleteSuggesterResponse_httpStatus' - The response's http status code.
+--
+-- 'suggester', 'deleteSuggesterResponse_suggester' - The status of the suggester being deleted.
+newDeleteSuggesterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'suggester'
   SuggesterStatus ->
   DeleteSuggesterResponse
-deleteSuggesterResponse pResponseStatus_ pSuggester_ =
+newDeleteSuggesterResponse pHttpStatus_ pSuggester_ =
   DeleteSuggesterResponse'
-    { _dsrrsResponseStatus =
-        pResponseStatus_,
-      _dsrrsSuggester = pSuggester_
+    { httpStatus = pHttpStatus_,
+      suggester = pSuggester_
     }
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DeleteSuggesterResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSuggesterResponse_httpStatus :: Lens.Lens' DeleteSuggesterResponse Prelude.Int
+deleteSuggesterResponse_httpStatus = Lens.lens (\DeleteSuggesterResponse' {httpStatus} -> httpStatus) (\s@DeleteSuggesterResponse' {} a -> s {httpStatus = a} :: DeleteSuggesterResponse)
 
 -- | The status of the suggester being deleted.
-dsrrsSuggester :: Lens' DeleteSuggesterResponse SuggesterStatus
-dsrrsSuggester = lens _dsrrsSuggester (\s a -> s {_dsrrsSuggester = a})
+deleteSuggesterResponse_suggester :: Lens.Lens' DeleteSuggesterResponse SuggesterStatus
+deleteSuggesterResponse_suggester = Lens.lens (\DeleteSuggesterResponse' {suggester} -> suggester) (\s@DeleteSuggesterResponse' {} a -> s {suggester = a} :: DeleteSuggesterResponse)
 
-instance NFData DeleteSuggesterResponse
+instance Prelude.NFData DeleteSuggesterResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.CloudSearch.Types.TLSSecurityPolicy
   ( TLSSecurityPolicy
       ( ..,
-        PolicyMinTLS10201907,
-        PolicyMinTLS12201907
+        TLSSecurityPolicyPolicyMinTLS10201907,
+        TLSSecurityPolicyPolicyMinTLS12201907
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The minimum required TLS version.
-data TLSSecurityPolicy = TLSSecurityPolicy' (CI Text)
+newtype TLSSecurityPolicy = TLSSecurityPolicy'
+  { fromTLSSecurityPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PolicyMinTLS10201907 :: TLSSecurityPolicy
-pattern PolicyMinTLS10201907 = TLSSecurityPolicy' "Policy-Min-TLS-1-0-2019-07"
+pattern TLSSecurityPolicyPolicyMinTLS10201907 :: TLSSecurityPolicy
+pattern TLSSecurityPolicyPolicyMinTLS10201907 = TLSSecurityPolicy' "Policy-Min-TLS-1-0-2019-07"
 
-pattern PolicyMinTLS12201907 :: TLSSecurityPolicy
-pattern PolicyMinTLS12201907 = TLSSecurityPolicy' "Policy-Min-TLS-1-2-2019-07"
+pattern TLSSecurityPolicyPolicyMinTLS12201907 :: TLSSecurityPolicy
+pattern TLSSecurityPolicyPolicyMinTLS12201907 = TLSSecurityPolicy' "Policy-Min-TLS-1-2-2019-07"
 
 {-# COMPLETE
-  PolicyMinTLS10201907,
-  PolicyMinTLS12201907,
+  TLSSecurityPolicyPolicyMinTLS10201907,
+  TLSSecurityPolicyPolicyMinTLS12201907,
   TLSSecurityPolicy'
   #-}
 
-instance FromText TLSSecurityPolicy where
-  parser = (TLSSecurityPolicy' . mk) <$> takeText
+instance Prelude.FromText TLSSecurityPolicy where
+  parser = TLSSecurityPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText TLSSecurityPolicy where
-  toText (TLSSecurityPolicy' ci) = original ci
+instance Prelude.ToText TLSSecurityPolicy where
+  toText (TLSSecurityPolicy' x) = x
 
-instance Hashable TLSSecurityPolicy
+instance Prelude.Hashable TLSSecurityPolicy
 
-instance NFData TLSSecurityPolicy
+instance Prelude.NFData TLSSecurityPolicy
 
-instance ToByteString TLSSecurityPolicy
+instance Prelude.ToByteString TLSSecurityPolicy
 
-instance ToQuery TLSSecurityPolicy
+instance Prelude.ToQuery TLSSecurityPolicy
 
-instance ToHeader TLSSecurityPolicy
+instance Prelude.ToHeader TLSSecurityPolicy
 
-instance FromXML TLSSecurityPolicy where
-  parseXML = parseXMLText "TLSSecurityPolicy"
+instance Prelude.FromXML TLSSecurityPolicy where
+  parseXML = Prelude.parseXMLText "TLSSecurityPolicy"

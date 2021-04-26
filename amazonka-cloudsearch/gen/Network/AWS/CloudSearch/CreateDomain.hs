@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,122 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new search domain. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/creating-domains.html Creating a Search Domain> in the /Amazon CloudSearch Developer Guide/ .
+-- Creates a new search domain. For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/creating-domains.html Creating a Search Domain>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.CreateDomain
   ( -- * Creating a Request
-    createDomain,
-    CreateDomain,
+    CreateDomain (..),
+    newCreateDomain,
 
     -- * Request Lenses
-    cdDomainName,
+    createDomain_domainName,
 
     -- * Destructuring the Response
-    createDomainResponse,
-    CreateDomainResponse,
+    CreateDomainResponse (..),
+    newCreateDomainResponse,
 
     -- * Response Lenses
-    cdrrsDomainStatus,
-    cdrrsResponseStatus,
+    createDomainResponse_domainStatus,
+    createDomainResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.DomainStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'CreateDomain' @ operation. Specifies a name for the new search domain.
+-- | Container for the parameters to the @CreateDomain@ operation. Specifies
+-- a name for the new search domain.
 --
---
---
--- /See:/ 'createDomain' smart constructor.
-newtype CreateDomain = CreateDomain'
-  { _cdDomainName ::
-      Text
+-- /See:/ 'newCreateDomain' smart constructor.
+data CreateDomain = CreateDomain'
+  { -- | A name for the domain you are creating. Allowed characters are a-z
+    -- (lower-case letters), 0-9, and hyphen (-). Domain names must start with
+    -- a letter or number and be at least 3 and no more than 28 characters
+    -- long.
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdDomainName' - A name for the domain you are creating. Allowed characters are a-z (lower-case letters), 0-9, and hyphen (-). Domain names must start with a letter or number and be at least 3 and no more than 28 characters long.
-createDomain ::
-  -- | 'cdDomainName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'createDomain_domainName' - A name for the domain you are creating. Allowed characters are a-z
+-- (lower-case letters), 0-9, and hyphen (-). Domain names must start with
+-- a letter or number and be at least 3 and no more than 28 characters
+-- long.
+newCreateDomain ::
+  -- | 'domainName'
+  Prelude.Text ->
   CreateDomain
-createDomain pDomainName_ =
-  CreateDomain' {_cdDomainName = pDomainName_}
+newCreateDomain pDomainName_ =
+  CreateDomain' {domainName = pDomainName_}
 
--- | A name for the domain you are creating. Allowed characters are a-z (lower-case letters), 0-9, and hyphen (-). Domain names must start with a letter or number and be at least 3 and no more than 28 characters long.
-cdDomainName :: Lens' CreateDomain Text
-cdDomainName = lens _cdDomainName (\s a -> s {_cdDomainName = a})
+-- | A name for the domain you are creating. Allowed characters are a-z
+-- (lower-case letters), 0-9, and hyphen (-). Domain names must start with
+-- a letter or number and be at least 3 and no more than 28 characters
+-- long.
+createDomain_domainName :: Lens.Lens' CreateDomain Prelude.Text
+createDomain_domainName = Lens.lens (\CreateDomain' {domainName} -> domainName) (\s@CreateDomain' {} a -> s {domainName = a} :: CreateDomain)
 
-instance AWSRequest CreateDomain where
+instance Prelude.AWSRequest CreateDomain where
   type Rs CreateDomain = CreateDomainResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateDomainResult"
       ( \s h x ->
           CreateDomainResponse'
-            <$> (x .@? "DomainStatus") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DomainStatus")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDomain
+instance Prelude.Hashable CreateDomain
 
-instance NFData CreateDomain
+instance Prelude.NFData CreateDomain
 
-instance ToHeaders CreateDomain where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateDomain where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateDomain where
-  toPath = const "/"
+instance Prelude.ToPath CreateDomain where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDomain where
+instance Prelude.ToQuery CreateDomain where
   toQuery CreateDomain' {..} =
-    mconcat
-      [ "Action" =: ("CreateDomain" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "DomainName" =: _cdDomainName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateDomain" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName
       ]
 
--- | The result of a @CreateDomainRequest@ . Contains the status of a newly created domain.
+-- | The result of a @CreateDomainRequest@. Contains the status of a newly
+-- created domain.
 --
---
---
--- /See:/ 'createDomainResponse' smart constructor.
+-- /See:/ 'newCreateDomainResponse' smart constructor.
 data CreateDomainResponse = CreateDomainResponse'
-  { _cdrrsDomainStatus ::
-      !(Maybe DomainStatus),
-    _cdrrsResponseStatus :: !Int
+  { domainStatus :: Prelude.Maybe DomainStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDomainResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDomainResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdrrsDomainStatus' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdrrsResponseStatus' - -- | The response status code.
-createDomainResponse ::
-  -- | 'cdrrsResponseStatus'
-  Int ->
+-- 'domainStatus', 'createDomainResponse_domainStatus' - Undocumented member.
+--
+-- 'httpStatus', 'createDomainResponse_httpStatus' - The response's http status code.
+newCreateDomainResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDomainResponse
-createDomainResponse pResponseStatus_ =
+newCreateDomainResponse pHttpStatus_ =
   CreateDomainResponse'
-    { _cdrrsDomainStatus = Nothing,
-      _cdrrsResponseStatus = pResponseStatus_
+    { domainStatus =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-cdrrsDomainStatus :: Lens' CreateDomainResponse (Maybe DomainStatus)
-cdrrsDomainStatus = lens _cdrrsDomainStatus (\s a -> s {_cdrrsDomainStatus = a})
+createDomainResponse_domainStatus :: Lens.Lens' CreateDomainResponse (Prelude.Maybe DomainStatus)
+createDomainResponse_domainStatus = Lens.lens (\CreateDomainResponse' {domainStatus} -> domainStatus) (\s@CreateDomainResponse' {} a -> s {domainStatus = a} :: CreateDomainResponse)
 
--- | -- | The response status code.
-cdrrsResponseStatus :: Lens' CreateDomainResponse Int
-cdrrsResponseStatus = lens _cdrrsResponseStatus (\s a -> s {_cdrrsResponseStatus = a})
+-- | The response's http status code.
+createDomainResponse_httpStatus :: Lens.Lens' CreateDomainResponse Prelude.Int
+createDomainResponse_httpStatus = Lens.lens (\CreateDomainResponse' {httpStatus} -> httpStatus) (\s@CreateDomainResponse' {} a -> s {httpStatus = a} :: CreateDomainResponse)
 
-instance NFData CreateDomainResponse
+instance Prelude.NFData CreateDomainResponse

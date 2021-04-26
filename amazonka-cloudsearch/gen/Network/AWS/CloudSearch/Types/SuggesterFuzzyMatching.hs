@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.CloudSearch.Types.SuggesterFuzzyMatching
   ( SuggesterFuzzyMatching
       ( ..,
-        High,
-        Low,
-        None
+        SuggesterFuzzyMatchingHigh,
+        SuggesterFuzzyMatchingLow,
+        SuggesterFuzzyMatchingNone
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SuggesterFuzzyMatching
-  = SuggesterFuzzyMatching'
-      ( CI
-          Text
-      )
+newtype SuggesterFuzzyMatching = SuggesterFuzzyMatching'
+  { fromSuggesterFuzzyMatching ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern High :: SuggesterFuzzyMatching
-pattern High = SuggesterFuzzyMatching' "high"
+pattern SuggesterFuzzyMatchingHigh :: SuggesterFuzzyMatching
+pattern SuggesterFuzzyMatchingHigh = SuggesterFuzzyMatching' "high"
 
-pattern Low :: SuggesterFuzzyMatching
-pattern Low = SuggesterFuzzyMatching' "low"
+pattern SuggesterFuzzyMatchingLow :: SuggesterFuzzyMatching
+pattern SuggesterFuzzyMatchingLow = SuggesterFuzzyMatching' "low"
 
-pattern None :: SuggesterFuzzyMatching
-pattern None = SuggesterFuzzyMatching' "none"
+pattern SuggesterFuzzyMatchingNone :: SuggesterFuzzyMatching
+pattern SuggesterFuzzyMatchingNone = SuggesterFuzzyMatching' "none"
 
 {-# COMPLETE
-  High,
-  Low,
-  None,
+  SuggesterFuzzyMatchingHigh,
+  SuggesterFuzzyMatchingLow,
+  SuggesterFuzzyMatchingNone,
   SuggesterFuzzyMatching'
   #-}
 
-instance FromText SuggesterFuzzyMatching where
-  parser = (SuggesterFuzzyMatching' . mk) <$> takeText
+instance Prelude.FromText SuggesterFuzzyMatching where
+  parser = SuggesterFuzzyMatching' Prelude.<$> Prelude.takeText
 
-instance ToText SuggesterFuzzyMatching where
-  toText (SuggesterFuzzyMatching' ci) = original ci
+instance Prelude.ToText SuggesterFuzzyMatching where
+  toText (SuggesterFuzzyMatching' x) = x
 
-instance Hashable SuggesterFuzzyMatching
+instance Prelude.Hashable SuggesterFuzzyMatching
 
-instance NFData SuggesterFuzzyMatching
+instance Prelude.NFData SuggesterFuzzyMatching
 
-instance ToByteString SuggesterFuzzyMatching
+instance Prelude.ToByteString SuggesterFuzzyMatching
 
-instance ToQuery SuggesterFuzzyMatching
+instance Prelude.ToQuery SuggesterFuzzyMatching
 
-instance ToHeader SuggesterFuzzyMatching
+instance Prelude.ToHeader SuggesterFuzzyMatching
 
-instance FromXML SuggesterFuzzyMatching where
-  parseXML = parseXMLText "SuggesterFuzzyMatching"
+instance Prelude.FromXML SuggesterFuzzyMatching where
+  parseXML = Prelude.parseXMLText "SuggesterFuzzyMatching"

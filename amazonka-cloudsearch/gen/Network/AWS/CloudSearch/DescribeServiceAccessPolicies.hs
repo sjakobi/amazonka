@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,179 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about the access policies that control access to the domain's document and search endpoints. By default, shows the configuration with any pending changes. Set the @Deployed@ option to @true@ to show the active configuration and exclude pending changes. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html Configuring Access for a Search Domain> in the /Amazon CloudSearch Developer Guide/ .
+-- Gets information about the access policies that control access to the
+-- domain\'s document and search endpoints. By default, shows the
+-- configuration with any pending changes. Set the @Deployed@ option to
+-- @true@ to show the active configuration and exclude pending changes. For
+-- more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html Configuring Access for a Search Domain>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DescribeServiceAccessPolicies
   ( -- * Creating a Request
-    describeServiceAccessPolicies,
-    DescribeServiceAccessPolicies,
+    DescribeServiceAccessPolicies (..),
+    newDescribeServiceAccessPolicies,
 
     -- * Request Lenses
-    dsapDeployed,
-    dsapDomainName,
+    describeServiceAccessPolicies_deployed,
+    describeServiceAccessPolicies_domainName,
 
     -- * Destructuring the Response
-    describeServiceAccessPoliciesResponse,
-    DescribeServiceAccessPoliciesResponse,
+    DescribeServiceAccessPoliciesResponse (..),
+    newDescribeServiceAccessPoliciesResponse,
 
     -- * Response Lenses
-    dsaprrsResponseStatus,
-    dsaprrsAccessPolicies,
+    describeServiceAccessPoliciesResponse_httpStatus,
+    describeServiceAccessPoliciesResponse_accessPolicies,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.AccessPoliciesStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DescribeServiceAccessPolicies' @ operation. Specifies the name of the domain you want to describe. To show the active configuration and exclude any pending changes, set the @Deployed@ option to @true@ .
+-- | Container for the parameters to the @DescribeServiceAccessPolicies@
+-- operation. Specifies the name of the domain you want to describe. To
+-- show the active configuration and exclude any pending changes, set the
+-- @Deployed@ option to @true@.
 --
---
---
--- /See:/ 'describeServiceAccessPolicies' smart constructor.
+-- /See:/ 'newDescribeServiceAccessPolicies' smart constructor.
 data DescribeServiceAccessPolicies = DescribeServiceAccessPolicies'
-  { _dsapDeployed ::
-      !( Maybe
-           Bool
-       ),
-    _dsapDomainName ::
-      !Text
+  { -- | Whether to display the deployed configuration (@true@) or include any
+    -- pending changes (@false@). Defaults to @false@.
+    deployed :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the domain you want to describe.
+    domainName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeServiceAccessPolicies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeServiceAccessPolicies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsapDeployed' - Whether to display the deployed configuration (@true@ ) or include any pending changes (@false@ ). Defaults to @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsapDomainName' - The name of the domain you want to describe.
-describeServiceAccessPolicies ::
-  -- | 'dsapDomainName'
-  Text ->
+-- 'deployed', 'describeServiceAccessPolicies_deployed' - Whether to display the deployed configuration (@true@) or include any
+-- pending changes (@false@). Defaults to @false@.
+--
+-- 'domainName', 'describeServiceAccessPolicies_domainName' - The name of the domain you want to describe.
+newDescribeServiceAccessPolicies ::
+  -- | 'domainName'
+  Prelude.Text ->
   DescribeServiceAccessPolicies
-describeServiceAccessPolicies pDomainName_ =
+newDescribeServiceAccessPolicies pDomainName_ =
   DescribeServiceAccessPolicies'
-    { _dsapDeployed =
-        Nothing,
-      _dsapDomainName = pDomainName_
+    { deployed =
+        Prelude.Nothing,
+      domainName = pDomainName_
     }
 
--- | Whether to display the deployed configuration (@true@ ) or include any pending changes (@false@ ). Defaults to @false@ .
-dsapDeployed :: Lens' DescribeServiceAccessPolicies (Maybe Bool)
-dsapDeployed = lens _dsapDeployed (\s a -> s {_dsapDeployed = a})
+-- | Whether to display the deployed configuration (@true@) or include any
+-- pending changes (@false@). Defaults to @false@.
+describeServiceAccessPolicies_deployed :: Lens.Lens' DescribeServiceAccessPolicies (Prelude.Maybe Prelude.Bool)
+describeServiceAccessPolicies_deployed = Lens.lens (\DescribeServiceAccessPolicies' {deployed} -> deployed) (\s@DescribeServiceAccessPolicies' {} a -> s {deployed = a} :: DescribeServiceAccessPolicies)
 
 -- | The name of the domain you want to describe.
-dsapDomainName :: Lens' DescribeServiceAccessPolicies Text
-dsapDomainName = lens _dsapDomainName (\s a -> s {_dsapDomainName = a})
+describeServiceAccessPolicies_domainName :: Lens.Lens' DescribeServiceAccessPolicies Prelude.Text
+describeServiceAccessPolicies_domainName = Lens.lens (\DescribeServiceAccessPolicies' {domainName} -> domainName) (\s@DescribeServiceAccessPolicies' {} a -> s {domainName = a} :: DescribeServiceAccessPolicies)
 
-instance AWSRequest DescribeServiceAccessPolicies where
+instance
+  Prelude.AWSRequest
+    DescribeServiceAccessPolicies
+  where
   type
     Rs DescribeServiceAccessPolicies =
       DescribeServiceAccessPoliciesResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeServiceAccessPoliciesResult"
       ( \s h x ->
           DescribeServiceAccessPoliciesResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "AccessPolicies")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "AccessPolicies")
       )
 
-instance Hashable DescribeServiceAccessPolicies
+instance
+  Prelude.Hashable
+    DescribeServiceAccessPolicies
 
-instance NFData DescribeServiceAccessPolicies
+instance Prelude.NFData DescribeServiceAccessPolicies
 
-instance ToHeaders DescribeServiceAccessPolicies where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeServiceAccessPolicies
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeServiceAccessPolicies where
-  toPath = const "/"
+instance Prelude.ToPath DescribeServiceAccessPolicies where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeServiceAccessPolicies where
+instance
+  Prelude.ToQuery
+    DescribeServiceAccessPolicies
+  where
   toQuery DescribeServiceAccessPolicies' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeServiceAccessPolicies" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "Deployed" =: _dsapDeployed,
-        "DomainName" =: _dsapDomainName
+          Prelude.=: ( "DescribeServiceAccessPolicies" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "Deployed" Prelude.=: deployed,
+        "DomainName" Prelude.=: domainName
       ]
 
 -- | The result of a @DescribeServiceAccessPolicies@ request.
 --
---
---
--- /See:/ 'describeServiceAccessPoliciesResponse' smart constructor.
+-- /See:/ 'newDescribeServiceAccessPoliciesResponse' smart constructor.
 data DescribeServiceAccessPoliciesResponse = DescribeServiceAccessPoliciesResponse'
-  { _dsaprrsResponseStatus ::
-      !Int,
-    _dsaprrsAccessPolicies ::
-      !AccessPoliciesStatus
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The access rules configured for the domain specified in the request.
+    accessPolicies :: AccessPoliciesStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeServiceAccessPoliciesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeServiceAccessPoliciesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsaprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsaprrsAccessPolicies' - The access rules configured for the domain specified in the request.
-describeServiceAccessPoliciesResponse ::
-  -- | 'dsaprrsResponseStatus'
-  Int ->
-  -- | 'dsaprrsAccessPolicies'
+-- 'httpStatus', 'describeServiceAccessPoliciesResponse_httpStatus' - The response's http status code.
+--
+-- 'accessPolicies', 'describeServiceAccessPoliciesResponse_accessPolicies' - The access rules configured for the domain specified in the request.
+newDescribeServiceAccessPoliciesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'accessPolicies'
   AccessPoliciesStatus ->
   DescribeServiceAccessPoliciesResponse
-describeServiceAccessPoliciesResponse
-  pResponseStatus_
+newDescribeServiceAccessPoliciesResponse
+  pHttpStatus_
   pAccessPolicies_ =
     DescribeServiceAccessPoliciesResponse'
-      { _dsaprrsResponseStatus =
-          pResponseStatus_,
-        _dsaprrsAccessPolicies =
-          pAccessPolicies_
+      { httpStatus =
+          pHttpStatus_,
+        accessPolicies = pAccessPolicies_
       }
 
--- | -- | The response status code.
-dsaprrsResponseStatus :: Lens' DescribeServiceAccessPoliciesResponse Int
-dsaprrsResponseStatus = lens _dsaprrsResponseStatus (\s a -> s {_dsaprrsResponseStatus = a})
+-- | The response's http status code.
+describeServiceAccessPoliciesResponse_httpStatus :: Lens.Lens' DescribeServiceAccessPoliciesResponse Prelude.Int
+describeServiceAccessPoliciesResponse_httpStatus = Lens.lens (\DescribeServiceAccessPoliciesResponse' {httpStatus} -> httpStatus) (\s@DescribeServiceAccessPoliciesResponse' {} a -> s {httpStatus = a} :: DescribeServiceAccessPoliciesResponse)
 
 -- | The access rules configured for the domain specified in the request.
-dsaprrsAccessPolicies :: Lens' DescribeServiceAccessPoliciesResponse AccessPoliciesStatus
-dsaprrsAccessPolicies = lens _dsaprrsAccessPolicies (\s a -> s {_dsaprrsAccessPolicies = a})
+describeServiceAccessPoliciesResponse_accessPolicies :: Lens.Lens' DescribeServiceAccessPoliciesResponse AccessPoliciesStatus
+describeServiceAccessPoliciesResponse_accessPolicies = Lens.lens (\DescribeServiceAccessPoliciesResponse' {accessPolicies} -> accessPolicies) (\s@DescribeServiceAccessPoliciesResponse' {} a -> s {accessPolicies = a} :: DescribeServiceAccessPoliciesResponse)
 
-instance NFData DescribeServiceAccessPoliciesResponse
+instance
+  Prelude.NFData
+    DescribeServiceAccessPoliciesResponse

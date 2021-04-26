@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +21,55 @@ module Network.AWS.CloudSearch.Types.IndexFieldStatus where
 
 import Network.AWS.CloudSearch.Types.IndexField
 import Network.AWS.CloudSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The value of an @IndexField@ and its current status.
 --
---
---
--- /See:/ 'indexFieldStatus' smart constructor.
+-- /See:/ 'newIndexFieldStatus' smart constructor.
 data IndexFieldStatus = IndexFieldStatus'
-  { _ifsOptions ::
-      !IndexField,
-    _ifsStatus :: !OptionStatus
+  { options :: IndexField,
+    status :: OptionStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IndexFieldStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IndexFieldStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ifsOptions' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ifsStatus' - Undocumented member.
-indexFieldStatus ::
-  -- | 'ifsOptions'
+-- 'options', 'indexFieldStatus_options' - Undocumented member.
+--
+-- 'status', 'indexFieldStatus_status' - Undocumented member.
+newIndexFieldStatus ::
+  -- | 'options'
   IndexField ->
-  -- | 'ifsStatus'
+  -- | 'status'
   OptionStatus ->
   IndexFieldStatus
-indexFieldStatus pOptions_ pStatus_ =
+newIndexFieldStatus pOptions_ pStatus_ =
   IndexFieldStatus'
-    { _ifsOptions = pOptions_,
-      _ifsStatus = pStatus_
+    { options = pOptions_,
+      status = pStatus_
     }
 
 -- | Undocumented member.
-ifsOptions :: Lens' IndexFieldStatus IndexField
-ifsOptions = lens _ifsOptions (\s a -> s {_ifsOptions = a})
+indexFieldStatus_options :: Lens.Lens' IndexFieldStatus IndexField
+indexFieldStatus_options = Lens.lens (\IndexFieldStatus' {options} -> options) (\s@IndexFieldStatus' {} a -> s {options = a} :: IndexFieldStatus)
 
 -- | Undocumented member.
-ifsStatus :: Lens' IndexFieldStatus OptionStatus
-ifsStatus = lens _ifsStatus (\s a -> s {_ifsStatus = a})
+indexFieldStatus_status :: Lens.Lens' IndexFieldStatus OptionStatus
+indexFieldStatus_status = Lens.lens (\IndexFieldStatus' {status} -> status) (\s@IndexFieldStatus' {} a -> s {status = a} :: IndexFieldStatus)
 
-instance FromXML IndexFieldStatus where
+instance Prelude.FromXML IndexFieldStatus where
   parseXML x =
     IndexFieldStatus'
-      <$> (x .@ "Options") <*> (x .@ "Status")
+      Prelude.<$> (x Prelude..@ "Options")
+      Prelude.<*> (x Prelude..@ "Status")
 
-instance Hashable IndexFieldStatus
+instance Prelude.Hashable IndexFieldStatus
 
-instance NFData IndexFieldStatus
+instance Prelude.NFData IndexFieldStatus

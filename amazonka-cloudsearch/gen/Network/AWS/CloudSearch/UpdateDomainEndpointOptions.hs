@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,179 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the domain's endpoint options, specifically whether all requests to the domain must arrive over HTTPS. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html Configuring Domain Endpoint Options> in the /Amazon CloudSearch Developer Guide/ .
+-- Updates the domain\'s endpoint options, specifically whether all
+-- requests to the domain must arrive over HTTPS. For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html Configuring Domain Endpoint Options>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.UpdateDomainEndpointOptions
   ( -- * Creating a Request
-    updateDomainEndpointOptions,
-    UpdateDomainEndpointOptions,
+    UpdateDomainEndpointOptions (..),
+    newUpdateDomainEndpointOptions,
 
     -- * Request Lenses
-    udeoDomainName,
-    udeoDomainEndpointOptions,
+    updateDomainEndpointOptions_domainName,
+    updateDomainEndpointOptions_domainEndpointOptions,
 
     -- * Destructuring the Response
-    updateDomainEndpointOptionsResponse,
-    UpdateDomainEndpointOptionsResponse,
+    UpdateDomainEndpointOptionsResponse (..),
+    newUpdateDomainEndpointOptionsResponse,
 
     -- * Response Lenses
-    udeorrsDomainEndpointOptions,
-    udeorrsResponseStatus,
+    updateDomainEndpointOptionsResponse_domainEndpointOptions,
+    updateDomainEndpointOptionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.DomainEndpointOptionsStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'UpdateDomainEndpointOptions' @ operation. Specifies the name of the domain you want to update and the domain endpoint options.
+-- | Container for the parameters to the @UpdateDomainEndpointOptions@
+-- operation. Specifies the name of the domain you want to update and the
+-- domain endpoint options.
 --
---
---
--- /See:/ 'updateDomainEndpointOptions' smart constructor.
+-- /See:/ 'newUpdateDomainEndpointOptions' smart constructor.
 data UpdateDomainEndpointOptions = UpdateDomainEndpointOptions'
-  { _udeoDomainName ::
-      !Text,
-    _udeoDomainEndpointOptions ::
-      !DomainEndpointOptions
+  { -- | A string that represents the name of a domain.
+    domainName :: Prelude.Text,
+    -- | Whether to require that all requests to the domain arrive over HTTPS. We
+    -- recommend Policy-Min-TLS-1-2-2019-07 for TLSSecurityPolicy. For
+    -- compatibility with older clients, the default is
+    -- Policy-Min-TLS-1-0-2019-07.
+    domainEndpointOptions :: DomainEndpointOptions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDomainEndpointOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDomainEndpointOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udeoDomainName' - A string that represents the name of a domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udeoDomainEndpointOptions' - Whether to require that all requests to the domain arrive over HTTPS. We recommend Policy-Min-TLS-1-2-2019-07 for TLSSecurityPolicy. For compatibility with older clients, the default is Policy-Min-TLS-1-0-2019-07.
-updateDomainEndpointOptions ::
-  -- | 'udeoDomainName'
-  Text ->
-  -- | 'udeoDomainEndpointOptions'
+-- 'domainName', 'updateDomainEndpointOptions_domainName' - A string that represents the name of a domain.
+--
+-- 'domainEndpointOptions', 'updateDomainEndpointOptions_domainEndpointOptions' - Whether to require that all requests to the domain arrive over HTTPS. We
+-- recommend Policy-Min-TLS-1-2-2019-07 for TLSSecurityPolicy. For
+-- compatibility with older clients, the default is
+-- Policy-Min-TLS-1-0-2019-07.
+newUpdateDomainEndpointOptions ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'domainEndpointOptions'
   DomainEndpointOptions ->
   UpdateDomainEndpointOptions
-updateDomainEndpointOptions
+newUpdateDomainEndpointOptions
   pDomainName_
   pDomainEndpointOptions_ =
     UpdateDomainEndpointOptions'
-      { _udeoDomainName =
+      { domainName =
           pDomainName_,
-        _udeoDomainEndpointOptions =
+        domainEndpointOptions =
           pDomainEndpointOptions_
       }
 
 -- | A string that represents the name of a domain.
-udeoDomainName :: Lens' UpdateDomainEndpointOptions Text
-udeoDomainName = lens _udeoDomainName (\s a -> s {_udeoDomainName = a})
+updateDomainEndpointOptions_domainName :: Lens.Lens' UpdateDomainEndpointOptions Prelude.Text
+updateDomainEndpointOptions_domainName = Lens.lens (\UpdateDomainEndpointOptions' {domainName} -> domainName) (\s@UpdateDomainEndpointOptions' {} a -> s {domainName = a} :: UpdateDomainEndpointOptions)
 
--- | Whether to require that all requests to the domain arrive over HTTPS. We recommend Policy-Min-TLS-1-2-2019-07 for TLSSecurityPolicy. For compatibility with older clients, the default is Policy-Min-TLS-1-0-2019-07.
-udeoDomainEndpointOptions :: Lens' UpdateDomainEndpointOptions DomainEndpointOptions
-udeoDomainEndpointOptions = lens _udeoDomainEndpointOptions (\s a -> s {_udeoDomainEndpointOptions = a})
+-- | Whether to require that all requests to the domain arrive over HTTPS. We
+-- recommend Policy-Min-TLS-1-2-2019-07 for TLSSecurityPolicy. For
+-- compatibility with older clients, the default is
+-- Policy-Min-TLS-1-0-2019-07.
+updateDomainEndpointOptions_domainEndpointOptions :: Lens.Lens' UpdateDomainEndpointOptions DomainEndpointOptions
+updateDomainEndpointOptions_domainEndpointOptions = Lens.lens (\UpdateDomainEndpointOptions' {domainEndpointOptions} -> domainEndpointOptions) (\s@UpdateDomainEndpointOptions' {} a -> s {domainEndpointOptions = a} :: UpdateDomainEndpointOptions)
 
-instance AWSRequest UpdateDomainEndpointOptions where
+instance
+  Prelude.AWSRequest
+    UpdateDomainEndpointOptions
+  where
   type
     Rs UpdateDomainEndpointOptions =
       UpdateDomainEndpointOptionsResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "UpdateDomainEndpointOptionsResult"
       ( \s h x ->
           UpdateDomainEndpointOptionsResponse'
-            <$> (x .@? "DomainEndpointOptions")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DomainEndpointOptions")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateDomainEndpointOptions
+instance Prelude.Hashable UpdateDomainEndpointOptions
 
-instance NFData UpdateDomainEndpointOptions
+instance Prelude.NFData UpdateDomainEndpointOptions
 
-instance ToHeaders UpdateDomainEndpointOptions where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    UpdateDomainEndpointOptions
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateDomainEndpointOptions where
-  toPath = const "/"
+instance Prelude.ToPath UpdateDomainEndpointOptions where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateDomainEndpointOptions where
+instance Prelude.ToQuery UpdateDomainEndpointOptions where
   toQuery UpdateDomainEndpointOptions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("UpdateDomainEndpointOptions" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "DomainName" =: _udeoDomainName,
+          Prelude.=: ( "UpdateDomainEndpointOptions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName,
         "DomainEndpointOptions"
-          =: _udeoDomainEndpointOptions
+          Prelude.=: domainEndpointOptions
       ]
 
--- | The result of a @UpdateDomainEndpointOptions@ request. Contains the configuration and status of the domain's endpoint options.
+-- | The result of a @UpdateDomainEndpointOptions@ request. Contains the
+-- configuration and status of the domain\'s endpoint options.
 --
---
---
--- /See:/ 'updateDomainEndpointOptionsResponse' smart constructor.
+-- /See:/ 'newUpdateDomainEndpointOptionsResponse' smart constructor.
 data UpdateDomainEndpointOptionsResponse = UpdateDomainEndpointOptionsResponse'
-  { _udeorrsDomainEndpointOptions ::
-      !( Maybe
-           DomainEndpointOptionsStatus
-       ),
-    _udeorrsResponseStatus ::
-      !Int
+  { -- | The newly-configured domain endpoint options.
+    domainEndpointOptions :: Prelude.Maybe DomainEndpointOptionsStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDomainEndpointOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDomainEndpointOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udeorrsDomainEndpointOptions' - The newly-configured domain endpoint options.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udeorrsResponseStatus' - -- | The response status code.
-updateDomainEndpointOptionsResponse ::
-  -- | 'udeorrsResponseStatus'
-  Int ->
+-- 'domainEndpointOptions', 'updateDomainEndpointOptionsResponse_domainEndpointOptions' - The newly-configured domain endpoint options.
+--
+-- 'httpStatus', 'updateDomainEndpointOptionsResponse_httpStatus' - The response's http status code.
+newUpdateDomainEndpointOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDomainEndpointOptionsResponse
-updateDomainEndpointOptionsResponse pResponseStatus_ =
+newUpdateDomainEndpointOptionsResponse pHttpStatus_ =
   UpdateDomainEndpointOptionsResponse'
-    { _udeorrsDomainEndpointOptions =
-        Nothing,
-      _udeorrsResponseStatus =
-        pResponseStatus_
+    { domainEndpointOptions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The newly-configured domain endpoint options.
-udeorrsDomainEndpointOptions :: Lens' UpdateDomainEndpointOptionsResponse (Maybe DomainEndpointOptionsStatus)
-udeorrsDomainEndpointOptions = lens _udeorrsDomainEndpointOptions (\s a -> s {_udeorrsDomainEndpointOptions = a})
+updateDomainEndpointOptionsResponse_domainEndpointOptions :: Lens.Lens' UpdateDomainEndpointOptionsResponse (Prelude.Maybe DomainEndpointOptionsStatus)
+updateDomainEndpointOptionsResponse_domainEndpointOptions = Lens.lens (\UpdateDomainEndpointOptionsResponse' {domainEndpointOptions} -> domainEndpointOptions) (\s@UpdateDomainEndpointOptionsResponse' {} a -> s {domainEndpointOptions = a} :: UpdateDomainEndpointOptionsResponse)
 
--- | -- | The response status code.
-udeorrsResponseStatus :: Lens' UpdateDomainEndpointOptionsResponse Int
-udeorrsResponseStatus = lens _udeorrsResponseStatus (\s a -> s {_udeorrsResponseStatus = a})
+-- | The response's http status code.
+updateDomainEndpointOptionsResponse_httpStatus :: Lens.Lens' UpdateDomainEndpointOptionsResponse Prelude.Int
+updateDomainEndpointOptionsResponse_httpStatus = Lens.lens (\UpdateDomainEndpointOptionsResponse' {httpStatus} -> httpStatus) (\s@UpdateDomainEndpointOptionsResponse' {} a -> s {httpStatus = a} :: UpdateDomainEndpointOptionsResponse)
 
-instance NFData UpdateDomainEndpointOptionsResponse
+instance
+  Prelude.NFData
+    UpdateDomainEndpointOptionsResponse

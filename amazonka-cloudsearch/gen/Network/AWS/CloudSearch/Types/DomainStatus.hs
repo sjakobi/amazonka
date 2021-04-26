@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,158 +21,198 @@ module Network.AWS.CloudSearch.Types.DomainStatus where
 
 import Network.AWS.CloudSearch.Types.Limits
 import Network.AWS.CloudSearch.Types.ServiceEndpoint
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The current status of the search domain.
 --
---
---
--- /See:/ 'domainStatus' smart constructor.
+-- /See:/ 'newDomainStatus' smart constructor.
 data DomainStatus = DomainStatus'
-  { _dsSearchInstanceType ::
-      !(Maybe Text),
-    _dsARN :: !(Maybe Text),
-    _dsSearchPartitionCount :: !(Maybe Nat),
-    _dsSearchInstanceCount :: !(Maybe Nat),
-    _dsLimits :: !(Maybe Limits),
-    _dsSearchService :: !(Maybe ServiceEndpoint),
-    _dsProcessing :: !(Maybe Bool),
-    _dsCreated :: !(Maybe Bool),
-    _dsDeleted :: !(Maybe Bool),
-    _dsDocService :: !(Maybe ServiceEndpoint),
-    _dsDomainId :: !Text,
-    _dsDomainName :: !Text,
-    _dsRequiresIndexDocuments :: !Bool
+  { -- | The instance type that is being used to process search requests.
+    searchInstanceType :: Prelude.Maybe Prelude.Text,
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The number of partitions across which the search index is spread.
+    searchPartitionCount :: Prelude.Maybe Prelude.Nat,
+    -- | The number of search instances that are available to process search
+    -- requests.
+    searchInstanceCount :: Prelude.Maybe Prelude.Nat,
+    limits :: Prelude.Maybe Limits,
+    -- | The service endpoint for requesting search results from a search domain.
+    searchService :: Prelude.Maybe ServiceEndpoint,
+    -- | True if processing is being done to activate the current domain
+    -- configuration.
+    processing :: Prelude.Maybe Prelude.Bool,
+    -- | True if the search domain is created. It can take several minutes to
+    -- initialize a domain when CreateDomain is called. Newly created search
+    -- domains are returned from DescribeDomains with a false value for Created
+    -- until domain creation is complete.
+    created :: Prelude.Maybe Prelude.Bool,
+    -- | True if the search domain has been deleted. The system must clean up
+    -- resources dedicated to the search domain when DeleteDomain is called.
+    -- Newly deleted search domains are returned from DescribeDomains with a
+    -- true value for IsDeleted for several minutes until resource cleanup is
+    -- complete.
+    deleted :: Prelude.Maybe Prelude.Bool,
+    -- | The service endpoint for updating documents in a search domain.
+    docService :: Prelude.Maybe ServiceEndpoint,
+    domainId :: Prelude.Text,
+    domainName :: Prelude.Text,
+    -- | True if IndexDocuments needs to be called to activate the current domain
+    -- configuration.
+    requiresIndexDocuments :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsSearchInstanceType' - The instance type that is being used to process search requests.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsARN' - Undocumented member.
+-- 'searchInstanceType', 'domainStatus_searchInstanceType' - The instance type that is being used to process search requests.
 --
--- * 'dsSearchPartitionCount' - The number of partitions across which the search index is spread.
+-- 'aRN', 'domainStatus_aRN' - Undocumented member.
 --
--- * 'dsSearchInstanceCount' - The number of search instances that are available to process search requests.
+-- 'searchPartitionCount', 'domainStatus_searchPartitionCount' - The number of partitions across which the search index is spread.
 --
--- * 'dsLimits' - Undocumented member.
+-- 'searchInstanceCount', 'domainStatus_searchInstanceCount' - The number of search instances that are available to process search
+-- requests.
 --
--- * 'dsSearchService' - The service endpoint for requesting search results from a search domain.
+-- 'limits', 'domainStatus_limits' - Undocumented member.
 --
--- * 'dsProcessing' - True if processing is being done to activate the current domain configuration.
+-- 'searchService', 'domainStatus_searchService' - The service endpoint for requesting search results from a search domain.
 --
--- * 'dsCreated' - True if the search domain is created. It can take several minutes to initialize a domain when 'CreateDomain' is called. Newly created search domains are returned from 'DescribeDomains' with a false value for Created until domain creation is complete.
+-- 'processing', 'domainStatus_processing' - True if processing is being done to activate the current domain
+-- configuration.
 --
--- * 'dsDeleted' - True if the search domain has been deleted. The system must clean up resources dedicated to the search domain when 'DeleteDomain' is called. Newly deleted search domains are returned from 'DescribeDomains' with a true value for IsDeleted for several minutes until resource cleanup is complete.
+-- 'created', 'domainStatus_created' - True if the search domain is created. It can take several minutes to
+-- initialize a domain when CreateDomain is called. Newly created search
+-- domains are returned from DescribeDomains with a false value for Created
+-- until domain creation is complete.
 --
--- * 'dsDocService' - The service endpoint for updating documents in a search domain.
+-- 'deleted', 'domainStatus_deleted' - True if the search domain has been deleted. The system must clean up
+-- resources dedicated to the search domain when DeleteDomain is called.
+-- Newly deleted search domains are returned from DescribeDomains with a
+-- true value for IsDeleted for several minutes until resource cleanup is
+-- complete.
 --
--- * 'dsDomainId' - Undocumented member.
+-- 'docService', 'domainStatus_docService' - The service endpoint for updating documents in a search domain.
 --
--- * 'dsDomainName' - Undocumented member.
+-- 'domainId', 'domainStatus_domainId' - Undocumented member.
 --
--- * 'dsRequiresIndexDocuments' - True if 'IndexDocuments' needs to be called to activate the current domain configuration.
-domainStatus ::
-  -- | 'dsDomainId'
-  Text ->
-  -- | 'dsDomainName'
-  Text ->
-  -- | 'dsRequiresIndexDocuments'
-  Bool ->
+-- 'domainName', 'domainStatus_domainName' - Undocumented member.
+--
+-- 'requiresIndexDocuments', 'domainStatus_requiresIndexDocuments' - True if IndexDocuments needs to be called to activate the current domain
+-- configuration.
+newDomainStatus ::
+  -- | 'domainId'
+  Prelude.Text ->
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'requiresIndexDocuments'
+  Prelude.Bool ->
   DomainStatus
-domainStatus
+newDomainStatus
   pDomainId_
   pDomainName_
   pRequiresIndexDocuments_ =
     DomainStatus'
-      { _dsSearchInstanceType = Nothing,
-        _dsARN = Nothing,
-        _dsSearchPartitionCount = Nothing,
-        _dsSearchInstanceCount = Nothing,
-        _dsLimits = Nothing,
-        _dsSearchService = Nothing,
-        _dsProcessing = Nothing,
-        _dsCreated = Nothing,
-        _dsDeleted = Nothing,
-        _dsDocService = Nothing,
-        _dsDomainId = pDomainId_,
-        _dsDomainName = pDomainName_,
-        _dsRequiresIndexDocuments = pRequiresIndexDocuments_
+      { searchInstanceType = Prelude.Nothing,
+        aRN = Prelude.Nothing,
+        searchPartitionCount = Prelude.Nothing,
+        searchInstanceCount = Prelude.Nothing,
+        limits = Prelude.Nothing,
+        searchService = Prelude.Nothing,
+        processing = Prelude.Nothing,
+        created = Prelude.Nothing,
+        deleted = Prelude.Nothing,
+        docService = Prelude.Nothing,
+        domainId = pDomainId_,
+        domainName = pDomainName_,
+        requiresIndexDocuments = pRequiresIndexDocuments_
       }
 
 -- | The instance type that is being used to process search requests.
-dsSearchInstanceType :: Lens' DomainStatus (Maybe Text)
-dsSearchInstanceType = lens _dsSearchInstanceType (\s a -> s {_dsSearchInstanceType = a})
+domainStatus_searchInstanceType :: Lens.Lens' DomainStatus (Prelude.Maybe Prelude.Text)
+domainStatus_searchInstanceType = Lens.lens (\DomainStatus' {searchInstanceType} -> searchInstanceType) (\s@DomainStatus' {} a -> s {searchInstanceType = a} :: DomainStatus)
 
 -- | Undocumented member.
-dsARN :: Lens' DomainStatus (Maybe Text)
-dsARN = lens _dsARN (\s a -> s {_dsARN = a})
+domainStatus_aRN :: Lens.Lens' DomainStatus (Prelude.Maybe Prelude.Text)
+domainStatus_aRN = Lens.lens (\DomainStatus' {aRN} -> aRN) (\s@DomainStatus' {} a -> s {aRN = a} :: DomainStatus)
 
 -- | The number of partitions across which the search index is spread.
-dsSearchPartitionCount :: Lens' DomainStatus (Maybe Natural)
-dsSearchPartitionCount = lens _dsSearchPartitionCount (\s a -> s {_dsSearchPartitionCount = a}) . mapping _Nat
+domainStatus_searchPartitionCount :: Lens.Lens' DomainStatus (Prelude.Maybe Prelude.Natural)
+domainStatus_searchPartitionCount = Lens.lens (\DomainStatus' {searchPartitionCount} -> searchPartitionCount) (\s@DomainStatus' {} a -> s {searchPartitionCount = a} :: DomainStatus) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of search instances that are available to process search requests.
-dsSearchInstanceCount :: Lens' DomainStatus (Maybe Natural)
-dsSearchInstanceCount = lens _dsSearchInstanceCount (\s a -> s {_dsSearchInstanceCount = a}) . mapping _Nat
+-- | The number of search instances that are available to process search
+-- requests.
+domainStatus_searchInstanceCount :: Lens.Lens' DomainStatus (Prelude.Maybe Prelude.Natural)
+domainStatus_searchInstanceCount = Lens.lens (\DomainStatus' {searchInstanceCount} -> searchInstanceCount) (\s@DomainStatus' {} a -> s {searchInstanceCount = a} :: DomainStatus) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Undocumented member.
-dsLimits :: Lens' DomainStatus (Maybe Limits)
-dsLimits = lens _dsLimits (\s a -> s {_dsLimits = a})
+domainStatus_limits :: Lens.Lens' DomainStatus (Prelude.Maybe Limits)
+domainStatus_limits = Lens.lens (\DomainStatus' {limits} -> limits) (\s@DomainStatus' {} a -> s {limits = a} :: DomainStatus)
 
 -- | The service endpoint for requesting search results from a search domain.
-dsSearchService :: Lens' DomainStatus (Maybe ServiceEndpoint)
-dsSearchService = lens _dsSearchService (\s a -> s {_dsSearchService = a})
+domainStatus_searchService :: Lens.Lens' DomainStatus (Prelude.Maybe ServiceEndpoint)
+domainStatus_searchService = Lens.lens (\DomainStatus' {searchService} -> searchService) (\s@DomainStatus' {} a -> s {searchService = a} :: DomainStatus)
 
--- | True if processing is being done to activate the current domain configuration.
-dsProcessing :: Lens' DomainStatus (Maybe Bool)
-dsProcessing = lens _dsProcessing (\s a -> s {_dsProcessing = a})
+-- | True if processing is being done to activate the current domain
+-- configuration.
+domainStatus_processing :: Lens.Lens' DomainStatus (Prelude.Maybe Prelude.Bool)
+domainStatus_processing = Lens.lens (\DomainStatus' {processing} -> processing) (\s@DomainStatus' {} a -> s {processing = a} :: DomainStatus)
 
--- | True if the search domain is created. It can take several minutes to initialize a domain when 'CreateDomain' is called. Newly created search domains are returned from 'DescribeDomains' with a false value for Created until domain creation is complete.
-dsCreated :: Lens' DomainStatus (Maybe Bool)
-dsCreated = lens _dsCreated (\s a -> s {_dsCreated = a})
+-- | True if the search domain is created. It can take several minutes to
+-- initialize a domain when CreateDomain is called. Newly created search
+-- domains are returned from DescribeDomains with a false value for Created
+-- until domain creation is complete.
+domainStatus_created :: Lens.Lens' DomainStatus (Prelude.Maybe Prelude.Bool)
+domainStatus_created = Lens.lens (\DomainStatus' {created} -> created) (\s@DomainStatus' {} a -> s {created = a} :: DomainStatus)
 
--- | True if the search domain has been deleted. The system must clean up resources dedicated to the search domain when 'DeleteDomain' is called. Newly deleted search domains are returned from 'DescribeDomains' with a true value for IsDeleted for several minutes until resource cleanup is complete.
-dsDeleted :: Lens' DomainStatus (Maybe Bool)
-dsDeleted = lens _dsDeleted (\s a -> s {_dsDeleted = a})
+-- | True if the search domain has been deleted. The system must clean up
+-- resources dedicated to the search domain when DeleteDomain is called.
+-- Newly deleted search domains are returned from DescribeDomains with a
+-- true value for IsDeleted for several minutes until resource cleanup is
+-- complete.
+domainStatus_deleted :: Lens.Lens' DomainStatus (Prelude.Maybe Prelude.Bool)
+domainStatus_deleted = Lens.lens (\DomainStatus' {deleted} -> deleted) (\s@DomainStatus' {} a -> s {deleted = a} :: DomainStatus)
 
 -- | The service endpoint for updating documents in a search domain.
-dsDocService :: Lens' DomainStatus (Maybe ServiceEndpoint)
-dsDocService = lens _dsDocService (\s a -> s {_dsDocService = a})
+domainStatus_docService :: Lens.Lens' DomainStatus (Prelude.Maybe ServiceEndpoint)
+domainStatus_docService = Lens.lens (\DomainStatus' {docService} -> docService) (\s@DomainStatus' {} a -> s {docService = a} :: DomainStatus)
 
 -- | Undocumented member.
-dsDomainId :: Lens' DomainStatus Text
-dsDomainId = lens _dsDomainId (\s a -> s {_dsDomainId = a})
+domainStatus_domainId :: Lens.Lens' DomainStatus Prelude.Text
+domainStatus_domainId = Lens.lens (\DomainStatus' {domainId} -> domainId) (\s@DomainStatus' {} a -> s {domainId = a} :: DomainStatus)
 
 -- | Undocumented member.
-dsDomainName :: Lens' DomainStatus Text
-dsDomainName = lens _dsDomainName (\s a -> s {_dsDomainName = a})
+domainStatus_domainName :: Lens.Lens' DomainStatus Prelude.Text
+domainStatus_domainName = Lens.lens (\DomainStatus' {domainName} -> domainName) (\s@DomainStatus' {} a -> s {domainName = a} :: DomainStatus)
 
--- | True if 'IndexDocuments' needs to be called to activate the current domain configuration.
-dsRequiresIndexDocuments :: Lens' DomainStatus Bool
-dsRequiresIndexDocuments = lens _dsRequiresIndexDocuments (\s a -> s {_dsRequiresIndexDocuments = a})
+-- | True if IndexDocuments needs to be called to activate the current domain
+-- configuration.
+domainStatus_requiresIndexDocuments :: Lens.Lens' DomainStatus Prelude.Bool
+domainStatus_requiresIndexDocuments = Lens.lens (\DomainStatus' {requiresIndexDocuments} -> requiresIndexDocuments) (\s@DomainStatus' {} a -> s {requiresIndexDocuments = a} :: DomainStatus)
 
-instance FromXML DomainStatus where
+instance Prelude.FromXML DomainStatus where
   parseXML x =
     DomainStatus'
-      <$> (x .@? "SearchInstanceType")
-      <*> (x .@? "ARN")
-      <*> (x .@? "SearchPartitionCount")
-      <*> (x .@? "SearchInstanceCount")
-      <*> (x .@? "Limits")
-      <*> (x .@? "SearchService")
-      <*> (x .@? "Processing")
-      <*> (x .@? "Created")
-      <*> (x .@? "Deleted")
-      <*> (x .@? "DocService")
-      <*> (x .@ "DomainId")
-      <*> (x .@ "DomainName")
-      <*> (x .@ "RequiresIndexDocuments")
+      Prelude.<$> (x Prelude..@? "SearchInstanceType")
+      Prelude.<*> (x Prelude..@? "ARN")
+      Prelude.<*> (x Prelude..@? "SearchPartitionCount")
+      Prelude.<*> (x Prelude..@? "SearchInstanceCount")
+      Prelude.<*> (x Prelude..@? "Limits")
+      Prelude.<*> (x Prelude..@? "SearchService")
+      Prelude.<*> (x Prelude..@? "Processing")
+      Prelude.<*> (x Prelude..@? "Created")
+      Prelude.<*> (x Prelude..@? "Deleted")
+      Prelude.<*> (x Prelude..@? "DocService")
+      Prelude.<*> (x Prelude..@ "DomainId")
+      Prelude.<*> (x Prelude..@ "DomainName")
+      Prelude.<*> (x Prelude..@ "RequiresIndexDocuments")
 
-instance Hashable DomainStatus
+instance Prelude.Hashable DomainStatus
 
-instance NFData DomainStatus
+instance Prelude.NFData DomainStatus

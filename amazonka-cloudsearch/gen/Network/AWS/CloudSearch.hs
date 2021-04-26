@@ -11,14 +11,22 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon CloudSearch Configuration Service__
+-- Amazon CloudSearch Configuration Service
 --
--- You use the Amazon CloudSearch configuration service to create, configure, and manage search domains. Configuration service requests are submitted using the AWS Query protocol. AWS Query requests are HTTP or HTTPS requests submitted via HTTP GET or POST with a query parameter named Action.
+-- You use the Amazon CloudSearch configuration service to create,
+-- configure, and manage search domains. Configuration service requests are
+-- submitted using the AWS Query protocol. AWS Query requests are HTTP or
+-- HTTPS requests submitted via HTTP GET or POST with a query parameter
+-- named Action.
 --
--- The endpoint for configuration service requests is region-specific: cloudsearch./region/ .amazonaws.com. For example, cloudsearch.us-east-1.amazonaws.com. For a current list of supported regions and endpoints, see <http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region Regions and Endpoints> .
+-- The endpoint for configuration service requests is region-specific:
+-- cloudsearch./region/.amazonaws.com. For example,
+-- cloudsearch.us-east-1.amazonaws.com. For a current list of supported
+-- regions and endpoints, see
+-- <http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region Regions and Endpoints>.
 module Network.AWS.CloudSearch
   ( -- * Service Configuration
-    cloudSearch,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -51,82 +59,160 @@ module Network.AWS.CloudSearch
     -- $operations
 
     -- ** DefineExpression
-    module Network.AWS.CloudSearch.DefineExpression,
+    DefineExpression (DefineExpression'),
+    newDefineExpression,
+    DefineExpressionResponse (DefineExpressionResponse'),
+    newDefineExpressionResponse,
 
     -- ** ListDomainNames
-    module Network.AWS.CloudSearch.ListDomainNames,
+    ListDomainNames (ListDomainNames'),
+    newListDomainNames,
+    ListDomainNamesResponse (ListDomainNamesResponse'),
+    newListDomainNamesResponse,
 
     -- ** DefineSuggester
-    module Network.AWS.CloudSearch.DefineSuggester,
+    DefineSuggester (DefineSuggester'),
+    newDefineSuggester,
+    DefineSuggesterResponse (DefineSuggesterResponse'),
+    newDefineSuggesterResponse,
 
     -- ** DescribeDomains
-    module Network.AWS.CloudSearch.DescribeDomains,
+    DescribeDomains (DescribeDomains'),
+    newDescribeDomains,
+    DescribeDomainsResponse (DescribeDomainsResponse'),
+    newDescribeDomainsResponse,
 
     -- ** DescribeDomainEndpointOptions
-    module Network.AWS.CloudSearch.DescribeDomainEndpointOptions,
+    DescribeDomainEndpointOptions (DescribeDomainEndpointOptions'),
+    newDescribeDomainEndpointOptions,
+    DescribeDomainEndpointOptionsResponse (DescribeDomainEndpointOptionsResponse'),
+    newDescribeDomainEndpointOptionsResponse,
 
     -- ** DeleteExpression
-    module Network.AWS.CloudSearch.DeleteExpression,
+    DeleteExpression (DeleteExpression'),
+    newDeleteExpression,
+    DeleteExpressionResponse (DeleteExpressionResponse'),
+    newDeleteExpressionResponse,
 
     -- ** DeleteIndexField
-    module Network.AWS.CloudSearch.DeleteIndexField,
+    DeleteIndexField (DeleteIndexField'),
+    newDeleteIndexField,
+    DeleteIndexFieldResponse (DeleteIndexFieldResponse'),
+    newDeleteIndexFieldResponse,
 
     -- ** DeleteSuggester
-    module Network.AWS.CloudSearch.DeleteSuggester,
+    DeleteSuggester (DeleteSuggester'),
+    newDeleteSuggester,
+    DeleteSuggesterResponse (DeleteSuggesterResponse'),
+    newDeleteSuggesterResponse,
 
     -- ** UpdateDomainEndpointOptions
-    module Network.AWS.CloudSearch.UpdateDomainEndpointOptions,
+    UpdateDomainEndpointOptions (UpdateDomainEndpointOptions'),
+    newUpdateDomainEndpointOptions,
+    UpdateDomainEndpointOptionsResponse (UpdateDomainEndpointOptionsResponse'),
+    newUpdateDomainEndpointOptionsResponse,
 
     -- ** DescribeIndexFields
-    module Network.AWS.CloudSearch.DescribeIndexFields,
+    DescribeIndexFields (DescribeIndexFields'),
+    newDescribeIndexFields,
+    DescribeIndexFieldsResponse (DescribeIndexFieldsResponse'),
+    newDescribeIndexFieldsResponse,
 
     -- ** CreateDomain
-    module Network.AWS.CloudSearch.CreateDomain,
+    CreateDomain (CreateDomain'),
+    newCreateDomain,
+    CreateDomainResponse (CreateDomainResponse'),
+    newCreateDomainResponse,
 
     -- ** DescribeExpressions
-    module Network.AWS.CloudSearch.DescribeExpressions,
+    DescribeExpressions (DescribeExpressions'),
+    newDescribeExpressions,
+    DescribeExpressionsResponse (DescribeExpressionsResponse'),
+    newDescribeExpressionsResponse,
 
     -- ** DescribeAvailabilityOptions
-    module Network.AWS.CloudSearch.DescribeAvailabilityOptions,
+    DescribeAvailabilityOptions (DescribeAvailabilityOptions'),
+    newDescribeAvailabilityOptions,
+    DescribeAvailabilityOptionsResponse (DescribeAvailabilityOptionsResponse'),
+    newDescribeAvailabilityOptionsResponse,
 
     -- ** DefineIndexField
-    module Network.AWS.CloudSearch.DefineIndexField,
+    DefineIndexField (DefineIndexField'),
+    newDefineIndexField,
+    DefineIndexFieldResponse (DefineIndexFieldResponse'),
+    newDefineIndexFieldResponse,
 
     -- ** DescribeAnalysisSchemes
-    module Network.AWS.CloudSearch.DescribeAnalysisSchemes,
+    DescribeAnalysisSchemes (DescribeAnalysisSchemes'),
+    newDescribeAnalysisSchemes,
+    DescribeAnalysisSchemesResponse (DescribeAnalysisSchemesResponse'),
+    newDescribeAnalysisSchemesResponse,
 
     -- ** DeleteDomain
-    module Network.AWS.CloudSearch.DeleteDomain,
+    DeleteDomain (DeleteDomain'),
+    newDeleteDomain,
+    DeleteDomainResponse (DeleteDomainResponse'),
+    newDeleteDomainResponse,
 
     -- ** DeleteAnalysisScheme
-    module Network.AWS.CloudSearch.DeleteAnalysisScheme,
+    DeleteAnalysisScheme (DeleteAnalysisScheme'),
+    newDeleteAnalysisScheme,
+    DeleteAnalysisSchemeResponse (DeleteAnalysisSchemeResponse'),
+    newDeleteAnalysisSchemeResponse,
 
     -- ** UpdateScalingParameters
-    module Network.AWS.CloudSearch.UpdateScalingParameters,
+    UpdateScalingParameters (UpdateScalingParameters'),
+    newUpdateScalingParameters,
+    UpdateScalingParametersResponse (UpdateScalingParametersResponse'),
+    newUpdateScalingParametersResponse,
 
     -- ** BuildSuggesters
-    module Network.AWS.CloudSearch.BuildSuggesters,
+    BuildSuggesters (BuildSuggesters'),
+    newBuildSuggesters,
+    BuildSuggestersResponse (BuildSuggestersResponse'),
+    newBuildSuggestersResponse,
 
     -- ** UpdateServiceAccessPolicies
-    module Network.AWS.CloudSearch.UpdateServiceAccessPolicies,
+    UpdateServiceAccessPolicies (UpdateServiceAccessPolicies'),
+    newUpdateServiceAccessPolicies,
+    UpdateServiceAccessPoliciesResponse (UpdateServiceAccessPoliciesResponse'),
+    newUpdateServiceAccessPoliciesResponse,
 
     -- ** UpdateAvailabilityOptions
-    module Network.AWS.CloudSearch.UpdateAvailabilityOptions,
+    UpdateAvailabilityOptions (UpdateAvailabilityOptions'),
+    newUpdateAvailabilityOptions,
+    UpdateAvailabilityOptionsResponse (UpdateAvailabilityOptionsResponse'),
+    newUpdateAvailabilityOptionsResponse,
 
     -- ** DescribeSuggesters
-    module Network.AWS.CloudSearch.DescribeSuggesters,
+    DescribeSuggesters (DescribeSuggesters'),
+    newDescribeSuggesters,
+    DescribeSuggestersResponse (DescribeSuggestersResponse'),
+    newDescribeSuggestersResponse,
 
     -- ** DescribeServiceAccessPolicies
-    module Network.AWS.CloudSearch.DescribeServiceAccessPolicies,
+    DescribeServiceAccessPolicies (DescribeServiceAccessPolicies'),
+    newDescribeServiceAccessPolicies,
+    DescribeServiceAccessPoliciesResponse (DescribeServiceAccessPoliciesResponse'),
+    newDescribeServiceAccessPoliciesResponse,
 
     -- ** DefineAnalysisScheme
-    module Network.AWS.CloudSearch.DefineAnalysisScheme,
+    DefineAnalysisScheme (DefineAnalysisScheme'),
+    newDefineAnalysisScheme,
+    DefineAnalysisSchemeResponse (DefineAnalysisSchemeResponse'),
+    newDefineAnalysisSchemeResponse,
 
     -- ** IndexDocuments
-    module Network.AWS.CloudSearch.IndexDocuments,
+    IndexDocuments (IndexDocuments'),
+    newIndexDocuments,
+    IndexDocumentsResponse (IndexDocumentsResponse'),
+    newIndexDocumentsResponse,
 
     -- ** DescribeScalingParameters
-    module Network.AWS.CloudSearch.DescribeScalingParameters,
+    DescribeScalingParameters (DescribeScalingParameters'),
+    newDescribeScalingParameters,
+    DescribeScalingParametersResponse (DescribeScalingParametersResponse'),
+    newDescribeScalingParametersResponse,
 
     -- * Types
 
@@ -152,259 +238,128 @@ module Network.AWS.CloudSearch
     TLSSecurityPolicy (..),
 
     -- ** AccessPoliciesStatus
-    AccessPoliciesStatus,
-    accessPoliciesStatus,
-    apsOptions,
-    apsStatus,
+    AccessPoliciesStatus (AccessPoliciesStatus'),
+    newAccessPoliciesStatus,
 
     -- ** AnalysisOptions
-    AnalysisOptions,
-    analysisOptions,
-    aoStopwords,
-    aoAlgorithmicStemming,
-    aoStemmingDictionary,
-    aoJapaneseTokenizationDictionary,
-    aoSynonyms,
+    AnalysisOptions (AnalysisOptions'),
+    newAnalysisOptions,
 
     -- ** AnalysisScheme
-    AnalysisScheme,
-    analysisScheme,
-    asAnalysisOptions,
-    asAnalysisSchemeName,
-    asAnalysisSchemeLanguage,
+    AnalysisScheme (AnalysisScheme'),
+    newAnalysisScheme,
 
     -- ** AnalysisSchemeStatus
-    AnalysisSchemeStatus,
-    analysisSchemeStatus,
-    assOptions,
-    assStatus,
+    AnalysisSchemeStatus (AnalysisSchemeStatus'),
+    newAnalysisSchemeStatus,
 
     -- ** AvailabilityOptionsStatus
-    AvailabilityOptionsStatus,
-    availabilityOptionsStatus,
-    aosOptions,
-    aosStatus,
+    AvailabilityOptionsStatus (AvailabilityOptionsStatus'),
+    newAvailabilityOptionsStatus,
 
     -- ** DateArrayOptions
-    DateArrayOptions,
-    dateArrayOptions,
-    dSourceFields,
-    dFacetEnabled,
-    dReturnEnabled,
-    dSearchEnabled,
-    dDefaultValue,
+    DateArrayOptions (DateArrayOptions'),
+    newDateArrayOptions,
 
     -- ** DateOptions
-    DateOptions,
-    dateOptions,
-    dosSortEnabled,
-    dosFacetEnabled,
-    dosReturnEnabled,
-    dosSourceField,
-    dosSearchEnabled,
-    dosDefaultValue,
+    DateOptions (DateOptions'),
+    newDateOptions,
 
     -- ** DocumentSuggesterOptions
-    DocumentSuggesterOptions,
-    documentSuggesterOptions,
-    dsoFuzzyMatching,
-    dsoSortExpression,
-    dsoSourceField,
+    DocumentSuggesterOptions (DocumentSuggesterOptions'),
+    newDocumentSuggesterOptions,
 
     -- ** DomainEndpointOptions
-    DomainEndpointOptions,
-    domainEndpointOptions,
-    deoEnforceHTTPS,
-    deoTLSSecurityPolicy,
+    DomainEndpointOptions (DomainEndpointOptions'),
+    newDomainEndpointOptions,
 
     -- ** DomainEndpointOptionsStatus
-    DomainEndpointOptionsStatus,
-    domainEndpointOptionsStatus,
-    deosOptions,
-    deosStatus,
+    DomainEndpointOptionsStatus (DomainEndpointOptionsStatus'),
+    newDomainEndpointOptionsStatus,
 
     -- ** DomainStatus
-    DomainStatus,
-    domainStatus,
-    dsSearchInstanceType,
-    dsARN,
-    dsSearchPartitionCount,
-    dsSearchInstanceCount,
-    dsLimits,
-    dsSearchService,
-    dsProcessing,
-    dsCreated,
-    dsDeleted,
-    dsDocService,
-    dsDomainId,
-    dsDomainName,
-    dsRequiresIndexDocuments,
+    DomainStatus (DomainStatus'),
+    newDomainStatus,
 
     -- ** DoubleArrayOptions
-    DoubleArrayOptions,
-    doubleArrayOptions,
-    daoSourceFields,
-    daoFacetEnabled,
-    daoReturnEnabled,
-    daoSearchEnabled,
-    daoDefaultValue,
+    DoubleArrayOptions (DoubleArrayOptions'),
+    newDoubleArrayOptions,
 
     -- ** DoubleOptions
-    DoubleOptions,
-    doubleOptions,
-    doSortEnabled,
-    doFacetEnabled,
-    doReturnEnabled,
-    doSourceField,
-    doSearchEnabled,
-    doDefaultValue,
+    DoubleOptions (DoubleOptions'),
+    newDoubleOptions,
 
     -- ** Expression
-    Expression,
-    expression,
-    eExpressionName,
-    eExpressionValue,
+    Expression (Expression'),
+    newExpression,
 
     -- ** ExpressionStatus
-    ExpressionStatus,
-    expressionStatus,
-    esOptions,
-    esStatus,
+    ExpressionStatus (ExpressionStatus'),
+    newExpressionStatus,
 
     -- ** IndexField
-    IndexField,
-    indexField,
-    ifDoubleArrayOptions,
-    ifLatLonOptions,
-    ifTextArrayOptions,
-    ifDateArrayOptions,
-    ifDoubleOptions,
-    ifTextOptions,
-    ifIntArrayOptions,
-    ifLiteralArrayOptions,
-    ifDateOptions,
-    ifIntOptions,
-    ifLiteralOptions,
-    ifIndexFieldName,
-    ifIndexFieldType,
+    IndexField (IndexField'),
+    newIndexField,
 
     -- ** IndexFieldStatus
-    IndexFieldStatus,
-    indexFieldStatus,
-    ifsOptions,
-    ifsStatus,
+    IndexFieldStatus (IndexFieldStatus'),
+    newIndexFieldStatus,
 
     -- ** IntArrayOptions
-    IntArrayOptions,
-    intArrayOptions,
-    iaoSourceFields,
-    iaoFacetEnabled,
-    iaoReturnEnabled,
-    iaoSearchEnabled,
-    iaoDefaultValue,
+    IntArrayOptions (IntArrayOptions'),
+    newIntArrayOptions,
 
     -- ** IntOptions
-    IntOptions,
-    intOptions,
-    ioSortEnabled,
-    ioFacetEnabled,
-    ioReturnEnabled,
-    ioSourceField,
-    ioSearchEnabled,
-    ioDefaultValue,
+    IntOptions (IntOptions'),
+    newIntOptions,
 
     -- ** LatLonOptions
-    LatLonOptions,
-    latLonOptions,
-    lloSortEnabled,
-    lloFacetEnabled,
-    lloReturnEnabled,
-    lloSourceField,
-    lloSearchEnabled,
-    lloDefaultValue,
+    LatLonOptions (LatLonOptions'),
+    newLatLonOptions,
 
     -- ** Limits
-    Limits,
-    limits,
-    lMaximumReplicationCount,
-    lMaximumPartitionCount,
+    Limits (Limits'),
+    newLimits,
 
     -- ** LiteralArrayOptions
-    LiteralArrayOptions,
-    literalArrayOptions,
-    laoSourceFields,
-    laoFacetEnabled,
-    laoReturnEnabled,
-    laoSearchEnabled,
-    laoDefaultValue,
+    LiteralArrayOptions (LiteralArrayOptions'),
+    newLiteralArrayOptions,
 
     -- ** LiteralOptions
-    LiteralOptions,
-    literalOptions,
-    loSortEnabled,
-    loFacetEnabled,
-    loReturnEnabled,
-    loSourceField,
-    loSearchEnabled,
-    loDefaultValue,
+    LiteralOptions (LiteralOptions'),
+    newLiteralOptions,
 
     -- ** OptionStatus
-    OptionStatus,
-    optionStatus,
-    osUpdateVersion,
-    osPendingDeletion,
-    osCreationDate,
-    osUpdateDate,
-    osState,
+    OptionStatus (OptionStatus'),
+    newOptionStatus,
 
     -- ** ScalingParameters
-    ScalingParameters,
-    scalingParameters,
-    spDesiredReplicationCount,
-    spDesiredPartitionCount,
-    spDesiredInstanceType,
+    ScalingParameters (ScalingParameters'),
+    newScalingParameters,
 
     -- ** ScalingParametersStatus
-    ScalingParametersStatus,
-    scalingParametersStatus,
-    spsOptions,
-    spsStatus,
+    ScalingParametersStatus (ScalingParametersStatus'),
+    newScalingParametersStatus,
 
     -- ** ServiceEndpoint
-    ServiceEndpoint,
-    serviceEndpoint,
-    seEndpoint,
+    ServiceEndpoint (ServiceEndpoint'),
+    newServiceEndpoint,
 
     -- ** Suggester
-    Suggester,
-    suggester,
-    sSuggesterName,
-    sDocumentSuggesterOptions,
+    Suggester (Suggester'),
+    newSuggester,
 
     -- ** SuggesterStatus
-    SuggesterStatus,
-    suggesterStatus,
-    ssOptions,
-    ssStatus,
+    SuggesterStatus (SuggesterStatus'),
+    newSuggesterStatus,
 
     -- ** TextArrayOptions
-    TextArrayOptions,
-    textArrayOptions,
-    taoAnalysisScheme,
-    taoSourceFields,
-    taoReturnEnabled,
-    taoDefaultValue,
-    taoHighlightEnabled,
+    TextArrayOptions (TextArrayOptions'),
+    newTextArrayOptions,
 
     -- ** TextOptions
-    TextOptions,
-    textOptions,
-    toSortEnabled,
-    toAnalysisScheme,
-    toReturnEnabled,
-    toSourceField,
-    toDefaultValue,
-    toHighlightEnabled,
+    TextOptions (TextOptions'),
+    newTextOptions,
   )
 where
 
@@ -429,6 +384,7 @@ import Network.AWS.CloudSearch.DescribeScalingParameters
 import Network.AWS.CloudSearch.DescribeServiceAccessPolicies
 import Network.AWS.CloudSearch.DescribeSuggesters
 import Network.AWS.CloudSearch.IndexDocuments
+import Network.AWS.CloudSearch.Lens
 import Network.AWS.CloudSearch.ListDomainNames
 import Network.AWS.CloudSearch.Types
 import Network.AWS.CloudSearch.UpdateAvailabilityOptions

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,97 +19,108 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types.TextOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options for text field. Present if @IndexFieldType@ specifies the field is of type @text@ . A @text@ field is always searchable. All options are enabled by default.
+-- | Options for text field. Present if @IndexFieldType@ specifies the field
+-- is of type @text@. A @text@ field is always searchable. All options are
+-- enabled by default.
 --
---
---
--- /See:/ 'textOptions' smart constructor.
+-- /See:/ 'newTextOptions' smart constructor.
 data TextOptions = TextOptions'
-  { _toSortEnabled ::
-      !(Maybe Bool),
-    _toAnalysisScheme :: !(Maybe Text),
-    _toReturnEnabled :: !(Maybe Bool),
-    _toSourceField :: !(Maybe Text),
-    _toDefaultValue :: !(Maybe Text),
-    _toHighlightEnabled :: !(Maybe Bool)
+  { -- | Whether the field can be used to sort the search results.
+    sortEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of an analysis scheme for a @text@ field.
+    analysisScheme :: Prelude.Maybe Prelude.Text,
+    -- | Whether the contents of the field can be returned in the search results.
+    returnEnabled :: Prelude.Maybe Prelude.Bool,
+    sourceField :: Prelude.Maybe Prelude.Text,
+    -- | A value to use for the field if the field isn\'t specified for a
+    -- document.
+    defaultValue :: Prelude.Maybe Prelude.Text,
+    -- | Whether highlights can be returned for the field.
+    highlightEnabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TextOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TextOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'toSortEnabled' - Whether the field can be used to sort the search results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'toAnalysisScheme' - The name of an analysis scheme for a @text@ field.
+-- 'sortEnabled', 'textOptions_sortEnabled' - Whether the field can be used to sort the search results.
 --
--- * 'toReturnEnabled' - Whether the contents of the field can be returned in the search results.
+-- 'analysisScheme', 'textOptions_analysisScheme' - The name of an analysis scheme for a @text@ field.
 --
--- * 'toSourceField' - Undocumented member.
+-- 'returnEnabled', 'textOptions_returnEnabled' - Whether the contents of the field can be returned in the search results.
 --
--- * 'toDefaultValue' - A value to use for the field if the field isn't specified for a document.
+-- 'sourceField', 'textOptions_sourceField' - Undocumented member.
 --
--- * 'toHighlightEnabled' - Whether highlights can be returned for the field.
-textOptions ::
+-- 'defaultValue', 'textOptions_defaultValue' - A value to use for the field if the field isn\'t specified for a
+-- document.
+--
+-- 'highlightEnabled', 'textOptions_highlightEnabled' - Whether highlights can be returned for the field.
+newTextOptions ::
   TextOptions
-textOptions =
+newTextOptions =
   TextOptions'
-    { _toSortEnabled = Nothing,
-      _toAnalysisScheme = Nothing,
-      _toReturnEnabled = Nothing,
-      _toSourceField = Nothing,
-      _toDefaultValue = Nothing,
-      _toHighlightEnabled = Nothing
+    { sortEnabled = Prelude.Nothing,
+      analysisScheme = Prelude.Nothing,
+      returnEnabled = Prelude.Nothing,
+      sourceField = Prelude.Nothing,
+      defaultValue = Prelude.Nothing,
+      highlightEnabled = Prelude.Nothing
     }
 
 -- | Whether the field can be used to sort the search results.
-toSortEnabled :: Lens' TextOptions (Maybe Bool)
-toSortEnabled = lens _toSortEnabled (\s a -> s {_toSortEnabled = a})
+textOptions_sortEnabled :: Lens.Lens' TextOptions (Prelude.Maybe Prelude.Bool)
+textOptions_sortEnabled = Lens.lens (\TextOptions' {sortEnabled} -> sortEnabled) (\s@TextOptions' {} a -> s {sortEnabled = a} :: TextOptions)
 
 -- | The name of an analysis scheme for a @text@ field.
-toAnalysisScheme :: Lens' TextOptions (Maybe Text)
-toAnalysisScheme = lens _toAnalysisScheme (\s a -> s {_toAnalysisScheme = a})
+textOptions_analysisScheme :: Lens.Lens' TextOptions (Prelude.Maybe Prelude.Text)
+textOptions_analysisScheme = Lens.lens (\TextOptions' {analysisScheme} -> analysisScheme) (\s@TextOptions' {} a -> s {analysisScheme = a} :: TextOptions)
 
 -- | Whether the contents of the field can be returned in the search results.
-toReturnEnabled :: Lens' TextOptions (Maybe Bool)
-toReturnEnabled = lens _toReturnEnabled (\s a -> s {_toReturnEnabled = a})
+textOptions_returnEnabled :: Lens.Lens' TextOptions (Prelude.Maybe Prelude.Bool)
+textOptions_returnEnabled = Lens.lens (\TextOptions' {returnEnabled} -> returnEnabled) (\s@TextOptions' {} a -> s {returnEnabled = a} :: TextOptions)
 
 -- | Undocumented member.
-toSourceField :: Lens' TextOptions (Maybe Text)
-toSourceField = lens _toSourceField (\s a -> s {_toSourceField = a})
+textOptions_sourceField :: Lens.Lens' TextOptions (Prelude.Maybe Prelude.Text)
+textOptions_sourceField = Lens.lens (\TextOptions' {sourceField} -> sourceField) (\s@TextOptions' {} a -> s {sourceField = a} :: TextOptions)
 
--- | A value to use for the field if the field isn't specified for a document.
-toDefaultValue :: Lens' TextOptions (Maybe Text)
-toDefaultValue = lens _toDefaultValue (\s a -> s {_toDefaultValue = a})
+-- | A value to use for the field if the field isn\'t specified for a
+-- document.
+textOptions_defaultValue :: Lens.Lens' TextOptions (Prelude.Maybe Prelude.Text)
+textOptions_defaultValue = Lens.lens (\TextOptions' {defaultValue} -> defaultValue) (\s@TextOptions' {} a -> s {defaultValue = a} :: TextOptions)
 
 -- | Whether highlights can be returned for the field.
-toHighlightEnabled :: Lens' TextOptions (Maybe Bool)
-toHighlightEnabled = lens _toHighlightEnabled (\s a -> s {_toHighlightEnabled = a})
+textOptions_highlightEnabled :: Lens.Lens' TextOptions (Prelude.Maybe Prelude.Bool)
+textOptions_highlightEnabled = Lens.lens (\TextOptions' {highlightEnabled} -> highlightEnabled) (\s@TextOptions' {} a -> s {highlightEnabled = a} :: TextOptions)
 
-instance FromXML TextOptions where
+instance Prelude.FromXML TextOptions where
   parseXML x =
     TextOptions'
-      <$> (x .@? "SortEnabled")
-      <*> (x .@? "AnalysisScheme")
-      <*> (x .@? "ReturnEnabled")
-      <*> (x .@? "SourceField")
-      <*> (x .@? "DefaultValue")
-      <*> (x .@? "HighlightEnabled")
+      Prelude.<$> (x Prelude..@? "SortEnabled")
+      Prelude.<*> (x Prelude..@? "AnalysisScheme")
+      Prelude.<*> (x Prelude..@? "ReturnEnabled")
+      Prelude.<*> (x Prelude..@? "SourceField")
+      Prelude.<*> (x Prelude..@? "DefaultValue")
+      Prelude.<*> (x Prelude..@? "HighlightEnabled")
 
-instance Hashable TextOptions
+instance Prelude.Hashable TextOptions
 
-instance NFData TextOptions
+instance Prelude.NFData TextOptions
 
-instance ToQuery TextOptions where
+instance Prelude.ToQuery TextOptions where
   toQuery TextOptions' {..} =
-    mconcat
-      [ "SortEnabled" =: _toSortEnabled,
-        "AnalysisScheme" =: _toAnalysisScheme,
-        "ReturnEnabled" =: _toReturnEnabled,
-        "SourceField" =: _toSourceField,
-        "DefaultValue" =: _toDefaultValue,
-        "HighlightEnabled" =: _toHighlightEnabled
+    Prelude.mconcat
+      [ "SortEnabled" Prelude.=: sortEnabled,
+        "AnalysisScheme" Prelude.=: analysisScheme,
+        "ReturnEnabled" Prelude.=: returnEnabled,
+        "SourceField" Prelude.=: sourceField,
+        "DefaultValue" Prelude.=: defaultValue,
+        "HighlightEnabled" Prelude.=: highlightEnabled
       ]

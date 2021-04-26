@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the domain's endpoint options, specifically whether all requests to the domain must arrive over HTTPS. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html Configuring Domain Endpoint Options> in the /Amazon CloudSearch Developer Guide/ .
+-- Returns the domain\'s endpoint options, specifically whether all
+-- requests to the domain must arrive over HTTPS. For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html Configuring Domain Endpoint Options>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DescribeDomainEndpointOptions
   ( -- * Creating a Request
-    describeDomainEndpointOptions,
-    DescribeDomainEndpointOptions,
+    DescribeDomainEndpointOptions (..),
+    newDescribeDomainEndpointOptions,
 
     -- * Request Lenses
-    ddeoDeployed,
-    ddeoDomainName,
+    describeDomainEndpointOptions_deployed,
+    describeDomainEndpointOptions_domainName,
 
     -- * Destructuring the Response
-    describeDomainEndpointOptionsResponse,
-    DescribeDomainEndpointOptionsResponse,
+    DescribeDomainEndpointOptionsResponse (..),
+    newDescribeDomainEndpointOptionsResponse,
 
     -- * Response Lenses
-    ddeorrsDomainEndpointOptions,
-    ddeorrsResponseStatus,
+    describeDomainEndpointOptionsResponse_domainEndpointOptions,
+    describeDomainEndpointOptionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.DomainEndpointOptionsStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DescribeDomainEndpointOptions' @ operation. Specify the name of the domain you want to describe. To show the active configuration and exclude any pending changes, set the Deployed option to @true@ .
+-- | Container for the parameters to the @DescribeDomainEndpointOptions@
+-- operation. Specify the name of the domain you want to describe. To show
+-- the active configuration and exclude any pending changes, set the
+-- Deployed option to @true@.
 --
---
---
--- /See:/ 'describeDomainEndpointOptions' smart constructor.
+-- /See:/ 'newDescribeDomainEndpointOptions' smart constructor.
 data DescribeDomainEndpointOptions = DescribeDomainEndpointOptions'
-  { _ddeoDeployed ::
-      !( Maybe
-           Bool
-       ),
-    _ddeoDomainName ::
-      !Text
+  { -- | Whether to retrieve the latest configuration (which might be in a
+    -- Processing state) or the current, active configuration. Defaults to
+    -- @false@.
+    deployed :: Prelude.Maybe Prelude.Bool,
+    -- | A string that represents the name of a domain.
+    domainName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDomainEndpointOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDomainEndpointOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddeoDeployed' - Whether to retrieve the latest configuration (which might be in a Processing state) or the current, active configuration. Defaults to @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddeoDomainName' - A string that represents the name of a domain.
-describeDomainEndpointOptions ::
-  -- | 'ddeoDomainName'
-  Text ->
+-- 'deployed', 'describeDomainEndpointOptions_deployed' - Whether to retrieve the latest configuration (which might be in a
+-- Processing state) or the current, active configuration. Defaults to
+-- @false@.
+--
+-- 'domainName', 'describeDomainEndpointOptions_domainName' - A string that represents the name of a domain.
+newDescribeDomainEndpointOptions ::
+  -- | 'domainName'
+  Prelude.Text ->
   DescribeDomainEndpointOptions
-describeDomainEndpointOptions pDomainName_ =
+newDescribeDomainEndpointOptions pDomainName_ =
   DescribeDomainEndpointOptions'
-    { _ddeoDeployed =
-        Nothing,
-      _ddeoDomainName = pDomainName_
+    { deployed =
+        Prelude.Nothing,
+      domainName = pDomainName_
     }
 
--- | Whether to retrieve the latest configuration (which might be in a Processing state) or the current, active configuration. Defaults to @false@ .
-ddeoDeployed :: Lens' DescribeDomainEndpointOptions (Maybe Bool)
-ddeoDeployed = lens _ddeoDeployed (\s a -> s {_ddeoDeployed = a})
+-- | Whether to retrieve the latest configuration (which might be in a
+-- Processing state) or the current, active configuration. Defaults to
+-- @false@.
+describeDomainEndpointOptions_deployed :: Lens.Lens' DescribeDomainEndpointOptions (Prelude.Maybe Prelude.Bool)
+describeDomainEndpointOptions_deployed = Lens.lens (\DescribeDomainEndpointOptions' {deployed} -> deployed) (\s@DescribeDomainEndpointOptions' {} a -> s {deployed = a} :: DescribeDomainEndpointOptions)
 
 -- | A string that represents the name of a domain.
-ddeoDomainName :: Lens' DescribeDomainEndpointOptions Text
-ddeoDomainName = lens _ddeoDomainName (\s a -> s {_ddeoDomainName = a})
+describeDomainEndpointOptions_domainName :: Lens.Lens' DescribeDomainEndpointOptions Prelude.Text
+describeDomainEndpointOptions_domainName = Lens.lens (\DescribeDomainEndpointOptions' {domainName} -> domainName) (\s@DescribeDomainEndpointOptions' {} a -> s {domainName = a} :: DescribeDomainEndpointOptions)
 
-instance AWSRequest DescribeDomainEndpointOptions where
+instance
+  Prelude.AWSRequest
+    DescribeDomainEndpointOptions
+  where
   type
     Rs DescribeDomainEndpointOptions =
       DescribeDomainEndpointOptionsResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeDomainEndpointOptionsResult"
       ( \s h x ->
           DescribeDomainEndpointOptionsResponse'
-            <$> (x .@? "DomainEndpointOptions")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DomainEndpointOptions")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDomainEndpointOptions
+instance
+  Prelude.Hashable
+    DescribeDomainEndpointOptions
 
-instance NFData DescribeDomainEndpointOptions
+instance Prelude.NFData DescribeDomainEndpointOptions
 
-instance ToHeaders DescribeDomainEndpointOptions where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeDomainEndpointOptions
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeDomainEndpointOptions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDomainEndpointOptions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDomainEndpointOptions where
+instance
+  Prelude.ToQuery
+    DescribeDomainEndpointOptions
+  where
   toQuery DescribeDomainEndpointOptions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeDomainEndpointOptions" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "Deployed" =: _ddeoDeployed,
-        "DomainName" =: _ddeoDomainName
+          Prelude.=: ( "DescribeDomainEndpointOptions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "Deployed" Prelude.=: deployed,
+        "DomainName" Prelude.=: domainName
       ]
 
--- | The result of a @DescribeDomainEndpointOptions@ request. Contains the status and configuration of a search domain's endpoint options.
+-- | The result of a @DescribeDomainEndpointOptions@ request. Contains the
+-- status and configuration of a search domain\'s endpoint options.
 --
---
---
--- /See:/ 'describeDomainEndpointOptionsResponse' smart constructor.
+-- /See:/ 'newDescribeDomainEndpointOptionsResponse' smart constructor.
 data DescribeDomainEndpointOptionsResponse = DescribeDomainEndpointOptionsResponse'
-  { _ddeorrsDomainEndpointOptions ::
-      !( Maybe
-           DomainEndpointOptionsStatus
-       ),
-    _ddeorrsResponseStatus ::
-      !Int
+  { -- | The status and configuration of a search domain\'s endpoint options.
+    domainEndpointOptions :: Prelude.Maybe DomainEndpointOptionsStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDomainEndpointOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDomainEndpointOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddeorrsDomainEndpointOptions' - The status and configuration of a search domain's endpoint options.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddeorrsResponseStatus' - -- | The response status code.
-describeDomainEndpointOptionsResponse ::
-  -- | 'ddeorrsResponseStatus'
-  Int ->
+-- 'domainEndpointOptions', 'describeDomainEndpointOptionsResponse_domainEndpointOptions' - The status and configuration of a search domain\'s endpoint options.
+--
+-- 'httpStatus', 'describeDomainEndpointOptionsResponse_httpStatus' - The response's http status code.
+newDescribeDomainEndpointOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDomainEndpointOptionsResponse
-describeDomainEndpointOptionsResponse
-  pResponseStatus_ =
-    DescribeDomainEndpointOptionsResponse'
-      { _ddeorrsDomainEndpointOptions =
-          Nothing,
-        _ddeorrsResponseStatus =
-          pResponseStatus_
-      }
+newDescribeDomainEndpointOptionsResponse pHttpStatus_ =
+  DescribeDomainEndpointOptionsResponse'
+    { domainEndpointOptions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | The status and configuration of a search domain's endpoint options.
-ddeorrsDomainEndpointOptions :: Lens' DescribeDomainEndpointOptionsResponse (Maybe DomainEndpointOptionsStatus)
-ddeorrsDomainEndpointOptions = lens _ddeorrsDomainEndpointOptions (\s a -> s {_ddeorrsDomainEndpointOptions = a})
+-- | The status and configuration of a search domain\'s endpoint options.
+describeDomainEndpointOptionsResponse_domainEndpointOptions :: Lens.Lens' DescribeDomainEndpointOptionsResponse (Prelude.Maybe DomainEndpointOptionsStatus)
+describeDomainEndpointOptionsResponse_domainEndpointOptions = Lens.lens (\DescribeDomainEndpointOptionsResponse' {domainEndpointOptions} -> domainEndpointOptions) (\s@DescribeDomainEndpointOptionsResponse' {} a -> s {domainEndpointOptions = a} :: DescribeDomainEndpointOptionsResponse)
 
--- | -- | The response status code.
-ddeorrsResponseStatus :: Lens' DescribeDomainEndpointOptionsResponse Int
-ddeorrsResponseStatus = lens _ddeorrsResponseStatus (\s a -> s {_ddeorrsResponseStatus = a})
+-- | The response's http status code.
+describeDomainEndpointOptionsResponse_httpStatus :: Lens.Lens' DescribeDomainEndpointOptionsResponse Prelude.Int
+describeDomainEndpointOptionsResponse_httpStatus = Lens.lens (\DescribeDomainEndpointOptionsResponse' {httpStatus} -> httpStatus) (\s@DescribeDomainEndpointOptionsResponse' {} a -> s {httpStatus = a} :: DescribeDomainEndpointOptionsResponse)
 
-instance NFData DescribeDomainEndpointOptionsResponse
+instance
+  Prelude.NFData
+    DescribeDomainEndpointOptionsResponse

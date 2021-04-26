@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,174 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the availability options configured for a domain. By default, shows the configuration with any pending changes. Set the @Deployed@ option to @true@ to show the active configuration and exclude pending changes. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html Configuring Availability Options> in the /Amazon CloudSearch Developer Guide/ .
+-- Gets the availability options configured for a domain. By default, shows
+-- the configuration with any pending changes. Set the @Deployed@ option to
+-- @true@ to show the active configuration and exclude pending changes. For
+-- more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html Configuring Availability Options>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DescribeAvailabilityOptions
   ( -- * Creating a Request
-    describeAvailabilityOptions,
-    DescribeAvailabilityOptions,
+    DescribeAvailabilityOptions (..),
+    newDescribeAvailabilityOptions,
 
     -- * Request Lenses
-    daoDeployed,
-    daoDomainName,
+    describeAvailabilityOptions_deployed,
+    describeAvailabilityOptions_domainName,
 
     -- * Destructuring the Response
-    describeAvailabilityOptionsResponse,
-    DescribeAvailabilityOptionsResponse,
+    DescribeAvailabilityOptionsResponse (..),
+    newDescribeAvailabilityOptionsResponse,
 
     -- * Response Lenses
-    daorrsAvailabilityOptions,
-    daorrsResponseStatus,
+    describeAvailabilityOptionsResponse_availabilityOptions,
+    describeAvailabilityOptionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.AvailabilityOptionsStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DescribeAvailabilityOptions' @ operation. Specifies the name of the domain you want to describe. To show the active configuration and exclude any pending changes, set the Deployed option to @true@ .
+-- | Container for the parameters to the @DescribeAvailabilityOptions@
+-- operation. Specifies the name of the domain you want to describe. To
+-- show the active configuration and exclude any pending changes, set the
+-- Deployed option to @true@.
 --
---
---
--- /See:/ 'describeAvailabilityOptions' smart constructor.
+-- /See:/ 'newDescribeAvailabilityOptions' smart constructor.
 data DescribeAvailabilityOptions = DescribeAvailabilityOptions'
-  { _daoDeployed ::
-      !(Maybe Bool),
-    _daoDomainName ::
-      !Text
+  { -- | Whether to display the deployed configuration (@true@) or include any
+    -- pending changes (@false@). Defaults to @false@.
+    deployed :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the domain you want to describe.
+    domainName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAvailabilityOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAvailabilityOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daoDeployed' - Whether to display the deployed configuration (@true@ ) or include any pending changes (@false@ ). Defaults to @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daoDomainName' - The name of the domain you want to describe.
-describeAvailabilityOptions ::
-  -- | 'daoDomainName'
-  Text ->
+-- 'deployed', 'describeAvailabilityOptions_deployed' - Whether to display the deployed configuration (@true@) or include any
+-- pending changes (@false@). Defaults to @false@.
+--
+-- 'domainName', 'describeAvailabilityOptions_domainName' - The name of the domain you want to describe.
+newDescribeAvailabilityOptions ::
+  -- | 'domainName'
+  Prelude.Text ->
   DescribeAvailabilityOptions
-describeAvailabilityOptions pDomainName_ =
+newDescribeAvailabilityOptions pDomainName_ =
   DescribeAvailabilityOptions'
-    { _daoDeployed =
-        Nothing,
-      _daoDomainName = pDomainName_
+    { deployed =
+        Prelude.Nothing,
+      domainName = pDomainName_
     }
 
--- | Whether to display the deployed configuration (@true@ ) or include any pending changes (@false@ ). Defaults to @false@ .
-daoDeployed :: Lens' DescribeAvailabilityOptions (Maybe Bool)
-daoDeployed = lens _daoDeployed (\s a -> s {_daoDeployed = a})
+-- | Whether to display the deployed configuration (@true@) or include any
+-- pending changes (@false@). Defaults to @false@.
+describeAvailabilityOptions_deployed :: Lens.Lens' DescribeAvailabilityOptions (Prelude.Maybe Prelude.Bool)
+describeAvailabilityOptions_deployed = Lens.lens (\DescribeAvailabilityOptions' {deployed} -> deployed) (\s@DescribeAvailabilityOptions' {} a -> s {deployed = a} :: DescribeAvailabilityOptions)
 
 -- | The name of the domain you want to describe.
-daoDomainName :: Lens' DescribeAvailabilityOptions Text
-daoDomainName = lens _daoDomainName (\s a -> s {_daoDomainName = a})
+describeAvailabilityOptions_domainName :: Lens.Lens' DescribeAvailabilityOptions Prelude.Text
+describeAvailabilityOptions_domainName = Lens.lens (\DescribeAvailabilityOptions' {domainName} -> domainName) (\s@DescribeAvailabilityOptions' {} a -> s {domainName = a} :: DescribeAvailabilityOptions)
 
-instance AWSRequest DescribeAvailabilityOptions where
+instance
+  Prelude.AWSRequest
+    DescribeAvailabilityOptions
+  where
   type
     Rs DescribeAvailabilityOptions =
       DescribeAvailabilityOptionsResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeAvailabilityOptionsResult"
       ( \s h x ->
           DescribeAvailabilityOptionsResponse'
-            <$> (x .@? "AvailabilityOptions")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "AvailabilityOptions")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAvailabilityOptions
+instance Prelude.Hashable DescribeAvailabilityOptions
 
-instance NFData DescribeAvailabilityOptions
+instance Prelude.NFData DescribeAvailabilityOptions
 
-instance ToHeaders DescribeAvailabilityOptions where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeAvailabilityOptions
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeAvailabilityOptions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAvailabilityOptions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAvailabilityOptions where
+instance Prelude.ToQuery DescribeAvailabilityOptions where
   toQuery DescribeAvailabilityOptions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeAvailabilityOptions" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "Deployed" =: _daoDeployed,
-        "DomainName" =: _daoDomainName
+          Prelude.=: ( "DescribeAvailabilityOptions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "Deployed" Prelude.=: deployed,
+        "DomainName" Prelude.=: domainName
       ]
 
--- | The result of a @DescribeAvailabilityOptions@ request. Indicates whether or not the Multi-AZ option is enabled for the domain specified in the request.
+-- | The result of a @DescribeAvailabilityOptions@ request. Indicates whether
+-- or not the Multi-AZ option is enabled for the domain specified in the
+-- request.
 --
---
---
--- /See:/ 'describeAvailabilityOptionsResponse' smart constructor.
+-- /See:/ 'newDescribeAvailabilityOptionsResponse' smart constructor.
 data DescribeAvailabilityOptionsResponse = DescribeAvailabilityOptionsResponse'
-  { _daorrsAvailabilityOptions ::
-      !( Maybe
-           AvailabilityOptionsStatus
-       ),
-    _daorrsResponseStatus ::
-      !Int
+  { -- | The availability options configured for the domain. Indicates whether
+    -- Multi-AZ is enabled for the domain.
+    availabilityOptions :: Prelude.Maybe AvailabilityOptionsStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAvailabilityOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAvailabilityOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daorrsAvailabilityOptions' - The availability options configured for the domain. Indicates whether Multi-AZ is enabled for the domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daorrsResponseStatus' - -- | The response status code.
-describeAvailabilityOptionsResponse ::
-  -- | 'daorrsResponseStatus'
-  Int ->
+-- 'availabilityOptions', 'describeAvailabilityOptionsResponse_availabilityOptions' - The availability options configured for the domain. Indicates whether
+-- Multi-AZ is enabled for the domain.
+--
+-- 'httpStatus', 'describeAvailabilityOptionsResponse_httpStatus' - The response's http status code.
+newDescribeAvailabilityOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAvailabilityOptionsResponse
-describeAvailabilityOptionsResponse pResponseStatus_ =
+newDescribeAvailabilityOptionsResponse pHttpStatus_ =
   DescribeAvailabilityOptionsResponse'
-    { _daorrsAvailabilityOptions =
-        Nothing,
-      _daorrsResponseStatus =
-        pResponseStatus_
+    { availabilityOptions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The availability options configured for the domain. Indicates whether Multi-AZ is enabled for the domain.
-daorrsAvailabilityOptions :: Lens' DescribeAvailabilityOptionsResponse (Maybe AvailabilityOptionsStatus)
-daorrsAvailabilityOptions = lens _daorrsAvailabilityOptions (\s a -> s {_daorrsAvailabilityOptions = a})
+-- | The availability options configured for the domain. Indicates whether
+-- Multi-AZ is enabled for the domain.
+describeAvailabilityOptionsResponse_availabilityOptions :: Lens.Lens' DescribeAvailabilityOptionsResponse (Prelude.Maybe AvailabilityOptionsStatus)
+describeAvailabilityOptionsResponse_availabilityOptions = Lens.lens (\DescribeAvailabilityOptionsResponse' {availabilityOptions} -> availabilityOptions) (\s@DescribeAvailabilityOptionsResponse' {} a -> s {availabilityOptions = a} :: DescribeAvailabilityOptionsResponse)
 
--- | -- | The response status code.
-daorrsResponseStatus :: Lens' DescribeAvailabilityOptionsResponse Int
-daorrsResponseStatus = lens _daorrsResponseStatus (\s a -> s {_daorrsResponseStatus = a})
+-- | The response's http status code.
+describeAvailabilityOptionsResponse_httpStatus :: Lens.Lens' DescribeAvailabilityOptionsResponse Prelude.Int
+describeAvailabilityOptionsResponse_httpStatus = Lens.lens (\DescribeAvailabilityOptionsResponse' {httpStatus} -> httpStatus) (\s@DescribeAvailabilityOptionsResponse' {} a -> s {httpStatus = a} :: DescribeAvailabilityOptionsResponse)
 
-instance NFData DescribeAvailabilityOptionsResponse
+instance
+  Prelude.NFData
+    DescribeAvailabilityOptionsResponse

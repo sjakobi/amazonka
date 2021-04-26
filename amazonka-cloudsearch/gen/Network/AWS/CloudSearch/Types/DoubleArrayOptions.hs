@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,98 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types.DoubleArrayOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options for a field that contains an array of double-precision 64-bit floating point values. Present if @IndexFieldType@ specifies the field is of type @double-array@ . All options are enabled by default.
+-- | Options for a field that contains an array of double-precision 64-bit
+-- floating point values. Present if @IndexFieldType@ specifies the field
+-- is of type @double-array@. All options are enabled by default.
 --
---
---
--- /See:/ 'doubleArrayOptions' smart constructor.
+-- /See:/ 'newDoubleArrayOptions' smart constructor.
 data DoubleArrayOptions = DoubleArrayOptions'
-  { _daoSourceFields ::
-      !(Maybe Text),
-    _daoFacetEnabled :: !(Maybe Bool),
-    _daoReturnEnabled ::
-      !(Maybe Bool),
-    _daoSearchEnabled ::
-      !(Maybe Bool),
-    _daoDefaultValue ::
-      !(Maybe Double)
+  { -- | A list of source fields to map to the field.
+    sourceFields :: Prelude.Maybe Prelude.Text,
+    -- | Whether facet information can be returned for the field.
+    facetEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether the contents of the field can be returned in the search results.
+    returnEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether the contents of the field are searchable.
+    searchEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A value to use for the field if the field isn\'t specified for a
+    -- document.
+    defaultValue :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DoubleArrayOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DoubleArrayOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daoSourceFields' - A list of source fields to map to the field.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daoFacetEnabled' - Whether facet information can be returned for the field.
+-- 'sourceFields', 'doubleArrayOptions_sourceFields' - A list of source fields to map to the field.
 --
--- * 'daoReturnEnabled' - Whether the contents of the field can be returned in the search results.
+-- 'facetEnabled', 'doubleArrayOptions_facetEnabled' - Whether facet information can be returned for the field.
 --
--- * 'daoSearchEnabled' - Whether the contents of the field are searchable.
+-- 'returnEnabled', 'doubleArrayOptions_returnEnabled' - Whether the contents of the field can be returned in the search results.
 --
--- * 'daoDefaultValue' - A value to use for the field if the field isn't specified for a document.
-doubleArrayOptions ::
+-- 'searchEnabled', 'doubleArrayOptions_searchEnabled' - Whether the contents of the field are searchable.
+--
+-- 'defaultValue', 'doubleArrayOptions_defaultValue' - A value to use for the field if the field isn\'t specified for a
+-- document.
+newDoubleArrayOptions ::
   DoubleArrayOptions
-doubleArrayOptions =
+newDoubleArrayOptions =
   DoubleArrayOptions'
-    { _daoSourceFields = Nothing,
-      _daoFacetEnabled = Nothing,
-      _daoReturnEnabled = Nothing,
-      _daoSearchEnabled = Nothing,
-      _daoDefaultValue = Nothing
+    { sourceFields = Prelude.Nothing,
+      facetEnabled = Prelude.Nothing,
+      returnEnabled = Prelude.Nothing,
+      searchEnabled = Prelude.Nothing,
+      defaultValue = Prelude.Nothing
     }
 
 -- | A list of source fields to map to the field.
-daoSourceFields :: Lens' DoubleArrayOptions (Maybe Text)
-daoSourceFields = lens _daoSourceFields (\s a -> s {_daoSourceFields = a})
+doubleArrayOptions_sourceFields :: Lens.Lens' DoubleArrayOptions (Prelude.Maybe Prelude.Text)
+doubleArrayOptions_sourceFields = Lens.lens (\DoubleArrayOptions' {sourceFields} -> sourceFields) (\s@DoubleArrayOptions' {} a -> s {sourceFields = a} :: DoubleArrayOptions)
 
 -- | Whether facet information can be returned for the field.
-daoFacetEnabled :: Lens' DoubleArrayOptions (Maybe Bool)
-daoFacetEnabled = lens _daoFacetEnabled (\s a -> s {_daoFacetEnabled = a})
+doubleArrayOptions_facetEnabled :: Lens.Lens' DoubleArrayOptions (Prelude.Maybe Prelude.Bool)
+doubleArrayOptions_facetEnabled = Lens.lens (\DoubleArrayOptions' {facetEnabled} -> facetEnabled) (\s@DoubleArrayOptions' {} a -> s {facetEnabled = a} :: DoubleArrayOptions)
 
 -- | Whether the contents of the field can be returned in the search results.
-daoReturnEnabled :: Lens' DoubleArrayOptions (Maybe Bool)
-daoReturnEnabled = lens _daoReturnEnabled (\s a -> s {_daoReturnEnabled = a})
+doubleArrayOptions_returnEnabled :: Lens.Lens' DoubleArrayOptions (Prelude.Maybe Prelude.Bool)
+doubleArrayOptions_returnEnabled = Lens.lens (\DoubleArrayOptions' {returnEnabled} -> returnEnabled) (\s@DoubleArrayOptions' {} a -> s {returnEnabled = a} :: DoubleArrayOptions)
 
 -- | Whether the contents of the field are searchable.
-daoSearchEnabled :: Lens' DoubleArrayOptions (Maybe Bool)
-daoSearchEnabled = lens _daoSearchEnabled (\s a -> s {_daoSearchEnabled = a})
+doubleArrayOptions_searchEnabled :: Lens.Lens' DoubleArrayOptions (Prelude.Maybe Prelude.Bool)
+doubleArrayOptions_searchEnabled = Lens.lens (\DoubleArrayOptions' {searchEnabled} -> searchEnabled) (\s@DoubleArrayOptions' {} a -> s {searchEnabled = a} :: DoubleArrayOptions)
 
--- | A value to use for the field if the field isn't specified for a document.
-daoDefaultValue :: Lens' DoubleArrayOptions (Maybe Double)
-daoDefaultValue = lens _daoDefaultValue (\s a -> s {_daoDefaultValue = a})
+-- | A value to use for the field if the field isn\'t specified for a
+-- document.
+doubleArrayOptions_defaultValue :: Lens.Lens' DoubleArrayOptions (Prelude.Maybe Prelude.Double)
+doubleArrayOptions_defaultValue = Lens.lens (\DoubleArrayOptions' {defaultValue} -> defaultValue) (\s@DoubleArrayOptions' {} a -> s {defaultValue = a} :: DoubleArrayOptions)
 
-instance FromXML DoubleArrayOptions where
+instance Prelude.FromXML DoubleArrayOptions where
   parseXML x =
     DoubleArrayOptions'
-      <$> (x .@? "SourceFields")
-      <*> (x .@? "FacetEnabled")
-      <*> (x .@? "ReturnEnabled")
-      <*> (x .@? "SearchEnabled")
-      <*> (x .@? "DefaultValue")
+      Prelude.<$> (x Prelude..@? "SourceFields")
+      Prelude.<*> (x Prelude..@? "FacetEnabled")
+      Prelude.<*> (x Prelude..@? "ReturnEnabled")
+      Prelude.<*> (x Prelude..@? "SearchEnabled")
+      Prelude.<*> (x Prelude..@? "DefaultValue")
 
-instance Hashable DoubleArrayOptions
+instance Prelude.Hashable DoubleArrayOptions
 
-instance NFData DoubleArrayOptions
+instance Prelude.NFData DoubleArrayOptions
 
-instance ToQuery DoubleArrayOptions where
+instance Prelude.ToQuery DoubleArrayOptions where
   toQuery DoubleArrayOptions' {..} =
-    mconcat
-      [ "SourceFields" =: _daoSourceFields,
-        "FacetEnabled" =: _daoFacetEnabled,
-        "ReturnEnabled" =: _daoReturnEnabled,
-        "SearchEnabled" =: _daoSearchEnabled,
-        "DefaultValue" =: _daoDefaultValue
+    Prelude.mconcat
+      [ "SourceFields" Prelude.=: sourceFields,
+        "FacetEnabled" Prelude.=: facetEnabled,
+        "ReturnEnabled" Prelude.=: returnEnabled,
+        "SearchEnabled" Prelude.=: searchEnabled,
+        "DefaultValue" Prelude.=: defaultValue
       ]

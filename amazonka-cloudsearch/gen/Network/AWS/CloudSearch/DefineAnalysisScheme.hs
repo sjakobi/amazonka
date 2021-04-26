@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Configures an analysis scheme that can be applied to a @text@ or @text-array@ field to define language-specific text processing options. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html Configuring Analysis Schemes> in the /Amazon CloudSearch Developer Guide/ .
+-- Configures an analysis scheme that can be applied to a @text@ or
+-- @text-array@ field to define language-specific text processing options.
+-- For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html Configuring Analysis Schemes>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DefineAnalysisScheme
   ( -- * Creating a Request
-    defineAnalysisScheme,
-    DefineAnalysisScheme,
+    DefineAnalysisScheme (..),
+    newDefineAnalysisScheme,
 
     -- * Request Lenses
-    defeDomainName,
-    defeAnalysisScheme,
+    defineAnalysisScheme_domainName,
+    defineAnalysisScheme_analysisScheme,
 
     -- * Destructuring the Response
-    defineAnalysisSchemeResponse,
-    DefineAnalysisSchemeResponse,
+    DefineAnalysisSchemeResponse (..),
+    newDefineAnalysisSchemeResponse,
 
     -- * Response Lenses
-    defrsResponseStatus,
-    defrsAnalysisScheme,
+    defineAnalysisSchemeResponse_httpStatus,
+    defineAnalysisSchemeResponse_analysisScheme,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.AnalysisSchemeStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DefineAnalysisScheme' @ operation. Specifies the name of the domain you want to update and the analysis scheme configuration.
+-- | Container for the parameters to the @DefineAnalysisScheme@ operation.
+-- Specifies the name of the domain you want to update and the analysis
+-- scheme configuration.
 --
---
---
--- /See:/ 'defineAnalysisScheme' smart constructor.
+-- /See:/ 'newDefineAnalysisScheme' smart constructor.
 data DefineAnalysisScheme = DefineAnalysisScheme'
-  { _defeDomainName ::
-      !Text,
-    _defeAnalysisScheme ::
-      !AnalysisScheme
+  { domainName :: Prelude.Text,
+    analysisScheme :: AnalysisScheme
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DefineAnalysisScheme' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DefineAnalysisScheme' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'defeDomainName' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'defeAnalysisScheme' - Undocumented member.
-defineAnalysisScheme ::
-  -- | 'defeDomainName'
-  Text ->
-  -- | 'defeAnalysisScheme'
+-- 'domainName', 'defineAnalysisScheme_domainName' - Undocumented member.
+--
+-- 'analysisScheme', 'defineAnalysisScheme_analysisScheme' - Undocumented member.
+newDefineAnalysisScheme ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'analysisScheme'
   AnalysisScheme ->
   DefineAnalysisScheme
-defineAnalysisScheme pDomainName_ pAnalysisScheme_ =
+newDefineAnalysisScheme pDomainName_ pAnalysisScheme_ =
   DefineAnalysisScheme'
-    { _defeDomainName =
-        pDomainName_,
-      _defeAnalysisScheme = pAnalysisScheme_
+    { domainName = pDomainName_,
+      analysisScheme = pAnalysisScheme_
     }
 
 -- | Undocumented member.
-defeDomainName :: Lens' DefineAnalysisScheme Text
-defeDomainName = lens _defeDomainName (\s a -> s {_defeDomainName = a})
+defineAnalysisScheme_domainName :: Lens.Lens' DefineAnalysisScheme Prelude.Text
+defineAnalysisScheme_domainName = Lens.lens (\DefineAnalysisScheme' {domainName} -> domainName) (\s@DefineAnalysisScheme' {} a -> s {domainName = a} :: DefineAnalysisScheme)
 
 -- | Undocumented member.
-defeAnalysisScheme :: Lens' DefineAnalysisScheme AnalysisScheme
-defeAnalysisScheme = lens _defeAnalysisScheme (\s a -> s {_defeAnalysisScheme = a})
+defineAnalysisScheme_analysisScheme :: Lens.Lens' DefineAnalysisScheme AnalysisScheme
+defineAnalysisScheme_analysisScheme = Lens.lens (\DefineAnalysisScheme' {analysisScheme} -> analysisScheme) (\s@DefineAnalysisScheme' {} a -> s {analysisScheme = a} :: DefineAnalysisScheme)
 
-instance AWSRequest DefineAnalysisScheme where
+instance Prelude.AWSRequest DefineAnalysisScheme where
   type
     Rs DefineAnalysisScheme =
       DefineAnalysisSchemeResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DefineAnalysisSchemeResult"
       ( \s h x ->
           DefineAnalysisSchemeResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "AnalysisScheme")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "AnalysisScheme")
       )
 
-instance Hashable DefineAnalysisScheme
+instance Prelude.Hashable DefineAnalysisScheme
 
-instance NFData DefineAnalysisScheme
+instance Prelude.NFData DefineAnalysisScheme
 
-instance ToHeaders DefineAnalysisScheme where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DefineAnalysisScheme where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DefineAnalysisScheme where
-  toPath = const "/"
+instance Prelude.ToPath DefineAnalysisScheme where
+  toPath = Prelude.const "/"
 
-instance ToQuery DefineAnalysisScheme where
+instance Prelude.ToQuery DefineAnalysisScheme where
   toQuery DefineAnalysisScheme' {..} =
-    mconcat
-      [ "Action" =: ("DefineAnalysisScheme" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "DomainName" =: _defeDomainName,
-        "AnalysisScheme" =: _defeAnalysisScheme
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DefineAnalysisScheme" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName,
+        "AnalysisScheme" Prelude.=: analysisScheme
       ]
 
--- | The result of a @'DefineAnalysisScheme' @ request. Contains the status of the newly-configured analysis scheme.
+-- | The result of a @DefineAnalysisScheme@ request. Contains the status of
+-- the newly-configured analysis scheme.
 --
---
---
--- /See:/ 'defineAnalysisSchemeResponse' smart constructor.
+-- /See:/ 'newDefineAnalysisSchemeResponse' smart constructor.
 data DefineAnalysisSchemeResponse = DefineAnalysisSchemeResponse'
-  { _defrsResponseStatus ::
-      !Int,
-    _defrsAnalysisScheme ::
-      !AnalysisSchemeStatus
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    analysisScheme :: AnalysisSchemeStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DefineAnalysisSchemeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DefineAnalysisSchemeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'defrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'defrsAnalysisScheme' - Undocumented member.
-defineAnalysisSchemeResponse ::
-  -- | 'defrsResponseStatus'
-  Int ->
-  -- | 'defrsAnalysisScheme'
+-- 'httpStatus', 'defineAnalysisSchemeResponse_httpStatus' - The response's http status code.
+--
+-- 'analysisScheme', 'defineAnalysisSchemeResponse_analysisScheme' - Undocumented member.
+newDefineAnalysisSchemeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'analysisScheme'
   AnalysisSchemeStatus ->
   DefineAnalysisSchemeResponse
-defineAnalysisSchemeResponse
-  pResponseStatus_
+newDefineAnalysisSchemeResponse
+  pHttpStatus_
   pAnalysisScheme_ =
     DefineAnalysisSchemeResponse'
-      { _defrsResponseStatus =
-          pResponseStatus_,
-        _defrsAnalysisScheme = pAnalysisScheme_
+      { httpStatus =
+          pHttpStatus_,
+        analysisScheme = pAnalysisScheme_
       }
 
--- | -- | The response status code.
-defrsResponseStatus :: Lens' DefineAnalysisSchemeResponse Int
-defrsResponseStatus = lens _defrsResponseStatus (\s a -> s {_defrsResponseStatus = a})
+-- | The response's http status code.
+defineAnalysisSchemeResponse_httpStatus :: Lens.Lens' DefineAnalysisSchemeResponse Prelude.Int
+defineAnalysisSchemeResponse_httpStatus = Lens.lens (\DefineAnalysisSchemeResponse' {httpStatus} -> httpStatus) (\s@DefineAnalysisSchemeResponse' {} a -> s {httpStatus = a} :: DefineAnalysisSchemeResponse)
 
 -- | Undocumented member.
-defrsAnalysisScheme :: Lens' DefineAnalysisSchemeResponse AnalysisSchemeStatus
-defrsAnalysisScheme = lens _defrsAnalysisScheme (\s a -> s {_defrsAnalysisScheme = a})
+defineAnalysisSchemeResponse_analysisScheme :: Lens.Lens' DefineAnalysisSchemeResponse AnalysisSchemeStatus
+defineAnalysisSchemeResponse_analysisScheme = Lens.lens (\DefineAnalysisSchemeResponse' {analysisScheme} -> analysisScheme) (\s@DefineAnalysisSchemeResponse' {} a -> s {analysisScheme = a} :: DefineAnalysisSchemeResponse)
 
-instance NFData DefineAnalysisSchemeResponse
+instance Prelude.NFData DefineAnalysisSchemeResponse

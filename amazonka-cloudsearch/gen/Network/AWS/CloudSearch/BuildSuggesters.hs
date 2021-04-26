@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,134 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Indexes the search suggestions. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html#configuring-suggesters Configuring Suggesters> in the /Amazon CloudSearch Developer Guide/ .
+-- Indexes the search suggestions. For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html#configuring-suggesters Configuring Suggesters>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.BuildSuggesters
   ( -- * Creating a Request
-    buildSuggesters,
-    BuildSuggesters,
+    BuildSuggesters (..),
+    newBuildSuggesters,
 
     -- * Request Lenses
-    bsDomainName,
+    buildSuggesters_domainName,
 
     -- * Destructuring the Response
-    buildSuggestersResponse,
-    BuildSuggestersResponse,
+    BuildSuggestersResponse (..),
+    newBuildSuggestersResponse,
 
     -- * Response Lenses
-    bsrrsFieldNames,
-    bsrrsResponseStatus,
+    buildSuggestersResponse_fieldNames,
+    buildSuggestersResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'BuildSuggester' @ operation. Specifies the name of the domain you want to update.
+-- | Container for the parameters to the @BuildSuggester@ operation.
+-- Specifies the name of the domain you want to update.
 --
---
---
--- /See:/ 'buildSuggesters' smart constructor.
-newtype BuildSuggesters = BuildSuggesters'
-  { _bsDomainName ::
-      Text
+-- /See:/ 'newBuildSuggesters' smart constructor.
+data BuildSuggesters = BuildSuggesters'
+  { domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BuildSuggesters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BuildSuggesters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsDomainName' - Undocumented member.
-buildSuggesters ::
-  -- | 'bsDomainName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'buildSuggesters_domainName' - Undocumented member.
+newBuildSuggesters ::
+  -- | 'domainName'
+  Prelude.Text ->
   BuildSuggesters
-buildSuggesters pDomainName_ =
-  BuildSuggesters' {_bsDomainName = pDomainName_}
+newBuildSuggesters pDomainName_ =
+  BuildSuggesters' {domainName = pDomainName_}
 
 -- | Undocumented member.
-bsDomainName :: Lens' BuildSuggesters Text
-bsDomainName = lens _bsDomainName (\s a -> s {_bsDomainName = a})
+buildSuggesters_domainName :: Lens.Lens' BuildSuggesters Prelude.Text
+buildSuggesters_domainName = Lens.lens (\BuildSuggesters' {domainName} -> domainName) (\s@BuildSuggesters' {} a -> s {domainName = a} :: BuildSuggesters)
 
-instance AWSRequest BuildSuggesters where
+instance Prelude.AWSRequest BuildSuggesters where
   type Rs BuildSuggesters = BuildSuggestersResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "BuildSuggestersResult"
       ( \s h x ->
           BuildSuggestersResponse'
-            <$> ( x .@? "FieldNames" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "FieldNames"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BuildSuggesters
+instance Prelude.Hashable BuildSuggesters
 
-instance NFData BuildSuggesters
+instance Prelude.NFData BuildSuggesters
 
-instance ToHeaders BuildSuggesters where
-  toHeaders = const mempty
+instance Prelude.ToHeaders BuildSuggesters where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath BuildSuggesters where
-  toPath = const "/"
+instance Prelude.ToPath BuildSuggesters where
+  toPath = Prelude.const "/"
 
-instance ToQuery BuildSuggesters where
+instance Prelude.ToQuery BuildSuggesters where
   toQuery BuildSuggesters' {..} =
-    mconcat
-      [ "Action" =: ("BuildSuggesters" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "DomainName" =: _bsDomainName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("BuildSuggesters" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName
       ]
 
--- | The result of a @BuildSuggester@ request. Contains a list of the fields used for suggestions.
+-- | The result of a @BuildSuggester@ request. Contains a list of the fields
+-- used for suggestions.
 --
---
---
--- /See:/ 'buildSuggestersResponse' smart constructor.
+-- /See:/ 'newBuildSuggestersResponse' smart constructor.
 data BuildSuggestersResponse = BuildSuggestersResponse'
-  { _bsrrsFieldNames ::
-      !(Maybe [Text]),
-    _bsrrsResponseStatus ::
-      !Int
+  { fieldNames :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BuildSuggestersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BuildSuggestersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsrrsFieldNames' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bsrrsResponseStatus' - -- | The response status code.
-buildSuggestersResponse ::
-  -- | 'bsrrsResponseStatus'
-  Int ->
+-- 'fieldNames', 'buildSuggestersResponse_fieldNames' - Undocumented member.
+--
+-- 'httpStatus', 'buildSuggestersResponse_httpStatus' - The response's http status code.
+newBuildSuggestersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BuildSuggestersResponse
-buildSuggestersResponse pResponseStatus_ =
+newBuildSuggestersResponse pHttpStatus_ =
   BuildSuggestersResponse'
-    { _bsrrsFieldNames =
-        Nothing,
-      _bsrrsResponseStatus = pResponseStatus_
+    { fieldNames =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-bsrrsFieldNames :: Lens' BuildSuggestersResponse [Text]
-bsrrsFieldNames = lens _bsrrsFieldNames (\s a -> s {_bsrrsFieldNames = a}) . _Default . _Coerce
+buildSuggestersResponse_fieldNames :: Lens.Lens' BuildSuggestersResponse (Prelude.Maybe [Prelude.Text])
+buildSuggestersResponse_fieldNames = Lens.lens (\BuildSuggestersResponse' {fieldNames} -> fieldNames) (\s@BuildSuggestersResponse' {} a -> s {fieldNames = a} :: BuildSuggestersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bsrrsResponseStatus :: Lens' BuildSuggestersResponse Int
-bsrrsResponseStatus = lens _bsrrsResponseStatus (\s a -> s {_bsrrsResponseStatus = a})
+-- | The response's http status code.
+buildSuggestersResponse_httpStatus :: Lens.Lens' BuildSuggestersResponse Prelude.Int
+buildSuggestersResponse_httpStatus = Lens.lens (\BuildSuggestersResponse' {httpStatus} -> httpStatus) (\s@BuildSuggestersResponse' {} a -> s {httpStatus = a} :: BuildSuggestersResponse)
 
-instance NFData BuildSuggestersResponse
+instance Prelude.NFData BuildSuggestersResponse

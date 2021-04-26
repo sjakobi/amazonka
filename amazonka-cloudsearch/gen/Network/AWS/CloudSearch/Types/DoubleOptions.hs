@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,97 +19,112 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types.DoubleOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options for a double-precision 64-bit floating point field. Present if @IndexFieldType@ specifies the field is of type @double@ . All options are enabled by default.
+-- | Options for a double-precision 64-bit floating point field. Present if
+-- @IndexFieldType@ specifies the field is of type @double@. All options
+-- are enabled by default.
 --
---
---
--- /See:/ 'doubleOptions' smart constructor.
+-- /See:/ 'newDoubleOptions' smart constructor.
 data DoubleOptions = DoubleOptions'
-  { _doSortEnabled ::
-      !(Maybe Bool),
-    _doFacetEnabled :: !(Maybe Bool),
-    _doReturnEnabled :: !(Maybe Bool),
-    _doSourceField :: !(Maybe Text),
-    _doSearchEnabled :: !(Maybe Bool),
-    _doDefaultValue :: !(Maybe Double)
+  { -- | Whether the field can be used to sort the search results.
+    sortEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether facet information can be returned for the field.
+    facetEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether the contents of the field can be returned in the search results.
+    returnEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the source field to map to the field.
+    sourceField :: Prelude.Maybe Prelude.Text,
+    -- | Whether the contents of the field are searchable.
+    searchEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A value to use for the field if the field isn\'t specified for a
+    -- document. This can be important if you are using the field in an
+    -- expression and that field is not present in every document.
+    defaultValue :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DoubleOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DoubleOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'doSortEnabled' - Whether the field can be used to sort the search results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'doFacetEnabled' - Whether facet information can be returned for the field.
+-- 'sortEnabled', 'doubleOptions_sortEnabled' - Whether the field can be used to sort the search results.
 --
--- * 'doReturnEnabled' - Whether the contents of the field can be returned in the search results.
+-- 'facetEnabled', 'doubleOptions_facetEnabled' - Whether facet information can be returned for the field.
 --
--- * 'doSourceField' - The name of the source field to map to the field.
+-- 'returnEnabled', 'doubleOptions_returnEnabled' - Whether the contents of the field can be returned in the search results.
 --
--- * 'doSearchEnabled' - Whether the contents of the field are searchable.
+-- 'sourceField', 'doubleOptions_sourceField' - The name of the source field to map to the field.
 --
--- * 'doDefaultValue' - A value to use for the field if the field isn't specified for a document. This can be important if you are using the field in an expression and that field is not present in every document.
-doubleOptions ::
+-- 'searchEnabled', 'doubleOptions_searchEnabled' - Whether the contents of the field are searchable.
+--
+-- 'defaultValue', 'doubleOptions_defaultValue' - A value to use for the field if the field isn\'t specified for a
+-- document. This can be important if you are using the field in an
+-- expression and that field is not present in every document.
+newDoubleOptions ::
   DoubleOptions
-doubleOptions =
+newDoubleOptions =
   DoubleOptions'
-    { _doSortEnabled = Nothing,
-      _doFacetEnabled = Nothing,
-      _doReturnEnabled = Nothing,
-      _doSourceField = Nothing,
-      _doSearchEnabled = Nothing,
-      _doDefaultValue = Nothing
+    { sortEnabled = Prelude.Nothing,
+      facetEnabled = Prelude.Nothing,
+      returnEnabled = Prelude.Nothing,
+      sourceField = Prelude.Nothing,
+      searchEnabled = Prelude.Nothing,
+      defaultValue = Prelude.Nothing
     }
 
 -- | Whether the field can be used to sort the search results.
-doSortEnabled :: Lens' DoubleOptions (Maybe Bool)
-doSortEnabled = lens _doSortEnabled (\s a -> s {_doSortEnabled = a})
+doubleOptions_sortEnabled :: Lens.Lens' DoubleOptions (Prelude.Maybe Prelude.Bool)
+doubleOptions_sortEnabled = Lens.lens (\DoubleOptions' {sortEnabled} -> sortEnabled) (\s@DoubleOptions' {} a -> s {sortEnabled = a} :: DoubleOptions)
 
 -- | Whether facet information can be returned for the field.
-doFacetEnabled :: Lens' DoubleOptions (Maybe Bool)
-doFacetEnabled = lens _doFacetEnabled (\s a -> s {_doFacetEnabled = a})
+doubleOptions_facetEnabled :: Lens.Lens' DoubleOptions (Prelude.Maybe Prelude.Bool)
+doubleOptions_facetEnabled = Lens.lens (\DoubleOptions' {facetEnabled} -> facetEnabled) (\s@DoubleOptions' {} a -> s {facetEnabled = a} :: DoubleOptions)
 
 -- | Whether the contents of the field can be returned in the search results.
-doReturnEnabled :: Lens' DoubleOptions (Maybe Bool)
-doReturnEnabled = lens _doReturnEnabled (\s a -> s {_doReturnEnabled = a})
+doubleOptions_returnEnabled :: Lens.Lens' DoubleOptions (Prelude.Maybe Prelude.Bool)
+doubleOptions_returnEnabled = Lens.lens (\DoubleOptions' {returnEnabled} -> returnEnabled) (\s@DoubleOptions' {} a -> s {returnEnabled = a} :: DoubleOptions)
 
 -- | The name of the source field to map to the field.
-doSourceField :: Lens' DoubleOptions (Maybe Text)
-doSourceField = lens _doSourceField (\s a -> s {_doSourceField = a})
+doubleOptions_sourceField :: Lens.Lens' DoubleOptions (Prelude.Maybe Prelude.Text)
+doubleOptions_sourceField = Lens.lens (\DoubleOptions' {sourceField} -> sourceField) (\s@DoubleOptions' {} a -> s {sourceField = a} :: DoubleOptions)
 
 -- | Whether the contents of the field are searchable.
-doSearchEnabled :: Lens' DoubleOptions (Maybe Bool)
-doSearchEnabled = lens _doSearchEnabled (\s a -> s {_doSearchEnabled = a})
+doubleOptions_searchEnabled :: Lens.Lens' DoubleOptions (Prelude.Maybe Prelude.Bool)
+doubleOptions_searchEnabled = Lens.lens (\DoubleOptions' {searchEnabled} -> searchEnabled) (\s@DoubleOptions' {} a -> s {searchEnabled = a} :: DoubleOptions)
 
--- | A value to use for the field if the field isn't specified for a document. This can be important if you are using the field in an expression and that field is not present in every document.
-doDefaultValue :: Lens' DoubleOptions (Maybe Double)
-doDefaultValue = lens _doDefaultValue (\s a -> s {_doDefaultValue = a})
+-- | A value to use for the field if the field isn\'t specified for a
+-- document. This can be important if you are using the field in an
+-- expression and that field is not present in every document.
+doubleOptions_defaultValue :: Lens.Lens' DoubleOptions (Prelude.Maybe Prelude.Double)
+doubleOptions_defaultValue = Lens.lens (\DoubleOptions' {defaultValue} -> defaultValue) (\s@DoubleOptions' {} a -> s {defaultValue = a} :: DoubleOptions)
 
-instance FromXML DoubleOptions where
+instance Prelude.FromXML DoubleOptions where
   parseXML x =
     DoubleOptions'
-      <$> (x .@? "SortEnabled")
-      <*> (x .@? "FacetEnabled")
-      <*> (x .@? "ReturnEnabled")
-      <*> (x .@? "SourceField")
-      <*> (x .@? "SearchEnabled")
-      <*> (x .@? "DefaultValue")
+      Prelude.<$> (x Prelude..@? "SortEnabled")
+      Prelude.<*> (x Prelude..@? "FacetEnabled")
+      Prelude.<*> (x Prelude..@? "ReturnEnabled")
+      Prelude.<*> (x Prelude..@? "SourceField")
+      Prelude.<*> (x Prelude..@? "SearchEnabled")
+      Prelude.<*> (x Prelude..@? "DefaultValue")
 
-instance Hashable DoubleOptions
+instance Prelude.Hashable DoubleOptions
 
-instance NFData DoubleOptions
+instance Prelude.NFData DoubleOptions
 
-instance ToQuery DoubleOptions where
+instance Prelude.ToQuery DoubleOptions where
   toQuery DoubleOptions' {..} =
-    mconcat
-      [ "SortEnabled" =: _doSortEnabled,
-        "FacetEnabled" =: _doFacetEnabled,
-        "ReturnEnabled" =: _doReturnEnabled,
-        "SourceField" =: _doSourceField,
-        "SearchEnabled" =: _doSearchEnabled,
-        "DefaultValue" =: _doDefaultValue
+    Prelude.mconcat
+      [ "SortEnabled" Prelude.=: sortEnabled,
+        "FacetEnabled" Prelude.=: facetEnabled,
+        "ReturnEnabled" Prelude.=: returnEnabled,
+        "SourceField" Prelude.=: sourceField,
+        "SearchEnabled" Prelude.=: searchEnabled,
+        "DefaultValue" Prelude.=: defaultValue
       ]

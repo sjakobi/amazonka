@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,98 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types.IntArrayOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options for a field that contains an array of 64-bit signed integers. Present if @IndexFieldType@ specifies the field is of type @int-array@ . All options are enabled by default.
+-- | Options for a field that contains an array of 64-bit signed integers.
+-- Present if @IndexFieldType@ specifies the field is of type @int-array@.
+-- All options are enabled by default.
 --
---
---
--- /See:/ 'intArrayOptions' smart constructor.
+-- /See:/ 'newIntArrayOptions' smart constructor.
 data IntArrayOptions = IntArrayOptions'
-  { _iaoSourceFields ::
-      !(Maybe Text),
-    _iaoFacetEnabled :: !(Maybe Bool),
-    _iaoReturnEnabled :: !(Maybe Bool),
-    _iaoSearchEnabled :: !(Maybe Bool),
-    _iaoDefaultValue :: !(Maybe Integer)
+  { -- | A list of source fields to map to the field.
+    sourceFields :: Prelude.Maybe Prelude.Text,
+    -- | Whether facet information can be returned for the field.
+    facetEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether the contents of the field can be returned in the search results.
+    returnEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether the contents of the field are searchable.
+    searchEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A value to use for the field if the field isn\'t specified for a
+    -- document.
+    defaultValue :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IntArrayOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IntArrayOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iaoSourceFields' - A list of source fields to map to the field.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iaoFacetEnabled' - Whether facet information can be returned for the field.
+-- 'sourceFields', 'intArrayOptions_sourceFields' - A list of source fields to map to the field.
 --
--- * 'iaoReturnEnabled' - Whether the contents of the field can be returned in the search results.
+-- 'facetEnabled', 'intArrayOptions_facetEnabled' - Whether facet information can be returned for the field.
 --
--- * 'iaoSearchEnabled' - Whether the contents of the field are searchable.
+-- 'returnEnabled', 'intArrayOptions_returnEnabled' - Whether the contents of the field can be returned in the search results.
 --
--- * 'iaoDefaultValue' - A value to use for the field if the field isn't specified for a document.
-intArrayOptions ::
+-- 'searchEnabled', 'intArrayOptions_searchEnabled' - Whether the contents of the field are searchable.
+--
+-- 'defaultValue', 'intArrayOptions_defaultValue' - A value to use for the field if the field isn\'t specified for a
+-- document.
+newIntArrayOptions ::
   IntArrayOptions
-intArrayOptions =
+newIntArrayOptions =
   IntArrayOptions'
-    { _iaoSourceFields = Nothing,
-      _iaoFacetEnabled = Nothing,
-      _iaoReturnEnabled = Nothing,
-      _iaoSearchEnabled = Nothing,
-      _iaoDefaultValue = Nothing
+    { sourceFields = Prelude.Nothing,
+      facetEnabled = Prelude.Nothing,
+      returnEnabled = Prelude.Nothing,
+      searchEnabled = Prelude.Nothing,
+      defaultValue = Prelude.Nothing
     }
 
 -- | A list of source fields to map to the field.
-iaoSourceFields :: Lens' IntArrayOptions (Maybe Text)
-iaoSourceFields = lens _iaoSourceFields (\s a -> s {_iaoSourceFields = a})
+intArrayOptions_sourceFields :: Lens.Lens' IntArrayOptions (Prelude.Maybe Prelude.Text)
+intArrayOptions_sourceFields = Lens.lens (\IntArrayOptions' {sourceFields} -> sourceFields) (\s@IntArrayOptions' {} a -> s {sourceFields = a} :: IntArrayOptions)
 
 -- | Whether facet information can be returned for the field.
-iaoFacetEnabled :: Lens' IntArrayOptions (Maybe Bool)
-iaoFacetEnabled = lens _iaoFacetEnabled (\s a -> s {_iaoFacetEnabled = a})
+intArrayOptions_facetEnabled :: Lens.Lens' IntArrayOptions (Prelude.Maybe Prelude.Bool)
+intArrayOptions_facetEnabled = Lens.lens (\IntArrayOptions' {facetEnabled} -> facetEnabled) (\s@IntArrayOptions' {} a -> s {facetEnabled = a} :: IntArrayOptions)
 
 -- | Whether the contents of the field can be returned in the search results.
-iaoReturnEnabled :: Lens' IntArrayOptions (Maybe Bool)
-iaoReturnEnabled = lens _iaoReturnEnabled (\s a -> s {_iaoReturnEnabled = a})
+intArrayOptions_returnEnabled :: Lens.Lens' IntArrayOptions (Prelude.Maybe Prelude.Bool)
+intArrayOptions_returnEnabled = Lens.lens (\IntArrayOptions' {returnEnabled} -> returnEnabled) (\s@IntArrayOptions' {} a -> s {returnEnabled = a} :: IntArrayOptions)
 
 -- | Whether the contents of the field are searchable.
-iaoSearchEnabled :: Lens' IntArrayOptions (Maybe Bool)
-iaoSearchEnabled = lens _iaoSearchEnabled (\s a -> s {_iaoSearchEnabled = a})
+intArrayOptions_searchEnabled :: Lens.Lens' IntArrayOptions (Prelude.Maybe Prelude.Bool)
+intArrayOptions_searchEnabled = Lens.lens (\IntArrayOptions' {searchEnabled} -> searchEnabled) (\s@IntArrayOptions' {} a -> s {searchEnabled = a} :: IntArrayOptions)
 
--- | A value to use for the field if the field isn't specified for a document.
-iaoDefaultValue :: Lens' IntArrayOptions (Maybe Integer)
-iaoDefaultValue = lens _iaoDefaultValue (\s a -> s {_iaoDefaultValue = a})
+-- | A value to use for the field if the field isn\'t specified for a
+-- document.
+intArrayOptions_defaultValue :: Lens.Lens' IntArrayOptions (Prelude.Maybe Prelude.Integer)
+intArrayOptions_defaultValue = Lens.lens (\IntArrayOptions' {defaultValue} -> defaultValue) (\s@IntArrayOptions' {} a -> s {defaultValue = a} :: IntArrayOptions)
 
-instance FromXML IntArrayOptions where
+instance Prelude.FromXML IntArrayOptions where
   parseXML x =
     IntArrayOptions'
-      <$> (x .@? "SourceFields")
-      <*> (x .@? "FacetEnabled")
-      <*> (x .@? "ReturnEnabled")
-      <*> (x .@? "SearchEnabled")
-      <*> (x .@? "DefaultValue")
+      Prelude.<$> (x Prelude..@? "SourceFields")
+      Prelude.<*> (x Prelude..@? "FacetEnabled")
+      Prelude.<*> (x Prelude..@? "ReturnEnabled")
+      Prelude.<*> (x Prelude..@? "SearchEnabled")
+      Prelude.<*> (x Prelude..@? "DefaultValue")
 
-instance Hashable IntArrayOptions
+instance Prelude.Hashable IntArrayOptions
 
-instance NFData IntArrayOptions
+instance Prelude.NFData IntArrayOptions
 
-instance ToQuery IntArrayOptions where
+instance Prelude.ToQuery IntArrayOptions where
   toQuery IntArrayOptions' {..} =
-    mconcat
-      [ "SourceFields" =: _iaoSourceFields,
-        "FacetEnabled" =: _iaoFacetEnabled,
-        "ReturnEnabled" =: _iaoReturnEnabled,
-        "SearchEnabled" =: _iaoSearchEnabled,
-        "DefaultValue" =: _iaoDefaultValue
+    Prelude.mconcat
+      [ "SourceFields" Prelude.=: sourceFields,
+        "FacetEnabled" Prelude.=: facetEnabled,
+        "ReturnEnabled" Prelude.=: returnEnabled,
+        "SearchEnabled" Prelude.=: searchEnabled,
+        "DefaultValue" Prelude.=: defaultValue
       ]

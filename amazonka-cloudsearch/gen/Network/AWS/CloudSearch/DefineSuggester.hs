@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Configures a suggester for a domain. A suggester enables you to display possible matches before users finish typing their queries. When you configure a suggester, you must specify the name of the text field you want to search for possible matches and a unique name for the suggester. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html Getting Search Suggestions> in the /Amazon CloudSearch Developer Guide/ .
+-- Configures a suggester for a domain. A suggester enables you to display
+-- possible matches before users finish typing their queries. When you
+-- configure a suggester, you must specify the name of the text field you
+-- want to search for possible matches and a unique name for the suggester.
+-- For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html Getting Search Suggestions>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DefineSuggester
   ( -- * Creating a Request
-    defineSuggester,
-    DefineSuggester,
+    DefineSuggester (..),
+    newDefineSuggester,
 
     -- * Request Lenses
-    dDomainName,
-    dSuggester,
+    defineSuggester_domainName,
+    defineSuggester_suggester,
 
     -- * Destructuring the Response
-    defineSuggesterResponse,
-    DefineSuggesterResponse,
+    DefineSuggesterResponse (..),
+    newDefineSuggesterResponse,
 
     -- * Response Lenses
-    dsrsrsResponseStatus,
-    dsrsrsSuggester,
+    defineSuggesterResponse_httpStatus,
+    defineSuggesterResponse_suggester,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.SuggesterStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DefineSuggester' @ operation. Specifies the name of the domain you want to update and the suggester configuration.
+-- | Container for the parameters to the @DefineSuggester@ operation.
+-- Specifies the name of the domain you want to update and the suggester
+-- configuration.
 --
---
---
--- /See:/ 'defineSuggester' smart constructor.
+-- /See:/ 'newDefineSuggester' smart constructor.
 data DefineSuggester = DefineSuggester'
-  { _dDomainName ::
-      !Text,
-    _dSuggester :: !Suggester
+  { domainName :: Prelude.Text,
+    suggester :: Suggester
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DefineSuggester' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DefineSuggester' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dDomainName' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dSuggester' - Undocumented member.
-defineSuggester ::
-  -- | 'dDomainName'
-  Text ->
-  -- | 'dSuggester'
+-- 'domainName', 'defineSuggester_domainName' - Undocumented member.
+--
+-- 'suggester', 'defineSuggester_suggester' - Undocumented member.
+newDefineSuggester ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'suggester'
   Suggester ->
   DefineSuggester
-defineSuggester pDomainName_ pSuggester_ =
+newDefineSuggester pDomainName_ pSuggester_ =
   DefineSuggester'
-    { _dDomainName = pDomainName_,
-      _dSuggester = pSuggester_
+    { domainName = pDomainName_,
+      suggester = pSuggester_
     }
 
 -- | Undocumented member.
-dDomainName :: Lens' DefineSuggester Text
-dDomainName = lens _dDomainName (\s a -> s {_dDomainName = a})
+defineSuggester_domainName :: Lens.Lens' DefineSuggester Prelude.Text
+defineSuggester_domainName = Lens.lens (\DefineSuggester' {domainName} -> domainName) (\s@DefineSuggester' {} a -> s {domainName = a} :: DefineSuggester)
 
 -- | Undocumented member.
-dSuggester :: Lens' DefineSuggester Suggester
-dSuggester = lens _dSuggester (\s a -> s {_dSuggester = a})
+defineSuggester_suggester :: Lens.Lens' DefineSuggester Suggester
+defineSuggester_suggester = Lens.lens (\DefineSuggester' {suggester} -> suggester) (\s@DefineSuggester' {} a -> s {suggester = a} :: DefineSuggester)
 
-instance AWSRequest DefineSuggester where
+instance Prelude.AWSRequest DefineSuggester where
   type Rs DefineSuggester = DefineSuggesterResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DefineSuggesterResult"
       ( \s h x ->
           DefineSuggesterResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "Suggester")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "Suggester")
       )
 
-instance Hashable DefineSuggester
+instance Prelude.Hashable DefineSuggester
 
-instance NFData DefineSuggester
+instance Prelude.NFData DefineSuggester
 
-instance ToHeaders DefineSuggester where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DefineSuggester where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DefineSuggester where
-  toPath = const "/"
+instance Prelude.ToPath DefineSuggester where
+  toPath = Prelude.const "/"
 
-instance ToQuery DefineSuggester where
+instance Prelude.ToQuery DefineSuggester where
   toQuery DefineSuggester' {..} =
-    mconcat
-      [ "Action" =: ("DefineSuggester" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "DomainName" =: _dDomainName,
-        "Suggester" =: _dSuggester
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DefineSuggester" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName,
+        "Suggester" Prelude.=: suggester
       ]
 
--- | The result of a @DefineSuggester@ request. Contains the status of the newly-configured suggester.
+-- | The result of a @DefineSuggester@ request. Contains the status of the
+-- newly-configured suggester.
 --
---
---
--- /See:/ 'defineSuggesterResponse' smart constructor.
+-- /See:/ 'newDefineSuggesterResponse' smart constructor.
 data DefineSuggesterResponse = DefineSuggesterResponse'
-  { _dsrsrsResponseStatus ::
-      !Int,
-    _dsrsrsSuggester ::
-      !SuggesterStatus
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    suggester :: SuggesterStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DefineSuggesterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DefineSuggesterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrsrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrsrsSuggester' - Undocumented member.
-defineSuggesterResponse ::
-  -- | 'dsrsrsResponseStatus'
-  Int ->
-  -- | 'dsrsrsSuggester'
+-- 'httpStatus', 'defineSuggesterResponse_httpStatus' - The response's http status code.
+--
+-- 'suggester', 'defineSuggesterResponse_suggester' - Undocumented member.
+newDefineSuggesterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'suggester'
   SuggesterStatus ->
   DefineSuggesterResponse
-defineSuggesterResponse pResponseStatus_ pSuggester_ =
+newDefineSuggesterResponse pHttpStatus_ pSuggester_ =
   DefineSuggesterResponse'
-    { _dsrsrsResponseStatus =
-        pResponseStatus_,
-      _dsrsrsSuggester = pSuggester_
+    { httpStatus = pHttpStatus_,
+      suggester = pSuggester_
     }
 
--- | -- | The response status code.
-dsrsrsResponseStatus :: Lens' DefineSuggesterResponse Int
-dsrsrsResponseStatus = lens _dsrsrsResponseStatus (\s a -> s {_dsrsrsResponseStatus = a})
+-- | The response's http status code.
+defineSuggesterResponse_httpStatus :: Lens.Lens' DefineSuggesterResponse Prelude.Int
+defineSuggesterResponse_httpStatus = Lens.lens (\DefineSuggesterResponse' {httpStatus} -> httpStatus) (\s@DefineSuggesterResponse' {} a -> s {httpStatus = a} :: DefineSuggesterResponse)
 
 -- | Undocumented member.
-dsrsrsSuggester :: Lens' DefineSuggesterResponse SuggesterStatus
-dsrsrsSuggester = lens _dsrsrsSuggester (\s a -> s {_dsrsrsSuggester = a})
+defineSuggesterResponse_suggester :: Lens.Lens' DefineSuggesterResponse SuggesterStatus
+defineSuggesterResponse_suggester = Lens.lens (\DefineSuggesterResponse' {suggester} -> suggester) (\s@DefineSuggesterResponse' {} a -> s {suggester = a} :: DefineSuggesterResponse)
 
-instance NFData DefineSuggesterResponse
+instance Prelude.NFData DefineSuggesterResponse

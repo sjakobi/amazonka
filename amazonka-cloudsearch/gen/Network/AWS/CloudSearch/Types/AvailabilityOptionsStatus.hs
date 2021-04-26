@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,61 +20,56 @@
 module Network.AWS.CloudSearch.Types.AvailabilityOptionsStatus where
 
 import Network.AWS.CloudSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The status and configuration of the domain's availability options.
+-- | The status and configuration of the domain\'s availability options.
 --
---
---
--- /See:/ 'availabilityOptionsStatus' smart constructor.
+-- /See:/ 'newAvailabilityOptionsStatus' smart constructor.
 data AvailabilityOptionsStatus = AvailabilityOptionsStatus'
-  { _aosOptions ::
-      !Bool,
-    _aosStatus ::
-      !OptionStatus
+  { -- | The availability options configured for the domain.
+    options :: Prelude.Bool,
+    status :: OptionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AvailabilityOptionsStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AvailabilityOptionsStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aosOptions' - The availability options configured for the domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aosStatus' - Undocumented member.
-availabilityOptionsStatus ::
-  -- | 'aosOptions'
-  Bool ->
-  -- | 'aosStatus'
+-- 'options', 'availabilityOptionsStatus_options' - The availability options configured for the domain.
+--
+-- 'status', 'availabilityOptionsStatus_status' - Undocumented member.
+newAvailabilityOptionsStatus ::
+  -- | 'options'
+  Prelude.Bool ->
+  -- | 'status'
   OptionStatus ->
   AvailabilityOptionsStatus
-availabilityOptionsStatus pOptions_ pStatus_ =
+newAvailabilityOptionsStatus pOptions_ pStatus_ =
   AvailabilityOptionsStatus'
-    { _aosOptions = pOptions_,
-      _aosStatus = pStatus_
+    { options = pOptions_,
+      status = pStatus_
     }
 
 -- | The availability options configured for the domain.
-aosOptions :: Lens' AvailabilityOptionsStatus Bool
-aosOptions = lens _aosOptions (\s a -> s {_aosOptions = a})
+availabilityOptionsStatus_options :: Lens.Lens' AvailabilityOptionsStatus Prelude.Bool
+availabilityOptionsStatus_options = Lens.lens (\AvailabilityOptionsStatus' {options} -> options) (\s@AvailabilityOptionsStatus' {} a -> s {options = a} :: AvailabilityOptionsStatus)
 
 -- | Undocumented member.
-aosStatus :: Lens' AvailabilityOptionsStatus OptionStatus
-aosStatus = lens _aosStatus (\s a -> s {_aosStatus = a})
+availabilityOptionsStatus_status :: Lens.Lens' AvailabilityOptionsStatus OptionStatus
+availabilityOptionsStatus_status = Lens.lens (\AvailabilityOptionsStatus' {status} -> status) (\s@AvailabilityOptionsStatus' {} a -> s {status = a} :: AvailabilityOptionsStatus)
 
-instance FromXML AvailabilityOptionsStatus where
+instance Prelude.FromXML AvailabilityOptionsStatus where
   parseXML x =
     AvailabilityOptionsStatus'
-      <$> (x .@ "Options") <*> (x .@ "Status")
+      Prelude.<$> (x Prelude..@ "Options")
+      Prelude.<*> (x Prelude..@ "Status")
 
-instance Hashable AvailabilityOptionsStatus
+instance Prelude.Hashable AvailabilityOptionsStatus
 
-instance NFData AvailabilityOptionsStatus
+instance Prelude.NFData AvailabilityOptionsStatus

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,113 +19,112 @@
 module Network.AWS.CloudSearch.Types.PartitionInstanceType
   ( PartitionInstanceType
       ( ..,
-        Search_2XLarge,
-        Search_Large,
-        Search_M1_Large,
-        Search_M1_Small,
-        Search_M2_2XLarge,
-        Search_M2_XLarge,
-        Search_M3_2XLarge,
-        Search_M3_Large,
-        Search_M3_Medium,
-        Search_M3_XLarge,
-        Search_Medium,
-        Search_Small,
-        Search_XLarge
+        PartitionInstanceTypeSearch_2xlarge,
+        PartitionInstanceTypeSearch_Large,
+        PartitionInstanceTypeSearch_M1_Large,
+        PartitionInstanceTypeSearch_M1_Small,
+        PartitionInstanceTypeSearch_M2_2xlarge,
+        PartitionInstanceTypeSearch_M2_Xlarge,
+        PartitionInstanceTypeSearch_M3_2xlarge,
+        PartitionInstanceTypeSearch_M3_Large,
+        PartitionInstanceTypeSearch_M3_Medium,
+        PartitionInstanceTypeSearch_M3_Xlarge,
+        PartitionInstanceTypeSearch_Medium,
+        PartitionInstanceTypeSearch_Small,
+        PartitionInstanceTypeSearch_Xlarge
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The instance type (such as @search.m1.small@ ) on which an index partition is hosted.
-data PartitionInstanceType
-  = PartitionInstanceType'
-      ( CI
-          Text
-      )
+-- | The instance type (such as @search.m1.small@) on which an index
+-- partition is hosted.
+newtype PartitionInstanceType = PartitionInstanceType'
+  { fromPartitionInstanceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Search_2XLarge :: PartitionInstanceType
-pattern Search_2XLarge = PartitionInstanceType' "search.2xlarge"
+pattern PartitionInstanceTypeSearch_2xlarge :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_2xlarge = PartitionInstanceType' "search.2xlarge"
 
-pattern Search_Large :: PartitionInstanceType
-pattern Search_Large = PartitionInstanceType' "search.large"
+pattern PartitionInstanceTypeSearch_Large :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_Large = PartitionInstanceType' "search.large"
 
-pattern Search_M1_Large :: PartitionInstanceType
-pattern Search_M1_Large = PartitionInstanceType' "search.m1.large"
+pattern PartitionInstanceTypeSearch_M1_Large :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_M1_Large = PartitionInstanceType' "search.m1.large"
 
-pattern Search_M1_Small :: PartitionInstanceType
-pattern Search_M1_Small = PartitionInstanceType' "search.m1.small"
+pattern PartitionInstanceTypeSearch_M1_Small :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_M1_Small = PartitionInstanceType' "search.m1.small"
 
-pattern Search_M2_2XLarge :: PartitionInstanceType
-pattern Search_M2_2XLarge = PartitionInstanceType' "search.m2.2xlarge"
+pattern PartitionInstanceTypeSearch_M2_2xlarge :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_M2_2xlarge = PartitionInstanceType' "search.m2.2xlarge"
 
-pattern Search_M2_XLarge :: PartitionInstanceType
-pattern Search_M2_XLarge = PartitionInstanceType' "search.m2.xlarge"
+pattern PartitionInstanceTypeSearch_M2_Xlarge :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_M2_Xlarge = PartitionInstanceType' "search.m2.xlarge"
 
-pattern Search_M3_2XLarge :: PartitionInstanceType
-pattern Search_M3_2XLarge = PartitionInstanceType' "search.m3.2xlarge"
+pattern PartitionInstanceTypeSearch_M3_2xlarge :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_M3_2xlarge = PartitionInstanceType' "search.m3.2xlarge"
 
-pattern Search_M3_Large :: PartitionInstanceType
-pattern Search_M3_Large = PartitionInstanceType' "search.m3.large"
+pattern PartitionInstanceTypeSearch_M3_Large :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_M3_Large = PartitionInstanceType' "search.m3.large"
 
-pattern Search_M3_Medium :: PartitionInstanceType
-pattern Search_M3_Medium = PartitionInstanceType' "search.m3.medium"
+pattern PartitionInstanceTypeSearch_M3_Medium :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_M3_Medium = PartitionInstanceType' "search.m3.medium"
 
-pattern Search_M3_XLarge :: PartitionInstanceType
-pattern Search_M3_XLarge = PartitionInstanceType' "search.m3.xlarge"
+pattern PartitionInstanceTypeSearch_M3_Xlarge :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_M3_Xlarge = PartitionInstanceType' "search.m3.xlarge"
 
-pattern Search_Medium :: PartitionInstanceType
-pattern Search_Medium = PartitionInstanceType' "search.medium"
+pattern PartitionInstanceTypeSearch_Medium :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_Medium = PartitionInstanceType' "search.medium"
 
-pattern Search_Small :: PartitionInstanceType
-pattern Search_Small = PartitionInstanceType' "search.small"
+pattern PartitionInstanceTypeSearch_Small :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_Small = PartitionInstanceType' "search.small"
 
-pattern Search_XLarge :: PartitionInstanceType
-pattern Search_XLarge = PartitionInstanceType' "search.xlarge"
+pattern PartitionInstanceTypeSearch_Xlarge :: PartitionInstanceType
+pattern PartitionInstanceTypeSearch_Xlarge = PartitionInstanceType' "search.xlarge"
 
 {-# COMPLETE
-  Search_2XLarge,
-  Search_Large,
-  Search_M1_Large,
-  Search_M1_Small,
-  Search_M2_2XLarge,
-  Search_M2_XLarge,
-  Search_M3_2XLarge,
-  Search_M3_Large,
-  Search_M3_Medium,
-  Search_M3_XLarge,
-  Search_Medium,
-  Search_Small,
-  Search_XLarge,
+  PartitionInstanceTypeSearch_2xlarge,
+  PartitionInstanceTypeSearch_Large,
+  PartitionInstanceTypeSearch_M1_Large,
+  PartitionInstanceTypeSearch_M1_Small,
+  PartitionInstanceTypeSearch_M2_2xlarge,
+  PartitionInstanceTypeSearch_M2_Xlarge,
+  PartitionInstanceTypeSearch_M3_2xlarge,
+  PartitionInstanceTypeSearch_M3_Large,
+  PartitionInstanceTypeSearch_M3_Medium,
+  PartitionInstanceTypeSearch_M3_Xlarge,
+  PartitionInstanceTypeSearch_Medium,
+  PartitionInstanceTypeSearch_Small,
+  PartitionInstanceTypeSearch_Xlarge,
   PartitionInstanceType'
   #-}
 
-instance FromText PartitionInstanceType where
-  parser = (PartitionInstanceType' . mk) <$> takeText
+instance Prelude.FromText PartitionInstanceType where
+  parser = PartitionInstanceType' Prelude.<$> Prelude.takeText
 
-instance ToText PartitionInstanceType where
-  toText (PartitionInstanceType' ci) = original ci
+instance Prelude.ToText PartitionInstanceType where
+  toText (PartitionInstanceType' x) = x
 
-instance Hashable PartitionInstanceType
+instance Prelude.Hashable PartitionInstanceType
 
-instance NFData PartitionInstanceType
+instance Prelude.NFData PartitionInstanceType
 
-instance ToByteString PartitionInstanceType
+instance Prelude.ToByteString PartitionInstanceType
 
-instance ToQuery PartitionInstanceType
+instance Prelude.ToQuery PartitionInstanceType
 
-instance ToHeader PartitionInstanceType
+instance Prelude.ToHeader PartitionInstanceType
 
-instance FromXML PartitionInstanceType where
-  parseXML = parseXMLText "PartitionInstanceType"
+instance Prelude.FromXML PartitionInstanceType where
+  parseXML = Prelude.parseXMLText "PartitionInstanceType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +21,55 @@ module Network.AWS.CloudSearch.Types.SuggesterStatus where
 
 import Network.AWS.CloudSearch.Types.OptionStatus
 import Network.AWS.CloudSearch.Types.Suggester
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The value of a @Suggester@ and its current status.
 --
---
---
--- /See:/ 'suggesterStatus' smart constructor.
+-- /See:/ 'newSuggesterStatus' smart constructor.
 data SuggesterStatus = SuggesterStatus'
-  { _ssOptions ::
-      !Suggester,
-    _ssStatus :: !OptionStatus
+  { options :: Suggester,
+    status :: OptionStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SuggesterStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SuggesterStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssOptions' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssStatus' - Undocumented member.
-suggesterStatus ::
-  -- | 'ssOptions'
+-- 'options', 'suggesterStatus_options' - Undocumented member.
+--
+-- 'status', 'suggesterStatus_status' - Undocumented member.
+newSuggesterStatus ::
+  -- | 'options'
   Suggester ->
-  -- | 'ssStatus'
+  -- | 'status'
   OptionStatus ->
   SuggesterStatus
-suggesterStatus pOptions_ pStatus_ =
+newSuggesterStatus pOptions_ pStatus_ =
   SuggesterStatus'
-    { _ssOptions = pOptions_,
-      _ssStatus = pStatus_
+    { options = pOptions_,
+      status = pStatus_
     }
 
 -- | Undocumented member.
-ssOptions :: Lens' SuggesterStatus Suggester
-ssOptions = lens _ssOptions (\s a -> s {_ssOptions = a})
+suggesterStatus_options :: Lens.Lens' SuggesterStatus Suggester
+suggesterStatus_options = Lens.lens (\SuggesterStatus' {options} -> options) (\s@SuggesterStatus' {} a -> s {options = a} :: SuggesterStatus)
 
 -- | Undocumented member.
-ssStatus :: Lens' SuggesterStatus OptionStatus
-ssStatus = lens _ssStatus (\s a -> s {_ssStatus = a})
+suggesterStatus_status :: Lens.Lens' SuggesterStatus OptionStatus
+suggesterStatus_status = Lens.lens (\SuggesterStatus' {status} -> status) (\s@SuggesterStatus' {} a -> s {status = a} :: SuggesterStatus)
 
-instance FromXML SuggesterStatus where
+instance Prelude.FromXML SuggesterStatus where
   parseXML x =
     SuggesterStatus'
-      <$> (x .@ "Options") <*> (x .@ "Status")
+      Prelude.<$> (x Prelude..@ "Options")
+      Prelude.<*> (x Prelude..@ "Status")
 
-instance Hashable SuggesterStatus
+instance Prelude.Hashable SuggesterStatus
 
-instance NFData SuggesterStatus
+instance Prelude.NFData SuggesterStatus

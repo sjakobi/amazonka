@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes an @'IndexField' @ from the search domain. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-index-fields.html Configuring Index Fields> in the /Amazon CloudSearch Developer Guide/ .
+-- Removes an @IndexField@ from the search domain. For more information,
+-- see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-index-fields.html Configuring Index Fields>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DeleteIndexField
   ( -- * Creating a Request
-    deleteIndexField,
-    DeleteIndexField,
+    DeleteIndexField (..),
+    newDeleteIndexField,
 
     -- * Request Lenses
-    difDomainName,
-    difIndexFieldName,
+    deleteIndexField_domainName,
+    deleteIndexField_indexFieldName,
 
     -- * Destructuring the Response
-    deleteIndexFieldResponse,
-    DeleteIndexFieldResponse,
+    DeleteIndexFieldResponse (..),
+    newDeleteIndexFieldResponse,
 
     -- * Response Lenses
-    difrirsResponseStatus,
-    difrirsIndexField,
+    deleteIndexFieldResponse_httpStatus,
+    deleteIndexFieldResponse_indexField,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.IndexFieldStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DeleteIndexField' @ operation. Specifies the name of the domain you want to update and the name of the index field you want to delete.
+-- | Container for the parameters to the @DeleteIndexField@ operation.
+-- Specifies the name of the domain you want to update and the name of the
+-- index field you want to delete.
 --
---
---
--- /See:/ 'deleteIndexField' smart constructor.
+-- /See:/ 'newDeleteIndexField' smart constructor.
 data DeleteIndexField = DeleteIndexField'
-  { _difDomainName ::
-      !Text,
-    _difIndexFieldName :: !Text
+  { domainName :: Prelude.Text,
+    -- | The name of the index field your want to remove from the domain\'s
+    -- indexing options.
+    indexFieldName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIndexField' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteIndexField' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'difDomainName' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'difIndexFieldName' - The name of the index field your want to remove from the domain's indexing options.
-deleteIndexField ::
-  -- | 'difDomainName'
-  Text ->
-  -- | 'difIndexFieldName'
-  Text ->
+-- 'domainName', 'deleteIndexField_domainName' - Undocumented member.
+--
+-- 'indexFieldName', 'deleteIndexField_indexFieldName' - The name of the index field your want to remove from the domain\'s
+-- indexing options.
+newDeleteIndexField ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'indexFieldName'
+  Prelude.Text ->
   DeleteIndexField
-deleteIndexField pDomainName_ pIndexFieldName_ =
+newDeleteIndexField pDomainName_ pIndexFieldName_ =
   DeleteIndexField'
-    { _difDomainName = pDomainName_,
-      _difIndexFieldName = pIndexFieldName_
+    { domainName = pDomainName_,
+      indexFieldName = pIndexFieldName_
     }
 
 -- | Undocumented member.
-difDomainName :: Lens' DeleteIndexField Text
-difDomainName = lens _difDomainName (\s a -> s {_difDomainName = a})
+deleteIndexField_domainName :: Lens.Lens' DeleteIndexField Prelude.Text
+deleteIndexField_domainName = Lens.lens (\DeleteIndexField' {domainName} -> domainName) (\s@DeleteIndexField' {} a -> s {domainName = a} :: DeleteIndexField)
 
--- | The name of the index field your want to remove from the domain's indexing options.
-difIndexFieldName :: Lens' DeleteIndexField Text
-difIndexFieldName = lens _difIndexFieldName (\s a -> s {_difIndexFieldName = a})
+-- | The name of the index field your want to remove from the domain\'s
+-- indexing options.
+deleteIndexField_indexFieldName :: Lens.Lens' DeleteIndexField Prelude.Text
+deleteIndexField_indexFieldName = Lens.lens (\DeleteIndexField' {indexFieldName} -> indexFieldName) (\s@DeleteIndexField' {} a -> s {indexFieldName = a} :: DeleteIndexField)
 
-instance AWSRequest DeleteIndexField where
+instance Prelude.AWSRequest DeleteIndexField where
   type Rs DeleteIndexField = DeleteIndexFieldResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteIndexFieldResult"
       ( \s h x ->
           DeleteIndexFieldResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "IndexField")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "IndexField")
       )
 
-instance Hashable DeleteIndexField
+instance Prelude.Hashable DeleteIndexField
 
-instance NFData DeleteIndexField
+instance Prelude.NFData DeleteIndexField
 
-instance ToHeaders DeleteIndexField where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteIndexField where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteIndexField where
-  toPath = const "/"
+instance Prelude.ToPath DeleteIndexField where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteIndexField where
+instance Prelude.ToQuery DeleteIndexField where
   toQuery DeleteIndexField' {..} =
-    mconcat
-      [ "Action" =: ("DeleteIndexField" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "DomainName" =: _difDomainName,
-        "IndexFieldName" =: _difIndexFieldName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteIndexField" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName,
+        "IndexFieldName" Prelude.=: indexFieldName
       ]
 
--- | The result of a @'DeleteIndexField' @ request.
+-- | The result of a @DeleteIndexField@ request.
 --
---
---
--- /See:/ 'deleteIndexFieldResponse' smart constructor.
+-- /See:/ 'newDeleteIndexFieldResponse' smart constructor.
 data DeleteIndexFieldResponse = DeleteIndexFieldResponse'
-  { _difrirsResponseStatus ::
-      !Int,
-    _difrirsIndexField ::
-      !IndexFieldStatus
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The status of the index field being deleted.
+    indexField :: IndexFieldStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIndexFieldResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteIndexFieldResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'difrirsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'difrirsIndexField' - The status of the index field being deleted.
-deleteIndexFieldResponse ::
-  -- | 'difrirsResponseStatus'
-  Int ->
-  -- | 'difrirsIndexField'
+-- 'httpStatus', 'deleteIndexFieldResponse_httpStatus' - The response's http status code.
+--
+-- 'indexField', 'deleteIndexFieldResponse_indexField' - The status of the index field being deleted.
+newDeleteIndexFieldResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'indexField'
   IndexFieldStatus ->
   DeleteIndexFieldResponse
-deleteIndexFieldResponse
-  pResponseStatus_
-  pIndexField_ =
-    DeleteIndexFieldResponse'
-      { _difrirsResponseStatus =
-          pResponseStatus_,
-        _difrirsIndexField = pIndexField_
-      }
+newDeleteIndexFieldResponse pHttpStatus_ pIndexField_ =
+  DeleteIndexFieldResponse'
+    { httpStatus =
+        pHttpStatus_,
+      indexField = pIndexField_
+    }
 
--- | -- | The response status code.
-difrirsResponseStatus :: Lens' DeleteIndexFieldResponse Int
-difrirsResponseStatus = lens _difrirsResponseStatus (\s a -> s {_difrirsResponseStatus = a})
+-- | The response's http status code.
+deleteIndexFieldResponse_httpStatus :: Lens.Lens' DeleteIndexFieldResponse Prelude.Int
+deleteIndexFieldResponse_httpStatus = Lens.lens (\DeleteIndexFieldResponse' {httpStatus} -> httpStatus) (\s@DeleteIndexFieldResponse' {} a -> s {httpStatus = a} :: DeleteIndexFieldResponse)
 
 -- | The status of the index field being deleted.
-difrirsIndexField :: Lens' DeleteIndexFieldResponse IndexFieldStatus
-difrirsIndexField = lens _difrirsIndexField (\s a -> s {_difrirsIndexField = a})
+deleteIndexFieldResponse_indexField :: Lens.Lens' DeleteIndexFieldResponse IndexFieldStatus
+deleteIndexFieldResponse_indexField = Lens.lens (\DeleteIndexFieldResponse' {indexField} -> indexField) (\s@DeleteIndexFieldResponse' {} a -> s {indexField = a} :: DeleteIndexFieldResponse)
 
-instance NFData DeleteIndexFieldResponse
+instance Prelude.NFData DeleteIndexFieldResponse

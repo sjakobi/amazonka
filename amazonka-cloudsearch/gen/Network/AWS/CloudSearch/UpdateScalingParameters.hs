@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Configures scaling parameters for a domain. A domain's scaling parameters specify the desired search instance type and replication count. Amazon CloudSearch will still automatically scale your domain based on the volume of data and traffic, but not below the desired instance type and replication count. If the Multi-AZ option is enabled, these values control the resources used per Availability Zone. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html Configuring Scaling Options> in the /Amazon CloudSearch Developer Guide/ .
+-- Configures scaling parameters for a domain. A domain\'s scaling
+-- parameters specify the desired search instance type and replication
+-- count. Amazon CloudSearch will still automatically scale your domain
+-- based on the volume of data and traffic, but not below the desired
+-- instance type and replication count. If the Multi-AZ option is enabled,
+-- these values control the resources used per Availability Zone. For more
+-- information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html Configuring Scaling Options>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.UpdateScalingParameters
   ( -- * Creating a Request
-    updateScalingParameters,
-    UpdateScalingParameters,
+    UpdateScalingParameters (..),
+    newUpdateScalingParameters,
 
     -- * Request Lenses
-    uspDomainName,
-    uspScalingParameters,
+    updateScalingParameters_domainName,
+    updateScalingParameters_scalingParameters,
 
     -- * Destructuring the Response
-    updateScalingParametersResponse,
-    UpdateScalingParametersResponse,
+    UpdateScalingParametersResponse (..),
+    newUpdateScalingParametersResponse,
 
     -- * Response Lenses
-    usprrsResponseStatus,
-    usprrsScalingParameters,
+    updateScalingParametersResponse_httpStatus,
+    updateScalingParametersResponse_scalingParameters,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.ScalingParametersStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'UpdateScalingParameters' @ operation. Specifies the name of the domain you want to update and the scaling parameters you want to configure.
+-- | Container for the parameters to the @UpdateScalingParameters@ operation.
+-- Specifies the name of the domain you want to update and the scaling
+-- parameters you want to configure.
 --
---
---
--- /See:/ 'updateScalingParameters' smart constructor.
+-- /See:/ 'newUpdateScalingParameters' smart constructor.
 data UpdateScalingParameters = UpdateScalingParameters'
-  { _uspDomainName ::
-      !Text,
-    _uspScalingParameters ::
-      !ScalingParameters
+  { domainName :: Prelude.Text,
+    scalingParameters :: ScalingParameters
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateScalingParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateScalingParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uspDomainName' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uspScalingParameters' - Undocumented member.
-updateScalingParameters ::
-  -- | 'uspDomainName'
-  Text ->
-  -- | 'uspScalingParameters'
+-- 'domainName', 'updateScalingParameters_domainName' - Undocumented member.
+--
+-- 'scalingParameters', 'updateScalingParameters_scalingParameters' - Undocumented member.
+newUpdateScalingParameters ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'scalingParameters'
   ScalingParameters ->
   UpdateScalingParameters
-updateScalingParameters
+newUpdateScalingParameters
   pDomainName_
   pScalingParameters_ =
     UpdateScalingParameters'
-      { _uspDomainName =
-          pDomainName_,
-        _uspScalingParameters = pScalingParameters_
+      { domainName = pDomainName_,
+        scalingParameters = pScalingParameters_
       }
 
 -- | Undocumented member.
-uspDomainName :: Lens' UpdateScalingParameters Text
-uspDomainName = lens _uspDomainName (\s a -> s {_uspDomainName = a})
+updateScalingParameters_domainName :: Lens.Lens' UpdateScalingParameters Prelude.Text
+updateScalingParameters_domainName = Lens.lens (\UpdateScalingParameters' {domainName} -> domainName) (\s@UpdateScalingParameters' {} a -> s {domainName = a} :: UpdateScalingParameters)
 
 -- | Undocumented member.
-uspScalingParameters :: Lens' UpdateScalingParameters ScalingParameters
-uspScalingParameters = lens _uspScalingParameters (\s a -> s {_uspScalingParameters = a})
+updateScalingParameters_scalingParameters :: Lens.Lens' UpdateScalingParameters ScalingParameters
+updateScalingParameters_scalingParameters = Lens.lens (\UpdateScalingParameters' {scalingParameters} -> scalingParameters) (\s@UpdateScalingParameters' {} a -> s {scalingParameters = a} :: UpdateScalingParameters)
 
-instance AWSRequest UpdateScalingParameters where
+instance Prelude.AWSRequest UpdateScalingParameters where
   type
     Rs UpdateScalingParameters =
       UpdateScalingParametersResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "UpdateScalingParametersResult"
       ( \s h x ->
           UpdateScalingParametersResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "ScalingParameters")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "ScalingParameters")
       )
 
-instance Hashable UpdateScalingParameters
+instance Prelude.Hashable UpdateScalingParameters
 
-instance NFData UpdateScalingParameters
+instance Prelude.NFData UpdateScalingParameters
 
-instance ToHeaders UpdateScalingParameters where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateScalingParameters where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateScalingParameters where
-  toPath = const "/"
+instance Prelude.ToPath UpdateScalingParameters where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateScalingParameters where
+instance Prelude.ToQuery UpdateScalingParameters where
   toQuery UpdateScalingParameters' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("UpdateScalingParameters" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "DomainName" =: _uspDomainName,
-        "ScalingParameters" =: _uspScalingParameters
+          Prelude.=: ("UpdateScalingParameters" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName,
+        "ScalingParameters" Prelude.=: scalingParameters
       ]
 
--- | The result of a @UpdateScalingParameters@ request. Contains the status of the newly-configured scaling parameters.
+-- | The result of a @UpdateScalingParameters@ request. Contains the status
+-- of the newly-configured scaling parameters.
 --
---
---
--- /See:/ 'updateScalingParametersResponse' smart constructor.
+-- /See:/ 'newUpdateScalingParametersResponse' smart constructor.
 data UpdateScalingParametersResponse = UpdateScalingParametersResponse'
-  { _usprrsResponseStatus ::
-      !Int,
-    _usprrsScalingParameters ::
-      !ScalingParametersStatus
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    scalingParameters :: ScalingParametersStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateScalingParametersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateScalingParametersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usprrsScalingParameters' - Undocumented member.
-updateScalingParametersResponse ::
-  -- | 'usprrsResponseStatus'
-  Int ->
-  -- | 'usprrsScalingParameters'
+-- 'httpStatus', 'updateScalingParametersResponse_httpStatus' - The response's http status code.
+--
+-- 'scalingParameters', 'updateScalingParametersResponse_scalingParameters' - Undocumented member.
+newUpdateScalingParametersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'scalingParameters'
   ScalingParametersStatus ->
   UpdateScalingParametersResponse
-updateScalingParametersResponse
-  pResponseStatus_
+newUpdateScalingParametersResponse
+  pHttpStatus_
   pScalingParameters_ =
     UpdateScalingParametersResponse'
-      { _usprrsResponseStatus =
-          pResponseStatus_,
-        _usprrsScalingParameters =
-          pScalingParameters_
+      { httpStatus =
+          pHttpStatus_,
+        scalingParameters = pScalingParameters_
       }
 
--- | -- | The response status code.
-usprrsResponseStatus :: Lens' UpdateScalingParametersResponse Int
-usprrsResponseStatus = lens _usprrsResponseStatus (\s a -> s {_usprrsResponseStatus = a})
+-- | The response's http status code.
+updateScalingParametersResponse_httpStatus :: Lens.Lens' UpdateScalingParametersResponse Prelude.Int
+updateScalingParametersResponse_httpStatus = Lens.lens (\UpdateScalingParametersResponse' {httpStatus} -> httpStatus) (\s@UpdateScalingParametersResponse' {} a -> s {httpStatus = a} :: UpdateScalingParametersResponse)
 
 -- | Undocumented member.
-usprrsScalingParameters :: Lens' UpdateScalingParametersResponse ScalingParametersStatus
-usprrsScalingParameters = lens _usprrsScalingParameters (\s a -> s {_usprrsScalingParameters = a})
+updateScalingParametersResponse_scalingParameters :: Lens.Lens' UpdateScalingParametersResponse ScalingParametersStatus
+updateScalingParametersResponse_scalingParameters = Lens.lens (\UpdateScalingParametersResponse' {scalingParameters} -> scalingParameters) (\s@UpdateScalingParametersResponse' {} a -> s {scalingParameters = a} :: UpdateScalingParametersResponse)
 
-instance NFData UpdateScalingParametersResponse
+instance
+  Prelude.NFData
+    UpdateScalingParametersResponse

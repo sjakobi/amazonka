@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,223 +19,222 @@
 module Network.AWS.CloudSearch.Types.AnalysisSchemeLanguage
   ( AnalysisSchemeLanguage
       ( ..,
-        AR,
-        BG,
-        CA,
-        CS,
-        DA,
-        DE,
-        EL,
-        EN,
-        ES,
-        EU,
-        FA,
-        FI,
-        FR,
-        GA,
-        GL,
-        HE,
-        HI,
-        HU,
-        HY,
-        IT,
-        Id,
-        JA,
-        KO,
-        LV,
-        Mul,
-        NL,
-        NO,
-        PT,
-        RO,
-        RU,
-        SV,
-        TH,
-        TR,
-        ZhHans,
-        ZhHant
+        AnalysisSchemeLanguageAR,
+        AnalysisSchemeLanguageBG,
+        AnalysisSchemeLanguageCA,
+        AnalysisSchemeLanguageCS,
+        AnalysisSchemeLanguageDA,
+        AnalysisSchemeLanguageDE,
+        AnalysisSchemeLanguageEL,
+        AnalysisSchemeLanguageEN,
+        AnalysisSchemeLanguageES,
+        AnalysisSchemeLanguageEU,
+        AnalysisSchemeLanguageFA,
+        AnalysisSchemeLanguageFI,
+        AnalysisSchemeLanguageFR,
+        AnalysisSchemeLanguageGA,
+        AnalysisSchemeLanguageGL,
+        AnalysisSchemeLanguageHE,
+        AnalysisSchemeLanguageHI,
+        AnalysisSchemeLanguageHU,
+        AnalysisSchemeLanguageHY,
+        AnalysisSchemeLanguageID,
+        AnalysisSchemeLanguageIT,
+        AnalysisSchemeLanguageJA,
+        AnalysisSchemeLanguageKO,
+        AnalysisSchemeLanguageLV,
+        AnalysisSchemeLanguageMul,
+        AnalysisSchemeLanguageNL,
+        AnalysisSchemeLanguageNO,
+        AnalysisSchemeLanguagePT,
+        AnalysisSchemeLanguageRO,
+        AnalysisSchemeLanguageRU,
+        AnalysisSchemeLanguageSV,
+        AnalysisSchemeLanguageTH,
+        AnalysisSchemeLanguageTR,
+        AnalysisSchemeLanguageZhHans,
+        AnalysisSchemeLanguageZhHant
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | An <http://tools.ietf.org/html/rfc4646 IETF RFC 4646> language code or @mul@ for multiple languages.
-data AnalysisSchemeLanguage
-  = AnalysisSchemeLanguage'
-      ( CI
-          Text
-      )
+-- | An <http://tools.ietf.org/html/rfc4646 IETF RFC 4646> language code or
+-- @mul@ for multiple languages.
+newtype AnalysisSchemeLanguage = AnalysisSchemeLanguage'
+  { fromAnalysisSchemeLanguage ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AR :: AnalysisSchemeLanguage
-pattern AR = AnalysisSchemeLanguage' "ar"
+pattern AnalysisSchemeLanguageAR :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageAR = AnalysisSchemeLanguage' "ar"
 
-pattern BG :: AnalysisSchemeLanguage
-pattern BG = AnalysisSchemeLanguage' "bg"
+pattern AnalysisSchemeLanguageBG :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageBG = AnalysisSchemeLanguage' "bg"
 
-pattern CA :: AnalysisSchemeLanguage
-pattern CA = AnalysisSchemeLanguage' "ca"
+pattern AnalysisSchemeLanguageCA :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageCA = AnalysisSchemeLanguage' "ca"
 
-pattern CS :: AnalysisSchemeLanguage
-pattern CS = AnalysisSchemeLanguage' "cs"
+pattern AnalysisSchemeLanguageCS :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageCS = AnalysisSchemeLanguage' "cs"
 
-pattern DA :: AnalysisSchemeLanguage
-pattern DA = AnalysisSchemeLanguage' "da"
+pattern AnalysisSchemeLanguageDA :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageDA = AnalysisSchemeLanguage' "da"
 
-pattern DE :: AnalysisSchemeLanguage
-pattern DE = AnalysisSchemeLanguage' "de"
+pattern AnalysisSchemeLanguageDE :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageDE = AnalysisSchemeLanguage' "de"
 
-pattern EL :: AnalysisSchemeLanguage
-pattern EL = AnalysisSchemeLanguage' "el"
+pattern AnalysisSchemeLanguageEL :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageEL = AnalysisSchemeLanguage' "el"
 
-pattern EN :: AnalysisSchemeLanguage
-pattern EN = AnalysisSchemeLanguage' "en"
+pattern AnalysisSchemeLanguageEN :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageEN = AnalysisSchemeLanguage' "en"
 
-pattern ES :: AnalysisSchemeLanguage
-pattern ES = AnalysisSchemeLanguage' "es"
+pattern AnalysisSchemeLanguageES :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageES = AnalysisSchemeLanguage' "es"
 
-pattern EU :: AnalysisSchemeLanguage
-pattern EU = AnalysisSchemeLanguage' "eu"
+pattern AnalysisSchemeLanguageEU :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageEU = AnalysisSchemeLanguage' "eu"
 
-pattern FA :: AnalysisSchemeLanguage
-pattern FA = AnalysisSchemeLanguage' "fa"
+pattern AnalysisSchemeLanguageFA :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageFA = AnalysisSchemeLanguage' "fa"
 
-pattern FI :: AnalysisSchemeLanguage
-pattern FI = AnalysisSchemeLanguage' "fi"
+pattern AnalysisSchemeLanguageFI :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageFI = AnalysisSchemeLanguage' "fi"
 
-pattern FR :: AnalysisSchemeLanguage
-pattern FR = AnalysisSchemeLanguage' "fr"
+pattern AnalysisSchemeLanguageFR :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageFR = AnalysisSchemeLanguage' "fr"
 
-pattern GA :: AnalysisSchemeLanguage
-pattern GA = AnalysisSchemeLanguage' "ga"
+pattern AnalysisSchemeLanguageGA :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageGA = AnalysisSchemeLanguage' "ga"
 
-pattern GL :: AnalysisSchemeLanguage
-pattern GL = AnalysisSchemeLanguage' "gl"
+pattern AnalysisSchemeLanguageGL :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageGL = AnalysisSchemeLanguage' "gl"
 
-pattern HE :: AnalysisSchemeLanguage
-pattern HE = AnalysisSchemeLanguage' "he"
+pattern AnalysisSchemeLanguageHE :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageHE = AnalysisSchemeLanguage' "he"
 
-pattern HI :: AnalysisSchemeLanguage
-pattern HI = AnalysisSchemeLanguage' "hi"
+pattern AnalysisSchemeLanguageHI :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageHI = AnalysisSchemeLanguage' "hi"
 
-pattern HU :: AnalysisSchemeLanguage
-pattern HU = AnalysisSchemeLanguage' "hu"
+pattern AnalysisSchemeLanguageHU :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageHU = AnalysisSchemeLanguage' "hu"
 
-pattern HY :: AnalysisSchemeLanguage
-pattern HY = AnalysisSchemeLanguage' "hy"
+pattern AnalysisSchemeLanguageHY :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageHY = AnalysisSchemeLanguage' "hy"
 
-pattern IT :: AnalysisSchemeLanguage
-pattern IT = AnalysisSchemeLanguage' "it"
+pattern AnalysisSchemeLanguageID :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageID = AnalysisSchemeLanguage' "id"
 
-pattern Id :: AnalysisSchemeLanguage
-pattern Id = AnalysisSchemeLanguage' "id"
+pattern AnalysisSchemeLanguageIT :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageIT = AnalysisSchemeLanguage' "it"
 
-pattern JA :: AnalysisSchemeLanguage
-pattern JA = AnalysisSchemeLanguage' "ja"
+pattern AnalysisSchemeLanguageJA :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageJA = AnalysisSchemeLanguage' "ja"
 
-pattern KO :: AnalysisSchemeLanguage
-pattern KO = AnalysisSchemeLanguage' "ko"
+pattern AnalysisSchemeLanguageKO :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageKO = AnalysisSchemeLanguage' "ko"
 
-pattern LV :: AnalysisSchemeLanguage
-pattern LV = AnalysisSchemeLanguage' "lv"
+pattern AnalysisSchemeLanguageLV :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageLV = AnalysisSchemeLanguage' "lv"
 
-pattern Mul :: AnalysisSchemeLanguage
-pattern Mul = AnalysisSchemeLanguage' "mul"
+pattern AnalysisSchemeLanguageMul :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageMul = AnalysisSchemeLanguage' "mul"
 
-pattern NL :: AnalysisSchemeLanguage
-pattern NL = AnalysisSchemeLanguage' "nl"
+pattern AnalysisSchemeLanguageNL :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageNL = AnalysisSchemeLanguage' "nl"
 
-pattern NO :: AnalysisSchemeLanguage
-pattern NO = AnalysisSchemeLanguage' "no"
+pattern AnalysisSchemeLanguageNO :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageNO = AnalysisSchemeLanguage' "no"
 
-pattern PT :: AnalysisSchemeLanguage
-pattern PT = AnalysisSchemeLanguage' "pt"
+pattern AnalysisSchemeLanguagePT :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguagePT = AnalysisSchemeLanguage' "pt"
 
-pattern RO :: AnalysisSchemeLanguage
-pattern RO = AnalysisSchemeLanguage' "ro"
+pattern AnalysisSchemeLanguageRO :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageRO = AnalysisSchemeLanguage' "ro"
 
-pattern RU :: AnalysisSchemeLanguage
-pattern RU = AnalysisSchemeLanguage' "ru"
+pattern AnalysisSchemeLanguageRU :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageRU = AnalysisSchemeLanguage' "ru"
 
-pattern SV :: AnalysisSchemeLanguage
-pattern SV = AnalysisSchemeLanguage' "sv"
+pattern AnalysisSchemeLanguageSV :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageSV = AnalysisSchemeLanguage' "sv"
 
-pattern TH :: AnalysisSchemeLanguage
-pattern TH = AnalysisSchemeLanguage' "th"
+pattern AnalysisSchemeLanguageTH :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageTH = AnalysisSchemeLanguage' "th"
 
-pattern TR :: AnalysisSchemeLanguage
-pattern TR = AnalysisSchemeLanguage' "tr"
+pattern AnalysisSchemeLanguageTR :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageTR = AnalysisSchemeLanguage' "tr"
 
-pattern ZhHans :: AnalysisSchemeLanguage
-pattern ZhHans = AnalysisSchemeLanguage' "zh-Hans"
+pattern AnalysisSchemeLanguageZhHans :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageZhHans = AnalysisSchemeLanguage' "zh-Hans"
 
-pattern ZhHant :: AnalysisSchemeLanguage
-pattern ZhHant = AnalysisSchemeLanguage' "zh-Hant"
+pattern AnalysisSchemeLanguageZhHant :: AnalysisSchemeLanguage
+pattern AnalysisSchemeLanguageZhHant = AnalysisSchemeLanguage' "zh-Hant"
 
 {-# COMPLETE
-  AR,
-  BG,
-  CA,
-  CS,
-  DA,
-  DE,
-  EL,
-  EN,
-  ES,
-  EU,
-  FA,
-  FI,
-  FR,
-  GA,
-  GL,
-  HE,
-  HI,
-  HU,
-  HY,
-  IT,
-  Id,
-  JA,
-  KO,
-  LV,
-  Mul,
-  NL,
-  NO,
-  PT,
-  RO,
-  RU,
-  SV,
-  TH,
-  TR,
-  ZhHans,
-  ZhHant,
+  AnalysisSchemeLanguageAR,
+  AnalysisSchemeLanguageBG,
+  AnalysisSchemeLanguageCA,
+  AnalysisSchemeLanguageCS,
+  AnalysisSchemeLanguageDA,
+  AnalysisSchemeLanguageDE,
+  AnalysisSchemeLanguageEL,
+  AnalysisSchemeLanguageEN,
+  AnalysisSchemeLanguageES,
+  AnalysisSchemeLanguageEU,
+  AnalysisSchemeLanguageFA,
+  AnalysisSchemeLanguageFI,
+  AnalysisSchemeLanguageFR,
+  AnalysisSchemeLanguageGA,
+  AnalysisSchemeLanguageGL,
+  AnalysisSchemeLanguageHE,
+  AnalysisSchemeLanguageHI,
+  AnalysisSchemeLanguageHU,
+  AnalysisSchemeLanguageHY,
+  AnalysisSchemeLanguageID,
+  AnalysisSchemeLanguageIT,
+  AnalysisSchemeLanguageJA,
+  AnalysisSchemeLanguageKO,
+  AnalysisSchemeLanguageLV,
+  AnalysisSchemeLanguageMul,
+  AnalysisSchemeLanguageNL,
+  AnalysisSchemeLanguageNO,
+  AnalysisSchemeLanguagePT,
+  AnalysisSchemeLanguageRO,
+  AnalysisSchemeLanguageRU,
+  AnalysisSchemeLanguageSV,
+  AnalysisSchemeLanguageTH,
+  AnalysisSchemeLanguageTR,
+  AnalysisSchemeLanguageZhHans,
+  AnalysisSchemeLanguageZhHant,
   AnalysisSchemeLanguage'
   #-}
 
-instance FromText AnalysisSchemeLanguage where
-  parser = (AnalysisSchemeLanguage' . mk) <$> takeText
+instance Prelude.FromText AnalysisSchemeLanguage where
+  parser = AnalysisSchemeLanguage' Prelude.<$> Prelude.takeText
 
-instance ToText AnalysisSchemeLanguage where
-  toText (AnalysisSchemeLanguage' ci) = original ci
+instance Prelude.ToText AnalysisSchemeLanguage where
+  toText (AnalysisSchemeLanguage' x) = x
 
-instance Hashable AnalysisSchemeLanguage
+instance Prelude.Hashable AnalysisSchemeLanguage
 
-instance NFData AnalysisSchemeLanguage
+instance Prelude.NFData AnalysisSchemeLanguage
 
-instance ToByteString AnalysisSchemeLanguage
+instance Prelude.ToByteString AnalysisSchemeLanguage
 
-instance ToQuery AnalysisSchemeLanguage
+instance Prelude.ToQuery AnalysisSchemeLanguage
 
-instance ToHeader AnalysisSchemeLanguage
+instance Prelude.ToHeader AnalysisSchemeLanguage
 
-instance FromXML AnalysisSchemeLanguage where
-  parseXML = parseXMLText "AnalysisSchemeLanguage"
+instance Prelude.FromXML AnalysisSchemeLanguage where
+  parseXML = Prelude.parseXMLText "AnalysisSchemeLanguage"

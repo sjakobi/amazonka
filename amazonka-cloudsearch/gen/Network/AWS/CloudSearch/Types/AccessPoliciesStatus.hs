@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,56 @@
 module Network.AWS.CloudSearch.Types.AccessPoliciesStatus where
 
 import Network.AWS.CloudSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The configured access rules for the domain's document and search endpoints, and the current status of those rules.
+-- | The configured access rules for the domain\'s document and search
+-- endpoints, and the current status of those rules.
 --
---
---
--- /See:/ 'accessPoliciesStatus' smart constructor.
+-- /See:/ 'newAccessPoliciesStatus' smart constructor.
 data AccessPoliciesStatus = AccessPoliciesStatus'
-  { _apsOptions ::
-      !Text,
-    _apsStatus :: !OptionStatus
+  { options :: Prelude.Text,
+    status :: OptionStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccessPoliciesStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccessPoliciesStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apsOptions' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apsStatus' - Undocumented member.
-accessPoliciesStatus ::
-  -- | 'apsOptions'
-  Text ->
-  -- | 'apsStatus'
+-- 'options', 'accessPoliciesStatus_options' - Undocumented member.
+--
+-- 'status', 'accessPoliciesStatus_status' - Undocumented member.
+newAccessPoliciesStatus ::
+  -- | 'options'
+  Prelude.Text ->
+  -- | 'status'
   OptionStatus ->
   AccessPoliciesStatus
-accessPoliciesStatus pOptions_ pStatus_ =
+newAccessPoliciesStatus pOptions_ pStatus_ =
   AccessPoliciesStatus'
-    { _apsOptions = pOptions_,
-      _apsStatus = pStatus_
+    { options = pOptions_,
+      status = pStatus_
     }
 
 -- | Undocumented member.
-apsOptions :: Lens' AccessPoliciesStatus Text
-apsOptions = lens _apsOptions (\s a -> s {_apsOptions = a})
+accessPoliciesStatus_options :: Lens.Lens' AccessPoliciesStatus Prelude.Text
+accessPoliciesStatus_options = Lens.lens (\AccessPoliciesStatus' {options} -> options) (\s@AccessPoliciesStatus' {} a -> s {options = a} :: AccessPoliciesStatus)
 
 -- | Undocumented member.
-apsStatus :: Lens' AccessPoliciesStatus OptionStatus
-apsStatus = lens _apsStatus (\s a -> s {_apsStatus = a})
+accessPoliciesStatus_status :: Lens.Lens' AccessPoliciesStatus OptionStatus
+accessPoliciesStatus_status = Lens.lens (\AccessPoliciesStatus' {status} -> status) (\s@AccessPoliciesStatus' {} a -> s {status = a} :: AccessPoliciesStatus)
 
-instance FromXML AccessPoliciesStatus where
+instance Prelude.FromXML AccessPoliciesStatus where
   parseXML x =
     AccessPoliciesStatus'
-      <$> (x .@ "Options") <*> (x .@ "Status")
+      Prelude.<$> (x Prelude..@ "Options")
+      Prelude.<*> (x Prelude..@ "Status")
 
-instance Hashable AccessPoliciesStatus
+instance Prelude.Hashable AccessPoliciesStatus
 
-instance NFData AccessPoliciesStatus
+instance Prelude.NFData AccessPoliciesStatus

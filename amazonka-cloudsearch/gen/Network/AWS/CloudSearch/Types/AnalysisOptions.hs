@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,90 +20,173 @@
 module Network.AWS.CloudSearch.Types.AnalysisOptions where
 
 import Network.AWS.CloudSearch.Types.AlgorithmicStemming
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Synonyms, stopwords, and stemming options for an analysis scheme. Includes tokenization dictionary for Japanese.
+-- | Synonyms, stopwords, and stemming options for an analysis scheme.
+-- Includes tokenization dictionary for Japanese.
 --
---
---
--- /See:/ 'analysisOptions' smart constructor.
+-- /See:/ 'newAnalysisOptions' smart constructor.
 data AnalysisOptions = AnalysisOptions'
-  { _aoStopwords ::
-      !(Maybe Text),
-    _aoAlgorithmicStemming ::
-      !(Maybe AlgorithmicStemming),
-    _aoStemmingDictionary :: !(Maybe Text),
-    _aoJapaneseTokenizationDictionary ::
-      !(Maybe Text),
-    _aoSynonyms :: !(Maybe Text)
+  { -- | A JSON array of terms to ignore during indexing and searching. For
+    -- example, @[\"a\", \"an\", \"the\", \"of\"]@. The stopwords dictionary
+    -- must explicitly list each word you want to ignore. Wildcards and regular
+    -- expressions are not supported.
+    stopwords :: Prelude.Maybe Prelude.Text,
+    -- | The level of algorithmic stemming to perform: @none@, @minimal@,
+    -- @light@, or @full@. The available levels vary depending on the language.
+    -- For more information, see
+    -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/text-processing.html#text-processing-settings Language Specific Text Processing Settings>
+    -- in the /Amazon CloudSearch Developer Guide/
+    algorithmicStemming :: Prelude.Maybe AlgorithmicStemming,
+    -- | A JSON object that contains a collection of string:value pairs that each
+    -- map a term to its stem. For example,
+    -- @{\"term1\": \"stem1\", \"term2\": \"stem2\", \"term3\": \"stem3\"}@.
+    -- The stemming dictionary is applied in addition to any algorithmic
+    -- stemming. This enables you to override the results of the algorithmic
+    -- stemming to correct specific cases of overstemming or understemming. The
+    -- maximum size of a stemming dictionary is 500 KB.
+    stemmingDictionary :: Prelude.Maybe Prelude.Text,
+    -- | A JSON array that contains a collection of terms, tokens, readings and
+    -- part of speech for Japanese Tokenizaiton. The Japanese tokenization
+    -- dictionary enables you to override the default tokenization for selected
+    -- terms. This is only valid for Japanese language fields.
+    japaneseTokenizationDictionary :: Prelude.Maybe Prelude.Text,
+    -- | A JSON object that defines synonym groups and aliases. A synonym group
+    -- is an array of arrays, where each sub-array is a group of terms where
+    -- each term in the group is considered a synonym of every other term in
+    -- the group. The aliases value is an object that contains a collection of
+    -- string:value pairs where the string specifies a term and the array of
+    -- values specifies each of the aliases for that term. An alias is
+    -- considered a synonym of the specified term, but the term is not
+    -- considered a synonym of the alias. For more information about specifying
+    -- synonyms, see
+    -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html#synonyms Synonyms>
+    -- in the /Amazon CloudSearch Developer Guide/.
+    synonyms :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnalysisOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnalysisOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aoStopwords' - A JSON array of terms to ignore during indexing and searching. For example, @["a", "an", "the", "of"]@ . The stopwords dictionary must explicitly list each word you want to ignore. Wildcards and regular expressions are not supported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aoAlgorithmicStemming' - The level of algorithmic stemming to perform: @none@ , @minimal@ , @light@ , or @full@ . The available levels vary depending on the language. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/text-processing.html#text-processing-settings Language Specific Text Processing Settings> in the /Amazon CloudSearch Developer Guide/
+-- 'stopwords', 'analysisOptions_stopwords' - A JSON array of terms to ignore during indexing and searching. For
+-- example, @[\"a\", \"an\", \"the\", \"of\"]@. The stopwords dictionary
+-- must explicitly list each word you want to ignore. Wildcards and regular
+-- expressions are not supported.
 --
--- * 'aoStemmingDictionary' - A JSON object that contains a collection of string:value pairs that each map a term to its stem. For example, @{"term1": "stem1", "term2": "stem2", "term3": "stem3"}@ . The stemming dictionary is applied in addition to any algorithmic stemming. This enables you to override the results of the algorithmic stemming to correct specific cases of overstemming or understemming. The maximum size of a stemming dictionary is 500 KB.
+-- 'algorithmicStemming', 'analysisOptions_algorithmicStemming' - The level of algorithmic stemming to perform: @none@, @minimal@,
+-- @light@, or @full@. The available levels vary depending on the language.
+-- For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/text-processing.html#text-processing-settings Language Specific Text Processing Settings>
+-- in the /Amazon CloudSearch Developer Guide/
 --
--- * 'aoJapaneseTokenizationDictionary' - A JSON array that contains a collection of terms, tokens, readings and part of speech for Japanese Tokenizaiton. The Japanese tokenization dictionary enables you to override the default tokenization for selected terms. This is only valid for Japanese language fields.
+-- 'stemmingDictionary', 'analysisOptions_stemmingDictionary' - A JSON object that contains a collection of string:value pairs that each
+-- map a term to its stem. For example,
+-- @{\"term1\": \"stem1\", \"term2\": \"stem2\", \"term3\": \"stem3\"}@.
+-- The stemming dictionary is applied in addition to any algorithmic
+-- stemming. This enables you to override the results of the algorithmic
+-- stemming to correct specific cases of overstemming or understemming. The
+-- maximum size of a stemming dictionary is 500 KB.
 --
--- * 'aoSynonyms' - A JSON object that defines synonym groups and aliases. A synonym group is an array of arrays, where each sub-array is a group of terms where each term in the group is considered a synonym of every other term in the group. The aliases value is an object that contains a collection of string:value pairs where the string specifies a term and the array of values specifies each of the aliases for that term. An alias is considered a synonym of the specified term, but the term is not considered a synonym of the alias. For more information about specifying synonyms, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html#synonyms Synonyms> in the /Amazon CloudSearch Developer Guide/ .
-analysisOptions ::
+-- 'japaneseTokenizationDictionary', 'analysisOptions_japaneseTokenizationDictionary' - A JSON array that contains a collection of terms, tokens, readings and
+-- part of speech for Japanese Tokenizaiton. The Japanese tokenization
+-- dictionary enables you to override the default tokenization for selected
+-- terms. This is only valid for Japanese language fields.
+--
+-- 'synonyms', 'analysisOptions_synonyms' - A JSON object that defines synonym groups and aliases. A synonym group
+-- is an array of arrays, where each sub-array is a group of terms where
+-- each term in the group is considered a synonym of every other term in
+-- the group. The aliases value is an object that contains a collection of
+-- string:value pairs where the string specifies a term and the array of
+-- values specifies each of the aliases for that term. An alias is
+-- considered a synonym of the specified term, but the term is not
+-- considered a synonym of the alias. For more information about specifying
+-- synonyms, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html#synonyms Synonyms>
+-- in the /Amazon CloudSearch Developer Guide/.
+newAnalysisOptions ::
   AnalysisOptions
-analysisOptions =
+newAnalysisOptions =
   AnalysisOptions'
-    { _aoStopwords = Nothing,
-      _aoAlgorithmicStemming = Nothing,
-      _aoStemmingDictionary = Nothing,
-      _aoJapaneseTokenizationDictionary = Nothing,
-      _aoSynonyms = Nothing
+    { stopwords = Prelude.Nothing,
+      algorithmicStemming = Prelude.Nothing,
+      stemmingDictionary = Prelude.Nothing,
+      japaneseTokenizationDictionary = Prelude.Nothing,
+      synonyms = Prelude.Nothing
     }
 
--- | A JSON array of terms to ignore during indexing and searching. For example, @["a", "an", "the", "of"]@ . The stopwords dictionary must explicitly list each word you want to ignore. Wildcards and regular expressions are not supported.
-aoStopwords :: Lens' AnalysisOptions (Maybe Text)
-aoStopwords = lens _aoStopwords (\s a -> s {_aoStopwords = a})
+-- | A JSON array of terms to ignore during indexing and searching. For
+-- example, @[\"a\", \"an\", \"the\", \"of\"]@. The stopwords dictionary
+-- must explicitly list each word you want to ignore. Wildcards and regular
+-- expressions are not supported.
+analysisOptions_stopwords :: Lens.Lens' AnalysisOptions (Prelude.Maybe Prelude.Text)
+analysisOptions_stopwords = Lens.lens (\AnalysisOptions' {stopwords} -> stopwords) (\s@AnalysisOptions' {} a -> s {stopwords = a} :: AnalysisOptions)
 
--- | The level of algorithmic stemming to perform: @none@ , @minimal@ , @light@ , or @full@ . The available levels vary depending on the language. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/text-processing.html#text-processing-settings Language Specific Text Processing Settings> in the /Amazon CloudSearch Developer Guide/
-aoAlgorithmicStemming :: Lens' AnalysisOptions (Maybe AlgorithmicStemming)
-aoAlgorithmicStemming = lens _aoAlgorithmicStemming (\s a -> s {_aoAlgorithmicStemming = a})
+-- | The level of algorithmic stemming to perform: @none@, @minimal@,
+-- @light@, or @full@. The available levels vary depending on the language.
+-- For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/text-processing.html#text-processing-settings Language Specific Text Processing Settings>
+-- in the /Amazon CloudSearch Developer Guide/
+analysisOptions_algorithmicStemming :: Lens.Lens' AnalysisOptions (Prelude.Maybe AlgorithmicStemming)
+analysisOptions_algorithmicStemming = Lens.lens (\AnalysisOptions' {algorithmicStemming} -> algorithmicStemming) (\s@AnalysisOptions' {} a -> s {algorithmicStemming = a} :: AnalysisOptions)
 
--- | A JSON object that contains a collection of string:value pairs that each map a term to its stem. For example, @{"term1": "stem1", "term2": "stem2", "term3": "stem3"}@ . The stemming dictionary is applied in addition to any algorithmic stemming. This enables you to override the results of the algorithmic stemming to correct specific cases of overstemming or understemming. The maximum size of a stemming dictionary is 500 KB.
-aoStemmingDictionary :: Lens' AnalysisOptions (Maybe Text)
-aoStemmingDictionary = lens _aoStemmingDictionary (\s a -> s {_aoStemmingDictionary = a})
+-- | A JSON object that contains a collection of string:value pairs that each
+-- map a term to its stem. For example,
+-- @{\"term1\": \"stem1\", \"term2\": \"stem2\", \"term3\": \"stem3\"}@.
+-- The stemming dictionary is applied in addition to any algorithmic
+-- stemming. This enables you to override the results of the algorithmic
+-- stemming to correct specific cases of overstemming or understemming. The
+-- maximum size of a stemming dictionary is 500 KB.
+analysisOptions_stemmingDictionary :: Lens.Lens' AnalysisOptions (Prelude.Maybe Prelude.Text)
+analysisOptions_stemmingDictionary = Lens.lens (\AnalysisOptions' {stemmingDictionary} -> stemmingDictionary) (\s@AnalysisOptions' {} a -> s {stemmingDictionary = a} :: AnalysisOptions)
 
--- | A JSON array that contains a collection of terms, tokens, readings and part of speech for Japanese Tokenizaiton. The Japanese tokenization dictionary enables you to override the default tokenization for selected terms. This is only valid for Japanese language fields.
-aoJapaneseTokenizationDictionary :: Lens' AnalysisOptions (Maybe Text)
-aoJapaneseTokenizationDictionary = lens _aoJapaneseTokenizationDictionary (\s a -> s {_aoJapaneseTokenizationDictionary = a})
+-- | A JSON array that contains a collection of terms, tokens, readings and
+-- part of speech for Japanese Tokenizaiton. The Japanese tokenization
+-- dictionary enables you to override the default tokenization for selected
+-- terms. This is only valid for Japanese language fields.
+analysisOptions_japaneseTokenizationDictionary :: Lens.Lens' AnalysisOptions (Prelude.Maybe Prelude.Text)
+analysisOptions_japaneseTokenizationDictionary = Lens.lens (\AnalysisOptions' {japaneseTokenizationDictionary} -> japaneseTokenizationDictionary) (\s@AnalysisOptions' {} a -> s {japaneseTokenizationDictionary = a} :: AnalysisOptions)
 
--- | A JSON object that defines synonym groups and aliases. A synonym group is an array of arrays, where each sub-array is a group of terms where each term in the group is considered a synonym of every other term in the group. The aliases value is an object that contains a collection of string:value pairs where the string specifies a term and the array of values specifies each of the aliases for that term. An alias is considered a synonym of the specified term, but the term is not considered a synonym of the alias. For more information about specifying synonyms, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html#synonyms Synonyms> in the /Amazon CloudSearch Developer Guide/ .
-aoSynonyms :: Lens' AnalysisOptions (Maybe Text)
-aoSynonyms = lens _aoSynonyms (\s a -> s {_aoSynonyms = a})
+-- | A JSON object that defines synonym groups and aliases. A synonym group
+-- is an array of arrays, where each sub-array is a group of terms where
+-- each term in the group is considered a synonym of every other term in
+-- the group. The aliases value is an object that contains a collection of
+-- string:value pairs where the string specifies a term and the array of
+-- values specifies each of the aliases for that term. An alias is
+-- considered a synonym of the specified term, but the term is not
+-- considered a synonym of the alias. For more information about specifying
+-- synonyms, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html#synonyms Synonyms>
+-- in the /Amazon CloudSearch Developer Guide/.
+analysisOptions_synonyms :: Lens.Lens' AnalysisOptions (Prelude.Maybe Prelude.Text)
+analysisOptions_synonyms = Lens.lens (\AnalysisOptions' {synonyms} -> synonyms) (\s@AnalysisOptions' {} a -> s {synonyms = a} :: AnalysisOptions)
 
-instance FromXML AnalysisOptions where
+instance Prelude.FromXML AnalysisOptions where
   parseXML x =
     AnalysisOptions'
-      <$> (x .@? "Stopwords")
-      <*> (x .@? "AlgorithmicStemming")
-      <*> (x .@? "StemmingDictionary")
-      <*> (x .@? "JapaneseTokenizationDictionary")
-      <*> (x .@? "Synonyms")
+      Prelude.<$> (x Prelude..@? "Stopwords")
+      Prelude.<*> (x Prelude..@? "AlgorithmicStemming")
+      Prelude.<*> (x Prelude..@? "StemmingDictionary")
+      Prelude.<*> (x Prelude..@? "JapaneseTokenizationDictionary")
+      Prelude.<*> (x Prelude..@? "Synonyms")
 
-instance Hashable AnalysisOptions
+instance Prelude.Hashable AnalysisOptions
 
-instance NFData AnalysisOptions
+instance Prelude.NFData AnalysisOptions
 
-instance ToQuery AnalysisOptions where
+instance Prelude.ToQuery AnalysisOptions where
   toQuery AnalysisOptions' {..} =
-    mconcat
-      [ "Stopwords" =: _aoStopwords,
-        "AlgorithmicStemming" =: _aoAlgorithmicStemming,
-        "StemmingDictionary" =: _aoStemmingDictionary,
+    Prelude.mconcat
+      [ "Stopwords" Prelude.=: stopwords,
+        "AlgorithmicStemming" Prelude.=: algorithmicStemming,
+        "StemmingDictionary" Prelude.=: stemmingDictionary,
         "JapaneseTokenizationDictionary"
-          =: _aoJapaneseTokenizationDictionary,
-        "Synonyms" =: _aoSynonyms
+          Prelude.=: japaneseTokenizationDictionary,
+        "Synonyms" Prelude.=: synonyms
       ]

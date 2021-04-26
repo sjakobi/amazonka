@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,91 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types.LiteralArrayOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options for a field that contains an array of literal strings. Present if @IndexFieldType@ specifies the field is of type @literal-array@ . All options are enabled by default.
+-- | Options for a field that contains an array of literal strings. Present
+-- if @IndexFieldType@ specifies the field is of type @literal-array@. All
+-- options are enabled by default.
 --
---
---
--- /See:/ 'literalArrayOptions' smart constructor.
+-- /See:/ 'newLiteralArrayOptions' smart constructor.
 data LiteralArrayOptions = LiteralArrayOptions'
-  { _laoSourceFields ::
-      !(Maybe Text),
-    _laoFacetEnabled ::
-      !(Maybe Bool),
-    _laoReturnEnabled ::
-      !(Maybe Bool),
-    _laoSearchEnabled ::
-      !(Maybe Bool),
-    _laoDefaultValue ::
-      !(Maybe Text)
+  { -- | A list of source fields to map to the field.
+    sourceFields :: Prelude.Maybe Prelude.Text,
+    -- | Whether facet information can be returned for the field.
+    facetEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether the contents of the field can be returned in the search results.
+    returnEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether the contents of the field are searchable.
+    searchEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A value to use for the field if the field isn\'t specified for a
+    -- document.
+    defaultValue :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LiteralArrayOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LiteralArrayOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laoSourceFields' - A list of source fields to map to the field.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laoFacetEnabled' - Whether facet information can be returned for the field.
+-- 'sourceFields', 'literalArrayOptions_sourceFields' - A list of source fields to map to the field.
 --
--- * 'laoReturnEnabled' - Whether the contents of the field can be returned in the search results.
+-- 'facetEnabled', 'literalArrayOptions_facetEnabled' - Whether facet information can be returned for the field.
 --
--- * 'laoSearchEnabled' - Whether the contents of the field are searchable.
+-- 'returnEnabled', 'literalArrayOptions_returnEnabled' - Whether the contents of the field can be returned in the search results.
 --
--- * 'laoDefaultValue' - A value to use for the field if the field isn't specified for a document.
-literalArrayOptions ::
+-- 'searchEnabled', 'literalArrayOptions_searchEnabled' - Whether the contents of the field are searchable.
+--
+-- 'defaultValue', 'literalArrayOptions_defaultValue' - A value to use for the field if the field isn\'t specified for a
+-- document.
+newLiteralArrayOptions ::
   LiteralArrayOptions
-literalArrayOptions =
+newLiteralArrayOptions =
   LiteralArrayOptions'
-    { _laoSourceFields = Nothing,
-      _laoFacetEnabled = Nothing,
-      _laoReturnEnabled = Nothing,
-      _laoSearchEnabled = Nothing,
-      _laoDefaultValue = Nothing
+    { sourceFields =
+        Prelude.Nothing,
+      facetEnabled = Prelude.Nothing,
+      returnEnabled = Prelude.Nothing,
+      searchEnabled = Prelude.Nothing,
+      defaultValue = Prelude.Nothing
     }
 
 -- | A list of source fields to map to the field.
-laoSourceFields :: Lens' LiteralArrayOptions (Maybe Text)
-laoSourceFields = lens _laoSourceFields (\s a -> s {_laoSourceFields = a})
+literalArrayOptions_sourceFields :: Lens.Lens' LiteralArrayOptions (Prelude.Maybe Prelude.Text)
+literalArrayOptions_sourceFields = Lens.lens (\LiteralArrayOptions' {sourceFields} -> sourceFields) (\s@LiteralArrayOptions' {} a -> s {sourceFields = a} :: LiteralArrayOptions)
 
 -- | Whether facet information can be returned for the field.
-laoFacetEnabled :: Lens' LiteralArrayOptions (Maybe Bool)
-laoFacetEnabled = lens _laoFacetEnabled (\s a -> s {_laoFacetEnabled = a})
+literalArrayOptions_facetEnabled :: Lens.Lens' LiteralArrayOptions (Prelude.Maybe Prelude.Bool)
+literalArrayOptions_facetEnabled = Lens.lens (\LiteralArrayOptions' {facetEnabled} -> facetEnabled) (\s@LiteralArrayOptions' {} a -> s {facetEnabled = a} :: LiteralArrayOptions)
 
 -- | Whether the contents of the field can be returned in the search results.
-laoReturnEnabled :: Lens' LiteralArrayOptions (Maybe Bool)
-laoReturnEnabled = lens _laoReturnEnabled (\s a -> s {_laoReturnEnabled = a})
+literalArrayOptions_returnEnabled :: Lens.Lens' LiteralArrayOptions (Prelude.Maybe Prelude.Bool)
+literalArrayOptions_returnEnabled = Lens.lens (\LiteralArrayOptions' {returnEnabled} -> returnEnabled) (\s@LiteralArrayOptions' {} a -> s {returnEnabled = a} :: LiteralArrayOptions)
 
 -- | Whether the contents of the field are searchable.
-laoSearchEnabled :: Lens' LiteralArrayOptions (Maybe Bool)
-laoSearchEnabled = lens _laoSearchEnabled (\s a -> s {_laoSearchEnabled = a})
+literalArrayOptions_searchEnabled :: Lens.Lens' LiteralArrayOptions (Prelude.Maybe Prelude.Bool)
+literalArrayOptions_searchEnabled = Lens.lens (\LiteralArrayOptions' {searchEnabled} -> searchEnabled) (\s@LiteralArrayOptions' {} a -> s {searchEnabled = a} :: LiteralArrayOptions)
 
--- | A value to use for the field if the field isn't specified for a document.
-laoDefaultValue :: Lens' LiteralArrayOptions (Maybe Text)
-laoDefaultValue = lens _laoDefaultValue (\s a -> s {_laoDefaultValue = a})
+-- | A value to use for the field if the field isn\'t specified for a
+-- document.
+literalArrayOptions_defaultValue :: Lens.Lens' LiteralArrayOptions (Prelude.Maybe Prelude.Text)
+literalArrayOptions_defaultValue = Lens.lens (\LiteralArrayOptions' {defaultValue} -> defaultValue) (\s@LiteralArrayOptions' {} a -> s {defaultValue = a} :: LiteralArrayOptions)
 
-instance FromXML LiteralArrayOptions where
+instance Prelude.FromXML LiteralArrayOptions where
   parseXML x =
     LiteralArrayOptions'
-      <$> (x .@? "SourceFields")
-      <*> (x .@? "FacetEnabled")
-      <*> (x .@? "ReturnEnabled")
-      <*> (x .@? "SearchEnabled")
-      <*> (x .@? "DefaultValue")
+      Prelude.<$> (x Prelude..@? "SourceFields")
+      Prelude.<*> (x Prelude..@? "FacetEnabled")
+      Prelude.<*> (x Prelude..@? "ReturnEnabled")
+      Prelude.<*> (x Prelude..@? "SearchEnabled")
+      Prelude.<*> (x Prelude..@? "DefaultValue")
 
-instance Hashable LiteralArrayOptions
+instance Prelude.Hashable LiteralArrayOptions
 
-instance NFData LiteralArrayOptions
+instance Prelude.NFData LiteralArrayOptions
 
-instance ToQuery LiteralArrayOptions where
+instance Prelude.ToQuery LiteralArrayOptions where
   toQuery LiteralArrayOptions' {..} =
-    mconcat
-      [ "SourceFields" =: _laoSourceFields,
-        "FacetEnabled" =: _laoFacetEnabled,
-        "ReturnEnabled" =: _laoReturnEnabled,
-        "SearchEnabled" =: _laoSearchEnabled,
-        "DefaultValue" =: _laoDefaultValue
+    Prelude.mconcat
+      [ "SourceFields" Prelude.=: sourceFields,
+        "FacetEnabled" Prelude.=: facetEnabled,
+        "ReturnEnabled" Prelude.=: returnEnabled,
+        "SearchEnabled" Prelude.=: searchEnabled,
+        "DefaultValue" Prelude.=: defaultValue
       ]

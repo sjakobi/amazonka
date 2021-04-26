@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,81 +20,107 @@
 module Network.AWS.CloudSearch.Types.DocumentSuggesterOptions where
 
 import Network.AWS.CloudSearch.Types.SuggesterFuzzyMatching
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Options for a search suggester.
 --
---
---
--- /See:/ 'documentSuggesterOptions' smart constructor.
+-- /See:/ 'newDocumentSuggesterOptions' smart constructor.
 data DocumentSuggesterOptions = DocumentSuggesterOptions'
-  { _dsoFuzzyMatching ::
-      !( Maybe
-           SuggesterFuzzyMatching
-       ),
-    _dsoSortExpression ::
-      !(Maybe Text),
-    _dsoSourceField ::
-      !Text
+  { -- | The level of fuzziness allowed when suggesting matches for a string:
+    -- @none@, @low@, or @high@. With none, the specified string is treated as
+    -- an exact prefix. With low, suggestions must differ from the specified
+    -- string by no more than one character. With high, suggestions can differ
+    -- by up to two characters. The default is none.
+    fuzzyMatching :: Prelude.Maybe SuggesterFuzzyMatching,
+    -- | An expression that computes a score for each suggestion to control how
+    -- they are sorted. The scores are rounded to the nearest integer, with a
+    -- floor of 0 and a ceiling of 2^31-1. A document\'s relevance score is not
+    -- computed for suggestions, so sort expressions cannot reference the
+    -- @_score@ value. To sort suggestions using a numeric field or existing
+    -- expression, simply specify the name of the field or expression. If no
+    -- expression is configured for the suggester, the suggestions are sorted
+    -- with the closest matches listed first.
+    sortExpression :: Prelude.Maybe Prelude.Text,
+    -- | The name of the index field you want to use for suggestions.
+    sourceField :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentSuggesterOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentSuggesterOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsoFuzzyMatching' - The level of fuzziness allowed when suggesting matches for a string: @none@ , @low@ , or @high@ . With none, the specified string is treated as an exact prefix. With low, suggestions must differ from the specified string by no more than one character. With high, suggestions can differ by up to two characters. The default is none.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsoSortExpression' - An expression that computes a score for each suggestion to control how they are sorted. The scores are rounded to the nearest integer, with a floor of 0 and a ceiling of 2^31-1. A document's relevance score is not computed for suggestions, so sort expressions cannot reference the @_score@ value. To sort suggestions using a numeric field or existing expression, simply specify the name of the field or expression. If no expression is configured for the suggester, the suggestions are sorted with the closest matches listed first.
+-- 'fuzzyMatching', 'documentSuggesterOptions_fuzzyMatching' - The level of fuzziness allowed when suggesting matches for a string:
+-- @none@, @low@, or @high@. With none, the specified string is treated as
+-- an exact prefix. With low, suggestions must differ from the specified
+-- string by no more than one character. With high, suggestions can differ
+-- by up to two characters. The default is none.
 --
--- * 'dsoSourceField' - The name of the index field you want to use for suggestions.
-documentSuggesterOptions ::
-  -- | 'dsoSourceField'
-  Text ->
+-- 'sortExpression', 'documentSuggesterOptions_sortExpression' - An expression that computes a score for each suggestion to control how
+-- they are sorted. The scores are rounded to the nearest integer, with a
+-- floor of 0 and a ceiling of 2^31-1. A document\'s relevance score is not
+-- computed for suggestions, so sort expressions cannot reference the
+-- @_score@ value. To sort suggestions using a numeric field or existing
+-- expression, simply specify the name of the field or expression. If no
+-- expression is configured for the suggester, the suggestions are sorted
+-- with the closest matches listed first.
+--
+-- 'sourceField', 'documentSuggesterOptions_sourceField' - The name of the index field you want to use for suggestions.
+newDocumentSuggesterOptions ::
+  -- | 'sourceField'
+  Prelude.Text ->
   DocumentSuggesterOptions
-documentSuggesterOptions pSourceField_ =
+newDocumentSuggesterOptions pSourceField_ =
   DocumentSuggesterOptions'
-    { _dsoFuzzyMatching =
-        Nothing,
-      _dsoSortExpression = Nothing,
-      _dsoSourceField = pSourceField_
+    { fuzzyMatching =
+        Prelude.Nothing,
+      sortExpression = Prelude.Nothing,
+      sourceField = pSourceField_
     }
 
--- | The level of fuzziness allowed when suggesting matches for a string: @none@ , @low@ , or @high@ . With none, the specified string is treated as an exact prefix. With low, suggestions must differ from the specified string by no more than one character. With high, suggestions can differ by up to two characters. The default is none.
-dsoFuzzyMatching :: Lens' DocumentSuggesterOptions (Maybe SuggesterFuzzyMatching)
-dsoFuzzyMatching = lens _dsoFuzzyMatching (\s a -> s {_dsoFuzzyMatching = a})
+-- | The level of fuzziness allowed when suggesting matches for a string:
+-- @none@, @low@, or @high@. With none, the specified string is treated as
+-- an exact prefix. With low, suggestions must differ from the specified
+-- string by no more than one character. With high, suggestions can differ
+-- by up to two characters. The default is none.
+documentSuggesterOptions_fuzzyMatching :: Lens.Lens' DocumentSuggesterOptions (Prelude.Maybe SuggesterFuzzyMatching)
+documentSuggesterOptions_fuzzyMatching = Lens.lens (\DocumentSuggesterOptions' {fuzzyMatching} -> fuzzyMatching) (\s@DocumentSuggesterOptions' {} a -> s {fuzzyMatching = a} :: DocumentSuggesterOptions)
 
--- | An expression that computes a score for each suggestion to control how they are sorted. The scores are rounded to the nearest integer, with a floor of 0 and a ceiling of 2^31-1. A document's relevance score is not computed for suggestions, so sort expressions cannot reference the @_score@ value. To sort suggestions using a numeric field or existing expression, simply specify the name of the field or expression. If no expression is configured for the suggester, the suggestions are sorted with the closest matches listed first.
-dsoSortExpression :: Lens' DocumentSuggesterOptions (Maybe Text)
-dsoSortExpression = lens _dsoSortExpression (\s a -> s {_dsoSortExpression = a})
+-- | An expression that computes a score for each suggestion to control how
+-- they are sorted. The scores are rounded to the nearest integer, with a
+-- floor of 0 and a ceiling of 2^31-1. A document\'s relevance score is not
+-- computed for suggestions, so sort expressions cannot reference the
+-- @_score@ value. To sort suggestions using a numeric field or existing
+-- expression, simply specify the name of the field or expression. If no
+-- expression is configured for the suggester, the suggestions are sorted
+-- with the closest matches listed first.
+documentSuggesterOptions_sortExpression :: Lens.Lens' DocumentSuggesterOptions (Prelude.Maybe Prelude.Text)
+documentSuggesterOptions_sortExpression = Lens.lens (\DocumentSuggesterOptions' {sortExpression} -> sortExpression) (\s@DocumentSuggesterOptions' {} a -> s {sortExpression = a} :: DocumentSuggesterOptions)
 
 -- | The name of the index field you want to use for suggestions.
-dsoSourceField :: Lens' DocumentSuggesterOptions Text
-dsoSourceField = lens _dsoSourceField (\s a -> s {_dsoSourceField = a})
+documentSuggesterOptions_sourceField :: Lens.Lens' DocumentSuggesterOptions Prelude.Text
+documentSuggesterOptions_sourceField = Lens.lens (\DocumentSuggesterOptions' {sourceField} -> sourceField) (\s@DocumentSuggesterOptions' {} a -> s {sourceField = a} :: DocumentSuggesterOptions)
 
-instance FromXML DocumentSuggesterOptions where
+instance Prelude.FromXML DocumentSuggesterOptions where
   parseXML x =
     DocumentSuggesterOptions'
-      <$> (x .@? "FuzzyMatching")
-      <*> (x .@? "SortExpression")
-      <*> (x .@ "SourceField")
+      Prelude.<$> (x Prelude..@? "FuzzyMatching")
+      Prelude.<*> (x Prelude..@? "SortExpression")
+      Prelude.<*> (x Prelude..@ "SourceField")
 
-instance Hashable DocumentSuggesterOptions
+instance Prelude.Hashable DocumentSuggesterOptions
 
-instance NFData DocumentSuggesterOptions
+instance Prelude.NFData DocumentSuggesterOptions
 
-instance ToQuery DocumentSuggesterOptions where
+instance Prelude.ToQuery DocumentSuggesterOptions where
   toQuery DocumentSuggesterOptions' {..} =
-    mconcat
-      [ "FuzzyMatching" =: _dsoFuzzyMatching,
-        "SortExpression" =: _dsoSortExpression,
-        "SourceField" =: _dsoSourceField
+    Prelude.mconcat
+      [ "FuzzyMatching" Prelude.=: fuzzyMatching,
+        "SortExpression" Prelude.=: sortExpression,
+        "SourceField" Prelude.=: sourceField
       ]

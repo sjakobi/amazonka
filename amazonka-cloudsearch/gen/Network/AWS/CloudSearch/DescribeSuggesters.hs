@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,179 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the suggesters configured for a domain. A suggester enables you to display possible matches before users finish typing their queries. Can be limited to specific suggesters by name. By default, shows all suggesters and includes any pending changes to the configuration. Set the @Deployed@ option to @true@ to show the active configuration and exclude pending changes. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html Getting Search Suggestions> in the /Amazon CloudSearch Developer Guide/ .
+-- Gets the suggesters configured for a domain. A suggester enables you to
+-- display possible matches before users finish typing their queries. Can
+-- be limited to specific suggesters by name. By default, shows all
+-- suggesters and includes any pending changes to the configuration. Set
+-- the @Deployed@ option to @true@ to show the active configuration and
+-- exclude pending changes. For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html Getting Search Suggestions>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DescribeSuggesters
   ( -- * Creating a Request
-    describeSuggesters,
-    DescribeSuggesters,
+    DescribeSuggesters (..),
+    newDescribeSuggesters,
 
     -- * Request Lenses
-    deseDeployed,
-    deseSuggesterNames,
-    deseDomainName,
+    describeSuggesters_deployed,
+    describeSuggesters_suggesterNames,
+    describeSuggesters_domainName,
 
     -- * Destructuring the Response
-    describeSuggestersResponse,
-    DescribeSuggestersResponse,
+    DescribeSuggestersResponse (..),
+    newDescribeSuggestersResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
-    drsSuggesters,
+    describeSuggestersResponse_httpStatus,
+    describeSuggestersResponse_suggesters,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.SuggesterStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DescribeSuggester' @ operation. Specifies the name of the domain you want to describe. To restrict the response to particular suggesters, specify the names of the suggesters you want to describe. To show the active configuration and exclude any pending changes, set the @Deployed@ option to @true@ .
+-- | Container for the parameters to the @DescribeSuggester@ operation.
+-- Specifies the name of the domain you want to describe. To restrict the
+-- response to particular suggesters, specify the names of the suggesters
+-- you want to describe. To show the active configuration and exclude any
+-- pending changes, set the @Deployed@ option to @true@.
 --
---
---
--- /See:/ 'describeSuggesters' smart constructor.
+-- /See:/ 'newDescribeSuggesters' smart constructor.
 data DescribeSuggesters = DescribeSuggesters'
-  { _deseDeployed ::
-      !(Maybe Bool),
-    _deseSuggesterNames ::
-      !(Maybe [Text]),
-    _deseDomainName :: !Text
+  { -- | Whether to display the deployed configuration (@true@) or include any
+    -- pending changes (@false@). Defaults to @false@.
+    deployed :: Prelude.Maybe Prelude.Bool,
+    -- | The suggesters you want to describe.
+    suggesterNames :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the domain you want to describe.
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSuggesters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSuggesters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deseDeployed' - Whether to display the deployed configuration (@true@ ) or include any pending changes (@false@ ). Defaults to @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deseSuggesterNames' - The suggesters you want to describe.
+-- 'deployed', 'describeSuggesters_deployed' - Whether to display the deployed configuration (@true@) or include any
+-- pending changes (@false@). Defaults to @false@.
 --
--- * 'deseDomainName' - The name of the domain you want to describe.
-describeSuggesters ::
-  -- | 'deseDomainName'
-  Text ->
+-- 'suggesterNames', 'describeSuggesters_suggesterNames' - The suggesters you want to describe.
+--
+-- 'domainName', 'describeSuggesters_domainName' - The name of the domain you want to describe.
+newDescribeSuggesters ::
+  -- | 'domainName'
+  Prelude.Text ->
   DescribeSuggesters
-describeSuggesters pDomainName_ =
+newDescribeSuggesters pDomainName_ =
   DescribeSuggesters'
-    { _deseDeployed = Nothing,
-      _deseSuggesterNames = Nothing,
-      _deseDomainName = pDomainName_
+    { deployed = Prelude.Nothing,
+      suggesterNames = Prelude.Nothing,
+      domainName = pDomainName_
     }
 
--- | Whether to display the deployed configuration (@true@ ) or include any pending changes (@false@ ). Defaults to @false@ .
-deseDeployed :: Lens' DescribeSuggesters (Maybe Bool)
-deseDeployed = lens _deseDeployed (\s a -> s {_deseDeployed = a})
+-- | Whether to display the deployed configuration (@true@) or include any
+-- pending changes (@false@). Defaults to @false@.
+describeSuggesters_deployed :: Lens.Lens' DescribeSuggesters (Prelude.Maybe Prelude.Bool)
+describeSuggesters_deployed = Lens.lens (\DescribeSuggesters' {deployed} -> deployed) (\s@DescribeSuggesters' {} a -> s {deployed = a} :: DescribeSuggesters)
 
 -- | The suggesters you want to describe.
-deseSuggesterNames :: Lens' DescribeSuggesters [Text]
-deseSuggesterNames = lens _deseSuggesterNames (\s a -> s {_deseSuggesterNames = a}) . _Default . _Coerce
+describeSuggesters_suggesterNames :: Lens.Lens' DescribeSuggesters (Prelude.Maybe [Prelude.Text])
+describeSuggesters_suggesterNames = Lens.lens (\DescribeSuggesters' {suggesterNames} -> suggesterNames) (\s@DescribeSuggesters' {} a -> s {suggesterNames = a} :: DescribeSuggesters) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the domain you want to describe.
-deseDomainName :: Lens' DescribeSuggesters Text
-deseDomainName = lens _deseDomainName (\s a -> s {_deseDomainName = a})
+describeSuggesters_domainName :: Lens.Lens' DescribeSuggesters Prelude.Text
+describeSuggesters_domainName = Lens.lens (\DescribeSuggesters' {domainName} -> domainName) (\s@DescribeSuggesters' {} a -> s {domainName = a} :: DescribeSuggesters)
 
-instance AWSRequest DescribeSuggesters where
+instance Prelude.AWSRequest DescribeSuggesters where
   type
     Rs DescribeSuggesters =
       DescribeSuggestersResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeSuggestersResult"
       ( \s h x ->
           DescribeSuggestersResponse'
-            <$> (pure (fromEnum s))
-            <*> ( x .@? "Suggesters" .!@ mempty
-                    >>= parseXMLList "member"
-                )
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "Suggesters"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable DescribeSuggesters
+instance Prelude.Hashable DescribeSuggesters
 
-instance NFData DescribeSuggesters
+instance Prelude.NFData DescribeSuggesters
 
-instance ToHeaders DescribeSuggesters where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeSuggesters where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeSuggesters where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSuggesters where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSuggesters where
+instance Prelude.ToQuery DescribeSuggesters where
   toQuery DescribeSuggesters' {..} =
-    mconcat
-      [ "Action" =: ("DescribeSuggesters" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "Deployed" =: _deseDeployed,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeSuggesters" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "Deployed" Prelude.=: deployed,
         "SuggesterNames"
-          =: toQuery
-            (toQueryList "member" <$> _deseSuggesterNames),
-        "DomainName" =: _deseDomainName
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> suggesterNames
+            ),
+        "DomainName" Prelude.=: domainName
       ]
 
 -- | The result of a @DescribeSuggesters@ request.
 --
---
---
--- /See:/ 'describeSuggestersResponse' smart constructor.
+-- /See:/ 'newDescribeSuggestersResponse' smart constructor.
 data DescribeSuggestersResponse = DescribeSuggestersResponse'
-  { _drsResponseStatus ::
-      !Int,
-    _drsSuggesters ::
-      ![SuggesterStatus]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The suggesters configured for the domain specified in the request.
+    suggesters :: [SuggesterStatus]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSuggestersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSuggestersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsSuggesters' - The suggesters configured for the domain specified in the request.
-describeSuggestersResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'httpStatus', 'describeSuggestersResponse_httpStatus' - The response's http status code.
+--
+-- 'suggesters', 'describeSuggestersResponse_suggesters' - The suggesters configured for the domain specified in the request.
+newDescribeSuggestersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSuggestersResponse
-describeSuggestersResponse pResponseStatus_ =
+newDescribeSuggestersResponse pHttpStatus_ =
   DescribeSuggestersResponse'
-    { _drsResponseStatus =
-        pResponseStatus_,
-      _drsSuggesters = mempty
+    { httpStatus =
+        pHttpStatus_,
+      suggesters = Prelude.mempty
     }
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeSuggestersResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeSuggestersResponse_httpStatus :: Lens.Lens' DescribeSuggestersResponse Prelude.Int
+describeSuggestersResponse_httpStatus = Lens.lens (\DescribeSuggestersResponse' {httpStatus} -> httpStatus) (\s@DescribeSuggestersResponse' {} a -> s {httpStatus = a} :: DescribeSuggestersResponse)
 
 -- | The suggesters configured for the domain specified in the request.
-drsSuggesters :: Lens' DescribeSuggestersResponse [SuggesterStatus]
-drsSuggesters = lens _drsSuggesters (\s a -> s {_drsSuggesters = a}) . _Coerce
+describeSuggestersResponse_suggesters :: Lens.Lens' DescribeSuggestersResponse [SuggesterStatus]
+describeSuggestersResponse_suggesters = Lens.lens (\DescribeSuggestersResponse' {suggesters} -> suggesters) (\s@DescribeSuggestersResponse' {} a -> s {suggesters = a} :: DescribeSuggestersResponse) Prelude.. Prelude._Coerce
 
-instance NFData DescribeSuggestersResponse
+instance Prelude.NFData DescribeSuggestersResponse

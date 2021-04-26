@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,97 +19,107 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types.LiteralOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options for literal field. Present if @IndexFieldType@ specifies the field is of type @literal@ . All options are enabled by default.
+-- | Options for literal field. Present if @IndexFieldType@ specifies the
+-- field is of type @literal@. All options are enabled by default.
 --
---
---
--- /See:/ 'literalOptions' smart constructor.
+-- /See:/ 'newLiteralOptions' smart constructor.
 data LiteralOptions = LiteralOptions'
-  { _loSortEnabled ::
-      !(Maybe Bool),
-    _loFacetEnabled :: !(Maybe Bool),
-    _loReturnEnabled :: !(Maybe Bool),
-    _loSourceField :: !(Maybe Text),
-    _loSearchEnabled :: !(Maybe Bool),
-    _loDefaultValue :: !(Maybe Text)
+  { -- | Whether the field can be used to sort the search results.
+    sortEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether facet information can be returned for the field.
+    facetEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether the contents of the field can be returned in the search results.
+    returnEnabled :: Prelude.Maybe Prelude.Bool,
+    sourceField :: Prelude.Maybe Prelude.Text,
+    -- | Whether the contents of the field are searchable.
+    searchEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A value to use for the field if the field isn\'t specified for a
+    -- document.
+    defaultValue :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LiteralOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LiteralOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'loSortEnabled' - Whether the field can be used to sort the search results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'loFacetEnabled' - Whether facet information can be returned for the field.
+-- 'sortEnabled', 'literalOptions_sortEnabled' - Whether the field can be used to sort the search results.
 --
--- * 'loReturnEnabled' - Whether the contents of the field can be returned in the search results.
+-- 'facetEnabled', 'literalOptions_facetEnabled' - Whether facet information can be returned for the field.
 --
--- * 'loSourceField' - Undocumented member.
+-- 'returnEnabled', 'literalOptions_returnEnabled' - Whether the contents of the field can be returned in the search results.
 --
--- * 'loSearchEnabled' - Whether the contents of the field are searchable.
+-- 'sourceField', 'literalOptions_sourceField' - Undocumented member.
 --
--- * 'loDefaultValue' - A value to use for the field if the field isn't specified for a document.
-literalOptions ::
+-- 'searchEnabled', 'literalOptions_searchEnabled' - Whether the contents of the field are searchable.
+--
+-- 'defaultValue', 'literalOptions_defaultValue' - A value to use for the field if the field isn\'t specified for a
+-- document.
+newLiteralOptions ::
   LiteralOptions
-literalOptions =
+newLiteralOptions =
   LiteralOptions'
-    { _loSortEnabled = Nothing,
-      _loFacetEnabled = Nothing,
-      _loReturnEnabled = Nothing,
-      _loSourceField = Nothing,
-      _loSearchEnabled = Nothing,
-      _loDefaultValue = Nothing
+    { sortEnabled = Prelude.Nothing,
+      facetEnabled = Prelude.Nothing,
+      returnEnabled = Prelude.Nothing,
+      sourceField = Prelude.Nothing,
+      searchEnabled = Prelude.Nothing,
+      defaultValue = Prelude.Nothing
     }
 
 -- | Whether the field can be used to sort the search results.
-loSortEnabled :: Lens' LiteralOptions (Maybe Bool)
-loSortEnabled = lens _loSortEnabled (\s a -> s {_loSortEnabled = a})
+literalOptions_sortEnabled :: Lens.Lens' LiteralOptions (Prelude.Maybe Prelude.Bool)
+literalOptions_sortEnabled = Lens.lens (\LiteralOptions' {sortEnabled} -> sortEnabled) (\s@LiteralOptions' {} a -> s {sortEnabled = a} :: LiteralOptions)
 
 -- | Whether facet information can be returned for the field.
-loFacetEnabled :: Lens' LiteralOptions (Maybe Bool)
-loFacetEnabled = lens _loFacetEnabled (\s a -> s {_loFacetEnabled = a})
+literalOptions_facetEnabled :: Lens.Lens' LiteralOptions (Prelude.Maybe Prelude.Bool)
+literalOptions_facetEnabled = Lens.lens (\LiteralOptions' {facetEnabled} -> facetEnabled) (\s@LiteralOptions' {} a -> s {facetEnabled = a} :: LiteralOptions)
 
 -- | Whether the contents of the field can be returned in the search results.
-loReturnEnabled :: Lens' LiteralOptions (Maybe Bool)
-loReturnEnabled = lens _loReturnEnabled (\s a -> s {_loReturnEnabled = a})
+literalOptions_returnEnabled :: Lens.Lens' LiteralOptions (Prelude.Maybe Prelude.Bool)
+literalOptions_returnEnabled = Lens.lens (\LiteralOptions' {returnEnabled} -> returnEnabled) (\s@LiteralOptions' {} a -> s {returnEnabled = a} :: LiteralOptions)
 
 -- | Undocumented member.
-loSourceField :: Lens' LiteralOptions (Maybe Text)
-loSourceField = lens _loSourceField (\s a -> s {_loSourceField = a})
+literalOptions_sourceField :: Lens.Lens' LiteralOptions (Prelude.Maybe Prelude.Text)
+literalOptions_sourceField = Lens.lens (\LiteralOptions' {sourceField} -> sourceField) (\s@LiteralOptions' {} a -> s {sourceField = a} :: LiteralOptions)
 
 -- | Whether the contents of the field are searchable.
-loSearchEnabled :: Lens' LiteralOptions (Maybe Bool)
-loSearchEnabled = lens _loSearchEnabled (\s a -> s {_loSearchEnabled = a})
+literalOptions_searchEnabled :: Lens.Lens' LiteralOptions (Prelude.Maybe Prelude.Bool)
+literalOptions_searchEnabled = Lens.lens (\LiteralOptions' {searchEnabled} -> searchEnabled) (\s@LiteralOptions' {} a -> s {searchEnabled = a} :: LiteralOptions)
 
--- | A value to use for the field if the field isn't specified for a document.
-loDefaultValue :: Lens' LiteralOptions (Maybe Text)
-loDefaultValue = lens _loDefaultValue (\s a -> s {_loDefaultValue = a})
+-- | A value to use for the field if the field isn\'t specified for a
+-- document.
+literalOptions_defaultValue :: Lens.Lens' LiteralOptions (Prelude.Maybe Prelude.Text)
+literalOptions_defaultValue = Lens.lens (\LiteralOptions' {defaultValue} -> defaultValue) (\s@LiteralOptions' {} a -> s {defaultValue = a} :: LiteralOptions)
 
-instance FromXML LiteralOptions where
+instance Prelude.FromXML LiteralOptions where
   parseXML x =
     LiteralOptions'
-      <$> (x .@? "SortEnabled")
-      <*> (x .@? "FacetEnabled")
-      <*> (x .@? "ReturnEnabled")
-      <*> (x .@? "SourceField")
-      <*> (x .@? "SearchEnabled")
-      <*> (x .@? "DefaultValue")
+      Prelude.<$> (x Prelude..@? "SortEnabled")
+      Prelude.<*> (x Prelude..@? "FacetEnabled")
+      Prelude.<*> (x Prelude..@? "ReturnEnabled")
+      Prelude.<*> (x Prelude..@? "SourceField")
+      Prelude.<*> (x Prelude..@? "SearchEnabled")
+      Prelude.<*> (x Prelude..@? "DefaultValue")
 
-instance Hashable LiteralOptions
+instance Prelude.Hashable LiteralOptions
 
-instance NFData LiteralOptions
+instance Prelude.NFData LiteralOptions
 
-instance ToQuery LiteralOptions where
+instance Prelude.ToQuery LiteralOptions where
   toQuery LiteralOptions' {..} =
-    mconcat
-      [ "SortEnabled" =: _loSortEnabled,
-        "FacetEnabled" =: _loFacetEnabled,
-        "ReturnEnabled" =: _loReturnEnabled,
-        "SourceField" =: _loSourceField,
-        "SearchEnabled" =: _loSearchEnabled,
-        "DefaultValue" =: _loDefaultValue
+    Prelude.mconcat
+      [ "SortEnabled" Prelude.=: sortEnabled,
+        "FacetEnabled" Prelude.=: facetEnabled,
+        "ReturnEnabled" Prelude.=: returnEnabled,
+        "SourceField" Prelude.=: sourceField,
+        "SearchEnabled" Prelude.=: searchEnabled,
+        "DefaultValue" Prelude.=: defaultValue
       ]

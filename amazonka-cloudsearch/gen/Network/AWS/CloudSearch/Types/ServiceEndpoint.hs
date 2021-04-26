@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,37 +19,40 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types.ServiceEndpoint where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The endpoint to which service requests can be submitted.
 --
---
---
--- /See:/ 'serviceEndpoint' smart constructor.
-newtype ServiceEndpoint = ServiceEndpoint'
-  { _seEndpoint ::
-      Maybe Text
+-- /See:/ 'newServiceEndpoint' smart constructor.
+data ServiceEndpoint = ServiceEndpoint'
+  { endpoint :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seEndpoint' - Undocumented member.
-serviceEndpoint ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'endpoint', 'serviceEndpoint_endpoint' - Undocumented member.
+newServiceEndpoint ::
   ServiceEndpoint
-serviceEndpoint =
-  ServiceEndpoint' {_seEndpoint = Nothing}
+newServiceEndpoint =
+  ServiceEndpoint' {endpoint = Prelude.Nothing}
 
 -- | Undocumented member.
-seEndpoint :: Lens' ServiceEndpoint (Maybe Text)
-seEndpoint = lens _seEndpoint (\s a -> s {_seEndpoint = a})
+serviceEndpoint_endpoint :: Lens.Lens' ServiceEndpoint (Prelude.Maybe Prelude.Text)
+serviceEndpoint_endpoint = Lens.lens (\ServiceEndpoint' {endpoint} -> endpoint) (\s@ServiceEndpoint' {} a -> s {endpoint = a} :: ServiceEndpoint)
 
-instance FromXML ServiceEndpoint where
-  parseXML x = ServiceEndpoint' <$> (x .@? "Endpoint")
+instance Prelude.FromXML ServiceEndpoint where
+  parseXML x =
+    ServiceEndpoint'
+      Prelude.<$> (x Prelude..@? "Endpoint")
 
-instance Hashable ServiceEndpoint
+instance Prelude.Hashable ServiceEndpoint
 
-instance NFData ServiceEndpoint
+instance Prelude.NFData ServiceEndpoint

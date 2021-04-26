@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,97 +19,112 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types.IntOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options for a 64-bit signed integer field. Present if @IndexFieldType@ specifies the field is of type @int@ . All options are enabled by default.
+-- | Options for a 64-bit signed integer field. Present if @IndexFieldType@
+-- specifies the field is of type @int@. All options are enabled by
+-- default.
 --
---
---
--- /See:/ 'intOptions' smart constructor.
+-- /See:/ 'newIntOptions' smart constructor.
 data IntOptions = IntOptions'
-  { _ioSortEnabled ::
-      !(Maybe Bool),
-    _ioFacetEnabled :: !(Maybe Bool),
-    _ioReturnEnabled :: !(Maybe Bool),
-    _ioSourceField :: !(Maybe Text),
-    _ioSearchEnabled :: !(Maybe Bool),
-    _ioDefaultValue :: !(Maybe Integer)
+  { -- | Whether the field can be used to sort the search results.
+    sortEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether facet information can be returned for the field.
+    facetEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether the contents of the field can be returned in the search results.
+    returnEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the source field to map to the field.
+    sourceField :: Prelude.Maybe Prelude.Text,
+    -- | Whether the contents of the field are searchable.
+    searchEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A value to use for the field if the field isn\'t specified for a
+    -- document. This can be important if you are using the field in an
+    -- expression and that field is not present in every document.
+    defaultValue :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IntOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IntOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ioSortEnabled' - Whether the field can be used to sort the search results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ioFacetEnabled' - Whether facet information can be returned for the field.
+-- 'sortEnabled', 'intOptions_sortEnabled' - Whether the field can be used to sort the search results.
 --
--- * 'ioReturnEnabled' - Whether the contents of the field can be returned in the search results.
+-- 'facetEnabled', 'intOptions_facetEnabled' - Whether facet information can be returned for the field.
 --
--- * 'ioSourceField' - The name of the source field to map to the field.
+-- 'returnEnabled', 'intOptions_returnEnabled' - Whether the contents of the field can be returned in the search results.
 --
--- * 'ioSearchEnabled' - Whether the contents of the field are searchable.
+-- 'sourceField', 'intOptions_sourceField' - The name of the source field to map to the field.
 --
--- * 'ioDefaultValue' - A value to use for the field if the field isn't specified for a document. This can be important if you are using the field in an expression and that field is not present in every document.
-intOptions ::
+-- 'searchEnabled', 'intOptions_searchEnabled' - Whether the contents of the field are searchable.
+--
+-- 'defaultValue', 'intOptions_defaultValue' - A value to use for the field if the field isn\'t specified for a
+-- document. This can be important if you are using the field in an
+-- expression and that field is not present in every document.
+newIntOptions ::
   IntOptions
-intOptions =
+newIntOptions =
   IntOptions'
-    { _ioSortEnabled = Nothing,
-      _ioFacetEnabled = Nothing,
-      _ioReturnEnabled = Nothing,
-      _ioSourceField = Nothing,
-      _ioSearchEnabled = Nothing,
-      _ioDefaultValue = Nothing
+    { sortEnabled = Prelude.Nothing,
+      facetEnabled = Prelude.Nothing,
+      returnEnabled = Prelude.Nothing,
+      sourceField = Prelude.Nothing,
+      searchEnabled = Prelude.Nothing,
+      defaultValue = Prelude.Nothing
     }
 
 -- | Whether the field can be used to sort the search results.
-ioSortEnabled :: Lens' IntOptions (Maybe Bool)
-ioSortEnabled = lens _ioSortEnabled (\s a -> s {_ioSortEnabled = a})
+intOptions_sortEnabled :: Lens.Lens' IntOptions (Prelude.Maybe Prelude.Bool)
+intOptions_sortEnabled = Lens.lens (\IntOptions' {sortEnabled} -> sortEnabled) (\s@IntOptions' {} a -> s {sortEnabled = a} :: IntOptions)
 
 -- | Whether facet information can be returned for the field.
-ioFacetEnabled :: Lens' IntOptions (Maybe Bool)
-ioFacetEnabled = lens _ioFacetEnabled (\s a -> s {_ioFacetEnabled = a})
+intOptions_facetEnabled :: Lens.Lens' IntOptions (Prelude.Maybe Prelude.Bool)
+intOptions_facetEnabled = Lens.lens (\IntOptions' {facetEnabled} -> facetEnabled) (\s@IntOptions' {} a -> s {facetEnabled = a} :: IntOptions)
 
 -- | Whether the contents of the field can be returned in the search results.
-ioReturnEnabled :: Lens' IntOptions (Maybe Bool)
-ioReturnEnabled = lens _ioReturnEnabled (\s a -> s {_ioReturnEnabled = a})
+intOptions_returnEnabled :: Lens.Lens' IntOptions (Prelude.Maybe Prelude.Bool)
+intOptions_returnEnabled = Lens.lens (\IntOptions' {returnEnabled} -> returnEnabled) (\s@IntOptions' {} a -> s {returnEnabled = a} :: IntOptions)
 
 -- | The name of the source field to map to the field.
-ioSourceField :: Lens' IntOptions (Maybe Text)
-ioSourceField = lens _ioSourceField (\s a -> s {_ioSourceField = a})
+intOptions_sourceField :: Lens.Lens' IntOptions (Prelude.Maybe Prelude.Text)
+intOptions_sourceField = Lens.lens (\IntOptions' {sourceField} -> sourceField) (\s@IntOptions' {} a -> s {sourceField = a} :: IntOptions)
 
 -- | Whether the contents of the field are searchable.
-ioSearchEnabled :: Lens' IntOptions (Maybe Bool)
-ioSearchEnabled = lens _ioSearchEnabled (\s a -> s {_ioSearchEnabled = a})
+intOptions_searchEnabled :: Lens.Lens' IntOptions (Prelude.Maybe Prelude.Bool)
+intOptions_searchEnabled = Lens.lens (\IntOptions' {searchEnabled} -> searchEnabled) (\s@IntOptions' {} a -> s {searchEnabled = a} :: IntOptions)
 
--- | A value to use for the field if the field isn't specified for a document. This can be important if you are using the field in an expression and that field is not present in every document.
-ioDefaultValue :: Lens' IntOptions (Maybe Integer)
-ioDefaultValue = lens _ioDefaultValue (\s a -> s {_ioDefaultValue = a})
+-- | A value to use for the field if the field isn\'t specified for a
+-- document. This can be important if you are using the field in an
+-- expression and that field is not present in every document.
+intOptions_defaultValue :: Lens.Lens' IntOptions (Prelude.Maybe Prelude.Integer)
+intOptions_defaultValue = Lens.lens (\IntOptions' {defaultValue} -> defaultValue) (\s@IntOptions' {} a -> s {defaultValue = a} :: IntOptions)
 
-instance FromXML IntOptions where
+instance Prelude.FromXML IntOptions where
   parseXML x =
     IntOptions'
-      <$> (x .@? "SortEnabled")
-      <*> (x .@? "FacetEnabled")
-      <*> (x .@? "ReturnEnabled")
-      <*> (x .@? "SourceField")
-      <*> (x .@? "SearchEnabled")
-      <*> (x .@? "DefaultValue")
+      Prelude.<$> (x Prelude..@? "SortEnabled")
+      Prelude.<*> (x Prelude..@? "FacetEnabled")
+      Prelude.<*> (x Prelude..@? "ReturnEnabled")
+      Prelude.<*> (x Prelude..@? "SourceField")
+      Prelude.<*> (x Prelude..@? "SearchEnabled")
+      Prelude.<*> (x Prelude..@? "DefaultValue")
 
-instance Hashable IntOptions
+instance Prelude.Hashable IntOptions
 
-instance NFData IntOptions
+instance Prelude.NFData IntOptions
 
-instance ToQuery IntOptions where
+instance Prelude.ToQuery IntOptions where
   toQuery IntOptions' {..} =
-    mconcat
-      [ "SortEnabled" =: _ioSortEnabled,
-        "FacetEnabled" =: _ioFacetEnabled,
-        "ReturnEnabled" =: _ioReturnEnabled,
-        "SourceField" =: _ioSourceField,
-        "SearchEnabled" =: _ioSearchEnabled,
-        "DefaultValue" =: _ioDefaultValue
+    Prelude.mconcat
+      [ "SortEnabled" Prelude.=: sortEnabled,
+        "FacetEnabled" Prelude.=: facetEnabled,
+        "ReturnEnabled" Prelude.=: returnEnabled,
+        "SourceField" Prelude.=: sourceField,
+        "SearchEnabled" Prelude.=: searchEnabled,
+        "DefaultValue" Prelude.=: defaultValue
       ]

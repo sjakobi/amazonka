@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the expressions configured for the search domain. Can be limited to specific expressions by name. By default, shows all expressions and includes any pending changes to the configuration. Set the @Deployed@ option to @true@ to show the active configuration and exclude pending changes. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html Configuring Expressions> in the /Amazon CloudSearch Developer Guide/ .
+-- Gets the expressions configured for the search domain. Can be limited to
+-- specific expressions by name. By default, shows all expressions and
+-- includes any pending changes to the configuration. Set the @Deployed@
+-- option to @true@ to show the active configuration and exclude pending
+-- changes. For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html Configuring Expressions>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DescribeExpressions
   ( -- * Creating a Request
-    describeExpressions,
-    DescribeExpressions,
+    DescribeExpressions (..),
+    newDescribeExpressions,
 
     -- * Request Lenses
-    desDeployed,
-    desExpressionNames,
-    desDomainName,
+    describeExpressions_deployed,
+    describeExpressions_expressionNames,
+    describeExpressions_domainName,
 
     -- * Destructuring the Response
-    describeExpressionsResponse,
-    DescribeExpressionsResponse,
+    DescribeExpressionsResponse (..),
+    newDescribeExpressionsResponse,
 
     -- * Response Lenses
-    desrsResponseStatus,
-    desrsExpressions,
+    describeExpressionsResponse_httpStatus,
+    describeExpressionsResponse_expressions,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.ExpressionStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DescribeDomains' @ operation. Specifies the name of the domain you want to describe. To restrict the response to particular expressions, specify the names of the expressions you want to describe. To show the active configuration and exclude any pending changes, set the @Deployed@ option to @true@ .
+-- | Container for the parameters to the @DescribeDomains@ operation.
+-- Specifies the name of the domain you want to describe. To restrict the
+-- response to particular expressions, specify the names of the expressions
+-- you want to describe. To show the active configuration and exclude any
+-- pending changes, set the @Deployed@ option to @true@.
 --
---
---
--- /See:/ 'describeExpressions' smart constructor.
+-- /See:/ 'newDescribeExpressions' smart constructor.
 data DescribeExpressions = DescribeExpressions'
-  { _desDeployed ::
-      !(Maybe Bool),
-    _desExpressionNames ::
-      !(Maybe [Text]),
-    _desDomainName :: !Text
+  { -- | Whether to display the deployed configuration (@true@) or include any
+    -- pending changes (@false@). Defaults to @false@.
+    deployed :: Prelude.Maybe Prelude.Bool,
+    -- | Limits the @DescribeExpressions@ response to the specified expressions.
+    -- If not specified, all expressions are shown.
+    expressionNames :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the domain you want to describe.
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExpressions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExpressions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desDeployed' - Whether to display the deployed configuration (@true@ ) or include any pending changes (@false@ ). Defaults to @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desExpressionNames' - Limits the @'DescribeExpressions' @ response to the specified expressions. If not specified, all expressions are shown.
+-- 'deployed', 'describeExpressions_deployed' - Whether to display the deployed configuration (@true@) or include any
+-- pending changes (@false@). Defaults to @false@.
 --
--- * 'desDomainName' - The name of the domain you want to describe.
-describeExpressions ::
-  -- | 'desDomainName'
-  Text ->
+-- 'expressionNames', 'describeExpressions_expressionNames' - Limits the @DescribeExpressions@ response to the specified expressions.
+-- If not specified, all expressions are shown.
+--
+-- 'domainName', 'describeExpressions_domainName' - The name of the domain you want to describe.
+newDescribeExpressions ::
+  -- | 'domainName'
+  Prelude.Text ->
   DescribeExpressions
-describeExpressions pDomainName_ =
+newDescribeExpressions pDomainName_ =
   DescribeExpressions'
-    { _desDeployed = Nothing,
-      _desExpressionNames = Nothing,
-      _desDomainName = pDomainName_
+    { deployed = Prelude.Nothing,
+      expressionNames = Prelude.Nothing,
+      domainName = pDomainName_
     }
 
--- | Whether to display the deployed configuration (@true@ ) or include any pending changes (@false@ ). Defaults to @false@ .
-desDeployed :: Lens' DescribeExpressions (Maybe Bool)
-desDeployed = lens _desDeployed (\s a -> s {_desDeployed = a})
+-- | Whether to display the deployed configuration (@true@) or include any
+-- pending changes (@false@). Defaults to @false@.
+describeExpressions_deployed :: Lens.Lens' DescribeExpressions (Prelude.Maybe Prelude.Bool)
+describeExpressions_deployed = Lens.lens (\DescribeExpressions' {deployed} -> deployed) (\s@DescribeExpressions' {} a -> s {deployed = a} :: DescribeExpressions)
 
--- | Limits the @'DescribeExpressions' @ response to the specified expressions. If not specified, all expressions are shown.
-desExpressionNames :: Lens' DescribeExpressions [Text]
-desExpressionNames = lens _desExpressionNames (\s a -> s {_desExpressionNames = a}) . _Default . _Coerce
+-- | Limits the @DescribeExpressions@ response to the specified expressions.
+-- If not specified, all expressions are shown.
+describeExpressions_expressionNames :: Lens.Lens' DescribeExpressions (Prelude.Maybe [Prelude.Text])
+describeExpressions_expressionNames = Lens.lens (\DescribeExpressions' {expressionNames} -> expressionNames) (\s@DescribeExpressions' {} a -> s {expressionNames = a} :: DescribeExpressions) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the domain you want to describe.
-desDomainName :: Lens' DescribeExpressions Text
-desDomainName = lens _desDomainName (\s a -> s {_desDomainName = a})
+describeExpressions_domainName :: Lens.Lens' DescribeExpressions Prelude.Text
+describeExpressions_domainName = Lens.lens (\DescribeExpressions' {domainName} -> domainName) (\s@DescribeExpressions' {} a -> s {domainName = a} :: DescribeExpressions)
 
-instance AWSRequest DescribeExpressions where
+instance Prelude.AWSRequest DescribeExpressions where
   type
     Rs DescribeExpressions =
       DescribeExpressionsResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeExpressionsResult"
       ( \s h x ->
           DescribeExpressionsResponse'
-            <$> (pure (fromEnum s))
-            <*> ( x .@? "Expressions" .!@ mempty
-                    >>= parseXMLList "member"
-                )
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "Expressions"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable DescribeExpressions
+instance Prelude.Hashable DescribeExpressions
 
-instance NFData DescribeExpressions
+instance Prelude.NFData DescribeExpressions
 
-instance ToHeaders DescribeExpressions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeExpressions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeExpressions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeExpressions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeExpressions where
+instance Prelude.ToQuery DescribeExpressions where
   toQuery DescribeExpressions' {..} =
-    mconcat
-      [ "Action" =: ("DescribeExpressions" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "Deployed" =: _desDeployed,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeExpressions" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "Deployed" Prelude.=: deployed,
         "ExpressionNames"
-          =: toQuery
-            (toQueryList "member" <$> _desExpressionNames),
-        "DomainName" =: _desDomainName
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> expressionNames
+            ),
+        "DomainName" Prelude.=: domainName
       ]
 
--- | The result of a @DescribeExpressions@ request. Contains the expressions configured for the domain specified in the request.
+-- | The result of a @DescribeExpressions@ request. Contains the expressions
+-- configured for the domain specified in the request.
 --
---
---
--- /See:/ 'describeExpressionsResponse' smart constructor.
+-- /See:/ 'newDescribeExpressionsResponse' smart constructor.
 data DescribeExpressionsResponse = DescribeExpressionsResponse'
-  { _desrsResponseStatus ::
-      !Int,
-    _desrsExpressions ::
-      ![ExpressionStatus]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The expressions configured for the domain.
+    expressions :: [ExpressionStatus]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExpressionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExpressionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsExpressions' - The expressions configured for the domain.
-describeExpressionsResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'describeExpressionsResponse_httpStatus' - The response's http status code.
+--
+-- 'expressions', 'describeExpressionsResponse_expressions' - The expressions configured for the domain.
+newDescribeExpressionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeExpressionsResponse
-describeExpressionsResponse pResponseStatus_ =
+newDescribeExpressionsResponse pHttpStatus_ =
   DescribeExpressionsResponse'
-    { _desrsResponseStatus =
-        pResponseStatus_,
-      _desrsExpressions = mempty
+    { httpStatus =
+        pHttpStatus_,
+      expressions = Prelude.mempty
     }
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeExpressionsResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeExpressionsResponse_httpStatus :: Lens.Lens' DescribeExpressionsResponse Prelude.Int
+describeExpressionsResponse_httpStatus = Lens.lens (\DescribeExpressionsResponse' {httpStatus} -> httpStatus) (\s@DescribeExpressionsResponse' {} a -> s {httpStatus = a} :: DescribeExpressionsResponse)
 
 -- | The expressions configured for the domain.
-desrsExpressions :: Lens' DescribeExpressionsResponse [ExpressionStatus]
-desrsExpressions = lens _desrsExpressions (\s a -> s {_desrsExpressions = a}) . _Coerce
+describeExpressionsResponse_expressions :: Lens.Lens' DescribeExpressionsResponse [ExpressionStatus]
+describeExpressionsResponse_expressions = Lens.lens (\DescribeExpressionsResponse' {expressions} -> expressions) (\s@DescribeExpressionsResponse' {} a -> s {expressions = a} :: DescribeExpressionsResponse) Prelude.. Prelude._Coerce
 
-instance NFData DescribeExpressionsResponse
+instance Prelude.NFData DescribeExpressionsResponse

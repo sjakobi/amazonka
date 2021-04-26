@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +21,55 @@ module Network.AWS.CloudSearch.Types.ScalingParametersStatus where
 
 import Network.AWS.CloudSearch.Types.OptionStatus
 import Network.AWS.CloudSearch.Types.ScalingParameters
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The status and configuration of a search domain's scaling parameters.
+-- | The status and configuration of a search domain\'s scaling parameters.
 --
---
---
--- /See:/ 'scalingParametersStatus' smart constructor.
+-- /See:/ 'newScalingParametersStatus' smart constructor.
 data ScalingParametersStatus = ScalingParametersStatus'
-  { _spsOptions ::
-      !ScalingParameters,
-    _spsStatus ::
-      !OptionStatus
+  { options :: ScalingParameters,
+    status :: OptionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScalingParametersStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScalingParametersStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spsOptions' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spsStatus' - Undocumented member.
-scalingParametersStatus ::
-  -- | 'spsOptions'
+-- 'options', 'scalingParametersStatus_options' - Undocumented member.
+--
+-- 'status', 'scalingParametersStatus_status' - Undocumented member.
+newScalingParametersStatus ::
+  -- | 'options'
   ScalingParameters ->
-  -- | 'spsStatus'
+  -- | 'status'
   OptionStatus ->
   ScalingParametersStatus
-scalingParametersStatus pOptions_ pStatus_ =
+newScalingParametersStatus pOptions_ pStatus_ =
   ScalingParametersStatus'
-    { _spsOptions = pOptions_,
-      _spsStatus = pStatus_
+    { options = pOptions_,
+      status = pStatus_
     }
 
 -- | Undocumented member.
-spsOptions :: Lens' ScalingParametersStatus ScalingParameters
-spsOptions = lens _spsOptions (\s a -> s {_spsOptions = a})
+scalingParametersStatus_options :: Lens.Lens' ScalingParametersStatus ScalingParameters
+scalingParametersStatus_options = Lens.lens (\ScalingParametersStatus' {options} -> options) (\s@ScalingParametersStatus' {} a -> s {options = a} :: ScalingParametersStatus)
 
 -- | Undocumented member.
-spsStatus :: Lens' ScalingParametersStatus OptionStatus
-spsStatus = lens _spsStatus (\s a -> s {_spsStatus = a})
+scalingParametersStatus_status :: Lens.Lens' ScalingParametersStatus OptionStatus
+scalingParametersStatus_status = Lens.lens (\ScalingParametersStatus' {status} -> status) (\s@ScalingParametersStatus' {} a -> s {status = a} :: ScalingParametersStatus)
 
-instance FromXML ScalingParametersStatus where
+instance Prelude.FromXML ScalingParametersStatus where
   parseXML x =
     ScalingParametersStatus'
-      <$> (x .@ "Options") <*> (x .@ "Status")
+      Prelude.<$> (x Prelude..@ "Options")
+      Prelude.<*> (x Prelude..@ "Status")
 
-instance Hashable ScalingParametersStatus
+instance Prelude.Hashable ScalingParametersStatus
 
-instance NFData ScalingParametersStatus
+instance Prelude.NFData ScalingParametersStatus

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types.Limits where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'limits' smart constructor.
+-- | /See:/ 'newLimits' smart constructor.
 data Limits = Limits'
-  { _lMaximumReplicationCount ::
-      !Nat,
-    _lMaximumPartitionCount :: !Nat
+  { maximumReplicationCount :: Prelude.Nat,
+    maximumPartitionCount :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Limits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Limits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lMaximumReplicationCount' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lMaximumPartitionCount' - Undocumented member.
-limits ::
-  -- | 'lMaximumReplicationCount'
-  Natural ->
-  -- | 'lMaximumPartitionCount'
-  Natural ->
+-- 'maximumReplicationCount', 'limits_maximumReplicationCount' - Undocumented member.
+--
+-- 'maximumPartitionCount', 'limits_maximumPartitionCount' - Undocumented member.
+newLimits ::
+  -- | 'maximumReplicationCount'
+  Prelude.Natural ->
+  -- | 'maximumPartitionCount'
+  Prelude.Natural ->
   Limits
-limits
+newLimits
   pMaximumReplicationCount_
   pMaximumPartitionCount_ =
     Limits'
-      { _lMaximumReplicationCount =
-          _Nat # pMaximumReplicationCount_,
-        _lMaximumPartitionCount =
-          _Nat # pMaximumPartitionCount_
+      { maximumReplicationCount =
+          Prelude._Nat Lens.# pMaximumReplicationCount_,
+        maximumPartitionCount =
+          Prelude._Nat Lens.# pMaximumPartitionCount_
       }
 
 -- | Undocumented member.
-lMaximumReplicationCount :: Lens' Limits Natural
-lMaximumReplicationCount = lens _lMaximumReplicationCount (\s a -> s {_lMaximumReplicationCount = a}) . _Nat
+limits_maximumReplicationCount :: Lens.Lens' Limits Prelude.Natural
+limits_maximumReplicationCount = Lens.lens (\Limits' {maximumReplicationCount} -> maximumReplicationCount) (\s@Limits' {} a -> s {maximumReplicationCount = a} :: Limits) Prelude.. Prelude._Nat
 
 -- | Undocumented member.
-lMaximumPartitionCount :: Lens' Limits Natural
-lMaximumPartitionCount = lens _lMaximumPartitionCount (\s a -> s {_lMaximumPartitionCount = a}) . _Nat
+limits_maximumPartitionCount :: Lens.Lens' Limits Prelude.Natural
+limits_maximumPartitionCount = Lens.lens (\Limits' {maximumPartitionCount} -> maximumPartitionCount) (\s@Limits' {} a -> s {maximumPartitionCount = a} :: Limits) Prelude.. Prelude._Nat
 
-instance FromXML Limits where
+instance Prelude.FromXML Limits where
   parseXML x =
     Limits'
-      <$> (x .@ "MaximumReplicationCount")
-      <*> (x .@ "MaximumPartitionCount")
+      Prelude.<$> (x Prelude..@ "MaximumReplicationCount")
+      Prelude.<*> (x Prelude..@ "MaximumPartitionCount")
 
-instance Hashable Limits
+instance Prelude.Hashable Limits
 
-instance NFData Limits
+instance Prelude.NFData Limits

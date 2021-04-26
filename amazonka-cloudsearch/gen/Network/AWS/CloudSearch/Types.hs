@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearch.Types
   ( -- * Service Configuration
-    cloudSearch,
+    defaultService,
 
     -- * Errors
     _InvalidTypeException,
@@ -45,258 +48,127 @@ module Network.AWS.CloudSearch.Types
 
     -- * AccessPoliciesStatus
     AccessPoliciesStatus (..),
-    accessPoliciesStatus,
-    apsOptions,
-    apsStatus,
+    newAccessPoliciesStatus,
 
     -- * AnalysisOptions
     AnalysisOptions (..),
-    analysisOptions,
-    aoStopwords,
-    aoAlgorithmicStemming,
-    aoStemmingDictionary,
-    aoJapaneseTokenizationDictionary,
-    aoSynonyms,
+    newAnalysisOptions,
 
     -- * AnalysisScheme
     AnalysisScheme (..),
-    analysisScheme,
-    asAnalysisOptions,
-    asAnalysisSchemeName,
-    asAnalysisSchemeLanguage,
+    newAnalysisScheme,
 
     -- * AnalysisSchemeStatus
     AnalysisSchemeStatus (..),
-    analysisSchemeStatus,
-    assOptions,
-    assStatus,
+    newAnalysisSchemeStatus,
 
     -- * AvailabilityOptionsStatus
     AvailabilityOptionsStatus (..),
-    availabilityOptionsStatus,
-    aosOptions,
-    aosStatus,
+    newAvailabilityOptionsStatus,
 
     -- * DateArrayOptions
     DateArrayOptions (..),
-    dateArrayOptions,
-    dSourceFields,
-    dFacetEnabled,
-    dReturnEnabled,
-    dSearchEnabled,
-    dDefaultValue,
+    newDateArrayOptions,
 
     -- * DateOptions
     DateOptions (..),
-    dateOptions,
-    dosSortEnabled,
-    dosFacetEnabled,
-    dosReturnEnabled,
-    dosSourceField,
-    dosSearchEnabled,
-    dosDefaultValue,
+    newDateOptions,
 
     -- * DocumentSuggesterOptions
     DocumentSuggesterOptions (..),
-    documentSuggesterOptions,
-    dsoFuzzyMatching,
-    dsoSortExpression,
-    dsoSourceField,
+    newDocumentSuggesterOptions,
 
     -- * DomainEndpointOptions
     DomainEndpointOptions (..),
-    domainEndpointOptions,
-    deoEnforceHTTPS,
-    deoTLSSecurityPolicy,
+    newDomainEndpointOptions,
 
     -- * DomainEndpointOptionsStatus
     DomainEndpointOptionsStatus (..),
-    domainEndpointOptionsStatus,
-    deosOptions,
-    deosStatus,
+    newDomainEndpointOptionsStatus,
 
     -- * DomainStatus
     DomainStatus (..),
-    domainStatus,
-    dsSearchInstanceType,
-    dsARN,
-    dsSearchPartitionCount,
-    dsSearchInstanceCount,
-    dsLimits,
-    dsSearchService,
-    dsProcessing,
-    dsCreated,
-    dsDeleted,
-    dsDocService,
-    dsDomainId,
-    dsDomainName,
-    dsRequiresIndexDocuments,
+    newDomainStatus,
 
     -- * DoubleArrayOptions
     DoubleArrayOptions (..),
-    doubleArrayOptions,
-    daoSourceFields,
-    daoFacetEnabled,
-    daoReturnEnabled,
-    daoSearchEnabled,
-    daoDefaultValue,
+    newDoubleArrayOptions,
 
     -- * DoubleOptions
     DoubleOptions (..),
-    doubleOptions,
-    doSortEnabled,
-    doFacetEnabled,
-    doReturnEnabled,
-    doSourceField,
-    doSearchEnabled,
-    doDefaultValue,
+    newDoubleOptions,
 
     -- * Expression
     Expression (..),
-    expression,
-    eExpressionName,
-    eExpressionValue,
+    newExpression,
 
     -- * ExpressionStatus
     ExpressionStatus (..),
-    expressionStatus,
-    esOptions,
-    esStatus,
+    newExpressionStatus,
 
     -- * IndexField
     IndexField (..),
-    indexField,
-    ifDoubleArrayOptions,
-    ifLatLonOptions,
-    ifTextArrayOptions,
-    ifDateArrayOptions,
-    ifDoubleOptions,
-    ifTextOptions,
-    ifIntArrayOptions,
-    ifLiteralArrayOptions,
-    ifDateOptions,
-    ifIntOptions,
-    ifLiteralOptions,
-    ifIndexFieldName,
-    ifIndexFieldType,
+    newIndexField,
 
     -- * IndexFieldStatus
     IndexFieldStatus (..),
-    indexFieldStatus,
-    ifsOptions,
-    ifsStatus,
+    newIndexFieldStatus,
 
     -- * IntArrayOptions
     IntArrayOptions (..),
-    intArrayOptions,
-    iaoSourceFields,
-    iaoFacetEnabled,
-    iaoReturnEnabled,
-    iaoSearchEnabled,
-    iaoDefaultValue,
+    newIntArrayOptions,
 
     -- * IntOptions
     IntOptions (..),
-    intOptions,
-    ioSortEnabled,
-    ioFacetEnabled,
-    ioReturnEnabled,
-    ioSourceField,
-    ioSearchEnabled,
-    ioDefaultValue,
+    newIntOptions,
 
     -- * LatLonOptions
     LatLonOptions (..),
-    latLonOptions,
-    lloSortEnabled,
-    lloFacetEnabled,
-    lloReturnEnabled,
-    lloSourceField,
-    lloSearchEnabled,
-    lloDefaultValue,
+    newLatLonOptions,
 
     -- * Limits
     Limits (..),
-    limits,
-    lMaximumReplicationCount,
-    lMaximumPartitionCount,
+    newLimits,
 
     -- * LiteralArrayOptions
     LiteralArrayOptions (..),
-    literalArrayOptions,
-    laoSourceFields,
-    laoFacetEnabled,
-    laoReturnEnabled,
-    laoSearchEnabled,
-    laoDefaultValue,
+    newLiteralArrayOptions,
 
     -- * LiteralOptions
     LiteralOptions (..),
-    literalOptions,
-    loSortEnabled,
-    loFacetEnabled,
-    loReturnEnabled,
-    loSourceField,
-    loSearchEnabled,
-    loDefaultValue,
+    newLiteralOptions,
 
     -- * OptionStatus
     OptionStatus (..),
-    optionStatus,
-    osUpdateVersion,
-    osPendingDeletion,
-    osCreationDate,
-    osUpdateDate,
-    osState,
+    newOptionStatus,
 
     -- * ScalingParameters
     ScalingParameters (..),
-    scalingParameters,
-    spDesiredReplicationCount,
-    spDesiredPartitionCount,
-    spDesiredInstanceType,
+    newScalingParameters,
 
     -- * ScalingParametersStatus
     ScalingParametersStatus (..),
-    scalingParametersStatus,
-    spsOptions,
-    spsStatus,
+    newScalingParametersStatus,
 
     -- * ServiceEndpoint
     ServiceEndpoint (..),
-    serviceEndpoint,
-    seEndpoint,
+    newServiceEndpoint,
 
     -- * Suggester
     Suggester (..),
-    suggester,
-    sSuggesterName,
-    sDocumentSuggesterOptions,
+    newSuggester,
 
     -- * SuggesterStatus
     SuggesterStatus (..),
-    suggesterStatus,
-    ssOptions,
-    ssStatus,
+    newSuggesterStatus,
 
     -- * TextArrayOptions
     TextArrayOptions (..),
-    textArrayOptions,
-    taoAnalysisScheme,
-    taoSourceFields,
-    taoReturnEnabled,
-    taoDefaultValue,
-    taoHighlightEnabled,
+    newTextArrayOptions,
 
     -- * TextOptions
     TextOptions (..),
-    textOptions,
-    toSortEnabled,
-    toAnalysisScheme,
-    toReturnEnabled,
-    toSourceField,
-    toDefaultValue,
-    toHighlightEnabled,
+    newTextOptions,
   )
 where
 
@@ -338,103 +210,141 @@ import Network.AWS.CloudSearch.Types.SuggesterStatus
 import Network.AWS.CloudSearch.Types.TLSSecurityPolicy
 import Network.AWS.CloudSearch.Types.TextArrayOptions
 import Network.AWS.CloudSearch.Types.TextOptions
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2013-01-01@ of the Amazon CloudSearch SDK configuration.
-cloudSearch :: Service
-cloudSearch =
-  Service
-    { _svcAbbrev = "CloudSearch",
-      _svcSigner = v4,
-      _svcPrefix = "cloudsearch",
-      _svcVersion = "2013-01-01",
-      _svcEndpoint = defaultEndpoint cloudSearch,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseXMLError "CloudSearch",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "CloudSearch",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "cloudsearch",
+      Prelude._svcVersion = "2013-01-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseXMLError "CloudSearch",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has
-          (hasCode "BandwidthLimitExceeded" . hasStatus 509)
-          e =
-        Just "request_limit_exceeded"
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has
+          ( Prelude.hasCode "BandwidthLimitExceeded"
+              Prelude.. Prelude.hasStatus 509
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "request_limit_exceeded"
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The request was rejected because it specified an invalid type definition.
-_InvalidTypeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request was rejected because it specified an invalid type
+-- definition.
+_InvalidTypeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTypeException =
-  _MatchServiceError cloudSearch "InvalidType"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidType"
+    Prelude.. Prelude.hasStatus 409
 
--- | An internal error occurred while processing the request. If this problem persists, report an issue from the <http://status.aws.amazon.com/ Service Health Dashboard> .
-_InternalException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An internal error occurred while processing the request. If this problem
+-- persists, report an issue from the
+-- <http://status.aws.amazon.com/ Service Health Dashboard>.
+_InternalException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalException =
-  _MatchServiceError cloudSearch "InternalException"
-    . hasStatus 500
+  Prelude._MatchServiceError
+    defaultService
+    "InternalException"
+    Prelude.. Prelude.hasStatus 500
 
 -- | An error occurred while processing the request.
-_BaseException :: AsError a => Getting (First ServiceError) a ServiceError
+_BaseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BaseException =
-  _MatchServiceError cloudSearch "BaseException"
+  Prelude._MatchServiceError
+    defaultService
+    "BaseException"
 
 -- | The request was rejected because it has invalid parameters.
-_ValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ValidationException =
-  _MatchServiceError
-    cloudSearch
+  Prelude._MatchServiceError
+    defaultService
     "ValidationException"
 
 -- | The request was rejected because a resource limit has already been met.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError cloudSearch "LimitExceeded"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "LimitExceeded"
+    Prelude.. Prelude.hasStatus 409
 
--- | The request was rejected because it attempted to reference a resource that does not exist.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request was rejected because it attempted to reference a resource
+-- that does not exist.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError cloudSearch "ResourceNotFound"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceNotFound"
+    Prelude.. Prelude.hasStatus 409
 
--- | The request was rejected because it attempted an operation which is not enabled.
-_DisabledOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request was rejected because it attempted an operation which is not
+-- enabled.
+_DisabledOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DisabledOperationException =
-  _MatchServiceError cloudSearch "DisabledAction"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "DisabledAction"
+    Prelude.. Prelude.hasStatus 409

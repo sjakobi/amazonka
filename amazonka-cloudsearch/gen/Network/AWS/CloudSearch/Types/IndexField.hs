@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -27,172 +31,216 @@ import Network.AWS.CloudSearch.Types.LiteralArrayOptions
 import Network.AWS.CloudSearch.Types.LiteralOptions
 import Network.AWS.CloudSearch.Types.TextArrayOptions
 import Network.AWS.CloudSearch.Types.TextOptions
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration information for a field in the index, including its name, type, and options. The supported options depend on the @'IndexFieldType' @ .
+-- | Configuration information for a field in the index, including its name,
+-- type, and options. The supported options depend on the @IndexFieldType@.
 --
---
---
--- /See:/ 'indexField' smart constructor.
+-- /See:/ 'newIndexField' smart constructor.
 data IndexField = IndexField'
-  { _ifDoubleArrayOptions ::
-      !(Maybe DoubleArrayOptions),
-    _ifLatLonOptions :: !(Maybe LatLonOptions),
-    _ifTextArrayOptions :: !(Maybe TextArrayOptions),
-    _ifDateArrayOptions :: !(Maybe DateArrayOptions),
-    _ifDoubleOptions :: !(Maybe DoubleOptions),
-    _ifTextOptions :: !(Maybe TextOptions),
-    _ifIntArrayOptions :: !(Maybe IntArrayOptions),
-    _ifLiteralArrayOptions ::
-      !(Maybe LiteralArrayOptions),
-    _ifDateOptions :: !(Maybe DateOptions),
-    _ifIntOptions :: !(Maybe IntOptions),
-    _ifLiteralOptions :: !(Maybe LiteralOptions),
-    _ifIndexFieldName :: !Text,
-    _ifIndexFieldType :: !IndexFieldType
+  { doubleArrayOptions :: Prelude.Maybe DoubleArrayOptions,
+    latLonOptions :: Prelude.Maybe LatLonOptions,
+    textArrayOptions :: Prelude.Maybe TextArrayOptions,
+    dateArrayOptions :: Prelude.Maybe DateArrayOptions,
+    doubleOptions :: Prelude.Maybe DoubleOptions,
+    textOptions :: Prelude.Maybe TextOptions,
+    intArrayOptions :: Prelude.Maybe IntArrayOptions,
+    literalArrayOptions :: Prelude.Maybe LiteralArrayOptions,
+    dateOptions :: Prelude.Maybe DateOptions,
+    intOptions :: Prelude.Maybe IntOptions,
+    literalOptions :: Prelude.Maybe LiteralOptions,
+    -- | A string that represents the name of an index field. CloudSearch
+    -- supports regular index fields as well as dynamic fields. A dynamic
+    -- field\'s name defines a pattern that begins or ends with a wildcard. Any
+    -- document fields that don\'t map to a regular index field but do match a
+    -- dynamic field\'s pattern are configured with the dynamic field\'s
+    -- indexing options.
+    --
+    -- Regular field names begin with a letter and can contain the following
+    -- characters: a-z (lowercase), 0-9, and _ (underscore). Dynamic field
+    -- names must begin or end with a wildcard (*). The wildcard can also be
+    -- the only character in a dynamic field name. Multiple wildcards, and
+    -- wildcards embedded within a string are not supported.
+    --
+    -- The name @score@ is reserved and cannot be used as a field name. To
+    -- reference a document\'s ID, you can use the name @_id@.
+    indexFieldName :: Prelude.Text,
+    indexFieldType :: IndexFieldType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IndexField' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IndexField' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ifDoubleArrayOptions' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ifLatLonOptions' - Undocumented member.
+-- 'doubleArrayOptions', 'indexField_doubleArrayOptions' - Undocumented member.
 --
--- * 'ifTextArrayOptions' - Undocumented member.
+-- 'latLonOptions', 'indexField_latLonOptions' - Undocumented member.
 --
--- * 'ifDateArrayOptions' - Undocumented member.
+-- 'textArrayOptions', 'indexField_textArrayOptions' - Undocumented member.
 --
--- * 'ifDoubleOptions' - Undocumented member.
+-- 'dateArrayOptions', 'indexField_dateArrayOptions' - Undocumented member.
 --
--- * 'ifTextOptions' - Undocumented member.
+-- 'doubleOptions', 'indexField_doubleOptions' - Undocumented member.
 --
--- * 'ifIntArrayOptions' - Undocumented member.
+-- 'textOptions', 'indexField_textOptions' - Undocumented member.
 --
--- * 'ifLiteralArrayOptions' - Undocumented member.
+-- 'intArrayOptions', 'indexField_intArrayOptions' - Undocumented member.
 --
--- * 'ifDateOptions' - Undocumented member.
+-- 'literalArrayOptions', 'indexField_literalArrayOptions' - Undocumented member.
 --
--- * 'ifIntOptions' - Undocumented member.
+-- 'dateOptions', 'indexField_dateOptions' - Undocumented member.
 --
--- * 'ifLiteralOptions' - Undocumented member.
+-- 'intOptions', 'indexField_intOptions' - Undocumented member.
 --
--- * 'ifIndexFieldName' - A string that represents the name of an index field. CloudSearch supports regular index fields as well as dynamic fields. A dynamic field's name defines a pattern that begins or ends with a wildcard. Any document fields that don't map to a regular index field but do match a dynamic field's pattern are configured with the dynamic field's indexing options.  Regular field names begin with a letter and can contain the following characters: a-z (lowercase), 0-9, and _ (underscore). Dynamic field names must begin or end with a wildcard (*). The wildcard can also be the only character in a dynamic field name. Multiple wildcards, and wildcards embedded within a string are not supported.  The name @score@ is reserved and cannot be used as a field name. To reference a document's ID, you can use the name @_id@ .
+-- 'literalOptions', 'indexField_literalOptions' - Undocumented member.
 --
--- * 'ifIndexFieldType' - Undocumented member.
-indexField ::
-  -- | 'ifIndexFieldName'
-  Text ->
-  -- | 'ifIndexFieldType'
+-- 'indexFieldName', 'indexField_indexFieldName' - A string that represents the name of an index field. CloudSearch
+-- supports regular index fields as well as dynamic fields. A dynamic
+-- field\'s name defines a pattern that begins or ends with a wildcard. Any
+-- document fields that don\'t map to a regular index field but do match a
+-- dynamic field\'s pattern are configured with the dynamic field\'s
+-- indexing options.
+--
+-- Regular field names begin with a letter and can contain the following
+-- characters: a-z (lowercase), 0-9, and _ (underscore). Dynamic field
+-- names must begin or end with a wildcard (*). The wildcard can also be
+-- the only character in a dynamic field name. Multiple wildcards, and
+-- wildcards embedded within a string are not supported.
+--
+-- The name @score@ is reserved and cannot be used as a field name. To
+-- reference a document\'s ID, you can use the name @_id@.
+--
+-- 'indexFieldType', 'indexField_indexFieldType' - Undocumented member.
+newIndexField ::
+  -- | 'indexFieldName'
+  Prelude.Text ->
+  -- | 'indexFieldType'
   IndexFieldType ->
   IndexField
-indexField pIndexFieldName_ pIndexFieldType_ =
+newIndexField pIndexFieldName_ pIndexFieldType_ =
   IndexField'
-    { _ifDoubleArrayOptions = Nothing,
-      _ifLatLonOptions = Nothing,
-      _ifTextArrayOptions = Nothing,
-      _ifDateArrayOptions = Nothing,
-      _ifDoubleOptions = Nothing,
-      _ifTextOptions = Nothing,
-      _ifIntArrayOptions = Nothing,
-      _ifLiteralArrayOptions = Nothing,
-      _ifDateOptions = Nothing,
-      _ifIntOptions = Nothing,
-      _ifLiteralOptions = Nothing,
-      _ifIndexFieldName = pIndexFieldName_,
-      _ifIndexFieldType = pIndexFieldType_
+    { doubleArrayOptions = Prelude.Nothing,
+      latLonOptions = Prelude.Nothing,
+      textArrayOptions = Prelude.Nothing,
+      dateArrayOptions = Prelude.Nothing,
+      doubleOptions = Prelude.Nothing,
+      textOptions = Prelude.Nothing,
+      intArrayOptions = Prelude.Nothing,
+      literalArrayOptions = Prelude.Nothing,
+      dateOptions = Prelude.Nothing,
+      intOptions = Prelude.Nothing,
+      literalOptions = Prelude.Nothing,
+      indexFieldName = pIndexFieldName_,
+      indexFieldType = pIndexFieldType_
     }
 
 -- | Undocumented member.
-ifDoubleArrayOptions :: Lens' IndexField (Maybe DoubleArrayOptions)
-ifDoubleArrayOptions = lens _ifDoubleArrayOptions (\s a -> s {_ifDoubleArrayOptions = a})
+indexField_doubleArrayOptions :: Lens.Lens' IndexField (Prelude.Maybe DoubleArrayOptions)
+indexField_doubleArrayOptions = Lens.lens (\IndexField' {doubleArrayOptions} -> doubleArrayOptions) (\s@IndexField' {} a -> s {doubleArrayOptions = a} :: IndexField)
 
 -- | Undocumented member.
-ifLatLonOptions :: Lens' IndexField (Maybe LatLonOptions)
-ifLatLonOptions = lens _ifLatLonOptions (\s a -> s {_ifLatLonOptions = a})
+indexField_latLonOptions :: Lens.Lens' IndexField (Prelude.Maybe LatLonOptions)
+indexField_latLonOptions = Lens.lens (\IndexField' {latLonOptions} -> latLonOptions) (\s@IndexField' {} a -> s {latLonOptions = a} :: IndexField)
 
 -- | Undocumented member.
-ifTextArrayOptions :: Lens' IndexField (Maybe TextArrayOptions)
-ifTextArrayOptions = lens _ifTextArrayOptions (\s a -> s {_ifTextArrayOptions = a})
+indexField_textArrayOptions :: Lens.Lens' IndexField (Prelude.Maybe TextArrayOptions)
+indexField_textArrayOptions = Lens.lens (\IndexField' {textArrayOptions} -> textArrayOptions) (\s@IndexField' {} a -> s {textArrayOptions = a} :: IndexField)
 
 -- | Undocumented member.
-ifDateArrayOptions :: Lens' IndexField (Maybe DateArrayOptions)
-ifDateArrayOptions = lens _ifDateArrayOptions (\s a -> s {_ifDateArrayOptions = a})
+indexField_dateArrayOptions :: Lens.Lens' IndexField (Prelude.Maybe DateArrayOptions)
+indexField_dateArrayOptions = Lens.lens (\IndexField' {dateArrayOptions} -> dateArrayOptions) (\s@IndexField' {} a -> s {dateArrayOptions = a} :: IndexField)
 
 -- | Undocumented member.
-ifDoubleOptions :: Lens' IndexField (Maybe DoubleOptions)
-ifDoubleOptions = lens _ifDoubleOptions (\s a -> s {_ifDoubleOptions = a})
+indexField_doubleOptions :: Lens.Lens' IndexField (Prelude.Maybe DoubleOptions)
+indexField_doubleOptions = Lens.lens (\IndexField' {doubleOptions} -> doubleOptions) (\s@IndexField' {} a -> s {doubleOptions = a} :: IndexField)
 
 -- | Undocumented member.
-ifTextOptions :: Lens' IndexField (Maybe TextOptions)
-ifTextOptions = lens _ifTextOptions (\s a -> s {_ifTextOptions = a})
+indexField_textOptions :: Lens.Lens' IndexField (Prelude.Maybe TextOptions)
+indexField_textOptions = Lens.lens (\IndexField' {textOptions} -> textOptions) (\s@IndexField' {} a -> s {textOptions = a} :: IndexField)
 
 -- | Undocumented member.
-ifIntArrayOptions :: Lens' IndexField (Maybe IntArrayOptions)
-ifIntArrayOptions = lens _ifIntArrayOptions (\s a -> s {_ifIntArrayOptions = a})
+indexField_intArrayOptions :: Lens.Lens' IndexField (Prelude.Maybe IntArrayOptions)
+indexField_intArrayOptions = Lens.lens (\IndexField' {intArrayOptions} -> intArrayOptions) (\s@IndexField' {} a -> s {intArrayOptions = a} :: IndexField)
 
 -- | Undocumented member.
-ifLiteralArrayOptions :: Lens' IndexField (Maybe LiteralArrayOptions)
-ifLiteralArrayOptions = lens _ifLiteralArrayOptions (\s a -> s {_ifLiteralArrayOptions = a})
+indexField_literalArrayOptions :: Lens.Lens' IndexField (Prelude.Maybe LiteralArrayOptions)
+indexField_literalArrayOptions = Lens.lens (\IndexField' {literalArrayOptions} -> literalArrayOptions) (\s@IndexField' {} a -> s {literalArrayOptions = a} :: IndexField)
 
 -- | Undocumented member.
-ifDateOptions :: Lens' IndexField (Maybe DateOptions)
-ifDateOptions = lens _ifDateOptions (\s a -> s {_ifDateOptions = a})
+indexField_dateOptions :: Lens.Lens' IndexField (Prelude.Maybe DateOptions)
+indexField_dateOptions = Lens.lens (\IndexField' {dateOptions} -> dateOptions) (\s@IndexField' {} a -> s {dateOptions = a} :: IndexField)
 
 -- | Undocumented member.
-ifIntOptions :: Lens' IndexField (Maybe IntOptions)
-ifIntOptions = lens _ifIntOptions (\s a -> s {_ifIntOptions = a})
+indexField_intOptions :: Lens.Lens' IndexField (Prelude.Maybe IntOptions)
+indexField_intOptions = Lens.lens (\IndexField' {intOptions} -> intOptions) (\s@IndexField' {} a -> s {intOptions = a} :: IndexField)
 
 -- | Undocumented member.
-ifLiteralOptions :: Lens' IndexField (Maybe LiteralOptions)
-ifLiteralOptions = lens _ifLiteralOptions (\s a -> s {_ifLiteralOptions = a})
+indexField_literalOptions :: Lens.Lens' IndexField (Prelude.Maybe LiteralOptions)
+indexField_literalOptions = Lens.lens (\IndexField' {literalOptions} -> literalOptions) (\s@IndexField' {} a -> s {literalOptions = a} :: IndexField)
 
--- | A string that represents the name of an index field. CloudSearch supports regular index fields as well as dynamic fields. A dynamic field's name defines a pattern that begins or ends with a wildcard. Any document fields that don't map to a regular index field but do match a dynamic field's pattern are configured with the dynamic field's indexing options.  Regular field names begin with a letter and can contain the following characters: a-z (lowercase), 0-9, and _ (underscore). Dynamic field names must begin or end with a wildcard (*). The wildcard can also be the only character in a dynamic field name. Multiple wildcards, and wildcards embedded within a string are not supported.  The name @score@ is reserved and cannot be used as a field name. To reference a document's ID, you can use the name @_id@ .
-ifIndexFieldName :: Lens' IndexField Text
-ifIndexFieldName = lens _ifIndexFieldName (\s a -> s {_ifIndexFieldName = a})
+-- | A string that represents the name of an index field. CloudSearch
+-- supports regular index fields as well as dynamic fields. A dynamic
+-- field\'s name defines a pattern that begins or ends with a wildcard. Any
+-- document fields that don\'t map to a regular index field but do match a
+-- dynamic field\'s pattern are configured with the dynamic field\'s
+-- indexing options.
+--
+-- Regular field names begin with a letter and can contain the following
+-- characters: a-z (lowercase), 0-9, and _ (underscore). Dynamic field
+-- names must begin or end with a wildcard (*). The wildcard can also be
+-- the only character in a dynamic field name. Multiple wildcards, and
+-- wildcards embedded within a string are not supported.
+--
+-- The name @score@ is reserved and cannot be used as a field name. To
+-- reference a document\'s ID, you can use the name @_id@.
+indexField_indexFieldName :: Lens.Lens' IndexField Prelude.Text
+indexField_indexFieldName = Lens.lens (\IndexField' {indexFieldName} -> indexFieldName) (\s@IndexField' {} a -> s {indexFieldName = a} :: IndexField)
 
 -- | Undocumented member.
-ifIndexFieldType :: Lens' IndexField IndexFieldType
-ifIndexFieldType = lens _ifIndexFieldType (\s a -> s {_ifIndexFieldType = a})
+indexField_indexFieldType :: Lens.Lens' IndexField IndexFieldType
+indexField_indexFieldType = Lens.lens (\IndexField' {indexFieldType} -> indexFieldType) (\s@IndexField' {} a -> s {indexFieldType = a} :: IndexField)
 
-instance FromXML IndexField where
+instance Prelude.FromXML IndexField where
   parseXML x =
     IndexField'
-      <$> (x .@? "DoubleArrayOptions")
-      <*> (x .@? "LatLonOptions")
-      <*> (x .@? "TextArrayOptions")
-      <*> (x .@? "DateArrayOptions")
-      <*> (x .@? "DoubleOptions")
-      <*> (x .@? "TextOptions")
-      <*> (x .@? "IntArrayOptions")
-      <*> (x .@? "LiteralArrayOptions")
-      <*> (x .@? "DateOptions")
-      <*> (x .@? "IntOptions")
-      <*> (x .@? "LiteralOptions")
-      <*> (x .@ "IndexFieldName")
-      <*> (x .@ "IndexFieldType")
+      Prelude.<$> (x Prelude..@? "DoubleArrayOptions")
+      Prelude.<*> (x Prelude..@? "LatLonOptions")
+      Prelude.<*> (x Prelude..@? "TextArrayOptions")
+      Prelude.<*> (x Prelude..@? "DateArrayOptions")
+      Prelude.<*> (x Prelude..@? "DoubleOptions")
+      Prelude.<*> (x Prelude..@? "TextOptions")
+      Prelude.<*> (x Prelude..@? "IntArrayOptions")
+      Prelude.<*> (x Prelude..@? "LiteralArrayOptions")
+      Prelude.<*> (x Prelude..@? "DateOptions")
+      Prelude.<*> (x Prelude..@? "IntOptions")
+      Prelude.<*> (x Prelude..@? "LiteralOptions")
+      Prelude.<*> (x Prelude..@ "IndexFieldName")
+      Prelude.<*> (x Prelude..@ "IndexFieldType")
 
-instance Hashable IndexField
+instance Prelude.Hashable IndexField
 
-instance NFData IndexField
+instance Prelude.NFData IndexField
 
-instance ToQuery IndexField where
+instance Prelude.ToQuery IndexField where
   toQuery IndexField' {..} =
-    mconcat
-      [ "DoubleArrayOptions" =: _ifDoubleArrayOptions,
-        "LatLonOptions" =: _ifLatLonOptions,
-        "TextArrayOptions" =: _ifTextArrayOptions,
-        "DateArrayOptions" =: _ifDateArrayOptions,
-        "DoubleOptions" =: _ifDoubleOptions,
-        "TextOptions" =: _ifTextOptions,
-        "IntArrayOptions" =: _ifIntArrayOptions,
-        "LiteralArrayOptions" =: _ifLiteralArrayOptions,
-        "DateOptions" =: _ifDateOptions,
-        "IntOptions" =: _ifIntOptions,
-        "LiteralOptions" =: _ifLiteralOptions,
-        "IndexFieldName" =: _ifIndexFieldName,
-        "IndexFieldType" =: _ifIndexFieldType
+    Prelude.mconcat
+      [ "DoubleArrayOptions" Prelude.=: doubleArrayOptions,
+        "LatLonOptions" Prelude.=: latLonOptions,
+        "TextArrayOptions" Prelude.=: textArrayOptions,
+        "DateArrayOptions" Prelude.=: dateArrayOptions,
+        "DoubleOptions" Prelude.=: doubleOptions,
+        "TextOptions" Prelude.=: textOptions,
+        "IntArrayOptions" Prelude.=: intArrayOptions,
+        "LiteralArrayOptions" Prelude.=: literalArrayOptions,
+        "DateOptions" Prelude.=: dateOptions,
+        "IntOptions" Prelude.=: intOptions,
+        "LiteralOptions" Prelude.=: literalOptions,
+        "IndexFieldName" Prelude.=: indexFieldName,
+        "IndexFieldType" Prelude.=: indexFieldType
       ]

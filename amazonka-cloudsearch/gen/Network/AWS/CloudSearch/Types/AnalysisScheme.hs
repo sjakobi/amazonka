@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +21,79 @@ module Network.AWS.CloudSearch.Types.AnalysisScheme where
 
 import Network.AWS.CloudSearch.Types.AnalysisOptions
 import Network.AWS.CloudSearch.Types.AnalysisSchemeLanguage
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration information for an analysis scheme. Each analysis scheme has a unique name and specifies the language of the text to be processed. The following options can be configured for an analysis scheme: @Synonyms@ , @Stopwords@ , @StemmingDictionary@ , @JapaneseTokenizationDictionary@ and @AlgorithmicStemming@ .
+-- | Configuration information for an analysis scheme. Each analysis scheme
+-- has a unique name and specifies the language of the text to be
+-- processed. The following options can be configured for an analysis
+-- scheme: @Synonyms@, @Stopwords@, @StemmingDictionary@,
+-- @JapaneseTokenizationDictionary@ and @AlgorithmicStemming@.
 --
---
---
--- /See:/ 'analysisScheme' smart constructor.
+-- /See:/ 'newAnalysisScheme' smart constructor.
 data AnalysisScheme = AnalysisScheme'
-  { _asAnalysisOptions ::
-      !(Maybe AnalysisOptions),
-    _asAnalysisSchemeName :: !Text,
-    _asAnalysisSchemeLanguage ::
-      !AnalysisSchemeLanguage
+  { analysisOptions :: Prelude.Maybe AnalysisOptions,
+    analysisSchemeName :: Prelude.Text,
+    analysisSchemeLanguage :: AnalysisSchemeLanguage
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnalysisScheme' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnalysisScheme' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asAnalysisOptions' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asAnalysisSchemeName' - Undocumented member.
+-- 'analysisOptions', 'analysisScheme_analysisOptions' - Undocumented member.
 --
--- * 'asAnalysisSchemeLanguage' - Undocumented member.
-analysisScheme ::
-  -- | 'asAnalysisSchemeName'
-  Text ->
-  -- | 'asAnalysisSchemeLanguage'
+-- 'analysisSchemeName', 'analysisScheme_analysisSchemeName' - Undocumented member.
+--
+-- 'analysisSchemeLanguage', 'analysisScheme_analysisSchemeLanguage' - Undocumented member.
+newAnalysisScheme ::
+  -- | 'analysisSchemeName'
+  Prelude.Text ->
+  -- | 'analysisSchemeLanguage'
   AnalysisSchemeLanguage ->
   AnalysisScheme
-analysisScheme
+newAnalysisScheme
   pAnalysisSchemeName_
   pAnalysisSchemeLanguage_ =
     AnalysisScheme'
-      { _asAnalysisOptions = Nothing,
-        _asAnalysisSchemeName = pAnalysisSchemeName_,
-        _asAnalysisSchemeLanguage = pAnalysisSchemeLanguage_
+      { analysisOptions = Prelude.Nothing,
+        analysisSchemeName = pAnalysisSchemeName_,
+        analysisSchemeLanguage = pAnalysisSchemeLanguage_
       }
 
 -- | Undocumented member.
-asAnalysisOptions :: Lens' AnalysisScheme (Maybe AnalysisOptions)
-asAnalysisOptions = lens _asAnalysisOptions (\s a -> s {_asAnalysisOptions = a})
+analysisScheme_analysisOptions :: Lens.Lens' AnalysisScheme (Prelude.Maybe AnalysisOptions)
+analysisScheme_analysisOptions = Lens.lens (\AnalysisScheme' {analysisOptions} -> analysisOptions) (\s@AnalysisScheme' {} a -> s {analysisOptions = a} :: AnalysisScheme)
 
 -- | Undocumented member.
-asAnalysisSchemeName :: Lens' AnalysisScheme Text
-asAnalysisSchemeName = lens _asAnalysisSchemeName (\s a -> s {_asAnalysisSchemeName = a})
+analysisScheme_analysisSchemeName :: Lens.Lens' AnalysisScheme Prelude.Text
+analysisScheme_analysisSchemeName = Lens.lens (\AnalysisScheme' {analysisSchemeName} -> analysisSchemeName) (\s@AnalysisScheme' {} a -> s {analysisSchemeName = a} :: AnalysisScheme)
 
 -- | Undocumented member.
-asAnalysisSchemeLanguage :: Lens' AnalysisScheme AnalysisSchemeLanguage
-asAnalysisSchemeLanguage = lens _asAnalysisSchemeLanguage (\s a -> s {_asAnalysisSchemeLanguage = a})
+analysisScheme_analysisSchemeLanguage :: Lens.Lens' AnalysisScheme AnalysisSchemeLanguage
+analysisScheme_analysisSchemeLanguage = Lens.lens (\AnalysisScheme' {analysisSchemeLanguage} -> analysisSchemeLanguage) (\s@AnalysisScheme' {} a -> s {analysisSchemeLanguage = a} :: AnalysisScheme)
 
-instance FromXML AnalysisScheme where
+instance Prelude.FromXML AnalysisScheme where
   parseXML x =
     AnalysisScheme'
-      <$> (x .@? "AnalysisOptions")
-      <*> (x .@ "AnalysisSchemeName")
-      <*> (x .@ "AnalysisSchemeLanguage")
+      Prelude.<$> (x Prelude..@? "AnalysisOptions")
+      Prelude.<*> (x Prelude..@ "AnalysisSchemeName")
+      Prelude.<*> (x Prelude..@ "AnalysisSchemeLanguage")
 
-instance Hashable AnalysisScheme
+instance Prelude.Hashable AnalysisScheme
 
-instance NFData AnalysisScheme
+instance Prelude.NFData AnalysisScheme
 
-instance ToQuery AnalysisScheme where
+instance Prelude.ToQuery AnalysisScheme where
   toQuery AnalysisScheme' {..} =
-    mconcat
-      [ "AnalysisOptions" =: _asAnalysisOptions,
-        "AnalysisSchemeName" =: _asAnalysisSchemeName,
+    Prelude.mconcat
+      [ "AnalysisOptions" Prelude.=: analysisOptions,
+        "AnalysisSchemeName" Prelude.=: analysisSchemeName,
         "AnalysisSchemeLanguage"
-          =: _asAnalysisSchemeLanguage
+          Prelude.=: analysisSchemeLanguage
       ]

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an analysis scheme. For more information, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html Configuring Analysis Schemes> in the /Amazon CloudSearch Developer Guide/ .
+-- Deletes an analysis scheme. For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html Configuring Analysis Schemes>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearch.DeleteAnalysisScheme
   ( -- * Creating a Request
-    deleteAnalysisScheme,
-    DeleteAnalysisScheme,
+    DeleteAnalysisScheme (..),
+    newDeleteAnalysisScheme,
 
     -- * Request Lenses
-    dasaDomainName,
-    dasaAnalysisSchemeName,
+    deleteAnalysisScheme_domainName,
+    deleteAnalysisScheme_analysisSchemeName,
 
     -- * Destructuring the Response
-    deleteAnalysisSchemeResponse,
-    DeleteAnalysisSchemeResponse,
+    DeleteAnalysisSchemeResponse (..),
+    newDeleteAnalysisSchemeResponse,
 
     -- * Response Lenses
-    dasrrsResponseStatus,
-    dasrrsAnalysisScheme,
+    deleteAnalysisSchemeResponse_httpStatus,
+    deleteAnalysisSchemeResponse_analysisScheme,
   )
 where
 
 import Network.AWS.CloudSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearch.Types.AnalysisSchemeStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'DeleteAnalysisScheme' @ operation. Specifies the name of the domain you want to update and the analysis scheme you want to delete.
+-- | Container for the parameters to the @DeleteAnalysisScheme@ operation.
+-- Specifies the name of the domain you want to update and the analysis
+-- scheme you want to delete.
 --
---
---
--- /See:/ 'deleteAnalysisScheme' smart constructor.
+-- /See:/ 'newDeleteAnalysisScheme' smart constructor.
 data DeleteAnalysisScheme = DeleteAnalysisScheme'
-  { _dasaDomainName ::
-      !Text,
-    _dasaAnalysisSchemeName ::
-      !Text
+  { domainName :: Prelude.Text,
+    -- | The name of the analysis scheme you want to delete.
+    analysisSchemeName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAnalysisScheme' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAnalysisScheme' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dasaDomainName' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dasaAnalysisSchemeName' - The name of the analysis scheme you want to delete.
-deleteAnalysisScheme ::
-  -- | 'dasaDomainName'
-  Text ->
-  -- | 'dasaAnalysisSchemeName'
-  Text ->
+-- 'domainName', 'deleteAnalysisScheme_domainName' - Undocumented member.
+--
+-- 'analysisSchemeName', 'deleteAnalysisScheme_analysisSchemeName' - The name of the analysis scheme you want to delete.
+newDeleteAnalysisScheme ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'analysisSchemeName'
+  Prelude.Text ->
   DeleteAnalysisScheme
-deleteAnalysisScheme
+newDeleteAnalysisScheme
   pDomainName_
   pAnalysisSchemeName_ =
     DeleteAnalysisScheme'
-      { _dasaDomainName =
-          pDomainName_,
-        _dasaAnalysisSchemeName = pAnalysisSchemeName_
+      { domainName = pDomainName_,
+        analysisSchemeName = pAnalysisSchemeName_
       }
 
 -- | Undocumented member.
-dasaDomainName :: Lens' DeleteAnalysisScheme Text
-dasaDomainName = lens _dasaDomainName (\s a -> s {_dasaDomainName = a})
+deleteAnalysisScheme_domainName :: Lens.Lens' DeleteAnalysisScheme Prelude.Text
+deleteAnalysisScheme_domainName = Lens.lens (\DeleteAnalysisScheme' {domainName} -> domainName) (\s@DeleteAnalysisScheme' {} a -> s {domainName = a} :: DeleteAnalysisScheme)
 
 -- | The name of the analysis scheme you want to delete.
-dasaAnalysisSchemeName :: Lens' DeleteAnalysisScheme Text
-dasaAnalysisSchemeName = lens _dasaAnalysisSchemeName (\s a -> s {_dasaAnalysisSchemeName = a})
+deleteAnalysisScheme_analysisSchemeName :: Lens.Lens' DeleteAnalysisScheme Prelude.Text
+deleteAnalysisScheme_analysisSchemeName = Lens.lens (\DeleteAnalysisScheme' {analysisSchemeName} -> analysisSchemeName) (\s@DeleteAnalysisScheme' {} a -> s {analysisSchemeName = a} :: DeleteAnalysisScheme)
 
-instance AWSRequest DeleteAnalysisScheme where
+instance Prelude.AWSRequest DeleteAnalysisScheme where
   type
     Rs DeleteAnalysisScheme =
       DeleteAnalysisSchemeResponse
-  request = postQuery cloudSearch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteAnalysisSchemeResult"
       ( \s h x ->
           DeleteAnalysisSchemeResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "AnalysisScheme")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "AnalysisScheme")
       )
 
-instance Hashable DeleteAnalysisScheme
+instance Prelude.Hashable DeleteAnalysisScheme
 
-instance NFData DeleteAnalysisScheme
+instance Prelude.NFData DeleteAnalysisScheme
 
-instance ToHeaders DeleteAnalysisScheme where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteAnalysisScheme where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteAnalysisScheme where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAnalysisScheme where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAnalysisScheme where
+instance Prelude.ToQuery DeleteAnalysisScheme where
   toQuery DeleteAnalysisScheme' {..} =
-    mconcat
-      [ "Action" =: ("DeleteAnalysisScheme" :: ByteString),
-        "Version" =: ("2013-01-01" :: ByteString),
-        "DomainName" =: _dasaDomainName,
-        "AnalysisSchemeName" =: _dasaAnalysisSchemeName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteAnalysisScheme" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName,
+        "AnalysisSchemeName" Prelude.=: analysisSchemeName
       ]
 
--- | The result of a @DeleteAnalysisScheme@ request. Contains the status of the deleted analysis scheme.
+-- | The result of a @DeleteAnalysisScheme@ request. Contains the status of
+-- the deleted analysis scheme.
 --
---
---
--- /See:/ 'deleteAnalysisSchemeResponse' smart constructor.
+-- /See:/ 'newDeleteAnalysisSchemeResponse' smart constructor.
 data DeleteAnalysisSchemeResponse = DeleteAnalysisSchemeResponse'
-  { _dasrrsResponseStatus ::
-      !Int,
-    _dasrrsAnalysisScheme ::
-      !AnalysisSchemeStatus
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The status of the analysis scheme being deleted.
+    analysisScheme :: AnalysisSchemeStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAnalysisSchemeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAnalysisSchemeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dasrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dasrrsAnalysisScheme' - The status of the analysis scheme being deleted.
-deleteAnalysisSchemeResponse ::
-  -- | 'dasrrsResponseStatus'
-  Int ->
-  -- | 'dasrrsAnalysisScheme'
+-- 'httpStatus', 'deleteAnalysisSchemeResponse_httpStatus' - The response's http status code.
+--
+-- 'analysisScheme', 'deleteAnalysisSchemeResponse_analysisScheme' - The status of the analysis scheme being deleted.
+newDeleteAnalysisSchemeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'analysisScheme'
   AnalysisSchemeStatus ->
   DeleteAnalysisSchemeResponse
-deleteAnalysisSchemeResponse
-  pResponseStatus_
+newDeleteAnalysisSchemeResponse
+  pHttpStatus_
   pAnalysisScheme_ =
     DeleteAnalysisSchemeResponse'
-      { _dasrrsResponseStatus =
-          pResponseStatus_,
-        _dasrrsAnalysisScheme = pAnalysisScheme_
+      { httpStatus =
+          pHttpStatus_,
+        analysisScheme = pAnalysisScheme_
       }
 
--- | -- | The response status code.
-dasrrsResponseStatus :: Lens' DeleteAnalysisSchemeResponse Int
-dasrrsResponseStatus = lens _dasrrsResponseStatus (\s a -> s {_dasrrsResponseStatus = a})
+-- | The response's http status code.
+deleteAnalysisSchemeResponse_httpStatus :: Lens.Lens' DeleteAnalysisSchemeResponse Prelude.Int
+deleteAnalysisSchemeResponse_httpStatus = Lens.lens (\DeleteAnalysisSchemeResponse' {httpStatus} -> httpStatus) (\s@DeleteAnalysisSchemeResponse' {} a -> s {httpStatus = a} :: DeleteAnalysisSchemeResponse)
 
 -- | The status of the analysis scheme being deleted.
-dasrrsAnalysisScheme :: Lens' DeleteAnalysisSchemeResponse AnalysisSchemeStatus
-dasrrsAnalysisScheme = lens _dasrrsAnalysisScheme (\s a -> s {_dasrrsAnalysisScheme = a})
+deleteAnalysisSchemeResponse_analysisScheme :: Lens.Lens' DeleteAnalysisSchemeResponse AnalysisSchemeStatus
+deleteAnalysisSchemeResponse_analysisScheme = Lens.lens (\DeleteAnalysisSchemeResponse' {analysisScheme} -> analysisScheme) (\s@DeleteAnalysisSchemeResponse' {} a -> s {analysisScheme = a} :: DeleteAnalysisSchemeResponse)
 
-instance NFData DeleteAnalysisSchemeResponse
+instance Prelude.NFData DeleteAnalysisSchemeResponse

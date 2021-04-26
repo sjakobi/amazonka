@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,77 @@
 module Network.AWS.CloudSearch.Types.OptionState
   ( OptionState
       ( ..,
-        Active,
-        FailedToValidate,
-        Processing,
-        RequiresIndexDocuments
+        OptionStateActive,
+        OptionStateFailedToValidate,
+        OptionStateProcessing,
+        OptionStateRequiresIndexDocuments
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The state of processing a change to an option. One of:
 --
---
---     * RequiresIndexDocuments: The option's latest value will not be deployed until 'IndexDocuments' has been called and indexing is complete.    * Processing: The option's latest value is in the process of being activated.    * Active: The option's latest value is fully deployed.     * FailedToValidate: The option value is not compatible with the domain's data and cannot be used to index the data. You must either modify the option value or update or remove the incompatible documents.
-data OptionState = OptionState' (CI Text)
+-- -   RequiresIndexDocuments: The option\'s latest value will not be
+--     deployed until IndexDocuments has been called and indexing is
+--     complete.
+-- -   Processing: The option\'s latest value is in the process of being
+--     activated.
+-- -   Active: The option\'s latest value is fully deployed.
+-- -   FailedToValidate: The option value is not compatible with the
+--     domain\'s data and cannot be used to index the data. You must either
+--     modify the option value or update or remove the incompatible
+--     documents.
+newtype OptionState = OptionState'
+  { fromOptionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: OptionState
-pattern Active = OptionState' "Active"
+pattern OptionStateActive :: OptionState
+pattern OptionStateActive = OptionState' "Active"
 
-pattern FailedToValidate :: OptionState
-pattern FailedToValidate = OptionState' "FailedToValidate"
+pattern OptionStateFailedToValidate :: OptionState
+pattern OptionStateFailedToValidate = OptionState' "FailedToValidate"
 
-pattern Processing :: OptionState
-pattern Processing = OptionState' "Processing"
+pattern OptionStateProcessing :: OptionState
+pattern OptionStateProcessing = OptionState' "Processing"
 
-pattern RequiresIndexDocuments :: OptionState
-pattern RequiresIndexDocuments = OptionState' "RequiresIndexDocuments"
+pattern OptionStateRequiresIndexDocuments :: OptionState
+pattern OptionStateRequiresIndexDocuments = OptionState' "RequiresIndexDocuments"
 
 {-# COMPLETE
-  Active,
-  FailedToValidate,
-  Processing,
-  RequiresIndexDocuments,
+  OptionStateActive,
+  OptionStateFailedToValidate,
+  OptionStateProcessing,
+  OptionStateRequiresIndexDocuments,
   OptionState'
   #-}
 
-instance FromText OptionState where
-  parser = (OptionState' . mk) <$> takeText
+instance Prelude.FromText OptionState where
+  parser = OptionState' Prelude.<$> Prelude.takeText
 
-instance ToText OptionState where
-  toText (OptionState' ci) = original ci
+instance Prelude.ToText OptionState where
+  toText (OptionState' x) = x
 
-instance Hashable OptionState
+instance Prelude.Hashable OptionState
 
-instance NFData OptionState
+instance Prelude.NFData OptionState
 
-instance ToByteString OptionState
+instance Prelude.ToByteString OptionState
 
-instance ToQuery OptionState
+instance Prelude.ToQuery OptionState
 
-instance ToHeader OptionState
+instance Prelude.ToHeader OptionState
 
-instance FromXML OptionState where
-  parseXML = parseXMLText "OptionState"
+instance Prelude.FromXML OptionState where
+  parseXML = Prelude.parseXMLText "OptionState"
