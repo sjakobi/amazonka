@@ -11,13 +11,16 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon Polly is a web service that makes it easy to synthesize speech from text.
+-- Amazon Polly is a web service that makes it easy to synthesize speech
+-- from text.
 --
---
--- The Amazon Polly service provides API operations for synthesizing high-quality speech from plain text and Speech Synthesis Markup Language (SSML), along with managing pronunciations lexicons that enable you to get the best results for your application domain.
+-- The Amazon Polly service provides API operations for synthesizing
+-- high-quality speech from plain text and Speech Synthesis Markup Language
+-- (SSML), along with managing pronunciations lexicons that enable you to
+-- get the best results for your application domain.
 module Network.AWS.Polly
   ( -- * Service Configuration
-    polly,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -64,8 +67,8 @@ module Network.AWS.Polly
     -- ** UnsupportedPlsLanguageException
     _UnsupportedPlsLanguageException,
 
-    -- ** InvalidSNSTopicARNException
-    _InvalidSNSTopicARNException,
+    -- ** InvalidSnsTopicArnException
+    _InvalidSnsTopicArnException,
 
     -- ** InvalidTaskIdException
     _InvalidTaskIdException,
@@ -92,31 +95,58 @@ module Network.AWS.Polly
     -- $operations
 
     -- ** GetSpeechSynthesisTask
-    module Network.AWS.Polly.GetSpeechSynthesisTask,
+    GetSpeechSynthesisTask (GetSpeechSynthesisTask'),
+    newGetSpeechSynthesisTask,
+    GetSpeechSynthesisTaskResponse (GetSpeechSynthesisTaskResponse'),
+    newGetSpeechSynthesisTaskResponse,
 
     -- ** GetLexicon
-    module Network.AWS.Polly.GetLexicon,
+    GetLexicon (GetLexicon'),
+    newGetLexicon,
+    GetLexiconResponse (GetLexiconResponse'),
+    newGetLexiconResponse,
 
     -- ** ListLexicons (Paginated)
-    module Network.AWS.Polly.ListLexicons,
+    ListLexicons (ListLexicons'),
+    newListLexicons,
+    ListLexiconsResponse (ListLexiconsResponse'),
+    newListLexiconsResponse,
 
     -- ** DeleteLexicon
-    module Network.AWS.Polly.DeleteLexicon,
+    DeleteLexicon (DeleteLexicon'),
+    newDeleteLexicon,
+    DeleteLexiconResponse (DeleteLexiconResponse'),
+    newDeleteLexiconResponse,
 
     -- ** DescribeVoices (Paginated)
-    module Network.AWS.Polly.DescribeVoices,
+    DescribeVoices (DescribeVoices'),
+    newDescribeVoices,
+    DescribeVoicesResponse (DescribeVoicesResponse'),
+    newDescribeVoicesResponse,
 
     -- ** StartSpeechSynthesisTask
-    module Network.AWS.Polly.StartSpeechSynthesisTask,
+    StartSpeechSynthesisTask (StartSpeechSynthesisTask'),
+    newStartSpeechSynthesisTask,
+    StartSpeechSynthesisTaskResponse (StartSpeechSynthesisTaskResponse'),
+    newStartSpeechSynthesisTaskResponse,
 
     -- ** PutLexicon
-    module Network.AWS.Polly.PutLexicon,
+    PutLexicon (PutLexicon'),
+    newPutLexicon,
+    PutLexiconResponse (PutLexiconResponse'),
+    newPutLexiconResponse,
 
     -- ** SynthesizeSpeech
-    module Network.AWS.Polly.SynthesizeSpeech,
+    SynthesizeSpeech (SynthesizeSpeech'),
+    newSynthesizeSpeech,
+    SynthesizeSpeechResponse (SynthesizeSpeechResponse'),
+    newSynthesizeSpeechResponse,
 
     -- ** ListSpeechSynthesisTasks (Paginated)
-    module Network.AWS.Polly.ListSpeechSynthesisTasks,
+    ListSpeechSynthesisTasks (ListSpeechSynthesisTasks'),
+    newListSpeechSynthesisTasks,
+    ListSpeechSynthesisTasksResponse (ListSpeechSynthesisTasksResponse'),
+    newListSpeechSynthesisTasksResponse,
 
     -- * Types
 
@@ -145,56 +175,24 @@ module Network.AWS.Polly
     VoiceId (..),
 
     -- ** Lexicon
-    Lexicon,
-    lexicon,
-    lName,
-    lContent,
+    Lexicon (Lexicon'),
+    newLexicon,
 
     -- ** LexiconAttributes
-    LexiconAttributes,
-    lexiconAttributes,
-    laLanguageCode,
-    laLexiconARN,
-    laAlphabet,
-    laLexemesCount,
-    laLastModified,
-    laSize,
+    LexiconAttributes (LexiconAttributes'),
+    newLexiconAttributes,
 
     -- ** LexiconDescription
-    LexiconDescription,
-    lexiconDescription,
-    ldAttributes,
-    ldName,
+    LexiconDescription (LexiconDescription'),
+    newLexiconDescription,
 
     -- ** SynthesisTask
-    SynthesisTask,
-    synthesisTask,
-    stLanguageCode,
-    stCreationTime,
-    stOutputURI,
-    stSpeechMarkTypes,
-    stLexiconNames,
-    stVoiceId,
-    stTaskId,
-    stTextType,
-    stOutputFormat,
-    stSampleRate,
-    stTaskStatus,
-    stEngine,
-    stRequestCharacters,
-    stTaskStatusReason,
-    stSNSTopicARN,
+    SynthesisTask (SynthesisTask'),
+    newSynthesisTask,
 
     -- ** Voice
-    Voice,
-    voice,
-    vLanguageCode,
-    vId,
-    vGender,
-    vName,
-    vSupportedEngines,
-    vAdditionalLanguageCodes,
-    vLanguageName,
+    Voice (Voice'),
+    newVoice,
   )
 where
 
@@ -202,6 +200,7 @@ import Network.AWS.Polly.DeleteLexicon
 import Network.AWS.Polly.DescribeVoices
 import Network.AWS.Polly.GetLexicon
 import Network.AWS.Polly.GetSpeechSynthesisTask
+import Network.AWS.Polly.Lens
 import Network.AWS.Polly.ListLexicons
 import Network.AWS.Polly.ListSpeechSynthesisTasks
 import Network.AWS.Polly.PutLexicon

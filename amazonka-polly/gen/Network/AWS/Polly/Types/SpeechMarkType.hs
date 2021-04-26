@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.Polly.Types.SpeechMarkType
   ( SpeechMarkType
       ( ..,
-        Sentence,
-        Ssml,
-        Viseme,
-        Word
+        SpeechMarkTypeSentence,
+        SpeechMarkTypeSsml,
+        SpeechMarkTypeViseme,
+        SpeechMarkTypeWord
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SpeechMarkType = SpeechMarkType' (CI Text)
+newtype SpeechMarkType = SpeechMarkType'
+  { fromSpeechMarkType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Sentence :: SpeechMarkType
-pattern Sentence = SpeechMarkType' "sentence"
+pattern SpeechMarkTypeSentence :: SpeechMarkType
+pattern SpeechMarkTypeSentence = SpeechMarkType' "sentence"
 
-pattern Ssml :: SpeechMarkType
-pattern Ssml = SpeechMarkType' "ssml"
+pattern SpeechMarkTypeSsml :: SpeechMarkType
+pattern SpeechMarkTypeSsml = SpeechMarkType' "ssml"
 
-pattern Viseme :: SpeechMarkType
-pattern Viseme = SpeechMarkType' "viseme"
+pattern SpeechMarkTypeViseme :: SpeechMarkType
+pattern SpeechMarkTypeViseme = SpeechMarkType' "viseme"
 
-pattern Word :: SpeechMarkType
-pattern Word = SpeechMarkType' "word"
+pattern SpeechMarkTypeWord :: SpeechMarkType
+pattern SpeechMarkTypeWord = SpeechMarkType' "word"
 
 {-# COMPLETE
-  Sentence,
-  Ssml,
-  Viseme,
-  Word,
+  SpeechMarkTypeSentence,
+  SpeechMarkTypeSsml,
+  SpeechMarkTypeViseme,
+  SpeechMarkTypeWord,
   SpeechMarkType'
   #-}
 
-instance FromText SpeechMarkType where
-  parser = (SpeechMarkType' . mk) <$> takeText
+instance Prelude.FromText SpeechMarkType where
+  parser = SpeechMarkType' Prelude.<$> Prelude.takeText
 
-instance ToText SpeechMarkType where
-  toText (SpeechMarkType' ci) = original ci
+instance Prelude.ToText SpeechMarkType where
+  toText (SpeechMarkType' x) = x
 
-instance Hashable SpeechMarkType
+instance Prelude.Hashable SpeechMarkType
 
-instance NFData SpeechMarkType
+instance Prelude.NFData SpeechMarkType
 
-instance ToByteString SpeechMarkType
+instance Prelude.ToByteString SpeechMarkType
 
-instance ToQuery SpeechMarkType
+instance Prelude.ToQuery SpeechMarkType
 
-instance ToHeader SpeechMarkType
+instance Prelude.ToHeader SpeechMarkType
 
-instance ToJSON SpeechMarkType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SpeechMarkType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SpeechMarkType where
-  parseJSON = parseJSONText "SpeechMarkType"
+instance Prelude.FromJSON SpeechMarkType where
+  parseJSON = Prelude.parseJSONText "SpeechMarkType"

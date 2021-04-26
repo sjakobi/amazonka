@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.Polly.Types.OutputFormat
   ( OutputFormat
       ( ..,
-        JSON,
-        MP3,
-        OggVorbis,
-        Pcm
+        OutputFormatJson,
+        OutputFormatMP3,
+        OutputFormatOggVorbis,
+        OutputFormatPcm
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OutputFormat = OutputFormat' (CI Text)
+newtype OutputFormat = OutputFormat'
+  { fromOutputFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JSON :: OutputFormat
-pattern JSON = OutputFormat' "json"
+pattern OutputFormatJson :: OutputFormat
+pattern OutputFormatJson = OutputFormat' "json"
 
-pattern MP3 :: OutputFormat
-pattern MP3 = OutputFormat' "mp3"
+pattern OutputFormatMP3 :: OutputFormat
+pattern OutputFormatMP3 = OutputFormat' "mp3"
 
-pattern OggVorbis :: OutputFormat
-pattern OggVorbis = OutputFormat' "ogg_vorbis"
+pattern OutputFormatOggVorbis :: OutputFormat
+pattern OutputFormatOggVorbis = OutputFormat' "ogg_vorbis"
 
-pattern Pcm :: OutputFormat
-pattern Pcm = OutputFormat' "pcm"
+pattern OutputFormatPcm :: OutputFormat
+pattern OutputFormatPcm = OutputFormat' "pcm"
 
 {-# COMPLETE
-  JSON,
-  MP3,
-  OggVorbis,
-  Pcm,
+  OutputFormatJson,
+  OutputFormatMP3,
+  OutputFormatOggVorbis,
+  OutputFormatPcm,
   OutputFormat'
   #-}
 
-instance FromText OutputFormat where
-  parser = (OutputFormat' . mk) <$> takeText
+instance Prelude.FromText OutputFormat where
+  parser = OutputFormat' Prelude.<$> Prelude.takeText
 
-instance ToText OutputFormat where
-  toText (OutputFormat' ci) = original ci
+instance Prelude.ToText OutputFormat where
+  toText (OutputFormat' x) = x
 
-instance Hashable OutputFormat
+instance Prelude.Hashable OutputFormat
 
-instance NFData OutputFormat
+instance Prelude.NFData OutputFormat
 
-instance ToByteString OutputFormat
+instance Prelude.ToByteString OutputFormat
 
-instance ToQuery OutputFormat
+instance Prelude.ToQuery OutputFormat
 
-instance ToHeader OutputFormat
+instance Prelude.ToHeader OutputFormat
 
-instance ToJSON OutputFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON OutputFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OutputFormat where
-  parseJSON = parseJSONText "OutputFormat"
+instance Prelude.FromJSON OutputFormat where
+  parseJSON = Prelude.parseJSONText "OutputFormat"

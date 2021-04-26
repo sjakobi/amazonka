@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Polly.Types.TextType
   ( TextType
       ( ..,
-        TTSsml,
-        TTText
+        TextTypeSsml,
+        TextTypeText
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TextType = TextType' (CI Text)
+newtype TextType = TextType'
+  { fromTextType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TTSsml :: TextType
-pattern TTSsml = TextType' "ssml"
+pattern TextTypeSsml :: TextType
+pattern TextTypeSsml = TextType' "ssml"
 
-pattern TTText :: TextType
-pattern TTText = TextType' "text"
+pattern TextTypeText :: TextType
+pattern TextTypeText = TextType' "text"
 
 {-# COMPLETE
-  TTSsml,
-  TTText,
+  TextTypeSsml,
+  TextTypeText,
   TextType'
   #-}
 
-instance FromText TextType where
-  parser = (TextType' . mk) <$> takeText
+instance Prelude.FromText TextType where
+  parser = TextType' Prelude.<$> Prelude.takeText
 
-instance ToText TextType where
-  toText (TextType' ci) = original ci
+instance Prelude.ToText TextType where
+  toText (TextType' x) = x
 
-instance Hashable TextType
+instance Prelude.Hashable TextType
 
-instance NFData TextType
+instance Prelude.NFData TextType
 
-instance ToByteString TextType
+instance Prelude.ToByteString TextType
 
-instance ToQuery TextType
+instance Prelude.ToQuery TextType
 
-instance ToHeader TextType
+instance Prelude.ToHeader TextType
 
-instance ToJSON TextType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TextType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TextType where
-  parseJSON = parseJSONText "TextType"
+instance Prelude.FromJSON TextType where
+  parseJSON = Prelude.parseJSONText "TextType"

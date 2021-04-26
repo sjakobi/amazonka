@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,230 +21,454 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Synthesizes UTF-8 input, plain text or SSML, to a stream of bytes. SSML input must be valid, well-formed SSML. Some alphabets might not be available with all the voices (for example, Cyrillic might not be read at all by English voices) unless phoneme mapping is used. For more information, see <https://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html How it Works> .
+-- Synthesizes UTF-8 input, plain text or SSML, to a stream of bytes. SSML
+-- input must be valid, well-formed SSML. Some alphabets might not be
+-- available with all the voices (for example, Cyrillic might not be read
+-- at all by English voices) unless phoneme mapping is used. For more
+-- information, see
+-- <https://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html How it Works>.
 module Network.AWS.Polly.SynthesizeSpeech
   ( -- * Creating a Request
-    synthesizeSpeech,
-    SynthesizeSpeech,
+    SynthesizeSpeech (..),
+    newSynthesizeSpeech,
 
     -- * Request Lenses
-    ssLanguageCode,
-    ssSpeechMarkTypes,
-    ssLexiconNames,
-    ssTextType,
-    ssSampleRate,
-    ssEngine,
-    ssOutputFormat,
-    ssText,
-    ssVoiceId,
+    synthesizeSpeech_languageCode,
+    synthesizeSpeech_speechMarkTypes,
+    synthesizeSpeech_lexiconNames,
+    synthesizeSpeech_textType,
+    synthesizeSpeech_sampleRate,
+    synthesizeSpeech_engine,
+    synthesizeSpeech_outputFormat,
+    synthesizeSpeech_text,
+    synthesizeSpeech_voiceId,
 
     -- * Destructuring the Response
-    synthesizeSpeechResponse,
-    SynthesizeSpeechResponse,
+    SynthesizeSpeechResponse (..),
+    newSynthesizeSpeechResponse,
 
     -- * Response Lenses
-    ssrrsContentType,
-    ssrrsRequestCharacters,
-    ssrrsResponseStatus,
-    ssrrsAudioStream,
+    synthesizeSpeechResponse_contentType,
+    synthesizeSpeechResponse_requestCharacters,
+    synthesizeSpeechResponse_httpStatus,
+    synthesizeSpeechResponse_audioStream,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Polly.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'synthesizeSpeech' smart constructor.
+-- | /See:/ 'newSynthesizeSpeech' smart constructor.
 data SynthesizeSpeech = SynthesizeSpeech'
-  { _ssLanguageCode ::
-      !(Maybe LanguageCode),
-    _ssSpeechMarkTypes ::
-      !(Maybe [SpeechMarkType]),
-    _ssLexiconNames :: !(Maybe [Text]),
-    _ssTextType :: !(Maybe TextType),
-    _ssSampleRate :: !(Maybe Text),
-    _ssEngine :: !(Maybe Engine),
-    _ssOutputFormat :: !OutputFormat,
-    _ssText :: !Text,
-    _ssVoiceId :: !VoiceId
+  { -- | Optional language code for the Synthesize Speech request. This is only
+    -- necessary if using a bilingual voice, such as Aditi, which can be used
+    -- for either Indian English (en-IN) or Hindi (hi-IN).
+    --
+    -- If a bilingual voice is used and no language code is specified, Amazon
+    -- Polly will use the default language of the bilingual voice. The default
+    -- language for any voice is the one returned by the
+    -- <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices>
+    -- operation for the @LanguageCode@ parameter. For example, if no language
+    -- code is specified, Aditi will use Indian English rather than Hindi.
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | The type of speech marks returned for the input text.
+    speechMarkTypes :: Prelude.Maybe [SpeechMarkType],
+    -- | List of one or more pronunciation lexicon names you want the service to
+    -- apply during synthesis. Lexicons are applied only if the language of the
+    -- lexicon is the same as the language of the voice. For information about
+    -- storing lexicons, see
+    -- <https://docs.aws.amazon.com/polly/latest/dg/API_PutLexicon.html PutLexicon>.
+    lexiconNames :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies whether the input text is plain text or SSML. The default
+    -- value is plain text. For more information, see
+    -- <https://docs.aws.amazon.com/polly/latest/dg/ssml.html Using SSML>.
+    textType :: Prelude.Maybe TextType,
+    -- | The audio frequency specified in Hz.
+    --
+    -- The valid values for mp3 and ogg_vorbis are \"8000\", \"16000\",
+    -- \"22050\", and \"24000\". The default value for standard voices is
+    -- \"22050\". The default value for neural voices is \"24000\".
+    --
+    -- Valid values for pcm are \"8000\" and \"16000\" The default value is
+    -- \"16000\".
+    sampleRate :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the engine (@standard@ or @neural@) for Amazon Polly to use
+    -- when processing input text for speech synthesis. For information on
+    -- Amazon Polly voices and which voices are available in standard-only,
+    -- NTTS-only, and both standard and NTTS formats, see
+    -- <https://docs.aws.amazon.com/polly/latest/dg/voicelist.html Available Voices>.
+    --
+    -- __NTTS-only voices__
+    --
+    -- When using NTTS-only voices such as Kevin (en-US), this parameter is
+    -- required and must be set to @neural@. If the engine is not specified, or
+    -- is set to @standard@, this will result in an error.
+    --
+    -- Type: String
+    --
+    -- Valid Values: @standard@ | @neural@
+    --
+    -- Required: Yes
+    --
+    -- __Standard voices__
+    --
+    -- For standard voices, this is not required; the engine parameter defaults
+    -- to @standard@. If the engine is not specified, or is set to @standard@
+    -- and an NTTS-only voice is selected, this will result in an error.
+    engine :: Prelude.Maybe Engine,
+    -- | The format in which the returned output will be encoded. For audio
+    -- stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this
+    -- will be json.
+    --
+    -- When pcm is used, the content returned is audio\/pcm in a signed 16-bit,
+    -- 1 channel (mono), little-endian format.
+    outputFormat :: OutputFormat,
+    -- | Input text to synthesize. If you specify @ssml@ as the @TextType@,
+    -- follow the SSML format for the input text.
+    text :: Prelude.Text,
+    -- | Voice ID to use for the synthesis. You can get a list of available voice
+    -- IDs by calling the
+    -- <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices>
+    -- operation.
+    voiceId :: VoiceId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SynthesizeSpeech' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SynthesizeSpeech' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssLanguageCode' - Optional language code for the Synthesize Speech request. This is only necessary if using a bilingual voice, such as Aditi, which can be used for either Indian English (en-IN) or Hindi (hi-IN).  If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language of the bilingual voice. The default language for any voice is the one returned by the <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices> operation for the @LanguageCode@ parameter. For example, if no language code is specified, Aditi will use Indian English rather than Hindi.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssSpeechMarkTypes' - The type of speech marks returned for the input text.
+-- 'languageCode', 'synthesizeSpeech_languageCode' - Optional language code for the Synthesize Speech request. This is only
+-- necessary if using a bilingual voice, such as Aditi, which can be used
+-- for either Indian English (en-IN) or Hindi (hi-IN).
 --
--- * 'ssLexiconNames' - List of one or more pronunciation lexicon names you want the service to apply during synthesis. Lexicons are applied only if the language of the lexicon is the same as the language of the voice. For information about storing lexicons, see <https://docs.aws.amazon.com/polly/latest/dg/API_PutLexicon.html PutLexicon> .
+-- If a bilingual voice is used and no language code is specified, Amazon
+-- Polly will use the default language of the bilingual voice. The default
+-- language for any voice is the one returned by the
+-- <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices>
+-- operation for the @LanguageCode@ parameter. For example, if no language
+-- code is specified, Aditi will use Indian English rather than Hindi.
 --
--- * 'ssTextType' - Specifies whether the input text is plain text or SSML. The default value is plain text. For more information, see <https://docs.aws.amazon.com/polly/latest/dg/ssml.html Using SSML> .
+-- 'speechMarkTypes', 'synthesizeSpeech_speechMarkTypes' - The type of speech marks returned for the input text.
 --
--- * 'ssSampleRate' - The audio frequency specified in Hz. The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for standard voices is "22050". The default value for neural voices is "24000". Valid values for pcm are "8000" and "16000" The default value is "16000".
+-- 'lexiconNames', 'synthesizeSpeech_lexiconNames' - List of one or more pronunciation lexicon names you want the service to
+-- apply during synthesis. Lexicons are applied only if the language of the
+-- lexicon is the same as the language of the voice. For information about
+-- storing lexicons, see
+-- <https://docs.aws.amazon.com/polly/latest/dg/API_PutLexicon.html PutLexicon>.
 --
--- * 'ssEngine' - Specifies the engine (@standard@ or @neural@ ) for Amazon Polly to use when processing input text for speech synthesis. For information on Amazon Polly voices and which voices are available in standard-only, NTTS-only, and both standard and NTTS formats, see <https://docs.aws.amazon.com/polly/latest/dg/voicelist.html Available Voices> . __NTTS-only voices__  When using NTTS-only voices such as Kevin (en-US), this parameter is required and must be set to @neural@ . If the engine is not specified, or is set to @standard@ , this will result in an error.  Type: String Valid Values: @standard@ | @neural@  Required: Yes __Standard voices__  For standard voices, this is not required; the engine parameter defaults to @standard@ . If the engine is not specified, or is set to @standard@ and an NTTS-only voice is selected, this will result in an error.
+-- 'textType', 'synthesizeSpeech_textType' - Specifies whether the input text is plain text or SSML. The default
+-- value is plain text. For more information, see
+-- <https://docs.aws.amazon.com/polly/latest/dg/ssml.html Using SSML>.
 --
--- * 'ssOutputFormat' - The format in which the returned output will be encoded. For audio stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this will be json.  When pcm is used, the content returned is audio/pcm in a signed 16-bit, 1 channel (mono), little-endian format.
+-- 'sampleRate', 'synthesizeSpeech_sampleRate' - The audio frequency specified in Hz.
 --
--- * 'ssText' - Input text to synthesize. If you specify @ssml@ as the @TextType@ , follow the SSML format for the input text.
+-- The valid values for mp3 and ogg_vorbis are \"8000\", \"16000\",
+-- \"22050\", and \"24000\". The default value for standard voices is
+-- \"22050\". The default value for neural voices is \"24000\".
 --
--- * 'ssVoiceId' - Voice ID to use for the synthesis. You can get a list of available voice IDs by calling the <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices> operation.
-synthesizeSpeech ::
-  -- | 'ssOutputFormat'
+-- Valid values for pcm are \"8000\" and \"16000\" The default value is
+-- \"16000\".
+--
+-- 'engine', 'synthesizeSpeech_engine' - Specifies the engine (@standard@ or @neural@) for Amazon Polly to use
+-- when processing input text for speech synthesis. For information on
+-- Amazon Polly voices and which voices are available in standard-only,
+-- NTTS-only, and both standard and NTTS formats, see
+-- <https://docs.aws.amazon.com/polly/latest/dg/voicelist.html Available Voices>.
+--
+-- __NTTS-only voices__
+--
+-- When using NTTS-only voices such as Kevin (en-US), this parameter is
+-- required and must be set to @neural@. If the engine is not specified, or
+-- is set to @standard@, this will result in an error.
+--
+-- Type: String
+--
+-- Valid Values: @standard@ | @neural@
+--
+-- Required: Yes
+--
+-- __Standard voices__
+--
+-- For standard voices, this is not required; the engine parameter defaults
+-- to @standard@. If the engine is not specified, or is set to @standard@
+-- and an NTTS-only voice is selected, this will result in an error.
+--
+-- 'outputFormat', 'synthesizeSpeech_outputFormat' - The format in which the returned output will be encoded. For audio
+-- stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this
+-- will be json.
+--
+-- When pcm is used, the content returned is audio\/pcm in a signed 16-bit,
+-- 1 channel (mono), little-endian format.
+--
+-- 'text', 'synthesizeSpeech_text' - Input text to synthesize. If you specify @ssml@ as the @TextType@,
+-- follow the SSML format for the input text.
+--
+-- 'voiceId', 'synthesizeSpeech_voiceId' - Voice ID to use for the synthesis. You can get a list of available voice
+-- IDs by calling the
+-- <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices>
+-- operation.
+newSynthesizeSpeech ::
+  -- | 'outputFormat'
   OutputFormat ->
-  -- | 'ssText'
-  Text ->
-  -- | 'ssVoiceId'
+  -- | 'text'
+  Prelude.Text ->
+  -- | 'voiceId'
   VoiceId ->
   SynthesizeSpeech
-synthesizeSpeech pOutputFormat_ pText_ pVoiceId_ =
+newSynthesizeSpeech pOutputFormat_ pText_ pVoiceId_ =
   SynthesizeSpeech'
-    { _ssLanguageCode = Nothing,
-      _ssSpeechMarkTypes = Nothing,
-      _ssLexiconNames = Nothing,
-      _ssTextType = Nothing,
-      _ssSampleRate = Nothing,
-      _ssEngine = Nothing,
-      _ssOutputFormat = pOutputFormat_,
-      _ssText = pText_,
-      _ssVoiceId = pVoiceId_
+    { languageCode = Prelude.Nothing,
+      speechMarkTypes = Prelude.Nothing,
+      lexiconNames = Prelude.Nothing,
+      textType = Prelude.Nothing,
+      sampleRate = Prelude.Nothing,
+      engine = Prelude.Nothing,
+      outputFormat = pOutputFormat_,
+      text = pText_,
+      voiceId = pVoiceId_
     }
 
--- | Optional language code for the Synthesize Speech request. This is only necessary if using a bilingual voice, such as Aditi, which can be used for either Indian English (en-IN) or Hindi (hi-IN).  If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language of the bilingual voice. The default language for any voice is the one returned by the <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices> operation for the @LanguageCode@ parameter. For example, if no language code is specified, Aditi will use Indian English rather than Hindi.
-ssLanguageCode :: Lens' SynthesizeSpeech (Maybe LanguageCode)
-ssLanguageCode = lens _ssLanguageCode (\s a -> s {_ssLanguageCode = a})
+-- | Optional language code for the Synthesize Speech request. This is only
+-- necessary if using a bilingual voice, such as Aditi, which can be used
+-- for either Indian English (en-IN) or Hindi (hi-IN).
+--
+-- If a bilingual voice is used and no language code is specified, Amazon
+-- Polly will use the default language of the bilingual voice. The default
+-- language for any voice is the one returned by the
+-- <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices>
+-- operation for the @LanguageCode@ parameter. For example, if no language
+-- code is specified, Aditi will use Indian English rather than Hindi.
+synthesizeSpeech_languageCode :: Lens.Lens' SynthesizeSpeech (Prelude.Maybe LanguageCode)
+synthesizeSpeech_languageCode = Lens.lens (\SynthesizeSpeech' {languageCode} -> languageCode) (\s@SynthesizeSpeech' {} a -> s {languageCode = a} :: SynthesizeSpeech)
 
 -- | The type of speech marks returned for the input text.
-ssSpeechMarkTypes :: Lens' SynthesizeSpeech [SpeechMarkType]
-ssSpeechMarkTypes = lens _ssSpeechMarkTypes (\s a -> s {_ssSpeechMarkTypes = a}) . _Default . _Coerce
+synthesizeSpeech_speechMarkTypes :: Lens.Lens' SynthesizeSpeech (Prelude.Maybe [SpeechMarkType])
+synthesizeSpeech_speechMarkTypes = Lens.lens (\SynthesizeSpeech' {speechMarkTypes} -> speechMarkTypes) (\s@SynthesizeSpeech' {} a -> s {speechMarkTypes = a} :: SynthesizeSpeech) Prelude.. Lens.mapping Prelude._Coerce
 
--- | List of one or more pronunciation lexicon names you want the service to apply during synthesis. Lexicons are applied only if the language of the lexicon is the same as the language of the voice. For information about storing lexicons, see <https://docs.aws.amazon.com/polly/latest/dg/API_PutLexicon.html PutLexicon> .
-ssLexiconNames :: Lens' SynthesizeSpeech [Text]
-ssLexiconNames = lens _ssLexiconNames (\s a -> s {_ssLexiconNames = a}) . _Default . _Coerce
+-- | List of one or more pronunciation lexicon names you want the service to
+-- apply during synthesis. Lexicons are applied only if the language of the
+-- lexicon is the same as the language of the voice. For information about
+-- storing lexicons, see
+-- <https://docs.aws.amazon.com/polly/latest/dg/API_PutLexicon.html PutLexicon>.
+synthesizeSpeech_lexiconNames :: Lens.Lens' SynthesizeSpeech (Prelude.Maybe [Prelude.Text])
+synthesizeSpeech_lexiconNames = Lens.lens (\SynthesizeSpeech' {lexiconNames} -> lexiconNames) (\s@SynthesizeSpeech' {} a -> s {lexiconNames = a} :: SynthesizeSpeech) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies whether the input text is plain text or SSML. The default value is plain text. For more information, see <https://docs.aws.amazon.com/polly/latest/dg/ssml.html Using SSML> .
-ssTextType :: Lens' SynthesizeSpeech (Maybe TextType)
-ssTextType = lens _ssTextType (\s a -> s {_ssTextType = a})
+-- | Specifies whether the input text is plain text or SSML. The default
+-- value is plain text. For more information, see
+-- <https://docs.aws.amazon.com/polly/latest/dg/ssml.html Using SSML>.
+synthesizeSpeech_textType :: Lens.Lens' SynthesizeSpeech (Prelude.Maybe TextType)
+synthesizeSpeech_textType = Lens.lens (\SynthesizeSpeech' {textType} -> textType) (\s@SynthesizeSpeech' {} a -> s {textType = a} :: SynthesizeSpeech)
 
--- | The audio frequency specified in Hz. The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for standard voices is "22050". The default value for neural voices is "24000". Valid values for pcm are "8000" and "16000" The default value is "16000".
-ssSampleRate :: Lens' SynthesizeSpeech (Maybe Text)
-ssSampleRate = lens _ssSampleRate (\s a -> s {_ssSampleRate = a})
+-- | The audio frequency specified in Hz.
+--
+-- The valid values for mp3 and ogg_vorbis are \"8000\", \"16000\",
+-- \"22050\", and \"24000\". The default value for standard voices is
+-- \"22050\". The default value for neural voices is \"24000\".
+--
+-- Valid values for pcm are \"8000\" and \"16000\" The default value is
+-- \"16000\".
+synthesizeSpeech_sampleRate :: Lens.Lens' SynthesizeSpeech (Prelude.Maybe Prelude.Text)
+synthesizeSpeech_sampleRate = Lens.lens (\SynthesizeSpeech' {sampleRate} -> sampleRate) (\s@SynthesizeSpeech' {} a -> s {sampleRate = a} :: SynthesizeSpeech)
 
--- | Specifies the engine (@standard@ or @neural@ ) for Amazon Polly to use when processing input text for speech synthesis. For information on Amazon Polly voices and which voices are available in standard-only, NTTS-only, and both standard and NTTS formats, see <https://docs.aws.amazon.com/polly/latest/dg/voicelist.html Available Voices> . __NTTS-only voices__  When using NTTS-only voices such as Kevin (en-US), this parameter is required and must be set to @neural@ . If the engine is not specified, or is set to @standard@ , this will result in an error.  Type: String Valid Values: @standard@ | @neural@  Required: Yes __Standard voices__  For standard voices, this is not required; the engine parameter defaults to @standard@ . If the engine is not specified, or is set to @standard@ and an NTTS-only voice is selected, this will result in an error.
-ssEngine :: Lens' SynthesizeSpeech (Maybe Engine)
-ssEngine = lens _ssEngine (\s a -> s {_ssEngine = a})
+-- | Specifies the engine (@standard@ or @neural@) for Amazon Polly to use
+-- when processing input text for speech synthesis. For information on
+-- Amazon Polly voices and which voices are available in standard-only,
+-- NTTS-only, and both standard and NTTS formats, see
+-- <https://docs.aws.amazon.com/polly/latest/dg/voicelist.html Available Voices>.
+--
+-- __NTTS-only voices__
+--
+-- When using NTTS-only voices such as Kevin (en-US), this parameter is
+-- required and must be set to @neural@. If the engine is not specified, or
+-- is set to @standard@, this will result in an error.
+--
+-- Type: String
+--
+-- Valid Values: @standard@ | @neural@
+--
+-- Required: Yes
+--
+-- __Standard voices__
+--
+-- For standard voices, this is not required; the engine parameter defaults
+-- to @standard@. If the engine is not specified, or is set to @standard@
+-- and an NTTS-only voice is selected, this will result in an error.
+synthesizeSpeech_engine :: Lens.Lens' SynthesizeSpeech (Prelude.Maybe Engine)
+synthesizeSpeech_engine = Lens.lens (\SynthesizeSpeech' {engine} -> engine) (\s@SynthesizeSpeech' {} a -> s {engine = a} :: SynthesizeSpeech)
 
--- | The format in which the returned output will be encoded. For audio stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this will be json.  When pcm is used, the content returned is audio/pcm in a signed 16-bit, 1 channel (mono), little-endian format.
-ssOutputFormat :: Lens' SynthesizeSpeech OutputFormat
-ssOutputFormat = lens _ssOutputFormat (\s a -> s {_ssOutputFormat = a})
+-- | The format in which the returned output will be encoded. For audio
+-- stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this
+-- will be json.
+--
+-- When pcm is used, the content returned is audio\/pcm in a signed 16-bit,
+-- 1 channel (mono), little-endian format.
+synthesizeSpeech_outputFormat :: Lens.Lens' SynthesizeSpeech OutputFormat
+synthesizeSpeech_outputFormat = Lens.lens (\SynthesizeSpeech' {outputFormat} -> outputFormat) (\s@SynthesizeSpeech' {} a -> s {outputFormat = a} :: SynthesizeSpeech)
 
--- | Input text to synthesize. If you specify @ssml@ as the @TextType@ , follow the SSML format for the input text.
-ssText :: Lens' SynthesizeSpeech Text
-ssText = lens _ssText (\s a -> s {_ssText = a})
+-- | Input text to synthesize. If you specify @ssml@ as the @TextType@,
+-- follow the SSML format for the input text.
+synthesizeSpeech_text :: Lens.Lens' SynthesizeSpeech Prelude.Text
+synthesizeSpeech_text = Lens.lens (\SynthesizeSpeech' {text} -> text) (\s@SynthesizeSpeech' {} a -> s {text = a} :: SynthesizeSpeech)
 
--- | Voice ID to use for the synthesis. You can get a list of available voice IDs by calling the <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices> operation.
-ssVoiceId :: Lens' SynthesizeSpeech VoiceId
-ssVoiceId = lens _ssVoiceId (\s a -> s {_ssVoiceId = a})
+-- | Voice ID to use for the synthesis. You can get a list of available voice
+-- IDs by calling the
+-- <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices>
+-- operation.
+synthesizeSpeech_voiceId :: Lens.Lens' SynthesizeSpeech VoiceId
+synthesizeSpeech_voiceId = Lens.lens (\SynthesizeSpeech' {voiceId} -> voiceId) (\s@SynthesizeSpeech' {} a -> s {voiceId = a} :: SynthesizeSpeech)
 
-instance AWSRequest SynthesizeSpeech where
+instance Prelude.AWSRequest SynthesizeSpeech where
   type Rs SynthesizeSpeech = SynthesizeSpeechResponse
-  request = postJSON polly
+  request = Request.postJSON defaultService
   response =
-    receiveBody
+    Response.receiveBody
       ( \s h x ->
           SynthesizeSpeechResponse'
-            <$> (h .#? "Content-Type")
-            <*> (h .#? "x-amzn-RequestCharacters")
-            <*> (pure (fromEnum s))
-            <*> (pure x)
+            Prelude.<$> (h Prelude..#? "Content-Type")
+            Prelude.<*> (h Prelude..#? "x-amzn-RequestCharacters")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.pure x)
       )
 
-instance Hashable SynthesizeSpeech
+instance Prelude.Hashable SynthesizeSpeech
 
-instance NFData SynthesizeSpeech
+instance Prelude.NFData SynthesizeSpeech
 
-instance ToHeaders SynthesizeSpeech where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SynthesizeSpeech where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON SynthesizeSpeech where
+instance Prelude.ToJSON SynthesizeSpeech where
   toJSON SynthesizeSpeech' {..} =
-    object
-      ( catMaybes
-          [ ("LanguageCode" .=) <$> _ssLanguageCode,
-            ("SpeechMarkTypes" .=) <$> _ssSpeechMarkTypes,
-            ("LexiconNames" .=) <$> _ssLexiconNames,
-            ("TextType" .=) <$> _ssTextType,
-            ("SampleRate" .=) <$> _ssSampleRate,
-            ("Engine" .=) <$> _ssEngine,
-            Just ("OutputFormat" .= _ssOutputFormat),
-            Just ("Text" .= _ssText),
-            Just ("VoiceId" .= _ssVoiceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LanguageCode" Prelude..=)
+              Prelude.<$> languageCode,
+            ("SpeechMarkTypes" Prelude..=)
+              Prelude.<$> speechMarkTypes,
+            ("LexiconNames" Prelude..=) Prelude.<$> lexiconNames,
+            ("TextType" Prelude..=) Prelude.<$> textType,
+            ("SampleRate" Prelude..=) Prelude.<$> sampleRate,
+            ("Engine" Prelude..=) Prelude.<$> engine,
+            Prelude.Just
+              ("OutputFormat" Prelude..= outputFormat),
+            Prelude.Just ("Text" Prelude..= text),
+            Prelude.Just ("VoiceId" Prelude..= voiceId)
           ]
       )
 
-instance ToPath SynthesizeSpeech where
-  toPath = const "/v1/speech"
+instance Prelude.ToPath SynthesizeSpeech where
+  toPath = Prelude.const "/v1/speech"
 
-instance ToQuery SynthesizeSpeech where
-  toQuery = const mempty
+instance Prelude.ToQuery SynthesizeSpeech where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'synthesizeSpeechResponse' smart constructor.
+-- | /See:/ 'newSynthesizeSpeechResponse' smart constructor.
 data SynthesizeSpeechResponse = SynthesizeSpeechResponse'
-  { _ssrrsContentType ::
-      !(Maybe Text),
-    _ssrrsRequestCharacters ::
-      !(Maybe Int),
-    _ssrrsResponseStatus ::
-      !Int,
-    _ssrrsAudioStream ::
-      !RsBody
+  { -- | Specifies the type audio stream. This should reflect the @OutputFormat@
+    -- parameter in your request.
+    --
+    -- -   If you request @mp3@ as the @OutputFormat@, the @ContentType@
+    --     returned is audio\/mpeg.
+    --
+    -- -   If you request @ogg_vorbis@ as the @OutputFormat@, the @ContentType@
+    --     returned is audio\/ogg.
+    --
+    -- -   If you request @pcm@ as the @OutputFormat@, the @ContentType@
+    --     returned is audio\/pcm in a signed 16-bit, 1 channel (mono),
+    --     little-endian format.
+    --
+    -- -   If you request @json@ as the @OutputFormat@, the @ContentType@
+    --     returned is audio\/json.
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | Number of characters synthesized.
+    requestCharacters :: Prelude.Maybe Prelude.Int,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Stream containing the synthesized speech.
+    audioStream :: Prelude.RsBody
   }
-  deriving (Show, Generic)
+  deriving (Prelude.Show, Prelude.Generic)
 
--- | Creates a value of 'SynthesizeSpeechResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SynthesizeSpeechResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssrrsContentType' - Specifies the type audio stream. This should reflect the @OutputFormat@ parameter in your request.      * If you request @mp3@ as the @OutputFormat@ , the @ContentType@ returned is audio/mpeg.      * If you request @ogg_vorbis@ as the @OutputFormat@ , the @ContentType@ returned is audio/ogg.      * If you request @pcm@ as the @OutputFormat@ , the @ContentType@ returned is audio/pcm in a signed 16-bit, 1 channel (mono), little-endian format.      * If you request @json@ as the @OutputFormat@ , the @ContentType@ returned is audio/json.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssrrsRequestCharacters' - Number of characters synthesized.
+-- 'contentType', 'synthesizeSpeechResponse_contentType' - Specifies the type audio stream. This should reflect the @OutputFormat@
+-- parameter in your request.
 --
--- * 'ssrrsResponseStatus' - -- | The response status code.
+-- -   If you request @mp3@ as the @OutputFormat@, the @ContentType@
+--     returned is audio\/mpeg.
 --
--- * 'ssrrsAudioStream' - Stream containing the synthesized speech.
-synthesizeSpeechResponse ::
-  -- | 'ssrrsResponseStatus'
-  Int ->
-  -- | 'ssrrsAudioStream'
-  RsBody ->
+-- -   If you request @ogg_vorbis@ as the @OutputFormat@, the @ContentType@
+--     returned is audio\/ogg.
+--
+-- -   If you request @pcm@ as the @OutputFormat@, the @ContentType@
+--     returned is audio\/pcm in a signed 16-bit, 1 channel (mono),
+--     little-endian format.
+--
+-- -   If you request @json@ as the @OutputFormat@, the @ContentType@
+--     returned is audio\/json.
+--
+-- 'requestCharacters', 'synthesizeSpeechResponse_requestCharacters' - Number of characters synthesized.
+--
+-- 'httpStatus', 'synthesizeSpeechResponse_httpStatus' - The response's http status code.
+--
+-- 'audioStream', 'synthesizeSpeechResponse_audioStream' - Stream containing the synthesized speech.
+newSynthesizeSpeechResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'audioStream'
+  Prelude.RsBody ->
   SynthesizeSpeechResponse
-synthesizeSpeechResponse
-  pResponseStatus_
+newSynthesizeSpeechResponse
+  pHttpStatus_
   pAudioStream_ =
     SynthesizeSpeechResponse'
-      { _ssrrsContentType =
-          Nothing,
-        _ssrrsRequestCharacters = Nothing,
-        _ssrrsResponseStatus = pResponseStatus_,
-        _ssrrsAudioStream = pAudioStream_
+      { contentType =
+          Prelude.Nothing,
+        requestCharacters = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        audioStream = pAudioStream_
       }
 
--- | Specifies the type audio stream. This should reflect the @OutputFormat@ parameter in your request.      * If you request @mp3@ as the @OutputFormat@ , the @ContentType@ returned is audio/mpeg.      * If you request @ogg_vorbis@ as the @OutputFormat@ , the @ContentType@ returned is audio/ogg.      * If you request @pcm@ as the @OutputFormat@ , the @ContentType@ returned is audio/pcm in a signed 16-bit, 1 channel (mono), little-endian format.      * If you request @json@ as the @OutputFormat@ , the @ContentType@ returned is audio/json.
-ssrrsContentType :: Lens' SynthesizeSpeechResponse (Maybe Text)
-ssrrsContentType = lens _ssrrsContentType (\s a -> s {_ssrrsContentType = a})
+-- | Specifies the type audio stream. This should reflect the @OutputFormat@
+-- parameter in your request.
+--
+-- -   If you request @mp3@ as the @OutputFormat@, the @ContentType@
+--     returned is audio\/mpeg.
+--
+-- -   If you request @ogg_vorbis@ as the @OutputFormat@, the @ContentType@
+--     returned is audio\/ogg.
+--
+-- -   If you request @pcm@ as the @OutputFormat@, the @ContentType@
+--     returned is audio\/pcm in a signed 16-bit, 1 channel (mono),
+--     little-endian format.
+--
+-- -   If you request @json@ as the @OutputFormat@, the @ContentType@
+--     returned is audio\/json.
+synthesizeSpeechResponse_contentType :: Lens.Lens' SynthesizeSpeechResponse (Prelude.Maybe Prelude.Text)
+synthesizeSpeechResponse_contentType = Lens.lens (\SynthesizeSpeechResponse' {contentType} -> contentType) (\s@SynthesizeSpeechResponse' {} a -> s {contentType = a} :: SynthesizeSpeechResponse)
 
 -- | Number of characters synthesized.
-ssrrsRequestCharacters :: Lens' SynthesizeSpeechResponse (Maybe Int)
-ssrrsRequestCharacters = lens _ssrrsRequestCharacters (\s a -> s {_ssrrsRequestCharacters = a})
+synthesizeSpeechResponse_requestCharacters :: Lens.Lens' SynthesizeSpeechResponse (Prelude.Maybe Prelude.Int)
+synthesizeSpeechResponse_requestCharacters = Lens.lens (\SynthesizeSpeechResponse' {requestCharacters} -> requestCharacters) (\s@SynthesizeSpeechResponse' {} a -> s {requestCharacters = a} :: SynthesizeSpeechResponse)
 
--- | -- | The response status code.
-ssrrsResponseStatus :: Lens' SynthesizeSpeechResponse Int
-ssrrsResponseStatus = lens _ssrrsResponseStatus (\s a -> s {_ssrrsResponseStatus = a})
+-- | The response's http status code.
+synthesizeSpeechResponse_httpStatus :: Lens.Lens' SynthesizeSpeechResponse Prelude.Int
+synthesizeSpeechResponse_httpStatus = Lens.lens (\SynthesizeSpeechResponse' {httpStatus} -> httpStatus) (\s@SynthesizeSpeechResponse' {} a -> s {httpStatus = a} :: SynthesizeSpeechResponse)
 
 -- | Stream containing the synthesized speech.
-ssrrsAudioStream :: Lens' SynthesizeSpeechResponse RsBody
-ssrrsAudioStream = lens _ssrrsAudioStream (\s a -> s {_ssrrsAudioStream = a})
+synthesizeSpeechResponse_audioStream :: Lens.Lens' SynthesizeSpeechResponse Prelude.RsBody
+synthesizeSpeechResponse_audioStream = Lens.lens (\SynthesizeSpeechResponse' {audioStream} -> audioStream) (\s@SynthesizeSpeechResponse' {} a -> s {audioStream = a} :: SynthesizeSpeechResponse)

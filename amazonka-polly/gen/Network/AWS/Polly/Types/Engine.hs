@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,55 @@
 module Network.AWS.Polly.Types.Engine
   ( Engine
       ( ..,
-        Neural,
-        Standard
+        EngineNeural,
+        EngineStandard
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Engine = Engine' (CI Text)
+newtype Engine = Engine' {fromEngine :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Neural :: Engine
-pattern Neural = Engine' "neural"
+pattern EngineNeural :: Engine
+pattern EngineNeural = Engine' "neural"
 
-pattern Standard :: Engine
-pattern Standard = Engine' "standard"
+pattern EngineStandard :: Engine
+pattern EngineStandard = Engine' "standard"
 
 {-# COMPLETE
-  Neural,
-  Standard,
+  EngineNeural,
+  EngineStandard,
   Engine'
   #-}
 
-instance FromText Engine where
-  parser = (Engine' . mk) <$> takeText
+instance Prelude.FromText Engine where
+  parser = Engine' Prelude.<$> Prelude.takeText
 
-instance ToText Engine where
-  toText (Engine' ci) = original ci
+instance Prelude.ToText Engine where
+  toText (Engine' x) = x
 
-instance Hashable Engine
+instance Prelude.Hashable Engine
 
-instance NFData Engine
+instance Prelude.NFData Engine
 
-instance ToByteString Engine
+instance Prelude.ToByteString Engine
 
-instance ToQuery Engine
+instance Prelude.ToQuery Engine
 
-instance ToHeader Engine
+instance Prelude.ToHeader Engine
 
-instance ToJSON Engine where
-  toJSON = toJSONText
+instance Prelude.ToJSON Engine where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Engine where
-  parseJSON = parseJSONText "Engine"
+instance Prelude.FromJSON Engine where
+  parseJSON = Prelude.parseJSONText "Engine"

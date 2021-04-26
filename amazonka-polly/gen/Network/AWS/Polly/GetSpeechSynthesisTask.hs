@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,132 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a specific SpeechSynthesisTask object based on its TaskID. This object contains information about the given speech synthesis task, including the status of the task, and a link to the S3 bucket containing the output of the task.
+-- Retrieves a specific SpeechSynthesisTask object based on its TaskID.
+-- This object contains information about the given speech synthesis task,
+-- including the status of the task, and a link to the S3 bucket containing
+-- the output of the task.
 module Network.AWS.Polly.GetSpeechSynthesisTask
   ( -- * Creating a Request
-    getSpeechSynthesisTask,
-    GetSpeechSynthesisTask,
+    GetSpeechSynthesisTask (..),
+    newGetSpeechSynthesisTask,
 
     -- * Request Lenses
-    gsstTaskId,
+    getSpeechSynthesisTask_taskId,
 
     -- * Destructuring the Response
-    getSpeechSynthesisTaskResponse,
-    GetSpeechSynthesisTaskResponse,
+    GetSpeechSynthesisTaskResponse (..),
+    newGetSpeechSynthesisTaskResponse,
 
     -- * Response Lenses
-    gsstrrsSynthesisTask,
-    gsstrrsResponseStatus,
+    getSpeechSynthesisTaskResponse_synthesisTask,
+    getSpeechSynthesisTaskResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Polly.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Polly.Types.SynthesisTask
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getSpeechSynthesisTask' smart constructor.
-newtype GetSpeechSynthesisTask = GetSpeechSynthesisTask'
-  { _gsstTaskId ::
-      Text
+-- | /See:/ 'newGetSpeechSynthesisTask' smart constructor.
+data GetSpeechSynthesisTask = GetSpeechSynthesisTask'
+  { -- | The Amazon Polly generated identifier for a speech synthesis task.
+    taskId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSpeechSynthesisTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSpeechSynthesisTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsstTaskId' - The Amazon Polly generated identifier for a speech synthesis task.
-getSpeechSynthesisTask ::
-  -- | 'gsstTaskId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'taskId', 'getSpeechSynthesisTask_taskId' - The Amazon Polly generated identifier for a speech synthesis task.
+newGetSpeechSynthesisTask ::
+  -- | 'taskId'
+  Prelude.Text ->
   GetSpeechSynthesisTask
-getSpeechSynthesisTask pTaskId_ =
-  GetSpeechSynthesisTask' {_gsstTaskId = pTaskId_}
+newGetSpeechSynthesisTask pTaskId_ =
+  GetSpeechSynthesisTask' {taskId = pTaskId_}
 
 -- | The Amazon Polly generated identifier for a speech synthesis task.
-gsstTaskId :: Lens' GetSpeechSynthesisTask Text
-gsstTaskId = lens _gsstTaskId (\s a -> s {_gsstTaskId = a})
+getSpeechSynthesisTask_taskId :: Lens.Lens' GetSpeechSynthesisTask Prelude.Text
+getSpeechSynthesisTask_taskId = Lens.lens (\GetSpeechSynthesisTask' {taskId} -> taskId) (\s@GetSpeechSynthesisTask' {} a -> s {taskId = a} :: GetSpeechSynthesisTask)
 
-instance AWSRequest GetSpeechSynthesisTask where
+instance Prelude.AWSRequest GetSpeechSynthesisTask where
   type
     Rs GetSpeechSynthesisTask =
       GetSpeechSynthesisTaskResponse
-  request = get polly
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSpeechSynthesisTaskResponse'
-            <$> (x .?> "SynthesisTask") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SynthesisTask")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSpeechSynthesisTask
+instance Prelude.Hashable GetSpeechSynthesisTask
 
-instance NFData GetSpeechSynthesisTask
+instance Prelude.NFData GetSpeechSynthesisTask
 
-instance ToHeaders GetSpeechSynthesisTask where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetSpeechSynthesisTask where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetSpeechSynthesisTask where
+instance Prelude.ToPath GetSpeechSynthesisTask where
   toPath GetSpeechSynthesisTask' {..} =
-    mconcat ["/v1/synthesisTasks/", toBS _gsstTaskId]
+    Prelude.mconcat
+      ["/v1/synthesisTasks/", Prelude.toBS taskId]
 
-instance ToQuery GetSpeechSynthesisTask where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSpeechSynthesisTask where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSpeechSynthesisTaskResponse' smart constructor.
+-- | /See:/ 'newGetSpeechSynthesisTaskResponse' smart constructor.
 data GetSpeechSynthesisTaskResponse = GetSpeechSynthesisTaskResponse'
-  { _gsstrrsSynthesisTask ::
-      !( Maybe
-           SynthesisTask
-       ),
-    _gsstrrsResponseStatus ::
-      !Int
+  { -- | SynthesisTask object that provides information from the requested task,
+    -- including output format, creation time, task status, and so on.
+    synthesisTask :: Prelude.Maybe SynthesisTask,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSpeechSynthesisTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSpeechSynthesisTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsstrrsSynthesisTask' - SynthesisTask object that provides information from the requested task, including output format, creation time, task status, and so on.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsstrrsResponseStatus' - -- | The response status code.
-getSpeechSynthesisTaskResponse ::
-  -- | 'gsstrrsResponseStatus'
-  Int ->
+-- 'synthesisTask', 'getSpeechSynthesisTaskResponse_synthesisTask' - SynthesisTask object that provides information from the requested task,
+-- including output format, creation time, task status, and so on.
+--
+-- 'httpStatus', 'getSpeechSynthesisTaskResponse_httpStatus' - The response's http status code.
+newGetSpeechSynthesisTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSpeechSynthesisTaskResponse
-getSpeechSynthesisTaskResponse pResponseStatus_ =
+newGetSpeechSynthesisTaskResponse pHttpStatus_ =
   GetSpeechSynthesisTaskResponse'
-    { _gsstrrsSynthesisTask =
-        Nothing,
-      _gsstrrsResponseStatus = pResponseStatus_
+    { synthesisTask =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | SynthesisTask object that provides information from the requested task, including output format, creation time, task status, and so on.
-gsstrrsSynthesisTask :: Lens' GetSpeechSynthesisTaskResponse (Maybe SynthesisTask)
-gsstrrsSynthesisTask = lens _gsstrrsSynthesisTask (\s a -> s {_gsstrrsSynthesisTask = a})
+-- | SynthesisTask object that provides information from the requested task,
+-- including output format, creation time, task status, and so on.
+getSpeechSynthesisTaskResponse_synthesisTask :: Lens.Lens' GetSpeechSynthesisTaskResponse (Prelude.Maybe SynthesisTask)
+getSpeechSynthesisTaskResponse_synthesisTask = Lens.lens (\GetSpeechSynthesisTaskResponse' {synthesisTask} -> synthesisTask) (\s@GetSpeechSynthesisTaskResponse' {} a -> s {synthesisTask = a} :: GetSpeechSynthesisTaskResponse)
 
--- | -- | The response status code.
-gsstrrsResponseStatus :: Lens' GetSpeechSynthesisTaskResponse Int
-gsstrrsResponseStatus = lens _gsstrrsResponseStatus (\s a -> s {_gsstrrsResponseStatus = a})
+-- | The response's http status code.
+getSpeechSynthesisTaskResponse_httpStatus :: Lens.Lens' GetSpeechSynthesisTaskResponse Prelude.Int
+getSpeechSynthesisTaskResponse_httpStatus = Lens.lens (\GetSpeechSynthesisTaskResponse' {httpStatus} -> httpStatus) (\s@GetSpeechSynthesisTaskResponse' {} a -> s {httpStatus = a} :: GetSpeechSynthesisTaskResponse)
 
-instance NFData GetSpeechSynthesisTaskResponse
+instance
+  Prelude.NFData
+    GetSpeechSynthesisTaskResponse

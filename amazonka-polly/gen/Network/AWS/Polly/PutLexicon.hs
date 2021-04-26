@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,126 +21,141 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stores a pronunciation lexicon in an AWS Region. If a lexicon with the same name already exists in the region, it is overwritten by the new lexicon. Lexicon operations have eventual consistency, therefore, it might take some time before the lexicon is available to the SynthesizeSpeech operation.
+-- Stores a pronunciation lexicon in an AWS Region. If a lexicon with the
+-- same name already exists in the region, it is overwritten by the new
+-- lexicon. Lexicon operations have eventual consistency, therefore, it
+-- might take some time before the lexicon is available to the
+-- SynthesizeSpeech operation.
 --
---
--- For more information, see <https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html Managing Lexicons> .
+-- For more information, see
+-- <https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html Managing Lexicons>.
 module Network.AWS.Polly.PutLexicon
   ( -- * Creating a Request
-    putLexicon,
-    PutLexicon,
+    PutLexicon (..),
+    newPutLexicon,
 
     -- * Request Lenses
-    plName,
-    plContent,
+    putLexicon_name,
+    putLexicon_content,
 
     -- * Destructuring the Response
-    putLexiconResponse,
-    PutLexiconResponse,
+    PutLexiconResponse (..),
+    newPutLexiconResponse,
 
     -- * Response Lenses
-    plrrsResponseStatus,
+    putLexiconResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Polly.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putLexicon' smart constructor.
+-- | /See:/ 'newPutLexicon' smart constructor.
 data PutLexicon = PutLexicon'
-  { _plName :: !Text,
-    _plContent :: !(Sensitive Text)
+  { -- | Name of the lexicon. The name must follow the regular express format
+    -- [0-9A-Za-z]{1,20}. That is, the name is a case-sensitive alphanumeric
+    -- string up to 20 characters long.
+    name :: Prelude.Text,
+    -- | Content of the PLS lexicon as string data.
+    content :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutLexicon' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutLexicon' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'plName' - Name of the lexicon. The name must follow the regular express format [0-9A-Za-z]{1,20}. That is, the name is a case-sensitive alphanumeric string up to 20 characters long.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'plContent' - Content of the PLS lexicon as string data.
-putLexicon ::
-  -- | 'plName'
-  Text ->
-  -- | 'plContent'
-  Text ->
+-- 'name', 'putLexicon_name' - Name of the lexicon. The name must follow the regular express format
+-- [0-9A-Za-z]{1,20}. That is, the name is a case-sensitive alphanumeric
+-- string up to 20 characters long.
+--
+-- 'content', 'putLexicon_content' - Content of the PLS lexicon as string data.
+newPutLexicon ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'content'
+  Prelude.Text ->
   PutLexicon
-putLexicon pName_ pContent_ =
+newPutLexicon pName_ pContent_ =
   PutLexicon'
-    { _plName = pName_,
-      _plContent = _Sensitive # pContent_
+    { name = pName_,
+      content = Prelude._Sensitive Lens.# pContent_
     }
 
--- | Name of the lexicon. The name must follow the regular express format [0-9A-Za-z]{1,20}. That is, the name is a case-sensitive alphanumeric string up to 20 characters long.
-plName :: Lens' PutLexicon Text
-plName = lens _plName (\s a -> s {_plName = a})
+-- | Name of the lexicon. The name must follow the regular express format
+-- [0-9A-Za-z]{1,20}. That is, the name is a case-sensitive alphanumeric
+-- string up to 20 characters long.
+putLexicon_name :: Lens.Lens' PutLexicon Prelude.Text
+putLexicon_name = Lens.lens (\PutLexicon' {name} -> name) (\s@PutLexicon' {} a -> s {name = a} :: PutLexicon)
 
 -- | Content of the PLS lexicon as string data.
-plContent :: Lens' PutLexicon Text
-plContent = lens _plContent (\s a -> s {_plContent = a}) . _Sensitive
+putLexicon_content :: Lens.Lens' PutLexicon Prelude.Text
+putLexicon_content = Lens.lens (\PutLexicon' {content} -> content) (\s@PutLexicon' {} a -> s {content = a} :: PutLexicon) Prelude.. Prelude._Sensitive
 
-instance AWSRequest PutLexicon where
+instance Prelude.AWSRequest PutLexicon where
   type Rs PutLexicon = PutLexiconResponse
-  request = putJSON polly
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          PutLexiconResponse' <$> (pure (fromEnum s))
+          PutLexiconResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutLexicon
+instance Prelude.Hashable PutLexicon
 
-instance NFData PutLexicon
+instance Prelude.NFData PutLexicon
 
-instance ToHeaders PutLexicon where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PutLexicon where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON PutLexicon where
+instance Prelude.ToJSON PutLexicon where
   toJSON PutLexicon' {..} =
-    object (catMaybes [Just ("Content" .= _plContent)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Content" Prelude..= content)]
+      )
 
-instance ToPath PutLexicon where
+instance Prelude.ToPath PutLexicon where
   toPath PutLexicon' {..} =
-    mconcat ["/v1/lexicons/", toBS _plName]
+    Prelude.mconcat
+      ["/v1/lexicons/", Prelude.toBS name]
 
-instance ToQuery PutLexicon where
-  toQuery = const mempty
+instance Prelude.ToQuery PutLexicon where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putLexiconResponse' smart constructor.
-newtype PutLexiconResponse = PutLexiconResponse'
-  { _plrrsResponseStatus ::
-      Int
+-- | /See:/ 'newPutLexiconResponse' smart constructor.
+data PutLexiconResponse = PutLexiconResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutLexiconResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutLexiconResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'plrrsResponseStatus' - -- | The response status code.
-putLexiconResponse ::
-  -- | 'plrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putLexiconResponse_httpStatus' - The response's http status code.
+newPutLexiconResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutLexiconResponse
-putLexiconResponse pResponseStatus_ =
-  PutLexiconResponse'
-    { _plrrsResponseStatus =
-        pResponseStatus_
-    }
+newPutLexiconResponse pHttpStatus_ =
+  PutLexiconResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-plrrsResponseStatus :: Lens' PutLexiconResponse Int
-plrrsResponseStatus = lens _plrrsResponseStatus (\s a -> s {_plrrsResponseStatus = a})
+-- | The response's http status code.
+putLexiconResponse_httpStatus :: Lens.Lens' PutLexiconResponse Prelude.Int
+putLexiconResponse_httpStatus = Lens.lens (\PutLexiconResponse' {httpStatus} -> httpStatus) (\s@PutLexiconResponse' {} a -> s {httpStatus = a} :: PutLexiconResponse)
 
-instance NFData PutLexiconResponse
+instance Prelude.NFData PutLexiconResponse

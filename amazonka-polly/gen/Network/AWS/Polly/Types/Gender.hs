@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,52 @@
 module Network.AWS.Polly.Types.Gender
   ( Gender
       ( ..,
-        Female,
-        Male
+        GenderFemale,
+        GenderMale
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Gender = Gender' (CI Text)
+newtype Gender = Gender' {fromGender :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Female :: Gender
-pattern Female = Gender' "Female"
+pattern GenderFemale :: Gender
+pattern GenderFemale = Gender' "Female"
 
-pattern Male :: Gender
-pattern Male = Gender' "Male"
+pattern GenderMale :: Gender
+pattern GenderMale = Gender' "Male"
 
 {-# COMPLETE
-  Female,
-  Male,
+  GenderFemale,
+  GenderMale,
   Gender'
   #-}
 
-instance FromText Gender where
-  parser = (Gender' . mk) <$> takeText
+instance Prelude.FromText Gender where
+  parser = Gender' Prelude.<$> Prelude.takeText
 
-instance ToText Gender where
-  toText (Gender' ci) = original ci
+instance Prelude.ToText Gender where
+  toText (Gender' x) = x
 
-instance Hashable Gender
+instance Prelude.Hashable Gender
 
-instance NFData Gender
+instance Prelude.NFData Gender
 
-instance ToByteString Gender
+instance Prelude.ToByteString Gender
 
-instance ToQuery Gender
+instance Prelude.ToQuery Gender
 
-instance ToHeader Gender
+instance Prelude.ToHeader Gender
 
-instance FromJSON Gender where
-  parseJSON = parseJSONText "Gender"
+instance Prelude.FromJSON Gender where
+  parseJSON = Prelude.parseJSONText "Gender"

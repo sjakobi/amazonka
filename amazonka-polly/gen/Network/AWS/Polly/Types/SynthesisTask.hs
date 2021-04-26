@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Polly.Types.SynthesisTask where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Polly.Types.Engine
 import Network.AWS.Polly.Types.LanguageCode
 import Network.AWS.Polly.Types.OutputFormat
@@ -23,171 +27,266 @@ import Network.AWS.Polly.Types.SpeechMarkType
 import Network.AWS.Polly.Types.TaskStatus
 import Network.AWS.Polly.Types.TextType
 import Network.AWS.Polly.Types.VoiceId
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | SynthesisTask object that provides information about a speech synthesis task.
+-- | SynthesisTask object that provides information about a speech synthesis
+-- task.
 --
---
---
--- /See:/ 'synthesisTask' smart constructor.
+-- /See:/ 'newSynthesisTask' smart constructor.
 data SynthesisTask = SynthesisTask'
-  { _stLanguageCode ::
-      !(Maybe LanguageCode),
-    _stCreationTime :: !(Maybe POSIX),
-    _stOutputURI :: !(Maybe Text),
-    _stSpeechMarkTypes ::
-      !(Maybe [SpeechMarkType]),
-    _stLexiconNames :: !(Maybe [Text]),
-    _stVoiceId :: !(Maybe VoiceId),
-    _stTaskId :: !(Maybe Text),
-    _stTextType :: !(Maybe TextType),
-    _stOutputFormat :: !(Maybe OutputFormat),
-    _stSampleRate :: !(Maybe Text),
-    _stTaskStatus :: !(Maybe TaskStatus),
-    _stEngine :: !(Maybe Engine),
-    _stRequestCharacters :: !(Maybe Int),
-    _stTaskStatusReason :: !(Maybe Text),
-    _stSNSTopicARN :: !(Maybe Text)
+  { -- | Optional language code for a synthesis task. This is only necessary if
+    -- using a bilingual voice, such as Aditi, which can be used for either
+    -- Indian English (en-IN) or Hindi (hi-IN).
+    --
+    -- If a bilingual voice is used and no language code is specified, Amazon
+    -- Polly will use the default language of the bilingual voice. The default
+    -- language for any voice is the one returned by the
+    -- <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices>
+    -- operation for the @LanguageCode@ parameter. For example, if no language
+    -- code is specified, Aditi will use Indian English rather than Hindi.
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | Timestamp for the time the synthesis task was started.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Pathway for the output speech file.
+    outputUri :: Prelude.Maybe Prelude.Text,
+    -- | The type of speech marks returned for the input text.
+    speechMarkTypes :: Prelude.Maybe [SpeechMarkType],
+    -- | List of one or more pronunciation lexicon names you want the service to
+    -- apply during synthesis. Lexicons are applied only if the language of the
+    -- lexicon is the same as the language of the voice.
+    lexiconNames :: Prelude.Maybe [Prelude.Text],
+    -- | Voice ID to use for the synthesis.
+    voiceId :: Prelude.Maybe VoiceId,
+    -- | The Amazon Polly generated identifier for a speech synthesis task.
+    taskId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the input text is plain text or SSML. The default
+    -- value is plain text.
+    textType :: Prelude.Maybe TextType,
+    -- | The format in which the returned output will be encoded. For audio
+    -- stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this
+    -- will be json.
+    outputFormat :: Prelude.Maybe OutputFormat,
+    -- | The audio frequency specified in Hz.
+    --
+    -- The valid values for mp3 and ogg_vorbis are \"8000\", \"16000\",
+    -- \"22050\", and \"24000\". The default value for standard voices is
+    -- \"22050\". The default value for neural voices is \"24000\".
+    --
+    -- Valid values for pcm are \"8000\" and \"16000\" The default value is
+    -- \"16000\".
+    sampleRate :: Prelude.Maybe Prelude.Text,
+    -- | Current status of the individual speech synthesis task.
+    taskStatus :: Prelude.Maybe TaskStatus,
+    -- | Specifies the engine (@standard@ or @neural@) for Amazon Polly to use
+    -- when processing input text for speech synthesis. Using a voice that is
+    -- not supported for the engine selected will result in an error.
+    engine :: Prelude.Maybe Engine,
+    -- | Number of billable characters synthesized.
+    requestCharacters :: Prelude.Maybe Prelude.Int,
+    -- | Reason for the current status of a specific speech synthesis task,
+    -- including errors if the task has failed.
+    taskStatusReason :: Prelude.Maybe Prelude.Text,
+    -- | ARN for the SNS topic optionally used for providing status notification
+    -- for a speech synthesis task.
+    snsTopicArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SynthesisTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SynthesisTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stLanguageCode' - Optional language code for a synthesis task. This is only necessary if using a bilingual voice, such as Aditi, which can be used for either Indian English (en-IN) or Hindi (hi-IN).  If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language of the bilingual voice. The default language for any voice is the one returned by the <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices> operation for the @LanguageCode@ parameter. For example, if no language code is specified, Aditi will use Indian English rather than Hindi.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stCreationTime' - Timestamp for the time the synthesis task was started.
+-- 'languageCode', 'synthesisTask_languageCode' - Optional language code for a synthesis task. This is only necessary if
+-- using a bilingual voice, such as Aditi, which can be used for either
+-- Indian English (en-IN) or Hindi (hi-IN).
 --
--- * 'stOutputURI' - Pathway for the output speech file.
+-- If a bilingual voice is used and no language code is specified, Amazon
+-- Polly will use the default language of the bilingual voice. The default
+-- language for any voice is the one returned by the
+-- <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices>
+-- operation for the @LanguageCode@ parameter. For example, if no language
+-- code is specified, Aditi will use Indian English rather than Hindi.
 --
--- * 'stSpeechMarkTypes' - The type of speech marks returned for the input text.
+-- 'creationTime', 'synthesisTask_creationTime' - Timestamp for the time the synthesis task was started.
 --
--- * 'stLexiconNames' - List of one or more pronunciation lexicon names you want the service to apply during synthesis. Lexicons are applied only if the language of the lexicon is the same as the language of the voice.
+-- 'outputUri', 'synthesisTask_outputUri' - Pathway for the output speech file.
 --
--- * 'stVoiceId' - Voice ID to use for the synthesis.
+-- 'speechMarkTypes', 'synthesisTask_speechMarkTypes' - The type of speech marks returned for the input text.
 --
--- * 'stTaskId' - The Amazon Polly generated identifier for a speech synthesis task.
+-- 'lexiconNames', 'synthesisTask_lexiconNames' - List of one or more pronunciation lexicon names you want the service to
+-- apply during synthesis. Lexicons are applied only if the language of the
+-- lexicon is the same as the language of the voice.
 --
--- * 'stTextType' - Specifies whether the input text is plain text or SSML. The default value is plain text.
+-- 'voiceId', 'synthesisTask_voiceId' - Voice ID to use for the synthesis.
 --
--- * 'stOutputFormat' - The format in which the returned output will be encoded. For audio stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this will be json.
+-- 'taskId', 'synthesisTask_taskId' - The Amazon Polly generated identifier for a speech synthesis task.
 --
--- * 'stSampleRate' - The audio frequency specified in Hz. The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for standard voices is "22050". The default value for neural voices is "24000". Valid values for pcm are "8000" and "16000" The default value is "16000".
+-- 'textType', 'synthesisTask_textType' - Specifies whether the input text is plain text or SSML. The default
+-- value is plain text.
 --
--- * 'stTaskStatus' - Current status of the individual speech synthesis task.
+-- 'outputFormat', 'synthesisTask_outputFormat' - The format in which the returned output will be encoded. For audio
+-- stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this
+-- will be json.
 --
--- * 'stEngine' - Specifies the engine (@standard@ or @neural@ ) for Amazon Polly to use when processing input text for speech synthesis. Using a voice that is not supported for the engine selected will result in an error.
+-- 'sampleRate', 'synthesisTask_sampleRate' - The audio frequency specified in Hz.
 --
--- * 'stRequestCharacters' - Number of billable characters synthesized.
+-- The valid values for mp3 and ogg_vorbis are \"8000\", \"16000\",
+-- \"22050\", and \"24000\". The default value for standard voices is
+-- \"22050\". The default value for neural voices is \"24000\".
 --
--- * 'stTaskStatusReason' - Reason for the current status of a specific speech synthesis task, including errors if the task has failed.
+-- Valid values for pcm are \"8000\" and \"16000\" The default value is
+-- \"16000\".
 --
--- * 'stSNSTopicARN' - ARN for the SNS topic optionally used for providing status notification for a speech synthesis task.
-synthesisTask ::
+-- 'taskStatus', 'synthesisTask_taskStatus' - Current status of the individual speech synthesis task.
+--
+-- 'engine', 'synthesisTask_engine' - Specifies the engine (@standard@ or @neural@) for Amazon Polly to use
+-- when processing input text for speech synthesis. Using a voice that is
+-- not supported for the engine selected will result in an error.
+--
+-- 'requestCharacters', 'synthesisTask_requestCharacters' - Number of billable characters synthesized.
+--
+-- 'taskStatusReason', 'synthesisTask_taskStatusReason' - Reason for the current status of a specific speech synthesis task,
+-- including errors if the task has failed.
+--
+-- 'snsTopicArn', 'synthesisTask_snsTopicArn' - ARN for the SNS topic optionally used for providing status notification
+-- for a speech synthesis task.
+newSynthesisTask ::
   SynthesisTask
-synthesisTask =
+newSynthesisTask =
   SynthesisTask'
-    { _stLanguageCode = Nothing,
-      _stCreationTime = Nothing,
-      _stOutputURI = Nothing,
-      _stSpeechMarkTypes = Nothing,
-      _stLexiconNames = Nothing,
-      _stVoiceId = Nothing,
-      _stTaskId = Nothing,
-      _stTextType = Nothing,
-      _stOutputFormat = Nothing,
-      _stSampleRate = Nothing,
-      _stTaskStatus = Nothing,
-      _stEngine = Nothing,
-      _stRequestCharacters = Nothing,
-      _stTaskStatusReason = Nothing,
-      _stSNSTopicARN = Nothing
+    { languageCode = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      outputUri = Prelude.Nothing,
+      speechMarkTypes = Prelude.Nothing,
+      lexiconNames = Prelude.Nothing,
+      voiceId = Prelude.Nothing,
+      taskId = Prelude.Nothing,
+      textType = Prelude.Nothing,
+      outputFormat = Prelude.Nothing,
+      sampleRate = Prelude.Nothing,
+      taskStatus = Prelude.Nothing,
+      engine = Prelude.Nothing,
+      requestCharacters = Prelude.Nothing,
+      taskStatusReason = Prelude.Nothing,
+      snsTopicArn = Prelude.Nothing
     }
 
--- | Optional language code for a synthesis task. This is only necessary if using a bilingual voice, such as Aditi, which can be used for either Indian English (en-IN) or Hindi (hi-IN).  If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language of the bilingual voice. The default language for any voice is the one returned by the <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices> operation for the @LanguageCode@ parameter. For example, if no language code is specified, Aditi will use Indian English rather than Hindi.
-stLanguageCode :: Lens' SynthesisTask (Maybe LanguageCode)
-stLanguageCode = lens _stLanguageCode (\s a -> s {_stLanguageCode = a})
+-- | Optional language code for a synthesis task. This is only necessary if
+-- using a bilingual voice, such as Aditi, which can be used for either
+-- Indian English (en-IN) or Hindi (hi-IN).
+--
+-- If a bilingual voice is used and no language code is specified, Amazon
+-- Polly will use the default language of the bilingual voice. The default
+-- language for any voice is the one returned by the
+-- <https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html DescribeVoices>
+-- operation for the @LanguageCode@ parameter. For example, if no language
+-- code is specified, Aditi will use Indian English rather than Hindi.
+synthesisTask_languageCode :: Lens.Lens' SynthesisTask (Prelude.Maybe LanguageCode)
+synthesisTask_languageCode = Lens.lens (\SynthesisTask' {languageCode} -> languageCode) (\s@SynthesisTask' {} a -> s {languageCode = a} :: SynthesisTask)
 
 -- | Timestamp for the time the synthesis task was started.
-stCreationTime :: Lens' SynthesisTask (Maybe UTCTime)
-stCreationTime = lens _stCreationTime (\s a -> s {_stCreationTime = a}) . mapping _Time
+synthesisTask_creationTime :: Lens.Lens' SynthesisTask (Prelude.Maybe Prelude.UTCTime)
+synthesisTask_creationTime = Lens.lens (\SynthesisTask' {creationTime} -> creationTime) (\s@SynthesisTask' {} a -> s {creationTime = a} :: SynthesisTask) Prelude.. Lens.mapping Prelude._Time
 
 -- | Pathway for the output speech file.
-stOutputURI :: Lens' SynthesisTask (Maybe Text)
-stOutputURI = lens _stOutputURI (\s a -> s {_stOutputURI = a})
+synthesisTask_outputUri :: Lens.Lens' SynthesisTask (Prelude.Maybe Prelude.Text)
+synthesisTask_outputUri = Lens.lens (\SynthesisTask' {outputUri} -> outputUri) (\s@SynthesisTask' {} a -> s {outputUri = a} :: SynthesisTask)
 
 -- | The type of speech marks returned for the input text.
-stSpeechMarkTypes :: Lens' SynthesisTask [SpeechMarkType]
-stSpeechMarkTypes = lens _stSpeechMarkTypes (\s a -> s {_stSpeechMarkTypes = a}) . _Default . _Coerce
+synthesisTask_speechMarkTypes :: Lens.Lens' SynthesisTask (Prelude.Maybe [SpeechMarkType])
+synthesisTask_speechMarkTypes = Lens.lens (\SynthesisTask' {speechMarkTypes} -> speechMarkTypes) (\s@SynthesisTask' {} a -> s {speechMarkTypes = a} :: SynthesisTask) Prelude.. Lens.mapping Prelude._Coerce
 
--- | List of one or more pronunciation lexicon names you want the service to apply during synthesis. Lexicons are applied only if the language of the lexicon is the same as the language of the voice.
-stLexiconNames :: Lens' SynthesisTask [Text]
-stLexiconNames = lens _stLexiconNames (\s a -> s {_stLexiconNames = a}) . _Default . _Coerce
+-- | List of one or more pronunciation lexicon names you want the service to
+-- apply during synthesis. Lexicons are applied only if the language of the
+-- lexicon is the same as the language of the voice.
+synthesisTask_lexiconNames :: Lens.Lens' SynthesisTask (Prelude.Maybe [Prelude.Text])
+synthesisTask_lexiconNames = Lens.lens (\SynthesisTask' {lexiconNames} -> lexiconNames) (\s@SynthesisTask' {} a -> s {lexiconNames = a} :: SynthesisTask) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Voice ID to use for the synthesis.
-stVoiceId :: Lens' SynthesisTask (Maybe VoiceId)
-stVoiceId = lens _stVoiceId (\s a -> s {_stVoiceId = a})
+synthesisTask_voiceId :: Lens.Lens' SynthesisTask (Prelude.Maybe VoiceId)
+synthesisTask_voiceId = Lens.lens (\SynthesisTask' {voiceId} -> voiceId) (\s@SynthesisTask' {} a -> s {voiceId = a} :: SynthesisTask)
 
 -- | The Amazon Polly generated identifier for a speech synthesis task.
-stTaskId :: Lens' SynthesisTask (Maybe Text)
-stTaskId = lens _stTaskId (\s a -> s {_stTaskId = a})
+synthesisTask_taskId :: Lens.Lens' SynthesisTask (Prelude.Maybe Prelude.Text)
+synthesisTask_taskId = Lens.lens (\SynthesisTask' {taskId} -> taskId) (\s@SynthesisTask' {} a -> s {taskId = a} :: SynthesisTask)
 
--- | Specifies whether the input text is plain text or SSML. The default value is plain text.
-stTextType :: Lens' SynthesisTask (Maybe TextType)
-stTextType = lens _stTextType (\s a -> s {_stTextType = a})
+-- | Specifies whether the input text is plain text or SSML. The default
+-- value is plain text.
+synthesisTask_textType :: Lens.Lens' SynthesisTask (Prelude.Maybe TextType)
+synthesisTask_textType = Lens.lens (\SynthesisTask' {textType} -> textType) (\s@SynthesisTask' {} a -> s {textType = a} :: SynthesisTask)
 
--- | The format in which the returned output will be encoded. For audio stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this will be json.
-stOutputFormat :: Lens' SynthesisTask (Maybe OutputFormat)
-stOutputFormat = lens _stOutputFormat (\s a -> s {_stOutputFormat = a})
+-- | The format in which the returned output will be encoded. For audio
+-- stream, this will be mp3, ogg_vorbis, or pcm. For speech marks, this
+-- will be json.
+synthesisTask_outputFormat :: Lens.Lens' SynthesisTask (Prelude.Maybe OutputFormat)
+synthesisTask_outputFormat = Lens.lens (\SynthesisTask' {outputFormat} -> outputFormat) (\s@SynthesisTask' {} a -> s {outputFormat = a} :: SynthesisTask)
 
--- | The audio frequency specified in Hz. The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for standard voices is "22050". The default value for neural voices is "24000". Valid values for pcm are "8000" and "16000" The default value is "16000".
-stSampleRate :: Lens' SynthesisTask (Maybe Text)
-stSampleRate = lens _stSampleRate (\s a -> s {_stSampleRate = a})
+-- | The audio frequency specified in Hz.
+--
+-- The valid values for mp3 and ogg_vorbis are \"8000\", \"16000\",
+-- \"22050\", and \"24000\". The default value for standard voices is
+-- \"22050\". The default value for neural voices is \"24000\".
+--
+-- Valid values for pcm are \"8000\" and \"16000\" The default value is
+-- \"16000\".
+synthesisTask_sampleRate :: Lens.Lens' SynthesisTask (Prelude.Maybe Prelude.Text)
+synthesisTask_sampleRate = Lens.lens (\SynthesisTask' {sampleRate} -> sampleRate) (\s@SynthesisTask' {} a -> s {sampleRate = a} :: SynthesisTask)
 
 -- | Current status of the individual speech synthesis task.
-stTaskStatus :: Lens' SynthesisTask (Maybe TaskStatus)
-stTaskStatus = lens _stTaskStatus (\s a -> s {_stTaskStatus = a})
+synthesisTask_taskStatus :: Lens.Lens' SynthesisTask (Prelude.Maybe TaskStatus)
+synthesisTask_taskStatus = Lens.lens (\SynthesisTask' {taskStatus} -> taskStatus) (\s@SynthesisTask' {} a -> s {taskStatus = a} :: SynthesisTask)
 
--- | Specifies the engine (@standard@ or @neural@ ) for Amazon Polly to use when processing input text for speech synthesis. Using a voice that is not supported for the engine selected will result in an error.
-stEngine :: Lens' SynthesisTask (Maybe Engine)
-stEngine = lens _stEngine (\s a -> s {_stEngine = a})
+-- | Specifies the engine (@standard@ or @neural@) for Amazon Polly to use
+-- when processing input text for speech synthesis. Using a voice that is
+-- not supported for the engine selected will result in an error.
+synthesisTask_engine :: Lens.Lens' SynthesisTask (Prelude.Maybe Engine)
+synthesisTask_engine = Lens.lens (\SynthesisTask' {engine} -> engine) (\s@SynthesisTask' {} a -> s {engine = a} :: SynthesisTask)
 
 -- | Number of billable characters synthesized.
-stRequestCharacters :: Lens' SynthesisTask (Maybe Int)
-stRequestCharacters = lens _stRequestCharacters (\s a -> s {_stRequestCharacters = a})
+synthesisTask_requestCharacters :: Lens.Lens' SynthesisTask (Prelude.Maybe Prelude.Int)
+synthesisTask_requestCharacters = Lens.lens (\SynthesisTask' {requestCharacters} -> requestCharacters) (\s@SynthesisTask' {} a -> s {requestCharacters = a} :: SynthesisTask)
 
--- | Reason for the current status of a specific speech synthesis task, including errors if the task has failed.
-stTaskStatusReason :: Lens' SynthesisTask (Maybe Text)
-stTaskStatusReason = lens _stTaskStatusReason (\s a -> s {_stTaskStatusReason = a})
+-- | Reason for the current status of a specific speech synthesis task,
+-- including errors if the task has failed.
+synthesisTask_taskStatusReason :: Lens.Lens' SynthesisTask (Prelude.Maybe Prelude.Text)
+synthesisTask_taskStatusReason = Lens.lens (\SynthesisTask' {taskStatusReason} -> taskStatusReason) (\s@SynthesisTask' {} a -> s {taskStatusReason = a} :: SynthesisTask)
 
--- | ARN for the SNS topic optionally used for providing status notification for a speech synthesis task.
-stSNSTopicARN :: Lens' SynthesisTask (Maybe Text)
-stSNSTopicARN = lens _stSNSTopicARN (\s a -> s {_stSNSTopicARN = a})
+-- | ARN for the SNS topic optionally used for providing status notification
+-- for a speech synthesis task.
+synthesisTask_snsTopicArn :: Lens.Lens' SynthesisTask (Prelude.Maybe Prelude.Text)
+synthesisTask_snsTopicArn = Lens.lens (\SynthesisTask' {snsTopicArn} -> snsTopicArn) (\s@SynthesisTask' {} a -> s {snsTopicArn = a} :: SynthesisTask)
 
-instance FromJSON SynthesisTask where
+instance Prelude.FromJSON SynthesisTask where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SynthesisTask"
       ( \x ->
           SynthesisTask'
-            <$> (x .:? "LanguageCode")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "OutputUri")
-            <*> (x .:? "SpeechMarkTypes" .!= mempty)
-            <*> (x .:? "LexiconNames" .!= mempty)
-            <*> (x .:? "VoiceId")
-            <*> (x .:? "TaskId")
-            <*> (x .:? "TextType")
-            <*> (x .:? "OutputFormat")
-            <*> (x .:? "SampleRate")
-            <*> (x .:? "TaskStatus")
-            <*> (x .:? "Engine")
-            <*> (x .:? "RequestCharacters")
-            <*> (x .:? "TaskStatusReason")
-            <*> (x .:? "SnsTopicArn")
+            Prelude.<$> (x Prelude..:? "LanguageCode")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "OutputUri")
+            Prelude.<*> ( x Prelude..:? "SpeechMarkTypes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "LexiconNames"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "VoiceId")
+            Prelude.<*> (x Prelude..:? "TaskId")
+            Prelude.<*> (x Prelude..:? "TextType")
+            Prelude.<*> (x Prelude..:? "OutputFormat")
+            Prelude.<*> (x Prelude..:? "SampleRate")
+            Prelude.<*> (x Prelude..:? "TaskStatus")
+            Prelude.<*> (x Prelude..:? "Engine")
+            Prelude.<*> (x Prelude..:? "RequestCharacters")
+            Prelude.<*> (x Prelude..:? "TaskStatusReason")
+            Prelude.<*> (x Prelude..:? "SnsTopicArn")
       )
 
-instance Hashable SynthesisTask
+instance Prelude.Hashable SynthesisTask
 
-instance NFData SynthesisTask
+instance Prelude.NFData SynthesisTask

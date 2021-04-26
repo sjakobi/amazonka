@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Polly.Types.LexiconDescription where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Polly.Types.LexiconAttributes
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the content of the lexicon.
 --
---
---
--- /See:/ 'lexiconDescription' smart constructor.
+-- /See:/ 'newLexiconDescription' smart constructor.
 data LexiconDescription = LexiconDescription'
-  { _ldAttributes ::
-      !(Maybe LexiconAttributes),
-    _ldName :: !(Maybe Text)
+  { -- | Provides lexicon metadata.
+    attributes :: Prelude.Maybe LexiconAttributes,
+    -- | Name of the lexicon.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LexiconDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LexiconDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldAttributes' - Provides lexicon metadata.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldName' - Name of the lexicon.
-lexiconDescription ::
+-- 'attributes', 'lexiconDescription_attributes' - Provides lexicon metadata.
+--
+-- 'name', 'lexiconDescription_name' - Name of the lexicon.
+newLexiconDescription ::
   LexiconDescription
-lexiconDescription =
+newLexiconDescription =
   LexiconDescription'
-    { _ldAttributes = Nothing,
-      _ldName = Nothing
+    { attributes = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | Provides lexicon metadata.
-ldAttributes :: Lens' LexiconDescription (Maybe LexiconAttributes)
-ldAttributes = lens _ldAttributes (\s a -> s {_ldAttributes = a})
+lexiconDescription_attributes :: Lens.Lens' LexiconDescription (Prelude.Maybe LexiconAttributes)
+lexiconDescription_attributes = Lens.lens (\LexiconDescription' {attributes} -> attributes) (\s@LexiconDescription' {} a -> s {attributes = a} :: LexiconDescription)
 
 -- | Name of the lexicon.
-ldName :: Lens' LexiconDescription (Maybe Text)
-ldName = lens _ldName (\s a -> s {_ldName = a})
+lexiconDescription_name :: Lens.Lens' LexiconDescription (Prelude.Maybe Prelude.Text)
+lexiconDescription_name = Lens.lens (\LexiconDescription' {name} -> name) (\s@LexiconDescription' {} a -> s {name = a} :: LexiconDescription)
 
-instance FromJSON LexiconDescription where
+instance Prelude.FromJSON LexiconDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LexiconDescription"
       ( \x ->
           LexiconDescription'
-            <$> (x .:? "Attributes") <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Attributes")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable LexiconDescription
+instance Prelude.Hashable LexiconDescription
 
-instance NFData LexiconDescription
+instance Prelude.NFData LexiconDescription
