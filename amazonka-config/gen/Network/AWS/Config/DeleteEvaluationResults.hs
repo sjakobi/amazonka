@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the evaluation results for the specified AWS Config rule. You can specify one AWS Config rule per request. After you delete the evaluation results, you can call the 'StartConfigRulesEvaluation' API to start evaluating your AWS resources against the rule.
+-- Deletes the evaluation results for the specified AWS Config rule. You
+-- can specify one AWS Config rule per request. After you delete the
+-- evaluation results, you can call the StartConfigRulesEvaluation API to
+-- start evaluating your AWS resources against the rule.
 module Network.AWS.Config.DeleteEvaluationResults
   ( -- * Creating a Request
-    deleteEvaluationResults,
-    DeleteEvaluationResults,
+    DeleteEvaluationResults (..),
+    newDeleteEvaluationResults,
 
     -- * Request Lenses
-    derConfigRuleName,
+    deleteEvaluationResults_configRuleName,
 
     -- * Destructuring the Response
-    deleteEvaluationResultsResponse,
-    DeleteEvaluationResultsResponse,
+    DeleteEvaluationResultsResponse (..),
+    newDeleteEvaluationResultsResponse,
 
     -- * Response Lenses
-    derrrsResponseStatus,
+    deleteEvaluationResultsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteEvaluationResults' smart constructor.
-newtype DeleteEvaluationResults = DeleteEvaluationResults'
-  { _derConfigRuleName ::
-      Text
+-- /See:/ 'newDeleteEvaluationResults' smart constructor.
+data DeleteEvaluationResults = DeleteEvaluationResults'
+  { -- | The name of the AWS Config rule for which you want to delete the
+    -- evaluation results.
+    configRuleName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEvaluationResults' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEvaluationResults' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derConfigRuleName' - The name of the AWS Config rule for which you want to delete the evaluation results.
-deleteEvaluationResults ::
-  -- | 'derConfigRuleName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'configRuleName', 'deleteEvaluationResults_configRuleName' - The name of the AWS Config rule for which you want to delete the
+-- evaluation results.
+newDeleteEvaluationResults ::
+  -- | 'configRuleName'
+  Prelude.Text ->
   DeleteEvaluationResults
-deleteEvaluationResults pConfigRuleName_ =
+newDeleteEvaluationResults pConfigRuleName_ =
   DeleteEvaluationResults'
-    { _derConfigRuleName =
+    { configRuleName =
         pConfigRuleName_
     }
 
--- | The name of the AWS Config rule for which you want to delete the evaluation results.
-derConfigRuleName :: Lens' DeleteEvaluationResults Text
-derConfigRuleName = lens _derConfigRuleName (\s a -> s {_derConfigRuleName = a})
+-- | The name of the AWS Config rule for which you want to delete the
+-- evaluation results.
+deleteEvaluationResults_configRuleName :: Lens.Lens' DeleteEvaluationResults Prelude.Text
+deleteEvaluationResults_configRuleName = Lens.lens (\DeleteEvaluationResults' {configRuleName} -> configRuleName) (\s@DeleteEvaluationResults' {} a -> s {configRuleName = a} :: DeleteEvaluationResults)
 
-instance AWSRequest DeleteEvaluationResults where
+instance Prelude.AWSRequest DeleteEvaluationResults where
   type
     Rs DeleteEvaluationResults =
       DeleteEvaluationResultsResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteEvaluationResultsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteEvaluationResults
+instance Prelude.Hashable DeleteEvaluationResults
 
-instance NFData DeleteEvaluationResults
+instance Prelude.NFData DeleteEvaluationResults
 
-instance ToHeaders DeleteEvaluationResults where
+instance Prelude.ToHeaders DeleteEvaluationResults where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DeleteEvaluationResults" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.DeleteEvaluationResults" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteEvaluationResults where
+instance Prelude.ToJSON DeleteEvaluationResults where
   toJSON DeleteEvaluationResults' {..} =
-    object
-      ( catMaybes
-          [Just ("ConfigRuleName" .= _derConfigRuleName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ConfigRuleName" Prelude..= configRuleName)
+          ]
       )
 
-instance ToPath DeleteEvaluationResults where
-  toPath = const "/"
+instance Prelude.ToPath DeleteEvaluationResults where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteEvaluationResults where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteEvaluationResults where
+  toQuery = Prelude.const Prelude.mempty
 
--- | The output when you delete the evaluation results for the specified AWS Config rule.
+-- | The output when you delete the evaluation results for the specified AWS
+-- Config rule.
 --
---
---
--- /See:/ 'deleteEvaluationResultsResponse' smart constructor.
-newtype DeleteEvaluationResultsResponse = DeleteEvaluationResultsResponse'
-  { _derrrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteEvaluationResultsResponse' smart constructor.
+data DeleteEvaluationResultsResponse = DeleteEvaluationResultsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEvaluationResultsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEvaluationResultsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derrrsResponseStatus' - -- | The response status code.
-deleteEvaluationResultsResponse ::
-  -- | 'derrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteEvaluationResultsResponse_httpStatus' - The response's http status code.
+newDeleteEvaluationResultsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteEvaluationResultsResponse
-deleteEvaluationResultsResponse pResponseStatus_ =
+newDeleteEvaluationResultsResponse pHttpStatus_ =
   DeleteEvaluationResultsResponse'
-    { _derrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-derrrsResponseStatus :: Lens' DeleteEvaluationResultsResponse Int
-derrrsResponseStatus = lens _derrrsResponseStatus (\s a -> s {_derrrsResponseStatus = a})
+-- | The response's http status code.
+deleteEvaluationResultsResponse_httpStatus :: Lens.Lens' DeleteEvaluationResultsResponse Prelude.Int
+deleteEvaluationResultsResponse_httpStatus = Lens.lens (\DeleteEvaluationResultsResponse' {httpStatus} -> httpStatus) (\s@DeleteEvaluationResultsResponse' {} a -> s {httpStatus = a} :: DeleteEvaluationResultsResponse)
 
-instance NFData DeleteEvaluationResultsResponse
+instance
+  Prelude.NFData
+    DeleteEvaluationResultsResponse

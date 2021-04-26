@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.Config.Types.RemediationExecutionState
   ( RemediationExecutionState
       ( ..,
-        Failed,
-        InProgress,
-        Queued,
-        Succeeded
+        RemediationExecutionStateFAILED,
+        RemediationExecutionStateINPROGRESS,
+        RemediationExecutionStateQUEUED,
+        RemediationExecutionStateSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RemediationExecutionState
-  = RemediationExecutionState'
-      ( CI
-          Text
-      )
+newtype RemediationExecutionState = RemediationExecutionState'
+  { fromRemediationExecutionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: RemediationExecutionState
-pattern Failed = RemediationExecutionState' "FAILED"
+pattern RemediationExecutionStateFAILED :: RemediationExecutionState
+pattern RemediationExecutionStateFAILED = RemediationExecutionState' "FAILED"
 
-pattern InProgress :: RemediationExecutionState
-pattern InProgress = RemediationExecutionState' "IN_PROGRESS"
+pattern RemediationExecutionStateINPROGRESS :: RemediationExecutionState
+pattern RemediationExecutionStateINPROGRESS = RemediationExecutionState' "IN_PROGRESS"
 
-pattern Queued :: RemediationExecutionState
-pattern Queued = RemediationExecutionState' "QUEUED"
+pattern RemediationExecutionStateQUEUED :: RemediationExecutionState
+pattern RemediationExecutionStateQUEUED = RemediationExecutionState' "QUEUED"
 
-pattern Succeeded :: RemediationExecutionState
-pattern Succeeded = RemediationExecutionState' "SUCCEEDED"
+pattern RemediationExecutionStateSUCCEEDED :: RemediationExecutionState
+pattern RemediationExecutionStateSUCCEEDED = RemediationExecutionState' "SUCCEEDED"
 
 {-# COMPLETE
-  Failed,
-  InProgress,
-  Queued,
-  Succeeded,
+  RemediationExecutionStateFAILED,
+  RemediationExecutionStateINPROGRESS,
+  RemediationExecutionStateQUEUED,
+  RemediationExecutionStateSUCCEEDED,
   RemediationExecutionState'
   #-}
 
-instance FromText RemediationExecutionState where
-  parser = (RemediationExecutionState' . mk) <$> takeText
+instance Prelude.FromText RemediationExecutionState where
+  parser = RemediationExecutionState' Prelude.<$> Prelude.takeText
 
-instance ToText RemediationExecutionState where
-  toText (RemediationExecutionState' ci) = original ci
+instance Prelude.ToText RemediationExecutionState where
+  toText (RemediationExecutionState' x) = x
 
-instance Hashable RemediationExecutionState
+instance Prelude.Hashable RemediationExecutionState
 
-instance NFData RemediationExecutionState
+instance Prelude.NFData RemediationExecutionState
 
-instance ToByteString RemediationExecutionState
+instance Prelude.ToByteString RemediationExecutionState
 
-instance ToQuery RemediationExecutionState
+instance Prelude.ToQuery RemediationExecutionState
 
-instance ToHeader RemediationExecutionState
+instance Prelude.ToHeader RemediationExecutionState
 
-instance FromJSON RemediationExecutionState where
-  parseJSON = parseJSONText "RemediationExecutionState"
+instance Prelude.FromJSON RemediationExecutionState where
+  parseJSON = Prelude.parseJSONText "RemediationExecutionState"

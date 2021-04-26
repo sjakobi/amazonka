@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,94 +21,126 @@ module Network.AWS.Config.Types.EvaluationResult where
 
 import Network.AWS.Config.Types.ComplianceType
 import Network.AWS.Config.Types.EvaluationResultIdentifier
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The details of an AWS Config evaluation. Provides the AWS resource that was evaluated, the compliance of the resource, related time stamps, and supplementary information.
+-- | The details of an AWS Config evaluation. Provides the AWS resource that
+-- was evaluated, the compliance of the resource, related time stamps, and
+-- supplementary information.
 --
---
---
--- /See:/ 'evaluationResult' smart constructor.
+-- /See:/ 'newEvaluationResult' smart constructor.
 data EvaluationResult = EvaluationResult'
-  { _erAnnotation ::
-      !(Maybe Text),
-    _erEvaluationResultIdentifier ::
-      !(Maybe EvaluationResultIdentifier),
-    _erResultRecordedTime ::
-      !(Maybe POSIX),
-    _erComplianceType ::
-      !(Maybe ComplianceType),
-    _erConfigRuleInvokedTime ::
-      !(Maybe POSIX),
-    _erResultToken :: !(Maybe Text)
+  { -- | Supplementary information about how the evaluation determined the
+    -- compliance.
+    annotation :: Prelude.Maybe Prelude.Text,
+    -- | Uniquely identifies the evaluation result.
+    evaluationResultIdentifier :: Prelude.Maybe EvaluationResultIdentifier,
+    -- | The time when AWS Config recorded the evaluation result.
+    resultRecordedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Indicates whether the AWS resource complies with the AWS Config rule
+    -- that evaluated it.
+    --
+    -- For the @EvaluationResult@ data type, AWS Config supports only the
+    -- @COMPLIANT@, @NON_COMPLIANT@, and @NOT_APPLICABLE@ values. AWS Config
+    -- does not support the @INSUFFICIENT_DATA@ value for the
+    -- @EvaluationResult@ data type.
+    complianceType :: Prelude.Maybe ComplianceType,
+    -- | The time when the AWS Config rule evaluated the AWS resource.
+    configRuleInvokedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | An encrypted token that associates an evaluation with an AWS Config
+    -- rule. The token identifies the rule, the AWS resource being evaluated,
+    -- and the event that triggered the evaluation.
+    resultToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EvaluationResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EvaluationResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erAnnotation' - Supplementary information about how the evaluation determined the compliance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'erEvaluationResultIdentifier' - Uniquely identifies the evaluation result.
+-- 'annotation', 'evaluationResult_annotation' - Supplementary information about how the evaluation determined the
+-- compliance.
 --
--- * 'erResultRecordedTime' - The time when AWS Config recorded the evaluation result.
+-- 'evaluationResultIdentifier', 'evaluationResult_evaluationResultIdentifier' - Uniquely identifies the evaluation result.
 --
--- * 'erComplianceType' - Indicates whether the AWS resource complies with the AWS Config rule that evaluated it. For the @EvaluationResult@ data type, AWS Config supports only the @COMPLIANT@ , @NON_COMPLIANT@ , and @NOT_APPLICABLE@ values. AWS Config does not support the @INSUFFICIENT_DATA@ value for the @EvaluationResult@ data type.
+-- 'resultRecordedTime', 'evaluationResult_resultRecordedTime' - The time when AWS Config recorded the evaluation result.
 --
--- * 'erConfigRuleInvokedTime' - The time when the AWS Config rule evaluated the AWS resource.
+-- 'complianceType', 'evaluationResult_complianceType' - Indicates whether the AWS resource complies with the AWS Config rule
+-- that evaluated it.
 --
--- * 'erResultToken' - An encrypted token that associates an evaluation with an AWS Config rule. The token identifies the rule, the AWS resource being evaluated, and the event that triggered the evaluation.
-evaluationResult ::
+-- For the @EvaluationResult@ data type, AWS Config supports only the
+-- @COMPLIANT@, @NON_COMPLIANT@, and @NOT_APPLICABLE@ values. AWS Config
+-- does not support the @INSUFFICIENT_DATA@ value for the
+-- @EvaluationResult@ data type.
+--
+-- 'configRuleInvokedTime', 'evaluationResult_configRuleInvokedTime' - The time when the AWS Config rule evaluated the AWS resource.
+--
+-- 'resultToken', 'evaluationResult_resultToken' - An encrypted token that associates an evaluation with an AWS Config
+-- rule. The token identifies the rule, the AWS resource being evaluated,
+-- and the event that triggered the evaluation.
+newEvaluationResult ::
   EvaluationResult
-evaluationResult =
+newEvaluationResult =
   EvaluationResult'
-    { _erAnnotation = Nothing,
-      _erEvaluationResultIdentifier = Nothing,
-      _erResultRecordedTime = Nothing,
-      _erComplianceType = Nothing,
-      _erConfigRuleInvokedTime = Nothing,
-      _erResultToken = Nothing
+    { annotation = Prelude.Nothing,
+      evaluationResultIdentifier = Prelude.Nothing,
+      resultRecordedTime = Prelude.Nothing,
+      complianceType = Prelude.Nothing,
+      configRuleInvokedTime = Prelude.Nothing,
+      resultToken = Prelude.Nothing
     }
 
--- | Supplementary information about how the evaluation determined the compliance.
-erAnnotation :: Lens' EvaluationResult (Maybe Text)
-erAnnotation = lens _erAnnotation (\s a -> s {_erAnnotation = a})
+-- | Supplementary information about how the evaluation determined the
+-- compliance.
+evaluationResult_annotation :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.Text)
+evaluationResult_annotation = Lens.lens (\EvaluationResult' {annotation} -> annotation) (\s@EvaluationResult' {} a -> s {annotation = a} :: EvaluationResult)
 
 -- | Uniquely identifies the evaluation result.
-erEvaluationResultIdentifier :: Lens' EvaluationResult (Maybe EvaluationResultIdentifier)
-erEvaluationResultIdentifier = lens _erEvaluationResultIdentifier (\s a -> s {_erEvaluationResultIdentifier = a})
+evaluationResult_evaluationResultIdentifier :: Lens.Lens' EvaluationResult (Prelude.Maybe EvaluationResultIdentifier)
+evaluationResult_evaluationResultIdentifier = Lens.lens (\EvaluationResult' {evaluationResultIdentifier} -> evaluationResultIdentifier) (\s@EvaluationResult' {} a -> s {evaluationResultIdentifier = a} :: EvaluationResult)
 
 -- | The time when AWS Config recorded the evaluation result.
-erResultRecordedTime :: Lens' EvaluationResult (Maybe UTCTime)
-erResultRecordedTime = lens _erResultRecordedTime (\s a -> s {_erResultRecordedTime = a}) . mapping _Time
+evaluationResult_resultRecordedTime :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.UTCTime)
+evaluationResult_resultRecordedTime = Lens.lens (\EvaluationResult' {resultRecordedTime} -> resultRecordedTime) (\s@EvaluationResult' {} a -> s {resultRecordedTime = a} :: EvaluationResult) Prelude.. Lens.mapping Prelude._Time
 
--- | Indicates whether the AWS resource complies with the AWS Config rule that evaluated it. For the @EvaluationResult@ data type, AWS Config supports only the @COMPLIANT@ , @NON_COMPLIANT@ , and @NOT_APPLICABLE@ values. AWS Config does not support the @INSUFFICIENT_DATA@ value for the @EvaluationResult@ data type.
-erComplianceType :: Lens' EvaluationResult (Maybe ComplianceType)
-erComplianceType = lens _erComplianceType (\s a -> s {_erComplianceType = a})
+-- | Indicates whether the AWS resource complies with the AWS Config rule
+-- that evaluated it.
+--
+-- For the @EvaluationResult@ data type, AWS Config supports only the
+-- @COMPLIANT@, @NON_COMPLIANT@, and @NOT_APPLICABLE@ values. AWS Config
+-- does not support the @INSUFFICIENT_DATA@ value for the
+-- @EvaluationResult@ data type.
+evaluationResult_complianceType :: Lens.Lens' EvaluationResult (Prelude.Maybe ComplianceType)
+evaluationResult_complianceType = Lens.lens (\EvaluationResult' {complianceType} -> complianceType) (\s@EvaluationResult' {} a -> s {complianceType = a} :: EvaluationResult)
 
 -- | The time when the AWS Config rule evaluated the AWS resource.
-erConfigRuleInvokedTime :: Lens' EvaluationResult (Maybe UTCTime)
-erConfigRuleInvokedTime = lens _erConfigRuleInvokedTime (\s a -> s {_erConfigRuleInvokedTime = a}) . mapping _Time
+evaluationResult_configRuleInvokedTime :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.UTCTime)
+evaluationResult_configRuleInvokedTime = Lens.lens (\EvaluationResult' {configRuleInvokedTime} -> configRuleInvokedTime) (\s@EvaluationResult' {} a -> s {configRuleInvokedTime = a} :: EvaluationResult) Prelude.. Lens.mapping Prelude._Time
 
--- | An encrypted token that associates an evaluation with an AWS Config rule. The token identifies the rule, the AWS resource being evaluated, and the event that triggered the evaluation.
-erResultToken :: Lens' EvaluationResult (Maybe Text)
-erResultToken = lens _erResultToken (\s a -> s {_erResultToken = a})
+-- | An encrypted token that associates an evaluation with an AWS Config
+-- rule. The token identifies the rule, the AWS resource being evaluated,
+-- and the event that triggered the evaluation.
+evaluationResult_resultToken :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.Text)
+evaluationResult_resultToken = Lens.lens (\EvaluationResult' {resultToken} -> resultToken) (\s@EvaluationResult' {} a -> s {resultToken = a} :: EvaluationResult)
 
-instance FromJSON EvaluationResult where
+instance Prelude.FromJSON EvaluationResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EvaluationResult"
       ( \x ->
           EvaluationResult'
-            <$> (x .:? "Annotation")
-            <*> (x .:? "EvaluationResultIdentifier")
-            <*> (x .:? "ResultRecordedTime")
-            <*> (x .:? "ComplianceType")
-            <*> (x .:? "ConfigRuleInvokedTime")
-            <*> (x .:? "ResultToken")
+            Prelude.<$> (x Prelude..:? "Annotation")
+            Prelude.<*> (x Prelude..:? "EvaluationResultIdentifier")
+            Prelude.<*> (x Prelude..:? "ResultRecordedTime")
+            Prelude.<*> (x Prelude..:? "ComplianceType")
+            Prelude.<*> (x Prelude..:? "ConfigRuleInvokedTime")
+            Prelude.<*> (x Prelude..:? "ResultToken")
       )
 
-instance Hashable EvaluationResult
+instance Prelude.Hashable EvaluationResult
 
-instance NFData EvaluationResult
+instance Prelude.NFData EvaluationResult

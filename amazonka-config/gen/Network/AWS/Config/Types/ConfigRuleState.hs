@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.Config.Types.ConfigRuleState
   ( ConfigRuleState
       ( ..,
-        Active,
-        Deleting,
-        DeletingResults,
-        Evaluating
+        ConfigRuleStateACTIVE,
+        ConfigRuleStateDELETING,
+        ConfigRuleStateDELETINGRESULTS,
+        ConfigRuleStateEVALUATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConfigRuleState = ConfigRuleState' (CI Text)
+newtype ConfigRuleState = ConfigRuleState'
+  { fromConfigRuleState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ConfigRuleState
-pattern Active = ConfigRuleState' "ACTIVE"
+pattern ConfigRuleStateACTIVE :: ConfigRuleState
+pattern ConfigRuleStateACTIVE = ConfigRuleState' "ACTIVE"
 
-pattern Deleting :: ConfigRuleState
-pattern Deleting = ConfigRuleState' "DELETING"
+pattern ConfigRuleStateDELETING :: ConfigRuleState
+pattern ConfigRuleStateDELETING = ConfigRuleState' "DELETING"
 
-pattern DeletingResults :: ConfigRuleState
-pattern DeletingResults = ConfigRuleState' "DELETING_RESULTS"
+pattern ConfigRuleStateDELETINGRESULTS :: ConfigRuleState
+pattern ConfigRuleStateDELETINGRESULTS = ConfigRuleState' "DELETING_RESULTS"
 
-pattern Evaluating :: ConfigRuleState
-pattern Evaluating = ConfigRuleState' "EVALUATING"
+pattern ConfigRuleStateEVALUATING :: ConfigRuleState
+pattern ConfigRuleStateEVALUATING = ConfigRuleState' "EVALUATING"
 
 {-# COMPLETE
-  Active,
-  Deleting,
-  DeletingResults,
-  Evaluating,
+  ConfigRuleStateACTIVE,
+  ConfigRuleStateDELETING,
+  ConfigRuleStateDELETINGRESULTS,
+  ConfigRuleStateEVALUATING,
   ConfigRuleState'
   #-}
 
-instance FromText ConfigRuleState where
-  parser = (ConfigRuleState' . mk) <$> takeText
+instance Prelude.FromText ConfigRuleState where
+  parser = ConfigRuleState' Prelude.<$> Prelude.takeText
 
-instance ToText ConfigRuleState where
-  toText (ConfigRuleState' ci) = original ci
+instance Prelude.ToText ConfigRuleState where
+  toText (ConfigRuleState' x) = x
 
-instance Hashable ConfigRuleState
+instance Prelude.Hashable ConfigRuleState
 
-instance NFData ConfigRuleState
+instance Prelude.NFData ConfigRuleState
 
-instance ToByteString ConfigRuleState
+instance Prelude.ToByteString ConfigRuleState
 
-instance ToQuery ConfigRuleState
+instance Prelude.ToQuery ConfigRuleState
 
-instance ToHeader ConfigRuleState
+instance Prelude.ToHeader ConfigRuleState
 
-instance ToJSON ConfigRuleState where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConfigRuleState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ConfigRuleState where
-  parseJSON = parseJSONText "ConfigRuleState"
+instance Prelude.FromJSON ConfigRuleState where
+  parseJSON = Prelude.parseJSONText "ConfigRuleState"

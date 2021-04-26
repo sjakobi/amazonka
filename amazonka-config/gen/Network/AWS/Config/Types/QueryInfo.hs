@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,41 +20,47 @@
 module Network.AWS.Config.Types.QueryInfo where
 
 import Network.AWS.Config.Types.FieldInfo
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details about the query.
 --
---
---
--- /See:/ 'queryInfo' smart constructor.
-newtype QueryInfo = QueryInfo'
-  { _qiSelectFields ::
-      Maybe [FieldInfo]
+-- /See:/ 'newQueryInfo' smart constructor.
+data QueryInfo = QueryInfo'
+  { -- | Returns a @FieldInfo@ object.
+    selectFields :: Prelude.Maybe [FieldInfo]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qiSelectFields' - Returns a @FieldInfo@ object.
-queryInfo ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'selectFields', 'queryInfo_selectFields' - Returns a @FieldInfo@ object.
+newQueryInfo ::
   QueryInfo
-queryInfo = QueryInfo' {_qiSelectFields = Nothing}
+newQueryInfo =
+  QueryInfo' {selectFields = Prelude.Nothing}
 
 -- | Returns a @FieldInfo@ object.
-qiSelectFields :: Lens' QueryInfo [FieldInfo]
-qiSelectFields = lens _qiSelectFields (\s a -> s {_qiSelectFields = a}) . _Default . _Coerce
+queryInfo_selectFields :: Lens.Lens' QueryInfo (Prelude.Maybe [FieldInfo])
+queryInfo_selectFields = Lens.lens (\QueryInfo' {selectFields} -> selectFields) (\s@QueryInfo' {} a -> s {selectFields = a} :: QueryInfo) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON QueryInfo where
+instance Prelude.FromJSON QueryInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QueryInfo"
       ( \x ->
-          QueryInfo' <$> (x .:? "SelectFields" .!= mempty)
+          QueryInfo'
+            Prelude.<$> ( x Prelude..:? "SelectFields"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable QueryInfo
+instance Prelude.Hashable QueryInfo
 
-instance NFData QueryInfo
+instance Prelude.NFData QueryInfo

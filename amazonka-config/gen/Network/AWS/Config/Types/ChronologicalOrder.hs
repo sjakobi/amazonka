@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Config.Types.ChronologicalOrder
   ( ChronologicalOrder
       ( ..,
-        Forward,
-        Reverse
+        ChronologicalOrderForward,
+        ChronologicalOrderReverse
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChronologicalOrder
-  = ChronologicalOrder'
-      ( CI
-          Text
-      )
+newtype ChronologicalOrder = ChronologicalOrder'
+  { fromChronologicalOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Forward :: ChronologicalOrder
-pattern Forward = ChronologicalOrder' "Forward"
+pattern ChronologicalOrderForward :: ChronologicalOrder
+pattern ChronologicalOrderForward = ChronologicalOrder' "Forward"
 
-pattern Reverse :: ChronologicalOrder
-pattern Reverse = ChronologicalOrder' "Reverse"
+pattern ChronologicalOrderReverse :: ChronologicalOrder
+pattern ChronologicalOrderReverse = ChronologicalOrder' "Reverse"
 
 {-# COMPLETE
-  Forward,
-  Reverse,
+  ChronologicalOrderForward,
+  ChronologicalOrderReverse,
   ChronologicalOrder'
   #-}
 
-instance FromText ChronologicalOrder where
-  parser = (ChronologicalOrder' . mk) <$> takeText
+instance Prelude.FromText ChronologicalOrder where
+  parser = ChronologicalOrder' Prelude.<$> Prelude.takeText
 
-instance ToText ChronologicalOrder where
-  toText (ChronologicalOrder' ci) = original ci
+instance Prelude.ToText ChronologicalOrder where
+  toText (ChronologicalOrder' x) = x
 
-instance Hashable ChronologicalOrder
+instance Prelude.Hashable ChronologicalOrder
 
-instance NFData ChronologicalOrder
+instance Prelude.NFData ChronologicalOrder
 
-instance ToByteString ChronologicalOrder
+instance Prelude.ToByteString ChronologicalOrder
 
-instance ToQuery ChronologicalOrder
+instance Prelude.ToQuery ChronologicalOrder
 
-instance ToHeader ChronologicalOrder
+instance Prelude.ToHeader ChronologicalOrder
 
-instance ToJSON ChronologicalOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON ChronologicalOrder where
+  toJSON = Prelude.toJSONText

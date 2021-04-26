@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,123 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified organization config rule and all of its evaluation results from all member accounts in that organization.
+-- Deletes the specified organization config rule and all of its evaluation
+-- results from all member accounts in that organization.
 --
+-- Only a master account and a delegated administrator account can delete
+-- an organization config rule. When calling this API with a delegated
+-- administrator, you must ensure AWS Organizations
+-- @ListDelegatedAdministrator@ permissions are added.
 --
--- Only a master account and a delegated administrator account can delete an organization config rule. When calling this API with a delegated administrator, you must ensure AWS Organizations @ListDelegatedAdministrator@ permissions are added.
---
--- AWS Config sets the state of a rule to DELETE_IN_PROGRESS until the deletion is complete. You cannot update a rule while it is in this state.
+-- AWS Config sets the state of a rule to DELETE_IN_PROGRESS until the
+-- deletion is complete. You cannot update a rule while it is in this
+-- state.
 module Network.AWS.Config.DeleteOrganizationConfigRule
   ( -- * Creating a Request
-    deleteOrganizationConfigRule,
-    DeleteOrganizationConfigRule,
+    DeleteOrganizationConfigRule (..),
+    newDeleteOrganizationConfigRule,
 
     -- * Request Lenses
-    docrOrganizationConfigRuleName,
+    deleteOrganizationConfigRule_organizationConfigRuleName,
 
     -- * Destructuring the Response
-    deleteOrganizationConfigRuleResponse,
-    DeleteOrganizationConfigRuleResponse,
+    DeleteOrganizationConfigRuleResponse (..),
+    newDeleteOrganizationConfigRuleResponse,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteOrganizationConfigRule' smart constructor.
-newtype DeleteOrganizationConfigRule = DeleteOrganizationConfigRule'
-  { _docrOrganizationConfigRuleName ::
-      Text
+-- | /See:/ 'newDeleteOrganizationConfigRule' smart constructor.
+data DeleteOrganizationConfigRule = DeleteOrganizationConfigRule'
+  { -- | The name of organization config rule that you want to delete.
+    organizationConfigRuleName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOrganizationConfigRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteOrganizationConfigRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'docrOrganizationConfigRuleName' - The name of organization config rule that you want to delete.
-deleteOrganizationConfigRule ::
-  -- | 'docrOrganizationConfigRuleName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'organizationConfigRuleName', 'deleteOrganizationConfigRule_organizationConfigRuleName' - The name of organization config rule that you want to delete.
+newDeleteOrganizationConfigRule ::
+  -- | 'organizationConfigRuleName'
+  Prelude.Text ->
   DeleteOrganizationConfigRule
-deleteOrganizationConfigRule
+newDeleteOrganizationConfigRule
   pOrganizationConfigRuleName_ =
     DeleteOrganizationConfigRule'
-      { _docrOrganizationConfigRuleName =
+      { organizationConfigRuleName =
           pOrganizationConfigRuleName_
       }
 
 -- | The name of organization config rule that you want to delete.
-docrOrganizationConfigRuleName :: Lens' DeleteOrganizationConfigRule Text
-docrOrganizationConfigRuleName = lens _docrOrganizationConfigRuleName (\s a -> s {_docrOrganizationConfigRuleName = a})
+deleteOrganizationConfigRule_organizationConfigRuleName :: Lens.Lens' DeleteOrganizationConfigRule Prelude.Text
+deleteOrganizationConfigRule_organizationConfigRuleName = Lens.lens (\DeleteOrganizationConfigRule' {organizationConfigRuleName} -> organizationConfigRuleName) (\s@DeleteOrganizationConfigRule' {} a -> s {organizationConfigRuleName = a} :: DeleteOrganizationConfigRule)
 
-instance AWSRequest DeleteOrganizationConfigRule where
+instance
+  Prelude.AWSRequest
+    DeleteOrganizationConfigRule
+  where
   type
     Rs DeleteOrganizationConfigRule =
       DeleteOrganizationConfigRuleResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveNull DeleteOrganizationConfigRuleResponse'
+    Response.receiveNull
+      DeleteOrganizationConfigRuleResponse'
 
-instance Hashable DeleteOrganizationConfigRule
+instance
+  Prelude.Hashable
+    DeleteOrganizationConfigRule
 
-instance NFData DeleteOrganizationConfigRule
+instance Prelude.NFData DeleteOrganizationConfigRule
 
-instance ToHeaders DeleteOrganizationConfigRule where
+instance
+  Prelude.ToHeaders
+    DeleteOrganizationConfigRule
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DeleteOrganizationConfigRule" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.DeleteOrganizationConfigRule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteOrganizationConfigRule where
+instance Prelude.ToJSON DeleteOrganizationConfigRule where
   toJSON DeleteOrganizationConfigRule' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "OrganizationConfigRuleName"
-                  .= _docrOrganizationConfigRuleName
+                  Prelude..= organizationConfigRuleName
               )
           ]
       )
 
-instance ToPath DeleteOrganizationConfigRule where
-  toPath = const "/"
+instance Prelude.ToPath DeleteOrganizationConfigRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteOrganizationConfigRule where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteOrganizationConfigRule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteOrganizationConfigRuleResponse' smart constructor.
+-- | /See:/ 'newDeleteOrganizationConfigRuleResponse' smart constructor.
 data DeleteOrganizationConfigRuleResponse = DeleteOrganizationConfigRuleResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOrganizationConfigRuleResponse' with the minimum fields required to make a request.
-deleteOrganizationConfigRuleResponse ::
+-- |
+-- Create a value of 'DeleteOrganizationConfigRuleResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteOrganizationConfigRuleResponse ::
   DeleteOrganizationConfigRuleResponse
-deleteOrganizationConfigRuleResponse =
+newDeleteOrganizationConfigRuleResponse =
   DeleteOrganizationConfigRuleResponse'
 
-instance NFData DeleteOrganizationConfigRuleResponse
+instance
+  Prelude.NFData
+    DeleteOrganizationConfigRuleResponse

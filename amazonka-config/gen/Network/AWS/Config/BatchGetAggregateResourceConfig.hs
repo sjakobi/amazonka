@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,192 +21,218 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the current configuration items for resources that are present in your AWS Config aggregator. The operation also returns a list of resources that are not processed in the current request. If there are no unprocessed resources, the operation returns an empty @unprocessedResourceIdentifiers@ list.
+-- Returns the current configuration items for resources that are present
+-- in your AWS Config aggregator. The operation also returns a list of
+-- resources that are not processed in the current request. If there are no
+-- unprocessed resources, the operation returns an empty
+-- @unprocessedResourceIdentifiers@ list.
+--
+-- -   The API does not return results for deleted resources.
+--
+-- -   The API does not return tags and relationships.
 module Network.AWS.Config.BatchGetAggregateResourceConfig
   ( -- * Creating a Request
-    batchGetAggregateResourceConfig,
-    BatchGetAggregateResourceConfig,
+    BatchGetAggregateResourceConfig (..),
+    newBatchGetAggregateResourceConfig,
 
     -- * Request Lenses
-    bgarcConfigurationAggregatorName,
-    bgarcResourceIdentifiers,
+    batchGetAggregateResourceConfig_configurationAggregatorName,
+    batchGetAggregateResourceConfig_resourceIdentifiers,
 
     -- * Destructuring the Response
-    batchGetAggregateResourceConfigResponse,
-    BatchGetAggregateResourceConfigResponse,
+    BatchGetAggregateResourceConfigResponse (..),
+    newBatchGetAggregateResourceConfigResponse,
 
     -- * Response Lenses
-    bgarcrrsBaseConfigurationItems,
-    bgarcrrsUnprocessedResourceIdentifiers,
-    bgarcrrsResponseStatus,
+    batchGetAggregateResourceConfigResponse_baseConfigurationItems,
+    batchGetAggregateResourceConfigResponse_unprocessedResourceIdentifiers,
+    batchGetAggregateResourceConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.AggregateResourceIdentifier
+import Network.AWS.Config.Types.BaseConfigurationItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchGetAggregateResourceConfig' smart constructor.
+-- | /See:/ 'newBatchGetAggregateResourceConfig' smart constructor.
 data BatchGetAggregateResourceConfig = BatchGetAggregateResourceConfig'
-  { _bgarcConfigurationAggregatorName ::
-      !Text,
-    _bgarcResourceIdentifiers ::
-      !( List1
-           AggregateResourceIdentifier
-       )
+  { -- | The name of the configuration aggregator.
+    configurationAggregatorName :: Prelude.Text,
+    -- | A list of aggregate ResourceIdentifiers objects.
+    resourceIdentifiers :: Prelude.List1 AggregateResourceIdentifier
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetAggregateResourceConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetAggregateResourceConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgarcConfigurationAggregatorName' - The name of the configuration aggregator.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgarcResourceIdentifiers' - A list of aggregate ResourceIdentifiers objects.
-batchGetAggregateResourceConfig ::
-  -- | 'bgarcConfigurationAggregatorName'
-  Text ->
-  -- | 'bgarcResourceIdentifiers'
-  NonEmpty AggregateResourceIdentifier ->
+-- 'configurationAggregatorName', 'batchGetAggregateResourceConfig_configurationAggregatorName' - The name of the configuration aggregator.
+--
+-- 'resourceIdentifiers', 'batchGetAggregateResourceConfig_resourceIdentifiers' - A list of aggregate ResourceIdentifiers objects.
+newBatchGetAggregateResourceConfig ::
+  -- | 'configurationAggregatorName'
+  Prelude.Text ->
+  -- | 'resourceIdentifiers'
+  Prelude.NonEmpty AggregateResourceIdentifier ->
   BatchGetAggregateResourceConfig
-batchGetAggregateResourceConfig
+newBatchGetAggregateResourceConfig
   pConfigurationAggregatorName_
   pResourceIdentifiers_ =
     BatchGetAggregateResourceConfig'
-      { _bgarcConfigurationAggregatorName =
+      { configurationAggregatorName =
           pConfigurationAggregatorName_,
-        _bgarcResourceIdentifiers =
-          _List1 # pResourceIdentifiers_
+        resourceIdentifiers =
+          Prelude._List1
+            Lens.# pResourceIdentifiers_
       }
 
 -- | The name of the configuration aggregator.
-bgarcConfigurationAggregatorName :: Lens' BatchGetAggregateResourceConfig Text
-bgarcConfigurationAggregatorName = lens _bgarcConfigurationAggregatorName (\s a -> s {_bgarcConfigurationAggregatorName = a})
+batchGetAggregateResourceConfig_configurationAggregatorName :: Lens.Lens' BatchGetAggregateResourceConfig Prelude.Text
+batchGetAggregateResourceConfig_configurationAggregatorName = Lens.lens (\BatchGetAggregateResourceConfig' {configurationAggregatorName} -> configurationAggregatorName) (\s@BatchGetAggregateResourceConfig' {} a -> s {configurationAggregatorName = a} :: BatchGetAggregateResourceConfig)
 
 -- | A list of aggregate ResourceIdentifiers objects.
-bgarcResourceIdentifiers :: Lens' BatchGetAggregateResourceConfig (NonEmpty AggregateResourceIdentifier)
-bgarcResourceIdentifiers = lens _bgarcResourceIdentifiers (\s a -> s {_bgarcResourceIdentifiers = a}) . _List1
+batchGetAggregateResourceConfig_resourceIdentifiers :: Lens.Lens' BatchGetAggregateResourceConfig (Prelude.NonEmpty AggregateResourceIdentifier)
+batchGetAggregateResourceConfig_resourceIdentifiers = Lens.lens (\BatchGetAggregateResourceConfig' {resourceIdentifiers} -> resourceIdentifiers) (\s@BatchGetAggregateResourceConfig' {} a -> s {resourceIdentifiers = a} :: BatchGetAggregateResourceConfig) Prelude.. Prelude._List1
 
-instance AWSRequest BatchGetAggregateResourceConfig where
+instance
+  Prelude.AWSRequest
+    BatchGetAggregateResourceConfig
+  where
   type
     Rs BatchGetAggregateResourceConfig =
       BatchGetAggregateResourceConfigResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetAggregateResourceConfigResponse'
-            <$> (x .?> "BaseConfigurationItems" .!@ mempty)
-            <*> (x .?> "UnprocessedResourceIdentifiers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "BaseConfigurationItems"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "UnprocessedResourceIdentifiers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetAggregateResourceConfig
+instance
+  Prelude.Hashable
+    BatchGetAggregateResourceConfig
 
-instance NFData BatchGetAggregateResourceConfig
+instance
+  Prelude.NFData
+    BatchGetAggregateResourceConfig
 
-instance ToHeaders BatchGetAggregateResourceConfig where
+instance
+  Prelude.ToHeaders
+    BatchGetAggregateResourceConfig
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.BatchGetAggregateResourceConfig" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.BatchGetAggregateResourceConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetAggregateResourceConfig where
+instance
+  Prelude.ToJSON
+    BatchGetAggregateResourceConfig
+  where
   toJSON BatchGetAggregateResourceConfig' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "ConfigurationAggregatorName"
-                  .= _bgarcConfigurationAggregatorName
+                  Prelude..= configurationAggregatorName
               ),
-            Just
+            Prelude.Just
               ( "ResourceIdentifiers"
-                  .= _bgarcResourceIdentifiers
+                  Prelude..= resourceIdentifiers
               )
           ]
       )
 
-instance ToPath BatchGetAggregateResourceConfig where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    BatchGetAggregateResourceConfig
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetAggregateResourceConfig where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    BatchGetAggregateResourceConfig
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchGetAggregateResourceConfigResponse' smart constructor.
+-- | /See:/ 'newBatchGetAggregateResourceConfigResponse' smart constructor.
 data BatchGetAggregateResourceConfigResponse = BatchGetAggregateResourceConfigResponse'
-  { _bgarcrrsBaseConfigurationItems ::
-      !( Maybe
-           [BaseConfigurationItem]
-       ),
-    _bgarcrrsUnprocessedResourceIdentifiers ::
-      !( Maybe
-           [AggregateResourceIdentifier]
-       ),
-    _bgarcrrsResponseStatus ::
-      !Int
+  { -- | A list that contains the current configuration of one or more resources.
+    baseConfigurationItems :: Prelude.Maybe [BaseConfigurationItem],
+    -- | A list of resource identifiers that were not processed with current
+    -- scope. The list is empty if all the resources are processed.
+    unprocessedResourceIdentifiers :: Prelude.Maybe [AggregateResourceIdentifier],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetAggregateResourceConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetAggregateResourceConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgarcrrsBaseConfigurationItems' - A list that contains the current configuration of one or more resources.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgarcrrsUnprocessedResourceIdentifiers' - A list of resource identifiers that were not processed with current scope. The list is empty if all the resources are processed.
+-- 'baseConfigurationItems', 'batchGetAggregateResourceConfigResponse_baseConfigurationItems' - A list that contains the current configuration of one or more resources.
 --
--- * 'bgarcrrsResponseStatus' - -- | The response status code.
-batchGetAggregateResourceConfigResponse ::
-  -- | 'bgarcrrsResponseStatus'
-  Int ->
+-- 'unprocessedResourceIdentifiers', 'batchGetAggregateResourceConfigResponse_unprocessedResourceIdentifiers' - A list of resource identifiers that were not processed with current
+-- scope. The list is empty if all the resources are processed.
+--
+-- 'httpStatus', 'batchGetAggregateResourceConfigResponse_httpStatus' - The response's http status code.
+newBatchGetAggregateResourceConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetAggregateResourceConfigResponse
-batchGetAggregateResourceConfigResponse
-  pResponseStatus_ =
+newBatchGetAggregateResourceConfigResponse
+  pHttpStatus_ =
     BatchGetAggregateResourceConfigResponse'
-      { _bgarcrrsBaseConfigurationItems =
-          Nothing,
-        _bgarcrrsUnprocessedResourceIdentifiers =
-          Nothing,
-        _bgarcrrsResponseStatus =
-          pResponseStatus_
+      { baseConfigurationItems =
+          Prelude.Nothing,
+        unprocessedResourceIdentifiers =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A list that contains the current configuration of one or more resources.
-bgarcrrsBaseConfigurationItems :: Lens' BatchGetAggregateResourceConfigResponse [BaseConfigurationItem]
-bgarcrrsBaseConfigurationItems = lens _bgarcrrsBaseConfigurationItems (\s a -> s {_bgarcrrsBaseConfigurationItems = a}) . _Default . _Coerce
+batchGetAggregateResourceConfigResponse_baseConfigurationItems :: Lens.Lens' BatchGetAggregateResourceConfigResponse (Prelude.Maybe [BaseConfigurationItem])
+batchGetAggregateResourceConfigResponse_baseConfigurationItems = Lens.lens (\BatchGetAggregateResourceConfigResponse' {baseConfigurationItems} -> baseConfigurationItems) (\s@BatchGetAggregateResourceConfigResponse' {} a -> s {baseConfigurationItems = a} :: BatchGetAggregateResourceConfigResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of resource identifiers that were not processed with current scope. The list is empty if all the resources are processed.
-bgarcrrsUnprocessedResourceIdentifiers :: Lens' BatchGetAggregateResourceConfigResponse [AggregateResourceIdentifier]
-bgarcrrsUnprocessedResourceIdentifiers = lens _bgarcrrsUnprocessedResourceIdentifiers (\s a -> s {_bgarcrrsUnprocessedResourceIdentifiers = a}) . _Default . _Coerce
+-- | A list of resource identifiers that were not processed with current
+-- scope. The list is empty if all the resources are processed.
+batchGetAggregateResourceConfigResponse_unprocessedResourceIdentifiers :: Lens.Lens' BatchGetAggregateResourceConfigResponse (Prelude.Maybe [AggregateResourceIdentifier])
+batchGetAggregateResourceConfigResponse_unprocessedResourceIdentifiers = Lens.lens (\BatchGetAggregateResourceConfigResponse' {unprocessedResourceIdentifiers} -> unprocessedResourceIdentifiers) (\s@BatchGetAggregateResourceConfigResponse' {} a -> s {unprocessedResourceIdentifiers = a} :: BatchGetAggregateResourceConfigResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bgarcrrsResponseStatus :: Lens' BatchGetAggregateResourceConfigResponse Int
-bgarcrrsResponseStatus = lens _bgarcrrsResponseStatus (\s a -> s {_bgarcrrsResponseStatus = a})
+-- | The response's http status code.
+batchGetAggregateResourceConfigResponse_httpStatus :: Lens.Lens' BatchGetAggregateResourceConfigResponse Prelude.Int
+batchGetAggregateResourceConfigResponse_httpStatus = Lens.lens (\BatchGetAggregateResourceConfigResponse' {httpStatus} -> httpStatus) (\s@BatchGetAggregateResourceConfigResponse' {} a -> s {httpStatus = a} :: BatchGetAggregateResourceConfigResponse)
 
 instance
-  NFData
+  Prelude.NFData
     BatchGetAggregateResourceConfigResponse

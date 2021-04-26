@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,168 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the current status of the specified delivery channel. If a delivery channel is not specified, this action returns the current status of all delivery channels associated with the account.
+-- Returns the current status of the specified delivery channel. If a
+-- delivery channel is not specified, this action returns the current
+-- status of all delivery channels associated with the account.
+--
+-- Currently, you can specify only one delivery channel per region in your
+-- account.
 module Network.AWS.Config.DescribeDeliveryChannelStatus
   ( -- * Creating a Request
-    describeDeliveryChannelStatus,
-    DescribeDeliveryChannelStatus,
+    DescribeDeliveryChannelStatus (..),
+    newDescribeDeliveryChannelStatus,
 
     -- * Request Lenses
-    ddcsDeliveryChannelNames,
+    describeDeliveryChannelStatus_deliveryChannelNames,
 
     -- * Destructuring the Response
-    describeDeliveryChannelStatusResponse,
-    DescribeDeliveryChannelStatusResponse,
+    DescribeDeliveryChannelStatusResponse (..),
+    newDescribeDeliveryChannelStatusResponse,
 
     -- * Response Lenses
-    ddcsrrsDeliveryChannelsStatus,
-    ddcsrrsResponseStatus,
+    describeDeliveryChannelStatusResponse_deliveryChannelsStatus,
+    describeDeliveryChannelStatusResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.DeliveryChannelStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input for the 'DeliveryChannelStatus' action.
+-- | The input for the DeliveryChannelStatus action.
 --
---
---
--- /See:/ 'describeDeliveryChannelStatus' smart constructor.
-newtype DescribeDeliveryChannelStatus = DescribeDeliveryChannelStatus'
-  { _ddcsDeliveryChannelNames ::
-      Maybe
-        [Text]
+-- /See:/ 'newDescribeDeliveryChannelStatus' smart constructor.
+data DescribeDeliveryChannelStatus = DescribeDeliveryChannelStatus'
+  { -- | A list of delivery channel names.
+    deliveryChannelNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDeliveryChannelStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDeliveryChannelStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddcsDeliveryChannelNames' - A list of delivery channel names.
-describeDeliveryChannelStatus ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deliveryChannelNames', 'describeDeliveryChannelStatus_deliveryChannelNames' - A list of delivery channel names.
+newDescribeDeliveryChannelStatus ::
   DescribeDeliveryChannelStatus
-describeDeliveryChannelStatus =
+newDescribeDeliveryChannelStatus =
   DescribeDeliveryChannelStatus'
-    { _ddcsDeliveryChannelNames =
-        Nothing
+    { deliveryChannelNames =
+        Prelude.Nothing
     }
 
 -- | A list of delivery channel names.
-ddcsDeliveryChannelNames :: Lens' DescribeDeliveryChannelStatus [Text]
-ddcsDeliveryChannelNames = lens _ddcsDeliveryChannelNames (\s a -> s {_ddcsDeliveryChannelNames = a}) . _Default . _Coerce
+describeDeliveryChannelStatus_deliveryChannelNames :: Lens.Lens' DescribeDeliveryChannelStatus (Prelude.Maybe [Prelude.Text])
+describeDeliveryChannelStatus_deliveryChannelNames = Lens.lens (\DescribeDeliveryChannelStatus' {deliveryChannelNames} -> deliveryChannelNames) (\s@DescribeDeliveryChannelStatus' {} a -> s {deliveryChannelNames = a} :: DescribeDeliveryChannelStatus) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeDeliveryChannelStatus where
+instance
+  Prelude.AWSRequest
+    DescribeDeliveryChannelStatus
+  where
   type
     Rs DescribeDeliveryChannelStatus =
       DescribeDeliveryChannelStatusResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDeliveryChannelStatusResponse'
-            <$> (x .?> "DeliveryChannelsStatus" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "DeliveryChannelsStatus"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDeliveryChannelStatus
+instance
+  Prelude.Hashable
+    DescribeDeliveryChannelStatus
 
-instance NFData DescribeDeliveryChannelStatus
+instance Prelude.NFData DescribeDeliveryChannelStatus
 
-instance ToHeaders DescribeDeliveryChannelStatus where
+instance
+  Prelude.ToHeaders
+    DescribeDeliveryChannelStatus
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DescribeDeliveryChannelStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.DescribeDeliveryChannelStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeDeliveryChannelStatus where
+instance Prelude.ToJSON DescribeDeliveryChannelStatus where
   toJSON DescribeDeliveryChannelStatus' {..} =
-    object
-      ( catMaybes
-          [ ("DeliveryChannelNames" .=)
-              <$> _ddcsDeliveryChannelNames
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DeliveryChannelNames" Prelude..=)
+              Prelude.<$> deliveryChannelNames
           ]
       )
 
-instance ToPath DescribeDeliveryChannelStatus where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDeliveryChannelStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDeliveryChannelStatus where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeDeliveryChannelStatus
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | The output for the 'DescribeDeliveryChannelStatus' action.
+-- | The output for the DescribeDeliveryChannelStatus action.
 --
---
---
--- /See:/ 'describeDeliveryChannelStatusResponse' smart constructor.
+-- /See:/ 'newDescribeDeliveryChannelStatusResponse' smart constructor.
 data DescribeDeliveryChannelStatusResponse = DescribeDeliveryChannelStatusResponse'
-  { _ddcsrrsDeliveryChannelsStatus ::
-      !( Maybe
-           [DeliveryChannelStatus]
-       ),
-    _ddcsrrsResponseStatus ::
-      !Int
+  { -- | A list that contains the status of a specified delivery channel.
+    deliveryChannelsStatus :: Prelude.Maybe [DeliveryChannelStatus],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDeliveryChannelStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDeliveryChannelStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddcsrrsDeliveryChannelsStatus' - A list that contains the status of a specified delivery channel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddcsrrsResponseStatus' - -- | The response status code.
-describeDeliveryChannelStatusResponse ::
-  -- | 'ddcsrrsResponseStatus'
-  Int ->
+-- 'deliveryChannelsStatus', 'describeDeliveryChannelStatusResponse_deliveryChannelsStatus' - A list that contains the status of a specified delivery channel.
+--
+-- 'httpStatus', 'describeDeliveryChannelStatusResponse_httpStatus' - The response's http status code.
+newDescribeDeliveryChannelStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDeliveryChannelStatusResponse
-describeDeliveryChannelStatusResponse
-  pResponseStatus_ =
-    DescribeDeliveryChannelStatusResponse'
-      { _ddcsrrsDeliveryChannelsStatus =
-          Nothing,
-        _ddcsrrsResponseStatus =
-          pResponseStatus_
-      }
+newDescribeDeliveryChannelStatusResponse pHttpStatus_ =
+  DescribeDeliveryChannelStatusResponse'
+    { deliveryChannelsStatus =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | A list that contains the status of a specified delivery channel.
-ddcsrrsDeliveryChannelsStatus :: Lens' DescribeDeliveryChannelStatusResponse [DeliveryChannelStatus]
-ddcsrrsDeliveryChannelsStatus = lens _ddcsrrsDeliveryChannelsStatus (\s a -> s {_ddcsrrsDeliveryChannelsStatus = a}) . _Default . _Coerce
+describeDeliveryChannelStatusResponse_deliveryChannelsStatus :: Lens.Lens' DescribeDeliveryChannelStatusResponse (Prelude.Maybe [DeliveryChannelStatus])
+describeDeliveryChannelStatusResponse_deliveryChannelsStatus = Lens.lens (\DescribeDeliveryChannelStatusResponse' {deliveryChannelsStatus} -> deliveryChannelsStatus) (\s@DescribeDeliveryChannelStatusResponse' {} a -> s {deliveryChannelsStatus = a} :: DescribeDeliveryChannelStatusResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ddcsrrsResponseStatus :: Lens' DescribeDeliveryChannelStatusResponse Int
-ddcsrrsResponseStatus = lens _ddcsrrsResponseStatus (\s a -> s {_ddcsrrsResponseStatus = a})
+-- | The response's http status code.
+describeDeliveryChannelStatusResponse_httpStatus :: Lens.Lens' DescribeDeliveryChannelStatusResponse Prelude.Int
+describeDeliveryChannelStatusResponse_httpStatus = Lens.lens (\DescribeDeliveryChannelStatusResponse' {httpStatus} -> httpStatus) (\s@DescribeDeliveryChannelStatusResponse' {} a -> s {httpStatus = a} :: DescribeDeliveryChannelStatusResponse)
 
-instance NFData DescribeDeliveryChannelStatusResponse
+instance
+  Prelude.NFData
+    DescribeDeliveryChannelStatusResponse

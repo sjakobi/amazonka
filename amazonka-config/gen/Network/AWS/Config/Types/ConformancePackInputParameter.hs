@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.ConformancePackInputParameter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Input parameters in the form of key-value pairs for the conformance pack, both of which you define. Keys can have a maximum character length of 255 characters, and values can have a maximum length of 4096 characters.
+-- | Input parameters in the form of key-value pairs for the conformance
+-- pack, both of which you define. Keys can have a maximum character length
+-- of 255 characters, and values can have a maximum length of 4096
+-- characters.
 --
---
---
--- /See:/ 'conformancePackInputParameter' smart constructor.
+-- /See:/ 'newConformancePackInputParameter' smart constructor.
 data ConformancePackInputParameter = ConformancePackInputParameter'
-  { _cpipParameterName ::
-      !Text,
-    _cpipParameterValue ::
-      !Text
+  { -- | One part of a key-value pair.
+    parameterName :: Prelude.Text,
+    -- | Another part of the key-value pair.
+    parameterValue :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConformancePackInputParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConformancePackInputParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpipParameterName' - One part of a key-value pair.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpipParameterValue' - Another part of the key-value pair.
-conformancePackInputParameter ::
-  -- | 'cpipParameterName'
-  Text ->
-  -- | 'cpipParameterValue'
-  Text ->
+-- 'parameterName', 'conformancePackInputParameter_parameterName' - One part of a key-value pair.
+--
+-- 'parameterValue', 'conformancePackInputParameter_parameterValue' - Another part of the key-value pair.
+newConformancePackInputParameter ::
+  -- | 'parameterName'
+  Prelude.Text ->
+  -- | 'parameterValue'
+  Prelude.Text ->
   ConformancePackInputParameter
-conformancePackInputParameter
+newConformancePackInputParameter
   pParameterName_
   pParameterValue_ =
     ConformancePackInputParameter'
-      { _cpipParameterName =
+      { parameterName =
           pParameterName_,
-        _cpipParameterValue = pParameterValue_
+        parameterValue = pParameterValue_
       }
 
 -- | One part of a key-value pair.
-cpipParameterName :: Lens' ConformancePackInputParameter Text
-cpipParameterName = lens _cpipParameterName (\s a -> s {_cpipParameterName = a})
+conformancePackInputParameter_parameterName :: Lens.Lens' ConformancePackInputParameter Prelude.Text
+conformancePackInputParameter_parameterName = Lens.lens (\ConformancePackInputParameter' {parameterName} -> parameterName) (\s@ConformancePackInputParameter' {} a -> s {parameterName = a} :: ConformancePackInputParameter)
 
 -- | Another part of the key-value pair.
-cpipParameterValue :: Lens' ConformancePackInputParameter Text
-cpipParameterValue = lens _cpipParameterValue (\s a -> s {_cpipParameterValue = a})
+conformancePackInputParameter_parameterValue :: Lens.Lens' ConformancePackInputParameter Prelude.Text
+conformancePackInputParameter_parameterValue = Lens.lens (\ConformancePackInputParameter' {parameterValue} -> parameterValue) (\s@ConformancePackInputParameter' {} a -> s {parameterValue = a} :: ConformancePackInputParameter)
 
-instance FromJSON ConformancePackInputParameter where
+instance
+  Prelude.FromJSON
+    ConformancePackInputParameter
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConformancePackInputParameter"
       ( \x ->
           ConformancePackInputParameter'
-            <$> (x .: "ParameterName") <*> (x .: "ParameterValue")
+            Prelude.<$> (x Prelude..: "ParameterName")
+            Prelude.<*> (x Prelude..: "ParameterValue")
       )
 
-instance Hashable ConformancePackInputParameter
+instance
+  Prelude.Hashable
+    ConformancePackInputParameter
 
-instance NFData ConformancePackInputParameter
+instance Prelude.NFData ConformancePackInputParameter
 
-instance ToJSON ConformancePackInputParameter where
+instance Prelude.ToJSON ConformancePackInputParameter where
   toJSON ConformancePackInputParameter' {..} =
-    object
-      ( catMaybes
-          [ Just ("ParameterName" .= _cpipParameterName),
-            Just ("ParameterValue" .= _cpipParameterValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ParameterName" Prelude..= parameterName),
+            Prelude.Just
+              ("ParameterValue" Prelude..= parameterValue)
           ]
       )

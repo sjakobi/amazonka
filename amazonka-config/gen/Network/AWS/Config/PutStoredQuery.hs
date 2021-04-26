@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Saves a new query or updates an existing saved query. The @QueryName@ must be unique for a single AWS account and a single AWS Region. You can create upto 300 queries in a single AWS account and a single AWS Region.
+-- Saves a new query or updates an existing saved query. The @QueryName@
+-- must be unique for a single AWS account and a single AWS Region. You can
+-- create upto 300 queries in a single AWS account and a single AWS Region.
 module Network.AWS.Config.PutStoredQuery
   ( -- * Creating a Request
-    putStoredQuery,
-    PutStoredQuery,
+    PutStoredQuery (..),
+    newPutStoredQuery,
 
     -- * Request Lenses
-    psqTags,
-    psqStoredQuery,
+    putStoredQuery_tags,
+    putStoredQuery_storedQuery,
 
     -- * Destructuring the Response
-    putStoredQueryResponse,
-    PutStoredQueryResponse,
+    PutStoredQueryResponse (..),
+    newPutStoredQueryResponse,
 
     -- * Response Lenses
-    psqrrsQueryARN,
-    psqrrsResponseStatus,
+    putStoredQueryResponse_queryArn,
+    putStoredQueryResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putStoredQuery' smart constructor.
+-- | /See:/ 'newPutStoredQuery' smart constructor.
 data PutStoredQuery = PutStoredQuery'
-  { _psqTags ::
-      !(Maybe [Tag]),
-    _psqStoredQuery :: !StoredQuery
+  { -- | A list of @Tags@ object.
+    tags :: Prelude.Maybe [Tag],
+    -- | A list of @StoredQuery@ objects. The mandatory fields are @QueryName@
+    -- and @Expression@.
+    --
+    -- When you are creating a query, you must provide a query name and an
+    -- expression. When you are updating a query, you must provide a query name
+    -- but updating the description is optional.
+    storedQuery :: StoredQuery
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutStoredQuery' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutStoredQuery' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psqTags' - A list of @Tags@ object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psqStoredQuery' - A list of @StoredQuery@ objects. The mandatory fields are @QueryName@ and @Expression@ .
-putStoredQuery ::
-  -- | 'psqStoredQuery'
+-- 'tags', 'putStoredQuery_tags' - A list of @Tags@ object.
+--
+-- 'storedQuery', 'putStoredQuery_storedQuery' - A list of @StoredQuery@ objects. The mandatory fields are @QueryName@
+-- and @Expression@.
+--
+-- When you are creating a query, you must provide a query name and an
+-- expression. When you are updating a query, you must provide a query name
+-- but updating the description is optional.
+newPutStoredQuery ::
+  -- | 'storedQuery'
   StoredQuery ->
   PutStoredQuery
-putStoredQuery pStoredQuery_ =
+newPutStoredQuery pStoredQuery_ =
   PutStoredQuery'
-    { _psqTags = Nothing,
-      _psqStoredQuery = pStoredQuery_
+    { tags = Prelude.Nothing,
+      storedQuery = pStoredQuery_
     }
 
 -- | A list of @Tags@ object.
-psqTags :: Lens' PutStoredQuery [Tag]
-psqTags = lens _psqTags (\s a -> s {_psqTags = a}) . _Default . _Coerce
+putStoredQuery_tags :: Lens.Lens' PutStoredQuery (Prelude.Maybe [Tag])
+putStoredQuery_tags = Lens.lens (\PutStoredQuery' {tags} -> tags) (\s@PutStoredQuery' {} a -> s {tags = a} :: PutStoredQuery) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of @StoredQuery@ objects. The mandatory fields are @QueryName@ and @Expression@ .
-psqStoredQuery :: Lens' PutStoredQuery StoredQuery
-psqStoredQuery = lens _psqStoredQuery (\s a -> s {_psqStoredQuery = a})
+-- | A list of @StoredQuery@ objects. The mandatory fields are @QueryName@
+-- and @Expression@.
+--
+-- When you are creating a query, you must provide a query name and an
+-- expression. When you are updating a query, you must provide a query name
+-- but updating the description is optional.
+putStoredQuery_storedQuery :: Lens.Lens' PutStoredQuery StoredQuery
+putStoredQuery_storedQuery = Lens.lens (\PutStoredQuery' {storedQuery} -> storedQuery) (\s@PutStoredQuery' {} a -> s {storedQuery = a} :: PutStoredQuery)
 
-instance AWSRequest PutStoredQuery where
+instance Prelude.AWSRequest PutStoredQuery where
   type Rs PutStoredQuery = PutStoredQueryResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutStoredQueryResponse'
-            <$> (x .?> "QueryArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "QueryArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutStoredQuery
+instance Prelude.Hashable PutStoredQuery
 
-instance NFData PutStoredQuery
+instance Prelude.NFData PutStoredQuery
 
-instance ToHeaders PutStoredQuery where
+instance Prelude.ToHeaders PutStoredQuery where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("StarlingDoveService.PutStoredQuery" :: ByteString),
+              Prelude.=# ( "StarlingDoveService.PutStoredQuery" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutStoredQuery where
+instance Prelude.ToJSON PutStoredQuery where
   toJSON PutStoredQuery' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _psqTags,
-            Just ("StoredQuery" .= _psqStoredQuery)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("StoredQuery" Prelude..= storedQuery)
           ]
       )
 
-instance ToPath PutStoredQuery where
-  toPath = const "/"
+instance Prelude.ToPath PutStoredQuery where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutStoredQuery where
-  toQuery = const mempty
+instance Prelude.ToQuery PutStoredQuery where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putStoredQueryResponse' smart constructor.
+-- | /See:/ 'newPutStoredQueryResponse' smart constructor.
 data PutStoredQueryResponse = PutStoredQueryResponse'
-  { _psqrrsQueryARN ::
-      !(Maybe Text),
-    _psqrrsResponseStatus ::
-      !Int
+  { -- | Amazon Resource Name (ARN) of the query. For example,
+    -- arn:partition:service:region:account-id:resource-type\/resource-name\/resource-id.
+    queryArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutStoredQueryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutStoredQueryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psqrrsQueryARN' - Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psqrrsResponseStatus' - -- | The response status code.
-putStoredQueryResponse ::
-  -- | 'psqrrsResponseStatus'
-  Int ->
+-- 'queryArn', 'putStoredQueryResponse_queryArn' - Amazon Resource Name (ARN) of the query. For example,
+-- arn:partition:service:region:account-id:resource-type\/resource-name\/resource-id.
+--
+-- 'httpStatus', 'putStoredQueryResponse_httpStatus' - The response's http status code.
+newPutStoredQueryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutStoredQueryResponse
-putStoredQueryResponse pResponseStatus_ =
+newPutStoredQueryResponse pHttpStatus_ =
   PutStoredQueryResponse'
-    { _psqrrsQueryARN = Nothing,
-      _psqrrsResponseStatus = pResponseStatus_
+    { queryArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
-psqrrsQueryARN :: Lens' PutStoredQueryResponse (Maybe Text)
-psqrrsQueryARN = lens _psqrrsQueryARN (\s a -> s {_psqrrsQueryARN = a})
+-- | Amazon Resource Name (ARN) of the query. For example,
+-- arn:partition:service:region:account-id:resource-type\/resource-name\/resource-id.
+putStoredQueryResponse_queryArn :: Lens.Lens' PutStoredQueryResponse (Prelude.Maybe Prelude.Text)
+putStoredQueryResponse_queryArn = Lens.lens (\PutStoredQueryResponse' {queryArn} -> queryArn) (\s@PutStoredQueryResponse' {} a -> s {queryArn = a} :: PutStoredQueryResponse)
 
--- | -- | The response status code.
-psqrrsResponseStatus :: Lens' PutStoredQueryResponse Int
-psqrrsResponseStatus = lens _psqrrsResponseStatus (\s a -> s {_psqrrsResponseStatus = a})
+-- | The response's http status code.
+putStoredQueryResponse_httpStatus :: Lens.Lens' PutStoredQueryResponse Prelude.Int
+putStoredQueryResponse_httpStatus = Lens.lens (\PutStoredQueryResponse' {httpStatus} -> httpStatus) (\s@PutStoredQueryResponse' {} a -> s {httpStatus = a} :: PutStoredQueryResponse)
 
-instance NFData PutStoredQueryResponse
+instance Prelude.NFData PutStoredQueryResponse

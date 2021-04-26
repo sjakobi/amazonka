@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.Config.Types.ConfigurationItemStatus
   ( ConfigurationItemStatus
       ( ..,
-        OK,
-        ResourceDeleted,
-        ResourceDeletedNotRecorded,
-        ResourceDiscovered,
-        ResourceNotRecorded
+        ConfigurationItemStatusOK,
+        ConfigurationItemStatusResourceDeleted,
+        ConfigurationItemStatusResourceDeletedNotRecorded,
+        ConfigurationItemStatusResourceDiscovered,
+        ConfigurationItemStatusResourceNotRecorded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConfigurationItemStatus
-  = ConfigurationItemStatus'
-      ( CI
-          Text
-      )
+newtype ConfigurationItemStatus = ConfigurationItemStatus'
+  { fromConfigurationItemStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OK :: ConfigurationItemStatus
-pattern OK = ConfigurationItemStatus' "OK"
+pattern ConfigurationItemStatusOK :: ConfigurationItemStatus
+pattern ConfigurationItemStatusOK = ConfigurationItemStatus' "OK"
 
-pattern ResourceDeleted :: ConfigurationItemStatus
-pattern ResourceDeleted = ConfigurationItemStatus' "ResourceDeleted"
+pattern ConfigurationItemStatusResourceDeleted :: ConfigurationItemStatus
+pattern ConfigurationItemStatusResourceDeleted = ConfigurationItemStatus' "ResourceDeleted"
 
-pattern ResourceDeletedNotRecorded :: ConfigurationItemStatus
-pattern ResourceDeletedNotRecorded = ConfigurationItemStatus' "ResourceDeletedNotRecorded"
+pattern ConfigurationItemStatusResourceDeletedNotRecorded :: ConfigurationItemStatus
+pattern ConfigurationItemStatusResourceDeletedNotRecorded = ConfigurationItemStatus' "ResourceDeletedNotRecorded"
 
-pattern ResourceDiscovered :: ConfigurationItemStatus
-pattern ResourceDiscovered = ConfigurationItemStatus' "ResourceDiscovered"
+pattern ConfigurationItemStatusResourceDiscovered :: ConfigurationItemStatus
+pattern ConfigurationItemStatusResourceDiscovered = ConfigurationItemStatus' "ResourceDiscovered"
 
-pattern ResourceNotRecorded :: ConfigurationItemStatus
-pattern ResourceNotRecorded = ConfigurationItemStatus' "ResourceNotRecorded"
+pattern ConfigurationItemStatusResourceNotRecorded :: ConfigurationItemStatus
+pattern ConfigurationItemStatusResourceNotRecorded = ConfigurationItemStatus' "ResourceNotRecorded"
 
 {-# COMPLETE
-  OK,
-  ResourceDeleted,
-  ResourceDeletedNotRecorded,
-  ResourceDiscovered,
-  ResourceNotRecorded,
+  ConfigurationItemStatusOK,
+  ConfigurationItemStatusResourceDeleted,
+  ConfigurationItemStatusResourceDeletedNotRecorded,
+  ConfigurationItemStatusResourceDiscovered,
+  ConfigurationItemStatusResourceNotRecorded,
   ConfigurationItemStatus'
   #-}
 
-instance FromText ConfigurationItemStatus where
-  parser = (ConfigurationItemStatus' . mk) <$> takeText
+instance Prelude.FromText ConfigurationItemStatus where
+  parser = ConfigurationItemStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ConfigurationItemStatus where
-  toText (ConfigurationItemStatus' ci) = original ci
+instance Prelude.ToText ConfigurationItemStatus where
+  toText (ConfigurationItemStatus' x) = x
 
-instance Hashable ConfigurationItemStatus
+instance Prelude.Hashable ConfigurationItemStatus
 
-instance NFData ConfigurationItemStatus
+instance Prelude.NFData ConfigurationItemStatus
 
-instance ToByteString ConfigurationItemStatus
+instance Prelude.ToByteString ConfigurationItemStatus
 
-instance ToQuery ConfigurationItemStatus
+instance Prelude.ToQuery ConfigurationItemStatus
 
-instance ToHeader ConfigurationItemStatus
+instance Prelude.ToHeader ConfigurationItemStatus
 
-instance FromJSON ConfigurationItemStatus where
-  parseJSON = parseJSONText "ConfigurationItemStatus"
+instance Prelude.FromJSON ConfigurationItemStatus where
+  parseJSON = Prelude.parseJSONText "ConfigurationItemStatus"

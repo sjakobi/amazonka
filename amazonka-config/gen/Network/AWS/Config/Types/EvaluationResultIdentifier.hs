@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,73 @@
 module Network.AWS.Config.Types.EvaluationResultIdentifier where
 
 import Network.AWS.Config.Types.EvaluationResultQualifier
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Uniquely identifies an evaluation result.
 --
---
---
--- /See:/ 'evaluationResultIdentifier' smart constructor.
+-- /See:/ 'newEvaluationResultIdentifier' smart constructor.
 data EvaluationResultIdentifier = EvaluationResultIdentifier'
-  { _eriEvaluationResultQualifier ::
-      !( Maybe
-           EvaluationResultQualifier
-       ),
-    _eriOrderingTimestamp ::
-      !(Maybe POSIX)
+  { -- | Identifies an AWS Config rule used to evaluate an AWS resource, and
+    -- provides the type and ID of the evaluated resource.
+    evaluationResultQualifier :: Prelude.Maybe EvaluationResultQualifier,
+    -- | The time of the event that triggered the evaluation of your AWS
+    -- resources. The time can indicate when AWS Config delivered a
+    -- configuration item change notification, or it can indicate when AWS
+    -- Config delivered the configuration snapshot, depending on which event
+    -- triggered the evaluation.
+    orderingTimestamp :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EvaluationResultIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EvaluationResultIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eriEvaluationResultQualifier' - Identifies an AWS Config rule used to evaluate an AWS resource, and provides the type and ID of the evaluated resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eriOrderingTimestamp' - The time of the event that triggered the evaluation of your AWS resources. The time can indicate when AWS Config delivered a configuration item change notification, or it can indicate when AWS Config delivered the configuration snapshot, depending on which event triggered the evaluation.
-evaluationResultIdentifier ::
+-- 'evaluationResultQualifier', 'evaluationResultIdentifier_evaluationResultQualifier' - Identifies an AWS Config rule used to evaluate an AWS resource, and
+-- provides the type and ID of the evaluated resource.
+--
+-- 'orderingTimestamp', 'evaluationResultIdentifier_orderingTimestamp' - The time of the event that triggered the evaluation of your AWS
+-- resources. The time can indicate when AWS Config delivered a
+-- configuration item change notification, or it can indicate when AWS
+-- Config delivered the configuration snapshot, depending on which event
+-- triggered the evaluation.
+newEvaluationResultIdentifier ::
   EvaluationResultIdentifier
-evaluationResultIdentifier =
+newEvaluationResultIdentifier =
   EvaluationResultIdentifier'
-    { _eriEvaluationResultQualifier =
-        Nothing,
-      _eriOrderingTimestamp = Nothing
+    { evaluationResultQualifier =
+        Prelude.Nothing,
+      orderingTimestamp = Prelude.Nothing
     }
 
--- | Identifies an AWS Config rule used to evaluate an AWS resource, and provides the type and ID of the evaluated resource.
-eriEvaluationResultQualifier :: Lens' EvaluationResultIdentifier (Maybe EvaluationResultQualifier)
-eriEvaluationResultQualifier = lens _eriEvaluationResultQualifier (\s a -> s {_eriEvaluationResultQualifier = a})
+-- | Identifies an AWS Config rule used to evaluate an AWS resource, and
+-- provides the type and ID of the evaluated resource.
+evaluationResultIdentifier_evaluationResultQualifier :: Lens.Lens' EvaluationResultIdentifier (Prelude.Maybe EvaluationResultQualifier)
+evaluationResultIdentifier_evaluationResultQualifier = Lens.lens (\EvaluationResultIdentifier' {evaluationResultQualifier} -> evaluationResultQualifier) (\s@EvaluationResultIdentifier' {} a -> s {evaluationResultQualifier = a} :: EvaluationResultIdentifier)
 
--- | The time of the event that triggered the evaluation of your AWS resources. The time can indicate when AWS Config delivered a configuration item change notification, or it can indicate when AWS Config delivered the configuration snapshot, depending on which event triggered the evaluation.
-eriOrderingTimestamp :: Lens' EvaluationResultIdentifier (Maybe UTCTime)
-eriOrderingTimestamp = lens _eriOrderingTimestamp (\s a -> s {_eriOrderingTimestamp = a}) . mapping _Time
+-- | The time of the event that triggered the evaluation of your AWS
+-- resources. The time can indicate when AWS Config delivered a
+-- configuration item change notification, or it can indicate when AWS
+-- Config delivered the configuration snapshot, depending on which event
+-- triggered the evaluation.
+evaluationResultIdentifier_orderingTimestamp :: Lens.Lens' EvaluationResultIdentifier (Prelude.Maybe Prelude.UTCTime)
+evaluationResultIdentifier_orderingTimestamp = Lens.lens (\EvaluationResultIdentifier' {orderingTimestamp} -> orderingTimestamp) (\s@EvaluationResultIdentifier' {} a -> s {orderingTimestamp = a} :: EvaluationResultIdentifier) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON EvaluationResultIdentifier where
+instance Prelude.FromJSON EvaluationResultIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EvaluationResultIdentifier"
       ( \x ->
           EvaluationResultIdentifier'
-            <$> (x .:? "EvaluationResultQualifier")
-            <*> (x .:? "OrderingTimestamp")
+            Prelude.<$> (x Prelude..:? "EvaluationResultQualifier")
+            Prelude.<*> (x Prelude..:? "OrderingTimestamp")
       )
 
-instance Hashable EvaluationResultIdentifier
+instance Prelude.Hashable EvaluationResultIdentifier
 
-instance NFData EvaluationResultIdentifier
+instance Prelude.NFData EvaluationResultIdentifier

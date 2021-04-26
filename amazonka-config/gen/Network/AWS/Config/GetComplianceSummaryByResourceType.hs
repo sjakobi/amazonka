@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,202 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the number of resources that are compliant and the number that are noncompliant. You can specify one or more resource types to get these numbers for each resource type. The maximum number returned is 100.
+-- Returns the number of resources that are compliant and the number that
+-- are noncompliant. You can specify one or more resource types to get
+-- these numbers for each resource type. The maximum number returned is
+-- 100.
 module Network.AWS.Config.GetComplianceSummaryByResourceType
   ( -- * Creating a Request
-    getComplianceSummaryByResourceType,
-    GetComplianceSummaryByResourceType,
+    GetComplianceSummaryByResourceType (..),
+    newGetComplianceSummaryByResourceType,
 
     -- * Request Lenses
-    gcsbrtResourceTypes,
+    getComplianceSummaryByResourceType_resourceTypes,
 
     -- * Destructuring the Response
-    getComplianceSummaryByResourceTypeResponse,
-    GetComplianceSummaryByResourceTypeResponse,
+    GetComplianceSummaryByResourceTypeResponse (..),
+    newGetComplianceSummaryByResourceTypeResponse,
 
     -- * Response Lenses
-    gcsbrtrrsComplianceSummariesByResourceType,
-    gcsbrtrrsResponseStatus,
+    getComplianceSummaryByResourceTypeResponse_complianceSummariesByResourceType,
+    getComplianceSummaryByResourceTypeResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.ComplianceSummaryByResourceType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'getComplianceSummaryByResourceType' smart constructor.
-newtype GetComplianceSummaryByResourceType = GetComplianceSummaryByResourceType'
-  { _gcsbrtResourceTypes ::
-      Maybe
-        [Text]
+-- /See:/ 'newGetComplianceSummaryByResourceType' smart constructor.
+data GetComplianceSummaryByResourceType = GetComplianceSummaryByResourceType'
+  { -- | Specify one or more resource types to get the number of resources that
+    -- are compliant and the number that are noncompliant for each resource
+    -- type.
+    --
+    -- For this request, you can specify an AWS resource type such as
+    -- @AWS::EC2::Instance@. You can specify that the resource type is an AWS
+    -- account by specifying @AWS::::Account@.
+    resourceTypes :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetComplianceSummaryByResourceType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetComplianceSummaryByResourceType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsbrtResourceTypes' - Specify one or more resource types to get the number of resources that are compliant and the number that are noncompliant for each resource type. For this request, you can specify an AWS resource type such as @AWS::EC2::Instance@ . You can specify that the resource type is an AWS account by specifying @AWS::::Account@ .
-getComplianceSummaryByResourceType ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceTypes', 'getComplianceSummaryByResourceType_resourceTypes' - Specify one or more resource types to get the number of resources that
+-- are compliant and the number that are noncompliant for each resource
+-- type.
+--
+-- For this request, you can specify an AWS resource type such as
+-- @AWS::EC2::Instance@. You can specify that the resource type is an AWS
+-- account by specifying @AWS::::Account@.
+newGetComplianceSummaryByResourceType ::
   GetComplianceSummaryByResourceType
-getComplianceSummaryByResourceType =
+newGetComplianceSummaryByResourceType =
   GetComplianceSummaryByResourceType'
-    { _gcsbrtResourceTypes =
-        Nothing
+    { resourceTypes =
+        Prelude.Nothing
     }
 
--- | Specify one or more resource types to get the number of resources that are compliant and the number that are noncompliant for each resource type. For this request, you can specify an AWS resource type such as @AWS::EC2::Instance@ . You can specify that the resource type is an AWS account by specifying @AWS::::Account@ .
-gcsbrtResourceTypes :: Lens' GetComplianceSummaryByResourceType [Text]
-gcsbrtResourceTypes = lens _gcsbrtResourceTypes (\s a -> s {_gcsbrtResourceTypes = a}) . _Default . _Coerce
+-- | Specify one or more resource types to get the number of resources that
+-- are compliant and the number that are noncompliant for each resource
+-- type.
+--
+-- For this request, you can specify an AWS resource type such as
+-- @AWS::EC2::Instance@. You can specify that the resource type is an AWS
+-- account by specifying @AWS::::Account@.
+getComplianceSummaryByResourceType_resourceTypes :: Lens.Lens' GetComplianceSummaryByResourceType (Prelude.Maybe [Prelude.Text])
+getComplianceSummaryByResourceType_resourceTypes = Lens.lens (\GetComplianceSummaryByResourceType' {resourceTypes} -> resourceTypes) (\s@GetComplianceSummaryByResourceType' {} a -> s {resourceTypes = a} :: GetComplianceSummaryByResourceType) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetComplianceSummaryByResourceType
   where
   type
     Rs GetComplianceSummaryByResourceType =
       GetComplianceSummaryByResourceTypeResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetComplianceSummaryByResourceTypeResponse'
-            <$> ( x .?> "ComplianceSummariesByResourceType"
-                    .!@ mempty
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ComplianceSummariesByResourceType"
+                            Prelude..!@ Prelude.mempty
+                        )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetComplianceSummaryByResourceType
+instance
+  Prelude.Hashable
+    GetComplianceSummaryByResourceType
 
-instance NFData GetComplianceSummaryByResourceType
+instance
+  Prelude.NFData
+    GetComplianceSummaryByResourceType
 
-instance ToHeaders GetComplianceSummaryByResourceType where
+instance
+  Prelude.ToHeaders
+    GetComplianceSummaryByResourceType
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.GetComplianceSummaryByResourceType" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.GetComplianceSummaryByResourceType" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetComplianceSummaryByResourceType where
+instance
+  Prelude.ToJSON
+    GetComplianceSummaryByResourceType
+  where
   toJSON GetComplianceSummaryByResourceType' {..} =
-    object
-      ( catMaybes
-          [("ResourceTypes" .=) <$> _gcsbrtResourceTypes]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ResourceTypes" Prelude..=)
+              Prelude.<$> resourceTypes
+          ]
       )
 
-instance ToPath GetComplianceSummaryByResourceType where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    GetComplianceSummaryByResourceType
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetComplianceSummaryByResourceType where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetComplianceSummaryByResourceType
+  where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'getComplianceSummaryByResourceTypeResponse' smart constructor.
+-- /See:/ 'newGetComplianceSummaryByResourceTypeResponse' smart constructor.
 data GetComplianceSummaryByResourceTypeResponse = GetComplianceSummaryByResourceTypeResponse'
-  { _gcsbrtrrsComplianceSummariesByResourceType ::
-      !( Maybe
-           [ComplianceSummaryByResourceType]
-       ),
-    _gcsbrtrrsResponseStatus ::
-      !Int
+  { -- | The number of resources that are compliant and the number that are
+    -- noncompliant. If one or more resource types were provided with the
+    -- request, the numbers are returned for each resource type. The maximum
+    -- number returned is 100.
+    complianceSummariesByResourceType :: Prelude.Maybe [ComplianceSummaryByResourceType],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetComplianceSummaryByResourceTypeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetComplianceSummaryByResourceTypeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsbrtrrsComplianceSummariesByResourceType' - The number of resources that are compliant and the number that are noncompliant. If one or more resource types were provided with the request, the numbers are returned for each resource type. The maximum number returned is 100.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsbrtrrsResponseStatus' - -- | The response status code.
-getComplianceSummaryByResourceTypeResponse ::
-  -- | 'gcsbrtrrsResponseStatus'
-  Int ->
+-- 'complianceSummariesByResourceType', 'getComplianceSummaryByResourceTypeResponse_complianceSummariesByResourceType' - The number of resources that are compliant and the number that are
+-- noncompliant. If one or more resource types were provided with the
+-- request, the numbers are returned for each resource type. The maximum
+-- number returned is 100.
+--
+-- 'httpStatus', 'getComplianceSummaryByResourceTypeResponse_httpStatus' - The response's http status code.
+newGetComplianceSummaryByResourceTypeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetComplianceSummaryByResourceTypeResponse
-getComplianceSummaryByResourceTypeResponse
-  pResponseStatus_ =
+newGetComplianceSummaryByResourceTypeResponse
+  pHttpStatus_ =
     GetComplianceSummaryByResourceTypeResponse'
-      { _gcsbrtrrsComplianceSummariesByResourceType =
-          Nothing,
-        _gcsbrtrrsResponseStatus =
-          pResponseStatus_
+      { complianceSummariesByResourceType =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The number of resources that are compliant and the number that are noncompliant. If one or more resource types were provided with the request, the numbers are returned for each resource type. The maximum number returned is 100.
-gcsbrtrrsComplianceSummariesByResourceType :: Lens' GetComplianceSummaryByResourceTypeResponse [ComplianceSummaryByResourceType]
-gcsbrtrrsComplianceSummariesByResourceType = lens _gcsbrtrrsComplianceSummariesByResourceType (\s a -> s {_gcsbrtrrsComplianceSummariesByResourceType = a}) . _Default . _Coerce
+-- | The number of resources that are compliant and the number that are
+-- noncompliant. If one or more resource types were provided with the
+-- request, the numbers are returned for each resource type. The maximum
+-- number returned is 100.
+getComplianceSummaryByResourceTypeResponse_complianceSummariesByResourceType :: Lens.Lens' GetComplianceSummaryByResourceTypeResponse (Prelude.Maybe [ComplianceSummaryByResourceType])
+getComplianceSummaryByResourceTypeResponse_complianceSummariesByResourceType = Lens.lens (\GetComplianceSummaryByResourceTypeResponse' {complianceSummariesByResourceType} -> complianceSummariesByResourceType) (\s@GetComplianceSummaryByResourceTypeResponse' {} a -> s {complianceSummariesByResourceType = a} :: GetComplianceSummaryByResourceTypeResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcsbrtrrsResponseStatus :: Lens' GetComplianceSummaryByResourceTypeResponse Int
-gcsbrtrrsResponseStatus = lens _gcsbrtrrsResponseStatus (\s a -> s {_gcsbrtrrsResponseStatus = a})
+-- | The response's http status code.
+getComplianceSummaryByResourceTypeResponse_httpStatus :: Lens.Lens' GetComplianceSummaryByResourceTypeResponse Prelude.Int
+getComplianceSummaryByResourceTypeResponse_httpStatus = Lens.lens (\GetComplianceSummaryByResourceTypeResponse' {httpStatus} -> httpStatus) (\s@GetComplianceSummaryByResourceTypeResponse' {} a -> s {httpStatus = a} :: GetComplianceSummaryByResourceTypeResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetComplianceSummaryByResourceTypeResponse

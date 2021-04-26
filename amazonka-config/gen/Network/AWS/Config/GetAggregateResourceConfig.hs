@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns configuration item that is aggregated for your specific resource in a specific source account and region.
+-- Returns configuration item that is aggregated for your specific resource
+-- in a specific source account and region.
 module Network.AWS.Config.GetAggregateResourceConfig
   ( -- * Creating a Request
-    getAggregateResourceConfig,
-    GetAggregateResourceConfig,
+    GetAggregateResourceConfig (..),
+    newGetAggregateResourceConfig,
 
     -- * Request Lenses
-    garcConfigurationAggregatorName,
-    garcResourceIdentifier,
+    getAggregateResourceConfig_configurationAggregatorName,
+    getAggregateResourceConfig_resourceIdentifier,
 
     -- * Destructuring the Response
-    getAggregateResourceConfigResponse,
-    GetAggregateResourceConfigResponse,
+    GetAggregateResourceConfigResponse (..),
+    newGetAggregateResourceConfigResponse,
 
     -- * Response Lenses
-    garcrrsConfigurationItem,
-    garcrrsResponseStatus,
+    getAggregateResourceConfigResponse_configurationItem,
+    getAggregateResourceConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.ConfigurationItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAggregateResourceConfig' smart constructor.
+-- | /See:/ 'newGetAggregateResourceConfig' smart constructor.
 data GetAggregateResourceConfig = GetAggregateResourceConfig'
-  { _garcConfigurationAggregatorName ::
-      !Text,
-    _garcResourceIdentifier ::
-      !AggregateResourceIdentifier
+  { -- | The name of the configuration aggregator.
+    configurationAggregatorName :: Prelude.Text,
+    -- | An object that identifies aggregate resource.
+    resourceIdentifier :: AggregateResourceIdentifier
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAggregateResourceConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAggregateResourceConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'garcConfigurationAggregatorName' - The name of the configuration aggregator.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'garcResourceIdentifier' - An object that identifies aggregate resource.
-getAggregateResourceConfig ::
-  -- | 'garcConfigurationAggregatorName'
-  Text ->
-  -- | 'garcResourceIdentifier'
+-- 'configurationAggregatorName', 'getAggregateResourceConfig_configurationAggregatorName' - The name of the configuration aggregator.
+--
+-- 'resourceIdentifier', 'getAggregateResourceConfig_resourceIdentifier' - An object that identifies aggregate resource.
+newGetAggregateResourceConfig ::
+  -- | 'configurationAggregatorName'
+  Prelude.Text ->
+  -- | 'resourceIdentifier'
   AggregateResourceIdentifier ->
   GetAggregateResourceConfig
-getAggregateResourceConfig
+newGetAggregateResourceConfig
   pConfigurationAggregatorName_
   pResourceIdentifier_ =
     GetAggregateResourceConfig'
-      { _garcConfigurationAggregatorName =
+      { configurationAggregatorName =
           pConfigurationAggregatorName_,
-        _garcResourceIdentifier = pResourceIdentifier_
+        resourceIdentifier = pResourceIdentifier_
       }
 
 -- | The name of the configuration aggregator.
-garcConfigurationAggregatorName :: Lens' GetAggregateResourceConfig Text
-garcConfigurationAggregatorName = lens _garcConfigurationAggregatorName (\s a -> s {_garcConfigurationAggregatorName = a})
+getAggregateResourceConfig_configurationAggregatorName :: Lens.Lens' GetAggregateResourceConfig Prelude.Text
+getAggregateResourceConfig_configurationAggregatorName = Lens.lens (\GetAggregateResourceConfig' {configurationAggregatorName} -> configurationAggregatorName) (\s@GetAggregateResourceConfig' {} a -> s {configurationAggregatorName = a} :: GetAggregateResourceConfig)
 
 -- | An object that identifies aggregate resource.
-garcResourceIdentifier :: Lens' GetAggregateResourceConfig AggregateResourceIdentifier
-garcResourceIdentifier = lens _garcResourceIdentifier (\s a -> s {_garcResourceIdentifier = a})
+getAggregateResourceConfig_resourceIdentifier :: Lens.Lens' GetAggregateResourceConfig AggregateResourceIdentifier
+getAggregateResourceConfig_resourceIdentifier = Lens.lens (\GetAggregateResourceConfig' {resourceIdentifier} -> resourceIdentifier) (\s@GetAggregateResourceConfig' {} a -> s {resourceIdentifier = a} :: GetAggregateResourceConfig)
 
-instance AWSRequest GetAggregateResourceConfig where
+instance
+  Prelude.AWSRequest
+    GetAggregateResourceConfig
+  where
   type
     Rs GetAggregateResourceConfig =
       GetAggregateResourceConfigResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAggregateResourceConfigResponse'
-            <$> (x .?> "ConfigurationItem") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ConfigurationItem")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAggregateResourceConfig
+instance Prelude.Hashable GetAggregateResourceConfig
 
-instance NFData GetAggregateResourceConfig
+instance Prelude.NFData GetAggregateResourceConfig
 
-instance ToHeaders GetAggregateResourceConfig where
+instance Prelude.ToHeaders GetAggregateResourceConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.GetAggregateResourceConfig" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.GetAggregateResourceConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAggregateResourceConfig where
+instance Prelude.ToJSON GetAggregateResourceConfig where
   toJSON GetAggregateResourceConfig' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "ConfigurationAggregatorName"
-                  .= _garcConfigurationAggregatorName
+                  Prelude..= configurationAggregatorName
               ),
-            Just
-              ("ResourceIdentifier" .= _garcResourceIdentifier)
+            Prelude.Just
+              ( "ResourceIdentifier"
+                  Prelude..= resourceIdentifier
+              )
           ]
       )
 
-instance ToPath GetAggregateResourceConfig where
-  toPath = const "/"
+instance Prelude.ToPath GetAggregateResourceConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAggregateResourceConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAggregateResourceConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAggregateResourceConfigResponse' smart constructor.
+-- | /See:/ 'newGetAggregateResourceConfigResponse' smart constructor.
 data GetAggregateResourceConfigResponse = GetAggregateResourceConfigResponse'
-  { _garcrrsConfigurationItem ::
-      !( Maybe
-           ConfigurationItem
-       ),
-    _garcrrsResponseStatus ::
-      !Int
+  { -- | Returns a @ConfigurationItem@ object.
+    configurationItem :: Prelude.Maybe ConfigurationItem,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAggregateResourceConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAggregateResourceConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'garcrrsConfigurationItem' - Returns a @ConfigurationItem@ object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'garcrrsResponseStatus' - -- | The response status code.
-getAggregateResourceConfigResponse ::
-  -- | 'garcrrsResponseStatus'
-  Int ->
+-- 'configurationItem', 'getAggregateResourceConfigResponse_configurationItem' - Returns a @ConfigurationItem@ object.
+--
+-- 'httpStatus', 'getAggregateResourceConfigResponse_httpStatus' - The response's http status code.
+newGetAggregateResourceConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAggregateResourceConfigResponse
-getAggregateResourceConfigResponse pResponseStatus_ =
+newGetAggregateResourceConfigResponse pHttpStatus_ =
   GetAggregateResourceConfigResponse'
-    { _garcrrsConfigurationItem =
-        Nothing,
-      _garcrrsResponseStatus =
-        pResponseStatus_
+    { configurationItem =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Returns a @ConfigurationItem@ object.
-garcrrsConfigurationItem :: Lens' GetAggregateResourceConfigResponse (Maybe ConfigurationItem)
-garcrrsConfigurationItem = lens _garcrrsConfigurationItem (\s a -> s {_garcrrsConfigurationItem = a})
+getAggregateResourceConfigResponse_configurationItem :: Lens.Lens' GetAggregateResourceConfigResponse (Prelude.Maybe ConfigurationItem)
+getAggregateResourceConfigResponse_configurationItem = Lens.lens (\GetAggregateResourceConfigResponse' {configurationItem} -> configurationItem) (\s@GetAggregateResourceConfigResponse' {} a -> s {configurationItem = a} :: GetAggregateResourceConfigResponse)
 
--- | -- | The response status code.
-garcrrsResponseStatus :: Lens' GetAggregateResourceConfigResponse Int
-garcrrsResponseStatus = lens _garcrrsResponseStatus (\s a -> s {_garcrrsResponseStatus = a})
+-- | The response's http status code.
+getAggregateResourceConfigResponse_httpStatus :: Lens.Lens' GetAggregateResourceConfigResponse Prelude.Int
+getAggregateResourceConfigResponse_httpStatus = Lens.lens (\GetAggregateResourceConfigResponse' {httpStatus} -> httpStatus) (\s@GetAggregateResourceConfigResponse' {} a -> s {httpStatus = a} :: GetAggregateResourceConfigResponse)
 
-instance NFData GetAggregateResourceConfigResponse
+instance
+  Prelude.NFData
+    GetAggregateResourceConfigResponse

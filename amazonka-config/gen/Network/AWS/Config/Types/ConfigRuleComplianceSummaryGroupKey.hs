@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Config.Types.ConfigRuleComplianceSummaryGroupKey
   ( ConfigRuleComplianceSummaryGroupKey
       ( ..,
-        CRCSGKAWSRegion,
-        CRCSGKAccountId
+        ConfigRuleComplianceSummaryGroupKeyACCOUNTID,
+        ConfigRuleComplianceSummaryGroupKeyAWSREGION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConfigRuleComplianceSummaryGroupKey
-  = ConfigRuleComplianceSummaryGroupKey'
-      ( CI
-          Text
-      )
+newtype ConfigRuleComplianceSummaryGroupKey = ConfigRuleComplianceSummaryGroupKey'
+  { fromConfigRuleComplianceSummaryGroupKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CRCSGKAWSRegion :: ConfigRuleComplianceSummaryGroupKey
-pattern CRCSGKAWSRegion = ConfigRuleComplianceSummaryGroupKey' "AWS_REGION"
+pattern ConfigRuleComplianceSummaryGroupKeyACCOUNTID :: ConfigRuleComplianceSummaryGroupKey
+pattern ConfigRuleComplianceSummaryGroupKeyACCOUNTID = ConfigRuleComplianceSummaryGroupKey' "ACCOUNT_ID"
 
-pattern CRCSGKAccountId :: ConfigRuleComplianceSummaryGroupKey
-pattern CRCSGKAccountId = ConfigRuleComplianceSummaryGroupKey' "ACCOUNT_ID"
+pattern ConfigRuleComplianceSummaryGroupKeyAWSREGION :: ConfigRuleComplianceSummaryGroupKey
+pattern ConfigRuleComplianceSummaryGroupKeyAWSREGION = ConfigRuleComplianceSummaryGroupKey' "AWS_REGION"
 
 {-# COMPLETE
-  CRCSGKAWSRegion,
-  CRCSGKAccountId,
+  ConfigRuleComplianceSummaryGroupKeyACCOUNTID,
+  ConfigRuleComplianceSummaryGroupKeyAWSREGION,
   ConfigRuleComplianceSummaryGroupKey'
   #-}
 
-instance FromText ConfigRuleComplianceSummaryGroupKey where
-  parser = (ConfigRuleComplianceSummaryGroupKey' . mk) <$> takeText
+instance Prelude.FromText ConfigRuleComplianceSummaryGroupKey where
+  parser = ConfigRuleComplianceSummaryGroupKey' Prelude.<$> Prelude.takeText
 
-instance ToText ConfigRuleComplianceSummaryGroupKey where
-  toText (ConfigRuleComplianceSummaryGroupKey' ci) = original ci
+instance Prelude.ToText ConfigRuleComplianceSummaryGroupKey where
+  toText (ConfigRuleComplianceSummaryGroupKey' x) = x
 
-instance Hashable ConfigRuleComplianceSummaryGroupKey
+instance Prelude.Hashable ConfigRuleComplianceSummaryGroupKey
 
-instance NFData ConfigRuleComplianceSummaryGroupKey
+instance Prelude.NFData ConfigRuleComplianceSummaryGroupKey
 
-instance ToByteString ConfigRuleComplianceSummaryGroupKey
+instance Prelude.ToByteString ConfigRuleComplianceSummaryGroupKey
 
-instance ToQuery ConfigRuleComplianceSummaryGroupKey
+instance Prelude.ToQuery ConfigRuleComplianceSummaryGroupKey
 
-instance ToHeader ConfigRuleComplianceSummaryGroupKey
+instance Prelude.ToHeader ConfigRuleComplianceSummaryGroupKey
 
-instance ToJSON ConfigRuleComplianceSummaryGroupKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConfigRuleComplianceSummaryGroupKey where
+  toJSON = Prelude.toJSONText

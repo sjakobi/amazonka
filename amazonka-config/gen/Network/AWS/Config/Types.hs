@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types
   ( -- * Service Configuration
-    config,
+    defaultService,
 
     -- * Errors
     _NoSuchRetentionConfigurationException,
@@ -47,7 +50,7 @@ module Network.AWS.Config.Types
     _NoSuchDeliveryChannelException,
     _ResourceInUseException,
     _LimitExceededException,
-    _InvalidS3KMSKeyARNException,
+    _InvalidS3KmsKeyArnException,
     _NoSuchConfigurationRecorderException,
     _InsufficientDeliveryPolicyException,
     _MaxNumberOfOrganizationConfigRulesExceededException,
@@ -148,682 +151,331 @@ module Network.AWS.Config.Types
 
     -- * AccountAggregationSource
     AccountAggregationSource (..),
-    accountAggregationSource,
-    aasAllAWSRegions,
-    aasAWSRegions,
-    aasAccountIds,
+    newAccountAggregationSource,
 
     -- * AggregateComplianceByConfigRule
     AggregateComplianceByConfigRule (..),
-    aggregateComplianceByConfigRule,
-    acbcrAccountId,
-    acbcrConfigRuleName,
-    acbcrCompliance,
-    acbcrAWSRegion,
+    newAggregateComplianceByConfigRule,
 
     -- * AggregateComplianceCount
     AggregateComplianceCount (..),
-    aggregateComplianceCount,
-    accComplianceSummary,
-    accGroupName,
+    newAggregateComplianceCount,
 
     -- * AggregateEvaluationResult
     AggregateEvaluationResult (..),
-    aggregateEvaluationResult,
-    aerAnnotation,
-    aerEvaluationResultIdentifier,
-    aerAccountId,
-    aerResultRecordedTime,
-    aerComplianceType,
-    aerConfigRuleInvokedTime,
-    aerAWSRegion,
+    newAggregateEvaluationResult,
 
     -- * AggregateResourceIdentifier
     AggregateResourceIdentifier (..),
-    aggregateResourceIdentifier,
-    ariResourceName,
-    ariSourceAccountId,
-    ariSourceRegion,
-    ariResourceId,
-    ariResourceType,
+    newAggregateResourceIdentifier,
 
     -- * AggregatedSourceStatus
     AggregatedSourceStatus (..),
-    aggregatedSourceStatus,
-    assLastUpdateStatus,
-    assLastErrorMessage,
-    assLastUpdateTime,
-    assSourceId,
-    assLastErrorCode,
-    assAWSRegion,
-    assSourceType,
+    newAggregatedSourceStatus,
 
     -- * AggregationAuthorization
     AggregationAuthorization (..),
-    aggregationAuthorization,
-    aaCreationTime,
-    aaAuthorizedAccountId,
-    aaAuthorizedAWSRegion,
-    aaAggregationAuthorizationARN,
+    newAggregationAuthorization,
 
     -- * BaseConfigurationItem
     BaseConfigurationItem (..),
-    baseConfigurationItem,
-    bciResourceId,
-    bciAccountId,
-    bciConfiguration,
-    bciArn,
-    bciVersion,
-    bciConfigurationStateId,
-    bciResourceType,
-    bciSupplementaryConfiguration,
-    bciAvailabilityZone,
-    bciConfigurationItemCaptureTime,
-    bciConfigurationItemStatus,
-    bciResourceCreationTime,
-    bciAwsRegion,
-    bciResourceName,
+    newBaseConfigurationItem,
 
     -- * Compliance
     Compliance (..),
-    compliance,
-    cComplianceType,
-    cComplianceContributorCount,
+    newCompliance,
 
     -- * ComplianceByConfigRule
     ComplianceByConfigRule (..),
-    complianceByConfigRule,
-    cbcrConfigRuleName,
-    cbcrCompliance,
+    newComplianceByConfigRule,
 
     -- * ComplianceByResource
     ComplianceByResource (..),
-    complianceByResource,
-    cbrResourceId,
-    cbrResourceType,
-    cbrCompliance,
+    newComplianceByResource,
 
     -- * ComplianceContributorCount
     ComplianceContributorCount (..),
-    complianceContributorCount,
-    cccCapExceeded,
-    cccCappedCount,
+    newComplianceContributorCount,
 
     -- * ComplianceSummary
     ComplianceSummary (..),
-    complianceSummary,
-    csComplianceSummaryTimestamp,
-    csNonCompliantResourceCount,
-    csCompliantResourceCount,
+    newComplianceSummary,
 
     -- * ComplianceSummaryByResourceType
     ComplianceSummaryByResourceType (..),
-    complianceSummaryByResourceType,
-    csbrtComplianceSummary,
-    csbrtResourceType,
+    newComplianceSummaryByResourceType,
 
     -- * ConfigExportDeliveryInfo
     ConfigExportDeliveryInfo (..),
-    configExportDeliveryInfo,
-    cediLastErrorMessage,
-    cediNextDeliveryTime,
-    cediLastSuccessfulTime,
-    cediLastErrorCode,
-    cediLastStatus,
-    cediLastAttemptTime,
+    newConfigExportDeliveryInfo,
 
     -- * ConfigRule
     ConfigRule (..),
-    configRule,
-    crConfigRuleId,
-    crConfigRuleARN,
-    crMaximumExecutionFrequency,
-    crConfigRuleName,
-    crConfigRuleState,
-    crScope,
-    crInputParameters,
-    crDescription,
-    crCreatedBy,
-    crSource,
+    newConfigRule,
 
     -- * ConfigRuleComplianceFilters
     ConfigRuleComplianceFilters (..),
-    configRuleComplianceFilters,
-    crcfAccountId,
-    crcfConfigRuleName,
-    crcfComplianceType,
-    crcfAWSRegion,
+    newConfigRuleComplianceFilters,
 
     -- * ConfigRuleComplianceSummaryFilters
     ConfigRuleComplianceSummaryFilters (..),
-    configRuleComplianceSummaryFilters,
-    crcsfAccountId,
-    crcsfAWSRegion,
+    newConfigRuleComplianceSummaryFilters,
 
     -- * ConfigRuleEvaluationStatus
     ConfigRuleEvaluationStatus (..),
-    configRuleEvaluationStatus,
-    cresLastErrorMessage,
-    cresConfigRuleId,
-    cresConfigRuleARN,
-    cresConfigRuleName,
-    cresFirstEvaluationStarted,
-    cresLastFailedEvaluationTime,
-    cresFirstActivatedTime,
-    cresLastErrorCode,
-    cresLastFailedInvocationTime,
-    cresLastSuccessfulInvocationTime,
-    cresLastDeactivatedTime,
-    cresLastSuccessfulEvaluationTime,
+    newConfigRuleEvaluationStatus,
 
     -- * ConfigSnapshotDeliveryProperties
     ConfigSnapshotDeliveryProperties (..),
-    configSnapshotDeliveryProperties,
-    csdpDeliveryFrequency,
+    newConfigSnapshotDeliveryProperties,
 
     -- * ConfigStreamDeliveryInfo
     ConfigStreamDeliveryInfo (..),
-    configStreamDeliveryInfo,
-    csdiLastErrorMessage,
-    csdiLastErrorCode,
-    csdiLastStatus,
-    csdiLastStatusChangeTime,
+    newConfigStreamDeliveryInfo,
 
     -- * ConfigurationAggregator
     ConfigurationAggregator (..),
-    configurationAggregator,
-    caCreationTime,
-    caConfigurationAggregatorARN,
-    caConfigurationAggregatorName,
-    caAccountAggregationSources,
-    caCreatedBy,
-    caLastUpdatedTime,
-    caOrganizationAggregationSource,
+    newConfigurationAggregator,
 
     -- * ConfigurationItem
     ConfigurationItem (..),
-    configurationItem,
-    ciRelationships,
-    ciResourceId,
-    ciAccountId,
-    ciRelatedEvents,
-    ciConfiguration,
-    ciArn,
-    ciVersion,
-    ciConfigurationStateId,
-    ciResourceType,
-    ciSupplementaryConfiguration,
-    ciAvailabilityZone,
-    ciConfigurationItemCaptureTime,
-    ciConfigurationItemStatus,
-    ciTags,
-    ciResourceCreationTime,
-    ciConfigurationItemMD5Hash,
-    ciAwsRegion,
-    ciResourceName,
+    newConfigurationItem,
 
     -- * ConfigurationRecorder
     ConfigurationRecorder (..),
-    configurationRecorder,
-    crRoleARN,
-    crName,
-    crRecordingGroup,
+    newConfigurationRecorder,
 
     -- * ConfigurationRecorderStatus
     ConfigurationRecorderStatus (..),
-    configurationRecorderStatus,
-    crsLastStopTime,
-    crsLastStartTime,
-    crsLastErrorMessage,
-    crsRecording,
-    crsName,
-    crsLastErrorCode,
-    crsLastStatus,
-    crsLastStatusChangeTime,
+    newConfigurationRecorderStatus,
 
     -- * ConformancePackComplianceFilters
     ConformancePackComplianceFilters (..),
-    conformancePackComplianceFilters,
-    cpcfComplianceType,
-    cpcfConfigRuleNames,
+    newConformancePackComplianceFilters,
 
     -- * ConformancePackComplianceSummary
     ConformancePackComplianceSummary (..),
-    conformancePackComplianceSummary,
-    cpcsConformancePackName,
-    cpcsConformancePackComplianceStatus,
+    newConformancePackComplianceSummary,
 
     -- * ConformancePackDetail
     ConformancePackDetail (..),
-    conformancePackDetail,
-    cpdLastUpdateRequestedTime,
-    cpdDeliveryS3Bucket,
-    cpdDeliveryS3KeyPrefix,
-    cpdCreatedBy,
-    cpdConformancePackInputParameters,
-    cpdConformancePackName,
-    cpdConformancePackARN,
-    cpdConformancePackId,
+    newConformancePackDetail,
 
     -- * ConformancePackEvaluationFilters
     ConformancePackEvaluationFilters (..),
-    conformancePackEvaluationFilters,
-    cpefComplianceType,
-    cpefResourceType,
-    cpefResourceIds,
-    cpefConfigRuleNames,
+    newConformancePackEvaluationFilters,
 
     -- * ConformancePackEvaluationResult
     ConformancePackEvaluationResult (..),
-    conformancePackEvaluationResult,
-    cperAnnotation,
-    cperComplianceType,
-    cperEvaluationResultIdentifier,
-    cperConfigRuleInvokedTime,
-    cperResultRecordedTime,
+    newConformancePackEvaluationResult,
 
     -- * ConformancePackInputParameter
     ConformancePackInputParameter (..),
-    conformancePackInputParameter,
-    cpipParameterName,
-    cpipParameterValue,
+    newConformancePackInputParameter,
 
     -- * ConformancePackRuleCompliance
     ConformancePackRuleCompliance (..),
-    conformancePackRuleCompliance,
-    cprcConfigRuleName,
-    cprcComplianceType,
+    newConformancePackRuleCompliance,
 
     -- * ConformancePackStatusDetail
     ConformancePackStatusDetail (..),
-    conformancePackStatusDetail,
-    cpsdConformancePackStatusReason,
-    cpsdLastUpdateCompletedTime,
-    cpsdConformancePackName,
-    cpsdConformancePackId,
-    cpsdConformancePackARN,
-    cpsdConformancePackState,
-    cpsdStackARN,
-    cpsdLastUpdateRequestedTime,
+    newConformancePackStatusDetail,
 
     -- * DeliveryChannel
     DeliveryChannel (..),
-    deliveryChannel,
-    dcS3KMSKeyARN,
-    dcName,
-    dcS3KeyPrefix,
-    dcS3BucketName,
-    dcConfigSnapshotDeliveryProperties,
-    dcSnsTopicARN,
+    newDeliveryChannel,
 
     -- * DeliveryChannelStatus
     DeliveryChannelStatus (..),
-    deliveryChannelStatus,
-    dcsConfigSnapshotDeliveryInfo,
-    dcsConfigStreamDeliveryInfo,
-    dcsName,
-    dcsConfigHistoryDeliveryInfo,
+    newDeliveryChannelStatus,
 
     -- * Evaluation
     Evaluation (..),
-    evaluation,
-    eAnnotation,
-    eComplianceResourceType,
-    eComplianceResourceId,
-    eComplianceType,
-    eOrderingTimestamp,
+    newEvaluation,
 
     -- * EvaluationResult
     EvaluationResult (..),
-    evaluationResult,
-    erAnnotation,
-    erEvaluationResultIdentifier,
-    erResultRecordedTime,
-    erComplianceType,
-    erConfigRuleInvokedTime,
-    erResultToken,
+    newEvaluationResult,
 
     -- * EvaluationResultIdentifier
     EvaluationResultIdentifier (..),
-    evaluationResultIdentifier,
-    eriEvaluationResultQualifier,
-    eriOrderingTimestamp,
+    newEvaluationResultIdentifier,
 
     -- * EvaluationResultQualifier
     EvaluationResultQualifier (..),
-    evaluationResultQualifier,
-    erqResourceId,
-    erqConfigRuleName,
-    erqResourceType,
+    newEvaluationResultQualifier,
 
     -- * ExecutionControls
     ExecutionControls (..),
-    executionControls,
-    ecSsmControls,
+    newExecutionControls,
 
     -- * ExternalEvaluation
     ExternalEvaluation (..),
-    externalEvaluation,
-    eeAnnotation,
-    eeComplianceResourceType,
-    eeComplianceResourceId,
-    eeComplianceType,
-    eeOrderingTimestamp,
+    newExternalEvaluation,
 
     -- * FailedDeleteRemediationExceptionsBatch
     FailedDeleteRemediationExceptionsBatch (..),
-    failedDeleteRemediationExceptionsBatch,
-    fdrebFailureMessage,
-    fdrebFailedItems,
+    newFailedDeleteRemediationExceptionsBatch,
 
     -- * FailedRemediationBatch
     FailedRemediationBatch (..),
-    failedRemediationBatch,
-    frbFailureMessage,
-    frbFailedItems,
+    newFailedRemediationBatch,
 
     -- * FailedRemediationExceptionBatch
     FailedRemediationExceptionBatch (..),
-    failedRemediationExceptionBatch,
-    frebFailureMessage,
-    frebFailedItems,
+    newFailedRemediationExceptionBatch,
 
     -- * FieldInfo
     FieldInfo (..),
-    fieldInfo,
-    fiName,
+    newFieldInfo,
 
     -- * GroupedResourceCount
     GroupedResourceCount (..),
-    groupedResourceCount,
-    grcGroupName,
-    grcResourceCount,
+    newGroupedResourceCount,
 
     -- * MemberAccountStatus
     MemberAccountStatus (..),
-    memberAccountStatus,
-    masLastUpdateTime,
-    masErrorMessage,
-    masErrorCode,
-    masAccountId,
-    masConfigRuleName,
-    masMemberAccountRuleStatus,
+    newMemberAccountStatus,
 
     -- * OrganizationAggregationSource
     OrganizationAggregationSource (..),
-    organizationAggregationSource,
-    oasAllAWSRegions,
-    oasAWSRegions,
-    oasRoleARN,
+    newOrganizationAggregationSource,
 
     -- * OrganizationConfigRule
     OrganizationConfigRule (..),
-    organizationConfigRule,
-    ocrLastUpdateTime,
-    ocrOrganizationManagedRuleMetadata,
-    ocrOrganizationCustomRuleMetadata,
-    ocrExcludedAccounts,
-    ocrOrganizationConfigRuleName,
-    ocrOrganizationConfigRuleARN,
+    newOrganizationConfigRule,
 
     -- * OrganizationConfigRuleStatus
     OrganizationConfigRuleStatus (..),
-    organizationConfigRuleStatus,
-    ocrsLastUpdateTime,
-    ocrsErrorMessage,
-    ocrsErrorCode,
-    ocrsOrganizationConfigRuleName,
-    ocrsOrganizationRuleStatus,
+    newOrganizationConfigRuleStatus,
 
     -- * OrganizationConformancePack
     OrganizationConformancePack (..),
-    organizationConformancePack,
-    ocpDeliveryS3Bucket,
-    ocpDeliveryS3KeyPrefix,
-    ocpExcludedAccounts,
-    ocpConformancePackInputParameters,
-    ocpOrganizationConformancePackName,
-    ocpOrganizationConformancePackARN,
-    ocpLastUpdateTime,
+    newOrganizationConformancePack,
 
     -- * OrganizationConformancePackDetailedStatus
     OrganizationConformancePackDetailedStatus (..),
-    organizationConformancePackDetailedStatus,
-    ocpdsLastUpdateTime,
-    ocpdsErrorMessage,
-    ocpdsErrorCode,
-    ocpdsAccountId,
-    ocpdsConformancePackName,
-    ocpdsStatus,
+    newOrganizationConformancePackDetailedStatus,
 
     -- * OrganizationConformancePackStatus
     OrganizationConformancePackStatus (..),
-    organizationConformancePackStatus,
-    ocpsLastUpdateTime,
-    ocpsErrorMessage,
-    ocpsErrorCode,
-    ocpsOrganizationConformancePackName,
-    ocpsStatus,
+    newOrganizationConformancePackStatus,
 
     -- * OrganizationCustomRuleMetadata
     OrganizationCustomRuleMetadata (..),
-    organizationCustomRuleMetadata,
-    ocrmTagKeyScope,
-    ocrmMaximumExecutionFrequency,
-    ocrmResourceIdScope,
-    ocrmInputParameters,
-    ocrmDescription,
-    ocrmResourceTypesScope,
-    ocrmTagValueScope,
-    ocrmLambdaFunctionARN,
-    ocrmOrganizationConfigRuleTriggerTypes,
+    newOrganizationCustomRuleMetadata,
 
     -- * OrganizationManagedRuleMetadata
     OrganizationManagedRuleMetadata (..),
-    organizationManagedRuleMetadata,
-    omrmTagKeyScope,
-    omrmMaximumExecutionFrequency,
-    omrmResourceIdScope,
-    omrmInputParameters,
-    omrmDescription,
-    omrmResourceTypesScope,
-    omrmTagValueScope,
-    omrmRuleIdentifier,
+    newOrganizationManagedRuleMetadata,
 
     -- * OrganizationResourceDetailedStatusFilters
     OrganizationResourceDetailedStatusFilters (..),
-    organizationResourceDetailedStatusFilters,
-    ordsfStatus,
-    ordsfAccountId,
+    newOrganizationResourceDetailedStatusFilters,
 
     -- * PendingAggregationRequest
     PendingAggregationRequest (..),
-    pendingAggregationRequest,
-    parRequesterAWSRegion,
-    parRequesterAccountId,
+    newPendingAggregationRequest,
 
     -- * QueryInfo
     QueryInfo (..),
-    queryInfo,
-    qiSelectFields,
+    newQueryInfo,
 
     -- * RecordingGroup
     RecordingGroup (..),
-    recordingGroup,
-    rgAllSupported,
-    rgResourceTypes,
-    rgIncludeGlobalResourceTypes,
+    newRecordingGroup,
 
     -- * Relationship
     Relationship (..),
-    relationship,
-    rResourceId,
-    rResourceType,
-    rRelationshipName,
-    rResourceName,
+    newRelationship,
 
     -- * RemediationConfiguration
     RemediationConfiguration (..),
-    remediationConfiguration,
-    rcRetryAttemptSeconds,
-    rcExecutionControls,
-    rcTargetVersion,
-    rcARN,
-    rcAutomatic,
-    rcResourceType,
-    rcCreatedByService,
-    rcMaximumAutomaticAttempts,
-    rcParameters,
-    rcConfigRuleName,
-    rcTargetType,
-    rcTargetId,
+    newRemediationConfiguration,
 
     -- * RemediationException
     RemediationException (..),
-    remediationException,
-    reExpirationTime,
-    reMessage,
-    reConfigRuleName,
-    reResourceType,
-    reResourceId,
+    newRemediationException,
 
     -- * RemediationExceptionResourceKey
     RemediationExceptionResourceKey (..),
-    remediationExceptionResourceKey,
-    rerkResourceId,
-    rerkResourceType,
+    newRemediationExceptionResourceKey,
 
     -- * RemediationExecutionStatus
     RemediationExecutionStatus (..),
-    remediationExecutionStatus,
-    resInvocationTime,
-    resResourceKey,
-    resState,
-    resStepDetails,
-    resLastUpdatedTime,
+    newRemediationExecutionStatus,
 
     -- * RemediationExecutionStep
     RemediationExecutionStep (..),
-    remediationExecutionStep,
-    rStartTime,
-    rStopTime,
-    rState,
-    rName,
-    rErrorMessage,
+    newRemediationExecutionStep,
 
     -- * RemediationParameterValue
     RemediationParameterValue (..),
-    remediationParameterValue,
-    rpvResourceValue,
-    rpvStaticValue,
+    newRemediationParameterValue,
 
     -- * ResourceCount
     ResourceCount (..),
-    resourceCount,
-    resResourceType,
-    resCount,
+    newResourceCount,
 
     -- * ResourceCountFilters
     ResourceCountFilters (..),
-    resourceCountFilters,
-    rcfAccountId,
-    rcfResourceType,
-    rcfRegion,
+    newResourceCountFilters,
 
     -- * ResourceFilters
     ResourceFilters (..),
-    resourceFilters,
-    rfResourceId,
-    rfAccountId,
-    rfRegion,
-    rfResourceName,
+    newResourceFilters,
 
     -- * ResourceIdentifier
     ResourceIdentifier (..),
-    resourceIdentifier,
-    riResourceId,
-    riResourceType,
-    riResourceDeletionTime,
-    riResourceName,
+    newResourceIdentifier,
 
     -- * ResourceKey
     ResourceKey (..),
-    resourceKey,
-    rkResourceType,
-    rkResourceId,
+    newResourceKey,
 
     -- * ResourceValue
     ResourceValue (..),
-    resourceValue,
-    rvValue,
+    newResourceValue,
 
     -- * RetentionConfiguration
     RetentionConfiguration (..),
-    retentionConfiguration,
-    rcName,
-    rcRetentionPeriodInDays,
+    newRetentionConfiguration,
 
     -- * Scope
     Scope (..),
-    scope,
-    sTagValue,
-    sTagKey,
-    sComplianceResourceId,
-    sComplianceResourceTypes,
+    newScope,
 
     -- * Source
     Source (..),
-    source,
-    sSourceDetails,
-    sOwner,
-    sSourceIdentifier,
+    newSource,
 
     -- * SourceDetail
     SourceDetail (..),
-    sourceDetail,
-    sdEventSource,
-    sdMaximumExecutionFrequency,
-    sdMessageType,
+    newSourceDetail,
 
     -- * SsmControls
     SsmControls (..),
-    ssmControls,
-    scErrorPercentage,
-    scConcurrentExecutionRatePercentage,
+    newSsmControls,
 
     -- * StaticValue
     StaticValue (..),
-    staticValue,
-    svValues,
+    newStaticValue,
 
     -- * StatusDetailFilters
     StatusDetailFilters (..),
-    statusDetailFilters,
-    sdfAccountId,
-    sdfMemberAccountRuleStatus,
+    newStatusDetailFilters,
 
     -- * StoredQuery
     StoredQuery (..),
-    storedQuery,
-    sqQueryARN,
-    sqQueryId,
-    sqDescription,
-    sqExpression,
-    sqQueryName,
+    newStoredQuery,
 
     -- * StoredQueryMetadata
     StoredQueryMetadata (..),
-    storedQueryMetadata,
-    sqmDescription,
-    sqmQueryId,
-    sqmQueryARN,
-    sqmQueryName,
+    newStoredQueryMetadata,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
   )
 where
 
@@ -935,466 +587,551 @@ import Network.AWS.Config.Types.StatusDetailFilters
 import Network.AWS.Config.Types.StoredQuery
 import Network.AWS.Config.Types.StoredQueryMetadata
 import Network.AWS.Config.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2014-11-12@ of the Amazon Config SDK configuration.
-config :: Service
-config =
-  Service
-    { _svcAbbrev = "Config",
-      _svcSigner = v4,
-      _svcPrefix = "config",
-      _svcVersion = "2014-11-12",
-      _svcEndpoint = defaultEndpoint config,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Config",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Config",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "config",
+      Prelude._svcVersion = "2014-11-12",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "Config",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | You have specified a retention configuration that does not exist.
-_NoSuchRetentionConfigurationException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoSuchRetentionConfigurationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchRetentionConfigurationException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchRetentionConfigurationException"
 
--- | One or more AWS Config rules in the request are invalid. Verify that the rule names are correct and try again.
-_NoSuchConfigRuleException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | One or more AWS Config rules in the request are invalid. Verify that the
+-- rule names are correct and try again.
+_NoSuchConfigRuleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchConfigRuleException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchConfigRuleException"
 
 -- | Organization is no longer available.
-_NoAvailableOrganizationException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoAvailableOrganizationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoAvailableOrganizationException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoAvailableOrganizationException"
 
--- | AWS Config organization conformance pack that you passed in the filter does not exist.
+-- | AWS Config organization conformance pack that you passed in the filter
+-- does not exist.
 --
---
--- For DeleteOrganizationConformancePack, you tried to delete an organization conformance pack that does not exist.
-_NoSuchOrganizationConformancePackException :: AsError a => Getting (First ServiceError) a ServiceError
+-- For DeleteOrganizationConformancePack, you tried to delete an
+-- organization conformance pack that does not exist.
+_NoSuchOrganizationConformancePackException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchOrganizationConformancePackException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchOrganizationConformancePackException"
 
 -- | You specified one or more organization config rules that do not exist.
-_NoSuchOrganizationConfigRuleException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoSuchOrganizationConfigRuleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchOrganizationConfigRuleException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchOrganizationConfigRuleException"
 
 -- | The specified @ResultToken@ is invalid.
-_InvalidResultTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidResultTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidResultTokenException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InvalidResultTokenException"
 
--- | AWS Config throws an exception if the recording group does not contain a valid list of resource types. Invalid values might also be incorrectly formatted.
-_InvalidRecordingGroupException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | AWS Config throws an exception if the recording group does not contain a
+-- valid list of resource types. Invalid values might also be incorrectly
+-- formatted.
+_InvalidRecordingGroupException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRecordingGroupException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRecordingGroupException"
 
 -- | The syntax of the query is incorrect.
-_InvalidExpressionException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidExpressionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidExpressionException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InvalidExpressionException"
 
--- | You have reached the limit of the number of tags you can use. You have more than 50 tags.
-_TooManyTagsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have reached the limit of the number of tags you can use. You have
+-- more than 50 tags.
+_TooManyTagsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyTagsException =
-  _MatchServiceError config "TooManyTagsException"
+  Prelude._MatchServiceError
+    defaultService
+    "TooManyTagsException"
 
 -- | The specified Amazon S3 key prefix is not valid.
-_InvalidS3KeyPrefixException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidS3KeyPrefixException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidS3KeyPrefixException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InvalidS3KeyPrefixException"
 
--- | You have reached the limit of the number of delivery channels you can create.
-_MaxNumberOfDeliveryChannelsExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have reached the limit of the number of delivery channels you can
+-- create.
+_MaxNumberOfDeliveryChannelsExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaxNumberOfDeliveryChannelsExceededException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "MaxNumberOfDeliveryChannelsExceededException"
 
 -- | The specified delivery channel name is not valid.
-_InvalidDeliveryChannelNameException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidDeliveryChannelNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDeliveryChannelNameException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDeliveryChannelNameException"
 
 -- | You have provided a configuration recorder name that is not valid.
-_InvalidConfigurationRecorderNameException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidConfigurationRecorderNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidConfigurationRecorderNameException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InvalidConfigurationRecorderNameException"
 
 -- | There is no configuration recorder running.
-_NoRunningConfigurationRecorderException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoRunningConfigurationRecorderException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoRunningConfigurationRecorderException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoRunningConfigurationRecorderException"
 
 -- | There is no delivery channel available to record configurations.
-_NoAvailableDeliveryChannelException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoAvailableDeliveryChannelException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoAvailableDeliveryChannelException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoAvailableDeliveryChannelException"
 
--- | You cannot delete the delivery channel you specified because the configuration recorder is running.
-_LastDeliveryChannelDeleteFailedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You cannot delete the delivery channel you specified because the
+-- configuration recorder is running.
+_LastDeliveryChannelDeleteFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LastDeliveryChannelDeleteFailedException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "LastDeliveryChannelDeleteFailedException"
 
 -- | You have specified a template that is not valid or supported.
-_ConformancePackTemplateValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConformancePackTemplateValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConformancePackTemplateValidationException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "ConformancePackTemplateValidationException"
 
 -- | The configuration item size is outside the allowable range.
-_OversizedConfigurationItemException :: AsError a => Getting (First ServiceError) a ServiceError
+_OversizedConfigurationItemException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OversizedConfigurationItemException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "OversizedConfigurationItemException"
 
--- | You have reached the limit (6) of the number of conformance packs in an account (6 conformance pack with 25 AWS Config rules per pack).
-_MaxNumberOfConformancePacksExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have reached the limit (6) of the number of conformance packs in an
+-- account (6 conformance pack with 25 AWS Config rules per pack).
+_MaxNumberOfConformancePacksExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaxNumberOfConformancePacksExceededException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "MaxNumberOfConformancePacksExceededException"
 
 -- | You have provided a null or empty role ARN.
-_InvalidRoleException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRoleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRoleException =
-  _MatchServiceError config "InvalidRoleException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidRoleException"
 
--- | The specified next token is invalid. Specify the @nextToken@ string that was returned in the previous response to get the next page of results.
-_InvalidNextTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified next token is invalid. Specify the @nextToken@ string that
+-- was returned in the previous response to get the next page of results.
+_InvalidNextTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidNextTokenException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InvalidNextTokenException"
 
 -- | You have specified a configuration aggregator that does not exist.
-_NoSuchConfigurationAggregatorException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoSuchConfigurationAggregatorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchConfigurationAggregatorException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchConfigurationAggregatorException"
 
 -- | You specified one or more conformance packs that do not exist.
-_NoSuchConformancePackException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoSuchConformancePackException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchConformancePackException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchConformancePackException"
 
--- | For @PutConfigurationAggregator@ API, you can see this exception for the following reasons:
+-- | For @PutConfigurationAggregator@ API, you can see this exception for the
+-- following reasons:
 --
+-- -   No permission to call @EnableAWSServiceAccess@ API
 --
---     * No permission to call @EnableAWSServiceAccess@ API
+-- -   The configuration aggregator cannot be updated because your AWS
+--     Organization management account or the delegated administrator role
+--     changed. Delete this aggregator and create a new one with the
+--     current AWS Organization.
 --
---     * The configuration aggregator cannot be updated because your AWS Organization management account or the delegated administrator role changed. Delete this aggregator and create a new one with the current AWS Organization.
+-- -   The configuration aggregator is associated with a previous AWS
+--     Organization and AWS Config cannot aggregate data with current AWS
+--     Organization. Delete this aggregator and create a new one with the
+--     current AWS Organization.
 --
---     * The configuration aggregator is associated with a previous AWS Organization and AWS Config cannot aggregate data with current AWS Organization. Delete this aggregator and create a new one with the current AWS Organization.
+-- -   You are not a registered delegated administrator for AWS Config with
+--     permissions to call @ListDelegatedAdministrators@ API. Ensure that
+--     the management account registers delagated administrator for AWS
+--     Config service principle name before the delegated administrator
+--     creates an aggregator.
 --
---     * You are not a registered delegated administrator for AWS Config with permissions to call @ListDelegatedAdministrators@ API. Ensure that the management account registers delagated administrator for AWS Config service principle name before the delegated administrator creates an aggregator.
---
---
---
--- For all @OrganizationConfigRule@ and @OrganizationConformancePack@ APIs, AWS Config throws an exception if APIs are called from member accounts. All APIs must be called from organization master account.
-_OrganizationAccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- For all @OrganizationConfigRule@ and @OrganizationConformancePack@ APIs,
+-- AWS Config throws an exception if APIs are called from member accounts.
+-- All APIs must be called from organization master account.
+_OrganizationAccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OrganizationAccessDeniedException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "OrganizationAccessDeniedException"
 
--- | One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
-_InvalidParameterValueException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | One or more of the specified parameters are invalid. Verify that your
+-- parameters are valid and try again.
+_InvalidParameterValueException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterValueException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterValueException"
 
 -- | You specified an AWS Config rule without a remediation configuration.
-_NoSuchRemediationConfigurationException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoSuchRemediationConfigurationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchRemediationConfigurationException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchRemediationConfigurationException"
 
--- | The specified time range is not valid. The earlier time is not chronologically before the later time.
-_InvalidTimeRangeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified time range is not valid. The earlier time is not
+-- chronologically before the later time.
+_InvalidTimeRangeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTimeRangeException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTimeRangeException"
 
 -- | AWS Config rule that you passed in the filter does not exist.
-_NoSuchConfigRuleInConformancePackException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoSuchConfigRuleInConformancePackException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchConfigRuleInConformancePackException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchConfigRuleInConformancePackException"
 
 -- | The requested action is not valid.
 --
+-- For PutStoredQuery, you will see this exception if there are missing
+-- required fields or if the input value fails the validation, or if you
+-- are trying to create more than 300 queries.
 --
--- For PutStoredQuery, you will see this exception if there are missing required fields or if the input value fails the validation, or if you are trying to create more than 300 queries.
---
--- For GetStoredQuery, ListStoredQuery, and DeleteStoredQuery you will see this exception if there are missing required fields or if the input value fails the validation.
-_ValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- For GetStoredQuery, ListStoredQuery, and DeleteStoredQuery you will see
+-- this exception if there are missing required fields or if the input
+-- value fails the validation.
+_ValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ValidationException =
-  _MatchServiceError config "ValidationException"
+  Prelude._MatchServiceError
+    defaultService
+    "ValidationException"
 
 -- | The specified Amazon SNS topic does not exist.
-_InvalidSNSTopicARNException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidSNSTopicARNException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidSNSTopicARNException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InvalidSNSTopicARNException"
 
 -- | You have specified a delivery channel that does not exist.
-_NoSuchDeliveryChannelException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoSuchDeliveryChannelException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchDeliveryChannelException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchDeliveryChannelException"
 
 -- | You see this exception in the following cases:
 --
+-- -   For DeleteConfigRule, AWS Config is deleting this rule. Try your
+--     request again later.
 --
---     * For DeleteConfigRule, AWS Config is deleting this rule. Try your request again later.
+-- -   For DeleteConfigRule, the rule is deleting your evaluation results.
+--     Try your request again later.
 --
---     * For DeleteConfigRule, the rule is deleting your evaluation results. Try your request again later.
+-- -   For DeleteConfigRule, a remediation action is associated with the
+--     rule and AWS Config cannot delete this rule. Delete the remediation
+--     action associated with the rule before deleting the rule and try
+--     your request again later.
 --
---     * For DeleteConfigRule, a remediation action is associated with the rule and AWS Config cannot delete this rule. Delete the remediation action associated with the rule before deleting the rule and try your request again later.
+-- -   For PutConfigOrganizationRule, organization config rule deletion is
+--     in progress. Try your request again later.
 --
---     * For PutConfigOrganizationRule, organization config rule deletion is in progress. Try your request again later.
+-- -   For DeleteOrganizationConfigRule, organization config rule creation
+--     is in progress. Try your request again later.
 --
---     * For DeleteOrganizationConfigRule, organization config rule creation is in progress. Try your request again later.
+-- -   For PutConformancePack and PutOrganizationConformancePack, a
+--     conformance pack creation, update, and deletion is in progress. Try
+--     your request again later.
 --
---     * For PutConformancePack and PutOrganizationConformancePack, a conformance pack creation, update, and deletion is in progress. Try your request again later.
---
---     * For DeleteConformancePack, a conformance pack creation, update, and deletion is in progress. Try your request again later.
-_ResourceInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- -   For DeleteConformancePack, a conformance pack creation, update, and
+--     deletion is in progress. Try your request again later.
+_ResourceInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUseException =
-  _MatchServiceError config "ResourceInUseException"
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceInUseException"
 
--- | For @StartConfigRulesEvaluation@ API, this exception is thrown if an evaluation is in progress or if you call the 'StartConfigRulesEvaluation' API more than once per minute.
+-- | For @StartConfigRulesEvaluation@ API, this exception is thrown if an
+-- evaluation is in progress or if you call the StartConfigRulesEvaluation
+-- API more than once per minute.
 --
---
--- For @PutConfigurationAggregator@ API, this exception is thrown if the number of accounts and aggregators exceeds the limit.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- For @PutConfigurationAggregator@ API, this exception is thrown if the
+-- number of accounts and aggregators exceeds the limit.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError config "LimitExceededException"
+  Prelude._MatchServiceError
+    defaultService
+    "LimitExceededException"
 
 -- | The specified Amazon KMS Key ARN is not valid.
-_InvalidS3KMSKeyARNException :: AsError a => Getting (First ServiceError) a ServiceError
-_InvalidS3KMSKeyARNException =
-  _MatchServiceError
-    config
+_InvalidS3KmsKeyArnException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_InvalidS3KmsKeyArnException =
+  Prelude._MatchServiceError
+    defaultService
     "InvalidS3KmsKeyArnException"
 
 -- | You have specified a configuration recorder that does not exist.
-_NoSuchConfigurationRecorderException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoSuchConfigurationRecorderException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchConfigurationRecorderException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchConfigurationRecorderException"
 
 -- | Your Amazon S3 bucket policy does not permit AWS Config to write to it.
-_InsufficientDeliveryPolicyException :: AsError a => Getting (First ServiceError) a ServiceError
+_InsufficientDeliveryPolicyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientDeliveryPolicyException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientDeliveryPolicyException"
 
--- | You have reached the limit of the number of organization config rules you can create.
-_MaxNumberOfOrganizationConfigRulesExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have reached the limit of the number of organization config rules
+-- you can create.
+_MaxNumberOfOrganizationConfigRulesExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaxNumberOfOrganizationConfigRulesExceededException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "MaxNumberOfOrganizationConfigRulesExceededException"
 
--- | You have reached the limit (6) of the number of organization conformance packs in an account (6 conformance pack with 25 AWS Config rules per pack per account).
-_MaxNumberOfOrganizationConformancePacksExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have reached the limit (6) of the number of organization conformance
+-- packs in an account (6 conformance pack with 25 AWS Config rules per
+-- pack per account).
+_MaxNumberOfOrganizationConformancePacksExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaxNumberOfOrganizationConformancePacksExceededException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "MaxNumberOfOrganizationConformancePacksExceededException"
 
 -- | You have specified a resource that does not exist.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
 -- | The specified limit is outside the allowable range.
-_InvalidLimitException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidLimitException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidLimitException =
-  _MatchServiceError config "InvalidLimitException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidLimitException"
 
 -- | You have specified a template that is not valid or supported.
-_OrganizationConformancePackTemplateValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+_OrganizationConformancePackTemplateValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OrganizationConformancePackTemplateValidationException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "OrganizationConformancePackTemplateValidationException"
 
 -- | You have reached the limit of the number of recorders you can create.
-_MaxNumberOfConfigurationRecordersExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_MaxNumberOfConfigurationRecordersExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaxNumberOfConfigurationRecordersExceededException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "MaxNumberOfConfigurationRecordersExceededException"
 
 -- | You tried to delete a remediation exception that does not exist.
-_NoSuchRemediationExceptionException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoSuchRemediationExceptionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchRemediationExceptionException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchRemediationExceptionException"
 
--- | Two users are trying to modify the same query at the same time. Wait for a moment and try again.
-_ResourceConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Two users are trying to modify the same query at the same time. Wait for
+-- a moment and try again.
+_ResourceConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceConcurrentModificationException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "ResourceConcurrentModificationException"
 
--- | Failed to add the AWS Config rule because the account already contains the maximum number of 150 rules. Consider deleting any deactivated rules before you add new rules.
-_MaxNumberOfConfigRulesExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Failed to add the AWS Config rule because the account already contains
+-- the maximum number of 150 rules. Consider deleting any deactivated rules
+-- before you add new rules.
+_MaxNumberOfConfigRulesExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaxNumberOfConfigRulesExceededException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "MaxNumberOfConfigRulesExceededException"
 
--- | There are no configuration recorders available to provide the role needed to describe your resources. Create a configuration recorder.
-_NoAvailableConfigurationRecorderException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | There are no configuration recorders available to provide the role
+-- needed to describe your resources. Create a configuration recorder.
+_NoAvailableConfigurationRecorderException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoAvailableConfigurationRecorderException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "NoAvailableConfigurationRecorderException"
 
 -- | The specified Amazon S3 bucket does not exist.
-_NoSuchBucketException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoSuchBucketException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchBucketException =
-  _MatchServiceError config "NoSuchBucketException"
+  Prelude._MatchServiceError
+    defaultService
+    "NoSuchBucketException"
 
--- | You have reached the limit (100,000) of active custom resource types in your account. Delete unused resources using @DeleteResourceConfig@ .
-_MaxActiveResourcesExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have reached the limit (100,000) of active custom resource types in
+-- your account. Delete unused resources using @DeleteResourceConfig@.
+_MaxActiveResourcesExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaxActiveResourcesExceededException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "MaxActiveResourcesExceededException"
 
--- | Failed to add the retention configuration because a retention configuration with that name already exists.
-_MaxNumberOfRetentionConfigurationsExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Failed to add the retention configuration because a retention
+-- configuration with that name already exists.
+_MaxNumberOfRetentionConfigurationsExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaxNumberOfRetentionConfigurationsExceededException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "MaxNumberOfRetentionConfigurationsExceededException"
 
--- | AWS Config resource cannot be created because your organization does not have all features enabled.
-_OrganizationAllFeaturesNotEnabledException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | AWS Config resource cannot be created because your organization does not
+-- have all features enabled.
+_OrganizationAllFeaturesNotEnabledException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OrganizationAllFeaturesNotEnabledException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "OrganizationAllFeaturesNotEnabledException"
 
 -- | Indicates one of the following errors:
 --
+-- -   For PutConfigRule, the rule cannot be created because the IAM role
+--     assigned to AWS Config lacks permissions to perform the config:Put*
+--     action.
 --
---     * For PutConfigRule, the rule cannot be created because the IAM role assigned to AWS Config lacks permissions to perform the config:Put* action.
+-- -   For PutConfigRule, the AWS Lambda function cannot be invoked. Check
+--     the function ARN, and check the function\'s permissions.
 --
---     * For PutConfigRule, the AWS Lambda function cannot be invoked. Check the function ARN, and check the function's permissions.
+-- -   For PutOrganizationConfigRule, organization config rule cannot be
+--     created because you do not have permissions to call IAM @GetRole@
+--     action or create a service linked role.
 --
---     * For PutOrganizationConfigRule, organization config rule cannot be created because you do not have permissions to call IAM @GetRole@ action or create a service linked role.
+-- -   For PutConformancePack and PutOrganizationConformancePack, a
+--     conformance pack cannot be created because you do not have
+--     permissions:
 --
---     * For PutConformancePack and PutOrganizationConformancePack, a conformance pack cannot be created because you do not have permissions:
+--     -   To call IAM @GetRole@ action or create a service linked role.
 --
---     * To call IAM @GetRole@ action or create a service linked role.
---
---     * To read Amazon S3 bucket.
-_InsufficientPermissionsException :: AsError a => Getting (First ServiceError) a ServiceError
+--     -   To read Amazon S3 bucket.
+_InsufficientPermissionsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientPermissionsException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientPermissionsException"
 
--- | Remediation action is in progress. You can either cancel execution in AWS Systems Manager or wait and try again later.
-_RemediationInProgressException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Remediation action is in progress. You can either cancel execution in
+-- AWS Systems Manager or wait and try again later.
+_RemediationInProgressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RemediationInProgressException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "RemediationInProgressException"
 
--- | You have specified a resource that is either unknown or has not been discovered.
-_ResourceNotDiscoveredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have specified a resource that is either unknown or has not been
+-- discovered.
+_ResourceNotDiscoveredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotDiscoveredException =
-  _MatchServiceError
-    config
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotDiscoveredException"

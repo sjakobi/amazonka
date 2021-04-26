@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,258 +21,261 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the number of compliant and noncompliant rules for one or more accounts and regions in an aggregator.
+-- Returns the number of compliant and noncompliant rules for one or more
+-- accounts and regions in an aggregator.
+--
+-- The results can return an empty result page, but if you have a
+-- nextToken, the results are displayed on the next page.
 module Network.AWS.Config.GetAggregateConfigRuleComplianceSummary
   ( -- * Creating a Request
-    getAggregateConfigRuleComplianceSummary,
-    GetAggregateConfigRuleComplianceSummary,
+    GetAggregateConfigRuleComplianceSummary (..),
+    newGetAggregateConfigRuleComplianceSummary,
 
     -- * Request Lenses
-    gacrcsNextToken,
-    gacrcsFilters,
-    gacrcsGroupByKey,
-    gacrcsLimit,
-    gacrcsConfigurationAggregatorName,
+    getAggregateConfigRuleComplianceSummary_nextToken,
+    getAggregateConfigRuleComplianceSummary_filters,
+    getAggregateConfigRuleComplianceSummary_groupByKey,
+    getAggregateConfigRuleComplianceSummary_limit,
+    getAggregateConfigRuleComplianceSummary_configurationAggregatorName,
 
     -- * Destructuring the Response
-    getAggregateConfigRuleComplianceSummaryResponse,
-    GetAggregateConfigRuleComplianceSummaryResponse,
+    GetAggregateConfigRuleComplianceSummaryResponse (..),
+    newGetAggregateConfigRuleComplianceSummaryResponse,
 
     -- * Response Lenses
-    gacrcsrrsNextToken,
-    gacrcsrrsAggregateComplianceCounts,
-    gacrcsrrsGroupByKey,
-    gacrcsrrsResponseStatus,
+    getAggregateConfigRuleComplianceSummaryResponse_nextToken,
+    getAggregateConfigRuleComplianceSummaryResponse_aggregateComplianceCounts,
+    getAggregateConfigRuleComplianceSummaryResponse_groupByKey,
+    getAggregateConfigRuleComplianceSummaryResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.AggregateComplianceCount
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAggregateConfigRuleComplianceSummary' smart constructor.
+-- | /See:/ 'newGetAggregateConfigRuleComplianceSummary' smart constructor.
 data GetAggregateConfigRuleComplianceSummary = GetAggregateConfigRuleComplianceSummary'
-  { _gacrcsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gacrcsFilters ::
-      !( Maybe
-           ConfigRuleComplianceSummaryFilters
-       ),
-    _gacrcsGroupByKey ::
-      !( Maybe
-           ConfigRuleComplianceSummaryGroupKey
-       ),
-    _gacrcsLimit ::
-      !( Maybe
-           Nat
-       ),
-    _gacrcsConfigurationAggregatorName ::
-      !Text
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filters the results based on the ConfigRuleComplianceSummaryFilters
+    -- object.
+    filters :: Prelude.Maybe ConfigRuleComplianceSummaryFilters,
+    -- | Groups the result based on ACCOUNT_ID or AWS_REGION.
+    groupByKey :: Prelude.Maybe ConfigRuleComplianceSummaryGroupKey,
+    -- | The maximum number of evaluation results returned on each page. The
+    -- default is 1000. You cannot specify a number greater than 1000. If you
+    -- specify 0, AWS Config uses the default.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the configuration aggregator.
+    configurationAggregatorName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAggregateConfigRuleComplianceSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAggregateConfigRuleComplianceSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gacrcsNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gacrcsFilters' - Filters the results based on the ConfigRuleComplianceSummaryFilters object.
+-- 'nextToken', 'getAggregateConfigRuleComplianceSummary_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
--- * 'gacrcsGroupByKey' - Groups the result based on ACCOUNT_ID or AWS_REGION.
+-- 'filters', 'getAggregateConfigRuleComplianceSummary_filters' - Filters the results based on the ConfigRuleComplianceSummaryFilters
+-- object.
 --
--- * 'gacrcsLimit' - The maximum number of evaluation results returned on each page. The default is 1000. You cannot specify a number greater than 1000. If you specify 0, AWS Config uses the default.
+-- 'groupByKey', 'getAggregateConfigRuleComplianceSummary_groupByKey' - Groups the result based on ACCOUNT_ID or AWS_REGION.
 --
--- * 'gacrcsConfigurationAggregatorName' - The name of the configuration aggregator.
-getAggregateConfigRuleComplianceSummary ::
-  -- | 'gacrcsConfigurationAggregatorName'
-  Text ->
+-- 'limit', 'getAggregateConfigRuleComplianceSummary_limit' - The maximum number of evaluation results returned on each page. The
+-- default is 1000. You cannot specify a number greater than 1000. If you
+-- specify 0, AWS Config uses the default.
+--
+-- 'configurationAggregatorName', 'getAggregateConfigRuleComplianceSummary_configurationAggregatorName' - The name of the configuration aggregator.
+newGetAggregateConfigRuleComplianceSummary ::
+  -- | 'configurationAggregatorName'
+  Prelude.Text ->
   GetAggregateConfigRuleComplianceSummary
-getAggregateConfigRuleComplianceSummary
+newGetAggregateConfigRuleComplianceSummary
   pConfigurationAggregatorName_ =
     GetAggregateConfigRuleComplianceSummary'
-      { _gacrcsNextToken =
-          Nothing,
-        _gacrcsFilters = Nothing,
-        _gacrcsGroupByKey = Nothing,
-        _gacrcsLimit = Nothing,
-        _gacrcsConfigurationAggregatorName =
+      { nextToken =
+          Prelude.Nothing,
+        filters = Prelude.Nothing,
+        groupByKey = Prelude.Nothing,
+        limit = Prelude.Nothing,
+        configurationAggregatorName =
           pConfigurationAggregatorName_
       }
 
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-gacrcsNextToken :: Lens' GetAggregateConfigRuleComplianceSummary (Maybe Text)
-gacrcsNextToken = lens _gacrcsNextToken (\s a -> s {_gacrcsNextToken = a})
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+getAggregateConfigRuleComplianceSummary_nextToken :: Lens.Lens' GetAggregateConfigRuleComplianceSummary (Prelude.Maybe Prelude.Text)
+getAggregateConfigRuleComplianceSummary_nextToken = Lens.lens (\GetAggregateConfigRuleComplianceSummary' {nextToken} -> nextToken) (\s@GetAggregateConfigRuleComplianceSummary' {} a -> s {nextToken = a} :: GetAggregateConfigRuleComplianceSummary)
 
--- | Filters the results based on the ConfigRuleComplianceSummaryFilters object.
-gacrcsFilters :: Lens' GetAggregateConfigRuleComplianceSummary (Maybe ConfigRuleComplianceSummaryFilters)
-gacrcsFilters = lens _gacrcsFilters (\s a -> s {_gacrcsFilters = a})
+-- | Filters the results based on the ConfigRuleComplianceSummaryFilters
+-- object.
+getAggregateConfigRuleComplianceSummary_filters :: Lens.Lens' GetAggregateConfigRuleComplianceSummary (Prelude.Maybe ConfigRuleComplianceSummaryFilters)
+getAggregateConfigRuleComplianceSummary_filters = Lens.lens (\GetAggregateConfigRuleComplianceSummary' {filters} -> filters) (\s@GetAggregateConfigRuleComplianceSummary' {} a -> s {filters = a} :: GetAggregateConfigRuleComplianceSummary)
 
 -- | Groups the result based on ACCOUNT_ID or AWS_REGION.
-gacrcsGroupByKey :: Lens' GetAggregateConfigRuleComplianceSummary (Maybe ConfigRuleComplianceSummaryGroupKey)
-gacrcsGroupByKey = lens _gacrcsGroupByKey (\s a -> s {_gacrcsGroupByKey = a})
+getAggregateConfigRuleComplianceSummary_groupByKey :: Lens.Lens' GetAggregateConfigRuleComplianceSummary (Prelude.Maybe ConfigRuleComplianceSummaryGroupKey)
+getAggregateConfigRuleComplianceSummary_groupByKey = Lens.lens (\GetAggregateConfigRuleComplianceSummary' {groupByKey} -> groupByKey) (\s@GetAggregateConfigRuleComplianceSummary' {} a -> s {groupByKey = a} :: GetAggregateConfigRuleComplianceSummary)
 
--- | The maximum number of evaluation results returned on each page. The default is 1000. You cannot specify a number greater than 1000. If you specify 0, AWS Config uses the default.
-gacrcsLimit :: Lens' GetAggregateConfigRuleComplianceSummary (Maybe Natural)
-gacrcsLimit = lens _gacrcsLimit (\s a -> s {_gacrcsLimit = a}) . mapping _Nat
+-- | The maximum number of evaluation results returned on each page. The
+-- default is 1000. You cannot specify a number greater than 1000. If you
+-- specify 0, AWS Config uses the default.
+getAggregateConfigRuleComplianceSummary_limit :: Lens.Lens' GetAggregateConfigRuleComplianceSummary (Prelude.Maybe Prelude.Natural)
+getAggregateConfigRuleComplianceSummary_limit = Lens.lens (\GetAggregateConfigRuleComplianceSummary' {limit} -> limit) (\s@GetAggregateConfigRuleComplianceSummary' {} a -> s {limit = a} :: GetAggregateConfigRuleComplianceSummary) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the configuration aggregator.
-gacrcsConfigurationAggregatorName :: Lens' GetAggregateConfigRuleComplianceSummary Text
-gacrcsConfigurationAggregatorName = lens _gacrcsConfigurationAggregatorName (\s a -> s {_gacrcsConfigurationAggregatorName = a})
+getAggregateConfigRuleComplianceSummary_configurationAggregatorName :: Lens.Lens' GetAggregateConfigRuleComplianceSummary Prelude.Text
+getAggregateConfigRuleComplianceSummary_configurationAggregatorName = Lens.lens (\GetAggregateConfigRuleComplianceSummary' {configurationAggregatorName} -> configurationAggregatorName) (\s@GetAggregateConfigRuleComplianceSummary' {} a -> s {configurationAggregatorName = a} :: GetAggregateConfigRuleComplianceSummary)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetAggregateConfigRuleComplianceSummary
   where
   type
     Rs GetAggregateConfigRuleComplianceSummary =
       GetAggregateConfigRuleComplianceSummaryResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAggregateConfigRuleComplianceSummaryResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "AggregateComplianceCounts" .!@ mempty)
-            <*> (x .?> "GroupByKey")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> ( x Prelude..?> "AggregateComplianceCounts"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (x Prelude..?> "GroupByKey")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     GetAggregateConfigRuleComplianceSummary
 
 instance
-  NFData
+  Prelude.NFData
     GetAggregateConfigRuleComplianceSummary
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     GetAggregateConfigRuleComplianceSummary
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.GetAggregateConfigRuleComplianceSummary" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.GetAggregateConfigRuleComplianceSummary" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     GetAggregateConfigRuleComplianceSummary
   where
   toJSON GetAggregateConfigRuleComplianceSummary' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gacrcsNextToken,
-            ("Filters" .=) <$> _gacrcsFilters,
-            ("GroupByKey" .=) <$> _gacrcsGroupByKey,
-            ("Limit" .=) <$> _gacrcsLimit,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("Filters" Prelude..=) Prelude.<$> filters,
+            ("GroupByKey" Prelude..=) Prelude.<$> groupByKey,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just
               ( "ConfigurationAggregatorName"
-                  .= _gacrcsConfigurationAggregatorName
+                  Prelude..= configurationAggregatorName
               )
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     GetAggregateConfigRuleComplianceSummary
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     GetAggregateConfigRuleComplianceSummary
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAggregateConfigRuleComplianceSummaryResponse' smart constructor.
+-- | /See:/ 'newGetAggregateConfigRuleComplianceSummaryResponse' smart constructor.
 data GetAggregateConfigRuleComplianceSummaryResponse = GetAggregateConfigRuleComplianceSummaryResponse'
-  { _gacrcsrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gacrcsrrsAggregateComplianceCounts ::
-      !( Maybe
-           [AggregateComplianceCount]
-       ),
-    _gacrcsrrsGroupByKey ::
-      !( Maybe
-           Text
-       ),
-    _gacrcsrrsResponseStatus ::
-      !Int
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Returns a list of AggregateComplianceCounts object.
+    aggregateComplianceCounts :: Prelude.Maybe [AggregateComplianceCount],
+    -- | Groups the result based on ACCOUNT_ID or AWS_REGION.
+    groupByKey :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAggregateConfigRuleComplianceSummaryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAggregateConfigRuleComplianceSummaryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gacrcsrrsNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gacrcsrrsAggregateComplianceCounts' - Returns a list of AggregateComplianceCounts object.
+-- 'nextToken', 'getAggregateConfigRuleComplianceSummaryResponse_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
--- * 'gacrcsrrsGroupByKey' - Groups the result based on ACCOUNT_ID or AWS_REGION.
+-- 'aggregateComplianceCounts', 'getAggregateConfigRuleComplianceSummaryResponse_aggregateComplianceCounts' - Returns a list of AggregateComplianceCounts object.
 --
--- * 'gacrcsrrsResponseStatus' - -- | The response status code.
-getAggregateConfigRuleComplianceSummaryResponse ::
-  -- | 'gacrcsrrsResponseStatus'
-  Int ->
+-- 'groupByKey', 'getAggregateConfigRuleComplianceSummaryResponse_groupByKey' - Groups the result based on ACCOUNT_ID or AWS_REGION.
+--
+-- 'httpStatus', 'getAggregateConfigRuleComplianceSummaryResponse_httpStatus' - The response's http status code.
+newGetAggregateConfigRuleComplianceSummaryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAggregateConfigRuleComplianceSummaryResponse
-getAggregateConfigRuleComplianceSummaryResponse
-  pResponseStatus_ =
+newGetAggregateConfigRuleComplianceSummaryResponse
+  pHttpStatus_ =
     GetAggregateConfigRuleComplianceSummaryResponse'
-      { _gacrcsrrsNextToken =
-          Nothing,
-        _gacrcsrrsAggregateComplianceCounts =
-          Nothing,
-        _gacrcsrrsGroupByKey =
-          Nothing,
-        _gacrcsrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        aggregateComplianceCounts =
+          Prelude.Nothing,
+        groupByKey =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-gacrcsrrsNextToken :: Lens' GetAggregateConfigRuleComplianceSummaryResponse (Maybe Text)
-gacrcsrrsNextToken = lens _gacrcsrrsNextToken (\s a -> s {_gacrcsrrsNextToken = a})
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+getAggregateConfigRuleComplianceSummaryResponse_nextToken :: Lens.Lens' GetAggregateConfigRuleComplianceSummaryResponse (Prelude.Maybe Prelude.Text)
+getAggregateConfigRuleComplianceSummaryResponse_nextToken = Lens.lens (\GetAggregateConfigRuleComplianceSummaryResponse' {nextToken} -> nextToken) (\s@GetAggregateConfigRuleComplianceSummaryResponse' {} a -> s {nextToken = a} :: GetAggregateConfigRuleComplianceSummaryResponse)
 
 -- | Returns a list of AggregateComplianceCounts object.
-gacrcsrrsAggregateComplianceCounts :: Lens' GetAggregateConfigRuleComplianceSummaryResponse [AggregateComplianceCount]
-gacrcsrrsAggregateComplianceCounts = lens _gacrcsrrsAggregateComplianceCounts (\s a -> s {_gacrcsrrsAggregateComplianceCounts = a}) . _Default . _Coerce
+getAggregateConfigRuleComplianceSummaryResponse_aggregateComplianceCounts :: Lens.Lens' GetAggregateConfigRuleComplianceSummaryResponse (Prelude.Maybe [AggregateComplianceCount])
+getAggregateConfigRuleComplianceSummaryResponse_aggregateComplianceCounts = Lens.lens (\GetAggregateConfigRuleComplianceSummaryResponse' {aggregateComplianceCounts} -> aggregateComplianceCounts) (\s@GetAggregateConfigRuleComplianceSummaryResponse' {} a -> s {aggregateComplianceCounts = a} :: GetAggregateConfigRuleComplianceSummaryResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Groups the result based on ACCOUNT_ID or AWS_REGION.
-gacrcsrrsGroupByKey :: Lens' GetAggregateConfigRuleComplianceSummaryResponse (Maybe Text)
-gacrcsrrsGroupByKey = lens _gacrcsrrsGroupByKey (\s a -> s {_gacrcsrrsGroupByKey = a})
+getAggregateConfigRuleComplianceSummaryResponse_groupByKey :: Lens.Lens' GetAggregateConfigRuleComplianceSummaryResponse (Prelude.Maybe Prelude.Text)
+getAggregateConfigRuleComplianceSummaryResponse_groupByKey = Lens.lens (\GetAggregateConfigRuleComplianceSummaryResponse' {groupByKey} -> groupByKey) (\s@GetAggregateConfigRuleComplianceSummaryResponse' {} a -> s {groupByKey = a} :: GetAggregateConfigRuleComplianceSummaryResponse)
 
--- | -- | The response status code.
-gacrcsrrsResponseStatus :: Lens' GetAggregateConfigRuleComplianceSummaryResponse Int
-gacrcsrrsResponseStatus = lens _gacrcsrrsResponseStatus (\s a -> s {_gacrcsrrsResponseStatus = a})
+-- | The response's http status code.
+getAggregateConfigRuleComplianceSummaryResponse_httpStatus :: Lens.Lens' GetAggregateConfigRuleComplianceSummaryResponse Prelude.Int
+getAggregateConfigRuleComplianceSummaryResponse_httpStatus = Lens.lens (\GetAggregateConfigRuleComplianceSummaryResponse' {httpStatus} -> httpStatus) (\s@GetAggregateConfigRuleComplianceSummaryResponse' {} a -> s {httpStatus = a} :: GetAggregateConfigRuleComplianceSummaryResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetAggregateConfigRuleComplianceSummaryResponse

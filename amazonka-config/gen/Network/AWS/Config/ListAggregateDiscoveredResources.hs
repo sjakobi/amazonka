@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,240 +21,284 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Accepts a resource type and returns a list of resource identifiers that are aggregated for a specific resource type across accounts and regions. A resource identifier includes the resource type, ID, (if available) the custom resource name, source account, and source region. You can narrow the results to include only resources that have specific resource IDs, or a resource name, or source account ID, or source region.
+-- Accepts a resource type and returns a list of resource identifiers that
+-- are aggregated for a specific resource type across accounts and regions.
+-- A resource identifier includes the resource type, ID, (if available) the
+-- custom resource name, source account, and source region. You can narrow
+-- the results to include only resources that have specific resource IDs,
+-- or a resource name, or source account ID, or source region.
 --
---
--- For example, if the input consists of accountID 12345678910 and the region is us-east-1 for resource type @AWS::EC2::Instance@ then the API returns all the EC2 instance identifiers of accountID 12345678910 and region us-east-1.
---
+-- For example, if the input consists of accountID 12345678910 and the
+-- region is us-east-1 for resource type @AWS::EC2::Instance@ then the API
+-- returns all the EC2 instance identifiers of accountID 12345678910 and
+-- region us-east-1.
 --
 -- This operation returns paginated results.
 module Network.AWS.Config.ListAggregateDiscoveredResources
   ( -- * Creating a Request
-    listAggregateDiscoveredResources,
-    ListAggregateDiscoveredResources,
+    ListAggregateDiscoveredResources (..),
+    newListAggregateDiscoveredResources,
 
     -- * Request Lenses
-    ladrNextToken,
-    ladrFilters,
-    ladrLimit,
-    ladrConfigurationAggregatorName,
-    ladrResourceType,
+    listAggregateDiscoveredResources_nextToken,
+    listAggregateDiscoveredResources_filters,
+    listAggregateDiscoveredResources_limit,
+    listAggregateDiscoveredResources_configurationAggregatorName,
+    listAggregateDiscoveredResources_resourceType,
 
     -- * Destructuring the Response
-    listAggregateDiscoveredResourcesResponse,
-    ListAggregateDiscoveredResourcesResponse,
+    ListAggregateDiscoveredResourcesResponse (..),
+    newListAggregateDiscoveredResourcesResponse,
 
     -- * Response Lenses
-    ladrrrsNextToken,
-    ladrrrsResourceIdentifiers,
-    ladrrrsResponseStatus,
+    listAggregateDiscoveredResourcesResponse_nextToken,
+    listAggregateDiscoveredResourcesResponse_resourceIdentifiers,
+    listAggregateDiscoveredResourcesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.AggregateResourceIdentifier
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAggregateDiscoveredResources' smart constructor.
+-- | /See:/ 'newListAggregateDiscoveredResources' smart constructor.
 data ListAggregateDiscoveredResources = ListAggregateDiscoveredResources'
-  { _ladrNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ladrFilters ::
-      !( Maybe
-           ResourceFilters
-       ),
-    _ladrLimit ::
-      !( Maybe
-           Nat
-       ),
-    _ladrConfigurationAggregatorName ::
-      !Text,
-    _ladrResourceType ::
-      !ResourceType
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filters the results based on the @ResourceFilters@ object.
+    filters :: Prelude.Maybe ResourceFilters,
+    -- | The maximum number of resource identifiers returned on each page. You
+    -- cannot specify a number greater than 100. If you specify 0, AWS Config
+    -- uses the default.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the configuration aggregator.
+    configurationAggregatorName :: Prelude.Text,
+    -- | The type of resources that you want AWS Config to list in the response.
+    resourceType :: ResourceType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAggregateDiscoveredResources' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAggregateDiscoveredResources' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ladrNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ladrFilters' - Filters the results based on the @ResourceFilters@ object.
+-- 'nextToken', 'listAggregateDiscoveredResources_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
--- * 'ladrLimit' - The maximum number of resource identifiers returned on each page. You cannot specify a number greater than 100. If you specify 0, AWS Config uses the default.
+-- 'filters', 'listAggregateDiscoveredResources_filters' - Filters the results based on the @ResourceFilters@ object.
 --
--- * 'ladrConfigurationAggregatorName' - The name of the configuration aggregator.
+-- 'limit', 'listAggregateDiscoveredResources_limit' - The maximum number of resource identifiers returned on each page. You
+-- cannot specify a number greater than 100. If you specify 0, AWS Config
+-- uses the default.
 --
--- * 'ladrResourceType' - The type of resources that you want AWS Config to list in the response.
-listAggregateDiscoveredResources ::
-  -- | 'ladrConfigurationAggregatorName'
-  Text ->
-  -- | 'ladrResourceType'
+-- 'configurationAggregatorName', 'listAggregateDiscoveredResources_configurationAggregatorName' - The name of the configuration aggregator.
+--
+-- 'resourceType', 'listAggregateDiscoveredResources_resourceType' - The type of resources that you want AWS Config to list in the response.
+newListAggregateDiscoveredResources ::
+  -- | 'configurationAggregatorName'
+  Prelude.Text ->
+  -- | 'resourceType'
   ResourceType ->
   ListAggregateDiscoveredResources
-listAggregateDiscoveredResources
+newListAggregateDiscoveredResources
   pConfigurationAggregatorName_
   pResourceType_ =
     ListAggregateDiscoveredResources'
-      { _ladrNextToken =
-          Nothing,
-        _ladrFilters = Nothing,
-        _ladrLimit = Nothing,
-        _ladrConfigurationAggregatorName =
+      { nextToken =
+          Prelude.Nothing,
+        filters = Prelude.Nothing,
+        limit = Prelude.Nothing,
+        configurationAggregatorName =
           pConfigurationAggregatorName_,
-        _ladrResourceType = pResourceType_
+        resourceType = pResourceType_
       }
 
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-ladrNextToken :: Lens' ListAggregateDiscoveredResources (Maybe Text)
-ladrNextToken = lens _ladrNextToken (\s a -> s {_ladrNextToken = a})
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+listAggregateDiscoveredResources_nextToken :: Lens.Lens' ListAggregateDiscoveredResources (Prelude.Maybe Prelude.Text)
+listAggregateDiscoveredResources_nextToken = Lens.lens (\ListAggregateDiscoveredResources' {nextToken} -> nextToken) (\s@ListAggregateDiscoveredResources' {} a -> s {nextToken = a} :: ListAggregateDiscoveredResources)
 
 -- | Filters the results based on the @ResourceFilters@ object.
-ladrFilters :: Lens' ListAggregateDiscoveredResources (Maybe ResourceFilters)
-ladrFilters = lens _ladrFilters (\s a -> s {_ladrFilters = a})
+listAggregateDiscoveredResources_filters :: Lens.Lens' ListAggregateDiscoveredResources (Prelude.Maybe ResourceFilters)
+listAggregateDiscoveredResources_filters = Lens.lens (\ListAggregateDiscoveredResources' {filters} -> filters) (\s@ListAggregateDiscoveredResources' {} a -> s {filters = a} :: ListAggregateDiscoveredResources)
 
--- | The maximum number of resource identifiers returned on each page. You cannot specify a number greater than 100. If you specify 0, AWS Config uses the default.
-ladrLimit :: Lens' ListAggregateDiscoveredResources (Maybe Natural)
-ladrLimit = lens _ladrLimit (\s a -> s {_ladrLimit = a}) . mapping _Nat
+-- | The maximum number of resource identifiers returned on each page. You
+-- cannot specify a number greater than 100. If you specify 0, AWS Config
+-- uses the default.
+listAggregateDiscoveredResources_limit :: Lens.Lens' ListAggregateDiscoveredResources (Prelude.Maybe Prelude.Natural)
+listAggregateDiscoveredResources_limit = Lens.lens (\ListAggregateDiscoveredResources' {limit} -> limit) (\s@ListAggregateDiscoveredResources' {} a -> s {limit = a} :: ListAggregateDiscoveredResources) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the configuration aggregator.
-ladrConfigurationAggregatorName :: Lens' ListAggregateDiscoveredResources Text
-ladrConfigurationAggregatorName = lens _ladrConfigurationAggregatorName (\s a -> s {_ladrConfigurationAggregatorName = a})
+listAggregateDiscoveredResources_configurationAggregatorName :: Lens.Lens' ListAggregateDiscoveredResources Prelude.Text
+listAggregateDiscoveredResources_configurationAggregatorName = Lens.lens (\ListAggregateDiscoveredResources' {configurationAggregatorName} -> configurationAggregatorName) (\s@ListAggregateDiscoveredResources' {} a -> s {configurationAggregatorName = a} :: ListAggregateDiscoveredResources)
 
 -- | The type of resources that you want AWS Config to list in the response.
-ladrResourceType :: Lens' ListAggregateDiscoveredResources ResourceType
-ladrResourceType = lens _ladrResourceType (\s a -> s {_ladrResourceType = a})
+listAggregateDiscoveredResources_resourceType :: Lens.Lens' ListAggregateDiscoveredResources ResourceType
+listAggregateDiscoveredResources_resourceType = Lens.lens (\ListAggregateDiscoveredResources' {resourceType} -> resourceType) (\s@ListAggregateDiscoveredResources' {} a -> s {resourceType = a} :: ListAggregateDiscoveredResources)
 
-instance AWSPager ListAggregateDiscoveredResources where
+instance
+  Pager.AWSPager
+    ListAggregateDiscoveredResources
+  where
   page rq rs
-    | stop (rs ^. ladrrrsNextToken) = Nothing
-    | stop (rs ^. ladrrrsResourceIdentifiers) = Nothing
-    | otherwise =
-      Just $ rq & ladrNextToken .~ rs ^. ladrrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listAggregateDiscoveredResourcesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAggregateDiscoveredResourcesResponse_resourceIdentifiers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAggregateDiscoveredResources_nextToken
+          Lens..~ rs
+          Lens.^? listAggregateDiscoveredResourcesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListAggregateDiscoveredResources where
+instance
+  Prelude.AWSRequest
+    ListAggregateDiscoveredResources
+  where
   type
     Rs ListAggregateDiscoveredResources =
       ListAggregateDiscoveredResourcesResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAggregateDiscoveredResourcesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ResourceIdentifiers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ResourceIdentifiers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable ListAggregateDiscoveredResources
-
-instance NFData ListAggregateDiscoveredResources
-
-instance ToHeaders ListAggregateDiscoveredResources where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "StarlingDoveService.ListAggregateDiscoveredResources" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON ListAggregateDiscoveredResources where
-  toJSON ListAggregateDiscoveredResources' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ladrNextToken,
-            ("Filters" .=) <$> _ladrFilters,
-            ("Limit" .=) <$> _ladrLimit,
-            Just
-              ( "ConfigurationAggregatorName"
-                  .= _ladrConfigurationAggregatorName
-              ),
-            Just ("ResourceType" .= _ladrResourceType)
-          ]
-      )
-
-instance ToPath ListAggregateDiscoveredResources where
-  toPath = const "/"
-
-instance ToQuery ListAggregateDiscoveredResources where
-  toQuery = const mempty
-
--- | /See:/ 'listAggregateDiscoveredResourcesResponse' smart constructor.
-data ListAggregateDiscoveredResourcesResponse = ListAggregateDiscoveredResourcesResponse'
-  { _ladrrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ladrrrsResourceIdentifiers ::
-      !( Maybe
-           [AggregateResourceIdentifier]
-       ),
-    _ladrrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'ListAggregateDiscoveredResourcesResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'ladrrrsNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
---
--- * 'ladrrrsResourceIdentifiers' - Returns a list of @ResourceIdentifiers@ objects.
---
--- * 'ladrrrsResponseStatus' - -- | The response status code.
-listAggregateDiscoveredResourcesResponse ::
-  -- | 'ladrrrsResponseStatus'
-  Int ->
-  ListAggregateDiscoveredResourcesResponse
-listAggregateDiscoveredResourcesResponse
-  pResponseStatus_ =
-    ListAggregateDiscoveredResourcesResponse'
-      { _ladrrrsNextToken =
-          Nothing,
-        _ladrrrsResourceIdentifiers =
-          Nothing,
-        _ladrrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-ladrrrsNextToken :: Lens' ListAggregateDiscoveredResourcesResponse (Maybe Text)
-ladrrrsNextToken = lens _ladrrrsNextToken (\s a -> s {_ladrrrsNextToken = a})
-
--- | Returns a list of @ResourceIdentifiers@ objects.
-ladrrrsResourceIdentifiers :: Lens' ListAggregateDiscoveredResourcesResponse [AggregateResourceIdentifier]
-ladrrrsResourceIdentifiers = lens _ladrrrsResourceIdentifiers (\s a -> s {_ladrrrsResourceIdentifiers = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-ladrrrsResponseStatus :: Lens' ListAggregateDiscoveredResourcesResponse Int
-ladrrrsResponseStatus = lens _ladrrrsResponseStatus (\s a -> s {_ladrrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    ListAggregateDiscoveredResources
+
+instance
+  Prelude.NFData
+    ListAggregateDiscoveredResources
+
+instance
+  Prelude.ToHeaders
+    ListAggregateDiscoveredResources
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "StarlingDoveService.ListAggregateDiscoveredResources" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    ListAggregateDiscoveredResources
+  where
+  toJSON ListAggregateDiscoveredResources' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("Filters" Prelude..=) Prelude.<$> filters,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just
+              ( "ConfigurationAggregatorName"
+                  Prelude..= configurationAggregatorName
+              ),
+            Prelude.Just
+              ("ResourceType" Prelude..= resourceType)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    ListAggregateDiscoveredResources
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    ListAggregateDiscoveredResources
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newListAggregateDiscoveredResourcesResponse' smart constructor.
+data ListAggregateDiscoveredResourcesResponse = ListAggregateDiscoveredResourcesResponse'
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Returns a list of @ResourceIdentifiers@ objects.
+    resourceIdentifiers :: Prelude.Maybe [AggregateResourceIdentifier],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ListAggregateDiscoveredResourcesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listAggregateDiscoveredResourcesResponse_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+--
+-- 'resourceIdentifiers', 'listAggregateDiscoveredResourcesResponse_resourceIdentifiers' - Returns a list of @ResourceIdentifiers@ objects.
+--
+-- 'httpStatus', 'listAggregateDiscoveredResourcesResponse_httpStatus' - The response's http status code.
+newListAggregateDiscoveredResourcesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  ListAggregateDiscoveredResourcesResponse
+newListAggregateDiscoveredResourcesResponse
+  pHttpStatus_ =
+    ListAggregateDiscoveredResourcesResponse'
+      { nextToken =
+          Prelude.Nothing,
+        resourceIdentifiers =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+listAggregateDiscoveredResourcesResponse_nextToken :: Lens.Lens' ListAggregateDiscoveredResourcesResponse (Prelude.Maybe Prelude.Text)
+listAggregateDiscoveredResourcesResponse_nextToken = Lens.lens (\ListAggregateDiscoveredResourcesResponse' {nextToken} -> nextToken) (\s@ListAggregateDiscoveredResourcesResponse' {} a -> s {nextToken = a} :: ListAggregateDiscoveredResourcesResponse)
+
+-- | Returns a list of @ResourceIdentifiers@ objects.
+listAggregateDiscoveredResourcesResponse_resourceIdentifiers :: Lens.Lens' ListAggregateDiscoveredResourcesResponse (Prelude.Maybe [AggregateResourceIdentifier])
+listAggregateDiscoveredResourcesResponse_resourceIdentifiers = Lens.lens (\ListAggregateDiscoveredResourcesResponse' {resourceIdentifiers} -> resourceIdentifiers) (\s@ListAggregateDiscoveredResourcesResponse' {} a -> s {resourceIdentifiers = a} :: ListAggregateDiscoveredResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+listAggregateDiscoveredResourcesResponse_httpStatus :: Lens.Lens' ListAggregateDiscoveredResourcesResponse Prelude.Int
+listAggregateDiscoveredResourcesResponse_httpStatus = Lens.lens (\ListAggregateDiscoveredResourcesResponse' {httpStatus} -> httpStatus) (\s@ListAggregateDiscoveredResourcesResponse' {} a -> s {httpStatus = a} :: ListAggregateDiscoveredResourcesResponse)
+
+instance
+  Prelude.NFData
     ListAggregateDiscoveredResourcesResponse

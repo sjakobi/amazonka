@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,109 +20,166 @@
 module Network.AWS.Config.Types.Evaluation where
 
 import Network.AWS.Config.Types.ComplianceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Identifies an AWS resource and indicates whether it complies with the AWS Config rule that it was evaluated against.
+-- | Identifies an AWS resource and indicates whether it complies with the
+-- AWS Config rule that it was evaluated against.
 --
---
---
--- /See:/ 'evaluation' smart constructor.
+-- /See:/ 'newEvaluation' smart constructor.
 data Evaluation = Evaluation'
-  { _eAnnotation ::
-      !(Maybe Text),
-    _eComplianceResourceType :: !Text,
-    _eComplianceResourceId :: !Text,
-    _eComplianceType :: !ComplianceType,
-    _eOrderingTimestamp :: !POSIX
+  { -- | Supplementary information about how the evaluation determined the
+    -- compliance.
+    annotation :: Prelude.Maybe Prelude.Text,
+    -- | The type of AWS resource that was evaluated.
+    complianceResourceType :: Prelude.Text,
+    -- | The ID of the AWS resource that was evaluated.
+    complianceResourceId :: Prelude.Text,
+    -- | Indicates whether the AWS resource complies with the AWS Config rule
+    -- that it was evaluated against.
+    --
+    -- For the @Evaluation@ data type, AWS Config supports only the
+    -- @COMPLIANT@, @NON_COMPLIANT@, and @NOT_APPLICABLE@ values. AWS Config
+    -- does not support the @INSUFFICIENT_DATA@ value for this data type.
+    --
+    -- Similarly, AWS Config does not accept @INSUFFICIENT_DATA@ as the value
+    -- for @ComplianceType@ from a @PutEvaluations@ request. For example, an
+    -- AWS Lambda function for a custom AWS Config rule cannot pass an
+    -- @INSUFFICIENT_DATA@ value to AWS Config.
+    complianceType :: ComplianceType,
+    -- | The time of the event in AWS Config that triggered the evaluation. For
+    -- event-based evaluations, the time indicates when AWS Config created the
+    -- configuration item that triggered the evaluation. For periodic
+    -- evaluations, the time indicates when AWS Config triggered the evaluation
+    -- at the frequency that you specified (for example, every 24 hours).
+    orderingTimestamp :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Evaluation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Evaluation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eAnnotation' - Supplementary information about how the evaluation determined the compliance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eComplianceResourceType' - The type of AWS resource that was evaluated.
+-- 'annotation', 'evaluation_annotation' - Supplementary information about how the evaluation determined the
+-- compliance.
 --
--- * 'eComplianceResourceId' - The ID of the AWS resource that was evaluated.
+-- 'complianceResourceType', 'evaluation_complianceResourceType' - The type of AWS resource that was evaluated.
 --
--- * 'eComplianceType' - Indicates whether the AWS resource complies with the AWS Config rule that it was evaluated against. For the @Evaluation@ data type, AWS Config supports only the @COMPLIANT@ , @NON_COMPLIANT@ , and @NOT_APPLICABLE@ values. AWS Config does not support the @INSUFFICIENT_DATA@ value for this data type. Similarly, AWS Config does not accept @INSUFFICIENT_DATA@ as the value for @ComplianceType@ from a @PutEvaluations@ request. For example, an AWS Lambda function for a custom AWS Config rule cannot pass an @INSUFFICIENT_DATA@ value to AWS Config.
+-- 'complianceResourceId', 'evaluation_complianceResourceId' - The ID of the AWS resource that was evaluated.
 --
--- * 'eOrderingTimestamp' - The time of the event in AWS Config that triggered the evaluation. For event-based evaluations, the time indicates when AWS Config created the configuration item that triggered the evaluation. For periodic evaluations, the time indicates when AWS Config triggered the evaluation at the frequency that you specified (for example, every 24 hours).
-evaluation ::
-  -- | 'eComplianceResourceType'
-  Text ->
-  -- | 'eComplianceResourceId'
-  Text ->
-  -- | 'eComplianceType'
+-- 'complianceType', 'evaluation_complianceType' - Indicates whether the AWS resource complies with the AWS Config rule
+-- that it was evaluated against.
+--
+-- For the @Evaluation@ data type, AWS Config supports only the
+-- @COMPLIANT@, @NON_COMPLIANT@, and @NOT_APPLICABLE@ values. AWS Config
+-- does not support the @INSUFFICIENT_DATA@ value for this data type.
+--
+-- Similarly, AWS Config does not accept @INSUFFICIENT_DATA@ as the value
+-- for @ComplianceType@ from a @PutEvaluations@ request. For example, an
+-- AWS Lambda function for a custom AWS Config rule cannot pass an
+-- @INSUFFICIENT_DATA@ value to AWS Config.
+--
+-- 'orderingTimestamp', 'evaluation_orderingTimestamp' - The time of the event in AWS Config that triggered the evaluation. For
+-- event-based evaluations, the time indicates when AWS Config created the
+-- configuration item that triggered the evaluation. For periodic
+-- evaluations, the time indicates when AWS Config triggered the evaluation
+-- at the frequency that you specified (for example, every 24 hours).
+newEvaluation ::
+  -- | 'complianceResourceType'
+  Prelude.Text ->
+  -- | 'complianceResourceId'
+  Prelude.Text ->
+  -- | 'complianceType'
   ComplianceType ->
-  -- | 'eOrderingTimestamp'
-  UTCTime ->
+  -- | 'orderingTimestamp'
+  Prelude.UTCTime ->
   Evaluation
-evaluation
+newEvaluation
   pComplianceResourceType_
   pComplianceResourceId_
   pComplianceType_
   pOrderingTimestamp_ =
     Evaluation'
-      { _eAnnotation = Nothing,
-        _eComplianceResourceType = pComplianceResourceType_,
-        _eComplianceResourceId = pComplianceResourceId_,
-        _eComplianceType = pComplianceType_,
-        _eOrderingTimestamp = _Time # pOrderingTimestamp_
+      { annotation = Prelude.Nothing,
+        complianceResourceType = pComplianceResourceType_,
+        complianceResourceId = pComplianceResourceId_,
+        complianceType = pComplianceType_,
+        orderingTimestamp =
+          Prelude._Time Lens.# pOrderingTimestamp_
       }
 
--- | Supplementary information about how the evaluation determined the compliance.
-eAnnotation :: Lens' Evaluation (Maybe Text)
-eAnnotation = lens _eAnnotation (\s a -> s {_eAnnotation = a})
+-- | Supplementary information about how the evaluation determined the
+-- compliance.
+evaluation_annotation :: Lens.Lens' Evaluation (Prelude.Maybe Prelude.Text)
+evaluation_annotation = Lens.lens (\Evaluation' {annotation} -> annotation) (\s@Evaluation' {} a -> s {annotation = a} :: Evaluation)
 
 -- | The type of AWS resource that was evaluated.
-eComplianceResourceType :: Lens' Evaluation Text
-eComplianceResourceType = lens _eComplianceResourceType (\s a -> s {_eComplianceResourceType = a})
+evaluation_complianceResourceType :: Lens.Lens' Evaluation Prelude.Text
+evaluation_complianceResourceType = Lens.lens (\Evaluation' {complianceResourceType} -> complianceResourceType) (\s@Evaluation' {} a -> s {complianceResourceType = a} :: Evaluation)
 
 -- | The ID of the AWS resource that was evaluated.
-eComplianceResourceId :: Lens' Evaluation Text
-eComplianceResourceId = lens _eComplianceResourceId (\s a -> s {_eComplianceResourceId = a})
+evaluation_complianceResourceId :: Lens.Lens' Evaluation Prelude.Text
+evaluation_complianceResourceId = Lens.lens (\Evaluation' {complianceResourceId} -> complianceResourceId) (\s@Evaluation' {} a -> s {complianceResourceId = a} :: Evaluation)
 
--- | Indicates whether the AWS resource complies with the AWS Config rule that it was evaluated against. For the @Evaluation@ data type, AWS Config supports only the @COMPLIANT@ , @NON_COMPLIANT@ , and @NOT_APPLICABLE@ values. AWS Config does not support the @INSUFFICIENT_DATA@ value for this data type. Similarly, AWS Config does not accept @INSUFFICIENT_DATA@ as the value for @ComplianceType@ from a @PutEvaluations@ request. For example, an AWS Lambda function for a custom AWS Config rule cannot pass an @INSUFFICIENT_DATA@ value to AWS Config.
-eComplianceType :: Lens' Evaluation ComplianceType
-eComplianceType = lens _eComplianceType (\s a -> s {_eComplianceType = a})
+-- | Indicates whether the AWS resource complies with the AWS Config rule
+-- that it was evaluated against.
+--
+-- For the @Evaluation@ data type, AWS Config supports only the
+-- @COMPLIANT@, @NON_COMPLIANT@, and @NOT_APPLICABLE@ values. AWS Config
+-- does not support the @INSUFFICIENT_DATA@ value for this data type.
+--
+-- Similarly, AWS Config does not accept @INSUFFICIENT_DATA@ as the value
+-- for @ComplianceType@ from a @PutEvaluations@ request. For example, an
+-- AWS Lambda function for a custom AWS Config rule cannot pass an
+-- @INSUFFICIENT_DATA@ value to AWS Config.
+evaluation_complianceType :: Lens.Lens' Evaluation ComplianceType
+evaluation_complianceType = Lens.lens (\Evaluation' {complianceType} -> complianceType) (\s@Evaluation' {} a -> s {complianceType = a} :: Evaluation)
 
--- | The time of the event in AWS Config that triggered the evaluation. For event-based evaluations, the time indicates when AWS Config created the configuration item that triggered the evaluation. For periodic evaluations, the time indicates when AWS Config triggered the evaluation at the frequency that you specified (for example, every 24 hours).
-eOrderingTimestamp :: Lens' Evaluation UTCTime
-eOrderingTimestamp = lens _eOrderingTimestamp (\s a -> s {_eOrderingTimestamp = a}) . _Time
+-- | The time of the event in AWS Config that triggered the evaluation. For
+-- event-based evaluations, the time indicates when AWS Config created the
+-- configuration item that triggered the evaluation. For periodic
+-- evaluations, the time indicates when AWS Config triggered the evaluation
+-- at the frequency that you specified (for example, every 24 hours).
+evaluation_orderingTimestamp :: Lens.Lens' Evaluation Prelude.UTCTime
+evaluation_orderingTimestamp = Lens.lens (\Evaluation' {orderingTimestamp} -> orderingTimestamp) (\s@Evaluation' {} a -> s {orderingTimestamp = a} :: Evaluation) Prelude.. Prelude._Time
 
-instance FromJSON Evaluation where
+instance Prelude.FromJSON Evaluation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Evaluation"
       ( \x ->
           Evaluation'
-            <$> (x .:? "Annotation")
-            <*> (x .: "ComplianceResourceType")
-            <*> (x .: "ComplianceResourceId")
-            <*> (x .: "ComplianceType")
-            <*> (x .: "OrderingTimestamp")
+            Prelude.<$> (x Prelude..:? "Annotation")
+            Prelude.<*> (x Prelude..: "ComplianceResourceType")
+            Prelude.<*> (x Prelude..: "ComplianceResourceId")
+            Prelude.<*> (x Prelude..: "ComplianceType")
+            Prelude.<*> (x Prelude..: "OrderingTimestamp")
       )
 
-instance Hashable Evaluation
+instance Prelude.Hashable Evaluation
 
-instance NFData Evaluation
+instance Prelude.NFData Evaluation
 
-instance ToJSON Evaluation where
+instance Prelude.ToJSON Evaluation where
   toJSON Evaluation' {..} =
-    object
-      ( catMaybes
-          [ ("Annotation" .=) <$> _eAnnotation,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Annotation" Prelude..=) Prelude.<$> annotation,
+            Prelude.Just
               ( "ComplianceResourceType"
-                  .= _eComplianceResourceType
+                  Prelude..= complianceResourceType
               ),
-            Just
-              ("ComplianceResourceId" .= _eComplianceResourceId),
-            Just ("ComplianceType" .= _eComplianceType),
-            Just ("OrderingTimestamp" .= _eOrderingTimestamp)
+            Prelude.Just
+              ( "ComplianceResourceId"
+                  Prelude..= complianceResourceId
+              ),
+            Prelude.Just
+              ("ComplianceType" Prelude..= complianceType),
+            Prelude.Just
+              ("OrderingTimestamp" Prelude..= orderingTimestamp)
           ]
       )

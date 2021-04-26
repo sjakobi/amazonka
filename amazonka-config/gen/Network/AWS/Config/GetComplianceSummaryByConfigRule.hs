@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,133 +21,151 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the number of AWS Config rules that are compliant and noncompliant, up to a maximum of 25 for each.
+-- Returns the number of AWS Config rules that are compliant and
+-- noncompliant, up to a maximum of 25 for each.
 module Network.AWS.Config.GetComplianceSummaryByConfigRule
   ( -- * Creating a Request
-    getComplianceSummaryByConfigRule,
-    GetComplianceSummaryByConfigRule,
+    GetComplianceSummaryByConfigRule (..),
+    newGetComplianceSummaryByConfigRule,
 
     -- * Destructuring the Response
-    getComplianceSummaryByConfigRuleResponse,
-    GetComplianceSummaryByConfigRuleResponse,
+    GetComplianceSummaryByConfigRuleResponse (..),
+    newGetComplianceSummaryByConfigRuleResponse,
 
     -- * Response Lenses
-    gcsbcrrrsComplianceSummary,
-    gcsbcrrrsResponseStatus,
+    getComplianceSummaryByConfigRuleResponse_complianceSummary,
+    getComplianceSummaryByConfigRuleResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.ComplianceSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getComplianceSummaryByConfigRule' smart constructor.
+-- | /See:/ 'newGetComplianceSummaryByConfigRule' smart constructor.
 data GetComplianceSummaryByConfigRule = GetComplianceSummaryByConfigRule'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetComplianceSummaryByConfigRule' with the minimum fields required to make a request.
-getComplianceSummaryByConfigRule ::
+-- |
+-- Create a value of 'GetComplianceSummaryByConfigRule' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetComplianceSummaryByConfigRule ::
   GetComplianceSummaryByConfigRule
-getComplianceSummaryByConfigRule =
+newGetComplianceSummaryByConfigRule =
   GetComplianceSummaryByConfigRule'
 
-instance AWSRequest GetComplianceSummaryByConfigRule where
+instance
+  Prelude.AWSRequest
+    GetComplianceSummaryByConfigRule
+  where
   type
     Rs GetComplianceSummaryByConfigRule =
       GetComplianceSummaryByConfigRuleResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetComplianceSummaryByConfigRuleResponse'
-            <$> (x .?> "ComplianceSummary") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ComplianceSummary")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetComplianceSummaryByConfigRule
+instance
+  Prelude.Hashable
+    GetComplianceSummaryByConfigRule
 
-instance NFData GetComplianceSummaryByConfigRule
+instance
+  Prelude.NFData
+    GetComplianceSummaryByConfigRule
 
-instance ToHeaders GetComplianceSummaryByConfigRule where
+instance
+  Prelude.ToHeaders
+    GetComplianceSummaryByConfigRule
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.GetComplianceSummaryByConfigRule" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.GetComplianceSummaryByConfigRule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetComplianceSummaryByConfigRule where
-  toJSON = const (Object mempty)
+instance
+  Prelude.ToJSON
+    GetComplianceSummaryByConfigRule
+  where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetComplianceSummaryByConfigRule where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    GetComplianceSummaryByConfigRule
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetComplianceSummaryByConfigRule where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetComplianceSummaryByConfigRule
+  where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'getComplianceSummaryByConfigRuleResponse' smart constructor.
+-- /See:/ 'newGetComplianceSummaryByConfigRuleResponse' smart constructor.
 data GetComplianceSummaryByConfigRuleResponse = GetComplianceSummaryByConfigRuleResponse'
-  { _gcsbcrrrsComplianceSummary ::
-      !( Maybe
-           ComplianceSummary
-       ),
-    _gcsbcrrrsResponseStatus ::
-      !Int
+  { -- | The number of AWS Config rules that are compliant and the number that
+    -- are noncompliant, up to a maximum of 25 for each.
+    complianceSummary :: Prelude.Maybe ComplianceSummary,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetComplianceSummaryByConfigRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetComplianceSummaryByConfigRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsbcrrrsComplianceSummary' - The number of AWS Config rules that are compliant and the number that are noncompliant, up to a maximum of 25 for each.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsbcrrrsResponseStatus' - -- | The response status code.
-getComplianceSummaryByConfigRuleResponse ::
-  -- | 'gcsbcrrrsResponseStatus'
-  Int ->
+-- 'complianceSummary', 'getComplianceSummaryByConfigRuleResponse_complianceSummary' - The number of AWS Config rules that are compliant and the number that
+-- are noncompliant, up to a maximum of 25 for each.
+--
+-- 'httpStatus', 'getComplianceSummaryByConfigRuleResponse_httpStatus' - The response's http status code.
+newGetComplianceSummaryByConfigRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetComplianceSummaryByConfigRuleResponse
-getComplianceSummaryByConfigRuleResponse
-  pResponseStatus_ =
+newGetComplianceSummaryByConfigRuleResponse
+  pHttpStatus_ =
     GetComplianceSummaryByConfigRuleResponse'
-      { _gcsbcrrrsComplianceSummary =
-          Nothing,
-        _gcsbcrrrsResponseStatus =
-          pResponseStatus_
+      { complianceSummary =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The number of AWS Config rules that are compliant and the number that are noncompliant, up to a maximum of 25 for each.
-gcsbcrrrsComplianceSummary :: Lens' GetComplianceSummaryByConfigRuleResponse (Maybe ComplianceSummary)
-gcsbcrrrsComplianceSummary = lens _gcsbcrrrsComplianceSummary (\s a -> s {_gcsbcrrrsComplianceSummary = a})
+-- | The number of AWS Config rules that are compliant and the number that
+-- are noncompliant, up to a maximum of 25 for each.
+getComplianceSummaryByConfigRuleResponse_complianceSummary :: Lens.Lens' GetComplianceSummaryByConfigRuleResponse (Prelude.Maybe ComplianceSummary)
+getComplianceSummaryByConfigRuleResponse_complianceSummary = Lens.lens (\GetComplianceSummaryByConfigRuleResponse' {complianceSummary} -> complianceSummary) (\s@GetComplianceSummaryByConfigRuleResponse' {} a -> s {complianceSummary = a} :: GetComplianceSummaryByConfigRuleResponse)
 
--- | -- | The response status code.
-gcsbcrrrsResponseStatus :: Lens' GetComplianceSummaryByConfigRuleResponse Int
-gcsbcrrrsResponseStatus = lens _gcsbcrrrsResponseStatus (\s a -> s {_gcsbcrrrsResponseStatus = a})
+-- | The response's http status code.
+getComplianceSummaryByConfigRuleResponse_httpStatus :: Lens.Lens' GetComplianceSummaryByConfigRuleResponse Prelude.Int
+getComplianceSummaryByConfigRuleResponse_httpStatus = Lens.lens (\GetComplianceSummaryByConfigRuleResponse' {httpStatus} -> httpStatus) (\s@GetComplianceSummaryByConfigRuleResponse' {} a -> s {httpStatus = a} :: GetComplianceSummaryByConfigRuleResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetComplianceSummaryByConfigRuleResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,95 +19,93 @@
 module Network.AWS.Config.Types.MemberAccountRuleStatus
   ( MemberAccountRuleStatus
       ( ..,
-        MARSCreateFailed,
-        MARSCreateInProgress,
-        MARSCreateSuccessful,
-        MARSDeleteFailed,
-        MARSDeleteInProgress,
-        MARSDeleteSuccessful,
-        MARSUpdateFailed,
-        MARSUpdateInProgress,
-        MARSUpdateSuccessful
+        MemberAccountRuleStatusCREATEFAILED,
+        MemberAccountRuleStatusCREATEINPROGRESS,
+        MemberAccountRuleStatusCREATESUCCESSFUL,
+        MemberAccountRuleStatusDELETEFAILED,
+        MemberAccountRuleStatusDELETEINPROGRESS,
+        MemberAccountRuleStatusDELETESUCCESSFUL,
+        MemberAccountRuleStatusUPDATEFAILED,
+        MemberAccountRuleStatusUPDATEINPROGRESS,
+        MemberAccountRuleStatusUPDATESUCCESSFUL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MemberAccountRuleStatus
-  = MemberAccountRuleStatus'
-      ( CI
-          Text
-      )
+newtype MemberAccountRuleStatus = MemberAccountRuleStatus'
+  { fromMemberAccountRuleStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MARSCreateFailed :: MemberAccountRuleStatus
-pattern MARSCreateFailed = MemberAccountRuleStatus' "CREATE_FAILED"
+pattern MemberAccountRuleStatusCREATEFAILED :: MemberAccountRuleStatus
+pattern MemberAccountRuleStatusCREATEFAILED = MemberAccountRuleStatus' "CREATE_FAILED"
 
-pattern MARSCreateInProgress :: MemberAccountRuleStatus
-pattern MARSCreateInProgress = MemberAccountRuleStatus' "CREATE_IN_PROGRESS"
+pattern MemberAccountRuleStatusCREATEINPROGRESS :: MemberAccountRuleStatus
+pattern MemberAccountRuleStatusCREATEINPROGRESS = MemberAccountRuleStatus' "CREATE_IN_PROGRESS"
 
-pattern MARSCreateSuccessful :: MemberAccountRuleStatus
-pattern MARSCreateSuccessful = MemberAccountRuleStatus' "CREATE_SUCCESSFUL"
+pattern MemberAccountRuleStatusCREATESUCCESSFUL :: MemberAccountRuleStatus
+pattern MemberAccountRuleStatusCREATESUCCESSFUL = MemberAccountRuleStatus' "CREATE_SUCCESSFUL"
 
-pattern MARSDeleteFailed :: MemberAccountRuleStatus
-pattern MARSDeleteFailed = MemberAccountRuleStatus' "DELETE_FAILED"
+pattern MemberAccountRuleStatusDELETEFAILED :: MemberAccountRuleStatus
+pattern MemberAccountRuleStatusDELETEFAILED = MemberAccountRuleStatus' "DELETE_FAILED"
 
-pattern MARSDeleteInProgress :: MemberAccountRuleStatus
-pattern MARSDeleteInProgress = MemberAccountRuleStatus' "DELETE_IN_PROGRESS"
+pattern MemberAccountRuleStatusDELETEINPROGRESS :: MemberAccountRuleStatus
+pattern MemberAccountRuleStatusDELETEINPROGRESS = MemberAccountRuleStatus' "DELETE_IN_PROGRESS"
 
-pattern MARSDeleteSuccessful :: MemberAccountRuleStatus
-pattern MARSDeleteSuccessful = MemberAccountRuleStatus' "DELETE_SUCCESSFUL"
+pattern MemberAccountRuleStatusDELETESUCCESSFUL :: MemberAccountRuleStatus
+pattern MemberAccountRuleStatusDELETESUCCESSFUL = MemberAccountRuleStatus' "DELETE_SUCCESSFUL"
 
-pattern MARSUpdateFailed :: MemberAccountRuleStatus
-pattern MARSUpdateFailed = MemberAccountRuleStatus' "UPDATE_FAILED"
+pattern MemberAccountRuleStatusUPDATEFAILED :: MemberAccountRuleStatus
+pattern MemberAccountRuleStatusUPDATEFAILED = MemberAccountRuleStatus' "UPDATE_FAILED"
 
-pattern MARSUpdateInProgress :: MemberAccountRuleStatus
-pattern MARSUpdateInProgress = MemberAccountRuleStatus' "UPDATE_IN_PROGRESS"
+pattern MemberAccountRuleStatusUPDATEINPROGRESS :: MemberAccountRuleStatus
+pattern MemberAccountRuleStatusUPDATEINPROGRESS = MemberAccountRuleStatus' "UPDATE_IN_PROGRESS"
 
-pattern MARSUpdateSuccessful :: MemberAccountRuleStatus
-pattern MARSUpdateSuccessful = MemberAccountRuleStatus' "UPDATE_SUCCESSFUL"
+pattern MemberAccountRuleStatusUPDATESUCCESSFUL :: MemberAccountRuleStatus
+pattern MemberAccountRuleStatusUPDATESUCCESSFUL = MemberAccountRuleStatus' "UPDATE_SUCCESSFUL"
 
 {-# COMPLETE
-  MARSCreateFailed,
-  MARSCreateInProgress,
-  MARSCreateSuccessful,
-  MARSDeleteFailed,
-  MARSDeleteInProgress,
-  MARSDeleteSuccessful,
-  MARSUpdateFailed,
-  MARSUpdateInProgress,
-  MARSUpdateSuccessful,
+  MemberAccountRuleStatusCREATEFAILED,
+  MemberAccountRuleStatusCREATEINPROGRESS,
+  MemberAccountRuleStatusCREATESUCCESSFUL,
+  MemberAccountRuleStatusDELETEFAILED,
+  MemberAccountRuleStatusDELETEINPROGRESS,
+  MemberAccountRuleStatusDELETESUCCESSFUL,
+  MemberAccountRuleStatusUPDATEFAILED,
+  MemberAccountRuleStatusUPDATEINPROGRESS,
+  MemberAccountRuleStatusUPDATESUCCESSFUL,
   MemberAccountRuleStatus'
   #-}
 
-instance FromText MemberAccountRuleStatus where
-  parser = (MemberAccountRuleStatus' . mk) <$> takeText
+instance Prelude.FromText MemberAccountRuleStatus where
+  parser = MemberAccountRuleStatus' Prelude.<$> Prelude.takeText
 
-instance ToText MemberAccountRuleStatus where
-  toText (MemberAccountRuleStatus' ci) = original ci
+instance Prelude.ToText MemberAccountRuleStatus where
+  toText (MemberAccountRuleStatus' x) = x
 
-instance Hashable MemberAccountRuleStatus
+instance Prelude.Hashable MemberAccountRuleStatus
 
-instance NFData MemberAccountRuleStatus
+instance Prelude.NFData MemberAccountRuleStatus
 
-instance ToByteString MemberAccountRuleStatus
+instance Prelude.ToByteString MemberAccountRuleStatus
 
-instance ToQuery MemberAccountRuleStatus
+instance Prelude.ToQuery MemberAccountRuleStatus
 
-instance ToHeader MemberAccountRuleStatus
+instance Prelude.ToHeader MemberAccountRuleStatus
 
-instance ToJSON MemberAccountRuleStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON MemberAccountRuleStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MemberAccountRuleStatus where
-  parseJSON = parseJSONText "MemberAccountRuleStatus"
+instance Prelude.FromJSON MemberAccountRuleStatus where
+  parseJSON = Prelude.parseJSONText "MemberAccountRuleStatus"

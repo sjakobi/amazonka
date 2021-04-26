@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,70 +20,75 @@
 module Network.AWS.Config.Types.ConformancePackComplianceSummary where
 
 import Network.AWS.Config.Types.ConformancePackComplianceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary includes the name and status of the conformance pack.
 --
---
---
--- /See:/ 'conformancePackComplianceSummary' smart constructor.
+-- /See:/ 'newConformancePackComplianceSummary' smart constructor.
 data ConformancePackComplianceSummary = ConformancePackComplianceSummary'
-  { _cpcsConformancePackName ::
-      !Text,
-    _cpcsConformancePackComplianceStatus ::
-      !ConformancePackComplianceType
+  { -- | The name of the conformance pack name.
+    conformancePackName :: Prelude.Text,
+    -- | The status of the conformance pack. The allowed values are COMPLIANT and
+    -- NON_COMPLIANT.
+    conformancePackComplianceStatus :: ConformancePackComplianceType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConformancePackComplianceSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConformancePackComplianceSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpcsConformancePackName' - The name of the conformance pack name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpcsConformancePackComplianceStatus' - The status of the conformance pack. The allowed values are COMPLIANT and NON_COMPLIANT.
-conformancePackComplianceSummary ::
-  -- | 'cpcsConformancePackName'
-  Text ->
-  -- | 'cpcsConformancePackComplianceStatus'
+-- 'conformancePackName', 'conformancePackComplianceSummary_conformancePackName' - The name of the conformance pack name.
+--
+-- 'conformancePackComplianceStatus', 'conformancePackComplianceSummary_conformancePackComplianceStatus' - The status of the conformance pack. The allowed values are COMPLIANT and
+-- NON_COMPLIANT.
+newConformancePackComplianceSummary ::
+  -- | 'conformancePackName'
+  Prelude.Text ->
+  -- | 'conformancePackComplianceStatus'
   ConformancePackComplianceType ->
   ConformancePackComplianceSummary
-conformancePackComplianceSummary
+newConformancePackComplianceSummary
   pConformancePackName_
   pConformancePackComplianceStatus_ =
     ConformancePackComplianceSummary'
-      { _cpcsConformancePackName =
+      { conformancePackName =
           pConformancePackName_,
-        _cpcsConformancePackComplianceStatus =
+        conformancePackComplianceStatus =
           pConformancePackComplianceStatus_
       }
 
 -- | The name of the conformance pack name.
-cpcsConformancePackName :: Lens' ConformancePackComplianceSummary Text
-cpcsConformancePackName = lens _cpcsConformancePackName (\s a -> s {_cpcsConformancePackName = a})
+conformancePackComplianceSummary_conformancePackName :: Lens.Lens' ConformancePackComplianceSummary Prelude.Text
+conformancePackComplianceSummary_conformancePackName = Lens.lens (\ConformancePackComplianceSummary' {conformancePackName} -> conformancePackName) (\s@ConformancePackComplianceSummary' {} a -> s {conformancePackName = a} :: ConformancePackComplianceSummary)
 
--- | The status of the conformance pack. The allowed values are COMPLIANT and NON_COMPLIANT.
-cpcsConformancePackComplianceStatus :: Lens' ConformancePackComplianceSummary ConformancePackComplianceType
-cpcsConformancePackComplianceStatus = lens _cpcsConformancePackComplianceStatus (\s a -> s {_cpcsConformancePackComplianceStatus = a})
+-- | The status of the conformance pack. The allowed values are COMPLIANT and
+-- NON_COMPLIANT.
+conformancePackComplianceSummary_conformancePackComplianceStatus :: Lens.Lens' ConformancePackComplianceSummary ConformancePackComplianceType
+conformancePackComplianceSummary_conformancePackComplianceStatus = Lens.lens (\ConformancePackComplianceSummary' {conformancePackComplianceStatus} -> conformancePackComplianceStatus) (\s@ConformancePackComplianceSummary' {} a -> s {conformancePackComplianceStatus = a} :: ConformancePackComplianceSummary)
 
-instance FromJSON ConformancePackComplianceSummary where
+instance
+  Prelude.FromJSON
+    ConformancePackComplianceSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConformancePackComplianceSummary"
       ( \x ->
           ConformancePackComplianceSummary'
-            <$> (x .: "ConformancePackName")
-            <*> (x .: "ConformancePackComplianceStatus")
+            Prelude.<$> (x Prelude..: "ConformancePackName")
+            Prelude.<*> (x Prelude..: "ConformancePackComplianceStatus")
       )
 
-instance Hashable ConformancePackComplianceSummary
+instance
+  Prelude.Hashable
+    ConformancePackComplianceSummary
 
-instance NFData ConformancePackComplianceSummary
+instance
+  Prelude.NFData
+    ConformancePackComplianceSummary

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.RetentionConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object with the name of the retention configuration and the retention period in days. The object stores the configuration for data retention in AWS Config.
+-- | An object with the name of the retention configuration and the retention
+-- period in days. The object stores the configuration for data retention
+-- in AWS Config.
 --
---
---
--- /See:/ 'retentionConfiguration' smart constructor.
+-- /See:/ 'newRetentionConfiguration' smart constructor.
 data RetentionConfiguration = RetentionConfiguration'
-  { _rcName ::
-      !Text,
-    _rcRetentionPeriodInDays ::
-      !Nat
+  { -- | The name of the retention configuration object.
+    name :: Prelude.Text,
+    -- | Number of days AWS Config stores your historical information.
+    --
+    -- Currently, only applicable to the configuration item history.
+    retentionPeriodInDays :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RetentionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RetentionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcName' - The name of the retention configuration object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcRetentionPeriodInDays' - Number of days AWS Config stores your historical information.
-retentionConfiguration ::
-  -- | 'rcName'
-  Text ->
-  -- | 'rcRetentionPeriodInDays'
-  Natural ->
+-- 'name', 'retentionConfiguration_name' - The name of the retention configuration object.
+--
+-- 'retentionPeriodInDays', 'retentionConfiguration_retentionPeriodInDays' - Number of days AWS Config stores your historical information.
+--
+-- Currently, only applicable to the configuration item history.
+newRetentionConfiguration ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'retentionPeriodInDays'
+  Prelude.Natural ->
   RetentionConfiguration
-retentionConfiguration pName_ pRetentionPeriodInDays_ =
-  RetentionConfiguration'
-    { _rcName = pName_,
-      _rcRetentionPeriodInDays =
-        _Nat # pRetentionPeriodInDays_
-    }
+newRetentionConfiguration
+  pName_
+  pRetentionPeriodInDays_ =
+    RetentionConfiguration'
+      { name = pName_,
+        retentionPeriodInDays =
+          Prelude._Nat Lens.# pRetentionPeriodInDays_
+      }
 
 -- | The name of the retention configuration object.
-rcName :: Lens' RetentionConfiguration Text
-rcName = lens _rcName (\s a -> s {_rcName = a})
+retentionConfiguration_name :: Lens.Lens' RetentionConfiguration Prelude.Text
+retentionConfiguration_name = Lens.lens (\RetentionConfiguration' {name} -> name) (\s@RetentionConfiguration' {} a -> s {name = a} :: RetentionConfiguration)
 
 -- | Number of days AWS Config stores your historical information.
-rcRetentionPeriodInDays :: Lens' RetentionConfiguration Natural
-rcRetentionPeriodInDays = lens _rcRetentionPeriodInDays (\s a -> s {_rcRetentionPeriodInDays = a}) . _Nat
+--
+-- Currently, only applicable to the configuration item history.
+retentionConfiguration_retentionPeriodInDays :: Lens.Lens' RetentionConfiguration Prelude.Natural
+retentionConfiguration_retentionPeriodInDays = Lens.lens (\RetentionConfiguration' {retentionPeriodInDays} -> retentionPeriodInDays) (\s@RetentionConfiguration' {} a -> s {retentionPeriodInDays = a} :: RetentionConfiguration) Prelude.. Prelude._Nat
 
-instance FromJSON RetentionConfiguration where
+instance Prelude.FromJSON RetentionConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RetentionConfiguration"
       ( \x ->
           RetentionConfiguration'
-            <$> (x .: "Name") <*> (x .: "RetentionPeriodInDays")
+            Prelude.<$> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "RetentionPeriodInDays")
       )
 
-instance Hashable RetentionConfiguration
+instance Prelude.Hashable RetentionConfiguration
 
-instance NFData RetentionConfiguration
+instance Prelude.NFData RetentionConfiguration

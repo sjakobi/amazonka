@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Config.Types.AggregatedSourceType
   ( AggregatedSourceType
       ( ..,
-        Account,
-        Organization
+        AggregatedSourceTypeACCOUNT,
+        AggregatedSourceTypeORGANIZATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AggregatedSourceType
-  = AggregatedSourceType'
-      ( CI
-          Text
-      )
+newtype AggregatedSourceType = AggregatedSourceType'
+  { fromAggregatedSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Account :: AggregatedSourceType
-pattern Account = AggregatedSourceType' "ACCOUNT"
+pattern AggregatedSourceTypeACCOUNT :: AggregatedSourceType
+pattern AggregatedSourceTypeACCOUNT = AggregatedSourceType' "ACCOUNT"
 
-pattern Organization :: AggregatedSourceType
-pattern Organization = AggregatedSourceType' "ORGANIZATION"
+pattern AggregatedSourceTypeORGANIZATION :: AggregatedSourceType
+pattern AggregatedSourceTypeORGANIZATION = AggregatedSourceType' "ORGANIZATION"
 
 {-# COMPLETE
-  Account,
-  Organization,
+  AggregatedSourceTypeACCOUNT,
+  AggregatedSourceTypeORGANIZATION,
   AggregatedSourceType'
   #-}
 
-instance FromText AggregatedSourceType where
-  parser = (AggregatedSourceType' . mk) <$> takeText
+instance Prelude.FromText AggregatedSourceType where
+  parser = AggregatedSourceType' Prelude.<$> Prelude.takeText
 
-instance ToText AggregatedSourceType where
-  toText (AggregatedSourceType' ci) = original ci
+instance Prelude.ToText AggregatedSourceType where
+  toText (AggregatedSourceType' x) = x
 
-instance Hashable AggregatedSourceType
+instance Prelude.Hashable AggregatedSourceType
 
-instance NFData AggregatedSourceType
+instance Prelude.NFData AggregatedSourceType
 
-instance ToByteString AggregatedSourceType
+instance Prelude.ToByteString AggregatedSourceType
 
-instance ToQuery AggregatedSourceType
+instance Prelude.ToQuery AggregatedSourceType
 
-instance ToHeader AggregatedSourceType
+instance Prelude.ToHeader AggregatedSourceType
 
-instance FromJSON AggregatedSourceType where
-  parseJSON = parseJSONText "AggregatedSourceType"
+instance Prelude.FromJSON AggregatedSourceType where
+  parseJSON = Prelude.parseJSONText "AggregatedSourceType"

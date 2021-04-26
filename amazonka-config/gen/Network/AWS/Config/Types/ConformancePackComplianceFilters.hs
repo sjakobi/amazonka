@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,73 @@
 module Network.AWS.Config.Types.ConformancePackComplianceFilters where
 
 import Network.AWS.Config.Types.ConformancePackComplianceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Filters the conformance pack by compliance types and AWS Config rule names.
+-- | Filters the conformance pack by compliance types and AWS Config rule
+-- names.
 --
---
---
--- /See:/ 'conformancePackComplianceFilters' smart constructor.
+-- /See:/ 'newConformancePackComplianceFilters' smart constructor.
 data ConformancePackComplianceFilters = ConformancePackComplianceFilters'
-  { _cpcfComplianceType ::
-      !( Maybe
-           ConformancePackComplianceType
-       ),
-    _cpcfConfigRuleNames ::
-      !( Maybe
-           [Text]
-       )
+  { -- | Filters the results by compliance.
+    --
+    -- The allowed values are @COMPLIANT@ and @NON_COMPLIANT@.
+    complianceType :: Prelude.Maybe ConformancePackComplianceType,
+    -- | Filters the results by AWS Config rule names.
+    configRuleNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConformancePackComplianceFilters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConformancePackComplianceFilters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpcfComplianceType' - Filters the results by compliance. The allowed values are @COMPLIANT@ and @NON_COMPLIANT@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpcfConfigRuleNames' - Filters the results by AWS Config rule names.
-conformancePackComplianceFilters ::
+-- 'complianceType', 'conformancePackComplianceFilters_complianceType' - Filters the results by compliance.
+--
+-- The allowed values are @COMPLIANT@ and @NON_COMPLIANT@.
+--
+-- 'configRuleNames', 'conformancePackComplianceFilters_configRuleNames' - Filters the results by AWS Config rule names.
+newConformancePackComplianceFilters ::
   ConformancePackComplianceFilters
-conformancePackComplianceFilters =
+newConformancePackComplianceFilters =
   ConformancePackComplianceFilters'
-    { _cpcfComplianceType =
-        Nothing,
-      _cpcfConfigRuleNames = Nothing
+    { complianceType =
+        Prelude.Nothing,
+      configRuleNames = Prelude.Nothing
     }
 
--- | Filters the results by compliance. The allowed values are @COMPLIANT@ and @NON_COMPLIANT@ .
-cpcfComplianceType :: Lens' ConformancePackComplianceFilters (Maybe ConformancePackComplianceType)
-cpcfComplianceType = lens _cpcfComplianceType (\s a -> s {_cpcfComplianceType = a})
+-- | Filters the results by compliance.
+--
+-- The allowed values are @COMPLIANT@ and @NON_COMPLIANT@.
+conformancePackComplianceFilters_complianceType :: Lens.Lens' ConformancePackComplianceFilters (Prelude.Maybe ConformancePackComplianceType)
+conformancePackComplianceFilters_complianceType = Lens.lens (\ConformancePackComplianceFilters' {complianceType} -> complianceType) (\s@ConformancePackComplianceFilters' {} a -> s {complianceType = a} :: ConformancePackComplianceFilters)
 
 -- | Filters the results by AWS Config rule names.
-cpcfConfigRuleNames :: Lens' ConformancePackComplianceFilters [Text]
-cpcfConfigRuleNames = lens _cpcfConfigRuleNames (\s a -> s {_cpcfConfigRuleNames = a}) . _Default . _Coerce
+conformancePackComplianceFilters_configRuleNames :: Lens.Lens' ConformancePackComplianceFilters (Prelude.Maybe [Prelude.Text])
+conformancePackComplianceFilters_configRuleNames = Lens.lens (\ConformancePackComplianceFilters' {configRuleNames} -> configRuleNames) (\s@ConformancePackComplianceFilters' {} a -> s {configRuleNames = a} :: ConformancePackComplianceFilters) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable ConformancePackComplianceFilters
+instance
+  Prelude.Hashable
+    ConformancePackComplianceFilters
 
-instance NFData ConformancePackComplianceFilters
+instance
+  Prelude.NFData
+    ConformancePackComplianceFilters
 
-instance ToJSON ConformancePackComplianceFilters where
+instance
+  Prelude.ToJSON
+    ConformancePackComplianceFilters
+  where
   toJSON ConformancePackComplianceFilters' {..} =
-    object
-      ( catMaybes
-          [ ("ComplianceType" .=) <$> _cpcfComplianceType,
-            ("ConfigRuleNames" .=) <$> _cpcfConfigRuleNames
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ComplianceType" Prelude..=)
+              Prelude.<$> complianceType,
+            ("ConfigRuleNames" Prelude..=)
+              Prelude.<$> configRuleNames
           ]
       )

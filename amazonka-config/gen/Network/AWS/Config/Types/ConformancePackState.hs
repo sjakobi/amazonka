@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.Config.Types.ConformancePackState
   ( ConformancePackState
       ( ..,
-        CPSCreateComplete,
-        CPSCreateFailed,
-        CPSCreateInProgress,
-        CPSDeleteFailed,
-        CPSDeleteInProgress
+        ConformancePackStateCREATECOMPLETE,
+        ConformancePackStateCREATEFAILED,
+        ConformancePackStateCREATEINPROGRESS,
+        ConformancePackStateDELETEFAILED,
+        ConformancePackStateDELETEINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConformancePackState
-  = ConformancePackState'
-      ( CI
-          Text
-      )
+newtype ConformancePackState = ConformancePackState'
+  { fromConformancePackState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CPSCreateComplete :: ConformancePackState
-pattern CPSCreateComplete = ConformancePackState' "CREATE_COMPLETE"
+pattern ConformancePackStateCREATECOMPLETE :: ConformancePackState
+pattern ConformancePackStateCREATECOMPLETE = ConformancePackState' "CREATE_COMPLETE"
 
-pattern CPSCreateFailed :: ConformancePackState
-pattern CPSCreateFailed = ConformancePackState' "CREATE_FAILED"
+pattern ConformancePackStateCREATEFAILED :: ConformancePackState
+pattern ConformancePackStateCREATEFAILED = ConformancePackState' "CREATE_FAILED"
 
-pattern CPSCreateInProgress :: ConformancePackState
-pattern CPSCreateInProgress = ConformancePackState' "CREATE_IN_PROGRESS"
+pattern ConformancePackStateCREATEINPROGRESS :: ConformancePackState
+pattern ConformancePackStateCREATEINPROGRESS = ConformancePackState' "CREATE_IN_PROGRESS"
 
-pattern CPSDeleteFailed :: ConformancePackState
-pattern CPSDeleteFailed = ConformancePackState' "DELETE_FAILED"
+pattern ConformancePackStateDELETEFAILED :: ConformancePackState
+pattern ConformancePackStateDELETEFAILED = ConformancePackState' "DELETE_FAILED"
 
-pattern CPSDeleteInProgress :: ConformancePackState
-pattern CPSDeleteInProgress = ConformancePackState' "DELETE_IN_PROGRESS"
+pattern ConformancePackStateDELETEINPROGRESS :: ConformancePackState
+pattern ConformancePackStateDELETEINPROGRESS = ConformancePackState' "DELETE_IN_PROGRESS"
 
 {-# COMPLETE
-  CPSCreateComplete,
-  CPSCreateFailed,
-  CPSCreateInProgress,
-  CPSDeleteFailed,
-  CPSDeleteInProgress,
+  ConformancePackStateCREATECOMPLETE,
+  ConformancePackStateCREATEFAILED,
+  ConformancePackStateCREATEINPROGRESS,
+  ConformancePackStateDELETEFAILED,
+  ConformancePackStateDELETEINPROGRESS,
   ConformancePackState'
   #-}
 
-instance FromText ConformancePackState where
-  parser = (ConformancePackState' . mk) <$> takeText
+instance Prelude.FromText ConformancePackState where
+  parser = ConformancePackState' Prelude.<$> Prelude.takeText
 
-instance ToText ConformancePackState where
-  toText (ConformancePackState' ci) = original ci
+instance Prelude.ToText ConformancePackState where
+  toText (ConformancePackState' x) = x
 
-instance Hashable ConformancePackState
+instance Prelude.Hashable ConformancePackState
 
-instance NFData ConformancePackState
+instance Prelude.NFData ConformancePackState
 
-instance ToByteString ConformancePackState
+instance Prelude.ToByteString ConformancePackState
 
-instance ToQuery ConformancePackState
+instance Prelude.ToQuery ConformancePackState
 
-instance ToHeader ConformancePackState
+instance Prelude.ToHeader ConformancePackState
 
-instance FromJSON ConformancePackState where
-  parseJSON = parseJSONText "ConformancePackState"
+instance Prelude.FromJSON ConformancePackState where
+  parseJSON = Prelude.parseJSONText "ConformancePackState"

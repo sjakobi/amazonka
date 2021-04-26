@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,183 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the stored queries for a single AWS account and a single AWS Region. The default is 100.
+-- Lists the stored queries for a single AWS account and a single AWS
+-- Region. The default is 100.
 module Network.AWS.Config.ListStoredQueries
   ( -- * Creating a Request
-    listStoredQueries,
-    ListStoredQueries,
+    ListStoredQueries (..),
+    newListStoredQueries,
 
     -- * Request Lenses
-    lsqNextToken,
-    lsqMaxResults,
+    listStoredQueries_nextToken,
+    listStoredQueries_maxResults,
 
     -- * Destructuring the Response
-    listStoredQueriesResponse,
-    ListStoredQueriesResponse,
+    ListStoredQueriesResponse (..),
+    newListStoredQueriesResponse,
 
     -- * Response Lenses
-    lsqrrsNextToken,
-    lsqrrsStoredQueryMetadata,
-    lsqrrsResponseStatus,
+    listStoredQueriesResponse_nextToken,
+    listStoredQueriesResponse_storedQueryMetadata,
+    listStoredQueriesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.StoredQueryMetadata
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listStoredQueries' smart constructor.
+-- | /See:/ 'newListStoredQueries' smart constructor.
 data ListStoredQueries = ListStoredQueries'
-  { _lsqNextToken ::
-      !(Maybe Text),
-    _lsqMaxResults :: !(Maybe Nat)
+  { -- | The nextToken string returned in a previous request that you use to
+    -- request the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned with a single call.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListStoredQueries' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListStoredQueries' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsqNextToken' - The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsqMaxResults' - The maximum number of results to be returned with a single call.
-listStoredQueries ::
+-- 'nextToken', 'listStoredQueries_nextToken' - The nextToken string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
+--
+-- 'maxResults', 'listStoredQueries_maxResults' - The maximum number of results to be returned with a single call.
+newListStoredQueries ::
   ListStoredQueries
-listStoredQueries =
+newListStoredQueries =
   ListStoredQueries'
-    { _lsqNextToken = Nothing,
-      _lsqMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
-lsqNextToken :: Lens' ListStoredQueries (Maybe Text)
-lsqNextToken = lens _lsqNextToken (\s a -> s {_lsqNextToken = a})
+-- | The nextToken string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
+listStoredQueries_nextToken :: Lens.Lens' ListStoredQueries (Prelude.Maybe Prelude.Text)
+listStoredQueries_nextToken = Lens.lens (\ListStoredQueries' {nextToken} -> nextToken) (\s@ListStoredQueries' {} a -> s {nextToken = a} :: ListStoredQueries)
 
 -- | The maximum number of results to be returned with a single call.
-lsqMaxResults :: Lens' ListStoredQueries (Maybe Natural)
-lsqMaxResults = lens _lsqMaxResults (\s a -> s {_lsqMaxResults = a}) . mapping _Nat
+listStoredQueries_maxResults :: Lens.Lens' ListStoredQueries (Prelude.Maybe Prelude.Natural)
+listStoredQueries_maxResults = Lens.lens (\ListStoredQueries' {maxResults} -> maxResults) (\s@ListStoredQueries' {} a -> s {maxResults = a} :: ListStoredQueries) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest ListStoredQueries where
+instance Prelude.AWSRequest ListStoredQueries where
   type Rs ListStoredQueries = ListStoredQueriesResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListStoredQueriesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "StoredQueryMetadata" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "StoredQueryMetadata"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListStoredQueries
+instance Prelude.Hashable ListStoredQueries
 
-instance NFData ListStoredQueries
+instance Prelude.NFData ListStoredQueries
 
-instance ToHeaders ListStoredQueries where
+instance Prelude.ToHeaders ListStoredQueries where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.ListStoredQueries" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.ListStoredQueries" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListStoredQueries where
+instance Prelude.ToJSON ListStoredQueries where
   toJSON ListStoredQueries' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lsqNextToken,
-            ("MaxResults" .=) <$> _lsqMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListStoredQueries where
-  toPath = const "/"
+instance Prelude.ToPath ListStoredQueries where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListStoredQueries where
-  toQuery = const mempty
+instance Prelude.ToQuery ListStoredQueries where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listStoredQueriesResponse' smart constructor.
+-- | /See:/ 'newListStoredQueriesResponse' smart constructor.
 data ListStoredQueriesResponse = ListStoredQueriesResponse'
-  { _lsqrrsNextToken ::
-      !(Maybe Text),
-    _lsqrrsStoredQueryMetadata ::
-      !( Maybe
-           [StoredQueryMetadata]
-       ),
-    _lsqrrsResponseStatus ::
-      !Int
+  { -- | If the previous paginated request didn\'t return all of the remaining
+    -- results, the response object\'s @NextToken@ parameter value is set to a
+    -- token. To retrieve the next set of results, call this action again and
+    -- assign that token to the request object\'s @NextToken@ parameter. If
+    -- there are no remaining results, the previous response object\'s
+    -- @NextToken@ parameter is set to @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @StoredQueryMetadata@ objects.
+    storedQueryMetadata :: Prelude.Maybe [StoredQueryMetadata],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListStoredQueriesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListStoredQueriesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsqrrsNextToken' - If the previous paginated request didn't return all of the remaining results, the response object's @NextToken@ parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's @NextToken@ parameter. If there are no remaining results, the previous response object's @NextToken@ parameter is set to @null@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsqrrsStoredQueryMetadata' - A list of @StoredQueryMetadata@ objects.
+-- 'nextToken', 'listStoredQueriesResponse_nextToken' - If the previous paginated request didn\'t return all of the remaining
+-- results, the response object\'s @NextToken@ parameter value is set to a
+-- token. To retrieve the next set of results, call this action again and
+-- assign that token to the request object\'s @NextToken@ parameter. If
+-- there are no remaining results, the previous response object\'s
+-- @NextToken@ parameter is set to @null@.
 --
--- * 'lsqrrsResponseStatus' - -- | The response status code.
-listStoredQueriesResponse ::
-  -- | 'lsqrrsResponseStatus'
-  Int ->
+-- 'storedQueryMetadata', 'listStoredQueriesResponse_storedQueryMetadata' - A list of @StoredQueryMetadata@ objects.
+--
+-- 'httpStatus', 'listStoredQueriesResponse_httpStatus' - The response's http status code.
+newListStoredQueriesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListStoredQueriesResponse
-listStoredQueriesResponse pResponseStatus_ =
+newListStoredQueriesResponse pHttpStatus_ =
   ListStoredQueriesResponse'
-    { _lsqrrsNextToken =
-        Nothing,
-      _lsqrrsStoredQueryMetadata = Nothing,
-      _lsqrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      storedQueryMetadata = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the previous paginated request didn't return all of the remaining results, the response object's @NextToken@ parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's @NextToken@ parameter. If there are no remaining results, the previous response object's @NextToken@ parameter is set to @null@ .
-lsqrrsNextToken :: Lens' ListStoredQueriesResponse (Maybe Text)
-lsqrrsNextToken = lens _lsqrrsNextToken (\s a -> s {_lsqrrsNextToken = a})
+-- | If the previous paginated request didn\'t return all of the remaining
+-- results, the response object\'s @NextToken@ parameter value is set to a
+-- token. To retrieve the next set of results, call this action again and
+-- assign that token to the request object\'s @NextToken@ parameter. If
+-- there are no remaining results, the previous response object\'s
+-- @NextToken@ parameter is set to @null@.
+listStoredQueriesResponse_nextToken :: Lens.Lens' ListStoredQueriesResponse (Prelude.Maybe Prelude.Text)
+listStoredQueriesResponse_nextToken = Lens.lens (\ListStoredQueriesResponse' {nextToken} -> nextToken) (\s@ListStoredQueriesResponse' {} a -> s {nextToken = a} :: ListStoredQueriesResponse)
 
 -- | A list of @StoredQueryMetadata@ objects.
-lsqrrsStoredQueryMetadata :: Lens' ListStoredQueriesResponse [StoredQueryMetadata]
-lsqrrsStoredQueryMetadata = lens _lsqrrsStoredQueryMetadata (\s a -> s {_lsqrrsStoredQueryMetadata = a}) . _Default . _Coerce
+listStoredQueriesResponse_storedQueryMetadata :: Lens.Lens' ListStoredQueriesResponse (Prelude.Maybe [StoredQueryMetadata])
+listStoredQueriesResponse_storedQueryMetadata = Lens.lens (\ListStoredQueriesResponse' {storedQueryMetadata} -> storedQueryMetadata) (\s@ListStoredQueriesResponse' {} a -> s {storedQueryMetadata = a} :: ListStoredQueriesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsqrrsResponseStatus :: Lens' ListStoredQueriesResponse Int
-lsqrrsResponseStatus = lens _lsqrrsResponseStatus (\s a -> s {_lsqrrsResponseStatus = a})
+-- | The response's http status code.
+listStoredQueriesResponse_httpStatus :: Lens.Lens' ListStoredQueriesResponse Prelude.Int
+listStoredQueriesResponse_httpStatus = Lens.lens (\ListStoredQueriesResponse' {httpStatus} -> httpStatus) (\s@ListStoredQueriesResponse' {} a -> s {httpStatus = a} :: ListStoredQueriesResponse)
 
-instance NFData ListStoredQueriesResponse
+instance Prelude.NFData ListStoredQueriesResponse

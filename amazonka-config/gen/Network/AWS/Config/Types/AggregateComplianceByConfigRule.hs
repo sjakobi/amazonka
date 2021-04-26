@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,93 +20,93 @@
 module Network.AWS.Config.Types.AggregateComplianceByConfigRule where
 
 import Network.AWS.Config.Types.Compliance
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates whether an AWS Config rule is compliant based on account ID, region, compliance, and rule name.
+-- | Indicates whether an AWS Config rule is compliant based on account ID,
+-- region, compliance, and rule name.
 --
+-- A rule is compliant if all of the resources that the rule evaluated
+-- comply with it. It is noncompliant if any of these resources do not
+-- comply.
 --
--- A rule is compliant if all of the resources that the rule evaluated comply with it. It is noncompliant if any of these resources do not comply.
---
---
--- /See:/ 'aggregateComplianceByConfigRule' smart constructor.
+-- /See:/ 'newAggregateComplianceByConfigRule' smart constructor.
 data AggregateComplianceByConfigRule = AggregateComplianceByConfigRule'
-  { _acbcrAccountId ::
-      !( Maybe
-           Text
-       ),
-    _acbcrConfigRuleName ::
-      !( Maybe
-           Text
-       ),
-    _acbcrCompliance ::
-      !( Maybe
-           Compliance
-       ),
-    _acbcrAWSRegion ::
-      !( Maybe
-           Text
-       )
+  { -- | The 12-digit account ID of the source account.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS Config rule.
+    configRuleName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether an AWS resource or AWS Config rule is compliant and
+    -- provides the number of contributors that affect the compliance.
+    compliance :: Prelude.Maybe Compliance,
+    -- | The source region from where the data is aggregated.
+    awsRegion :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AggregateComplianceByConfigRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AggregateComplianceByConfigRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acbcrAccountId' - The 12-digit account ID of the source account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acbcrConfigRuleName' - The name of the AWS Config rule.
+-- 'accountId', 'aggregateComplianceByConfigRule_accountId' - The 12-digit account ID of the source account.
 --
--- * 'acbcrCompliance' - Indicates whether an AWS resource or AWS Config rule is compliant and provides the number of contributors that affect the compliance.
+-- 'configRuleName', 'aggregateComplianceByConfigRule_configRuleName' - The name of the AWS Config rule.
 --
--- * 'acbcrAWSRegion' - The source region from where the data is aggregated.
-aggregateComplianceByConfigRule ::
+-- 'compliance', 'aggregateComplianceByConfigRule_compliance' - Indicates whether an AWS resource or AWS Config rule is compliant and
+-- provides the number of contributors that affect the compliance.
+--
+-- 'awsRegion', 'aggregateComplianceByConfigRule_awsRegion' - The source region from where the data is aggregated.
+newAggregateComplianceByConfigRule ::
   AggregateComplianceByConfigRule
-aggregateComplianceByConfigRule =
+newAggregateComplianceByConfigRule =
   AggregateComplianceByConfigRule'
-    { _acbcrAccountId =
-        Nothing,
-      _acbcrConfigRuleName = Nothing,
-      _acbcrCompliance = Nothing,
-      _acbcrAWSRegion = Nothing
+    { accountId =
+        Prelude.Nothing,
+      configRuleName = Prelude.Nothing,
+      compliance = Prelude.Nothing,
+      awsRegion = Prelude.Nothing
     }
 
 -- | The 12-digit account ID of the source account.
-acbcrAccountId :: Lens' AggregateComplianceByConfigRule (Maybe Text)
-acbcrAccountId = lens _acbcrAccountId (\s a -> s {_acbcrAccountId = a})
+aggregateComplianceByConfigRule_accountId :: Lens.Lens' AggregateComplianceByConfigRule (Prelude.Maybe Prelude.Text)
+aggregateComplianceByConfigRule_accountId = Lens.lens (\AggregateComplianceByConfigRule' {accountId} -> accountId) (\s@AggregateComplianceByConfigRule' {} a -> s {accountId = a} :: AggregateComplianceByConfigRule)
 
 -- | The name of the AWS Config rule.
-acbcrConfigRuleName :: Lens' AggregateComplianceByConfigRule (Maybe Text)
-acbcrConfigRuleName = lens _acbcrConfigRuleName (\s a -> s {_acbcrConfigRuleName = a})
+aggregateComplianceByConfigRule_configRuleName :: Lens.Lens' AggregateComplianceByConfigRule (Prelude.Maybe Prelude.Text)
+aggregateComplianceByConfigRule_configRuleName = Lens.lens (\AggregateComplianceByConfigRule' {configRuleName} -> configRuleName) (\s@AggregateComplianceByConfigRule' {} a -> s {configRuleName = a} :: AggregateComplianceByConfigRule)
 
--- | Indicates whether an AWS resource or AWS Config rule is compliant and provides the number of contributors that affect the compliance.
-acbcrCompliance :: Lens' AggregateComplianceByConfigRule (Maybe Compliance)
-acbcrCompliance = lens _acbcrCompliance (\s a -> s {_acbcrCompliance = a})
+-- | Indicates whether an AWS resource or AWS Config rule is compliant and
+-- provides the number of contributors that affect the compliance.
+aggregateComplianceByConfigRule_compliance :: Lens.Lens' AggregateComplianceByConfigRule (Prelude.Maybe Compliance)
+aggregateComplianceByConfigRule_compliance = Lens.lens (\AggregateComplianceByConfigRule' {compliance} -> compliance) (\s@AggregateComplianceByConfigRule' {} a -> s {compliance = a} :: AggregateComplianceByConfigRule)
 
 -- | The source region from where the data is aggregated.
-acbcrAWSRegion :: Lens' AggregateComplianceByConfigRule (Maybe Text)
-acbcrAWSRegion = lens _acbcrAWSRegion (\s a -> s {_acbcrAWSRegion = a})
+aggregateComplianceByConfigRule_awsRegion :: Lens.Lens' AggregateComplianceByConfigRule (Prelude.Maybe Prelude.Text)
+aggregateComplianceByConfigRule_awsRegion = Lens.lens (\AggregateComplianceByConfigRule' {awsRegion} -> awsRegion) (\s@AggregateComplianceByConfigRule' {} a -> s {awsRegion = a} :: AggregateComplianceByConfigRule)
 
-instance FromJSON AggregateComplianceByConfigRule where
+instance
+  Prelude.FromJSON
+    AggregateComplianceByConfigRule
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AggregateComplianceByConfigRule"
       ( \x ->
           AggregateComplianceByConfigRule'
-            <$> (x .:? "AccountId")
-            <*> (x .:? "ConfigRuleName")
-            <*> (x .:? "Compliance")
-            <*> (x .:? "AwsRegion")
+            Prelude.<$> (x Prelude..:? "AccountId")
+            Prelude.<*> (x Prelude..:? "ConfigRuleName")
+            Prelude.<*> (x Prelude..:? "Compliance")
+            Prelude.<*> (x Prelude..:? "AwsRegion")
       )
 
-instance Hashable AggregateComplianceByConfigRule
+instance
+  Prelude.Hashable
+    AggregateComplianceByConfigRule
 
-instance NFData AggregateComplianceByConfigRule
+instance
+  Prelude.NFData
+    AggregateComplianceByConfigRule

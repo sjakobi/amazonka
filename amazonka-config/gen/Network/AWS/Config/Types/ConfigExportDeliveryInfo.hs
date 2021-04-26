@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,105 +20,101 @@
 module Network.AWS.Config.Types.ConfigExportDeliveryInfo where
 
 import Network.AWS.Config.Types.DeliveryStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides status of the delivery of the snapshot or the configuration history to the specified Amazon S3 bucket. Also provides the status of notifications about the Amazon S3 delivery to the specified Amazon SNS topic.
+-- | Provides status of the delivery of the snapshot or the configuration
+-- history to the specified Amazon S3 bucket. Also provides the status of
+-- notifications about the Amazon S3 delivery to the specified Amazon SNS
+-- topic.
 --
---
---
--- /See:/ 'configExportDeliveryInfo' smart constructor.
+-- /See:/ 'newConfigExportDeliveryInfo' smart constructor.
 data ConfigExportDeliveryInfo = ConfigExportDeliveryInfo'
-  { _cediLastErrorMessage ::
-      !(Maybe Text),
-    _cediNextDeliveryTime ::
-      !(Maybe POSIX),
-    _cediLastSuccessfulTime ::
-      !(Maybe POSIX),
-    _cediLastErrorCode ::
-      !(Maybe Text),
-    _cediLastStatus ::
-      !( Maybe
-           DeliveryStatus
-       ),
-    _cediLastAttemptTime ::
-      !(Maybe POSIX)
+  { -- | The error message from the last attempted delivery.
+    lastErrorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The time that the next delivery occurs.
+    nextDeliveryTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time of the last successful delivery.
+    lastSuccessfulTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The error code from the last attempted delivery.
+    lastErrorCode :: Prelude.Maybe Prelude.Text,
+    -- | Status of the last attempted delivery.
+    lastStatus :: Prelude.Maybe DeliveryStatus,
+    -- | The time of the last attempted delivery.
+    lastAttemptTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigExportDeliveryInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigExportDeliveryInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cediLastErrorMessage' - The error message from the last attempted delivery.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cediNextDeliveryTime' - The time that the next delivery occurs.
+-- 'lastErrorMessage', 'configExportDeliveryInfo_lastErrorMessage' - The error message from the last attempted delivery.
 --
--- * 'cediLastSuccessfulTime' - The time of the last successful delivery.
+-- 'nextDeliveryTime', 'configExportDeliveryInfo_nextDeliveryTime' - The time that the next delivery occurs.
 --
--- * 'cediLastErrorCode' - The error code from the last attempted delivery.
+-- 'lastSuccessfulTime', 'configExportDeliveryInfo_lastSuccessfulTime' - The time of the last successful delivery.
 --
--- * 'cediLastStatus' - Status of the last attempted delivery.
+-- 'lastErrorCode', 'configExportDeliveryInfo_lastErrorCode' - The error code from the last attempted delivery.
 --
--- * 'cediLastAttemptTime' - The time of the last attempted delivery.
-configExportDeliveryInfo ::
+-- 'lastStatus', 'configExportDeliveryInfo_lastStatus' - Status of the last attempted delivery.
+--
+-- 'lastAttemptTime', 'configExportDeliveryInfo_lastAttemptTime' - The time of the last attempted delivery.
+newConfigExportDeliveryInfo ::
   ConfigExportDeliveryInfo
-configExportDeliveryInfo =
+newConfigExportDeliveryInfo =
   ConfigExportDeliveryInfo'
-    { _cediLastErrorMessage =
-        Nothing,
-      _cediNextDeliveryTime = Nothing,
-      _cediLastSuccessfulTime = Nothing,
-      _cediLastErrorCode = Nothing,
-      _cediLastStatus = Nothing,
-      _cediLastAttemptTime = Nothing
+    { lastErrorMessage =
+        Prelude.Nothing,
+      nextDeliveryTime = Prelude.Nothing,
+      lastSuccessfulTime = Prelude.Nothing,
+      lastErrorCode = Prelude.Nothing,
+      lastStatus = Prelude.Nothing,
+      lastAttemptTime = Prelude.Nothing
     }
 
 -- | The error message from the last attempted delivery.
-cediLastErrorMessage :: Lens' ConfigExportDeliveryInfo (Maybe Text)
-cediLastErrorMessage = lens _cediLastErrorMessage (\s a -> s {_cediLastErrorMessage = a})
+configExportDeliveryInfo_lastErrorMessage :: Lens.Lens' ConfigExportDeliveryInfo (Prelude.Maybe Prelude.Text)
+configExportDeliveryInfo_lastErrorMessage = Lens.lens (\ConfigExportDeliveryInfo' {lastErrorMessage} -> lastErrorMessage) (\s@ConfigExportDeliveryInfo' {} a -> s {lastErrorMessage = a} :: ConfigExportDeliveryInfo)
 
 -- | The time that the next delivery occurs.
-cediNextDeliveryTime :: Lens' ConfigExportDeliveryInfo (Maybe UTCTime)
-cediNextDeliveryTime = lens _cediNextDeliveryTime (\s a -> s {_cediNextDeliveryTime = a}) . mapping _Time
+configExportDeliveryInfo_nextDeliveryTime :: Lens.Lens' ConfigExportDeliveryInfo (Prelude.Maybe Prelude.UTCTime)
+configExportDeliveryInfo_nextDeliveryTime = Lens.lens (\ConfigExportDeliveryInfo' {nextDeliveryTime} -> nextDeliveryTime) (\s@ConfigExportDeliveryInfo' {} a -> s {nextDeliveryTime = a} :: ConfigExportDeliveryInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time of the last successful delivery.
-cediLastSuccessfulTime :: Lens' ConfigExportDeliveryInfo (Maybe UTCTime)
-cediLastSuccessfulTime = lens _cediLastSuccessfulTime (\s a -> s {_cediLastSuccessfulTime = a}) . mapping _Time
+configExportDeliveryInfo_lastSuccessfulTime :: Lens.Lens' ConfigExportDeliveryInfo (Prelude.Maybe Prelude.UTCTime)
+configExportDeliveryInfo_lastSuccessfulTime = Lens.lens (\ConfigExportDeliveryInfo' {lastSuccessfulTime} -> lastSuccessfulTime) (\s@ConfigExportDeliveryInfo' {} a -> s {lastSuccessfulTime = a} :: ConfigExportDeliveryInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | The error code from the last attempted delivery.
-cediLastErrorCode :: Lens' ConfigExportDeliveryInfo (Maybe Text)
-cediLastErrorCode = lens _cediLastErrorCode (\s a -> s {_cediLastErrorCode = a})
+configExportDeliveryInfo_lastErrorCode :: Lens.Lens' ConfigExportDeliveryInfo (Prelude.Maybe Prelude.Text)
+configExportDeliveryInfo_lastErrorCode = Lens.lens (\ConfigExportDeliveryInfo' {lastErrorCode} -> lastErrorCode) (\s@ConfigExportDeliveryInfo' {} a -> s {lastErrorCode = a} :: ConfigExportDeliveryInfo)
 
 -- | Status of the last attempted delivery.
-cediLastStatus :: Lens' ConfigExportDeliveryInfo (Maybe DeliveryStatus)
-cediLastStatus = lens _cediLastStatus (\s a -> s {_cediLastStatus = a})
+configExportDeliveryInfo_lastStatus :: Lens.Lens' ConfigExportDeliveryInfo (Prelude.Maybe DeliveryStatus)
+configExportDeliveryInfo_lastStatus = Lens.lens (\ConfigExportDeliveryInfo' {lastStatus} -> lastStatus) (\s@ConfigExportDeliveryInfo' {} a -> s {lastStatus = a} :: ConfigExportDeliveryInfo)
 
 -- | The time of the last attempted delivery.
-cediLastAttemptTime :: Lens' ConfigExportDeliveryInfo (Maybe UTCTime)
-cediLastAttemptTime = lens _cediLastAttemptTime (\s a -> s {_cediLastAttemptTime = a}) . mapping _Time
+configExportDeliveryInfo_lastAttemptTime :: Lens.Lens' ConfigExportDeliveryInfo (Prelude.Maybe Prelude.UTCTime)
+configExportDeliveryInfo_lastAttemptTime = Lens.lens (\ConfigExportDeliveryInfo' {lastAttemptTime} -> lastAttemptTime) (\s@ConfigExportDeliveryInfo' {} a -> s {lastAttemptTime = a} :: ConfigExportDeliveryInfo) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON ConfigExportDeliveryInfo where
+instance Prelude.FromJSON ConfigExportDeliveryInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConfigExportDeliveryInfo"
       ( \x ->
           ConfigExportDeliveryInfo'
-            <$> (x .:? "lastErrorMessage")
-            <*> (x .:? "nextDeliveryTime")
-            <*> (x .:? "lastSuccessfulTime")
-            <*> (x .:? "lastErrorCode")
-            <*> (x .:? "lastStatus")
-            <*> (x .:? "lastAttemptTime")
+            Prelude.<$> (x Prelude..:? "lastErrorMessage")
+            Prelude.<*> (x Prelude..:? "nextDeliveryTime")
+            Prelude.<*> (x Prelude..:? "lastSuccessfulTime")
+            Prelude.<*> (x Prelude..:? "lastErrorCode")
+            Prelude.<*> (x Prelude..:? "lastStatus")
+            Prelude.<*> (x Prelude..:? "lastAttemptTime")
       )
 
-instance Hashable ConfigExportDeliveryInfo
+instance Prelude.Hashable ConfigExportDeliveryInfo
 
-instance NFData ConfigExportDeliveryInfo
+instance Prelude.NFData ConfigExportDeliveryInfo

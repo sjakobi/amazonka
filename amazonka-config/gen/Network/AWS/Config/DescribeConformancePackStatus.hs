@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,192 +22,200 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Provides one or more conformance packs deployment status.
+--
+-- If there are no conformance packs then you will see an empty result.
 module Network.AWS.Config.DescribeConformancePackStatus
   ( -- * Creating a Request
-    describeConformancePackStatus,
-    DescribeConformancePackStatus,
+    DescribeConformancePackStatus (..),
+    newDescribeConformancePackStatus,
 
     -- * Request Lenses
-    dcpsNextToken,
-    dcpsConformancePackNames,
-    dcpsLimit,
+    describeConformancePackStatus_nextToken,
+    describeConformancePackStatus_conformancePackNames,
+    describeConformancePackStatus_limit,
 
     -- * Destructuring the Response
-    describeConformancePackStatusResponse,
-    DescribeConformancePackStatusResponse,
+    DescribeConformancePackStatusResponse (..),
+    newDescribeConformancePackStatusResponse,
 
     -- * Response Lenses
-    dcpsrrsNextToken,
-    dcpsrrsConformancePackStatusDetails,
-    dcpsrrsResponseStatus,
+    describeConformancePackStatusResponse_nextToken,
+    describeConformancePackStatusResponse_conformancePackStatusDetails,
+    describeConformancePackStatusResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.ConformancePackStatusDetail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeConformancePackStatus' smart constructor.
+-- | /See:/ 'newDescribeConformancePackStatus' smart constructor.
 data DescribeConformancePackStatus = DescribeConformancePackStatus'
-  { _dcpsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dcpsConformancePackNames ::
-      !( Maybe
-           [Text]
-       ),
-    _dcpsLimit ::
-      !( Maybe
-           Nat
-       )
+  { -- | The @nextToken@ string returned in a previous request that you use to
+    -- request the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Comma-separated list of conformance pack names.
+    conformancePackNames :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of conformance packs status returned on each page.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConformancePackStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConformancePackStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpsNextToken' - The @nextToken@ string returned in a previous request that you use to request the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcpsConformancePackNames' - Comma-separated list of conformance pack names.
+-- 'nextToken', 'describeConformancePackStatus_nextToken' - The @nextToken@ string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
 --
--- * 'dcpsLimit' - The maximum number of conformance packs status returned on each page.
-describeConformancePackStatus ::
+-- 'conformancePackNames', 'describeConformancePackStatus_conformancePackNames' - Comma-separated list of conformance pack names.
+--
+-- 'limit', 'describeConformancePackStatus_limit' - The maximum number of conformance packs status returned on each page.
+newDescribeConformancePackStatus ::
   DescribeConformancePackStatus
-describeConformancePackStatus =
+newDescribeConformancePackStatus =
   DescribeConformancePackStatus'
-    { _dcpsNextToken =
-        Nothing,
-      _dcpsConformancePackNames = Nothing,
-      _dcpsLimit = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      conformancePackNames = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | The @nextToken@ string returned in a previous request that you use to request the next page of results in a paginated response.
-dcpsNextToken :: Lens' DescribeConformancePackStatus (Maybe Text)
-dcpsNextToken = lens _dcpsNextToken (\s a -> s {_dcpsNextToken = a})
+-- | The @nextToken@ string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
+describeConformancePackStatus_nextToken :: Lens.Lens' DescribeConformancePackStatus (Prelude.Maybe Prelude.Text)
+describeConformancePackStatus_nextToken = Lens.lens (\DescribeConformancePackStatus' {nextToken} -> nextToken) (\s@DescribeConformancePackStatus' {} a -> s {nextToken = a} :: DescribeConformancePackStatus)
 
 -- | Comma-separated list of conformance pack names.
-dcpsConformancePackNames :: Lens' DescribeConformancePackStatus [Text]
-dcpsConformancePackNames = lens _dcpsConformancePackNames (\s a -> s {_dcpsConformancePackNames = a}) . _Default . _Coerce
+describeConformancePackStatus_conformancePackNames :: Lens.Lens' DescribeConformancePackStatus (Prelude.Maybe [Prelude.Text])
+describeConformancePackStatus_conformancePackNames = Lens.lens (\DescribeConformancePackStatus' {conformancePackNames} -> conformancePackNames) (\s@DescribeConformancePackStatus' {} a -> s {conformancePackNames = a} :: DescribeConformancePackStatus) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The maximum number of conformance packs status returned on each page.
-dcpsLimit :: Lens' DescribeConformancePackStatus (Maybe Natural)
-dcpsLimit = lens _dcpsLimit (\s a -> s {_dcpsLimit = a}) . mapping _Nat
+describeConformancePackStatus_limit :: Lens.Lens' DescribeConformancePackStatus (Prelude.Maybe Prelude.Natural)
+describeConformancePackStatus_limit = Lens.lens (\DescribeConformancePackStatus' {limit} -> limit) (\s@DescribeConformancePackStatus' {} a -> s {limit = a} :: DescribeConformancePackStatus) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest DescribeConformancePackStatus where
+instance
+  Prelude.AWSRequest
+    DescribeConformancePackStatus
+  where
   type
     Rs DescribeConformancePackStatus =
       DescribeConformancePackStatusResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeConformancePackStatusResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ConformancePackStatusDetails" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ConformancePackStatusDetails"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeConformancePackStatus
+instance
+  Prelude.Hashable
+    DescribeConformancePackStatus
 
-instance NFData DescribeConformancePackStatus
+instance Prelude.NFData DescribeConformancePackStatus
 
-instance ToHeaders DescribeConformancePackStatus where
+instance
+  Prelude.ToHeaders
+    DescribeConformancePackStatus
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DescribeConformancePackStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.DescribeConformancePackStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeConformancePackStatus where
+instance Prelude.ToJSON DescribeConformancePackStatus where
   toJSON DescribeConformancePackStatus' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dcpsNextToken,
-            ("ConformancePackNames" .=)
-              <$> _dcpsConformancePackNames,
-            ("Limit" .=) <$> _dcpsLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("ConformancePackNames" Prelude..=)
+              Prelude.<$> conformancePackNames,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath DescribeConformancePackStatus where
-  toPath = const "/"
+instance Prelude.ToPath DescribeConformancePackStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeConformancePackStatus where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeConformancePackStatus
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeConformancePackStatusResponse' smart constructor.
+-- | /See:/ 'newDescribeConformancePackStatusResponse' smart constructor.
 data DescribeConformancePackStatusResponse = DescribeConformancePackStatusResponse'
-  { _dcpsrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dcpsrrsConformancePackStatusDetails ::
-      !( Maybe
-           [ConformancePackStatusDetail]
-       ),
-    _dcpsrrsResponseStatus ::
-      !Int
+  { -- | The @nextToken@ string returned in a previous request that you use to
+    -- request the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @ConformancePackStatusDetail@ objects.
+    conformancePackStatusDetails :: Prelude.Maybe [ConformancePackStatusDetail],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConformancePackStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConformancePackStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpsrrsNextToken' - The @nextToken@ string returned in a previous request that you use to request the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcpsrrsConformancePackStatusDetails' - A list of @ConformancePackStatusDetail@ objects.
+-- 'nextToken', 'describeConformancePackStatusResponse_nextToken' - The @nextToken@ string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
 --
--- * 'dcpsrrsResponseStatus' - -- | The response status code.
-describeConformancePackStatusResponse ::
-  -- | 'dcpsrrsResponseStatus'
-  Int ->
+-- 'conformancePackStatusDetails', 'describeConformancePackStatusResponse_conformancePackStatusDetails' - A list of @ConformancePackStatusDetail@ objects.
+--
+-- 'httpStatus', 'describeConformancePackStatusResponse_httpStatus' - The response's http status code.
+newDescribeConformancePackStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeConformancePackStatusResponse
-describeConformancePackStatusResponse
-  pResponseStatus_ =
-    DescribeConformancePackStatusResponse'
-      { _dcpsrrsNextToken =
-          Nothing,
-        _dcpsrrsConformancePackStatusDetails =
-          Nothing,
-        _dcpsrrsResponseStatus =
-          pResponseStatus_
-      }
+newDescribeConformancePackStatusResponse pHttpStatus_ =
+  DescribeConformancePackStatusResponse'
+    { nextToken =
+        Prelude.Nothing,
+      conformancePackStatusDetails =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | The @nextToken@ string returned in a previous request that you use to request the next page of results in a paginated response.
-dcpsrrsNextToken :: Lens' DescribeConformancePackStatusResponse (Maybe Text)
-dcpsrrsNextToken = lens _dcpsrrsNextToken (\s a -> s {_dcpsrrsNextToken = a})
+-- | The @nextToken@ string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
+describeConformancePackStatusResponse_nextToken :: Lens.Lens' DescribeConformancePackStatusResponse (Prelude.Maybe Prelude.Text)
+describeConformancePackStatusResponse_nextToken = Lens.lens (\DescribeConformancePackStatusResponse' {nextToken} -> nextToken) (\s@DescribeConformancePackStatusResponse' {} a -> s {nextToken = a} :: DescribeConformancePackStatusResponse)
 
 -- | A list of @ConformancePackStatusDetail@ objects.
-dcpsrrsConformancePackStatusDetails :: Lens' DescribeConformancePackStatusResponse [ConformancePackStatusDetail]
-dcpsrrsConformancePackStatusDetails = lens _dcpsrrsConformancePackStatusDetails (\s a -> s {_dcpsrrsConformancePackStatusDetails = a}) . _Default . _Coerce
+describeConformancePackStatusResponse_conformancePackStatusDetails :: Lens.Lens' DescribeConformancePackStatusResponse (Prelude.Maybe [ConformancePackStatusDetail])
+describeConformancePackStatusResponse_conformancePackStatusDetails = Lens.lens (\DescribeConformancePackStatusResponse' {conformancePackStatusDetails} -> conformancePackStatusDetails) (\s@DescribeConformancePackStatusResponse' {} a -> s {conformancePackStatusDetails = a} :: DescribeConformancePackStatusResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcpsrrsResponseStatus :: Lens' DescribeConformancePackStatusResponse Int
-dcpsrrsResponseStatus = lens _dcpsrrsResponseStatus (\s a -> s {_dcpsrrsResponseStatus = a})
+-- | The response's http status code.
+describeConformancePackStatusResponse_httpStatus :: Lens.Lens' DescribeConformancePackStatusResponse Prelude.Int
+describeConformancePackStatusResponse_httpStatus = Lens.lens (\DescribeConformancePackStatusResponse' {httpStatus} -> httpStatus) (\s@DescribeConformancePackStatusResponse' {} a -> s {httpStatus = a} :: DescribeConformancePackStatusResponse)
 
-instance NFData DescribeConformancePackStatusResponse
+instance
+  Prelude.NFData
+    DescribeConformancePackStatusResponse

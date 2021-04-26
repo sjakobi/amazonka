@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or updates the remediation configuration with a specific AWS Config rule with the selected target or action. The API creates the @RemediationConfiguration@ object for the AWS Config rule. The AWS Config rule must already exist for you to add a remediation configuration. The target (SSM document) must exist and have permissions to use the target.
+-- Adds or updates the remediation configuration with a specific AWS Config
+-- rule with the selected target or action. The API creates the
+-- @RemediationConfiguration@ object for the AWS Config rule. The AWS
+-- Config rule must already exist for you to add a remediation
+-- configuration. The target (SSM document) must exist and have permissions
+-- to use the target.
+--
+-- If you make backward incompatible changes to the SSM document, you must
+-- call this again to ensure the remediations can run.
+--
+-- This API does not support adding remediation configurations for
+-- service-linked AWS Config Rules such as Organization Config rules, the
+-- rules deployed by conformance packs, and rules deployed by AWS Security
+-- Hub.
 module Network.AWS.Config.PutRemediationConfigurations
   ( -- * Creating a Request
-    putRemediationConfigurations,
-    PutRemediationConfigurations,
+    PutRemediationConfigurations (..),
+    newPutRemediationConfigurations,
 
     -- * Request Lenses
-    prcRemediationConfigurations,
+    putRemediationConfigurations_remediationConfigurations,
 
     -- * Destructuring the Response
-    putRemediationConfigurationsResponse,
-    PutRemediationConfigurationsResponse,
+    PutRemediationConfigurationsResponse (..),
+    newPutRemediationConfigurationsResponse,
 
     -- * Response Lenses
-    prcrrsFailedBatches,
-    prcrrsResponseStatus,
+    putRemediationConfigurationsResponse_failedBatches,
+    putRemediationConfigurationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.FailedRemediationBatch
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putRemediationConfigurations' smart constructor.
-newtype PutRemediationConfigurations = PutRemediationConfigurations'
-  { _prcRemediationConfigurations ::
-      [RemediationConfiguration]
+-- | /See:/ 'newPutRemediationConfigurations' smart constructor.
+data PutRemediationConfigurations = PutRemediationConfigurations'
+  { -- | A list of remediation configuration objects.
+    remediationConfigurations :: [RemediationConfiguration]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRemediationConfigurations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRemediationConfigurations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prcRemediationConfigurations' - A list of remediation configuration objects.
-putRemediationConfigurations ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'remediationConfigurations', 'putRemediationConfigurations_remediationConfigurations' - A list of remediation configuration objects.
+newPutRemediationConfigurations ::
   PutRemediationConfigurations
-putRemediationConfigurations =
+newPutRemediationConfigurations =
   PutRemediationConfigurations'
-    { _prcRemediationConfigurations =
-        mempty
+    { remediationConfigurations =
+        Prelude.mempty
     }
 
 -- | A list of remediation configuration objects.
-prcRemediationConfigurations :: Lens' PutRemediationConfigurations [RemediationConfiguration]
-prcRemediationConfigurations = lens _prcRemediationConfigurations (\s a -> s {_prcRemediationConfigurations = a}) . _Coerce
+putRemediationConfigurations_remediationConfigurations :: Lens.Lens' PutRemediationConfigurations [RemediationConfiguration]
+putRemediationConfigurations_remediationConfigurations = Lens.lens (\PutRemediationConfigurations' {remediationConfigurations} -> remediationConfigurations) (\s@PutRemediationConfigurations' {} a -> s {remediationConfigurations = a} :: PutRemediationConfigurations) Prelude.. Prelude._Coerce
 
-instance AWSRequest PutRemediationConfigurations where
+instance
+  Prelude.AWSRequest
+    PutRemediationConfigurations
+  where
   type
     Rs PutRemediationConfigurations =
       PutRemediationConfigurationsResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutRemediationConfigurationsResponse'
-            <$> (x .?> "FailedBatches" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "FailedBatches"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutRemediationConfigurations
+instance
+  Prelude.Hashable
+    PutRemediationConfigurations
 
-instance NFData PutRemediationConfigurations
+instance Prelude.NFData PutRemediationConfigurations
 
-instance ToHeaders PutRemediationConfigurations where
+instance
+  Prelude.ToHeaders
+    PutRemediationConfigurations
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.PutRemediationConfigurations" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.PutRemediationConfigurations" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutRemediationConfigurations where
+instance Prelude.ToJSON PutRemediationConfigurations where
   toJSON PutRemediationConfigurations' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "RemediationConfigurations"
-                  .= _prcRemediationConfigurations
+                  Prelude..= remediationConfigurations
               )
           ]
       )
 
-instance ToPath PutRemediationConfigurations where
-  toPath = const "/"
+instance Prelude.ToPath PutRemediationConfigurations where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutRemediationConfigurations where
-  toQuery = const mempty
+instance Prelude.ToQuery PutRemediationConfigurations where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putRemediationConfigurationsResponse' smart constructor.
+-- | /See:/ 'newPutRemediationConfigurationsResponse' smart constructor.
 data PutRemediationConfigurationsResponse = PutRemediationConfigurationsResponse'
-  { _prcrrsFailedBatches ::
-      !( Maybe
-           [FailedRemediationBatch]
-       ),
-    _prcrrsResponseStatus ::
-      !Int
+  { -- | Returns a list of failed remediation batch objects.
+    failedBatches :: Prelude.Maybe [FailedRemediationBatch],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRemediationConfigurationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRemediationConfigurationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prcrrsFailedBatches' - Returns a list of failed remediation batch objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prcrrsResponseStatus' - -- | The response status code.
-putRemediationConfigurationsResponse ::
-  -- | 'prcrrsResponseStatus'
-  Int ->
+-- 'failedBatches', 'putRemediationConfigurationsResponse_failedBatches' - Returns a list of failed remediation batch objects.
+--
+-- 'httpStatus', 'putRemediationConfigurationsResponse_httpStatus' - The response's http status code.
+newPutRemediationConfigurationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutRemediationConfigurationsResponse
-putRemediationConfigurationsResponse pResponseStatus_ =
+newPutRemediationConfigurationsResponse pHttpStatus_ =
   PutRemediationConfigurationsResponse'
-    { _prcrrsFailedBatches =
-        Nothing,
-      _prcrrsResponseStatus =
-        pResponseStatus_
+    { failedBatches =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Returns a list of failed remediation batch objects.
-prcrrsFailedBatches :: Lens' PutRemediationConfigurationsResponse [FailedRemediationBatch]
-prcrrsFailedBatches = lens _prcrrsFailedBatches (\s a -> s {_prcrrsFailedBatches = a}) . _Default . _Coerce
+putRemediationConfigurationsResponse_failedBatches :: Lens.Lens' PutRemediationConfigurationsResponse (Prelude.Maybe [FailedRemediationBatch])
+putRemediationConfigurationsResponse_failedBatches = Lens.lens (\PutRemediationConfigurationsResponse' {failedBatches} -> failedBatches) (\s@PutRemediationConfigurationsResponse' {} a -> s {failedBatches = a} :: PutRemediationConfigurationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-prcrrsResponseStatus :: Lens' PutRemediationConfigurationsResponse Int
-prcrrsResponseStatus = lens _prcrrsResponseStatus (\s a -> s {_prcrrsResponseStatus = a})
+-- | The response's http status code.
+putRemediationConfigurationsResponse_httpStatus :: Lens.Lens' PutRemediationConfigurationsResponse Prelude.Int
+putRemediationConfigurationsResponse_httpStatus = Lens.lens (\PutRemediationConfigurationsResponse' {httpStatus} -> httpStatus) (\s@PutRemediationConfigurationsResponse' {} a -> s {httpStatus = a} :: PutRemediationConfigurationsResponse)
 
-instance NFData PutRemediationConfigurationsResponse
+instance
+  Prelude.NFData
+    PutRemediationConfigurationsResponse

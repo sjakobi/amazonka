@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,128 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the stored query for a single AWS account and a single AWS Region.
+-- Deletes the stored query for a single AWS account and a single AWS
+-- Region.
 module Network.AWS.Config.DeleteStoredQuery
   ( -- * Creating a Request
-    deleteStoredQuery,
-    DeleteStoredQuery,
+    DeleteStoredQuery (..),
+    newDeleteStoredQuery,
 
     -- * Request Lenses
-    dsqQueryName,
+    deleteStoredQuery_queryName,
 
     -- * Destructuring the Response
-    deleteStoredQueryResponse,
-    DeleteStoredQueryResponse,
+    DeleteStoredQueryResponse (..),
+    newDeleteStoredQueryResponse,
 
     -- * Response Lenses
-    dsqrrsResponseStatus,
+    deleteStoredQueryResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteStoredQuery' smart constructor.
-newtype DeleteStoredQuery = DeleteStoredQuery'
-  { _dsqQueryName ::
-      Text
+-- | /See:/ 'newDeleteStoredQuery' smart constructor.
+data DeleteStoredQuery = DeleteStoredQuery'
+  { -- | The name of the query that you want to delete.
+    queryName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteStoredQuery' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteStoredQuery' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsqQueryName' - The name of the query that you want to delete.
-deleteStoredQuery ::
-  -- | 'dsqQueryName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'queryName', 'deleteStoredQuery_queryName' - The name of the query that you want to delete.
+newDeleteStoredQuery ::
+  -- | 'queryName'
+  Prelude.Text ->
   DeleteStoredQuery
-deleteStoredQuery pQueryName_ =
-  DeleteStoredQuery' {_dsqQueryName = pQueryName_}
+newDeleteStoredQuery pQueryName_ =
+  DeleteStoredQuery' {queryName = pQueryName_}
 
 -- | The name of the query that you want to delete.
-dsqQueryName :: Lens' DeleteStoredQuery Text
-dsqQueryName = lens _dsqQueryName (\s a -> s {_dsqQueryName = a})
+deleteStoredQuery_queryName :: Lens.Lens' DeleteStoredQuery Prelude.Text
+deleteStoredQuery_queryName = Lens.lens (\DeleteStoredQuery' {queryName} -> queryName) (\s@DeleteStoredQuery' {} a -> s {queryName = a} :: DeleteStoredQuery)
 
-instance AWSRequest DeleteStoredQuery where
+instance Prelude.AWSRequest DeleteStoredQuery where
   type Rs DeleteStoredQuery = DeleteStoredQueryResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteStoredQueryResponse' <$> (pure (fromEnum s))
+          DeleteStoredQueryResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteStoredQuery
+instance Prelude.Hashable DeleteStoredQuery
 
-instance NFData DeleteStoredQuery
+instance Prelude.NFData DeleteStoredQuery
 
-instance ToHeaders DeleteStoredQuery where
+instance Prelude.ToHeaders DeleteStoredQuery where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DeleteStoredQuery" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.DeleteStoredQuery" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteStoredQuery where
+instance Prelude.ToJSON DeleteStoredQuery where
   toJSON DeleteStoredQuery' {..} =
-    object
-      (catMaybes [Just ("QueryName" .= _dsqQueryName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("QueryName" Prelude..= queryName)]
+      )
 
-instance ToPath DeleteStoredQuery where
-  toPath = const "/"
+instance Prelude.ToPath DeleteStoredQuery where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteStoredQuery where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteStoredQuery where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteStoredQueryResponse' smart constructor.
-newtype DeleteStoredQueryResponse = DeleteStoredQueryResponse'
-  { _dsqrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteStoredQueryResponse' smart constructor.
+data DeleteStoredQueryResponse = DeleteStoredQueryResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteStoredQueryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteStoredQueryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsqrrsResponseStatus' - -- | The response status code.
-deleteStoredQueryResponse ::
-  -- | 'dsqrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteStoredQueryResponse_httpStatus' - The response's http status code.
+newDeleteStoredQueryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteStoredQueryResponse
-deleteStoredQueryResponse pResponseStatus_ =
+newDeleteStoredQueryResponse pHttpStatus_ =
   DeleteStoredQueryResponse'
-    { _dsqrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dsqrrsResponseStatus :: Lens' DeleteStoredQueryResponse Int
-dsqrrsResponseStatus = lens _dsqrrsResponseStatus (\s a -> s {_dsqrrsResponseStatus = a})
+-- | The response's http status code.
+deleteStoredQueryResponse_httpStatus :: Lens.Lens' DeleteStoredQueryResponse Prelude.Int
+deleteStoredQueryResponse_httpStatus = Lens.lens (\DeleteStoredQueryResponse' {httpStatus} -> httpStatus) (\s@DeleteStoredQueryResponse' {} a -> s {httpStatus = a} :: DeleteStoredQueryResponse)
 
-instance NFData DeleteStoredQueryResponse
+instance Prelude.NFData DeleteStoredQueryResponse

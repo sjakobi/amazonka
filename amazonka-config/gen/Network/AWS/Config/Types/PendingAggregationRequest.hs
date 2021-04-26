@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.PendingAggregationRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object that represents the account ID and region of an aggregator account that is requesting authorization but is not yet authorized.
+-- | An object that represents the account ID and region of an aggregator
+-- account that is requesting authorization but is not yet authorized.
 --
---
---
--- /See:/ 'pendingAggregationRequest' smart constructor.
+-- /See:/ 'newPendingAggregationRequest' smart constructor.
 data PendingAggregationRequest = PendingAggregationRequest'
-  { _parRequesterAWSRegion ::
-      !(Maybe Text),
-    _parRequesterAccountId ::
-      !(Maybe Text)
+  { -- | The region requesting to aggregate data.
+    requesterAwsRegion :: Prelude.Maybe Prelude.Text,
+    -- | The 12-digit account ID of the account requesting to aggregate data.
+    requesterAccountId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PendingAggregationRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PendingAggregationRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'parRequesterAWSRegion' - The region requesting to aggregate data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'parRequesterAccountId' - The 12-digit account ID of the account requesting to aggregate data.
-pendingAggregationRequest ::
+-- 'requesterAwsRegion', 'pendingAggregationRequest_requesterAwsRegion' - The region requesting to aggregate data.
+--
+-- 'requesterAccountId', 'pendingAggregationRequest_requesterAccountId' - The 12-digit account ID of the account requesting to aggregate data.
+newPendingAggregationRequest ::
   PendingAggregationRequest
-pendingAggregationRequest =
+newPendingAggregationRequest =
   PendingAggregationRequest'
-    { _parRequesterAWSRegion =
-        Nothing,
-      _parRequesterAccountId = Nothing
+    { requesterAwsRegion =
+        Prelude.Nothing,
+      requesterAccountId = Prelude.Nothing
     }
 
 -- | The region requesting to aggregate data.
-parRequesterAWSRegion :: Lens' PendingAggregationRequest (Maybe Text)
-parRequesterAWSRegion = lens _parRequesterAWSRegion (\s a -> s {_parRequesterAWSRegion = a})
+pendingAggregationRequest_requesterAwsRegion :: Lens.Lens' PendingAggregationRequest (Prelude.Maybe Prelude.Text)
+pendingAggregationRequest_requesterAwsRegion = Lens.lens (\PendingAggregationRequest' {requesterAwsRegion} -> requesterAwsRegion) (\s@PendingAggregationRequest' {} a -> s {requesterAwsRegion = a} :: PendingAggregationRequest)
 
 -- | The 12-digit account ID of the account requesting to aggregate data.
-parRequesterAccountId :: Lens' PendingAggregationRequest (Maybe Text)
-parRequesterAccountId = lens _parRequesterAccountId (\s a -> s {_parRequesterAccountId = a})
+pendingAggregationRequest_requesterAccountId :: Lens.Lens' PendingAggregationRequest (Prelude.Maybe Prelude.Text)
+pendingAggregationRequest_requesterAccountId = Lens.lens (\PendingAggregationRequest' {requesterAccountId} -> requesterAccountId) (\s@PendingAggregationRequest' {} a -> s {requesterAccountId = a} :: PendingAggregationRequest)
 
-instance FromJSON PendingAggregationRequest where
+instance Prelude.FromJSON PendingAggregationRequest where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PendingAggregationRequest"
       ( \x ->
           PendingAggregationRequest'
-            <$> (x .:? "RequesterAwsRegion")
-            <*> (x .:? "RequesterAccountId")
+            Prelude.<$> (x Prelude..:? "RequesterAwsRegion")
+            Prelude.<*> (x Prelude..:? "RequesterAccountId")
       )
 
-instance Hashable PendingAggregationRequest
+instance Prelude.Hashable PendingAggregationRequest
 
-instance NFData PendingAggregationRequest
+instance Prelude.NFData PendingAggregationRequest

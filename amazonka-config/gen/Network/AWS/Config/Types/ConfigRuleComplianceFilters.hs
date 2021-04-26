@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,84 +20,92 @@
 module Network.AWS.Config.Types.ConfigRuleComplianceFilters where
 
 import Network.AWS.Config.Types.ComplianceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Filters the compliance results based on account ID, region, compliance type, and rule name.
+-- | Filters the compliance results based on account ID, region, compliance
+-- type, and rule name.
 --
---
---
--- /See:/ 'configRuleComplianceFilters' smart constructor.
+-- /See:/ 'newConfigRuleComplianceFilters' smart constructor.
 data ConfigRuleComplianceFilters = ConfigRuleComplianceFilters'
-  { _crcfAccountId ::
-      !(Maybe Text),
-    _crcfConfigRuleName ::
-      !(Maybe Text),
-    _crcfComplianceType ::
-      !( Maybe
-           ComplianceType
-       ),
-    _crcfAWSRegion ::
-      !(Maybe Text)
+  { -- | The 12-digit account ID of the source account.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS Config rule.
+    configRuleName :: Prelude.Maybe Prelude.Text,
+    -- | The rule compliance status.
+    --
+    -- For the @ConfigRuleComplianceFilters@ data type, AWS Config supports
+    -- only @COMPLIANT@ and @NON_COMPLIANT@. AWS Config does not support the
+    -- @NOT_APPLICABLE@ and the @INSUFFICIENT_DATA@ values.
+    complianceType :: Prelude.Maybe ComplianceType,
+    -- | The source region where the data is aggregated.
+    awsRegion :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigRuleComplianceFilters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigRuleComplianceFilters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crcfAccountId' - The 12-digit account ID of the source account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crcfConfigRuleName' - The name of the AWS Config rule.
+-- 'accountId', 'configRuleComplianceFilters_accountId' - The 12-digit account ID of the source account.
 --
--- * 'crcfComplianceType' - The rule compliance status. For the @ConfigRuleComplianceFilters@ data type, AWS Config supports only @COMPLIANT@ and @NON_COMPLIANT@ . AWS Config does not support the @NOT_APPLICABLE@ and the @INSUFFICIENT_DATA@ values.
+-- 'configRuleName', 'configRuleComplianceFilters_configRuleName' - The name of the AWS Config rule.
 --
--- * 'crcfAWSRegion' - The source region where the data is aggregated.
-configRuleComplianceFilters ::
+-- 'complianceType', 'configRuleComplianceFilters_complianceType' - The rule compliance status.
+--
+-- For the @ConfigRuleComplianceFilters@ data type, AWS Config supports
+-- only @COMPLIANT@ and @NON_COMPLIANT@. AWS Config does not support the
+-- @NOT_APPLICABLE@ and the @INSUFFICIENT_DATA@ values.
+--
+-- 'awsRegion', 'configRuleComplianceFilters_awsRegion' - The source region where the data is aggregated.
+newConfigRuleComplianceFilters ::
   ConfigRuleComplianceFilters
-configRuleComplianceFilters =
+newConfigRuleComplianceFilters =
   ConfigRuleComplianceFilters'
-    { _crcfAccountId =
-        Nothing,
-      _crcfConfigRuleName = Nothing,
-      _crcfComplianceType = Nothing,
-      _crcfAWSRegion = Nothing
+    { accountId =
+        Prelude.Nothing,
+      configRuleName = Prelude.Nothing,
+      complianceType = Prelude.Nothing,
+      awsRegion = Prelude.Nothing
     }
 
 -- | The 12-digit account ID of the source account.
-crcfAccountId :: Lens' ConfigRuleComplianceFilters (Maybe Text)
-crcfAccountId = lens _crcfAccountId (\s a -> s {_crcfAccountId = a})
+configRuleComplianceFilters_accountId :: Lens.Lens' ConfigRuleComplianceFilters (Prelude.Maybe Prelude.Text)
+configRuleComplianceFilters_accountId = Lens.lens (\ConfigRuleComplianceFilters' {accountId} -> accountId) (\s@ConfigRuleComplianceFilters' {} a -> s {accountId = a} :: ConfigRuleComplianceFilters)
 
 -- | The name of the AWS Config rule.
-crcfConfigRuleName :: Lens' ConfigRuleComplianceFilters (Maybe Text)
-crcfConfigRuleName = lens _crcfConfigRuleName (\s a -> s {_crcfConfigRuleName = a})
+configRuleComplianceFilters_configRuleName :: Lens.Lens' ConfigRuleComplianceFilters (Prelude.Maybe Prelude.Text)
+configRuleComplianceFilters_configRuleName = Lens.lens (\ConfigRuleComplianceFilters' {configRuleName} -> configRuleName) (\s@ConfigRuleComplianceFilters' {} a -> s {configRuleName = a} :: ConfigRuleComplianceFilters)
 
--- | The rule compliance status. For the @ConfigRuleComplianceFilters@ data type, AWS Config supports only @COMPLIANT@ and @NON_COMPLIANT@ . AWS Config does not support the @NOT_APPLICABLE@ and the @INSUFFICIENT_DATA@ values.
-crcfComplianceType :: Lens' ConfigRuleComplianceFilters (Maybe ComplianceType)
-crcfComplianceType = lens _crcfComplianceType (\s a -> s {_crcfComplianceType = a})
+-- | The rule compliance status.
+--
+-- For the @ConfigRuleComplianceFilters@ data type, AWS Config supports
+-- only @COMPLIANT@ and @NON_COMPLIANT@. AWS Config does not support the
+-- @NOT_APPLICABLE@ and the @INSUFFICIENT_DATA@ values.
+configRuleComplianceFilters_complianceType :: Lens.Lens' ConfigRuleComplianceFilters (Prelude.Maybe ComplianceType)
+configRuleComplianceFilters_complianceType = Lens.lens (\ConfigRuleComplianceFilters' {complianceType} -> complianceType) (\s@ConfigRuleComplianceFilters' {} a -> s {complianceType = a} :: ConfigRuleComplianceFilters)
 
 -- | The source region where the data is aggregated.
-crcfAWSRegion :: Lens' ConfigRuleComplianceFilters (Maybe Text)
-crcfAWSRegion = lens _crcfAWSRegion (\s a -> s {_crcfAWSRegion = a})
+configRuleComplianceFilters_awsRegion :: Lens.Lens' ConfigRuleComplianceFilters (Prelude.Maybe Prelude.Text)
+configRuleComplianceFilters_awsRegion = Lens.lens (\ConfigRuleComplianceFilters' {awsRegion} -> awsRegion) (\s@ConfigRuleComplianceFilters' {} a -> s {awsRegion = a} :: ConfigRuleComplianceFilters)
 
-instance Hashable ConfigRuleComplianceFilters
+instance Prelude.Hashable ConfigRuleComplianceFilters
 
-instance NFData ConfigRuleComplianceFilters
+instance Prelude.NFData ConfigRuleComplianceFilters
 
-instance ToJSON ConfigRuleComplianceFilters where
+instance Prelude.ToJSON ConfigRuleComplianceFilters where
   toJSON ConfigRuleComplianceFilters' {..} =
-    object
-      ( catMaybes
-          [ ("AccountId" .=) <$> _crcfAccountId,
-            ("ConfigRuleName" .=) <$> _crcfConfigRuleName,
-            ("ComplianceType" .=) <$> _crcfComplianceType,
-            ("AwsRegion" .=) <$> _crcfAWSRegion
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AccountId" Prelude..=) Prelude.<$> accountId,
+            ("ConfigRuleName" Prelude..=)
+              Prelude.<$> configRuleName,
+            ("ComplianceType" Prelude..=)
+              Prelude.<$> complianceType,
+            ("AwsRegion" Prelude..=) Prelude.<$> awsRegion
           ]
       )

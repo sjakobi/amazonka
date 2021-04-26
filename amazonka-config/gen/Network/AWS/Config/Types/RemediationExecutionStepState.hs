@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Config.Types.RemediationExecutionStepState
   ( RemediationExecutionStepState
       ( ..,
-        RESSFailed,
-        RESSPending,
-        RESSSucceeded
+        RemediationExecutionStepStateFAILED,
+        RemediationExecutionStepStatePENDING,
+        RemediationExecutionStepStateSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RemediationExecutionStepState
-  = RemediationExecutionStepState'
-      ( CI
-          Text
-      )
+newtype RemediationExecutionStepState = RemediationExecutionStepState'
+  { fromRemediationExecutionStepState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RESSFailed :: RemediationExecutionStepState
-pattern RESSFailed = RemediationExecutionStepState' "FAILED"
+pattern RemediationExecutionStepStateFAILED :: RemediationExecutionStepState
+pattern RemediationExecutionStepStateFAILED = RemediationExecutionStepState' "FAILED"
 
-pattern RESSPending :: RemediationExecutionStepState
-pattern RESSPending = RemediationExecutionStepState' "PENDING"
+pattern RemediationExecutionStepStatePENDING :: RemediationExecutionStepState
+pattern RemediationExecutionStepStatePENDING = RemediationExecutionStepState' "PENDING"
 
-pattern RESSSucceeded :: RemediationExecutionStepState
-pattern RESSSucceeded = RemediationExecutionStepState' "SUCCEEDED"
+pattern RemediationExecutionStepStateSUCCEEDED :: RemediationExecutionStepState
+pattern RemediationExecutionStepStateSUCCEEDED = RemediationExecutionStepState' "SUCCEEDED"
 
 {-# COMPLETE
-  RESSFailed,
-  RESSPending,
-  RESSSucceeded,
+  RemediationExecutionStepStateFAILED,
+  RemediationExecutionStepStatePENDING,
+  RemediationExecutionStepStateSUCCEEDED,
   RemediationExecutionStepState'
   #-}
 
-instance FromText RemediationExecutionStepState where
-  parser = (RemediationExecutionStepState' . mk) <$> takeText
+instance Prelude.FromText RemediationExecutionStepState where
+  parser = RemediationExecutionStepState' Prelude.<$> Prelude.takeText
 
-instance ToText RemediationExecutionStepState where
-  toText (RemediationExecutionStepState' ci) = original ci
+instance Prelude.ToText RemediationExecutionStepState where
+  toText (RemediationExecutionStepState' x) = x
 
-instance Hashable RemediationExecutionStepState
+instance Prelude.Hashable RemediationExecutionStepState
 
-instance NFData RemediationExecutionStepState
+instance Prelude.NFData RemediationExecutionStepState
 
-instance ToByteString RemediationExecutionStepState
+instance Prelude.ToByteString RemediationExecutionStepState
 
-instance ToQuery RemediationExecutionStepState
+instance Prelude.ToQuery RemediationExecutionStepState
 
-instance ToHeader RemediationExecutionStepState
+instance Prelude.ToHeader RemediationExecutionStepState
 
-instance FromJSON RemediationExecutionStepState where
-  parseJSON = parseJSONText "RemediationExecutionStepState"
+instance Prelude.FromJSON RemediationExecutionStepState where
+  parseJSON = Prelude.parseJSONText "RemediationExecutionStepState"

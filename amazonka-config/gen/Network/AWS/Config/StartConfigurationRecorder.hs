@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,125 +21,130 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts recording configurations of the AWS resources you have selected to record in your AWS account.
+-- Starts recording configurations of the AWS resources you have selected
+-- to record in your AWS account.
 --
---
--- You must have created at least one delivery channel to successfully start the configuration recorder.
+-- You must have created at least one delivery channel to successfully
+-- start the configuration recorder.
 module Network.AWS.Config.StartConfigurationRecorder
   ( -- * Creating a Request
-    startConfigurationRecorder,
-    StartConfigurationRecorder,
+    StartConfigurationRecorder (..),
+    newStartConfigurationRecorder,
 
     -- * Request Lenses
-    scrConfigurationRecorderName,
+    startConfigurationRecorder_configurationRecorderName,
 
     -- * Destructuring the Response
-    startConfigurationRecorderResponse,
-    StartConfigurationRecorderResponse,
+    StartConfigurationRecorderResponse (..),
+    newStartConfigurationRecorderResponse,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input for the 'StartConfigurationRecorder' action.
+-- | The input for the StartConfigurationRecorder action.
 --
---
---
--- /See:/ 'startConfigurationRecorder' smart constructor.
-newtype StartConfigurationRecorder = StartConfigurationRecorder'
-  { _scrConfigurationRecorderName ::
-      Text
+-- /See:/ 'newStartConfigurationRecorder' smart constructor.
+data StartConfigurationRecorder = StartConfigurationRecorder'
+  { -- | The name of the recorder object that records each configuration change
+    -- made to the resources.
+    configurationRecorderName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartConfigurationRecorder' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartConfigurationRecorder' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scrConfigurationRecorderName' - The name of the recorder object that records each configuration change made to the resources.
-startConfigurationRecorder ::
-  -- | 'scrConfigurationRecorderName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'configurationRecorderName', 'startConfigurationRecorder_configurationRecorderName' - The name of the recorder object that records each configuration change
+-- made to the resources.
+newStartConfigurationRecorder ::
+  -- | 'configurationRecorderName'
+  Prelude.Text ->
   StartConfigurationRecorder
-startConfigurationRecorder
+newStartConfigurationRecorder
   pConfigurationRecorderName_ =
     StartConfigurationRecorder'
-      { _scrConfigurationRecorderName =
+      { configurationRecorderName =
           pConfigurationRecorderName_
       }
 
--- | The name of the recorder object that records each configuration change made to the resources.
-scrConfigurationRecorderName :: Lens' StartConfigurationRecorder Text
-scrConfigurationRecorderName = lens _scrConfigurationRecorderName (\s a -> s {_scrConfigurationRecorderName = a})
+-- | The name of the recorder object that records each configuration change
+-- made to the resources.
+startConfigurationRecorder_configurationRecorderName :: Lens.Lens' StartConfigurationRecorder Prelude.Text
+startConfigurationRecorder_configurationRecorderName = Lens.lens (\StartConfigurationRecorder' {configurationRecorderName} -> configurationRecorderName) (\s@StartConfigurationRecorder' {} a -> s {configurationRecorderName = a} :: StartConfigurationRecorder)
 
-instance AWSRequest StartConfigurationRecorder where
+instance
+  Prelude.AWSRequest
+    StartConfigurationRecorder
+  where
   type
     Rs StartConfigurationRecorder =
       StartConfigurationRecorderResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveNull StartConfigurationRecorderResponse'
+    Response.receiveNull
+      StartConfigurationRecorderResponse'
 
-instance Hashable StartConfigurationRecorder
+instance Prelude.Hashable StartConfigurationRecorder
 
-instance NFData StartConfigurationRecorder
+instance Prelude.NFData StartConfigurationRecorder
 
-instance ToHeaders StartConfigurationRecorder where
+instance Prelude.ToHeaders StartConfigurationRecorder where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.StartConfigurationRecorder" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.StartConfigurationRecorder" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartConfigurationRecorder where
+instance Prelude.ToJSON StartConfigurationRecorder where
   toJSON StartConfigurationRecorder' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "ConfigurationRecorderName"
-                  .= _scrConfigurationRecorderName
+                  Prelude..= configurationRecorderName
               )
           ]
       )
 
-instance ToPath StartConfigurationRecorder where
-  toPath = const "/"
+instance Prelude.ToPath StartConfigurationRecorder where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartConfigurationRecorder where
-  toQuery = const mempty
+instance Prelude.ToQuery StartConfigurationRecorder where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startConfigurationRecorderResponse' smart constructor.
+-- | /See:/ 'newStartConfigurationRecorderResponse' smart constructor.
 data StartConfigurationRecorderResponse = StartConfigurationRecorderResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartConfigurationRecorderResponse' with the minimum fields required to make a request.
-startConfigurationRecorderResponse ::
+-- |
+-- Create a value of 'StartConfigurationRecorderResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStartConfigurationRecorderResponse ::
   StartConfigurationRecorderResponse
-startConfigurationRecorderResponse =
+newStartConfigurationRecorderResponse =
   StartConfigurationRecorderResponse'
 
-instance NFData StartConfigurationRecorderResponse
+instance
+  Prelude.NFData
+    StartConfigurationRecorderResponse

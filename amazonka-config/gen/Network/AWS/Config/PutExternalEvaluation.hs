@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Add or updates the evaluations for process checks. This API checks if the rule is a process check when the name of the AWS Config rule is provided.
+-- Add or updates the evaluations for process checks. This API checks if
+-- the rule is a process check when the name of the AWS Config rule is
+-- provided.
 module Network.AWS.Config.PutExternalEvaluation
   ( -- * Creating a Request
-    putExternalEvaluation,
-    PutExternalEvaluation,
+    PutExternalEvaluation (..),
+    newPutExternalEvaluation,
 
     -- * Request Lenses
-    peeConfigRuleName,
-    peeExternalEvaluation,
+    putExternalEvaluation_configRuleName,
+    putExternalEvaluation_externalEvaluation,
 
     -- * Destructuring the Response
-    putExternalEvaluationResponse,
-    PutExternalEvaluationResponse,
+    PutExternalEvaluationResponse (..),
+    newPutExternalEvaluationResponse,
 
     -- * Response Lenses
-    peerrsResponseStatus,
+    putExternalEvaluationResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putExternalEvaluation' smart constructor.
+-- | /See:/ 'newPutExternalEvaluation' smart constructor.
 data PutExternalEvaluation = PutExternalEvaluation'
-  { _peeConfigRuleName ::
-      !Text,
-    _peeExternalEvaluation ::
-      !ExternalEvaluation
+  { -- | The name of the AWS Config rule.
+    configRuleName :: Prelude.Text,
+    -- | An @ExternalEvaluation@ object that provides details about compliance.
+    externalEvaluation :: ExternalEvaluation
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutExternalEvaluation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutExternalEvaluation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'peeConfigRuleName' - The name of the AWS Config rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'peeExternalEvaluation' - An @ExternalEvaluation@ object that provides details about compliance.
-putExternalEvaluation ::
-  -- | 'peeConfigRuleName'
-  Text ->
-  -- | 'peeExternalEvaluation'
+-- 'configRuleName', 'putExternalEvaluation_configRuleName' - The name of the AWS Config rule.
+--
+-- 'externalEvaluation', 'putExternalEvaluation_externalEvaluation' - An @ExternalEvaluation@ object that provides details about compliance.
+newPutExternalEvaluation ::
+  -- | 'configRuleName'
+  Prelude.Text ->
+  -- | 'externalEvaluation'
   ExternalEvaluation ->
   PutExternalEvaluation
-putExternalEvaluation
+newPutExternalEvaluation
   pConfigRuleName_
   pExternalEvaluation_ =
     PutExternalEvaluation'
-      { _peeConfigRuleName =
+      { configRuleName =
           pConfigRuleName_,
-        _peeExternalEvaluation = pExternalEvaluation_
+        externalEvaluation = pExternalEvaluation_
       }
 
 -- | The name of the AWS Config rule.
-peeConfigRuleName :: Lens' PutExternalEvaluation Text
-peeConfigRuleName = lens _peeConfigRuleName (\s a -> s {_peeConfigRuleName = a})
+putExternalEvaluation_configRuleName :: Lens.Lens' PutExternalEvaluation Prelude.Text
+putExternalEvaluation_configRuleName = Lens.lens (\PutExternalEvaluation' {configRuleName} -> configRuleName) (\s@PutExternalEvaluation' {} a -> s {configRuleName = a} :: PutExternalEvaluation)
 
 -- | An @ExternalEvaluation@ object that provides details about compliance.
-peeExternalEvaluation :: Lens' PutExternalEvaluation ExternalEvaluation
-peeExternalEvaluation = lens _peeExternalEvaluation (\s a -> s {_peeExternalEvaluation = a})
+putExternalEvaluation_externalEvaluation :: Lens.Lens' PutExternalEvaluation ExternalEvaluation
+putExternalEvaluation_externalEvaluation = Lens.lens (\PutExternalEvaluation' {externalEvaluation} -> externalEvaluation) (\s@PutExternalEvaluation' {} a -> s {externalEvaluation = a} :: PutExternalEvaluation)
 
-instance AWSRequest PutExternalEvaluation where
+instance Prelude.AWSRequest PutExternalEvaluation where
   type
     Rs PutExternalEvaluation =
       PutExternalEvaluationResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutExternalEvaluationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutExternalEvaluation
+instance Prelude.Hashable PutExternalEvaluation
 
-instance NFData PutExternalEvaluation
+instance Prelude.NFData PutExternalEvaluation
 
-instance ToHeaders PutExternalEvaluation where
+instance Prelude.ToHeaders PutExternalEvaluation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.PutExternalEvaluation" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.PutExternalEvaluation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutExternalEvaluation where
+instance Prelude.ToJSON PutExternalEvaluation where
   toJSON PutExternalEvaluation' {..} =
-    object
-      ( catMaybes
-          [ Just ("ConfigRuleName" .= _peeConfigRuleName),
-            Just
-              ("ExternalEvaluation" .= _peeExternalEvaluation)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ConfigRuleName" Prelude..= configRuleName),
+            Prelude.Just
+              ( "ExternalEvaluation"
+                  Prelude..= externalEvaluation
+              )
           ]
       )
 
-instance ToPath PutExternalEvaluation where
-  toPath = const "/"
+instance Prelude.ToPath PutExternalEvaluation where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutExternalEvaluation where
-  toQuery = const mempty
+instance Prelude.ToQuery PutExternalEvaluation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putExternalEvaluationResponse' smart constructor.
-newtype PutExternalEvaluationResponse = PutExternalEvaluationResponse'
-  { _peerrsResponseStatus ::
-      Int
+-- | /See:/ 'newPutExternalEvaluationResponse' smart constructor.
+data PutExternalEvaluationResponse = PutExternalEvaluationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutExternalEvaluationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutExternalEvaluationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'peerrsResponseStatus' - -- | The response status code.
-putExternalEvaluationResponse ::
-  -- | 'peerrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putExternalEvaluationResponse_httpStatus' - The response's http status code.
+newPutExternalEvaluationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutExternalEvaluationResponse
-putExternalEvaluationResponse pResponseStatus_ =
+newPutExternalEvaluationResponse pHttpStatus_ =
   PutExternalEvaluationResponse'
-    { _peerrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-peerrsResponseStatus :: Lens' PutExternalEvaluationResponse Int
-peerrsResponseStatus = lens _peerrsResponseStatus (\s a -> s {_peerrsResponseStatus = a})
+-- | The response's http status code.
+putExternalEvaluationResponse_httpStatus :: Lens.Lens' PutExternalEvaluationResponse Prelude.Int
+putExternalEvaluationResponse_httpStatus = Lens.lens (\PutExternalEvaluationResponse' {httpStatus} -> httpStatus) (\s@PutExternalEvaluationResponse' {} a -> s {httpStatus = a} :: PutExternalEvaluationResponse)
 
-instance NFData PutExternalEvaluationResponse
+instance Prelude.NFData PutExternalEvaluationResponse

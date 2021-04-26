@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,105 +21,128 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. When a resource is deleted, the tags associated with that resource are deleted as well.
+-- Associates the specified tags to a resource with the specified
+-- resourceArn. If existing tags on a resource are not specified in the
+-- request parameters, they are not changed. When a resource is deleted,
+-- the tags associated with that resource are deleted as well.
 module Network.AWS.Config.TagResource
   ( -- * Creating a Request
-    tagResource,
-    TagResource,
+    TagResource (..),
+    newTagResource,
 
     -- * Request Lenses
-    trResourceARN,
-    trTags,
+    tagResource_resourceArn,
+    tagResource_tags,
 
     -- * Destructuring the Response
-    tagResourceResponse,
-    TagResourceResponse,
+    TagResourceResponse (..),
+    newTagResourceResponse,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagResource' smart constructor.
+-- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { _trResourceARN ::
-      !Text,
-    _trTags :: !(List1 Tag)
+  { -- | The Amazon Resource Name (ARN) that identifies the resource for which to
+    -- list the tags. Currently, the supported resources are @ConfigRule@,
+    -- @ConfigurationAggregator@ and @AggregatorAuthorization@.
+    resourceArn :: Prelude.Text,
+    -- | An array of tag object.
+    tags :: Prelude.List1 Tag
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trResourceARN' - The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. Currently, the supported resources are @ConfigRule@ , @ConfigurationAggregator@ and @AggregatorAuthorization@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trTags' - An array of tag object.
-tagResource ::
-  -- | 'trResourceARN'
-  Text ->
-  -- | 'trTags'
-  NonEmpty Tag ->
+-- 'resourceArn', 'tagResource_resourceArn' - The Amazon Resource Name (ARN) that identifies the resource for which to
+-- list the tags. Currently, the supported resources are @ConfigRule@,
+-- @ConfigurationAggregator@ and @AggregatorAuthorization@.
+--
+-- 'tags', 'tagResource_tags' - An array of tag object.
+newTagResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
+  -- | 'tags'
+  Prelude.NonEmpty Tag ->
   TagResource
-tagResource pResourceARN_ pTags_ =
+newTagResource pResourceArn_ pTags_ =
   TagResource'
-    { _trResourceARN = pResourceARN_,
-      _trTags = _List1 # pTags_
+    { resourceArn = pResourceArn_,
+      tags = Prelude._List1 Lens.# pTags_
     }
 
--- | The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. Currently, the supported resources are @ConfigRule@ , @ConfigurationAggregator@ and @AggregatorAuthorization@ .
-trResourceARN :: Lens' TagResource Text
-trResourceARN = lens _trResourceARN (\s a -> s {_trResourceARN = a})
+-- | The Amazon Resource Name (ARN) that identifies the resource for which to
+-- list the tags. Currently, the supported resources are @ConfigRule@,
+-- @ConfigurationAggregator@ and @AggregatorAuthorization@.
+tagResource_resourceArn :: Lens.Lens' TagResource Prelude.Text
+tagResource_resourceArn = Lens.lens (\TagResource' {resourceArn} -> resourceArn) (\s@TagResource' {} a -> s {resourceArn = a} :: TagResource)
 
 -- | An array of tag object.
-trTags :: Lens' TagResource (NonEmpty Tag)
-trTags = lens _trTags (\s a -> s {_trTags = a}) . _List1
+tagResource_tags :: Lens.Lens' TagResource (Prelude.NonEmpty Tag)
+tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Prelude._List1
 
-instance AWSRequest TagResource where
+instance Prelude.AWSRequest TagResource where
   type Rs TagResource = TagResourceResponse
-  request = postJSON config
-  response = receiveNull TagResourceResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull TagResourceResponse'
 
-instance Hashable TagResource
+instance Prelude.Hashable TagResource
 
-instance NFData TagResource
+instance Prelude.NFData TagResource
 
-instance ToHeaders TagResource where
+instance Prelude.ToHeaders TagResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("StarlingDoveService.TagResource" :: ByteString),
+              Prelude.=# ( "StarlingDoveService.TagResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TagResource where
+instance Prelude.ToJSON TagResource where
   toJSON TagResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceArn" .= _trResourceARN),
-            Just ("Tags" .= _trTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceArn" Prelude..= resourceArn),
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath TagResource where
-  toPath = const "/"
+instance Prelude.ToPath TagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery TagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagResourceResponse' smart constructor.
+-- | /See:/ 'newTagResourceResponse' smart constructor.
 data TagResourceResponse = TagResourceResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResourceResponse' with the minimum fields required to make a request.
-tagResourceResponse ::
+-- |
+-- Create a value of 'TagResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newTagResourceResponse ::
   TagResourceResponse
-tagResourceResponse = TagResourceResponse'
+newTagResourceResponse = TagResourceResponse'
 
-instance NFData TagResourceResponse
+instance Prelude.NFData TagResourceResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,240 +21,294 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Accepts a resource type and returns a list of resource identifiers for the resources of that type. A resource identifier includes the resource type, ID, and (if available) the custom resource name. The results consist of resources that AWS Config has discovered, including those that AWS Config is not currently recording. You can narrow the results to include only resources that have specific resource IDs or a resource name.
+-- Accepts a resource type and returns a list of resource identifiers for
+-- the resources of that type. A resource identifier includes the resource
+-- type, ID, and (if available) the custom resource name. The results
+-- consist of resources that AWS Config has discovered, including those
+-- that AWS Config is not currently recording. You can narrow the results
+-- to include only resources that have specific resource IDs or a resource
+-- name.
 --
+-- You can specify either resource IDs or a resource name, but not both, in
+-- the same request.
 --
--- The response is paginated. By default, AWS Config lists 100 resource identifiers on each page. You can customize this number with the @limit@ parameter. The response includes a @nextToken@ string. To get the next page of results, run the request again and specify the string for the @nextToken@ parameter.
---
+-- The response is paginated. By default, AWS Config lists 100 resource
+-- identifiers on each page. You can customize this number with the @limit@
+-- parameter. The response includes a @nextToken@ string. To get the next
+-- page of results, run the request again and specify the string for the
+-- @nextToken@ parameter.
 --
 -- This operation returns paginated results.
 module Network.AWS.Config.ListDiscoveredResources
   ( -- * Creating a Request
-    listDiscoveredResources,
-    ListDiscoveredResources,
+    ListDiscoveredResources (..),
+    newListDiscoveredResources,
 
     -- * Request Lenses
-    ldrNextToken,
-    ldrResourceIds,
-    ldrIncludeDeletedResources,
-    ldrResourceName,
-    ldrLimit,
-    ldrResourceType,
+    listDiscoveredResources_nextToken,
+    listDiscoveredResources_resourceIds,
+    listDiscoveredResources_includeDeletedResources,
+    listDiscoveredResources_resourceName,
+    listDiscoveredResources_limit,
+    listDiscoveredResources_resourceType,
 
     -- * Destructuring the Response
-    listDiscoveredResourcesResponse,
-    ListDiscoveredResourcesResponse,
+    ListDiscoveredResourcesResponse (..),
+    newListDiscoveredResourcesResponse,
 
     -- * Response Lenses
-    ldrrrsNextToken,
-    ldrrrsResourceIdentifiers,
-    ldrrrsResponseStatus,
+    listDiscoveredResourcesResponse_nextToken,
+    listDiscoveredResourcesResponse_resourceIdentifiers,
+    listDiscoveredResourcesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.ResourceIdentifier
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'listDiscoveredResources' smart constructor.
+-- /See:/ 'newListDiscoveredResources' smart constructor.
 data ListDiscoveredResources = ListDiscoveredResources'
-  { _ldrNextToken ::
-      !(Maybe Text),
-    _ldrResourceIds ::
-      !(Maybe [Text]),
-    _ldrIncludeDeletedResources ::
-      !(Maybe Bool),
-    _ldrResourceName ::
-      !(Maybe Text),
-    _ldrLimit ::
-      !(Maybe Nat),
-    _ldrResourceType ::
-      !ResourceType
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The IDs of only those resources that you want AWS Config to list in the
+    -- response. If you do not specify this parameter, AWS Config lists all
+    -- resources of the specified type that it has discovered.
+    resourceIds :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies whether AWS Config includes deleted resources in the results.
+    -- By default, deleted resources are not included.
+    includeDeletedResources :: Prelude.Maybe Prelude.Bool,
+    -- | The custom name of only those resources that you want AWS Config to list
+    -- in the response. If you do not specify this parameter, AWS Config lists
+    -- all resources of the specified type that it has discovered.
+    resourceName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of resource identifiers returned on each page. The
+    -- default is 100. You cannot specify a number greater than 100. If you
+    -- specify 0, AWS Config uses the default.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The type of resources that you want AWS Config to list in the response.
+    resourceType :: ResourceType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDiscoveredResources' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDiscoveredResources' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrResourceIds' - The IDs of only those resources that you want AWS Config to list in the response. If you do not specify this parameter, AWS Config lists all resources of the specified type that it has discovered.
+-- 'nextToken', 'listDiscoveredResources_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
--- * 'ldrIncludeDeletedResources' - Specifies whether AWS Config includes deleted resources in the results. By default, deleted resources are not included.
+-- 'resourceIds', 'listDiscoveredResources_resourceIds' - The IDs of only those resources that you want AWS Config to list in the
+-- response. If you do not specify this parameter, AWS Config lists all
+-- resources of the specified type that it has discovered.
 --
--- * 'ldrResourceName' - The custom name of only those resources that you want AWS Config to list in the response. If you do not specify this parameter, AWS Config lists all resources of the specified type that it has discovered.
+-- 'includeDeletedResources', 'listDiscoveredResources_includeDeletedResources' - Specifies whether AWS Config includes deleted resources in the results.
+-- By default, deleted resources are not included.
 --
--- * 'ldrLimit' - The maximum number of resource identifiers returned on each page. The default is 100. You cannot specify a number greater than 100. If you specify 0, AWS Config uses the default.
+-- 'resourceName', 'listDiscoveredResources_resourceName' - The custom name of only those resources that you want AWS Config to list
+-- in the response. If you do not specify this parameter, AWS Config lists
+-- all resources of the specified type that it has discovered.
 --
--- * 'ldrResourceType' - The type of resources that you want AWS Config to list in the response.
-listDiscoveredResources ::
-  -- | 'ldrResourceType'
+-- 'limit', 'listDiscoveredResources_limit' - The maximum number of resource identifiers returned on each page. The
+-- default is 100. You cannot specify a number greater than 100. If you
+-- specify 0, AWS Config uses the default.
+--
+-- 'resourceType', 'listDiscoveredResources_resourceType' - The type of resources that you want AWS Config to list in the response.
+newListDiscoveredResources ::
+  -- | 'resourceType'
   ResourceType ->
   ListDiscoveredResources
-listDiscoveredResources pResourceType_ =
+newListDiscoveredResources pResourceType_ =
   ListDiscoveredResources'
-    { _ldrNextToken = Nothing,
-      _ldrResourceIds = Nothing,
-      _ldrIncludeDeletedResources = Nothing,
-      _ldrResourceName = Nothing,
-      _ldrLimit = Nothing,
-      _ldrResourceType = pResourceType_
+    { nextToken =
+        Prelude.Nothing,
+      resourceIds = Prelude.Nothing,
+      includeDeletedResources = Prelude.Nothing,
+      resourceName = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      resourceType = pResourceType_
     }
 
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-ldrNextToken :: Lens' ListDiscoveredResources (Maybe Text)
-ldrNextToken = lens _ldrNextToken (\s a -> s {_ldrNextToken = a})
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+listDiscoveredResources_nextToken :: Lens.Lens' ListDiscoveredResources (Prelude.Maybe Prelude.Text)
+listDiscoveredResources_nextToken = Lens.lens (\ListDiscoveredResources' {nextToken} -> nextToken) (\s@ListDiscoveredResources' {} a -> s {nextToken = a} :: ListDiscoveredResources)
 
--- | The IDs of only those resources that you want AWS Config to list in the response. If you do not specify this parameter, AWS Config lists all resources of the specified type that it has discovered.
-ldrResourceIds :: Lens' ListDiscoveredResources [Text]
-ldrResourceIds = lens _ldrResourceIds (\s a -> s {_ldrResourceIds = a}) . _Default . _Coerce
+-- | The IDs of only those resources that you want AWS Config to list in the
+-- response. If you do not specify this parameter, AWS Config lists all
+-- resources of the specified type that it has discovered.
+listDiscoveredResources_resourceIds :: Lens.Lens' ListDiscoveredResources (Prelude.Maybe [Prelude.Text])
+listDiscoveredResources_resourceIds = Lens.lens (\ListDiscoveredResources' {resourceIds} -> resourceIds) (\s@ListDiscoveredResources' {} a -> s {resourceIds = a} :: ListDiscoveredResources) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies whether AWS Config includes deleted resources in the results. By default, deleted resources are not included.
-ldrIncludeDeletedResources :: Lens' ListDiscoveredResources (Maybe Bool)
-ldrIncludeDeletedResources = lens _ldrIncludeDeletedResources (\s a -> s {_ldrIncludeDeletedResources = a})
+-- | Specifies whether AWS Config includes deleted resources in the results.
+-- By default, deleted resources are not included.
+listDiscoveredResources_includeDeletedResources :: Lens.Lens' ListDiscoveredResources (Prelude.Maybe Prelude.Bool)
+listDiscoveredResources_includeDeletedResources = Lens.lens (\ListDiscoveredResources' {includeDeletedResources} -> includeDeletedResources) (\s@ListDiscoveredResources' {} a -> s {includeDeletedResources = a} :: ListDiscoveredResources)
 
--- | The custom name of only those resources that you want AWS Config to list in the response. If you do not specify this parameter, AWS Config lists all resources of the specified type that it has discovered.
-ldrResourceName :: Lens' ListDiscoveredResources (Maybe Text)
-ldrResourceName = lens _ldrResourceName (\s a -> s {_ldrResourceName = a})
+-- | The custom name of only those resources that you want AWS Config to list
+-- in the response. If you do not specify this parameter, AWS Config lists
+-- all resources of the specified type that it has discovered.
+listDiscoveredResources_resourceName :: Lens.Lens' ListDiscoveredResources (Prelude.Maybe Prelude.Text)
+listDiscoveredResources_resourceName = Lens.lens (\ListDiscoveredResources' {resourceName} -> resourceName) (\s@ListDiscoveredResources' {} a -> s {resourceName = a} :: ListDiscoveredResources)
 
--- | The maximum number of resource identifiers returned on each page. The default is 100. You cannot specify a number greater than 100. If you specify 0, AWS Config uses the default.
-ldrLimit :: Lens' ListDiscoveredResources (Maybe Natural)
-ldrLimit = lens _ldrLimit (\s a -> s {_ldrLimit = a}) . mapping _Nat
+-- | The maximum number of resource identifiers returned on each page. The
+-- default is 100. You cannot specify a number greater than 100. If you
+-- specify 0, AWS Config uses the default.
+listDiscoveredResources_limit :: Lens.Lens' ListDiscoveredResources (Prelude.Maybe Prelude.Natural)
+listDiscoveredResources_limit = Lens.lens (\ListDiscoveredResources' {limit} -> limit) (\s@ListDiscoveredResources' {} a -> s {limit = a} :: ListDiscoveredResources) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The type of resources that you want AWS Config to list in the response.
-ldrResourceType :: Lens' ListDiscoveredResources ResourceType
-ldrResourceType = lens _ldrResourceType (\s a -> s {_ldrResourceType = a})
+listDiscoveredResources_resourceType :: Lens.Lens' ListDiscoveredResources ResourceType
+listDiscoveredResources_resourceType = Lens.lens (\ListDiscoveredResources' {resourceType} -> resourceType) (\s@ListDiscoveredResources' {} a -> s {resourceType = a} :: ListDiscoveredResources)
 
-instance AWSPager ListDiscoveredResources where
+instance Pager.AWSPager ListDiscoveredResources where
   page rq rs
-    | stop (rs ^. ldrrrsNextToken) = Nothing
-    | stop (rs ^. ldrrrsResourceIdentifiers) = Nothing
-    | otherwise =
-      Just $ rq & ldrNextToken .~ rs ^. ldrrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDiscoveredResourcesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDiscoveredResourcesResponse_resourceIdentifiers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDiscoveredResources_nextToken
+          Lens..~ rs
+          Lens.^? listDiscoveredResourcesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDiscoveredResources where
+instance Prelude.AWSRequest ListDiscoveredResources where
   type
     Rs ListDiscoveredResources =
       ListDiscoveredResourcesResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDiscoveredResourcesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "resourceIdentifiers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "resourceIdentifiers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDiscoveredResources
+instance Prelude.Hashable ListDiscoveredResources
 
-instance NFData ListDiscoveredResources
+instance Prelude.NFData ListDiscoveredResources
 
-instance ToHeaders ListDiscoveredResources where
+instance Prelude.ToHeaders ListDiscoveredResources where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.ListDiscoveredResources" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.ListDiscoveredResources" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDiscoveredResources where
+instance Prelude.ToJSON ListDiscoveredResources where
   toJSON ListDiscoveredResources' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _ldrNextToken,
-            ("resourceIds" .=) <$> _ldrResourceIds,
-            ("includeDeletedResources" .=)
-              <$> _ldrIncludeDeletedResources,
-            ("resourceName" .=) <$> _ldrResourceName,
-            ("limit" .=) <$> _ldrLimit,
-            Just ("resourceType" .= _ldrResourceType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("resourceIds" Prelude..=) Prelude.<$> resourceIds,
+            ("includeDeletedResources" Prelude..=)
+              Prelude.<$> includeDeletedResources,
+            ("resourceName" Prelude..=) Prelude.<$> resourceName,
+            ("limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just
+              ("resourceType" Prelude..= resourceType)
           ]
       )
 
-instance ToPath ListDiscoveredResources where
-  toPath = const "/"
+instance Prelude.ToPath ListDiscoveredResources where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDiscoveredResources where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDiscoveredResources where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'listDiscoveredResourcesResponse' smart constructor.
+-- /See:/ 'newListDiscoveredResourcesResponse' smart constructor.
 data ListDiscoveredResourcesResponse = ListDiscoveredResourcesResponse'
-  { _ldrrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ldrrrsResourceIdentifiers ::
-      !( Maybe
-           [ResourceIdentifier]
-       ),
-    _ldrrrsResponseStatus ::
-      !Int
+  { -- | The string that you use in a subsequent request to get the next page of
+    -- results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The details that identify a resource that is discovered by AWS Config,
+    -- including the resource type, ID, and (if available) the custom resource
+    -- name.
+    resourceIdentifiers :: Prelude.Maybe [ResourceIdentifier],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDiscoveredResourcesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDiscoveredResourcesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrrrsNextToken' - The string that you use in a subsequent request to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrrrsResourceIdentifiers' - The details that identify a resource that is discovered by AWS Config, including the resource type, ID, and (if available) the custom resource name.
+-- 'nextToken', 'listDiscoveredResourcesResponse_nextToken' - The string that you use in a subsequent request to get the next page of
+-- results in a paginated response.
 --
--- * 'ldrrrsResponseStatus' - -- | The response status code.
-listDiscoveredResourcesResponse ::
-  -- | 'ldrrrsResponseStatus'
-  Int ->
+-- 'resourceIdentifiers', 'listDiscoveredResourcesResponse_resourceIdentifiers' - The details that identify a resource that is discovered by AWS Config,
+-- including the resource type, ID, and (if available) the custom resource
+-- name.
+--
+-- 'httpStatus', 'listDiscoveredResourcesResponse_httpStatus' - The response's http status code.
+newListDiscoveredResourcesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDiscoveredResourcesResponse
-listDiscoveredResourcesResponse pResponseStatus_ =
+newListDiscoveredResourcesResponse pHttpStatus_ =
   ListDiscoveredResourcesResponse'
-    { _ldrrrsNextToken =
-        Nothing,
-      _ldrrrsResourceIdentifiers = Nothing,
-      _ldrrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      resourceIdentifiers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The string that you use in a subsequent request to get the next page of results in a paginated response.
-ldrrrsNextToken :: Lens' ListDiscoveredResourcesResponse (Maybe Text)
-ldrrrsNextToken = lens _ldrrrsNextToken (\s a -> s {_ldrrrsNextToken = a})
+-- | The string that you use in a subsequent request to get the next page of
+-- results in a paginated response.
+listDiscoveredResourcesResponse_nextToken :: Lens.Lens' ListDiscoveredResourcesResponse (Prelude.Maybe Prelude.Text)
+listDiscoveredResourcesResponse_nextToken = Lens.lens (\ListDiscoveredResourcesResponse' {nextToken} -> nextToken) (\s@ListDiscoveredResourcesResponse' {} a -> s {nextToken = a} :: ListDiscoveredResourcesResponse)
 
--- | The details that identify a resource that is discovered by AWS Config, including the resource type, ID, and (if available) the custom resource name.
-ldrrrsResourceIdentifiers :: Lens' ListDiscoveredResourcesResponse [ResourceIdentifier]
-ldrrrsResourceIdentifiers = lens _ldrrrsResourceIdentifiers (\s a -> s {_ldrrrsResourceIdentifiers = a}) . _Default . _Coerce
+-- | The details that identify a resource that is discovered by AWS Config,
+-- including the resource type, ID, and (if available) the custom resource
+-- name.
+listDiscoveredResourcesResponse_resourceIdentifiers :: Lens.Lens' ListDiscoveredResourcesResponse (Prelude.Maybe [ResourceIdentifier])
+listDiscoveredResourcesResponse_resourceIdentifiers = Lens.lens (\ListDiscoveredResourcesResponse' {resourceIdentifiers} -> resourceIdentifiers) (\s@ListDiscoveredResourcesResponse' {} a -> s {resourceIdentifiers = a} :: ListDiscoveredResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ldrrrsResponseStatus :: Lens' ListDiscoveredResourcesResponse Int
-ldrrrsResponseStatus = lens _ldrrrsResponseStatus (\s a -> s {_ldrrrsResponseStatus = a})
+-- | The response's http status code.
+listDiscoveredResourcesResponse_httpStatus :: Lens.Lens' ListDiscoveredResourcesResponse Prelude.Int
+listDiscoveredResourcesResponse_httpStatus = Lens.lens (\ListDiscoveredResourcesResponse' {httpStatus} -> httpStatus) (\s@ListDiscoveredResourcesResponse' {} a -> s {httpStatus = a} :: ListDiscoveredResourcesResponse)
 
-instance NFData ListDiscoveredResourcesResponse
+instance
+  Prelude.NFData
+    ListDiscoveredResourcesResponse

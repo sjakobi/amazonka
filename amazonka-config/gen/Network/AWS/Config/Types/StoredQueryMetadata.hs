@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.StoredQueryMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns details of a specific query.
 --
---
---
--- /See:/ 'storedQueryMetadata' smart constructor.
+-- /See:/ 'newStoredQueryMetadata' smart constructor.
 data StoredQueryMetadata = StoredQueryMetadata'
-  { _sqmDescription ::
-      !(Maybe Text),
-    _sqmQueryId :: !Text,
-    _sqmQueryARN :: !Text,
-    _sqmQueryName :: !Text
+  { -- | A unique description for the query.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the query.
+    queryId :: Prelude.Text,
+    -- | Amazon Resource Name (ARN) of the query. For example,
+    -- arn:partition:service:region:account-id:resource-type\/resource-name\/resource-id.
+    queryArn :: Prelude.Text,
+    -- | The name of the query.
+    queryName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StoredQueryMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StoredQueryMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sqmDescription' - A unique description for the query.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sqmQueryId' - The ID of the query.
+-- 'description', 'storedQueryMetadata_description' - A unique description for the query.
 --
--- * 'sqmQueryARN' - Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
+-- 'queryId', 'storedQueryMetadata_queryId' - The ID of the query.
 --
--- * 'sqmQueryName' - The name of the query.
-storedQueryMetadata ::
-  -- | 'sqmQueryId'
-  Text ->
-  -- | 'sqmQueryARN'
-  Text ->
-  -- | 'sqmQueryName'
-  Text ->
+-- 'queryArn', 'storedQueryMetadata_queryArn' - Amazon Resource Name (ARN) of the query. For example,
+-- arn:partition:service:region:account-id:resource-type\/resource-name\/resource-id.
+--
+-- 'queryName', 'storedQueryMetadata_queryName' - The name of the query.
+newStoredQueryMetadata ::
+  -- | 'queryId'
+  Prelude.Text ->
+  -- | 'queryArn'
+  Prelude.Text ->
+  -- | 'queryName'
+  Prelude.Text ->
   StoredQueryMetadata
-storedQueryMetadata pQueryId_ pQueryARN_ pQueryName_ =
-  StoredQueryMetadata'
-    { _sqmDescription = Nothing,
-      _sqmQueryId = pQueryId_,
-      _sqmQueryARN = pQueryARN_,
-      _sqmQueryName = pQueryName_
-    }
+newStoredQueryMetadata
+  pQueryId_
+  pQueryArn_
+  pQueryName_ =
+    StoredQueryMetadata'
+      { description = Prelude.Nothing,
+        queryId = pQueryId_,
+        queryArn = pQueryArn_,
+        queryName = pQueryName_
+      }
 
 -- | A unique description for the query.
-sqmDescription :: Lens' StoredQueryMetadata (Maybe Text)
-sqmDescription = lens _sqmDescription (\s a -> s {_sqmDescription = a})
+storedQueryMetadata_description :: Lens.Lens' StoredQueryMetadata (Prelude.Maybe Prelude.Text)
+storedQueryMetadata_description = Lens.lens (\StoredQueryMetadata' {description} -> description) (\s@StoredQueryMetadata' {} a -> s {description = a} :: StoredQueryMetadata)
 
 -- | The ID of the query.
-sqmQueryId :: Lens' StoredQueryMetadata Text
-sqmQueryId = lens _sqmQueryId (\s a -> s {_sqmQueryId = a})
+storedQueryMetadata_queryId :: Lens.Lens' StoredQueryMetadata Prelude.Text
+storedQueryMetadata_queryId = Lens.lens (\StoredQueryMetadata' {queryId} -> queryId) (\s@StoredQueryMetadata' {} a -> s {queryId = a} :: StoredQueryMetadata)
 
--- | Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
-sqmQueryARN :: Lens' StoredQueryMetadata Text
-sqmQueryARN = lens _sqmQueryARN (\s a -> s {_sqmQueryARN = a})
+-- | Amazon Resource Name (ARN) of the query. For example,
+-- arn:partition:service:region:account-id:resource-type\/resource-name\/resource-id.
+storedQueryMetadata_queryArn :: Lens.Lens' StoredQueryMetadata Prelude.Text
+storedQueryMetadata_queryArn = Lens.lens (\StoredQueryMetadata' {queryArn} -> queryArn) (\s@StoredQueryMetadata' {} a -> s {queryArn = a} :: StoredQueryMetadata)
 
 -- | The name of the query.
-sqmQueryName :: Lens' StoredQueryMetadata Text
-sqmQueryName = lens _sqmQueryName (\s a -> s {_sqmQueryName = a})
+storedQueryMetadata_queryName :: Lens.Lens' StoredQueryMetadata Prelude.Text
+storedQueryMetadata_queryName = Lens.lens (\StoredQueryMetadata' {queryName} -> queryName) (\s@StoredQueryMetadata' {} a -> s {queryName = a} :: StoredQueryMetadata)
 
-instance FromJSON StoredQueryMetadata where
+instance Prelude.FromJSON StoredQueryMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StoredQueryMetadata"
       ( \x ->
           StoredQueryMetadata'
-            <$> (x .:? "Description")
-            <*> (x .: "QueryId")
-            <*> (x .: "QueryArn")
-            <*> (x .: "QueryName")
+            Prelude.<$> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..: "QueryId")
+            Prelude.<*> (x Prelude..: "QueryArn")
+            Prelude.<*> (x Prelude..: "QueryName")
       )
 
-instance Hashable StoredQueryMetadata
+instance Prelude.Hashable StoredQueryMetadata
 
-instance NFData StoredQueryMetadata
+instance Prelude.NFData StoredQueryMetadata

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Config.Types.RecorderStatus
   ( RecorderStatus
       ( ..,
-        Failure,
-        Pending,
-        Success
+        RecorderStatusFailure,
+        RecorderStatusPending,
+        RecorderStatusSuccess
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecorderStatus = RecorderStatus' (CI Text)
+newtype RecorderStatus = RecorderStatus'
+  { fromRecorderStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failure :: RecorderStatus
-pattern Failure = RecorderStatus' "Failure"
+pattern RecorderStatusFailure :: RecorderStatus
+pattern RecorderStatusFailure = RecorderStatus' "Failure"
 
-pattern Pending :: RecorderStatus
-pattern Pending = RecorderStatus' "Pending"
+pattern RecorderStatusPending :: RecorderStatus
+pattern RecorderStatusPending = RecorderStatus' "Pending"
 
-pattern Success :: RecorderStatus
-pattern Success = RecorderStatus' "Success"
+pattern RecorderStatusSuccess :: RecorderStatus
+pattern RecorderStatusSuccess = RecorderStatus' "Success"
 
 {-# COMPLETE
-  Failure,
-  Pending,
-  Success,
+  RecorderStatusFailure,
+  RecorderStatusPending,
+  RecorderStatusSuccess,
   RecorderStatus'
   #-}
 
-instance FromText RecorderStatus where
-  parser = (RecorderStatus' . mk) <$> takeText
+instance Prelude.FromText RecorderStatus where
+  parser = RecorderStatus' Prelude.<$> Prelude.takeText
 
-instance ToText RecorderStatus where
-  toText (RecorderStatus' ci) = original ci
+instance Prelude.ToText RecorderStatus where
+  toText (RecorderStatus' x) = x
 
-instance Hashable RecorderStatus
+instance Prelude.Hashable RecorderStatus
 
-instance NFData RecorderStatus
+instance Prelude.NFData RecorderStatus
 
-instance ToByteString RecorderStatus
+instance Prelude.ToByteString RecorderStatus
 
-instance ToQuery RecorderStatus
+instance Prelude.ToQuery RecorderStatus
 
-instance ToHeader RecorderStatus
+instance Prelude.ToHeader RecorderStatus
 
-instance FromJSON RecorderStatus where
-  parseJSON = parseJSONText "RecorderStatus"
+instance Prelude.FromJSON RecorderStatus where
+  parseJSON = Prelude.parseJSONText "RecorderStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,90 +20,105 @@
 module Network.AWS.Config.Types.ConformancePackEvaluationFilters where
 
 import Network.AWS.Config.Types.ConformancePackComplianceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Filters a conformance pack by AWS Config rule names, compliance types, AWS resource types, and resource IDs.
+-- | Filters a conformance pack by AWS Config rule names, compliance types,
+-- AWS resource types, and resource IDs.
 --
---
---
--- /See:/ 'conformancePackEvaluationFilters' smart constructor.
+-- /See:/ 'newConformancePackEvaluationFilters' smart constructor.
 data ConformancePackEvaluationFilters = ConformancePackEvaluationFilters'
-  { _cpefComplianceType ::
-      !( Maybe
-           ConformancePackComplianceType
-       ),
-    _cpefResourceType ::
-      !( Maybe
-           Text
-       ),
-    _cpefResourceIds ::
-      !( Maybe
-           [Text]
-       ),
-    _cpefConfigRuleNames ::
-      !( Maybe
-           [Text]
-       )
+  { -- | Filters the results by compliance.
+    --
+    -- The allowed values are @COMPLIANT@ and @NON_COMPLIANT@.
+    complianceType :: Prelude.Maybe ConformancePackComplianceType,
+    -- | Filters the results by the resource type (for example,
+    -- @\"AWS::EC2::Instance\"@).
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | Filters the results by resource IDs.
+    --
+    -- This is valid only when you provide resource type. If there is no
+    -- resource type, you will see an error.
+    resourceIds :: Prelude.Maybe [Prelude.Text],
+    -- | Filters the results by AWS Config rule names.
+    configRuleNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConformancePackEvaluationFilters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConformancePackEvaluationFilters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpefComplianceType' - Filters the results by compliance. The allowed values are @COMPLIANT@ and @NON_COMPLIANT@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpefResourceType' - Filters the results by the resource type (for example, @"AWS::EC2::Instance"@ ).
+-- 'complianceType', 'conformancePackEvaluationFilters_complianceType' - Filters the results by compliance.
 --
--- * 'cpefResourceIds' - Filters the results by resource IDs.
+-- The allowed values are @COMPLIANT@ and @NON_COMPLIANT@.
 --
--- * 'cpefConfigRuleNames' - Filters the results by AWS Config rule names.
-conformancePackEvaluationFilters ::
+-- 'resourceType', 'conformancePackEvaluationFilters_resourceType' - Filters the results by the resource type (for example,
+-- @\"AWS::EC2::Instance\"@).
+--
+-- 'resourceIds', 'conformancePackEvaluationFilters_resourceIds' - Filters the results by resource IDs.
+--
+-- This is valid only when you provide resource type. If there is no
+-- resource type, you will see an error.
+--
+-- 'configRuleNames', 'conformancePackEvaluationFilters_configRuleNames' - Filters the results by AWS Config rule names.
+newConformancePackEvaluationFilters ::
   ConformancePackEvaluationFilters
-conformancePackEvaluationFilters =
+newConformancePackEvaluationFilters =
   ConformancePackEvaluationFilters'
-    { _cpefComplianceType =
-        Nothing,
-      _cpefResourceType = Nothing,
-      _cpefResourceIds = Nothing,
-      _cpefConfigRuleNames = Nothing
+    { complianceType =
+        Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      resourceIds = Prelude.Nothing,
+      configRuleNames = Prelude.Nothing
     }
 
--- | Filters the results by compliance. The allowed values are @COMPLIANT@ and @NON_COMPLIANT@ .
-cpefComplianceType :: Lens' ConformancePackEvaluationFilters (Maybe ConformancePackComplianceType)
-cpefComplianceType = lens _cpefComplianceType (\s a -> s {_cpefComplianceType = a})
+-- | Filters the results by compliance.
+--
+-- The allowed values are @COMPLIANT@ and @NON_COMPLIANT@.
+conformancePackEvaluationFilters_complianceType :: Lens.Lens' ConformancePackEvaluationFilters (Prelude.Maybe ConformancePackComplianceType)
+conformancePackEvaluationFilters_complianceType = Lens.lens (\ConformancePackEvaluationFilters' {complianceType} -> complianceType) (\s@ConformancePackEvaluationFilters' {} a -> s {complianceType = a} :: ConformancePackEvaluationFilters)
 
--- | Filters the results by the resource type (for example, @"AWS::EC2::Instance"@ ).
-cpefResourceType :: Lens' ConformancePackEvaluationFilters (Maybe Text)
-cpefResourceType = lens _cpefResourceType (\s a -> s {_cpefResourceType = a})
+-- | Filters the results by the resource type (for example,
+-- @\"AWS::EC2::Instance\"@).
+conformancePackEvaluationFilters_resourceType :: Lens.Lens' ConformancePackEvaluationFilters (Prelude.Maybe Prelude.Text)
+conformancePackEvaluationFilters_resourceType = Lens.lens (\ConformancePackEvaluationFilters' {resourceType} -> resourceType) (\s@ConformancePackEvaluationFilters' {} a -> s {resourceType = a} :: ConformancePackEvaluationFilters)
 
 -- | Filters the results by resource IDs.
-cpefResourceIds :: Lens' ConformancePackEvaluationFilters [Text]
-cpefResourceIds = lens _cpefResourceIds (\s a -> s {_cpefResourceIds = a}) . _Default . _Coerce
+--
+-- This is valid only when you provide resource type. If there is no
+-- resource type, you will see an error.
+conformancePackEvaluationFilters_resourceIds :: Lens.Lens' ConformancePackEvaluationFilters (Prelude.Maybe [Prelude.Text])
+conformancePackEvaluationFilters_resourceIds = Lens.lens (\ConformancePackEvaluationFilters' {resourceIds} -> resourceIds) (\s@ConformancePackEvaluationFilters' {} a -> s {resourceIds = a} :: ConformancePackEvaluationFilters) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Filters the results by AWS Config rule names.
-cpefConfigRuleNames :: Lens' ConformancePackEvaluationFilters [Text]
-cpefConfigRuleNames = lens _cpefConfigRuleNames (\s a -> s {_cpefConfigRuleNames = a}) . _Default . _Coerce
+conformancePackEvaluationFilters_configRuleNames :: Lens.Lens' ConformancePackEvaluationFilters (Prelude.Maybe [Prelude.Text])
+conformancePackEvaluationFilters_configRuleNames = Lens.lens (\ConformancePackEvaluationFilters' {configRuleNames} -> configRuleNames) (\s@ConformancePackEvaluationFilters' {} a -> s {configRuleNames = a} :: ConformancePackEvaluationFilters) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable ConformancePackEvaluationFilters
+instance
+  Prelude.Hashable
+    ConformancePackEvaluationFilters
 
-instance NFData ConformancePackEvaluationFilters
+instance
+  Prelude.NFData
+    ConformancePackEvaluationFilters
 
-instance ToJSON ConformancePackEvaluationFilters where
+instance
+  Prelude.ToJSON
+    ConformancePackEvaluationFilters
+  where
   toJSON ConformancePackEvaluationFilters' {..} =
-    object
-      ( catMaybes
-          [ ("ComplianceType" .=) <$> _cpefComplianceType,
-            ("ResourceType" .=) <$> _cpefResourceType,
-            ("ResourceIds" .=) <$> _cpefResourceIds,
-            ("ConfigRuleNames" .=) <$> _cpefConfigRuleNames
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ComplianceType" Prelude..=)
+              Prelude.<$> complianceType,
+            ("ResourceType" Prelude..=) Prelude.<$> resourceType,
+            ("ResourceIds" Prelude..=) Prelude.<$> resourceIds,
+            ("ConfigRuleNames" Prelude..=)
+              Prelude.<$> configRuleNames
           ]
       )

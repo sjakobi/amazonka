@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates and updates the retention configuration with details about retention period (number of days) that AWS Config stores your historical information. The API creates the @RetentionConfiguration@ object and names the object as __default__ . When you have a @RetentionConfiguration@ object named __default__ , calling the API modifies the default object.
+-- Creates and updates the retention configuration with details about
+-- retention period (number of days) that AWS Config stores your historical
+-- information. The API creates the @RetentionConfiguration@ object and
+-- names the object as __default__. When you have a
+-- @RetentionConfiguration@ object named __default__, calling the API
+-- modifies the default object.
+--
+-- Currently, AWS Config supports only one retention configuration per
+-- region in your account.
 module Network.AWS.Config.PutRetentionConfiguration
   ( -- * Creating a Request
-    putRetentionConfiguration,
-    PutRetentionConfiguration,
+    PutRetentionConfiguration (..),
+    newPutRetentionConfiguration,
 
     -- * Request Lenses
-    prcRetentionPeriodInDays,
+    putRetentionConfiguration_retentionPeriodInDays,
 
     -- * Destructuring the Response
-    putRetentionConfigurationResponse,
-    PutRetentionConfigurationResponse,
+    PutRetentionConfigurationResponse (..),
+    newPutRetentionConfigurationResponse,
 
     -- * Response Lenses
-    prsRetentionConfiguration,
-    prsResponseStatus,
+    putRetentionConfigurationResponse_retentionConfiguration,
+    putRetentionConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.RetentionConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putRetentionConfiguration' smart constructor.
-newtype PutRetentionConfiguration = PutRetentionConfiguration'
-  { _prcRetentionPeriodInDays ::
-      Nat
+-- | /See:/ 'newPutRetentionConfiguration' smart constructor.
+data PutRetentionConfiguration = PutRetentionConfiguration'
+  { -- | Number of days AWS Config stores your historical information.
+    --
+    -- Currently, only applicable to the configuration item history.
+    retentionPeriodInDays :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRetentionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRetentionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prcRetentionPeriodInDays' - Number of days AWS Config stores your historical information.
-putRetentionConfiguration ::
-  -- | 'prcRetentionPeriodInDays'
-  Natural ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'retentionPeriodInDays', 'putRetentionConfiguration_retentionPeriodInDays' - Number of days AWS Config stores your historical information.
+--
+-- Currently, only applicable to the configuration item history.
+newPutRetentionConfiguration ::
+  -- | 'retentionPeriodInDays'
+  Prelude.Natural ->
   PutRetentionConfiguration
-putRetentionConfiguration pRetentionPeriodInDays_ =
+newPutRetentionConfiguration pRetentionPeriodInDays_ =
   PutRetentionConfiguration'
-    { _prcRetentionPeriodInDays =
-        _Nat # pRetentionPeriodInDays_
+    { retentionPeriodInDays =
+        Prelude._Nat Lens.# pRetentionPeriodInDays_
     }
 
 -- | Number of days AWS Config stores your historical information.
-prcRetentionPeriodInDays :: Lens' PutRetentionConfiguration Natural
-prcRetentionPeriodInDays = lens _prcRetentionPeriodInDays (\s a -> s {_prcRetentionPeriodInDays = a}) . _Nat
+--
+-- Currently, only applicable to the configuration item history.
+putRetentionConfiguration_retentionPeriodInDays :: Lens.Lens' PutRetentionConfiguration Prelude.Natural
+putRetentionConfiguration_retentionPeriodInDays = Lens.lens (\PutRetentionConfiguration' {retentionPeriodInDays} -> retentionPeriodInDays) (\s@PutRetentionConfiguration' {} a -> s {retentionPeriodInDays = a} :: PutRetentionConfiguration) Prelude.. Prelude._Nat
 
-instance AWSRequest PutRetentionConfiguration where
+instance Prelude.AWSRequest PutRetentionConfiguration where
   type
     Rs PutRetentionConfiguration =
       PutRetentionConfigurationResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutRetentionConfigurationResponse'
-            <$> (x .?> "RetentionConfiguration")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RetentionConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutRetentionConfiguration
+instance Prelude.Hashable PutRetentionConfiguration
 
-instance NFData PutRetentionConfiguration
+instance Prelude.NFData PutRetentionConfiguration
 
-instance ToHeaders PutRetentionConfiguration where
+instance Prelude.ToHeaders PutRetentionConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.PutRetentionConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.PutRetentionConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutRetentionConfiguration where
+instance Prelude.ToJSON PutRetentionConfiguration where
   toJSON PutRetentionConfiguration' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "RetentionPeriodInDays"
-                  .= _prcRetentionPeriodInDays
+                  Prelude..= retentionPeriodInDays
               )
           ]
       )
 
-instance ToPath PutRetentionConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath PutRetentionConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutRetentionConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery PutRetentionConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putRetentionConfigurationResponse' smart constructor.
+-- | /See:/ 'newPutRetentionConfigurationResponse' smart constructor.
 data PutRetentionConfigurationResponse = PutRetentionConfigurationResponse'
-  { _prsRetentionConfiguration ::
-      !( Maybe
-           RetentionConfiguration
-       ),
-    _prsResponseStatus ::
-      !Int
+  { -- | Returns a retention configuration object.
+    retentionConfiguration :: Prelude.Maybe RetentionConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRetentionConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRetentionConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prsRetentionConfiguration' - Returns a retention configuration object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prsResponseStatus' - -- | The response status code.
-putRetentionConfigurationResponse ::
-  -- | 'prsResponseStatus'
-  Int ->
+-- 'retentionConfiguration', 'putRetentionConfigurationResponse_retentionConfiguration' - Returns a retention configuration object.
+--
+-- 'httpStatus', 'putRetentionConfigurationResponse_httpStatus' - The response's http status code.
+newPutRetentionConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutRetentionConfigurationResponse
-putRetentionConfigurationResponse pResponseStatus_ =
+newPutRetentionConfigurationResponse pHttpStatus_ =
   PutRetentionConfigurationResponse'
-    { _prsRetentionConfiguration =
-        Nothing,
-      _prsResponseStatus = pResponseStatus_
+    { retentionConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Returns a retention configuration object.
-prsRetentionConfiguration :: Lens' PutRetentionConfigurationResponse (Maybe RetentionConfiguration)
-prsRetentionConfiguration = lens _prsRetentionConfiguration (\s a -> s {_prsRetentionConfiguration = a})
+putRetentionConfigurationResponse_retentionConfiguration :: Lens.Lens' PutRetentionConfigurationResponse (Prelude.Maybe RetentionConfiguration)
+putRetentionConfigurationResponse_retentionConfiguration = Lens.lens (\PutRetentionConfigurationResponse' {retentionConfiguration} -> retentionConfiguration) (\s@PutRetentionConfigurationResponse' {} a -> s {retentionConfiguration = a} :: PutRetentionConfigurationResponse)
 
--- | -- | The response status code.
-prsResponseStatus :: Lens' PutRetentionConfigurationResponse Int
-prsResponseStatus = lens _prsResponseStatus (\s a -> s {_prsResponseStatus = a})
+-- | The response's http status code.
+putRetentionConfigurationResponse_httpStatus :: Lens.Lens' PutRetentionConfigurationResponse Prelude.Int
+putRetentionConfigurationResponse_httpStatus = Lens.lens (\PutRetentionConfigurationResponse' {httpStatus} -> httpStatus) (\s@PutRetentionConfigurationResponse' {} a -> s {httpStatus = a} :: PutRetentionConfigurationResponse)
 
-instance NFData PutRetentionConfigurationResponse
+instance
+  Prelude.NFData
+    PutRetentionConfigurationResponse

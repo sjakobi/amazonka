@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,194 +21,246 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the details of one or more retention configurations. If the retention configuration name is not specified, this action returns the details for all the retention configurations for that account.
+-- Returns the details of one or more retention configurations. If the
+-- retention configuration name is not specified, this action returns the
+-- details for all the retention configurations for that account.
 --
---
+-- Currently, AWS Config supports only one retention configuration per
+-- region in your account.
 --
 -- This operation returns paginated results.
 module Network.AWS.Config.DescribeRetentionConfigurations
   ( -- * Creating a Request
-    describeRetentionConfigurations,
-    DescribeRetentionConfigurations,
+    DescribeRetentionConfigurations (..),
+    newDescribeRetentionConfigurations,
 
     -- * Request Lenses
-    drcNextToken,
-    drcRetentionConfigurationNames,
+    describeRetentionConfigurations_nextToken,
+    describeRetentionConfigurations_retentionConfigurationNames,
 
     -- * Destructuring the Response
-    describeRetentionConfigurationsResponse,
-    DescribeRetentionConfigurationsResponse,
+    DescribeRetentionConfigurationsResponse (..),
+    newDescribeRetentionConfigurationsResponse,
 
     -- * Response Lenses
-    desrsNextToken,
-    desrsRetentionConfigurations,
-    desrsResponseStatus,
+    describeRetentionConfigurationsResponse_nextToken,
+    describeRetentionConfigurationsResponse_retentionConfigurations,
+    describeRetentionConfigurationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.RetentionConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeRetentionConfigurations' smart constructor.
+-- | /See:/ 'newDescribeRetentionConfigurations' smart constructor.
 data DescribeRetentionConfigurations = DescribeRetentionConfigurations'
-  { _drcNextToken ::
-      !( Maybe
-           Text
-       ),
-    _drcRetentionConfigurationNames ::
-      !( Maybe
-           [Text]
-       )
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of names of retention configurations for which you want details.
+    -- If you do not specify a name, AWS Config returns details for all the
+    -- retention configurations for that account.
+    --
+    -- Currently, AWS Config supports only one retention configuration per
+    -- region in your account.
+    retentionConfigurationNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRetentionConfigurations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRetentionConfigurations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drcRetentionConfigurationNames' - A list of names of retention configurations for which you want details. If you do not specify a name, AWS Config returns details for all the retention configurations for that account.
-describeRetentionConfigurations ::
+-- 'nextToken', 'describeRetentionConfigurations_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+--
+-- 'retentionConfigurationNames', 'describeRetentionConfigurations_retentionConfigurationNames' - A list of names of retention configurations for which you want details.
+-- If you do not specify a name, AWS Config returns details for all the
+-- retention configurations for that account.
+--
+-- Currently, AWS Config supports only one retention configuration per
+-- region in your account.
+newDescribeRetentionConfigurations ::
   DescribeRetentionConfigurations
-describeRetentionConfigurations =
+newDescribeRetentionConfigurations =
   DescribeRetentionConfigurations'
-    { _drcNextToken =
-        Nothing,
-      _drcRetentionConfigurationNames = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      retentionConfigurationNames =
+        Prelude.Nothing
     }
 
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-drcNextToken :: Lens' DescribeRetentionConfigurations (Maybe Text)
-drcNextToken = lens _drcNextToken (\s a -> s {_drcNextToken = a})
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeRetentionConfigurations_nextToken :: Lens.Lens' DescribeRetentionConfigurations (Prelude.Maybe Prelude.Text)
+describeRetentionConfigurations_nextToken = Lens.lens (\DescribeRetentionConfigurations' {nextToken} -> nextToken) (\s@DescribeRetentionConfigurations' {} a -> s {nextToken = a} :: DescribeRetentionConfigurations)
 
--- | A list of names of retention configurations for which you want details. If you do not specify a name, AWS Config returns details for all the retention configurations for that account.
-drcRetentionConfigurationNames :: Lens' DescribeRetentionConfigurations [Text]
-drcRetentionConfigurationNames = lens _drcRetentionConfigurationNames (\s a -> s {_drcRetentionConfigurationNames = a}) . _Default . _Coerce
+-- | A list of names of retention configurations for which you want details.
+-- If you do not specify a name, AWS Config returns details for all the
+-- retention configurations for that account.
+--
+-- Currently, AWS Config supports only one retention configuration per
+-- region in your account.
+describeRetentionConfigurations_retentionConfigurationNames :: Lens.Lens' DescribeRetentionConfigurations (Prelude.Maybe [Prelude.Text])
+describeRetentionConfigurations_retentionConfigurationNames = Lens.lens (\DescribeRetentionConfigurations' {retentionConfigurationNames} -> retentionConfigurationNames) (\s@DescribeRetentionConfigurations' {} a -> s {retentionConfigurationNames = a} :: DescribeRetentionConfigurations) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeRetentionConfigurations where
+instance
+  Pager.AWSPager
+    DescribeRetentionConfigurations
+  where
   page rq rs
-    | stop (rs ^. desrsNextToken) = Nothing
-    | stop (rs ^. desrsRetentionConfigurations) = Nothing
-    | otherwise =
-      Just $ rq & drcNextToken .~ rs ^. desrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeRetentionConfigurationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeRetentionConfigurationsResponse_retentionConfigurations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeRetentionConfigurations_nextToken
+          Lens..~ rs
+          Lens.^? describeRetentionConfigurationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeRetentionConfigurations where
+instance
+  Prelude.AWSRequest
+    DescribeRetentionConfigurations
+  where
   type
     Rs DescribeRetentionConfigurations =
       DescribeRetentionConfigurationsResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeRetentionConfigurationsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "RetentionConfigurations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "RetentionConfigurations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable DescribeRetentionConfigurations
-
-instance NFData DescribeRetentionConfigurations
-
-instance ToHeaders DescribeRetentionConfigurations where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DescribeRetentionConfigurations" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON DescribeRetentionConfigurations where
-  toJSON DescribeRetentionConfigurations' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _drcNextToken,
-            ("RetentionConfigurationNames" .=)
-              <$> _drcRetentionConfigurationNames
-          ]
-      )
-
-instance ToPath DescribeRetentionConfigurations where
-  toPath = const "/"
-
-instance ToQuery DescribeRetentionConfigurations where
-  toQuery = const mempty
-
--- | /See:/ 'describeRetentionConfigurationsResponse' smart constructor.
-data DescribeRetentionConfigurationsResponse = DescribeRetentionConfigurationsResponse'
-  { _desrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _desrsRetentionConfigurations ::
-      !( Maybe
-           [RetentionConfiguration]
-       ),
-    _desrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeRetentionConfigurationsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'desrsNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
---
--- * 'desrsRetentionConfigurations' - Returns a retention configuration object.
---
--- * 'desrsResponseStatus' - -- | The response status code.
-describeRetentionConfigurationsResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
-  DescribeRetentionConfigurationsResponse
-describeRetentionConfigurationsResponse
-  pResponseStatus_ =
-    DescribeRetentionConfigurationsResponse'
-      { _desrsNextToken =
-          Nothing,
-        _desrsRetentionConfigurations =
-          Nothing,
-        _desrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-desrsNextToken :: Lens' DescribeRetentionConfigurationsResponse (Maybe Text)
-desrsNextToken = lens _desrsNextToken (\s a -> s {_desrsNextToken = a})
-
--- | Returns a retention configuration object.
-desrsRetentionConfigurations :: Lens' DescribeRetentionConfigurationsResponse [RetentionConfiguration]
-desrsRetentionConfigurations = lens _desrsRetentionConfigurations (\s a -> s {_desrsRetentionConfigurations = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeRetentionConfigurationsResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    DescribeRetentionConfigurations
+
+instance
+  Prelude.NFData
+    DescribeRetentionConfigurations
+
+instance
+  Prelude.ToHeaders
+    DescribeRetentionConfigurations
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "StarlingDoveService.DescribeRetentionConfigurations" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    DescribeRetentionConfigurations
+  where
+  toJSON DescribeRetentionConfigurations' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("RetentionConfigurationNames" Prelude..=)
+              Prelude.<$> retentionConfigurationNames
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    DescribeRetentionConfigurations
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeRetentionConfigurations
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDescribeRetentionConfigurationsResponse' smart constructor.
+data DescribeRetentionConfigurationsResponse = DescribeRetentionConfigurationsResponse'
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Returns a retention configuration object.
+    retentionConfigurations :: Prelude.Maybe [RetentionConfiguration],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeRetentionConfigurationsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'describeRetentionConfigurationsResponse_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+--
+-- 'retentionConfigurations', 'describeRetentionConfigurationsResponse_retentionConfigurations' - Returns a retention configuration object.
+--
+-- 'httpStatus', 'describeRetentionConfigurationsResponse_httpStatus' - The response's http status code.
+newDescribeRetentionConfigurationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeRetentionConfigurationsResponse
+newDescribeRetentionConfigurationsResponse
+  pHttpStatus_ =
+    DescribeRetentionConfigurationsResponse'
+      { nextToken =
+          Prelude.Nothing,
+        retentionConfigurations =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeRetentionConfigurationsResponse_nextToken :: Lens.Lens' DescribeRetentionConfigurationsResponse (Prelude.Maybe Prelude.Text)
+describeRetentionConfigurationsResponse_nextToken = Lens.lens (\DescribeRetentionConfigurationsResponse' {nextToken} -> nextToken) (\s@DescribeRetentionConfigurationsResponse' {} a -> s {nextToken = a} :: DescribeRetentionConfigurationsResponse)
+
+-- | Returns a retention configuration object.
+describeRetentionConfigurationsResponse_retentionConfigurations :: Lens.Lens' DescribeRetentionConfigurationsResponse (Prelude.Maybe [RetentionConfiguration])
+describeRetentionConfigurationsResponse_retentionConfigurations = Lens.lens (\DescribeRetentionConfigurationsResponse' {retentionConfigurations} -> retentionConfigurations) (\s@DescribeRetentionConfigurationsResponse' {} a -> s {retentionConfigurations = a} :: DescribeRetentionConfigurationsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+describeRetentionConfigurationsResponse_httpStatus :: Lens.Lens' DescribeRetentionConfigurationsResponse Prelude.Int
+describeRetentionConfigurationsResponse_httpStatus = Lens.lens (\DescribeRetentionConfigurationsResponse' {httpStatus} -> httpStatus) (\s@DescribeRetentionConfigurationsResponse' {} a -> s {httpStatus = a} :: DescribeRetentionConfigurationsResponse)
+
+instance
+  Prelude.NFData
     DescribeRetentionConfigurationsResponse

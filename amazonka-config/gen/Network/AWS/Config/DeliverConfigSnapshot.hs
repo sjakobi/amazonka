@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Schedules delivery of a configuration snapshot to the Amazon S3 bucket in the specified delivery channel. After the delivery has started, AWS Config sends the following notifications using an Amazon SNS topic that you have specified.
+-- Schedules delivery of a configuration snapshot to the Amazon S3 bucket
+-- in the specified delivery channel. After the delivery has started, AWS
+-- Config sends the following notifications using an Amazon SNS topic that
+-- you have specified.
 --
+-- -   Notification of the start of the delivery.
 --
---     * Notification of the start of the delivery.
+-- -   Notification of the completion of the delivery, if the delivery was
+--     successfully completed.
 --
---     * Notification of the completion of the delivery, if the delivery was successfully completed.
---
---     * Notification of delivery failure, if the delivery failed.
+-- -   Notification of delivery failure, if the delivery failed.
 module Network.AWS.Config.DeliverConfigSnapshot
   ( -- * Creating a Request
-    deliverConfigSnapshot,
-    DeliverConfigSnapshot,
+    DeliverConfigSnapshot (..),
+    newDeliverConfigSnapshot,
 
     -- * Request Lenses
-    dcsDeliveryChannelName,
+    deliverConfigSnapshot_deliveryChannelName,
 
     -- * Destructuring the Response
-    deliverConfigSnapshotResponse,
-    DeliverConfigSnapshotResponse,
+    DeliverConfigSnapshotResponse (..),
+    newDeliverConfigSnapshotResponse,
 
     -- * Response Lenses
-    dcsrrsConfigSnapshotId,
-    dcsrrsResponseStatus,
+    deliverConfigSnapshotResponse_configSnapshotId,
+    deliverConfigSnapshotResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input for the 'DeliverConfigSnapshot' action.
+-- | The input for the DeliverConfigSnapshot action.
 --
---
---
--- /See:/ 'deliverConfigSnapshot' smart constructor.
-newtype DeliverConfigSnapshot = DeliverConfigSnapshot'
-  { _dcsDeliveryChannelName ::
-      Text
+-- /See:/ 'newDeliverConfigSnapshot' smart constructor.
+data DeliverConfigSnapshot = DeliverConfigSnapshot'
+  { -- | The name of the delivery channel through which the snapshot is
+    -- delivered.
+    deliveryChannelName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeliverConfigSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeliverConfigSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsDeliveryChannelName' - The name of the delivery channel through which the snapshot is delivered.
-deliverConfigSnapshot ::
-  -- | 'dcsDeliveryChannelName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deliveryChannelName', 'deliverConfigSnapshot_deliveryChannelName' - The name of the delivery channel through which the snapshot is
+-- delivered.
+newDeliverConfigSnapshot ::
+  -- | 'deliveryChannelName'
+  Prelude.Text ->
   DeliverConfigSnapshot
-deliverConfigSnapshot pDeliveryChannelName_ =
+newDeliverConfigSnapshot pDeliveryChannelName_ =
   DeliverConfigSnapshot'
-    { _dcsDeliveryChannelName =
+    { deliveryChannelName =
         pDeliveryChannelName_
     }
 
--- | The name of the delivery channel through which the snapshot is delivered.
-dcsDeliveryChannelName :: Lens' DeliverConfigSnapshot Text
-dcsDeliveryChannelName = lens _dcsDeliveryChannelName (\s a -> s {_dcsDeliveryChannelName = a})
+-- | The name of the delivery channel through which the snapshot is
+-- delivered.
+deliverConfigSnapshot_deliveryChannelName :: Lens.Lens' DeliverConfigSnapshot Prelude.Text
+deliverConfigSnapshot_deliveryChannelName = Lens.lens (\DeliverConfigSnapshot' {deliveryChannelName} -> deliveryChannelName) (\s@DeliverConfigSnapshot' {} a -> s {deliveryChannelName = a} :: DeliverConfigSnapshot)
 
-instance AWSRequest DeliverConfigSnapshot where
+instance Prelude.AWSRequest DeliverConfigSnapshot where
   type
     Rs DeliverConfigSnapshot =
       DeliverConfigSnapshotResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeliverConfigSnapshotResponse'
-            <$> (x .?> "configSnapshotId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "configSnapshotId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeliverConfigSnapshot
+instance Prelude.Hashable DeliverConfigSnapshot
 
-instance NFData DeliverConfigSnapshot
+instance Prelude.NFData DeliverConfigSnapshot
 
-instance ToHeaders DeliverConfigSnapshot where
+instance Prelude.ToHeaders DeliverConfigSnapshot where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DeliverConfigSnapshot" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.DeliverConfigSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeliverConfigSnapshot where
+instance Prelude.ToJSON DeliverConfigSnapshot where
   toJSON DeliverConfigSnapshot' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("deliveryChannelName" .= _dcsDeliveryChannelName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "deliveryChannelName"
+                  Prelude..= deliveryChannelName
+              )
           ]
       )
 
-instance ToPath DeliverConfigSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath DeliverConfigSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeliverConfigSnapshot where
-  toQuery = const mempty
+instance Prelude.ToQuery DeliverConfigSnapshot where
+  toQuery = Prelude.const Prelude.mempty
 
--- | The output for the 'DeliverConfigSnapshot' action, in JSON format.
+-- | The output for the DeliverConfigSnapshot action, in JSON format.
 --
---
---
--- /See:/ 'deliverConfigSnapshotResponse' smart constructor.
+-- /See:/ 'newDeliverConfigSnapshotResponse' smart constructor.
 data DeliverConfigSnapshotResponse = DeliverConfigSnapshotResponse'
-  { _dcsrrsConfigSnapshotId ::
-      !( Maybe
-           Text
-       ),
-    _dcsrrsResponseStatus ::
-      !Int
+  { -- | The ID of the snapshot that is being created.
+    configSnapshotId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeliverConfigSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeliverConfigSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsrrsConfigSnapshotId' - The ID of the snapshot that is being created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsrrsResponseStatus' - -- | The response status code.
-deliverConfigSnapshotResponse ::
-  -- | 'dcsrrsResponseStatus'
-  Int ->
+-- 'configSnapshotId', 'deliverConfigSnapshotResponse_configSnapshotId' - The ID of the snapshot that is being created.
+--
+-- 'httpStatus', 'deliverConfigSnapshotResponse_httpStatus' - The response's http status code.
+newDeliverConfigSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeliverConfigSnapshotResponse
-deliverConfigSnapshotResponse pResponseStatus_ =
+newDeliverConfigSnapshotResponse pHttpStatus_ =
   DeliverConfigSnapshotResponse'
-    { _dcsrrsConfigSnapshotId =
-        Nothing,
-      _dcsrrsResponseStatus = pResponseStatus_
+    { configSnapshotId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the snapshot that is being created.
-dcsrrsConfigSnapshotId :: Lens' DeliverConfigSnapshotResponse (Maybe Text)
-dcsrrsConfigSnapshotId = lens _dcsrrsConfigSnapshotId (\s a -> s {_dcsrrsConfigSnapshotId = a})
+deliverConfigSnapshotResponse_configSnapshotId :: Lens.Lens' DeliverConfigSnapshotResponse (Prelude.Maybe Prelude.Text)
+deliverConfigSnapshotResponse_configSnapshotId = Lens.lens (\DeliverConfigSnapshotResponse' {configSnapshotId} -> configSnapshotId) (\s@DeliverConfigSnapshotResponse' {} a -> s {configSnapshotId = a} :: DeliverConfigSnapshotResponse)
 
--- | -- | The response status code.
-dcsrrsResponseStatus :: Lens' DeliverConfigSnapshotResponse Int
-dcsrrsResponseStatus = lens _dcsrrsResponseStatus (\s a -> s {_dcsrrsResponseStatus = a})
+-- | The response's http status code.
+deliverConfigSnapshotResponse_httpStatus :: Lens.Lens' DeliverConfigSnapshotResponse Prelude.Int
+deliverConfigSnapshotResponse_httpStatus = Lens.lens (\DeliverConfigSnapshotResponse' {httpStatus} -> httpStatus) (\s@DeliverConfigSnapshotResponse' {} a -> s {httpStatus = a} :: DeliverConfigSnapshotResponse)
 
-instance NFData DeliverConfigSnapshotResponse
+instance Prelude.NFData DeliverConfigSnapshotResponse

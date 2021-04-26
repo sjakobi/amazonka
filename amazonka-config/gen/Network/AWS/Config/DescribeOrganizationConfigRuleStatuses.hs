@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,214 +22,229 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Provides organization config rule deployment status for an organization.
+--
+-- The status is not considered successful until organization config rule
+-- is successfully deployed in all the member accounts with an exception of
+-- excluded accounts.
+--
+-- When you specify the limit and the next token, you receive a paginated
+-- response. Limit and next token are not applicable if you specify
+-- organization config rule names. It is only applicable, when you request
+-- all the organization config rules.
 module Network.AWS.Config.DescribeOrganizationConfigRuleStatuses
   ( -- * Creating a Request
-    describeOrganizationConfigRuleStatuses,
-    DescribeOrganizationConfigRuleStatuses,
+    DescribeOrganizationConfigRuleStatuses (..),
+    newDescribeOrganizationConfigRuleStatuses,
 
     -- * Request Lenses
-    docrsNextToken,
-    docrsOrganizationConfigRuleNames,
-    docrsLimit,
+    describeOrganizationConfigRuleStatuses_nextToken,
+    describeOrganizationConfigRuleStatuses_organizationConfigRuleNames,
+    describeOrganizationConfigRuleStatuses_limit,
 
     -- * Destructuring the Response
-    describeOrganizationConfigRuleStatusesResponse,
-    DescribeOrganizationConfigRuleStatusesResponse,
+    DescribeOrganizationConfigRuleStatusesResponse (..),
+    newDescribeOrganizationConfigRuleStatusesResponse,
 
     -- * Response Lenses
-    docrsrrsNextToken,
-    docrsrrsOrganizationConfigRuleStatuses,
-    docrsrrsResponseStatus,
+    describeOrganizationConfigRuleStatusesResponse_nextToken,
+    describeOrganizationConfigRuleStatusesResponse_organizationConfigRuleStatuses,
+    describeOrganizationConfigRuleStatusesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.OrganizationConfigRuleStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeOrganizationConfigRuleStatuses' smart constructor.
+-- | /See:/ 'newDescribeOrganizationConfigRuleStatuses' smart constructor.
 data DescribeOrganizationConfigRuleStatuses = DescribeOrganizationConfigRuleStatuses'
-  { _docrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _docrsOrganizationConfigRuleNames ::
-      !( Maybe
-           [Text]
-       ),
-    _docrsLimit ::
-      !( Maybe
-           Nat
-       )
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The names of organization config rules for which you want status
+    -- details. If you do not specify any names, AWS Config returns details for
+    -- all your organization AWS Confg rules.
+    organizationConfigRuleNames :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of @OrganizationConfigRuleStatuses@ returned on each
+    -- page. If you do no specify a number, AWS Config uses the default. The
+    -- default is 100.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeOrganizationConfigRuleStatuses' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeOrganizationConfigRuleStatuses' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'docrsNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'docrsOrganizationConfigRuleNames' - The names of organization config rules for which you want status details. If you do not specify any names, AWS Config returns details for all your organization AWS Confg rules.
+-- 'nextToken', 'describeOrganizationConfigRuleStatuses_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
--- * 'docrsLimit' - The maximum number of @OrganizationConfigRuleStatuses@ returned on each page. If you do no specify a number, AWS Config uses the default. The default is 100.
-describeOrganizationConfigRuleStatuses ::
+-- 'organizationConfigRuleNames', 'describeOrganizationConfigRuleStatuses_organizationConfigRuleNames' - The names of organization config rules for which you want status
+-- details. If you do not specify any names, AWS Config returns details for
+-- all your organization AWS Confg rules.
+--
+-- 'limit', 'describeOrganizationConfigRuleStatuses_limit' - The maximum number of @OrganizationConfigRuleStatuses@ returned on each
+-- page. If you do no specify a number, AWS Config uses the default. The
+-- default is 100.
+newDescribeOrganizationConfigRuleStatuses ::
   DescribeOrganizationConfigRuleStatuses
-describeOrganizationConfigRuleStatuses =
+newDescribeOrganizationConfigRuleStatuses =
   DescribeOrganizationConfigRuleStatuses'
-    { _docrsNextToken =
-        Nothing,
-      _docrsOrganizationConfigRuleNames =
-        Nothing,
-      _docrsLimit = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      organizationConfigRuleNames =
+        Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-docrsNextToken :: Lens' DescribeOrganizationConfigRuleStatuses (Maybe Text)
-docrsNextToken = lens _docrsNextToken (\s a -> s {_docrsNextToken = a})
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeOrganizationConfigRuleStatuses_nextToken :: Lens.Lens' DescribeOrganizationConfigRuleStatuses (Prelude.Maybe Prelude.Text)
+describeOrganizationConfigRuleStatuses_nextToken = Lens.lens (\DescribeOrganizationConfigRuleStatuses' {nextToken} -> nextToken) (\s@DescribeOrganizationConfigRuleStatuses' {} a -> s {nextToken = a} :: DescribeOrganizationConfigRuleStatuses)
 
--- | The names of organization config rules for which you want status details. If you do not specify any names, AWS Config returns details for all your organization AWS Confg rules.
-docrsOrganizationConfigRuleNames :: Lens' DescribeOrganizationConfigRuleStatuses [Text]
-docrsOrganizationConfigRuleNames = lens _docrsOrganizationConfigRuleNames (\s a -> s {_docrsOrganizationConfigRuleNames = a}) . _Default . _Coerce
+-- | The names of organization config rules for which you want status
+-- details. If you do not specify any names, AWS Config returns details for
+-- all your organization AWS Confg rules.
+describeOrganizationConfigRuleStatuses_organizationConfigRuleNames :: Lens.Lens' DescribeOrganizationConfigRuleStatuses (Prelude.Maybe [Prelude.Text])
+describeOrganizationConfigRuleStatuses_organizationConfigRuleNames = Lens.lens (\DescribeOrganizationConfigRuleStatuses' {organizationConfigRuleNames} -> organizationConfigRuleNames) (\s@DescribeOrganizationConfigRuleStatuses' {} a -> s {organizationConfigRuleNames = a} :: DescribeOrganizationConfigRuleStatuses) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum number of @OrganizationConfigRuleStatuses@ returned on each page. If you do no specify a number, AWS Config uses the default. The default is 100.
-docrsLimit :: Lens' DescribeOrganizationConfigRuleStatuses (Maybe Natural)
-docrsLimit = lens _docrsLimit (\s a -> s {_docrsLimit = a}) . mapping _Nat
+-- | The maximum number of @OrganizationConfigRuleStatuses@ returned on each
+-- page. If you do no specify a number, AWS Config uses the default. The
+-- default is 100.
+describeOrganizationConfigRuleStatuses_limit :: Lens.Lens' DescribeOrganizationConfigRuleStatuses (Prelude.Maybe Prelude.Natural)
+describeOrganizationConfigRuleStatuses_limit = Lens.lens (\DescribeOrganizationConfigRuleStatuses' {limit} -> limit) (\s@DescribeOrganizationConfigRuleStatuses' {} a -> s {limit = a} :: DescribeOrganizationConfigRuleStatuses) Prelude.. Lens.mapping Prelude._Nat
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeOrganizationConfigRuleStatuses
   where
   type
     Rs DescribeOrganizationConfigRuleStatuses =
       DescribeOrganizationConfigRuleStatusesResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeOrganizationConfigRuleStatusesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "OrganizationConfigRuleStatuses" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> ( x Prelude..?> "OrganizationConfigRuleStatuses"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeOrganizationConfigRuleStatuses
 
 instance
-  NFData
+  Prelude.NFData
     DescribeOrganizationConfigRuleStatuses
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DescribeOrganizationConfigRuleStatuses
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DescribeOrganizationConfigRuleStatuses" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.DescribeOrganizationConfigRuleStatuses" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     DescribeOrganizationConfigRuleStatuses
   where
   toJSON DescribeOrganizationConfigRuleStatuses' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _docrsNextToken,
-            ("OrganizationConfigRuleNames" .=)
-              <$> _docrsOrganizationConfigRuleNames,
-            ("Limit" .=) <$> _docrsLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("OrganizationConfigRuleNames" Prelude..=)
+              Prelude.<$> organizationConfigRuleNames,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     DescribeOrganizationConfigRuleStatuses
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     DescribeOrganizationConfigRuleStatuses
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeOrganizationConfigRuleStatusesResponse' smart constructor.
+-- | /See:/ 'newDescribeOrganizationConfigRuleStatusesResponse' smart constructor.
 data DescribeOrganizationConfigRuleStatusesResponse = DescribeOrganizationConfigRuleStatusesResponse'
-  { _docrsrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _docrsrrsOrganizationConfigRuleStatuses ::
-      !( Maybe
-           [OrganizationConfigRuleStatus]
-       ),
-    _docrsrrsResponseStatus ::
-      !Int
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @OrganizationConfigRuleStatus@ objects.
+    organizationConfigRuleStatuses :: Prelude.Maybe [OrganizationConfigRuleStatus],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeOrganizationConfigRuleStatusesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeOrganizationConfigRuleStatusesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'docrsrrsNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'docrsrrsOrganizationConfigRuleStatuses' - A list of @OrganizationConfigRuleStatus@ objects.
+-- 'nextToken', 'describeOrganizationConfigRuleStatusesResponse_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
--- * 'docrsrrsResponseStatus' - -- | The response status code.
-describeOrganizationConfigRuleStatusesResponse ::
-  -- | 'docrsrrsResponseStatus'
-  Int ->
+-- 'organizationConfigRuleStatuses', 'describeOrganizationConfigRuleStatusesResponse_organizationConfigRuleStatuses' - A list of @OrganizationConfigRuleStatus@ objects.
+--
+-- 'httpStatus', 'describeOrganizationConfigRuleStatusesResponse_httpStatus' - The response's http status code.
+newDescribeOrganizationConfigRuleStatusesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeOrganizationConfigRuleStatusesResponse
-describeOrganizationConfigRuleStatusesResponse
-  pResponseStatus_ =
+newDescribeOrganizationConfigRuleStatusesResponse
+  pHttpStatus_ =
     DescribeOrganizationConfigRuleStatusesResponse'
-      { _docrsrrsNextToken =
-          Nothing,
-        _docrsrrsOrganizationConfigRuleStatuses =
-          Nothing,
-        _docrsrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        organizationConfigRuleStatuses =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-docrsrrsNextToken :: Lens' DescribeOrganizationConfigRuleStatusesResponse (Maybe Text)
-docrsrrsNextToken = lens _docrsrrsNextToken (\s a -> s {_docrsrrsNextToken = a})
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeOrganizationConfigRuleStatusesResponse_nextToken :: Lens.Lens' DescribeOrganizationConfigRuleStatusesResponse (Prelude.Maybe Prelude.Text)
+describeOrganizationConfigRuleStatusesResponse_nextToken = Lens.lens (\DescribeOrganizationConfigRuleStatusesResponse' {nextToken} -> nextToken) (\s@DescribeOrganizationConfigRuleStatusesResponse' {} a -> s {nextToken = a} :: DescribeOrganizationConfigRuleStatusesResponse)
 
 -- | A list of @OrganizationConfigRuleStatus@ objects.
-docrsrrsOrganizationConfigRuleStatuses :: Lens' DescribeOrganizationConfigRuleStatusesResponse [OrganizationConfigRuleStatus]
-docrsrrsOrganizationConfigRuleStatuses = lens _docrsrrsOrganizationConfigRuleStatuses (\s a -> s {_docrsrrsOrganizationConfigRuleStatuses = a}) . _Default . _Coerce
+describeOrganizationConfigRuleStatusesResponse_organizationConfigRuleStatuses :: Lens.Lens' DescribeOrganizationConfigRuleStatusesResponse (Prelude.Maybe [OrganizationConfigRuleStatus])
+describeOrganizationConfigRuleStatusesResponse_organizationConfigRuleStatuses = Lens.lens (\DescribeOrganizationConfigRuleStatusesResponse' {organizationConfigRuleStatuses} -> organizationConfigRuleStatuses) (\s@DescribeOrganizationConfigRuleStatusesResponse' {} a -> s {organizationConfigRuleStatuses = a} :: DescribeOrganizationConfigRuleStatusesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-docrsrrsResponseStatus :: Lens' DescribeOrganizationConfigRuleStatusesResponse Int
-docrsrrsResponseStatus = lens _docrsrrsResponseStatus (\s a -> s {_docrsrrsResponseStatus = a})
+-- | The response's http status code.
+describeOrganizationConfigRuleStatusesResponse_httpStatus :: Lens.Lens' DescribeOrganizationConfigRuleStatusesResponse Prelude.Int
+describeOrganizationConfigRuleStatusesResponse_httpStatus = Lens.lens (\DescribeOrganizationConfigRuleStatusesResponse' {httpStatus} -> httpStatus) (\s@DescribeOrganizationConfigRuleStatusesResponse' {} a -> s {httpStatus = a} :: DescribeOrganizationConfigRuleStatusesResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeOrganizationConfigRuleStatusesResponse

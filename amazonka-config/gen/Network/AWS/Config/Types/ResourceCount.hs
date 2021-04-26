@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,57 @@
 module Network.AWS.Config.Types.ResourceCount where
 
 import Network.AWS.Config.Types.ResourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object that contains the resource type and the number of resources.
 --
---
---
--- /See:/ 'resourceCount' smart constructor.
+-- /See:/ 'newResourceCount' smart constructor.
 data ResourceCount = ResourceCount'
-  { _resResourceType ::
-      !(Maybe ResourceType),
-    _resCount :: !(Maybe Integer)
+  { -- | The resource type (for example, @\"AWS::EC2::Instance\"@).
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | The number of resources.
+    count :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceCount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceCount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'resResourceType' - The resource type (for example, @"AWS::EC2::Instance"@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'resCount' - The number of resources.
-resourceCount ::
+-- 'resourceType', 'resourceCount_resourceType' - The resource type (for example, @\"AWS::EC2::Instance\"@).
+--
+-- 'count', 'resourceCount_count' - The number of resources.
+newResourceCount ::
   ResourceCount
-resourceCount =
+newResourceCount =
   ResourceCount'
-    { _resResourceType = Nothing,
-      _resCount = Nothing
+    { resourceType = Prelude.Nothing,
+      count = Prelude.Nothing
     }
 
--- | The resource type (for example, @"AWS::EC2::Instance"@ ).
-resResourceType :: Lens' ResourceCount (Maybe ResourceType)
-resResourceType = lens _resResourceType (\s a -> s {_resResourceType = a})
+-- | The resource type (for example, @\"AWS::EC2::Instance\"@).
+resourceCount_resourceType :: Lens.Lens' ResourceCount (Prelude.Maybe ResourceType)
+resourceCount_resourceType = Lens.lens (\ResourceCount' {resourceType} -> resourceType) (\s@ResourceCount' {} a -> s {resourceType = a} :: ResourceCount)
 
 -- | The number of resources.
-resCount :: Lens' ResourceCount (Maybe Integer)
-resCount = lens _resCount (\s a -> s {_resCount = a})
+resourceCount_count :: Lens.Lens' ResourceCount (Prelude.Maybe Prelude.Integer)
+resourceCount_count = Lens.lens (\ResourceCount' {count} -> count) (\s@ResourceCount' {} a -> s {count = a} :: ResourceCount)
 
-instance FromJSON ResourceCount where
+instance Prelude.FromJSON ResourceCount where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceCount"
       ( \x ->
           ResourceCount'
-            <$> (x .:? "resourceType") <*> (x .:? "count")
+            Prelude.<$> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "count")
       )
 
-instance Hashable ResourceCount
+instance Prelude.Hashable ResourceCount
 
-instance NFData ResourceCount
+instance Prelude.NFData ResourceCount

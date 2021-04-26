@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Config.Types.AggregatedSourceStatusType
   ( AggregatedSourceStatusType
       ( ..,
-        ASSTFailed,
-        ASSTOutdated,
-        ASSTSucceeded
+        AggregatedSourceStatusTypeFAILED,
+        AggregatedSourceStatusTypeOUTDATED,
+        AggregatedSourceStatusTypeSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AggregatedSourceStatusType
-  = AggregatedSourceStatusType'
-      ( CI
-          Text
-      )
+newtype AggregatedSourceStatusType = AggregatedSourceStatusType'
+  { fromAggregatedSourceStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASSTFailed :: AggregatedSourceStatusType
-pattern ASSTFailed = AggregatedSourceStatusType' "FAILED"
+pattern AggregatedSourceStatusTypeFAILED :: AggregatedSourceStatusType
+pattern AggregatedSourceStatusTypeFAILED = AggregatedSourceStatusType' "FAILED"
 
-pattern ASSTOutdated :: AggregatedSourceStatusType
-pattern ASSTOutdated = AggregatedSourceStatusType' "OUTDATED"
+pattern AggregatedSourceStatusTypeOUTDATED :: AggregatedSourceStatusType
+pattern AggregatedSourceStatusTypeOUTDATED = AggregatedSourceStatusType' "OUTDATED"
 
-pattern ASSTSucceeded :: AggregatedSourceStatusType
-pattern ASSTSucceeded = AggregatedSourceStatusType' "SUCCEEDED"
+pattern AggregatedSourceStatusTypeSUCCEEDED :: AggregatedSourceStatusType
+pattern AggregatedSourceStatusTypeSUCCEEDED = AggregatedSourceStatusType' "SUCCEEDED"
 
 {-# COMPLETE
-  ASSTFailed,
-  ASSTOutdated,
-  ASSTSucceeded,
+  AggregatedSourceStatusTypeFAILED,
+  AggregatedSourceStatusTypeOUTDATED,
+  AggregatedSourceStatusTypeSUCCEEDED,
   AggregatedSourceStatusType'
   #-}
 
-instance FromText AggregatedSourceStatusType where
-  parser = (AggregatedSourceStatusType' . mk) <$> takeText
+instance Prelude.FromText AggregatedSourceStatusType where
+  parser = AggregatedSourceStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText AggregatedSourceStatusType where
-  toText (AggregatedSourceStatusType' ci) = original ci
+instance Prelude.ToText AggregatedSourceStatusType where
+  toText (AggregatedSourceStatusType' x) = x
 
-instance Hashable AggregatedSourceStatusType
+instance Prelude.Hashable AggregatedSourceStatusType
 
-instance NFData AggregatedSourceStatusType
+instance Prelude.NFData AggregatedSourceStatusType
 
-instance ToByteString AggregatedSourceStatusType
+instance Prelude.ToByteString AggregatedSourceStatusType
 
-instance ToQuery AggregatedSourceStatusType
+instance Prelude.ToQuery AggregatedSourceStatusType
 
-instance ToHeader AggregatedSourceStatusType
+instance Prelude.ToHeader AggregatedSourceStatusType
 
-instance ToJSON AggregatedSourceStatusType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AggregatedSourceStatusType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AggregatedSourceStatusType where
-  parseJSON = parseJSONText "AggregatedSourceStatusType"
+instance Prelude.FromJSON AggregatedSourceStatusType where
+  parseJSON = Prelude.parseJSONText "AggregatedSourceStatusType"

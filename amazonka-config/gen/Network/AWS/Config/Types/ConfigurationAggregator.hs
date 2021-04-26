@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,116 +21,111 @@ module Network.AWS.Config.Types.ConfigurationAggregator where
 
 import Network.AWS.Config.Types.AccountAggregationSource
 import Network.AWS.Config.Types.OrganizationAggregationSource
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The details about the configuration aggregator, including information about source accounts, regions, and metadata of the aggregator.
+-- | The details about the configuration aggregator, including information
+-- about source accounts, regions, and metadata of the aggregator.
 --
---
---
--- /See:/ 'configurationAggregator' smart constructor.
+-- /See:/ 'newConfigurationAggregator' smart constructor.
 data ConfigurationAggregator = ConfigurationAggregator'
-  { _caCreationTime ::
-      !(Maybe POSIX),
-    _caConfigurationAggregatorARN ::
-      !(Maybe Text),
-    _caConfigurationAggregatorName ::
-      !(Maybe Text),
-    _caAccountAggregationSources ::
-      !( Maybe
-           [AccountAggregationSource]
-       ),
-    _caCreatedBy ::
-      !(Maybe Text),
-    _caLastUpdatedTime ::
-      !(Maybe POSIX),
-    _caOrganizationAggregationSource ::
-      !( Maybe
-           OrganizationAggregationSource
-       )
+  { -- | The time stamp when the configuration aggregator was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the aggregator.
+    configurationAggregatorArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the aggregator.
+    configurationAggregatorName :: Prelude.Maybe Prelude.Text,
+    -- | Provides a list of source accounts and regions to be aggregated.
+    accountAggregationSources :: Prelude.Maybe [AccountAggregationSource],
+    -- | AWS service that created the configuration aggregator.
+    createdBy :: Prelude.Maybe Prelude.Text,
+    -- | The time of the last update.
+    lastUpdatedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Provides an organization and list of regions to be aggregated.
+    organizationAggregationSource :: Prelude.Maybe OrganizationAggregationSource
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigurationAggregator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigurationAggregator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caCreationTime' - The time stamp when the configuration aggregator was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caConfigurationAggregatorARN' - The Amazon Resource Name (ARN) of the aggregator.
+-- 'creationTime', 'configurationAggregator_creationTime' - The time stamp when the configuration aggregator was created.
 --
--- * 'caConfigurationAggregatorName' - The name of the aggregator.
+-- 'configurationAggregatorArn', 'configurationAggregator_configurationAggregatorArn' - The Amazon Resource Name (ARN) of the aggregator.
 --
--- * 'caAccountAggregationSources' - Provides a list of source accounts and regions to be aggregated.
+-- 'configurationAggregatorName', 'configurationAggregator_configurationAggregatorName' - The name of the aggregator.
 --
--- * 'caCreatedBy' - AWS service that created the configuration aggregator.
+-- 'accountAggregationSources', 'configurationAggregator_accountAggregationSources' - Provides a list of source accounts and regions to be aggregated.
 --
--- * 'caLastUpdatedTime' - The time of the last update.
+-- 'createdBy', 'configurationAggregator_createdBy' - AWS service that created the configuration aggregator.
 --
--- * 'caOrganizationAggregationSource' - Provides an organization and list of regions to be aggregated.
-configurationAggregator ::
+-- 'lastUpdatedTime', 'configurationAggregator_lastUpdatedTime' - The time of the last update.
+--
+-- 'organizationAggregationSource', 'configurationAggregator_organizationAggregationSource' - Provides an organization and list of regions to be aggregated.
+newConfigurationAggregator ::
   ConfigurationAggregator
-configurationAggregator =
+newConfigurationAggregator =
   ConfigurationAggregator'
-    { _caCreationTime = Nothing,
-      _caConfigurationAggregatorARN = Nothing,
-      _caConfigurationAggregatorName = Nothing,
-      _caAccountAggregationSources = Nothing,
-      _caCreatedBy = Nothing,
-      _caLastUpdatedTime = Nothing,
-      _caOrganizationAggregationSource = Nothing
+    { creationTime =
+        Prelude.Nothing,
+      configurationAggregatorArn = Prelude.Nothing,
+      configurationAggregatorName = Prelude.Nothing,
+      accountAggregationSources = Prelude.Nothing,
+      createdBy = Prelude.Nothing,
+      lastUpdatedTime = Prelude.Nothing,
+      organizationAggregationSource = Prelude.Nothing
     }
 
 -- | The time stamp when the configuration aggregator was created.
-caCreationTime :: Lens' ConfigurationAggregator (Maybe UTCTime)
-caCreationTime = lens _caCreationTime (\s a -> s {_caCreationTime = a}) . mapping _Time
+configurationAggregator_creationTime :: Lens.Lens' ConfigurationAggregator (Prelude.Maybe Prelude.UTCTime)
+configurationAggregator_creationTime = Lens.lens (\ConfigurationAggregator' {creationTime} -> creationTime) (\s@ConfigurationAggregator' {} a -> s {creationTime = a} :: ConfigurationAggregator) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the aggregator.
-caConfigurationAggregatorARN :: Lens' ConfigurationAggregator (Maybe Text)
-caConfigurationAggregatorARN = lens _caConfigurationAggregatorARN (\s a -> s {_caConfigurationAggregatorARN = a})
+configurationAggregator_configurationAggregatorArn :: Lens.Lens' ConfigurationAggregator (Prelude.Maybe Prelude.Text)
+configurationAggregator_configurationAggregatorArn = Lens.lens (\ConfigurationAggregator' {configurationAggregatorArn} -> configurationAggregatorArn) (\s@ConfigurationAggregator' {} a -> s {configurationAggregatorArn = a} :: ConfigurationAggregator)
 
 -- | The name of the aggregator.
-caConfigurationAggregatorName :: Lens' ConfigurationAggregator (Maybe Text)
-caConfigurationAggregatorName = lens _caConfigurationAggregatorName (\s a -> s {_caConfigurationAggregatorName = a})
+configurationAggregator_configurationAggregatorName :: Lens.Lens' ConfigurationAggregator (Prelude.Maybe Prelude.Text)
+configurationAggregator_configurationAggregatorName = Lens.lens (\ConfigurationAggregator' {configurationAggregatorName} -> configurationAggregatorName) (\s@ConfigurationAggregator' {} a -> s {configurationAggregatorName = a} :: ConfigurationAggregator)
 
 -- | Provides a list of source accounts and regions to be aggregated.
-caAccountAggregationSources :: Lens' ConfigurationAggregator [AccountAggregationSource]
-caAccountAggregationSources = lens _caAccountAggregationSources (\s a -> s {_caAccountAggregationSources = a}) . _Default . _Coerce
+configurationAggregator_accountAggregationSources :: Lens.Lens' ConfigurationAggregator (Prelude.Maybe [AccountAggregationSource])
+configurationAggregator_accountAggregationSources = Lens.lens (\ConfigurationAggregator' {accountAggregationSources} -> accountAggregationSources) (\s@ConfigurationAggregator' {} a -> s {accountAggregationSources = a} :: ConfigurationAggregator) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | AWS service that created the configuration aggregator.
-caCreatedBy :: Lens' ConfigurationAggregator (Maybe Text)
-caCreatedBy = lens _caCreatedBy (\s a -> s {_caCreatedBy = a})
+configurationAggregator_createdBy :: Lens.Lens' ConfigurationAggregator (Prelude.Maybe Prelude.Text)
+configurationAggregator_createdBy = Lens.lens (\ConfigurationAggregator' {createdBy} -> createdBy) (\s@ConfigurationAggregator' {} a -> s {createdBy = a} :: ConfigurationAggregator)
 
 -- | The time of the last update.
-caLastUpdatedTime :: Lens' ConfigurationAggregator (Maybe UTCTime)
-caLastUpdatedTime = lens _caLastUpdatedTime (\s a -> s {_caLastUpdatedTime = a}) . mapping _Time
+configurationAggregator_lastUpdatedTime :: Lens.Lens' ConfigurationAggregator (Prelude.Maybe Prelude.UTCTime)
+configurationAggregator_lastUpdatedTime = Lens.lens (\ConfigurationAggregator' {lastUpdatedTime} -> lastUpdatedTime) (\s@ConfigurationAggregator' {} a -> s {lastUpdatedTime = a} :: ConfigurationAggregator) Prelude.. Lens.mapping Prelude._Time
 
 -- | Provides an organization and list of regions to be aggregated.
-caOrganizationAggregationSource :: Lens' ConfigurationAggregator (Maybe OrganizationAggregationSource)
-caOrganizationAggregationSource = lens _caOrganizationAggregationSource (\s a -> s {_caOrganizationAggregationSource = a})
+configurationAggregator_organizationAggregationSource :: Lens.Lens' ConfigurationAggregator (Prelude.Maybe OrganizationAggregationSource)
+configurationAggregator_organizationAggregationSource = Lens.lens (\ConfigurationAggregator' {organizationAggregationSource} -> organizationAggregationSource) (\s@ConfigurationAggregator' {} a -> s {organizationAggregationSource = a} :: ConfigurationAggregator)
 
-instance FromJSON ConfigurationAggregator where
+instance Prelude.FromJSON ConfigurationAggregator where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConfigurationAggregator"
       ( \x ->
           ConfigurationAggregator'
-            <$> (x .:? "CreationTime")
-            <*> (x .:? "ConfigurationAggregatorArn")
-            <*> (x .:? "ConfigurationAggregatorName")
-            <*> (x .:? "AccountAggregationSources" .!= mempty)
-            <*> (x .:? "CreatedBy")
-            <*> (x .:? "LastUpdatedTime")
-            <*> (x .:? "OrganizationAggregationSource")
+            Prelude.<$> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "ConfigurationAggregatorArn")
+            Prelude.<*> (x Prelude..:? "ConfigurationAggregatorName")
+            Prelude.<*> ( x Prelude..:? "AccountAggregationSources"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "CreatedBy")
+            Prelude.<*> (x Prelude..:? "LastUpdatedTime")
+            Prelude.<*> (x Prelude..:? "OrganizationAggregationSource")
       )
 
-instance Hashable ConfigurationAggregator
+instance Prelude.Hashable ConfigurationAggregator
 
-instance NFData ConfigurationAggregator
+instance Prelude.NFData ConfigurationAggregator

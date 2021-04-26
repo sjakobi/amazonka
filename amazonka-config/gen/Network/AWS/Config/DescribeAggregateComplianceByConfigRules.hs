@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,250 +21,260 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of compliant and noncompliant rules with the number of resources for compliant and noncompliant rules.
+-- Returns a list of compliant and noncompliant rules with the number of
+-- resources for compliant and noncompliant rules.
 --
---
+-- The results can return an empty result page, but if you have a
+-- @nextToken@, the results are displayed on the next page.
 --
 -- This operation returns paginated results.
 module Network.AWS.Config.DescribeAggregateComplianceByConfigRules
   ( -- * Creating a Request
-    describeAggregateComplianceByConfigRules,
-    DescribeAggregateComplianceByConfigRules,
+    DescribeAggregateComplianceByConfigRules (..),
+    newDescribeAggregateComplianceByConfigRules,
 
     -- * Request Lenses
-    dacbcrNextToken,
-    dacbcrFilters,
-    dacbcrLimit,
-    dacbcrConfigurationAggregatorName,
+    describeAggregateComplianceByConfigRules_nextToken,
+    describeAggregateComplianceByConfigRules_filters,
+    describeAggregateComplianceByConfigRules_limit,
+    describeAggregateComplianceByConfigRules_configurationAggregatorName,
 
     -- * Destructuring the Response
-    describeAggregateComplianceByConfigRulesResponse,
-    DescribeAggregateComplianceByConfigRulesResponse,
+    DescribeAggregateComplianceByConfigRulesResponse (..),
+    newDescribeAggregateComplianceByConfigRulesResponse,
 
     -- * Response Lenses
-    dacbcrrrsNextToken,
-    dacbcrrrsAggregateComplianceByConfigRules,
-    dacbcrrrsResponseStatus,
+    describeAggregateComplianceByConfigRulesResponse_nextToken,
+    describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules,
+    describeAggregateComplianceByConfigRulesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.AggregateComplianceByConfigRule
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAggregateComplianceByConfigRules' smart constructor.
+-- | /See:/ 'newDescribeAggregateComplianceByConfigRules' smart constructor.
 data DescribeAggregateComplianceByConfigRules = DescribeAggregateComplianceByConfigRules'
-  { _dacbcrNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dacbcrFilters ::
-      !( Maybe
-           ConfigRuleComplianceFilters
-       ),
-    _dacbcrLimit ::
-      !( Maybe
-           Nat
-       ),
-    _dacbcrConfigurationAggregatorName ::
-      !Text
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filters the results by ConfigRuleComplianceFilters object.
+    filters :: Prelude.Maybe ConfigRuleComplianceFilters,
+    -- | The maximum number of evaluation results returned on each page. The
+    -- default is maximum. If you specify 0, AWS Config uses the default.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the configuration aggregator.
+    configurationAggregatorName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAggregateComplianceByConfigRules' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAggregateComplianceByConfigRules' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dacbcrNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dacbcrFilters' - Filters the results by ConfigRuleComplianceFilters object.
+-- 'nextToken', 'describeAggregateComplianceByConfigRules_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
--- * 'dacbcrLimit' - The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, AWS Config uses the default.
+-- 'filters', 'describeAggregateComplianceByConfigRules_filters' - Filters the results by ConfigRuleComplianceFilters object.
 --
--- * 'dacbcrConfigurationAggregatorName' - The name of the configuration aggregator.
-describeAggregateComplianceByConfigRules ::
-  -- | 'dacbcrConfigurationAggregatorName'
-  Text ->
+-- 'limit', 'describeAggregateComplianceByConfigRules_limit' - The maximum number of evaluation results returned on each page. The
+-- default is maximum. If you specify 0, AWS Config uses the default.
+--
+-- 'configurationAggregatorName', 'describeAggregateComplianceByConfigRules_configurationAggregatorName' - The name of the configuration aggregator.
+newDescribeAggregateComplianceByConfigRules ::
+  -- | 'configurationAggregatorName'
+  Prelude.Text ->
   DescribeAggregateComplianceByConfigRules
-describeAggregateComplianceByConfigRules
+newDescribeAggregateComplianceByConfigRules
   pConfigurationAggregatorName_ =
     DescribeAggregateComplianceByConfigRules'
-      { _dacbcrNextToken =
-          Nothing,
-        _dacbcrFilters = Nothing,
-        _dacbcrLimit = Nothing,
-        _dacbcrConfigurationAggregatorName =
+      { nextToken =
+          Prelude.Nothing,
+        filters = Prelude.Nothing,
+        limit = Prelude.Nothing,
+        configurationAggregatorName =
           pConfigurationAggregatorName_
       }
 
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-dacbcrNextToken :: Lens' DescribeAggregateComplianceByConfigRules (Maybe Text)
-dacbcrNextToken = lens _dacbcrNextToken (\s a -> s {_dacbcrNextToken = a})
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeAggregateComplianceByConfigRules_nextToken :: Lens.Lens' DescribeAggregateComplianceByConfigRules (Prelude.Maybe Prelude.Text)
+describeAggregateComplianceByConfigRules_nextToken = Lens.lens (\DescribeAggregateComplianceByConfigRules' {nextToken} -> nextToken) (\s@DescribeAggregateComplianceByConfigRules' {} a -> s {nextToken = a} :: DescribeAggregateComplianceByConfigRules)
 
 -- | Filters the results by ConfigRuleComplianceFilters object.
-dacbcrFilters :: Lens' DescribeAggregateComplianceByConfigRules (Maybe ConfigRuleComplianceFilters)
-dacbcrFilters = lens _dacbcrFilters (\s a -> s {_dacbcrFilters = a})
+describeAggregateComplianceByConfigRules_filters :: Lens.Lens' DescribeAggregateComplianceByConfigRules (Prelude.Maybe ConfigRuleComplianceFilters)
+describeAggregateComplianceByConfigRules_filters = Lens.lens (\DescribeAggregateComplianceByConfigRules' {filters} -> filters) (\s@DescribeAggregateComplianceByConfigRules' {} a -> s {filters = a} :: DescribeAggregateComplianceByConfigRules)
 
--- | The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, AWS Config uses the default.
-dacbcrLimit :: Lens' DescribeAggregateComplianceByConfigRules (Maybe Natural)
-dacbcrLimit = lens _dacbcrLimit (\s a -> s {_dacbcrLimit = a}) . mapping _Nat
+-- | The maximum number of evaluation results returned on each page. The
+-- default is maximum. If you specify 0, AWS Config uses the default.
+describeAggregateComplianceByConfigRules_limit :: Lens.Lens' DescribeAggregateComplianceByConfigRules (Prelude.Maybe Prelude.Natural)
+describeAggregateComplianceByConfigRules_limit = Lens.lens (\DescribeAggregateComplianceByConfigRules' {limit} -> limit) (\s@DescribeAggregateComplianceByConfigRules' {} a -> s {limit = a} :: DescribeAggregateComplianceByConfigRules) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the configuration aggregator.
-dacbcrConfigurationAggregatorName :: Lens' DescribeAggregateComplianceByConfigRules Text
-dacbcrConfigurationAggregatorName = lens _dacbcrConfigurationAggregatorName (\s a -> s {_dacbcrConfigurationAggregatorName = a})
+describeAggregateComplianceByConfigRules_configurationAggregatorName :: Lens.Lens' DescribeAggregateComplianceByConfigRules Prelude.Text
+describeAggregateComplianceByConfigRules_configurationAggregatorName = Lens.lens (\DescribeAggregateComplianceByConfigRules' {configurationAggregatorName} -> configurationAggregatorName) (\s@DescribeAggregateComplianceByConfigRules' {} a -> s {configurationAggregatorName = a} :: DescribeAggregateComplianceByConfigRules)
 
 instance
-  AWSPager
+  Pager.AWSPager
     DescribeAggregateComplianceByConfigRules
   where
   page rq rs
-    | stop (rs ^. dacbcrrrsNextToken) = Nothing
-    | stop
-        (rs ^. dacbcrrrsAggregateComplianceByConfigRules) =
-      Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? describeAggregateComplianceByConfigRulesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & dacbcrNextToken .~ rs ^. dacbcrrrsNextToken
+          Lens.& describeAggregateComplianceByConfigRules_nextToken
+          Lens..~ rs
+            Lens.^? describeAggregateComplianceByConfigRulesResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeAggregateComplianceByConfigRules
   where
   type
     Rs DescribeAggregateComplianceByConfigRules =
       DescribeAggregateComplianceByConfigRulesResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAggregateComplianceByConfigRulesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "AggregateComplianceByConfigRules" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> ( x Prelude..?> "AggregateComplianceByConfigRules"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeAggregateComplianceByConfigRules
 
 instance
-  NFData
+  Prelude.NFData
     DescribeAggregateComplianceByConfigRules
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DescribeAggregateComplianceByConfigRules
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DescribeAggregateComplianceByConfigRules" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.DescribeAggregateComplianceByConfigRules" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     DescribeAggregateComplianceByConfigRules
   where
   toJSON DescribeAggregateComplianceByConfigRules' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dacbcrNextToken,
-            ("Filters" .=) <$> _dacbcrFilters,
-            ("Limit" .=) <$> _dacbcrLimit,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("Filters" Prelude..=) Prelude.<$> filters,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just
               ( "ConfigurationAggregatorName"
-                  .= _dacbcrConfigurationAggregatorName
+                  Prelude..= configurationAggregatorName
               )
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     DescribeAggregateComplianceByConfigRules
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     DescribeAggregateComplianceByConfigRules
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAggregateComplianceByConfigRulesResponse' smart constructor.
+-- | /See:/ 'newDescribeAggregateComplianceByConfigRulesResponse' smart constructor.
 data DescribeAggregateComplianceByConfigRulesResponse = DescribeAggregateComplianceByConfigRulesResponse'
-  { _dacbcrrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dacbcrrrsAggregateComplianceByConfigRules ::
-      !( Maybe
-           [AggregateComplianceByConfigRule]
-       ),
-    _dacbcrrrsResponseStatus ::
-      !Int
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Returns a list of AggregateComplianceByConfigRule object.
+    aggregateComplianceByConfigRules :: Prelude.Maybe [AggregateComplianceByConfigRule],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAggregateComplianceByConfigRulesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAggregateComplianceByConfigRulesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dacbcrrrsNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dacbcrrrsAggregateComplianceByConfigRules' - Returns a list of AggregateComplianceByConfigRule object.
+-- 'nextToken', 'describeAggregateComplianceByConfigRulesResponse_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
--- * 'dacbcrrrsResponseStatus' - -- | The response status code.
-describeAggregateComplianceByConfigRulesResponse ::
-  -- | 'dacbcrrrsResponseStatus'
-  Int ->
+-- 'aggregateComplianceByConfigRules', 'describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules' - Returns a list of AggregateComplianceByConfigRule object.
+--
+-- 'httpStatus', 'describeAggregateComplianceByConfigRulesResponse_httpStatus' - The response's http status code.
+newDescribeAggregateComplianceByConfigRulesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAggregateComplianceByConfigRulesResponse
-describeAggregateComplianceByConfigRulesResponse
-  pResponseStatus_ =
+newDescribeAggregateComplianceByConfigRulesResponse
+  pHttpStatus_ =
     DescribeAggregateComplianceByConfigRulesResponse'
-      { _dacbcrrrsNextToken =
-          Nothing,
-        _dacbcrrrsAggregateComplianceByConfigRules =
-          Nothing,
-        _dacbcrrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        aggregateComplianceByConfigRules =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-dacbcrrrsNextToken :: Lens' DescribeAggregateComplianceByConfigRulesResponse (Maybe Text)
-dacbcrrrsNextToken = lens _dacbcrrrsNextToken (\s a -> s {_dacbcrrrsNextToken = a})
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeAggregateComplianceByConfigRulesResponse_nextToken :: Lens.Lens' DescribeAggregateComplianceByConfigRulesResponse (Prelude.Maybe Prelude.Text)
+describeAggregateComplianceByConfigRulesResponse_nextToken = Lens.lens (\DescribeAggregateComplianceByConfigRulesResponse' {nextToken} -> nextToken) (\s@DescribeAggregateComplianceByConfigRulesResponse' {} a -> s {nextToken = a} :: DescribeAggregateComplianceByConfigRulesResponse)
 
 -- | Returns a list of AggregateComplianceByConfigRule object.
-dacbcrrrsAggregateComplianceByConfigRules :: Lens' DescribeAggregateComplianceByConfigRulesResponse [AggregateComplianceByConfigRule]
-dacbcrrrsAggregateComplianceByConfigRules = lens _dacbcrrrsAggregateComplianceByConfigRules (\s a -> s {_dacbcrrrsAggregateComplianceByConfigRules = a}) . _Default . _Coerce
+describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules :: Lens.Lens' DescribeAggregateComplianceByConfigRulesResponse (Prelude.Maybe [AggregateComplianceByConfigRule])
+describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules = Lens.lens (\DescribeAggregateComplianceByConfigRulesResponse' {aggregateComplianceByConfigRules} -> aggregateComplianceByConfigRules) (\s@DescribeAggregateComplianceByConfigRulesResponse' {} a -> s {aggregateComplianceByConfigRules = a} :: DescribeAggregateComplianceByConfigRulesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dacbcrrrsResponseStatus :: Lens' DescribeAggregateComplianceByConfigRulesResponse Int
-dacbcrrrsResponseStatus = lens _dacbcrrrsResponseStatus (\s a -> s {_dacbcrrrsResponseStatus = a})
+-- | The response's http status code.
+describeAggregateComplianceByConfigRulesResponse_httpStatus :: Lens.Lens' DescribeAggregateComplianceByConfigRulesResponse Prelude.Int
+describeAggregateComplianceByConfigRulesResponse_httpStatus = Lens.lens (\DescribeAggregateComplianceByConfigRulesResponse' {httpStatus} -> httpStatus) (\s@DescribeAggregateComplianceByConfigRulesResponse' {} a -> s {httpStatus = a} :: DescribeAggregateComplianceByConfigRulesResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeAggregateComplianceByConfigRulesResponse

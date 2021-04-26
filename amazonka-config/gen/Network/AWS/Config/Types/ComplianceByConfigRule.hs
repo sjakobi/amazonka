@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,60 @@
 module Network.AWS.Config.Types.ComplianceByConfigRule where
 
 import Network.AWS.Config.Types.Compliance
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates whether an AWS Config rule is compliant. A rule is compliant if all of the resources that the rule evaluated comply with it. A rule is noncompliant if any of these resources do not comply.
+-- | Indicates whether an AWS Config rule is compliant. A rule is compliant
+-- if all of the resources that the rule evaluated comply with it. A rule
+-- is noncompliant if any of these resources do not comply.
 --
---
---
--- /See:/ 'complianceByConfigRule' smart constructor.
+-- /See:/ 'newComplianceByConfigRule' smart constructor.
 data ComplianceByConfigRule = ComplianceByConfigRule'
-  { _cbcrConfigRuleName ::
-      !(Maybe Text),
-    _cbcrCompliance ::
-      !(Maybe Compliance)
+  { -- | The name of the AWS Config rule.
+    configRuleName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the AWS Config rule is compliant.
+    compliance :: Prelude.Maybe Compliance
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComplianceByConfigRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComplianceByConfigRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbcrConfigRuleName' - The name of the AWS Config rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbcrCompliance' - Indicates whether the AWS Config rule is compliant.
-complianceByConfigRule ::
+-- 'configRuleName', 'complianceByConfigRule_configRuleName' - The name of the AWS Config rule.
+--
+-- 'compliance', 'complianceByConfigRule_compliance' - Indicates whether the AWS Config rule is compliant.
+newComplianceByConfigRule ::
   ComplianceByConfigRule
-complianceByConfigRule =
+newComplianceByConfigRule =
   ComplianceByConfigRule'
-    { _cbcrConfigRuleName =
-        Nothing,
-      _cbcrCompliance = Nothing
+    { configRuleName =
+        Prelude.Nothing,
+      compliance = Prelude.Nothing
     }
 
 -- | The name of the AWS Config rule.
-cbcrConfigRuleName :: Lens' ComplianceByConfigRule (Maybe Text)
-cbcrConfigRuleName = lens _cbcrConfigRuleName (\s a -> s {_cbcrConfigRuleName = a})
+complianceByConfigRule_configRuleName :: Lens.Lens' ComplianceByConfigRule (Prelude.Maybe Prelude.Text)
+complianceByConfigRule_configRuleName = Lens.lens (\ComplianceByConfigRule' {configRuleName} -> configRuleName) (\s@ComplianceByConfigRule' {} a -> s {configRuleName = a} :: ComplianceByConfigRule)
 
 -- | Indicates whether the AWS Config rule is compliant.
-cbcrCompliance :: Lens' ComplianceByConfigRule (Maybe Compliance)
-cbcrCompliance = lens _cbcrCompliance (\s a -> s {_cbcrCompliance = a})
+complianceByConfigRule_compliance :: Lens.Lens' ComplianceByConfigRule (Prelude.Maybe Compliance)
+complianceByConfigRule_compliance = Lens.lens (\ComplianceByConfigRule' {compliance} -> compliance) (\s@ComplianceByConfigRule' {} a -> s {compliance = a} :: ComplianceByConfigRule)
 
-instance FromJSON ComplianceByConfigRule where
+instance Prelude.FromJSON ComplianceByConfigRule where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ComplianceByConfigRule"
       ( \x ->
           ComplianceByConfigRule'
-            <$> (x .:? "ConfigRuleName") <*> (x .:? "Compliance")
+            Prelude.<$> (x Prelude..:? "ConfigRuleName")
+            Prelude.<*> (x Prelude..:? "Compliance")
       )
 
-instance Hashable ComplianceByConfigRule
+instance Prelude.Hashable ComplianceByConfigRule
 
-instance NFData ComplianceByConfigRule
+instance Prelude.NFData ComplianceByConfigRule

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,72 @@
 module Network.AWS.Config.Types.ResourceKey where
 
 import Network.AWS.Config.Types.ResourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The details that identify a resource within AWS Config, including the resource type and resource ID.
+-- | The details that identify a resource within AWS Config, including the
+-- resource type and resource ID.
 --
---
---
--- /See:/ 'resourceKey' smart constructor.
+-- /See:/ 'newResourceKey' smart constructor.
 data ResourceKey = ResourceKey'
-  { _rkResourceType ::
-      !ResourceType,
-    _rkResourceId :: !Text
+  { -- | The resource type.
+    resourceType :: ResourceType,
+    -- | The ID of the resource (for example., sg-xxxxxx).
+    resourceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rkResourceType' - The resource type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rkResourceId' - The ID of the resource (for example., sg-xxxxxx).
-resourceKey ::
-  -- | 'rkResourceType'
+-- 'resourceType', 'resourceKey_resourceType' - The resource type.
+--
+-- 'resourceId', 'resourceKey_resourceId' - The ID of the resource (for example., sg-xxxxxx).
+newResourceKey ::
+  -- | 'resourceType'
   ResourceType ->
-  -- | 'rkResourceId'
-  Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
   ResourceKey
-resourceKey pResourceType_ pResourceId_ =
+newResourceKey pResourceType_ pResourceId_ =
   ResourceKey'
-    { _rkResourceType = pResourceType_,
-      _rkResourceId = pResourceId_
+    { resourceType = pResourceType_,
+      resourceId = pResourceId_
     }
 
 -- | The resource type.
-rkResourceType :: Lens' ResourceKey ResourceType
-rkResourceType = lens _rkResourceType (\s a -> s {_rkResourceType = a})
+resourceKey_resourceType :: Lens.Lens' ResourceKey ResourceType
+resourceKey_resourceType = Lens.lens (\ResourceKey' {resourceType} -> resourceType) (\s@ResourceKey' {} a -> s {resourceType = a} :: ResourceKey)
 
 -- | The ID of the resource (for example., sg-xxxxxx).
-rkResourceId :: Lens' ResourceKey Text
-rkResourceId = lens _rkResourceId (\s a -> s {_rkResourceId = a})
+resourceKey_resourceId :: Lens.Lens' ResourceKey Prelude.Text
+resourceKey_resourceId = Lens.lens (\ResourceKey' {resourceId} -> resourceId) (\s@ResourceKey' {} a -> s {resourceId = a} :: ResourceKey)
 
-instance FromJSON ResourceKey where
+instance Prelude.FromJSON ResourceKey where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceKey"
       ( \x ->
           ResourceKey'
-            <$> (x .: "resourceType") <*> (x .: "resourceId")
+            Prelude.<$> (x Prelude..: "resourceType")
+            Prelude.<*> (x Prelude..: "resourceId")
       )
 
-instance Hashable ResourceKey
+instance Prelude.Hashable ResourceKey
 
-instance NFData ResourceKey
+instance Prelude.NFData ResourceKey
 
-instance ToJSON ResourceKey where
+instance Prelude.ToJSON ResourceKey where
   toJSON ResourceKey' {..} =
-    object
-      ( catMaybes
-          [ Just ("resourceType" .= _rkResourceType),
-            Just ("resourceId" .= _rkResourceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("resourceType" Prelude..= resourceType),
+            Prelude.Just ("resourceId" Prelude..= resourceId)
           ]
       )

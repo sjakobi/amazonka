@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,173 @@
 module Network.AWS.Config.Types.OrganizationResourceDetailedStatusFilters where
 
 import Network.AWS.Config.Types.OrganizationResourceDetailedStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Status filter object to filter results based on specific member account ID or status type for an organization conformance pack.
+-- | Status filter object to filter results based on specific member account
+-- ID or status type for an organization conformance pack.
 --
---
---
--- /See:/ 'organizationResourceDetailedStatusFilters' smart constructor.
+-- /See:/ 'newOrganizationResourceDetailedStatusFilters' smart constructor.
 data OrganizationResourceDetailedStatusFilters = OrganizationResourceDetailedStatusFilters'
-  { _ordsfStatus ::
-      !( Maybe
-           OrganizationResourceDetailedStatus
-       ),
-    _ordsfAccountId ::
-      !( Maybe
-           Text
-       )
+  { -- | Indicates deployment status for conformance pack in a member account.
+    -- When master account calls @PutOrganizationConformancePack@ action for
+    -- the first time, conformance pack status is created in the member
+    -- account. When master account calls @PutOrganizationConformancePack@
+    -- action for the second time, conformance pack status is updated in the
+    -- member account. Conformance pack status is deleted when the master
+    -- account deletes @OrganizationConformancePack@ and disables service
+    -- access for @config-multiaccountsetup.amazonaws.com@.
+    --
+    -- AWS Config sets the state of the conformance pack to:
+    --
+    -- -   @CREATE_SUCCESSFUL@ when conformance pack has been created in the
+    --     member account.
+    --
+    -- -   @CREATE_IN_PROGRESS@ when conformance pack is being created in the
+    --     member account.
+    --
+    -- -   @CREATE_FAILED@ when conformance pack creation has failed in the
+    --     member account.
+    --
+    -- -   @DELETE_FAILED@ when conformance pack deletion has failed in the
+    --     member account.
+    --
+    -- -   @DELETE_IN_PROGRESS@ when conformance pack is being deleted in the
+    --     member account.
+    --
+    -- -   @DELETE_SUCCESSFUL@ when conformance pack has been deleted in the
+    --     member account.
+    --
+    -- -   @UPDATE_SUCCESSFUL@ when conformance pack has been updated in the
+    --     member account.
+    --
+    -- -   @UPDATE_IN_PROGRESS@ when conformance pack is being updated in the
+    --     member account.
+    --
+    -- -   @UPDATE_FAILED@ when conformance pack deletion has failed in the
+    --     member account.
+    status :: Prelude.Maybe OrganizationResourceDetailedStatus,
+    -- | The 12-digit account ID of the member account within an organization.
+    accountId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OrganizationResourceDetailedStatusFilters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OrganizationResourceDetailedStatusFilters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ordsfStatus' - Indicates deployment status for conformance pack in a member account. When master account calls @PutOrganizationConformancePack@ action for the first time, conformance pack status is created in the member account. When master account calls @PutOrganizationConformancePack@ action for the second time, conformance pack status is updated in the member account. Conformance pack status is deleted when the master account deletes @OrganizationConformancePack@ and disables service access for @config-multiaccountsetup.amazonaws.com@ .  AWS Config sets the state of the conformance pack to:     * @CREATE_SUCCESSFUL@ when conformance pack has been created in the member account.      * @CREATE_IN_PROGRESS@ when conformance pack is being created in the member account.     * @CREATE_FAILED@ when conformance pack creation has failed in the member account.     * @DELETE_FAILED@ when conformance pack deletion has failed in the member account.     * @DELETE_IN_PROGRESS@ when conformance pack is being deleted in the member account.     * @DELETE_SUCCESSFUL@ when conformance pack has been deleted in the member account.      * @UPDATE_SUCCESSFUL@ when conformance pack has been updated in the member account.     * @UPDATE_IN_PROGRESS@ when conformance pack is being updated in the member account.     * @UPDATE_FAILED@ when conformance pack deletion has failed in the member account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ordsfAccountId' - The 12-digit account ID of the member account within an organization.
-organizationResourceDetailedStatusFilters ::
+-- 'status', 'organizationResourceDetailedStatusFilters_status' - Indicates deployment status for conformance pack in a member account.
+-- When master account calls @PutOrganizationConformancePack@ action for
+-- the first time, conformance pack status is created in the member
+-- account. When master account calls @PutOrganizationConformancePack@
+-- action for the second time, conformance pack status is updated in the
+-- member account. Conformance pack status is deleted when the master
+-- account deletes @OrganizationConformancePack@ and disables service
+-- access for @config-multiaccountsetup.amazonaws.com@.
+--
+-- AWS Config sets the state of the conformance pack to:
+--
+-- -   @CREATE_SUCCESSFUL@ when conformance pack has been created in the
+--     member account.
+--
+-- -   @CREATE_IN_PROGRESS@ when conformance pack is being created in the
+--     member account.
+--
+-- -   @CREATE_FAILED@ when conformance pack creation has failed in the
+--     member account.
+--
+-- -   @DELETE_FAILED@ when conformance pack deletion has failed in the
+--     member account.
+--
+-- -   @DELETE_IN_PROGRESS@ when conformance pack is being deleted in the
+--     member account.
+--
+-- -   @DELETE_SUCCESSFUL@ when conformance pack has been deleted in the
+--     member account.
+--
+-- -   @UPDATE_SUCCESSFUL@ when conformance pack has been updated in the
+--     member account.
+--
+-- -   @UPDATE_IN_PROGRESS@ when conformance pack is being updated in the
+--     member account.
+--
+-- -   @UPDATE_FAILED@ when conformance pack deletion has failed in the
+--     member account.
+--
+-- 'accountId', 'organizationResourceDetailedStatusFilters_accountId' - The 12-digit account ID of the member account within an organization.
+newOrganizationResourceDetailedStatusFilters ::
   OrganizationResourceDetailedStatusFilters
-organizationResourceDetailedStatusFilters =
+newOrganizationResourceDetailedStatusFilters =
   OrganizationResourceDetailedStatusFilters'
-    { _ordsfStatus =
-        Nothing,
-      _ordsfAccountId = Nothing
+    { status =
+        Prelude.Nothing,
+      accountId = Prelude.Nothing
     }
 
--- | Indicates deployment status for conformance pack in a member account. When master account calls @PutOrganizationConformancePack@ action for the first time, conformance pack status is created in the member account. When master account calls @PutOrganizationConformancePack@ action for the second time, conformance pack status is updated in the member account. Conformance pack status is deleted when the master account deletes @OrganizationConformancePack@ and disables service access for @config-multiaccountsetup.amazonaws.com@ .  AWS Config sets the state of the conformance pack to:     * @CREATE_SUCCESSFUL@ when conformance pack has been created in the member account.      * @CREATE_IN_PROGRESS@ when conformance pack is being created in the member account.     * @CREATE_FAILED@ when conformance pack creation has failed in the member account.     * @DELETE_FAILED@ when conformance pack deletion has failed in the member account.     * @DELETE_IN_PROGRESS@ when conformance pack is being deleted in the member account.     * @DELETE_SUCCESSFUL@ when conformance pack has been deleted in the member account.      * @UPDATE_SUCCESSFUL@ when conformance pack has been updated in the member account.     * @UPDATE_IN_PROGRESS@ when conformance pack is being updated in the member account.     * @UPDATE_FAILED@ when conformance pack deletion has failed in the member account.
-ordsfStatus :: Lens' OrganizationResourceDetailedStatusFilters (Maybe OrganizationResourceDetailedStatus)
-ordsfStatus = lens _ordsfStatus (\s a -> s {_ordsfStatus = a})
+-- | Indicates deployment status for conformance pack in a member account.
+-- When master account calls @PutOrganizationConformancePack@ action for
+-- the first time, conformance pack status is created in the member
+-- account. When master account calls @PutOrganizationConformancePack@
+-- action for the second time, conformance pack status is updated in the
+-- member account. Conformance pack status is deleted when the master
+-- account deletes @OrganizationConformancePack@ and disables service
+-- access for @config-multiaccountsetup.amazonaws.com@.
+--
+-- AWS Config sets the state of the conformance pack to:
+--
+-- -   @CREATE_SUCCESSFUL@ when conformance pack has been created in the
+--     member account.
+--
+-- -   @CREATE_IN_PROGRESS@ when conformance pack is being created in the
+--     member account.
+--
+-- -   @CREATE_FAILED@ when conformance pack creation has failed in the
+--     member account.
+--
+-- -   @DELETE_FAILED@ when conformance pack deletion has failed in the
+--     member account.
+--
+-- -   @DELETE_IN_PROGRESS@ when conformance pack is being deleted in the
+--     member account.
+--
+-- -   @DELETE_SUCCESSFUL@ when conformance pack has been deleted in the
+--     member account.
+--
+-- -   @UPDATE_SUCCESSFUL@ when conformance pack has been updated in the
+--     member account.
+--
+-- -   @UPDATE_IN_PROGRESS@ when conformance pack is being updated in the
+--     member account.
+--
+-- -   @UPDATE_FAILED@ when conformance pack deletion has failed in the
+--     member account.
+organizationResourceDetailedStatusFilters_status :: Lens.Lens' OrganizationResourceDetailedStatusFilters (Prelude.Maybe OrganizationResourceDetailedStatus)
+organizationResourceDetailedStatusFilters_status = Lens.lens (\OrganizationResourceDetailedStatusFilters' {status} -> status) (\s@OrganizationResourceDetailedStatusFilters' {} a -> s {status = a} :: OrganizationResourceDetailedStatusFilters)
 
 -- | The 12-digit account ID of the member account within an organization.
-ordsfAccountId :: Lens' OrganizationResourceDetailedStatusFilters (Maybe Text)
-ordsfAccountId = lens _ordsfAccountId (\s a -> s {_ordsfAccountId = a})
+organizationResourceDetailedStatusFilters_accountId :: Lens.Lens' OrganizationResourceDetailedStatusFilters (Prelude.Maybe Prelude.Text)
+organizationResourceDetailedStatusFilters_accountId = Lens.lens (\OrganizationResourceDetailedStatusFilters' {accountId} -> accountId) (\s@OrganizationResourceDetailedStatusFilters' {} a -> s {accountId = a} :: OrganizationResourceDetailedStatusFilters)
 
 instance
-  Hashable
+  Prelude.Hashable
     OrganizationResourceDetailedStatusFilters
 
 instance
-  NFData
+  Prelude.NFData
     OrganizationResourceDetailedStatusFilters
 
 instance
-  ToJSON
+  Prelude.ToJSON
     OrganizationResourceDetailedStatusFilters
   where
   toJSON OrganizationResourceDetailedStatusFilters' {..} =
-    object
-      ( catMaybes
-          [ ("Status" .=) <$> _ordsfStatus,
-            ("AccountId" .=) <$> _ordsfAccountId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Status" Prelude..=) Prelude.<$> status,
+            ("AccountId" Prelude..=) Prelude.<$> accountId
           ]
       )

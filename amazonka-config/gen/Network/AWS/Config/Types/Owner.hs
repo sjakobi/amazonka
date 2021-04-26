@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,55 @@
 module Network.AWS.Config.Types.Owner
   ( Owner
       ( ..,
-        AWS,
-        CustomLambda
+        OwnerAWS,
+        OwnerCUSTOMLAMBDA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Owner = Owner' (CI Text)
+newtype Owner = Owner' {fromOwner :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWS :: Owner
-pattern AWS = Owner' "AWS"
+pattern OwnerAWS :: Owner
+pattern OwnerAWS = Owner' "AWS"
 
-pattern CustomLambda :: Owner
-pattern CustomLambda = Owner' "CUSTOM_LAMBDA"
+pattern OwnerCUSTOMLAMBDA :: Owner
+pattern OwnerCUSTOMLAMBDA = Owner' "CUSTOM_LAMBDA"
 
 {-# COMPLETE
-  AWS,
-  CustomLambda,
+  OwnerAWS,
+  OwnerCUSTOMLAMBDA,
   Owner'
   #-}
 
-instance FromText Owner where
-  parser = (Owner' . mk) <$> takeText
+instance Prelude.FromText Owner where
+  parser = Owner' Prelude.<$> Prelude.takeText
 
-instance ToText Owner where
-  toText (Owner' ci) = original ci
+instance Prelude.ToText Owner where
+  toText (Owner' x) = x
 
-instance Hashable Owner
+instance Prelude.Hashable Owner
 
-instance NFData Owner
+instance Prelude.NFData Owner
 
-instance ToByteString Owner
+instance Prelude.ToByteString Owner
 
-instance ToQuery Owner
+instance Prelude.ToQuery Owner
 
-instance ToHeader Owner
+instance Prelude.ToHeader Owner
 
-instance ToJSON Owner where
-  toJSON = toJSONText
+instance Prelude.ToJSON Owner where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Owner where
-  parseJSON = parseJSONText "Owner"
+instance Prelude.FromJSON Owner where
+  parseJSON = Prelude.parseJSONText "Owner"

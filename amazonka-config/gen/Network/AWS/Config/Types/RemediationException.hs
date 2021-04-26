@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,100 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.RemediationException where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object that represents the details about the remediation exception. The details include the rule name, an explanation of an exception, the time when the exception will be deleted, the resource ID, and resource type.
+-- | An object that represents the details about the remediation exception.
+-- The details include the rule name, an explanation of an exception, the
+-- time when the exception will be deleted, the resource ID, and resource
+-- type.
 --
---
---
--- /See:/ 'remediationException' smart constructor.
+-- /See:/ 'newRemediationException' smart constructor.
 data RemediationException = RemediationException'
-  { _reExpirationTime ::
-      !(Maybe POSIX),
-    _reMessage :: !(Maybe Text),
-    _reConfigRuleName :: !Text,
-    _reResourceType :: !Text,
-    _reResourceId :: !Text
+  { -- | The time when the remediation exception will be deleted.
+    expirationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | An explanation of an remediation exception.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS Config rule.
+    configRuleName :: Prelude.Text,
+    -- | The type of a resource.
+    resourceType :: Prelude.Text,
+    -- | The ID of the resource (for example., sg-xxxxxx).
+    resourceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemediationException' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemediationException' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'reExpirationTime' - The time when the remediation exception will be deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'reMessage' - An explanation of an remediation exception.
+-- 'expirationTime', 'remediationException_expirationTime' - The time when the remediation exception will be deleted.
 --
--- * 'reConfigRuleName' - The name of the AWS Config rule.
+-- 'message', 'remediationException_message' - An explanation of an remediation exception.
 --
--- * 'reResourceType' - The type of a resource.
+-- 'configRuleName', 'remediationException_configRuleName' - The name of the AWS Config rule.
 --
--- * 'reResourceId' - The ID of the resource (for example., sg-xxxxxx).
-remediationException ::
-  -- | 'reConfigRuleName'
-  Text ->
-  -- | 'reResourceType'
-  Text ->
-  -- | 'reResourceId'
-  Text ->
+-- 'resourceType', 'remediationException_resourceType' - The type of a resource.
+--
+-- 'resourceId', 'remediationException_resourceId' - The ID of the resource (for example., sg-xxxxxx).
+newRemediationException ::
+  -- | 'configRuleName'
+  Prelude.Text ->
+  -- | 'resourceType'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
   RemediationException
-remediationException
+newRemediationException
   pConfigRuleName_
   pResourceType_
   pResourceId_ =
     RemediationException'
-      { _reExpirationTime = Nothing,
-        _reMessage = Nothing,
-        _reConfigRuleName = pConfigRuleName_,
-        _reResourceType = pResourceType_,
-        _reResourceId = pResourceId_
+      { expirationTime =
+          Prelude.Nothing,
+        message = Prelude.Nothing,
+        configRuleName = pConfigRuleName_,
+        resourceType = pResourceType_,
+        resourceId = pResourceId_
       }
 
 -- | The time when the remediation exception will be deleted.
-reExpirationTime :: Lens' RemediationException (Maybe UTCTime)
-reExpirationTime = lens _reExpirationTime (\s a -> s {_reExpirationTime = a}) . mapping _Time
+remediationException_expirationTime :: Lens.Lens' RemediationException (Prelude.Maybe Prelude.UTCTime)
+remediationException_expirationTime = Lens.lens (\RemediationException' {expirationTime} -> expirationTime) (\s@RemediationException' {} a -> s {expirationTime = a} :: RemediationException) Prelude.. Lens.mapping Prelude._Time
 
 -- | An explanation of an remediation exception.
-reMessage :: Lens' RemediationException (Maybe Text)
-reMessage = lens _reMessage (\s a -> s {_reMessage = a})
+remediationException_message :: Lens.Lens' RemediationException (Prelude.Maybe Prelude.Text)
+remediationException_message = Lens.lens (\RemediationException' {message} -> message) (\s@RemediationException' {} a -> s {message = a} :: RemediationException)
 
 -- | The name of the AWS Config rule.
-reConfigRuleName :: Lens' RemediationException Text
-reConfigRuleName = lens _reConfigRuleName (\s a -> s {_reConfigRuleName = a})
+remediationException_configRuleName :: Lens.Lens' RemediationException Prelude.Text
+remediationException_configRuleName = Lens.lens (\RemediationException' {configRuleName} -> configRuleName) (\s@RemediationException' {} a -> s {configRuleName = a} :: RemediationException)
 
 -- | The type of a resource.
-reResourceType :: Lens' RemediationException Text
-reResourceType = lens _reResourceType (\s a -> s {_reResourceType = a})
+remediationException_resourceType :: Lens.Lens' RemediationException Prelude.Text
+remediationException_resourceType = Lens.lens (\RemediationException' {resourceType} -> resourceType) (\s@RemediationException' {} a -> s {resourceType = a} :: RemediationException)
 
 -- | The ID of the resource (for example., sg-xxxxxx).
-reResourceId :: Lens' RemediationException Text
-reResourceId = lens _reResourceId (\s a -> s {_reResourceId = a})
+remediationException_resourceId :: Lens.Lens' RemediationException Prelude.Text
+remediationException_resourceId = Lens.lens (\RemediationException' {resourceId} -> resourceId) (\s@RemediationException' {} a -> s {resourceId = a} :: RemediationException)
 
-instance FromJSON RemediationException where
+instance Prelude.FromJSON RemediationException where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RemediationException"
       ( \x ->
           RemediationException'
-            <$> (x .:? "ExpirationTime")
-            <*> (x .:? "Message")
-            <*> (x .: "ConfigRuleName")
-            <*> (x .: "ResourceType")
-            <*> (x .: "ResourceId")
+            Prelude.<$> (x Prelude..:? "ExpirationTime")
+            Prelude.<*> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..: "ConfigRuleName")
+            Prelude.<*> (x Prelude..: "ResourceType")
+            Prelude.<*> (x Prelude..: "ResourceId")
       )
 
-instance Hashable RemediationException
+instance Prelude.Hashable RemediationException
 
-instance NFData RemediationException
+instance Prelude.NFData RemediationException

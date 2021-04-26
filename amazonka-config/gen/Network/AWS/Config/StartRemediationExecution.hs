@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,185 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Runs an on-demand remediation for the specified AWS Config rules against the last known remediation configuration. It runs an execution against the current state of your resources. Remediation execution is asynchronous.
+-- Runs an on-demand remediation for the specified AWS Config rules against
+-- the last known remediation configuration. It runs an execution against
+-- the current state of your resources. Remediation execution is
+-- asynchronous.
 --
---
--- You can specify up to 100 resource keys per request. An existing StartRemediationExecution call for the specified resource keys must complete before you can call the API again.
+-- You can specify up to 100 resource keys per request. An existing
+-- StartRemediationExecution call for the specified resource keys must
+-- complete before you can call the API again.
 module Network.AWS.Config.StartRemediationExecution
   ( -- * Creating a Request
-    startRemediationExecution,
-    StartRemediationExecution,
+    StartRemediationExecution (..),
+    newStartRemediationExecution,
 
     -- * Request Lenses
-    sreConfigRuleName,
-    sreResourceKeys,
+    startRemediationExecution_configRuleName,
+    startRemediationExecution_resourceKeys,
 
     -- * Destructuring the Response
-    startRemediationExecutionResponse,
-    StartRemediationExecutionResponse,
+    StartRemediationExecutionResponse (..),
+    newStartRemediationExecutionResponse,
 
     -- * Response Lenses
-    srerrsFailureMessage,
-    srerrsFailedItems,
-    srerrsResponseStatus,
+    startRemediationExecutionResponse_failureMessage,
+    startRemediationExecutionResponse_failedItems,
+    startRemediationExecutionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.ResourceKey
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startRemediationExecution' smart constructor.
+-- | /See:/ 'newStartRemediationExecution' smart constructor.
 data StartRemediationExecution = StartRemediationExecution'
-  { _sreConfigRuleName ::
-      !Text,
-    _sreResourceKeys ::
-      !( List1
-           ResourceKey
-       )
+  { -- | The list of names of AWS Config rules that you want to run remediation
+    -- execution for.
+    configRuleName :: Prelude.Text,
+    -- | A list of resource keys to be processed with the current request. Each
+    -- element in the list consists of the resource type and resource ID.
+    resourceKeys :: Prelude.List1 ResourceKey
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartRemediationExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartRemediationExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sreConfigRuleName' - The list of names of AWS Config rules that you want to run remediation execution for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sreResourceKeys' - A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
-startRemediationExecution ::
-  -- | 'sreConfigRuleName'
-  Text ->
-  -- | 'sreResourceKeys'
-  NonEmpty ResourceKey ->
+-- 'configRuleName', 'startRemediationExecution_configRuleName' - The list of names of AWS Config rules that you want to run remediation
+-- execution for.
+--
+-- 'resourceKeys', 'startRemediationExecution_resourceKeys' - A list of resource keys to be processed with the current request. Each
+-- element in the list consists of the resource type and resource ID.
+newStartRemediationExecution ::
+  -- | 'configRuleName'
+  Prelude.Text ->
+  -- | 'resourceKeys'
+  Prelude.NonEmpty ResourceKey ->
   StartRemediationExecution
-startRemediationExecution
+newStartRemediationExecution
   pConfigRuleName_
   pResourceKeys_ =
     StartRemediationExecution'
-      { _sreConfigRuleName =
+      { configRuleName =
           pConfigRuleName_,
-        _sreResourceKeys = _List1 # pResourceKeys_
+        resourceKeys =
+          Prelude._List1 Lens.# pResourceKeys_
       }
 
--- | The list of names of AWS Config rules that you want to run remediation execution for.
-sreConfigRuleName :: Lens' StartRemediationExecution Text
-sreConfigRuleName = lens _sreConfigRuleName (\s a -> s {_sreConfigRuleName = a})
+-- | The list of names of AWS Config rules that you want to run remediation
+-- execution for.
+startRemediationExecution_configRuleName :: Lens.Lens' StartRemediationExecution Prelude.Text
+startRemediationExecution_configRuleName = Lens.lens (\StartRemediationExecution' {configRuleName} -> configRuleName) (\s@StartRemediationExecution' {} a -> s {configRuleName = a} :: StartRemediationExecution)
 
--- | A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
-sreResourceKeys :: Lens' StartRemediationExecution (NonEmpty ResourceKey)
-sreResourceKeys = lens _sreResourceKeys (\s a -> s {_sreResourceKeys = a}) . _List1
+-- | A list of resource keys to be processed with the current request. Each
+-- element in the list consists of the resource type and resource ID.
+startRemediationExecution_resourceKeys :: Lens.Lens' StartRemediationExecution (Prelude.NonEmpty ResourceKey)
+startRemediationExecution_resourceKeys = Lens.lens (\StartRemediationExecution' {resourceKeys} -> resourceKeys) (\s@StartRemediationExecution' {} a -> s {resourceKeys = a} :: StartRemediationExecution) Prelude.. Prelude._List1
 
-instance AWSRequest StartRemediationExecution where
+instance Prelude.AWSRequest StartRemediationExecution where
   type
     Rs StartRemediationExecution =
       StartRemediationExecutionResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartRemediationExecutionResponse'
-            <$> (x .?> "FailureMessage")
-            <*> (x .?> "FailedItems")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "FailureMessage")
+            Prelude.<*> (x Prelude..?> "FailedItems")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartRemediationExecution
+instance Prelude.Hashable StartRemediationExecution
 
-instance NFData StartRemediationExecution
+instance Prelude.NFData StartRemediationExecution
 
-instance ToHeaders StartRemediationExecution where
+instance Prelude.ToHeaders StartRemediationExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.StartRemediationExecution" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.StartRemediationExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartRemediationExecution where
+instance Prelude.ToJSON StartRemediationExecution where
   toJSON StartRemediationExecution' {..} =
-    object
-      ( catMaybes
-          [ Just ("ConfigRuleName" .= _sreConfigRuleName),
-            Just ("ResourceKeys" .= _sreResourceKeys)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ConfigRuleName" Prelude..= configRuleName),
+            Prelude.Just
+              ("ResourceKeys" Prelude..= resourceKeys)
           ]
       )
 
-instance ToPath StartRemediationExecution where
-  toPath = const "/"
+instance Prelude.ToPath StartRemediationExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartRemediationExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery StartRemediationExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startRemediationExecutionResponse' smart constructor.
+-- | /See:/ 'newStartRemediationExecutionResponse' smart constructor.
 data StartRemediationExecutionResponse = StartRemediationExecutionResponse'
-  { _srerrsFailureMessage ::
-      !( Maybe
-           Text
-       ),
-    _srerrsFailedItems ::
-      !( Maybe
-           ( List1
-               ResourceKey
-           )
-       ),
-    _srerrsResponseStatus ::
-      !Int
+  { -- | Returns a failure message. For example, the resource is already
+    -- compliant.
+    failureMessage :: Prelude.Maybe Prelude.Text,
+    -- | For resources that have failed to start execution, the API returns a
+    -- resource key object.
+    failedItems :: Prelude.Maybe (Prelude.List1 ResourceKey),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartRemediationExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartRemediationExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srerrsFailureMessage' - Returns a failure message. For example, the resource is already compliant.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srerrsFailedItems' - For resources that have failed to start execution, the API returns a resource key object.
+-- 'failureMessage', 'startRemediationExecutionResponse_failureMessage' - Returns a failure message. For example, the resource is already
+-- compliant.
 --
--- * 'srerrsResponseStatus' - -- | The response status code.
-startRemediationExecutionResponse ::
-  -- | 'srerrsResponseStatus'
-  Int ->
+-- 'failedItems', 'startRemediationExecutionResponse_failedItems' - For resources that have failed to start execution, the API returns a
+-- resource key object.
+--
+-- 'httpStatus', 'startRemediationExecutionResponse_httpStatus' - The response's http status code.
+newStartRemediationExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartRemediationExecutionResponse
-startRemediationExecutionResponse pResponseStatus_ =
+newStartRemediationExecutionResponse pHttpStatus_ =
   StartRemediationExecutionResponse'
-    { _srerrsFailureMessage =
-        Nothing,
-      _srerrsFailedItems = Nothing,
-      _srerrsResponseStatus = pResponseStatus_
+    { failureMessage =
+        Prelude.Nothing,
+      failedItems = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Returns a failure message. For example, the resource is already compliant.
-srerrsFailureMessage :: Lens' StartRemediationExecutionResponse (Maybe Text)
-srerrsFailureMessage = lens _srerrsFailureMessage (\s a -> s {_srerrsFailureMessage = a})
+-- | Returns a failure message. For example, the resource is already
+-- compliant.
+startRemediationExecutionResponse_failureMessage :: Lens.Lens' StartRemediationExecutionResponse (Prelude.Maybe Prelude.Text)
+startRemediationExecutionResponse_failureMessage = Lens.lens (\StartRemediationExecutionResponse' {failureMessage} -> failureMessage) (\s@StartRemediationExecutionResponse' {} a -> s {failureMessage = a} :: StartRemediationExecutionResponse)
 
--- | For resources that have failed to start execution, the API returns a resource key object.
-srerrsFailedItems :: Lens' StartRemediationExecutionResponse (Maybe (NonEmpty ResourceKey))
-srerrsFailedItems = lens _srerrsFailedItems (\s a -> s {_srerrsFailedItems = a}) . mapping _List1
+-- | For resources that have failed to start execution, the API returns a
+-- resource key object.
+startRemediationExecutionResponse_failedItems :: Lens.Lens' StartRemediationExecutionResponse (Prelude.Maybe (Prelude.NonEmpty ResourceKey))
+startRemediationExecutionResponse_failedItems = Lens.lens (\StartRemediationExecutionResponse' {failedItems} -> failedItems) (\s@StartRemediationExecutionResponse' {} a -> s {failedItems = a} :: StartRemediationExecutionResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-srerrsResponseStatus :: Lens' StartRemediationExecutionResponse Int
-srerrsResponseStatus = lens _srerrsResponseStatus (\s a -> s {_srerrsResponseStatus = a})
+-- | The response's http status code.
+startRemediationExecutionResponse_httpStatus :: Lens.Lens' StartRemediationExecutionResponse Prelude.Int
+startRemediationExecutionResponse_httpStatus = Lens.lens (\StartRemediationExecutionResponse' {httpStatus} -> httpStatus) (\s@StartRemediationExecutionResponse' {} a -> s {httpStatus = a} :: StartRemediationExecutionResponse)
 
-instance NFData StartRemediationExecutionResponse
+instance
+  Prelude.NFData
+    StartRemediationExecutionResponse

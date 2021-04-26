@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Config.Types.ConformancePackComplianceType
   ( ConformancePackComplianceType
       ( ..,
-        CPCTCompliant,
-        CPCTInsufficientData,
-        CPCTNonCompliant
+        ConformancePackComplianceTypeCOMPLIANT,
+        ConformancePackComplianceTypeINSUFFICIENTDATA,
+        ConformancePackComplianceTypeNONCOMPLIANT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConformancePackComplianceType
-  = ConformancePackComplianceType'
-      ( CI
-          Text
-      )
+newtype ConformancePackComplianceType = ConformancePackComplianceType'
+  { fromConformancePackComplianceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CPCTCompliant :: ConformancePackComplianceType
-pattern CPCTCompliant = ConformancePackComplianceType' "COMPLIANT"
+pattern ConformancePackComplianceTypeCOMPLIANT :: ConformancePackComplianceType
+pattern ConformancePackComplianceTypeCOMPLIANT = ConformancePackComplianceType' "COMPLIANT"
 
-pattern CPCTInsufficientData :: ConformancePackComplianceType
-pattern CPCTInsufficientData = ConformancePackComplianceType' "INSUFFICIENT_DATA"
+pattern ConformancePackComplianceTypeINSUFFICIENTDATA :: ConformancePackComplianceType
+pattern ConformancePackComplianceTypeINSUFFICIENTDATA = ConformancePackComplianceType' "INSUFFICIENT_DATA"
 
-pattern CPCTNonCompliant :: ConformancePackComplianceType
-pattern CPCTNonCompliant = ConformancePackComplianceType' "NON_COMPLIANT"
+pattern ConformancePackComplianceTypeNONCOMPLIANT :: ConformancePackComplianceType
+pattern ConformancePackComplianceTypeNONCOMPLIANT = ConformancePackComplianceType' "NON_COMPLIANT"
 
 {-# COMPLETE
-  CPCTCompliant,
-  CPCTInsufficientData,
-  CPCTNonCompliant,
+  ConformancePackComplianceTypeCOMPLIANT,
+  ConformancePackComplianceTypeINSUFFICIENTDATA,
+  ConformancePackComplianceTypeNONCOMPLIANT,
   ConformancePackComplianceType'
   #-}
 
-instance FromText ConformancePackComplianceType where
-  parser = (ConformancePackComplianceType' . mk) <$> takeText
+instance Prelude.FromText ConformancePackComplianceType where
+  parser = ConformancePackComplianceType' Prelude.<$> Prelude.takeText
 
-instance ToText ConformancePackComplianceType where
-  toText (ConformancePackComplianceType' ci) = original ci
+instance Prelude.ToText ConformancePackComplianceType where
+  toText (ConformancePackComplianceType' x) = x
 
-instance Hashable ConformancePackComplianceType
+instance Prelude.Hashable ConformancePackComplianceType
 
-instance NFData ConformancePackComplianceType
+instance Prelude.NFData ConformancePackComplianceType
 
-instance ToByteString ConformancePackComplianceType
+instance Prelude.ToByteString ConformancePackComplianceType
 
-instance ToQuery ConformancePackComplianceType
+instance Prelude.ToQuery ConformancePackComplianceType
 
-instance ToHeader ConformancePackComplianceType
+instance Prelude.ToHeader ConformancePackComplianceType
 
-instance ToJSON ConformancePackComplianceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConformancePackComplianceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ConformancePackComplianceType where
-  parseJSON = parseJSONText "ConformancePackComplianceType"
+instance Prelude.FromJSON ConformancePackComplianceType where
+  parseJSON = Prelude.parseJSONText "ConformancePackComplianceType"

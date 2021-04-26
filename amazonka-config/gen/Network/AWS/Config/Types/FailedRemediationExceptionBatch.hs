@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,67 @@
 module Network.AWS.Config.Types.FailedRemediationExceptionBatch where
 
 import Network.AWS.Config.Types.RemediationException
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | List of each of the failed remediation exceptions with specific reasons.
 --
---
---
--- /See:/ 'failedRemediationExceptionBatch' smart constructor.
+-- /See:/ 'newFailedRemediationExceptionBatch' smart constructor.
 data FailedRemediationExceptionBatch = FailedRemediationExceptionBatch'
-  { _frebFailureMessage ::
-      !( Maybe
-           Text
-       ),
-    _frebFailedItems ::
-      !( Maybe
-           [RemediationException]
-       )
+  { -- | Returns a failure message. For example, the auto-remediation has failed.
+    failureMessage :: Prelude.Maybe Prelude.Text,
+    -- | Returns remediation exception resource key object of the failed items.
+    failedItems :: Prelude.Maybe [RemediationException]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailedRemediationExceptionBatch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailedRemediationExceptionBatch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'frebFailureMessage' - Returns a failure message. For example, the auto-remediation has failed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'frebFailedItems' - Returns remediation exception resource key object of the failed items.
-failedRemediationExceptionBatch ::
+-- 'failureMessage', 'failedRemediationExceptionBatch_failureMessage' - Returns a failure message. For example, the auto-remediation has failed.
+--
+-- 'failedItems', 'failedRemediationExceptionBatch_failedItems' - Returns remediation exception resource key object of the failed items.
+newFailedRemediationExceptionBatch ::
   FailedRemediationExceptionBatch
-failedRemediationExceptionBatch =
+newFailedRemediationExceptionBatch =
   FailedRemediationExceptionBatch'
-    { _frebFailureMessage =
-        Nothing,
-      _frebFailedItems = Nothing
+    { failureMessage =
+        Prelude.Nothing,
+      failedItems = Prelude.Nothing
     }
 
 -- | Returns a failure message. For example, the auto-remediation has failed.
-frebFailureMessage :: Lens' FailedRemediationExceptionBatch (Maybe Text)
-frebFailureMessage = lens _frebFailureMessage (\s a -> s {_frebFailureMessage = a})
+failedRemediationExceptionBatch_failureMessage :: Lens.Lens' FailedRemediationExceptionBatch (Prelude.Maybe Prelude.Text)
+failedRemediationExceptionBatch_failureMessage = Lens.lens (\FailedRemediationExceptionBatch' {failureMessage} -> failureMessage) (\s@FailedRemediationExceptionBatch' {} a -> s {failureMessage = a} :: FailedRemediationExceptionBatch)
 
 -- | Returns remediation exception resource key object of the failed items.
-frebFailedItems :: Lens' FailedRemediationExceptionBatch [RemediationException]
-frebFailedItems = lens _frebFailedItems (\s a -> s {_frebFailedItems = a}) . _Default . _Coerce
+failedRemediationExceptionBatch_failedItems :: Lens.Lens' FailedRemediationExceptionBatch (Prelude.Maybe [RemediationException])
+failedRemediationExceptionBatch_failedItems = Lens.lens (\FailedRemediationExceptionBatch' {failedItems} -> failedItems) (\s@FailedRemediationExceptionBatch' {} a -> s {failedItems = a} :: FailedRemediationExceptionBatch) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON FailedRemediationExceptionBatch where
+instance
+  Prelude.FromJSON
+    FailedRemediationExceptionBatch
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FailedRemediationExceptionBatch"
       ( \x ->
           FailedRemediationExceptionBatch'
-            <$> (x .:? "FailureMessage")
-            <*> (x .:? "FailedItems" .!= mempty)
+            Prelude.<$> (x Prelude..:? "FailureMessage")
+            Prelude.<*> ( x Prelude..:? "FailedItems"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable FailedRemediationExceptionBatch
+instance
+  Prelude.Hashable
+    FailedRemediationExceptionBatch
 
-instance NFData FailedRemediationExceptionBatch
+instance
+  Prelude.NFData
+    FailedRemediationExceptionBatch

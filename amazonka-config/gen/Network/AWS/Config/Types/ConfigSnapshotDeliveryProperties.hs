@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,105 @@
 module Network.AWS.Config.Types.ConfigSnapshotDeliveryProperties where
 
 import Network.AWS.Config.Types.MaximumExecutionFrequency
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides options for how often AWS Config delivers configuration snapshots to the Amazon S3 bucket in your delivery channel.
+-- | Provides options for how often AWS Config delivers configuration
+-- snapshots to the Amazon S3 bucket in your delivery channel.
 --
+-- The frequency for a rule that triggers evaluations for your resources
+-- when AWS Config delivers the configuration snapshot is set by one of two
+-- values, depending on which is less frequent:
 --
--- The frequency for a rule that triggers evaluations for your resources when AWS Config delivers the configuration snapshot is set by one of two values, depending on which is less frequent:
+-- -   The value for the @deliveryFrequency@ parameter within the delivery
+--     channel configuration, which sets how often AWS Config delivers
+--     configuration snapshots. This value also sets how often AWS Config
+--     invokes evaluations for AWS Config rules.
 --
---     * The value for the @deliveryFrequency@ parameter within the delivery channel configuration, which sets how often AWS Config delivers configuration snapshots. This value also sets how often AWS Config invokes evaluations for AWS Config rules.
+-- -   The value for the @MaximumExecutionFrequency@ parameter, which sets
+--     the maximum frequency with which AWS Config invokes evaluations for
+--     the rule. For more information, see ConfigRule.
 --
---     * The value for the @MaximumExecutionFrequency@ parameter, which sets the maximum frequency with which AWS Config invokes evaluations for the rule. For more information, see 'ConfigRule' .
+-- If the @deliveryFrequency@ value is less frequent than the
+-- @MaximumExecutionFrequency@ value for a rule, AWS Config invokes the
+-- rule only as often as the @deliveryFrequency@ value.
 --
+-- 1.  For example, you want your rule to run evaluations when AWS Config
+--     delivers the configuration snapshot.
 --
+-- 2.  You specify the @MaximumExecutionFrequency@ value for @Six_Hours@.
 --
--- If the @deliveryFrequency@ value is less frequent than the @MaximumExecutionFrequency@ value for a rule, AWS Config invokes the rule only as often as the @deliveryFrequency@ value.
+-- 3.  You then specify the delivery channel @deliveryFrequency@ value for
+--     @TwentyFour_Hours@.
 --
---     * For example, you want your rule to run evaluations when AWS Config delivers the configuration snapshot.
+-- 4.  Because the value for @deliveryFrequency@ is less frequent than
+--     @MaximumExecutionFrequency@, AWS Config invokes evaluations for the
+--     rule every 24 hours.
 --
---     * You specify the @MaximumExecutionFrequency@ value for @Six_Hours@ .
+-- You should set the @MaximumExecutionFrequency@ value to be at least as
+-- frequent as the @deliveryFrequency@ value. You can view the
+-- @deliveryFrequency@ value by using the @DescribeDeliveryChannnels@
+-- action.
 --
---     * You then specify the delivery channel @deliveryFrequency@ value for @TwentyFour_Hours@ .
+-- To update the @deliveryFrequency@ with which AWS Config delivers your
+-- configuration snapshots, use the @PutDeliveryChannel@ action.
 --
---     * Because the value for @deliveryFrequency@ is less frequent than @MaximumExecutionFrequency@ , AWS Config invokes evaluations for the rule every 24 hours.
---
---
---
--- You should set the @MaximumExecutionFrequency@ value to be at least as frequent as the @deliveryFrequency@ value. You can view the @deliveryFrequency@ value by using the @DescribeDeliveryChannnels@ action.
---
--- To update the @deliveryFrequency@ with which AWS Config delivers your configuration snapshots, use the @PutDeliveryChannel@ action.
---
---
--- /See:/ 'configSnapshotDeliveryProperties' smart constructor.
-newtype ConfigSnapshotDeliveryProperties = ConfigSnapshotDeliveryProperties'
-  { _csdpDeliveryFrequency ::
-      Maybe
-        MaximumExecutionFrequency
+-- /See:/ 'newConfigSnapshotDeliveryProperties' smart constructor.
+data ConfigSnapshotDeliveryProperties = ConfigSnapshotDeliveryProperties'
+  { -- | The frequency with which AWS Config delivers configuration snapshots.
+    deliveryFrequency :: Prelude.Maybe MaximumExecutionFrequency
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigSnapshotDeliveryProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigSnapshotDeliveryProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csdpDeliveryFrequency' - The frequency with which AWS Config delivers configuration snapshots.
-configSnapshotDeliveryProperties ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deliveryFrequency', 'configSnapshotDeliveryProperties_deliveryFrequency' - The frequency with which AWS Config delivers configuration snapshots.
+newConfigSnapshotDeliveryProperties ::
   ConfigSnapshotDeliveryProperties
-configSnapshotDeliveryProperties =
+newConfigSnapshotDeliveryProperties =
   ConfigSnapshotDeliveryProperties'
-    { _csdpDeliveryFrequency =
-        Nothing
+    { deliveryFrequency =
+        Prelude.Nothing
     }
 
 -- | The frequency with which AWS Config delivers configuration snapshots.
-csdpDeliveryFrequency :: Lens' ConfigSnapshotDeliveryProperties (Maybe MaximumExecutionFrequency)
-csdpDeliveryFrequency = lens _csdpDeliveryFrequency (\s a -> s {_csdpDeliveryFrequency = a})
+configSnapshotDeliveryProperties_deliveryFrequency :: Lens.Lens' ConfigSnapshotDeliveryProperties (Prelude.Maybe MaximumExecutionFrequency)
+configSnapshotDeliveryProperties_deliveryFrequency = Lens.lens (\ConfigSnapshotDeliveryProperties' {deliveryFrequency} -> deliveryFrequency) (\s@ConfigSnapshotDeliveryProperties' {} a -> s {deliveryFrequency = a} :: ConfigSnapshotDeliveryProperties)
 
-instance FromJSON ConfigSnapshotDeliveryProperties where
+instance
+  Prelude.FromJSON
+    ConfigSnapshotDeliveryProperties
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConfigSnapshotDeliveryProperties"
       ( \x ->
           ConfigSnapshotDeliveryProperties'
-            <$> (x .:? "deliveryFrequency")
+            Prelude.<$> (x Prelude..:? "deliveryFrequency")
       )
 
-instance Hashable ConfigSnapshotDeliveryProperties
+instance
+  Prelude.Hashable
+    ConfigSnapshotDeliveryProperties
 
-instance NFData ConfigSnapshotDeliveryProperties
+instance
+  Prelude.NFData
+    ConfigSnapshotDeliveryProperties
 
-instance ToJSON ConfigSnapshotDeliveryProperties where
+instance
+  Prelude.ToJSON
+    ConfigSnapshotDeliveryProperties
+  where
   toJSON ConfigSnapshotDeliveryProperties' {..} =
-    object
-      ( catMaybes
-          [ ("deliveryFrequency" .=)
-              <$> _csdpDeliveryFrequency
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("deliveryFrequency" Prelude..=)
+              Prelude.<$> deliveryFrequency
           ]
       )

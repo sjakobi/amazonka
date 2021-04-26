@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.Config.Types.RemediationTargetType
   ( RemediationTargetType
       ( ..,
-        SsmDocument
+        RemediationTargetTypeSSMDOCUMENT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RemediationTargetType
-  = RemediationTargetType'
-      ( CI
-          Text
-      )
+newtype RemediationTargetType = RemediationTargetType'
+  { fromRemediationTargetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SsmDocument :: RemediationTargetType
-pattern SsmDocument = RemediationTargetType' "SSM_DOCUMENT"
+pattern RemediationTargetTypeSSMDOCUMENT :: RemediationTargetType
+pattern RemediationTargetTypeSSMDOCUMENT = RemediationTargetType' "SSM_DOCUMENT"
 
 {-# COMPLETE
-  SsmDocument,
+  RemediationTargetTypeSSMDOCUMENT,
   RemediationTargetType'
   #-}
 
-instance FromText RemediationTargetType where
-  parser = (RemediationTargetType' . mk) <$> takeText
+instance Prelude.FromText RemediationTargetType where
+  parser = RemediationTargetType' Prelude.<$> Prelude.takeText
 
-instance ToText RemediationTargetType where
-  toText (RemediationTargetType' ci) = original ci
+instance Prelude.ToText RemediationTargetType where
+  toText (RemediationTargetType' x) = x
 
-instance Hashable RemediationTargetType
+instance Prelude.Hashable RemediationTargetType
 
-instance NFData RemediationTargetType
+instance Prelude.NFData RemediationTargetType
 
-instance ToByteString RemediationTargetType
+instance Prelude.ToByteString RemediationTargetType
 
-instance ToQuery RemediationTargetType
+instance Prelude.ToQuery RemediationTargetType
 
-instance ToHeader RemediationTargetType
+instance Prelude.ToHeader RemediationTargetType
 
-instance ToJSON RemediationTargetType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RemediationTargetType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RemediationTargetType where
-  parseJSON = parseJSONText "RemediationTargetType"
+instance Prelude.FromJSON RemediationTargetType where
+  parseJSON = Prelude.parseJSONText "RemediationTargetType"

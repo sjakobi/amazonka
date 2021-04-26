@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,186 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the current configuration for one or more requested resources. The operation also returns a list of resources that are not processed in the current request. If there are no unprocessed resources, the operation returns an empty unprocessedResourceKeys list.
+-- Returns the current configuration for one or more requested resources.
+-- The operation also returns a list of resources that are not processed in
+-- the current request. If there are no unprocessed resources, the
+-- operation returns an empty unprocessedResourceKeys list.
+--
+-- -   The API does not return results for deleted resources.
+--
+-- -   The API does not return any tags for the requested resources. This
+--     information is filtered out of the supplementaryConfiguration
+--     section of the API response.
 module Network.AWS.Config.BatchGetResourceConfig
   ( -- * Creating a Request
-    batchGetResourceConfig,
-    BatchGetResourceConfig,
+    BatchGetResourceConfig (..),
+    newBatchGetResourceConfig,
 
     -- * Request Lenses
-    bgrcResourceKeys,
+    batchGetResourceConfig_resourceKeys,
 
     -- * Destructuring the Response
-    batchGetResourceConfigResponse,
-    BatchGetResourceConfigResponse,
+    BatchGetResourceConfigResponse (..),
+    newBatchGetResourceConfigResponse,
 
     -- * Response Lenses
-    bgrcrrsUnprocessedResourceKeys,
-    bgrcrrsBaseConfigurationItems,
-    bgrcrrsResponseStatus,
+    batchGetResourceConfigResponse_unprocessedResourceKeys,
+    batchGetResourceConfigResponse_baseConfigurationItems,
+    batchGetResourceConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.BaseConfigurationItem
+import Network.AWS.Config.Types.ResourceKey
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchGetResourceConfig' smart constructor.
-newtype BatchGetResourceConfig = BatchGetResourceConfig'
-  { _bgrcResourceKeys ::
-      List1 ResourceKey
+-- | /See:/ 'newBatchGetResourceConfig' smart constructor.
+data BatchGetResourceConfig = BatchGetResourceConfig'
+  { -- | A list of resource keys to be processed with the current request. Each
+    -- element in the list consists of the resource type and resource ID.
+    resourceKeys :: Prelude.List1 ResourceKey
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetResourceConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetResourceConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgrcResourceKeys' - A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
-batchGetResourceConfig ::
-  -- | 'bgrcResourceKeys'
-  NonEmpty ResourceKey ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceKeys', 'batchGetResourceConfig_resourceKeys' - A list of resource keys to be processed with the current request. Each
+-- element in the list consists of the resource type and resource ID.
+newBatchGetResourceConfig ::
+  -- | 'resourceKeys'
+  Prelude.NonEmpty ResourceKey ->
   BatchGetResourceConfig
-batchGetResourceConfig pResourceKeys_ =
+newBatchGetResourceConfig pResourceKeys_ =
   BatchGetResourceConfig'
-    { _bgrcResourceKeys =
-        _List1 # pResourceKeys_
+    { resourceKeys =
+        Prelude._List1 Lens.# pResourceKeys_
     }
 
--- | A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
-bgrcResourceKeys :: Lens' BatchGetResourceConfig (NonEmpty ResourceKey)
-bgrcResourceKeys = lens _bgrcResourceKeys (\s a -> s {_bgrcResourceKeys = a}) . _List1
+-- | A list of resource keys to be processed with the current request. Each
+-- element in the list consists of the resource type and resource ID.
+batchGetResourceConfig_resourceKeys :: Lens.Lens' BatchGetResourceConfig (Prelude.NonEmpty ResourceKey)
+batchGetResourceConfig_resourceKeys = Lens.lens (\BatchGetResourceConfig' {resourceKeys} -> resourceKeys) (\s@BatchGetResourceConfig' {} a -> s {resourceKeys = a} :: BatchGetResourceConfig) Prelude.. Prelude._List1
 
-instance AWSRequest BatchGetResourceConfig where
+instance Prelude.AWSRequest BatchGetResourceConfig where
   type
     Rs BatchGetResourceConfig =
       BatchGetResourceConfigResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetResourceConfigResponse'
-            <$> (x .?> "unprocessedResourceKeys")
-            <*> (x .?> "baseConfigurationItems" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "unprocessedResourceKeys")
+            Prelude.<*> ( x Prelude..?> "baseConfigurationItems"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetResourceConfig
+instance Prelude.Hashable BatchGetResourceConfig
 
-instance NFData BatchGetResourceConfig
+instance Prelude.NFData BatchGetResourceConfig
 
-instance ToHeaders BatchGetResourceConfig where
+instance Prelude.ToHeaders BatchGetResourceConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.BatchGetResourceConfig" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.BatchGetResourceConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetResourceConfig where
+instance Prelude.ToJSON BatchGetResourceConfig where
   toJSON BatchGetResourceConfig' {..} =
-    object
-      ( catMaybes
-          [Just ("resourceKeys" .= _bgrcResourceKeys)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("resourceKeys" Prelude..= resourceKeys)
+          ]
       )
 
-instance ToPath BatchGetResourceConfig where
-  toPath = const "/"
+instance Prelude.ToPath BatchGetResourceConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetResourceConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetResourceConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchGetResourceConfigResponse' smart constructor.
+-- | /See:/ 'newBatchGetResourceConfigResponse' smart constructor.
 data BatchGetResourceConfigResponse = BatchGetResourceConfigResponse'
-  { _bgrcrrsUnprocessedResourceKeys ::
-      !( Maybe
-           ( List1
-               ResourceKey
-           )
-       ),
-    _bgrcrrsBaseConfigurationItems ::
-      !( Maybe
-           [BaseConfigurationItem]
-       ),
-    _bgrcrrsResponseStatus ::
-      !Int
+  { -- | A list of resource keys that were not processed with the current
+    -- response. The unprocessesResourceKeys value is in the same form as
+    -- ResourceKeys, so the value can be directly provided to a subsequent
+    -- BatchGetResourceConfig operation. If there are no unprocessed resource
+    -- keys, the response contains an empty unprocessedResourceKeys list.
+    unprocessedResourceKeys :: Prelude.Maybe (Prelude.List1 ResourceKey),
+    -- | A list that contains the current configuration of one or more resources.
+    baseConfigurationItems :: Prelude.Maybe [BaseConfigurationItem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetResourceConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetResourceConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgrcrrsUnprocessedResourceKeys' - A list of resource keys that were not processed with the current response. The unprocessesResourceKeys value is in the same form as ResourceKeys, so the value can be directly provided to a subsequent BatchGetResourceConfig operation. If there are no unprocessed resource keys, the response contains an empty unprocessedResourceKeys list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgrcrrsBaseConfigurationItems' - A list that contains the current configuration of one or more resources.
+-- 'unprocessedResourceKeys', 'batchGetResourceConfigResponse_unprocessedResourceKeys' - A list of resource keys that were not processed with the current
+-- response. The unprocessesResourceKeys value is in the same form as
+-- ResourceKeys, so the value can be directly provided to a subsequent
+-- BatchGetResourceConfig operation. If there are no unprocessed resource
+-- keys, the response contains an empty unprocessedResourceKeys list.
 --
--- * 'bgrcrrsResponseStatus' - -- | The response status code.
-batchGetResourceConfigResponse ::
-  -- | 'bgrcrrsResponseStatus'
-  Int ->
+-- 'baseConfigurationItems', 'batchGetResourceConfigResponse_baseConfigurationItems' - A list that contains the current configuration of one or more resources.
+--
+-- 'httpStatus', 'batchGetResourceConfigResponse_httpStatus' - The response's http status code.
+newBatchGetResourceConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetResourceConfigResponse
-batchGetResourceConfigResponse pResponseStatus_ =
+newBatchGetResourceConfigResponse pHttpStatus_ =
   BatchGetResourceConfigResponse'
-    { _bgrcrrsUnprocessedResourceKeys =
-        Nothing,
-      _bgrcrrsBaseConfigurationItems = Nothing,
-      _bgrcrrsResponseStatus = pResponseStatus_
+    { unprocessedResourceKeys =
+        Prelude.Nothing,
+      baseConfigurationItems = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of resource keys that were not processed with the current response. The unprocessesResourceKeys value is in the same form as ResourceKeys, so the value can be directly provided to a subsequent BatchGetResourceConfig operation. If there are no unprocessed resource keys, the response contains an empty unprocessedResourceKeys list.
-bgrcrrsUnprocessedResourceKeys :: Lens' BatchGetResourceConfigResponse (Maybe (NonEmpty ResourceKey))
-bgrcrrsUnprocessedResourceKeys = lens _bgrcrrsUnprocessedResourceKeys (\s a -> s {_bgrcrrsUnprocessedResourceKeys = a}) . mapping _List1
+-- | A list of resource keys that were not processed with the current
+-- response. The unprocessesResourceKeys value is in the same form as
+-- ResourceKeys, so the value can be directly provided to a subsequent
+-- BatchGetResourceConfig operation. If there are no unprocessed resource
+-- keys, the response contains an empty unprocessedResourceKeys list.
+batchGetResourceConfigResponse_unprocessedResourceKeys :: Lens.Lens' BatchGetResourceConfigResponse (Prelude.Maybe (Prelude.NonEmpty ResourceKey))
+batchGetResourceConfigResponse_unprocessedResourceKeys = Lens.lens (\BatchGetResourceConfigResponse' {unprocessedResourceKeys} -> unprocessedResourceKeys) (\s@BatchGetResourceConfigResponse' {} a -> s {unprocessedResourceKeys = a} :: BatchGetResourceConfigResponse) Prelude.. Lens.mapping Prelude._List1
 
 -- | A list that contains the current configuration of one or more resources.
-bgrcrrsBaseConfigurationItems :: Lens' BatchGetResourceConfigResponse [BaseConfigurationItem]
-bgrcrrsBaseConfigurationItems = lens _bgrcrrsBaseConfigurationItems (\s a -> s {_bgrcrrsBaseConfigurationItems = a}) . _Default . _Coerce
+batchGetResourceConfigResponse_baseConfigurationItems :: Lens.Lens' BatchGetResourceConfigResponse (Prelude.Maybe [BaseConfigurationItem])
+batchGetResourceConfigResponse_baseConfigurationItems = Lens.lens (\BatchGetResourceConfigResponse' {baseConfigurationItems} -> baseConfigurationItems) (\s@BatchGetResourceConfigResponse' {} a -> s {baseConfigurationItems = a} :: BatchGetResourceConfigResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bgrcrrsResponseStatus :: Lens' BatchGetResourceConfigResponse Int
-bgrcrrsResponseStatus = lens _bgrcrrsResponseStatus (\s a -> s {_bgrcrrsResponseStatus = a})
+-- | The response's http status code.
+batchGetResourceConfigResponse_httpStatus :: Lens.Lens' BatchGetResourceConfigResponse Prelude.Int
+batchGetResourceConfigResponse_httpStatus = Lens.lens (\BatchGetResourceConfigResponse' {httpStatus} -> httpStatus) (\s@BatchGetResourceConfigResponse' {} a -> s {httpStatus = a} :: BatchGetResourceConfigResponse)
 
-instance NFData BatchGetResourceConfigResponse
+instance
+  Prelude.NFData
+    BatchGetResourceConfigResponse

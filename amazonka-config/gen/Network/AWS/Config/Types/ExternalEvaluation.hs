@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,98 +20,120 @@
 module Network.AWS.Config.Types.ExternalEvaluation where
 
 import Network.AWS.Config.Types.ComplianceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Identifies an AWS resource and indicates whether it complies with the AWS Config rule that it was evaluated against.
+-- | Identifies an AWS resource and indicates whether it complies with the
+-- AWS Config rule that it was evaluated against.
 --
---
---
--- /See:/ 'externalEvaluation' smart constructor.
+-- /See:/ 'newExternalEvaluation' smart constructor.
 data ExternalEvaluation = ExternalEvaluation'
-  { _eeAnnotation ::
-      !(Maybe Text),
-    _eeComplianceResourceType ::
-      !Text,
-    _eeComplianceResourceId :: !Text,
-    _eeComplianceType ::
-      !ComplianceType,
-    _eeOrderingTimestamp :: !POSIX
+  { -- | Supplementary information about the reason of compliance. For example,
+    -- this task was completed on a specific date.
+    annotation :: Prelude.Maybe Prelude.Text,
+    -- | The evaluated compliance resource type. AWS Config accepts
+    -- @AWS::::Account@ resource type.
+    complianceResourceType :: Prelude.Text,
+    -- | The evaluated compliance resource ID. AWS Config accepts only AWS
+    -- account ID.
+    complianceResourceId :: Prelude.Text,
+    -- | The compliance of the AWS resource. The valid values are
+    -- @COMPLIANT, NON_COMPLIANT, @ and @NOT_APPLICABLE@.
+    complianceType :: ComplianceType,
+    -- | The time when the compliance was recorded.
+    orderingTimestamp :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExternalEvaluation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExternalEvaluation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eeAnnotation' - Supplementary information about the reason of compliance. For example, this task was completed on a specific date.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eeComplianceResourceType' - The evaluated compliance resource type. AWS Config accepts @AWS::::Account@ resource type.
+-- 'annotation', 'externalEvaluation_annotation' - Supplementary information about the reason of compliance. For example,
+-- this task was completed on a specific date.
 --
--- * 'eeComplianceResourceId' - The evaluated compliance resource ID. AWS Config accepts only AWS account ID.
+-- 'complianceResourceType', 'externalEvaluation_complianceResourceType' - The evaluated compliance resource type. AWS Config accepts
+-- @AWS::::Account@ resource type.
 --
--- * 'eeComplianceType' - The compliance of the AWS resource. The valid values are @COMPLIANT, NON_COMPLIANT, @ and @NOT_APPLICABLE@ .
+-- 'complianceResourceId', 'externalEvaluation_complianceResourceId' - The evaluated compliance resource ID. AWS Config accepts only AWS
+-- account ID.
 --
--- * 'eeOrderingTimestamp' - The time when the compliance was recorded.
-externalEvaluation ::
-  -- | 'eeComplianceResourceType'
-  Text ->
-  -- | 'eeComplianceResourceId'
-  Text ->
-  -- | 'eeComplianceType'
+-- 'complianceType', 'externalEvaluation_complianceType' - The compliance of the AWS resource. The valid values are
+-- @COMPLIANT, NON_COMPLIANT, @ and @NOT_APPLICABLE@.
+--
+-- 'orderingTimestamp', 'externalEvaluation_orderingTimestamp' - The time when the compliance was recorded.
+newExternalEvaluation ::
+  -- | 'complianceResourceType'
+  Prelude.Text ->
+  -- | 'complianceResourceId'
+  Prelude.Text ->
+  -- | 'complianceType'
   ComplianceType ->
-  -- | 'eeOrderingTimestamp'
-  UTCTime ->
+  -- | 'orderingTimestamp'
+  Prelude.UTCTime ->
   ExternalEvaluation
-externalEvaluation
+newExternalEvaluation
   pComplianceResourceType_
   pComplianceResourceId_
   pComplianceType_
   pOrderingTimestamp_ =
     ExternalEvaluation'
-      { _eeAnnotation = Nothing,
-        _eeComplianceResourceType = pComplianceResourceType_,
-        _eeComplianceResourceId = pComplianceResourceId_,
-        _eeComplianceType = pComplianceType_,
-        _eeOrderingTimestamp = _Time # pOrderingTimestamp_
+      { annotation = Prelude.Nothing,
+        complianceResourceType = pComplianceResourceType_,
+        complianceResourceId = pComplianceResourceId_,
+        complianceType = pComplianceType_,
+        orderingTimestamp =
+          Prelude._Time Lens.# pOrderingTimestamp_
       }
 
--- | Supplementary information about the reason of compliance. For example, this task was completed on a specific date.
-eeAnnotation :: Lens' ExternalEvaluation (Maybe Text)
-eeAnnotation = lens _eeAnnotation (\s a -> s {_eeAnnotation = a})
+-- | Supplementary information about the reason of compliance. For example,
+-- this task was completed on a specific date.
+externalEvaluation_annotation :: Lens.Lens' ExternalEvaluation (Prelude.Maybe Prelude.Text)
+externalEvaluation_annotation = Lens.lens (\ExternalEvaluation' {annotation} -> annotation) (\s@ExternalEvaluation' {} a -> s {annotation = a} :: ExternalEvaluation)
 
--- | The evaluated compliance resource type. AWS Config accepts @AWS::::Account@ resource type.
-eeComplianceResourceType :: Lens' ExternalEvaluation Text
-eeComplianceResourceType = lens _eeComplianceResourceType (\s a -> s {_eeComplianceResourceType = a})
+-- | The evaluated compliance resource type. AWS Config accepts
+-- @AWS::::Account@ resource type.
+externalEvaluation_complianceResourceType :: Lens.Lens' ExternalEvaluation Prelude.Text
+externalEvaluation_complianceResourceType = Lens.lens (\ExternalEvaluation' {complianceResourceType} -> complianceResourceType) (\s@ExternalEvaluation' {} a -> s {complianceResourceType = a} :: ExternalEvaluation)
 
--- | The evaluated compliance resource ID. AWS Config accepts only AWS account ID.
-eeComplianceResourceId :: Lens' ExternalEvaluation Text
-eeComplianceResourceId = lens _eeComplianceResourceId (\s a -> s {_eeComplianceResourceId = a})
+-- | The evaluated compliance resource ID. AWS Config accepts only AWS
+-- account ID.
+externalEvaluation_complianceResourceId :: Lens.Lens' ExternalEvaluation Prelude.Text
+externalEvaluation_complianceResourceId = Lens.lens (\ExternalEvaluation' {complianceResourceId} -> complianceResourceId) (\s@ExternalEvaluation' {} a -> s {complianceResourceId = a} :: ExternalEvaluation)
 
--- | The compliance of the AWS resource. The valid values are @COMPLIANT, NON_COMPLIANT, @ and @NOT_APPLICABLE@ .
-eeComplianceType :: Lens' ExternalEvaluation ComplianceType
-eeComplianceType = lens _eeComplianceType (\s a -> s {_eeComplianceType = a})
+-- | The compliance of the AWS resource. The valid values are
+-- @COMPLIANT, NON_COMPLIANT, @ and @NOT_APPLICABLE@.
+externalEvaluation_complianceType :: Lens.Lens' ExternalEvaluation ComplianceType
+externalEvaluation_complianceType = Lens.lens (\ExternalEvaluation' {complianceType} -> complianceType) (\s@ExternalEvaluation' {} a -> s {complianceType = a} :: ExternalEvaluation)
 
 -- | The time when the compliance was recorded.
-eeOrderingTimestamp :: Lens' ExternalEvaluation UTCTime
-eeOrderingTimestamp = lens _eeOrderingTimestamp (\s a -> s {_eeOrderingTimestamp = a}) . _Time
+externalEvaluation_orderingTimestamp :: Lens.Lens' ExternalEvaluation Prelude.UTCTime
+externalEvaluation_orderingTimestamp = Lens.lens (\ExternalEvaluation' {orderingTimestamp} -> orderingTimestamp) (\s@ExternalEvaluation' {} a -> s {orderingTimestamp = a} :: ExternalEvaluation) Prelude.. Prelude._Time
 
-instance Hashable ExternalEvaluation
+instance Prelude.Hashable ExternalEvaluation
 
-instance NFData ExternalEvaluation
+instance Prelude.NFData ExternalEvaluation
 
-instance ToJSON ExternalEvaluation where
+instance Prelude.ToJSON ExternalEvaluation where
   toJSON ExternalEvaluation' {..} =
-    object
-      ( catMaybes
-          [ ("Annotation" .=) <$> _eeAnnotation,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Annotation" Prelude..=) Prelude.<$> annotation,
+            Prelude.Just
               ( "ComplianceResourceType"
-                  .= _eeComplianceResourceType
+                  Prelude..= complianceResourceType
               ),
-            Just
-              ("ComplianceResourceId" .= _eeComplianceResourceId),
-            Just ("ComplianceType" .= _eeComplianceType),
-            Just ("OrderingTimestamp" .= _eeOrderingTimestamp)
+            Prelude.Just
+              ( "ComplianceResourceId"
+                  Prelude..= complianceResourceId
+              ),
+            Prelude.Just
+              ("ComplianceType" Prelude..= complianceType),
+            Prelude.Just
+              ("OrderingTimestamp" Prelude..= orderingTimestamp)
           ]
       )

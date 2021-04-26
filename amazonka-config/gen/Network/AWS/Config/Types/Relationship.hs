@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,77 @@
 module Network.AWS.Config.Types.Relationship where
 
 import Network.AWS.Config.Types.ResourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The relationship of the related resource to the main resource.
 --
---
---
--- /See:/ 'relationship' smart constructor.
+-- /See:/ 'newRelationship' smart constructor.
 data Relationship = Relationship'
-  { _rResourceId ::
-      !(Maybe Text),
-    _rResourceType :: !(Maybe ResourceType),
-    _rRelationshipName :: !(Maybe Text),
-    _rResourceName :: !(Maybe Text)
+  { -- | The ID of the related resource (for example, @sg-xxxxxx@).
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The resource type of the related resource.
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | The type of relationship with the related resource.
+    relationshipName :: Prelude.Maybe Prelude.Text,
+    -- | The custom name of the related resource, if available.
+    resourceName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Relationship' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Relationship' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rResourceId' - The ID of the related resource (for example, @sg-xxxxxx@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rResourceType' - The resource type of the related resource.
+-- 'resourceId', 'relationship_resourceId' - The ID of the related resource (for example, @sg-xxxxxx@).
 --
--- * 'rRelationshipName' - The type of relationship with the related resource.
+-- 'resourceType', 'relationship_resourceType' - The resource type of the related resource.
 --
--- * 'rResourceName' - The custom name of the related resource, if available.
-relationship ::
+-- 'relationshipName', 'relationship_relationshipName' - The type of relationship with the related resource.
+--
+-- 'resourceName', 'relationship_resourceName' - The custom name of the related resource, if available.
+newRelationship ::
   Relationship
-relationship =
+newRelationship =
   Relationship'
-    { _rResourceId = Nothing,
-      _rResourceType = Nothing,
-      _rRelationshipName = Nothing,
-      _rResourceName = Nothing
+    { resourceId = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      relationshipName = Prelude.Nothing,
+      resourceName = Prelude.Nothing
     }
 
--- | The ID of the related resource (for example, @sg-xxxxxx@ ).
-rResourceId :: Lens' Relationship (Maybe Text)
-rResourceId = lens _rResourceId (\s a -> s {_rResourceId = a})
+-- | The ID of the related resource (for example, @sg-xxxxxx@).
+relationship_resourceId :: Lens.Lens' Relationship (Prelude.Maybe Prelude.Text)
+relationship_resourceId = Lens.lens (\Relationship' {resourceId} -> resourceId) (\s@Relationship' {} a -> s {resourceId = a} :: Relationship)
 
 -- | The resource type of the related resource.
-rResourceType :: Lens' Relationship (Maybe ResourceType)
-rResourceType = lens _rResourceType (\s a -> s {_rResourceType = a})
+relationship_resourceType :: Lens.Lens' Relationship (Prelude.Maybe ResourceType)
+relationship_resourceType = Lens.lens (\Relationship' {resourceType} -> resourceType) (\s@Relationship' {} a -> s {resourceType = a} :: Relationship)
 
 -- | The type of relationship with the related resource.
-rRelationshipName :: Lens' Relationship (Maybe Text)
-rRelationshipName = lens _rRelationshipName (\s a -> s {_rRelationshipName = a})
+relationship_relationshipName :: Lens.Lens' Relationship (Prelude.Maybe Prelude.Text)
+relationship_relationshipName = Lens.lens (\Relationship' {relationshipName} -> relationshipName) (\s@Relationship' {} a -> s {relationshipName = a} :: Relationship)
 
 -- | The custom name of the related resource, if available.
-rResourceName :: Lens' Relationship (Maybe Text)
-rResourceName = lens _rResourceName (\s a -> s {_rResourceName = a})
+relationship_resourceName :: Lens.Lens' Relationship (Prelude.Maybe Prelude.Text)
+relationship_resourceName = Lens.lens (\Relationship' {resourceName} -> resourceName) (\s@Relationship' {} a -> s {resourceName = a} :: Relationship)
 
-instance FromJSON Relationship where
+instance Prelude.FromJSON Relationship where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Relationship"
       ( \x ->
           Relationship'
-            <$> (x .:? "resourceId")
-            <*> (x .:? "resourceType")
-            <*> (x .:? "relationshipName")
-            <*> (x .:? "resourceName")
+            Prelude.<$> (x Prelude..:? "resourceId")
+            Prelude.<*> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "relationshipName")
+            Prelude.<*> (x Prelude..:? "resourceName")
       )
 
-instance Hashable Relationship
+instance Prelude.Hashable Relationship
 
-instance NFData Relationship
+instance Prelude.NFData Relationship

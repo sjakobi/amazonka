@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.Config.Types.MessageType
   ( MessageType
       ( ..,
-        MTConfigurationItemChangeNotification,
-        MTConfigurationSnapshotDeliveryCompleted,
-        MTOversizedConfigurationItemChangeNotification,
-        MTScheduledNotification
+        MessageTypeConfigurationItemChangeNotification,
+        MessageTypeConfigurationSnapshotDeliveryCompleted,
+        MessageTypeOversizedConfigurationItemChangeNotification,
+        MessageTypeScheduledNotification
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MessageType = MessageType' (CI Text)
+newtype MessageType = MessageType'
+  { fromMessageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MTConfigurationItemChangeNotification :: MessageType
-pattern MTConfigurationItemChangeNotification = MessageType' "ConfigurationItemChangeNotification"
+pattern MessageTypeConfigurationItemChangeNotification :: MessageType
+pattern MessageTypeConfigurationItemChangeNotification = MessageType' "ConfigurationItemChangeNotification"
 
-pattern MTConfigurationSnapshotDeliveryCompleted :: MessageType
-pattern MTConfigurationSnapshotDeliveryCompleted = MessageType' "ConfigurationSnapshotDeliveryCompleted"
+pattern MessageTypeConfigurationSnapshotDeliveryCompleted :: MessageType
+pattern MessageTypeConfigurationSnapshotDeliveryCompleted = MessageType' "ConfigurationSnapshotDeliveryCompleted"
 
-pattern MTOversizedConfigurationItemChangeNotification :: MessageType
-pattern MTOversizedConfigurationItemChangeNotification = MessageType' "OversizedConfigurationItemChangeNotification"
+pattern MessageTypeOversizedConfigurationItemChangeNotification :: MessageType
+pattern MessageTypeOversizedConfigurationItemChangeNotification = MessageType' "OversizedConfigurationItemChangeNotification"
 
-pattern MTScheduledNotification :: MessageType
-pattern MTScheduledNotification = MessageType' "ScheduledNotification"
+pattern MessageTypeScheduledNotification :: MessageType
+pattern MessageTypeScheduledNotification = MessageType' "ScheduledNotification"
 
 {-# COMPLETE
-  MTConfigurationItemChangeNotification,
-  MTConfigurationSnapshotDeliveryCompleted,
-  MTOversizedConfigurationItemChangeNotification,
-  MTScheduledNotification,
+  MessageTypeConfigurationItemChangeNotification,
+  MessageTypeConfigurationSnapshotDeliveryCompleted,
+  MessageTypeOversizedConfigurationItemChangeNotification,
+  MessageTypeScheduledNotification,
   MessageType'
   #-}
 
-instance FromText MessageType where
-  parser = (MessageType' . mk) <$> takeText
+instance Prelude.FromText MessageType where
+  parser = MessageType' Prelude.<$> Prelude.takeText
 
-instance ToText MessageType where
-  toText (MessageType' ci) = original ci
+instance Prelude.ToText MessageType where
+  toText (MessageType' x) = x
 
-instance Hashable MessageType
+instance Prelude.Hashable MessageType
 
-instance NFData MessageType
+instance Prelude.NFData MessageType
 
-instance ToByteString MessageType
+instance Prelude.ToByteString MessageType
 
-instance ToQuery MessageType
+instance Prelude.ToQuery MessageType
 
-instance ToHeader MessageType
+instance Prelude.ToHeader MessageType
 
-instance ToJSON MessageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MessageType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MessageType where
-  parseJSON = parseJSONText "MessageType"
+instance Prelude.FromJSON MessageType where
+  parseJSON = Prelude.parseJSONText "MessageType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Config.Types.DeliveryStatus
   ( DeliveryStatus
       ( ..,
-        DSFailure,
-        DSNotApplicable,
-        DSSuccess
+        DeliveryStatusFailure,
+        DeliveryStatusNotApplicable,
+        DeliveryStatusSuccess
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeliveryStatus = DeliveryStatus' (CI Text)
+newtype DeliveryStatus = DeliveryStatus'
+  { fromDeliveryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSFailure :: DeliveryStatus
-pattern DSFailure = DeliveryStatus' "Failure"
+pattern DeliveryStatusFailure :: DeliveryStatus
+pattern DeliveryStatusFailure = DeliveryStatus' "Failure"
 
-pattern DSNotApplicable :: DeliveryStatus
-pattern DSNotApplicable = DeliveryStatus' "Not_Applicable"
+pattern DeliveryStatusNotApplicable :: DeliveryStatus
+pattern DeliveryStatusNotApplicable = DeliveryStatus' "Not_Applicable"
 
-pattern DSSuccess :: DeliveryStatus
-pattern DSSuccess = DeliveryStatus' "Success"
+pattern DeliveryStatusSuccess :: DeliveryStatus
+pattern DeliveryStatusSuccess = DeliveryStatus' "Success"
 
 {-# COMPLETE
-  DSFailure,
-  DSNotApplicable,
-  DSSuccess,
+  DeliveryStatusFailure,
+  DeliveryStatusNotApplicable,
+  DeliveryStatusSuccess,
   DeliveryStatus'
   #-}
 
-instance FromText DeliveryStatus where
-  parser = (DeliveryStatus' . mk) <$> takeText
+instance Prelude.FromText DeliveryStatus where
+  parser = DeliveryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DeliveryStatus where
-  toText (DeliveryStatus' ci) = original ci
+instance Prelude.ToText DeliveryStatus where
+  toText (DeliveryStatus' x) = x
 
-instance Hashable DeliveryStatus
+instance Prelude.Hashable DeliveryStatus
 
-instance NFData DeliveryStatus
+instance Prelude.NFData DeliveryStatus
 
-instance ToByteString DeliveryStatus
+instance Prelude.ToByteString DeliveryStatus
 
-instance ToQuery DeliveryStatus
+instance Prelude.ToQuery DeliveryStatus
 
-instance ToHeader DeliveryStatus
+instance Prelude.ToHeader DeliveryStatus
 
-instance FromJSON DeliveryStatus where
-  parseJSON = parseJSONText "DeliveryStatus"
+instance Prelude.FromJSON DeliveryStatus where
+  parseJSON = Prelude.parseJSONText "DeliveryStatus"

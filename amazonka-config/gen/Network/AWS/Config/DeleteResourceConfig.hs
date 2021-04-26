@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,128 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Records the configuration state for a custom resource that has been deleted. This API records a new ConfigurationItem with a ResourceDeleted status. You can retrieve the ConfigurationItems recorded for this resource in your AWS Config History.
+-- Records the configuration state for a custom resource that has been
+-- deleted. This API records a new ConfigurationItem with a ResourceDeleted
+-- status. You can retrieve the ConfigurationItems recorded for this
+-- resource in your AWS Config History.
 module Network.AWS.Config.DeleteResourceConfig
   ( -- * Creating a Request
-    deleteResourceConfig,
-    DeleteResourceConfig,
+    DeleteResourceConfig (..),
+    newDeleteResourceConfig,
 
     -- * Request Lenses
-    drcResourceType,
-    drcResourceId,
+    deleteResourceConfig_resourceType,
+    deleteResourceConfig_resourceId,
 
     -- * Destructuring the Response
-    deleteResourceConfigResponse,
-    DeleteResourceConfigResponse,
+    DeleteResourceConfigResponse (..),
+    newDeleteResourceConfigResponse,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteResourceConfig' smart constructor.
+-- | /See:/ 'newDeleteResourceConfig' smart constructor.
 data DeleteResourceConfig = DeleteResourceConfig'
-  { _drcResourceType ::
-      !Text,
-    _drcResourceId :: !Text
+  { -- | The type of the resource.
+    resourceType :: Prelude.Text,
+    -- | Unique identifier of the resource.
+    resourceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourceConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteResourceConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcResourceType' - The type of the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drcResourceId' - Unique identifier of the resource.
-deleteResourceConfig ::
-  -- | 'drcResourceType'
-  Text ->
-  -- | 'drcResourceId'
-  Text ->
+-- 'resourceType', 'deleteResourceConfig_resourceType' - The type of the resource.
+--
+-- 'resourceId', 'deleteResourceConfig_resourceId' - Unique identifier of the resource.
+newDeleteResourceConfig ::
+  -- | 'resourceType'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
   DeleteResourceConfig
-deleteResourceConfig pResourceType_ pResourceId_ =
+newDeleteResourceConfig pResourceType_ pResourceId_ =
   DeleteResourceConfig'
-    { _drcResourceType =
+    { resourceType =
         pResourceType_,
-      _drcResourceId = pResourceId_
+      resourceId = pResourceId_
     }
 
 -- | The type of the resource.
-drcResourceType :: Lens' DeleteResourceConfig Text
-drcResourceType = lens _drcResourceType (\s a -> s {_drcResourceType = a})
+deleteResourceConfig_resourceType :: Lens.Lens' DeleteResourceConfig Prelude.Text
+deleteResourceConfig_resourceType = Lens.lens (\DeleteResourceConfig' {resourceType} -> resourceType) (\s@DeleteResourceConfig' {} a -> s {resourceType = a} :: DeleteResourceConfig)
 
 -- | Unique identifier of the resource.
-drcResourceId :: Lens' DeleteResourceConfig Text
-drcResourceId = lens _drcResourceId (\s a -> s {_drcResourceId = a})
+deleteResourceConfig_resourceId :: Lens.Lens' DeleteResourceConfig Prelude.Text
+deleteResourceConfig_resourceId = Lens.lens (\DeleteResourceConfig' {resourceId} -> resourceId) (\s@DeleteResourceConfig' {} a -> s {resourceId = a} :: DeleteResourceConfig)
 
-instance AWSRequest DeleteResourceConfig where
+instance Prelude.AWSRequest DeleteResourceConfig where
   type
     Rs DeleteResourceConfig =
       DeleteResourceConfigResponse
-  request = postJSON config
-  response = receiveNull DeleteResourceConfigResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteResourceConfigResponse'
 
-instance Hashable DeleteResourceConfig
+instance Prelude.Hashable DeleteResourceConfig
 
-instance NFData DeleteResourceConfig
+instance Prelude.NFData DeleteResourceConfig
 
-instance ToHeaders DeleteResourceConfig where
+instance Prelude.ToHeaders DeleteResourceConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DeleteResourceConfig" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.DeleteResourceConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteResourceConfig where
+instance Prelude.ToJSON DeleteResourceConfig where
   toJSON DeleteResourceConfig' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceType" .= _drcResourceType),
-            Just ("ResourceId" .= _drcResourceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceType" Prelude..= resourceType),
+            Prelude.Just ("ResourceId" Prelude..= resourceId)
           ]
       )
 
-instance ToPath DeleteResourceConfig where
-  toPath = const "/"
+instance Prelude.ToPath DeleteResourceConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteResourceConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteResourceConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteResourceConfigResponse' smart constructor.
+-- | /See:/ 'newDeleteResourceConfigResponse' smart constructor.
 data DeleteResourceConfigResponse = DeleteResourceConfigResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourceConfigResponse' with the minimum fields required to make a request.
-deleteResourceConfigResponse ::
+-- |
+-- Create a value of 'DeleteResourceConfigResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteResourceConfigResponse ::
   DeleteResourceConfigResponse
-deleteResourceConfigResponse =
+newDeleteResourceConfigResponse =
   DeleteResourceConfigResponse'
 
-instance NFData DeleteResourceConfigResponse
+instance Prelude.NFData DeleteResourceConfigResponse

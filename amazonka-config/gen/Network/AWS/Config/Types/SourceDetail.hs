@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,75 +22,187 @@ module Network.AWS.Config.Types.SourceDetail where
 import Network.AWS.Config.Types.EventSource
 import Network.AWS.Config.Types.MaximumExecutionFrequency
 import Network.AWS.Config.Types.MessageType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the source and the message types that trigger AWS Config to evaluate your AWS resources against a rule. It also provides the frequency with which you want AWS Config to run evaluations for the rule if the trigger type is periodic. You can specify the parameter values for @SourceDetail@ only for custom rules.
+-- | Provides the source and the message types that trigger AWS Config to
+-- evaluate your AWS resources against a rule. It also provides the
+-- frequency with which you want AWS Config to run evaluations for the rule
+-- if the trigger type is periodic. You can specify the parameter values
+-- for @SourceDetail@ only for custom rules.
 --
---
---
--- /See:/ 'sourceDetail' smart constructor.
+-- /See:/ 'newSourceDetail' smart constructor.
 data SourceDetail = SourceDetail'
-  { _sdEventSource ::
-      !(Maybe EventSource),
-    _sdMaximumExecutionFrequency ::
-      !(Maybe MaximumExecutionFrequency),
-    _sdMessageType :: !(Maybe MessageType)
+  { -- | The source of the event, such as an AWS service, that triggers AWS
+    -- Config to evaluate your AWS resources.
+    eventSource :: Prelude.Maybe EventSource,
+    -- | The frequency at which you want AWS Config to run evaluations for a
+    -- custom rule with a periodic trigger. If you specify a value for
+    -- @MaximumExecutionFrequency@, then @MessageType@ must use the
+    -- @ScheduledNotification@ value.
+    --
+    -- By default, rules with a periodic trigger are evaluated every 24 hours.
+    -- To change the frequency, specify a valid value for the
+    -- @MaximumExecutionFrequency@ parameter.
+    --
+    -- Based on the valid value you choose, AWS Config runs evaluations once
+    -- for each valid value. For example, if you choose @Three_Hours@, AWS
+    -- Config runs evaluations once every three hours. In this case,
+    -- @Three_Hours@ is the frequency of this rule.
+    maximumExecutionFrequency :: Prelude.Maybe MaximumExecutionFrequency,
+    -- | The type of notification that triggers AWS Config to run an evaluation
+    -- for a rule. You can specify the following notification types:
+    --
+    -- -   @ConfigurationItemChangeNotification@ - Triggers an evaluation when
+    --     AWS Config delivers a configuration item as a result of a resource
+    --     change.
+    --
+    -- -   @OversizedConfigurationItemChangeNotification@ - Triggers an
+    --     evaluation when AWS Config delivers an oversized configuration item.
+    --     AWS Config may generate this notification type when a resource
+    --     changes and the notification exceeds the maximum size allowed by
+    --     Amazon SNS.
+    --
+    -- -   @ScheduledNotification@ - Triggers a periodic evaluation at the
+    --     frequency specified for @MaximumExecutionFrequency@.
+    --
+    -- -   @ConfigurationSnapshotDeliveryCompleted@ - Triggers a periodic
+    --     evaluation when AWS Config delivers a configuration snapshot.
+    --
+    -- If you want your custom rule to be triggered by configuration changes,
+    -- specify two SourceDetail objects, one for
+    -- @ConfigurationItemChangeNotification@ and one for
+    -- @OversizedConfigurationItemChangeNotification@.
+    messageType :: Prelude.Maybe MessageType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SourceDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SourceDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdEventSource' - The source of the event, such as an AWS service, that triggers AWS Config to evaluate your AWS resources.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdMaximumExecutionFrequency' - The frequency at which you want AWS Config to run evaluations for a custom rule with a periodic trigger. If you specify a value for @MaximumExecutionFrequency@ , then @MessageType@ must use the @ScheduledNotification@ value.
+-- 'eventSource', 'sourceDetail_eventSource' - The source of the event, such as an AWS service, that triggers AWS
+-- Config to evaluate your AWS resources.
 --
--- * 'sdMessageType' - The type of notification that triggers AWS Config to run an evaluation for a rule. You can specify the following notification types:     * @ConfigurationItemChangeNotification@ - Triggers an evaluation when AWS Config delivers a configuration item as a result of a resource change.     * @OversizedConfigurationItemChangeNotification@ - Triggers an evaluation when AWS Config delivers an oversized configuration item. AWS Config may generate this notification type when a resource changes and the notification exceeds the maximum size allowed by Amazon SNS.     * @ScheduledNotification@ - Triggers a periodic evaluation at the frequency specified for @MaximumExecutionFrequency@ .     * @ConfigurationSnapshotDeliveryCompleted@ - Triggers a periodic evaluation when AWS Config delivers a configuration snapshot. If you want your custom rule to be triggered by configuration changes, specify two SourceDetail objects, one for @ConfigurationItemChangeNotification@ and one for @OversizedConfigurationItemChangeNotification@ .
-sourceDetail ::
+-- 'maximumExecutionFrequency', 'sourceDetail_maximumExecutionFrequency' - The frequency at which you want AWS Config to run evaluations for a
+-- custom rule with a periodic trigger. If you specify a value for
+-- @MaximumExecutionFrequency@, then @MessageType@ must use the
+-- @ScheduledNotification@ value.
+--
+-- By default, rules with a periodic trigger are evaluated every 24 hours.
+-- To change the frequency, specify a valid value for the
+-- @MaximumExecutionFrequency@ parameter.
+--
+-- Based on the valid value you choose, AWS Config runs evaluations once
+-- for each valid value. For example, if you choose @Three_Hours@, AWS
+-- Config runs evaluations once every three hours. In this case,
+-- @Three_Hours@ is the frequency of this rule.
+--
+-- 'messageType', 'sourceDetail_messageType' - The type of notification that triggers AWS Config to run an evaluation
+-- for a rule. You can specify the following notification types:
+--
+-- -   @ConfigurationItemChangeNotification@ - Triggers an evaluation when
+--     AWS Config delivers a configuration item as a result of a resource
+--     change.
+--
+-- -   @OversizedConfigurationItemChangeNotification@ - Triggers an
+--     evaluation when AWS Config delivers an oversized configuration item.
+--     AWS Config may generate this notification type when a resource
+--     changes and the notification exceeds the maximum size allowed by
+--     Amazon SNS.
+--
+-- -   @ScheduledNotification@ - Triggers a periodic evaluation at the
+--     frequency specified for @MaximumExecutionFrequency@.
+--
+-- -   @ConfigurationSnapshotDeliveryCompleted@ - Triggers a periodic
+--     evaluation when AWS Config delivers a configuration snapshot.
+--
+-- If you want your custom rule to be triggered by configuration changes,
+-- specify two SourceDetail objects, one for
+-- @ConfigurationItemChangeNotification@ and one for
+-- @OversizedConfigurationItemChangeNotification@.
+newSourceDetail ::
   SourceDetail
-sourceDetail =
+newSourceDetail =
   SourceDetail'
-    { _sdEventSource = Nothing,
-      _sdMaximumExecutionFrequency = Nothing,
-      _sdMessageType = Nothing
+    { eventSource = Prelude.Nothing,
+      maximumExecutionFrequency = Prelude.Nothing,
+      messageType = Prelude.Nothing
     }
 
--- | The source of the event, such as an AWS service, that triggers AWS Config to evaluate your AWS resources.
-sdEventSource :: Lens' SourceDetail (Maybe EventSource)
-sdEventSource = lens _sdEventSource (\s a -> s {_sdEventSource = a})
+-- | The source of the event, such as an AWS service, that triggers AWS
+-- Config to evaluate your AWS resources.
+sourceDetail_eventSource :: Lens.Lens' SourceDetail (Prelude.Maybe EventSource)
+sourceDetail_eventSource = Lens.lens (\SourceDetail' {eventSource} -> eventSource) (\s@SourceDetail' {} a -> s {eventSource = a} :: SourceDetail)
 
--- | The frequency at which you want AWS Config to run evaluations for a custom rule with a periodic trigger. If you specify a value for @MaximumExecutionFrequency@ , then @MessageType@ must use the @ScheduledNotification@ value.
-sdMaximumExecutionFrequency :: Lens' SourceDetail (Maybe MaximumExecutionFrequency)
-sdMaximumExecutionFrequency = lens _sdMaximumExecutionFrequency (\s a -> s {_sdMaximumExecutionFrequency = a})
+-- | The frequency at which you want AWS Config to run evaluations for a
+-- custom rule with a periodic trigger. If you specify a value for
+-- @MaximumExecutionFrequency@, then @MessageType@ must use the
+-- @ScheduledNotification@ value.
+--
+-- By default, rules with a periodic trigger are evaluated every 24 hours.
+-- To change the frequency, specify a valid value for the
+-- @MaximumExecutionFrequency@ parameter.
+--
+-- Based on the valid value you choose, AWS Config runs evaluations once
+-- for each valid value. For example, if you choose @Three_Hours@, AWS
+-- Config runs evaluations once every three hours. In this case,
+-- @Three_Hours@ is the frequency of this rule.
+sourceDetail_maximumExecutionFrequency :: Lens.Lens' SourceDetail (Prelude.Maybe MaximumExecutionFrequency)
+sourceDetail_maximumExecutionFrequency = Lens.lens (\SourceDetail' {maximumExecutionFrequency} -> maximumExecutionFrequency) (\s@SourceDetail' {} a -> s {maximumExecutionFrequency = a} :: SourceDetail)
 
--- | The type of notification that triggers AWS Config to run an evaluation for a rule. You can specify the following notification types:     * @ConfigurationItemChangeNotification@ - Triggers an evaluation when AWS Config delivers a configuration item as a result of a resource change.     * @OversizedConfigurationItemChangeNotification@ - Triggers an evaluation when AWS Config delivers an oversized configuration item. AWS Config may generate this notification type when a resource changes and the notification exceeds the maximum size allowed by Amazon SNS.     * @ScheduledNotification@ - Triggers a periodic evaluation at the frequency specified for @MaximumExecutionFrequency@ .     * @ConfigurationSnapshotDeliveryCompleted@ - Triggers a periodic evaluation when AWS Config delivers a configuration snapshot. If you want your custom rule to be triggered by configuration changes, specify two SourceDetail objects, one for @ConfigurationItemChangeNotification@ and one for @OversizedConfigurationItemChangeNotification@ .
-sdMessageType :: Lens' SourceDetail (Maybe MessageType)
-sdMessageType = lens _sdMessageType (\s a -> s {_sdMessageType = a})
+-- | The type of notification that triggers AWS Config to run an evaluation
+-- for a rule. You can specify the following notification types:
+--
+-- -   @ConfigurationItemChangeNotification@ - Triggers an evaluation when
+--     AWS Config delivers a configuration item as a result of a resource
+--     change.
+--
+-- -   @OversizedConfigurationItemChangeNotification@ - Triggers an
+--     evaluation when AWS Config delivers an oversized configuration item.
+--     AWS Config may generate this notification type when a resource
+--     changes and the notification exceeds the maximum size allowed by
+--     Amazon SNS.
+--
+-- -   @ScheduledNotification@ - Triggers a periodic evaluation at the
+--     frequency specified for @MaximumExecutionFrequency@.
+--
+-- -   @ConfigurationSnapshotDeliveryCompleted@ - Triggers a periodic
+--     evaluation when AWS Config delivers a configuration snapshot.
+--
+-- If you want your custom rule to be triggered by configuration changes,
+-- specify two SourceDetail objects, one for
+-- @ConfigurationItemChangeNotification@ and one for
+-- @OversizedConfigurationItemChangeNotification@.
+sourceDetail_messageType :: Lens.Lens' SourceDetail (Prelude.Maybe MessageType)
+sourceDetail_messageType = Lens.lens (\SourceDetail' {messageType} -> messageType) (\s@SourceDetail' {} a -> s {messageType = a} :: SourceDetail)
 
-instance FromJSON SourceDetail where
+instance Prelude.FromJSON SourceDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SourceDetail"
       ( \x ->
           SourceDetail'
-            <$> (x .:? "EventSource")
-            <*> (x .:? "MaximumExecutionFrequency")
-            <*> (x .:? "MessageType")
+            Prelude.<$> (x Prelude..:? "EventSource")
+            Prelude.<*> (x Prelude..:? "MaximumExecutionFrequency")
+            Prelude.<*> (x Prelude..:? "MessageType")
       )
 
-instance Hashable SourceDetail
+instance Prelude.Hashable SourceDetail
 
-instance NFData SourceDetail
+instance Prelude.NFData SourceDetail
 
-instance ToJSON SourceDetail where
+instance Prelude.ToJSON SourceDetail where
   toJSON SourceDetail' {..} =
-    object
-      ( catMaybes
-          [ ("EventSource" .=) <$> _sdEventSource,
-            ("MaximumExecutionFrequency" .=)
-              <$> _sdMaximumExecutionFrequency,
-            ("MessageType" .=) <$> _sdMessageType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EventSource" Prelude..=) Prelude.<$> eventSource,
+            ("MaximumExecutionFrequency" Prelude..=)
+              Prelude.<$> maximumExecutionFrequency,
+            ("MessageType" Prelude..=) Prelude.<$> messageType
           ]
       )

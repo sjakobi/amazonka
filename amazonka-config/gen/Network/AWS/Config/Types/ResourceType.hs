@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,526 +19,528 @@
 module Network.AWS.Config.Types.ResourceType
   ( ResourceType
       ( ..,
-        AWSAPIGATEWAYV2API,
-        AWSAPIGATEWAYV2Stage,
-        AWSAPIGatewayRestAPI,
-        AWSAPIGatewayStage,
-        AWSAcmCertificate,
-        AWSAutoScalingAutoScalingGroup,
-        AWSAutoScalingLaunchConfiguration,
-        AWSAutoScalingScalingPolicy,
-        AWSAutoScalingScheduledAction,
-        AWSCloudFormationStack,
-        AWSCloudFrontDistribution,
-        AWSCloudFrontStreamingDistribution,
-        AWSCloudTrailTrail,
-        AWSCloudWatchAlarm,
-        AWSCodeBuildProject,
-        AWSCodePipelinePipeline,
-        AWSConfigResourceCompliance,
-        AWSDynamoDBTable,
-        AWSEC2CustomerGateway,
-        AWSEC2EIP,
-        AWSEC2EgressOnlyInternetGateway,
-        AWSEC2FlowLog,
-        AWSEC2Host,
-        AWSEC2Instance,
-        AWSEC2InternetGateway,
-        AWSEC2NatGateway,
-        AWSEC2NetworkACL,
-        AWSEC2NetworkInterface,
-        AWSEC2RegisteredHAInstance,
-        AWSEC2RouteTable,
-        AWSEC2SecurityGroup,
-        AWSEC2Subnet,
-        AWSEC2VPC,
-        AWSEC2VPCEndpoint,
-        AWSEC2VPCEndpointService,
-        AWSEC2VPCPeeringConnection,
-        AWSEC2VPNConnection,
-        AWSEC2VPNGateway,
-        AWSEC2Volume,
-        AWSELASTICLOADBALANCINGV2LoadBalancer,
-        AWSElasticBeanstalkApplication,
-        AWSElasticBeanstalkApplicationVersion,
-        AWSElasticBeanstalkEnvironment,
-        AWSElasticLoadBalancingLoadBalancer,
-        AWSElasticsearchDomain,
-        AWSIAMGroup,
-        AWSIAMPolicy,
-        AWSIAMRole,
-        AWSIAMUser,
-        AWSKMSKey,
-        AWSLambdaFunction,
-        AWSNetworkFirewallFirewall,
-        AWSNetworkFirewallFirewallPolicy,
-        AWSNetworkFirewallRuleGroup,
-        AWSQldbLedger,
-        AWSRDSDBCluster,
-        AWSRDSDBClusterSnapshot,
-        AWSRDSDBInstance,
-        AWSRDSDBSecurityGroup,
-        AWSRDSDBSnapshot,
-        AWSRDSDBSubnetGroup,
-        AWSRDSEventSubscription,
-        AWSRedshiftCluster,
-        AWSRedshiftClusterParameterGroup,
-        AWSRedshiftClusterSecurityGroup,
-        AWSRedshiftClusterSnapshot,
-        AWSRedshiftClusterSubnetGroup,
-        AWSRedshiftEventSubscription,
-        AWSS3AccountPublicAccessBlock,
-        AWSS3Bucket,
-        AWSSNSTopic,
-        AWSSecretsManagerSecret,
-        AWSServiceCatalogCloudFormationProduct,
-        AWSServiceCatalogCloudFormationProvisionedProduct,
-        AWSServiceCatalogPortfolio,
-        AWSShieldProtection,
-        AWSShieldRegionalProtection,
-        AWSSqsQueue,
-        AWSSsmAssociationCompliance,
-        AWSSsmFileData,
-        AWSSsmManagedInstanceInventory,
-        AWSSsmPatchCompliance,
-        AWSWAFRegionalRateBasedRule,
-        AWSWAFRegionalRule,
-        AWSWAFRegionalRuleGroup,
-        AWSWAFRegionalWebACL,
-        AWSWAFV2IPSet,
-        AWSWAFV2ManagedRuleSet,
-        AWSWAFV2RegexPatternSet,
-        AWSWAFV2RuleGroup,
-        AWSWAFV2WebACL,
-        AWSWafRateBasedRule,
-        AWSWafRule,
-        AWSWafRuleGroup,
-        AWSWafWebACL,
-        AWSXRayEncryptionConfig
+        ResourceTypeAWSACMCertificate,
+        ResourceTypeAWSAPIGATEWAYV2Api,
+        ResourceTypeAWSAPIGATEWAYV2Stage,
+        ResourceTypeAWSApiGatewayRestApi,
+        ResourceTypeAWSApiGatewayStage,
+        ResourceTypeAWSAutoScalingAutoScalingGroup,
+        ResourceTypeAWSAutoScalingLaunchConfiguration,
+        ResourceTypeAWSAutoScalingScalingPolicy,
+        ResourceTypeAWSAutoScalingScheduledAction,
+        ResourceTypeAWSCloudFormationStack,
+        ResourceTypeAWSCloudFrontDistribution,
+        ResourceTypeAWSCloudFrontStreamingDistribution,
+        ResourceTypeAWSCloudTrailTrail,
+        ResourceTypeAWSCloudWatchAlarm,
+        ResourceTypeAWSCodeBuildProject,
+        ResourceTypeAWSCodePipelinePipeline,
+        ResourceTypeAWSConfigResourceCompliance,
+        ResourceTypeAWSDynamoDBTable,
+        ResourceTypeAWSEC2CustomerGateway,
+        ResourceTypeAWSEC2EIP,
+        ResourceTypeAWSEC2EgressOnlyInternetGateway,
+        ResourceTypeAWSEC2FlowLog,
+        ResourceTypeAWSEC2Host,
+        ResourceTypeAWSEC2Instance,
+        ResourceTypeAWSEC2InternetGateway,
+        ResourceTypeAWSEC2NatGateway,
+        ResourceTypeAWSEC2NetworkAcl,
+        ResourceTypeAWSEC2NetworkInterface,
+        ResourceTypeAWSEC2RegisteredHAInstance,
+        ResourceTypeAWSEC2RouteTable,
+        ResourceTypeAWSEC2SecurityGroup,
+        ResourceTypeAWSEC2Subnet,
+        ResourceTypeAWSEC2VPC,
+        ResourceTypeAWSEC2VPCEndpoint,
+        ResourceTypeAWSEC2VPCEndpointService,
+        ResourceTypeAWSEC2VPCPeeringConnection,
+        ResourceTypeAWSEC2VPNConnection,
+        ResourceTypeAWSEC2VPNGateway,
+        ResourceTypeAWSEC2Volume,
+        ResourceTypeAWSELASTICLOADBALANCINGV2LoadBalancer,
+        ResourceTypeAWSElasticBeanstalkApplication,
+        ResourceTypeAWSElasticBeanstalkApplicationVersion,
+        ResourceTypeAWSElasticBeanstalkEnvironment,
+        ResourceTypeAWSElasticLoadBalancingLoadBalancer,
+        ResourceTypeAWSElasticsearchDomain,
+        ResourceTypeAWSIAMGroup,
+        ResourceTypeAWSIAMPolicy,
+        ResourceTypeAWSIAMRole,
+        ResourceTypeAWSIAMUser,
+        ResourceTypeAWSKMSKey,
+        ResourceTypeAWSLambdaFunction,
+        ResourceTypeAWSNetworkFirewallFirewall,
+        ResourceTypeAWSNetworkFirewallFirewallPolicy,
+        ResourceTypeAWSNetworkFirewallRuleGroup,
+        ResourceTypeAWSQLDBLedger,
+        ResourceTypeAWSRDSDBCluster,
+        ResourceTypeAWSRDSDBClusterSnapshot,
+        ResourceTypeAWSRDSDBInstance,
+        ResourceTypeAWSRDSDBSecurityGroup,
+        ResourceTypeAWSRDSDBSnapshot,
+        ResourceTypeAWSRDSDBSubnetGroup,
+        ResourceTypeAWSRDSEventSubscription,
+        ResourceTypeAWSRedshiftCluster,
+        ResourceTypeAWSRedshiftClusterParameterGroup,
+        ResourceTypeAWSRedshiftClusterSecurityGroup,
+        ResourceTypeAWSRedshiftClusterSnapshot,
+        ResourceTypeAWSRedshiftClusterSubnetGroup,
+        ResourceTypeAWSRedshiftEventSubscription,
+        ResourceTypeAWSS3AccountPublicAccessBlock,
+        ResourceTypeAWSS3Bucket,
+        ResourceTypeAWSSNSTopic,
+        ResourceTypeAWSSQSQueue,
+        ResourceTypeAWSSSMAssociationCompliance,
+        ResourceTypeAWSSSMFileData,
+        ResourceTypeAWSSSMManagedInstanceInventory,
+        ResourceTypeAWSSSMPatchCompliance,
+        ResourceTypeAWSSecretsManagerSecret,
+        ResourceTypeAWSServiceCatalogCloudFormationProduct,
+        ResourceTypeAWSServiceCatalogCloudFormationProvisionedProduct,
+        ResourceTypeAWSServiceCatalogPortfolio,
+        ResourceTypeAWSShieldProtection,
+        ResourceTypeAWSShieldRegionalProtection,
+        ResourceTypeAWSWAFRateBasedRule,
+        ResourceTypeAWSWAFRegionalRateBasedRule,
+        ResourceTypeAWSWAFRegionalRule,
+        ResourceTypeAWSWAFRegionalRuleGroup,
+        ResourceTypeAWSWAFRegionalWebACL,
+        ResourceTypeAWSWAFRule,
+        ResourceTypeAWSWAFRuleGroup,
+        ResourceTypeAWSWAFV2IPSet,
+        ResourceTypeAWSWAFV2ManagedRuleSet,
+        ResourceTypeAWSWAFV2RegexPatternSet,
+        ResourceTypeAWSWAFV2RuleGroup,
+        ResourceTypeAWSWAFV2WebACL,
+        ResourceTypeAWSWAFWebACL,
+        ResourceTypeAWSXRayEncryptionConfig
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceType = ResourceType' (CI Text)
+newtype ResourceType = ResourceType'
+  { fromResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSAPIGATEWAYV2API :: ResourceType
-pattern AWSAPIGATEWAYV2API = ResourceType' "AWS::ApiGatewayV2::Api"
+pattern ResourceTypeAWSACMCertificate :: ResourceType
+pattern ResourceTypeAWSACMCertificate = ResourceType' "AWS::ACM::Certificate"
 
-pattern AWSAPIGATEWAYV2Stage :: ResourceType
-pattern AWSAPIGATEWAYV2Stage = ResourceType' "AWS::ApiGatewayV2::Stage"
+pattern ResourceTypeAWSAPIGATEWAYV2Api :: ResourceType
+pattern ResourceTypeAWSAPIGATEWAYV2Api = ResourceType' "AWS::ApiGatewayV2::Api"
 
-pattern AWSAPIGatewayRestAPI :: ResourceType
-pattern AWSAPIGatewayRestAPI = ResourceType' "AWS::ApiGateway::RestApi"
+pattern ResourceTypeAWSAPIGATEWAYV2Stage :: ResourceType
+pattern ResourceTypeAWSAPIGATEWAYV2Stage = ResourceType' "AWS::ApiGatewayV2::Stage"
 
-pattern AWSAPIGatewayStage :: ResourceType
-pattern AWSAPIGatewayStage = ResourceType' "AWS::ApiGateway::Stage"
+pattern ResourceTypeAWSApiGatewayRestApi :: ResourceType
+pattern ResourceTypeAWSApiGatewayRestApi = ResourceType' "AWS::ApiGateway::RestApi"
 
-pattern AWSAcmCertificate :: ResourceType
-pattern AWSAcmCertificate = ResourceType' "AWS::ACM::Certificate"
+pattern ResourceTypeAWSApiGatewayStage :: ResourceType
+pattern ResourceTypeAWSApiGatewayStage = ResourceType' "AWS::ApiGateway::Stage"
 
-pattern AWSAutoScalingAutoScalingGroup :: ResourceType
-pattern AWSAutoScalingAutoScalingGroup = ResourceType' "AWS::AutoScaling::AutoScalingGroup"
+pattern ResourceTypeAWSAutoScalingAutoScalingGroup :: ResourceType
+pattern ResourceTypeAWSAutoScalingAutoScalingGroup = ResourceType' "AWS::AutoScaling::AutoScalingGroup"
 
-pattern AWSAutoScalingLaunchConfiguration :: ResourceType
-pattern AWSAutoScalingLaunchConfiguration = ResourceType' "AWS::AutoScaling::LaunchConfiguration"
+pattern ResourceTypeAWSAutoScalingLaunchConfiguration :: ResourceType
+pattern ResourceTypeAWSAutoScalingLaunchConfiguration = ResourceType' "AWS::AutoScaling::LaunchConfiguration"
 
-pattern AWSAutoScalingScalingPolicy :: ResourceType
-pattern AWSAutoScalingScalingPolicy = ResourceType' "AWS::AutoScaling::ScalingPolicy"
+pattern ResourceTypeAWSAutoScalingScalingPolicy :: ResourceType
+pattern ResourceTypeAWSAutoScalingScalingPolicy = ResourceType' "AWS::AutoScaling::ScalingPolicy"
 
-pattern AWSAutoScalingScheduledAction :: ResourceType
-pattern AWSAutoScalingScheduledAction = ResourceType' "AWS::AutoScaling::ScheduledAction"
+pattern ResourceTypeAWSAutoScalingScheduledAction :: ResourceType
+pattern ResourceTypeAWSAutoScalingScheduledAction = ResourceType' "AWS::AutoScaling::ScheduledAction"
 
-pattern AWSCloudFormationStack :: ResourceType
-pattern AWSCloudFormationStack = ResourceType' "AWS::CloudFormation::Stack"
+pattern ResourceTypeAWSCloudFormationStack :: ResourceType
+pattern ResourceTypeAWSCloudFormationStack = ResourceType' "AWS::CloudFormation::Stack"
 
-pattern AWSCloudFrontDistribution :: ResourceType
-pattern AWSCloudFrontDistribution = ResourceType' "AWS::CloudFront::Distribution"
+pattern ResourceTypeAWSCloudFrontDistribution :: ResourceType
+pattern ResourceTypeAWSCloudFrontDistribution = ResourceType' "AWS::CloudFront::Distribution"
 
-pattern AWSCloudFrontStreamingDistribution :: ResourceType
-pattern AWSCloudFrontStreamingDistribution = ResourceType' "AWS::CloudFront::StreamingDistribution"
+pattern ResourceTypeAWSCloudFrontStreamingDistribution :: ResourceType
+pattern ResourceTypeAWSCloudFrontStreamingDistribution = ResourceType' "AWS::CloudFront::StreamingDistribution"
 
-pattern AWSCloudTrailTrail :: ResourceType
-pattern AWSCloudTrailTrail = ResourceType' "AWS::CloudTrail::Trail"
+pattern ResourceTypeAWSCloudTrailTrail :: ResourceType
+pattern ResourceTypeAWSCloudTrailTrail = ResourceType' "AWS::CloudTrail::Trail"
 
-pattern AWSCloudWatchAlarm :: ResourceType
-pattern AWSCloudWatchAlarm = ResourceType' "AWS::CloudWatch::Alarm"
+pattern ResourceTypeAWSCloudWatchAlarm :: ResourceType
+pattern ResourceTypeAWSCloudWatchAlarm = ResourceType' "AWS::CloudWatch::Alarm"
 
-pattern AWSCodeBuildProject :: ResourceType
-pattern AWSCodeBuildProject = ResourceType' "AWS::CodeBuild::Project"
+pattern ResourceTypeAWSCodeBuildProject :: ResourceType
+pattern ResourceTypeAWSCodeBuildProject = ResourceType' "AWS::CodeBuild::Project"
 
-pattern AWSCodePipelinePipeline :: ResourceType
-pattern AWSCodePipelinePipeline = ResourceType' "AWS::CodePipeline::Pipeline"
+pattern ResourceTypeAWSCodePipelinePipeline :: ResourceType
+pattern ResourceTypeAWSCodePipelinePipeline = ResourceType' "AWS::CodePipeline::Pipeline"
 
-pattern AWSConfigResourceCompliance :: ResourceType
-pattern AWSConfigResourceCompliance = ResourceType' "AWS::Config::ResourceCompliance"
+pattern ResourceTypeAWSConfigResourceCompliance :: ResourceType
+pattern ResourceTypeAWSConfigResourceCompliance = ResourceType' "AWS::Config::ResourceCompliance"
 
-pattern AWSDynamoDBTable :: ResourceType
-pattern AWSDynamoDBTable = ResourceType' "AWS::DynamoDB::Table"
+pattern ResourceTypeAWSDynamoDBTable :: ResourceType
+pattern ResourceTypeAWSDynamoDBTable = ResourceType' "AWS::DynamoDB::Table"
 
-pattern AWSEC2CustomerGateway :: ResourceType
-pattern AWSEC2CustomerGateway = ResourceType' "AWS::EC2::CustomerGateway"
+pattern ResourceTypeAWSEC2CustomerGateway :: ResourceType
+pattern ResourceTypeAWSEC2CustomerGateway = ResourceType' "AWS::EC2::CustomerGateway"
 
-pattern AWSEC2EIP :: ResourceType
-pattern AWSEC2EIP = ResourceType' "AWS::EC2::EIP"
+pattern ResourceTypeAWSEC2EIP :: ResourceType
+pattern ResourceTypeAWSEC2EIP = ResourceType' "AWS::EC2::EIP"
 
-pattern AWSEC2EgressOnlyInternetGateway :: ResourceType
-pattern AWSEC2EgressOnlyInternetGateway = ResourceType' "AWS::EC2::EgressOnlyInternetGateway"
+pattern ResourceTypeAWSEC2EgressOnlyInternetGateway :: ResourceType
+pattern ResourceTypeAWSEC2EgressOnlyInternetGateway = ResourceType' "AWS::EC2::EgressOnlyInternetGateway"
 
-pattern AWSEC2FlowLog :: ResourceType
-pattern AWSEC2FlowLog = ResourceType' "AWS::EC2::FlowLog"
+pattern ResourceTypeAWSEC2FlowLog :: ResourceType
+pattern ResourceTypeAWSEC2FlowLog = ResourceType' "AWS::EC2::FlowLog"
 
-pattern AWSEC2Host :: ResourceType
-pattern AWSEC2Host = ResourceType' "AWS::EC2::Host"
+pattern ResourceTypeAWSEC2Host :: ResourceType
+pattern ResourceTypeAWSEC2Host = ResourceType' "AWS::EC2::Host"
 
-pattern AWSEC2Instance :: ResourceType
-pattern AWSEC2Instance = ResourceType' "AWS::EC2::Instance"
+pattern ResourceTypeAWSEC2Instance :: ResourceType
+pattern ResourceTypeAWSEC2Instance = ResourceType' "AWS::EC2::Instance"
 
-pattern AWSEC2InternetGateway :: ResourceType
-pattern AWSEC2InternetGateway = ResourceType' "AWS::EC2::InternetGateway"
+pattern ResourceTypeAWSEC2InternetGateway :: ResourceType
+pattern ResourceTypeAWSEC2InternetGateway = ResourceType' "AWS::EC2::InternetGateway"
 
-pattern AWSEC2NatGateway :: ResourceType
-pattern AWSEC2NatGateway = ResourceType' "AWS::EC2::NatGateway"
+pattern ResourceTypeAWSEC2NatGateway :: ResourceType
+pattern ResourceTypeAWSEC2NatGateway = ResourceType' "AWS::EC2::NatGateway"
 
-pattern AWSEC2NetworkACL :: ResourceType
-pattern AWSEC2NetworkACL = ResourceType' "AWS::EC2::NetworkAcl"
+pattern ResourceTypeAWSEC2NetworkAcl :: ResourceType
+pattern ResourceTypeAWSEC2NetworkAcl = ResourceType' "AWS::EC2::NetworkAcl"
 
-pattern AWSEC2NetworkInterface :: ResourceType
-pattern AWSEC2NetworkInterface = ResourceType' "AWS::EC2::NetworkInterface"
+pattern ResourceTypeAWSEC2NetworkInterface :: ResourceType
+pattern ResourceTypeAWSEC2NetworkInterface = ResourceType' "AWS::EC2::NetworkInterface"
 
-pattern AWSEC2RegisteredHAInstance :: ResourceType
-pattern AWSEC2RegisteredHAInstance = ResourceType' "AWS::EC2::RegisteredHAInstance"
+pattern ResourceTypeAWSEC2RegisteredHAInstance :: ResourceType
+pattern ResourceTypeAWSEC2RegisteredHAInstance = ResourceType' "AWS::EC2::RegisteredHAInstance"
 
-pattern AWSEC2RouteTable :: ResourceType
-pattern AWSEC2RouteTable = ResourceType' "AWS::EC2::RouteTable"
+pattern ResourceTypeAWSEC2RouteTable :: ResourceType
+pattern ResourceTypeAWSEC2RouteTable = ResourceType' "AWS::EC2::RouteTable"
 
-pattern AWSEC2SecurityGroup :: ResourceType
-pattern AWSEC2SecurityGroup = ResourceType' "AWS::EC2::SecurityGroup"
+pattern ResourceTypeAWSEC2SecurityGroup :: ResourceType
+pattern ResourceTypeAWSEC2SecurityGroup = ResourceType' "AWS::EC2::SecurityGroup"
 
-pattern AWSEC2Subnet :: ResourceType
-pattern AWSEC2Subnet = ResourceType' "AWS::EC2::Subnet"
+pattern ResourceTypeAWSEC2Subnet :: ResourceType
+pattern ResourceTypeAWSEC2Subnet = ResourceType' "AWS::EC2::Subnet"
 
-pattern AWSEC2VPC :: ResourceType
-pattern AWSEC2VPC = ResourceType' "AWS::EC2::VPC"
+pattern ResourceTypeAWSEC2VPC :: ResourceType
+pattern ResourceTypeAWSEC2VPC = ResourceType' "AWS::EC2::VPC"
 
-pattern AWSEC2VPCEndpoint :: ResourceType
-pattern AWSEC2VPCEndpoint = ResourceType' "AWS::EC2::VPCEndpoint"
+pattern ResourceTypeAWSEC2VPCEndpoint :: ResourceType
+pattern ResourceTypeAWSEC2VPCEndpoint = ResourceType' "AWS::EC2::VPCEndpoint"
 
-pattern AWSEC2VPCEndpointService :: ResourceType
-pattern AWSEC2VPCEndpointService = ResourceType' "AWS::EC2::VPCEndpointService"
+pattern ResourceTypeAWSEC2VPCEndpointService :: ResourceType
+pattern ResourceTypeAWSEC2VPCEndpointService = ResourceType' "AWS::EC2::VPCEndpointService"
 
-pattern AWSEC2VPCPeeringConnection :: ResourceType
-pattern AWSEC2VPCPeeringConnection = ResourceType' "AWS::EC2::VPCPeeringConnection"
+pattern ResourceTypeAWSEC2VPCPeeringConnection :: ResourceType
+pattern ResourceTypeAWSEC2VPCPeeringConnection = ResourceType' "AWS::EC2::VPCPeeringConnection"
 
-pattern AWSEC2VPNConnection :: ResourceType
-pattern AWSEC2VPNConnection = ResourceType' "AWS::EC2::VPNConnection"
+pattern ResourceTypeAWSEC2VPNConnection :: ResourceType
+pattern ResourceTypeAWSEC2VPNConnection = ResourceType' "AWS::EC2::VPNConnection"
 
-pattern AWSEC2VPNGateway :: ResourceType
-pattern AWSEC2VPNGateway = ResourceType' "AWS::EC2::VPNGateway"
+pattern ResourceTypeAWSEC2VPNGateway :: ResourceType
+pattern ResourceTypeAWSEC2VPNGateway = ResourceType' "AWS::EC2::VPNGateway"
 
-pattern AWSEC2Volume :: ResourceType
-pattern AWSEC2Volume = ResourceType' "AWS::EC2::Volume"
+pattern ResourceTypeAWSEC2Volume :: ResourceType
+pattern ResourceTypeAWSEC2Volume = ResourceType' "AWS::EC2::Volume"
 
-pattern AWSELASTICLOADBALANCINGV2LoadBalancer :: ResourceType
-pattern AWSELASTICLOADBALANCINGV2LoadBalancer = ResourceType' "AWS::ElasticLoadBalancingV2::LoadBalancer"
+pattern ResourceTypeAWSELASTICLOADBALANCINGV2LoadBalancer :: ResourceType
+pattern ResourceTypeAWSELASTICLOADBALANCINGV2LoadBalancer = ResourceType' "AWS::ElasticLoadBalancingV2::LoadBalancer"
 
-pattern AWSElasticBeanstalkApplication :: ResourceType
-pattern AWSElasticBeanstalkApplication = ResourceType' "AWS::ElasticBeanstalk::Application"
+pattern ResourceTypeAWSElasticBeanstalkApplication :: ResourceType
+pattern ResourceTypeAWSElasticBeanstalkApplication = ResourceType' "AWS::ElasticBeanstalk::Application"
 
-pattern AWSElasticBeanstalkApplicationVersion :: ResourceType
-pattern AWSElasticBeanstalkApplicationVersion = ResourceType' "AWS::ElasticBeanstalk::ApplicationVersion"
+pattern ResourceTypeAWSElasticBeanstalkApplicationVersion :: ResourceType
+pattern ResourceTypeAWSElasticBeanstalkApplicationVersion = ResourceType' "AWS::ElasticBeanstalk::ApplicationVersion"
 
-pattern AWSElasticBeanstalkEnvironment :: ResourceType
-pattern AWSElasticBeanstalkEnvironment = ResourceType' "AWS::ElasticBeanstalk::Environment"
+pattern ResourceTypeAWSElasticBeanstalkEnvironment :: ResourceType
+pattern ResourceTypeAWSElasticBeanstalkEnvironment = ResourceType' "AWS::ElasticBeanstalk::Environment"
 
-pattern AWSElasticLoadBalancingLoadBalancer :: ResourceType
-pattern AWSElasticLoadBalancingLoadBalancer = ResourceType' "AWS::ElasticLoadBalancing::LoadBalancer"
+pattern ResourceTypeAWSElasticLoadBalancingLoadBalancer :: ResourceType
+pattern ResourceTypeAWSElasticLoadBalancingLoadBalancer = ResourceType' "AWS::ElasticLoadBalancing::LoadBalancer"
 
-pattern AWSElasticsearchDomain :: ResourceType
-pattern AWSElasticsearchDomain = ResourceType' "AWS::Elasticsearch::Domain"
+pattern ResourceTypeAWSElasticsearchDomain :: ResourceType
+pattern ResourceTypeAWSElasticsearchDomain = ResourceType' "AWS::Elasticsearch::Domain"
 
-pattern AWSIAMGroup :: ResourceType
-pattern AWSIAMGroup = ResourceType' "AWS::IAM::Group"
+pattern ResourceTypeAWSIAMGroup :: ResourceType
+pattern ResourceTypeAWSIAMGroup = ResourceType' "AWS::IAM::Group"
 
-pattern AWSIAMPolicy :: ResourceType
-pattern AWSIAMPolicy = ResourceType' "AWS::IAM::Policy"
+pattern ResourceTypeAWSIAMPolicy :: ResourceType
+pattern ResourceTypeAWSIAMPolicy = ResourceType' "AWS::IAM::Policy"
 
-pattern AWSIAMRole :: ResourceType
-pattern AWSIAMRole = ResourceType' "AWS::IAM::Role"
+pattern ResourceTypeAWSIAMRole :: ResourceType
+pattern ResourceTypeAWSIAMRole = ResourceType' "AWS::IAM::Role"
 
-pattern AWSIAMUser :: ResourceType
-pattern AWSIAMUser = ResourceType' "AWS::IAM::User"
+pattern ResourceTypeAWSIAMUser :: ResourceType
+pattern ResourceTypeAWSIAMUser = ResourceType' "AWS::IAM::User"
 
-pattern AWSKMSKey :: ResourceType
-pattern AWSKMSKey = ResourceType' "AWS::KMS::Key"
+pattern ResourceTypeAWSKMSKey :: ResourceType
+pattern ResourceTypeAWSKMSKey = ResourceType' "AWS::KMS::Key"
 
-pattern AWSLambdaFunction :: ResourceType
-pattern AWSLambdaFunction = ResourceType' "AWS::Lambda::Function"
+pattern ResourceTypeAWSLambdaFunction :: ResourceType
+pattern ResourceTypeAWSLambdaFunction = ResourceType' "AWS::Lambda::Function"
 
-pattern AWSNetworkFirewallFirewall :: ResourceType
-pattern AWSNetworkFirewallFirewall = ResourceType' "AWS::NetworkFirewall::Firewall"
+pattern ResourceTypeAWSNetworkFirewallFirewall :: ResourceType
+pattern ResourceTypeAWSNetworkFirewallFirewall = ResourceType' "AWS::NetworkFirewall::Firewall"
 
-pattern AWSNetworkFirewallFirewallPolicy :: ResourceType
-pattern AWSNetworkFirewallFirewallPolicy = ResourceType' "AWS::NetworkFirewall::FirewallPolicy"
+pattern ResourceTypeAWSNetworkFirewallFirewallPolicy :: ResourceType
+pattern ResourceTypeAWSNetworkFirewallFirewallPolicy = ResourceType' "AWS::NetworkFirewall::FirewallPolicy"
 
-pattern AWSNetworkFirewallRuleGroup :: ResourceType
-pattern AWSNetworkFirewallRuleGroup = ResourceType' "AWS::NetworkFirewall::RuleGroup"
+pattern ResourceTypeAWSNetworkFirewallRuleGroup :: ResourceType
+pattern ResourceTypeAWSNetworkFirewallRuleGroup = ResourceType' "AWS::NetworkFirewall::RuleGroup"
 
-pattern AWSQldbLedger :: ResourceType
-pattern AWSQldbLedger = ResourceType' "AWS::QLDB::Ledger"
+pattern ResourceTypeAWSQLDBLedger :: ResourceType
+pattern ResourceTypeAWSQLDBLedger = ResourceType' "AWS::QLDB::Ledger"
 
-pattern AWSRDSDBCluster :: ResourceType
-pattern AWSRDSDBCluster = ResourceType' "AWS::RDS::DBCluster"
+pattern ResourceTypeAWSRDSDBCluster :: ResourceType
+pattern ResourceTypeAWSRDSDBCluster = ResourceType' "AWS::RDS::DBCluster"
 
-pattern AWSRDSDBClusterSnapshot :: ResourceType
-pattern AWSRDSDBClusterSnapshot = ResourceType' "AWS::RDS::DBClusterSnapshot"
+pattern ResourceTypeAWSRDSDBClusterSnapshot :: ResourceType
+pattern ResourceTypeAWSRDSDBClusterSnapshot = ResourceType' "AWS::RDS::DBClusterSnapshot"
 
-pattern AWSRDSDBInstance :: ResourceType
-pattern AWSRDSDBInstance = ResourceType' "AWS::RDS::DBInstance"
+pattern ResourceTypeAWSRDSDBInstance :: ResourceType
+pattern ResourceTypeAWSRDSDBInstance = ResourceType' "AWS::RDS::DBInstance"
 
-pattern AWSRDSDBSecurityGroup :: ResourceType
-pattern AWSRDSDBSecurityGroup = ResourceType' "AWS::RDS::DBSecurityGroup"
+pattern ResourceTypeAWSRDSDBSecurityGroup :: ResourceType
+pattern ResourceTypeAWSRDSDBSecurityGroup = ResourceType' "AWS::RDS::DBSecurityGroup"
 
-pattern AWSRDSDBSnapshot :: ResourceType
-pattern AWSRDSDBSnapshot = ResourceType' "AWS::RDS::DBSnapshot"
+pattern ResourceTypeAWSRDSDBSnapshot :: ResourceType
+pattern ResourceTypeAWSRDSDBSnapshot = ResourceType' "AWS::RDS::DBSnapshot"
 
-pattern AWSRDSDBSubnetGroup :: ResourceType
-pattern AWSRDSDBSubnetGroup = ResourceType' "AWS::RDS::DBSubnetGroup"
+pattern ResourceTypeAWSRDSDBSubnetGroup :: ResourceType
+pattern ResourceTypeAWSRDSDBSubnetGroup = ResourceType' "AWS::RDS::DBSubnetGroup"
 
-pattern AWSRDSEventSubscription :: ResourceType
-pattern AWSRDSEventSubscription = ResourceType' "AWS::RDS::EventSubscription"
+pattern ResourceTypeAWSRDSEventSubscription :: ResourceType
+pattern ResourceTypeAWSRDSEventSubscription = ResourceType' "AWS::RDS::EventSubscription"
 
-pattern AWSRedshiftCluster :: ResourceType
-pattern AWSRedshiftCluster = ResourceType' "AWS::Redshift::Cluster"
+pattern ResourceTypeAWSRedshiftCluster :: ResourceType
+pattern ResourceTypeAWSRedshiftCluster = ResourceType' "AWS::Redshift::Cluster"
 
-pattern AWSRedshiftClusterParameterGroup :: ResourceType
-pattern AWSRedshiftClusterParameterGroup = ResourceType' "AWS::Redshift::ClusterParameterGroup"
+pattern ResourceTypeAWSRedshiftClusterParameterGroup :: ResourceType
+pattern ResourceTypeAWSRedshiftClusterParameterGroup = ResourceType' "AWS::Redshift::ClusterParameterGroup"
 
-pattern AWSRedshiftClusterSecurityGroup :: ResourceType
-pattern AWSRedshiftClusterSecurityGroup = ResourceType' "AWS::Redshift::ClusterSecurityGroup"
+pattern ResourceTypeAWSRedshiftClusterSecurityGroup :: ResourceType
+pattern ResourceTypeAWSRedshiftClusterSecurityGroup = ResourceType' "AWS::Redshift::ClusterSecurityGroup"
 
-pattern AWSRedshiftClusterSnapshot :: ResourceType
-pattern AWSRedshiftClusterSnapshot = ResourceType' "AWS::Redshift::ClusterSnapshot"
+pattern ResourceTypeAWSRedshiftClusterSnapshot :: ResourceType
+pattern ResourceTypeAWSRedshiftClusterSnapshot = ResourceType' "AWS::Redshift::ClusterSnapshot"
 
-pattern AWSRedshiftClusterSubnetGroup :: ResourceType
-pattern AWSRedshiftClusterSubnetGroup = ResourceType' "AWS::Redshift::ClusterSubnetGroup"
+pattern ResourceTypeAWSRedshiftClusterSubnetGroup :: ResourceType
+pattern ResourceTypeAWSRedshiftClusterSubnetGroup = ResourceType' "AWS::Redshift::ClusterSubnetGroup"
 
-pattern AWSRedshiftEventSubscription :: ResourceType
-pattern AWSRedshiftEventSubscription = ResourceType' "AWS::Redshift::EventSubscription"
+pattern ResourceTypeAWSRedshiftEventSubscription :: ResourceType
+pattern ResourceTypeAWSRedshiftEventSubscription = ResourceType' "AWS::Redshift::EventSubscription"
 
-pattern AWSS3AccountPublicAccessBlock :: ResourceType
-pattern AWSS3AccountPublicAccessBlock = ResourceType' "AWS::S3::AccountPublicAccessBlock"
+pattern ResourceTypeAWSS3AccountPublicAccessBlock :: ResourceType
+pattern ResourceTypeAWSS3AccountPublicAccessBlock = ResourceType' "AWS::S3::AccountPublicAccessBlock"
 
-pattern AWSS3Bucket :: ResourceType
-pattern AWSS3Bucket = ResourceType' "AWS::S3::Bucket"
+pattern ResourceTypeAWSS3Bucket :: ResourceType
+pattern ResourceTypeAWSS3Bucket = ResourceType' "AWS::S3::Bucket"
 
-pattern AWSSNSTopic :: ResourceType
-pattern AWSSNSTopic = ResourceType' "AWS::SNS::Topic"
+pattern ResourceTypeAWSSNSTopic :: ResourceType
+pattern ResourceTypeAWSSNSTopic = ResourceType' "AWS::SNS::Topic"
 
-pattern AWSSecretsManagerSecret :: ResourceType
-pattern AWSSecretsManagerSecret = ResourceType' "AWS::SecretsManager::Secret"
+pattern ResourceTypeAWSSQSQueue :: ResourceType
+pattern ResourceTypeAWSSQSQueue = ResourceType' "AWS::SQS::Queue"
 
-pattern AWSServiceCatalogCloudFormationProduct :: ResourceType
-pattern AWSServiceCatalogCloudFormationProduct = ResourceType' "AWS::ServiceCatalog::CloudFormationProduct"
+pattern ResourceTypeAWSSSMAssociationCompliance :: ResourceType
+pattern ResourceTypeAWSSSMAssociationCompliance = ResourceType' "AWS::SSM::AssociationCompliance"
 
-pattern AWSServiceCatalogCloudFormationProvisionedProduct :: ResourceType
-pattern AWSServiceCatalogCloudFormationProvisionedProduct = ResourceType' "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
+pattern ResourceTypeAWSSSMFileData :: ResourceType
+pattern ResourceTypeAWSSSMFileData = ResourceType' "AWS::SSM::FileData"
 
-pattern AWSServiceCatalogPortfolio :: ResourceType
-pattern AWSServiceCatalogPortfolio = ResourceType' "AWS::ServiceCatalog::Portfolio"
+pattern ResourceTypeAWSSSMManagedInstanceInventory :: ResourceType
+pattern ResourceTypeAWSSSMManagedInstanceInventory = ResourceType' "AWS::SSM::ManagedInstanceInventory"
 
-pattern AWSShieldProtection :: ResourceType
-pattern AWSShieldProtection = ResourceType' "AWS::Shield::Protection"
+pattern ResourceTypeAWSSSMPatchCompliance :: ResourceType
+pattern ResourceTypeAWSSSMPatchCompliance = ResourceType' "AWS::SSM::PatchCompliance"
 
-pattern AWSShieldRegionalProtection :: ResourceType
-pattern AWSShieldRegionalProtection = ResourceType' "AWS::ShieldRegional::Protection"
+pattern ResourceTypeAWSSecretsManagerSecret :: ResourceType
+pattern ResourceTypeAWSSecretsManagerSecret = ResourceType' "AWS::SecretsManager::Secret"
 
-pattern AWSSqsQueue :: ResourceType
-pattern AWSSqsQueue = ResourceType' "AWS::SQS::Queue"
+pattern ResourceTypeAWSServiceCatalogCloudFormationProduct :: ResourceType
+pattern ResourceTypeAWSServiceCatalogCloudFormationProduct = ResourceType' "AWS::ServiceCatalog::CloudFormationProduct"
 
-pattern AWSSsmAssociationCompliance :: ResourceType
-pattern AWSSsmAssociationCompliance = ResourceType' "AWS::SSM::AssociationCompliance"
+pattern ResourceTypeAWSServiceCatalogCloudFormationProvisionedProduct :: ResourceType
+pattern ResourceTypeAWSServiceCatalogCloudFormationProvisionedProduct = ResourceType' "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
 
-pattern AWSSsmFileData :: ResourceType
-pattern AWSSsmFileData = ResourceType' "AWS::SSM::FileData"
+pattern ResourceTypeAWSServiceCatalogPortfolio :: ResourceType
+pattern ResourceTypeAWSServiceCatalogPortfolio = ResourceType' "AWS::ServiceCatalog::Portfolio"
 
-pattern AWSSsmManagedInstanceInventory :: ResourceType
-pattern AWSSsmManagedInstanceInventory = ResourceType' "AWS::SSM::ManagedInstanceInventory"
+pattern ResourceTypeAWSShieldProtection :: ResourceType
+pattern ResourceTypeAWSShieldProtection = ResourceType' "AWS::Shield::Protection"
 
-pattern AWSSsmPatchCompliance :: ResourceType
-pattern AWSSsmPatchCompliance = ResourceType' "AWS::SSM::PatchCompliance"
+pattern ResourceTypeAWSShieldRegionalProtection :: ResourceType
+pattern ResourceTypeAWSShieldRegionalProtection = ResourceType' "AWS::ShieldRegional::Protection"
 
-pattern AWSWAFRegionalRateBasedRule :: ResourceType
-pattern AWSWAFRegionalRateBasedRule = ResourceType' "AWS::WAFRegional::RateBasedRule"
+pattern ResourceTypeAWSWAFRateBasedRule :: ResourceType
+pattern ResourceTypeAWSWAFRateBasedRule = ResourceType' "AWS::WAF::RateBasedRule"
 
-pattern AWSWAFRegionalRule :: ResourceType
-pattern AWSWAFRegionalRule = ResourceType' "AWS::WAFRegional::Rule"
+pattern ResourceTypeAWSWAFRegionalRateBasedRule :: ResourceType
+pattern ResourceTypeAWSWAFRegionalRateBasedRule = ResourceType' "AWS::WAFRegional::RateBasedRule"
 
-pattern AWSWAFRegionalRuleGroup :: ResourceType
-pattern AWSWAFRegionalRuleGroup = ResourceType' "AWS::WAFRegional::RuleGroup"
+pattern ResourceTypeAWSWAFRegionalRule :: ResourceType
+pattern ResourceTypeAWSWAFRegionalRule = ResourceType' "AWS::WAFRegional::Rule"
 
-pattern AWSWAFRegionalWebACL :: ResourceType
-pattern AWSWAFRegionalWebACL = ResourceType' "AWS::WAFRegional::WebACL"
+pattern ResourceTypeAWSWAFRegionalRuleGroup :: ResourceType
+pattern ResourceTypeAWSWAFRegionalRuleGroup = ResourceType' "AWS::WAFRegional::RuleGroup"
 
-pattern AWSWAFV2IPSet :: ResourceType
-pattern AWSWAFV2IPSet = ResourceType' "AWS::WAFv2::IPSet"
+pattern ResourceTypeAWSWAFRegionalWebACL :: ResourceType
+pattern ResourceTypeAWSWAFRegionalWebACL = ResourceType' "AWS::WAFRegional::WebACL"
 
-pattern AWSWAFV2ManagedRuleSet :: ResourceType
-pattern AWSWAFV2ManagedRuleSet = ResourceType' "AWS::WAFv2::ManagedRuleSet"
+pattern ResourceTypeAWSWAFRule :: ResourceType
+pattern ResourceTypeAWSWAFRule = ResourceType' "AWS::WAF::Rule"
 
-pattern AWSWAFV2RegexPatternSet :: ResourceType
-pattern AWSWAFV2RegexPatternSet = ResourceType' "AWS::WAFv2::RegexPatternSet"
+pattern ResourceTypeAWSWAFRuleGroup :: ResourceType
+pattern ResourceTypeAWSWAFRuleGroup = ResourceType' "AWS::WAF::RuleGroup"
 
-pattern AWSWAFV2RuleGroup :: ResourceType
-pattern AWSWAFV2RuleGroup = ResourceType' "AWS::WAFv2::RuleGroup"
+pattern ResourceTypeAWSWAFV2IPSet :: ResourceType
+pattern ResourceTypeAWSWAFV2IPSet = ResourceType' "AWS::WAFv2::IPSet"
 
-pattern AWSWAFV2WebACL :: ResourceType
-pattern AWSWAFV2WebACL = ResourceType' "AWS::WAFv2::WebACL"
+pattern ResourceTypeAWSWAFV2ManagedRuleSet :: ResourceType
+pattern ResourceTypeAWSWAFV2ManagedRuleSet = ResourceType' "AWS::WAFv2::ManagedRuleSet"
 
-pattern AWSWafRateBasedRule :: ResourceType
-pattern AWSWafRateBasedRule = ResourceType' "AWS::WAF::RateBasedRule"
+pattern ResourceTypeAWSWAFV2RegexPatternSet :: ResourceType
+pattern ResourceTypeAWSWAFV2RegexPatternSet = ResourceType' "AWS::WAFv2::RegexPatternSet"
 
-pattern AWSWafRule :: ResourceType
-pattern AWSWafRule = ResourceType' "AWS::WAF::Rule"
+pattern ResourceTypeAWSWAFV2RuleGroup :: ResourceType
+pattern ResourceTypeAWSWAFV2RuleGroup = ResourceType' "AWS::WAFv2::RuleGroup"
 
-pattern AWSWafRuleGroup :: ResourceType
-pattern AWSWafRuleGroup = ResourceType' "AWS::WAF::RuleGroup"
+pattern ResourceTypeAWSWAFV2WebACL :: ResourceType
+pattern ResourceTypeAWSWAFV2WebACL = ResourceType' "AWS::WAFv2::WebACL"
 
-pattern AWSWafWebACL :: ResourceType
-pattern AWSWafWebACL = ResourceType' "AWS::WAF::WebACL"
+pattern ResourceTypeAWSWAFWebACL :: ResourceType
+pattern ResourceTypeAWSWAFWebACL = ResourceType' "AWS::WAF::WebACL"
 
-pattern AWSXRayEncryptionConfig :: ResourceType
-pattern AWSXRayEncryptionConfig = ResourceType' "AWS::XRay::EncryptionConfig"
+pattern ResourceTypeAWSXRayEncryptionConfig :: ResourceType
+pattern ResourceTypeAWSXRayEncryptionConfig = ResourceType' "AWS::XRay::EncryptionConfig"
 
 {-# COMPLETE
-  AWSAPIGATEWAYV2API,
-  AWSAPIGATEWAYV2Stage,
-  AWSAPIGatewayRestAPI,
-  AWSAPIGatewayStage,
-  AWSAcmCertificate,
-  AWSAutoScalingAutoScalingGroup,
-  AWSAutoScalingLaunchConfiguration,
-  AWSAutoScalingScalingPolicy,
-  AWSAutoScalingScheduledAction,
-  AWSCloudFormationStack,
-  AWSCloudFrontDistribution,
-  AWSCloudFrontStreamingDistribution,
-  AWSCloudTrailTrail,
-  AWSCloudWatchAlarm,
-  AWSCodeBuildProject,
-  AWSCodePipelinePipeline,
-  AWSConfigResourceCompliance,
-  AWSDynamoDBTable,
-  AWSEC2CustomerGateway,
-  AWSEC2EIP,
-  AWSEC2EgressOnlyInternetGateway,
-  AWSEC2FlowLog,
-  AWSEC2Host,
-  AWSEC2Instance,
-  AWSEC2InternetGateway,
-  AWSEC2NatGateway,
-  AWSEC2NetworkACL,
-  AWSEC2NetworkInterface,
-  AWSEC2RegisteredHAInstance,
-  AWSEC2RouteTable,
-  AWSEC2SecurityGroup,
-  AWSEC2Subnet,
-  AWSEC2VPC,
-  AWSEC2VPCEndpoint,
-  AWSEC2VPCEndpointService,
-  AWSEC2VPCPeeringConnection,
-  AWSEC2VPNConnection,
-  AWSEC2VPNGateway,
-  AWSEC2Volume,
-  AWSELASTICLOADBALANCINGV2LoadBalancer,
-  AWSElasticBeanstalkApplication,
-  AWSElasticBeanstalkApplicationVersion,
-  AWSElasticBeanstalkEnvironment,
-  AWSElasticLoadBalancingLoadBalancer,
-  AWSElasticsearchDomain,
-  AWSIAMGroup,
-  AWSIAMPolicy,
-  AWSIAMRole,
-  AWSIAMUser,
-  AWSKMSKey,
-  AWSLambdaFunction,
-  AWSNetworkFirewallFirewall,
-  AWSNetworkFirewallFirewallPolicy,
-  AWSNetworkFirewallRuleGroup,
-  AWSQldbLedger,
-  AWSRDSDBCluster,
-  AWSRDSDBClusterSnapshot,
-  AWSRDSDBInstance,
-  AWSRDSDBSecurityGroup,
-  AWSRDSDBSnapshot,
-  AWSRDSDBSubnetGroup,
-  AWSRDSEventSubscription,
-  AWSRedshiftCluster,
-  AWSRedshiftClusterParameterGroup,
-  AWSRedshiftClusterSecurityGroup,
-  AWSRedshiftClusterSnapshot,
-  AWSRedshiftClusterSubnetGroup,
-  AWSRedshiftEventSubscription,
-  AWSS3AccountPublicAccessBlock,
-  AWSS3Bucket,
-  AWSSNSTopic,
-  AWSSecretsManagerSecret,
-  AWSServiceCatalogCloudFormationProduct,
-  AWSServiceCatalogCloudFormationProvisionedProduct,
-  AWSServiceCatalogPortfolio,
-  AWSShieldProtection,
-  AWSShieldRegionalProtection,
-  AWSSqsQueue,
-  AWSSsmAssociationCompliance,
-  AWSSsmFileData,
-  AWSSsmManagedInstanceInventory,
-  AWSSsmPatchCompliance,
-  AWSWAFRegionalRateBasedRule,
-  AWSWAFRegionalRule,
-  AWSWAFRegionalRuleGroup,
-  AWSWAFRegionalWebACL,
-  AWSWAFV2IPSet,
-  AWSWAFV2ManagedRuleSet,
-  AWSWAFV2RegexPatternSet,
-  AWSWAFV2RuleGroup,
-  AWSWAFV2WebACL,
-  AWSWafRateBasedRule,
-  AWSWafRule,
-  AWSWafRuleGroup,
-  AWSWafWebACL,
-  AWSXRayEncryptionConfig,
+  ResourceTypeAWSACMCertificate,
+  ResourceTypeAWSAPIGATEWAYV2Api,
+  ResourceTypeAWSAPIGATEWAYV2Stage,
+  ResourceTypeAWSApiGatewayRestApi,
+  ResourceTypeAWSApiGatewayStage,
+  ResourceTypeAWSAutoScalingAutoScalingGroup,
+  ResourceTypeAWSAutoScalingLaunchConfiguration,
+  ResourceTypeAWSAutoScalingScalingPolicy,
+  ResourceTypeAWSAutoScalingScheduledAction,
+  ResourceTypeAWSCloudFormationStack,
+  ResourceTypeAWSCloudFrontDistribution,
+  ResourceTypeAWSCloudFrontStreamingDistribution,
+  ResourceTypeAWSCloudTrailTrail,
+  ResourceTypeAWSCloudWatchAlarm,
+  ResourceTypeAWSCodeBuildProject,
+  ResourceTypeAWSCodePipelinePipeline,
+  ResourceTypeAWSConfigResourceCompliance,
+  ResourceTypeAWSDynamoDBTable,
+  ResourceTypeAWSEC2CustomerGateway,
+  ResourceTypeAWSEC2EIP,
+  ResourceTypeAWSEC2EgressOnlyInternetGateway,
+  ResourceTypeAWSEC2FlowLog,
+  ResourceTypeAWSEC2Host,
+  ResourceTypeAWSEC2Instance,
+  ResourceTypeAWSEC2InternetGateway,
+  ResourceTypeAWSEC2NatGateway,
+  ResourceTypeAWSEC2NetworkAcl,
+  ResourceTypeAWSEC2NetworkInterface,
+  ResourceTypeAWSEC2RegisteredHAInstance,
+  ResourceTypeAWSEC2RouteTable,
+  ResourceTypeAWSEC2SecurityGroup,
+  ResourceTypeAWSEC2Subnet,
+  ResourceTypeAWSEC2VPC,
+  ResourceTypeAWSEC2VPCEndpoint,
+  ResourceTypeAWSEC2VPCEndpointService,
+  ResourceTypeAWSEC2VPCPeeringConnection,
+  ResourceTypeAWSEC2VPNConnection,
+  ResourceTypeAWSEC2VPNGateway,
+  ResourceTypeAWSEC2Volume,
+  ResourceTypeAWSELASTICLOADBALANCINGV2LoadBalancer,
+  ResourceTypeAWSElasticBeanstalkApplication,
+  ResourceTypeAWSElasticBeanstalkApplicationVersion,
+  ResourceTypeAWSElasticBeanstalkEnvironment,
+  ResourceTypeAWSElasticLoadBalancingLoadBalancer,
+  ResourceTypeAWSElasticsearchDomain,
+  ResourceTypeAWSIAMGroup,
+  ResourceTypeAWSIAMPolicy,
+  ResourceTypeAWSIAMRole,
+  ResourceTypeAWSIAMUser,
+  ResourceTypeAWSKMSKey,
+  ResourceTypeAWSLambdaFunction,
+  ResourceTypeAWSNetworkFirewallFirewall,
+  ResourceTypeAWSNetworkFirewallFirewallPolicy,
+  ResourceTypeAWSNetworkFirewallRuleGroup,
+  ResourceTypeAWSQLDBLedger,
+  ResourceTypeAWSRDSDBCluster,
+  ResourceTypeAWSRDSDBClusterSnapshot,
+  ResourceTypeAWSRDSDBInstance,
+  ResourceTypeAWSRDSDBSecurityGroup,
+  ResourceTypeAWSRDSDBSnapshot,
+  ResourceTypeAWSRDSDBSubnetGroup,
+  ResourceTypeAWSRDSEventSubscription,
+  ResourceTypeAWSRedshiftCluster,
+  ResourceTypeAWSRedshiftClusterParameterGroup,
+  ResourceTypeAWSRedshiftClusterSecurityGroup,
+  ResourceTypeAWSRedshiftClusterSnapshot,
+  ResourceTypeAWSRedshiftClusterSubnetGroup,
+  ResourceTypeAWSRedshiftEventSubscription,
+  ResourceTypeAWSS3AccountPublicAccessBlock,
+  ResourceTypeAWSS3Bucket,
+  ResourceTypeAWSSNSTopic,
+  ResourceTypeAWSSQSQueue,
+  ResourceTypeAWSSSMAssociationCompliance,
+  ResourceTypeAWSSSMFileData,
+  ResourceTypeAWSSSMManagedInstanceInventory,
+  ResourceTypeAWSSSMPatchCompliance,
+  ResourceTypeAWSSecretsManagerSecret,
+  ResourceTypeAWSServiceCatalogCloudFormationProduct,
+  ResourceTypeAWSServiceCatalogCloudFormationProvisionedProduct,
+  ResourceTypeAWSServiceCatalogPortfolio,
+  ResourceTypeAWSShieldProtection,
+  ResourceTypeAWSShieldRegionalProtection,
+  ResourceTypeAWSWAFRateBasedRule,
+  ResourceTypeAWSWAFRegionalRateBasedRule,
+  ResourceTypeAWSWAFRegionalRule,
+  ResourceTypeAWSWAFRegionalRuleGroup,
+  ResourceTypeAWSWAFRegionalWebACL,
+  ResourceTypeAWSWAFRule,
+  ResourceTypeAWSWAFRuleGroup,
+  ResourceTypeAWSWAFV2IPSet,
+  ResourceTypeAWSWAFV2ManagedRuleSet,
+  ResourceTypeAWSWAFV2RegexPatternSet,
+  ResourceTypeAWSWAFV2RuleGroup,
+  ResourceTypeAWSWAFV2WebACL,
+  ResourceTypeAWSWAFWebACL,
+  ResourceTypeAWSXRayEncryptionConfig,
   ResourceType'
   #-}
 
-instance FromText ResourceType where
-  parser = (ResourceType' . mk) <$> takeText
+instance Prelude.FromText ResourceType where
+  parser = ResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceType where
-  toText (ResourceType' ci) = original ci
+instance Prelude.ToText ResourceType where
+  toText (ResourceType' x) = x
 
-instance Hashable ResourceType
+instance Prelude.Hashable ResourceType
 
-instance NFData ResourceType
+instance Prelude.NFData ResourceType
 
-instance ToByteString ResourceType
+instance Prelude.ToByteString ResourceType
 
-instance ToQuery ResourceType
+instance Prelude.ToQuery ResourceType
 
-instance ToHeader ResourceType
+instance Prelude.ToHeader ResourceType
 
-instance ToJSON ResourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ResourceType where
-  parseJSON = parseJSONText "ResourceType"
+instance Prelude.FromJSON ResourceType where
+  parseJSON = Prelude.parseJSONText "ResourceType"

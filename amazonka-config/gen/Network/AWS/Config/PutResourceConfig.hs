@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,163 +21,218 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Records the configuration state for the resource provided in the request. The configuration state of a resource is represented in AWS Config as Configuration Items. Once this API records the configuration item, you can retrieve the list of configuration items for the custom resource type using existing AWS Config APIs.
+-- Records the configuration state for the resource provided in the
+-- request. The configuration state of a resource is represented in AWS
+-- Config as Configuration Items. Once this API records the configuration
+-- item, you can retrieve the list of configuration items for the custom
+-- resource type using existing AWS Config APIs.
+--
+-- The custom resource type must be registered with AWS CloudFormation.
+-- This API accepts the configuration item registered with AWS
+-- CloudFormation.
+--
+-- When you call this API, AWS Config only stores configuration state of
+-- the resource provided in the request. This API does not change or
+-- remediate the configuration of the resource.
+--
+-- Write-only schema properites are not recorded as part of the published
+-- configuration item.
 module Network.AWS.Config.PutResourceConfig
   ( -- * Creating a Request
-    putResourceConfig,
-    PutResourceConfig,
+    PutResourceConfig (..),
+    newPutResourceConfig,
 
     -- * Request Lenses
-    prcTags,
-    prcResourceName,
-    prcResourceType,
-    prcSchemaVersionId,
-    prcResourceId,
-    prcConfiguration,
+    putResourceConfig_tags,
+    putResourceConfig_resourceName,
+    putResourceConfig_resourceType,
+    putResourceConfig_schemaVersionId,
+    putResourceConfig_resourceId,
+    putResourceConfig_configuration,
 
     -- * Destructuring the Response
-    putResourceConfigResponse,
-    PutResourceConfigResponse,
+    PutResourceConfigResponse (..),
+    newPutResourceConfigResponse,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putResourceConfig' smart constructor.
+-- | /See:/ 'newPutResourceConfig' smart constructor.
 data PutResourceConfig = PutResourceConfig'
-  { _prcTags ::
-      !(Maybe (Map Text Text)),
-    _prcResourceName :: !(Maybe Text),
-    _prcResourceType :: !Text,
-    _prcSchemaVersionId :: !Text,
-    _prcResourceId :: !Text,
-    _prcConfiguration :: !Text
+  { -- | Tags associated with the resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Name of the resource.
+    resourceName :: Prelude.Maybe Prelude.Text,
+    -- | The type of the resource. The custom resource type must be registered
+    -- with AWS CloudFormation.
+    --
+    -- You cannot use the organization names “aws”, “amzn”, “amazon”, “alexa”,
+    -- “custom” with custom resource types. It is the first part of the
+    -- ResourceType up to the first ::.
+    resourceType :: Prelude.Text,
+    -- | Version of the schema registered for the ResourceType in AWS
+    -- CloudFormation.
+    schemaVersionId :: Prelude.Text,
+    -- | Unique identifier of the resource.
+    resourceId :: Prelude.Text,
+    -- | The configuration object of the resource in valid JSON format. It must
+    -- match the schema registered with AWS CloudFormation.
+    --
+    -- The configuration JSON must not exceed 64 KB.
+    configuration :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutResourceConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutResourceConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prcTags' - Tags associated with the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prcResourceName' - Name of the resource.
+-- 'tags', 'putResourceConfig_tags' - Tags associated with the resource.
 --
--- * 'prcResourceType' - The type of the resource. The custom resource type must be registered with AWS CloudFormation.
+-- 'resourceName', 'putResourceConfig_resourceName' - Name of the resource.
 --
--- * 'prcSchemaVersionId' - Version of the schema registered for the ResourceType in AWS CloudFormation.
+-- 'resourceType', 'putResourceConfig_resourceType' - The type of the resource. The custom resource type must be registered
+-- with AWS CloudFormation.
 --
--- * 'prcResourceId' - Unique identifier of the resource.
+-- You cannot use the organization names “aws”, “amzn”, “amazon”, “alexa”,
+-- “custom” with custom resource types. It is the first part of the
+-- ResourceType up to the first ::.
 --
--- * 'prcConfiguration' - The configuration object of the resource in valid JSON format. It must match the schema registered with AWS CloudFormation.
-putResourceConfig ::
-  -- | 'prcResourceType'
-  Text ->
-  -- | 'prcSchemaVersionId'
-  Text ->
-  -- | 'prcResourceId'
-  Text ->
-  -- | 'prcConfiguration'
-  Text ->
+-- 'schemaVersionId', 'putResourceConfig_schemaVersionId' - Version of the schema registered for the ResourceType in AWS
+-- CloudFormation.
+--
+-- 'resourceId', 'putResourceConfig_resourceId' - Unique identifier of the resource.
+--
+-- 'configuration', 'putResourceConfig_configuration' - The configuration object of the resource in valid JSON format. It must
+-- match the schema registered with AWS CloudFormation.
+--
+-- The configuration JSON must not exceed 64 KB.
+newPutResourceConfig ::
+  -- | 'resourceType'
+  Prelude.Text ->
+  -- | 'schemaVersionId'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'configuration'
+  Prelude.Text ->
   PutResourceConfig
-putResourceConfig
+newPutResourceConfig
   pResourceType_
   pSchemaVersionId_
   pResourceId_
   pConfiguration_ =
     PutResourceConfig'
-      { _prcTags = Nothing,
-        _prcResourceName = Nothing,
-        _prcResourceType = pResourceType_,
-        _prcSchemaVersionId = pSchemaVersionId_,
-        _prcResourceId = pResourceId_,
-        _prcConfiguration = pConfiguration_
+      { tags = Prelude.Nothing,
+        resourceName = Prelude.Nothing,
+        resourceType = pResourceType_,
+        schemaVersionId = pSchemaVersionId_,
+        resourceId = pResourceId_,
+        configuration = pConfiguration_
       }
 
 -- | Tags associated with the resource.
-prcTags :: Lens' PutResourceConfig (HashMap Text Text)
-prcTags = lens _prcTags (\s a -> s {_prcTags = a}) . _Default . _Map
+putResourceConfig_tags :: Lens.Lens' PutResourceConfig (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+putResourceConfig_tags = Lens.lens (\PutResourceConfig' {tags} -> tags) (\s@PutResourceConfig' {} a -> s {tags = a} :: PutResourceConfig) Prelude.. Lens.mapping Prelude._Map
 
 -- | Name of the resource.
-prcResourceName :: Lens' PutResourceConfig (Maybe Text)
-prcResourceName = lens _prcResourceName (\s a -> s {_prcResourceName = a})
+putResourceConfig_resourceName :: Lens.Lens' PutResourceConfig (Prelude.Maybe Prelude.Text)
+putResourceConfig_resourceName = Lens.lens (\PutResourceConfig' {resourceName} -> resourceName) (\s@PutResourceConfig' {} a -> s {resourceName = a} :: PutResourceConfig)
 
--- | The type of the resource. The custom resource type must be registered with AWS CloudFormation.
-prcResourceType :: Lens' PutResourceConfig Text
-prcResourceType = lens _prcResourceType (\s a -> s {_prcResourceType = a})
+-- | The type of the resource. The custom resource type must be registered
+-- with AWS CloudFormation.
+--
+-- You cannot use the organization names “aws”, “amzn”, “amazon”, “alexa”,
+-- “custom” with custom resource types. It is the first part of the
+-- ResourceType up to the first ::.
+putResourceConfig_resourceType :: Lens.Lens' PutResourceConfig Prelude.Text
+putResourceConfig_resourceType = Lens.lens (\PutResourceConfig' {resourceType} -> resourceType) (\s@PutResourceConfig' {} a -> s {resourceType = a} :: PutResourceConfig)
 
--- | Version of the schema registered for the ResourceType in AWS CloudFormation.
-prcSchemaVersionId :: Lens' PutResourceConfig Text
-prcSchemaVersionId = lens _prcSchemaVersionId (\s a -> s {_prcSchemaVersionId = a})
+-- | Version of the schema registered for the ResourceType in AWS
+-- CloudFormation.
+putResourceConfig_schemaVersionId :: Lens.Lens' PutResourceConfig Prelude.Text
+putResourceConfig_schemaVersionId = Lens.lens (\PutResourceConfig' {schemaVersionId} -> schemaVersionId) (\s@PutResourceConfig' {} a -> s {schemaVersionId = a} :: PutResourceConfig)
 
 -- | Unique identifier of the resource.
-prcResourceId :: Lens' PutResourceConfig Text
-prcResourceId = lens _prcResourceId (\s a -> s {_prcResourceId = a})
+putResourceConfig_resourceId :: Lens.Lens' PutResourceConfig Prelude.Text
+putResourceConfig_resourceId = Lens.lens (\PutResourceConfig' {resourceId} -> resourceId) (\s@PutResourceConfig' {} a -> s {resourceId = a} :: PutResourceConfig)
 
--- | The configuration object of the resource in valid JSON format. It must match the schema registered with AWS CloudFormation.
-prcConfiguration :: Lens' PutResourceConfig Text
-prcConfiguration = lens _prcConfiguration (\s a -> s {_prcConfiguration = a})
+-- | The configuration object of the resource in valid JSON format. It must
+-- match the schema registered with AWS CloudFormation.
+--
+-- The configuration JSON must not exceed 64 KB.
+putResourceConfig_configuration :: Lens.Lens' PutResourceConfig Prelude.Text
+putResourceConfig_configuration = Lens.lens (\PutResourceConfig' {configuration} -> configuration) (\s@PutResourceConfig' {} a -> s {configuration = a} :: PutResourceConfig)
 
-instance AWSRequest PutResourceConfig where
+instance Prelude.AWSRequest PutResourceConfig where
   type Rs PutResourceConfig = PutResourceConfigResponse
-  request = postJSON config
-  response = receiveNull PutResourceConfigResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull PutResourceConfigResponse'
 
-instance Hashable PutResourceConfig
+instance Prelude.Hashable PutResourceConfig
 
-instance NFData PutResourceConfig
+instance Prelude.NFData PutResourceConfig
 
-instance ToHeaders PutResourceConfig where
+instance Prelude.ToHeaders PutResourceConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.PutResourceConfig" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.PutResourceConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutResourceConfig where
+instance Prelude.ToJSON PutResourceConfig where
   toJSON PutResourceConfig' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _prcTags,
-            ("ResourceName" .=) <$> _prcResourceName,
-            Just ("ResourceType" .= _prcResourceType),
-            Just ("SchemaVersionId" .= _prcSchemaVersionId),
-            Just ("ResourceId" .= _prcResourceId),
-            Just ("Configuration" .= _prcConfiguration)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("ResourceName" Prelude..=) Prelude.<$> resourceName,
+            Prelude.Just
+              ("ResourceType" Prelude..= resourceType),
+            Prelude.Just
+              ("SchemaVersionId" Prelude..= schemaVersionId),
+            Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just
+              ("Configuration" Prelude..= configuration)
           ]
       )
 
-instance ToPath PutResourceConfig where
-  toPath = const "/"
+instance Prelude.ToPath PutResourceConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutResourceConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery PutResourceConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putResourceConfigResponse' smart constructor.
+-- | /See:/ 'newPutResourceConfigResponse' smart constructor.
 data PutResourceConfigResponse = PutResourceConfigResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutResourceConfigResponse' with the minimum fields required to make a request.
-putResourceConfigResponse ::
+-- |
+-- Create a value of 'PutResourceConfigResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPutResourceConfigResponse ::
   PutResourceConfigResponse
-putResourceConfigResponse =
+newPutResourceConfigResponse =
   PutResourceConfigResponse'
 
-instance NFData PutResourceConfigResponse
+instance Prelude.NFData PutResourceConfigResponse

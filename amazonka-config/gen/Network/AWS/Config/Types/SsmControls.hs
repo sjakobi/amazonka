@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.SsmControls where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | AWS Systems Manager (SSM) specific remediation controls.
 --
---
---
--- /See:/ 'ssmControls' smart constructor.
+-- /See:/ 'newSsmControls' smart constructor.
 data SsmControls = SsmControls'
-  { _scErrorPercentage ::
-      !(Maybe Nat),
-    _scConcurrentExecutionRatePercentage ::
-      !(Maybe Nat)
+  { -- | The percentage of errors that are allowed before SSM stops running
+    -- automations on non-compliant resources for that specific rule. You can
+    -- specify a percentage of errors, for example 10%. If you do not specifiy
+    -- a percentage, the default is 50%. For example, if you set the
+    -- ErrorPercentage to 40% for 10 non-compliant resources, then SSM stops
+    -- running the automations when the fifth error is received.
+    errorPercentage :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum percentage of remediation actions allowed to run in parallel
+    -- on the non-compliant resources for that specific rule. You can specify a
+    -- percentage, such as 10%. The default value is 10.
+    concurrentExecutionRatePercentage :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SsmControls' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SsmControls' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scErrorPercentage' - The percentage of errors that are allowed before SSM stops running automations on non-compliant resources for that specific rule. You can specify a percentage of errors, for example 10%. If you do not specifiy a percentage, the default is 50%. For example, if you set the ErrorPercentage to 40% for 10 non-compliant resources, then SSM stops running the automations when the fifth error is received.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scConcurrentExecutionRatePercentage' - The maximum percentage of remediation actions allowed to run in parallel on the non-compliant resources for that specific rule. You can specify a percentage, such as 10%. The default value is 10.
-ssmControls ::
+-- 'errorPercentage', 'ssmControls_errorPercentage' - The percentage of errors that are allowed before SSM stops running
+-- automations on non-compliant resources for that specific rule. You can
+-- specify a percentage of errors, for example 10%. If you do not specifiy
+-- a percentage, the default is 50%. For example, if you set the
+-- ErrorPercentage to 40% for 10 non-compliant resources, then SSM stops
+-- running the automations when the fifth error is received.
+--
+-- 'concurrentExecutionRatePercentage', 'ssmControls_concurrentExecutionRatePercentage' - The maximum percentage of remediation actions allowed to run in parallel
+-- on the non-compliant resources for that specific rule. You can specify a
+-- percentage, such as 10%. The default value is 10.
+newSsmControls ::
   SsmControls
-ssmControls =
+newSsmControls =
   SsmControls'
-    { _scErrorPercentage = Nothing,
-      _scConcurrentExecutionRatePercentage = Nothing
+    { errorPercentage = Prelude.Nothing,
+      concurrentExecutionRatePercentage = Prelude.Nothing
     }
 
--- | The percentage of errors that are allowed before SSM stops running automations on non-compliant resources for that specific rule. You can specify a percentage of errors, for example 10%. If you do not specifiy a percentage, the default is 50%. For example, if you set the ErrorPercentage to 40% for 10 non-compliant resources, then SSM stops running the automations when the fifth error is received.
-scErrorPercentage :: Lens' SsmControls (Maybe Natural)
-scErrorPercentage = lens _scErrorPercentage (\s a -> s {_scErrorPercentage = a}) . mapping _Nat
+-- | The percentage of errors that are allowed before SSM stops running
+-- automations on non-compliant resources for that specific rule. You can
+-- specify a percentage of errors, for example 10%. If you do not specifiy
+-- a percentage, the default is 50%. For example, if you set the
+-- ErrorPercentage to 40% for 10 non-compliant resources, then SSM stops
+-- running the automations when the fifth error is received.
+ssmControls_errorPercentage :: Lens.Lens' SsmControls (Prelude.Maybe Prelude.Natural)
+ssmControls_errorPercentage = Lens.lens (\SsmControls' {errorPercentage} -> errorPercentage) (\s@SsmControls' {} a -> s {errorPercentage = a} :: SsmControls) Prelude.. Lens.mapping Prelude._Nat
 
--- | The maximum percentage of remediation actions allowed to run in parallel on the non-compliant resources for that specific rule. You can specify a percentage, such as 10%. The default value is 10.
-scConcurrentExecutionRatePercentage :: Lens' SsmControls (Maybe Natural)
-scConcurrentExecutionRatePercentage = lens _scConcurrentExecutionRatePercentage (\s a -> s {_scConcurrentExecutionRatePercentage = a}) . mapping _Nat
+-- | The maximum percentage of remediation actions allowed to run in parallel
+-- on the non-compliant resources for that specific rule. You can specify a
+-- percentage, such as 10%. The default value is 10.
+ssmControls_concurrentExecutionRatePercentage :: Lens.Lens' SsmControls (Prelude.Maybe Prelude.Natural)
+ssmControls_concurrentExecutionRatePercentage = Lens.lens (\SsmControls' {concurrentExecutionRatePercentage} -> concurrentExecutionRatePercentage) (\s@SsmControls' {} a -> s {concurrentExecutionRatePercentage = a} :: SsmControls) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON SsmControls where
+instance Prelude.FromJSON SsmControls where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SsmControls"
       ( \x ->
           SsmControls'
-            <$> (x .:? "ErrorPercentage")
-            <*> (x .:? "ConcurrentExecutionRatePercentage")
+            Prelude.<$> (x Prelude..:? "ErrorPercentage")
+            Prelude.<*> (x Prelude..:? "ConcurrentExecutionRatePercentage")
       )
 
-instance Hashable SsmControls
+instance Prelude.Hashable SsmControls
 
-instance NFData SsmControls
+instance Prelude.NFData SsmControls
 
-instance ToJSON SsmControls where
+instance Prelude.ToJSON SsmControls where
   toJSON SsmControls' {..} =
-    object
-      ( catMaybes
-          [ ("ErrorPercentage" .=) <$> _scErrorPercentage,
-            ("ConcurrentExecutionRatePercentage" .=)
-              <$> _scConcurrentExecutionRatePercentage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ErrorPercentage" Prelude..=)
+              Prelude.<$> errorPercentage,
+            ("ConcurrentExecutionRatePercentage" Prelude..=)
+              Prelude.<$> concurrentExecutionRatePercentage
           ]
       )

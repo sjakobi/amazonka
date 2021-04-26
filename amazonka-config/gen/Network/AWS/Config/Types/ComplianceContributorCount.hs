@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.ComplianceContributorCount where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The number of AWS resources or AWS Config rules responsible for the current compliance of the item, up to a maximum number.
+-- | The number of AWS resources or AWS Config rules responsible for the
+-- current compliance of the item, up to a maximum number.
 --
---
---
--- /See:/ 'complianceContributorCount' smart constructor.
+-- /See:/ 'newComplianceContributorCount' smart constructor.
 data ComplianceContributorCount = ComplianceContributorCount'
-  { _cccCapExceeded ::
-      !(Maybe Bool),
-    _cccCappedCount ::
-      !(Maybe Int)
+  { -- | Indicates whether the maximum count is reached.
+    capExceeded :: Prelude.Maybe Prelude.Bool,
+    -- | The number of AWS resources or AWS Config rules responsible for the
+    -- current compliance of the item.
+    cappedCount :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComplianceContributorCount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComplianceContributorCount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cccCapExceeded' - Indicates whether the maximum count is reached.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cccCappedCount' - The number of AWS resources or AWS Config rules responsible for the current compliance of the item.
-complianceContributorCount ::
+-- 'capExceeded', 'complianceContributorCount_capExceeded' - Indicates whether the maximum count is reached.
+--
+-- 'cappedCount', 'complianceContributorCount_cappedCount' - The number of AWS resources or AWS Config rules responsible for the
+-- current compliance of the item.
+newComplianceContributorCount ::
   ComplianceContributorCount
-complianceContributorCount =
+newComplianceContributorCount =
   ComplianceContributorCount'
-    { _cccCapExceeded =
-        Nothing,
-      _cccCappedCount = Nothing
+    { capExceeded =
+        Prelude.Nothing,
+      cappedCount = Prelude.Nothing
     }
 
 -- | Indicates whether the maximum count is reached.
-cccCapExceeded :: Lens' ComplianceContributorCount (Maybe Bool)
-cccCapExceeded = lens _cccCapExceeded (\s a -> s {_cccCapExceeded = a})
+complianceContributorCount_capExceeded :: Lens.Lens' ComplianceContributorCount (Prelude.Maybe Prelude.Bool)
+complianceContributorCount_capExceeded = Lens.lens (\ComplianceContributorCount' {capExceeded} -> capExceeded) (\s@ComplianceContributorCount' {} a -> s {capExceeded = a} :: ComplianceContributorCount)
 
--- | The number of AWS resources or AWS Config rules responsible for the current compliance of the item.
-cccCappedCount :: Lens' ComplianceContributorCount (Maybe Int)
-cccCappedCount = lens _cccCappedCount (\s a -> s {_cccCappedCount = a})
+-- | The number of AWS resources or AWS Config rules responsible for the
+-- current compliance of the item.
+complianceContributorCount_cappedCount :: Lens.Lens' ComplianceContributorCount (Prelude.Maybe Prelude.Int)
+complianceContributorCount_cappedCount = Lens.lens (\ComplianceContributorCount' {cappedCount} -> cappedCount) (\s@ComplianceContributorCount' {} a -> s {cappedCount = a} :: ComplianceContributorCount)
 
-instance FromJSON ComplianceContributorCount where
+instance Prelude.FromJSON ComplianceContributorCount where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ComplianceContributorCount"
       ( \x ->
           ComplianceContributorCount'
-            <$> (x .:? "CapExceeded") <*> (x .:? "CappedCount")
+            Prelude.<$> (x Prelude..:? "CapExceeded")
+            Prelude.<*> (x Prelude..:? "CappedCount")
       )
 
-instance Hashable ComplianceContributorCount
+instance Prelude.Hashable ComplianceContributorCount
 
-instance NFData ComplianceContributorCount
+instance Prelude.NFData ComplianceContributorCount

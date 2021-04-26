@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,208 +21,215 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns compliance details for the conformance pack based on the cumulative compliance results of all the rules in that conformance pack.
+-- Returns compliance details for the conformance pack based on the
+-- cumulative compliance results of all the rules in that conformance pack.
 module Network.AWS.Config.GetConformancePackComplianceSummary
   ( -- * Creating a Request
-    getConformancePackComplianceSummary,
-    GetConformancePackComplianceSummary,
+    GetConformancePackComplianceSummary (..),
+    newGetConformancePackComplianceSummary,
 
     -- * Request Lenses
-    gcpcsNextToken,
-    gcpcsLimit,
-    gcpcsConformancePackNames,
+    getConformancePackComplianceSummary_nextToken,
+    getConformancePackComplianceSummary_limit,
+    getConformancePackComplianceSummary_conformancePackNames,
 
     -- * Destructuring the Response
-    getConformancePackComplianceSummaryResponse,
-    GetConformancePackComplianceSummaryResponse,
+    GetConformancePackComplianceSummaryResponse (..),
+    newGetConformancePackComplianceSummaryResponse,
 
     -- * Response Lenses
-    gcpcsrrsConformancePackComplianceSummaryList,
-    gcpcsrrsNextToken,
-    gcpcsrrsResponseStatus,
+    getConformancePackComplianceSummaryResponse_conformancePackComplianceSummaryList,
+    getConformancePackComplianceSummaryResponse_nextToken,
+    getConformancePackComplianceSummaryResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.ConformancePackComplianceSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getConformancePackComplianceSummary' smart constructor.
+-- | /See:/ 'newGetConformancePackComplianceSummary' smart constructor.
 data GetConformancePackComplianceSummary = GetConformancePackComplianceSummary'
-  { _gcpcsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gcpcsLimit ::
-      !( Maybe
-           Nat
-       ),
-    _gcpcsConformancePackNames ::
-      !( List1
-           Text
-       )
+  { -- | The nextToken string returned on a previous page that you use to get the
+    -- next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of conformance packs returned on each page.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | Names of conformance packs.
+    conformancePackNames :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConformancePackComplianceSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConformancePackComplianceSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcpcsNextToken' - The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcpcsLimit' - The maximum number of conformance packs returned on each page.
+-- 'nextToken', 'getConformancePackComplianceSummary_nextToken' - The nextToken string returned on a previous page that you use to get the
+-- next page of results in a paginated response.
 --
--- * 'gcpcsConformancePackNames' - Names of conformance packs.
-getConformancePackComplianceSummary ::
-  -- | 'gcpcsConformancePackNames'
-  NonEmpty Text ->
+-- 'limit', 'getConformancePackComplianceSummary_limit' - The maximum number of conformance packs returned on each page.
+--
+-- 'conformancePackNames', 'getConformancePackComplianceSummary_conformancePackNames' - Names of conformance packs.
+newGetConformancePackComplianceSummary ::
+  -- | 'conformancePackNames'
+  Prelude.NonEmpty Prelude.Text ->
   GetConformancePackComplianceSummary
-getConformancePackComplianceSummary
+newGetConformancePackComplianceSummary
   pConformancePackNames_ =
     GetConformancePackComplianceSummary'
-      { _gcpcsNextToken =
-          Nothing,
-        _gcpcsLimit = Nothing,
-        _gcpcsConformancePackNames =
-          _List1 # pConformancePackNames_
+      { nextToken =
+          Prelude.Nothing,
+        limit = Prelude.Nothing,
+        conformancePackNames =
+          Prelude._List1
+            Lens.# pConformancePackNames_
       }
 
--- | The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
-gcpcsNextToken :: Lens' GetConformancePackComplianceSummary (Maybe Text)
-gcpcsNextToken = lens _gcpcsNextToken (\s a -> s {_gcpcsNextToken = a})
+-- | The nextToken string returned on a previous page that you use to get the
+-- next page of results in a paginated response.
+getConformancePackComplianceSummary_nextToken :: Lens.Lens' GetConformancePackComplianceSummary (Prelude.Maybe Prelude.Text)
+getConformancePackComplianceSummary_nextToken = Lens.lens (\GetConformancePackComplianceSummary' {nextToken} -> nextToken) (\s@GetConformancePackComplianceSummary' {} a -> s {nextToken = a} :: GetConformancePackComplianceSummary)
 
 -- | The maximum number of conformance packs returned on each page.
-gcpcsLimit :: Lens' GetConformancePackComplianceSummary (Maybe Natural)
-gcpcsLimit = lens _gcpcsLimit (\s a -> s {_gcpcsLimit = a}) . mapping _Nat
+getConformancePackComplianceSummary_limit :: Lens.Lens' GetConformancePackComplianceSummary (Prelude.Maybe Prelude.Natural)
+getConformancePackComplianceSummary_limit = Lens.lens (\GetConformancePackComplianceSummary' {limit} -> limit) (\s@GetConformancePackComplianceSummary' {} a -> s {limit = a} :: GetConformancePackComplianceSummary) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Names of conformance packs.
-gcpcsConformancePackNames :: Lens' GetConformancePackComplianceSummary (NonEmpty Text)
-gcpcsConformancePackNames = lens _gcpcsConformancePackNames (\s a -> s {_gcpcsConformancePackNames = a}) . _List1
+getConformancePackComplianceSummary_conformancePackNames :: Lens.Lens' GetConformancePackComplianceSummary (Prelude.NonEmpty Prelude.Text)
+getConformancePackComplianceSummary_conformancePackNames = Lens.lens (\GetConformancePackComplianceSummary' {conformancePackNames} -> conformancePackNames) (\s@GetConformancePackComplianceSummary' {} a -> s {conformancePackNames = a} :: GetConformancePackComplianceSummary) Prelude.. Prelude._List1
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetConformancePackComplianceSummary
   where
   type
     Rs GetConformancePackComplianceSummary =
       GetConformancePackComplianceSummaryResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetConformancePackComplianceSummaryResponse'
-            <$> (x .?> "ConformancePackComplianceSummaryList")
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x
+                            Prelude..?> "ConformancePackComplianceSummaryList"
+                        )
+              Prelude.<*> (x Prelude..?> "NextToken")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetConformancePackComplianceSummary
-
-instance NFData GetConformancePackComplianceSummary
+instance
+  Prelude.Hashable
+    GetConformancePackComplianceSummary
 
 instance
-  ToHeaders
+  Prelude.NFData
+    GetConformancePackComplianceSummary
+
+instance
+  Prelude.ToHeaders
     GetConformancePackComplianceSummary
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.GetConformancePackComplianceSummary" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.GetConformancePackComplianceSummary" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetConformancePackComplianceSummary where
+instance
+  Prelude.ToJSON
+    GetConformancePackComplianceSummary
+  where
   toJSON GetConformancePackComplianceSummary' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gcpcsNextToken,
-            ("Limit" .=) <$> _gcpcsLimit,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just
               ( "ConformancePackNames"
-                  .= _gcpcsConformancePackNames
+                  Prelude..= conformancePackNames
               )
           ]
       )
 
-instance ToPath GetConformancePackComplianceSummary where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    GetConformancePackComplianceSummary
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetConformancePackComplianceSummary where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetConformancePackComplianceSummary
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getConformancePackComplianceSummaryResponse' smart constructor.
+-- | /See:/ 'newGetConformancePackComplianceSummaryResponse' smart constructor.
 data GetConformancePackComplianceSummaryResponse = GetConformancePackComplianceSummaryResponse'
-  { _gcpcsrrsConformancePackComplianceSummaryList ::
-      !( Maybe
-           ( List1
-               ConformancePackComplianceSummary
-           )
-       ),
-    _gcpcsrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gcpcsrrsResponseStatus ::
-      !Int
+  { -- | A list of @ConformancePackComplianceSummary@ objects.
+    conformancePackComplianceSummaryList :: Prelude.Maybe (Prelude.List1 ConformancePackComplianceSummary),
+    -- | The nextToken string returned on a previous page that you use to get the
+    -- next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConformancePackComplianceSummaryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConformancePackComplianceSummaryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcpcsrrsConformancePackComplianceSummaryList' - A list of @ConformancePackComplianceSummary@ objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcpcsrrsNextToken' - The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
+-- 'conformancePackComplianceSummaryList', 'getConformancePackComplianceSummaryResponse_conformancePackComplianceSummaryList' - A list of @ConformancePackComplianceSummary@ objects.
 --
--- * 'gcpcsrrsResponseStatus' - -- | The response status code.
-getConformancePackComplianceSummaryResponse ::
-  -- | 'gcpcsrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'getConformancePackComplianceSummaryResponse_nextToken' - The nextToken string returned on a previous page that you use to get the
+-- next page of results in a paginated response.
+--
+-- 'httpStatus', 'getConformancePackComplianceSummaryResponse_httpStatus' - The response's http status code.
+newGetConformancePackComplianceSummaryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetConformancePackComplianceSummaryResponse
-getConformancePackComplianceSummaryResponse
-  pResponseStatus_ =
+newGetConformancePackComplianceSummaryResponse
+  pHttpStatus_ =
     GetConformancePackComplianceSummaryResponse'
-      { _gcpcsrrsConformancePackComplianceSummaryList =
-          Nothing,
-        _gcpcsrrsNextToken = Nothing,
-        _gcpcsrrsResponseStatus =
-          pResponseStatus_
+      { conformancePackComplianceSummaryList =
+          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A list of @ConformancePackComplianceSummary@ objects.
-gcpcsrrsConformancePackComplianceSummaryList :: Lens' GetConformancePackComplianceSummaryResponse (Maybe (NonEmpty ConformancePackComplianceSummary))
-gcpcsrrsConformancePackComplianceSummaryList = lens _gcpcsrrsConformancePackComplianceSummaryList (\s a -> s {_gcpcsrrsConformancePackComplianceSummaryList = a}) . mapping _List1
+getConformancePackComplianceSummaryResponse_conformancePackComplianceSummaryList :: Lens.Lens' GetConformancePackComplianceSummaryResponse (Prelude.Maybe (Prelude.NonEmpty ConformancePackComplianceSummary))
+getConformancePackComplianceSummaryResponse_conformancePackComplianceSummaryList = Lens.lens (\GetConformancePackComplianceSummaryResponse' {conformancePackComplianceSummaryList} -> conformancePackComplianceSummaryList) (\s@GetConformancePackComplianceSummaryResponse' {} a -> s {conformancePackComplianceSummaryList = a} :: GetConformancePackComplianceSummaryResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
-gcpcsrrsNextToken :: Lens' GetConformancePackComplianceSummaryResponse (Maybe Text)
-gcpcsrrsNextToken = lens _gcpcsrrsNextToken (\s a -> s {_gcpcsrrsNextToken = a})
+-- | The nextToken string returned on a previous page that you use to get the
+-- next page of results in a paginated response.
+getConformancePackComplianceSummaryResponse_nextToken :: Lens.Lens' GetConformancePackComplianceSummaryResponse (Prelude.Maybe Prelude.Text)
+getConformancePackComplianceSummaryResponse_nextToken = Lens.lens (\GetConformancePackComplianceSummaryResponse' {nextToken} -> nextToken) (\s@GetConformancePackComplianceSummaryResponse' {} a -> s {nextToken = a} :: GetConformancePackComplianceSummaryResponse)
 
--- | -- | The response status code.
-gcpcsrrsResponseStatus :: Lens' GetConformancePackComplianceSummaryResponse Int
-gcpcsrrsResponseStatus = lens _gcpcsrrsResponseStatus (\s a -> s {_gcpcsrrsResponseStatus = a})
+-- | The response's http status code.
+getConformancePackComplianceSummaryResponse_httpStatus :: Lens.Lens' GetConformancePackComplianceSummaryResponse Prelude.Int
+getConformancePackComplianceSummaryResponse_httpStatus = Lens.lens (\GetConformancePackComplianceSummaryResponse' {httpStatus} -> httpStatus) (\s@GetConformancePackComplianceSummaryResponse' {} a -> s {httpStatus = a} :: GetConformancePackComplianceSummaryResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetConformancePackComplianceSummaryResponse

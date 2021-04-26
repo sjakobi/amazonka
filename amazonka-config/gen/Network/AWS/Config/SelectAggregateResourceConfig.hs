@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,239 +21,247 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Accepts a structured query language (SQL) SELECT command and an aggregator to query configuration state of AWS resources across multiple accounts and regions, performs the corresponding search, and returns resource configurations matching the properties.
+-- Accepts a structured query language (SQL) SELECT command and an
+-- aggregator to query configuration state of AWS resources across multiple
+-- accounts and regions, performs the corresponding search, and returns
+-- resource configurations matching the properties.
 --
---
--- For more information about query components, see the <https://docs.aws.amazon.com/config/latest/developerguide/query-components.html __Query Components__ > section in the AWS Config Developer Guide.
+-- For more information about query components, see the
+-- <https://docs.aws.amazon.com/config/latest/developerguide/query-components.html Query Components>
+-- section in the AWS Config Developer Guide.
 module Network.AWS.Config.SelectAggregateResourceConfig
   ( -- * Creating a Request
-    selectAggregateResourceConfig,
-    SelectAggregateResourceConfig,
+    SelectAggregateResourceConfig (..),
+    newSelectAggregateResourceConfig,
 
     -- * Request Lenses
-    sarcNextToken,
-    sarcMaxResults,
-    sarcLimit,
-    sarcExpression,
-    sarcConfigurationAggregatorName,
+    selectAggregateResourceConfig_nextToken,
+    selectAggregateResourceConfig_maxResults,
+    selectAggregateResourceConfig_limit,
+    selectAggregateResourceConfig_expression,
+    selectAggregateResourceConfig_configurationAggregatorName,
 
     -- * Destructuring the Response
-    selectAggregateResourceConfigResponse,
-    SelectAggregateResourceConfigResponse,
+    SelectAggregateResourceConfigResponse (..),
+    newSelectAggregateResourceConfigResponse,
 
     -- * Response Lenses
-    sarcrrsNextToken,
-    sarcrrsQueryInfo,
-    sarcrrsResults,
-    sarcrrsResponseStatus,
+    selectAggregateResourceConfigResponse_nextToken,
+    selectAggregateResourceConfigResponse_queryInfo,
+    selectAggregateResourceConfigResponse_results,
+    selectAggregateResourceConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.QueryInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'selectAggregateResourceConfig' smart constructor.
+-- | /See:/ 'newSelectAggregateResourceConfig' smart constructor.
 data SelectAggregateResourceConfig = SelectAggregateResourceConfig'
-  { _sarcNextToken ::
-      !( Maybe
-           Text
-       ),
-    _sarcMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _sarcLimit ::
-      !( Maybe
-           Nat
-       ),
-    _sarcExpression ::
-      !Text,
-    _sarcConfigurationAggregatorName ::
-      !Text
+  { -- | The nextToken string returned in a previous request that you use to
+    -- request the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of query results returned on each page. AWS Config
+    -- also allows the Limit request parameter.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum number of query results returned on each page.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The SQL query SELECT command.
+    expression :: Prelude.Text,
+    -- | The name of the configuration aggregator.
+    configurationAggregatorName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SelectAggregateResourceConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SelectAggregateResourceConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sarcNextToken' - The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sarcMaxResults' - The maximum number of query results returned on each page. AWS Config also allows the Limit request parameter.
+-- 'nextToken', 'selectAggregateResourceConfig_nextToken' - The nextToken string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
 --
--- * 'sarcLimit' - The maximum number of query results returned on each page.
+-- 'maxResults', 'selectAggregateResourceConfig_maxResults' - The maximum number of query results returned on each page. AWS Config
+-- also allows the Limit request parameter.
 --
--- * 'sarcExpression' - The SQL query SELECT command.
+-- 'limit', 'selectAggregateResourceConfig_limit' - The maximum number of query results returned on each page.
 --
--- * 'sarcConfigurationAggregatorName' - The name of the configuration aggregator.
-selectAggregateResourceConfig ::
-  -- | 'sarcExpression'
-  Text ->
-  -- | 'sarcConfigurationAggregatorName'
-  Text ->
+-- 'expression', 'selectAggregateResourceConfig_expression' - The SQL query SELECT command.
+--
+-- 'configurationAggregatorName', 'selectAggregateResourceConfig_configurationAggregatorName' - The name of the configuration aggregator.
+newSelectAggregateResourceConfig ::
+  -- | 'expression'
+  Prelude.Text ->
+  -- | 'configurationAggregatorName'
+  Prelude.Text ->
   SelectAggregateResourceConfig
-selectAggregateResourceConfig
+newSelectAggregateResourceConfig
   pExpression_
   pConfigurationAggregatorName_ =
     SelectAggregateResourceConfig'
-      { _sarcNextToken =
-          Nothing,
-        _sarcMaxResults = Nothing,
-        _sarcLimit = Nothing,
-        _sarcExpression = pExpression_,
-        _sarcConfigurationAggregatorName =
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        limit = Prelude.Nothing,
+        expression = pExpression_,
+        configurationAggregatorName =
           pConfigurationAggregatorName_
       }
 
--- | The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
-sarcNextToken :: Lens' SelectAggregateResourceConfig (Maybe Text)
-sarcNextToken = lens _sarcNextToken (\s a -> s {_sarcNextToken = a})
+-- | The nextToken string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
+selectAggregateResourceConfig_nextToken :: Lens.Lens' SelectAggregateResourceConfig (Prelude.Maybe Prelude.Text)
+selectAggregateResourceConfig_nextToken = Lens.lens (\SelectAggregateResourceConfig' {nextToken} -> nextToken) (\s@SelectAggregateResourceConfig' {} a -> s {nextToken = a} :: SelectAggregateResourceConfig)
 
--- | The maximum number of query results returned on each page. AWS Config also allows the Limit request parameter.
-sarcMaxResults :: Lens' SelectAggregateResourceConfig (Maybe Natural)
-sarcMaxResults = lens _sarcMaxResults (\s a -> s {_sarcMaxResults = a}) . mapping _Nat
+-- | The maximum number of query results returned on each page. AWS Config
+-- also allows the Limit request parameter.
+selectAggregateResourceConfig_maxResults :: Lens.Lens' SelectAggregateResourceConfig (Prelude.Maybe Prelude.Natural)
+selectAggregateResourceConfig_maxResults = Lens.lens (\SelectAggregateResourceConfig' {maxResults} -> maxResults) (\s@SelectAggregateResourceConfig' {} a -> s {maxResults = a} :: SelectAggregateResourceConfig) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The maximum number of query results returned on each page.
-sarcLimit :: Lens' SelectAggregateResourceConfig (Maybe Natural)
-sarcLimit = lens _sarcLimit (\s a -> s {_sarcLimit = a}) . mapping _Nat
+selectAggregateResourceConfig_limit :: Lens.Lens' SelectAggregateResourceConfig (Prelude.Maybe Prelude.Natural)
+selectAggregateResourceConfig_limit = Lens.lens (\SelectAggregateResourceConfig' {limit} -> limit) (\s@SelectAggregateResourceConfig' {} a -> s {limit = a} :: SelectAggregateResourceConfig) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The SQL query SELECT command.
-sarcExpression :: Lens' SelectAggregateResourceConfig Text
-sarcExpression = lens _sarcExpression (\s a -> s {_sarcExpression = a})
+selectAggregateResourceConfig_expression :: Lens.Lens' SelectAggregateResourceConfig Prelude.Text
+selectAggregateResourceConfig_expression = Lens.lens (\SelectAggregateResourceConfig' {expression} -> expression) (\s@SelectAggregateResourceConfig' {} a -> s {expression = a} :: SelectAggregateResourceConfig)
 
 -- | The name of the configuration aggregator.
-sarcConfigurationAggregatorName :: Lens' SelectAggregateResourceConfig Text
-sarcConfigurationAggregatorName = lens _sarcConfigurationAggregatorName (\s a -> s {_sarcConfigurationAggregatorName = a})
+selectAggregateResourceConfig_configurationAggregatorName :: Lens.Lens' SelectAggregateResourceConfig Prelude.Text
+selectAggregateResourceConfig_configurationAggregatorName = Lens.lens (\SelectAggregateResourceConfig' {configurationAggregatorName} -> configurationAggregatorName) (\s@SelectAggregateResourceConfig' {} a -> s {configurationAggregatorName = a} :: SelectAggregateResourceConfig)
 
-instance AWSRequest SelectAggregateResourceConfig where
+instance
+  Prelude.AWSRequest
+    SelectAggregateResourceConfig
+  where
   type
     Rs SelectAggregateResourceConfig =
       SelectAggregateResourceConfigResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SelectAggregateResourceConfigResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "QueryInfo")
-            <*> (x .?> "Results" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "QueryInfo")
+            Prelude.<*> (x Prelude..?> "Results" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SelectAggregateResourceConfig
+instance
+  Prelude.Hashable
+    SelectAggregateResourceConfig
 
-instance NFData SelectAggregateResourceConfig
+instance Prelude.NFData SelectAggregateResourceConfig
 
-instance ToHeaders SelectAggregateResourceConfig where
+instance
+  Prelude.ToHeaders
+    SelectAggregateResourceConfig
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.SelectAggregateResourceConfig" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.SelectAggregateResourceConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SelectAggregateResourceConfig where
+instance Prelude.ToJSON SelectAggregateResourceConfig where
   toJSON SelectAggregateResourceConfig' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _sarcNextToken,
-            ("MaxResults" .=) <$> _sarcMaxResults,
-            ("Limit" .=) <$> _sarcLimit,
-            Just ("Expression" .= _sarcExpression),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just ("Expression" Prelude..= expression),
+            Prelude.Just
               ( "ConfigurationAggregatorName"
-                  .= _sarcConfigurationAggregatorName
+                  Prelude..= configurationAggregatorName
               )
           ]
       )
 
-instance ToPath SelectAggregateResourceConfig where
-  toPath = const "/"
+instance Prelude.ToPath SelectAggregateResourceConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery SelectAggregateResourceConfig where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    SelectAggregateResourceConfig
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'selectAggregateResourceConfigResponse' smart constructor.
+-- | /See:/ 'newSelectAggregateResourceConfigResponse' smart constructor.
 data SelectAggregateResourceConfigResponse = SelectAggregateResourceConfigResponse'
-  { _sarcrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _sarcrrsQueryInfo ::
-      !( Maybe
-           QueryInfo
-       ),
-    _sarcrrsResults ::
-      !( Maybe
-           [Text]
-       ),
-    _sarcrrsResponseStatus ::
-      !Int
+  { -- | The nextToken string returned in a previous request that you use to
+    -- request the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    queryInfo :: Prelude.Maybe QueryInfo,
+    -- | Returns the results for the SQL query.
+    results :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SelectAggregateResourceConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SelectAggregateResourceConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sarcrrsNextToken' - The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sarcrrsQueryInfo' - Undocumented member.
+-- 'nextToken', 'selectAggregateResourceConfigResponse_nextToken' - The nextToken string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
 --
--- * 'sarcrrsResults' - Returns the results for the SQL query.
+-- 'queryInfo', 'selectAggregateResourceConfigResponse_queryInfo' - Undocumented member.
 --
--- * 'sarcrrsResponseStatus' - -- | The response status code.
-selectAggregateResourceConfigResponse ::
-  -- | 'sarcrrsResponseStatus'
-  Int ->
+-- 'results', 'selectAggregateResourceConfigResponse_results' - Returns the results for the SQL query.
+--
+-- 'httpStatus', 'selectAggregateResourceConfigResponse_httpStatus' - The response's http status code.
+newSelectAggregateResourceConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SelectAggregateResourceConfigResponse
-selectAggregateResourceConfigResponse
-  pResponseStatus_ =
-    SelectAggregateResourceConfigResponse'
-      { _sarcrrsNextToken =
-          Nothing,
-        _sarcrrsQueryInfo = Nothing,
-        _sarcrrsResults = Nothing,
-        _sarcrrsResponseStatus =
-          pResponseStatus_
-      }
+newSelectAggregateResourceConfigResponse pHttpStatus_ =
+  SelectAggregateResourceConfigResponse'
+    { nextToken =
+        Prelude.Nothing,
+      queryInfo = Prelude.Nothing,
+      results = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
-sarcrrsNextToken :: Lens' SelectAggregateResourceConfigResponse (Maybe Text)
-sarcrrsNextToken = lens _sarcrrsNextToken (\s a -> s {_sarcrrsNextToken = a})
+-- | The nextToken string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
+selectAggregateResourceConfigResponse_nextToken :: Lens.Lens' SelectAggregateResourceConfigResponse (Prelude.Maybe Prelude.Text)
+selectAggregateResourceConfigResponse_nextToken = Lens.lens (\SelectAggregateResourceConfigResponse' {nextToken} -> nextToken) (\s@SelectAggregateResourceConfigResponse' {} a -> s {nextToken = a} :: SelectAggregateResourceConfigResponse)
 
 -- | Undocumented member.
-sarcrrsQueryInfo :: Lens' SelectAggregateResourceConfigResponse (Maybe QueryInfo)
-sarcrrsQueryInfo = lens _sarcrrsQueryInfo (\s a -> s {_sarcrrsQueryInfo = a})
+selectAggregateResourceConfigResponse_queryInfo :: Lens.Lens' SelectAggregateResourceConfigResponse (Prelude.Maybe QueryInfo)
+selectAggregateResourceConfigResponse_queryInfo = Lens.lens (\SelectAggregateResourceConfigResponse' {queryInfo} -> queryInfo) (\s@SelectAggregateResourceConfigResponse' {} a -> s {queryInfo = a} :: SelectAggregateResourceConfigResponse)
 
 -- | Returns the results for the SQL query.
-sarcrrsResults :: Lens' SelectAggregateResourceConfigResponse [Text]
-sarcrrsResults = lens _sarcrrsResults (\s a -> s {_sarcrrsResults = a}) . _Default . _Coerce
+selectAggregateResourceConfigResponse_results :: Lens.Lens' SelectAggregateResourceConfigResponse (Prelude.Maybe [Prelude.Text])
+selectAggregateResourceConfigResponse_results = Lens.lens (\SelectAggregateResourceConfigResponse' {results} -> results) (\s@SelectAggregateResourceConfigResponse' {} a -> s {results = a} :: SelectAggregateResourceConfigResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-sarcrrsResponseStatus :: Lens' SelectAggregateResourceConfigResponse Int
-sarcrrsResponseStatus = lens _sarcrrsResponseStatus (\s a -> s {_sarcrrsResponseStatus = a})
+-- | The response's http status code.
+selectAggregateResourceConfigResponse_httpStatus :: Lens.Lens' SelectAggregateResourceConfigResponse Prelude.Int
+selectAggregateResourceConfigResponse_httpStatus = Lens.lens (\SelectAggregateResourceConfigResponse' {httpStatus} -> httpStatus) (\s@SelectAggregateResourceConfigResponse' {} a -> s {httpStatus = a} :: SelectAggregateResourceConfigResponse)
 
-instance NFData SelectAggregateResourceConfigResponse
+instance
+  Prelude.NFData
+    SelectAggregateResourceConfigResponse

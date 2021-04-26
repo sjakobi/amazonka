@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,234 +21,238 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns detailed status for each member account within an organization for a given organization conformance pack.
+-- Returns detailed status for each member account within an organization
+-- for a given organization conformance pack.
 module Network.AWS.Config.GetOrganizationConformancePackDetailedStatus
   ( -- * Creating a Request
-    getOrganizationConformancePackDetailedStatus,
-    GetOrganizationConformancePackDetailedStatus,
+    GetOrganizationConformancePackDetailedStatus (..),
+    newGetOrganizationConformancePackDetailedStatus,
 
     -- * Request Lenses
-    gocpdsNextToken,
-    gocpdsFilters,
-    gocpdsLimit,
-    gocpdsOrganizationConformancePackName,
+    getOrganizationConformancePackDetailedStatus_nextToken,
+    getOrganizationConformancePackDetailedStatus_filters,
+    getOrganizationConformancePackDetailedStatus_limit,
+    getOrganizationConformancePackDetailedStatus_organizationConformancePackName,
 
     -- * Destructuring the Response
-    getOrganizationConformancePackDetailedStatusResponse,
-    GetOrganizationConformancePackDetailedStatusResponse,
+    GetOrganizationConformancePackDetailedStatusResponse (..),
+    newGetOrganizationConformancePackDetailedStatusResponse,
 
     -- * Response Lenses
-    gocpdsrrsNextToken,
-    gocpdsrrsOrganizationConformancePackDetailedStatuses,
-    gocpdsrrsResponseStatus,
+    getOrganizationConformancePackDetailedStatusResponse_nextToken,
+    getOrganizationConformancePackDetailedStatusResponse_organizationConformancePackDetailedStatuses,
+    getOrganizationConformancePackDetailedStatusResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.OrganizationConformancePackDetailedStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getOrganizationConformancePackDetailedStatus' smart constructor.
+-- | /See:/ 'newGetOrganizationConformancePackDetailedStatus' smart constructor.
 data GetOrganizationConformancePackDetailedStatus = GetOrganizationConformancePackDetailedStatus'
-  { _gocpdsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gocpdsFilters ::
-      !( Maybe
-           OrganizationResourceDetailedStatusFilters
-       ),
-    _gocpdsLimit ::
-      !( Maybe
-           Nat
-       ),
-    _gocpdsOrganizationConformancePackName ::
-      !Text
+  { -- | The nextToken string returned on a previous page that you use to get the
+    -- next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An @OrganizationResourceDetailedStatusFilters@ object.
+    filters :: Prelude.Maybe OrganizationResourceDetailedStatusFilters,
+    -- | The maximum number of @OrganizationConformancePackDetailedStatuses@
+    -- returned on each page. If you do not specify a number, AWS Config uses
+    -- the default. The default is 100.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The name of organization conformance pack for which you want status
+    -- details for member accounts.
+    organizationConformancePackName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOrganizationConformancePackDetailedStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOrganizationConformancePackDetailedStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gocpdsNextToken' - The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gocpdsFilters' - An @OrganizationResourceDetailedStatusFilters@ object.
+-- 'nextToken', 'getOrganizationConformancePackDetailedStatus_nextToken' - The nextToken string returned on a previous page that you use to get the
+-- next page of results in a paginated response.
 --
--- * 'gocpdsLimit' - The maximum number of @OrganizationConformancePackDetailedStatuses@ returned on each page. If you do not specify a number, AWS Config uses the default. The default is 100.
+-- 'filters', 'getOrganizationConformancePackDetailedStatus_filters' - An @OrganizationResourceDetailedStatusFilters@ object.
 --
--- * 'gocpdsOrganizationConformancePackName' - The name of organization conformance pack for which you want status details for member accounts.
-getOrganizationConformancePackDetailedStatus ::
-  -- | 'gocpdsOrganizationConformancePackName'
-  Text ->
+-- 'limit', 'getOrganizationConformancePackDetailedStatus_limit' - The maximum number of @OrganizationConformancePackDetailedStatuses@
+-- returned on each page. If you do not specify a number, AWS Config uses
+-- the default. The default is 100.
+--
+-- 'organizationConformancePackName', 'getOrganizationConformancePackDetailedStatus_organizationConformancePackName' - The name of organization conformance pack for which you want status
+-- details for member accounts.
+newGetOrganizationConformancePackDetailedStatus ::
+  -- | 'organizationConformancePackName'
+  Prelude.Text ->
   GetOrganizationConformancePackDetailedStatus
-getOrganizationConformancePackDetailedStatus
+newGetOrganizationConformancePackDetailedStatus
   pOrganizationConformancePackName_ =
     GetOrganizationConformancePackDetailedStatus'
-      { _gocpdsNextToken =
-          Nothing,
-        _gocpdsFilters = Nothing,
-        _gocpdsLimit = Nothing,
-        _gocpdsOrganizationConformancePackName =
+      { nextToken =
+          Prelude.Nothing,
+        filters = Prelude.Nothing,
+        limit = Prelude.Nothing,
+        organizationConformancePackName =
           pOrganizationConformancePackName_
       }
 
--- | The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
-gocpdsNextToken :: Lens' GetOrganizationConformancePackDetailedStatus (Maybe Text)
-gocpdsNextToken = lens _gocpdsNextToken (\s a -> s {_gocpdsNextToken = a})
+-- | The nextToken string returned on a previous page that you use to get the
+-- next page of results in a paginated response.
+getOrganizationConformancePackDetailedStatus_nextToken :: Lens.Lens' GetOrganizationConformancePackDetailedStatus (Prelude.Maybe Prelude.Text)
+getOrganizationConformancePackDetailedStatus_nextToken = Lens.lens (\GetOrganizationConformancePackDetailedStatus' {nextToken} -> nextToken) (\s@GetOrganizationConformancePackDetailedStatus' {} a -> s {nextToken = a} :: GetOrganizationConformancePackDetailedStatus)
 
 -- | An @OrganizationResourceDetailedStatusFilters@ object.
-gocpdsFilters :: Lens' GetOrganizationConformancePackDetailedStatus (Maybe OrganizationResourceDetailedStatusFilters)
-gocpdsFilters = lens _gocpdsFilters (\s a -> s {_gocpdsFilters = a})
+getOrganizationConformancePackDetailedStatus_filters :: Lens.Lens' GetOrganizationConformancePackDetailedStatus (Prelude.Maybe OrganizationResourceDetailedStatusFilters)
+getOrganizationConformancePackDetailedStatus_filters = Lens.lens (\GetOrganizationConformancePackDetailedStatus' {filters} -> filters) (\s@GetOrganizationConformancePackDetailedStatus' {} a -> s {filters = a} :: GetOrganizationConformancePackDetailedStatus)
 
--- | The maximum number of @OrganizationConformancePackDetailedStatuses@ returned on each page. If you do not specify a number, AWS Config uses the default. The default is 100.
-gocpdsLimit :: Lens' GetOrganizationConformancePackDetailedStatus (Maybe Natural)
-gocpdsLimit = lens _gocpdsLimit (\s a -> s {_gocpdsLimit = a}) . mapping _Nat
+-- | The maximum number of @OrganizationConformancePackDetailedStatuses@
+-- returned on each page. If you do not specify a number, AWS Config uses
+-- the default. The default is 100.
+getOrganizationConformancePackDetailedStatus_limit :: Lens.Lens' GetOrganizationConformancePackDetailedStatus (Prelude.Maybe Prelude.Natural)
+getOrganizationConformancePackDetailedStatus_limit = Lens.lens (\GetOrganizationConformancePackDetailedStatus' {limit} -> limit) (\s@GetOrganizationConformancePackDetailedStatus' {} a -> s {limit = a} :: GetOrganizationConformancePackDetailedStatus) Prelude.. Lens.mapping Prelude._Nat
 
--- | The name of organization conformance pack for which you want status details for member accounts.
-gocpdsOrganizationConformancePackName :: Lens' GetOrganizationConformancePackDetailedStatus Text
-gocpdsOrganizationConformancePackName = lens _gocpdsOrganizationConformancePackName (\s a -> s {_gocpdsOrganizationConformancePackName = a})
+-- | The name of organization conformance pack for which you want status
+-- details for member accounts.
+getOrganizationConformancePackDetailedStatus_organizationConformancePackName :: Lens.Lens' GetOrganizationConformancePackDetailedStatus Prelude.Text
+getOrganizationConformancePackDetailedStatus_organizationConformancePackName = Lens.lens (\GetOrganizationConformancePackDetailedStatus' {organizationConformancePackName} -> organizationConformancePackName) (\s@GetOrganizationConformancePackDetailedStatus' {} a -> s {organizationConformancePackName = a} :: GetOrganizationConformancePackDetailedStatus)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetOrganizationConformancePackDetailedStatus
   where
   type
     Rs GetOrganizationConformancePackDetailedStatus =
       GetOrganizationConformancePackDetailedStatusResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetOrganizationConformancePackDetailedStatusResponse'
-            <$> (x .?> "NextToken")
-              <*> ( x .?> "OrganizationConformancePackDetailedStatuses"
-                      .!@ mempty
-                  )
-              <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> ( x
+                              Prelude..?> "OrganizationConformancePackDetailedStatuses"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     GetOrganizationConformancePackDetailedStatus
 
 instance
-  NFData
+  Prelude.NFData
     GetOrganizationConformancePackDetailedStatus
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     GetOrganizationConformancePackDetailedStatus
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.GetOrganizationConformancePackDetailedStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.GetOrganizationConformancePackDetailedStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     GetOrganizationConformancePackDetailedStatus
   where
   toJSON
     GetOrganizationConformancePackDetailedStatus' {..} =
-      object
-        ( catMaybes
-            [ ("NextToken" .=) <$> _gocpdsNextToken,
-              ("Filters" .=) <$> _gocpdsFilters,
-              ("Limit" .=) <$> _gocpdsLimit,
-              Just
+      Prelude.object
+        ( Prelude.catMaybes
+            [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+              ("Filters" Prelude..=) Prelude.<$> filters,
+              ("Limit" Prelude..=) Prelude.<$> limit,
+              Prelude.Just
                 ( "OrganizationConformancePackName"
-                    .= _gocpdsOrganizationConformancePackName
+                    Prelude..= organizationConformancePackName
                 )
             ]
         )
 
 instance
-  ToPath
+  Prelude.ToPath
     GetOrganizationConformancePackDetailedStatus
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     GetOrganizationConformancePackDetailedStatus
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getOrganizationConformancePackDetailedStatusResponse' smart constructor.
+-- | /See:/ 'newGetOrganizationConformancePackDetailedStatusResponse' smart constructor.
 data GetOrganizationConformancePackDetailedStatusResponse = GetOrganizationConformancePackDetailedStatusResponse'
-  { _gocpdsrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gocpdsrrsOrganizationConformancePackDetailedStatuses ::
-      !( Maybe
-           [OrganizationConformancePackDetailedStatus]
-       ),
-    _gocpdsrrsResponseStatus ::
-      !Int
+  { -- | The nextToken string returned on a previous page that you use to get the
+    -- next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @OrganizationConformancePackDetailedStatus@ objects.
+    organizationConformancePackDetailedStatuses :: Prelude.Maybe [OrganizationConformancePackDetailedStatus],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOrganizationConformancePackDetailedStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOrganizationConformancePackDetailedStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gocpdsrrsNextToken' - The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gocpdsrrsOrganizationConformancePackDetailedStatuses' - A list of @OrganizationConformancePackDetailedStatus@ objects.
+-- 'nextToken', 'getOrganizationConformancePackDetailedStatusResponse_nextToken' - The nextToken string returned on a previous page that you use to get the
+-- next page of results in a paginated response.
 --
--- * 'gocpdsrrsResponseStatus' - -- | The response status code.
-getOrganizationConformancePackDetailedStatusResponse ::
-  -- | 'gocpdsrrsResponseStatus'
-  Int ->
+-- 'organizationConformancePackDetailedStatuses', 'getOrganizationConformancePackDetailedStatusResponse_organizationConformancePackDetailedStatuses' - A list of @OrganizationConformancePackDetailedStatus@ objects.
+--
+-- 'httpStatus', 'getOrganizationConformancePackDetailedStatusResponse_httpStatus' - The response's http status code.
+newGetOrganizationConformancePackDetailedStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetOrganizationConformancePackDetailedStatusResponse
-getOrganizationConformancePackDetailedStatusResponse
-  pResponseStatus_ =
+newGetOrganizationConformancePackDetailedStatusResponse
+  pHttpStatus_ =
     GetOrganizationConformancePackDetailedStatusResponse'
-      { _gocpdsrrsNextToken =
-          Nothing,
-        _gocpdsrrsOrganizationConformancePackDetailedStatuses =
-          Nothing,
-        _gocpdsrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        organizationConformancePackDetailedStatuses =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
--- | The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
-gocpdsrrsNextToken :: Lens' GetOrganizationConformancePackDetailedStatusResponse (Maybe Text)
-gocpdsrrsNextToken = lens _gocpdsrrsNextToken (\s a -> s {_gocpdsrrsNextToken = a})
+-- | The nextToken string returned on a previous page that you use to get the
+-- next page of results in a paginated response.
+getOrganizationConformancePackDetailedStatusResponse_nextToken :: Lens.Lens' GetOrganizationConformancePackDetailedStatusResponse (Prelude.Maybe Prelude.Text)
+getOrganizationConformancePackDetailedStatusResponse_nextToken = Lens.lens (\GetOrganizationConformancePackDetailedStatusResponse' {nextToken} -> nextToken) (\s@GetOrganizationConformancePackDetailedStatusResponse' {} a -> s {nextToken = a} :: GetOrganizationConformancePackDetailedStatusResponse)
 
 -- | A list of @OrganizationConformancePackDetailedStatus@ objects.
-gocpdsrrsOrganizationConformancePackDetailedStatuses :: Lens' GetOrganizationConformancePackDetailedStatusResponse [OrganizationConformancePackDetailedStatus]
-gocpdsrrsOrganizationConformancePackDetailedStatuses = lens _gocpdsrrsOrganizationConformancePackDetailedStatuses (\s a -> s {_gocpdsrrsOrganizationConformancePackDetailedStatuses = a}) . _Default . _Coerce
+getOrganizationConformancePackDetailedStatusResponse_organizationConformancePackDetailedStatuses :: Lens.Lens' GetOrganizationConformancePackDetailedStatusResponse (Prelude.Maybe [OrganizationConformancePackDetailedStatus])
+getOrganizationConformancePackDetailedStatusResponse_organizationConformancePackDetailedStatuses = Lens.lens (\GetOrganizationConformancePackDetailedStatusResponse' {organizationConformancePackDetailedStatuses} -> organizationConformancePackDetailedStatuses) (\s@GetOrganizationConformancePackDetailedStatusResponse' {} a -> s {organizationConformancePackDetailedStatuses = a} :: GetOrganizationConformancePackDetailedStatusResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gocpdsrrsResponseStatus :: Lens' GetOrganizationConformancePackDetailedStatusResponse Int
-gocpdsrrsResponseStatus = lens _gocpdsrrsResponseStatus (\s a -> s {_gocpdsrrsResponseStatus = a})
+-- | The response's http status code.
+getOrganizationConformancePackDetailedStatusResponse_httpStatus :: Lens.Lens' GetOrganizationConformancePackDetailedStatusResponse Prelude.Int
+getOrganizationConformancePackDetailedStatusResponse_httpStatus = Lens.lens (\GetOrganizationConformancePackDetailedStatusResponse' {httpStatus} -> httpStatus) (\s@GetOrganizationConformancePackDetailedStatusResponse' {} a -> s {httpStatus = a} :: GetOrganizationConformancePackDetailedStatusResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetOrganizationConformancePackDetailedStatusResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,127 +24,136 @@
 -- Returns the details of a specific stored query.
 module Network.AWS.Config.GetStoredQuery
   ( -- * Creating a Request
-    getStoredQuery,
-    GetStoredQuery,
+    GetStoredQuery (..),
+    newGetStoredQuery,
 
     -- * Request Lenses
-    gsqQueryName,
+    getStoredQuery_queryName,
 
     -- * Destructuring the Response
-    getStoredQueryResponse,
-    GetStoredQueryResponse,
+    GetStoredQueryResponse (..),
+    newGetStoredQueryResponse,
 
     -- * Response Lenses
-    gsqrrsStoredQuery,
-    gsqrrsResponseStatus,
+    getStoredQueryResponse_storedQuery,
+    getStoredQueryResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.StoredQuery
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getStoredQuery' smart constructor.
-newtype GetStoredQuery = GetStoredQuery'
-  { _gsqQueryName ::
-      Text
+-- | /See:/ 'newGetStoredQuery' smart constructor.
+data GetStoredQuery = GetStoredQuery'
+  { -- | The name of the query.
+    queryName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStoredQuery' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStoredQuery' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsqQueryName' - The name of the query.
-getStoredQuery ::
-  -- | 'gsqQueryName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'queryName', 'getStoredQuery_queryName' - The name of the query.
+newGetStoredQuery ::
+  -- | 'queryName'
+  Prelude.Text ->
   GetStoredQuery
-getStoredQuery pQueryName_ =
-  GetStoredQuery' {_gsqQueryName = pQueryName_}
+newGetStoredQuery pQueryName_ =
+  GetStoredQuery' {queryName = pQueryName_}
 
 -- | The name of the query.
-gsqQueryName :: Lens' GetStoredQuery Text
-gsqQueryName = lens _gsqQueryName (\s a -> s {_gsqQueryName = a})
+getStoredQuery_queryName :: Lens.Lens' GetStoredQuery Prelude.Text
+getStoredQuery_queryName = Lens.lens (\GetStoredQuery' {queryName} -> queryName) (\s@GetStoredQuery' {} a -> s {queryName = a} :: GetStoredQuery)
 
-instance AWSRequest GetStoredQuery where
+instance Prelude.AWSRequest GetStoredQuery where
   type Rs GetStoredQuery = GetStoredQueryResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetStoredQueryResponse'
-            <$> (x .?> "StoredQuery") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "StoredQuery")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetStoredQuery
+instance Prelude.Hashable GetStoredQuery
 
-instance NFData GetStoredQuery
+instance Prelude.NFData GetStoredQuery
 
-instance ToHeaders GetStoredQuery where
+instance Prelude.ToHeaders GetStoredQuery where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("StarlingDoveService.GetStoredQuery" :: ByteString),
+              Prelude.=# ( "StarlingDoveService.GetStoredQuery" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetStoredQuery where
+instance Prelude.ToJSON GetStoredQuery where
   toJSON GetStoredQuery' {..} =
-    object
-      (catMaybes [Just ("QueryName" .= _gsqQueryName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("QueryName" Prelude..= queryName)]
+      )
 
-instance ToPath GetStoredQuery where
-  toPath = const "/"
+instance Prelude.ToPath GetStoredQuery where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetStoredQuery where
-  toQuery = const mempty
+instance Prelude.ToQuery GetStoredQuery where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getStoredQueryResponse' smart constructor.
+-- | /See:/ 'newGetStoredQueryResponse' smart constructor.
 data GetStoredQueryResponse = GetStoredQueryResponse'
-  { _gsqrrsStoredQuery ::
-      !(Maybe StoredQuery),
-    _gsqrrsResponseStatus ::
-      !Int
+  { -- | Returns a @StoredQuery@ object.
+    storedQuery :: Prelude.Maybe StoredQuery,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStoredQueryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStoredQueryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsqrrsStoredQuery' - Returns a @StoredQuery@ object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsqrrsResponseStatus' - -- | The response status code.
-getStoredQueryResponse ::
-  -- | 'gsqrrsResponseStatus'
-  Int ->
+-- 'storedQuery', 'getStoredQueryResponse_storedQuery' - Returns a @StoredQuery@ object.
+--
+-- 'httpStatus', 'getStoredQueryResponse_httpStatus' - The response's http status code.
+newGetStoredQueryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetStoredQueryResponse
-getStoredQueryResponse pResponseStatus_ =
+newGetStoredQueryResponse pHttpStatus_ =
   GetStoredQueryResponse'
-    { _gsqrrsStoredQuery =
-        Nothing,
-      _gsqrrsResponseStatus = pResponseStatus_
+    { storedQuery =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Returns a @StoredQuery@ object.
-gsqrrsStoredQuery :: Lens' GetStoredQueryResponse (Maybe StoredQuery)
-gsqrrsStoredQuery = lens _gsqrrsStoredQuery (\s a -> s {_gsqrrsStoredQuery = a})
+getStoredQueryResponse_storedQuery :: Lens.Lens' GetStoredQueryResponse (Prelude.Maybe StoredQuery)
+getStoredQueryResponse_storedQuery = Lens.lens (\GetStoredQueryResponse' {storedQuery} -> storedQuery) (\s@GetStoredQueryResponse' {} a -> s {storedQuery = a} :: GetStoredQueryResponse)
 
--- | -- | The response status code.
-gsqrrsResponseStatus :: Lens' GetStoredQueryResponse Int
-gsqrrsResponseStatus = lens _gsqrrsResponseStatus (\s a -> s {_gsqrrsResponseStatus = a})
+-- | The response's http status code.
+getStoredQueryResponse_httpStatus :: Lens.Lens' GetStoredQueryResponse Prelude.Int
+getStoredQueryResponse_httpStatus = Lens.lens (\GetStoredQueryResponse' {httpStatus} -> httpStatus) (\s@GetStoredQueryResponse' {} a -> s {httpStatus = a} :: GetStoredQueryResponse)
 
-instance NFData GetStoredQueryResponse
+instance Prelude.NFData GetStoredQueryResponse

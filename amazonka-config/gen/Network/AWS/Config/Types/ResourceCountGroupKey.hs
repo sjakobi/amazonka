@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Config.Types.ResourceCountGroupKey
   ( ResourceCountGroupKey
       ( ..,
-        AWSRegion,
-        AccountId,
-        ResourceType
+        ResourceCountGroupKeyACCOUNTID,
+        ResourceCountGroupKeyAWSREGION,
+        ResourceCountGroupKeyRESOURCETYPE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceCountGroupKey
-  = ResourceCountGroupKey'
-      ( CI
-          Text
-      )
+newtype ResourceCountGroupKey = ResourceCountGroupKey'
+  { fromResourceCountGroupKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSRegion :: ResourceCountGroupKey
-pattern AWSRegion = ResourceCountGroupKey' "AWS_REGION"
+pattern ResourceCountGroupKeyACCOUNTID :: ResourceCountGroupKey
+pattern ResourceCountGroupKeyACCOUNTID = ResourceCountGroupKey' "ACCOUNT_ID"
 
-pattern AccountId :: ResourceCountGroupKey
-pattern AccountId = ResourceCountGroupKey' "ACCOUNT_ID"
+pattern ResourceCountGroupKeyAWSREGION :: ResourceCountGroupKey
+pattern ResourceCountGroupKeyAWSREGION = ResourceCountGroupKey' "AWS_REGION"
 
-pattern ResourceType :: ResourceCountGroupKey
-pattern ResourceType = ResourceCountGroupKey' "RESOURCE_TYPE"
+pattern ResourceCountGroupKeyRESOURCETYPE :: ResourceCountGroupKey
+pattern ResourceCountGroupKeyRESOURCETYPE = ResourceCountGroupKey' "RESOURCE_TYPE"
 
 {-# COMPLETE
-  AWSRegion,
-  AccountId,
-  ResourceType,
+  ResourceCountGroupKeyACCOUNTID,
+  ResourceCountGroupKeyAWSREGION,
+  ResourceCountGroupKeyRESOURCETYPE,
   ResourceCountGroupKey'
   #-}
 
-instance FromText ResourceCountGroupKey where
-  parser = (ResourceCountGroupKey' . mk) <$> takeText
+instance Prelude.FromText ResourceCountGroupKey where
+  parser = ResourceCountGroupKey' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceCountGroupKey where
-  toText (ResourceCountGroupKey' ci) = original ci
+instance Prelude.ToText ResourceCountGroupKey where
+  toText (ResourceCountGroupKey' x) = x
 
-instance Hashable ResourceCountGroupKey
+instance Prelude.Hashable ResourceCountGroupKey
 
-instance NFData ResourceCountGroupKey
+instance Prelude.NFData ResourceCountGroupKey
 
-instance ToByteString ResourceCountGroupKey
+instance Prelude.ToByteString ResourceCountGroupKey
 
-instance ToQuery ResourceCountGroupKey
+instance Prelude.ToQuery ResourceCountGroupKey
 
-instance ToHeader ResourceCountGroupKey
+instance Prelude.ToHeader ResourceCountGroupKey
 
-instance ToJSON ResourceCountGroupKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceCountGroupKey where
+  toJSON = Prelude.toJSONText

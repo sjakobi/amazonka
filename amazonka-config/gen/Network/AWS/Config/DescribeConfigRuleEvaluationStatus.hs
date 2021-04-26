@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,218 +21,270 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns status information for each of your AWS managed Config rules. The status includes information such as the last time AWS Config invoked the rule, the last time AWS Config failed to invoke the rule, and the related error for the last failure.
---
---
+-- Returns status information for each of your AWS managed Config rules.
+-- The status includes information such as the last time AWS Config invoked
+-- the rule, the last time AWS Config failed to invoke the rule, and the
+-- related error for the last failure.
 --
 -- This operation returns paginated results.
 module Network.AWS.Config.DescribeConfigRuleEvaluationStatus
   ( -- * Creating a Request
-    describeConfigRuleEvaluationStatus,
-    DescribeConfigRuleEvaluationStatus,
+    DescribeConfigRuleEvaluationStatus (..),
+    newDescribeConfigRuleEvaluationStatus,
 
     -- * Request Lenses
-    dcresNextToken,
-    dcresConfigRuleNames,
-    dcresLimit,
+    describeConfigRuleEvaluationStatus_nextToken,
+    describeConfigRuleEvaluationStatus_configRuleNames,
+    describeConfigRuleEvaluationStatus_limit,
 
     -- * Destructuring the Response
-    describeConfigRuleEvaluationStatusResponse,
-    DescribeConfigRuleEvaluationStatusResponse,
+    DescribeConfigRuleEvaluationStatusResponse (..),
+    newDescribeConfigRuleEvaluationStatusResponse,
 
     -- * Response Lenses
-    dcresrrsNextToken,
-    dcresrrsConfigRulesEvaluationStatus,
-    dcresrrsResponseStatus,
+    describeConfigRuleEvaluationStatusResponse_nextToken,
+    describeConfigRuleEvaluationStatusResponse_configRulesEvaluationStatus,
+    describeConfigRuleEvaluationStatusResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.ConfigRuleEvaluationStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeConfigRuleEvaluationStatus' smart constructor.
+-- /See:/ 'newDescribeConfigRuleEvaluationStatus' smart constructor.
 data DescribeConfigRuleEvaluationStatus = DescribeConfigRuleEvaluationStatus'
-  { _dcresNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dcresConfigRuleNames ::
-      !( Maybe
-           [Text]
-       ),
-    _dcresLimit ::
-      !( Maybe
-           Nat
-       )
+  { -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS managed Config rules for which you want status
+    -- information. If you do not specify any names, AWS Config returns status
+    -- information for all AWS managed Config rules that you use.
+    configRuleNames :: Prelude.Maybe [Prelude.Text],
+    -- | The number of rule evaluation results that you want returned.
+    --
+    -- This parameter is required if the rule limit for your account is more
+    -- than the default of 150 rules.
+    --
+    -- For information about requesting a rule limit increase, see
+    -- <http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config AWS Config Limits>
+    -- in the /AWS General Reference Guide/.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConfigRuleEvaluationStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConfigRuleEvaluationStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcresNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcresConfigRuleNames' - The name of the AWS managed Config rules for which you want status information. If you do not specify any names, AWS Config returns status information for all AWS managed Config rules that you use.
+-- 'nextToken', 'describeConfigRuleEvaluationStatus_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
--- * 'dcresLimit' - The number of rule evaluation results that you want returned. This parameter is required if the rule limit for your account is more than the default of 150 rules. For information about requesting a rule limit increase, see <http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config AWS Config Limits> in the /AWS General Reference Guide/ .
-describeConfigRuleEvaluationStatus ::
+-- 'configRuleNames', 'describeConfigRuleEvaluationStatus_configRuleNames' - The name of the AWS managed Config rules for which you want status
+-- information. If you do not specify any names, AWS Config returns status
+-- information for all AWS managed Config rules that you use.
+--
+-- 'limit', 'describeConfigRuleEvaluationStatus_limit' - The number of rule evaluation results that you want returned.
+--
+-- This parameter is required if the rule limit for your account is more
+-- than the default of 150 rules.
+--
+-- For information about requesting a rule limit increase, see
+-- <http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config AWS Config Limits>
+-- in the /AWS General Reference Guide/.
+newDescribeConfigRuleEvaluationStatus ::
   DescribeConfigRuleEvaluationStatus
-describeConfigRuleEvaluationStatus =
+newDescribeConfigRuleEvaluationStatus =
   DescribeConfigRuleEvaluationStatus'
-    { _dcresNextToken =
-        Nothing,
-      _dcresConfigRuleNames = Nothing,
-      _dcresLimit = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      configRuleNames = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-dcresNextToken :: Lens' DescribeConfigRuleEvaluationStatus (Maybe Text)
-dcresNextToken = lens _dcresNextToken (\s a -> s {_dcresNextToken = a})
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeConfigRuleEvaluationStatus_nextToken :: Lens.Lens' DescribeConfigRuleEvaluationStatus (Prelude.Maybe Prelude.Text)
+describeConfigRuleEvaluationStatus_nextToken = Lens.lens (\DescribeConfigRuleEvaluationStatus' {nextToken} -> nextToken) (\s@DescribeConfigRuleEvaluationStatus' {} a -> s {nextToken = a} :: DescribeConfigRuleEvaluationStatus)
 
--- | The name of the AWS managed Config rules for which you want status information. If you do not specify any names, AWS Config returns status information for all AWS managed Config rules that you use.
-dcresConfigRuleNames :: Lens' DescribeConfigRuleEvaluationStatus [Text]
-dcresConfigRuleNames = lens _dcresConfigRuleNames (\s a -> s {_dcresConfigRuleNames = a}) . _Default . _Coerce
+-- | The name of the AWS managed Config rules for which you want status
+-- information. If you do not specify any names, AWS Config returns status
+-- information for all AWS managed Config rules that you use.
+describeConfigRuleEvaluationStatus_configRuleNames :: Lens.Lens' DescribeConfigRuleEvaluationStatus (Prelude.Maybe [Prelude.Text])
+describeConfigRuleEvaluationStatus_configRuleNames = Lens.lens (\DescribeConfigRuleEvaluationStatus' {configRuleNames} -> configRuleNames) (\s@DescribeConfigRuleEvaluationStatus' {} a -> s {configRuleNames = a} :: DescribeConfigRuleEvaluationStatus) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of rule evaluation results that you want returned. This parameter is required if the rule limit for your account is more than the default of 150 rules. For information about requesting a rule limit increase, see <http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config AWS Config Limits> in the /AWS General Reference Guide/ .
-dcresLimit :: Lens' DescribeConfigRuleEvaluationStatus (Maybe Natural)
-dcresLimit = lens _dcresLimit (\s a -> s {_dcresLimit = a}) . mapping _Nat
-
-instance AWSPager DescribeConfigRuleEvaluationStatus where
-  page rq rs
-    | stop (rs ^. dcresrrsNextToken) = Nothing
-    | stop (rs ^. dcresrrsConfigRulesEvaluationStatus) =
-      Nothing
-    | otherwise =
-      Just $ rq & dcresNextToken .~ rs ^. dcresrrsNextToken
+-- | The number of rule evaluation results that you want returned.
+--
+-- This parameter is required if the rule limit for your account is more
+-- than the default of 150 rules.
+--
+-- For information about requesting a rule limit increase, see
+-- <http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config AWS Config Limits>
+-- in the /AWS General Reference Guide/.
+describeConfigRuleEvaluationStatus_limit :: Lens.Lens' DescribeConfigRuleEvaluationStatus (Prelude.Maybe Prelude.Natural)
+describeConfigRuleEvaluationStatus_limit = Lens.lens (\DescribeConfigRuleEvaluationStatus' {limit} -> limit) (\s@DescribeConfigRuleEvaluationStatus' {} a -> s {limit = a} :: DescribeConfigRuleEvaluationStatus) Prelude.. Lens.mapping Prelude._Nat
 
 instance
-  AWSRequest
+  Pager.AWSPager
+    DescribeConfigRuleEvaluationStatus
+  where
+  page rq rs
+    | Pager.stop
+        ( rs
+            Lens.^? describeConfigRuleEvaluationStatusResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeConfigRuleEvaluationStatusResponse_configRulesEvaluationStatus
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeConfigRuleEvaluationStatus_nextToken
+          Lens..~ rs
+          Lens.^? describeConfigRuleEvaluationStatusResponse_nextToken
+            Prelude.. Lens._Just
+
+instance
+  Prelude.AWSRequest
     DescribeConfigRuleEvaluationStatus
   where
   type
     Rs DescribeConfigRuleEvaluationStatus =
       DescribeConfigRuleEvaluationStatusResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeConfigRuleEvaluationStatusResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ConfigRulesEvaluationStatus" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> ( x Prelude..?> "ConfigRulesEvaluationStatus"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeConfigRuleEvaluationStatus
+instance
+  Prelude.Hashable
+    DescribeConfigRuleEvaluationStatus
 
-instance NFData DescribeConfigRuleEvaluationStatus
+instance
+  Prelude.NFData
+    DescribeConfigRuleEvaluationStatus
 
-instance ToHeaders DescribeConfigRuleEvaluationStatus where
+instance
+  Prelude.ToHeaders
+    DescribeConfigRuleEvaluationStatus
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StarlingDoveService.DescribeConfigRuleEvaluationStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StarlingDoveService.DescribeConfigRuleEvaluationStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeConfigRuleEvaluationStatus where
+instance
+  Prelude.ToJSON
+    DescribeConfigRuleEvaluationStatus
+  where
   toJSON DescribeConfigRuleEvaluationStatus' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dcresNextToken,
-            ("ConfigRuleNames" .=) <$> _dcresConfigRuleNames,
-            ("Limit" .=) <$> _dcresLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("ConfigRuleNames" Prelude..=)
+              Prelude.<$> configRuleNames,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath DescribeConfigRuleEvaluationStatus where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeConfigRuleEvaluationStatus
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeConfigRuleEvaluationStatus where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeConfigRuleEvaluationStatus
+  where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'describeConfigRuleEvaluationStatusResponse' smart constructor.
+-- /See:/ 'newDescribeConfigRuleEvaluationStatusResponse' smart constructor.
 data DescribeConfigRuleEvaluationStatusResponse = DescribeConfigRuleEvaluationStatusResponse'
-  { _dcresrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dcresrrsConfigRulesEvaluationStatus ::
-      !( Maybe
-           [ConfigRuleEvaluationStatus]
-       ),
-    _dcresrrsResponseStatus ::
-      !Int
+  { -- | The string that you use in a subsequent request to get the next page of
+    -- results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Status information about your AWS managed Config rules.
+    configRulesEvaluationStatus :: Prelude.Maybe [ConfigRuleEvaluationStatus],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConfigRuleEvaluationStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConfigRuleEvaluationStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcresrrsNextToken' - The string that you use in a subsequent request to get the next page of results in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcresrrsConfigRulesEvaluationStatus' - Status information about your AWS managed Config rules.
+-- 'nextToken', 'describeConfigRuleEvaluationStatusResponse_nextToken' - The string that you use in a subsequent request to get the next page of
+-- results in a paginated response.
 --
--- * 'dcresrrsResponseStatus' - -- | The response status code.
-describeConfigRuleEvaluationStatusResponse ::
-  -- | 'dcresrrsResponseStatus'
-  Int ->
+-- 'configRulesEvaluationStatus', 'describeConfigRuleEvaluationStatusResponse_configRulesEvaluationStatus' - Status information about your AWS managed Config rules.
+--
+-- 'httpStatus', 'describeConfigRuleEvaluationStatusResponse_httpStatus' - The response's http status code.
+newDescribeConfigRuleEvaluationStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeConfigRuleEvaluationStatusResponse
-describeConfigRuleEvaluationStatusResponse
-  pResponseStatus_ =
+newDescribeConfigRuleEvaluationStatusResponse
+  pHttpStatus_ =
     DescribeConfigRuleEvaluationStatusResponse'
-      { _dcresrrsNextToken =
-          Nothing,
-        _dcresrrsConfigRulesEvaluationStatus =
-          Nothing,
-        _dcresrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        configRulesEvaluationStatus =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The string that you use in a subsequent request to get the next page of results in a paginated response.
-dcresrrsNextToken :: Lens' DescribeConfigRuleEvaluationStatusResponse (Maybe Text)
-dcresrrsNextToken = lens _dcresrrsNextToken (\s a -> s {_dcresrrsNextToken = a})
+-- | The string that you use in a subsequent request to get the next page of
+-- results in a paginated response.
+describeConfigRuleEvaluationStatusResponse_nextToken :: Lens.Lens' DescribeConfigRuleEvaluationStatusResponse (Prelude.Maybe Prelude.Text)
+describeConfigRuleEvaluationStatusResponse_nextToken = Lens.lens (\DescribeConfigRuleEvaluationStatusResponse' {nextToken} -> nextToken) (\s@DescribeConfigRuleEvaluationStatusResponse' {} a -> s {nextToken = a} :: DescribeConfigRuleEvaluationStatusResponse)
 
 -- | Status information about your AWS managed Config rules.
-dcresrrsConfigRulesEvaluationStatus :: Lens' DescribeConfigRuleEvaluationStatusResponse [ConfigRuleEvaluationStatus]
-dcresrrsConfigRulesEvaluationStatus = lens _dcresrrsConfigRulesEvaluationStatus (\s a -> s {_dcresrrsConfigRulesEvaluationStatus = a}) . _Default . _Coerce
+describeConfigRuleEvaluationStatusResponse_configRulesEvaluationStatus :: Lens.Lens' DescribeConfigRuleEvaluationStatusResponse (Prelude.Maybe [ConfigRuleEvaluationStatus])
+describeConfigRuleEvaluationStatusResponse_configRulesEvaluationStatus = Lens.lens (\DescribeConfigRuleEvaluationStatusResponse' {configRulesEvaluationStatus} -> configRulesEvaluationStatus) (\s@DescribeConfigRuleEvaluationStatusResponse' {} a -> s {configRulesEvaluationStatus = a} :: DescribeConfigRuleEvaluationStatusResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcresrrsResponseStatus :: Lens' DescribeConfigRuleEvaluationStatusResponse Int
-dcresrrsResponseStatus = lens _dcresrrsResponseStatus (\s a -> s {_dcresrrsResponseStatus = a})
+-- | The response's http status code.
+describeConfigRuleEvaluationStatusResponse_httpStatus :: Lens.Lens' DescribeConfigRuleEvaluationStatusResponse Prelude.Int
+describeConfigRuleEvaluationStatusResponse_httpStatus = Lens.lens (\DescribeConfigRuleEvaluationStatusResponse' {httpStatus} -> httpStatus) (\s@DescribeConfigRuleEvaluationStatusResponse' {} a -> s {httpStatus = a} :: DescribeConfigRuleEvaluationStatusResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeConfigRuleEvaluationStatusResponse

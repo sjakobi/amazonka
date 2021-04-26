@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,36 +19,43 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.FieldInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details about the fields such as name of the field.
 --
---
---
--- /See:/ 'fieldInfo' smart constructor.
-newtype FieldInfo = FieldInfo' {_fiName :: Maybe Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newFieldInfo' smart constructor.
+data FieldInfo = FieldInfo'
+  { -- | Name of the field.
+    name :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FieldInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FieldInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fiName' - Name of the field.
-fieldInfo ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'fieldInfo_name' - Name of the field.
+newFieldInfo ::
   FieldInfo
-fieldInfo = FieldInfo' {_fiName = Nothing}
+newFieldInfo = FieldInfo' {name = Prelude.Nothing}
 
 -- | Name of the field.
-fiName :: Lens' FieldInfo (Maybe Text)
-fiName = lens _fiName (\s a -> s {_fiName = a})
+fieldInfo_name :: Lens.Lens' FieldInfo (Prelude.Maybe Prelude.Text)
+fieldInfo_name = Lens.lens (\FieldInfo' {name} -> name) (\s@FieldInfo' {} a -> s {name = a} :: FieldInfo)
 
-instance FromJSON FieldInfo where
+instance Prelude.FromJSON FieldInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FieldInfo"
-      (\x -> FieldInfo' <$> (x .:? "Name"))
+      ( \x ->
+          FieldInfo' Prelude.<$> (x Prelude..:? "Name")
+      )
 
-instance Hashable FieldInfo
+instance Prelude.Hashable FieldInfo
 
-instance NFData FieldInfo
+instance Prelude.NFData FieldInfo

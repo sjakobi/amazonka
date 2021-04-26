@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Config.Types.OrganizationConfigRuleTriggerType
   ( OrganizationConfigRuleTriggerType
       ( ..,
-        ConfigurationItemChangeNotification,
-        OversizedConfigurationItemChangeNotification,
-        ScheduledNotification
+        OrganizationConfigRuleTriggerTypeConfigurationItemChangeNotification,
+        OrganizationConfigRuleTriggerTypeOversizedConfigurationItemChangeNotification,
+        OrganizationConfigRuleTriggerTypeScheduledNotification
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrganizationConfigRuleTriggerType
-  = OrganizationConfigRuleTriggerType'
-      ( CI
-          Text
-      )
+newtype OrganizationConfigRuleTriggerType = OrganizationConfigRuleTriggerType'
+  { fromOrganizationConfigRuleTriggerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConfigurationItemChangeNotification :: OrganizationConfigRuleTriggerType
-pattern ConfigurationItemChangeNotification = OrganizationConfigRuleTriggerType' "ConfigurationItemChangeNotification"
+pattern OrganizationConfigRuleTriggerTypeConfigurationItemChangeNotification :: OrganizationConfigRuleTriggerType
+pattern OrganizationConfigRuleTriggerTypeConfigurationItemChangeNotification = OrganizationConfigRuleTriggerType' "ConfigurationItemChangeNotification"
 
-pattern OversizedConfigurationItemChangeNotification :: OrganizationConfigRuleTriggerType
-pattern OversizedConfigurationItemChangeNotification = OrganizationConfigRuleTriggerType' "OversizedConfigurationItemChangeNotification"
+pattern OrganizationConfigRuleTriggerTypeOversizedConfigurationItemChangeNotification :: OrganizationConfigRuleTriggerType
+pattern OrganizationConfigRuleTriggerTypeOversizedConfigurationItemChangeNotification = OrganizationConfigRuleTriggerType' "OversizedConfigurationItemChangeNotification"
 
-pattern ScheduledNotification :: OrganizationConfigRuleTriggerType
-pattern ScheduledNotification = OrganizationConfigRuleTriggerType' "ScheduledNotification"
+pattern OrganizationConfigRuleTriggerTypeScheduledNotification :: OrganizationConfigRuleTriggerType
+pattern OrganizationConfigRuleTriggerTypeScheduledNotification = OrganizationConfigRuleTriggerType' "ScheduledNotification"
 
 {-# COMPLETE
-  ConfigurationItemChangeNotification,
-  OversizedConfigurationItemChangeNotification,
-  ScheduledNotification,
+  OrganizationConfigRuleTriggerTypeConfigurationItemChangeNotification,
+  OrganizationConfigRuleTriggerTypeOversizedConfigurationItemChangeNotification,
+  OrganizationConfigRuleTriggerTypeScheduledNotification,
   OrganizationConfigRuleTriggerType'
   #-}
 
-instance FromText OrganizationConfigRuleTriggerType where
-  parser = (OrganizationConfigRuleTriggerType' . mk) <$> takeText
+instance Prelude.FromText OrganizationConfigRuleTriggerType where
+  parser = OrganizationConfigRuleTriggerType' Prelude.<$> Prelude.takeText
 
-instance ToText OrganizationConfigRuleTriggerType where
-  toText (OrganizationConfigRuleTriggerType' ci) = original ci
+instance Prelude.ToText OrganizationConfigRuleTriggerType where
+  toText (OrganizationConfigRuleTriggerType' x) = x
 
-instance Hashable OrganizationConfigRuleTriggerType
+instance Prelude.Hashable OrganizationConfigRuleTriggerType
 
-instance NFData OrganizationConfigRuleTriggerType
+instance Prelude.NFData OrganizationConfigRuleTriggerType
 
-instance ToByteString OrganizationConfigRuleTriggerType
+instance Prelude.ToByteString OrganizationConfigRuleTriggerType
 
-instance ToQuery OrganizationConfigRuleTriggerType
+instance Prelude.ToQuery OrganizationConfigRuleTriggerType
 
-instance ToHeader OrganizationConfigRuleTriggerType
+instance Prelude.ToHeader OrganizationConfigRuleTriggerType
 
-instance ToJSON OrganizationConfigRuleTriggerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON OrganizationConfigRuleTriggerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OrganizationConfigRuleTriggerType where
-  parseJSON = parseJSONText "OrganizationConfigRuleTriggerType"
+instance Prelude.FromJSON OrganizationConfigRuleTriggerType where
+  parseJSON = Prelude.parseJSONText "OrganizationConfigRuleTriggerType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.Config.Types.MaximumExecutionFrequency
   ( MaximumExecutionFrequency
       ( ..,
-        OneHour,
-        SixHours,
-        ThreeHours,
-        TwelveHours,
-        TwentyFourHours
+        MaximumExecutionFrequencyOneHour,
+        MaximumExecutionFrequencySixHours,
+        MaximumExecutionFrequencyThreeHours,
+        MaximumExecutionFrequencyTwelveHours,
+        MaximumExecutionFrequencyTwentyFourHours
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MaximumExecutionFrequency
-  = MaximumExecutionFrequency'
-      ( CI
-          Text
-      )
+newtype MaximumExecutionFrequency = MaximumExecutionFrequency'
+  { fromMaximumExecutionFrequency ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OneHour :: MaximumExecutionFrequency
-pattern OneHour = MaximumExecutionFrequency' "One_Hour"
+pattern MaximumExecutionFrequencyOneHour :: MaximumExecutionFrequency
+pattern MaximumExecutionFrequencyOneHour = MaximumExecutionFrequency' "One_Hour"
 
-pattern SixHours :: MaximumExecutionFrequency
-pattern SixHours = MaximumExecutionFrequency' "Six_Hours"
+pattern MaximumExecutionFrequencySixHours :: MaximumExecutionFrequency
+pattern MaximumExecutionFrequencySixHours = MaximumExecutionFrequency' "Six_Hours"
 
-pattern ThreeHours :: MaximumExecutionFrequency
-pattern ThreeHours = MaximumExecutionFrequency' "Three_Hours"
+pattern MaximumExecutionFrequencyThreeHours :: MaximumExecutionFrequency
+pattern MaximumExecutionFrequencyThreeHours = MaximumExecutionFrequency' "Three_Hours"
 
-pattern TwelveHours :: MaximumExecutionFrequency
-pattern TwelveHours = MaximumExecutionFrequency' "Twelve_Hours"
+pattern MaximumExecutionFrequencyTwelveHours :: MaximumExecutionFrequency
+pattern MaximumExecutionFrequencyTwelveHours = MaximumExecutionFrequency' "Twelve_Hours"
 
-pattern TwentyFourHours :: MaximumExecutionFrequency
-pattern TwentyFourHours = MaximumExecutionFrequency' "TwentyFour_Hours"
+pattern MaximumExecutionFrequencyTwentyFourHours :: MaximumExecutionFrequency
+pattern MaximumExecutionFrequencyTwentyFourHours = MaximumExecutionFrequency' "TwentyFour_Hours"
 
 {-# COMPLETE
-  OneHour,
-  SixHours,
-  ThreeHours,
-  TwelveHours,
-  TwentyFourHours,
+  MaximumExecutionFrequencyOneHour,
+  MaximumExecutionFrequencySixHours,
+  MaximumExecutionFrequencyThreeHours,
+  MaximumExecutionFrequencyTwelveHours,
+  MaximumExecutionFrequencyTwentyFourHours,
   MaximumExecutionFrequency'
   #-}
 
-instance FromText MaximumExecutionFrequency where
-  parser = (MaximumExecutionFrequency' . mk) <$> takeText
+instance Prelude.FromText MaximumExecutionFrequency where
+  parser = MaximumExecutionFrequency' Prelude.<$> Prelude.takeText
 
-instance ToText MaximumExecutionFrequency where
-  toText (MaximumExecutionFrequency' ci) = original ci
+instance Prelude.ToText MaximumExecutionFrequency where
+  toText (MaximumExecutionFrequency' x) = x
 
-instance Hashable MaximumExecutionFrequency
+instance Prelude.Hashable MaximumExecutionFrequency
 
-instance NFData MaximumExecutionFrequency
+instance Prelude.NFData MaximumExecutionFrequency
 
-instance ToByteString MaximumExecutionFrequency
+instance Prelude.ToByteString MaximumExecutionFrequency
 
-instance ToQuery MaximumExecutionFrequency
+instance Prelude.ToQuery MaximumExecutionFrequency
 
-instance ToHeader MaximumExecutionFrequency
+instance Prelude.ToHeader MaximumExecutionFrequency
 
-instance ToJSON MaximumExecutionFrequency where
-  toJSON = toJSONText
+instance Prelude.ToJSON MaximumExecutionFrequency where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MaximumExecutionFrequency where
-  parseJSON = parseJSONText "MaximumExecutionFrequency"
+instance Prelude.FromJSON MaximumExecutionFrequency where
+  parseJSON = Prelude.parseJSONText "MaximumExecutionFrequency"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Config.Types.ResourceValueType
   ( ResourceValueType
       ( ..,
-        ResourceId
+        ResourceValueTypeRESOURCEID
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceValueType = ResourceValueType' (CI Text)
+newtype ResourceValueType = ResourceValueType'
+  { fromResourceValueType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ResourceId :: ResourceValueType
-pattern ResourceId = ResourceValueType' "RESOURCE_ID"
+pattern ResourceValueTypeRESOURCEID :: ResourceValueType
+pattern ResourceValueTypeRESOURCEID = ResourceValueType' "RESOURCE_ID"
 
 {-# COMPLETE
-  ResourceId,
+  ResourceValueTypeRESOURCEID,
   ResourceValueType'
   #-}
 
-instance FromText ResourceValueType where
-  parser = (ResourceValueType' . mk) <$> takeText
+instance Prelude.FromText ResourceValueType where
+  parser = ResourceValueType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceValueType where
-  toText (ResourceValueType' ci) = original ci
+instance Prelude.ToText ResourceValueType where
+  toText (ResourceValueType' x) = x
 
-instance Hashable ResourceValueType
+instance Prelude.Hashable ResourceValueType
 
-instance NFData ResourceValueType
+instance Prelude.NFData ResourceValueType
 
-instance ToByteString ResourceValueType
+instance Prelude.ToByteString ResourceValueType
 
-instance ToQuery ResourceValueType
+instance Prelude.ToQuery ResourceValueType
 
-instance ToHeader ResourceValueType
+instance Prelude.ToHeader ResourceValueType
 
-instance ToJSON ResourceValueType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceValueType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ResourceValueType where
-  parseJSON = parseJSONText "ResourceValueType"
+instance Prelude.FromJSON ResourceValueType where
+  parseJSON = Prelude.parseJSONText "ResourceValueType"

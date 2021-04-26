@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.EvaluationResultQualifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Identifies an AWS Config rule that evaluated an AWS resource, and provides the type and ID of the resource that the rule evaluated.
+-- | Identifies an AWS Config rule that evaluated an AWS resource, and
+-- provides the type and ID of the resource that the rule evaluated.
 --
---
---
--- /See:/ 'evaluationResultQualifier' smart constructor.
+-- /See:/ 'newEvaluationResultQualifier' smart constructor.
 data EvaluationResultQualifier = EvaluationResultQualifier'
-  { _erqResourceId ::
-      !(Maybe Text),
-    _erqConfigRuleName ::
-      !(Maybe Text),
-    _erqResourceType ::
-      !(Maybe Text)
+  { -- | The ID of the evaluated AWS resource.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS Config rule that was used in the evaluation.
+    configRuleName :: Prelude.Maybe Prelude.Text,
+    -- | The type of AWS resource that was evaluated.
+    resourceType :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EvaluationResultQualifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EvaluationResultQualifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erqResourceId' - The ID of the evaluated AWS resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'erqConfigRuleName' - The name of the AWS Config rule that was used in the evaluation.
+-- 'resourceId', 'evaluationResultQualifier_resourceId' - The ID of the evaluated AWS resource.
 --
--- * 'erqResourceType' - The type of AWS resource that was evaluated.
-evaluationResultQualifier ::
+-- 'configRuleName', 'evaluationResultQualifier_configRuleName' - The name of the AWS Config rule that was used in the evaluation.
+--
+-- 'resourceType', 'evaluationResultQualifier_resourceType' - The type of AWS resource that was evaluated.
+newEvaluationResultQualifier ::
   EvaluationResultQualifier
-evaluationResultQualifier =
+newEvaluationResultQualifier =
   EvaluationResultQualifier'
-    { _erqResourceId =
-        Nothing,
-      _erqConfigRuleName = Nothing,
-      _erqResourceType = Nothing
+    { resourceId =
+        Prelude.Nothing,
+      configRuleName = Prelude.Nothing,
+      resourceType = Prelude.Nothing
     }
 
 -- | The ID of the evaluated AWS resource.
-erqResourceId :: Lens' EvaluationResultQualifier (Maybe Text)
-erqResourceId = lens _erqResourceId (\s a -> s {_erqResourceId = a})
+evaluationResultQualifier_resourceId :: Lens.Lens' EvaluationResultQualifier (Prelude.Maybe Prelude.Text)
+evaluationResultQualifier_resourceId = Lens.lens (\EvaluationResultQualifier' {resourceId} -> resourceId) (\s@EvaluationResultQualifier' {} a -> s {resourceId = a} :: EvaluationResultQualifier)
 
 -- | The name of the AWS Config rule that was used in the evaluation.
-erqConfigRuleName :: Lens' EvaluationResultQualifier (Maybe Text)
-erqConfigRuleName = lens _erqConfigRuleName (\s a -> s {_erqConfigRuleName = a})
+evaluationResultQualifier_configRuleName :: Lens.Lens' EvaluationResultQualifier (Prelude.Maybe Prelude.Text)
+evaluationResultQualifier_configRuleName = Lens.lens (\EvaluationResultQualifier' {configRuleName} -> configRuleName) (\s@EvaluationResultQualifier' {} a -> s {configRuleName = a} :: EvaluationResultQualifier)
 
 -- | The type of AWS resource that was evaluated.
-erqResourceType :: Lens' EvaluationResultQualifier (Maybe Text)
-erqResourceType = lens _erqResourceType (\s a -> s {_erqResourceType = a})
+evaluationResultQualifier_resourceType :: Lens.Lens' EvaluationResultQualifier (Prelude.Maybe Prelude.Text)
+evaluationResultQualifier_resourceType = Lens.lens (\EvaluationResultQualifier' {resourceType} -> resourceType) (\s@EvaluationResultQualifier' {} a -> s {resourceType = a} :: EvaluationResultQualifier)
 
-instance FromJSON EvaluationResultQualifier where
+instance Prelude.FromJSON EvaluationResultQualifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EvaluationResultQualifier"
       ( \x ->
           EvaluationResultQualifier'
-            <$> (x .:? "ResourceId")
-            <*> (x .:? "ConfigRuleName")
-            <*> (x .:? "ResourceType")
+            Prelude.<$> (x Prelude..:? "ResourceId")
+            Prelude.<*> (x Prelude..:? "ConfigRuleName")
+            Prelude.<*> (x Prelude..:? "ResourceType")
       )
 
-instance Hashable EvaluationResultQualifier
+instance Prelude.Hashable EvaluationResultQualifier
 
-instance NFData EvaluationResultQualifier
+instance Prelude.NFData EvaluationResultQualifier

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +19,90 @@
 module Network.AWS.Config.Types.OrganizationResourceStatus
   ( OrganizationResourceStatus
       ( ..,
-        ORSCreateFailed,
-        ORSCreateInProgress,
-        ORSCreateSuccessful,
-        ORSDeleteFailed,
-        ORSDeleteInProgress,
-        ORSDeleteSuccessful,
-        ORSUpdateFailed,
-        ORSUpdateInProgress,
-        ORSUpdateSuccessful
+        OrganizationResourceStatusCREATEFAILED,
+        OrganizationResourceStatusCREATEINPROGRESS,
+        OrganizationResourceStatusCREATESUCCESSFUL,
+        OrganizationResourceStatusDELETEFAILED,
+        OrganizationResourceStatusDELETEINPROGRESS,
+        OrganizationResourceStatusDELETESUCCESSFUL,
+        OrganizationResourceStatusUPDATEFAILED,
+        OrganizationResourceStatusUPDATEINPROGRESS,
+        OrganizationResourceStatusUPDATESUCCESSFUL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrganizationResourceStatus
-  = OrganizationResourceStatus'
-      ( CI
-          Text
-      )
+newtype OrganizationResourceStatus = OrganizationResourceStatus'
+  { fromOrganizationResourceStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ORSCreateFailed :: OrganizationResourceStatus
-pattern ORSCreateFailed = OrganizationResourceStatus' "CREATE_FAILED"
+pattern OrganizationResourceStatusCREATEFAILED :: OrganizationResourceStatus
+pattern OrganizationResourceStatusCREATEFAILED = OrganizationResourceStatus' "CREATE_FAILED"
 
-pattern ORSCreateInProgress :: OrganizationResourceStatus
-pattern ORSCreateInProgress = OrganizationResourceStatus' "CREATE_IN_PROGRESS"
+pattern OrganizationResourceStatusCREATEINPROGRESS :: OrganizationResourceStatus
+pattern OrganizationResourceStatusCREATEINPROGRESS = OrganizationResourceStatus' "CREATE_IN_PROGRESS"
 
-pattern ORSCreateSuccessful :: OrganizationResourceStatus
-pattern ORSCreateSuccessful = OrganizationResourceStatus' "CREATE_SUCCESSFUL"
+pattern OrganizationResourceStatusCREATESUCCESSFUL :: OrganizationResourceStatus
+pattern OrganizationResourceStatusCREATESUCCESSFUL = OrganizationResourceStatus' "CREATE_SUCCESSFUL"
 
-pattern ORSDeleteFailed :: OrganizationResourceStatus
-pattern ORSDeleteFailed = OrganizationResourceStatus' "DELETE_FAILED"
+pattern OrganizationResourceStatusDELETEFAILED :: OrganizationResourceStatus
+pattern OrganizationResourceStatusDELETEFAILED = OrganizationResourceStatus' "DELETE_FAILED"
 
-pattern ORSDeleteInProgress :: OrganizationResourceStatus
-pattern ORSDeleteInProgress = OrganizationResourceStatus' "DELETE_IN_PROGRESS"
+pattern OrganizationResourceStatusDELETEINPROGRESS :: OrganizationResourceStatus
+pattern OrganizationResourceStatusDELETEINPROGRESS = OrganizationResourceStatus' "DELETE_IN_PROGRESS"
 
-pattern ORSDeleteSuccessful :: OrganizationResourceStatus
-pattern ORSDeleteSuccessful = OrganizationResourceStatus' "DELETE_SUCCESSFUL"
+pattern OrganizationResourceStatusDELETESUCCESSFUL :: OrganizationResourceStatus
+pattern OrganizationResourceStatusDELETESUCCESSFUL = OrganizationResourceStatus' "DELETE_SUCCESSFUL"
 
-pattern ORSUpdateFailed :: OrganizationResourceStatus
-pattern ORSUpdateFailed = OrganizationResourceStatus' "UPDATE_FAILED"
+pattern OrganizationResourceStatusUPDATEFAILED :: OrganizationResourceStatus
+pattern OrganizationResourceStatusUPDATEFAILED = OrganizationResourceStatus' "UPDATE_FAILED"
 
-pattern ORSUpdateInProgress :: OrganizationResourceStatus
-pattern ORSUpdateInProgress = OrganizationResourceStatus' "UPDATE_IN_PROGRESS"
+pattern OrganizationResourceStatusUPDATEINPROGRESS :: OrganizationResourceStatus
+pattern OrganizationResourceStatusUPDATEINPROGRESS = OrganizationResourceStatus' "UPDATE_IN_PROGRESS"
 
-pattern ORSUpdateSuccessful :: OrganizationResourceStatus
-pattern ORSUpdateSuccessful = OrganizationResourceStatus' "UPDATE_SUCCESSFUL"
+pattern OrganizationResourceStatusUPDATESUCCESSFUL :: OrganizationResourceStatus
+pattern OrganizationResourceStatusUPDATESUCCESSFUL = OrganizationResourceStatus' "UPDATE_SUCCESSFUL"
 
 {-# COMPLETE
-  ORSCreateFailed,
-  ORSCreateInProgress,
-  ORSCreateSuccessful,
-  ORSDeleteFailed,
-  ORSDeleteInProgress,
-  ORSDeleteSuccessful,
-  ORSUpdateFailed,
-  ORSUpdateInProgress,
-  ORSUpdateSuccessful,
+  OrganizationResourceStatusCREATEFAILED,
+  OrganizationResourceStatusCREATEINPROGRESS,
+  OrganizationResourceStatusCREATESUCCESSFUL,
+  OrganizationResourceStatusDELETEFAILED,
+  OrganizationResourceStatusDELETEINPROGRESS,
+  OrganizationResourceStatusDELETESUCCESSFUL,
+  OrganizationResourceStatusUPDATEFAILED,
+  OrganizationResourceStatusUPDATEINPROGRESS,
+  OrganizationResourceStatusUPDATESUCCESSFUL,
   OrganizationResourceStatus'
   #-}
 
-instance FromText OrganizationResourceStatus where
-  parser = (OrganizationResourceStatus' . mk) <$> takeText
+instance Prelude.FromText OrganizationResourceStatus where
+  parser = OrganizationResourceStatus' Prelude.<$> Prelude.takeText
 
-instance ToText OrganizationResourceStatus where
-  toText (OrganizationResourceStatus' ci) = original ci
+instance Prelude.ToText OrganizationResourceStatus where
+  toText (OrganizationResourceStatus' x) = x
 
-instance Hashable OrganizationResourceStatus
+instance Prelude.Hashable OrganizationResourceStatus
 
-instance NFData OrganizationResourceStatus
+instance Prelude.NFData OrganizationResourceStatus
 
-instance ToByteString OrganizationResourceStatus
+instance Prelude.ToByteString OrganizationResourceStatus
 
-instance ToQuery OrganizationResourceStatus
+instance Prelude.ToQuery OrganizationResourceStatus
 
-instance ToHeader OrganizationResourceStatus
+instance Prelude.ToHeader OrganizationResourceStatus
 
-instance FromJSON OrganizationResourceStatus where
-  parseJSON = parseJSONText "OrganizationResourceStatus"
+instance Prelude.FromJSON OrganizationResourceStatus where
+  parseJSON = Prelude.parseJSONText "OrganizationResourceStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,134 +20,143 @@
 module Network.AWS.Config.Types.ConformancePackDetail where
 
 import Network.AWS.Config.Types.ConformancePackInputParameter
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns details of a conformance pack. A conformance pack is a collection of AWS Config rules and remediation actions that can be easily deployed in an account and a region.
+-- | Returns details of a conformance pack. A conformance pack is a
+-- collection of AWS Config rules and remediation actions that can be
+-- easily deployed in an account and a region.
 --
---
---
--- /See:/ 'conformancePackDetail' smart constructor.
+-- /See:/ 'newConformancePackDetail' smart constructor.
 data ConformancePackDetail = ConformancePackDetail'
-  { _cpdLastUpdateRequestedTime ::
-      !(Maybe POSIX),
-    _cpdDeliveryS3Bucket ::
-      !(Maybe Text),
-    _cpdDeliveryS3KeyPrefix ::
-      !(Maybe Text),
-    _cpdCreatedBy ::
-      !(Maybe Text),
-    _cpdConformancePackInputParameters ::
-      !( Maybe
-           [ConformancePackInputParameter]
-       ),
-    _cpdConformancePackName ::
-      !Text,
-    _cpdConformancePackARN ::
-      !Text,
-    _cpdConformancePackId ::
-      !Text
+  { -- | Last time when conformation pack update was requested.
+    lastUpdateRequestedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Amazon S3 bucket where AWS Config stores conformance pack templates.
+    --
+    -- This field is optional.
+    deliveryS3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The prefix for the Amazon S3 bucket.
+    --
+    -- This field is optional.
+    deliveryS3KeyPrefix :: Prelude.Maybe Prelude.Text,
+    -- | AWS service that created the conformance pack.
+    createdBy :: Prelude.Maybe Prelude.Text,
+    -- | A list of @ConformancePackInputParameter@ objects.
+    conformancePackInputParameters :: Prelude.Maybe [ConformancePackInputParameter],
+    -- | Name of the conformance pack.
+    conformancePackName :: Prelude.Text,
+    -- | Amazon Resource Name (ARN) of the conformance pack.
+    conformancePackArn :: Prelude.Text,
+    -- | ID of the conformance pack.
+    conformancePackId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConformancePackDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConformancePackDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpdLastUpdateRequestedTime' - Last time when conformation pack update was requested.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpdDeliveryS3Bucket' - Amazon S3 bucket where AWS Config stores conformance pack templates.
+-- 'lastUpdateRequestedTime', 'conformancePackDetail_lastUpdateRequestedTime' - Last time when conformation pack update was requested.
 --
--- * 'cpdDeliveryS3KeyPrefix' - The prefix for the Amazon S3 bucket.
+-- 'deliveryS3Bucket', 'conformancePackDetail_deliveryS3Bucket' - Amazon S3 bucket where AWS Config stores conformance pack templates.
 --
--- * 'cpdCreatedBy' - AWS service that created the conformance pack.
+-- This field is optional.
 --
--- * 'cpdConformancePackInputParameters' - A list of @ConformancePackInputParameter@ objects.
+-- 'deliveryS3KeyPrefix', 'conformancePackDetail_deliveryS3KeyPrefix' - The prefix for the Amazon S3 bucket.
 --
--- * 'cpdConformancePackName' - Name of the conformance pack.
+-- This field is optional.
 --
--- * 'cpdConformancePackARN' - Amazon Resource Name (ARN) of the conformance pack.
+-- 'createdBy', 'conformancePackDetail_createdBy' - AWS service that created the conformance pack.
 --
--- * 'cpdConformancePackId' - ID of the conformance pack.
-conformancePackDetail ::
-  -- | 'cpdConformancePackName'
-  Text ->
-  -- | 'cpdConformancePackARN'
-  Text ->
-  -- | 'cpdConformancePackId'
-  Text ->
+-- 'conformancePackInputParameters', 'conformancePackDetail_conformancePackInputParameters' - A list of @ConformancePackInputParameter@ objects.
+--
+-- 'conformancePackName', 'conformancePackDetail_conformancePackName' - Name of the conformance pack.
+--
+-- 'conformancePackArn', 'conformancePackDetail_conformancePackArn' - Amazon Resource Name (ARN) of the conformance pack.
+--
+-- 'conformancePackId', 'conformancePackDetail_conformancePackId' - ID of the conformance pack.
+newConformancePackDetail ::
+  -- | 'conformancePackName'
+  Prelude.Text ->
+  -- | 'conformancePackArn'
+  Prelude.Text ->
+  -- | 'conformancePackId'
+  Prelude.Text ->
   ConformancePackDetail
-conformancePackDetail
+newConformancePackDetail
   pConformancePackName_
-  pConformancePackARN_
+  pConformancePackArn_
   pConformancePackId_ =
     ConformancePackDetail'
-      { _cpdLastUpdateRequestedTime =
-          Nothing,
-        _cpdDeliveryS3Bucket = Nothing,
-        _cpdDeliveryS3KeyPrefix = Nothing,
-        _cpdCreatedBy = Nothing,
-        _cpdConformancePackInputParameters = Nothing,
-        _cpdConformancePackName = pConformancePackName_,
-        _cpdConformancePackARN = pConformancePackARN_,
-        _cpdConformancePackId = pConformancePackId_
+      { lastUpdateRequestedTime =
+          Prelude.Nothing,
+        deliveryS3Bucket = Prelude.Nothing,
+        deliveryS3KeyPrefix = Prelude.Nothing,
+        createdBy = Prelude.Nothing,
+        conformancePackInputParameters = Prelude.Nothing,
+        conformancePackName = pConformancePackName_,
+        conformancePackArn = pConformancePackArn_,
+        conformancePackId = pConformancePackId_
       }
 
 -- | Last time when conformation pack update was requested.
-cpdLastUpdateRequestedTime :: Lens' ConformancePackDetail (Maybe UTCTime)
-cpdLastUpdateRequestedTime = lens _cpdLastUpdateRequestedTime (\s a -> s {_cpdLastUpdateRequestedTime = a}) . mapping _Time
+conformancePackDetail_lastUpdateRequestedTime :: Lens.Lens' ConformancePackDetail (Prelude.Maybe Prelude.UTCTime)
+conformancePackDetail_lastUpdateRequestedTime = Lens.lens (\ConformancePackDetail' {lastUpdateRequestedTime} -> lastUpdateRequestedTime) (\s@ConformancePackDetail' {} a -> s {lastUpdateRequestedTime = a} :: ConformancePackDetail) Prelude.. Lens.mapping Prelude._Time
 
 -- | Amazon S3 bucket where AWS Config stores conformance pack templates.
-cpdDeliveryS3Bucket :: Lens' ConformancePackDetail (Maybe Text)
-cpdDeliveryS3Bucket = lens _cpdDeliveryS3Bucket (\s a -> s {_cpdDeliveryS3Bucket = a})
+--
+-- This field is optional.
+conformancePackDetail_deliveryS3Bucket :: Lens.Lens' ConformancePackDetail (Prelude.Maybe Prelude.Text)
+conformancePackDetail_deliveryS3Bucket = Lens.lens (\ConformancePackDetail' {deliveryS3Bucket} -> deliveryS3Bucket) (\s@ConformancePackDetail' {} a -> s {deliveryS3Bucket = a} :: ConformancePackDetail)
 
 -- | The prefix for the Amazon S3 bucket.
-cpdDeliveryS3KeyPrefix :: Lens' ConformancePackDetail (Maybe Text)
-cpdDeliveryS3KeyPrefix = lens _cpdDeliveryS3KeyPrefix (\s a -> s {_cpdDeliveryS3KeyPrefix = a})
+--
+-- This field is optional.
+conformancePackDetail_deliveryS3KeyPrefix :: Lens.Lens' ConformancePackDetail (Prelude.Maybe Prelude.Text)
+conformancePackDetail_deliveryS3KeyPrefix = Lens.lens (\ConformancePackDetail' {deliveryS3KeyPrefix} -> deliveryS3KeyPrefix) (\s@ConformancePackDetail' {} a -> s {deliveryS3KeyPrefix = a} :: ConformancePackDetail)
 
 -- | AWS service that created the conformance pack.
-cpdCreatedBy :: Lens' ConformancePackDetail (Maybe Text)
-cpdCreatedBy = lens _cpdCreatedBy (\s a -> s {_cpdCreatedBy = a})
+conformancePackDetail_createdBy :: Lens.Lens' ConformancePackDetail (Prelude.Maybe Prelude.Text)
+conformancePackDetail_createdBy = Lens.lens (\ConformancePackDetail' {createdBy} -> createdBy) (\s@ConformancePackDetail' {} a -> s {createdBy = a} :: ConformancePackDetail)
 
 -- | A list of @ConformancePackInputParameter@ objects.
-cpdConformancePackInputParameters :: Lens' ConformancePackDetail [ConformancePackInputParameter]
-cpdConformancePackInputParameters = lens _cpdConformancePackInputParameters (\s a -> s {_cpdConformancePackInputParameters = a}) . _Default . _Coerce
+conformancePackDetail_conformancePackInputParameters :: Lens.Lens' ConformancePackDetail (Prelude.Maybe [ConformancePackInputParameter])
+conformancePackDetail_conformancePackInputParameters = Lens.lens (\ConformancePackDetail' {conformancePackInputParameters} -> conformancePackInputParameters) (\s@ConformancePackDetail' {} a -> s {conformancePackInputParameters = a} :: ConformancePackDetail) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Name of the conformance pack.
-cpdConformancePackName :: Lens' ConformancePackDetail Text
-cpdConformancePackName = lens _cpdConformancePackName (\s a -> s {_cpdConformancePackName = a})
+conformancePackDetail_conformancePackName :: Lens.Lens' ConformancePackDetail Prelude.Text
+conformancePackDetail_conformancePackName = Lens.lens (\ConformancePackDetail' {conformancePackName} -> conformancePackName) (\s@ConformancePackDetail' {} a -> s {conformancePackName = a} :: ConformancePackDetail)
 
 -- | Amazon Resource Name (ARN) of the conformance pack.
-cpdConformancePackARN :: Lens' ConformancePackDetail Text
-cpdConformancePackARN = lens _cpdConformancePackARN (\s a -> s {_cpdConformancePackARN = a})
+conformancePackDetail_conformancePackArn :: Lens.Lens' ConformancePackDetail Prelude.Text
+conformancePackDetail_conformancePackArn = Lens.lens (\ConformancePackDetail' {conformancePackArn} -> conformancePackArn) (\s@ConformancePackDetail' {} a -> s {conformancePackArn = a} :: ConformancePackDetail)
 
 -- | ID of the conformance pack.
-cpdConformancePackId :: Lens' ConformancePackDetail Text
-cpdConformancePackId = lens _cpdConformancePackId (\s a -> s {_cpdConformancePackId = a})
+conformancePackDetail_conformancePackId :: Lens.Lens' ConformancePackDetail Prelude.Text
+conformancePackDetail_conformancePackId = Lens.lens (\ConformancePackDetail' {conformancePackId} -> conformancePackId) (\s@ConformancePackDetail' {} a -> s {conformancePackId = a} :: ConformancePackDetail)
 
-instance FromJSON ConformancePackDetail where
+instance Prelude.FromJSON ConformancePackDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConformancePackDetail"
       ( \x ->
           ConformancePackDetail'
-            <$> (x .:? "LastUpdateRequestedTime")
-            <*> (x .:? "DeliveryS3Bucket")
-            <*> (x .:? "DeliveryS3KeyPrefix")
-            <*> (x .:? "CreatedBy")
-            <*> (x .:? "ConformancePackInputParameters" .!= mempty)
-            <*> (x .: "ConformancePackName")
-            <*> (x .: "ConformancePackArn")
-            <*> (x .: "ConformancePackId")
+            Prelude.<$> (x Prelude..:? "LastUpdateRequestedTime")
+            Prelude.<*> (x Prelude..:? "DeliveryS3Bucket")
+            Prelude.<*> (x Prelude..:? "DeliveryS3KeyPrefix")
+            Prelude.<*> (x Prelude..:? "CreatedBy")
+            Prelude.<*> ( x Prelude..:? "ConformancePackInputParameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "ConformancePackName")
+            Prelude.<*> (x Prelude..: "ConformancePackArn")
+            Prelude.<*> (x Prelude..: "ConformancePackId")
       )
 
-instance Hashable ConformancePackDetail
+instance Prelude.Hashable ConformancePackDetail
 
-instance NFData ConformancePackDetail
+instance Prelude.NFData ConformancePackDetail

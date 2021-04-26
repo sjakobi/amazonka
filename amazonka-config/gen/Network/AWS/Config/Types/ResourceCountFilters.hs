@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,67 @@
 module Network.AWS.Config.Types.ResourceCountFilters where
 
 import Network.AWS.Config.Types.ResourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Filters the resource count based on account ID, region, and resource type.
+-- | Filters the resource count based on account ID, region, and resource
+-- type.
 --
---
---
--- /See:/ 'resourceCountFilters' smart constructor.
+-- /See:/ 'newResourceCountFilters' smart constructor.
 data ResourceCountFilters = ResourceCountFilters'
-  { _rcfAccountId ::
-      !(Maybe Text),
-    _rcfResourceType ::
-      !(Maybe ResourceType),
-    _rcfRegion :: !(Maybe Text)
+  { -- | The 12-digit ID of the account.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The type of the AWS resource.
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | The region where the account is located.
+    region :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceCountFilters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceCountFilters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcfAccountId' - The 12-digit ID of the account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcfResourceType' - The type of the AWS resource.
+-- 'accountId', 'resourceCountFilters_accountId' - The 12-digit ID of the account.
 --
--- * 'rcfRegion' - The region where the account is located.
-resourceCountFilters ::
+-- 'resourceType', 'resourceCountFilters_resourceType' - The type of the AWS resource.
+--
+-- 'region', 'resourceCountFilters_region' - The region where the account is located.
+newResourceCountFilters ::
   ResourceCountFilters
-resourceCountFilters =
+newResourceCountFilters =
   ResourceCountFilters'
-    { _rcfAccountId = Nothing,
-      _rcfResourceType = Nothing,
-      _rcfRegion = Nothing
+    { accountId = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      region = Prelude.Nothing
     }
 
 -- | The 12-digit ID of the account.
-rcfAccountId :: Lens' ResourceCountFilters (Maybe Text)
-rcfAccountId = lens _rcfAccountId (\s a -> s {_rcfAccountId = a})
+resourceCountFilters_accountId :: Lens.Lens' ResourceCountFilters (Prelude.Maybe Prelude.Text)
+resourceCountFilters_accountId = Lens.lens (\ResourceCountFilters' {accountId} -> accountId) (\s@ResourceCountFilters' {} a -> s {accountId = a} :: ResourceCountFilters)
 
 -- | The type of the AWS resource.
-rcfResourceType :: Lens' ResourceCountFilters (Maybe ResourceType)
-rcfResourceType = lens _rcfResourceType (\s a -> s {_rcfResourceType = a})
+resourceCountFilters_resourceType :: Lens.Lens' ResourceCountFilters (Prelude.Maybe ResourceType)
+resourceCountFilters_resourceType = Lens.lens (\ResourceCountFilters' {resourceType} -> resourceType) (\s@ResourceCountFilters' {} a -> s {resourceType = a} :: ResourceCountFilters)
 
 -- | The region where the account is located.
-rcfRegion :: Lens' ResourceCountFilters (Maybe Text)
-rcfRegion = lens _rcfRegion (\s a -> s {_rcfRegion = a})
+resourceCountFilters_region :: Lens.Lens' ResourceCountFilters (Prelude.Maybe Prelude.Text)
+resourceCountFilters_region = Lens.lens (\ResourceCountFilters' {region} -> region) (\s@ResourceCountFilters' {} a -> s {region = a} :: ResourceCountFilters)
 
-instance Hashable ResourceCountFilters
+instance Prelude.Hashable ResourceCountFilters
 
-instance NFData ResourceCountFilters
+instance Prelude.NFData ResourceCountFilters
 
-instance ToJSON ResourceCountFilters where
+instance Prelude.ToJSON ResourceCountFilters where
   toJSON ResourceCountFilters' {..} =
-    object
-      ( catMaybes
-          [ ("AccountId" .=) <$> _rcfAccountId,
-            ("ResourceType" .=) <$> _rcfResourceType,
-            ("Region" .=) <$> _rcfRegion
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AccountId" Prelude..=) Prelude.<$> accountId,
+            ("ResourceType" Prelude..=) Prelude.<$> resourceType,
+            ("Region" Prelude..=) Prelude.<$> region
           ]
       )

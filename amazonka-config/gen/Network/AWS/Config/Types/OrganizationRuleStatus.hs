@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +19,90 @@
 module Network.AWS.Config.Types.OrganizationRuleStatus
   ( OrganizationRuleStatus
       ( ..,
-        CreateFailed,
-        CreateInProgress,
-        CreateSuccessful,
-        DeleteFailed,
-        DeleteInProgress,
-        DeleteSuccessful,
-        UpdateFailed,
-        UpdateInProgress,
-        UpdateSuccessful
+        OrganizationRuleStatusCREATEFAILED,
+        OrganizationRuleStatusCREATEINPROGRESS,
+        OrganizationRuleStatusCREATESUCCESSFUL,
+        OrganizationRuleStatusDELETEFAILED,
+        OrganizationRuleStatusDELETEINPROGRESS,
+        OrganizationRuleStatusDELETESUCCESSFUL,
+        OrganizationRuleStatusUPDATEFAILED,
+        OrganizationRuleStatusUPDATEINPROGRESS,
+        OrganizationRuleStatusUPDATESUCCESSFUL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrganizationRuleStatus
-  = OrganizationRuleStatus'
-      ( CI
-          Text
-      )
+newtype OrganizationRuleStatus = OrganizationRuleStatus'
+  { fromOrganizationRuleStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateFailed :: OrganizationRuleStatus
-pattern CreateFailed = OrganizationRuleStatus' "CREATE_FAILED"
+pattern OrganizationRuleStatusCREATEFAILED :: OrganizationRuleStatus
+pattern OrganizationRuleStatusCREATEFAILED = OrganizationRuleStatus' "CREATE_FAILED"
 
-pattern CreateInProgress :: OrganizationRuleStatus
-pattern CreateInProgress = OrganizationRuleStatus' "CREATE_IN_PROGRESS"
+pattern OrganizationRuleStatusCREATEINPROGRESS :: OrganizationRuleStatus
+pattern OrganizationRuleStatusCREATEINPROGRESS = OrganizationRuleStatus' "CREATE_IN_PROGRESS"
 
-pattern CreateSuccessful :: OrganizationRuleStatus
-pattern CreateSuccessful = OrganizationRuleStatus' "CREATE_SUCCESSFUL"
+pattern OrganizationRuleStatusCREATESUCCESSFUL :: OrganizationRuleStatus
+pattern OrganizationRuleStatusCREATESUCCESSFUL = OrganizationRuleStatus' "CREATE_SUCCESSFUL"
 
-pattern DeleteFailed :: OrganizationRuleStatus
-pattern DeleteFailed = OrganizationRuleStatus' "DELETE_FAILED"
+pattern OrganizationRuleStatusDELETEFAILED :: OrganizationRuleStatus
+pattern OrganizationRuleStatusDELETEFAILED = OrganizationRuleStatus' "DELETE_FAILED"
 
-pattern DeleteInProgress :: OrganizationRuleStatus
-pattern DeleteInProgress = OrganizationRuleStatus' "DELETE_IN_PROGRESS"
+pattern OrganizationRuleStatusDELETEINPROGRESS :: OrganizationRuleStatus
+pattern OrganizationRuleStatusDELETEINPROGRESS = OrganizationRuleStatus' "DELETE_IN_PROGRESS"
 
-pattern DeleteSuccessful :: OrganizationRuleStatus
-pattern DeleteSuccessful = OrganizationRuleStatus' "DELETE_SUCCESSFUL"
+pattern OrganizationRuleStatusDELETESUCCESSFUL :: OrganizationRuleStatus
+pattern OrganizationRuleStatusDELETESUCCESSFUL = OrganizationRuleStatus' "DELETE_SUCCESSFUL"
 
-pattern UpdateFailed :: OrganizationRuleStatus
-pattern UpdateFailed = OrganizationRuleStatus' "UPDATE_FAILED"
+pattern OrganizationRuleStatusUPDATEFAILED :: OrganizationRuleStatus
+pattern OrganizationRuleStatusUPDATEFAILED = OrganizationRuleStatus' "UPDATE_FAILED"
 
-pattern UpdateInProgress :: OrganizationRuleStatus
-pattern UpdateInProgress = OrganizationRuleStatus' "UPDATE_IN_PROGRESS"
+pattern OrganizationRuleStatusUPDATEINPROGRESS :: OrganizationRuleStatus
+pattern OrganizationRuleStatusUPDATEINPROGRESS = OrganizationRuleStatus' "UPDATE_IN_PROGRESS"
 
-pattern UpdateSuccessful :: OrganizationRuleStatus
-pattern UpdateSuccessful = OrganizationRuleStatus' "UPDATE_SUCCESSFUL"
+pattern OrganizationRuleStatusUPDATESUCCESSFUL :: OrganizationRuleStatus
+pattern OrganizationRuleStatusUPDATESUCCESSFUL = OrganizationRuleStatus' "UPDATE_SUCCESSFUL"
 
 {-# COMPLETE
-  CreateFailed,
-  CreateInProgress,
-  CreateSuccessful,
-  DeleteFailed,
-  DeleteInProgress,
-  DeleteSuccessful,
-  UpdateFailed,
-  UpdateInProgress,
-  UpdateSuccessful,
+  OrganizationRuleStatusCREATEFAILED,
+  OrganizationRuleStatusCREATEINPROGRESS,
+  OrganizationRuleStatusCREATESUCCESSFUL,
+  OrganizationRuleStatusDELETEFAILED,
+  OrganizationRuleStatusDELETEINPROGRESS,
+  OrganizationRuleStatusDELETESUCCESSFUL,
+  OrganizationRuleStatusUPDATEFAILED,
+  OrganizationRuleStatusUPDATEINPROGRESS,
+  OrganizationRuleStatusUPDATESUCCESSFUL,
   OrganizationRuleStatus'
   #-}
 
-instance FromText OrganizationRuleStatus where
-  parser = (OrganizationRuleStatus' . mk) <$> takeText
+instance Prelude.FromText OrganizationRuleStatus where
+  parser = OrganizationRuleStatus' Prelude.<$> Prelude.takeText
 
-instance ToText OrganizationRuleStatus where
-  toText (OrganizationRuleStatus' ci) = original ci
+instance Prelude.ToText OrganizationRuleStatus where
+  toText (OrganizationRuleStatus' x) = x
 
-instance Hashable OrganizationRuleStatus
+instance Prelude.Hashable OrganizationRuleStatus
 
-instance NFData OrganizationRuleStatus
+instance Prelude.NFData OrganizationRuleStatus
 
-instance ToByteString OrganizationRuleStatus
+instance Prelude.ToByteString OrganizationRuleStatus
 
-instance ToQuery OrganizationRuleStatus
+instance Prelude.ToQuery OrganizationRuleStatus
 
-instance ToHeader OrganizationRuleStatus
+instance Prelude.ToHeader OrganizationRuleStatus
 
-instance FromJSON OrganizationRuleStatus where
-  parseJSON = parseJSONText "OrganizationRuleStatus"
+instance Prelude.FromJSON OrganizationRuleStatus where
+  parseJSON = Prelude.parseJSONText "OrganizationRuleStatus"

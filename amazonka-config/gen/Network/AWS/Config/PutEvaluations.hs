@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,199 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Used by an AWS Lambda function to deliver evaluation results to AWS Config. This action is required in every AWS Lambda function that is invoked by an AWS Config rule.
+-- Used by an AWS Lambda function to deliver evaluation results to AWS
+-- Config. This action is required in every AWS Lambda function that is
+-- invoked by an AWS Config rule.
 module Network.AWS.Config.PutEvaluations
   ( -- * Creating a Request
-    putEvaluations,
-    PutEvaluations,
+    PutEvaluations (..),
+    newPutEvaluations,
 
     -- * Request Lenses
-    peTestMode,
-    peEvaluations,
-    peResultToken,
+    putEvaluations_testMode,
+    putEvaluations_evaluations,
+    putEvaluations_resultToken,
 
     -- * Destructuring the Response
-    putEvaluationsResponse,
-    PutEvaluationsResponse,
+    PutEvaluationsResponse (..),
+    newPutEvaluationsResponse,
 
     -- * Response Lenses
-    perrsFailedEvaluations,
-    perrsResponseStatus,
+    putEvaluationsResponse_failedEvaluations,
+    putEvaluationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Config.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Config.Types.Evaluation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'putEvaluations' smart constructor.
+-- /See:/ 'newPutEvaluations' smart constructor.
 data PutEvaluations = PutEvaluations'
-  { _peTestMode ::
-      !(Maybe Bool),
-    _peEvaluations :: !(Maybe [Evaluation]),
-    _peResultToken :: !Text
+  { -- | Use this parameter to specify a test run for @PutEvaluations@. You can
+    -- verify whether your AWS Lambda function will deliver evaluation results
+    -- to AWS Config. No updates occur to your existing evaluations, and
+    -- evaluation results are not sent to AWS Config.
+    --
+    -- When @TestMode@ is @true@, @PutEvaluations@ doesn\'t require a valid
+    -- value for the @ResultToken@ parameter, but the value cannot be null.
+    testMode :: Prelude.Maybe Prelude.Bool,
+    -- | The assessments that the AWS Lambda function performs. Each evaluation
+    -- identifies an AWS resource and indicates whether it complies with the
+    -- AWS Config rule that invokes the AWS Lambda function.
+    evaluations :: Prelude.Maybe [Evaluation],
+    -- | An encrypted token that associates an evaluation with an AWS Config
+    -- rule. Identifies the rule and the event that triggered the evaluation.
+    resultToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutEvaluations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutEvaluations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'peTestMode' - Use this parameter to specify a test run for @PutEvaluations@ . You can verify whether your AWS Lambda function will deliver evaluation results to AWS Config. No updates occur to your existing evaluations, and evaluation results are not sent to AWS Config.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'peEvaluations' - The assessments that the AWS Lambda function performs. Each evaluation identifies an AWS resource and indicates whether it complies with the AWS Config rule that invokes the AWS Lambda function.
+-- 'testMode', 'putEvaluations_testMode' - Use this parameter to specify a test run for @PutEvaluations@. You can
+-- verify whether your AWS Lambda function will deliver evaluation results
+-- to AWS Config. No updates occur to your existing evaluations, and
+-- evaluation results are not sent to AWS Config.
 --
--- * 'peResultToken' - An encrypted token that associates an evaluation with an AWS Config rule. Identifies the rule and the event that triggered the evaluation.
-putEvaluations ::
-  -- | 'peResultToken'
-  Text ->
+-- When @TestMode@ is @true@, @PutEvaluations@ doesn\'t require a valid
+-- value for the @ResultToken@ parameter, but the value cannot be null.
+--
+-- 'evaluations', 'putEvaluations_evaluations' - The assessments that the AWS Lambda function performs. Each evaluation
+-- identifies an AWS resource and indicates whether it complies with the
+-- AWS Config rule that invokes the AWS Lambda function.
+--
+-- 'resultToken', 'putEvaluations_resultToken' - An encrypted token that associates an evaluation with an AWS Config
+-- rule. Identifies the rule and the event that triggered the evaluation.
+newPutEvaluations ::
+  -- | 'resultToken'
+  Prelude.Text ->
   PutEvaluations
-putEvaluations pResultToken_ =
+newPutEvaluations pResultToken_ =
   PutEvaluations'
-    { _peTestMode = Nothing,
-      _peEvaluations = Nothing,
-      _peResultToken = pResultToken_
+    { testMode = Prelude.Nothing,
+      evaluations = Prelude.Nothing,
+      resultToken = pResultToken_
     }
 
--- | Use this parameter to specify a test run for @PutEvaluations@ . You can verify whether your AWS Lambda function will deliver evaluation results to AWS Config. No updates occur to your existing evaluations, and evaluation results are not sent to AWS Config.
-peTestMode :: Lens' PutEvaluations (Maybe Bool)
-peTestMode = lens _peTestMode (\s a -> s {_peTestMode = a})
+-- | Use this parameter to specify a test run for @PutEvaluations@. You can
+-- verify whether your AWS Lambda function will deliver evaluation results
+-- to AWS Config. No updates occur to your existing evaluations, and
+-- evaluation results are not sent to AWS Config.
+--
+-- When @TestMode@ is @true@, @PutEvaluations@ doesn\'t require a valid
+-- value for the @ResultToken@ parameter, but the value cannot be null.
+putEvaluations_testMode :: Lens.Lens' PutEvaluations (Prelude.Maybe Prelude.Bool)
+putEvaluations_testMode = Lens.lens (\PutEvaluations' {testMode} -> testMode) (\s@PutEvaluations' {} a -> s {testMode = a} :: PutEvaluations)
 
--- | The assessments that the AWS Lambda function performs. Each evaluation identifies an AWS resource and indicates whether it complies with the AWS Config rule that invokes the AWS Lambda function.
-peEvaluations :: Lens' PutEvaluations [Evaluation]
-peEvaluations = lens _peEvaluations (\s a -> s {_peEvaluations = a}) . _Default . _Coerce
+-- | The assessments that the AWS Lambda function performs. Each evaluation
+-- identifies an AWS resource and indicates whether it complies with the
+-- AWS Config rule that invokes the AWS Lambda function.
+putEvaluations_evaluations :: Lens.Lens' PutEvaluations (Prelude.Maybe [Evaluation])
+putEvaluations_evaluations = Lens.lens (\PutEvaluations' {evaluations} -> evaluations) (\s@PutEvaluations' {} a -> s {evaluations = a} :: PutEvaluations) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An encrypted token that associates an evaluation with an AWS Config rule. Identifies the rule and the event that triggered the evaluation.
-peResultToken :: Lens' PutEvaluations Text
-peResultToken = lens _peResultToken (\s a -> s {_peResultToken = a})
+-- | An encrypted token that associates an evaluation with an AWS Config
+-- rule. Identifies the rule and the event that triggered the evaluation.
+putEvaluations_resultToken :: Lens.Lens' PutEvaluations Prelude.Text
+putEvaluations_resultToken = Lens.lens (\PutEvaluations' {resultToken} -> resultToken) (\s@PutEvaluations' {} a -> s {resultToken = a} :: PutEvaluations)
 
-instance AWSRequest PutEvaluations where
+instance Prelude.AWSRequest PutEvaluations where
   type Rs PutEvaluations = PutEvaluationsResponse
-  request = postJSON config
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutEvaluationsResponse'
-            <$> (x .?> "FailedEvaluations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "FailedEvaluations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutEvaluations
+instance Prelude.Hashable PutEvaluations
 
-instance NFData PutEvaluations
+instance Prelude.NFData PutEvaluations
 
-instance ToHeaders PutEvaluations where
+instance Prelude.ToHeaders PutEvaluations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("StarlingDoveService.PutEvaluations" :: ByteString),
+              Prelude.=# ( "StarlingDoveService.PutEvaluations" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutEvaluations where
+instance Prelude.ToJSON PutEvaluations where
   toJSON PutEvaluations' {..} =
-    object
-      ( catMaybes
-          [ ("TestMode" .=) <$> _peTestMode,
-            ("Evaluations" .=) <$> _peEvaluations,
-            Just ("ResultToken" .= _peResultToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TestMode" Prelude..=) Prelude.<$> testMode,
+            ("Evaluations" Prelude..=) Prelude.<$> evaluations,
+            Prelude.Just ("ResultToken" Prelude..= resultToken)
           ]
       )
 
-instance ToPath PutEvaluations where
-  toPath = const "/"
+instance Prelude.ToPath PutEvaluations where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutEvaluations where
-  toQuery = const mempty
+instance Prelude.ToQuery PutEvaluations where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'putEvaluationsResponse' smart constructor.
+-- /See:/ 'newPutEvaluationsResponse' smart constructor.
 data PutEvaluationsResponse = PutEvaluationsResponse'
-  { _perrsFailedEvaluations ::
-      !(Maybe [Evaluation]),
-    _perrsResponseStatus ::
-      !Int
+  { -- | Requests that failed because of a client or server error.
+    failedEvaluations :: Prelude.Maybe [Evaluation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutEvaluationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutEvaluationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'perrsFailedEvaluations' - Requests that failed because of a client or server error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'perrsResponseStatus' - -- | The response status code.
-putEvaluationsResponse ::
-  -- | 'perrsResponseStatus'
-  Int ->
+-- 'failedEvaluations', 'putEvaluationsResponse_failedEvaluations' - Requests that failed because of a client or server error.
+--
+-- 'httpStatus', 'putEvaluationsResponse_httpStatus' - The response's http status code.
+newPutEvaluationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutEvaluationsResponse
-putEvaluationsResponse pResponseStatus_ =
+newPutEvaluationsResponse pHttpStatus_ =
   PutEvaluationsResponse'
-    { _perrsFailedEvaluations =
-        Nothing,
-      _perrsResponseStatus = pResponseStatus_
+    { failedEvaluations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Requests that failed because of a client or server error.
-perrsFailedEvaluations :: Lens' PutEvaluationsResponse [Evaluation]
-perrsFailedEvaluations = lens _perrsFailedEvaluations (\s a -> s {_perrsFailedEvaluations = a}) . _Default . _Coerce
+putEvaluationsResponse_failedEvaluations :: Lens.Lens' PutEvaluationsResponse (Prelude.Maybe [Evaluation])
+putEvaluationsResponse_failedEvaluations = Lens.lens (\PutEvaluationsResponse' {failedEvaluations} -> failedEvaluations) (\s@PutEvaluationsResponse' {} a -> s {failedEvaluations = a} :: PutEvaluationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-perrsResponseStatus :: Lens' PutEvaluationsResponse Int
-perrsResponseStatus = lens _perrsResponseStatus (\s a -> s {_perrsResponseStatus = a})
+-- | The response's http status code.
+putEvaluationsResponse_httpStatus :: Lens.Lens' PutEvaluationsResponse Prelude.Int
+putEvaluationsResponse_httpStatus = Lens.lens (\PutEvaluationsResponse' {httpStatus} -> httpStatus) (\s@PutEvaluationsResponse' {} a -> s {httpStatus = a} :: PutEvaluationsResponse)
 
-instance NFData PutEvaluationsResponse
+instance Prelude.NFData PutEvaluationsResponse

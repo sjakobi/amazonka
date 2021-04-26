@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,165 +19,196 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.ConfigRuleEvaluationStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Status information for your AWS managed Config rules. The status includes information such as the last time the rule ran, the last time it failed, and the related error for the last failure.
+-- | Status information for your AWS managed Config rules. The status
+-- includes information such as the last time the rule ran, the last time
+-- it failed, and the related error for the last failure.
 --
+-- This action does not return status information about custom AWS Config
+-- rules.
 --
--- This action does not return status information about custom AWS Config rules.
---
---
--- /See:/ 'configRuleEvaluationStatus' smart constructor.
+-- /See:/ 'newConfigRuleEvaluationStatus' smart constructor.
 data ConfigRuleEvaluationStatus = ConfigRuleEvaluationStatus'
-  { _cresLastErrorMessage ::
-      !(Maybe Text),
-    _cresConfigRuleId ::
-      !(Maybe Text),
-    _cresConfigRuleARN ::
-      !(Maybe Text),
-    _cresConfigRuleName ::
-      !(Maybe Text),
-    _cresFirstEvaluationStarted ::
-      !(Maybe Bool),
-    _cresLastFailedEvaluationTime ::
-      !(Maybe POSIX),
-    _cresFirstActivatedTime ::
-      !(Maybe POSIX),
-    _cresLastErrorCode ::
-      !(Maybe Text),
-    _cresLastFailedInvocationTime ::
-      !(Maybe POSIX),
-    _cresLastSuccessfulInvocationTime ::
-      !(Maybe POSIX),
-    _cresLastDeactivatedTime ::
-      !(Maybe POSIX),
-    _cresLastSuccessfulEvaluationTime ::
-      !(Maybe POSIX)
+  { -- | The error message that AWS Config returned when the rule last failed.
+    lastErrorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the AWS Config rule.
+    configRuleId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the AWS Config rule.
+    configRuleArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS Config rule.
+    configRuleName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether AWS Config has evaluated your resources against the
+    -- rule at least once.
+    --
+    -- -   @true@ - AWS Config has evaluated your AWS resources against the
+    --     rule at least once.
+    --
+    -- -   @false@ - AWS Config has not once finished evaluating your AWS
+    --     resources against the rule.
+    firstEvaluationStarted :: Prelude.Maybe Prelude.Bool,
+    -- | The time that AWS Config last failed to evaluate your AWS resources
+    -- against the rule.
+    lastFailedEvaluationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time that you first activated the AWS Config rule.
+    firstActivatedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The error code that AWS Config returned when the rule last failed.
+    lastErrorCode :: Prelude.Maybe Prelude.Text,
+    -- | The time that AWS Config last failed to invoke the AWS Config rule to
+    -- evaluate your AWS resources.
+    lastFailedInvocationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time that AWS Config last successfully invoked the AWS Config rule
+    -- to evaluate your AWS resources.
+    lastSuccessfulInvocationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time that you last turned off the AWS Config rule.
+    lastDeactivatedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time that AWS Config last successfully evaluated your AWS resources
+    -- against the rule.
+    lastSuccessfulEvaluationTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigRuleEvaluationStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigRuleEvaluationStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cresLastErrorMessage' - The error message that AWS Config returned when the rule last failed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cresConfigRuleId' - The ID of the AWS Config rule.
+-- 'lastErrorMessage', 'configRuleEvaluationStatus_lastErrorMessage' - The error message that AWS Config returned when the rule last failed.
 --
--- * 'cresConfigRuleARN' - The Amazon Resource Name (ARN) of the AWS Config rule.
+-- 'configRuleId', 'configRuleEvaluationStatus_configRuleId' - The ID of the AWS Config rule.
 --
--- * 'cresConfigRuleName' - The name of the AWS Config rule.
+-- 'configRuleArn', 'configRuleEvaluationStatus_configRuleArn' - The Amazon Resource Name (ARN) of the AWS Config rule.
 --
--- * 'cresFirstEvaluationStarted' - Indicates whether AWS Config has evaluated your resources against the rule at least once.     * @true@ - AWS Config has evaluated your AWS resources against the rule at least once.     * @false@ - AWS Config has not once finished evaluating your AWS resources against the rule.
+-- 'configRuleName', 'configRuleEvaluationStatus_configRuleName' - The name of the AWS Config rule.
 --
--- * 'cresLastFailedEvaluationTime' - The time that AWS Config last failed to evaluate your AWS resources against the rule.
+-- 'firstEvaluationStarted', 'configRuleEvaluationStatus_firstEvaluationStarted' - Indicates whether AWS Config has evaluated your resources against the
+-- rule at least once.
 --
--- * 'cresFirstActivatedTime' - The time that you first activated the AWS Config rule.
+-- -   @true@ - AWS Config has evaluated your AWS resources against the
+--     rule at least once.
 --
--- * 'cresLastErrorCode' - The error code that AWS Config returned when the rule last failed.
+-- -   @false@ - AWS Config has not once finished evaluating your AWS
+--     resources against the rule.
 --
--- * 'cresLastFailedInvocationTime' - The time that AWS Config last failed to invoke the AWS Config rule to evaluate your AWS resources.
+-- 'lastFailedEvaluationTime', 'configRuleEvaluationStatus_lastFailedEvaluationTime' - The time that AWS Config last failed to evaluate your AWS resources
+-- against the rule.
 --
--- * 'cresLastSuccessfulInvocationTime' - The time that AWS Config last successfully invoked the AWS Config rule to evaluate your AWS resources.
+-- 'firstActivatedTime', 'configRuleEvaluationStatus_firstActivatedTime' - The time that you first activated the AWS Config rule.
 --
--- * 'cresLastDeactivatedTime' - The time that you last turned off the AWS Config rule.
+-- 'lastErrorCode', 'configRuleEvaluationStatus_lastErrorCode' - The error code that AWS Config returned when the rule last failed.
 --
--- * 'cresLastSuccessfulEvaluationTime' - The time that AWS Config last successfully evaluated your AWS resources against the rule.
-configRuleEvaluationStatus ::
+-- 'lastFailedInvocationTime', 'configRuleEvaluationStatus_lastFailedInvocationTime' - The time that AWS Config last failed to invoke the AWS Config rule to
+-- evaluate your AWS resources.
+--
+-- 'lastSuccessfulInvocationTime', 'configRuleEvaluationStatus_lastSuccessfulInvocationTime' - The time that AWS Config last successfully invoked the AWS Config rule
+-- to evaluate your AWS resources.
+--
+-- 'lastDeactivatedTime', 'configRuleEvaluationStatus_lastDeactivatedTime' - The time that you last turned off the AWS Config rule.
+--
+-- 'lastSuccessfulEvaluationTime', 'configRuleEvaluationStatus_lastSuccessfulEvaluationTime' - The time that AWS Config last successfully evaluated your AWS resources
+-- against the rule.
+newConfigRuleEvaluationStatus ::
   ConfigRuleEvaluationStatus
-configRuleEvaluationStatus =
+newConfigRuleEvaluationStatus =
   ConfigRuleEvaluationStatus'
-    { _cresLastErrorMessage =
-        Nothing,
-      _cresConfigRuleId = Nothing,
-      _cresConfigRuleARN = Nothing,
-      _cresConfigRuleName = Nothing,
-      _cresFirstEvaluationStarted = Nothing,
-      _cresLastFailedEvaluationTime = Nothing,
-      _cresFirstActivatedTime = Nothing,
-      _cresLastErrorCode = Nothing,
-      _cresLastFailedInvocationTime = Nothing,
-      _cresLastSuccessfulInvocationTime = Nothing,
-      _cresLastDeactivatedTime = Nothing,
-      _cresLastSuccessfulEvaluationTime = Nothing
+    { lastErrorMessage =
+        Prelude.Nothing,
+      configRuleId = Prelude.Nothing,
+      configRuleArn = Prelude.Nothing,
+      configRuleName = Prelude.Nothing,
+      firstEvaluationStarted = Prelude.Nothing,
+      lastFailedEvaluationTime = Prelude.Nothing,
+      firstActivatedTime = Prelude.Nothing,
+      lastErrorCode = Prelude.Nothing,
+      lastFailedInvocationTime = Prelude.Nothing,
+      lastSuccessfulInvocationTime = Prelude.Nothing,
+      lastDeactivatedTime = Prelude.Nothing,
+      lastSuccessfulEvaluationTime = Prelude.Nothing
     }
 
 -- | The error message that AWS Config returned when the rule last failed.
-cresLastErrorMessage :: Lens' ConfigRuleEvaluationStatus (Maybe Text)
-cresLastErrorMessage = lens _cresLastErrorMessage (\s a -> s {_cresLastErrorMessage = a})
+configRuleEvaluationStatus_lastErrorMessage :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.Text)
+configRuleEvaluationStatus_lastErrorMessage = Lens.lens (\ConfigRuleEvaluationStatus' {lastErrorMessage} -> lastErrorMessage) (\s@ConfigRuleEvaluationStatus' {} a -> s {lastErrorMessage = a} :: ConfigRuleEvaluationStatus)
 
 -- | The ID of the AWS Config rule.
-cresConfigRuleId :: Lens' ConfigRuleEvaluationStatus (Maybe Text)
-cresConfigRuleId = lens _cresConfigRuleId (\s a -> s {_cresConfigRuleId = a})
+configRuleEvaluationStatus_configRuleId :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.Text)
+configRuleEvaluationStatus_configRuleId = Lens.lens (\ConfigRuleEvaluationStatus' {configRuleId} -> configRuleId) (\s@ConfigRuleEvaluationStatus' {} a -> s {configRuleId = a} :: ConfigRuleEvaluationStatus)
 
 -- | The Amazon Resource Name (ARN) of the AWS Config rule.
-cresConfigRuleARN :: Lens' ConfigRuleEvaluationStatus (Maybe Text)
-cresConfigRuleARN = lens _cresConfigRuleARN (\s a -> s {_cresConfigRuleARN = a})
+configRuleEvaluationStatus_configRuleArn :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.Text)
+configRuleEvaluationStatus_configRuleArn = Lens.lens (\ConfigRuleEvaluationStatus' {configRuleArn} -> configRuleArn) (\s@ConfigRuleEvaluationStatus' {} a -> s {configRuleArn = a} :: ConfigRuleEvaluationStatus)
 
 -- | The name of the AWS Config rule.
-cresConfigRuleName :: Lens' ConfigRuleEvaluationStatus (Maybe Text)
-cresConfigRuleName = lens _cresConfigRuleName (\s a -> s {_cresConfigRuleName = a})
+configRuleEvaluationStatus_configRuleName :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.Text)
+configRuleEvaluationStatus_configRuleName = Lens.lens (\ConfigRuleEvaluationStatus' {configRuleName} -> configRuleName) (\s@ConfigRuleEvaluationStatus' {} a -> s {configRuleName = a} :: ConfigRuleEvaluationStatus)
 
--- | Indicates whether AWS Config has evaluated your resources against the rule at least once.     * @true@ - AWS Config has evaluated your AWS resources against the rule at least once.     * @false@ - AWS Config has not once finished evaluating your AWS resources against the rule.
-cresFirstEvaluationStarted :: Lens' ConfigRuleEvaluationStatus (Maybe Bool)
-cresFirstEvaluationStarted = lens _cresFirstEvaluationStarted (\s a -> s {_cresFirstEvaluationStarted = a})
+-- | Indicates whether AWS Config has evaluated your resources against the
+-- rule at least once.
+--
+-- -   @true@ - AWS Config has evaluated your AWS resources against the
+--     rule at least once.
+--
+-- -   @false@ - AWS Config has not once finished evaluating your AWS
+--     resources against the rule.
+configRuleEvaluationStatus_firstEvaluationStarted :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.Bool)
+configRuleEvaluationStatus_firstEvaluationStarted = Lens.lens (\ConfigRuleEvaluationStatus' {firstEvaluationStarted} -> firstEvaluationStarted) (\s@ConfigRuleEvaluationStatus' {} a -> s {firstEvaluationStarted = a} :: ConfigRuleEvaluationStatus)
 
--- | The time that AWS Config last failed to evaluate your AWS resources against the rule.
-cresLastFailedEvaluationTime :: Lens' ConfigRuleEvaluationStatus (Maybe UTCTime)
-cresLastFailedEvaluationTime = lens _cresLastFailedEvaluationTime (\s a -> s {_cresLastFailedEvaluationTime = a}) . mapping _Time
+-- | The time that AWS Config last failed to evaluate your AWS resources
+-- against the rule.
+configRuleEvaluationStatus_lastFailedEvaluationTime :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.UTCTime)
+configRuleEvaluationStatus_lastFailedEvaluationTime = Lens.lens (\ConfigRuleEvaluationStatus' {lastFailedEvaluationTime} -> lastFailedEvaluationTime) (\s@ConfigRuleEvaluationStatus' {} a -> s {lastFailedEvaluationTime = a} :: ConfigRuleEvaluationStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time that you first activated the AWS Config rule.
-cresFirstActivatedTime :: Lens' ConfigRuleEvaluationStatus (Maybe UTCTime)
-cresFirstActivatedTime = lens _cresFirstActivatedTime (\s a -> s {_cresFirstActivatedTime = a}) . mapping _Time
+configRuleEvaluationStatus_firstActivatedTime :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.UTCTime)
+configRuleEvaluationStatus_firstActivatedTime = Lens.lens (\ConfigRuleEvaluationStatus' {firstActivatedTime} -> firstActivatedTime) (\s@ConfigRuleEvaluationStatus' {} a -> s {firstActivatedTime = a} :: ConfigRuleEvaluationStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The error code that AWS Config returned when the rule last failed.
-cresLastErrorCode :: Lens' ConfigRuleEvaluationStatus (Maybe Text)
-cresLastErrorCode = lens _cresLastErrorCode (\s a -> s {_cresLastErrorCode = a})
+configRuleEvaluationStatus_lastErrorCode :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.Text)
+configRuleEvaluationStatus_lastErrorCode = Lens.lens (\ConfigRuleEvaluationStatus' {lastErrorCode} -> lastErrorCode) (\s@ConfigRuleEvaluationStatus' {} a -> s {lastErrorCode = a} :: ConfigRuleEvaluationStatus)
 
--- | The time that AWS Config last failed to invoke the AWS Config rule to evaluate your AWS resources.
-cresLastFailedInvocationTime :: Lens' ConfigRuleEvaluationStatus (Maybe UTCTime)
-cresLastFailedInvocationTime = lens _cresLastFailedInvocationTime (\s a -> s {_cresLastFailedInvocationTime = a}) . mapping _Time
+-- | The time that AWS Config last failed to invoke the AWS Config rule to
+-- evaluate your AWS resources.
+configRuleEvaluationStatus_lastFailedInvocationTime :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.UTCTime)
+configRuleEvaluationStatus_lastFailedInvocationTime = Lens.lens (\ConfigRuleEvaluationStatus' {lastFailedInvocationTime} -> lastFailedInvocationTime) (\s@ConfigRuleEvaluationStatus' {} a -> s {lastFailedInvocationTime = a} :: ConfigRuleEvaluationStatus) Prelude.. Lens.mapping Prelude._Time
 
--- | The time that AWS Config last successfully invoked the AWS Config rule to evaluate your AWS resources.
-cresLastSuccessfulInvocationTime :: Lens' ConfigRuleEvaluationStatus (Maybe UTCTime)
-cresLastSuccessfulInvocationTime = lens _cresLastSuccessfulInvocationTime (\s a -> s {_cresLastSuccessfulInvocationTime = a}) . mapping _Time
+-- | The time that AWS Config last successfully invoked the AWS Config rule
+-- to evaluate your AWS resources.
+configRuleEvaluationStatus_lastSuccessfulInvocationTime :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.UTCTime)
+configRuleEvaluationStatus_lastSuccessfulInvocationTime = Lens.lens (\ConfigRuleEvaluationStatus' {lastSuccessfulInvocationTime} -> lastSuccessfulInvocationTime) (\s@ConfigRuleEvaluationStatus' {} a -> s {lastSuccessfulInvocationTime = a} :: ConfigRuleEvaluationStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time that you last turned off the AWS Config rule.
-cresLastDeactivatedTime :: Lens' ConfigRuleEvaluationStatus (Maybe UTCTime)
-cresLastDeactivatedTime = lens _cresLastDeactivatedTime (\s a -> s {_cresLastDeactivatedTime = a}) . mapping _Time
+configRuleEvaluationStatus_lastDeactivatedTime :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.UTCTime)
+configRuleEvaluationStatus_lastDeactivatedTime = Lens.lens (\ConfigRuleEvaluationStatus' {lastDeactivatedTime} -> lastDeactivatedTime) (\s@ConfigRuleEvaluationStatus' {} a -> s {lastDeactivatedTime = a} :: ConfigRuleEvaluationStatus) Prelude.. Lens.mapping Prelude._Time
 
--- | The time that AWS Config last successfully evaluated your AWS resources against the rule.
-cresLastSuccessfulEvaluationTime :: Lens' ConfigRuleEvaluationStatus (Maybe UTCTime)
-cresLastSuccessfulEvaluationTime = lens _cresLastSuccessfulEvaluationTime (\s a -> s {_cresLastSuccessfulEvaluationTime = a}) . mapping _Time
+-- | The time that AWS Config last successfully evaluated your AWS resources
+-- against the rule.
+configRuleEvaluationStatus_lastSuccessfulEvaluationTime :: Lens.Lens' ConfigRuleEvaluationStatus (Prelude.Maybe Prelude.UTCTime)
+configRuleEvaluationStatus_lastSuccessfulEvaluationTime = Lens.lens (\ConfigRuleEvaluationStatus' {lastSuccessfulEvaluationTime} -> lastSuccessfulEvaluationTime) (\s@ConfigRuleEvaluationStatus' {} a -> s {lastSuccessfulEvaluationTime = a} :: ConfigRuleEvaluationStatus) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON ConfigRuleEvaluationStatus where
+instance Prelude.FromJSON ConfigRuleEvaluationStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConfigRuleEvaluationStatus"
       ( \x ->
           ConfigRuleEvaluationStatus'
-            <$> (x .:? "LastErrorMessage")
-            <*> (x .:? "ConfigRuleId")
-            <*> (x .:? "ConfigRuleArn")
-            <*> (x .:? "ConfigRuleName")
-            <*> (x .:? "FirstEvaluationStarted")
-            <*> (x .:? "LastFailedEvaluationTime")
-            <*> (x .:? "FirstActivatedTime")
-            <*> (x .:? "LastErrorCode")
-            <*> (x .:? "LastFailedInvocationTime")
-            <*> (x .:? "LastSuccessfulInvocationTime")
-            <*> (x .:? "LastDeactivatedTime")
-            <*> (x .:? "LastSuccessfulEvaluationTime")
+            Prelude.<$> (x Prelude..:? "LastErrorMessage")
+            Prelude.<*> (x Prelude..:? "ConfigRuleId")
+            Prelude.<*> (x Prelude..:? "ConfigRuleArn")
+            Prelude.<*> (x Prelude..:? "ConfigRuleName")
+            Prelude.<*> (x Prelude..:? "FirstEvaluationStarted")
+            Prelude.<*> (x Prelude..:? "LastFailedEvaluationTime")
+            Prelude.<*> (x Prelude..:? "FirstActivatedTime")
+            Prelude.<*> (x Prelude..:? "LastErrorCode")
+            Prelude.<*> (x Prelude..:? "LastFailedInvocationTime")
+            Prelude.<*> (x Prelude..:? "LastSuccessfulInvocationTime")
+            Prelude.<*> (x Prelude..:? "LastDeactivatedTime")
+            Prelude.<*> (x Prelude..:? "LastSuccessfulEvaluationTime")
       )
 
-instance Hashable ConfigRuleEvaluationStatus
+instance Prelude.Hashable ConfigRuleEvaluationStatus
 
-instance NFData ConfigRuleEvaluationStatus
+instance Prelude.NFData ConfigRuleEvaluationStatus

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.AccountAggregationSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A collection of accounts and regions.
 --
---
---
--- /See:/ 'accountAggregationSource' smart constructor.
+-- /See:/ 'newAccountAggregationSource' smart constructor.
 data AccountAggregationSource = AccountAggregationSource'
-  { _aasAllAWSRegions ::
-      !(Maybe Bool),
-    _aasAWSRegions ::
-      !(Maybe (List1 Text)),
-    _aasAccountIds ::
-      !(List1 Text)
+  { -- | If true, aggregate existing AWS Config regions and future regions.
+    allAwsRegions :: Prelude.Maybe Prelude.Bool,
+    -- | The source regions being aggregated.
+    awsRegions :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The 12-digit account ID of the account being aggregated.
+    accountIds :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountAggregationSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountAggregationSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aasAllAWSRegions' - If true, aggregate existing AWS Config regions and future regions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aasAWSRegions' - The source regions being aggregated.
+-- 'allAwsRegions', 'accountAggregationSource_allAwsRegions' - If true, aggregate existing AWS Config regions and future regions.
 --
--- * 'aasAccountIds' - The 12-digit account ID of the account being aggregated.
-accountAggregationSource ::
-  -- | 'aasAccountIds'
-  NonEmpty Text ->
+-- 'awsRegions', 'accountAggregationSource_awsRegions' - The source regions being aggregated.
+--
+-- 'accountIds', 'accountAggregationSource_accountIds' - The 12-digit account ID of the account being aggregated.
+newAccountAggregationSource ::
+  -- | 'accountIds'
+  Prelude.NonEmpty Prelude.Text ->
   AccountAggregationSource
-accountAggregationSource pAccountIds_ =
+newAccountAggregationSource pAccountIds_ =
   AccountAggregationSource'
-    { _aasAllAWSRegions =
-        Nothing,
-      _aasAWSRegions = Nothing,
-      _aasAccountIds = _List1 # pAccountIds_
+    { allAwsRegions =
+        Prelude.Nothing,
+      awsRegions = Prelude.Nothing,
+      accountIds = Prelude._List1 Lens.# pAccountIds_
     }
 
 -- | If true, aggregate existing AWS Config regions and future regions.
-aasAllAWSRegions :: Lens' AccountAggregationSource (Maybe Bool)
-aasAllAWSRegions = lens _aasAllAWSRegions (\s a -> s {_aasAllAWSRegions = a})
+accountAggregationSource_allAwsRegions :: Lens.Lens' AccountAggregationSource (Prelude.Maybe Prelude.Bool)
+accountAggregationSource_allAwsRegions = Lens.lens (\AccountAggregationSource' {allAwsRegions} -> allAwsRegions) (\s@AccountAggregationSource' {} a -> s {allAwsRegions = a} :: AccountAggregationSource)
 
 -- | The source regions being aggregated.
-aasAWSRegions :: Lens' AccountAggregationSource (Maybe (NonEmpty Text))
-aasAWSRegions = lens _aasAWSRegions (\s a -> s {_aasAWSRegions = a}) . mapping _List1
+accountAggregationSource_awsRegions :: Lens.Lens' AccountAggregationSource (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+accountAggregationSource_awsRegions = Lens.lens (\AccountAggregationSource' {awsRegions} -> awsRegions) (\s@AccountAggregationSource' {} a -> s {awsRegions = a} :: AccountAggregationSource) Prelude.. Lens.mapping Prelude._List1
 
 -- | The 12-digit account ID of the account being aggregated.
-aasAccountIds :: Lens' AccountAggregationSource (NonEmpty Text)
-aasAccountIds = lens _aasAccountIds (\s a -> s {_aasAccountIds = a}) . _List1
+accountAggregationSource_accountIds :: Lens.Lens' AccountAggregationSource (Prelude.NonEmpty Prelude.Text)
+accountAggregationSource_accountIds = Lens.lens (\AccountAggregationSource' {accountIds} -> accountIds) (\s@AccountAggregationSource' {} a -> s {accountIds = a} :: AccountAggregationSource) Prelude.. Prelude._List1
 
-instance FromJSON AccountAggregationSource where
+instance Prelude.FromJSON AccountAggregationSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccountAggregationSource"
       ( \x ->
           AccountAggregationSource'
-            <$> (x .:? "AllAwsRegions")
-            <*> (x .:? "AwsRegions")
-            <*> (x .: "AccountIds")
+            Prelude.<$> (x Prelude..:? "AllAwsRegions")
+            Prelude.<*> (x Prelude..:? "AwsRegions")
+            Prelude.<*> (x Prelude..: "AccountIds")
       )
 
-instance Hashable AccountAggregationSource
+instance Prelude.Hashable AccountAggregationSource
 
-instance NFData AccountAggregationSource
+instance Prelude.NFData AccountAggregationSource
 
-instance ToJSON AccountAggregationSource where
+instance Prelude.ToJSON AccountAggregationSource where
   toJSON AccountAggregationSource' {..} =
-    object
-      ( catMaybes
-          [ ("AllAwsRegions" .=) <$> _aasAllAWSRegions,
-            ("AwsRegions" .=) <$> _aasAWSRegions,
-            Just ("AccountIds" .= _aasAccountIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AllAwsRegions" Prelude..=)
+              Prelude.<$> allAwsRegions,
+            ("AwsRegions" Prelude..=) Prelude.<$> awsRegions,
+            Prelude.Just ("AccountIds" Prelude..= accountIds)
           ]
       )

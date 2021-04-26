@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Config.Types.EventSource
   ( EventSource
       ( ..,
-        AWS_Config
+        EventSourceAws_Config
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventSource = EventSource' (CI Text)
+newtype EventSource = EventSource'
+  { fromEventSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWS_Config :: EventSource
-pattern AWS_Config = EventSource' "aws.config"
+pattern EventSourceAws_Config :: EventSource
+pattern EventSourceAws_Config = EventSource' "aws.config"
 
 {-# COMPLETE
-  AWS_Config,
+  EventSourceAws_Config,
   EventSource'
   #-}
 
-instance FromText EventSource where
-  parser = (EventSource' . mk) <$> takeText
+instance Prelude.FromText EventSource where
+  parser = EventSource' Prelude.<$> Prelude.takeText
 
-instance ToText EventSource where
-  toText (EventSource' ci) = original ci
+instance Prelude.ToText EventSource where
+  toText (EventSource' x) = x
 
-instance Hashable EventSource
+instance Prelude.Hashable EventSource
 
-instance NFData EventSource
+instance Prelude.NFData EventSource
 
-instance ToByteString EventSource
+instance Prelude.ToByteString EventSource
 
-instance ToQuery EventSource
+instance Prelude.ToQuery EventSource
 
-instance ToHeader EventSource
+instance Prelude.ToHeader EventSource
 
-instance ToJSON EventSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON EventSource where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EventSource where
-  parseJSON = parseJSONText "EventSource"
+instance Prelude.FromJSON EventSource where
+  parseJSON = Prelude.parseJSONText "EventSource"

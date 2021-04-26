@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,84 +19,118 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.Scope where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Defines which resources trigger an evaluation for an AWS Config rule. The scope can include one or more resource types, a combination of a tag key and value, or a combination of one resource type and one resource ID. Specify a scope to constrain which resources trigger an evaluation for a rule. Otherwise, evaluations for the rule are triggered when any resource in your recording group changes in configuration.
+-- | Defines which resources trigger an evaluation for an AWS Config rule.
+-- The scope can include one or more resource types, a combination of a tag
+-- key and value, or a combination of one resource type and one resource
+-- ID. Specify a scope to constrain which resources trigger an evaluation
+-- for a rule. Otherwise, evaluations for the rule are triggered when any
+-- resource in your recording group changes in configuration.
 --
---
---
--- /See:/ 'scope' smart constructor.
+-- /See:/ 'newScope' smart constructor.
 data Scope = Scope'
-  { _sTagValue :: !(Maybe Text),
-    _sTagKey :: !(Maybe Text),
-    _sComplianceResourceId :: !(Maybe Text),
-    _sComplianceResourceTypes :: !(Maybe [Text])
+  { -- | The tag value applied to only those AWS resources that you want to
+    -- trigger an evaluation for the rule. If you specify a value for
+    -- @TagValue@, you must also specify a value for @TagKey@.
+    tagValue :: Prelude.Maybe Prelude.Text,
+    -- | The tag key that is applied to only those AWS resources that you want to
+    -- trigger an evaluation for the rule.
+    tagKey :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the only AWS resource that you want to trigger an evaluation
+    -- for the rule. If you specify a resource ID, you must specify one
+    -- resource type for @ComplianceResourceTypes@.
+    complianceResourceId :: Prelude.Maybe Prelude.Text,
+    -- | The resource types of only those AWS resources that you want to trigger
+    -- an evaluation for the rule. You can only specify one type if you also
+    -- specify a resource ID for @ComplianceResourceId@.
+    complianceResourceTypes :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Scope' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Scope' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sTagValue' - The tag value applied to only those AWS resources that you want to trigger an evaluation for the rule. If you specify a value for @TagValue@ , you must also specify a value for @TagKey@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sTagKey' - The tag key that is applied to only those AWS resources that you want to trigger an evaluation for the rule.
+-- 'tagValue', 'scope_tagValue' - The tag value applied to only those AWS resources that you want to
+-- trigger an evaluation for the rule. If you specify a value for
+-- @TagValue@, you must also specify a value for @TagKey@.
 --
--- * 'sComplianceResourceId' - The ID of the only AWS resource that you want to trigger an evaluation for the rule. If you specify a resource ID, you must specify one resource type for @ComplianceResourceTypes@ .
+-- 'tagKey', 'scope_tagKey' - The tag key that is applied to only those AWS resources that you want to
+-- trigger an evaluation for the rule.
 --
--- * 'sComplianceResourceTypes' - The resource types of only those AWS resources that you want to trigger an evaluation for the rule. You can only specify one type if you also specify a resource ID for @ComplianceResourceId@ .
-scope ::
+-- 'complianceResourceId', 'scope_complianceResourceId' - The ID of the only AWS resource that you want to trigger an evaluation
+-- for the rule. If you specify a resource ID, you must specify one
+-- resource type for @ComplianceResourceTypes@.
+--
+-- 'complianceResourceTypes', 'scope_complianceResourceTypes' - The resource types of only those AWS resources that you want to trigger
+-- an evaluation for the rule. You can only specify one type if you also
+-- specify a resource ID for @ComplianceResourceId@.
+newScope ::
   Scope
-scope =
+newScope =
   Scope'
-    { _sTagValue = Nothing,
-      _sTagKey = Nothing,
-      _sComplianceResourceId = Nothing,
-      _sComplianceResourceTypes = Nothing
+    { tagValue = Prelude.Nothing,
+      tagKey = Prelude.Nothing,
+      complianceResourceId = Prelude.Nothing,
+      complianceResourceTypes = Prelude.Nothing
     }
 
--- | The tag value applied to only those AWS resources that you want to trigger an evaluation for the rule. If you specify a value for @TagValue@ , you must also specify a value for @TagKey@ .
-sTagValue :: Lens' Scope (Maybe Text)
-sTagValue = lens _sTagValue (\s a -> s {_sTagValue = a})
+-- | The tag value applied to only those AWS resources that you want to
+-- trigger an evaluation for the rule. If you specify a value for
+-- @TagValue@, you must also specify a value for @TagKey@.
+scope_tagValue :: Lens.Lens' Scope (Prelude.Maybe Prelude.Text)
+scope_tagValue = Lens.lens (\Scope' {tagValue} -> tagValue) (\s@Scope' {} a -> s {tagValue = a} :: Scope)
 
--- | The tag key that is applied to only those AWS resources that you want to trigger an evaluation for the rule.
-sTagKey :: Lens' Scope (Maybe Text)
-sTagKey = lens _sTagKey (\s a -> s {_sTagKey = a})
+-- | The tag key that is applied to only those AWS resources that you want to
+-- trigger an evaluation for the rule.
+scope_tagKey :: Lens.Lens' Scope (Prelude.Maybe Prelude.Text)
+scope_tagKey = Lens.lens (\Scope' {tagKey} -> tagKey) (\s@Scope' {} a -> s {tagKey = a} :: Scope)
 
--- | The ID of the only AWS resource that you want to trigger an evaluation for the rule. If you specify a resource ID, you must specify one resource type for @ComplianceResourceTypes@ .
-sComplianceResourceId :: Lens' Scope (Maybe Text)
-sComplianceResourceId = lens _sComplianceResourceId (\s a -> s {_sComplianceResourceId = a})
+-- | The ID of the only AWS resource that you want to trigger an evaluation
+-- for the rule. If you specify a resource ID, you must specify one
+-- resource type for @ComplianceResourceTypes@.
+scope_complianceResourceId :: Lens.Lens' Scope (Prelude.Maybe Prelude.Text)
+scope_complianceResourceId = Lens.lens (\Scope' {complianceResourceId} -> complianceResourceId) (\s@Scope' {} a -> s {complianceResourceId = a} :: Scope)
 
--- | The resource types of only those AWS resources that you want to trigger an evaluation for the rule. You can only specify one type if you also specify a resource ID for @ComplianceResourceId@ .
-sComplianceResourceTypes :: Lens' Scope [Text]
-sComplianceResourceTypes = lens _sComplianceResourceTypes (\s a -> s {_sComplianceResourceTypes = a}) . _Default . _Coerce
+-- | The resource types of only those AWS resources that you want to trigger
+-- an evaluation for the rule. You can only specify one type if you also
+-- specify a resource ID for @ComplianceResourceId@.
+scope_complianceResourceTypes :: Lens.Lens' Scope (Prelude.Maybe [Prelude.Text])
+scope_complianceResourceTypes = Lens.lens (\Scope' {complianceResourceTypes} -> complianceResourceTypes) (\s@Scope' {} a -> s {complianceResourceTypes = a} :: Scope) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Scope where
+instance Prelude.FromJSON Scope where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Scope"
       ( \x ->
           Scope'
-            <$> (x .:? "TagValue")
-            <*> (x .:? "TagKey")
-            <*> (x .:? "ComplianceResourceId")
-            <*> (x .:? "ComplianceResourceTypes" .!= mempty)
+            Prelude.<$> (x Prelude..:? "TagValue")
+            Prelude.<*> (x Prelude..:? "TagKey")
+            Prelude.<*> (x Prelude..:? "ComplianceResourceId")
+            Prelude.<*> ( x Prelude..:? "ComplianceResourceTypes"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Scope
+instance Prelude.Hashable Scope
 
-instance NFData Scope
+instance Prelude.NFData Scope
 
-instance ToJSON Scope where
+instance Prelude.ToJSON Scope where
   toJSON Scope' {..} =
-    object
-      ( catMaybes
-          [ ("TagValue" .=) <$> _sTagValue,
-            ("TagKey" .=) <$> _sTagKey,
-            ("ComplianceResourceId" .=)
-              <$> _sComplianceResourceId,
-            ("ComplianceResourceTypes" .=)
-              <$> _sComplianceResourceTypes
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TagValue" Prelude..=) Prelude.<$> tagValue,
+            ("TagKey" Prelude..=) Prelude.<$> tagKey,
+            ("ComplianceResourceId" Prelude..=)
+              Prelude.<$> complianceResourceId,
+            ("ComplianceResourceTypes" Prelude..=)
+              Prelude.<$> complianceResourceTypes
           ]
       )

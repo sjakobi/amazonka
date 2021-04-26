@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,91 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Config.Types.OrganizationAggregationSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This object contains regions to set up the aggregator and an IAM role to retrieve organization details.
+-- | This object contains regions to set up the aggregator and an IAM role to
+-- retrieve organization details.
 --
---
---
--- /See:/ 'organizationAggregationSource' smart constructor.
+-- /See:/ 'newOrganizationAggregationSource' smart constructor.
 data OrganizationAggregationSource = OrganizationAggregationSource'
-  { _oasAllAWSRegions ::
-      !( Maybe
-           Bool
-       ),
-    _oasAWSRegions ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       ),
-    _oasRoleARN ::
-      !Text
+  { -- | If true, aggregate existing AWS Config regions and future regions.
+    allAwsRegions :: Prelude.Maybe Prelude.Bool,
+    -- | The source regions being aggregated.
+    awsRegions :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | ARN of the IAM role used to retrieve AWS Organization details associated
+    -- with the aggregator account.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OrganizationAggregationSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OrganizationAggregationSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oasAllAWSRegions' - If true, aggregate existing AWS Config regions and future regions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oasAWSRegions' - The source regions being aggregated.
+-- 'allAwsRegions', 'organizationAggregationSource_allAwsRegions' - If true, aggregate existing AWS Config regions and future regions.
 --
--- * 'oasRoleARN' - ARN of the IAM role used to retrieve AWS Organization details associated with the aggregator account.
-organizationAggregationSource ::
-  -- | 'oasRoleARN'
-  Text ->
+-- 'awsRegions', 'organizationAggregationSource_awsRegions' - The source regions being aggregated.
+--
+-- 'roleArn', 'organizationAggregationSource_roleArn' - ARN of the IAM role used to retrieve AWS Organization details associated
+-- with the aggregator account.
+newOrganizationAggregationSource ::
+  -- | 'roleArn'
+  Prelude.Text ->
   OrganizationAggregationSource
-organizationAggregationSource pRoleARN_ =
+newOrganizationAggregationSource pRoleArn_ =
   OrganizationAggregationSource'
-    { _oasAllAWSRegions =
-        Nothing,
-      _oasAWSRegions = Nothing,
-      _oasRoleARN = pRoleARN_
+    { allAwsRegions =
+        Prelude.Nothing,
+      awsRegions = Prelude.Nothing,
+      roleArn = pRoleArn_
     }
 
 -- | If true, aggregate existing AWS Config regions and future regions.
-oasAllAWSRegions :: Lens' OrganizationAggregationSource (Maybe Bool)
-oasAllAWSRegions = lens _oasAllAWSRegions (\s a -> s {_oasAllAWSRegions = a})
+organizationAggregationSource_allAwsRegions :: Lens.Lens' OrganizationAggregationSource (Prelude.Maybe Prelude.Bool)
+organizationAggregationSource_allAwsRegions = Lens.lens (\OrganizationAggregationSource' {allAwsRegions} -> allAwsRegions) (\s@OrganizationAggregationSource' {} a -> s {allAwsRegions = a} :: OrganizationAggregationSource)
 
 -- | The source regions being aggregated.
-oasAWSRegions :: Lens' OrganizationAggregationSource (Maybe (NonEmpty Text))
-oasAWSRegions = lens _oasAWSRegions (\s a -> s {_oasAWSRegions = a}) . mapping _List1
+organizationAggregationSource_awsRegions :: Lens.Lens' OrganizationAggregationSource (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+organizationAggregationSource_awsRegions = Lens.lens (\OrganizationAggregationSource' {awsRegions} -> awsRegions) (\s@OrganizationAggregationSource' {} a -> s {awsRegions = a} :: OrganizationAggregationSource) Prelude.. Lens.mapping Prelude._List1
 
--- | ARN of the IAM role used to retrieve AWS Organization details associated with the aggregator account.
-oasRoleARN :: Lens' OrganizationAggregationSource Text
-oasRoleARN = lens _oasRoleARN (\s a -> s {_oasRoleARN = a})
+-- | ARN of the IAM role used to retrieve AWS Organization details associated
+-- with the aggregator account.
+organizationAggregationSource_roleArn :: Lens.Lens' OrganizationAggregationSource Prelude.Text
+organizationAggregationSource_roleArn = Lens.lens (\OrganizationAggregationSource' {roleArn} -> roleArn) (\s@OrganizationAggregationSource' {} a -> s {roleArn = a} :: OrganizationAggregationSource)
 
-instance FromJSON OrganizationAggregationSource where
+instance
+  Prelude.FromJSON
+    OrganizationAggregationSource
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OrganizationAggregationSource"
       ( \x ->
           OrganizationAggregationSource'
-            <$> (x .:? "AllAwsRegions")
-            <*> (x .:? "AwsRegions")
-            <*> (x .: "RoleArn")
+            Prelude.<$> (x Prelude..:? "AllAwsRegions")
+            Prelude.<*> (x Prelude..:? "AwsRegions")
+            Prelude.<*> (x Prelude..: "RoleArn")
       )
 
-instance Hashable OrganizationAggregationSource
+instance
+  Prelude.Hashable
+    OrganizationAggregationSource
 
-instance NFData OrganizationAggregationSource
+instance Prelude.NFData OrganizationAggregationSource
 
-instance ToJSON OrganizationAggregationSource where
+instance Prelude.ToJSON OrganizationAggregationSource where
   toJSON OrganizationAggregationSource' {..} =
-    object
-      ( catMaybes
-          [ ("AllAwsRegions" .=) <$> _oasAllAWSRegions,
-            ("AwsRegions" .=) <$> _oasAWSRegions,
-            Just ("RoleArn" .= _oasRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AllAwsRegions" Prelude..=)
+              Prelude.<$> allAwsRegions,
+            ("AwsRegions" Prelude..=) Prelude.<$> awsRegions,
+            Prelude.Just ("RoleArn" Prelude..= roleArn)
           ]
       )

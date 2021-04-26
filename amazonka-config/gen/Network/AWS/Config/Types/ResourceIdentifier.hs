@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,79 @@
 module Network.AWS.Config.Types.ResourceIdentifier where
 
 import Network.AWS.Config.Types.ResourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The details that identify a resource that is discovered by AWS Config, including the resource type, ID, and (if available) the custom resource name.
+-- | The details that identify a resource that is discovered by AWS Config,
+-- including the resource type, ID, and (if available) the custom resource
+-- name.
 --
---
---
--- /See:/ 'resourceIdentifier' smart constructor.
+-- /See:/ 'newResourceIdentifier' smart constructor.
 data ResourceIdentifier = ResourceIdentifier'
-  { _riResourceId ::
-      !(Maybe Text),
-    _riResourceType ::
-      !(Maybe ResourceType),
-    _riResourceDeletionTime ::
-      !(Maybe POSIX),
-    _riResourceName :: !(Maybe Text)
+  { -- | The ID of the resource (for example, @sg-xxxxxx@).
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The type of resource.
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | The time that the resource was deleted.
+    resourceDeletionTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The custom name of the resource (if available).
+    resourceName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'riResourceId' - The ID of the resource (for example, @sg-xxxxxx@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'riResourceType' - The type of resource.
+-- 'resourceId', 'resourceIdentifier_resourceId' - The ID of the resource (for example, @sg-xxxxxx@).
 --
--- * 'riResourceDeletionTime' - The time that the resource was deleted.
+-- 'resourceType', 'resourceIdentifier_resourceType' - The type of resource.
 --
--- * 'riResourceName' - The custom name of the resource (if available).
-resourceIdentifier ::
+-- 'resourceDeletionTime', 'resourceIdentifier_resourceDeletionTime' - The time that the resource was deleted.
+--
+-- 'resourceName', 'resourceIdentifier_resourceName' - The custom name of the resource (if available).
+newResourceIdentifier ::
   ResourceIdentifier
-resourceIdentifier =
+newResourceIdentifier =
   ResourceIdentifier'
-    { _riResourceId = Nothing,
-      _riResourceType = Nothing,
-      _riResourceDeletionTime = Nothing,
-      _riResourceName = Nothing
+    { resourceId = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      resourceDeletionTime = Prelude.Nothing,
+      resourceName = Prelude.Nothing
     }
 
--- | The ID of the resource (for example, @sg-xxxxxx@ ).
-riResourceId :: Lens' ResourceIdentifier (Maybe Text)
-riResourceId = lens _riResourceId (\s a -> s {_riResourceId = a})
+-- | The ID of the resource (for example, @sg-xxxxxx@).
+resourceIdentifier_resourceId :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.Text)
+resourceIdentifier_resourceId = Lens.lens (\ResourceIdentifier' {resourceId} -> resourceId) (\s@ResourceIdentifier' {} a -> s {resourceId = a} :: ResourceIdentifier)
 
 -- | The type of resource.
-riResourceType :: Lens' ResourceIdentifier (Maybe ResourceType)
-riResourceType = lens _riResourceType (\s a -> s {_riResourceType = a})
+resourceIdentifier_resourceType :: Lens.Lens' ResourceIdentifier (Prelude.Maybe ResourceType)
+resourceIdentifier_resourceType = Lens.lens (\ResourceIdentifier' {resourceType} -> resourceType) (\s@ResourceIdentifier' {} a -> s {resourceType = a} :: ResourceIdentifier)
 
 -- | The time that the resource was deleted.
-riResourceDeletionTime :: Lens' ResourceIdentifier (Maybe UTCTime)
-riResourceDeletionTime = lens _riResourceDeletionTime (\s a -> s {_riResourceDeletionTime = a}) . mapping _Time
+resourceIdentifier_resourceDeletionTime :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.UTCTime)
+resourceIdentifier_resourceDeletionTime = Lens.lens (\ResourceIdentifier' {resourceDeletionTime} -> resourceDeletionTime) (\s@ResourceIdentifier' {} a -> s {resourceDeletionTime = a} :: ResourceIdentifier) Prelude.. Lens.mapping Prelude._Time
 
 -- | The custom name of the resource (if available).
-riResourceName :: Lens' ResourceIdentifier (Maybe Text)
-riResourceName = lens _riResourceName (\s a -> s {_riResourceName = a})
+resourceIdentifier_resourceName :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.Text)
+resourceIdentifier_resourceName = Lens.lens (\ResourceIdentifier' {resourceName} -> resourceName) (\s@ResourceIdentifier' {} a -> s {resourceName = a} :: ResourceIdentifier)
 
-instance FromJSON ResourceIdentifier where
+instance Prelude.FromJSON ResourceIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceIdentifier"
       ( \x ->
           ResourceIdentifier'
-            <$> (x .:? "resourceId")
-            <*> (x .:? "resourceType")
-            <*> (x .:? "resourceDeletionTime")
-            <*> (x .:? "resourceName")
+            Prelude.<$> (x Prelude..:? "resourceId")
+            Prelude.<*> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "resourceDeletionTime")
+            Prelude.<*> (x Prelude..:? "resourceName")
       )
 
-instance Hashable ResourceIdentifier
+instance Prelude.Hashable ResourceIdentifier
 
-instance NFData ResourceIdentifier
+instance Prelude.NFData ResourceIdentifier
