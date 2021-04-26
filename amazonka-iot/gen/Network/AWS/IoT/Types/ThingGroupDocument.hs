@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,84 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.ThingGroupDocument where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The thing group search index document.
 --
---
---
--- /See:/ 'thingGroupDocument' smart constructor.
+-- /See:/ 'newThingGroupDocument' smart constructor.
 data ThingGroupDocument = ThingGroupDocument'
-  { _tgdParentGroupNames ::
-      !(Maybe [Text]),
-    _tgdAttributes ::
-      !(Maybe (Map Text Text)),
-    _tgdThingGroupName ::
-      !(Maybe Text),
-    _tgdThingGroupId :: !(Maybe Text),
-    _tgdThingGroupDescription ::
-      !(Maybe Text)
+  { -- | Parent group names.
+    parentGroupNames :: Prelude.Maybe [Prelude.Text],
+    -- | The thing group attributes.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The thing group name.
+    thingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The thing group ID.
+    thingGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The thing group description.
+    thingGroupDescription :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ThingGroupDocument' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ThingGroupDocument' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgdParentGroupNames' - Parent group names.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgdAttributes' - The thing group attributes.
+-- 'parentGroupNames', 'thingGroupDocument_parentGroupNames' - Parent group names.
 --
--- * 'tgdThingGroupName' - The thing group name.
+-- 'attributes', 'thingGroupDocument_attributes' - The thing group attributes.
 --
--- * 'tgdThingGroupId' - The thing group ID.
+-- 'thingGroupName', 'thingGroupDocument_thingGroupName' - The thing group name.
 --
--- * 'tgdThingGroupDescription' - The thing group description.
-thingGroupDocument ::
+-- 'thingGroupId', 'thingGroupDocument_thingGroupId' - The thing group ID.
+--
+-- 'thingGroupDescription', 'thingGroupDocument_thingGroupDescription' - The thing group description.
+newThingGroupDocument ::
   ThingGroupDocument
-thingGroupDocument =
+newThingGroupDocument =
   ThingGroupDocument'
-    { _tgdParentGroupNames = Nothing,
-      _tgdAttributes = Nothing,
-      _tgdThingGroupName = Nothing,
-      _tgdThingGroupId = Nothing,
-      _tgdThingGroupDescription = Nothing
+    { parentGroupNames =
+        Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      thingGroupName = Prelude.Nothing,
+      thingGroupId = Prelude.Nothing,
+      thingGroupDescription = Prelude.Nothing
     }
 
 -- | Parent group names.
-tgdParentGroupNames :: Lens' ThingGroupDocument [Text]
-tgdParentGroupNames = lens _tgdParentGroupNames (\s a -> s {_tgdParentGroupNames = a}) . _Default . _Coerce
+thingGroupDocument_parentGroupNames :: Lens.Lens' ThingGroupDocument (Prelude.Maybe [Prelude.Text])
+thingGroupDocument_parentGroupNames = Lens.lens (\ThingGroupDocument' {parentGroupNames} -> parentGroupNames) (\s@ThingGroupDocument' {} a -> s {parentGroupNames = a} :: ThingGroupDocument) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The thing group attributes.
-tgdAttributes :: Lens' ThingGroupDocument (HashMap Text Text)
-tgdAttributes = lens _tgdAttributes (\s a -> s {_tgdAttributes = a}) . _Default . _Map
+thingGroupDocument_attributes :: Lens.Lens' ThingGroupDocument (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+thingGroupDocument_attributes = Lens.lens (\ThingGroupDocument' {attributes} -> attributes) (\s@ThingGroupDocument' {} a -> s {attributes = a} :: ThingGroupDocument) Prelude.. Lens.mapping Prelude._Map
 
 -- | The thing group name.
-tgdThingGroupName :: Lens' ThingGroupDocument (Maybe Text)
-tgdThingGroupName = lens _tgdThingGroupName (\s a -> s {_tgdThingGroupName = a})
+thingGroupDocument_thingGroupName :: Lens.Lens' ThingGroupDocument (Prelude.Maybe Prelude.Text)
+thingGroupDocument_thingGroupName = Lens.lens (\ThingGroupDocument' {thingGroupName} -> thingGroupName) (\s@ThingGroupDocument' {} a -> s {thingGroupName = a} :: ThingGroupDocument)
 
 -- | The thing group ID.
-tgdThingGroupId :: Lens' ThingGroupDocument (Maybe Text)
-tgdThingGroupId = lens _tgdThingGroupId (\s a -> s {_tgdThingGroupId = a})
+thingGroupDocument_thingGroupId :: Lens.Lens' ThingGroupDocument (Prelude.Maybe Prelude.Text)
+thingGroupDocument_thingGroupId = Lens.lens (\ThingGroupDocument' {thingGroupId} -> thingGroupId) (\s@ThingGroupDocument' {} a -> s {thingGroupId = a} :: ThingGroupDocument)
 
 -- | The thing group description.
-tgdThingGroupDescription :: Lens' ThingGroupDocument (Maybe Text)
-tgdThingGroupDescription = lens _tgdThingGroupDescription (\s a -> s {_tgdThingGroupDescription = a})
+thingGroupDocument_thingGroupDescription :: Lens.Lens' ThingGroupDocument (Prelude.Maybe Prelude.Text)
+thingGroupDocument_thingGroupDescription = Lens.lens (\ThingGroupDocument' {thingGroupDescription} -> thingGroupDescription) (\s@ThingGroupDocument' {} a -> s {thingGroupDescription = a} :: ThingGroupDocument)
 
-instance FromJSON ThingGroupDocument where
+instance Prelude.FromJSON ThingGroupDocument where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ThingGroupDocument"
       ( \x ->
           ThingGroupDocument'
-            <$> (x .:? "parentGroupNames" .!= mempty)
-            <*> (x .:? "attributes" .!= mempty)
-            <*> (x .:? "thingGroupName")
-            <*> (x .:? "thingGroupId")
-            <*> (x .:? "thingGroupDescription")
+            Prelude.<$> ( x Prelude..:? "parentGroupNames"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "thingGroupName")
+            Prelude.<*> (x Prelude..:? "thingGroupId")
+            Prelude.<*> (x Prelude..:? "thingGroupDescription")
       )
 
-instance Hashable ThingGroupDocument
+instance Prelude.Hashable ThingGroupDocument
 
-instance NFData ThingGroupDocument
+instance Prelude.NFData ThingGroupDocument

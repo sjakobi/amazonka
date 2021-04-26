@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,66 @@
 module Network.AWS.IoT.Types.StreamFile where
 
 import Network.AWS.IoT.Types.S3Location
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a file to stream.
 --
---
---
--- /See:/ 'streamFile' smart constructor.
+-- /See:/ 'newStreamFile' smart constructor.
 data StreamFile = StreamFile'
-  { _sfS3Location ::
-      !(Maybe S3Location),
-    _sfFileId :: !(Maybe Nat)
+  { -- | The location of the file in S3.
+    s3Location :: Prelude.Maybe S3Location,
+    -- | The file ID.
+    fileId :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StreamFile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StreamFile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfS3Location' - The location of the file in S3.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sfFileId' - The file ID.
-streamFile ::
+-- 's3Location', 'streamFile_s3Location' - The location of the file in S3.
+--
+-- 'fileId', 'streamFile_fileId' - The file ID.
+newStreamFile ::
   StreamFile
-streamFile =
+newStreamFile =
   StreamFile'
-    { _sfS3Location = Nothing,
-      _sfFileId = Nothing
+    { s3Location = Prelude.Nothing,
+      fileId = Prelude.Nothing
     }
 
 -- | The location of the file in S3.
-sfS3Location :: Lens' StreamFile (Maybe S3Location)
-sfS3Location = lens _sfS3Location (\s a -> s {_sfS3Location = a})
+streamFile_s3Location :: Lens.Lens' StreamFile (Prelude.Maybe S3Location)
+streamFile_s3Location = Lens.lens (\StreamFile' {s3Location} -> s3Location) (\s@StreamFile' {} a -> s {s3Location = a} :: StreamFile)
 
 -- | The file ID.
-sfFileId :: Lens' StreamFile (Maybe Natural)
-sfFileId = lens _sfFileId (\s a -> s {_sfFileId = a}) . mapping _Nat
+streamFile_fileId :: Lens.Lens' StreamFile (Prelude.Maybe Prelude.Natural)
+streamFile_fileId = Lens.lens (\StreamFile' {fileId} -> fileId) (\s@StreamFile' {} a -> s {fileId = a} :: StreamFile) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON StreamFile where
+instance Prelude.FromJSON StreamFile where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StreamFile"
       ( \x ->
           StreamFile'
-            <$> (x .:? "s3Location") <*> (x .:? "fileId")
+            Prelude.<$> (x Prelude..:? "s3Location")
+            Prelude.<*> (x Prelude..:? "fileId")
       )
 
-instance Hashable StreamFile
+instance Prelude.Hashable StreamFile
 
-instance NFData StreamFile
+instance Prelude.NFData StreamFile
 
-instance ToJSON StreamFile where
+instance Prelude.ToJSON StreamFile where
   toJSON StreamFile' {..} =
-    object
-      ( catMaybes
-          [ ("s3Location" .=) <$> _sfS3Location,
-            ("fileId" .=) <$> _sfFileId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("s3Location" Prelude..=) Prelude.<$> s3Location,
+            ("fileId" Prelude..=) Prelude.<$> fileId
           ]
       )

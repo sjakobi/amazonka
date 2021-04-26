@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,196 +24,199 @@
 -- Updates a fleet provisioning template.
 module Network.AWS.IoT.UpdateProvisioningTemplate
   ( -- * Creating a Request
-    updateProvisioningTemplate,
-    UpdateProvisioningTemplate,
+    UpdateProvisioningTemplate (..),
+    newUpdateProvisioningTemplate,
 
     -- * Request Lenses
-    uptRemovePreProvisioningHook,
-    uptEnabled,
-    uptPreProvisioningHook,
-    uptDefaultVersionId,
-    uptDescription,
-    uptProvisioningRoleARN,
-    uptTemplateName,
+    updateProvisioningTemplate_removePreProvisioningHook,
+    updateProvisioningTemplate_enabled,
+    updateProvisioningTemplate_preProvisioningHook,
+    updateProvisioningTemplate_defaultVersionId,
+    updateProvisioningTemplate_description,
+    updateProvisioningTemplate_provisioningRoleArn,
+    updateProvisioningTemplate_templateName,
 
     -- * Destructuring the Response
-    updateProvisioningTemplateResponse,
-    UpdateProvisioningTemplateResponse,
+    UpdateProvisioningTemplateResponse (..),
+    newUpdateProvisioningTemplateResponse,
 
     -- * Response Lenses
-    uptrrsResponseStatus,
+    updateProvisioningTemplateResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateProvisioningTemplate' smart constructor.
+-- | /See:/ 'newUpdateProvisioningTemplate' smart constructor.
 data UpdateProvisioningTemplate = UpdateProvisioningTemplate'
-  { _uptRemovePreProvisioningHook ::
-      !(Maybe Bool),
-    _uptEnabled ::
-      !(Maybe Bool),
-    _uptPreProvisioningHook ::
-      !( Maybe
-           ProvisioningHook
-       ),
-    _uptDefaultVersionId ::
-      !(Maybe Int),
-    _uptDescription ::
-      !(Maybe Text),
-    _uptProvisioningRoleARN ::
-      !(Maybe Text),
-    _uptTemplateName ::
-      !Text
+  { -- | Removes pre-provisioning hook template.
+    removePreProvisioningHook :: Prelude.Maybe Prelude.Bool,
+    -- | True to enable the fleet provisioning template, otherwise false.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | Updates the pre-provisioning hook template.
+    preProvisioningHook :: Prelude.Maybe ProvisioningHook,
+    -- | The ID of the default provisioning template version.
+    defaultVersionId :: Prelude.Maybe Prelude.Int,
+    -- | The description of the fleet provisioning template.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the role associated with the provisioning template. This IoT
+    -- role grants permission to provision a device.
+    provisioningRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the fleet provisioning template.
+    templateName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateProvisioningTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateProvisioningTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uptRemovePreProvisioningHook' - Removes pre-provisioning hook template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uptEnabled' - True to enable the fleet provisioning template, otherwise false.
+-- 'removePreProvisioningHook', 'updateProvisioningTemplate_removePreProvisioningHook' - Removes pre-provisioning hook template.
 --
--- * 'uptPreProvisioningHook' - Updates the pre-provisioning hook template.
+-- 'enabled', 'updateProvisioningTemplate_enabled' - True to enable the fleet provisioning template, otherwise false.
 --
--- * 'uptDefaultVersionId' - The ID of the default provisioning template version.
+-- 'preProvisioningHook', 'updateProvisioningTemplate_preProvisioningHook' - Updates the pre-provisioning hook template.
 --
--- * 'uptDescription' - The description of the fleet provisioning template.
+-- 'defaultVersionId', 'updateProvisioningTemplate_defaultVersionId' - The ID of the default provisioning template version.
 --
--- * 'uptProvisioningRoleARN' - The ARN of the role associated with the provisioning template. This IoT role grants permission to provision a device.
+-- 'description', 'updateProvisioningTemplate_description' - The description of the fleet provisioning template.
 --
--- * 'uptTemplateName' - The name of the fleet provisioning template.
-updateProvisioningTemplate ::
-  -- | 'uptTemplateName'
-  Text ->
+-- 'provisioningRoleArn', 'updateProvisioningTemplate_provisioningRoleArn' - The ARN of the role associated with the provisioning template. This IoT
+-- role grants permission to provision a device.
+--
+-- 'templateName', 'updateProvisioningTemplate_templateName' - The name of the fleet provisioning template.
+newUpdateProvisioningTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
   UpdateProvisioningTemplate
-updateProvisioningTemplate pTemplateName_ =
+newUpdateProvisioningTemplate pTemplateName_ =
   UpdateProvisioningTemplate'
-    { _uptRemovePreProvisioningHook =
-        Nothing,
-      _uptEnabled = Nothing,
-      _uptPreProvisioningHook = Nothing,
-      _uptDefaultVersionId = Nothing,
-      _uptDescription = Nothing,
-      _uptProvisioningRoleARN = Nothing,
-      _uptTemplateName = pTemplateName_
+    { removePreProvisioningHook =
+        Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      preProvisioningHook = Prelude.Nothing,
+      defaultVersionId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      provisioningRoleArn = Prelude.Nothing,
+      templateName = pTemplateName_
     }
 
 -- | Removes pre-provisioning hook template.
-uptRemovePreProvisioningHook :: Lens' UpdateProvisioningTemplate (Maybe Bool)
-uptRemovePreProvisioningHook = lens _uptRemovePreProvisioningHook (\s a -> s {_uptRemovePreProvisioningHook = a})
+updateProvisioningTemplate_removePreProvisioningHook :: Lens.Lens' UpdateProvisioningTemplate (Prelude.Maybe Prelude.Bool)
+updateProvisioningTemplate_removePreProvisioningHook = Lens.lens (\UpdateProvisioningTemplate' {removePreProvisioningHook} -> removePreProvisioningHook) (\s@UpdateProvisioningTemplate' {} a -> s {removePreProvisioningHook = a} :: UpdateProvisioningTemplate)
 
 -- | True to enable the fleet provisioning template, otherwise false.
-uptEnabled :: Lens' UpdateProvisioningTemplate (Maybe Bool)
-uptEnabled = lens _uptEnabled (\s a -> s {_uptEnabled = a})
+updateProvisioningTemplate_enabled :: Lens.Lens' UpdateProvisioningTemplate (Prelude.Maybe Prelude.Bool)
+updateProvisioningTemplate_enabled = Lens.lens (\UpdateProvisioningTemplate' {enabled} -> enabled) (\s@UpdateProvisioningTemplate' {} a -> s {enabled = a} :: UpdateProvisioningTemplate)
 
 -- | Updates the pre-provisioning hook template.
-uptPreProvisioningHook :: Lens' UpdateProvisioningTemplate (Maybe ProvisioningHook)
-uptPreProvisioningHook = lens _uptPreProvisioningHook (\s a -> s {_uptPreProvisioningHook = a})
+updateProvisioningTemplate_preProvisioningHook :: Lens.Lens' UpdateProvisioningTemplate (Prelude.Maybe ProvisioningHook)
+updateProvisioningTemplate_preProvisioningHook = Lens.lens (\UpdateProvisioningTemplate' {preProvisioningHook} -> preProvisioningHook) (\s@UpdateProvisioningTemplate' {} a -> s {preProvisioningHook = a} :: UpdateProvisioningTemplate)
 
 -- | The ID of the default provisioning template version.
-uptDefaultVersionId :: Lens' UpdateProvisioningTemplate (Maybe Int)
-uptDefaultVersionId = lens _uptDefaultVersionId (\s a -> s {_uptDefaultVersionId = a})
+updateProvisioningTemplate_defaultVersionId :: Lens.Lens' UpdateProvisioningTemplate (Prelude.Maybe Prelude.Int)
+updateProvisioningTemplate_defaultVersionId = Lens.lens (\UpdateProvisioningTemplate' {defaultVersionId} -> defaultVersionId) (\s@UpdateProvisioningTemplate' {} a -> s {defaultVersionId = a} :: UpdateProvisioningTemplate)
 
 -- | The description of the fleet provisioning template.
-uptDescription :: Lens' UpdateProvisioningTemplate (Maybe Text)
-uptDescription = lens _uptDescription (\s a -> s {_uptDescription = a})
+updateProvisioningTemplate_description :: Lens.Lens' UpdateProvisioningTemplate (Prelude.Maybe Prelude.Text)
+updateProvisioningTemplate_description = Lens.lens (\UpdateProvisioningTemplate' {description} -> description) (\s@UpdateProvisioningTemplate' {} a -> s {description = a} :: UpdateProvisioningTemplate)
 
--- | The ARN of the role associated with the provisioning template. This IoT role grants permission to provision a device.
-uptProvisioningRoleARN :: Lens' UpdateProvisioningTemplate (Maybe Text)
-uptProvisioningRoleARN = lens _uptProvisioningRoleARN (\s a -> s {_uptProvisioningRoleARN = a})
+-- | The ARN of the role associated with the provisioning template. This IoT
+-- role grants permission to provision a device.
+updateProvisioningTemplate_provisioningRoleArn :: Lens.Lens' UpdateProvisioningTemplate (Prelude.Maybe Prelude.Text)
+updateProvisioningTemplate_provisioningRoleArn = Lens.lens (\UpdateProvisioningTemplate' {provisioningRoleArn} -> provisioningRoleArn) (\s@UpdateProvisioningTemplate' {} a -> s {provisioningRoleArn = a} :: UpdateProvisioningTemplate)
 
 -- | The name of the fleet provisioning template.
-uptTemplateName :: Lens' UpdateProvisioningTemplate Text
-uptTemplateName = lens _uptTemplateName (\s a -> s {_uptTemplateName = a})
+updateProvisioningTemplate_templateName :: Lens.Lens' UpdateProvisioningTemplate Prelude.Text
+updateProvisioningTemplate_templateName = Lens.lens (\UpdateProvisioningTemplate' {templateName} -> templateName) (\s@UpdateProvisioningTemplate' {} a -> s {templateName = a} :: UpdateProvisioningTemplate)
 
-instance AWSRequest UpdateProvisioningTemplate where
+instance
+  Prelude.AWSRequest
+    UpdateProvisioningTemplate
+  where
   type
     Rs UpdateProvisioningTemplate =
       UpdateProvisioningTemplateResponse
-  request = patchJSON ioT
+  request = Request.patchJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateProvisioningTemplateResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateProvisioningTemplate
+instance Prelude.Hashable UpdateProvisioningTemplate
 
-instance NFData UpdateProvisioningTemplate
+instance Prelude.NFData UpdateProvisioningTemplate
 
-instance ToHeaders UpdateProvisioningTemplate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateProvisioningTemplate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateProvisioningTemplate where
+instance Prelude.ToJSON UpdateProvisioningTemplate where
   toJSON UpdateProvisioningTemplate' {..} =
-    object
-      ( catMaybes
-          [ ("removePreProvisioningHook" .=)
-              <$> _uptRemovePreProvisioningHook,
-            ("enabled" .=) <$> _uptEnabled,
-            ("preProvisioningHook" .=)
-              <$> _uptPreProvisioningHook,
-            ("defaultVersionId" .=) <$> _uptDefaultVersionId,
-            ("description" .=) <$> _uptDescription,
-            ("provisioningRoleArn" .=)
-              <$> _uptProvisioningRoleARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("removePreProvisioningHook" Prelude..=)
+              Prelude.<$> removePreProvisioningHook,
+            ("enabled" Prelude..=) Prelude.<$> enabled,
+            ("preProvisioningHook" Prelude..=)
+              Prelude.<$> preProvisioningHook,
+            ("defaultVersionId" Prelude..=)
+              Prelude.<$> defaultVersionId,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("provisioningRoleArn" Prelude..=)
+              Prelude.<$> provisioningRoleArn
           ]
       )
 
-instance ToPath UpdateProvisioningTemplate where
+instance Prelude.ToPath UpdateProvisioningTemplate where
   toPath UpdateProvisioningTemplate' {..} =
-    mconcat
-      ["/provisioning-templates/", toBS _uptTemplateName]
+    Prelude.mconcat
+      [ "/provisioning-templates/",
+        Prelude.toBS templateName
+      ]
 
-instance ToQuery UpdateProvisioningTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateProvisioningTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateProvisioningTemplateResponse' smart constructor.
-newtype UpdateProvisioningTemplateResponse = UpdateProvisioningTemplateResponse'
-  { _uptrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateProvisioningTemplateResponse' smart constructor.
+data UpdateProvisioningTemplateResponse = UpdateProvisioningTemplateResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateProvisioningTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateProvisioningTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uptrrsResponseStatus' - -- | The response status code.
-updateProvisioningTemplateResponse ::
-  -- | 'uptrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateProvisioningTemplateResponse_httpStatus' - The response's http status code.
+newUpdateProvisioningTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateProvisioningTemplateResponse
-updateProvisioningTemplateResponse pResponseStatus_ =
+newUpdateProvisioningTemplateResponse pHttpStatus_ =
   UpdateProvisioningTemplateResponse'
-    { _uptrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-uptrrsResponseStatus :: Lens' UpdateProvisioningTemplateResponse Int
-uptrrsResponseStatus = lens _uptrrsResponseStatus (\s a -> s {_uptrrsResponseStatus = a})
+-- | The response's http status code.
+updateProvisioningTemplateResponse_httpStatus :: Lens.Lens' UpdateProvisioningTemplateResponse Prelude.Int
+updateProvisioningTemplateResponse_httpStatus = Lens.lens (\UpdateProvisioningTemplateResponse' {httpStatus} -> httpStatus) (\s@UpdateProvisioningTemplateResponse' {} a -> s {httpStatus = a} :: UpdateProvisioningTemplateResponse)
 
-instance NFData UpdateProvisioningTemplateResponse
+instance
+  Prelude.NFData
+    UpdateProvisioningTemplateResponse

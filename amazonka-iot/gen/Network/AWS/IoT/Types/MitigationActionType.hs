@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.IoT.Types.MitigationActionType
   ( MitigationActionType
       ( ..,
-        AddThingsToThingGroup,
-        EnableIotLogging,
-        PublishFindingToSNS,
-        ReplaceDefaultPolicyVersion,
-        UpdateCaCertificate,
-        UpdateDeviceCertificate
+        MitigationActionTypeADDTHINGSTOTHINGGROUP,
+        MitigationActionTypeENABLEIOTLOGGING,
+        MitigationActionTypePUBLISHFINDINGTOSNS,
+        MitigationActionTypeREPLACEDEFAULTPOLICYVERSION,
+        MitigationActionTypeUPDATECACERTIFICATE,
+        MitigationActionTypeUPDATEDEVICECERTIFICATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MitigationActionType
-  = MitigationActionType'
-      ( CI
-          Text
-      )
+newtype MitigationActionType = MitigationActionType'
+  { fromMitigationActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AddThingsToThingGroup :: MitigationActionType
-pattern AddThingsToThingGroup = MitigationActionType' "ADD_THINGS_TO_THING_GROUP"
+pattern MitigationActionTypeADDTHINGSTOTHINGGROUP :: MitigationActionType
+pattern MitigationActionTypeADDTHINGSTOTHINGGROUP = MitigationActionType' "ADD_THINGS_TO_THING_GROUP"
 
-pattern EnableIotLogging :: MitigationActionType
-pattern EnableIotLogging = MitigationActionType' "ENABLE_IOT_LOGGING"
+pattern MitigationActionTypeENABLEIOTLOGGING :: MitigationActionType
+pattern MitigationActionTypeENABLEIOTLOGGING = MitigationActionType' "ENABLE_IOT_LOGGING"
 
-pattern PublishFindingToSNS :: MitigationActionType
-pattern PublishFindingToSNS = MitigationActionType' "PUBLISH_FINDING_TO_SNS"
+pattern MitigationActionTypePUBLISHFINDINGTOSNS :: MitigationActionType
+pattern MitigationActionTypePUBLISHFINDINGTOSNS = MitigationActionType' "PUBLISH_FINDING_TO_SNS"
 
-pattern ReplaceDefaultPolicyVersion :: MitigationActionType
-pattern ReplaceDefaultPolicyVersion = MitigationActionType' "REPLACE_DEFAULT_POLICY_VERSION"
+pattern MitigationActionTypeREPLACEDEFAULTPOLICYVERSION :: MitigationActionType
+pattern MitigationActionTypeREPLACEDEFAULTPOLICYVERSION = MitigationActionType' "REPLACE_DEFAULT_POLICY_VERSION"
 
-pattern UpdateCaCertificate :: MitigationActionType
-pattern UpdateCaCertificate = MitigationActionType' "UPDATE_CA_CERTIFICATE"
+pattern MitigationActionTypeUPDATECACERTIFICATE :: MitigationActionType
+pattern MitigationActionTypeUPDATECACERTIFICATE = MitigationActionType' "UPDATE_CA_CERTIFICATE"
 
-pattern UpdateDeviceCertificate :: MitigationActionType
-pattern UpdateDeviceCertificate = MitigationActionType' "UPDATE_DEVICE_CERTIFICATE"
+pattern MitigationActionTypeUPDATEDEVICECERTIFICATE :: MitigationActionType
+pattern MitigationActionTypeUPDATEDEVICECERTIFICATE = MitigationActionType' "UPDATE_DEVICE_CERTIFICATE"
 
 {-# COMPLETE
-  AddThingsToThingGroup,
-  EnableIotLogging,
-  PublishFindingToSNS,
-  ReplaceDefaultPolicyVersion,
-  UpdateCaCertificate,
-  UpdateDeviceCertificate,
+  MitigationActionTypeADDTHINGSTOTHINGGROUP,
+  MitigationActionTypeENABLEIOTLOGGING,
+  MitigationActionTypePUBLISHFINDINGTOSNS,
+  MitigationActionTypeREPLACEDEFAULTPOLICYVERSION,
+  MitigationActionTypeUPDATECACERTIFICATE,
+  MitigationActionTypeUPDATEDEVICECERTIFICATE,
   MitigationActionType'
   #-}
 
-instance FromText MitigationActionType where
-  parser = (MitigationActionType' . mk) <$> takeText
+instance Prelude.FromText MitigationActionType where
+  parser = MitigationActionType' Prelude.<$> Prelude.takeText
 
-instance ToText MitigationActionType where
-  toText (MitigationActionType' ci) = original ci
+instance Prelude.ToText MitigationActionType where
+  toText (MitigationActionType' x) = x
 
-instance Hashable MitigationActionType
+instance Prelude.Hashable MitigationActionType
 
-instance NFData MitigationActionType
+instance Prelude.NFData MitigationActionType
 
-instance ToByteString MitigationActionType
+instance Prelude.ToByteString MitigationActionType
 
-instance ToQuery MitigationActionType
+instance Prelude.ToQuery MitigationActionType
 
-instance ToHeader MitigationActionType
+instance Prelude.ToHeader MitigationActionType
 
-instance ToJSON MitigationActionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MitigationActionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MitigationActionType where
-  parseJSON = parseJSONText "MitigationActionType"
+instance Prelude.FromJSON MitigationActionType where
+  parseJSON = Prelude.parseJSONText "MitigationActionType"

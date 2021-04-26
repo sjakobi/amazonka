@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.CloudwatchLogsAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an action that sends data to CloudWatch Logs.
 --
---
---
--- /See:/ 'cloudwatchLogsAction' smart constructor.
+-- /See:/ 'newCloudwatchLogsAction' smart constructor.
 data CloudwatchLogsAction = CloudwatchLogsAction'
-  { _claRoleARN ::
-      !Text,
-    _claLogGroupName :: !Text
+  { -- | The IAM role that allows access to the CloudWatch log.
+    roleArn :: Prelude.Text,
+    -- | The CloudWatch log group to which the action sends data.
+    logGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloudwatchLogsAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloudwatchLogsAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'claRoleARN' - The IAM role that allows access to the CloudWatch log.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'claLogGroupName' - The CloudWatch log group to which the action sends data.
-cloudwatchLogsAction ::
-  -- | 'claRoleARN'
-  Text ->
-  -- | 'claLogGroupName'
-  Text ->
+-- 'roleArn', 'cloudwatchLogsAction_roleArn' - The IAM role that allows access to the CloudWatch log.
+--
+-- 'logGroupName', 'cloudwatchLogsAction_logGroupName' - The CloudWatch log group to which the action sends data.
+newCloudwatchLogsAction ::
+  -- | 'roleArn'
+  Prelude.Text ->
+  -- | 'logGroupName'
+  Prelude.Text ->
   CloudwatchLogsAction
-cloudwatchLogsAction pRoleARN_ pLogGroupName_ =
+newCloudwatchLogsAction pRoleArn_ pLogGroupName_ =
   CloudwatchLogsAction'
-    { _claRoleARN = pRoleARN_,
-      _claLogGroupName = pLogGroupName_
+    { roleArn = pRoleArn_,
+      logGroupName = pLogGroupName_
     }
 
 -- | The IAM role that allows access to the CloudWatch log.
-claRoleARN :: Lens' CloudwatchLogsAction Text
-claRoleARN = lens _claRoleARN (\s a -> s {_claRoleARN = a})
+cloudwatchLogsAction_roleArn :: Lens.Lens' CloudwatchLogsAction Prelude.Text
+cloudwatchLogsAction_roleArn = Lens.lens (\CloudwatchLogsAction' {roleArn} -> roleArn) (\s@CloudwatchLogsAction' {} a -> s {roleArn = a} :: CloudwatchLogsAction)
 
 -- | The CloudWatch log group to which the action sends data.
-claLogGroupName :: Lens' CloudwatchLogsAction Text
-claLogGroupName = lens _claLogGroupName (\s a -> s {_claLogGroupName = a})
+cloudwatchLogsAction_logGroupName :: Lens.Lens' CloudwatchLogsAction Prelude.Text
+cloudwatchLogsAction_logGroupName = Lens.lens (\CloudwatchLogsAction' {logGroupName} -> logGroupName) (\s@CloudwatchLogsAction' {} a -> s {logGroupName = a} :: CloudwatchLogsAction)
 
-instance FromJSON CloudwatchLogsAction where
+instance Prelude.FromJSON CloudwatchLogsAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CloudwatchLogsAction"
       ( \x ->
           CloudwatchLogsAction'
-            <$> (x .: "roleArn") <*> (x .: "logGroupName")
+            Prelude.<$> (x Prelude..: "roleArn")
+            Prelude.<*> (x Prelude..: "logGroupName")
       )
 
-instance Hashable CloudwatchLogsAction
+instance Prelude.Hashable CloudwatchLogsAction
 
-instance NFData CloudwatchLogsAction
+instance Prelude.NFData CloudwatchLogsAction
 
-instance ToJSON CloudwatchLogsAction where
+instance Prelude.ToJSON CloudwatchLogsAction where
   toJSON CloudwatchLogsAction' {..} =
-    object
-      ( catMaybes
-          [ Just ("roleArn" .= _claRoleARN),
-            Just ("logGroupName" .= _claLogGroupName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("roleArn" Prelude..= roleArn),
+            Prelude.Just
+              ("logGroupName" Prelude..= logGroupName)
           ]
       )

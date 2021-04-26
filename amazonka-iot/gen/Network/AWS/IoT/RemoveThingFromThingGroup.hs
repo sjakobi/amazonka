@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,160 +23,160 @@
 --
 -- Remove the specified thing from the specified group.
 --
---
--- You must specify either a @thingGroupArn@ or a @thingGroupName@ to identify the thing group and either a @thingArn@ or a @thingName@ to identify the thing to remove from the thing group.
+-- You must specify either a @thingGroupArn@ or a @thingGroupName@ to
+-- identify the thing group and either a @thingArn@ or a @thingName@ to
+-- identify the thing to remove from the thing group.
 module Network.AWS.IoT.RemoveThingFromThingGroup
   ( -- * Creating a Request
-    removeThingFromThingGroup,
-    RemoveThingFromThingGroup,
+    RemoveThingFromThingGroup (..),
+    newRemoveThingFromThingGroup,
 
     -- * Request Lenses
-    rtftgThingARN,
-    rtftgThingGroupARN,
-    rtftgThingName,
-    rtftgThingGroupName,
+    removeThingFromThingGroup_thingArn,
+    removeThingFromThingGroup_thingGroupArn,
+    removeThingFromThingGroup_thingName,
+    removeThingFromThingGroup_thingGroupName,
 
     -- * Destructuring the Response
-    removeThingFromThingGroupResponse,
-    RemoveThingFromThingGroupResponse,
+    RemoveThingFromThingGroupResponse (..),
+    newRemoveThingFromThingGroupResponse,
 
     -- * Response Lenses
-    rtftgrrsResponseStatus,
+    removeThingFromThingGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'removeThingFromThingGroup' smart constructor.
+-- | /See:/ 'newRemoveThingFromThingGroup' smart constructor.
 data RemoveThingFromThingGroup = RemoveThingFromThingGroup'
-  { _rtftgThingARN ::
-      !(Maybe Text),
-    _rtftgThingGroupARN ::
-      !(Maybe Text),
-    _rtftgThingName ::
-      !(Maybe Text),
-    _rtftgThingGroupName ::
-      !(Maybe Text)
+  { -- | The ARN of the thing to remove from the group.
+    thingArn :: Prelude.Maybe Prelude.Text,
+    -- | The group ARN.
+    thingGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing to remove from the group.
+    thingName :: Prelude.Maybe Prelude.Text,
+    -- | The group name.
+    thingGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveThingFromThingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveThingFromThingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtftgThingARN' - The ARN of the thing to remove from the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtftgThingGroupARN' - The group ARN.
+-- 'thingArn', 'removeThingFromThingGroup_thingArn' - The ARN of the thing to remove from the group.
 --
--- * 'rtftgThingName' - The name of the thing to remove from the group.
+-- 'thingGroupArn', 'removeThingFromThingGroup_thingGroupArn' - The group ARN.
 --
--- * 'rtftgThingGroupName' - The group name.
-removeThingFromThingGroup ::
+-- 'thingName', 'removeThingFromThingGroup_thingName' - The name of the thing to remove from the group.
+--
+-- 'thingGroupName', 'removeThingFromThingGroup_thingGroupName' - The group name.
+newRemoveThingFromThingGroup ::
   RemoveThingFromThingGroup
-removeThingFromThingGroup =
+newRemoveThingFromThingGroup =
   RemoveThingFromThingGroup'
-    { _rtftgThingARN =
-        Nothing,
-      _rtftgThingGroupARN = Nothing,
-      _rtftgThingName = Nothing,
-      _rtftgThingGroupName = Nothing
+    { thingArn =
+        Prelude.Nothing,
+      thingGroupArn = Prelude.Nothing,
+      thingName = Prelude.Nothing,
+      thingGroupName = Prelude.Nothing
     }
 
 -- | The ARN of the thing to remove from the group.
-rtftgThingARN :: Lens' RemoveThingFromThingGroup (Maybe Text)
-rtftgThingARN = lens _rtftgThingARN (\s a -> s {_rtftgThingARN = a})
+removeThingFromThingGroup_thingArn :: Lens.Lens' RemoveThingFromThingGroup (Prelude.Maybe Prelude.Text)
+removeThingFromThingGroup_thingArn = Lens.lens (\RemoveThingFromThingGroup' {thingArn} -> thingArn) (\s@RemoveThingFromThingGroup' {} a -> s {thingArn = a} :: RemoveThingFromThingGroup)
 
 -- | The group ARN.
-rtftgThingGroupARN :: Lens' RemoveThingFromThingGroup (Maybe Text)
-rtftgThingGroupARN = lens _rtftgThingGroupARN (\s a -> s {_rtftgThingGroupARN = a})
+removeThingFromThingGroup_thingGroupArn :: Lens.Lens' RemoveThingFromThingGroup (Prelude.Maybe Prelude.Text)
+removeThingFromThingGroup_thingGroupArn = Lens.lens (\RemoveThingFromThingGroup' {thingGroupArn} -> thingGroupArn) (\s@RemoveThingFromThingGroup' {} a -> s {thingGroupArn = a} :: RemoveThingFromThingGroup)
 
 -- | The name of the thing to remove from the group.
-rtftgThingName :: Lens' RemoveThingFromThingGroup (Maybe Text)
-rtftgThingName = lens _rtftgThingName (\s a -> s {_rtftgThingName = a})
+removeThingFromThingGroup_thingName :: Lens.Lens' RemoveThingFromThingGroup (Prelude.Maybe Prelude.Text)
+removeThingFromThingGroup_thingName = Lens.lens (\RemoveThingFromThingGroup' {thingName} -> thingName) (\s@RemoveThingFromThingGroup' {} a -> s {thingName = a} :: RemoveThingFromThingGroup)
 
 -- | The group name.
-rtftgThingGroupName :: Lens' RemoveThingFromThingGroup (Maybe Text)
-rtftgThingGroupName = lens _rtftgThingGroupName (\s a -> s {_rtftgThingGroupName = a})
+removeThingFromThingGroup_thingGroupName :: Lens.Lens' RemoveThingFromThingGroup (Prelude.Maybe Prelude.Text)
+removeThingFromThingGroup_thingGroupName = Lens.lens (\RemoveThingFromThingGroup' {thingGroupName} -> thingGroupName) (\s@RemoveThingFromThingGroup' {} a -> s {thingGroupName = a} :: RemoveThingFromThingGroup)
 
-instance AWSRequest RemoveThingFromThingGroup where
+instance Prelude.AWSRequest RemoveThingFromThingGroup where
   type
     Rs RemoveThingFromThingGroup =
       RemoveThingFromThingGroupResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           RemoveThingFromThingGroupResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RemoveThingFromThingGroup
+instance Prelude.Hashable RemoveThingFromThingGroup
 
-instance NFData RemoveThingFromThingGroup
+instance Prelude.NFData RemoveThingFromThingGroup
 
-instance ToHeaders RemoveThingFromThingGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RemoveThingFromThingGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON RemoveThingFromThingGroup where
+instance Prelude.ToJSON RemoveThingFromThingGroup where
   toJSON RemoveThingFromThingGroup' {..} =
-    object
-      ( catMaybes
-          [ ("thingArn" .=) <$> _rtftgThingARN,
-            ("thingGroupArn" .=) <$> _rtftgThingGroupARN,
-            ("thingName" .=) <$> _rtftgThingName,
-            ("thingGroupName" .=) <$> _rtftgThingGroupName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("thingArn" Prelude..=) Prelude.<$> thingArn,
+            ("thingGroupArn" Prelude..=)
+              Prelude.<$> thingGroupArn,
+            ("thingName" Prelude..=) Prelude.<$> thingName,
+            ("thingGroupName" Prelude..=)
+              Prelude.<$> thingGroupName
           ]
       )
 
-instance ToPath RemoveThingFromThingGroup where
+instance Prelude.ToPath RemoveThingFromThingGroup where
   toPath =
-    const "/thing-groups/removeThingFromThingGroup"
+    Prelude.const
+      "/thing-groups/removeThingFromThingGroup"
 
-instance ToQuery RemoveThingFromThingGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery RemoveThingFromThingGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'removeThingFromThingGroupResponse' smart constructor.
-newtype RemoveThingFromThingGroupResponse = RemoveThingFromThingGroupResponse'
-  { _rtftgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newRemoveThingFromThingGroupResponse' smart constructor.
+data RemoveThingFromThingGroupResponse = RemoveThingFromThingGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveThingFromThingGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveThingFromThingGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtftgrrsResponseStatus' - -- | The response status code.
-removeThingFromThingGroupResponse ::
-  -- | 'rtftgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'removeThingFromThingGroupResponse_httpStatus' - The response's http status code.
+newRemoveThingFromThingGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RemoveThingFromThingGroupResponse
-removeThingFromThingGroupResponse pResponseStatus_ =
+newRemoveThingFromThingGroupResponse pHttpStatus_ =
   RemoveThingFromThingGroupResponse'
-    { _rtftgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-rtftgrrsResponseStatus :: Lens' RemoveThingFromThingGroupResponse Int
-rtftgrrsResponseStatus = lens _rtftgrrsResponseStatus (\s a -> s {_rtftgrrsResponseStatus = a})
+-- | The response's http status code.
+removeThingFromThingGroupResponse_httpStatus :: Lens.Lens' RemoveThingFromThingGroupResponse Prelude.Int
+removeThingFromThingGroupResponse_httpStatus = Lens.lens (\RemoveThingFromThingGroupResponse' {httpStatus} -> httpStatus) (\s@RemoveThingFromThingGroupResponse' {} a -> s {httpStatus = a} :: RemoveThingFromThingGroupResponse)
 
-instance NFData RemoveThingFromThingGroupResponse
+instance
+  Prelude.NFData
+    RemoveThingFromThingGroupResponse

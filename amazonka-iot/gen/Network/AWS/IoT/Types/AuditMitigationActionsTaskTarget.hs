@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,98 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.AuditMitigationActionsTaskTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Used in MitigationActionParams, this information identifies the target findings to which the mitigation actions are applied. Only one entry appears.
+-- | Used in MitigationActionParams, this information identifies the target
+-- findings to which the mitigation actions are applied. Only one entry
+-- appears.
 --
---
---
--- /See:/ 'auditMitigationActionsTaskTarget' smart constructor.
+-- /See:/ 'newAuditMitigationActionsTaskTarget' smart constructor.
 data AuditMitigationActionsTaskTarget = AuditMitigationActionsTaskTarget'
-  { _amattFindingIds ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       ),
-    _amattAuditTaskId ::
-      !( Maybe
-           Text
-       ),
-    _amattAuditCheckToReasonCodeFilter ::
-      !( Maybe
-           ( Map
-               Text
-               ( List1
-                   Text
-               )
-           )
-       )
+  { -- | If the task will apply a mitigation action to one or more listed
+    -- findings, this value uniquely identifies those findings.
+    findingIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | If the task will apply a mitigation action to findings from a specific
+    -- audit, this value uniquely identifies the audit.
+    auditTaskId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies a filter in the form of an audit check and set of reason codes
+    -- that identify the findings from the audit to which the audit mitigation
+    -- actions task apply.
+    auditCheckToReasonCodeFilter :: Prelude.Maybe (Prelude.Map Prelude.Text (Prelude.List1 Prelude.Text))
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuditMitigationActionsTaskTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuditMitigationActionsTaskTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amattFindingIds' - If the task will apply a mitigation action to one or more listed findings, this value uniquely identifies those findings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amattAuditTaskId' - If the task will apply a mitigation action to findings from a specific audit, this value uniquely identifies the audit.
+-- 'findingIds', 'auditMitigationActionsTaskTarget_findingIds' - If the task will apply a mitigation action to one or more listed
+-- findings, this value uniquely identifies those findings.
 --
--- * 'amattAuditCheckToReasonCodeFilter' - Specifies a filter in the form of an audit check and set of reason codes that identify the findings from the audit to which the audit mitigation actions task apply.
-auditMitigationActionsTaskTarget ::
+-- 'auditTaskId', 'auditMitigationActionsTaskTarget_auditTaskId' - If the task will apply a mitigation action to findings from a specific
+-- audit, this value uniquely identifies the audit.
+--
+-- 'auditCheckToReasonCodeFilter', 'auditMitigationActionsTaskTarget_auditCheckToReasonCodeFilter' - Specifies a filter in the form of an audit check and set of reason codes
+-- that identify the findings from the audit to which the audit mitigation
+-- actions task apply.
+newAuditMitigationActionsTaskTarget ::
   AuditMitigationActionsTaskTarget
-auditMitigationActionsTaskTarget =
+newAuditMitigationActionsTaskTarget =
   AuditMitigationActionsTaskTarget'
-    { _amattFindingIds =
-        Nothing,
-      _amattAuditTaskId = Nothing,
-      _amattAuditCheckToReasonCodeFilter =
-        Nothing
+    { findingIds =
+        Prelude.Nothing,
+      auditTaskId = Prelude.Nothing,
+      auditCheckToReasonCodeFilter =
+        Prelude.Nothing
     }
 
--- | If the task will apply a mitigation action to one or more listed findings, this value uniquely identifies those findings.
-amattFindingIds :: Lens' AuditMitigationActionsTaskTarget (Maybe (NonEmpty Text))
-amattFindingIds = lens _amattFindingIds (\s a -> s {_amattFindingIds = a}) . mapping _List1
+-- | If the task will apply a mitigation action to one or more listed
+-- findings, this value uniquely identifies those findings.
+auditMitigationActionsTaskTarget_findingIds :: Lens.Lens' AuditMitigationActionsTaskTarget (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+auditMitigationActionsTaskTarget_findingIds = Lens.lens (\AuditMitigationActionsTaskTarget' {findingIds} -> findingIds) (\s@AuditMitigationActionsTaskTarget' {} a -> s {findingIds = a} :: AuditMitigationActionsTaskTarget) Prelude.. Lens.mapping Prelude._List1
 
--- | If the task will apply a mitigation action to findings from a specific audit, this value uniquely identifies the audit.
-amattAuditTaskId :: Lens' AuditMitigationActionsTaskTarget (Maybe Text)
-amattAuditTaskId = lens _amattAuditTaskId (\s a -> s {_amattAuditTaskId = a})
+-- | If the task will apply a mitigation action to findings from a specific
+-- audit, this value uniquely identifies the audit.
+auditMitigationActionsTaskTarget_auditTaskId :: Lens.Lens' AuditMitigationActionsTaskTarget (Prelude.Maybe Prelude.Text)
+auditMitigationActionsTaskTarget_auditTaskId = Lens.lens (\AuditMitigationActionsTaskTarget' {auditTaskId} -> auditTaskId) (\s@AuditMitigationActionsTaskTarget' {} a -> s {auditTaskId = a} :: AuditMitigationActionsTaskTarget)
 
--- | Specifies a filter in the form of an audit check and set of reason codes that identify the findings from the audit to which the audit mitigation actions task apply.
-amattAuditCheckToReasonCodeFilter :: Lens' AuditMitigationActionsTaskTarget (HashMap Text (NonEmpty Text))
-amattAuditCheckToReasonCodeFilter = lens _amattAuditCheckToReasonCodeFilter (\s a -> s {_amattAuditCheckToReasonCodeFilter = a}) . _Default . _Map
+-- | Specifies a filter in the form of an audit check and set of reason codes
+-- that identify the findings from the audit to which the audit mitigation
+-- actions task apply.
+auditMitigationActionsTaskTarget_auditCheckToReasonCodeFilter :: Lens.Lens' AuditMitigationActionsTaskTarget (Prelude.Maybe (Prelude.HashMap Prelude.Text (Prelude.NonEmpty Prelude.Text)))
+auditMitigationActionsTaskTarget_auditCheckToReasonCodeFilter = Lens.lens (\AuditMitigationActionsTaskTarget' {auditCheckToReasonCodeFilter} -> auditCheckToReasonCodeFilter) (\s@AuditMitigationActionsTaskTarget' {} a -> s {auditCheckToReasonCodeFilter = a} :: AuditMitigationActionsTaskTarget) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON AuditMitigationActionsTaskTarget where
+instance
+  Prelude.FromJSON
+    AuditMitigationActionsTaskTarget
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuditMitigationActionsTaskTarget"
       ( \x ->
           AuditMitigationActionsTaskTarget'
-            <$> (x .:? "findingIds")
-            <*> (x .:? "auditTaskId")
-            <*> (x .:? "auditCheckToReasonCodeFilter" .!= mempty)
+            Prelude.<$> (x Prelude..:? "findingIds")
+            Prelude.<*> (x Prelude..:? "auditTaskId")
+            Prelude.<*> ( x Prelude..:? "auditCheckToReasonCodeFilter"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AuditMitigationActionsTaskTarget
+instance
+  Prelude.Hashable
+    AuditMitigationActionsTaskTarget
 
-instance NFData AuditMitigationActionsTaskTarget
+instance
+  Prelude.NFData
+    AuditMitigationActionsTaskTarget
 
-instance ToJSON AuditMitigationActionsTaskTarget where
+instance
+  Prelude.ToJSON
+    AuditMitigationActionsTaskTarget
+  where
   toJSON AuditMitigationActionsTaskTarget' {..} =
-    object
-      ( catMaybes
-          [ ("findingIds" .=) <$> _amattFindingIds,
-            ("auditTaskId" .=) <$> _amattAuditTaskId,
-            ("auditCheckToReasonCodeFilter" .=)
-              <$> _amattAuditCheckToReasonCodeFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("findingIds" Prelude..=) Prelude.<$> findingIds,
+            ("auditTaskId" Prelude..=) Prelude.<$> auditTaskId,
+            ("auditCheckToReasonCodeFilter" Prelude..=)
+              Prelude.<$> auditCheckToReasonCodeFilter
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.AttributePayload where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The attribute payload.
 --
---
---
--- /See:/ 'attributePayload' smart constructor.
+-- /See:/ 'newAttributePayload' smart constructor.
 data AttributePayload = AttributePayload'
-  { _apMerge ::
-      !(Maybe Bool),
-    _apAttributes ::
-      !(Maybe (Map Text Text))
+  { -- | Specifies whether the list of attributes provided in the
+    -- @AttributePayload@ is merged with the attributes stored in the registry,
+    -- instead of overwriting them.
+    --
+    -- To remove an attribute, call @UpdateThing@ with an empty attribute
+    -- value.
+    --
+    -- The @merge@ attribute is only valid when calling @UpdateThing@ or
+    -- @UpdateThingGroup@.
+    merge :: Prelude.Maybe Prelude.Bool,
+    -- | A JSON string containing up to three key-value pair in JSON format. For
+    -- example:
+    --
+    -- @{\\\"attributes\\\":{\\\"string1\\\":\\\"string2\\\"}}@
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttributePayload' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttributePayload' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apMerge' - Specifies whether the list of attributes provided in the @AttributePayload@ is merged with the attributes stored in the registry, instead of overwriting them. To remove an attribute, call @UpdateThing@ with an empty attribute value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apAttributes' - A JSON string containing up to three key-value pair in JSON format. For example: @{\"attributes\":{\"string1\":\"string2\"}}@
-attributePayload ::
+-- 'merge', 'attributePayload_merge' - Specifies whether the list of attributes provided in the
+-- @AttributePayload@ is merged with the attributes stored in the registry,
+-- instead of overwriting them.
+--
+-- To remove an attribute, call @UpdateThing@ with an empty attribute
+-- value.
+--
+-- The @merge@ attribute is only valid when calling @UpdateThing@ or
+-- @UpdateThingGroup@.
+--
+-- 'attributes', 'attributePayload_attributes' - A JSON string containing up to three key-value pair in JSON format. For
+-- example:
+--
+-- @{\\\"attributes\\\":{\\\"string1\\\":\\\"string2\\\"}}@
+newAttributePayload ::
   AttributePayload
-attributePayload =
+newAttributePayload =
   AttributePayload'
-    { _apMerge = Nothing,
-      _apAttributes = Nothing
+    { merge = Prelude.Nothing,
+      attributes = Prelude.Nothing
     }
 
--- | Specifies whether the list of attributes provided in the @AttributePayload@ is merged with the attributes stored in the registry, instead of overwriting them. To remove an attribute, call @UpdateThing@ with an empty attribute value.
-apMerge :: Lens' AttributePayload (Maybe Bool)
-apMerge = lens _apMerge (\s a -> s {_apMerge = a})
+-- | Specifies whether the list of attributes provided in the
+-- @AttributePayload@ is merged with the attributes stored in the registry,
+-- instead of overwriting them.
+--
+-- To remove an attribute, call @UpdateThing@ with an empty attribute
+-- value.
+--
+-- The @merge@ attribute is only valid when calling @UpdateThing@ or
+-- @UpdateThingGroup@.
+attributePayload_merge :: Lens.Lens' AttributePayload (Prelude.Maybe Prelude.Bool)
+attributePayload_merge = Lens.lens (\AttributePayload' {merge} -> merge) (\s@AttributePayload' {} a -> s {merge = a} :: AttributePayload)
 
--- | A JSON string containing up to three key-value pair in JSON format. For example: @{\"attributes\":{\"string1\":\"string2\"}}@
-apAttributes :: Lens' AttributePayload (HashMap Text Text)
-apAttributes = lens _apAttributes (\s a -> s {_apAttributes = a}) . _Default . _Map
+-- | A JSON string containing up to three key-value pair in JSON format. For
+-- example:
+--
+-- @{\\\"attributes\\\":{\\\"string1\\\":\\\"string2\\\"}}@
+attributePayload_attributes :: Lens.Lens' AttributePayload (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+attributePayload_attributes = Lens.lens (\AttributePayload' {attributes} -> attributes) (\s@AttributePayload' {} a -> s {attributes = a} :: AttributePayload) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON AttributePayload where
+instance Prelude.FromJSON AttributePayload where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttributePayload"
       ( \x ->
           AttributePayload'
-            <$> (x .:? "merge") <*> (x .:? "attributes" .!= mempty)
+            Prelude.<$> (x Prelude..:? "merge")
+            Prelude.<*> ( x Prelude..:? "attributes"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AttributePayload
+instance Prelude.Hashable AttributePayload
 
-instance NFData AttributePayload
+instance Prelude.NFData AttributePayload
 
-instance ToJSON AttributePayload where
+instance Prelude.ToJSON AttributePayload where
   toJSON AttributePayload' {..} =
-    object
-      ( catMaybes
-          [ ("merge" .=) <$> _apMerge,
-            ("attributes" .=) <$> _apAttributes
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("merge" Prelude..=) Prelude.<$> merge,
+            ("attributes" Prelude..=) Prelude.<$> attributes
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.IoT.Types.ThingGroupIndexingMode
   ( ThingGroupIndexingMode
       ( ..,
-        ON,
-        Off
+        ThingGroupIndexingModeOFF,
+        ThingGroupIndexingModeON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ThingGroupIndexingMode
-  = ThingGroupIndexingMode'
-      ( CI
-          Text
-      )
+newtype ThingGroupIndexingMode = ThingGroupIndexingMode'
+  { fromThingGroupIndexingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ON :: ThingGroupIndexingMode
-pattern ON = ThingGroupIndexingMode' "ON"
+pattern ThingGroupIndexingModeOFF :: ThingGroupIndexingMode
+pattern ThingGroupIndexingModeOFF = ThingGroupIndexingMode' "OFF"
 
-pattern Off :: ThingGroupIndexingMode
-pattern Off = ThingGroupIndexingMode' "OFF"
+pattern ThingGroupIndexingModeON :: ThingGroupIndexingMode
+pattern ThingGroupIndexingModeON = ThingGroupIndexingMode' "ON"
 
 {-# COMPLETE
-  ON,
-  Off,
+  ThingGroupIndexingModeOFF,
+  ThingGroupIndexingModeON,
   ThingGroupIndexingMode'
   #-}
 
-instance FromText ThingGroupIndexingMode where
-  parser = (ThingGroupIndexingMode' . mk) <$> takeText
+instance Prelude.FromText ThingGroupIndexingMode where
+  parser = ThingGroupIndexingMode' Prelude.<$> Prelude.takeText
 
-instance ToText ThingGroupIndexingMode where
-  toText (ThingGroupIndexingMode' ci) = original ci
+instance Prelude.ToText ThingGroupIndexingMode where
+  toText (ThingGroupIndexingMode' x) = x
 
-instance Hashable ThingGroupIndexingMode
+instance Prelude.Hashable ThingGroupIndexingMode
 
-instance NFData ThingGroupIndexingMode
+instance Prelude.NFData ThingGroupIndexingMode
 
-instance ToByteString ThingGroupIndexingMode
+instance Prelude.ToByteString ThingGroupIndexingMode
 
-instance ToQuery ThingGroupIndexingMode
+instance Prelude.ToQuery ThingGroupIndexingMode
 
-instance ToHeader ThingGroupIndexingMode
+instance Prelude.ToHeader ThingGroupIndexingMode
 
-instance ToJSON ThingGroupIndexingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON ThingGroupIndexingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ThingGroupIndexingMode where
-  parseJSON = parseJSONText "ThingGroupIndexingMode"
+instance Prelude.FromJSON ThingGroupIndexingMode where
+  parseJSON = Prelude.parseJSONText "ThingGroupIndexingMode"

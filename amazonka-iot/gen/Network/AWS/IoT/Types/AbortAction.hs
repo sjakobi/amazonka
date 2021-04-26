@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.IoT.Types.AbortAction
   ( AbortAction
       ( ..,
-        Cancel
+        AbortActionCANCEL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AbortAction = AbortAction' (CI Text)
+newtype AbortAction = AbortAction'
+  { fromAbortAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cancel :: AbortAction
-pattern Cancel = AbortAction' "CANCEL"
+pattern AbortActionCANCEL :: AbortAction
+pattern AbortActionCANCEL = AbortAction' "CANCEL"
 
 {-# COMPLETE
-  Cancel,
+  AbortActionCANCEL,
   AbortAction'
   #-}
 
-instance FromText AbortAction where
-  parser = (AbortAction' . mk) <$> takeText
+instance Prelude.FromText AbortAction where
+  parser = AbortAction' Prelude.<$> Prelude.takeText
 
-instance ToText AbortAction where
-  toText (AbortAction' ci) = original ci
+instance Prelude.ToText AbortAction where
+  toText (AbortAction' x) = x
 
-instance Hashable AbortAction
+instance Prelude.Hashable AbortAction
 
-instance NFData AbortAction
+instance Prelude.NFData AbortAction
 
-instance ToByteString AbortAction
+instance Prelude.ToByteString AbortAction
 
-instance ToQuery AbortAction
+instance Prelude.ToQuery AbortAction
 
-instance ToHeader AbortAction
+instance Prelude.ToHeader AbortAction
 
-instance ToJSON AbortAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON AbortAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AbortAction where
-  parseJSON = parseJSONText "AbortAction"
+instance Prelude.FromJSON AbortAction where
+  parseJSON = Prelude.parseJSONText "AbortAction"

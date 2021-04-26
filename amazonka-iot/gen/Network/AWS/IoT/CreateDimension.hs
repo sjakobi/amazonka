@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,189 +21,219 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Create a dimension that you can use to limit the scope of a metric used in a security profile for AWS IoT Device Defender. For example, using a @TOPIC_FILTER@ dimension, you can narrow down the scope of the metric only to MQTT topics whose name match the pattern specified in the dimension.
+-- Create a dimension that you can use to limit the scope of a metric used
+-- in a security profile for AWS IoT Device Defender. For example, using a
+-- @TOPIC_FILTER@ dimension, you can narrow down the scope of the metric
+-- only to MQTT topics whose name match the pattern specified in the
+-- dimension.
 module Network.AWS.IoT.CreateDimension
   ( -- * Creating a Request
-    createDimension,
-    CreateDimension,
+    CreateDimension (..),
+    newCreateDimension,
 
     -- * Request Lenses
-    cdTags,
-    cdName,
-    cdType,
-    cdStringValues,
-    cdClientRequestToken,
+    createDimension_tags,
+    createDimension_name,
+    createDimension_type,
+    createDimension_stringValues,
+    createDimension_clientRequestToken,
 
     -- * Destructuring the Response
-    createDimensionResponse,
-    CreateDimensionResponse,
+    CreateDimensionResponse (..),
+    newCreateDimensionResponse,
 
     -- * Response Lenses
-    cdrrsArn,
-    cdrrsName,
-    cdrrsResponseStatus,
+    createDimensionResponse_arn,
+    createDimensionResponse_name,
+    createDimensionResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDimension' smart constructor.
+-- | /See:/ 'newCreateDimension' smart constructor.
 data CreateDimension = CreateDimension'
-  { _cdTags ::
-      !(Maybe [Tag]),
-    _cdName :: !Text,
-    _cdType :: !DimensionType,
-    _cdStringValues :: !(List1 Text),
-    _cdClientRequestToken :: !Text
+  { -- | Metadata that can be used to manage the dimension.
+    tags :: Prelude.Maybe [Tag],
+    -- | A unique identifier for the dimension. Choose something that describes
+    -- the type and value to make it easy to remember what it does.
+    name :: Prelude.Text,
+    -- | Specifies the type of dimension. Supported types: @TOPIC_FILTER.@
+    type' :: DimensionType,
+    -- | Specifies the value or list of values for the dimension. For
+    -- @TOPIC_FILTER@ dimensions, this is a pattern used to match the MQTT
+    -- topic (for example, \"admin\/#\").
+    stringValues :: Prelude.List1 Prelude.Text,
+    -- | Each dimension must have a unique client request token. If you try to
+    -- create a new dimension with the same token as a dimension that already
+    -- exists, an exception occurs. If you omit this value, AWS SDKs will
+    -- automatically generate a unique client request.
+    clientRequestToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDimension' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDimension' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdTags' - Metadata that can be used to manage the dimension.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdName' - A unique identifier for the dimension. Choose something that describes the type and value to make it easy to remember what it does.
+-- 'tags', 'createDimension_tags' - Metadata that can be used to manage the dimension.
 --
--- * 'cdType' - Specifies the type of dimension. Supported types: @TOPIC_FILTER.@
+-- 'name', 'createDimension_name' - A unique identifier for the dimension. Choose something that describes
+-- the type and value to make it easy to remember what it does.
 --
--- * 'cdStringValues' - Specifies the value or list of values for the dimension. For @TOPIC_FILTER@ dimensions, this is a pattern used to match the MQTT topic (for example, "admin/#").
+-- 'type'', 'createDimension_type' - Specifies the type of dimension. Supported types: @TOPIC_FILTER.@
 --
--- * 'cdClientRequestToken' - Each dimension must have a unique client request token. If you try to create a new dimension with the same token as a dimension that already exists, an exception occurs. If you omit this value, AWS SDKs will automatically generate a unique client request.
-createDimension ::
-  -- | 'cdName'
-  Text ->
-  -- | 'cdType'
+-- 'stringValues', 'createDimension_stringValues' - Specifies the value or list of values for the dimension. For
+-- @TOPIC_FILTER@ dimensions, this is a pattern used to match the MQTT
+-- topic (for example, \"admin\/#\").
+--
+-- 'clientRequestToken', 'createDimension_clientRequestToken' - Each dimension must have a unique client request token. If you try to
+-- create a new dimension with the same token as a dimension that already
+-- exists, an exception occurs. If you omit this value, AWS SDKs will
+-- automatically generate a unique client request.
+newCreateDimension ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   DimensionType ->
-  -- | 'cdStringValues'
-  NonEmpty Text ->
-  -- | 'cdClientRequestToken'
-  Text ->
+  -- | 'stringValues'
+  Prelude.NonEmpty Prelude.Text ->
+  -- | 'clientRequestToken'
+  Prelude.Text ->
   CreateDimension
-createDimension
+newCreateDimension
   pName_
   pType_
   pStringValues_
   pClientRequestToken_ =
     CreateDimension'
-      { _cdTags = Nothing,
-        _cdName = pName_,
-        _cdType = pType_,
-        _cdStringValues = _List1 # pStringValues_,
-        _cdClientRequestToken = pClientRequestToken_
+      { tags = Prelude.Nothing,
+        name = pName_,
+        type' = pType_,
+        stringValues = Prelude._List1 Lens.# pStringValues_,
+        clientRequestToken = pClientRequestToken_
       }
 
 -- | Metadata that can be used to manage the dimension.
-cdTags :: Lens' CreateDimension [Tag]
-cdTags = lens _cdTags (\s a -> s {_cdTags = a}) . _Default . _Coerce
+createDimension_tags :: Lens.Lens' CreateDimension (Prelude.Maybe [Tag])
+createDimension_tags = Lens.lens (\CreateDimension' {tags} -> tags) (\s@CreateDimension' {} a -> s {tags = a} :: CreateDimension) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A unique identifier for the dimension. Choose something that describes the type and value to make it easy to remember what it does.
-cdName :: Lens' CreateDimension Text
-cdName = lens _cdName (\s a -> s {_cdName = a})
+-- | A unique identifier for the dimension. Choose something that describes
+-- the type and value to make it easy to remember what it does.
+createDimension_name :: Lens.Lens' CreateDimension Prelude.Text
+createDimension_name = Lens.lens (\CreateDimension' {name} -> name) (\s@CreateDimension' {} a -> s {name = a} :: CreateDimension)
 
 -- | Specifies the type of dimension. Supported types: @TOPIC_FILTER.@
-cdType :: Lens' CreateDimension DimensionType
-cdType = lens _cdType (\s a -> s {_cdType = a})
+createDimension_type :: Lens.Lens' CreateDimension DimensionType
+createDimension_type = Lens.lens (\CreateDimension' {type'} -> type') (\s@CreateDimension' {} a -> s {type' = a} :: CreateDimension)
 
--- | Specifies the value or list of values for the dimension. For @TOPIC_FILTER@ dimensions, this is a pattern used to match the MQTT topic (for example, "admin/#").
-cdStringValues :: Lens' CreateDimension (NonEmpty Text)
-cdStringValues = lens _cdStringValues (\s a -> s {_cdStringValues = a}) . _List1
+-- | Specifies the value or list of values for the dimension. For
+-- @TOPIC_FILTER@ dimensions, this is a pattern used to match the MQTT
+-- topic (for example, \"admin\/#\").
+createDimension_stringValues :: Lens.Lens' CreateDimension (Prelude.NonEmpty Prelude.Text)
+createDimension_stringValues = Lens.lens (\CreateDimension' {stringValues} -> stringValues) (\s@CreateDimension' {} a -> s {stringValues = a} :: CreateDimension) Prelude.. Prelude._List1
 
--- | Each dimension must have a unique client request token. If you try to create a new dimension with the same token as a dimension that already exists, an exception occurs. If you omit this value, AWS SDKs will automatically generate a unique client request.
-cdClientRequestToken :: Lens' CreateDimension Text
-cdClientRequestToken = lens _cdClientRequestToken (\s a -> s {_cdClientRequestToken = a})
+-- | Each dimension must have a unique client request token. If you try to
+-- create a new dimension with the same token as a dimension that already
+-- exists, an exception occurs. If you omit this value, AWS SDKs will
+-- automatically generate a unique client request.
+createDimension_clientRequestToken :: Lens.Lens' CreateDimension Prelude.Text
+createDimension_clientRequestToken = Lens.lens (\CreateDimension' {clientRequestToken} -> clientRequestToken) (\s@CreateDimension' {} a -> s {clientRequestToken = a} :: CreateDimension)
 
-instance AWSRequest CreateDimension where
+instance Prelude.AWSRequest CreateDimension where
   type Rs CreateDimension = CreateDimensionResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateDimensionResponse'
-            <$> (x .?> "arn")
-            <*> (x .?> "name")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDimension
+instance Prelude.Hashable CreateDimension
 
-instance NFData CreateDimension
+instance Prelude.NFData CreateDimension
 
-instance ToHeaders CreateDimension where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateDimension where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateDimension where
+instance Prelude.ToJSON CreateDimension where
   toJSON CreateDimension' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _cdTags,
-            Just ("type" .= _cdType),
-            Just ("stringValues" .= _cdStringValues),
-            Just
-              ("clientRequestToken" .= _cdClientRequestToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("type" Prelude..= type'),
+            Prelude.Just
+              ("stringValues" Prelude..= stringValues),
+            Prelude.Just
+              ( "clientRequestToken"
+                  Prelude..= clientRequestToken
+              )
           ]
       )
 
-instance ToPath CreateDimension where
+instance Prelude.ToPath CreateDimension where
   toPath CreateDimension' {..} =
-    mconcat ["/dimensions/", toBS _cdName]
+    Prelude.mconcat ["/dimensions/", Prelude.toBS name]
 
-instance ToQuery CreateDimension where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDimension where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDimensionResponse' smart constructor.
+-- | /See:/ 'newCreateDimensionResponse' smart constructor.
 data CreateDimensionResponse = CreateDimensionResponse'
-  { _cdrrsArn ::
-      !(Maybe Text),
-    _cdrrsName ::
-      !(Maybe Text),
-    _cdrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the created dimension.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the dimension.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDimensionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDimensionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdrrsArn' - The Amazon Resource Name (ARN) of the created dimension.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdrrsName' - A unique identifier for the dimension.
+-- 'arn', 'createDimensionResponse_arn' - The Amazon Resource Name (ARN) of the created dimension.
 --
--- * 'cdrrsResponseStatus' - -- | The response status code.
-createDimensionResponse ::
-  -- | 'cdrrsResponseStatus'
-  Int ->
+-- 'name', 'createDimensionResponse_name' - A unique identifier for the dimension.
+--
+-- 'httpStatus', 'createDimensionResponse_httpStatus' - The response's http status code.
+newCreateDimensionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDimensionResponse
-createDimensionResponse pResponseStatus_ =
+newCreateDimensionResponse pHttpStatus_ =
   CreateDimensionResponse'
-    { _cdrrsArn = Nothing,
-      _cdrrsName = Nothing,
-      _cdrrsResponseStatus = pResponseStatus_
+    { arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the created dimension.
-cdrrsArn :: Lens' CreateDimensionResponse (Maybe Text)
-cdrrsArn = lens _cdrrsArn (\s a -> s {_cdrrsArn = a})
+createDimensionResponse_arn :: Lens.Lens' CreateDimensionResponse (Prelude.Maybe Prelude.Text)
+createDimensionResponse_arn = Lens.lens (\CreateDimensionResponse' {arn} -> arn) (\s@CreateDimensionResponse' {} a -> s {arn = a} :: CreateDimensionResponse)
 
 -- | A unique identifier for the dimension.
-cdrrsName :: Lens' CreateDimensionResponse (Maybe Text)
-cdrrsName = lens _cdrrsName (\s a -> s {_cdrrsName = a})
+createDimensionResponse_name :: Lens.Lens' CreateDimensionResponse (Prelude.Maybe Prelude.Text)
+createDimensionResponse_name = Lens.lens (\CreateDimensionResponse' {name} -> name) (\s@CreateDimensionResponse' {} a -> s {name = a} :: CreateDimensionResponse)
 
--- | -- | The response status code.
-cdrrsResponseStatus :: Lens' CreateDimensionResponse Int
-cdrrsResponseStatus = lens _cdrrsResponseStatus (\s a -> s {_cdrrsResponseStatus = a})
+-- | The response's http status code.
+createDimensionResponse_httpStatus :: Lens.Lens' CreateDimensionResponse Prelude.Int
+createDimensionResponse_httpStatus = Lens.lens (\CreateDimensionResponse' {httpStatus} -> httpStatus) (\s@CreateDimensionResponse' {} a -> s {httpStatus = a} :: CreateDimensionResponse)
 
-instance NFData CreateDimensionResponse
+instance Prelude.NFData CreateDimensionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.AuditNotificationTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the targets to which audit notifications are sent.
 --
---
---
--- /See:/ 'auditNotificationTarget' smart constructor.
+-- /See:/ 'newAuditNotificationTarget' smart constructor.
 data AuditNotificationTarget = AuditNotificationTarget'
-  { _antRoleARN ::
-      !(Maybe Text),
-    _antEnabled ::
-      !(Maybe Bool),
-    _antTargetARN ::
-      !(Maybe Text)
+  { -- | The ARN of the role that grants permission to send notifications to the
+    -- target.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | True if notifications to the target are enabled.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN of the target (SNS topic) to which audit notifications are sent.
+    targetArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuditNotificationTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuditNotificationTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'antRoleARN' - The ARN of the role that grants permission to send notifications to the target.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'antEnabled' - True if notifications to the target are enabled.
+-- 'roleArn', 'auditNotificationTarget_roleArn' - The ARN of the role that grants permission to send notifications to the
+-- target.
 --
--- * 'antTargetARN' - The ARN of the target (SNS topic) to which audit notifications are sent.
-auditNotificationTarget ::
+-- 'enabled', 'auditNotificationTarget_enabled' - True if notifications to the target are enabled.
+--
+-- 'targetArn', 'auditNotificationTarget_targetArn' - The ARN of the target (SNS topic) to which audit notifications are sent.
+newAuditNotificationTarget ::
   AuditNotificationTarget
-auditNotificationTarget =
+newAuditNotificationTarget =
   AuditNotificationTarget'
-    { _antRoleARN = Nothing,
-      _antEnabled = Nothing,
-      _antTargetARN = Nothing
+    { roleArn = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      targetArn = Prelude.Nothing
     }
 
--- | The ARN of the role that grants permission to send notifications to the target.
-antRoleARN :: Lens' AuditNotificationTarget (Maybe Text)
-antRoleARN = lens _antRoleARN (\s a -> s {_antRoleARN = a})
+-- | The ARN of the role that grants permission to send notifications to the
+-- target.
+auditNotificationTarget_roleArn :: Lens.Lens' AuditNotificationTarget (Prelude.Maybe Prelude.Text)
+auditNotificationTarget_roleArn = Lens.lens (\AuditNotificationTarget' {roleArn} -> roleArn) (\s@AuditNotificationTarget' {} a -> s {roleArn = a} :: AuditNotificationTarget)
 
 -- | True if notifications to the target are enabled.
-antEnabled :: Lens' AuditNotificationTarget (Maybe Bool)
-antEnabled = lens _antEnabled (\s a -> s {_antEnabled = a})
+auditNotificationTarget_enabled :: Lens.Lens' AuditNotificationTarget (Prelude.Maybe Prelude.Bool)
+auditNotificationTarget_enabled = Lens.lens (\AuditNotificationTarget' {enabled} -> enabled) (\s@AuditNotificationTarget' {} a -> s {enabled = a} :: AuditNotificationTarget)
 
 -- | The ARN of the target (SNS topic) to which audit notifications are sent.
-antTargetARN :: Lens' AuditNotificationTarget (Maybe Text)
-antTargetARN = lens _antTargetARN (\s a -> s {_antTargetARN = a})
+auditNotificationTarget_targetArn :: Lens.Lens' AuditNotificationTarget (Prelude.Maybe Prelude.Text)
+auditNotificationTarget_targetArn = Lens.lens (\AuditNotificationTarget' {targetArn} -> targetArn) (\s@AuditNotificationTarget' {} a -> s {targetArn = a} :: AuditNotificationTarget)
 
-instance FromJSON AuditNotificationTarget where
+instance Prelude.FromJSON AuditNotificationTarget where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuditNotificationTarget"
       ( \x ->
           AuditNotificationTarget'
-            <$> (x .:? "roleArn")
-            <*> (x .:? "enabled")
-            <*> (x .:? "targetArn")
+            Prelude.<$> (x Prelude..:? "roleArn")
+            Prelude.<*> (x Prelude..:? "enabled")
+            Prelude.<*> (x Prelude..:? "targetArn")
       )
 
-instance Hashable AuditNotificationTarget
+instance Prelude.Hashable AuditNotificationTarget
 
-instance NFData AuditNotificationTarget
+instance Prelude.NFData AuditNotificationTarget
 
-instance ToJSON AuditNotificationTarget where
+instance Prelude.ToJSON AuditNotificationTarget where
   toJSON AuditNotificationTarget' {..} =
-    object
-      ( catMaybes
-          [ ("roleArn" .=) <$> _antRoleARN,
-            ("enabled" .=) <$> _antEnabled,
-            ("targetArn" .=) <$> _antTargetARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("roleArn" Prelude..=) Prelude.<$> roleArn,
+            ("enabled" Prelude..=) Prelude.<$> enabled,
+            ("targetArn" Prelude..=) Prelude.<$> targetArn
           ]
       )

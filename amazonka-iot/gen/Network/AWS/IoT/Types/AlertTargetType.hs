@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,54 @@
 module Network.AWS.IoT.Types.AlertTargetType
   ( AlertTargetType
       ( ..,
-        SNS
+        AlertTargetTypeSNS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The type of alert target: one of "SNS".
-data AlertTargetType = AlertTargetType' (CI Text)
+-- | The type of alert target: one of \"SNS\".
+newtype AlertTargetType = AlertTargetType'
+  { fromAlertTargetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SNS :: AlertTargetType
-pattern SNS = AlertTargetType' "SNS"
+pattern AlertTargetTypeSNS :: AlertTargetType
+pattern AlertTargetTypeSNS = AlertTargetType' "SNS"
 
 {-# COMPLETE
-  SNS,
+  AlertTargetTypeSNS,
   AlertTargetType'
   #-}
 
-instance FromText AlertTargetType where
-  parser = (AlertTargetType' . mk) <$> takeText
+instance Prelude.FromText AlertTargetType where
+  parser = AlertTargetType' Prelude.<$> Prelude.takeText
 
-instance ToText AlertTargetType where
-  toText (AlertTargetType' ci) = original ci
+instance Prelude.ToText AlertTargetType where
+  toText (AlertTargetType' x) = x
 
-instance Hashable AlertTargetType
+instance Prelude.Hashable AlertTargetType
 
-instance NFData AlertTargetType
+instance Prelude.NFData AlertTargetType
 
-instance ToByteString AlertTargetType
+instance Prelude.ToByteString AlertTargetType
 
-instance ToQuery AlertTargetType
+instance Prelude.ToQuery AlertTargetType
 
-instance ToHeader AlertTargetType
+instance Prelude.ToHeader AlertTargetType
 
-instance ToJSON AlertTargetType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AlertTargetType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AlertTargetType where
-  parseJSON = parseJSONText "AlertTargetType"
+instance Prelude.FromJSON AlertTargetType where
+  parseJSON = Prelude.parseJSONText "AlertTargetType"

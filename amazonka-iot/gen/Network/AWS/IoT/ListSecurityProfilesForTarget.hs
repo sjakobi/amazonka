@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,206 +21,224 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the Device Defender security profiles attached to a target (thing group).
---
---
+-- Lists the Device Defender security profiles attached to a target (thing
+-- group).
 --
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListSecurityProfilesForTarget
   ( -- * Creating a Request
-    listSecurityProfilesForTarget,
-    ListSecurityProfilesForTarget,
+    ListSecurityProfilesForTarget (..),
+    newListSecurityProfilesForTarget,
 
     -- * Request Lenses
-    lspftNextToken,
-    lspftMaxResults,
-    lspftRecursive,
-    lspftSecurityProfileTargetARN,
+    listSecurityProfilesForTarget_nextToken,
+    listSecurityProfilesForTarget_maxResults,
+    listSecurityProfilesForTarget_recursive,
+    listSecurityProfilesForTarget_securityProfileTargetArn,
 
     -- * Destructuring the Response
-    listSecurityProfilesForTargetResponse,
-    ListSecurityProfilesForTargetResponse,
+    ListSecurityProfilesForTargetResponse (..),
+    newListSecurityProfilesForTargetResponse,
 
     -- * Response Lenses
-    lspftrrsNextToken,
-    lspftrrsSecurityProfileTargetMappings,
-    lspftrrsResponseStatus,
+    listSecurityProfilesForTargetResponse_nextToken,
+    listSecurityProfilesForTargetResponse_securityProfileTargetMappings,
+    listSecurityProfilesForTargetResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.SecurityProfileTargetMapping
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSecurityProfilesForTarget' smart constructor.
+-- | /See:/ 'newListSecurityProfilesForTarget' smart constructor.
 data ListSecurityProfilesForTarget = ListSecurityProfilesForTarget'
-  { _lspftNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lspftMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _lspftRecursive ::
-      !( Maybe
-           Bool
-       ),
-    _lspftSecurityProfileTargetARN ::
-      !Text
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | If true, return child groups too.
+    recursive :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN of the target (thing group) whose attached security profiles you
+    -- want to get.
+    securityProfileTargetArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSecurityProfilesForTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSecurityProfilesForTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lspftNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lspftMaxResults' - The maximum number of results to return at one time.
+-- 'nextToken', 'listSecurityProfilesForTarget_nextToken' - The token for the next set of results.
 --
--- * 'lspftRecursive' - If true, return child groups too.
+-- 'maxResults', 'listSecurityProfilesForTarget_maxResults' - The maximum number of results to return at one time.
 --
--- * 'lspftSecurityProfileTargetARN' - The ARN of the target (thing group) whose attached security profiles you want to get.
-listSecurityProfilesForTarget ::
-  -- | 'lspftSecurityProfileTargetARN'
-  Text ->
+-- 'recursive', 'listSecurityProfilesForTarget_recursive' - If true, return child groups too.
+--
+-- 'securityProfileTargetArn', 'listSecurityProfilesForTarget_securityProfileTargetArn' - The ARN of the target (thing group) whose attached security profiles you
+-- want to get.
+newListSecurityProfilesForTarget ::
+  -- | 'securityProfileTargetArn'
+  Prelude.Text ->
   ListSecurityProfilesForTarget
-listSecurityProfilesForTarget
-  pSecurityProfileTargetARN_ =
+newListSecurityProfilesForTarget
+  pSecurityProfileTargetArn_ =
     ListSecurityProfilesForTarget'
-      { _lspftNextToken =
-          Nothing,
-        _lspftMaxResults = Nothing,
-        _lspftRecursive = Nothing,
-        _lspftSecurityProfileTargetARN =
-          pSecurityProfileTargetARN_
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        recursive = Prelude.Nothing,
+        securityProfileTargetArn =
+          pSecurityProfileTargetArn_
       }
 
 -- | The token for the next set of results.
-lspftNextToken :: Lens' ListSecurityProfilesForTarget (Maybe Text)
-lspftNextToken = lens _lspftNextToken (\s a -> s {_lspftNextToken = a})
+listSecurityProfilesForTarget_nextToken :: Lens.Lens' ListSecurityProfilesForTarget (Prelude.Maybe Prelude.Text)
+listSecurityProfilesForTarget_nextToken = Lens.lens (\ListSecurityProfilesForTarget' {nextToken} -> nextToken) (\s@ListSecurityProfilesForTarget' {} a -> s {nextToken = a} :: ListSecurityProfilesForTarget)
 
 -- | The maximum number of results to return at one time.
-lspftMaxResults :: Lens' ListSecurityProfilesForTarget (Maybe Natural)
-lspftMaxResults = lens _lspftMaxResults (\s a -> s {_lspftMaxResults = a}) . mapping _Nat
+listSecurityProfilesForTarget_maxResults :: Lens.Lens' ListSecurityProfilesForTarget (Prelude.Maybe Prelude.Natural)
+listSecurityProfilesForTarget_maxResults = Lens.lens (\ListSecurityProfilesForTarget' {maxResults} -> maxResults) (\s@ListSecurityProfilesForTarget' {} a -> s {maxResults = a} :: ListSecurityProfilesForTarget) Prelude.. Lens.mapping Prelude._Nat
 
 -- | If true, return child groups too.
-lspftRecursive :: Lens' ListSecurityProfilesForTarget (Maybe Bool)
-lspftRecursive = lens _lspftRecursive (\s a -> s {_lspftRecursive = a})
+listSecurityProfilesForTarget_recursive :: Lens.Lens' ListSecurityProfilesForTarget (Prelude.Maybe Prelude.Bool)
+listSecurityProfilesForTarget_recursive = Lens.lens (\ListSecurityProfilesForTarget' {recursive} -> recursive) (\s@ListSecurityProfilesForTarget' {} a -> s {recursive = a} :: ListSecurityProfilesForTarget)
 
--- | The ARN of the target (thing group) whose attached security profiles you want to get.
-lspftSecurityProfileTargetARN :: Lens' ListSecurityProfilesForTarget Text
-lspftSecurityProfileTargetARN = lens _lspftSecurityProfileTargetARN (\s a -> s {_lspftSecurityProfileTargetARN = a})
+-- | The ARN of the target (thing group) whose attached security profiles you
+-- want to get.
+listSecurityProfilesForTarget_securityProfileTargetArn :: Lens.Lens' ListSecurityProfilesForTarget Prelude.Text
+listSecurityProfilesForTarget_securityProfileTargetArn = Lens.lens (\ListSecurityProfilesForTarget' {securityProfileTargetArn} -> securityProfileTargetArn) (\s@ListSecurityProfilesForTarget' {} a -> s {securityProfileTargetArn = a} :: ListSecurityProfilesForTarget)
 
-instance AWSPager ListSecurityProfilesForTarget where
+instance Pager.AWSPager ListSecurityProfilesForTarget where
   page rq rs
-    | stop (rs ^. lspftrrsNextToken) = Nothing
-    | stop (rs ^. lspftrrsSecurityProfileTargetMappings) =
-      Nothing
-    | otherwise =
-      Just $ rq & lspftNextToken .~ rs ^. lspftrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listSecurityProfilesForTargetResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSecurityProfilesForTargetResponse_securityProfileTargetMappings
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSecurityProfilesForTarget_nextToken
+          Lens..~ rs
+          Lens.^? listSecurityProfilesForTargetResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListSecurityProfilesForTarget where
+instance
+  Prelude.AWSRequest
+    ListSecurityProfilesForTarget
+  where
   type
     Rs ListSecurityProfilesForTarget =
       ListSecurityProfilesForTargetResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSecurityProfilesForTargetResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "securityProfileTargetMappings" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "securityProfileTargetMappings"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSecurityProfilesForTarget
+instance
+  Prelude.Hashable
+    ListSecurityProfilesForTarget
 
-instance NFData ListSecurityProfilesForTarget
+instance Prelude.NFData ListSecurityProfilesForTarget
 
-instance ToHeaders ListSecurityProfilesForTarget where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ListSecurityProfilesForTarget
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListSecurityProfilesForTarget where
-  toPath = const "/security-profiles-for-target"
+instance Prelude.ToPath ListSecurityProfilesForTarget where
+  toPath =
+    Prelude.const "/security-profiles-for-target"
 
-instance ToQuery ListSecurityProfilesForTarget where
+instance
+  Prelude.ToQuery
+    ListSecurityProfilesForTarget
+  where
   toQuery ListSecurityProfilesForTarget' {..} =
-    mconcat
-      [ "nextToken" =: _lspftNextToken,
-        "maxResults" =: _lspftMaxResults,
-        "recursive" =: _lspftRecursive,
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "recursive" Prelude.=: recursive,
         "securityProfileTargetArn"
-          =: _lspftSecurityProfileTargetARN
+          Prelude.=: securityProfileTargetArn
       ]
 
--- | /See:/ 'listSecurityProfilesForTargetResponse' smart constructor.
+-- | /See:/ 'newListSecurityProfilesForTargetResponse' smart constructor.
 data ListSecurityProfilesForTargetResponse = ListSecurityProfilesForTargetResponse'
-  { _lspftrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lspftrrsSecurityProfileTargetMappings ::
-      !( Maybe
-           [SecurityProfileTargetMapping]
-       ),
-    _lspftrrsResponseStatus ::
-      !Int
+  { -- | A token that can be used to retrieve the next set of results, or @null@
+    -- if there are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of security profiles and their associated targets.
+    securityProfileTargetMappings :: Prelude.Maybe [SecurityProfileTargetMapping],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSecurityProfilesForTargetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSecurityProfilesForTargetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lspftrrsNextToken' - A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lspftrrsSecurityProfileTargetMappings' - A list of security profiles and their associated targets.
+-- 'nextToken', 'listSecurityProfilesForTargetResponse_nextToken' - A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
 --
--- * 'lspftrrsResponseStatus' - -- | The response status code.
-listSecurityProfilesForTargetResponse ::
-  -- | 'lspftrrsResponseStatus'
-  Int ->
+-- 'securityProfileTargetMappings', 'listSecurityProfilesForTargetResponse_securityProfileTargetMappings' - A list of security profiles and their associated targets.
+--
+-- 'httpStatus', 'listSecurityProfilesForTargetResponse_httpStatus' - The response's http status code.
+newListSecurityProfilesForTargetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSecurityProfilesForTargetResponse
-listSecurityProfilesForTargetResponse
-  pResponseStatus_ =
-    ListSecurityProfilesForTargetResponse'
-      { _lspftrrsNextToken =
-          Nothing,
-        _lspftrrsSecurityProfileTargetMappings =
-          Nothing,
-        _lspftrrsResponseStatus =
-          pResponseStatus_
-      }
+newListSecurityProfilesForTargetResponse pHttpStatus_ =
+  ListSecurityProfilesForTargetResponse'
+    { nextToken =
+        Prelude.Nothing,
+      securityProfileTargetMappings =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
-lspftrrsNextToken :: Lens' ListSecurityProfilesForTargetResponse (Maybe Text)
-lspftrrsNextToken = lens _lspftrrsNextToken (\s a -> s {_lspftrrsNextToken = a})
+-- | A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
+listSecurityProfilesForTargetResponse_nextToken :: Lens.Lens' ListSecurityProfilesForTargetResponse (Prelude.Maybe Prelude.Text)
+listSecurityProfilesForTargetResponse_nextToken = Lens.lens (\ListSecurityProfilesForTargetResponse' {nextToken} -> nextToken) (\s@ListSecurityProfilesForTargetResponse' {} a -> s {nextToken = a} :: ListSecurityProfilesForTargetResponse)
 
 -- | A list of security profiles and their associated targets.
-lspftrrsSecurityProfileTargetMappings :: Lens' ListSecurityProfilesForTargetResponse [SecurityProfileTargetMapping]
-lspftrrsSecurityProfileTargetMappings = lens _lspftrrsSecurityProfileTargetMappings (\s a -> s {_lspftrrsSecurityProfileTargetMappings = a}) . _Default . _Coerce
+listSecurityProfilesForTargetResponse_securityProfileTargetMappings :: Lens.Lens' ListSecurityProfilesForTargetResponse (Prelude.Maybe [SecurityProfileTargetMapping])
+listSecurityProfilesForTargetResponse_securityProfileTargetMappings = Lens.lens (\ListSecurityProfilesForTargetResponse' {securityProfileTargetMappings} -> securityProfileTargetMappings) (\s@ListSecurityProfilesForTargetResponse' {} a -> s {securityProfileTargetMappings = a} :: ListSecurityProfilesForTargetResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lspftrrsResponseStatus :: Lens' ListSecurityProfilesForTargetResponse Int
-lspftrrsResponseStatus = lens _lspftrrsResponseStatus (\s a -> s {_lspftrrsResponseStatus = a})
+-- | The response's http status code.
+listSecurityProfilesForTargetResponse_httpStatus :: Lens.Lens' ListSecurityProfilesForTargetResponse Prelude.Int
+listSecurityProfilesForTargetResponse_httpStatus = Lens.lens (\ListSecurityProfilesForTargetResponse' {httpStatus} -> httpStatus) (\s@ListSecurityProfilesForTargetResponse' {} a -> s {httpStatus = a} :: ListSecurityProfilesForTargetResponse)
 
-instance NFData ListSecurityProfilesForTargetResponse
+instance
+  Prelude.NFData
+    ListSecurityProfilesForTargetResponse

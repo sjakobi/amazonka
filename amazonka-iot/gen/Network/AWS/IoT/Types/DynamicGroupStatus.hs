@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.IoT.Types.DynamicGroupStatus
   ( DynamicGroupStatus
       ( ..,
-        DGSActive,
-        DGSBuilding,
-        DGSRebuilding
+        DynamicGroupStatusACTIVE,
+        DynamicGroupStatusBUILDING,
+        DynamicGroupStatusREBUILDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DynamicGroupStatus
-  = DynamicGroupStatus'
-      ( CI
-          Text
-      )
+newtype DynamicGroupStatus = DynamicGroupStatus'
+  { fromDynamicGroupStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DGSActive :: DynamicGroupStatus
-pattern DGSActive = DynamicGroupStatus' "ACTIVE"
+pattern DynamicGroupStatusACTIVE :: DynamicGroupStatus
+pattern DynamicGroupStatusACTIVE = DynamicGroupStatus' "ACTIVE"
 
-pattern DGSBuilding :: DynamicGroupStatus
-pattern DGSBuilding = DynamicGroupStatus' "BUILDING"
+pattern DynamicGroupStatusBUILDING :: DynamicGroupStatus
+pattern DynamicGroupStatusBUILDING = DynamicGroupStatus' "BUILDING"
 
-pattern DGSRebuilding :: DynamicGroupStatus
-pattern DGSRebuilding = DynamicGroupStatus' "REBUILDING"
+pattern DynamicGroupStatusREBUILDING :: DynamicGroupStatus
+pattern DynamicGroupStatusREBUILDING = DynamicGroupStatus' "REBUILDING"
 
 {-# COMPLETE
-  DGSActive,
-  DGSBuilding,
-  DGSRebuilding,
+  DynamicGroupStatusACTIVE,
+  DynamicGroupStatusBUILDING,
+  DynamicGroupStatusREBUILDING,
   DynamicGroupStatus'
   #-}
 
-instance FromText DynamicGroupStatus where
-  parser = (DynamicGroupStatus' . mk) <$> takeText
+instance Prelude.FromText DynamicGroupStatus where
+  parser = DynamicGroupStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DynamicGroupStatus where
-  toText (DynamicGroupStatus' ci) = original ci
+instance Prelude.ToText DynamicGroupStatus where
+  toText (DynamicGroupStatus' x) = x
 
-instance Hashable DynamicGroupStatus
+instance Prelude.Hashable DynamicGroupStatus
 
-instance NFData DynamicGroupStatus
+instance Prelude.NFData DynamicGroupStatus
 
-instance ToByteString DynamicGroupStatus
+instance Prelude.ToByteString DynamicGroupStatus
 
-instance ToQuery DynamicGroupStatus
+instance Prelude.ToQuery DynamicGroupStatus
 
-instance ToHeader DynamicGroupStatus
+instance Prelude.ToHeader DynamicGroupStatus
 
-instance FromJSON DynamicGroupStatus where
-  parseJSON = parseJSONText "DynamicGroupStatus"
+instance Prelude.FromJSON DynamicGroupStatus where
+  parseJSON = Prelude.parseJSONText "DynamicGroupStatus"

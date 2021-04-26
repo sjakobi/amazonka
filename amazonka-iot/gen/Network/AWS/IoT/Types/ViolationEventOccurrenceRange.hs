@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.ViolationEventOccurrenceRange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the time period of which violation events occurred between.
 --
---
---
--- /See:/ 'violationEventOccurrenceRange' smart constructor.
+-- /See:/ 'newViolationEventOccurrenceRange' smart constructor.
 data ViolationEventOccurrenceRange = ViolationEventOccurrenceRange'
-  { _veorStartTime ::
-      !POSIX,
-    _veorEndTime ::
-      !POSIX
+  { -- | The start date and time of a time period in which violation events
+    -- occurred.
+    startTime :: Prelude.POSIX,
+    -- | The end date and time of a time period in which violation events
+    -- occurred.
+    endTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ViolationEventOccurrenceRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ViolationEventOccurrenceRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'veorStartTime' - The start date and time of a time period in which violation events occurred.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'veorEndTime' - The end date and time of a time period in which violation events occurred.
-violationEventOccurrenceRange ::
-  -- | 'veorStartTime'
-  UTCTime ->
-  -- | 'veorEndTime'
-  UTCTime ->
+-- 'startTime', 'violationEventOccurrenceRange_startTime' - The start date and time of a time period in which violation events
+-- occurred.
+--
+-- 'endTime', 'violationEventOccurrenceRange_endTime' - The end date and time of a time period in which violation events
+-- occurred.
+newViolationEventOccurrenceRange ::
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
   ViolationEventOccurrenceRange
-violationEventOccurrenceRange pStartTime_ pEndTime_ =
-  ViolationEventOccurrenceRange'
-    { _veorStartTime =
-        _Time # pStartTime_,
-      _veorEndTime = _Time # pEndTime_
-    }
+newViolationEventOccurrenceRange
+  pStartTime_
+  pEndTime_ =
+    ViolationEventOccurrenceRange'
+      { startTime =
+          Prelude._Time Lens.# pStartTime_,
+        endTime = Prelude._Time Lens.# pEndTime_
+      }
 
--- | The start date and time of a time period in which violation events occurred.
-veorStartTime :: Lens' ViolationEventOccurrenceRange UTCTime
-veorStartTime = lens _veorStartTime (\s a -> s {_veorStartTime = a}) . _Time
+-- | The start date and time of a time period in which violation events
+-- occurred.
+violationEventOccurrenceRange_startTime :: Lens.Lens' ViolationEventOccurrenceRange Prelude.UTCTime
+violationEventOccurrenceRange_startTime = Lens.lens (\ViolationEventOccurrenceRange' {startTime} -> startTime) (\s@ViolationEventOccurrenceRange' {} a -> s {startTime = a} :: ViolationEventOccurrenceRange) Prelude.. Prelude._Time
 
--- | The end date and time of a time period in which violation events occurred.
-veorEndTime :: Lens' ViolationEventOccurrenceRange UTCTime
-veorEndTime = lens _veorEndTime (\s a -> s {_veorEndTime = a}) . _Time
+-- | The end date and time of a time period in which violation events
+-- occurred.
+violationEventOccurrenceRange_endTime :: Lens.Lens' ViolationEventOccurrenceRange Prelude.UTCTime
+violationEventOccurrenceRange_endTime = Lens.lens (\ViolationEventOccurrenceRange' {endTime} -> endTime) (\s@ViolationEventOccurrenceRange' {} a -> s {endTime = a} :: ViolationEventOccurrenceRange) Prelude.. Prelude._Time
 
-instance FromJSON ViolationEventOccurrenceRange where
+instance
+  Prelude.FromJSON
+    ViolationEventOccurrenceRange
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ViolationEventOccurrenceRange"
       ( \x ->
           ViolationEventOccurrenceRange'
-            <$> (x .: "startTime") <*> (x .: "endTime")
+            Prelude.<$> (x Prelude..: "startTime")
+            Prelude.<*> (x Prelude..: "endTime")
       )
 
-instance Hashable ViolationEventOccurrenceRange
+instance
+  Prelude.Hashable
+    ViolationEventOccurrenceRange
 
-instance NFData ViolationEventOccurrenceRange
+instance Prelude.NFData ViolationEventOccurrenceRange
 
-instance ToJSON ViolationEventOccurrenceRange where
+instance Prelude.ToJSON ViolationEventOccurrenceRange where
   toJSON ViolationEventOccurrenceRange' {..} =
-    object
-      ( catMaybes
-          [ Just ("startTime" .= _veorStartTime),
-            Just ("endTime" .= _veorEndTime)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("startTime" Prelude..= startTime),
+            Prelude.Just ("endTime" Prelude..= endTime)
           ]
       )

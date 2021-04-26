@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,190 +24,180 @@
 -- Returns information about a billing group.
 module Network.AWS.IoT.DescribeBillingGroup
   ( -- * Creating a Request
-    describeBillingGroup,
-    DescribeBillingGroup,
+    DescribeBillingGroup (..),
+    newDescribeBillingGroup,
 
     -- * Request Lenses
-    dBillingGroupName,
+    describeBillingGroup_billingGroupName,
 
     -- * Destructuring the Response
-    describeBillingGroupResponse,
-    DescribeBillingGroupResponse,
+    DescribeBillingGroupResponse (..),
+    newDescribeBillingGroupResponse,
 
     -- * Response Lenses
-    dbgrbrsBillingGroupProperties,
-    dbgrbrsVersion,
-    dbgrbrsBillingGroupARN,
-    dbgrbrsBillingGroupId,
-    dbgrbrsBillingGroupMetadata,
-    dbgrbrsBillingGroupName,
-    dbgrbrsResponseStatus,
+    describeBillingGroupResponse_billingGroupProperties,
+    describeBillingGroupResponse_version,
+    describeBillingGroupResponse_billingGroupArn,
+    describeBillingGroupResponse_billingGroupId,
+    describeBillingGroupResponse_billingGroupMetadata,
+    describeBillingGroupResponse_billingGroupName,
+    describeBillingGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.BillingGroupMetadata
+import Network.AWS.IoT.Types.BillingGroupProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeBillingGroup' smart constructor.
-newtype DescribeBillingGroup = DescribeBillingGroup'
-  { _dBillingGroupName ::
-      Text
+-- | /See:/ 'newDescribeBillingGroup' smart constructor.
+data DescribeBillingGroup = DescribeBillingGroup'
+  { -- | The name of the billing group.
+    billingGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBillingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBillingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dBillingGroupName' - The name of the billing group.
-describeBillingGroup ::
-  -- | 'dBillingGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'billingGroupName', 'describeBillingGroup_billingGroupName' - The name of the billing group.
+newDescribeBillingGroup ::
+  -- | 'billingGroupName'
+  Prelude.Text ->
   DescribeBillingGroup
-describeBillingGroup pBillingGroupName_ =
+newDescribeBillingGroup pBillingGroupName_ =
   DescribeBillingGroup'
-    { _dBillingGroupName =
+    { billingGroupName =
         pBillingGroupName_
     }
 
 -- | The name of the billing group.
-dBillingGroupName :: Lens' DescribeBillingGroup Text
-dBillingGroupName = lens _dBillingGroupName (\s a -> s {_dBillingGroupName = a})
+describeBillingGroup_billingGroupName :: Lens.Lens' DescribeBillingGroup Prelude.Text
+describeBillingGroup_billingGroupName = Lens.lens (\DescribeBillingGroup' {billingGroupName} -> billingGroupName) (\s@DescribeBillingGroup' {} a -> s {billingGroupName = a} :: DescribeBillingGroup)
 
-instance AWSRequest DescribeBillingGroup where
+instance Prelude.AWSRequest DescribeBillingGroup where
   type
     Rs DescribeBillingGroup =
       DescribeBillingGroupResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeBillingGroupResponse'
-            <$> (x .?> "billingGroupProperties")
-            <*> (x .?> "version")
-            <*> (x .?> "billingGroupArn")
-            <*> (x .?> "billingGroupId")
-            <*> (x .?> "billingGroupMetadata")
-            <*> (x .?> "billingGroupName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "billingGroupProperties")
+            Prelude.<*> (x Prelude..?> "version")
+            Prelude.<*> (x Prelude..?> "billingGroupArn")
+            Prelude.<*> (x Prelude..?> "billingGroupId")
+            Prelude.<*> (x Prelude..?> "billingGroupMetadata")
+            Prelude.<*> (x Prelude..?> "billingGroupName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeBillingGroup
+instance Prelude.Hashable DescribeBillingGroup
 
-instance NFData DescribeBillingGroup
+instance Prelude.NFData DescribeBillingGroup
 
-instance ToHeaders DescribeBillingGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeBillingGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeBillingGroup where
+instance Prelude.ToPath DescribeBillingGroup where
   toPath DescribeBillingGroup' {..} =
-    mconcat
-      ["/billing-groups/", toBS _dBillingGroupName]
+    Prelude.mconcat
+      ["/billing-groups/", Prelude.toBS billingGroupName]
 
-instance ToQuery DescribeBillingGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeBillingGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeBillingGroupResponse' smart constructor.
+-- | /See:/ 'newDescribeBillingGroupResponse' smart constructor.
 data DescribeBillingGroupResponse = DescribeBillingGroupResponse'
-  { _dbgrbrsBillingGroupProperties ::
-      !( Maybe
-           BillingGroupProperties
-       ),
-    _dbgrbrsVersion ::
-      !( Maybe
-           Integer
-       ),
-    _dbgrbrsBillingGroupARN ::
-      !(Maybe Text),
-    _dbgrbrsBillingGroupId ::
-      !(Maybe Text),
-    _dbgrbrsBillingGroupMetadata ::
-      !( Maybe
-           BillingGroupMetadata
-       ),
-    _dbgrbrsBillingGroupName ::
-      !(Maybe Text),
-    _dbgrbrsResponseStatus ::
-      !Int
+  { -- | The properties of the billing group.
+    billingGroupProperties :: Prelude.Maybe BillingGroupProperties,
+    -- | The version of the billing group.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | The ARN of the billing group.
+    billingGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the billing group.
+    billingGroupId :: Prelude.Maybe Prelude.Text,
+    -- | Additional information about the billing group.
+    billingGroupMetadata :: Prelude.Maybe BillingGroupMetadata,
+    -- | The name of the billing group.
+    billingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBillingGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBillingGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbgrbrsBillingGroupProperties' - The properties of the billing group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbgrbrsVersion' - The version of the billing group.
+-- 'billingGroupProperties', 'describeBillingGroupResponse_billingGroupProperties' - The properties of the billing group.
 --
--- * 'dbgrbrsBillingGroupARN' - The ARN of the billing group.
+-- 'version', 'describeBillingGroupResponse_version' - The version of the billing group.
 --
--- * 'dbgrbrsBillingGroupId' - The ID of the billing group.
+-- 'billingGroupArn', 'describeBillingGroupResponse_billingGroupArn' - The ARN of the billing group.
 --
--- * 'dbgrbrsBillingGroupMetadata' - Additional information about the billing group.
+-- 'billingGroupId', 'describeBillingGroupResponse_billingGroupId' - The ID of the billing group.
 --
--- * 'dbgrbrsBillingGroupName' - The name of the billing group.
+-- 'billingGroupMetadata', 'describeBillingGroupResponse_billingGroupMetadata' - Additional information about the billing group.
 --
--- * 'dbgrbrsResponseStatus' - -- | The response status code.
-describeBillingGroupResponse ::
-  -- | 'dbgrbrsResponseStatus'
-  Int ->
+-- 'billingGroupName', 'describeBillingGroupResponse_billingGroupName' - The name of the billing group.
+--
+-- 'httpStatus', 'describeBillingGroupResponse_httpStatus' - The response's http status code.
+newDescribeBillingGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeBillingGroupResponse
-describeBillingGroupResponse pResponseStatus_ =
+newDescribeBillingGroupResponse pHttpStatus_ =
   DescribeBillingGroupResponse'
-    { _dbgrbrsBillingGroupProperties =
-        Nothing,
-      _dbgrbrsVersion = Nothing,
-      _dbgrbrsBillingGroupARN = Nothing,
-      _dbgrbrsBillingGroupId = Nothing,
-      _dbgrbrsBillingGroupMetadata = Nothing,
-      _dbgrbrsBillingGroupName = Nothing,
-      _dbgrbrsResponseStatus = pResponseStatus_
+    { billingGroupProperties =
+        Prelude.Nothing,
+      version = Prelude.Nothing,
+      billingGroupArn = Prelude.Nothing,
+      billingGroupId = Prelude.Nothing,
+      billingGroupMetadata = Prelude.Nothing,
+      billingGroupName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The properties of the billing group.
-dbgrbrsBillingGroupProperties :: Lens' DescribeBillingGroupResponse (Maybe BillingGroupProperties)
-dbgrbrsBillingGroupProperties = lens _dbgrbrsBillingGroupProperties (\s a -> s {_dbgrbrsBillingGroupProperties = a})
+describeBillingGroupResponse_billingGroupProperties :: Lens.Lens' DescribeBillingGroupResponse (Prelude.Maybe BillingGroupProperties)
+describeBillingGroupResponse_billingGroupProperties = Lens.lens (\DescribeBillingGroupResponse' {billingGroupProperties} -> billingGroupProperties) (\s@DescribeBillingGroupResponse' {} a -> s {billingGroupProperties = a} :: DescribeBillingGroupResponse)
 
 -- | The version of the billing group.
-dbgrbrsVersion :: Lens' DescribeBillingGroupResponse (Maybe Integer)
-dbgrbrsVersion = lens _dbgrbrsVersion (\s a -> s {_dbgrbrsVersion = a})
+describeBillingGroupResponse_version :: Lens.Lens' DescribeBillingGroupResponse (Prelude.Maybe Prelude.Integer)
+describeBillingGroupResponse_version = Lens.lens (\DescribeBillingGroupResponse' {version} -> version) (\s@DescribeBillingGroupResponse' {} a -> s {version = a} :: DescribeBillingGroupResponse)
 
 -- | The ARN of the billing group.
-dbgrbrsBillingGroupARN :: Lens' DescribeBillingGroupResponse (Maybe Text)
-dbgrbrsBillingGroupARN = lens _dbgrbrsBillingGroupARN (\s a -> s {_dbgrbrsBillingGroupARN = a})
+describeBillingGroupResponse_billingGroupArn :: Lens.Lens' DescribeBillingGroupResponse (Prelude.Maybe Prelude.Text)
+describeBillingGroupResponse_billingGroupArn = Lens.lens (\DescribeBillingGroupResponse' {billingGroupArn} -> billingGroupArn) (\s@DescribeBillingGroupResponse' {} a -> s {billingGroupArn = a} :: DescribeBillingGroupResponse)
 
 -- | The ID of the billing group.
-dbgrbrsBillingGroupId :: Lens' DescribeBillingGroupResponse (Maybe Text)
-dbgrbrsBillingGroupId = lens _dbgrbrsBillingGroupId (\s a -> s {_dbgrbrsBillingGroupId = a})
+describeBillingGroupResponse_billingGroupId :: Lens.Lens' DescribeBillingGroupResponse (Prelude.Maybe Prelude.Text)
+describeBillingGroupResponse_billingGroupId = Lens.lens (\DescribeBillingGroupResponse' {billingGroupId} -> billingGroupId) (\s@DescribeBillingGroupResponse' {} a -> s {billingGroupId = a} :: DescribeBillingGroupResponse)
 
 -- | Additional information about the billing group.
-dbgrbrsBillingGroupMetadata :: Lens' DescribeBillingGroupResponse (Maybe BillingGroupMetadata)
-dbgrbrsBillingGroupMetadata = lens _dbgrbrsBillingGroupMetadata (\s a -> s {_dbgrbrsBillingGroupMetadata = a})
+describeBillingGroupResponse_billingGroupMetadata :: Lens.Lens' DescribeBillingGroupResponse (Prelude.Maybe BillingGroupMetadata)
+describeBillingGroupResponse_billingGroupMetadata = Lens.lens (\DescribeBillingGroupResponse' {billingGroupMetadata} -> billingGroupMetadata) (\s@DescribeBillingGroupResponse' {} a -> s {billingGroupMetadata = a} :: DescribeBillingGroupResponse)
 
 -- | The name of the billing group.
-dbgrbrsBillingGroupName :: Lens' DescribeBillingGroupResponse (Maybe Text)
-dbgrbrsBillingGroupName = lens _dbgrbrsBillingGroupName (\s a -> s {_dbgrbrsBillingGroupName = a})
+describeBillingGroupResponse_billingGroupName :: Lens.Lens' DescribeBillingGroupResponse (Prelude.Maybe Prelude.Text)
+describeBillingGroupResponse_billingGroupName = Lens.lens (\DescribeBillingGroupResponse' {billingGroupName} -> billingGroupName) (\s@DescribeBillingGroupResponse' {} a -> s {billingGroupName = a} :: DescribeBillingGroupResponse)
 
--- | -- | The response status code.
-dbgrbrsResponseStatus :: Lens' DescribeBillingGroupResponse Int
-dbgrbrsResponseStatus = lens _dbgrbrsResponseStatus (\s a -> s {_dbgrbrsResponseStatus = a})
+-- | The response's http status code.
+describeBillingGroupResponse_httpStatus :: Lens.Lens' DescribeBillingGroupResponse Prelude.Int
+describeBillingGroupResponse_httpStatus = Lens.lens (\DescribeBillingGroupResponse' {httpStatus} -> httpStatus) (\s@DescribeBillingGroupResponse' {} a -> s {httpStatus = a} :: DescribeBillingGroupResponse)
 
-instance NFData DescribeBillingGroupResponse
+instance Prelude.NFData DescribeBillingGroupResponse

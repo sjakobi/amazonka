@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,58 @@
 module Network.AWS.IoT.Types.LoggingOptionsPayload where
 
 import Network.AWS.IoT.Types.LogLevel
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the logging options payload.
 --
---
---
--- /See:/ 'loggingOptionsPayload' smart constructor.
+-- /See:/ 'newLoggingOptionsPayload' smart constructor.
 data LoggingOptionsPayload = LoggingOptionsPayload'
-  { _lopLogLevel ::
-      !(Maybe LogLevel),
-    _lopRoleARN :: !Text
+  { -- | The log level.
+    logLevel :: Prelude.Maybe LogLevel,
+    -- | The ARN of the IAM role that grants access.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoggingOptionsPayload' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoggingOptionsPayload' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lopLogLevel' - The log level.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lopRoleARN' - The ARN of the IAM role that grants access.
-loggingOptionsPayload ::
-  -- | 'lopRoleARN'
-  Text ->
+-- 'logLevel', 'loggingOptionsPayload_logLevel' - The log level.
+--
+-- 'roleArn', 'loggingOptionsPayload_roleArn' - The ARN of the IAM role that grants access.
+newLoggingOptionsPayload ::
+  -- | 'roleArn'
+  Prelude.Text ->
   LoggingOptionsPayload
-loggingOptionsPayload pRoleARN_ =
+newLoggingOptionsPayload pRoleArn_ =
   LoggingOptionsPayload'
-    { _lopLogLevel = Nothing,
-      _lopRoleARN = pRoleARN_
+    { logLevel = Prelude.Nothing,
+      roleArn = pRoleArn_
     }
 
 -- | The log level.
-lopLogLevel :: Lens' LoggingOptionsPayload (Maybe LogLevel)
-lopLogLevel = lens _lopLogLevel (\s a -> s {_lopLogLevel = a})
+loggingOptionsPayload_logLevel :: Lens.Lens' LoggingOptionsPayload (Prelude.Maybe LogLevel)
+loggingOptionsPayload_logLevel = Lens.lens (\LoggingOptionsPayload' {logLevel} -> logLevel) (\s@LoggingOptionsPayload' {} a -> s {logLevel = a} :: LoggingOptionsPayload)
 
 -- | The ARN of the IAM role that grants access.
-lopRoleARN :: Lens' LoggingOptionsPayload Text
-lopRoleARN = lens _lopRoleARN (\s a -> s {_lopRoleARN = a})
+loggingOptionsPayload_roleArn :: Lens.Lens' LoggingOptionsPayload Prelude.Text
+loggingOptionsPayload_roleArn = Lens.lens (\LoggingOptionsPayload' {roleArn} -> roleArn) (\s@LoggingOptionsPayload' {} a -> s {roleArn = a} :: LoggingOptionsPayload)
 
-instance Hashable LoggingOptionsPayload
+instance Prelude.Hashable LoggingOptionsPayload
 
-instance NFData LoggingOptionsPayload
+instance Prelude.NFData LoggingOptionsPayload
 
-instance ToJSON LoggingOptionsPayload where
+instance Prelude.ToJSON LoggingOptionsPayload where
   toJSON LoggingOptionsPayload' {..} =
-    object
-      ( catMaybes
-          [ ("logLevel" .=) <$> _lopLogLevel,
-            Just ("roleArn" .= _lopRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("logLevel" Prelude..=) Prelude.<$> logLevel,
+            Prelude.Just ("roleArn" Prelude..= roleArn)
           ]
       )

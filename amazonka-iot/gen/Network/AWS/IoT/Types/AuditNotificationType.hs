@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.IoT.Types.AuditNotificationType
   ( AuditNotificationType
       ( ..,
-        ANTSNS
+        AuditNotificationTypeSNS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuditNotificationType
-  = AuditNotificationType'
-      ( CI
-          Text
-      )
+newtype AuditNotificationType = AuditNotificationType'
+  { fromAuditNotificationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ANTSNS :: AuditNotificationType
-pattern ANTSNS = AuditNotificationType' "SNS"
+pattern AuditNotificationTypeSNS :: AuditNotificationType
+pattern AuditNotificationTypeSNS = AuditNotificationType' "SNS"
 
 {-# COMPLETE
-  ANTSNS,
+  AuditNotificationTypeSNS,
   AuditNotificationType'
   #-}
 
-instance FromText AuditNotificationType where
-  parser = (AuditNotificationType' . mk) <$> takeText
+instance Prelude.FromText AuditNotificationType where
+  parser = AuditNotificationType' Prelude.<$> Prelude.takeText
 
-instance ToText AuditNotificationType where
-  toText (AuditNotificationType' ci) = original ci
+instance Prelude.ToText AuditNotificationType where
+  toText (AuditNotificationType' x) = x
 
-instance Hashable AuditNotificationType
+instance Prelude.Hashable AuditNotificationType
 
-instance NFData AuditNotificationType
+instance Prelude.NFData AuditNotificationType
 
-instance ToByteString AuditNotificationType
+instance Prelude.ToByteString AuditNotificationType
 
-instance ToQuery AuditNotificationType
+instance Prelude.ToQuery AuditNotificationType
 
-instance ToHeader AuditNotificationType
+instance Prelude.ToHeader AuditNotificationType
 
-instance ToJSON AuditNotificationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuditNotificationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuditNotificationType where
-  parseJSON = parseJSONText "AuditNotificationType"
+instance Prelude.FromJSON AuditNotificationType where
+  parseJSON = Prelude.parseJSONText "AuditNotificationType"

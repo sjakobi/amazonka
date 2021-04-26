@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,46 +20,54 @@
 module Network.AWS.IoT.Types.Destination where
 
 import Network.AWS.IoT.Types.S3Destination
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the location of the updated firmware.
 --
---
---
--- /See:/ 'destination' smart constructor.
-newtype Destination = Destination'
-  { _dS3Destination ::
-      Maybe S3Destination
+-- /See:/ 'newDestination' smart constructor.
+data Destination = Destination'
+  { -- | Describes the location in S3 of the updated firmware.
+    s3Destination :: Prelude.Maybe S3Destination
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Destination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Destination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dS3Destination' - Describes the location in S3 of the updated firmware.
-destination ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Destination', 'destination_s3Destination' - Describes the location in S3 of the updated firmware.
+newDestination ::
   Destination
-destination = Destination' {_dS3Destination = Nothing}
+newDestination =
+  Destination' {s3Destination = Prelude.Nothing}
 
 -- | Describes the location in S3 of the updated firmware.
-dS3Destination :: Lens' Destination (Maybe S3Destination)
-dS3Destination = lens _dS3Destination (\s a -> s {_dS3Destination = a})
+destination_s3Destination :: Lens.Lens' Destination (Prelude.Maybe S3Destination)
+destination_s3Destination = Lens.lens (\Destination' {s3Destination} -> s3Destination) (\s@Destination' {} a -> s {s3Destination = a} :: Destination)
 
-instance FromJSON Destination where
+instance Prelude.FromJSON Destination where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Destination"
-      (\x -> Destination' <$> (x .:? "s3Destination"))
+      ( \x ->
+          Destination'
+            Prelude.<$> (x Prelude..:? "s3Destination")
+      )
 
-instance Hashable Destination
+instance Prelude.Hashable Destination
 
-instance NFData Destination
+instance Prelude.NFData Destination
 
-instance ToJSON Destination where
+instance Prelude.ToJSON Destination where
   toJSON Destination' {..} =
-    object
-      ( catMaybes
-          [("s3Destination" .=) <$> _dS3Destination]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("s3Destination" Prelude..=)
+              Prelude.<$> s3Destination
+          ]
       )

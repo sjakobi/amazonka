@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,185 +23,193 @@
 --
 -- Lists certificates that are being transferred but not yet accepted.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListOutgoingCertificates
   ( -- * Creating a Request
-    listOutgoingCertificates,
-    ListOutgoingCertificates,
+    ListOutgoingCertificates (..),
+    newListOutgoingCertificates,
 
     -- * Request Lenses
-    locPageSize,
-    locAscendingOrder,
-    locMarker,
+    listOutgoingCertificates_pageSize,
+    listOutgoingCertificates_ascendingOrder,
+    listOutgoingCertificates_marker,
 
     -- * Destructuring the Response
-    listOutgoingCertificatesResponse,
-    ListOutgoingCertificatesResponse,
+    ListOutgoingCertificatesResponse (..),
+    newListOutgoingCertificatesResponse,
 
     -- * Response Lenses
-    locrrsNextMarker,
-    locrrsOutgoingCertificates,
-    locrrsResponseStatus,
+    listOutgoingCertificatesResponse_nextMarker,
+    listOutgoingCertificatesResponse_outgoingCertificates,
+    listOutgoingCertificatesResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.OutgoingCertificate
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input to the ListOutgoingCertificates operation.
 --
---
---
--- /See:/ 'listOutgoingCertificates' smart constructor.
+-- /See:/ 'newListOutgoingCertificates' smart constructor.
 data ListOutgoingCertificates = ListOutgoingCertificates'
-  { _locPageSize ::
-      !(Maybe Nat),
-    _locAscendingOrder ::
-      !(Maybe Bool),
-    _locMarker ::
-      !(Maybe Text)
+  { -- | The result page size.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the order for results. If True, the results are returned in
+    -- ascending order, based on the creation date.
+    ascendingOrder :: Prelude.Maybe Prelude.Bool,
+    -- | The marker for the next set of results.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOutgoingCertificates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOutgoingCertificates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'locPageSize' - The result page size.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'locAscendingOrder' - Specifies the order for results. If True, the results are returned in ascending order, based on the creation date.
+-- 'pageSize', 'listOutgoingCertificates_pageSize' - The result page size.
 --
--- * 'locMarker' - The marker for the next set of results.
-listOutgoingCertificates ::
+-- 'ascendingOrder', 'listOutgoingCertificates_ascendingOrder' - Specifies the order for results. If True, the results are returned in
+-- ascending order, based on the creation date.
+--
+-- 'marker', 'listOutgoingCertificates_marker' - The marker for the next set of results.
+newListOutgoingCertificates ::
   ListOutgoingCertificates
-listOutgoingCertificates =
+newListOutgoingCertificates =
   ListOutgoingCertificates'
-    { _locPageSize = Nothing,
-      _locAscendingOrder = Nothing,
-      _locMarker = Nothing
+    { pageSize =
+        Prelude.Nothing,
+      ascendingOrder = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The result page size.
-locPageSize :: Lens' ListOutgoingCertificates (Maybe Natural)
-locPageSize = lens _locPageSize (\s a -> s {_locPageSize = a}) . mapping _Nat
+listOutgoingCertificates_pageSize :: Lens.Lens' ListOutgoingCertificates (Prelude.Maybe Prelude.Natural)
+listOutgoingCertificates_pageSize = Lens.lens (\ListOutgoingCertificates' {pageSize} -> pageSize) (\s@ListOutgoingCertificates' {} a -> s {pageSize = a} :: ListOutgoingCertificates) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies the order for results. If True, the results are returned in ascending order, based on the creation date.
-locAscendingOrder :: Lens' ListOutgoingCertificates (Maybe Bool)
-locAscendingOrder = lens _locAscendingOrder (\s a -> s {_locAscendingOrder = a})
+-- | Specifies the order for results. If True, the results are returned in
+-- ascending order, based on the creation date.
+listOutgoingCertificates_ascendingOrder :: Lens.Lens' ListOutgoingCertificates (Prelude.Maybe Prelude.Bool)
+listOutgoingCertificates_ascendingOrder = Lens.lens (\ListOutgoingCertificates' {ascendingOrder} -> ascendingOrder) (\s@ListOutgoingCertificates' {} a -> s {ascendingOrder = a} :: ListOutgoingCertificates)
 
 -- | The marker for the next set of results.
-locMarker :: Lens' ListOutgoingCertificates (Maybe Text)
-locMarker = lens _locMarker (\s a -> s {_locMarker = a})
+listOutgoingCertificates_marker :: Lens.Lens' ListOutgoingCertificates (Prelude.Maybe Prelude.Text)
+listOutgoingCertificates_marker = Lens.lens (\ListOutgoingCertificates' {marker} -> marker) (\s@ListOutgoingCertificates' {} a -> s {marker = a} :: ListOutgoingCertificates)
 
-instance AWSPager ListOutgoingCertificates where
+instance Pager.AWSPager ListOutgoingCertificates where
   page rq rs
-    | stop (rs ^. locrrsNextMarker) = Nothing
-    | stop (rs ^. locrrsOutgoingCertificates) = Nothing
-    | otherwise =
-      Just $ rq & locMarker .~ rs ^. locrrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listOutgoingCertificatesResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listOutgoingCertificatesResponse_outgoingCertificates
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listOutgoingCertificates_marker
+          Lens..~ rs
+          Lens.^? listOutgoingCertificatesResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListOutgoingCertificates where
+instance Prelude.AWSRequest ListOutgoingCertificates where
   type
     Rs ListOutgoingCertificates =
       ListOutgoingCertificatesResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListOutgoingCertificatesResponse'
-            <$> (x .?> "nextMarker")
-            <*> (x .?> "outgoingCertificates" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextMarker")
+            Prelude.<*> ( x Prelude..?> "outgoingCertificates"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListOutgoingCertificates
+instance Prelude.Hashable ListOutgoingCertificates
 
-instance NFData ListOutgoingCertificates
+instance Prelude.NFData ListOutgoingCertificates
 
-instance ToHeaders ListOutgoingCertificates where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListOutgoingCertificates where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListOutgoingCertificates where
-  toPath = const "/certificates-out-going"
+instance Prelude.ToPath ListOutgoingCertificates where
+  toPath = Prelude.const "/certificates-out-going"
 
-instance ToQuery ListOutgoingCertificates where
+instance Prelude.ToQuery ListOutgoingCertificates where
   toQuery ListOutgoingCertificates' {..} =
-    mconcat
-      [ "pageSize" =: _locPageSize,
-        "isAscendingOrder" =: _locAscendingOrder,
-        "marker" =: _locMarker
+    Prelude.mconcat
+      [ "pageSize" Prelude.=: pageSize,
+        "isAscendingOrder" Prelude.=: ascendingOrder,
+        "marker" Prelude.=: marker
       ]
 
 -- | The output from the ListOutgoingCertificates operation.
 --
---
---
--- /See:/ 'listOutgoingCertificatesResponse' smart constructor.
+-- /See:/ 'newListOutgoingCertificatesResponse' smart constructor.
 data ListOutgoingCertificatesResponse = ListOutgoingCertificatesResponse'
-  { _locrrsNextMarker ::
-      !( Maybe
-           Text
-       ),
-    _locrrsOutgoingCertificates ::
-      !( Maybe
-           [OutgoingCertificate]
-       ),
-    _locrrsResponseStatus ::
-      !Int
+  { -- | The marker for the next set of results.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The certificates that are being transferred but not yet accepted.
+    outgoingCertificates :: Prelude.Maybe [OutgoingCertificate],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOutgoingCertificatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOutgoingCertificatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'locrrsNextMarker' - The marker for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'locrrsOutgoingCertificates' - The certificates that are being transferred but not yet accepted.
+-- 'nextMarker', 'listOutgoingCertificatesResponse_nextMarker' - The marker for the next set of results.
 --
--- * 'locrrsResponseStatus' - -- | The response status code.
-listOutgoingCertificatesResponse ::
-  -- | 'locrrsResponseStatus'
-  Int ->
+-- 'outgoingCertificates', 'listOutgoingCertificatesResponse_outgoingCertificates' - The certificates that are being transferred but not yet accepted.
+--
+-- 'httpStatus', 'listOutgoingCertificatesResponse_httpStatus' - The response's http status code.
+newListOutgoingCertificatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListOutgoingCertificatesResponse
-listOutgoingCertificatesResponse pResponseStatus_ =
+newListOutgoingCertificatesResponse pHttpStatus_ =
   ListOutgoingCertificatesResponse'
-    { _locrrsNextMarker =
-        Nothing,
-      _locrrsOutgoingCertificates = Nothing,
-      _locrrsResponseStatus = pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      outgoingCertificates = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The marker for the next set of results.
-locrrsNextMarker :: Lens' ListOutgoingCertificatesResponse (Maybe Text)
-locrrsNextMarker = lens _locrrsNextMarker (\s a -> s {_locrrsNextMarker = a})
+listOutgoingCertificatesResponse_nextMarker :: Lens.Lens' ListOutgoingCertificatesResponse (Prelude.Maybe Prelude.Text)
+listOutgoingCertificatesResponse_nextMarker = Lens.lens (\ListOutgoingCertificatesResponse' {nextMarker} -> nextMarker) (\s@ListOutgoingCertificatesResponse' {} a -> s {nextMarker = a} :: ListOutgoingCertificatesResponse)
 
 -- | The certificates that are being transferred but not yet accepted.
-locrrsOutgoingCertificates :: Lens' ListOutgoingCertificatesResponse [OutgoingCertificate]
-locrrsOutgoingCertificates = lens _locrrsOutgoingCertificates (\s a -> s {_locrrsOutgoingCertificates = a}) . _Default . _Coerce
+listOutgoingCertificatesResponse_outgoingCertificates :: Lens.Lens' ListOutgoingCertificatesResponse (Prelude.Maybe [OutgoingCertificate])
+listOutgoingCertificatesResponse_outgoingCertificates = Lens.lens (\ListOutgoingCertificatesResponse' {outgoingCertificates} -> outgoingCertificates) (\s@ListOutgoingCertificatesResponse' {} a -> s {outgoingCertificates = a} :: ListOutgoingCertificatesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-locrrsResponseStatus :: Lens' ListOutgoingCertificatesResponse Int
-locrrsResponseStatus = lens _locrrsResponseStatus (\s a -> s {_locrrsResponseStatus = a})
+-- | The response's http status code.
+listOutgoingCertificatesResponse_httpStatus :: Lens.Lens' ListOutgoingCertificatesResponse Prelude.Int
+listOutgoingCertificatesResponse_httpStatus = Lens.lens (\ListOutgoingCertificatesResponse' {httpStatus} -> httpStatus) (\s@ListOutgoingCertificatesResponse' {} a -> s {httpStatus = a} :: ListOutgoingCertificatesResponse)
 
-instance NFData ListOutgoingCertificatesResponse
+instance
+  Prelude.NFData
+    ListOutgoingCertificatesResponse

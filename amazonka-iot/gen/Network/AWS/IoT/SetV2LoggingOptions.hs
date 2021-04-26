@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,112 +24,117 @@
 -- Sets the logging options for the V2 logging service.
 module Network.AWS.IoT.SetV2LoggingOptions
   ( -- * Creating a Request
-    setV2LoggingOptions,
-    SetV2LoggingOptions,
+    SetV2LoggingOptions (..),
+    newSetV2LoggingOptions,
 
     -- * Request Lenses
-    svloRoleARN,
-    svloDisableAllLogs,
-    svloDefaultLogLevel,
+    setV2LoggingOptions_roleArn,
+    setV2LoggingOptions_disableAllLogs,
+    setV2LoggingOptions_defaultLogLevel,
 
     -- * Destructuring the Response
-    setV2LoggingOptionsResponse,
-    SetV2LoggingOptionsResponse,
+    SetV2LoggingOptionsResponse (..),
+    newSetV2LoggingOptionsResponse,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'setV2LoggingOptions' smart constructor.
+-- | /See:/ 'newSetV2LoggingOptions' smart constructor.
 data SetV2LoggingOptions = SetV2LoggingOptions'
-  { _svloRoleARN ::
-      !(Maybe Text),
-    _svloDisableAllLogs ::
-      !(Maybe Bool),
-    _svloDefaultLogLevel ::
-      !(Maybe LogLevel)
+  { -- | The ARN of the role that allows IoT to write to Cloudwatch logs.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | If true all logs are disabled. The default is false.
+    disableAllLogs :: Prelude.Maybe Prelude.Bool,
+    -- | The default logging level.
+    defaultLogLevel :: Prelude.Maybe LogLevel
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetV2LoggingOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetV2LoggingOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'svloRoleARN' - The ARN of the role that allows IoT to write to Cloudwatch logs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'svloDisableAllLogs' - If true all logs are disabled. The default is false.
+-- 'roleArn', 'setV2LoggingOptions_roleArn' - The ARN of the role that allows IoT to write to Cloudwatch logs.
 --
--- * 'svloDefaultLogLevel' - The default logging level.
-setV2LoggingOptions ::
+-- 'disableAllLogs', 'setV2LoggingOptions_disableAllLogs' - If true all logs are disabled. The default is false.
+--
+-- 'defaultLogLevel', 'setV2LoggingOptions_defaultLogLevel' - The default logging level.
+newSetV2LoggingOptions ::
   SetV2LoggingOptions
-setV2LoggingOptions =
+newSetV2LoggingOptions =
   SetV2LoggingOptions'
-    { _svloRoleARN = Nothing,
-      _svloDisableAllLogs = Nothing,
-      _svloDefaultLogLevel = Nothing
+    { roleArn = Prelude.Nothing,
+      disableAllLogs = Prelude.Nothing,
+      defaultLogLevel = Prelude.Nothing
     }
 
 -- | The ARN of the role that allows IoT to write to Cloudwatch logs.
-svloRoleARN :: Lens' SetV2LoggingOptions (Maybe Text)
-svloRoleARN = lens _svloRoleARN (\s a -> s {_svloRoleARN = a})
+setV2LoggingOptions_roleArn :: Lens.Lens' SetV2LoggingOptions (Prelude.Maybe Prelude.Text)
+setV2LoggingOptions_roleArn = Lens.lens (\SetV2LoggingOptions' {roleArn} -> roleArn) (\s@SetV2LoggingOptions' {} a -> s {roleArn = a} :: SetV2LoggingOptions)
 
 -- | If true all logs are disabled. The default is false.
-svloDisableAllLogs :: Lens' SetV2LoggingOptions (Maybe Bool)
-svloDisableAllLogs = lens _svloDisableAllLogs (\s a -> s {_svloDisableAllLogs = a})
+setV2LoggingOptions_disableAllLogs :: Lens.Lens' SetV2LoggingOptions (Prelude.Maybe Prelude.Bool)
+setV2LoggingOptions_disableAllLogs = Lens.lens (\SetV2LoggingOptions' {disableAllLogs} -> disableAllLogs) (\s@SetV2LoggingOptions' {} a -> s {disableAllLogs = a} :: SetV2LoggingOptions)
 
 -- | The default logging level.
-svloDefaultLogLevel :: Lens' SetV2LoggingOptions (Maybe LogLevel)
-svloDefaultLogLevel = lens _svloDefaultLogLevel (\s a -> s {_svloDefaultLogLevel = a})
+setV2LoggingOptions_defaultLogLevel :: Lens.Lens' SetV2LoggingOptions (Prelude.Maybe LogLevel)
+setV2LoggingOptions_defaultLogLevel = Lens.lens (\SetV2LoggingOptions' {defaultLogLevel} -> defaultLogLevel) (\s@SetV2LoggingOptions' {} a -> s {defaultLogLevel = a} :: SetV2LoggingOptions)
 
-instance AWSRequest SetV2LoggingOptions where
+instance Prelude.AWSRequest SetV2LoggingOptions where
   type
     Rs SetV2LoggingOptions =
       SetV2LoggingOptionsResponse
-  request = postJSON ioT
-  response = receiveNull SetV2LoggingOptionsResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull SetV2LoggingOptionsResponse'
 
-instance Hashable SetV2LoggingOptions
+instance Prelude.Hashable SetV2LoggingOptions
 
-instance NFData SetV2LoggingOptions
+instance Prelude.NFData SetV2LoggingOptions
 
-instance ToHeaders SetV2LoggingOptions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SetV2LoggingOptions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON SetV2LoggingOptions where
+instance Prelude.ToJSON SetV2LoggingOptions where
   toJSON SetV2LoggingOptions' {..} =
-    object
-      ( catMaybes
-          [ ("roleArn" .=) <$> _svloRoleARN,
-            ("disableAllLogs" .=) <$> _svloDisableAllLogs,
-            ("defaultLogLevel" .=) <$> _svloDefaultLogLevel
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("roleArn" Prelude..=) Prelude.<$> roleArn,
+            ("disableAllLogs" Prelude..=)
+              Prelude.<$> disableAllLogs,
+            ("defaultLogLevel" Prelude..=)
+              Prelude.<$> defaultLogLevel
           ]
       )
 
-instance ToPath SetV2LoggingOptions where
-  toPath = const "/v2LoggingOptions"
+instance Prelude.ToPath SetV2LoggingOptions where
+  toPath = Prelude.const "/v2LoggingOptions"
 
-instance ToQuery SetV2LoggingOptions where
-  toQuery = const mempty
+instance Prelude.ToQuery SetV2LoggingOptions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'setV2LoggingOptionsResponse' smart constructor.
+-- | /See:/ 'newSetV2LoggingOptionsResponse' smart constructor.
 data SetV2LoggingOptionsResponse = SetV2LoggingOptionsResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetV2LoggingOptionsResponse' with the minimum fields required to make a request.
-setV2LoggingOptionsResponse ::
+-- |
+-- Create a value of 'SetV2LoggingOptionsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newSetV2LoggingOptionsResponse ::
   SetV2LoggingOptionsResponse
-setV2LoggingOptionsResponse =
+newSetV2LoggingOptionsResponse =
   SetV2LoggingOptionsResponse'
 
-instance NFData SetV2LoggingOptionsResponse
+instance Prelude.NFData SetV2LoggingOptionsResponse

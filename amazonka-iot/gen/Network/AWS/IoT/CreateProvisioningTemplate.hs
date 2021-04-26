@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,240 +24,262 @@
 -- Creates a fleet provisioning template.
 module Network.AWS.IoT.CreateProvisioningTemplate
   ( -- * Creating a Request
-    createProvisioningTemplate,
-    CreateProvisioningTemplate,
+    CreateProvisioningTemplate (..),
+    newCreateProvisioningTemplate,
 
     -- * Request Lenses
-    cptEnabled,
-    cptPreProvisioningHook,
-    cptTags,
-    cptDescription,
-    cptTemplateName,
-    cptTemplateBody,
-    cptProvisioningRoleARN,
+    createProvisioningTemplate_enabled,
+    createProvisioningTemplate_preProvisioningHook,
+    createProvisioningTemplate_tags,
+    createProvisioningTemplate_description,
+    createProvisioningTemplate_templateName,
+    createProvisioningTemplate_templateBody,
+    createProvisioningTemplate_provisioningRoleArn,
 
     -- * Destructuring the Response
-    createProvisioningTemplateResponse,
-    CreateProvisioningTemplateResponse,
+    CreateProvisioningTemplateResponse (..),
+    newCreateProvisioningTemplateResponse,
 
     -- * Response Lenses
-    cptrrsTemplateName,
-    cptrrsDefaultVersionId,
-    cptrrsTemplateARN,
-    cptrrsResponseStatus,
+    createProvisioningTemplateResponse_templateName,
+    createProvisioningTemplateResponse_defaultVersionId,
+    createProvisioningTemplateResponse_templateArn,
+    createProvisioningTemplateResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createProvisioningTemplate' smart constructor.
+-- | /See:/ 'newCreateProvisioningTemplate' smart constructor.
 data CreateProvisioningTemplate = CreateProvisioningTemplate'
-  { _cptEnabled ::
-      !(Maybe Bool),
-    _cptPreProvisioningHook ::
-      !( Maybe
-           ProvisioningHook
-       ),
-    _cptTags ::
-      !(Maybe [Tag]),
-    _cptDescription ::
-      !(Maybe Text),
-    _cptTemplateName ::
-      !Text,
-    _cptTemplateBody ::
-      !Text,
-    _cptProvisioningRoleARN ::
-      !Text
+  { -- | True to enable the fleet provisioning template, otherwise false.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | Creates a pre-provisioning hook template.
+    preProvisioningHook :: Prelude.Maybe ProvisioningHook,
+    -- | Metadata which can be used to manage the fleet provisioning template.
+    --
+    -- For URI Request parameters use format: ...key1=value1&key2=value2...
+    --
+    -- For the CLI command-line parameter use format: &&tags
+    -- \"key1=value1&key2=value2...\"
+    --
+    -- For the cli-input-json file use format: \"tags\":
+    -- \"key1=value1&key2=value2...\"
+    tags :: Prelude.Maybe [Tag],
+    -- | The description of the fleet provisioning template.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the fleet provisioning template.
+    templateName :: Prelude.Text,
+    -- | The JSON formatted contents of the fleet provisioning template.
+    templateBody :: Prelude.Text,
+    -- | The role ARN for the role associated with the fleet provisioning
+    -- template. This IoT role grants permission to provision a device.
+    provisioningRoleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProvisioningTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProvisioningTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cptEnabled' - True to enable the fleet provisioning template, otherwise false.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cptPreProvisioningHook' - Creates a pre-provisioning hook template.
+-- 'enabled', 'createProvisioningTemplate_enabled' - True to enable the fleet provisioning template, otherwise false.
 --
--- * 'cptTags' - Metadata which can be used to manage the fleet provisioning template.
+-- 'preProvisioningHook', 'createProvisioningTemplate_preProvisioningHook' - Creates a pre-provisioning hook template.
 --
--- * 'cptDescription' - The description of the fleet provisioning template.
+-- 'tags', 'createProvisioningTemplate_tags' - Metadata which can be used to manage the fleet provisioning template.
 --
--- * 'cptTemplateName' - The name of the fleet provisioning template.
+-- For URI Request parameters use format: ...key1=value1&key2=value2...
 --
--- * 'cptTemplateBody' - The JSON formatted contents of the fleet provisioning template.
+-- For the CLI command-line parameter use format: &&tags
+-- \"key1=value1&key2=value2...\"
 --
--- * 'cptProvisioningRoleARN' - The role ARN for the role associated with the fleet provisioning template. This IoT role grants permission to provision a device.
-createProvisioningTemplate ::
-  -- | 'cptTemplateName'
-  Text ->
-  -- | 'cptTemplateBody'
-  Text ->
-  -- | 'cptProvisioningRoleARN'
-  Text ->
+-- For the cli-input-json file use format: \"tags\":
+-- \"key1=value1&key2=value2...\"
+--
+-- 'description', 'createProvisioningTemplate_description' - The description of the fleet provisioning template.
+--
+-- 'templateName', 'createProvisioningTemplate_templateName' - The name of the fleet provisioning template.
+--
+-- 'templateBody', 'createProvisioningTemplate_templateBody' - The JSON formatted contents of the fleet provisioning template.
+--
+-- 'provisioningRoleArn', 'createProvisioningTemplate_provisioningRoleArn' - The role ARN for the role associated with the fleet provisioning
+-- template. This IoT role grants permission to provision a device.
+newCreateProvisioningTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'templateBody'
+  Prelude.Text ->
+  -- | 'provisioningRoleArn'
+  Prelude.Text ->
   CreateProvisioningTemplate
-createProvisioningTemplate
+newCreateProvisioningTemplate
   pTemplateName_
   pTemplateBody_
-  pProvisioningRoleARN_ =
+  pProvisioningRoleArn_ =
     CreateProvisioningTemplate'
-      { _cptEnabled = Nothing,
-        _cptPreProvisioningHook = Nothing,
-        _cptTags = Nothing,
-        _cptDescription = Nothing,
-        _cptTemplateName = pTemplateName_,
-        _cptTemplateBody = pTemplateBody_,
-        _cptProvisioningRoleARN = pProvisioningRoleARN_
+      { enabled =
+          Prelude.Nothing,
+        preProvisioningHook = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        description = Prelude.Nothing,
+        templateName = pTemplateName_,
+        templateBody = pTemplateBody_,
+        provisioningRoleArn = pProvisioningRoleArn_
       }
 
 -- | True to enable the fleet provisioning template, otherwise false.
-cptEnabled :: Lens' CreateProvisioningTemplate (Maybe Bool)
-cptEnabled = lens _cptEnabled (\s a -> s {_cptEnabled = a})
+createProvisioningTemplate_enabled :: Lens.Lens' CreateProvisioningTemplate (Prelude.Maybe Prelude.Bool)
+createProvisioningTemplate_enabled = Lens.lens (\CreateProvisioningTemplate' {enabled} -> enabled) (\s@CreateProvisioningTemplate' {} a -> s {enabled = a} :: CreateProvisioningTemplate)
 
 -- | Creates a pre-provisioning hook template.
-cptPreProvisioningHook :: Lens' CreateProvisioningTemplate (Maybe ProvisioningHook)
-cptPreProvisioningHook = lens _cptPreProvisioningHook (\s a -> s {_cptPreProvisioningHook = a})
+createProvisioningTemplate_preProvisioningHook :: Lens.Lens' CreateProvisioningTemplate (Prelude.Maybe ProvisioningHook)
+createProvisioningTemplate_preProvisioningHook = Lens.lens (\CreateProvisioningTemplate' {preProvisioningHook} -> preProvisioningHook) (\s@CreateProvisioningTemplate' {} a -> s {preProvisioningHook = a} :: CreateProvisioningTemplate)
 
 -- | Metadata which can be used to manage the fleet provisioning template.
-cptTags :: Lens' CreateProvisioningTemplate [Tag]
-cptTags = lens _cptTags (\s a -> s {_cptTags = a}) . _Default . _Coerce
+--
+-- For URI Request parameters use format: ...key1=value1&key2=value2...
+--
+-- For the CLI command-line parameter use format: &&tags
+-- \"key1=value1&key2=value2...\"
+--
+-- For the cli-input-json file use format: \"tags\":
+-- \"key1=value1&key2=value2...\"
+createProvisioningTemplate_tags :: Lens.Lens' CreateProvisioningTemplate (Prelude.Maybe [Tag])
+createProvisioningTemplate_tags = Lens.lens (\CreateProvisioningTemplate' {tags} -> tags) (\s@CreateProvisioningTemplate' {} a -> s {tags = a} :: CreateProvisioningTemplate) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the fleet provisioning template.
-cptDescription :: Lens' CreateProvisioningTemplate (Maybe Text)
-cptDescription = lens _cptDescription (\s a -> s {_cptDescription = a})
+createProvisioningTemplate_description :: Lens.Lens' CreateProvisioningTemplate (Prelude.Maybe Prelude.Text)
+createProvisioningTemplate_description = Lens.lens (\CreateProvisioningTemplate' {description} -> description) (\s@CreateProvisioningTemplate' {} a -> s {description = a} :: CreateProvisioningTemplate)
 
 -- | The name of the fleet provisioning template.
-cptTemplateName :: Lens' CreateProvisioningTemplate Text
-cptTemplateName = lens _cptTemplateName (\s a -> s {_cptTemplateName = a})
+createProvisioningTemplate_templateName :: Lens.Lens' CreateProvisioningTemplate Prelude.Text
+createProvisioningTemplate_templateName = Lens.lens (\CreateProvisioningTemplate' {templateName} -> templateName) (\s@CreateProvisioningTemplate' {} a -> s {templateName = a} :: CreateProvisioningTemplate)
 
 -- | The JSON formatted contents of the fleet provisioning template.
-cptTemplateBody :: Lens' CreateProvisioningTemplate Text
-cptTemplateBody = lens _cptTemplateBody (\s a -> s {_cptTemplateBody = a})
+createProvisioningTemplate_templateBody :: Lens.Lens' CreateProvisioningTemplate Prelude.Text
+createProvisioningTemplate_templateBody = Lens.lens (\CreateProvisioningTemplate' {templateBody} -> templateBody) (\s@CreateProvisioningTemplate' {} a -> s {templateBody = a} :: CreateProvisioningTemplate)
 
--- | The role ARN for the role associated with the fleet provisioning template. This IoT role grants permission to provision a device.
-cptProvisioningRoleARN :: Lens' CreateProvisioningTemplate Text
-cptProvisioningRoleARN = lens _cptProvisioningRoleARN (\s a -> s {_cptProvisioningRoleARN = a})
+-- | The role ARN for the role associated with the fleet provisioning
+-- template. This IoT role grants permission to provision a device.
+createProvisioningTemplate_provisioningRoleArn :: Lens.Lens' CreateProvisioningTemplate Prelude.Text
+createProvisioningTemplate_provisioningRoleArn = Lens.lens (\CreateProvisioningTemplate' {provisioningRoleArn} -> provisioningRoleArn) (\s@CreateProvisioningTemplate' {} a -> s {provisioningRoleArn = a} :: CreateProvisioningTemplate)
 
-instance AWSRequest CreateProvisioningTemplate where
+instance
+  Prelude.AWSRequest
+    CreateProvisioningTemplate
+  where
   type
     Rs CreateProvisioningTemplate =
       CreateProvisioningTemplateResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateProvisioningTemplateResponse'
-            <$> (x .?> "templateName")
-            <*> (x .?> "defaultVersionId")
-            <*> (x .?> "templateArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "templateName")
+            Prelude.<*> (x Prelude..?> "defaultVersionId")
+            Prelude.<*> (x Prelude..?> "templateArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateProvisioningTemplate
+instance Prelude.Hashable CreateProvisioningTemplate
 
-instance NFData CreateProvisioningTemplate
+instance Prelude.NFData CreateProvisioningTemplate
 
-instance ToHeaders CreateProvisioningTemplate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateProvisioningTemplate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateProvisioningTemplate where
+instance Prelude.ToJSON CreateProvisioningTemplate where
   toJSON CreateProvisioningTemplate' {..} =
-    object
-      ( catMaybes
-          [ ("enabled" .=) <$> _cptEnabled,
-            ("preProvisioningHook" .=)
-              <$> _cptPreProvisioningHook,
-            ("tags" .=) <$> _cptTags,
-            ("description" .=) <$> _cptDescription,
-            Just ("templateName" .= _cptTemplateName),
-            Just ("templateBody" .= _cptTemplateBody),
-            Just
-              ("provisioningRoleArn" .= _cptProvisioningRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("enabled" Prelude..=) Prelude.<$> enabled,
+            ("preProvisioningHook" Prelude..=)
+              Prelude.<$> preProvisioningHook,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("description" Prelude..=) Prelude.<$> description,
+            Prelude.Just
+              ("templateName" Prelude..= templateName),
+            Prelude.Just
+              ("templateBody" Prelude..= templateBody),
+            Prelude.Just
+              ( "provisioningRoleArn"
+                  Prelude..= provisioningRoleArn
+              )
           ]
       )
 
-instance ToPath CreateProvisioningTemplate where
-  toPath = const "/provisioning-templates"
+instance Prelude.ToPath CreateProvisioningTemplate where
+  toPath = Prelude.const "/provisioning-templates"
 
-instance ToQuery CreateProvisioningTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateProvisioningTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createProvisioningTemplateResponse' smart constructor.
+-- | /See:/ 'newCreateProvisioningTemplateResponse' smart constructor.
 data CreateProvisioningTemplateResponse = CreateProvisioningTemplateResponse'
-  { _cptrrsTemplateName ::
-      !( Maybe
-           Text
-       ),
-    _cptrrsDefaultVersionId ::
-      !( Maybe
-           Int
-       ),
-    _cptrrsTemplateARN ::
-      !( Maybe
-           Text
-       ),
-    _cptrrsResponseStatus ::
-      !Int
+  { -- | The name of the fleet provisioning template.
+    templateName :: Prelude.Maybe Prelude.Text,
+    -- | The default version of the fleet provisioning template.
+    defaultVersionId :: Prelude.Maybe Prelude.Int,
+    -- | The ARN that identifies the provisioning template.
+    templateArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProvisioningTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProvisioningTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cptrrsTemplateName' - The name of the fleet provisioning template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cptrrsDefaultVersionId' - The default version of the fleet provisioning template.
+-- 'templateName', 'createProvisioningTemplateResponse_templateName' - The name of the fleet provisioning template.
 --
--- * 'cptrrsTemplateARN' - The ARN that identifies the provisioning template.
+-- 'defaultVersionId', 'createProvisioningTemplateResponse_defaultVersionId' - The default version of the fleet provisioning template.
 --
--- * 'cptrrsResponseStatus' - -- | The response status code.
-createProvisioningTemplateResponse ::
-  -- | 'cptrrsResponseStatus'
-  Int ->
+-- 'templateArn', 'createProvisioningTemplateResponse_templateArn' - The ARN that identifies the provisioning template.
+--
+-- 'httpStatus', 'createProvisioningTemplateResponse_httpStatus' - The response's http status code.
+newCreateProvisioningTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateProvisioningTemplateResponse
-createProvisioningTemplateResponse pResponseStatus_ =
+newCreateProvisioningTemplateResponse pHttpStatus_ =
   CreateProvisioningTemplateResponse'
-    { _cptrrsTemplateName =
-        Nothing,
-      _cptrrsDefaultVersionId = Nothing,
-      _cptrrsTemplateARN = Nothing,
-      _cptrrsResponseStatus =
-        pResponseStatus_
+    { templateName =
+        Prelude.Nothing,
+      defaultVersionId = Prelude.Nothing,
+      templateArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the fleet provisioning template.
-cptrrsTemplateName :: Lens' CreateProvisioningTemplateResponse (Maybe Text)
-cptrrsTemplateName = lens _cptrrsTemplateName (\s a -> s {_cptrrsTemplateName = a})
+createProvisioningTemplateResponse_templateName :: Lens.Lens' CreateProvisioningTemplateResponse (Prelude.Maybe Prelude.Text)
+createProvisioningTemplateResponse_templateName = Lens.lens (\CreateProvisioningTemplateResponse' {templateName} -> templateName) (\s@CreateProvisioningTemplateResponse' {} a -> s {templateName = a} :: CreateProvisioningTemplateResponse)
 
 -- | The default version of the fleet provisioning template.
-cptrrsDefaultVersionId :: Lens' CreateProvisioningTemplateResponse (Maybe Int)
-cptrrsDefaultVersionId = lens _cptrrsDefaultVersionId (\s a -> s {_cptrrsDefaultVersionId = a})
+createProvisioningTemplateResponse_defaultVersionId :: Lens.Lens' CreateProvisioningTemplateResponse (Prelude.Maybe Prelude.Int)
+createProvisioningTemplateResponse_defaultVersionId = Lens.lens (\CreateProvisioningTemplateResponse' {defaultVersionId} -> defaultVersionId) (\s@CreateProvisioningTemplateResponse' {} a -> s {defaultVersionId = a} :: CreateProvisioningTemplateResponse)
 
 -- | The ARN that identifies the provisioning template.
-cptrrsTemplateARN :: Lens' CreateProvisioningTemplateResponse (Maybe Text)
-cptrrsTemplateARN = lens _cptrrsTemplateARN (\s a -> s {_cptrrsTemplateARN = a})
+createProvisioningTemplateResponse_templateArn :: Lens.Lens' CreateProvisioningTemplateResponse (Prelude.Maybe Prelude.Text)
+createProvisioningTemplateResponse_templateArn = Lens.lens (\CreateProvisioningTemplateResponse' {templateArn} -> templateArn) (\s@CreateProvisioningTemplateResponse' {} a -> s {templateArn = a} :: CreateProvisioningTemplateResponse)
 
--- | -- | The response status code.
-cptrrsResponseStatus :: Lens' CreateProvisioningTemplateResponse Int
-cptrrsResponseStatus = lens _cptrrsResponseStatus (\s a -> s {_cptrrsResponseStatus = a})
+-- | The response's http status code.
+createProvisioningTemplateResponse_httpStatus :: Lens.Lens' CreateProvisioningTemplateResponse Prelude.Int
+createProvisioningTemplateResponse_httpStatus = Lens.lens (\CreateProvisioningTemplateResponse' {httpStatus} -> httpStatus) (\s@CreateProvisioningTemplateResponse' {} a -> s {httpStatus = a} :: CreateProvisioningTemplateResponse)
 
-instance NFData CreateProvisioningTemplateResponse
+instance
+  Prelude.NFData
+    CreateProvisioningTemplateResponse

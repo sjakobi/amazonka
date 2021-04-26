@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.IoT.Types.MessageFormat
   ( MessageFormat
       ( ..,
-        JSON,
-        Raw
+        MessageFormatJSON,
+        MessageFormatRAW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MessageFormat = MessageFormat' (CI Text)
+newtype MessageFormat = MessageFormat'
+  { fromMessageFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JSON :: MessageFormat
-pattern JSON = MessageFormat' "JSON"
+pattern MessageFormatJSON :: MessageFormat
+pattern MessageFormatJSON = MessageFormat' "JSON"
 
-pattern Raw :: MessageFormat
-pattern Raw = MessageFormat' "RAW"
+pattern MessageFormatRAW :: MessageFormat
+pattern MessageFormatRAW = MessageFormat' "RAW"
 
 {-# COMPLETE
-  JSON,
-  Raw,
+  MessageFormatJSON,
+  MessageFormatRAW,
   MessageFormat'
   #-}
 
-instance FromText MessageFormat where
-  parser = (MessageFormat' . mk) <$> takeText
+instance Prelude.FromText MessageFormat where
+  parser = MessageFormat' Prelude.<$> Prelude.takeText
 
-instance ToText MessageFormat where
-  toText (MessageFormat' ci) = original ci
+instance Prelude.ToText MessageFormat where
+  toText (MessageFormat' x) = x
 
-instance Hashable MessageFormat
+instance Prelude.Hashable MessageFormat
 
-instance NFData MessageFormat
+instance Prelude.NFData MessageFormat
 
-instance ToByteString MessageFormat
+instance Prelude.ToByteString MessageFormat
 
-instance ToQuery MessageFormat
+instance Prelude.ToQuery MessageFormat
 
-instance ToHeader MessageFormat
+instance Prelude.ToHeader MessageFormat
 
-instance ToJSON MessageFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON MessageFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MessageFormat where
-  parseJSON = parseJSONText "MessageFormat"
+instance Prelude.FromJSON MessageFormat where
+  parseJSON = Prelude.parseJSONText "MessageFormat"

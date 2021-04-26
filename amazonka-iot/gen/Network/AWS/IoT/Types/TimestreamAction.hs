@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,106 +21,145 @@ module Network.AWS.IoT.Types.TimestreamAction where
 
 import Network.AWS.IoT.Types.TimestreamDimension
 import Network.AWS.IoT.Types.TimestreamTimestamp
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Timestream rule action writes attributes (measures) from an MQTT message into an Amazon Timestream table. For more information, see the <https://docs.aws.amazon.com/iot/latest/developerguide/timestream-rule-action.html Timestream> topic rule action documentation.
+-- | The Timestream rule action writes attributes (measures) from an MQTT
+-- message into an Amazon Timestream table. For more information, see the
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/timestream-rule-action.html Timestream>
+-- topic rule action documentation.
 --
---
---
--- /See:/ 'timestreamAction' smart constructor.
+-- /See:/ 'newTimestreamAction' smart constructor.
 data TimestreamAction = TimestreamAction'
-  { _taTimestamp ::
-      !(Maybe TimestreamTimestamp),
-    _taRoleARN :: !Text,
-    _taDatabaseName :: !Text,
-    _taTableName :: !Text,
-    _taDimensions ::
-      !(List1 TimestreamDimension)
+  { -- | Specifies an application-defined value to replace the default value
+    -- assigned to the Timestream record\'s timestamp in the @time@ column.
+    --
+    -- You can use this property to specify the value and the precision of the
+    -- Timestream record\'s timestamp. You can specify a value from the message
+    -- payload or a value computed by a substitution template.
+    --
+    -- If omitted, the topic rule action assigns the timestamp, in
+    -- milliseconds, at the time it processed the rule.
+    timestamp :: Prelude.Maybe TimestreamTimestamp,
+    -- | The ARN of the role that grants permission to write to the Amazon
+    -- Timestream database table.
+    roleArn :: Prelude.Text,
+    -- | The name of an Amazon Timestream database.
+    databaseName :: Prelude.Text,
+    -- | The name of the database table into which to write the measure records.
+    tableName :: Prelude.Text,
+    -- | Metadata attributes of the time series that are written in each measure
+    -- record.
+    dimensions :: Prelude.List1 TimestreamDimension
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimestreamAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimestreamAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'taTimestamp' - Specifies an application-defined value to replace the default value assigned to the Timestream record's timestamp in the @time@ column. You can use this property to specify the value and the precision of the Timestream record's timestamp. You can specify a value from the message payload or a value computed by a substitution template. If omitted, the topic rule action assigns the timestamp, in milliseconds, at the time it processed the rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'taRoleARN' - The ARN of the role that grants permission to write to the Amazon Timestream database table.
+-- 'timestamp', 'timestreamAction_timestamp' - Specifies an application-defined value to replace the default value
+-- assigned to the Timestream record\'s timestamp in the @time@ column.
 --
--- * 'taDatabaseName' - The name of an Amazon Timestream database.
+-- You can use this property to specify the value and the precision of the
+-- Timestream record\'s timestamp. You can specify a value from the message
+-- payload or a value computed by a substitution template.
 --
--- * 'taTableName' - The name of the database table into which to write the measure records.
+-- If omitted, the topic rule action assigns the timestamp, in
+-- milliseconds, at the time it processed the rule.
 --
--- * 'taDimensions' - Metadata attributes of the time series that are written in each measure record.
-timestreamAction ::
-  -- | 'taRoleARN'
-  Text ->
-  -- | 'taDatabaseName'
-  Text ->
-  -- | 'taTableName'
-  Text ->
-  -- | 'taDimensions'
-  NonEmpty TimestreamDimension ->
+-- 'roleArn', 'timestreamAction_roleArn' - The ARN of the role that grants permission to write to the Amazon
+-- Timestream database table.
+--
+-- 'databaseName', 'timestreamAction_databaseName' - The name of an Amazon Timestream database.
+--
+-- 'tableName', 'timestreamAction_tableName' - The name of the database table into which to write the measure records.
+--
+-- 'dimensions', 'timestreamAction_dimensions' - Metadata attributes of the time series that are written in each measure
+-- record.
+newTimestreamAction ::
+  -- | 'roleArn'
+  Prelude.Text ->
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
+  -- | 'dimensions'
+  Prelude.NonEmpty TimestreamDimension ->
   TimestreamAction
-timestreamAction
-  pRoleARN_
+newTimestreamAction
+  pRoleArn_
   pDatabaseName_
   pTableName_
   pDimensions_ =
     TimestreamAction'
-      { _taTimestamp = Nothing,
-        _taRoleARN = pRoleARN_,
-        _taDatabaseName = pDatabaseName_,
-        _taTableName = pTableName_,
-        _taDimensions = _List1 # pDimensions_
+      { timestamp = Prelude.Nothing,
+        roleArn = pRoleArn_,
+        databaseName = pDatabaseName_,
+        tableName = pTableName_,
+        dimensions = Prelude._List1 Lens.# pDimensions_
       }
 
--- | Specifies an application-defined value to replace the default value assigned to the Timestream record's timestamp in the @time@ column. You can use this property to specify the value and the precision of the Timestream record's timestamp. You can specify a value from the message payload or a value computed by a substitution template. If omitted, the topic rule action assigns the timestamp, in milliseconds, at the time it processed the rule.
-taTimestamp :: Lens' TimestreamAction (Maybe TimestreamTimestamp)
-taTimestamp = lens _taTimestamp (\s a -> s {_taTimestamp = a})
+-- | Specifies an application-defined value to replace the default value
+-- assigned to the Timestream record\'s timestamp in the @time@ column.
+--
+-- You can use this property to specify the value and the precision of the
+-- Timestream record\'s timestamp. You can specify a value from the message
+-- payload or a value computed by a substitution template.
+--
+-- If omitted, the topic rule action assigns the timestamp, in
+-- milliseconds, at the time it processed the rule.
+timestreamAction_timestamp :: Lens.Lens' TimestreamAction (Prelude.Maybe TimestreamTimestamp)
+timestreamAction_timestamp = Lens.lens (\TimestreamAction' {timestamp} -> timestamp) (\s@TimestreamAction' {} a -> s {timestamp = a} :: TimestreamAction)
 
--- | The ARN of the role that grants permission to write to the Amazon Timestream database table.
-taRoleARN :: Lens' TimestreamAction Text
-taRoleARN = lens _taRoleARN (\s a -> s {_taRoleARN = a})
+-- | The ARN of the role that grants permission to write to the Amazon
+-- Timestream database table.
+timestreamAction_roleArn :: Lens.Lens' TimestreamAction Prelude.Text
+timestreamAction_roleArn = Lens.lens (\TimestreamAction' {roleArn} -> roleArn) (\s@TimestreamAction' {} a -> s {roleArn = a} :: TimestreamAction)
 
 -- | The name of an Amazon Timestream database.
-taDatabaseName :: Lens' TimestreamAction Text
-taDatabaseName = lens _taDatabaseName (\s a -> s {_taDatabaseName = a})
+timestreamAction_databaseName :: Lens.Lens' TimestreamAction Prelude.Text
+timestreamAction_databaseName = Lens.lens (\TimestreamAction' {databaseName} -> databaseName) (\s@TimestreamAction' {} a -> s {databaseName = a} :: TimestreamAction)
 
 -- | The name of the database table into which to write the measure records.
-taTableName :: Lens' TimestreamAction Text
-taTableName = lens _taTableName (\s a -> s {_taTableName = a})
+timestreamAction_tableName :: Lens.Lens' TimestreamAction Prelude.Text
+timestreamAction_tableName = Lens.lens (\TimestreamAction' {tableName} -> tableName) (\s@TimestreamAction' {} a -> s {tableName = a} :: TimestreamAction)
 
--- | Metadata attributes of the time series that are written in each measure record.
-taDimensions :: Lens' TimestreamAction (NonEmpty TimestreamDimension)
-taDimensions = lens _taDimensions (\s a -> s {_taDimensions = a}) . _List1
+-- | Metadata attributes of the time series that are written in each measure
+-- record.
+timestreamAction_dimensions :: Lens.Lens' TimestreamAction (Prelude.NonEmpty TimestreamDimension)
+timestreamAction_dimensions = Lens.lens (\TimestreamAction' {dimensions} -> dimensions) (\s@TimestreamAction' {} a -> s {dimensions = a} :: TimestreamAction) Prelude.. Prelude._List1
 
-instance FromJSON TimestreamAction where
+instance Prelude.FromJSON TimestreamAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimestreamAction"
       ( \x ->
           TimestreamAction'
-            <$> (x .:? "timestamp")
-            <*> (x .: "roleArn")
-            <*> (x .: "databaseName")
-            <*> (x .: "tableName")
-            <*> (x .: "dimensions")
+            Prelude.<$> (x Prelude..:? "timestamp")
+            Prelude.<*> (x Prelude..: "roleArn")
+            Prelude.<*> (x Prelude..: "databaseName")
+            Prelude.<*> (x Prelude..: "tableName")
+            Prelude.<*> (x Prelude..: "dimensions")
       )
 
-instance Hashable TimestreamAction
+instance Prelude.Hashable TimestreamAction
 
-instance NFData TimestreamAction
+instance Prelude.NFData TimestreamAction
 
-instance ToJSON TimestreamAction where
+instance Prelude.ToJSON TimestreamAction where
   toJSON TimestreamAction' {..} =
-    object
-      ( catMaybes
-          [ ("timestamp" .=) <$> _taTimestamp,
-            Just ("roleArn" .= _taRoleARN),
-            Just ("databaseName" .= _taDatabaseName),
-            Just ("tableName" .= _taTableName),
-            Just ("dimensions" .= _taDimensions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("timestamp" Prelude..=) Prelude.<$> timestamp,
+            Prelude.Just ("roleArn" Prelude..= roleArn),
+            Prelude.Just
+              ("databaseName" Prelude..= databaseName),
+            Prelude.Just ("tableName" Prelude..= tableName),
+            Prelude.Just ("dimensions" Prelude..= dimensions)
           ]
       )

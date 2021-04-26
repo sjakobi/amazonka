@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.Policy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an AWS IoT policy.
 --
---
---
--- /See:/ 'policy' smart constructor.
+-- /See:/ 'newPolicy' smart constructor.
 data Policy = Policy'
-  { _pPolicyName :: !(Maybe Text),
-    _pPolicyARN :: !(Maybe Text)
+  { -- | The policy name.
+    policyName :: Prelude.Maybe Prelude.Text,
+    -- | The policy ARN.
+    policyArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Policy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Policy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pPolicyName' - The policy name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pPolicyARN' - The policy ARN.
-policy ::
+-- 'policyName', 'policy_policyName' - The policy name.
+--
+-- 'policyArn', 'policy_policyArn' - The policy ARN.
+newPolicy ::
   Policy
-policy =
+newPolicy =
   Policy'
-    { _pPolicyName = Nothing,
-      _pPolicyARN = Nothing
+    { policyName = Prelude.Nothing,
+      policyArn = Prelude.Nothing
     }
 
 -- | The policy name.
-pPolicyName :: Lens' Policy (Maybe Text)
-pPolicyName = lens _pPolicyName (\s a -> s {_pPolicyName = a})
+policy_policyName :: Lens.Lens' Policy (Prelude.Maybe Prelude.Text)
+policy_policyName = Lens.lens (\Policy' {policyName} -> policyName) (\s@Policy' {} a -> s {policyName = a} :: Policy)
 
 -- | The policy ARN.
-pPolicyARN :: Lens' Policy (Maybe Text)
-pPolicyARN = lens _pPolicyARN (\s a -> s {_pPolicyARN = a})
+policy_policyArn :: Lens.Lens' Policy (Prelude.Maybe Prelude.Text)
+policy_policyArn = Lens.lens (\Policy' {policyArn} -> policyArn) (\s@Policy' {} a -> s {policyArn = a} :: Policy)
 
-instance FromJSON Policy where
+instance Prelude.FromJSON Policy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Policy"
       ( \x ->
           Policy'
-            <$> (x .:? "policyName") <*> (x .:? "policyArn")
+            Prelude.<$> (x Prelude..:? "policyName")
+            Prelude.<*> (x Prelude..:? "policyArn")
       )
 
-instance Hashable Policy
+instance Prelude.Hashable Policy
 
-instance NFData Policy
+instance Prelude.NFData Policy

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the default authorizer. This will be used if a websocket connection is made without specifying an authorizer.
+-- Sets the default authorizer. This will be used if a websocket connection
+-- is made without specifying an authorizer.
 module Network.AWS.IoT.SetDefaultAuthorizer
   ( -- * Creating a Request
-    setDefaultAuthorizer,
-    SetDefaultAuthorizer,
+    SetDefaultAuthorizer (..),
+    newSetDefaultAuthorizer,
 
     -- * Request Lenses
-    sdaAuthorizerName,
+    setDefaultAuthorizer_authorizerName,
 
     -- * Destructuring the Response
-    setDefaultAuthorizerResponse,
-    SetDefaultAuthorizerResponse,
+    SetDefaultAuthorizerResponse (..),
+    newSetDefaultAuthorizerResponse,
 
     -- * Response Lenses
-    sdarrsAuthorizerARN,
-    sdarrsAuthorizerName,
-    sdarrsResponseStatus,
+    setDefaultAuthorizerResponse_authorizerArn,
+    setDefaultAuthorizerResponse_authorizerName,
+    setDefaultAuthorizerResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'setDefaultAuthorizer' smart constructor.
-newtype SetDefaultAuthorizer = SetDefaultAuthorizer'
-  { _sdaAuthorizerName ::
-      Text
+-- | /See:/ 'newSetDefaultAuthorizer' smart constructor.
+data SetDefaultAuthorizer = SetDefaultAuthorizer'
+  { -- | The authorizer name.
+    authorizerName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetDefaultAuthorizer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetDefaultAuthorizer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdaAuthorizerName' - The authorizer name.
-setDefaultAuthorizer ::
-  -- | 'sdaAuthorizerName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'authorizerName', 'setDefaultAuthorizer_authorizerName' - The authorizer name.
+newSetDefaultAuthorizer ::
+  -- | 'authorizerName'
+  Prelude.Text ->
   SetDefaultAuthorizer
-setDefaultAuthorizer pAuthorizerName_ =
+newSetDefaultAuthorizer pAuthorizerName_ =
   SetDefaultAuthorizer'
-    { _sdaAuthorizerName =
+    { authorizerName =
         pAuthorizerName_
     }
 
 -- | The authorizer name.
-sdaAuthorizerName :: Lens' SetDefaultAuthorizer Text
-sdaAuthorizerName = lens _sdaAuthorizerName (\s a -> s {_sdaAuthorizerName = a})
+setDefaultAuthorizer_authorizerName :: Lens.Lens' SetDefaultAuthorizer Prelude.Text
+setDefaultAuthorizer_authorizerName = Lens.lens (\SetDefaultAuthorizer' {authorizerName} -> authorizerName) (\s@SetDefaultAuthorizer' {} a -> s {authorizerName = a} :: SetDefaultAuthorizer)
 
-instance AWSRequest SetDefaultAuthorizer where
+instance Prelude.AWSRequest SetDefaultAuthorizer where
   type
     Rs SetDefaultAuthorizer =
       SetDefaultAuthorizerResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SetDefaultAuthorizerResponse'
-            <$> (x .?> "authorizerArn")
-            <*> (x .?> "authorizerName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "authorizerArn")
+            Prelude.<*> (x Prelude..?> "authorizerName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SetDefaultAuthorizer
+instance Prelude.Hashable SetDefaultAuthorizer
 
-instance NFData SetDefaultAuthorizer
+instance Prelude.NFData SetDefaultAuthorizer
 
-instance ToHeaders SetDefaultAuthorizer where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SetDefaultAuthorizer where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON SetDefaultAuthorizer where
+instance Prelude.ToJSON SetDefaultAuthorizer where
   toJSON SetDefaultAuthorizer' {..} =
-    object
-      ( catMaybes
-          [Just ("authorizerName" .= _sdaAuthorizerName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("authorizerName" Prelude..= authorizerName)
+          ]
       )
 
-instance ToPath SetDefaultAuthorizer where
-  toPath = const "/default-authorizer"
+instance Prelude.ToPath SetDefaultAuthorizer where
+  toPath = Prelude.const "/default-authorizer"
 
-instance ToQuery SetDefaultAuthorizer where
-  toQuery = const mempty
+instance Prelude.ToQuery SetDefaultAuthorizer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'setDefaultAuthorizerResponse' smart constructor.
+-- | /See:/ 'newSetDefaultAuthorizerResponse' smart constructor.
 data SetDefaultAuthorizerResponse = SetDefaultAuthorizerResponse'
-  { _sdarrsAuthorizerARN ::
-      !(Maybe Text),
-    _sdarrsAuthorizerName ::
-      !(Maybe Text),
-    _sdarrsResponseStatus ::
-      !Int
+  { -- | The authorizer ARN.
+    authorizerArn :: Prelude.Maybe Prelude.Text,
+    -- | The authorizer name.
+    authorizerName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetDefaultAuthorizerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetDefaultAuthorizerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdarrsAuthorizerARN' - The authorizer ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdarrsAuthorizerName' - The authorizer name.
+-- 'authorizerArn', 'setDefaultAuthorizerResponse_authorizerArn' - The authorizer ARN.
 --
--- * 'sdarrsResponseStatus' - -- | The response status code.
-setDefaultAuthorizerResponse ::
-  -- | 'sdarrsResponseStatus'
-  Int ->
+-- 'authorizerName', 'setDefaultAuthorizerResponse_authorizerName' - The authorizer name.
+--
+-- 'httpStatus', 'setDefaultAuthorizerResponse_httpStatus' - The response's http status code.
+newSetDefaultAuthorizerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SetDefaultAuthorizerResponse
-setDefaultAuthorizerResponse pResponseStatus_ =
+newSetDefaultAuthorizerResponse pHttpStatus_ =
   SetDefaultAuthorizerResponse'
-    { _sdarrsAuthorizerARN =
-        Nothing,
-      _sdarrsAuthorizerName = Nothing,
-      _sdarrsResponseStatus = pResponseStatus_
+    { authorizerArn =
+        Prelude.Nothing,
+      authorizerName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The authorizer ARN.
-sdarrsAuthorizerARN :: Lens' SetDefaultAuthorizerResponse (Maybe Text)
-sdarrsAuthorizerARN = lens _sdarrsAuthorizerARN (\s a -> s {_sdarrsAuthorizerARN = a})
+setDefaultAuthorizerResponse_authorizerArn :: Lens.Lens' SetDefaultAuthorizerResponse (Prelude.Maybe Prelude.Text)
+setDefaultAuthorizerResponse_authorizerArn = Lens.lens (\SetDefaultAuthorizerResponse' {authorizerArn} -> authorizerArn) (\s@SetDefaultAuthorizerResponse' {} a -> s {authorizerArn = a} :: SetDefaultAuthorizerResponse)
 
 -- | The authorizer name.
-sdarrsAuthorizerName :: Lens' SetDefaultAuthorizerResponse (Maybe Text)
-sdarrsAuthorizerName = lens _sdarrsAuthorizerName (\s a -> s {_sdarrsAuthorizerName = a})
+setDefaultAuthorizerResponse_authorizerName :: Lens.Lens' SetDefaultAuthorizerResponse (Prelude.Maybe Prelude.Text)
+setDefaultAuthorizerResponse_authorizerName = Lens.lens (\SetDefaultAuthorizerResponse' {authorizerName} -> authorizerName) (\s@SetDefaultAuthorizerResponse' {} a -> s {authorizerName = a} :: SetDefaultAuthorizerResponse)
 
--- | -- | The response status code.
-sdarrsResponseStatus :: Lens' SetDefaultAuthorizerResponse Int
-sdarrsResponseStatus = lens _sdarrsResponseStatus (\s a -> s {_sdarrsResponseStatus = a})
+-- | The response's http status code.
+setDefaultAuthorizerResponse_httpStatus :: Lens.Lens' SetDefaultAuthorizerResponse Prelude.Int
+setDefaultAuthorizerResponse_httpStatus = Lens.lens (\SetDefaultAuthorizerResponse' {httpStatus} -> httpStatus) (\s@SetDefaultAuthorizerResponse' {} a -> s {httpStatus = a} :: SetDefaultAuthorizerResponse)
 
-instance NFData SetDefaultAuthorizerResponse
+instance Prelude.NFData SetDefaultAuthorizerResponse

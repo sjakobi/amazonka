@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,113 @@
 -- Deletes a defined mitigation action from your AWS account.
 module Network.AWS.IoT.DeleteMitigationAction
   ( -- * Creating a Request
-    deleteMitigationAction,
-    DeleteMitigationAction,
+    DeleteMitigationAction (..),
+    newDeleteMitigationAction,
 
     -- * Request Lenses
-    dmaActionName,
+    deleteMitigationAction_actionName,
 
     -- * Destructuring the Response
-    deleteMitigationActionResponse,
-    DeleteMitigationActionResponse,
+    DeleteMitigationActionResponse (..),
+    newDeleteMitigationActionResponse,
 
     -- * Response Lenses
-    dmarrsResponseStatus,
+    deleteMitigationActionResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteMitigationAction' smart constructor.
-newtype DeleteMitigationAction = DeleteMitigationAction'
-  { _dmaActionName ::
-      Text
+-- | /See:/ 'newDeleteMitigationAction' smart constructor.
+data DeleteMitigationAction = DeleteMitigationAction'
+  { -- | The name of the mitigation action that you want to delete.
+    actionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMitigationAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMitigationAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmaActionName' - The name of the mitigation action that you want to delete.
-deleteMitigationAction ::
-  -- | 'dmaActionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'actionName', 'deleteMitigationAction_actionName' - The name of the mitigation action that you want to delete.
+newDeleteMitigationAction ::
+  -- | 'actionName'
+  Prelude.Text ->
   DeleteMitigationAction
-deleteMitigationAction pActionName_ =
-  DeleteMitigationAction'
-    { _dmaActionName =
-        pActionName_
-    }
+newDeleteMitigationAction pActionName_ =
+  DeleteMitigationAction' {actionName = pActionName_}
 
 -- | The name of the mitigation action that you want to delete.
-dmaActionName :: Lens' DeleteMitigationAction Text
-dmaActionName = lens _dmaActionName (\s a -> s {_dmaActionName = a})
+deleteMitigationAction_actionName :: Lens.Lens' DeleteMitigationAction Prelude.Text
+deleteMitigationAction_actionName = Lens.lens (\DeleteMitigationAction' {actionName} -> actionName) (\s@DeleteMitigationAction' {} a -> s {actionName = a} :: DeleteMitigationAction)
 
-instance AWSRequest DeleteMitigationAction where
+instance Prelude.AWSRequest DeleteMitigationAction where
   type
     Rs DeleteMitigationAction =
       DeleteMitigationActionResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteMitigationActionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteMitigationAction
+instance Prelude.Hashable DeleteMitigationAction
 
-instance NFData DeleteMitigationAction
+instance Prelude.NFData DeleteMitigationAction
 
-instance ToHeaders DeleteMitigationAction where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteMitigationAction where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteMitigationAction where
+instance Prelude.ToPath DeleteMitigationAction where
   toPath DeleteMitigationAction' {..} =
-    mconcat
-      ["/mitigationactions/actions/", toBS _dmaActionName]
+    Prelude.mconcat
+      [ "/mitigationactions/actions/",
+        Prelude.toBS actionName
+      ]
 
-instance ToQuery DeleteMitigationAction where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteMitigationAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteMitigationActionResponse' smart constructor.
-newtype DeleteMitigationActionResponse = DeleteMitigationActionResponse'
-  { _dmarrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteMitigationActionResponse' smart constructor.
+data DeleteMitigationActionResponse = DeleteMitigationActionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMitigationActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMitigationActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmarrsResponseStatus' - -- | The response status code.
-deleteMitigationActionResponse ::
-  -- | 'dmarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteMitigationActionResponse_httpStatus' - The response's http status code.
+newDeleteMitigationActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteMitigationActionResponse
-deleteMitigationActionResponse pResponseStatus_ =
+newDeleteMitigationActionResponse pHttpStatus_ =
   DeleteMitigationActionResponse'
-    { _dmarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dmarrsResponseStatus :: Lens' DeleteMitigationActionResponse Int
-dmarrsResponseStatus = lens _dmarrsResponseStatus (\s a -> s {_dmarrsResponseStatus = a})
+-- | The response's http status code.
+deleteMitigationActionResponse_httpStatus :: Lens.Lens' DeleteMitigationActionResponse Prelude.Int
+deleteMitigationActionResponse_httpStatus = Lens.lens (\DeleteMitigationActionResponse' {httpStatus} -> httpStatus) (\s@DeleteMitigationActionResponse' {} a -> s {httpStatus = a} :: DeleteMitigationActionResponse)
 
-instance NFData DeleteMitigationActionResponse
+instance
+  Prelude.NFData
+    DeleteMitigationActionResponse

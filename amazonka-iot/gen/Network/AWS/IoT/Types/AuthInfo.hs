@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,71 @@
 module Network.AWS.IoT.Types.AuthInfo where
 
 import Network.AWS.IoT.Types.ActionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A collection of authorization information.
 --
---
---
--- /See:/ 'authInfo' smart constructor.
+-- /See:/ 'newAuthInfo' smart constructor.
 data AuthInfo = AuthInfo'
-  { _aiActionType ::
-      !(Maybe ActionType),
-    _aiResources :: ![Text]
+  { -- | The type of action for which the principal is being authorized.
+    actionType :: Prelude.Maybe ActionType,
+    -- | The resources for which the principal is being authorized to perform the
+    -- specified action.
+    resources :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuthInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuthInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aiActionType' - The type of action for which the principal is being authorized.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aiResources' - The resources for which the principal is being authorized to perform the specified action.
-authInfo ::
+-- 'actionType', 'authInfo_actionType' - The type of action for which the principal is being authorized.
+--
+-- 'resources', 'authInfo_resources' - The resources for which the principal is being authorized to perform the
+-- specified action.
+newAuthInfo ::
   AuthInfo
-authInfo =
+newAuthInfo =
   AuthInfo'
-    { _aiActionType = Nothing,
-      _aiResources = mempty
+    { actionType = Prelude.Nothing,
+      resources = Prelude.mempty
     }
 
 -- | The type of action for which the principal is being authorized.
-aiActionType :: Lens' AuthInfo (Maybe ActionType)
-aiActionType = lens _aiActionType (\s a -> s {_aiActionType = a})
+authInfo_actionType :: Lens.Lens' AuthInfo (Prelude.Maybe ActionType)
+authInfo_actionType = Lens.lens (\AuthInfo' {actionType} -> actionType) (\s@AuthInfo' {} a -> s {actionType = a} :: AuthInfo)
 
--- | The resources for which the principal is being authorized to perform the specified action.
-aiResources :: Lens' AuthInfo [Text]
-aiResources = lens _aiResources (\s a -> s {_aiResources = a}) . _Coerce
+-- | The resources for which the principal is being authorized to perform the
+-- specified action.
+authInfo_resources :: Lens.Lens' AuthInfo [Prelude.Text]
+authInfo_resources = Lens.lens (\AuthInfo' {resources} -> resources) (\s@AuthInfo' {} a -> s {resources = a} :: AuthInfo) Prelude.. Prelude._Coerce
 
-instance FromJSON AuthInfo where
+instance Prelude.FromJSON AuthInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuthInfo"
       ( \x ->
           AuthInfo'
-            <$> (x .:? "actionType")
-            <*> (x .:? "resources" .!= mempty)
+            Prelude.<$> (x Prelude..:? "actionType")
+            Prelude.<*> ( x Prelude..:? "resources"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AuthInfo
+instance Prelude.Hashable AuthInfo
 
-instance NFData AuthInfo
+instance Prelude.NFData AuthInfo
 
-instance ToJSON AuthInfo where
+instance Prelude.ToJSON AuthInfo where
   toJSON AuthInfo' {..} =
-    object
-      ( catMaybes
-          [ ("actionType" .=) <$> _aiActionType,
-            Just ("resources" .= _aiResources)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("actionType" Prelude..=) Prelude.<$> actionType,
+            Prelude.Just ("resources" Prelude..= resources)
           ]
       )

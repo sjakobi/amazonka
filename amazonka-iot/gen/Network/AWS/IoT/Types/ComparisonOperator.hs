@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,100 +19,98 @@
 module Network.AWS.IoT.Types.ComparisonOperator
   ( ComparisonOperator
       ( ..,
-        GreaterThan,
-        GreaterThanEquals,
-        InCidrSet,
-        InPortSet,
-        InSet,
-        LessThan,
-        LessThanEquals,
-        NotInCidrSet,
-        NotInPortSet,
-        NotInSet
+        ComparisonOperatorGreaterThan,
+        ComparisonOperatorGreaterThanEquals,
+        ComparisonOperatorInCidrSet,
+        ComparisonOperatorInPortSet,
+        ComparisonOperatorInSet,
+        ComparisonOperatorLessThan,
+        ComparisonOperatorLessThanEquals,
+        ComparisonOperatorNotInCidrSet,
+        ComparisonOperatorNotInPortSet,
+        ComparisonOperatorNotInSet
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComparisonOperator
-  = ComparisonOperator'
-      ( CI
-          Text
-      )
+newtype ComparisonOperator = ComparisonOperator'
+  { fromComparisonOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GreaterThan :: ComparisonOperator
-pattern GreaterThan = ComparisonOperator' "greater-than"
+pattern ComparisonOperatorGreaterThan :: ComparisonOperator
+pattern ComparisonOperatorGreaterThan = ComparisonOperator' "greater-than"
 
-pattern GreaterThanEquals :: ComparisonOperator
-pattern GreaterThanEquals = ComparisonOperator' "greater-than-equals"
+pattern ComparisonOperatorGreaterThanEquals :: ComparisonOperator
+pattern ComparisonOperatorGreaterThanEquals = ComparisonOperator' "greater-than-equals"
 
-pattern InCidrSet :: ComparisonOperator
-pattern InCidrSet = ComparisonOperator' "in-cidr-set"
+pattern ComparisonOperatorInCidrSet :: ComparisonOperator
+pattern ComparisonOperatorInCidrSet = ComparisonOperator' "in-cidr-set"
 
-pattern InPortSet :: ComparisonOperator
-pattern InPortSet = ComparisonOperator' "in-port-set"
+pattern ComparisonOperatorInPortSet :: ComparisonOperator
+pattern ComparisonOperatorInPortSet = ComparisonOperator' "in-port-set"
 
-pattern InSet :: ComparisonOperator
-pattern InSet = ComparisonOperator' "in-set"
+pattern ComparisonOperatorInSet :: ComparisonOperator
+pattern ComparisonOperatorInSet = ComparisonOperator' "in-set"
 
-pattern LessThan :: ComparisonOperator
-pattern LessThan = ComparisonOperator' "less-than"
+pattern ComparisonOperatorLessThan :: ComparisonOperator
+pattern ComparisonOperatorLessThan = ComparisonOperator' "less-than"
 
-pattern LessThanEquals :: ComparisonOperator
-pattern LessThanEquals = ComparisonOperator' "less-than-equals"
+pattern ComparisonOperatorLessThanEquals :: ComparisonOperator
+pattern ComparisonOperatorLessThanEquals = ComparisonOperator' "less-than-equals"
 
-pattern NotInCidrSet :: ComparisonOperator
-pattern NotInCidrSet = ComparisonOperator' "not-in-cidr-set"
+pattern ComparisonOperatorNotInCidrSet :: ComparisonOperator
+pattern ComparisonOperatorNotInCidrSet = ComparisonOperator' "not-in-cidr-set"
 
-pattern NotInPortSet :: ComparisonOperator
-pattern NotInPortSet = ComparisonOperator' "not-in-port-set"
+pattern ComparisonOperatorNotInPortSet :: ComparisonOperator
+pattern ComparisonOperatorNotInPortSet = ComparisonOperator' "not-in-port-set"
 
-pattern NotInSet :: ComparisonOperator
-pattern NotInSet = ComparisonOperator' "not-in-set"
+pattern ComparisonOperatorNotInSet :: ComparisonOperator
+pattern ComparisonOperatorNotInSet = ComparisonOperator' "not-in-set"
 
 {-# COMPLETE
-  GreaterThan,
-  GreaterThanEquals,
-  InCidrSet,
-  InPortSet,
-  InSet,
-  LessThan,
-  LessThanEquals,
-  NotInCidrSet,
-  NotInPortSet,
-  NotInSet,
+  ComparisonOperatorGreaterThan,
+  ComparisonOperatorGreaterThanEquals,
+  ComparisonOperatorInCidrSet,
+  ComparisonOperatorInPortSet,
+  ComparisonOperatorInSet,
+  ComparisonOperatorLessThan,
+  ComparisonOperatorLessThanEquals,
+  ComparisonOperatorNotInCidrSet,
+  ComparisonOperatorNotInPortSet,
+  ComparisonOperatorNotInSet,
   ComparisonOperator'
   #-}
 
-instance FromText ComparisonOperator where
-  parser = (ComparisonOperator' . mk) <$> takeText
+instance Prelude.FromText ComparisonOperator where
+  parser = ComparisonOperator' Prelude.<$> Prelude.takeText
 
-instance ToText ComparisonOperator where
-  toText (ComparisonOperator' ci) = original ci
+instance Prelude.ToText ComparisonOperator where
+  toText (ComparisonOperator' x) = x
 
-instance Hashable ComparisonOperator
+instance Prelude.Hashable ComparisonOperator
 
-instance NFData ComparisonOperator
+instance Prelude.NFData ComparisonOperator
 
-instance ToByteString ComparisonOperator
+instance Prelude.ToByteString ComparisonOperator
 
-instance ToQuery ComparisonOperator
+instance Prelude.ToQuery ComparisonOperator
 
-instance ToHeader ComparisonOperator
+instance Prelude.ToHeader ComparisonOperator
 
-instance ToJSON ComparisonOperator where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComparisonOperator where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ComparisonOperator where
-  parseJSON = parseJSONText "ComparisonOperator"
+instance Prelude.FromJSON ComparisonOperator where
+  parseJSON = Prelude.parseJSONText "ComparisonOperator"

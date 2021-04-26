@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,95 +20,107 @@
 module Network.AWS.IoT.Types.ExponentialRolloutRate where
 
 import Network.AWS.IoT.Types.RateIncreaseCriteria
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Allows you to create an exponential rate of rollout for a job.
 --
---
---
--- /See:/ 'exponentialRolloutRate' smart constructor.
+-- /See:/ 'newExponentialRolloutRate' smart constructor.
 data ExponentialRolloutRate = ExponentialRolloutRate'
-  { _errBaseRatePerMinute ::
-      !Nat,
-    _errIncrementFactor ::
-      !Double,
-    _errRateIncreaseCriteria ::
-      !RateIncreaseCriteria
+  { -- | The minimum number of things that will be notified of a pending job, per
+    -- minute at the start of job rollout. This parameter allows you to define
+    -- the initial rate of rollout.
+    baseRatePerMinute :: Prelude.Nat,
+    -- | The exponential factor to increase the rate of rollout for a job.
+    --
+    -- AWS IoT supports up to one digit after the decimal (for example, 1.5,
+    -- but not 1.55).
+    incrementFactor :: Prelude.Double,
+    -- | The criteria to initiate the increase in rate of rollout for a job.
+    rateIncreaseCriteria :: RateIncreaseCriteria
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExponentialRolloutRate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExponentialRolloutRate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'errBaseRatePerMinute' - The minimum number of things that will be notified of a pending job, per minute at the start of job rollout. This parameter allows you to define the initial rate of rollout.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'errIncrementFactor' - The exponential factor to increase the rate of rollout for a job. AWS IoT supports up to one digit after the decimal (for example, 1.5, but not 1.55).
+-- 'baseRatePerMinute', 'exponentialRolloutRate_baseRatePerMinute' - The minimum number of things that will be notified of a pending job, per
+-- minute at the start of job rollout. This parameter allows you to define
+-- the initial rate of rollout.
 --
--- * 'errRateIncreaseCriteria' - The criteria to initiate the increase in rate of rollout for a job.
-exponentialRolloutRate ::
-  -- | 'errBaseRatePerMinute'
-  Natural ->
-  -- | 'errIncrementFactor'
-  Double ->
-  -- | 'errRateIncreaseCriteria'
+-- 'incrementFactor', 'exponentialRolloutRate_incrementFactor' - The exponential factor to increase the rate of rollout for a job.
+--
+-- AWS IoT supports up to one digit after the decimal (for example, 1.5,
+-- but not 1.55).
+--
+-- 'rateIncreaseCriteria', 'exponentialRolloutRate_rateIncreaseCriteria' - The criteria to initiate the increase in rate of rollout for a job.
+newExponentialRolloutRate ::
+  -- | 'baseRatePerMinute'
+  Prelude.Natural ->
+  -- | 'incrementFactor'
+  Prelude.Double ->
+  -- | 'rateIncreaseCriteria'
   RateIncreaseCriteria ->
   ExponentialRolloutRate
-exponentialRolloutRate
+newExponentialRolloutRate
   pBaseRatePerMinute_
   pIncrementFactor_
   pRateIncreaseCriteria_ =
     ExponentialRolloutRate'
-      { _errBaseRatePerMinute =
-          _Nat # pBaseRatePerMinute_,
-        _errIncrementFactor = pIncrementFactor_,
-        _errRateIncreaseCriteria = pRateIncreaseCriteria_
+      { baseRatePerMinute =
+          Prelude._Nat Lens.# pBaseRatePerMinute_,
+        incrementFactor = pIncrementFactor_,
+        rateIncreaseCriteria = pRateIncreaseCriteria_
       }
 
--- | The minimum number of things that will be notified of a pending job, per minute at the start of job rollout. This parameter allows you to define the initial rate of rollout.
-errBaseRatePerMinute :: Lens' ExponentialRolloutRate Natural
-errBaseRatePerMinute = lens _errBaseRatePerMinute (\s a -> s {_errBaseRatePerMinute = a}) . _Nat
+-- | The minimum number of things that will be notified of a pending job, per
+-- minute at the start of job rollout. This parameter allows you to define
+-- the initial rate of rollout.
+exponentialRolloutRate_baseRatePerMinute :: Lens.Lens' ExponentialRolloutRate Prelude.Natural
+exponentialRolloutRate_baseRatePerMinute = Lens.lens (\ExponentialRolloutRate' {baseRatePerMinute} -> baseRatePerMinute) (\s@ExponentialRolloutRate' {} a -> s {baseRatePerMinute = a} :: ExponentialRolloutRate) Prelude.. Prelude._Nat
 
--- | The exponential factor to increase the rate of rollout for a job. AWS IoT supports up to one digit after the decimal (for example, 1.5, but not 1.55).
-errIncrementFactor :: Lens' ExponentialRolloutRate Double
-errIncrementFactor = lens _errIncrementFactor (\s a -> s {_errIncrementFactor = a})
+-- | The exponential factor to increase the rate of rollout for a job.
+--
+-- AWS IoT supports up to one digit after the decimal (for example, 1.5,
+-- but not 1.55).
+exponentialRolloutRate_incrementFactor :: Lens.Lens' ExponentialRolloutRate Prelude.Double
+exponentialRolloutRate_incrementFactor = Lens.lens (\ExponentialRolloutRate' {incrementFactor} -> incrementFactor) (\s@ExponentialRolloutRate' {} a -> s {incrementFactor = a} :: ExponentialRolloutRate)
 
 -- | The criteria to initiate the increase in rate of rollout for a job.
-errRateIncreaseCriteria :: Lens' ExponentialRolloutRate RateIncreaseCriteria
-errRateIncreaseCriteria = lens _errRateIncreaseCriteria (\s a -> s {_errRateIncreaseCriteria = a})
+exponentialRolloutRate_rateIncreaseCriteria :: Lens.Lens' ExponentialRolloutRate RateIncreaseCriteria
+exponentialRolloutRate_rateIncreaseCriteria = Lens.lens (\ExponentialRolloutRate' {rateIncreaseCriteria} -> rateIncreaseCriteria) (\s@ExponentialRolloutRate' {} a -> s {rateIncreaseCriteria = a} :: ExponentialRolloutRate)
 
-instance FromJSON ExponentialRolloutRate where
+instance Prelude.FromJSON ExponentialRolloutRate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExponentialRolloutRate"
       ( \x ->
           ExponentialRolloutRate'
-            <$> (x .: "baseRatePerMinute")
-            <*> (x .: "incrementFactor")
-            <*> (x .: "rateIncreaseCriteria")
+            Prelude.<$> (x Prelude..: "baseRatePerMinute")
+            Prelude.<*> (x Prelude..: "incrementFactor")
+            Prelude.<*> (x Prelude..: "rateIncreaseCriteria")
       )
 
-instance Hashable ExponentialRolloutRate
+instance Prelude.Hashable ExponentialRolloutRate
 
-instance NFData ExponentialRolloutRate
+instance Prelude.NFData ExponentialRolloutRate
 
-instance ToJSON ExponentialRolloutRate where
+instance Prelude.ToJSON ExponentialRolloutRate where
   toJSON ExponentialRolloutRate' {..} =
-    object
-      ( catMaybes
-          [ Just ("baseRatePerMinute" .= _errBaseRatePerMinute),
-            Just ("incrementFactor" .= _errIncrementFactor),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("baseRatePerMinute" Prelude..= baseRatePerMinute),
+            Prelude.Just
+              ("incrementFactor" Prelude..= incrementFactor),
+            Prelude.Just
               ( "rateIncreaseCriteria"
-                  .= _errRateIncreaseCriteria
+                  Prelude..= rateIncreaseCriteria
               )
           ]
       )

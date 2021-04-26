@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,127 +24,141 @@
 -- Cancels a Device Defender ML Detect mitigation action.
 module Network.AWS.IoT.CancelDetectMitigationActionsTask
   ( -- * Creating a Request
-    cancelDetectMitigationActionsTask,
-    CancelDetectMitigationActionsTask,
+    CancelDetectMitigationActionsTask (..),
+    newCancelDetectMitigationActionsTask,
 
     -- * Request Lenses
-    cdmatTaskId,
+    cancelDetectMitigationActionsTask_taskId,
 
     -- * Destructuring the Response
-    cancelDetectMitigationActionsTaskResponse,
-    CancelDetectMitigationActionsTaskResponse,
+    CancelDetectMitigationActionsTaskResponse (..),
+    newCancelDetectMitigationActionsTaskResponse,
 
     -- * Response Lenses
-    cdmatrrsResponseStatus,
+    cancelDetectMitigationActionsTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'cancelDetectMitigationActionsTask' smart constructor.
-newtype CancelDetectMitigationActionsTask = CancelDetectMitigationActionsTask'
-  { _cdmatTaskId ::
-      Text
+-- | /See:/ 'newCancelDetectMitigationActionsTask' smart constructor.
+data CancelDetectMitigationActionsTask = CancelDetectMitigationActionsTask'
+  { -- | The unique identifier of the task.
+    taskId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelDetectMitigationActionsTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelDetectMitigationActionsTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdmatTaskId' - The unique identifier of the task.
-cancelDetectMitigationActionsTask ::
-  -- | 'cdmatTaskId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'taskId', 'cancelDetectMitigationActionsTask_taskId' - The unique identifier of the task.
+newCancelDetectMitigationActionsTask ::
+  -- | 'taskId'
+  Prelude.Text ->
   CancelDetectMitigationActionsTask
-cancelDetectMitigationActionsTask pTaskId_ =
+newCancelDetectMitigationActionsTask pTaskId_ =
   CancelDetectMitigationActionsTask'
-    { _cdmatTaskId =
+    { taskId =
         pTaskId_
     }
 
 -- | The unique identifier of the task.
-cdmatTaskId :: Lens' CancelDetectMitigationActionsTask Text
-cdmatTaskId = lens _cdmatTaskId (\s a -> s {_cdmatTaskId = a})
+cancelDetectMitigationActionsTask_taskId :: Lens.Lens' CancelDetectMitigationActionsTask Prelude.Text
+cancelDetectMitigationActionsTask_taskId = Lens.lens (\CancelDetectMitigationActionsTask' {taskId} -> taskId) (\s@CancelDetectMitigationActionsTask' {} a -> s {taskId = a} :: CancelDetectMitigationActionsTask)
 
-instance AWSRequest CancelDetectMitigationActionsTask where
+instance
+  Prelude.AWSRequest
+    CancelDetectMitigationActionsTask
+  where
   type
     Rs CancelDetectMitigationActionsTask =
       CancelDetectMitigationActionsTaskResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           CancelDetectMitigationActionsTaskResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CancelDetectMitigationActionsTask
+instance
+  Prelude.Hashable
+    CancelDetectMitigationActionsTask
 
-instance NFData CancelDetectMitigationActionsTask
+instance
+  Prelude.NFData
+    CancelDetectMitigationActionsTask
 
-instance ToHeaders CancelDetectMitigationActionsTask where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CancelDetectMitigationActionsTask
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CancelDetectMitigationActionsTask where
-  toJSON = const (Object mempty)
+instance
+  Prelude.ToJSON
+    CancelDetectMitigationActionsTask
+  where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath CancelDetectMitigationActionsTask where
+instance
+  Prelude.ToPath
+    CancelDetectMitigationActionsTask
+  where
   toPath CancelDetectMitigationActionsTask' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detect/mitigationactions/tasks/",
-        toBS _cdmatTaskId,
+        Prelude.toBS taskId,
         "/cancel"
       ]
 
-instance ToQuery CancelDetectMitigationActionsTask where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    CancelDetectMitigationActionsTask
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'cancelDetectMitigationActionsTaskResponse' smart constructor.
-newtype CancelDetectMitigationActionsTaskResponse = CancelDetectMitigationActionsTaskResponse'
-  { _cdmatrrsResponseStatus ::
-      Int
+-- | /See:/ 'newCancelDetectMitigationActionsTaskResponse' smart constructor.
+data CancelDetectMitigationActionsTaskResponse = CancelDetectMitigationActionsTaskResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelDetectMitigationActionsTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelDetectMitigationActionsTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdmatrrsResponseStatus' - -- | The response status code.
-cancelDetectMitigationActionsTaskResponse ::
-  -- | 'cdmatrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'cancelDetectMitigationActionsTaskResponse_httpStatus' - The response's http status code.
+newCancelDetectMitigationActionsTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelDetectMitigationActionsTaskResponse
-cancelDetectMitigationActionsTaskResponse
-  pResponseStatus_ =
+newCancelDetectMitigationActionsTaskResponse
+  pHttpStatus_ =
     CancelDetectMitigationActionsTaskResponse'
-      { _cdmatrrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-cdmatrrsResponseStatus :: Lens' CancelDetectMitigationActionsTaskResponse Int
-cdmatrrsResponseStatus = lens _cdmatrrsResponseStatus (\s a -> s {_cdmatrrsResponseStatus = a})
+-- | The response's http status code.
+cancelDetectMitigationActionsTaskResponse_httpStatus :: Lens.Lens' CancelDetectMitigationActionsTaskResponse Prelude.Int
+cancelDetectMitigationActionsTaskResponse_httpStatus = Lens.lens (\CancelDetectMitigationActionsTaskResponse' {httpStatus} -> httpStatus) (\s@CancelDetectMitigationActionsTaskResponse' {} a -> s {httpStatus = a} :: CancelDetectMitigationActionsTaskResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CancelDetectMitigationActionsTaskResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,205 +23,241 @@
 --
 -- Lists the job executions for the specified thing.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListJobExecutionsForThing
   ( -- * Creating a Request
-    listJobExecutionsForThing,
-    ListJobExecutionsForThing,
+    ListJobExecutionsForThing (..),
+    newListJobExecutionsForThing,
 
     -- * Request Lenses
-    ljeftNextToken,
-    ljeftStatus,
-    ljeftMaxResults,
-    ljeftNamespaceId,
-    ljeftThingName,
+    listJobExecutionsForThing_nextToken,
+    listJobExecutionsForThing_status,
+    listJobExecutionsForThing_maxResults,
+    listJobExecutionsForThing_namespaceId,
+    listJobExecutionsForThing_thingName,
 
     -- * Destructuring the Response
-    listJobExecutionsForThingResponse,
-    ListJobExecutionsForThingResponse,
+    ListJobExecutionsForThingResponse (..),
+    newListJobExecutionsForThingResponse,
 
     -- * Response Lenses
-    ljeftrrsNextToken,
-    ljeftrrsExecutionSummaries,
-    ljeftrrsResponseStatus,
+    listJobExecutionsForThingResponse_nextToken,
+    listJobExecutionsForThingResponse_executionSummaries,
+    listJobExecutionsForThingResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.JobExecutionSummaryForThing
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listJobExecutionsForThing' smart constructor.
+-- | /See:/ 'newListJobExecutionsForThing' smart constructor.
 data ListJobExecutionsForThing = ListJobExecutionsForThing'
-  { _ljeftNextToken ::
-      !(Maybe Text),
-    _ljeftStatus ::
-      !( Maybe
-           JobExecutionStatus
-       ),
-    _ljeftMaxResults ::
-      !(Maybe Nat),
-    _ljeftNamespaceId ::
-      !(Maybe Text),
-    _ljeftThingName ::
-      !Text
+  { -- | The token to retrieve the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An optional filter that lets you search for jobs that have the specified
+    -- status.
+    status :: Prelude.Maybe JobExecutionStatus,
+    -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The namespace used to indicate that a job is a customer-managed job.
+    --
+    -- When you specify a value for this parameter, AWS IoT Core sends jobs
+    -- notifications to MQTT topics that contain the value in the following
+    -- format.
+    --
+    -- @$aws\/things\/THING_NAME\/jobs\/JOB_ID\/notify-namespace-NAMESPACE_ID\/@
+    --
+    -- The @namespaceId@ feature is in public preview.
+    namespaceId :: Prelude.Maybe Prelude.Text,
+    -- | The thing name.
+    thingName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListJobExecutionsForThing' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListJobExecutionsForThing' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljeftNextToken' - The token to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljeftStatus' - An optional filter that lets you search for jobs that have the specified status.
+-- 'nextToken', 'listJobExecutionsForThing_nextToken' - The token to retrieve the next set of results.
 --
--- * 'ljeftMaxResults' - The maximum number of results to be returned per request.
+-- 'status', 'listJobExecutionsForThing_status' - An optional filter that lets you search for jobs that have the specified
+-- status.
 --
--- * 'ljeftNamespaceId' - The namespace used to indicate that a job is a customer-managed job. When you specify a value for this parameter, AWS IoT Core sends jobs notifications to MQTT topics that contain the value in the following format. @> aws/things//THING_NAME/ /jobs//JOB_ID/ /notify-namespace-/NAMESPACE_ID/ /@
+-- 'maxResults', 'listJobExecutionsForThing_maxResults' - The maximum number of results to be returned per request.
 --
--- * 'ljeftThingName' - The thing name.
-listJobExecutionsForThing ::
-  -- | 'ljeftThingName'
-  Text ->
+-- 'namespaceId', 'listJobExecutionsForThing_namespaceId' - The namespace used to indicate that a job is a customer-managed job.
+--
+-- When you specify a value for this parameter, AWS IoT Core sends jobs
+-- notifications to MQTT topics that contain the value in the following
+-- format.
+--
+-- @$aws\/things\/THING_NAME\/jobs\/JOB_ID\/notify-namespace-NAMESPACE_ID\/@
+--
+-- The @namespaceId@ feature is in public preview.
+--
+-- 'thingName', 'listJobExecutionsForThing_thingName' - The thing name.
+newListJobExecutionsForThing ::
+  -- | 'thingName'
+  Prelude.Text ->
   ListJobExecutionsForThing
-listJobExecutionsForThing pThingName_ =
+newListJobExecutionsForThing pThingName_ =
   ListJobExecutionsForThing'
-    { _ljeftNextToken =
-        Nothing,
-      _ljeftStatus = Nothing,
-      _ljeftMaxResults = Nothing,
-      _ljeftNamespaceId = Nothing,
-      _ljeftThingName = pThingName_
+    { nextToken =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      namespaceId = Prelude.Nothing,
+      thingName = pThingName_
     }
 
 -- | The token to retrieve the next set of results.
-ljeftNextToken :: Lens' ListJobExecutionsForThing (Maybe Text)
-ljeftNextToken = lens _ljeftNextToken (\s a -> s {_ljeftNextToken = a})
+listJobExecutionsForThing_nextToken :: Lens.Lens' ListJobExecutionsForThing (Prelude.Maybe Prelude.Text)
+listJobExecutionsForThing_nextToken = Lens.lens (\ListJobExecutionsForThing' {nextToken} -> nextToken) (\s@ListJobExecutionsForThing' {} a -> s {nextToken = a} :: ListJobExecutionsForThing)
 
--- | An optional filter that lets you search for jobs that have the specified status.
-ljeftStatus :: Lens' ListJobExecutionsForThing (Maybe JobExecutionStatus)
-ljeftStatus = lens _ljeftStatus (\s a -> s {_ljeftStatus = a})
+-- | An optional filter that lets you search for jobs that have the specified
+-- status.
+listJobExecutionsForThing_status :: Lens.Lens' ListJobExecutionsForThing (Prelude.Maybe JobExecutionStatus)
+listJobExecutionsForThing_status = Lens.lens (\ListJobExecutionsForThing' {status} -> status) (\s@ListJobExecutionsForThing' {} a -> s {status = a} :: ListJobExecutionsForThing)
 
 -- | The maximum number of results to be returned per request.
-ljeftMaxResults :: Lens' ListJobExecutionsForThing (Maybe Natural)
-ljeftMaxResults = lens _ljeftMaxResults (\s a -> s {_ljeftMaxResults = a}) . mapping _Nat
+listJobExecutionsForThing_maxResults :: Lens.Lens' ListJobExecutionsForThing (Prelude.Maybe Prelude.Natural)
+listJobExecutionsForThing_maxResults = Lens.lens (\ListJobExecutionsForThing' {maxResults} -> maxResults) (\s@ListJobExecutionsForThing' {} a -> s {maxResults = a} :: ListJobExecutionsForThing) Prelude.. Lens.mapping Prelude._Nat
 
--- | The namespace used to indicate that a job is a customer-managed job. When you specify a value for this parameter, AWS IoT Core sends jobs notifications to MQTT topics that contain the value in the following format. @> aws/things//THING_NAME/ /jobs//JOB_ID/ /notify-namespace-/NAMESPACE_ID/ /@
-ljeftNamespaceId :: Lens' ListJobExecutionsForThing (Maybe Text)
-ljeftNamespaceId = lens _ljeftNamespaceId (\s a -> s {_ljeftNamespaceId = a})
+-- | The namespace used to indicate that a job is a customer-managed job.
+--
+-- When you specify a value for this parameter, AWS IoT Core sends jobs
+-- notifications to MQTT topics that contain the value in the following
+-- format.
+--
+-- @$aws\/things\/THING_NAME\/jobs\/JOB_ID\/notify-namespace-NAMESPACE_ID\/@
+--
+-- The @namespaceId@ feature is in public preview.
+listJobExecutionsForThing_namespaceId :: Lens.Lens' ListJobExecutionsForThing (Prelude.Maybe Prelude.Text)
+listJobExecutionsForThing_namespaceId = Lens.lens (\ListJobExecutionsForThing' {namespaceId} -> namespaceId) (\s@ListJobExecutionsForThing' {} a -> s {namespaceId = a} :: ListJobExecutionsForThing)
 
 -- | The thing name.
-ljeftThingName :: Lens' ListJobExecutionsForThing Text
-ljeftThingName = lens _ljeftThingName (\s a -> s {_ljeftThingName = a})
+listJobExecutionsForThing_thingName :: Lens.Lens' ListJobExecutionsForThing Prelude.Text
+listJobExecutionsForThing_thingName = Lens.lens (\ListJobExecutionsForThing' {thingName} -> thingName) (\s@ListJobExecutionsForThing' {} a -> s {thingName = a} :: ListJobExecutionsForThing)
 
-instance AWSPager ListJobExecutionsForThing where
+instance Pager.AWSPager ListJobExecutionsForThing where
   page rq rs
-    | stop (rs ^. ljeftrrsNextToken) = Nothing
-    | stop (rs ^. ljeftrrsExecutionSummaries) = Nothing
-    | otherwise =
-      Just $ rq & ljeftNextToken .~ rs ^. ljeftrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listJobExecutionsForThingResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listJobExecutionsForThingResponse_executionSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listJobExecutionsForThing_nextToken
+          Lens..~ rs
+          Lens.^? listJobExecutionsForThingResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListJobExecutionsForThing where
+instance Prelude.AWSRequest ListJobExecutionsForThing where
   type
     Rs ListJobExecutionsForThing =
       ListJobExecutionsForThingResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListJobExecutionsForThingResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "executionSummaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "executionSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListJobExecutionsForThing
+instance Prelude.Hashable ListJobExecutionsForThing
 
-instance NFData ListJobExecutionsForThing
+instance Prelude.NFData ListJobExecutionsForThing
 
-instance ToHeaders ListJobExecutionsForThing where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListJobExecutionsForThing where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListJobExecutionsForThing where
+instance Prelude.ToPath ListJobExecutionsForThing where
   toPath ListJobExecutionsForThing' {..} =
-    mconcat ["/things/", toBS _ljeftThingName, "/jobs"]
+    Prelude.mconcat
+      ["/things/", Prelude.toBS thingName, "/jobs"]
 
-instance ToQuery ListJobExecutionsForThing where
+instance Prelude.ToQuery ListJobExecutionsForThing where
   toQuery ListJobExecutionsForThing' {..} =
-    mconcat
-      [ "nextToken" =: _ljeftNextToken,
-        "status" =: _ljeftStatus,
-        "maxResults" =: _ljeftMaxResults,
-        "namespaceId" =: _ljeftNamespaceId
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "status" Prelude.=: status,
+        "maxResults" Prelude.=: maxResults,
+        "namespaceId" Prelude.=: namespaceId
       ]
 
--- | /See:/ 'listJobExecutionsForThingResponse' smart constructor.
+-- | /See:/ 'newListJobExecutionsForThingResponse' smart constructor.
 data ListJobExecutionsForThingResponse = ListJobExecutionsForThingResponse'
-  { _ljeftrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ljeftrrsExecutionSummaries ::
-      !( Maybe
-           [JobExecutionSummaryForThing]
-       ),
-    _ljeftrrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results, or __null__ if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of job execution summaries.
+    executionSummaries :: Prelude.Maybe [JobExecutionSummaryForThing],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListJobExecutionsForThingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListJobExecutionsForThingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljeftrrsNextToken' - The token for the next set of results, or __null__ if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljeftrrsExecutionSummaries' - A list of job execution summaries.
+-- 'nextToken', 'listJobExecutionsForThingResponse_nextToken' - The token for the next set of results, or __null__ if there are no
+-- additional results.
 --
--- * 'ljeftrrsResponseStatus' - -- | The response status code.
-listJobExecutionsForThingResponse ::
-  -- | 'ljeftrrsResponseStatus'
-  Int ->
+-- 'executionSummaries', 'listJobExecutionsForThingResponse_executionSummaries' - A list of job execution summaries.
+--
+-- 'httpStatus', 'listJobExecutionsForThingResponse_httpStatus' - The response's http status code.
+newListJobExecutionsForThingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListJobExecutionsForThingResponse
-listJobExecutionsForThingResponse pResponseStatus_ =
+newListJobExecutionsForThingResponse pHttpStatus_ =
   ListJobExecutionsForThingResponse'
-    { _ljeftrrsNextToken =
-        Nothing,
-      _ljeftrrsExecutionSummaries = Nothing,
-      _ljeftrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      executionSummaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token for the next set of results, or __null__ if there are no additional results.
-ljeftrrsNextToken :: Lens' ListJobExecutionsForThingResponse (Maybe Text)
-ljeftrrsNextToken = lens _ljeftrrsNextToken (\s a -> s {_ljeftrrsNextToken = a})
+-- | The token for the next set of results, or __null__ if there are no
+-- additional results.
+listJobExecutionsForThingResponse_nextToken :: Lens.Lens' ListJobExecutionsForThingResponse (Prelude.Maybe Prelude.Text)
+listJobExecutionsForThingResponse_nextToken = Lens.lens (\ListJobExecutionsForThingResponse' {nextToken} -> nextToken) (\s@ListJobExecutionsForThingResponse' {} a -> s {nextToken = a} :: ListJobExecutionsForThingResponse)
 
 -- | A list of job execution summaries.
-ljeftrrsExecutionSummaries :: Lens' ListJobExecutionsForThingResponse [JobExecutionSummaryForThing]
-ljeftrrsExecutionSummaries = lens _ljeftrrsExecutionSummaries (\s a -> s {_ljeftrrsExecutionSummaries = a}) . _Default . _Coerce
+listJobExecutionsForThingResponse_executionSummaries :: Lens.Lens' ListJobExecutionsForThingResponse (Prelude.Maybe [JobExecutionSummaryForThing])
+listJobExecutionsForThingResponse_executionSummaries = Lens.lens (\ListJobExecutionsForThingResponse' {executionSummaries} -> executionSummaries) (\s@ListJobExecutionsForThingResponse' {} a -> s {executionSummaries = a} :: ListJobExecutionsForThingResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ljeftrrsResponseStatus :: Lens' ListJobExecutionsForThingResponse Int
-ljeftrrsResponseStatus = lens _ljeftrrsResponseStatus (\s a -> s {_ljeftrrsResponseStatus = a})
+-- | The response's http status code.
+listJobExecutionsForThingResponse_httpStatus :: Lens.Lens' ListJobExecutionsForThingResponse Prelude.Int
+listJobExecutionsForThingResponse_httpStatus = Lens.lens (\ListJobExecutionsForThingResponse' {httpStatus} -> httpStatus) (\s@ListJobExecutionsForThingResponse' {} a -> s {httpStatus = a} :: ListJobExecutionsForThingResponse)
 
-instance NFData ListJobExecutionsForThingResponse
+instance
+  Prelude.NFData
+    ListJobExecutionsForThingResponse

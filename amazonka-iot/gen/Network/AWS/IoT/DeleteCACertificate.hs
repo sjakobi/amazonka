@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,125 +24,119 @@
 -- Deletes a registered CA certificate.
 module Network.AWS.IoT.DeleteCACertificate
   ( -- * Creating a Request
-    deleteCACertificate,
-    DeleteCACertificate,
+    DeleteCACertificate (..),
+    newDeleteCACertificate,
 
     -- * Request Lenses
-    dcacCertificateId,
+    deleteCACertificate_certificateId,
 
     -- * Destructuring the Response
-    deleteCACertificateResponse,
-    DeleteCACertificateResponse,
+    DeleteCACertificateResponse (..),
+    newDeleteCACertificateResponse,
 
     -- * Response Lenses
-    dcacrcrsResponseStatus,
+    deleteCACertificateResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Input for the DeleteCACertificate operation.
 --
---
---
--- /See:/ 'deleteCACertificate' smart constructor.
-newtype DeleteCACertificate = DeleteCACertificate'
-  { _dcacCertificateId ::
-      Text
+-- /See:/ 'newDeleteCACertificate' smart constructor.
+data DeleteCACertificate = DeleteCACertificate'
+  { -- | The ID of the certificate to delete. (The last part of the certificate
+    -- ARN contains the certificate ID.)
+    certificateId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCACertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCACertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcacCertificateId' - The ID of the certificate to delete. (The last part of the certificate ARN contains the certificate ID.)
-deleteCACertificate ::
-  -- | 'dcacCertificateId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'certificateId', 'deleteCACertificate_certificateId' - The ID of the certificate to delete. (The last part of the certificate
+-- ARN contains the certificate ID.)
+newDeleteCACertificate ::
+  -- | 'certificateId'
+  Prelude.Text ->
   DeleteCACertificate
-deleteCACertificate pCertificateId_ =
+newDeleteCACertificate pCertificateId_ =
   DeleteCACertificate'
-    { _dcacCertificateId =
+    { certificateId =
         pCertificateId_
     }
 
--- | The ID of the certificate to delete. (The last part of the certificate ARN contains the certificate ID.)
-dcacCertificateId :: Lens' DeleteCACertificate Text
-dcacCertificateId = lens _dcacCertificateId (\s a -> s {_dcacCertificateId = a})
+-- | The ID of the certificate to delete. (The last part of the certificate
+-- ARN contains the certificate ID.)
+deleteCACertificate_certificateId :: Lens.Lens' DeleteCACertificate Prelude.Text
+deleteCACertificate_certificateId = Lens.lens (\DeleteCACertificate' {certificateId} -> certificateId) (\s@DeleteCACertificate' {} a -> s {certificateId = a} :: DeleteCACertificate)
 
-instance AWSRequest DeleteCACertificate where
+instance Prelude.AWSRequest DeleteCACertificate where
   type
     Rs DeleteCACertificate =
       DeleteCACertificateResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteCACertificateResponse' <$> (pure (fromEnum s))
+          DeleteCACertificateResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteCACertificate
+instance Prelude.Hashable DeleteCACertificate
 
-instance NFData DeleteCACertificate
+instance Prelude.NFData DeleteCACertificate
 
-instance ToHeaders DeleteCACertificate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteCACertificate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteCACertificate where
+instance Prelude.ToPath DeleteCACertificate where
   toPath DeleteCACertificate' {..} =
-    mconcat
-      ["/cacertificate/", toBS _dcacCertificateId]
+    Prelude.mconcat
+      ["/cacertificate/", Prelude.toBS certificateId]
 
-instance ToQuery DeleteCACertificate where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteCACertificate where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The output for the DeleteCACertificate operation.
 --
---
---
--- /See:/ 'deleteCACertificateResponse' smart constructor.
-newtype DeleteCACertificateResponse = DeleteCACertificateResponse'
-  { _dcacrcrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteCACertificateResponse' smart constructor.
+data DeleteCACertificateResponse = DeleteCACertificateResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCACertificateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCACertificateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcacrcrsResponseStatus' - -- | The response status code.
-deleteCACertificateResponse ::
-  -- | 'dcacrcrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteCACertificateResponse_httpStatus' - The response's http status code.
+newDeleteCACertificateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteCACertificateResponse
-deleteCACertificateResponse pResponseStatus_ =
+newDeleteCACertificateResponse pHttpStatus_ =
   DeleteCACertificateResponse'
-    { _dcacrcrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dcacrcrsResponseStatus :: Lens' DeleteCACertificateResponse Int
-dcacrcrsResponseStatus = lens _dcacrcrsResponseStatus (\s a -> s {_dcacrcrsResponseStatus = a})
+-- | The response's http status code.
+deleteCACertificateResponse_httpStatus :: Lens.Lens' DeleteCACertificateResponse Prelude.Int
+deleteCACertificateResponse_httpStatus = Lens.lens (\DeleteCACertificateResponse' {httpStatus} -> httpStatus) (\s@DeleteCACertificateResponse' {} a -> s {httpStatus = a} :: DeleteCACertificateResponse)
 
-instance NFData DeleteCACertificateResponse
+instance Prelude.NFData DeleteCACertificateResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,116 +21,118 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
+-- Before you can delete a custom metric, you must first remove the custom
+-- metric from all security profiles it\'s a part of. The security profile
+-- associated with the custom metric can be found using the
+-- <https://docs.aws.amazon.com/iot/latest/apireference/API_ListSecurityProfiles.html ListSecurityProfiles>
+-- API with @metricName@ set to your custom metric name.
+--
 -- Deletes a Device Defender detect custom metric.
 module Network.AWS.IoT.DeleteCustomMetric
   ( -- * Creating a Request
-    deleteCustomMetric,
-    DeleteCustomMetric,
+    DeleteCustomMetric (..),
+    newDeleteCustomMetric,
 
     -- * Request Lenses
-    dcmMetricName,
+    deleteCustomMetric_metricName,
 
     -- * Destructuring the Response
-    deleteCustomMetricResponse,
-    DeleteCustomMetricResponse,
+    DeleteCustomMetricResponse (..),
+    newDeleteCustomMetricResponse,
 
     -- * Response Lenses
-    dcmrcrsResponseStatus,
+    deleteCustomMetricResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteCustomMetric' smart constructor.
-newtype DeleteCustomMetric = DeleteCustomMetric'
-  { _dcmMetricName ::
-      Text
+-- | /See:/ 'newDeleteCustomMetric' smart constructor.
+data DeleteCustomMetric = DeleteCustomMetric'
+  { -- | The name of the custom metric.
+    metricName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCustomMetric' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCustomMetric' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcmMetricName' - The name of the custom metric.
-deleteCustomMetric ::
-  -- | 'dcmMetricName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'metricName', 'deleteCustomMetric_metricName' - The name of the custom metric.
+newDeleteCustomMetric ::
+  -- | 'metricName'
+  Prelude.Text ->
   DeleteCustomMetric
-deleteCustomMetric pMetricName_ =
-  DeleteCustomMetric' {_dcmMetricName = pMetricName_}
+newDeleteCustomMetric pMetricName_ =
+  DeleteCustomMetric' {metricName = pMetricName_}
 
 -- | The name of the custom metric.
-dcmMetricName :: Lens' DeleteCustomMetric Text
-dcmMetricName = lens _dcmMetricName (\s a -> s {_dcmMetricName = a})
+deleteCustomMetric_metricName :: Lens.Lens' DeleteCustomMetric Prelude.Text
+deleteCustomMetric_metricName = Lens.lens (\DeleteCustomMetric' {metricName} -> metricName) (\s@DeleteCustomMetric' {} a -> s {metricName = a} :: DeleteCustomMetric)
 
-instance AWSRequest DeleteCustomMetric where
+instance Prelude.AWSRequest DeleteCustomMetric where
   type
     Rs DeleteCustomMetric =
       DeleteCustomMetricResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteCustomMetricResponse' <$> (pure (fromEnum s))
+          DeleteCustomMetricResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteCustomMetric
+instance Prelude.Hashable DeleteCustomMetric
 
-instance NFData DeleteCustomMetric
+instance Prelude.NFData DeleteCustomMetric
 
-instance ToHeaders DeleteCustomMetric where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteCustomMetric where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteCustomMetric where
+instance Prelude.ToPath DeleteCustomMetric where
   toPath DeleteCustomMetric' {..} =
-    mconcat ["/custom-metric/", toBS _dcmMetricName]
+    Prelude.mconcat
+      ["/custom-metric/", Prelude.toBS metricName]
 
-instance ToQuery DeleteCustomMetric where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteCustomMetric where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteCustomMetricResponse' smart constructor.
-newtype DeleteCustomMetricResponse = DeleteCustomMetricResponse'
-  { _dcmrcrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteCustomMetricResponse' smart constructor.
+data DeleteCustomMetricResponse = DeleteCustomMetricResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCustomMetricResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCustomMetricResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcmrcrsResponseStatus' - -- | The response status code.
-deleteCustomMetricResponse ::
-  -- | 'dcmrcrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteCustomMetricResponse_httpStatus' - The response's http status code.
+newDeleteCustomMetricResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteCustomMetricResponse
-deleteCustomMetricResponse pResponseStatus_ =
+newDeleteCustomMetricResponse pHttpStatus_ =
   DeleteCustomMetricResponse'
-    { _dcmrcrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dcmrcrsResponseStatus :: Lens' DeleteCustomMetricResponse Int
-dcmrcrsResponseStatus = lens _dcmrcrsResponseStatus (\s a -> s {_dcmrcrsResponseStatus = a})
+-- | The response's http status code.
+deleteCustomMetricResponse_httpStatus :: Lens.Lens' DeleteCustomMetricResponse Prelude.Int
+deleteCustomMetricResponse_httpStatus = Lens.lens (\DeleteCustomMetricResponse' {httpStatus} -> httpStatus) (\s@DeleteCustomMetricResponse' {} a -> s {httpStatus = a} :: DeleteCustomMetricResponse)
 
-instance NFData DeleteCustomMetricResponse
+instance Prelude.NFData DeleteCustomMetricResponse

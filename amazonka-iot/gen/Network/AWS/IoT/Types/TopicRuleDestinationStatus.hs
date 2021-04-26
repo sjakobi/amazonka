@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.IoT.Types.TopicRuleDestinationStatus
   ( TopicRuleDestinationStatus
       ( ..,
-        TRDSDeleting,
-        TRDSDisabled,
-        TRDSEnabled,
-        TRDSError',
-        TRDSInProgress
+        TopicRuleDestinationStatusDELETING,
+        TopicRuleDestinationStatusDISABLED,
+        TopicRuleDestinationStatusENABLED,
+        TopicRuleDestinationStatusERROR,
+        TopicRuleDestinationStatusINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TopicRuleDestinationStatus
-  = TopicRuleDestinationStatus'
-      ( CI
-          Text
-      )
+newtype TopicRuleDestinationStatus = TopicRuleDestinationStatus'
+  { fromTopicRuleDestinationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TRDSDeleting :: TopicRuleDestinationStatus
-pattern TRDSDeleting = TopicRuleDestinationStatus' "DELETING"
+pattern TopicRuleDestinationStatusDELETING :: TopicRuleDestinationStatus
+pattern TopicRuleDestinationStatusDELETING = TopicRuleDestinationStatus' "DELETING"
 
-pattern TRDSDisabled :: TopicRuleDestinationStatus
-pattern TRDSDisabled = TopicRuleDestinationStatus' "DISABLED"
+pattern TopicRuleDestinationStatusDISABLED :: TopicRuleDestinationStatus
+pattern TopicRuleDestinationStatusDISABLED = TopicRuleDestinationStatus' "DISABLED"
 
-pattern TRDSEnabled :: TopicRuleDestinationStatus
-pattern TRDSEnabled = TopicRuleDestinationStatus' "ENABLED"
+pattern TopicRuleDestinationStatusENABLED :: TopicRuleDestinationStatus
+pattern TopicRuleDestinationStatusENABLED = TopicRuleDestinationStatus' "ENABLED"
 
-pattern TRDSError' :: TopicRuleDestinationStatus
-pattern TRDSError' = TopicRuleDestinationStatus' "ERROR"
+pattern TopicRuleDestinationStatusERROR :: TopicRuleDestinationStatus
+pattern TopicRuleDestinationStatusERROR = TopicRuleDestinationStatus' "ERROR"
 
-pattern TRDSInProgress :: TopicRuleDestinationStatus
-pattern TRDSInProgress = TopicRuleDestinationStatus' "IN_PROGRESS"
+pattern TopicRuleDestinationStatusINPROGRESS :: TopicRuleDestinationStatus
+pattern TopicRuleDestinationStatusINPROGRESS = TopicRuleDestinationStatus' "IN_PROGRESS"
 
 {-# COMPLETE
-  TRDSDeleting,
-  TRDSDisabled,
-  TRDSEnabled,
-  TRDSError',
-  TRDSInProgress,
+  TopicRuleDestinationStatusDELETING,
+  TopicRuleDestinationStatusDISABLED,
+  TopicRuleDestinationStatusENABLED,
+  TopicRuleDestinationStatusERROR,
+  TopicRuleDestinationStatusINPROGRESS,
   TopicRuleDestinationStatus'
   #-}
 
-instance FromText TopicRuleDestinationStatus where
-  parser = (TopicRuleDestinationStatus' . mk) <$> takeText
+instance Prelude.FromText TopicRuleDestinationStatus where
+  parser = TopicRuleDestinationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TopicRuleDestinationStatus where
-  toText (TopicRuleDestinationStatus' ci) = original ci
+instance Prelude.ToText TopicRuleDestinationStatus where
+  toText (TopicRuleDestinationStatus' x) = x
 
-instance Hashable TopicRuleDestinationStatus
+instance Prelude.Hashable TopicRuleDestinationStatus
 
-instance NFData TopicRuleDestinationStatus
+instance Prelude.NFData TopicRuleDestinationStatus
 
-instance ToByteString TopicRuleDestinationStatus
+instance Prelude.ToByteString TopicRuleDestinationStatus
 
-instance ToQuery TopicRuleDestinationStatus
+instance Prelude.ToQuery TopicRuleDestinationStatus
 
-instance ToHeader TopicRuleDestinationStatus
+instance Prelude.ToHeader TopicRuleDestinationStatus
 
-instance ToJSON TopicRuleDestinationStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TopicRuleDestinationStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TopicRuleDestinationStatus where
-  parseJSON = parseJSONText "TopicRuleDestinationStatus"
+instance Prelude.FromJSON TopicRuleDestinationStatus where
+  parseJSON = Prelude.parseJSONText "TopicRuleDestinationStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,181 +23,195 @@
 --
 -- List bulk thing provisioning tasks.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListThingRegistrationTasks
   ( -- * Creating a Request
-    listThingRegistrationTasks,
-    ListThingRegistrationTasks,
+    ListThingRegistrationTasks (..),
+    newListThingRegistrationTasks,
 
     -- * Request Lenses
-    ltrtNextToken,
-    ltrtStatus,
-    ltrtMaxResults,
+    listThingRegistrationTasks_nextToken,
+    listThingRegistrationTasks_status,
+    listThingRegistrationTasks_maxResults,
 
     -- * Destructuring the Response
-    listThingRegistrationTasksResponse,
-    ListThingRegistrationTasksResponse,
+    ListThingRegistrationTasksResponse (..),
+    newListThingRegistrationTasksResponse,
 
     -- * Response Lenses
-    ltrtrrsNextToken,
-    ltrtrrsTaskIds,
-    ltrtrrsResponseStatus,
+    listThingRegistrationTasksResponse_nextToken,
+    listThingRegistrationTasksResponse_taskIds,
+    listThingRegistrationTasksResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listThingRegistrationTasks' smart constructor.
+-- | /See:/ 'newListThingRegistrationTasks' smart constructor.
 data ListThingRegistrationTasks = ListThingRegistrationTasks'
-  { _ltrtNextToken ::
-      !(Maybe Text),
-    _ltrtStatus ::
-      !( Maybe
-           TaskStatus
-       ),
-    _ltrtMaxResults ::
-      !(Maybe Nat)
+  { -- | To retrieve the next set of results, the @nextToken@ value from a
+    -- previous response; otherwise __null__ to receive the first set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The status of the bulk thing provisioning task.
+    status :: Prelude.Maybe TaskStatus,
+    -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListThingRegistrationTasks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListThingRegistrationTasks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrtNextToken' - To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrtStatus' - The status of the bulk thing provisioning task.
+-- 'nextToken', 'listThingRegistrationTasks_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
 --
--- * 'ltrtMaxResults' - The maximum number of results to return at one time.
-listThingRegistrationTasks ::
+-- 'status', 'listThingRegistrationTasks_status' - The status of the bulk thing provisioning task.
+--
+-- 'maxResults', 'listThingRegistrationTasks_maxResults' - The maximum number of results to return at one time.
+newListThingRegistrationTasks ::
   ListThingRegistrationTasks
-listThingRegistrationTasks =
+newListThingRegistrationTasks =
   ListThingRegistrationTasks'
-    { _ltrtNextToken =
-        Nothing,
-      _ltrtStatus = Nothing,
-      _ltrtMaxResults = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
-ltrtNextToken :: Lens' ListThingRegistrationTasks (Maybe Text)
-ltrtNextToken = lens _ltrtNextToken (\s a -> s {_ltrtNextToken = a})
+-- | To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
+listThingRegistrationTasks_nextToken :: Lens.Lens' ListThingRegistrationTasks (Prelude.Maybe Prelude.Text)
+listThingRegistrationTasks_nextToken = Lens.lens (\ListThingRegistrationTasks' {nextToken} -> nextToken) (\s@ListThingRegistrationTasks' {} a -> s {nextToken = a} :: ListThingRegistrationTasks)
 
 -- | The status of the bulk thing provisioning task.
-ltrtStatus :: Lens' ListThingRegistrationTasks (Maybe TaskStatus)
-ltrtStatus = lens _ltrtStatus (\s a -> s {_ltrtStatus = a})
+listThingRegistrationTasks_status :: Lens.Lens' ListThingRegistrationTasks (Prelude.Maybe TaskStatus)
+listThingRegistrationTasks_status = Lens.lens (\ListThingRegistrationTasks' {status} -> status) (\s@ListThingRegistrationTasks' {} a -> s {status = a} :: ListThingRegistrationTasks)
 
 -- | The maximum number of results to return at one time.
-ltrtMaxResults :: Lens' ListThingRegistrationTasks (Maybe Natural)
-ltrtMaxResults = lens _ltrtMaxResults (\s a -> s {_ltrtMaxResults = a}) . mapping _Nat
+listThingRegistrationTasks_maxResults :: Lens.Lens' ListThingRegistrationTasks (Prelude.Maybe Prelude.Natural)
+listThingRegistrationTasks_maxResults = Lens.lens (\ListThingRegistrationTasks' {maxResults} -> maxResults) (\s@ListThingRegistrationTasks' {} a -> s {maxResults = a} :: ListThingRegistrationTasks) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListThingRegistrationTasks where
+instance Pager.AWSPager ListThingRegistrationTasks where
   page rq rs
-    | stop (rs ^. ltrtrrsNextToken) = Nothing
-    | stop (rs ^. ltrtrrsTaskIds) = Nothing
-    | otherwise =
-      Just $ rq & ltrtNextToken .~ rs ^. ltrtrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listThingRegistrationTasksResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listThingRegistrationTasksResponse_taskIds
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listThingRegistrationTasks_nextToken
+          Lens..~ rs
+          Lens.^? listThingRegistrationTasksResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListThingRegistrationTasks where
+instance
+  Prelude.AWSRequest
+    ListThingRegistrationTasks
+  where
   type
     Rs ListThingRegistrationTasks =
       ListThingRegistrationTasksResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListThingRegistrationTasksResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "taskIds" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "taskIds" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListThingRegistrationTasks
+instance Prelude.Hashable ListThingRegistrationTasks
 
-instance NFData ListThingRegistrationTasks
+instance Prelude.NFData ListThingRegistrationTasks
 
-instance ToHeaders ListThingRegistrationTasks where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListThingRegistrationTasks where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListThingRegistrationTasks where
-  toPath = const "/thing-registration-tasks"
+instance Prelude.ToPath ListThingRegistrationTasks where
+  toPath = Prelude.const "/thing-registration-tasks"
 
-instance ToQuery ListThingRegistrationTasks where
+instance Prelude.ToQuery ListThingRegistrationTasks where
   toQuery ListThingRegistrationTasks' {..} =
-    mconcat
-      [ "nextToken" =: _ltrtNextToken,
-        "status" =: _ltrtStatus,
-        "maxResults" =: _ltrtMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "status" Prelude.=: status,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listThingRegistrationTasksResponse' smart constructor.
+-- | /See:/ 'newListThingRegistrationTasksResponse' smart constructor.
 data ListThingRegistrationTasksResponse = ListThingRegistrationTasksResponse'
-  { _ltrtrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ltrtrrsTaskIds ::
-      !( Maybe
-           [Text]
-       ),
-    _ltrtrrsResponseStatus ::
-      !Int
+  { -- | The token to use to get the next set of results, or __null__ if there
+    -- are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of bulk thing provisioning task IDs.
+    taskIds :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListThingRegistrationTasksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListThingRegistrationTasksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrtrrsNextToken' - The token to use to get the next set of results, or __null__ if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrtrrsTaskIds' - A list of bulk thing provisioning task IDs.
+-- 'nextToken', 'listThingRegistrationTasksResponse_nextToken' - The token to use to get the next set of results, or __null__ if there
+-- are no additional results.
 --
--- * 'ltrtrrsResponseStatus' - -- | The response status code.
-listThingRegistrationTasksResponse ::
-  -- | 'ltrtrrsResponseStatus'
-  Int ->
+-- 'taskIds', 'listThingRegistrationTasksResponse_taskIds' - A list of bulk thing provisioning task IDs.
+--
+-- 'httpStatus', 'listThingRegistrationTasksResponse_httpStatus' - The response's http status code.
+newListThingRegistrationTasksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListThingRegistrationTasksResponse
-listThingRegistrationTasksResponse pResponseStatus_ =
+newListThingRegistrationTasksResponse pHttpStatus_ =
   ListThingRegistrationTasksResponse'
-    { _ltrtrrsNextToken =
-        Nothing,
-      _ltrtrrsTaskIds = Nothing,
-      _ltrtrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      taskIds = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to get the next set of results, or __null__ if there are no additional results.
-ltrtrrsNextToken :: Lens' ListThingRegistrationTasksResponse (Maybe Text)
-ltrtrrsNextToken = lens _ltrtrrsNextToken (\s a -> s {_ltrtrrsNextToken = a})
+-- | The token to use to get the next set of results, or __null__ if there
+-- are no additional results.
+listThingRegistrationTasksResponse_nextToken :: Lens.Lens' ListThingRegistrationTasksResponse (Prelude.Maybe Prelude.Text)
+listThingRegistrationTasksResponse_nextToken = Lens.lens (\ListThingRegistrationTasksResponse' {nextToken} -> nextToken) (\s@ListThingRegistrationTasksResponse' {} a -> s {nextToken = a} :: ListThingRegistrationTasksResponse)
 
 -- | A list of bulk thing provisioning task IDs.
-ltrtrrsTaskIds :: Lens' ListThingRegistrationTasksResponse [Text]
-ltrtrrsTaskIds = lens _ltrtrrsTaskIds (\s a -> s {_ltrtrrsTaskIds = a}) . _Default . _Coerce
+listThingRegistrationTasksResponse_taskIds :: Lens.Lens' ListThingRegistrationTasksResponse (Prelude.Maybe [Prelude.Text])
+listThingRegistrationTasksResponse_taskIds = Lens.lens (\ListThingRegistrationTasksResponse' {taskIds} -> taskIds) (\s@ListThingRegistrationTasksResponse' {} a -> s {taskIds = a} :: ListThingRegistrationTasksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltrtrrsResponseStatus :: Lens' ListThingRegistrationTasksResponse Int
-ltrtrrsResponseStatus = lens _ltrtrrsResponseStatus (\s a -> s {_ltrtrrsResponseStatus = a})
+-- | The response's http status code.
+listThingRegistrationTasksResponse_httpStatus :: Lens.Lens' ListThingRegistrationTasksResponse Prelude.Int
+listThingRegistrationTasksResponse_httpStatus = Lens.lens (\ListThingRegistrationTasksResponse' {httpStatus} -> httpStatus) (\s@ListThingRegistrationTasksResponse' {} a -> s {httpStatus = a} :: ListThingRegistrationTasksResponse)
 
-instance NFData ListThingRegistrationTasksResponse
+instance
+  Prelude.NFData
+    ListThingRegistrationTasksResponse

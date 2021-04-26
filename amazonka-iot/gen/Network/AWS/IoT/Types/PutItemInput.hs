@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,47 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.PutItemInput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The input for the DynamoActionVS action that specifies the DynamoDB table to which the message data will be written.
+-- | The input for the DynamoActionVS action that specifies the DynamoDB
+-- table to which the message data will be written.
 --
---
---
--- /See:/ 'putItemInput' smart constructor.
-newtype PutItemInput = PutItemInput'
-  { _piiTableName ::
-      Text
+-- /See:/ 'newPutItemInput' smart constructor.
+data PutItemInput = PutItemInput'
+  { -- | The table where the message data will be written.
+    tableName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutItemInput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutItemInput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'piiTableName' - The table where the message data will be written.
-putItemInput ::
-  -- | 'piiTableName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'tableName', 'putItemInput_tableName' - The table where the message data will be written.
+newPutItemInput ::
+  -- | 'tableName'
+  Prelude.Text ->
   PutItemInput
-putItemInput pTableName_ =
-  PutItemInput' {_piiTableName = pTableName_}
+newPutItemInput pTableName_ =
+  PutItemInput' {tableName = pTableName_}
 
 -- | The table where the message data will be written.
-piiTableName :: Lens' PutItemInput Text
-piiTableName = lens _piiTableName (\s a -> s {_piiTableName = a})
+putItemInput_tableName :: Lens.Lens' PutItemInput Prelude.Text
+putItemInput_tableName = Lens.lens (\PutItemInput' {tableName} -> tableName) (\s@PutItemInput' {} a -> s {tableName = a} :: PutItemInput)
 
-instance FromJSON PutItemInput where
+instance Prelude.FromJSON PutItemInput where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PutItemInput"
-      (\x -> PutItemInput' <$> (x .: "tableName"))
+      ( \x ->
+          PutItemInput' Prelude.<$> (x Prelude..: "tableName")
+      )
 
-instance Hashable PutItemInput
+instance Prelude.Hashable PutItemInput
 
-instance NFData PutItemInput
+instance Prelude.NFData PutItemInput
 
-instance ToJSON PutItemInput where
+instance Prelude.ToJSON PutItemInput where
   toJSON PutItemInput' {..} =
-    object
-      (catMaybes [Just ("tableName" .= _piiTableName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("tableName" Prelude..= tableName)]
+      )

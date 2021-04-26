@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,219 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a thing record in the registry. If this call is made multiple times using the same thing name and configuration, the call will succeed. If this call is made with the same thing name but different configuration a @ResourceAlreadyExistsException@ is thrown.
+-- Creates a thing record in the registry. If this call is made multiple
+-- times using the same thing name and configuration, the call will
+-- succeed. If this call is made with the same thing name but different
+-- configuration a @ResourceAlreadyExistsException@ is thrown.
+--
+-- This is a control plane operation. See
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/iot-authorization.html Authorization>
+-- for information about authorizing control plane actions.
 module Network.AWS.IoT.CreateThing
   ( -- * Creating a Request
-    createThing,
-    CreateThing,
+    CreateThing (..),
+    newCreateThing,
 
     -- * Request Lenses
-    ctBillingGroupName,
-    ctThingTypeName,
-    ctAttributePayload,
-    ctThingName,
+    createThing_billingGroupName,
+    createThing_thingTypeName,
+    createThing_attributePayload,
+    createThing_thingName,
 
     -- * Destructuring the Response
-    createThingResponse,
-    CreateThingResponse,
+    CreateThingResponse (..),
+    newCreateThingResponse,
 
     -- * Response Lenses
-    ctrrsThingARN,
-    ctrrsThingId,
-    ctrrsThingName,
-    ctrrsResponseStatus,
+    createThingResponse_thingArn,
+    createThingResponse_thingId,
+    createThingResponse_thingName,
+    createThingResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the CreateThing operation.
 --
---
---
--- /See:/ 'createThing' smart constructor.
+-- /See:/ 'newCreateThing' smart constructor.
 data CreateThing = CreateThing'
-  { _ctBillingGroupName ::
-      !(Maybe Text),
-    _ctThingTypeName :: !(Maybe Text),
-    _ctAttributePayload ::
-      !(Maybe AttributePayload),
-    _ctThingName :: !Text
+  { -- | The name of the billing group the thing will be added to.
+    billingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing type associated with the new thing.
+    thingTypeName :: Prelude.Maybe Prelude.Text,
+    -- | The attribute payload, which consists of up to three name\/value pairs
+    -- in a JSON document. For example:
+    --
+    -- @{\\\"attributes\\\":{\\\"string1\\\":\\\"string2\\\"}}@
+    attributePayload :: Prelude.Maybe AttributePayload,
+    -- | The name of the thing to create.
+    --
+    -- You can\'t change a thing\'s name after you create it. To change a
+    -- thing\'s name, you must create a new thing, give it the new name, and
+    -- then delete the old thing.
+    thingName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateThing' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateThing' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctBillingGroupName' - The name of the billing group the thing will be added to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctThingTypeName' - The name of the thing type associated with the new thing.
+-- 'billingGroupName', 'createThing_billingGroupName' - The name of the billing group the thing will be added to.
 --
--- * 'ctAttributePayload' - The attribute payload, which consists of up to three name/value pairs in a JSON document. For example: @{\"attributes\":{\"string1\":\"string2\"}}@
+-- 'thingTypeName', 'createThing_thingTypeName' - The name of the thing type associated with the new thing.
 --
--- * 'ctThingName' - The name of the thing to create. You can't change a thing's name after you create it. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing.
-createThing ::
-  -- | 'ctThingName'
-  Text ->
+-- 'attributePayload', 'createThing_attributePayload' - The attribute payload, which consists of up to three name\/value pairs
+-- in a JSON document. For example:
+--
+-- @{\\\"attributes\\\":{\\\"string1\\\":\\\"string2\\\"}}@
+--
+-- 'thingName', 'createThing_thingName' - The name of the thing to create.
+--
+-- You can\'t change a thing\'s name after you create it. To change a
+-- thing\'s name, you must create a new thing, give it the new name, and
+-- then delete the old thing.
+newCreateThing ::
+  -- | 'thingName'
+  Prelude.Text ->
   CreateThing
-createThing pThingName_ =
+newCreateThing pThingName_ =
   CreateThing'
-    { _ctBillingGroupName = Nothing,
-      _ctThingTypeName = Nothing,
-      _ctAttributePayload = Nothing,
-      _ctThingName = pThingName_
+    { billingGroupName = Prelude.Nothing,
+      thingTypeName = Prelude.Nothing,
+      attributePayload = Prelude.Nothing,
+      thingName = pThingName_
     }
 
 -- | The name of the billing group the thing will be added to.
-ctBillingGroupName :: Lens' CreateThing (Maybe Text)
-ctBillingGroupName = lens _ctBillingGroupName (\s a -> s {_ctBillingGroupName = a})
+createThing_billingGroupName :: Lens.Lens' CreateThing (Prelude.Maybe Prelude.Text)
+createThing_billingGroupName = Lens.lens (\CreateThing' {billingGroupName} -> billingGroupName) (\s@CreateThing' {} a -> s {billingGroupName = a} :: CreateThing)
 
 -- | The name of the thing type associated with the new thing.
-ctThingTypeName :: Lens' CreateThing (Maybe Text)
-ctThingTypeName = lens _ctThingTypeName (\s a -> s {_ctThingTypeName = a})
+createThing_thingTypeName :: Lens.Lens' CreateThing (Prelude.Maybe Prelude.Text)
+createThing_thingTypeName = Lens.lens (\CreateThing' {thingTypeName} -> thingTypeName) (\s@CreateThing' {} a -> s {thingTypeName = a} :: CreateThing)
 
--- | The attribute payload, which consists of up to three name/value pairs in a JSON document. For example: @{\"attributes\":{\"string1\":\"string2\"}}@
-ctAttributePayload :: Lens' CreateThing (Maybe AttributePayload)
-ctAttributePayload = lens _ctAttributePayload (\s a -> s {_ctAttributePayload = a})
+-- | The attribute payload, which consists of up to three name\/value pairs
+-- in a JSON document. For example:
+--
+-- @{\\\"attributes\\\":{\\\"string1\\\":\\\"string2\\\"}}@
+createThing_attributePayload :: Lens.Lens' CreateThing (Prelude.Maybe AttributePayload)
+createThing_attributePayload = Lens.lens (\CreateThing' {attributePayload} -> attributePayload) (\s@CreateThing' {} a -> s {attributePayload = a} :: CreateThing)
 
--- | The name of the thing to create. You can't change a thing's name after you create it. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing.
-ctThingName :: Lens' CreateThing Text
-ctThingName = lens _ctThingName (\s a -> s {_ctThingName = a})
+-- | The name of the thing to create.
+--
+-- You can\'t change a thing\'s name after you create it. To change a
+-- thing\'s name, you must create a new thing, give it the new name, and
+-- then delete the old thing.
+createThing_thingName :: Lens.Lens' CreateThing Prelude.Text
+createThing_thingName = Lens.lens (\CreateThing' {thingName} -> thingName) (\s@CreateThing' {} a -> s {thingName = a} :: CreateThing)
 
-instance AWSRequest CreateThing where
+instance Prelude.AWSRequest CreateThing where
   type Rs CreateThing = CreateThingResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateThingResponse'
-            <$> (x .?> "thingArn")
-            <*> (x .?> "thingId")
-            <*> (x .?> "thingName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "thingArn")
+            Prelude.<*> (x Prelude..?> "thingId")
+            Prelude.<*> (x Prelude..?> "thingName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateThing
+instance Prelude.Hashable CreateThing
 
-instance NFData CreateThing
+instance Prelude.NFData CreateThing
 
-instance ToHeaders CreateThing where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateThing where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateThing where
+instance Prelude.ToJSON CreateThing where
   toJSON CreateThing' {..} =
-    object
-      ( catMaybes
-          [ ("billingGroupName" .=) <$> _ctBillingGroupName,
-            ("thingTypeName" .=) <$> _ctThingTypeName,
-            ("attributePayload" .=) <$> _ctAttributePayload
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("billingGroupName" Prelude..=)
+              Prelude.<$> billingGroupName,
+            ("thingTypeName" Prelude..=)
+              Prelude.<$> thingTypeName,
+            ("attributePayload" Prelude..=)
+              Prelude.<$> attributePayload
           ]
       )
 
-instance ToPath CreateThing where
+instance Prelude.ToPath CreateThing where
   toPath CreateThing' {..} =
-    mconcat ["/things/", toBS _ctThingName]
+    Prelude.mconcat
+      ["/things/", Prelude.toBS thingName]
 
-instance ToQuery CreateThing where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateThing where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The output of the CreateThing operation.
 --
---
---
--- /See:/ 'createThingResponse' smart constructor.
+-- /See:/ 'newCreateThingResponse' smart constructor.
 data CreateThingResponse = CreateThingResponse'
-  { _ctrrsThingARN ::
-      !(Maybe Text),
-    _ctrrsThingId :: !(Maybe Text),
-    _ctrrsThingName ::
-      !(Maybe Text),
-    _ctrrsResponseStatus :: !Int
+  { -- | The ARN of the new thing.
+    thingArn :: Prelude.Maybe Prelude.Text,
+    -- | The thing ID.
+    thingId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the new thing.
+    thingName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateThingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateThingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctrrsThingARN' - The ARN of the new thing.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctrrsThingId' - The thing ID.
+-- 'thingArn', 'createThingResponse_thingArn' - The ARN of the new thing.
 --
--- * 'ctrrsThingName' - The name of the new thing.
+-- 'thingId', 'createThingResponse_thingId' - The thing ID.
 --
--- * 'ctrrsResponseStatus' - -- | The response status code.
-createThingResponse ::
-  -- | 'ctrrsResponseStatus'
-  Int ->
+-- 'thingName', 'createThingResponse_thingName' - The name of the new thing.
+--
+-- 'httpStatus', 'createThingResponse_httpStatus' - The response's http status code.
+newCreateThingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateThingResponse
-createThingResponse pResponseStatus_ =
+newCreateThingResponse pHttpStatus_ =
   CreateThingResponse'
-    { _ctrrsThingARN = Nothing,
-      _ctrrsThingId = Nothing,
-      _ctrrsThingName = Nothing,
-      _ctrrsResponseStatus = pResponseStatus_
+    { thingArn = Prelude.Nothing,
+      thingId = Prelude.Nothing,
+      thingName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the new thing.
-ctrrsThingARN :: Lens' CreateThingResponse (Maybe Text)
-ctrrsThingARN = lens _ctrrsThingARN (\s a -> s {_ctrrsThingARN = a})
+createThingResponse_thingArn :: Lens.Lens' CreateThingResponse (Prelude.Maybe Prelude.Text)
+createThingResponse_thingArn = Lens.lens (\CreateThingResponse' {thingArn} -> thingArn) (\s@CreateThingResponse' {} a -> s {thingArn = a} :: CreateThingResponse)
 
 -- | The thing ID.
-ctrrsThingId :: Lens' CreateThingResponse (Maybe Text)
-ctrrsThingId = lens _ctrrsThingId (\s a -> s {_ctrrsThingId = a})
+createThingResponse_thingId :: Lens.Lens' CreateThingResponse (Prelude.Maybe Prelude.Text)
+createThingResponse_thingId = Lens.lens (\CreateThingResponse' {thingId} -> thingId) (\s@CreateThingResponse' {} a -> s {thingId = a} :: CreateThingResponse)
 
 -- | The name of the new thing.
-ctrrsThingName :: Lens' CreateThingResponse (Maybe Text)
-ctrrsThingName = lens _ctrrsThingName (\s a -> s {_ctrrsThingName = a})
+createThingResponse_thingName :: Lens.Lens' CreateThingResponse (Prelude.Maybe Prelude.Text)
+createThingResponse_thingName = Lens.lens (\CreateThingResponse' {thingName} -> thingName) (\s@CreateThingResponse' {} a -> s {thingName = a} :: CreateThingResponse)
 
--- | -- | The response status code.
-ctrrsResponseStatus :: Lens' CreateThingResponse Int
-ctrrsResponseStatus = lens _ctrrsResponseStatus (\s a -> s {_ctrrsResponseStatus = a})
+-- | The response's http status code.
+createThingResponse_httpStatus :: Lens.Lens' CreateThingResponse Prelude.Int
+createThingResponse_httpStatus = Lens.lens (\CreateThingResponse' {httpStatus} -> httpStatus) (\s@CreateThingResponse' {} a -> s {httpStatus = a} :: CreateThingResponse)
 
-instance NFData CreateThingResponse
+instance Prelude.NFData CreateThingResponse

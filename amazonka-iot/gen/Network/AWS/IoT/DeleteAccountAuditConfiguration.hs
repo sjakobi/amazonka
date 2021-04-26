@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,125 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Restores the default settings for Device Defender audits for this account. Any configuration data you entered is deleted and all audit checks are reset to disabled.
+-- Restores the default settings for Device Defender audits for this
+-- account. Any configuration data you entered is deleted and all audit
+-- checks are reset to disabled.
 module Network.AWS.IoT.DeleteAccountAuditConfiguration
   ( -- * Creating a Request
-    deleteAccountAuditConfiguration,
-    DeleteAccountAuditConfiguration,
+    DeleteAccountAuditConfiguration (..),
+    newDeleteAccountAuditConfiguration,
 
     -- * Request Lenses
-    daacDeleteScheduledAudits,
+    deleteAccountAuditConfiguration_deleteScheduledAudits,
 
     -- * Destructuring the Response
-    deleteAccountAuditConfigurationResponse,
-    DeleteAccountAuditConfigurationResponse,
+    DeleteAccountAuditConfigurationResponse (..),
+    newDeleteAccountAuditConfigurationResponse,
 
     -- * Response Lenses
-    daacrrsResponseStatus,
+    deleteAccountAuditConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAccountAuditConfiguration' smart constructor.
-newtype DeleteAccountAuditConfiguration = DeleteAccountAuditConfiguration'
-  { _daacDeleteScheduledAudits ::
-      Maybe
-        Bool
+-- | /See:/ 'newDeleteAccountAuditConfiguration' smart constructor.
+data DeleteAccountAuditConfiguration = DeleteAccountAuditConfiguration'
+  { -- | If true, all scheduled audits are deleted.
+    deleteScheduledAudits :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAccountAuditConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAccountAuditConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daacDeleteScheduledAudits' - If true, all scheduled audits are deleted.
-deleteAccountAuditConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deleteScheduledAudits', 'deleteAccountAuditConfiguration_deleteScheduledAudits' - If true, all scheduled audits are deleted.
+newDeleteAccountAuditConfiguration ::
   DeleteAccountAuditConfiguration
-deleteAccountAuditConfiguration =
+newDeleteAccountAuditConfiguration =
   DeleteAccountAuditConfiguration'
-    { _daacDeleteScheduledAudits =
-        Nothing
+    { deleteScheduledAudits =
+        Prelude.Nothing
     }
 
 -- | If true, all scheduled audits are deleted.
-daacDeleteScheduledAudits :: Lens' DeleteAccountAuditConfiguration (Maybe Bool)
-daacDeleteScheduledAudits = lens _daacDeleteScheduledAudits (\s a -> s {_daacDeleteScheduledAudits = a})
+deleteAccountAuditConfiguration_deleteScheduledAudits :: Lens.Lens' DeleteAccountAuditConfiguration (Prelude.Maybe Prelude.Bool)
+deleteAccountAuditConfiguration_deleteScheduledAudits = Lens.lens (\DeleteAccountAuditConfiguration' {deleteScheduledAudits} -> deleteScheduledAudits) (\s@DeleteAccountAuditConfiguration' {} a -> s {deleteScheduledAudits = a} :: DeleteAccountAuditConfiguration)
 
-instance AWSRequest DeleteAccountAuditConfiguration where
+instance
+  Prelude.AWSRequest
+    DeleteAccountAuditConfiguration
+  where
   type
     Rs DeleteAccountAuditConfiguration =
       DeleteAccountAuditConfigurationResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteAccountAuditConfigurationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAccountAuditConfiguration
-
-instance NFData DeleteAccountAuditConfiguration
-
-instance ToHeaders DeleteAccountAuditConfiguration where
-  toHeaders = const mempty
-
-instance ToPath DeleteAccountAuditConfiguration where
-  toPath = const "/audit/configuration"
-
-instance ToQuery DeleteAccountAuditConfiguration where
-  toQuery DeleteAccountAuditConfiguration' {..} =
-    mconcat
-      [ "deleteScheduledAudits"
-          =: _daacDeleteScheduledAudits
-      ]
-
--- | /See:/ 'deleteAccountAuditConfigurationResponse' smart constructor.
-newtype DeleteAccountAuditConfigurationResponse = DeleteAccountAuditConfigurationResponse'
-  { _daacrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DeleteAccountAuditConfigurationResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'daacrrsResponseStatus' - -- | The response status code.
-deleteAccountAuditConfigurationResponse ::
-  -- | 'daacrrsResponseStatus'
-  Int ->
-  DeleteAccountAuditConfigurationResponse
-deleteAccountAuditConfigurationResponse
-  pResponseStatus_ =
-    DeleteAccountAuditConfigurationResponse'
-      { _daacrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-daacrrsResponseStatus :: Lens' DeleteAccountAuditConfigurationResponse Int
-daacrrsResponseStatus = lens _daacrrsResponseStatus (\s a -> s {_daacrrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    DeleteAccountAuditConfiguration
 
 instance
-  NFData
+  Prelude.NFData
+    DeleteAccountAuditConfiguration
+
+instance
+  Prelude.ToHeaders
+    DeleteAccountAuditConfiguration
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    DeleteAccountAuditConfiguration
+  where
+  toPath = Prelude.const "/audit/configuration"
+
+instance
+  Prelude.ToQuery
+    DeleteAccountAuditConfiguration
+  where
+  toQuery DeleteAccountAuditConfiguration' {..} =
+    Prelude.mconcat
+      [ "deleteScheduledAudits"
+          Prelude.=: deleteScheduledAudits
+      ]
+
+-- | /See:/ 'newDeleteAccountAuditConfigurationResponse' smart constructor.
+data DeleteAccountAuditConfigurationResponse = DeleteAccountAuditConfigurationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DeleteAccountAuditConfigurationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteAccountAuditConfigurationResponse_httpStatus' - The response's http status code.
+newDeleteAccountAuditConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DeleteAccountAuditConfigurationResponse
+newDeleteAccountAuditConfigurationResponse
+  pHttpStatus_ =
+    DeleteAccountAuditConfigurationResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+deleteAccountAuditConfigurationResponse_httpStatus :: Lens.Lens' DeleteAccountAuditConfigurationResponse Prelude.Int
+deleteAccountAuditConfigurationResponse_httpStatus = Lens.lens (\DeleteAccountAuditConfigurationResponse' {httpStatus} -> httpStatus) (\s@DeleteAccountAuditConfigurationResponse' {} a -> s {httpStatus = a} :: DeleteAccountAuditConfigurationResponse)
+
+instance
+  Prelude.NFData
     DeleteAccountAuditConfigurationResponse

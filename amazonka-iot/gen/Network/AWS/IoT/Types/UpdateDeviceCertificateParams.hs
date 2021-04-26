@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,58 +20,63 @@
 module Network.AWS.IoT.Types.UpdateDeviceCertificateParams where
 
 import Network.AWS.IoT.Types.DeviceCertificateUpdateAction
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Parameters to define a mitigation action that changes the state of the device certificate to inactive.
+-- | Parameters to define a mitigation action that changes the state of the
+-- device certificate to inactive.
 --
---
---
--- /See:/ 'updateDeviceCertificateParams' smart constructor.
-newtype UpdateDeviceCertificateParams = UpdateDeviceCertificateParams'
-  { _udcpAction ::
-      DeviceCertificateUpdateAction
+-- /See:/ 'newUpdateDeviceCertificateParams' smart constructor.
+data UpdateDeviceCertificateParams = UpdateDeviceCertificateParams'
+  { -- | The action that you want to apply to the device certificate. The only
+    -- supported value is @DEACTIVATE@.
+    action :: DeviceCertificateUpdateAction
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDeviceCertificateParams' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDeviceCertificateParams' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udcpAction' - The action that you want to apply to the device certificate. The only supported value is @DEACTIVATE@ .
-updateDeviceCertificateParams ::
-  -- | 'udcpAction'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'action', 'updateDeviceCertificateParams_action' - The action that you want to apply to the device certificate. The only
+-- supported value is @DEACTIVATE@.
+newUpdateDeviceCertificateParams ::
+  -- | 'action'
   DeviceCertificateUpdateAction ->
   UpdateDeviceCertificateParams
-updateDeviceCertificateParams pAction_ =
-  UpdateDeviceCertificateParams'
-    { _udcpAction =
-        pAction_
-    }
+newUpdateDeviceCertificateParams pAction_ =
+  UpdateDeviceCertificateParams' {action = pAction_}
 
--- | The action that you want to apply to the device certificate. The only supported value is @DEACTIVATE@ .
-udcpAction :: Lens' UpdateDeviceCertificateParams DeviceCertificateUpdateAction
-udcpAction = lens _udcpAction (\s a -> s {_udcpAction = a})
+-- | The action that you want to apply to the device certificate. The only
+-- supported value is @DEACTIVATE@.
+updateDeviceCertificateParams_action :: Lens.Lens' UpdateDeviceCertificateParams DeviceCertificateUpdateAction
+updateDeviceCertificateParams_action = Lens.lens (\UpdateDeviceCertificateParams' {action} -> action) (\s@UpdateDeviceCertificateParams' {} a -> s {action = a} :: UpdateDeviceCertificateParams)
 
-instance FromJSON UpdateDeviceCertificateParams where
+instance
+  Prelude.FromJSON
+    UpdateDeviceCertificateParams
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UpdateDeviceCertificateParams"
       ( \x ->
-          UpdateDeviceCertificateParams' <$> (x .: "action")
+          UpdateDeviceCertificateParams'
+            Prelude.<$> (x Prelude..: "action")
       )
 
-instance Hashable UpdateDeviceCertificateParams
+instance
+  Prelude.Hashable
+    UpdateDeviceCertificateParams
 
-instance NFData UpdateDeviceCertificateParams
+instance Prelude.NFData UpdateDeviceCertificateParams
 
-instance ToJSON UpdateDeviceCertificateParams where
+instance Prelude.ToJSON UpdateDeviceCertificateParams where
   toJSON UpdateDeviceCertificateParams' {..} =
-    object (catMaybes [Just ("action" .= _udcpAction)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("action" Prelude..= action)]
+      )

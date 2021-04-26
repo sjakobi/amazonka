@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,84 +20,96 @@
 module Network.AWS.IoT.Types.JobExecutionSummary where
 
 import Network.AWS.IoT.Types.JobExecutionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The job execution summary.
 --
---
---
--- /See:/ 'jobExecutionSummary' smart constructor.
+-- /See:/ 'newJobExecutionSummary' smart constructor.
 data JobExecutionSummary = JobExecutionSummary'
-  { _jesStartedAt ::
-      !(Maybe POSIX),
-    _jesStatus ::
-      !(Maybe JobExecutionStatus),
-    _jesQueuedAt :: !(Maybe POSIX),
-    _jesExecutionNumber ::
-      !(Maybe Integer),
-    _jesLastUpdatedAt ::
-      !(Maybe POSIX)
+  { -- | The time, in seconds since the epoch, when the job execution started.
+    startedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the job execution.
+    status :: Prelude.Maybe JobExecutionStatus,
+    -- | The time, in seconds since the epoch, when the job execution was queued.
+    queuedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | A string (consisting of the digits \"0\" through \"9\") which identifies
+    -- this particular job execution on this particular device. It can be used
+    -- later in commands which return or update job execution information.
+    executionNumber :: Prelude.Maybe Prelude.Integer,
+    -- | The time, in seconds since the epoch, when the job execution was last
+    -- updated.
+    lastUpdatedAt :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobExecutionSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobExecutionSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jesStartedAt' - The time, in seconds since the epoch, when the job execution started.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jesStatus' - The status of the job execution.
+-- 'startedAt', 'jobExecutionSummary_startedAt' - The time, in seconds since the epoch, when the job execution started.
 --
--- * 'jesQueuedAt' - The time, in seconds since the epoch, when the job execution was queued.
+-- 'status', 'jobExecutionSummary_status' - The status of the job execution.
 --
--- * 'jesExecutionNumber' - A string (consisting of the digits "0" through "9") which identifies this particular job execution on this particular device. It can be used later in commands which return or update job execution information.
+-- 'queuedAt', 'jobExecutionSummary_queuedAt' - The time, in seconds since the epoch, when the job execution was queued.
 --
--- * 'jesLastUpdatedAt' - The time, in seconds since the epoch, when the job execution was last updated.
-jobExecutionSummary ::
+-- 'executionNumber', 'jobExecutionSummary_executionNumber' - A string (consisting of the digits \"0\" through \"9\") which identifies
+-- this particular job execution on this particular device. It can be used
+-- later in commands which return or update job execution information.
+--
+-- 'lastUpdatedAt', 'jobExecutionSummary_lastUpdatedAt' - The time, in seconds since the epoch, when the job execution was last
+-- updated.
+newJobExecutionSummary ::
   JobExecutionSummary
-jobExecutionSummary =
+newJobExecutionSummary =
   JobExecutionSummary'
-    { _jesStartedAt = Nothing,
-      _jesStatus = Nothing,
-      _jesQueuedAt = Nothing,
-      _jesExecutionNumber = Nothing,
-      _jesLastUpdatedAt = Nothing
+    { startedAt = Prelude.Nothing,
+      status = Prelude.Nothing,
+      queuedAt = Prelude.Nothing,
+      executionNumber = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing
     }
 
 -- | The time, in seconds since the epoch, when the job execution started.
-jesStartedAt :: Lens' JobExecutionSummary (Maybe UTCTime)
-jesStartedAt = lens _jesStartedAt (\s a -> s {_jesStartedAt = a}) . mapping _Time
+jobExecutionSummary_startedAt :: Lens.Lens' JobExecutionSummary (Prelude.Maybe Prelude.UTCTime)
+jobExecutionSummary_startedAt = Lens.lens (\JobExecutionSummary' {startedAt} -> startedAt) (\s@JobExecutionSummary' {} a -> s {startedAt = a} :: JobExecutionSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the job execution.
-jesStatus :: Lens' JobExecutionSummary (Maybe JobExecutionStatus)
-jesStatus = lens _jesStatus (\s a -> s {_jesStatus = a})
+jobExecutionSummary_status :: Lens.Lens' JobExecutionSummary (Prelude.Maybe JobExecutionStatus)
+jobExecutionSummary_status = Lens.lens (\JobExecutionSummary' {status} -> status) (\s@JobExecutionSummary' {} a -> s {status = a} :: JobExecutionSummary)
 
 -- | The time, in seconds since the epoch, when the job execution was queued.
-jesQueuedAt :: Lens' JobExecutionSummary (Maybe UTCTime)
-jesQueuedAt = lens _jesQueuedAt (\s a -> s {_jesQueuedAt = a}) . mapping _Time
+jobExecutionSummary_queuedAt :: Lens.Lens' JobExecutionSummary (Prelude.Maybe Prelude.UTCTime)
+jobExecutionSummary_queuedAt = Lens.lens (\JobExecutionSummary' {queuedAt} -> queuedAt) (\s@JobExecutionSummary' {} a -> s {queuedAt = a} :: JobExecutionSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | A string (consisting of the digits "0" through "9") which identifies this particular job execution on this particular device. It can be used later in commands which return or update job execution information.
-jesExecutionNumber :: Lens' JobExecutionSummary (Maybe Integer)
-jesExecutionNumber = lens _jesExecutionNumber (\s a -> s {_jesExecutionNumber = a})
+-- | A string (consisting of the digits \"0\" through \"9\") which identifies
+-- this particular job execution on this particular device. It can be used
+-- later in commands which return or update job execution information.
+jobExecutionSummary_executionNumber :: Lens.Lens' JobExecutionSummary (Prelude.Maybe Prelude.Integer)
+jobExecutionSummary_executionNumber = Lens.lens (\JobExecutionSummary' {executionNumber} -> executionNumber) (\s@JobExecutionSummary' {} a -> s {executionNumber = a} :: JobExecutionSummary)
 
--- | The time, in seconds since the epoch, when the job execution was last updated.
-jesLastUpdatedAt :: Lens' JobExecutionSummary (Maybe UTCTime)
-jesLastUpdatedAt = lens _jesLastUpdatedAt (\s a -> s {_jesLastUpdatedAt = a}) . mapping _Time
+-- | The time, in seconds since the epoch, when the job execution was last
+-- updated.
+jobExecutionSummary_lastUpdatedAt :: Lens.Lens' JobExecutionSummary (Prelude.Maybe Prelude.UTCTime)
+jobExecutionSummary_lastUpdatedAt = Lens.lens (\JobExecutionSummary' {lastUpdatedAt} -> lastUpdatedAt) (\s@JobExecutionSummary' {} a -> s {lastUpdatedAt = a} :: JobExecutionSummary) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON JobExecutionSummary where
+instance Prelude.FromJSON JobExecutionSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobExecutionSummary"
       ( \x ->
           JobExecutionSummary'
-            <$> (x .:? "startedAt")
-            <*> (x .:? "status")
-            <*> (x .:? "queuedAt")
-            <*> (x .:? "executionNumber")
-            <*> (x .:? "lastUpdatedAt")
+            Prelude.<$> (x Prelude..:? "startedAt")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "queuedAt")
+            Prelude.<*> (x Prelude..:? "executionNumber")
+            Prelude.<*> (x Prelude..:? "lastUpdatedAt")
       )
 
-instance Hashable JobExecutionSummary
+instance Prelude.Hashable JobExecutionSummary
 
-instance NFData JobExecutionSummary
+instance Prelude.NFData JobExecutionSummary

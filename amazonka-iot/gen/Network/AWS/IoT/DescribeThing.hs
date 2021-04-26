@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,200 +24,236 @@
 -- Gets information about the specified thing.
 module Network.AWS.IoT.DescribeThing
   ( -- * Creating a Request
-    describeThing,
-    DescribeThing,
+    DescribeThing (..),
+    newDescribeThing,
 
     -- * Request Lenses
-    desThingName,
+    describeThing_thingName,
 
     -- * Destructuring the Response
-    describeThingResponse,
-    DescribeThingResponse,
+    DescribeThingResponse (..),
+    newDescribeThingResponse,
 
     -- * Response Lenses
-    dtrtrsThingARN,
-    dtrtrsThingId,
-    dtrtrsThingName,
-    dtrtrsVersion,
-    dtrtrsAttributes,
-    dtrtrsDefaultClientId,
-    dtrtrsBillingGroupName,
-    dtrtrsThingTypeName,
-    dtrtrsResponseStatus,
+    describeThingResponse_thingArn,
+    describeThingResponse_thingId,
+    describeThingResponse_thingName,
+    describeThingResponse_version,
+    describeThingResponse_attributes,
+    describeThingResponse_defaultClientId,
+    describeThingResponse_billingGroupName,
+    describeThingResponse_thingTypeName,
+    describeThingResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the DescribeThing operation.
 --
---
---
--- /See:/ 'describeThing' smart constructor.
-newtype DescribeThing = DescribeThing'
-  { _desThingName ::
-      Text
+-- /See:/ 'newDescribeThing' smart constructor.
+data DescribeThing = DescribeThing'
+  { -- | The name of the thing.
+    thingName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeThing' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeThing' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desThingName' - The name of the thing.
-describeThing ::
-  -- | 'desThingName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'thingName', 'describeThing_thingName' - The name of the thing.
+newDescribeThing ::
+  -- | 'thingName'
+  Prelude.Text ->
   DescribeThing
-describeThing pThingName_ =
-  DescribeThing' {_desThingName = pThingName_}
+newDescribeThing pThingName_ =
+  DescribeThing' {thingName = pThingName_}
 
 -- | The name of the thing.
-desThingName :: Lens' DescribeThing Text
-desThingName = lens _desThingName (\s a -> s {_desThingName = a})
+describeThing_thingName :: Lens.Lens' DescribeThing Prelude.Text
+describeThing_thingName = Lens.lens (\DescribeThing' {thingName} -> thingName) (\s@DescribeThing' {} a -> s {thingName = a} :: DescribeThing)
 
-instance AWSRequest DescribeThing where
+instance Prelude.AWSRequest DescribeThing where
   type Rs DescribeThing = DescribeThingResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeThingResponse'
-            <$> (x .?> "thingArn")
-            <*> (x .?> "thingId")
-            <*> (x .?> "thingName")
-            <*> (x .?> "version")
-            <*> (x .?> "attributes" .!@ mempty)
-            <*> (x .?> "defaultClientId")
-            <*> (x .?> "billingGroupName")
-            <*> (x .?> "thingTypeName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "thingArn")
+            Prelude.<*> (x Prelude..?> "thingId")
+            Prelude.<*> (x Prelude..?> "thingName")
+            Prelude.<*> (x Prelude..?> "version")
+            Prelude.<*> ( x Prelude..?> "attributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "defaultClientId")
+            Prelude.<*> (x Prelude..?> "billingGroupName")
+            Prelude.<*> (x Prelude..?> "thingTypeName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeThing
+instance Prelude.Hashable DescribeThing
 
-instance NFData DescribeThing
+instance Prelude.NFData DescribeThing
 
-instance ToHeaders DescribeThing where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeThing where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeThing where
+instance Prelude.ToPath DescribeThing where
   toPath DescribeThing' {..} =
-    mconcat ["/things/", toBS _desThingName]
+    Prelude.mconcat
+      ["/things/", Prelude.toBS thingName]
 
-instance ToQuery DescribeThing where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeThing where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The output from the DescribeThing operation.
 --
---
---
--- /See:/ 'describeThingResponse' smart constructor.
+-- /See:/ 'newDescribeThingResponse' smart constructor.
 data DescribeThingResponse = DescribeThingResponse'
-  { _dtrtrsThingARN ::
-      !(Maybe Text),
-    _dtrtrsThingId ::
-      !(Maybe Text),
-    _dtrtrsThingName ::
-      !(Maybe Text),
-    _dtrtrsVersion ::
-      !(Maybe Integer),
-    _dtrtrsAttributes ::
-      !(Maybe (Map Text Text)),
-    _dtrtrsDefaultClientId ::
-      !(Maybe Text),
-    _dtrtrsBillingGroupName ::
-      !(Maybe Text),
-    _dtrtrsThingTypeName ::
-      !(Maybe Text),
-    _dtrtrsResponseStatus ::
-      !Int
+  { -- | The ARN of the thing to describe.
+    thingArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the thing to describe.
+    thingId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing.
+    thingName :: Prelude.Maybe Prelude.Text,
+    -- | The current version of the thing record in the registry.
+    --
+    -- To avoid unintentional changes to the information in the registry, you
+    -- can pass the version information in the @expectedVersion@ parameter of
+    -- the @UpdateThing@ and @DeleteThing@ calls.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | The thing attributes.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The default MQTT client ID. For a typical device, the thing name is also
+    -- used as the default MQTT client ID. Although we don’t require a mapping
+    -- between a thing\'s registry name and its use of MQTT client IDs,
+    -- certificates, or shadow state, we recommend that you choose a thing name
+    -- and use it as the MQTT client ID for the registry and the Device Shadow
+    -- service.
+    --
+    -- This lets you better organize your AWS IoT fleet without removing the
+    -- flexibility of the underlying device certificate model or shadows.
+    defaultClientId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the billing group the thing belongs to.
+    billingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The thing type name.
+    thingTypeName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeThingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeThingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrtrsThingARN' - The ARN of the thing to describe.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtrtrsThingId' - The ID of the thing to describe.
+-- 'thingArn', 'describeThingResponse_thingArn' - The ARN of the thing to describe.
 --
--- * 'dtrtrsThingName' - The name of the thing.
+-- 'thingId', 'describeThingResponse_thingId' - The ID of the thing to describe.
 --
--- * 'dtrtrsVersion' - The current version of the thing record in the registry.
+-- 'thingName', 'describeThingResponse_thingName' - The name of the thing.
 --
--- * 'dtrtrsAttributes' - The thing attributes.
+-- 'version', 'describeThingResponse_version' - The current version of the thing record in the registry.
 --
--- * 'dtrtrsDefaultClientId' - The default MQTT client ID. For a typical device, the thing name is also used as the default MQTT client ID. Although we don’t require a mapping between a thing's registry name and its use of MQTT client IDs, certificates, or shadow state, we recommend that you choose a thing name and use it as the MQTT client ID for the registry and the Device Shadow service. This lets you better organize your AWS IoT fleet without removing the flexibility of the underlying device certificate model or shadows.
+-- To avoid unintentional changes to the information in the registry, you
+-- can pass the version information in the @expectedVersion@ parameter of
+-- the @UpdateThing@ and @DeleteThing@ calls.
 --
--- * 'dtrtrsBillingGroupName' - The name of the billing group the thing belongs to.
+-- 'attributes', 'describeThingResponse_attributes' - The thing attributes.
 --
--- * 'dtrtrsThingTypeName' - The thing type name.
+-- 'defaultClientId', 'describeThingResponse_defaultClientId' - The default MQTT client ID. For a typical device, the thing name is also
+-- used as the default MQTT client ID. Although we don’t require a mapping
+-- between a thing\'s registry name and its use of MQTT client IDs,
+-- certificates, or shadow state, we recommend that you choose a thing name
+-- and use it as the MQTT client ID for the registry and the Device Shadow
+-- service.
 --
--- * 'dtrtrsResponseStatus' - -- | The response status code.
-describeThingResponse ::
-  -- | 'dtrtrsResponseStatus'
-  Int ->
+-- This lets you better organize your AWS IoT fleet without removing the
+-- flexibility of the underlying device certificate model or shadows.
+--
+-- 'billingGroupName', 'describeThingResponse_billingGroupName' - The name of the billing group the thing belongs to.
+--
+-- 'thingTypeName', 'describeThingResponse_thingTypeName' - The thing type name.
+--
+-- 'httpStatus', 'describeThingResponse_httpStatus' - The response's http status code.
+newDescribeThingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeThingResponse
-describeThingResponse pResponseStatus_ =
+newDescribeThingResponse pHttpStatus_ =
   DescribeThingResponse'
-    { _dtrtrsThingARN = Nothing,
-      _dtrtrsThingId = Nothing,
-      _dtrtrsThingName = Nothing,
-      _dtrtrsVersion = Nothing,
-      _dtrtrsAttributes = Nothing,
-      _dtrtrsDefaultClientId = Nothing,
-      _dtrtrsBillingGroupName = Nothing,
-      _dtrtrsThingTypeName = Nothing,
-      _dtrtrsResponseStatus = pResponseStatus_
+    { thingArn = Prelude.Nothing,
+      thingId = Prelude.Nothing,
+      thingName = Prelude.Nothing,
+      version = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      defaultClientId = Prelude.Nothing,
+      billingGroupName = Prelude.Nothing,
+      thingTypeName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the thing to describe.
-dtrtrsThingARN :: Lens' DescribeThingResponse (Maybe Text)
-dtrtrsThingARN = lens _dtrtrsThingARN (\s a -> s {_dtrtrsThingARN = a})
+describeThingResponse_thingArn :: Lens.Lens' DescribeThingResponse (Prelude.Maybe Prelude.Text)
+describeThingResponse_thingArn = Lens.lens (\DescribeThingResponse' {thingArn} -> thingArn) (\s@DescribeThingResponse' {} a -> s {thingArn = a} :: DescribeThingResponse)
 
 -- | The ID of the thing to describe.
-dtrtrsThingId :: Lens' DescribeThingResponse (Maybe Text)
-dtrtrsThingId = lens _dtrtrsThingId (\s a -> s {_dtrtrsThingId = a})
+describeThingResponse_thingId :: Lens.Lens' DescribeThingResponse (Prelude.Maybe Prelude.Text)
+describeThingResponse_thingId = Lens.lens (\DescribeThingResponse' {thingId} -> thingId) (\s@DescribeThingResponse' {} a -> s {thingId = a} :: DescribeThingResponse)
 
 -- | The name of the thing.
-dtrtrsThingName :: Lens' DescribeThingResponse (Maybe Text)
-dtrtrsThingName = lens _dtrtrsThingName (\s a -> s {_dtrtrsThingName = a})
+describeThingResponse_thingName :: Lens.Lens' DescribeThingResponse (Prelude.Maybe Prelude.Text)
+describeThingResponse_thingName = Lens.lens (\DescribeThingResponse' {thingName} -> thingName) (\s@DescribeThingResponse' {} a -> s {thingName = a} :: DescribeThingResponse)
 
 -- | The current version of the thing record in the registry.
-dtrtrsVersion :: Lens' DescribeThingResponse (Maybe Integer)
-dtrtrsVersion = lens _dtrtrsVersion (\s a -> s {_dtrtrsVersion = a})
+--
+-- To avoid unintentional changes to the information in the registry, you
+-- can pass the version information in the @expectedVersion@ parameter of
+-- the @UpdateThing@ and @DeleteThing@ calls.
+describeThingResponse_version :: Lens.Lens' DescribeThingResponse (Prelude.Maybe Prelude.Integer)
+describeThingResponse_version = Lens.lens (\DescribeThingResponse' {version} -> version) (\s@DescribeThingResponse' {} a -> s {version = a} :: DescribeThingResponse)
 
 -- | The thing attributes.
-dtrtrsAttributes :: Lens' DescribeThingResponse (HashMap Text Text)
-dtrtrsAttributes = lens _dtrtrsAttributes (\s a -> s {_dtrtrsAttributes = a}) . _Default . _Map
+describeThingResponse_attributes :: Lens.Lens' DescribeThingResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+describeThingResponse_attributes = Lens.lens (\DescribeThingResponse' {attributes} -> attributes) (\s@DescribeThingResponse' {} a -> s {attributes = a} :: DescribeThingResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | The default MQTT client ID. For a typical device, the thing name is also used as the default MQTT client ID. Although we don’t require a mapping between a thing's registry name and its use of MQTT client IDs, certificates, or shadow state, we recommend that you choose a thing name and use it as the MQTT client ID for the registry and the Device Shadow service. This lets you better organize your AWS IoT fleet without removing the flexibility of the underlying device certificate model or shadows.
-dtrtrsDefaultClientId :: Lens' DescribeThingResponse (Maybe Text)
-dtrtrsDefaultClientId = lens _dtrtrsDefaultClientId (\s a -> s {_dtrtrsDefaultClientId = a})
+-- | The default MQTT client ID. For a typical device, the thing name is also
+-- used as the default MQTT client ID. Although we don’t require a mapping
+-- between a thing\'s registry name and its use of MQTT client IDs,
+-- certificates, or shadow state, we recommend that you choose a thing name
+-- and use it as the MQTT client ID for the registry and the Device Shadow
+-- service.
+--
+-- This lets you better organize your AWS IoT fleet without removing the
+-- flexibility of the underlying device certificate model or shadows.
+describeThingResponse_defaultClientId :: Lens.Lens' DescribeThingResponse (Prelude.Maybe Prelude.Text)
+describeThingResponse_defaultClientId = Lens.lens (\DescribeThingResponse' {defaultClientId} -> defaultClientId) (\s@DescribeThingResponse' {} a -> s {defaultClientId = a} :: DescribeThingResponse)
 
 -- | The name of the billing group the thing belongs to.
-dtrtrsBillingGroupName :: Lens' DescribeThingResponse (Maybe Text)
-dtrtrsBillingGroupName = lens _dtrtrsBillingGroupName (\s a -> s {_dtrtrsBillingGroupName = a})
+describeThingResponse_billingGroupName :: Lens.Lens' DescribeThingResponse (Prelude.Maybe Prelude.Text)
+describeThingResponse_billingGroupName = Lens.lens (\DescribeThingResponse' {billingGroupName} -> billingGroupName) (\s@DescribeThingResponse' {} a -> s {billingGroupName = a} :: DescribeThingResponse)
 
 -- | The thing type name.
-dtrtrsThingTypeName :: Lens' DescribeThingResponse (Maybe Text)
-dtrtrsThingTypeName = lens _dtrtrsThingTypeName (\s a -> s {_dtrtrsThingTypeName = a})
+describeThingResponse_thingTypeName :: Lens.Lens' DescribeThingResponse (Prelude.Maybe Prelude.Text)
+describeThingResponse_thingTypeName = Lens.lens (\DescribeThingResponse' {thingTypeName} -> thingTypeName) (\s@DescribeThingResponse' {} a -> s {thingTypeName = a} :: DescribeThingResponse)
 
--- | -- | The response status code.
-dtrtrsResponseStatus :: Lens' DescribeThingResponse Int
-dtrtrsResponseStatus = lens _dtrtrsResponseStatus (\s a -> s {_dtrtrsResponseStatus = a})
+-- | The response's http status code.
+describeThingResponse_httpStatus :: Lens.Lens' DescribeThingResponse Prelude.Int
+describeThingResponse_httpStatus = Lens.lens (\DescribeThingResponse' {httpStatus} -> httpStatus) (\s@DescribeThingResponse' {} a -> s {httpStatus = a} :: DescribeThingResponse)
 
-instance NFData DescribeThingResponse
+instance Prelude.NFData DescribeThingResponse

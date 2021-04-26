@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.IoT.Types.ViolationEventType
   ( ViolationEventType
       ( ..,
-        AlarmCleared,
-        AlarmInvalidated,
-        InAlarm
+        ViolationEventTypeAlarmCleared,
+        ViolationEventTypeAlarmInvalidated,
+        ViolationEventTypeInAlarm
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ViolationEventType
-  = ViolationEventType'
-      ( CI
-          Text
-      )
+newtype ViolationEventType = ViolationEventType'
+  { fromViolationEventType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AlarmCleared :: ViolationEventType
-pattern AlarmCleared = ViolationEventType' "alarm-cleared"
+pattern ViolationEventTypeAlarmCleared :: ViolationEventType
+pattern ViolationEventTypeAlarmCleared = ViolationEventType' "alarm-cleared"
 
-pattern AlarmInvalidated :: ViolationEventType
-pattern AlarmInvalidated = ViolationEventType' "alarm-invalidated"
+pattern ViolationEventTypeAlarmInvalidated :: ViolationEventType
+pattern ViolationEventTypeAlarmInvalidated = ViolationEventType' "alarm-invalidated"
 
-pattern InAlarm :: ViolationEventType
-pattern InAlarm = ViolationEventType' "in-alarm"
+pattern ViolationEventTypeInAlarm :: ViolationEventType
+pattern ViolationEventTypeInAlarm = ViolationEventType' "in-alarm"
 
 {-# COMPLETE
-  AlarmCleared,
-  AlarmInvalidated,
-  InAlarm,
+  ViolationEventTypeAlarmCleared,
+  ViolationEventTypeAlarmInvalidated,
+  ViolationEventTypeInAlarm,
   ViolationEventType'
   #-}
 
-instance FromText ViolationEventType where
-  parser = (ViolationEventType' . mk) <$> takeText
+instance Prelude.FromText ViolationEventType where
+  parser = ViolationEventType' Prelude.<$> Prelude.takeText
 
-instance ToText ViolationEventType where
-  toText (ViolationEventType' ci) = original ci
+instance Prelude.ToText ViolationEventType where
+  toText (ViolationEventType' x) = x
 
-instance Hashable ViolationEventType
+instance Prelude.Hashable ViolationEventType
 
-instance NFData ViolationEventType
+instance Prelude.NFData ViolationEventType
 
-instance ToByteString ViolationEventType
+instance Prelude.ToByteString ViolationEventType
 
-instance ToQuery ViolationEventType
+instance Prelude.ToQuery ViolationEventType
 
-instance ToHeader ViolationEventType
+instance Prelude.ToHeader ViolationEventType
 
-instance FromJSON ViolationEventType where
-  parseJSON = parseJSONText "ViolationEventType"
+instance Prelude.FromJSON ViolationEventType where
+  parseJSON = Prelude.parseJSONText "ViolationEventType"

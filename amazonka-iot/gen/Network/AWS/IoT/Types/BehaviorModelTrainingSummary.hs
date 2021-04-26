@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,112 +20,105 @@
 module Network.AWS.IoT.Types.BehaviorModelTrainingSummary where
 
 import Network.AWS.IoT.Types.ModelStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The summary of an ML Detect behavior model.
 --
---
---
--- /See:/ 'behaviorModelTrainingSummary' smart constructor.
+-- /See:/ 'newBehaviorModelTrainingSummary' smart constructor.
 data BehaviorModelTrainingSummary = BehaviorModelTrainingSummary'
-  { _bmtsLastModelRefreshDate ::
-      !( Maybe
-           POSIX
-       ),
-    _bmtsDatapointsCollectionPercentage ::
-      !( Maybe
-           Double
-       ),
-    _bmtsModelStatus ::
-      !( Maybe
-           ModelStatus
-       ),
-    _bmtsBehaviorName ::
-      !(Maybe Text),
-    _bmtsTrainingDataCollectionStartDate ::
-      !( Maybe
-           POSIX
-       ),
-    _bmtsSecurityProfileName ::
-      !(Maybe Text)
+  { -- | The date the model was last refreshed.
+    lastModelRefreshDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The percentage of datapoints collected.
+    datapointsCollectionPercentage :: Prelude.Maybe Prelude.Double,
+    -- | The status of the behavior model.
+    modelStatus :: Prelude.Maybe ModelStatus,
+    -- | The name of the behavior.
+    behaviorName :: Prelude.Maybe Prelude.Text,
+    -- | The date a training model started collecting data.
+    trainingDataCollectionStartDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the security profile.
+    securityProfileName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BehaviorModelTrainingSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BehaviorModelTrainingSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bmtsLastModelRefreshDate' - The date the model was last refreshed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bmtsDatapointsCollectionPercentage' - The percentage of datapoints collected.
+-- 'lastModelRefreshDate', 'behaviorModelTrainingSummary_lastModelRefreshDate' - The date the model was last refreshed.
 --
--- * 'bmtsModelStatus' - The status of the behavior model.
+-- 'datapointsCollectionPercentage', 'behaviorModelTrainingSummary_datapointsCollectionPercentage' - The percentage of datapoints collected.
 --
--- * 'bmtsBehaviorName' - The name of the behavior.
+-- 'modelStatus', 'behaviorModelTrainingSummary_modelStatus' - The status of the behavior model.
 --
--- * 'bmtsTrainingDataCollectionStartDate' - The date a training model started collecting data.
+-- 'behaviorName', 'behaviorModelTrainingSummary_behaviorName' - The name of the behavior.
 --
--- * 'bmtsSecurityProfileName' - The name of the security profile.
-behaviorModelTrainingSummary ::
+-- 'trainingDataCollectionStartDate', 'behaviorModelTrainingSummary_trainingDataCollectionStartDate' - The date a training model started collecting data.
+--
+-- 'securityProfileName', 'behaviorModelTrainingSummary_securityProfileName' - The name of the security profile.
+newBehaviorModelTrainingSummary ::
   BehaviorModelTrainingSummary
-behaviorModelTrainingSummary =
+newBehaviorModelTrainingSummary =
   BehaviorModelTrainingSummary'
-    { _bmtsLastModelRefreshDate =
-        Nothing,
-      _bmtsDatapointsCollectionPercentage = Nothing,
-      _bmtsModelStatus = Nothing,
-      _bmtsBehaviorName = Nothing,
-      _bmtsTrainingDataCollectionStartDate =
-        Nothing,
-      _bmtsSecurityProfileName = Nothing
+    { lastModelRefreshDate =
+        Prelude.Nothing,
+      datapointsCollectionPercentage =
+        Prelude.Nothing,
+      modelStatus = Prelude.Nothing,
+      behaviorName = Prelude.Nothing,
+      trainingDataCollectionStartDate =
+        Prelude.Nothing,
+      securityProfileName = Prelude.Nothing
     }
 
 -- | The date the model was last refreshed.
-bmtsLastModelRefreshDate :: Lens' BehaviorModelTrainingSummary (Maybe UTCTime)
-bmtsLastModelRefreshDate = lens _bmtsLastModelRefreshDate (\s a -> s {_bmtsLastModelRefreshDate = a}) . mapping _Time
+behaviorModelTrainingSummary_lastModelRefreshDate :: Lens.Lens' BehaviorModelTrainingSummary (Prelude.Maybe Prelude.UTCTime)
+behaviorModelTrainingSummary_lastModelRefreshDate = Lens.lens (\BehaviorModelTrainingSummary' {lastModelRefreshDate} -> lastModelRefreshDate) (\s@BehaviorModelTrainingSummary' {} a -> s {lastModelRefreshDate = a} :: BehaviorModelTrainingSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The percentage of datapoints collected.
-bmtsDatapointsCollectionPercentage :: Lens' BehaviorModelTrainingSummary (Maybe Double)
-bmtsDatapointsCollectionPercentage = lens _bmtsDatapointsCollectionPercentage (\s a -> s {_bmtsDatapointsCollectionPercentage = a})
+behaviorModelTrainingSummary_datapointsCollectionPercentage :: Lens.Lens' BehaviorModelTrainingSummary (Prelude.Maybe Prelude.Double)
+behaviorModelTrainingSummary_datapointsCollectionPercentage = Lens.lens (\BehaviorModelTrainingSummary' {datapointsCollectionPercentage} -> datapointsCollectionPercentage) (\s@BehaviorModelTrainingSummary' {} a -> s {datapointsCollectionPercentage = a} :: BehaviorModelTrainingSummary)
 
 -- | The status of the behavior model.
-bmtsModelStatus :: Lens' BehaviorModelTrainingSummary (Maybe ModelStatus)
-bmtsModelStatus = lens _bmtsModelStatus (\s a -> s {_bmtsModelStatus = a})
+behaviorModelTrainingSummary_modelStatus :: Lens.Lens' BehaviorModelTrainingSummary (Prelude.Maybe ModelStatus)
+behaviorModelTrainingSummary_modelStatus = Lens.lens (\BehaviorModelTrainingSummary' {modelStatus} -> modelStatus) (\s@BehaviorModelTrainingSummary' {} a -> s {modelStatus = a} :: BehaviorModelTrainingSummary)
 
 -- | The name of the behavior.
-bmtsBehaviorName :: Lens' BehaviorModelTrainingSummary (Maybe Text)
-bmtsBehaviorName = lens _bmtsBehaviorName (\s a -> s {_bmtsBehaviorName = a})
+behaviorModelTrainingSummary_behaviorName :: Lens.Lens' BehaviorModelTrainingSummary (Prelude.Maybe Prelude.Text)
+behaviorModelTrainingSummary_behaviorName = Lens.lens (\BehaviorModelTrainingSummary' {behaviorName} -> behaviorName) (\s@BehaviorModelTrainingSummary' {} a -> s {behaviorName = a} :: BehaviorModelTrainingSummary)
 
 -- | The date a training model started collecting data.
-bmtsTrainingDataCollectionStartDate :: Lens' BehaviorModelTrainingSummary (Maybe UTCTime)
-bmtsTrainingDataCollectionStartDate = lens _bmtsTrainingDataCollectionStartDate (\s a -> s {_bmtsTrainingDataCollectionStartDate = a}) . mapping _Time
+behaviorModelTrainingSummary_trainingDataCollectionStartDate :: Lens.Lens' BehaviorModelTrainingSummary (Prelude.Maybe Prelude.UTCTime)
+behaviorModelTrainingSummary_trainingDataCollectionStartDate = Lens.lens (\BehaviorModelTrainingSummary' {trainingDataCollectionStartDate} -> trainingDataCollectionStartDate) (\s@BehaviorModelTrainingSummary' {} a -> s {trainingDataCollectionStartDate = a} :: BehaviorModelTrainingSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the security profile.
-bmtsSecurityProfileName :: Lens' BehaviorModelTrainingSummary (Maybe Text)
-bmtsSecurityProfileName = lens _bmtsSecurityProfileName (\s a -> s {_bmtsSecurityProfileName = a})
+behaviorModelTrainingSummary_securityProfileName :: Lens.Lens' BehaviorModelTrainingSummary (Prelude.Maybe Prelude.Text)
+behaviorModelTrainingSummary_securityProfileName = Lens.lens (\BehaviorModelTrainingSummary' {securityProfileName} -> securityProfileName) (\s@BehaviorModelTrainingSummary' {} a -> s {securityProfileName = a} :: BehaviorModelTrainingSummary)
 
-instance FromJSON BehaviorModelTrainingSummary where
+instance
+  Prelude.FromJSON
+    BehaviorModelTrainingSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BehaviorModelTrainingSummary"
       ( \x ->
           BehaviorModelTrainingSummary'
-            <$> (x .:? "lastModelRefreshDate")
-            <*> (x .:? "datapointsCollectionPercentage")
-            <*> (x .:? "modelStatus")
-            <*> (x .:? "behaviorName")
-            <*> (x .:? "trainingDataCollectionStartDate")
-            <*> (x .:? "securityProfileName")
+            Prelude.<$> (x Prelude..:? "lastModelRefreshDate")
+            Prelude.<*> (x Prelude..:? "datapointsCollectionPercentage")
+            Prelude.<*> (x Prelude..:? "modelStatus")
+            Prelude.<*> (x Prelude..:? "behaviorName")
+            Prelude.<*> (x Prelude..:? "trainingDataCollectionStartDate")
+            Prelude.<*> (x Prelude..:? "securityProfileName")
       )
 
-instance Hashable BehaviorModelTrainingSummary
+instance
+  Prelude.Hashable
+    BehaviorModelTrainingSummary
 
-instance NFData BehaviorModelTrainingSummary
+instance Prelude.NFData BehaviorModelTrainingSummary

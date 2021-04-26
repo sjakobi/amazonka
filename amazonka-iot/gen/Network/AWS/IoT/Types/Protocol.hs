@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.IoT.Types.Protocol
   ( Protocol
       ( ..,
-        HTTP,
-        Mqtt
+        ProtocolHTTP,
+        ProtocolMQTT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Protocol = Protocol' (CI Text)
+newtype Protocol = Protocol'
+  { fromProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTTP :: Protocol
-pattern HTTP = Protocol' "HTTP"
+pattern ProtocolHTTP :: Protocol
+pattern ProtocolHTTP = Protocol' "HTTP"
 
-pattern Mqtt :: Protocol
-pattern Mqtt = Protocol' "MQTT"
+pattern ProtocolMQTT :: Protocol
+pattern ProtocolMQTT = Protocol' "MQTT"
 
 {-# COMPLETE
-  HTTP,
-  Mqtt,
+  ProtocolHTTP,
+  ProtocolMQTT,
   Protocol'
   #-}
 
-instance FromText Protocol where
-  parser = (Protocol' . mk) <$> takeText
+instance Prelude.FromText Protocol where
+  parser = Protocol' Prelude.<$> Prelude.takeText
 
-instance ToText Protocol where
-  toText (Protocol' ci) = original ci
+instance Prelude.ToText Protocol where
+  toText (Protocol' x) = x
 
-instance Hashable Protocol
+instance Prelude.Hashable Protocol
 
-instance NFData Protocol
+instance Prelude.NFData Protocol
 
-instance ToByteString Protocol
+instance Prelude.ToByteString Protocol
 
-instance ToQuery Protocol
+instance Prelude.ToQuery Protocol
 
-instance ToHeader Protocol
+instance Prelude.ToHeader Protocol
 
-instance ToJSON Protocol where
-  toJSON = toJSONText
+instance Prelude.ToJSON Protocol where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Protocol where
-  parseJSON = parseJSONText "Protocol"
+instance Prelude.FromJSON Protocol where
+  parseJSON = Prelude.parseJSONText "Protocol"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.IoT.Types.DayOfWeek
   ( DayOfWeek
       ( ..,
-        Fri,
-        Mon,
-        Sat,
-        Sun,
-        Thu,
-        Tue,
-        Wed
+        DayOfWeekFRI,
+        DayOfWeekMON,
+        DayOfWeekSAT,
+        DayOfWeekSUN,
+        DayOfWeekTHU,
+        DayOfWeekTUE,
+        DayOfWeekWED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DayOfWeek = DayOfWeek' (CI Text)
+newtype DayOfWeek = DayOfWeek'
+  { fromDayOfWeek ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Fri :: DayOfWeek
-pattern Fri = DayOfWeek' "FRI"
+pattern DayOfWeekFRI :: DayOfWeek
+pattern DayOfWeekFRI = DayOfWeek' "FRI"
 
-pattern Mon :: DayOfWeek
-pattern Mon = DayOfWeek' "MON"
+pattern DayOfWeekMON :: DayOfWeek
+pattern DayOfWeekMON = DayOfWeek' "MON"
 
-pattern Sat :: DayOfWeek
-pattern Sat = DayOfWeek' "SAT"
+pattern DayOfWeekSAT :: DayOfWeek
+pattern DayOfWeekSAT = DayOfWeek' "SAT"
 
-pattern Sun :: DayOfWeek
-pattern Sun = DayOfWeek' "SUN"
+pattern DayOfWeekSUN :: DayOfWeek
+pattern DayOfWeekSUN = DayOfWeek' "SUN"
 
-pattern Thu :: DayOfWeek
-pattern Thu = DayOfWeek' "THU"
+pattern DayOfWeekTHU :: DayOfWeek
+pattern DayOfWeekTHU = DayOfWeek' "THU"
 
-pattern Tue :: DayOfWeek
-pattern Tue = DayOfWeek' "TUE"
+pattern DayOfWeekTUE :: DayOfWeek
+pattern DayOfWeekTUE = DayOfWeek' "TUE"
 
-pattern Wed :: DayOfWeek
-pattern Wed = DayOfWeek' "WED"
+pattern DayOfWeekWED :: DayOfWeek
+pattern DayOfWeekWED = DayOfWeek' "WED"
 
 {-# COMPLETE
-  Fri,
-  Mon,
-  Sat,
-  Sun,
-  Thu,
-  Tue,
-  Wed,
+  DayOfWeekFRI,
+  DayOfWeekMON,
+  DayOfWeekSAT,
+  DayOfWeekSUN,
+  DayOfWeekTHU,
+  DayOfWeekTUE,
+  DayOfWeekWED,
   DayOfWeek'
   #-}
 
-instance FromText DayOfWeek where
-  parser = (DayOfWeek' . mk) <$> takeText
+instance Prelude.FromText DayOfWeek where
+  parser = DayOfWeek' Prelude.<$> Prelude.takeText
 
-instance ToText DayOfWeek where
-  toText (DayOfWeek' ci) = original ci
+instance Prelude.ToText DayOfWeek where
+  toText (DayOfWeek' x) = x
 
-instance Hashable DayOfWeek
+instance Prelude.Hashable DayOfWeek
 
-instance NFData DayOfWeek
+instance Prelude.NFData DayOfWeek
 
-instance ToByteString DayOfWeek
+instance Prelude.ToByteString DayOfWeek
 
-instance ToQuery DayOfWeek
+instance Prelude.ToQuery DayOfWeek
 
-instance ToHeader DayOfWeek
+instance Prelude.ToHeader DayOfWeek
 
-instance ToJSON DayOfWeek where
-  toJSON = toJSONText
+instance Prelude.ToJSON DayOfWeek where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DayOfWeek where
-  parseJSON = parseJSONText "DayOfWeek"
+instance Prelude.FromJSON DayOfWeek where
+  parseJSON = Prelude.parseJSONText "DayOfWeek"

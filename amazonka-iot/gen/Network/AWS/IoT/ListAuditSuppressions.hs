@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,204 +23,219 @@
 --
 -- Lists your Device Defender audit listings.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListAuditSuppressions
   ( -- * Creating a Request
-    listAuditSuppressions,
-    ListAuditSuppressions,
+    ListAuditSuppressions (..),
+    newListAuditSuppressions,
 
     -- * Request Lenses
-    lasNextToken,
-    lasMaxResults,
-    lasResourceIdentifier,
-    lasCheckName,
-    lasAscendingOrder,
+    listAuditSuppressions_nextToken,
+    listAuditSuppressions_maxResults,
+    listAuditSuppressions_resourceIdentifier,
+    listAuditSuppressions_checkName,
+    listAuditSuppressions_ascendingOrder,
 
     -- * Destructuring the Response
-    listAuditSuppressionsResponse,
-    ListAuditSuppressionsResponse,
+    ListAuditSuppressionsResponse (..),
+    newListAuditSuppressionsResponse,
 
     -- * Response Lenses
-    lasrrsNextToken,
-    lasrrsSuppressions,
-    lasrrsResponseStatus,
+    listAuditSuppressionsResponse_nextToken,
+    listAuditSuppressionsResponse_suppressions,
+    listAuditSuppressionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AuditSuppression
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAuditSuppressions' smart constructor.
+-- | /See:/ 'newListAuditSuppressions' smart constructor.
 data ListAuditSuppressions = ListAuditSuppressions'
-  { _lasNextToken ::
-      !(Maybe Text),
-    _lasMaxResults ::
-      !(Maybe Nat),
-    _lasResourceIdentifier ::
-      !(Maybe ResourceIdentifier),
-    _lasCheckName ::
-      !(Maybe Text),
-    _lasAscendingOrder ::
-      !(Maybe Bool)
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return at one time. The default is 25.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    resourceIdentifier :: Prelude.Maybe ResourceIdentifier,
+    checkName :: Prelude.Maybe Prelude.Text,
+    -- | Determines whether suppressions are listed in ascending order by
+    -- expiration date or not. If parameter isn\'t provided,
+    -- @ascendingOrder=true@.
+    ascendingOrder :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAuditSuppressions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAuditSuppressions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lasNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lasMaxResults' - The maximum number of results to return at one time. The default is 25.
+-- 'nextToken', 'listAuditSuppressions_nextToken' - The token for the next set of results.
 --
--- * 'lasResourceIdentifier' - Undocumented member.
+-- 'maxResults', 'listAuditSuppressions_maxResults' - The maximum number of results to return at one time. The default is 25.
 --
--- * 'lasCheckName' - Undocumented member.
+-- 'resourceIdentifier', 'listAuditSuppressions_resourceIdentifier' - Undocumented member.
 --
--- * 'lasAscendingOrder' - Determines whether suppressions are listed in ascending order by expiration date or not. If parameter isn't provided, @ascendingOrder=true@ .
-listAuditSuppressions ::
+-- 'checkName', 'listAuditSuppressions_checkName' - Undocumented member.
+--
+-- 'ascendingOrder', 'listAuditSuppressions_ascendingOrder' - Determines whether suppressions are listed in ascending order by
+-- expiration date or not. If parameter isn\'t provided,
+-- @ascendingOrder=true@.
+newListAuditSuppressions ::
   ListAuditSuppressions
-listAuditSuppressions =
+newListAuditSuppressions =
   ListAuditSuppressions'
-    { _lasNextToken = Nothing,
-      _lasMaxResults = Nothing,
-      _lasResourceIdentifier = Nothing,
-      _lasCheckName = Nothing,
-      _lasAscendingOrder = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      resourceIdentifier = Prelude.Nothing,
+      checkName = Prelude.Nothing,
+      ascendingOrder = Prelude.Nothing
     }
 
 -- | The token for the next set of results.
-lasNextToken :: Lens' ListAuditSuppressions (Maybe Text)
-lasNextToken = lens _lasNextToken (\s a -> s {_lasNextToken = a})
+listAuditSuppressions_nextToken :: Lens.Lens' ListAuditSuppressions (Prelude.Maybe Prelude.Text)
+listAuditSuppressions_nextToken = Lens.lens (\ListAuditSuppressions' {nextToken} -> nextToken) (\s@ListAuditSuppressions' {} a -> s {nextToken = a} :: ListAuditSuppressions)
 
 -- | The maximum number of results to return at one time. The default is 25.
-lasMaxResults :: Lens' ListAuditSuppressions (Maybe Natural)
-lasMaxResults = lens _lasMaxResults (\s a -> s {_lasMaxResults = a}) . mapping _Nat
+listAuditSuppressions_maxResults :: Lens.Lens' ListAuditSuppressions (Prelude.Maybe Prelude.Natural)
+listAuditSuppressions_maxResults = Lens.lens (\ListAuditSuppressions' {maxResults} -> maxResults) (\s@ListAuditSuppressions' {} a -> s {maxResults = a} :: ListAuditSuppressions) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Undocumented member.
-lasResourceIdentifier :: Lens' ListAuditSuppressions (Maybe ResourceIdentifier)
-lasResourceIdentifier = lens _lasResourceIdentifier (\s a -> s {_lasResourceIdentifier = a})
+listAuditSuppressions_resourceIdentifier :: Lens.Lens' ListAuditSuppressions (Prelude.Maybe ResourceIdentifier)
+listAuditSuppressions_resourceIdentifier = Lens.lens (\ListAuditSuppressions' {resourceIdentifier} -> resourceIdentifier) (\s@ListAuditSuppressions' {} a -> s {resourceIdentifier = a} :: ListAuditSuppressions)
 
 -- | Undocumented member.
-lasCheckName :: Lens' ListAuditSuppressions (Maybe Text)
-lasCheckName = lens _lasCheckName (\s a -> s {_lasCheckName = a})
+listAuditSuppressions_checkName :: Lens.Lens' ListAuditSuppressions (Prelude.Maybe Prelude.Text)
+listAuditSuppressions_checkName = Lens.lens (\ListAuditSuppressions' {checkName} -> checkName) (\s@ListAuditSuppressions' {} a -> s {checkName = a} :: ListAuditSuppressions)
 
--- | Determines whether suppressions are listed in ascending order by expiration date or not. If parameter isn't provided, @ascendingOrder=true@ .
-lasAscendingOrder :: Lens' ListAuditSuppressions (Maybe Bool)
-lasAscendingOrder = lens _lasAscendingOrder (\s a -> s {_lasAscendingOrder = a})
+-- | Determines whether suppressions are listed in ascending order by
+-- expiration date or not. If parameter isn\'t provided,
+-- @ascendingOrder=true@.
+listAuditSuppressions_ascendingOrder :: Lens.Lens' ListAuditSuppressions (Prelude.Maybe Prelude.Bool)
+listAuditSuppressions_ascendingOrder = Lens.lens (\ListAuditSuppressions' {ascendingOrder} -> ascendingOrder) (\s@ListAuditSuppressions' {} a -> s {ascendingOrder = a} :: ListAuditSuppressions)
 
-instance AWSPager ListAuditSuppressions where
+instance Pager.AWSPager ListAuditSuppressions where
   page rq rs
-    | stop (rs ^. lasrrsNextToken) = Nothing
-    | stop (rs ^. lasrrsSuppressions) = Nothing
-    | otherwise =
-      Just $ rq & lasNextToken .~ rs ^. lasrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listAuditSuppressionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAuditSuppressionsResponse_suppressions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAuditSuppressions_nextToken
+          Lens..~ rs
+          Lens.^? listAuditSuppressionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListAuditSuppressions where
+instance Prelude.AWSRequest ListAuditSuppressions where
   type
     Rs ListAuditSuppressions =
       ListAuditSuppressionsResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAuditSuppressionsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "suppressions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "suppressions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAuditSuppressions
+instance Prelude.Hashable ListAuditSuppressions
 
-instance NFData ListAuditSuppressions
+instance Prelude.NFData ListAuditSuppressions
 
-instance ToHeaders ListAuditSuppressions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListAuditSuppressions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON ListAuditSuppressions where
+instance Prelude.ToJSON ListAuditSuppressions where
   toJSON ListAuditSuppressions' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lasNextToken,
-            ("maxResults" .=) <$> _lasMaxResults,
-            ("resourceIdentifier" .=) <$> _lasResourceIdentifier,
-            ("checkName" .=) <$> _lasCheckName,
-            ("ascendingOrder" .=) <$> _lasAscendingOrder
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("resourceIdentifier" Prelude..=)
+              Prelude.<$> resourceIdentifier,
+            ("checkName" Prelude..=) Prelude.<$> checkName,
+            ("ascendingOrder" Prelude..=)
+              Prelude.<$> ascendingOrder
           ]
       )
 
-instance ToPath ListAuditSuppressions where
-  toPath = const "/audit/suppressions/list"
+instance Prelude.ToPath ListAuditSuppressions where
+  toPath = Prelude.const "/audit/suppressions/list"
 
-instance ToQuery ListAuditSuppressions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListAuditSuppressions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listAuditSuppressionsResponse' smart constructor.
+-- | /See:/ 'newListAuditSuppressionsResponse' smart constructor.
 data ListAuditSuppressionsResponse = ListAuditSuppressionsResponse'
-  { _lasrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lasrrsSuppressions ::
-      !( Maybe
-           [AuditSuppression]
-       ),
-    _lasrrsResponseStatus ::
-      !Int
+  { -- | A token that can be used to retrieve the next set of results, or @null@
+    -- if there are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of audit suppressions.
+    suppressions :: Prelude.Maybe [AuditSuppression],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAuditSuppressionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAuditSuppressionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lasrrsNextToken' - A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lasrrsSuppressions' - List of audit suppressions.
+-- 'nextToken', 'listAuditSuppressionsResponse_nextToken' - A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
 --
--- * 'lasrrsResponseStatus' - -- | The response status code.
-listAuditSuppressionsResponse ::
-  -- | 'lasrrsResponseStatus'
-  Int ->
+-- 'suppressions', 'listAuditSuppressionsResponse_suppressions' - List of audit suppressions.
+--
+-- 'httpStatus', 'listAuditSuppressionsResponse_httpStatus' - The response's http status code.
+newListAuditSuppressionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAuditSuppressionsResponse
-listAuditSuppressionsResponse pResponseStatus_ =
+newListAuditSuppressionsResponse pHttpStatus_ =
   ListAuditSuppressionsResponse'
-    { _lasrrsNextToken =
-        Nothing,
-      _lasrrsSuppressions = Nothing,
-      _lasrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      suppressions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
-lasrrsNextToken :: Lens' ListAuditSuppressionsResponse (Maybe Text)
-lasrrsNextToken = lens _lasrrsNextToken (\s a -> s {_lasrrsNextToken = a})
+-- | A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
+listAuditSuppressionsResponse_nextToken :: Lens.Lens' ListAuditSuppressionsResponse (Prelude.Maybe Prelude.Text)
+listAuditSuppressionsResponse_nextToken = Lens.lens (\ListAuditSuppressionsResponse' {nextToken} -> nextToken) (\s@ListAuditSuppressionsResponse' {} a -> s {nextToken = a} :: ListAuditSuppressionsResponse)
 
 -- | List of audit suppressions.
-lasrrsSuppressions :: Lens' ListAuditSuppressionsResponse [AuditSuppression]
-lasrrsSuppressions = lens _lasrrsSuppressions (\s a -> s {_lasrrsSuppressions = a}) . _Default . _Coerce
+listAuditSuppressionsResponse_suppressions :: Lens.Lens' ListAuditSuppressionsResponse (Prelude.Maybe [AuditSuppression])
+listAuditSuppressionsResponse_suppressions = Lens.lens (\ListAuditSuppressionsResponse' {suppressions} -> suppressions) (\s@ListAuditSuppressionsResponse' {} a -> s {suppressions = a} :: ListAuditSuppressionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lasrrsResponseStatus :: Lens' ListAuditSuppressionsResponse Int
-lasrrsResponseStatus = lens _lasrrsResponseStatus (\s a -> s {_lasrrsResponseStatus = a})
+-- | The response's http status code.
+listAuditSuppressionsResponse_httpStatus :: Lens.Lens' ListAuditSuppressionsResponse Prelude.Int
+listAuditSuppressionsResponse_httpStatus = Lens.lens (\ListAuditSuppressionsResponse' {httpStatus} -> httpStatus) (\s@ListAuditSuppressionsResponse' {} a -> s {httpStatus = a} :: ListAuditSuppressionsResponse)
 
-instance NFData ListAuditSuppressionsResponse
+instance Prelude.NFData ListAuditSuppressionsResponse

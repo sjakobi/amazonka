@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.BillingGroupProperties where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The properties of a billing group.
 --
---
---
--- /See:/ 'billingGroupProperties' smart constructor.
-newtype BillingGroupProperties = BillingGroupProperties'
-  { _bgpBillingGroupDescription ::
-      Maybe Text
+-- /See:/ 'newBillingGroupProperties' smart constructor.
+data BillingGroupProperties = BillingGroupProperties'
+  { -- | The description of the billing group.
+    billingGroupDescription :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BillingGroupProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BillingGroupProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgpBillingGroupDescription' - The description of the billing group.
-billingGroupProperties ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'billingGroupDescription', 'billingGroupProperties_billingGroupDescription' - The description of the billing group.
+newBillingGroupProperties ::
   BillingGroupProperties
-billingGroupProperties =
+newBillingGroupProperties =
   BillingGroupProperties'
-    { _bgpBillingGroupDescription =
-        Nothing
+    { billingGroupDescription =
+        Prelude.Nothing
     }
 
 -- | The description of the billing group.
-bgpBillingGroupDescription :: Lens' BillingGroupProperties (Maybe Text)
-bgpBillingGroupDescription = lens _bgpBillingGroupDescription (\s a -> s {_bgpBillingGroupDescription = a})
+billingGroupProperties_billingGroupDescription :: Lens.Lens' BillingGroupProperties (Prelude.Maybe Prelude.Text)
+billingGroupProperties_billingGroupDescription = Lens.lens (\BillingGroupProperties' {billingGroupDescription} -> billingGroupDescription) (\s@BillingGroupProperties' {} a -> s {billingGroupDescription = a} :: BillingGroupProperties)
 
-instance FromJSON BillingGroupProperties where
+instance Prelude.FromJSON BillingGroupProperties where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BillingGroupProperties"
       ( \x ->
           BillingGroupProperties'
-            <$> (x .:? "billingGroupDescription")
+            Prelude.<$> (x Prelude..:? "billingGroupDescription")
       )
 
-instance Hashable BillingGroupProperties
+instance Prelude.Hashable BillingGroupProperties
 
-instance NFData BillingGroupProperties
+instance Prelude.NFData BillingGroupProperties
 
-instance ToJSON BillingGroupProperties where
+instance Prelude.ToJSON BillingGroupProperties where
   toJSON BillingGroupProperties' {..} =
-    object
-      ( catMaybes
-          [ ("billingGroupDescription" .=)
-              <$> _bgpBillingGroupDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("billingGroupDescription" Prelude..=)
+              Prelude.<$> billingGroupDescription
           ]
       )

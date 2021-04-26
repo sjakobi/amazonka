@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,171 +23,187 @@
 --
 -- List targets for the specified policy.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListTargetsForPolicy
   ( -- * Creating a Request
-    listTargetsForPolicy,
-    ListTargetsForPolicy,
+    ListTargetsForPolicy (..),
+    newListTargetsForPolicy,
 
     -- * Request Lenses
-    ltfpPageSize,
-    ltfpMarker,
-    ltfpPolicyName,
+    listTargetsForPolicy_pageSize,
+    listTargetsForPolicy_marker,
+    listTargetsForPolicy_policyName,
 
     -- * Destructuring the Response
-    listTargetsForPolicyResponse,
-    ListTargetsForPolicyResponse,
+    ListTargetsForPolicyResponse (..),
+    newListTargetsForPolicyResponse,
 
     -- * Response Lenses
-    ltfprrsNextMarker,
-    ltfprrsTargets,
-    ltfprrsResponseStatus,
+    listTargetsForPolicyResponse_nextMarker,
+    listTargetsForPolicyResponse_targets,
+    listTargetsForPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTargetsForPolicy' smart constructor.
+-- | /See:/ 'newListTargetsForPolicy' smart constructor.
 data ListTargetsForPolicy = ListTargetsForPolicy'
-  { _ltfpPageSize ::
-      !(Maybe Nat),
-    _ltfpMarker :: !(Maybe Text),
-    _ltfpPolicyName :: !Text
+  { -- | The maximum number of results to return at one time.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | A marker used to get the next set of results.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The policy name.
+    policyName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTargetsForPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTargetsForPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfpPageSize' - The maximum number of results to return at one time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfpMarker' - A marker used to get the next set of results.
+-- 'pageSize', 'listTargetsForPolicy_pageSize' - The maximum number of results to return at one time.
 --
--- * 'ltfpPolicyName' - The policy name.
-listTargetsForPolicy ::
-  -- | 'ltfpPolicyName'
-  Text ->
+-- 'marker', 'listTargetsForPolicy_marker' - A marker used to get the next set of results.
+--
+-- 'policyName', 'listTargetsForPolicy_policyName' - The policy name.
+newListTargetsForPolicy ::
+  -- | 'policyName'
+  Prelude.Text ->
   ListTargetsForPolicy
-listTargetsForPolicy pPolicyName_ =
+newListTargetsForPolicy pPolicyName_ =
   ListTargetsForPolicy'
-    { _ltfpPageSize = Nothing,
-      _ltfpMarker = Nothing,
-      _ltfpPolicyName = pPolicyName_
+    { pageSize = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      policyName = pPolicyName_
     }
 
 -- | The maximum number of results to return at one time.
-ltfpPageSize :: Lens' ListTargetsForPolicy (Maybe Natural)
-ltfpPageSize = lens _ltfpPageSize (\s a -> s {_ltfpPageSize = a}) . mapping _Nat
+listTargetsForPolicy_pageSize :: Lens.Lens' ListTargetsForPolicy (Prelude.Maybe Prelude.Natural)
+listTargetsForPolicy_pageSize = Lens.lens (\ListTargetsForPolicy' {pageSize} -> pageSize) (\s@ListTargetsForPolicy' {} a -> s {pageSize = a} :: ListTargetsForPolicy) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A marker used to get the next set of results.
-ltfpMarker :: Lens' ListTargetsForPolicy (Maybe Text)
-ltfpMarker = lens _ltfpMarker (\s a -> s {_ltfpMarker = a})
+listTargetsForPolicy_marker :: Lens.Lens' ListTargetsForPolicy (Prelude.Maybe Prelude.Text)
+listTargetsForPolicy_marker = Lens.lens (\ListTargetsForPolicy' {marker} -> marker) (\s@ListTargetsForPolicy' {} a -> s {marker = a} :: ListTargetsForPolicy)
 
 -- | The policy name.
-ltfpPolicyName :: Lens' ListTargetsForPolicy Text
-ltfpPolicyName = lens _ltfpPolicyName (\s a -> s {_ltfpPolicyName = a})
+listTargetsForPolicy_policyName :: Lens.Lens' ListTargetsForPolicy Prelude.Text
+listTargetsForPolicy_policyName = Lens.lens (\ListTargetsForPolicy' {policyName} -> policyName) (\s@ListTargetsForPolicy' {} a -> s {policyName = a} :: ListTargetsForPolicy)
 
-instance AWSPager ListTargetsForPolicy where
+instance Pager.AWSPager ListTargetsForPolicy where
   page rq rs
-    | stop (rs ^. ltfprrsNextMarker) = Nothing
-    | stop (rs ^. ltfprrsTargets) = Nothing
-    | otherwise =
-      Just $ rq & ltfpMarker .~ rs ^. ltfprrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listTargetsForPolicyResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listTargetsForPolicyResponse_targets
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTargetsForPolicy_marker
+          Lens..~ rs
+          Lens.^? listTargetsForPolicyResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListTargetsForPolicy where
+instance Prelude.AWSRequest ListTargetsForPolicy where
   type
     Rs ListTargetsForPolicy =
       ListTargetsForPolicyResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTargetsForPolicyResponse'
-            <$> (x .?> "nextMarker")
-            <*> (x .?> "targets" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextMarker")
+            Prelude.<*> (x Prelude..?> "targets" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTargetsForPolicy
+instance Prelude.Hashable ListTargetsForPolicy
 
-instance NFData ListTargetsForPolicy
+instance Prelude.NFData ListTargetsForPolicy
 
-instance ToHeaders ListTargetsForPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListTargetsForPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON ListTargetsForPolicy where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON ListTargetsForPolicy where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath ListTargetsForPolicy where
+instance Prelude.ToPath ListTargetsForPolicy where
   toPath ListTargetsForPolicy' {..} =
-    mconcat ["/policy-targets/", toBS _ltfpPolicyName]
+    Prelude.mconcat
+      ["/policy-targets/", Prelude.toBS policyName]
 
-instance ToQuery ListTargetsForPolicy where
+instance Prelude.ToQuery ListTargetsForPolicy where
   toQuery ListTargetsForPolicy' {..} =
-    mconcat
-      [ "pageSize" =: _ltfpPageSize,
-        "marker" =: _ltfpMarker
+    Prelude.mconcat
+      [ "pageSize" Prelude.=: pageSize,
+        "marker" Prelude.=: marker
       ]
 
--- | /See:/ 'listTargetsForPolicyResponse' smart constructor.
+-- | /See:/ 'newListTargetsForPolicyResponse' smart constructor.
 data ListTargetsForPolicyResponse = ListTargetsForPolicyResponse'
-  { _ltfprrsNextMarker ::
-      !(Maybe Text),
-    _ltfprrsTargets ::
-      !( Maybe
-           [Text]
-       ),
-    _ltfprrsResponseStatus ::
-      !Int
+  { -- | A marker used to get the next set of results.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The policy targets.
+    targets :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTargetsForPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTargetsForPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfprrsNextMarker' - A marker used to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfprrsTargets' - The policy targets.
+-- 'nextMarker', 'listTargetsForPolicyResponse_nextMarker' - A marker used to get the next set of results.
 --
--- * 'ltfprrsResponseStatus' - -- | The response status code.
-listTargetsForPolicyResponse ::
-  -- | 'ltfprrsResponseStatus'
-  Int ->
+-- 'targets', 'listTargetsForPolicyResponse_targets' - The policy targets.
+--
+-- 'httpStatus', 'listTargetsForPolicyResponse_httpStatus' - The response's http status code.
+newListTargetsForPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTargetsForPolicyResponse
-listTargetsForPolicyResponse pResponseStatus_ =
+newListTargetsForPolicyResponse pHttpStatus_ =
   ListTargetsForPolicyResponse'
-    { _ltfprrsNextMarker =
-        Nothing,
-      _ltfprrsTargets = Nothing,
-      _ltfprrsResponseStatus = pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      targets = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A marker used to get the next set of results.
-ltfprrsNextMarker :: Lens' ListTargetsForPolicyResponse (Maybe Text)
-ltfprrsNextMarker = lens _ltfprrsNextMarker (\s a -> s {_ltfprrsNextMarker = a})
+listTargetsForPolicyResponse_nextMarker :: Lens.Lens' ListTargetsForPolicyResponse (Prelude.Maybe Prelude.Text)
+listTargetsForPolicyResponse_nextMarker = Lens.lens (\ListTargetsForPolicyResponse' {nextMarker} -> nextMarker) (\s@ListTargetsForPolicyResponse' {} a -> s {nextMarker = a} :: ListTargetsForPolicyResponse)
 
 -- | The policy targets.
-ltfprrsTargets :: Lens' ListTargetsForPolicyResponse [Text]
-ltfprrsTargets = lens _ltfprrsTargets (\s a -> s {_ltfprrsTargets = a}) . _Default . _Coerce
+listTargetsForPolicyResponse_targets :: Lens.Lens' ListTargetsForPolicyResponse (Prelude.Maybe [Prelude.Text])
+listTargetsForPolicyResponse_targets = Lens.lens (\ListTargetsForPolicyResponse' {targets} -> targets) (\s@ListTargetsForPolicyResponse' {} a -> s {targets = a} :: ListTargetsForPolicyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltfprrsResponseStatus :: Lens' ListTargetsForPolicyResponse Int
-ltfprrsResponseStatus = lens _ltfprrsResponseStatus (\s a -> s {_ltfprrsResponseStatus = a})
+-- | The response's http status code.
+listTargetsForPolicyResponse_httpStatus :: Lens.Lens' ListTargetsForPolicyResponse Prelude.Int
+listTargetsForPolicyResponse_httpStatus = Lens.lens (\ListTargetsForPolicyResponse' {httpStatus} -> httpStatus) (\s@ListTargetsForPolicyResponse' {} a -> s {httpStatus = a} :: ListTargetsForPolicyResponse)
 
-instance NFData ListTargetsForPolicyResponse
+instance Prelude.NFData ListTargetsForPolicyResponse

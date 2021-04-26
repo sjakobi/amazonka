@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,154 +24,160 @@
 -- Returns the approximate count of unique values that match the query.
 module Network.AWS.IoT.GetCardinality
   ( -- * Creating a Request
-    getCardinality,
-    GetCardinality,
+    GetCardinality (..),
+    newGetCardinality,
 
     -- * Request Lenses
-    gcIndexName,
-    gcQueryVersion,
-    gcAggregationField,
-    gcQueryString,
+    getCardinality_indexName,
+    getCardinality_queryVersion,
+    getCardinality_aggregationField,
+    getCardinality_queryString,
 
     -- * Destructuring the Response
-    getCardinalityResponse,
-    GetCardinalityResponse,
+    GetCardinalityResponse (..),
+    newGetCardinalityResponse,
 
     -- * Response Lenses
-    gcrrsCardinality,
-    gcrrsResponseStatus,
+    getCardinalityResponse_cardinality,
+    getCardinalityResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getCardinality' smart constructor.
+-- | /See:/ 'newGetCardinality' smart constructor.
 data GetCardinality = GetCardinality'
-  { _gcIndexName ::
-      !(Maybe Text),
-    _gcQueryVersion :: !(Maybe Text),
-    _gcAggregationField :: !(Maybe Text),
-    _gcQueryString :: !Text
+  { -- | The name of the index to search.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | The query version.
+    queryVersion :: Prelude.Maybe Prelude.Text,
+    -- | The field to aggregate.
+    aggregationField :: Prelude.Maybe Prelude.Text,
+    -- | The search query.
+    queryString :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCardinality' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCardinality' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcIndexName' - The name of the index to search.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcQueryVersion' - The query version.
+-- 'indexName', 'getCardinality_indexName' - The name of the index to search.
 --
--- * 'gcAggregationField' - The field to aggregate.
+-- 'queryVersion', 'getCardinality_queryVersion' - The query version.
 --
--- * 'gcQueryString' - The search query.
-getCardinality ::
-  -- | 'gcQueryString'
-  Text ->
+-- 'aggregationField', 'getCardinality_aggregationField' - The field to aggregate.
+--
+-- 'queryString', 'getCardinality_queryString' - The search query.
+newGetCardinality ::
+  -- | 'queryString'
+  Prelude.Text ->
   GetCardinality
-getCardinality pQueryString_ =
+newGetCardinality pQueryString_ =
   GetCardinality'
-    { _gcIndexName = Nothing,
-      _gcQueryVersion = Nothing,
-      _gcAggregationField = Nothing,
-      _gcQueryString = pQueryString_
+    { indexName = Prelude.Nothing,
+      queryVersion = Prelude.Nothing,
+      aggregationField = Prelude.Nothing,
+      queryString = pQueryString_
     }
 
 -- | The name of the index to search.
-gcIndexName :: Lens' GetCardinality (Maybe Text)
-gcIndexName = lens _gcIndexName (\s a -> s {_gcIndexName = a})
+getCardinality_indexName :: Lens.Lens' GetCardinality (Prelude.Maybe Prelude.Text)
+getCardinality_indexName = Lens.lens (\GetCardinality' {indexName} -> indexName) (\s@GetCardinality' {} a -> s {indexName = a} :: GetCardinality)
 
 -- | The query version.
-gcQueryVersion :: Lens' GetCardinality (Maybe Text)
-gcQueryVersion = lens _gcQueryVersion (\s a -> s {_gcQueryVersion = a})
+getCardinality_queryVersion :: Lens.Lens' GetCardinality (Prelude.Maybe Prelude.Text)
+getCardinality_queryVersion = Lens.lens (\GetCardinality' {queryVersion} -> queryVersion) (\s@GetCardinality' {} a -> s {queryVersion = a} :: GetCardinality)
 
 -- | The field to aggregate.
-gcAggregationField :: Lens' GetCardinality (Maybe Text)
-gcAggregationField = lens _gcAggregationField (\s a -> s {_gcAggregationField = a})
+getCardinality_aggregationField :: Lens.Lens' GetCardinality (Prelude.Maybe Prelude.Text)
+getCardinality_aggregationField = Lens.lens (\GetCardinality' {aggregationField} -> aggregationField) (\s@GetCardinality' {} a -> s {aggregationField = a} :: GetCardinality)
 
 -- | The search query.
-gcQueryString :: Lens' GetCardinality Text
-gcQueryString = lens _gcQueryString (\s a -> s {_gcQueryString = a})
+getCardinality_queryString :: Lens.Lens' GetCardinality Prelude.Text
+getCardinality_queryString = Lens.lens (\GetCardinality' {queryString} -> queryString) (\s@GetCardinality' {} a -> s {queryString = a} :: GetCardinality)
 
-instance AWSRequest GetCardinality where
+instance Prelude.AWSRequest GetCardinality where
   type Rs GetCardinality = GetCardinalityResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCardinalityResponse'
-            <$> (x .?> "cardinality") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "cardinality")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCardinality
+instance Prelude.Hashable GetCardinality
 
-instance NFData GetCardinality
+instance Prelude.NFData GetCardinality
 
-instance ToHeaders GetCardinality where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetCardinality where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetCardinality where
+instance Prelude.ToJSON GetCardinality where
   toJSON GetCardinality' {..} =
-    object
-      ( catMaybes
-          [ ("indexName" .=) <$> _gcIndexName,
-            ("queryVersion" .=) <$> _gcQueryVersion,
-            ("aggregationField" .=) <$> _gcAggregationField,
-            Just ("queryString" .= _gcQueryString)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("indexName" Prelude..=) Prelude.<$> indexName,
+            ("queryVersion" Prelude..=) Prelude.<$> queryVersion,
+            ("aggregationField" Prelude..=)
+              Prelude.<$> aggregationField,
+            Prelude.Just ("queryString" Prelude..= queryString)
           ]
       )
 
-instance ToPath GetCardinality where
-  toPath = const "/indices/cardinality"
+instance Prelude.ToPath GetCardinality where
+  toPath = Prelude.const "/indices/cardinality"
 
-instance ToQuery GetCardinality where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCardinality where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCardinalityResponse' smart constructor.
+-- | /See:/ 'newGetCardinalityResponse' smart constructor.
 data GetCardinalityResponse = GetCardinalityResponse'
-  { _gcrrsCardinality ::
-      !(Maybe Int),
-    _gcrrsResponseStatus ::
-      !Int
+  { -- | The approximate count of unique values that match the query.
+    cardinality :: Prelude.Maybe Prelude.Int,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCardinalityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCardinalityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrrsCardinality' - The approximate count of unique values that match the query.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcrrsResponseStatus' - -- | The response status code.
-getCardinalityResponse ::
-  -- | 'gcrrsResponseStatus'
-  Int ->
+-- 'cardinality', 'getCardinalityResponse_cardinality' - The approximate count of unique values that match the query.
+--
+-- 'httpStatus', 'getCardinalityResponse_httpStatus' - The response's http status code.
+newGetCardinalityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCardinalityResponse
-getCardinalityResponse pResponseStatus_ =
+newGetCardinalityResponse pHttpStatus_ =
   GetCardinalityResponse'
-    { _gcrrsCardinality =
-        Nothing,
-      _gcrrsResponseStatus = pResponseStatus_
+    { cardinality =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The approximate count of unique values that match the query.
-gcrrsCardinality :: Lens' GetCardinalityResponse (Maybe Int)
-gcrrsCardinality = lens _gcrrsCardinality (\s a -> s {_gcrrsCardinality = a})
+getCardinalityResponse_cardinality :: Lens.Lens' GetCardinalityResponse (Prelude.Maybe Prelude.Int)
+getCardinalityResponse_cardinality = Lens.lens (\GetCardinalityResponse' {cardinality} -> cardinality) (\s@GetCardinalityResponse' {} a -> s {cardinality = a} :: GetCardinalityResponse)
 
--- | -- | The response status code.
-gcrrsResponseStatus :: Lens' GetCardinalityResponse Int
-gcrrsResponseStatus = lens _gcrrsResponseStatus (\s a -> s {_gcrrsResponseStatus = a})
+-- | The response's http status code.
+getCardinalityResponse_httpStatus :: Lens.Lens' GetCardinalityResponse Prelude.Int
+getCardinalityResponse_httpStatus = Lens.lens (\GetCardinalityResponse' {httpStatus} -> httpStatus) (\s@GetCardinalityResponse' {} a -> s {httpStatus = a} :: GetCardinalityResponse)
 
-instance NFData GetCardinalityResponse
+instance Prelude.NFData GetCardinalityResponse

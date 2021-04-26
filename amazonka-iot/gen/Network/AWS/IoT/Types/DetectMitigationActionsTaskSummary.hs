@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,166 +24,153 @@ import Network.AWS.IoT.Types.DetectMitigationActionsTaskStatus
 import Network.AWS.IoT.Types.DetectMitigationActionsTaskTarget
 import Network.AWS.IoT.Types.MitigationAction
 import Network.AWS.IoT.Types.ViolationEventOccurrenceRange
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The summary of the mitigation action tasks.
 --
---
---
--- /See:/ 'detectMitigationActionsTaskSummary' smart constructor.
+-- /See:/ 'newDetectMitigationActionsTaskSummary' smart constructor.
 data DetectMitigationActionsTaskSummary = DetectMitigationActionsTaskSummary'
-  { _dmatsTaskEndTime ::
-      !( Maybe
-           POSIX
-       ),
-    _dmatsTaskStatistics ::
-      !( Maybe
-           DetectMitigationActionsTaskStatistics
-       ),
-    _dmatsTaskId ::
-      !( Maybe
-           Text
-       ),
-    _dmatsViolationEventOccurrenceRange ::
-      !( Maybe
-           ViolationEventOccurrenceRange
-       ),
-    _dmatsOnlyActiveViolationsIncluded ::
-      !( Maybe
-           Bool
-       ),
-    _dmatsTarget ::
-      !( Maybe
-           DetectMitigationActionsTaskTarget
-       ),
-    _dmatsTaskStatus ::
-      !( Maybe
-           DetectMitigationActionsTaskStatus
-       ),
-    _dmatsActionsDefinition ::
-      !( Maybe
-           [MitigationAction]
-       ),
-    _dmatsTaskStartTime ::
-      !( Maybe
-           POSIX
-       ),
-    _dmatsSuppressedAlertsIncluded ::
-      !( Maybe
-           Bool
-       )
+  { -- | The date the task ended.
+    taskEndTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The statistics of a mitigation action task.
+    taskStatistics :: Prelude.Maybe DetectMitigationActionsTaskStatistics,
+    -- | The unique identifier of the task.
+    taskId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the time period of which violation events occurred between.
+    violationEventOccurrenceRange :: Prelude.Maybe ViolationEventOccurrenceRange,
+    -- | Includes only active violations.
+    onlyActiveViolationsIncluded :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the ML Detect findings to which the mitigation actions are
+    -- applied.
+    target :: Prelude.Maybe DetectMitigationActionsTaskTarget,
+    -- | The status of the task.
+    taskStatus :: Prelude.Maybe DetectMitigationActionsTaskStatus,
+    -- | The definition of the actions.
+    actionsDefinition :: Prelude.Maybe [MitigationAction],
+    -- | The date the task started.
+    taskStartTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Includes suppressed alerts.
+    suppressedAlertsIncluded :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectMitigationActionsTaskSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectMitigationActionsTaskSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmatsTaskEndTime' - The date the task ended.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmatsTaskStatistics' - The statistics of a mitigation action task.
+-- 'taskEndTime', 'detectMitigationActionsTaskSummary_taskEndTime' - The date the task ended.
 --
--- * 'dmatsTaskId' - The unique identifier of the task.
+-- 'taskStatistics', 'detectMitigationActionsTaskSummary_taskStatistics' - The statistics of a mitigation action task.
 --
--- * 'dmatsViolationEventOccurrenceRange' - Specifies the time period of which violation events occurred between.
+-- 'taskId', 'detectMitigationActionsTaskSummary_taskId' - The unique identifier of the task.
 --
--- * 'dmatsOnlyActiveViolationsIncluded' - Includes only active violations.
+-- 'violationEventOccurrenceRange', 'detectMitigationActionsTaskSummary_violationEventOccurrenceRange' - Specifies the time period of which violation events occurred between.
 --
--- * 'dmatsTarget' - Specifies the ML Detect findings to which the mitigation actions are applied.
+-- 'onlyActiveViolationsIncluded', 'detectMitigationActionsTaskSummary_onlyActiveViolationsIncluded' - Includes only active violations.
 --
--- * 'dmatsTaskStatus' - The status of the task.
+-- 'target', 'detectMitigationActionsTaskSummary_target' - Specifies the ML Detect findings to which the mitigation actions are
+-- applied.
 --
--- * 'dmatsActionsDefinition' - The definition of the actions.
+-- 'taskStatus', 'detectMitigationActionsTaskSummary_taskStatus' - The status of the task.
 --
--- * 'dmatsTaskStartTime' - The date the task started.
+-- 'actionsDefinition', 'detectMitigationActionsTaskSummary_actionsDefinition' - The definition of the actions.
 --
--- * 'dmatsSuppressedAlertsIncluded' - Includes suppressed alerts.
-detectMitigationActionsTaskSummary ::
+-- 'taskStartTime', 'detectMitigationActionsTaskSummary_taskStartTime' - The date the task started.
+--
+-- 'suppressedAlertsIncluded', 'detectMitigationActionsTaskSummary_suppressedAlertsIncluded' - Includes suppressed alerts.
+newDetectMitigationActionsTaskSummary ::
   DetectMitigationActionsTaskSummary
-detectMitigationActionsTaskSummary =
+newDetectMitigationActionsTaskSummary =
   DetectMitigationActionsTaskSummary'
-    { _dmatsTaskEndTime =
-        Nothing,
-      _dmatsTaskStatistics = Nothing,
-      _dmatsTaskId = Nothing,
-      _dmatsViolationEventOccurrenceRange =
-        Nothing,
-      _dmatsOnlyActiveViolationsIncluded =
-        Nothing,
-      _dmatsTarget = Nothing,
-      _dmatsTaskStatus = Nothing,
-      _dmatsActionsDefinition = Nothing,
-      _dmatsTaskStartTime = Nothing,
-      _dmatsSuppressedAlertsIncluded =
-        Nothing
+    { taskEndTime =
+        Prelude.Nothing,
+      taskStatistics = Prelude.Nothing,
+      taskId = Prelude.Nothing,
+      violationEventOccurrenceRange =
+        Prelude.Nothing,
+      onlyActiveViolationsIncluded =
+        Prelude.Nothing,
+      target = Prelude.Nothing,
+      taskStatus = Prelude.Nothing,
+      actionsDefinition = Prelude.Nothing,
+      taskStartTime = Prelude.Nothing,
+      suppressedAlertsIncluded =
+        Prelude.Nothing
     }
 
 -- | The date the task ended.
-dmatsTaskEndTime :: Lens' DetectMitigationActionsTaskSummary (Maybe UTCTime)
-dmatsTaskEndTime = lens _dmatsTaskEndTime (\s a -> s {_dmatsTaskEndTime = a}) . mapping _Time
+detectMitigationActionsTaskSummary_taskEndTime :: Lens.Lens' DetectMitigationActionsTaskSummary (Prelude.Maybe Prelude.UTCTime)
+detectMitigationActionsTaskSummary_taskEndTime = Lens.lens (\DetectMitigationActionsTaskSummary' {taskEndTime} -> taskEndTime) (\s@DetectMitigationActionsTaskSummary' {} a -> s {taskEndTime = a} :: DetectMitigationActionsTaskSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The statistics of a mitigation action task.
-dmatsTaskStatistics :: Lens' DetectMitigationActionsTaskSummary (Maybe DetectMitigationActionsTaskStatistics)
-dmatsTaskStatistics = lens _dmatsTaskStatistics (\s a -> s {_dmatsTaskStatistics = a})
+detectMitigationActionsTaskSummary_taskStatistics :: Lens.Lens' DetectMitigationActionsTaskSummary (Prelude.Maybe DetectMitigationActionsTaskStatistics)
+detectMitigationActionsTaskSummary_taskStatistics = Lens.lens (\DetectMitigationActionsTaskSummary' {taskStatistics} -> taskStatistics) (\s@DetectMitigationActionsTaskSummary' {} a -> s {taskStatistics = a} :: DetectMitigationActionsTaskSummary)
 
 -- | The unique identifier of the task.
-dmatsTaskId :: Lens' DetectMitigationActionsTaskSummary (Maybe Text)
-dmatsTaskId = lens _dmatsTaskId (\s a -> s {_dmatsTaskId = a})
+detectMitigationActionsTaskSummary_taskId :: Lens.Lens' DetectMitigationActionsTaskSummary (Prelude.Maybe Prelude.Text)
+detectMitigationActionsTaskSummary_taskId = Lens.lens (\DetectMitigationActionsTaskSummary' {taskId} -> taskId) (\s@DetectMitigationActionsTaskSummary' {} a -> s {taskId = a} :: DetectMitigationActionsTaskSummary)
 
 -- | Specifies the time period of which violation events occurred between.
-dmatsViolationEventOccurrenceRange :: Lens' DetectMitigationActionsTaskSummary (Maybe ViolationEventOccurrenceRange)
-dmatsViolationEventOccurrenceRange = lens _dmatsViolationEventOccurrenceRange (\s a -> s {_dmatsViolationEventOccurrenceRange = a})
+detectMitigationActionsTaskSummary_violationEventOccurrenceRange :: Lens.Lens' DetectMitigationActionsTaskSummary (Prelude.Maybe ViolationEventOccurrenceRange)
+detectMitigationActionsTaskSummary_violationEventOccurrenceRange = Lens.lens (\DetectMitigationActionsTaskSummary' {violationEventOccurrenceRange} -> violationEventOccurrenceRange) (\s@DetectMitigationActionsTaskSummary' {} a -> s {violationEventOccurrenceRange = a} :: DetectMitigationActionsTaskSummary)
 
 -- | Includes only active violations.
-dmatsOnlyActiveViolationsIncluded :: Lens' DetectMitigationActionsTaskSummary (Maybe Bool)
-dmatsOnlyActiveViolationsIncluded = lens _dmatsOnlyActiveViolationsIncluded (\s a -> s {_dmatsOnlyActiveViolationsIncluded = a})
+detectMitigationActionsTaskSummary_onlyActiveViolationsIncluded :: Lens.Lens' DetectMitigationActionsTaskSummary (Prelude.Maybe Prelude.Bool)
+detectMitigationActionsTaskSummary_onlyActiveViolationsIncluded = Lens.lens (\DetectMitigationActionsTaskSummary' {onlyActiveViolationsIncluded} -> onlyActiveViolationsIncluded) (\s@DetectMitigationActionsTaskSummary' {} a -> s {onlyActiveViolationsIncluded = a} :: DetectMitigationActionsTaskSummary)
 
--- | Specifies the ML Detect findings to which the mitigation actions are applied.
-dmatsTarget :: Lens' DetectMitigationActionsTaskSummary (Maybe DetectMitigationActionsTaskTarget)
-dmatsTarget = lens _dmatsTarget (\s a -> s {_dmatsTarget = a})
+-- | Specifies the ML Detect findings to which the mitigation actions are
+-- applied.
+detectMitigationActionsTaskSummary_target :: Lens.Lens' DetectMitigationActionsTaskSummary (Prelude.Maybe DetectMitigationActionsTaskTarget)
+detectMitigationActionsTaskSummary_target = Lens.lens (\DetectMitigationActionsTaskSummary' {target} -> target) (\s@DetectMitigationActionsTaskSummary' {} a -> s {target = a} :: DetectMitigationActionsTaskSummary)
 
 -- | The status of the task.
-dmatsTaskStatus :: Lens' DetectMitigationActionsTaskSummary (Maybe DetectMitigationActionsTaskStatus)
-dmatsTaskStatus = lens _dmatsTaskStatus (\s a -> s {_dmatsTaskStatus = a})
+detectMitigationActionsTaskSummary_taskStatus :: Lens.Lens' DetectMitigationActionsTaskSummary (Prelude.Maybe DetectMitigationActionsTaskStatus)
+detectMitigationActionsTaskSummary_taskStatus = Lens.lens (\DetectMitigationActionsTaskSummary' {taskStatus} -> taskStatus) (\s@DetectMitigationActionsTaskSummary' {} a -> s {taskStatus = a} :: DetectMitigationActionsTaskSummary)
 
 -- | The definition of the actions.
-dmatsActionsDefinition :: Lens' DetectMitigationActionsTaskSummary [MitigationAction]
-dmatsActionsDefinition = lens _dmatsActionsDefinition (\s a -> s {_dmatsActionsDefinition = a}) . _Default . _Coerce
+detectMitigationActionsTaskSummary_actionsDefinition :: Lens.Lens' DetectMitigationActionsTaskSummary (Prelude.Maybe [MitigationAction])
+detectMitigationActionsTaskSummary_actionsDefinition = Lens.lens (\DetectMitigationActionsTaskSummary' {actionsDefinition} -> actionsDefinition) (\s@DetectMitigationActionsTaskSummary' {} a -> s {actionsDefinition = a} :: DetectMitigationActionsTaskSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date the task started.
-dmatsTaskStartTime :: Lens' DetectMitigationActionsTaskSummary (Maybe UTCTime)
-dmatsTaskStartTime = lens _dmatsTaskStartTime (\s a -> s {_dmatsTaskStartTime = a}) . mapping _Time
+detectMitigationActionsTaskSummary_taskStartTime :: Lens.Lens' DetectMitigationActionsTaskSummary (Prelude.Maybe Prelude.UTCTime)
+detectMitigationActionsTaskSummary_taskStartTime = Lens.lens (\DetectMitigationActionsTaskSummary' {taskStartTime} -> taskStartTime) (\s@DetectMitigationActionsTaskSummary' {} a -> s {taskStartTime = a} :: DetectMitigationActionsTaskSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Includes suppressed alerts.
-dmatsSuppressedAlertsIncluded :: Lens' DetectMitigationActionsTaskSummary (Maybe Bool)
-dmatsSuppressedAlertsIncluded = lens _dmatsSuppressedAlertsIncluded (\s a -> s {_dmatsSuppressedAlertsIncluded = a})
+detectMitigationActionsTaskSummary_suppressedAlertsIncluded :: Lens.Lens' DetectMitigationActionsTaskSummary (Prelude.Maybe Prelude.Bool)
+detectMitigationActionsTaskSummary_suppressedAlertsIncluded = Lens.lens (\DetectMitigationActionsTaskSummary' {suppressedAlertsIncluded} -> suppressedAlertsIncluded) (\s@DetectMitigationActionsTaskSummary' {} a -> s {suppressedAlertsIncluded = a} :: DetectMitigationActionsTaskSummary)
 
-instance FromJSON DetectMitigationActionsTaskSummary where
+instance
+  Prelude.FromJSON
+    DetectMitigationActionsTaskSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DetectMitigationActionsTaskSummary"
       ( \x ->
           DetectMitigationActionsTaskSummary'
-            <$> (x .:? "taskEndTime")
-            <*> (x .:? "taskStatistics")
-            <*> (x .:? "taskId")
-            <*> (x .:? "violationEventOccurrenceRange")
-            <*> (x .:? "onlyActiveViolationsIncluded")
-            <*> (x .:? "target")
-            <*> (x .:? "taskStatus")
-            <*> (x .:? "actionsDefinition" .!= mempty)
-            <*> (x .:? "taskStartTime")
-            <*> (x .:? "suppressedAlertsIncluded")
+            Prelude.<$> (x Prelude..:? "taskEndTime")
+            Prelude.<*> (x Prelude..:? "taskStatistics")
+            Prelude.<*> (x Prelude..:? "taskId")
+            Prelude.<*> (x Prelude..:? "violationEventOccurrenceRange")
+            Prelude.<*> (x Prelude..:? "onlyActiveViolationsIncluded")
+            Prelude.<*> (x Prelude..:? "target")
+            Prelude.<*> (x Prelude..:? "taskStatus")
+            Prelude.<*> ( x Prelude..:? "actionsDefinition"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "taskStartTime")
+            Prelude.<*> (x Prelude..:? "suppressedAlertsIncluded")
       )
 
-instance Hashable DetectMitigationActionsTaskSummary
+instance
+  Prelude.Hashable
+    DetectMitigationActionsTaskSummary
 
-instance NFData DetectMitigationActionsTaskSummary
+instance
+  Prelude.NFData
+    DetectMitigationActionsTaskSummary

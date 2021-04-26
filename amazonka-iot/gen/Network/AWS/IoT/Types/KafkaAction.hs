@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,97 +19,108 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.KafkaAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Send messages to an Amazon Managed Streaming for Apache Kafka (Amazon MSK) or self-managed Apache Kafka cluster.
+-- | Send messages to an Amazon Managed Streaming for Apache Kafka (Amazon
+-- MSK) or self-managed Apache Kafka cluster.
 --
---
---
--- /See:/ 'kafkaAction' smart constructor.
+-- /See:/ 'newKafkaAction' smart constructor.
 data KafkaAction = KafkaAction'
-  { _kaKey ::
-      !(Maybe Text),
-    _kaPartition :: !(Maybe Text),
-    _kaDestinationARN :: !Text,
-    _kaTopic :: !Text,
-    _kaClientProperties :: !(Map Text Text)
+  { -- | The Kafka message key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The Kafka message partition.
+    partition :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of Kafka action\'s VPC @TopicRuleDestination@.
+    destinationArn :: Prelude.Text,
+    -- | The Kafka topic for messages to be sent to the Kafka broker.
+    topic :: Prelude.Text,
+    -- | Properties of the Apache Kafka producer client.
+    clientProperties :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KafkaAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KafkaAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kaKey' - The Kafka message key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kaPartition' - The Kafka message partition.
+-- 'key', 'kafkaAction_key' - The Kafka message key.
 --
--- * 'kaDestinationARN' - The ARN of Kafka action's VPC @TopicRuleDestination@ .
+-- 'partition', 'kafkaAction_partition' - The Kafka message partition.
 --
--- * 'kaTopic' - The Kafka topic for messages to be sent to the Kafka broker.
+-- 'destinationArn', 'kafkaAction_destinationArn' - The ARN of Kafka action\'s VPC @TopicRuleDestination@.
 --
--- * 'kaClientProperties' - Properties of the Apache Kafka producer client.
-kafkaAction ::
-  -- | 'kaDestinationARN'
-  Text ->
-  -- | 'kaTopic'
-  Text ->
+-- 'topic', 'kafkaAction_topic' - The Kafka topic for messages to be sent to the Kafka broker.
+--
+-- 'clientProperties', 'kafkaAction_clientProperties' - Properties of the Apache Kafka producer client.
+newKafkaAction ::
+  -- | 'destinationArn'
+  Prelude.Text ->
+  -- | 'topic'
+  Prelude.Text ->
   KafkaAction
-kafkaAction pDestinationARN_ pTopic_ =
+newKafkaAction pDestinationArn_ pTopic_ =
   KafkaAction'
-    { _kaKey = Nothing,
-      _kaPartition = Nothing,
-      _kaDestinationARN = pDestinationARN_,
-      _kaTopic = pTopic_,
-      _kaClientProperties = mempty
+    { key = Prelude.Nothing,
+      partition = Prelude.Nothing,
+      destinationArn = pDestinationArn_,
+      topic = pTopic_,
+      clientProperties = Prelude.mempty
     }
 
 -- | The Kafka message key.
-kaKey :: Lens' KafkaAction (Maybe Text)
-kaKey = lens _kaKey (\s a -> s {_kaKey = a})
+kafkaAction_key :: Lens.Lens' KafkaAction (Prelude.Maybe Prelude.Text)
+kafkaAction_key = Lens.lens (\KafkaAction' {key} -> key) (\s@KafkaAction' {} a -> s {key = a} :: KafkaAction)
 
 -- | The Kafka message partition.
-kaPartition :: Lens' KafkaAction (Maybe Text)
-kaPartition = lens _kaPartition (\s a -> s {_kaPartition = a})
+kafkaAction_partition :: Lens.Lens' KafkaAction (Prelude.Maybe Prelude.Text)
+kafkaAction_partition = Lens.lens (\KafkaAction' {partition} -> partition) (\s@KafkaAction' {} a -> s {partition = a} :: KafkaAction)
 
--- | The ARN of Kafka action's VPC @TopicRuleDestination@ .
-kaDestinationARN :: Lens' KafkaAction Text
-kaDestinationARN = lens _kaDestinationARN (\s a -> s {_kaDestinationARN = a})
+-- | The ARN of Kafka action\'s VPC @TopicRuleDestination@.
+kafkaAction_destinationArn :: Lens.Lens' KafkaAction Prelude.Text
+kafkaAction_destinationArn = Lens.lens (\KafkaAction' {destinationArn} -> destinationArn) (\s@KafkaAction' {} a -> s {destinationArn = a} :: KafkaAction)
 
 -- | The Kafka topic for messages to be sent to the Kafka broker.
-kaTopic :: Lens' KafkaAction Text
-kaTopic = lens _kaTopic (\s a -> s {_kaTopic = a})
+kafkaAction_topic :: Lens.Lens' KafkaAction Prelude.Text
+kafkaAction_topic = Lens.lens (\KafkaAction' {topic} -> topic) (\s@KafkaAction' {} a -> s {topic = a} :: KafkaAction)
 
 -- | Properties of the Apache Kafka producer client.
-kaClientProperties :: Lens' KafkaAction (HashMap Text Text)
-kaClientProperties = lens _kaClientProperties (\s a -> s {_kaClientProperties = a}) . _Map
+kafkaAction_clientProperties :: Lens.Lens' KafkaAction (Prelude.HashMap Prelude.Text Prelude.Text)
+kafkaAction_clientProperties = Lens.lens (\KafkaAction' {clientProperties} -> clientProperties) (\s@KafkaAction' {} a -> s {clientProperties = a} :: KafkaAction) Prelude.. Prelude._Map
 
-instance FromJSON KafkaAction where
+instance Prelude.FromJSON KafkaAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KafkaAction"
       ( \x ->
           KafkaAction'
-            <$> (x .:? "key")
-            <*> (x .:? "partition")
-            <*> (x .: "destinationArn")
-            <*> (x .: "topic")
-            <*> (x .:? "clientProperties" .!= mempty)
+            Prelude.<$> (x Prelude..:? "key")
+            Prelude.<*> (x Prelude..:? "partition")
+            Prelude.<*> (x Prelude..: "destinationArn")
+            Prelude.<*> (x Prelude..: "topic")
+            Prelude.<*> ( x Prelude..:? "clientProperties"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable KafkaAction
+instance Prelude.Hashable KafkaAction
 
-instance NFData KafkaAction
+instance Prelude.NFData KafkaAction
 
-instance ToJSON KafkaAction where
+instance Prelude.ToJSON KafkaAction where
   toJSON KafkaAction' {..} =
-    object
-      ( catMaybes
-          [ ("key" .=) <$> _kaKey,
-            ("partition" .=) <$> _kaPartition,
-            Just ("destinationArn" .= _kaDestinationARN),
-            Just ("topic" .= _kaTopic),
-            Just ("clientProperties" .= _kaClientProperties)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("key" Prelude..=) Prelude.<$> key,
+            ("partition" Prelude..=) Prelude.<$> partition,
+            Prelude.Just
+              ("destinationArn" Prelude..= destinationArn),
+            Prelude.Just ("topic" Prelude..= topic),
+            Prelude.Just
+              ("clientProperties" Prelude..= clientProperties)
           ]
       )

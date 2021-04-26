@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,137 +24,179 @@
 -- Describes a search index.
 module Network.AWS.IoT.DescribeIndex
   ( -- * Creating a Request
-    describeIndex,
-    DescribeIndex,
+    DescribeIndex (..),
+    newDescribeIndex,
 
     -- * Request Lenses
-    diIndexName,
+    describeIndex_indexName,
 
     -- * Destructuring the Response
-    describeIndexResponse,
-    DescribeIndexResponse,
+    DescribeIndexResponse (..),
+    newDescribeIndexResponse,
 
     -- * Response Lenses
-    dirrsIndexName,
-    dirrsSchema,
-    dirrsIndexStatus,
-    dirrsResponseStatus,
+    describeIndexResponse_indexName,
+    describeIndexResponse_schema,
+    describeIndexResponse_indexStatus,
+    describeIndexResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.IndexStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeIndex' smart constructor.
-newtype DescribeIndex = DescribeIndex'
-  { _diIndexName ::
-      Text
+-- | /See:/ 'newDescribeIndex' smart constructor.
+data DescribeIndex = DescribeIndex'
+  { -- | The index name.
+    indexName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeIndex' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeIndex' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diIndexName' - The index name.
-describeIndex ::
-  -- | 'diIndexName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'indexName', 'describeIndex_indexName' - The index name.
+newDescribeIndex ::
+  -- | 'indexName'
+  Prelude.Text ->
   DescribeIndex
-describeIndex pIndexName_ =
-  DescribeIndex' {_diIndexName = pIndexName_}
+newDescribeIndex pIndexName_ =
+  DescribeIndex' {indexName = pIndexName_}
 
 -- | The index name.
-diIndexName :: Lens' DescribeIndex Text
-diIndexName = lens _diIndexName (\s a -> s {_diIndexName = a})
+describeIndex_indexName :: Lens.Lens' DescribeIndex Prelude.Text
+describeIndex_indexName = Lens.lens (\DescribeIndex' {indexName} -> indexName) (\s@DescribeIndex' {} a -> s {indexName = a} :: DescribeIndex)
 
-instance AWSRequest DescribeIndex where
+instance Prelude.AWSRequest DescribeIndex where
   type Rs DescribeIndex = DescribeIndexResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeIndexResponse'
-            <$> (x .?> "indexName")
-            <*> (x .?> "schema")
-            <*> (x .?> "indexStatus")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "indexName")
+            Prelude.<*> (x Prelude..?> "schema")
+            Prelude.<*> (x Prelude..?> "indexStatus")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeIndex
+instance Prelude.Hashable DescribeIndex
 
-instance NFData DescribeIndex
+instance Prelude.NFData DescribeIndex
 
-instance ToHeaders DescribeIndex where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeIndex where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeIndex where
+instance Prelude.ToPath DescribeIndex where
   toPath DescribeIndex' {..} =
-    mconcat ["/indices/", toBS _diIndexName]
+    Prelude.mconcat
+      ["/indices/", Prelude.toBS indexName]
 
-instance ToQuery DescribeIndex where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeIndex where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeIndexResponse' smart constructor.
+-- | /See:/ 'newDescribeIndexResponse' smart constructor.
 data DescribeIndexResponse = DescribeIndexResponse'
-  { _dirrsIndexName ::
-      !(Maybe Text),
-    _dirrsSchema ::
-      !(Maybe Text),
-    _dirrsIndexStatus ::
-      !(Maybe IndexStatus),
-    _dirrsResponseStatus ::
-      !Int
+  { -- | The index name.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | Contains a value that specifies the type of indexing performed. Valid
+    -- values are:
+    --
+    -- -   REGISTRY – Your thing index contains only registry data.
+    --
+    -- -   REGISTRY_AND_SHADOW - Your thing index contains registry data and
+    --     shadow data.
+    --
+    -- -   REGISTRY_AND_CONNECTIVITY_STATUS - Your thing index contains
+    --     registry data and thing connectivity status data.
+    --
+    -- -   REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS - Your thing index
+    --     contains registry data, shadow data, and thing connectivity status
+    --     data.
+    schema :: Prelude.Maybe Prelude.Text,
+    -- | The index status.
+    indexStatus :: Prelude.Maybe IndexStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeIndexResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeIndexResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dirrsIndexName' - The index name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dirrsSchema' - Contains a value that specifies the type of indexing performed. Valid values are:     * REGISTRY – Your thing index contains only registry data.     * REGISTRY_AND_SHADOW - Your thing index contains registry data and shadow data.     * REGISTRY_AND_CONNECTIVITY_STATUS - Your thing index contains registry data and thing connectivity status data.     * REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS - Your thing index contains registry data, shadow data, and thing connectivity status data.
+-- 'indexName', 'describeIndexResponse_indexName' - The index name.
 --
--- * 'dirrsIndexStatus' - The index status.
+-- 'schema', 'describeIndexResponse_schema' - Contains a value that specifies the type of indexing performed. Valid
+-- values are:
 --
--- * 'dirrsResponseStatus' - -- | The response status code.
-describeIndexResponse ::
-  -- | 'dirrsResponseStatus'
-  Int ->
+-- -   REGISTRY – Your thing index contains only registry data.
+--
+-- -   REGISTRY_AND_SHADOW - Your thing index contains registry data and
+--     shadow data.
+--
+-- -   REGISTRY_AND_CONNECTIVITY_STATUS - Your thing index contains
+--     registry data and thing connectivity status data.
+--
+-- -   REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS - Your thing index
+--     contains registry data, shadow data, and thing connectivity status
+--     data.
+--
+-- 'indexStatus', 'describeIndexResponse_indexStatus' - The index status.
+--
+-- 'httpStatus', 'describeIndexResponse_httpStatus' - The response's http status code.
+newDescribeIndexResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeIndexResponse
-describeIndexResponse pResponseStatus_ =
+newDescribeIndexResponse pHttpStatus_ =
   DescribeIndexResponse'
-    { _dirrsIndexName = Nothing,
-      _dirrsSchema = Nothing,
-      _dirrsIndexStatus = Nothing,
-      _dirrsResponseStatus = pResponseStatus_
+    { indexName = Prelude.Nothing,
+      schema = Prelude.Nothing,
+      indexStatus = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The index name.
-dirrsIndexName :: Lens' DescribeIndexResponse (Maybe Text)
-dirrsIndexName = lens _dirrsIndexName (\s a -> s {_dirrsIndexName = a})
+describeIndexResponse_indexName :: Lens.Lens' DescribeIndexResponse (Prelude.Maybe Prelude.Text)
+describeIndexResponse_indexName = Lens.lens (\DescribeIndexResponse' {indexName} -> indexName) (\s@DescribeIndexResponse' {} a -> s {indexName = a} :: DescribeIndexResponse)
 
--- | Contains a value that specifies the type of indexing performed. Valid values are:     * REGISTRY – Your thing index contains only registry data.     * REGISTRY_AND_SHADOW - Your thing index contains registry data and shadow data.     * REGISTRY_AND_CONNECTIVITY_STATUS - Your thing index contains registry data and thing connectivity status data.     * REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS - Your thing index contains registry data, shadow data, and thing connectivity status data.
-dirrsSchema :: Lens' DescribeIndexResponse (Maybe Text)
-dirrsSchema = lens _dirrsSchema (\s a -> s {_dirrsSchema = a})
+-- | Contains a value that specifies the type of indexing performed. Valid
+-- values are:
+--
+-- -   REGISTRY – Your thing index contains only registry data.
+--
+-- -   REGISTRY_AND_SHADOW - Your thing index contains registry data and
+--     shadow data.
+--
+-- -   REGISTRY_AND_CONNECTIVITY_STATUS - Your thing index contains
+--     registry data and thing connectivity status data.
+--
+-- -   REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS - Your thing index
+--     contains registry data, shadow data, and thing connectivity status
+--     data.
+describeIndexResponse_schema :: Lens.Lens' DescribeIndexResponse (Prelude.Maybe Prelude.Text)
+describeIndexResponse_schema = Lens.lens (\DescribeIndexResponse' {schema} -> schema) (\s@DescribeIndexResponse' {} a -> s {schema = a} :: DescribeIndexResponse)
 
 -- | The index status.
-dirrsIndexStatus :: Lens' DescribeIndexResponse (Maybe IndexStatus)
-dirrsIndexStatus = lens _dirrsIndexStatus (\s a -> s {_dirrsIndexStatus = a})
+describeIndexResponse_indexStatus :: Lens.Lens' DescribeIndexResponse (Prelude.Maybe IndexStatus)
+describeIndexResponse_indexStatus = Lens.lens (\DescribeIndexResponse' {indexStatus} -> indexStatus) (\s@DescribeIndexResponse' {} a -> s {indexStatus = a} :: DescribeIndexResponse)
 
--- | -- | The response status code.
-dirrsResponseStatus :: Lens' DescribeIndexResponse Int
-dirrsResponseStatus = lens _dirrsResponseStatus (\s a -> s {_dirrsResponseStatus = a})
+-- | The response's http status code.
+describeIndexResponse_httpStatus :: Lens.Lens' DescribeIndexResponse Prelude.Int
+describeIndexResponse_httpStatus = Lens.lens (\DescribeIndexResponse' {httpStatus} -> httpStatus) (\s@DescribeIndexResponse' {} a -> s {httpStatus = a} :: DescribeIndexResponse)
 
-instance NFData DescribeIndexResponse
+instance Prelude.NFData DescribeIndexResponse

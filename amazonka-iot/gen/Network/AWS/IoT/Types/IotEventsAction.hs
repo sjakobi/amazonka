@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,143 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.IotEventsAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Sends an input to an AWS IoT Events detector.
 --
---
---
--- /See:/ 'iotEventsAction' smart constructor.
+-- /See:/ 'newIotEventsAction' smart constructor.
 data IotEventsAction = IotEventsAction'
-  { _ieaBatchMode ::
-      !(Maybe Bool),
-    _ieaMessageId :: !(Maybe Text),
-    _ieaInputName :: !Text,
-    _ieaRoleARN :: !Text
+  { -- | Whether to process the event actions as a batch. The default value is
+    -- @false@.
+    --
+    -- When @batchMode@ is @true@, you can\'t specify a @messageId@.
+    --
+    -- When @batchMode@ is @true@ and the rule SQL statement evaluates to an
+    -- Array, each Array element is treated as a separate message when it\'s
+    -- sent to AWS IoT Events by calling
+    -- <https://docs.aws.amazon.com/iotevents/latest/apireference/API_iotevents-data_BatchPutMessage.html BatchPutMessage>
+    -- . The resulting array can\'t have more than 10 messages.
+    batchMode :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the message. The default @messageId@ is a new UUID value.
+    --
+    -- When @batchMode@ is @true@, you can\'t specify a @messageId@--a new UUID
+    -- value will be assigned.
+    --
+    -- Assign a value to this property to ensure that only one input (message)
+    -- with a given @messageId@ will be processed by an AWS IoT Events
+    -- detector.
+    messageId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS IoT Events input.
+    inputName :: Prelude.Text,
+    -- | The ARN of the role that grants AWS IoT permission to send an input to
+    -- an AWS IoT Events detector. (\"Action\":\"iotevents:BatchPutMessage\").
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IotEventsAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IotEventsAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ieaBatchMode' - Whether to process the event actions as a batch. The default value is @false@ . When @batchMode@ is @true@ , you can't specify a @messageId@ .  When @batchMode@ is @true@ and the rule SQL statement evaluates to an Array, each Array element is treated as a separate message when it's sent to AWS IoT Events by calling <https://docs.aws.amazon.com/iotevents/latest/apireference/API_iotevents-data_BatchPutMessage.html @BatchPutMessage@ > . The resulting array can't have more than 10 messages.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ieaMessageId' - The ID of the message. The default @messageId@ is a new UUID value. When @batchMode@ is @true@ , you can't specify a @messageId@ --a new UUID value will be assigned. Assign a value to this property to ensure that only one input (message) with a given @messageId@ will be processed by an AWS IoT Events detector.
+-- 'batchMode', 'iotEventsAction_batchMode' - Whether to process the event actions as a batch. The default value is
+-- @false@.
 --
--- * 'ieaInputName' - The name of the AWS IoT Events input.
+-- When @batchMode@ is @true@, you can\'t specify a @messageId@.
 --
--- * 'ieaRoleARN' - The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector. ("Action":"iotevents:BatchPutMessage").
-iotEventsAction ::
-  -- | 'ieaInputName'
-  Text ->
-  -- | 'ieaRoleARN'
-  Text ->
+-- When @batchMode@ is @true@ and the rule SQL statement evaluates to an
+-- Array, each Array element is treated as a separate message when it\'s
+-- sent to AWS IoT Events by calling
+-- <https://docs.aws.amazon.com/iotevents/latest/apireference/API_iotevents-data_BatchPutMessage.html BatchPutMessage>
+-- . The resulting array can\'t have more than 10 messages.
+--
+-- 'messageId', 'iotEventsAction_messageId' - The ID of the message. The default @messageId@ is a new UUID value.
+--
+-- When @batchMode@ is @true@, you can\'t specify a @messageId@--a new UUID
+-- value will be assigned.
+--
+-- Assign a value to this property to ensure that only one input (message)
+-- with a given @messageId@ will be processed by an AWS IoT Events
+-- detector.
+--
+-- 'inputName', 'iotEventsAction_inputName' - The name of the AWS IoT Events input.
+--
+-- 'roleArn', 'iotEventsAction_roleArn' - The ARN of the role that grants AWS IoT permission to send an input to
+-- an AWS IoT Events detector. (\"Action\":\"iotevents:BatchPutMessage\").
+newIotEventsAction ::
+  -- | 'inputName'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   IotEventsAction
-iotEventsAction pInputName_ pRoleARN_ =
+newIotEventsAction pInputName_ pRoleArn_ =
   IotEventsAction'
-    { _ieaBatchMode = Nothing,
-      _ieaMessageId = Nothing,
-      _ieaInputName = pInputName_,
-      _ieaRoleARN = pRoleARN_
+    { batchMode = Prelude.Nothing,
+      messageId = Prelude.Nothing,
+      inputName = pInputName_,
+      roleArn = pRoleArn_
     }
 
--- | Whether to process the event actions as a batch. The default value is @false@ . When @batchMode@ is @true@ , you can't specify a @messageId@ .  When @batchMode@ is @true@ and the rule SQL statement evaluates to an Array, each Array element is treated as a separate message when it's sent to AWS IoT Events by calling <https://docs.aws.amazon.com/iotevents/latest/apireference/API_iotevents-data_BatchPutMessage.html @BatchPutMessage@ > . The resulting array can't have more than 10 messages.
-ieaBatchMode :: Lens' IotEventsAction (Maybe Bool)
-ieaBatchMode = lens _ieaBatchMode (\s a -> s {_ieaBatchMode = a})
+-- | Whether to process the event actions as a batch. The default value is
+-- @false@.
+--
+-- When @batchMode@ is @true@, you can\'t specify a @messageId@.
+--
+-- When @batchMode@ is @true@ and the rule SQL statement evaluates to an
+-- Array, each Array element is treated as a separate message when it\'s
+-- sent to AWS IoT Events by calling
+-- <https://docs.aws.amazon.com/iotevents/latest/apireference/API_iotevents-data_BatchPutMessage.html BatchPutMessage>
+-- . The resulting array can\'t have more than 10 messages.
+iotEventsAction_batchMode :: Lens.Lens' IotEventsAction (Prelude.Maybe Prelude.Bool)
+iotEventsAction_batchMode = Lens.lens (\IotEventsAction' {batchMode} -> batchMode) (\s@IotEventsAction' {} a -> s {batchMode = a} :: IotEventsAction)
 
--- | The ID of the message. The default @messageId@ is a new UUID value. When @batchMode@ is @true@ , you can't specify a @messageId@ --a new UUID value will be assigned. Assign a value to this property to ensure that only one input (message) with a given @messageId@ will be processed by an AWS IoT Events detector.
-ieaMessageId :: Lens' IotEventsAction (Maybe Text)
-ieaMessageId = lens _ieaMessageId (\s a -> s {_ieaMessageId = a})
+-- | The ID of the message. The default @messageId@ is a new UUID value.
+--
+-- When @batchMode@ is @true@, you can\'t specify a @messageId@--a new UUID
+-- value will be assigned.
+--
+-- Assign a value to this property to ensure that only one input (message)
+-- with a given @messageId@ will be processed by an AWS IoT Events
+-- detector.
+iotEventsAction_messageId :: Lens.Lens' IotEventsAction (Prelude.Maybe Prelude.Text)
+iotEventsAction_messageId = Lens.lens (\IotEventsAction' {messageId} -> messageId) (\s@IotEventsAction' {} a -> s {messageId = a} :: IotEventsAction)
 
 -- | The name of the AWS IoT Events input.
-ieaInputName :: Lens' IotEventsAction Text
-ieaInputName = lens _ieaInputName (\s a -> s {_ieaInputName = a})
+iotEventsAction_inputName :: Lens.Lens' IotEventsAction Prelude.Text
+iotEventsAction_inputName = Lens.lens (\IotEventsAction' {inputName} -> inputName) (\s@IotEventsAction' {} a -> s {inputName = a} :: IotEventsAction)
 
--- | The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector. ("Action":"iotevents:BatchPutMessage").
-ieaRoleARN :: Lens' IotEventsAction Text
-ieaRoleARN = lens _ieaRoleARN (\s a -> s {_ieaRoleARN = a})
+-- | The ARN of the role that grants AWS IoT permission to send an input to
+-- an AWS IoT Events detector. (\"Action\":\"iotevents:BatchPutMessage\").
+iotEventsAction_roleArn :: Lens.Lens' IotEventsAction Prelude.Text
+iotEventsAction_roleArn = Lens.lens (\IotEventsAction' {roleArn} -> roleArn) (\s@IotEventsAction' {} a -> s {roleArn = a} :: IotEventsAction)
 
-instance FromJSON IotEventsAction where
+instance Prelude.FromJSON IotEventsAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "IotEventsAction"
       ( \x ->
           IotEventsAction'
-            <$> (x .:? "batchMode")
-            <*> (x .:? "messageId")
-            <*> (x .: "inputName")
-            <*> (x .: "roleArn")
+            Prelude.<$> (x Prelude..:? "batchMode")
+            Prelude.<*> (x Prelude..:? "messageId")
+            Prelude.<*> (x Prelude..: "inputName")
+            Prelude.<*> (x Prelude..: "roleArn")
       )
 
-instance Hashable IotEventsAction
+instance Prelude.Hashable IotEventsAction
 
-instance NFData IotEventsAction
+instance Prelude.NFData IotEventsAction
 
-instance ToJSON IotEventsAction where
+instance Prelude.ToJSON IotEventsAction where
   toJSON IotEventsAction' {..} =
-    object
-      ( catMaybes
-          [ ("batchMode" .=) <$> _ieaBatchMode,
-            ("messageId" .=) <$> _ieaMessageId,
-            Just ("inputName" .= _ieaInputName),
-            Just ("roleArn" .= _ieaRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("batchMode" Prelude..=) Prelude.<$> batchMode,
+            ("messageId" Prelude..=) Prelude.<$> messageId,
+            Prelude.Just ("inputName" Prelude..= inputName),
+            Prelude.Just ("roleArn" Prelude..= roleArn)
           ]
       )

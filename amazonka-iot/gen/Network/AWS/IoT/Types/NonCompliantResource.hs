@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +21,71 @@ module Network.AWS.IoT.Types.NonCompliantResource where
 
 import Network.AWS.IoT.Types.ResourceIdentifier
 import Network.AWS.IoT.Types.ResourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the resource that was noncompliant with the audit check.
+-- | Information about the resource that was noncompliant with the audit
+-- check.
 --
---
---
--- /See:/ 'nonCompliantResource' smart constructor.
+-- /See:/ 'newNonCompliantResource' smart constructor.
 data NonCompliantResource = NonCompliantResource'
-  { _ncrAdditionalInfo ::
-      !(Maybe (Map Text Text)),
-    _ncrResourceType ::
-      !(Maybe ResourceType),
-    _ncrResourceIdentifier ::
-      !(Maybe ResourceIdentifier)
+  { -- | Other information about the noncompliant resource.
+    additionalInfo :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The type of the noncompliant resource.
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | Information that identifies the noncompliant resource.
+    resourceIdentifier :: Prelude.Maybe ResourceIdentifier
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NonCompliantResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NonCompliantResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncrAdditionalInfo' - Other information about the noncompliant resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ncrResourceType' - The type of the noncompliant resource.
+-- 'additionalInfo', 'nonCompliantResource_additionalInfo' - Other information about the noncompliant resource.
 --
--- * 'ncrResourceIdentifier' - Information that identifies the noncompliant resource.
-nonCompliantResource ::
+-- 'resourceType', 'nonCompliantResource_resourceType' - The type of the noncompliant resource.
+--
+-- 'resourceIdentifier', 'nonCompliantResource_resourceIdentifier' - Information that identifies the noncompliant resource.
+newNonCompliantResource ::
   NonCompliantResource
-nonCompliantResource =
+newNonCompliantResource =
   NonCompliantResource'
-    { _ncrAdditionalInfo = Nothing,
-      _ncrResourceType = Nothing,
-      _ncrResourceIdentifier = Nothing
+    { additionalInfo =
+        Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      resourceIdentifier = Prelude.Nothing
     }
 
 -- | Other information about the noncompliant resource.
-ncrAdditionalInfo :: Lens' NonCompliantResource (HashMap Text Text)
-ncrAdditionalInfo = lens _ncrAdditionalInfo (\s a -> s {_ncrAdditionalInfo = a}) . _Default . _Map
+nonCompliantResource_additionalInfo :: Lens.Lens' NonCompliantResource (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+nonCompliantResource_additionalInfo = Lens.lens (\NonCompliantResource' {additionalInfo} -> additionalInfo) (\s@NonCompliantResource' {} a -> s {additionalInfo = a} :: NonCompliantResource) Prelude.. Lens.mapping Prelude._Map
 
 -- | The type of the noncompliant resource.
-ncrResourceType :: Lens' NonCompliantResource (Maybe ResourceType)
-ncrResourceType = lens _ncrResourceType (\s a -> s {_ncrResourceType = a})
+nonCompliantResource_resourceType :: Lens.Lens' NonCompliantResource (Prelude.Maybe ResourceType)
+nonCompliantResource_resourceType = Lens.lens (\NonCompliantResource' {resourceType} -> resourceType) (\s@NonCompliantResource' {} a -> s {resourceType = a} :: NonCompliantResource)
 
 -- | Information that identifies the noncompliant resource.
-ncrResourceIdentifier :: Lens' NonCompliantResource (Maybe ResourceIdentifier)
-ncrResourceIdentifier = lens _ncrResourceIdentifier (\s a -> s {_ncrResourceIdentifier = a})
+nonCompliantResource_resourceIdentifier :: Lens.Lens' NonCompliantResource (Prelude.Maybe ResourceIdentifier)
+nonCompliantResource_resourceIdentifier = Lens.lens (\NonCompliantResource' {resourceIdentifier} -> resourceIdentifier) (\s@NonCompliantResource' {} a -> s {resourceIdentifier = a} :: NonCompliantResource)
 
-instance FromJSON NonCompliantResource where
+instance Prelude.FromJSON NonCompliantResource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NonCompliantResource"
       ( \x ->
           NonCompliantResource'
-            <$> (x .:? "additionalInfo" .!= mempty)
-            <*> (x .:? "resourceType")
-            <*> (x .:? "resourceIdentifier")
+            Prelude.<$> ( x Prelude..:? "additionalInfo"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "resourceIdentifier")
       )
 
-instance Hashable NonCompliantResource
+instance Prelude.Hashable NonCompliantResource
 
-instance NFData NonCompliantResource
+instance Prelude.NFData NonCompliantResource

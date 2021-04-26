@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.IoT.Types.CertificateStatus
   ( CertificateStatus
       ( ..,
-        CSActive,
-        CSInactive,
-        CSPendingActivation,
-        CSPendingTransfer,
-        CSRegisterInactive,
-        CSRevoked
+        CertificateStatusACTIVE,
+        CertificateStatusINACTIVE,
+        CertificateStatusPENDINGACTIVATION,
+        CertificateStatusPENDINGTRANSFER,
+        CertificateStatusREGISTERINACTIVE,
+        CertificateStatusREVOKED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CertificateStatus = CertificateStatus' (CI Text)
+newtype CertificateStatus = CertificateStatus'
+  { fromCertificateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSActive :: CertificateStatus
-pattern CSActive = CertificateStatus' "ACTIVE"
+pattern CertificateStatusACTIVE :: CertificateStatus
+pattern CertificateStatusACTIVE = CertificateStatus' "ACTIVE"
 
-pattern CSInactive :: CertificateStatus
-pattern CSInactive = CertificateStatus' "INACTIVE"
+pattern CertificateStatusINACTIVE :: CertificateStatus
+pattern CertificateStatusINACTIVE = CertificateStatus' "INACTIVE"
 
-pattern CSPendingActivation :: CertificateStatus
-pattern CSPendingActivation = CertificateStatus' "PENDING_ACTIVATION"
+pattern CertificateStatusPENDINGACTIVATION :: CertificateStatus
+pattern CertificateStatusPENDINGACTIVATION = CertificateStatus' "PENDING_ACTIVATION"
 
-pattern CSPendingTransfer :: CertificateStatus
-pattern CSPendingTransfer = CertificateStatus' "PENDING_TRANSFER"
+pattern CertificateStatusPENDINGTRANSFER :: CertificateStatus
+pattern CertificateStatusPENDINGTRANSFER = CertificateStatus' "PENDING_TRANSFER"
 
-pattern CSRegisterInactive :: CertificateStatus
-pattern CSRegisterInactive = CertificateStatus' "REGISTER_INACTIVE"
+pattern CertificateStatusREGISTERINACTIVE :: CertificateStatus
+pattern CertificateStatusREGISTERINACTIVE = CertificateStatus' "REGISTER_INACTIVE"
 
-pattern CSRevoked :: CertificateStatus
-pattern CSRevoked = CertificateStatus' "REVOKED"
+pattern CertificateStatusREVOKED :: CertificateStatus
+pattern CertificateStatusREVOKED = CertificateStatus' "REVOKED"
 
 {-# COMPLETE
-  CSActive,
-  CSInactive,
-  CSPendingActivation,
-  CSPendingTransfer,
-  CSRegisterInactive,
-  CSRevoked,
+  CertificateStatusACTIVE,
+  CertificateStatusINACTIVE,
+  CertificateStatusPENDINGACTIVATION,
+  CertificateStatusPENDINGTRANSFER,
+  CertificateStatusREGISTERINACTIVE,
+  CertificateStatusREVOKED,
   CertificateStatus'
   #-}
 
-instance FromText CertificateStatus where
-  parser = (CertificateStatus' . mk) <$> takeText
+instance Prelude.FromText CertificateStatus where
+  parser = CertificateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CertificateStatus where
-  toText (CertificateStatus' ci) = original ci
+instance Prelude.ToText CertificateStatus where
+  toText (CertificateStatus' x) = x
 
-instance Hashable CertificateStatus
+instance Prelude.Hashable CertificateStatus
 
-instance NFData CertificateStatus
+instance Prelude.NFData CertificateStatus
 
-instance ToByteString CertificateStatus
+instance Prelude.ToByteString CertificateStatus
 
-instance ToQuery CertificateStatus
+instance Prelude.ToQuery CertificateStatus
 
-instance ToHeader CertificateStatus
+instance Prelude.ToHeader CertificateStatus
 
-instance ToJSON CertificateStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON CertificateStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CertificateStatus where
-  parseJSON = parseJSONText "CertificateStatus"
+instance Prelude.FromJSON CertificateStatus where
+  parseJSON = Prelude.parseJSONText "CertificateStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.ThingConnectivity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The connectivity status of the thing.
 --
---
---
--- /See:/ 'thingConnectivity' smart constructor.
+-- /See:/ 'newThingConnectivity' smart constructor.
 data ThingConnectivity = ThingConnectivity'
-  { _tcConnected ::
-      !(Maybe Bool),
-    _tcTimestamp :: !(Maybe Integer)
+  { -- | True if the thing is connected to the AWS IoT service; false if it is
+    -- not connected.
+    connected :: Prelude.Maybe Prelude.Bool,
+    -- | The epoch time (in milliseconds) when the thing last connected or
+    -- disconnected. If the thing has been disconnected for more than a few
+    -- weeks, the time value might be missing.
+    timestamp :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ThingConnectivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ThingConnectivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcConnected' - True if the thing is connected to the AWS IoT service; false if it is not connected.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcTimestamp' - The epoch time (in milliseconds) when the thing last connected or disconnected. If the thing has been disconnected for more than a few weeks, the time value might be missing.
-thingConnectivity ::
+-- 'connected', 'thingConnectivity_connected' - True if the thing is connected to the AWS IoT service; false if it is
+-- not connected.
+--
+-- 'timestamp', 'thingConnectivity_timestamp' - The epoch time (in milliseconds) when the thing last connected or
+-- disconnected. If the thing has been disconnected for more than a few
+-- weeks, the time value might be missing.
+newThingConnectivity ::
   ThingConnectivity
-thingConnectivity =
+newThingConnectivity =
   ThingConnectivity'
-    { _tcConnected = Nothing,
-      _tcTimestamp = Nothing
+    { connected = Prelude.Nothing,
+      timestamp = Prelude.Nothing
     }
 
--- | True if the thing is connected to the AWS IoT service; false if it is not connected.
-tcConnected :: Lens' ThingConnectivity (Maybe Bool)
-tcConnected = lens _tcConnected (\s a -> s {_tcConnected = a})
+-- | True if the thing is connected to the AWS IoT service; false if it is
+-- not connected.
+thingConnectivity_connected :: Lens.Lens' ThingConnectivity (Prelude.Maybe Prelude.Bool)
+thingConnectivity_connected = Lens.lens (\ThingConnectivity' {connected} -> connected) (\s@ThingConnectivity' {} a -> s {connected = a} :: ThingConnectivity)
 
--- | The epoch time (in milliseconds) when the thing last connected or disconnected. If the thing has been disconnected for more than a few weeks, the time value might be missing.
-tcTimestamp :: Lens' ThingConnectivity (Maybe Integer)
-tcTimestamp = lens _tcTimestamp (\s a -> s {_tcTimestamp = a})
+-- | The epoch time (in milliseconds) when the thing last connected or
+-- disconnected. If the thing has been disconnected for more than a few
+-- weeks, the time value might be missing.
+thingConnectivity_timestamp :: Lens.Lens' ThingConnectivity (Prelude.Maybe Prelude.Integer)
+thingConnectivity_timestamp = Lens.lens (\ThingConnectivity' {timestamp} -> timestamp) (\s@ThingConnectivity' {} a -> s {timestamp = a} :: ThingConnectivity)
 
-instance FromJSON ThingConnectivity where
+instance Prelude.FromJSON ThingConnectivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ThingConnectivity"
       ( \x ->
           ThingConnectivity'
-            <$> (x .:? "connected") <*> (x .:? "timestamp")
+            Prelude.<$> (x Prelude..:? "connected")
+            Prelude.<*> (x Prelude..:? "timestamp")
       )
 
-instance Hashable ThingConnectivity
+instance Prelude.Hashable ThingConnectivity
 
-instance NFData ThingConnectivity
+instance Prelude.NFData ThingConnectivity

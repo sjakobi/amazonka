@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,220 +23,247 @@
 --
 -- Information about the thing registration tasks.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListThingRegistrationTaskReports
   ( -- * Creating a Request
-    listThingRegistrationTaskReports,
-    ListThingRegistrationTaskReports,
+    ListThingRegistrationTaskReports (..),
+    newListThingRegistrationTaskReports,
 
     -- * Request Lenses
-    ltrtrNextToken,
-    ltrtrMaxResults,
-    ltrtrTaskId,
-    ltrtrReportType,
+    listThingRegistrationTaskReports_nextToken,
+    listThingRegistrationTaskReports_maxResults,
+    listThingRegistrationTaskReports_taskId,
+    listThingRegistrationTaskReports_reportType,
 
     -- * Destructuring the Response
-    listThingRegistrationTaskReportsResponse,
-    ListThingRegistrationTaskReportsResponse,
+    ListThingRegistrationTaskReportsResponse (..),
+    newListThingRegistrationTaskReportsResponse,
 
     -- * Response Lenses
-    ltrtrrrsNextToken,
-    ltrtrrrsReportType,
-    ltrtrrrsResourceLinks,
-    ltrtrrrsResponseStatus,
+    listThingRegistrationTaskReportsResponse_nextToken,
+    listThingRegistrationTaskReportsResponse_reportType,
+    listThingRegistrationTaskReportsResponse_resourceLinks,
+    listThingRegistrationTaskReportsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.ReportType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listThingRegistrationTaskReports' smart constructor.
+-- | /See:/ 'newListThingRegistrationTaskReports' smart constructor.
 data ListThingRegistrationTaskReports = ListThingRegistrationTaskReports'
-  { _ltrtrNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ltrtrMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _ltrtrTaskId ::
-      !Text,
-    _ltrtrReportType ::
-      !ReportType
+  { -- | To retrieve the next set of results, the @nextToken@ value from a
+    -- previous response; otherwise __null__ to receive the first set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return per request.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The id of the task.
+    taskId :: Prelude.Text,
+    -- | The type of task report.
+    reportType :: ReportType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListThingRegistrationTaskReports' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListThingRegistrationTaskReports' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrtrNextToken' - To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrtrMaxResults' - The maximum number of results to return per request.
+-- 'nextToken', 'listThingRegistrationTaskReports_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
 --
--- * 'ltrtrTaskId' - The id of the task.
+-- 'maxResults', 'listThingRegistrationTaskReports_maxResults' - The maximum number of results to return per request.
 --
--- * 'ltrtrReportType' - The type of task report.
-listThingRegistrationTaskReports ::
-  -- | 'ltrtrTaskId'
-  Text ->
-  -- | 'ltrtrReportType'
+-- 'taskId', 'listThingRegistrationTaskReports_taskId' - The id of the task.
+--
+-- 'reportType', 'listThingRegistrationTaskReports_reportType' - The type of task report.
+newListThingRegistrationTaskReports ::
+  -- | 'taskId'
+  Prelude.Text ->
+  -- | 'reportType'
   ReportType ->
   ListThingRegistrationTaskReports
-listThingRegistrationTaskReports
+newListThingRegistrationTaskReports
   pTaskId_
   pReportType_ =
     ListThingRegistrationTaskReports'
-      { _ltrtrNextToken =
-          Nothing,
-        _ltrtrMaxResults = Nothing,
-        _ltrtrTaskId = pTaskId_,
-        _ltrtrReportType = pReportType_
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        taskId = pTaskId_,
+        reportType = pReportType_
       }
 
--- | To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
-ltrtrNextToken :: Lens' ListThingRegistrationTaskReports (Maybe Text)
-ltrtrNextToken = lens _ltrtrNextToken (\s a -> s {_ltrtrNextToken = a})
+-- | To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
+listThingRegistrationTaskReports_nextToken :: Lens.Lens' ListThingRegistrationTaskReports (Prelude.Maybe Prelude.Text)
+listThingRegistrationTaskReports_nextToken = Lens.lens (\ListThingRegistrationTaskReports' {nextToken} -> nextToken) (\s@ListThingRegistrationTaskReports' {} a -> s {nextToken = a} :: ListThingRegistrationTaskReports)
 
 -- | The maximum number of results to return per request.
-ltrtrMaxResults :: Lens' ListThingRegistrationTaskReports (Maybe Natural)
-ltrtrMaxResults = lens _ltrtrMaxResults (\s a -> s {_ltrtrMaxResults = a}) . mapping _Nat
+listThingRegistrationTaskReports_maxResults :: Lens.Lens' ListThingRegistrationTaskReports (Prelude.Maybe Prelude.Natural)
+listThingRegistrationTaskReports_maxResults = Lens.lens (\ListThingRegistrationTaskReports' {maxResults} -> maxResults) (\s@ListThingRegistrationTaskReports' {} a -> s {maxResults = a} :: ListThingRegistrationTaskReports) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The id of the task.
-ltrtrTaskId :: Lens' ListThingRegistrationTaskReports Text
-ltrtrTaskId = lens _ltrtrTaskId (\s a -> s {_ltrtrTaskId = a})
+listThingRegistrationTaskReports_taskId :: Lens.Lens' ListThingRegistrationTaskReports Prelude.Text
+listThingRegistrationTaskReports_taskId = Lens.lens (\ListThingRegistrationTaskReports' {taskId} -> taskId) (\s@ListThingRegistrationTaskReports' {} a -> s {taskId = a} :: ListThingRegistrationTaskReports)
 
 -- | The type of task report.
-ltrtrReportType :: Lens' ListThingRegistrationTaskReports ReportType
-ltrtrReportType = lens _ltrtrReportType (\s a -> s {_ltrtrReportType = a})
+listThingRegistrationTaskReports_reportType :: Lens.Lens' ListThingRegistrationTaskReports ReportType
+listThingRegistrationTaskReports_reportType = Lens.lens (\ListThingRegistrationTaskReports' {reportType} -> reportType) (\s@ListThingRegistrationTaskReports' {} a -> s {reportType = a} :: ListThingRegistrationTaskReports)
 
-instance AWSPager ListThingRegistrationTaskReports where
+instance
+  Pager.AWSPager
+    ListThingRegistrationTaskReports
+  where
   page rq rs
-    | stop (rs ^. ltrtrrrsNextToken) = Nothing
-    | stop (rs ^. ltrtrrrsResourceLinks) = Nothing
-    | otherwise =
-      Just $ rq & ltrtrNextToken .~ rs ^. ltrtrrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listThingRegistrationTaskReportsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listThingRegistrationTaskReportsResponse_resourceLinks
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listThingRegistrationTaskReports_nextToken
+          Lens..~ rs
+          Lens.^? listThingRegistrationTaskReportsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListThingRegistrationTaskReports where
+instance
+  Prelude.AWSRequest
+    ListThingRegistrationTaskReports
+  where
   type
     Rs ListThingRegistrationTaskReports =
       ListThingRegistrationTaskReportsResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListThingRegistrationTaskReportsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "reportType")
-            <*> (x .?> "resourceLinks" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "reportType")
+            Prelude.<*> ( x Prelude..?> "resourceLinks"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListThingRegistrationTaskReports
+instance
+  Prelude.Hashable
+    ListThingRegistrationTaskReports
 
-instance NFData ListThingRegistrationTaskReports
+instance
+  Prelude.NFData
+    ListThingRegistrationTaskReports
 
-instance ToHeaders ListThingRegistrationTaskReports where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ListThingRegistrationTaskReports
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListThingRegistrationTaskReports where
+instance
+  Prelude.ToPath
+    ListThingRegistrationTaskReports
+  where
   toPath ListThingRegistrationTaskReports' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/thing-registration-tasks/",
-        toBS _ltrtrTaskId,
+        Prelude.toBS taskId,
         "/reports"
       ]
 
-instance ToQuery ListThingRegistrationTaskReports where
+instance
+  Prelude.ToQuery
+    ListThingRegistrationTaskReports
+  where
   toQuery ListThingRegistrationTaskReports' {..} =
-    mconcat
-      [ "nextToken" =: _ltrtrNextToken,
-        "maxResults" =: _ltrtrMaxResults,
-        "reportType" =: _ltrtrReportType
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "reportType" Prelude.=: reportType
       ]
 
--- | /See:/ 'listThingRegistrationTaskReportsResponse' smart constructor.
+-- | /See:/ 'newListThingRegistrationTaskReportsResponse' smart constructor.
 data ListThingRegistrationTaskReportsResponse = ListThingRegistrationTaskReportsResponse'
-  { _ltrtrrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ltrtrrrsReportType ::
-      !( Maybe
-           ReportType
-       ),
-    _ltrtrrrsResourceLinks ::
-      !( Maybe
-           [Text]
-       ),
-    _ltrtrrrsResponseStatus ::
-      !Int
+  { -- | The token to use to get the next set of results, or __null__ if there
+    -- are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The type of task report.
+    reportType :: Prelude.Maybe ReportType,
+    -- | Links to the task resources.
+    resourceLinks :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListThingRegistrationTaskReportsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListThingRegistrationTaskReportsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrtrrrsNextToken' - The token to use to get the next set of results, or __null__ if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrtrrrsReportType' - The type of task report.
+-- 'nextToken', 'listThingRegistrationTaskReportsResponse_nextToken' - The token to use to get the next set of results, or __null__ if there
+-- are no additional results.
 --
--- * 'ltrtrrrsResourceLinks' - Links to the task resources.
+-- 'reportType', 'listThingRegistrationTaskReportsResponse_reportType' - The type of task report.
 --
--- * 'ltrtrrrsResponseStatus' - -- | The response status code.
-listThingRegistrationTaskReportsResponse ::
-  -- | 'ltrtrrrsResponseStatus'
-  Int ->
+-- 'resourceLinks', 'listThingRegistrationTaskReportsResponse_resourceLinks' - Links to the task resources.
+--
+-- 'httpStatus', 'listThingRegistrationTaskReportsResponse_httpStatus' - The response's http status code.
+newListThingRegistrationTaskReportsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListThingRegistrationTaskReportsResponse
-listThingRegistrationTaskReportsResponse
-  pResponseStatus_ =
+newListThingRegistrationTaskReportsResponse
+  pHttpStatus_ =
     ListThingRegistrationTaskReportsResponse'
-      { _ltrtrrrsNextToken =
-          Nothing,
-        _ltrtrrrsReportType = Nothing,
-        _ltrtrrrsResourceLinks = Nothing,
-        _ltrtrrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        reportType = Prelude.Nothing,
+        resourceLinks = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token to use to get the next set of results, or __null__ if there are no additional results.
-ltrtrrrsNextToken :: Lens' ListThingRegistrationTaskReportsResponse (Maybe Text)
-ltrtrrrsNextToken = lens _ltrtrrrsNextToken (\s a -> s {_ltrtrrrsNextToken = a})
+-- | The token to use to get the next set of results, or __null__ if there
+-- are no additional results.
+listThingRegistrationTaskReportsResponse_nextToken :: Lens.Lens' ListThingRegistrationTaskReportsResponse (Prelude.Maybe Prelude.Text)
+listThingRegistrationTaskReportsResponse_nextToken = Lens.lens (\ListThingRegistrationTaskReportsResponse' {nextToken} -> nextToken) (\s@ListThingRegistrationTaskReportsResponse' {} a -> s {nextToken = a} :: ListThingRegistrationTaskReportsResponse)
 
 -- | The type of task report.
-ltrtrrrsReportType :: Lens' ListThingRegistrationTaskReportsResponse (Maybe ReportType)
-ltrtrrrsReportType = lens _ltrtrrrsReportType (\s a -> s {_ltrtrrrsReportType = a})
+listThingRegistrationTaskReportsResponse_reportType :: Lens.Lens' ListThingRegistrationTaskReportsResponse (Prelude.Maybe ReportType)
+listThingRegistrationTaskReportsResponse_reportType = Lens.lens (\ListThingRegistrationTaskReportsResponse' {reportType} -> reportType) (\s@ListThingRegistrationTaskReportsResponse' {} a -> s {reportType = a} :: ListThingRegistrationTaskReportsResponse)
 
 -- | Links to the task resources.
-ltrtrrrsResourceLinks :: Lens' ListThingRegistrationTaskReportsResponse [Text]
-ltrtrrrsResourceLinks = lens _ltrtrrrsResourceLinks (\s a -> s {_ltrtrrrsResourceLinks = a}) . _Default . _Coerce
+listThingRegistrationTaskReportsResponse_resourceLinks :: Lens.Lens' ListThingRegistrationTaskReportsResponse (Prelude.Maybe [Prelude.Text])
+listThingRegistrationTaskReportsResponse_resourceLinks = Lens.lens (\ListThingRegistrationTaskReportsResponse' {resourceLinks} -> resourceLinks) (\s@ListThingRegistrationTaskReportsResponse' {} a -> s {resourceLinks = a} :: ListThingRegistrationTaskReportsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltrtrrrsResponseStatus :: Lens' ListThingRegistrationTaskReportsResponse Int
-ltrtrrrsResponseStatus = lens _ltrtrrrsResponseStatus (\s a -> s {_ltrtrrrsResponseStatus = a})
+-- | The response's http status code.
+listThingRegistrationTaskReportsResponse_httpStatus :: Lens.Lens' ListThingRegistrationTaskReportsResponse Prelude.Int
+listThingRegistrationTaskReportsResponse_httpStatus = Lens.lens (\ListThingRegistrationTaskReportsResponse' {httpStatus} -> httpStatus) (\s@ListThingRegistrationTaskReportsResponse' {} a -> s {httpStatus = a} :: ListThingRegistrationTaskReportsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListThingRegistrationTaskReportsResponse

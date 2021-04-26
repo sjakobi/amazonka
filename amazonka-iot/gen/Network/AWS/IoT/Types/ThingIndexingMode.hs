@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.IoT.Types.ThingIndexingMode
   ( ThingIndexingMode
       ( ..,
-        TIMOff,
-        TIMRegistry,
-        TIMRegistryAndShadow
+        ThingIndexingModeOFF,
+        ThingIndexingModeREGISTRY,
+        ThingIndexingModeREGISTRYANDSHADOW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ThingIndexingMode = ThingIndexingMode' (CI Text)
+newtype ThingIndexingMode = ThingIndexingMode'
+  { fromThingIndexingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TIMOff :: ThingIndexingMode
-pattern TIMOff = ThingIndexingMode' "OFF"
+pattern ThingIndexingModeOFF :: ThingIndexingMode
+pattern ThingIndexingModeOFF = ThingIndexingMode' "OFF"
 
-pattern TIMRegistry :: ThingIndexingMode
-pattern TIMRegistry = ThingIndexingMode' "REGISTRY"
+pattern ThingIndexingModeREGISTRY :: ThingIndexingMode
+pattern ThingIndexingModeREGISTRY = ThingIndexingMode' "REGISTRY"
 
-pattern TIMRegistryAndShadow :: ThingIndexingMode
-pattern TIMRegistryAndShadow = ThingIndexingMode' "REGISTRY_AND_SHADOW"
+pattern ThingIndexingModeREGISTRYANDSHADOW :: ThingIndexingMode
+pattern ThingIndexingModeREGISTRYANDSHADOW = ThingIndexingMode' "REGISTRY_AND_SHADOW"
 
 {-# COMPLETE
-  TIMOff,
-  TIMRegistry,
-  TIMRegistryAndShadow,
+  ThingIndexingModeOFF,
+  ThingIndexingModeREGISTRY,
+  ThingIndexingModeREGISTRYANDSHADOW,
   ThingIndexingMode'
   #-}
 
-instance FromText ThingIndexingMode where
-  parser = (ThingIndexingMode' . mk) <$> takeText
+instance Prelude.FromText ThingIndexingMode where
+  parser = ThingIndexingMode' Prelude.<$> Prelude.takeText
 
-instance ToText ThingIndexingMode where
-  toText (ThingIndexingMode' ci) = original ci
+instance Prelude.ToText ThingIndexingMode where
+  toText (ThingIndexingMode' x) = x
 
-instance Hashable ThingIndexingMode
+instance Prelude.Hashable ThingIndexingMode
 
-instance NFData ThingIndexingMode
+instance Prelude.NFData ThingIndexingMode
 
-instance ToByteString ThingIndexingMode
+instance Prelude.ToByteString ThingIndexingMode
 
-instance ToQuery ThingIndexingMode
+instance Prelude.ToQuery ThingIndexingMode
 
-instance ToHeader ThingIndexingMode
+instance Prelude.ToHeader ThingIndexingMode
 
-instance ToJSON ThingIndexingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON ThingIndexingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ThingIndexingMode where
-  parseJSON = parseJSONText "ThingIndexingMode"
+instance Prelude.FromJSON ThingIndexingMode where
+  parseJSON = Prelude.parseJSONText "ThingIndexingMode"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,172 +24,175 @@
 -- Creates a billing group.
 module Network.AWS.IoT.CreateBillingGroup
   ( -- * Creating a Request
-    createBillingGroup,
-    CreateBillingGroup,
+    CreateBillingGroup (..),
+    newCreateBillingGroup,
 
     -- * Request Lenses
-    cbgBillingGroupProperties,
-    cbgTags,
-    cbgBillingGroupName,
+    createBillingGroup_billingGroupProperties,
+    createBillingGroup_tags,
+    createBillingGroup_billingGroupName,
 
     -- * Destructuring the Response
-    createBillingGroupResponse,
-    CreateBillingGroupResponse,
+    CreateBillingGroupResponse (..),
+    newCreateBillingGroupResponse,
 
     -- * Response Lenses
-    cbgrrsBillingGroupARN,
-    cbgrrsBillingGroupId,
-    cbgrrsBillingGroupName,
-    cbgrrsResponseStatus,
+    createBillingGroupResponse_billingGroupArn,
+    createBillingGroupResponse_billingGroupId,
+    createBillingGroupResponse_billingGroupName,
+    createBillingGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createBillingGroup' smart constructor.
+-- | /See:/ 'newCreateBillingGroup' smart constructor.
 data CreateBillingGroup = CreateBillingGroup'
-  { _cbgBillingGroupProperties ::
-      !(Maybe BillingGroupProperties),
-    _cbgTags :: !(Maybe [Tag]),
-    _cbgBillingGroupName :: !Text
+  { -- | The properties of the billing group.
+    billingGroupProperties :: Prelude.Maybe BillingGroupProperties,
+    -- | Metadata which can be used to manage the billing group.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name you wish to give to the billing group.
+    billingGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateBillingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateBillingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbgBillingGroupProperties' - The properties of the billing group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbgTags' - Metadata which can be used to manage the billing group.
+-- 'billingGroupProperties', 'createBillingGroup_billingGroupProperties' - The properties of the billing group.
 --
--- * 'cbgBillingGroupName' - The name you wish to give to the billing group.
-createBillingGroup ::
-  -- | 'cbgBillingGroupName'
-  Text ->
+-- 'tags', 'createBillingGroup_tags' - Metadata which can be used to manage the billing group.
+--
+-- 'billingGroupName', 'createBillingGroup_billingGroupName' - The name you wish to give to the billing group.
+newCreateBillingGroup ::
+  -- | 'billingGroupName'
+  Prelude.Text ->
   CreateBillingGroup
-createBillingGroup pBillingGroupName_ =
+newCreateBillingGroup pBillingGroupName_ =
   CreateBillingGroup'
-    { _cbgBillingGroupProperties =
-        Nothing,
-      _cbgTags = Nothing,
-      _cbgBillingGroupName = pBillingGroupName_
+    { billingGroupProperties =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
+      billingGroupName = pBillingGroupName_
     }
 
 -- | The properties of the billing group.
-cbgBillingGroupProperties :: Lens' CreateBillingGroup (Maybe BillingGroupProperties)
-cbgBillingGroupProperties = lens _cbgBillingGroupProperties (\s a -> s {_cbgBillingGroupProperties = a})
+createBillingGroup_billingGroupProperties :: Lens.Lens' CreateBillingGroup (Prelude.Maybe BillingGroupProperties)
+createBillingGroup_billingGroupProperties = Lens.lens (\CreateBillingGroup' {billingGroupProperties} -> billingGroupProperties) (\s@CreateBillingGroup' {} a -> s {billingGroupProperties = a} :: CreateBillingGroup)
 
 -- | Metadata which can be used to manage the billing group.
-cbgTags :: Lens' CreateBillingGroup [Tag]
-cbgTags = lens _cbgTags (\s a -> s {_cbgTags = a}) . _Default . _Coerce
+createBillingGroup_tags :: Lens.Lens' CreateBillingGroup (Prelude.Maybe [Tag])
+createBillingGroup_tags = Lens.lens (\CreateBillingGroup' {tags} -> tags) (\s@CreateBillingGroup' {} a -> s {tags = a} :: CreateBillingGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name you wish to give to the billing group.
-cbgBillingGroupName :: Lens' CreateBillingGroup Text
-cbgBillingGroupName = lens _cbgBillingGroupName (\s a -> s {_cbgBillingGroupName = a})
+createBillingGroup_billingGroupName :: Lens.Lens' CreateBillingGroup Prelude.Text
+createBillingGroup_billingGroupName = Lens.lens (\CreateBillingGroup' {billingGroupName} -> billingGroupName) (\s@CreateBillingGroup' {} a -> s {billingGroupName = a} :: CreateBillingGroup)
 
-instance AWSRequest CreateBillingGroup where
+instance Prelude.AWSRequest CreateBillingGroup where
   type
     Rs CreateBillingGroup =
       CreateBillingGroupResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateBillingGroupResponse'
-            <$> (x .?> "billingGroupArn")
-            <*> (x .?> "billingGroupId")
-            <*> (x .?> "billingGroupName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "billingGroupArn")
+            Prelude.<*> (x Prelude..?> "billingGroupId")
+            Prelude.<*> (x Prelude..?> "billingGroupName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateBillingGroup
+instance Prelude.Hashable CreateBillingGroup
 
-instance NFData CreateBillingGroup
+instance Prelude.NFData CreateBillingGroup
 
-instance ToHeaders CreateBillingGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateBillingGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateBillingGroup where
+instance Prelude.ToJSON CreateBillingGroup where
   toJSON CreateBillingGroup' {..} =
-    object
-      ( catMaybes
-          [ ("billingGroupProperties" .=)
-              <$> _cbgBillingGroupProperties,
-            ("tags" .=) <$> _cbgTags
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("billingGroupProperties" Prelude..=)
+              Prelude.<$> billingGroupProperties,
+            ("tags" Prelude..=) Prelude.<$> tags
           ]
       )
 
-instance ToPath CreateBillingGroup where
+instance Prelude.ToPath CreateBillingGroup where
   toPath CreateBillingGroup' {..} =
-    mconcat
-      ["/billing-groups/", toBS _cbgBillingGroupName]
+    Prelude.mconcat
+      ["/billing-groups/", Prelude.toBS billingGroupName]
 
-instance ToQuery CreateBillingGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateBillingGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createBillingGroupResponse' smart constructor.
+-- | /See:/ 'newCreateBillingGroupResponse' smart constructor.
 data CreateBillingGroupResponse = CreateBillingGroupResponse'
-  { _cbgrrsBillingGroupARN ::
-      !(Maybe Text),
-    _cbgrrsBillingGroupId ::
-      !(Maybe Text),
-    _cbgrrsBillingGroupName ::
-      !(Maybe Text),
-    _cbgrrsResponseStatus ::
-      !Int
+  { -- | The ARN of the billing group.
+    billingGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the billing group.
+    billingGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The name you gave to the billing group.
+    billingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateBillingGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateBillingGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbgrrsBillingGroupARN' - The ARN of the billing group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbgrrsBillingGroupId' - The ID of the billing group.
+-- 'billingGroupArn', 'createBillingGroupResponse_billingGroupArn' - The ARN of the billing group.
 --
--- * 'cbgrrsBillingGroupName' - The name you gave to the billing group.
+-- 'billingGroupId', 'createBillingGroupResponse_billingGroupId' - The ID of the billing group.
 --
--- * 'cbgrrsResponseStatus' - -- | The response status code.
-createBillingGroupResponse ::
-  -- | 'cbgrrsResponseStatus'
-  Int ->
+-- 'billingGroupName', 'createBillingGroupResponse_billingGroupName' - The name you gave to the billing group.
+--
+-- 'httpStatus', 'createBillingGroupResponse_httpStatus' - The response's http status code.
+newCreateBillingGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateBillingGroupResponse
-createBillingGroupResponse pResponseStatus_ =
+newCreateBillingGroupResponse pHttpStatus_ =
   CreateBillingGroupResponse'
-    { _cbgrrsBillingGroupARN =
-        Nothing,
-      _cbgrrsBillingGroupId = Nothing,
-      _cbgrrsBillingGroupName = Nothing,
-      _cbgrrsResponseStatus = pResponseStatus_
+    { billingGroupArn =
+        Prelude.Nothing,
+      billingGroupId = Prelude.Nothing,
+      billingGroupName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the billing group.
-cbgrrsBillingGroupARN :: Lens' CreateBillingGroupResponse (Maybe Text)
-cbgrrsBillingGroupARN = lens _cbgrrsBillingGroupARN (\s a -> s {_cbgrrsBillingGroupARN = a})
+createBillingGroupResponse_billingGroupArn :: Lens.Lens' CreateBillingGroupResponse (Prelude.Maybe Prelude.Text)
+createBillingGroupResponse_billingGroupArn = Lens.lens (\CreateBillingGroupResponse' {billingGroupArn} -> billingGroupArn) (\s@CreateBillingGroupResponse' {} a -> s {billingGroupArn = a} :: CreateBillingGroupResponse)
 
 -- | The ID of the billing group.
-cbgrrsBillingGroupId :: Lens' CreateBillingGroupResponse (Maybe Text)
-cbgrrsBillingGroupId = lens _cbgrrsBillingGroupId (\s a -> s {_cbgrrsBillingGroupId = a})
+createBillingGroupResponse_billingGroupId :: Lens.Lens' CreateBillingGroupResponse (Prelude.Maybe Prelude.Text)
+createBillingGroupResponse_billingGroupId = Lens.lens (\CreateBillingGroupResponse' {billingGroupId} -> billingGroupId) (\s@CreateBillingGroupResponse' {} a -> s {billingGroupId = a} :: CreateBillingGroupResponse)
 
 -- | The name you gave to the billing group.
-cbgrrsBillingGroupName :: Lens' CreateBillingGroupResponse (Maybe Text)
-cbgrrsBillingGroupName = lens _cbgrrsBillingGroupName (\s a -> s {_cbgrrsBillingGroupName = a})
+createBillingGroupResponse_billingGroupName :: Lens.Lens' CreateBillingGroupResponse (Prelude.Maybe Prelude.Text)
+createBillingGroupResponse_billingGroupName = Lens.lens (\CreateBillingGroupResponse' {billingGroupName} -> billingGroupName) (\s@CreateBillingGroupResponse' {} a -> s {billingGroupName = a} :: CreateBillingGroupResponse)
 
--- | -- | The response status code.
-cbgrrsResponseStatus :: Lens' CreateBillingGroupResponse Int
-cbgrrsResponseStatus = lens _cbgrrsResponseStatus (\s a -> s {_cbgrrsResponseStatus = a})
+-- | The response's http status code.
+createBillingGroupResponse_httpStatus :: Lens.Lens' CreateBillingGroupResponse Prelude.Int
+createBillingGroupResponse_httpStatus = Lens.lens (\CreateBillingGroupResponse' {httpStatus} -> httpStatus) (\s@CreateBillingGroupResponse' {} a -> s {httpStatus = a} :: CreateBillingGroupResponse)
 
-instance NFData CreateBillingGroupResponse
+instance Prelude.NFData CreateBillingGroupResponse

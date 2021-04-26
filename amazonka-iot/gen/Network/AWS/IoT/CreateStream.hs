@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,197 +21,217 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a stream for delivering one or more large files in chunks over MQTT. A stream transports data bytes in chunks or blocks packaged as MQTT messages from a source like S3. You can have one or more files associated with a stream.
+-- Creates a stream for delivering one or more large files in chunks over
+-- MQTT. A stream transports data bytes in chunks or blocks packaged as
+-- MQTT messages from a source like S3. You can have one or more files
+-- associated with a stream.
 module Network.AWS.IoT.CreateStream
   ( -- * Creating a Request
-    createStream,
-    CreateStream,
+    CreateStream (..),
+    newCreateStream,
 
     -- * Request Lenses
-    csTags,
-    csDescription,
-    csStreamId,
-    csFiles,
-    csRoleARN,
+    createStream_tags,
+    createStream_description,
+    createStream_streamId,
+    createStream_files,
+    createStream_roleArn,
 
     -- * Destructuring the Response
-    createStreamResponse,
-    CreateStreamResponse,
+    CreateStreamResponse (..),
+    newCreateStreamResponse,
 
     -- * Response Lenses
-    csrrsStreamVersion,
-    csrrsStreamId,
-    csrrsStreamARN,
-    csrrsDescription,
-    csrrsResponseStatus,
+    createStreamResponse_streamVersion,
+    createStreamResponse_streamId,
+    createStreamResponse_streamArn,
+    createStreamResponse_description,
+    createStreamResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createStream' smart constructor.
+-- | /See:/ 'newCreateStream' smart constructor.
 data CreateStream = CreateStream'
-  { _csTags ::
-      !(Maybe [Tag]),
-    _csDescription :: !(Maybe Text),
-    _csStreamId :: !Text,
-    _csFiles :: !(List1 StreamFile),
-    _csRoleARN :: !Text
+  { -- | Metadata which can be used to manage streams.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description of the stream.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The stream ID.
+    streamId :: Prelude.Text,
+    -- | The files to stream.
+    files :: Prelude.List1 StreamFile,
+    -- | An IAM role that allows the IoT service principal assumes to access your
+    -- S3 files.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csTags' - Metadata which can be used to manage streams.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csDescription' - A description of the stream.
+-- 'tags', 'createStream_tags' - Metadata which can be used to manage streams.
 --
--- * 'csStreamId' - The stream ID.
+-- 'description', 'createStream_description' - A description of the stream.
 --
--- * 'csFiles' - The files to stream.
+-- 'streamId', 'createStream_streamId' - The stream ID.
 --
--- * 'csRoleARN' - An IAM role that allows the IoT service principal assumes to access your S3 files.
-createStream ::
-  -- | 'csStreamId'
-  Text ->
-  -- | 'csFiles'
-  NonEmpty StreamFile ->
-  -- | 'csRoleARN'
-  Text ->
+-- 'files', 'createStream_files' - The files to stream.
+--
+-- 'roleArn', 'createStream_roleArn' - An IAM role that allows the IoT service principal assumes to access your
+-- S3 files.
+newCreateStream ::
+  -- | 'streamId'
+  Prelude.Text ->
+  -- | 'files'
+  Prelude.NonEmpty StreamFile ->
+  -- | 'roleArn'
+  Prelude.Text ->
   CreateStream
-createStream pStreamId_ pFiles_ pRoleARN_ =
+newCreateStream pStreamId_ pFiles_ pRoleArn_ =
   CreateStream'
-    { _csTags = Nothing,
-      _csDescription = Nothing,
-      _csStreamId = pStreamId_,
-      _csFiles = _List1 # pFiles_,
-      _csRoleARN = pRoleARN_
+    { tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      streamId = pStreamId_,
+      files = Prelude._List1 Lens.# pFiles_,
+      roleArn = pRoleArn_
     }
 
 -- | Metadata which can be used to manage streams.
-csTags :: Lens' CreateStream [Tag]
-csTags = lens _csTags (\s a -> s {_csTags = a}) . _Default . _Coerce
+createStream_tags :: Lens.Lens' CreateStream (Prelude.Maybe [Tag])
+createStream_tags = Lens.lens (\CreateStream' {tags} -> tags) (\s@CreateStream' {} a -> s {tags = a} :: CreateStream) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the stream.
-csDescription :: Lens' CreateStream (Maybe Text)
-csDescription = lens _csDescription (\s a -> s {_csDescription = a})
+createStream_description :: Lens.Lens' CreateStream (Prelude.Maybe Prelude.Text)
+createStream_description = Lens.lens (\CreateStream' {description} -> description) (\s@CreateStream' {} a -> s {description = a} :: CreateStream)
 
 -- | The stream ID.
-csStreamId :: Lens' CreateStream Text
-csStreamId = lens _csStreamId (\s a -> s {_csStreamId = a})
+createStream_streamId :: Lens.Lens' CreateStream Prelude.Text
+createStream_streamId = Lens.lens (\CreateStream' {streamId} -> streamId) (\s@CreateStream' {} a -> s {streamId = a} :: CreateStream)
 
 -- | The files to stream.
-csFiles :: Lens' CreateStream (NonEmpty StreamFile)
-csFiles = lens _csFiles (\s a -> s {_csFiles = a}) . _List1
+createStream_files :: Lens.Lens' CreateStream (Prelude.NonEmpty StreamFile)
+createStream_files = Lens.lens (\CreateStream' {files} -> files) (\s@CreateStream' {} a -> s {files = a} :: CreateStream) Prelude.. Prelude._List1
 
--- | An IAM role that allows the IoT service principal assumes to access your S3 files.
-csRoleARN :: Lens' CreateStream Text
-csRoleARN = lens _csRoleARN (\s a -> s {_csRoleARN = a})
+-- | An IAM role that allows the IoT service principal assumes to access your
+-- S3 files.
+createStream_roleArn :: Lens.Lens' CreateStream Prelude.Text
+createStream_roleArn = Lens.lens (\CreateStream' {roleArn} -> roleArn) (\s@CreateStream' {} a -> s {roleArn = a} :: CreateStream)
 
-instance AWSRequest CreateStream where
+instance Prelude.AWSRequest CreateStream where
   type Rs CreateStream = CreateStreamResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateStreamResponse'
-            <$> (x .?> "streamVersion")
-            <*> (x .?> "streamId")
-            <*> (x .?> "streamArn")
-            <*> (x .?> "description")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "streamVersion")
+            Prelude.<*> (x Prelude..?> "streamId")
+            Prelude.<*> (x Prelude..?> "streamArn")
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateStream
+instance Prelude.Hashable CreateStream
 
-instance NFData CreateStream
+instance Prelude.NFData CreateStream
 
-instance ToHeaders CreateStream where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateStream where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateStream where
+instance Prelude.ToJSON CreateStream where
   toJSON CreateStream' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _csTags,
-            ("description" .=) <$> _csDescription,
-            Just ("files" .= _csFiles),
-            Just ("roleArn" .= _csRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            ("description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("files" Prelude..= files),
+            Prelude.Just ("roleArn" Prelude..= roleArn)
           ]
       )
 
-instance ToPath CreateStream where
+instance Prelude.ToPath CreateStream where
   toPath CreateStream' {..} =
-    mconcat ["/streams/", toBS _csStreamId]
+    Prelude.mconcat
+      ["/streams/", Prelude.toBS streamId]
 
-instance ToQuery CreateStream where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateStream where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createStreamResponse' smart constructor.
+-- | /See:/ 'newCreateStreamResponse' smart constructor.
 data CreateStreamResponse = CreateStreamResponse'
-  { _csrrsStreamVersion ::
-      !(Maybe Nat),
-    _csrrsStreamId ::
-      !(Maybe Text),
-    _csrrsStreamARN ::
-      !(Maybe Text),
-    _csrrsDescription ::
-      !(Maybe Text),
-    _csrrsResponseStatus :: !Int
+  { -- | The version of the stream.
+    streamVersion :: Prelude.Maybe Prelude.Nat,
+    -- | The stream ID.
+    streamId :: Prelude.Maybe Prelude.Text,
+    -- | The stream ARN.
+    streamArn :: Prelude.Maybe Prelude.Text,
+    -- | A description of the stream.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStreamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStreamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csrrsStreamVersion' - The version of the stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csrrsStreamId' - The stream ID.
+-- 'streamVersion', 'createStreamResponse_streamVersion' - The version of the stream.
 --
--- * 'csrrsStreamARN' - The stream ARN.
+-- 'streamId', 'createStreamResponse_streamId' - The stream ID.
 --
--- * 'csrrsDescription' - A description of the stream.
+-- 'streamArn', 'createStreamResponse_streamArn' - The stream ARN.
 --
--- * 'csrrsResponseStatus' - -- | The response status code.
-createStreamResponse ::
-  -- | 'csrrsResponseStatus'
-  Int ->
+-- 'description', 'createStreamResponse_description' - A description of the stream.
+--
+-- 'httpStatus', 'createStreamResponse_httpStatus' - The response's http status code.
+newCreateStreamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateStreamResponse
-createStreamResponse pResponseStatus_ =
+newCreateStreamResponse pHttpStatus_ =
   CreateStreamResponse'
-    { _csrrsStreamVersion =
-        Nothing,
-      _csrrsStreamId = Nothing,
-      _csrrsStreamARN = Nothing,
-      _csrrsDescription = Nothing,
-      _csrrsResponseStatus = pResponseStatus_
+    { streamVersion =
+        Prelude.Nothing,
+      streamId = Prelude.Nothing,
+      streamArn = Prelude.Nothing,
+      description = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The version of the stream.
-csrrsStreamVersion :: Lens' CreateStreamResponse (Maybe Natural)
-csrrsStreamVersion = lens _csrrsStreamVersion (\s a -> s {_csrrsStreamVersion = a}) . mapping _Nat
+createStreamResponse_streamVersion :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Natural)
+createStreamResponse_streamVersion = Lens.lens (\CreateStreamResponse' {streamVersion} -> streamVersion) (\s@CreateStreamResponse' {} a -> s {streamVersion = a} :: CreateStreamResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The stream ID.
-csrrsStreamId :: Lens' CreateStreamResponse (Maybe Text)
-csrrsStreamId = lens _csrrsStreamId (\s a -> s {_csrrsStreamId = a})
+createStreamResponse_streamId :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Text)
+createStreamResponse_streamId = Lens.lens (\CreateStreamResponse' {streamId} -> streamId) (\s@CreateStreamResponse' {} a -> s {streamId = a} :: CreateStreamResponse)
 
 -- | The stream ARN.
-csrrsStreamARN :: Lens' CreateStreamResponse (Maybe Text)
-csrrsStreamARN = lens _csrrsStreamARN (\s a -> s {_csrrsStreamARN = a})
+createStreamResponse_streamArn :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Text)
+createStreamResponse_streamArn = Lens.lens (\CreateStreamResponse' {streamArn} -> streamArn) (\s@CreateStreamResponse' {} a -> s {streamArn = a} :: CreateStreamResponse)
 
 -- | A description of the stream.
-csrrsDescription :: Lens' CreateStreamResponse (Maybe Text)
-csrrsDescription = lens _csrrsDescription (\s a -> s {_csrrsDescription = a})
+createStreamResponse_description :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Text)
+createStreamResponse_description = Lens.lens (\CreateStreamResponse' {description} -> description) (\s@CreateStreamResponse' {} a -> s {description = a} :: CreateStreamResponse)
 
--- | -- | The response status code.
-csrrsResponseStatus :: Lens' CreateStreamResponse Int
-csrrsResponseStatus = lens _csrrsResponseStatus (\s a -> s {_csrrsResponseStatus = a})
+-- | The response's http status code.
+createStreamResponse_httpStatus :: Lens.Lens' CreateStreamResponse Prelude.Int
+createStreamResponse_httpStatus = Lens.lens (\CreateStreamResponse' {httpStatus} -> httpStatus) (\s@CreateStreamResponse' {} a -> s {httpStatus = a} :: CreateStreamResponse)
 
-instance NFData CreateStreamResponse
+instance Prelude.NFData CreateStreamResponse

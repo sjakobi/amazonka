@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,108 +21,132 @@ module Network.AWS.IoT.Types.JobSummary where
 
 import Network.AWS.IoT.Types.JobStatus
 import Network.AWS.IoT.Types.TargetSelection
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The job summary.
 --
---
---
--- /See:/ 'jobSummary' smart constructor.
+-- /See:/ 'newJobSummary' smart constructor.
 data JobSummary = JobSummary'
-  { _jsStatus ::
-      !(Maybe JobStatus),
-    _jsTargetSelection :: !(Maybe TargetSelection),
-    _jsCompletedAt :: !(Maybe POSIX),
-    _jsCreatedAt :: !(Maybe POSIX),
-    _jsJobARN :: !(Maybe Text),
-    _jsThingGroupId :: !(Maybe Text),
-    _jsLastUpdatedAt :: !(Maybe POSIX),
-    _jsJobId :: !(Maybe Text)
+  { -- | The job summary status.
+    status :: Prelude.Maybe JobStatus,
+    -- | Specifies whether the job will continue to run (CONTINUOUS), or will be
+    -- complete after all those things specified as targets have completed the
+    -- job (SNAPSHOT). If continuous, the job may also be run on a thing when a
+    -- change is detected in a target. For example, a job will run on a thing
+    -- when the thing is added to a target group, even after the job was
+    -- completed by all things originally in the group.
+    targetSelection :: Prelude.Maybe TargetSelection,
+    -- | The time, in seconds since the epoch, when the job completed.
+    completedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The time, in seconds since the epoch, when the job was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The job ARN.
+    jobArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the thing group.
+    thingGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The time, in seconds since the epoch, when the job was last updated.
+    lastUpdatedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The unique identifier you assigned to this job when it was created.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jsStatus' - The job summary status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jsTargetSelection' - Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing when a change is detected in a target. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group.
+-- 'status', 'jobSummary_status' - The job summary status.
 --
--- * 'jsCompletedAt' - The time, in seconds since the epoch, when the job completed.
+-- 'targetSelection', 'jobSummary_targetSelection' - Specifies whether the job will continue to run (CONTINUOUS), or will be
+-- complete after all those things specified as targets have completed the
+-- job (SNAPSHOT). If continuous, the job may also be run on a thing when a
+-- change is detected in a target. For example, a job will run on a thing
+-- when the thing is added to a target group, even after the job was
+-- completed by all things originally in the group.
 --
--- * 'jsCreatedAt' - The time, in seconds since the epoch, when the job was created.
+-- 'completedAt', 'jobSummary_completedAt' - The time, in seconds since the epoch, when the job completed.
 --
--- * 'jsJobARN' - The job ARN.
+-- 'createdAt', 'jobSummary_createdAt' - The time, in seconds since the epoch, when the job was created.
 --
--- * 'jsThingGroupId' - The ID of the thing group.
+-- 'jobArn', 'jobSummary_jobArn' - The job ARN.
 --
--- * 'jsLastUpdatedAt' - The time, in seconds since the epoch, when the job was last updated.
+-- 'thingGroupId', 'jobSummary_thingGroupId' - The ID of the thing group.
 --
--- * 'jsJobId' - The unique identifier you assigned to this job when it was created.
-jobSummary ::
+-- 'lastUpdatedAt', 'jobSummary_lastUpdatedAt' - The time, in seconds since the epoch, when the job was last updated.
+--
+-- 'jobId', 'jobSummary_jobId' - The unique identifier you assigned to this job when it was created.
+newJobSummary ::
   JobSummary
-jobSummary =
+newJobSummary =
   JobSummary'
-    { _jsStatus = Nothing,
-      _jsTargetSelection = Nothing,
-      _jsCompletedAt = Nothing,
-      _jsCreatedAt = Nothing,
-      _jsJobARN = Nothing,
-      _jsThingGroupId = Nothing,
-      _jsLastUpdatedAt = Nothing,
-      _jsJobId = Nothing
+    { status = Prelude.Nothing,
+      targetSelection = Prelude.Nothing,
+      completedAt = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      jobArn = Prelude.Nothing,
+      thingGroupId = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
 -- | The job summary status.
-jsStatus :: Lens' JobSummary (Maybe JobStatus)
-jsStatus = lens _jsStatus (\s a -> s {_jsStatus = a})
+jobSummary_status :: Lens.Lens' JobSummary (Prelude.Maybe JobStatus)
+jobSummary_status = Lens.lens (\JobSummary' {status} -> status) (\s@JobSummary' {} a -> s {status = a} :: JobSummary)
 
--- | Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing when a change is detected in a target. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group.
-jsTargetSelection :: Lens' JobSummary (Maybe TargetSelection)
-jsTargetSelection = lens _jsTargetSelection (\s a -> s {_jsTargetSelection = a})
+-- | Specifies whether the job will continue to run (CONTINUOUS), or will be
+-- complete after all those things specified as targets have completed the
+-- job (SNAPSHOT). If continuous, the job may also be run on a thing when a
+-- change is detected in a target. For example, a job will run on a thing
+-- when the thing is added to a target group, even after the job was
+-- completed by all things originally in the group.
+jobSummary_targetSelection :: Lens.Lens' JobSummary (Prelude.Maybe TargetSelection)
+jobSummary_targetSelection = Lens.lens (\JobSummary' {targetSelection} -> targetSelection) (\s@JobSummary' {} a -> s {targetSelection = a} :: JobSummary)
 
 -- | The time, in seconds since the epoch, when the job completed.
-jsCompletedAt :: Lens' JobSummary (Maybe UTCTime)
-jsCompletedAt = lens _jsCompletedAt (\s a -> s {_jsCompletedAt = a}) . mapping _Time
+jobSummary_completedAt :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.UTCTime)
+jobSummary_completedAt = Lens.lens (\JobSummary' {completedAt} -> completedAt) (\s@JobSummary' {} a -> s {completedAt = a} :: JobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time, in seconds since the epoch, when the job was created.
-jsCreatedAt :: Lens' JobSummary (Maybe UTCTime)
-jsCreatedAt = lens _jsCreatedAt (\s a -> s {_jsCreatedAt = a}) . mapping _Time
+jobSummary_createdAt :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.UTCTime)
+jobSummary_createdAt = Lens.lens (\JobSummary' {createdAt} -> createdAt) (\s@JobSummary' {} a -> s {createdAt = a} :: JobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The job ARN.
-jsJobARN :: Lens' JobSummary (Maybe Text)
-jsJobARN = lens _jsJobARN (\s a -> s {_jsJobARN = a})
+jobSummary_jobArn :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.Text)
+jobSummary_jobArn = Lens.lens (\JobSummary' {jobArn} -> jobArn) (\s@JobSummary' {} a -> s {jobArn = a} :: JobSummary)
 
 -- | The ID of the thing group.
-jsThingGroupId :: Lens' JobSummary (Maybe Text)
-jsThingGroupId = lens _jsThingGroupId (\s a -> s {_jsThingGroupId = a})
+jobSummary_thingGroupId :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.Text)
+jobSummary_thingGroupId = Lens.lens (\JobSummary' {thingGroupId} -> thingGroupId) (\s@JobSummary' {} a -> s {thingGroupId = a} :: JobSummary)
 
 -- | The time, in seconds since the epoch, when the job was last updated.
-jsLastUpdatedAt :: Lens' JobSummary (Maybe UTCTime)
-jsLastUpdatedAt = lens _jsLastUpdatedAt (\s a -> s {_jsLastUpdatedAt = a}) . mapping _Time
+jobSummary_lastUpdatedAt :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.UTCTime)
+jobSummary_lastUpdatedAt = Lens.lens (\JobSummary' {lastUpdatedAt} -> lastUpdatedAt) (\s@JobSummary' {} a -> s {lastUpdatedAt = a} :: JobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The unique identifier you assigned to this job when it was created.
-jsJobId :: Lens' JobSummary (Maybe Text)
-jsJobId = lens _jsJobId (\s a -> s {_jsJobId = a})
+jobSummary_jobId :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.Text)
+jobSummary_jobId = Lens.lens (\JobSummary' {jobId} -> jobId) (\s@JobSummary' {} a -> s {jobId = a} :: JobSummary)
 
-instance FromJSON JobSummary where
+instance Prelude.FromJSON JobSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobSummary"
       ( \x ->
           JobSummary'
-            <$> (x .:? "status")
-            <*> (x .:? "targetSelection")
-            <*> (x .:? "completedAt")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "jobArn")
-            <*> (x .:? "thingGroupId")
-            <*> (x .:? "lastUpdatedAt")
-            <*> (x .:? "jobId")
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "targetSelection")
+            Prelude.<*> (x Prelude..:? "completedAt")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "jobArn")
+            Prelude.<*> (x Prelude..:? "thingGroupId")
+            Prelude.<*> (x Prelude..:? "lastUpdatedAt")
+            Prelude.<*> (x Prelude..:? "jobId")
       )
 
-instance Hashable JobSummary
+instance Prelude.Hashable JobSummary
 
-instance NFData JobSummary
+instance Prelude.NFData JobSummary

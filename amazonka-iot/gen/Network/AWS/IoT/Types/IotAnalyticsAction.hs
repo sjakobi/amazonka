@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,121 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.IotAnalyticsAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Sends message data to an AWS IoT Analytics channel.
 --
---
---
--- /See:/ 'iotAnalyticsAction' smart constructor.
+-- /See:/ 'newIotAnalyticsAction' smart constructor.
 data IotAnalyticsAction = IotAnalyticsAction'
-  { _iaaChannelName ::
-      !(Maybe Text),
-    _iaaRoleARN :: !(Maybe Text),
-    _iaaBatchMode :: !(Maybe Bool),
-    _iaaChannelARN :: !(Maybe Text)
+  { -- | The name of the IoT Analytics channel to which message data will be
+    -- sent.
+    channelName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the role which has a policy that grants IoT Analytics
+    -- permission to send message data via IoT Analytics
+    -- (iotanalytics:BatchPutMessage).
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Whether to process the action as a batch. The default value is @false@.
+    --
+    -- When @batchMode@ is @true@ and the rule SQL statement evaluates to an
+    -- Array, each Array element is delivered as a separate message when passed
+    -- by
+    -- <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_BatchPutMessage.html BatchPutMessage>
+    -- to the AWS IoT Analytics channel. The resulting array can\'t have more
+    -- than 100 messages.
+    batchMode :: Prelude.Maybe Prelude.Bool,
+    -- | (deprecated) The ARN of the IoT Analytics channel to which message data
+    -- will be sent.
+    channelArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IotAnalyticsAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IotAnalyticsAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iaaChannelName' - The name of the IoT Analytics channel to which message data will be sent.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iaaRoleARN' - The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics (iotanalytics:BatchPutMessage).
+-- 'channelName', 'iotAnalyticsAction_channelName' - The name of the IoT Analytics channel to which message data will be
+-- sent.
 --
--- * 'iaaBatchMode' - Whether to process the action as a batch. The default value is @false@ . When @batchMode@ is @true@ and the rule SQL statement evaluates to an Array, each Array element is delivered as a separate message when passed by <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_BatchPutMessage.html @BatchPutMessage@ > to the AWS IoT Analytics channel. The resulting array can't have more than 100 messages.
+-- 'roleArn', 'iotAnalyticsAction_roleArn' - The ARN of the role which has a policy that grants IoT Analytics
+-- permission to send message data via IoT Analytics
+-- (iotanalytics:BatchPutMessage).
 --
--- * 'iaaChannelARN' - (deprecated) The ARN of the IoT Analytics channel to which message data will be sent.
-iotAnalyticsAction ::
+-- 'batchMode', 'iotAnalyticsAction_batchMode' - Whether to process the action as a batch. The default value is @false@.
+--
+-- When @batchMode@ is @true@ and the rule SQL statement evaluates to an
+-- Array, each Array element is delivered as a separate message when passed
+-- by
+-- <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_BatchPutMessage.html BatchPutMessage>
+-- to the AWS IoT Analytics channel. The resulting array can\'t have more
+-- than 100 messages.
+--
+-- 'channelArn', 'iotAnalyticsAction_channelArn' - (deprecated) The ARN of the IoT Analytics channel to which message data
+-- will be sent.
+newIotAnalyticsAction ::
   IotAnalyticsAction
-iotAnalyticsAction =
+newIotAnalyticsAction =
   IotAnalyticsAction'
-    { _iaaChannelName = Nothing,
-      _iaaRoleARN = Nothing,
-      _iaaBatchMode = Nothing,
-      _iaaChannelARN = Nothing
+    { channelName = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      batchMode = Prelude.Nothing,
+      channelArn = Prelude.Nothing
     }
 
--- | The name of the IoT Analytics channel to which message data will be sent.
-iaaChannelName :: Lens' IotAnalyticsAction (Maybe Text)
-iaaChannelName = lens _iaaChannelName (\s a -> s {_iaaChannelName = a})
+-- | The name of the IoT Analytics channel to which message data will be
+-- sent.
+iotAnalyticsAction_channelName :: Lens.Lens' IotAnalyticsAction (Prelude.Maybe Prelude.Text)
+iotAnalyticsAction_channelName = Lens.lens (\IotAnalyticsAction' {channelName} -> channelName) (\s@IotAnalyticsAction' {} a -> s {channelName = a} :: IotAnalyticsAction)
 
--- | The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics (iotanalytics:BatchPutMessage).
-iaaRoleARN :: Lens' IotAnalyticsAction (Maybe Text)
-iaaRoleARN = lens _iaaRoleARN (\s a -> s {_iaaRoleARN = a})
+-- | The ARN of the role which has a policy that grants IoT Analytics
+-- permission to send message data via IoT Analytics
+-- (iotanalytics:BatchPutMessage).
+iotAnalyticsAction_roleArn :: Lens.Lens' IotAnalyticsAction (Prelude.Maybe Prelude.Text)
+iotAnalyticsAction_roleArn = Lens.lens (\IotAnalyticsAction' {roleArn} -> roleArn) (\s@IotAnalyticsAction' {} a -> s {roleArn = a} :: IotAnalyticsAction)
 
--- | Whether to process the action as a batch. The default value is @false@ . When @batchMode@ is @true@ and the rule SQL statement evaluates to an Array, each Array element is delivered as a separate message when passed by <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_BatchPutMessage.html @BatchPutMessage@ > to the AWS IoT Analytics channel. The resulting array can't have more than 100 messages.
-iaaBatchMode :: Lens' IotAnalyticsAction (Maybe Bool)
-iaaBatchMode = lens _iaaBatchMode (\s a -> s {_iaaBatchMode = a})
+-- | Whether to process the action as a batch. The default value is @false@.
+--
+-- When @batchMode@ is @true@ and the rule SQL statement evaluates to an
+-- Array, each Array element is delivered as a separate message when passed
+-- by
+-- <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_BatchPutMessage.html BatchPutMessage>
+-- to the AWS IoT Analytics channel. The resulting array can\'t have more
+-- than 100 messages.
+iotAnalyticsAction_batchMode :: Lens.Lens' IotAnalyticsAction (Prelude.Maybe Prelude.Bool)
+iotAnalyticsAction_batchMode = Lens.lens (\IotAnalyticsAction' {batchMode} -> batchMode) (\s@IotAnalyticsAction' {} a -> s {batchMode = a} :: IotAnalyticsAction)
 
--- | (deprecated) The ARN of the IoT Analytics channel to which message data will be sent.
-iaaChannelARN :: Lens' IotAnalyticsAction (Maybe Text)
-iaaChannelARN = lens _iaaChannelARN (\s a -> s {_iaaChannelARN = a})
+-- | (deprecated) The ARN of the IoT Analytics channel to which message data
+-- will be sent.
+iotAnalyticsAction_channelArn :: Lens.Lens' IotAnalyticsAction (Prelude.Maybe Prelude.Text)
+iotAnalyticsAction_channelArn = Lens.lens (\IotAnalyticsAction' {channelArn} -> channelArn) (\s@IotAnalyticsAction' {} a -> s {channelArn = a} :: IotAnalyticsAction)
 
-instance FromJSON IotAnalyticsAction where
+instance Prelude.FromJSON IotAnalyticsAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "IotAnalyticsAction"
       ( \x ->
           IotAnalyticsAction'
-            <$> (x .:? "channelName")
-            <*> (x .:? "roleArn")
-            <*> (x .:? "batchMode")
-            <*> (x .:? "channelArn")
+            Prelude.<$> (x Prelude..:? "channelName")
+            Prelude.<*> (x Prelude..:? "roleArn")
+            Prelude.<*> (x Prelude..:? "batchMode")
+            Prelude.<*> (x Prelude..:? "channelArn")
       )
 
-instance Hashable IotAnalyticsAction
+instance Prelude.Hashable IotAnalyticsAction
 
-instance NFData IotAnalyticsAction
+instance Prelude.NFData IotAnalyticsAction
 
-instance ToJSON IotAnalyticsAction where
+instance Prelude.ToJSON IotAnalyticsAction where
   toJSON IotAnalyticsAction' {..} =
-    object
-      ( catMaybes
-          [ ("channelName" .=) <$> _iaaChannelName,
-            ("roleArn" .=) <$> _iaaRoleARN,
-            ("batchMode" .=) <$> _iaaBatchMode,
-            ("channelArn" .=) <$> _iaaChannelARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("channelName" Prelude..=) Prelude.<$> channelName,
+            ("roleArn" Prelude..=) Prelude.<$> roleArn,
+            ("batchMode" Prelude..=) Prelude.<$> batchMode,
+            ("channelArn" Prelude..=) Prelude.<$> channelArn
           ]
       )

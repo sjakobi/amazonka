@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types
   ( -- * Service Configuration
-    ioT,
+    defaultService,
 
     -- * Errors
     _IndexNotReadyException,
@@ -43,12 +46,6 @@ module Network.AWS.IoT.Types
     _InvalidResponseException,
     _TransferConflictException,
     _ConflictingResourceUpdateException,
-
-    -- * AWSJobAbortCriteriaAbortAction
-    AWSJobAbortCriteriaAbortAction (..),
-
-    -- * AWSJobAbortCriteriaFailureType
-    AWSJobAbortCriteriaFailureType (..),
 
     -- * AbortAction
     AbortAction (..),
@@ -91,6 +88,12 @@ module Network.AWS.IoT.Types
 
     -- * AutoRegistrationStatus
     AutoRegistrationStatus (..),
+
+    -- * AwsJobAbortCriteriaAbortAction
+    AwsJobAbortCriteriaAbortAction (..),
+
+    -- * AwsJobAbortCriteriaFailureType
+    AwsJobAbortCriteriaFailureType (..),
 
     -- * BehaviorCriteriaType
     BehaviorCriteriaType (..),
@@ -224,1438 +227,740 @@ module Network.AWS.IoT.Types
     -- * ViolationEventType
     ViolationEventType (..),
 
-    -- * AWSJobAbortConfig
-    AWSJobAbortConfig (..),
-    awsJobAbortConfig,
-    ajacAbortCriteriaList,
-
-    -- * AWSJobAbortCriteria
-    AWSJobAbortCriteria (..),
-    awsJobAbortCriteria,
-    ajacFailureType,
-    ajacAction,
-    ajacThresholdPercentage,
-    ajacMinNumberOfExecutedThings,
-
-    -- * AWSJobExecutionsRolloutConfig
-    AWSJobExecutionsRolloutConfig (..),
-    awsJobExecutionsRolloutConfig,
-    ajercExponentialRate,
-    ajercMaximumPerMinute,
-
-    -- * AWSJobExponentialRolloutRate
-    AWSJobExponentialRolloutRate (..),
-    awsJobExponentialRolloutRate,
-    ajerrBaseRatePerMinute,
-    ajerrIncrementFactor,
-    ajerrRateIncreaseCriteria,
-
-    -- * AWSJobPresignedURLConfig
-    AWSJobPresignedURLConfig (..),
-    awsJobPresignedURLConfig,
-    ajpucExpiresInSec,
-
-    -- * AWSJobRateIncreaseCriteria
-    AWSJobRateIncreaseCriteria (..),
-    awsJobRateIncreaseCriteria,
-    ajricNumberOfNotifiedThings,
-    ajricNumberOfSucceededThings,
-
-    -- * AWSJobTimeoutConfig
-    AWSJobTimeoutConfig (..),
-    awsJobTimeoutConfig,
-    ajtcInProgressTimeoutInMinutes,
-
     -- * AbortConfig
     AbortConfig (..),
-    abortConfig,
-    acCriteriaList,
+    newAbortConfig,
 
     -- * AbortCriteria
     AbortCriteria (..),
-    abortCriteria,
-    acFailureType,
-    acAction,
-    acThresholdPercentage,
-    acMinNumberOfExecutedThings,
+    newAbortCriteria,
 
     -- * Action
     Action (..),
-    action,
-    aCloudwatchLogs,
-    aCloudwatchMetric,
-    aSqs,
-    aTimestream,
-    aFirehose,
-    aSns,
-    aElasticsearch,
-    aKinesis,
-    aSalesforce,
-    aDynamoDBv2,
-    aLambda,
-    aIotAnalytics,
-    aIotSiteWise,
-    aRepublish,
-    aKafka,
-    aDynamoDB,
-    aStepFunctions,
-    aCloudwatchAlarm,
-    aHttp,
-    aS3,
-    aIotEvents,
+    newAction,
 
     -- * ActiveViolation
     ActiveViolation (..),
-    activeViolation,
-    avViolationId,
-    avLastViolationTime,
-    avThingName,
-    avLastViolationValue,
-    avSecurityProfileName,
-    avBehavior,
-    avViolationStartTime,
-    avViolationEventAdditionalInfo,
+    newActiveViolation,
 
     -- * AddThingsToThingGroupParams
     AddThingsToThingGroupParams (..),
-    addThingsToThingGroupParams,
-    atttgpOverrideDynamicGroups,
-    atttgpThingGroupNames,
+    newAddThingsToThingGroupParams,
 
     -- * AlertTarget
     AlertTarget (..),
-    alertTarget,
-    atAlertTargetARN,
-    atRoleARN,
+    newAlertTarget,
 
     -- * Allowed
     Allowed (..),
-    allowed,
-    aPolicies,
+    newAllowed,
 
     -- * AssetPropertyTimestamp
     AssetPropertyTimestamp (..),
-    assetPropertyTimestamp,
-    aptOffsetInNanos,
-    aptTimeInSeconds,
+    newAssetPropertyTimestamp,
 
     -- * AssetPropertyValue
     AssetPropertyValue (..),
-    assetPropertyValue,
-    apvQuality,
-    apvValue,
-    apvTimestamp,
+    newAssetPropertyValue,
 
     -- * AssetPropertyVariant
     AssetPropertyVariant (..),
-    assetPropertyVariant,
-    apvDoubleValue,
-    apvStringValue,
-    apvBooleanValue,
-    apvIntegerValue,
+    newAssetPropertyVariant,
 
     -- * AttributePayload
     AttributePayload (..),
-    attributePayload,
-    apMerge,
-    apAttributes,
+    newAttributePayload,
 
     -- * AuditCheckConfiguration
     AuditCheckConfiguration (..),
-    auditCheckConfiguration,
-    accEnabled,
+    newAuditCheckConfiguration,
 
     -- * AuditCheckDetails
     AuditCheckDetails (..),
-    auditCheckDetails,
-    acdCheckCompliant,
-    acdMessage,
-    acdSuppressedNonCompliantResourcesCount,
-    acdCheckRunStatus,
-    acdTotalResourcesCount,
-    acdErrorCode,
-    acdNonCompliantResourcesCount,
+    newAuditCheckDetails,
 
     -- * AuditFinding
     AuditFinding (..),
-    auditFinding,
-    afSeverity,
-    afFindingId,
-    afTaskId,
-    afReasonForNonComplianceCode,
-    afReasonForNonCompliance,
-    afIsSuppressed,
-    afCheckName,
-    afRelatedResources,
-    afFindingTime,
-    afTaskStartTime,
-    afNonCompliantResource,
+    newAuditFinding,
 
     -- * AuditMitigationActionExecutionMetadata
     AuditMitigationActionExecutionMetadata (..),
-    auditMitigationActionExecutionMetadata,
-    amaemStatus,
-    amaemActionName,
-    amaemMessage,
-    amaemActionId,
-    amaemFindingId,
-    amaemTaskId,
-    amaemStartTime,
-    amaemEndTime,
-    amaemErrorCode,
+    newAuditMitigationActionExecutionMetadata,
 
     -- * AuditMitigationActionsTaskMetadata
     AuditMitigationActionsTaskMetadata (..),
-    auditMitigationActionsTaskMetadata,
-    amatmTaskId,
-    amatmStartTime,
-    amatmTaskStatus,
+    newAuditMitigationActionsTaskMetadata,
 
     -- * AuditMitigationActionsTaskTarget
     AuditMitigationActionsTaskTarget (..),
-    auditMitigationActionsTaskTarget,
-    amattFindingIds,
-    amattAuditTaskId,
-    amattAuditCheckToReasonCodeFilter,
+    newAuditMitigationActionsTaskTarget,
 
     -- * AuditNotificationTarget
     AuditNotificationTarget (..),
-    auditNotificationTarget,
-    antRoleARN,
-    antEnabled,
-    antTargetARN,
+    newAuditNotificationTarget,
 
     -- * AuditSuppression
     AuditSuppression (..),
-    auditSuppression,
-    asExpirationDate,
-    asDescription,
-    asSuppressIndefinitely,
-    asCheckName,
-    asResourceIdentifier,
+    newAuditSuppression,
 
     -- * AuditTaskMetadata
     AuditTaskMetadata (..),
-    auditTaskMetadata,
-    atmTaskId,
-    atmTaskStatus,
-    atmTaskType,
+    newAuditTaskMetadata,
 
     -- * AuthInfo
     AuthInfo (..),
-    authInfo,
-    aiActionType,
-    aiResources,
+    newAuthInfo,
 
     -- * AuthResult
     AuthResult (..),
-    authResult,
-    arAuthInfo,
-    arAllowed,
-    arDenied,
-    arMissingContextValues,
-    arAuthDecision,
+    newAuthResult,
 
     -- * AuthorizerConfig
     AuthorizerConfig (..),
-    authorizerConfig,
-    acAllowAuthorizerOverride,
-    acDefaultAuthorizerName,
+    newAuthorizerConfig,
 
     -- * AuthorizerDescription
     AuthorizerDescription (..),
-    authorizerDescription,
-    adLastModifiedDate,
-    adStatus,
-    adAuthorizerARN,
-    adAuthorizerFunctionARN,
-    adCreationDate,
-    adTokenSigningPublicKeys,
-    adAuthorizerName,
-    adSigningDisabled,
-    adTokenKeyName,
+    newAuthorizerDescription,
 
     -- * AuthorizerSummary
     AuthorizerSummary (..),
-    authorizerSummary,
-    asAuthorizerARN,
-    asAuthorizerName,
+    newAuthorizerSummary,
+
+    -- * AwsJobAbortConfig
+    AwsJobAbortConfig (..),
+    newAwsJobAbortConfig,
+
+    -- * AwsJobAbortCriteria
+    AwsJobAbortCriteria (..),
+    newAwsJobAbortCriteria,
+
+    -- * AwsJobExecutionsRolloutConfig
+    AwsJobExecutionsRolloutConfig (..),
+    newAwsJobExecutionsRolloutConfig,
+
+    -- * AwsJobExponentialRolloutRate
+    AwsJobExponentialRolloutRate (..),
+    newAwsJobExponentialRolloutRate,
+
+    -- * AwsJobPresignedUrlConfig
+    AwsJobPresignedUrlConfig (..),
+    newAwsJobPresignedUrlConfig,
+
+    -- * AwsJobRateIncreaseCriteria
+    AwsJobRateIncreaseCriteria (..),
+    newAwsJobRateIncreaseCriteria,
+
+    -- * AwsJobTimeoutConfig
+    AwsJobTimeoutConfig (..),
+    newAwsJobTimeoutConfig,
 
     -- * Behavior
     Behavior (..),
-    behavior,
-    bMetricDimension,
-    bSuppressAlerts,
-    bMetric,
-    bCriteria,
-    bName,
+    newBehavior,
 
     -- * BehaviorCriteria
     BehaviorCriteria (..),
-    behaviorCriteria,
-    bcComparisonOperator,
-    bcConsecutiveDatapointsToAlarm,
-    bcStatisticalThreshold,
-    bcMlDetectionConfig,
-    bcConsecutiveDatapointsToClear,
-    bcValue,
-    bcDurationSeconds,
+    newBehaviorCriteria,
 
     -- * BehaviorModelTrainingSummary
     BehaviorModelTrainingSummary (..),
-    behaviorModelTrainingSummary,
-    bmtsLastModelRefreshDate,
-    bmtsDatapointsCollectionPercentage,
-    bmtsModelStatus,
-    bmtsBehaviorName,
-    bmtsTrainingDataCollectionStartDate,
-    bmtsSecurityProfileName,
+    newBehaviorModelTrainingSummary,
 
     -- * BillingGroupMetadata
     BillingGroupMetadata (..),
-    billingGroupMetadata,
-    bgmCreationDate,
+    newBillingGroupMetadata,
 
     -- * BillingGroupProperties
     BillingGroupProperties (..),
-    billingGroupProperties,
-    bgpBillingGroupDescription,
+    newBillingGroupProperties,
 
     -- * CACertificate
     CACertificate (..),
-    cACertificate,
-    cacStatus,
-    cacCertificateARN,
-    cacCreationDate,
-    cacCertificateId,
+    newCACertificate,
 
     -- * CACertificateDescription
     CACertificateDescription (..),
-    cACertificateDescription,
-    cacdLastModifiedDate,
-    cacdStatus,
-    cacdCertificateARN,
-    cacdCreationDate,
-    cacdOwnedBy,
-    cacdCustomerVersion,
-    cacdGenerationId,
-    cacdCertificateId,
-    cacdCertificatePem,
-    cacdValidity,
-    cacdAutoRegistrationStatus,
+    newCACertificateDescription,
 
     -- * Certificate
     Certificate (..),
-    certificate,
-    cStatus,
-    cCertificateMode,
-    cCertificateARN,
-    cCreationDate,
-    cCertificateId,
+    newCertificate,
 
     -- * CertificateDescription
     CertificateDescription (..),
-    certificateDescription,
-    cdLastModifiedDate,
-    cdStatus,
-    cdCertificateMode,
-    cdCertificateARN,
-    cdPreviousOwnedBy,
-    cdCreationDate,
-    cdOwnedBy,
-    cdCustomerVersion,
-    cdGenerationId,
-    cdTransferData,
-    cdCertificateId,
-    cdCertificatePem,
-    cdValidity,
-    cdCaCertificateId,
+    newCertificateDescription,
 
     -- * CertificateValidity
     CertificateValidity (..),
-    certificateValidity,
-    cvNotBefore,
-    cvNotAfter,
+    newCertificateValidity,
 
     -- * CloudwatchAlarmAction
     CloudwatchAlarmAction (..),
-    cloudwatchAlarmAction,
-    caaRoleARN,
-    caaAlarmName,
-    caaStateReason,
-    caaStateValue,
+    newCloudwatchAlarmAction,
 
     -- * CloudwatchLogsAction
     CloudwatchLogsAction (..),
-    cloudwatchLogsAction,
-    claRoleARN,
-    claLogGroupName,
+    newCloudwatchLogsAction,
 
     -- * CloudwatchMetricAction
     CloudwatchMetricAction (..),
-    cloudwatchMetricAction,
-    cmaMetricTimestamp,
-    cmaRoleARN,
-    cmaMetricNamespace,
-    cmaMetricName,
-    cmaMetricValue,
-    cmaMetricUnit,
+    newCloudwatchMetricAction,
 
     -- * CodeSigning
     CodeSigning (..),
-    codeSigning,
-    csStartSigningJobParameter,
-    csAwsSignerJobId,
-    csCustomCodeSigning,
+    newCodeSigning,
 
     -- * CodeSigningCertificateChain
     CodeSigningCertificateChain (..),
-    codeSigningCertificateChain,
-    csccInlineDocument,
-    csccCertificateName,
+    newCodeSigningCertificateChain,
 
     -- * CodeSigningSignature
     CodeSigningSignature (..),
-    codeSigningSignature,
-    cssInlineDocument,
+    newCodeSigningSignature,
 
     -- * Configuration
     Configuration (..),
-    configuration,
-    cEnabled,
+    newConfiguration,
 
     -- * CustomCodeSigning
     CustomCodeSigning (..),
-    customCodeSigning,
-    ccsSignature,
-    ccsSignatureAlgorithm,
-    ccsCertificateChain,
-    ccsHashAlgorithm,
+    newCustomCodeSigning,
 
     -- * Denied
     Denied (..),
-    denied,
-    dImplicitDeny,
-    dExplicitDeny,
+    newDenied,
 
     -- * Destination
     Destination (..),
-    destination,
-    dS3Destination,
+    newDestination,
 
     -- * DetectMitigationActionExecution
     DetectMitigationActionExecution (..),
-    detectMitigationActionExecution,
-    dmaeViolationId,
-    dmaeStatus,
-    dmaeActionName,
-    dmaeExecutionStartDate,
-    dmaeMessage,
-    dmaeThingName,
-    dmaeTaskId,
-    dmaeExecutionEndDate,
-    dmaeErrorCode,
+    newDetectMitigationActionExecution,
 
     -- * DetectMitigationActionsTaskStatistics
     DetectMitigationActionsTaskStatistics (..),
-    detectMitigationActionsTaskStatistics,
-    dmatsActionsFailed,
-    dmatsActionsSkipped,
-    dmatsActionsExecuted,
+    newDetectMitigationActionsTaskStatistics,
 
     -- * DetectMitigationActionsTaskSummary
     DetectMitigationActionsTaskSummary (..),
-    detectMitigationActionsTaskSummary,
-    dmatsTaskEndTime,
-    dmatsTaskStatistics,
-    dmatsTaskId,
-    dmatsViolationEventOccurrenceRange,
-    dmatsOnlyActiveViolationsIncluded,
-    dmatsTarget,
-    dmatsTaskStatus,
-    dmatsActionsDefinition,
-    dmatsTaskStartTime,
-    dmatsSuppressedAlertsIncluded,
+    newDetectMitigationActionsTaskSummary,
 
     -- * DetectMitigationActionsTaskTarget
     DetectMitigationActionsTaskTarget (..),
-    detectMitigationActionsTaskTarget,
-    dmattViolationIds,
-    dmattBehaviorName,
-    dmattSecurityProfileName,
+    newDetectMitigationActionsTaskTarget,
 
     -- * DomainConfigurationSummary
     DomainConfigurationSummary (..),
-    domainConfigurationSummary,
-    dcsDomainConfigurationARN,
-    dcsDomainConfigurationName,
-    dcsServiceType,
+    newDomainConfigurationSummary,
 
     -- * DynamoDBAction
     DynamoDBAction (..),
-    dynamoDBAction,
-    ddbaRangeKeyValue,
-    ddbaRangeKeyType,
-    ddbaOperation,
-    ddbaHashKeyType,
-    ddbaRangeKeyField,
-    ddbaPayloadField,
-    ddbaTableName,
-    ddbaRoleARN,
-    ddbaHashKeyField,
-    ddbaHashKeyValue,
+    newDynamoDBAction,
 
     -- * DynamoDBv2Action
     DynamoDBv2Action (..),
-    dynamoDBv2Action,
-    ddaRoleARN,
-    ddaPutItem,
+    newDynamoDBv2Action,
 
     -- * EffectivePolicy
     EffectivePolicy (..),
-    effectivePolicy,
-    epPolicyName,
-    epPolicyDocument,
-    epPolicyARN,
+    newEffectivePolicy,
 
     -- * ElasticsearchAction
     ElasticsearchAction (..),
-    elasticsearchAction,
-    eaRoleARN,
-    eaEndpoint,
-    eaIndex,
-    eaType,
-    eaId,
+    newElasticsearchAction,
 
-    -- * EnableIOTLoggingParams
-    EnableIOTLoggingParams (..),
-    enableIOTLoggingParams,
-    eiotlpRoleARNForLogging,
-    eiotlpLogLevel,
+    -- * EnableIoTLoggingParams
+    EnableIoTLoggingParams (..),
+    newEnableIoTLoggingParams,
 
     -- * ErrorInfo
     ErrorInfo (..),
-    errorInfo,
-    eiMessage,
-    eiCode,
+    newErrorInfo,
 
     -- * ExplicitDeny
     ExplicitDeny (..),
-    explicitDeny,
-    edPolicies,
+    newExplicitDeny,
 
     -- * ExponentialRolloutRate
     ExponentialRolloutRate (..),
-    exponentialRolloutRate,
-    errBaseRatePerMinute,
-    errIncrementFactor,
-    errRateIncreaseCriteria,
+    newExponentialRolloutRate,
 
     -- * Field
     Field (..),
-    field,
-    fName,
-    fType,
+    newField,
 
     -- * FileLocation
     FileLocation (..),
-    fileLocation,
-    flStream,
-    flS3Location,
+    newFileLocation,
 
     -- * FirehoseAction
     FirehoseAction (..),
-    firehoseAction,
-    faSeparator,
-    faBatchMode,
-    faRoleARN,
-    faDeliveryStreamName,
+    newFirehoseAction,
 
-    -- * GroupNameAndARN
-    GroupNameAndARN (..),
-    groupNameAndARN,
-    gnaaGroupName,
-    gnaaGroupARN,
+    -- * GroupNameAndArn
+    GroupNameAndArn (..),
+    newGroupNameAndArn,
 
-    -- * HTTPAction
-    HTTPAction (..),
-    hTTPAction,
-    httpaHeaders,
-    httpaAuth,
-    httpaConfirmationURL,
-    httpaUrl,
+    -- * HttpAction
+    HttpAction (..),
+    newHttpAction,
 
-    -- * HTTPActionHeader
-    HTTPActionHeader (..),
-    hTTPActionHeader,
-    httpahKey,
-    httpahValue,
+    -- * HttpActionHeader
+    HttpActionHeader (..),
+    newHttpActionHeader,
 
-    -- * HTTPAuthorization
-    HTTPAuthorization (..),
-    hTTPAuthorization,
-    httpaSigv4,
+    -- * HttpAuthorization
+    HttpAuthorization (..),
+    newHttpAuthorization,
 
-    -- * HTTPContext
-    HTTPContext (..),
-    hTTPContext,
-    httpcQueryString,
-    httpcHeaders,
+    -- * HttpContext
+    HttpContext (..),
+    newHttpContext,
 
-    -- * HTTPURLDestinationConfiguration
-    HTTPURLDestinationConfiguration (..),
-    hTTPURLDestinationConfiguration,
-    httpudcConfirmationURL,
+    -- * HttpUrlDestinationConfiguration
+    HttpUrlDestinationConfiguration (..),
+    newHttpUrlDestinationConfiguration,
 
-    -- * HTTPURLDestinationProperties
-    HTTPURLDestinationProperties (..),
-    hTTPURLDestinationProperties,
-    httpudpConfirmationURL,
+    -- * HttpUrlDestinationProperties
+    HttpUrlDestinationProperties (..),
+    newHttpUrlDestinationProperties,
 
-    -- * HTTPURLDestinationSummary
-    HTTPURLDestinationSummary (..),
-    hTTPURLDestinationSummary,
-    httpudsConfirmationURL,
+    -- * HttpUrlDestinationSummary
+    HttpUrlDestinationSummary (..),
+    newHttpUrlDestinationSummary,
 
     -- * ImplicitDeny
     ImplicitDeny (..),
-    implicitDeny,
-    idPolicies,
+    newImplicitDeny,
 
     -- * IotAnalyticsAction
     IotAnalyticsAction (..),
-    iotAnalyticsAction,
-    iaaChannelName,
-    iaaRoleARN,
-    iaaBatchMode,
-    iaaChannelARN,
+    newIotAnalyticsAction,
 
     -- * IotEventsAction
     IotEventsAction (..),
-    iotEventsAction,
-    ieaBatchMode,
-    ieaMessageId,
-    ieaInputName,
-    ieaRoleARN,
+    newIotEventsAction,
 
     -- * IotSiteWiseAction
     IotSiteWiseAction (..),
-    iotSiteWiseAction,
-    iswaPutAssetPropertyValueEntries,
-    iswaRoleARN,
+    newIotSiteWiseAction,
 
     -- * Job
     Job (..),
-    job,
-    jobJobExecutionsRolloutConfig,
-    jobStatus,
-    jobTargetSelection,
-    jobTimeoutConfig,
-    jobReasonCode,
-    jobNamespaceId,
-    jobJobProcessDetails,
-    jobComment,
-    jobCompletedAt,
-    jobCreatedAt,
-    jobJobARN,
-    jobTargets,
-    jobForceCanceled,
-    jobPresignedURLConfig,
-    jobDescription,
-    jobAbortConfig,
-    jobLastUpdatedAt,
-    jobJobId,
+    newJob,
 
     -- * JobExecution
     JobExecution (..),
-    jobExecution,
-    jeStartedAt,
-    jeStatus,
-    jeThingARN,
-    jeStatusDetails,
-    jeQueuedAt,
-    jeForceCanceled,
-    jeVersionNumber,
-    jeExecutionNumber,
-    jeApproximateSecondsBeforeTimedOut,
-    jeLastUpdatedAt,
-    jeJobId,
+    newJobExecution,
 
     -- * JobExecutionStatusDetails
     JobExecutionStatusDetails (..),
-    jobExecutionStatusDetails,
-    jesdDetailsMap,
+    newJobExecutionStatusDetails,
 
     -- * JobExecutionSummary
     JobExecutionSummary (..),
-    jobExecutionSummary,
-    jesStartedAt,
-    jesStatus,
-    jesQueuedAt,
-    jesExecutionNumber,
-    jesLastUpdatedAt,
+    newJobExecutionSummary,
 
     -- * JobExecutionSummaryForJob
     JobExecutionSummaryForJob (..),
-    jobExecutionSummaryForJob,
-    jesfjThingARN,
-    jesfjJobExecutionSummary,
+    newJobExecutionSummaryForJob,
 
     -- * JobExecutionSummaryForThing
     JobExecutionSummaryForThing (..),
-    jobExecutionSummaryForThing,
-    jesftJobExecutionSummary,
-    jesftJobId,
+    newJobExecutionSummaryForThing,
 
     -- * JobExecutionsRolloutConfig
     JobExecutionsRolloutConfig (..),
-    jobExecutionsRolloutConfig,
-    jercExponentialRate,
-    jercMaximumPerMinute,
+    newJobExecutionsRolloutConfig,
 
     -- * JobProcessDetails
     JobProcessDetails (..),
-    jobProcessDetails,
-    jpdProcessingTargets,
-    jpdNumberOfSucceededThings,
-    jpdNumberOfQueuedThings,
-    jpdNumberOfRemovedThings,
-    jpdNumberOfInProgressThings,
-    jpdNumberOfFailedThings,
-    jpdNumberOfRejectedThings,
-    jpdNumberOfCanceledThings,
-    jpdNumberOfTimedOutThings,
+    newJobProcessDetails,
 
     -- * JobSummary
     JobSummary (..),
-    jobSummary,
-    jsStatus,
-    jsTargetSelection,
-    jsCompletedAt,
-    jsCreatedAt,
-    jsJobARN,
-    jsThingGroupId,
-    jsLastUpdatedAt,
-    jsJobId,
+    newJobSummary,
 
     -- * KafkaAction
     KafkaAction (..),
-    kafkaAction,
-    kaKey,
-    kaPartition,
-    kaDestinationARN,
-    kaTopic,
-    kaClientProperties,
+    newKafkaAction,
 
     -- * KeyPair
     KeyPair (..),
-    keyPair,
-    kpPublicKey,
-    kpPrivateKey,
+    newKeyPair,
 
     -- * KinesisAction
     KinesisAction (..),
-    kinesisAction,
-    kaPartitionKey,
-    kaRoleARN,
-    kaStreamName,
+    newKinesisAction,
 
     -- * LambdaAction
     LambdaAction (..),
-    lambdaAction,
-    laFunctionARN,
+    newLambdaAction,
 
     -- * LogTarget
     LogTarget (..),
-    logTarget,
-    ltTargetName,
-    ltTargetType,
+    newLogTarget,
 
     -- * LogTargetConfiguration
     LogTargetConfiguration (..),
-    logTargetConfiguration,
-    ltcLogLevel,
-    ltcLogTarget,
+    newLogTargetConfiguration,
 
     -- * LoggingOptionsPayload
     LoggingOptionsPayload (..),
-    loggingOptionsPayload,
-    lopLogLevel,
-    lopRoleARN,
+    newLoggingOptionsPayload,
 
     -- * MachineLearningDetectionConfig
     MachineLearningDetectionConfig (..),
-    machineLearningDetectionConfig,
-    mldcConfidenceLevel,
+    newMachineLearningDetectionConfig,
 
     -- * MetricDimension
     MetricDimension (..),
-    metricDimension,
-    mdOperator,
-    mdDimensionName,
+    newMetricDimension,
 
     -- * MetricToRetain
     MetricToRetain (..),
-    metricToRetain,
-    mtrMetricDimension,
-    mtrMetric,
+    newMetricToRetain,
 
     -- * MetricValue
     MetricValue (..),
-    metricValue,
-    mvNumbers,
-    mvPorts,
-    mvCidrs,
-    mvStrings,
-    mvCount,
-    mvNumber,
+    newMetricValue,
 
     -- * MitigationAction
     MitigationAction (..),
-    mitigationAction,
-    maRoleARN,
-    maId,
-    maActionParams,
-    maName,
+    newMitigationAction,
 
     -- * MitigationActionIdentifier
     MitigationActionIdentifier (..),
-    mitigationActionIdentifier,
-    maiActionName,
-    maiActionARN,
-    maiCreationDate,
+    newMitigationActionIdentifier,
 
     -- * MitigationActionParams
     MitigationActionParams (..),
-    mitigationActionParams,
-    mapEnableIOTLoggingParams,
-    mapReplaceDefaultPolicyVersionParams,
-    mapUpdateDeviceCertificateParams,
-    mapPublishFindingToSNSParams,
-    mapAddThingsToThingGroupParams,
-    mapUpdateCACertificateParams,
+    newMitigationActionParams,
 
     -- * MqttContext
     MqttContext (..),
-    mqttContext,
-    mcClientId,
-    mcPassword,
-    mcUsername,
+    newMqttContext,
 
     -- * NonCompliantResource
     NonCompliantResource (..),
-    nonCompliantResource,
-    ncrAdditionalInfo,
-    ncrResourceType,
-    ncrResourceIdentifier,
+    newNonCompliantResource,
 
     -- * OTAUpdateFile
     OTAUpdateFile (..),
-    oTAUpdateFile,
-    otaufFileVersion,
-    otaufFileLocation,
-    otaufAttributes,
-    otaufFileName,
-    otaufFileType,
-    otaufCodeSigning,
+    newOTAUpdateFile,
 
     -- * OTAUpdateInfo
     OTAUpdateInfo (..),
-    oTAUpdateInfo,
-    otauiOtaUpdateStatus,
-    otauiLastModifiedDate,
-    otauiTargetSelection,
-    otauiOtaUpdateARN,
-    otauiAwsIotJobId,
-    otauiCreationDate,
-    otauiAwsIotJobARN,
-    otauiProtocols,
-    otauiTargets,
-    otauiAwsJobPresignedURLConfig,
-    otauiErrorInfo,
-    otauiDescription,
-    otauiOtaUpdateFiles,
-    otauiOtaUpdateId,
-    otauiAdditionalParameters,
-    otauiAwsJobExecutionsRolloutConfig,
+    newOTAUpdateInfo,
 
     -- * OTAUpdateSummary
     OTAUpdateSummary (..),
-    oTAUpdateSummary,
-    otausOtaUpdateARN,
-    otausCreationDate,
-    otausOtaUpdateId,
+    newOTAUpdateSummary,
 
     -- * OutgoingCertificate
     OutgoingCertificate (..),
-    outgoingCertificate,
-    ocTransferDate,
-    ocCertificateARN,
-    ocTransferMessage,
-    ocCreationDate,
-    ocTransferredTo,
-    ocCertificateId,
+    newOutgoingCertificate,
 
     -- * PercentPair
     PercentPair (..),
-    percentPair,
-    ppPercent,
-    ppValue,
+    newPercentPair,
 
     -- * Policy
     Policy (..),
-    policy,
-    pPolicyName,
-    pPolicyARN,
+    newPolicy,
 
     -- * PolicyVersion
     PolicyVersion (..),
-    policyVersion,
-    pvCreateDate,
-    pvVersionId,
-    pvIsDefaultVersion,
+    newPolicyVersion,
 
     -- * PolicyVersionIdentifier
     PolicyVersionIdentifier (..),
-    policyVersionIdentifier,
-    pviPolicyVersionId,
-    pviPolicyName,
+    newPolicyVersionIdentifier,
 
-    -- * PresignedURLConfig
-    PresignedURLConfig (..),
-    presignedURLConfig,
-    pucRoleARN,
-    pucExpiresInSec,
+    -- * PresignedUrlConfig
+    PresignedUrlConfig (..),
+    newPresignedUrlConfig,
 
     -- * ProvisioningHook
     ProvisioningHook (..),
-    provisioningHook,
-    phPayloadVersion,
-    phTargetARN,
+    newProvisioningHook,
 
     -- * ProvisioningTemplateSummary
     ProvisioningTemplateSummary (..),
-    provisioningTemplateSummary,
-    ptsTemplateName,
-    ptsLastModifiedDate,
-    ptsEnabled,
-    ptsCreationDate,
-    ptsDescription,
-    ptsTemplateARN,
+    newProvisioningTemplateSummary,
 
     -- * ProvisioningTemplateVersionSummary
     ProvisioningTemplateVersionSummary (..),
-    provisioningTemplateVersionSummary,
-    ptvsCreationDate,
-    ptvsVersionId,
-    ptvsIsDefaultVersion,
+    newProvisioningTemplateVersionSummary,
 
-    -- * PublishFindingToSNSParams
-    PublishFindingToSNSParams (..),
-    publishFindingToSNSParams,
-    pftspTopicARN,
+    -- * PublishFindingToSnsParams
+    PublishFindingToSnsParams (..),
+    newPublishFindingToSnsParams,
 
     -- * PutAssetPropertyValueEntry
     PutAssetPropertyValueEntry (..),
-    putAssetPropertyValueEntry,
-    papveEntryId,
-    papvePropertyAlias,
-    papveAssetId,
-    papvePropertyId,
-    papvePropertyValues,
+    newPutAssetPropertyValueEntry,
 
     -- * PutItemInput
     PutItemInput (..),
-    putItemInput,
-    piiTableName,
+    newPutItemInput,
 
     -- * RateIncreaseCriteria
     RateIncreaseCriteria (..),
-    rateIncreaseCriteria,
-    ricNumberOfNotifiedThings,
-    ricNumberOfSucceededThings,
+    newRateIncreaseCriteria,
 
     -- * RegistrationConfig
     RegistrationConfig (..),
-    registrationConfig,
-    rcRoleARN,
-    rcTemplateBody,
+    newRegistrationConfig,
 
     -- * RelatedResource
     RelatedResource (..),
-    relatedResource,
-    rrAdditionalInfo,
-    rrResourceType,
-    rrResourceIdentifier,
+    newRelatedResource,
 
     -- * ReplaceDefaultPolicyVersionParams
     ReplaceDefaultPolicyVersionParams (..),
-    replaceDefaultPolicyVersionParams,
-    rdpvpTemplateName,
+    newReplaceDefaultPolicyVersionParams,
 
     -- * RepublishAction
     RepublishAction (..),
-    republishAction,
-    raQos,
-    raRoleARN,
-    raTopic,
+    newRepublishAction,
 
     -- * ResourceIdentifier
     ResourceIdentifier (..),
-    resourceIdentifier,
-    riRoleAliasARN,
-    riClientId,
-    riIamRoleARN,
-    riCognitoIdentityPoolId,
-    riAccount,
-    riPolicyVersionIdentifier,
-    riDeviceCertificateId,
-    riCaCertificateId,
+    newResourceIdentifier,
 
     -- * RoleAliasDescription
     RoleAliasDescription (..),
-    roleAliasDescription,
-    radRoleAliasARN,
-    radLastModifiedDate,
-    radRoleARN,
-    radCreationDate,
-    radOwner,
-    radCredentialDurationSeconds,
-    radRoleAlias,
+    newRoleAliasDescription,
 
     -- * S3Action
     S3Action (..),
-    s3Action,
-    sCannedACL,
-    sRoleARN,
-    sBucketName,
-    sKey,
+    newS3Action,
 
     -- * S3Destination
     S3Destination (..),
-    s3Destination,
-    sdPrefix,
-    sdBucket,
+    newS3Destination,
 
     -- * S3Location
     S3Location (..),
-    s3Location,
-    slKey,
-    slVersion,
-    slBucket,
-
-    -- * SNSAction
-    SNSAction (..),
-    snsAction,
-    snsaMessageFormat,
-    snsaTargetARN,
-    snsaRoleARN,
+    newS3Location,
 
     -- * SalesforceAction
     SalesforceAction (..),
-    salesforceAction,
-    saToken,
-    saUrl,
+    newSalesforceAction,
 
     -- * ScheduledAuditMetadata
     ScheduledAuditMetadata (..),
-    scheduledAuditMetadata,
-    samDayOfWeek,
-    samScheduledAuditARN,
-    samScheduledAuditName,
-    samDayOfMonth,
-    samFrequency,
+    newScheduledAuditMetadata,
 
     -- * SecurityProfileIdentifier
     SecurityProfileIdentifier (..),
-    securityProfileIdentifier,
-    spiName,
-    spiArn,
+    newSecurityProfileIdentifier,
 
     -- * SecurityProfileTarget
     SecurityProfileTarget (..),
-    securityProfileTarget,
-    sptArn,
+    newSecurityProfileTarget,
 
     -- * SecurityProfileTargetMapping
     SecurityProfileTargetMapping (..),
-    securityProfileTargetMapping,
-    sptmTarget,
-    sptmSecurityProfileIdentifier,
+    newSecurityProfileTargetMapping,
 
     -- * ServerCertificateSummary
     ServerCertificateSummary (..),
-    serverCertificateSummary,
-    scsServerCertificateStatus,
-    scsServerCertificateARN,
-    scsServerCertificateStatusDetail,
+    newServerCertificateSummary,
 
     -- * SigV4Authorization
     SigV4Authorization (..),
-    sigV4Authorization,
-    svaSigningRegion,
-    svaServiceName,
-    svaRoleARN,
+    newSigV4Authorization,
 
     -- * SigningProfileParameter
     SigningProfileParameter (..),
-    signingProfileParameter,
-    sppPlatform,
-    sppCertificateARN,
-    sppCertificatePathOnDevice,
+    newSigningProfileParameter,
+
+    -- * SnsAction
+    SnsAction (..),
+    newSnsAction,
 
     -- * SqsAction
     SqsAction (..),
-    sqsAction,
-    saUseBase64,
-    saRoleARN,
-    saQueueURL,
+    newSqsAction,
 
     -- * StartSigningJobParameter
     StartSigningJobParameter (..),
-    startSigningJobParameter,
-    ssjpSigningProfileName,
-    ssjpDestination,
-    ssjpSigningProfileParameter,
+    newStartSigningJobParameter,
 
     -- * StatisticalThreshold
     StatisticalThreshold (..),
-    statisticalThreshold,
-    stStatistic,
+    newStatisticalThreshold,
 
     -- * Statistics
     Statistics (..),
-    statistics,
-    sMinimum,
-    sSum,
-    sStdDeviation,
-    sVariance,
-    sAverage,
-    sCount,
-    sMaximum,
-    sSumOfSquares,
+    newStatistics,
 
     -- * StepFunctionsAction
     StepFunctionsAction (..),
-    stepFunctionsAction,
-    sfaExecutionNamePrefix,
-    sfaStateMachineName,
-    sfaRoleARN,
+    newStepFunctionsAction,
 
     -- * Stream
     Stream (..),
-    stream,
-    sStreamId,
-    sFileId,
+    newStream,
 
     -- * StreamFile
     StreamFile (..),
-    streamFile,
-    sfS3Location,
-    sfFileId,
+    newStreamFile,
 
     -- * StreamInfo
     StreamInfo (..),
-    streamInfo,
-    siRoleARN,
-    siStreamVersion,
-    siCreatedAt,
-    siStreamId,
-    siStreamARN,
-    siDescription,
-    siFiles,
-    siLastUpdatedAt,
+    newStreamInfo,
 
     -- * StreamSummary
     StreamSummary (..),
-    streamSummary,
-    ssStreamVersion,
-    ssStreamId,
-    ssStreamARN,
-    ssDescription,
-
-    -- * TLSContext
-    TLSContext (..),
-    tlsContext,
-    tcServerName,
+    newStreamSummary,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagValue,
-    tagKey,
+    newTag,
 
     -- * TaskStatistics
     TaskStatistics (..),
-    taskStatistics,
-    tsTotalChecks,
-    tsWaitingForDataCollectionChecks,
-    tsCompliantChecks,
-    tsInProgressChecks,
-    tsFailedChecks,
-    tsNonCompliantChecks,
-    tsCanceledChecks,
+    newTaskStatistics,
 
     -- * TaskStatisticsForAuditCheck
     TaskStatisticsForAuditCheck (..),
-    taskStatisticsForAuditCheck,
-    tsfacSucceededFindingsCount,
-    tsfacTotalFindingsCount,
-    tsfacFailedFindingsCount,
-    tsfacSkippedFindingsCount,
-    tsfacCanceledFindingsCount,
+    newTaskStatisticsForAuditCheck,
 
     -- * ThingAttribute
     ThingAttribute (..),
-    thingAttribute,
-    taThingARN,
-    taThingName,
-    taVersion,
-    taAttributes,
-    taThingTypeName,
+    newThingAttribute,
 
     -- * ThingConnectivity
     ThingConnectivity (..),
-    thingConnectivity,
-    tcConnected,
-    tcTimestamp,
+    newThingConnectivity,
 
     -- * ThingDocument
     ThingDocument (..),
-    thingDocument,
-    tdThingId,
-    tdThingName,
-    tdConnectivity,
-    tdAttributes,
-    tdThingGroupNames,
-    tdShadow,
-    tdThingTypeName,
+    newThingDocument,
 
     -- * ThingGroupDocument
     ThingGroupDocument (..),
-    thingGroupDocument,
-    tgdParentGroupNames,
-    tgdAttributes,
-    tgdThingGroupName,
-    tgdThingGroupId,
-    tgdThingGroupDescription,
+    newThingGroupDocument,
 
     -- * ThingGroupIndexingConfiguration
     ThingGroupIndexingConfiguration (..),
-    thingGroupIndexingConfiguration,
-    tgicManagedFields,
-    tgicCustomFields,
-    tgicThingGroupIndexingMode,
+    newThingGroupIndexingConfiguration,
 
     -- * ThingGroupMetadata
     ThingGroupMetadata (..),
-    thingGroupMetadata,
-    tgmParentGroupName,
-    tgmCreationDate,
-    tgmRootToParentThingGroups,
+    newThingGroupMetadata,
 
     -- * ThingGroupProperties
     ThingGroupProperties (..),
-    thingGroupProperties,
-    tgpThingGroupDescription,
-    tgpAttributePayload,
+    newThingGroupProperties,
 
     -- * ThingIndexingConfiguration
     ThingIndexingConfiguration (..),
-    thingIndexingConfiguration,
-    ticManagedFields,
-    ticThingConnectivityIndexingMode,
-    ticCustomFields,
-    ticThingIndexingMode,
+    newThingIndexingConfiguration,
 
     -- * ThingTypeDefinition
     ThingTypeDefinition (..),
-    thingTypeDefinition,
-    ttdThingTypeProperties,
-    ttdThingTypeMetadata,
-    ttdThingTypeARN,
-    ttdThingTypeName,
+    newThingTypeDefinition,
 
     -- * ThingTypeMetadata
     ThingTypeMetadata (..),
-    thingTypeMetadata,
-    ttmDeprecationDate,
-    ttmCreationDate,
-    ttmDeprecated,
+    newThingTypeMetadata,
 
     -- * ThingTypeProperties
     ThingTypeProperties (..),
-    thingTypeProperties,
-    ttpSearchableAttributes,
-    ttpThingTypeDescription,
+    newThingTypeProperties,
 
     -- * TimeoutConfig
     TimeoutConfig (..),
-    timeoutConfig,
-    tcInProgressTimeoutInMinutes,
+    newTimeoutConfig,
 
     -- * TimestreamAction
     TimestreamAction (..),
-    timestreamAction,
-    taTimestamp,
-    taRoleARN,
-    taDatabaseName,
-    taTableName,
-    taDimensions,
+    newTimestreamAction,
 
     -- * TimestreamDimension
     TimestreamDimension (..),
-    timestreamDimension,
-    tdName,
-    tdValue,
+    newTimestreamDimension,
 
     -- * TimestreamTimestamp
     TimestreamTimestamp (..),
-    timestreamTimestamp,
-    ttValue,
-    ttUnit,
+    newTimestreamTimestamp,
+
+    -- * TlsContext
+    TlsContext (..),
+    newTlsContext,
 
     -- * TopicRule
     TopicRule (..),
-    topicRule,
-    trRuleName,
-    trErrorAction,
-    trAwsIotSqlVersion,
-    trCreatedAt,
-    trActions,
-    trRuleDisabled,
-    trDescription,
-    trSql,
+    newTopicRule,
 
     -- * TopicRuleDestination
     TopicRuleDestination (..),
-    topicRuleDestination,
-    trdStatus,
-    trdCreatedAt,
-    trdArn,
-    trdVpcProperties,
-    trdStatusReason,
-    trdHttpURLProperties,
-    trdLastUpdatedAt,
+    newTopicRuleDestination,
 
     -- * TopicRuleDestinationConfiguration
     TopicRuleDestinationConfiguration (..),
-    topicRuleDestinationConfiguration,
-    trdcVpcConfiguration,
-    trdcHttpURLConfiguration,
+    newTopicRuleDestinationConfiguration,
 
     -- * TopicRuleDestinationSummary
     TopicRuleDestinationSummary (..),
-    topicRuleDestinationSummary,
-    trdsHttpURLSummary,
-    trdsStatus,
-    trdsCreatedAt,
-    trdsArn,
-    trdsStatusReason,
-    trdsVpcDestinationSummary,
-    trdsLastUpdatedAt,
+    newTopicRuleDestinationSummary,
 
     -- * TopicRuleListItem
     TopicRuleListItem (..),
-    topicRuleListItem,
-    trliRuleName,
-    trliRuleARN,
-    trliCreatedAt,
-    trliTopicPattern,
-    trliRuleDisabled,
+    newTopicRuleListItem,
 
     -- * TopicRulePayload
     TopicRulePayload (..),
-    topicRulePayload,
-    trpErrorAction,
-    trpAwsIotSqlVersion,
-    trpRuleDisabled,
-    trpDescription,
-    trpSql,
-    trpActions,
+    newTopicRulePayload,
 
     -- * TransferData
     TransferData (..),
-    transferData,
-    tdTransferDate,
-    tdTransferMessage,
-    tdAcceptDate,
-    tdRejectDate,
-    tdRejectReason,
+    newTransferData,
 
     -- * UpdateCACertificateParams
     UpdateCACertificateParams (..),
-    updateCACertificateParams,
-    ucacpAction,
+    newUpdateCACertificateParams,
 
     -- * UpdateDeviceCertificateParams
     UpdateDeviceCertificateParams (..),
-    updateDeviceCertificateParams,
-    udcpAction,
-
-    -- * VPCDestinationConfiguration
-    VPCDestinationConfiguration (..),
-    vpcDestinationConfiguration,
-    vdcSecurityGroups,
-    vdcSubnetIds,
-    vdcVpcId,
-    vdcRoleARN,
-
-    -- * VPCDestinationProperties
-    VPCDestinationProperties (..),
-    vpcDestinationProperties,
-    vdpRoleARN,
-    vdpSubnetIds,
-    vdpSecurityGroups,
-    vdpVpcId,
-
-    -- * VPCDestinationSummary
-    VPCDestinationSummary (..),
-    vpcDestinationSummary,
-    vdsRoleARN,
-    vdsSubnetIds,
-    vdsSecurityGroups,
-    vdsVpcId,
+    newUpdateDeviceCertificateParams,
 
     -- * ValidationError
     ValidationError (..),
-    validationError,
-    veErrorMessage,
+    newValidationError,
 
     -- * ViolationEvent
     ViolationEvent (..),
-    violationEvent,
-    veMetricValue,
-    veViolationId,
-    veThingName,
-    veSecurityProfileName,
-    veBehavior,
-    veViolationEventTime,
-    veViolationEventType,
-    veViolationEventAdditionalInfo,
+    newViolationEvent,
 
     -- * ViolationEventAdditionalInfo
     ViolationEventAdditionalInfo (..),
-    violationEventAdditionalInfo,
-    veaiConfidenceLevel,
+    newViolationEventAdditionalInfo,
 
     -- * ViolationEventOccurrenceRange
     ViolationEventOccurrenceRange (..),
-    violationEventOccurrenceRange,
-    veorStartTime,
-    veorEndTime,
+    newViolationEventOccurrenceRange,
+
+    -- * VpcDestinationConfiguration
+    VpcDestinationConfiguration (..),
+    newVpcDestinationConfiguration,
+
+    -- * VpcDestinationProperties
+    VpcDestinationProperties (..),
+    newVpcDestinationProperties,
+
+    -- * VpcDestinationSummary
+    VpcDestinationSummary (..),
+    newVpcDestinationSummary,
   )
 where
 
-import Network.AWS.IoT.Types.AWSJobAbortConfig
-import Network.AWS.IoT.Types.AWSJobAbortCriteria
-import Network.AWS.IoT.Types.AWSJobAbortCriteriaAbortAction
-import Network.AWS.IoT.Types.AWSJobAbortCriteriaFailureType
-import Network.AWS.IoT.Types.AWSJobExecutionsRolloutConfig
-import Network.AWS.IoT.Types.AWSJobExponentialRolloutRate
-import Network.AWS.IoT.Types.AWSJobPresignedURLConfig
-import Network.AWS.IoT.Types.AWSJobRateIncreaseCriteria
-import Network.AWS.IoT.Types.AWSJobTimeoutConfig
 import Network.AWS.IoT.Types.AbortAction
 import Network.AWS.IoT.Types.AbortConfig
 import Network.AWS.IoT.Types.AbortCriteria
@@ -1695,6 +1000,15 @@ import Network.AWS.IoT.Types.AuthorizerDescription
 import Network.AWS.IoT.Types.AuthorizerStatus
 import Network.AWS.IoT.Types.AuthorizerSummary
 import Network.AWS.IoT.Types.AutoRegistrationStatus
+import Network.AWS.IoT.Types.AwsJobAbortConfig
+import Network.AWS.IoT.Types.AwsJobAbortCriteria
+import Network.AWS.IoT.Types.AwsJobAbortCriteriaAbortAction
+import Network.AWS.IoT.Types.AwsJobAbortCriteriaFailureType
+import Network.AWS.IoT.Types.AwsJobExecutionsRolloutConfig
+import Network.AWS.IoT.Types.AwsJobExponentialRolloutRate
+import Network.AWS.IoT.Types.AwsJobPresignedUrlConfig
+import Network.AWS.IoT.Types.AwsJobRateIncreaseCriteria
+import Network.AWS.IoT.Types.AwsJobTimeoutConfig
 import Network.AWS.IoT.Types.Behavior
 import Network.AWS.IoT.Types.BehaviorCriteria
 import Network.AWS.IoT.Types.BehaviorCriteriaType
@@ -1743,7 +1057,7 @@ import Network.AWS.IoT.Types.DynamoDBv2Action
 import Network.AWS.IoT.Types.DynamoKeyType
 import Network.AWS.IoT.Types.EffectivePolicy
 import Network.AWS.IoT.Types.ElasticsearchAction
-import Network.AWS.IoT.Types.EnableIOTLoggingParams
+import Network.AWS.IoT.Types.EnableIoTLoggingParams
 import Network.AWS.IoT.Types.ErrorInfo
 import Network.AWS.IoT.Types.EventType
 import Network.AWS.IoT.Types.ExplicitDeny
@@ -1752,14 +1066,14 @@ import Network.AWS.IoT.Types.Field
 import Network.AWS.IoT.Types.FieldType
 import Network.AWS.IoT.Types.FileLocation
 import Network.AWS.IoT.Types.FirehoseAction
-import Network.AWS.IoT.Types.GroupNameAndARN
-import Network.AWS.IoT.Types.HTTPAction
-import Network.AWS.IoT.Types.HTTPActionHeader
-import Network.AWS.IoT.Types.HTTPAuthorization
-import Network.AWS.IoT.Types.HTTPContext
-import Network.AWS.IoT.Types.HTTPURLDestinationConfiguration
-import Network.AWS.IoT.Types.HTTPURLDestinationProperties
-import Network.AWS.IoT.Types.HTTPURLDestinationSummary
+import Network.AWS.IoT.Types.GroupNameAndArn
+import Network.AWS.IoT.Types.HttpAction
+import Network.AWS.IoT.Types.HttpActionHeader
+import Network.AWS.IoT.Types.HttpAuthorization
+import Network.AWS.IoT.Types.HttpContext
+import Network.AWS.IoT.Types.HttpUrlDestinationConfiguration
+import Network.AWS.IoT.Types.HttpUrlDestinationProperties
+import Network.AWS.IoT.Types.HttpUrlDestinationSummary
 import Network.AWS.IoT.Types.ImplicitDeny
 import Network.AWS.IoT.Types.IndexStatus
 import Network.AWS.IoT.Types.IotAnalyticsAction
@@ -1808,12 +1122,12 @@ import Network.AWS.IoT.Types.Policy
 import Network.AWS.IoT.Types.PolicyTemplateName
 import Network.AWS.IoT.Types.PolicyVersion
 import Network.AWS.IoT.Types.PolicyVersionIdentifier
-import Network.AWS.IoT.Types.PresignedURLConfig
+import Network.AWS.IoT.Types.PresignedUrlConfig
 import Network.AWS.IoT.Types.Protocol
 import Network.AWS.IoT.Types.ProvisioningHook
 import Network.AWS.IoT.Types.ProvisioningTemplateSummary
 import Network.AWS.IoT.Types.ProvisioningTemplateVersionSummary
-import Network.AWS.IoT.Types.PublishFindingToSNSParams
+import Network.AWS.IoT.Types.PublishFindingToSnsParams
 import Network.AWS.IoT.Types.PutAssetPropertyValueEntry
 import Network.AWS.IoT.Types.PutItemInput
 import Network.AWS.IoT.Types.RateIncreaseCriteria
@@ -1828,7 +1142,6 @@ import Network.AWS.IoT.Types.RoleAliasDescription
 import Network.AWS.IoT.Types.S3Action
 import Network.AWS.IoT.Types.S3Destination
 import Network.AWS.IoT.Types.S3Location
-import Network.AWS.IoT.Types.SNSAction
 import Network.AWS.IoT.Types.SalesforceAction
 import Network.AWS.IoT.Types.ScheduledAuditMetadata
 import Network.AWS.IoT.Types.SecurityProfileIdentifier
@@ -1839,6 +1152,7 @@ import Network.AWS.IoT.Types.ServerCertificateSummary
 import Network.AWS.IoT.Types.ServiceType
 import Network.AWS.IoT.Types.SigV4Authorization
 import Network.AWS.IoT.Types.SigningProfileParameter
+import Network.AWS.IoT.Types.SnsAction
 import Network.AWS.IoT.Types.SqsAction
 import Network.AWS.IoT.Types.StartSigningJobParameter
 import Network.AWS.IoT.Types.StatisticalThreshold
@@ -1848,7 +1162,6 @@ import Network.AWS.IoT.Types.Stream
 import Network.AWS.IoT.Types.StreamFile
 import Network.AWS.IoT.Types.StreamInfo
 import Network.AWS.IoT.Types.StreamSummary
-import Network.AWS.IoT.Types.TLSContext
 import Network.AWS.IoT.Types.Tag
 import Network.AWS.IoT.Types.TargetSelection
 import Network.AWS.IoT.Types.TaskStatistics
@@ -1872,6 +1185,7 @@ import Network.AWS.IoT.Types.TimeoutConfig
 import Network.AWS.IoT.Types.TimestreamAction
 import Network.AWS.IoT.Types.TimestreamDimension
 import Network.AWS.IoT.Types.TimestreamTimestamp
+import Network.AWS.IoT.Types.TlsContext
 import Network.AWS.IoT.Types.TopicRule
 import Network.AWS.IoT.Types.TopicRuleDestination
 import Network.AWS.IoT.Types.TopicRuleDestinationConfiguration
@@ -1882,261 +1196,327 @@ import Network.AWS.IoT.Types.TopicRulePayload
 import Network.AWS.IoT.Types.TransferData
 import Network.AWS.IoT.Types.UpdateCACertificateParams
 import Network.AWS.IoT.Types.UpdateDeviceCertificateParams
-import Network.AWS.IoT.Types.VPCDestinationConfiguration
-import Network.AWS.IoT.Types.VPCDestinationProperties
-import Network.AWS.IoT.Types.VPCDestinationSummary
 import Network.AWS.IoT.Types.ValidationError
 import Network.AWS.IoT.Types.ViolationEvent
 import Network.AWS.IoT.Types.ViolationEventAdditionalInfo
 import Network.AWS.IoT.Types.ViolationEventOccurrenceRange
 import Network.AWS.IoT.Types.ViolationEventType
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import Network.AWS.IoT.Types.VpcDestinationConfiguration
+import Network.AWS.IoT.Types.VpcDestinationProperties
+import Network.AWS.IoT.Types.VpcDestinationSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2015-05-28@ of the Amazon IoT SDK configuration.
-ioT :: Service
-ioT =
-  Service
-    { _svcAbbrev = "IoT",
-      _svcSigner = v4,
-      _svcPrefix = "iot",
-      _svcVersion = "2015-05-28",
-      _svcEndpoint = defaultEndpoint ioT,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "IoT",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "IoT",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "iot",
+      Prelude._svcVersion = "2015-05-28",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "IoT",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The index is not ready.
-_IndexNotReadyException :: AsError a => Getting (First ServiceError) a ServiceError
+_IndexNotReadyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IndexNotReadyException =
-  _MatchServiceError ioT "IndexNotReadyException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "IndexNotReadyException"
+    Prelude.. Prelude.hasStatus 400
 
--- | You can't revert the certificate transfer because the transfer is already complete.
-_TransferAlreadyCompletedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You can\'t revert the certificate transfer because the transfer is
+-- already complete.
+_TransferAlreadyCompletedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TransferAlreadyCompletedException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "TransferAlreadyCompletedException"
-    . hasStatus 410
+    Prelude.. Prelude.hasStatus 410
 
 -- | The query is invalid.
-_InvalidQueryException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidQueryException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidQueryException =
-  _MatchServiceError ioT "InvalidQueryException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidQueryException"
+    Prelude.. Prelude.hasStatus 400
 
--- | Unable to verify the CA certificate used to sign the device certificate you are attempting to register. This is happens when you have registered more than one CA certificate that has the same subject field and public key.
-_CertificateConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Unable to verify the CA certificate used to sign the device certificate
+-- you are attempting to register. This is happens when you have registered
+-- more than one CA certificate that has the same subject field and public
+-- key.
+_CertificateConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CertificateConflictException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "CertificateConflictException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | This exception occurs if you attempt to start a task with the same task-id as an existing task but with a different clientRequestToken.
-_TaskAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | This exception occurs if you attempt to start a task with the same
+-- task-id as an existing task but with a different clientRequestToken.
+_TaskAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TaskAlreadyExistsException =
-  _MatchServiceError ioT "TaskAlreadyExistsException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "TaskAlreadyExistsException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The certificate is invalid.
-_CertificateValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+_CertificateValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CertificateValidationException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "CertificateValidationException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | You are not authorized to perform this operation.
-_UnauthorizedException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnauthorizedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthorizedException =
-  _MatchServiceError ioT "UnauthorizedException"
-    . hasStatus 401
+  Prelude._MatchServiceError
+    defaultService
+    "UnauthorizedException"
+    Prelude.. Prelude.hasStatus 401
 
 -- | The resource already exists.
-_ResourceAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAlreadyExistsException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "ResourceAlreadyExistsException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | An unexpected error has occurred.
-_InternalException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalException =
-  _MatchServiceError ioT "InternalException"
-    . hasStatus 500
+  Prelude._MatchServiceError
+    defaultService
+    "InternalException"
+    Prelude.. Prelude.hasStatus 500
 
 -- | The policy documentation is not valid.
-_MalformedPolicyException :: AsError a => Getting (First ServiceError) a ServiceError
+_MalformedPolicyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MalformedPolicyException =
-  _MatchServiceError ioT "MalformedPolicyException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "MalformedPolicyException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The service is temporarily unavailable.
-_ServiceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceUnavailableException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "ServiceUnavailableException"
-    . hasStatus 503
+    Prelude.. Prelude.hasStatus 503
 
 -- | The certificate operation is not allowed.
-_CertificateStateException :: AsError a => Getting (First ServiceError) a ServiceError
+_CertificateStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CertificateStateException =
-  _MatchServiceError ioT "CertificateStateException"
-    . hasStatus 406
+  Prelude._MatchServiceError
+    defaultService
+    "CertificateStateException"
+    Prelude.. Prelude.hasStatus 406
 
 -- | The aggregation is invalid.
-_InvalidAggregationException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidAggregationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidAggregationException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "InvalidAggregationException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The rate exceeds the limit.
-_ThrottlingException :: AsError a => Getting (First ServiceError) a ServiceError
+_ThrottlingException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ThrottlingException =
-  _MatchServiceError ioT "ThrottlingException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "ThrottlingException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The request is not valid.
-_InvalidRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRequestException =
-  _MatchServiceError ioT "InvalidRequestException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidRequestException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The resource registration failed.
-_ResourceRegistrationFailureException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceRegistrationFailureException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceRegistrationFailureException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "ResourceRegistrationFailureException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The Rule-SQL expression can't be parsed correctly.
-_SqlParseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The Rule-SQL expression can\'t be parsed correctly.
+_SqlParseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SqlParseException =
-  _MatchServiceError ioT "SqlParseException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "SqlParseException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | A limit has been exceeded.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError ioT "LimitExceededException"
-    . hasStatus 410
+  Prelude._MatchServiceError
+    defaultService
+    "LimitExceededException"
+    Prelude.. Prelude.hasStatus 410
 
--- | An attempt was made to change to an invalid state, for example by deleting a job or a job execution which is "IN_PROGRESS" without setting the @force@ parameter.
-_InvalidStateTransitionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An attempt was made to change to an invalid state, for example by
+-- deleting a job or a job execution which is \"IN_PROGRESS\" without
+-- setting the @force@ parameter.
+_InvalidStateTransitionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidStateTransitionException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "InvalidStateTransitionException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The resource is not configured.
-_NotConfiguredException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotConfiguredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotConfiguredException =
-  _MatchServiceError ioT "NotConfiguredException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "NotConfiguredException"
+    Prelude.. Prelude.hasStatus 404
 
 -- | The specified resource does not exist.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError ioT "ResourceNotFoundException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
+    Prelude.. Prelude.hasStatus 404
 
--- | An exception thrown when the version of an entity specified with the @expectedVersion@ parameter does not match the latest version in the system.
-_VersionConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An exception thrown when the version of an entity specified with the
+-- @expectedVersion@ parameter does not match the latest version in the
+-- system.
+_VersionConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _VersionConflictException =
-  _MatchServiceError ioT "VersionConflictException"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "VersionConflictException"
+    Prelude.. Prelude.hasStatus 409
 
 -- | The registration code is invalid.
-_RegistrationCodeValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+_RegistrationCodeValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RegistrationCodeValidationException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "RegistrationCodeValidationException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The number of policy versions exceeds the limit.
-_VersionsLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_VersionsLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _VersionsLimitExceededException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "VersionsLimitExceededException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | An unexpected error has occurred.
-_InternalFailureException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalFailureException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalFailureException =
-  _MatchServiceError ioT "InternalFailureException"
-    . hasStatus 500
+  Prelude._MatchServiceError
+    defaultService
+    "InternalFailureException"
+    Prelude.. Prelude.hasStatus 500
 
--- | You can't delete the resource because it is attached to one or more resources.
-_DeleteConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You can\'t delete the resource because it is attached to one or more
+-- resources.
+_DeleteConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DeleteConflictException =
-  _MatchServiceError ioT "DeleteConflictException"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "DeleteConflictException"
+    Prelude.. Prelude.hasStatus 409
 
 -- | The response is invalid.
-_InvalidResponseException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidResponseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidResponseException =
-  _MatchServiceError ioT "InvalidResponseException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidResponseException"
+    Prelude.. Prelude.hasStatus 400
 
--- | You can't transfer the certificate because authorization policies are still attached.
-_TransferConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You can\'t transfer the certificate because authorization policies are
+-- still attached.
+_TransferConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TransferConflictException =
-  _MatchServiceError ioT "TransferConflictException"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "TransferConflictException"
+    Prelude.. Prelude.hasStatus 409
 
--- | A conflicting resource update exception. This exception is thrown when two pending updates cause a conflict.
-_ConflictingResourceUpdateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A conflicting resource update exception. This exception is thrown when
+-- two pending updates cause a conflict.
+_ConflictingResourceUpdateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictingResourceUpdateException =
-  _MatchServiceError
-    ioT
+  Prelude._MatchServiceError
+    defaultService
     "ConflictingResourceUpdateException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409

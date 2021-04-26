@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,107 +24,106 @@
 -- Gets a registration code used to register a CA certificate with AWS IoT.
 module Network.AWS.IoT.GetRegistrationCode
   ( -- * Creating a Request
-    getRegistrationCode,
-    GetRegistrationCode,
+    GetRegistrationCode (..),
+    newGetRegistrationCode,
 
     -- * Destructuring the Response
-    getRegistrationCodeResponse,
-    GetRegistrationCodeResponse,
+    GetRegistrationCodeResponse (..),
+    newGetRegistrationCodeResponse,
 
     -- * Response Lenses
-    grcrrsRegistrationCode,
-    grcrrsResponseStatus,
+    getRegistrationCodeResponse_registrationCode,
+    getRegistrationCodeResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input to the GetRegistrationCode operation.
 --
---
---
--- /See:/ 'getRegistrationCode' smart constructor.
+-- /See:/ 'newGetRegistrationCode' smart constructor.
 data GetRegistrationCode = GetRegistrationCode'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRegistrationCode' with the minimum fields required to make a request.
-getRegistrationCode ::
+-- |
+-- Create a value of 'GetRegistrationCode' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetRegistrationCode ::
   GetRegistrationCode
-getRegistrationCode = GetRegistrationCode'
+newGetRegistrationCode = GetRegistrationCode'
 
-instance AWSRequest GetRegistrationCode where
+instance Prelude.AWSRequest GetRegistrationCode where
   type
     Rs GetRegistrationCode =
       GetRegistrationCodeResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRegistrationCodeResponse'
-            <$> (x .?> "registrationCode") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "registrationCode")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetRegistrationCode
+instance Prelude.Hashable GetRegistrationCode
 
-instance NFData GetRegistrationCode
+instance Prelude.NFData GetRegistrationCode
 
-instance ToHeaders GetRegistrationCode where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetRegistrationCode where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetRegistrationCode where
-  toPath = const "/registrationcode"
+instance Prelude.ToPath GetRegistrationCode where
+  toPath = Prelude.const "/registrationcode"
 
-instance ToQuery GetRegistrationCode where
-  toQuery = const mempty
+instance Prelude.ToQuery GetRegistrationCode where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The output from the GetRegistrationCode operation.
 --
---
---
--- /See:/ 'getRegistrationCodeResponse' smart constructor.
+-- /See:/ 'newGetRegistrationCodeResponse' smart constructor.
 data GetRegistrationCodeResponse = GetRegistrationCodeResponse'
-  { _grcrrsRegistrationCode ::
-      !(Maybe Text),
-    _grcrrsResponseStatus ::
-      !Int
+  { -- | The CA certificate registration code.
+    registrationCode :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRegistrationCodeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRegistrationCodeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grcrrsRegistrationCode' - The CA certificate registration code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grcrrsResponseStatus' - -- | The response status code.
-getRegistrationCodeResponse ::
-  -- | 'grcrrsResponseStatus'
-  Int ->
+-- 'registrationCode', 'getRegistrationCodeResponse_registrationCode' - The CA certificate registration code.
+--
+-- 'httpStatus', 'getRegistrationCodeResponse_httpStatus' - The response's http status code.
+newGetRegistrationCodeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetRegistrationCodeResponse
-getRegistrationCodeResponse pResponseStatus_ =
+newGetRegistrationCodeResponse pHttpStatus_ =
   GetRegistrationCodeResponse'
-    { _grcrrsRegistrationCode =
-        Nothing,
-      _grcrrsResponseStatus = pResponseStatus_
+    { registrationCode =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The CA certificate registration code.
-grcrrsRegistrationCode :: Lens' GetRegistrationCodeResponse (Maybe Text)
-grcrrsRegistrationCode = lens _grcrrsRegistrationCode (\s a -> s {_grcrrsRegistrationCode = a})
+getRegistrationCodeResponse_registrationCode :: Lens.Lens' GetRegistrationCodeResponse (Prelude.Maybe Prelude.Text)
+getRegistrationCodeResponse_registrationCode = Lens.lens (\GetRegistrationCodeResponse' {registrationCode} -> registrationCode) (\s@GetRegistrationCodeResponse' {} a -> s {registrationCode = a} :: GetRegistrationCodeResponse)
 
--- | -- | The response status code.
-grcrrsResponseStatus :: Lens' GetRegistrationCodeResponse Int
-grcrrsResponseStatus = lens _grcrrsResponseStatus (\s a -> s {_grcrrsResponseStatus = a})
+-- | The response's http status code.
+getRegistrationCodeResponse_httpStatus :: Lens.Lens' GetRegistrationCodeResponse Prelude.Int
+getRegistrationCodeResponse_httpStatus = Lens.lens (\GetRegistrationCodeResponse' {httpStatus} -> httpStatus) (\s@GetRegistrationCodeResponse' {} a -> s {httpStatus = a} :: GetRegistrationCodeResponse)
 
-instance NFData GetRegistrationCodeResponse
+instance Prelude.NFData GetRegistrationCodeResponse

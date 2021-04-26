@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.ProvisioningHook where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Structure that contains @payloadVersion@ and @targetArn@ .
+-- | Structure that contains @payloadVersion@ and @targetArn@.
 --
---
---
--- /See:/ 'provisioningHook' smart constructor.
+-- /See:/ 'newProvisioningHook' smart constructor.
 data ProvisioningHook = ProvisioningHook'
-  { _phPayloadVersion ::
-      !(Maybe Text),
-    _phTargetARN :: !Text
+  { -- | The payload that was sent to the target function.
+    --
+    -- /Note:/ Only Lambda functions are currently supported.
+    payloadVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the target function.
+    --
+    -- /Note:/ Only Lambda functions are currently supported.
+    targetArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvisioningHook' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvisioningHook' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'phPayloadVersion' - The payload that was sent to the target function. /Note:/ Only Lambda functions are currently supported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'phTargetARN' - The ARN of the target function. /Note:/ Only Lambda functions are currently supported.
-provisioningHook ::
-  -- | 'phTargetARN'
-  Text ->
+-- 'payloadVersion', 'provisioningHook_payloadVersion' - The payload that was sent to the target function.
+--
+-- /Note:/ Only Lambda functions are currently supported.
+--
+-- 'targetArn', 'provisioningHook_targetArn' - The ARN of the target function.
+--
+-- /Note:/ Only Lambda functions are currently supported.
+newProvisioningHook ::
+  -- | 'targetArn'
+  Prelude.Text ->
   ProvisioningHook
-provisioningHook pTargetARN_ =
+newProvisioningHook pTargetArn_ =
   ProvisioningHook'
-    { _phPayloadVersion = Nothing,
-      _phTargetARN = pTargetARN_
+    { payloadVersion = Prelude.Nothing,
+      targetArn = pTargetArn_
     }
 
--- | The payload that was sent to the target function. /Note:/ Only Lambda functions are currently supported.
-phPayloadVersion :: Lens' ProvisioningHook (Maybe Text)
-phPayloadVersion = lens _phPayloadVersion (\s a -> s {_phPayloadVersion = a})
+-- | The payload that was sent to the target function.
+--
+-- /Note:/ Only Lambda functions are currently supported.
+provisioningHook_payloadVersion :: Lens.Lens' ProvisioningHook (Prelude.Maybe Prelude.Text)
+provisioningHook_payloadVersion = Lens.lens (\ProvisioningHook' {payloadVersion} -> payloadVersion) (\s@ProvisioningHook' {} a -> s {payloadVersion = a} :: ProvisioningHook)
 
--- | The ARN of the target function. /Note:/ Only Lambda functions are currently supported.
-phTargetARN :: Lens' ProvisioningHook Text
-phTargetARN = lens _phTargetARN (\s a -> s {_phTargetARN = a})
+-- | The ARN of the target function.
+--
+-- /Note:/ Only Lambda functions are currently supported.
+provisioningHook_targetArn :: Lens.Lens' ProvisioningHook Prelude.Text
+provisioningHook_targetArn = Lens.lens (\ProvisioningHook' {targetArn} -> targetArn) (\s@ProvisioningHook' {} a -> s {targetArn = a} :: ProvisioningHook)
 
-instance FromJSON ProvisioningHook where
+instance Prelude.FromJSON ProvisioningHook where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProvisioningHook"
       ( \x ->
           ProvisioningHook'
-            <$> (x .:? "payloadVersion") <*> (x .: "targetArn")
+            Prelude.<$> (x Prelude..:? "payloadVersion")
+            Prelude.<*> (x Prelude..: "targetArn")
       )
 
-instance Hashable ProvisioningHook
+instance Prelude.Hashable ProvisioningHook
 
-instance NFData ProvisioningHook
+instance Prelude.NFData ProvisioningHook
 
-instance ToJSON ProvisioningHook where
+instance Prelude.ToJSON ProvisioningHook where
   toJSON ProvisioningHook' {..} =
-    object
-      ( catMaybes
-          [ ("payloadVersion" .=) <$> _phPayloadVersion,
-            Just ("targetArn" .= _phTargetARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("payloadVersion" Prelude..=)
+              Prelude.<$> payloadVersion,
+            Prelude.Just ("targetArn" Prelude..= targetArn)
           ]
       )

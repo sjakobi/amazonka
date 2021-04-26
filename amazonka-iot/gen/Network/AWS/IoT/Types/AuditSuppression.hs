@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,92 @@
 module Network.AWS.IoT.Types.AuditSuppression where
 
 import Network.AWS.IoT.Types.ResourceIdentifier
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Filters out specific findings of a Device Defender audit.
 --
---
---
--- /See:/ 'auditSuppression' smart constructor.
+-- /See:/ 'newAuditSuppression' smart constructor.
 data AuditSuppression = AuditSuppression'
-  { _asExpirationDate ::
-      !(Maybe POSIX),
-    _asDescription :: !(Maybe Text),
-    _asSuppressIndefinitely ::
-      !(Maybe Bool),
-    _asCheckName :: !Text,
-    _asResourceIdentifier ::
-      !ResourceIdentifier
+  { -- | The expiration date (epoch timestamp in seconds) that you want the
+    -- suppression to adhere to.
+    expirationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The description of the audit suppression.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether a suppression should exist indefinitely or not.
+    suppressIndefinitely :: Prelude.Maybe Prelude.Bool,
+    checkName :: Prelude.Text,
+    resourceIdentifier :: ResourceIdentifier
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuditSuppression' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuditSuppression' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asExpirationDate' - The expiration date (epoch timestamp in seconds) that you want the suppression to adhere to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asDescription' - The description of the audit suppression.
+-- 'expirationDate', 'auditSuppression_expirationDate' - The expiration date (epoch timestamp in seconds) that you want the
+-- suppression to adhere to.
 --
--- * 'asSuppressIndefinitely' - Indicates whether a suppression should exist indefinitely or not.
+-- 'description', 'auditSuppression_description' - The description of the audit suppression.
 --
--- * 'asCheckName' - Undocumented member.
+-- 'suppressIndefinitely', 'auditSuppression_suppressIndefinitely' - Indicates whether a suppression should exist indefinitely or not.
 --
--- * 'asResourceIdentifier' - Undocumented member.
-auditSuppression ::
-  -- | 'asCheckName'
-  Text ->
-  -- | 'asResourceIdentifier'
+-- 'checkName', 'auditSuppression_checkName' - Undocumented member.
+--
+-- 'resourceIdentifier', 'auditSuppression_resourceIdentifier' - Undocumented member.
+newAuditSuppression ::
+  -- | 'checkName'
+  Prelude.Text ->
+  -- | 'resourceIdentifier'
   ResourceIdentifier ->
   AuditSuppression
-auditSuppression pCheckName_ pResourceIdentifier_ =
+newAuditSuppression pCheckName_ pResourceIdentifier_ =
   AuditSuppression'
-    { _asExpirationDate = Nothing,
-      _asDescription = Nothing,
-      _asSuppressIndefinitely = Nothing,
-      _asCheckName = pCheckName_,
-      _asResourceIdentifier = pResourceIdentifier_
+    { expirationDate = Prelude.Nothing,
+      description = Prelude.Nothing,
+      suppressIndefinitely = Prelude.Nothing,
+      checkName = pCheckName_,
+      resourceIdentifier = pResourceIdentifier_
     }
 
--- | The expiration date (epoch timestamp in seconds) that you want the suppression to adhere to.
-asExpirationDate :: Lens' AuditSuppression (Maybe UTCTime)
-asExpirationDate = lens _asExpirationDate (\s a -> s {_asExpirationDate = a}) . mapping _Time
+-- | The expiration date (epoch timestamp in seconds) that you want the
+-- suppression to adhere to.
+auditSuppression_expirationDate :: Lens.Lens' AuditSuppression (Prelude.Maybe Prelude.UTCTime)
+auditSuppression_expirationDate = Lens.lens (\AuditSuppression' {expirationDate} -> expirationDate) (\s@AuditSuppression' {} a -> s {expirationDate = a} :: AuditSuppression) Prelude.. Lens.mapping Prelude._Time
 
 -- | The description of the audit suppression.
-asDescription :: Lens' AuditSuppression (Maybe Text)
-asDescription = lens _asDescription (\s a -> s {_asDescription = a})
+auditSuppression_description :: Lens.Lens' AuditSuppression (Prelude.Maybe Prelude.Text)
+auditSuppression_description = Lens.lens (\AuditSuppression' {description} -> description) (\s@AuditSuppression' {} a -> s {description = a} :: AuditSuppression)
 
 -- | Indicates whether a suppression should exist indefinitely or not.
-asSuppressIndefinitely :: Lens' AuditSuppression (Maybe Bool)
-asSuppressIndefinitely = lens _asSuppressIndefinitely (\s a -> s {_asSuppressIndefinitely = a})
+auditSuppression_suppressIndefinitely :: Lens.Lens' AuditSuppression (Prelude.Maybe Prelude.Bool)
+auditSuppression_suppressIndefinitely = Lens.lens (\AuditSuppression' {suppressIndefinitely} -> suppressIndefinitely) (\s@AuditSuppression' {} a -> s {suppressIndefinitely = a} :: AuditSuppression)
 
 -- | Undocumented member.
-asCheckName :: Lens' AuditSuppression Text
-asCheckName = lens _asCheckName (\s a -> s {_asCheckName = a})
+auditSuppression_checkName :: Lens.Lens' AuditSuppression Prelude.Text
+auditSuppression_checkName = Lens.lens (\AuditSuppression' {checkName} -> checkName) (\s@AuditSuppression' {} a -> s {checkName = a} :: AuditSuppression)
 
 -- | Undocumented member.
-asResourceIdentifier :: Lens' AuditSuppression ResourceIdentifier
-asResourceIdentifier = lens _asResourceIdentifier (\s a -> s {_asResourceIdentifier = a})
+auditSuppression_resourceIdentifier :: Lens.Lens' AuditSuppression ResourceIdentifier
+auditSuppression_resourceIdentifier = Lens.lens (\AuditSuppression' {resourceIdentifier} -> resourceIdentifier) (\s@AuditSuppression' {} a -> s {resourceIdentifier = a} :: AuditSuppression)
 
-instance FromJSON AuditSuppression where
+instance Prelude.FromJSON AuditSuppression where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuditSuppression"
       ( \x ->
           AuditSuppression'
-            <$> (x .:? "expirationDate")
-            <*> (x .:? "description")
-            <*> (x .:? "suppressIndefinitely")
-            <*> (x .: "checkName")
-            <*> (x .: "resourceIdentifier")
+            Prelude.<$> (x Prelude..:? "expirationDate")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "suppressIndefinitely")
+            Prelude.<*> (x Prelude..: "checkName")
+            Prelude.<*> (x Prelude..: "resourceIdentifier")
       )
 
-instance Hashable AuditSuppression
+instance Prelude.Hashable AuditSuppression
 
-instance NFData AuditSuppression
+instance Prelude.NFData AuditSuppression

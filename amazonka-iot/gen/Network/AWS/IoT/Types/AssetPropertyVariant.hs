@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.AssetPropertyVariant where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains an asset property value (of a single type).
 --
---
---
--- /See:/ 'assetPropertyVariant' smart constructor.
+-- /See:/ 'newAssetPropertyVariant' smart constructor.
 data AssetPropertyVariant = AssetPropertyVariant'
-  { _apvDoubleValue ::
-      !(Maybe Text),
-    _apvStringValue ::
-      !(Maybe Text),
-    _apvBooleanValue ::
-      !(Maybe Text),
-    _apvIntegerValue ::
-      !(Maybe Text)
+  { -- | Optional. A string that contains the double value of the value entry.
+    -- Accepts substitution templates.
+    doubleValue :: Prelude.Maybe Prelude.Text,
+    -- | Optional. The string value of the value entry. Accepts substitution
+    -- templates.
+    stringValue :: Prelude.Maybe Prelude.Text,
+    -- | Optional. A string that contains the boolean value (@true@ or @false@)
+    -- of the value entry. Accepts substitution templates.
+    booleanValue :: Prelude.Maybe Prelude.Text,
+    -- | Optional. A string that contains the integer value of the value entry.
+    -- Accepts substitution templates.
+    integerValue :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssetPropertyVariant' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssetPropertyVariant' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apvDoubleValue' - Optional. A string that contains the double value of the value entry. Accepts substitution templates.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apvStringValue' - Optional. The string value of the value entry. Accepts substitution templates.
+-- 'doubleValue', 'assetPropertyVariant_doubleValue' - Optional. A string that contains the double value of the value entry.
+-- Accepts substitution templates.
 --
--- * 'apvBooleanValue' - Optional. A string that contains the boolean value (@true@ or @false@ ) of the value entry. Accepts substitution templates.
+-- 'stringValue', 'assetPropertyVariant_stringValue' - Optional. The string value of the value entry. Accepts substitution
+-- templates.
 --
--- * 'apvIntegerValue' - Optional. A string that contains the integer value of the value entry. Accepts substitution templates.
-assetPropertyVariant ::
+-- 'booleanValue', 'assetPropertyVariant_booleanValue' - Optional. A string that contains the boolean value (@true@ or @false@)
+-- of the value entry. Accepts substitution templates.
+--
+-- 'integerValue', 'assetPropertyVariant_integerValue' - Optional. A string that contains the integer value of the value entry.
+-- Accepts substitution templates.
+newAssetPropertyVariant ::
   AssetPropertyVariant
-assetPropertyVariant =
+newAssetPropertyVariant =
   AssetPropertyVariant'
-    { _apvDoubleValue = Nothing,
-      _apvStringValue = Nothing,
-      _apvBooleanValue = Nothing,
-      _apvIntegerValue = Nothing
+    { doubleValue =
+        Prelude.Nothing,
+      stringValue = Prelude.Nothing,
+      booleanValue = Prelude.Nothing,
+      integerValue = Prelude.Nothing
     }
 
--- | Optional. A string that contains the double value of the value entry. Accepts substitution templates.
-apvDoubleValue :: Lens' AssetPropertyVariant (Maybe Text)
-apvDoubleValue = lens _apvDoubleValue (\s a -> s {_apvDoubleValue = a})
+-- | Optional. A string that contains the double value of the value entry.
+-- Accepts substitution templates.
+assetPropertyVariant_doubleValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
+assetPropertyVariant_doubleValue = Lens.lens (\AssetPropertyVariant' {doubleValue} -> doubleValue) (\s@AssetPropertyVariant' {} a -> s {doubleValue = a} :: AssetPropertyVariant)
 
--- | Optional. The string value of the value entry. Accepts substitution templates.
-apvStringValue :: Lens' AssetPropertyVariant (Maybe Text)
-apvStringValue = lens _apvStringValue (\s a -> s {_apvStringValue = a})
+-- | Optional. The string value of the value entry. Accepts substitution
+-- templates.
+assetPropertyVariant_stringValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
+assetPropertyVariant_stringValue = Lens.lens (\AssetPropertyVariant' {stringValue} -> stringValue) (\s@AssetPropertyVariant' {} a -> s {stringValue = a} :: AssetPropertyVariant)
 
--- | Optional. A string that contains the boolean value (@true@ or @false@ ) of the value entry. Accepts substitution templates.
-apvBooleanValue :: Lens' AssetPropertyVariant (Maybe Text)
-apvBooleanValue = lens _apvBooleanValue (\s a -> s {_apvBooleanValue = a})
+-- | Optional. A string that contains the boolean value (@true@ or @false@)
+-- of the value entry. Accepts substitution templates.
+assetPropertyVariant_booleanValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
+assetPropertyVariant_booleanValue = Lens.lens (\AssetPropertyVariant' {booleanValue} -> booleanValue) (\s@AssetPropertyVariant' {} a -> s {booleanValue = a} :: AssetPropertyVariant)
 
--- | Optional. A string that contains the integer value of the value entry. Accepts substitution templates.
-apvIntegerValue :: Lens' AssetPropertyVariant (Maybe Text)
-apvIntegerValue = lens _apvIntegerValue (\s a -> s {_apvIntegerValue = a})
+-- | Optional. A string that contains the integer value of the value entry.
+-- Accepts substitution templates.
+assetPropertyVariant_integerValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
+assetPropertyVariant_integerValue = Lens.lens (\AssetPropertyVariant' {integerValue} -> integerValue) (\s@AssetPropertyVariant' {} a -> s {integerValue = a} :: AssetPropertyVariant)
 
-instance FromJSON AssetPropertyVariant where
+instance Prelude.FromJSON AssetPropertyVariant where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AssetPropertyVariant"
       ( \x ->
           AssetPropertyVariant'
-            <$> (x .:? "doubleValue")
-            <*> (x .:? "stringValue")
-            <*> (x .:? "booleanValue")
-            <*> (x .:? "integerValue")
+            Prelude.<$> (x Prelude..:? "doubleValue")
+            Prelude.<*> (x Prelude..:? "stringValue")
+            Prelude.<*> (x Prelude..:? "booleanValue")
+            Prelude.<*> (x Prelude..:? "integerValue")
       )
 
-instance Hashable AssetPropertyVariant
+instance Prelude.Hashable AssetPropertyVariant
 
-instance NFData AssetPropertyVariant
+instance Prelude.NFData AssetPropertyVariant
 
-instance ToJSON AssetPropertyVariant where
+instance Prelude.ToJSON AssetPropertyVariant where
   toJSON AssetPropertyVariant' {..} =
-    object
-      ( catMaybes
-          [ ("doubleValue" .=) <$> _apvDoubleValue,
-            ("stringValue" .=) <$> _apvStringValue,
-            ("booleanValue" .=) <$> _apvBooleanValue,
-            ("integerValue" .=) <$> _apvIntegerValue
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("doubleValue" Prelude..=) Prelude.<$> doubleValue,
+            ("stringValue" Prelude..=) Prelude.<$> stringValue,
+            ("booleanValue" Prelude..=) Prelude.<$> booleanValue,
+            ("integerValue" Prelude..=)
+              Prelude.<$> integerValue
           ]
       )

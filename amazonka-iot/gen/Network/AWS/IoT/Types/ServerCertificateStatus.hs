@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.IoT.Types.ServerCertificateStatus
   ( ServerCertificateStatus
       ( ..,
-        Invalid,
-        Valid
+        ServerCertificateStatusINVALID,
+        ServerCertificateStatusVALID
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServerCertificateStatus
-  = ServerCertificateStatus'
-      ( CI
-          Text
-      )
+newtype ServerCertificateStatus = ServerCertificateStatus'
+  { fromServerCertificateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Invalid :: ServerCertificateStatus
-pattern Invalid = ServerCertificateStatus' "INVALID"
+pattern ServerCertificateStatusINVALID :: ServerCertificateStatus
+pattern ServerCertificateStatusINVALID = ServerCertificateStatus' "INVALID"
 
-pattern Valid :: ServerCertificateStatus
-pattern Valid = ServerCertificateStatus' "VALID"
+pattern ServerCertificateStatusVALID :: ServerCertificateStatus
+pattern ServerCertificateStatusVALID = ServerCertificateStatus' "VALID"
 
 {-# COMPLETE
-  Invalid,
-  Valid,
+  ServerCertificateStatusINVALID,
+  ServerCertificateStatusVALID,
   ServerCertificateStatus'
   #-}
 
-instance FromText ServerCertificateStatus where
-  parser = (ServerCertificateStatus' . mk) <$> takeText
+instance Prelude.FromText ServerCertificateStatus where
+  parser = ServerCertificateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ServerCertificateStatus where
-  toText (ServerCertificateStatus' ci) = original ci
+instance Prelude.ToText ServerCertificateStatus where
+  toText (ServerCertificateStatus' x) = x
 
-instance Hashable ServerCertificateStatus
+instance Prelude.Hashable ServerCertificateStatus
 
-instance NFData ServerCertificateStatus
+instance Prelude.NFData ServerCertificateStatus
 
-instance ToByteString ServerCertificateStatus
+instance Prelude.ToByteString ServerCertificateStatus
 
-instance ToQuery ServerCertificateStatus
+instance Prelude.ToQuery ServerCertificateStatus
 
-instance ToHeader ServerCertificateStatus
+instance Prelude.ToHeader ServerCertificateStatus
 
-instance FromJSON ServerCertificateStatus where
-  parseJSON = parseJSONText "ServerCertificateStatus"
+instance Prelude.FromJSON ServerCertificateStatus where
+  parseJSON = Prelude.parseJSONText "ServerCertificateStatus"

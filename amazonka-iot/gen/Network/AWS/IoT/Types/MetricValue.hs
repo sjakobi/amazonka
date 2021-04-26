@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,119 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.MetricValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The value to be compared with the @metric@ .
+-- | The value to be compared with the @metric@.
 --
---
---
--- /See:/ 'metricValue' smart constructor.
+-- /See:/ 'newMetricValue' smart constructor.
 data MetricValue = MetricValue'
-  { _mvNumbers ::
-      !(Maybe [Double]),
-    _mvPorts :: !(Maybe [Nat]),
-    _mvCidrs :: !(Maybe [Text]),
-    _mvStrings :: !(Maybe [Text]),
-    _mvCount :: !(Maybe Nat),
-    _mvNumber :: !(Maybe Double)
+  { -- | The numeral values of a metric.
+    numbers :: Prelude.Maybe [Prelude.Double],
+    -- | If the @comparisonOperator@ calls for a set of ports, use this to
+    -- specify that set to be compared with the @metric@.
+    ports :: Prelude.Maybe [Prelude.Nat],
+    -- | If the @comparisonOperator@ calls for a set of CIDRs, use this to
+    -- specify that set to be compared with the @metric@.
+    cidrs :: Prelude.Maybe [Prelude.Text],
+    -- | The string values of a metric.
+    strings :: Prelude.Maybe [Prelude.Text],
+    -- | If the @comparisonOperator@ calls for a numeric value, use this to
+    -- specify that numeric value to be compared with the @metric@.
+    count :: Prelude.Maybe Prelude.Nat,
+    -- | The numeral value of a metric.
+    number :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mvNumbers' - The numeral values of a metric.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mvPorts' - If the @comparisonOperator@ calls for a set of ports, use this to specify that set to be compared with the @metric@ .
+-- 'numbers', 'metricValue_numbers' - The numeral values of a metric.
 --
--- * 'mvCidrs' - If the @comparisonOperator@ calls for a set of CIDRs, use this to specify that set to be compared with the @metric@ .
+-- 'ports', 'metricValue_ports' - If the @comparisonOperator@ calls for a set of ports, use this to
+-- specify that set to be compared with the @metric@.
 --
--- * 'mvStrings' - The string values of a metric.
+-- 'cidrs', 'metricValue_cidrs' - If the @comparisonOperator@ calls for a set of CIDRs, use this to
+-- specify that set to be compared with the @metric@.
 --
--- * 'mvCount' - If the @comparisonOperator@ calls for a numeric value, use this to specify that numeric value to be compared with the @metric@ .
+-- 'strings', 'metricValue_strings' - The string values of a metric.
 --
--- * 'mvNumber' - The numeral value of a metric.
-metricValue ::
+-- 'count', 'metricValue_count' - If the @comparisonOperator@ calls for a numeric value, use this to
+-- specify that numeric value to be compared with the @metric@.
+--
+-- 'number', 'metricValue_number' - The numeral value of a metric.
+newMetricValue ::
   MetricValue
-metricValue =
+newMetricValue =
   MetricValue'
-    { _mvNumbers = Nothing,
-      _mvPorts = Nothing,
-      _mvCidrs = Nothing,
-      _mvStrings = Nothing,
-      _mvCount = Nothing,
-      _mvNumber = Nothing
+    { numbers = Prelude.Nothing,
+      ports = Prelude.Nothing,
+      cidrs = Prelude.Nothing,
+      strings = Prelude.Nothing,
+      count = Prelude.Nothing,
+      number = Prelude.Nothing
     }
 
 -- | The numeral values of a metric.
-mvNumbers :: Lens' MetricValue [Double]
-mvNumbers = lens _mvNumbers (\s a -> s {_mvNumbers = a}) . _Default . _Coerce
+metricValue_numbers :: Lens.Lens' MetricValue (Prelude.Maybe [Prelude.Double])
+metricValue_numbers = Lens.lens (\MetricValue' {numbers} -> numbers) (\s@MetricValue' {} a -> s {numbers = a} :: MetricValue) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If the @comparisonOperator@ calls for a set of ports, use this to specify that set to be compared with the @metric@ .
-mvPorts :: Lens' MetricValue [Natural]
-mvPorts = lens _mvPorts (\s a -> s {_mvPorts = a}) . _Default . _Coerce
+-- | If the @comparisonOperator@ calls for a set of ports, use this to
+-- specify that set to be compared with the @metric@.
+metricValue_ports :: Lens.Lens' MetricValue (Prelude.Maybe [Prelude.Natural])
+metricValue_ports = Lens.lens (\MetricValue' {ports} -> ports) (\s@MetricValue' {} a -> s {ports = a} :: MetricValue) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If the @comparisonOperator@ calls for a set of CIDRs, use this to specify that set to be compared with the @metric@ .
-mvCidrs :: Lens' MetricValue [Text]
-mvCidrs = lens _mvCidrs (\s a -> s {_mvCidrs = a}) . _Default . _Coerce
+-- | If the @comparisonOperator@ calls for a set of CIDRs, use this to
+-- specify that set to be compared with the @metric@.
+metricValue_cidrs :: Lens.Lens' MetricValue (Prelude.Maybe [Prelude.Text])
+metricValue_cidrs = Lens.lens (\MetricValue' {cidrs} -> cidrs) (\s@MetricValue' {} a -> s {cidrs = a} :: MetricValue) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The string values of a metric.
-mvStrings :: Lens' MetricValue [Text]
-mvStrings = lens _mvStrings (\s a -> s {_mvStrings = a}) . _Default . _Coerce
+metricValue_strings :: Lens.Lens' MetricValue (Prelude.Maybe [Prelude.Text])
+metricValue_strings = Lens.lens (\MetricValue' {strings} -> strings) (\s@MetricValue' {} a -> s {strings = a} :: MetricValue) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If the @comparisonOperator@ calls for a numeric value, use this to specify that numeric value to be compared with the @metric@ .
-mvCount :: Lens' MetricValue (Maybe Natural)
-mvCount = lens _mvCount (\s a -> s {_mvCount = a}) . mapping _Nat
+-- | If the @comparisonOperator@ calls for a numeric value, use this to
+-- specify that numeric value to be compared with the @metric@.
+metricValue_count :: Lens.Lens' MetricValue (Prelude.Maybe Prelude.Natural)
+metricValue_count = Lens.lens (\MetricValue' {count} -> count) (\s@MetricValue' {} a -> s {count = a} :: MetricValue) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The numeral value of a metric.
-mvNumber :: Lens' MetricValue (Maybe Double)
-mvNumber = lens _mvNumber (\s a -> s {_mvNumber = a})
+metricValue_number :: Lens.Lens' MetricValue (Prelude.Maybe Prelude.Double)
+metricValue_number = Lens.lens (\MetricValue' {number} -> number) (\s@MetricValue' {} a -> s {number = a} :: MetricValue)
 
-instance FromJSON MetricValue where
+instance Prelude.FromJSON MetricValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MetricValue"
       ( \x ->
           MetricValue'
-            <$> (x .:? "numbers" .!= mempty)
-            <*> (x .:? "ports" .!= mempty)
-            <*> (x .:? "cidrs" .!= mempty)
-            <*> (x .:? "strings" .!= mempty)
-            <*> (x .:? "count")
-            <*> (x .:? "number")
+            Prelude.<$> (x Prelude..:? "numbers" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "ports" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "cidrs" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "strings" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "count")
+            Prelude.<*> (x Prelude..:? "number")
       )
 
-instance Hashable MetricValue
+instance Prelude.Hashable MetricValue
 
-instance NFData MetricValue
+instance Prelude.NFData MetricValue
 
-instance ToJSON MetricValue where
+instance Prelude.ToJSON MetricValue where
   toJSON MetricValue' {..} =
-    object
-      ( catMaybes
-          [ ("numbers" .=) <$> _mvNumbers,
-            ("ports" .=) <$> _mvPorts,
-            ("cidrs" .=) <$> _mvCidrs,
-            ("strings" .=) <$> _mvStrings,
-            ("count" .=) <$> _mvCount,
-            ("number" .=) <$> _mvNumber
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("numbers" Prelude..=) Prelude.<$> numbers,
+            ("ports" Prelude..=) Prelude.<$> ports,
+            ("cidrs" Prelude..=) Prelude.<$> cidrs,
+            ("strings" Prelude..=) Prelude.<$> strings,
+            ("count" Prelude..=) Prelude.<$> count,
+            ("number" Prelude..=) Prelude.<$> number
           ]
       )

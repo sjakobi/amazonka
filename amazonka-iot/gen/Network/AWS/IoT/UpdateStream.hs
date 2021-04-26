@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,200 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing stream. The stream version will be incremented by one.
+-- Updates an existing stream. The stream version will be incremented by
+-- one.
 module Network.AWS.IoT.UpdateStream
   ( -- * Creating a Request
-    updateStream,
-    UpdateStream,
+    UpdateStream (..),
+    newUpdateStream,
 
     -- * Request Lenses
-    usRoleARN,
-    usDescription,
-    usFiles,
-    usStreamId,
+    updateStream_roleArn,
+    updateStream_description,
+    updateStream_files,
+    updateStream_streamId,
 
     -- * Destructuring the Response
-    updateStreamResponse,
-    UpdateStreamResponse,
+    UpdateStreamResponse (..),
+    newUpdateStreamResponse,
 
     -- * Response Lenses
-    usrrsStreamVersion,
-    usrrsStreamId,
-    usrrsStreamARN,
-    usrrsDescription,
-    usrrsResponseStatus,
+    updateStreamResponse_streamVersion,
+    updateStreamResponse_streamId,
+    updateStreamResponse_streamArn,
+    updateStreamResponse_description,
+    updateStreamResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateStream' smart constructor.
+-- | /See:/ 'newUpdateStream' smart constructor.
 data UpdateStream = UpdateStream'
-  { _usRoleARN ::
-      !(Maybe Text),
-    _usDescription :: !(Maybe Text),
-    _usFiles :: !(Maybe (List1 StreamFile)),
-    _usStreamId :: !Text
+  { -- | An IAM role that allows the IoT service principal assumes to access your
+    -- S3 files.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The description of the stream.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The files associated with the stream.
+    files :: Prelude.Maybe (Prelude.List1 StreamFile),
+    -- | The stream ID.
+    streamId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usRoleARN' - An IAM role that allows the IoT service principal assumes to access your S3 files.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usDescription' - The description of the stream.
+-- 'roleArn', 'updateStream_roleArn' - An IAM role that allows the IoT service principal assumes to access your
+-- S3 files.
 --
--- * 'usFiles' - The files associated with the stream.
+-- 'description', 'updateStream_description' - The description of the stream.
 --
--- * 'usStreamId' - The stream ID.
-updateStream ::
-  -- | 'usStreamId'
-  Text ->
+-- 'files', 'updateStream_files' - The files associated with the stream.
+--
+-- 'streamId', 'updateStream_streamId' - The stream ID.
+newUpdateStream ::
+  -- | 'streamId'
+  Prelude.Text ->
   UpdateStream
-updateStream pStreamId_ =
+newUpdateStream pStreamId_ =
   UpdateStream'
-    { _usRoleARN = Nothing,
-      _usDescription = Nothing,
-      _usFiles = Nothing,
-      _usStreamId = pStreamId_
+    { roleArn = Prelude.Nothing,
+      description = Prelude.Nothing,
+      files = Prelude.Nothing,
+      streamId = pStreamId_
     }
 
--- | An IAM role that allows the IoT service principal assumes to access your S3 files.
-usRoleARN :: Lens' UpdateStream (Maybe Text)
-usRoleARN = lens _usRoleARN (\s a -> s {_usRoleARN = a})
+-- | An IAM role that allows the IoT service principal assumes to access your
+-- S3 files.
+updateStream_roleArn :: Lens.Lens' UpdateStream (Prelude.Maybe Prelude.Text)
+updateStream_roleArn = Lens.lens (\UpdateStream' {roleArn} -> roleArn) (\s@UpdateStream' {} a -> s {roleArn = a} :: UpdateStream)
 
 -- | The description of the stream.
-usDescription :: Lens' UpdateStream (Maybe Text)
-usDescription = lens _usDescription (\s a -> s {_usDescription = a})
+updateStream_description :: Lens.Lens' UpdateStream (Prelude.Maybe Prelude.Text)
+updateStream_description = Lens.lens (\UpdateStream' {description} -> description) (\s@UpdateStream' {} a -> s {description = a} :: UpdateStream)
 
 -- | The files associated with the stream.
-usFiles :: Lens' UpdateStream (Maybe (NonEmpty StreamFile))
-usFiles = lens _usFiles (\s a -> s {_usFiles = a}) . mapping _List1
+updateStream_files :: Lens.Lens' UpdateStream (Prelude.Maybe (Prelude.NonEmpty StreamFile))
+updateStream_files = Lens.lens (\UpdateStream' {files} -> files) (\s@UpdateStream' {} a -> s {files = a} :: UpdateStream) Prelude.. Lens.mapping Prelude._List1
 
 -- | The stream ID.
-usStreamId :: Lens' UpdateStream Text
-usStreamId = lens _usStreamId (\s a -> s {_usStreamId = a})
+updateStream_streamId :: Lens.Lens' UpdateStream Prelude.Text
+updateStream_streamId = Lens.lens (\UpdateStream' {streamId} -> streamId) (\s@UpdateStream' {} a -> s {streamId = a} :: UpdateStream)
 
-instance AWSRequest UpdateStream where
+instance Prelude.AWSRequest UpdateStream where
   type Rs UpdateStream = UpdateStreamResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateStreamResponse'
-            <$> (x .?> "streamVersion")
-            <*> (x .?> "streamId")
-            <*> (x .?> "streamArn")
-            <*> (x .?> "description")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "streamVersion")
+            Prelude.<*> (x Prelude..?> "streamId")
+            Prelude.<*> (x Prelude..?> "streamArn")
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateStream
+instance Prelude.Hashable UpdateStream
 
-instance NFData UpdateStream
+instance Prelude.NFData UpdateStream
 
-instance ToHeaders UpdateStream where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateStream where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateStream where
+instance Prelude.ToJSON UpdateStream where
   toJSON UpdateStream' {..} =
-    object
-      ( catMaybes
-          [ ("roleArn" .=) <$> _usRoleARN,
-            ("description" .=) <$> _usDescription,
-            ("files" .=) <$> _usFiles
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("roleArn" Prelude..=) Prelude.<$> roleArn,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("files" Prelude..=) Prelude.<$> files
           ]
       )
 
-instance ToPath UpdateStream where
+instance Prelude.ToPath UpdateStream where
   toPath UpdateStream' {..} =
-    mconcat ["/streams/", toBS _usStreamId]
+    Prelude.mconcat
+      ["/streams/", Prelude.toBS streamId]
 
-instance ToQuery UpdateStream where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateStream where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateStreamResponse' smart constructor.
+-- | /See:/ 'newUpdateStreamResponse' smart constructor.
 data UpdateStreamResponse = UpdateStreamResponse'
-  { _usrrsStreamVersion ::
-      !(Maybe Nat),
-    _usrrsStreamId ::
-      !(Maybe Text),
-    _usrrsStreamARN ::
-      !(Maybe Text),
-    _usrrsDescription ::
-      !(Maybe Text),
-    _usrrsResponseStatus :: !Int
+  { -- | The stream version.
+    streamVersion :: Prelude.Maybe Prelude.Nat,
+    -- | The stream ID.
+    streamId :: Prelude.Maybe Prelude.Text,
+    -- | The stream ARN.
+    streamArn :: Prelude.Maybe Prelude.Text,
+    -- | A description of the stream.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateStreamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateStreamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usrrsStreamVersion' - The stream version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usrrsStreamId' - The stream ID.
+-- 'streamVersion', 'updateStreamResponse_streamVersion' - The stream version.
 --
--- * 'usrrsStreamARN' - The stream ARN.
+-- 'streamId', 'updateStreamResponse_streamId' - The stream ID.
 --
--- * 'usrrsDescription' - A description of the stream.
+-- 'streamArn', 'updateStreamResponse_streamArn' - The stream ARN.
 --
--- * 'usrrsResponseStatus' - -- | The response status code.
-updateStreamResponse ::
-  -- | 'usrrsResponseStatus'
-  Int ->
+-- 'description', 'updateStreamResponse_description' - A description of the stream.
+--
+-- 'httpStatus', 'updateStreamResponse_httpStatus' - The response's http status code.
+newUpdateStreamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateStreamResponse
-updateStreamResponse pResponseStatus_ =
+newUpdateStreamResponse pHttpStatus_ =
   UpdateStreamResponse'
-    { _usrrsStreamVersion =
-        Nothing,
-      _usrrsStreamId = Nothing,
-      _usrrsStreamARN = Nothing,
-      _usrrsDescription = Nothing,
-      _usrrsResponseStatus = pResponseStatus_
+    { streamVersion =
+        Prelude.Nothing,
+      streamId = Prelude.Nothing,
+      streamArn = Prelude.Nothing,
+      description = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The stream version.
-usrrsStreamVersion :: Lens' UpdateStreamResponse (Maybe Natural)
-usrrsStreamVersion = lens _usrrsStreamVersion (\s a -> s {_usrrsStreamVersion = a}) . mapping _Nat
+updateStreamResponse_streamVersion :: Lens.Lens' UpdateStreamResponse (Prelude.Maybe Prelude.Natural)
+updateStreamResponse_streamVersion = Lens.lens (\UpdateStreamResponse' {streamVersion} -> streamVersion) (\s@UpdateStreamResponse' {} a -> s {streamVersion = a} :: UpdateStreamResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The stream ID.
-usrrsStreamId :: Lens' UpdateStreamResponse (Maybe Text)
-usrrsStreamId = lens _usrrsStreamId (\s a -> s {_usrrsStreamId = a})
+updateStreamResponse_streamId :: Lens.Lens' UpdateStreamResponse (Prelude.Maybe Prelude.Text)
+updateStreamResponse_streamId = Lens.lens (\UpdateStreamResponse' {streamId} -> streamId) (\s@UpdateStreamResponse' {} a -> s {streamId = a} :: UpdateStreamResponse)
 
 -- | The stream ARN.
-usrrsStreamARN :: Lens' UpdateStreamResponse (Maybe Text)
-usrrsStreamARN = lens _usrrsStreamARN (\s a -> s {_usrrsStreamARN = a})
+updateStreamResponse_streamArn :: Lens.Lens' UpdateStreamResponse (Prelude.Maybe Prelude.Text)
+updateStreamResponse_streamArn = Lens.lens (\UpdateStreamResponse' {streamArn} -> streamArn) (\s@UpdateStreamResponse' {} a -> s {streamArn = a} :: UpdateStreamResponse)
 
 -- | A description of the stream.
-usrrsDescription :: Lens' UpdateStreamResponse (Maybe Text)
-usrrsDescription = lens _usrrsDescription (\s a -> s {_usrrsDescription = a})
+updateStreamResponse_description :: Lens.Lens' UpdateStreamResponse (Prelude.Maybe Prelude.Text)
+updateStreamResponse_description = Lens.lens (\UpdateStreamResponse' {description} -> description) (\s@UpdateStreamResponse' {} a -> s {description = a} :: UpdateStreamResponse)
 
--- | -- | The response status code.
-usrrsResponseStatus :: Lens' UpdateStreamResponse Int
-usrrsResponseStatus = lens _usrrsResponseStatus (\s a -> s {_usrrsResponseStatus = a})
+-- | The response's http status code.
+updateStreamResponse_httpStatus :: Lens.Lens' UpdateStreamResponse Prelude.Int
+updateStreamResponse_httpStatus = Lens.lens (\UpdateStreamResponse' {httpStatus} -> httpStatus) (\s@UpdateStreamResponse' {} a -> s {httpStatus = a} :: UpdateStreamResponse)
 
-instance NFData UpdateStreamResponse
+instance Prelude.NFData UpdateStreamResponse

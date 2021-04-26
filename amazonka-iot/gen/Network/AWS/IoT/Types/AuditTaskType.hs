@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.IoT.Types.AuditTaskType
   ( AuditTaskType
       ( ..,
-        OnDemandAuditTask,
-        ScheduledAuditTask
+        AuditTaskTypeONDEMANDAUDITTASK,
+        AuditTaskTypeSCHEDULEDAUDITTASK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuditTaskType = AuditTaskType' (CI Text)
+newtype AuditTaskType = AuditTaskType'
+  { fromAuditTaskType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OnDemandAuditTask :: AuditTaskType
-pattern OnDemandAuditTask = AuditTaskType' "ON_DEMAND_AUDIT_TASK"
+pattern AuditTaskTypeONDEMANDAUDITTASK :: AuditTaskType
+pattern AuditTaskTypeONDEMANDAUDITTASK = AuditTaskType' "ON_DEMAND_AUDIT_TASK"
 
-pattern ScheduledAuditTask :: AuditTaskType
-pattern ScheduledAuditTask = AuditTaskType' "SCHEDULED_AUDIT_TASK"
+pattern AuditTaskTypeSCHEDULEDAUDITTASK :: AuditTaskType
+pattern AuditTaskTypeSCHEDULEDAUDITTASK = AuditTaskType' "SCHEDULED_AUDIT_TASK"
 
 {-# COMPLETE
-  OnDemandAuditTask,
-  ScheduledAuditTask,
+  AuditTaskTypeONDEMANDAUDITTASK,
+  AuditTaskTypeSCHEDULEDAUDITTASK,
   AuditTaskType'
   #-}
 
-instance FromText AuditTaskType where
-  parser = (AuditTaskType' . mk) <$> takeText
+instance Prelude.FromText AuditTaskType where
+  parser = AuditTaskType' Prelude.<$> Prelude.takeText
 
-instance ToText AuditTaskType where
-  toText (AuditTaskType' ci) = original ci
+instance Prelude.ToText AuditTaskType where
+  toText (AuditTaskType' x) = x
 
-instance Hashable AuditTaskType
+instance Prelude.Hashable AuditTaskType
 
-instance NFData AuditTaskType
+instance Prelude.NFData AuditTaskType
 
-instance ToByteString AuditTaskType
+instance Prelude.ToByteString AuditTaskType
 
-instance ToQuery AuditTaskType
+instance Prelude.ToQuery AuditTaskType
 
-instance ToHeader AuditTaskType
+instance Prelude.ToHeader AuditTaskType
 
-instance ToJSON AuditTaskType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuditTaskType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuditTaskType where
-  parseJSON = parseJSONText "AuditTaskType"
+instance Prelude.FromJSON AuditTaskType where
+  parseJSON = Prelude.parseJSONText "AuditTaskType"

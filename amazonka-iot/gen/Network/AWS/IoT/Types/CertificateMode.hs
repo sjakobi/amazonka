@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.IoT.Types.CertificateMode
   ( CertificateMode
       ( ..,
-        Default,
-        SNIOnly
+        CertificateModeDEFAULT,
+        CertificateModeSNIONLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CertificateMode = CertificateMode' (CI Text)
+newtype CertificateMode = CertificateMode'
+  { fromCertificateMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Default :: CertificateMode
-pattern Default = CertificateMode' "DEFAULT"
+pattern CertificateModeDEFAULT :: CertificateMode
+pattern CertificateModeDEFAULT = CertificateMode' "DEFAULT"
 
-pattern SNIOnly :: CertificateMode
-pattern SNIOnly = CertificateMode' "SNI_ONLY"
+pattern CertificateModeSNIONLY :: CertificateMode
+pattern CertificateModeSNIONLY = CertificateMode' "SNI_ONLY"
 
 {-# COMPLETE
-  Default,
-  SNIOnly,
+  CertificateModeDEFAULT,
+  CertificateModeSNIONLY,
   CertificateMode'
   #-}
 
-instance FromText CertificateMode where
-  parser = (CertificateMode' . mk) <$> takeText
+instance Prelude.FromText CertificateMode where
+  parser = CertificateMode' Prelude.<$> Prelude.takeText
 
-instance ToText CertificateMode where
-  toText (CertificateMode' ci) = original ci
+instance Prelude.ToText CertificateMode where
+  toText (CertificateMode' x) = x
 
-instance Hashable CertificateMode
+instance Prelude.Hashable CertificateMode
 
-instance NFData CertificateMode
+instance Prelude.NFData CertificateMode
 
-instance ToByteString CertificateMode
+instance Prelude.ToByteString CertificateMode
 
-instance ToQuery CertificateMode
+instance Prelude.ToQuery CertificateMode
 
-instance ToHeader CertificateMode
+instance Prelude.ToHeader CertificateMode
 
-instance FromJSON CertificateMode where
-  parseJSON = parseJSONText "CertificateMode"
+instance Prelude.FromJSON CertificateMode where
+  parseJSON = Prelude.parseJSONText "CertificateMode"

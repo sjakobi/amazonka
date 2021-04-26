@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,119 @@
 -- Describes a role alias.
 module Network.AWS.IoT.DescribeRoleAlias
   ( -- * Creating a Request
-    describeRoleAlias,
-    DescribeRoleAlias,
+    DescribeRoleAlias (..),
+    newDescribeRoleAlias,
 
     -- * Request Lenses
-    draRoleAlias,
+    describeRoleAlias_roleAlias,
 
     -- * Destructuring the Response
-    describeRoleAliasResponse,
-    DescribeRoleAliasResponse,
+    DescribeRoleAliasResponse (..),
+    newDescribeRoleAliasResponse,
 
     -- * Response Lenses
-    drarrsRoleAliasDescription,
-    drarrsResponseStatus,
+    describeRoleAliasResponse_roleAliasDescription,
+    describeRoleAliasResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.RoleAliasDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeRoleAlias' smart constructor.
-newtype DescribeRoleAlias = DescribeRoleAlias'
-  { _draRoleAlias ::
-      Text
+-- | /See:/ 'newDescribeRoleAlias' smart constructor.
+data DescribeRoleAlias = DescribeRoleAlias'
+  { -- | The role alias to describe.
+    roleAlias :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRoleAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRoleAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'draRoleAlias' - The role alias to describe.
-describeRoleAlias ::
-  -- | 'draRoleAlias'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'roleAlias', 'describeRoleAlias_roleAlias' - The role alias to describe.
+newDescribeRoleAlias ::
+  -- | 'roleAlias'
+  Prelude.Text ->
   DescribeRoleAlias
-describeRoleAlias pRoleAlias_ =
-  DescribeRoleAlias' {_draRoleAlias = pRoleAlias_}
+newDescribeRoleAlias pRoleAlias_ =
+  DescribeRoleAlias' {roleAlias = pRoleAlias_}
 
 -- | The role alias to describe.
-draRoleAlias :: Lens' DescribeRoleAlias Text
-draRoleAlias = lens _draRoleAlias (\s a -> s {_draRoleAlias = a})
+describeRoleAlias_roleAlias :: Lens.Lens' DescribeRoleAlias Prelude.Text
+describeRoleAlias_roleAlias = Lens.lens (\DescribeRoleAlias' {roleAlias} -> roleAlias) (\s@DescribeRoleAlias' {} a -> s {roleAlias = a} :: DescribeRoleAlias)
 
-instance AWSRequest DescribeRoleAlias where
+instance Prelude.AWSRequest DescribeRoleAlias where
   type Rs DescribeRoleAlias = DescribeRoleAliasResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeRoleAliasResponse'
-            <$> (x .?> "roleAliasDescription")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "roleAliasDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeRoleAlias
+instance Prelude.Hashable DescribeRoleAlias
 
-instance NFData DescribeRoleAlias
+instance Prelude.NFData DescribeRoleAlias
 
-instance ToHeaders DescribeRoleAlias where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeRoleAlias where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeRoleAlias where
+instance Prelude.ToPath DescribeRoleAlias where
   toPath DescribeRoleAlias' {..} =
-    mconcat ["/role-aliases/", toBS _draRoleAlias]
+    Prelude.mconcat
+      ["/role-aliases/", Prelude.toBS roleAlias]
 
-instance ToQuery DescribeRoleAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeRoleAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeRoleAliasResponse' smart constructor.
+-- | /See:/ 'newDescribeRoleAliasResponse' smart constructor.
 data DescribeRoleAliasResponse = DescribeRoleAliasResponse'
-  { _drarrsRoleAliasDescription ::
-      !( Maybe
-           RoleAliasDescription
-       ),
-    _drarrsResponseStatus ::
-      !Int
+  { -- | The role alias description.
+    roleAliasDescription :: Prelude.Maybe RoleAliasDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRoleAliasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRoleAliasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drarrsRoleAliasDescription' - The role alias description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drarrsResponseStatus' - -- | The response status code.
-describeRoleAliasResponse ::
-  -- | 'drarrsResponseStatus'
-  Int ->
+-- 'roleAliasDescription', 'describeRoleAliasResponse_roleAliasDescription' - The role alias description.
+--
+-- 'httpStatus', 'describeRoleAliasResponse_httpStatus' - The response's http status code.
+newDescribeRoleAliasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeRoleAliasResponse
-describeRoleAliasResponse pResponseStatus_ =
+newDescribeRoleAliasResponse pHttpStatus_ =
   DescribeRoleAliasResponse'
-    { _drarrsRoleAliasDescription =
-        Nothing,
-      _drarrsResponseStatus = pResponseStatus_
+    { roleAliasDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The role alias description.
-drarrsRoleAliasDescription :: Lens' DescribeRoleAliasResponse (Maybe RoleAliasDescription)
-drarrsRoleAliasDescription = lens _drarrsRoleAliasDescription (\s a -> s {_drarrsRoleAliasDescription = a})
+describeRoleAliasResponse_roleAliasDescription :: Lens.Lens' DescribeRoleAliasResponse (Prelude.Maybe RoleAliasDescription)
+describeRoleAliasResponse_roleAliasDescription = Lens.lens (\DescribeRoleAliasResponse' {roleAliasDescription} -> roleAliasDescription) (\s@DescribeRoleAliasResponse' {} a -> s {roleAliasDescription = a} :: DescribeRoleAliasResponse)
 
--- | -- | The response status code.
-drarrsResponseStatus :: Lens' DescribeRoleAliasResponse Int
-drarrsResponseStatus = lens _drarrsResponseStatus (\s a -> s {_drarrsResponseStatus = a})
+-- | The response's http status code.
+describeRoleAliasResponse_httpStatus :: Lens.Lens' DescribeRoleAliasResponse Prelude.Int
+describeRoleAliasResponse_httpStatus = Lens.lens (\DescribeRoleAliasResponse' {httpStatus} -> httpStatus) (\s@DescribeRoleAliasResponse' {} a -> s {httpStatus = a} :: DescribeRoleAliasResponse)
 
-instance NFData DescribeRoleAliasResponse
+instance Prelude.NFData DescribeRoleAliasResponse

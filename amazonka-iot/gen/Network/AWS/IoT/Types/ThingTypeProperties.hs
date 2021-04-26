@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.ThingTypeProperties where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The ThingTypeProperties contains information about the thing type including: a thing type description, and a list of searchable thing attribute names.
+-- | The ThingTypeProperties contains information about the thing type
+-- including: a thing type description, and a list of searchable thing
+-- attribute names.
 --
---
---
--- /See:/ 'thingTypeProperties' smart constructor.
+-- /See:/ 'newThingTypeProperties' smart constructor.
 data ThingTypeProperties = ThingTypeProperties'
-  { _ttpSearchableAttributes ::
-      !(Maybe [Text]),
-    _ttpThingTypeDescription ::
-      !(Maybe Text)
+  { -- | A list of searchable thing attribute names.
+    searchableAttributes :: Prelude.Maybe [Prelude.Text],
+    -- | The description of the thing type.
+    thingTypeDescription :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ThingTypeProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ThingTypeProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ttpSearchableAttributes' - A list of searchable thing attribute names.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ttpThingTypeDescription' - The description of the thing type.
-thingTypeProperties ::
+-- 'searchableAttributes', 'thingTypeProperties_searchableAttributes' - A list of searchable thing attribute names.
+--
+-- 'thingTypeDescription', 'thingTypeProperties_thingTypeDescription' - The description of the thing type.
+newThingTypeProperties ::
   ThingTypeProperties
-thingTypeProperties =
+newThingTypeProperties =
   ThingTypeProperties'
-    { _ttpSearchableAttributes =
-        Nothing,
-      _ttpThingTypeDescription = Nothing
+    { searchableAttributes =
+        Prelude.Nothing,
+      thingTypeDescription = Prelude.Nothing
     }
 
 -- | A list of searchable thing attribute names.
-ttpSearchableAttributes :: Lens' ThingTypeProperties [Text]
-ttpSearchableAttributes = lens _ttpSearchableAttributes (\s a -> s {_ttpSearchableAttributes = a}) . _Default . _Coerce
+thingTypeProperties_searchableAttributes :: Lens.Lens' ThingTypeProperties (Prelude.Maybe [Prelude.Text])
+thingTypeProperties_searchableAttributes = Lens.lens (\ThingTypeProperties' {searchableAttributes} -> searchableAttributes) (\s@ThingTypeProperties' {} a -> s {searchableAttributes = a} :: ThingTypeProperties) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the thing type.
-ttpThingTypeDescription :: Lens' ThingTypeProperties (Maybe Text)
-ttpThingTypeDescription = lens _ttpThingTypeDescription (\s a -> s {_ttpThingTypeDescription = a})
+thingTypeProperties_thingTypeDescription :: Lens.Lens' ThingTypeProperties (Prelude.Maybe Prelude.Text)
+thingTypeProperties_thingTypeDescription = Lens.lens (\ThingTypeProperties' {thingTypeDescription} -> thingTypeDescription) (\s@ThingTypeProperties' {} a -> s {thingTypeDescription = a} :: ThingTypeProperties)
 
-instance FromJSON ThingTypeProperties where
+instance Prelude.FromJSON ThingTypeProperties where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ThingTypeProperties"
       ( \x ->
           ThingTypeProperties'
-            <$> (x .:? "searchableAttributes" .!= mempty)
-            <*> (x .:? "thingTypeDescription")
+            Prelude.<$> ( x Prelude..:? "searchableAttributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "thingTypeDescription")
       )
 
-instance Hashable ThingTypeProperties
+instance Prelude.Hashable ThingTypeProperties
 
-instance NFData ThingTypeProperties
+instance Prelude.NFData ThingTypeProperties
 
-instance ToJSON ThingTypeProperties where
+instance Prelude.ToJSON ThingTypeProperties where
   toJSON ThingTypeProperties' {..} =
-    object
-      ( catMaybes
-          [ ("searchableAttributes" .=)
-              <$> _ttpSearchableAttributes,
-            ("thingTypeDescription" .=)
-              <$> _ttpThingTypeDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("searchableAttributes" Prelude..=)
+              Prelude.<$> searchableAttributes,
+            ("thingTypeDescription" Prelude..=)
+              Prelude.<$> thingTypeDescription
           ]
       )

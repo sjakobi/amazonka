@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.IoT.Types.TaskStatus
   ( TaskStatus
       ( ..,
-        TSCancelled,
-        TSCancelling,
-        TSCompleted,
-        TSFailed,
-        TSInProgress
+        TaskStatusCancelled,
+        TaskStatusCancelling,
+        TaskStatusCompleted,
+        TaskStatusFailed,
+        TaskStatusInProgress
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskStatus = TaskStatus' (CI Text)
+newtype TaskStatus = TaskStatus'
+  { fromTaskStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSCancelled :: TaskStatus
-pattern TSCancelled = TaskStatus' "Cancelled"
+pattern TaskStatusCancelled :: TaskStatus
+pattern TaskStatusCancelled = TaskStatus' "Cancelled"
 
-pattern TSCancelling :: TaskStatus
-pattern TSCancelling = TaskStatus' "Cancelling"
+pattern TaskStatusCancelling :: TaskStatus
+pattern TaskStatusCancelling = TaskStatus' "Cancelling"
 
-pattern TSCompleted :: TaskStatus
-pattern TSCompleted = TaskStatus' "Completed"
+pattern TaskStatusCompleted :: TaskStatus
+pattern TaskStatusCompleted = TaskStatus' "Completed"
 
-pattern TSFailed :: TaskStatus
-pattern TSFailed = TaskStatus' "Failed"
+pattern TaskStatusFailed :: TaskStatus
+pattern TaskStatusFailed = TaskStatus' "Failed"
 
-pattern TSInProgress :: TaskStatus
-pattern TSInProgress = TaskStatus' "InProgress"
+pattern TaskStatusInProgress :: TaskStatus
+pattern TaskStatusInProgress = TaskStatus' "InProgress"
 
 {-# COMPLETE
-  TSCancelled,
-  TSCancelling,
-  TSCompleted,
-  TSFailed,
-  TSInProgress,
+  TaskStatusCancelled,
+  TaskStatusCancelling,
+  TaskStatusCompleted,
+  TaskStatusFailed,
+  TaskStatusInProgress,
   TaskStatus'
   #-}
 
-instance FromText TaskStatus where
-  parser = (TaskStatus' . mk) <$> takeText
+instance Prelude.FromText TaskStatus where
+  parser = TaskStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TaskStatus where
-  toText (TaskStatus' ci) = original ci
+instance Prelude.ToText TaskStatus where
+  toText (TaskStatus' x) = x
 
-instance Hashable TaskStatus
+instance Prelude.Hashable TaskStatus
 
-instance NFData TaskStatus
+instance Prelude.NFData TaskStatus
 
-instance ToByteString TaskStatus
+instance Prelude.ToByteString TaskStatus
 
-instance ToQuery TaskStatus
+instance Prelude.ToQuery TaskStatus
 
-instance ToHeader TaskStatus
+instance Prelude.ToHeader TaskStatus
 
-instance ToJSON TaskStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TaskStatus where
-  parseJSON = parseJSONText "TaskStatus"
+instance Prelude.FromJSON TaskStatus where
+  parseJSON = Prelude.parseJSONText "TaskStatus"

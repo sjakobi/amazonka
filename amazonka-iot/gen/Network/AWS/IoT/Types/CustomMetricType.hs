@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.IoT.Types.CustomMetricType
   ( CustomMetricType
       ( ..,
-        CMTIPAddressList,
-        CMTNumber,
-        CMTNumberList,
-        CMTStringList
+        CustomMetricTypeIpAddressList,
+        CustomMetricTypeNumber,
+        CustomMetricTypeNumberList,
+        CustomMetricTypeStringList
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CustomMetricType = CustomMetricType' (CI Text)
+newtype CustomMetricType = CustomMetricType'
+  { fromCustomMetricType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CMTIPAddressList :: CustomMetricType
-pattern CMTIPAddressList = CustomMetricType' "ip-address-list"
+pattern CustomMetricTypeIpAddressList :: CustomMetricType
+pattern CustomMetricTypeIpAddressList = CustomMetricType' "ip-address-list"
 
-pattern CMTNumber :: CustomMetricType
-pattern CMTNumber = CustomMetricType' "number"
+pattern CustomMetricTypeNumber :: CustomMetricType
+pattern CustomMetricTypeNumber = CustomMetricType' "number"
 
-pattern CMTNumberList :: CustomMetricType
-pattern CMTNumberList = CustomMetricType' "number-list"
+pattern CustomMetricTypeNumberList :: CustomMetricType
+pattern CustomMetricTypeNumberList = CustomMetricType' "number-list"
 
-pattern CMTStringList :: CustomMetricType
-pattern CMTStringList = CustomMetricType' "string-list"
+pattern CustomMetricTypeStringList :: CustomMetricType
+pattern CustomMetricTypeStringList = CustomMetricType' "string-list"
 
 {-# COMPLETE
-  CMTIPAddressList,
-  CMTNumber,
-  CMTNumberList,
-  CMTStringList,
+  CustomMetricTypeIpAddressList,
+  CustomMetricTypeNumber,
+  CustomMetricTypeNumberList,
+  CustomMetricTypeStringList,
   CustomMetricType'
   #-}
 
-instance FromText CustomMetricType where
-  parser = (CustomMetricType' . mk) <$> takeText
+instance Prelude.FromText CustomMetricType where
+  parser = CustomMetricType' Prelude.<$> Prelude.takeText
 
-instance ToText CustomMetricType where
-  toText (CustomMetricType' ci) = original ci
+instance Prelude.ToText CustomMetricType where
+  toText (CustomMetricType' x) = x
 
-instance Hashable CustomMetricType
+instance Prelude.Hashable CustomMetricType
 
-instance NFData CustomMetricType
+instance Prelude.NFData CustomMetricType
 
-instance ToByteString CustomMetricType
+instance Prelude.ToByteString CustomMetricType
 
-instance ToQuery CustomMetricType
+instance Prelude.ToQuery CustomMetricType
 
-instance ToHeader CustomMetricType
+instance Prelude.ToHeader CustomMetricType
 
-instance ToJSON CustomMetricType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CustomMetricType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CustomMetricType where
-  parseJSON = parseJSONText "CustomMetricType"
+instance Prelude.FromJSON CustomMetricType where
+  parseJSON = Prelude.parseJSONText "CustomMetricType"

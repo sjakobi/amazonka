@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provisions a thing in the device registry. RegisterThing calls other AWS IoT control plane APIs. These calls might exceed your account level <https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot AWS IoT Throttling Limits> and cause throttle errors. Please contact <https://console.aws.amazon.com/support/home AWS Customer Support> to raise your throttling limits if necessary.
+-- Provisions a thing in the device registry. RegisterThing calls other AWS
+-- IoT control plane APIs. These calls might exceed your account level
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot AWS IoT Throttling Limits>
+-- and cause throttle errors. Please contact
+-- <https://console.aws.amazon.com/support/home AWS Customer Support> to
+-- raise your throttling limits if necessary.
 module Network.AWS.IoT.RegisterThing
   ( -- * Creating a Request
-    registerThing,
-    RegisterThing,
+    RegisterThing (..),
+    newRegisterThing,
 
     -- * Request Lenses
-    rtParameters,
-    rtTemplateBody,
+    registerThing_parameters,
+    registerThing_templateBody,
 
     -- * Destructuring the Response
-    registerThingResponse,
-    RegisterThingResponse,
+    RegisterThingResponse (..),
+    newRegisterThingResponse,
 
     -- * Response Lenses
-    rtrrsResourceARNs,
-    rtrrsCertificatePem,
-    rtrrsResponseStatus,
+    registerThingResponse_resourceArns,
+    registerThingResponse_certificatePem,
+    registerThingResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'registerThing' smart constructor.
+-- | /See:/ 'newRegisterThing' smart constructor.
 data RegisterThing = RegisterThing'
-  { _rtParameters ::
-      !(Maybe (Map Text Text)),
-    _rtTemplateBody :: !Text
+  { -- | The parameters for provisioning a thing. See
+    -- <https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html Provisioning Templates>
+    -- for more information.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The provisioning template. See
+    -- <https://docs.aws.amazon.com/iot/latest/developerguide/provision-w-cert.html Provisioning Devices That Have Device Certificates>
+    -- for more information.
+    templateBody :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterThing' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterThing' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtParameters' - The parameters for provisioning a thing. See <https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html Provisioning Templates> for more information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtTemplateBody' - The provisioning template. See <https://docs.aws.amazon.com/iot/latest/developerguide/provision-w-cert.html Provisioning Devices That Have Device Certificates> for more information.
-registerThing ::
-  -- | 'rtTemplateBody'
-  Text ->
+-- 'parameters', 'registerThing_parameters' - The parameters for provisioning a thing. See
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html Provisioning Templates>
+-- for more information.
+--
+-- 'templateBody', 'registerThing_templateBody' - The provisioning template. See
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/provision-w-cert.html Provisioning Devices That Have Device Certificates>
+-- for more information.
+newRegisterThing ::
+  -- | 'templateBody'
+  Prelude.Text ->
   RegisterThing
-registerThing pTemplateBody_ =
+newRegisterThing pTemplateBody_ =
   RegisterThing'
-    { _rtParameters = Nothing,
-      _rtTemplateBody = pTemplateBody_
+    { parameters = Prelude.Nothing,
+      templateBody = pTemplateBody_
     }
 
--- | The parameters for provisioning a thing. See <https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html Provisioning Templates> for more information.
-rtParameters :: Lens' RegisterThing (HashMap Text Text)
-rtParameters = lens _rtParameters (\s a -> s {_rtParameters = a}) . _Default . _Map
+-- | The parameters for provisioning a thing. See
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html Provisioning Templates>
+-- for more information.
+registerThing_parameters :: Lens.Lens' RegisterThing (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+registerThing_parameters = Lens.lens (\RegisterThing' {parameters} -> parameters) (\s@RegisterThing' {} a -> s {parameters = a} :: RegisterThing) Prelude.. Lens.mapping Prelude._Map
 
--- | The provisioning template. See <https://docs.aws.amazon.com/iot/latest/developerguide/provision-w-cert.html Provisioning Devices That Have Device Certificates> for more information.
-rtTemplateBody :: Lens' RegisterThing Text
-rtTemplateBody = lens _rtTemplateBody (\s a -> s {_rtTemplateBody = a})
+-- | The provisioning template. See
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/provision-w-cert.html Provisioning Devices That Have Device Certificates>
+-- for more information.
+registerThing_templateBody :: Lens.Lens' RegisterThing Prelude.Text
+registerThing_templateBody = Lens.lens (\RegisterThing' {templateBody} -> templateBody) (\s@RegisterThing' {} a -> s {templateBody = a} :: RegisterThing)
 
-instance AWSRequest RegisterThing where
+instance Prelude.AWSRequest RegisterThing where
   type Rs RegisterThing = RegisterThingResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RegisterThingResponse'
-            <$> (x .?> "resourceArns" .!@ mempty)
-            <*> (x .?> "certificatePem")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "resourceArns"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "certificatePem")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterThing
+instance Prelude.Hashable RegisterThing
 
-instance NFData RegisterThing
+instance Prelude.NFData RegisterThing
 
-instance ToHeaders RegisterThing where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RegisterThing where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON RegisterThing where
+instance Prelude.ToJSON RegisterThing where
   toJSON RegisterThing' {..} =
-    object
-      ( catMaybes
-          [ ("parameters" .=) <$> _rtParameters,
-            Just ("templateBody" .= _rtTemplateBody)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("parameters" Prelude..=) Prelude.<$> parameters,
+            Prelude.Just
+              ("templateBody" Prelude..= templateBody)
           ]
       )
 
-instance ToPath RegisterThing where
-  toPath = const "/things"
+instance Prelude.ToPath RegisterThing where
+  toPath = Prelude.const "/things"
 
-instance ToQuery RegisterThing where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterThing where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerThingResponse' smart constructor.
+-- | /See:/ 'newRegisterThingResponse' smart constructor.
 data RegisterThingResponse = RegisterThingResponse'
-  { _rtrrsResourceARNs ::
-      !(Maybe (Map Text Text)),
-    _rtrrsCertificatePem ::
-      !(Maybe Text),
-    _rtrrsResponseStatus ::
-      !Int
+  { -- | ARNs for the generated resources.
+    resourceArns :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The certificate data, in PEM format.
+    certificatePem :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterThingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterThingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtrrsResourceARNs' - ARNs for the generated resources.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtrrsCertificatePem' - The certificate data, in PEM format.
+-- 'resourceArns', 'registerThingResponse_resourceArns' - ARNs for the generated resources.
 --
--- * 'rtrrsResponseStatus' - -- | The response status code.
-registerThingResponse ::
-  -- | 'rtrrsResponseStatus'
-  Int ->
+-- 'certificatePem', 'registerThingResponse_certificatePem' - The certificate data, in PEM format.
+--
+-- 'httpStatus', 'registerThingResponse_httpStatus' - The response's http status code.
+newRegisterThingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterThingResponse
-registerThingResponse pResponseStatus_ =
+newRegisterThingResponse pHttpStatus_ =
   RegisterThingResponse'
-    { _rtrrsResourceARNs =
-        Nothing,
-      _rtrrsCertificatePem = Nothing,
-      _rtrrsResponseStatus = pResponseStatus_
+    { resourceArns =
+        Prelude.Nothing,
+      certificatePem = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | ARNs for the generated resources.
-rtrrsResourceARNs :: Lens' RegisterThingResponse (HashMap Text Text)
-rtrrsResourceARNs = lens _rtrrsResourceARNs (\s a -> s {_rtrrsResourceARNs = a}) . _Default . _Map
+registerThingResponse_resourceArns :: Lens.Lens' RegisterThingResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+registerThingResponse_resourceArns = Lens.lens (\RegisterThingResponse' {resourceArns} -> resourceArns) (\s@RegisterThingResponse' {} a -> s {resourceArns = a} :: RegisterThingResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | The certificate data, in PEM format.
-rtrrsCertificatePem :: Lens' RegisterThingResponse (Maybe Text)
-rtrrsCertificatePem = lens _rtrrsCertificatePem (\s a -> s {_rtrrsCertificatePem = a})
+registerThingResponse_certificatePem :: Lens.Lens' RegisterThingResponse (Prelude.Maybe Prelude.Text)
+registerThingResponse_certificatePem = Lens.lens (\RegisterThingResponse' {certificatePem} -> certificatePem) (\s@RegisterThingResponse' {} a -> s {certificatePem = a} :: RegisterThingResponse)
 
--- | -- | The response status code.
-rtrrsResponseStatus :: Lens' RegisterThingResponse Int
-rtrrsResponseStatus = lens _rtrrsResponseStatus (\s a -> s {_rtrrsResponseStatus = a})
+-- | The response's http status code.
+registerThingResponse_httpStatus :: Lens.Lens' RegisterThingResponse Prelude.Int
+registerThingResponse_httpStatus = Lens.lens (\RegisterThingResponse' {httpStatus} -> httpStatus) (\s@RegisterThingResponse' {} a -> s {httpStatus = a} :: RegisterThingResponse)
 
-instance NFData RegisterThingResponse
+instance Prelude.NFData RegisterThingResponse

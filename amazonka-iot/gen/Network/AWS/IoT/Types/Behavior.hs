@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,95 +21,115 @@ module Network.AWS.IoT.Types.Behavior where
 
 import Network.AWS.IoT.Types.BehaviorCriteria
 import Network.AWS.IoT.Types.MetricDimension
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A Device Defender security profile behavior.
 --
---
---
--- /See:/ 'behavior' smart constructor.
+-- /See:/ 'newBehavior' smart constructor.
 data Behavior = Behavior'
-  { _bMetricDimension ::
-      !(Maybe MetricDimension),
-    _bSuppressAlerts :: !(Maybe Bool),
-    _bMetric :: !(Maybe Text),
-    _bCriteria :: !(Maybe BehaviorCriteria),
-    _bName :: !Text
+  { -- | The dimension for a metric in your behavior. For example, using a
+    -- @TOPIC_FILTER@ dimension, you can narrow down the scope of the metric to
+    -- only MQTT topics where the name matches the pattern specified in the
+    -- dimension. This can\'t be used with custom metrics.
+    metricDimension :: Prelude.Maybe MetricDimension,
+    -- | Suppresses alerts.
+    suppressAlerts :: Prelude.Maybe Prelude.Bool,
+    -- | What is measured by the behavior.
+    metric :: Prelude.Maybe Prelude.Text,
+    -- | The criteria that determine if a device is behaving normally in regard
+    -- to the @metric@.
+    criteria :: Prelude.Maybe BehaviorCriteria,
+    -- | The name you\'ve given to the behavior.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Behavior' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Behavior' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bMetricDimension' - The dimension for a metric in your behavior. For example, using a @TOPIC_FILTER@ dimension, you can narrow down the scope of the metric to only MQTT topics where the name matches the pattern specified in the dimension. This can't be used with custom metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bSuppressAlerts' - Suppresses alerts.
+-- 'metricDimension', 'behavior_metricDimension' - The dimension for a metric in your behavior. For example, using a
+-- @TOPIC_FILTER@ dimension, you can narrow down the scope of the metric to
+-- only MQTT topics where the name matches the pattern specified in the
+-- dimension. This can\'t be used with custom metrics.
 --
--- * 'bMetric' - What is measured by the behavior.
+-- 'suppressAlerts', 'behavior_suppressAlerts' - Suppresses alerts.
 --
--- * 'bCriteria' - The criteria that determine if a device is behaving normally in regard to the @metric@ .
+-- 'metric', 'behavior_metric' - What is measured by the behavior.
 --
--- * 'bName' - The name you've given to the behavior.
-behavior ::
-  -- | 'bName'
-  Text ->
+-- 'criteria', 'behavior_criteria' - The criteria that determine if a device is behaving normally in regard
+-- to the @metric@.
+--
+-- 'name', 'behavior_name' - The name you\'ve given to the behavior.
+newBehavior ::
+  -- | 'name'
+  Prelude.Text ->
   Behavior
-behavior pName_ =
+newBehavior pName_ =
   Behavior'
-    { _bMetricDimension = Nothing,
-      _bSuppressAlerts = Nothing,
-      _bMetric = Nothing,
-      _bCriteria = Nothing,
-      _bName = pName_
+    { metricDimension = Prelude.Nothing,
+      suppressAlerts = Prelude.Nothing,
+      metric = Prelude.Nothing,
+      criteria = Prelude.Nothing,
+      name = pName_
     }
 
--- | The dimension for a metric in your behavior. For example, using a @TOPIC_FILTER@ dimension, you can narrow down the scope of the metric to only MQTT topics where the name matches the pattern specified in the dimension. This can't be used with custom metrics.
-bMetricDimension :: Lens' Behavior (Maybe MetricDimension)
-bMetricDimension = lens _bMetricDimension (\s a -> s {_bMetricDimension = a})
+-- | The dimension for a metric in your behavior. For example, using a
+-- @TOPIC_FILTER@ dimension, you can narrow down the scope of the metric to
+-- only MQTT topics where the name matches the pattern specified in the
+-- dimension. This can\'t be used with custom metrics.
+behavior_metricDimension :: Lens.Lens' Behavior (Prelude.Maybe MetricDimension)
+behavior_metricDimension = Lens.lens (\Behavior' {metricDimension} -> metricDimension) (\s@Behavior' {} a -> s {metricDimension = a} :: Behavior)
 
 -- | Suppresses alerts.
-bSuppressAlerts :: Lens' Behavior (Maybe Bool)
-bSuppressAlerts = lens _bSuppressAlerts (\s a -> s {_bSuppressAlerts = a})
+behavior_suppressAlerts :: Lens.Lens' Behavior (Prelude.Maybe Prelude.Bool)
+behavior_suppressAlerts = Lens.lens (\Behavior' {suppressAlerts} -> suppressAlerts) (\s@Behavior' {} a -> s {suppressAlerts = a} :: Behavior)
 
 -- | What is measured by the behavior.
-bMetric :: Lens' Behavior (Maybe Text)
-bMetric = lens _bMetric (\s a -> s {_bMetric = a})
+behavior_metric :: Lens.Lens' Behavior (Prelude.Maybe Prelude.Text)
+behavior_metric = Lens.lens (\Behavior' {metric} -> metric) (\s@Behavior' {} a -> s {metric = a} :: Behavior)
 
--- | The criteria that determine if a device is behaving normally in regard to the @metric@ .
-bCriteria :: Lens' Behavior (Maybe BehaviorCriteria)
-bCriteria = lens _bCriteria (\s a -> s {_bCriteria = a})
+-- | The criteria that determine if a device is behaving normally in regard
+-- to the @metric@.
+behavior_criteria :: Lens.Lens' Behavior (Prelude.Maybe BehaviorCriteria)
+behavior_criteria = Lens.lens (\Behavior' {criteria} -> criteria) (\s@Behavior' {} a -> s {criteria = a} :: Behavior)
 
--- | The name you've given to the behavior.
-bName :: Lens' Behavior Text
-bName = lens _bName (\s a -> s {_bName = a})
+-- | The name you\'ve given to the behavior.
+behavior_name :: Lens.Lens' Behavior Prelude.Text
+behavior_name = Lens.lens (\Behavior' {name} -> name) (\s@Behavior' {} a -> s {name = a} :: Behavior)
 
-instance FromJSON Behavior where
+instance Prelude.FromJSON Behavior where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Behavior"
       ( \x ->
           Behavior'
-            <$> (x .:? "metricDimension")
-            <*> (x .:? "suppressAlerts")
-            <*> (x .:? "metric")
-            <*> (x .:? "criteria")
-            <*> (x .: "name")
+            Prelude.<$> (x Prelude..:? "metricDimension")
+            Prelude.<*> (x Prelude..:? "suppressAlerts")
+            Prelude.<*> (x Prelude..:? "metric")
+            Prelude.<*> (x Prelude..:? "criteria")
+            Prelude.<*> (x Prelude..: "name")
       )
 
-instance Hashable Behavior
+instance Prelude.Hashable Behavior
 
-instance NFData Behavior
+instance Prelude.NFData Behavior
 
-instance ToJSON Behavior where
+instance Prelude.ToJSON Behavior where
   toJSON Behavior' {..} =
-    object
-      ( catMaybes
-          [ ("metricDimension" .=) <$> _bMetricDimension,
-            ("suppressAlerts" .=) <$> _bSuppressAlerts,
-            ("metric" .=) <$> _bMetric,
-            ("criteria" .=) <$> _bCriteria,
-            Just ("name" .= _bName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("metricDimension" Prelude..=)
+              Prelude.<$> metricDimension,
+            ("suppressAlerts" Prelude..=)
+              Prelude.<$> suppressAlerts,
+            ("metric" Prelude..=) Prelude.<$> metric,
+            ("criteria" Prelude..=) Prelude.<$> criteria,
+            Prelude.Just ("name" Prelude..= name)
           ]
       )

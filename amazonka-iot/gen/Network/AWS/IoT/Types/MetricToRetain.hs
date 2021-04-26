@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,69 @@
 module Network.AWS.IoT.Types.MetricToRetain where
 
 import Network.AWS.IoT.Types.MetricDimension
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The metric you want to retain. Dimensions are optional.
 --
---
---
--- /See:/ 'metricToRetain' smart constructor.
+-- /See:/ 'newMetricToRetain' smart constructor.
 data MetricToRetain = MetricToRetain'
-  { _mtrMetricDimension ::
-      !(Maybe MetricDimension),
-    _mtrMetric :: !Text
+  { -- | The dimension of a metric. This can\'t be used with custom metrics.
+    metricDimension :: Prelude.Maybe MetricDimension,
+    -- | What is measured by the behavior.
+    metric :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricToRetain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricToRetain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mtrMetricDimension' - The dimension of a metric. This can't be used with custom metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mtrMetric' - What is measured by the behavior.
-metricToRetain ::
-  -- | 'mtrMetric'
-  Text ->
+-- 'metricDimension', 'metricToRetain_metricDimension' - The dimension of a metric. This can\'t be used with custom metrics.
+--
+-- 'metric', 'metricToRetain_metric' - What is measured by the behavior.
+newMetricToRetain ::
+  -- | 'metric'
+  Prelude.Text ->
   MetricToRetain
-metricToRetain pMetric_ =
+newMetricToRetain pMetric_ =
   MetricToRetain'
-    { _mtrMetricDimension = Nothing,
-      _mtrMetric = pMetric_
+    { metricDimension = Prelude.Nothing,
+      metric = pMetric_
     }
 
--- | The dimension of a metric. This can't be used with custom metrics.
-mtrMetricDimension :: Lens' MetricToRetain (Maybe MetricDimension)
-mtrMetricDimension = lens _mtrMetricDimension (\s a -> s {_mtrMetricDimension = a})
+-- | The dimension of a metric. This can\'t be used with custom metrics.
+metricToRetain_metricDimension :: Lens.Lens' MetricToRetain (Prelude.Maybe MetricDimension)
+metricToRetain_metricDimension = Lens.lens (\MetricToRetain' {metricDimension} -> metricDimension) (\s@MetricToRetain' {} a -> s {metricDimension = a} :: MetricToRetain)
 
 -- | What is measured by the behavior.
-mtrMetric :: Lens' MetricToRetain Text
-mtrMetric = lens _mtrMetric (\s a -> s {_mtrMetric = a})
+metricToRetain_metric :: Lens.Lens' MetricToRetain Prelude.Text
+metricToRetain_metric = Lens.lens (\MetricToRetain' {metric} -> metric) (\s@MetricToRetain' {} a -> s {metric = a} :: MetricToRetain)
 
-instance FromJSON MetricToRetain where
+instance Prelude.FromJSON MetricToRetain where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MetricToRetain"
       ( \x ->
           MetricToRetain'
-            <$> (x .:? "metricDimension") <*> (x .: "metric")
+            Prelude.<$> (x Prelude..:? "metricDimension")
+            Prelude.<*> (x Prelude..: "metric")
       )
 
-instance Hashable MetricToRetain
+instance Prelude.Hashable MetricToRetain
 
-instance NFData MetricToRetain
+instance Prelude.NFData MetricToRetain
 
-instance ToJSON MetricToRetain where
+instance Prelude.ToJSON MetricToRetain where
   toJSON MetricToRetain' {..} =
-    object
-      ( catMaybes
-          [ ("metricDimension" .=) <$> _mtrMetricDimension,
-            Just ("metric" .= _mtrMetric)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("metricDimension" Prelude..=)
+              Prelude.<$> metricDimension,
+            Prelude.Just ("metric" Prelude..= metric)
           ]
       )

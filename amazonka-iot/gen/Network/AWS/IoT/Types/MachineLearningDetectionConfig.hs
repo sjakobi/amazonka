@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,72 @@
 module Network.AWS.IoT.Types.MachineLearningDetectionConfig where
 
 import Network.AWS.IoT.Types.ConfidenceLevel
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The configuration of an ML Detect Security Profile.
 --
---
---
--- /See:/ 'machineLearningDetectionConfig' smart constructor.
-newtype MachineLearningDetectionConfig = MachineLearningDetectionConfig'
-  { _mldcConfidenceLevel ::
-      ConfidenceLevel
+-- /See:/ 'newMachineLearningDetectionConfig' smart constructor.
+data MachineLearningDetectionConfig = MachineLearningDetectionConfig'
+  { -- | The sensitivity of anomalous behavior evaluation. Can be @Low@,
+    -- @Medium@, or @High@.
+    confidenceLevel :: ConfidenceLevel
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MachineLearningDetectionConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MachineLearningDetectionConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mldcConfidenceLevel' - The sensitivity of anomalous behavior evaluation. Can be @Low@ , @Medium@ , or @High@ .
-machineLearningDetectionConfig ::
-  -- | 'mldcConfidenceLevel'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'confidenceLevel', 'machineLearningDetectionConfig_confidenceLevel' - The sensitivity of anomalous behavior evaluation. Can be @Low@,
+-- @Medium@, or @High@.
+newMachineLearningDetectionConfig ::
+  -- | 'confidenceLevel'
   ConfidenceLevel ->
   MachineLearningDetectionConfig
-machineLearningDetectionConfig pConfidenceLevel_ =
+newMachineLearningDetectionConfig pConfidenceLevel_ =
   MachineLearningDetectionConfig'
-    { _mldcConfidenceLevel =
+    { confidenceLevel =
         pConfidenceLevel_
     }
 
--- | The sensitivity of anomalous behavior evaluation. Can be @Low@ , @Medium@ , or @High@ .
-mldcConfidenceLevel :: Lens' MachineLearningDetectionConfig ConfidenceLevel
-mldcConfidenceLevel = lens _mldcConfidenceLevel (\s a -> s {_mldcConfidenceLevel = a})
+-- | The sensitivity of anomalous behavior evaluation. Can be @Low@,
+-- @Medium@, or @High@.
+machineLearningDetectionConfig_confidenceLevel :: Lens.Lens' MachineLearningDetectionConfig ConfidenceLevel
+machineLearningDetectionConfig_confidenceLevel = Lens.lens (\MachineLearningDetectionConfig' {confidenceLevel} -> confidenceLevel) (\s@MachineLearningDetectionConfig' {} a -> s {confidenceLevel = a} :: MachineLearningDetectionConfig)
 
-instance FromJSON MachineLearningDetectionConfig where
+instance
+  Prelude.FromJSON
+    MachineLearningDetectionConfig
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MachineLearningDetectionConfig"
       ( \x ->
           MachineLearningDetectionConfig'
-            <$> (x .: "confidenceLevel")
+            Prelude.<$> (x Prelude..: "confidenceLevel")
       )
 
-instance Hashable MachineLearningDetectionConfig
+instance
+  Prelude.Hashable
+    MachineLearningDetectionConfig
 
-instance NFData MachineLearningDetectionConfig
+instance
+  Prelude.NFData
+    MachineLearningDetectionConfig
 
-instance ToJSON MachineLearningDetectionConfig where
+instance
+  Prelude.ToJSON
+    MachineLearningDetectionConfig
+  where
   toJSON MachineLearningDetectionConfig' {..} =
-    object
-      ( catMaybes
-          [Just ("confidenceLevel" .= _mldcConfidenceLevel)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("confidenceLevel" Prelude..= confidenceLevel)
+          ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,48 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.BillingGroupMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Additional information about the billing group.
 --
---
---
--- /See:/ 'billingGroupMetadata' smart constructor.
-newtype BillingGroupMetadata = BillingGroupMetadata'
-  { _bgmCreationDate ::
-      Maybe POSIX
+-- /See:/ 'newBillingGroupMetadata' smart constructor.
+data BillingGroupMetadata = BillingGroupMetadata'
+  { -- | The date the billing group was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BillingGroupMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BillingGroupMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgmCreationDate' - The date the billing group was created.
-billingGroupMetadata ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'creationDate', 'billingGroupMetadata_creationDate' - The date the billing group was created.
+newBillingGroupMetadata ::
   BillingGroupMetadata
-billingGroupMetadata =
-  BillingGroupMetadata' {_bgmCreationDate = Nothing}
+newBillingGroupMetadata =
+  BillingGroupMetadata'
+    { creationDate =
+        Prelude.Nothing
+    }
 
 -- | The date the billing group was created.
-bgmCreationDate :: Lens' BillingGroupMetadata (Maybe UTCTime)
-bgmCreationDate = lens _bgmCreationDate (\s a -> s {_bgmCreationDate = a}) . mapping _Time
+billingGroupMetadata_creationDate :: Lens.Lens' BillingGroupMetadata (Prelude.Maybe Prelude.UTCTime)
+billingGroupMetadata_creationDate = Lens.lens (\BillingGroupMetadata' {creationDate} -> creationDate) (\s@BillingGroupMetadata' {} a -> s {creationDate = a} :: BillingGroupMetadata) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON BillingGroupMetadata where
+instance Prelude.FromJSON BillingGroupMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BillingGroupMetadata"
       ( \x ->
-          BillingGroupMetadata' <$> (x .:? "creationDate")
+          BillingGroupMetadata'
+            Prelude.<$> (x Prelude..:? "creationDate")
       )
 
-instance Hashable BillingGroupMetadata
+instance Prelude.Hashable BillingGroupMetadata
 
-instance NFData BillingGroupMetadata
+instance Prelude.NFData BillingGroupMetadata

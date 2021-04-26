@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +21,91 @@ module Network.AWS.IoT.Types.CustomCodeSigning where
 
 import Network.AWS.IoT.Types.CodeSigningCertificateChain
 import Network.AWS.IoT.Types.CodeSigningSignature
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a custom method used to code sign a file.
 --
---
---
--- /See:/ 'customCodeSigning' smart constructor.
+-- /See:/ 'newCustomCodeSigning' smart constructor.
 data CustomCodeSigning = CustomCodeSigning'
-  { _ccsSignature ::
-      !(Maybe CodeSigningSignature),
-    _ccsSignatureAlgorithm ::
-      !(Maybe Text),
-    _ccsCertificateChain ::
-      !( Maybe
-           CodeSigningCertificateChain
-       ),
-    _ccsHashAlgorithm :: !(Maybe Text)
+  { -- | The signature for the file.
+    signature :: Prelude.Maybe CodeSigningSignature,
+    -- | The signature algorithm used to code sign the file.
+    signatureAlgorithm :: Prelude.Maybe Prelude.Text,
+    -- | The certificate chain.
+    certificateChain :: Prelude.Maybe CodeSigningCertificateChain,
+    -- | The hash algorithm used to code sign the file.
+    hashAlgorithm :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomCodeSigning' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomCodeSigning' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccsSignature' - The signature for the file.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccsSignatureAlgorithm' - The signature algorithm used to code sign the file.
+-- 'signature', 'customCodeSigning_signature' - The signature for the file.
 --
--- * 'ccsCertificateChain' - The certificate chain.
+-- 'signatureAlgorithm', 'customCodeSigning_signatureAlgorithm' - The signature algorithm used to code sign the file.
 --
--- * 'ccsHashAlgorithm' - The hash algorithm used to code sign the file.
-customCodeSigning ::
+-- 'certificateChain', 'customCodeSigning_certificateChain' - The certificate chain.
+--
+-- 'hashAlgorithm', 'customCodeSigning_hashAlgorithm' - The hash algorithm used to code sign the file.
+newCustomCodeSigning ::
   CustomCodeSigning
-customCodeSigning =
+newCustomCodeSigning =
   CustomCodeSigning'
-    { _ccsSignature = Nothing,
-      _ccsSignatureAlgorithm = Nothing,
-      _ccsCertificateChain = Nothing,
-      _ccsHashAlgorithm = Nothing
+    { signature = Prelude.Nothing,
+      signatureAlgorithm = Prelude.Nothing,
+      certificateChain = Prelude.Nothing,
+      hashAlgorithm = Prelude.Nothing
     }
 
 -- | The signature for the file.
-ccsSignature :: Lens' CustomCodeSigning (Maybe CodeSigningSignature)
-ccsSignature = lens _ccsSignature (\s a -> s {_ccsSignature = a})
+customCodeSigning_signature :: Lens.Lens' CustomCodeSigning (Prelude.Maybe CodeSigningSignature)
+customCodeSigning_signature = Lens.lens (\CustomCodeSigning' {signature} -> signature) (\s@CustomCodeSigning' {} a -> s {signature = a} :: CustomCodeSigning)
 
 -- | The signature algorithm used to code sign the file.
-ccsSignatureAlgorithm :: Lens' CustomCodeSigning (Maybe Text)
-ccsSignatureAlgorithm = lens _ccsSignatureAlgorithm (\s a -> s {_ccsSignatureAlgorithm = a})
+customCodeSigning_signatureAlgorithm :: Lens.Lens' CustomCodeSigning (Prelude.Maybe Prelude.Text)
+customCodeSigning_signatureAlgorithm = Lens.lens (\CustomCodeSigning' {signatureAlgorithm} -> signatureAlgorithm) (\s@CustomCodeSigning' {} a -> s {signatureAlgorithm = a} :: CustomCodeSigning)
 
 -- | The certificate chain.
-ccsCertificateChain :: Lens' CustomCodeSigning (Maybe CodeSigningCertificateChain)
-ccsCertificateChain = lens _ccsCertificateChain (\s a -> s {_ccsCertificateChain = a})
+customCodeSigning_certificateChain :: Lens.Lens' CustomCodeSigning (Prelude.Maybe CodeSigningCertificateChain)
+customCodeSigning_certificateChain = Lens.lens (\CustomCodeSigning' {certificateChain} -> certificateChain) (\s@CustomCodeSigning' {} a -> s {certificateChain = a} :: CustomCodeSigning)
 
 -- | The hash algorithm used to code sign the file.
-ccsHashAlgorithm :: Lens' CustomCodeSigning (Maybe Text)
-ccsHashAlgorithm = lens _ccsHashAlgorithm (\s a -> s {_ccsHashAlgorithm = a})
+customCodeSigning_hashAlgorithm :: Lens.Lens' CustomCodeSigning (Prelude.Maybe Prelude.Text)
+customCodeSigning_hashAlgorithm = Lens.lens (\CustomCodeSigning' {hashAlgorithm} -> hashAlgorithm) (\s@CustomCodeSigning' {} a -> s {hashAlgorithm = a} :: CustomCodeSigning)
 
-instance FromJSON CustomCodeSigning where
+instance Prelude.FromJSON CustomCodeSigning where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CustomCodeSigning"
       ( \x ->
           CustomCodeSigning'
-            <$> (x .:? "signature")
-            <*> (x .:? "signatureAlgorithm")
-            <*> (x .:? "certificateChain")
-            <*> (x .:? "hashAlgorithm")
+            Prelude.<$> (x Prelude..:? "signature")
+            Prelude.<*> (x Prelude..:? "signatureAlgorithm")
+            Prelude.<*> (x Prelude..:? "certificateChain")
+            Prelude.<*> (x Prelude..:? "hashAlgorithm")
       )
 
-instance Hashable CustomCodeSigning
+instance Prelude.Hashable CustomCodeSigning
 
-instance NFData CustomCodeSigning
+instance Prelude.NFData CustomCodeSigning
 
-instance ToJSON CustomCodeSigning where
+instance Prelude.ToJSON CustomCodeSigning where
   toJSON CustomCodeSigning' {..} =
-    object
-      ( catMaybes
-          [ ("signature" .=) <$> _ccsSignature,
-            ("signatureAlgorithm" .=) <$> _ccsSignatureAlgorithm,
-            ("certificateChain" .=) <$> _ccsCertificateChain,
-            ("hashAlgorithm" .=) <$> _ccsHashAlgorithm
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("signature" Prelude..=) Prelude.<$> signature,
+            ("signatureAlgorithm" Prelude..=)
+              Prelude.<$> signatureAlgorithm,
+            ("certificateChain" Prelude..=)
+              Prelude.<$> certificateChain,
+            ("hashAlgorithm" Prelude..=)
+              Prelude.<$> hashAlgorithm
           ]
       )

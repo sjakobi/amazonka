@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +21,84 @@ module Network.AWS.IoT.Types.AssetPropertyValue where
 
 import Network.AWS.IoT.Types.AssetPropertyTimestamp
 import Network.AWS.IoT.Types.AssetPropertyVariant
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An asset property value entry containing the following information.
 --
---
---
--- /See:/ 'assetPropertyValue' smart constructor.
+-- /See:/ 'newAssetPropertyValue' smart constructor.
 data AssetPropertyValue = AssetPropertyValue'
-  { _apvQuality ::
-      !(Maybe Text),
-    _apvValue ::
-      !AssetPropertyVariant,
-    _apvTimestamp ::
-      !AssetPropertyTimestamp
+  { -- | Optional. A string that describes the quality of the value. Accepts
+    -- substitution templates. Must be @GOOD@, @BAD@, or @UNCERTAIN@.
+    quality :: Prelude.Maybe Prelude.Text,
+    -- | The value of the asset property.
+    value :: AssetPropertyVariant,
+    -- | The asset property value timestamp.
+    timestamp :: AssetPropertyTimestamp
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssetPropertyValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssetPropertyValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apvQuality' - Optional. A string that describes the quality of the value. Accepts substitution templates. Must be @GOOD@ , @BAD@ , or @UNCERTAIN@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apvValue' - The value of the asset property.
+-- 'quality', 'assetPropertyValue_quality' - Optional. A string that describes the quality of the value. Accepts
+-- substitution templates. Must be @GOOD@, @BAD@, or @UNCERTAIN@.
 --
--- * 'apvTimestamp' - The asset property value timestamp.
-assetPropertyValue ::
-  -- | 'apvValue'
+-- 'value', 'assetPropertyValue_value' - The value of the asset property.
+--
+-- 'timestamp', 'assetPropertyValue_timestamp' - The asset property value timestamp.
+newAssetPropertyValue ::
+  -- | 'value'
   AssetPropertyVariant ->
-  -- | 'apvTimestamp'
+  -- | 'timestamp'
   AssetPropertyTimestamp ->
   AssetPropertyValue
-assetPropertyValue pValue_ pTimestamp_ =
+newAssetPropertyValue pValue_ pTimestamp_ =
   AssetPropertyValue'
-    { _apvQuality = Nothing,
-      _apvValue = pValue_,
-      _apvTimestamp = pTimestamp_
+    { quality = Prelude.Nothing,
+      value = pValue_,
+      timestamp = pTimestamp_
     }
 
--- | Optional. A string that describes the quality of the value. Accepts substitution templates. Must be @GOOD@ , @BAD@ , or @UNCERTAIN@ .
-apvQuality :: Lens' AssetPropertyValue (Maybe Text)
-apvQuality = lens _apvQuality (\s a -> s {_apvQuality = a})
+-- | Optional. A string that describes the quality of the value. Accepts
+-- substitution templates. Must be @GOOD@, @BAD@, or @UNCERTAIN@.
+assetPropertyValue_quality :: Lens.Lens' AssetPropertyValue (Prelude.Maybe Prelude.Text)
+assetPropertyValue_quality = Lens.lens (\AssetPropertyValue' {quality} -> quality) (\s@AssetPropertyValue' {} a -> s {quality = a} :: AssetPropertyValue)
 
 -- | The value of the asset property.
-apvValue :: Lens' AssetPropertyValue AssetPropertyVariant
-apvValue = lens _apvValue (\s a -> s {_apvValue = a})
+assetPropertyValue_value :: Lens.Lens' AssetPropertyValue AssetPropertyVariant
+assetPropertyValue_value = Lens.lens (\AssetPropertyValue' {value} -> value) (\s@AssetPropertyValue' {} a -> s {value = a} :: AssetPropertyValue)
 
 -- | The asset property value timestamp.
-apvTimestamp :: Lens' AssetPropertyValue AssetPropertyTimestamp
-apvTimestamp = lens _apvTimestamp (\s a -> s {_apvTimestamp = a})
+assetPropertyValue_timestamp :: Lens.Lens' AssetPropertyValue AssetPropertyTimestamp
+assetPropertyValue_timestamp = Lens.lens (\AssetPropertyValue' {timestamp} -> timestamp) (\s@AssetPropertyValue' {} a -> s {timestamp = a} :: AssetPropertyValue)
 
-instance FromJSON AssetPropertyValue where
+instance Prelude.FromJSON AssetPropertyValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AssetPropertyValue"
       ( \x ->
           AssetPropertyValue'
-            <$> (x .:? "quality")
-            <*> (x .: "value")
-            <*> (x .: "timestamp")
+            Prelude.<$> (x Prelude..:? "quality")
+            Prelude.<*> (x Prelude..: "value")
+            Prelude.<*> (x Prelude..: "timestamp")
       )
 
-instance Hashable AssetPropertyValue
+instance Prelude.Hashable AssetPropertyValue
 
-instance NFData AssetPropertyValue
+instance Prelude.NFData AssetPropertyValue
 
-instance ToJSON AssetPropertyValue where
+instance Prelude.ToJSON AssetPropertyValue where
   toJSON AssetPropertyValue' {..} =
-    object
-      ( catMaybes
-          [ ("quality" .=) <$> _apvQuality,
-            Just ("value" .= _apvValue),
-            Just ("timestamp" .= _apvTimestamp)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("quality" Prelude..=) Prelude.<$> quality,
+            Prelude.Just ("value" Prelude..= value),
+            Prelude.Just ("timestamp" Prelude..= timestamp)
           ]
       )

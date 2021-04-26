@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.IoT.Types.CACertificateUpdateAction
   ( CACertificateUpdateAction
       ( ..,
-        CACUADeactivate
+        CACertificateUpdateActionDEACTIVATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CACertificateUpdateAction
-  = CACertificateUpdateAction'
-      ( CI
-          Text
-      )
+newtype CACertificateUpdateAction = CACertificateUpdateAction'
+  { fromCACertificateUpdateAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CACUADeactivate :: CACertificateUpdateAction
-pattern CACUADeactivate = CACertificateUpdateAction' "DEACTIVATE"
+pattern CACertificateUpdateActionDEACTIVATE :: CACertificateUpdateAction
+pattern CACertificateUpdateActionDEACTIVATE = CACertificateUpdateAction' "DEACTIVATE"
 
 {-# COMPLETE
-  CACUADeactivate,
+  CACertificateUpdateActionDEACTIVATE,
   CACertificateUpdateAction'
   #-}
 
-instance FromText CACertificateUpdateAction where
-  parser = (CACertificateUpdateAction' . mk) <$> takeText
+instance Prelude.FromText CACertificateUpdateAction where
+  parser = CACertificateUpdateAction' Prelude.<$> Prelude.takeText
 
-instance ToText CACertificateUpdateAction where
-  toText (CACertificateUpdateAction' ci) = original ci
+instance Prelude.ToText CACertificateUpdateAction where
+  toText (CACertificateUpdateAction' x) = x
 
-instance Hashable CACertificateUpdateAction
+instance Prelude.Hashable CACertificateUpdateAction
 
-instance NFData CACertificateUpdateAction
+instance Prelude.NFData CACertificateUpdateAction
 
-instance ToByteString CACertificateUpdateAction
+instance Prelude.ToByteString CACertificateUpdateAction
 
-instance ToQuery CACertificateUpdateAction
+instance Prelude.ToQuery CACertificateUpdateAction
 
-instance ToHeader CACertificateUpdateAction
+instance Prelude.ToHeader CACertificateUpdateAction
 
-instance ToJSON CACertificateUpdateAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON CACertificateUpdateAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CACertificateUpdateAction where
-  parseJSON = parseJSONText "CACertificateUpdateAction"
+instance Prelude.FromJSON CACertificateUpdateAction where
+  parseJSON = Prelude.parseJSONText "CACertificateUpdateAction"

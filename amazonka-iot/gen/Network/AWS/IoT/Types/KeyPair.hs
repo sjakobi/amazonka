@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.KeyPair where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a key pair.
 --
---
---
--- /See:/ 'keyPair' smart constructor.
+-- /See:/ 'newKeyPair' smart constructor.
 data KeyPair = KeyPair'
-  { _kpPublicKey ::
-      !(Maybe Text),
-    _kpPrivateKey :: !(Maybe (Sensitive Text))
+  { -- | The public key.
+    publicKey :: Prelude.Maybe Prelude.Text,
+    -- | The private key.
+    privateKey :: Prelude.Maybe (Prelude.Sensitive Prelude.Text)
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyPair' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyPair' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kpPublicKey' - The public key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kpPrivateKey' - The private key.
-keyPair ::
+-- 'publicKey', 'keyPair_publicKey' - The public key.
+--
+-- 'privateKey', 'keyPair_privateKey' - The private key.
+newKeyPair ::
   KeyPair
-keyPair =
+newKeyPair =
   KeyPair'
-    { _kpPublicKey = Nothing,
-      _kpPrivateKey = Nothing
+    { publicKey = Prelude.Nothing,
+      privateKey = Prelude.Nothing
     }
 
 -- | The public key.
-kpPublicKey :: Lens' KeyPair (Maybe Text)
-kpPublicKey = lens _kpPublicKey (\s a -> s {_kpPublicKey = a})
+keyPair_publicKey :: Lens.Lens' KeyPair (Prelude.Maybe Prelude.Text)
+keyPair_publicKey = Lens.lens (\KeyPair' {publicKey} -> publicKey) (\s@KeyPair' {} a -> s {publicKey = a} :: KeyPair)
 
 -- | The private key.
-kpPrivateKey :: Lens' KeyPair (Maybe Text)
-kpPrivateKey = lens _kpPrivateKey (\s a -> s {_kpPrivateKey = a}) . mapping _Sensitive
+keyPair_privateKey :: Lens.Lens' KeyPair (Prelude.Maybe Prelude.Text)
+keyPair_privateKey = Lens.lens (\KeyPair' {privateKey} -> privateKey) (\s@KeyPair' {} a -> s {privateKey = a} :: KeyPair) Prelude.. Lens.mapping Prelude._Sensitive
 
-instance FromJSON KeyPair where
+instance Prelude.FromJSON KeyPair where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KeyPair"
       ( \x ->
           KeyPair'
-            <$> (x .:? "PublicKey") <*> (x .:? "PrivateKey")
+            Prelude.<$> (x Prelude..:? "PublicKey")
+            Prelude.<*> (x Prelude..:? "PrivateKey")
       )
 
-instance Hashable KeyPair
+instance Prelude.Hashable KeyPair
 
-instance NFData KeyPair
+instance Prelude.NFData KeyPair

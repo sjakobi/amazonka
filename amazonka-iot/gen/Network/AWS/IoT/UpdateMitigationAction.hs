@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,173 +24,173 @@
 -- Updates the definition for the specified mitigation action.
 module Network.AWS.IoT.UpdateMitigationAction
   ( -- * Creating a Request
-    updateMitigationAction,
-    UpdateMitigationAction,
+    UpdateMitigationAction (..),
+    newUpdateMitigationAction,
 
     -- * Request Lenses
-    umaRoleARN,
-    umaActionParams,
-    umaActionName,
+    updateMitigationAction_roleArn,
+    updateMitigationAction_actionParams,
+    updateMitigationAction_actionName,
 
     -- * Destructuring the Response
-    updateMitigationActionResponse,
-    UpdateMitigationActionResponse,
+    UpdateMitigationActionResponse (..),
+    newUpdateMitigationActionResponse,
 
     -- * Response Lenses
-    umarrsActionARN,
-    umarrsActionId,
-    umarrsResponseStatus,
+    updateMitigationActionResponse_actionArn,
+    updateMitigationActionResponse_actionId,
+    updateMitigationActionResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateMitigationAction' smart constructor.
+-- | /See:/ 'newUpdateMitigationAction' smart constructor.
 data UpdateMitigationAction = UpdateMitigationAction'
-  { _umaRoleARN ::
-      !(Maybe Text),
-    _umaActionParams ::
-      !( Maybe
-           MitigationActionParams
-       ),
-    _umaActionName :: !Text
+  { -- | The ARN of the IAM role that is used to apply the mitigation action.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Defines the type of action and the parameters for that action.
+    actionParams :: Prelude.Maybe MitigationActionParams,
+    -- | The friendly name for the mitigation action. You cannot change the name
+    -- by using @UpdateMitigationAction@. Instead, you must delete and recreate
+    -- the mitigation action with the new name.
+    actionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMitigationAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMitigationAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umaRoleARN' - The ARN of the IAM role that is used to apply the mitigation action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umaActionParams' - Defines the type of action and the parameters for that action.
+-- 'roleArn', 'updateMitigationAction_roleArn' - The ARN of the IAM role that is used to apply the mitigation action.
 --
--- * 'umaActionName' - The friendly name for the mitigation action. You cannot change the name by using @UpdateMitigationAction@ . Instead, you must delete and recreate the mitigation action with the new name.
-updateMitigationAction ::
-  -- | 'umaActionName'
-  Text ->
+-- 'actionParams', 'updateMitigationAction_actionParams' - Defines the type of action and the parameters for that action.
+--
+-- 'actionName', 'updateMitigationAction_actionName' - The friendly name for the mitigation action. You cannot change the name
+-- by using @UpdateMitigationAction@. Instead, you must delete and recreate
+-- the mitigation action with the new name.
+newUpdateMitigationAction ::
+  -- | 'actionName'
+  Prelude.Text ->
   UpdateMitigationAction
-updateMitigationAction pActionName_ =
+newUpdateMitigationAction pActionName_ =
   UpdateMitigationAction'
-    { _umaRoleARN = Nothing,
-      _umaActionParams = Nothing,
-      _umaActionName = pActionName_
+    { roleArn = Prelude.Nothing,
+      actionParams = Prelude.Nothing,
+      actionName = pActionName_
     }
 
 -- | The ARN of the IAM role that is used to apply the mitigation action.
-umaRoleARN :: Lens' UpdateMitigationAction (Maybe Text)
-umaRoleARN = lens _umaRoleARN (\s a -> s {_umaRoleARN = a})
+updateMitigationAction_roleArn :: Lens.Lens' UpdateMitigationAction (Prelude.Maybe Prelude.Text)
+updateMitigationAction_roleArn = Lens.lens (\UpdateMitigationAction' {roleArn} -> roleArn) (\s@UpdateMitigationAction' {} a -> s {roleArn = a} :: UpdateMitigationAction)
 
 -- | Defines the type of action and the parameters for that action.
-umaActionParams :: Lens' UpdateMitigationAction (Maybe MitigationActionParams)
-umaActionParams = lens _umaActionParams (\s a -> s {_umaActionParams = a})
+updateMitigationAction_actionParams :: Lens.Lens' UpdateMitigationAction (Prelude.Maybe MitigationActionParams)
+updateMitigationAction_actionParams = Lens.lens (\UpdateMitigationAction' {actionParams} -> actionParams) (\s@UpdateMitigationAction' {} a -> s {actionParams = a} :: UpdateMitigationAction)
 
--- | The friendly name for the mitigation action. You cannot change the name by using @UpdateMitigationAction@ . Instead, you must delete and recreate the mitigation action with the new name.
-umaActionName :: Lens' UpdateMitigationAction Text
-umaActionName = lens _umaActionName (\s a -> s {_umaActionName = a})
+-- | The friendly name for the mitigation action. You cannot change the name
+-- by using @UpdateMitigationAction@. Instead, you must delete and recreate
+-- the mitigation action with the new name.
+updateMitigationAction_actionName :: Lens.Lens' UpdateMitigationAction Prelude.Text
+updateMitigationAction_actionName = Lens.lens (\UpdateMitigationAction' {actionName} -> actionName) (\s@UpdateMitigationAction' {} a -> s {actionName = a} :: UpdateMitigationAction)
 
-instance AWSRequest UpdateMitigationAction where
+instance Prelude.AWSRequest UpdateMitigationAction where
   type
     Rs UpdateMitigationAction =
       UpdateMitigationActionResponse
-  request = patchJSON ioT
+  request = Request.patchJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateMitigationActionResponse'
-            <$> (x .?> "actionArn")
-            <*> (x .?> "actionId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "actionArn")
+            Prelude.<*> (x Prelude..?> "actionId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateMitigationAction
+instance Prelude.Hashable UpdateMitigationAction
 
-instance NFData UpdateMitigationAction
+instance Prelude.NFData UpdateMitigationAction
 
-instance ToHeaders UpdateMitigationAction where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateMitigationAction where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateMitigationAction where
+instance Prelude.ToJSON UpdateMitigationAction where
   toJSON UpdateMitigationAction' {..} =
-    object
-      ( catMaybes
-          [ ("roleArn" .=) <$> _umaRoleARN,
-            ("actionParams" .=) <$> _umaActionParams
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("roleArn" Prelude..=) Prelude.<$> roleArn,
+            ("actionParams" Prelude..=)
+              Prelude.<$> actionParams
           ]
       )
 
-instance ToPath UpdateMitigationAction where
+instance Prelude.ToPath UpdateMitigationAction where
   toPath UpdateMitigationAction' {..} =
-    mconcat
-      ["/mitigationactions/actions/", toBS _umaActionName]
+    Prelude.mconcat
+      [ "/mitigationactions/actions/",
+        Prelude.toBS actionName
+      ]
 
-instance ToQuery UpdateMitigationAction where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateMitigationAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateMitigationActionResponse' smart constructor.
+-- | /See:/ 'newUpdateMitigationActionResponse' smart constructor.
 data UpdateMitigationActionResponse = UpdateMitigationActionResponse'
-  { _umarrsActionARN ::
-      !( Maybe
-           Text
-       ),
-    _umarrsActionId ::
-      !( Maybe
-           Text
-       ),
-    _umarrsResponseStatus ::
-      !Int
+  { -- | The ARN for the new mitigation action.
+    actionArn :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the mitigation action.
+    actionId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMitigationActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMitigationActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umarrsActionARN' - The ARN for the new mitigation action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umarrsActionId' - A unique identifier for the mitigation action.
+-- 'actionArn', 'updateMitigationActionResponse_actionArn' - The ARN for the new mitigation action.
 --
--- * 'umarrsResponseStatus' - -- | The response status code.
-updateMitigationActionResponse ::
-  -- | 'umarrsResponseStatus'
-  Int ->
+-- 'actionId', 'updateMitigationActionResponse_actionId' - A unique identifier for the mitigation action.
+--
+-- 'httpStatus', 'updateMitigationActionResponse_httpStatus' - The response's http status code.
+newUpdateMitigationActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateMitigationActionResponse
-updateMitigationActionResponse pResponseStatus_ =
+newUpdateMitigationActionResponse pHttpStatus_ =
   UpdateMitigationActionResponse'
-    { _umarrsActionARN =
-        Nothing,
-      _umarrsActionId = Nothing,
-      _umarrsResponseStatus = pResponseStatus_
+    { actionArn =
+        Prelude.Nothing,
+      actionId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN for the new mitigation action.
-umarrsActionARN :: Lens' UpdateMitigationActionResponse (Maybe Text)
-umarrsActionARN = lens _umarrsActionARN (\s a -> s {_umarrsActionARN = a})
+updateMitigationActionResponse_actionArn :: Lens.Lens' UpdateMitigationActionResponse (Prelude.Maybe Prelude.Text)
+updateMitigationActionResponse_actionArn = Lens.lens (\UpdateMitigationActionResponse' {actionArn} -> actionArn) (\s@UpdateMitigationActionResponse' {} a -> s {actionArn = a} :: UpdateMitigationActionResponse)
 
 -- | A unique identifier for the mitigation action.
-umarrsActionId :: Lens' UpdateMitigationActionResponse (Maybe Text)
-umarrsActionId = lens _umarrsActionId (\s a -> s {_umarrsActionId = a})
+updateMitigationActionResponse_actionId :: Lens.Lens' UpdateMitigationActionResponse (Prelude.Maybe Prelude.Text)
+updateMitigationActionResponse_actionId = Lens.lens (\UpdateMitigationActionResponse' {actionId} -> actionId) (\s@UpdateMitigationActionResponse' {} a -> s {actionId = a} :: UpdateMitigationActionResponse)
 
--- | -- | The response status code.
-umarrsResponseStatus :: Lens' UpdateMitigationActionResponse Int
-umarrsResponseStatus = lens _umarrsResponseStatus (\s a -> s {_umarrsResponseStatus = a})
+-- | The response's http status code.
+updateMitigationActionResponse_httpStatus :: Lens.Lens' UpdateMitigationActionResponse Prelude.Int
+updateMitigationActionResponse_httpStatus = Lens.lens (\UpdateMitigationActionResponse' {httpStatus} -> httpStatus) (\s@UpdateMitigationActionResponse' {} a -> s {httpStatus = a} :: UpdateMitigationActionResponse)
 
-instance NFData UpdateMitigationActionResponse
+instance
+  Prelude.NFData
+    UpdateMitigationActionResponse

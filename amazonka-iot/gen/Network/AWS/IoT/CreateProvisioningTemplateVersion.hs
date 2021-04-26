@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,212 +24,220 @@
 -- Creates a new version of a fleet provisioning template.
 module Network.AWS.IoT.CreateProvisioningTemplateVersion
   ( -- * Creating a Request
-    createProvisioningTemplateVersion,
-    CreateProvisioningTemplateVersion,
+    CreateProvisioningTemplateVersion (..),
+    newCreateProvisioningTemplateVersion,
 
     -- * Request Lenses
-    cptvSetAsDefault,
-    cptvTemplateName,
-    cptvTemplateBody,
+    createProvisioningTemplateVersion_setAsDefault,
+    createProvisioningTemplateVersion_templateName,
+    createProvisioningTemplateVersion_templateBody,
 
     -- * Destructuring the Response
-    createProvisioningTemplateVersionResponse,
-    CreateProvisioningTemplateVersionResponse,
+    CreateProvisioningTemplateVersionResponse (..),
+    newCreateProvisioningTemplateVersionResponse,
 
     -- * Response Lenses
-    cptvrrsTemplateName,
-    cptvrrsVersionId,
-    cptvrrsIsDefaultVersion,
-    cptvrrsTemplateARN,
-    cptvrrsResponseStatus,
+    createProvisioningTemplateVersionResponse_templateName,
+    createProvisioningTemplateVersionResponse_versionId,
+    createProvisioningTemplateVersionResponse_isDefaultVersion,
+    createProvisioningTemplateVersionResponse_templateArn,
+    createProvisioningTemplateVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createProvisioningTemplateVersion' smart constructor.
+-- | /See:/ 'newCreateProvisioningTemplateVersion' smart constructor.
 data CreateProvisioningTemplateVersion = CreateProvisioningTemplateVersion'
-  { _cptvSetAsDefault ::
-      !( Maybe
-           Bool
-       ),
-    _cptvTemplateName ::
-      !Text,
-    _cptvTemplateBody ::
-      !Text
+  { -- | Sets a fleet provision template version as the default version.
+    setAsDefault :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the fleet provisioning template.
+    templateName :: Prelude.Text,
+    -- | The JSON formatted contents of the fleet provisioning template.
+    templateBody :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProvisioningTemplateVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProvisioningTemplateVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cptvSetAsDefault' - Sets a fleet provision template version as the default version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cptvTemplateName' - The name of the fleet provisioning template.
+-- 'setAsDefault', 'createProvisioningTemplateVersion_setAsDefault' - Sets a fleet provision template version as the default version.
 --
--- * 'cptvTemplateBody' - The JSON formatted contents of the fleet provisioning template.
-createProvisioningTemplateVersion ::
-  -- | 'cptvTemplateName'
-  Text ->
-  -- | 'cptvTemplateBody'
-  Text ->
+-- 'templateName', 'createProvisioningTemplateVersion_templateName' - The name of the fleet provisioning template.
+--
+-- 'templateBody', 'createProvisioningTemplateVersion_templateBody' - The JSON formatted contents of the fleet provisioning template.
+newCreateProvisioningTemplateVersion ::
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'templateBody'
+  Prelude.Text ->
   CreateProvisioningTemplateVersion
-createProvisioningTemplateVersion
+newCreateProvisioningTemplateVersion
   pTemplateName_
   pTemplateBody_ =
     CreateProvisioningTemplateVersion'
-      { _cptvSetAsDefault =
-          Nothing,
-        _cptvTemplateName = pTemplateName_,
-        _cptvTemplateBody = pTemplateBody_
+      { setAsDefault =
+          Prelude.Nothing,
+        templateName = pTemplateName_,
+        templateBody = pTemplateBody_
       }
 
 -- | Sets a fleet provision template version as the default version.
-cptvSetAsDefault :: Lens' CreateProvisioningTemplateVersion (Maybe Bool)
-cptvSetAsDefault = lens _cptvSetAsDefault (\s a -> s {_cptvSetAsDefault = a})
+createProvisioningTemplateVersion_setAsDefault :: Lens.Lens' CreateProvisioningTemplateVersion (Prelude.Maybe Prelude.Bool)
+createProvisioningTemplateVersion_setAsDefault = Lens.lens (\CreateProvisioningTemplateVersion' {setAsDefault} -> setAsDefault) (\s@CreateProvisioningTemplateVersion' {} a -> s {setAsDefault = a} :: CreateProvisioningTemplateVersion)
 
 -- | The name of the fleet provisioning template.
-cptvTemplateName :: Lens' CreateProvisioningTemplateVersion Text
-cptvTemplateName = lens _cptvTemplateName (\s a -> s {_cptvTemplateName = a})
+createProvisioningTemplateVersion_templateName :: Lens.Lens' CreateProvisioningTemplateVersion Prelude.Text
+createProvisioningTemplateVersion_templateName = Lens.lens (\CreateProvisioningTemplateVersion' {templateName} -> templateName) (\s@CreateProvisioningTemplateVersion' {} a -> s {templateName = a} :: CreateProvisioningTemplateVersion)
 
 -- | The JSON formatted contents of the fleet provisioning template.
-cptvTemplateBody :: Lens' CreateProvisioningTemplateVersion Text
-cptvTemplateBody = lens _cptvTemplateBody (\s a -> s {_cptvTemplateBody = a})
+createProvisioningTemplateVersion_templateBody :: Lens.Lens' CreateProvisioningTemplateVersion Prelude.Text
+createProvisioningTemplateVersion_templateBody = Lens.lens (\CreateProvisioningTemplateVersion' {templateBody} -> templateBody) (\s@CreateProvisioningTemplateVersion' {} a -> s {templateBody = a} :: CreateProvisioningTemplateVersion)
 
-instance AWSRequest CreateProvisioningTemplateVersion where
+instance
+  Prelude.AWSRequest
+    CreateProvisioningTemplateVersion
+  where
   type
     Rs CreateProvisioningTemplateVersion =
       CreateProvisioningTemplateVersionResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateProvisioningTemplateVersionResponse'
-            <$> (x .?> "templateName")
-            <*> (x .?> "versionId")
-            <*> (x .?> "isDefaultVersion")
-            <*> (x .?> "templateArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "templateName")
+              Prelude.<*> (x Prelude..?> "versionId")
+              Prelude.<*> (x Prelude..?> "isDefaultVersion")
+              Prelude.<*> (x Prelude..?> "templateArn")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateProvisioningTemplateVersion
+instance
+  Prelude.Hashable
+    CreateProvisioningTemplateVersion
 
-instance NFData CreateProvisioningTemplateVersion
+instance
+  Prelude.NFData
+    CreateProvisioningTemplateVersion
 
-instance ToHeaders CreateProvisioningTemplateVersion where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CreateProvisioningTemplateVersion
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateProvisioningTemplateVersion where
+instance
+  Prelude.ToJSON
+    CreateProvisioningTemplateVersion
+  where
   toJSON CreateProvisioningTemplateVersion' {..} =
-    object
-      ( catMaybes
-          [Just ("templateBody" .= _cptvTemplateBody)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("templateBody" Prelude..= templateBody)
+          ]
       )
 
-instance ToPath CreateProvisioningTemplateVersion where
+instance
+  Prelude.ToPath
+    CreateProvisioningTemplateVersion
+  where
   toPath CreateProvisioningTemplateVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/provisioning-templates/",
-        toBS _cptvTemplateName,
+        Prelude.toBS templateName,
         "/versions"
       ]
 
-instance ToQuery CreateProvisioningTemplateVersion where
+instance
+  Prelude.ToQuery
+    CreateProvisioningTemplateVersion
+  where
   toQuery CreateProvisioningTemplateVersion' {..} =
-    mconcat ["setAsDefault" =: _cptvSetAsDefault]
+    Prelude.mconcat
+      ["setAsDefault" Prelude.=: setAsDefault]
 
--- | /See:/ 'createProvisioningTemplateVersionResponse' smart constructor.
+-- | /See:/ 'newCreateProvisioningTemplateVersionResponse' smart constructor.
 data CreateProvisioningTemplateVersionResponse = CreateProvisioningTemplateVersionResponse'
-  { _cptvrrsTemplateName ::
-      !( Maybe
-           Text
-       ),
-    _cptvrrsVersionId ::
-      !( Maybe
-           Int
-       ),
-    _cptvrrsIsDefaultVersion ::
-      !( Maybe
-           Bool
-       ),
-    _cptvrrsTemplateARN ::
-      !( Maybe
-           Text
-       ),
-    _cptvrrsResponseStatus ::
-      !Int
+  { -- | The name of the fleet provisioning template.
+    templateName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the fleet provisioning template.
+    versionId :: Prelude.Maybe Prelude.Int,
+    -- | True if the fleet provisioning template version is the default version,
+    -- otherwise false.
+    isDefaultVersion :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN that identifies the provisioning template.
+    templateArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProvisioningTemplateVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProvisioningTemplateVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cptvrrsTemplateName' - The name of the fleet provisioning template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cptvrrsVersionId' - The version of the fleet provisioning template.
+-- 'templateName', 'createProvisioningTemplateVersionResponse_templateName' - The name of the fleet provisioning template.
 --
--- * 'cptvrrsIsDefaultVersion' - True if the fleet provisioning template version is the default version, otherwise false.
+-- 'versionId', 'createProvisioningTemplateVersionResponse_versionId' - The version of the fleet provisioning template.
 --
--- * 'cptvrrsTemplateARN' - The ARN that identifies the provisioning template.
+-- 'isDefaultVersion', 'createProvisioningTemplateVersionResponse_isDefaultVersion' - True if the fleet provisioning template version is the default version,
+-- otherwise false.
 --
--- * 'cptvrrsResponseStatus' - -- | The response status code.
-createProvisioningTemplateVersionResponse ::
-  -- | 'cptvrrsResponseStatus'
-  Int ->
+-- 'templateArn', 'createProvisioningTemplateVersionResponse_templateArn' - The ARN that identifies the provisioning template.
+--
+-- 'httpStatus', 'createProvisioningTemplateVersionResponse_httpStatus' - The response's http status code.
+newCreateProvisioningTemplateVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateProvisioningTemplateVersionResponse
-createProvisioningTemplateVersionResponse
-  pResponseStatus_ =
+newCreateProvisioningTemplateVersionResponse
+  pHttpStatus_ =
     CreateProvisioningTemplateVersionResponse'
-      { _cptvrrsTemplateName =
-          Nothing,
-        _cptvrrsVersionId = Nothing,
-        _cptvrrsIsDefaultVersion =
-          Nothing,
-        _cptvrrsTemplateARN = Nothing,
-        _cptvrrsResponseStatus =
-          pResponseStatus_
+      { templateName =
+          Prelude.Nothing,
+        versionId = Prelude.Nothing,
+        isDefaultVersion =
+          Prelude.Nothing,
+        templateArn = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The name of the fleet provisioning template.
-cptvrrsTemplateName :: Lens' CreateProvisioningTemplateVersionResponse (Maybe Text)
-cptvrrsTemplateName = lens _cptvrrsTemplateName (\s a -> s {_cptvrrsTemplateName = a})
+createProvisioningTemplateVersionResponse_templateName :: Lens.Lens' CreateProvisioningTemplateVersionResponse (Prelude.Maybe Prelude.Text)
+createProvisioningTemplateVersionResponse_templateName = Lens.lens (\CreateProvisioningTemplateVersionResponse' {templateName} -> templateName) (\s@CreateProvisioningTemplateVersionResponse' {} a -> s {templateName = a} :: CreateProvisioningTemplateVersionResponse)
 
 -- | The version of the fleet provisioning template.
-cptvrrsVersionId :: Lens' CreateProvisioningTemplateVersionResponse (Maybe Int)
-cptvrrsVersionId = lens _cptvrrsVersionId (\s a -> s {_cptvrrsVersionId = a})
+createProvisioningTemplateVersionResponse_versionId :: Lens.Lens' CreateProvisioningTemplateVersionResponse (Prelude.Maybe Prelude.Int)
+createProvisioningTemplateVersionResponse_versionId = Lens.lens (\CreateProvisioningTemplateVersionResponse' {versionId} -> versionId) (\s@CreateProvisioningTemplateVersionResponse' {} a -> s {versionId = a} :: CreateProvisioningTemplateVersionResponse)
 
--- | True if the fleet provisioning template version is the default version, otherwise false.
-cptvrrsIsDefaultVersion :: Lens' CreateProvisioningTemplateVersionResponse (Maybe Bool)
-cptvrrsIsDefaultVersion = lens _cptvrrsIsDefaultVersion (\s a -> s {_cptvrrsIsDefaultVersion = a})
+-- | True if the fleet provisioning template version is the default version,
+-- otherwise false.
+createProvisioningTemplateVersionResponse_isDefaultVersion :: Lens.Lens' CreateProvisioningTemplateVersionResponse (Prelude.Maybe Prelude.Bool)
+createProvisioningTemplateVersionResponse_isDefaultVersion = Lens.lens (\CreateProvisioningTemplateVersionResponse' {isDefaultVersion} -> isDefaultVersion) (\s@CreateProvisioningTemplateVersionResponse' {} a -> s {isDefaultVersion = a} :: CreateProvisioningTemplateVersionResponse)
 
 -- | The ARN that identifies the provisioning template.
-cptvrrsTemplateARN :: Lens' CreateProvisioningTemplateVersionResponse (Maybe Text)
-cptvrrsTemplateARN = lens _cptvrrsTemplateARN (\s a -> s {_cptvrrsTemplateARN = a})
+createProvisioningTemplateVersionResponse_templateArn :: Lens.Lens' CreateProvisioningTemplateVersionResponse (Prelude.Maybe Prelude.Text)
+createProvisioningTemplateVersionResponse_templateArn = Lens.lens (\CreateProvisioningTemplateVersionResponse' {templateArn} -> templateArn) (\s@CreateProvisioningTemplateVersionResponse' {} a -> s {templateArn = a} :: CreateProvisioningTemplateVersionResponse)
 
--- | -- | The response status code.
-cptvrrsResponseStatus :: Lens' CreateProvisioningTemplateVersionResponse Int
-cptvrrsResponseStatus = lens _cptvrrsResponseStatus (\s a -> s {_cptvrrsResponseStatus = a})
+-- | The response's http status code.
+createProvisioningTemplateVersionResponse_httpStatus :: Lens.Lens' CreateProvisioningTemplateVersionResponse Prelude.Int
+createProvisioningTemplateVersionResponse_httpStatus = Lens.lens (\CreateProvisioningTemplateVersionResponse' {httpStatus} -> httpStatus) (\s@CreateProvisioningTemplateVersionResponse' {} a -> s {httpStatus = a} :: CreateProvisioningTemplateVersionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateProvisioningTemplateVersionResponse

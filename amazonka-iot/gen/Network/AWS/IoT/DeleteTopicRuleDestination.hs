@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,114 +24,114 @@
 -- Deletes a topic rule destination.
 module Network.AWS.IoT.DeleteTopicRuleDestination
   ( -- * Creating a Request
-    deleteTopicRuleDestination,
-    DeleteTopicRuleDestination,
+    DeleteTopicRuleDestination (..),
+    newDeleteTopicRuleDestination,
 
     -- * Request Lenses
-    dtrdArn,
+    deleteTopicRuleDestination_arn,
 
     -- * Destructuring the Response
-    deleteTopicRuleDestinationResponse,
-    DeleteTopicRuleDestinationResponse,
+    DeleteTopicRuleDestinationResponse (..),
+    newDeleteTopicRuleDestinationResponse,
 
     -- * Response Lenses
-    dtrdrrsResponseStatus,
+    deleteTopicRuleDestinationResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTopicRuleDestination' smart constructor.
-newtype DeleteTopicRuleDestination = DeleteTopicRuleDestination'
-  { _dtrdArn ::
-      Text
+-- | /See:/ 'newDeleteTopicRuleDestination' smart constructor.
+data DeleteTopicRuleDestination = DeleteTopicRuleDestination'
+  { -- | The ARN of the topic rule destination to delete.
+    arn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTopicRuleDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTopicRuleDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrdArn' - The ARN of the topic rule destination to delete.
-deleteTopicRuleDestination ::
-  -- | 'dtrdArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'deleteTopicRuleDestination_arn' - The ARN of the topic rule destination to delete.
+newDeleteTopicRuleDestination ::
+  -- | 'arn'
+  Prelude.Text ->
   DeleteTopicRuleDestination
-deleteTopicRuleDestination pArn_ =
-  DeleteTopicRuleDestination' {_dtrdArn = pArn_}
+newDeleteTopicRuleDestination pArn_ =
+  DeleteTopicRuleDestination' {arn = pArn_}
 
 -- | The ARN of the topic rule destination to delete.
-dtrdArn :: Lens' DeleteTopicRuleDestination Text
-dtrdArn = lens _dtrdArn (\s a -> s {_dtrdArn = a})
+deleteTopicRuleDestination_arn :: Lens.Lens' DeleteTopicRuleDestination Prelude.Text
+deleteTopicRuleDestination_arn = Lens.lens (\DeleteTopicRuleDestination' {arn} -> arn) (\s@DeleteTopicRuleDestination' {} a -> s {arn = a} :: DeleteTopicRuleDestination)
 
-instance AWSRequest DeleteTopicRuleDestination where
+instance
+  Prelude.AWSRequest
+    DeleteTopicRuleDestination
+  where
   type
     Rs DeleteTopicRuleDestination =
       DeleteTopicRuleDestinationResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteTopicRuleDestinationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTopicRuleDestination
+instance Prelude.Hashable DeleteTopicRuleDestination
 
-instance NFData DeleteTopicRuleDestination
+instance Prelude.NFData DeleteTopicRuleDestination
 
-instance ToHeaders DeleteTopicRuleDestination where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteTopicRuleDestination where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteTopicRuleDestination where
+instance Prelude.ToPath DeleteTopicRuleDestination where
   toPath DeleteTopicRuleDestination' {..} =
-    mconcat ["/destinations/", toBS _dtrdArn]
+    Prelude.mconcat
+      ["/destinations/", Prelude.toBS arn]
 
-instance ToQuery DeleteTopicRuleDestination where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTopicRuleDestination where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTopicRuleDestinationResponse' smart constructor.
-newtype DeleteTopicRuleDestinationResponse = DeleteTopicRuleDestinationResponse'
-  { _dtrdrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteTopicRuleDestinationResponse' smart constructor.
+data DeleteTopicRuleDestinationResponse = DeleteTopicRuleDestinationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTopicRuleDestinationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTopicRuleDestinationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrdrrsResponseStatus' - -- | The response status code.
-deleteTopicRuleDestinationResponse ::
-  -- | 'dtrdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteTopicRuleDestinationResponse_httpStatus' - The response's http status code.
+newDeleteTopicRuleDestinationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTopicRuleDestinationResponse
-deleteTopicRuleDestinationResponse pResponseStatus_ =
+newDeleteTopicRuleDestinationResponse pHttpStatus_ =
   DeleteTopicRuleDestinationResponse'
-    { _dtrdrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dtrdrrsResponseStatus :: Lens' DeleteTopicRuleDestinationResponse Int
-dtrdrrsResponseStatus = lens _dtrdrrsResponseStatus (\s a -> s {_dtrdrrsResponseStatus = a})
+-- | The response's http status code.
+deleteTopicRuleDestinationResponse_httpStatus :: Lens.Lens' DeleteTopicRuleDestinationResponse Prelude.Int
+deleteTopicRuleDestinationResponse_httpStatus = Lens.lens (\DeleteTopicRuleDestinationResponse' {httpStatus} -> httpStatus) (\s@DeleteTopicRuleDestinationResponse' {} a -> s {httpStatus = a} :: DeleteTopicRuleDestinationResponse)
 
-instance NFData DeleteTopicRuleDestinationResponse
+instance
+  Prelude.NFData
+    DeleteTopicRuleDestinationResponse

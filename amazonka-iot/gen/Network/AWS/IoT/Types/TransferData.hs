@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.TransferData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Data used to transfer a certificate to an AWS account.
 --
---
---
--- /See:/ 'transferData' smart constructor.
+-- /See:/ 'newTransferData' smart constructor.
 data TransferData = TransferData'
-  { _tdTransferDate ::
-      !(Maybe POSIX),
-    _tdTransferMessage :: !(Maybe Text),
-    _tdAcceptDate :: !(Maybe POSIX),
-    _tdRejectDate :: !(Maybe POSIX),
-    _tdRejectReason :: !(Maybe Text)
+  { -- | The date the transfer took place.
+    transferDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The transfer message.
+    transferMessage :: Prelude.Maybe Prelude.Text,
+    -- | The date the transfer was accepted.
+    acceptDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The date the transfer was rejected.
+    rejectDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The reason why the transfer was rejected.
+    rejectReason :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransferData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransferData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdTransferDate' - The date the transfer took place.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdTransferMessage' - The transfer message.
+-- 'transferDate', 'transferData_transferDate' - The date the transfer took place.
 --
--- * 'tdAcceptDate' - The date the transfer was accepted.
+-- 'transferMessage', 'transferData_transferMessage' - The transfer message.
 --
--- * 'tdRejectDate' - The date the transfer was rejected.
+-- 'acceptDate', 'transferData_acceptDate' - The date the transfer was accepted.
 --
--- * 'tdRejectReason' - The reason why the transfer was rejected.
-transferData ::
+-- 'rejectDate', 'transferData_rejectDate' - The date the transfer was rejected.
+--
+-- 'rejectReason', 'transferData_rejectReason' - The reason why the transfer was rejected.
+newTransferData ::
   TransferData
-transferData =
+newTransferData =
   TransferData'
-    { _tdTransferDate = Nothing,
-      _tdTransferMessage = Nothing,
-      _tdAcceptDate = Nothing,
-      _tdRejectDate = Nothing,
-      _tdRejectReason = Nothing
+    { transferDate = Prelude.Nothing,
+      transferMessage = Prelude.Nothing,
+      acceptDate = Prelude.Nothing,
+      rejectDate = Prelude.Nothing,
+      rejectReason = Prelude.Nothing
     }
 
 -- | The date the transfer took place.
-tdTransferDate :: Lens' TransferData (Maybe UTCTime)
-tdTransferDate = lens _tdTransferDate (\s a -> s {_tdTransferDate = a}) . mapping _Time
+transferData_transferDate :: Lens.Lens' TransferData (Prelude.Maybe Prelude.UTCTime)
+transferData_transferDate = Lens.lens (\TransferData' {transferDate} -> transferDate) (\s@TransferData' {} a -> s {transferDate = a} :: TransferData) Prelude.. Lens.mapping Prelude._Time
 
 -- | The transfer message.
-tdTransferMessage :: Lens' TransferData (Maybe Text)
-tdTransferMessage = lens _tdTransferMessage (\s a -> s {_tdTransferMessage = a})
+transferData_transferMessage :: Lens.Lens' TransferData (Prelude.Maybe Prelude.Text)
+transferData_transferMessage = Lens.lens (\TransferData' {transferMessage} -> transferMessage) (\s@TransferData' {} a -> s {transferMessage = a} :: TransferData)
 
 -- | The date the transfer was accepted.
-tdAcceptDate :: Lens' TransferData (Maybe UTCTime)
-tdAcceptDate = lens _tdAcceptDate (\s a -> s {_tdAcceptDate = a}) . mapping _Time
+transferData_acceptDate :: Lens.Lens' TransferData (Prelude.Maybe Prelude.UTCTime)
+transferData_acceptDate = Lens.lens (\TransferData' {acceptDate} -> acceptDate) (\s@TransferData' {} a -> s {acceptDate = a} :: TransferData) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date the transfer was rejected.
-tdRejectDate :: Lens' TransferData (Maybe UTCTime)
-tdRejectDate = lens _tdRejectDate (\s a -> s {_tdRejectDate = a}) . mapping _Time
+transferData_rejectDate :: Lens.Lens' TransferData (Prelude.Maybe Prelude.UTCTime)
+transferData_rejectDate = Lens.lens (\TransferData' {rejectDate} -> rejectDate) (\s@TransferData' {} a -> s {rejectDate = a} :: TransferData) Prelude.. Lens.mapping Prelude._Time
 
 -- | The reason why the transfer was rejected.
-tdRejectReason :: Lens' TransferData (Maybe Text)
-tdRejectReason = lens _tdRejectReason (\s a -> s {_tdRejectReason = a})
+transferData_rejectReason :: Lens.Lens' TransferData (Prelude.Maybe Prelude.Text)
+transferData_rejectReason = Lens.lens (\TransferData' {rejectReason} -> rejectReason) (\s@TransferData' {} a -> s {rejectReason = a} :: TransferData)
 
-instance FromJSON TransferData where
+instance Prelude.FromJSON TransferData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TransferData"
       ( \x ->
           TransferData'
-            <$> (x .:? "transferDate")
-            <*> (x .:? "transferMessage")
-            <*> (x .:? "acceptDate")
-            <*> (x .:? "rejectDate")
-            <*> (x .:? "rejectReason")
+            Prelude.<$> (x Prelude..:? "transferDate")
+            Prelude.<*> (x Prelude..:? "transferMessage")
+            Prelude.<*> (x Prelude..:? "acceptDate")
+            Prelude.<*> (x Prelude..:? "rejectDate")
+            Prelude.<*> (x Prelude..:? "rejectReason")
       )
 
-instance Hashable TransferData
+instance Prelude.Hashable TransferData
 
-instance NFData TransferData
+instance Prelude.NFData TransferData

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,83 @@
 module Network.AWS.IoT.Types.CACertificate where
 
 import Network.AWS.IoT.Types.CACertificateStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A CA certificate.
 --
---
---
--- /See:/ 'cACertificate' smart constructor.
+-- /See:/ 'newCACertificate' smart constructor.
 data CACertificate = CACertificate'
-  { _cacStatus ::
-      !(Maybe CACertificateStatus),
-    _cacCertificateARN :: !(Maybe Text),
-    _cacCreationDate :: !(Maybe POSIX),
-    _cacCertificateId :: !(Maybe Text)
+  { -- | The status of the CA certificate.
+    --
+    -- The status value REGISTER_INACTIVE is deprecated and should not be used.
+    status :: Prelude.Maybe CACertificateStatus,
+    -- | The ARN of the CA certificate.
+    certificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The date the CA certificate was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the CA certificate.
+    certificateId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CACertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CACertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cacStatus' - The status of the CA certificate. The status value REGISTER_INACTIVE is deprecated and should not be used.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cacCertificateARN' - The ARN of the CA certificate.
+-- 'status', 'cACertificate_status' - The status of the CA certificate.
 --
--- * 'cacCreationDate' - The date the CA certificate was created.
+-- The status value REGISTER_INACTIVE is deprecated and should not be used.
 --
--- * 'cacCertificateId' - The ID of the CA certificate.
-cACertificate ::
+-- 'certificateArn', 'cACertificate_certificateArn' - The ARN of the CA certificate.
+--
+-- 'creationDate', 'cACertificate_creationDate' - The date the CA certificate was created.
+--
+-- 'certificateId', 'cACertificate_certificateId' - The ID of the CA certificate.
+newCACertificate ::
   CACertificate
-cACertificate =
+newCACertificate =
   CACertificate'
-    { _cacStatus = Nothing,
-      _cacCertificateARN = Nothing,
-      _cacCreationDate = Nothing,
-      _cacCertificateId = Nothing
+    { status = Prelude.Nothing,
+      certificateArn = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      certificateId = Prelude.Nothing
     }
 
--- | The status of the CA certificate. The status value REGISTER_INACTIVE is deprecated and should not be used.
-cacStatus :: Lens' CACertificate (Maybe CACertificateStatus)
-cacStatus = lens _cacStatus (\s a -> s {_cacStatus = a})
+-- | The status of the CA certificate.
+--
+-- The status value REGISTER_INACTIVE is deprecated and should not be used.
+cACertificate_status :: Lens.Lens' CACertificate (Prelude.Maybe CACertificateStatus)
+cACertificate_status = Lens.lens (\CACertificate' {status} -> status) (\s@CACertificate' {} a -> s {status = a} :: CACertificate)
 
 -- | The ARN of the CA certificate.
-cacCertificateARN :: Lens' CACertificate (Maybe Text)
-cacCertificateARN = lens _cacCertificateARN (\s a -> s {_cacCertificateARN = a})
+cACertificate_certificateArn :: Lens.Lens' CACertificate (Prelude.Maybe Prelude.Text)
+cACertificate_certificateArn = Lens.lens (\CACertificate' {certificateArn} -> certificateArn) (\s@CACertificate' {} a -> s {certificateArn = a} :: CACertificate)
 
 -- | The date the CA certificate was created.
-cacCreationDate :: Lens' CACertificate (Maybe UTCTime)
-cacCreationDate = lens _cacCreationDate (\s a -> s {_cacCreationDate = a}) . mapping _Time
+cACertificate_creationDate :: Lens.Lens' CACertificate (Prelude.Maybe Prelude.UTCTime)
+cACertificate_creationDate = Lens.lens (\CACertificate' {creationDate} -> creationDate) (\s@CACertificate' {} a -> s {creationDate = a} :: CACertificate) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the CA certificate.
-cacCertificateId :: Lens' CACertificate (Maybe Text)
-cacCertificateId = lens _cacCertificateId (\s a -> s {_cacCertificateId = a})
+cACertificate_certificateId :: Lens.Lens' CACertificate (Prelude.Maybe Prelude.Text)
+cACertificate_certificateId = Lens.lens (\CACertificate' {certificateId} -> certificateId) (\s@CACertificate' {} a -> s {certificateId = a} :: CACertificate)
 
-instance FromJSON CACertificate where
+instance Prelude.FromJSON CACertificate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CACertificate"
       ( \x ->
           CACertificate'
-            <$> (x .:? "status")
-            <*> (x .:? "certificateArn")
-            <*> (x .:? "creationDate")
-            <*> (x .:? "certificateId")
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "certificateArn")
+            Prelude.<*> (x Prelude..:? "creationDate")
+            Prelude.<*> (x Prelude..:? "certificateId")
       )
 
-instance Hashable CACertificate
+instance Prelude.Hashable CACertificate
 
-instance NFData CACertificate
+instance Prelude.NFData CACertificate

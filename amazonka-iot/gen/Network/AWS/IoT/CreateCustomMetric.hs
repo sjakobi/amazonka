@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,190 +21,225 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Use this API to define a Custom Metric published by your devices to Device Defender.
+-- Use this API to define a Custom Metric published by your devices to
+-- Device Defender.
 module Network.AWS.IoT.CreateCustomMetric
   ( -- * Creating a Request
-    createCustomMetric,
-    CreateCustomMetric,
+    CreateCustomMetric (..),
+    newCreateCustomMetric,
 
     -- * Request Lenses
-    ccmTags,
-    ccmDisplayName,
-    ccmMetricName,
-    ccmMetricType,
-    ccmClientRequestToken,
+    createCustomMetric_tags,
+    createCustomMetric_displayName,
+    createCustomMetric_metricName,
+    createCustomMetric_metricType,
+    createCustomMetric_clientRequestToken,
 
     -- * Destructuring the Response
-    createCustomMetricResponse,
-    CreateCustomMetricResponse,
+    CreateCustomMetricResponse (..),
+    newCreateCustomMetricResponse,
 
     -- * Response Lenses
-    ccmrrsMetricARN,
-    ccmrrsMetricName,
-    ccmrrsResponseStatus,
+    createCustomMetricResponse_metricArn,
+    createCustomMetricResponse_metricName,
+    createCustomMetricResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createCustomMetric' smart constructor.
+-- | /See:/ 'newCreateCustomMetric' smart constructor.
 data CreateCustomMetric = CreateCustomMetric'
-  { _ccmTags ::
-      !(Maybe [Tag]),
-    _ccmDisplayName :: !(Maybe Text),
-    _ccmMetricName :: !Text,
-    _ccmMetricType ::
-      !CustomMetricType,
-    _ccmClientRequestToken :: !Text
+  { -- | Metadata that can be used to manage the custom metric.
+    tags :: Prelude.Maybe [Tag],
+    -- | Field represents a friendly name in the console for the custom metric;
+    -- it doesn\'t have to be unique. Don\'t use this name as the metric
+    -- identifier in the device metric report. Can be updated once defined.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the custom metric. This will be used in the metric report
+    -- submitted from the device\/thing. Shouldn\'t begin with @aws:@. Cannot
+    -- be updated once defined.
+    metricName :: Prelude.Text,
+    -- | The type of the custom metric. Types include @string-list@,
+    -- @ip-address-list@, @number-list@, and @number@.
+    metricType :: CustomMetricType,
+    -- | Each custom metric must have a unique client request token. If you try
+    -- to create a new custom metric that already exists with a different
+    -- token, an exception occurs. If you omit this value, AWS SDKs will
+    -- automatically generate a unique client request.
+    clientRequestToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCustomMetric' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCustomMetric' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccmTags' - Metadata that can be used to manage the custom metric.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccmDisplayName' - Field represents a friendly name in the console for the custom metric; it doesn't have to be unique. Don't use this name as the metric identifier in the device metric report. Can be updated once defined.
+-- 'tags', 'createCustomMetric_tags' - Metadata that can be used to manage the custom metric.
 --
--- * 'ccmMetricName' - The name of the custom metric. This will be used in the metric report submitted from the device/thing. Shouldn't begin with @aws:@ . Cannot be updated once defined.
+-- 'displayName', 'createCustomMetric_displayName' - Field represents a friendly name in the console for the custom metric;
+-- it doesn\'t have to be unique. Don\'t use this name as the metric
+-- identifier in the device metric report. Can be updated once defined.
 --
--- * 'ccmMetricType' - The type of the custom metric. Types include @string-list@ , @ip-address-list@ , @number-list@ , and @number@ .
+-- 'metricName', 'createCustomMetric_metricName' - The name of the custom metric. This will be used in the metric report
+-- submitted from the device\/thing. Shouldn\'t begin with @aws:@. Cannot
+-- be updated once defined.
 --
--- * 'ccmClientRequestToken' - Each custom metric must have a unique client request token. If you try to create a new custom metric that already exists with a different token, an exception occurs. If you omit this value, AWS SDKs will automatically generate a unique client request.
-createCustomMetric ::
-  -- | 'ccmMetricName'
-  Text ->
-  -- | 'ccmMetricType'
+-- 'metricType', 'createCustomMetric_metricType' - The type of the custom metric. Types include @string-list@,
+-- @ip-address-list@, @number-list@, and @number@.
+--
+-- 'clientRequestToken', 'createCustomMetric_clientRequestToken' - Each custom metric must have a unique client request token. If you try
+-- to create a new custom metric that already exists with a different
+-- token, an exception occurs. If you omit this value, AWS SDKs will
+-- automatically generate a unique client request.
+newCreateCustomMetric ::
+  -- | 'metricName'
+  Prelude.Text ->
+  -- | 'metricType'
   CustomMetricType ->
-  -- | 'ccmClientRequestToken'
-  Text ->
+  -- | 'clientRequestToken'
+  Prelude.Text ->
   CreateCustomMetric
-createCustomMetric
+newCreateCustomMetric
   pMetricName_
   pMetricType_
   pClientRequestToken_ =
     CreateCustomMetric'
-      { _ccmTags = Nothing,
-        _ccmDisplayName = Nothing,
-        _ccmMetricName = pMetricName_,
-        _ccmMetricType = pMetricType_,
-        _ccmClientRequestToken = pClientRequestToken_
+      { tags = Prelude.Nothing,
+        displayName = Prelude.Nothing,
+        metricName = pMetricName_,
+        metricType = pMetricType_,
+        clientRequestToken = pClientRequestToken_
       }
 
 -- | Metadata that can be used to manage the custom metric.
-ccmTags :: Lens' CreateCustomMetric [Tag]
-ccmTags = lens _ccmTags (\s a -> s {_ccmTags = a}) . _Default . _Coerce
+createCustomMetric_tags :: Lens.Lens' CreateCustomMetric (Prelude.Maybe [Tag])
+createCustomMetric_tags = Lens.lens (\CreateCustomMetric' {tags} -> tags) (\s@CreateCustomMetric' {} a -> s {tags = a} :: CreateCustomMetric) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Field represents a friendly name in the console for the custom metric; it doesn't have to be unique. Don't use this name as the metric identifier in the device metric report. Can be updated once defined.
-ccmDisplayName :: Lens' CreateCustomMetric (Maybe Text)
-ccmDisplayName = lens _ccmDisplayName (\s a -> s {_ccmDisplayName = a})
+-- | Field represents a friendly name in the console for the custom metric;
+-- it doesn\'t have to be unique. Don\'t use this name as the metric
+-- identifier in the device metric report. Can be updated once defined.
+createCustomMetric_displayName :: Lens.Lens' CreateCustomMetric (Prelude.Maybe Prelude.Text)
+createCustomMetric_displayName = Lens.lens (\CreateCustomMetric' {displayName} -> displayName) (\s@CreateCustomMetric' {} a -> s {displayName = a} :: CreateCustomMetric)
 
--- | The name of the custom metric. This will be used in the metric report submitted from the device/thing. Shouldn't begin with @aws:@ . Cannot be updated once defined.
-ccmMetricName :: Lens' CreateCustomMetric Text
-ccmMetricName = lens _ccmMetricName (\s a -> s {_ccmMetricName = a})
+-- | The name of the custom metric. This will be used in the metric report
+-- submitted from the device\/thing. Shouldn\'t begin with @aws:@. Cannot
+-- be updated once defined.
+createCustomMetric_metricName :: Lens.Lens' CreateCustomMetric Prelude.Text
+createCustomMetric_metricName = Lens.lens (\CreateCustomMetric' {metricName} -> metricName) (\s@CreateCustomMetric' {} a -> s {metricName = a} :: CreateCustomMetric)
 
--- | The type of the custom metric. Types include @string-list@ , @ip-address-list@ , @number-list@ , and @number@ .
-ccmMetricType :: Lens' CreateCustomMetric CustomMetricType
-ccmMetricType = lens _ccmMetricType (\s a -> s {_ccmMetricType = a})
+-- | The type of the custom metric. Types include @string-list@,
+-- @ip-address-list@, @number-list@, and @number@.
+createCustomMetric_metricType :: Lens.Lens' CreateCustomMetric CustomMetricType
+createCustomMetric_metricType = Lens.lens (\CreateCustomMetric' {metricType} -> metricType) (\s@CreateCustomMetric' {} a -> s {metricType = a} :: CreateCustomMetric)
 
--- | Each custom metric must have a unique client request token. If you try to create a new custom metric that already exists with a different token, an exception occurs. If you omit this value, AWS SDKs will automatically generate a unique client request.
-ccmClientRequestToken :: Lens' CreateCustomMetric Text
-ccmClientRequestToken = lens _ccmClientRequestToken (\s a -> s {_ccmClientRequestToken = a})
+-- | Each custom metric must have a unique client request token. If you try
+-- to create a new custom metric that already exists with a different
+-- token, an exception occurs. If you omit this value, AWS SDKs will
+-- automatically generate a unique client request.
+createCustomMetric_clientRequestToken :: Lens.Lens' CreateCustomMetric Prelude.Text
+createCustomMetric_clientRequestToken = Lens.lens (\CreateCustomMetric' {clientRequestToken} -> clientRequestToken) (\s@CreateCustomMetric' {} a -> s {clientRequestToken = a} :: CreateCustomMetric)
 
-instance AWSRequest CreateCustomMetric where
+instance Prelude.AWSRequest CreateCustomMetric where
   type
     Rs CreateCustomMetric =
       CreateCustomMetricResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateCustomMetricResponse'
-            <$> (x .?> "metricArn")
-            <*> (x .?> "metricName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "metricArn")
+            Prelude.<*> (x Prelude..?> "metricName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateCustomMetric
+instance Prelude.Hashable CreateCustomMetric
 
-instance NFData CreateCustomMetric
+instance Prelude.NFData CreateCustomMetric
 
-instance ToHeaders CreateCustomMetric where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateCustomMetric where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateCustomMetric where
+instance Prelude.ToJSON CreateCustomMetric where
   toJSON CreateCustomMetric' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _ccmTags,
-            ("displayName" .=) <$> _ccmDisplayName,
-            Just ("metricType" .= _ccmMetricType),
-            Just
-              ("clientRequestToken" .= _ccmClientRequestToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            ("displayName" Prelude..=) Prelude.<$> displayName,
+            Prelude.Just ("metricType" Prelude..= metricType),
+            Prelude.Just
+              ( "clientRequestToken"
+                  Prelude..= clientRequestToken
+              )
           ]
       )
 
-instance ToPath CreateCustomMetric where
+instance Prelude.ToPath CreateCustomMetric where
   toPath CreateCustomMetric' {..} =
-    mconcat ["/custom-metric/", toBS _ccmMetricName]
+    Prelude.mconcat
+      ["/custom-metric/", Prelude.toBS metricName]
 
-instance ToQuery CreateCustomMetric where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateCustomMetric where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createCustomMetricResponse' smart constructor.
+-- | /See:/ 'newCreateCustomMetricResponse' smart constructor.
 data CreateCustomMetricResponse = CreateCustomMetricResponse'
-  { _ccmrrsMetricARN ::
-      !(Maybe Text),
-    _ccmrrsMetricName ::
-      !(Maybe Text),
-    _ccmrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Number (ARN) of the custom metric, e.g.
+    -- @arn:aws-partition:iot:region:accountId:custommetric\/metricName @
+    metricArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the custom metric to be used in the metric report.
+    metricName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCustomMetricResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCustomMetricResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccmrrsMetricARN' - The Amazon Resource Number (ARN) of the custom metric, e.g. @arn:/aws-partition/ :iot:/region/ :/accountId/ :custommetric//metricName/ @
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccmrrsMetricName' - The name of the custom metric to be used in the metric report.
+-- 'metricArn', 'createCustomMetricResponse_metricArn' - The Amazon Resource Number (ARN) of the custom metric, e.g.
+-- @arn:aws-partition:iot:region:accountId:custommetric\/metricName @
 --
--- * 'ccmrrsResponseStatus' - -- | The response status code.
-createCustomMetricResponse ::
-  -- | 'ccmrrsResponseStatus'
-  Int ->
+-- 'metricName', 'createCustomMetricResponse_metricName' - The name of the custom metric to be used in the metric report.
+--
+-- 'httpStatus', 'createCustomMetricResponse_httpStatus' - The response's http status code.
+newCreateCustomMetricResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateCustomMetricResponse
-createCustomMetricResponse pResponseStatus_ =
+newCreateCustomMetricResponse pHttpStatus_ =
   CreateCustomMetricResponse'
-    { _ccmrrsMetricARN =
-        Nothing,
-      _ccmrrsMetricName = Nothing,
-      _ccmrrsResponseStatus = pResponseStatus_
+    { metricArn =
+        Prelude.Nothing,
+      metricName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Number (ARN) of the custom metric, e.g. @arn:/aws-partition/ :iot:/region/ :/accountId/ :custommetric//metricName/ @
-ccmrrsMetricARN :: Lens' CreateCustomMetricResponse (Maybe Text)
-ccmrrsMetricARN = lens _ccmrrsMetricARN (\s a -> s {_ccmrrsMetricARN = a})
+-- | The Amazon Resource Number (ARN) of the custom metric, e.g.
+-- @arn:aws-partition:iot:region:accountId:custommetric\/metricName @
+createCustomMetricResponse_metricArn :: Lens.Lens' CreateCustomMetricResponse (Prelude.Maybe Prelude.Text)
+createCustomMetricResponse_metricArn = Lens.lens (\CreateCustomMetricResponse' {metricArn} -> metricArn) (\s@CreateCustomMetricResponse' {} a -> s {metricArn = a} :: CreateCustomMetricResponse)
 
 -- | The name of the custom metric to be used in the metric report.
-ccmrrsMetricName :: Lens' CreateCustomMetricResponse (Maybe Text)
-ccmrrsMetricName = lens _ccmrrsMetricName (\s a -> s {_ccmrrsMetricName = a})
+createCustomMetricResponse_metricName :: Lens.Lens' CreateCustomMetricResponse (Prelude.Maybe Prelude.Text)
+createCustomMetricResponse_metricName = Lens.lens (\CreateCustomMetricResponse' {metricName} -> metricName) (\s@CreateCustomMetricResponse' {} a -> s {metricName = a} :: CreateCustomMetricResponse)
 
--- | -- | The response status code.
-ccmrrsResponseStatus :: Lens' CreateCustomMetricResponse Int
-ccmrrsResponseStatus = lens _ccmrrsResponseStatus (\s a -> s {_ccmrrsResponseStatus = a})
+-- | The response's http status code.
+createCustomMetricResponse_httpStatus :: Lens.Lens' CreateCustomMetricResponse Prelude.Int
+createCustomMetricResponse_httpStatus = Lens.lens (\CreateCustomMetricResponse' {httpStatus} -> httpStatus) (\s@CreateCustomMetricResponse' {} a -> s {httpStatus = a} :: CreateCustomMetricResponse)
 
-instance NFData CreateCustomMetricResponse
+instance Prelude.NFData CreateCustomMetricResponse

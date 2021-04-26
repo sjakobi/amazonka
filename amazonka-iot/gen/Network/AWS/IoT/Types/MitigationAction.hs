@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,81 @@
 module Network.AWS.IoT.Types.MitigationAction where
 
 import Network.AWS.IoT.Types.MitigationActionParams
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes which changes should be applied as part of a mitigation action.
+-- | Describes which changes should be applied as part of a mitigation
+-- action.
 --
---
---
--- /See:/ 'mitigationAction' smart constructor.
+-- /See:/ 'newMitigationAction' smart constructor.
 data MitigationAction = MitigationAction'
-  { _maRoleARN ::
-      !(Maybe Text),
-    _maId :: !(Maybe Text),
-    _maActionParams ::
-      !(Maybe MitigationActionParams),
-    _maName :: !(Maybe Text)
+  { -- | The IAM role ARN used to apply this mitigation action.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the mitigation action.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The set of parameters for this mitigation action. The parameters vary,
+    -- depending on the kind of action you apply.
+    actionParams :: Prelude.Maybe MitigationActionParams,
+    -- | A user-friendly name for the mitigation action.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MitigationAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MitigationAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'maRoleARN' - The IAM role ARN used to apply this mitigation action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'maId' - A unique identifier for the mitigation action.
+-- 'roleArn', 'mitigationAction_roleArn' - The IAM role ARN used to apply this mitigation action.
 --
--- * 'maActionParams' - The set of parameters for this mitigation action. The parameters vary, depending on the kind of action you apply.
+-- 'id', 'mitigationAction_id' - A unique identifier for the mitigation action.
 --
--- * 'maName' - A user-friendly name for the mitigation action.
-mitigationAction ::
+-- 'actionParams', 'mitigationAction_actionParams' - The set of parameters for this mitigation action. The parameters vary,
+-- depending on the kind of action you apply.
+--
+-- 'name', 'mitigationAction_name' - A user-friendly name for the mitigation action.
+newMitigationAction ::
   MitigationAction
-mitigationAction =
+newMitigationAction =
   MitigationAction'
-    { _maRoleARN = Nothing,
-      _maId = Nothing,
-      _maActionParams = Nothing,
-      _maName = Nothing
+    { roleArn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      actionParams = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The IAM role ARN used to apply this mitigation action.
-maRoleARN :: Lens' MitigationAction (Maybe Text)
-maRoleARN = lens _maRoleARN (\s a -> s {_maRoleARN = a})
+mitigationAction_roleArn :: Lens.Lens' MitigationAction (Prelude.Maybe Prelude.Text)
+mitigationAction_roleArn = Lens.lens (\MitigationAction' {roleArn} -> roleArn) (\s@MitigationAction' {} a -> s {roleArn = a} :: MitigationAction)
 
 -- | A unique identifier for the mitigation action.
-maId :: Lens' MitigationAction (Maybe Text)
-maId = lens _maId (\s a -> s {_maId = a})
+mitigationAction_id :: Lens.Lens' MitigationAction (Prelude.Maybe Prelude.Text)
+mitigationAction_id = Lens.lens (\MitigationAction' {id} -> id) (\s@MitigationAction' {} a -> s {id = a} :: MitigationAction)
 
--- | The set of parameters for this mitigation action. The parameters vary, depending on the kind of action you apply.
-maActionParams :: Lens' MitigationAction (Maybe MitigationActionParams)
-maActionParams = lens _maActionParams (\s a -> s {_maActionParams = a})
+-- | The set of parameters for this mitigation action. The parameters vary,
+-- depending on the kind of action you apply.
+mitigationAction_actionParams :: Lens.Lens' MitigationAction (Prelude.Maybe MitigationActionParams)
+mitigationAction_actionParams = Lens.lens (\MitigationAction' {actionParams} -> actionParams) (\s@MitigationAction' {} a -> s {actionParams = a} :: MitigationAction)
 
 -- | A user-friendly name for the mitigation action.
-maName :: Lens' MitigationAction (Maybe Text)
-maName = lens _maName (\s a -> s {_maName = a})
+mitigationAction_name :: Lens.Lens' MitigationAction (Prelude.Maybe Prelude.Text)
+mitigationAction_name = Lens.lens (\MitigationAction' {name} -> name) (\s@MitigationAction' {} a -> s {name = a} :: MitigationAction)
 
-instance FromJSON MitigationAction where
+instance Prelude.FromJSON MitigationAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MitigationAction"
       ( \x ->
           MitigationAction'
-            <$> (x .:? "roleArn")
-            <*> (x .:? "id")
-            <*> (x .:? "actionParams")
-            <*> (x .:? "name")
+            Prelude.<$> (x Prelude..:? "roleArn")
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "actionParams")
+            Prelude.<*> (x Prelude..:? "name")
       )
 
-instance Hashable MitigationAction
+instance Prelude.Hashable MitigationAction
 
-instance NFData MitigationAction
+instance Prelude.NFData MitigationAction

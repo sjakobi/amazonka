@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.IoT.Types.IndexStatus
   ( IndexStatus
       ( ..,
-        ISActive,
-        ISBuilding,
-        ISRebuilding
+        IndexStatusACTIVE,
+        IndexStatusBUILDING,
+        IndexStatusREBUILDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data IndexStatus = IndexStatus' (CI Text)
+newtype IndexStatus = IndexStatus'
+  { fromIndexStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISActive :: IndexStatus
-pattern ISActive = IndexStatus' "ACTIVE"
+pattern IndexStatusACTIVE :: IndexStatus
+pattern IndexStatusACTIVE = IndexStatus' "ACTIVE"
 
-pattern ISBuilding :: IndexStatus
-pattern ISBuilding = IndexStatus' "BUILDING"
+pattern IndexStatusBUILDING :: IndexStatus
+pattern IndexStatusBUILDING = IndexStatus' "BUILDING"
 
-pattern ISRebuilding :: IndexStatus
-pattern ISRebuilding = IndexStatus' "REBUILDING"
+pattern IndexStatusREBUILDING :: IndexStatus
+pattern IndexStatusREBUILDING = IndexStatus' "REBUILDING"
 
 {-# COMPLETE
-  ISActive,
-  ISBuilding,
-  ISRebuilding,
+  IndexStatusACTIVE,
+  IndexStatusBUILDING,
+  IndexStatusREBUILDING,
   IndexStatus'
   #-}
 
-instance FromText IndexStatus where
-  parser = (IndexStatus' . mk) <$> takeText
+instance Prelude.FromText IndexStatus where
+  parser = IndexStatus' Prelude.<$> Prelude.takeText
 
-instance ToText IndexStatus where
-  toText (IndexStatus' ci) = original ci
+instance Prelude.ToText IndexStatus where
+  toText (IndexStatus' x) = x
 
-instance Hashable IndexStatus
+instance Prelude.Hashable IndexStatus
 
-instance NFData IndexStatus
+instance Prelude.NFData IndexStatus
 
-instance ToByteString IndexStatus
+instance Prelude.ToByteString IndexStatus
 
-instance ToQuery IndexStatus
+instance Prelude.ToQuery IndexStatus
 
-instance ToHeader IndexStatus
+instance Prelude.ToHeader IndexStatus
 
-instance FromJSON IndexStatus where
-  parseJSON = parseJSONText "IndexStatus"
+instance Prelude.FromJSON IndexStatus where
+  parseJSON = Prelude.parseJSONText "IndexStatus"

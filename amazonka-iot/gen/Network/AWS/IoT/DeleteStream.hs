@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,104 +24,104 @@
 -- Deletes a stream.
 module Network.AWS.IoT.DeleteStream
   ( -- * Creating a Request
-    deleteStream,
-    DeleteStream,
+    DeleteStream (..),
+    newDeleteStream,
 
     -- * Request Lenses
-    dsStreamId,
+    deleteStream_streamId,
 
     -- * Destructuring the Response
-    deleteStreamResponse,
-    DeleteStreamResponse,
+    DeleteStreamResponse (..),
+    newDeleteStreamResponse,
 
     -- * Response Lenses
-    dsrrsResponseStatus,
+    deleteStreamResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteStream' smart constructor.
-newtype DeleteStream = DeleteStream'
-  { _dsStreamId ::
-      Text
+-- | /See:/ 'newDeleteStream' smart constructor.
+data DeleteStream = DeleteStream'
+  { -- | The stream ID.
+    streamId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsStreamId' - The stream ID.
-deleteStream ::
-  -- | 'dsStreamId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'streamId', 'deleteStream_streamId' - The stream ID.
+newDeleteStream ::
+  -- | 'streamId'
+  Prelude.Text ->
   DeleteStream
-deleteStream pStreamId_ =
-  DeleteStream' {_dsStreamId = pStreamId_}
+newDeleteStream pStreamId_ =
+  DeleteStream' {streamId = pStreamId_}
 
 -- | The stream ID.
-dsStreamId :: Lens' DeleteStream Text
-dsStreamId = lens _dsStreamId (\s a -> s {_dsStreamId = a})
+deleteStream_streamId :: Lens.Lens' DeleteStream Prelude.Text
+deleteStream_streamId = Lens.lens (\DeleteStream' {streamId} -> streamId) (\s@DeleteStream' {} a -> s {streamId = a} :: DeleteStream)
 
-instance AWSRequest DeleteStream where
+instance Prelude.AWSRequest DeleteStream where
   type Rs DeleteStream = DeleteStreamResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteStreamResponse' <$> (pure (fromEnum s))
+          DeleteStreamResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteStream
+instance Prelude.Hashable DeleteStream
 
-instance NFData DeleteStream
+instance Prelude.NFData DeleteStream
 
-instance ToHeaders DeleteStream where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteStream where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteStream where
+instance Prelude.ToPath DeleteStream where
   toPath DeleteStream' {..} =
-    mconcat ["/streams/", toBS _dsStreamId]
+    Prelude.mconcat
+      ["/streams/", Prelude.toBS streamId]
 
-instance ToQuery DeleteStream where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteStream where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteStreamResponse' smart constructor.
-newtype DeleteStreamResponse = DeleteStreamResponse'
-  { _dsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteStreamResponse' smart constructor.
+data DeleteStreamResponse = DeleteStreamResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteStreamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteStreamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-deleteStreamResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteStreamResponse_httpStatus' - The response's http status code.
+newDeleteStreamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteStreamResponse
-deleteStreamResponse pResponseStatus_ =
-  DeleteStreamResponse'
-    { _dsrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteStreamResponse pHttpStatus_ =
+  DeleteStreamResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DeleteStreamResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteStreamResponse_httpStatus :: Lens.Lens' DeleteStreamResponse Prelude.Int
+deleteStreamResponse_httpStatus = Lens.lens (\DeleteStreamResponse' {httpStatus} -> httpStatus) (\s@DeleteStreamResponse' {} a -> s {httpStatus = a} :: DeleteStreamResponse)
 
-instance NFData DeleteStreamResponse
+instance Prelude.NFData DeleteStreamResponse

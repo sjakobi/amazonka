@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,140 +24,200 @@
 -- Cancels the execution of a job for a given thing.
 module Network.AWS.IoT.CancelJobExecution
   ( -- * Creating a Request
-    cancelJobExecution,
-    CancelJobExecution,
+    CancelJobExecution (..),
+    newCancelJobExecution,
 
     -- * Request Lenses
-    cjeExpectedVersion,
-    cjeStatusDetails,
-    cjeForce,
-    cjeJobId,
-    cjeThingName,
+    cancelJobExecution_expectedVersion,
+    cancelJobExecution_statusDetails,
+    cancelJobExecution_force,
+    cancelJobExecution_jobId,
+    cancelJobExecution_thingName,
 
     -- * Destructuring the Response
-    cancelJobExecutionResponse,
-    CancelJobExecutionResponse,
+    CancelJobExecutionResponse (..),
+    newCancelJobExecutionResponse,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'cancelJobExecution' smart constructor.
+-- | /See:/ 'newCancelJobExecution' smart constructor.
 data CancelJobExecution = CancelJobExecution'
-  { _cjeExpectedVersion ::
-      !(Maybe Integer),
-    _cjeStatusDetails ::
-      !(Maybe (Map Text Text)),
-    _cjeForce :: !(Maybe Bool),
-    _cjeJobId :: !Text,
-    _cjeThingName :: !Text
+  { -- | (Optional) The expected current version of the job execution. Each time
+    -- you update the job execution, its version is incremented. If the version
+    -- of the job execution stored in Jobs does not match, the update is
+    -- rejected with a VersionMismatch error, and an ErrorResponse that
+    -- contains the current job execution status data is returned. (This makes
+    -- it unnecessary to perform a separate DescribeJobExecution request in
+    -- order to obtain the job execution status data.)
+    expectedVersion :: Prelude.Maybe Prelude.Integer,
+    -- | A collection of name\/value pairs that describe the status of the job
+    -- execution. If not specified, the statusDetails are unchanged. You can
+    -- specify at most 10 name\/value pairs.
+    statusDetails :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | (Optional) If @true@ the job execution will be canceled if it has status
+    -- IN_PROGRESS or QUEUED, otherwise the job execution will be canceled only
+    -- if it has status QUEUED. If you attempt to cancel a job execution that
+    -- is IN_PROGRESS, and you do not set @force@ to @true@, then an
+    -- @InvalidStateTransitionException@ will be thrown. The default is
+    -- @false@.
+    --
+    -- Canceling a job execution which is \"IN_PROGRESS\", will cause the
+    -- device to be unable to update the job execution status. Use caution and
+    -- ensure that the device is able to recover to a valid state.
+    force :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the job to be canceled.
+    jobId :: Prelude.Text,
+    -- | The name of the thing whose execution of the job will be canceled.
+    thingName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelJobExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelJobExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cjeExpectedVersion' - (Optional) The expected current version of the job execution. Each time you update the job execution, its version is incremented. If the version of the job execution stored in Jobs does not match, the update is rejected with a VersionMismatch error, and an ErrorResponse that contains the current job execution status data is returned. (This makes it unnecessary to perform a separate DescribeJobExecution request in order to obtain the job execution status data.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cjeStatusDetails' - A collection of name/value pairs that describe the status of the job execution. If not specified, the statusDetails are unchanged. You can specify at most 10 name/value pairs.
+-- 'expectedVersion', 'cancelJobExecution_expectedVersion' - (Optional) The expected current version of the job execution. Each time
+-- you update the job execution, its version is incremented. If the version
+-- of the job execution stored in Jobs does not match, the update is
+-- rejected with a VersionMismatch error, and an ErrorResponse that
+-- contains the current job execution status data is returned. (This makes
+-- it unnecessary to perform a separate DescribeJobExecution request in
+-- order to obtain the job execution status data.)
 --
--- * 'cjeForce' - (Optional) If @true@ the job execution will be canceled if it has status IN_PROGRESS or QUEUED, otherwise the job execution will be canceled only if it has status QUEUED. If you attempt to cancel a job execution that is IN_PROGRESS, and you do not set @force@ to @true@ , then an @InvalidStateTransitionException@ will be thrown. The default is @false@ . Canceling a job execution which is "IN_PROGRESS", will cause the device to be unable to update the job execution status. Use caution and ensure that the device is able to recover to a valid state.
+-- 'statusDetails', 'cancelJobExecution_statusDetails' - A collection of name\/value pairs that describe the status of the job
+-- execution. If not specified, the statusDetails are unchanged. You can
+-- specify at most 10 name\/value pairs.
 --
--- * 'cjeJobId' - The ID of the job to be canceled.
+-- 'force', 'cancelJobExecution_force' - (Optional) If @true@ the job execution will be canceled if it has status
+-- IN_PROGRESS or QUEUED, otherwise the job execution will be canceled only
+-- if it has status QUEUED. If you attempt to cancel a job execution that
+-- is IN_PROGRESS, and you do not set @force@ to @true@, then an
+-- @InvalidStateTransitionException@ will be thrown. The default is
+-- @false@.
 --
--- * 'cjeThingName' - The name of the thing whose execution of the job will be canceled.
-cancelJobExecution ::
-  -- | 'cjeJobId'
-  Text ->
-  -- | 'cjeThingName'
-  Text ->
+-- Canceling a job execution which is \"IN_PROGRESS\", will cause the
+-- device to be unable to update the job execution status. Use caution and
+-- ensure that the device is able to recover to a valid state.
+--
+-- 'jobId', 'cancelJobExecution_jobId' - The ID of the job to be canceled.
+--
+-- 'thingName', 'cancelJobExecution_thingName' - The name of the thing whose execution of the job will be canceled.
+newCancelJobExecution ::
+  -- | 'jobId'
+  Prelude.Text ->
+  -- | 'thingName'
+  Prelude.Text ->
   CancelJobExecution
-cancelJobExecution pJobId_ pThingName_ =
+newCancelJobExecution pJobId_ pThingName_ =
   CancelJobExecution'
-    { _cjeExpectedVersion = Nothing,
-      _cjeStatusDetails = Nothing,
-      _cjeForce = Nothing,
-      _cjeJobId = pJobId_,
-      _cjeThingName = pThingName_
+    { expectedVersion =
+        Prelude.Nothing,
+      statusDetails = Prelude.Nothing,
+      force = Prelude.Nothing,
+      jobId = pJobId_,
+      thingName = pThingName_
     }
 
--- | (Optional) The expected current version of the job execution. Each time you update the job execution, its version is incremented. If the version of the job execution stored in Jobs does not match, the update is rejected with a VersionMismatch error, and an ErrorResponse that contains the current job execution status data is returned. (This makes it unnecessary to perform a separate DescribeJobExecution request in order to obtain the job execution status data.)
-cjeExpectedVersion :: Lens' CancelJobExecution (Maybe Integer)
-cjeExpectedVersion = lens _cjeExpectedVersion (\s a -> s {_cjeExpectedVersion = a})
+-- | (Optional) The expected current version of the job execution. Each time
+-- you update the job execution, its version is incremented. If the version
+-- of the job execution stored in Jobs does not match, the update is
+-- rejected with a VersionMismatch error, and an ErrorResponse that
+-- contains the current job execution status data is returned. (This makes
+-- it unnecessary to perform a separate DescribeJobExecution request in
+-- order to obtain the job execution status data.)
+cancelJobExecution_expectedVersion :: Lens.Lens' CancelJobExecution (Prelude.Maybe Prelude.Integer)
+cancelJobExecution_expectedVersion = Lens.lens (\CancelJobExecution' {expectedVersion} -> expectedVersion) (\s@CancelJobExecution' {} a -> s {expectedVersion = a} :: CancelJobExecution)
 
--- | A collection of name/value pairs that describe the status of the job execution. If not specified, the statusDetails are unchanged. You can specify at most 10 name/value pairs.
-cjeStatusDetails :: Lens' CancelJobExecution (HashMap Text Text)
-cjeStatusDetails = lens _cjeStatusDetails (\s a -> s {_cjeStatusDetails = a}) . _Default . _Map
+-- | A collection of name\/value pairs that describe the status of the job
+-- execution. If not specified, the statusDetails are unchanged. You can
+-- specify at most 10 name\/value pairs.
+cancelJobExecution_statusDetails :: Lens.Lens' CancelJobExecution (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+cancelJobExecution_statusDetails = Lens.lens (\CancelJobExecution' {statusDetails} -> statusDetails) (\s@CancelJobExecution' {} a -> s {statusDetails = a} :: CancelJobExecution) Prelude.. Lens.mapping Prelude._Map
 
--- | (Optional) If @true@ the job execution will be canceled if it has status IN_PROGRESS or QUEUED, otherwise the job execution will be canceled only if it has status QUEUED. If you attempt to cancel a job execution that is IN_PROGRESS, and you do not set @force@ to @true@ , then an @InvalidStateTransitionException@ will be thrown. The default is @false@ . Canceling a job execution which is "IN_PROGRESS", will cause the device to be unable to update the job execution status. Use caution and ensure that the device is able to recover to a valid state.
-cjeForce :: Lens' CancelJobExecution (Maybe Bool)
-cjeForce = lens _cjeForce (\s a -> s {_cjeForce = a})
+-- | (Optional) If @true@ the job execution will be canceled if it has status
+-- IN_PROGRESS or QUEUED, otherwise the job execution will be canceled only
+-- if it has status QUEUED. If you attempt to cancel a job execution that
+-- is IN_PROGRESS, and you do not set @force@ to @true@, then an
+-- @InvalidStateTransitionException@ will be thrown. The default is
+-- @false@.
+--
+-- Canceling a job execution which is \"IN_PROGRESS\", will cause the
+-- device to be unable to update the job execution status. Use caution and
+-- ensure that the device is able to recover to a valid state.
+cancelJobExecution_force :: Lens.Lens' CancelJobExecution (Prelude.Maybe Prelude.Bool)
+cancelJobExecution_force = Lens.lens (\CancelJobExecution' {force} -> force) (\s@CancelJobExecution' {} a -> s {force = a} :: CancelJobExecution)
 
 -- | The ID of the job to be canceled.
-cjeJobId :: Lens' CancelJobExecution Text
-cjeJobId = lens _cjeJobId (\s a -> s {_cjeJobId = a})
+cancelJobExecution_jobId :: Lens.Lens' CancelJobExecution Prelude.Text
+cancelJobExecution_jobId = Lens.lens (\CancelJobExecution' {jobId} -> jobId) (\s@CancelJobExecution' {} a -> s {jobId = a} :: CancelJobExecution)
 
 -- | The name of the thing whose execution of the job will be canceled.
-cjeThingName :: Lens' CancelJobExecution Text
-cjeThingName = lens _cjeThingName (\s a -> s {_cjeThingName = a})
+cancelJobExecution_thingName :: Lens.Lens' CancelJobExecution Prelude.Text
+cancelJobExecution_thingName = Lens.lens (\CancelJobExecution' {thingName} -> thingName) (\s@CancelJobExecution' {} a -> s {thingName = a} :: CancelJobExecution)
 
-instance AWSRequest CancelJobExecution where
+instance Prelude.AWSRequest CancelJobExecution where
   type
     Rs CancelJobExecution =
       CancelJobExecutionResponse
-  request = putJSON ioT
-  response = receiveNull CancelJobExecutionResponse'
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveNull CancelJobExecutionResponse'
 
-instance Hashable CancelJobExecution
+instance Prelude.Hashable CancelJobExecution
 
-instance NFData CancelJobExecution
+instance Prelude.NFData CancelJobExecution
 
-instance ToHeaders CancelJobExecution where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CancelJobExecution where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CancelJobExecution where
+instance Prelude.ToJSON CancelJobExecution where
   toJSON CancelJobExecution' {..} =
-    object
-      ( catMaybes
-          [ ("expectedVersion" .=) <$> _cjeExpectedVersion,
-            ("statusDetails" .=) <$> _cjeStatusDetails
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("expectedVersion" Prelude..=)
+              Prelude.<$> expectedVersion,
+            ("statusDetails" Prelude..=)
+              Prelude.<$> statusDetails
           ]
       )
 
-instance ToPath CancelJobExecution where
+instance Prelude.ToPath CancelJobExecution where
   toPath CancelJobExecution' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/things/",
-        toBS _cjeThingName,
+        Prelude.toBS thingName,
         "/jobs/",
-        toBS _cjeJobId,
+        Prelude.toBS jobId,
         "/cancel"
       ]
 
-instance ToQuery CancelJobExecution where
+instance Prelude.ToQuery CancelJobExecution where
   toQuery CancelJobExecution' {..} =
-    mconcat ["force" =: _cjeForce]
+    Prelude.mconcat ["force" Prelude.=: force]
 
--- | /See:/ 'cancelJobExecutionResponse' smart constructor.
+-- | /See:/ 'newCancelJobExecutionResponse' smart constructor.
 data CancelJobExecutionResponse = CancelJobExecutionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelJobExecutionResponse' with the minimum fields required to make a request.
-cancelJobExecutionResponse ::
+-- |
+-- Create a value of 'CancelJobExecutionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newCancelJobExecutionResponse ::
   CancelJobExecutionResponse
-cancelJobExecutionResponse =
+newCancelJobExecutionResponse =
   CancelJobExecutionResponse'
 
-instance NFData CancelJobExecutionResponse
+instance Prelude.NFData CancelJobExecutionResponse

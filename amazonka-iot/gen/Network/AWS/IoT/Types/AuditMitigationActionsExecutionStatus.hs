@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.IoT.Types.AuditMitigationActionsExecutionStatus
   ( AuditMitigationActionsExecutionStatus
       ( ..,
-        AMAESCanceled,
-        AMAESCompleted,
-        AMAESFailed,
-        AMAESInProgress,
-        AMAESPending,
-        AMAESSkipped
+        AuditMitigationActionsExecutionStatusCANCELED,
+        AuditMitigationActionsExecutionStatusCOMPLETED,
+        AuditMitigationActionsExecutionStatusFAILED,
+        AuditMitigationActionsExecutionStatusINPROGRESS,
+        AuditMitigationActionsExecutionStatusPENDING,
+        AuditMitigationActionsExecutionStatusSKIPPED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuditMitigationActionsExecutionStatus
-  = AuditMitigationActionsExecutionStatus'
-      ( CI
-          Text
-      )
+newtype AuditMitigationActionsExecutionStatus = AuditMitigationActionsExecutionStatus'
+  { fromAuditMitigationActionsExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AMAESCanceled :: AuditMitigationActionsExecutionStatus
-pattern AMAESCanceled = AuditMitigationActionsExecutionStatus' "CANCELED"
+pattern AuditMitigationActionsExecutionStatusCANCELED :: AuditMitigationActionsExecutionStatus
+pattern AuditMitigationActionsExecutionStatusCANCELED = AuditMitigationActionsExecutionStatus' "CANCELED"
 
-pattern AMAESCompleted :: AuditMitigationActionsExecutionStatus
-pattern AMAESCompleted = AuditMitigationActionsExecutionStatus' "COMPLETED"
+pattern AuditMitigationActionsExecutionStatusCOMPLETED :: AuditMitigationActionsExecutionStatus
+pattern AuditMitigationActionsExecutionStatusCOMPLETED = AuditMitigationActionsExecutionStatus' "COMPLETED"
 
-pattern AMAESFailed :: AuditMitigationActionsExecutionStatus
-pattern AMAESFailed = AuditMitigationActionsExecutionStatus' "FAILED"
+pattern AuditMitigationActionsExecutionStatusFAILED :: AuditMitigationActionsExecutionStatus
+pattern AuditMitigationActionsExecutionStatusFAILED = AuditMitigationActionsExecutionStatus' "FAILED"
 
-pattern AMAESInProgress :: AuditMitigationActionsExecutionStatus
-pattern AMAESInProgress = AuditMitigationActionsExecutionStatus' "IN_PROGRESS"
+pattern AuditMitigationActionsExecutionStatusINPROGRESS :: AuditMitigationActionsExecutionStatus
+pattern AuditMitigationActionsExecutionStatusINPROGRESS = AuditMitigationActionsExecutionStatus' "IN_PROGRESS"
 
-pattern AMAESPending :: AuditMitigationActionsExecutionStatus
-pattern AMAESPending = AuditMitigationActionsExecutionStatus' "PENDING"
+pattern AuditMitigationActionsExecutionStatusPENDING :: AuditMitigationActionsExecutionStatus
+pattern AuditMitigationActionsExecutionStatusPENDING = AuditMitigationActionsExecutionStatus' "PENDING"
 
-pattern AMAESSkipped :: AuditMitigationActionsExecutionStatus
-pattern AMAESSkipped = AuditMitigationActionsExecutionStatus' "SKIPPED"
+pattern AuditMitigationActionsExecutionStatusSKIPPED :: AuditMitigationActionsExecutionStatus
+pattern AuditMitigationActionsExecutionStatusSKIPPED = AuditMitigationActionsExecutionStatus' "SKIPPED"
 
 {-# COMPLETE
-  AMAESCanceled,
-  AMAESCompleted,
-  AMAESFailed,
-  AMAESInProgress,
-  AMAESPending,
-  AMAESSkipped,
+  AuditMitigationActionsExecutionStatusCANCELED,
+  AuditMitigationActionsExecutionStatusCOMPLETED,
+  AuditMitigationActionsExecutionStatusFAILED,
+  AuditMitigationActionsExecutionStatusINPROGRESS,
+  AuditMitigationActionsExecutionStatusPENDING,
+  AuditMitigationActionsExecutionStatusSKIPPED,
   AuditMitigationActionsExecutionStatus'
   #-}
 
-instance FromText AuditMitigationActionsExecutionStatus where
-  parser = (AuditMitigationActionsExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText AuditMitigationActionsExecutionStatus where
+  parser = AuditMitigationActionsExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AuditMitigationActionsExecutionStatus where
-  toText (AuditMitigationActionsExecutionStatus' ci) = original ci
+instance Prelude.ToText AuditMitigationActionsExecutionStatus where
+  toText (AuditMitigationActionsExecutionStatus' x) = x
 
-instance Hashable AuditMitigationActionsExecutionStatus
+instance Prelude.Hashable AuditMitigationActionsExecutionStatus
 
-instance NFData AuditMitigationActionsExecutionStatus
+instance Prelude.NFData AuditMitigationActionsExecutionStatus
 
-instance ToByteString AuditMitigationActionsExecutionStatus
+instance Prelude.ToByteString AuditMitigationActionsExecutionStatus
 
-instance ToQuery AuditMitigationActionsExecutionStatus
+instance Prelude.ToQuery AuditMitigationActionsExecutionStatus
 
-instance ToHeader AuditMitigationActionsExecutionStatus
+instance Prelude.ToHeader AuditMitigationActionsExecutionStatus
 
-instance ToJSON AuditMitigationActionsExecutionStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuditMitigationActionsExecutionStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuditMitigationActionsExecutionStatus where
-  parseJSON = parseJSONText "AuditMitigationActionsExecutionStatus"
+instance Prelude.FromJSON AuditMitigationActionsExecutionStatus where
+  parseJSON = Prelude.parseJSONText "AuditMitigationActionsExecutionStatus"

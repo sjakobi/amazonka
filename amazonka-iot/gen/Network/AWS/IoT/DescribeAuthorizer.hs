@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,130 +24,124 @@
 -- Describes an authorizer.
 module Network.AWS.IoT.DescribeAuthorizer
   ( -- * Creating a Request
-    describeAuthorizer,
-    DescribeAuthorizer,
+    DescribeAuthorizer (..),
+    newDescribeAuthorizer,
 
     -- * Request Lenses
-    daAuthorizerName,
+    describeAuthorizer_authorizerName,
 
     -- * Destructuring the Response
-    describeAuthorizerResponse,
-    DescribeAuthorizerResponse,
+    DescribeAuthorizerResponse (..),
+    newDescribeAuthorizerResponse,
 
     -- * Response Lenses
-    darrsAuthorizerDescription,
-    darrsResponseStatus,
+    describeAuthorizerResponse_authorizerDescription,
+    describeAuthorizerResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AuthorizerDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAuthorizer' smart constructor.
-newtype DescribeAuthorizer = DescribeAuthorizer'
-  { _daAuthorizerName ::
-      Text
+-- | /See:/ 'newDescribeAuthorizer' smart constructor.
+data DescribeAuthorizer = DescribeAuthorizer'
+  { -- | The name of the authorizer to describe.
+    authorizerName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAuthorizer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAuthorizer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daAuthorizerName' - The name of the authorizer to describe.
-describeAuthorizer ::
-  -- | 'daAuthorizerName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'authorizerName', 'describeAuthorizer_authorizerName' - The name of the authorizer to describe.
+newDescribeAuthorizer ::
+  -- | 'authorizerName'
+  Prelude.Text ->
   DescribeAuthorizer
-describeAuthorizer pAuthorizerName_ =
+newDescribeAuthorizer pAuthorizerName_ =
   DescribeAuthorizer'
-    { _daAuthorizerName =
+    { authorizerName =
         pAuthorizerName_
     }
 
 -- | The name of the authorizer to describe.
-daAuthorizerName :: Lens' DescribeAuthorizer Text
-daAuthorizerName = lens _daAuthorizerName (\s a -> s {_daAuthorizerName = a})
+describeAuthorizer_authorizerName :: Lens.Lens' DescribeAuthorizer Prelude.Text
+describeAuthorizer_authorizerName = Lens.lens (\DescribeAuthorizer' {authorizerName} -> authorizerName) (\s@DescribeAuthorizer' {} a -> s {authorizerName = a} :: DescribeAuthorizer)
 
-instance AWSRequest DescribeAuthorizer where
+instance Prelude.AWSRequest DescribeAuthorizer where
   type
     Rs DescribeAuthorizer =
       DescribeAuthorizerResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAuthorizerResponse'
-            <$> (x .?> "authorizerDescription")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "authorizerDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAuthorizer
+instance Prelude.Hashable DescribeAuthorizer
 
-instance NFData DescribeAuthorizer
+instance Prelude.NFData DescribeAuthorizer
 
-instance ToHeaders DescribeAuthorizer where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeAuthorizer where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeAuthorizer where
+instance Prelude.ToPath DescribeAuthorizer where
   toPath DescribeAuthorizer' {..} =
-    mconcat ["/authorizer/", toBS _daAuthorizerName]
+    Prelude.mconcat
+      ["/authorizer/", Prelude.toBS authorizerName]
 
-instance ToQuery DescribeAuthorizer where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAuthorizer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAuthorizerResponse' smart constructor.
+-- | /See:/ 'newDescribeAuthorizerResponse' smart constructor.
 data DescribeAuthorizerResponse = DescribeAuthorizerResponse'
-  { _darrsAuthorizerDescription ::
-      !( Maybe
-           AuthorizerDescription
-       ),
-    _darrsResponseStatus ::
-      !Int
+  { -- | The authorizer description.
+    authorizerDescription :: Prelude.Maybe AuthorizerDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAuthorizerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAuthorizerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsAuthorizerDescription' - The authorizer description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-describeAuthorizerResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- 'authorizerDescription', 'describeAuthorizerResponse_authorizerDescription' - The authorizer description.
+--
+-- 'httpStatus', 'describeAuthorizerResponse_httpStatus' - The response's http status code.
+newDescribeAuthorizerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAuthorizerResponse
-describeAuthorizerResponse pResponseStatus_ =
+newDescribeAuthorizerResponse pHttpStatus_ =
   DescribeAuthorizerResponse'
-    { _darrsAuthorizerDescription =
-        Nothing,
-      _darrsResponseStatus = pResponseStatus_
+    { authorizerDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The authorizer description.
-darrsAuthorizerDescription :: Lens' DescribeAuthorizerResponse (Maybe AuthorizerDescription)
-darrsAuthorizerDescription = lens _darrsAuthorizerDescription (\s a -> s {_darrsAuthorizerDescription = a})
+describeAuthorizerResponse_authorizerDescription :: Lens.Lens' DescribeAuthorizerResponse (Prelude.Maybe AuthorizerDescription)
+describeAuthorizerResponse_authorizerDescription = Lens.lens (\DescribeAuthorizerResponse' {authorizerDescription} -> authorizerDescription) (\s@DescribeAuthorizerResponse' {} a -> s {authorizerDescription = a} :: DescribeAuthorizerResponse)
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DescribeAuthorizerResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+describeAuthorizerResponse_httpStatus :: Lens.Lens' DescribeAuthorizerResponse Prelude.Int
+describeAuthorizerResponse_httpStatus = Lens.lens (\DescribeAuthorizerResponse' {httpStatus} -> httpStatus) (\s@DescribeAuthorizerResponse' {} a -> s {httpStatus = a} :: DescribeAuthorizerResponse)
 
-instance NFData DescribeAuthorizerResponse
+instance Prelude.NFData DescribeAuthorizerResponse

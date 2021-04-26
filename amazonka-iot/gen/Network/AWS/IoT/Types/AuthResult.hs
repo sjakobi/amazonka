@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,81 +23,95 @@ import Network.AWS.IoT.Types.Allowed
 import Network.AWS.IoT.Types.AuthDecision
 import Network.AWS.IoT.Types.AuthInfo
 import Network.AWS.IoT.Types.Denied
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The authorizer result.
 --
---
---
--- /See:/ 'authResult' smart constructor.
+-- /See:/ 'newAuthResult' smart constructor.
 data AuthResult = AuthResult'
-  { _arAuthInfo ::
-      !(Maybe AuthInfo),
-    _arAllowed :: !(Maybe Allowed),
-    _arDenied :: !(Maybe Denied),
-    _arMissingContextValues :: !(Maybe [Text]),
-    _arAuthDecision :: !(Maybe AuthDecision)
+  { -- | Authorization information.
+    authInfo :: Prelude.Maybe AuthInfo,
+    -- | The policies and statements that allowed the specified action.
+    allowed :: Prelude.Maybe Allowed,
+    -- | The policies and statements that denied the specified action.
+    denied :: Prelude.Maybe Denied,
+    -- | Contains any missing context values found while evaluating policy.
+    missingContextValues :: Prelude.Maybe [Prelude.Text],
+    -- | The final authorization decision of this scenario. Multiple statements
+    -- are taken into account when determining the authorization decision. An
+    -- explicit deny statement can override multiple allow statements.
+    authDecision :: Prelude.Maybe AuthDecision
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuthResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuthResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'arAuthInfo' - Authorization information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'arAllowed' - The policies and statements that allowed the specified action.
+-- 'authInfo', 'authResult_authInfo' - Authorization information.
 --
--- * 'arDenied' - The policies and statements that denied the specified action.
+-- 'allowed', 'authResult_allowed' - The policies and statements that allowed the specified action.
 --
--- * 'arMissingContextValues' - Contains any missing context values found while evaluating policy.
+-- 'denied', 'authResult_denied' - The policies and statements that denied the specified action.
 --
--- * 'arAuthDecision' - The final authorization decision of this scenario. Multiple statements are taken into account when determining the authorization decision. An explicit deny statement can override multiple allow statements.
-authResult ::
+-- 'missingContextValues', 'authResult_missingContextValues' - Contains any missing context values found while evaluating policy.
+--
+-- 'authDecision', 'authResult_authDecision' - The final authorization decision of this scenario. Multiple statements
+-- are taken into account when determining the authorization decision. An
+-- explicit deny statement can override multiple allow statements.
+newAuthResult ::
   AuthResult
-authResult =
+newAuthResult =
   AuthResult'
-    { _arAuthInfo = Nothing,
-      _arAllowed = Nothing,
-      _arDenied = Nothing,
-      _arMissingContextValues = Nothing,
-      _arAuthDecision = Nothing
+    { authInfo = Prelude.Nothing,
+      allowed = Prelude.Nothing,
+      denied = Prelude.Nothing,
+      missingContextValues = Prelude.Nothing,
+      authDecision = Prelude.Nothing
     }
 
 -- | Authorization information.
-arAuthInfo :: Lens' AuthResult (Maybe AuthInfo)
-arAuthInfo = lens _arAuthInfo (\s a -> s {_arAuthInfo = a})
+authResult_authInfo :: Lens.Lens' AuthResult (Prelude.Maybe AuthInfo)
+authResult_authInfo = Lens.lens (\AuthResult' {authInfo} -> authInfo) (\s@AuthResult' {} a -> s {authInfo = a} :: AuthResult)
 
 -- | The policies and statements that allowed the specified action.
-arAllowed :: Lens' AuthResult (Maybe Allowed)
-arAllowed = lens _arAllowed (\s a -> s {_arAllowed = a})
+authResult_allowed :: Lens.Lens' AuthResult (Prelude.Maybe Allowed)
+authResult_allowed = Lens.lens (\AuthResult' {allowed} -> allowed) (\s@AuthResult' {} a -> s {allowed = a} :: AuthResult)
 
 -- | The policies and statements that denied the specified action.
-arDenied :: Lens' AuthResult (Maybe Denied)
-arDenied = lens _arDenied (\s a -> s {_arDenied = a})
+authResult_denied :: Lens.Lens' AuthResult (Prelude.Maybe Denied)
+authResult_denied = Lens.lens (\AuthResult' {denied} -> denied) (\s@AuthResult' {} a -> s {denied = a} :: AuthResult)
 
 -- | Contains any missing context values found while evaluating policy.
-arMissingContextValues :: Lens' AuthResult [Text]
-arMissingContextValues = lens _arMissingContextValues (\s a -> s {_arMissingContextValues = a}) . _Default . _Coerce
+authResult_missingContextValues :: Lens.Lens' AuthResult (Prelude.Maybe [Prelude.Text])
+authResult_missingContextValues = Lens.lens (\AuthResult' {missingContextValues} -> missingContextValues) (\s@AuthResult' {} a -> s {missingContextValues = a} :: AuthResult) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The final authorization decision of this scenario. Multiple statements are taken into account when determining the authorization decision. An explicit deny statement can override multiple allow statements.
-arAuthDecision :: Lens' AuthResult (Maybe AuthDecision)
-arAuthDecision = lens _arAuthDecision (\s a -> s {_arAuthDecision = a})
+-- | The final authorization decision of this scenario. Multiple statements
+-- are taken into account when determining the authorization decision. An
+-- explicit deny statement can override multiple allow statements.
+authResult_authDecision :: Lens.Lens' AuthResult (Prelude.Maybe AuthDecision)
+authResult_authDecision = Lens.lens (\AuthResult' {authDecision} -> authDecision) (\s@AuthResult' {} a -> s {authDecision = a} :: AuthResult)
 
-instance FromJSON AuthResult where
+instance Prelude.FromJSON AuthResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuthResult"
       ( \x ->
           AuthResult'
-            <$> (x .:? "authInfo")
-            <*> (x .:? "allowed")
-            <*> (x .:? "denied")
-            <*> (x .:? "missingContextValues" .!= mempty)
-            <*> (x .:? "authDecision")
+            Prelude.<$> (x Prelude..:? "authInfo")
+            Prelude.<*> (x Prelude..:? "allowed")
+            Prelude.<*> (x Prelude..:? "denied")
+            Prelude.<*> ( x Prelude..:? "missingContextValues"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "authDecision")
       )
 
-instance Hashable AuthResult
+instance Prelude.Hashable AuthResult
 
-instance NFData AuthResult
+instance Prelude.NFData AuthResult

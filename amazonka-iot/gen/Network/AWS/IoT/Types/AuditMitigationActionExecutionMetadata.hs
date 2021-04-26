@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,158 +20,148 @@
 module Network.AWS.IoT.Types.AuditMitigationActionExecutionMetadata where
 
 import Network.AWS.IoT.Types.AuditMitigationActionsExecutionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returned by ListAuditMitigationActionsTask, this object contains information that describes a mitigation action that has been started.
+-- | Returned by ListAuditMitigationActionsTask, this object contains
+-- information that describes a mitigation action that has been started.
 --
---
---
--- /See:/ 'auditMitigationActionExecutionMetadata' smart constructor.
+-- /See:/ 'newAuditMitigationActionExecutionMetadata' smart constructor.
 data AuditMitigationActionExecutionMetadata = AuditMitigationActionExecutionMetadata'
-  { _amaemStatus ::
-      !( Maybe
-           AuditMitigationActionsExecutionStatus
-       ),
-    _amaemActionName ::
-      !( Maybe
-           Text
-       ),
-    _amaemMessage ::
-      !( Maybe
-           Text
-       ),
-    _amaemActionId ::
-      !( Maybe
-           Text
-       ),
-    _amaemFindingId ::
-      !( Maybe
-           Text
-       ),
-    _amaemTaskId ::
-      !( Maybe
-           Text
-       ),
-    _amaemStartTime ::
-      !( Maybe
-           POSIX
-       ),
-    _amaemEndTime ::
-      !( Maybe
-           POSIX
-       ),
-    _amaemErrorCode ::
-      !( Maybe
-           Text
-       )
+  { -- | The current status of the task being executed.
+    status :: Prelude.Maybe AuditMitigationActionsExecutionStatus,
+    -- | The friendly name of the mitigation action being applied by the task.
+    actionName :: Prelude.Maybe Prelude.Text,
+    -- | If an error occurred, a message that describes the error.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the mitigation action being applied by the
+    -- task.
+    actionId :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the findings to which the task and associated
+    -- mitigation action are applied.
+    findingId :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the task that applies the mitigation action.
+    taskId :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the task was started.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The date and time when the task was completed or canceled. Blank if the
+    -- task is still running.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | If an error occurred, the code that indicates which type of error
+    -- occurred.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuditMitigationActionExecutionMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuditMitigationActionExecutionMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amaemStatus' - The current status of the task being executed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amaemActionName' - The friendly name of the mitigation action being applied by the task.
+-- 'status', 'auditMitigationActionExecutionMetadata_status' - The current status of the task being executed.
 --
--- * 'amaemMessage' - If an error occurred, a message that describes the error.
+-- 'actionName', 'auditMitigationActionExecutionMetadata_actionName' - The friendly name of the mitigation action being applied by the task.
 --
--- * 'amaemActionId' - The unique identifier for the mitigation action being applied by the task.
+-- 'message', 'auditMitigationActionExecutionMetadata_message' - If an error occurred, a message that describes the error.
 --
--- * 'amaemFindingId' - The unique identifier for the findings to which the task and associated mitigation action are applied.
+-- 'actionId', 'auditMitigationActionExecutionMetadata_actionId' - The unique identifier for the mitigation action being applied by the
+-- task.
 --
--- * 'amaemTaskId' - The unique identifier for the task that applies the mitigation action.
+-- 'findingId', 'auditMitigationActionExecutionMetadata_findingId' - The unique identifier for the findings to which the task and associated
+-- mitigation action are applied.
 --
--- * 'amaemStartTime' - The date and time when the task was started.
+-- 'taskId', 'auditMitigationActionExecutionMetadata_taskId' - The unique identifier for the task that applies the mitigation action.
 --
--- * 'amaemEndTime' - The date and time when the task was completed or canceled. Blank if the task is still running.
+-- 'startTime', 'auditMitigationActionExecutionMetadata_startTime' - The date and time when the task was started.
 --
--- * 'amaemErrorCode' - If an error occurred, the code that indicates which type of error occurred.
-auditMitigationActionExecutionMetadata ::
+-- 'endTime', 'auditMitigationActionExecutionMetadata_endTime' - The date and time when the task was completed or canceled. Blank if the
+-- task is still running.
+--
+-- 'errorCode', 'auditMitigationActionExecutionMetadata_errorCode' - If an error occurred, the code that indicates which type of error
+-- occurred.
+newAuditMitigationActionExecutionMetadata ::
   AuditMitigationActionExecutionMetadata
-auditMitigationActionExecutionMetadata =
+newAuditMitigationActionExecutionMetadata =
   AuditMitigationActionExecutionMetadata'
-    { _amaemStatus =
-        Nothing,
-      _amaemActionName = Nothing,
-      _amaemMessage = Nothing,
-      _amaemActionId = Nothing,
-      _amaemFindingId = Nothing,
-      _amaemTaskId = Nothing,
-      _amaemStartTime = Nothing,
-      _amaemEndTime = Nothing,
-      _amaemErrorCode = Nothing
+    { status =
+        Prelude.Nothing,
+      actionName = Prelude.Nothing,
+      message = Prelude.Nothing,
+      actionId = Prelude.Nothing,
+      findingId = Prelude.Nothing,
+      taskId = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The current status of the task being executed.
-amaemStatus :: Lens' AuditMitigationActionExecutionMetadata (Maybe AuditMitigationActionsExecutionStatus)
-amaemStatus = lens _amaemStatus (\s a -> s {_amaemStatus = a})
+auditMitigationActionExecutionMetadata_status :: Lens.Lens' AuditMitigationActionExecutionMetadata (Prelude.Maybe AuditMitigationActionsExecutionStatus)
+auditMitigationActionExecutionMetadata_status = Lens.lens (\AuditMitigationActionExecutionMetadata' {status} -> status) (\s@AuditMitigationActionExecutionMetadata' {} a -> s {status = a} :: AuditMitigationActionExecutionMetadata)
 
 -- | The friendly name of the mitigation action being applied by the task.
-amaemActionName :: Lens' AuditMitigationActionExecutionMetadata (Maybe Text)
-amaemActionName = lens _amaemActionName (\s a -> s {_amaemActionName = a})
+auditMitigationActionExecutionMetadata_actionName :: Lens.Lens' AuditMitigationActionExecutionMetadata (Prelude.Maybe Prelude.Text)
+auditMitigationActionExecutionMetadata_actionName = Lens.lens (\AuditMitigationActionExecutionMetadata' {actionName} -> actionName) (\s@AuditMitigationActionExecutionMetadata' {} a -> s {actionName = a} :: AuditMitigationActionExecutionMetadata)
 
 -- | If an error occurred, a message that describes the error.
-amaemMessage :: Lens' AuditMitigationActionExecutionMetadata (Maybe Text)
-amaemMessage = lens _amaemMessage (\s a -> s {_amaemMessage = a})
+auditMitigationActionExecutionMetadata_message :: Lens.Lens' AuditMitigationActionExecutionMetadata (Prelude.Maybe Prelude.Text)
+auditMitigationActionExecutionMetadata_message = Lens.lens (\AuditMitigationActionExecutionMetadata' {message} -> message) (\s@AuditMitigationActionExecutionMetadata' {} a -> s {message = a} :: AuditMitigationActionExecutionMetadata)
 
--- | The unique identifier for the mitigation action being applied by the task.
-amaemActionId :: Lens' AuditMitigationActionExecutionMetadata (Maybe Text)
-amaemActionId = lens _amaemActionId (\s a -> s {_amaemActionId = a})
+-- | The unique identifier for the mitigation action being applied by the
+-- task.
+auditMitigationActionExecutionMetadata_actionId :: Lens.Lens' AuditMitigationActionExecutionMetadata (Prelude.Maybe Prelude.Text)
+auditMitigationActionExecutionMetadata_actionId = Lens.lens (\AuditMitigationActionExecutionMetadata' {actionId} -> actionId) (\s@AuditMitigationActionExecutionMetadata' {} a -> s {actionId = a} :: AuditMitigationActionExecutionMetadata)
 
--- | The unique identifier for the findings to which the task and associated mitigation action are applied.
-amaemFindingId :: Lens' AuditMitigationActionExecutionMetadata (Maybe Text)
-amaemFindingId = lens _amaemFindingId (\s a -> s {_amaemFindingId = a})
+-- | The unique identifier for the findings to which the task and associated
+-- mitigation action are applied.
+auditMitigationActionExecutionMetadata_findingId :: Lens.Lens' AuditMitigationActionExecutionMetadata (Prelude.Maybe Prelude.Text)
+auditMitigationActionExecutionMetadata_findingId = Lens.lens (\AuditMitigationActionExecutionMetadata' {findingId} -> findingId) (\s@AuditMitigationActionExecutionMetadata' {} a -> s {findingId = a} :: AuditMitigationActionExecutionMetadata)
 
 -- | The unique identifier for the task that applies the mitigation action.
-amaemTaskId :: Lens' AuditMitigationActionExecutionMetadata (Maybe Text)
-amaemTaskId = lens _amaemTaskId (\s a -> s {_amaemTaskId = a})
+auditMitigationActionExecutionMetadata_taskId :: Lens.Lens' AuditMitigationActionExecutionMetadata (Prelude.Maybe Prelude.Text)
+auditMitigationActionExecutionMetadata_taskId = Lens.lens (\AuditMitigationActionExecutionMetadata' {taskId} -> taskId) (\s@AuditMitigationActionExecutionMetadata' {} a -> s {taskId = a} :: AuditMitigationActionExecutionMetadata)
 
 -- | The date and time when the task was started.
-amaemStartTime :: Lens' AuditMitigationActionExecutionMetadata (Maybe UTCTime)
-amaemStartTime = lens _amaemStartTime (\s a -> s {_amaemStartTime = a}) . mapping _Time
+auditMitigationActionExecutionMetadata_startTime :: Lens.Lens' AuditMitigationActionExecutionMetadata (Prelude.Maybe Prelude.UTCTime)
+auditMitigationActionExecutionMetadata_startTime = Lens.lens (\AuditMitigationActionExecutionMetadata' {startTime} -> startTime) (\s@AuditMitigationActionExecutionMetadata' {} a -> s {startTime = a} :: AuditMitigationActionExecutionMetadata) Prelude.. Lens.mapping Prelude._Time
 
--- | The date and time when the task was completed or canceled. Blank if the task is still running.
-amaemEndTime :: Lens' AuditMitigationActionExecutionMetadata (Maybe UTCTime)
-amaemEndTime = lens _amaemEndTime (\s a -> s {_amaemEndTime = a}) . mapping _Time
+-- | The date and time when the task was completed or canceled. Blank if the
+-- task is still running.
+auditMitigationActionExecutionMetadata_endTime :: Lens.Lens' AuditMitigationActionExecutionMetadata (Prelude.Maybe Prelude.UTCTime)
+auditMitigationActionExecutionMetadata_endTime = Lens.lens (\AuditMitigationActionExecutionMetadata' {endTime} -> endTime) (\s@AuditMitigationActionExecutionMetadata' {} a -> s {endTime = a} :: AuditMitigationActionExecutionMetadata) Prelude.. Lens.mapping Prelude._Time
 
--- | If an error occurred, the code that indicates which type of error occurred.
-amaemErrorCode :: Lens' AuditMitigationActionExecutionMetadata (Maybe Text)
-amaemErrorCode = lens _amaemErrorCode (\s a -> s {_amaemErrorCode = a})
+-- | If an error occurred, the code that indicates which type of error
+-- occurred.
+auditMitigationActionExecutionMetadata_errorCode :: Lens.Lens' AuditMitigationActionExecutionMetadata (Prelude.Maybe Prelude.Text)
+auditMitigationActionExecutionMetadata_errorCode = Lens.lens (\AuditMitigationActionExecutionMetadata' {errorCode} -> errorCode) (\s@AuditMitigationActionExecutionMetadata' {} a -> s {errorCode = a} :: AuditMitigationActionExecutionMetadata)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     AuditMitigationActionExecutionMetadata
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuditMitigationActionExecutionMetadata"
       ( \x ->
           AuditMitigationActionExecutionMetadata'
-            <$> (x .:? "status")
-            <*> (x .:? "actionName")
-            <*> (x .:? "message")
-            <*> (x .:? "actionId")
-            <*> (x .:? "findingId")
-            <*> (x .:? "taskId")
-            <*> (x .:? "startTime")
-            <*> (x .:? "endTime")
-            <*> (x .:? "errorCode")
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "actionName")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "actionId")
+            Prelude.<*> (x Prelude..:? "findingId")
+            Prelude.<*> (x Prelude..:? "taskId")
+            Prelude.<*> (x Prelude..:? "startTime")
+            Prelude.<*> (x Prelude..:? "endTime")
+            Prelude.<*> (x Prelude..:? "errorCode")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     AuditMitigationActionExecutionMetadata
 
 instance
-  NFData
+  Prelude.NFData
     AuditMitigationActionExecutionMetadata

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.MitigationActionIdentifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information that identifies a mitigation action. This information is returned by ListMitigationActions.
+-- | Information that identifies a mitigation action. This information is
+-- returned by ListMitigationActions.
 --
---
---
--- /See:/ 'mitigationActionIdentifier' smart constructor.
+-- /See:/ 'newMitigationActionIdentifier' smart constructor.
 data MitigationActionIdentifier = MitigationActionIdentifier'
-  { _maiActionName ::
-      !(Maybe Text),
-    _maiActionARN ::
-      !(Maybe Text),
-    _maiCreationDate ::
-      !(Maybe POSIX)
+  { -- | The friendly name of the mitigation action.
+    actionName :: Prelude.Maybe Prelude.Text,
+    -- | The IAM role ARN used to apply this mitigation action.
+    actionArn :: Prelude.Maybe Prelude.Text,
+    -- | The date when this mitigation action was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MitigationActionIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MitigationActionIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'maiActionName' - The friendly name of the mitigation action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'maiActionARN' - The IAM role ARN used to apply this mitigation action.
+-- 'actionName', 'mitigationActionIdentifier_actionName' - The friendly name of the mitigation action.
 --
--- * 'maiCreationDate' - The date when this mitigation action was created.
-mitigationActionIdentifier ::
+-- 'actionArn', 'mitigationActionIdentifier_actionArn' - The IAM role ARN used to apply this mitigation action.
+--
+-- 'creationDate', 'mitigationActionIdentifier_creationDate' - The date when this mitigation action was created.
+newMitigationActionIdentifier ::
   MitigationActionIdentifier
-mitigationActionIdentifier =
+newMitigationActionIdentifier =
   MitigationActionIdentifier'
-    { _maiActionName =
-        Nothing,
-      _maiActionARN = Nothing,
-      _maiCreationDate = Nothing
+    { actionName =
+        Prelude.Nothing,
+      actionArn = Prelude.Nothing,
+      creationDate = Prelude.Nothing
     }
 
 -- | The friendly name of the mitigation action.
-maiActionName :: Lens' MitigationActionIdentifier (Maybe Text)
-maiActionName = lens _maiActionName (\s a -> s {_maiActionName = a})
+mitigationActionIdentifier_actionName :: Lens.Lens' MitigationActionIdentifier (Prelude.Maybe Prelude.Text)
+mitigationActionIdentifier_actionName = Lens.lens (\MitigationActionIdentifier' {actionName} -> actionName) (\s@MitigationActionIdentifier' {} a -> s {actionName = a} :: MitigationActionIdentifier)
 
 -- | The IAM role ARN used to apply this mitigation action.
-maiActionARN :: Lens' MitigationActionIdentifier (Maybe Text)
-maiActionARN = lens _maiActionARN (\s a -> s {_maiActionARN = a})
+mitigationActionIdentifier_actionArn :: Lens.Lens' MitigationActionIdentifier (Prelude.Maybe Prelude.Text)
+mitigationActionIdentifier_actionArn = Lens.lens (\MitigationActionIdentifier' {actionArn} -> actionArn) (\s@MitigationActionIdentifier' {} a -> s {actionArn = a} :: MitigationActionIdentifier)
 
 -- | The date when this mitigation action was created.
-maiCreationDate :: Lens' MitigationActionIdentifier (Maybe UTCTime)
-maiCreationDate = lens _maiCreationDate (\s a -> s {_maiCreationDate = a}) . mapping _Time
+mitigationActionIdentifier_creationDate :: Lens.Lens' MitigationActionIdentifier (Prelude.Maybe Prelude.UTCTime)
+mitigationActionIdentifier_creationDate = Lens.lens (\MitigationActionIdentifier' {creationDate} -> creationDate) (\s@MitigationActionIdentifier' {} a -> s {creationDate = a} :: MitigationActionIdentifier) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON MitigationActionIdentifier where
+instance Prelude.FromJSON MitigationActionIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MitigationActionIdentifier"
       ( \x ->
           MitigationActionIdentifier'
-            <$> (x .:? "actionName")
-            <*> (x .:? "actionArn")
-            <*> (x .:? "creationDate")
+            Prelude.<$> (x Prelude..:? "actionName")
+            Prelude.<*> (x Prelude..:? "actionArn")
+            Prelude.<*> (x Prelude..:? "creationDate")
       )
 
-instance Hashable MitigationActionIdentifier
+instance Prelude.Hashable MitigationActionIdentifier
 
-instance NFData MitigationActionIdentifier
+instance Prelude.NFData MitigationActionIdentifier

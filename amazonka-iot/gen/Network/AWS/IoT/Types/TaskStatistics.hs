@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,100 +19,107 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.TaskStatistics where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Statistics for the checks performed during the audit.
 --
---
---
--- /See:/ 'taskStatistics' smart constructor.
+-- /See:/ 'newTaskStatistics' smart constructor.
 data TaskStatistics = TaskStatistics'
-  { _tsTotalChecks ::
-      !(Maybe Int),
-    _tsWaitingForDataCollectionChecks ::
-      !(Maybe Int),
-    _tsCompliantChecks :: !(Maybe Int),
-    _tsInProgressChecks :: !(Maybe Int),
-    _tsFailedChecks :: !(Maybe Int),
-    _tsNonCompliantChecks :: !(Maybe Int),
-    _tsCanceledChecks :: !(Maybe Int)
+  { -- | The number of checks in this audit.
+    totalChecks :: Prelude.Maybe Prelude.Int,
+    -- | The number of checks waiting for data collection.
+    waitingForDataCollectionChecks :: Prelude.Maybe Prelude.Int,
+    -- | The number of checks that found compliant resources.
+    compliantChecks :: Prelude.Maybe Prelude.Int,
+    -- | The number of checks in progress.
+    inProgressChecks :: Prelude.Maybe Prelude.Int,
+    -- | The number of checks.
+    failedChecks :: Prelude.Maybe Prelude.Int,
+    -- | The number of checks that found noncompliant resources.
+    nonCompliantChecks :: Prelude.Maybe Prelude.Int,
+    -- | The number of checks that did not run because the audit was canceled.
+    canceledChecks :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TaskStatistics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TaskStatistics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsTotalChecks' - The number of checks in this audit.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tsWaitingForDataCollectionChecks' - The number of checks waiting for data collection.
+-- 'totalChecks', 'taskStatistics_totalChecks' - The number of checks in this audit.
 --
--- * 'tsCompliantChecks' - The number of checks that found compliant resources.
+-- 'waitingForDataCollectionChecks', 'taskStatistics_waitingForDataCollectionChecks' - The number of checks waiting for data collection.
 --
--- * 'tsInProgressChecks' - The number of checks in progress.
+-- 'compliantChecks', 'taskStatistics_compliantChecks' - The number of checks that found compliant resources.
 --
--- * 'tsFailedChecks' - The number of checks.
+-- 'inProgressChecks', 'taskStatistics_inProgressChecks' - The number of checks in progress.
 --
--- * 'tsNonCompliantChecks' - The number of checks that found noncompliant resources.
+-- 'failedChecks', 'taskStatistics_failedChecks' - The number of checks.
 --
--- * 'tsCanceledChecks' - The number of checks that did not run because the audit was canceled.
-taskStatistics ::
+-- 'nonCompliantChecks', 'taskStatistics_nonCompliantChecks' - The number of checks that found noncompliant resources.
+--
+-- 'canceledChecks', 'taskStatistics_canceledChecks' - The number of checks that did not run because the audit was canceled.
+newTaskStatistics ::
   TaskStatistics
-taskStatistics =
+newTaskStatistics =
   TaskStatistics'
-    { _tsTotalChecks = Nothing,
-      _tsWaitingForDataCollectionChecks = Nothing,
-      _tsCompliantChecks = Nothing,
-      _tsInProgressChecks = Nothing,
-      _tsFailedChecks = Nothing,
-      _tsNonCompliantChecks = Nothing,
-      _tsCanceledChecks = Nothing
+    { totalChecks = Prelude.Nothing,
+      waitingForDataCollectionChecks = Prelude.Nothing,
+      compliantChecks = Prelude.Nothing,
+      inProgressChecks = Prelude.Nothing,
+      failedChecks = Prelude.Nothing,
+      nonCompliantChecks = Prelude.Nothing,
+      canceledChecks = Prelude.Nothing
     }
 
 -- | The number of checks in this audit.
-tsTotalChecks :: Lens' TaskStatistics (Maybe Int)
-tsTotalChecks = lens _tsTotalChecks (\s a -> s {_tsTotalChecks = a})
+taskStatistics_totalChecks :: Lens.Lens' TaskStatistics (Prelude.Maybe Prelude.Int)
+taskStatistics_totalChecks = Lens.lens (\TaskStatistics' {totalChecks} -> totalChecks) (\s@TaskStatistics' {} a -> s {totalChecks = a} :: TaskStatistics)
 
 -- | The number of checks waiting for data collection.
-tsWaitingForDataCollectionChecks :: Lens' TaskStatistics (Maybe Int)
-tsWaitingForDataCollectionChecks = lens _tsWaitingForDataCollectionChecks (\s a -> s {_tsWaitingForDataCollectionChecks = a})
+taskStatistics_waitingForDataCollectionChecks :: Lens.Lens' TaskStatistics (Prelude.Maybe Prelude.Int)
+taskStatistics_waitingForDataCollectionChecks = Lens.lens (\TaskStatistics' {waitingForDataCollectionChecks} -> waitingForDataCollectionChecks) (\s@TaskStatistics' {} a -> s {waitingForDataCollectionChecks = a} :: TaskStatistics)
 
 -- | The number of checks that found compliant resources.
-tsCompliantChecks :: Lens' TaskStatistics (Maybe Int)
-tsCompliantChecks = lens _tsCompliantChecks (\s a -> s {_tsCompliantChecks = a})
+taskStatistics_compliantChecks :: Lens.Lens' TaskStatistics (Prelude.Maybe Prelude.Int)
+taskStatistics_compliantChecks = Lens.lens (\TaskStatistics' {compliantChecks} -> compliantChecks) (\s@TaskStatistics' {} a -> s {compliantChecks = a} :: TaskStatistics)
 
 -- | The number of checks in progress.
-tsInProgressChecks :: Lens' TaskStatistics (Maybe Int)
-tsInProgressChecks = lens _tsInProgressChecks (\s a -> s {_tsInProgressChecks = a})
+taskStatistics_inProgressChecks :: Lens.Lens' TaskStatistics (Prelude.Maybe Prelude.Int)
+taskStatistics_inProgressChecks = Lens.lens (\TaskStatistics' {inProgressChecks} -> inProgressChecks) (\s@TaskStatistics' {} a -> s {inProgressChecks = a} :: TaskStatistics)
 
 -- | The number of checks.
-tsFailedChecks :: Lens' TaskStatistics (Maybe Int)
-tsFailedChecks = lens _tsFailedChecks (\s a -> s {_tsFailedChecks = a})
+taskStatistics_failedChecks :: Lens.Lens' TaskStatistics (Prelude.Maybe Prelude.Int)
+taskStatistics_failedChecks = Lens.lens (\TaskStatistics' {failedChecks} -> failedChecks) (\s@TaskStatistics' {} a -> s {failedChecks = a} :: TaskStatistics)
 
 -- | The number of checks that found noncompliant resources.
-tsNonCompliantChecks :: Lens' TaskStatistics (Maybe Int)
-tsNonCompliantChecks = lens _tsNonCompliantChecks (\s a -> s {_tsNonCompliantChecks = a})
+taskStatistics_nonCompliantChecks :: Lens.Lens' TaskStatistics (Prelude.Maybe Prelude.Int)
+taskStatistics_nonCompliantChecks = Lens.lens (\TaskStatistics' {nonCompliantChecks} -> nonCompliantChecks) (\s@TaskStatistics' {} a -> s {nonCompliantChecks = a} :: TaskStatistics)
 
 -- | The number of checks that did not run because the audit was canceled.
-tsCanceledChecks :: Lens' TaskStatistics (Maybe Int)
-tsCanceledChecks = lens _tsCanceledChecks (\s a -> s {_tsCanceledChecks = a})
+taskStatistics_canceledChecks :: Lens.Lens' TaskStatistics (Prelude.Maybe Prelude.Int)
+taskStatistics_canceledChecks = Lens.lens (\TaskStatistics' {canceledChecks} -> canceledChecks) (\s@TaskStatistics' {} a -> s {canceledChecks = a} :: TaskStatistics)
 
-instance FromJSON TaskStatistics where
+instance Prelude.FromJSON TaskStatistics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TaskStatistics"
       ( \x ->
           TaskStatistics'
-            <$> (x .:? "totalChecks")
-            <*> (x .:? "waitingForDataCollectionChecks")
-            <*> (x .:? "compliantChecks")
-            <*> (x .:? "inProgressChecks")
-            <*> (x .:? "failedChecks")
-            <*> (x .:? "nonCompliantChecks")
-            <*> (x .:? "canceledChecks")
+            Prelude.<$> (x Prelude..:? "totalChecks")
+            Prelude.<*> (x Prelude..:? "waitingForDataCollectionChecks")
+            Prelude.<*> (x Prelude..:? "compliantChecks")
+            Prelude.<*> (x Prelude..:? "inProgressChecks")
+            Prelude.<*> (x Prelude..:? "failedChecks")
+            Prelude.<*> (x Prelude..:? "nonCompliantChecks")
+            Prelude.<*> (x Prelude..:? "canceledChecks")
       )
 
-instance Hashable TaskStatistics
+instance Prelude.Hashable TaskStatistics
 
-instance NFData TaskStatistics
+instance Prelude.NFData TaskStatistics

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.ThingGroupMetadata where
 
-import Network.AWS.IoT.Types.GroupNameAndARN
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.IoT.Types.GroupNameAndArn
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Thing group metadata.
 --
---
---
--- /See:/ 'thingGroupMetadata' smart constructor.
+-- /See:/ 'newThingGroupMetadata' smart constructor.
 data ThingGroupMetadata = ThingGroupMetadata'
-  { _tgmParentGroupName ::
-      !(Maybe Text),
-    _tgmCreationDate ::
-      !(Maybe POSIX),
-    _tgmRootToParentThingGroups ::
-      !(Maybe [GroupNameAndARN])
+  { -- | The parent thing group name.
+    parentGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The UNIX timestamp of when the thing group was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The root parent thing group.
+    rootToParentThingGroups :: Prelude.Maybe [GroupNameAndArn]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ThingGroupMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ThingGroupMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgmParentGroupName' - The parent thing group name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgmCreationDate' - The UNIX timestamp of when the thing group was created.
+-- 'parentGroupName', 'thingGroupMetadata_parentGroupName' - The parent thing group name.
 --
--- * 'tgmRootToParentThingGroups' - The root parent thing group.
-thingGroupMetadata ::
+-- 'creationDate', 'thingGroupMetadata_creationDate' - The UNIX timestamp of when the thing group was created.
+--
+-- 'rootToParentThingGroups', 'thingGroupMetadata_rootToParentThingGroups' - The root parent thing group.
+newThingGroupMetadata ::
   ThingGroupMetadata
-thingGroupMetadata =
+newThingGroupMetadata =
   ThingGroupMetadata'
-    { _tgmParentGroupName = Nothing,
-      _tgmCreationDate = Nothing,
-      _tgmRootToParentThingGroups = Nothing
+    { parentGroupName =
+        Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      rootToParentThingGroups = Prelude.Nothing
     }
 
 -- | The parent thing group name.
-tgmParentGroupName :: Lens' ThingGroupMetadata (Maybe Text)
-tgmParentGroupName = lens _tgmParentGroupName (\s a -> s {_tgmParentGroupName = a})
+thingGroupMetadata_parentGroupName :: Lens.Lens' ThingGroupMetadata (Prelude.Maybe Prelude.Text)
+thingGroupMetadata_parentGroupName = Lens.lens (\ThingGroupMetadata' {parentGroupName} -> parentGroupName) (\s@ThingGroupMetadata' {} a -> s {parentGroupName = a} :: ThingGroupMetadata)
 
 -- | The UNIX timestamp of when the thing group was created.
-tgmCreationDate :: Lens' ThingGroupMetadata (Maybe UTCTime)
-tgmCreationDate = lens _tgmCreationDate (\s a -> s {_tgmCreationDate = a}) . mapping _Time
+thingGroupMetadata_creationDate :: Lens.Lens' ThingGroupMetadata (Prelude.Maybe Prelude.UTCTime)
+thingGroupMetadata_creationDate = Lens.lens (\ThingGroupMetadata' {creationDate} -> creationDate) (\s@ThingGroupMetadata' {} a -> s {creationDate = a} :: ThingGroupMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The root parent thing group.
-tgmRootToParentThingGroups :: Lens' ThingGroupMetadata [GroupNameAndARN]
-tgmRootToParentThingGroups = lens _tgmRootToParentThingGroups (\s a -> s {_tgmRootToParentThingGroups = a}) . _Default . _Coerce
+thingGroupMetadata_rootToParentThingGroups :: Lens.Lens' ThingGroupMetadata (Prelude.Maybe [GroupNameAndArn])
+thingGroupMetadata_rootToParentThingGroups = Lens.lens (\ThingGroupMetadata' {rootToParentThingGroups} -> rootToParentThingGroups) (\s@ThingGroupMetadata' {} a -> s {rootToParentThingGroups = a} :: ThingGroupMetadata) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ThingGroupMetadata where
+instance Prelude.FromJSON ThingGroupMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ThingGroupMetadata"
       ( \x ->
           ThingGroupMetadata'
-            <$> (x .:? "parentGroupName")
-            <*> (x .:? "creationDate")
-            <*> (x .:? "rootToParentThingGroups" .!= mempty)
+            Prelude.<$> (x Prelude..:? "parentGroupName")
+            Prelude.<*> (x Prelude..:? "creationDate")
+            Prelude.<*> ( x Prelude..:? "rootToParentThingGroups"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ThingGroupMetadata
+instance Prelude.Hashable ThingGroupMetadata
 
-instance NFData ThingGroupMetadata
+instance Prelude.NFData ThingGroupMetadata

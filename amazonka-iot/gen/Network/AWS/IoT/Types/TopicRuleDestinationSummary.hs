@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,122 +19,186 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.TopicRuleDestinationSummary where
 
-import Network.AWS.IoT.Types.HTTPURLDestinationSummary
+import Network.AWS.IoT.Types.HttpUrlDestinationSummary
 import Network.AWS.IoT.Types.TopicRuleDestinationStatus
-import Network.AWS.IoT.Types.VPCDestinationSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.IoT.Types.VpcDestinationSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the topic rule destination.
 --
---
---
--- /See:/ 'topicRuleDestinationSummary' smart constructor.
+-- /See:/ 'newTopicRuleDestinationSummary' smart constructor.
 data TopicRuleDestinationSummary = TopicRuleDestinationSummary'
-  { _trdsHttpURLSummary ::
-      !( Maybe
-           HTTPURLDestinationSummary
-       ),
-    _trdsStatus ::
-      !( Maybe
-           TopicRuleDestinationStatus
-       ),
-    _trdsCreatedAt ::
-      !(Maybe POSIX),
-    _trdsArn ::
-      !(Maybe Text),
-    _trdsStatusReason ::
-      !(Maybe Text),
-    _trdsVpcDestinationSummary ::
-      !( Maybe
-           VPCDestinationSummary
-       ),
-    _trdsLastUpdatedAt ::
-      !(Maybe POSIX)
+  { -- | Information about the HTTP URL.
+    httpUrlSummary :: Prelude.Maybe HttpUrlDestinationSummary,
+    -- | The status of the topic rule destination. Valid values are:
+    --
+    -- [IN_PROGRESS]
+    --     A topic rule destination was created but has not been confirmed. You
+    --     can set @status@ to @IN_PROGRESS@ by calling
+    --     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+    --     causes a new confirmation challenge to be sent to your confirmation
+    --     endpoint.
+    --
+    -- [ENABLED]
+    --     Confirmation was completed, and traffic to this destination is
+    --     allowed. You can set @status@ to @DISABLED@ by calling
+    --     @UpdateTopicRuleDestination@.
+    --
+    -- [DISABLED]
+    --     Confirmation was completed, and traffic to this destination is not
+    --     allowed. You can set @status@ to @ENABLED@ by calling
+    --     @UpdateTopicRuleDestination@.
+    --
+    -- [ERROR]
+    --     Confirmation could not be completed, for example if the confirmation
+    --     timed out. You can call @GetTopicRuleDestination@ for details about
+    --     the error. You can set @status@ to @IN_PROGRESS@ by calling
+    --     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+    --     causes a new confirmation challenge to be sent to your confirmation
+    --     endpoint.
+    status :: Prelude.Maybe TopicRuleDestinationStatus,
+    -- | The date and time when the topic rule destination was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The topic rule destination ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The reason the topic rule destination is in the current status.
+    statusReason :: Prelude.Maybe Prelude.Text,
+    -- | Information about the virtual private cloud (VPC) connection.
+    vpcDestinationSummary :: Prelude.Maybe VpcDestinationSummary,
+    -- | The date and time when the topic rule destination was last updated.
+    lastUpdatedAt :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TopicRuleDestinationSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TopicRuleDestinationSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trdsHttpURLSummary' - Information about the HTTP URL.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trdsStatus' - The status of the topic rule destination. Valid values are:     * IN_PROGRESS    * A topic rule destination was created but has not been confirmed. You can set @status@ to @IN_PROGRESS@ by calling @UpdateTopicRuleDestination@ . Calling @UpdateTopicRuleDestination@ causes a new confirmation challenge to be sent to your confirmation endpoint.     * ENABLED    * Confirmation was completed, and traffic to this destination is allowed. You can set @status@ to @DISABLED@ by calling @UpdateTopicRuleDestination@ .     * DISABLED    * Confirmation was completed, and traffic to this destination is not allowed. You can set @status@ to @ENABLED@ by calling @UpdateTopicRuleDestination@ .     * ERROR    * Confirmation could not be completed, for example if the confirmation timed out. You can call @GetTopicRuleDestination@ for details about the error. You can set @status@ to @IN_PROGRESS@ by calling @UpdateTopicRuleDestination@ . Calling @UpdateTopicRuleDestination@ causes a new confirmation challenge to be sent to your confirmation endpoint.
+-- 'httpUrlSummary', 'topicRuleDestinationSummary_httpUrlSummary' - Information about the HTTP URL.
 --
--- * 'trdsCreatedAt' - The date and time when the topic rule destination was created.
+-- 'status', 'topicRuleDestinationSummary_status' - The status of the topic rule destination. Valid values are:
 --
--- * 'trdsArn' - The topic rule destination ARN.
+-- [IN_PROGRESS]
+--     A topic rule destination was created but has not been confirmed. You
+--     can set @status@ to @IN_PROGRESS@ by calling
+--     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+--     causes a new confirmation challenge to be sent to your confirmation
+--     endpoint.
 --
--- * 'trdsStatusReason' - The reason the topic rule destination is in the current status.
+-- [ENABLED]
+--     Confirmation was completed, and traffic to this destination is
+--     allowed. You can set @status@ to @DISABLED@ by calling
+--     @UpdateTopicRuleDestination@.
 --
--- * 'trdsVpcDestinationSummary' - Information about the virtual private cloud (VPC) connection.
+-- [DISABLED]
+--     Confirmation was completed, and traffic to this destination is not
+--     allowed. You can set @status@ to @ENABLED@ by calling
+--     @UpdateTopicRuleDestination@.
 --
--- * 'trdsLastUpdatedAt' - The date and time when the topic rule destination was last updated.
-topicRuleDestinationSummary ::
+-- [ERROR]
+--     Confirmation could not be completed, for example if the confirmation
+--     timed out. You can call @GetTopicRuleDestination@ for details about
+--     the error. You can set @status@ to @IN_PROGRESS@ by calling
+--     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+--     causes a new confirmation challenge to be sent to your confirmation
+--     endpoint.
+--
+-- 'createdAt', 'topicRuleDestinationSummary_createdAt' - The date and time when the topic rule destination was created.
+--
+-- 'arn', 'topicRuleDestinationSummary_arn' - The topic rule destination ARN.
+--
+-- 'statusReason', 'topicRuleDestinationSummary_statusReason' - The reason the topic rule destination is in the current status.
+--
+-- 'vpcDestinationSummary', 'topicRuleDestinationSummary_vpcDestinationSummary' - Information about the virtual private cloud (VPC) connection.
+--
+-- 'lastUpdatedAt', 'topicRuleDestinationSummary_lastUpdatedAt' - The date and time when the topic rule destination was last updated.
+newTopicRuleDestinationSummary ::
   TopicRuleDestinationSummary
-topicRuleDestinationSummary =
+newTopicRuleDestinationSummary =
   TopicRuleDestinationSummary'
-    { _trdsHttpURLSummary =
-        Nothing,
-      _trdsStatus = Nothing,
-      _trdsCreatedAt = Nothing,
-      _trdsArn = Nothing,
-      _trdsStatusReason = Nothing,
-      _trdsVpcDestinationSummary = Nothing,
-      _trdsLastUpdatedAt = Nothing
+    { httpUrlSummary =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      statusReason = Prelude.Nothing,
+      vpcDestinationSummary = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing
     }
 
 -- | Information about the HTTP URL.
-trdsHttpURLSummary :: Lens' TopicRuleDestinationSummary (Maybe HTTPURLDestinationSummary)
-trdsHttpURLSummary = lens _trdsHttpURLSummary (\s a -> s {_trdsHttpURLSummary = a})
+topicRuleDestinationSummary_httpUrlSummary :: Lens.Lens' TopicRuleDestinationSummary (Prelude.Maybe HttpUrlDestinationSummary)
+topicRuleDestinationSummary_httpUrlSummary = Lens.lens (\TopicRuleDestinationSummary' {httpUrlSummary} -> httpUrlSummary) (\s@TopicRuleDestinationSummary' {} a -> s {httpUrlSummary = a} :: TopicRuleDestinationSummary)
 
--- | The status of the topic rule destination. Valid values are:     * IN_PROGRESS    * A topic rule destination was created but has not been confirmed. You can set @status@ to @IN_PROGRESS@ by calling @UpdateTopicRuleDestination@ . Calling @UpdateTopicRuleDestination@ causes a new confirmation challenge to be sent to your confirmation endpoint.     * ENABLED    * Confirmation was completed, and traffic to this destination is allowed. You can set @status@ to @DISABLED@ by calling @UpdateTopicRuleDestination@ .     * DISABLED    * Confirmation was completed, and traffic to this destination is not allowed. You can set @status@ to @ENABLED@ by calling @UpdateTopicRuleDestination@ .     * ERROR    * Confirmation could not be completed, for example if the confirmation timed out. You can call @GetTopicRuleDestination@ for details about the error. You can set @status@ to @IN_PROGRESS@ by calling @UpdateTopicRuleDestination@ . Calling @UpdateTopicRuleDestination@ causes a new confirmation challenge to be sent to your confirmation endpoint.
-trdsStatus :: Lens' TopicRuleDestinationSummary (Maybe TopicRuleDestinationStatus)
-trdsStatus = lens _trdsStatus (\s a -> s {_trdsStatus = a})
+-- | The status of the topic rule destination. Valid values are:
+--
+-- [IN_PROGRESS]
+--     A topic rule destination was created but has not been confirmed. You
+--     can set @status@ to @IN_PROGRESS@ by calling
+--     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+--     causes a new confirmation challenge to be sent to your confirmation
+--     endpoint.
+--
+-- [ENABLED]
+--     Confirmation was completed, and traffic to this destination is
+--     allowed. You can set @status@ to @DISABLED@ by calling
+--     @UpdateTopicRuleDestination@.
+--
+-- [DISABLED]
+--     Confirmation was completed, and traffic to this destination is not
+--     allowed. You can set @status@ to @ENABLED@ by calling
+--     @UpdateTopicRuleDestination@.
+--
+-- [ERROR]
+--     Confirmation could not be completed, for example if the confirmation
+--     timed out. You can call @GetTopicRuleDestination@ for details about
+--     the error. You can set @status@ to @IN_PROGRESS@ by calling
+--     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+--     causes a new confirmation challenge to be sent to your confirmation
+--     endpoint.
+topicRuleDestinationSummary_status :: Lens.Lens' TopicRuleDestinationSummary (Prelude.Maybe TopicRuleDestinationStatus)
+topicRuleDestinationSummary_status = Lens.lens (\TopicRuleDestinationSummary' {status} -> status) (\s@TopicRuleDestinationSummary' {} a -> s {status = a} :: TopicRuleDestinationSummary)
 
 -- | The date and time when the topic rule destination was created.
-trdsCreatedAt :: Lens' TopicRuleDestinationSummary (Maybe UTCTime)
-trdsCreatedAt = lens _trdsCreatedAt (\s a -> s {_trdsCreatedAt = a}) . mapping _Time
+topicRuleDestinationSummary_createdAt :: Lens.Lens' TopicRuleDestinationSummary (Prelude.Maybe Prelude.UTCTime)
+topicRuleDestinationSummary_createdAt = Lens.lens (\TopicRuleDestinationSummary' {createdAt} -> createdAt) (\s@TopicRuleDestinationSummary' {} a -> s {createdAt = a} :: TopicRuleDestinationSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The topic rule destination ARN.
-trdsArn :: Lens' TopicRuleDestinationSummary (Maybe Text)
-trdsArn = lens _trdsArn (\s a -> s {_trdsArn = a})
+topicRuleDestinationSummary_arn :: Lens.Lens' TopicRuleDestinationSummary (Prelude.Maybe Prelude.Text)
+topicRuleDestinationSummary_arn = Lens.lens (\TopicRuleDestinationSummary' {arn} -> arn) (\s@TopicRuleDestinationSummary' {} a -> s {arn = a} :: TopicRuleDestinationSummary)
 
 -- | The reason the topic rule destination is in the current status.
-trdsStatusReason :: Lens' TopicRuleDestinationSummary (Maybe Text)
-trdsStatusReason = lens _trdsStatusReason (\s a -> s {_trdsStatusReason = a})
+topicRuleDestinationSummary_statusReason :: Lens.Lens' TopicRuleDestinationSummary (Prelude.Maybe Prelude.Text)
+topicRuleDestinationSummary_statusReason = Lens.lens (\TopicRuleDestinationSummary' {statusReason} -> statusReason) (\s@TopicRuleDestinationSummary' {} a -> s {statusReason = a} :: TopicRuleDestinationSummary)
 
 -- | Information about the virtual private cloud (VPC) connection.
-trdsVpcDestinationSummary :: Lens' TopicRuleDestinationSummary (Maybe VPCDestinationSummary)
-trdsVpcDestinationSummary = lens _trdsVpcDestinationSummary (\s a -> s {_trdsVpcDestinationSummary = a})
+topicRuleDestinationSummary_vpcDestinationSummary :: Lens.Lens' TopicRuleDestinationSummary (Prelude.Maybe VpcDestinationSummary)
+topicRuleDestinationSummary_vpcDestinationSummary = Lens.lens (\TopicRuleDestinationSummary' {vpcDestinationSummary} -> vpcDestinationSummary) (\s@TopicRuleDestinationSummary' {} a -> s {vpcDestinationSummary = a} :: TopicRuleDestinationSummary)
 
 -- | The date and time when the topic rule destination was last updated.
-trdsLastUpdatedAt :: Lens' TopicRuleDestinationSummary (Maybe UTCTime)
-trdsLastUpdatedAt = lens _trdsLastUpdatedAt (\s a -> s {_trdsLastUpdatedAt = a}) . mapping _Time
+topicRuleDestinationSummary_lastUpdatedAt :: Lens.Lens' TopicRuleDestinationSummary (Prelude.Maybe Prelude.UTCTime)
+topicRuleDestinationSummary_lastUpdatedAt = Lens.lens (\TopicRuleDestinationSummary' {lastUpdatedAt} -> lastUpdatedAt) (\s@TopicRuleDestinationSummary' {} a -> s {lastUpdatedAt = a} :: TopicRuleDestinationSummary) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON TopicRuleDestinationSummary where
+instance Prelude.FromJSON TopicRuleDestinationSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TopicRuleDestinationSummary"
       ( \x ->
           TopicRuleDestinationSummary'
-            <$> (x .:? "httpUrlSummary")
-            <*> (x .:? "status")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "arn")
-            <*> (x .:? "statusReason")
-            <*> (x .:? "vpcDestinationSummary")
-            <*> (x .:? "lastUpdatedAt")
+            Prelude.<$> (x Prelude..:? "httpUrlSummary")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "statusReason")
+            Prelude.<*> (x Prelude..:? "vpcDestinationSummary")
+            Prelude.<*> (x Prelude..:? "lastUpdatedAt")
       )
 
-instance Hashable TopicRuleDestinationSummary
+instance Prelude.Hashable TopicRuleDestinationSummary
 
-instance NFData TopicRuleDestinationSummary
+instance Prelude.NFData TopicRuleDestinationSummary

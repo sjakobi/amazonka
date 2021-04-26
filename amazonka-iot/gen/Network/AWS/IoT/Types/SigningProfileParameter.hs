@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.SigningProfileParameter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the code-signing profile.
 --
---
---
--- /See:/ 'signingProfileParameter' smart constructor.
+-- /See:/ 'newSigningProfileParameter' smart constructor.
 data SigningProfileParameter = SigningProfileParameter'
-  { _sppPlatform ::
-      !(Maybe Text),
-    _sppCertificateARN ::
-      !(Maybe Text),
-    _sppCertificatePathOnDevice ::
-      !(Maybe Text)
+  { -- | The hardware platform of your device.
+    platform :: Prelude.Maybe Prelude.Text,
+    -- | Certificate ARN.
+    certificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The location of the code-signing certificate on your device.
+    certificatePathOnDevice :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SigningProfileParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SigningProfileParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sppPlatform' - The hardware platform of your device.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sppCertificateARN' - Certificate ARN.
+-- 'platform', 'signingProfileParameter_platform' - The hardware platform of your device.
 --
--- * 'sppCertificatePathOnDevice' - The location of the code-signing certificate on your device.
-signingProfileParameter ::
+-- 'certificateArn', 'signingProfileParameter_certificateArn' - Certificate ARN.
+--
+-- 'certificatePathOnDevice', 'signingProfileParameter_certificatePathOnDevice' - The location of the code-signing certificate on your device.
+newSigningProfileParameter ::
   SigningProfileParameter
-signingProfileParameter =
+newSigningProfileParameter =
   SigningProfileParameter'
-    { _sppPlatform = Nothing,
-      _sppCertificateARN = Nothing,
-      _sppCertificatePathOnDevice = Nothing
+    { platform =
+        Prelude.Nothing,
+      certificateArn = Prelude.Nothing,
+      certificatePathOnDevice = Prelude.Nothing
     }
 
 -- | The hardware platform of your device.
-sppPlatform :: Lens' SigningProfileParameter (Maybe Text)
-sppPlatform = lens _sppPlatform (\s a -> s {_sppPlatform = a})
+signingProfileParameter_platform :: Lens.Lens' SigningProfileParameter (Prelude.Maybe Prelude.Text)
+signingProfileParameter_platform = Lens.lens (\SigningProfileParameter' {platform} -> platform) (\s@SigningProfileParameter' {} a -> s {platform = a} :: SigningProfileParameter)
 
 -- | Certificate ARN.
-sppCertificateARN :: Lens' SigningProfileParameter (Maybe Text)
-sppCertificateARN = lens _sppCertificateARN (\s a -> s {_sppCertificateARN = a})
+signingProfileParameter_certificateArn :: Lens.Lens' SigningProfileParameter (Prelude.Maybe Prelude.Text)
+signingProfileParameter_certificateArn = Lens.lens (\SigningProfileParameter' {certificateArn} -> certificateArn) (\s@SigningProfileParameter' {} a -> s {certificateArn = a} :: SigningProfileParameter)
 
 -- | The location of the code-signing certificate on your device.
-sppCertificatePathOnDevice :: Lens' SigningProfileParameter (Maybe Text)
-sppCertificatePathOnDevice = lens _sppCertificatePathOnDevice (\s a -> s {_sppCertificatePathOnDevice = a})
+signingProfileParameter_certificatePathOnDevice :: Lens.Lens' SigningProfileParameter (Prelude.Maybe Prelude.Text)
+signingProfileParameter_certificatePathOnDevice = Lens.lens (\SigningProfileParameter' {certificatePathOnDevice} -> certificatePathOnDevice) (\s@SigningProfileParameter' {} a -> s {certificatePathOnDevice = a} :: SigningProfileParameter)
 
-instance FromJSON SigningProfileParameter where
+instance Prelude.FromJSON SigningProfileParameter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SigningProfileParameter"
       ( \x ->
           SigningProfileParameter'
-            <$> (x .:? "platform")
-            <*> (x .:? "certificateArn")
-            <*> (x .:? "certificatePathOnDevice")
+            Prelude.<$> (x Prelude..:? "platform")
+            Prelude.<*> (x Prelude..:? "certificateArn")
+            Prelude.<*> (x Prelude..:? "certificatePathOnDevice")
       )
 
-instance Hashable SigningProfileParameter
+instance Prelude.Hashable SigningProfileParameter
 
-instance NFData SigningProfileParameter
+instance Prelude.NFData SigningProfileParameter
 
-instance ToJSON SigningProfileParameter where
+instance Prelude.ToJSON SigningProfileParameter where
   toJSON SigningProfileParameter' {..} =
-    object
-      ( catMaybes
-          [ ("platform" .=) <$> _sppPlatform,
-            ("certificateArn" .=) <$> _sppCertificateARN,
-            ("certificatePathOnDevice" .=)
-              <$> _sppCertificatePathOnDevice
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("platform" Prelude..=) Prelude.<$> platform,
+            ("certificateArn" Prelude..=)
+              Prelude.<$> certificateArn,
+            ("certificatePathOnDevice" Prelude..=)
+              Prelude.<$> certificatePathOnDevice
           ]
       )

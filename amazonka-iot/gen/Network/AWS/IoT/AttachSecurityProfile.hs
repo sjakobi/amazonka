@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,146 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates a Device Defender security profile with a thing group or this account. Each thing group or account can have up to five security profiles associated with it.
+-- Associates a Device Defender security profile with a thing group or this
+-- account. Each thing group or account can have up to five security
+-- profiles associated with it.
 module Network.AWS.IoT.AttachSecurityProfile
   ( -- * Creating a Request
-    attachSecurityProfile,
-    AttachSecurityProfile,
+    AttachSecurityProfile (..),
+    newAttachSecurityProfile,
 
     -- * Request Lenses
-    aspSecurityProfileName,
-    aspSecurityProfileTargetARN,
+    attachSecurityProfile_securityProfileName,
+    attachSecurityProfile_securityProfileTargetArn,
 
     -- * Destructuring the Response
-    attachSecurityProfileResponse,
-    AttachSecurityProfileResponse,
+    AttachSecurityProfileResponse (..),
+    newAttachSecurityProfileResponse,
 
     -- * Response Lenses
-    asprrsResponseStatus,
+    attachSecurityProfileResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'attachSecurityProfile' smart constructor.
+-- | /See:/ 'newAttachSecurityProfile' smart constructor.
 data AttachSecurityProfile = AttachSecurityProfile'
-  { _aspSecurityProfileName ::
-      !Text,
-    _aspSecurityProfileTargetARN ::
-      !Text
+  { -- | The security profile that is attached.
+    securityProfileName :: Prelude.Text,
+    -- | The ARN of the target (thing group) to which the security profile is
+    -- attached.
+    securityProfileTargetArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachSecurityProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachSecurityProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aspSecurityProfileName' - The security profile that is attached.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aspSecurityProfileTargetARN' - The ARN of the target (thing group) to which the security profile is attached.
-attachSecurityProfile ::
-  -- | 'aspSecurityProfileName'
-  Text ->
-  -- | 'aspSecurityProfileTargetARN'
-  Text ->
+-- 'securityProfileName', 'attachSecurityProfile_securityProfileName' - The security profile that is attached.
+--
+-- 'securityProfileTargetArn', 'attachSecurityProfile_securityProfileTargetArn' - The ARN of the target (thing group) to which the security profile is
+-- attached.
+newAttachSecurityProfile ::
+  -- | 'securityProfileName'
+  Prelude.Text ->
+  -- | 'securityProfileTargetArn'
+  Prelude.Text ->
   AttachSecurityProfile
-attachSecurityProfile
+newAttachSecurityProfile
   pSecurityProfileName_
-  pSecurityProfileTargetARN_ =
+  pSecurityProfileTargetArn_ =
     AttachSecurityProfile'
-      { _aspSecurityProfileName =
+      { securityProfileName =
           pSecurityProfileName_,
-        _aspSecurityProfileTargetARN =
-          pSecurityProfileTargetARN_
+        securityProfileTargetArn =
+          pSecurityProfileTargetArn_
       }
 
 -- | The security profile that is attached.
-aspSecurityProfileName :: Lens' AttachSecurityProfile Text
-aspSecurityProfileName = lens _aspSecurityProfileName (\s a -> s {_aspSecurityProfileName = a})
+attachSecurityProfile_securityProfileName :: Lens.Lens' AttachSecurityProfile Prelude.Text
+attachSecurityProfile_securityProfileName = Lens.lens (\AttachSecurityProfile' {securityProfileName} -> securityProfileName) (\s@AttachSecurityProfile' {} a -> s {securityProfileName = a} :: AttachSecurityProfile)
 
--- | The ARN of the target (thing group) to which the security profile is attached.
-aspSecurityProfileTargetARN :: Lens' AttachSecurityProfile Text
-aspSecurityProfileTargetARN = lens _aspSecurityProfileTargetARN (\s a -> s {_aspSecurityProfileTargetARN = a})
+-- | The ARN of the target (thing group) to which the security profile is
+-- attached.
+attachSecurityProfile_securityProfileTargetArn :: Lens.Lens' AttachSecurityProfile Prelude.Text
+attachSecurityProfile_securityProfileTargetArn = Lens.lens (\AttachSecurityProfile' {securityProfileTargetArn} -> securityProfileTargetArn) (\s@AttachSecurityProfile' {} a -> s {securityProfileTargetArn = a} :: AttachSecurityProfile)
 
-instance AWSRequest AttachSecurityProfile where
+instance Prelude.AWSRequest AttachSecurityProfile where
   type
     Rs AttachSecurityProfile =
       AttachSecurityProfileResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AttachSecurityProfileResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AttachSecurityProfile
+instance Prelude.Hashable AttachSecurityProfile
 
-instance NFData AttachSecurityProfile
+instance Prelude.NFData AttachSecurityProfile
 
-instance ToHeaders AttachSecurityProfile where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AttachSecurityProfile where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON AttachSecurityProfile where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON AttachSecurityProfile where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath AttachSecurityProfile where
+instance Prelude.ToPath AttachSecurityProfile where
   toPath AttachSecurityProfile' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/security-profiles/",
-        toBS _aspSecurityProfileName,
+        Prelude.toBS securityProfileName,
         "/targets"
       ]
 
-instance ToQuery AttachSecurityProfile where
+instance Prelude.ToQuery AttachSecurityProfile where
   toQuery AttachSecurityProfile' {..} =
-    mconcat
+    Prelude.mconcat
       [ "securityProfileTargetArn"
-          =: _aspSecurityProfileTargetARN
+          Prelude.=: securityProfileTargetArn
       ]
 
--- | /See:/ 'attachSecurityProfileResponse' smart constructor.
-newtype AttachSecurityProfileResponse = AttachSecurityProfileResponse'
-  { _asprrsResponseStatus ::
-      Int
+-- | /See:/ 'newAttachSecurityProfileResponse' smart constructor.
+data AttachSecurityProfileResponse = AttachSecurityProfileResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachSecurityProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachSecurityProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asprrsResponseStatus' - -- | The response status code.
-attachSecurityProfileResponse ::
-  -- | 'asprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'attachSecurityProfileResponse_httpStatus' - The response's http status code.
+newAttachSecurityProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AttachSecurityProfileResponse
-attachSecurityProfileResponse pResponseStatus_ =
+newAttachSecurityProfileResponse pHttpStatus_ =
   AttachSecurityProfileResponse'
-    { _asprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-asprrsResponseStatus :: Lens' AttachSecurityProfileResponse Int
-asprrsResponseStatus = lens _asprrsResponseStatus (\s a -> s {_asprrsResponseStatus = a})
+-- | The response's http status code.
+attachSecurityProfileResponse_httpStatus :: Lens.Lens' AttachSecurityProfileResponse Prelude.Int
+attachSecurityProfileResponse_httpStatus = Lens.lens (\AttachSecurityProfileResponse' {httpStatus} -> httpStatus) (\s@AttachSecurityProfileResponse' {} a -> s {httpStatus = a} :: AttachSecurityProfileResponse)
 
-instance NFData AttachSecurityProfileResponse
+instance Prelude.NFData AttachSecurityProfileResponse

@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.IoT" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.IoT.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.IoT" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,8 +37,8 @@ source-repository head
   subdir:   amazonka-iot
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
@@ -65,7 +63,7 @@ library
     Network.AWS.IoT.CreateAuditSuppression
     Network.AWS.IoT.CreateAuthorizer
     Network.AWS.IoT.CreateBillingGroup
-    Network.AWS.IoT.CreateCertificateFromCSR
+    Network.AWS.IoT.CreateCertificateFromCsr
     Network.AWS.IoT.CreateCustomMetric
     Network.AWS.IoT.CreateDimension
     Network.AWS.IoT.CreateDomainConfiguration
@@ -168,6 +166,7 @@ library
     Network.AWS.IoT.GetTopicRule
     Network.AWS.IoT.GetTopicRuleDestination
     Network.AWS.IoT.GetV2LoggingOptions
+    Network.AWS.IoT.Lens
     Network.AWS.IoT.ListActiveViolations
     Network.AWS.IoT.ListAttachedPolicies
     Network.AWS.IoT.ListAuditFindings
@@ -242,34 +241,6 @@ library
     Network.AWS.IoT.TestInvokeAuthorizer
     Network.AWS.IoT.TransferCertificate
     Network.AWS.IoT.Types
-    Network.AWS.IoT.UntagResource
-    Network.AWS.IoT.UpdateAccountAuditConfiguration
-    Network.AWS.IoT.UpdateAuditSuppression
-    Network.AWS.IoT.UpdateAuthorizer
-    Network.AWS.IoT.UpdateBillingGroup
-    Network.AWS.IoT.UpdateCACertificate
-    Network.AWS.IoT.UpdateCertificate
-    Network.AWS.IoT.UpdateCustomMetric
-    Network.AWS.IoT.UpdateDimension
-    Network.AWS.IoT.UpdateDomainConfiguration
-    Network.AWS.IoT.UpdateDynamicThingGroup
-    Network.AWS.IoT.UpdateEventConfigurations
-    Network.AWS.IoT.UpdateIndexingConfiguration
-    Network.AWS.IoT.UpdateJob
-    Network.AWS.IoT.UpdateMitigationAction
-    Network.AWS.IoT.UpdateProvisioningTemplate
-    Network.AWS.IoT.UpdateRoleAlias
-    Network.AWS.IoT.UpdateScheduledAudit
-    Network.AWS.IoT.UpdateSecurityProfile
-    Network.AWS.IoT.UpdateStream
-    Network.AWS.IoT.UpdateThing
-    Network.AWS.IoT.UpdateThingGroup
-    Network.AWS.IoT.UpdateThingGroupsForThing
-    Network.AWS.IoT.UpdateTopicRuleDestination
-    Network.AWS.IoT.ValidateSecurityProfileBehaviors
-    Network.AWS.IoT.Waiters
-
-  other-modules:
     Network.AWS.IoT.Types.AbortAction
     Network.AWS.IoT.Types.AbortConfig
     Network.AWS.IoT.Types.AbortCriteria
@@ -309,15 +280,15 @@ library
     Network.AWS.IoT.Types.AuthorizerSummary
     Network.AWS.IoT.Types.AuthResult
     Network.AWS.IoT.Types.AutoRegistrationStatus
-    Network.AWS.IoT.Types.AWSJobAbortConfig
-    Network.AWS.IoT.Types.AWSJobAbortCriteria
-    Network.AWS.IoT.Types.AWSJobAbortCriteriaAbortAction
-    Network.AWS.IoT.Types.AWSJobAbortCriteriaFailureType
-    Network.AWS.IoT.Types.AWSJobExecutionsRolloutConfig
-    Network.AWS.IoT.Types.AWSJobExponentialRolloutRate
-    Network.AWS.IoT.Types.AWSJobPresignedURLConfig
-    Network.AWS.IoT.Types.AWSJobRateIncreaseCriteria
-    Network.AWS.IoT.Types.AWSJobTimeoutConfig
+    Network.AWS.IoT.Types.AwsJobAbortConfig
+    Network.AWS.IoT.Types.AwsJobAbortCriteria
+    Network.AWS.IoT.Types.AwsJobAbortCriteriaAbortAction
+    Network.AWS.IoT.Types.AwsJobAbortCriteriaFailureType
+    Network.AWS.IoT.Types.AwsJobExecutionsRolloutConfig
+    Network.AWS.IoT.Types.AwsJobExponentialRolloutRate
+    Network.AWS.IoT.Types.AwsJobPresignedUrlConfig
+    Network.AWS.IoT.Types.AwsJobRateIncreaseCriteria
+    Network.AWS.IoT.Types.AwsJobTimeoutConfig
     Network.AWS.IoT.Types.Behavior
     Network.AWS.IoT.Types.BehaviorCriteria
     Network.AWS.IoT.Types.BehaviorCriteriaType
@@ -366,7 +337,7 @@ library
     Network.AWS.IoT.Types.DynamoKeyType
     Network.AWS.IoT.Types.EffectivePolicy
     Network.AWS.IoT.Types.ElasticsearchAction
-    Network.AWS.IoT.Types.EnableIOTLoggingParams
+    Network.AWS.IoT.Types.EnableIoTLoggingParams
     Network.AWS.IoT.Types.ErrorInfo
     Network.AWS.IoT.Types.EventType
     Network.AWS.IoT.Types.ExplicitDeny
@@ -375,14 +346,14 @@ library
     Network.AWS.IoT.Types.FieldType
     Network.AWS.IoT.Types.FileLocation
     Network.AWS.IoT.Types.FirehoseAction
-    Network.AWS.IoT.Types.GroupNameAndARN
-    Network.AWS.IoT.Types.HTTPAction
-    Network.AWS.IoT.Types.HTTPActionHeader
-    Network.AWS.IoT.Types.HTTPAuthorization
-    Network.AWS.IoT.Types.HTTPContext
-    Network.AWS.IoT.Types.HTTPURLDestinationConfiguration
-    Network.AWS.IoT.Types.HTTPURLDestinationProperties
-    Network.AWS.IoT.Types.HTTPURLDestinationSummary
+    Network.AWS.IoT.Types.GroupNameAndArn
+    Network.AWS.IoT.Types.HttpAction
+    Network.AWS.IoT.Types.HttpActionHeader
+    Network.AWS.IoT.Types.HttpAuthorization
+    Network.AWS.IoT.Types.HttpContext
+    Network.AWS.IoT.Types.HttpUrlDestinationConfiguration
+    Network.AWS.IoT.Types.HttpUrlDestinationProperties
+    Network.AWS.IoT.Types.HttpUrlDestinationSummary
     Network.AWS.IoT.Types.ImplicitDeny
     Network.AWS.IoT.Types.IndexStatus
     Network.AWS.IoT.Types.IotAnalyticsAction
@@ -431,12 +402,12 @@ library
     Network.AWS.IoT.Types.PolicyTemplateName
     Network.AWS.IoT.Types.PolicyVersion
     Network.AWS.IoT.Types.PolicyVersionIdentifier
-    Network.AWS.IoT.Types.PresignedURLConfig
+    Network.AWS.IoT.Types.PresignedUrlConfig
     Network.AWS.IoT.Types.Protocol
     Network.AWS.IoT.Types.ProvisioningHook
     Network.AWS.IoT.Types.ProvisioningTemplateSummary
     Network.AWS.IoT.Types.ProvisioningTemplateVersionSummary
-    Network.AWS.IoT.Types.PublishFindingToSNSParams
+    Network.AWS.IoT.Types.PublishFindingToSnsParams
     Network.AWS.IoT.Types.PutAssetPropertyValueEntry
     Network.AWS.IoT.Types.PutItemInput
     Network.AWS.IoT.Types.RateIncreaseCriteria
@@ -461,7 +432,7 @@ library
     Network.AWS.IoT.Types.ServiceType
     Network.AWS.IoT.Types.SigningProfileParameter
     Network.AWS.IoT.Types.SigV4Authorization
-    Network.AWS.IoT.Types.SNSAction
+    Network.AWS.IoT.Types.SnsAction
     Network.AWS.IoT.Types.SqsAction
     Network.AWS.IoT.Types.StartSigningJobParameter
     Network.AWS.IoT.Types.StatisticalThreshold
@@ -494,7 +465,7 @@ library
     Network.AWS.IoT.Types.TimestreamAction
     Network.AWS.IoT.Types.TimestreamDimension
     Network.AWS.IoT.Types.TimestreamTimestamp
-    Network.AWS.IoT.Types.TLSContext
+    Network.AWS.IoT.Types.TlsContext
     Network.AWS.IoT.Types.TopicRule
     Network.AWS.IoT.Types.TopicRuleDestination
     Network.AWS.IoT.Types.TopicRuleDestinationConfiguration
@@ -510,14 +481,40 @@ library
     Network.AWS.IoT.Types.ViolationEventAdditionalInfo
     Network.AWS.IoT.Types.ViolationEventOccurrenceRange
     Network.AWS.IoT.Types.ViolationEventType
-    Network.AWS.IoT.Types.VPCDestinationConfiguration
-    Network.AWS.IoT.Types.VPCDestinationProperties
-    Network.AWS.IoT.Types.VPCDestinationSummary
+    Network.AWS.IoT.Types.VpcDestinationConfiguration
+    Network.AWS.IoT.Types.VpcDestinationProperties
+    Network.AWS.IoT.Types.VpcDestinationSummary
+    Network.AWS.IoT.UntagResource
+    Network.AWS.IoT.UpdateAccountAuditConfiguration
+    Network.AWS.IoT.UpdateAuditSuppression
+    Network.AWS.IoT.UpdateAuthorizer
+    Network.AWS.IoT.UpdateBillingGroup
+    Network.AWS.IoT.UpdateCACertificate
+    Network.AWS.IoT.UpdateCertificate
+    Network.AWS.IoT.UpdateCustomMetric
+    Network.AWS.IoT.UpdateDimension
+    Network.AWS.IoT.UpdateDomainConfiguration
+    Network.AWS.IoT.UpdateDynamicThingGroup
+    Network.AWS.IoT.UpdateEventConfigurations
+    Network.AWS.IoT.UpdateIndexingConfiguration
+    Network.AWS.IoT.UpdateJob
+    Network.AWS.IoT.UpdateMitigationAction
+    Network.AWS.IoT.UpdateProvisioningTemplate
+    Network.AWS.IoT.UpdateRoleAlias
+    Network.AWS.IoT.UpdateScheduledAudit
+    Network.AWS.IoT.UpdateSecurityProfile
+    Network.AWS.IoT.UpdateStream
+    Network.AWS.IoT.UpdateThing
+    Network.AWS.IoT.UpdateThingGroup
+    Network.AWS.IoT.UpdateThingGroupsForThing
+    Network.AWS.IoT.UpdateTopicRuleDestination
+    Network.AWS.IoT.ValidateSecurityProfileBehaviors
+    Network.AWS.IoT.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-iot-test
   type:             exitcode-stdio-1.0

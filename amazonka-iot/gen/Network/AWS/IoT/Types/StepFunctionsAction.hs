@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.StepFunctionsAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Starts execution of a Step Functions state machine.
 --
---
---
--- /See:/ 'stepFunctionsAction' smart constructor.
+-- /See:/ 'newStepFunctionsAction' smart constructor.
 data StepFunctionsAction = StepFunctionsAction'
-  { _sfaExecutionNamePrefix ::
-      !(Maybe Text),
-    _sfaStateMachineName :: !Text,
-    _sfaRoleARN :: !Text
+  { -- | (Optional) A name will be given to the state machine execution
+    -- consisting of this prefix followed by a UUID. Step Functions
+    -- automatically creates a unique name for each state machine execution if
+    -- one is not provided.
+    executionNamePrefix :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Step Functions state machine whose execution will be
+    -- started.
+    stateMachineName :: Prelude.Text,
+    -- | The ARN of the role that grants IoT permission to start execution of a
+    -- state machine (\"Action\":\"states:StartExecution\").
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StepFunctionsAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StepFunctionsAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfaExecutionNamePrefix' - (Optional) A name will be given to the state machine execution consisting of this prefix followed by a UUID. Step Functions automatically creates a unique name for each state machine execution if one is not provided.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sfaStateMachineName' - The name of the Step Functions state machine whose execution will be started.
+-- 'executionNamePrefix', 'stepFunctionsAction_executionNamePrefix' - (Optional) A name will be given to the state machine execution
+-- consisting of this prefix followed by a UUID. Step Functions
+-- automatically creates a unique name for each state machine execution if
+-- one is not provided.
 --
--- * 'sfaRoleARN' - The ARN of the role that grants IoT permission to start execution of a state machine ("Action":"states:StartExecution").
-stepFunctionsAction ::
-  -- | 'sfaStateMachineName'
-  Text ->
-  -- | 'sfaRoleARN'
-  Text ->
+-- 'stateMachineName', 'stepFunctionsAction_stateMachineName' - The name of the Step Functions state machine whose execution will be
+-- started.
+--
+-- 'roleArn', 'stepFunctionsAction_roleArn' - The ARN of the role that grants IoT permission to start execution of a
+-- state machine (\"Action\":\"states:StartExecution\").
+newStepFunctionsAction ::
+  -- | 'stateMachineName'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   StepFunctionsAction
-stepFunctionsAction pStateMachineName_ pRoleARN_ =
+newStepFunctionsAction pStateMachineName_ pRoleArn_ =
   StepFunctionsAction'
-    { _sfaExecutionNamePrefix =
-        Nothing,
-      _sfaStateMachineName = pStateMachineName_,
-      _sfaRoleARN = pRoleARN_
+    { executionNamePrefix =
+        Prelude.Nothing,
+      stateMachineName = pStateMachineName_,
+      roleArn = pRoleArn_
     }
 
--- | (Optional) A name will be given to the state machine execution consisting of this prefix followed by a UUID. Step Functions automatically creates a unique name for each state machine execution if one is not provided.
-sfaExecutionNamePrefix :: Lens' StepFunctionsAction (Maybe Text)
-sfaExecutionNamePrefix = lens _sfaExecutionNamePrefix (\s a -> s {_sfaExecutionNamePrefix = a})
+-- | (Optional) A name will be given to the state machine execution
+-- consisting of this prefix followed by a UUID. Step Functions
+-- automatically creates a unique name for each state machine execution if
+-- one is not provided.
+stepFunctionsAction_executionNamePrefix :: Lens.Lens' StepFunctionsAction (Prelude.Maybe Prelude.Text)
+stepFunctionsAction_executionNamePrefix = Lens.lens (\StepFunctionsAction' {executionNamePrefix} -> executionNamePrefix) (\s@StepFunctionsAction' {} a -> s {executionNamePrefix = a} :: StepFunctionsAction)
 
--- | The name of the Step Functions state machine whose execution will be started.
-sfaStateMachineName :: Lens' StepFunctionsAction Text
-sfaStateMachineName = lens _sfaStateMachineName (\s a -> s {_sfaStateMachineName = a})
+-- | The name of the Step Functions state machine whose execution will be
+-- started.
+stepFunctionsAction_stateMachineName :: Lens.Lens' StepFunctionsAction Prelude.Text
+stepFunctionsAction_stateMachineName = Lens.lens (\StepFunctionsAction' {stateMachineName} -> stateMachineName) (\s@StepFunctionsAction' {} a -> s {stateMachineName = a} :: StepFunctionsAction)
 
--- | The ARN of the role that grants IoT permission to start execution of a state machine ("Action":"states:StartExecution").
-sfaRoleARN :: Lens' StepFunctionsAction Text
-sfaRoleARN = lens _sfaRoleARN (\s a -> s {_sfaRoleARN = a})
+-- | The ARN of the role that grants IoT permission to start execution of a
+-- state machine (\"Action\":\"states:StartExecution\").
+stepFunctionsAction_roleArn :: Lens.Lens' StepFunctionsAction Prelude.Text
+stepFunctionsAction_roleArn = Lens.lens (\StepFunctionsAction' {roleArn} -> roleArn) (\s@StepFunctionsAction' {} a -> s {roleArn = a} :: StepFunctionsAction)
 
-instance FromJSON StepFunctionsAction where
+instance Prelude.FromJSON StepFunctionsAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StepFunctionsAction"
       ( \x ->
           StepFunctionsAction'
-            <$> (x .:? "executionNamePrefix")
-            <*> (x .: "stateMachineName")
-            <*> (x .: "roleArn")
+            Prelude.<$> (x Prelude..:? "executionNamePrefix")
+            Prelude.<*> (x Prelude..: "stateMachineName")
+            Prelude.<*> (x Prelude..: "roleArn")
       )
 
-instance Hashable StepFunctionsAction
+instance Prelude.Hashable StepFunctionsAction
 
-instance NFData StepFunctionsAction
+instance Prelude.NFData StepFunctionsAction
 
-instance ToJSON StepFunctionsAction where
+instance Prelude.ToJSON StepFunctionsAction where
   toJSON StepFunctionsAction' {..} =
-    object
-      ( catMaybes
-          [ ("executionNamePrefix" .=)
-              <$> _sfaExecutionNamePrefix,
-            Just ("stateMachineName" .= _sfaStateMachineName),
-            Just ("roleArn" .= _sfaRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("executionNamePrefix" Prelude..=)
+              Prelude.<$> executionNamePrefix,
+            Prelude.Just
+              ("stateMachineName" Prelude..= stateMachineName),
+            Prelude.Just ("roleArn" Prelude..= roleArn)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.AuthorizerSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The authorizer summary.
 --
---
---
--- /See:/ 'authorizerSummary' smart constructor.
+-- /See:/ 'newAuthorizerSummary' smart constructor.
 data AuthorizerSummary = AuthorizerSummary'
-  { _asAuthorizerARN ::
-      !(Maybe Text),
-    _asAuthorizerName :: !(Maybe Text)
+  { -- | The authorizer ARN.
+    authorizerArn :: Prelude.Maybe Prelude.Text,
+    -- | The authorizer name.
+    authorizerName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuthorizerSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuthorizerSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asAuthorizerARN' - The authorizer ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asAuthorizerName' - The authorizer name.
-authorizerSummary ::
+-- 'authorizerArn', 'authorizerSummary_authorizerArn' - The authorizer ARN.
+--
+-- 'authorizerName', 'authorizerSummary_authorizerName' - The authorizer name.
+newAuthorizerSummary ::
   AuthorizerSummary
-authorizerSummary =
+newAuthorizerSummary =
   AuthorizerSummary'
-    { _asAuthorizerARN = Nothing,
-      _asAuthorizerName = Nothing
+    { authorizerArn = Prelude.Nothing,
+      authorizerName = Prelude.Nothing
     }
 
 -- | The authorizer ARN.
-asAuthorizerARN :: Lens' AuthorizerSummary (Maybe Text)
-asAuthorizerARN = lens _asAuthorizerARN (\s a -> s {_asAuthorizerARN = a})
+authorizerSummary_authorizerArn :: Lens.Lens' AuthorizerSummary (Prelude.Maybe Prelude.Text)
+authorizerSummary_authorizerArn = Lens.lens (\AuthorizerSummary' {authorizerArn} -> authorizerArn) (\s@AuthorizerSummary' {} a -> s {authorizerArn = a} :: AuthorizerSummary)
 
 -- | The authorizer name.
-asAuthorizerName :: Lens' AuthorizerSummary (Maybe Text)
-asAuthorizerName = lens _asAuthorizerName (\s a -> s {_asAuthorizerName = a})
+authorizerSummary_authorizerName :: Lens.Lens' AuthorizerSummary (Prelude.Maybe Prelude.Text)
+authorizerSummary_authorizerName = Lens.lens (\AuthorizerSummary' {authorizerName} -> authorizerName) (\s@AuthorizerSummary' {} a -> s {authorizerName = a} :: AuthorizerSummary)
 
-instance FromJSON AuthorizerSummary where
+instance Prelude.FromJSON AuthorizerSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuthorizerSummary"
       ( \x ->
           AuthorizerSummary'
-            <$> (x .:? "authorizerArn") <*> (x .:? "authorizerName")
+            Prelude.<$> (x Prelude..:? "authorizerArn")
+            Prelude.<*> (x Prelude..:? "authorizerName")
       )
 
-instance Hashable AuthorizerSummary
+instance Prelude.Hashable AuthorizerSummary
 
-instance NFData AuthorizerSummary
+instance Prelude.NFData AuthorizerSummary

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,148 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deprecates a thing type. You can not associate new things with deprecated thing type.
+-- Deprecates a thing type. You can not associate new things with
+-- deprecated thing type.
 module Network.AWS.IoT.DeprecateThingType
   ( -- * Creating a Request
-    deprecateThingType,
-    DeprecateThingType,
+    DeprecateThingType (..),
+    newDeprecateThingType,
 
     -- * Request Lenses
-    dUndoDeprecate,
-    dThingTypeName,
+    deprecateThingType_undoDeprecate,
+    deprecateThingType_thingTypeName,
 
     -- * Destructuring the Response
-    deprecateThingTypeResponse,
-    DeprecateThingTypeResponse,
+    DeprecateThingTypeResponse (..),
+    newDeprecateThingTypeResponse,
 
     -- * Response Lenses
-    deprsResponseStatus,
+    deprecateThingTypeResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the DeprecateThingType operation.
 --
---
---
--- /See:/ 'deprecateThingType' smart constructor.
+-- /See:/ 'newDeprecateThingType' smart constructor.
 data DeprecateThingType = DeprecateThingType'
-  { _dUndoDeprecate ::
-      !(Maybe Bool),
-    _dThingTypeName :: !Text
+  { -- | Whether to undeprecate a deprecated thing type. If __true__, the thing
+    -- type will not be deprecated anymore and you can associate it with
+    -- things.
+    undoDeprecate :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the thing type to deprecate.
+    thingTypeName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeprecateThingType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeprecateThingType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dUndoDeprecate' - Whether to undeprecate a deprecated thing type. If __true__ , the thing type will not be deprecated anymore and you can associate it with things.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dThingTypeName' - The name of the thing type to deprecate.
-deprecateThingType ::
-  -- | 'dThingTypeName'
-  Text ->
+-- 'undoDeprecate', 'deprecateThingType_undoDeprecate' - Whether to undeprecate a deprecated thing type. If __true__, the thing
+-- type will not be deprecated anymore and you can associate it with
+-- things.
+--
+-- 'thingTypeName', 'deprecateThingType_thingTypeName' - The name of the thing type to deprecate.
+newDeprecateThingType ::
+  -- | 'thingTypeName'
+  Prelude.Text ->
   DeprecateThingType
-deprecateThingType pThingTypeName_ =
+newDeprecateThingType pThingTypeName_ =
   DeprecateThingType'
-    { _dUndoDeprecate = Nothing,
-      _dThingTypeName = pThingTypeName_
+    { undoDeprecate =
+        Prelude.Nothing,
+      thingTypeName = pThingTypeName_
     }
 
--- | Whether to undeprecate a deprecated thing type. If __true__ , the thing type will not be deprecated anymore and you can associate it with things.
-dUndoDeprecate :: Lens' DeprecateThingType (Maybe Bool)
-dUndoDeprecate = lens _dUndoDeprecate (\s a -> s {_dUndoDeprecate = a})
+-- | Whether to undeprecate a deprecated thing type. If __true__, the thing
+-- type will not be deprecated anymore and you can associate it with
+-- things.
+deprecateThingType_undoDeprecate :: Lens.Lens' DeprecateThingType (Prelude.Maybe Prelude.Bool)
+deprecateThingType_undoDeprecate = Lens.lens (\DeprecateThingType' {undoDeprecate} -> undoDeprecate) (\s@DeprecateThingType' {} a -> s {undoDeprecate = a} :: DeprecateThingType)
 
 -- | The name of the thing type to deprecate.
-dThingTypeName :: Lens' DeprecateThingType Text
-dThingTypeName = lens _dThingTypeName (\s a -> s {_dThingTypeName = a})
+deprecateThingType_thingTypeName :: Lens.Lens' DeprecateThingType Prelude.Text
+deprecateThingType_thingTypeName = Lens.lens (\DeprecateThingType' {thingTypeName} -> thingTypeName) (\s@DeprecateThingType' {} a -> s {thingTypeName = a} :: DeprecateThingType)
 
-instance AWSRequest DeprecateThingType where
+instance Prelude.AWSRequest DeprecateThingType where
   type
     Rs DeprecateThingType =
       DeprecateThingTypeResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeprecateThingTypeResponse' <$> (pure (fromEnum s))
+          DeprecateThingTypeResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeprecateThingType
+instance Prelude.Hashable DeprecateThingType
 
-instance NFData DeprecateThingType
+instance Prelude.NFData DeprecateThingType
 
-instance ToHeaders DeprecateThingType where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeprecateThingType where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON DeprecateThingType where
+instance Prelude.ToJSON DeprecateThingType where
   toJSON DeprecateThingType' {..} =
-    object
-      ( catMaybes
-          [("undoDeprecate" .=) <$> _dUndoDeprecate]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("undoDeprecate" Prelude..=)
+              Prelude.<$> undoDeprecate
+          ]
       )
 
-instance ToPath DeprecateThingType where
+instance Prelude.ToPath DeprecateThingType where
   toPath DeprecateThingType' {..} =
-    mconcat
-      ["/thing-types/", toBS _dThingTypeName, "/deprecate"]
+    Prelude.mconcat
+      [ "/thing-types/",
+        Prelude.toBS thingTypeName,
+        "/deprecate"
+      ]
 
-instance ToQuery DeprecateThingType where
-  toQuery = const mempty
+instance Prelude.ToQuery DeprecateThingType where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The output for the DeprecateThingType operation.
 --
---
---
--- /See:/ 'deprecateThingTypeResponse' smart constructor.
-newtype DeprecateThingTypeResponse = DeprecateThingTypeResponse'
-  { _deprsResponseStatus ::
-      Int
+-- /See:/ 'newDeprecateThingTypeResponse' smart constructor.
+data DeprecateThingTypeResponse = DeprecateThingTypeResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeprecateThingTypeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeprecateThingTypeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deprsResponseStatus' - -- | The response status code.
-deprecateThingTypeResponse ::
-  -- | 'deprsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deprecateThingTypeResponse_httpStatus' - The response's http status code.
+newDeprecateThingTypeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeprecateThingTypeResponse
-deprecateThingTypeResponse pResponseStatus_ =
+newDeprecateThingTypeResponse pHttpStatus_ =
   DeprecateThingTypeResponse'
-    { _deprsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-deprsResponseStatus :: Lens' DeprecateThingTypeResponse Int
-deprsResponseStatus = lens _deprsResponseStatus (\s a -> s {_deprsResponseStatus = a})
+-- | The response's http status code.
+deprecateThingTypeResponse_httpStatus :: Lens.Lens' DeprecateThingTypeResponse Prelude.Int
+deprecateThingTypeResponse_httpStatus = Lens.lens (\DeprecateThingTypeResponse' {httpStatus} -> httpStatus) (\s@DeprecateThingTypeResponse' {} a -> s {httpStatus = a} :: DeprecateThingTypeResponse)
 
-instance NFData DeprecateThingTypeResponse
+instance Prelude.NFData DeprecateThingTypeResponse

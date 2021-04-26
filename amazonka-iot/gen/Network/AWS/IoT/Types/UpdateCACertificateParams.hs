@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,56 +20,58 @@
 module Network.AWS.IoT.Types.UpdateCACertificateParams where
 
 import Network.AWS.IoT.Types.CACertificateUpdateAction
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Parameters to define a mitigation action that changes the state of the CA certificate to inactive.
+-- | Parameters to define a mitigation action that changes the state of the
+-- CA certificate to inactive.
 --
---
---
--- /See:/ 'updateCACertificateParams' smart constructor.
-newtype UpdateCACertificateParams = UpdateCACertificateParams'
-  { _ucacpAction ::
-      CACertificateUpdateAction
+-- /See:/ 'newUpdateCACertificateParams' smart constructor.
+data UpdateCACertificateParams = UpdateCACertificateParams'
+  { -- | The action that you want to apply to the CA certificate. The only
+    -- supported value is @DEACTIVATE@.
+    action :: CACertificateUpdateAction
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCACertificateParams' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateCACertificateParams' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucacpAction' - The action that you want to apply to the CA certificate. The only supported value is @DEACTIVATE@ .
-updateCACertificateParams ::
-  -- | 'ucacpAction'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'action', 'updateCACertificateParams_action' - The action that you want to apply to the CA certificate. The only
+-- supported value is @DEACTIVATE@.
+newUpdateCACertificateParams ::
+  -- | 'action'
   CACertificateUpdateAction ->
   UpdateCACertificateParams
-updateCACertificateParams pAction_ =
-  UpdateCACertificateParams' {_ucacpAction = pAction_}
+newUpdateCACertificateParams pAction_ =
+  UpdateCACertificateParams' {action = pAction_}
 
--- | The action that you want to apply to the CA certificate. The only supported value is @DEACTIVATE@ .
-ucacpAction :: Lens' UpdateCACertificateParams CACertificateUpdateAction
-ucacpAction = lens _ucacpAction (\s a -> s {_ucacpAction = a})
+-- | The action that you want to apply to the CA certificate. The only
+-- supported value is @DEACTIVATE@.
+updateCACertificateParams_action :: Lens.Lens' UpdateCACertificateParams CACertificateUpdateAction
+updateCACertificateParams_action = Lens.lens (\UpdateCACertificateParams' {action} -> action) (\s@UpdateCACertificateParams' {} a -> s {action = a} :: UpdateCACertificateParams)
 
-instance FromJSON UpdateCACertificateParams where
+instance Prelude.FromJSON UpdateCACertificateParams where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UpdateCACertificateParams"
       ( \x ->
-          UpdateCACertificateParams' <$> (x .: "action")
+          UpdateCACertificateParams'
+            Prelude.<$> (x Prelude..: "action")
       )
 
-instance Hashable UpdateCACertificateParams
+instance Prelude.Hashable UpdateCACertificateParams
 
-instance NFData UpdateCACertificateParams
+instance Prelude.NFData UpdateCACertificateParams
 
-instance ToJSON UpdateCACertificateParams where
+instance Prelude.ToJSON UpdateCACertificateParams where
   toJSON UpdateCACertificateParams' {..} =
-    object
-      (catMaybes [Just ("action" .= _ucacpAction)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("action" Prelude..= action)]
+      )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,143 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a topic rule destination. The destination must be confirmed prior to use.
+-- Creates a topic rule destination. The destination must be confirmed
+-- prior to use.
 module Network.AWS.IoT.CreateTopicRuleDestination
   ( -- * Creating a Request
-    createTopicRuleDestination,
-    CreateTopicRuleDestination,
+    CreateTopicRuleDestination (..),
+    newCreateTopicRuleDestination,
 
     -- * Request Lenses
-    ctrdDestinationConfiguration,
+    createTopicRuleDestination_destinationConfiguration,
 
     -- * Destructuring the Response
-    createTopicRuleDestinationResponse,
-    CreateTopicRuleDestinationResponse,
+    CreateTopicRuleDestinationResponse (..),
+    newCreateTopicRuleDestinationResponse,
 
     -- * Response Lenses
-    ctrdrrsTopicRuleDestination,
-    ctrdrrsResponseStatus,
+    createTopicRuleDestinationResponse_topicRuleDestination,
+    createTopicRuleDestinationResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.TopicRuleDestination
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createTopicRuleDestination' smart constructor.
-newtype CreateTopicRuleDestination = CreateTopicRuleDestination'
-  { _ctrdDestinationConfiguration ::
-      TopicRuleDestinationConfiguration
+-- | /See:/ 'newCreateTopicRuleDestination' smart constructor.
+data CreateTopicRuleDestination = CreateTopicRuleDestination'
+  { -- | The topic rule destination configuration.
+    destinationConfiguration :: TopicRuleDestinationConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTopicRuleDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTopicRuleDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctrdDestinationConfiguration' - The topic rule destination configuration.
-createTopicRuleDestination ::
-  -- | 'ctrdDestinationConfiguration'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'destinationConfiguration', 'createTopicRuleDestination_destinationConfiguration' - The topic rule destination configuration.
+newCreateTopicRuleDestination ::
+  -- | 'destinationConfiguration'
   TopicRuleDestinationConfiguration ->
   CreateTopicRuleDestination
-createTopicRuleDestination pDestinationConfiguration_ =
-  CreateTopicRuleDestination'
-    { _ctrdDestinationConfiguration =
-        pDestinationConfiguration_
-    }
+newCreateTopicRuleDestination
+  pDestinationConfiguration_ =
+    CreateTopicRuleDestination'
+      { destinationConfiguration =
+          pDestinationConfiguration_
+      }
 
 -- | The topic rule destination configuration.
-ctrdDestinationConfiguration :: Lens' CreateTopicRuleDestination TopicRuleDestinationConfiguration
-ctrdDestinationConfiguration = lens _ctrdDestinationConfiguration (\s a -> s {_ctrdDestinationConfiguration = a})
+createTopicRuleDestination_destinationConfiguration :: Lens.Lens' CreateTopicRuleDestination TopicRuleDestinationConfiguration
+createTopicRuleDestination_destinationConfiguration = Lens.lens (\CreateTopicRuleDestination' {destinationConfiguration} -> destinationConfiguration) (\s@CreateTopicRuleDestination' {} a -> s {destinationConfiguration = a} :: CreateTopicRuleDestination)
 
-instance AWSRequest CreateTopicRuleDestination where
+instance
+  Prelude.AWSRequest
+    CreateTopicRuleDestination
+  where
   type
     Rs CreateTopicRuleDestination =
       CreateTopicRuleDestinationResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateTopicRuleDestinationResponse'
-            <$> (x .?> "topicRuleDestination")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "topicRuleDestination")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTopicRuleDestination
+instance Prelude.Hashable CreateTopicRuleDestination
 
-instance NFData CreateTopicRuleDestination
+instance Prelude.NFData CreateTopicRuleDestination
 
-instance ToHeaders CreateTopicRuleDestination where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateTopicRuleDestination where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateTopicRuleDestination where
+instance Prelude.ToJSON CreateTopicRuleDestination where
   toJSON CreateTopicRuleDestination' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "destinationConfiguration"
-                  .= _ctrdDestinationConfiguration
+                  Prelude..= destinationConfiguration
               )
           ]
       )
 
-instance ToPath CreateTopicRuleDestination where
-  toPath = const "/destinations"
+instance Prelude.ToPath CreateTopicRuleDestination where
+  toPath = Prelude.const "/destinations"
 
-instance ToQuery CreateTopicRuleDestination where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateTopicRuleDestination where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createTopicRuleDestinationResponse' smart constructor.
+-- | /See:/ 'newCreateTopicRuleDestinationResponse' smart constructor.
 data CreateTopicRuleDestinationResponse = CreateTopicRuleDestinationResponse'
-  { _ctrdrrsTopicRuleDestination ::
-      !( Maybe
-           TopicRuleDestination
-       ),
-    _ctrdrrsResponseStatus ::
-      !Int
+  { -- | The topic rule destination.
+    topicRuleDestination :: Prelude.Maybe TopicRuleDestination,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTopicRuleDestinationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTopicRuleDestinationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctrdrrsTopicRuleDestination' - The topic rule destination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctrdrrsResponseStatus' - -- | The response status code.
-createTopicRuleDestinationResponse ::
-  -- | 'ctrdrrsResponseStatus'
-  Int ->
+-- 'topicRuleDestination', 'createTopicRuleDestinationResponse_topicRuleDestination' - The topic rule destination.
+--
+-- 'httpStatus', 'createTopicRuleDestinationResponse_httpStatus' - The response's http status code.
+newCreateTopicRuleDestinationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTopicRuleDestinationResponse
-createTopicRuleDestinationResponse pResponseStatus_ =
+newCreateTopicRuleDestinationResponse pHttpStatus_ =
   CreateTopicRuleDestinationResponse'
-    { _ctrdrrsTopicRuleDestination =
-        Nothing,
-      _ctrdrrsResponseStatus =
-        pResponseStatus_
+    { topicRuleDestination =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The topic rule destination.
-ctrdrrsTopicRuleDestination :: Lens' CreateTopicRuleDestinationResponse (Maybe TopicRuleDestination)
-ctrdrrsTopicRuleDestination = lens _ctrdrrsTopicRuleDestination (\s a -> s {_ctrdrrsTopicRuleDestination = a})
+createTopicRuleDestinationResponse_topicRuleDestination :: Lens.Lens' CreateTopicRuleDestinationResponse (Prelude.Maybe TopicRuleDestination)
+createTopicRuleDestinationResponse_topicRuleDestination = Lens.lens (\CreateTopicRuleDestinationResponse' {topicRuleDestination} -> topicRuleDestination) (\s@CreateTopicRuleDestinationResponse' {} a -> s {topicRuleDestination = a} :: CreateTopicRuleDestinationResponse)
 
--- | -- | The response status code.
-ctrdrrsResponseStatus :: Lens' CreateTopicRuleDestinationResponse Int
-ctrdrrsResponseStatus = lens _ctrdrrsResponseStatus (\s a -> s {_ctrdrrsResponseStatus = a})
+-- | The response's http status code.
+createTopicRuleDestinationResponse_httpStatus :: Lens.Lens' CreateTopicRuleDestinationResponse Prelude.Int
+createTopicRuleDestinationResponse_httpStatus = Lens.lens (\CreateTopicRuleDestinationResponse' {httpStatus} -> httpStatus) (\s@CreateTopicRuleDestinationResponse' {} a -> s {httpStatus = a} :: CreateTopicRuleDestinationResponse)
 
-instance NFData CreateTopicRuleDestinationResponse
+instance
+  Prelude.NFData
+    CreateTopicRuleDestinationResponse

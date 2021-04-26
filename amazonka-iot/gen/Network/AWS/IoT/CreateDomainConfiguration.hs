@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,228 +22,267 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a domain configuration.
+--
+-- The domain configuration feature is in public preview and is subject to
+-- change.
 module Network.AWS.IoT.CreateDomainConfiguration
   ( -- * Creating a Request
-    createDomainConfiguration,
-    CreateDomainConfiguration,
+    CreateDomainConfiguration (..),
+    newCreateDomainConfiguration,
 
     -- * Request Lenses
-    cdcServerCertificateARNs,
-    cdcAuthorizerConfig,
-    cdcDomainName,
-    cdcTags,
-    cdcValidationCertificateARN,
-    cdcServiceType,
-    cdcDomainConfigurationName,
+    createDomainConfiguration_serverCertificateArns,
+    createDomainConfiguration_authorizerConfig,
+    createDomainConfiguration_domainName,
+    createDomainConfiguration_tags,
+    createDomainConfiguration_validationCertificateArn,
+    createDomainConfiguration_serviceType,
+    createDomainConfiguration_domainConfigurationName,
 
     -- * Destructuring the Response
-    createDomainConfigurationResponse,
-    CreateDomainConfigurationResponse,
+    CreateDomainConfigurationResponse (..),
+    newCreateDomainConfigurationResponse,
 
     -- * Response Lenses
-    cdcrrsDomainConfigurationARN,
-    cdcrrsDomainConfigurationName,
-    cdcrrsResponseStatus,
+    createDomainConfigurationResponse_domainConfigurationArn,
+    createDomainConfigurationResponse_domainConfigurationName,
+    createDomainConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDomainConfiguration' smart constructor.
+-- | /See:/ 'newCreateDomainConfiguration' smart constructor.
 data CreateDomainConfiguration = CreateDomainConfiguration'
-  { _cdcServerCertificateARNs ::
-      !(Maybe [Text]),
-    _cdcAuthorizerConfig ::
-      !( Maybe
-           AuthorizerConfig
-       ),
-    _cdcDomainName ::
-      !(Maybe Text),
-    _cdcTags ::
-      !(Maybe [Tag]),
-    _cdcValidationCertificateARN ::
-      !(Maybe Text),
-    _cdcServiceType ::
-      !( Maybe
-           ServiceType
-       ),
-    _cdcDomainConfigurationName ::
-      !Text
+  { -- | The ARNs of the certificates that AWS IoT passes to the device during
+    -- the TLS handshake. Currently you can specify only one certificate ARN.
+    -- This value is not required for AWS-managed domains.
+    serverCertificateArns :: Prelude.Maybe [Prelude.Text],
+    -- | An object that specifies the authorization service for a domain.
+    authorizerConfig :: Prelude.Maybe AuthorizerConfig,
+    -- | The name of the domain.
+    domainName :: Prelude.Maybe Prelude.Text,
+    -- | Metadata which can be used to manage the domain configuration.
+    --
+    -- For URI Request parameters use format: ...key1=value1&key2=value2...
+    --
+    -- For the CLI command-line parameter use format: &&tags
+    -- \"key1=value1&key2=value2...\"
+    --
+    -- For the cli-input-json file use format: \"tags\":
+    -- \"key1=value1&key2=value2...\"
+    tags :: Prelude.Maybe [Tag],
+    -- | The certificate used to validate the server certificate and prove domain
+    -- name ownership. This certificate must be signed by a public certificate
+    -- authority. This value is not required for AWS-managed domains.
+    validationCertificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The type of service delivered by the endpoint.
+    --
+    -- AWS IoT Core currently supports only the @DATA@ service type.
+    serviceType :: Prelude.Maybe ServiceType,
+    -- | The name of the domain configuration. This value must be unique to a
+    -- region.
+    domainConfigurationName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDomainConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDomainConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdcServerCertificateARNs' - The ARNs of the certificates that AWS IoT passes to the device during the TLS handshake. Currently you can specify only one certificate ARN. This value is not required for AWS-managed domains.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdcAuthorizerConfig' - An object that specifies the authorization service for a domain.
+-- 'serverCertificateArns', 'createDomainConfiguration_serverCertificateArns' - The ARNs of the certificates that AWS IoT passes to the device during
+-- the TLS handshake. Currently you can specify only one certificate ARN.
+-- This value is not required for AWS-managed domains.
 --
--- * 'cdcDomainName' - The name of the domain.
+-- 'authorizerConfig', 'createDomainConfiguration_authorizerConfig' - An object that specifies the authorization service for a domain.
 --
--- * 'cdcTags' - Metadata which can be used to manage the domain configuration.
+-- 'domainName', 'createDomainConfiguration_domainName' - The name of the domain.
 --
--- * 'cdcValidationCertificateARN' - The certificate used to validate the server certificate and prove domain name ownership. This certificate must be signed by a public certificate authority. This value is not required for AWS-managed domains.
+-- 'tags', 'createDomainConfiguration_tags' - Metadata which can be used to manage the domain configuration.
 --
--- * 'cdcServiceType' - The type of service delivered by the endpoint.
+-- For URI Request parameters use format: ...key1=value1&key2=value2...
 --
--- * 'cdcDomainConfigurationName' - The name of the domain configuration. This value must be unique to a region.
-createDomainConfiguration ::
-  -- | 'cdcDomainConfigurationName'
-  Text ->
+-- For the CLI command-line parameter use format: &&tags
+-- \"key1=value1&key2=value2...\"
+--
+-- For the cli-input-json file use format: \"tags\":
+-- \"key1=value1&key2=value2...\"
+--
+-- 'validationCertificateArn', 'createDomainConfiguration_validationCertificateArn' - The certificate used to validate the server certificate and prove domain
+-- name ownership. This certificate must be signed by a public certificate
+-- authority. This value is not required for AWS-managed domains.
+--
+-- 'serviceType', 'createDomainConfiguration_serviceType' - The type of service delivered by the endpoint.
+--
+-- AWS IoT Core currently supports only the @DATA@ service type.
+--
+-- 'domainConfigurationName', 'createDomainConfiguration_domainConfigurationName' - The name of the domain configuration. This value must be unique to a
+-- region.
+newCreateDomainConfiguration ::
+  -- | 'domainConfigurationName'
+  Prelude.Text ->
   CreateDomainConfiguration
-createDomainConfiguration pDomainConfigurationName_ =
-  CreateDomainConfiguration'
-    { _cdcServerCertificateARNs =
-        Nothing,
-      _cdcAuthorizerConfig = Nothing,
-      _cdcDomainName = Nothing,
-      _cdcTags = Nothing,
-      _cdcValidationCertificateARN = Nothing,
-      _cdcServiceType = Nothing,
-      _cdcDomainConfigurationName =
-        pDomainConfigurationName_
-    }
+newCreateDomainConfiguration
+  pDomainConfigurationName_ =
+    CreateDomainConfiguration'
+      { serverCertificateArns =
+          Prelude.Nothing,
+        authorizerConfig = Prelude.Nothing,
+        domainName = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        validationCertificateArn = Prelude.Nothing,
+        serviceType = Prelude.Nothing,
+        domainConfigurationName =
+          pDomainConfigurationName_
+      }
 
--- | The ARNs of the certificates that AWS IoT passes to the device during the TLS handshake. Currently you can specify only one certificate ARN. This value is not required for AWS-managed domains.
-cdcServerCertificateARNs :: Lens' CreateDomainConfiguration [Text]
-cdcServerCertificateARNs = lens _cdcServerCertificateARNs (\s a -> s {_cdcServerCertificateARNs = a}) . _Default . _Coerce
+-- | The ARNs of the certificates that AWS IoT passes to the device during
+-- the TLS handshake. Currently you can specify only one certificate ARN.
+-- This value is not required for AWS-managed domains.
+createDomainConfiguration_serverCertificateArns :: Lens.Lens' CreateDomainConfiguration (Prelude.Maybe [Prelude.Text])
+createDomainConfiguration_serverCertificateArns = Lens.lens (\CreateDomainConfiguration' {serverCertificateArns} -> serverCertificateArns) (\s@CreateDomainConfiguration' {} a -> s {serverCertificateArns = a} :: CreateDomainConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | An object that specifies the authorization service for a domain.
-cdcAuthorizerConfig :: Lens' CreateDomainConfiguration (Maybe AuthorizerConfig)
-cdcAuthorizerConfig = lens _cdcAuthorizerConfig (\s a -> s {_cdcAuthorizerConfig = a})
+createDomainConfiguration_authorizerConfig :: Lens.Lens' CreateDomainConfiguration (Prelude.Maybe AuthorizerConfig)
+createDomainConfiguration_authorizerConfig = Lens.lens (\CreateDomainConfiguration' {authorizerConfig} -> authorizerConfig) (\s@CreateDomainConfiguration' {} a -> s {authorizerConfig = a} :: CreateDomainConfiguration)
 
 -- | The name of the domain.
-cdcDomainName :: Lens' CreateDomainConfiguration (Maybe Text)
-cdcDomainName = lens _cdcDomainName (\s a -> s {_cdcDomainName = a})
+createDomainConfiguration_domainName :: Lens.Lens' CreateDomainConfiguration (Prelude.Maybe Prelude.Text)
+createDomainConfiguration_domainName = Lens.lens (\CreateDomainConfiguration' {domainName} -> domainName) (\s@CreateDomainConfiguration' {} a -> s {domainName = a} :: CreateDomainConfiguration)
 
 -- | Metadata which can be used to manage the domain configuration.
-cdcTags :: Lens' CreateDomainConfiguration [Tag]
-cdcTags = lens _cdcTags (\s a -> s {_cdcTags = a}) . _Default . _Coerce
+--
+-- For URI Request parameters use format: ...key1=value1&key2=value2...
+--
+-- For the CLI command-line parameter use format: &&tags
+-- \"key1=value1&key2=value2...\"
+--
+-- For the cli-input-json file use format: \"tags\":
+-- \"key1=value1&key2=value2...\"
+createDomainConfiguration_tags :: Lens.Lens' CreateDomainConfiguration (Prelude.Maybe [Tag])
+createDomainConfiguration_tags = Lens.lens (\CreateDomainConfiguration' {tags} -> tags) (\s@CreateDomainConfiguration' {} a -> s {tags = a} :: CreateDomainConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The certificate used to validate the server certificate and prove domain name ownership. This certificate must be signed by a public certificate authority. This value is not required for AWS-managed domains.
-cdcValidationCertificateARN :: Lens' CreateDomainConfiguration (Maybe Text)
-cdcValidationCertificateARN = lens _cdcValidationCertificateARN (\s a -> s {_cdcValidationCertificateARN = a})
+-- | The certificate used to validate the server certificate and prove domain
+-- name ownership. This certificate must be signed by a public certificate
+-- authority. This value is not required for AWS-managed domains.
+createDomainConfiguration_validationCertificateArn :: Lens.Lens' CreateDomainConfiguration (Prelude.Maybe Prelude.Text)
+createDomainConfiguration_validationCertificateArn = Lens.lens (\CreateDomainConfiguration' {validationCertificateArn} -> validationCertificateArn) (\s@CreateDomainConfiguration' {} a -> s {validationCertificateArn = a} :: CreateDomainConfiguration)
 
 -- | The type of service delivered by the endpoint.
-cdcServiceType :: Lens' CreateDomainConfiguration (Maybe ServiceType)
-cdcServiceType = lens _cdcServiceType (\s a -> s {_cdcServiceType = a})
+--
+-- AWS IoT Core currently supports only the @DATA@ service type.
+createDomainConfiguration_serviceType :: Lens.Lens' CreateDomainConfiguration (Prelude.Maybe ServiceType)
+createDomainConfiguration_serviceType = Lens.lens (\CreateDomainConfiguration' {serviceType} -> serviceType) (\s@CreateDomainConfiguration' {} a -> s {serviceType = a} :: CreateDomainConfiguration)
 
--- | The name of the domain configuration. This value must be unique to a region.
-cdcDomainConfigurationName :: Lens' CreateDomainConfiguration Text
-cdcDomainConfigurationName = lens _cdcDomainConfigurationName (\s a -> s {_cdcDomainConfigurationName = a})
+-- | The name of the domain configuration. This value must be unique to a
+-- region.
+createDomainConfiguration_domainConfigurationName :: Lens.Lens' CreateDomainConfiguration Prelude.Text
+createDomainConfiguration_domainConfigurationName = Lens.lens (\CreateDomainConfiguration' {domainConfigurationName} -> domainConfigurationName) (\s@CreateDomainConfiguration' {} a -> s {domainConfigurationName = a} :: CreateDomainConfiguration)
 
-instance AWSRequest CreateDomainConfiguration where
+instance Prelude.AWSRequest CreateDomainConfiguration where
   type
     Rs CreateDomainConfiguration =
       CreateDomainConfigurationResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateDomainConfigurationResponse'
-            <$> (x .?> "domainConfigurationArn")
-            <*> (x .?> "domainConfigurationName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "domainConfigurationArn")
+            Prelude.<*> (x Prelude..?> "domainConfigurationName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDomainConfiguration
+instance Prelude.Hashable CreateDomainConfiguration
 
-instance NFData CreateDomainConfiguration
+instance Prelude.NFData CreateDomainConfiguration
 
-instance ToHeaders CreateDomainConfiguration where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateDomainConfiguration where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateDomainConfiguration where
+instance Prelude.ToJSON CreateDomainConfiguration where
   toJSON CreateDomainConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("serverCertificateArns" .=)
-              <$> _cdcServerCertificateARNs,
-            ("authorizerConfig" .=) <$> _cdcAuthorizerConfig,
-            ("domainName" .=) <$> _cdcDomainName,
-            ("tags" .=) <$> _cdcTags,
-            ("validationCertificateArn" .=)
-              <$> _cdcValidationCertificateARN,
-            ("serviceType" .=) <$> _cdcServiceType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("serverCertificateArns" Prelude..=)
+              Prelude.<$> serverCertificateArns,
+            ("authorizerConfig" Prelude..=)
+              Prelude.<$> authorizerConfig,
+            ("domainName" Prelude..=) Prelude.<$> domainName,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("validationCertificateArn" Prelude..=)
+              Prelude.<$> validationCertificateArn,
+            ("serviceType" Prelude..=) Prelude.<$> serviceType
           ]
       )
 
-instance ToPath CreateDomainConfiguration where
+instance Prelude.ToPath CreateDomainConfiguration where
   toPath CreateDomainConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/domainConfigurations/",
-        toBS _cdcDomainConfigurationName
+        Prelude.toBS domainConfigurationName
       ]
 
-instance ToQuery CreateDomainConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDomainConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDomainConfigurationResponse' smart constructor.
+-- | /See:/ 'newCreateDomainConfigurationResponse' smart constructor.
 data CreateDomainConfigurationResponse = CreateDomainConfigurationResponse'
-  { _cdcrrsDomainConfigurationARN ::
-      !( Maybe
-           Text
-       ),
-    _cdcrrsDomainConfigurationName ::
-      !( Maybe
-           Text
-       ),
-    _cdcrrsResponseStatus ::
-      !Int
+  { -- | The ARN of the domain configuration.
+    domainConfigurationArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the domain configuration.
+    domainConfigurationName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDomainConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDomainConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdcrrsDomainConfigurationARN' - The ARN of the domain configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdcrrsDomainConfigurationName' - The name of the domain configuration.
+-- 'domainConfigurationArn', 'createDomainConfigurationResponse_domainConfigurationArn' - The ARN of the domain configuration.
 --
--- * 'cdcrrsResponseStatus' - -- | The response status code.
-createDomainConfigurationResponse ::
-  -- | 'cdcrrsResponseStatus'
-  Int ->
+-- 'domainConfigurationName', 'createDomainConfigurationResponse_domainConfigurationName' - The name of the domain configuration.
+--
+-- 'httpStatus', 'createDomainConfigurationResponse_httpStatus' - The response's http status code.
+newCreateDomainConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDomainConfigurationResponse
-createDomainConfigurationResponse pResponseStatus_ =
+newCreateDomainConfigurationResponse pHttpStatus_ =
   CreateDomainConfigurationResponse'
-    { _cdcrrsDomainConfigurationARN =
-        Nothing,
-      _cdcrrsDomainConfigurationName = Nothing,
-      _cdcrrsResponseStatus = pResponseStatus_
+    { domainConfigurationArn =
+        Prelude.Nothing,
+      domainConfigurationName =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the domain configuration.
-cdcrrsDomainConfigurationARN :: Lens' CreateDomainConfigurationResponse (Maybe Text)
-cdcrrsDomainConfigurationARN = lens _cdcrrsDomainConfigurationARN (\s a -> s {_cdcrrsDomainConfigurationARN = a})
+createDomainConfigurationResponse_domainConfigurationArn :: Lens.Lens' CreateDomainConfigurationResponse (Prelude.Maybe Prelude.Text)
+createDomainConfigurationResponse_domainConfigurationArn = Lens.lens (\CreateDomainConfigurationResponse' {domainConfigurationArn} -> domainConfigurationArn) (\s@CreateDomainConfigurationResponse' {} a -> s {domainConfigurationArn = a} :: CreateDomainConfigurationResponse)
 
 -- | The name of the domain configuration.
-cdcrrsDomainConfigurationName :: Lens' CreateDomainConfigurationResponse (Maybe Text)
-cdcrrsDomainConfigurationName = lens _cdcrrsDomainConfigurationName (\s a -> s {_cdcrrsDomainConfigurationName = a})
+createDomainConfigurationResponse_domainConfigurationName :: Lens.Lens' CreateDomainConfigurationResponse (Prelude.Maybe Prelude.Text)
+createDomainConfigurationResponse_domainConfigurationName = Lens.lens (\CreateDomainConfigurationResponse' {domainConfigurationName} -> domainConfigurationName) (\s@CreateDomainConfigurationResponse' {} a -> s {domainConfigurationName = a} :: CreateDomainConfigurationResponse)
 
--- | -- | The response status code.
-cdcrrsResponseStatus :: Lens' CreateDomainConfigurationResponse Int
-cdcrrsResponseStatus = lens _cdcrrsResponseStatus (\s a -> s {_cdcrrsResponseStatus = a})
+-- | The response's http status code.
+createDomainConfigurationResponse_httpStatus :: Lens.Lens' CreateDomainConfigurationResponse Prelude.Int
+createDomainConfigurationResponse_httpStatus = Lens.lens (\CreateDomainConfigurationResponse' {httpStatus} -> httpStatus) (\s@CreateDomainConfigurationResponse' {} a -> s {httpStatus = a} :: CreateDomainConfigurationResponse)
 
-instance NFData CreateDomainConfigurationResponse
+instance
+  Prelude.NFData
+    CreateDomainConfigurationResponse

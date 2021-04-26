@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,155 +24,154 @@
 -- Adds a thing to a billing group.
 module Network.AWS.IoT.AddThingToBillingGroup
   ( -- * Creating a Request
-    addThingToBillingGroup,
-    AddThingToBillingGroup,
+    AddThingToBillingGroup (..),
+    newAddThingToBillingGroup,
 
     -- * Request Lenses
-    attbgThingARN,
-    attbgThingName,
-    attbgBillingGroupARN,
-    attbgBillingGroupName,
+    addThingToBillingGroup_thingArn,
+    addThingToBillingGroup_thingName,
+    addThingToBillingGroup_billingGroupArn,
+    addThingToBillingGroup_billingGroupName,
 
     -- * Destructuring the Response
-    addThingToBillingGroupResponse,
-    AddThingToBillingGroupResponse,
+    AddThingToBillingGroupResponse (..),
+    newAddThingToBillingGroupResponse,
 
     -- * Response Lenses
-    attbgrrsResponseStatus,
+    addThingToBillingGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addThingToBillingGroup' smart constructor.
+-- | /See:/ 'newAddThingToBillingGroup' smart constructor.
 data AddThingToBillingGroup = AddThingToBillingGroup'
-  { _attbgThingARN ::
-      !(Maybe Text),
-    _attbgThingName ::
-      !(Maybe Text),
-    _attbgBillingGroupARN ::
-      !(Maybe Text),
-    _attbgBillingGroupName ::
-      !(Maybe Text)
+  { -- | The ARN of the thing to be added to the billing group.
+    thingArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing to be added to the billing group.
+    thingName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the billing group.
+    billingGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the billing group.
+    billingGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddThingToBillingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddThingToBillingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'attbgThingARN' - The ARN of the thing to be added to the billing group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'attbgThingName' - The name of the thing to be added to the billing group.
+-- 'thingArn', 'addThingToBillingGroup_thingArn' - The ARN of the thing to be added to the billing group.
 --
--- * 'attbgBillingGroupARN' - The ARN of the billing group.
+-- 'thingName', 'addThingToBillingGroup_thingName' - The name of the thing to be added to the billing group.
 --
--- * 'attbgBillingGroupName' - The name of the billing group.
-addThingToBillingGroup ::
+-- 'billingGroupArn', 'addThingToBillingGroup_billingGroupArn' - The ARN of the billing group.
+--
+-- 'billingGroupName', 'addThingToBillingGroup_billingGroupName' - The name of the billing group.
+newAddThingToBillingGroup ::
   AddThingToBillingGroup
-addThingToBillingGroup =
+newAddThingToBillingGroup =
   AddThingToBillingGroup'
-    { _attbgThingARN = Nothing,
-      _attbgThingName = Nothing,
-      _attbgBillingGroupARN = Nothing,
-      _attbgBillingGroupName = Nothing
+    { thingArn = Prelude.Nothing,
+      thingName = Prelude.Nothing,
+      billingGroupArn = Prelude.Nothing,
+      billingGroupName = Prelude.Nothing
     }
 
 -- | The ARN of the thing to be added to the billing group.
-attbgThingARN :: Lens' AddThingToBillingGroup (Maybe Text)
-attbgThingARN = lens _attbgThingARN (\s a -> s {_attbgThingARN = a})
+addThingToBillingGroup_thingArn :: Lens.Lens' AddThingToBillingGroup (Prelude.Maybe Prelude.Text)
+addThingToBillingGroup_thingArn = Lens.lens (\AddThingToBillingGroup' {thingArn} -> thingArn) (\s@AddThingToBillingGroup' {} a -> s {thingArn = a} :: AddThingToBillingGroup)
 
 -- | The name of the thing to be added to the billing group.
-attbgThingName :: Lens' AddThingToBillingGroup (Maybe Text)
-attbgThingName = lens _attbgThingName (\s a -> s {_attbgThingName = a})
+addThingToBillingGroup_thingName :: Lens.Lens' AddThingToBillingGroup (Prelude.Maybe Prelude.Text)
+addThingToBillingGroup_thingName = Lens.lens (\AddThingToBillingGroup' {thingName} -> thingName) (\s@AddThingToBillingGroup' {} a -> s {thingName = a} :: AddThingToBillingGroup)
 
 -- | The ARN of the billing group.
-attbgBillingGroupARN :: Lens' AddThingToBillingGroup (Maybe Text)
-attbgBillingGroupARN = lens _attbgBillingGroupARN (\s a -> s {_attbgBillingGroupARN = a})
+addThingToBillingGroup_billingGroupArn :: Lens.Lens' AddThingToBillingGroup (Prelude.Maybe Prelude.Text)
+addThingToBillingGroup_billingGroupArn = Lens.lens (\AddThingToBillingGroup' {billingGroupArn} -> billingGroupArn) (\s@AddThingToBillingGroup' {} a -> s {billingGroupArn = a} :: AddThingToBillingGroup)
 
 -- | The name of the billing group.
-attbgBillingGroupName :: Lens' AddThingToBillingGroup (Maybe Text)
-attbgBillingGroupName = lens _attbgBillingGroupName (\s a -> s {_attbgBillingGroupName = a})
+addThingToBillingGroup_billingGroupName :: Lens.Lens' AddThingToBillingGroup (Prelude.Maybe Prelude.Text)
+addThingToBillingGroup_billingGroupName = Lens.lens (\AddThingToBillingGroup' {billingGroupName} -> billingGroupName) (\s@AddThingToBillingGroup' {} a -> s {billingGroupName = a} :: AddThingToBillingGroup)
 
-instance AWSRequest AddThingToBillingGroup where
+instance Prelude.AWSRequest AddThingToBillingGroup where
   type
     Rs AddThingToBillingGroup =
       AddThingToBillingGroupResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AddThingToBillingGroupResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AddThingToBillingGroup
+instance Prelude.Hashable AddThingToBillingGroup
 
-instance NFData AddThingToBillingGroup
+instance Prelude.NFData AddThingToBillingGroup
 
-instance ToHeaders AddThingToBillingGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AddThingToBillingGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON AddThingToBillingGroup where
+instance Prelude.ToJSON AddThingToBillingGroup where
   toJSON AddThingToBillingGroup' {..} =
-    object
-      ( catMaybes
-          [ ("thingArn" .=) <$> _attbgThingARN,
-            ("thingName" .=) <$> _attbgThingName,
-            ("billingGroupArn" .=) <$> _attbgBillingGroupARN,
-            ("billingGroupName" .=) <$> _attbgBillingGroupName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("thingArn" Prelude..=) Prelude.<$> thingArn,
+            ("thingName" Prelude..=) Prelude.<$> thingName,
+            ("billingGroupArn" Prelude..=)
+              Prelude.<$> billingGroupArn,
+            ("billingGroupName" Prelude..=)
+              Prelude.<$> billingGroupName
           ]
       )
 
-instance ToPath AddThingToBillingGroup where
+instance Prelude.ToPath AddThingToBillingGroup where
   toPath =
-    const "/billing-groups/addThingToBillingGroup"
+    Prelude.const
+      "/billing-groups/addThingToBillingGroup"
 
-instance ToQuery AddThingToBillingGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery AddThingToBillingGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'addThingToBillingGroupResponse' smart constructor.
-newtype AddThingToBillingGroupResponse = AddThingToBillingGroupResponse'
-  { _attbgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAddThingToBillingGroupResponse' smart constructor.
+data AddThingToBillingGroupResponse = AddThingToBillingGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddThingToBillingGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddThingToBillingGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'attbgrrsResponseStatus' - -- | The response status code.
-addThingToBillingGroupResponse ::
-  -- | 'attbgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'addThingToBillingGroupResponse_httpStatus' - The response's http status code.
+newAddThingToBillingGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddThingToBillingGroupResponse
-addThingToBillingGroupResponse pResponseStatus_ =
+newAddThingToBillingGroupResponse pHttpStatus_ =
   AddThingToBillingGroupResponse'
-    { _attbgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-attbgrrsResponseStatus :: Lens' AddThingToBillingGroupResponse Int
-attbgrrsResponseStatus = lens _attbgrrsResponseStatus (\s a -> s {_attbgrrsResponseStatus = a})
+-- | The response's http status code.
+addThingToBillingGroupResponse_httpStatus :: Lens.Lens' AddThingToBillingGroupResponse Prelude.Int
+addThingToBillingGroupResponse_httpStatus = Lens.lens (\AddThingToBillingGroupResponse' {httpStatus} -> httpStatus) (\s@AddThingToBillingGroupResponse' {} a -> s {httpStatus = a} :: AddThingToBillingGroupResponse)
 
-instance NFData AddThingToBillingGroupResponse
+instance
+  Prelude.NFData
+    AddThingToBillingGroupResponse

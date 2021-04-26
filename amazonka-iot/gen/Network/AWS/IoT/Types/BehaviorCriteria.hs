@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,122 +23,200 @@ import Network.AWS.IoT.Types.ComparisonOperator
 import Network.AWS.IoT.Types.MachineLearningDetectionConfig
 import Network.AWS.IoT.Types.MetricValue
 import Network.AWS.IoT.Types.StatisticalThreshold
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The criteria by which the behavior is determined to be normal.
 --
---
---
--- /See:/ 'behaviorCriteria' smart constructor.
+-- /See:/ 'newBehaviorCriteria' smart constructor.
 data BehaviorCriteria = BehaviorCriteria'
-  { _bcComparisonOperator ::
-      !(Maybe ComparisonOperator),
-    _bcConsecutiveDatapointsToAlarm ::
-      !(Maybe Nat),
-    _bcStatisticalThreshold ::
-      !(Maybe StatisticalThreshold),
-    _bcMlDetectionConfig ::
-      !( Maybe
-           MachineLearningDetectionConfig
-       ),
-    _bcConsecutiveDatapointsToClear ::
-      !(Maybe Nat),
-    _bcValue :: !(Maybe MetricValue),
-    _bcDurationSeconds :: !(Maybe Int)
+  { -- | The operator that relates the thing measured (@metric@) to the criteria
+    -- (containing a @value@ or @statisticalThreshold@). Valid operators
+    -- include:
+    --
+    -- -   @string-list@: @in-set@ and @not-in-set@
+    --
+    -- -   @number-list@: @in-set@ and @not-in-set@
+    --
+    -- -   @ip-address-list@: @in-cidr-set@ and @not-in-cidr-set@
+    --
+    -- -   @number@: @less-than@, @less-than-equals@, @greater-than@, and
+    --     @greater-than-equals@
+    comparisonOperator :: Prelude.Maybe ComparisonOperator,
+    -- | If a device is in violation of the behavior for the specified number of
+    -- consecutive datapoints, an alarm occurs. If not specified, the default
+    -- is 1.
+    consecutiveDatapointsToAlarm :: Prelude.Maybe Prelude.Nat,
+    -- | A statistical ranking (percentile)that indicates a threshold value by
+    -- which a behavior is determined to be in compliance or in violation of
+    -- the behavior.
+    statisticalThreshold :: Prelude.Maybe StatisticalThreshold,
+    -- | The configuration of an ML Detect
+    mlDetectionConfig :: Prelude.Maybe MachineLearningDetectionConfig,
+    -- | If an alarm has occurred and the offending device is no longer in
+    -- violation of the behavior for the specified number of consecutive
+    -- datapoints, the alarm is cleared. If not specified, the default is 1.
+    consecutiveDatapointsToClear :: Prelude.Maybe Prelude.Nat,
+    -- | The value to be compared with the @metric@.
+    value :: Prelude.Maybe MetricValue,
+    -- | Use this to specify the time duration over which the behavior is
+    -- evaluated, for those criteria that have a time dimension (for example,
+    -- @NUM_MESSAGES_SENT@). For a @statisticalThreshhold@ metric comparison,
+    -- measurements from all devices are accumulated over this time duration
+    -- before being used to calculate percentiles, and later, measurements from
+    -- an individual device are also accumulated over this time duration before
+    -- being given a percentile rank. Cannot be used with list-based metric
+    -- datatypes.
+    durationSeconds :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BehaviorCriteria' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BehaviorCriteria' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bcComparisonOperator' - The operator that relates the thing measured (@metric@ ) to the criteria (containing a @value@ or @statisticalThreshold@ ). Valid operators include:     * @string-list@ : @in-set@ and @not-in-set@      * @number-list@ : @in-set@ and @not-in-set@      * @ip-address-list@ : @in-cidr-set@ and @not-in-cidr-set@      * @number@ : @less-than@ , @less-than-equals@ , @greater-than@ , and @greater-than-equals@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bcConsecutiveDatapointsToAlarm' - If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs. If not specified, the default is 1.
+-- 'comparisonOperator', 'behaviorCriteria_comparisonOperator' - The operator that relates the thing measured (@metric@) to the criteria
+-- (containing a @value@ or @statisticalThreshold@). Valid operators
+-- include:
 --
--- * 'bcStatisticalThreshold' - A statistical ranking (percentile)that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior.
+-- -   @string-list@: @in-set@ and @not-in-set@
 --
--- * 'bcMlDetectionConfig' - The configuration of an ML Detect
+-- -   @number-list@: @in-set@ and @not-in-set@
 --
--- * 'bcConsecutiveDatapointsToClear' - If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared. If not specified, the default is 1.
+-- -   @ip-address-list@: @in-cidr-set@ and @not-in-cidr-set@
 --
--- * 'bcValue' - The value to be compared with the @metric@ .
+-- -   @number@: @less-than@, @less-than-equals@, @greater-than@, and
+--     @greater-than-equals@
 --
--- * 'bcDurationSeconds' - Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension (for example, @NUM_MESSAGES_SENT@ ). For a @statisticalThreshhold@ metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank. Cannot be used with list-based metric datatypes.
-behaviorCriteria ::
+-- 'consecutiveDatapointsToAlarm', 'behaviorCriteria_consecutiveDatapointsToAlarm' - If a device is in violation of the behavior for the specified number of
+-- consecutive datapoints, an alarm occurs. If not specified, the default
+-- is 1.
+--
+-- 'statisticalThreshold', 'behaviorCriteria_statisticalThreshold' - A statistical ranking (percentile)that indicates a threshold value by
+-- which a behavior is determined to be in compliance or in violation of
+-- the behavior.
+--
+-- 'mlDetectionConfig', 'behaviorCriteria_mlDetectionConfig' - The configuration of an ML Detect
+--
+-- 'consecutiveDatapointsToClear', 'behaviorCriteria_consecutiveDatapointsToClear' - If an alarm has occurred and the offending device is no longer in
+-- violation of the behavior for the specified number of consecutive
+-- datapoints, the alarm is cleared. If not specified, the default is 1.
+--
+-- 'value', 'behaviorCriteria_value' - The value to be compared with the @metric@.
+--
+-- 'durationSeconds', 'behaviorCriteria_durationSeconds' - Use this to specify the time duration over which the behavior is
+-- evaluated, for those criteria that have a time dimension (for example,
+-- @NUM_MESSAGES_SENT@). For a @statisticalThreshhold@ metric comparison,
+-- measurements from all devices are accumulated over this time duration
+-- before being used to calculate percentiles, and later, measurements from
+-- an individual device are also accumulated over this time duration before
+-- being given a percentile rank. Cannot be used with list-based metric
+-- datatypes.
+newBehaviorCriteria ::
   BehaviorCriteria
-behaviorCriteria =
+newBehaviorCriteria =
   BehaviorCriteria'
-    { _bcComparisonOperator = Nothing,
-      _bcConsecutiveDatapointsToAlarm = Nothing,
-      _bcStatisticalThreshold = Nothing,
-      _bcMlDetectionConfig = Nothing,
-      _bcConsecutiveDatapointsToClear = Nothing,
-      _bcValue = Nothing,
-      _bcDurationSeconds = Nothing
+    { comparisonOperator =
+        Prelude.Nothing,
+      consecutiveDatapointsToAlarm = Prelude.Nothing,
+      statisticalThreshold = Prelude.Nothing,
+      mlDetectionConfig = Prelude.Nothing,
+      consecutiveDatapointsToClear = Prelude.Nothing,
+      value = Prelude.Nothing,
+      durationSeconds = Prelude.Nothing
     }
 
--- | The operator that relates the thing measured (@metric@ ) to the criteria (containing a @value@ or @statisticalThreshold@ ). Valid operators include:     * @string-list@ : @in-set@ and @not-in-set@      * @number-list@ : @in-set@ and @not-in-set@      * @ip-address-list@ : @in-cidr-set@ and @not-in-cidr-set@      * @number@ : @less-than@ , @less-than-equals@ , @greater-than@ , and @greater-than-equals@
-bcComparisonOperator :: Lens' BehaviorCriteria (Maybe ComparisonOperator)
-bcComparisonOperator = lens _bcComparisonOperator (\s a -> s {_bcComparisonOperator = a})
+-- | The operator that relates the thing measured (@metric@) to the criteria
+-- (containing a @value@ or @statisticalThreshold@). Valid operators
+-- include:
+--
+-- -   @string-list@: @in-set@ and @not-in-set@
+--
+-- -   @number-list@: @in-set@ and @not-in-set@
+--
+-- -   @ip-address-list@: @in-cidr-set@ and @not-in-cidr-set@
+--
+-- -   @number@: @less-than@, @less-than-equals@, @greater-than@, and
+--     @greater-than-equals@
+behaviorCriteria_comparisonOperator :: Lens.Lens' BehaviorCriteria (Prelude.Maybe ComparisonOperator)
+behaviorCriteria_comparisonOperator = Lens.lens (\BehaviorCriteria' {comparisonOperator} -> comparisonOperator) (\s@BehaviorCriteria' {} a -> s {comparisonOperator = a} :: BehaviorCriteria)
 
--- | If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs. If not specified, the default is 1.
-bcConsecutiveDatapointsToAlarm :: Lens' BehaviorCriteria (Maybe Natural)
-bcConsecutiveDatapointsToAlarm = lens _bcConsecutiveDatapointsToAlarm (\s a -> s {_bcConsecutiveDatapointsToAlarm = a}) . mapping _Nat
+-- | If a device is in violation of the behavior for the specified number of
+-- consecutive datapoints, an alarm occurs. If not specified, the default
+-- is 1.
+behaviorCriteria_consecutiveDatapointsToAlarm :: Lens.Lens' BehaviorCriteria (Prelude.Maybe Prelude.Natural)
+behaviorCriteria_consecutiveDatapointsToAlarm = Lens.lens (\BehaviorCriteria' {consecutiveDatapointsToAlarm} -> consecutiveDatapointsToAlarm) (\s@BehaviorCriteria' {} a -> s {consecutiveDatapointsToAlarm = a} :: BehaviorCriteria) Prelude.. Lens.mapping Prelude._Nat
 
--- | A statistical ranking (percentile)that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior.
-bcStatisticalThreshold :: Lens' BehaviorCriteria (Maybe StatisticalThreshold)
-bcStatisticalThreshold = lens _bcStatisticalThreshold (\s a -> s {_bcStatisticalThreshold = a})
+-- | A statistical ranking (percentile)that indicates a threshold value by
+-- which a behavior is determined to be in compliance or in violation of
+-- the behavior.
+behaviorCriteria_statisticalThreshold :: Lens.Lens' BehaviorCriteria (Prelude.Maybe StatisticalThreshold)
+behaviorCriteria_statisticalThreshold = Lens.lens (\BehaviorCriteria' {statisticalThreshold} -> statisticalThreshold) (\s@BehaviorCriteria' {} a -> s {statisticalThreshold = a} :: BehaviorCriteria)
 
 -- | The configuration of an ML Detect
-bcMlDetectionConfig :: Lens' BehaviorCriteria (Maybe MachineLearningDetectionConfig)
-bcMlDetectionConfig = lens _bcMlDetectionConfig (\s a -> s {_bcMlDetectionConfig = a})
+behaviorCriteria_mlDetectionConfig :: Lens.Lens' BehaviorCriteria (Prelude.Maybe MachineLearningDetectionConfig)
+behaviorCriteria_mlDetectionConfig = Lens.lens (\BehaviorCriteria' {mlDetectionConfig} -> mlDetectionConfig) (\s@BehaviorCriteria' {} a -> s {mlDetectionConfig = a} :: BehaviorCriteria)
 
--- | If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared. If not specified, the default is 1.
-bcConsecutiveDatapointsToClear :: Lens' BehaviorCriteria (Maybe Natural)
-bcConsecutiveDatapointsToClear = lens _bcConsecutiveDatapointsToClear (\s a -> s {_bcConsecutiveDatapointsToClear = a}) . mapping _Nat
+-- | If an alarm has occurred and the offending device is no longer in
+-- violation of the behavior for the specified number of consecutive
+-- datapoints, the alarm is cleared. If not specified, the default is 1.
+behaviorCriteria_consecutiveDatapointsToClear :: Lens.Lens' BehaviorCriteria (Prelude.Maybe Prelude.Natural)
+behaviorCriteria_consecutiveDatapointsToClear = Lens.lens (\BehaviorCriteria' {consecutiveDatapointsToClear} -> consecutiveDatapointsToClear) (\s@BehaviorCriteria' {} a -> s {consecutiveDatapointsToClear = a} :: BehaviorCriteria) Prelude.. Lens.mapping Prelude._Nat
 
--- | The value to be compared with the @metric@ .
-bcValue :: Lens' BehaviorCriteria (Maybe MetricValue)
-bcValue = lens _bcValue (\s a -> s {_bcValue = a})
+-- | The value to be compared with the @metric@.
+behaviorCriteria_value :: Lens.Lens' BehaviorCriteria (Prelude.Maybe MetricValue)
+behaviorCriteria_value = Lens.lens (\BehaviorCriteria' {value} -> value) (\s@BehaviorCriteria' {} a -> s {value = a} :: BehaviorCriteria)
 
--- | Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension (for example, @NUM_MESSAGES_SENT@ ). For a @statisticalThreshhold@ metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank. Cannot be used with list-based metric datatypes.
-bcDurationSeconds :: Lens' BehaviorCriteria (Maybe Int)
-bcDurationSeconds = lens _bcDurationSeconds (\s a -> s {_bcDurationSeconds = a})
+-- | Use this to specify the time duration over which the behavior is
+-- evaluated, for those criteria that have a time dimension (for example,
+-- @NUM_MESSAGES_SENT@). For a @statisticalThreshhold@ metric comparison,
+-- measurements from all devices are accumulated over this time duration
+-- before being used to calculate percentiles, and later, measurements from
+-- an individual device are also accumulated over this time duration before
+-- being given a percentile rank. Cannot be used with list-based metric
+-- datatypes.
+behaviorCriteria_durationSeconds :: Lens.Lens' BehaviorCriteria (Prelude.Maybe Prelude.Int)
+behaviorCriteria_durationSeconds = Lens.lens (\BehaviorCriteria' {durationSeconds} -> durationSeconds) (\s@BehaviorCriteria' {} a -> s {durationSeconds = a} :: BehaviorCriteria)
 
-instance FromJSON BehaviorCriteria where
+instance Prelude.FromJSON BehaviorCriteria where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BehaviorCriteria"
       ( \x ->
           BehaviorCriteria'
-            <$> (x .:? "comparisonOperator")
-            <*> (x .:? "consecutiveDatapointsToAlarm")
-            <*> (x .:? "statisticalThreshold")
-            <*> (x .:? "mlDetectionConfig")
-            <*> (x .:? "consecutiveDatapointsToClear")
-            <*> (x .:? "value")
-            <*> (x .:? "durationSeconds")
+            Prelude.<$> (x Prelude..:? "comparisonOperator")
+            Prelude.<*> (x Prelude..:? "consecutiveDatapointsToAlarm")
+            Prelude.<*> (x Prelude..:? "statisticalThreshold")
+            Prelude.<*> (x Prelude..:? "mlDetectionConfig")
+            Prelude.<*> (x Prelude..:? "consecutiveDatapointsToClear")
+            Prelude.<*> (x Prelude..:? "value")
+            Prelude.<*> (x Prelude..:? "durationSeconds")
       )
 
-instance Hashable BehaviorCriteria
+instance Prelude.Hashable BehaviorCriteria
 
-instance NFData BehaviorCriteria
+instance Prelude.NFData BehaviorCriteria
 
-instance ToJSON BehaviorCriteria where
+instance Prelude.ToJSON BehaviorCriteria where
   toJSON BehaviorCriteria' {..} =
-    object
-      ( catMaybes
-          [ ("comparisonOperator" .=) <$> _bcComparisonOperator,
-            ("consecutiveDatapointsToAlarm" .=)
-              <$> _bcConsecutiveDatapointsToAlarm,
-            ("statisticalThreshold" .=)
-              <$> _bcStatisticalThreshold,
-            ("mlDetectionConfig" .=) <$> _bcMlDetectionConfig,
-            ("consecutiveDatapointsToClear" .=)
-              <$> _bcConsecutiveDatapointsToClear,
-            ("value" .=) <$> _bcValue,
-            ("durationSeconds" .=) <$> _bcDurationSeconds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("comparisonOperator" Prelude..=)
+              Prelude.<$> comparisonOperator,
+            ("consecutiveDatapointsToAlarm" Prelude..=)
+              Prelude.<$> consecutiveDatapointsToAlarm,
+            ("statisticalThreshold" Prelude..=)
+              Prelude.<$> statisticalThreshold,
+            ("mlDetectionConfig" Prelude..=)
+              Prelude.<$> mlDetectionConfig,
+            ("consecutiveDatapointsToClear" Prelude..=)
+              Prelude.<$> consecutiveDatapointsToClear,
+            ("value" Prelude..=) Prelude.<$> value,
+            ("durationSeconds" Prelude..=)
+              Prelude.<$> durationSeconds
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.IoT.Types.ServiceType
   ( ServiceType
       ( ..,
-        CredentialProvider,
-        Data,
-        Jobs
+        ServiceTypeCREDENTIALPROVIDER,
+        ServiceTypeDATA,
+        ServiceTypeJOBS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServiceType = ServiceType' (CI Text)
+newtype ServiceType = ServiceType'
+  { fromServiceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CredentialProvider :: ServiceType
-pattern CredentialProvider = ServiceType' "CREDENTIAL_PROVIDER"
+pattern ServiceTypeCREDENTIALPROVIDER :: ServiceType
+pattern ServiceTypeCREDENTIALPROVIDER = ServiceType' "CREDENTIAL_PROVIDER"
 
-pattern Data :: ServiceType
-pattern Data = ServiceType' "DATA"
+pattern ServiceTypeDATA :: ServiceType
+pattern ServiceTypeDATA = ServiceType' "DATA"
 
-pattern Jobs :: ServiceType
-pattern Jobs = ServiceType' "JOBS"
+pattern ServiceTypeJOBS :: ServiceType
+pattern ServiceTypeJOBS = ServiceType' "JOBS"
 
 {-# COMPLETE
-  CredentialProvider,
-  Data,
-  Jobs,
+  ServiceTypeCREDENTIALPROVIDER,
+  ServiceTypeDATA,
+  ServiceTypeJOBS,
   ServiceType'
   #-}
 
-instance FromText ServiceType where
-  parser = (ServiceType' . mk) <$> takeText
+instance Prelude.FromText ServiceType where
+  parser = ServiceType' Prelude.<$> Prelude.takeText
 
-instance ToText ServiceType where
-  toText (ServiceType' ci) = original ci
+instance Prelude.ToText ServiceType where
+  toText (ServiceType' x) = x
 
-instance Hashable ServiceType
+instance Prelude.Hashable ServiceType
 
-instance NFData ServiceType
+instance Prelude.NFData ServiceType
 
-instance ToByteString ServiceType
+instance Prelude.ToByteString ServiceType
 
-instance ToQuery ServiceType
+instance Prelude.ToQuery ServiceType
 
-instance ToHeader ServiceType
+instance Prelude.ToHeader ServiceType
 
-instance ToJSON ServiceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ServiceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ServiceType where
-  parseJSON = parseJSONText "ServiceType"
+instance Prelude.FromJSON ServiceType where
+  parseJSON = Prelude.parseJSONText "ServiceType"

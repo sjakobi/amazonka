@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.IoT.Types.AuditMitigationActionsTaskStatus
   ( AuditMitigationActionsTaskStatus
       ( ..,
-        AMATSCanceled,
-        AMATSCompleted,
-        AMATSFailed,
-        AMATSInProgress
+        AuditMitigationActionsTaskStatusCANCELED,
+        AuditMitigationActionsTaskStatusCOMPLETED,
+        AuditMitigationActionsTaskStatusFAILED,
+        AuditMitigationActionsTaskStatusINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuditMitigationActionsTaskStatus
-  = AuditMitigationActionsTaskStatus'
-      ( CI
-          Text
-      )
+newtype AuditMitigationActionsTaskStatus = AuditMitigationActionsTaskStatus'
+  { fromAuditMitigationActionsTaskStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AMATSCanceled :: AuditMitigationActionsTaskStatus
-pattern AMATSCanceled = AuditMitigationActionsTaskStatus' "CANCELED"
+pattern AuditMitigationActionsTaskStatusCANCELED :: AuditMitigationActionsTaskStatus
+pattern AuditMitigationActionsTaskStatusCANCELED = AuditMitigationActionsTaskStatus' "CANCELED"
 
-pattern AMATSCompleted :: AuditMitigationActionsTaskStatus
-pattern AMATSCompleted = AuditMitigationActionsTaskStatus' "COMPLETED"
+pattern AuditMitigationActionsTaskStatusCOMPLETED :: AuditMitigationActionsTaskStatus
+pattern AuditMitigationActionsTaskStatusCOMPLETED = AuditMitigationActionsTaskStatus' "COMPLETED"
 
-pattern AMATSFailed :: AuditMitigationActionsTaskStatus
-pattern AMATSFailed = AuditMitigationActionsTaskStatus' "FAILED"
+pattern AuditMitigationActionsTaskStatusFAILED :: AuditMitigationActionsTaskStatus
+pattern AuditMitigationActionsTaskStatusFAILED = AuditMitigationActionsTaskStatus' "FAILED"
 
-pattern AMATSInProgress :: AuditMitigationActionsTaskStatus
-pattern AMATSInProgress = AuditMitigationActionsTaskStatus' "IN_PROGRESS"
+pattern AuditMitigationActionsTaskStatusINPROGRESS :: AuditMitigationActionsTaskStatus
+pattern AuditMitigationActionsTaskStatusINPROGRESS = AuditMitigationActionsTaskStatus' "IN_PROGRESS"
 
 {-# COMPLETE
-  AMATSCanceled,
-  AMATSCompleted,
-  AMATSFailed,
-  AMATSInProgress,
+  AuditMitigationActionsTaskStatusCANCELED,
+  AuditMitigationActionsTaskStatusCOMPLETED,
+  AuditMitigationActionsTaskStatusFAILED,
+  AuditMitigationActionsTaskStatusINPROGRESS,
   AuditMitigationActionsTaskStatus'
   #-}
 
-instance FromText AuditMitigationActionsTaskStatus where
-  parser = (AuditMitigationActionsTaskStatus' . mk) <$> takeText
+instance Prelude.FromText AuditMitigationActionsTaskStatus where
+  parser = AuditMitigationActionsTaskStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AuditMitigationActionsTaskStatus where
-  toText (AuditMitigationActionsTaskStatus' ci) = original ci
+instance Prelude.ToText AuditMitigationActionsTaskStatus where
+  toText (AuditMitigationActionsTaskStatus' x) = x
 
-instance Hashable AuditMitigationActionsTaskStatus
+instance Prelude.Hashable AuditMitigationActionsTaskStatus
 
-instance NFData AuditMitigationActionsTaskStatus
+instance Prelude.NFData AuditMitigationActionsTaskStatus
 
-instance ToByteString AuditMitigationActionsTaskStatus
+instance Prelude.ToByteString AuditMitigationActionsTaskStatus
 
-instance ToQuery AuditMitigationActionsTaskStatus
+instance Prelude.ToQuery AuditMitigationActionsTaskStatus
 
-instance ToHeader AuditMitigationActionsTaskStatus
+instance Prelude.ToHeader AuditMitigationActionsTaskStatus
 
-instance ToJSON AuditMitigationActionsTaskStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuditMitigationActionsTaskStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuditMitigationActionsTaskStatus where
-  parseJSON = parseJSONText "AuditMitigationActionsTaskStatus"
+instance Prelude.FromJSON AuditMitigationActionsTaskStatus where
+  parseJSON = Prelude.parseJSONText "AuditMitigationActionsTaskStatus"

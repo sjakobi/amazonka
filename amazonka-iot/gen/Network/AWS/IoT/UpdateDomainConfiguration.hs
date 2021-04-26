@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,196 +21,191 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates values stored in the domain configuration. Domain configurations for default endpoints can't be updated.
+-- Updates values stored in the domain configuration. Domain configurations
+-- for default endpoints can\'t be updated.
+--
+-- The domain configuration feature is in public preview and is subject to
+-- change.
 module Network.AWS.IoT.UpdateDomainConfiguration
   ( -- * Creating a Request
-    updateDomainConfiguration,
-    UpdateDomainConfiguration,
+    UpdateDomainConfiguration (..),
+    newUpdateDomainConfiguration,
 
     -- * Request Lenses
-    udcDomainConfigurationStatus,
-    udcAuthorizerConfig,
-    udcRemoveAuthorizerConfig,
-    udcDomainConfigurationName,
+    updateDomainConfiguration_domainConfigurationStatus,
+    updateDomainConfiguration_authorizerConfig,
+    updateDomainConfiguration_removeAuthorizerConfig,
+    updateDomainConfiguration_domainConfigurationName,
 
     -- * Destructuring the Response
-    updateDomainConfigurationResponse,
-    UpdateDomainConfigurationResponse,
+    UpdateDomainConfigurationResponse (..),
+    newUpdateDomainConfigurationResponse,
 
     -- * Response Lenses
-    udcrrsDomainConfigurationARN,
-    udcrrsDomainConfigurationName,
-    udcrrsResponseStatus,
+    updateDomainConfigurationResponse_domainConfigurationArn,
+    updateDomainConfigurationResponse_domainConfigurationName,
+    updateDomainConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateDomainConfiguration' smart constructor.
+-- | /See:/ 'newUpdateDomainConfiguration' smart constructor.
 data UpdateDomainConfiguration = UpdateDomainConfiguration'
-  { _udcDomainConfigurationStatus ::
-      !( Maybe
-           DomainConfigurationStatus
-       ),
-    _udcAuthorizerConfig ::
-      !( Maybe
-           AuthorizerConfig
-       ),
-    _udcRemoveAuthorizerConfig ::
-      !(Maybe Bool),
-    _udcDomainConfigurationName ::
-      !Text
+  { -- | The status to which the domain configuration should be updated.
+    domainConfigurationStatus :: Prelude.Maybe DomainConfigurationStatus,
+    -- | An object that specifies the authorization service for a domain.
+    authorizerConfig :: Prelude.Maybe AuthorizerConfig,
+    -- | Removes the authorization configuration from a domain.
+    removeAuthorizerConfig :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the domain configuration to be updated.
+    domainConfigurationName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDomainConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDomainConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udcDomainConfigurationStatus' - The status to which the domain configuration should be updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udcAuthorizerConfig' - An object that specifies the authorization service for a domain.
+-- 'domainConfigurationStatus', 'updateDomainConfiguration_domainConfigurationStatus' - The status to which the domain configuration should be updated.
 --
--- * 'udcRemoveAuthorizerConfig' - Removes the authorization configuration from a domain.
+-- 'authorizerConfig', 'updateDomainConfiguration_authorizerConfig' - An object that specifies the authorization service for a domain.
 --
--- * 'udcDomainConfigurationName' - The name of the domain configuration to be updated.
-updateDomainConfiguration ::
-  -- | 'udcDomainConfigurationName'
-  Text ->
+-- 'removeAuthorizerConfig', 'updateDomainConfiguration_removeAuthorizerConfig' - Removes the authorization configuration from a domain.
+--
+-- 'domainConfigurationName', 'updateDomainConfiguration_domainConfigurationName' - The name of the domain configuration to be updated.
+newUpdateDomainConfiguration ::
+  -- | 'domainConfigurationName'
+  Prelude.Text ->
   UpdateDomainConfiguration
-updateDomainConfiguration pDomainConfigurationName_ =
-  UpdateDomainConfiguration'
-    { _udcDomainConfigurationStatus =
-        Nothing,
-      _udcAuthorizerConfig = Nothing,
-      _udcRemoveAuthorizerConfig = Nothing,
-      _udcDomainConfigurationName =
-        pDomainConfigurationName_
-    }
+newUpdateDomainConfiguration
+  pDomainConfigurationName_ =
+    UpdateDomainConfiguration'
+      { domainConfigurationStatus =
+          Prelude.Nothing,
+        authorizerConfig = Prelude.Nothing,
+        removeAuthorizerConfig = Prelude.Nothing,
+        domainConfigurationName =
+          pDomainConfigurationName_
+      }
 
 -- | The status to which the domain configuration should be updated.
-udcDomainConfigurationStatus :: Lens' UpdateDomainConfiguration (Maybe DomainConfigurationStatus)
-udcDomainConfigurationStatus = lens _udcDomainConfigurationStatus (\s a -> s {_udcDomainConfigurationStatus = a})
+updateDomainConfiguration_domainConfigurationStatus :: Lens.Lens' UpdateDomainConfiguration (Prelude.Maybe DomainConfigurationStatus)
+updateDomainConfiguration_domainConfigurationStatus = Lens.lens (\UpdateDomainConfiguration' {domainConfigurationStatus} -> domainConfigurationStatus) (\s@UpdateDomainConfiguration' {} a -> s {domainConfigurationStatus = a} :: UpdateDomainConfiguration)
 
 -- | An object that specifies the authorization service for a domain.
-udcAuthorizerConfig :: Lens' UpdateDomainConfiguration (Maybe AuthorizerConfig)
-udcAuthorizerConfig = lens _udcAuthorizerConfig (\s a -> s {_udcAuthorizerConfig = a})
+updateDomainConfiguration_authorizerConfig :: Lens.Lens' UpdateDomainConfiguration (Prelude.Maybe AuthorizerConfig)
+updateDomainConfiguration_authorizerConfig = Lens.lens (\UpdateDomainConfiguration' {authorizerConfig} -> authorizerConfig) (\s@UpdateDomainConfiguration' {} a -> s {authorizerConfig = a} :: UpdateDomainConfiguration)
 
 -- | Removes the authorization configuration from a domain.
-udcRemoveAuthorizerConfig :: Lens' UpdateDomainConfiguration (Maybe Bool)
-udcRemoveAuthorizerConfig = lens _udcRemoveAuthorizerConfig (\s a -> s {_udcRemoveAuthorizerConfig = a})
+updateDomainConfiguration_removeAuthorizerConfig :: Lens.Lens' UpdateDomainConfiguration (Prelude.Maybe Prelude.Bool)
+updateDomainConfiguration_removeAuthorizerConfig = Lens.lens (\UpdateDomainConfiguration' {removeAuthorizerConfig} -> removeAuthorizerConfig) (\s@UpdateDomainConfiguration' {} a -> s {removeAuthorizerConfig = a} :: UpdateDomainConfiguration)
 
 -- | The name of the domain configuration to be updated.
-udcDomainConfigurationName :: Lens' UpdateDomainConfiguration Text
-udcDomainConfigurationName = lens _udcDomainConfigurationName (\s a -> s {_udcDomainConfigurationName = a})
+updateDomainConfiguration_domainConfigurationName :: Lens.Lens' UpdateDomainConfiguration Prelude.Text
+updateDomainConfiguration_domainConfigurationName = Lens.lens (\UpdateDomainConfiguration' {domainConfigurationName} -> domainConfigurationName) (\s@UpdateDomainConfiguration' {} a -> s {domainConfigurationName = a} :: UpdateDomainConfiguration)
 
-instance AWSRequest UpdateDomainConfiguration where
+instance Prelude.AWSRequest UpdateDomainConfiguration where
   type
     Rs UpdateDomainConfiguration =
       UpdateDomainConfigurationResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateDomainConfigurationResponse'
-            <$> (x .?> "domainConfigurationArn")
-            <*> (x .?> "domainConfigurationName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "domainConfigurationArn")
+            Prelude.<*> (x Prelude..?> "domainConfigurationName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateDomainConfiguration
+instance Prelude.Hashable UpdateDomainConfiguration
 
-instance NFData UpdateDomainConfiguration
+instance Prelude.NFData UpdateDomainConfiguration
 
-instance ToHeaders UpdateDomainConfiguration where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateDomainConfiguration where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateDomainConfiguration where
+instance Prelude.ToJSON UpdateDomainConfiguration where
   toJSON UpdateDomainConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("domainConfigurationStatus" .=)
-              <$> _udcDomainConfigurationStatus,
-            ("authorizerConfig" .=) <$> _udcAuthorizerConfig,
-            ("removeAuthorizerConfig" .=)
-              <$> _udcRemoveAuthorizerConfig
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("domainConfigurationStatus" Prelude..=)
+              Prelude.<$> domainConfigurationStatus,
+            ("authorizerConfig" Prelude..=)
+              Prelude.<$> authorizerConfig,
+            ("removeAuthorizerConfig" Prelude..=)
+              Prelude.<$> removeAuthorizerConfig
           ]
       )
 
-instance ToPath UpdateDomainConfiguration where
+instance Prelude.ToPath UpdateDomainConfiguration where
   toPath UpdateDomainConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/domainConfigurations/",
-        toBS _udcDomainConfigurationName
+        Prelude.toBS domainConfigurationName
       ]
 
-instance ToQuery UpdateDomainConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDomainConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDomainConfigurationResponse' smart constructor.
+-- | /See:/ 'newUpdateDomainConfigurationResponse' smart constructor.
 data UpdateDomainConfigurationResponse = UpdateDomainConfigurationResponse'
-  { _udcrrsDomainConfigurationARN ::
-      !( Maybe
-           Text
-       ),
-    _udcrrsDomainConfigurationName ::
-      !( Maybe
-           Text
-       ),
-    _udcrrsResponseStatus ::
-      !Int
+  { -- | The ARN of the domain configuration that was updated.
+    domainConfigurationArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the domain configuration that was updated.
+    domainConfigurationName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDomainConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDomainConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udcrrsDomainConfigurationARN' - The ARN of the domain configuration that was updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udcrrsDomainConfigurationName' - The name of the domain configuration that was updated.
+-- 'domainConfigurationArn', 'updateDomainConfigurationResponse_domainConfigurationArn' - The ARN of the domain configuration that was updated.
 --
--- * 'udcrrsResponseStatus' - -- | The response status code.
-updateDomainConfigurationResponse ::
-  -- | 'udcrrsResponseStatus'
-  Int ->
+-- 'domainConfigurationName', 'updateDomainConfigurationResponse_domainConfigurationName' - The name of the domain configuration that was updated.
+--
+-- 'httpStatus', 'updateDomainConfigurationResponse_httpStatus' - The response's http status code.
+newUpdateDomainConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDomainConfigurationResponse
-updateDomainConfigurationResponse pResponseStatus_ =
+newUpdateDomainConfigurationResponse pHttpStatus_ =
   UpdateDomainConfigurationResponse'
-    { _udcrrsDomainConfigurationARN =
-        Nothing,
-      _udcrrsDomainConfigurationName = Nothing,
-      _udcrrsResponseStatus = pResponseStatus_
+    { domainConfigurationArn =
+        Prelude.Nothing,
+      domainConfigurationName =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the domain configuration that was updated.
-udcrrsDomainConfigurationARN :: Lens' UpdateDomainConfigurationResponse (Maybe Text)
-udcrrsDomainConfigurationARN = lens _udcrrsDomainConfigurationARN (\s a -> s {_udcrrsDomainConfigurationARN = a})
+updateDomainConfigurationResponse_domainConfigurationArn :: Lens.Lens' UpdateDomainConfigurationResponse (Prelude.Maybe Prelude.Text)
+updateDomainConfigurationResponse_domainConfigurationArn = Lens.lens (\UpdateDomainConfigurationResponse' {domainConfigurationArn} -> domainConfigurationArn) (\s@UpdateDomainConfigurationResponse' {} a -> s {domainConfigurationArn = a} :: UpdateDomainConfigurationResponse)
 
 -- | The name of the domain configuration that was updated.
-udcrrsDomainConfigurationName :: Lens' UpdateDomainConfigurationResponse (Maybe Text)
-udcrrsDomainConfigurationName = lens _udcrrsDomainConfigurationName (\s a -> s {_udcrrsDomainConfigurationName = a})
+updateDomainConfigurationResponse_domainConfigurationName :: Lens.Lens' UpdateDomainConfigurationResponse (Prelude.Maybe Prelude.Text)
+updateDomainConfigurationResponse_domainConfigurationName = Lens.lens (\UpdateDomainConfigurationResponse' {domainConfigurationName} -> domainConfigurationName) (\s@UpdateDomainConfigurationResponse' {} a -> s {domainConfigurationName = a} :: UpdateDomainConfigurationResponse)
 
--- | -- | The response status code.
-udcrrsResponseStatus :: Lens' UpdateDomainConfigurationResponse Int
-udcrrsResponseStatus = lens _udcrrsResponseStatus (\s a -> s {_udcrrsResponseStatus = a})
+-- | The response's http status code.
+updateDomainConfigurationResponse_httpStatus :: Lens.Lens' UpdateDomainConfigurationResponse Prelude.Int
+updateDomainConfigurationResponse_httpStatus = Lens.lens (\UpdateDomainConfigurationResponse' {httpStatus} -> httpStatus) (\s@UpdateDomainConfigurationResponse' {} a -> s {httpStatus = a} :: UpdateDomainConfigurationResponse)
 
-instance NFData UpdateDomainConfigurationResponse
+instance
+  Prelude.NFData
+    UpdateDomainConfigurationResponse

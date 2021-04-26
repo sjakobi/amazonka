@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,200 +21,235 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the Device Defender audits that have been performed during a given time period.
---
---
+-- Lists the Device Defender audits that have been performed during a given
+-- time period.
 --
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListAuditTasks
   ( -- * Creating a Request
-    listAuditTasks,
-    ListAuditTasks,
+    ListAuditTasks (..),
+    newListAuditTasks,
 
     -- * Request Lenses
-    latNextToken,
-    latMaxResults,
-    latTaskStatus,
-    latTaskType,
-    latStartTime,
-    latEndTime,
+    listAuditTasks_nextToken,
+    listAuditTasks_maxResults,
+    listAuditTasks_taskStatus,
+    listAuditTasks_taskType,
+    listAuditTasks_startTime,
+    listAuditTasks_endTime,
 
     -- * Destructuring the Response
-    listAuditTasksResponse,
-    ListAuditTasksResponse,
+    ListAuditTasksResponse (..),
+    newListAuditTasksResponse,
 
     -- * Response Lenses
-    latrrsNextToken,
-    latrrsTasks,
-    latrrsResponseStatus,
+    listAuditTasksResponse_nextToken,
+    listAuditTasksResponse_tasks,
+    listAuditTasksResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AuditTaskMetadata
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAuditTasks' smart constructor.
+-- | /See:/ 'newListAuditTasks' smart constructor.
 data ListAuditTasks = ListAuditTasks'
-  { _latNextToken ::
-      !(Maybe Text),
-    _latMaxResults :: !(Maybe Nat),
-    _latTaskStatus ::
-      !(Maybe AuditTaskStatus),
-    _latTaskType :: !(Maybe AuditTaskType),
-    _latStartTime :: !POSIX,
-    _latEndTime :: !POSIX
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return at one time. The default is 25.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter to limit the output to audits with the specified completion
+    -- status: can be one of \"IN_PROGRESS\", \"COMPLETED\", \"FAILED\", or
+    -- \"CANCELED\".
+    taskStatus :: Prelude.Maybe AuditTaskStatus,
+    -- | A filter to limit the output to the specified type of audit: can be one
+    -- of \"ON_DEMAND_AUDIT_TASK\" or \"SCHEDULED__AUDIT_TASK\".
+    taskType :: Prelude.Maybe AuditTaskType,
+    -- | The beginning of the time period. Audit information is retained for a
+    -- limited time (90 days). Requesting a start time prior to what is
+    -- retained results in an \"InvalidRequestException\".
+    startTime :: Prelude.POSIX,
+    -- | The end of the time period.
+    endTime :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAuditTasks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAuditTasks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'latNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'latMaxResults' - The maximum number of results to return at one time. The default is 25.
+-- 'nextToken', 'listAuditTasks_nextToken' - The token for the next set of results.
 --
--- * 'latTaskStatus' - A filter to limit the output to audits with the specified completion status: can be one of "IN_PROGRESS", "COMPLETED", "FAILED", or "CANCELED".
+-- 'maxResults', 'listAuditTasks_maxResults' - The maximum number of results to return at one time. The default is 25.
 --
--- * 'latTaskType' - A filter to limit the output to the specified type of audit: can be one of "ON_DEMAND_AUDIT_TASK" or "SCHEDULED__AUDIT_TASK".
+-- 'taskStatus', 'listAuditTasks_taskStatus' - A filter to limit the output to audits with the specified completion
+-- status: can be one of \"IN_PROGRESS\", \"COMPLETED\", \"FAILED\", or
+-- \"CANCELED\".
 --
--- * 'latStartTime' - The beginning of the time period. Audit information is retained for a limited time (90 days). Requesting a start time prior to what is retained results in an "InvalidRequestException".
+-- 'taskType', 'listAuditTasks_taskType' - A filter to limit the output to the specified type of audit: can be one
+-- of \"ON_DEMAND_AUDIT_TASK\" or \"SCHEDULED__AUDIT_TASK\".
 --
--- * 'latEndTime' - The end of the time period.
-listAuditTasks ::
-  -- | 'latStartTime'
-  UTCTime ->
-  -- | 'latEndTime'
-  UTCTime ->
+-- 'startTime', 'listAuditTasks_startTime' - The beginning of the time period. Audit information is retained for a
+-- limited time (90 days). Requesting a start time prior to what is
+-- retained results in an \"InvalidRequestException\".
+--
+-- 'endTime', 'listAuditTasks_endTime' - The end of the time period.
+newListAuditTasks ::
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
   ListAuditTasks
-listAuditTasks pStartTime_ pEndTime_ =
+newListAuditTasks pStartTime_ pEndTime_ =
   ListAuditTasks'
-    { _latNextToken = Nothing,
-      _latMaxResults = Nothing,
-      _latTaskStatus = Nothing,
-      _latTaskType = Nothing,
-      _latStartTime = _Time # pStartTime_,
-      _latEndTime = _Time # pEndTime_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      taskStatus = Prelude.Nothing,
+      taskType = Prelude.Nothing,
+      startTime = Prelude._Time Lens.# pStartTime_,
+      endTime = Prelude._Time Lens.# pEndTime_
     }
 
 -- | The token for the next set of results.
-latNextToken :: Lens' ListAuditTasks (Maybe Text)
-latNextToken = lens _latNextToken (\s a -> s {_latNextToken = a})
+listAuditTasks_nextToken :: Lens.Lens' ListAuditTasks (Prelude.Maybe Prelude.Text)
+listAuditTasks_nextToken = Lens.lens (\ListAuditTasks' {nextToken} -> nextToken) (\s@ListAuditTasks' {} a -> s {nextToken = a} :: ListAuditTasks)
 
 -- | The maximum number of results to return at one time. The default is 25.
-latMaxResults :: Lens' ListAuditTasks (Maybe Natural)
-latMaxResults = lens _latMaxResults (\s a -> s {_latMaxResults = a}) . mapping _Nat
+listAuditTasks_maxResults :: Lens.Lens' ListAuditTasks (Prelude.Maybe Prelude.Natural)
+listAuditTasks_maxResults = Lens.lens (\ListAuditTasks' {maxResults} -> maxResults) (\s@ListAuditTasks' {} a -> s {maxResults = a} :: ListAuditTasks) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter to limit the output to audits with the specified completion status: can be one of "IN_PROGRESS", "COMPLETED", "FAILED", or "CANCELED".
-latTaskStatus :: Lens' ListAuditTasks (Maybe AuditTaskStatus)
-latTaskStatus = lens _latTaskStatus (\s a -> s {_latTaskStatus = a})
+-- | A filter to limit the output to audits with the specified completion
+-- status: can be one of \"IN_PROGRESS\", \"COMPLETED\", \"FAILED\", or
+-- \"CANCELED\".
+listAuditTasks_taskStatus :: Lens.Lens' ListAuditTasks (Prelude.Maybe AuditTaskStatus)
+listAuditTasks_taskStatus = Lens.lens (\ListAuditTasks' {taskStatus} -> taskStatus) (\s@ListAuditTasks' {} a -> s {taskStatus = a} :: ListAuditTasks)
 
--- | A filter to limit the output to the specified type of audit: can be one of "ON_DEMAND_AUDIT_TASK" or "SCHEDULED__AUDIT_TASK".
-latTaskType :: Lens' ListAuditTasks (Maybe AuditTaskType)
-latTaskType = lens _latTaskType (\s a -> s {_latTaskType = a})
+-- | A filter to limit the output to the specified type of audit: can be one
+-- of \"ON_DEMAND_AUDIT_TASK\" or \"SCHEDULED__AUDIT_TASK\".
+listAuditTasks_taskType :: Lens.Lens' ListAuditTasks (Prelude.Maybe AuditTaskType)
+listAuditTasks_taskType = Lens.lens (\ListAuditTasks' {taskType} -> taskType) (\s@ListAuditTasks' {} a -> s {taskType = a} :: ListAuditTasks)
 
--- | The beginning of the time period. Audit information is retained for a limited time (90 days). Requesting a start time prior to what is retained results in an "InvalidRequestException".
-latStartTime :: Lens' ListAuditTasks UTCTime
-latStartTime = lens _latStartTime (\s a -> s {_latStartTime = a}) . _Time
+-- | The beginning of the time period. Audit information is retained for a
+-- limited time (90 days). Requesting a start time prior to what is
+-- retained results in an \"InvalidRequestException\".
+listAuditTasks_startTime :: Lens.Lens' ListAuditTasks Prelude.UTCTime
+listAuditTasks_startTime = Lens.lens (\ListAuditTasks' {startTime} -> startTime) (\s@ListAuditTasks' {} a -> s {startTime = a} :: ListAuditTasks) Prelude.. Prelude._Time
 
 -- | The end of the time period.
-latEndTime :: Lens' ListAuditTasks UTCTime
-latEndTime = lens _latEndTime (\s a -> s {_latEndTime = a}) . _Time
+listAuditTasks_endTime :: Lens.Lens' ListAuditTasks Prelude.UTCTime
+listAuditTasks_endTime = Lens.lens (\ListAuditTasks' {endTime} -> endTime) (\s@ListAuditTasks' {} a -> s {endTime = a} :: ListAuditTasks) Prelude.. Prelude._Time
 
-instance AWSPager ListAuditTasks where
+instance Pager.AWSPager ListAuditTasks where
   page rq rs
-    | stop (rs ^. latrrsNextToken) = Nothing
-    | stop (rs ^. latrrsTasks) = Nothing
-    | otherwise =
-      Just $ rq & latNextToken .~ rs ^. latrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listAuditTasksResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAuditTasksResponse_tasks Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAuditTasks_nextToken
+          Lens..~ rs
+          Lens.^? listAuditTasksResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListAuditTasks where
+instance Prelude.AWSRequest ListAuditTasks where
   type Rs ListAuditTasks = ListAuditTasksResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAuditTasksResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "tasks" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "tasks" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAuditTasks
+instance Prelude.Hashable ListAuditTasks
 
-instance NFData ListAuditTasks
+instance Prelude.NFData ListAuditTasks
 
-instance ToHeaders ListAuditTasks where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListAuditTasks where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListAuditTasks where
-  toPath = const "/audit/tasks"
+instance Prelude.ToPath ListAuditTasks where
+  toPath = Prelude.const "/audit/tasks"
 
-instance ToQuery ListAuditTasks where
+instance Prelude.ToQuery ListAuditTasks where
   toQuery ListAuditTasks' {..} =
-    mconcat
-      [ "nextToken" =: _latNextToken,
-        "maxResults" =: _latMaxResults,
-        "taskStatus" =: _latTaskStatus,
-        "taskType" =: _latTaskType,
-        "startTime" =: _latStartTime,
-        "endTime" =: _latEndTime
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "taskStatus" Prelude.=: taskStatus,
+        "taskType" Prelude.=: taskType,
+        "startTime" Prelude.=: startTime,
+        "endTime" Prelude.=: endTime
       ]
 
--- | /See:/ 'listAuditTasksResponse' smart constructor.
+-- | /See:/ 'newListAuditTasksResponse' smart constructor.
 data ListAuditTasksResponse = ListAuditTasksResponse'
-  { _latrrsNextToken ::
-      !(Maybe Text),
-    _latrrsTasks ::
-      !( Maybe
-           [AuditTaskMetadata]
-       ),
-    _latrrsResponseStatus ::
-      !Int
+  { -- | A token that can be used to retrieve the next set of results, or @null@
+    -- if there are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The audits that were performed during the specified time period.
+    tasks :: Prelude.Maybe [AuditTaskMetadata],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAuditTasksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAuditTasksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'latrrsNextToken' - A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'latrrsTasks' - The audits that were performed during the specified time period.
+-- 'nextToken', 'listAuditTasksResponse_nextToken' - A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
 --
--- * 'latrrsResponseStatus' - -- | The response status code.
-listAuditTasksResponse ::
-  -- | 'latrrsResponseStatus'
-  Int ->
+-- 'tasks', 'listAuditTasksResponse_tasks' - The audits that were performed during the specified time period.
+--
+-- 'httpStatus', 'listAuditTasksResponse_httpStatus' - The response's http status code.
+newListAuditTasksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAuditTasksResponse
-listAuditTasksResponse pResponseStatus_ =
+newListAuditTasksResponse pHttpStatus_ =
   ListAuditTasksResponse'
-    { _latrrsNextToken = Nothing,
-      _latrrsTasks = Nothing,
-      _latrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      tasks = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
-latrrsNextToken :: Lens' ListAuditTasksResponse (Maybe Text)
-latrrsNextToken = lens _latrrsNextToken (\s a -> s {_latrrsNextToken = a})
+-- | A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
+listAuditTasksResponse_nextToken :: Lens.Lens' ListAuditTasksResponse (Prelude.Maybe Prelude.Text)
+listAuditTasksResponse_nextToken = Lens.lens (\ListAuditTasksResponse' {nextToken} -> nextToken) (\s@ListAuditTasksResponse' {} a -> s {nextToken = a} :: ListAuditTasksResponse)
 
 -- | The audits that were performed during the specified time period.
-latrrsTasks :: Lens' ListAuditTasksResponse [AuditTaskMetadata]
-latrrsTasks = lens _latrrsTasks (\s a -> s {_latrrsTasks = a}) . _Default . _Coerce
+listAuditTasksResponse_tasks :: Lens.Lens' ListAuditTasksResponse (Prelude.Maybe [AuditTaskMetadata])
+listAuditTasksResponse_tasks = Lens.lens (\ListAuditTasksResponse' {tasks} -> tasks) (\s@ListAuditTasksResponse' {} a -> s {tasks = a} :: ListAuditTasksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-latrrsResponseStatus :: Lens' ListAuditTasksResponse Int
-latrrsResponseStatus = lens _latrrsResponseStatus (\s a -> s {_latrrsResponseStatus = a})
+-- | The response's http status code.
+listAuditTasksResponse_httpStatus :: Lens.Lens' ListAuditTasksResponse Prelude.Int
+listAuditTasksResponse_httpStatus = Lens.lens (\ListAuditTasksResponse' {httpStatus} -> httpStatus) (\s@ListAuditTasksResponse' {} a -> s {httpStatus = a} :: ListAuditTasksResponse)
 
-instance NFData ListAuditTasksResponse
+instance Prelude.NFData ListAuditTasksResponse

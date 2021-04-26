@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.SigV4Authorization where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | For more information, see <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 signing process> .
+-- | For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 signing process>.
 --
---
---
--- /See:/ 'sigV4Authorization' smart constructor.
+-- /See:/ 'newSigV4Authorization' smart constructor.
 data SigV4Authorization = SigV4Authorization'
-  { _svaSigningRegion ::
-      !Text,
-    _svaServiceName :: !Text,
-    _svaRoleARN :: !Text
+  { -- | The signing region.
+    signingRegion :: Prelude.Text,
+    -- | The service name to use while signing with Sig V4.
+    serviceName :: Prelude.Text,
+    -- | The ARN of the signing role.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SigV4Authorization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SigV4Authorization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'svaSigningRegion' - The signing region.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'svaServiceName' - The service name to use while signing with Sig V4.
+-- 'signingRegion', 'sigV4Authorization_signingRegion' - The signing region.
 --
--- * 'svaRoleARN' - The ARN of the signing role.
-sigV4Authorization ::
-  -- | 'svaSigningRegion'
-  Text ->
-  -- | 'svaServiceName'
-  Text ->
-  -- | 'svaRoleARN'
-  Text ->
+-- 'serviceName', 'sigV4Authorization_serviceName' - The service name to use while signing with Sig V4.
+--
+-- 'roleArn', 'sigV4Authorization_roleArn' - The ARN of the signing role.
+newSigV4Authorization ::
+  -- | 'signingRegion'
+  Prelude.Text ->
+  -- | 'serviceName'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   SigV4Authorization
-sigV4Authorization
+newSigV4Authorization
   pSigningRegion_
   pServiceName_
-  pRoleARN_ =
+  pRoleArn_ =
     SigV4Authorization'
-      { _svaSigningRegion =
+      { signingRegion =
           pSigningRegion_,
-        _svaServiceName = pServiceName_,
-        _svaRoleARN = pRoleARN_
+        serviceName = pServiceName_,
+        roleArn = pRoleArn_
       }
 
 -- | The signing region.
-svaSigningRegion :: Lens' SigV4Authorization Text
-svaSigningRegion = lens _svaSigningRegion (\s a -> s {_svaSigningRegion = a})
+sigV4Authorization_signingRegion :: Lens.Lens' SigV4Authorization Prelude.Text
+sigV4Authorization_signingRegion = Lens.lens (\SigV4Authorization' {signingRegion} -> signingRegion) (\s@SigV4Authorization' {} a -> s {signingRegion = a} :: SigV4Authorization)
 
 -- | The service name to use while signing with Sig V4.
-svaServiceName :: Lens' SigV4Authorization Text
-svaServiceName = lens _svaServiceName (\s a -> s {_svaServiceName = a})
+sigV4Authorization_serviceName :: Lens.Lens' SigV4Authorization Prelude.Text
+sigV4Authorization_serviceName = Lens.lens (\SigV4Authorization' {serviceName} -> serviceName) (\s@SigV4Authorization' {} a -> s {serviceName = a} :: SigV4Authorization)
 
 -- | The ARN of the signing role.
-svaRoleARN :: Lens' SigV4Authorization Text
-svaRoleARN = lens _svaRoleARN (\s a -> s {_svaRoleARN = a})
+sigV4Authorization_roleArn :: Lens.Lens' SigV4Authorization Prelude.Text
+sigV4Authorization_roleArn = Lens.lens (\SigV4Authorization' {roleArn} -> roleArn) (\s@SigV4Authorization' {} a -> s {roleArn = a} :: SigV4Authorization)
 
-instance FromJSON SigV4Authorization where
+instance Prelude.FromJSON SigV4Authorization where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SigV4Authorization"
       ( \x ->
           SigV4Authorization'
-            <$> (x .: "signingRegion")
-            <*> (x .: "serviceName")
-            <*> (x .: "roleArn")
+            Prelude.<$> (x Prelude..: "signingRegion")
+            Prelude.<*> (x Prelude..: "serviceName")
+            Prelude.<*> (x Prelude..: "roleArn")
       )
 
-instance Hashable SigV4Authorization
+instance Prelude.Hashable SigV4Authorization
 
-instance NFData SigV4Authorization
+instance Prelude.NFData SigV4Authorization
 
-instance ToJSON SigV4Authorization where
+instance Prelude.ToJSON SigV4Authorization where
   toJSON SigV4Authorization' {..} =
-    object
-      ( catMaybes
-          [ Just ("signingRegion" .= _svaSigningRegion),
-            Just ("serviceName" .= _svaServiceName),
-            Just ("roleArn" .= _svaRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("signingRegion" Prelude..= signingRegion),
+            Prelude.Just ("serviceName" Prelude..= serviceName),
+            Prelude.Just ("roleArn" Prelude..= roleArn)
           ]
       )

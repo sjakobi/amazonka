@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,75 @@
 module Network.AWS.IoT.Types.JobExecutionsRolloutConfig where
 
 import Network.AWS.IoT.Types.ExponentialRolloutRate
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Allows you to create a staged rollout of a job.
 --
---
---
--- /See:/ 'jobExecutionsRolloutConfig' smart constructor.
+-- /See:/ 'newJobExecutionsRolloutConfig' smart constructor.
 data JobExecutionsRolloutConfig = JobExecutionsRolloutConfig'
-  { _jercExponentialRate ::
-      !( Maybe
-           ExponentialRolloutRate
-       ),
-    _jercMaximumPerMinute ::
-      !(Maybe Nat)
+  { -- | The rate of increase for a job rollout. This parameter allows you to
+    -- define an exponential rate for a job rollout.
+    exponentialRate :: Prelude.Maybe ExponentialRolloutRate,
+    -- | The maximum number of things that will be notified of a pending job, per
+    -- minute. This parameter allows you to create a staged rollout.
+    maximumPerMinute :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobExecutionsRolloutConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobExecutionsRolloutConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jercExponentialRate' - The rate of increase for a job rollout. This parameter allows you to define an exponential rate for a job rollout.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jercMaximumPerMinute' - The maximum number of things that will be notified of a pending job, per minute. This parameter allows you to create a staged rollout.
-jobExecutionsRolloutConfig ::
+-- 'exponentialRate', 'jobExecutionsRolloutConfig_exponentialRate' - The rate of increase for a job rollout. This parameter allows you to
+-- define an exponential rate for a job rollout.
+--
+-- 'maximumPerMinute', 'jobExecutionsRolloutConfig_maximumPerMinute' - The maximum number of things that will be notified of a pending job, per
+-- minute. This parameter allows you to create a staged rollout.
+newJobExecutionsRolloutConfig ::
   JobExecutionsRolloutConfig
-jobExecutionsRolloutConfig =
+newJobExecutionsRolloutConfig =
   JobExecutionsRolloutConfig'
-    { _jercExponentialRate =
-        Nothing,
-      _jercMaximumPerMinute = Nothing
+    { exponentialRate =
+        Prelude.Nothing,
+      maximumPerMinute = Prelude.Nothing
     }
 
--- | The rate of increase for a job rollout. This parameter allows you to define an exponential rate for a job rollout.
-jercExponentialRate :: Lens' JobExecutionsRolloutConfig (Maybe ExponentialRolloutRate)
-jercExponentialRate = lens _jercExponentialRate (\s a -> s {_jercExponentialRate = a})
+-- | The rate of increase for a job rollout. This parameter allows you to
+-- define an exponential rate for a job rollout.
+jobExecutionsRolloutConfig_exponentialRate :: Lens.Lens' JobExecutionsRolloutConfig (Prelude.Maybe ExponentialRolloutRate)
+jobExecutionsRolloutConfig_exponentialRate = Lens.lens (\JobExecutionsRolloutConfig' {exponentialRate} -> exponentialRate) (\s@JobExecutionsRolloutConfig' {} a -> s {exponentialRate = a} :: JobExecutionsRolloutConfig)
 
--- | The maximum number of things that will be notified of a pending job, per minute. This parameter allows you to create a staged rollout.
-jercMaximumPerMinute :: Lens' JobExecutionsRolloutConfig (Maybe Natural)
-jercMaximumPerMinute = lens _jercMaximumPerMinute (\s a -> s {_jercMaximumPerMinute = a}) . mapping _Nat
+-- | The maximum number of things that will be notified of a pending job, per
+-- minute. This parameter allows you to create a staged rollout.
+jobExecutionsRolloutConfig_maximumPerMinute :: Lens.Lens' JobExecutionsRolloutConfig (Prelude.Maybe Prelude.Natural)
+jobExecutionsRolloutConfig_maximumPerMinute = Lens.lens (\JobExecutionsRolloutConfig' {maximumPerMinute} -> maximumPerMinute) (\s@JobExecutionsRolloutConfig' {} a -> s {maximumPerMinute = a} :: JobExecutionsRolloutConfig) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON JobExecutionsRolloutConfig where
+instance Prelude.FromJSON JobExecutionsRolloutConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobExecutionsRolloutConfig"
       ( \x ->
           JobExecutionsRolloutConfig'
-            <$> (x .:? "exponentialRate")
-            <*> (x .:? "maximumPerMinute")
+            Prelude.<$> (x Prelude..:? "exponentialRate")
+            Prelude.<*> (x Prelude..:? "maximumPerMinute")
       )
 
-instance Hashable JobExecutionsRolloutConfig
+instance Prelude.Hashable JobExecutionsRolloutConfig
 
-instance NFData JobExecutionsRolloutConfig
+instance Prelude.NFData JobExecutionsRolloutConfig
 
-instance ToJSON JobExecutionsRolloutConfig where
+instance Prelude.ToJSON JobExecutionsRolloutConfig where
   toJSON JobExecutionsRolloutConfig' {..} =
-    object
-      ( catMaybes
-          [ ("exponentialRate" .=) <$> _jercExponentialRate,
-            ("maximumPerMinute" .=) <$> _jercMaximumPerMinute
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("exponentialRate" Prelude..=)
+              Prelude.<$> exponentialRate,
+            ("maximumPerMinute" Prelude..=)
+              Prelude.<$> maximumPerMinute
           ]
       )

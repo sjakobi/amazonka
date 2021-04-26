@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.IoT.Types.OTAUpdateStatus
   ( OTAUpdateStatus
       ( ..,
-        CreateComplete,
-        CreateFailed,
-        CreateInProgress,
-        CreatePending
+        OTAUpdateStatusCREATECOMPLETE,
+        OTAUpdateStatusCREATEFAILED,
+        OTAUpdateStatusCREATEINPROGRESS,
+        OTAUpdateStatusCREATEPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OTAUpdateStatus = OTAUpdateStatus' (CI Text)
+newtype OTAUpdateStatus = OTAUpdateStatus'
+  { fromOTAUpdateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateComplete :: OTAUpdateStatus
-pattern CreateComplete = OTAUpdateStatus' "CREATE_COMPLETE"
+pattern OTAUpdateStatusCREATECOMPLETE :: OTAUpdateStatus
+pattern OTAUpdateStatusCREATECOMPLETE = OTAUpdateStatus' "CREATE_COMPLETE"
 
-pattern CreateFailed :: OTAUpdateStatus
-pattern CreateFailed = OTAUpdateStatus' "CREATE_FAILED"
+pattern OTAUpdateStatusCREATEFAILED :: OTAUpdateStatus
+pattern OTAUpdateStatusCREATEFAILED = OTAUpdateStatus' "CREATE_FAILED"
 
-pattern CreateInProgress :: OTAUpdateStatus
-pattern CreateInProgress = OTAUpdateStatus' "CREATE_IN_PROGRESS"
+pattern OTAUpdateStatusCREATEINPROGRESS :: OTAUpdateStatus
+pattern OTAUpdateStatusCREATEINPROGRESS = OTAUpdateStatus' "CREATE_IN_PROGRESS"
 
-pattern CreatePending :: OTAUpdateStatus
-pattern CreatePending = OTAUpdateStatus' "CREATE_PENDING"
+pattern OTAUpdateStatusCREATEPENDING :: OTAUpdateStatus
+pattern OTAUpdateStatusCREATEPENDING = OTAUpdateStatus' "CREATE_PENDING"
 
 {-# COMPLETE
-  CreateComplete,
-  CreateFailed,
-  CreateInProgress,
-  CreatePending,
+  OTAUpdateStatusCREATECOMPLETE,
+  OTAUpdateStatusCREATEFAILED,
+  OTAUpdateStatusCREATEINPROGRESS,
+  OTAUpdateStatusCREATEPENDING,
   OTAUpdateStatus'
   #-}
 
-instance FromText OTAUpdateStatus where
-  parser = (OTAUpdateStatus' . mk) <$> takeText
+instance Prelude.FromText OTAUpdateStatus where
+  parser = OTAUpdateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText OTAUpdateStatus where
-  toText (OTAUpdateStatus' ci) = original ci
+instance Prelude.ToText OTAUpdateStatus where
+  toText (OTAUpdateStatus' x) = x
 
-instance Hashable OTAUpdateStatus
+instance Prelude.Hashable OTAUpdateStatus
 
-instance NFData OTAUpdateStatus
+instance Prelude.NFData OTAUpdateStatus
 
-instance ToByteString OTAUpdateStatus
+instance Prelude.ToByteString OTAUpdateStatus
 
-instance ToQuery OTAUpdateStatus
+instance Prelude.ToQuery OTAUpdateStatus
 
-instance ToHeader OTAUpdateStatus
+instance Prelude.ToHeader OTAUpdateStatus
 
-instance ToJSON OTAUpdateStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON OTAUpdateStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OTAUpdateStatus where
-  parseJSON = parseJSONText "OTAUpdateStatus"
+instance Prelude.FromJSON OTAUpdateStatus where
+  parseJSON = Prelude.parseJSONText "OTAUpdateStatus"

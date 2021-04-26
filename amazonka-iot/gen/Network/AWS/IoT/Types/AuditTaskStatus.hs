@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.IoT.Types.AuditTaskStatus
   ( AuditTaskStatus
       ( ..,
-        ATSCanceled,
-        ATSCompleted,
-        ATSFailed,
-        ATSInProgress
+        AuditTaskStatusCANCELED,
+        AuditTaskStatusCOMPLETED,
+        AuditTaskStatusFAILED,
+        AuditTaskStatusINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuditTaskStatus = AuditTaskStatus' (CI Text)
+newtype AuditTaskStatus = AuditTaskStatus'
+  { fromAuditTaskStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ATSCanceled :: AuditTaskStatus
-pattern ATSCanceled = AuditTaskStatus' "CANCELED"
+pattern AuditTaskStatusCANCELED :: AuditTaskStatus
+pattern AuditTaskStatusCANCELED = AuditTaskStatus' "CANCELED"
 
-pattern ATSCompleted :: AuditTaskStatus
-pattern ATSCompleted = AuditTaskStatus' "COMPLETED"
+pattern AuditTaskStatusCOMPLETED :: AuditTaskStatus
+pattern AuditTaskStatusCOMPLETED = AuditTaskStatus' "COMPLETED"
 
-pattern ATSFailed :: AuditTaskStatus
-pattern ATSFailed = AuditTaskStatus' "FAILED"
+pattern AuditTaskStatusFAILED :: AuditTaskStatus
+pattern AuditTaskStatusFAILED = AuditTaskStatus' "FAILED"
 
-pattern ATSInProgress :: AuditTaskStatus
-pattern ATSInProgress = AuditTaskStatus' "IN_PROGRESS"
+pattern AuditTaskStatusINPROGRESS :: AuditTaskStatus
+pattern AuditTaskStatusINPROGRESS = AuditTaskStatus' "IN_PROGRESS"
 
 {-# COMPLETE
-  ATSCanceled,
-  ATSCompleted,
-  ATSFailed,
-  ATSInProgress,
+  AuditTaskStatusCANCELED,
+  AuditTaskStatusCOMPLETED,
+  AuditTaskStatusFAILED,
+  AuditTaskStatusINPROGRESS,
   AuditTaskStatus'
   #-}
 
-instance FromText AuditTaskStatus where
-  parser = (AuditTaskStatus' . mk) <$> takeText
+instance Prelude.FromText AuditTaskStatus where
+  parser = AuditTaskStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AuditTaskStatus where
-  toText (AuditTaskStatus' ci) = original ci
+instance Prelude.ToText AuditTaskStatus where
+  toText (AuditTaskStatus' x) = x
 
-instance Hashable AuditTaskStatus
+instance Prelude.Hashable AuditTaskStatus
 
-instance NFData AuditTaskStatus
+instance Prelude.NFData AuditTaskStatus
 
-instance ToByteString AuditTaskStatus
+instance Prelude.ToByteString AuditTaskStatus
 
-instance ToQuery AuditTaskStatus
+instance Prelude.ToQuery AuditTaskStatus
 
-instance ToHeader AuditTaskStatus
+instance Prelude.ToHeader AuditTaskStatus
 
-instance ToJSON AuditTaskStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuditTaskStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuditTaskStatus where
-  parseJSON = parseJSONText "AuditTaskStatus"
+instance Prelude.FromJSON AuditTaskStatus where
+  parseJSON = Prelude.parseJSONText "AuditTaskStatus"

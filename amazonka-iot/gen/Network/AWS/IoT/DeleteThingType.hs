@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,115 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified thing type. You cannot delete a thing type if it has things associated with it. To delete a thing type, first mark it as deprecated by calling 'DeprecateThingType' , then remove any associated things by calling 'UpdateThing' to change the thing type on any associated thing, and finally use 'DeleteThingType' to delete the thing type.
+-- Deletes the specified thing type. You cannot delete a thing type if it
+-- has things associated with it. To delete a thing type, first mark it as
+-- deprecated by calling DeprecateThingType, then remove any associated
+-- things by calling UpdateThing to change the thing type on any associated
+-- thing, and finally use DeleteThingType to delete the thing type.
 module Network.AWS.IoT.DeleteThingType
   ( -- * Creating a Request
-    deleteThingType,
-    DeleteThingType,
+    DeleteThingType (..),
+    newDeleteThingType,
 
     -- * Request Lenses
-    delThingTypeName,
+    deleteThingType_thingTypeName,
 
     -- * Destructuring the Response
-    deleteThingTypeResponse,
-    DeleteThingTypeResponse,
+    DeleteThingTypeResponse (..),
+    newDeleteThingTypeResponse,
 
     -- * Response Lenses
-    dttrrsResponseStatus,
+    deleteThingTypeResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the DeleteThingType operation.
 --
---
---
--- /See:/ 'deleteThingType' smart constructor.
-newtype DeleteThingType = DeleteThingType'
-  { _delThingTypeName ::
-      Text
+-- /See:/ 'newDeleteThingType' smart constructor.
+data DeleteThingType = DeleteThingType'
+  { -- | The name of the thing type.
+    thingTypeName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteThingType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteThingType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delThingTypeName' - The name of the thing type.
-deleteThingType ::
-  -- | 'delThingTypeName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'thingTypeName', 'deleteThingType_thingTypeName' - The name of the thing type.
+newDeleteThingType ::
+  -- | 'thingTypeName'
+  Prelude.Text ->
   DeleteThingType
-deleteThingType pThingTypeName_ =
-  DeleteThingType'
-    { _delThingTypeName =
-        pThingTypeName_
-    }
+newDeleteThingType pThingTypeName_ =
+  DeleteThingType' {thingTypeName = pThingTypeName_}
 
 -- | The name of the thing type.
-delThingTypeName :: Lens' DeleteThingType Text
-delThingTypeName = lens _delThingTypeName (\s a -> s {_delThingTypeName = a})
+deleteThingType_thingTypeName :: Lens.Lens' DeleteThingType Prelude.Text
+deleteThingType_thingTypeName = Lens.lens (\DeleteThingType' {thingTypeName} -> thingTypeName) (\s@DeleteThingType' {} a -> s {thingTypeName = a} :: DeleteThingType)
 
-instance AWSRequest DeleteThingType where
+instance Prelude.AWSRequest DeleteThingType where
   type Rs DeleteThingType = DeleteThingTypeResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteThingTypeResponse' <$> (pure (fromEnum s))
+          DeleteThingTypeResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteThingType
+instance Prelude.Hashable DeleteThingType
 
-instance NFData DeleteThingType
+instance Prelude.NFData DeleteThingType
 
-instance ToHeaders DeleteThingType where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteThingType where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteThingType where
+instance Prelude.ToPath DeleteThingType where
   toPath DeleteThingType' {..} =
-    mconcat ["/thing-types/", toBS _delThingTypeName]
+    Prelude.mconcat
+      ["/thing-types/", Prelude.toBS thingTypeName]
 
-instance ToQuery DeleteThingType where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteThingType where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The output for the DeleteThingType operation.
 --
---
---
--- /See:/ 'deleteThingTypeResponse' smart constructor.
-newtype DeleteThingTypeResponse = DeleteThingTypeResponse'
-  { _dttrrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteThingTypeResponse' smart constructor.
+data DeleteThingTypeResponse = DeleteThingTypeResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteThingTypeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteThingTypeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dttrrsResponseStatus' - -- | The response status code.
-deleteThingTypeResponse ::
-  -- | 'dttrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteThingTypeResponse_httpStatus' - The response's http status code.
+newDeleteThingTypeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteThingTypeResponse
-deleteThingTypeResponse pResponseStatus_ =
-  DeleteThingTypeResponse'
-    { _dttrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteThingTypeResponse pHttpStatus_ =
+  DeleteThingTypeResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dttrrsResponseStatus :: Lens' DeleteThingTypeResponse Int
-dttrrsResponseStatus = lens _dttrrsResponseStatus (\s a -> s {_dttrrsResponseStatus = a})
+-- | The response's http status code.
+deleteThingTypeResponse_httpStatus :: Lens.Lens' DeleteThingTypeResponse Prelude.Int
+deleteThingTypeResponse_httpStatus = Lens.lens (\DeleteThingTypeResponse' {httpStatus} -> httpStatus) (\s@DeleteThingTypeResponse' {} a -> s {httpStatus = a} :: DeleteThingTypeResponse)
 
-instance NFData DeleteThingTypeResponse
+instance Prelude.NFData DeleteThingTypeResponse

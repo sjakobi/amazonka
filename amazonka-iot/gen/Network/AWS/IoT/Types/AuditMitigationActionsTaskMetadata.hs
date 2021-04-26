@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,79 +20,76 @@
 module Network.AWS.IoT.Types.AuditMitigationActionsTaskMetadata where
 
 import Network.AWS.IoT.Types.AuditMitigationActionsTaskStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about an audit mitigation actions task that is returned by @ListAuditMitigationActionsTasks@ .
+-- | Information about an audit mitigation actions task that is returned by
+-- @ListAuditMitigationActionsTasks@.
 --
---
---
--- /See:/ 'auditMitigationActionsTaskMetadata' smart constructor.
+-- /See:/ 'newAuditMitigationActionsTaskMetadata' smart constructor.
 data AuditMitigationActionsTaskMetadata = AuditMitigationActionsTaskMetadata'
-  { _amatmTaskId ::
-      !( Maybe
-           Text
-       ),
-    _amatmStartTime ::
-      !( Maybe
-           POSIX
-       ),
-    _amatmTaskStatus ::
-      !( Maybe
-           AuditMitigationActionsTaskStatus
-       )
+  { -- | The unique identifier for the task.
+    taskId :: Prelude.Maybe Prelude.Text,
+    -- | The time at which the audit mitigation actions task was started.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The current state of the audit mitigation actions task.
+    taskStatus :: Prelude.Maybe AuditMitigationActionsTaskStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuditMitigationActionsTaskMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuditMitigationActionsTaskMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amatmTaskId' - The unique identifier for the task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amatmStartTime' - The time at which the audit mitigation actions task was started.
+-- 'taskId', 'auditMitigationActionsTaskMetadata_taskId' - The unique identifier for the task.
 --
--- * 'amatmTaskStatus' - The current state of the audit mitigation actions task.
-auditMitigationActionsTaskMetadata ::
+-- 'startTime', 'auditMitigationActionsTaskMetadata_startTime' - The time at which the audit mitigation actions task was started.
+--
+-- 'taskStatus', 'auditMitigationActionsTaskMetadata_taskStatus' - The current state of the audit mitigation actions task.
+newAuditMitigationActionsTaskMetadata ::
   AuditMitigationActionsTaskMetadata
-auditMitigationActionsTaskMetadata =
+newAuditMitigationActionsTaskMetadata =
   AuditMitigationActionsTaskMetadata'
-    { _amatmTaskId =
-        Nothing,
-      _amatmStartTime = Nothing,
-      _amatmTaskStatus = Nothing
+    { taskId =
+        Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      taskStatus = Prelude.Nothing
     }
 
 -- | The unique identifier for the task.
-amatmTaskId :: Lens' AuditMitigationActionsTaskMetadata (Maybe Text)
-amatmTaskId = lens _amatmTaskId (\s a -> s {_amatmTaskId = a})
+auditMitigationActionsTaskMetadata_taskId :: Lens.Lens' AuditMitigationActionsTaskMetadata (Prelude.Maybe Prelude.Text)
+auditMitigationActionsTaskMetadata_taskId = Lens.lens (\AuditMitigationActionsTaskMetadata' {taskId} -> taskId) (\s@AuditMitigationActionsTaskMetadata' {} a -> s {taskId = a} :: AuditMitigationActionsTaskMetadata)
 
 -- | The time at which the audit mitigation actions task was started.
-amatmStartTime :: Lens' AuditMitigationActionsTaskMetadata (Maybe UTCTime)
-amatmStartTime = lens _amatmStartTime (\s a -> s {_amatmStartTime = a}) . mapping _Time
+auditMitigationActionsTaskMetadata_startTime :: Lens.Lens' AuditMitigationActionsTaskMetadata (Prelude.Maybe Prelude.UTCTime)
+auditMitigationActionsTaskMetadata_startTime = Lens.lens (\AuditMitigationActionsTaskMetadata' {startTime} -> startTime) (\s@AuditMitigationActionsTaskMetadata' {} a -> s {startTime = a} :: AuditMitigationActionsTaskMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The current state of the audit mitigation actions task.
-amatmTaskStatus :: Lens' AuditMitigationActionsTaskMetadata (Maybe AuditMitigationActionsTaskStatus)
-amatmTaskStatus = lens _amatmTaskStatus (\s a -> s {_amatmTaskStatus = a})
+auditMitigationActionsTaskMetadata_taskStatus :: Lens.Lens' AuditMitigationActionsTaskMetadata (Prelude.Maybe AuditMitigationActionsTaskStatus)
+auditMitigationActionsTaskMetadata_taskStatus = Lens.lens (\AuditMitigationActionsTaskMetadata' {taskStatus} -> taskStatus) (\s@AuditMitigationActionsTaskMetadata' {} a -> s {taskStatus = a} :: AuditMitigationActionsTaskMetadata)
 
-instance FromJSON AuditMitigationActionsTaskMetadata where
+instance
+  Prelude.FromJSON
+    AuditMitigationActionsTaskMetadata
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuditMitigationActionsTaskMetadata"
       ( \x ->
           AuditMitigationActionsTaskMetadata'
-            <$> (x .:? "taskId")
-            <*> (x .:? "startTime")
-            <*> (x .:? "taskStatus")
+            Prelude.<$> (x Prelude..:? "taskId")
+            Prelude.<*> (x Prelude..:? "startTime")
+            Prelude.<*> (x Prelude..:? "taskStatus")
       )
 
-instance Hashable AuditMitigationActionsTaskMetadata
+instance
+  Prelude.Hashable
+    AuditMitigationActionsTaskMetadata
 
-instance NFData AuditMitigationActionsTaskMetadata
+instance
+  Prelude.NFData
+    AuditMitigationActionsTaskMetadata

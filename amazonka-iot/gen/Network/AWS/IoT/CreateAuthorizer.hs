@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,205 +24,246 @@
 -- Creates an authorizer.
 module Network.AWS.IoT.CreateAuthorizer
   ( -- * Creating a Request
-    createAuthorizer,
-    CreateAuthorizer,
+    CreateAuthorizer (..),
+    newCreateAuthorizer,
 
     -- * Request Lenses
-    caStatus,
-    caTokenSigningPublicKeys,
-    caTags,
-    caSigningDisabled,
-    caTokenKeyName,
-    caAuthorizerName,
-    caAuthorizerFunctionARN,
+    createAuthorizer_status,
+    createAuthorizer_tokenSigningPublicKeys,
+    createAuthorizer_tags,
+    createAuthorizer_signingDisabled,
+    createAuthorizer_tokenKeyName,
+    createAuthorizer_authorizerName,
+    createAuthorizer_authorizerFunctionArn,
 
     -- * Destructuring the Response
-    createAuthorizerResponse,
-    CreateAuthorizerResponse,
+    CreateAuthorizerResponse (..),
+    newCreateAuthorizerResponse,
 
     -- * Response Lenses
-    carrsAuthorizerARN,
-    carrsAuthorizerName,
-    carrsResponseStatus,
+    createAuthorizerResponse_authorizerArn,
+    createAuthorizerResponse_authorizerName,
+    createAuthorizerResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createAuthorizer' smart constructor.
+-- | /See:/ 'newCreateAuthorizer' smart constructor.
 data CreateAuthorizer = CreateAuthorizer'
-  { _caStatus ::
-      !(Maybe AuthorizerStatus),
-    _caTokenSigningPublicKeys ::
-      !(Maybe (Map Text Text)),
-    _caTags :: !(Maybe [Tag]),
-    _caSigningDisabled :: !(Maybe Bool),
-    _caTokenKeyName :: !(Maybe Text),
-    _caAuthorizerName :: !Text,
-    _caAuthorizerFunctionARN :: !Text
+  { -- | The status of the create authorizer request.
+    status :: Prelude.Maybe AuthorizerStatus,
+    -- | The public keys used to verify the digital signature returned by your
+    -- custom authentication service.
+    tokenSigningPublicKeys :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Metadata which can be used to manage the custom authorizer.
+    --
+    -- For URI Request parameters use format: ...key1=value1&key2=value2...
+    --
+    -- For the CLI command-line parameter use format: &&tags
+    -- \"key1=value1&key2=value2...\"
+    --
+    -- For the cli-input-json file use format: \"tags\":
+    -- \"key1=value1&key2=value2...\"
+    tags :: Prelude.Maybe [Tag],
+    -- | Specifies whether AWS IoT validates the token signature in an
+    -- authorization request.
+    signingDisabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the token key used to extract the token from the HTTP
+    -- headers.
+    tokenKeyName :: Prelude.Maybe Prelude.Text,
+    -- | The authorizer name.
+    authorizerName :: Prelude.Text,
+    -- | The ARN of the authorizer\'s Lambda function.
+    authorizerFunctionArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAuthorizer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAuthorizer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caStatus' - The status of the create authorizer request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caTokenSigningPublicKeys' - The public keys used to verify the digital signature returned by your custom authentication service.
+-- 'status', 'createAuthorizer_status' - The status of the create authorizer request.
 --
--- * 'caTags' - Metadata which can be used to manage the custom authorizer.
+-- 'tokenSigningPublicKeys', 'createAuthorizer_tokenSigningPublicKeys' - The public keys used to verify the digital signature returned by your
+-- custom authentication service.
 --
--- * 'caSigningDisabled' - Specifies whether AWS IoT validates the token signature in an authorization request.
+-- 'tags', 'createAuthorizer_tags' - Metadata which can be used to manage the custom authorizer.
 --
--- * 'caTokenKeyName' - The name of the token key used to extract the token from the HTTP headers.
+-- For URI Request parameters use format: ...key1=value1&key2=value2...
 --
--- * 'caAuthorizerName' - The authorizer name.
+-- For the CLI command-line parameter use format: &&tags
+-- \"key1=value1&key2=value2...\"
 --
--- * 'caAuthorizerFunctionARN' - The ARN of the authorizer's Lambda function.
-createAuthorizer ::
-  -- | 'caAuthorizerName'
-  Text ->
-  -- | 'caAuthorizerFunctionARN'
-  Text ->
+-- For the cli-input-json file use format: \"tags\":
+-- \"key1=value1&key2=value2...\"
+--
+-- 'signingDisabled', 'createAuthorizer_signingDisabled' - Specifies whether AWS IoT validates the token signature in an
+-- authorization request.
+--
+-- 'tokenKeyName', 'createAuthorizer_tokenKeyName' - The name of the token key used to extract the token from the HTTP
+-- headers.
+--
+-- 'authorizerName', 'createAuthorizer_authorizerName' - The authorizer name.
+--
+-- 'authorizerFunctionArn', 'createAuthorizer_authorizerFunctionArn' - The ARN of the authorizer\'s Lambda function.
+newCreateAuthorizer ::
+  -- | 'authorizerName'
+  Prelude.Text ->
+  -- | 'authorizerFunctionArn'
+  Prelude.Text ->
   CreateAuthorizer
-createAuthorizer
+newCreateAuthorizer
   pAuthorizerName_
-  pAuthorizerFunctionARN_ =
+  pAuthorizerFunctionArn_ =
     CreateAuthorizer'
-      { _caStatus = Nothing,
-        _caTokenSigningPublicKeys = Nothing,
-        _caTags = Nothing,
-        _caSigningDisabled = Nothing,
-        _caTokenKeyName = Nothing,
-        _caAuthorizerName = pAuthorizerName_,
-        _caAuthorizerFunctionARN = pAuthorizerFunctionARN_
+      { status = Prelude.Nothing,
+        tokenSigningPublicKeys = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        signingDisabled = Prelude.Nothing,
+        tokenKeyName = Prelude.Nothing,
+        authorizerName = pAuthorizerName_,
+        authorizerFunctionArn = pAuthorizerFunctionArn_
       }
 
 -- | The status of the create authorizer request.
-caStatus :: Lens' CreateAuthorizer (Maybe AuthorizerStatus)
-caStatus = lens _caStatus (\s a -> s {_caStatus = a})
+createAuthorizer_status :: Lens.Lens' CreateAuthorizer (Prelude.Maybe AuthorizerStatus)
+createAuthorizer_status = Lens.lens (\CreateAuthorizer' {status} -> status) (\s@CreateAuthorizer' {} a -> s {status = a} :: CreateAuthorizer)
 
--- | The public keys used to verify the digital signature returned by your custom authentication service.
-caTokenSigningPublicKeys :: Lens' CreateAuthorizer (HashMap Text Text)
-caTokenSigningPublicKeys = lens _caTokenSigningPublicKeys (\s a -> s {_caTokenSigningPublicKeys = a}) . _Default . _Map
+-- | The public keys used to verify the digital signature returned by your
+-- custom authentication service.
+createAuthorizer_tokenSigningPublicKeys :: Lens.Lens' CreateAuthorizer (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createAuthorizer_tokenSigningPublicKeys = Lens.lens (\CreateAuthorizer' {tokenSigningPublicKeys} -> tokenSigningPublicKeys) (\s@CreateAuthorizer' {} a -> s {tokenSigningPublicKeys = a} :: CreateAuthorizer) Prelude.. Lens.mapping Prelude._Map
 
 -- | Metadata which can be used to manage the custom authorizer.
-caTags :: Lens' CreateAuthorizer [Tag]
-caTags = lens _caTags (\s a -> s {_caTags = a}) . _Default . _Coerce
+--
+-- For URI Request parameters use format: ...key1=value1&key2=value2...
+--
+-- For the CLI command-line parameter use format: &&tags
+-- \"key1=value1&key2=value2...\"
+--
+-- For the cli-input-json file use format: \"tags\":
+-- \"key1=value1&key2=value2...\"
+createAuthorizer_tags :: Lens.Lens' CreateAuthorizer (Prelude.Maybe [Tag])
+createAuthorizer_tags = Lens.lens (\CreateAuthorizer' {tags} -> tags) (\s@CreateAuthorizer' {} a -> s {tags = a} :: CreateAuthorizer) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies whether AWS IoT validates the token signature in an authorization request.
-caSigningDisabled :: Lens' CreateAuthorizer (Maybe Bool)
-caSigningDisabled = lens _caSigningDisabled (\s a -> s {_caSigningDisabled = a})
+-- | Specifies whether AWS IoT validates the token signature in an
+-- authorization request.
+createAuthorizer_signingDisabled :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Bool)
+createAuthorizer_signingDisabled = Lens.lens (\CreateAuthorizer' {signingDisabled} -> signingDisabled) (\s@CreateAuthorizer' {} a -> s {signingDisabled = a} :: CreateAuthorizer)
 
--- | The name of the token key used to extract the token from the HTTP headers.
-caTokenKeyName :: Lens' CreateAuthorizer (Maybe Text)
-caTokenKeyName = lens _caTokenKeyName (\s a -> s {_caTokenKeyName = a})
+-- | The name of the token key used to extract the token from the HTTP
+-- headers.
+createAuthorizer_tokenKeyName :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Text)
+createAuthorizer_tokenKeyName = Lens.lens (\CreateAuthorizer' {tokenKeyName} -> tokenKeyName) (\s@CreateAuthorizer' {} a -> s {tokenKeyName = a} :: CreateAuthorizer)
 
 -- | The authorizer name.
-caAuthorizerName :: Lens' CreateAuthorizer Text
-caAuthorizerName = lens _caAuthorizerName (\s a -> s {_caAuthorizerName = a})
+createAuthorizer_authorizerName :: Lens.Lens' CreateAuthorizer Prelude.Text
+createAuthorizer_authorizerName = Lens.lens (\CreateAuthorizer' {authorizerName} -> authorizerName) (\s@CreateAuthorizer' {} a -> s {authorizerName = a} :: CreateAuthorizer)
 
--- | The ARN of the authorizer's Lambda function.
-caAuthorizerFunctionARN :: Lens' CreateAuthorizer Text
-caAuthorizerFunctionARN = lens _caAuthorizerFunctionARN (\s a -> s {_caAuthorizerFunctionARN = a})
+-- | The ARN of the authorizer\'s Lambda function.
+createAuthorizer_authorizerFunctionArn :: Lens.Lens' CreateAuthorizer Prelude.Text
+createAuthorizer_authorizerFunctionArn = Lens.lens (\CreateAuthorizer' {authorizerFunctionArn} -> authorizerFunctionArn) (\s@CreateAuthorizer' {} a -> s {authorizerFunctionArn = a} :: CreateAuthorizer)
 
-instance AWSRequest CreateAuthorizer where
+instance Prelude.AWSRequest CreateAuthorizer where
   type Rs CreateAuthorizer = CreateAuthorizerResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateAuthorizerResponse'
-            <$> (x .?> "authorizerArn")
-            <*> (x .?> "authorizerName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "authorizerArn")
+            Prelude.<*> (x Prelude..?> "authorizerName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateAuthorizer
+instance Prelude.Hashable CreateAuthorizer
 
-instance NFData CreateAuthorizer
+instance Prelude.NFData CreateAuthorizer
 
-instance ToHeaders CreateAuthorizer where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateAuthorizer where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateAuthorizer where
+instance Prelude.ToJSON CreateAuthorizer where
   toJSON CreateAuthorizer' {..} =
-    object
-      ( catMaybes
-          [ ("status" .=) <$> _caStatus,
-            ("tokenSigningPublicKeys" .=)
-              <$> _caTokenSigningPublicKeys,
-            ("tags" .=) <$> _caTags,
-            ("signingDisabled" .=) <$> _caSigningDisabled,
-            ("tokenKeyName" .=) <$> _caTokenKeyName,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("status" Prelude..=) Prelude.<$> status,
+            ("tokenSigningPublicKeys" Prelude..=)
+              Prelude.<$> tokenSigningPublicKeys,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("signingDisabled" Prelude..=)
+              Prelude.<$> signingDisabled,
+            ("tokenKeyName" Prelude..=) Prelude.<$> tokenKeyName,
+            Prelude.Just
               ( "authorizerFunctionArn"
-                  .= _caAuthorizerFunctionARN
+                  Prelude..= authorizerFunctionArn
               )
           ]
       )
 
-instance ToPath CreateAuthorizer where
+instance Prelude.ToPath CreateAuthorizer where
   toPath CreateAuthorizer' {..} =
-    mconcat ["/authorizer/", toBS _caAuthorizerName]
+    Prelude.mconcat
+      ["/authorizer/", Prelude.toBS authorizerName]
 
-instance ToQuery CreateAuthorizer where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateAuthorizer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createAuthorizerResponse' smart constructor.
+-- | /See:/ 'newCreateAuthorizerResponse' smart constructor.
 data CreateAuthorizerResponse = CreateAuthorizerResponse'
-  { _carrsAuthorizerARN ::
-      !(Maybe Text),
-    _carrsAuthorizerName ::
-      !(Maybe Text),
-    _carrsResponseStatus ::
-      !Int
+  { -- | The authorizer ARN.
+    authorizerArn :: Prelude.Maybe Prelude.Text,
+    -- | The authorizer\'s name.
+    authorizerName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAuthorizerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAuthorizerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'carrsAuthorizerARN' - The authorizer ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'carrsAuthorizerName' - The authorizer's name.
+-- 'authorizerArn', 'createAuthorizerResponse_authorizerArn' - The authorizer ARN.
 --
--- * 'carrsResponseStatus' - -- | The response status code.
-createAuthorizerResponse ::
-  -- | 'carrsResponseStatus'
-  Int ->
+-- 'authorizerName', 'createAuthorizerResponse_authorizerName' - The authorizer\'s name.
+--
+-- 'httpStatus', 'createAuthorizerResponse_httpStatus' - The response's http status code.
+newCreateAuthorizerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateAuthorizerResponse
-createAuthorizerResponse pResponseStatus_ =
+newCreateAuthorizerResponse pHttpStatus_ =
   CreateAuthorizerResponse'
-    { _carrsAuthorizerARN =
-        Nothing,
-      _carrsAuthorizerName = Nothing,
-      _carrsResponseStatus = pResponseStatus_
+    { authorizerArn =
+        Prelude.Nothing,
+      authorizerName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The authorizer ARN.
-carrsAuthorizerARN :: Lens' CreateAuthorizerResponse (Maybe Text)
-carrsAuthorizerARN = lens _carrsAuthorizerARN (\s a -> s {_carrsAuthorizerARN = a})
+createAuthorizerResponse_authorizerArn :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
+createAuthorizerResponse_authorizerArn = Lens.lens (\CreateAuthorizerResponse' {authorizerArn} -> authorizerArn) (\s@CreateAuthorizerResponse' {} a -> s {authorizerArn = a} :: CreateAuthorizerResponse)
 
--- | The authorizer's name.
-carrsAuthorizerName :: Lens' CreateAuthorizerResponse (Maybe Text)
-carrsAuthorizerName = lens _carrsAuthorizerName (\s a -> s {_carrsAuthorizerName = a})
+-- | The authorizer\'s name.
+createAuthorizerResponse_authorizerName :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
+createAuthorizerResponse_authorizerName = Lens.lens (\CreateAuthorizerResponse' {authorizerName} -> authorizerName) (\s@CreateAuthorizerResponse' {} a -> s {authorizerName = a} :: CreateAuthorizerResponse)
 
--- | -- | The response status code.
-carrsResponseStatus :: Lens' CreateAuthorizerResponse Int
-carrsResponseStatus = lens _carrsResponseStatus (\s a -> s {_carrsResponseStatus = a})
+-- | The response's http status code.
+createAuthorizerResponse_httpStatus :: Lens.Lens' CreateAuthorizerResponse Prelude.Int
+createAuthorizerResponse_httpStatus = Lens.lens (\CreateAuthorizerResponse' {httpStatus} -> httpStatus) (\s@CreateAuthorizerResponse' {} a -> s {httpStatus = a} :: CreateAuthorizerResponse)
 
-instance NFData CreateAuthorizerResponse
+instance Prelude.NFData CreateAuthorizerResponse

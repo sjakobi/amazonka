@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.IoT.Types.ThingConnectivityIndexingMode
   ( ThingConnectivityIndexingMode
       ( ..,
-        TCIMOff,
-        TCIMStatus
+        ThingConnectivityIndexingModeOFF,
+        ThingConnectivityIndexingModeSTATUS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ThingConnectivityIndexingMode
-  = ThingConnectivityIndexingMode'
-      ( CI
-          Text
-      )
+newtype ThingConnectivityIndexingMode = ThingConnectivityIndexingMode'
+  { fromThingConnectivityIndexingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TCIMOff :: ThingConnectivityIndexingMode
-pattern TCIMOff = ThingConnectivityIndexingMode' "OFF"
+pattern ThingConnectivityIndexingModeOFF :: ThingConnectivityIndexingMode
+pattern ThingConnectivityIndexingModeOFF = ThingConnectivityIndexingMode' "OFF"
 
-pattern TCIMStatus :: ThingConnectivityIndexingMode
-pattern TCIMStatus = ThingConnectivityIndexingMode' "STATUS"
+pattern ThingConnectivityIndexingModeSTATUS :: ThingConnectivityIndexingMode
+pattern ThingConnectivityIndexingModeSTATUS = ThingConnectivityIndexingMode' "STATUS"
 
 {-# COMPLETE
-  TCIMOff,
-  TCIMStatus,
+  ThingConnectivityIndexingModeOFF,
+  ThingConnectivityIndexingModeSTATUS,
   ThingConnectivityIndexingMode'
   #-}
 
-instance FromText ThingConnectivityIndexingMode where
-  parser = (ThingConnectivityIndexingMode' . mk) <$> takeText
+instance Prelude.FromText ThingConnectivityIndexingMode where
+  parser = ThingConnectivityIndexingMode' Prelude.<$> Prelude.takeText
 
-instance ToText ThingConnectivityIndexingMode where
-  toText (ThingConnectivityIndexingMode' ci) = original ci
+instance Prelude.ToText ThingConnectivityIndexingMode where
+  toText (ThingConnectivityIndexingMode' x) = x
 
-instance Hashable ThingConnectivityIndexingMode
+instance Prelude.Hashable ThingConnectivityIndexingMode
 
-instance NFData ThingConnectivityIndexingMode
+instance Prelude.NFData ThingConnectivityIndexingMode
 
-instance ToByteString ThingConnectivityIndexingMode
+instance Prelude.ToByteString ThingConnectivityIndexingMode
 
-instance ToQuery ThingConnectivityIndexingMode
+instance Prelude.ToQuery ThingConnectivityIndexingMode
 
-instance ToHeader ThingConnectivityIndexingMode
+instance Prelude.ToHeader ThingConnectivityIndexingMode
 
-instance ToJSON ThingConnectivityIndexingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON ThingConnectivityIndexingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ThingConnectivityIndexingMode where
-  parseJSON = parseJSONText "ThingConnectivityIndexingMode"
+instance Prelude.FromJSON ThingConnectivityIndexingMode where
+  parseJSON = Prelude.parseJSONText "ThingConnectivityIndexingMode"

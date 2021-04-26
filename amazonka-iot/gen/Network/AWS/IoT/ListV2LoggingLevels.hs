@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,168 +23,195 @@
 --
 -- Lists logging levels.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListV2LoggingLevels
   ( -- * Creating a Request
-    listV2LoggingLevels,
-    ListV2LoggingLevels,
+    ListV2LoggingLevels (..),
+    newListV2LoggingLevels,
 
     -- * Request Lenses
-    lvllNextToken,
-    lvllTargetType,
-    lvllMaxResults,
+    listV2LoggingLevels_nextToken,
+    listV2LoggingLevels_targetType,
+    listV2LoggingLevels_maxResults,
 
     -- * Destructuring the Response
-    listV2LoggingLevelsResponse,
-    ListV2LoggingLevelsResponse,
+    ListV2LoggingLevelsResponse (..),
+    newListV2LoggingLevelsResponse,
 
     -- * Response Lenses
-    lvllrrsNextToken,
-    lvllrrsLogTargetConfigurations,
-    lvllrrsResponseStatus,
+    listV2LoggingLevelsResponse_nextToken,
+    listV2LoggingLevelsResponse_logTargetConfigurations,
+    listV2LoggingLevelsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.LogTargetConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listV2LoggingLevels' smart constructor.
+-- | /See:/ 'newListV2LoggingLevels' smart constructor.
 data ListV2LoggingLevels = ListV2LoggingLevels'
-  { _lvllNextToken ::
-      !(Maybe Text),
-    _lvllTargetType ::
-      !(Maybe LogTargetType),
-    _lvllMaxResults :: !(Maybe Nat)
+  { -- | To retrieve the next set of results, the @nextToken@ value from a
+    -- previous response; otherwise __null__ to receive the first set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The type of resource for which you are configuring logging. Must be
+    -- @THING_Group@.
+    targetType :: Prelude.Maybe LogTargetType,
+    -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListV2LoggingLevels' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListV2LoggingLevels' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lvllNextToken' - To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lvllTargetType' - The type of resource for which you are configuring logging. Must be @THING_Group@ .
+-- 'nextToken', 'listV2LoggingLevels_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
 --
--- * 'lvllMaxResults' - The maximum number of results to return at one time.
-listV2LoggingLevels ::
+-- 'targetType', 'listV2LoggingLevels_targetType' - The type of resource for which you are configuring logging. Must be
+-- @THING_Group@.
+--
+-- 'maxResults', 'listV2LoggingLevels_maxResults' - The maximum number of results to return at one time.
+newListV2LoggingLevels ::
   ListV2LoggingLevels
-listV2LoggingLevels =
+newListV2LoggingLevels =
   ListV2LoggingLevels'
-    { _lvllNextToken = Nothing,
-      _lvllTargetType = Nothing,
-      _lvllMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      targetType = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
-lvllNextToken :: Lens' ListV2LoggingLevels (Maybe Text)
-lvllNextToken = lens _lvllNextToken (\s a -> s {_lvllNextToken = a})
+-- | To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
+listV2LoggingLevels_nextToken :: Lens.Lens' ListV2LoggingLevels (Prelude.Maybe Prelude.Text)
+listV2LoggingLevels_nextToken = Lens.lens (\ListV2LoggingLevels' {nextToken} -> nextToken) (\s@ListV2LoggingLevels' {} a -> s {nextToken = a} :: ListV2LoggingLevels)
 
--- | The type of resource for which you are configuring logging. Must be @THING_Group@ .
-lvllTargetType :: Lens' ListV2LoggingLevels (Maybe LogTargetType)
-lvllTargetType = lens _lvllTargetType (\s a -> s {_lvllTargetType = a})
+-- | The type of resource for which you are configuring logging. Must be
+-- @THING_Group@.
+listV2LoggingLevels_targetType :: Lens.Lens' ListV2LoggingLevels (Prelude.Maybe LogTargetType)
+listV2LoggingLevels_targetType = Lens.lens (\ListV2LoggingLevels' {targetType} -> targetType) (\s@ListV2LoggingLevels' {} a -> s {targetType = a} :: ListV2LoggingLevels)
 
 -- | The maximum number of results to return at one time.
-lvllMaxResults :: Lens' ListV2LoggingLevels (Maybe Natural)
-lvllMaxResults = lens _lvllMaxResults (\s a -> s {_lvllMaxResults = a}) . mapping _Nat
+listV2LoggingLevels_maxResults :: Lens.Lens' ListV2LoggingLevels (Prelude.Maybe Prelude.Natural)
+listV2LoggingLevels_maxResults = Lens.lens (\ListV2LoggingLevels' {maxResults} -> maxResults) (\s@ListV2LoggingLevels' {} a -> s {maxResults = a} :: ListV2LoggingLevels) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListV2LoggingLevels where
+instance Pager.AWSPager ListV2LoggingLevels where
   page rq rs
-    | stop (rs ^. lvllrrsNextToken) = Nothing
-    | stop (rs ^. lvllrrsLogTargetConfigurations) =
-      Nothing
-    | otherwise =
-      Just $ rq & lvllNextToken .~ rs ^. lvllrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listV2LoggingLevelsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listV2LoggingLevelsResponse_logTargetConfigurations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listV2LoggingLevels_nextToken
+          Lens..~ rs
+          Lens.^? listV2LoggingLevelsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListV2LoggingLevels where
+instance Prelude.AWSRequest ListV2LoggingLevels where
   type
     Rs ListV2LoggingLevels =
       ListV2LoggingLevelsResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListV2LoggingLevelsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "logTargetConfigurations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "logTargetConfigurations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListV2LoggingLevels
+instance Prelude.Hashable ListV2LoggingLevels
 
-instance NFData ListV2LoggingLevels
+instance Prelude.NFData ListV2LoggingLevels
 
-instance ToHeaders ListV2LoggingLevels where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListV2LoggingLevels where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListV2LoggingLevels where
-  toPath = const "/v2LoggingLevel"
+instance Prelude.ToPath ListV2LoggingLevels where
+  toPath = Prelude.const "/v2LoggingLevel"
 
-instance ToQuery ListV2LoggingLevels where
+instance Prelude.ToQuery ListV2LoggingLevels where
   toQuery ListV2LoggingLevels' {..} =
-    mconcat
-      [ "nextToken" =: _lvllNextToken,
-        "targetType" =: _lvllTargetType,
-        "maxResults" =: _lvllMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "targetType" Prelude.=: targetType,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listV2LoggingLevelsResponse' smart constructor.
+-- | /See:/ 'newListV2LoggingLevelsResponse' smart constructor.
 data ListV2LoggingLevelsResponse = ListV2LoggingLevelsResponse'
-  { _lvllrrsNextToken ::
-      !(Maybe Text),
-    _lvllrrsLogTargetConfigurations ::
-      !( Maybe
-           [LogTargetConfiguration]
-       ),
-    _lvllrrsResponseStatus ::
-      !Int
+  { -- | The token to use to get the next set of results, or __null__ if there
+    -- are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The logging configuration for a target.
+    logTargetConfigurations :: Prelude.Maybe [LogTargetConfiguration],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListV2LoggingLevelsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListV2LoggingLevelsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lvllrrsNextToken' - The token to use to get the next set of results, or __null__ if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lvllrrsLogTargetConfigurations' - The logging configuration for a target.
+-- 'nextToken', 'listV2LoggingLevelsResponse_nextToken' - The token to use to get the next set of results, or __null__ if there
+-- are no additional results.
 --
--- * 'lvllrrsResponseStatus' - -- | The response status code.
-listV2LoggingLevelsResponse ::
-  -- | 'lvllrrsResponseStatus'
-  Int ->
+-- 'logTargetConfigurations', 'listV2LoggingLevelsResponse_logTargetConfigurations' - The logging configuration for a target.
+--
+-- 'httpStatus', 'listV2LoggingLevelsResponse_httpStatus' - The response's http status code.
+newListV2LoggingLevelsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListV2LoggingLevelsResponse
-listV2LoggingLevelsResponse pResponseStatus_ =
+newListV2LoggingLevelsResponse pHttpStatus_ =
   ListV2LoggingLevelsResponse'
-    { _lvllrrsNextToken =
-        Nothing,
-      _lvllrrsLogTargetConfigurations = Nothing,
-      _lvllrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      logTargetConfigurations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to get the next set of results, or __null__ if there are no additional results.
-lvllrrsNextToken :: Lens' ListV2LoggingLevelsResponse (Maybe Text)
-lvllrrsNextToken = lens _lvllrrsNextToken (\s a -> s {_lvllrrsNextToken = a})
+-- | The token to use to get the next set of results, or __null__ if there
+-- are no additional results.
+listV2LoggingLevelsResponse_nextToken :: Lens.Lens' ListV2LoggingLevelsResponse (Prelude.Maybe Prelude.Text)
+listV2LoggingLevelsResponse_nextToken = Lens.lens (\ListV2LoggingLevelsResponse' {nextToken} -> nextToken) (\s@ListV2LoggingLevelsResponse' {} a -> s {nextToken = a} :: ListV2LoggingLevelsResponse)
 
 -- | The logging configuration for a target.
-lvllrrsLogTargetConfigurations :: Lens' ListV2LoggingLevelsResponse [LogTargetConfiguration]
-lvllrrsLogTargetConfigurations = lens _lvllrrsLogTargetConfigurations (\s a -> s {_lvllrrsLogTargetConfigurations = a}) . _Default . _Coerce
+listV2LoggingLevelsResponse_logTargetConfigurations :: Lens.Lens' ListV2LoggingLevelsResponse (Prelude.Maybe [LogTargetConfiguration])
+listV2LoggingLevelsResponse_logTargetConfigurations = Lens.lens (\ListV2LoggingLevelsResponse' {logTargetConfigurations} -> logTargetConfigurations) (\s@ListV2LoggingLevelsResponse' {} a -> s {logTargetConfigurations = a} :: ListV2LoggingLevelsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lvllrrsResponseStatus :: Lens' ListV2LoggingLevelsResponse Int
-lvllrrsResponseStatus = lens _lvllrrsResponseStatus (\s a -> s {_lvllrrsResponseStatus = a})
+-- | The response's http status code.
+listV2LoggingLevelsResponse_httpStatus :: Lens.Lens' ListV2LoggingLevelsResponse Prelude.Int
+listV2LoggingLevelsResponse_httpStatus = Lens.lens (\ListV2LoggingLevelsResponse' {httpStatus} -> httpStatus) (\s@ListV2LoggingLevelsResponse' {} a -> s {httpStatus = a} :: ListV2LoggingLevelsResponse)
 
-instance NFData ListV2LoggingLevelsResponse
+instance Prelude.NFData ListV2LoggingLevelsResponse

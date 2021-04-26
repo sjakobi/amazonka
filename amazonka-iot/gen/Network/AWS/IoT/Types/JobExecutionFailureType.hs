@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.IoT.Types.JobExecutionFailureType
   ( JobExecutionFailureType
       ( ..,
-        JEFTAll,
-        JEFTFailed,
-        JEFTRejected,
-        JEFTTimedOut
+        JobExecutionFailureTypeALL,
+        JobExecutionFailureTypeFAILED,
+        JobExecutionFailureTypeREJECTED,
+        JobExecutionFailureTypeTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobExecutionFailureType
-  = JobExecutionFailureType'
-      ( CI
-          Text
-      )
+newtype JobExecutionFailureType = JobExecutionFailureType'
+  { fromJobExecutionFailureType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JEFTAll :: JobExecutionFailureType
-pattern JEFTAll = JobExecutionFailureType' "ALL"
+pattern JobExecutionFailureTypeALL :: JobExecutionFailureType
+pattern JobExecutionFailureTypeALL = JobExecutionFailureType' "ALL"
 
-pattern JEFTFailed :: JobExecutionFailureType
-pattern JEFTFailed = JobExecutionFailureType' "FAILED"
+pattern JobExecutionFailureTypeFAILED :: JobExecutionFailureType
+pattern JobExecutionFailureTypeFAILED = JobExecutionFailureType' "FAILED"
 
-pattern JEFTRejected :: JobExecutionFailureType
-pattern JEFTRejected = JobExecutionFailureType' "REJECTED"
+pattern JobExecutionFailureTypeREJECTED :: JobExecutionFailureType
+pattern JobExecutionFailureTypeREJECTED = JobExecutionFailureType' "REJECTED"
 
-pattern JEFTTimedOut :: JobExecutionFailureType
-pattern JEFTTimedOut = JobExecutionFailureType' "TIMED_OUT"
+pattern JobExecutionFailureTypeTIMEDOUT :: JobExecutionFailureType
+pattern JobExecutionFailureTypeTIMEDOUT = JobExecutionFailureType' "TIMED_OUT"
 
 {-# COMPLETE
-  JEFTAll,
-  JEFTFailed,
-  JEFTRejected,
-  JEFTTimedOut,
+  JobExecutionFailureTypeALL,
+  JobExecutionFailureTypeFAILED,
+  JobExecutionFailureTypeREJECTED,
+  JobExecutionFailureTypeTIMEDOUT,
   JobExecutionFailureType'
   #-}
 
-instance FromText JobExecutionFailureType where
-  parser = (JobExecutionFailureType' . mk) <$> takeText
+instance Prelude.FromText JobExecutionFailureType where
+  parser = JobExecutionFailureType' Prelude.<$> Prelude.takeText
 
-instance ToText JobExecutionFailureType where
-  toText (JobExecutionFailureType' ci) = original ci
+instance Prelude.ToText JobExecutionFailureType where
+  toText (JobExecutionFailureType' x) = x
 
-instance Hashable JobExecutionFailureType
+instance Prelude.Hashable JobExecutionFailureType
 
-instance NFData JobExecutionFailureType
+instance Prelude.NFData JobExecutionFailureType
 
-instance ToByteString JobExecutionFailureType
+instance Prelude.ToByteString JobExecutionFailureType
 
-instance ToQuery JobExecutionFailureType
+instance Prelude.ToQuery JobExecutionFailureType
 
-instance ToHeader JobExecutionFailureType
+instance Prelude.ToHeader JobExecutionFailureType
 
-instance ToJSON JobExecutionFailureType where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobExecutionFailureType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JobExecutionFailureType where
-  parseJSON = parseJSONText "JobExecutionFailureType"
+instance Prelude.FromJSON JobExecutionFailureType where
+  parseJSON = Prelude.parseJSONText "JobExecutionFailureType"

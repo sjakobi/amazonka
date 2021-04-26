@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.IoT.Types.AuditFrequency
   ( AuditFrequency
       ( ..,
-        Biweekly,
-        Daily,
-        Monthly,
-        Weekly
+        AuditFrequencyBIWEEKLY,
+        AuditFrequencyDAILY,
+        AuditFrequencyMONTHLY,
+        AuditFrequencyWEEKLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuditFrequency = AuditFrequency' (CI Text)
+newtype AuditFrequency = AuditFrequency'
+  { fromAuditFrequency ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Biweekly :: AuditFrequency
-pattern Biweekly = AuditFrequency' "BIWEEKLY"
+pattern AuditFrequencyBIWEEKLY :: AuditFrequency
+pattern AuditFrequencyBIWEEKLY = AuditFrequency' "BIWEEKLY"
 
-pattern Daily :: AuditFrequency
-pattern Daily = AuditFrequency' "DAILY"
+pattern AuditFrequencyDAILY :: AuditFrequency
+pattern AuditFrequencyDAILY = AuditFrequency' "DAILY"
 
-pattern Monthly :: AuditFrequency
-pattern Monthly = AuditFrequency' "MONTHLY"
+pattern AuditFrequencyMONTHLY :: AuditFrequency
+pattern AuditFrequencyMONTHLY = AuditFrequency' "MONTHLY"
 
-pattern Weekly :: AuditFrequency
-pattern Weekly = AuditFrequency' "WEEKLY"
+pattern AuditFrequencyWEEKLY :: AuditFrequency
+pattern AuditFrequencyWEEKLY = AuditFrequency' "WEEKLY"
 
 {-# COMPLETE
-  Biweekly,
-  Daily,
-  Monthly,
-  Weekly,
+  AuditFrequencyBIWEEKLY,
+  AuditFrequencyDAILY,
+  AuditFrequencyMONTHLY,
+  AuditFrequencyWEEKLY,
   AuditFrequency'
   #-}
 
-instance FromText AuditFrequency where
-  parser = (AuditFrequency' . mk) <$> takeText
+instance Prelude.FromText AuditFrequency where
+  parser = AuditFrequency' Prelude.<$> Prelude.takeText
 
-instance ToText AuditFrequency where
-  toText (AuditFrequency' ci) = original ci
+instance Prelude.ToText AuditFrequency where
+  toText (AuditFrequency' x) = x
 
-instance Hashable AuditFrequency
+instance Prelude.Hashable AuditFrequency
 
-instance NFData AuditFrequency
+instance Prelude.NFData AuditFrequency
 
-instance ToByteString AuditFrequency
+instance Prelude.ToByteString AuditFrequency
 
-instance ToQuery AuditFrequency
+instance Prelude.ToQuery AuditFrequency
 
-instance ToHeader AuditFrequency
+instance Prelude.ToHeader AuditFrequency
 
-instance ToJSON AuditFrequency where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuditFrequency where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuditFrequency where
-  parseJSON = parseJSONText "AuditFrequency"
+instance Prelude.FromJSON AuditFrequency where
+  parseJSON = Prelude.parseJSONText "AuditFrequency"

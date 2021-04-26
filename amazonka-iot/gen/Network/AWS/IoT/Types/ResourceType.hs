@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,83 +19,85 @@
 module Network.AWS.IoT.Types.ResourceType
   ( ResourceType
       ( ..,
-        RTAccountSettings,
-        RTCaCertificate,
-        RTClientId,
-        RTCognitoIdentityPool,
-        RTDeviceCertificate,
-        RTIAMRole,
-        RTIotPolicy,
-        RTRoleAlias
+        ResourceTypeACCOUNTSETTINGS,
+        ResourceTypeCACERTIFICATE,
+        ResourceTypeCLIENTID,
+        ResourceTypeCOGNITOIDENTITYPOOL,
+        ResourceTypeDEVICECERTIFICATE,
+        ResourceTypeIAMROLE,
+        ResourceTypeIOTPOLICY,
+        ResourceTypeROLEALIAS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceType = ResourceType' (CI Text)
+newtype ResourceType = ResourceType'
+  { fromResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RTAccountSettings :: ResourceType
-pattern RTAccountSettings = ResourceType' "ACCOUNT_SETTINGS"
+pattern ResourceTypeACCOUNTSETTINGS :: ResourceType
+pattern ResourceTypeACCOUNTSETTINGS = ResourceType' "ACCOUNT_SETTINGS"
 
-pattern RTCaCertificate :: ResourceType
-pattern RTCaCertificate = ResourceType' "CA_CERTIFICATE"
+pattern ResourceTypeCACERTIFICATE :: ResourceType
+pattern ResourceTypeCACERTIFICATE = ResourceType' "CA_CERTIFICATE"
 
-pattern RTClientId :: ResourceType
-pattern RTClientId = ResourceType' "CLIENT_ID"
+pattern ResourceTypeCLIENTID :: ResourceType
+pattern ResourceTypeCLIENTID = ResourceType' "CLIENT_ID"
 
-pattern RTCognitoIdentityPool :: ResourceType
-pattern RTCognitoIdentityPool = ResourceType' "COGNITO_IDENTITY_POOL"
+pattern ResourceTypeCOGNITOIDENTITYPOOL :: ResourceType
+pattern ResourceTypeCOGNITOIDENTITYPOOL = ResourceType' "COGNITO_IDENTITY_POOL"
 
-pattern RTDeviceCertificate :: ResourceType
-pattern RTDeviceCertificate = ResourceType' "DEVICE_CERTIFICATE"
+pattern ResourceTypeDEVICECERTIFICATE :: ResourceType
+pattern ResourceTypeDEVICECERTIFICATE = ResourceType' "DEVICE_CERTIFICATE"
 
-pattern RTIAMRole :: ResourceType
-pattern RTIAMRole = ResourceType' "IAM_ROLE"
+pattern ResourceTypeIAMROLE :: ResourceType
+pattern ResourceTypeIAMROLE = ResourceType' "IAM_ROLE"
 
-pattern RTIotPolicy :: ResourceType
-pattern RTIotPolicy = ResourceType' "IOT_POLICY"
+pattern ResourceTypeIOTPOLICY :: ResourceType
+pattern ResourceTypeIOTPOLICY = ResourceType' "IOT_POLICY"
 
-pattern RTRoleAlias :: ResourceType
-pattern RTRoleAlias = ResourceType' "ROLE_ALIAS"
+pattern ResourceTypeROLEALIAS :: ResourceType
+pattern ResourceTypeROLEALIAS = ResourceType' "ROLE_ALIAS"
 
 {-# COMPLETE
-  RTAccountSettings,
-  RTCaCertificate,
-  RTClientId,
-  RTCognitoIdentityPool,
-  RTDeviceCertificate,
-  RTIAMRole,
-  RTIotPolicy,
-  RTRoleAlias,
+  ResourceTypeACCOUNTSETTINGS,
+  ResourceTypeCACERTIFICATE,
+  ResourceTypeCLIENTID,
+  ResourceTypeCOGNITOIDENTITYPOOL,
+  ResourceTypeDEVICECERTIFICATE,
+  ResourceTypeIAMROLE,
+  ResourceTypeIOTPOLICY,
+  ResourceTypeROLEALIAS,
   ResourceType'
   #-}
 
-instance FromText ResourceType where
-  parser = (ResourceType' . mk) <$> takeText
+instance Prelude.FromText ResourceType where
+  parser = ResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceType where
-  toText (ResourceType' ci) = original ci
+instance Prelude.ToText ResourceType where
+  toText (ResourceType' x) = x
 
-instance Hashable ResourceType
+instance Prelude.Hashable ResourceType
 
-instance NFData ResourceType
+instance Prelude.NFData ResourceType
 
-instance ToByteString ResourceType
+instance Prelude.ToByteString ResourceType
 
-instance ToQuery ResourceType
+instance Prelude.ToQuery ResourceType
 
-instance ToHeader ResourceType
+instance Prelude.ToHeader ResourceType
 
-instance FromJSON ResourceType where
-  parseJSON = parseJSONText "ResourceType"
+instance Prelude.FromJSON ResourceType where
+  parseJSON = Prelude.parseJSONText "ResourceType"

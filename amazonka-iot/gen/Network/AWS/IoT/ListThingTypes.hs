@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,172 +23,193 @@
 --
 -- Lists the existing thing types.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListThingTypes
   ( -- * Creating a Request
-    listThingTypes,
-    ListThingTypes,
+    ListThingTypes (..),
+    newListThingTypes,
 
     -- * Request Lenses
-    lttNextToken,
-    lttMaxResults,
-    lttThingTypeName,
+    listThingTypes_nextToken,
+    listThingTypes_maxResults,
+    listThingTypes_thingTypeName,
 
     -- * Destructuring the Response
-    listThingTypesResponse,
-    ListThingTypesResponse,
+    ListThingTypesResponse (..),
+    newListThingTypesResponse,
 
     -- * Response Lenses
-    lttrrsThingTypes,
-    lttrrsNextToken,
-    lttrrsResponseStatus,
+    listThingTypesResponse_thingTypes,
+    listThingTypesResponse_nextToken,
+    listThingTypesResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.ThingTypeDefinition
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the ListThingTypes operation.
 --
---
---
--- /See:/ 'listThingTypes' smart constructor.
+-- /See:/ 'newListThingTypes' smart constructor.
 data ListThingTypes = ListThingTypes'
-  { _lttNextToken ::
-      !(Maybe Text),
-    _lttMaxResults :: !(Maybe Nat),
-    _lttThingTypeName :: !(Maybe Text)
+  { -- | To retrieve the next set of results, the @nextToken@ value from a
+    -- previous response; otherwise __null__ to receive the first set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in this operation.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the thing type.
+    thingTypeName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListThingTypes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListThingTypes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lttNextToken' - To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lttMaxResults' - The maximum number of results to return in this operation.
+-- 'nextToken', 'listThingTypes_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
 --
--- * 'lttThingTypeName' - The name of the thing type.
-listThingTypes ::
+-- 'maxResults', 'listThingTypes_maxResults' - The maximum number of results to return in this operation.
+--
+-- 'thingTypeName', 'listThingTypes_thingTypeName' - The name of the thing type.
+newListThingTypes ::
   ListThingTypes
-listThingTypes =
+newListThingTypes =
   ListThingTypes'
-    { _lttNextToken = Nothing,
-      _lttMaxResults = Nothing,
-      _lttThingTypeName = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      thingTypeName = Prelude.Nothing
     }
 
--- | To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
-lttNextToken :: Lens' ListThingTypes (Maybe Text)
-lttNextToken = lens _lttNextToken (\s a -> s {_lttNextToken = a})
+-- | To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
+listThingTypes_nextToken :: Lens.Lens' ListThingTypes (Prelude.Maybe Prelude.Text)
+listThingTypes_nextToken = Lens.lens (\ListThingTypes' {nextToken} -> nextToken) (\s@ListThingTypes' {} a -> s {nextToken = a} :: ListThingTypes)
 
 -- | The maximum number of results to return in this operation.
-lttMaxResults :: Lens' ListThingTypes (Maybe Natural)
-lttMaxResults = lens _lttMaxResults (\s a -> s {_lttMaxResults = a}) . mapping _Nat
+listThingTypes_maxResults :: Lens.Lens' ListThingTypes (Prelude.Maybe Prelude.Natural)
+listThingTypes_maxResults = Lens.lens (\ListThingTypes' {maxResults} -> maxResults) (\s@ListThingTypes' {} a -> s {maxResults = a} :: ListThingTypes) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the thing type.
-lttThingTypeName :: Lens' ListThingTypes (Maybe Text)
-lttThingTypeName = lens _lttThingTypeName (\s a -> s {_lttThingTypeName = a})
+listThingTypes_thingTypeName :: Lens.Lens' ListThingTypes (Prelude.Maybe Prelude.Text)
+listThingTypes_thingTypeName = Lens.lens (\ListThingTypes' {thingTypeName} -> thingTypeName) (\s@ListThingTypes' {} a -> s {thingTypeName = a} :: ListThingTypes)
 
-instance AWSPager ListThingTypes where
+instance Pager.AWSPager ListThingTypes where
   page rq rs
-    | stop (rs ^. lttrrsNextToken) = Nothing
-    | stop (rs ^. lttrrsThingTypes) = Nothing
-    | otherwise =
-      Just $ rq & lttNextToken .~ rs ^. lttrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listThingTypesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listThingTypesResponse_thingTypes
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listThingTypes_nextToken
+          Lens..~ rs
+          Lens.^? listThingTypesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListThingTypes where
+instance Prelude.AWSRequest ListThingTypes where
   type Rs ListThingTypes = ListThingTypesResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListThingTypesResponse'
-            <$> (x .?> "thingTypes" .!@ mempty)
-            <*> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "thingTypes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListThingTypes
+instance Prelude.Hashable ListThingTypes
 
-instance NFData ListThingTypes
+instance Prelude.NFData ListThingTypes
 
-instance ToHeaders ListThingTypes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListThingTypes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListThingTypes where
-  toPath = const "/thing-types"
+instance Prelude.ToPath ListThingTypes where
+  toPath = Prelude.const "/thing-types"
 
-instance ToQuery ListThingTypes where
+instance Prelude.ToQuery ListThingTypes where
   toQuery ListThingTypes' {..} =
-    mconcat
-      [ "nextToken" =: _lttNextToken,
-        "maxResults" =: _lttMaxResults,
-        "thingTypeName" =: _lttThingTypeName
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "thingTypeName" Prelude.=: thingTypeName
       ]
 
 -- | The output for the ListThingTypes operation.
 --
---
---
--- /See:/ 'listThingTypesResponse' smart constructor.
+-- /See:/ 'newListThingTypesResponse' smart constructor.
 data ListThingTypesResponse = ListThingTypesResponse'
-  { _lttrrsThingTypes ::
-      !( Maybe
-           [ThingTypeDefinition]
-       ),
-    _lttrrsNextToken ::
-      !(Maybe Text),
-    _lttrrsResponseStatus ::
-      !Int
+  { -- | The thing types.
+    thingTypes :: Prelude.Maybe [ThingTypeDefinition],
+    -- | The token for the next set of results. Will not be returned if operation
+    -- has returned all results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListThingTypesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListThingTypesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lttrrsThingTypes' - The thing types.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lttrrsNextToken' - The token for the next set of results. Will not be returned if operation has returned all results.
+-- 'thingTypes', 'listThingTypesResponse_thingTypes' - The thing types.
 --
--- * 'lttrrsResponseStatus' - -- | The response status code.
-listThingTypesResponse ::
-  -- | 'lttrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listThingTypesResponse_nextToken' - The token for the next set of results. Will not be returned if operation
+-- has returned all results.
+--
+-- 'httpStatus', 'listThingTypesResponse_httpStatus' - The response's http status code.
+newListThingTypesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListThingTypesResponse
-listThingTypesResponse pResponseStatus_ =
+newListThingTypesResponse pHttpStatus_ =
   ListThingTypesResponse'
-    { _lttrrsThingTypes =
-        Nothing,
-      _lttrrsNextToken = Nothing,
-      _lttrrsResponseStatus = pResponseStatus_
+    { thingTypes =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The thing types.
-lttrrsThingTypes :: Lens' ListThingTypesResponse [ThingTypeDefinition]
-lttrrsThingTypes = lens _lttrrsThingTypes (\s a -> s {_lttrrsThingTypes = a}) . _Default . _Coerce
+listThingTypesResponse_thingTypes :: Lens.Lens' ListThingTypesResponse (Prelude.Maybe [ThingTypeDefinition])
+listThingTypesResponse_thingTypes = Lens.lens (\ListThingTypesResponse' {thingTypes} -> thingTypes) (\s@ListThingTypesResponse' {} a -> s {thingTypes = a} :: ListThingTypesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token for the next set of results. Will not be returned if operation has returned all results.
-lttrrsNextToken :: Lens' ListThingTypesResponse (Maybe Text)
-lttrrsNextToken = lens _lttrrsNextToken (\s a -> s {_lttrrsNextToken = a})
+-- | The token for the next set of results. Will not be returned if operation
+-- has returned all results.
+listThingTypesResponse_nextToken :: Lens.Lens' ListThingTypesResponse (Prelude.Maybe Prelude.Text)
+listThingTypesResponse_nextToken = Lens.lens (\ListThingTypesResponse' {nextToken} -> nextToken) (\s@ListThingTypesResponse' {} a -> s {nextToken = a} :: ListThingTypesResponse)
 
--- | -- | The response status code.
-lttrrsResponseStatus :: Lens' ListThingTypesResponse Int
-lttrrsResponseStatus = lens _lttrrsResponseStatus (\s a -> s {_lttrrsResponseStatus = a})
+-- | The response's http status code.
+listThingTypesResponse_httpStatus :: Lens.Lens' ListThingTypesResponse Prelude.Int
+listThingTypesResponse_httpStatus = Lens.lens (\ListThingTypesResponse' {httpStatus} -> httpStatus) (\s@ListThingTypesResponse' {} a -> s {httpStatus = a} :: ListThingTypesResponse)
 
-instance NFData ListThingTypesResponse
+instance Prelude.NFData ListThingTypesResponse

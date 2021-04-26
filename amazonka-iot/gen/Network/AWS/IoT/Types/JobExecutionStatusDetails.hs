@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,50 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.JobExecutionStatusDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details of the job execution status.
 --
---
---
--- /See:/ 'jobExecutionStatusDetails' smart constructor.
-newtype JobExecutionStatusDetails = JobExecutionStatusDetails'
-  { _jesdDetailsMap ::
-      Maybe
-        ( Map
-            Text
-            Text
-        )
+-- /See:/ 'newJobExecutionStatusDetails' smart constructor.
+data JobExecutionStatusDetails = JobExecutionStatusDetails'
+  { -- | The job execution status.
+    detailsMap :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobExecutionStatusDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobExecutionStatusDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jesdDetailsMap' - The job execution status.
-jobExecutionStatusDetails ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'detailsMap', 'jobExecutionStatusDetails_detailsMap' - The job execution status.
+newJobExecutionStatusDetails ::
   JobExecutionStatusDetails
-jobExecutionStatusDetails =
+newJobExecutionStatusDetails =
   JobExecutionStatusDetails'
-    { _jesdDetailsMap =
-        Nothing
+    { detailsMap =
+        Prelude.Nothing
     }
 
 -- | The job execution status.
-jesdDetailsMap :: Lens' JobExecutionStatusDetails (HashMap Text Text)
-jesdDetailsMap = lens _jesdDetailsMap (\s a -> s {_jesdDetailsMap = a}) . _Default . _Map
+jobExecutionStatusDetails_detailsMap :: Lens.Lens' JobExecutionStatusDetails (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+jobExecutionStatusDetails_detailsMap = Lens.lens (\JobExecutionStatusDetails' {detailsMap} -> detailsMap) (\s@JobExecutionStatusDetails' {} a -> s {detailsMap = a} :: JobExecutionStatusDetails) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON JobExecutionStatusDetails where
+instance Prelude.FromJSON JobExecutionStatusDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobExecutionStatusDetails"
       ( \x ->
           JobExecutionStatusDetails'
-            <$> (x .:? "detailsMap" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "detailsMap"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable JobExecutionStatusDetails
+instance Prelude.Hashable JobExecutionStatusDetails
 
-instance NFData JobExecutionStatusDetails
+instance Prelude.NFData JobExecutionStatusDetails

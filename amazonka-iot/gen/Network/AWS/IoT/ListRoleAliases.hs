@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,162 +23,180 @@
 --
 -- Lists the role aliases registered in your account.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListRoleAliases
   ( -- * Creating a Request
-    listRoleAliases,
-    ListRoleAliases,
+    ListRoleAliases (..),
+    newListRoleAliases,
 
     -- * Request Lenses
-    lraPageSize,
-    lraAscendingOrder,
-    lraMarker,
+    listRoleAliases_pageSize,
+    listRoleAliases_ascendingOrder,
+    listRoleAliases_marker,
 
     -- * Destructuring the Response
-    listRoleAliasesResponse,
-    ListRoleAliasesResponse,
+    ListRoleAliasesResponse (..),
+    newListRoleAliasesResponse,
 
     -- * Response Lenses
-    lrarrsRoleAliases,
-    lrarrsNextMarker,
-    lrarrsResponseStatus,
+    listRoleAliasesResponse_roleAliases,
+    listRoleAliasesResponse_nextMarker,
+    listRoleAliasesResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listRoleAliases' smart constructor.
+-- | /See:/ 'newListRoleAliases' smart constructor.
 data ListRoleAliases = ListRoleAliases'
-  { _lraPageSize ::
-      !(Maybe Nat),
-    _lraAscendingOrder :: !(Maybe Bool),
-    _lraMarker :: !(Maybe Text)
+  { -- | The maximum number of results to return at one time.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | Return the list of role aliases in ascending alphabetical order.
+    ascendingOrder :: Prelude.Maybe Prelude.Bool,
+    -- | A marker used to get the next set of results.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRoleAliases' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRoleAliases' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lraPageSize' - The maximum number of results to return at one time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lraAscendingOrder' - Return the list of role aliases in ascending alphabetical order.
+-- 'pageSize', 'listRoleAliases_pageSize' - The maximum number of results to return at one time.
 --
--- * 'lraMarker' - A marker used to get the next set of results.
-listRoleAliases ::
+-- 'ascendingOrder', 'listRoleAliases_ascendingOrder' - Return the list of role aliases in ascending alphabetical order.
+--
+-- 'marker', 'listRoleAliases_marker' - A marker used to get the next set of results.
+newListRoleAliases ::
   ListRoleAliases
-listRoleAliases =
+newListRoleAliases =
   ListRoleAliases'
-    { _lraPageSize = Nothing,
-      _lraAscendingOrder = Nothing,
-      _lraMarker = Nothing
+    { pageSize = Prelude.Nothing,
+      ascendingOrder = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The maximum number of results to return at one time.
-lraPageSize :: Lens' ListRoleAliases (Maybe Natural)
-lraPageSize = lens _lraPageSize (\s a -> s {_lraPageSize = a}) . mapping _Nat
+listRoleAliases_pageSize :: Lens.Lens' ListRoleAliases (Prelude.Maybe Prelude.Natural)
+listRoleAliases_pageSize = Lens.lens (\ListRoleAliases' {pageSize} -> pageSize) (\s@ListRoleAliases' {} a -> s {pageSize = a} :: ListRoleAliases) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Return the list of role aliases in ascending alphabetical order.
-lraAscendingOrder :: Lens' ListRoleAliases (Maybe Bool)
-lraAscendingOrder = lens _lraAscendingOrder (\s a -> s {_lraAscendingOrder = a})
+listRoleAliases_ascendingOrder :: Lens.Lens' ListRoleAliases (Prelude.Maybe Prelude.Bool)
+listRoleAliases_ascendingOrder = Lens.lens (\ListRoleAliases' {ascendingOrder} -> ascendingOrder) (\s@ListRoleAliases' {} a -> s {ascendingOrder = a} :: ListRoleAliases)
 
 -- | A marker used to get the next set of results.
-lraMarker :: Lens' ListRoleAliases (Maybe Text)
-lraMarker = lens _lraMarker (\s a -> s {_lraMarker = a})
+listRoleAliases_marker :: Lens.Lens' ListRoleAliases (Prelude.Maybe Prelude.Text)
+listRoleAliases_marker = Lens.lens (\ListRoleAliases' {marker} -> marker) (\s@ListRoleAliases' {} a -> s {marker = a} :: ListRoleAliases)
 
-instance AWSPager ListRoleAliases where
+instance Pager.AWSPager ListRoleAliases where
   page rq rs
-    | stop (rs ^. lrarrsNextMarker) = Nothing
-    | stop (rs ^. lrarrsRoleAliases) = Nothing
-    | otherwise =
-      Just $ rq & lraMarker .~ rs ^. lrarrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listRoleAliasesResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listRoleAliasesResponse_roleAliases
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listRoleAliases_marker
+          Lens..~ rs
+          Lens.^? listRoleAliasesResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListRoleAliases where
+instance Prelude.AWSRequest ListRoleAliases where
   type Rs ListRoleAliases = ListRoleAliasesResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListRoleAliasesResponse'
-            <$> (x .?> "roleAliases" .!@ mempty)
-            <*> (x .?> "nextMarker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "roleAliases"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "nextMarker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListRoleAliases
+instance Prelude.Hashable ListRoleAliases
 
-instance NFData ListRoleAliases
+instance Prelude.NFData ListRoleAliases
 
-instance ToHeaders ListRoleAliases where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListRoleAliases where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListRoleAliases where
-  toPath = const "/role-aliases"
+instance Prelude.ToPath ListRoleAliases where
+  toPath = Prelude.const "/role-aliases"
 
-instance ToQuery ListRoleAliases where
+instance Prelude.ToQuery ListRoleAliases where
   toQuery ListRoleAliases' {..} =
-    mconcat
-      [ "pageSize" =: _lraPageSize,
-        "isAscendingOrder" =: _lraAscendingOrder,
-        "marker" =: _lraMarker
+    Prelude.mconcat
+      [ "pageSize" Prelude.=: pageSize,
+        "isAscendingOrder" Prelude.=: ascendingOrder,
+        "marker" Prelude.=: marker
       ]
 
--- | /See:/ 'listRoleAliasesResponse' smart constructor.
+-- | /See:/ 'newListRoleAliasesResponse' smart constructor.
 data ListRoleAliasesResponse = ListRoleAliasesResponse'
-  { _lrarrsRoleAliases ::
-      !(Maybe [Text]),
-    _lrarrsNextMarker ::
-      !(Maybe Text),
-    _lrarrsResponseStatus ::
-      !Int
+  { -- | The role aliases.
+    roleAliases :: Prelude.Maybe [Prelude.Text],
+    -- | A marker used to get the next set of results.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRoleAliasesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRoleAliasesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrarrsRoleAliases' - The role aliases.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrarrsNextMarker' - A marker used to get the next set of results.
+-- 'roleAliases', 'listRoleAliasesResponse_roleAliases' - The role aliases.
 --
--- * 'lrarrsResponseStatus' - -- | The response status code.
-listRoleAliasesResponse ::
-  -- | 'lrarrsResponseStatus'
-  Int ->
+-- 'nextMarker', 'listRoleAliasesResponse_nextMarker' - A marker used to get the next set of results.
+--
+-- 'httpStatus', 'listRoleAliasesResponse_httpStatus' - The response's http status code.
+newListRoleAliasesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListRoleAliasesResponse
-listRoleAliasesResponse pResponseStatus_ =
+newListRoleAliasesResponse pHttpStatus_ =
   ListRoleAliasesResponse'
-    { _lrarrsRoleAliases =
-        Nothing,
-      _lrarrsNextMarker = Nothing,
-      _lrarrsResponseStatus = pResponseStatus_
+    { roleAliases =
+        Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The role aliases.
-lrarrsRoleAliases :: Lens' ListRoleAliasesResponse [Text]
-lrarrsRoleAliases = lens _lrarrsRoleAliases (\s a -> s {_lrarrsRoleAliases = a}) . _Default . _Coerce
+listRoleAliasesResponse_roleAliases :: Lens.Lens' ListRoleAliasesResponse (Prelude.Maybe [Prelude.Text])
+listRoleAliasesResponse_roleAliases = Lens.lens (\ListRoleAliasesResponse' {roleAliases} -> roleAliases) (\s@ListRoleAliasesResponse' {} a -> s {roleAliases = a} :: ListRoleAliasesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A marker used to get the next set of results.
-lrarrsNextMarker :: Lens' ListRoleAliasesResponse (Maybe Text)
-lrarrsNextMarker = lens _lrarrsNextMarker (\s a -> s {_lrarrsNextMarker = a})
+listRoleAliasesResponse_nextMarker :: Lens.Lens' ListRoleAliasesResponse (Prelude.Maybe Prelude.Text)
+listRoleAliasesResponse_nextMarker = Lens.lens (\ListRoleAliasesResponse' {nextMarker} -> nextMarker) (\s@ListRoleAliasesResponse' {} a -> s {nextMarker = a} :: ListRoleAliasesResponse)
 
--- | -- | The response status code.
-lrarrsResponseStatus :: Lens' ListRoleAliasesResponse Int
-lrarrsResponseStatus = lens _lrarrsResponseStatus (\s a -> s {_lrarrsResponseStatus = a})
+-- | The response's http status code.
+listRoleAliasesResponse_httpStatus :: Lens.Lens' ListRoleAliasesResponse Prelude.Int
+listRoleAliasesResponse_httpStatus = Lens.lens (\ListRoleAliasesResponse' {httpStatus} -> httpStatus) (\s@ListRoleAliasesResponse' {} a -> s {httpStatus = a} :: ListRoleAliasesResponse)
 
-instance NFData ListRoleAliasesResponse
+instance Prelude.NFData ListRoleAliasesResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,182 +23,214 @@
 --
 -- Lists the policies attached to the specified thing group.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListAttachedPolicies
   ( -- * Creating a Request
-    listAttachedPolicies,
-    ListAttachedPolicies,
+    ListAttachedPolicies (..),
+    newListAttachedPolicies,
 
     -- * Request Lenses
-    lapPageSize,
-    lapRecursive,
-    lapMarker,
-    lapTarget,
+    listAttachedPolicies_pageSize,
+    listAttachedPolicies_recursive,
+    listAttachedPolicies_marker,
+    listAttachedPolicies_target,
 
     -- * Destructuring the Response
-    listAttachedPoliciesResponse,
-    ListAttachedPoliciesResponse,
+    ListAttachedPoliciesResponse (..),
+    newListAttachedPoliciesResponse,
 
     -- * Response Lenses
-    laprrsPolicies,
-    laprrsNextMarker,
-    laprrsResponseStatus,
+    listAttachedPoliciesResponse_policies,
+    listAttachedPoliciesResponse_nextMarker,
+    listAttachedPoliciesResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.Policy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAttachedPolicies' smart constructor.
+-- | /See:/ 'newListAttachedPolicies' smart constructor.
 data ListAttachedPolicies = ListAttachedPolicies'
-  { _lapPageSize ::
-      !(Maybe Nat),
-    _lapRecursive ::
-      !(Maybe Bool),
-    _lapMarker :: !(Maybe Text),
-    _lapTarget :: !Text
+  { -- | The maximum number of results to be returned per request.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | When true, recursively list attached policies.
+    recursive :: Prelude.Maybe Prelude.Bool,
+    -- | The token to retrieve the next set of results.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The group or principal for which the policies will be listed. Valid
+    -- principals are CertificateArn
+    -- (arn:aws:iot:/region/:/accountId/:cert\//certificateId/), thingGroupArn
+    -- (arn:aws:iot:/region/:/accountId/:thinggroup\//groupName/) and CognitoId
+    -- (/region/:/id/).
+    target :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAttachedPolicies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAttachedPolicies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lapPageSize' - The maximum number of results to be returned per request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lapRecursive' - When true, recursively list attached policies.
+-- 'pageSize', 'listAttachedPolicies_pageSize' - The maximum number of results to be returned per request.
 --
--- * 'lapMarker' - The token to retrieve the next set of results.
+-- 'recursive', 'listAttachedPolicies_recursive' - When true, recursively list attached policies.
 --
--- * 'lapTarget' - The group or principal for which the policies will be listed. Valid principals are CertificateArn (arn:aws:iot:/region/ :/accountId/ :cert//certificateId/ ), thingGroupArn (arn:aws:iot:/region/ :/accountId/ :thinggroup//groupName/ ) and CognitoId (/region/ :/id/ ).
-listAttachedPolicies ::
-  -- | 'lapTarget'
-  Text ->
+-- 'marker', 'listAttachedPolicies_marker' - The token to retrieve the next set of results.
+--
+-- 'target', 'listAttachedPolicies_target' - The group or principal for which the policies will be listed. Valid
+-- principals are CertificateArn
+-- (arn:aws:iot:/region/:/accountId/:cert\//certificateId/), thingGroupArn
+-- (arn:aws:iot:/region/:/accountId/:thinggroup\//groupName/) and CognitoId
+-- (/region/:/id/).
+newListAttachedPolicies ::
+  -- | 'target'
+  Prelude.Text ->
   ListAttachedPolicies
-listAttachedPolicies pTarget_ =
+newListAttachedPolicies pTarget_ =
   ListAttachedPolicies'
-    { _lapPageSize = Nothing,
-      _lapRecursive = Nothing,
-      _lapMarker = Nothing,
-      _lapTarget = pTarget_
+    { pageSize = Prelude.Nothing,
+      recursive = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      target = pTarget_
     }
 
 -- | The maximum number of results to be returned per request.
-lapPageSize :: Lens' ListAttachedPolicies (Maybe Natural)
-lapPageSize = lens _lapPageSize (\s a -> s {_lapPageSize = a}) . mapping _Nat
+listAttachedPolicies_pageSize :: Lens.Lens' ListAttachedPolicies (Prelude.Maybe Prelude.Natural)
+listAttachedPolicies_pageSize = Lens.lens (\ListAttachedPolicies' {pageSize} -> pageSize) (\s@ListAttachedPolicies' {} a -> s {pageSize = a} :: ListAttachedPolicies) Prelude.. Lens.mapping Prelude._Nat
 
 -- | When true, recursively list attached policies.
-lapRecursive :: Lens' ListAttachedPolicies (Maybe Bool)
-lapRecursive = lens _lapRecursive (\s a -> s {_lapRecursive = a})
+listAttachedPolicies_recursive :: Lens.Lens' ListAttachedPolicies (Prelude.Maybe Prelude.Bool)
+listAttachedPolicies_recursive = Lens.lens (\ListAttachedPolicies' {recursive} -> recursive) (\s@ListAttachedPolicies' {} a -> s {recursive = a} :: ListAttachedPolicies)
 
 -- | The token to retrieve the next set of results.
-lapMarker :: Lens' ListAttachedPolicies (Maybe Text)
-lapMarker = lens _lapMarker (\s a -> s {_lapMarker = a})
+listAttachedPolicies_marker :: Lens.Lens' ListAttachedPolicies (Prelude.Maybe Prelude.Text)
+listAttachedPolicies_marker = Lens.lens (\ListAttachedPolicies' {marker} -> marker) (\s@ListAttachedPolicies' {} a -> s {marker = a} :: ListAttachedPolicies)
 
--- | The group or principal for which the policies will be listed. Valid principals are CertificateArn (arn:aws:iot:/region/ :/accountId/ :cert//certificateId/ ), thingGroupArn (arn:aws:iot:/region/ :/accountId/ :thinggroup//groupName/ ) and CognitoId (/region/ :/id/ ).
-lapTarget :: Lens' ListAttachedPolicies Text
-lapTarget = lens _lapTarget (\s a -> s {_lapTarget = a})
+-- | The group or principal for which the policies will be listed. Valid
+-- principals are CertificateArn
+-- (arn:aws:iot:/region/:/accountId/:cert\//certificateId/), thingGroupArn
+-- (arn:aws:iot:/region/:/accountId/:thinggroup\//groupName/) and CognitoId
+-- (/region/:/id/).
+listAttachedPolicies_target :: Lens.Lens' ListAttachedPolicies Prelude.Text
+listAttachedPolicies_target = Lens.lens (\ListAttachedPolicies' {target} -> target) (\s@ListAttachedPolicies' {} a -> s {target = a} :: ListAttachedPolicies)
 
-instance AWSPager ListAttachedPolicies where
+instance Pager.AWSPager ListAttachedPolicies where
   page rq rs
-    | stop (rs ^. laprrsNextMarker) = Nothing
-    | stop (rs ^. laprrsPolicies) = Nothing
-    | otherwise =
-      Just $ rq & lapMarker .~ rs ^. laprrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listAttachedPoliciesResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAttachedPoliciesResponse_policies
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAttachedPolicies_marker
+          Lens..~ rs
+          Lens.^? listAttachedPoliciesResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListAttachedPolicies where
+instance Prelude.AWSRequest ListAttachedPolicies where
   type
     Rs ListAttachedPolicies =
       ListAttachedPoliciesResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAttachedPoliciesResponse'
-            <$> (x .?> "policies" .!@ mempty)
-            <*> (x .?> "nextMarker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "policies" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "nextMarker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAttachedPolicies
+instance Prelude.Hashable ListAttachedPolicies
 
-instance NFData ListAttachedPolicies
+instance Prelude.NFData ListAttachedPolicies
 
-instance ToHeaders ListAttachedPolicies where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListAttachedPolicies where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON ListAttachedPolicies where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON ListAttachedPolicies where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath ListAttachedPolicies where
+instance Prelude.ToPath ListAttachedPolicies where
   toPath ListAttachedPolicies' {..} =
-    mconcat ["/attached-policies/", toBS _lapTarget]
+    Prelude.mconcat
+      ["/attached-policies/", Prelude.toBS target]
 
-instance ToQuery ListAttachedPolicies where
+instance Prelude.ToQuery ListAttachedPolicies where
   toQuery ListAttachedPolicies' {..} =
-    mconcat
-      [ "pageSize" =: _lapPageSize,
-        "recursive" =: _lapRecursive,
-        "marker" =: _lapMarker
+    Prelude.mconcat
+      [ "pageSize" Prelude.=: pageSize,
+        "recursive" Prelude.=: recursive,
+        "marker" Prelude.=: marker
       ]
 
--- | /See:/ 'listAttachedPoliciesResponse' smart constructor.
+-- | /See:/ 'newListAttachedPoliciesResponse' smart constructor.
 data ListAttachedPoliciesResponse = ListAttachedPoliciesResponse'
-  { _laprrsPolicies ::
-      !( Maybe
-           [Policy]
-       ),
-    _laprrsNextMarker ::
-      !(Maybe Text),
-    _laprrsResponseStatus ::
-      !Int
+  { -- | The policies.
+    policies :: Prelude.Maybe [Policy],
+    -- | The token to retrieve the next set of results, or \`\`null\`\` if there
+    -- are no more results.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAttachedPoliciesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAttachedPoliciesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laprrsPolicies' - The policies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laprrsNextMarker' - The token to retrieve the next set of results, or ``null`` if there are no more results.
+-- 'policies', 'listAttachedPoliciesResponse_policies' - The policies.
 --
--- * 'laprrsResponseStatus' - -- | The response status code.
-listAttachedPoliciesResponse ::
-  -- | 'laprrsResponseStatus'
-  Int ->
+-- 'nextMarker', 'listAttachedPoliciesResponse_nextMarker' - The token to retrieve the next set of results, or \`\`null\`\` if there
+-- are no more results.
+--
+-- 'httpStatus', 'listAttachedPoliciesResponse_httpStatus' - The response's http status code.
+newListAttachedPoliciesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAttachedPoliciesResponse
-listAttachedPoliciesResponse pResponseStatus_ =
+newListAttachedPoliciesResponse pHttpStatus_ =
   ListAttachedPoliciesResponse'
-    { _laprrsPolicies =
-        Nothing,
-      _laprrsNextMarker = Nothing,
-      _laprrsResponseStatus = pResponseStatus_
+    { policies =
+        Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The policies.
-laprrsPolicies :: Lens' ListAttachedPoliciesResponse [Policy]
-laprrsPolicies = lens _laprrsPolicies (\s a -> s {_laprrsPolicies = a}) . _Default . _Coerce
+listAttachedPoliciesResponse_policies :: Lens.Lens' ListAttachedPoliciesResponse (Prelude.Maybe [Policy])
+listAttachedPoliciesResponse_policies = Lens.lens (\ListAttachedPoliciesResponse' {policies} -> policies) (\s@ListAttachedPoliciesResponse' {} a -> s {policies = a} :: ListAttachedPoliciesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to retrieve the next set of results, or ``null`` if there are no more results.
-laprrsNextMarker :: Lens' ListAttachedPoliciesResponse (Maybe Text)
-laprrsNextMarker = lens _laprrsNextMarker (\s a -> s {_laprrsNextMarker = a})
+-- | The token to retrieve the next set of results, or \`\`null\`\` if there
+-- are no more results.
+listAttachedPoliciesResponse_nextMarker :: Lens.Lens' ListAttachedPoliciesResponse (Prelude.Maybe Prelude.Text)
+listAttachedPoliciesResponse_nextMarker = Lens.lens (\ListAttachedPoliciesResponse' {nextMarker} -> nextMarker) (\s@ListAttachedPoliciesResponse' {} a -> s {nextMarker = a} :: ListAttachedPoliciesResponse)
 
--- | -- | The response status code.
-laprrsResponseStatus :: Lens' ListAttachedPoliciesResponse Int
-laprrsResponseStatus = lens _laprrsResponseStatus (\s a -> s {_laprrsResponseStatus = a})
+-- | The response's http status code.
+listAttachedPoliciesResponse_httpStatus :: Lens.Lens' ListAttachedPoliciesResponse Prelude.Int
+listAttachedPoliciesResponse_httpStatus = Lens.lens (\ListAttachedPoliciesResponse' {httpStatus} -> httpStatus) (\s@ListAttachedPoliciesResponse' {} a -> s {httpStatus = a} :: ListAttachedPoliciesResponse)
 
-instance NFData ListAttachedPoliciesResponse
+instance Prelude.NFData ListAttachedPoliciesResponse

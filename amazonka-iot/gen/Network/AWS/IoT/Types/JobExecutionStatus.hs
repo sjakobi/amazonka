@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,90 +19,88 @@
 module Network.AWS.IoT.Types.JobExecutionStatus
   ( JobExecutionStatus
       ( ..,
-        JESCanceled,
-        JESFailed,
-        JESInProgress,
-        JESQueued,
-        JESRejected,
-        JESRemoved,
-        JESSucceeded,
-        JESTimedOut
+        JobExecutionStatusCANCELED,
+        JobExecutionStatusFAILED,
+        JobExecutionStatusINPROGRESS,
+        JobExecutionStatusQUEUED,
+        JobExecutionStatusREJECTED,
+        JobExecutionStatusREMOVED,
+        JobExecutionStatusSUCCEEDED,
+        JobExecutionStatusTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobExecutionStatus
-  = JobExecutionStatus'
-      ( CI
-          Text
-      )
+newtype JobExecutionStatus = JobExecutionStatus'
+  { fromJobExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JESCanceled :: JobExecutionStatus
-pattern JESCanceled = JobExecutionStatus' "CANCELED"
+pattern JobExecutionStatusCANCELED :: JobExecutionStatus
+pattern JobExecutionStatusCANCELED = JobExecutionStatus' "CANCELED"
 
-pattern JESFailed :: JobExecutionStatus
-pattern JESFailed = JobExecutionStatus' "FAILED"
+pattern JobExecutionStatusFAILED :: JobExecutionStatus
+pattern JobExecutionStatusFAILED = JobExecutionStatus' "FAILED"
 
-pattern JESInProgress :: JobExecutionStatus
-pattern JESInProgress = JobExecutionStatus' "IN_PROGRESS"
+pattern JobExecutionStatusINPROGRESS :: JobExecutionStatus
+pattern JobExecutionStatusINPROGRESS = JobExecutionStatus' "IN_PROGRESS"
 
-pattern JESQueued :: JobExecutionStatus
-pattern JESQueued = JobExecutionStatus' "QUEUED"
+pattern JobExecutionStatusQUEUED :: JobExecutionStatus
+pattern JobExecutionStatusQUEUED = JobExecutionStatus' "QUEUED"
 
-pattern JESRejected :: JobExecutionStatus
-pattern JESRejected = JobExecutionStatus' "REJECTED"
+pattern JobExecutionStatusREJECTED :: JobExecutionStatus
+pattern JobExecutionStatusREJECTED = JobExecutionStatus' "REJECTED"
 
-pattern JESRemoved :: JobExecutionStatus
-pattern JESRemoved = JobExecutionStatus' "REMOVED"
+pattern JobExecutionStatusREMOVED :: JobExecutionStatus
+pattern JobExecutionStatusREMOVED = JobExecutionStatus' "REMOVED"
 
-pattern JESSucceeded :: JobExecutionStatus
-pattern JESSucceeded = JobExecutionStatus' "SUCCEEDED"
+pattern JobExecutionStatusSUCCEEDED :: JobExecutionStatus
+pattern JobExecutionStatusSUCCEEDED = JobExecutionStatus' "SUCCEEDED"
 
-pattern JESTimedOut :: JobExecutionStatus
-pattern JESTimedOut = JobExecutionStatus' "TIMED_OUT"
+pattern JobExecutionStatusTIMEDOUT :: JobExecutionStatus
+pattern JobExecutionStatusTIMEDOUT = JobExecutionStatus' "TIMED_OUT"
 
 {-# COMPLETE
-  JESCanceled,
-  JESFailed,
-  JESInProgress,
-  JESQueued,
-  JESRejected,
-  JESRemoved,
-  JESSucceeded,
-  JESTimedOut,
+  JobExecutionStatusCANCELED,
+  JobExecutionStatusFAILED,
+  JobExecutionStatusINPROGRESS,
+  JobExecutionStatusQUEUED,
+  JobExecutionStatusREJECTED,
+  JobExecutionStatusREMOVED,
+  JobExecutionStatusSUCCEEDED,
+  JobExecutionStatusTIMEDOUT,
   JobExecutionStatus'
   #-}
 
-instance FromText JobExecutionStatus where
-  parser = (JobExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText JobExecutionStatus where
+  parser = JobExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText JobExecutionStatus where
-  toText (JobExecutionStatus' ci) = original ci
+instance Prelude.ToText JobExecutionStatus where
+  toText (JobExecutionStatus' x) = x
 
-instance Hashable JobExecutionStatus
+instance Prelude.Hashable JobExecutionStatus
 
-instance NFData JobExecutionStatus
+instance Prelude.NFData JobExecutionStatus
 
-instance ToByteString JobExecutionStatus
+instance Prelude.ToByteString JobExecutionStatus
 
-instance ToQuery JobExecutionStatus
+instance Prelude.ToQuery JobExecutionStatus
 
-instance ToHeader JobExecutionStatus
+instance Prelude.ToHeader JobExecutionStatus
 
-instance ToJSON JobExecutionStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobExecutionStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JobExecutionStatus where
-  parseJSON = parseJSONText "JobExecutionStatus"
+instance Prelude.FromJSON JobExecutionStatus where
+  parseJSON = Prelude.parseJSONText "JobExecutionStatus"

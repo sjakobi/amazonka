@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.IoT.Types.DimensionValueOperator
   ( DimensionValueOperator
       ( ..,
-        IN,
-        NotIn
+        DimensionValueOperatorIN,
+        DimensionValueOperatorNOTIN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DimensionValueOperator
-  = DimensionValueOperator'
-      ( CI
-          Text
-      )
+newtype DimensionValueOperator = DimensionValueOperator'
+  { fromDimensionValueOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IN :: DimensionValueOperator
-pattern IN = DimensionValueOperator' "IN"
+pattern DimensionValueOperatorIN :: DimensionValueOperator
+pattern DimensionValueOperatorIN = DimensionValueOperator' "IN"
 
-pattern NotIn :: DimensionValueOperator
-pattern NotIn = DimensionValueOperator' "NOT_IN"
+pattern DimensionValueOperatorNOTIN :: DimensionValueOperator
+pattern DimensionValueOperatorNOTIN = DimensionValueOperator' "NOT_IN"
 
 {-# COMPLETE
-  IN,
-  NotIn,
+  DimensionValueOperatorIN,
+  DimensionValueOperatorNOTIN,
   DimensionValueOperator'
   #-}
 
-instance FromText DimensionValueOperator where
-  parser = (DimensionValueOperator' . mk) <$> takeText
+instance Prelude.FromText DimensionValueOperator where
+  parser = DimensionValueOperator' Prelude.<$> Prelude.takeText
 
-instance ToText DimensionValueOperator where
-  toText (DimensionValueOperator' ci) = original ci
+instance Prelude.ToText DimensionValueOperator where
+  toText (DimensionValueOperator' x) = x
 
-instance Hashable DimensionValueOperator
+instance Prelude.Hashable DimensionValueOperator
 
-instance NFData DimensionValueOperator
+instance Prelude.NFData DimensionValueOperator
 
-instance ToByteString DimensionValueOperator
+instance Prelude.ToByteString DimensionValueOperator
 
-instance ToQuery DimensionValueOperator
+instance Prelude.ToQuery DimensionValueOperator
 
-instance ToHeader DimensionValueOperator
+instance Prelude.ToHeader DimensionValueOperator
 
-instance ToJSON DimensionValueOperator where
-  toJSON = toJSONText
+instance Prelude.ToJSON DimensionValueOperator where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DimensionValueOperator where
-  parseJSON = parseJSONText "DimensionValueOperator"
+instance Prelude.FromJSON DimensionValueOperator where
+  parseJSON = Prelude.parseJSONText "DimensionValueOperator"

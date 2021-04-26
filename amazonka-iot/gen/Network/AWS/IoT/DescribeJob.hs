@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,115 +24,128 @@
 -- Describes a job.
 module Network.AWS.IoT.DescribeJob
   ( -- * Creating a Request
-    describeJob,
-    DescribeJob,
+    DescribeJob (..),
+    newDescribeJob,
 
     -- * Request Lenses
-    desJobId,
+    describeJob_jobId,
 
     -- * Destructuring the Response
-    describeJobResponse,
-    DescribeJobResponse,
+    DescribeJobResponse (..),
+    newDescribeJobResponse,
 
     -- * Response Lenses
-    djrrsJob,
-    djrrsDocumentSource,
-    djrrsResponseStatus,
+    describeJobResponse_job,
+    describeJobResponse_documentSource,
+    describeJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.Job
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeJob' smart constructor.
-newtype DescribeJob = DescribeJob' {_desJobId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDescribeJob' smart constructor.
+data DescribeJob = DescribeJob'
+  { -- | The unique identifier you assigned to this job when it was created.
+    jobId :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desJobId' - The unique identifier you assigned to this job when it was created.
-describeJob ::
-  -- | 'desJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'describeJob_jobId' - The unique identifier you assigned to this job when it was created.
+newDescribeJob ::
+  -- | 'jobId'
+  Prelude.Text ->
   DescribeJob
-describeJob pJobId_ =
-  DescribeJob' {_desJobId = pJobId_}
+newDescribeJob pJobId_ =
+  DescribeJob' {jobId = pJobId_}
 
 -- | The unique identifier you assigned to this job when it was created.
-desJobId :: Lens' DescribeJob Text
-desJobId = lens _desJobId (\s a -> s {_desJobId = a})
+describeJob_jobId :: Lens.Lens' DescribeJob Prelude.Text
+describeJob_jobId = Lens.lens (\DescribeJob' {jobId} -> jobId) (\s@DescribeJob' {} a -> s {jobId = a} :: DescribeJob)
 
-instance AWSRequest DescribeJob where
+instance Prelude.AWSRequest DescribeJob where
   type Rs DescribeJob = DescribeJobResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeJobResponse'
-            <$> (x .?> "job")
-            <*> (x .?> "documentSource")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "job")
+            Prelude.<*> (x Prelude..?> "documentSource")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeJob
+instance Prelude.Hashable DescribeJob
 
-instance NFData DescribeJob
+instance Prelude.NFData DescribeJob
 
-instance ToHeaders DescribeJob where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeJob where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeJob where
+instance Prelude.ToPath DescribeJob where
   toPath DescribeJob' {..} =
-    mconcat ["/jobs/", toBS _desJobId]
+    Prelude.mconcat ["/jobs/", Prelude.toBS jobId]
 
-instance ToQuery DescribeJob where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeJobResponse' smart constructor.
+-- | /See:/ 'newDescribeJobResponse' smart constructor.
 data DescribeJobResponse = DescribeJobResponse'
-  { _djrrsJob ::
-      !(Maybe Job),
-    _djrrsDocumentSource ::
-      !(Maybe Text),
-    _djrrsResponseStatus :: !Int
+  { -- | Information about the job.
+    job :: Prelude.Maybe Job,
+    -- | An S3 link to the job document.
+    documentSource :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djrrsJob' - Information about the job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'djrrsDocumentSource' - An S3 link to the job document.
+-- 'job', 'describeJobResponse_job' - Information about the job.
 --
--- * 'djrrsResponseStatus' - -- | The response status code.
-describeJobResponse ::
-  -- | 'djrrsResponseStatus'
-  Int ->
+-- 'documentSource', 'describeJobResponse_documentSource' - An S3 link to the job document.
+--
+-- 'httpStatus', 'describeJobResponse_httpStatus' - The response's http status code.
+newDescribeJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeJobResponse
-describeJobResponse pResponseStatus_ =
+newDescribeJobResponse pHttpStatus_ =
   DescribeJobResponse'
-    { _djrrsJob = Nothing,
-      _djrrsDocumentSource = Nothing,
-      _djrrsResponseStatus = pResponseStatus_
+    { job = Prelude.Nothing,
+      documentSource = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the job.
-djrrsJob :: Lens' DescribeJobResponse (Maybe Job)
-djrrsJob = lens _djrrsJob (\s a -> s {_djrrsJob = a})
+describeJobResponse_job :: Lens.Lens' DescribeJobResponse (Prelude.Maybe Job)
+describeJobResponse_job = Lens.lens (\DescribeJobResponse' {job} -> job) (\s@DescribeJobResponse' {} a -> s {job = a} :: DescribeJobResponse)
 
 -- | An S3 link to the job document.
-djrrsDocumentSource :: Lens' DescribeJobResponse (Maybe Text)
-djrrsDocumentSource = lens _djrrsDocumentSource (\s a -> s {_djrrsDocumentSource = a})
+describeJobResponse_documentSource :: Lens.Lens' DescribeJobResponse (Prelude.Maybe Prelude.Text)
+describeJobResponse_documentSource = Lens.lens (\DescribeJobResponse' {documentSource} -> documentSource) (\s@DescribeJobResponse' {} a -> s {documentSource = a} :: DescribeJobResponse)
 
--- | -- | The response status code.
-djrrsResponseStatus :: Lens' DescribeJobResponse Int
-djrrsResponseStatus = lens _djrrsResponseStatus (\s a -> s {_djrrsResponseStatus = a})
+-- | The response's http status code.
+describeJobResponse_httpStatus :: Lens.Lens' DescribeJobResponse Prelude.Int
+describeJobResponse_httpStatus = Lens.lens (\DescribeJobResponse' {httpStatus} -> httpStatus) (\s@DescribeJobResponse' {} a -> s {httpStatus = a} :: DescribeJobResponse)
 
-instance NFData DescribeJobResponse
+instance Prelude.NFData DescribeJobResponse

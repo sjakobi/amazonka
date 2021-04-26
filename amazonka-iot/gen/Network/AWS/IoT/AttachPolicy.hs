@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,90 +24,110 @@
 -- Attaches a policy to the specified target.
 module Network.AWS.IoT.AttachPolicy
   ( -- * Creating a Request
-    attachPolicy,
-    AttachPolicy,
+    AttachPolicy (..),
+    newAttachPolicy,
 
     -- * Request Lenses
-    apPolicyName,
-    apTarget,
+    attachPolicy_policyName,
+    attachPolicy_target,
 
     -- * Destructuring the Response
-    attachPolicyResponse,
-    AttachPolicyResponse,
+    AttachPolicyResponse (..),
+    newAttachPolicyResponse,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'attachPolicy' smart constructor.
+-- | /See:/ 'newAttachPolicy' smart constructor.
 data AttachPolicy = AttachPolicy'
-  { _apPolicyName ::
-      !Text,
-    _apTarget :: !Text
+  { -- | The name of the policy to attach.
+    policyName :: Prelude.Text,
+    -- | The
+    -- <https://docs.aws.amazon.com/iot/latest/developerguide/security-iam.html identity>
+    -- to which the policy is attached.
+    target :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apPolicyName' - The name of the policy to attach.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apTarget' - The <https://docs.aws.amazon.com/iot/latest/developerguide/security-iam.html identity> to which the policy is attached.
-attachPolicy ::
-  -- | 'apPolicyName'
-  Text ->
-  -- | 'apTarget'
-  Text ->
+-- 'policyName', 'attachPolicy_policyName' - The name of the policy to attach.
+--
+-- 'target', 'attachPolicy_target' - The
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/security-iam.html identity>
+-- to which the policy is attached.
+newAttachPolicy ::
+  -- | 'policyName'
+  Prelude.Text ->
+  -- | 'target'
+  Prelude.Text ->
   AttachPolicy
-attachPolicy pPolicyName_ pTarget_ =
+newAttachPolicy pPolicyName_ pTarget_ =
   AttachPolicy'
-    { _apPolicyName = pPolicyName_,
-      _apTarget = pTarget_
+    { policyName = pPolicyName_,
+      target = pTarget_
     }
 
 -- | The name of the policy to attach.
-apPolicyName :: Lens' AttachPolicy Text
-apPolicyName = lens _apPolicyName (\s a -> s {_apPolicyName = a})
+attachPolicy_policyName :: Lens.Lens' AttachPolicy Prelude.Text
+attachPolicy_policyName = Lens.lens (\AttachPolicy' {policyName} -> policyName) (\s@AttachPolicy' {} a -> s {policyName = a} :: AttachPolicy)
 
--- | The <https://docs.aws.amazon.com/iot/latest/developerguide/security-iam.html identity> to which the policy is attached.
-apTarget :: Lens' AttachPolicy Text
-apTarget = lens _apTarget (\s a -> s {_apTarget = a})
+-- | The
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/security-iam.html identity>
+-- to which the policy is attached.
+attachPolicy_target :: Lens.Lens' AttachPolicy Prelude.Text
+attachPolicy_target = Lens.lens (\AttachPolicy' {target} -> target) (\s@AttachPolicy' {} a -> s {target = a} :: AttachPolicy)
 
-instance AWSRequest AttachPolicy where
+instance Prelude.AWSRequest AttachPolicy where
   type Rs AttachPolicy = AttachPolicyResponse
-  request = putJSON ioT
-  response = receiveNull AttachPolicyResponse'
+  request = Request.putJSON defaultService
+  response = Response.receiveNull AttachPolicyResponse'
 
-instance Hashable AttachPolicy
+instance Prelude.Hashable AttachPolicy
 
-instance NFData AttachPolicy
+instance Prelude.NFData AttachPolicy
 
-instance ToHeaders AttachPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AttachPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON AttachPolicy where
+instance Prelude.ToJSON AttachPolicy where
   toJSON AttachPolicy' {..} =
-    object (catMaybes [Just ("target" .= _apTarget)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("target" Prelude..= target)]
+      )
 
-instance ToPath AttachPolicy where
+instance Prelude.ToPath AttachPolicy where
   toPath AttachPolicy' {..} =
-    mconcat ["/target-policies/", toBS _apPolicyName]
+    Prelude.mconcat
+      ["/target-policies/", Prelude.toBS policyName]
 
-instance ToQuery AttachPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery AttachPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'attachPolicyResponse' smart constructor.
+-- | /See:/ 'newAttachPolicyResponse' smart constructor.
 data AttachPolicyResponse = AttachPolicyResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachPolicyResponse' with the minimum fields required to make a request.
-attachPolicyResponse ::
+-- |
+-- Create a value of 'AttachPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAttachPolicyResponse ::
   AttachPolicyResponse
-attachPolicyResponse = AttachPolicyResponse'
+newAttachPolicyResponse = AttachPolicyResponse'
 
-instance NFData AttachPolicyResponse
+instance Prelude.NFData AttachPolicyResponse

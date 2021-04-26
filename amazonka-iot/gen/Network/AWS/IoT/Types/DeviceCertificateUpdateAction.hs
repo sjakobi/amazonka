@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.IoT.Types.DeviceCertificateUpdateAction
   ( DeviceCertificateUpdateAction
       ( ..,
-        Deactivate
+        DeviceCertificateUpdateActionDEACTIVATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceCertificateUpdateAction
-  = DeviceCertificateUpdateAction'
-      ( CI
-          Text
-      )
+newtype DeviceCertificateUpdateAction = DeviceCertificateUpdateAction'
+  { fromDeviceCertificateUpdateAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Deactivate :: DeviceCertificateUpdateAction
-pattern Deactivate = DeviceCertificateUpdateAction' "DEACTIVATE"
+pattern DeviceCertificateUpdateActionDEACTIVATE :: DeviceCertificateUpdateAction
+pattern DeviceCertificateUpdateActionDEACTIVATE = DeviceCertificateUpdateAction' "DEACTIVATE"
 
 {-# COMPLETE
-  Deactivate,
+  DeviceCertificateUpdateActionDEACTIVATE,
   DeviceCertificateUpdateAction'
   #-}
 
-instance FromText DeviceCertificateUpdateAction where
-  parser = (DeviceCertificateUpdateAction' . mk) <$> takeText
+instance Prelude.FromText DeviceCertificateUpdateAction where
+  parser = DeviceCertificateUpdateAction' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceCertificateUpdateAction where
-  toText (DeviceCertificateUpdateAction' ci) = original ci
+instance Prelude.ToText DeviceCertificateUpdateAction where
+  toText (DeviceCertificateUpdateAction' x) = x
 
-instance Hashable DeviceCertificateUpdateAction
+instance Prelude.Hashable DeviceCertificateUpdateAction
 
-instance NFData DeviceCertificateUpdateAction
+instance Prelude.NFData DeviceCertificateUpdateAction
 
-instance ToByteString DeviceCertificateUpdateAction
+instance Prelude.ToByteString DeviceCertificateUpdateAction
 
-instance ToQuery DeviceCertificateUpdateAction
+instance Prelude.ToQuery DeviceCertificateUpdateAction
 
-instance ToHeader DeviceCertificateUpdateAction
+instance Prelude.ToHeader DeviceCertificateUpdateAction
 
-instance ToJSON DeviceCertificateUpdateAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeviceCertificateUpdateAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeviceCertificateUpdateAction where
-  parseJSON = parseJSONText "DeviceCertificateUpdateAction"
+instance Prelude.FromJSON DeviceCertificateUpdateAction where
+  parseJSON = Prelude.parseJSONText "DeviceCertificateUpdateAction"

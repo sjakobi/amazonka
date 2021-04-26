@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,110 +23,117 @@ import Network.AWS.IoT.Types.Behavior
 import Network.AWS.IoT.Types.MetricValue
 import Network.AWS.IoT.Types.ViolationEventAdditionalInfo
 import Network.AWS.IoT.Types.ViolationEventType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a Device Defender security profile behavior violation.
 --
---
---
--- /See:/ 'violationEvent' smart constructor.
+-- /See:/ 'newViolationEvent' smart constructor.
 data ViolationEvent = ViolationEvent'
-  { _veMetricValue ::
-      !(Maybe MetricValue),
-    _veViolationId :: !(Maybe Text),
-    _veThingName :: !(Maybe Text),
-    _veSecurityProfileName :: !(Maybe Text),
-    _veBehavior :: !(Maybe Behavior),
-    _veViolationEventTime :: !(Maybe POSIX),
-    _veViolationEventType ::
-      !(Maybe ViolationEventType),
-    _veViolationEventAdditionalInfo ::
-      !(Maybe ViolationEventAdditionalInfo)
+  { -- | The value of the metric (the measurement).
+    metricValue :: Prelude.Maybe MetricValue,
+    -- | The ID of the violation event.
+    violationId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing responsible for the violation event.
+    thingName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the security profile whose behavior was violated.
+    securityProfileName :: Prelude.Maybe Prelude.Text,
+    -- | The behavior that was violated.
+    behavior :: Prelude.Maybe Behavior,
+    -- | The time the violation event occurred.
+    violationEventTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The type of violation event.
+    violationEventType :: Prelude.Maybe ViolationEventType,
+    -- | The details of a violation event.
+    violationEventAdditionalInfo :: Prelude.Maybe ViolationEventAdditionalInfo
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ViolationEvent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ViolationEvent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'veMetricValue' - The value of the metric (the measurement).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'veViolationId' - The ID of the violation event.
+-- 'metricValue', 'violationEvent_metricValue' - The value of the metric (the measurement).
 --
--- * 'veThingName' - The name of the thing responsible for the violation event.
+-- 'violationId', 'violationEvent_violationId' - The ID of the violation event.
 --
--- * 'veSecurityProfileName' - The name of the security profile whose behavior was violated.
+-- 'thingName', 'violationEvent_thingName' - The name of the thing responsible for the violation event.
 --
--- * 'veBehavior' - The behavior that was violated.
+-- 'securityProfileName', 'violationEvent_securityProfileName' - The name of the security profile whose behavior was violated.
 --
--- * 'veViolationEventTime' - The time the violation event occurred.
+-- 'behavior', 'violationEvent_behavior' - The behavior that was violated.
 --
--- * 'veViolationEventType' - The type of violation event.
+-- 'violationEventTime', 'violationEvent_violationEventTime' - The time the violation event occurred.
 --
--- * 'veViolationEventAdditionalInfo' - The details of a violation event.
-violationEvent ::
+-- 'violationEventType', 'violationEvent_violationEventType' - The type of violation event.
+--
+-- 'violationEventAdditionalInfo', 'violationEvent_violationEventAdditionalInfo' - The details of a violation event.
+newViolationEvent ::
   ViolationEvent
-violationEvent =
+newViolationEvent =
   ViolationEvent'
-    { _veMetricValue = Nothing,
-      _veViolationId = Nothing,
-      _veThingName = Nothing,
-      _veSecurityProfileName = Nothing,
-      _veBehavior = Nothing,
-      _veViolationEventTime = Nothing,
-      _veViolationEventType = Nothing,
-      _veViolationEventAdditionalInfo = Nothing
+    { metricValue = Prelude.Nothing,
+      violationId = Prelude.Nothing,
+      thingName = Prelude.Nothing,
+      securityProfileName = Prelude.Nothing,
+      behavior = Prelude.Nothing,
+      violationEventTime = Prelude.Nothing,
+      violationEventType = Prelude.Nothing,
+      violationEventAdditionalInfo = Prelude.Nothing
     }
 
 -- | The value of the metric (the measurement).
-veMetricValue :: Lens' ViolationEvent (Maybe MetricValue)
-veMetricValue = lens _veMetricValue (\s a -> s {_veMetricValue = a})
+violationEvent_metricValue :: Lens.Lens' ViolationEvent (Prelude.Maybe MetricValue)
+violationEvent_metricValue = Lens.lens (\ViolationEvent' {metricValue} -> metricValue) (\s@ViolationEvent' {} a -> s {metricValue = a} :: ViolationEvent)
 
 -- | The ID of the violation event.
-veViolationId :: Lens' ViolationEvent (Maybe Text)
-veViolationId = lens _veViolationId (\s a -> s {_veViolationId = a})
+violationEvent_violationId :: Lens.Lens' ViolationEvent (Prelude.Maybe Prelude.Text)
+violationEvent_violationId = Lens.lens (\ViolationEvent' {violationId} -> violationId) (\s@ViolationEvent' {} a -> s {violationId = a} :: ViolationEvent)
 
 -- | The name of the thing responsible for the violation event.
-veThingName :: Lens' ViolationEvent (Maybe Text)
-veThingName = lens _veThingName (\s a -> s {_veThingName = a})
+violationEvent_thingName :: Lens.Lens' ViolationEvent (Prelude.Maybe Prelude.Text)
+violationEvent_thingName = Lens.lens (\ViolationEvent' {thingName} -> thingName) (\s@ViolationEvent' {} a -> s {thingName = a} :: ViolationEvent)
 
 -- | The name of the security profile whose behavior was violated.
-veSecurityProfileName :: Lens' ViolationEvent (Maybe Text)
-veSecurityProfileName = lens _veSecurityProfileName (\s a -> s {_veSecurityProfileName = a})
+violationEvent_securityProfileName :: Lens.Lens' ViolationEvent (Prelude.Maybe Prelude.Text)
+violationEvent_securityProfileName = Lens.lens (\ViolationEvent' {securityProfileName} -> securityProfileName) (\s@ViolationEvent' {} a -> s {securityProfileName = a} :: ViolationEvent)
 
 -- | The behavior that was violated.
-veBehavior :: Lens' ViolationEvent (Maybe Behavior)
-veBehavior = lens _veBehavior (\s a -> s {_veBehavior = a})
+violationEvent_behavior :: Lens.Lens' ViolationEvent (Prelude.Maybe Behavior)
+violationEvent_behavior = Lens.lens (\ViolationEvent' {behavior} -> behavior) (\s@ViolationEvent' {} a -> s {behavior = a} :: ViolationEvent)
 
 -- | The time the violation event occurred.
-veViolationEventTime :: Lens' ViolationEvent (Maybe UTCTime)
-veViolationEventTime = lens _veViolationEventTime (\s a -> s {_veViolationEventTime = a}) . mapping _Time
+violationEvent_violationEventTime :: Lens.Lens' ViolationEvent (Prelude.Maybe Prelude.UTCTime)
+violationEvent_violationEventTime = Lens.lens (\ViolationEvent' {violationEventTime} -> violationEventTime) (\s@ViolationEvent' {} a -> s {violationEventTime = a} :: ViolationEvent) Prelude.. Lens.mapping Prelude._Time
 
 -- | The type of violation event.
-veViolationEventType :: Lens' ViolationEvent (Maybe ViolationEventType)
-veViolationEventType = lens _veViolationEventType (\s a -> s {_veViolationEventType = a})
+violationEvent_violationEventType :: Lens.Lens' ViolationEvent (Prelude.Maybe ViolationEventType)
+violationEvent_violationEventType = Lens.lens (\ViolationEvent' {violationEventType} -> violationEventType) (\s@ViolationEvent' {} a -> s {violationEventType = a} :: ViolationEvent)
 
 -- | The details of a violation event.
-veViolationEventAdditionalInfo :: Lens' ViolationEvent (Maybe ViolationEventAdditionalInfo)
-veViolationEventAdditionalInfo = lens _veViolationEventAdditionalInfo (\s a -> s {_veViolationEventAdditionalInfo = a})
+violationEvent_violationEventAdditionalInfo :: Lens.Lens' ViolationEvent (Prelude.Maybe ViolationEventAdditionalInfo)
+violationEvent_violationEventAdditionalInfo = Lens.lens (\ViolationEvent' {violationEventAdditionalInfo} -> violationEventAdditionalInfo) (\s@ViolationEvent' {} a -> s {violationEventAdditionalInfo = a} :: ViolationEvent)
 
-instance FromJSON ViolationEvent where
+instance Prelude.FromJSON ViolationEvent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ViolationEvent"
       ( \x ->
           ViolationEvent'
-            <$> (x .:? "metricValue")
-            <*> (x .:? "violationId")
-            <*> (x .:? "thingName")
-            <*> (x .:? "securityProfileName")
-            <*> (x .:? "behavior")
-            <*> (x .:? "violationEventTime")
-            <*> (x .:? "violationEventType")
-            <*> (x .:? "violationEventAdditionalInfo")
+            Prelude.<$> (x Prelude..:? "metricValue")
+            Prelude.<*> (x Prelude..:? "violationId")
+            Prelude.<*> (x Prelude..:? "thingName")
+            Prelude.<*> (x Prelude..:? "securityProfileName")
+            Prelude.<*> (x Prelude..:? "behavior")
+            Prelude.<*> (x Prelude..:? "violationEventTime")
+            Prelude.<*> (x Prelude..:? "violationEventType")
+            Prelude.<*> (x Prelude..:? "violationEventAdditionalInfo")
       )
 
-instance Hashable ViolationEvent
+instance Prelude.Hashable ViolationEvent
 
-instance NFData ViolationEvent
+instance Prelude.NFData ViolationEvent

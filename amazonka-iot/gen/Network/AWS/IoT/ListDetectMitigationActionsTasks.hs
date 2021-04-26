@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,203 +23,238 @@
 --
 -- List of Device Defender ML Detect mitigation actions tasks.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListDetectMitigationActionsTasks
   ( -- * Creating a Request
-    listDetectMitigationActionsTasks,
-    ListDetectMitigationActionsTasks,
+    ListDetectMitigationActionsTasks (..),
+    newListDetectMitigationActionsTasks,
 
     -- * Request Lenses
-    ldmatNextToken,
-    ldmatMaxResults,
-    ldmatStartTime,
-    ldmatEndTime,
+    listDetectMitigationActionsTasks_nextToken,
+    listDetectMitigationActionsTasks_maxResults,
+    listDetectMitigationActionsTasks_startTime,
+    listDetectMitigationActionsTasks_endTime,
 
     -- * Destructuring the Response
-    listDetectMitigationActionsTasksResponse,
-    ListDetectMitigationActionsTasksResponse,
+    ListDetectMitigationActionsTasksResponse (..),
+    newListDetectMitigationActionsTasksResponse,
 
     -- * Response Lenses
-    ldmatrrsNextToken,
-    ldmatrrsTasks,
-    ldmatrrsResponseStatus,
+    listDetectMitigationActionsTasksResponse_nextToken,
+    listDetectMitigationActionsTasksResponse_tasks,
+    listDetectMitigationActionsTasksResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.DetectMitigationActionsTaskSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDetectMitigationActionsTasks' smart constructor.
+-- | /See:/ 'newListDetectMitigationActionsTasks' smart constructor.
 data ListDetectMitigationActionsTasks = ListDetectMitigationActionsTasks'
-  { _ldmatNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ldmatMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _ldmatStartTime ::
-      !POSIX,
-    _ldmatEndTime ::
-      !POSIX
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return at one time. The default is 25.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter to limit results to those found after the specified time. You
+    -- must specify either the startTime and endTime or the taskId, but not
+    -- both.
+    startTime :: Prelude.POSIX,
+    -- | The end of the time period for which ML Detect mitigation actions tasks
+    -- are returned.
+    endTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDetectMitigationActionsTasks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDetectMitigationActionsTasks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldmatNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldmatMaxResults' - The maximum number of results to return at one time. The default is 25.
+-- 'nextToken', 'listDetectMitigationActionsTasks_nextToken' - The token for the next set of results.
 --
--- * 'ldmatStartTime' - A filter to limit results to those found after the specified time. You must specify either the startTime and endTime or the taskId, but not both.
+-- 'maxResults', 'listDetectMitigationActionsTasks_maxResults' - The maximum number of results to return at one time. The default is 25.
 --
--- * 'ldmatEndTime' - The end of the time period for which ML Detect mitigation actions tasks are returned.
-listDetectMitigationActionsTasks ::
-  -- | 'ldmatStartTime'
-  UTCTime ->
-  -- | 'ldmatEndTime'
-  UTCTime ->
+-- 'startTime', 'listDetectMitigationActionsTasks_startTime' - A filter to limit results to those found after the specified time. You
+-- must specify either the startTime and endTime or the taskId, but not
+-- both.
+--
+-- 'endTime', 'listDetectMitigationActionsTasks_endTime' - The end of the time period for which ML Detect mitigation actions tasks
+-- are returned.
+newListDetectMitigationActionsTasks ::
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
   ListDetectMitigationActionsTasks
-listDetectMitigationActionsTasks
+newListDetectMitigationActionsTasks
   pStartTime_
   pEndTime_ =
     ListDetectMitigationActionsTasks'
-      { _ldmatNextToken =
-          Nothing,
-        _ldmatMaxResults = Nothing,
-        _ldmatStartTime = _Time # pStartTime_,
-        _ldmatEndTime = _Time # pEndTime_
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        startTime =
+          Prelude._Time Lens.# pStartTime_,
+        endTime = Prelude._Time Lens.# pEndTime_
       }
 
 -- | The token for the next set of results.
-ldmatNextToken :: Lens' ListDetectMitigationActionsTasks (Maybe Text)
-ldmatNextToken = lens _ldmatNextToken (\s a -> s {_ldmatNextToken = a})
+listDetectMitigationActionsTasks_nextToken :: Lens.Lens' ListDetectMitigationActionsTasks (Prelude.Maybe Prelude.Text)
+listDetectMitigationActionsTasks_nextToken = Lens.lens (\ListDetectMitigationActionsTasks' {nextToken} -> nextToken) (\s@ListDetectMitigationActionsTasks' {} a -> s {nextToken = a} :: ListDetectMitigationActionsTasks)
 
 -- | The maximum number of results to return at one time. The default is 25.
-ldmatMaxResults :: Lens' ListDetectMitigationActionsTasks (Maybe Natural)
-ldmatMaxResults = lens _ldmatMaxResults (\s a -> s {_ldmatMaxResults = a}) . mapping _Nat
+listDetectMitigationActionsTasks_maxResults :: Lens.Lens' ListDetectMitigationActionsTasks (Prelude.Maybe Prelude.Natural)
+listDetectMitigationActionsTasks_maxResults = Lens.lens (\ListDetectMitigationActionsTasks' {maxResults} -> maxResults) (\s@ListDetectMitigationActionsTasks' {} a -> s {maxResults = a} :: ListDetectMitigationActionsTasks) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter to limit results to those found after the specified time. You must specify either the startTime and endTime or the taskId, but not both.
-ldmatStartTime :: Lens' ListDetectMitigationActionsTasks UTCTime
-ldmatStartTime = lens _ldmatStartTime (\s a -> s {_ldmatStartTime = a}) . _Time
+-- | A filter to limit results to those found after the specified time. You
+-- must specify either the startTime and endTime or the taskId, but not
+-- both.
+listDetectMitigationActionsTasks_startTime :: Lens.Lens' ListDetectMitigationActionsTasks Prelude.UTCTime
+listDetectMitigationActionsTasks_startTime = Lens.lens (\ListDetectMitigationActionsTasks' {startTime} -> startTime) (\s@ListDetectMitigationActionsTasks' {} a -> s {startTime = a} :: ListDetectMitigationActionsTasks) Prelude.. Prelude._Time
 
--- | The end of the time period for which ML Detect mitigation actions tasks are returned.
-ldmatEndTime :: Lens' ListDetectMitigationActionsTasks UTCTime
-ldmatEndTime = lens _ldmatEndTime (\s a -> s {_ldmatEndTime = a}) . _Time
+-- | The end of the time period for which ML Detect mitigation actions tasks
+-- are returned.
+listDetectMitigationActionsTasks_endTime :: Lens.Lens' ListDetectMitigationActionsTasks Prelude.UTCTime
+listDetectMitigationActionsTasks_endTime = Lens.lens (\ListDetectMitigationActionsTasks' {endTime} -> endTime) (\s@ListDetectMitigationActionsTasks' {} a -> s {endTime = a} :: ListDetectMitigationActionsTasks) Prelude.. Prelude._Time
 
-instance AWSPager ListDetectMitigationActionsTasks where
+instance
+  Pager.AWSPager
+    ListDetectMitigationActionsTasks
+  where
   page rq rs
-    | stop (rs ^. ldmatrrsNextToken) = Nothing
-    | stop (rs ^. ldmatrrsTasks) = Nothing
-    | otherwise =
-      Just $ rq & ldmatNextToken .~ rs ^. ldmatrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDetectMitigationActionsTasksResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDetectMitigationActionsTasksResponse_tasks
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDetectMitigationActionsTasks_nextToken
+          Lens..~ rs
+          Lens.^? listDetectMitigationActionsTasksResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDetectMitigationActionsTasks where
+instance
+  Prelude.AWSRequest
+    ListDetectMitigationActionsTasks
+  where
   type
     Rs ListDetectMitigationActionsTasks =
       ListDetectMitigationActionsTasksResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDetectMitigationActionsTasksResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "tasks" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "tasks" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDetectMitigationActionsTasks
-
-instance NFData ListDetectMitigationActionsTasks
-
-instance ToHeaders ListDetectMitigationActionsTasks where
-  toHeaders = const mempty
-
-instance ToPath ListDetectMitigationActionsTasks where
-  toPath = const "/detect/mitigationactions/tasks"
-
-instance ToQuery ListDetectMitigationActionsTasks where
-  toQuery ListDetectMitigationActionsTasks' {..} =
-    mconcat
-      [ "nextToken" =: _ldmatNextToken,
-        "maxResults" =: _ldmatMaxResults,
-        "startTime" =: _ldmatStartTime,
-        "endTime" =: _ldmatEndTime
-      ]
-
--- | /See:/ 'listDetectMitigationActionsTasksResponse' smart constructor.
-data ListDetectMitigationActionsTasksResponse = ListDetectMitigationActionsTasksResponse'
-  { _ldmatrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ldmatrrsTasks ::
-      !( Maybe
-           [DetectMitigationActionsTaskSummary]
-       ),
-    _ldmatrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'ListDetectMitigationActionsTasksResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'ldmatrrsNextToken' - A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
---
--- * 'ldmatrrsTasks' - The collection of ML Detect mitigation tasks that matched the filter criteria.
---
--- * 'ldmatrrsResponseStatus' - -- | The response status code.
-listDetectMitigationActionsTasksResponse ::
-  -- | 'ldmatrrsResponseStatus'
-  Int ->
-  ListDetectMitigationActionsTasksResponse
-listDetectMitigationActionsTasksResponse
-  pResponseStatus_ =
-    ListDetectMitigationActionsTasksResponse'
-      { _ldmatrrsNextToken =
-          Nothing,
-        _ldmatrrsTasks = Nothing,
-        _ldmatrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
-ldmatrrsNextToken :: Lens' ListDetectMitigationActionsTasksResponse (Maybe Text)
-ldmatrrsNextToken = lens _ldmatrrsNextToken (\s a -> s {_ldmatrrsNextToken = a})
-
--- | The collection of ML Detect mitigation tasks that matched the filter criteria.
-ldmatrrsTasks :: Lens' ListDetectMitigationActionsTasksResponse [DetectMitigationActionsTaskSummary]
-ldmatrrsTasks = lens _ldmatrrsTasks (\s a -> s {_ldmatrrsTasks = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-ldmatrrsResponseStatus :: Lens' ListDetectMitigationActionsTasksResponse Int
-ldmatrrsResponseStatus = lens _ldmatrrsResponseStatus (\s a -> s {_ldmatrrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    ListDetectMitigationActionsTasks
 
 instance
-  NFData
+  Prelude.NFData
+    ListDetectMitigationActionsTasks
+
+instance
+  Prelude.ToHeaders
+    ListDetectMitigationActionsTasks
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    ListDetectMitigationActionsTasks
+  where
+  toPath =
+    Prelude.const "/detect/mitigationactions/tasks"
+
+instance
+  Prelude.ToQuery
+    ListDetectMitigationActionsTasks
+  where
+  toQuery ListDetectMitigationActionsTasks' {..} =
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "startTime" Prelude.=: startTime,
+        "endTime" Prelude.=: endTime
+      ]
+
+-- | /See:/ 'newListDetectMitigationActionsTasksResponse' smart constructor.
+data ListDetectMitigationActionsTasksResponse = ListDetectMitigationActionsTasksResponse'
+  { -- | A token that can be used to retrieve the next set of results, or @null@
+    -- if there are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The collection of ML Detect mitigation tasks that matched the filter
+    -- criteria.
+    tasks :: Prelude.Maybe [DetectMitigationActionsTaskSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ListDetectMitigationActionsTasksResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listDetectMitigationActionsTasksResponse_nextToken' - A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
+--
+-- 'tasks', 'listDetectMitigationActionsTasksResponse_tasks' - The collection of ML Detect mitigation tasks that matched the filter
+-- criteria.
+--
+-- 'httpStatus', 'listDetectMitigationActionsTasksResponse_httpStatus' - The response's http status code.
+newListDetectMitigationActionsTasksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  ListDetectMitigationActionsTasksResponse
+newListDetectMitigationActionsTasksResponse
+  pHttpStatus_ =
+    ListDetectMitigationActionsTasksResponse'
+      { nextToken =
+          Prelude.Nothing,
+        tasks = Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
+listDetectMitigationActionsTasksResponse_nextToken :: Lens.Lens' ListDetectMitigationActionsTasksResponse (Prelude.Maybe Prelude.Text)
+listDetectMitigationActionsTasksResponse_nextToken = Lens.lens (\ListDetectMitigationActionsTasksResponse' {nextToken} -> nextToken) (\s@ListDetectMitigationActionsTasksResponse' {} a -> s {nextToken = a} :: ListDetectMitigationActionsTasksResponse)
+
+-- | The collection of ML Detect mitigation tasks that matched the filter
+-- criteria.
+listDetectMitigationActionsTasksResponse_tasks :: Lens.Lens' ListDetectMitigationActionsTasksResponse (Prelude.Maybe [DetectMitigationActionsTaskSummary])
+listDetectMitigationActionsTasksResponse_tasks = Lens.lens (\ListDetectMitigationActionsTasksResponse' {tasks} -> tasks) (\s@ListDetectMitigationActionsTasksResponse' {} a -> s {tasks = a} :: ListDetectMitigationActionsTasksResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+listDetectMitigationActionsTasksResponse_httpStatus :: Lens.Lens' ListDetectMitigationActionsTasksResponse Prelude.Int
+listDetectMitigationActionsTasksResponse_httpStatus = Lens.lens (\ListDetectMitigationActionsTasksResponse' {httpStatus} -> httpStatus) (\s@ListDetectMitigationActionsTasksResponse' {} a -> s {httpStatus = a} :: ListDetectMitigationActionsTasksResponse)
+
+instance
+  Prelude.NFData
     ListDetectMitigationActionsTasksResponse

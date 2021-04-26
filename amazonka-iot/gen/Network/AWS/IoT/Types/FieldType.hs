@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.IoT.Types.FieldType
   ( FieldType
       ( ..,
-        FTBoolean,
-        FTNumber,
-        FTString
+        FieldTypeBoolean,
+        FieldTypeNumber,
+        FieldTypeString
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FieldType = FieldType' (CI Text)
+newtype FieldType = FieldType'
+  { fromFieldType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FTBoolean :: FieldType
-pattern FTBoolean = FieldType' "Boolean"
+pattern FieldTypeBoolean :: FieldType
+pattern FieldTypeBoolean = FieldType' "Boolean"
 
-pattern FTNumber :: FieldType
-pattern FTNumber = FieldType' "Number"
+pattern FieldTypeNumber :: FieldType
+pattern FieldTypeNumber = FieldType' "Number"
 
-pattern FTString :: FieldType
-pattern FTString = FieldType' "String"
+pattern FieldTypeString :: FieldType
+pattern FieldTypeString = FieldType' "String"
 
 {-# COMPLETE
-  FTBoolean,
-  FTNumber,
-  FTString,
+  FieldTypeBoolean,
+  FieldTypeNumber,
+  FieldTypeString,
   FieldType'
   #-}
 
-instance FromText FieldType where
-  parser = (FieldType' . mk) <$> takeText
+instance Prelude.FromText FieldType where
+  parser = FieldType' Prelude.<$> Prelude.takeText
 
-instance ToText FieldType where
-  toText (FieldType' ci) = original ci
+instance Prelude.ToText FieldType where
+  toText (FieldType' x) = x
 
-instance Hashable FieldType
+instance Prelude.Hashable FieldType
 
-instance NFData FieldType
+instance Prelude.NFData FieldType
 
-instance ToByteString FieldType
+instance Prelude.ToByteString FieldType
 
-instance ToQuery FieldType
+instance Prelude.ToQuery FieldType
 
-instance ToHeader FieldType
+instance Prelude.ToHeader FieldType
 
-instance ToJSON FieldType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FieldType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FieldType where
-  parseJSON = parseJSONText "FieldType"
+instance Prelude.FromJSON FieldType where
+  parseJSON = Prelude.parseJSONText "FieldType"

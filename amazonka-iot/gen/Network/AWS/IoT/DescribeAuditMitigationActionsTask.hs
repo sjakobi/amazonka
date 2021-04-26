@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,231 +21,240 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about an audit mitigation task that is used to apply mitigation actions to a set of audit findings. Properties include the actions being applied, the audit checks to which they're being applied, the task status, and aggregated task statistics.
+-- Gets information about an audit mitigation task that is used to apply
+-- mitigation actions to a set of audit findings. Properties include the
+-- actions being applied, the audit checks to which they\'re being applied,
+-- the task status, and aggregated task statistics.
 module Network.AWS.IoT.DescribeAuditMitigationActionsTask
   ( -- * Creating a Request
-    describeAuditMitigationActionsTask,
-    DescribeAuditMitigationActionsTask,
+    DescribeAuditMitigationActionsTask (..),
+    newDescribeAuditMitigationActionsTask,
 
     -- * Request Lenses
-    damatTaskId,
+    describeAuditMitigationActionsTask_taskId,
 
     -- * Destructuring the Response
-    describeAuditMitigationActionsTaskResponse,
-    DescribeAuditMitigationActionsTaskResponse,
+    DescribeAuditMitigationActionsTaskResponse (..),
+    newDescribeAuditMitigationActionsTaskResponse,
 
     -- * Response Lenses
-    damatrrsAuditCheckToActionsMapping,
-    damatrrsTaskStatistics,
-    damatrrsStartTime,
-    damatrrsEndTime,
-    damatrrsTarget,
-    damatrrsTaskStatus,
-    damatrrsActionsDefinition,
-    damatrrsResponseStatus,
+    describeAuditMitigationActionsTaskResponse_auditCheckToActionsMapping,
+    describeAuditMitigationActionsTaskResponse_taskStatistics,
+    describeAuditMitigationActionsTaskResponse_startTime,
+    describeAuditMitigationActionsTaskResponse_endTime,
+    describeAuditMitigationActionsTaskResponse_target,
+    describeAuditMitigationActionsTaskResponse_taskStatus,
+    describeAuditMitigationActionsTaskResponse_actionsDefinition,
+    describeAuditMitigationActionsTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AuditMitigationActionsTaskStatus
+import Network.AWS.IoT.Types.AuditMitigationActionsTaskTarget
+import Network.AWS.IoT.Types.MitigationAction
+import Network.AWS.IoT.Types.TaskStatisticsForAuditCheck
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAuditMitigationActionsTask' smart constructor.
-newtype DescribeAuditMitigationActionsTask = DescribeAuditMitigationActionsTask'
-  { _damatTaskId ::
-      Text
+-- | /See:/ 'newDescribeAuditMitigationActionsTask' smart constructor.
+data DescribeAuditMitigationActionsTask = DescribeAuditMitigationActionsTask'
+  { -- | The unique identifier for the audit mitigation task.
+    taskId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAuditMitigationActionsTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAuditMitigationActionsTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'damatTaskId' - The unique identifier for the audit mitigation task.
-describeAuditMitigationActionsTask ::
-  -- | 'damatTaskId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'taskId', 'describeAuditMitigationActionsTask_taskId' - The unique identifier for the audit mitigation task.
+newDescribeAuditMitigationActionsTask ::
+  -- | 'taskId'
+  Prelude.Text ->
   DescribeAuditMitigationActionsTask
-describeAuditMitigationActionsTask pTaskId_ =
+newDescribeAuditMitigationActionsTask pTaskId_ =
   DescribeAuditMitigationActionsTask'
-    { _damatTaskId =
+    { taskId =
         pTaskId_
     }
 
 -- | The unique identifier for the audit mitigation task.
-damatTaskId :: Lens' DescribeAuditMitigationActionsTask Text
-damatTaskId = lens _damatTaskId (\s a -> s {_damatTaskId = a})
+describeAuditMitigationActionsTask_taskId :: Lens.Lens' DescribeAuditMitigationActionsTask Prelude.Text
+describeAuditMitigationActionsTask_taskId = Lens.lens (\DescribeAuditMitigationActionsTask' {taskId} -> taskId) (\s@DescribeAuditMitigationActionsTask' {} a -> s {taskId = a} :: DescribeAuditMitigationActionsTask)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeAuditMitigationActionsTask
   where
   type
     Rs DescribeAuditMitigationActionsTask =
       DescribeAuditMitigationActionsTaskResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAuditMitigationActionsTaskResponse'
-            <$> (x .?> "auditCheckToActionsMapping" .!@ mempty)
-            <*> (x .?> "taskStatistics" .!@ mempty)
-            <*> (x .?> "startTime")
-            <*> (x .?> "endTime")
-            <*> (x .?> "target")
-            <*> (x .?> "taskStatus")
-            <*> (x .?> "actionsDefinition" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "auditCheckToActionsMapping"
+                            Prelude..!@ Prelude.mempty
+                        )
+              Prelude.<*> ( x Prelude..?> "taskStatistics"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (x Prelude..?> "startTime")
+              Prelude.<*> (x Prelude..?> "endTime")
+              Prelude.<*> (x Prelude..?> "target")
+              Prelude.<*> (x Prelude..?> "taskStatus")
+              Prelude.<*> ( x Prelude..?> "actionsDefinition"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAuditMitigationActionsTask
-
-instance NFData DescribeAuditMitigationActionsTask
-
-instance ToHeaders DescribeAuditMitigationActionsTask where
-  toHeaders = const mempty
-
-instance ToPath DescribeAuditMitigationActionsTask where
-  toPath DescribeAuditMitigationActionsTask' {..} =
-    mconcat
-      [ "/audit/mitigationactions/tasks/",
-        toBS _damatTaskId
-      ]
-
-instance ToQuery DescribeAuditMitigationActionsTask where
-  toQuery = const mempty
-
--- | /See:/ 'describeAuditMitigationActionsTaskResponse' smart constructor.
-data DescribeAuditMitigationActionsTaskResponse = DescribeAuditMitigationActionsTaskResponse'
-  { _damatrrsAuditCheckToActionsMapping ::
-      !( Maybe
-           ( Map
-               Text
-               ( List1
-                   Text
-               )
-           )
-       ),
-    _damatrrsTaskStatistics ::
-      !( Maybe
-           ( Map
-               Text
-               TaskStatisticsForAuditCheck
-           )
-       ),
-    _damatrrsStartTime ::
-      !( Maybe
-           POSIX
-       ),
-    _damatrrsEndTime ::
-      !( Maybe
-           POSIX
-       ),
-    _damatrrsTarget ::
-      !( Maybe
-           AuditMitigationActionsTaskTarget
-       ),
-    _damatrrsTaskStatus ::
-      !( Maybe
-           AuditMitigationActionsTaskStatus
-       ),
-    _damatrrsActionsDefinition ::
-      !( Maybe
-           [MitigationAction]
-       ),
-    _damatrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeAuditMitigationActionsTaskResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'damatrrsAuditCheckToActionsMapping' - Specifies the mitigation actions that should be applied to specific audit checks.
---
--- * 'damatrrsTaskStatistics' - Aggregate counts of the results when the mitigation tasks were applied to the findings for this audit mitigation actions task.
---
--- * 'damatrrsStartTime' - The date and time when the task was started.
---
--- * 'damatrrsEndTime' - The date and time when the task was completed or canceled.
---
--- * 'damatrrsTarget' - Identifies the findings to which the mitigation actions are applied. This can be by audit checks, by audit task, or a set of findings.
---
--- * 'damatrrsTaskStatus' - The current status of the task.
---
--- * 'damatrrsActionsDefinition' - Specifies the mitigation actions and their parameters that are applied as part of this task.
---
--- * 'damatrrsResponseStatus' - -- | The response status code.
-describeAuditMitigationActionsTaskResponse ::
-  -- | 'damatrrsResponseStatus'
-  Int ->
-  DescribeAuditMitigationActionsTaskResponse
-describeAuditMitigationActionsTaskResponse
-  pResponseStatus_ =
-    DescribeAuditMitigationActionsTaskResponse'
-      { _damatrrsAuditCheckToActionsMapping =
-          Nothing,
-        _damatrrsTaskStatistics =
-          Nothing,
-        _damatrrsStartTime = Nothing,
-        _damatrrsEndTime = Nothing,
-        _damatrrsTarget = Nothing,
-        _damatrrsTaskStatus = Nothing,
-        _damatrrsActionsDefinition =
-          Nothing,
-        _damatrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | Specifies the mitigation actions that should be applied to specific audit checks.
-damatrrsAuditCheckToActionsMapping :: Lens' DescribeAuditMitigationActionsTaskResponse (HashMap Text (NonEmpty Text))
-damatrrsAuditCheckToActionsMapping = lens _damatrrsAuditCheckToActionsMapping (\s a -> s {_damatrrsAuditCheckToActionsMapping = a}) . _Default . _Map
-
--- | Aggregate counts of the results when the mitigation tasks were applied to the findings for this audit mitigation actions task.
-damatrrsTaskStatistics :: Lens' DescribeAuditMitigationActionsTaskResponse (HashMap Text TaskStatisticsForAuditCheck)
-damatrrsTaskStatistics = lens _damatrrsTaskStatistics (\s a -> s {_damatrrsTaskStatistics = a}) . _Default . _Map
-
--- | The date and time when the task was started.
-damatrrsStartTime :: Lens' DescribeAuditMitigationActionsTaskResponse (Maybe UTCTime)
-damatrrsStartTime = lens _damatrrsStartTime (\s a -> s {_damatrrsStartTime = a}) . mapping _Time
-
--- | The date and time when the task was completed or canceled.
-damatrrsEndTime :: Lens' DescribeAuditMitigationActionsTaskResponse (Maybe UTCTime)
-damatrrsEndTime = lens _damatrrsEndTime (\s a -> s {_damatrrsEndTime = a}) . mapping _Time
-
--- | Identifies the findings to which the mitigation actions are applied. This can be by audit checks, by audit task, or a set of findings.
-damatrrsTarget :: Lens' DescribeAuditMitigationActionsTaskResponse (Maybe AuditMitigationActionsTaskTarget)
-damatrrsTarget = lens _damatrrsTarget (\s a -> s {_damatrrsTarget = a})
-
--- | The current status of the task.
-damatrrsTaskStatus :: Lens' DescribeAuditMitigationActionsTaskResponse (Maybe AuditMitigationActionsTaskStatus)
-damatrrsTaskStatus = lens _damatrrsTaskStatus (\s a -> s {_damatrrsTaskStatus = a})
-
--- | Specifies the mitigation actions and their parameters that are applied as part of this task.
-damatrrsActionsDefinition :: Lens' DescribeAuditMitigationActionsTaskResponse [MitigationAction]
-damatrrsActionsDefinition = lens _damatrrsActionsDefinition (\s a -> s {_damatrrsActionsDefinition = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-damatrrsResponseStatus :: Lens' DescribeAuditMitigationActionsTaskResponse Int
-damatrrsResponseStatus = lens _damatrrsResponseStatus (\s a -> s {_damatrrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    DescribeAuditMitigationActionsTask
 
 instance
-  NFData
+  Prelude.NFData
+    DescribeAuditMitigationActionsTask
+
+instance
+  Prelude.ToHeaders
+    DescribeAuditMitigationActionsTask
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    DescribeAuditMitigationActionsTask
+  where
+  toPath DescribeAuditMitigationActionsTask' {..} =
+    Prelude.mconcat
+      [ "/audit/mitigationactions/tasks/",
+        Prelude.toBS taskId
+      ]
+
+instance
+  Prelude.ToQuery
+    DescribeAuditMitigationActionsTask
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDescribeAuditMitigationActionsTaskResponse' smart constructor.
+data DescribeAuditMitigationActionsTaskResponse = DescribeAuditMitigationActionsTaskResponse'
+  { -- | Specifies the mitigation actions that should be applied to specific
+    -- audit checks.
+    auditCheckToActionsMapping :: Prelude.Maybe (Prelude.Map Prelude.Text (Prelude.List1 Prelude.Text)),
+    -- | Aggregate counts of the results when the mitigation tasks were applied
+    -- to the findings for this audit mitigation actions task.
+    taskStatistics :: Prelude.Maybe (Prelude.Map Prelude.Text TaskStatisticsForAuditCheck),
+    -- | The date and time when the task was started.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The date and time when the task was completed or canceled.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Identifies the findings to which the mitigation actions are applied.
+    -- This can be by audit checks, by audit task, or a set of findings.
+    target :: Prelude.Maybe AuditMitigationActionsTaskTarget,
+    -- | The current status of the task.
+    taskStatus :: Prelude.Maybe AuditMitigationActionsTaskStatus,
+    -- | Specifies the mitigation actions and their parameters that are applied
+    -- as part of this task.
+    actionsDefinition :: Prelude.Maybe [MitigationAction],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeAuditMitigationActionsTaskResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'auditCheckToActionsMapping', 'describeAuditMitigationActionsTaskResponse_auditCheckToActionsMapping' - Specifies the mitigation actions that should be applied to specific
+-- audit checks.
+--
+-- 'taskStatistics', 'describeAuditMitigationActionsTaskResponse_taskStatistics' - Aggregate counts of the results when the mitigation tasks were applied
+-- to the findings for this audit mitigation actions task.
+--
+-- 'startTime', 'describeAuditMitigationActionsTaskResponse_startTime' - The date and time when the task was started.
+--
+-- 'endTime', 'describeAuditMitigationActionsTaskResponse_endTime' - The date and time when the task was completed or canceled.
+--
+-- 'target', 'describeAuditMitigationActionsTaskResponse_target' - Identifies the findings to which the mitigation actions are applied.
+-- This can be by audit checks, by audit task, or a set of findings.
+--
+-- 'taskStatus', 'describeAuditMitigationActionsTaskResponse_taskStatus' - The current status of the task.
+--
+-- 'actionsDefinition', 'describeAuditMitigationActionsTaskResponse_actionsDefinition' - Specifies the mitigation actions and their parameters that are applied
+-- as part of this task.
+--
+-- 'httpStatus', 'describeAuditMitigationActionsTaskResponse_httpStatus' - The response's http status code.
+newDescribeAuditMitigationActionsTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeAuditMitigationActionsTaskResponse
+newDescribeAuditMitigationActionsTaskResponse
+  pHttpStatus_ =
+    DescribeAuditMitigationActionsTaskResponse'
+      { auditCheckToActionsMapping =
+          Prelude.Nothing,
+        taskStatistics =
+          Prelude.Nothing,
+        startTime = Prelude.Nothing,
+        endTime = Prelude.Nothing,
+        target = Prelude.Nothing,
+        taskStatus = Prelude.Nothing,
+        actionsDefinition =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | Specifies the mitigation actions that should be applied to specific
+-- audit checks.
+describeAuditMitigationActionsTaskResponse_auditCheckToActionsMapping :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text (Prelude.NonEmpty Prelude.Text)))
+describeAuditMitigationActionsTaskResponse_auditCheckToActionsMapping = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {auditCheckToActionsMapping} -> auditCheckToActionsMapping) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {auditCheckToActionsMapping = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Prelude._Map
+
+-- | Aggregate counts of the results when the mitigation tasks were applied
+-- to the findings for this audit mitigation actions task.
+describeAuditMitigationActionsTaskResponse_taskStatistics :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text TaskStatisticsForAuditCheck))
+describeAuditMitigationActionsTaskResponse_taskStatistics = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {taskStatistics} -> taskStatistics) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {taskStatistics = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Prelude._Map
+
+-- | The date and time when the task was started.
+describeAuditMitigationActionsTaskResponse_startTime :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe Prelude.UTCTime)
+describeAuditMitigationActionsTaskResponse_startTime = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {startTime} -> startTime) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {startTime = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Prelude._Time
+
+-- | The date and time when the task was completed or canceled.
+describeAuditMitigationActionsTaskResponse_endTime :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe Prelude.UTCTime)
+describeAuditMitigationActionsTaskResponse_endTime = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {endTime} -> endTime) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {endTime = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Prelude._Time
+
+-- | Identifies the findings to which the mitigation actions are applied.
+-- This can be by audit checks, by audit task, or a set of findings.
+describeAuditMitigationActionsTaskResponse_target :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe AuditMitigationActionsTaskTarget)
+describeAuditMitigationActionsTaskResponse_target = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {target} -> target) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {target = a} :: DescribeAuditMitigationActionsTaskResponse)
+
+-- | The current status of the task.
+describeAuditMitigationActionsTaskResponse_taskStatus :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe AuditMitigationActionsTaskStatus)
+describeAuditMitigationActionsTaskResponse_taskStatus = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {taskStatus} -> taskStatus) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {taskStatus = a} :: DescribeAuditMitigationActionsTaskResponse)
+
+-- | Specifies the mitigation actions and their parameters that are applied
+-- as part of this task.
+describeAuditMitigationActionsTaskResponse_actionsDefinition :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe [MitigationAction])
+describeAuditMitigationActionsTaskResponse_actionsDefinition = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {actionsDefinition} -> actionsDefinition) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {actionsDefinition = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+describeAuditMitigationActionsTaskResponse_httpStatus :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse Prelude.Int
+describeAuditMitigationActionsTaskResponse_httpStatus = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {httpStatus} -> httpStatus) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {httpStatus = a} :: DescribeAuditMitigationActionsTaskResponse)
+
+instance
+  Prelude.NFData
     DescribeAuditMitigationActionsTaskResponse

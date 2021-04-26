@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.IoT.Types.LogTargetType
   ( LogTargetType
       ( ..,
-        LTTDefault,
-        LTTThingGroup
+        LogTargetTypeDEFAULT,
+        LogTargetTypeTHINGGROUP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LogTargetType = LogTargetType' (CI Text)
+newtype LogTargetType = LogTargetType'
+  { fromLogTargetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LTTDefault :: LogTargetType
-pattern LTTDefault = LogTargetType' "DEFAULT"
+pattern LogTargetTypeDEFAULT :: LogTargetType
+pattern LogTargetTypeDEFAULT = LogTargetType' "DEFAULT"
 
-pattern LTTThingGroup :: LogTargetType
-pattern LTTThingGroup = LogTargetType' "THING_GROUP"
+pattern LogTargetTypeTHINGGROUP :: LogTargetType
+pattern LogTargetTypeTHINGGROUP = LogTargetType' "THING_GROUP"
 
 {-# COMPLETE
-  LTTDefault,
-  LTTThingGroup,
+  LogTargetTypeDEFAULT,
+  LogTargetTypeTHINGGROUP,
   LogTargetType'
   #-}
 
-instance FromText LogTargetType where
-  parser = (LogTargetType' . mk) <$> takeText
+instance Prelude.FromText LogTargetType where
+  parser = LogTargetType' Prelude.<$> Prelude.takeText
 
-instance ToText LogTargetType where
-  toText (LogTargetType' ci) = original ci
+instance Prelude.ToText LogTargetType where
+  toText (LogTargetType' x) = x
 
-instance Hashable LogTargetType
+instance Prelude.Hashable LogTargetType
 
-instance NFData LogTargetType
+instance Prelude.NFData LogTargetType
 
-instance ToByteString LogTargetType
+instance Prelude.ToByteString LogTargetType
 
-instance ToQuery LogTargetType
+instance Prelude.ToQuery LogTargetType
 
-instance ToHeader LogTargetType
+instance Prelude.ToHeader LogTargetType
 
-instance ToJSON LogTargetType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LogTargetType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LogTargetType where
-  parseJSON = parseJSONText "LogTargetType"
+instance Prelude.FromJSON LogTargetType where
+  parseJSON = Prelude.parseJSONText "LogTargetType"

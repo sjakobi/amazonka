@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.CodeSigningCertificateChain where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the certificate chain being used when code signing a file.
 --
---
---
--- /See:/ 'codeSigningCertificateChain' smart constructor.
+-- /See:/ 'newCodeSigningCertificateChain' smart constructor.
 data CodeSigningCertificateChain = CodeSigningCertificateChain'
-  { _csccInlineDocument ::
-      !(Maybe Text),
-    _csccCertificateName ::
-      !(Maybe Text)
+  { -- | A base64 encoded binary representation of the code signing certificate
+    -- chain.
+    inlineDocument :: Prelude.Maybe Prelude.Text,
+    -- | The name of the certificate.
+    certificateName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CodeSigningCertificateChain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CodeSigningCertificateChain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csccInlineDocument' - A base64 encoded binary representation of the code signing certificate chain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csccCertificateName' - The name of the certificate.
-codeSigningCertificateChain ::
+-- 'inlineDocument', 'codeSigningCertificateChain_inlineDocument' - A base64 encoded binary representation of the code signing certificate
+-- chain.
+--
+-- 'certificateName', 'codeSigningCertificateChain_certificateName' - The name of the certificate.
+newCodeSigningCertificateChain ::
   CodeSigningCertificateChain
-codeSigningCertificateChain =
+newCodeSigningCertificateChain =
   CodeSigningCertificateChain'
-    { _csccInlineDocument =
-        Nothing,
-      _csccCertificateName = Nothing
+    { inlineDocument =
+        Prelude.Nothing,
+      certificateName = Prelude.Nothing
     }
 
--- | A base64 encoded binary representation of the code signing certificate chain.
-csccInlineDocument :: Lens' CodeSigningCertificateChain (Maybe Text)
-csccInlineDocument = lens _csccInlineDocument (\s a -> s {_csccInlineDocument = a})
+-- | A base64 encoded binary representation of the code signing certificate
+-- chain.
+codeSigningCertificateChain_inlineDocument :: Lens.Lens' CodeSigningCertificateChain (Prelude.Maybe Prelude.Text)
+codeSigningCertificateChain_inlineDocument = Lens.lens (\CodeSigningCertificateChain' {inlineDocument} -> inlineDocument) (\s@CodeSigningCertificateChain' {} a -> s {inlineDocument = a} :: CodeSigningCertificateChain)
 
 -- | The name of the certificate.
-csccCertificateName :: Lens' CodeSigningCertificateChain (Maybe Text)
-csccCertificateName = lens _csccCertificateName (\s a -> s {_csccCertificateName = a})
+codeSigningCertificateChain_certificateName :: Lens.Lens' CodeSigningCertificateChain (Prelude.Maybe Prelude.Text)
+codeSigningCertificateChain_certificateName = Lens.lens (\CodeSigningCertificateChain' {certificateName} -> certificateName) (\s@CodeSigningCertificateChain' {} a -> s {certificateName = a} :: CodeSigningCertificateChain)
 
-instance FromJSON CodeSigningCertificateChain where
+instance Prelude.FromJSON CodeSigningCertificateChain where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CodeSigningCertificateChain"
       ( \x ->
           CodeSigningCertificateChain'
-            <$> (x .:? "inlineDocument")
-            <*> (x .:? "certificateName")
+            Prelude.<$> (x Prelude..:? "inlineDocument")
+            Prelude.<*> (x Prelude..:? "certificateName")
       )
 
-instance Hashable CodeSigningCertificateChain
+instance Prelude.Hashable CodeSigningCertificateChain
 
-instance NFData CodeSigningCertificateChain
+instance Prelude.NFData CodeSigningCertificateChain
 
-instance ToJSON CodeSigningCertificateChain where
+instance Prelude.ToJSON CodeSigningCertificateChain where
   toJSON CodeSigningCertificateChain' {..} =
-    object
-      ( catMaybes
-          [ ("inlineDocument" .=) <$> _csccInlineDocument,
-            ("certificateName" .=) <$> _csccCertificateName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("inlineDocument" Prelude..=)
+              Prelude.<$> inlineDocument,
+            ("certificateName" Prelude..=)
+              Prelude.<$> certificateName
           ]
       )

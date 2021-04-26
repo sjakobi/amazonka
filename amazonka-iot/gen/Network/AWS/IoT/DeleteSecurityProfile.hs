@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,128 +24,135 @@
 -- Deletes a Device Defender security profile.
 module Network.AWS.IoT.DeleteSecurityProfile
   ( -- * Creating a Request
-    deleteSecurityProfile,
-    DeleteSecurityProfile,
+    DeleteSecurityProfile (..),
+    newDeleteSecurityProfile,
 
     -- * Request Lenses
-    dExpectedVersion,
-    dSecurityProfileName,
+    deleteSecurityProfile_expectedVersion,
+    deleteSecurityProfile_securityProfileName,
 
     -- * Destructuring the Response
-    deleteSecurityProfileResponse,
-    DeleteSecurityProfileResponse,
+    DeleteSecurityProfileResponse (..),
+    newDeleteSecurityProfileResponse,
 
     -- * Response Lenses
-    dsprsrsResponseStatus,
+    deleteSecurityProfileResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSecurityProfile' smart constructor.
+-- | /See:/ 'newDeleteSecurityProfile' smart constructor.
 data DeleteSecurityProfile = DeleteSecurityProfile'
-  { _dExpectedVersion ::
-      !(Maybe Integer),
-    _dSecurityProfileName ::
-      !Text
+  { -- | The expected version of the security profile. A new version is generated
+    -- whenever the security profile is updated. If you specify a value that is
+    -- different from the actual version, a @VersionConflictException@ is
+    -- thrown.
+    expectedVersion :: Prelude.Maybe Prelude.Integer,
+    -- | The name of the security profile to be deleted.
+    securityProfileName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSecurityProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSecurityProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dExpectedVersion' - The expected version of the security profile. A new version is generated whenever the security profile is updated. If you specify a value that is different from the actual version, a @VersionConflictException@ is thrown.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dSecurityProfileName' - The name of the security profile to be deleted.
-deleteSecurityProfile ::
-  -- | 'dSecurityProfileName'
-  Text ->
+-- 'expectedVersion', 'deleteSecurityProfile_expectedVersion' - The expected version of the security profile. A new version is generated
+-- whenever the security profile is updated. If you specify a value that is
+-- different from the actual version, a @VersionConflictException@ is
+-- thrown.
+--
+-- 'securityProfileName', 'deleteSecurityProfile_securityProfileName' - The name of the security profile to be deleted.
+newDeleteSecurityProfile ::
+  -- | 'securityProfileName'
+  Prelude.Text ->
   DeleteSecurityProfile
-deleteSecurityProfile pSecurityProfileName_ =
+newDeleteSecurityProfile pSecurityProfileName_ =
   DeleteSecurityProfile'
-    { _dExpectedVersion = Nothing,
-      _dSecurityProfileName = pSecurityProfileName_
+    { expectedVersion =
+        Prelude.Nothing,
+      securityProfileName = pSecurityProfileName_
     }
 
--- | The expected version of the security profile. A new version is generated whenever the security profile is updated. If you specify a value that is different from the actual version, a @VersionConflictException@ is thrown.
-dExpectedVersion :: Lens' DeleteSecurityProfile (Maybe Integer)
-dExpectedVersion = lens _dExpectedVersion (\s a -> s {_dExpectedVersion = a})
+-- | The expected version of the security profile. A new version is generated
+-- whenever the security profile is updated. If you specify a value that is
+-- different from the actual version, a @VersionConflictException@ is
+-- thrown.
+deleteSecurityProfile_expectedVersion :: Lens.Lens' DeleteSecurityProfile (Prelude.Maybe Prelude.Integer)
+deleteSecurityProfile_expectedVersion = Lens.lens (\DeleteSecurityProfile' {expectedVersion} -> expectedVersion) (\s@DeleteSecurityProfile' {} a -> s {expectedVersion = a} :: DeleteSecurityProfile)
 
 -- | The name of the security profile to be deleted.
-dSecurityProfileName :: Lens' DeleteSecurityProfile Text
-dSecurityProfileName = lens _dSecurityProfileName (\s a -> s {_dSecurityProfileName = a})
+deleteSecurityProfile_securityProfileName :: Lens.Lens' DeleteSecurityProfile Prelude.Text
+deleteSecurityProfile_securityProfileName = Lens.lens (\DeleteSecurityProfile' {securityProfileName} -> securityProfileName) (\s@DeleteSecurityProfile' {} a -> s {securityProfileName = a} :: DeleteSecurityProfile)
 
-instance AWSRequest DeleteSecurityProfile where
+instance Prelude.AWSRequest DeleteSecurityProfile where
   type
     Rs DeleteSecurityProfile =
       DeleteSecurityProfileResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteSecurityProfileResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSecurityProfile
+instance Prelude.Hashable DeleteSecurityProfile
 
-instance NFData DeleteSecurityProfile
+instance Prelude.NFData DeleteSecurityProfile
 
-instance ToHeaders DeleteSecurityProfile where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteSecurityProfile where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteSecurityProfile where
+instance Prelude.ToPath DeleteSecurityProfile where
   toPath DeleteSecurityProfile' {..} =
-    mconcat
-      ["/security-profiles/", toBS _dSecurityProfileName]
+    Prelude.mconcat
+      [ "/security-profiles/",
+        Prelude.toBS securityProfileName
+      ]
 
-instance ToQuery DeleteSecurityProfile where
+instance Prelude.ToQuery DeleteSecurityProfile where
   toQuery DeleteSecurityProfile' {..} =
-    mconcat ["expectedVersion" =: _dExpectedVersion]
+    Prelude.mconcat
+      ["expectedVersion" Prelude.=: expectedVersion]
 
--- | /See:/ 'deleteSecurityProfileResponse' smart constructor.
-newtype DeleteSecurityProfileResponse = DeleteSecurityProfileResponse'
-  { _dsprsrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteSecurityProfileResponse' smart constructor.
+data DeleteSecurityProfileResponse = DeleteSecurityProfileResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSecurityProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSecurityProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsprsrsResponseStatus' - -- | The response status code.
-deleteSecurityProfileResponse ::
-  -- | 'dsprsrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteSecurityProfileResponse_httpStatus' - The response's http status code.
+newDeleteSecurityProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSecurityProfileResponse
-deleteSecurityProfileResponse pResponseStatus_ =
+newDeleteSecurityProfileResponse pHttpStatus_ =
   DeleteSecurityProfileResponse'
-    { _dsprsrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dsprsrsResponseStatus :: Lens' DeleteSecurityProfileResponse Int
-dsprsrsResponseStatus = lens _dsprsrsResponseStatus (\s a -> s {_dsprsrsResponseStatus = a})
+-- | The response's http status code.
+deleteSecurityProfileResponse_httpStatus :: Lens.Lens' DeleteSecurityProfileResponse Prelude.Int
+deleteSecurityProfileResponse_httpStatus = Lens.lens (\DeleteSecurityProfileResponse' {httpStatus} -> httpStatus) (\s@DeleteSecurityProfileResponse' {} a -> s {httpStatus = a} :: DeleteSecurityProfileResponse)
 
-instance NFData DeleteSecurityProfileResponse
+instance Prelude.NFData DeleteSecurityProfileResponse

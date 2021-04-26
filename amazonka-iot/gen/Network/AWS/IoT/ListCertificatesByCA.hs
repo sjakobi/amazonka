@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,189 +23,212 @@
 --
 -- List the device certificates signed by the specified CA certificate.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListCertificatesByCA
   ( -- * Creating a Request
-    listCertificatesByCA,
-    ListCertificatesByCA,
+    ListCertificatesByCA (..),
+    newListCertificatesByCA,
 
     -- * Request Lenses
-    lcbcaPageSize,
-    lcbcaAscendingOrder,
-    lcbcaMarker,
-    lcbcaCaCertificateId,
+    listCertificatesByCA_pageSize,
+    listCertificatesByCA_ascendingOrder,
+    listCertificatesByCA_marker,
+    listCertificatesByCA_caCertificateId,
 
     -- * Destructuring the Response
-    listCertificatesByCAResponse,
-    ListCertificatesByCAResponse,
+    ListCertificatesByCAResponse (..),
+    newListCertificatesByCAResponse,
 
     -- * Response Lenses
-    lcbcarrsNextMarker,
-    lcbcarrsCertificates,
-    lcbcarrsResponseStatus,
+    listCertificatesByCAResponse_nextMarker,
+    listCertificatesByCAResponse_certificates,
+    listCertificatesByCAResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.Certificate
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input to the ListCertificatesByCA operation.
 --
---
---
--- /See:/ 'listCertificatesByCA' smart constructor.
+-- /See:/ 'newListCertificatesByCA' smart constructor.
 data ListCertificatesByCA = ListCertificatesByCA'
-  { _lcbcaPageSize ::
-      !(Maybe Nat),
-    _lcbcaAscendingOrder ::
-      !(Maybe Bool),
-    _lcbcaMarker :: !(Maybe Text),
-    _lcbcaCaCertificateId ::
-      !Text
+  { -- | The result page size.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the order for results. If True, the results are returned in
+    -- ascending order, based on the creation date.
+    ascendingOrder :: Prelude.Maybe Prelude.Bool,
+    -- | The marker for the next set of results.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the CA certificate. This operation will list all registered
+    -- device certificate that were signed by this CA certificate.
+    caCertificateId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCertificatesByCA' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCertificatesByCA' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcbcaPageSize' - The result page size.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcbcaAscendingOrder' - Specifies the order for results. If True, the results are returned in ascending order, based on the creation date.
+-- 'pageSize', 'listCertificatesByCA_pageSize' - The result page size.
 --
--- * 'lcbcaMarker' - The marker for the next set of results.
+-- 'ascendingOrder', 'listCertificatesByCA_ascendingOrder' - Specifies the order for results. If True, the results are returned in
+-- ascending order, based on the creation date.
 --
--- * 'lcbcaCaCertificateId' - The ID of the CA certificate. This operation will list all registered device certificate that were signed by this CA certificate.
-listCertificatesByCA ::
-  -- | 'lcbcaCaCertificateId'
-  Text ->
+-- 'marker', 'listCertificatesByCA_marker' - The marker for the next set of results.
+--
+-- 'caCertificateId', 'listCertificatesByCA_caCertificateId' - The ID of the CA certificate. This operation will list all registered
+-- device certificate that were signed by this CA certificate.
+newListCertificatesByCA ::
+  -- | 'caCertificateId'
+  Prelude.Text ->
   ListCertificatesByCA
-listCertificatesByCA pCaCertificateId_ =
+newListCertificatesByCA pCaCertificateId_ =
   ListCertificatesByCA'
-    { _lcbcaPageSize = Nothing,
-      _lcbcaAscendingOrder = Nothing,
-      _lcbcaMarker = Nothing,
-      _lcbcaCaCertificateId = pCaCertificateId_
+    { pageSize = Prelude.Nothing,
+      ascendingOrder = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      caCertificateId = pCaCertificateId_
     }
 
 -- | The result page size.
-lcbcaPageSize :: Lens' ListCertificatesByCA (Maybe Natural)
-lcbcaPageSize = lens _lcbcaPageSize (\s a -> s {_lcbcaPageSize = a}) . mapping _Nat
+listCertificatesByCA_pageSize :: Lens.Lens' ListCertificatesByCA (Prelude.Maybe Prelude.Natural)
+listCertificatesByCA_pageSize = Lens.lens (\ListCertificatesByCA' {pageSize} -> pageSize) (\s@ListCertificatesByCA' {} a -> s {pageSize = a} :: ListCertificatesByCA) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies the order for results. If True, the results are returned in ascending order, based on the creation date.
-lcbcaAscendingOrder :: Lens' ListCertificatesByCA (Maybe Bool)
-lcbcaAscendingOrder = lens _lcbcaAscendingOrder (\s a -> s {_lcbcaAscendingOrder = a})
+-- | Specifies the order for results. If True, the results are returned in
+-- ascending order, based on the creation date.
+listCertificatesByCA_ascendingOrder :: Lens.Lens' ListCertificatesByCA (Prelude.Maybe Prelude.Bool)
+listCertificatesByCA_ascendingOrder = Lens.lens (\ListCertificatesByCA' {ascendingOrder} -> ascendingOrder) (\s@ListCertificatesByCA' {} a -> s {ascendingOrder = a} :: ListCertificatesByCA)
 
 -- | The marker for the next set of results.
-lcbcaMarker :: Lens' ListCertificatesByCA (Maybe Text)
-lcbcaMarker = lens _lcbcaMarker (\s a -> s {_lcbcaMarker = a})
+listCertificatesByCA_marker :: Lens.Lens' ListCertificatesByCA (Prelude.Maybe Prelude.Text)
+listCertificatesByCA_marker = Lens.lens (\ListCertificatesByCA' {marker} -> marker) (\s@ListCertificatesByCA' {} a -> s {marker = a} :: ListCertificatesByCA)
 
--- | The ID of the CA certificate. This operation will list all registered device certificate that were signed by this CA certificate.
-lcbcaCaCertificateId :: Lens' ListCertificatesByCA Text
-lcbcaCaCertificateId = lens _lcbcaCaCertificateId (\s a -> s {_lcbcaCaCertificateId = a})
+-- | The ID of the CA certificate. This operation will list all registered
+-- device certificate that were signed by this CA certificate.
+listCertificatesByCA_caCertificateId :: Lens.Lens' ListCertificatesByCA Prelude.Text
+listCertificatesByCA_caCertificateId = Lens.lens (\ListCertificatesByCA' {caCertificateId} -> caCertificateId) (\s@ListCertificatesByCA' {} a -> s {caCertificateId = a} :: ListCertificatesByCA)
 
-instance AWSPager ListCertificatesByCA where
+instance Pager.AWSPager ListCertificatesByCA where
   page rq rs
-    | stop (rs ^. lcbcarrsNextMarker) = Nothing
-    | stop (rs ^. lcbcarrsCertificates) = Nothing
-    | otherwise =
-      Just $ rq & lcbcaMarker .~ rs ^. lcbcarrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listCertificatesByCAResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listCertificatesByCAResponse_certificates
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listCertificatesByCA_marker
+          Lens..~ rs
+          Lens.^? listCertificatesByCAResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListCertificatesByCA where
+instance Prelude.AWSRequest ListCertificatesByCA where
   type
     Rs ListCertificatesByCA =
       ListCertificatesByCAResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListCertificatesByCAResponse'
-            <$> (x .?> "nextMarker")
-            <*> (x .?> "certificates" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextMarker")
+            Prelude.<*> ( x Prelude..?> "certificates"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListCertificatesByCA
+instance Prelude.Hashable ListCertificatesByCA
 
-instance NFData ListCertificatesByCA
+instance Prelude.NFData ListCertificatesByCA
 
-instance ToHeaders ListCertificatesByCA where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListCertificatesByCA where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListCertificatesByCA where
+instance Prelude.ToPath ListCertificatesByCA where
   toPath ListCertificatesByCA' {..} =
-    mconcat
-      ["/certificates-by-ca/", toBS _lcbcaCaCertificateId]
+    Prelude.mconcat
+      [ "/certificates-by-ca/",
+        Prelude.toBS caCertificateId
+      ]
 
-instance ToQuery ListCertificatesByCA where
+instance Prelude.ToQuery ListCertificatesByCA where
   toQuery ListCertificatesByCA' {..} =
-    mconcat
-      [ "pageSize" =: _lcbcaPageSize,
-        "isAscendingOrder" =: _lcbcaAscendingOrder,
-        "marker" =: _lcbcaMarker
+    Prelude.mconcat
+      [ "pageSize" Prelude.=: pageSize,
+        "isAscendingOrder" Prelude.=: ascendingOrder,
+        "marker" Prelude.=: marker
       ]
 
 -- | The output of the ListCertificatesByCA operation.
 --
---
---
--- /See:/ 'listCertificatesByCAResponse' smart constructor.
+-- /See:/ 'newListCertificatesByCAResponse' smart constructor.
 data ListCertificatesByCAResponse = ListCertificatesByCAResponse'
-  { _lcbcarrsNextMarker ::
-      !(Maybe Text),
-    _lcbcarrsCertificates ::
-      !( Maybe
-           [Certificate]
-       ),
-    _lcbcarrsResponseStatus ::
-      !Int
+  { -- | The marker for the next set of results, or null if there are no
+    -- additional results.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The device certificates signed by the specified CA certificate.
+    certificates :: Prelude.Maybe [Certificate],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCertificatesByCAResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCertificatesByCAResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcbcarrsNextMarker' - The marker for the next set of results, or null if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcbcarrsCertificates' - The device certificates signed by the specified CA certificate.
+-- 'nextMarker', 'listCertificatesByCAResponse_nextMarker' - The marker for the next set of results, or null if there are no
+-- additional results.
 --
--- * 'lcbcarrsResponseStatus' - -- | The response status code.
-listCertificatesByCAResponse ::
-  -- | 'lcbcarrsResponseStatus'
-  Int ->
+-- 'certificates', 'listCertificatesByCAResponse_certificates' - The device certificates signed by the specified CA certificate.
+--
+-- 'httpStatus', 'listCertificatesByCAResponse_httpStatus' - The response's http status code.
+newListCertificatesByCAResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListCertificatesByCAResponse
-listCertificatesByCAResponse pResponseStatus_ =
+newListCertificatesByCAResponse pHttpStatus_ =
   ListCertificatesByCAResponse'
-    { _lcbcarrsNextMarker =
-        Nothing,
-      _lcbcarrsCertificates = Nothing,
-      _lcbcarrsResponseStatus = pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      certificates = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The marker for the next set of results, or null if there are no additional results.
-lcbcarrsNextMarker :: Lens' ListCertificatesByCAResponse (Maybe Text)
-lcbcarrsNextMarker = lens _lcbcarrsNextMarker (\s a -> s {_lcbcarrsNextMarker = a})
+-- | The marker for the next set of results, or null if there are no
+-- additional results.
+listCertificatesByCAResponse_nextMarker :: Lens.Lens' ListCertificatesByCAResponse (Prelude.Maybe Prelude.Text)
+listCertificatesByCAResponse_nextMarker = Lens.lens (\ListCertificatesByCAResponse' {nextMarker} -> nextMarker) (\s@ListCertificatesByCAResponse' {} a -> s {nextMarker = a} :: ListCertificatesByCAResponse)
 
 -- | The device certificates signed by the specified CA certificate.
-lcbcarrsCertificates :: Lens' ListCertificatesByCAResponse [Certificate]
-lcbcarrsCertificates = lens _lcbcarrsCertificates (\s a -> s {_lcbcarrsCertificates = a}) . _Default . _Coerce
+listCertificatesByCAResponse_certificates :: Lens.Lens' ListCertificatesByCAResponse (Prelude.Maybe [Certificate])
+listCertificatesByCAResponse_certificates = Lens.lens (\ListCertificatesByCAResponse' {certificates} -> certificates) (\s@ListCertificatesByCAResponse' {} a -> s {certificates = a} :: ListCertificatesByCAResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lcbcarrsResponseStatus :: Lens' ListCertificatesByCAResponse Int
-lcbcarrsResponseStatus = lens _lcbcarrsResponseStatus (\s a -> s {_lcbcarrsResponseStatus = a})
+-- | The response's http status code.
+listCertificatesByCAResponse_httpStatus :: Lens.Lens' ListCertificatesByCAResponse Prelude.Int
+listCertificatesByCAResponse_httpStatus = Lens.lens (\ListCertificatesByCAResponse' {httpStatus} -> httpStatus) (\s@ListCertificatesByCAResponse' {} a -> s {httpStatus = a} :: ListCertificatesByCAResponse)
 
-instance NFData ListCertificatesByCAResponse
+instance Prelude.NFData ListCertificatesByCAResponse

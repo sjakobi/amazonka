@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.RegistrationConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The registration configuration.
 --
---
---
--- /See:/ 'registrationConfig' smart constructor.
+-- /See:/ 'newRegistrationConfig' smart constructor.
 data RegistrationConfig = RegistrationConfig'
-  { _rcRoleARN ::
-      !(Maybe Text),
-    _rcTemplateBody :: !(Maybe Text)
+  { -- | The ARN of the role.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The template body.
+    templateBody :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegistrationConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegistrationConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcRoleARN' - The ARN of the role.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcTemplateBody' - The template body.
-registrationConfig ::
+-- 'roleArn', 'registrationConfig_roleArn' - The ARN of the role.
+--
+-- 'templateBody', 'registrationConfig_templateBody' - The template body.
+newRegistrationConfig ::
   RegistrationConfig
-registrationConfig =
+newRegistrationConfig =
   RegistrationConfig'
-    { _rcRoleARN = Nothing,
-      _rcTemplateBody = Nothing
+    { roleArn = Prelude.Nothing,
+      templateBody = Prelude.Nothing
     }
 
 -- | The ARN of the role.
-rcRoleARN :: Lens' RegistrationConfig (Maybe Text)
-rcRoleARN = lens _rcRoleARN (\s a -> s {_rcRoleARN = a})
+registrationConfig_roleArn :: Lens.Lens' RegistrationConfig (Prelude.Maybe Prelude.Text)
+registrationConfig_roleArn = Lens.lens (\RegistrationConfig' {roleArn} -> roleArn) (\s@RegistrationConfig' {} a -> s {roleArn = a} :: RegistrationConfig)
 
 -- | The template body.
-rcTemplateBody :: Lens' RegistrationConfig (Maybe Text)
-rcTemplateBody = lens _rcTemplateBody (\s a -> s {_rcTemplateBody = a})
+registrationConfig_templateBody :: Lens.Lens' RegistrationConfig (Prelude.Maybe Prelude.Text)
+registrationConfig_templateBody = Lens.lens (\RegistrationConfig' {templateBody} -> templateBody) (\s@RegistrationConfig' {} a -> s {templateBody = a} :: RegistrationConfig)
 
-instance FromJSON RegistrationConfig where
+instance Prelude.FromJSON RegistrationConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RegistrationConfig"
       ( \x ->
           RegistrationConfig'
-            <$> (x .:? "roleArn") <*> (x .:? "templateBody")
+            Prelude.<$> (x Prelude..:? "roleArn")
+            Prelude.<*> (x Prelude..:? "templateBody")
       )
 
-instance Hashable RegistrationConfig
+instance Prelude.Hashable RegistrationConfig
 
-instance NFData RegistrationConfig
+instance Prelude.NFData RegistrationConfig
 
-instance ToJSON RegistrationConfig where
+instance Prelude.ToJSON RegistrationConfig where
   toJSON RegistrationConfig' {..} =
-    object
-      ( catMaybes
-          [ ("roleArn" .=) <$> _rcRoleARN,
-            ("templateBody" .=) <$> _rcTemplateBody
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("roleArn" Prelude..=) Prelude.<$> roleArn,
+            ("templateBody" Prelude..=)
+              Prelude.<$> templateBody
           ]
       )

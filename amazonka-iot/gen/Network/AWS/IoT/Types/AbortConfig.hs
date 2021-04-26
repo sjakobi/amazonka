@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,52 +20,59 @@
 module Network.AWS.IoT.Types.AbortConfig where
 
 import Network.AWS.IoT.Types.AbortCriteria
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The criteria that determine when and how a job abort takes place.
 --
---
---
--- /See:/ 'abortConfig' smart constructor.
-newtype AbortConfig = AbortConfig'
-  { _acCriteriaList ::
-      List1 AbortCriteria
+-- /See:/ 'newAbortConfig' smart constructor.
+data AbortConfig = AbortConfig'
+  { -- | The list of criteria that determine when and how to abort the job.
+    criteriaList :: Prelude.List1 AbortCriteria
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AbortConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AbortConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acCriteriaList' - The list of criteria that determine when and how to abort the job.
-abortConfig ::
-  -- | 'acCriteriaList'
-  NonEmpty AbortCriteria ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'criteriaList', 'abortConfig_criteriaList' - The list of criteria that determine when and how to abort the job.
+newAbortConfig ::
+  -- | 'criteriaList'
+  Prelude.NonEmpty AbortCriteria ->
   AbortConfig
-abortConfig pCriteriaList_ =
+newAbortConfig pCriteriaList_ =
   AbortConfig'
-    { _acCriteriaList =
-        _List1 # pCriteriaList_
+    { criteriaList =
+        Prelude._List1 Lens.# pCriteriaList_
     }
 
 -- | The list of criteria that determine when and how to abort the job.
-acCriteriaList :: Lens' AbortConfig (NonEmpty AbortCriteria)
-acCriteriaList = lens _acCriteriaList (\s a -> s {_acCriteriaList = a}) . _List1
+abortConfig_criteriaList :: Lens.Lens' AbortConfig (Prelude.NonEmpty AbortCriteria)
+abortConfig_criteriaList = Lens.lens (\AbortConfig' {criteriaList} -> criteriaList) (\s@AbortConfig' {} a -> s {criteriaList = a} :: AbortConfig) Prelude.. Prelude._List1
 
-instance FromJSON AbortConfig where
+instance Prelude.FromJSON AbortConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AbortConfig"
-      (\x -> AbortConfig' <$> (x .: "criteriaList"))
+      ( \x ->
+          AbortConfig'
+            Prelude.<$> (x Prelude..: "criteriaList")
+      )
 
-instance Hashable AbortConfig
+instance Prelude.Hashable AbortConfig
 
-instance NFData AbortConfig
+instance Prelude.NFData AbortConfig
 
-instance ToJSON AbortConfig where
+instance Prelude.ToJSON AbortConfig where
   toJSON AbortConfig' {..} =
-    object
-      ( catMaybes
-          [Just ("criteriaList" .= _acCriteriaList)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("criteriaList" Prelude..= criteriaList)
+          ]
       )

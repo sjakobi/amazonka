@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,151 +20,135 @@
 module Network.AWS.IoT.Types.DetectMitigationActionExecution where
 
 import Network.AWS.IoT.Types.DetectMitigationActionExecutionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes which mitigation actions should be executed.
 --
---
---
--- /See:/ 'detectMitigationActionExecution' smart constructor.
+-- /See:/ 'newDetectMitigationActionExecution' smart constructor.
 data DetectMitigationActionExecution = DetectMitigationActionExecution'
-  { _dmaeViolationId ::
-      !( Maybe
-           Text
-       ),
-    _dmaeStatus ::
-      !( Maybe
-           DetectMitigationActionExecutionStatus
-       ),
-    _dmaeActionName ::
-      !( Maybe
-           Text
-       ),
-    _dmaeExecutionStartDate ::
-      !( Maybe
-           POSIX
-       ),
-    _dmaeMessage ::
-      !( Maybe
-           Text
-       ),
-    _dmaeThingName ::
-      !( Maybe
-           Text
-       ),
-    _dmaeTaskId ::
-      !( Maybe
-           Text
-       ),
-    _dmaeExecutionEndDate ::
-      !( Maybe
-           POSIX
-       ),
-    _dmaeErrorCode ::
-      !( Maybe
-           Text
-       )
+  { -- | The unique identifier of the violation.
+    violationId :: Prelude.Maybe Prelude.Text,
+    -- | The status of a mitigation action.
+    status :: Prelude.Maybe DetectMitigationActionExecutionStatus,
+    -- | The friendly name that uniquely identifies the mitigation action.
+    actionName :: Prelude.Maybe Prelude.Text,
+    -- | The date a mitigation action was started.
+    executionStartDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The message of a mitigation action.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing.
+    thingName :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the task.
+    taskId :: Prelude.Maybe Prelude.Text,
+    -- | The date a mitigation action ended.
+    executionEndDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The error code of a mitigation action.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectMitigationActionExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectMitigationActionExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmaeViolationId' - The unique identifier of the violation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmaeStatus' - The status of a mitigation action.
+-- 'violationId', 'detectMitigationActionExecution_violationId' - The unique identifier of the violation.
 --
--- * 'dmaeActionName' - The friendly name that uniquely identifies the mitigation action.
+-- 'status', 'detectMitigationActionExecution_status' - The status of a mitigation action.
 --
--- * 'dmaeExecutionStartDate' - The date a mitigation action was started.
+-- 'actionName', 'detectMitigationActionExecution_actionName' - The friendly name that uniquely identifies the mitigation action.
 --
--- * 'dmaeMessage' - The message of a mitigation action.
+-- 'executionStartDate', 'detectMitigationActionExecution_executionStartDate' - The date a mitigation action was started.
 --
--- * 'dmaeThingName' - The name of the thing.
+-- 'message', 'detectMitigationActionExecution_message' - The message of a mitigation action.
 --
--- * 'dmaeTaskId' - The unique identifier of the task.
+-- 'thingName', 'detectMitigationActionExecution_thingName' - The name of the thing.
 --
--- * 'dmaeExecutionEndDate' - The date a mitigation action ended.
+-- 'taskId', 'detectMitigationActionExecution_taskId' - The unique identifier of the task.
 --
--- * 'dmaeErrorCode' - The error code of a mitigation action.
-detectMitigationActionExecution ::
+-- 'executionEndDate', 'detectMitigationActionExecution_executionEndDate' - The date a mitigation action ended.
+--
+-- 'errorCode', 'detectMitigationActionExecution_errorCode' - The error code of a mitigation action.
+newDetectMitigationActionExecution ::
   DetectMitigationActionExecution
-detectMitigationActionExecution =
+newDetectMitigationActionExecution =
   DetectMitigationActionExecution'
-    { _dmaeViolationId =
-        Nothing,
-      _dmaeStatus = Nothing,
-      _dmaeActionName = Nothing,
-      _dmaeExecutionStartDate = Nothing,
-      _dmaeMessage = Nothing,
-      _dmaeThingName = Nothing,
-      _dmaeTaskId = Nothing,
-      _dmaeExecutionEndDate = Nothing,
-      _dmaeErrorCode = Nothing
+    { violationId =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      actionName = Prelude.Nothing,
+      executionStartDate = Prelude.Nothing,
+      message = Prelude.Nothing,
+      thingName = Prelude.Nothing,
+      taskId = Prelude.Nothing,
+      executionEndDate = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The unique identifier of the violation.
-dmaeViolationId :: Lens' DetectMitigationActionExecution (Maybe Text)
-dmaeViolationId = lens _dmaeViolationId (\s a -> s {_dmaeViolationId = a})
+detectMitigationActionExecution_violationId :: Lens.Lens' DetectMitigationActionExecution (Prelude.Maybe Prelude.Text)
+detectMitigationActionExecution_violationId = Lens.lens (\DetectMitigationActionExecution' {violationId} -> violationId) (\s@DetectMitigationActionExecution' {} a -> s {violationId = a} :: DetectMitigationActionExecution)
 
 -- | The status of a mitigation action.
-dmaeStatus :: Lens' DetectMitigationActionExecution (Maybe DetectMitigationActionExecutionStatus)
-dmaeStatus = lens _dmaeStatus (\s a -> s {_dmaeStatus = a})
+detectMitigationActionExecution_status :: Lens.Lens' DetectMitigationActionExecution (Prelude.Maybe DetectMitigationActionExecutionStatus)
+detectMitigationActionExecution_status = Lens.lens (\DetectMitigationActionExecution' {status} -> status) (\s@DetectMitigationActionExecution' {} a -> s {status = a} :: DetectMitigationActionExecution)
 
 -- | The friendly name that uniquely identifies the mitigation action.
-dmaeActionName :: Lens' DetectMitigationActionExecution (Maybe Text)
-dmaeActionName = lens _dmaeActionName (\s a -> s {_dmaeActionName = a})
+detectMitigationActionExecution_actionName :: Lens.Lens' DetectMitigationActionExecution (Prelude.Maybe Prelude.Text)
+detectMitigationActionExecution_actionName = Lens.lens (\DetectMitigationActionExecution' {actionName} -> actionName) (\s@DetectMitigationActionExecution' {} a -> s {actionName = a} :: DetectMitigationActionExecution)
 
 -- | The date a mitigation action was started.
-dmaeExecutionStartDate :: Lens' DetectMitigationActionExecution (Maybe UTCTime)
-dmaeExecutionStartDate = lens _dmaeExecutionStartDate (\s a -> s {_dmaeExecutionStartDate = a}) . mapping _Time
+detectMitigationActionExecution_executionStartDate :: Lens.Lens' DetectMitigationActionExecution (Prelude.Maybe Prelude.UTCTime)
+detectMitigationActionExecution_executionStartDate = Lens.lens (\DetectMitigationActionExecution' {executionStartDate} -> executionStartDate) (\s@DetectMitigationActionExecution' {} a -> s {executionStartDate = a} :: DetectMitigationActionExecution) Prelude.. Lens.mapping Prelude._Time
 
 -- | The message of a mitigation action.
-dmaeMessage :: Lens' DetectMitigationActionExecution (Maybe Text)
-dmaeMessage = lens _dmaeMessage (\s a -> s {_dmaeMessage = a})
+detectMitigationActionExecution_message :: Lens.Lens' DetectMitigationActionExecution (Prelude.Maybe Prelude.Text)
+detectMitigationActionExecution_message = Lens.lens (\DetectMitigationActionExecution' {message} -> message) (\s@DetectMitigationActionExecution' {} a -> s {message = a} :: DetectMitigationActionExecution)
 
 -- | The name of the thing.
-dmaeThingName :: Lens' DetectMitigationActionExecution (Maybe Text)
-dmaeThingName = lens _dmaeThingName (\s a -> s {_dmaeThingName = a})
+detectMitigationActionExecution_thingName :: Lens.Lens' DetectMitigationActionExecution (Prelude.Maybe Prelude.Text)
+detectMitigationActionExecution_thingName = Lens.lens (\DetectMitigationActionExecution' {thingName} -> thingName) (\s@DetectMitigationActionExecution' {} a -> s {thingName = a} :: DetectMitigationActionExecution)
 
 -- | The unique identifier of the task.
-dmaeTaskId :: Lens' DetectMitigationActionExecution (Maybe Text)
-dmaeTaskId = lens _dmaeTaskId (\s a -> s {_dmaeTaskId = a})
+detectMitigationActionExecution_taskId :: Lens.Lens' DetectMitigationActionExecution (Prelude.Maybe Prelude.Text)
+detectMitigationActionExecution_taskId = Lens.lens (\DetectMitigationActionExecution' {taskId} -> taskId) (\s@DetectMitigationActionExecution' {} a -> s {taskId = a} :: DetectMitigationActionExecution)
 
 -- | The date a mitigation action ended.
-dmaeExecutionEndDate :: Lens' DetectMitigationActionExecution (Maybe UTCTime)
-dmaeExecutionEndDate = lens _dmaeExecutionEndDate (\s a -> s {_dmaeExecutionEndDate = a}) . mapping _Time
+detectMitigationActionExecution_executionEndDate :: Lens.Lens' DetectMitigationActionExecution (Prelude.Maybe Prelude.UTCTime)
+detectMitigationActionExecution_executionEndDate = Lens.lens (\DetectMitigationActionExecution' {executionEndDate} -> executionEndDate) (\s@DetectMitigationActionExecution' {} a -> s {executionEndDate = a} :: DetectMitigationActionExecution) Prelude.. Lens.mapping Prelude._Time
 
 -- | The error code of a mitigation action.
-dmaeErrorCode :: Lens' DetectMitigationActionExecution (Maybe Text)
-dmaeErrorCode = lens _dmaeErrorCode (\s a -> s {_dmaeErrorCode = a})
+detectMitigationActionExecution_errorCode :: Lens.Lens' DetectMitigationActionExecution (Prelude.Maybe Prelude.Text)
+detectMitigationActionExecution_errorCode = Lens.lens (\DetectMitigationActionExecution' {errorCode} -> errorCode) (\s@DetectMitigationActionExecution' {} a -> s {errorCode = a} :: DetectMitigationActionExecution)
 
-instance FromJSON DetectMitigationActionExecution where
+instance
+  Prelude.FromJSON
+    DetectMitigationActionExecution
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DetectMitigationActionExecution"
       ( \x ->
           DetectMitigationActionExecution'
-            <$> (x .:? "violationId")
-            <*> (x .:? "status")
-            <*> (x .:? "actionName")
-            <*> (x .:? "executionStartDate")
-            <*> (x .:? "message")
-            <*> (x .:? "thingName")
-            <*> (x .:? "taskId")
-            <*> (x .:? "executionEndDate")
-            <*> (x .:? "errorCode")
+            Prelude.<$> (x Prelude..:? "violationId")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "actionName")
+            Prelude.<*> (x Prelude..:? "executionStartDate")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "thingName")
+            Prelude.<*> (x Prelude..:? "taskId")
+            Prelude.<*> (x Prelude..:? "executionEndDate")
+            Prelude.<*> (x Prelude..:? "errorCode")
       )
 
-instance Hashable DetectMitigationActionExecution
+instance
+  Prelude.Hashable
+    DetectMitigationActionExecution
 
-instance NFData DetectMitigationActionExecution
+instance
+  Prelude.NFData
+    DetectMitigationActionExecution

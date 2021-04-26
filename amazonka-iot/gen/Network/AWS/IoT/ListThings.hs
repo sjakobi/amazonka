@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists your things. Use the __attributeName__ and __attributeValue__ parameters to filter your things. For example, calling @ListThings@ with attributeName=Color and attributeValue=Red retrieves all things in the registry that contain an attribute __Color__ with the value __Red__ .
+-- Lists your things. Use the __attributeName__ and __attributeValue__
+-- parameters to filter your things. For example, calling @ListThings@ with
+-- attributeName=Color and attributeValue=Red retrieves all things in the
+-- registry that contain an attribute __Color__ with the value __Red__.
 --
---
+-- You will not be charged for calling this API if an @Access denied@ error
+-- is returned. You will also not be charged if no attributes or pagination
+-- token was provided in request and no pagination token and no results
+-- were returned.
 --
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListThings
   ( -- * Creating a Request
-    listThings,
-    ListThings,
+    ListThings (..),
+    newListThings,
 
     -- * Request Lenses
-    ltAttributeValue,
-    ltNextToken,
-    ltMaxResults,
-    ltAttributeName,
-    ltThingTypeName,
+    listThings_attributeValue,
+    listThings_nextToken,
+    listThings_maxResults,
+    listThings_attributeName,
+    listThings_thingTypeName,
 
     -- * Destructuring the Response
-    listThingsResponse,
-    ListThingsResponse,
+    ListThingsResponse (..),
+    newListThingsResponse,
 
     -- * Response Lenses
-    ltrrsNextToken,
-    ltrrsThings,
-    ltrrsResponseStatus,
+    listThingsResponse_nextToken,
+    listThingsResponse_things,
+    listThingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.ThingAttribute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the ListThings operation.
 --
---
---
--- /See:/ 'listThings' smart constructor.
+-- /See:/ 'newListThings' smart constructor.
 data ListThings = ListThings'
-  { _ltAttributeValue ::
-      !(Maybe Text),
-    _ltNextToken :: !(Maybe Text),
-    _ltMaxResults :: !(Maybe Nat),
-    _ltAttributeName :: !(Maybe Text),
-    _ltThingTypeName :: !(Maybe Text)
+  { -- | The attribute value used to search for things.
+    attributeValue :: Prelude.Maybe Prelude.Text,
+    -- | To retrieve the next set of results, the @nextToken@ value from a
+    -- previous response; otherwise __null__ to receive the first set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in this operation.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The attribute name used to search for things.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing type used to search for things.
+    thingTypeName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListThings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListThings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltAttributeValue' - The attribute value used to search for things.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltNextToken' - To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
+-- 'attributeValue', 'listThings_attributeValue' - The attribute value used to search for things.
 --
--- * 'ltMaxResults' - The maximum number of results to return in this operation.
+-- 'nextToken', 'listThings_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
 --
--- * 'ltAttributeName' - The attribute name used to search for things.
+-- 'maxResults', 'listThings_maxResults' - The maximum number of results to return in this operation.
 --
--- * 'ltThingTypeName' - The name of the thing type used to search for things.
-listThings ::
+-- 'attributeName', 'listThings_attributeName' - The attribute name used to search for things.
+--
+-- 'thingTypeName', 'listThings_thingTypeName' - The name of the thing type used to search for things.
+newListThings ::
   ListThings
-listThings =
+newListThings =
   ListThings'
-    { _ltAttributeValue = Nothing,
-      _ltNextToken = Nothing,
-      _ltMaxResults = Nothing,
-      _ltAttributeName = Nothing,
-      _ltThingTypeName = Nothing
+    { attributeValue = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      attributeName = Prelude.Nothing,
+      thingTypeName = Prelude.Nothing
     }
 
 -- | The attribute value used to search for things.
-ltAttributeValue :: Lens' ListThings (Maybe Text)
-ltAttributeValue = lens _ltAttributeValue (\s a -> s {_ltAttributeValue = a})
+listThings_attributeValue :: Lens.Lens' ListThings (Prelude.Maybe Prelude.Text)
+listThings_attributeValue = Lens.lens (\ListThings' {attributeValue} -> attributeValue) (\s@ListThings' {} a -> s {attributeValue = a} :: ListThings)
 
--- | To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
-ltNextToken :: Lens' ListThings (Maybe Text)
-ltNextToken = lens _ltNextToken (\s a -> s {_ltNextToken = a})
+-- | To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
+listThings_nextToken :: Lens.Lens' ListThings (Prelude.Maybe Prelude.Text)
+listThings_nextToken = Lens.lens (\ListThings' {nextToken} -> nextToken) (\s@ListThings' {} a -> s {nextToken = a} :: ListThings)
 
 -- | The maximum number of results to return in this operation.
-ltMaxResults :: Lens' ListThings (Maybe Natural)
-ltMaxResults = lens _ltMaxResults (\s a -> s {_ltMaxResults = a}) . mapping _Nat
+listThings_maxResults :: Lens.Lens' ListThings (Prelude.Maybe Prelude.Natural)
+listThings_maxResults = Lens.lens (\ListThings' {maxResults} -> maxResults) (\s@ListThings' {} a -> s {maxResults = a} :: ListThings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The attribute name used to search for things.
-ltAttributeName :: Lens' ListThings (Maybe Text)
-ltAttributeName = lens _ltAttributeName (\s a -> s {_ltAttributeName = a})
+listThings_attributeName :: Lens.Lens' ListThings (Prelude.Maybe Prelude.Text)
+listThings_attributeName = Lens.lens (\ListThings' {attributeName} -> attributeName) (\s@ListThings' {} a -> s {attributeName = a} :: ListThings)
 
 -- | The name of the thing type used to search for things.
-ltThingTypeName :: Lens' ListThings (Maybe Text)
-ltThingTypeName = lens _ltThingTypeName (\s a -> s {_ltThingTypeName = a})
+listThings_thingTypeName :: Lens.Lens' ListThings (Prelude.Maybe Prelude.Text)
+listThings_thingTypeName = Lens.lens (\ListThings' {thingTypeName} -> thingTypeName) (\s@ListThings' {} a -> s {thingTypeName = a} :: ListThings)
 
-instance AWSPager ListThings where
+instance Pager.AWSPager ListThings where
   page rq rs
-    | stop (rs ^. ltrrsNextToken) = Nothing
-    | stop (rs ^. ltrrsThings) = Nothing
-    | otherwise =
-      Just $ rq & ltNextToken .~ rs ^. ltrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listThingsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listThingsResponse_things Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listThings_nextToken
+          Lens..~ rs
+          Lens.^? listThingsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListThings where
+instance Prelude.AWSRequest ListThings where
   type Rs ListThings = ListThingsResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListThingsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "things" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "things" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListThings
+instance Prelude.Hashable ListThings
 
-instance NFData ListThings
+instance Prelude.NFData ListThings
 
-instance ToHeaders ListThings where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListThings where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListThings where
-  toPath = const "/things"
+instance Prelude.ToPath ListThings where
+  toPath = Prelude.const "/things"
 
-instance ToQuery ListThings where
+instance Prelude.ToQuery ListThings where
   toQuery ListThings' {..} =
-    mconcat
-      [ "attributeValue" =: _ltAttributeValue,
-        "nextToken" =: _ltNextToken,
-        "maxResults" =: _ltMaxResults,
-        "attributeName" =: _ltAttributeName,
-        "thingTypeName" =: _ltThingTypeName
+    Prelude.mconcat
+      [ "attributeValue" Prelude.=: attributeValue,
+        "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "attributeName" Prelude.=: attributeName,
+        "thingTypeName" Prelude.=: thingTypeName
       ]
 
 -- | The output from the ListThings operation.
 --
---
---
--- /See:/ 'listThingsResponse' smart constructor.
+-- /See:/ 'newListThingsResponse' smart constructor.
 data ListThingsResponse = ListThingsResponse'
-  { _ltrrsNextToken ::
-      !(Maybe Text),
-    _ltrrsThings ::
-      !(Maybe [ThingAttribute]),
-    _ltrrsResponseStatus :: !Int
+  { -- | The token to use to get the next set of results. Will not be returned if
+    -- operation has returned all results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The things.
+    things :: Prelude.Maybe [ThingAttribute],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListThingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListThingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrrsNextToken' - The token to use to get the next set of results. Will not be returned if operation has returned all results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrrsThings' - The things.
+-- 'nextToken', 'listThingsResponse_nextToken' - The token to use to get the next set of results. Will not be returned if
+-- operation has returned all results.
 --
--- * 'ltrrsResponseStatus' - -- | The response status code.
-listThingsResponse ::
-  -- | 'ltrrsResponseStatus'
-  Int ->
+-- 'things', 'listThingsResponse_things' - The things.
+--
+-- 'httpStatus', 'listThingsResponse_httpStatus' - The response's http status code.
+newListThingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListThingsResponse
-listThingsResponse pResponseStatus_ =
+newListThingsResponse pHttpStatus_ =
   ListThingsResponse'
-    { _ltrrsNextToken = Nothing,
-      _ltrrsThings = Nothing,
-      _ltrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      things = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to get the next set of results. Will not be returned if operation has returned all results.
-ltrrsNextToken :: Lens' ListThingsResponse (Maybe Text)
-ltrrsNextToken = lens _ltrrsNextToken (\s a -> s {_ltrrsNextToken = a})
+-- | The token to use to get the next set of results. Will not be returned if
+-- operation has returned all results.
+listThingsResponse_nextToken :: Lens.Lens' ListThingsResponse (Prelude.Maybe Prelude.Text)
+listThingsResponse_nextToken = Lens.lens (\ListThingsResponse' {nextToken} -> nextToken) (\s@ListThingsResponse' {} a -> s {nextToken = a} :: ListThingsResponse)
 
 -- | The things.
-ltrrsThings :: Lens' ListThingsResponse [ThingAttribute]
-ltrrsThings = lens _ltrrsThings (\s a -> s {_ltrrsThings = a}) . _Default . _Coerce
+listThingsResponse_things :: Lens.Lens' ListThingsResponse (Prelude.Maybe [ThingAttribute])
+listThingsResponse_things = Lens.lens (\ListThingsResponse' {things} -> things) (\s@ListThingsResponse' {} a -> s {things = a} :: ListThingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltrrsResponseStatus :: Lens' ListThingsResponse Int
-ltrrsResponseStatus = lens _ltrrsResponseStatus (\s a -> s {_ltrrsResponseStatus = a})
+-- | The response's http status code.
+listThingsResponse_httpStatus :: Lens.Lens' ListThingsResponse Prelude.Int
+listThingsResponse_httpStatus = Lens.lens (\ListThingsResponse' {httpStatus} -> httpStatus) (\s@ListThingsResponse' {} a -> s {httpStatus = a} :: ListThingsResponse)
 
-instance NFData ListThingsResponse
+instance Prelude.NFData ListThingsResponse

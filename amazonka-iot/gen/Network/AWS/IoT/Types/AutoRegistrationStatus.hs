@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.IoT.Types.AutoRegistrationStatus
   ( AutoRegistrationStatus
       ( ..,
-        Disable,
-        Enable
+        AutoRegistrationStatusDISABLE,
+        AutoRegistrationStatusENABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoRegistrationStatus
-  = AutoRegistrationStatus'
-      ( CI
-          Text
-      )
+newtype AutoRegistrationStatus = AutoRegistrationStatus'
+  { fromAutoRegistrationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disable :: AutoRegistrationStatus
-pattern Disable = AutoRegistrationStatus' "DISABLE"
+pattern AutoRegistrationStatusDISABLE :: AutoRegistrationStatus
+pattern AutoRegistrationStatusDISABLE = AutoRegistrationStatus' "DISABLE"
 
-pattern Enable :: AutoRegistrationStatus
-pattern Enable = AutoRegistrationStatus' "ENABLE"
+pattern AutoRegistrationStatusENABLE :: AutoRegistrationStatus
+pattern AutoRegistrationStatusENABLE = AutoRegistrationStatus' "ENABLE"
 
 {-# COMPLETE
-  Disable,
-  Enable,
+  AutoRegistrationStatusDISABLE,
+  AutoRegistrationStatusENABLE,
   AutoRegistrationStatus'
   #-}
 
-instance FromText AutoRegistrationStatus where
-  parser = (AutoRegistrationStatus' . mk) <$> takeText
+instance Prelude.FromText AutoRegistrationStatus where
+  parser = AutoRegistrationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AutoRegistrationStatus where
-  toText (AutoRegistrationStatus' ci) = original ci
+instance Prelude.ToText AutoRegistrationStatus where
+  toText (AutoRegistrationStatus' x) = x
 
-instance Hashable AutoRegistrationStatus
+instance Prelude.Hashable AutoRegistrationStatus
 
-instance NFData AutoRegistrationStatus
+instance Prelude.NFData AutoRegistrationStatus
 
-instance ToByteString AutoRegistrationStatus
+instance Prelude.ToByteString AutoRegistrationStatus
 
-instance ToQuery AutoRegistrationStatus
+instance Prelude.ToQuery AutoRegistrationStatus
 
-instance ToHeader AutoRegistrationStatus
+instance Prelude.ToHeader AutoRegistrationStatus
 
-instance ToJSON AutoRegistrationStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutoRegistrationStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AutoRegistrationStatus where
-  parseJSON = parseJSONText "AutoRegistrationStatus"
+instance Prelude.FromJSON AutoRegistrationStatus where
+  parseJSON = Prelude.parseJSONText "AutoRegistrationStatus"

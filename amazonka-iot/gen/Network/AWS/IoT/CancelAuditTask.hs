@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,111 +21,116 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels an audit that is in progress. The audit can be either scheduled or on demand. If the audit isn't in progress, an "InvalidRequestException" occurs.
+-- Cancels an audit that is in progress. The audit can be either scheduled
+-- or on demand. If the audit isn\'t in progress, an
+-- \"InvalidRequestException\" occurs.
 module Network.AWS.IoT.CancelAuditTask
   ( -- * Creating a Request
-    cancelAuditTask,
-    CancelAuditTask,
+    CancelAuditTask (..),
+    newCancelAuditTask,
 
     -- * Request Lenses
-    catTaskId,
+    cancelAuditTask_taskId,
 
     -- * Destructuring the Response
-    cancelAuditTaskResponse,
-    CancelAuditTaskResponse,
+    CancelAuditTaskResponse (..),
+    newCancelAuditTaskResponse,
 
     -- * Response Lenses
-    catrrsResponseStatus,
+    cancelAuditTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'cancelAuditTask' smart constructor.
-newtype CancelAuditTask = CancelAuditTask'
-  { _catTaskId ::
-      Text
+-- | /See:/ 'newCancelAuditTask' smart constructor.
+data CancelAuditTask = CancelAuditTask'
+  { -- | The ID of the audit you want to cancel. You can only cancel an audit
+    -- that is \"IN_PROGRESS\".
+    taskId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelAuditTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelAuditTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'catTaskId' - The ID of the audit you want to cancel. You can only cancel an audit that is "IN_PROGRESS".
-cancelAuditTask ::
-  -- | 'catTaskId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'taskId', 'cancelAuditTask_taskId' - The ID of the audit you want to cancel. You can only cancel an audit
+-- that is \"IN_PROGRESS\".
+newCancelAuditTask ::
+  -- | 'taskId'
+  Prelude.Text ->
   CancelAuditTask
-cancelAuditTask pTaskId_ =
-  CancelAuditTask' {_catTaskId = pTaskId_}
+newCancelAuditTask pTaskId_ =
+  CancelAuditTask' {taskId = pTaskId_}
 
--- | The ID of the audit you want to cancel. You can only cancel an audit that is "IN_PROGRESS".
-catTaskId :: Lens' CancelAuditTask Text
-catTaskId = lens _catTaskId (\s a -> s {_catTaskId = a})
+-- | The ID of the audit you want to cancel. You can only cancel an audit
+-- that is \"IN_PROGRESS\".
+cancelAuditTask_taskId :: Lens.Lens' CancelAuditTask Prelude.Text
+cancelAuditTask_taskId = Lens.lens (\CancelAuditTask' {taskId} -> taskId) (\s@CancelAuditTask' {} a -> s {taskId = a} :: CancelAuditTask)
 
-instance AWSRequest CancelAuditTask where
+instance Prelude.AWSRequest CancelAuditTask where
   type Rs CancelAuditTask = CancelAuditTaskResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CancelAuditTaskResponse' <$> (pure (fromEnum s))
+          CancelAuditTaskResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CancelAuditTask
+instance Prelude.Hashable CancelAuditTask
 
-instance NFData CancelAuditTask
+instance Prelude.NFData CancelAuditTask
 
-instance ToHeaders CancelAuditTask where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CancelAuditTask where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CancelAuditTask where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON CancelAuditTask where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath CancelAuditTask where
+instance Prelude.ToPath CancelAuditTask where
   toPath CancelAuditTask' {..} =
-    mconcat
-      ["/audit/tasks/", toBS _catTaskId, "/cancel"]
+    Prelude.mconcat
+      ["/audit/tasks/", Prelude.toBS taskId, "/cancel"]
 
-instance ToQuery CancelAuditTask where
-  toQuery = const mempty
+instance Prelude.ToQuery CancelAuditTask where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'cancelAuditTaskResponse' smart constructor.
-newtype CancelAuditTaskResponse = CancelAuditTaskResponse'
-  { _catrrsResponseStatus ::
-      Int
+-- | /See:/ 'newCancelAuditTaskResponse' smart constructor.
+data CancelAuditTaskResponse = CancelAuditTaskResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelAuditTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelAuditTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'catrrsResponseStatus' - -- | The response status code.
-cancelAuditTaskResponse ::
-  -- | 'catrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'cancelAuditTaskResponse_httpStatus' - The response's http status code.
+newCancelAuditTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelAuditTaskResponse
-cancelAuditTaskResponse pResponseStatus_ =
-  CancelAuditTaskResponse'
-    { _catrrsResponseStatus =
-        pResponseStatus_
-    }
+newCancelAuditTaskResponse pHttpStatus_ =
+  CancelAuditTaskResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-catrrsResponseStatus :: Lens' CancelAuditTaskResponse Int
-catrrsResponseStatus = lens _catrrsResponseStatus (\s a -> s {_catrrsResponseStatus = a})
+-- | The response's http status code.
+cancelAuditTaskResponse_httpStatus :: Lens.Lens' CancelAuditTaskResponse Prelude.Int
+cancelAuditTaskResponse_httpStatus = Lens.lens (\CancelAuditTaskResponse' {httpStatus} -> httpStatus) (\s@CancelAuditTaskResponse' {} a -> s {httpStatus = a} :: CancelAuditTaskResponse)
 
-instance NFData CancelAuditTaskResponse
+instance Prelude.NFData CancelAuditTaskResponse

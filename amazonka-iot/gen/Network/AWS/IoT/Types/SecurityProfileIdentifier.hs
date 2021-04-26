@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.SecurityProfileIdentifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Identifying information for a Device Defender security profile.
 --
---
---
--- /See:/ 'securityProfileIdentifier' smart constructor.
+-- /See:/ 'newSecurityProfileIdentifier' smart constructor.
 data SecurityProfileIdentifier = SecurityProfileIdentifier'
-  { _spiName ::
-      !Text,
-    _spiArn :: !Text
+  { -- | The name you\'ve given to the security profile.
+    name :: Prelude.Text,
+    -- | The ARN of the security profile.
+    arn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SecurityProfileIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SecurityProfileIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spiName' - The name you've given to the security profile.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spiArn' - The ARN of the security profile.
-securityProfileIdentifier ::
-  -- | 'spiName'
-  Text ->
-  -- | 'spiArn'
-  Text ->
+-- 'name', 'securityProfileIdentifier_name' - The name you\'ve given to the security profile.
+--
+-- 'arn', 'securityProfileIdentifier_arn' - The ARN of the security profile.
+newSecurityProfileIdentifier ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'arn'
+  Prelude.Text ->
   SecurityProfileIdentifier
-securityProfileIdentifier pName_ pArn_ =
+newSecurityProfileIdentifier pName_ pArn_ =
   SecurityProfileIdentifier'
-    { _spiName = pName_,
-      _spiArn = pArn_
+    { name = pName_,
+      arn = pArn_
     }
 
--- | The name you've given to the security profile.
-spiName :: Lens' SecurityProfileIdentifier Text
-spiName = lens _spiName (\s a -> s {_spiName = a})
+-- | The name you\'ve given to the security profile.
+securityProfileIdentifier_name :: Lens.Lens' SecurityProfileIdentifier Prelude.Text
+securityProfileIdentifier_name = Lens.lens (\SecurityProfileIdentifier' {name} -> name) (\s@SecurityProfileIdentifier' {} a -> s {name = a} :: SecurityProfileIdentifier)
 
 -- | The ARN of the security profile.
-spiArn :: Lens' SecurityProfileIdentifier Text
-spiArn = lens _spiArn (\s a -> s {_spiArn = a})
+securityProfileIdentifier_arn :: Lens.Lens' SecurityProfileIdentifier Prelude.Text
+securityProfileIdentifier_arn = Lens.lens (\SecurityProfileIdentifier' {arn} -> arn) (\s@SecurityProfileIdentifier' {} a -> s {arn = a} :: SecurityProfileIdentifier)
 
-instance FromJSON SecurityProfileIdentifier where
+instance Prelude.FromJSON SecurityProfileIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SecurityProfileIdentifier"
       ( \x ->
           SecurityProfileIdentifier'
-            <$> (x .: "name") <*> (x .: "arn")
+            Prelude.<$> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "arn")
       )
 
-instance Hashable SecurityProfileIdentifier
+instance Prelude.Hashable SecurityProfileIdentifier
 
-instance NFData SecurityProfileIdentifier
+instance Prelude.NFData SecurityProfileIdentifier

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.PolicyVersionIdentifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the version of the policy associated with the resource.
+-- | Information about the version of the policy associated with the
+-- resource.
 --
---
---
--- /See:/ 'policyVersionIdentifier' smart constructor.
+-- /See:/ 'newPolicyVersionIdentifier' smart constructor.
 data PolicyVersionIdentifier = PolicyVersionIdentifier'
-  { _pviPolicyVersionId ::
-      !(Maybe Text),
-    _pviPolicyName ::
-      !(Maybe Text)
+  { -- | The ID of the version of the policy associated with the resource.
+    policyVersionId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the policy.
+    policyName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyVersionIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyVersionIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pviPolicyVersionId' - The ID of the version of the policy associated with the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pviPolicyName' - The name of the policy.
-policyVersionIdentifier ::
+-- 'policyVersionId', 'policyVersionIdentifier_policyVersionId' - The ID of the version of the policy associated with the resource.
+--
+-- 'policyName', 'policyVersionIdentifier_policyName' - The name of the policy.
+newPolicyVersionIdentifier ::
   PolicyVersionIdentifier
-policyVersionIdentifier =
+newPolicyVersionIdentifier =
   PolicyVersionIdentifier'
-    { _pviPolicyVersionId =
-        Nothing,
-      _pviPolicyName = Nothing
+    { policyVersionId =
+        Prelude.Nothing,
+      policyName = Prelude.Nothing
     }
 
 -- | The ID of the version of the policy associated with the resource.
-pviPolicyVersionId :: Lens' PolicyVersionIdentifier (Maybe Text)
-pviPolicyVersionId = lens _pviPolicyVersionId (\s a -> s {_pviPolicyVersionId = a})
+policyVersionIdentifier_policyVersionId :: Lens.Lens' PolicyVersionIdentifier (Prelude.Maybe Prelude.Text)
+policyVersionIdentifier_policyVersionId = Lens.lens (\PolicyVersionIdentifier' {policyVersionId} -> policyVersionId) (\s@PolicyVersionIdentifier' {} a -> s {policyVersionId = a} :: PolicyVersionIdentifier)
 
 -- | The name of the policy.
-pviPolicyName :: Lens' PolicyVersionIdentifier (Maybe Text)
-pviPolicyName = lens _pviPolicyName (\s a -> s {_pviPolicyName = a})
+policyVersionIdentifier_policyName :: Lens.Lens' PolicyVersionIdentifier (Prelude.Maybe Prelude.Text)
+policyVersionIdentifier_policyName = Lens.lens (\PolicyVersionIdentifier' {policyName} -> policyName) (\s@PolicyVersionIdentifier' {} a -> s {policyName = a} :: PolicyVersionIdentifier)
 
-instance FromJSON PolicyVersionIdentifier where
+instance Prelude.FromJSON PolicyVersionIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PolicyVersionIdentifier"
       ( \x ->
           PolicyVersionIdentifier'
-            <$> (x .:? "policyVersionId") <*> (x .:? "policyName")
+            Prelude.<$> (x Prelude..:? "policyVersionId")
+            Prelude.<*> (x Prelude..:? "policyName")
       )
 
-instance Hashable PolicyVersionIdentifier
+instance Prelude.Hashable PolicyVersionIdentifier
 
-instance NFData PolicyVersionIdentifier
+instance Prelude.NFData PolicyVersionIdentifier
 
-instance ToJSON PolicyVersionIdentifier where
+instance Prelude.ToJSON PolicyVersionIdentifier where
   toJSON PolicyVersionIdentifier' {..} =
-    object
-      ( catMaybes
-          [ ("policyVersionId" .=) <$> _pviPolicyVersionId,
-            ("policyName" .=) <$> _pviPolicyName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("policyVersionId" Prelude..=)
+              Prelude.<$> policyVersionId,
+            ("policyName" Prelude..=) Prelude.<$> policyName
           ]
       )

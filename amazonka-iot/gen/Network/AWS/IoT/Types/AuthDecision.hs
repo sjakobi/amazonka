@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.IoT.Types.AuthDecision
   ( AuthDecision
       ( ..,
-        Allowed,
-        ExplicitDeny,
-        ImplicitDeny
+        AuthDecisionALLOWED,
+        AuthDecisionEXPLICITDENY,
+        AuthDecisionIMPLICITDENY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthDecision = AuthDecision' (CI Text)
+newtype AuthDecision = AuthDecision'
+  { fromAuthDecision ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Allowed :: AuthDecision
-pattern Allowed = AuthDecision' "ALLOWED"
+pattern AuthDecisionALLOWED :: AuthDecision
+pattern AuthDecisionALLOWED = AuthDecision' "ALLOWED"
 
-pattern ExplicitDeny :: AuthDecision
-pattern ExplicitDeny = AuthDecision' "EXPLICIT_DENY"
+pattern AuthDecisionEXPLICITDENY :: AuthDecision
+pattern AuthDecisionEXPLICITDENY = AuthDecision' "EXPLICIT_DENY"
 
-pattern ImplicitDeny :: AuthDecision
-pattern ImplicitDeny = AuthDecision' "IMPLICIT_DENY"
+pattern AuthDecisionIMPLICITDENY :: AuthDecision
+pattern AuthDecisionIMPLICITDENY = AuthDecision' "IMPLICIT_DENY"
 
 {-# COMPLETE
-  Allowed,
-  ExplicitDeny,
-  ImplicitDeny,
+  AuthDecisionALLOWED,
+  AuthDecisionEXPLICITDENY,
+  AuthDecisionIMPLICITDENY,
   AuthDecision'
   #-}
 
-instance FromText AuthDecision where
-  parser = (AuthDecision' . mk) <$> takeText
+instance Prelude.FromText AuthDecision where
+  parser = AuthDecision' Prelude.<$> Prelude.takeText
 
-instance ToText AuthDecision where
-  toText (AuthDecision' ci) = original ci
+instance Prelude.ToText AuthDecision where
+  toText (AuthDecision' x) = x
 
-instance Hashable AuthDecision
+instance Prelude.Hashable AuthDecision
 
-instance NFData AuthDecision
+instance Prelude.NFData AuthDecision
 
-instance ToByteString AuthDecision
+instance Prelude.ToByteString AuthDecision
 
-instance ToQuery AuthDecision
+instance Prelude.ToQuery AuthDecision
 
-instance ToHeader AuthDecision
+instance Prelude.ToHeader AuthDecision
 
-instance FromJSON AuthDecision where
-  parseJSON = parseJSONText "AuthDecision"
+instance Prelude.FromJSON AuthDecision where
+  parseJSON = Prelude.parseJSONText "AuthDecision"

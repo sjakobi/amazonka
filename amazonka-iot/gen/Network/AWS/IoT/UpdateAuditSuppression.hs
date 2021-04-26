@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,173 +24,174 @@
 -- Updates a Device Defender audit suppression.
 module Network.AWS.IoT.UpdateAuditSuppression
   ( -- * Creating a Request
-    updateAuditSuppression,
-    UpdateAuditSuppression,
+    UpdateAuditSuppression (..),
+    newUpdateAuditSuppression,
 
     -- * Request Lenses
-    uasExpirationDate,
-    uasDescription,
-    uasSuppressIndefinitely,
-    uasCheckName,
-    uasResourceIdentifier,
+    updateAuditSuppression_expirationDate,
+    updateAuditSuppression_description,
+    updateAuditSuppression_suppressIndefinitely,
+    updateAuditSuppression_checkName,
+    updateAuditSuppression_resourceIdentifier,
 
     -- * Destructuring the Response
-    updateAuditSuppressionResponse,
-    UpdateAuditSuppressionResponse,
+    UpdateAuditSuppressionResponse (..),
+    newUpdateAuditSuppressionResponse,
 
     -- * Response Lenses
-    uasrrsResponseStatus,
+    updateAuditSuppressionResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateAuditSuppression' smart constructor.
+-- | /See:/ 'newUpdateAuditSuppression' smart constructor.
 data UpdateAuditSuppression = UpdateAuditSuppression'
-  { _uasExpirationDate ::
-      !(Maybe POSIX),
-    _uasDescription ::
-      !(Maybe Text),
-    _uasSuppressIndefinitely ::
-      !(Maybe Bool),
-    _uasCheckName :: !Text,
-    _uasResourceIdentifier ::
-      !ResourceIdentifier
+  { -- | The expiration date (epoch timestamp in seconds) that you want the
+    -- suppression to adhere to.
+    expirationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The description of the audit suppression.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether a suppression should exist indefinitely or not.
+    suppressIndefinitely :: Prelude.Maybe Prelude.Bool,
+    checkName :: Prelude.Text,
+    resourceIdentifier :: ResourceIdentifier
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAuditSuppression' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAuditSuppression' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uasExpirationDate' - The expiration date (epoch timestamp in seconds) that you want the suppression to adhere to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uasDescription' - The description of the audit suppression.
+-- 'expirationDate', 'updateAuditSuppression_expirationDate' - The expiration date (epoch timestamp in seconds) that you want the
+-- suppression to adhere to.
 --
--- * 'uasSuppressIndefinitely' - Indicates whether a suppression should exist indefinitely or not.
+-- 'description', 'updateAuditSuppression_description' - The description of the audit suppression.
 --
--- * 'uasCheckName' - Undocumented member.
+-- 'suppressIndefinitely', 'updateAuditSuppression_suppressIndefinitely' - Indicates whether a suppression should exist indefinitely or not.
 --
--- * 'uasResourceIdentifier' - Undocumented member.
-updateAuditSuppression ::
-  -- | 'uasCheckName'
-  Text ->
-  -- | 'uasResourceIdentifier'
+-- 'checkName', 'updateAuditSuppression_checkName' - Undocumented member.
+--
+-- 'resourceIdentifier', 'updateAuditSuppression_resourceIdentifier' - Undocumented member.
+newUpdateAuditSuppression ::
+  -- | 'checkName'
+  Prelude.Text ->
+  -- | 'resourceIdentifier'
   ResourceIdentifier ->
   UpdateAuditSuppression
-updateAuditSuppression
+newUpdateAuditSuppression
   pCheckName_
   pResourceIdentifier_ =
     UpdateAuditSuppression'
-      { _uasExpirationDate =
-          Nothing,
-        _uasDescription = Nothing,
-        _uasSuppressIndefinitely = Nothing,
-        _uasCheckName = pCheckName_,
-        _uasResourceIdentifier = pResourceIdentifier_
+      { expirationDate =
+          Prelude.Nothing,
+        description = Prelude.Nothing,
+        suppressIndefinitely = Prelude.Nothing,
+        checkName = pCheckName_,
+        resourceIdentifier = pResourceIdentifier_
       }
 
--- | The expiration date (epoch timestamp in seconds) that you want the suppression to adhere to.
-uasExpirationDate :: Lens' UpdateAuditSuppression (Maybe UTCTime)
-uasExpirationDate = lens _uasExpirationDate (\s a -> s {_uasExpirationDate = a}) . mapping _Time
+-- | The expiration date (epoch timestamp in seconds) that you want the
+-- suppression to adhere to.
+updateAuditSuppression_expirationDate :: Lens.Lens' UpdateAuditSuppression (Prelude.Maybe Prelude.UTCTime)
+updateAuditSuppression_expirationDate = Lens.lens (\UpdateAuditSuppression' {expirationDate} -> expirationDate) (\s@UpdateAuditSuppression' {} a -> s {expirationDate = a} :: UpdateAuditSuppression) Prelude.. Lens.mapping Prelude._Time
 
 -- | The description of the audit suppression.
-uasDescription :: Lens' UpdateAuditSuppression (Maybe Text)
-uasDescription = lens _uasDescription (\s a -> s {_uasDescription = a})
+updateAuditSuppression_description :: Lens.Lens' UpdateAuditSuppression (Prelude.Maybe Prelude.Text)
+updateAuditSuppression_description = Lens.lens (\UpdateAuditSuppression' {description} -> description) (\s@UpdateAuditSuppression' {} a -> s {description = a} :: UpdateAuditSuppression)
 
 -- | Indicates whether a suppression should exist indefinitely or not.
-uasSuppressIndefinitely :: Lens' UpdateAuditSuppression (Maybe Bool)
-uasSuppressIndefinitely = lens _uasSuppressIndefinitely (\s a -> s {_uasSuppressIndefinitely = a})
+updateAuditSuppression_suppressIndefinitely :: Lens.Lens' UpdateAuditSuppression (Prelude.Maybe Prelude.Bool)
+updateAuditSuppression_suppressIndefinitely = Lens.lens (\UpdateAuditSuppression' {suppressIndefinitely} -> suppressIndefinitely) (\s@UpdateAuditSuppression' {} a -> s {suppressIndefinitely = a} :: UpdateAuditSuppression)
 
 -- | Undocumented member.
-uasCheckName :: Lens' UpdateAuditSuppression Text
-uasCheckName = lens _uasCheckName (\s a -> s {_uasCheckName = a})
+updateAuditSuppression_checkName :: Lens.Lens' UpdateAuditSuppression Prelude.Text
+updateAuditSuppression_checkName = Lens.lens (\UpdateAuditSuppression' {checkName} -> checkName) (\s@UpdateAuditSuppression' {} a -> s {checkName = a} :: UpdateAuditSuppression)
 
 -- | Undocumented member.
-uasResourceIdentifier :: Lens' UpdateAuditSuppression ResourceIdentifier
-uasResourceIdentifier = lens _uasResourceIdentifier (\s a -> s {_uasResourceIdentifier = a})
+updateAuditSuppression_resourceIdentifier :: Lens.Lens' UpdateAuditSuppression ResourceIdentifier
+updateAuditSuppression_resourceIdentifier = Lens.lens (\UpdateAuditSuppression' {resourceIdentifier} -> resourceIdentifier) (\s@UpdateAuditSuppression' {} a -> s {resourceIdentifier = a} :: UpdateAuditSuppression)
 
-instance AWSRequest UpdateAuditSuppression where
+instance Prelude.AWSRequest UpdateAuditSuppression where
   type
     Rs UpdateAuditSuppression =
       UpdateAuditSuppressionResponse
-  request = patchJSON ioT
+  request = Request.patchJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateAuditSuppressionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateAuditSuppression
+instance Prelude.Hashable UpdateAuditSuppression
 
-instance NFData UpdateAuditSuppression
+instance Prelude.NFData UpdateAuditSuppression
 
-instance ToHeaders UpdateAuditSuppression where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateAuditSuppression where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateAuditSuppression where
+instance Prelude.ToJSON UpdateAuditSuppression where
   toJSON UpdateAuditSuppression' {..} =
-    object
-      ( catMaybes
-          [ ("expirationDate" .=) <$> _uasExpirationDate,
-            ("description" .=) <$> _uasDescription,
-            ("suppressIndefinitely" .=)
-              <$> _uasSuppressIndefinitely,
-            Just ("checkName" .= _uasCheckName),
-            Just
-              ("resourceIdentifier" .= _uasResourceIdentifier)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("expirationDate" Prelude..=)
+              Prelude.<$> expirationDate,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("suppressIndefinitely" Prelude..=)
+              Prelude.<$> suppressIndefinitely,
+            Prelude.Just ("checkName" Prelude..= checkName),
+            Prelude.Just
+              ( "resourceIdentifier"
+                  Prelude..= resourceIdentifier
+              )
           ]
       )
 
-instance ToPath UpdateAuditSuppression where
-  toPath = const "/audit/suppressions/update"
+instance Prelude.ToPath UpdateAuditSuppression where
+  toPath = Prelude.const "/audit/suppressions/update"
 
-instance ToQuery UpdateAuditSuppression where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateAuditSuppression where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateAuditSuppressionResponse' smart constructor.
-newtype UpdateAuditSuppressionResponse = UpdateAuditSuppressionResponse'
-  { _uasrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateAuditSuppressionResponse' smart constructor.
+data UpdateAuditSuppressionResponse = UpdateAuditSuppressionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAuditSuppressionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAuditSuppressionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uasrrsResponseStatus' - -- | The response status code.
-updateAuditSuppressionResponse ::
-  -- | 'uasrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateAuditSuppressionResponse_httpStatus' - The response's http status code.
+newUpdateAuditSuppressionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateAuditSuppressionResponse
-updateAuditSuppressionResponse pResponseStatus_ =
+newUpdateAuditSuppressionResponse pHttpStatus_ =
   UpdateAuditSuppressionResponse'
-    { _uasrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-uasrrsResponseStatus :: Lens' UpdateAuditSuppressionResponse Int
-uasrrsResponseStatus = lens _uasrrsResponseStatus (\s a -> s {_uasrrsResponseStatus = a})
+-- | The response's http status code.
+updateAuditSuppressionResponse_httpStatus :: Lens.Lens' UpdateAuditSuppressionResponse Prelude.Int
+updateAuditSuppressionResponse_httpStatus = Lens.lens (\UpdateAuditSuppressionResponse' {httpStatus} -> httpStatus) (\s@UpdateAuditSuppressionResponse' {} a -> s {httpStatus = a} :: UpdateAuditSuppressionResponse)
 
-instance NFData UpdateAuditSuppressionResponse
+instance
+  Prelude.NFData
+    UpdateAuditSuppressionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,83 +20,84 @@
 module Network.AWS.IoT.Types.DomainConfigurationSummary where
 
 import Network.AWS.IoT.Types.ServiceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The summary of a domain configuration. A domain configuration specifies custom IoT-specific information about a domain. A domain configuration can be associated with an AWS-managed domain (for example, dbc123defghijk.iot.us-west-2.amazonaws.com), a customer managed domain, or a default endpoint.
+-- | The summary of a domain configuration. A domain configuration specifies
+-- custom IoT-specific information about a domain. A domain configuration
+-- can be associated with an AWS-managed domain (for example,
+-- dbc123defghijk.iot.us-west-2.amazonaws.com), a customer managed domain,
+-- or a default endpoint.
 --
+-- -   Data
 --
---     * Data
+-- -   Jobs
 --
---     * Jobs
+-- -   CredentialProvider
 --
---     * CredentialProvider
+-- The domain configuration feature is in public preview and is subject to
+-- change.
 --
---
---
---
--- /See:/ 'domainConfigurationSummary' smart constructor.
+-- /See:/ 'newDomainConfigurationSummary' smart constructor.
 data DomainConfigurationSummary = DomainConfigurationSummary'
-  { _dcsDomainConfigurationARN ::
-      !(Maybe Text),
-    _dcsDomainConfigurationName ::
-      !(Maybe Text),
-    _dcsServiceType ::
-      !( Maybe
-           ServiceType
-       )
+  { -- | The ARN of the domain configuration.
+    domainConfigurationArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the domain configuration. This value must be unique to a
+    -- region.
+    domainConfigurationName :: Prelude.Maybe Prelude.Text,
+    -- | The type of service delivered by the endpoint.
+    serviceType :: Prelude.Maybe ServiceType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainConfigurationSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainConfigurationSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsDomainConfigurationARN' - The ARN of the domain configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsDomainConfigurationName' - The name of the domain configuration. This value must be unique to a region.
+-- 'domainConfigurationArn', 'domainConfigurationSummary_domainConfigurationArn' - The ARN of the domain configuration.
 --
--- * 'dcsServiceType' - The type of service delivered by the endpoint.
-domainConfigurationSummary ::
+-- 'domainConfigurationName', 'domainConfigurationSummary_domainConfigurationName' - The name of the domain configuration. This value must be unique to a
+-- region.
+--
+-- 'serviceType', 'domainConfigurationSummary_serviceType' - The type of service delivered by the endpoint.
+newDomainConfigurationSummary ::
   DomainConfigurationSummary
-domainConfigurationSummary =
+newDomainConfigurationSummary =
   DomainConfigurationSummary'
-    { _dcsDomainConfigurationARN =
-        Nothing,
-      _dcsDomainConfigurationName = Nothing,
-      _dcsServiceType = Nothing
+    { domainConfigurationArn =
+        Prelude.Nothing,
+      domainConfigurationName = Prelude.Nothing,
+      serviceType = Prelude.Nothing
     }
 
 -- | The ARN of the domain configuration.
-dcsDomainConfigurationARN :: Lens' DomainConfigurationSummary (Maybe Text)
-dcsDomainConfigurationARN = lens _dcsDomainConfigurationARN (\s a -> s {_dcsDomainConfigurationARN = a})
+domainConfigurationSummary_domainConfigurationArn :: Lens.Lens' DomainConfigurationSummary (Prelude.Maybe Prelude.Text)
+domainConfigurationSummary_domainConfigurationArn = Lens.lens (\DomainConfigurationSummary' {domainConfigurationArn} -> domainConfigurationArn) (\s@DomainConfigurationSummary' {} a -> s {domainConfigurationArn = a} :: DomainConfigurationSummary)
 
--- | The name of the domain configuration. This value must be unique to a region.
-dcsDomainConfigurationName :: Lens' DomainConfigurationSummary (Maybe Text)
-dcsDomainConfigurationName = lens _dcsDomainConfigurationName (\s a -> s {_dcsDomainConfigurationName = a})
+-- | The name of the domain configuration. This value must be unique to a
+-- region.
+domainConfigurationSummary_domainConfigurationName :: Lens.Lens' DomainConfigurationSummary (Prelude.Maybe Prelude.Text)
+domainConfigurationSummary_domainConfigurationName = Lens.lens (\DomainConfigurationSummary' {domainConfigurationName} -> domainConfigurationName) (\s@DomainConfigurationSummary' {} a -> s {domainConfigurationName = a} :: DomainConfigurationSummary)
 
 -- | The type of service delivered by the endpoint.
-dcsServiceType :: Lens' DomainConfigurationSummary (Maybe ServiceType)
-dcsServiceType = lens _dcsServiceType (\s a -> s {_dcsServiceType = a})
+domainConfigurationSummary_serviceType :: Lens.Lens' DomainConfigurationSummary (Prelude.Maybe ServiceType)
+domainConfigurationSummary_serviceType = Lens.lens (\DomainConfigurationSummary' {serviceType} -> serviceType) (\s@DomainConfigurationSummary' {} a -> s {serviceType = a} :: DomainConfigurationSummary)
 
-instance FromJSON DomainConfigurationSummary where
+instance Prelude.FromJSON DomainConfigurationSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainConfigurationSummary"
       ( \x ->
           DomainConfigurationSummary'
-            <$> (x .:? "domainConfigurationArn")
-            <*> (x .:? "domainConfigurationName")
-            <*> (x .:? "serviceType")
+            Prelude.<$> (x Prelude..:? "domainConfigurationArn")
+            Prelude.<*> (x Prelude..:? "domainConfigurationName")
+            Prelude.<*> (x Prelude..:? "serviceType")
       )
 
-instance Hashable DomainConfigurationSummary
+instance Prelude.Hashable DomainConfigurationSummary
 
-instance NFData DomainConfigurationSummary
+instance Prelude.NFData DomainConfigurationSummary

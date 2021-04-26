@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,142 +24,145 @@
 -- Gets information about a Device Defender ML Detect mitigation action.
 module Network.AWS.IoT.DescribeDetectMitigationActionsTask
   ( -- * Creating a Request
-    describeDetectMitigationActionsTask,
-    DescribeDetectMitigationActionsTask,
+    DescribeDetectMitigationActionsTask (..),
+    newDescribeDetectMitigationActionsTask,
 
     -- * Request Lenses
-    ddmatTaskId,
+    describeDetectMitigationActionsTask_taskId,
 
     -- * Destructuring the Response
-    describeDetectMitigationActionsTaskResponse,
-    DescribeDetectMitigationActionsTaskResponse,
+    DescribeDetectMitigationActionsTaskResponse (..),
+    newDescribeDetectMitigationActionsTaskResponse,
 
     -- * Response Lenses
-    ddmatrrsTaskSummary,
-    ddmatrrsResponseStatus,
+    describeDetectMitigationActionsTaskResponse_taskSummary,
+    describeDetectMitigationActionsTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.DetectMitigationActionsTaskSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeDetectMitigationActionsTask' smart constructor.
-newtype DescribeDetectMitigationActionsTask = DescribeDetectMitigationActionsTask'
-  { _ddmatTaskId ::
-      Text
+-- | /See:/ 'newDescribeDetectMitigationActionsTask' smart constructor.
+data DescribeDetectMitigationActionsTask = DescribeDetectMitigationActionsTask'
+  { -- | The unique identifier of the task.
+    taskId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDetectMitigationActionsTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDetectMitigationActionsTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddmatTaskId' - The unique identifier of the task.
-describeDetectMitigationActionsTask ::
-  -- | 'ddmatTaskId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'taskId', 'describeDetectMitigationActionsTask_taskId' - The unique identifier of the task.
+newDescribeDetectMitigationActionsTask ::
+  -- | 'taskId'
+  Prelude.Text ->
   DescribeDetectMitigationActionsTask
-describeDetectMitigationActionsTask pTaskId_ =
+newDescribeDetectMitigationActionsTask pTaskId_ =
   DescribeDetectMitigationActionsTask'
-    { _ddmatTaskId =
+    { taskId =
         pTaskId_
     }
 
 -- | The unique identifier of the task.
-ddmatTaskId :: Lens' DescribeDetectMitigationActionsTask Text
-ddmatTaskId = lens _ddmatTaskId (\s a -> s {_ddmatTaskId = a})
+describeDetectMitigationActionsTask_taskId :: Lens.Lens' DescribeDetectMitigationActionsTask Prelude.Text
+describeDetectMitigationActionsTask_taskId = Lens.lens (\DescribeDetectMitigationActionsTask' {taskId} -> taskId) (\s@DescribeDetectMitigationActionsTask' {} a -> s {taskId = a} :: DescribeDetectMitigationActionsTask)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeDetectMitigationActionsTask
   where
   type
     Rs DescribeDetectMitigationActionsTask =
       DescribeDetectMitigationActionsTaskResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDetectMitigationActionsTaskResponse'
-            <$> (x .?> "taskSummary") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "taskSummary")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDetectMitigationActionsTask
-
-instance NFData DescribeDetectMitigationActionsTask
+instance
+  Prelude.Hashable
+    DescribeDetectMitigationActionsTask
 
 instance
-  ToHeaders
+  Prelude.NFData
+    DescribeDetectMitigationActionsTask
+
+instance
+  Prelude.ToHeaders
     DescribeDetectMitigationActionsTask
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeDetectMitigationActionsTask where
+instance
+  Prelude.ToPath
+    DescribeDetectMitigationActionsTask
+  where
   toPath DescribeDetectMitigationActionsTask' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detect/mitigationactions/tasks/",
-        toBS _ddmatTaskId
+        Prelude.toBS taskId
       ]
 
-instance ToQuery DescribeDetectMitigationActionsTask where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeDetectMitigationActionsTask
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeDetectMitigationActionsTaskResponse' smart constructor.
+-- | /See:/ 'newDescribeDetectMitigationActionsTaskResponse' smart constructor.
 data DescribeDetectMitigationActionsTaskResponse = DescribeDetectMitigationActionsTaskResponse'
-  { _ddmatrrsTaskSummary ::
-      !( Maybe
-           DetectMitigationActionsTaskSummary
-       ),
-    _ddmatrrsResponseStatus ::
-      !Int
+  { -- | The description of a task.
+    taskSummary :: Prelude.Maybe DetectMitigationActionsTaskSummary,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDetectMitigationActionsTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDetectMitigationActionsTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddmatrrsTaskSummary' - The description of a task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddmatrrsResponseStatus' - -- | The response status code.
-describeDetectMitigationActionsTaskResponse ::
-  -- | 'ddmatrrsResponseStatus'
-  Int ->
+-- 'taskSummary', 'describeDetectMitigationActionsTaskResponse_taskSummary' - The description of a task.
+--
+-- 'httpStatus', 'describeDetectMitigationActionsTaskResponse_httpStatus' - The response's http status code.
+newDescribeDetectMitigationActionsTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDetectMitigationActionsTaskResponse
-describeDetectMitigationActionsTaskResponse
-  pResponseStatus_ =
+newDescribeDetectMitigationActionsTaskResponse
+  pHttpStatus_ =
     DescribeDetectMitigationActionsTaskResponse'
-      { _ddmatrrsTaskSummary =
-          Nothing,
-        _ddmatrrsResponseStatus =
-          pResponseStatus_
+      { taskSummary =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The description of a task.
-ddmatrrsTaskSummary :: Lens' DescribeDetectMitigationActionsTaskResponse (Maybe DetectMitigationActionsTaskSummary)
-ddmatrrsTaskSummary = lens _ddmatrrsTaskSummary (\s a -> s {_ddmatrrsTaskSummary = a})
+describeDetectMitigationActionsTaskResponse_taskSummary :: Lens.Lens' DescribeDetectMitigationActionsTaskResponse (Prelude.Maybe DetectMitigationActionsTaskSummary)
+describeDetectMitigationActionsTaskResponse_taskSummary = Lens.lens (\DescribeDetectMitigationActionsTaskResponse' {taskSummary} -> taskSummary) (\s@DescribeDetectMitigationActionsTaskResponse' {} a -> s {taskSummary = a} :: DescribeDetectMitigationActionsTaskResponse)
 
--- | -- | The response status code.
-ddmatrrsResponseStatus :: Lens' DescribeDetectMitigationActionsTaskResponse Int
-ddmatrrsResponseStatus = lens _ddmatrrsResponseStatus (\s a -> s {_ddmatrrsResponseStatus = a})
+-- | The response's http status code.
+describeDetectMitigationActionsTaskResponse_httpStatus :: Lens.Lens' DescribeDetectMitigationActionsTaskResponse Prelude.Int
+describeDetectMitigationActionsTaskResponse_httpStatus = Lens.lens (\DescribeDetectMitigationActionsTaskResponse' {httpStatus} -> httpStatus) (\s@DescribeDetectMitigationActionsTaskResponse' {} a -> s {httpStatus = a} :: DescribeDetectMitigationActionsTaskResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeDetectMitigationActionsTaskResponse

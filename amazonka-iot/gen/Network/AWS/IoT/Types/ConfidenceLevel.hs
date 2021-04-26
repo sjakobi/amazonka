@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.IoT.Types.ConfidenceLevel
   ( ConfidenceLevel
       ( ..,
-        High,
-        Low,
-        Medium
+        ConfidenceLevelHIGH,
+        ConfidenceLevelLOW,
+        ConfidenceLevelMEDIUM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConfidenceLevel = ConfidenceLevel' (CI Text)
+newtype ConfidenceLevel = ConfidenceLevel'
+  { fromConfidenceLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern High :: ConfidenceLevel
-pattern High = ConfidenceLevel' "HIGH"
+pattern ConfidenceLevelHIGH :: ConfidenceLevel
+pattern ConfidenceLevelHIGH = ConfidenceLevel' "HIGH"
 
-pattern Low :: ConfidenceLevel
-pattern Low = ConfidenceLevel' "LOW"
+pattern ConfidenceLevelLOW :: ConfidenceLevel
+pattern ConfidenceLevelLOW = ConfidenceLevel' "LOW"
 
-pattern Medium :: ConfidenceLevel
-pattern Medium = ConfidenceLevel' "MEDIUM"
+pattern ConfidenceLevelMEDIUM :: ConfidenceLevel
+pattern ConfidenceLevelMEDIUM = ConfidenceLevel' "MEDIUM"
 
 {-# COMPLETE
-  High,
-  Low,
-  Medium,
+  ConfidenceLevelHIGH,
+  ConfidenceLevelLOW,
+  ConfidenceLevelMEDIUM,
   ConfidenceLevel'
   #-}
 
-instance FromText ConfidenceLevel where
-  parser = (ConfidenceLevel' . mk) <$> takeText
+instance Prelude.FromText ConfidenceLevel where
+  parser = ConfidenceLevel' Prelude.<$> Prelude.takeText
 
-instance ToText ConfidenceLevel where
-  toText (ConfidenceLevel' ci) = original ci
+instance Prelude.ToText ConfidenceLevel where
+  toText (ConfidenceLevel' x) = x
 
-instance Hashable ConfidenceLevel
+instance Prelude.Hashable ConfidenceLevel
 
-instance NFData ConfidenceLevel
+instance Prelude.NFData ConfidenceLevel
 
-instance ToByteString ConfidenceLevel
+instance Prelude.ToByteString ConfidenceLevel
 
-instance ToQuery ConfidenceLevel
+instance Prelude.ToQuery ConfidenceLevel
 
-instance ToHeader ConfidenceLevel
+instance Prelude.ToHeader ConfidenceLevel
 
-instance ToJSON ConfidenceLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConfidenceLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ConfidenceLevel where
-  parseJSON = parseJSONText "ConfidenceLevel"
+instance Prelude.FromJSON ConfidenceLevel where
+  parseJSON = Prelude.parseJSONText "ConfidenceLevel"

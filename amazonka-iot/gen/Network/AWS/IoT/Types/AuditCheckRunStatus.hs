@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.IoT.Types.AuditCheckRunStatus
   ( AuditCheckRunStatus
       ( ..,
-        Canceled,
-        CompletedCompliant,
-        CompletedNonCompliant,
-        Failed,
-        InProgress,
-        WaitingForDataCollection
+        AuditCheckRunStatusCANCELED,
+        AuditCheckRunStatusCOMPLETEDCOMPLIANT,
+        AuditCheckRunStatusCOMPLETEDNONCOMPLIANT,
+        AuditCheckRunStatusFAILED,
+        AuditCheckRunStatusINPROGRESS,
+        AuditCheckRunStatusWAITINGFORDATACOLLECTION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuditCheckRunStatus
-  = AuditCheckRunStatus'
-      ( CI
-          Text
-      )
+newtype AuditCheckRunStatus = AuditCheckRunStatus'
+  { fromAuditCheckRunStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Canceled :: AuditCheckRunStatus
-pattern Canceled = AuditCheckRunStatus' "CANCELED"
+pattern AuditCheckRunStatusCANCELED :: AuditCheckRunStatus
+pattern AuditCheckRunStatusCANCELED = AuditCheckRunStatus' "CANCELED"
 
-pattern CompletedCompliant :: AuditCheckRunStatus
-pattern CompletedCompliant = AuditCheckRunStatus' "COMPLETED_COMPLIANT"
+pattern AuditCheckRunStatusCOMPLETEDCOMPLIANT :: AuditCheckRunStatus
+pattern AuditCheckRunStatusCOMPLETEDCOMPLIANT = AuditCheckRunStatus' "COMPLETED_COMPLIANT"
 
-pattern CompletedNonCompliant :: AuditCheckRunStatus
-pattern CompletedNonCompliant = AuditCheckRunStatus' "COMPLETED_NON_COMPLIANT"
+pattern AuditCheckRunStatusCOMPLETEDNONCOMPLIANT :: AuditCheckRunStatus
+pattern AuditCheckRunStatusCOMPLETEDNONCOMPLIANT = AuditCheckRunStatus' "COMPLETED_NON_COMPLIANT"
 
-pattern Failed :: AuditCheckRunStatus
-pattern Failed = AuditCheckRunStatus' "FAILED"
+pattern AuditCheckRunStatusFAILED :: AuditCheckRunStatus
+pattern AuditCheckRunStatusFAILED = AuditCheckRunStatus' "FAILED"
 
-pattern InProgress :: AuditCheckRunStatus
-pattern InProgress = AuditCheckRunStatus' "IN_PROGRESS"
+pattern AuditCheckRunStatusINPROGRESS :: AuditCheckRunStatus
+pattern AuditCheckRunStatusINPROGRESS = AuditCheckRunStatus' "IN_PROGRESS"
 
-pattern WaitingForDataCollection :: AuditCheckRunStatus
-pattern WaitingForDataCollection = AuditCheckRunStatus' "WAITING_FOR_DATA_COLLECTION"
+pattern AuditCheckRunStatusWAITINGFORDATACOLLECTION :: AuditCheckRunStatus
+pattern AuditCheckRunStatusWAITINGFORDATACOLLECTION = AuditCheckRunStatus' "WAITING_FOR_DATA_COLLECTION"
 
 {-# COMPLETE
-  Canceled,
-  CompletedCompliant,
-  CompletedNonCompliant,
-  Failed,
-  InProgress,
-  WaitingForDataCollection,
+  AuditCheckRunStatusCANCELED,
+  AuditCheckRunStatusCOMPLETEDCOMPLIANT,
+  AuditCheckRunStatusCOMPLETEDNONCOMPLIANT,
+  AuditCheckRunStatusFAILED,
+  AuditCheckRunStatusINPROGRESS,
+  AuditCheckRunStatusWAITINGFORDATACOLLECTION,
   AuditCheckRunStatus'
   #-}
 
-instance FromText AuditCheckRunStatus where
-  parser = (AuditCheckRunStatus' . mk) <$> takeText
+instance Prelude.FromText AuditCheckRunStatus where
+  parser = AuditCheckRunStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AuditCheckRunStatus where
-  toText (AuditCheckRunStatus' ci) = original ci
+instance Prelude.ToText AuditCheckRunStatus where
+  toText (AuditCheckRunStatus' x) = x
 
-instance Hashable AuditCheckRunStatus
+instance Prelude.Hashable AuditCheckRunStatus
 
-instance NFData AuditCheckRunStatus
+instance Prelude.NFData AuditCheckRunStatus
 
-instance ToByteString AuditCheckRunStatus
+instance Prelude.ToByteString AuditCheckRunStatus
 
-instance ToQuery AuditCheckRunStatus
+instance Prelude.ToQuery AuditCheckRunStatus
 
-instance ToHeader AuditCheckRunStatus
+instance Prelude.ToHeader AuditCheckRunStatus
 
-instance FromJSON AuditCheckRunStatus where
-  parseJSON = parseJSONText "AuditCheckRunStatus"
+instance Prelude.FromJSON AuditCheckRunStatus where
+  parseJSON = Prelude.parseJSONText "AuditCheckRunStatus"

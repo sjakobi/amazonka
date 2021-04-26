@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,159 +24,172 @@
 -- Adds a thing to a thing group.
 module Network.AWS.IoT.AddThingToThingGroup
   ( -- * Creating a Request
-    addThingToThingGroup,
-    AddThingToThingGroup,
+    AddThingToThingGroup (..),
+    newAddThingToThingGroup,
 
     -- * Request Lenses
-    atttgThingARN,
-    atttgThingGroupARN,
-    atttgThingName,
-    atttgThingGroupName,
-    atttgOverrideDynamicGroups,
+    addThingToThingGroup_thingArn,
+    addThingToThingGroup_thingGroupArn,
+    addThingToThingGroup_thingName,
+    addThingToThingGroup_thingGroupName,
+    addThingToThingGroup_overrideDynamicGroups,
 
     -- * Destructuring the Response
-    addThingToThingGroupResponse,
-    AddThingToThingGroupResponse,
+    AddThingToThingGroupResponse (..),
+    newAddThingToThingGroupResponse,
 
     -- * Response Lenses
-    atttgrrsResponseStatus,
+    addThingToThingGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addThingToThingGroup' smart constructor.
+-- | /See:/ 'newAddThingToThingGroup' smart constructor.
 data AddThingToThingGroup = AddThingToThingGroup'
-  { _atttgThingARN ::
-      !(Maybe Text),
-    _atttgThingGroupARN ::
-      !(Maybe Text),
-    _atttgThingName ::
-      !(Maybe Text),
-    _atttgThingGroupName ::
-      !(Maybe Text),
-    _atttgOverrideDynamicGroups ::
-      !(Maybe Bool)
+  { -- | The ARN of the thing to add to a group.
+    thingArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the group to which you are adding a thing.
+    thingGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing to add to a group.
+    thingName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the group to which you are adding a thing.
+    thingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | Override dynamic thing groups with static thing groups when 10-group
+    -- limit is reached. If a thing belongs to 10 thing groups, and one or more
+    -- of those groups are dynamic thing groups, adding a thing to a static
+    -- group removes the thing from the last dynamic group.
+    overrideDynamicGroups :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddThingToThingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddThingToThingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atttgThingARN' - The ARN of the thing to add to a group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atttgThingGroupARN' - The ARN of the group to which you are adding a thing.
+-- 'thingArn', 'addThingToThingGroup_thingArn' - The ARN of the thing to add to a group.
 --
--- * 'atttgThingName' - The name of the thing to add to a group.
+-- 'thingGroupArn', 'addThingToThingGroup_thingGroupArn' - The ARN of the group to which you are adding a thing.
 --
--- * 'atttgThingGroupName' - The name of the group to which you are adding a thing.
+-- 'thingName', 'addThingToThingGroup_thingName' - The name of the thing to add to a group.
 --
--- * 'atttgOverrideDynamicGroups' - Override dynamic thing groups with static thing groups when 10-group limit is reached. If a thing belongs to 10 thing groups, and one or more of those groups are dynamic thing groups, adding a thing to a static group removes the thing from the last dynamic group.
-addThingToThingGroup ::
+-- 'thingGroupName', 'addThingToThingGroup_thingGroupName' - The name of the group to which you are adding a thing.
+--
+-- 'overrideDynamicGroups', 'addThingToThingGroup_overrideDynamicGroups' - Override dynamic thing groups with static thing groups when 10-group
+-- limit is reached. If a thing belongs to 10 thing groups, and one or more
+-- of those groups are dynamic thing groups, adding a thing to a static
+-- group removes the thing from the last dynamic group.
+newAddThingToThingGroup ::
   AddThingToThingGroup
-addThingToThingGroup =
+newAddThingToThingGroup =
   AddThingToThingGroup'
-    { _atttgThingARN = Nothing,
-      _atttgThingGroupARN = Nothing,
-      _atttgThingName = Nothing,
-      _atttgThingGroupName = Nothing,
-      _atttgOverrideDynamicGroups = Nothing
+    { thingArn = Prelude.Nothing,
+      thingGroupArn = Prelude.Nothing,
+      thingName = Prelude.Nothing,
+      thingGroupName = Prelude.Nothing,
+      overrideDynamicGroups = Prelude.Nothing
     }
 
 -- | The ARN of the thing to add to a group.
-atttgThingARN :: Lens' AddThingToThingGroup (Maybe Text)
-atttgThingARN = lens _atttgThingARN (\s a -> s {_atttgThingARN = a})
+addThingToThingGroup_thingArn :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
+addThingToThingGroup_thingArn = Lens.lens (\AddThingToThingGroup' {thingArn} -> thingArn) (\s@AddThingToThingGroup' {} a -> s {thingArn = a} :: AddThingToThingGroup)
 
 -- | The ARN of the group to which you are adding a thing.
-atttgThingGroupARN :: Lens' AddThingToThingGroup (Maybe Text)
-atttgThingGroupARN = lens _atttgThingGroupARN (\s a -> s {_atttgThingGroupARN = a})
+addThingToThingGroup_thingGroupArn :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
+addThingToThingGroup_thingGroupArn = Lens.lens (\AddThingToThingGroup' {thingGroupArn} -> thingGroupArn) (\s@AddThingToThingGroup' {} a -> s {thingGroupArn = a} :: AddThingToThingGroup)
 
 -- | The name of the thing to add to a group.
-atttgThingName :: Lens' AddThingToThingGroup (Maybe Text)
-atttgThingName = lens _atttgThingName (\s a -> s {_atttgThingName = a})
+addThingToThingGroup_thingName :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
+addThingToThingGroup_thingName = Lens.lens (\AddThingToThingGroup' {thingName} -> thingName) (\s@AddThingToThingGroup' {} a -> s {thingName = a} :: AddThingToThingGroup)
 
 -- | The name of the group to which you are adding a thing.
-atttgThingGroupName :: Lens' AddThingToThingGroup (Maybe Text)
-atttgThingGroupName = lens _atttgThingGroupName (\s a -> s {_atttgThingGroupName = a})
+addThingToThingGroup_thingGroupName :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
+addThingToThingGroup_thingGroupName = Lens.lens (\AddThingToThingGroup' {thingGroupName} -> thingGroupName) (\s@AddThingToThingGroup' {} a -> s {thingGroupName = a} :: AddThingToThingGroup)
 
--- | Override dynamic thing groups with static thing groups when 10-group limit is reached. If a thing belongs to 10 thing groups, and one or more of those groups are dynamic thing groups, adding a thing to a static group removes the thing from the last dynamic group.
-atttgOverrideDynamicGroups :: Lens' AddThingToThingGroup (Maybe Bool)
-atttgOverrideDynamicGroups = lens _atttgOverrideDynamicGroups (\s a -> s {_atttgOverrideDynamicGroups = a})
+-- | Override dynamic thing groups with static thing groups when 10-group
+-- limit is reached. If a thing belongs to 10 thing groups, and one or more
+-- of those groups are dynamic thing groups, adding a thing to a static
+-- group removes the thing from the last dynamic group.
+addThingToThingGroup_overrideDynamicGroups :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Bool)
+addThingToThingGroup_overrideDynamicGroups = Lens.lens (\AddThingToThingGroup' {overrideDynamicGroups} -> overrideDynamicGroups) (\s@AddThingToThingGroup' {} a -> s {overrideDynamicGroups = a} :: AddThingToThingGroup)
 
-instance AWSRequest AddThingToThingGroup where
+instance Prelude.AWSRequest AddThingToThingGroup where
   type
     Rs AddThingToThingGroup =
       AddThingToThingGroupResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AddThingToThingGroupResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AddThingToThingGroup
+instance Prelude.Hashable AddThingToThingGroup
 
-instance NFData AddThingToThingGroup
+instance Prelude.NFData AddThingToThingGroup
 
-instance ToHeaders AddThingToThingGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AddThingToThingGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON AddThingToThingGroup where
+instance Prelude.ToJSON AddThingToThingGroup where
   toJSON AddThingToThingGroup' {..} =
-    object
-      ( catMaybes
-          [ ("thingArn" .=) <$> _atttgThingARN,
-            ("thingGroupArn" .=) <$> _atttgThingGroupARN,
-            ("thingName" .=) <$> _atttgThingName,
-            ("thingGroupName" .=) <$> _atttgThingGroupName,
-            ("overrideDynamicGroups" .=)
-              <$> _atttgOverrideDynamicGroups
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("thingArn" Prelude..=) Prelude.<$> thingArn,
+            ("thingGroupArn" Prelude..=)
+              Prelude.<$> thingGroupArn,
+            ("thingName" Prelude..=) Prelude.<$> thingName,
+            ("thingGroupName" Prelude..=)
+              Prelude.<$> thingGroupName,
+            ("overrideDynamicGroups" Prelude..=)
+              Prelude.<$> overrideDynamicGroups
           ]
       )
 
-instance ToPath AddThingToThingGroup where
-  toPath = const "/thing-groups/addThingToThingGroup"
+instance Prelude.ToPath AddThingToThingGroup where
+  toPath =
+    Prelude.const "/thing-groups/addThingToThingGroup"
 
-instance ToQuery AddThingToThingGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery AddThingToThingGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'addThingToThingGroupResponse' smart constructor.
-newtype AddThingToThingGroupResponse = AddThingToThingGroupResponse'
-  { _atttgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAddThingToThingGroupResponse' smart constructor.
+data AddThingToThingGroupResponse = AddThingToThingGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddThingToThingGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddThingToThingGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atttgrrsResponseStatus' - -- | The response status code.
-addThingToThingGroupResponse ::
-  -- | 'atttgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'addThingToThingGroupResponse_httpStatus' - The response's http status code.
+newAddThingToThingGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddThingToThingGroupResponse
-addThingToThingGroupResponse pResponseStatus_ =
+newAddThingToThingGroupResponse pHttpStatus_ =
   AddThingToThingGroupResponse'
-    { _atttgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-atttgrrsResponseStatus :: Lens' AddThingToThingGroupResponse Int
-atttgrrsResponseStatus = lens _atttgrrsResponseStatus (\s a -> s {_atttgrrsResponseStatus = a})
+-- | The response's http status code.
+addThingToThingGroupResponse_httpStatus :: Lens.Lens' AddThingToThingGroupResponse Prelude.Int
+addThingToThingGroupResponse_httpStatus = Lens.lens (\AddThingToThingGroupResponse' {httpStatus} -> httpStatus) (\s@AddThingToThingGroupResponse' {} a -> s {httpStatus = a} :: AddThingToThingGroupResponse)
 
-instance NFData AddThingToThingGroupResponse
+instance Prelude.NFData AddThingToThingGroupResponse

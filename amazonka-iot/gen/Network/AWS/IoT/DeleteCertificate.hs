@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,101 +23,113 @@
 --
 -- Deletes the specified certificate.
 --
---
--- A certificate cannot be deleted if it has a policy or IoT thing attached to it or if its status is set to ACTIVE. To delete a certificate, first use the 'DetachPrincipalPolicy' API to detach all policies. Next, use the 'UpdateCertificate' API to set the certificate to the INACTIVE status.
+-- A certificate cannot be deleted if it has a policy or IoT thing attached
+-- to it or if its status is set to ACTIVE. To delete a certificate, first
+-- use the DetachPrincipalPolicy API to detach all policies. Next, use the
+-- UpdateCertificate API to set the certificate to the INACTIVE status.
 module Network.AWS.IoT.DeleteCertificate
   ( -- * Creating a Request
-    deleteCertificate,
-    DeleteCertificate,
+    DeleteCertificate (..),
+    newDeleteCertificate,
 
     -- * Request Lenses
-    dcForceDelete,
-    dcCertificateId,
+    deleteCertificate_forceDelete,
+    deleteCertificate_certificateId,
 
     -- * Destructuring the Response
-    deleteCertificateResponse,
-    DeleteCertificateResponse,
+    DeleteCertificateResponse (..),
+    newDeleteCertificateResponse,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the DeleteCertificate operation.
 --
---
---
--- /See:/ 'deleteCertificate' smart constructor.
+-- /See:/ 'newDeleteCertificate' smart constructor.
 data DeleteCertificate = DeleteCertificate'
-  { _dcForceDelete ::
-      !(Maybe Bool),
-    _dcCertificateId :: !Text
+  { -- | Forces the deletion of a certificate if it is inactive and is not
+    -- attached to an IoT thing.
+    forceDelete :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the certificate. (The last part of the certificate ARN
+    -- contains the certificate ID.)
+    certificateId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcForceDelete' - Forces the deletion of a certificate if it is inactive and is not attached to an IoT thing.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcCertificateId' - The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)
-deleteCertificate ::
-  -- | 'dcCertificateId'
-  Text ->
+-- 'forceDelete', 'deleteCertificate_forceDelete' - Forces the deletion of a certificate if it is inactive and is not
+-- attached to an IoT thing.
+--
+-- 'certificateId', 'deleteCertificate_certificateId' - The ID of the certificate. (The last part of the certificate ARN
+-- contains the certificate ID.)
+newDeleteCertificate ::
+  -- | 'certificateId'
+  Prelude.Text ->
   DeleteCertificate
-deleteCertificate pCertificateId_ =
+newDeleteCertificate pCertificateId_ =
   DeleteCertificate'
-    { _dcForceDelete = Nothing,
-      _dcCertificateId = pCertificateId_
+    { forceDelete = Prelude.Nothing,
+      certificateId = pCertificateId_
     }
 
--- | Forces the deletion of a certificate if it is inactive and is not attached to an IoT thing.
-dcForceDelete :: Lens' DeleteCertificate (Maybe Bool)
-dcForceDelete = lens _dcForceDelete (\s a -> s {_dcForceDelete = a})
+-- | Forces the deletion of a certificate if it is inactive and is not
+-- attached to an IoT thing.
+deleteCertificate_forceDelete :: Lens.Lens' DeleteCertificate (Prelude.Maybe Prelude.Bool)
+deleteCertificate_forceDelete = Lens.lens (\DeleteCertificate' {forceDelete} -> forceDelete) (\s@DeleteCertificate' {} a -> s {forceDelete = a} :: DeleteCertificate)
 
--- | The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)
-dcCertificateId :: Lens' DeleteCertificate Text
-dcCertificateId = lens _dcCertificateId (\s a -> s {_dcCertificateId = a})
+-- | The ID of the certificate. (The last part of the certificate ARN
+-- contains the certificate ID.)
+deleteCertificate_certificateId :: Lens.Lens' DeleteCertificate Prelude.Text
+deleteCertificate_certificateId = Lens.lens (\DeleteCertificate' {certificateId} -> certificateId) (\s@DeleteCertificate' {} a -> s {certificateId = a} :: DeleteCertificate)
 
-instance AWSRequest DeleteCertificate where
+instance Prelude.AWSRequest DeleteCertificate where
   type Rs DeleteCertificate = DeleteCertificateResponse
-  request = delete ioT
-  response = receiveNull DeleteCertificateResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteCertificateResponse'
 
-instance Hashable DeleteCertificate
+instance Prelude.Hashable DeleteCertificate
 
-instance NFData DeleteCertificate
+instance Prelude.NFData DeleteCertificate
 
-instance ToHeaders DeleteCertificate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteCertificate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteCertificate where
+instance Prelude.ToPath DeleteCertificate where
   toPath DeleteCertificate' {..} =
-    mconcat ["/certificates/", toBS _dcCertificateId]
+    Prelude.mconcat
+      ["/certificates/", Prelude.toBS certificateId]
 
-instance ToQuery DeleteCertificate where
+instance Prelude.ToQuery DeleteCertificate where
   toQuery DeleteCertificate' {..} =
-    mconcat ["forceDelete" =: _dcForceDelete]
+    Prelude.mconcat
+      ["forceDelete" Prelude.=: forceDelete]
 
--- | /See:/ 'deleteCertificateResponse' smart constructor.
+-- | /See:/ 'newDeleteCertificateResponse' smart constructor.
 data DeleteCertificateResponse = DeleteCertificateResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCertificateResponse' with the minimum fields required to make a request.
-deleteCertificateResponse ::
+-- |
+-- Create a value of 'DeleteCertificateResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteCertificateResponse ::
   DeleteCertificateResponse
-deleteCertificateResponse =
+newDeleteCertificateResponse =
   DeleteCertificateResponse'
 
-instance NFData DeleteCertificateResponse
+instance Prelude.NFData DeleteCertificateResponse

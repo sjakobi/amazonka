@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,129 +24,128 @@
 -- Deletes a dynamic thing group.
 module Network.AWS.IoT.DeleteDynamicThingGroup
   ( -- * Creating a Request
-    deleteDynamicThingGroup,
-    DeleteDynamicThingGroup,
+    DeleteDynamicThingGroup (..),
+    newDeleteDynamicThingGroup,
 
     -- * Request Lenses
-    ddtgExpectedVersion,
-    ddtgThingGroupName,
+    deleteDynamicThingGroup_expectedVersion,
+    deleteDynamicThingGroup_thingGroupName,
 
     -- * Destructuring the Response
-    deleteDynamicThingGroupResponse,
-    DeleteDynamicThingGroupResponse,
+    DeleteDynamicThingGroupResponse (..),
+    newDeleteDynamicThingGroupResponse,
 
     -- * Response Lenses
-    ddtgrrsResponseStatus,
+    deleteDynamicThingGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDynamicThingGroup' smart constructor.
+-- | /See:/ 'newDeleteDynamicThingGroup' smart constructor.
 data DeleteDynamicThingGroup = DeleteDynamicThingGroup'
-  { _ddtgExpectedVersion ::
-      !(Maybe Integer),
-    _ddtgThingGroupName ::
-      !Text
+  { -- | The expected version of the dynamic thing group to delete.
+    expectedVersion :: Prelude.Maybe Prelude.Integer,
+    -- | The name of the dynamic thing group to delete.
+    thingGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDynamicThingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDynamicThingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddtgExpectedVersion' - The expected version of the dynamic thing group to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddtgThingGroupName' - The name of the dynamic thing group to delete.
-deleteDynamicThingGroup ::
-  -- | 'ddtgThingGroupName'
-  Text ->
+-- 'expectedVersion', 'deleteDynamicThingGroup_expectedVersion' - The expected version of the dynamic thing group to delete.
+--
+-- 'thingGroupName', 'deleteDynamicThingGroup_thingGroupName' - The name of the dynamic thing group to delete.
+newDeleteDynamicThingGroup ::
+  -- | 'thingGroupName'
+  Prelude.Text ->
   DeleteDynamicThingGroup
-deleteDynamicThingGroup pThingGroupName_ =
+newDeleteDynamicThingGroup pThingGroupName_ =
   DeleteDynamicThingGroup'
-    { _ddtgExpectedVersion =
-        Nothing,
-      _ddtgThingGroupName = pThingGroupName_
+    { expectedVersion =
+        Prelude.Nothing,
+      thingGroupName = pThingGroupName_
     }
 
 -- | The expected version of the dynamic thing group to delete.
-ddtgExpectedVersion :: Lens' DeleteDynamicThingGroup (Maybe Integer)
-ddtgExpectedVersion = lens _ddtgExpectedVersion (\s a -> s {_ddtgExpectedVersion = a})
+deleteDynamicThingGroup_expectedVersion :: Lens.Lens' DeleteDynamicThingGroup (Prelude.Maybe Prelude.Integer)
+deleteDynamicThingGroup_expectedVersion = Lens.lens (\DeleteDynamicThingGroup' {expectedVersion} -> expectedVersion) (\s@DeleteDynamicThingGroup' {} a -> s {expectedVersion = a} :: DeleteDynamicThingGroup)
 
 -- | The name of the dynamic thing group to delete.
-ddtgThingGroupName :: Lens' DeleteDynamicThingGroup Text
-ddtgThingGroupName = lens _ddtgThingGroupName (\s a -> s {_ddtgThingGroupName = a})
+deleteDynamicThingGroup_thingGroupName :: Lens.Lens' DeleteDynamicThingGroup Prelude.Text
+deleteDynamicThingGroup_thingGroupName = Lens.lens (\DeleteDynamicThingGroup' {thingGroupName} -> thingGroupName) (\s@DeleteDynamicThingGroup' {} a -> s {thingGroupName = a} :: DeleteDynamicThingGroup)
 
-instance AWSRequest DeleteDynamicThingGroup where
+instance Prelude.AWSRequest DeleteDynamicThingGroup where
   type
     Rs DeleteDynamicThingGroup =
       DeleteDynamicThingGroupResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteDynamicThingGroupResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDynamicThingGroup
+instance Prelude.Hashable DeleteDynamicThingGroup
 
-instance NFData DeleteDynamicThingGroup
+instance Prelude.NFData DeleteDynamicThingGroup
 
-instance ToHeaders DeleteDynamicThingGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteDynamicThingGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteDynamicThingGroup where
+instance Prelude.ToPath DeleteDynamicThingGroup where
   toPath DeleteDynamicThingGroup' {..} =
-    mconcat
-      ["/dynamic-thing-groups/", toBS _ddtgThingGroupName]
+    Prelude.mconcat
+      [ "/dynamic-thing-groups/",
+        Prelude.toBS thingGroupName
+      ]
 
-instance ToQuery DeleteDynamicThingGroup where
+instance Prelude.ToQuery DeleteDynamicThingGroup where
   toQuery DeleteDynamicThingGroup' {..} =
-    mconcat ["expectedVersion" =: _ddtgExpectedVersion]
+    Prelude.mconcat
+      ["expectedVersion" Prelude.=: expectedVersion]
 
--- | /See:/ 'deleteDynamicThingGroupResponse' smart constructor.
-newtype DeleteDynamicThingGroupResponse = DeleteDynamicThingGroupResponse'
-  { _ddtgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteDynamicThingGroupResponse' smart constructor.
+data DeleteDynamicThingGroupResponse = DeleteDynamicThingGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDynamicThingGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDynamicThingGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddtgrrsResponseStatus' - -- | The response status code.
-deleteDynamicThingGroupResponse ::
-  -- | 'ddtgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteDynamicThingGroupResponse_httpStatus' - The response's http status code.
+newDeleteDynamicThingGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDynamicThingGroupResponse
-deleteDynamicThingGroupResponse pResponseStatus_ =
+newDeleteDynamicThingGroupResponse pHttpStatus_ =
   DeleteDynamicThingGroupResponse'
-    { _ddtgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ddtgrrsResponseStatus :: Lens' DeleteDynamicThingGroupResponse Int
-ddtgrrsResponseStatus = lens _ddtgrrsResponseStatus (\s a -> s {_ddtgrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDynamicThingGroupResponse_httpStatus :: Lens.Lens' DeleteDynamicThingGroupResponse Prelude.Int
+deleteDynamicThingGroupResponse_httpStatus = Lens.lens (\DeleteDynamicThingGroupResponse' {httpStatus} -> httpStatus) (\s@DeleteDynamicThingGroupResponse' {} a -> s {httpStatus = a} :: DeleteDynamicThingGroupResponse)
 
-instance NFData DeleteDynamicThingGroupResponse
+instance
+  Prelude.NFData
+    DeleteDynamicThingGroupResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,264 +24,276 @@
 -- Creates a dynamic thing group.
 module Network.AWS.IoT.CreateDynamicThingGroup
   ( -- * Creating a Request
-    createDynamicThingGroup,
-    CreateDynamicThingGroup,
+    CreateDynamicThingGroup (..),
+    newCreateDynamicThingGroup,
 
     -- * Request Lenses
-    cdtgIndexName,
-    cdtgQueryVersion,
-    cdtgTags,
-    cdtgThingGroupProperties,
-    cdtgThingGroupName,
-    cdtgQueryString,
+    createDynamicThingGroup_indexName,
+    createDynamicThingGroup_queryVersion,
+    createDynamicThingGroup_tags,
+    createDynamicThingGroup_thingGroupProperties,
+    createDynamicThingGroup_thingGroupName,
+    createDynamicThingGroup_queryString,
 
     -- * Destructuring the Response
-    createDynamicThingGroupResponse,
-    CreateDynamicThingGroupResponse,
+    CreateDynamicThingGroupResponse (..),
+    newCreateDynamicThingGroupResponse,
 
     -- * Response Lenses
-    cdtgrrsQueryString,
-    cdtgrrsIndexName,
-    cdtgrrsThingGroupARN,
-    cdtgrrsQueryVersion,
-    cdtgrrsThingGroupName,
-    cdtgrrsThingGroupId,
-    cdtgrrsResponseStatus,
+    createDynamicThingGroupResponse_queryString,
+    createDynamicThingGroupResponse_indexName,
+    createDynamicThingGroupResponse_thingGroupArn,
+    createDynamicThingGroupResponse_queryVersion,
+    createDynamicThingGroupResponse_thingGroupName,
+    createDynamicThingGroupResponse_thingGroupId,
+    createDynamicThingGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDynamicThingGroup' smart constructor.
+-- | /See:/ 'newCreateDynamicThingGroup' smart constructor.
 data CreateDynamicThingGroup = CreateDynamicThingGroup'
-  { _cdtgIndexName ::
-      !(Maybe Text),
-    _cdtgQueryVersion ::
-      !(Maybe Text),
-    _cdtgTags ::
-      !(Maybe [Tag]),
-    _cdtgThingGroupProperties ::
-      !( Maybe
-           ThingGroupProperties
-       ),
-    _cdtgThingGroupName ::
-      !Text,
-    _cdtgQueryString ::
-      !Text
+  { -- | The dynamic thing group index name.
+    --
+    -- Currently one index is supported: \"AWS_Things\".
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | The dynamic thing group query version.
+    --
+    -- Currently one query version is supported: \"2017-09-30\". If not
+    -- specified, the query version defaults to this value.
+    queryVersion :: Prelude.Maybe Prelude.Text,
+    -- | Metadata which can be used to manage the dynamic thing group.
+    tags :: Prelude.Maybe [Tag],
+    -- | The dynamic thing group properties.
+    thingGroupProperties :: Prelude.Maybe ThingGroupProperties,
+    -- | The dynamic thing group name to create.
+    thingGroupName :: Prelude.Text,
+    -- | The dynamic thing group search query string.
+    --
+    -- See
+    -- <https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html Query Syntax>
+    -- for information about query string syntax.
+    queryString :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDynamicThingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDynamicThingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdtgIndexName' - The dynamic thing group index name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdtgQueryVersion' - The dynamic thing group query version.
+-- 'indexName', 'createDynamicThingGroup_indexName' - The dynamic thing group index name.
 --
--- * 'cdtgTags' - Metadata which can be used to manage the dynamic thing group.
+-- Currently one index is supported: \"AWS_Things\".
 --
--- * 'cdtgThingGroupProperties' - The dynamic thing group properties.
+-- 'queryVersion', 'createDynamicThingGroup_queryVersion' - The dynamic thing group query version.
 --
--- * 'cdtgThingGroupName' - The dynamic thing group name to create.
+-- Currently one query version is supported: \"2017-09-30\". If not
+-- specified, the query version defaults to this value.
 --
--- * 'cdtgQueryString' - The dynamic thing group search query string. See <https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html Query Syntax> for information about query string syntax.
-createDynamicThingGroup ::
-  -- | 'cdtgThingGroupName'
-  Text ->
-  -- | 'cdtgQueryString'
-  Text ->
+-- 'tags', 'createDynamicThingGroup_tags' - Metadata which can be used to manage the dynamic thing group.
+--
+-- 'thingGroupProperties', 'createDynamicThingGroup_thingGroupProperties' - The dynamic thing group properties.
+--
+-- 'thingGroupName', 'createDynamicThingGroup_thingGroupName' - The dynamic thing group name to create.
+--
+-- 'queryString', 'createDynamicThingGroup_queryString' - The dynamic thing group search query string.
+--
+-- See
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html Query Syntax>
+-- for information about query string syntax.
+newCreateDynamicThingGroup ::
+  -- | 'thingGroupName'
+  Prelude.Text ->
+  -- | 'queryString'
+  Prelude.Text ->
   CreateDynamicThingGroup
-createDynamicThingGroup
+newCreateDynamicThingGroup
   pThingGroupName_
   pQueryString_ =
     CreateDynamicThingGroup'
-      { _cdtgIndexName = Nothing,
-        _cdtgQueryVersion = Nothing,
-        _cdtgTags = Nothing,
-        _cdtgThingGroupProperties = Nothing,
-        _cdtgThingGroupName = pThingGroupName_,
-        _cdtgQueryString = pQueryString_
+      { indexName =
+          Prelude.Nothing,
+        queryVersion = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        thingGroupProperties = Prelude.Nothing,
+        thingGroupName = pThingGroupName_,
+        queryString = pQueryString_
       }
 
 -- | The dynamic thing group index name.
-cdtgIndexName :: Lens' CreateDynamicThingGroup (Maybe Text)
-cdtgIndexName = lens _cdtgIndexName (\s a -> s {_cdtgIndexName = a})
+--
+-- Currently one index is supported: \"AWS_Things\".
+createDynamicThingGroup_indexName :: Lens.Lens' CreateDynamicThingGroup (Prelude.Maybe Prelude.Text)
+createDynamicThingGroup_indexName = Lens.lens (\CreateDynamicThingGroup' {indexName} -> indexName) (\s@CreateDynamicThingGroup' {} a -> s {indexName = a} :: CreateDynamicThingGroup)
 
 -- | The dynamic thing group query version.
-cdtgQueryVersion :: Lens' CreateDynamicThingGroup (Maybe Text)
-cdtgQueryVersion = lens _cdtgQueryVersion (\s a -> s {_cdtgQueryVersion = a})
+--
+-- Currently one query version is supported: \"2017-09-30\". If not
+-- specified, the query version defaults to this value.
+createDynamicThingGroup_queryVersion :: Lens.Lens' CreateDynamicThingGroup (Prelude.Maybe Prelude.Text)
+createDynamicThingGroup_queryVersion = Lens.lens (\CreateDynamicThingGroup' {queryVersion} -> queryVersion) (\s@CreateDynamicThingGroup' {} a -> s {queryVersion = a} :: CreateDynamicThingGroup)
 
 -- | Metadata which can be used to manage the dynamic thing group.
-cdtgTags :: Lens' CreateDynamicThingGroup [Tag]
-cdtgTags = lens _cdtgTags (\s a -> s {_cdtgTags = a}) . _Default . _Coerce
+createDynamicThingGroup_tags :: Lens.Lens' CreateDynamicThingGroup (Prelude.Maybe [Tag])
+createDynamicThingGroup_tags = Lens.lens (\CreateDynamicThingGroup' {tags} -> tags) (\s@CreateDynamicThingGroup' {} a -> s {tags = a} :: CreateDynamicThingGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The dynamic thing group properties.
-cdtgThingGroupProperties :: Lens' CreateDynamicThingGroup (Maybe ThingGroupProperties)
-cdtgThingGroupProperties = lens _cdtgThingGroupProperties (\s a -> s {_cdtgThingGroupProperties = a})
+createDynamicThingGroup_thingGroupProperties :: Lens.Lens' CreateDynamicThingGroup (Prelude.Maybe ThingGroupProperties)
+createDynamicThingGroup_thingGroupProperties = Lens.lens (\CreateDynamicThingGroup' {thingGroupProperties} -> thingGroupProperties) (\s@CreateDynamicThingGroup' {} a -> s {thingGroupProperties = a} :: CreateDynamicThingGroup)
 
 -- | The dynamic thing group name to create.
-cdtgThingGroupName :: Lens' CreateDynamicThingGroup Text
-cdtgThingGroupName = lens _cdtgThingGroupName (\s a -> s {_cdtgThingGroupName = a})
+createDynamicThingGroup_thingGroupName :: Lens.Lens' CreateDynamicThingGroup Prelude.Text
+createDynamicThingGroup_thingGroupName = Lens.lens (\CreateDynamicThingGroup' {thingGroupName} -> thingGroupName) (\s@CreateDynamicThingGroup' {} a -> s {thingGroupName = a} :: CreateDynamicThingGroup)
 
--- | The dynamic thing group search query string. See <https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html Query Syntax> for information about query string syntax.
-cdtgQueryString :: Lens' CreateDynamicThingGroup Text
-cdtgQueryString = lens _cdtgQueryString (\s a -> s {_cdtgQueryString = a})
+-- | The dynamic thing group search query string.
+--
+-- See
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html Query Syntax>
+-- for information about query string syntax.
+createDynamicThingGroup_queryString :: Lens.Lens' CreateDynamicThingGroup Prelude.Text
+createDynamicThingGroup_queryString = Lens.lens (\CreateDynamicThingGroup' {queryString} -> queryString) (\s@CreateDynamicThingGroup' {} a -> s {queryString = a} :: CreateDynamicThingGroup)
 
-instance AWSRequest CreateDynamicThingGroup where
+instance Prelude.AWSRequest CreateDynamicThingGroup where
   type
     Rs CreateDynamicThingGroup =
       CreateDynamicThingGroupResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateDynamicThingGroupResponse'
-            <$> (x .?> "queryString")
-            <*> (x .?> "indexName")
-            <*> (x .?> "thingGroupArn")
-            <*> (x .?> "queryVersion")
-            <*> (x .?> "thingGroupName")
-            <*> (x .?> "thingGroupId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "queryString")
+            Prelude.<*> (x Prelude..?> "indexName")
+            Prelude.<*> (x Prelude..?> "thingGroupArn")
+            Prelude.<*> (x Prelude..?> "queryVersion")
+            Prelude.<*> (x Prelude..?> "thingGroupName")
+            Prelude.<*> (x Prelude..?> "thingGroupId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDynamicThingGroup
+instance Prelude.Hashable CreateDynamicThingGroup
 
-instance NFData CreateDynamicThingGroup
+instance Prelude.NFData CreateDynamicThingGroup
 
-instance ToHeaders CreateDynamicThingGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateDynamicThingGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateDynamicThingGroup where
+instance Prelude.ToJSON CreateDynamicThingGroup where
   toJSON CreateDynamicThingGroup' {..} =
-    object
-      ( catMaybes
-          [ ("indexName" .=) <$> _cdtgIndexName,
-            ("queryVersion" .=) <$> _cdtgQueryVersion,
-            ("tags" .=) <$> _cdtgTags,
-            ("thingGroupProperties" .=)
-              <$> _cdtgThingGroupProperties,
-            Just ("queryString" .= _cdtgQueryString)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("indexName" Prelude..=) Prelude.<$> indexName,
+            ("queryVersion" Prelude..=) Prelude.<$> queryVersion,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("thingGroupProperties" Prelude..=)
+              Prelude.<$> thingGroupProperties,
+            Prelude.Just ("queryString" Prelude..= queryString)
           ]
       )
 
-instance ToPath CreateDynamicThingGroup where
+instance Prelude.ToPath CreateDynamicThingGroup where
   toPath CreateDynamicThingGroup' {..} =
-    mconcat
-      ["/dynamic-thing-groups/", toBS _cdtgThingGroupName]
+    Prelude.mconcat
+      [ "/dynamic-thing-groups/",
+        Prelude.toBS thingGroupName
+      ]
 
-instance ToQuery CreateDynamicThingGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDynamicThingGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDynamicThingGroupResponse' smart constructor.
+-- | /See:/ 'newCreateDynamicThingGroupResponse' smart constructor.
 data CreateDynamicThingGroupResponse = CreateDynamicThingGroupResponse'
-  { _cdtgrrsQueryString ::
-      !( Maybe
-           Text
-       ),
-    _cdtgrrsIndexName ::
-      !( Maybe
-           Text
-       ),
-    _cdtgrrsThingGroupARN ::
-      !( Maybe
-           Text
-       ),
-    _cdtgrrsQueryVersion ::
-      !( Maybe
-           Text
-       ),
-    _cdtgrrsThingGroupName ::
-      !( Maybe
-           Text
-       ),
-    _cdtgrrsThingGroupId ::
-      !( Maybe
-           Text
-       ),
-    _cdtgrrsResponseStatus ::
-      !Int
+  { -- | The dynamic thing group search query string.
+    queryString :: Prelude.Maybe Prelude.Text,
+    -- | The dynamic thing group index name.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | The dynamic thing group ARN.
+    thingGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The dynamic thing group query version.
+    queryVersion :: Prelude.Maybe Prelude.Text,
+    -- | The dynamic thing group name.
+    thingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The dynamic thing group ID.
+    thingGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDynamicThingGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDynamicThingGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdtgrrsQueryString' - The dynamic thing group search query string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdtgrrsIndexName' - The dynamic thing group index name.
+-- 'queryString', 'createDynamicThingGroupResponse_queryString' - The dynamic thing group search query string.
 --
--- * 'cdtgrrsThingGroupARN' - The dynamic thing group ARN.
+-- 'indexName', 'createDynamicThingGroupResponse_indexName' - The dynamic thing group index name.
 --
--- * 'cdtgrrsQueryVersion' - The dynamic thing group query version.
+-- 'thingGroupArn', 'createDynamicThingGroupResponse_thingGroupArn' - The dynamic thing group ARN.
 --
--- * 'cdtgrrsThingGroupName' - The dynamic thing group name.
+-- 'queryVersion', 'createDynamicThingGroupResponse_queryVersion' - The dynamic thing group query version.
 --
--- * 'cdtgrrsThingGroupId' - The dynamic thing group ID.
+-- 'thingGroupName', 'createDynamicThingGroupResponse_thingGroupName' - The dynamic thing group name.
 --
--- * 'cdtgrrsResponseStatus' - -- | The response status code.
-createDynamicThingGroupResponse ::
-  -- | 'cdtgrrsResponseStatus'
-  Int ->
+-- 'thingGroupId', 'createDynamicThingGroupResponse_thingGroupId' - The dynamic thing group ID.
+--
+-- 'httpStatus', 'createDynamicThingGroupResponse_httpStatus' - The response's http status code.
+newCreateDynamicThingGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDynamicThingGroupResponse
-createDynamicThingGroupResponse pResponseStatus_ =
+newCreateDynamicThingGroupResponse pHttpStatus_ =
   CreateDynamicThingGroupResponse'
-    { _cdtgrrsQueryString =
-        Nothing,
-      _cdtgrrsIndexName = Nothing,
-      _cdtgrrsThingGroupARN = Nothing,
-      _cdtgrrsQueryVersion = Nothing,
-      _cdtgrrsThingGroupName = Nothing,
-      _cdtgrrsThingGroupId = Nothing,
-      _cdtgrrsResponseStatus = pResponseStatus_
+    { queryString =
+        Prelude.Nothing,
+      indexName = Prelude.Nothing,
+      thingGroupArn = Prelude.Nothing,
+      queryVersion = Prelude.Nothing,
+      thingGroupName = Prelude.Nothing,
+      thingGroupId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The dynamic thing group search query string.
-cdtgrrsQueryString :: Lens' CreateDynamicThingGroupResponse (Maybe Text)
-cdtgrrsQueryString = lens _cdtgrrsQueryString (\s a -> s {_cdtgrrsQueryString = a})
+createDynamicThingGroupResponse_queryString :: Lens.Lens' CreateDynamicThingGroupResponse (Prelude.Maybe Prelude.Text)
+createDynamicThingGroupResponse_queryString = Lens.lens (\CreateDynamicThingGroupResponse' {queryString} -> queryString) (\s@CreateDynamicThingGroupResponse' {} a -> s {queryString = a} :: CreateDynamicThingGroupResponse)
 
 -- | The dynamic thing group index name.
-cdtgrrsIndexName :: Lens' CreateDynamicThingGroupResponse (Maybe Text)
-cdtgrrsIndexName = lens _cdtgrrsIndexName (\s a -> s {_cdtgrrsIndexName = a})
+createDynamicThingGroupResponse_indexName :: Lens.Lens' CreateDynamicThingGroupResponse (Prelude.Maybe Prelude.Text)
+createDynamicThingGroupResponse_indexName = Lens.lens (\CreateDynamicThingGroupResponse' {indexName} -> indexName) (\s@CreateDynamicThingGroupResponse' {} a -> s {indexName = a} :: CreateDynamicThingGroupResponse)
 
 -- | The dynamic thing group ARN.
-cdtgrrsThingGroupARN :: Lens' CreateDynamicThingGroupResponse (Maybe Text)
-cdtgrrsThingGroupARN = lens _cdtgrrsThingGroupARN (\s a -> s {_cdtgrrsThingGroupARN = a})
+createDynamicThingGroupResponse_thingGroupArn :: Lens.Lens' CreateDynamicThingGroupResponse (Prelude.Maybe Prelude.Text)
+createDynamicThingGroupResponse_thingGroupArn = Lens.lens (\CreateDynamicThingGroupResponse' {thingGroupArn} -> thingGroupArn) (\s@CreateDynamicThingGroupResponse' {} a -> s {thingGroupArn = a} :: CreateDynamicThingGroupResponse)
 
 -- | The dynamic thing group query version.
-cdtgrrsQueryVersion :: Lens' CreateDynamicThingGroupResponse (Maybe Text)
-cdtgrrsQueryVersion = lens _cdtgrrsQueryVersion (\s a -> s {_cdtgrrsQueryVersion = a})
+createDynamicThingGroupResponse_queryVersion :: Lens.Lens' CreateDynamicThingGroupResponse (Prelude.Maybe Prelude.Text)
+createDynamicThingGroupResponse_queryVersion = Lens.lens (\CreateDynamicThingGroupResponse' {queryVersion} -> queryVersion) (\s@CreateDynamicThingGroupResponse' {} a -> s {queryVersion = a} :: CreateDynamicThingGroupResponse)
 
 -- | The dynamic thing group name.
-cdtgrrsThingGroupName :: Lens' CreateDynamicThingGroupResponse (Maybe Text)
-cdtgrrsThingGroupName = lens _cdtgrrsThingGroupName (\s a -> s {_cdtgrrsThingGroupName = a})
+createDynamicThingGroupResponse_thingGroupName :: Lens.Lens' CreateDynamicThingGroupResponse (Prelude.Maybe Prelude.Text)
+createDynamicThingGroupResponse_thingGroupName = Lens.lens (\CreateDynamicThingGroupResponse' {thingGroupName} -> thingGroupName) (\s@CreateDynamicThingGroupResponse' {} a -> s {thingGroupName = a} :: CreateDynamicThingGroupResponse)
 
 -- | The dynamic thing group ID.
-cdtgrrsThingGroupId :: Lens' CreateDynamicThingGroupResponse (Maybe Text)
-cdtgrrsThingGroupId = lens _cdtgrrsThingGroupId (\s a -> s {_cdtgrrsThingGroupId = a})
+createDynamicThingGroupResponse_thingGroupId :: Lens.Lens' CreateDynamicThingGroupResponse (Prelude.Maybe Prelude.Text)
+createDynamicThingGroupResponse_thingGroupId = Lens.lens (\CreateDynamicThingGroupResponse' {thingGroupId} -> thingGroupId) (\s@CreateDynamicThingGroupResponse' {} a -> s {thingGroupId = a} :: CreateDynamicThingGroupResponse)
 
--- | -- | The response status code.
-cdtgrrsResponseStatus :: Lens' CreateDynamicThingGroupResponse Int
-cdtgrrsResponseStatus = lens _cdtgrrsResponseStatus (\s a -> s {_cdtgrrsResponseStatus = a})
+-- | The response's http status code.
+createDynamicThingGroupResponse_httpStatus :: Lens.Lens' CreateDynamicThingGroupResponse Prelude.Int
+createDynamicThingGroupResponse_httpStatus = Lens.lens (\CreateDynamicThingGroupResponse' {httpStatus} -> httpStatus) (\s@CreateDynamicThingGroupResponse' {} a -> s {httpStatus = a} :: CreateDynamicThingGroupResponse)
 
-instance NFData CreateDynamicThingGroupResponse
+instance
+  Prelude.NFData
+    CreateDynamicThingGroupResponse

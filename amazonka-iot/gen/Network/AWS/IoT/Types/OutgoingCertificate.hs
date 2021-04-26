@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,95 +19,98 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.OutgoingCertificate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A certificate that has been transferred but not yet accepted.
 --
---
---
--- /See:/ 'outgoingCertificate' smart constructor.
+-- /See:/ 'newOutgoingCertificate' smart constructor.
 data OutgoingCertificate = OutgoingCertificate'
-  { _ocTransferDate ::
-      !(Maybe POSIX),
-    _ocCertificateARN ::
-      !(Maybe Text),
-    _ocTransferMessage ::
-      !(Maybe Text),
-    _ocCreationDate ::
-      !(Maybe POSIX),
-    _ocTransferredTo ::
-      !(Maybe Text),
-    _ocCertificateId ::
-      !(Maybe Text)
+  { -- | The date the transfer was initiated.
+    transferDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The certificate ARN.
+    certificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The transfer message.
+    transferMessage :: Prelude.Maybe Prelude.Text,
+    -- | The certificate creation date.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The AWS account to which the transfer was made.
+    transferredTo :: Prelude.Maybe Prelude.Text,
+    -- | The certificate ID.
+    certificateId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutgoingCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutgoingCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ocTransferDate' - The date the transfer was initiated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ocCertificateARN' - The certificate ARN.
+-- 'transferDate', 'outgoingCertificate_transferDate' - The date the transfer was initiated.
 --
--- * 'ocTransferMessage' - The transfer message.
+-- 'certificateArn', 'outgoingCertificate_certificateArn' - The certificate ARN.
 --
--- * 'ocCreationDate' - The certificate creation date.
+-- 'transferMessage', 'outgoingCertificate_transferMessage' - The transfer message.
 --
--- * 'ocTransferredTo' - The AWS account to which the transfer was made.
+-- 'creationDate', 'outgoingCertificate_creationDate' - The certificate creation date.
 --
--- * 'ocCertificateId' - The certificate ID.
-outgoingCertificate ::
+-- 'transferredTo', 'outgoingCertificate_transferredTo' - The AWS account to which the transfer was made.
+--
+-- 'certificateId', 'outgoingCertificate_certificateId' - The certificate ID.
+newOutgoingCertificate ::
   OutgoingCertificate
-outgoingCertificate =
+newOutgoingCertificate =
   OutgoingCertificate'
-    { _ocTransferDate = Nothing,
-      _ocCertificateARN = Nothing,
-      _ocTransferMessage = Nothing,
-      _ocCreationDate = Nothing,
-      _ocTransferredTo = Nothing,
-      _ocCertificateId = Nothing
+    { transferDate =
+        Prelude.Nothing,
+      certificateArn = Prelude.Nothing,
+      transferMessage = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      transferredTo = Prelude.Nothing,
+      certificateId = Prelude.Nothing
     }
 
 -- | The date the transfer was initiated.
-ocTransferDate :: Lens' OutgoingCertificate (Maybe UTCTime)
-ocTransferDate = lens _ocTransferDate (\s a -> s {_ocTransferDate = a}) . mapping _Time
+outgoingCertificate_transferDate :: Lens.Lens' OutgoingCertificate (Prelude.Maybe Prelude.UTCTime)
+outgoingCertificate_transferDate = Lens.lens (\OutgoingCertificate' {transferDate} -> transferDate) (\s@OutgoingCertificate' {} a -> s {transferDate = a} :: OutgoingCertificate) Prelude.. Lens.mapping Prelude._Time
 
 -- | The certificate ARN.
-ocCertificateARN :: Lens' OutgoingCertificate (Maybe Text)
-ocCertificateARN = lens _ocCertificateARN (\s a -> s {_ocCertificateARN = a})
+outgoingCertificate_certificateArn :: Lens.Lens' OutgoingCertificate (Prelude.Maybe Prelude.Text)
+outgoingCertificate_certificateArn = Lens.lens (\OutgoingCertificate' {certificateArn} -> certificateArn) (\s@OutgoingCertificate' {} a -> s {certificateArn = a} :: OutgoingCertificate)
 
 -- | The transfer message.
-ocTransferMessage :: Lens' OutgoingCertificate (Maybe Text)
-ocTransferMessage = lens _ocTransferMessage (\s a -> s {_ocTransferMessage = a})
+outgoingCertificate_transferMessage :: Lens.Lens' OutgoingCertificate (Prelude.Maybe Prelude.Text)
+outgoingCertificate_transferMessage = Lens.lens (\OutgoingCertificate' {transferMessage} -> transferMessage) (\s@OutgoingCertificate' {} a -> s {transferMessage = a} :: OutgoingCertificate)
 
 -- | The certificate creation date.
-ocCreationDate :: Lens' OutgoingCertificate (Maybe UTCTime)
-ocCreationDate = lens _ocCreationDate (\s a -> s {_ocCreationDate = a}) . mapping _Time
+outgoingCertificate_creationDate :: Lens.Lens' OutgoingCertificate (Prelude.Maybe Prelude.UTCTime)
+outgoingCertificate_creationDate = Lens.lens (\OutgoingCertificate' {creationDate} -> creationDate) (\s@OutgoingCertificate' {} a -> s {creationDate = a} :: OutgoingCertificate) Prelude.. Lens.mapping Prelude._Time
 
 -- | The AWS account to which the transfer was made.
-ocTransferredTo :: Lens' OutgoingCertificate (Maybe Text)
-ocTransferredTo = lens _ocTransferredTo (\s a -> s {_ocTransferredTo = a})
+outgoingCertificate_transferredTo :: Lens.Lens' OutgoingCertificate (Prelude.Maybe Prelude.Text)
+outgoingCertificate_transferredTo = Lens.lens (\OutgoingCertificate' {transferredTo} -> transferredTo) (\s@OutgoingCertificate' {} a -> s {transferredTo = a} :: OutgoingCertificate)
 
 -- | The certificate ID.
-ocCertificateId :: Lens' OutgoingCertificate (Maybe Text)
-ocCertificateId = lens _ocCertificateId (\s a -> s {_ocCertificateId = a})
+outgoingCertificate_certificateId :: Lens.Lens' OutgoingCertificate (Prelude.Maybe Prelude.Text)
+outgoingCertificate_certificateId = Lens.lens (\OutgoingCertificate' {certificateId} -> certificateId) (\s@OutgoingCertificate' {} a -> s {certificateId = a} :: OutgoingCertificate)
 
-instance FromJSON OutgoingCertificate where
+instance Prelude.FromJSON OutgoingCertificate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutgoingCertificate"
       ( \x ->
           OutgoingCertificate'
-            <$> (x .:? "transferDate")
-            <*> (x .:? "certificateArn")
-            <*> (x .:? "transferMessage")
-            <*> (x .:? "creationDate")
-            <*> (x .:? "transferredTo")
-            <*> (x .:? "certificateId")
+            Prelude.<$> (x Prelude..:? "transferDate")
+            Prelude.<*> (x Prelude..:? "certificateArn")
+            Prelude.<*> (x Prelude..:? "transferMessage")
+            Prelude.<*> (x Prelude..:? "creationDate")
+            Prelude.<*> (x Prelude..:? "transferredTo")
+            Prelude.<*> (x Prelude..:? "certificateId")
       )
 
-instance Hashable OutgoingCertificate
+instance Prelude.Hashable OutgoingCertificate
 
-instance NFData OutgoingCertificate
+instance Prelude.NFData OutgoingCertificate

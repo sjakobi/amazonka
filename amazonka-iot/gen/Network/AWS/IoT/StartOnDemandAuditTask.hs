@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,135 +24,142 @@
 -- Starts an on-demand Device Defender audit.
 module Network.AWS.IoT.StartOnDemandAuditTask
   ( -- * Creating a Request
-    startOnDemandAuditTask,
-    StartOnDemandAuditTask,
+    StartOnDemandAuditTask (..),
+    newStartOnDemandAuditTask,
 
     -- * Request Lenses
-    sodatTargetCheckNames,
+    startOnDemandAuditTask_targetCheckNames,
 
     -- * Destructuring the Response
-    startOnDemandAuditTaskResponse,
-    StartOnDemandAuditTaskResponse,
+    StartOnDemandAuditTaskResponse (..),
+    newStartOnDemandAuditTaskResponse,
 
     -- * Response Lenses
-    sodatrrsTaskId,
-    sodatrrsResponseStatus,
+    startOnDemandAuditTaskResponse_taskId,
+    startOnDemandAuditTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startOnDemandAuditTask' smart constructor.
-newtype StartOnDemandAuditTask = StartOnDemandAuditTask'
-  { _sodatTargetCheckNames ::
-      [Text]
+-- | /See:/ 'newStartOnDemandAuditTask' smart constructor.
+data StartOnDemandAuditTask = StartOnDemandAuditTask'
+  { -- | Which checks are performed during the audit. The checks you specify must
+    -- be enabled for your account or an exception occurs. Use
+    -- @DescribeAccountAuditConfiguration@ to see the list of all checks,
+    -- including those that are enabled or @UpdateAccountAuditConfiguration@ to
+    -- select which checks are enabled.
+    targetCheckNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartOnDemandAuditTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartOnDemandAuditTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sodatTargetCheckNames' - Which checks are performed during the audit. The checks you specify must be enabled for your account or an exception occurs. Use @DescribeAccountAuditConfiguration@ to see the list of all checks, including those that are enabled or @UpdateAccountAuditConfiguration@ to select which checks are enabled.
-startOnDemandAuditTask ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'targetCheckNames', 'startOnDemandAuditTask_targetCheckNames' - Which checks are performed during the audit. The checks you specify must
+-- be enabled for your account or an exception occurs. Use
+-- @DescribeAccountAuditConfiguration@ to see the list of all checks,
+-- including those that are enabled or @UpdateAccountAuditConfiguration@ to
+-- select which checks are enabled.
+newStartOnDemandAuditTask ::
   StartOnDemandAuditTask
-startOnDemandAuditTask =
+newStartOnDemandAuditTask =
   StartOnDemandAuditTask'
-    { _sodatTargetCheckNames =
-        mempty
+    { targetCheckNames =
+        Prelude.mempty
     }
 
--- | Which checks are performed during the audit. The checks you specify must be enabled for your account or an exception occurs. Use @DescribeAccountAuditConfiguration@ to see the list of all checks, including those that are enabled or @UpdateAccountAuditConfiguration@ to select which checks are enabled.
-sodatTargetCheckNames :: Lens' StartOnDemandAuditTask [Text]
-sodatTargetCheckNames = lens _sodatTargetCheckNames (\s a -> s {_sodatTargetCheckNames = a}) . _Coerce
+-- | Which checks are performed during the audit. The checks you specify must
+-- be enabled for your account or an exception occurs. Use
+-- @DescribeAccountAuditConfiguration@ to see the list of all checks,
+-- including those that are enabled or @UpdateAccountAuditConfiguration@ to
+-- select which checks are enabled.
+startOnDemandAuditTask_targetCheckNames :: Lens.Lens' StartOnDemandAuditTask [Prelude.Text]
+startOnDemandAuditTask_targetCheckNames = Lens.lens (\StartOnDemandAuditTask' {targetCheckNames} -> targetCheckNames) (\s@StartOnDemandAuditTask' {} a -> s {targetCheckNames = a} :: StartOnDemandAuditTask) Prelude.. Prelude._Coerce
 
-instance AWSRequest StartOnDemandAuditTask where
+instance Prelude.AWSRequest StartOnDemandAuditTask where
   type
     Rs StartOnDemandAuditTask =
       StartOnDemandAuditTaskResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartOnDemandAuditTaskResponse'
-            <$> (x .?> "taskId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "taskId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartOnDemandAuditTask
+instance Prelude.Hashable StartOnDemandAuditTask
 
-instance NFData StartOnDemandAuditTask
+instance Prelude.NFData StartOnDemandAuditTask
 
-instance ToHeaders StartOnDemandAuditTask where
-  toHeaders = const mempty
+instance Prelude.ToHeaders StartOnDemandAuditTask where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON StartOnDemandAuditTask where
+instance Prelude.ToJSON StartOnDemandAuditTask where
   toJSON StartOnDemandAuditTask' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("targetCheckNames" .= _sodatTargetCheckNames)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("targetCheckNames" Prelude..= targetCheckNames)
           ]
       )
 
-instance ToPath StartOnDemandAuditTask where
-  toPath = const "/audit/tasks"
+instance Prelude.ToPath StartOnDemandAuditTask where
+  toPath = Prelude.const "/audit/tasks"
 
-instance ToQuery StartOnDemandAuditTask where
-  toQuery = const mempty
+instance Prelude.ToQuery StartOnDemandAuditTask where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startOnDemandAuditTaskResponse' smart constructor.
+-- | /See:/ 'newStartOnDemandAuditTaskResponse' smart constructor.
 data StartOnDemandAuditTaskResponse = StartOnDemandAuditTaskResponse'
-  { _sodatrrsTaskId ::
-      !( Maybe
-           Text
-       ),
-    _sodatrrsResponseStatus ::
-      !Int
+  { -- | The ID of the on-demand audit you started.
+    taskId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartOnDemandAuditTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartOnDemandAuditTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sodatrrsTaskId' - The ID of the on-demand audit you started.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sodatrrsResponseStatus' - -- | The response status code.
-startOnDemandAuditTaskResponse ::
-  -- | 'sodatrrsResponseStatus'
-  Int ->
+-- 'taskId', 'startOnDemandAuditTaskResponse_taskId' - The ID of the on-demand audit you started.
+--
+-- 'httpStatus', 'startOnDemandAuditTaskResponse_httpStatus' - The response's http status code.
+newStartOnDemandAuditTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartOnDemandAuditTaskResponse
-startOnDemandAuditTaskResponse pResponseStatus_ =
+newStartOnDemandAuditTaskResponse pHttpStatus_ =
   StartOnDemandAuditTaskResponse'
-    { _sodatrrsTaskId =
-        Nothing,
-      _sodatrrsResponseStatus = pResponseStatus_
+    { taskId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the on-demand audit you started.
-sodatrrsTaskId :: Lens' StartOnDemandAuditTaskResponse (Maybe Text)
-sodatrrsTaskId = lens _sodatrrsTaskId (\s a -> s {_sodatrrsTaskId = a})
+startOnDemandAuditTaskResponse_taskId :: Lens.Lens' StartOnDemandAuditTaskResponse (Prelude.Maybe Prelude.Text)
+startOnDemandAuditTaskResponse_taskId = Lens.lens (\StartOnDemandAuditTaskResponse' {taskId} -> taskId) (\s@StartOnDemandAuditTaskResponse' {} a -> s {taskId = a} :: StartOnDemandAuditTaskResponse)
 
--- | -- | The response status code.
-sodatrrsResponseStatus :: Lens' StartOnDemandAuditTaskResponse Int
-sodatrrsResponseStatus = lens _sodatrrsResponseStatus (\s a -> s {_sodatrrsResponseStatus = a})
+-- | The response's http status code.
+startOnDemandAuditTaskResponse_httpStatus :: Lens.Lens' StartOnDemandAuditTaskResponse Prelude.Int
+startOnDemandAuditTaskResponse_httpStatus = Lens.lens (\StartOnDemandAuditTaskResponse' {httpStatus} -> httpStatus) (\s@StartOnDemandAuditTaskResponse' {} a -> s {httpStatus = a} :: StartOnDemandAuditTaskResponse)
 
-instance NFData StartOnDemandAuditTaskResponse
+instance
+  Prelude.NFData
+    StartOnDemandAuditTaskResponse

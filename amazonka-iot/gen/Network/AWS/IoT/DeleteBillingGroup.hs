@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,119 +24,133 @@
 -- Deletes the billing group.
 module Network.AWS.IoT.DeleteBillingGroup
   ( -- * Creating a Request
-    deleteBillingGroup,
-    DeleteBillingGroup,
+    DeleteBillingGroup (..),
+    newDeleteBillingGroup,
 
     -- * Request Lenses
-    dbgExpectedVersion,
-    dbgBillingGroupName,
+    deleteBillingGroup_expectedVersion,
+    deleteBillingGroup_billingGroupName,
 
     -- * Destructuring the Response
-    deleteBillingGroupResponse,
-    DeleteBillingGroupResponse,
+    DeleteBillingGroupResponse (..),
+    newDeleteBillingGroupResponse,
 
     -- * Response Lenses
-    dbgrrsResponseStatus,
+    deleteBillingGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteBillingGroup' smart constructor.
+-- | /See:/ 'newDeleteBillingGroup' smart constructor.
 data DeleteBillingGroup = DeleteBillingGroup'
-  { _dbgExpectedVersion ::
-      !(Maybe Integer),
-    _dbgBillingGroupName :: !Text
+  { -- | The expected version of the billing group. If the version of the billing
+    -- group does not match the expected version specified in the request, the
+    -- @DeleteBillingGroup@ request is rejected with a
+    -- @VersionConflictException@.
+    expectedVersion :: Prelude.Maybe Prelude.Integer,
+    -- | The name of the billing group.
+    billingGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBillingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBillingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbgExpectedVersion' - The expected version of the billing group. If the version of the billing group does not match the expected version specified in the request, the @DeleteBillingGroup@ request is rejected with a @VersionConflictException@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbgBillingGroupName' - The name of the billing group.
-deleteBillingGroup ::
-  -- | 'dbgBillingGroupName'
-  Text ->
+-- 'expectedVersion', 'deleteBillingGroup_expectedVersion' - The expected version of the billing group. If the version of the billing
+-- group does not match the expected version specified in the request, the
+-- @DeleteBillingGroup@ request is rejected with a
+-- @VersionConflictException@.
+--
+-- 'billingGroupName', 'deleteBillingGroup_billingGroupName' - The name of the billing group.
+newDeleteBillingGroup ::
+  -- | 'billingGroupName'
+  Prelude.Text ->
   DeleteBillingGroup
-deleteBillingGroup pBillingGroupName_ =
+newDeleteBillingGroup pBillingGroupName_ =
   DeleteBillingGroup'
-    { _dbgExpectedVersion = Nothing,
-      _dbgBillingGroupName = pBillingGroupName_
+    { expectedVersion =
+        Prelude.Nothing,
+      billingGroupName = pBillingGroupName_
     }
 
--- | The expected version of the billing group. If the version of the billing group does not match the expected version specified in the request, the @DeleteBillingGroup@ request is rejected with a @VersionConflictException@ .
-dbgExpectedVersion :: Lens' DeleteBillingGroup (Maybe Integer)
-dbgExpectedVersion = lens _dbgExpectedVersion (\s a -> s {_dbgExpectedVersion = a})
+-- | The expected version of the billing group. If the version of the billing
+-- group does not match the expected version specified in the request, the
+-- @DeleteBillingGroup@ request is rejected with a
+-- @VersionConflictException@.
+deleteBillingGroup_expectedVersion :: Lens.Lens' DeleteBillingGroup (Prelude.Maybe Prelude.Integer)
+deleteBillingGroup_expectedVersion = Lens.lens (\DeleteBillingGroup' {expectedVersion} -> expectedVersion) (\s@DeleteBillingGroup' {} a -> s {expectedVersion = a} :: DeleteBillingGroup)
 
 -- | The name of the billing group.
-dbgBillingGroupName :: Lens' DeleteBillingGroup Text
-dbgBillingGroupName = lens _dbgBillingGroupName (\s a -> s {_dbgBillingGroupName = a})
+deleteBillingGroup_billingGroupName :: Lens.Lens' DeleteBillingGroup Prelude.Text
+deleteBillingGroup_billingGroupName = Lens.lens (\DeleteBillingGroup' {billingGroupName} -> billingGroupName) (\s@DeleteBillingGroup' {} a -> s {billingGroupName = a} :: DeleteBillingGroup)
 
-instance AWSRequest DeleteBillingGroup where
+instance Prelude.AWSRequest DeleteBillingGroup where
   type
     Rs DeleteBillingGroup =
       DeleteBillingGroupResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteBillingGroupResponse' <$> (pure (fromEnum s))
+          DeleteBillingGroupResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteBillingGroup
+instance Prelude.Hashable DeleteBillingGroup
 
-instance NFData DeleteBillingGroup
+instance Prelude.NFData DeleteBillingGroup
 
-instance ToHeaders DeleteBillingGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteBillingGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteBillingGroup where
+instance Prelude.ToPath DeleteBillingGroup where
   toPath DeleteBillingGroup' {..} =
-    mconcat
-      ["/billing-groups/", toBS _dbgBillingGroupName]
+    Prelude.mconcat
+      ["/billing-groups/", Prelude.toBS billingGroupName]
 
-instance ToQuery DeleteBillingGroup where
+instance Prelude.ToQuery DeleteBillingGroup where
   toQuery DeleteBillingGroup' {..} =
-    mconcat ["expectedVersion" =: _dbgExpectedVersion]
+    Prelude.mconcat
+      ["expectedVersion" Prelude.=: expectedVersion]
 
--- | /See:/ 'deleteBillingGroupResponse' smart constructor.
-newtype DeleteBillingGroupResponse = DeleteBillingGroupResponse'
-  { _dbgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteBillingGroupResponse' smart constructor.
+data DeleteBillingGroupResponse = DeleteBillingGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBillingGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBillingGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbgrrsResponseStatus' - -- | The response status code.
-deleteBillingGroupResponse ::
-  -- | 'dbgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteBillingGroupResponse_httpStatus' - The response's http status code.
+newDeleteBillingGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteBillingGroupResponse
-deleteBillingGroupResponse pResponseStatus_ =
+newDeleteBillingGroupResponse pHttpStatus_ =
   DeleteBillingGroupResponse'
-    { _dbgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dbgrrsResponseStatus :: Lens' DeleteBillingGroupResponse Int
-dbgrrsResponseStatus = lens _dbgrrsResponseStatus (\s a -> s {_dbgrrsResponseStatus = a})
+-- | The response's http status code.
+deleteBillingGroupResponse_httpStatus :: Lens.Lens' DeleteBillingGroupResponse Prelude.Int
+deleteBillingGroupResponse_httpStatus = Lens.lens (\DeleteBillingGroupResponse' {httpStatus} -> httpStatus) (\s@DeleteBillingGroupResponse' {} a -> s {httpStatus = a} :: DeleteBillingGroupResponse)
 
-instance NFData DeleteBillingGroupResponse
+instance Prelude.NFData DeleteBillingGroupResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.IoT.Types.CACertificateStatus
   ( CACertificateStatus
       ( ..,
-        CACSActive,
-        CACSInactive
+        CACertificateStatusACTIVE,
+        CACertificateStatusINACTIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CACertificateStatus
-  = CACertificateStatus'
-      ( CI
-          Text
-      )
+newtype CACertificateStatus = CACertificateStatus'
+  { fromCACertificateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CACSActive :: CACertificateStatus
-pattern CACSActive = CACertificateStatus' "ACTIVE"
+pattern CACertificateStatusACTIVE :: CACertificateStatus
+pattern CACertificateStatusACTIVE = CACertificateStatus' "ACTIVE"
 
-pattern CACSInactive :: CACertificateStatus
-pattern CACSInactive = CACertificateStatus' "INACTIVE"
+pattern CACertificateStatusINACTIVE :: CACertificateStatus
+pattern CACertificateStatusINACTIVE = CACertificateStatus' "INACTIVE"
 
 {-# COMPLETE
-  CACSActive,
-  CACSInactive,
+  CACertificateStatusACTIVE,
+  CACertificateStatusINACTIVE,
   CACertificateStatus'
   #-}
 
-instance FromText CACertificateStatus where
-  parser = (CACertificateStatus' . mk) <$> takeText
+instance Prelude.FromText CACertificateStatus where
+  parser = CACertificateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CACertificateStatus where
-  toText (CACertificateStatus' ci) = original ci
+instance Prelude.ToText CACertificateStatus where
+  toText (CACertificateStatus' x) = x
 
-instance Hashable CACertificateStatus
+instance Prelude.Hashable CACertificateStatus
 
-instance NFData CACertificateStatus
+instance Prelude.NFData CACertificateStatus
 
-instance ToByteString CACertificateStatus
+instance Prelude.ToByteString CACertificateStatus
 
-instance ToQuery CACertificateStatus
+instance Prelude.ToQuery CACertificateStatus
 
-instance ToHeader CACertificateStatus
+instance Prelude.ToHeader CACertificateStatus
 
-instance ToJSON CACertificateStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON CACertificateStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CACertificateStatus where
-  parseJSON = parseJSONText "CACertificateStatus"
+instance Prelude.FromJSON CACertificateStatus where
+  parseJSON = Prelude.parseJSONText "CACertificateStatus"

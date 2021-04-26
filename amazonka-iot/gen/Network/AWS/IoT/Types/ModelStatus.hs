@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.IoT.Types.ModelStatus
   ( ModelStatus
       ( ..,
-        Active,
-        Expired,
-        PendingBuild
+        ModelStatusACTIVE,
+        ModelStatusEXPIRED,
+        ModelStatusPENDINGBUILD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModelStatus = ModelStatus' (CI Text)
+newtype ModelStatus = ModelStatus'
+  { fromModelStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ModelStatus
-pattern Active = ModelStatus' "ACTIVE"
+pattern ModelStatusACTIVE :: ModelStatus
+pattern ModelStatusACTIVE = ModelStatus' "ACTIVE"
 
-pattern Expired :: ModelStatus
-pattern Expired = ModelStatus' "EXPIRED"
+pattern ModelStatusEXPIRED :: ModelStatus
+pattern ModelStatusEXPIRED = ModelStatus' "EXPIRED"
 
-pattern PendingBuild :: ModelStatus
-pattern PendingBuild = ModelStatus' "PENDING_BUILD"
+pattern ModelStatusPENDINGBUILD :: ModelStatus
+pattern ModelStatusPENDINGBUILD = ModelStatus' "PENDING_BUILD"
 
 {-# COMPLETE
-  Active,
-  Expired,
-  PendingBuild,
+  ModelStatusACTIVE,
+  ModelStatusEXPIRED,
+  ModelStatusPENDINGBUILD,
   ModelStatus'
   #-}
 
-instance FromText ModelStatus where
-  parser = (ModelStatus' . mk) <$> takeText
+instance Prelude.FromText ModelStatus where
+  parser = ModelStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ModelStatus where
-  toText (ModelStatus' ci) = original ci
+instance Prelude.ToText ModelStatus where
+  toText (ModelStatus' x) = x
 
-instance Hashable ModelStatus
+instance Prelude.Hashable ModelStatus
 
-instance NFData ModelStatus
+instance Prelude.NFData ModelStatus
 
-instance ToByteString ModelStatus
+instance Prelude.ToByteString ModelStatus
 
-instance ToQuery ModelStatus
+instance Prelude.ToQuery ModelStatus
 
-instance ToHeader ModelStatus
+instance Prelude.ToHeader ModelStatus
 
-instance FromJSON ModelStatus where
-  parseJSON = parseJSONText "ModelStatus"
+instance Prelude.FromJSON ModelStatus where
+  parseJSON = Prelude.parseJSONText "ModelStatus"

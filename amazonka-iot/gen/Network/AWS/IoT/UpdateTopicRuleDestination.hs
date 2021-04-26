@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,139 +21,214 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a topic rule destination. You use this to change the status, endpoint URL, or confirmation URL of the destination.
+-- Updates a topic rule destination. You use this to change the status,
+-- endpoint URL, or confirmation URL of the destination.
 module Network.AWS.IoT.UpdateTopicRuleDestination
   ( -- * Creating a Request
-    updateTopicRuleDestination,
-    UpdateTopicRuleDestination,
+    UpdateTopicRuleDestination (..),
+    newUpdateTopicRuleDestination,
 
     -- * Request Lenses
-    utrdArn,
-    utrdStatus,
+    updateTopicRuleDestination_arn,
+    updateTopicRuleDestination_status,
 
     -- * Destructuring the Response
-    updateTopicRuleDestinationResponse,
-    UpdateTopicRuleDestinationResponse,
+    UpdateTopicRuleDestinationResponse (..),
+    newUpdateTopicRuleDestinationResponse,
 
     -- * Response Lenses
-    utrdrrsResponseStatus,
+    updateTopicRuleDestinationResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateTopicRuleDestination' smart constructor.
+-- | /See:/ 'newUpdateTopicRuleDestination' smart constructor.
 data UpdateTopicRuleDestination = UpdateTopicRuleDestination'
-  { _utrdArn ::
-      !Text,
-    _utrdStatus ::
-      !TopicRuleDestinationStatus
+  { -- | The ARN of the topic rule destination.
+    arn :: Prelude.Text,
+    -- | The status of the topic rule destination. Valid values are:
+    --
+    -- [IN_PROGRESS]
+    --     A topic rule destination was created but has not been confirmed. You
+    --     can set @status@ to @IN_PROGRESS@ by calling
+    --     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+    --     causes a new confirmation challenge to be sent to your confirmation
+    --     endpoint.
+    --
+    -- [ENABLED]
+    --     Confirmation was completed, and traffic to this destination is
+    --     allowed. You can set @status@ to @DISABLED@ by calling
+    --     @UpdateTopicRuleDestination@.
+    --
+    -- [DISABLED]
+    --     Confirmation was completed, and traffic to this destination is not
+    --     allowed. You can set @status@ to @ENABLED@ by calling
+    --     @UpdateTopicRuleDestination@.
+    --
+    -- [ERROR]
+    --     Confirmation could not be completed, for example if the confirmation
+    --     timed out. You can call @GetTopicRuleDestination@ for details about
+    --     the error. You can set @status@ to @IN_PROGRESS@ by calling
+    --     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+    --     causes a new confirmation challenge to be sent to your confirmation
+    --     endpoint.
+    status :: TopicRuleDestinationStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTopicRuleDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTopicRuleDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utrdArn' - The ARN of the topic rule destination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utrdStatus' - The status of the topic rule destination. Valid values are:     * IN_PROGRESS    * A topic rule destination was created but has not been confirmed. You can set @status@ to @IN_PROGRESS@ by calling @UpdateTopicRuleDestination@ . Calling @UpdateTopicRuleDestination@ causes a new confirmation challenge to be sent to your confirmation endpoint.     * ENABLED    * Confirmation was completed, and traffic to this destination is allowed. You can set @status@ to @DISABLED@ by calling @UpdateTopicRuleDestination@ .     * DISABLED    * Confirmation was completed, and traffic to this destination is not allowed. You can set @status@ to @ENABLED@ by calling @UpdateTopicRuleDestination@ .     * ERROR    * Confirmation could not be completed, for example if the confirmation timed out. You can call @GetTopicRuleDestination@ for details about the error. You can set @status@ to @IN_PROGRESS@ by calling @UpdateTopicRuleDestination@ . Calling @UpdateTopicRuleDestination@ causes a new confirmation challenge to be sent to your confirmation endpoint.
-updateTopicRuleDestination ::
-  -- | 'utrdArn'
-  Text ->
-  -- | 'utrdStatus'
+-- 'arn', 'updateTopicRuleDestination_arn' - The ARN of the topic rule destination.
+--
+-- 'status', 'updateTopicRuleDestination_status' - The status of the topic rule destination. Valid values are:
+--
+-- [IN_PROGRESS]
+--     A topic rule destination was created but has not been confirmed. You
+--     can set @status@ to @IN_PROGRESS@ by calling
+--     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+--     causes a new confirmation challenge to be sent to your confirmation
+--     endpoint.
+--
+-- [ENABLED]
+--     Confirmation was completed, and traffic to this destination is
+--     allowed. You can set @status@ to @DISABLED@ by calling
+--     @UpdateTopicRuleDestination@.
+--
+-- [DISABLED]
+--     Confirmation was completed, and traffic to this destination is not
+--     allowed. You can set @status@ to @ENABLED@ by calling
+--     @UpdateTopicRuleDestination@.
+--
+-- [ERROR]
+--     Confirmation could not be completed, for example if the confirmation
+--     timed out. You can call @GetTopicRuleDestination@ for details about
+--     the error. You can set @status@ to @IN_PROGRESS@ by calling
+--     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+--     causes a new confirmation challenge to be sent to your confirmation
+--     endpoint.
+newUpdateTopicRuleDestination ::
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'status'
   TopicRuleDestinationStatus ->
   UpdateTopicRuleDestination
-updateTopicRuleDestination pArn_ pStatus_ =
+newUpdateTopicRuleDestination pArn_ pStatus_ =
   UpdateTopicRuleDestination'
-    { _utrdArn = pArn_,
-      _utrdStatus = pStatus_
+    { arn = pArn_,
+      status = pStatus_
     }
 
 -- | The ARN of the topic rule destination.
-utrdArn :: Lens' UpdateTopicRuleDestination Text
-utrdArn = lens _utrdArn (\s a -> s {_utrdArn = a})
+updateTopicRuleDestination_arn :: Lens.Lens' UpdateTopicRuleDestination Prelude.Text
+updateTopicRuleDestination_arn = Lens.lens (\UpdateTopicRuleDestination' {arn} -> arn) (\s@UpdateTopicRuleDestination' {} a -> s {arn = a} :: UpdateTopicRuleDestination)
 
--- | The status of the topic rule destination. Valid values are:     * IN_PROGRESS    * A topic rule destination was created but has not been confirmed. You can set @status@ to @IN_PROGRESS@ by calling @UpdateTopicRuleDestination@ . Calling @UpdateTopicRuleDestination@ causes a new confirmation challenge to be sent to your confirmation endpoint.     * ENABLED    * Confirmation was completed, and traffic to this destination is allowed. You can set @status@ to @DISABLED@ by calling @UpdateTopicRuleDestination@ .     * DISABLED    * Confirmation was completed, and traffic to this destination is not allowed. You can set @status@ to @ENABLED@ by calling @UpdateTopicRuleDestination@ .     * ERROR    * Confirmation could not be completed, for example if the confirmation timed out. You can call @GetTopicRuleDestination@ for details about the error. You can set @status@ to @IN_PROGRESS@ by calling @UpdateTopicRuleDestination@ . Calling @UpdateTopicRuleDestination@ causes a new confirmation challenge to be sent to your confirmation endpoint.
-utrdStatus :: Lens' UpdateTopicRuleDestination TopicRuleDestinationStatus
-utrdStatus = lens _utrdStatus (\s a -> s {_utrdStatus = a})
+-- | The status of the topic rule destination. Valid values are:
+--
+-- [IN_PROGRESS]
+--     A topic rule destination was created but has not been confirmed. You
+--     can set @status@ to @IN_PROGRESS@ by calling
+--     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+--     causes a new confirmation challenge to be sent to your confirmation
+--     endpoint.
+--
+-- [ENABLED]
+--     Confirmation was completed, and traffic to this destination is
+--     allowed. You can set @status@ to @DISABLED@ by calling
+--     @UpdateTopicRuleDestination@.
+--
+-- [DISABLED]
+--     Confirmation was completed, and traffic to this destination is not
+--     allowed. You can set @status@ to @ENABLED@ by calling
+--     @UpdateTopicRuleDestination@.
+--
+-- [ERROR]
+--     Confirmation could not be completed, for example if the confirmation
+--     timed out. You can call @GetTopicRuleDestination@ for details about
+--     the error. You can set @status@ to @IN_PROGRESS@ by calling
+--     @UpdateTopicRuleDestination@. Calling @UpdateTopicRuleDestination@
+--     causes a new confirmation challenge to be sent to your confirmation
+--     endpoint.
+updateTopicRuleDestination_status :: Lens.Lens' UpdateTopicRuleDestination TopicRuleDestinationStatus
+updateTopicRuleDestination_status = Lens.lens (\UpdateTopicRuleDestination' {status} -> status) (\s@UpdateTopicRuleDestination' {} a -> s {status = a} :: UpdateTopicRuleDestination)
 
-instance AWSRequest UpdateTopicRuleDestination where
+instance
+  Prelude.AWSRequest
+    UpdateTopicRuleDestination
+  where
   type
     Rs UpdateTopicRuleDestination =
       UpdateTopicRuleDestinationResponse
-  request = patchJSON ioT
+  request = Request.patchJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateTopicRuleDestinationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateTopicRuleDestination
+instance Prelude.Hashable UpdateTopicRuleDestination
 
-instance NFData UpdateTopicRuleDestination
+instance Prelude.NFData UpdateTopicRuleDestination
 
-instance ToHeaders UpdateTopicRuleDestination where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateTopicRuleDestination where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateTopicRuleDestination where
+instance Prelude.ToJSON UpdateTopicRuleDestination where
   toJSON UpdateTopicRuleDestination' {..} =
-    object
-      ( catMaybes
-          [ Just ("arn" .= _utrdArn),
-            Just ("status" .= _utrdStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("arn" Prelude..= arn),
+            Prelude.Just ("status" Prelude..= status)
           ]
       )
 
-instance ToPath UpdateTopicRuleDestination where
-  toPath = const "/destinations"
+instance Prelude.ToPath UpdateTopicRuleDestination where
+  toPath = Prelude.const "/destinations"
 
-instance ToQuery UpdateTopicRuleDestination where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateTopicRuleDestination where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateTopicRuleDestinationResponse' smart constructor.
-newtype UpdateTopicRuleDestinationResponse = UpdateTopicRuleDestinationResponse'
-  { _utrdrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateTopicRuleDestinationResponse' smart constructor.
+data UpdateTopicRuleDestinationResponse = UpdateTopicRuleDestinationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTopicRuleDestinationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTopicRuleDestinationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utrdrrsResponseStatus' - -- | The response status code.
-updateTopicRuleDestinationResponse ::
-  -- | 'utrdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateTopicRuleDestinationResponse_httpStatus' - The response's http status code.
+newUpdateTopicRuleDestinationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateTopicRuleDestinationResponse
-updateTopicRuleDestinationResponse pResponseStatus_ =
+newUpdateTopicRuleDestinationResponse pHttpStatus_ =
   UpdateTopicRuleDestinationResponse'
-    { _utrdrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-utrdrrsResponseStatus :: Lens' UpdateTopicRuleDestinationResponse Int
-utrdrrsResponseStatus = lens _utrdrrsResponseStatus (\s a -> s {_utrdrrsResponseStatus = a})
+-- | The response's http status code.
+updateTopicRuleDestinationResponse_httpStatus :: Lens.Lens' UpdateTopicRuleDestinationResponse Prelude.Int
+updateTopicRuleDestinationResponse_httpStatus = Lens.lens (\UpdateTopicRuleDestinationResponse' {httpStatus} -> httpStatus) (\s@UpdateTopicRuleDestinationResponse' {} a -> s {httpStatus = a} :: UpdateTopicRuleDestinationResponse)
 
-instance NFData UpdateTopicRuleDestinationResponse
+instance
+  Prelude.NFData
+    UpdateTopicRuleDestinationResponse

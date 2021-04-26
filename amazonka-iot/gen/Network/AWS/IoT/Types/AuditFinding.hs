@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,138 +22,155 @@ module Network.AWS.IoT.Types.AuditFinding where
 import Network.AWS.IoT.Types.AuditFindingSeverity
 import Network.AWS.IoT.Types.NonCompliantResource
 import Network.AWS.IoT.Types.RelatedResource
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The findings (results) of the audit.
 --
---
---
--- /See:/ 'auditFinding' smart constructor.
+-- /See:/ 'newAuditFinding' smart constructor.
 data AuditFinding = AuditFinding'
-  { _afSeverity ::
-      !(Maybe AuditFindingSeverity),
-    _afFindingId :: !(Maybe Text),
-    _afTaskId :: !(Maybe Text),
-    _afReasonForNonComplianceCode ::
-      !(Maybe Text),
-    _afReasonForNonCompliance :: !(Maybe Text),
-    _afIsSuppressed :: !(Maybe Bool),
-    _afCheckName :: !(Maybe Text),
-    _afRelatedResources ::
-      !(Maybe [RelatedResource]),
-    _afFindingTime :: !(Maybe POSIX),
-    _afTaskStartTime :: !(Maybe POSIX),
-    _afNonCompliantResource ::
-      !(Maybe NonCompliantResource)
+  { -- | The severity of the result (finding).
+    severity :: Prelude.Maybe AuditFindingSeverity,
+    -- | A unique identifier for this set of audit findings. This identifier is
+    -- used to apply mitigation tasks to one or more sets of findings.
+    findingId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the audit that generated this result (finding).
+    taskId :: Prelude.Maybe Prelude.Text,
+    -- | A code that indicates the reason that the resource was noncompliant.
+    reasonForNonComplianceCode :: Prelude.Maybe Prelude.Text,
+    -- | The reason the resource was noncompliant.
+    reasonForNonCompliance :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the audit finding was suppressed or not during
+    -- reporting.
+    isSuppressed :: Prelude.Maybe Prelude.Bool,
+    -- | The audit check that generated this result.
+    checkName :: Prelude.Maybe Prelude.Text,
+    -- | The list of related resources.
+    relatedResources :: Prelude.Maybe [RelatedResource],
+    -- | The time the result (finding) was discovered.
+    findingTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time the audit started.
+    taskStartTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The resource that was found to be noncompliant with the audit check.
+    nonCompliantResource :: Prelude.Maybe NonCompliantResource
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuditFinding' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuditFinding' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'afSeverity' - The severity of the result (finding).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'afFindingId' - A unique identifier for this set of audit findings. This identifier is used to apply mitigation tasks to one or more sets of findings.
+-- 'severity', 'auditFinding_severity' - The severity of the result (finding).
 --
--- * 'afTaskId' - The ID of the audit that generated this result (finding).
+-- 'findingId', 'auditFinding_findingId' - A unique identifier for this set of audit findings. This identifier is
+-- used to apply mitigation tasks to one or more sets of findings.
 --
--- * 'afReasonForNonComplianceCode' - A code that indicates the reason that the resource was noncompliant.
+-- 'taskId', 'auditFinding_taskId' - The ID of the audit that generated this result (finding).
 --
--- * 'afReasonForNonCompliance' - The reason the resource was noncompliant.
+-- 'reasonForNonComplianceCode', 'auditFinding_reasonForNonComplianceCode' - A code that indicates the reason that the resource was noncompliant.
 --
--- * 'afIsSuppressed' - Indicates whether the audit finding was suppressed or not during reporting.
+-- 'reasonForNonCompliance', 'auditFinding_reasonForNonCompliance' - The reason the resource was noncompliant.
 --
--- * 'afCheckName' - The audit check that generated this result.
+-- 'isSuppressed', 'auditFinding_isSuppressed' - Indicates whether the audit finding was suppressed or not during
+-- reporting.
 --
--- * 'afRelatedResources' - The list of related resources.
+-- 'checkName', 'auditFinding_checkName' - The audit check that generated this result.
 --
--- * 'afFindingTime' - The time the result (finding) was discovered.
+-- 'relatedResources', 'auditFinding_relatedResources' - The list of related resources.
 --
--- * 'afTaskStartTime' - The time the audit started.
+-- 'findingTime', 'auditFinding_findingTime' - The time the result (finding) was discovered.
 --
--- * 'afNonCompliantResource' - The resource that was found to be noncompliant with the audit check.
-auditFinding ::
+-- 'taskStartTime', 'auditFinding_taskStartTime' - The time the audit started.
+--
+-- 'nonCompliantResource', 'auditFinding_nonCompliantResource' - The resource that was found to be noncompliant with the audit check.
+newAuditFinding ::
   AuditFinding
-auditFinding =
+newAuditFinding =
   AuditFinding'
-    { _afSeverity = Nothing,
-      _afFindingId = Nothing,
-      _afTaskId = Nothing,
-      _afReasonForNonComplianceCode = Nothing,
-      _afReasonForNonCompliance = Nothing,
-      _afIsSuppressed = Nothing,
-      _afCheckName = Nothing,
-      _afRelatedResources = Nothing,
-      _afFindingTime = Nothing,
-      _afTaskStartTime = Nothing,
-      _afNonCompliantResource = Nothing
+    { severity = Prelude.Nothing,
+      findingId = Prelude.Nothing,
+      taskId = Prelude.Nothing,
+      reasonForNonComplianceCode = Prelude.Nothing,
+      reasonForNonCompliance = Prelude.Nothing,
+      isSuppressed = Prelude.Nothing,
+      checkName = Prelude.Nothing,
+      relatedResources = Prelude.Nothing,
+      findingTime = Prelude.Nothing,
+      taskStartTime = Prelude.Nothing,
+      nonCompliantResource = Prelude.Nothing
     }
 
 -- | The severity of the result (finding).
-afSeverity :: Lens' AuditFinding (Maybe AuditFindingSeverity)
-afSeverity = lens _afSeverity (\s a -> s {_afSeverity = a})
+auditFinding_severity :: Lens.Lens' AuditFinding (Prelude.Maybe AuditFindingSeverity)
+auditFinding_severity = Lens.lens (\AuditFinding' {severity} -> severity) (\s@AuditFinding' {} a -> s {severity = a} :: AuditFinding)
 
--- | A unique identifier for this set of audit findings. This identifier is used to apply mitigation tasks to one or more sets of findings.
-afFindingId :: Lens' AuditFinding (Maybe Text)
-afFindingId = lens _afFindingId (\s a -> s {_afFindingId = a})
+-- | A unique identifier for this set of audit findings. This identifier is
+-- used to apply mitigation tasks to one or more sets of findings.
+auditFinding_findingId :: Lens.Lens' AuditFinding (Prelude.Maybe Prelude.Text)
+auditFinding_findingId = Lens.lens (\AuditFinding' {findingId} -> findingId) (\s@AuditFinding' {} a -> s {findingId = a} :: AuditFinding)
 
 -- | The ID of the audit that generated this result (finding).
-afTaskId :: Lens' AuditFinding (Maybe Text)
-afTaskId = lens _afTaskId (\s a -> s {_afTaskId = a})
+auditFinding_taskId :: Lens.Lens' AuditFinding (Prelude.Maybe Prelude.Text)
+auditFinding_taskId = Lens.lens (\AuditFinding' {taskId} -> taskId) (\s@AuditFinding' {} a -> s {taskId = a} :: AuditFinding)
 
 -- | A code that indicates the reason that the resource was noncompliant.
-afReasonForNonComplianceCode :: Lens' AuditFinding (Maybe Text)
-afReasonForNonComplianceCode = lens _afReasonForNonComplianceCode (\s a -> s {_afReasonForNonComplianceCode = a})
+auditFinding_reasonForNonComplianceCode :: Lens.Lens' AuditFinding (Prelude.Maybe Prelude.Text)
+auditFinding_reasonForNonComplianceCode = Lens.lens (\AuditFinding' {reasonForNonComplianceCode} -> reasonForNonComplianceCode) (\s@AuditFinding' {} a -> s {reasonForNonComplianceCode = a} :: AuditFinding)
 
 -- | The reason the resource was noncompliant.
-afReasonForNonCompliance :: Lens' AuditFinding (Maybe Text)
-afReasonForNonCompliance = lens _afReasonForNonCompliance (\s a -> s {_afReasonForNonCompliance = a})
+auditFinding_reasonForNonCompliance :: Lens.Lens' AuditFinding (Prelude.Maybe Prelude.Text)
+auditFinding_reasonForNonCompliance = Lens.lens (\AuditFinding' {reasonForNonCompliance} -> reasonForNonCompliance) (\s@AuditFinding' {} a -> s {reasonForNonCompliance = a} :: AuditFinding)
 
--- | Indicates whether the audit finding was suppressed or not during reporting.
-afIsSuppressed :: Lens' AuditFinding (Maybe Bool)
-afIsSuppressed = lens _afIsSuppressed (\s a -> s {_afIsSuppressed = a})
+-- | Indicates whether the audit finding was suppressed or not during
+-- reporting.
+auditFinding_isSuppressed :: Lens.Lens' AuditFinding (Prelude.Maybe Prelude.Bool)
+auditFinding_isSuppressed = Lens.lens (\AuditFinding' {isSuppressed} -> isSuppressed) (\s@AuditFinding' {} a -> s {isSuppressed = a} :: AuditFinding)
 
 -- | The audit check that generated this result.
-afCheckName :: Lens' AuditFinding (Maybe Text)
-afCheckName = lens _afCheckName (\s a -> s {_afCheckName = a})
+auditFinding_checkName :: Lens.Lens' AuditFinding (Prelude.Maybe Prelude.Text)
+auditFinding_checkName = Lens.lens (\AuditFinding' {checkName} -> checkName) (\s@AuditFinding' {} a -> s {checkName = a} :: AuditFinding)
 
 -- | The list of related resources.
-afRelatedResources :: Lens' AuditFinding [RelatedResource]
-afRelatedResources = lens _afRelatedResources (\s a -> s {_afRelatedResources = a}) . _Default . _Coerce
+auditFinding_relatedResources :: Lens.Lens' AuditFinding (Prelude.Maybe [RelatedResource])
+auditFinding_relatedResources = Lens.lens (\AuditFinding' {relatedResources} -> relatedResources) (\s@AuditFinding' {} a -> s {relatedResources = a} :: AuditFinding) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time the result (finding) was discovered.
-afFindingTime :: Lens' AuditFinding (Maybe UTCTime)
-afFindingTime = lens _afFindingTime (\s a -> s {_afFindingTime = a}) . mapping _Time
+auditFinding_findingTime :: Lens.Lens' AuditFinding (Prelude.Maybe Prelude.UTCTime)
+auditFinding_findingTime = Lens.lens (\AuditFinding' {findingTime} -> findingTime) (\s@AuditFinding' {} a -> s {findingTime = a} :: AuditFinding) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time the audit started.
-afTaskStartTime :: Lens' AuditFinding (Maybe UTCTime)
-afTaskStartTime = lens _afTaskStartTime (\s a -> s {_afTaskStartTime = a}) . mapping _Time
+auditFinding_taskStartTime :: Lens.Lens' AuditFinding (Prelude.Maybe Prelude.UTCTime)
+auditFinding_taskStartTime = Lens.lens (\AuditFinding' {taskStartTime} -> taskStartTime) (\s@AuditFinding' {} a -> s {taskStartTime = a} :: AuditFinding) Prelude.. Lens.mapping Prelude._Time
 
 -- | The resource that was found to be noncompliant with the audit check.
-afNonCompliantResource :: Lens' AuditFinding (Maybe NonCompliantResource)
-afNonCompliantResource = lens _afNonCompliantResource (\s a -> s {_afNonCompliantResource = a})
+auditFinding_nonCompliantResource :: Lens.Lens' AuditFinding (Prelude.Maybe NonCompliantResource)
+auditFinding_nonCompliantResource = Lens.lens (\AuditFinding' {nonCompliantResource} -> nonCompliantResource) (\s@AuditFinding' {} a -> s {nonCompliantResource = a} :: AuditFinding)
 
-instance FromJSON AuditFinding where
+instance Prelude.FromJSON AuditFinding where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuditFinding"
       ( \x ->
           AuditFinding'
-            <$> (x .:? "severity")
-            <*> (x .:? "findingId")
-            <*> (x .:? "taskId")
-            <*> (x .:? "reasonForNonComplianceCode")
-            <*> (x .:? "reasonForNonCompliance")
-            <*> (x .:? "isSuppressed")
-            <*> (x .:? "checkName")
-            <*> (x .:? "relatedResources" .!= mempty)
-            <*> (x .:? "findingTime")
-            <*> (x .:? "taskStartTime")
-            <*> (x .:? "nonCompliantResource")
+            Prelude.<$> (x Prelude..:? "severity")
+            Prelude.<*> (x Prelude..:? "findingId")
+            Prelude.<*> (x Prelude..:? "taskId")
+            Prelude.<*> (x Prelude..:? "reasonForNonComplianceCode")
+            Prelude.<*> (x Prelude..:? "reasonForNonCompliance")
+            Prelude.<*> (x Prelude..:? "isSuppressed")
+            Prelude.<*> (x Prelude..:? "checkName")
+            Prelude.<*> ( x Prelude..:? "relatedResources"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "findingTime")
+            Prelude.<*> (x Prelude..:? "taskStartTime")
+            Prelude.<*> (x Prelude..:? "nonCompliantResource")
       )
 
-instance Hashable AuditFinding
+instance Prelude.Hashable AuditFinding
 
-instance NFData AuditFinding
+instance Prelude.NFData AuditFinding

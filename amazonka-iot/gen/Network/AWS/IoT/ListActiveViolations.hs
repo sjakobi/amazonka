@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,203 +21,227 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the active violations for a given Device Defender security profile.
---
---
+-- Lists the active violations for a given Device Defender security
+-- profile.
 --
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListActiveViolations
   ( -- * Creating a Request
-    listActiveViolations,
-    ListActiveViolations,
+    ListActiveViolations (..),
+    newListActiveViolations,
 
     -- * Request Lenses
-    lavNextToken,
-    lavMaxResults,
-    lavThingName,
-    lavSecurityProfileName,
-    lavListSuppressedAlerts,
-    lavBehaviorCriteriaType,
+    listActiveViolations_nextToken,
+    listActiveViolations_maxResults,
+    listActiveViolations_thingName,
+    listActiveViolations_securityProfileName,
+    listActiveViolations_listSuppressedAlerts,
+    listActiveViolations_behaviorCriteriaType,
 
     -- * Destructuring the Response
-    listActiveViolationsResponse,
-    ListActiveViolationsResponse,
+    ListActiveViolationsResponse (..),
+    newListActiveViolationsResponse,
 
     -- * Response Lenses
-    lavrrsNextToken,
-    lavrrsActiveViolations,
-    lavrrsResponseStatus,
+    listActiveViolationsResponse_nextToken,
+    listActiveViolationsResponse_activeViolations,
+    listActiveViolationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.ActiveViolation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listActiveViolations' smart constructor.
+-- | /See:/ 'newListActiveViolations' smart constructor.
 data ListActiveViolations = ListActiveViolations'
-  { _lavNextToken ::
-      !(Maybe Text),
-    _lavMaxResults ::
-      !(Maybe Nat),
-    _lavThingName ::
-      !(Maybe Text),
-    _lavSecurityProfileName ::
-      !(Maybe Text),
-    _lavListSuppressedAlerts ::
-      !(Maybe Bool),
-    _lavBehaviorCriteriaType ::
-      !(Maybe BehaviorCriteriaType)
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the thing whose active violations are listed.
+    thingName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Device Defender security profile for which violations
+    -- are listed.
+    securityProfileName :: Prelude.Maybe Prelude.Text,
+    -- | A list of all suppressed alerts.
+    listSuppressedAlerts :: Prelude.Maybe Prelude.Bool,
+    -- | The criteria for a behavior.
+    behaviorCriteriaType :: Prelude.Maybe BehaviorCriteriaType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListActiveViolations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListActiveViolations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lavNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lavMaxResults' - The maximum number of results to return at one time.
+-- 'nextToken', 'listActiveViolations_nextToken' - The token for the next set of results.
 --
--- * 'lavThingName' - The name of the thing whose active violations are listed.
+-- 'maxResults', 'listActiveViolations_maxResults' - The maximum number of results to return at one time.
 --
--- * 'lavSecurityProfileName' - The name of the Device Defender security profile for which violations are listed.
+-- 'thingName', 'listActiveViolations_thingName' - The name of the thing whose active violations are listed.
 --
--- * 'lavListSuppressedAlerts' - A list of all suppressed alerts.
+-- 'securityProfileName', 'listActiveViolations_securityProfileName' - The name of the Device Defender security profile for which violations
+-- are listed.
 --
--- * 'lavBehaviorCriteriaType' - The criteria for a behavior.
-listActiveViolations ::
+-- 'listSuppressedAlerts', 'listActiveViolations_listSuppressedAlerts' - A list of all suppressed alerts.
+--
+-- 'behaviorCriteriaType', 'listActiveViolations_behaviorCriteriaType' - The criteria for a behavior.
+newListActiveViolations ::
   ListActiveViolations
-listActiveViolations =
+newListActiveViolations =
   ListActiveViolations'
-    { _lavNextToken = Nothing,
-      _lavMaxResults = Nothing,
-      _lavThingName = Nothing,
-      _lavSecurityProfileName = Nothing,
-      _lavListSuppressedAlerts = Nothing,
-      _lavBehaviorCriteriaType = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      thingName = Prelude.Nothing,
+      securityProfileName = Prelude.Nothing,
+      listSuppressedAlerts = Prelude.Nothing,
+      behaviorCriteriaType = Prelude.Nothing
     }
 
 -- | The token for the next set of results.
-lavNextToken :: Lens' ListActiveViolations (Maybe Text)
-lavNextToken = lens _lavNextToken (\s a -> s {_lavNextToken = a})
+listActiveViolations_nextToken :: Lens.Lens' ListActiveViolations (Prelude.Maybe Prelude.Text)
+listActiveViolations_nextToken = Lens.lens (\ListActiveViolations' {nextToken} -> nextToken) (\s@ListActiveViolations' {} a -> s {nextToken = a} :: ListActiveViolations)
 
 -- | The maximum number of results to return at one time.
-lavMaxResults :: Lens' ListActiveViolations (Maybe Natural)
-lavMaxResults = lens _lavMaxResults (\s a -> s {_lavMaxResults = a}) . mapping _Nat
+listActiveViolations_maxResults :: Lens.Lens' ListActiveViolations (Prelude.Maybe Prelude.Natural)
+listActiveViolations_maxResults = Lens.lens (\ListActiveViolations' {maxResults} -> maxResults) (\s@ListActiveViolations' {} a -> s {maxResults = a} :: ListActiveViolations) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the thing whose active violations are listed.
-lavThingName :: Lens' ListActiveViolations (Maybe Text)
-lavThingName = lens _lavThingName (\s a -> s {_lavThingName = a})
+listActiveViolations_thingName :: Lens.Lens' ListActiveViolations (Prelude.Maybe Prelude.Text)
+listActiveViolations_thingName = Lens.lens (\ListActiveViolations' {thingName} -> thingName) (\s@ListActiveViolations' {} a -> s {thingName = a} :: ListActiveViolations)
 
--- | The name of the Device Defender security profile for which violations are listed.
-lavSecurityProfileName :: Lens' ListActiveViolations (Maybe Text)
-lavSecurityProfileName = lens _lavSecurityProfileName (\s a -> s {_lavSecurityProfileName = a})
+-- | The name of the Device Defender security profile for which violations
+-- are listed.
+listActiveViolations_securityProfileName :: Lens.Lens' ListActiveViolations (Prelude.Maybe Prelude.Text)
+listActiveViolations_securityProfileName = Lens.lens (\ListActiveViolations' {securityProfileName} -> securityProfileName) (\s@ListActiveViolations' {} a -> s {securityProfileName = a} :: ListActiveViolations)
 
 -- | A list of all suppressed alerts.
-lavListSuppressedAlerts :: Lens' ListActiveViolations (Maybe Bool)
-lavListSuppressedAlerts = lens _lavListSuppressedAlerts (\s a -> s {_lavListSuppressedAlerts = a})
+listActiveViolations_listSuppressedAlerts :: Lens.Lens' ListActiveViolations (Prelude.Maybe Prelude.Bool)
+listActiveViolations_listSuppressedAlerts = Lens.lens (\ListActiveViolations' {listSuppressedAlerts} -> listSuppressedAlerts) (\s@ListActiveViolations' {} a -> s {listSuppressedAlerts = a} :: ListActiveViolations)
 
 -- | The criteria for a behavior.
-lavBehaviorCriteriaType :: Lens' ListActiveViolations (Maybe BehaviorCriteriaType)
-lavBehaviorCriteriaType = lens _lavBehaviorCriteriaType (\s a -> s {_lavBehaviorCriteriaType = a})
+listActiveViolations_behaviorCriteriaType :: Lens.Lens' ListActiveViolations (Prelude.Maybe BehaviorCriteriaType)
+listActiveViolations_behaviorCriteriaType = Lens.lens (\ListActiveViolations' {behaviorCriteriaType} -> behaviorCriteriaType) (\s@ListActiveViolations' {} a -> s {behaviorCriteriaType = a} :: ListActiveViolations)
 
-instance AWSPager ListActiveViolations where
+instance Pager.AWSPager ListActiveViolations where
   page rq rs
-    | stop (rs ^. lavrrsNextToken) = Nothing
-    | stop (rs ^. lavrrsActiveViolations) = Nothing
-    | otherwise =
-      Just $ rq & lavNextToken .~ rs ^. lavrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listActiveViolationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listActiveViolationsResponse_activeViolations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listActiveViolations_nextToken
+          Lens..~ rs
+          Lens.^? listActiveViolationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListActiveViolations where
+instance Prelude.AWSRequest ListActiveViolations where
   type
     Rs ListActiveViolations =
       ListActiveViolationsResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListActiveViolationsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "activeViolations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "activeViolations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListActiveViolations
+instance Prelude.Hashable ListActiveViolations
 
-instance NFData ListActiveViolations
+instance Prelude.NFData ListActiveViolations
 
-instance ToHeaders ListActiveViolations where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListActiveViolations where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListActiveViolations where
-  toPath = const "/active-violations"
+instance Prelude.ToPath ListActiveViolations where
+  toPath = Prelude.const "/active-violations"
 
-instance ToQuery ListActiveViolations where
+instance Prelude.ToQuery ListActiveViolations where
   toQuery ListActiveViolations' {..} =
-    mconcat
-      [ "nextToken" =: _lavNextToken,
-        "maxResults" =: _lavMaxResults,
-        "thingName" =: _lavThingName,
-        "securityProfileName" =: _lavSecurityProfileName,
-        "listSuppressedAlerts" =: _lavListSuppressedAlerts,
-        "behaviorCriteriaType" =: _lavBehaviorCriteriaType
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "thingName" Prelude.=: thingName,
+        "securityProfileName" Prelude.=: securityProfileName,
+        "listSuppressedAlerts"
+          Prelude.=: listSuppressedAlerts,
+        "behaviorCriteriaType"
+          Prelude.=: behaviorCriteriaType
       ]
 
--- | /See:/ 'listActiveViolationsResponse' smart constructor.
+-- | /See:/ 'newListActiveViolationsResponse' smart constructor.
 data ListActiveViolationsResponse = ListActiveViolationsResponse'
-  { _lavrrsNextToken ::
-      !(Maybe Text),
-    _lavrrsActiveViolations ::
-      !( Maybe
-           [ActiveViolation]
-       ),
-    _lavrrsResponseStatus ::
-      !Int
+  { -- | A token that can be used to retrieve the next set of results, or @null@
+    -- if there are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of active violations.
+    activeViolations :: Prelude.Maybe [ActiveViolation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListActiveViolationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListActiveViolationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lavrrsNextToken' - A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lavrrsActiveViolations' - The list of active violations.
+-- 'nextToken', 'listActiveViolationsResponse_nextToken' - A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
 --
--- * 'lavrrsResponseStatus' - -- | The response status code.
-listActiveViolationsResponse ::
-  -- | 'lavrrsResponseStatus'
-  Int ->
+-- 'activeViolations', 'listActiveViolationsResponse_activeViolations' - The list of active violations.
+--
+-- 'httpStatus', 'listActiveViolationsResponse_httpStatus' - The response's http status code.
+newListActiveViolationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListActiveViolationsResponse
-listActiveViolationsResponse pResponseStatus_ =
+newListActiveViolationsResponse pHttpStatus_ =
   ListActiveViolationsResponse'
-    { _lavrrsNextToken =
-        Nothing,
-      _lavrrsActiveViolations = Nothing,
-      _lavrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      activeViolations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
-lavrrsNextToken :: Lens' ListActiveViolationsResponse (Maybe Text)
-lavrrsNextToken = lens _lavrrsNextToken (\s a -> s {_lavrrsNextToken = a})
+-- | A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
+listActiveViolationsResponse_nextToken :: Lens.Lens' ListActiveViolationsResponse (Prelude.Maybe Prelude.Text)
+listActiveViolationsResponse_nextToken = Lens.lens (\ListActiveViolationsResponse' {nextToken} -> nextToken) (\s@ListActiveViolationsResponse' {} a -> s {nextToken = a} :: ListActiveViolationsResponse)
 
 -- | The list of active violations.
-lavrrsActiveViolations :: Lens' ListActiveViolationsResponse [ActiveViolation]
-lavrrsActiveViolations = lens _lavrrsActiveViolations (\s a -> s {_lavrrsActiveViolations = a}) . _Default . _Coerce
+listActiveViolationsResponse_activeViolations :: Lens.Lens' ListActiveViolationsResponse (Prelude.Maybe [ActiveViolation])
+listActiveViolationsResponse_activeViolations = Lens.lens (\ListActiveViolationsResponse' {activeViolations} -> activeViolations) (\s@ListActiveViolationsResponse' {} a -> s {activeViolations = a} :: ListActiveViolationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lavrrsResponseStatus :: Lens' ListActiveViolationsResponse Int
-lavrrsResponseStatus = lens _lavrrsResponseStatus (\s a -> s {_lavrrsResponseStatus = a})
+-- | The response's http status code.
+listActiveViolationsResponse_httpStatus :: Lens.Lens' ListActiveViolationsResponse Prelude.Int
+listActiveViolationsResponse_httpStatus = Lens.lens (\ListActiveViolationsResponse' {httpStatus} -> httpStatus) (\s@ListActiveViolationsResponse' {} a -> s {httpStatus = a} :: ListActiveViolationsResponse)
 
-instance NFData ListActiveViolationsResponse
+instance Prelude.NFData ListActiveViolationsResponse

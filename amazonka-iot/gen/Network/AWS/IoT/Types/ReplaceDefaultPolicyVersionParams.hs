@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,73 @@
 module Network.AWS.IoT.Types.ReplaceDefaultPolicyVersionParams where
 
 import Network.AWS.IoT.Types.PolicyTemplateName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Parameters to define a mitigation action that adds a blank policy to restrict permissions.
+-- | Parameters to define a mitigation action that adds a blank policy to
+-- restrict permissions.
 --
---
---
--- /See:/ 'replaceDefaultPolicyVersionParams' smart constructor.
-newtype ReplaceDefaultPolicyVersionParams = ReplaceDefaultPolicyVersionParams'
-  { _rdpvpTemplateName ::
-      PolicyTemplateName
+-- /See:/ 'newReplaceDefaultPolicyVersionParams' smart constructor.
+data ReplaceDefaultPolicyVersionParams = ReplaceDefaultPolicyVersionParams'
+  { -- | The name of the template to be applied. The only supported value is
+    -- @BLANK_POLICY@.
+    templateName :: PolicyTemplateName
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplaceDefaultPolicyVersionParams' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplaceDefaultPolicyVersionParams' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdpvpTemplateName' - The name of the template to be applied. The only supported value is @BLANK_POLICY@ .
-replaceDefaultPolicyVersionParams ::
-  -- | 'rdpvpTemplateName'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'templateName', 'replaceDefaultPolicyVersionParams_templateName' - The name of the template to be applied. The only supported value is
+-- @BLANK_POLICY@.
+newReplaceDefaultPolicyVersionParams ::
+  -- | 'templateName'
   PolicyTemplateName ->
   ReplaceDefaultPolicyVersionParams
-replaceDefaultPolicyVersionParams pTemplateName_ =
+newReplaceDefaultPolicyVersionParams pTemplateName_ =
   ReplaceDefaultPolicyVersionParams'
-    { _rdpvpTemplateName =
+    { templateName =
         pTemplateName_
     }
 
--- | The name of the template to be applied. The only supported value is @BLANK_POLICY@ .
-rdpvpTemplateName :: Lens' ReplaceDefaultPolicyVersionParams PolicyTemplateName
-rdpvpTemplateName = lens _rdpvpTemplateName (\s a -> s {_rdpvpTemplateName = a})
+-- | The name of the template to be applied. The only supported value is
+-- @BLANK_POLICY@.
+replaceDefaultPolicyVersionParams_templateName :: Lens.Lens' ReplaceDefaultPolicyVersionParams PolicyTemplateName
+replaceDefaultPolicyVersionParams_templateName = Lens.lens (\ReplaceDefaultPolicyVersionParams' {templateName} -> templateName) (\s@ReplaceDefaultPolicyVersionParams' {} a -> s {templateName = a} :: ReplaceDefaultPolicyVersionParams)
 
-instance FromJSON ReplaceDefaultPolicyVersionParams where
+instance
+  Prelude.FromJSON
+    ReplaceDefaultPolicyVersionParams
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReplaceDefaultPolicyVersionParams"
       ( \x ->
           ReplaceDefaultPolicyVersionParams'
-            <$> (x .: "templateName")
+            Prelude.<$> (x Prelude..: "templateName")
       )
 
-instance Hashable ReplaceDefaultPolicyVersionParams
+instance
+  Prelude.Hashable
+    ReplaceDefaultPolicyVersionParams
 
-instance NFData ReplaceDefaultPolicyVersionParams
+instance
+  Prelude.NFData
+    ReplaceDefaultPolicyVersionParams
 
-instance ToJSON ReplaceDefaultPolicyVersionParams where
+instance
+  Prelude.ToJSON
+    ReplaceDefaultPolicyVersionParams
+  where
   toJSON ReplaceDefaultPolicyVersionParams' {..} =
-    object
-      ( catMaybes
-          [Just ("templateName" .= _rdpvpTemplateName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("templateName" Prelude..= templateName)
+          ]
       )

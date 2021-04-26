@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,104 +24,104 @@
 -- Deletes a role alias
 module Network.AWS.IoT.DeleteRoleAlias
   ( -- * Creating a Request
-    deleteRoleAlias,
-    DeleteRoleAlias,
+    DeleteRoleAlias (..),
+    newDeleteRoleAlias,
 
     -- * Request Lenses
-    dRoleAlias,
+    deleteRoleAlias_roleAlias,
 
     -- * Destructuring the Response
-    deleteRoleAliasResponse,
-    DeleteRoleAliasResponse,
+    DeleteRoleAliasResponse (..),
+    newDeleteRoleAliasResponse,
 
     -- * Response Lenses
-    drarrrsResponseStatus,
+    deleteRoleAliasResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteRoleAlias' smart constructor.
-newtype DeleteRoleAlias = DeleteRoleAlias'
-  { _dRoleAlias ::
-      Text
+-- | /See:/ 'newDeleteRoleAlias' smart constructor.
+data DeleteRoleAlias = DeleteRoleAlias'
+  { -- | The role alias to delete.
+    roleAlias :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRoleAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRoleAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dRoleAlias' - The role alias to delete.
-deleteRoleAlias ::
-  -- | 'dRoleAlias'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'roleAlias', 'deleteRoleAlias_roleAlias' - The role alias to delete.
+newDeleteRoleAlias ::
+  -- | 'roleAlias'
+  Prelude.Text ->
   DeleteRoleAlias
-deleteRoleAlias pRoleAlias_ =
-  DeleteRoleAlias' {_dRoleAlias = pRoleAlias_}
+newDeleteRoleAlias pRoleAlias_ =
+  DeleteRoleAlias' {roleAlias = pRoleAlias_}
 
 -- | The role alias to delete.
-dRoleAlias :: Lens' DeleteRoleAlias Text
-dRoleAlias = lens _dRoleAlias (\s a -> s {_dRoleAlias = a})
+deleteRoleAlias_roleAlias :: Lens.Lens' DeleteRoleAlias Prelude.Text
+deleteRoleAlias_roleAlias = Lens.lens (\DeleteRoleAlias' {roleAlias} -> roleAlias) (\s@DeleteRoleAlias' {} a -> s {roleAlias = a} :: DeleteRoleAlias)
 
-instance AWSRequest DeleteRoleAlias where
+instance Prelude.AWSRequest DeleteRoleAlias where
   type Rs DeleteRoleAlias = DeleteRoleAliasResponse
-  request = delete ioT
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteRoleAliasResponse' <$> (pure (fromEnum s))
+          DeleteRoleAliasResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteRoleAlias
+instance Prelude.Hashable DeleteRoleAlias
 
-instance NFData DeleteRoleAlias
+instance Prelude.NFData DeleteRoleAlias
 
-instance ToHeaders DeleteRoleAlias where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteRoleAlias where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteRoleAlias where
+instance Prelude.ToPath DeleteRoleAlias where
   toPath DeleteRoleAlias' {..} =
-    mconcat ["/role-aliases/", toBS _dRoleAlias]
+    Prelude.mconcat
+      ["/role-aliases/", Prelude.toBS roleAlias]
 
-instance ToQuery DeleteRoleAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteRoleAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteRoleAliasResponse' smart constructor.
-newtype DeleteRoleAliasResponse = DeleteRoleAliasResponse'
-  { _drarrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteRoleAliasResponse' smart constructor.
+data DeleteRoleAliasResponse = DeleteRoleAliasResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRoleAliasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRoleAliasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drarrrsResponseStatus' - -- | The response status code.
-deleteRoleAliasResponse ::
-  -- | 'drarrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteRoleAliasResponse_httpStatus' - The response's http status code.
+newDeleteRoleAliasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteRoleAliasResponse
-deleteRoleAliasResponse pResponseStatus_ =
-  DeleteRoleAliasResponse'
-    { _drarrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteRoleAliasResponse pHttpStatus_ =
+  DeleteRoleAliasResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-drarrrsResponseStatus :: Lens' DeleteRoleAliasResponse Int
-drarrrsResponseStatus = lens _drarrrsResponseStatus (\s a -> s {_drarrrsResponseStatus = a})
+-- | The response's http status code.
+deleteRoleAliasResponse_httpStatus :: Lens.Lens' DeleteRoleAliasResponse Prelude.Int
+deleteRoleAliasResponse_httpStatus = Lens.lens (\DeleteRoleAliasResponse' {httpStatus} -> httpStatus) (\s@DeleteRoleAliasResponse' {} a -> s {httpStatus = a} :: DeleteRoleAliasResponse)
 
-instance NFData DeleteRoleAliasResponse
+instance Prelude.NFData DeleteRoleAliasResponse

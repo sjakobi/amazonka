@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,219 +24,217 @@
 -- Gets information about the specified policy version.
 module Network.AWS.IoT.GetPolicyVersion
   ( -- * Creating a Request
-    getPolicyVersion,
-    GetPolicyVersion,
+    GetPolicyVersion (..),
+    newGetPolicyVersion,
 
     -- * Request Lenses
-    gpvPolicyName,
-    gpvPolicyVersionId,
+    getPolicyVersion_policyName,
+    getPolicyVersion_policyVersionId,
 
     -- * Destructuring the Response
-    getPolicyVersionResponse,
-    GetPolicyVersionResponse,
+    GetPolicyVersionResponse (..),
+    newGetPolicyVersionResponse,
 
     -- * Response Lenses
-    gpvrrsPolicyVersionId,
-    gpvrrsLastModifiedDate,
-    gpvrrsPolicyName,
-    gpvrrsPolicyDocument,
-    gpvrrsCreationDate,
-    gpvrrsGenerationId,
-    gpvrrsIsDefaultVersion,
-    gpvrrsPolicyARN,
-    gpvrrsResponseStatus,
+    getPolicyVersionResponse_policyVersionId,
+    getPolicyVersionResponse_lastModifiedDate,
+    getPolicyVersionResponse_policyName,
+    getPolicyVersionResponse_policyDocument,
+    getPolicyVersionResponse_creationDate,
+    getPolicyVersionResponse_generationId,
+    getPolicyVersionResponse_isDefaultVersion,
+    getPolicyVersionResponse_policyArn,
+    getPolicyVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the GetPolicyVersion operation.
 --
---
---
--- /See:/ 'getPolicyVersion' smart constructor.
+-- /See:/ 'newGetPolicyVersion' smart constructor.
 data GetPolicyVersion = GetPolicyVersion'
-  { _gpvPolicyName ::
-      !Text,
-    _gpvPolicyVersionId :: !Text
+  { -- | The name of the policy.
+    policyName :: Prelude.Text,
+    -- | The policy version ID.
+    policyVersionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPolicyVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPolicyVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpvPolicyName' - The name of the policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpvPolicyVersionId' - The policy version ID.
-getPolicyVersion ::
-  -- | 'gpvPolicyName'
-  Text ->
-  -- | 'gpvPolicyVersionId'
-  Text ->
+-- 'policyName', 'getPolicyVersion_policyName' - The name of the policy.
+--
+-- 'policyVersionId', 'getPolicyVersion_policyVersionId' - The policy version ID.
+newGetPolicyVersion ::
+  -- | 'policyName'
+  Prelude.Text ->
+  -- | 'policyVersionId'
+  Prelude.Text ->
   GetPolicyVersion
-getPolicyVersion pPolicyName_ pPolicyVersionId_ =
+newGetPolicyVersion pPolicyName_ pPolicyVersionId_ =
   GetPolicyVersion'
-    { _gpvPolicyName = pPolicyName_,
-      _gpvPolicyVersionId = pPolicyVersionId_
+    { policyName = pPolicyName_,
+      policyVersionId = pPolicyVersionId_
     }
 
 -- | The name of the policy.
-gpvPolicyName :: Lens' GetPolicyVersion Text
-gpvPolicyName = lens _gpvPolicyName (\s a -> s {_gpvPolicyName = a})
+getPolicyVersion_policyName :: Lens.Lens' GetPolicyVersion Prelude.Text
+getPolicyVersion_policyName = Lens.lens (\GetPolicyVersion' {policyName} -> policyName) (\s@GetPolicyVersion' {} a -> s {policyName = a} :: GetPolicyVersion)
 
 -- | The policy version ID.
-gpvPolicyVersionId :: Lens' GetPolicyVersion Text
-gpvPolicyVersionId = lens _gpvPolicyVersionId (\s a -> s {_gpvPolicyVersionId = a})
+getPolicyVersion_policyVersionId :: Lens.Lens' GetPolicyVersion Prelude.Text
+getPolicyVersion_policyVersionId = Lens.lens (\GetPolicyVersion' {policyVersionId} -> policyVersionId) (\s@GetPolicyVersion' {} a -> s {policyVersionId = a} :: GetPolicyVersion)
 
-instance AWSRequest GetPolicyVersion where
+instance Prelude.AWSRequest GetPolicyVersion where
   type Rs GetPolicyVersion = GetPolicyVersionResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetPolicyVersionResponse'
-            <$> (x .?> "policyVersionId")
-            <*> (x .?> "lastModifiedDate")
-            <*> (x .?> "policyName")
-            <*> (x .?> "policyDocument")
-            <*> (x .?> "creationDate")
-            <*> (x .?> "generationId")
-            <*> (x .?> "isDefaultVersion")
-            <*> (x .?> "policyArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "policyVersionId")
+            Prelude.<*> (x Prelude..?> "lastModifiedDate")
+            Prelude.<*> (x Prelude..?> "policyName")
+            Prelude.<*> (x Prelude..?> "policyDocument")
+            Prelude.<*> (x Prelude..?> "creationDate")
+            Prelude.<*> (x Prelude..?> "generationId")
+            Prelude.<*> (x Prelude..?> "isDefaultVersion")
+            Prelude.<*> (x Prelude..?> "policyArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetPolicyVersion
+instance Prelude.Hashable GetPolicyVersion
 
-instance NFData GetPolicyVersion
+instance Prelude.NFData GetPolicyVersion
 
-instance ToHeaders GetPolicyVersion where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetPolicyVersion where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetPolicyVersion where
+instance Prelude.ToPath GetPolicyVersion where
   toPath GetPolicyVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/policies/",
-        toBS _gpvPolicyName,
+        Prelude.toBS policyName,
         "/version/",
-        toBS _gpvPolicyVersionId
+        Prelude.toBS policyVersionId
       ]
 
-instance ToQuery GetPolicyVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery GetPolicyVersion where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The output from the GetPolicyVersion operation.
 --
---
---
--- /See:/ 'getPolicyVersionResponse' smart constructor.
+-- /See:/ 'newGetPolicyVersionResponse' smart constructor.
 data GetPolicyVersionResponse = GetPolicyVersionResponse'
-  { _gpvrrsPolicyVersionId ::
-      !(Maybe Text),
-    _gpvrrsLastModifiedDate ::
-      !(Maybe POSIX),
-    _gpvrrsPolicyName ::
-      !(Maybe Text),
-    _gpvrrsPolicyDocument ::
-      !(Maybe Text),
-    _gpvrrsCreationDate ::
-      !(Maybe POSIX),
-    _gpvrrsGenerationId ::
-      !(Maybe Text),
-    _gpvrrsIsDefaultVersion ::
-      !(Maybe Bool),
-    _gpvrrsPolicyARN ::
-      !(Maybe Text),
-    _gpvrrsResponseStatus ::
-      !Int
+  { -- | The policy version ID.
+    policyVersionId :: Prelude.Maybe Prelude.Text,
+    -- | The date the policy was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The policy name.
+    policyName :: Prelude.Maybe Prelude.Text,
+    -- | The JSON document that describes the policy.
+    policyDocument :: Prelude.Maybe Prelude.Text,
+    -- | The date the policy was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The generation ID of the policy version.
+    generationId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the policy version is the default.
+    isDefaultVersion :: Prelude.Maybe Prelude.Bool,
+    -- | The policy ARN.
+    policyArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPolicyVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPolicyVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpvrrsPolicyVersionId' - The policy version ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpvrrsLastModifiedDate' - The date the policy was last modified.
+-- 'policyVersionId', 'getPolicyVersionResponse_policyVersionId' - The policy version ID.
 --
--- * 'gpvrrsPolicyName' - The policy name.
+-- 'lastModifiedDate', 'getPolicyVersionResponse_lastModifiedDate' - The date the policy was last modified.
 --
--- * 'gpvrrsPolicyDocument' - The JSON document that describes the policy.
+-- 'policyName', 'getPolicyVersionResponse_policyName' - The policy name.
 --
--- * 'gpvrrsCreationDate' - The date the policy was created.
+-- 'policyDocument', 'getPolicyVersionResponse_policyDocument' - The JSON document that describes the policy.
 --
--- * 'gpvrrsGenerationId' - The generation ID of the policy version.
+-- 'creationDate', 'getPolicyVersionResponse_creationDate' - The date the policy was created.
 --
--- * 'gpvrrsIsDefaultVersion' - Specifies whether the policy version is the default.
+-- 'generationId', 'getPolicyVersionResponse_generationId' - The generation ID of the policy version.
 --
--- * 'gpvrrsPolicyARN' - The policy ARN.
+-- 'isDefaultVersion', 'getPolicyVersionResponse_isDefaultVersion' - Specifies whether the policy version is the default.
 --
--- * 'gpvrrsResponseStatus' - -- | The response status code.
-getPolicyVersionResponse ::
-  -- | 'gpvrrsResponseStatus'
-  Int ->
+-- 'policyArn', 'getPolicyVersionResponse_policyArn' - The policy ARN.
+--
+-- 'httpStatus', 'getPolicyVersionResponse_httpStatus' - The response's http status code.
+newGetPolicyVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetPolicyVersionResponse
-getPolicyVersionResponse pResponseStatus_ =
+newGetPolicyVersionResponse pHttpStatus_ =
   GetPolicyVersionResponse'
-    { _gpvrrsPolicyVersionId =
-        Nothing,
-      _gpvrrsLastModifiedDate = Nothing,
-      _gpvrrsPolicyName = Nothing,
-      _gpvrrsPolicyDocument = Nothing,
-      _gpvrrsCreationDate = Nothing,
-      _gpvrrsGenerationId = Nothing,
-      _gpvrrsIsDefaultVersion = Nothing,
-      _gpvrrsPolicyARN = Nothing,
-      _gpvrrsResponseStatus = pResponseStatus_
+    { policyVersionId =
+        Prelude.Nothing,
+      lastModifiedDate = Prelude.Nothing,
+      policyName = Prelude.Nothing,
+      policyDocument = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      generationId = Prelude.Nothing,
+      isDefaultVersion = Prelude.Nothing,
+      policyArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The policy version ID.
-gpvrrsPolicyVersionId :: Lens' GetPolicyVersionResponse (Maybe Text)
-gpvrrsPolicyVersionId = lens _gpvrrsPolicyVersionId (\s a -> s {_gpvrrsPolicyVersionId = a})
+getPolicyVersionResponse_policyVersionId :: Lens.Lens' GetPolicyVersionResponse (Prelude.Maybe Prelude.Text)
+getPolicyVersionResponse_policyVersionId = Lens.lens (\GetPolicyVersionResponse' {policyVersionId} -> policyVersionId) (\s@GetPolicyVersionResponse' {} a -> s {policyVersionId = a} :: GetPolicyVersionResponse)
 
 -- | The date the policy was last modified.
-gpvrrsLastModifiedDate :: Lens' GetPolicyVersionResponse (Maybe UTCTime)
-gpvrrsLastModifiedDate = lens _gpvrrsLastModifiedDate (\s a -> s {_gpvrrsLastModifiedDate = a}) . mapping _Time
+getPolicyVersionResponse_lastModifiedDate :: Lens.Lens' GetPolicyVersionResponse (Prelude.Maybe Prelude.UTCTime)
+getPolicyVersionResponse_lastModifiedDate = Lens.lens (\GetPolicyVersionResponse' {lastModifiedDate} -> lastModifiedDate) (\s@GetPolicyVersionResponse' {} a -> s {lastModifiedDate = a} :: GetPolicyVersionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The policy name.
-gpvrrsPolicyName :: Lens' GetPolicyVersionResponse (Maybe Text)
-gpvrrsPolicyName = lens _gpvrrsPolicyName (\s a -> s {_gpvrrsPolicyName = a})
+getPolicyVersionResponse_policyName :: Lens.Lens' GetPolicyVersionResponse (Prelude.Maybe Prelude.Text)
+getPolicyVersionResponse_policyName = Lens.lens (\GetPolicyVersionResponse' {policyName} -> policyName) (\s@GetPolicyVersionResponse' {} a -> s {policyName = a} :: GetPolicyVersionResponse)
 
 -- | The JSON document that describes the policy.
-gpvrrsPolicyDocument :: Lens' GetPolicyVersionResponse (Maybe Text)
-gpvrrsPolicyDocument = lens _gpvrrsPolicyDocument (\s a -> s {_gpvrrsPolicyDocument = a})
+getPolicyVersionResponse_policyDocument :: Lens.Lens' GetPolicyVersionResponse (Prelude.Maybe Prelude.Text)
+getPolicyVersionResponse_policyDocument = Lens.lens (\GetPolicyVersionResponse' {policyDocument} -> policyDocument) (\s@GetPolicyVersionResponse' {} a -> s {policyDocument = a} :: GetPolicyVersionResponse)
 
 -- | The date the policy was created.
-gpvrrsCreationDate :: Lens' GetPolicyVersionResponse (Maybe UTCTime)
-gpvrrsCreationDate = lens _gpvrrsCreationDate (\s a -> s {_gpvrrsCreationDate = a}) . mapping _Time
+getPolicyVersionResponse_creationDate :: Lens.Lens' GetPolicyVersionResponse (Prelude.Maybe Prelude.UTCTime)
+getPolicyVersionResponse_creationDate = Lens.lens (\GetPolicyVersionResponse' {creationDate} -> creationDate) (\s@GetPolicyVersionResponse' {} a -> s {creationDate = a} :: GetPolicyVersionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The generation ID of the policy version.
-gpvrrsGenerationId :: Lens' GetPolicyVersionResponse (Maybe Text)
-gpvrrsGenerationId = lens _gpvrrsGenerationId (\s a -> s {_gpvrrsGenerationId = a})
+getPolicyVersionResponse_generationId :: Lens.Lens' GetPolicyVersionResponse (Prelude.Maybe Prelude.Text)
+getPolicyVersionResponse_generationId = Lens.lens (\GetPolicyVersionResponse' {generationId} -> generationId) (\s@GetPolicyVersionResponse' {} a -> s {generationId = a} :: GetPolicyVersionResponse)
 
 -- | Specifies whether the policy version is the default.
-gpvrrsIsDefaultVersion :: Lens' GetPolicyVersionResponse (Maybe Bool)
-gpvrrsIsDefaultVersion = lens _gpvrrsIsDefaultVersion (\s a -> s {_gpvrrsIsDefaultVersion = a})
+getPolicyVersionResponse_isDefaultVersion :: Lens.Lens' GetPolicyVersionResponse (Prelude.Maybe Prelude.Bool)
+getPolicyVersionResponse_isDefaultVersion = Lens.lens (\GetPolicyVersionResponse' {isDefaultVersion} -> isDefaultVersion) (\s@GetPolicyVersionResponse' {} a -> s {isDefaultVersion = a} :: GetPolicyVersionResponse)
 
 -- | The policy ARN.
-gpvrrsPolicyARN :: Lens' GetPolicyVersionResponse (Maybe Text)
-gpvrrsPolicyARN = lens _gpvrrsPolicyARN (\s a -> s {_gpvrrsPolicyARN = a})
+getPolicyVersionResponse_policyArn :: Lens.Lens' GetPolicyVersionResponse (Prelude.Maybe Prelude.Text)
+getPolicyVersionResponse_policyArn = Lens.lens (\GetPolicyVersionResponse' {policyArn} -> policyArn) (\s@GetPolicyVersionResponse' {} a -> s {policyArn = a} :: GetPolicyVersionResponse)
 
--- | -- | The response status code.
-gpvrrsResponseStatus :: Lens' GetPolicyVersionResponse Int
-gpvrrsResponseStatus = lens _gpvrrsResponseStatus (\s a -> s {_gpvrrsResponseStatus = a})
+-- | The response's http status code.
+getPolicyVersionResponse_httpStatus :: Lens.Lens' GetPolicyVersionResponse Prelude.Int
+getPolicyVersionResponse_httpStatus = Lens.lens (\GetPolicyVersionResponse' {httpStatus} -> httpStatus) (\s@GetPolicyVersionResponse' {} a -> s {httpStatus = a} :: GetPolicyVersionResponse)
 
-instance NFData GetPolicyVersionResponse
+instance Prelude.NFData GetPolicyVersionResponse

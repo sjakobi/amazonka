@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,128 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about a single audit finding. Properties include the reason for noncompliance, the severity of the issue, and the start time when the audit that returned the finding.
+-- Gets information about a single audit finding. Properties include the
+-- reason for noncompliance, the severity of the issue, and the start time
+-- when the audit that returned the finding.
 module Network.AWS.IoT.DescribeAuditFinding
   ( -- * Creating a Request
-    describeAuditFinding,
-    DescribeAuditFinding,
+    DescribeAuditFinding (..),
+    newDescribeAuditFinding,
 
     -- * Request Lenses
-    dafFindingId,
+    describeAuditFinding_findingId,
 
     -- * Destructuring the Response
-    describeAuditFindingResponse,
-    DescribeAuditFindingResponse,
+    DescribeAuditFindingResponse (..),
+    newDescribeAuditFindingResponse,
 
     -- * Response Lenses
-    dafrrsFinding,
-    dafrrsResponseStatus,
+    describeAuditFindingResponse_finding,
+    describeAuditFindingResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AuditFinding
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAuditFinding' smart constructor.
-newtype DescribeAuditFinding = DescribeAuditFinding'
-  { _dafFindingId ::
-      Text
+-- | /See:/ 'newDescribeAuditFinding' smart constructor.
+data DescribeAuditFinding = DescribeAuditFinding'
+  { -- | A unique identifier for a single audit finding. You can use this
+    -- identifier to apply mitigation actions to the finding.
+    findingId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAuditFinding' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAuditFinding' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dafFindingId' - A unique identifier for a single audit finding. You can use this identifier to apply mitigation actions to the finding.
-describeAuditFinding ::
-  -- | 'dafFindingId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'findingId', 'describeAuditFinding_findingId' - A unique identifier for a single audit finding. You can use this
+-- identifier to apply mitigation actions to the finding.
+newDescribeAuditFinding ::
+  -- | 'findingId'
+  Prelude.Text ->
   DescribeAuditFinding
-describeAuditFinding pFindingId_ =
-  DescribeAuditFinding' {_dafFindingId = pFindingId_}
+newDescribeAuditFinding pFindingId_ =
+  DescribeAuditFinding' {findingId = pFindingId_}
 
--- | A unique identifier for a single audit finding. You can use this identifier to apply mitigation actions to the finding.
-dafFindingId :: Lens' DescribeAuditFinding Text
-dafFindingId = lens _dafFindingId (\s a -> s {_dafFindingId = a})
+-- | A unique identifier for a single audit finding. You can use this
+-- identifier to apply mitigation actions to the finding.
+describeAuditFinding_findingId :: Lens.Lens' DescribeAuditFinding Prelude.Text
+describeAuditFinding_findingId = Lens.lens (\DescribeAuditFinding' {findingId} -> findingId) (\s@DescribeAuditFinding' {} a -> s {findingId = a} :: DescribeAuditFinding)
 
-instance AWSRequest DescribeAuditFinding where
+instance Prelude.AWSRequest DescribeAuditFinding where
   type
     Rs DescribeAuditFinding =
       DescribeAuditFindingResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAuditFindingResponse'
-            <$> (x .?> "finding") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "finding")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAuditFinding
+instance Prelude.Hashable DescribeAuditFinding
 
-instance NFData DescribeAuditFinding
+instance Prelude.NFData DescribeAuditFinding
 
-instance ToHeaders DescribeAuditFinding where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeAuditFinding where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeAuditFinding where
+instance Prelude.ToPath DescribeAuditFinding where
   toPath DescribeAuditFinding' {..} =
-    mconcat ["/audit/findings/", toBS _dafFindingId]
+    Prelude.mconcat
+      ["/audit/findings/", Prelude.toBS findingId]
 
-instance ToQuery DescribeAuditFinding where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAuditFinding where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAuditFindingResponse' smart constructor.
+-- | /See:/ 'newDescribeAuditFindingResponse' smart constructor.
 data DescribeAuditFindingResponse = DescribeAuditFindingResponse'
-  { _dafrrsFinding ::
-      !( Maybe
-           AuditFinding
-       ),
-    _dafrrsResponseStatus ::
-      !Int
+  { finding :: Prelude.Maybe AuditFinding,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAuditFindingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAuditFindingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dafrrsFinding' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dafrrsResponseStatus' - -- | The response status code.
-describeAuditFindingResponse ::
-  -- | 'dafrrsResponseStatus'
-  Int ->
+-- 'finding', 'describeAuditFindingResponse_finding' - Undocumented member.
+--
+-- 'httpStatus', 'describeAuditFindingResponse_httpStatus' - The response's http status code.
+newDescribeAuditFindingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAuditFindingResponse
-describeAuditFindingResponse pResponseStatus_ =
+newDescribeAuditFindingResponse pHttpStatus_ =
   DescribeAuditFindingResponse'
-    { _dafrrsFinding =
-        Nothing,
-      _dafrrsResponseStatus = pResponseStatus_
+    { finding =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-dafrrsFinding :: Lens' DescribeAuditFindingResponse (Maybe AuditFinding)
-dafrrsFinding = lens _dafrrsFinding (\s a -> s {_dafrrsFinding = a})
+describeAuditFindingResponse_finding :: Lens.Lens' DescribeAuditFindingResponse (Prelude.Maybe AuditFinding)
+describeAuditFindingResponse_finding = Lens.lens (\DescribeAuditFindingResponse' {finding} -> finding) (\s@DescribeAuditFindingResponse' {} a -> s {finding = a} :: DescribeAuditFindingResponse)
 
--- | -- | The response status code.
-dafrrsResponseStatus :: Lens' DescribeAuditFindingResponse Int
-dafrrsResponseStatus = lens _dafrrsResponseStatus (\s a -> s {_dafrrsResponseStatus = a})
+-- | The response's http status code.
+describeAuditFindingResponse_httpStatus :: Lens.Lens' DescribeAuditFindingResponse Prelude.Int
+describeAuditFindingResponse_httpStatus = Lens.lens (\DescribeAuditFindingResponse' {httpStatus} -> httpStatus) (\s@DescribeAuditFindingResponse' {} a -> s {httpStatus = a} :: DescribeAuditFindingResponse)
 
-instance NFData DescribeAuditFindingResponse
+instance Prelude.NFData DescribeAuditFindingResponse

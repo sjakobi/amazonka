@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.EffectivePolicy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The policy that has the effect on the authorization results.
 --
---
---
--- /See:/ 'effectivePolicy' smart constructor.
+-- /See:/ 'newEffectivePolicy' smart constructor.
 data EffectivePolicy = EffectivePolicy'
-  { _epPolicyName ::
-      !(Maybe Text),
-    _epPolicyDocument :: !(Maybe Text),
-    _epPolicyARN :: !(Maybe Text)
+  { -- | The policy name.
+    policyName :: Prelude.Maybe Prelude.Text,
+    -- | The IAM policy document.
+    policyDocument :: Prelude.Maybe Prelude.Text,
+    -- | The policy ARN.
+    policyArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EffectivePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EffectivePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'epPolicyName' - The policy name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'epPolicyDocument' - The IAM policy document.
+-- 'policyName', 'effectivePolicy_policyName' - The policy name.
 --
--- * 'epPolicyARN' - The policy ARN.
-effectivePolicy ::
+-- 'policyDocument', 'effectivePolicy_policyDocument' - The IAM policy document.
+--
+-- 'policyArn', 'effectivePolicy_policyArn' - The policy ARN.
+newEffectivePolicy ::
   EffectivePolicy
-effectivePolicy =
+newEffectivePolicy =
   EffectivePolicy'
-    { _epPolicyName = Nothing,
-      _epPolicyDocument = Nothing,
-      _epPolicyARN = Nothing
+    { policyName = Prelude.Nothing,
+      policyDocument = Prelude.Nothing,
+      policyArn = Prelude.Nothing
     }
 
 -- | The policy name.
-epPolicyName :: Lens' EffectivePolicy (Maybe Text)
-epPolicyName = lens _epPolicyName (\s a -> s {_epPolicyName = a})
+effectivePolicy_policyName :: Lens.Lens' EffectivePolicy (Prelude.Maybe Prelude.Text)
+effectivePolicy_policyName = Lens.lens (\EffectivePolicy' {policyName} -> policyName) (\s@EffectivePolicy' {} a -> s {policyName = a} :: EffectivePolicy)
 
 -- | The IAM policy document.
-epPolicyDocument :: Lens' EffectivePolicy (Maybe Text)
-epPolicyDocument = lens _epPolicyDocument (\s a -> s {_epPolicyDocument = a})
+effectivePolicy_policyDocument :: Lens.Lens' EffectivePolicy (Prelude.Maybe Prelude.Text)
+effectivePolicy_policyDocument = Lens.lens (\EffectivePolicy' {policyDocument} -> policyDocument) (\s@EffectivePolicy' {} a -> s {policyDocument = a} :: EffectivePolicy)
 
 -- | The policy ARN.
-epPolicyARN :: Lens' EffectivePolicy (Maybe Text)
-epPolicyARN = lens _epPolicyARN (\s a -> s {_epPolicyARN = a})
+effectivePolicy_policyArn :: Lens.Lens' EffectivePolicy (Prelude.Maybe Prelude.Text)
+effectivePolicy_policyArn = Lens.lens (\EffectivePolicy' {policyArn} -> policyArn) (\s@EffectivePolicy' {} a -> s {policyArn = a} :: EffectivePolicy)
 
-instance FromJSON EffectivePolicy where
+instance Prelude.FromJSON EffectivePolicy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EffectivePolicy"
       ( \x ->
           EffectivePolicy'
-            <$> (x .:? "policyName")
-            <*> (x .:? "policyDocument")
-            <*> (x .:? "policyArn")
+            Prelude.<$> (x Prelude..:? "policyName")
+            Prelude.<*> (x Prelude..:? "policyDocument")
+            Prelude.<*> (x Prelude..:? "policyArn")
       )
 
-instance Hashable EffectivePolicy
+instance Prelude.Hashable EffectivePolicy
 
-instance NFData EffectivePolicy
+instance Prelude.NFData EffectivePolicy

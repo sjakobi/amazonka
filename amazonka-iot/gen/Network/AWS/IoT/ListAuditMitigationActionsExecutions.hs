@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,228 +23,245 @@
 --
 -- Gets the status of audit mitigation action tasks that were executed.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListAuditMitigationActionsExecutions
   ( -- * Creating a Request
-    listAuditMitigationActionsExecutions,
-    ListAuditMitigationActionsExecutions,
+    ListAuditMitigationActionsExecutions (..),
+    newListAuditMitigationActionsExecutions,
 
     -- * Request Lenses
-    lamaeNextToken,
-    lamaeMaxResults,
-    lamaeActionStatus,
-    lamaeTaskId,
-    lamaeFindingId,
+    listAuditMitigationActionsExecutions_nextToken,
+    listAuditMitigationActionsExecutions_maxResults,
+    listAuditMitigationActionsExecutions_actionStatus,
+    listAuditMitigationActionsExecutions_taskId,
+    listAuditMitigationActionsExecutions_findingId,
 
     -- * Destructuring the Response
-    listAuditMitigationActionsExecutionsResponse,
-    ListAuditMitigationActionsExecutionsResponse,
+    ListAuditMitigationActionsExecutionsResponse (..),
+    newListAuditMitigationActionsExecutionsResponse,
 
     -- * Response Lenses
-    lamaerrsNextToken,
-    lamaerrsActionsExecutions,
-    lamaerrsResponseStatus,
+    listAuditMitigationActionsExecutionsResponse_nextToken,
+    listAuditMitigationActionsExecutionsResponse_actionsExecutions,
+    listAuditMitigationActionsExecutionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AuditMitigationActionExecutionMetadata
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAuditMitigationActionsExecutions' smart constructor.
+-- | /See:/ 'newListAuditMitigationActionsExecutions' smart constructor.
 data ListAuditMitigationActionsExecutions = ListAuditMitigationActionsExecutions'
-  { _lamaeNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lamaeMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _lamaeActionStatus ::
-      !( Maybe
-           AuditMitigationActionsExecutionStatus
-       ),
-    _lamaeTaskId ::
-      !Text,
-    _lamaeFindingId ::
-      !Text
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return at one time. The default is 25.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specify this filter to limit results to those with a specific status.
+    actionStatus :: Prelude.Maybe AuditMitigationActionsExecutionStatus,
+    -- | Specify this filter to limit results to actions for a specific audit
+    -- mitigation actions task.
+    taskId :: Prelude.Text,
+    -- | Specify this filter to limit results to those that were applied to a
+    -- specific audit finding.
+    findingId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAuditMitigationActionsExecutions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAuditMitigationActionsExecutions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lamaeNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lamaeMaxResults' - The maximum number of results to return at one time. The default is 25.
+-- 'nextToken', 'listAuditMitigationActionsExecutions_nextToken' - The token for the next set of results.
 --
--- * 'lamaeActionStatus' - Specify this filter to limit results to those with a specific status.
+-- 'maxResults', 'listAuditMitigationActionsExecutions_maxResults' - The maximum number of results to return at one time. The default is 25.
 --
--- * 'lamaeTaskId' - Specify this filter to limit results to actions for a specific audit mitigation actions task.
+-- 'actionStatus', 'listAuditMitigationActionsExecutions_actionStatus' - Specify this filter to limit results to those with a specific status.
 --
--- * 'lamaeFindingId' - Specify this filter to limit results to those that were applied to a specific audit finding.
-listAuditMitigationActionsExecutions ::
-  -- | 'lamaeTaskId'
-  Text ->
-  -- | 'lamaeFindingId'
-  Text ->
+-- 'taskId', 'listAuditMitigationActionsExecutions_taskId' - Specify this filter to limit results to actions for a specific audit
+-- mitigation actions task.
+--
+-- 'findingId', 'listAuditMitigationActionsExecutions_findingId' - Specify this filter to limit results to those that were applied to a
+-- specific audit finding.
+newListAuditMitigationActionsExecutions ::
+  -- | 'taskId'
+  Prelude.Text ->
+  -- | 'findingId'
+  Prelude.Text ->
   ListAuditMitigationActionsExecutions
-listAuditMitigationActionsExecutions
+newListAuditMitigationActionsExecutions
   pTaskId_
   pFindingId_ =
     ListAuditMitigationActionsExecutions'
-      { _lamaeNextToken =
-          Nothing,
-        _lamaeMaxResults = Nothing,
-        _lamaeActionStatus = Nothing,
-        _lamaeTaskId = pTaskId_,
-        _lamaeFindingId = pFindingId_
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        actionStatus = Prelude.Nothing,
+        taskId = pTaskId_,
+        findingId = pFindingId_
       }
 
 -- | The token for the next set of results.
-lamaeNextToken :: Lens' ListAuditMitigationActionsExecutions (Maybe Text)
-lamaeNextToken = lens _lamaeNextToken (\s a -> s {_lamaeNextToken = a})
+listAuditMitigationActionsExecutions_nextToken :: Lens.Lens' ListAuditMitigationActionsExecutions (Prelude.Maybe Prelude.Text)
+listAuditMitigationActionsExecutions_nextToken = Lens.lens (\ListAuditMitigationActionsExecutions' {nextToken} -> nextToken) (\s@ListAuditMitigationActionsExecutions' {} a -> s {nextToken = a} :: ListAuditMitigationActionsExecutions)
 
 -- | The maximum number of results to return at one time. The default is 25.
-lamaeMaxResults :: Lens' ListAuditMitigationActionsExecutions (Maybe Natural)
-lamaeMaxResults = lens _lamaeMaxResults (\s a -> s {_lamaeMaxResults = a}) . mapping _Nat
+listAuditMitigationActionsExecutions_maxResults :: Lens.Lens' ListAuditMitigationActionsExecutions (Prelude.Maybe Prelude.Natural)
+listAuditMitigationActionsExecutions_maxResults = Lens.lens (\ListAuditMitigationActionsExecutions' {maxResults} -> maxResults) (\s@ListAuditMitigationActionsExecutions' {} a -> s {maxResults = a} :: ListAuditMitigationActionsExecutions) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Specify this filter to limit results to those with a specific status.
-lamaeActionStatus :: Lens' ListAuditMitigationActionsExecutions (Maybe AuditMitigationActionsExecutionStatus)
-lamaeActionStatus = lens _lamaeActionStatus (\s a -> s {_lamaeActionStatus = a})
+listAuditMitigationActionsExecutions_actionStatus :: Lens.Lens' ListAuditMitigationActionsExecutions (Prelude.Maybe AuditMitigationActionsExecutionStatus)
+listAuditMitigationActionsExecutions_actionStatus = Lens.lens (\ListAuditMitigationActionsExecutions' {actionStatus} -> actionStatus) (\s@ListAuditMitigationActionsExecutions' {} a -> s {actionStatus = a} :: ListAuditMitigationActionsExecutions)
 
--- | Specify this filter to limit results to actions for a specific audit mitigation actions task.
-lamaeTaskId :: Lens' ListAuditMitigationActionsExecutions Text
-lamaeTaskId = lens _lamaeTaskId (\s a -> s {_lamaeTaskId = a})
+-- | Specify this filter to limit results to actions for a specific audit
+-- mitigation actions task.
+listAuditMitigationActionsExecutions_taskId :: Lens.Lens' ListAuditMitigationActionsExecutions Prelude.Text
+listAuditMitigationActionsExecutions_taskId = Lens.lens (\ListAuditMitigationActionsExecutions' {taskId} -> taskId) (\s@ListAuditMitigationActionsExecutions' {} a -> s {taskId = a} :: ListAuditMitigationActionsExecutions)
 
--- | Specify this filter to limit results to those that were applied to a specific audit finding.
-lamaeFindingId :: Lens' ListAuditMitigationActionsExecutions Text
-lamaeFindingId = lens _lamaeFindingId (\s a -> s {_lamaeFindingId = a})
+-- | Specify this filter to limit results to those that were applied to a
+-- specific audit finding.
+listAuditMitigationActionsExecutions_findingId :: Lens.Lens' ListAuditMitigationActionsExecutions Prelude.Text
+listAuditMitigationActionsExecutions_findingId = Lens.lens (\ListAuditMitigationActionsExecutions' {findingId} -> findingId) (\s@ListAuditMitigationActionsExecutions' {} a -> s {findingId = a} :: ListAuditMitigationActionsExecutions)
 
 instance
-  AWSPager
+  Pager.AWSPager
     ListAuditMitigationActionsExecutions
   where
   page rq rs
-    | stop (rs ^. lamaerrsNextToken) = Nothing
-    | stop (rs ^. lamaerrsActionsExecutions) = Nothing
-    | otherwise =
-      Just $ rq & lamaeNextToken .~ rs ^. lamaerrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listAuditMitigationActionsExecutionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAuditMitigationActionsExecutionsResponse_actionsExecutions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAuditMitigationActionsExecutions_nextToken
+          Lens..~ rs
+            Lens.^? listAuditMitigationActionsExecutionsResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     ListAuditMitigationActionsExecutions
   where
   type
     Rs ListAuditMitigationActionsExecutions =
       ListAuditMitigationActionsExecutionsResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAuditMitigationActionsExecutionsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "actionsExecutions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+              Prelude.<*> ( x Prelude..?> "actionsExecutions"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ListAuditMitigationActionsExecutions
-
-instance NFData ListAuditMitigationActionsExecutions
 
 instance
-  ToHeaders
+  Prelude.NFData
+    ListAuditMitigationActionsExecutions
+
+instance
+  Prelude.ToHeaders
     ListAuditMitigationActionsExecutions
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListAuditMitigationActionsExecutions where
-  toPath = const "/audit/mitigationactions/executions"
+instance
+  Prelude.ToPath
+    ListAuditMitigationActionsExecutions
+  where
+  toPath =
+    Prelude.const "/audit/mitigationactions/executions"
 
-instance ToQuery ListAuditMitigationActionsExecutions where
+instance
+  Prelude.ToQuery
+    ListAuditMitigationActionsExecutions
+  where
   toQuery ListAuditMitigationActionsExecutions' {..} =
-    mconcat
-      [ "nextToken" =: _lamaeNextToken,
-        "maxResults" =: _lamaeMaxResults,
-        "actionStatus" =: _lamaeActionStatus,
-        "taskId" =: _lamaeTaskId,
-        "findingId" =: _lamaeFindingId
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "actionStatus" Prelude.=: actionStatus,
+        "taskId" Prelude.=: taskId,
+        "findingId" Prelude.=: findingId
       ]
 
--- | /See:/ 'listAuditMitigationActionsExecutionsResponse' smart constructor.
+-- | /See:/ 'newListAuditMitigationActionsExecutionsResponse' smart constructor.
 data ListAuditMitigationActionsExecutionsResponse = ListAuditMitigationActionsExecutionsResponse'
-  { _lamaerrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lamaerrsActionsExecutions ::
-      !( Maybe
-           [AuditMitigationActionExecutionMetadata]
-       ),
-    _lamaerrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A set of task execution results based on the input parameters. Details
+    -- include the mitigation action applied, start time, and task status.
+    actionsExecutions :: Prelude.Maybe [AuditMitigationActionExecutionMetadata],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAuditMitigationActionsExecutionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAuditMitigationActionsExecutionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lamaerrsNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lamaerrsActionsExecutions' - A set of task execution results based on the input parameters. Details include the mitigation action applied, start time, and task status.
+-- 'nextToken', 'listAuditMitigationActionsExecutionsResponse_nextToken' - The token for the next set of results.
 --
--- * 'lamaerrsResponseStatus' - -- | The response status code.
-listAuditMitigationActionsExecutionsResponse ::
-  -- | 'lamaerrsResponseStatus'
-  Int ->
+-- 'actionsExecutions', 'listAuditMitigationActionsExecutionsResponse_actionsExecutions' - A set of task execution results based on the input parameters. Details
+-- include the mitigation action applied, start time, and task status.
+--
+-- 'httpStatus', 'listAuditMitigationActionsExecutionsResponse_httpStatus' - The response's http status code.
+newListAuditMitigationActionsExecutionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAuditMitigationActionsExecutionsResponse
-listAuditMitigationActionsExecutionsResponse
-  pResponseStatus_ =
+newListAuditMitigationActionsExecutionsResponse
+  pHttpStatus_ =
     ListAuditMitigationActionsExecutionsResponse'
-      { _lamaerrsNextToken =
-          Nothing,
-        _lamaerrsActionsExecutions =
-          Nothing,
-        _lamaerrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        actionsExecutions =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The token for the next set of results.
-lamaerrsNextToken :: Lens' ListAuditMitigationActionsExecutionsResponse (Maybe Text)
-lamaerrsNextToken = lens _lamaerrsNextToken (\s a -> s {_lamaerrsNextToken = a})
+listAuditMitigationActionsExecutionsResponse_nextToken :: Lens.Lens' ListAuditMitigationActionsExecutionsResponse (Prelude.Maybe Prelude.Text)
+listAuditMitigationActionsExecutionsResponse_nextToken = Lens.lens (\ListAuditMitigationActionsExecutionsResponse' {nextToken} -> nextToken) (\s@ListAuditMitigationActionsExecutionsResponse' {} a -> s {nextToken = a} :: ListAuditMitigationActionsExecutionsResponse)
 
--- | A set of task execution results based on the input parameters. Details include the mitigation action applied, start time, and task status.
-lamaerrsActionsExecutions :: Lens' ListAuditMitigationActionsExecutionsResponse [AuditMitigationActionExecutionMetadata]
-lamaerrsActionsExecutions = lens _lamaerrsActionsExecutions (\s a -> s {_lamaerrsActionsExecutions = a}) . _Default . _Coerce
+-- | A set of task execution results based on the input parameters. Details
+-- include the mitigation action applied, start time, and task status.
+listAuditMitigationActionsExecutionsResponse_actionsExecutions :: Lens.Lens' ListAuditMitigationActionsExecutionsResponse (Prelude.Maybe [AuditMitigationActionExecutionMetadata])
+listAuditMitigationActionsExecutionsResponse_actionsExecutions = Lens.lens (\ListAuditMitigationActionsExecutionsResponse' {actionsExecutions} -> actionsExecutions) (\s@ListAuditMitigationActionsExecutionsResponse' {} a -> s {actionsExecutions = a} :: ListAuditMitigationActionsExecutionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lamaerrsResponseStatus :: Lens' ListAuditMitigationActionsExecutionsResponse Int
-lamaerrsResponseStatus = lens _lamaerrsResponseStatus (\s a -> s {_lamaerrsResponseStatus = a})
+-- | The response's http status code.
+listAuditMitigationActionsExecutionsResponse_httpStatus :: Lens.Lens' ListAuditMitigationActionsExecutionsResponse Prelude.Int
+listAuditMitigationActionsExecutionsResponse_httpStatus = Lens.lens (\ListAuditMitigationActionsExecutionsResponse' {httpStatus} -> httpStatus) (\s@ListAuditMitigationActionsExecutionsResponse' {} a -> s {httpStatus = a} :: ListAuditMitigationActionsExecutionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListAuditMitigationActionsExecutionsResponse

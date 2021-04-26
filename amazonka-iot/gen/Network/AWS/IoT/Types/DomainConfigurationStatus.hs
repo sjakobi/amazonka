@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.IoT.Types.DomainConfigurationStatus
   ( DomainConfigurationStatus
       ( ..,
-        Disabled,
-        Enabled
+        DomainConfigurationStatusDISABLED,
+        DomainConfigurationStatusENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DomainConfigurationStatus
-  = DomainConfigurationStatus'
-      ( CI
-          Text
-      )
+newtype DomainConfigurationStatus = DomainConfigurationStatus'
+  { fromDomainConfigurationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: DomainConfigurationStatus
-pattern Disabled = DomainConfigurationStatus' "DISABLED"
+pattern DomainConfigurationStatusDISABLED :: DomainConfigurationStatus
+pattern DomainConfigurationStatusDISABLED = DomainConfigurationStatus' "DISABLED"
 
-pattern Enabled :: DomainConfigurationStatus
-pattern Enabled = DomainConfigurationStatus' "ENABLED"
+pattern DomainConfigurationStatusENABLED :: DomainConfigurationStatus
+pattern DomainConfigurationStatusENABLED = DomainConfigurationStatus' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  DomainConfigurationStatusDISABLED,
+  DomainConfigurationStatusENABLED,
   DomainConfigurationStatus'
   #-}
 
-instance FromText DomainConfigurationStatus where
-  parser = (DomainConfigurationStatus' . mk) <$> takeText
+instance Prelude.FromText DomainConfigurationStatus where
+  parser = DomainConfigurationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DomainConfigurationStatus where
-  toText (DomainConfigurationStatus' ci) = original ci
+instance Prelude.ToText DomainConfigurationStatus where
+  toText (DomainConfigurationStatus' x) = x
 
-instance Hashable DomainConfigurationStatus
+instance Prelude.Hashable DomainConfigurationStatus
 
-instance NFData DomainConfigurationStatus
+instance Prelude.NFData DomainConfigurationStatus
 
-instance ToByteString DomainConfigurationStatus
+instance Prelude.ToByteString DomainConfigurationStatus
 
-instance ToQuery DomainConfigurationStatus
+instance Prelude.ToQuery DomainConfigurationStatus
 
-instance ToHeader DomainConfigurationStatus
+instance Prelude.ToHeader DomainConfigurationStatus
 
-instance ToJSON DomainConfigurationStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON DomainConfigurationStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DomainConfigurationStatus where
-  parseJSON = parseJSONText "DomainConfigurationStatus"
+instance Prelude.FromJSON DomainConfigurationStatus where
+  parseJSON = Prelude.parseJSONText "DomainConfigurationStatus"

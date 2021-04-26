@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,224 +21,272 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the findings (results) of a Device Defender audit or of the audits performed during a specified time period. (Findings are retained for 90 days.)
---
---
+-- Lists the findings (results) of a Device Defender audit or of the audits
+-- performed during a specified time period. (Findings are retained for 90
+-- days.)
 --
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListAuditFindings
   ( -- * Creating a Request
-    listAuditFindings,
-    ListAuditFindings,
+    ListAuditFindings (..),
+    newListAuditFindings,
 
     -- * Request Lenses
-    lafNextToken,
-    lafMaxResults,
-    lafTaskId,
-    lafStartTime,
-    lafEndTime,
-    lafListSuppressedFindings,
-    lafResourceIdentifier,
-    lafCheckName,
+    listAuditFindings_nextToken,
+    listAuditFindings_maxResults,
+    listAuditFindings_taskId,
+    listAuditFindings_startTime,
+    listAuditFindings_endTime,
+    listAuditFindings_listSuppressedFindings,
+    listAuditFindings_resourceIdentifier,
+    listAuditFindings_checkName,
 
     -- * Destructuring the Response
-    listAuditFindingsResponse,
-    ListAuditFindingsResponse,
+    ListAuditFindingsResponse (..),
+    newListAuditFindingsResponse,
 
     -- * Response Lenses
-    lafrrsNextToken,
-    lafrrsFindings,
-    lafrrsResponseStatus,
+    listAuditFindingsResponse_nextToken,
+    listAuditFindingsResponse_findings,
+    listAuditFindingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AuditFinding
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAuditFindings' smart constructor.
+-- | /See:/ 'newListAuditFindings' smart constructor.
 data ListAuditFindings = ListAuditFindings'
-  { _lafNextToken ::
-      !(Maybe Text),
-    _lafMaxResults :: !(Maybe Nat),
-    _lafTaskId :: !(Maybe Text),
-    _lafStartTime :: !(Maybe POSIX),
-    _lafEndTime :: !(Maybe POSIX),
-    _lafListSuppressedFindings ::
-      !(Maybe Bool),
-    _lafResourceIdentifier ::
-      !(Maybe ResourceIdentifier),
-    _lafCheckName :: !(Maybe Text)
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return at one time. The default is 25.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter to limit results to the audit with the specified ID. You must
+    -- specify either the taskId or the startTime and endTime, but not both.
+    taskId :: Prelude.Maybe Prelude.Text,
+    -- | A filter to limit results to those found after the specified time. You
+    -- must specify either the startTime and endTime or the taskId, but not
+    -- both.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter to limit results to those found before the specified time. You
+    -- must specify either the startTime and endTime or the taskId, but not
+    -- both.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Boolean flag indicating whether only the suppressed findings or the
+    -- unsuppressed findings should be listed. If this parameter isn\'t
+    -- provided, the response will list both suppressed and unsuppressed
+    -- findings.
+    listSuppressedFindings :: Prelude.Maybe Prelude.Bool,
+    -- | Information identifying the noncompliant resource.
+    resourceIdentifier :: Prelude.Maybe ResourceIdentifier,
+    -- | A filter to limit results to the findings for the specified audit check.
+    checkName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAuditFindings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAuditFindings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lafNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lafMaxResults' - The maximum number of results to return at one time. The default is 25.
+-- 'nextToken', 'listAuditFindings_nextToken' - The token for the next set of results.
 --
--- * 'lafTaskId' - A filter to limit results to the audit with the specified ID. You must specify either the taskId or the startTime and endTime, but not both.
+-- 'maxResults', 'listAuditFindings_maxResults' - The maximum number of results to return at one time. The default is 25.
 --
--- * 'lafStartTime' - A filter to limit results to those found after the specified time. You must specify either the startTime and endTime or the taskId, but not both.
+-- 'taskId', 'listAuditFindings_taskId' - A filter to limit results to the audit with the specified ID. You must
+-- specify either the taskId or the startTime and endTime, but not both.
 --
--- * 'lafEndTime' - A filter to limit results to those found before the specified time. You must specify either the startTime and endTime or the taskId, but not both.
+-- 'startTime', 'listAuditFindings_startTime' - A filter to limit results to those found after the specified time. You
+-- must specify either the startTime and endTime or the taskId, but not
+-- both.
 --
--- * 'lafListSuppressedFindings' - Boolean flag indicating whether only the suppressed findings or the unsuppressed findings should be listed. If this parameter isn't provided, the response will list both suppressed and unsuppressed findings.
+-- 'endTime', 'listAuditFindings_endTime' - A filter to limit results to those found before the specified time. You
+-- must specify either the startTime and endTime or the taskId, but not
+-- both.
 --
--- * 'lafResourceIdentifier' - Information identifying the noncompliant resource.
+-- 'listSuppressedFindings', 'listAuditFindings_listSuppressedFindings' - Boolean flag indicating whether only the suppressed findings or the
+-- unsuppressed findings should be listed. If this parameter isn\'t
+-- provided, the response will list both suppressed and unsuppressed
+-- findings.
 --
--- * 'lafCheckName' - A filter to limit results to the findings for the specified audit check.
-listAuditFindings ::
+-- 'resourceIdentifier', 'listAuditFindings_resourceIdentifier' - Information identifying the noncompliant resource.
+--
+-- 'checkName', 'listAuditFindings_checkName' - A filter to limit results to the findings for the specified audit check.
+newListAuditFindings ::
   ListAuditFindings
-listAuditFindings =
+newListAuditFindings =
   ListAuditFindings'
-    { _lafNextToken = Nothing,
-      _lafMaxResults = Nothing,
-      _lafTaskId = Nothing,
-      _lafStartTime = Nothing,
-      _lafEndTime = Nothing,
-      _lafListSuppressedFindings = Nothing,
-      _lafResourceIdentifier = Nothing,
-      _lafCheckName = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      taskId = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      listSuppressedFindings = Prelude.Nothing,
+      resourceIdentifier = Prelude.Nothing,
+      checkName = Prelude.Nothing
     }
 
 -- | The token for the next set of results.
-lafNextToken :: Lens' ListAuditFindings (Maybe Text)
-lafNextToken = lens _lafNextToken (\s a -> s {_lafNextToken = a})
+listAuditFindings_nextToken :: Lens.Lens' ListAuditFindings (Prelude.Maybe Prelude.Text)
+listAuditFindings_nextToken = Lens.lens (\ListAuditFindings' {nextToken} -> nextToken) (\s@ListAuditFindings' {} a -> s {nextToken = a} :: ListAuditFindings)
 
 -- | The maximum number of results to return at one time. The default is 25.
-lafMaxResults :: Lens' ListAuditFindings (Maybe Natural)
-lafMaxResults = lens _lafMaxResults (\s a -> s {_lafMaxResults = a}) . mapping _Nat
+listAuditFindings_maxResults :: Lens.Lens' ListAuditFindings (Prelude.Maybe Prelude.Natural)
+listAuditFindings_maxResults = Lens.lens (\ListAuditFindings' {maxResults} -> maxResults) (\s@ListAuditFindings' {} a -> s {maxResults = a} :: ListAuditFindings) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter to limit results to the audit with the specified ID. You must specify either the taskId or the startTime and endTime, but not both.
-lafTaskId :: Lens' ListAuditFindings (Maybe Text)
-lafTaskId = lens _lafTaskId (\s a -> s {_lafTaskId = a})
+-- | A filter to limit results to the audit with the specified ID. You must
+-- specify either the taskId or the startTime and endTime, but not both.
+listAuditFindings_taskId :: Lens.Lens' ListAuditFindings (Prelude.Maybe Prelude.Text)
+listAuditFindings_taskId = Lens.lens (\ListAuditFindings' {taskId} -> taskId) (\s@ListAuditFindings' {} a -> s {taskId = a} :: ListAuditFindings)
 
--- | A filter to limit results to those found after the specified time. You must specify either the startTime and endTime or the taskId, but not both.
-lafStartTime :: Lens' ListAuditFindings (Maybe UTCTime)
-lafStartTime = lens _lafStartTime (\s a -> s {_lafStartTime = a}) . mapping _Time
+-- | A filter to limit results to those found after the specified time. You
+-- must specify either the startTime and endTime or the taskId, but not
+-- both.
+listAuditFindings_startTime :: Lens.Lens' ListAuditFindings (Prelude.Maybe Prelude.UTCTime)
+listAuditFindings_startTime = Lens.lens (\ListAuditFindings' {startTime} -> startTime) (\s@ListAuditFindings' {} a -> s {startTime = a} :: ListAuditFindings) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter to limit results to those found before the specified time. You must specify either the startTime and endTime or the taskId, but not both.
-lafEndTime :: Lens' ListAuditFindings (Maybe UTCTime)
-lafEndTime = lens _lafEndTime (\s a -> s {_lafEndTime = a}) . mapping _Time
+-- | A filter to limit results to those found before the specified time. You
+-- must specify either the startTime and endTime or the taskId, but not
+-- both.
+listAuditFindings_endTime :: Lens.Lens' ListAuditFindings (Prelude.Maybe Prelude.UTCTime)
+listAuditFindings_endTime = Lens.lens (\ListAuditFindings' {endTime} -> endTime) (\s@ListAuditFindings' {} a -> s {endTime = a} :: ListAuditFindings) Prelude.. Lens.mapping Prelude._Time
 
--- | Boolean flag indicating whether only the suppressed findings or the unsuppressed findings should be listed. If this parameter isn't provided, the response will list both suppressed and unsuppressed findings.
-lafListSuppressedFindings :: Lens' ListAuditFindings (Maybe Bool)
-lafListSuppressedFindings = lens _lafListSuppressedFindings (\s a -> s {_lafListSuppressedFindings = a})
+-- | Boolean flag indicating whether only the suppressed findings or the
+-- unsuppressed findings should be listed. If this parameter isn\'t
+-- provided, the response will list both suppressed and unsuppressed
+-- findings.
+listAuditFindings_listSuppressedFindings :: Lens.Lens' ListAuditFindings (Prelude.Maybe Prelude.Bool)
+listAuditFindings_listSuppressedFindings = Lens.lens (\ListAuditFindings' {listSuppressedFindings} -> listSuppressedFindings) (\s@ListAuditFindings' {} a -> s {listSuppressedFindings = a} :: ListAuditFindings)
 
 -- | Information identifying the noncompliant resource.
-lafResourceIdentifier :: Lens' ListAuditFindings (Maybe ResourceIdentifier)
-lafResourceIdentifier = lens _lafResourceIdentifier (\s a -> s {_lafResourceIdentifier = a})
+listAuditFindings_resourceIdentifier :: Lens.Lens' ListAuditFindings (Prelude.Maybe ResourceIdentifier)
+listAuditFindings_resourceIdentifier = Lens.lens (\ListAuditFindings' {resourceIdentifier} -> resourceIdentifier) (\s@ListAuditFindings' {} a -> s {resourceIdentifier = a} :: ListAuditFindings)
 
 -- | A filter to limit results to the findings for the specified audit check.
-lafCheckName :: Lens' ListAuditFindings (Maybe Text)
-lafCheckName = lens _lafCheckName (\s a -> s {_lafCheckName = a})
+listAuditFindings_checkName :: Lens.Lens' ListAuditFindings (Prelude.Maybe Prelude.Text)
+listAuditFindings_checkName = Lens.lens (\ListAuditFindings' {checkName} -> checkName) (\s@ListAuditFindings' {} a -> s {checkName = a} :: ListAuditFindings)
 
-instance AWSPager ListAuditFindings where
+instance Pager.AWSPager ListAuditFindings where
   page rq rs
-    | stop (rs ^. lafrrsNextToken) = Nothing
-    | stop (rs ^. lafrrsFindings) = Nothing
-    | otherwise =
-      Just $ rq & lafNextToken .~ rs ^. lafrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listAuditFindingsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAuditFindingsResponse_findings
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAuditFindings_nextToken
+          Lens..~ rs
+          Lens.^? listAuditFindingsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListAuditFindings where
+instance Prelude.AWSRequest ListAuditFindings where
   type Rs ListAuditFindings = ListAuditFindingsResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAuditFindingsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "findings" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "findings" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAuditFindings
+instance Prelude.Hashable ListAuditFindings
 
-instance NFData ListAuditFindings
+instance Prelude.NFData ListAuditFindings
 
-instance ToHeaders ListAuditFindings where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListAuditFindings where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON ListAuditFindings where
+instance Prelude.ToJSON ListAuditFindings where
   toJSON ListAuditFindings' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lafNextToken,
-            ("maxResults" .=) <$> _lafMaxResults,
-            ("taskId" .=) <$> _lafTaskId,
-            ("startTime" .=) <$> _lafStartTime,
-            ("endTime" .=) <$> _lafEndTime,
-            ("listSuppressedFindings" .=)
-              <$> _lafListSuppressedFindings,
-            ("resourceIdentifier" .=) <$> _lafResourceIdentifier,
-            ("checkName" .=) <$> _lafCheckName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("taskId" Prelude..=) Prelude.<$> taskId,
+            ("startTime" Prelude..=) Prelude.<$> startTime,
+            ("endTime" Prelude..=) Prelude.<$> endTime,
+            ("listSuppressedFindings" Prelude..=)
+              Prelude.<$> listSuppressedFindings,
+            ("resourceIdentifier" Prelude..=)
+              Prelude.<$> resourceIdentifier,
+            ("checkName" Prelude..=) Prelude.<$> checkName
           ]
       )
 
-instance ToPath ListAuditFindings where
-  toPath = const "/audit/findings"
+instance Prelude.ToPath ListAuditFindings where
+  toPath = Prelude.const "/audit/findings"
 
-instance ToQuery ListAuditFindings where
-  toQuery = const mempty
+instance Prelude.ToQuery ListAuditFindings where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listAuditFindingsResponse' smart constructor.
+-- | /See:/ 'newListAuditFindingsResponse' smart constructor.
 data ListAuditFindingsResponse = ListAuditFindingsResponse'
-  { _lafrrsNextToken ::
-      !(Maybe Text),
-    _lafrrsFindings ::
-      !( Maybe
-           [AuditFinding]
-       ),
-    _lafrrsResponseStatus ::
-      !Int
+  { -- | A token that can be used to retrieve the next set of results, or @null@
+    -- if there are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The findings (results) of the audit.
+    findings :: Prelude.Maybe [AuditFinding],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAuditFindingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAuditFindingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lafrrsNextToken' - A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lafrrsFindings' - The findings (results) of the audit.
+-- 'nextToken', 'listAuditFindingsResponse_nextToken' - A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
 --
--- * 'lafrrsResponseStatus' - -- | The response status code.
-listAuditFindingsResponse ::
-  -- | 'lafrrsResponseStatus'
-  Int ->
+-- 'findings', 'listAuditFindingsResponse_findings' - The findings (results) of the audit.
+--
+-- 'httpStatus', 'listAuditFindingsResponse_httpStatus' - The response's http status code.
+newListAuditFindingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAuditFindingsResponse
-listAuditFindingsResponse pResponseStatus_ =
+newListAuditFindingsResponse pHttpStatus_ =
   ListAuditFindingsResponse'
-    { _lafrrsNextToken =
-        Nothing,
-      _lafrrsFindings = Nothing,
-      _lafrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      findings = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
-lafrrsNextToken :: Lens' ListAuditFindingsResponse (Maybe Text)
-lafrrsNextToken = lens _lafrrsNextToken (\s a -> s {_lafrrsNextToken = a})
+-- | A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
+listAuditFindingsResponse_nextToken :: Lens.Lens' ListAuditFindingsResponse (Prelude.Maybe Prelude.Text)
+listAuditFindingsResponse_nextToken = Lens.lens (\ListAuditFindingsResponse' {nextToken} -> nextToken) (\s@ListAuditFindingsResponse' {} a -> s {nextToken = a} :: ListAuditFindingsResponse)
 
 -- | The findings (results) of the audit.
-lafrrsFindings :: Lens' ListAuditFindingsResponse [AuditFinding]
-lafrrsFindings = lens _lafrrsFindings (\s a -> s {_lafrrsFindings = a}) . _Default . _Coerce
+listAuditFindingsResponse_findings :: Lens.Lens' ListAuditFindingsResponse (Prelude.Maybe [AuditFinding])
+listAuditFindingsResponse_findings = Lens.lens (\ListAuditFindingsResponse' {findings} -> findings) (\s@ListAuditFindingsResponse' {} a -> s {findings = a} :: ListAuditFindingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lafrrsResponseStatus :: Lens' ListAuditFindingsResponse Int
-lafrrsResponseStatus = lens _lafrrsResponseStatus (\s a -> s {_lafrrsResponseStatus = a})
+-- | The response's http status code.
+listAuditFindingsResponse_httpStatus :: Lens.Lens' ListAuditFindingsResponse Prelude.Int
+listAuditFindingsResponse_httpStatus = Lens.lens (\ListAuditFindingsResponse' {httpStatus} -> httpStatus) (\s@ListAuditFindingsResponse' {} a -> s {httpStatus = a} :: ListAuditFindingsResponse)
 
-instance NFData ListAuditFindingsResponse
+instance Prelude.NFData ListAuditFindingsResponse

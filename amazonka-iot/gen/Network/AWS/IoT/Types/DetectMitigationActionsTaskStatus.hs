@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.IoT.Types.DetectMitigationActionsTaskStatus
   ( DetectMitigationActionsTaskStatus
       ( ..,
-        DMATSCanceled,
-        DMATSFailed,
-        DMATSInProgress,
-        DMATSSuccessful
+        DetectMitigationActionsTaskStatusCANCELED,
+        DetectMitigationActionsTaskStatusFAILED,
+        DetectMitigationActionsTaskStatusINPROGRESS,
+        DetectMitigationActionsTaskStatusSUCCESSFUL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DetectMitigationActionsTaskStatus
-  = DetectMitigationActionsTaskStatus'
-      ( CI
-          Text
-      )
+newtype DetectMitigationActionsTaskStatus = DetectMitigationActionsTaskStatus'
+  { fromDetectMitigationActionsTaskStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DMATSCanceled :: DetectMitigationActionsTaskStatus
-pattern DMATSCanceled = DetectMitigationActionsTaskStatus' "CANCELED"
+pattern DetectMitigationActionsTaskStatusCANCELED :: DetectMitigationActionsTaskStatus
+pattern DetectMitigationActionsTaskStatusCANCELED = DetectMitigationActionsTaskStatus' "CANCELED"
 
-pattern DMATSFailed :: DetectMitigationActionsTaskStatus
-pattern DMATSFailed = DetectMitigationActionsTaskStatus' "FAILED"
+pattern DetectMitigationActionsTaskStatusFAILED :: DetectMitigationActionsTaskStatus
+pattern DetectMitigationActionsTaskStatusFAILED = DetectMitigationActionsTaskStatus' "FAILED"
 
-pattern DMATSInProgress :: DetectMitigationActionsTaskStatus
-pattern DMATSInProgress = DetectMitigationActionsTaskStatus' "IN_PROGRESS"
+pattern DetectMitigationActionsTaskStatusINPROGRESS :: DetectMitigationActionsTaskStatus
+pattern DetectMitigationActionsTaskStatusINPROGRESS = DetectMitigationActionsTaskStatus' "IN_PROGRESS"
 
-pattern DMATSSuccessful :: DetectMitigationActionsTaskStatus
-pattern DMATSSuccessful = DetectMitigationActionsTaskStatus' "SUCCESSFUL"
+pattern DetectMitigationActionsTaskStatusSUCCESSFUL :: DetectMitigationActionsTaskStatus
+pattern DetectMitigationActionsTaskStatusSUCCESSFUL = DetectMitigationActionsTaskStatus' "SUCCESSFUL"
 
 {-# COMPLETE
-  DMATSCanceled,
-  DMATSFailed,
-  DMATSInProgress,
-  DMATSSuccessful,
+  DetectMitigationActionsTaskStatusCANCELED,
+  DetectMitigationActionsTaskStatusFAILED,
+  DetectMitigationActionsTaskStatusINPROGRESS,
+  DetectMitigationActionsTaskStatusSUCCESSFUL,
   DetectMitigationActionsTaskStatus'
   #-}
 
-instance FromText DetectMitigationActionsTaskStatus where
-  parser = (DetectMitigationActionsTaskStatus' . mk) <$> takeText
+instance Prelude.FromText DetectMitigationActionsTaskStatus where
+  parser = DetectMitigationActionsTaskStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DetectMitigationActionsTaskStatus where
-  toText (DetectMitigationActionsTaskStatus' ci) = original ci
+instance Prelude.ToText DetectMitigationActionsTaskStatus where
+  toText (DetectMitigationActionsTaskStatus' x) = x
 
-instance Hashable DetectMitigationActionsTaskStatus
+instance Prelude.Hashable DetectMitigationActionsTaskStatus
 
-instance NFData DetectMitigationActionsTaskStatus
+instance Prelude.NFData DetectMitigationActionsTaskStatus
 
-instance ToByteString DetectMitigationActionsTaskStatus
+instance Prelude.ToByteString DetectMitigationActionsTaskStatus
 
-instance ToQuery DetectMitigationActionsTaskStatus
+instance Prelude.ToQuery DetectMitigationActionsTaskStatus
 
-instance ToHeader DetectMitigationActionsTaskStatus
+instance Prelude.ToHeader DetectMitigationActionsTaskStatus
 
-instance FromJSON DetectMitigationActionsTaskStatus where
-  parseJSON = parseJSONText "DetectMitigationActionsTaskStatus"
+instance Prelude.FromJSON DetectMitigationActionsTaskStatus where
+  parseJSON = Prelude.parseJSONText "DetectMitigationActionsTaskStatus"

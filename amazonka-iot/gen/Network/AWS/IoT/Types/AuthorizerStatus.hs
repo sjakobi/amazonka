@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.IoT.Types.AuthorizerStatus
   ( AuthorizerStatus
       ( ..,
-        ASActive,
-        ASInactive
+        AuthorizerStatusACTIVE,
+        AuthorizerStatusINACTIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthorizerStatus = AuthorizerStatus' (CI Text)
+newtype AuthorizerStatus = AuthorizerStatus'
+  { fromAuthorizerStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASActive :: AuthorizerStatus
-pattern ASActive = AuthorizerStatus' "ACTIVE"
+pattern AuthorizerStatusACTIVE :: AuthorizerStatus
+pattern AuthorizerStatusACTIVE = AuthorizerStatus' "ACTIVE"
 
-pattern ASInactive :: AuthorizerStatus
-pattern ASInactive = AuthorizerStatus' "INACTIVE"
+pattern AuthorizerStatusINACTIVE :: AuthorizerStatus
+pattern AuthorizerStatusINACTIVE = AuthorizerStatus' "INACTIVE"
 
 {-# COMPLETE
-  ASActive,
-  ASInactive,
+  AuthorizerStatusACTIVE,
+  AuthorizerStatusINACTIVE,
   AuthorizerStatus'
   #-}
 
-instance FromText AuthorizerStatus where
-  parser = (AuthorizerStatus' . mk) <$> takeText
+instance Prelude.FromText AuthorizerStatus where
+  parser = AuthorizerStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AuthorizerStatus where
-  toText (AuthorizerStatus' ci) = original ci
+instance Prelude.ToText AuthorizerStatus where
+  toText (AuthorizerStatus' x) = x
 
-instance Hashable AuthorizerStatus
+instance Prelude.Hashable AuthorizerStatus
 
-instance NFData AuthorizerStatus
+instance Prelude.NFData AuthorizerStatus
 
-instance ToByteString AuthorizerStatus
+instance Prelude.ToByteString AuthorizerStatus
 
-instance ToQuery AuthorizerStatus
+instance Prelude.ToQuery AuthorizerStatus
 
-instance ToHeader AuthorizerStatus
+instance Prelude.ToHeader AuthorizerStatus
 
-instance ToJSON AuthorizerStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuthorizerStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuthorizerStatus where
-  parseJSON = parseJSONText "AuthorizerStatus"
+instance Prelude.FromJSON AuthorizerStatus where
+  parseJSON = Prelude.parseJSONText "AuthorizerStatus"

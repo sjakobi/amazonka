@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.IoT.Types.TargetSelection
   ( TargetSelection
       ( ..,
-        Continuous,
-        Snapshot
+        TargetSelectionCONTINUOUS,
+        TargetSelectionSNAPSHOT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetSelection = TargetSelection' (CI Text)
+newtype TargetSelection = TargetSelection'
+  { fromTargetSelection ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Continuous :: TargetSelection
-pattern Continuous = TargetSelection' "CONTINUOUS"
+pattern TargetSelectionCONTINUOUS :: TargetSelection
+pattern TargetSelectionCONTINUOUS = TargetSelection' "CONTINUOUS"
 
-pattern Snapshot :: TargetSelection
-pattern Snapshot = TargetSelection' "SNAPSHOT"
+pattern TargetSelectionSNAPSHOT :: TargetSelection
+pattern TargetSelectionSNAPSHOT = TargetSelection' "SNAPSHOT"
 
 {-# COMPLETE
-  Continuous,
-  Snapshot,
+  TargetSelectionCONTINUOUS,
+  TargetSelectionSNAPSHOT,
   TargetSelection'
   #-}
 
-instance FromText TargetSelection where
-  parser = (TargetSelection' . mk) <$> takeText
+instance Prelude.FromText TargetSelection where
+  parser = TargetSelection' Prelude.<$> Prelude.takeText
 
-instance ToText TargetSelection where
-  toText (TargetSelection' ci) = original ci
+instance Prelude.ToText TargetSelection where
+  toText (TargetSelection' x) = x
 
-instance Hashable TargetSelection
+instance Prelude.Hashable TargetSelection
 
-instance NFData TargetSelection
+instance Prelude.NFData TargetSelection
 
-instance ToByteString TargetSelection
+instance Prelude.ToByteString TargetSelection
 
-instance ToQuery TargetSelection
+instance Prelude.ToQuery TargetSelection
 
-instance ToHeader TargetSelection
+instance Prelude.ToHeader TargetSelection
 
-instance ToJSON TargetSelection where
-  toJSON = toJSONText
+instance Prelude.ToJSON TargetSelection where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TargetSelection where
-  parseJSON = parseJSONText "TargetSelection"
+instance Prelude.FromJSON TargetSelection where
+  parseJSON = Prelude.parseJSONText "TargetSelection"

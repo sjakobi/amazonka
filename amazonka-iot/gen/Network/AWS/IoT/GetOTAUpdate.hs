@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,108 +24,119 @@
 -- Gets an OTA update.
 module Network.AWS.IoT.GetOTAUpdate
   ( -- * Creating a Request
-    getOTAUpdate,
-    GetOTAUpdate,
+    GetOTAUpdate (..),
+    newGetOTAUpdate,
 
     -- * Request Lenses
-    gotauOtaUpdateId,
+    getOTAUpdate_otaUpdateId,
 
     -- * Destructuring the Response
-    getOTAUpdateResponse,
-    GetOTAUpdateResponse,
+    GetOTAUpdateResponse (..),
+    newGetOTAUpdateResponse,
 
     -- * Response Lenses
-    gotaurrsOtaUpdateInfo,
-    gotaurrsResponseStatus,
+    getOTAUpdateResponse_otaUpdateInfo,
+    getOTAUpdateResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.OTAUpdateInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getOTAUpdate' smart constructor.
-newtype GetOTAUpdate = GetOTAUpdate'
-  { _gotauOtaUpdateId ::
-      Text
+-- | /See:/ 'newGetOTAUpdate' smart constructor.
+data GetOTAUpdate = GetOTAUpdate'
+  { -- | The OTA update ID.
+    otaUpdateId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOTAUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOTAUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gotauOtaUpdateId' - The OTA update ID.
-getOTAUpdate ::
-  -- | 'gotauOtaUpdateId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'otaUpdateId', 'getOTAUpdate_otaUpdateId' - The OTA update ID.
+newGetOTAUpdate ::
+  -- | 'otaUpdateId'
+  Prelude.Text ->
   GetOTAUpdate
-getOTAUpdate pOtaUpdateId_ =
-  GetOTAUpdate' {_gotauOtaUpdateId = pOtaUpdateId_}
+newGetOTAUpdate pOtaUpdateId_ =
+  GetOTAUpdate' {otaUpdateId = pOtaUpdateId_}
 
 -- | The OTA update ID.
-gotauOtaUpdateId :: Lens' GetOTAUpdate Text
-gotauOtaUpdateId = lens _gotauOtaUpdateId (\s a -> s {_gotauOtaUpdateId = a})
+getOTAUpdate_otaUpdateId :: Lens.Lens' GetOTAUpdate Prelude.Text
+getOTAUpdate_otaUpdateId = Lens.lens (\GetOTAUpdate' {otaUpdateId} -> otaUpdateId) (\s@GetOTAUpdate' {} a -> s {otaUpdateId = a} :: GetOTAUpdate)
 
-instance AWSRequest GetOTAUpdate where
+instance Prelude.AWSRequest GetOTAUpdate where
   type Rs GetOTAUpdate = GetOTAUpdateResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetOTAUpdateResponse'
-            <$> (x .?> "otaUpdateInfo") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "otaUpdateInfo")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetOTAUpdate
+instance Prelude.Hashable GetOTAUpdate
 
-instance NFData GetOTAUpdate
+instance Prelude.NFData GetOTAUpdate
 
-instance ToHeaders GetOTAUpdate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetOTAUpdate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetOTAUpdate where
+instance Prelude.ToPath GetOTAUpdate where
   toPath GetOTAUpdate' {..} =
-    mconcat ["/otaUpdates/", toBS _gotauOtaUpdateId]
+    Prelude.mconcat
+      ["/otaUpdates/", Prelude.toBS otaUpdateId]
 
-instance ToQuery GetOTAUpdate where
-  toQuery = const mempty
+instance Prelude.ToQuery GetOTAUpdate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getOTAUpdateResponse' smart constructor.
+-- | /See:/ 'newGetOTAUpdateResponse' smart constructor.
 data GetOTAUpdateResponse = GetOTAUpdateResponse'
-  { _gotaurrsOtaUpdateInfo ::
-      !(Maybe OTAUpdateInfo),
-    _gotaurrsResponseStatus ::
-      !Int
+  { -- | The OTA update info.
+    otaUpdateInfo :: Prelude.Maybe OTAUpdateInfo,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOTAUpdateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOTAUpdateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gotaurrsOtaUpdateInfo' - The OTA update info.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gotaurrsResponseStatus' - -- | The response status code.
-getOTAUpdateResponse ::
-  -- | 'gotaurrsResponseStatus'
-  Int ->
+-- 'otaUpdateInfo', 'getOTAUpdateResponse_otaUpdateInfo' - The OTA update info.
+--
+-- 'httpStatus', 'getOTAUpdateResponse_httpStatus' - The response's http status code.
+newGetOTAUpdateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetOTAUpdateResponse
-getOTAUpdateResponse pResponseStatus_ =
+newGetOTAUpdateResponse pHttpStatus_ =
   GetOTAUpdateResponse'
-    { _gotaurrsOtaUpdateInfo =
-        Nothing,
-      _gotaurrsResponseStatus = pResponseStatus_
+    { otaUpdateInfo =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The OTA update info.
-gotaurrsOtaUpdateInfo :: Lens' GetOTAUpdateResponse (Maybe OTAUpdateInfo)
-gotaurrsOtaUpdateInfo = lens _gotaurrsOtaUpdateInfo (\s a -> s {_gotaurrsOtaUpdateInfo = a})
+getOTAUpdateResponse_otaUpdateInfo :: Lens.Lens' GetOTAUpdateResponse (Prelude.Maybe OTAUpdateInfo)
+getOTAUpdateResponse_otaUpdateInfo = Lens.lens (\GetOTAUpdateResponse' {otaUpdateInfo} -> otaUpdateInfo) (\s@GetOTAUpdateResponse' {} a -> s {otaUpdateInfo = a} :: GetOTAUpdateResponse)
 
--- | -- | The response status code.
-gotaurrsResponseStatus :: Lens' GetOTAUpdateResponse Int
-gotaurrsResponseStatus = lens _gotaurrsResponseStatus (\s a -> s {_gotaurrsResponseStatus = a})
+-- | The response's http status code.
+getOTAUpdateResponse_httpStatus :: Lens.Lens' GetOTAUpdateResponse Prelude.Int
+getOTAUpdateResponse_httpStatus = Lens.lens (\GetOTAUpdateResponse' {httpStatus} -> httpStatus) (\s@GetOTAUpdateResponse' {} a -> s {httpStatus = a} :: GetOTAUpdateResponse)
 
-instance NFData GetOTAUpdateResponse
+instance Prelude.NFData GetOTAUpdateResponse

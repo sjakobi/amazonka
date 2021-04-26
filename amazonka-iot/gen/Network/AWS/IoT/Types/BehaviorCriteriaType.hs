@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.IoT.Types.BehaviorCriteriaType
   ( BehaviorCriteriaType
       ( ..,
-        MachineLearning,
-        Static,
-        Statistical
+        BehaviorCriteriaTypeMACHINELEARNING,
+        BehaviorCriteriaTypeSTATIC,
+        BehaviorCriteriaTypeSTATISTICAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BehaviorCriteriaType
-  = BehaviorCriteriaType'
-      ( CI
-          Text
-      )
+newtype BehaviorCriteriaType = BehaviorCriteriaType'
+  { fromBehaviorCriteriaType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MachineLearning :: BehaviorCriteriaType
-pattern MachineLearning = BehaviorCriteriaType' "MACHINE_LEARNING"
+pattern BehaviorCriteriaTypeMACHINELEARNING :: BehaviorCriteriaType
+pattern BehaviorCriteriaTypeMACHINELEARNING = BehaviorCriteriaType' "MACHINE_LEARNING"
 
-pattern Static :: BehaviorCriteriaType
-pattern Static = BehaviorCriteriaType' "STATIC"
+pattern BehaviorCriteriaTypeSTATIC :: BehaviorCriteriaType
+pattern BehaviorCriteriaTypeSTATIC = BehaviorCriteriaType' "STATIC"
 
-pattern Statistical :: BehaviorCriteriaType
-pattern Statistical = BehaviorCriteriaType' "STATISTICAL"
+pattern BehaviorCriteriaTypeSTATISTICAL :: BehaviorCriteriaType
+pattern BehaviorCriteriaTypeSTATISTICAL = BehaviorCriteriaType' "STATISTICAL"
 
 {-# COMPLETE
-  MachineLearning,
-  Static,
-  Statistical,
+  BehaviorCriteriaTypeMACHINELEARNING,
+  BehaviorCriteriaTypeSTATIC,
+  BehaviorCriteriaTypeSTATISTICAL,
   BehaviorCriteriaType'
   #-}
 
-instance FromText BehaviorCriteriaType where
-  parser = (BehaviorCriteriaType' . mk) <$> takeText
+instance Prelude.FromText BehaviorCriteriaType where
+  parser = BehaviorCriteriaType' Prelude.<$> Prelude.takeText
 
-instance ToText BehaviorCriteriaType where
-  toText (BehaviorCriteriaType' ci) = original ci
+instance Prelude.ToText BehaviorCriteriaType where
+  toText (BehaviorCriteriaType' x) = x
 
-instance Hashable BehaviorCriteriaType
+instance Prelude.Hashable BehaviorCriteriaType
 
-instance NFData BehaviorCriteriaType
+instance Prelude.NFData BehaviorCriteriaType
 
-instance ToByteString BehaviorCriteriaType
+instance Prelude.ToByteString BehaviorCriteriaType
 
-instance ToQuery BehaviorCriteriaType
+instance Prelude.ToQuery BehaviorCriteriaType
 
-instance ToHeader BehaviorCriteriaType
+instance Prelude.ToHeader BehaviorCriteriaType
 
-instance ToJSON BehaviorCriteriaType where
-  toJSON = toJSONText
+instance Prelude.ToJSON BehaviorCriteriaType where
+  toJSON = Prelude.toJSONText

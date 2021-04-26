@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,233 +24,225 @@
 -- Describe a thing group.
 module Network.AWS.IoT.DescribeThingGroup
   ( -- * Creating a Request
-    describeThingGroup,
-    DescribeThingGroup,
+    DescribeThingGroup (..),
+    newDescribeThingGroup,
 
     -- * Request Lenses
-    dtgThingGroupName,
+    describeThingGroup_thingGroupName,
 
     -- * Destructuring the Response
-    describeThingGroupResponse,
-    DescribeThingGroupResponse,
+    DescribeThingGroupResponse (..),
+    newDescribeThingGroupResponse,
 
     -- * Response Lenses
-    dtgrrsQueryString,
-    dtgrrsStatus,
-    dtgrrsIndexName,
-    dtgrrsThingGroupARN,
-    dtgrrsQueryVersion,
-    dtgrrsVersion,
-    dtgrrsThingGroupName,
-    dtgrrsThingGroupId,
-    dtgrrsThingGroupMetadata,
-    dtgrrsThingGroupProperties,
-    dtgrrsResponseStatus,
+    describeThingGroupResponse_queryString,
+    describeThingGroupResponse_status,
+    describeThingGroupResponse_indexName,
+    describeThingGroupResponse_thingGroupArn,
+    describeThingGroupResponse_queryVersion,
+    describeThingGroupResponse_version,
+    describeThingGroupResponse_thingGroupName,
+    describeThingGroupResponse_thingGroupId,
+    describeThingGroupResponse_thingGroupMetadata,
+    describeThingGroupResponse_thingGroupProperties,
+    describeThingGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.DynamicGroupStatus
+import Network.AWS.IoT.Types.ThingGroupMetadata
+import Network.AWS.IoT.Types.ThingGroupProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeThingGroup' smart constructor.
-newtype DescribeThingGroup = DescribeThingGroup'
-  { _dtgThingGroupName ::
-      Text
+-- | /See:/ 'newDescribeThingGroup' smart constructor.
+data DescribeThingGroup = DescribeThingGroup'
+  { -- | The name of the thing group.
+    thingGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeThingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeThingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgThingGroupName' - The name of the thing group.
-describeThingGroup ::
-  -- | 'dtgThingGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'thingGroupName', 'describeThingGroup_thingGroupName' - The name of the thing group.
+newDescribeThingGroup ::
+  -- | 'thingGroupName'
+  Prelude.Text ->
   DescribeThingGroup
-describeThingGroup pThingGroupName_ =
+newDescribeThingGroup pThingGroupName_ =
   DescribeThingGroup'
-    { _dtgThingGroupName =
+    { thingGroupName =
         pThingGroupName_
     }
 
 -- | The name of the thing group.
-dtgThingGroupName :: Lens' DescribeThingGroup Text
-dtgThingGroupName = lens _dtgThingGroupName (\s a -> s {_dtgThingGroupName = a})
+describeThingGroup_thingGroupName :: Lens.Lens' DescribeThingGroup Prelude.Text
+describeThingGroup_thingGroupName = Lens.lens (\DescribeThingGroup' {thingGroupName} -> thingGroupName) (\s@DescribeThingGroup' {} a -> s {thingGroupName = a} :: DescribeThingGroup)
 
-instance AWSRequest DescribeThingGroup where
+instance Prelude.AWSRequest DescribeThingGroup where
   type
     Rs DescribeThingGroup =
       DescribeThingGroupResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeThingGroupResponse'
-            <$> (x .?> "queryString")
-            <*> (x .?> "status")
-            <*> (x .?> "indexName")
-            <*> (x .?> "thingGroupArn")
-            <*> (x .?> "queryVersion")
-            <*> (x .?> "version")
-            <*> (x .?> "thingGroupName")
-            <*> (x .?> "thingGroupId")
-            <*> (x .?> "thingGroupMetadata")
-            <*> (x .?> "thingGroupProperties")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "queryString")
+            Prelude.<*> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "indexName")
+            Prelude.<*> (x Prelude..?> "thingGroupArn")
+            Prelude.<*> (x Prelude..?> "queryVersion")
+            Prelude.<*> (x Prelude..?> "version")
+            Prelude.<*> (x Prelude..?> "thingGroupName")
+            Prelude.<*> (x Prelude..?> "thingGroupId")
+            Prelude.<*> (x Prelude..?> "thingGroupMetadata")
+            Prelude.<*> (x Prelude..?> "thingGroupProperties")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeThingGroup
+instance Prelude.Hashable DescribeThingGroup
 
-instance NFData DescribeThingGroup
+instance Prelude.NFData DescribeThingGroup
 
-instance ToHeaders DescribeThingGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeThingGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeThingGroup where
+instance Prelude.ToPath DescribeThingGroup where
   toPath DescribeThingGroup' {..} =
-    mconcat ["/thing-groups/", toBS _dtgThingGroupName]
+    Prelude.mconcat
+      ["/thing-groups/", Prelude.toBS thingGroupName]
 
-instance ToQuery DescribeThingGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeThingGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeThingGroupResponse' smart constructor.
+-- | /See:/ 'newDescribeThingGroupResponse' smart constructor.
 data DescribeThingGroupResponse = DescribeThingGroupResponse'
-  { _dtgrrsQueryString ::
-      !(Maybe Text),
-    _dtgrrsStatus ::
-      !( Maybe
-           DynamicGroupStatus
-       ),
-    _dtgrrsIndexName ::
-      !(Maybe Text),
-    _dtgrrsThingGroupARN ::
-      !(Maybe Text),
-    _dtgrrsQueryVersion ::
-      !(Maybe Text),
-    _dtgrrsVersion ::
-      !(Maybe Integer),
-    _dtgrrsThingGroupName ::
-      !(Maybe Text),
-    _dtgrrsThingGroupId ::
-      !(Maybe Text),
-    _dtgrrsThingGroupMetadata ::
-      !( Maybe
-           ThingGroupMetadata
-       ),
-    _dtgrrsThingGroupProperties ::
-      !( Maybe
-           ThingGroupProperties
-       ),
-    _dtgrrsResponseStatus ::
-      !Int
+  { -- | The dynamic thing group search query string.
+    queryString :: Prelude.Maybe Prelude.Text,
+    -- | The dynamic thing group status.
+    status :: Prelude.Maybe DynamicGroupStatus,
+    -- | The dynamic thing group index name.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | The thing group ARN.
+    thingGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The dynamic thing group query version.
+    queryVersion :: Prelude.Maybe Prelude.Text,
+    -- | The version of the thing group.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | The name of the thing group.
+    thingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The thing group ID.
+    thingGroupId :: Prelude.Maybe Prelude.Text,
+    -- | Thing group metadata.
+    thingGroupMetadata :: Prelude.Maybe ThingGroupMetadata,
+    -- | The thing group properties.
+    thingGroupProperties :: Prelude.Maybe ThingGroupProperties,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeThingGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeThingGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgrrsQueryString' - The dynamic thing group search query string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgrrsStatus' - The dynamic thing group status.
+-- 'queryString', 'describeThingGroupResponse_queryString' - The dynamic thing group search query string.
 --
--- * 'dtgrrsIndexName' - The dynamic thing group index name.
+-- 'status', 'describeThingGroupResponse_status' - The dynamic thing group status.
 --
--- * 'dtgrrsThingGroupARN' - The thing group ARN.
+-- 'indexName', 'describeThingGroupResponse_indexName' - The dynamic thing group index name.
 --
--- * 'dtgrrsQueryVersion' - The dynamic thing group query version.
+-- 'thingGroupArn', 'describeThingGroupResponse_thingGroupArn' - The thing group ARN.
 --
--- * 'dtgrrsVersion' - The version of the thing group.
+-- 'queryVersion', 'describeThingGroupResponse_queryVersion' - The dynamic thing group query version.
 --
--- * 'dtgrrsThingGroupName' - The name of the thing group.
+-- 'version', 'describeThingGroupResponse_version' - The version of the thing group.
 --
--- * 'dtgrrsThingGroupId' - The thing group ID.
+-- 'thingGroupName', 'describeThingGroupResponse_thingGroupName' - The name of the thing group.
 --
--- * 'dtgrrsThingGroupMetadata' - Thing group metadata.
+-- 'thingGroupId', 'describeThingGroupResponse_thingGroupId' - The thing group ID.
 --
--- * 'dtgrrsThingGroupProperties' - The thing group properties.
+-- 'thingGroupMetadata', 'describeThingGroupResponse_thingGroupMetadata' - Thing group metadata.
 --
--- * 'dtgrrsResponseStatus' - -- | The response status code.
-describeThingGroupResponse ::
-  -- | 'dtgrrsResponseStatus'
-  Int ->
+-- 'thingGroupProperties', 'describeThingGroupResponse_thingGroupProperties' - The thing group properties.
+--
+-- 'httpStatus', 'describeThingGroupResponse_httpStatus' - The response's http status code.
+newDescribeThingGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeThingGroupResponse
-describeThingGroupResponse pResponseStatus_ =
+newDescribeThingGroupResponse pHttpStatus_ =
   DescribeThingGroupResponse'
-    { _dtgrrsQueryString =
-        Nothing,
-      _dtgrrsStatus = Nothing,
-      _dtgrrsIndexName = Nothing,
-      _dtgrrsThingGroupARN = Nothing,
-      _dtgrrsQueryVersion = Nothing,
-      _dtgrrsVersion = Nothing,
-      _dtgrrsThingGroupName = Nothing,
-      _dtgrrsThingGroupId = Nothing,
-      _dtgrrsThingGroupMetadata = Nothing,
-      _dtgrrsThingGroupProperties = Nothing,
-      _dtgrrsResponseStatus = pResponseStatus_
+    { queryString =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      indexName = Prelude.Nothing,
+      thingGroupArn = Prelude.Nothing,
+      queryVersion = Prelude.Nothing,
+      version = Prelude.Nothing,
+      thingGroupName = Prelude.Nothing,
+      thingGroupId = Prelude.Nothing,
+      thingGroupMetadata = Prelude.Nothing,
+      thingGroupProperties = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The dynamic thing group search query string.
-dtgrrsQueryString :: Lens' DescribeThingGroupResponse (Maybe Text)
-dtgrrsQueryString = lens _dtgrrsQueryString (\s a -> s {_dtgrrsQueryString = a})
+describeThingGroupResponse_queryString :: Lens.Lens' DescribeThingGroupResponse (Prelude.Maybe Prelude.Text)
+describeThingGroupResponse_queryString = Lens.lens (\DescribeThingGroupResponse' {queryString} -> queryString) (\s@DescribeThingGroupResponse' {} a -> s {queryString = a} :: DescribeThingGroupResponse)
 
 -- | The dynamic thing group status.
-dtgrrsStatus :: Lens' DescribeThingGroupResponse (Maybe DynamicGroupStatus)
-dtgrrsStatus = lens _dtgrrsStatus (\s a -> s {_dtgrrsStatus = a})
+describeThingGroupResponse_status :: Lens.Lens' DescribeThingGroupResponse (Prelude.Maybe DynamicGroupStatus)
+describeThingGroupResponse_status = Lens.lens (\DescribeThingGroupResponse' {status} -> status) (\s@DescribeThingGroupResponse' {} a -> s {status = a} :: DescribeThingGroupResponse)
 
 -- | The dynamic thing group index name.
-dtgrrsIndexName :: Lens' DescribeThingGroupResponse (Maybe Text)
-dtgrrsIndexName = lens _dtgrrsIndexName (\s a -> s {_dtgrrsIndexName = a})
+describeThingGroupResponse_indexName :: Lens.Lens' DescribeThingGroupResponse (Prelude.Maybe Prelude.Text)
+describeThingGroupResponse_indexName = Lens.lens (\DescribeThingGroupResponse' {indexName} -> indexName) (\s@DescribeThingGroupResponse' {} a -> s {indexName = a} :: DescribeThingGroupResponse)
 
 -- | The thing group ARN.
-dtgrrsThingGroupARN :: Lens' DescribeThingGroupResponse (Maybe Text)
-dtgrrsThingGroupARN = lens _dtgrrsThingGroupARN (\s a -> s {_dtgrrsThingGroupARN = a})
+describeThingGroupResponse_thingGroupArn :: Lens.Lens' DescribeThingGroupResponse (Prelude.Maybe Prelude.Text)
+describeThingGroupResponse_thingGroupArn = Lens.lens (\DescribeThingGroupResponse' {thingGroupArn} -> thingGroupArn) (\s@DescribeThingGroupResponse' {} a -> s {thingGroupArn = a} :: DescribeThingGroupResponse)
 
 -- | The dynamic thing group query version.
-dtgrrsQueryVersion :: Lens' DescribeThingGroupResponse (Maybe Text)
-dtgrrsQueryVersion = lens _dtgrrsQueryVersion (\s a -> s {_dtgrrsQueryVersion = a})
+describeThingGroupResponse_queryVersion :: Lens.Lens' DescribeThingGroupResponse (Prelude.Maybe Prelude.Text)
+describeThingGroupResponse_queryVersion = Lens.lens (\DescribeThingGroupResponse' {queryVersion} -> queryVersion) (\s@DescribeThingGroupResponse' {} a -> s {queryVersion = a} :: DescribeThingGroupResponse)
 
 -- | The version of the thing group.
-dtgrrsVersion :: Lens' DescribeThingGroupResponse (Maybe Integer)
-dtgrrsVersion = lens _dtgrrsVersion (\s a -> s {_dtgrrsVersion = a})
+describeThingGroupResponse_version :: Lens.Lens' DescribeThingGroupResponse (Prelude.Maybe Prelude.Integer)
+describeThingGroupResponse_version = Lens.lens (\DescribeThingGroupResponse' {version} -> version) (\s@DescribeThingGroupResponse' {} a -> s {version = a} :: DescribeThingGroupResponse)
 
 -- | The name of the thing group.
-dtgrrsThingGroupName :: Lens' DescribeThingGroupResponse (Maybe Text)
-dtgrrsThingGroupName = lens _dtgrrsThingGroupName (\s a -> s {_dtgrrsThingGroupName = a})
+describeThingGroupResponse_thingGroupName :: Lens.Lens' DescribeThingGroupResponse (Prelude.Maybe Prelude.Text)
+describeThingGroupResponse_thingGroupName = Lens.lens (\DescribeThingGroupResponse' {thingGroupName} -> thingGroupName) (\s@DescribeThingGroupResponse' {} a -> s {thingGroupName = a} :: DescribeThingGroupResponse)
 
 -- | The thing group ID.
-dtgrrsThingGroupId :: Lens' DescribeThingGroupResponse (Maybe Text)
-dtgrrsThingGroupId = lens _dtgrrsThingGroupId (\s a -> s {_dtgrrsThingGroupId = a})
+describeThingGroupResponse_thingGroupId :: Lens.Lens' DescribeThingGroupResponse (Prelude.Maybe Prelude.Text)
+describeThingGroupResponse_thingGroupId = Lens.lens (\DescribeThingGroupResponse' {thingGroupId} -> thingGroupId) (\s@DescribeThingGroupResponse' {} a -> s {thingGroupId = a} :: DescribeThingGroupResponse)
 
 -- | Thing group metadata.
-dtgrrsThingGroupMetadata :: Lens' DescribeThingGroupResponse (Maybe ThingGroupMetadata)
-dtgrrsThingGroupMetadata = lens _dtgrrsThingGroupMetadata (\s a -> s {_dtgrrsThingGroupMetadata = a})
+describeThingGroupResponse_thingGroupMetadata :: Lens.Lens' DescribeThingGroupResponse (Prelude.Maybe ThingGroupMetadata)
+describeThingGroupResponse_thingGroupMetadata = Lens.lens (\DescribeThingGroupResponse' {thingGroupMetadata} -> thingGroupMetadata) (\s@DescribeThingGroupResponse' {} a -> s {thingGroupMetadata = a} :: DescribeThingGroupResponse)
 
 -- | The thing group properties.
-dtgrrsThingGroupProperties :: Lens' DescribeThingGroupResponse (Maybe ThingGroupProperties)
-dtgrrsThingGroupProperties = lens _dtgrrsThingGroupProperties (\s a -> s {_dtgrrsThingGroupProperties = a})
+describeThingGroupResponse_thingGroupProperties :: Lens.Lens' DescribeThingGroupResponse (Prelude.Maybe ThingGroupProperties)
+describeThingGroupResponse_thingGroupProperties = Lens.lens (\DescribeThingGroupResponse' {thingGroupProperties} -> thingGroupProperties) (\s@DescribeThingGroupResponse' {} a -> s {thingGroupProperties = a} :: DescribeThingGroupResponse)
 
--- | -- | The response status code.
-dtgrrsResponseStatus :: Lens' DescribeThingGroupResponse Int
-dtgrrsResponseStatus = lens _dtgrrsResponseStatus (\s a -> s {_dtgrrsResponseStatus = a})
+-- | The response's http status code.
+describeThingGroupResponse_httpStatus :: Lens.Lens' DescribeThingGroupResponse Prelude.Int
+describeThingGroupResponse_httpStatus = Lens.lens (\DescribeThingGroupResponse' {httpStatus} -> httpStatus) (\s@DescribeThingGroupResponse' {} a -> s {httpStatus = a} :: DescribeThingGroupResponse)
 
-instance NFData DescribeThingGroupResponse
+instance Prelude.NFData DescribeThingGroupResponse

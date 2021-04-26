@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.SalesforceAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an action to write a message to a Salesforce IoT Cloud Input Stream.
+-- | Describes an action to write a message to a Salesforce IoT Cloud Input
+-- Stream.
 --
---
---
--- /See:/ 'salesforceAction' smart constructor.
+-- /See:/ 'newSalesforceAction' smart constructor.
 data SalesforceAction = SalesforceAction'
-  { _saToken ::
-      !Text,
-    _saUrl :: !Text
+  { -- | The token used to authenticate access to the Salesforce IoT Cloud Input
+    -- Stream. The token is available from the Salesforce IoT Cloud platform
+    -- after creation of the Input Stream.
+    token :: Prelude.Text,
+    -- | The URL exposed by the Salesforce IoT Cloud Input Stream. The URL is
+    -- available from the Salesforce IoT Cloud platform after creation of the
+    -- Input Stream.
+    url :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SalesforceAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SalesforceAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saToken' - The token used to authenticate access to the Salesforce IoT Cloud Input Stream. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'saUrl' - The URL exposed by the Salesforce IoT Cloud Input Stream. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream.
-salesforceAction ::
-  -- | 'saToken'
-  Text ->
-  -- | 'saUrl'
-  Text ->
+-- 'token', 'salesforceAction_token' - The token used to authenticate access to the Salesforce IoT Cloud Input
+-- Stream. The token is available from the Salesforce IoT Cloud platform
+-- after creation of the Input Stream.
+--
+-- 'url', 'salesforceAction_url' - The URL exposed by the Salesforce IoT Cloud Input Stream. The URL is
+-- available from the Salesforce IoT Cloud platform after creation of the
+-- Input Stream.
+newSalesforceAction ::
+  -- | 'token'
+  Prelude.Text ->
+  -- | 'url'
+  Prelude.Text ->
   SalesforceAction
-salesforceAction pToken_ pUrl_ =
-  SalesforceAction'
-    { _saToken = pToken_,
-      _saUrl = pUrl_
-    }
+newSalesforceAction pToken_ pUrl_ =
+  SalesforceAction' {token = pToken_, url = pUrl_}
 
--- | The token used to authenticate access to the Salesforce IoT Cloud Input Stream. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream.
-saToken :: Lens' SalesforceAction Text
-saToken = lens _saToken (\s a -> s {_saToken = a})
+-- | The token used to authenticate access to the Salesforce IoT Cloud Input
+-- Stream. The token is available from the Salesforce IoT Cloud platform
+-- after creation of the Input Stream.
+salesforceAction_token :: Lens.Lens' SalesforceAction Prelude.Text
+salesforceAction_token = Lens.lens (\SalesforceAction' {token} -> token) (\s@SalesforceAction' {} a -> s {token = a} :: SalesforceAction)
 
--- | The URL exposed by the Salesforce IoT Cloud Input Stream. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream.
-saUrl :: Lens' SalesforceAction Text
-saUrl = lens _saUrl (\s a -> s {_saUrl = a})
+-- | The URL exposed by the Salesforce IoT Cloud Input Stream. The URL is
+-- available from the Salesforce IoT Cloud platform after creation of the
+-- Input Stream.
+salesforceAction_url :: Lens.Lens' SalesforceAction Prelude.Text
+salesforceAction_url = Lens.lens (\SalesforceAction' {url} -> url) (\s@SalesforceAction' {} a -> s {url = a} :: SalesforceAction)
 
-instance FromJSON SalesforceAction where
+instance Prelude.FromJSON SalesforceAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SalesforceAction"
       ( \x ->
           SalesforceAction'
-            <$> (x .: "token") <*> (x .: "url")
+            Prelude.<$> (x Prelude..: "token")
+            Prelude.<*> (x Prelude..: "url")
       )
 
-instance Hashable SalesforceAction
+instance Prelude.Hashable SalesforceAction
 
-instance NFData SalesforceAction
+instance Prelude.NFData SalesforceAction
 
-instance ToJSON SalesforceAction where
+instance Prelude.ToJSON SalesforceAction where
   toJSON SalesforceAction' {..} =
-    object
-      ( catMaybes
-          [Just ("token" .= _saToken), Just ("url" .= _saUrl)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("token" Prelude..= token),
+            Prelude.Just ("url" Prelude..= url)
+          ]
       )

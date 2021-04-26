@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,158 +24,161 @@
 -- Updates a role alias.
 module Network.AWS.IoT.UpdateRoleAlias
   ( -- * Creating a Request
-    updateRoleAlias,
-    UpdateRoleAlias,
+    UpdateRoleAlias (..),
+    newUpdateRoleAlias,
 
     -- * Request Lenses
-    uraRoleARN,
-    uraCredentialDurationSeconds,
-    uraRoleAlias,
+    updateRoleAlias_roleArn,
+    updateRoleAlias_credentialDurationSeconds,
+    updateRoleAlias_roleAlias,
 
     -- * Destructuring the Response
-    updateRoleAliasResponse,
-    UpdateRoleAliasResponse,
+    UpdateRoleAliasResponse (..),
+    newUpdateRoleAliasResponse,
 
     -- * Response Lenses
-    urarrsRoleAliasARN,
-    urarrsRoleAlias,
-    urarrsResponseStatus,
+    updateRoleAliasResponse_roleAliasArn,
+    updateRoleAliasResponse_roleAlias,
+    updateRoleAliasResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateRoleAlias' smart constructor.
+-- | /See:/ 'newUpdateRoleAlias' smart constructor.
 data UpdateRoleAlias = UpdateRoleAlias'
-  { _uraRoleARN ::
-      !(Maybe Text),
-    _uraCredentialDurationSeconds ::
-      !(Maybe Nat),
-    _uraRoleAlias :: !Text
+  { -- | The role ARN.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The number of seconds the credential will be valid.
+    credentialDurationSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The role alias to update.
+    roleAlias :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoleAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRoleAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uraRoleARN' - The role ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uraCredentialDurationSeconds' - The number of seconds the credential will be valid.
+-- 'roleArn', 'updateRoleAlias_roleArn' - The role ARN.
 --
--- * 'uraRoleAlias' - The role alias to update.
-updateRoleAlias ::
-  -- | 'uraRoleAlias'
-  Text ->
+-- 'credentialDurationSeconds', 'updateRoleAlias_credentialDurationSeconds' - The number of seconds the credential will be valid.
+--
+-- 'roleAlias', 'updateRoleAlias_roleAlias' - The role alias to update.
+newUpdateRoleAlias ::
+  -- | 'roleAlias'
+  Prelude.Text ->
   UpdateRoleAlias
-updateRoleAlias pRoleAlias_ =
+newUpdateRoleAlias pRoleAlias_ =
   UpdateRoleAlias'
-    { _uraRoleARN = Nothing,
-      _uraCredentialDurationSeconds = Nothing,
-      _uraRoleAlias = pRoleAlias_
+    { roleArn = Prelude.Nothing,
+      credentialDurationSeconds = Prelude.Nothing,
+      roleAlias = pRoleAlias_
     }
 
 -- | The role ARN.
-uraRoleARN :: Lens' UpdateRoleAlias (Maybe Text)
-uraRoleARN = lens _uraRoleARN (\s a -> s {_uraRoleARN = a})
+updateRoleAlias_roleArn :: Lens.Lens' UpdateRoleAlias (Prelude.Maybe Prelude.Text)
+updateRoleAlias_roleArn = Lens.lens (\UpdateRoleAlias' {roleArn} -> roleArn) (\s@UpdateRoleAlias' {} a -> s {roleArn = a} :: UpdateRoleAlias)
 
 -- | The number of seconds the credential will be valid.
-uraCredentialDurationSeconds :: Lens' UpdateRoleAlias (Maybe Natural)
-uraCredentialDurationSeconds = lens _uraCredentialDurationSeconds (\s a -> s {_uraCredentialDurationSeconds = a}) . mapping _Nat
+updateRoleAlias_credentialDurationSeconds :: Lens.Lens' UpdateRoleAlias (Prelude.Maybe Prelude.Natural)
+updateRoleAlias_credentialDurationSeconds = Lens.lens (\UpdateRoleAlias' {credentialDurationSeconds} -> credentialDurationSeconds) (\s@UpdateRoleAlias' {} a -> s {credentialDurationSeconds = a} :: UpdateRoleAlias) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The role alias to update.
-uraRoleAlias :: Lens' UpdateRoleAlias Text
-uraRoleAlias = lens _uraRoleAlias (\s a -> s {_uraRoleAlias = a})
+updateRoleAlias_roleAlias :: Lens.Lens' UpdateRoleAlias Prelude.Text
+updateRoleAlias_roleAlias = Lens.lens (\UpdateRoleAlias' {roleAlias} -> roleAlias) (\s@UpdateRoleAlias' {} a -> s {roleAlias = a} :: UpdateRoleAlias)
 
-instance AWSRequest UpdateRoleAlias where
+instance Prelude.AWSRequest UpdateRoleAlias where
   type Rs UpdateRoleAlias = UpdateRoleAliasResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateRoleAliasResponse'
-            <$> (x .?> "roleAliasArn")
-            <*> (x .?> "roleAlias")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "roleAliasArn")
+            Prelude.<*> (x Prelude..?> "roleAlias")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateRoleAlias
+instance Prelude.Hashable UpdateRoleAlias
 
-instance NFData UpdateRoleAlias
+instance Prelude.NFData UpdateRoleAlias
 
-instance ToHeaders UpdateRoleAlias where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateRoleAlias where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateRoleAlias where
+instance Prelude.ToJSON UpdateRoleAlias where
   toJSON UpdateRoleAlias' {..} =
-    object
-      ( catMaybes
-          [ ("roleArn" .=) <$> _uraRoleARN,
-            ("credentialDurationSeconds" .=)
-              <$> _uraCredentialDurationSeconds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("roleArn" Prelude..=) Prelude.<$> roleArn,
+            ("credentialDurationSeconds" Prelude..=)
+              Prelude.<$> credentialDurationSeconds
           ]
       )
 
-instance ToPath UpdateRoleAlias where
+instance Prelude.ToPath UpdateRoleAlias where
   toPath UpdateRoleAlias' {..} =
-    mconcat ["/role-aliases/", toBS _uraRoleAlias]
+    Prelude.mconcat
+      ["/role-aliases/", Prelude.toBS roleAlias]
 
-instance ToQuery UpdateRoleAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateRoleAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRoleAliasResponse' smart constructor.
+-- | /See:/ 'newUpdateRoleAliasResponse' smart constructor.
 data UpdateRoleAliasResponse = UpdateRoleAliasResponse'
-  { _urarrsRoleAliasARN ::
-      !(Maybe Text),
-    _urarrsRoleAlias ::
-      !(Maybe Text),
-    _urarrsResponseStatus ::
-      !Int
+  { -- | The role alias ARN.
+    roleAliasArn :: Prelude.Maybe Prelude.Text,
+    -- | The role alias.
+    roleAlias :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoleAliasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRoleAliasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urarrsRoleAliasARN' - The role alias ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urarrsRoleAlias' - The role alias.
+-- 'roleAliasArn', 'updateRoleAliasResponse_roleAliasArn' - The role alias ARN.
 --
--- * 'urarrsResponseStatus' - -- | The response status code.
-updateRoleAliasResponse ::
-  -- | 'urarrsResponseStatus'
-  Int ->
+-- 'roleAlias', 'updateRoleAliasResponse_roleAlias' - The role alias.
+--
+-- 'httpStatus', 'updateRoleAliasResponse_httpStatus' - The response's http status code.
+newUpdateRoleAliasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateRoleAliasResponse
-updateRoleAliasResponse pResponseStatus_ =
+newUpdateRoleAliasResponse pHttpStatus_ =
   UpdateRoleAliasResponse'
-    { _urarrsRoleAliasARN =
-        Nothing,
-      _urarrsRoleAlias = Nothing,
-      _urarrsResponseStatus = pResponseStatus_
+    { roleAliasArn =
+        Prelude.Nothing,
+      roleAlias = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The role alias ARN.
-urarrsRoleAliasARN :: Lens' UpdateRoleAliasResponse (Maybe Text)
-urarrsRoleAliasARN = lens _urarrsRoleAliasARN (\s a -> s {_urarrsRoleAliasARN = a})
+updateRoleAliasResponse_roleAliasArn :: Lens.Lens' UpdateRoleAliasResponse (Prelude.Maybe Prelude.Text)
+updateRoleAliasResponse_roleAliasArn = Lens.lens (\UpdateRoleAliasResponse' {roleAliasArn} -> roleAliasArn) (\s@UpdateRoleAliasResponse' {} a -> s {roleAliasArn = a} :: UpdateRoleAliasResponse)
 
 -- | The role alias.
-urarrsRoleAlias :: Lens' UpdateRoleAliasResponse (Maybe Text)
-urarrsRoleAlias = lens _urarrsRoleAlias (\s a -> s {_urarrsRoleAlias = a})
+updateRoleAliasResponse_roleAlias :: Lens.Lens' UpdateRoleAliasResponse (Prelude.Maybe Prelude.Text)
+updateRoleAliasResponse_roleAlias = Lens.lens (\UpdateRoleAliasResponse' {roleAlias} -> roleAlias) (\s@UpdateRoleAliasResponse' {} a -> s {roleAlias = a} :: UpdateRoleAliasResponse)
 
--- | -- | The response status code.
-urarrsResponseStatus :: Lens' UpdateRoleAliasResponse Int
-urarrsResponseStatus = lens _urarrsResponseStatus (\s a -> s {_urarrsResponseStatus = a})
+-- | The response's http status code.
+updateRoleAliasResponse_httpStatus :: Lens.Lens' UpdateRoleAliasResponse Prelude.Int
+updateRoleAliasResponse_httpStatus = Lens.lens (\UpdateRoleAliasResponse' {httpStatus} -> httpStatus) (\s@UpdateRoleAliasResponse' {} a -> s {httpStatus = a} :: UpdateRoleAliasResponse)
 
-instance NFData UpdateRoleAliasResponse
+instance Prelude.NFData UpdateRoleAliasResponse

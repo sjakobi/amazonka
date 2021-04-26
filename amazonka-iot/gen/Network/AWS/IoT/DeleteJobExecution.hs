@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,139 +24,212 @@
 -- Deletes a job execution.
 module Network.AWS.IoT.DeleteJobExecution
   ( -- * Creating a Request
-    deleteJobExecution,
-    DeleteJobExecution,
+    DeleteJobExecution (..),
+    newDeleteJobExecution,
 
     -- * Request Lenses
-    djeNamespaceId,
-    djeForce,
-    djeJobId,
-    djeThingName,
-    djeExecutionNumber,
+    deleteJobExecution_namespaceId,
+    deleteJobExecution_force,
+    deleteJobExecution_jobId,
+    deleteJobExecution_thingName,
+    deleteJobExecution_executionNumber,
 
     -- * Destructuring the Response
-    deleteJobExecutionResponse,
-    DeleteJobExecutionResponse,
+    DeleteJobExecutionResponse (..),
+    newDeleteJobExecutionResponse,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteJobExecution' smart constructor.
+-- | /See:/ 'newDeleteJobExecution' smart constructor.
 data DeleteJobExecution = DeleteJobExecution'
-  { _djeNamespaceId ::
-      !(Maybe Text),
-    _djeForce :: !(Maybe Bool),
-    _djeJobId :: !Text,
-    _djeThingName :: !Text,
-    _djeExecutionNumber :: !Integer
+  { -- | The namespace used to indicate that a job is a customer-managed job.
+    --
+    -- When you specify a value for this parameter, AWS IoT Core sends jobs
+    -- notifications to MQTT topics that contain the value in the following
+    -- format.
+    --
+    -- @$aws\/things\/THING_NAME\/jobs\/JOB_ID\/notify-namespace-NAMESPACE_ID\/@
+    --
+    -- The @namespaceId@ feature is in public preview.
+    namespaceId :: Prelude.Maybe Prelude.Text,
+    -- | (Optional) When true, you can delete a job execution which is
+    -- \"IN_PROGRESS\". Otherwise, you can only delete a job execution which is
+    -- in a terminal state (\"SUCCEEDED\", \"FAILED\", \"REJECTED\",
+    -- \"REMOVED\" or \"CANCELED\") or an exception will occur. The default is
+    -- false.
+    --
+    -- Deleting a job execution which is \"IN_PROGRESS\", will cause the device
+    -- to be unable to access job information or update the job execution
+    -- status. Use caution and ensure that the device is able to recover to a
+    -- valid state.
+    force :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the job whose execution on a particular device will be
+    -- deleted.
+    jobId :: Prelude.Text,
+    -- | The name of the thing whose job execution will be deleted.
+    thingName :: Prelude.Text,
+    -- | The ID of the job execution to be deleted. The @executionNumber@ refers
+    -- to the execution of a particular job on a particular device.
+    --
+    -- Note that once a job execution is deleted, the @executionNumber@ may be
+    -- reused by IoT, so be sure you get and use the correct value here.
+    executionNumber :: Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteJobExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteJobExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djeNamespaceId' - The namespace used to indicate that a job is a customer-managed job. When you specify a value for this parameter, AWS IoT Core sends jobs notifications to MQTT topics that contain the value in the following format. @> aws/things//THING_NAME/ /jobs//JOB_ID/ /notify-namespace-/NAMESPACE_ID/ /@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'djeForce' - (Optional) When true, you can delete a job execution which is "IN_PROGRESS". Otherwise, you can only delete a job execution which is in a terminal state ("SUCCEEDED", "FAILED", "REJECTED", "REMOVED" or "CANCELED") or an exception will occur. The default is false.
+-- 'namespaceId', 'deleteJobExecution_namespaceId' - The namespace used to indicate that a job is a customer-managed job.
 --
--- * 'djeJobId' - The ID of the job whose execution on a particular device will be deleted.
+-- When you specify a value for this parameter, AWS IoT Core sends jobs
+-- notifications to MQTT topics that contain the value in the following
+-- format.
 --
--- * 'djeThingName' - The name of the thing whose job execution will be deleted.
+-- @$aws\/things\/THING_NAME\/jobs\/JOB_ID\/notify-namespace-NAMESPACE_ID\/@
 --
--- * 'djeExecutionNumber' - The ID of the job execution to be deleted. The @executionNumber@ refers to the execution of a particular job on a particular device. Note that once a job execution is deleted, the @executionNumber@ may be reused by IoT, so be sure you get and use the correct value here.
-deleteJobExecution ::
-  -- | 'djeJobId'
-  Text ->
-  -- | 'djeThingName'
-  Text ->
-  -- | 'djeExecutionNumber'
-  Integer ->
+-- The @namespaceId@ feature is in public preview.
+--
+-- 'force', 'deleteJobExecution_force' - (Optional) When true, you can delete a job execution which is
+-- \"IN_PROGRESS\". Otherwise, you can only delete a job execution which is
+-- in a terminal state (\"SUCCEEDED\", \"FAILED\", \"REJECTED\",
+-- \"REMOVED\" or \"CANCELED\") or an exception will occur. The default is
+-- false.
+--
+-- Deleting a job execution which is \"IN_PROGRESS\", will cause the device
+-- to be unable to access job information or update the job execution
+-- status. Use caution and ensure that the device is able to recover to a
+-- valid state.
+--
+-- 'jobId', 'deleteJobExecution_jobId' - The ID of the job whose execution on a particular device will be
+-- deleted.
+--
+-- 'thingName', 'deleteJobExecution_thingName' - The name of the thing whose job execution will be deleted.
+--
+-- 'executionNumber', 'deleteJobExecution_executionNumber' - The ID of the job execution to be deleted. The @executionNumber@ refers
+-- to the execution of a particular job on a particular device.
+--
+-- Note that once a job execution is deleted, the @executionNumber@ may be
+-- reused by IoT, so be sure you get and use the correct value here.
+newDeleteJobExecution ::
+  -- | 'jobId'
+  Prelude.Text ->
+  -- | 'thingName'
+  Prelude.Text ->
+  -- | 'executionNumber'
+  Prelude.Integer ->
   DeleteJobExecution
-deleteJobExecution
+newDeleteJobExecution
   pJobId_
   pThingName_
   pExecutionNumber_ =
     DeleteJobExecution'
-      { _djeNamespaceId = Nothing,
-        _djeForce = Nothing,
-        _djeJobId = pJobId_,
-        _djeThingName = pThingName_,
-        _djeExecutionNumber = pExecutionNumber_
+      { namespaceId = Prelude.Nothing,
+        force = Prelude.Nothing,
+        jobId = pJobId_,
+        thingName = pThingName_,
+        executionNumber = pExecutionNumber_
       }
 
--- | The namespace used to indicate that a job is a customer-managed job. When you specify a value for this parameter, AWS IoT Core sends jobs notifications to MQTT topics that contain the value in the following format. @> aws/things//THING_NAME/ /jobs//JOB_ID/ /notify-namespace-/NAMESPACE_ID/ /@
-djeNamespaceId :: Lens' DeleteJobExecution (Maybe Text)
-djeNamespaceId = lens _djeNamespaceId (\s a -> s {_djeNamespaceId = a})
+-- | The namespace used to indicate that a job is a customer-managed job.
+--
+-- When you specify a value for this parameter, AWS IoT Core sends jobs
+-- notifications to MQTT topics that contain the value in the following
+-- format.
+--
+-- @$aws\/things\/THING_NAME\/jobs\/JOB_ID\/notify-namespace-NAMESPACE_ID\/@
+--
+-- The @namespaceId@ feature is in public preview.
+deleteJobExecution_namespaceId :: Lens.Lens' DeleteJobExecution (Prelude.Maybe Prelude.Text)
+deleteJobExecution_namespaceId = Lens.lens (\DeleteJobExecution' {namespaceId} -> namespaceId) (\s@DeleteJobExecution' {} a -> s {namespaceId = a} :: DeleteJobExecution)
 
--- | (Optional) When true, you can delete a job execution which is "IN_PROGRESS". Otherwise, you can only delete a job execution which is in a terminal state ("SUCCEEDED", "FAILED", "REJECTED", "REMOVED" or "CANCELED") or an exception will occur. The default is false.
-djeForce :: Lens' DeleteJobExecution (Maybe Bool)
-djeForce = lens _djeForce (\s a -> s {_djeForce = a})
+-- | (Optional) When true, you can delete a job execution which is
+-- \"IN_PROGRESS\". Otherwise, you can only delete a job execution which is
+-- in a terminal state (\"SUCCEEDED\", \"FAILED\", \"REJECTED\",
+-- \"REMOVED\" or \"CANCELED\") or an exception will occur. The default is
+-- false.
+--
+-- Deleting a job execution which is \"IN_PROGRESS\", will cause the device
+-- to be unable to access job information or update the job execution
+-- status. Use caution and ensure that the device is able to recover to a
+-- valid state.
+deleteJobExecution_force :: Lens.Lens' DeleteJobExecution (Prelude.Maybe Prelude.Bool)
+deleteJobExecution_force = Lens.lens (\DeleteJobExecution' {force} -> force) (\s@DeleteJobExecution' {} a -> s {force = a} :: DeleteJobExecution)
 
--- | The ID of the job whose execution on a particular device will be deleted.
-djeJobId :: Lens' DeleteJobExecution Text
-djeJobId = lens _djeJobId (\s a -> s {_djeJobId = a})
+-- | The ID of the job whose execution on a particular device will be
+-- deleted.
+deleteJobExecution_jobId :: Lens.Lens' DeleteJobExecution Prelude.Text
+deleteJobExecution_jobId = Lens.lens (\DeleteJobExecution' {jobId} -> jobId) (\s@DeleteJobExecution' {} a -> s {jobId = a} :: DeleteJobExecution)
 
 -- | The name of the thing whose job execution will be deleted.
-djeThingName :: Lens' DeleteJobExecution Text
-djeThingName = lens _djeThingName (\s a -> s {_djeThingName = a})
+deleteJobExecution_thingName :: Lens.Lens' DeleteJobExecution Prelude.Text
+deleteJobExecution_thingName = Lens.lens (\DeleteJobExecution' {thingName} -> thingName) (\s@DeleteJobExecution' {} a -> s {thingName = a} :: DeleteJobExecution)
 
--- | The ID of the job execution to be deleted. The @executionNumber@ refers to the execution of a particular job on a particular device. Note that once a job execution is deleted, the @executionNumber@ may be reused by IoT, so be sure you get and use the correct value here.
-djeExecutionNumber :: Lens' DeleteJobExecution Integer
-djeExecutionNumber = lens _djeExecutionNumber (\s a -> s {_djeExecutionNumber = a})
+-- | The ID of the job execution to be deleted. The @executionNumber@ refers
+-- to the execution of a particular job on a particular device.
+--
+-- Note that once a job execution is deleted, the @executionNumber@ may be
+-- reused by IoT, so be sure you get and use the correct value here.
+deleteJobExecution_executionNumber :: Lens.Lens' DeleteJobExecution Prelude.Integer
+deleteJobExecution_executionNumber = Lens.lens (\DeleteJobExecution' {executionNumber} -> executionNumber) (\s@DeleteJobExecution' {} a -> s {executionNumber = a} :: DeleteJobExecution)
 
-instance AWSRequest DeleteJobExecution where
+instance Prelude.AWSRequest DeleteJobExecution where
   type
     Rs DeleteJobExecution =
       DeleteJobExecutionResponse
-  request = delete ioT
-  response = receiveNull DeleteJobExecutionResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteJobExecutionResponse'
 
-instance Hashable DeleteJobExecution
+instance Prelude.Hashable DeleteJobExecution
 
-instance NFData DeleteJobExecution
+instance Prelude.NFData DeleteJobExecution
 
-instance ToHeaders DeleteJobExecution where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteJobExecution where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteJobExecution where
+instance Prelude.ToPath DeleteJobExecution where
   toPath DeleteJobExecution' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/things/",
-        toBS _djeThingName,
+        Prelude.toBS thingName,
         "/jobs/",
-        toBS _djeJobId,
+        Prelude.toBS jobId,
         "/executionNumber/",
-        toBS _djeExecutionNumber
+        Prelude.toBS executionNumber
       ]
 
-instance ToQuery DeleteJobExecution where
+instance Prelude.ToQuery DeleteJobExecution where
   toQuery DeleteJobExecution' {..} =
-    mconcat
-      [ "namespaceId" =: _djeNamespaceId,
-        "force" =: _djeForce
+    Prelude.mconcat
+      [ "namespaceId" Prelude.=: namespaceId,
+        "force" Prelude.=: force
       ]
 
--- | /See:/ 'deleteJobExecutionResponse' smart constructor.
+-- | /See:/ 'newDeleteJobExecutionResponse' smart constructor.
 data DeleteJobExecutionResponse = DeleteJobExecutionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteJobExecutionResponse' with the minimum fields required to make a request.
-deleteJobExecutionResponse ::
+-- |
+-- Create a value of 'DeleteJobExecutionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteJobExecutionResponse ::
   DeleteJobExecutionResponse
-deleteJobExecutionResponse =
+newDeleteJobExecutionResponse =
   DeleteJobExecutionResponse'
 
-instance NFData DeleteJobExecutionResponse
+instance Prelude.NFData DeleteJobExecutionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,103 +20,129 @@
 module Network.AWS.IoT.Types.AuditCheckDetails where
 
 import Network.AWS.IoT.Types.AuditCheckRunStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the audit check.
 --
---
---
--- /See:/ 'auditCheckDetails' smart constructor.
+-- /See:/ 'newAuditCheckDetails' smart constructor.
 data AuditCheckDetails = AuditCheckDetails'
-  { _acdCheckCompliant ::
-      !(Maybe Bool),
-    _acdMessage :: !(Maybe Text),
-    _acdSuppressedNonCompliantResourcesCount ::
-      !(Maybe Integer),
-    _acdCheckRunStatus ::
-      !(Maybe AuditCheckRunStatus),
-    _acdTotalResourcesCount ::
-      !(Maybe Integer),
-    _acdErrorCode :: !(Maybe Text),
-    _acdNonCompliantResourcesCount ::
-      !(Maybe Integer)
+  { -- | True if the check is complete and found all resources compliant.
+    checkCompliant :: Prelude.Maybe Prelude.Bool,
+    -- | The message associated with any error encountered when this check is
+    -- performed during this audit.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | Describes how many of the non-compliant resources created during the
+    -- evaluation of an audit check were marked as suppressed.
+    suppressedNonCompliantResourcesCount :: Prelude.Maybe Prelude.Integer,
+    -- | The completion status of this check. One of \"IN_PROGRESS\",
+    -- \"WAITING_FOR_DATA_COLLECTION\", \"CANCELED\", \"COMPLETED_COMPLIANT\",
+    -- \"COMPLETED_NON_COMPLIANT\", or \"FAILED\".
+    checkRunStatus :: Prelude.Maybe AuditCheckRunStatus,
+    -- | The number of resources on which the check was performed.
+    totalResourcesCount :: Prelude.Maybe Prelude.Integer,
+    -- | The code of any error encountered when this check is performed during
+    -- this audit. One of \"INSUFFICIENT_PERMISSIONS\" or
+    -- \"AUDIT_CHECK_DISABLED\".
+    errorCode :: Prelude.Maybe Prelude.Text,
+    -- | The number of resources that were found noncompliant during the check.
+    nonCompliantResourcesCount :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuditCheckDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuditCheckDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acdCheckCompliant' - True if the check is complete and found all resources compliant.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acdMessage' - The message associated with any error encountered when this check is performed during this audit.
+-- 'checkCompliant', 'auditCheckDetails_checkCompliant' - True if the check is complete and found all resources compliant.
 --
--- * 'acdSuppressedNonCompliantResourcesCount' - Describes how many of the non-compliant resources created during the evaluation of an audit check were marked as suppressed.
+-- 'message', 'auditCheckDetails_message' - The message associated with any error encountered when this check is
+-- performed during this audit.
 --
--- * 'acdCheckRunStatus' - The completion status of this check. One of "IN_PROGRESS", "WAITING_FOR_DATA_COLLECTION", "CANCELED", "COMPLETED_COMPLIANT", "COMPLETED_NON_COMPLIANT", or "FAILED".
+-- 'suppressedNonCompliantResourcesCount', 'auditCheckDetails_suppressedNonCompliantResourcesCount' - Describes how many of the non-compliant resources created during the
+-- evaluation of an audit check were marked as suppressed.
 --
--- * 'acdTotalResourcesCount' - The number of resources on which the check was performed.
+-- 'checkRunStatus', 'auditCheckDetails_checkRunStatus' - The completion status of this check. One of \"IN_PROGRESS\",
+-- \"WAITING_FOR_DATA_COLLECTION\", \"CANCELED\", \"COMPLETED_COMPLIANT\",
+-- \"COMPLETED_NON_COMPLIANT\", or \"FAILED\".
 --
--- * 'acdErrorCode' - The code of any error encountered when this check is performed during this audit. One of "INSUFFICIENT_PERMISSIONS" or "AUDIT_CHECK_DISABLED".
+-- 'totalResourcesCount', 'auditCheckDetails_totalResourcesCount' - The number of resources on which the check was performed.
 --
--- * 'acdNonCompliantResourcesCount' - The number of resources that were found noncompliant during the check.
-auditCheckDetails ::
+-- 'errorCode', 'auditCheckDetails_errorCode' - The code of any error encountered when this check is performed during
+-- this audit. One of \"INSUFFICIENT_PERMISSIONS\" or
+-- \"AUDIT_CHECK_DISABLED\".
+--
+-- 'nonCompliantResourcesCount', 'auditCheckDetails_nonCompliantResourcesCount' - The number of resources that were found noncompliant during the check.
+newAuditCheckDetails ::
   AuditCheckDetails
-auditCheckDetails =
+newAuditCheckDetails =
   AuditCheckDetails'
-    { _acdCheckCompliant = Nothing,
-      _acdMessage = Nothing,
-      _acdSuppressedNonCompliantResourcesCount = Nothing,
-      _acdCheckRunStatus = Nothing,
-      _acdTotalResourcesCount = Nothing,
-      _acdErrorCode = Nothing,
-      _acdNonCompliantResourcesCount = Nothing
+    { checkCompliant =
+        Prelude.Nothing,
+      message = Prelude.Nothing,
+      suppressedNonCompliantResourcesCount =
+        Prelude.Nothing,
+      checkRunStatus = Prelude.Nothing,
+      totalResourcesCount = Prelude.Nothing,
+      errorCode = Prelude.Nothing,
+      nonCompliantResourcesCount = Prelude.Nothing
     }
 
 -- | True if the check is complete and found all resources compliant.
-acdCheckCompliant :: Lens' AuditCheckDetails (Maybe Bool)
-acdCheckCompliant = lens _acdCheckCompliant (\s a -> s {_acdCheckCompliant = a})
+auditCheckDetails_checkCompliant :: Lens.Lens' AuditCheckDetails (Prelude.Maybe Prelude.Bool)
+auditCheckDetails_checkCompliant = Lens.lens (\AuditCheckDetails' {checkCompliant} -> checkCompliant) (\s@AuditCheckDetails' {} a -> s {checkCompliant = a} :: AuditCheckDetails)
 
--- | The message associated with any error encountered when this check is performed during this audit.
-acdMessage :: Lens' AuditCheckDetails (Maybe Text)
-acdMessage = lens _acdMessage (\s a -> s {_acdMessage = a})
+-- | The message associated with any error encountered when this check is
+-- performed during this audit.
+auditCheckDetails_message :: Lens.Lens' AuditCheckDetails (Prelude.Maybe Prelude.Text)
+auditCheckDetails_message = Lens.lens (\AuditCheckDetails' {message} -> message) (\s@AuditCheckDetails' {} a -> s {message = a} :: AuditCheckDetails)
 
--- | Describes how many of the non-compliant resources created during the evaluation of an audit check were marked as suppressed.
-acdSuppressedNonCompliantResourcesCount :: Lens' AuditCheckDetails (Maybe Integer)
-acdSuppressedNonCompliantResourcesCount = lens _acdSuppressedNonCompliantResourcesCount (\s a -> s {_acdSuppressedNonCompliantResourcesCount = a})
+-- | Describes how many of the non-compliant resources created during the
+-- evaluation of an audit check were marked as suppressed.
+auditCheckDetails_suppressedNonCompliantResourcesCount :: Lens.Lens' AuditCheckDetails (Prelude.Maybe Prelude.Integer)
+auditCheckDetails_suppressedNonCompliantResourcesCount = Lens.lens (\AuditCheckDetails' {suppressedNonCompliantResourcesCount} -> suppressedNonCompliantResourcesCount) (\s@AuditCheckDetails' {} a -> s {suppressedNonCompliantResourcesCount = a} :: AuditCheckDetails)
 
--- | The completion status of this check. One of "IN_PROGRESS", "WAITING_FOR_DATA_COLLECTION", "CANCELED", "COMPLETED_COMPLIANT", "COMPLETED_NON_COMPLIANT", or "FAILED".
-acdCheckRunStatus :: Lens' AuditCheckDetails (Maybe AuditCheckRunStatus)
-acdCheckRunStatus = lens _acdCheckRunStatus (\s a -> s {_acdCheckRunStatus = a})
+-- | The completion status of this check. One of \"IN_PROGRESS\",
+-- \"WAITING_FOR_DATA_COLLECTION\", \"CANCELED\", \"COMPLETED_COMPLIANT\",
+-- \"COMPLETED_NON_COMPLIANT\", or \"FAILED\".
+auditCheckDetails_checkRunStatus :: Lens.Lens' AuditCheckDetails (Prelude.Maybe AuditCheckRunStatus)
+auditCheckDetails_checkRunStatus = Lens.lens (\AuditCheckDetails' {checkRunStatus} -> checkRunStatus) (\s@AuditCheckDetails' {} a -> s {checkRunStatus = a} :: AuditCheckDetails)
 
 -- | The number of resources on which the check was performed.
-acdTotalResourcesCount :: Lens' AuditCheckDetails (Maybe Integer)
-acdTotalResourcesCount = lens _acdTotalResourcesCount (\s a -> s {_acdTotalResourcesCount = a})
+auditCheckDetails_totalResourcesCount :: Lens.Lens' AuditCheckDetails (Prelude.Maybe Prelude.Integer)
+auditCheckDetails_totalResourcesCount = Lens.lens (\AuditCheckDetails' {totalResourcesCount} -> totalResourcesCount) (\s@AuditCheckDetails' {} a -> s {totalResourcesCount = a} :: AuditCheckDetails)
 
--- | The code of any error encountered when this check is performed during this audit. One of "INSUFFICIENT_PERMISSIONS" or "AUDIT_CHECK_DISABLED".
-acdErrorCode :: Lens' AuditCheckDetails (Maybe Text)
-acdErrorCode = lens _acdErrorCode (\s a -> s {_acdErrorCode = a})
+-- | The code of any error encountered when this check is performed during
+-- this audit. One of \"INSUFFICIENT_PERMISSIONS\" or
+-- \"AUDIT_CHECK_DISABLED\".
+auditCheckDetails_errorCode :: Lens.Lens' AuditCheckDetails (Prelude.Maybe Prelude.Text)
+auditCheckDetails_errorCode = Lens.lens (\AuditCheckDetails' {errorCode} -> errorCode) (\s@AuditCheckDetails' {} a -> s {errorCode = a} :: AuditCheckDetails)
 
 -- | The number of resources that were found noncompliant during the check.
-acdNonCompliantResourcesCount :: Lens' AuditCheckDetails (Maybe Integer)
-acdNonCompliantResourcesCount = lens _acdNonCompliantResourcesCount (\s a -> s {_acdNonCompliantResourcesCount = a})
+auditCheckDetails_nonCompliantResourcesCount :: Lens.Lens' AuditCheckDetails (Prelude.Maybe Prelude.Integer)
+auditCheckDetails_nonCompliantResourcesCount = Lens.lens (\AuditCheckDetails' {nonCompliantResourcesCount} -> nonCompliantResourcesCount) (\s@AuditCheckDetails' {} a -> s {nonCompliantResourcesCount = a} :: AuditCheckDetails)
 
-instance FromJSON AuditCheckDetails where
+instance Prelude.FromJSON AuditCheckDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuditCheckDetails"
       ( \x ->
           AuditCheckDetails'
-            <$> (x .:? "checkCompliant")
-            <*> (x .:? "message")
-            <*> (x .:? "suppressedNonCompliantResourcesCount")
-            <*> (x .:? "checkRunStatus")
-            <*> (x .:? "totalResourcesCount")
-            <*> (x .:? "errorCode")
-            <*> (x .:? "nonCompliantResourcesCount")
+            Prelude.<$> (x Prelude..:? "checkCompliant")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> ( x
+                            Prelude..:? "suppressedNonCompliantResourcesCount"
+                        )
+            Prelude.<*> (x Prelude..:? "checkRunStatus")
+            Prelude.<*> (x Prelude..:? "totalResourcesCount")
+            Prelude.<*> (x Prelude..:? "errorCode")
+            Prelude.<*> (x Prelude..:? "nonCompliantResourcesCount")
       )
 
-instance Hashable AuditCheckDetails
+instance Prelude.Hashable AuditCheckDetails
 
-instance NFData AuditCheckDetails
+instance Prelude.NFData AuditCheckDetails

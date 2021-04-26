@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,69 @@
 module Network.AWS.IoT.Types.ThingGroupProperties where
 
 import Network.AWS.IoT.Types.AttributePayload
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Thing group properties.
 --
---
---
--- /See:/ 'thingGroupProperties' smart constructor.
+-- /See:/ 'newThingGroupProperties' smart constructor.
 data ThingGroupProperties = ThingGroupProperties'
-  { _tgpThingGroupDescription ::
-      !(Maybe Text),
-    _tgpAttributePayload ::
-      !(Maybe AttributePayload)
+  { -- | The thing group description.
+    thingGroupDescription :: Prelude.Maybe Prelude.Text,
+    -- | The thing group attributes in JSON format.
+    attributePayload :: Prelude.Maybe AttributePayload
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ThingGroupProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ThingGroupProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgpThingGroupDescription' - The thing group description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgpAttributePayload' - The thing group attributes in JSON format.
-thingGroupProperties ::
+-- 'thingGroupDescription', 'thingGroupProperties_thingGroupDescription' - The thing group description.
+--
+-- 'attributePayload', 'thingGroupProperties_attributePayload' - The thing group attributes in JSON format.
+newThingGroupProperties ::
   ThingGroupProperties
-thingGroupProperties =
+newThingGroupProperties =
   ThingGroupProperties'
-    { _tgpThingGroupDescription =
-        Nothing,
-      _tgpAttributePayload = Nothing
+    { thingGroupDescription =
+        Prelude.Nothing,
+      attributePayload = Prelude.Nothing
     }
 
 -- | The thing group description.
-tgpThingGroupDescription :: Lens' ThingGroupProperties (Maybe Text)
-tgpThingGroupDescription = lens _tgpThingGroupDescription (\s a -> s {_tgpThingGroupDescription = a})
+thingGroupProperties_thingGroupDescription :: Lens.Lens' ThingGroupProperties (Prelude.Maybe Prelude.Text)
+thingGroupProperties_thingGroupDescription = Lens.lens (\ThingGroupProperties' {thingGroupDescription} -> thingGroupDescription) (\s@ThingGroupProperties' {} a -> s {thingGroupDescription = a} :: ThingGroupProperties)
 
 -- | The thing group attributes in JSON format.
-tgpAttributePayload :: Lens' ThingGroupProperties (Maybe AttributePayload)
-tgpAttributePayload = lens _tgpAttributePayload (\s a -> s {_tgpAttributePayload = a})
+thingGroupProperties_attributePayload :: Lens.Lens' ThingGroupProperties (Prelude.Maybe AttributePayload)
+thingGroupProperties_attributePayload = Lens.lens (\ThingGroupProperties' {attributePayload} -> attributePayload) (\s@ThingGroupProperties' {} a -> s {attributePayload = a} :: ThingGroupProperties)
 
-instance FromJSON ThingGroupProperties where
+instance Prelude.FromJSON ThingGroupProperties where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ThingGroupProperties"
       ( \x ->
           ThingGroupProperties'
-            <$> (x .:? "thingGroupDescription")
-            <*> (x .:? "attributePayload")
+            Prelude.<$> (x Prelude..:? "thingGroupDescription")
+            Prelude.<*> (x Prelude..:? "attributePayload")
       )
 
-instance Hashable ThingGroupProperties
+instance Prelude.Hashable ThingGroupProperties
 
-instance NFData ThingGroupProperties
+instance Prelude.NFData ThingGroupProperties
 
-instance ToJSON ThingGroupProperties where
+instance Prelude.ToJSON ThingGroupProperties where
   toJSON ThingGroupProperties' {..} =
-    object
-      ( catMaybes
-          [ ("thingGroupDescription" .=)
-              <$> _tgpThingGroupDescription,
-            ("attributePayload" .=) <$> _tgpAttributePayload
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("thingGroupDescription" Prelude..=)
+              Prelude.<$> thingGroupDescription,
+            ("attributePayload" Prelude..=)
+              Prelude.<$> attributePayload
           ]
       )

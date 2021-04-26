@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.PolicyVersion where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a policy version.
 --
---
---
--- /See:/ 'policyVersion' smart constructor.
+-- /See:/ 'newPolicyVersion' smart constructor.
 data PolicyVersion = PolicyVersion'
-  { _pvCreateDate ::
-      !(Maybe POSIX),
-    _pvVersionId :: !(Maybe Text),
-    _pvIsDefaultVersion :: !(Maybe Bool)
+  { -- | The date and time the policy was created.
+    createDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The policy version ID.
+    versionId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the policy version is the default.
+    isDefaultVersion :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pvCreateDate' - The date and time the policy was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pvVersionId' - The policy version ID.
+-- 'createDate', 'policyVersion_createDate' - The date and time the policy was created.
 --
--- * 'pvIsDefaultVersion' - Specifies whether the policy version is the default.
-policyVersion ::
+-- 'versionId', 'policyVersion_versionId' - The policy version ID.
+--
+-- 'isDefaultVersion', 'policyVersion_isDefaultVersion' - Specifies whether the policy version is the default.
+newPolicyVersion ::
   PolicyVersion
-policyVersion =
+newPolicyVersion =
   PolicyVersion'
-    { _pvCreateDate = Nothing,
-      _pvVersionId = Nothing,
-      _pvIsDefaultVersion = Nothing
+    { createDate = Prelude.Nothing,
+      versionId = Prelude.Nothing,
+      isDefaultVersion = Prelude.Nothing
     }
 
 -- | The date and time the policy was created.
-pvCreateDate :: Lens' PolicyVersion (Maybe UTCTime)
-pvCreateDate = lens _pvCreateDate (\s a -> s {_pvCreateDate = a}) . mapping _Time
+policyVersion_createDate :: Lens.Lens' PolicyVersion (Prelude.Maybe Prelude.UTCTime)
+policyVersion_createDate = Lens.lens (\PolicyVersion' {createDate} -> createDate) (\s@PolicyVersion' {} a -> s {createDate = a} :: PolicyVersion) Prelude.. Lens.mapping Prelude._Time
 
 -- | The policy version ID.
-pvVersionId :: Lens' PolicyVersion (Maybe Text)
-pvVersionId = lens _pvVersionId (\s a -> s {_pvVersionId = a})
+policyVersion_versionId :: Lens.Lens' PolicyVersion (Prelude.Maybe Prelude.Text)
+policyVersion_versionId = Lens.lens (\PolicyVersion' {versionId} -> versionId) (\s@PolicyVersion' {} a -> s {versionId = a} :: PolicyVersion)
 
 -- | Specifies whether the policy version is the default.
-pvIsDefaultVersion :: Lens' PolicyVersion (Maybe Bool)
-pvIsDefaultVersion = lens _pvIsDefaultVersion (\s a -> s {_pvIsDefaultVersion = a})
+policyVersion_isDefaultVersion :: Lens.Lens' PolicyVersion (Prelude.Maybe Prelude.Bool)
+policyVersion_isDefaultVersion = Lens.lens (\PolicyVersion' {isDefaultVersion} -> isDefaultVersion) (\s@PolicyVersion' {} a -> s {isDefaultVersion = a} :: PolicyVersion)
 
-instance FromJSON PolicyVersion where
+instance Prelude.FromJSON PolicyVersion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PolicyVersion"
       ( \x ->
           PolicyVersion'
-            <$> (x .:? "createDate")
-            <*> (x .:? "versionId")
-            <*> (x .:? "isDefaultVersion")
+            Prelude.<$> (x Prelude..:? "createDate")
+            Prelude.<*> (x Prelude..:? "versionId")
+            Prelude.<*> (x Prelude..:? "isDefaultVersion")
       )
 
-instance Hashable PolicyVersion
+instance Prelude.Hashable PolicyVersion
 
-instance NFData PolicyVersion
+instance Prelude.NFData PolicyVersion

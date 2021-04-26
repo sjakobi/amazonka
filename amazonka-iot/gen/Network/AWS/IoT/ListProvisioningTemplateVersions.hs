@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,192 +23,210 @@
 --
 -- A list of fleet provisioning template versions.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListProvisioningTemplateVersions
   ( -- * Creating a Request
-    listProvisioningTemplateVersions,
-    ListProvisioningTemplateVersions,
+    ListProvisioningTemplateVersions (..),
+    newListProvisioningTemplateVersions,
 
     -- * Request Lenses
-    lptvNextToken,
-    lptvMaxResults,
-    lptvTemplateName,
+    listProvisioningTemplateVersions_nextToken,
+    listProvisioningTemplateVersions_maxResults,
+    listProvisioningTemplateVersions_templateName,
 
     -- * Destructuring the Response
-    listProvisioningTemplateVersionsResponse,
-    ListProvisioningTemplateVersionsResponse,
+    ListProvisioningTemplateVersionsResponse (..),
+    newListProvisioningTemplateVersionsResponse,
 
     -- * Response Lenses
-    lptvrrsNextToken,
-    lptvrrsVersions,
-    lptvrrsResponseStatus,
+    listProvisioningTemplateVersionsResponse_nextToken,
+    listProvisioningTemplateVersionsResponse_versions,
+    listProvisioningTemplateVersionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.ProvisioningTemplateVersionSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listProvisioningTemplateVersions' smart constructor.
+-- | /See:/ 'newListProvisioningTemplateVersions' smart constructor.
 data ListProvisioningTemplateVersions = ListProvisioningTemplateVersions'
-  { _lptvNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lptvMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _lptvTemplateName ::
-      !Text
+  { -- | A token to retrieve the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the fleet provisioning template.
+    templateName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProvisioningTemplateVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProvisioningTemplateVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lptvNextToken' - A token to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lptvMaxResults' - The maximum number of results to return at one time.
+-- 'nextToken', 'listProvisioningTemplateVersions_nextToken' - A token to retrieve the next set of results.
 --
--- * 'lptvTemplateName' - The name of the fleet provisioning template.
-listProvisioningTemplateVersions ::
-  -- | 'lptvTemplateName'
-  Text ->
+-- 'maxResults', 'listProvisioningTemplateVersions_maxResults' - The maximum number of results to return at one time.
+--
+-- 'templateName', 'listProvisioningTemplateVersions_templateName' - The name of the fleet provisioning template.
+newListProvisioningTemplateVersions ::
+  -- | 'templateName'
+  Prelude.Text ->
   ListProvisioningTemplateVersions
-listProvisioningTemplateVersions pTemplateName_ =
+newListProvisioningTemplateVersions pTemplateName_ =
   ListProvisioningTemplateVersions'
-    { _lptvNextToken =
-        Nothing,
-      _lptvMaxResults = Nothing,
-      _lptvTemplateName = pTemplateName_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      templateName = pTemplateName_
     }
 
 -- | A token to retrieve the next set of results.
-lptvNextToken :: Lens' ListProvisioningTemplateVersions (Maybe Text)
-lptvNextToken = lens _lptvNextToken (\s a -> s {_lptvNextToken = a})
+listProvisioningTemplateVersions_nextToken :: Lens.Lens' ListProvisioningTemplateVersions (Prelude.Maybe Prelude.Text)
+listProvisioningTemplateVersions_nextToken = Lens.lens (\ListProvisioningTemplateVersions' {nextToken} -> nextToken) (\s@ListProvisioningTemplateVersions' {} a -> s {nextToken = a} :: ListProvisioningTemplateVersions)
 
 -- | The maximum number of results to return at one time.
-lptvMaxResults :: Lens' ListProvisioningTemplateVersions (Maybe Natural)
-lptvMaxResults = lens _lptvMaxResults (\s a -> s {_lptvMaxResults = a}) . mapping _Nat
+listProvisioningTemplateVersions_maxResults :: Lens.Lens' ListProvisioningTemplateVersions (Prelude.Maybe Prelude.Natural)
+listProvisioningTemplateVersions_maxResults = Lens.lens (\ListProvisioningTemplateVersions' {maxResults} -> maxResults) (\s@ListProvisioningTemplateVersions' {} a -> s {maxResults = a} :: ListProvisioningTemplateVersions) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the fleet provisioning template.
-lptvTemplateName :: Lens' ListProvisioningTemplateVersions Text
-lptvTemplateName = lens _lptvTemplateName (\s a -> s {_lptvTemplateName = a})
+listProvisioningTemplateVersions_templateName :: Lens.Lens' ListProvisioningTemplateVersions Prelude.Text
+listProvisioningTemplateVersions_templateName = Lens.lens (\ListProvisioningTemplateVersions' {templateName} -> templateName) (\s@ListProvisioningTemplateVersions' {} a -> s {templateName = a} :: ListProvisioningTemplateVersions)
 
-instance AWSPager ListProvisioningTemplateVersions where
+instance
+  Pager.AWSPager
+    ListProvisioningTemplateVersions
+  where
   page rq rs
-    | stop (rs ^. lptvrrsNextToken) = Nothing
-    | stop (rs ^. lptvrrsVersions) = Nothing
-    | otherwise =
-      Just $ rq & lptvNextToken .~ rs ^. lptvrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listProvisioningTemplateVersionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listProvisioningTemplateVersionsResponse_versions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listProvisioningTemplateVersions_nextToken
+          Lens..~ rs
+          Lens.^? listProvisioningTemplateVersionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListProvisioningTemplateVersions where
+instance
+  Prelude.AWSRequest
+    ListProvisioningTemplateVersions
+  where
   type
     Rs ListProvisioningTemplateVersions =
       ListProvisioningTemplateVersionsResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListProvisioningTemplateVersionsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "versions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "versions" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListProvisioningTemplateVersions
+instance
+  Prelude.Hashable
+    ListProvisioningTemplateVersions
 
-instance NFData ListProvisioningTemplateVersions
+instance
+  Prelude.NFData
+    ListProvisioningTemplateVersions
 
-instance ToHeaders ListProvisioningTemplateVersions where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ListProvisioningTemplateVersions
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListProvisioningTemplateVersions where
+instance
+  Prelude.ToPath
+    ListProvisioningTemplateVersions
+  where
   toPath ListProvisioningTemplateVersions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/provisioning-templates/",
-        toBS _lptvTemplateName,
+        Prelude.toBS templateName,
         "/versions"
       ]
 
-instance ToQuery ListProvisioningTemplateVersions where
+instance
+  Prelude.ToQuery
+    ListProvisioningTemplateVersions
+  where
   toQuery ListProvisioningTemplateVersions' {..} =
-    mconcat
-      [ "nextToken" =: _lptvNextToken,
-        "maxResults" =: _lptvMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listProvisioningTemplateVersionsResponse' smart constructor.
+-- | /See:/ 'newListProvisioningTemplateVersionsResponse' smart constructor.
 data ListProvisioningTemplateVersionsResponse = ListProvisioningTemplateVersionsResponse'
-  { _lptvrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lptvrrsVersions ::
-      !( Maybe
-           [ProvisioningTemplateVersionSummary]
-       ),
-    _lptvrrsResponseStatus ::
-      !Int
+  { -- | A token to retrieve the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of fleet provisioning template versions.
+    versions :: Prelude.Maybe [ProvisioningTemplateVersionSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProvisioningTemplateVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProvisioningTemplateVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lptvrrsNextToken' - A token to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lptvrrsVersions' - The list of fleet provisioning template versions.
+-- 'nextToken', 'listProvisioningTemplateVersionsResponse_nextToken' - A token to retrieve the next set of results.
 --
--- * 'lptvrrsResponseStatus' - -- | The response status code.
-listProvisioningTemplateVersionsResponse ::
-  -- | 'lptvrrsResponseStatus'
-  Int ->
+-- 'versions', 'listProvisioningTemplateVersionsResponse_versions' - The list of fleet provisioning template versions.
+--
+-- 'httpStatus', 'listProvisioningTemplateVersionsResponse_httpStatus' - The response's http status code.
+newListProvisioningTemplateVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListProvisioningTemplateVersionsResponse
-listProvisioningTemplateVersionsResponse
-  pResponseStatus_ =
+newListProvisioningTemplateVersionsResponse
+  pHttpStatus_ =
     ListProvisioningTemplateVersionsResponse'
-      { _lptvrrsNextToken =
-          Nothing,
-        _lptvrrsVersions = Nothing,
-        _lptvrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        versions = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A token to retrieve the next set of results.
-lptvrrsNextToken :: Lens' ListProvisioningTemplateVersionsResponse (Maybe Text)
-lptvrrsNextToken = lens _lptvrrsNextToken (\s a -> s {_lptvrrsNextToken = a})
+listProvisioningTemplateVersionsResponse_nextToken :: Lens.Lens' ListProvisioningTemplateVersionsResponse (Prelude.Maybe Prelude.Text)
+listProvisioningTemplateVersionsResponse_nextToken = Lens.lens (\ListProvisioningTemplateVersionsResponse' {nextToken} -> nextToken) (\s@ListProvisioningTemplateVersionsResponse' {} a -> s {nextToken = a} :: ListProvisioningTemplateVersionsResponse)
 
 -- | The list of fleet provisioning template versions.
-lptvrrsVersions :: Lens' ListProvisioningTemplateVersionsResponse [ProvisioningTemplateVersionSummary]
-lptvrrsVersions = lens _lptvrrsVersions (\s a -> s {_lptvrrsVersions = a}) . _Default . _Coerce
+listProvisioningTemplateVersionsResponse_versions :: Lens.Lens' ListProvisioningTemplateVersionsResponse (Prelude.Maybe [ProvisioningTemplateVersionSummary])
+listProvisioningTemplateVersionsResponse_versions = Lens.lens (\ListProvisioningTemplateVersionsResponse' {versions} -> versions) (\s@ListProvisioningTemplateVersionsResponse' {} a -> s {versions = a} :: ListProvisioningTemplateVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lptvrrsResponseStatus :: Lens' ListProvisioningTemplateVersionsResponse Int
-lptvrrsResponseStatus = lens _lptvrrsResponseStatus (\s a -> s {_lptvrrsResponseStatus = a})
+-- | The response's http status code.
+listProvisioningTemplateVersionsResponse_httpStatus :: Lens.Lens' ListProvisioningTemplateVersionsResponse Prelude.Int
+listProvisioningTemplateVersionsResponse_httpStatus = Lens.lens (\ListProvisioningTemplateVersionsResponse' {httpStatus} -> httpStatus) (\s@ListProvisioningTemplateVersionsResponse' {} a -> s {httpStatus = a} :: ListProvisioningTemplateVersionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListProvisioningTemplateVersionsResponse

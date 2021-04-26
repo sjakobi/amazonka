@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,230 +21,246 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Tests a custom authorization behavior by invoking a specified custom authorizer. Use this to test and debug the custom authorization behavior of devices that connect to the AWS IoT device gateway.
+-- Tests a custom authorization behavior by invoking a specified custom
+-- authorizer. Use this to test and debug the custom authorization behavior
+-- of devices that connect to the AWS IoT device gateway.
 module Network.AWS.IoT.TestInvokeAuthorizer
   ( -- * Creating a Request
-    testInvokeAuthorizer,
-    TestInvokeAuthorizer,
+    TestInvokeAuthorizer (..),
+    newTestInvokeAuthorizer,
 
     -- * Request Lenses
-    tiaHttpContext,
-    tiaMqttContext,
-    tiaTokenSignature,
-    tiaTlsContext,
-    tiaToken,
-    tiaAuthorizerName,
+    testInvokeAuthorizer_httpContext,
+    testInvokeAuthorizer_mqttContext,
+    testInvokeAuthorizer_tokenSignature,
+    testInvokeAuthorizer_tlsContext,
+    testInvokeAuthorizer_token,
+    testInvokeAuthorizer_authorizerName,
 
     -- * Destructuring the Response
-    testInvokeAuthorizerResponse,
-    TestInvokeAuthorizerResponse,
+    TestInvokeAuthorizerResponse (..),
+    newTestInvokeAuthorizerResponse,
 
     -- * Response Lenses
-    tiarrsDisconnectAfterInSeconds,
-    tiarrsPrincipalId,
-    tiarrsPolicyDocuments,
-    tiarrsIsAuthenticated,
-    tiarrsRefreshAfterInSeconds,
-    tiarrsResponseStatus,
+    testInvokeAuthorizerResponse_disconnectAfterInSeconds,
+    testInvokeAuthorizerResponse_principalId,
+    testInvokeAuthorizerResponse_policyDocuments,
+    testInvokeAuthorizerResponse_isAuthenticated,
+    testInvokeAuthorizerResponse_refreshAfterInSeconds,
+    testInvokeAuthorizerResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'testInvokeAuthorizer' smart constructor.
+-- | /See:/ 'newTestInvokeAuthorizer' smart constructor.
 data TestInvokeAuthorizer = TestInvokeAuthorizer'
-  { _tiaHttpContext ::
-      !(Maybe HTTPContext),
-    _tiaMqttContext ::
-      !(Maybe MqttContext),
-    _tiaTokenSignature ::
-      !(Maybe Text),
-    _tiaTlsContext ::
-      !(Maybe TLSContext),
-    _tiaToken :: !(Maybe Text),
-    _tiaAuthorizerName :: !Text
+  { -- | Specifies a test HTTP authorization request.
+    httpContext :: Prelude.Maybe HttpContext,
+    -- | Specifies a test MQTT authorization request.
+    mqttContext :: Prelude.Maybe MqttContext,
+    -- | The signature made with the token and your custom authentication
+    -- service\'s private key. This value must be Base-64-encoded.
+    tokenSignature :: Prelude.Maybe Prelude.Text,
+    -- | Specifies a test TLS authorization request.
+    tlsContext :: Prelude.Maybe TlsContext,
+    -- | The token returned by your custom authentication service.
+    token :: Prelude.Maybe Prelude.Text,
+    -- | The custom authorizer name.
+    authorizerName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestInvokeAuthorizer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestInvokeAuthorizer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tiaHttpContext' - Specifies a test HTTP authorization request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tiaMqttContext' - Specifies a test MQTT authorization request.
+-- 'httpContext', 'testInvokeAuthorizer_httpContext' - Specifies a test HTTP authorization request.
 --
--- * 'tiaTokenSignature' - The signature made with the token and your custom authentication service's private key. This value must be Base-64-encoded.
+-- 'mqttContext', 'testInvokeAuthorizer_mqttContext' - Specifies a test MQTT authorization request.
 --
--- * 'tiaTlsContext' - Specifies a test TLS authorization request.
+-- 'tokenSignature', 'testInvokeAuthorizer_tokenSignature' - The signature made with the token and your custom authentication
+-- service\'s private key. This value must be Base-64-encoded.
 --
--- * 'tiaToken' - The token returned by your custom authentication service.
+-- 'tlsContext', 'testInvokeAuthorizer_tlsContext' - Specifies a test TLS authorization request.
 --
--- * 'tiaAuthorizerName' - The custom authorizer name.
-testInvokeAuthorizer ::
-  -- | 'tiaAuthorizerName'
-  Text ->
+-- 'token', 'testInvokeAuthorizer_token' - The token returned by your custom authentication service.
+--
+-- 'authorizerName', 'testInvokeAuthorizer_authorizerName' - The custom authorizer name.
+newTestInvokeAuthorizer ::
+  -- | 'authorizerName'
+  Prelude.Text ->
   TestInvokeAuthorizer
-testInvokeAuthorizer pAuthorizerName_ =
+newTestInvokeAuthorizer pAuthorizerName_ =
   TestInvokeAuthorizer'
-    { _tiaHttpContext = Nothing,
-      _tiaMqttContext = Nothing,
-      _tiaTokenSignature = Nothing,
-      _tiaTlsContext = Nothing,
-      _tiaToken = Nothing,
-      _tiaAuthorizerName = pAuthorizerName_
+    { httpContext =
+        Prelude.Nothing,
+      mqttContext = Prelude.Nothing,
+      tokenSignature = Prelude.Nothing,
+      tlsContext = Prelude.Nothing,
+      token = Prelude.Nothing,
+      authorizerName = pAuthorizerName_
     }
 
 -- | Specifies a test HTTP authorization request.
-tiaHttpContext :: Lens' TestInvokeAuthorizer (Maybe HTTPContext)
-tiaHttpContext = lens _tiaHttpContext (\s a -> s {_tiaHttpContext = a})
+testInvokeAuthorizer_httpContext :: Lens.Lens' TestInvokeAuthorizer (Prelude.Maybe HttpContext)
+testInvokeAuthorizer_httpContext = Lens.lens (\TestInvokeAuthorizer' {httpContext} -> httpContext) (\s@TestInvokeAuthorizer' {} a -> s {httpContext = a} :: TestInvokeAuthorizer)
 
 -- | Specifies a test MQTT authorization request.
-tiaMqttContext :: Lens' TestInvokeAuthorizer (Maybe MqttContext)
-tiaMqttContext = lens _tiaMqttContext (\s a -> s {_tiaMqttContext = a})
+testInvokeAuthorizer_mqttContext :: Lens.Lens' TestInvokeAuthorizer (Prelude.Maybe MqttContext)
+testInvokeAuthorizer_mqttContext = Lens.lens (\TestInvokeAuthorizer' {mqttContext} -> mqttContext) (\s@TestInvokeAuthorizer' {} a -> s {mqttContext = a} :: TestInvokeAuthorizer)
 
--- | The signature made with the token and your custom authentication service's private key. This value must be Base-64-encoded.
-tiaTokenSignature :: Lens' TestInvokeAuthorizer (Maybe Text)
-tiaTokenSignature = lens _tiaTokenSignature (\s a -> s {_tiaTokenSignature = a})
+-- | The signature made with the token and your custom authentication
+-- service\'s private key. This value must be Base-64-encoded.
+testInvokeAuthorizer_tokenSignature :: Lens.Lens' TestInvokeAuthorizer (Prelude.Maybe Prelude.Text)
+testInvokeAuthorizer_tokenSignature = Lens.lens (\TestInvokeAuthorizer' {tokenSignature} -> tokenSignature) (\s@TestInvokeAuthorizer' {} a -> s {tokenSignature = a} :: TestInvokeAuthorizer)
 
 -- | Specifies a test TLS authorization request.
-tiaTlsContext :: Lens' TestInvokeAuthorizer (Maybe TLSContext)
-tiaTlsContext = lens _tiaTlsContext (\s a -> s {_tiaTlsContext = a})
+testInvokeAuthorizer_tlsContext :: Lens.Lens' TestInvokeAuthorizer (Prelude.Maybe TlsContext)
+testInvokeAuthorizer_tlsContext = Lens.lens (\TestInvokeAuthorizer' {tlsContext} -> tlsContext) (\s@TestInvokeAuthorizer' {} a -> s {tlsContext = a} :: TestInvokeAuthorizer)
 
 -- | The token returned by your custom authentication service.
-tiaToken :: Lens' TestInvokeAuthorizer (Maybe Text)
-tiaToken = lens _tiaToken (\s a -> s {_tiaToken = a})
+testInvokeAuthorizer_token :: Lens.Lens' TestInvokeAuthorizer (Prelude.Maybe Prelude.Text)
+testInvokeAuthorizer_token = Lens.lens (\TestInvokeAuthorizer' {token} -> token) (\s@TestInvokeAuthorizer' {} a -> s {token = a} :: TestInvokeAuthorizer)
 
 -- | The custom authorizer name.
-tiaAuthorizerName :: Lens' TestInvokeAuthorizer Text
-tiaAuthorizerName = lens _tiaAuthorizerName (\s a -> s {_tiaAuthorizerName = a})
+testInvokeAuthorizer_authorizerName :: Lens.Lens' TestInvokeAuthorizer Prelude.Text
+testInvokeAuthorizer_authorizerName = Lens.lens (\TestInvokeAuthorizer' {authorizerName} -> authorizerName) (\s@TestInvokeAuthorizer' {} a -> s {authorizerName = a} :: TestInvokeAuthorizer)
 
-instance AWSRequest TestInvokeAuthorizer where
+instance Prelude.AWSRequest TestInvokeAuthorizer where
   type
     Rs TestInvokeAuthorizer =
       TestInvokeAuthorizerResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TestInvokeAuthorizerResponse'
-            <$> (x .?> "disconnectAfterInSeconds")
-            <*> (x .?> "principalId")
-            <*> (x .?> "policyDocuments" .!@ mempty)
-            <*> (x .?> "isAuthenticated")
-            <*> (x .?> "refreshAfterInSeconds")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "disconnectAfterInSeconds")
+            Prelude.<*> (x Prelude..?> "principalId")
+            Prelude.<*> ( x Prelude..?> "policyDocuments"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "isAuthenticated")
+            Prelude.<*> (x Prelude..?> "refreshAfterInSeconds")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TestInvokeAuthorizer
+instance Prelude.Hashable TestInvokeAuthorizer
 
-instance NFData TestInvokeAuthorizer
+instance Prelude.NFData TestInvokeAuthorizer
 
-instance ToHeaders TestInvokeAuthorizer where
-  toHeaders = const mempty
+instance Prelude.ToHeaders TestInvokeAuthorizer where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON TestInvokeAuthorizer where
+instance Prelude.ToJSON TestInvokeAuthorizer where
   toJSON TestInvokeAuthorizer' {..} =
-    object
-      ( catMaybes
-          [ ("httpContext" .=) <$> _tiaHttpContext,
-            ("mqttContext" .=) <$> _tiaMqttContext,
-            ("tokenSignature" .=) <$> _tiaTokenSignature,
-            ("tlsContext" .=) <$> _tiaTlsContext,
-            ("token" .=) <$> _tiaToken
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("httpContext" Prelude..=) Prelude.<$> httpContext,
+            ("mqttContext" Prelude..=) Prelude.<$> mqttContext,
+            ("tokenSignature" Prelude..=)
+              Prelude.<$> tokenSignature,
+            ("tlsContext" Prelude..=) Prelude.<$> tlsContext,
+            ("token" Prelude..=) Prelude.<$> token
           ]
       )
 
-instance ToPath TestInvokeAuthorizer where
+instance Prelude.ToPath TestInvokeAuthorizer where
   toPath TestInvokeAuthorizer' {..} =
-    mconcat
-      ["/authorizer/", toBS _tiaAuthorizerName, "/test"]
+    Prelude.mconcat
+      [ "/authorizer/",
+        Prelude.toBS authorizerName,
+        "/test"
+      ]
 
-instance ToQuery TestInvokeAuthorizer where
-  toQuery = const mempty
+instance Prelude.ToQuery TestInvokeAuthorizer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'testInvokeAuthorizerResponse' smart constructor.
+-- | /See:/ 'newTestInvokeAuthorizerResponse' smart constructor.
 data TestInvokeAuthorizerResponse = TestInvokeAuthorizerResponse'
-  { _tiarrsDisconnectAfterInSeconds ::
-      !(Maybe Int),
-    _tiarrsPrincipalId ::
-      !(Maybe Text),
-    _tiarrsPolicyDocuments ::
-      !( Maybe
-           [Text]
-       ),
-    _tiarrsIsAuthenticated ::
-      !(Maybe Bool),
-    _tiarrsRefreshAfterInSeconds ::
-      !(Maybe Int),
-    _tiarrsResponseStatus ::
-      !Int
+  { -- | The number of seconds after which the connection is terminated.
+    disconnectAfterInSeconds :: Prelude.Maybe Prelude.Int,
+    -- | The principal ID.
+    principalId :: Prelude.Maybe Prelude.Text,
+    -- | IAM policy documents.
+    policyDocuments :: Prelude.Maybe [Prelude.Text],
+    -- | True if the token is authenticated, otherwise false.
+    isAuthenticated :: Prelude.Maybe Prelude.Bool,
+    -- | The number of seconds after which the temporary credentials are
+    -- refreshed.
+    refreshAfterInSeconds :: Prelude.Maybe Prelude.Int,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestInvokeAuthorizerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestInvokeAuthorizerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tiarrsDisconnectAfterInSeconds' - The number of seconds after which the connection is terminated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tiarrsPrincipalId' - The principal ID.
+-- 'disconnectAfterInSeconds', 'testInvokeAuthorizerResponse_disconnectAfterInSeconds' - The number of seconds after which the connection is terminated.
 --
--- * 'tiarrsPolicyDocuments' - IAM policy documents.
+-- 'principalId', 'testInvokeAuthorizerResponse_principalId' - The principal ID.
 --
--- * 'tiarrsIsAuthenticated' - True if the token is authenticated, otherwise false.
+-- 'policyDocuments', 'testInvokeAuthorizerResponse_policyDocuments' - IAM policy documents.
 --
--- * 'tiarrsRefreshAfterInSeconds' - The number of seconds after which the temporary credentials are refreshed.
+-- 'isAuthenticated', 'testInvokeAuthorizerResponse_isAuthenticated' - True if the token is authenticated, otherwise false.
 --
--- * 'tiarrsResponseStatus' - -- | The response status code.
-testInvokeAuthorizerResponse ::
-  -- | 'tiarrsResponseStatus'
-  Int ->
+-- 'refreshAfterInSeconds', 'testInvokeAuthorizerResponse_refreshAfterInSeconds' - The number of seconds after which the temporary credentials are
+-- refreshed.
+--
+-- 'httpStatus', 'testInvokeAuthorizerResponse_httpStatus' - The response's http status code.
+newTestInvokeAuthorizerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TestInvokeAuthorizerResponse
-testInvokeAuthorizerResponse pResponseStatus_ =
+newTestInvokeAuthorizerResponse pHttpStatus_ =
   TestInvokeAuthorizerResponse'
-    { _tiarrsDisconnectAfterInSeconds =
-        Nothing,
-      _tiarrsPrincipalId = Nothing,
-      _tiarrsPolicyDocuments = Nothing,
-      _tiarrsIsAuthenticated = Nothing,
-      _tiarrsRefreshAfterInSeconds = Nothing,
-      _tiarrsResponseStatus = pResponseStatus_
+    { disconnectAfterInSeconds =
+        Prelude.Nothing,
+      principalId = Prelude.Nothing,
+      policyDocuments = Prelude.Nothing,
+      isAuthenticated = Prelude.Nothing,
+      refreshAfterInSeconds = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The number of seconds after which the connection is terminated.
-tiarrsDisconnectAfterInSeconds :: Lens' TestInvokeAuthorizerResponse (Maybe Int)
-tiarrsDisconnectAfterInSeconds = lens _tiarrsDisconnectAfterInSeconds (\s a -> s {_tiarrsDisconnectAfterInSeconds = a})
+testInvokeAuthorizerResponse_disconnectAfterInSeconds :: Lens.Lens' TestInvokeAuthorizerResponse (Prelude.Maybe Prelude.Int)
+testInvokeAuthorizerResponse_disconnectAfterInSeconds = Lens.lens (\TestInvokeAuthorizerResponse' {disconnectAfterInSeconds} -> disconnectAfterInSeconds) (\s@TestInvokeAuthorizerResponse' {} a -> s {disconnectAfterInSeconds = a} :: TestInvokeAuthorizerResponse)
 
 -- | The principal ID.
-tiarrsPrincipalId :: Lens' TestInvokeAuthorizerResponse (Maybe Text)
-tiarrsPrincipalId = lens _tiarrsPrincipalId (\s a -> s {_tiarrsPrincipalId = a})
+testInvokeAuthorizerResponse_principalId :: Lens.Lens' TestInvokeAuthorizerResponse (Prelude.Maybe Prelude.Text)
+testInvokeAuthorizerResponse_principalId = Lens.lens (\TestInvokeAuthorizerResponse' {principalId} -> principalId) (\s@TestInvokeAuthorizerResponse' {} a -> s {principalId = a} :: TestInvokeAuthorizerResponse)
 
 -- | IAM policy documents.
-tiarrsPolicyDocuments :: Lens' TestInvokeAuthorizerResponse [Text]
-tiarrsPolicyDocuments = lens _tiarrsPolicyDocuments (\s a -> s {_tiarrsPolicyDocuments = a}) . _Default . _Coerce
+testInvokeAuthorizerResponse_policyDocuments :: Lens.Lens' TestInvokeAuthorizerResponse (Prelude.Maybe [Prelude.Text])
+testInvokeAuthorizerResponse_policyDocuments = Lens.lens (\TestInvokeAuthorizerResponse' {policyDocuments} -> policyDocuments) (\s@TestInvokeAuthorizerResponse' {} a -> s {policyDocuments = a} :: TestInvokeAuthorizerResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | True if the token is authenticated, otherwise false.
-tiarrsIsAuthenticated :: Lens' TestInvokeAuthorizerResponse (Maybe Bool)
-tiarrsIsAuthenticated = lens _tiarrsIsAuthenticated (\s a -> s {_tiarrsIsAuthenticated = a})
+testInvokeAuthorizerResponse_isAuthenticated :: Lens.Lens' TestInvokeAuthorizerResponse (Prelude.Maybe Prelude.Bool)
+testInvokeAuthorizerResponse_isAuthenticated = Lens.lens (\TestInvokeAuthorizerResponse' {isAuthenticated} -> isAuthenticated) (\s@TestInvokeAuthorizerResponse' {} a -> s {isAuthenticated = a} :: TestInvokeAuthorizerResponse)
 
--- | The number of seconds after which the temporary credentials are refreshed.
-tiarrsRefreshAfterInSeconds :: Lens' TestInvokeAuthorizerResponse (Maybe Int)
-tiarrsRefreshAfterInSeconds = lens _tiarrsRefreshAfterInSeconds (\s a -> s {_tiarrsRefreshAfterInSeconds = a})
+-- | The number of seconds after which the temporary credentials are
+-- refreshed.
+testInvokeAuthorizerResponse_refreshAfterInSeconds :: Lens.Lens' TestInvokeAuthorizerResponse (Prelude.Maybe Prelude.Int)
+testInvokeAuthorizerResponse_refreshAfterInSeconds = Lens.lens (\TestInvokeAuthorizerResponse' {refreshAfterInSeconds} -> refreshAfterInSeconds) (\s@TestInvokeAuthorizerResponse' {} a -> s {refreshAfterInSeconds = a} :: TestInvokeAuthorizerResponse)
 
--- | -- | The response status code.
-tiarrsResponseStatus :: Lens' TestInvokeAuthorizerResponse Int
-tiarrsResponseStatus = lens _tiarrsResponseStatus (\s a -> s {_tiarrsResponseStatus = a})
+-- | The response's http status code.
+testInvokeAuthorizerResponse_httpStatus :: Lens.Lens' TestInvokeAuthorizerResponse Prelude.Int
+testInvokeAuthorizerResponse_httpStatus = Lens.lens (\TestInvokeAuthorizerResponse' {httpStatus} -> httpStatus) (\s@TestInvokeAuthorizerResponse' {} a -> s {httpStatus = a} :: TestInvokeAuthorizerResponse)
 
-instance NFData TestInvokeAuthorizerResponse
+instance Prelude.NFData TestInvokeAuthorizerResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.TimeoutConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the amount of time each device has to finish its execution of the job. A timer is started when the job execution status is set to @IN_PROGRESS@ . If the job execution status is not set to another terminal state before the timer expires, it will be automatically set to @TIMED_OUT@ .
+-- | Specifies the amount of time each device has to finish its execution of
+-- the job. A timer is started when the job execution status is set to
+-- @IN_PROGRESS@. If the job execution status is not set to another
+-- terminal state before the timer expires, it will be automatically set to
+-- @TIMED_OUT@.
 --
---
---
--- /See:/ 'timeoutConfig' smart constructor.
-newtype TimeoutConfig = TimeoutConfig'
-  { _tcInProgressTimeoutInMinutes ::
-      Maybe Integer
+-- /See:/ 'newTimeoutConfig' smart constructor.
+data TimeoutConfig = TimeoutConfig'
+  { -- | Specifies the amount of time, in minutes, this device has to finish
+    -- execution of this job. The timeout interval can be anywhere between 1
+    -- minute and 7 days (1 to 10080 minutes). The in progress timer can\'t be
+    -- updated and will apply to all job executions for the job. Whenever a job
+    -- execution remains in the IN_PROGRESS status for longer than this
+    -- interval, the job execution will fail and switch to the terminal
+    -- @TIMED_OUT@ status.
+    inProgressTimeoutInMinutes :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimeoutConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimeoutConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcInProgressTimeoutInMinutes' - Specifies the amount of time, in minutes, this device has to finish execution of this job. The timeout interval can be anywhere between 1 minute and 7 days (1 to 10080 minutes). The in progress timer can't be updated and will apply to all job executions for the job. Whenever a job execution remains in the IN_PROGRESS status for longer than this interval, the job execution will fail and switch to the terminal @TIMED_OUT@ status.
-timeoutConfig ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'inProgressTimeoutInMinutes', 'timeoutConfig_inProgressTimeoutInMinutes' - Specifies the amount of time, in minutes, this device has to finish
+-- execution of this job. The timeout interval can be anywhere between 1
+-- minute and 7 days (1 to 10080 minutes). The in progress timer can\'t be
+-- updated and will apply to all job executions for the job. Whenever a job
+-- execution remains in the IN_PROGRESS status for longer than this
+-- interval, the job execution will fail and switch to the terminal
+-- @TIMED_OUT@ status.
+newTimeoutConfig ::
   TimeoutConfig
-timeoutConfig =
+newTimeoutConfig =
   TimeoutConfig'
-    { _tcInProgressTimeoutInMinutes =
-        Nothing
+    { inProgressTimeoutInMinutes =
+        Prelude.Nothing
     }
 
--- | Specifies the amount of time, in minutes, this device has to finish execution of this job. The timeout interval can be anywhere between 1 minute and 7 days (1 to 10080 minutes). The in progress timer can't be updated and will apply to all job executions for the job. Whenever a job execution remains in the IN_PROGRESS status for longer than this interval, the job execution will fail and switch to the terminal @TIMED_OUT@ status.
-tcInProgressTimeoutInMinutes :: Lens' TimeoutConfig (Maybe Integer)
-tcInProgressTimeoutInMinutes = lens _tcInProgressTimeoutInMinutes (\s a -> s {_tcInProgressTimeoutInMinutes = a})
+-- | Specifies the amount of time, in minutes, this device has to finish
+-- execution of this job. The timeout interval can be anywhere between 1
+-- minute and 7 days (1 to 10080 minutes). The in progress timer can\'t be
+-- updated and will apply to all job executions for the job. Whenever a job
+-- execution remains in the IN_PROGRESS status for longer than this
+-- interval, the job execution will fail and switch to the terminal
+-- @TIMED_OUT@ status.
+timeoutConfig_inProgressTimeoutInMinutes :: Lens.Lens' TimeoutConfig (Prelude.Maybe Prelude.Integer)
+timeoutConfig_inProgressTimeoutInMinutes = Lens.lens (\TimeoutConfig' {inProgressTimeoutInMinutes} -> inProgressTimeoutInMinutes) (\s@TimeoutConfig' {} a -> s {inProgressTimeoutInMinutes = a} :: TimeoutConfig)
 
-instance FromJSON TimeoutConfig where
+instance Prelude.FromJSON TimeoutConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimeoutConfig"
       ( \x ->
           TimeoutConfig'
-            <$> (x .:? "inProgressTimeoutInMinutes")
+            Prelude.<$> (x Prelude..:? "inProgressTimeoutInMinutes")
       )
 
-instance Hashable TimeoutConfig
+instance Prelude.Hashable TimeoutConfig
 
-instance NFData TimeoutConfig
+instance Prelude.NFData TimeoutConfig
 
-instance ToJSON TimeoutConfig where
+instance Prelude.ToJSON TimeoutConfig where
   toJSON TimeoutConfig' {..} =
-    object
-      ( catMaybes
-          [ ("inProgressTimeoutInMinutes" .=)
-              <$> _tcInProgressTimeoutInMinutes
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("inProgressTimeoutInMinutes" Prelude..=)
+              Prelude.<$> inProgressTimeoutInMinutes
           ]
       )

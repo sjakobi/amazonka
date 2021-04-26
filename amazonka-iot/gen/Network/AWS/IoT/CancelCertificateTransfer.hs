@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,110 +23,115 @@
 --
 -- Cancels a pending transfer for the specified certificate.
 --
+-- __Note__ Only the transfer source account can use this operation to
+-- cancel a transfer. (Transfer destinations can use
+-- RejectCertificateTransfer instead.) After transfer, AWS IoT returns the
+-- certificate to the source account in the INACTIVE state. After the
+-- destination account has accepted the transfer, the transfer cannot be
+-- cancelled.
 --
--- __Note__ Only the transfer source account can use this operation to cancel a transfer. (Transfer destinations can use 'RejectCertificateTransfer' instead.) After transfer, AWS IoT returns the certificate to the source account in the INACTIVE state. After the destination account has accepted the transfer, the transfer cannot be cancelled.
---
--- After a certificate transfer is cancelled, the status of the certificate changes from PENDING_TRANSFER to INACTIVE.
+-- After a certificate transfer is cancelled, the status of the certificate
+-- changes from PENDING_TRANSFER to INACTIVE.
 module Network.AWS.IoT.CancelCertificateTransfer
   ( -- * Creating a Request
-    cancelCertificateTransfer,
-    CancelCertificateTransfer,
+    CancelCertificateTransfer (..),
+    newCancelCertificateTransfer,
 
     -- * Request Lenses
-    cctCertificateId,
+    cancelCertificateTransfer_certificateId,
 
     -- * Destructuring the Response
-    cancelCertificateTransferResponse,
-    CancelCertificateTransferResponse,
+    CancelCertificateTransferResponse (..),
+    newCancelCertificateTransferResponse,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the CancelCertificateTransfer operation.
 --
---
---
--- /See:/ 'cancelCertificateTransfer' smart constructor.
-newtype CancelCertificateTransfer = CancelCertificateTransfer'
-  { _cctCertificateId ::
-      Text
+-- /See:/ 'newCancelCertificateTransfer' smart constructor.
+data CancelCertificateTransfer = CancelCertificateTransfer'
+  { -- | The ID of the certificate. (The last part of the certificate ARN
+    -- contains the certificate ID.)
+    certificateId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelCertificateTransfer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelCertificateTransfer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cctCertificateId' - The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)
-cancelCertificateTransfer ::
-  -- | 'cctCertificateId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'certificateId', 'cancelCertificateTransfer_certificateId' - The ID of the certificate. (The last part of the certificate ARN
+-- contains the certificate ID.)
+newCancelCertificateTransfer ::
+  -- | 'certificateId'
+  Prelude.Text ->
   CancelCertificateTransfer
-cancelCertificateTransfer pCertificateId_ =
+newCancelCertificateTransfer pCertificateId_ =
   CancelCertificateTransfer'
-    { _cctCertificateId =
+    { certificateId =
         pCertificateId_
     }
 
--- | The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)
-cctCertificateId :: Lens' CancelCertificateTransfer Text
-cctCertificateId = lens _cctCertificateId (\s a -> s {_cctCertificateId = a})
+-- | The ID of the certificate. (The last part of the certificate ARN
+-- contains the certificate ID.)
+cancelCertificateTransfer_certificateId :: Lens.Lens' CancelCertificateTransfer Prelude.Text
+cancelCertificateTransfer_certificateId = Lens.lens (\CancelCertificateTransfer' {certificateId} -> certificateId) (\s@CancelCertificateTransfer' {} a -> s {certificateId = a} :: CancelCertificateTransfer)
 
-instance AWSRequest CancelCertificateTransfer where
+instance Prelude.AWSRequest CancelCertificateTransfer where
   type
     Rs CancelCertificateTransfer =
       CancelCertificateTransferResponse
-  request = patchJSON ioT
+  request = Request.patchJSON defaultService
   response =
-    receiveNull CancelCertificateTransferResponse'
+    Response.receiveNull
+      CancelCertificateTransferResponse'
 
-instance Hashable CancelCertificateTransfer
+instance Prelude.Hashable CancelCertificateTransfer
 
-instance NFData CancelCertificateTransfer
+instance Prelude.NFData CancelCertificateTransfer
 
-instance ToHeaders CancelCertificateTransfer where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CancelCertificateTransfer where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CancelCertificateTransfer where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON CancelCertificateTransfer where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath CancelCertificateTransfer where
+instance Prelude.ToPath CancelCertificateTransfer where
   toPath CancelCertificateTransfer' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/cancel-certificate-transfer/",
-        toBS _cctCertificateId
+        Prelude.toBS certificateId
       ]
 
-instance ToQuery CancelCertificateTransfer where
-  toQuery = const mempty
+instance Prelude.ToQuery CancelCertificateTransfer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'cancelCertificateTransferResponse' smart constructor.
+-- | /See:/ 'newCancelCertificateTransferResponse' smart constructor.
 data CancelCertificateTransferResponse = CancelCertificateTransferResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelCertificateTransferResponse' with the minimum fields required to make a request.
-cancelCertificateTransferResponse ::
+-- |
+-- Create a value of 'CancelCertificateTransferResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newCancelCertificateTransferResponse ::
   CancelCertificateTransferResponse
-cancelCertificateTransferResponse =
+newCancelCertificateTransferResponse =
   CancelCertificateTransferResponse'
 
-instance NFData CancelCertificateTransferResponse
+instance
+  Prelude.NFData
+    CancelCertificateTransferResponse

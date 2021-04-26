@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,200 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the things associated with the specified principal. A principal can be X.509 certificates, IAM users, groups, and roles, Amazon Cognito identities or federated identities.
---
---
+-- Lists the things associated with the specified principal. A principal
+-- can be X.509 certificates, IAM users, groups, and roles, Amazon Cognito
+-- identities or federated identities.
 --
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListPrincipalThings
   ( -- * Creating a Request
-    listPrincipalThings,
-    ListPrincipalThings,
+    ListPrincipalThings (..),
+    newListPrincipalThings,
 
     -- * Request Lenses
-    lNextToken,
-    lMaxResults,
-    lPrincipal,
+    listPrincipalThings_nextToken,
+    listPrincipalThings_maxResults,
+    listPrincipalThings_principal,
 
     -- * Destructuring the Response
-    listPrincipalThingsResponse,
-    ListPrincipalThingsResponse,
+    ListPrincipalThingsResponse (..),
+    newListPrincipalThingsResponse,
 
     -- * Response Lenses
-    lrsNextToken,
-    lrsThings,
-    lrsResponseStatus,
+    listPrincipalThingsResponse_nextToken,
+    listPrincipalThingsResponse_things,
+    listPrincipalThingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the ListPrincipalThings operation.
 --
---
---
--- /See:/ 'listPrincipalThings' smart constructor.
+-- /See:/ 'newListPrincipalThings' smart constructor.
 data ListPrincipalThings = ListPrincipalThings'
-  { _lNextToken ::
-      !(Maybe Text),
-    _lMaxResults :: !(Maybe Nat),
-    _lPrincipal :: !Text
+  { -- | To retrieve the next set of results, the @nextToken@ value from a
+    -- previous response; otherwise __null__ to receive the first set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in this operation.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The principal.
+    principal :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPrincipalThings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPrincipalThings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lNextToken' - To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lMaxResults' - The maximum number of results to return in this operation.
+-- 'nextToken', 'listPrincipalThings_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
 --
--- * 'lPrincipal' - The principal.
-listPrincipalThings ::
-  -- | 'lPrincipal'
-  Text ->
+-- 'maxResults', 'listPrincipalThings_maxResults' - The maximum number of results to return in this operation.
+--
+-- 'principal', 'listPrincipalThings_principal' - The principal.
+newListPrincipalThings ::
+  -- | 'principal'
+  Prelude.Text ->
   ListPrincipalThings
-listPrincipalThings pPrincipal_ =
+newListPrincipalThings pPrincipal_ =
   ListPrincipalThings'
-    { _lNextToken = Nothing,
-      _lMaxResults = Nothing,
-      _lPrincipal = pPrincipal_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      principal = pPrincipal_
     }
 
--- | To retrieve the next set of results, the @nextToken@ value from a previous response; otherwise __null__ to receive the first set of results.
-lNextToken :: Lens' ListPrincipalThings (Maybe Text)
-lNextToken = lens _lNextToken (\s a -> s {_lNextToken = a})
+-- | To retrieve the next set of results, the @nextToken@ value from a
+-- previous response; otherwise __null__ to receive the first set of
+-- results.
+listPrincipalThings_nextToken :: Lens.Lens' ListPrincipalThings (Prelude.Maybe Prelude.Text)
+listPrincipalThings_nextToken = Lens.lens (\ListPrincipalThings' {nextToken} -> nextToken) (\s@ListPrincipalThings' {} a -> s {nextToken = a} :: ListPrincipalThings)
 
 -- | The maximum number of results to return in this operation.
-lMaxResults :: Lens' ListPrincipalThings (Maybe Natural)
-lMaxResults = lens _lMaxResults (\s a -> s {_lMaxResults = a}) . mapping _Nat
+listPrincipalThings_maxResults :: Lens.Lens' ListPrincipalThings (Prelude.Maybe Prelude.Natural)
+listPrincipalThings_maxResults = Lens.lens (\ListPrincipalThings' {maxResults} -> maxResults) (\s@ListPrincipalThings' {} a -> s {maxResults = a} :: ListPrincipalThings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The principal.
-lPrincipal :: Lens' ListPrincipalThings Text
-lPrincipal = lens _lPrincipal (\s a -> s {_lPrincipal = a})
+listPrincipalThings_principal :: Lens.Lens' ListPrincipalThings Prelude.Text
+listPrincipalThings_principal = Lens.lens (\ListPrincipalThings' {principal} -> principal) (\s@ListPrincipalThings' {} a -> s {principal = a} :: ListPrincipalThings)
 
-instance AWSPager ListPrincipalThings where
+instance Pager.AWSPager ListPrincipalThings where
   page rq rs
-    | stop (rs ^. lrsNextToken) = Nothing
-    | stop (rs ^. lrsThings) = Nothing
-    | otherwise =
-      Just $ rq & lNextToken .~ rs ^. lrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listPrincipalThingsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listPrincipalThingsResponse_things
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listPrincipalThings_nextToken
+          Lens..~ rs
+          Lens.^? listPrincipalThingsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListPrincipalThings where
+instance Prelude.AWSRequest ListPrincipalThings where
   type
     Rs ListPrincipalThings =
       ListPrincipalThingsResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListPrincipalThingsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "things" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "things" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPrincipalThings
+instance Prelude.Hashable ListPrincipalThings
 
-instance NFData ListPrincipalThings
+instance Prelude.NFData ListPrincipalThings
 
-instance ToHeaders ListPrincipalThings where
+instance Prelude.ToHeaders ListPrincipalThings where
   toHeaders ListPrincipalThings' {..} =
-    mconcat ["x-amzn-principal" =# _lPrincipal]
+    Prelude.mconcat
+      ["x-amzn-principal" Prelude.=# principal]
 
-instance ToPath ListPrincipalThings where
-  toPath = const "/principals/things"
+instance Prelude.ToPath ListPrincipalThings where
+  toPath = Prelude.const "/principals/things"
 
-instance ToQuery ListPrincipalThings where
+instance Prelude.ToQuery ListPrincipalThings where
   toQuery ListPrincipalThings' {..} =
-    mconcat
-      [ "nextToken" =: _lNextToken,
-        "maxResults" =: _lMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
 -- | The output from the ListPrincipalThings operation.
 --
---
---
--- /See:/ 'listPrincipalThingsResponse' smart constructor.
+-- /See:/ 'newListPrincipalThingsResponse' smart constructor.
 data ListPrincipalThingsResponse = ListPrincipalThingsResponse'
-  { _lrsNextToken ::
-      !(Maybe Text),
-    _lrsThings ::
-      !(Maybe [Text]),
-    _lrsResponseStatus ::
-      !Int
+  { -- | The token to use to get the next set of results, or __null__ if there
+    -- are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The things.
+    things :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPrincipalThingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPrincipalThingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrsNextToken' - The token to use to get the next set of results, or __null__ if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrsThings' - The things.
+-- 'nextToken', 'listPrincipalThingsResponse_nextToken' - The token to use to get the next set of results, or __null__ if there
+-- are no additional results.
 --
--- * 'lrsResponseStatus' - -- | The response status code.
-listPrincipalThingsResponse ::
-  -- | 'lrsResponseStatus'
-  Int ->
+-- 'things', 'listPrincipalThingsResponse_things' - The things.
+--
+-- 'httpStatus', 'listPrincipalThingsResponse_httpStatus' - The response's http status code.
+newListPrincipalThingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPrincipalThingsResponse
-listPrincipalThingsResponse pResponseStatus_ =
+newListPrincipalThingsResponse pHttpStatus_ =
   ListPrincipalThingsResponse'
-    { _lrsNextToken =
-        Nothing,
-      _lrsThings = Nothing,
-      _lrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      things = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to get the next set of results, or __null__ if there are no additional results.
-lrsNextToken :: Lens' ListPrincipalThingsResponse (Maybe Text)
-lrsNextToken = lens _lrsNextToken (\s a -> s {_lrsNextToken = a})
+-- | The token to use to get the next set of results, or __null__ if there
+-- are no additional results.
+listPrincipalThingsResponse_nextToken :: Lens.Lens' ListPrincipalThingsResponse (Prelude.Maybe Prelude.Text)
+listPrincipalThingsResponse_nextToken = Lens.lens (\ListPrincipalThingsResponse' {nextToken} -> nextToken) (\s@ListPrincipalThingsResponse' {} a -> s {nextToken = a} :: ListPrincipalThingsResponse)
 
 -- | The things.
-lrsThings :: Lens' ListPrincipalThingsResponse [Text]
-lrsThings = lens _lrsThings (\s a -> s {_lrsThings = a}) . _Default . _Coerce
+listPrincipalThingsResponse_things :: Lens.Lens' ListPrincipalThingsResponse (Prelude.Maybe [Prelude.Text])
+listPrincipalThingsResponse_things = Lens.lens (\ListPrincipalThingsResponse' {things} -> things) (\s@ListPrincipalThingsResponse' {} a -> s {things = a} :: ListPrincipalThingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrsResponseStatus :: Lens' ListPrincipalThingsResponse Int
-lrsResponseStatus = lens _lrsResponseStatus (\s a -> s {_lrsResponseStatus = a})
+-- | The response's http status code.
+listPrincipalThingsResponse_httpStatus :: Lens.Lens' ListPrincipalThingsResponse Prelude.Int
+listPrincipalThingsResponse_httpStatus = Lens.lens (\ListPrincipalThingsResponse' {httpStatus} -> httpStatus) (\s@ListPrincipalThingsResponse' {} a -> s {httpStatus = a} :: ListPrincipalThingsResponse)
 
-instance NFData ListPrincipalThingsResponse
+instance Prelude.NFData ListPrincipalThingsResponse

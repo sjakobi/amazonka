@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,121 +24,118 @@
 -- Cancels a bulk thing provisioning task.
 module Network.AWS.IoT.StopThingRegistrationTask
   ( -- * Creating a Request
-    stopThingRegistrationTask,
-    StopThingRegistrationTask,
+    StopThingRegistrationTask (..),
+    newStopThingRegistrationTask,
 
     -- * Request Lenses
-    strtTaskId,
+    stopThingRegistrationTask_taskId,
 
     -- * Destructuring the Response
-    stopThingRegistrationTaskResponse,
-    StopThingRegistrationTaskResponse,
+    StopThingRegistrationTaskResponse (..),
+    newStopThingRegistrationTaskResponse,
 
     -- * Response Lenses
-    srsResponseStatus,
+    stopThingRegistrationTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopThingRegistrationTask' smart constructor.
-newtype StopThingRegistrationTask = StopThingRegistrationTask'
-  { _strtTaskId ::
-      Text
+-- | /See:/ 'newStopThingRegistrationTask' smart constructor.
+data StopThingRegistrationTask = StopThingRegistrationTask'
+  { -- | The bulk thing provisioning task ID.
+    taskId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopThingRegistrationTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopThingRegistrationTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'strtTaskId' - The bulk thing provisioning task ID.
-stopThingRegistrationTask ::
-  -- | 'strtTaskId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'taskId', 'stopThingRegistrationTask_taskId' - The bulk thing provisioning task ID.
+newStopThingRegistrationTask ::
+  -- | 'taskId'
+  Prelude.Text ->
   StopThingRegistrationTask
-stopThingRegistrationTask pTaskId_ =
-  StopThingRegistrationTask' {_strtTaskId = pTaskId_}
+newStopThingRegistrationTask pTaskId_ =
+  StopThingRegistrationTask' {taskId = pTaskId_}
 
 -- | The bulk thing provisioning task ID.
-strtTaskId :: Lens' StopThingRegistrationTask Text
-strtTaskId = lens _strtTaskId (\s a -> s {_strtTaskId = a})
+stopThingRegistrationTask_taskId :: Lens.Lens' StopThingRegistrationTask Prelude.Text
+stopThingRegistrationTask_taskId = Lens.lens (\StopThingRegistrationTask' {taskId} -> taskId) (\s@StopThingRegistrationTask' {} a -> s {taskId = a} :: StopThingRegistrationTask)
 
-instance AWSRequest StopThingRegistrationTask where
+instance Prelude.AWSRequest StopThingRegistrationTask where
   type
     Rs StopThingRegistrationTask =
       StopThingRegistrationTaskResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           StopThingRegistrationTaskResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopThingRegistrationTask
+instance Prelude.Hashable StopThingRegistrationTask
 
-instance NFData StopThingRegistrationTask
+instance Prelude.NFData StopThingRegistrationTask
 
-instance ToHeaders StopThingRegistrationTask where
-  toHeaders = const mempty
+instance Prelude.ToHeaders StopThingRegistrationTask where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON StopThingRegistrationTask where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON StopThingRegistrationTask where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath StopThingRegistrationTask where
+instance Prelude.ToPath StopThingRegistrationTask where
   toPath StopThingRegistrationTask' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/thing-registration-tasks/",
-        toBS _strtTaskId,
+        Prelude.toBS taskId,
         "/cancel"
       ]
 
-instance ToQuery StopThingRegistrationTask where
-  toQuery = const mempty
+instance Prelude.ToQuery StopThingRegistrationTask where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopThingRegistrationTaskResponse' smart constructor.
-newtype StopThingRegistrationTaskResponse = StopThingRegistrationTaskResponse'
-  { _srsResponseStatus ::
-      Int
+-- | /See:/ 'newStopThingRegistrationTaskResponse' smart constructor.
+data StopThingRegistrationTaskResponse = StopThingRegistrationTaskResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopThingRegistrationTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopThingRegistrationTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsResponseStatus' - -- | The response status code.
-stopThingRegistrationTaskResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'stopThingRegistrationTaskResponse_httpStatus' - The response's http status code.
+newStopThingRegistrationTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopThingRegistrationTaskResponse
-stopThingRegistrationTaskResponse pResponseStatus_ =
+newStopThingRegistrationTaskResponse pHttpStatus_ =
   StopThingRegistrationTaskResponse'
-    { _srsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StopThingRegistrationTaskResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+stopThingRegistrationTaskResponse_httpStatus :: Lens.Lens' StopThingRegistrationTaskResponse Prelude.Int
+stopThingRegistrationTaskResponse_httpStatus = Lens.lens (\StopThingRegistrationTaskResponse' {httpStatus} -> httpStatus) (\s@StopThingRegistrationTaskResponse' {} a -> s {httpStatus = a} :: StopThingRegistrationTaskResponse)
 
-instance NFData StopThingRegistrationTaskResponse
+instance
+  Prelude.NFData
+    StopThingRegistrationTaskResponse

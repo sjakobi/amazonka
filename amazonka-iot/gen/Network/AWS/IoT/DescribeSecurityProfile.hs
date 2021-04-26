@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,251 +24,271 @@
 -- Gets information about a Device Defender security profile.
 module Network.AWS.IoT.DescribeSecurityProfile
   ( -- * Creating a Request
-    describeSecurityProfile,
-    DescribeSecurityProfile,
+    DescribeSecurityProfile (..),
+    newDescribeSecurityProfile,
 
     -- * Request Lenses
-    desSecurityProfileName,
+    describeSecurityProfile_securityProfileName,
 
     -- * Destructuring the Response
-    describeSecurityProfileResponse,
-    DescribeSecurityProfileResponse,
+    DescribeSecurityProfileResponse (..),
+    newDescribeSecurityProfileResponse,
 
     -- * Response Lenses
-    ddrsLastModifiedDate,
-    ddrsAlertTargets,
-    ddrsAdditionalMetricsToRetain,
-    ddrsCreationDate,
-    ddrsVersion,
-    ddrsSecurityProfileName,
-    ddrsBehaviors,
-    ddrsAdditionalMetricsToRetainV2,
-    ddrsSecurityProfileDescription,
-    ddrsSecurityProfileARN,
-    ddrsResponseStatus,
+    describeSecurityProfileResponse_lastModifiedDate,
+    describeSecurityProfileResponse_alertTargets,
+    describeSecurityProfileResponse_additionalMetricsToRetain,
+    describeSecurityProfileResponse_creationDate,
+    describeSecurityProfileResponse_version,
+    describeSecurityProfileResponse_securityProfileName,
+    describeSecurityProfileResponse_behaviors,
+    describeSecurityProfileResponse_additionalMetricsToRetainV2,
+    describeSecurityProfileResponse_securityProfileDescription,
+    describeSecurityProfileResponse_securityProfileArn,
+    describeSecurityProfileResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AlertTarget
+import Network.AWS.IoT.Types.AlertTargetType
+import Network.AWS.IoT.Types.Behavior
+import Network.AWS.IoT.Types.MetricToRetain
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeSecurityProfile' smart constructor.
-newtype DescribeSecurityProfile = DescribeSecurityProfile'
-  { _desSecurityProfileName ::
-      Text
+-- | /See:/ 'newDescribeSecurityProfile' smart constructor.
+data DescribeSecurityProfile = DescribeSecurityProfile'
+  { -- | The name of the security profile whose information you want to get.
+    securityProfileName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSecurityProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSecurityProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desSecurityProfileName' - The name of the security profile whose information you want to get.
-describeSecurityProfile ::
-  -- | 'desSecurityProfileName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'securityProfileName', 'describeSecurityProfile_securityProfileName' - The name of the security profile whose information you want to get.
+newDescribeSecurityProfile ::
+  -- | 'securityProfileName'
+  Prelude.Text ->
   DescribeSecurityProfile
-describeSecurityProfile pSecurityProfileName_ =
+newDescribeSecurityProfile pSecurityProfileName_ =
   DescribeSecurityProfile'
-    { _desSecurityProfileName =
+    { securityProfileName =
         pSecurityProfileName_
     }
 
 -- | The name of the security profile whose information you want to get.
-desSecurityProfileName :: Lens' DescribeSecurityProfile Text
-desSecurityProfileName = lens _desSecurityProfileName (\s a -> s {_desSecurityProfileName = a})
+describeSecurityProfile_securityProfileName :: Lens.Lens' DescribeSecurityProfile Prelude.Text
+describeSecurityProfile_securityProfileName = Lens.lens (\DescribeSecurityProfile' {securityProfileName} -> securityProfileName) (\s@DescribeSecurityProfile' {} a -> s {securityProfileName = a} :: DescribeSecurityProfile)
 
-instance AWSRequest DescribeSecurityProfile where
+instance Prelude.AWSRequest DescribeSecurityProfile where
   type
     Rs DescribeSecurityProfile =
       DescribeSecurityProfileResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeSecurityProfileResponse'
-            <$> (x .?> "lastModifiedDate")
-            <*> (x .?> "alertTargets" .!@ mempty)
-            <*> (x .?> "additionalMetricsToRetain" .!@ mempty)
-            <*> (x .?> "creationDate")
-            <*> (x .?> "version")
-            <*> (x .?> "securityProfileName")
-            <*> (x .?> "behaviors" .!@ mempty)
-            <*> (x .?> "additionalMetricsToRetainV2" .!@ mempty)
-            <*> (x .?> "securityProfileDescription")
-            <*> (x .?> "securityProfileArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "lastModifiedDate")
+            Prelude.<*> ( x Prelude..?> "alertTargets"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "additionalMetricsToRetain"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "creationDate")
+            Prelude.<*> (x Prelude..?> "version")
+            Prelude.<*> (x Prelude..?> "securityProfileName")
+            Prelude.<*> ( x Prelude..?> "behaviors"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "additionalMetricsToRetainV2"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "securityProfileDescription")
+            Prelude.<*> (x Prelude..?> "securityProfileArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSecurityProfile
+instance Prelude.Hashable DescribeSecurityProfile
 
-instance NFData DescribeSecurityProfile
+instance Prelude.NFData DescribeSecurityProfile
 
-instance ToHeaders DescribeSecurityProfile where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeSecurityProfile where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeSecurityProfile where
+instance Prelude.ToPath DescribeSecurityProfile where
   toPath DescribeSecurityProfile' {..} =
-    mconcat
-      ["/security-profiles/", toBS _desSecurityProfileName]
+    Prelude.mconcat
+      [ "/security-profiles/",
+        Prelude.toBS securityProfileName
+      ]
 
-instance ToQuery DescribeSecurityProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeSecurityProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeSecurityProfileResponse' smart constructor.
+-- | /See:/ 'newDescribeSecurityProfileResponse' smart constructor.
 data DescribeSecurityProfileResponse = DescribeSecurityProfileResponse'
-  { _ddrsLastModifiedDate ::
-      !( Maybe
-           POSIX
-       ),
-    _ddrsAlertTargets ::
-      !( Maybe
-           ( Map
-               AlertTargetType
-               AlertTarget
-           )
-       ),
-    _ddrsAdditionalMetricsToRetain ::
-      !( Maybe
-           [Text]
-       ),
-    _ddrsCreationDate ::
-      !( Maybe
-           POSIX
-       ),
-    _ddrsVersion ::
-      !( Maybe
-           Integer
-       ),
-    _ddrsSecurityProfileName ::
-      !( Maybe
-           Text
-       ),
-    _ddrsBehaviors ::
-      !( Maybe
-           [Behavior]
-       ),
-    _ddrsAdditionalMetricsToRetainV2 ::
-      !( Maybe
-           [MetricToRetain]
-       ),
-    _ddrsSecurityProfileDescription ::
-      !( Maybe
-           Text
-       ),
-    _ddrsSecurityProfileARN ::
-      !( Maybe
-           Text
-       ),
-    _ddrsResponseStatus ::
-      !Int
+  { -- | The time the security profile was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Where the alerts are sent. (Alerts are always sent to the console.)
+    alertTargets :: Prelude.Maybe (Prelude.Map AlertTargetType AlertTarget),
+    -- | /Please use DescribeSecurityProfileResponse$additionalMetricsToRetainV2
+    -- instead./
+    --
+    -- A list of metrics whose data is retained (stored). By default, data is
+    -- retained for any metric used in the profile\'s @behaviors@, but it is
+    -- also retained for any metric specified here.
+    additionalMetricsToRetain :: Prelude.Maybe [Prelude.Text],
+    -- | The time the security profile was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The version of the security profile. A new version is generated whenever
+    -- the security profile is updated.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | The name of the security profile.
+    securityProfileName :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the behaviors that, when violated by a device (thing), cause
+    -- an alert.
+    behaviors :: Prelude.Maybe [Behavior],
+    -- | A list of metrics whose data is retained (stored). By default, data is
+    -- retained for any metric used in the profile\'s behaviors, but it is also
+    -- retained for any metric specified here.
+    additionalMetricsToRetainV2 :: Prelude.Maybe [MetricToRetain],
+    -- | A description of the security profile (associated with the security
+    -- profile when it was created or updated).
+    securityProfileDescription :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the security profile.
+    securityProfileArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSecurityProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSecurityProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddrsLastModifiedDate' - The time the security profile was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddrsAlertTargets' - Where the alerts are sent. (Alerts are always sent to the console.)
+-- 'lastModifiedDate', 'describeSecurityProfileResponse_lastModifiedDate' - The time the security profile was last modified.
 --
--- * 'ddrsAdditionalMetricsToRetain' - /Please use 'DescribeSecurityProfileResponse$additionalMetricsToRetainV2' instead./  A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's @behaviors@ , but it is also retained for any metric specified here.
+-- 'alertTargets', 'describeSecurityProfileResponse_alertTargets' - Where the alerts are sent. (Alerts are always sent to the console.)
 --
--- * 'ddrsCreationDate' - The time the security profile was created.
+-- 'additionalMetricsToRetain', 'describeSecurityProfileResponse_additionalMetricsToRetain' - /Please use DescribeSecurityProfileResponse$additionalMetricsToRetainV2
+-- instead./
 --
--- * 'ddrsVersion' - The version of the security profile. A new version is generated whenever the security profile is updated.
+-- A list of metrics whose data is retained (stored). By default, data is
+-- retained for any metric used in the profile\'s @behaviors@, but it is
+-- also retained for any metric specified here.
 --
--- * 'ddrsSecurityProfileName' - The name of the security profile.
+-- 'creationDate', 'describeSecurityProfileResponse_creationDate' - The time the security profile was created.
 --
--- * 'ddrsBehaviors' - Specifies the behaviors that, when violated by a device (thing), cause an alert.
+-- 'version', 'describeSecurityProfileResponse_version' - The version of the security profile. A new version is generated whenever
+-- the security profile is updated.
 --
--- * 'ddrsAdditionalMetricsToRetainV2' - A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's behaviors, but it is also retained for any metric specified here.
+-- 'securityProfileName', 'describeSecurityProfileResponse_securityProfileName' - The name of the security profile.
 --
--- * 'ddrsSecurityProfileDescription' - A description of the security profile (associated with the security profile when it was created or updated).
+-- 'behaviors', 'describeSecurityProfileResponse_behaviors' - Specifies the behaviors that, when violated by a device (thing), cause
+-- an alert.
 --
--- * 'ddrsSecurityProfileARN' - The ARN of the security profile.
+-- 'additionalMetricsToRetainV2', 'describeSecurityProfileResponse_additionalMetricsToRetainV2' - A list of metrics whose data is retained (stored). By default, data is
+-- retained for any metric used in the profile\'s behaviors, but it is also
+-- retained for any metric specified here.
 --
--- * 'ddrsResponseStatus' - -- | The response status code.
-describeSecurityProfileResponse ::
-  -- | 'ddrsResponseStatus'
-  Int ->
+-- 'securityProfileDescription', 'describeSecurityProfileResponse_securityProfileDescription' - A description of the security profile (associated with the security
+-- profile when it was created or updated).
+--
+-- 'securityProfileArn', 'describeSecurityProfileResponse_securityProfileArn' - The ARN of the security profile.
+--
+-- 'httpStatus', 'describeSecurityProfileResponse_httpStatus' - The response's http status code.
+newDescribeSecurityProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSecurityProfileResponse
-describeSecurityProfileResponse pResponseStatus_ =
+newDescribeSecurityProfileResponse pHttpStatus_ =
   DescribeSecurityProfileResponse'
-    { _ddrsLastModifiedDate =
-        Nothing,
-      _ddrsAlertTargets = Nothing,
-      _ddrsAdditionalMetricsToRetain = Nothing,
-      _ddrsCreationDate = Nothing,
-      _ddrsVersion = Nothing,
-      _ddrsSecurityProfileName = Nothing,
-      _ddrsBehaviors = Nothing,
-      _ddrsAdditionalMetricsToRetainV2 = Nothing,
-      _ddrsSecurityProfileDescription = Nothing,
-      _ddrsSecurityProfileARN = Nothing,
-      _ddrsResponseStatus = pResponseStatus_
+    { lastModifiedDate =
+        Prelude.Nothing,
+      alertTargets = Prelude.Nothing,
+      additionalMetricsToRetain =
+        Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      version = Prelude.Nothing,
+      securityProfileName = Prelude.Nothing,
+      behaviors = Prelude.Nothing,
+      additionalMetricsToRetainV2 =
+        Prelude.Nothing,
+      securityProfileDescription =
+        Prelude.Nothing,
+      securityProfileArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The time the security profile was last modified.
-ddrsLastModifiedDate :: Lens' DescribeSecurityProfileResponse (Maybe UTCTime)
-ddrsLastModifiedDate = lens _ddrsLastModifiedDate (\s a -> s {_ddrsLastModifiedDate = a}) . mapping _Time
+describeSecurityProfileResponse_lastModifiedDate :: Lens.Lens' DescribeSecurityProfileResponse (Prelude.Maybe Prelude.UTCTime)
+describeSecurityProfileResponse_lastModifiedDate = Lens.lens (\DescribeSecurityProfileResponse' {lastModifiedDate} -> lastModifiedDate) (\s@DescribeSecurityProfileResponse' {} a -> s {lastModifiedDate = a} :: DescribeSecurityProfileResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | Where the alerts are sent. (Alerts are always sent to the console.)
-ddrsAlertTargets :: Lens' DescribeSecurityProfileResponse (HashMap AlertTargetType AlertTarget)
-ddrsAlertTargets = lens _ddrsAlertTargets (\s a -> s {_ddrsAlertTargets = a}) . _Default . _Map
+describeSecurityProfileResponse_alertTargets :: Lens.Lens' DescribeSecurityProfileResponse (Prelude.Maybe (Prelude.HashMap AlertTargetType AlertTarget))
+describeSecurityProfileResponse_alertTargets = Lens.lens (\DescribeSecurityProfileResponse' {alertTargets} -> alertTargets) (\s@DescribeSecurityProfileResponse' {} a -> s {alertTargets = a} :: DescribeSecurityProfileResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | /Please use 'DescribeSecurityProfileResponse$additionalMetricsToRetainV2' instead./  A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's @behaviors@ , but it is also retained for any metric specified here.
-ddrsAdditionalMetricsToRetain :: Lens' DescribeSecurityProfileResponse [Text]
-ddrsAdditionalMetricsToRetain = lens _ddrsAdditionalMetricsToRetain (\s a -> s {_ddrsAdditionalMetricsToRetain = a}) . _Default . _Coerce
+-- | /Please use DescribeSecurityProfileResponse$additionalMetricsToRetainV2
+-- instead./
+--
+-- A list of metrics whose data is retained (stored). By default, data is
+-- retained for any metric used in the profile\'s @behaviors@, but it is
+-- also retained for any metric specified here.
+describeSecurityProfileResponse_additionalMetricsToRetain :: Lens.Lens' DescribeSecurityProfileResponse (Prelude.Maybe [Prelude.Text])
+describeSecurityProfileResponse_additionalMetricsToRetain = Lens.lens (\DescribeSecurityProfileResponse' {additionalMetricsToRetain} -> additionalMetricsToRetain) (\s@DescribeSecurityProfileResponse' {} a -> s {additionalMetricsToRetain = a} :: DescribeSecurityProfileResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time the security profile was created.
-ddrsCreationDate :: Lens' DescribeSecurityProfileResponse (Maybe UTCTime)
-ddrsCreationDate = lens _ddrsCreationDate (\s a -> s {_ddrsCreationDate = a}) . mapping _Time
+describeSecurityProfileResponse_creationDate :: Lens.Lens' DescribeSecurityProfileResponse (Prelude.Maybe Prelude.UTCTime)
+describeSecurityProfileResponse_creationDate = Lens.lens (\DescribeSecurityProfileResponse' {creationDate} -> creationDate) (\s@DescribeSecurityProfileResponse' {} a -> s {creationDate = a} :: DescribeSecurityProfileResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The version of the security profile. A new version is generated whenever the security profile is updated.
-ddrsVersion :: Lens' DescribeSecurityProfileResponse (Maybe Integer)
-ddrsVersion = lens _ddrsVersion (\s a -> s {_ddrsVersion = a})
+-- | The version of the security profile. A new version is generated whenever
+-- the security profile is updated.
+describeSecurityProfileResponse_version :: Lens.Lens' DescribeSecurityProfileResponse (Prelude.Maybe Prelude.Integer)
+describeSecurityProfileResponse_version = Lens.lens (\DescribeSecurityProfileResponse' {version} -> version) (\s@DescribeSecurityProfileResponse' {} a -> s {version = a} :: DescribeSecurityProfileResponse)
 
 -- | The name of the security profile.
-ddrsSecurityProfileName :: Lens' DescribeSecurityProfileResponse (Maybe Text)
-ddrsSecurityProfileName = lens _ddrsSecurityProfileName (\s a -> s {_ddrsSecurityProfileName = a})
+describeSecurityProfileResponse_securityProfileName :: Lens.Lens' DescribeSecurityProfileResponse (Prelude.Maybe Prelude.Text)
+describeSecurityProfileResponse_securityProfileName = Lens.lens (\DescribeSecurityProfileResponse' {securityProfileName} -> securityProfileName) (\s@DescribeSecurityProfileResponse' {} a -> s {securityProfileName = a} :: DescribeSecurityProfileResponse)
 
--- | Specifies the behaviors that, when violated by a device (thing), cause an alert.
-ddrsBehaviors :: Lens' DescribeSecurityProfileResponse [Behavior]
-ddrsBehaviors = lens _ddrsBehaviors (\s a -> s {_ddrsBehaviors = a}) . _Default . _Coerce
+-- | Specifies the behaviors that, when violated by a device (thing), cause
+-- an alert.
+describeSecurityProfileResponse_behaviors :: Lens.Lens' DescribeSecurityProfileResponse (Prelude.Maybe [Behavior])
+describeSecurityProfileResponse_behaviors = Lens.lens (\DescribeSecurityProfileResponse' {behaviors} -> behaviors) (\s@DescribeSecurityProfileResponse' {} a -> s {behaviors = a} :: DescribeSecurityProfileResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's behaviors, but it is also retained for any metric specified here.
-ddrsAdditionalMetricsToRetainV2 :: Lens' DescribeSecurityProfileResponse [MetricToRetain]
-ddrsAdditionalMetricsToRetainV2 = lens _ddrsAdditionalMetricsToRetainV2 (\s a -> s {_ddrsAdditionalMetricsToRetainV2 = a}) . _Default . _Coerce
+-- | A list of metrics whose data is retained (stored). By default, data is
+-- retained for any metric used in the profile\'s behaviors, but it is also
+-- retained for any metric specified here.
+describeSecurityProfileResponse_additionalMetricsToRetainV2 :: Lens.Lens' DescribeSecurityProfileResponse (Prelude.Maybe [MetricToRetain])
+describeSecurityProfileResponse_additionalMetricsToRetainV2 = Lens.lens (\DescribeSecurityProfileResponse' {additionalMetricsToRetainV2} -> additionalMetricsToRetainV2) (\s@DescribeSecurityProfileResponse' {} a -> s {additionalMetricsToRetainV2 = a} :: DescribeSecurityProfileResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A description of the security profile (associated with the security profile when it was created or updated).
-ddrsSecurityProfileDescription :: Lens' DescribeSecurityProfileResponse (Maybe Text)
-ddrsSecurityProfileDescription = lens _ddrsSecurityProfileDescription (\s a -> s {_ddrsSecurityProfileDescription = a})
+-- | A description of the security profile (associated with the security
+-- profile when it was created or updated).
+describeSecurityProfileResponse_securityProfileDescription :: Lens.Lens' DescribeSecurityProfileResponse (Prelude.Maybe Prelude.Text)
+describeSecurityProfileResponse_securityProfileDescription = Lens.lens (\DescribeSecurityProfileResponse' {securityProfileDescription} -> securityProfileDescription) (\s@DescribeSecurityProfileResponse' {} a -> s {securityProfileDescription = a} :: DescribeSecurityProfileResponse)
 
 -- | The ARN of the security profile.
-ddrsSecurityProfileARN :: Lens' DescribeSecurityProfileResponse (Maybe Text)
-ddrsSecurityProfileARN = lens _ddrsSecurityProfileARN (\s a -> s {_ddrsSecurityProfileARN = a})
+describeSecurityProfileResponse_securityProfileArn :: Lens.Lens' DescribeSecurityProfileResponse (Prelude.Maybe Prelude.Text)
+describeSecurityProfileResponse_securityProfileArn = Lens.lens (\DescribeSecurityProfileResponse' {securityProfileArn} -> securityProfileArn) (\s@DescribeSecurityProfileResponse' {} a -> s {securityProfileArn = a} :: DescribeSecurityProfileResponse)
 
--- | -- | The response status code.
-ddrsResponseStatus :: Lens' DescribeSecurityProfileResponse Int
-ddrsResponseStatus = lens _ddrsResponseStatus (\s a -> s {_ddrsResponseStatus = a})
+-- | The response's http status code.
+describeSecurityProfileResponse_httpStatus :: Lens.Lens' DescribeSecurityProfileResponse Prelude.Int
+describeSecurityProfileResponse_httpStatus = Lens.lens (\DescribeSecurityProfileResponse' {httpStatus} -> httpStatus) (\s@DescribeSecurityProfileResponse' {} a -> s {httpStatus = a} :: DescribeSecurityProfileResponse)
 
-instance NFData DescribeSecurityProfileResponse
+instance
+  Prelude.NFData
+    DescribeSecurityProfileResponse

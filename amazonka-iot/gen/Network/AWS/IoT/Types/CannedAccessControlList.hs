@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,90 +19,88 @@
 module Network.AWS.IoT.Types.CannedAccessControlList
   ( CannedAccessControlList
       ( ..,
-        AWSExecRead,
-        AuthenticatedRead,
-        BucketOwnerFullControl,
-        BucketOwnerRead,
-        LogDeliveryWrite,
-        Private,
-        PublicRead,
-        PublicReadWrite
+        CannedAccessControlListAuthenticatedRead,
+        CannedAccessControlListAwsExecRead,
+        CannedAccessControlListBucketOwnerFullControl,
+        CannedAccessControlListBucketOwnerRead,
+        CannedAccessControlListLogDeliveryWrite,
+        CannedAccessControlListPrivate,
+        CannedAccessControlListPublicRead,
+        CannedAccessControlListPublicReadWrite
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CannedAccessControlList
-  = CannedAccessControlList'
-      ( CI
-          Text
-      )
+newtype CannedAccessControlList = CannedAccessControlList'
+  { fromCannedAccessControlList ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSExecRead :: CannedAccessControlList
-pattern AWSExecRead = CannedAccessControlList' "aws-exec-read"
+pattern CannedAccessControlListAuthenticatedRead :: CannedAccessControlList
+pattern CannedAccessControlListAuthenticatedRead = CannedAccessControlList' "authenticated-read"
 
-pattern AuthenticatedRead :: CannedAccessControlList
-pattern AuthenticatedRead = CannedAccessControlList' "authenticated-read"
+pattern CannedAccessControlListAwsExecRead :: CannedAccessControlList
+pattern CannedAccessControlListAwsExecRead = CannedAccessControlList' "aws-exec-read"
 
-pattern BucketOwnerFullControl :: CannedAccessControlList
-pattern BucketOwnerFullControl = CannedAccessControlList' "bucket-owner-full-control"
+pattern CannedAccessControlListBucketOwnerFullControl :: CannedAccessControlList
+pattern CannedAccessControlListBucketOwnerFullControl = CannedAccessControlList' "bucket-owner-full-control"
 
-pattern BucketOwnerRead :: CannedAccessControlList
-pattern BucketOwnerRead = CannedAccessControlList' "bucket-owner-read"
+pattern CannedAccessControlListBucketOwnerRead :: CannedAccessControlList
+pattern CannedAccessControlListBucketOwnerRead = CannedAccessControlList' "bucket-owner-read"
 
-pattern LogDeliveryWrite :: CannedAccessControlList
-pattern LogDeliveryWrite = CannedAccessControlList' "log-delivery-write"
+pattern CannedAccessControlListLogDeliveryWrite :: CannedAccessControlList
+pattern CannedAccessControlListLogDeliveryWrite = CannedAccessControlList' "log-delivery-write"
 
-pattern Private :: CannedAccessControlList
-pattern Private = CannedAccessControlList' "private"
+pattern CannedAccessControlListPrivate :: CannedAccessControlList
+pattern CannedAccessControlListPrivate = CannedAccessControlList' "private"
 
-pattern PublicRead :: CannedAccessControlList
-pattern PublicRead = CannedAccessControlList' "public-read"
+pattern CannedAccessControlListPublicRead :: CannedAccessControlList
+pattern CannedAccessControlListPublicRead = CannedAccessControlList' "public-read"
 
-pattern PublicReadWrite :: CannedAccessControlList
-pattern PublicReadWrite = CannedAccessControlList' "public-read-write"
+pattern CannedAccessControlListPublicReadWrite :: CannedAccessControlList
+pattern CannedAccessControlListPublicReadWrite = CannedAccessControlList' "public-read-write"
 
 {-# COMPLETE
-  AWSExecRead,
-  AuthenticatedRead,
-  BucketOwnerFullControl,
-  BucketOwnerRead,
-  LogDeliveryWrite,
-  Private,
-  PublicRead,
-  PublicReadWrite,
+  CannedAccessControlListAuthenticatedRead,
+  CannedAccessControlListAwsExecRead,
+  CannedAccessControlListBucketOwnerFullControl,
+  CannedAccessControlListBucketOwnerRead,
+  CannedAccessControlListLogDeliveryWrite,
+  CannedAccessControlListPrivate,
+  CannedAccessControlListPublicRead,
+  CannedAccessControlListPublicReadWrite,
   CannedAccessControlList'
   #-}
 
-instance FromText CannedAccessControlList where
-  parser = (CannedAccessControlList' . mk) <$> takeText
+instance Prelude.FromText CannedAccessControlList where
+  parser = CannedAccessControlList' Prelude.<$> Prelude.takeText
 
-instance ToText CannedAccessControlList where
-  toText (CannedAccessControlList' ci) = original ci
+instance Prelude.ToText CannedAccessControlList where
+  toText (CannedAccessControlList' x) = x
 
-instance Hashable CannedAccessControlList
+instance Prelude.Hashable CannedAccessControlList
 
-instance NFData CannedAccessControlList
+instance Prelude.NFData CannedAccessControlList
 
-instance ToByteString CannedAccessControlList
+instance Prelude.ToByteString CannedAccessControlList
 
-instance ToQuery CannedAccessControlList
+instance Prelude.ToQuery CannedAccessControlList
 
-instance ToHeader CannedAccessControlList
+instance Prelude.ToHeader CannedAccessControlList
 
-instance ToJSON CannedAccessControlList where
-  toJSON = toJSONText
+instance Prelude.ToJSON CannedAccessControlList where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CannedAccessControlList where
-  parseJSON = parseJSONText "CannedAccessControlList"
+instance Prelude.FromJSON CannedAccessControlList where
+  parseJSON = Prelude.parseJSONText "CannedAccessControlList"

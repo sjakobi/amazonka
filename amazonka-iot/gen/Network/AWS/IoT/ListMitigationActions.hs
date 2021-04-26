@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,181 +21,189 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of all mitigation actions that match the specified filter criteria.
---
---
+-- Gets a list of all mitigation actions that match the specified filter
+-- criteria.
 --
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListMitigationActions
   ( -- * Creating a Request
-    listMitigationActions,
-    ListMitigationActions,
+    ListMitigationActions (..),
+    newListMitigationActions,
 
     -- * Request Lenses
-    lmaNextToken,
-    lmaMaxResults,
-    lmaActionType,
+    listMitigationActions_nextToken,
+    listMitigationActions_maxResults,
+    listMitigationActions_actionType,
 
     -- * Destructuring the Response
-    listMitigationActionsResponse,
-    ListMitigationActionsResponse,
+    ListMitigationActionsResponse (..),
+    newListMitigationActionsResponse,
 
     -- * Response Lenses
-    lmarrsNextToken,
-    lmarrsActionIdentifiers,
-    lmarrsResponseStatus,
+    listMitigationActionsResponse_nextToken,
+    listMitigationActionsResponse_actionIdentifiers,
+    listMitigationActionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.MitigationActionIdentifier
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listMitigationActions' smart constructor.
+-- | /See:/ 'newListMitigationActions' smart constructor.
 data ListMitigationActions = ListMitigationActions'
-  { _lmaNextToken ::
-      !(Maybe Text),
-    _lmaMaxResults ::
-      !(Maybe Nat),
-    _lmaActionType ::
-      !( Maybe
-           MitigationActionType
-       )
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return at one time. The default is 25.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specify a value to limit the result to mitigation actions with a
+    -- specific action type.
+    actionType :: Prelude.Maybe MitigationActionType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMitigationActions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMitigationActions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmaNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmaMaxResults' - The maximum number of results to return at one time. The default is 25.
+-- 'nextToken', 'listMitigationActions_nextToken' - The token for the next set of results.
 --
--- * 'lmaActionType' - Specify a value to limit the result to mitigation actions with a specific action type.
-listMitigationActions ::
+-- 'maxResults', 'listMitigationActions_maxResults' - The maximum number of results to return at one time. The default is 25.
+--
+-- 'actionType', 'listMitigationActions_actionType' - Specify a value to limit the result to mitigation actions with a
+-- specific action type.
+newListMitigationActions ::
   ListMitigationActions
-listMitigationActions =
+newListMitigationActions =
   ListMitigationActions'
-    { _lmaNextToken = Nothing,
-      _lmaMaxResults = Nothing,
-      _lmaActionType = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      actionType = Prelude.Nothing
     }
 
 -- | The token for the next set of results.
-lmaNextToken :: Lens' ListMitigationActions (Maybe Text)
-lmaNextToken = lens _lmaNextToken (\s a -> s {_lmaNextToken = a})
+listMitigationActions_nextToken :: Lens.Lens' ListMitigationActions (Prelude.Maybe Prelude.Text)
+listMitigationActions_nextToken = Lens.lens (\ListMitigationActions' {nextToken} -> nextToken) (\s@ListMitigationActions' {} a -> s {nextToken = a} :: ListMitigationActions)
 
 -- | The maximum number of results to return at one time. The default is 25.
-lmaMaxResults :: Lens' ListMitigationActions (Maybe Natural)
-lmaMaxResults = lens _lmaMaxResults (\s a -> s {_lmaMaxResults = a}) . mapping _Nat
+listMitigationActions_maxResults :: Lens.Lens' ListMitigationActions (Prelude.Maybe Prelude.Natural)
+listMitigationActions_maxResults = Lens.lens (\ListMitigationActions' {maxResults} -> maxResults) (\s@ListMitigationActions' {} a -> s {maxResults = a} :: ListMitigationActions) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify a value to limit the result to mitigation actions with a specific action type.
-lmaActionType :: Lens' ListMitigationActions (Maybe MitigationActionType)
-lmaActionType = lens _lmaActionType (\s a -> s {_lmaActionType = a})
+-- | Specify a value to limit the result to mitigation actions with a
+-- specific action type.
+listMitigationActions_actionType :: Lens.Lens' ListMitigationActions (Prelude.Maybe MitigationActionType)
+listMitigationActions_actionType = Lens.lens (\ListMitigationActions' {actionType} -> actionType) (\s@ListMitigationActions' {} a -> s {actionType = a} :: ListMitigationActions)
 
-instance AWSPager ListMitigationActions where
+instance Pager.AWSPager ListMitigationActions where
   page rq rs
-    | stop (rs ^. lmarrsNextToken) = Nothing
-    | stop (rs ^. lmarrsActionIdentifiers) = Nothing
-    | otherwise =
-      Just $ rq & lmaNextToken .~ rs ^. lmarrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listMitigationActionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listMitigationActionsResponse_actionIdentifiers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listMitigationActions_nextToken
+          Lens..~ rs
+          Lens.^? listMitigationActionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListMitigationActions where
+instance Prelude.AWSRequest ListMitigationActions where
   type
     Rs ListMitigationActions =
       ListMitigationActionsResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListMitigationActionsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "actionIdentifiers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "actionIdentifiers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListMitigationActions
+instance Prelude.Hashable ListMitigationActions
 
-instance NFData ListMitigationActions
+instance Prelude.NFData ListMitigationActions
 
-instance ToHeaders ListMitigationActions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListMitigationActions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListMitigationActions where
-  toPath = const "/mitigationactions/actions"
+instance Prelude.ToPath ListMitigationActions where
+  toPath = Prelude.const "/mitigationactions/actions"
 
-instance ToQuery ListMitigationActions where
+instance Prelude.ToQuery ListMitigationActions where
   toQuery ListMitigationActions' {..} =
-    mconcat
-      [ "nextToken" =: _lmaNextToken,
-        "maxResults" =: _lmaMaxResults,
-        "actionType" =: _lmaActionType
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "actionType" Prelude.=: actionType
       ]
 
--- | /See:/ 'listMitigationActionsResponse' smart constructor.
+-- | /See:/ 'newListMitigationActionsResponse' smart constructor.
 data ListMitigationActionsResponse = ListMitigationActionsResponse'
-  { _lmarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lmarrsActionIdentifiers ::
-      !( Maybe
-           [MitigationActionIdentifier]
-       ),
-    _lmarrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A set of actions that matched the specified filter criteria.
+    actionIdentifiers :: Prelude.Maybe [MitigationActionIdentifier],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMitigationActionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMitigationActionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmarrsNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmarrsActionIdentifiers' - A set of actions that matched the specified filter criteria.
+-- 'nextToken', 'listMitigationActionsResponse_nextToken' - The token for the next set of results.
 --
--- * 'lmarrsResponseStatus' - -- | The response status code.
-listMitigationActionsResponse ::
-  -- | 'lmarrsResponseStatus'
-  Int ->
+-- 'actionIdentifiers', 'listMitigationActionsResponse_actionIdentifiers' - A set of actions that matched the specified filter criteria.
+--
+-- 'httpStatus', 'listMitigationActionsResponse_httpStatus' - The response's http status code.
+newListMitigationActionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListMitigationActionsResponse
-listMitigationActionsResponse pResponseStatus_ =
+newListMitigationActionsResponse pHttpStatus_ =
   ListMitigationActionsResponse'
-    { _lmarrsNextToken =
-        Nothing,
-      _lmarrsActionIdentifiers = Nothing,
-      _lmarrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      actionIdentifiers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The token for the next set of results.
-lmarrsNextToken :: Lens' ListMitigationActionsResponse (Maybe Text)
-lmarrsNextToken = lens _lmarrsNextToken (\s a -> s {_lmarrsNextToken = a})
+listMitigationActionsResponse_nextToken :: Lens.Lens' ListMitigationActionsResponse (Prelude.Maybe Prelude.Text)
+listMitigationActionsResponse_nextToken = Lens.lens (\ListMitigationActionsResponse' {nextToken} -> nextToken) (\s@ListMitigationActionsResponse' {} a -> s {nextToken = a} :: ListMitigationActionsResponse)
 
 -- | A set of actions that matched the specified filter criteria.
-lmarrsActionIdentifiers :: Lens' ListMitigationActionsResponse [MitigationActionIdentifier]
-lmarrsActionIdentifiers = lens _lmarrsActionIdentifiers (\s a -> s {_lmarrsActionIdentifiers = a}) . _Default . _Coerce
+listMitigationActionsResponse_actionIdentifiers :: Lens.Lens' ListMitigationActionsResponse (Prelude.Maybe [MitigationActionIdentifier])
+listMitigationActionsResponse_actionIdentifiers = Lens.lens (\ListMitigationActionsResponse' {actionIdentifiers} -> actionIdentifiers) (\s@ListMitigationActionsResponse' {} a -> s {actionIdentifiers = a} :: ListMitigationActionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lmarrsResponseStatus :: Lens' ListMitigationActionsResponse Int
-lmarrsResponseStatus = lens _lmarrsResponseStatus (\s a -> s {_lmarrsResponseStatus = a})
+-- | The response's http status code.
+listMitigationActionsResponse_httpStatus :: Lens.Lens' ListMitigationActionsResponse Prelude.Int
+listMitigationActionsResponse_httpStatus = Lens.lens (\ListMitigationActionsResponse' {httpStatus} -> httpStatus) (\s@ListMitigationActionsResponse' {} a -> s {httpStatus = a} :: ListMitigationActionsResponse)
 
-instance NFData ListMitigationActionsResponse
+instance Prelude.NFData ListMitigationActionsResponse

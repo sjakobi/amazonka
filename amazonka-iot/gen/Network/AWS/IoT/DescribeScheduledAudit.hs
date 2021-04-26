@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,198 +24,213 @@
 -- Gets information about a scheduled audit.
 module Network.AWS.IoT.DescribeScheduledAudit
   ( -- * Creating a Request
-    describeScheduledAudit,
-    DescribeScheduledAudit,
+    DescribeScheduledAudit (..),
+    newDescribeScheduledAudit,
 
     -- * Request Lenses
-    dsaScheduledAuditName,
+    describeScheduledAudit_scheduledAuditName,
 
     -- * Destructuring the Response
-    describeScheduledAuditResponse,
-    DescribeScheduledAuditResponse,
+    DescribeScheduledAuditResponse (..),
+    newDescribeScheduledAuditResponse,
 
     -- * Response Lenses
-    dsarsrsDayOfWeek,
-    dsarsrsScheduledAuditARN,
-    dsarsrsScheduledAuditName,
-    dsarsrsDayOfMonth,
-    dsarsrsFrequency,
-    dsarsrsTargetCheckNames,
-    dsarsrsResponseStatus,
+    describeScheduledAuditResponse_dayOfWeek,
+    describeScheduledAuditResponse_scheduledAuditArn,
+    describeScheduledAuditResponse_scheduledAuditName,
+    describeScheduledAuditResponse_dayOfMonth,
+    describeScheduledAuditResponse_frequency,
+    describeScheduledAuditResponse_targetCheckNames,
+    describeScheduledAuditResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AuditFrequency
+import Network.AWS.IoT.Types.DayOfWeek
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeScheduledAudit' smart constructor.
-newtype DescribeScheduledAudit = DescribeScheduledAudit'
-  { _dsaScheduledAuditName ::
-      Text
+-- | /See:/ 'newDescribeScheduledAudit' smart constructor.
+data DescribeScheduledAudit = DescribeScheduledAudit'
+  { -- | The name of the scheduled audit whose information you want to get.
+    scheduledAuditName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScheduledAudit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScheduledAudit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsaScheduledAuditName' - The name of the scheduled audit whose information you want to get.
-describeScheduledAudit ::
-  -- | 'dsaScheduledAuditName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'scheduledAuditName', 'describeScheduledAudit_scheduledAuditName' - The name of the scheduled audit whose information you want to get.
+newDescribeScheduledAudit ::
+  -- | 'scheduledAuditName'
+  Prelude.Text ->
   DescribeScheduledAudit
-describeScheduledAudit pScheduledAuditName_ =
+newDescribeScheduledAudit pScheduledAuditName_ =
   DescribeScheduledAudit'
-    { _dsaScheduledAuditName =
+    { scheduledAuditName =
         pScheduledAuditName_
     }
 
 -- | The name of the scheduled audit whose information you want to get.
-dsaScheduledAuditName :: Lens' DescribeScheduledAudit Text
-dsaScheduledAuditName = lens _dsaScheduledAuditName (\s a -> s {_dsaScheduledAuditName = a})
+describeScheduledAudit_scheduledAuditName :: Lens.Lens' DescribeScheduledAudit Prelude.Text
+describeScheduledAudit_scheduledAuditName = Lens.lens (\DescribeScheduledAudit' {scheduledAuditName} -> scheduledAuditName) (\s@DescribeScheduledAudit' {} a -> s {scheduledAuditName = a} :: DescribeScheduledAudit)
 
-instance AWSRequest DescribeScheduledAudit where
+instance Prelude.AWSRequest DescribeScheduledAudit where
   type
     Rs DescribeScheduledAudit =
       DescribeScheduledAuditResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeScheduledAuditResponse'
-            <$> (x .?> "dayOfWeek")
-            <*> (x .?> "scheduledAuditArn")
-            <*> (x .?> "scheduledAuditName")
-            <*> (x .?> "dayOfMonth")
-            <*> (x .?> "frequency")
-            <*> (x .?> "targetCheckNames" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "dayOfWeek")
+            Prelude.<*> (x Prelude..?> "scheduledAuditArn")
+            Prelude.<*> (x Prelude..?> "scheduledAuditName")
+            Prelude.<*> (x Prelude..?> "dayOfMonth")
+            Prelude.<*> (x Prelude..?> "frequency")
+            Prelude.<*> ( x Prelude..?> "targetCheckNames"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeScheduledAudit
+instance Prelude.Hashable DescribeScheduledAudit
 
-instance NFData DescribeScheduledAudit
+instance Prelude.NFData DescribeScheduledAudit
 
-instance ToHeaders DescribeScheduledAudit where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeScheduledAudit where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeScheduledAudit where
+instance Prelude.ToPath DescribeScheduledAudit where
   toPath DescribeScheduledAudit' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/audit/scheduledaudits/",
-        toBS _dsaScheduledAuditName
+        Prelude.toBS scheduledAuditName
       ]
 
-instance ToQuery DescribeScheduledAudit where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeScheduledAudit where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeScheduledAuditResponse' smart constructor.
+-- | /See:/ 'newDescribeScheduledAuditResponse' smart constructor.
 data DescribeScheduledAuditResponse = DescribeScheduledAuditResponse'
-  { _dsarsrsDayOfWeek ::
-      !( Maybe
-           DayOfWeek
-       ),
-    _dsarsrsScheduledAuditARN ::
-      !( Maybe
-           Text
-       ),
-    _dsarsrsScheduledAuditName ::
-      !( Maybe
-           Text
-       ),
-    _dsarsrsDayOfMonth ::
-      !( Maybe
-           Text
-       ),
-    _dsarsrsFrequency ::
-      !( Maybe
-           AuditFrequency
-       ),
-    _dsarsrsTargetCheckNames ::
-      !( Maybe
-           [Text]
-       ),
-    _dsarsrsResponseStatus ::
-      !Int
+  { -- | The day of the week on which the scheduled audit takes place, either one
+    -- of @SUN@, @MON@, @TUE@, @WED@, @THU@, @FRI@, or @SAT@.
+    dayOfWeek :: Prelude.Maybe DayOfWeek,
+    -- | The ARN of the scheduled audit.
+    scheduledAuditArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the scheduled audit.
+    scheduledAuditName :: Prelude.Maybe Prelude.Text,
+    -- | The day of the month on which the scheduled audit takes place. This is
+    -- will be @1@ through @31@ or @LAST@. If days @29@-@31@ are specified, and
+    -- the month does not have that many days, the audit takes place on the
+    -- @LAST@ day of the month.
+    dayOfMonth :: Prelude.Maybe Prelude.Text,
+    -- | How often the scheduled audit takes place, either one of @DAILY@,
+    -- @WEEKLY@, @BIWEEKLY@, or @MONTHLY@. The start time of each audit is
+    -- determined by the system.
+    frequency :: Prelude.Maybe AuditFrequency,
+    -- | Which checks are performed during the scheduled audit. Checks must be
+    -- enabled for your account. (Use @DescribeAccountAuditConfiguration@ to
+    -- see the list of all checks, including those that are enabled or use
+    -- @UpdateAccountAuditConfiguration@ to select which checks are enabled.)
+    targetCheckNames :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScheduledAuditResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScheduledAuditResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsarsrsDayOfWeek' - The day of the week on which the scheduled audit takes place, either one of @SUN@ , @MON@ , @TUE@ , @WED@ , @THU@ , @FRI@ , or @SAT@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsarsrsScheduledAuditARN' - The ARN of the scheduled audit.
+-- 'dayOfWeek', 'describeScheduledAuditResponse_dayOfWeek' - The day of the week on which the scheduled audit takes place, either one
+-- of @SUN@, @MON@, @TUE@, @WED@, @THU@, @FRI@, or @SAT@.
 --
--- * 'dsarsrsScheduledAuditName' - The name of the scheduled audit.
+-- 'scheduledAuditArn', 'describeScheduledAuditResponse_scheduledAuditArn' - The ARN of the scheduled audit.
 --
--- * 'dsarsrsDayOfMonth' - The day of the month on which the scheduled audit takes place. This is will be @1@ through @31@ or @LAST@ . If days @29@ -@31@ are specified, and the month does not have that many days, the audit takes place on the @LAST@ day of the month.
+-- 'scheduledAuditName', 'describeScheduledAuditResponse_scheduledAuditName' - The name of the scheduled audit.
 --
--- * 'dsarsrsFrequency' - How often the scheduled audit takes place, either one of @DAILY@ , @WEEKLY@ , @BIWEEKLY@ , or @MONTHLY@ . The start time of each audit is determined by the system.
+-- 'dayOfMonth', 'describeScheduledAuditResponse_dayOfMonth' - The day of the month on which the scheduled audit takes place. This is
+-- will be @1@ through @31@ or @LAST@. If days @29@-@31@ are specified, and
+-- the month does not have that many days, the audit takes place on the
+-- @LAST@ day of the month.
 --
--- * 'dsarsrsTargetCheckNames' - Which checks are performed during the scheduled audit. Checks must be enabled for your account. (Use @DescribeAccountAuditConfiguration@ to see the list of all checks, including those that are enabled or use @UpdateAccountAuditConfiguration@ to select which checks are enabled.)
+-- 'frequency', 'describeScheduledAuditResponse_frequency' - How often the scheduled audit takes place, either one of @DAILY@,
+-- @WEEKLY@, @BIWEEKLY@, or @MONTHLY@. The start time of each audit is
+-- determined by the system.
 --
--- * 'dsarsrsResponseStatus' - -- | The response status code.
-describeScheduledAuditResponse ::
-  -- | 'dsarsrsResponseStatus'
-  Int ->
+-- 'targetCheckNames', 'describeScheduledAuditResponse_targetCheckNames' - Which checks are performed during the scheduled audit. Checks must be
+-- enabled for your account. (Use @DescribeAccountAuditConfiguration@ to
+-- see the list of all checks, including those that are enabled or use
+-- @UpdateAccountAuditConfiguration@ to select which checks are enabled.)
+--
+-- 'httpStatus', 'describeScheduledAuditResponse_httpStatus' - The response's http status code.
+newDescribeScheduledAuditResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeScheduledAuditResponse
-describeScheduledAuditResponse pResponseStatus_ =
+newDescribeScheduledAuditResponse pHttpStatus_ =
   DescribeScheduledAuditResponse'
-    { _dsarsrsDayOfWeek =
-        Nothing,
-      _dsarsrsScheduledAuditARN = Nothing,
-      _dsarsrsScheduledAuditName = Nothing,
-      _dsarsrsDayOfMonth = Nothing,
-      _dsarsrsFrequency = Nothing,
-      _dsarsrsTargetCheckNames = Nothing,
-      _dsarsrsResponseStatus = pResponseStatus_
+    { dayOfWeek =
+        Prelude.Nothing,
+      scheduledAuditArn = Prelude.Nothing,
+      scheduledAuditName = Prelude.Nothing,
+      dayOfMonth = Prelude.Nothing,
+      frequency = Prelude.Nothing,
+      targetCheckNames = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The day of the week on which the scheduled audit takes place, either one of @SUN@ , @MON@ , @TUE@ , @WED@ , @THU@ , @FRI@ , or @SAT@ .
-dsarsrsDayOfWeek :: Lens' DescribeScheduledAuditResponse (Maybe DayOfWeek)
-dsarsrsDayOfWeek = lens _dsarsrsDayOfWeek (\s a -> s {_dsarsrsDayOfWeek = a})
+-- | The day of the week on which the scheduled audit takes place, either one
+-- of @SUN@, @MON@, @TUE@, @WED@, @THU@, @FRI@, or @SAT@.
+describeScheduledAuditResponse_dayOfWeek :: Lens.Lens' DescribeScheduledAuditResponse (Prelude.Maybe DayOfWeek)
+describeScheduledAuditResponse_dayOfWeek = Lens.lens (\DescribeScheduledAuditResponse' {dayOfWeek} -> dayOfWeek) (\s@DescribeScheduledAuditResponse' {} a -> s {dayOfWeek = a} :: DescribeScheduledAuditResponse)
 
 -- | The ARN of the scheduled audit.
-dsarsrsScheduledAuditARN :: Lens' DescribeScheduledAuditResponse (Maybe Text)
-dsarsrsScheduledAuditARN = lens _dsarsrsScheduledAuditARN (\s a -> s {_dsarsrsScheduledAuditARN = a})
+describeScheduledAuditResponse_scheduledAuditArn :: Lens.Lens' DescribeScheduledAuditResponse (Prelude.Maybe Prelude.Text)
+describeScheduledAuditResponse_scheduledAuditArn = Lens.lens (\DescribeScheduledAuditResponse' {scheduledAuditArn} -> scheduledAuditArn) (\s@DescribeScheduledAuditResponse' {} a -> s {scheduledAuditArn = a} :: DescribeScheduledAuditResponse)
 
 -- | The name of the scheduled audit.
-dsarsrsScheduledAuditName :: Lens' DescribeScheduledAuditResponse (Maybe Text)
-dsarsrsScheduledAuditName = lens _dsarsrsScheduledAuditName (\s a -> s {_dsarsrsScheduledAuditName = a})
+describeScheduledAuditResponse_scheduledAuditName :: Lens.Lens' DescribeScheduledAuditResponse (Prelude.Maybe Prelude.Text)
+describeScheduledAuditResponse_scheduledAuditName = Lens.lens (\DescribeScheduledAuditResponse' {scheduledAuditName} -> scheduledAuditName) (\s@DescribeScheduledAuditResponse' {} a -> s {scheduledAuditName = a} :: DescribeScheduledAuditResponse)
 
--- | The day of the month on which the scheduled audit takes place. This is will be @1@ through @31@ or @LAST@ . If days @29@ -@31@ are specified, and the month does not have that many days, the audit takes place on the @LAST@ day of the month.
-dsarsrsDayOfMonth :: Lens' DescribeScheduledAuditResponse (Maybe Text)
-dsarsrsDayOfMonth = lens _dsarsrsDayOfMonth (\s a -> s {_dsarsrsDayOfMonth = a})
+-- | The day of the month on which the scheduled audit takes place. This is
+-- will be @1@ through @31@ or @LAST@. If days @29@-@31@ are specified, and
+-- the month does not have that many days, the audit takes place on the
+-- @LAST@ day of the month.
+describeScheduledAuditResponse_dayOfMonth :: Lens.Lens' DescribeScheduledAuditResponse (Prelude.Maybe Prelude.Text)
+describeScheduledAuditResponse_dayOfMonth = Lens.lens (\DescribeScheduledAuditResponse' {dayOfMonth} -> dayOfMonth) (\s@DescribeScheduledAuditResponse' {} a -> s {dayOfMonth = a} :: DescribeScheduledAuditResponse)
 
--- | How often the scheduled audit takes place, either one of @DAILY@ , @WEEKLY@ , @BIWEEKLY@ , or @MONTHLY@ . The start time of each audit is determined by the system.
-dsarsrsFrequency :: Lens' DescribeScheduledAuditResponse (Maybe AuditFrequency)
-dsarsrsFrequency = lens _dsarsrsFrequency (\s a -> s {_dsarsrsFrequency = a})
+-- | How often the scheduled audit takes place, either one of @DAILY@,
+-- @WEEKLY@, @BIWEEKLY@, or @MONTHLY@. The start time of each audit is
+-- determined by the system.
+describeScheduledAuditResponse_frequency :: Lens.Lens' DescribeScheduledAuditResponse (Prelude.Maybe AuditFrequency)
+describeScheduledAuditResponse_frequency = Lens.lens (\DescribeScheduledAuditResponse' {frequency} -> frequency) (\s@DescribeScheduledAuditResponse' {} a -> s {frequency = a} :: DescribeScheduledAuditResponse)
 
--- | Which checks are performed during the scheduled audit. Checks must be enabled for your account. (Use @DescribeAccountAuditConfiguration@ to see the list of all checks, including those that are enabled or use @UpdateAccountAuditConfiguration@ to select which checks are enabled.)
-dsarsrsTargetCheckNames :: Lens' DescribeScheduledAuditResponse [Text]
-dsarsrsTargetCheckNames = lens _dsarsrsTargetCheckNames (\s a -> s {_dsarsrsTargetCheckNames = a}) . _Default . _Coerce
+-- | Which checks are performed during the scheduled audit. Checks must be
+-- enabled for your account. (Use @DescribeAccountAuditConfiguration@ to
+-- see the list of all checks, including those that are enabled or use
+-- @UpdateAccountAuditConfiguration@ to select which checks are enabled.)
+describeScheduledAuditResponse_targetCheckNames :: Lens.Lens' DescribeScheduledAuditResponse (Prelude.Maybe [Prelude.Text])
+describeScheduledAuditResponse_targetCheckNames = Lens.lens (\DescribeScheduledAuditResponse' {targetCheckNames} -> targetCheckNames) (\s@DescribeScheduledAuditResponse' {} a -> s {targetCheckNames = a} :: DescribeScheduledAuditResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsarsrsResponseStatus :: Lens' DescribeScheduledAuditResponse Int
-dsarsrsResponseStatus = lens _dsarsrsResponseStatus (\s a -> s {_dsarsrsResponseStatus = a})
+-- | The response's http status code.
+describeScheduledAuditResponse_httpStatus :: Lens.Lens' DescribeScheduledAuditResponse Prelude.Int
+describeScheduledAuditResponse_httpStatus = Lens.lens (\DescribeScheduledAuditResponse' {httpStatus} -> httpStatus) (\s@DescribeScheduledAuditResponse' {} a -> s {httpStatus = a} :: DescribeScheduledAuditResponse)
 
-instance NFData DescribeScheduledAuditResponse
+instance
+  Prelude.NFData
+    DescribeScheduledAuditResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.Stream where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a group of files that can be streamed.
 --
---
---
--- /See:/ 'stream' smart constructor.
+-- /See:/ 'newStream' smart constructor.
 data Stream = Stream'
-  { _sStreamId :: !(Maybe Text),
-    _sFileId :: !(Maybe Nat)
+  { -- | The stream ID.
+    streamId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a file associated with a stream.
+    fileId :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Stream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Stream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sStreamId' - The stream ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sFileId' - The ID of a file associated with a stream.
-stream ::
+-- 'streamId', 'stream_streamId' - The stream ID.
+--
+-- 'fileId', 'stream_fileId' - The ID of a file associated with a stream.
+newStream ::
   Stream
-stream =
-  Stream' {_sStreamId = Nothing, _sFileId = Nothing}
+newStream =
+  Stream'
+    { streamId = Prelude.Nothing,
+      fileId = Prelude.Nothing
+    }
 
 -- | The stream ID.
-sStreamId :: Lens' Stream (Maybe Text)
-sStreamId = lens _sStreamId (\s a -> s {_sStreamId = a})
+stream_streamId :: Lens.Lens' Stream (Prelude.Maybe Prelude.Text)
+stream_streamId = Lens.lens (\Stream' {streamId} -> streamId) (\s@Stream' {} a -> s {streamId = a} :: Stream)
 
 -- | The ID of a file associated with a stream.
-sFileId :: Lens' Stream (Maybe Natural)
-sFileId = lens _sFileId (\s a -> s {_sFileId = a}) . mapping _Nat
+stream_fileId :: Lens.Lens' Stream (Prelude.Maybe Prelude.Natural)
+stream_fileId = Lens.lens (\Stream' {fileId} -> fileId) (\s@Stream' {} a -> s {fileId = a} :: Stream) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON Stream where
+instance Prelude.FromJSON Stream where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Stream"
       ( \x ->
-          Stream' <$> (x .:? "streamId") <*> (x .:? "fileId")
+          Stream'
+            Prelude.<$> (x Prelude..:? "streamId")
+            Prelude.<*> (x Prelude..:? "fileId")
       )
 
-instance Hashable Stream
+instance Prelude.Hashable Stream
 
-instance NFData Stream
+instance Prelude.NFData Stream
 
-instance ToJSON Stream where
+instance Prelude.ToJSON Stream where
   toJSON Stream' {..} =
-    object
-      ( catMaybes
-          [ ("streamId" .=) <$> _sStreamId,
-            ("fileId" .=) <$> _sFileId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("streamId" Prelude..=) Prelude.<$> streamId,
+            ("fileId" Prelude..=) Prelude.<$> fileId
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,174 +23,192 @@
 --
 -- Lists the authorizers registered in your account.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoT.ListAuthorizers
   ( -- * Creating a Request
-    listAuthorizers,
-    ListAuthorizers,
+    ListAuthorizers (..),
+    newListAuthorizers,
 
     -- * Request Lenses
-    laStatus,
-    laPageSize,
-    laAscendingOrder,
-    laMarker,
+    listAuthorizers_status,
+    listAuthorizers_pageSize,
+    listAuthorizers_ascendingOrder,
+    listAuthorizers_marker,
 
     -- * Destructuring the Response
-    listAuthorizersResponse,
-    ListAuthorizersResponse,
+    ListAuthorizersResponse (..),
+    newListAuthorizersResponse,
 
     -- * Response Lenses
-    larrsNextMarker,
-    larrsAuthorizers,
-    larrsResponseStatus,
+    listAuthorizersResponse_nextMarker,
+    listAuthorizersResponse_authorizers,
+    listAuthorizersResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AuthorizerSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAuthorizers' smart constructor.
+-- | /See:/ 'newListAuthorizers' smart constructor.
 data ListAuthorizers = ListAuthorizers'
-  { _laStatus ::
-      !(Maybe AuthorizerStatus),
-    _laPageSize :: !(Maybe Nat),
-    _laAscendingOrder :: !(Maybe Bool),
-    _laMarker :: !(Maybe Text)
+  { -- | The status of the list authorizers request.
+    status :: Prelude.Maybe AuthorizerStatus,
+    -- | The maximum number of results to return at one time.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | Return the list of authorizers in ascending alphabetical order.
+    ascendingOrder :: Prelude.Maybe Prelude.Bool,
+    -- | A marker used to get the next set of results.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAuthorizers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAuthorizers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laStatus' - The status of the list authorizers request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laPageSize' - The maximum number of results to return at one time.
+-- 'status', 'listAuthorizers_status' - The status of the list authorizers request.
 --
--- * 'laAscendingOrder' - Return the list of authorizers in ascending alphabetical order.
+-- 'pageSize', 'listAuthorizers_pageSize' - The maximum number of results to return at one time.
 --
--- * 'laMarker' - A marker used to get the next set of results.
-listAuthorizers ::
+-- 'ascendingOrder', 'listAuthorizers_ascendingOrder' - Return the list of authorizers in ascending alphabetical order.
+--
+-- 'marker', 'listAuthorizers_marker' - A marker used to get the next set of results.
+newListAuthorizers ::
   ListAuthorizers
-listAuthorizers =
+newListAuthorizers =
   ListAuthorizers'
-    { _laStatus = Nothing,
-      _laPageSize = Nothing,
-      _laAscendingOrder = Nothing,
-      _laMarker = Nothing
+    { status = Prelude.Nothing,
+      pageSize = Prelude.Nothing,
+      ascendingOrder = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The status of the list authorizers request.
-laStatus :: Lens' ListAuthorizers (Maybe AuthorizerStatus)
-laStatus = lens _laStatus (\s a -> s {_laStatus = a})
+listAuthorizers_status :: Lens.Lens' ListAuthorizers (Prelude.Maybe AuthorizerStatus)
+listAuthorizers_status = Lens.lens (\ListAuthorizers' {status} -> status) (\s@ListAuthorizers' {} a -> s {status = a} :: ListAuthorizers)
 
 -- | The maximum number of results to return at one time.
-laPageSize :: Lens' ListAuthorizers (Maybe Natural)
-laPageSize = lens _laPageSize (\s a -> s {_laPageSize = a}) . mapping _Nat
+listAuthorizers_pageSize :: Lens.Lens' ListAuthorizers (Prelude.Maybe Prelude.Natural)
+listAuthorizers_pageSize = Lens.lens (\ListAuthorizers' {pageSize} -> pageSize) (\s@ListAuthorizers' {} a -> s {pageSize = a} :: ListAuthorizers) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Return the list of authorizers in ascending alphabetical order.
-laAscendingOrder :: Lens' ListAuthorizers (Maybe Bool)
-laAscendingOrder = lens _laAscendingOrder (\s a -> s {_laAscendingOrder = a})
+listAuthorizers_ascendingOrder :: Lens.Lens' ListAuthorizers (Prelude.Maybe Prelude.Bool)
+listAuthorizers_ascendingOrder = Lens.lens (\ListAuthorizers' {ascendingOrder} -> ascendingOrder) (\s@ListAuthorizers' {} a -> s {ascendingOrder = a} :: ListAuthorizers)
 
 -- | A marker used to get the next set of results.
-laMarker :: Lens' ListAuthorizers (Maybe Text)
-laMarker = lens _laMarker (\s a -> s {_laMarker = a})
+listAuthorizers_marker :: Lens.Lens' ListAuthorizers (Prelude.Maybe Prelude.Text)
+listAuthorizers_marker = Lens.lens (\ListAuthorizers' {marker} -> marker) (\s@ListAuthorizers' {} a -> s {marker = a} :: ListAuthorizers)
 
-instance AWSPager ListAuthorizers where
+instance Pager.AWSPager ListAuthorizers where
   page rq rs
-    | stop (rs ^. larrsNextMarker) = Nothing
-    | stop (rs ^. larrsAuthorizers) = Nothing
-    | otherwise =
-      Just $ rq & laMarker .~ rs ^. larrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listAuthorizersResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAuthorizersResponse_authorizers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAuthorizers_marker
+          Lens..~ rs
+          Lens.^? listAuthorizersResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListAuthorizers where
+instance Prelude.AWSRequest ListAuthorizers where
   type Rs ListAuthorizers = ListAuthorizersResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAuthorizersResponse'
-            <$> (x .?> "nextMarker")
-            <*> (x .?> "authorizers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextMarker")
+            Prelude.<*> ( x Prelude..?> "authorizers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAuthorizers
+instance Prelude.Hashable ListAuthorizers
 
-instance NFData ListAuthorizers
+instance Prelude.NFData ListAuthorizers
 
-instance ToHeaders ListAuthorizers where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListAuthorizers where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListAuthorizers where
-  toPath = const "/authorizers/"
+instance Prelude.ToPath ListAuthorizers where
+  toPath = Prelude.const "/authorizers/"
 
-instance ToQuery ListAuthorizers where
+instance Prelude.ToQuery ListAuthorizers where
   toQuery ListAuthorizers' {..} =
-    mconcat
-      [ "status" =: _laStatus,
-        "pageSize" =: _laPageSize,
-        "isAscendingOrder" =: _laAscendingOrder,
-        "marker" =: _laMarker
+    Prelude.mconcat
+      [ "status" Prelude.=: status,
+        "pageSize" Prelude.=: pageSize,
+        "isAscendingOrder" Prelude.=: ascendingOrder,
+        "marker" Prelude.=: marker
       ]
 
--- | /See:/ 'listAuthorizersResponse' smart constructor.
+-- | /See:/ 'newListAuthorizersResponse' smart constructor.
 data ListAuthorizersResponse = ListAuthorizersResponse'
-  { _larrsNextMarker ::
-      !(Maybe Text),
-    _larrsAuthorizers ::
-      !( Maybe
-           [AuthorizerSummary]
-       ),
-    _larrsResponseStatus ::
-      !Int
+  { -- | A marker used to get the next set of results.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The authorizers.
+    authorizers :: Prelude.Maybe [AuthorizerSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAuthorizersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAuthorizersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'larrsNextMarker' - A marker used to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'larrsAuthorizers' - The authorizers.
+-- 'nextMarker', 'listAuthorizersResponse_nextMarker' - A marker used to get the next set of results.
 --
--- * 'larrsResponseStatus' - -- | The response status code.
-listAuthorizersResponse ::
-  -- | 'larrsResponseStatus'
-  Int ->
+-- 'authorizers', 'listAuthorizersResponse_authorizers' - The authorizers.
+--
+-- 'httpStatus', 'listAuthorizersResponse_httpStatus' - The response's http status code.
+newListAuthorizersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAuthorizersResponse
-listAuthorizersResponse pResponseStatus_ =
+newListAuthorizersResponse pHttpStatus_ =
   ListAuthorizersResponse'
-    { _larrsNextMarker =
-        Nothing,
-      _larrsAuthorizers = Nothing,
-      _larrsResponseStatus = pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      authorizers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A marker used to get the next set of results.
-larrsNextMarker :: Lens' ListAuthorizersResponse (Maybe Text)
-larrsNextMarker = lens _larrsNextMarker (\s a -> s {_larrsNextMarker = a})
+listAuthorizersResponse_nextMarker :: Lens.Lens' ListAuthorizersResponse (Prelude.Maybe Prelude.Text)
+listAuthorizersResponse_nextMarker = Lens.lens (\ListAuthorizersResponse' {nextMarker} -> nextMarker) (\s@ListAuthorizersResponse' {} a -> s {nextMarker = a} :: ListAuthorizersResponse)
 
 -- | The authorizers.
-larrsAuthorizers :: Lens' ListAuthorizersResponse [AuthorizerSummary]
-larrsAuthorizers = lens _larrsAuthorizers (\s a -> s {_larrsAuthorizers = a}) . _Default . _Coerce
+listAuthorizersResponse_authorizers :: Lens.Lens' ListAuthorizersResponse (Prelude.Maybe [AuthorizerSummary])
+listAuthorizersResponse_authorizers = Lens.lens (\ListAuthorizersResponse' {authorizers} -> authorizers) (\s@ListAuthorizersResponse' {} a -> s {authorizers = a} :: ListAuthorizersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-larrsResponseStatus :: Lens' ListAuthorizersResponse Int
-larrsResponseStatus = lens _larrsResponseStatus (\s a -> s {_larrsResponseStatus = a})
+-- | The response's http status code.
+listAuthorizersResponse_httpStatus :: Lens.Lens' ListAuthorizersResponse Prelude.Int
+listAuthorizersResponse_httpStatus = Lens.lens (\ListAuthorizersResponse' {httpStatus} -> httpStatus) (\s@ListAuthorizersResponse' {} a -> s {httpStatus = a} :: ListAuthorizersResponse)
 
-instance NFData ListAuthorizersResponse
+instance Prelude.NFData ListAuthorizersResponse

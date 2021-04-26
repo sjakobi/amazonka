@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +21,80 @@ module Network.AWS.IoT.Types.StartSigningJobParameter where
 
 import Network.AWS.IoT.Types.Destination
 import Network.AWS.IoT.Types.SigningProfileParameter
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information required to start a signing job.
 --
---
---
--- /See:/ 'startSigningJobParameter' smart constructor.
+-- /See:/ 'newStartSigningJobParameter' smart constructor.
 data StartSigningJobParameter = StartSigningJobParameter'
-  { _ssjpSigningProfileName ::
-      !(Maybe Text),
-    _ssjpDestination ::
-      !(Maybe Destination),
-    _ssjpSigningProfileParameter ::
-      !( Maybe
-           SigningProfileParameter
-       )
+  { -- | The code-signing profile name.
+    signingProfileName :: Prelude.Maybe Prelude.Text,
+    -- | The location to write the code-signed file.
+    destination :: Prelude.Maybe Destination,
+    -- | Describes the code-signing profile.
+    signingProfileParameter :: Prelude.Maybe SigningProfileParameter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartSigningJobParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartSigningJobParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssjpSigningProfileName' - The code-signing profile name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssjpDestination' - The location to write the code-signed file.
+-- 'signingProfileName', 'startSigningJobParameter_signingProfileName' - The code-signing profile name.
 --
--- * 'ssjpSigningProfileParameter' - Describes the code-signing profile.
-startSigningJobParameter ::
+-- 'destination', 'startSigningJobParameter_destination' - The location to write the code-signed file.
+--
+-- 'signingProfileParameter', 'startSigningJobParameter_signingProfileParameter' - Describes the code-signing profile.
+newStartSigningJobParameter ::
   StartSigningJobParameter
-startSigningJobParameter =
+newStartSigningJobParameter =
   StartSigningJobParameter'
-    { _ssjpSigningProfileName =
-        Nothing,
-      _ssjpDestination = Nothing,
-      _ssjpSigningProfileParameter = Nothing
+    { signingProfileName =
+        Prelude.Nothing,
+      destination = Prelude.Nothing,
+      signingProfileParameter = Prelude.Nothing
     }
 
 -- | The code-signing profile name.
-ssjpSigningProfileName :: Lens' StartSigningJobParameter (Maybe Text)
-ssjpSigningProfileName = lens _ssjpSigningProfileName (\s a -> s {_ssjpSigningProfileName = a})
+startSigningJobParameter_signingProfileName :: Lens.Lens' StartSigningJobParameter (Prelude.Maybe Prelude.Text)
+startSigningJobParameter_signingProfileName = Lens.lens (\StartSigningJobParameter' {signingProfileName} -> signingProfileName) (\s@StartSigningJobParameter' {} a -> s {signingProfileName = a} :: StartSigningJobParameter)
 
 -- | The location to write the code-signed file.
-ssjpDestination :: Lens' StartSigningJobParameter (Maybe Destination)
-ssjpDestination = lens _ssjpDestination (\s a -> s {_ssjpDestination = a})
+startSigningJobParameter_destination :: Lens.Lens' StartSigningJobParameter (Prelude.Maybe Destination)
+startSigningJobParameter_destination = Lens.lens (\StartSigningJobParameter' {destination} -> destination) (\s@StartSigningJobParameter' {} a -> s {destination = a} :: StartSigningJobParameter)
 
 -- | Describes the code-signing profile.
-ssjpSigningProfileParameter :: Lens' StartSigningJobParameter (Maybe SigningProfileParameter)
-ssjpSigningProfileParameter = lens _ssjpSigningProfileParameter (\s a -> s {_ssjpSigningProfileParameter = a})
+startSigningJobParameter_signingProfileParameter :: Lens.Lens' StartSigningJobParameter (Prelude.Maybe SigningProfileParameter)
+startSigningJobParameter_signingProfileParameter = Lens.lens (\StartSigningJobParameter' {signingProfileParameter} -> signingProfileParameter) (\s@StartSigningJobParameter' {} a -> s {signingProfileParameter = a} :: StartSigningJobParameter)
 
-instance FromJSON StartSigningJobParameter where
+instance Prelude.FromJSON StartSigningJobParameter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StartSigningJobParameter"
       ( \x ->
           StartSigningJobParameter'
-            <$> (x .:? "signingProfileName")
-            <*> (x .:? "destination")
-            <*> (x .:? "signingProfileParameter")
+            Prelude.<$> (x Prelude..:? "signingProfileName")
+            Prelude.<*> (x Prelude..:? "destination")
+            Prelude.<*> (x Prelude..:? "signingProfileParameter")
       )
 
-instance Hashable StartSigningJobParameter
+instance Prelude.Hashable StartSigningJobParameter
 
-instance NFData StartSigningJobParameter
+instance Prelude.NFData StartSigningJobParameter
 
-instance ToJSON StartSigningJobParameter where
+instance Prelude.ToJSON StartSigningJobParameter where
   toJSON StartSigningJobParameter' {..} =
-    object
-      ( catMaybes
-          [ ("signingProfileName" .=)
-              <$> _ssjpSigningProfileName,
-            ("destination" .=) <$> _ssjpDestination,
-            ("signingProfileParameter" .=)
-              <$> _ssjpSigningProfileParameter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("signingProfileName" Prelude..=)
+              Prelude.<$> signingProfileName,
+            ("destination" Prelude..=) Prelude.<$> destination,
+            ("signingProfileParameter" Prelude..=)
+              Prelude.<$> signingProfileParameter
           ]
       )

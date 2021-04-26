@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.IoT.Types.DynamoKeyType
   ( DynamoKeyType
       ( ..,
-        Number,
-        String
+        DynamoKeyTypeNUMBER,
+        DynamoKeyTypeSTRING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DynamoKeyType = DynamoKeyType' (CI Text)
+newtype DynamoKeyType = DynamoKeyType'
+  { fromDynamoKeyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Number :: DynamoKeyType
-pattern Number = DynamoKeyType' "NUMBER"
+pattern DynamoKeyTypeNUMBER :: DynamoKeyType
+pattern DynamoKeyTypeNUMBER = DynamoKeyType' "NUMBER"
 
-pattern String :: DynamoKeyType
-pattern String = DynamoKeyType' "STRING"
+pattern DynamoKeyTypeSTRING :: DynamoKeyType
+pattern DynamoKeyTypeSTRING = DynamoKeyType' "STRING"
 
 {-# COMPLETE
-  Number,
-  String,
+  DynamoKeyTypeNUMBER,
+  DynamoKeyTypeSTRING,
   DynamoKeyType'
   #-}
 
-instance FromText DynamoKeyType where
-  parser = (DynamoKeyType' . mk) <$> takeText
+instance Prelude.FromText DynamoKeyType where
+  parser = DynamoKeyType' Prelude.<$> Prelude.takeText
 
-instance ToText DynamoKeyType where
-  toText (DynamoKeyType' ci) = original ci
+instance Prelude.ToText DynamoKeyType where
+  toText (DynamoKeyType' x) = x
 
-instance Hashable DynamoKeyType
+instance Prelude.Hashable DynamoKeyType
 
-instance NFData DynamoKeyType
+instance Prelude.NFData DynamoKeyType
 
-instance ToByteString DynamoKeyType
+instance Prelude.ToByteString DynamoKeyType
 
-instance ToQuery DynamoKeyType
+instance Prelude.ToQuery DynamoKeyType
 
-instance ToHeader DynamoKeyType
+instance Prelude.ToHeader DynamoKeyType
 
-instance ToJSON DynamoKeyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DynamoKeyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DynamoKeyType where
-  parseJSON = parseJSONText "DynamoKeyType"
+instance Prelude.FromJSON DynamoKeyType where
+  parseJSON = Prelude.parseJSONText "DynamoKeyType"

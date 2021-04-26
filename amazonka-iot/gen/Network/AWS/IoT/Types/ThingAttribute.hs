@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.ThingAttribute where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The properties of the thing, including thing name, thing type name, and a list of thing attributes.
+-- | The properties of the thing, including thing name, thing type name, and
+-- a list of thing attributes.
 --
---
---
--- /See:/ 'thingAttribute' smart constructor.
+-- /See:/ 'newThingAttribute' smart constructor.
 data ThingAttribute = ThingAttribute'
-  { _taThingARN ::
-      !(Maybe Text),
-    _taThingName :: !(Maybe Text),
-    _taVersion :: !(Maybe Integer),
-    _taAttributes :: !(Maybe (Map Text Text)),
-    _taThingTypeName :: !(Maybe Text)
+  { -- | The thing ARN.
+    thingArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing.
+    thingName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the thing record in the registry.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | A list of thing attributes which are name-value pairs.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The name of the thing type, if the thing has been associated with a
+    -- type.
+    thingTypeName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ThingAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ThingAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'taThingARN' - The thing ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'taThingName' - The name of the thing.
+-- 'thingArn', 'thingAttribute_thingArn' - The thing ARN.
 --
--- * 'taVersion' - The version of the thing record in the registry.
+-- 'thingName', 'thingAttribute_thingName' - The name of the thing.
 --
--- * 'taAttributes' - A list of thing attributes which are name-value pairs.
+-- 'version', 'thingAttribute_version' - The version of the thing record in the registry.
 --
--- * 'taThingTypeName' - The name of the thing type, if the thing has been associated with a type.
-thingAttribute ::
+-- 'attributes', 'thingAttribute_attributes' - A list of thing attributes which are name-value pairs.
+--
+-- 'thingTypeName', 'thingAttribute_thingTypeName' - The name of the thing type, if the thing has been associated with a
+-- type.
+newThingAttribute ::
   ThingAttribute
-thingAttribute =
+newThingAttribute =
   ThingAttribute'
-    { _taThingARN = Nothing,
-      _taThingName = Nothing,
-      _taVersion = Nothing,
-      _taAttributes = Nothing,
-      _taThingTypeName = Nothing
+    { thingArn = Prelude.Nothing,
+      thingName = Prelude.Nothing,
+      version = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      thingTypeName = Prelude.Nothing
     }
 
 -- | The thing ARN.
-taThingARN :: Lens' ThingAttribute (Maybe Text)
-taThingARN = lens _taThingARN (\s a -> s {_taThingARN = a})
+thingAttribute_thingArn :: Lens.Lens' ThingAttribute (Prelude.Maybe Prelude.Text)
+thingAttribute_thingArn = Lens.lens (\ThingAttribute' {thingArn} -> thingArn) (\s@ThingAttribute' {} a -> s {thingArn = a} :: ThingAttribute)
 
 -- | The name of the thing.
-taThingName :: Lens' ThingAttribute (Maybe Text)
-taThingName = lens _taThingName (\s a -> s {_taThingName = a})
+thingAttribute_thingName :: Lens.Lens' ThingAttribute (Prelude.Maybe Prelude.Text)
+thingAttribute_thingName = Lens.lens (\ThingAttribute' {thingName} -> thingName) (\s@ThingAttribute' {} a -> s {thingName = a} :: ThingAttribute)
 
 -- | The version of the thing record in the registry.
-taVersion :: Lens' ThingAttribute (Maybe Integer)
-taVersion = lens _taVersion (\s a -> s {_taVersion = a})
+thingAttribute_version :: Lens.Lens' ThingAttribute (Prelude.Maybe Prelude.Integer)
+thingAttribute_version = Lens.lens (\ThingAttribute' {version} -> version) (\s@ThingAttribute' {} a -> s {version = a} :: ThingAttribute)
 
 -- | A list of thing attributes which are name-value pairs.
-taAttributes :: Lens' ThingAttribute (HashMap Text Text)
-taAttributes = lens _taAttributes (\s a -> s {_taAttributes = a}) . _Default . _Map
+thingAttribute_attributes :: Lens.Lens' ThingAttribute (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+thingAttribute_attributes = Lens.lens (\ThingAttribute' {attributes} -> attributes) (\s@ThingAttribute' {} a -> s {attributes = a} :: ThingAttribute) Prelude.. Lens.mapping Prelude._Map
 
--- | The name of the thing type, if the thing has been associated with a type.
-taThingTypeName :: Lens' ThingAttribute (Maybe Text)
-taThingTypeName = lens _taThingTypeName (\s a -> s {_taThingTypeName = a})
+-- | The name of the thing type, if the thing has been associated with a
+-- type.
+thingAttribute_thingTypeName :: Lens.Lens' ThingAttribute (Prelude.Maybe Prelude.Text)
+thingAttribute_thingTypeName = Lens.lens (\ThingAttribute' {thingTypeName} -> thingTypeName) (\s@ThingAttribute' {} a -> s {thingTypeName = a} :: ThingAttribute)
 
-instance FromJSON ThingAttribute where
+instance Prelude.FromJSON ThingAttribute where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ThingAttribute"
       ( \x ->
           ThingAttribute'
-            <$> (x .:? "thingArn")
-            <*> (x .:? "thingName")
-            <*> (x .:? "version")
-            <*> (x .:? "attributes" .!= mempty)
-            <*> (x .:? "thingTypeName")
+            Prelude.<$> (x Prelude..:? "thingArn")
+            Prelude.<*> (x Prelude..:? "thingName")
+            Prelude.<*> (x Prelude..:? "version")
+            Prelude.<*> ( x Prelude..:? "attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "thingTypeName")
       )
 
-instance Hashable ThingAttribute
+instance Prelude.Hashable ThingAttribute
 
-instance NFData ThingAttribute
+instance Prelude.NFData ThingAttribute

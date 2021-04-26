@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.TaskStatisticsForAuditCheck where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides summary counts of how many tasks for findings are in a particular state. This information is included in the response from DescribeAuditMitigationActionsTask.
+-- | Provides summary counts of how many tasks for findings are in a
+-- particular state. This information is included in the response from
+-- DescribeAuditMitigationActionsTask.
 --
---
---
--- /See:/ 'taskStatisticsForAuditCheck' smart constructor.
+-- /See:/ 'newTaskStatisticsForAuditCheck' smart constructor.
 data TaskStatisticsForAuditCheck = TaskStatisticsForAuditCheck'
-  { _tsfacSucceededFindingsCount ::
-      !( Maybe
-           Integer
-       ),
-    _tsfacTotalFindingsCount ::
-      !( Maybe
-           Integer
-       ),
-    _tsfacFailedFindingsCount ::
-      !( Maybe
-           Integer
-       ),
-    _tsfacSkippedFindingsCount ::
-      !( Maybe
-           Integer
-       ),
-    _tsfacCanceledFindingsCount ::
-      !( Maybe
-           Integer
-       )
+  { -- | The number of findings for which all mitigation actions succeeded when
+    -- applied.
+    succeededFindingsCount :: Prelude.Maybe Prelude.Integer,
+    -- | The total number of findings to which a task is being applied.
+    totalFindingsCount :: Prelude.Maybe Prelude.Integer,
+    -- | The number of findings for which at least one of the actions failed when
+    -- applied.
+    failedFindingsCount :: Prelude.Maybe Prelude.Integer,
+    -- | The number of findings skipped because of filter conditions provided in
+    -- the parameters to the command.
+    skippedFindingsCount :: Prelude.Maybe Prelude.Integer,
+    -- | The number of findings to which the mitigation action task was canceled
+    -- when applied.
+    canceledFindingsCount :: Prelude.Maybe Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TaskStatisticsForAuditCheck' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TaskStatisticsForAuditCheck' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsfacSucceededFindingsCount' - The number of findings for which all mitigation actions succeeded when applied.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tsfacTotalFindingsCount' - The total number of findings to which a task is being applied.
+-- 'succeededFindingsCount', 'taskStatisticsForAuditCheck_succeededFindingsCount' - The number of findings for which all mitigation actions succeeded when
+-- applied.
 --
--- * 'tsfacFailedFindingsCount' - The number of findings for which at least one of the actions failed when applied.
+-- 'totalFindingsCount', 'taskStatisticsForAuditCheck_totalFindingsCount' - The total number of findings to which a task is being applied.
 --
--- * 'tsfacSkippedFindingsCount' - The number of findings skipped because of filter conditions provided in the parameters to the command.
+-- 'failedFindingsCount', 'taskStatisticsForAuditCheck_failedFindingsCount' - The number of findings for which at least one of the actions failed when
+-- applied.
 --
--- * 'tsfacCanceledFindingsCount' - The number of findings to which the mitigation action task was canceled when applied.
-taskStatisticsForAuditCheck ::
+-- 'skippedFindingsCount', 'taskStatisticsForAuditCheck_skippedFindingsCount' - The number of findings skipped because of filter conditions provided in
+-- the parameters to the command.
+--
+-- 'canceledFindingsCount', 'taskStatisticsForAuditCheck_canceledFindingsCount' - The number of findings to which the mitigation action task was canceled
+-- when applied.
+newTaskStatisticsForAuditCheck ::
   TaskStatisticsForAuditCheck
-taskStatisticsForAuditCheck =
+newTaskStatisticsForAuditCheck =
   TaskStatisticsForAuditCheck'
-    { _tsfacSucceededFindingsCount =
-        Nothing,
-      _tsfacTotalFindingsCount = Nothing,
-      _tsfacFailedFindingsCount = Nothing,
-      _tsfacSkippedFindingsCount = Nothing,
-      _tsfacCanceledFindingsCount = Nothing
+    { succeededFindingsCount =
+        Prelude.Nothing,
+      totalFindingsCount = Prelude.Nothing,
+      failedFindingsCount = Prelude.Nothing,
+      skippedFindingsCount = Prelude.Nothing,
+      canceledFindingsCount = Prelude.Nothing
     }
 
--- | The number of findings for which all mitigation actions succeeded when applied.
-tsfacSucceededFindingsCount :: Lens' TaskStatisticsForAuditCheck (Maybe Integer)
-tsfacSucceededFindingsCount = lens _tsfacSucceededFindingsCount (\s a -> s {_tsfacSucceededFindingsCount = a})
+-- | The number of findings for which all mitigation actions succeeded when
+-- applied.
+taskStatisticsForAuditCheck_succeededFindingsCount :: Lens.Lens' TaskStatisticsForAuditCheck (Prelude.Maybe Prelude.Integer)
+taskStatisticsForAuditCheck_succeededFindingsCount = Lens.lens (\TaskStatisticsForAuditCheck' {succeededFindingsCount} -> succeededFindingsCount) (\s@TaskStatisticsForAuditCheck' {} a -> s {succeededFindingsCount = a} :: TaskStatisticsForAuditCheck)
 
 -- | The total number of findings to which a task is being applied.
-tsfacTotalFindingsCount :: Lens' TaskStatisticsForAuditCheck (Maybe Integer)
-tsfacTotalFindingsCount = lens _tsfacTotalFindingsCount (\s a -> s {_tsfacTotalFindingsCount = a})
+taskStatisticsForAuditCheck_totalFindingsCount :: Lens.Lens' TaskStatisticsForAuditCheck (Prelude.Maybe Prelude.Integer)
+taskStatisticsForAuditCheck_totalFindingsCount = Lens.lens (\TaskStatisticsForAuditCheck' {totalFindingsCount} -> totalFindingsCount) (\s@TaskStatisticsForAuditCheck' {} a -> s {totalFindingsCount = a} :: TaskStatisticsForAuditCheck)
 
--- | The number of findings for which at least one of the actions failed when applied.
-tsfacFailedFindingsCount :: Lens' TaskStatisticsForAuditCheck (Maybe Integer)
-tsfacFailedFindingsCount = lens _tsfacFailedFindingsCount (\s a -> s {_tsfacFailedFindingsCount = a})
+-- | The number of findings for which at least one of the actions failed when
+-- applied.
+taskStatisticsForAuditCheck_failedFindingsCount :: Lens.Lens' TaskStatisticsForAuditCheck (Prelude.Maybe Prelude.Integer)
+taskStatisticsForAuditCheck_failedFindingsCount = Lens.lens (\TaskStatisticsForAuditCheck' {failedFindingsCount} -> failedFindingsCount) (\s@TaskStatisticsForAuditCheck' {} a -> s {failedFindingsCount = a} :: TaskStatisticsForAuditCheck)
 
--- | The number of findings skipped because of filter conditions provided in the parameters to the command.
-tsfacSkippedFindingsCount :: Lens' TaskStatisticsForAuditCheck (Maybe Integer)
-tsfacSkippedFindingsCount = lens _tsfacSkippedFindingsCount (\s a -> s {_tsfacSkippedFindingsCount = a})
+-- | The number of findings skipped because of filter conditions provided in
+-- the parameters to the command.
+taskStatisticsForAuditCheck_skippedFindingsCount :: Lens.Lens' TaskStatisticsForAuditCheck (Prelude.Maybe Prelude.Integer)
+taskStatisticsForAuditCheck_skippedFindingsCount = Lens.lens (\TaskStatisticsForAuditCheck' {skippedFindingsCount} -> skippedFindingsCount) (\s@TaskStatisticsForAuditCheck' {} a -> s {skippedFindingsCount = a} :: TaskStatisticsForAuditCheck)
 
--- | The number of findings to which the mitigation action task was canceled when applied.
-tsfacCanceledFindingsCount :: Lens' TaskStatisticsForAuditCheck (Maybe Integer)
-tsfacCanceledFindingsCount = lens _tsfacCanceledFindingsCount (\s a -> s {_tsfacCanceledFindingsCount = a})
+-- | The number of findings to which the mitigation action task was canceled
+-- when applied.
+taskStatisticsForAuditCheck_canceledFindingsCount :: Lens.Lens' TaskStatisticsForAuditCheck (Prelude.Maybe Prelude.Integer)
+taskStatisticsForAuditCheck_canceledFindingsCount = Lens.lens (\TaskStatisticsForAuditCheck' {canceledFindingsCount} -> canceledFindingsCount) (\s@TaskStatisticsForAuditCheck' {} a -> s {canceledFindingsCount = a} :: TaskStatisticsForAuditCheck)
 
-instance FromJSON TaskStatisticsForAuditCheck where
+instance Prelude.FromJSON TaskStatisticsForAuditCheck where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TaskStatisticsForAuditCheck"
       ( \x ->
           TaskStatisticsForAuditCheck'
-            <$> (x .:? "succeededFindingsCount")
-            <*> (x .:? "totalFindingsCount")
-            <*> (x .:? "failedFindingsCount")
-            <*> (x .:? "skippedFindingsCount")
-            <*> (x .:? "canceledFindingsCount")
+            Prelude.<$> (x Prelude..:? "succeededFindingsCount")
+            Prelude.<*> (x Prelude..:? "totalFindingsCount")
+            Prelude.<*> (x Prelude..:? "failedFindingsCount")
+            Prelude.<*> (x Prelude..:? "skippedFindingsCount")
+            Prelude.<*> (x Prelude..:? "canceledFindingsCount")
       )
 
-instance Hashable TaskStatisticsForAuditCheck
+instance Prelude.Hashable TaskStatisticsForAuditCheck
 
-instance NFData TaskStatisticsForAuditCheck
+instance Prelude.NFData TaskStatisticsForAuditCheck

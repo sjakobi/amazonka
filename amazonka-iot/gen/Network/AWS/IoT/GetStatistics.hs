@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the count, average, sum, minimum, maximum, sum of squares, variance, and standard deviation for the specified aggregated field. If the aggregation field is of type @String@ , only the count statistic is returned.
+-- Returns the count, average, sum, minimum, maximum, sum of squares,
+-- variance, and standard deviation for the specified aggregated field. If
+-- the aggregation field is of type @String@, only the count statistic is
+-- returned.
 module Network.AWS.IoT.GetStatistics
   ( -- * Creating a Request
-    getStatistics,
-    GetStatistics,
+    GetStatistics (..),
+    newGetStatistics,
 
     -- * Request Lenses
-    gsIndexName,
-    gsQueryVersion,
-    gsAggregationField,
-    gsQueryString,
+    getStatistics_indexName,
+    getStatistics_queryVersion,
+    getStatistics_aggregationField,
+    getStatistics_queryString,
 
     -- * Destructuring the Response
-    getStatisticsResponse,
-    GetStatisticsResponse,
+    GetStatisticsResponse (..),
+    newGetStatisticsResponse,
 
     -- * Response Lenses
-    gsrrsStatistics,
-    gsrrsResponseStatus,
+    getStatisticsResponse_statistics,
+    getStatisticsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.Statistics
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getStatistics' smart constructor.
+-- | /See:/ 'newGetStatistics' smart constructor.
 data GetStatistics = GetStatistics'
-  { _gsIndexName ::
-      !(Maybe Text),
-    _gsQueryVersion :: !(Maybe Text),
-    _gsAggregationField :: !(Maybe Text),
-    _gsQueryString :: !Text
+  { -- | The name of the index to search. The default value is @AWS_Things@.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the query used to search.
+    queryVersion :: Prelude.Maybe Prelude.Text,
+    -- | The aggregation field name.
+    aggregationField :: Prelude.Maybe Prelude.Text,
+    -- | The query used to search. You can specify \"*\" for the query string to
+    -- get the count of all indexed things in your AWS account.
+    queryString :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStatistics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStatistics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsIndexName' - The name of the index to search. The default value is @AWS_Things@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsQueryVersion' - The version of the query used to search.
+-- 'indexName', 'getStatistics_indexName' - The name of the index to search. The default value is @AWS_Things@.
 --
--- * 'gsAggregationField' - The aggregation field name.
+-- 'queryVersion', 'getStatistics_queryVersion' - The version of the query used to search.
 --
--- * 'gsQueryString' - The query used to search. You can specify "*" for the query string to get the count of all indexed things in your AWS account.
-getStatistics ::
-  -- | 'gsQueryString'
-  Text ->
+-- 'aggregationField', 'getStatistics_aggregationField' - The aggregation field name.
+--
+-- 'queryString', 'getStatistics_queryString' - The query used to search. You can specify \"*\" for the query string to
+-- get the count of all indexed things in your AWS account.
+newGetStatistics ::
+  -- | 'queryString'
+  Prelude.Text ->
   GetStatistics
-getStatistics pQueryString_ =
+newGetStatistics pQueryString_ =
   GetStatistics'
-    { _gsIndexName = Nothing,
-      _gsQueryVersion = Nothing,
-      _gsAggregationField = Nothing,
-      _gsQueryString = pQueryString_
+    { indexName = Prelude.Nothing,
+      queryVersion = Prelude.Nothing,
+      aggregationField = Prelude.Nothing,
+      queryString = pQueryString_
     }
 
--- | The name of the index to search. The default value is @AWS_Things@ .
-gsIndexName :: Lens' GetStatistics (Maybe Text)
-gsIndexName = lens _gsIndexName (\s a -> s {_gsIndexName = a})
+-- | The name of the index to search. The default value is @AWS_Things@.
+getStatistics_indexName :: Lens.Lens' GetStatistics (Prelude.Maybe Prelude.Text)
+getStatistics_indexName = Lens.lens (\GetStatistics' {indexName} -> indexName) (\s@GetStatistics' {} a -> s {indexName = a} :: GetStatistics)
 
 -- | The version of the query used to search.
-gsQueryVersion :: Lens' GetStatistics (Maybe Text)
-gsQueryVersion = lens _gsQueryVersion (\s a -> s {_gsQueryVersion = a})
+getStatistics_queryVersion :: Lens.Lens' GetStatistics (Prelude.Maybe Prelude.Text)
+getStatistics_queryVersion = Lens.lens (\GetStatistics' {queryVersion} -> queryVersion) (\s@GetStatistics' {} a -> s {queryVersion = a} :: GetStatistics)
 
 -- | The aggregation field name.
-gsAggregationField :: Lens' GetStatistics (Maybe Text)
-gsAggregationField = lens _gsAggregationField (\s a -> s {_gsAggregationField = a})
+getStatistics_aggregationField :: Lens.Lens' GetStatistics (Prelude.Maybe Prelude.Text)
+getStatistics_aggregationField = Lens.lens (\GetStatistics' {aggregationField} -> aggregationField) (\s@GetStatistics' {} a -> s {aggregationField = a} :: GetStatistics)
 
--- | The query used to search. You can specify "*" for the query string to get the count of all indexed things in your AWS account.
-gsQueryString :: Lens' GetStatistics Text
-gsQueryString = lens _gsQueryString (\s a -> s {_gsQueryString = a})
+-- | The query used to search. You can specify \"*\" for the query string to
+-- get the count of all indexed things in your AWS account.
+getStatistics_queryString :: Lens.Lens' GetStatistics Prelude.Text
+getStatistics_queryString = Lens.lens (\GetStatistics' {queryString} -> queryString) (\s@GetStatistics' {} a -> s {queryString = a} :: GetStatistics)
 
-instance AWSRequest GetStatistics where
+instance Prelude.AWSRequest GetStatistics where
   type Rs GetStatistics = GetStatisticsResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetStatisticsResponse'
-            <$> (x .?> "statistics") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "statistics")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetStatistics
+instance Prelude.Hashable GetStatistics
 
-instance NFData GetStatistics
+instance Prelude.NFData GetStatistics
 
-instance ToHeaders GetStatistics where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetStatistics where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetStatistics where
+instance Prelude.ToJSON GetStatistics where
   toJSON GetStatistics' {..} =
-    object
-      ( catMaybes
-          [ ("indexName" .=) <$> _gsIndexName,
-            ("queryVersion" .=) <$> _gsQueryVersion,
-            ("aggregationField" .=) <$> _gsAggregationField,
-            Just ("queryString" .= _gsQueryString)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("indexName" Prelude..=) Prelude.<$> indexName,
+            ("queryVersion" Prelude..=) Prelude.<$> queryVersion,
+            ("aggregationField" Prelude..=)
+              Prelude.<$> aggregationField,
+            Prelude.Just ("queryString" Prelude..= queryString)
           ]
       )
 
-instance ToPath GetStatistics where
-  toPath = const "/indices/statistics"
+instance Prelude.ToPath GetStatistics where
+  toPath = Prelude.const "/indices/statistics"
 
-instance ToQuery GetStatistics where
-  toQuery = const mempty
+instance Prelude.ToQuery GetStatistics where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getStatisticsResponse' smart constructor.
+-- | /See:/ 'newGetStatisticsResponse' smart constructor.
 data GetStatisticsResponse = GetStatisticsResponse'
-  { _gsrrsStatistics ::
-      !(Maybe Statistics),
-    _gsrrsResponseStatus ::
-      !Int
+  { -- | The statistics returned by the Fleet Indexing service based on the query
+    -- and aggregation field.
+    statistics :: Prelude.Maybe Statistics,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStatisticsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStatisticsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsrrsStatistics' - The statistics returned by the Fleet Indexing service based on the query and aggregation field.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsrrsResponseStatus' - -- | The response status code.
-getStatisticsResponse ::
-  -- | 'gsrrsResponseStatus'
-  Int ->
+-- 'statistics', 'getStatisticsResponse_statistics' - The statistics returned by the Fleet Indexing service based on the query
+-- and aggregation field.
+--
+-- 'httpStatus', 'getStatisticsResponse_httpStatus' - The response's http status code.
+newGetStatisticsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetStatisticsResponse
-getStatisticsResponse pResponseStatus_ =
+newGetStatisticsResponse pHttpStatus_ =
   GetStatisticsResponse'
-    { _gsrrsStatistics = Nothing,
-      _gsrrsResponseStatus = pResponseStatus_
+    { statistics =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The statistics returned by the Fleet Indexing service based on the query and aggregation field.
-gsrrsStatistics :: Lens' GetStatisticsResponse (Maybe Statistics)
-gsrrsStatistics = lens _gsrrsStatistics (\s a -> s {_gsrrsStatistics = a})
+-- | The statistics returned by the Fleet Indexing service based on the query
+-- and aggregation field.
+getStatisticsResponse_statistics :: Lens.Lens' GetStatisticsResponse (Prelude.Maybe Statistics)
+getStatisticsResponse_statistics = Lens.lens (\GetStatisticsResponse' {statistics} -> statistics) (\s@GetStatisticsResponse' {} a -> s {statistics = a} :: GetStatisticsResponse)
 
--- | -- | The response status code.
-gsrrsResponseStatus :: Lens' GetStatisticsResponse Int
-gsrrsResponseStatus = lens _gsrrsResponseStatus (\s a -> s {_gsrrsResponseStatus = a})
+-- | The response's http status code.
+getStatisticsResponse_httpStatus :: Lens.Lens' GetStatisticsResponse Prelude.Int
+getStatisticsResponse_httpStatus = Lens.lens (\GetStatisticsResponse' {httpStatus} -> httpStatus) (\s@GetStatisticsResponse' {} a -> s {httpStatus = a} :: GetStatisticsResponse)
 
-instance NFData GetStatisticsResponse
+instance Prelude.NFData GetStatisticsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.IoT.Types.DomainType
   ( DomainType
       ( ..,
-        AWSManaged,
-        CustomerManaged,
-        Endpoint
+        DomainTypeAWSMANAGED,
+        DomainTypeCUSTOMERMANAGED,
+        DomainTypeENDPOINT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DomainType = DomainType' (CI Text)
+newtype DomainType = DomainType'
+  { fromDomainType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSManaged :: DomainType
-pattern AWSManaged = DomainType' "AWS_MANAGED"
+pattern DomainTypeAWSMANAGED :: DomainType
+pattern DomainTypeAWSMANAGED = DomainType' "AWS_MANAGED"
 
-pattern CustomerManaged :: DomainType
-pattern CustomerManaged = DomainType' "CUSTOMER_MANAGED"
+pattern DomainTypeCUSTOMERMANAGED :: DomainType
+pattern DomainTypeCUSTOMERMANAGED = DomainType' "CUSTOMER_MANAGED"
 
-pattern Endpoint :: DomainType
-pattern Endpoint = DomainType' "ENDPOINT"
+pattern DomainTypeENDPOINT :: DomainType
+pattern DomainTypeENDPOINT = DomainType' "ENDPOINT"
 
 {-# COMPLETE
-  AWSManaged,
-  CustomerManaged,
-  Endpoint,
+  DomainTypeAWSMANAGED,
+  DomainTypeCUSTOMERMANAGED,
+  DomainTypeENDPOINT,
   DomainType'
   #-}
 
-instance FromText DomainType where
-  parser = (DomainType' . mk) <$> takeText
+instance Prelude.FromText DomainType where
+  parser = DomainType' Prelude.<$> Prelude.takeText
 
-instance ToText DomainType where
-  toText (DomainType' ci) = original ci
+instance Prelude.ToText DomainType where
+  toText (DomainType' x) = x
 
-instance Hashable DomainType
+instance Prelude.Hashable DomainType
 
-instance NFData DomainType
+instance Prelude.NFData DomainType
 
-instance ToByteString DomainType
+instance Prelude.ToByteString DomainType
 
-instance ToQuery DomainType
+instance Prelude.ToQuery DomainType
 
-instance ToHeader DomainType
+instance Prelude.ToHeader DomainType
 
-instance FromJSON DomainType where
-  parseJSON = parseJSONText "DomainType"
+instance Prelude.FromJSON DomainType where
+  parseJSON = Prelude.parseJSONText "DomainType"

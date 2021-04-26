@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,200 +24,194 @@
 -- Returns information about a fleet provisioning template version.
 module Network.AWS.IoT.DescribeProvisioningTemplateVersion
   ( -- * Creating a Request
-    describeProvisioningTemplateVersion,
-    DescribeProvisioningTemplateVersion,
+    DescribeProvisioningTemplateVersion (..),
+    newDescribeProvisioningTemplateVersion,
 
     -- * Request Lenses
-    dptvTemplateName,
-    dptvVersionId,
+    describeProvisioningTemplateVersion_templateName,
+    describeProvisioningTemplateVersion_versionId,
 
     -- * Destructuring the Response
-    describeProvisioningTemplateVersionResponse,
-    DescribeProvisioningTemplateVersionResponse,
+    DescribeProvisioningTemplateVersionResponse (..),
+    newDescribeProvisioningTemplateVersionResponse,
 
     -- * Response Lenses
-    dptvrprsCreationDate,
-    dptvrprsVersionId,
-    dptvrprsIsDefaultVersion,
-    dptvrprsTemplateBody,
-    dptvrprsResponseStatus,
+    describeProvisioningTemplateVersionResponse_creationDate,
+    describeProvisioningTemplateVersionResponse_versionId,
+    describeProvisioningTemplateVersionResponse_isDefaultVersion,
+    describeProvisioningTemplateVersionResponse_templateBody,
+    describeProvisioningTemplateVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeProvisioningTemplateVersion' smart constructor.
+-- | /See:/ 'newDescribeProvisioningTemplateVersion' smart constructor.
 data DescribeProvisioningTemplateVersion = DescribeProvisioningTemplateVersion'
-  { _dptvTemplateName ::
-      !Text,
-    _dptvVersionId ::
-      !Int
+  { -- | The template name.
+    templateName :: Prelude.Text,
+    -- | The fleet provisioning template version ID.
+    versionId :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeProvisioningTemplateVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeProvisioningTemplateVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dptvTemplateName' - The template name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dptvVersionId' - The fleet provisioning template version ID.
-describeProvisioningTemplateVersion ::
-  -- | 'dptvTemplateName'
-  Text ->
-  -- | 'dptvVersionId'
-  Int ->
+-- 'templateName', 'describeProvisioningTemplateVersion_templateName' - The template name.
+--
+-- 'versionId', 'describeProvisioningTemplateVersion_versionId' - The fleet provisioning template version ID.
+newDescribeProvisioningTemplateVersion ::
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'versionId'
+  Prelude.Int ->
   DescribeProvisioningTemplateVersion
-describeProvisioningTemplateVersion
+newDescribeProvisioningTemplateVersion
   pTemplateName_
   pVersionId_ =
     DescribeProvisioningTemplateVersion'
-      { _dptvTemplateName =
+      { templateName =
           pTemplateName_,
-        _dptvVersionId = pVersionId_
+        versionId = pVersionId_
       }
 
 -- | The template name.
-dptvTemplateName :: Lens' DescribeProvisioningTemplateVersion Text
-dptvTemplateName = lens _dptvTemplateName (\s a -> s {_dptvTemplateName = a})
+describeProvisioningTemplateVersion_templateName :: Lens.Lens' DescribeProvisioningTemplateVersion Prelude.Text
+describeProvisioningTemplateVersion_templateName = Lens.lens (\DescribeProvisioningTemplateVersion' {templateName} -> templateName) (\s@DescribeProvisioningTemplateVersion' {} a -> s {templateName = a} :: DescribeProvisioningTemplateVersion)
 
 -- | The fleet provisioning template version ID.
-dptvVersionId :: Lens' DescribeProvisioningTemplateVersion Int
-dptvVersionId = lens _dptvVersionId (\s a -> s {_dptvVersionId = a})
+describeProvisioningTemplateVersion_versionId :: Lens.Lens' DescribeProvisioningTemplateVersion Prelude.Int
+describeProvisioningTemplateVersion_versionId = Lens.lens (\DescribeProvisioningTemplateVersion' {versionId} -> versionId) (\s@DescribeProvisioningTemplateVersion' {} a -> s {versionId = a} :: DescribeProvisioningTemplateVersion)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeProvisioningTemplateVersion
   where
   type
     Rs DescribeProvisioningTemplateVersion =
       DescribeProvisioningTemplateVersionResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeProvisioningTemplateVersionResponse'
-            <$> (x .?> "creationDate")
-            <*> (x .?> "versionId")
-            <*> (x .?> "isDefaultVersion")
-            <*> (x .?> "templateBody")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "creationDate")
+              Prelude.<*> (x Prelude..?> "versionId")
+              Prelude.<*> (x Prelude..?> "isDefaultVersion")
+              Prelude.<*> (x Prelude..?> "templateBody")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeProvisioningTemplateVersion
-
-instance NFData DescribeProvisioningTemplateVersion
+instance
+  Prelude.Hashable
+    DescribeProvisioningTemplateVersion
 
 instance
-  ToHeaders
+  Prelude.NFData
+    DescribeProvisioningTemplateVersion
+
+instance
+  Prelude.ToHeaders
     DescribeProvisioningTemplateVersion
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeProvisioningTemplateVersion where
+instance
+  Prelude.ToPath
+    DescribeProvisioningTemplateVersion
+  where
   toPath DescribeProvisioningTemplateVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/provisioning-templates/",
-        toBS _dptvTemplateName,
+        Prelude.toBS templateName,
         "/versions/",
-        toBS _dptvVersionId
+        Prelude.toBS versionId
       ]
 
-instance ToQuery DescribeProvisioningTemplateVersion where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeProvisioningTemplateVersion
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeProvisioningTemplateVersionResponse' smart constructor.
+-- | /See:/ 'newDescribeProvisioningTemplateVersionResponse' smart constructor.
 data DescribeProvisioningTemplateVersionResponse = DescribeProvisioningTemplateVersionResponse'
-  { _dptvrprsCreationDate ::
-      !( Maybe
-           POSIX
-       ),
-    _dptvrprsVersionId ::
-      !( Maybe
-           Int
-       ),
-    _dptvrprsIsDefaultVersion ::
-      !( Maybe
-           Bool
-       ),
-    _dptvrprsTemplateBody ::
-      !( Maybe
-           Text
-       ),
-    _dptvrprsResponseStatus ::
-      !Int
+  { -- | The date when the fleet provisioning template version was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The fleet provisioning template version ID.
+    versionId :: Prelude.Maybe Prelude.Int,
+    -- | True if the fleet provisioning template version is the default version.
+    isDefaultVersion :: Prelude.Maybe Prelude.Bool,
+    -- | The JSON formatted contents of the fleet provisioning template version.
+    templateBody :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeProvisioningTemplateVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeProvisioningTemplateVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dptvrprsCreationDate' - The date when the fleet provisioning template version was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dptvrprsVersionId' - The fleet provisioning template version ID.
+-- 'creationDate', 'describeProvisioningTemplateVersionResponse_creationDate' - The date when the fleet provisioning template version was created.
 --
--- * 'dptvrprsIsDefaultVersion' - True if the fleet provisioning template version is the default version.
+-- 'versionId', 'describeProvisioningTemplateVersionResponse_versionId' - The fleet provisioning template version ID.
 --
--- * 'dptvrprsTemplateBody' - The JSON formatted contents of the fleet provisioning template version.
+-- 'isDefaultVersion', 'describeProvisioningTemplateVersionResponse_isDefaultVersion' - True if the fleet provisioning template version is the default version.
 --
--- * 'dptvrprsResponseStatus' - -- | The response status code.
-describeProvisioningTemplateVersionResponse ::
-  -- | 'dptvrprsResponseStatus'
-  Int ->
+-- 'templateBody', 'describeProvisioningTemplateVersionResponse_templateBody' - The JSON formatted contents of the fleet provisioning template version.
+--
+-- 'httpStatus', 'describeProvisioningTemplateVersionResponse_httpStatus' - The response's http status code.
+newDescribeProvisioningTemplateVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeProvisioningTemplateVersionResponse
-describeProvisioningTemplateVersionResponse
-  pResponseStatus_ =
+newDescribeProvisioningTemplateVersionResponse
+  pHttpStatus_ =
     DescribeProvisioningTemplateVersionResponse'
-      { _dptvrprsCreationDate =
-          Nothing,
-        _dptvrprsVersionId = Nothing,
-        _dptvrprsIsDefaultVersion =
-          Nothing,
-        _dptvrprsTemplateBody =
-          Nothing,
-        _dptvrprsResponseStatus =
-          pResponseStatus_
+      { creationDate =
+          Prelude.Nothing,
+        versionId = Prelude.Nothing,
+        isDefaultVersion =
+          Prelude.Nothing,
+        templateBody = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The date when the fleet provisioning template version was created.
-dptvrprsCreationDate :: Lens' DescribeProvisioningTemplateVersionResponse (Maybe UTCTime)
-dptvrprsCreationDate = lens _dptvrprsCreationDate (\s a -> s {_dptvrprsCreationDate = a}) . mapping _Time
+describeProvisioningTemplateVersionResponse_creationDate :: Lens.Lens' DescribeProvisioningTemplateVersionResponse (Prelude.Maybe Prelude.UTCTime)
+describeProvisioningTemplateVersionResponse_creationDate = Lens.lens (\DescribeProvisioningTemplateVersionResponse' {creationDate} -> creationDate) (\s@DescribeProvisioningTemplateVersionResponse' {} a -> s {creationDate = a} :: DescribeProvisioningTemplateVersionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The fleet provisioning template version ID.
-dptvrprsVersionId :: Lens' DescribeProvisioningTemplateVersionResponse (Maybe Int)
-dptvrprsVersionId = lens _dptvrprsVersionId (\s a -> s {_dptvrprsVersionId = a})
+describeProvisioningTemplateVersionResponse_versionId :: Lens.Lens' DescribeProvisioningTemplateVersionResponse (Prelude.Maybe Prelude.Int)
+describeProvisioningTemplateVersionResponse_versionId = Lens.lens (\DescribeProvisioningTemplateVersionResponse' {versionId} -> versionId) (\s@DescribeProvisioningTemplateVersionResponse' {} a -> s {versionId = a} :: DescribeProvisioningTemplateVersionResponse)
 
 -- | True if the fleet provisioning template version is the default version.
-dptvrprsIsDefaultVersion :: Lens' DescribeProvisioningTemplateVersionResponse (Maybe Bool)
-dptvrprsIsDefaultVersion = lens _dptvrprsIsDefaultVersion (\s a -> s {_dptvrprsIsDefaultVersion = a})
+describeProvisioningTemplateVersionResponse_isDefaultVersion :: Lens.Lens' DescribeProvisioningTemplateVersionResponse (Prelude.Maybe Prelude.Bool)
+describeProvisioningTemplateVersionResponse_isDefaultVersion = Lens.lens (\DescribeProvisioningTemplateVersionResponse' {isDefaultVersion} -> isDefaultVersion) (\s@DescribeProvisioningTemplateVersionResponse' {} a -> s {isDefaultVersion = a} :: DescribeProvisioningTemplateVersionResponse)
 
 -- | The JSON formatted contents of the fleet provisioning template version.
-dptvrprsTemplateBody :: Lens' DescribeProvisioningTemplateVersionResponse (Maybe Text)
-dptvrprsTemplateBody = lens _dptvrprsTemplateBody (\s a -> s {_dptvrprsTemplateBody = a})
+describeProvisioningTemplateVersionResponse_templateBody :: Lens.Lens' DescribeProvisioningTemplateVersionResponse (Prelude.Maybe Prelude.Text)
+describeProvisioningTemplateVersionResponse_templateBody = Lens.lens (\DescribeProvisioningTemplateVersionResponse' {templateBody} -> templateBody) (\s@DescribeProvisioningTemplateVersionResponse' {} a -> s {templateBody = a} :: DescribeProvisioningTemplateVersionResponse)
 
--- | -- | The response status code.
-dptvrprsResponseStatus :: Lens' DescribeProvisioningTemplateVersionResponse Int
-dptvrprsResponseStatus = lens _dptvrprsResponseStatus (\s a -> s {_dptvrprsResponseStatus = a})
+-- | The response's http status code.
+describeProvisioningTemplateVersionResponse_httpStatus :: Lens.Lens' DescribeProvisioningTemplateVersionResponse Prelude.Int
+describeProvisioningTemplateVersionResponse_httpStatus = Lens.lens (\DescribeProvisioningTemplateVersionResponse' {httpStatus} -> httpStatus) (\s@DescribeProvisioningTemplateVersionResponse' {} a -> s {httpStatus = a} :: DescribeProvisioningTemplateVersionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeProvisioningTemplateVersionResponse

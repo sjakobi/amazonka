@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about the Device Defender audit settings for this account. Settings include how audit notifications are sent and which audit checks are enabled or disabled.
+-- Gets information about the Device Defender audit settings for this
+-- account. Settings include how audit notifications are sent and which
+-- audit checks are enabled or disabled.
 module Network.AWS.IoT.DescribeAccountAuditConfiguration
   ( -- * Creating a Request
-    describeAccountAuditConfiguration,
-    DescribeAccountAuditConfiguration,
+    DescribeAccountAuditConfiguration (..),
+    newDescribeAccountAuditConfiguration,
 
     -- * Destructuring the Response
-    describeAccountAuditConfigurationResponse,
-    DescribeAccountAuditConfigurationResponse,
+    DescribeAccountAuditConfigurationResponse (..),
+    newDescribeAccountAuditConfigurationResponse,
 
     -- * Response Lenses
-    daacrarsRoleARN,
-    daacrarsAuditCheckConfigurations,
-    daacrarsAuditNotificationTargetConfigurations,
-    daacrarsResponseStatus,
+    describeAccountAuditConfigurationResponse_roleArn,
+    describeAccountAuditConfigurationResponse_auditCheckConfigurations,
+    describeAccountAuditConfigurationResponse_auditNotificationTargetConfigurations,
+    describeAccountAuditConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.AuditCheckConfiguration
+import Network.AWS.IoT.Types.AuditNotificationTarget
+import Network.AWS.IoT.Types.AuditNotificationType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAccountAuditConfiguration' smart constructor.
+-- | /See:/ 'newDescribeAccountAuditConfiguration' smart constructor.
 data DescribeAccountAuditConfiguration = DescribeAccountAuditConfiguration'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountAuditConfiguration' with the minimum fields required to make a request.
-describeAccountAuditConfiguration ::
+-- |
+-- Create a value of 'DescribeAccountAuditConfiguration' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeAccountAuditConfiguration ::
   DescribeAccountAuditConfiguration
-describeAccountAuditConfiguration =
+newDescribeAccountAuditConfiguration =
   DescribeAccountAuditConfiguration'
 
-instance AWSRequest DescribeAccountAuditConfiguration where
+instance
+  Prelude.AWSRequest
+    DescribeAccountAuditConfiguration
+  where
   type
     Rs DescribeAccountAuditConfiguration =
       DescribeAccountAuditConfigurationResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAccountAuditConfigurationResponse'
-            <$> (x .?> "roleArn")
-            <*> (x .?> "auditCheckConfigurations" .!@ mempty)
-            <*> ( x .?> "auditNotificationTargetConfigurations"
-                    .!@ mempty
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "roleArn")
+              Prelude.<*> ( x Prelude..?> "auditCheckConfigurations"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> ( x
+                              Prelude..?> "auditNotificationTargetConfigurations"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAccountAuditConfiguration
-
-instance NFData DescribeAccountAuditConfiguration
-
-instance ToHeaders DescribeAccountAuditConfiguration where
-  toHeaders = const mempty
-
-instance ToPath DescribeAccountAuditConfiguration where
-  toPath = const "/audit/configuration"
-
-instance ToQuery DescribeAccountAuditConfiguration where
-  toQuery = const mempty
-
--- | /See:/ 'describeAccountAuditConfigurationResponse' smart constructor.
-data DescribeAccountAuditConfigurationResponse = DescribeAccountAuditConfigurationResponse'
-  { _daacrarsRoleARN ::
-      !( Maybe
-           Text
-       ),
-    _daacrarsAuditCheckConfigurations ::
-      !( Maybe
-           ( Map
-               Text
-               AuditCheckConfiguration
-           )
-       ),
-    _daacrarsAuditNotificationTargetConfigurations ::
-      !( Maybe
-           ( Map
-               AuditNotificationType
-               AuditNotificationTarget
-           )
-       ),
-    _daacrarsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeAccountAuditConfigurationResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'daacrarsRoleARN' - The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates, and other items as required when performing an audit. On the first call to @UpdateAccountAuditConfiguration@ , this parameter is required.
---
--- * 'daacrarsAuditCheckConfigurations' - Which audit checks are enabled and disabled for this account.
---
--- * 'daacrarsAuditNotificationTargetConfigurations' - Information about the targets to which audit notifications are sent for this account.
---
--- * 'daacrarsResponseStatus' - -- | The response status code.
-describeAccountAuditConfigurationResponse ::
-  -- | 'daacrarsResponseStatus'
-  Int ->
-  DescribeAccountAuditConfigurationResponse
-describeAccountAuditConfigurationResponse
-  pResponseStatus_ =
-    DescribeAccountAuditConfigurationResponse'
-      { _daacrarsRoleARN =
-          Nothing,
-        _daacrarsAuditCheckConfigurations =
-          Nothing,
-        _daacrarsAuditNotificationTargetConfigurations =
-          Nothing,
-        _daacrarsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates, and other items as required when performing an audit. On the first call to @UpdateAccountAuditConfiguration@ , this parameter is required.
-daacrarsRoleARN :: Lens' DescribeAccountAuditConfigurationResponse (Maybe Text)
-daacrarsRoleARN = lens _daacrarsRoleARN (\s a -> s {_daacrarsRoleARN = a})
-
--- | Which audit checks are enabled and disabled for this account.
-daacrarsAuditCheckConfigurations :: Lens' DescribeAccountAuditConfigurationResponse (HashMap Text AuditCheckConfiguration)
-daacrarsAuditCheckConfigurations = lens _daacrarsAuditCheckConfigurations (\s a -> s {_daacrarsAuditCheckConfigurations = a}) . _Default . _Map
-
--- | Information about the targets to which audit notifications are sent for this account.
-daacrarsAuditNotificationTargetConfigurations :: Lens' DescribeAccountAuditConfigurationResponse (HashMap AuditNotificationType AuditNotificationTarget)
-daacrarsAuditNotificationTargetConfigurations = lens _daacrarsAuditNotificationTargetConfigurations (\s a -> s {_daacrarsAuditNotificationTargetConfigurations = a}) . _Default . _Map
-
--- | -- | The response status code.
-daacrarsResponseStatus :: Lens' DescribeAccountAuditConfigurationResponse Int
-daacrarsResponseStatus = lens _daacrarsResponseStatus (\s a -> s {_daacrarsResponseStatus = a})
+instance
+  Prelude.Hashable
+    DescribeAccountAuditConfiguration
 
 instance
-  NFData
+  Prelude.NFData
+    DescribeAccountAuditConfiguration
+
+instance
+  Prelude.ToHeaders
+    DescribeAccountAuditConfiguration
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    DescribeAccountAuditConfiguration
+  where
+  toPath = Prelude.const "/audit/configuration"
+
+instance
+  Prelude.ToQuery
+    DescribeAccountAuditConfiguration
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDescribeAccountAuditConfigurationResponse' smart constructor.
+data DescribeAccountAuditConfigurationResponse = DescribeAccountAuditConfigurationResponse'
+  { -- | The ARN of the role that grants permission to AWS IoT to access
+    -- information about your devices, policies, certificates, and other items
+    -- as required when performing an audit.
+    --
+    -- On the first call to @UpdateAccountAuditConfiguration@, this parameter
+    -- is required.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Which audit checks are enabled and disabled for this account.
+    auditCheckConfigurations :: Prelude.Maybe (Prelude.Map Prelude.Text AuditCheckConfiguration),
+    -- | Information about the targets to which audit notifications are sent for
+    -- this account.
+    auditNotificationTargetConfigurations :: Prelude.Maybe (Prelude.Map AuditNotificationType AuditNotificationTarget),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeAccountAuditConfigurationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'roleArn', 'describeAccountAuditConfigurationResponse_roleArn' - The ARN of the role that grants permission to AWS IoT to access
+-- information about your devices, policies, certificates, and other items
+-- as required when performing an audit.
+--
+-- On the first call to @UpdateAccountAuditConfiguration@, this parameter
+-- is required.
+--
+-- 'auditCheckConfigurations', 'describeAccountAuditConfigurationResponse_auditCheckConfigurations' - Which audit checks are enabled and disabled for this account.
+--
+-- 'auditNotificationTargetConfigurations', 'describeAccountAuditConfigurationResponse_auditNotificationTargetConfigurations' - Information about the targets to which audit notifications are sent for
+-- this account.
+--
+-- 'httpStatus', 'describeAccountAuditConfigurationResponse_httpStatus' - The response's http status code.
+newDescribeAccountAuditConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeAccountAuditConfigurationResponse
+newDescribeAccountAuditConfigurationResponse
+  pHttpStatus_ =
+    DescribeAccountAuditConfigurationResponse'
+      { roleArn =
+          Prelude.Nothing,
+        auditCheckConfigurations =
+          Prelude.Nothing,
+        auditNotificationTargetConfigurations =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The ARN of the role that grants permission to AWS IoT to access
+-- information about your devices, policies, certificates, and other items
+-- as required when performing an audit.
+--
+-- On the first call to @UpdateAccountAuditConfiguration@, this parameter
+-- is required.
+describeAccountAuditConfigurationResponse_roleArn :: Lens.Lens' DescribeAccountAuditConfigurationResponse (Prelude.Maybe Prelude.Text)
+describeAccountAuditConfigurationResponse_roleArn = Lens.lens (\DescribeAccountAuditConfigurationResponse' {roleArn} -> roleArn) (\s@DescribeAccountAuditConfigurationResponse' {} a -> s {roleArn = a} :: DescribeAccountAuditConfigurationResponse)
+
+-- | Which audit checks are enabled and disabled for this account.
+describeAccountAuditConfigurationResponse_auditCheckConfigurations :: Lens.Lens' DescribeAccountAuditConfigurationResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text AuditCheckConfiguration))
+describeAccountAuditConfigurationResponse_auditCheckConfigurations = Lens.lens (\DescribeAccountAuditConfigurationResponse' {auditCheckConfigurations} -> auditCheckConfigurations) (\s@DescribeAccountAuditConfigurationResponse' {} a -> s {auditCheckConfigurations = a} :: DescribeAccountAuditConfigurationResponse) Prelude.. Lens.mapping Prelude._Map
+
+-- | Information about the targets to which audit notifications are sent for
+-- this account.
+describeAccountAuditConfigurationResponse_auditNotificationTargetConfigurations :: Lens.Lens' DescribeAccountAuditConfigurationResponse (Prelude.Maybe (Prelude.HashMap AuditNotificationType AuditNotificationTarget))
+describeAccountAuditConfigurationResponse_auditNotificationTargetConfigurations = Lens.lens (\DescribeAccountAuditConfigurationResponse' {auditNotificationTargetConfigurations} -> auditNotificationTargetConfigurations) (\s@DescribeAccountAuditConfigurationResponse' {} a -> s {auditNotificationTargetConfigurations = a} :: DescribeAccountAuditConfigurationResponse) Prelude.. Lens.mapping Prelude._Map
+
+-- | The response's http status code.
+describeAccountAuditConfigurationResponse_httpStatus :: Lens.Lens' DescribeAccountAuditConfigurationResponse Prelude.Int
+describeAccountAuditConfigurationResponse_httpStatus = Lens.lens (\DescribeAccountAuditConfigurationResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountAuditConfigurationResponse' {} a -> s {httpStatus = a} :: DescribeAccountAuditConfigurationResponse)
+
+instance
+  Prelude.NFData
     DescribeAccountAuditConfigurationResponse

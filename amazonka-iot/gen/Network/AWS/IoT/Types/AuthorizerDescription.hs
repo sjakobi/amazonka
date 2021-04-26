@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,133 +20,136 @@
 module Network.AWS.IoT.Types.AuthorizerDescription where
 
 import Network.AWS.IoT.Types.AuthorizerStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The authorizer description.
 --
---
---
--- /See:/ 'authorizerDescription' smart constructor.
+-- /See:/ 'newAuthorizerDescription' smart constructor.
 data AuthorizerDescription = AuthorizerDescription'
-  { _adLastModifiedDate ::
-      !(Maybe POSIX),
-    _adStatus ::
-      !(Maybe AuthorizerStatus),
-    _adAuthorizerARN ::
-      !(Maybe Text),
-    _adAuthorizerFunctionARN ::
-      !(Maybe Text),
-    _adCreationDate ::
-      !(Maybe POSIX),
-    _adTokenSigningPublicKeys ::
-      !(Maybe (Map Text Text)),
-    _adAuthorizerName ::
-      !(Maybe Text),
-    _adSigningDisabled ::
-      !(Maybe Bool),
-    _adTokenKeyName ::
-      !(Maybe Text)
+  { -- | The UNIX timestamp of when the authorizer was last updated.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the authorizer.
+    status :: Prelude.Maybe AuthorizerStatus,
+    -- | The authorizer ARN.
+    authorizerArn :: Prelude.Maybe Prelude.Text,
+    -- | The authorizer\'s Lambda function ARN.
+    authorizerFunctionArn :: Prelude.Maybe Prelude.Text,
+    -- | The UNIX timestamp of when the authorizer was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The public keys used to validate the token signature returned by your
+    -- custom authentication service.
+    tokenSigningPublicKeys :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The authorizer name.
+    authorizerName :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether AWS IoT validates the token signature in an
+    -- authorization request.
+    signingDisabled :: Prelude.Maybe Prelude.Bool,
+    -- | The key used to extract the token from the HTTP headers.
+    tokenKeyName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuthorizerDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuthorizerDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adLastModifiedDate' - The UNIX timestamp of when the authorizer was last updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adStatus' - The status of the authorizer.
+-- 'lastModifiedDate', 'authorizerDescription_lastModifiedDate' - The UNIX timestamp of when the authorizer was last updated.
 --
--- * 'adAuthorizerARN' - The authorizer ARN.
+-- 'status', 'authorizerDescription_status' - The status of the authorizer.
 --
--- * 'adAuthorizerFunctionARN' - The authorizer's Lambda function ARN.
+-- 'authorizerArn', 'authorizerDescription_authorizerArn' - The authorizer ARN.
 --
--- * 'adCreationDate' - The UNIX timestamp of when the authorizer was created.
+-- 'authorizerFunctionArn', 'authorizerDescription_authorizerFunctionArn' - The authorizer\'s Lambda function ARN.
 --
--- * 'adTokenSigningPublicKeys' - The public keys used to validate the token signature returned by your custom authentication service.
+-- 'creationDate', 'authorizerDescription_creationDate' - The UNIX timestamp of when the authorizer was created.
 --
--- * 'adAuthorizerName' - The authorizer name.
+-- 'tokenSigningPublicKeys', 'authorizerDescription_tokenSigningPublicKeys' - The public keys used to validate the token signature returned by your
+-- custom authentication service.
 --
--- * 'adSigningDisabled' - Specifies whether AWS IoT validates the token signature in an authorization request.
+-- 'authorizerName', 'authorizerDescription_authorizerName' - The authorizer name.
 --
--- * 'adTokenKeyName' - The key used to extract the token from the HTTP headers.
-authorizerDescription ::
+-- 'signingDisabled', 'authorizerDescription_signingDisabled' - Specifies whether AWS IoT validates the token signature in an
+-- authorization request.
+--
+-- 'tokenKeyName', 'authorizerDescription_tokenKeyName' - The key used to extract the token from the HTTP headers.
+newAuthorizerDescription ::
   AuthorizerDescription
-authorizerDescription =
+newAuthorizerDescription =
   AuthorizerDescription'
-    { _adLastModifiedDate =
-        Nothing,
-      _adStatus = Nothing,
-      _adAuthorizerARN = Nothing,
-      _adAuthorizerFunctionARN = Nothing,
-      _adCreationDate = Nothing,
-      _adTokenSigningPublicKeys = Nothing,
-      _adAuthorizerName = Nothing,
-      _adSigningDisabled = Nothing,
-      _adTokenKeyName = Nothing
+    { lastModifiedDate =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      authorizerArn = Prelude.Nothing,
+      authorizerFunctionArn = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      tokenSigningPublicKeys = Prelude.Nothing,
+      authorizerName = Prelude.Nothing,
+      signingDisabled = Prelude.Nothing,
+      tokenKeyName = Prelude.Nothing
     }
 
 -- | The UNIX timestamp of when the authorizer was last updated.
-adLastModifiedDate :: Lens' AuthorizerDescription (Maybe UTCTime)
-adLastModifiedDate = lens _adLastModifiedDate (\s a -> s {_adLastModifiedDate = a}) . mapping _Time
+authorizerDescription_lastModifiedDate :: Lens.Lens' AuthorizerDescription (Prelude.Maybe Prelude.UTCTime)
+authorizerDescription_lastModifiedDate = Lens.lens (\AuthorizerDescription' {lastModifiedDate} -> lastModifiedDate) (\s@AuthorizerDescription' {} a -> s {lastModifiedDate = a} :: AuthorizerDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the authorizer.
-adStatus :: Lens' AuthorizerDescription (Maybe AuthorizerStatus)
-adStatus = lens _adStatus (\s a -> s {_adStatus = a})
+authorizerDescription_status :: Lens.Lens' AuthorizerDescription (Prelude.Maybe AuthorizerStatus)
+authorizerDescription_status = Lens.lens (\AuthorizerDescription' {status} -> status) (\s@AuthorizerDescription' {} a -> s {status = a} :: AuthorizerDescription)
 
 -- | The authorizer ARN.
-adAuthorizerARN :: Lens' AuthorizerDescription (Maybe Text)
-adAuthorizerARN = lens _adAuthorizerARN (\s a -> s {_adAuthorizerARN = a})
+authorizerDescription_authorizerArn :: Lens.Lens' AuthorizerDescription (Prelude.Maybe Prelude.Text)
+authorizerDescription_authorizerArn = Lens.lens (\AuthorizerDescription' {authorizerArn} -> authorizerArn) (\s@AuthorizerDescription' {} a -> s {authorizerArn = a} :: AuthorizerDescription)
 
--- | The authorizer's Lambda function ARN.
-adAuthorizerFunctionARN :: Lens' AuthorizerDescription (Maybe Text)
-adAuthorizerFunctionARN = lens _adAuthorizerFunctionARN (\s a -> s {_adAuthorizerFunctionARN = a})
+-- | The authorizer\'s Lambda function ARN.
+authorizerDescription_authorizerFunctionArn :: Lens.Lens' AuthorizerDescription (Prelude.Maybe Prelude.Text)
+authorizerDescription_authorizerFunctionArn = Lens.lens (\AuthorizerDescription' {authorizerFunctionArn} -> authorizerFunctionArn) (\s@AuthorizerDescription' {} a -> s {authorizerFunctionArn = a} :: AuthorizerDescription)
 
 -- | The UNIX timestamp of when the authorizer was created.
-adCreationDate :: Lens' AuthorizerDescription (Maybe UTCTime)
-adCreationDate = lens _adCreationDate (\s a -> s {_adCreationDate = a}) . mapping _Time
+authorizerDescription_creationDate :: Lens.Lens' AuthorizerDescription (Prelude.Maybe Prelude.UTCTime)
+authorizerDescription_creationDate = Lens.lens (\AuthorizerDescription' {creationDate} -> creationDate) (\s@AuthorizerDescription' {} a -> s {creationDate = a} :: AuthorizerDescription) Prelude.. Lens.mapping Prelude._Time
 
--- | The public keys used to validate the token signature returned by your custom authentication service.
-adTokenSigningPublicKeys :: Lens' AuthorizerDescription (HashMap Text Text)
-adTokenSigningPublicKeys = lens _adTokenSigningPublicKeys (\s a -> s {_adTokenSigningPublicKeys = a}) . _Default . _Map
+-- | The public keys used to validate the token signature returned by your
+-- custom authentication service.
+authorizerDescription_tokenSigningPublicKeys :: Lens.Lens' AuthorizerDescription (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+authorizerDescription_tokenSigningPublicKeys = Lens.lens (\AuthorizerDescription' {tokenSigningPublicKeys} -> tokenSigningPublicKeys) (\s@AuthorizerDescription' {} a -> s {tokenSigningPublicKeys = a} :: AuthorizerDescription) Prelude.. Lens.mapping Prelude._Map
 
 -- | The authorizer name.
-adAuthorizerName :: Lens' AuthorizerDescription (Maybe Text)
-adAuthorizerName = lens _adAuthorizerName (\s a -> s {_adAuthorizerName = a})
+authorizerDescription_authorizerName :: Lens.Lens' AuthorizerDescription (Prelude.Maybe Prelude.Text)
+authorizerDescription_authorizerName = Lens.lens (\AuthorizerDescription' {authorizerName} -> authorizerName) (\s@AuthorizerDescription' {} a -> s {authorizerName = a} :: AuthorizerDescription)
 
--- | Specifies whether AWS IoT validates the token signature in an authorization request.
-adSigningDisabled :: Lens' AuthorizerDescription (Maybe Bool)
-adSigningDisabled = lens _adSigningDisabled (\s a -> s {_adSigningDisabled = a})
+-- | Specifies whether AWS IoT validates the token signature in an
+-- authorization request.
+authorizerDescription_signingDisabled :: Lens.Lens' AuthorizerDescription (Prelude.Maybe Prelude.Bool)
+authorizerDescription_signingDisabled = Lens.lens (\AuthorizerDescription' {signingDisabled} -> signingDisabled) (\s@AuthorizerDescription' {} a -> s {signingDisabled = a} :: AuthorizerDescription)
 
 -- | The key used to extract the token from the HTTP headers.
-adTokenKeyName :: Lens' AuthorizerDescription (Maybe Text)
-adTokenKeyName = lens _adTokenKeyName (\s a -> s {_adTokenKeyName = a})
+authorizerDescription_tokenKeyName :: Lens.Lens' AuthorizerDescription (Prelude.Maybe Prelude.Text)
+authorizerDescription_tokenKeyName = Lens.lens (\AuthorizerDescription' {tokenKeyName} -> tokenKeyName) (\s@AuthorizerDescription' {} a -> s {tokenKeyName = a} :: AuthorizerDescription)
 
-instance FromJSON AuthorizerDescription where
+instance Prelude.FromJSON AuthorizerDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuthorizerDescription"
       ( \x ->
           AuthorizerDescription'
-            <$> (x .:? "lastModifiedDate")
-            <*> (x .:? "status")
-            <*> (x .:? "authorizerArn")
-            <*> (x .:? "authorizerFunctionArn")
-            <*> (x .:? "creationDate")
-            <*> (x .:? "tokenSigningPublicKeys" .!= mempty)
-            <*> (x .:? "authorizerName")
-            <*> (x .:? "signingDisabled")
-            <*> (x .:? "tokenKeyName")
+            Prelude.<$> (x Prelude..:? "lastModifiedDate")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "authorizerArn")
+            Prelude.<*> (x Prelude..:? "authorizerFunctionArn")
+            Prelude.<*> (x Prelude..:? "creationDate")
+            Prelude.<*> ( x Prelude..:? "tokenSigningPublicKeys"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "authorizerName")
+            Prelude.<*> (x Prelude..:? "signingDisabled")
+            Prelude.<*> (x Prelude..:? "tokenKeyName")
       )
 
-instance Hashable AuthorizerDescription
+instance Prelude.Hashable AuthorizerDescription
 
-instance NFData AuthorizerDescription
+instance Prelude.NFData AuthorizerDescription

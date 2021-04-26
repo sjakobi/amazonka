@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,121 +24,162 @@
 -- Returns a unique endpoint specific to the AWS account making the call.
 module Network.AWS.IoT.DescribeEndpoint
   ( -- * Creating a Request
-    describeEndpoint,
-    DescribeEndpoint,
+    DescribeEndpoint (..),
+    newDescribeEndpoint,
 
     -- * Request Lenses
-    deEndpointType,
+    describeEndpoint_endpointType,
 
     -- * Destructuring the Response
-    describeEndpointResponse,
-    DescribeEndpointResponse,
+    DescribeEndpointResponse (..),
+    newDescribeEndpointResponse,
 
     -- * Response Lenses
-    derrsEndpointAddress,
-    derrsResponseStatus,
+    describeEndpointResponse_endpointAddress,
+    describeEndpointResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the DescribeEndpoint operation.
 --
---
---
--- /See:/ 'describeEndpoint' smart constructor.
-newtype DescribeEndpoint = DescribeEndpoint'
-  { _deEndpointType ::
-      Maybe Text
+-- /See:/ 'newDescribeEndpoint' smart constructor.
+data DescribeEndpoint = DescribeEndpoint'
+  { -- | The endpoint type. Valid endpoint types include:
+    --
+    -- -   @iot:Data@ - Returns a VeriSign signed data endpoint.
+    --
+    -- -   @iot:Data-ATS@ - Returns an ATS signed data endpoint.
+    --
+    -- -   @iot:CredentialProvider@ - Returns an AWS IoT credentials provider
+    --     API endpoint.
+    --
+    -- -   @iot:Jobs@ - Returns an AWS IoT device management Jobs API endpoint.
+    --
+    -- We strongly recommend that customers use the newer @iot:Data-ATS@
+    -- endpoint type to avoid issues related to the widespread distrust of
+    -- Symantec certificate authorities.
+    endpointType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deEndpointType' - The endpoint type. Valid endpoint types include:     * @iot:Data@ - Returns a VeriSign signed data endpoint.     * @iot:Data-ATS@ - Returns an ATS signed data endpoint.     * @iot:CredentialProvider@ - Returns an AWS IoT credentials provider API endpoint.     * @iot:Jobs@ - Returns an AWS IoT device management Jobs API endpoint. We strongly recommend that customers use the newer @iot:Data-ATS@ endpoint type to avoid issues related to the widespread distrust of Symantec certificate authorities.
-describeEndpoint ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'endpointType', 'describeEndpoint_endpointType' - The endpoint type. Valid endpoint types include:
+--
+-- -   @iot:Data@ - Returns a VeriSign signed data endpoint.
+--
+-- -   @iot:Data-ATS@ - Returns an ATS signed data endpoint.
+--
+-- -   @iot:CredentialProvider@ - Returns an AWS IoT credentials provider
+--     API endpoint.
+--
+-- -   @iot:Jobs@ - Returns an AWS IoT device management Jobs API endpoint.
+--
+-- We strongly recommend that customers use the newer @iot:Data-ATS@
+-- endpoint type to avoid issues related to the widespread distrust of
+-- Symantec certificate authorities.
+newDescribeEndpoint ::
   DescribeEndpoint
-describeEndpoint =
-  DescribeEndpoint' {_deEndpointType = Nothing}
+newDescribeEndpoint =
+  DescribeEndpoint' {endpointType = Prelude.Nothing}
 
--- | The endpoint type. Valid endpoint types include:     * @iot:Data@ - Returns a VeriSign signed data endpoint.     * @iot:Data-ATS@ - Returns an ATS signed data endpoint.     * @iot:CredentialProvider@ - Returns an AWS IoT credentials provider API endpoint.     * @iot:Jobs@ - Returns an AWS IoT device management Jobs API endpoint. We strongly recommend that customers use the newer @iot:Data-ATS@ endpoint type to avoid issues related to the widespread distrust of Symantec certificate authorities.
-deEndpointType :: Lens' DescribeEndpoint (Maybe Text)
-deEndpointType = lens _deEndpointType (\s a -> s {_deEndpointType = a})
+-- | The endpoint type. Valid endpoint types include:
+--
+-- -   @iot:Data@ - Returns a VeriSign signed data endpoint.
+--
+-- -   @iot:Data-ATS@ - Returns an ATS signed data endpoint.
+--
+-- -   @iot:CredentialProvider@ - Returns an AWS IoT credentials provider
+--     API endpoint.
+--
+-- -   @iot:Jobs@ - Returns an AWS IoT device management Jobs API endpoint.
+--
+-- We strongly recommend that customers use the newer @iot:Data-ATS@
+-- endpoint type to avoid issues related to the widespread distrust of
+-- Symantec certificate authorities.
+describeEndpoint_endpointType :: Lens.Lens' DescribeEndpoint (Prelude.Maybe Prelude.Text)
+describeEndpoint_endpointType = Lens.lens (\DescribeEndpoint' {endpointType} -> endpointType) (\s@DescribeEndpoint' {} a -> s {endpointType = a} :: DescribeEndpoint)
 
-instance AWSRequest DescribeEndpoint where
+instance Prelude.AWSRequest DescribeEndpoint where
   type Rs DescribeEndpoint = DescribeEndpointResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEndpointResponse'
-            <$> (x .?> "endpointAddress") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "endpointAddress")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEndpoint
+instance Prelude.Hashable DescribeEndpoint
 
-instance NFData DescribeEndpoint
+instance Prelude.NFData DescribeEndpoint
 
-instance ToHeaders DescribeEndpoint where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeEndpoint where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeEndpoint where
-  toPath = const "/endpoint"
+instance Prelude.ToPath DescribeEndpoint where
+  toPath = Prelude.const "/endpoint"
 
-instance ToQuery DescribeEndpoint where
+instance Prelude.ToQuery DescribeEndpoint where
   toQuery DescribeEndpoint' {..} =
-    mconcat ["endpointType" =: _deEndpointType]
+    Prelude.mconcat
+      ["endpointType" Prelude.=: endpointType]
 
 -- | The output from the DescribeEndpoint operation.
 --
---
---
--- /See:/ 'describeEndpointResponse' smart constructor.
+-- /See:/ 'newDescribeEndpointResponse' smart constructor.
 data DescribeEndpointResponse = DescribeEndpointResponse'
-  { _derrsEndpointAddress ::
-      !(Maybe Text),
-    _derrsResponseStatus ::
-      !Int
+  { -- | The endpoint. The format of the endpoint is as follows:
+    -- /identifier/.iot./region/.amazonaws.com.
+    endpointAddress :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derrsEndpointAddress' - The endpoint. The format of the endpoint is as follows: /identifier/ .iot./region/ .amazonaws.com.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'derrsResponseStatus' - -- | The response status code.
-describeEndpointResponse ::
-  -- | 'derrsResponseStatus'
-  Int ->
+-- 'endpointAddress', 'describeEndpointResponse_endpointAddress' - The endpoint. The format of the endpoint is as follows:
+-- /identifier/.iot./region/.amazonaws.com.
+--
+-- 'httpStatus', 'describeEndpointResponse_httpStatus' - The response's http status code.
+newDescribeEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEndpointResponse
-describeEndpointResponse pResponseStatus_ =
+newDescribeEndpointResponse pHttpStatus_ =
   DescribeEndpointResponse'
-    { _derrsEndpointAddress =
-        Nothing,
-      _derrsResponseStatus = pResponseStatus_
+    { endpointAddress =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The endpoint. The format of the endpoint is as follows: /identifier/ .iot./region/ .amazonaws.com.
-derrsEndpointAddress :: Lens' DescribeEndpointResponse (Maybe Text)
-derrsEndpointAddress = lens _derrsEndpointAddress (\s a -> s {_derrsEndpointAddress = a})
+-- | The endpoint. The format of the endpoint is as follows:
+-- /identifier/.iot./region/.amazonaws.com.
+describeEndpointResponse_endpointAddress :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe Prelude.Text)
+describeEndpointResponse_endpointAddress = Lens.lens (\DescribeEndpointResponse' {endpointAddress} -> endpointAddress) (\s@DescribeEndpointResponse' {} a -> s {endpointAddress = a} :: DescribeEndpointResponse)
 
--- | -- | The response status code.
-derrsResponseStatus :: Lens' DescribeEndpointResponse Int
-derrsResponseStatus = lens _derrsResponseStatus (\s a -> s {_derrsResponseStatus = a})
+-- | The response's http status code.
+describeEndpointResponse_httpStatus :: Lens.Lens' DescribeEndpointResponse Prelude.Int
+describeEndpointResponse_httpStatus = Lens.lens (\DescribeEndpointResponse' {httpStatus} -> httpStatus) (\s@DescribeEndpointResponse' {} a -> s {httpStatus = a} :: DescribeEndpointResponse)
 
-instance NFData DescribeEndpointResponse
+instance Prelude.NFData DescribeEndpointResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.IoT.Types.PolicyTemplateName
   ( PolicyTemplateName
       ( ..,
-        BlankPolicy
+        PolicyTemplateNameBLANKPOLICY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PolicyTemplateName
-  = PolicyTemplateName'
-      ( CI
-          Text
-      )
+newtype PolicyTemplateName = PolicyTemplateName'
+  { fromPolicyTemplateName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BlankPolicy :: PolicyTemplateName
-pattern BlankPolicy = PolicyTemplateName' "BLANK_POLICY"
+pattern PolicyTemplateNameBLANKPOLICY :: PolicyTemplateName
+pattern PolicyTemplateNameBLANKPOLICY = PolicyTemplateName' "BLANK_POLICY"
 
 {-# COMPLETE
-  BlankPolicy,
+  PolicyTemplateNameBLANKPOLICY,
   PolicyTemplateName'
   #-}
 
-instance FromText PolicyTemplateName where
-  parser = (PolicyTemplateName' . mk) <$> takeText
+instance Prelude.FromText PolicyTemplateName where
+  parser = PolicyTemplateName' Prelude.<$> Prelude.takeText
 
-instance ToText PolicyTemplateName where
-  toText (PolicyTemplateName' ci) = original ci
+instance Prelude.ToText PolicyTemplateName where
+  toText (PolicyTemplateName' x) = x
 
-instance Hashable PolicyTemplateName
+instance Prelude.Hashable PolicyTemplateName
 
-instance NFData PolicyTemplateName
+instance Prelude.NFData PolicyTemplateName
 
-instance ToByteString PolicyTemplateName
+instance Prelude.ToByteString PolicyTemplateName
 
-instance ToQuery PolicyTemplateName
+instance Prelude.ToQuery PolicyTemplateName
 
-instance ToHeader PolicyTemplateName
+instance Prelude.ToHeader PolicyTemplateName
 
-instance ToJSON PolicyTemplateName where
-  toJSON = toJSONText
+instance Prelude.ToJSON PolicyTemplateName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PolicyTemplateName where
-  parseJSON = parseJSONText "PolicyTemplateName"
+instance Prelude.FromJSON PolicyTemplateName where
+  parseJSON = Prelude.parseJSONText "PolicyTemplateName"

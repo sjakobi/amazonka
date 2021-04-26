@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.IoT.Types.AuditFindingSeverity
   ( AuditFindingSeverity
       ( ..,
-        AFSCritical,
-        AFSHigh,
-        AFSLow,
-        AFSMedium
+        AuditFindingSeverityCRITICAL,
+        AuditFindingSeverityHIGH,
+        AuditFindingSeverityLOW,
+        AuditFindingSeverityMEDIUM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuditFindingSeverity
-  = AuditFindingSeverity'
-      ( CI
-          Text
-      )
+newtype AuditFindingSeverity = AuditFindingSeverity'
+  { fromAuditFindingSeverity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AFSCritical :: AuditFindingSeverity
-pattern AFSCritical = AuditFindingSeverity' "CRITICAL"
+pattern AuditFindingSeverityCRITICAL :: AuditFindingSeverity
+pattern AuditFindingSeverityCRITICAL = AuditFindingSeverity' "CRITICAL"
 
-pattern AFSHigh :: AuditFindingSeverity
-pattern AFSHigh = AuditFindingSeverity' "HIGH"
+pattern AuditFindingSeverityHIGH :: AuditFindingSeverity
+pattern AuditFindingSeverityHIGH = AuditFindingSeverity' "HIGH"
 
-pattern AFSLow :: AuditFindingSeverity
-pattern AFSLow = AuditFindingSeverity' "LOW"
+pattern AuditFindingSeverityLOW :: AuditFindingSeverity
+pattern AuditFindingSeverityLOW = AuditFindingSeverity' "LOW"
 
-pattern AFSMedium :: AuditFindingSeverity
-pattern AFSMedium = AuditFindingSeverity' "MEDIUM"
+pattern AuditFindingSeverityMEDIUM :: AuditFindingSeverity
+pattern AuditFindingSeverityMEDIUM = AuditFindingSeverity' "MEDIUM"
 
 {-# COMPLETE
-  AFSCritical,
-  AFSHigh,
-  AFSLow,
-  AFSMedium,
+  AuditFindingSeverityCRITICAL,
+  AuditFindingSeverityHIGH,
+  AuditFindingSeverityLOW,
+  AuditFindingSeverityMEDIUM,
   AuditFindingSeverity'
   #-}
 
-instance FromText AuditFindingSeverity where
-  parser = (AuditFindingSeverity' . mk) <$> takeText
+instance Prelude.FromText AuditFindingSeverity where
+  parser = AuditFindingSeverity' Prelude.<$> Prelude.takeText
 
-instance ToText AuditFindingSeverity where
-  toText (AuditFindingSeverity' ci) = original ci
+instance Prelude.ToText AuditFindingSeverity where
+  toText (AuditFindingSeverity' x) = x
 
-instance Hashable AuditFindingSeverity
+instance Prelude.Hashable AuditFindingSeverity
 
-instance NFData AuditFindingSeverity
+instance Prelude.NFData AuditFindingSeverity
 
-instance ToByteString AuditFindingSeverity
+instance Prelude.ToByteString AuditFindingSeverity
 
-instance ToQuery AuditFindingSeverity
+instance Prelude.ToQuery AuditFindingSeverity
 
-instance ToHeader AuditFindingSeverity
+instance Prelude.ToHeader AuditFindingSeverity
 
-instance FromJSON AuditFindingSeverity where
-  parseJSON = parseJSONText "AuditFindingSeverity"
+instance Prelude.FromJSON AuditFindingSeverity where
+  parseJSON = Prelude.parseJSONText "AuditFindingSeverity"

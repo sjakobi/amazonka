@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +21,66 @@ module Network.AWS.IoT.Types.FileLocation where
 
 import Network.AWS.IoT.Types.S3Location
 import Network.AWS.IoT.Types.Stream
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The location of the OTA update.
 --
---
---
--- /See:/ 'fileLocation' smart constructor.
+-- /See:/ 'newFileLocation' smart constructor.
 data FileLocation = FileLocation'
-  { _flStream ::
-      !(Maybe Stream),
-    _flS3Location :: !(Maybe S3Location)
+  { -- | The stream that contains the OTA update.
+    stream :: Prelude.Maybe Stream,
+    -- | The location of the updated firmware in S3.
+    s3Location :: Prelude.Maybe S3Location
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FileLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FileLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'flStream' - The stream that contains the OTA update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'flS3Location' - The location of the updated firmware in S3.
-fileLocation ::
+-- 'stream', 'fileLocation_stream' - The stream that contains the OTA update.
+--
+-- 's3Location', 'fileLocation_s3Location' - The location of the updated firmware in S3.
+newFileLocation ::
   FileLocation
-fileLocation =
+newFileLocation =
   FileLocation'
-    { _flStream = Nothing,
-      _flS3Location = Nothing
+    { stream = Prelude.Nothing,
+      s3Location = Prelude.Nothing
     }
 
 -- | The stream that contains the OTA update.
-flStream :: Lens' FileLocation (Maybe Stream)
-flStream = lens _flStream (\s a -> s {_flStream = a})
+fileLocation_stream :: Lens.Lens' FileLocation (Prelude.Maybe Stream)
+fileLocation_stream = Lens.lens (\FileLocation' {stream} -> stream) (\s@FileLocation' {} a -> s {stream = a} :: FileLocation)
 
 -- | The location of the updated firmware in S3.
-flS3Location :: Lens' FileLocation (Maybe S3Location)
-flS3Location = lens _flS3Location (\s a -> s {_flS3Location = a})
+fileLocation_s3Location :: Lens.Lens' FileLocation (Prelude.Maybe S3Location)
+fileLocation_s3Location = Lens.lens (\FileLocation' {s3Location} -> s3Location) (\s@FileLocation' {} a -> s {s3Location = a} :: FileLocation)
 
-instance FromJSON FileLocation where
+instance Prelude.FromJSON FileLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FileLocation"
       ( \x ->
           FileLocation'
-            <$> (x .:? "stream") <*> (x .:? "s3Location")
+            Prelude.<$> (x Prelude..:? "stream")
+            Prelude.<*> (x Prelude..:? "s3Location")
       )
 
-instance Hashable FileLocation
+instance Prelude.Hashable FileLocation
 
-instance NFData FileLocation
+instance Prelude.NFData FileLocation
 
-instance ToJSON FileLocation where
+instance Prelude.ToJSON FileLocation where
   toJSON FileLocation' {..} =
-    object
-      ( catMaybes
-          [ ("stream" .=) <$> _flStream,
-            ("s3Location" .=) <$> _flS3Location
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("stream" Prelude..=) Prelude.<$> stream,
+            ("s3Location" Prelude..=) Prelude.<$> s3Location
           ]
       )

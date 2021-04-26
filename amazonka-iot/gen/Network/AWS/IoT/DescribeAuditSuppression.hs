@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,204 +24,189 @@
 -- Gets information about a Device Defender audit suppression.
 module Network.AWS.IoT.DescribeAuditSuppression
   ( -- * Creating a Request
-    describeAuditSuppression,
-    DescribeAuditSuppression,
+    DescribeAuditSuppression (..),
+    newDescribeAuditSuppression,
 
     -- * Request Lenses
-    dCheckName,
-    dResourceIdentifier,
+    describeAuditSuppression_checkName,
+    describeAuditSuppression_resourceIdentifier,
 
     -- * Destructuring the Response
-    describeAuditSuppressionResponse,
-    DescribeAuditSuppressionResponse,
+    DescribeAuditSuppressionResponse (..),
+    newDescribeAuditSuppressionResponse,
 
     -- * Response Lenses
-    dasrarsExpirationDate,
-    dasrarsResourceIdentifier,
-    dasrarsCheckName,
-    dasrarsDescription,
-    dasrarsSuppressIndefinitely,
-    dasrarsResponseStatus,
+    describeAuditSuppressionResponse_expirationDate,
+    describeAuditSuppressionResponse_resourceIdentifier,
+    describeAuditSuppressionResponse_checkName,
+    describeAuditSuppressionResponse_description,
+    describeAuditSuppressionResponse_suppressIndefinitely,
+    describeAuditSuppressionResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.ResourceIdentifier
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAuditSuppression' smart constructor.
+-- | /See:/ 'newDescribeAuditSuppression' smart constructor.
 data DescribeAuditSuppression = DescribeAuditSuppression'
-  { _dCheckName ::
-      !Text,
-    _dResourceIdentifier ::
-      !ResourceIdentifier
+  { checkName :: Prelude.Text,
+    resourceIdentifier :: ResourceIdentifier
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAuditSuppression' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAuditSuppression' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dCheckName' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dResourceIdentifier' - Undocumented member.
-describeAuditSuppression ::
-  -- | 'dCheckName'
-  Text ->
-  -- | 'dResourceIdentifier'
+-- 'checkName', 'describeAuditSuppression_checkName' - Undocumented member.
+--
+-- 'resourceIdentifier', 'describeAuditSuppression_resourceIdentifier' - Undocumented member.
+newDescribeAuditSuppression ::
+  -- | 'checkName'
+  Prelude.Text ->
+  -- | 'resourceIdentifier'
   ResourceIdentifier ->
   DescribeAuditSuppression
-describeAuditSuppression
+newDescribeAuditSuppression
   pCheckName_
   pResourceIdentifier_ =
     DescribeAuditSuppression'
-      { _dCheckName =
-          pCheckName_,
-        _dResourceIdentifier = pResourceIdentifier_
+      { checkName = pCheckName_,
+        resourceIdentifier = pResourceIdentifier_
       }
 
 -- | Undocumented member.
-dCheckName :: Lens' DescribeAuditSuppression Text
-dCheckName = lens _dCheckName (\s a -> s {_dCheckName = a})
+describeAuditSuppression_checkName :: Lens.Lens' DescribeAuditSuppression Prelude.Text
+describeAuditSuppression_checkName = Lens.lens (\DescribeAuditSuppression' {checkName} -> checkName) (\s@DescribeAuditSuppression' {} a -> s {checkName = a} :: DescribeAuditSuppression)
 
 -- | Undocumented member.
-dResourceIdentifier :: Lens' DescribeAuditSuppression ResourceIdentifier
-dResourceIdentifier = lens _dResourceIdentifier (\s a -> s {_dResourceIdentifier = a})
+describeAuditSuppression_resourceIdentifier :: Lens.Lens' DescribeAuditSuppression ResourceIdentifier
+describeAuditSuppression_resourceIdentifier = Lens.lens (\DescribeAuditSuppression' {resourceIdentifier} -> resourceIdentifier) (\s@DescribeAuditSuppression' {} a -> s {resourceIdentifier = a} :: DescribeAuditSuppression)
 
-instance AWSRequest DescribeAuditSuppression where
+instance Prelude.AWSRequest DescribeAuditSuppression where
   type
     Rs DescribeAuditSuppression =
       DescribeAuditSuppressionResponse
-  request = postJSON ioT
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAuditSuppressionResponse'
-            <$> (x .?> "expirationDate")
-            <*> (x .?> "resourceIdentifier")
-            <*> (x .?> "checkName")
-            <*> (x .?> "description")
-            <*> (x .?> "suppressIndefinitely")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "expirationDate")
+            Prelude.<*> (x Prelude..?> "resourceIdentifier")
+            Prelude.<*> (x Prelude..?> "checkName")
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (x Prelude..?> "suppressIndefinitely")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAuditSuppression
+instance Prelude.Hashable DescribeAuditSuppression
 
-instance NFData DescribeAuditSuppression
+instance Prelude.NFData DescribeAuditSuppression
 
-instance ToHeaders DescribeAuditSuppression where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeAuditSuppression where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON DescribeAuditSuppression where
+instance Prelude.ToJSON DescribeAuditSuppression where
   toJSON DescribeAuditSuppression' {..} =
-    object
-      ( catMaybes
-          [ Just ("checkName" .= _dCheckName),
-            Just ("resourceIdentifier" .= _dResourceIdentifier)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("checkName" Prelude..= checkName),
+            Prelude.Just
+              ( "resourceIdentifier"
+                  Prelude..= resourceIdentifier
+              )
           ]
       )
 
-instance ToPath DescribeAuditSuppression where
-  toPath = const "/audit/suppressions/describe"
+instance Prelude.ToPath DescribeAuditSuppression where
+  toPath = Prelude.const "/audit/suppressions/describe"
 
-instance ToQuery DescribeAuditSuppression where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAuditSuppression where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAuditSuppressionResponse' smart constructor.
+-- | /See:/ 'newDescribeAuditSuppressionResponse' smart constructor.
 data DescribeAuditSuppressionResponse = DescribeAuditSuppressionResponse'
-  { _dasrarsExpirationDate ::
-      !( Maybe
-           POSIX
-       ),
-    _dasrarsResourceIdentifier ::
-      !( Maybe
-           ResourceIdentifier
-       ),
-    _dasrarsCheckName ::
-      !( Maybe
-           Text
-       ),
-    _dasrarsDescription ::
-      !( Maybe
-           Text
-       ),
-    _dasrarsSuppressIndefinitely ::
-      !( Maybe
-           Bool
-       ),
-    _dasrarsResponseStatus ::
-      !Int
+  { -- | The epoch timestamp in seconds at which this suppression expires.
+    expirationDate :: Prelude.Maybe Prelude.POSIX,
+    resourceIdentifier :: Prelude.Maybe ResourceIdentifier,
+    checkName :: Prelude.Maybe Prelude.Text,
+    -- | The description of the audit suppression.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether a suppression should exist indefinitely or not.
+    suppressIndefinitely :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAuditSuppressionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAuditSuppressionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dasrarsExpirationDate' - The epoch timestamp in seconds at which this suppression expires.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dasrarsResourceIdentifier' - Undocumented member.
+-- 'expirationDate', 'describeAuditSuppressionResponse_expirationDate' - The epoch timestamp in seconds at which this suppression expires.
 --
--- * 'dasrarsCheckName' - Undocumented member.
+-- 'resourceIdentifier', 'describeAuditSuppressionResponse_resourceIdentifier' - Undocumented member.
 --
--- * 'dasrarsDescription' - The description of the audit suppression.
+-- 'checkName', 'describeAuditSuppressionResponse_checkName' - Undocumented member.
 --
--- * 'dasrarsSuppressIndefinitely' - Indicates whether a suppression should exist indefinitely or not.
+-- 'description', 'describeAuditSuppressionResponse_description' - The description of the audit suppression.
 --
--- * 'dasrarsResponseStatus' - -- | The response status code.
-describeAuditSuppressionResponse ::
-  -- | 'dasrarsResponseStatus'
-  Int ->
+-- 'suppressIndefinitely', 'describeAuditSuppressionResponse_suppressIndefinitely' - Indicates whether a suppression should exist indefinitely or not.
+--
+-- 'httpStatus', 'describeAuditSuppressionResponse_httpStatus' - The response's http status code.
+newDescribeAuditSuppressionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAuditSuppressionResponse
-describeAuditSuppressionResponse pResponseStatus_ =
+newDescribeAuditSuppressionResponse pHttpStatus_ =
   DescribeAuditSuppressionResponse'
-    { _dasrarsExpirationDate =
-        Nothing,
-      _dasrarsResourceIdentifier = Nothing,
-      _dasrarsCheckName = Nothing,
-      _dasrarsDescription = Nothing,
-      _dasrarsSuppressIndefinitely = Nothing,
-      _dasrarsResponseStatus = pResponseStatus_
+    { expirationDate =
+        Prelude.Nothing,
+      resourceIdentifier = Prelude.Nothing,
+      checkName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      suppressIndefinitely = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The epoch timestamp in seconds at which this suppression expires.
-dasrarsExpirationDate :: Lens' DescribeAuditSuppressionResponse (Maybe UTCTime)
-dasrarsExpirationDate = lens _dasrarsExpirationDate (\s a -> s {_dasrarsExpirationDate = a}) . mapping _Time
+describeAuditSuppressionResponse_expirationDate :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe Prelude.UTCTime)
+describeAuditSuppressionResponse_expirationDate = Lens.lens (\DescribeAuditSuppressionResponse' {expirationDate} -> expirationDate) (\s@DescribeAuditSuppressionResponse' {} a -> s {expirationDate = a} :: DescribeAuditSuppressionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | Undocumented member.
-dasrarsResourceIdentifier :: Lens' DescribeAuditSuppressionResponse (Maybe ResourceIdentifier)
-dasrarsResourceIdentifier = lens _dasrarsResourceIdentifier (\s a -> s {_dasrarsResourceIdentifier = a})
+describeAuditSuppressionResponse_resourceIdentifier :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe ResourceIdentifier)
+describeAuditSuppressionResponse_resourceIdentifier = Lens.lens (\DescribeAuditSuppressionResponse' {resourceIdentifier} -> resourceIdentifier) (\s@DescribeAuditSuppressionResponse' {} a -> s {resourceIdentifier = a} :: DescribeAuditSuppressionResponse)
 
 -- | Undocumented member.
-dasrarsCheckName :: Lens' DescribeAuditSuppressionResponse (Maybe Text)
-dasrarsCheckName = lens _dasrarsCheckName (\s a -> s {_dasrarsCheckName = a})
+describeAuditSuppressionResponse_checkName :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe Prelude.Text)
+describeAuditSuppressionResponse_checkName = Lens.lens (\DescribeAuditSuppressionResponse' {checkName} -> checkName) (\s@DescribeAuditSuppressionResponse' {} a -> s {checkName = a} :: DescribeAuditSuppressionResponse)
 
 -- | The description of the audit suppression.
-dasrarsDescription :: Lens' DescribeAuditSuppressionResponse (Maybe Text)
-dasrarsDescription = lens _dasrarsDescription (\s a -> s {_dasrarsDescription = a})
+describeAuditSuppressionResponse_description :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe Prelude.Text)
+describeAuditSuppressionResponse_description = Lens.lens (\DescribeAuditSuppressionResponse' {description} -> description) (\s@DescribeAuditSuppressionResponse' {} a -> s {description = a} :: DescribeAuditSuppressionResponse)
 
 -- | Indicates whether a suppression should exist indefinitely or not.
-dasrarsSuppressIndefinitely :: Lens' DescribeAuditSuppressionResponse (Maybe Bool)
-dasrarsSuppressIndefinitely = lens _dasrarsSuppressIndefinitely (\s a -> s {_dasrarsSuppressIndefinitely = a})
+describeAuditSuppressionResponse_suppressIndefinitely :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe Prelude.Bool)
+describeAuditSuppressionResponse_suppressIndefinitely = Lens.lens (\DescribeAuditSuppressionResponse' {suppressIndefinitely} -> suppressIndefinitely) (\s@DescribeAuditSuppressionResponse' {} a -> s {suppressIndefinitely = a} :: DescribeAuditSuppressionResponse)
 
--- | -- | The response status code.
-dasrarsResponseStatus :: Lens' DescribeAuditSuppressionResponse Int
-dasrarsResponseStatus = lens _dasrarsResponseStatus (\s a -> s {_dasrarsResponseStatus = a})
+-- | The response's http status code.
+describeAuditSuppressionResponse_httpStatus :: Lens.Lens' DescribeAuditSuppressionResponse Prelude.Int
+describeAuditSuppressionResponse_httpStatus = Lens.lens (\DescribeAuditSuppressionResponse' {httpStatus} -> httpStatus) (\s@DescribeAuditSuppressionResponse' {} a -> s {httpStatus = a} :: DescribeAuditSuppressionResponse)
 
-instance NFData DescribeAuditSuppressionResponse
+instance
+  Prelude.NFData
+    DescribeAuditSuppressionResponse

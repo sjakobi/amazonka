@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.IoT.Types.DetectMitigationActionExecutionStatus
   ( DetectMitigationActionExecutionStatus
       ( ..,
-        DMAESFailed,
-        DMAESInProgress,
-        DMAESSkipped,
-        DMAESSuccessful
+        DetectMitigationActionExecutionStatusFAILED,
+        DetectMitigationActionExecutionStatusINPROGRESS,
+        DetectMitigationActionExecutionStatusSKIPPED,
+        DetectMitigationActionExecutionStatusSUCCESSFUL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DetectMitigationActionExecutionStatus
-  = DetectMitigationActionExecutionStatus'
-      ( CI
-          Text
-      )
+newtype DetectMitigationActionExecutionStatus = DetectMitigationActionExecutionStatus'
+  { fromDetectMitigationActionExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DMAESFailed :: DetectMitigationActionExecutionStatus
-pattern DMAESFailed = DetectMitigationActionExecutionStatus' "FAILED"
+pattern DetectMitigationActionExecutionStatusFAILED :: DetectMitigationActionExecutionStatus
+pattern DetectMitigationActionExecutionStatusFAILED = DetectMitigationActionExecutionStatus' "FAILED"
 
-pattern DMAESInProgress :: DetectMitigationActionExecutionStatus
-pattern DMAESInProgress = DetectMitigationActionExecutionStatus' "IN_PROGRESS"
+pattern DetectMitigationActionExecutionStatusINPROGRESS :: DetectMitigationActionExecutionStatus
+pattern DetectMitigationActionExecutionStatusINPROGRESS = DetectMitigationActionExecutionStatus' "IN_PROGRESS"
 
-pattern DMAESSkipped :: DetectMitigationActionExecutionStatus
-pattern DMAESSkipped = DetectMitigationActionExecutionStatus' "SKIPPED"
+pattern DetectMitigationActionExecutionStatusSKIPPED :: DetectMitigationActionExecutionStatus
+pattern DetectMitigationActionExecutionStatusSKIPPED = DetectMitigationActionExecutionStatus' "SKIPPED"
 
-pattern DMAESSuccessful :: DetectMitigationActionExecutionStatus
-pattern DMAESSuccessful = DetectMitigationActionExecutionStatus' "SUCCESSFUL"
+pattern DetectMitigationActionExecutionStatusSUCCESSFUL :: DetectMitigationActionExecutionStatus
+pattern DetectMitigationActionExecutionStatusSUCCESSFUL = DetectMitigationActionExecutionStatus' "SUCCESSFUL"
 
 {-# COMPLETE
-  DMAESFailed,
-  DMAESInProgress,
-  DMAESSkipped,
-  DMAESSuccessful,
+  DetectMitigationActionExecutionStatusFAILED,
+  DetectMitigationActionExecutionStatusINPROGRESS,
+  DetectMitigationActionExecutionStatusSKIPPED,
+  DetectMitigationActionExecutionStatusSUCCESSFUL,
   DetectMitigationActionExecutionStatus'
   #-}
 
-instance FromText DetectMitigationActionExecutionStatus where
-  parser = (DetectMitigationActionExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText DetectMitigationActionExecutionStatus where
+  parser = DetectMitigationActionExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DetectMitigationActionExecutionStatus where
-  toText (DetectMitigationActionExecutionStatus' ci) = original ci
+instance Prelude.ToText DetectMitigationActionExecutionStatus where
+  toText (DetectMitigationActionExecutionStatus' x) = x
 
-instance Hashable DetectMitigationActionExecutionStatus
+instance Prelude.Hashable DetectMitigationActionExecutionStatus
 
-instance NFData DetectMitigationActionExecutionStatus
+instance Prelude.NFData DetectMitigationActionExecutionStatus
 
-instance ToByteString DetectMitigationActionExecutionStatus
+instance Prelude.ToByteString DetectMitigationActionExecutionStatus
 
-instance ToQuery DetectMitigationActionExecutionStatus
+instance Prelude.ToQuery DetectMitigationActionExecutionStatus
 
-instance ToHeader DetectMitigationActionExecutionStatus
+instance Prelude.ToHeader DetectMitigationActionExecutionStatus
 
-instance FromJSON DetectMitigationActionExecutionStatus where
-  parseJSON = parseJSONText "DetectMitigationActionExecutionStatus"
+instance Prelude.FromJSON DetectMitigationActionExecutionStatus where
+  parseJSON = Prelude.parseJSONText "DetectMitigationActionExecutionStatus"

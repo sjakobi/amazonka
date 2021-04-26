@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,234 +24,250 @@
 -- Starts a Device Defender ML Detect mitigation actions task.
 module Network.AWS.IoT.StartDetectMitigationActionsTask
   ( -- * Creating a Request
-    startDetectMitigationActionsTask,
-    StartDetectMitigationActionsTask,
+    StartDetectMitigationActionsTask (..),
+    newStartDetectMitigationActionsTask,
 
     -- * Request Lenses
-    sdmatIncludeSuppressedAlerts,
-    sdmatIncludeOnlyActiveViolations,
-    sdmatViolationEventOccurrenceRange,
-    sdmatTaskId,
-    sdmatTarget,
-    sdmatActions,
-    sdmatClientRequestToken,
+    startDetectMitigationActionsTask_includeSuppressedAlerts,
+    startDetectMitigationActionsTask_includeOnlyActiveViolations,
+    startDetectMitigationActionsTask_violationEventOccurrenceRange,
+    startDetectMitigationActionsTask_taskId,
+    startDetectMitigationActionsTask_target,
+    startDetectMitigationActionsTask_actions,
+    startDetectMitigationActionsTask_clientRequestToken,
 
     -- * Destructuring the Response
-    startDetectMitigationActionsTaskResponse,
-    StartDetectMitigationActionsTaskResponse,
+    StartDetectMitigationActionsTaskResponse (..),
+    newStartDetectMitigationActionsTaskResponse,
 
     -- * Response Lenses
-    sdmatrrsTaskId,
-    sdmatrrsResponseStatus,
+    startDetectMitigationActionsTaskResponse_taskId,
+    startDetectMitigationActionsTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startDetectMitigationActionsTask' smart constructor.
+-- | /See:/ 'newStartDetectMitigationActionsTask' smart constructor.
 data StartDetectMitigationActionsTask = StartDetectMitigationActionsTask'
-  { _sdmatIncludeSuppressedAlerts ::
-      !( Maybe
-           Bool
-       ),
-    _sdmatIncludeOnlyActiveViolations ::
-      !( Maybe
-           Bool
-       ),
-    _sdmatViolationEventOccurrenceRange ::
-      !( Maybe
-           ViolationEventOccurrenceRange
-       ),
-    _sdmatTaskId ::
-      !Text,
-    _sdmatTarget ::
-      !DetectMitigationActionsTaskTarget,
-    _sdmatActions ::
-      !( List1
-           Text
-       ),
-    _sdmatClientRequestToken ::
-      !Text
+  { -- | Specifies to include suppressed alerts.
+    includeSuppressedAlerts :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies to list only active violations.
+    includeOnlyActiveViolations :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the time period of which violation events occurred between.
+    violationEventOccurrenceRange :: Prelude.Maybe ViolationEventOccurrenceRange,
+    -- | The unique identifier of the task.
+    taskId :: Prelude.Text,
+    -- | Specifies the ML Detect findings to which the mitigation actions are
+    -- applied.
+    target :: DetectMitigationActionsTaskTarget,
+    -- | The actions to be performed when a device has unexpected behavior.
+    actions :: Prelude.List1 Prelude.Text,
+    -- | Each mitigation action task must have a unique client request token. If
+    -- you try to create a new task with the same token as a task that already
+    -- exists, an exception occurs. If you omit this value, AWS SDKs will
+    -- automatically generate a unique client request.
+    clientRequestToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDetectMitigationActionsTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDetectMitigationActionsTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdmatIncludeSuppressedAlerts' - Specifies to include suppressed alerts.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdmatIncludeOnlyActiveViolations' - Specifies to list only active violations.
+-- 'includeSuppressedAlerts', 'startDetectMitigationActionsTask_includeSuppressedAlerts' - Specifies to include suppressed alerts.
 --
--- * 'sdmatViolationEventOccurrenceRange' - Specifies the time period of which violation events occurred between.
+-- 'includeOnlyActiveViolations', 'startDetectMitigationActionsTask_includeOnlyActiveViolations' - Specifies to list only active violations.
 --
--- * 'sdmatTaskId' - The unique identifier of the task.
+-- 'violationEventOccurrenceRange', 'startDetectMitigationActionsTask_violationEventOccurrenceRange' - Specifies the time period of which violation events occurred between.
 --
--- * 'sdmatTarget' - Specifies the ML Detect findings to which the mitigation actions are applied.
+-- 'taskId', 'startDetectMitigationActionsTask_taskId' - The unique identifier of the task.
 --
--- * 'sdmatActions' - The actions to be performed when a device has unexpected behavior.
+-- 'target', 'startDetectMitigationActionsTask_target' - Specifies the ML Detect findings to which the mitigation actions are
+-- applied.
 --
--- * 'sdmatClientRequestToken' - Each mitigation action task must have a unique client request token. If you try to create a new task with the same token as a task that already exists, an exception occurs. If you omit this value, AWS SDKs will automatically generate a unique client request.
-startDetectMitigationActionsTask ::
-  -- | 'sdmatTaskId'
-  Text ->
-  -- | 'sdmatTarget'
+-- 'actions', 'startDetectMitigationActionsTask_actions' - The actions to be performed when a device has unexpected behavior.
+--
+-- 'clientRequestToken', 'startDetectMitigationActionsTask_clientRequestToken' - Each mitigation action task must have a unique client request token. If
+-- you try to create a new task with the same token as a task that already
+-- exists, an exception occurs. If you omit this value, AWS SDKs will
+-- automatically generate a unique client request.
+newStartDetectMitigationActionsTask ::
+  -- | 'taskId'
+  Prelude.Text ->
+  -- | 'target'
   DetectMitigationActionsTaskTarget ->
-  -- | 'sdmatActions'
-  NonEmpty Text ->
-  -- | 'sdmatClientRequestToken'
-  Text ->
+  -- | 'actions'
+  Prelude.NonEmpty Prelude.Text ->
+  -- | 'clientRequestToken'
+  Prelude.Text ->
   StartDetectMitigationActionsTask
-startDetectMitigationActionsTask
+newStartDetectMitigationActionsTask
   pTaskId_
   pTarget_
   pActions_
   pClientRequestToken_ =
     StartDetectMitigationActionsTask'
-      { _sdmatIncludeSuppressedAlerts =
-          Nothing,
-        _sdmatIncludeOnlyActiveViolations =
-          Nothing,
-        _sdmatViolationEventOccurrenceRange =
-          Nothing,
-        _sdmatTaskId = pTaskId_,
-        _sdmatTarget = pTarget_,
-        _sdmatActions = _List1 # pActions_,
-        _sdmatClientRequestToken =
-          pClientRequestToken_
+      { includeSuppressedAlerts =
+          Prelude.Nothing,
+        includeOnlyActiveViolations =
+          Prelude.Nothing,
+        violationEventOccurrenceRange =
+          Prelude.Nothing,
+        taskId = pTaskId_,
+        target = pTarget_,
+        actions = Prelude._List1 Lens.# pActions_,
+        clientRequestToken = pClientRequestToken_
       }
 
 -- | Specifies to include suppressed alerts.
-sdmatIncludeSuppressedAlerts :: Lens' StartDetectMitigationActionsTask (Maybe Bool)
-sdmatIncludeSuppressedAlerts = lens _sdmatIncludeSuppressedAlerts (\s a -> s {_sdmatIncludeSuppressedAlerts = a})
+startDetectMitigationActionsTask_includeSuppressedAlerts :: Lens.Lens' StartDetectMitigationActionsTask (Prelude.Maybe Prelude.Bool)
+startDetectMitigationActionsTask_includeSuppressedAlerts = Lens.lens (\StartDetectMitigationActionsTask' {includeSuppressedAlerts} -> includeSuppressedAlerts) (\s@StartDetectMitigationActionsTask' {} a -> s {includeSuppressedAlerts = a} :: StartDetectMitigationActionsTask)
 
 -- | Specifies to list only active violations.
-sdmatIncludeOnlyActiveViolations :: Lens' StartDetectMitigationActionsTask (Maybe Bool)
-sdmatIncludeOnlyActiveViolations = lens _sdmatIncludeOnlyActiveViolations (\s a -> s {_sdmatIncludeOnlyActiveViolations = a})
+startDetectMitigationActionsTask_includeOnlyActiveViolations :: Lens.Lens' StartDetectMitigationActionsTask (Prelude.Maybe Prelude.Bool)
+startDetectMitigationActionsTask_includeOnlyActiveViolations = Lens.lens (\StartDetectMitigationActionsTask' {includeOnlyActiveViolations} -> includeOnlyActiveViolations) (\s@StartDetectMitigationActionsTask' {} a -> s {includeOnlyActiveViolations = a} :: StartDetectMitigationActionsTask)
 
 -- | Specifies the time period of which violation events occurred between.
-sdmatViolationEventOccurrenceRange :: Lens' StartDetectMitigationActionsTask (Maybe ViolationEventOccurrenceRange)
-sdmatViolationEventOccurrenceRange = lens _sdmatViolationEventOccurrenceRange (\s a -> s {_sdmatViolationEventOccurrenceRange = a})
+startDetectMitigationActionsTask_violationEventOccurrenceRange :: Lens.Lens' StartDetectMitigationActionsTask (Prelude.Maybe ViolationEventOccurrenceRange)
+startDetectMitigationActionsTask_violationEventOccurrenceRange = Lens.lens (\StartDetectMitigationActionsTask' {violationEventOccurrenceRange} -> violationEventOccurrenceRange) (\s@StartDetectMitigationActionsTask' {} a -> s {violationEventOccurrenceRange = a} :: StartDetectMitigationActionsTask)
 
 -- | The unique identifier of the task.
-sdmatTaskId :: Lens' StartDetectMitigationActionsTask Text
-sdmatTaskId = lens _sdmatTaskId (\s a -> s {_sdmatTaskId = a})
+startDetectMitigationActionsTask_taskId :: Lens.Lens' StartDetectMitigationActionsTask Prelude.Text
+startDetectMitigationActionsTask_taskId = Lens.lens (\StartDetectMitigationActionsTask' {taskId} -> taskId) (\s@StartDetectMitigationActionsTask' {} a -> s {taskId = a} :: StartDetectMitigationActionsTask)
 
--- | Specifies the ML Detect findings to which the mitigation actions are applied.
-sdmatTarget :: Lens' StartDetectMitigationActionsTask DetectMitigationActionsTaskTarget
-sdmatTarget = lens _sdmatTarget (\s a -> s {_sdmatTarget = a})
+-- | Specifies the ML Detect findings to which the mitigation actions are
+-- applied.
+startDetectMitigationActionsTask_target :: Lens.Lens' StartDetectMitigationActionsTask DetectMitigationActionsTaskTarget
+startDetectMitigationActionsTask_target = Lens.lens (\StartDetectMitigationActionsTask' {target} -> target) (\s@StartDetectMitigationActionsTask' {} a -> s {target = a} :: StartDetectMitigationActionsTask)
 
 -- | The actions to be performed when a device has unexpected behavior.
-sdmatActions :: Lens' StartDetectMitigationActionsTask (NonEmpty Text)
-sdmatActions = lens _sdmatActions (\s a -> s {_sdmatActions = a}) . _List1
+startDetectMitigationActionsTask_actions :: Lens.Lens' StartDetectMitigationActionsTask (Prelude.NonEmpty Prelude.Text)
+startDetectMitigationActionsTask_actions = Lens.lens (\StartDetectMitigationActionsTask' {actions} -> actions) (\s@StartDetectMitigationActionsTask' {} a -> s {actions = a} :: StartDetectMitigationActionsTask) Prelude.. Prelude._List1
 
--- | Each mitigation action task must have a unique client request token. If you try to create a new task with the same token as a task that already exists, an exception occurs. If you omit this value, AWS SDKs will automatically generate a unique client request.
-sdmatClientRequestToken :: Lens' StartDetectMitigationActionsTask Text
-sdmatClientRequestToken = lens _sdmatClientRequestToken (\s a -> s {_sdmatClientRequestToken = a})
+-- | Each mitigation action task must have a unique client request token. If
+-- you try to create a new task with the same token as a task that already
+-- exists, an exception occurs. If you omit this value, AWS SDKs will
+-- automatically generate a unique client request.
+startDetectMitigationActionsTask_clientRequestToken :: Lens.Lens' StartDetectMitigationActionsTask Prelude.Text
+startDetectMitigationActionsTask_clientRequestToken = Lens.lens (\StartDetectMitigationActionsTask' {clientRequestToken} -> clientRequestToken) (\s@StartDetectMitigationActionsTask' {} a -> s {clientRequestToken = a} :: StartDetectMitigationActionsTask)
 
-instance AWSRequest StartDetectMitigationActionsTask where
+instance
+  Prelude.AWSRequest
+    StartDetectMitigationActionsTask
+  where
   type
     Rs StartDetectMitigationActionsTask =
       StartDetectMitigationActionsTaskResponse
-  request = putJSON ioT
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartDetectMitigationActionsTaskResponse'
-            <$> (x .?> "taskId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "taskId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartDetectMitigationActionsTask
+instance
+  Prelude.Hashable
+    StartDetectMitigationActionsTask
 
-instance NFData StartDetectMitigationActionsTask
+instance
+  Prelude.NFData
+    StartDetectMitigationActionsTask
 
-instance ToHeaders StartDetectMitigationActionsTask where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    StartDetectMitigationActionsTask
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON StartDetectMitigationActionsTask where
+instance
+  Prelude.ToJSON
+    StartDetectMitigationActionsTask
+  where
   toJSON StartDetectMitigationActionsTask' {..} =
-    object
-      ( catMaybes
-          [ ("includeSuppressedAlerts" .=)
-              <$> _sdmatIncludeSuppressedAlerts,
-            ("includeOnlyActiveViolations" .=)
-              <$> _sdmatIncludeOnlyActiveViolations,
-            ("violationEventOccurrenceRange" .=)
-              <$> _sdmatViolationEventOccurrenceRange,
-            Just ("target" .= _sdmatTarget),
-            Just ("actions" .= _sdmatActions),
-            Just
-              ("clientRequestToken" .= _sdmatClientRequestToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("includeSuppressedAlerts" Prelude..=)
+              Prelude.<$> includeSuppressedAlerts,
+            ("includeOnlyActiveViolations" Prelude..=)
+              Prelude.<$> includeOnlyActiveViolations,
+            ("violationEventOccurrenceRange" Prelude..=)
+              Prelude.<$> violationEventOccurrenceRange,
+            Prelude.Just ("target" Prelude..= target),
+            Prelude.Just ("actions" Prelude..= actions),
+            Prelude.Just
+              ( "clientRequestToken"
+                  Prelude..= clientRequestToken
+              )
           ]
       )
 
-instance ToPath StartDetectMitigationActionsTask where
+instance
+  Prelude.ToPath
+    StartDetectMitigationActionsTask
+  where
   toPath StartDetectMitigationActionsTask' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detect/mitigationactions/tasks/",
-        toBS _sdmatTaskId
+        Prelude.toBS taskId
       ]
 
-instance ToQuery StartDetectMitigationActionsTask where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    StartDetectMitigationActionsTask
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startDetectMitigationActionsTaskResponse' smart constructor.
+-- | /See:/ 'newStartDetectMitigationActionsTaskResponse' smart constructor.
 data StartDetectMitigationActionsTaskResponse = StartDetectMitigationActionsTaskResponse'
-  { _sdmatrrsTaskId ::
-      !( Maybe
-           Text
-       ),
-    _sdmatrrsResponseStatus ::
-      !Int
+  { -- | The unique identifier of the task.
+    taskId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDetectMitigationActionsTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDetectMitigationActionsTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdmatrrsTaskId' - The unique identifier of the task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdmatrrsResponseStatus' - -- | The response status code.
-startDetectMitigationActionsTaskResponse ::
-  -- | 'sdmatrrsResponseStatus'
-  Int ->
+-- 'taskId', 'startDetectMitigationActionsTaskResponse_taskId' - The unique identifier of the task.
+--
+-- 'httpStatus', 'startDetectMitigationActionsTaskResponse_httpStatus' - The response's http status code.
+newStartDetectMitigationActionsTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartDetectMitigationActionsTaskResponse
-startDetectMitigationActionsTaskResponse
-  pResponseStatus_ =
+newStartDetectMitigationActionsTaskResponse
+  pHttpStatus_ =
     StartDetectMitigationActionsTaskResponse'
-      { _sdmatrrsTaskId =
-          Nothing,
-        _sdmatrrsResponseStatus =
-          pResponseStatus_
+      { taskId =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The unique identifier of the task.
-sdmatrrsTaskId :: Lens' StartDetectMitigationActionsTaskResponse (Maybe Text)
-sdmatrrsTaskId = lens _sdmatrrsTaskId (\s a -> s {_sdmatrrsTaskId = a})
+startDetectMitigationActionsTaskResponse_taskId :: Lens.Lens' StartDetectMitigationActionsTaskResponse (Prelude.Maybe Prelude.Text)
+startDetectMitigationActionsTaskResponse_taskId = Lens.lens (\StartDetectMitigationActionsTaskResponse' {taskId} -> taskId) (\s@StartDetectMitigationActionsTaskResponse' {} a -> s {taskId = a} :: StartDetectMitigationActionsTaskResponse)
 
--- | -- | The response status code.
-sdmatrrsResponseStatus :: Lens' StartDetectMitigationActionsTaskResponse Int
-sdmatrrsResponseStatus = lens _sdmatrrsResponseStatus (\s a -> s {_sdmatrrsResponseStatus = a})
+-- | The response's http status code.
+startDetectMitigationActionsTaskResponse_httpStatus :: Lens.Lens' StartDetectMitigationActionsTaskResponse Prelude.Int
+startDetectMitigationActionsTaskResponse_httpStatus = Lens.lens (\StartDetectMitigationActionsTaskResponse' {httpStatus} -> httpStatus) (\s@StartDetectMitigationActionsTaskResponse' {} a -> s {httpStatus = a} :: StartDetectMitigationActionsTaskResponse)
 
 instance
-  NFData
+  Prelude.NFData
     StartDetectMitigationActionsTaskResponse

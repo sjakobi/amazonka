@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +21,66 @@ module Network.AWS.IoT.Types.SecurityProfileTargetMapping where
 
 import Network.AWS.IoT.Types.SecurityProfileIdentifier
 import Network.AWS.IoT.Types.SecurityProfileTarget
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a security profile and the target associated with it.
 --
---
---
--- /See:/ 'securityProfileTargetMapping' smart constructor.
+-- /See:/ 'newSecurityProfileTargetMapping' smart constructor.
 data SecurityProfileTargetMapping = SecurityProfileTargetMapping'
-  { _sptmTarget ::
-      !( Maybe
-           SecurityProfileTarget
-       ),
-    _sptmSecurityProfileIdentifier ::
-      !( Maybe
-           SecurityProfileIdentifier
-       )
+  { -- | Information about the target (thing group) associated with the security
+    -- profile.
+    target :: Prelude.Maybe SecurityProfileTarget,
+    -- | Information that identifies the security profile.
+    securityProfileIdentifier :: Prelude.Maybe SecurityProfileIdentifier
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SecurityProfileTargetMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SecurityProfileTargetMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sptmTarget' - Information about the target (thing group) associated with the security profile.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sptmSecurityProfileIdentifier' - Information that identifies the security profile.
-securityProfileTargetMapping ::
+-- 'target', 'securityProfileTargetMapping_target' - Information about the target (thing group) associated with the security
+-- profile.
+--
+-- 'securityProfileIdentifier', 'securityProfileTargetMapping_securityProfileIdentifier' - Information that identifies the security profile.
+newSecurityProfileTargetMapping ::
   SecurityProfileTargetMapping
-securityProfileTargetMapping =
+newSecurityProfileTargetMapping =
   SecurityProfileTargetMapping'
-    { _sptmTarget =
-        Nothing,
-      _sptmSecurityProfileIdentifier = Nothing
+    { target =
+        Prelude.Nothing,
+      securityProfileIdentifier = Prelude.Nothing
     }
 
--- | Information about the target (thing group) associated with the security profile.
-sptmTarget :: Lens' SecurityProfileTargetMapping (Maybe SecurityProfileTarget)
-sptmTarget = lens _sptmTarget (\s a -> s {_sptmTarget = a})
+-- | Information about the target (thing group) associated with the security
+-- profile.
+securityProfileTargetMapping_target :: Lens.Lens' SecurityProfileTargetMapping (Prelude.Maybe SecurityProfileTarget)
+securityProfileTargetMapping_target = Lens.lens (\SecurityProfileTargetMapping' {target} -> target) (\s@SecurityProfileTargetMapping' {} a -> s {target = a} :: SecurityProfileTargetMapping)
 
 -- | Information that identifies the security profile.
-sptmSecurityProfileIdentifier :: Lens' SecurityProfileTargetMapping (Maybe SecurityProfileIdentifier)
-sptmSecurityProfileIdentifier = lens _sptmSecurityProfileIdentifier (\s a -> s {_sptmSecurityProfileIdentifier = a})
+securityProfileTargetMapping_securityProfileIdentifier :: Lens.Lens' SecurityProfileTargetMapping (Prelude.Maybe SecurityProfileIdentifier)
+securityProfileTargetMapping_securityProfileIdentifier = Lens.lens (\SecurityProfileTargetMapping' {securityProfileIdentifier} -> securityProfileIdentifier) (\s@SecurityProfileTargetMapping' {} a -> s {securityProfileIdentifier = a} :: SecurityProfileTargetMapping)
 
-instance FromJSON SecurityProfileTargetMapping where
+instance
+  Prelude.FromJSON
+    SecurityProfileTargetMapping
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SecurityProfileTargetMapping"
       ( \x ->
           SecurityProfileTargetMapping'
-            <$> (x .:? "target")
-            <*> (x .:? "securityProfileIdentifier")
+            Prelude.<$> (x Prelude..:? "target")
+            Prelude.<*> (x Prelude..:? "securityProfileIdentifier")
       )
 
-instance Hashable SecurityProfileTargetMapping
+instance
+  Prelude.Hashable
+    SecurityProfileTargetMapping
 
-instance NFData SecurityProfileTargetMapping
+instance Prelude.NFData SecurityProfileTargetMapping

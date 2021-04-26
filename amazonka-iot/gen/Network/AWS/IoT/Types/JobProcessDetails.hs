@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,125 +19,142 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.JobProcessDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The job process details.
 --
---
---
--- /See:/ 'jobProcessDetails' smart constructor.
+-- /See:/ 'newJobProcessDetails' smart constructor.
 data JobProcessDetails = JobProcessDetails'
-  { _jpdProcessingTargets ::
-      !(Maybe [Text]),
-    _jpdNumberOfSucceededThings ::
-      !(Maybe Int),
-    _jpdNumberOfQueuedThings ::
-      !(Maybe Int),
-    _jpdNumberOfRemovedThings ::
-      !(Maybe Int),
-    _jpdNumberOfInProgressThings ::
-      !(Maybe Int),
-    _jpdNumberOfFailedThings ::
-      !(Maybe Int),
-    _jpdNumberOfRejectedThings ::
-      !(Maybe Int),
-    _jpdNumberOfCanceledThings ::
-      !(Maybe Int),
-    _jpdNumberOfTimedOutThings ::
-      !(Maybe Int)
+  { -- | The target devices to which the job execution is being rolled out. This
+    -- value will be null after the job execution has finished rolling out to
+    -- all the target devices.
+    processingTargets :: Prelude.Maybe [Prelude.Text],
+    -- | The number of things which successfully completed the job.
+    numberOfSucceededThings :: Prelude.Maybe Prelude.Int,
+    -- | The number of things that are awaiting execution of the job.
+    numberOfQueuedThings :: Prelude.Maybe Prelude.Int,
+    -- | The number of things that are no longer scheduled to execute the job
+    -- because they have been deleted or have been removed from the group that
+    -- was a target of the job.
+    numberOfRemovedThings :: Prelude.Maybe Prelude.Int,
+    -- | The number of things currently executing the job.
+    numberOfInProgressThings :: Prelude.Maybe Prelude.Int,
+    -- | The number of things that failed executing the job.
+    numberOfFailedThings :: Prelude.Maybe Prelude.Int,
+    -- | The number of things that rejected the job.
+    numberOfRejectedThings :: Prelude.Maybe Prelude.Int,
+    -- | The number of things that cancelled the job.
+    numberOfCanceledThings :: Prelude.Maybe Prelude.Int,
+    -- | The number of things whose job execution status is @TIMED_OUT@.
+    numberOfTimedOutThings :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobProcessDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobProcessDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jpdProcessingTargets' - The target devices to which the job execution is being rolled out. This value will be null after the job execution has finished rolling out to all the target devices.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jpdNumberOfSucceededThings' - The number of things which successfully completed the job.
+-- 'processingTargets', 'jobProcessDetails_processingTargets' - The target devices to which the job execution is being rolled out. This
+-- value will be null after the job execution has finished rolling out to
+-- all the target devices.
 --
--- * 'jpdNumberOfQueuedThings' - The number of things that are awaiting execution of the job.
+-- 'numberOfSucceededThings', 'jobProcessDetails_numberOfSucceededThings' - The number of things which successfully completed the job.
 --
--- * 'jpdNumberOfRemovedThings' - The number of things that are no longer scheduled to execute the job because they have been deleted or have been removed from the group that was a target of the job.
+-- 'numberOfQueuedThings', 'jobProcessDetails_numberOfQueuedThings' - The number of things that are awaiting execution of the job.
 --
--- * 'jpdNumberOfInProgressThings' - The number of things currently executing the job.
+-- 'numberOfRemovedThings', 'jobProcessDetails_numberOfRemovedThings' - The number of things that are no longer scheduled to execute the job
+-- because they have been deleted or have been removed from the group that
+-- was a target of the job.
 --
--- * 'jpdNumberOfFailedThings' - The number of things that failed executing the job.
+-- 'numberOfInProgressThings', 'jobProcessDetails_numberOfInProgressThings' - The number of things currently executing the job.
 --
--- * 'jpdNumberOfRejectedThings' - The number of things that rejected the job.
+-- 'numberOfFailedThings', 'jobProcessDetails_numberOfFailedThings' - The number of things that failed executing the job.
 --
--- * 'jpdNumberOfCanceledThings' - The number of things that cancelled the job.
+-- 'numberOfRejectedThings', 'jobProcessDetails_numberOfRejectedThings' - The number of things that rejected the job.
 --
--- * 'jpdNumberOfTimedOutThings' - The number of things whose job execution status is @TIMED_OUT@ .
-jobProcessDetails ::
+-- 'numberOfCanceledThings', 'jobProcessDetails_numberOfCanceledThings' - The number of things that cancelled the job.
+--
+-- 'numberOfTimedOutThings', 'jobProcessDetails_numberOfTimedOutThings' - The number of things whose job execution status is @TIMED_OUT@.
+newJobProcessDetails ::
   JobProcessDetails
-jobProcessDetails =
+newJobProcessDetails =
   JobProcessDetails'
-    { _jpdProcessingTargets = Nothing,
-      _jpdNumberOfSucceededThings = Nothing,
-      _jpdNumberOfQueuedThings = Nothing,
-      _jpdNumberOfRemovedThings = Nothing,
-      _jpdNumberOfInProgressThings = Nothing,
-      _jpdNumberOfFailedThings = Nothing,
-      _jpdNumberOfRejectedThings = Nothing,
-      _jpdNumberOfCanceledThings = Nothing,
-      _jpdNumberOfTimedOutThings = Nothing
+    { processingTargets =
+        Prelude.Nothing,
+      numberOfSucceededThings = Prelude.Nothing,
+      numberOfQueuedThings = Prelude.Nothing,
+      numberOfRemovedThings = Prelude.Nothing,
+      numberOfInProgressThings = Prelude.Nothing,
+      numberOfFailedThings = Prelude.Nothing,
+      numberOfRejectedThings = Prelude.Nothing,
+      numberOfCanceledThings = Prelude.Nothing,
+      numberOfTimedOutThings = Prelude.Nothing
     }
 
--- | The target devices to which the job execution is being rolled out. This value will be null after the job execution has finished rolling out to all the target devices.
-jpdProcessingTargets :: Lens' JobProcessDetails [Text]
-jpdProcessingTargets = lens _jpdProcessingTargets (\s a -> s {_jpdProcessingTargets = a}) . _Default . _Coerce
+-- | The target devices to which the job execution is being rolled out. This
+-- value will be null after the job execution has finished rolling out to
+-- all the target devices.
+jobProcessDetails_processingTargets :: Lens.Lens' JobProcessDetails (Prelude.Maybe [Prelude.Text])
+jobProcessDetails_processingTargets = Lens.lens (\JobProcessDetails' {processingTargets} -> processingTargets) (\s@JobProcessDetails' {} a -> s {processingTargets = a} :: JobProcessDetails) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of things which successfully completed the job.
-jpdNumberOfSucceededThings :: Lens' JobProcessDetails (Maybe Int)
-jpdNumberOfSucceededThings = lens _jpdNumberOfSucceededThings (\s a -> s {_jpdNumberOfSucceededThings = a})
+jobProcessDetails_numberOfSucceededThings :: Lens.Lens' JobProcessDetails (Prelude.Maybe Prelude.Int)
+jobProcessDetails_numberOfSucceededThings = Lens.lens (\JobProcessDetails' {numberOfSucceededThings} -> numberOfSucceededThings) (\s@JobProcessDetails' {} a -> s {numberOfSucceededThings = a} :: JobProcessDetails)
 
 -- | The number of things that are awaiting execution of the job.
-jpdNumberOfQueuedThings :: Lens' JobProcessDetails (Maybe Int)
-jpdNumberOfQueuedThings = lens _jpdNumberOfQueuedThings (\s a -> s {_jpdNumberOfQueuedThings = a})
+jobProcessDetails_numberOfQueuedThings :: Lens.Lens' JobProcessDetails (Prelude.Maybe Prelude.Int)
+jobProcessDetails_numberOfQueuedThings = Lens.lens (\JobProcessDetails' {numberOfQueuedThings} -> numberOfQueuedThings) (\s@JobProcessDetails' {} a -> s {numberOfQueuedThings = a} :: JobProcessDetails)
 
--- | The number of things that are no longer scheduled to execute the job because they have been deleted or have been removed from the group that was a target of the job.
-jpdNumberOfRemovedThings :: Lens' JobProcessDetails (Maybe Int)
-jpdNumberOfRemovedThings = lens _jpdNumberOfRemovedThings (\s a -> s {_jpdNumberOfRemovedThings = a})
+-- | The number of things that are no longer scheduled to execute the job
+-- because they have been deleted or have been removed from the group that
+-- was a target of the job.
+jobProcessDetails_numberOfRemovedThings :: Lens.Lens' JobProcessDetails (Prelude.Maybe Prelude.Int)
+jobProcessDetails_numberOfRemovedThings = Lens.lens (\JobProcessDetails' {numberOfRemovedThings} -> numberOfRemovedThings) (\s@JobProcessDetails' {} a -> s {numberOfRemovedThings = a} :: JobProcessDetails)
 
 -- | The number of things currently executing the job.
-jpdNumberOfInProgressThings :: Lens' JobProcessDetails (Maybe Int)
-jpdNumberOfInProgressThings = lens _jpdNumberOfInProgressThings (\s a -> s {_jpdNumberOfInProgressThings = a})
+jobProcessDetails_numberOfInProgressThings :: Lens.Lens' JobProcessDetails (Prelude.Maybe Prelude.Int)
+jobProcessDetails_numberOfInProgressThings = Lens.lens (\JobProcessDetails' {numberOfInProgressThings} -> numberOfInProgressThings) (\s@JobProcessDetails' {} a -> s {numberOfInProgressThings = a} :: JobProcessDetails)
 
 -- | The number of things that failed executing the job.
-jpdNumberOfFailedThings :: Lens' JobProcessDetails (Maybe Int)
-jpdNumberOfFailedThings = lens _jpdNumberOfFailedThings (\s a -> s {_jpdNumberOfFailedThings = a})
+jobProcessDetails_numberOfFailedThings :: Lens.Lens' JobProcessDetails (Prelude.Maybe Prelude.Int)
+jobProcessDetails_numberOfFailedThings = Lens.lens (\JobProcessDetails' {numberOfFailedThings} -> numberOfFailedThings) (\s@JobProcessDetails' {} a -> s {numberOfFailedThings = a} :: JobProcessDetails)
 
 -- | The number of things that rejected the job.
-jpdNumberOfRejectedThings :: Lens' JobProcessDetails (Maybe Int)
-jpdNumberOfRejectedThings = lens _jpdNumberOfRejectedThings (\s a -> s {_jpdNumberOfRejectedThings = a})
+jobProcessDetails_numberOfRejectedThings :: Lens.Lens' JobProcessDetails (Prelude.Maybe Prelude.Int)
+jobProcessDetails_numberOfRejectedThings = Lens.lens (\JobProcessDetails' {numberOfRejectedThings} -> numberOfRejectedThings) (\s@JobProcessDetails' {} a -> s {numberOfRejectedThings = a} :: JobProcessDetails)
 
 -- | The number of things that cancelled the job.
-jpdNumberOfCanceledThings :: Lens' JobProcessDetails (Maybe Int)
-jpdNumberOfCanceledThings = lens _jpdNumberOfCanceledThings (\s a -> s {_jpdNumberOfCanceledThings = a})
+jobProcessDetails_numberOfCanceledThings :: Lens.Lens' JobProcessDetails (Prelude.Maybe Prelude.Int)
+jobProcessDetails_numberOfCanceledThings = Lens.lens (\JobProcessDetails' {numberOfCanceledThings} -> numberOfCanceledThings) (\s@JobProcessDetails' {} a -> s {numberOfCanceledThings = a} :: JobProcessDetails)
 
--- | The number of things whose job execution status is @TIMED_OUT@ .
-jpdNumberOfTimedOutThings :: Lens' JobProcessDetails (Maybe Int)
-jpdNumberOfTimedOutThings = lens _jpdNumberOfTimedOutThings (\s a -> s {_jpdNumberOfTimedOutThings = a})
+-- | The number of things whose job execution status is @TIMED_OUT@.
+jobProcessDetails_numberOfTimedOutThings :: Lens.Lens' JobProcessDetails (Prelude.Maybe Prelude.Int)
+jobProcessDetails_numberOfTimedOutThings = Lens.lens (\JobProcessDetails' {numberOfTimedOutThings} -> numberOfTimedOutThings) (\s@JobProcessDetails' {} a -> s {numberOfTimedOutThings = a} :: JobProcessDetails)
 
-instance FromJSON JobProcessDetails where
+instance Prelude.FromJSON JobProcessDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobProcessDetails"
       ( \x ->
           JobProcessDetails'
-            <$> (x .:? "processingTargets" .!= mempty)
-            <*> (x .:? "numberOfSucceededThings")
-            <*> (x .:? "numberOfQueuedThings")
-            <*> (x .:? "numberOfRemovedThings")
-            <*> (x .:? "numberOfInProgressThings")
-            <*> (x .:? "numberOfFailedThings")
-            <*> (x .:? "numberOfRejectedThings")
-            <*> (x .:? "numberOfCanceledThings")
-            <*> (x .:? "numberOfTimedOutThings")
+            Prelude.<$> ( x Prelude..:? "processingTargets"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "numberOfSucceededThings")
+            Prelude.<*> (x Prelude..:? "numberOfQueuedThings")
+            Prelude.<*> (x Prelude..:? "numberOfRemovedThings")
+            Prelude.<*> (x Prelude..:? "numberOfInProgressThings")
+            Prelude.<*> (x Prelude..:? "numberOfFailedThings")
+            Prelude.<*> (x Prelude..:? "numberOfRejectedThings")
+            Prelude.<*> (x Prelude..:? "numberOfCanceledThings")
+            Prelude.<*> (x Prelude..:? "numberOfTimedOutThings")
       )
 
-instance Hashable JobProcessDetails
+instance Prelude.Hashable JobProcessDetails
 
-instance NFData JobProcessDetails
+instance Prelude.NFData JobProcessDetails

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.StatisticalThreshold where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A statistical ranking (percentile) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior.
+-- | A statistical ranking (percentile) that indicates a threshold value by
+-- which a behavior is determined to be in compliance or in violation of
+-- the behavior.
 --
---
---
--- /See:/ 'statisticalThreshold' smart constructor.
-newtype StatisticalThreshold = StatisticalThreshold'
-  { _stStatistic ::
-      Maybe Text
+-- /See:/ 'newStatisticalThreshold' smart constructor.
+data StatisticalThreshold = StatisticalThreshold'
+  { -- | The percentile that resolves to a threshold value by which compliance
+    -- with a behavior is determined. Metrics are collected over the specified
+    -- period (@durationSeconds@) from all reporting devices in your account
+    -- and statistical ranks are calculated. Then, the measurements from a
+    -- device are collected over the same period. If the accumulated
+    -- measurements from the device fall above or below (@comparisonOperator@)
+    -- the value associated with the percentile specified, then the device is
+    -- considered to be in compliance with the behavior, otherwise a violation
+    -- occurs.
+    statistic :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StatisticalThreshold' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StatisticalThreshold' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stStatistic' - The percentile that resolves to a threshold value by which compliance with a behavior is determined. Metrics are collected over the specified period (@durationSeconds@ ) from all reporting devices in your account and statistical ranks are calculated. Then, the measurements from a device are collected over the same period. If the accumulated measurements from the device fall above or below (@comparisonOperator@ ) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs.
-statisticalThreshold ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'statistic', 'statisticalThreshold_statistic' - The percentile that resolves to a threshold value by which compliance
+-- with a behavior is determined. Metrics are collected over the specified
+-- period (@durationSeconds@) from all reporting devices in your account
+-- and statistical ranks are calculated. Then, the measurements from a
+-- device are collected over the same period. If the accumulated
+-- measurements from the device fall above or below (@comparisonOperator@)
+-- the value associated with the percentile specified, then the device is
+-- considered to be in compliance with the behavior, otherwise a violation
+-- occurs.
+newStatisticalThreshold ::
   StatisticalThreshold
-statisticalThreshold =
-  StatisticalThreshold' {_stStatistic = Nothing}
+newStatisticalThreshold =
+  StatisticalThreshold' {statistic = Prelude.Nothing}
 
--- | The percentile that resolves to a threshold value by which compliance with a behavior is determined. Metrics are collected over the specified period (@durationSeconds@ ) from all reporting devices in your account and statistical ranks are calculated. Then, the measurements from a device are collected over the same period. If the accumulated measurements from the device fall above or below (@comparisonOperator@ ) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs.
-stStatistic :: Lens' StatisticalThreshold (Maybe Text)
-stStatistic = lens _stStatistic (\s a -> s {_stStatistic = a})
+-- | The percentile that resolves to a threshold value by which compliance
+-- with a behavior is determined. Metrics are collected over the specified
+-- period (@durationSeconds@) from all reporting devices in your account
+-- and statistical ranks are calculated. Then, the measurements from a
+-- device are collected over the same period. If the accumulated
+-- measurements from the device fall above or below (@comparisonOperator@)
+-- the value associated with the percentile specified, then the device is
+-- considered to be in compliance with the behavior, otherwise a violation
+-- occurs.
+statisticalThreshold_statistic :: Lens.Lens' StatisticalThreshold (Prelude.Maybe Prelude.Text)
+statisticalThreshold_statistic = Lens.lens (\StatisticalThreshold' {statistic} -> statistic) (\s@StatisticalThreshold' {} a -> s {statistic = a} :: StatisticalThreshold)
 
-instance FromJSON StatisticalThreshold where
+instance Prelude.FromJSON StatisticalThreshold where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StatisticalThreshold"
       ( \x ->
-          StatisticalThreshold' <$> (x .:? "statistic")
+          StatisticalThreshold'
+            Prelude.<$> (x Prelude..:? "statistic")
       )
 
-instance Hashable StatisticalThreshold
+instance Prelude.Hashable StatisticalThreshold
 
-instance NFData StatisticalThreshold
+instance Prelude.NFData StatisticalThreshold
 
-instance ToJSON StatisticalThreshold where
+instance Prelude.ToJSON StatisticalThreshold where
   toJSON StatisticalThreshold' {..} =
-    object
-      (catMaybes [("statistic" .=) <$> _stStatistic])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("statistic" Prelude..=) Prelude.<$> statistic]
+      )

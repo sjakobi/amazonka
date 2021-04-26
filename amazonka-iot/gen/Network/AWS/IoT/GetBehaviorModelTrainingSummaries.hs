@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,190 +21,216 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a Device Defender's ML Detect Security Profile training model's status.
---
---
+-- Returns a Device Defender\'s ML Detect Security Profile training
+-- model\'s status.
 --
 -- This operation returns paginated results.
 module Network.AWS.IoT.GetBehaviorModelTrainingSummaries
   ( -- * Creating a Request
-    getBehaviorModelTrainingSummaries,
-    GetBehaviorModelTrainingSummaries,
+    GetBehaviorModelTrainingSummaries (..),
+    newGetBehaviorModelTrainingSummaries,
 
     -- * Request Lenses
-    gbmtsNextToken,
-    gbmtsMaxResults,
-    gbmtsSecurityProfileName,
+    getBehaviorModelTrainingSummaries_nextToken,
+    getBehaviorModelTrainingSummaries_maxResults,
+    getBehaviorModelTrainingSummaries_securityProfileName,
 
     -- * Destructuring the Response
-    getBehaviorModelTrainingSummariesResponse,
-    GetBehaviorModelTrainingSummariesResponse,
+    GetBehaviorModelTrainingSummariesResponse (..),
+    newGetBehaviorModelTrainingSummariesResponse,
 
     -- * Response Lenses
-    gbmtsrrsNextToken,
-    gbmtsrrsSummaries,
-    gbmtsrrsResponseStatus,
+    getBehaviorModelTrainingSummariesResponse_nextToken,
+    getBehaviorModelTrainingSummariesResponse_summaries,
+    getBehaviorModelTrainingSummariesResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoT.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoT.Types.BehaviorModelTrainingSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getBehaviorModelTrainingSummaries' smart constructor.
+-- | /See:/ 'newGetBehaviorModelTrainingSummaries' smart constructor.
 data GetBehaviorModelTrainingSummaries = GetBehaviorModelTrainingSummaries'
-  { _gbmtsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gbmtsMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _gbmtsSecurityProfileName ::
-      !( Maybe
-           Text
-       )
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return at one time. The default is 25.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the security profile.
+    securityProfileName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBehaviorModelTrainingSummaries' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBehaviorModelTrainingSummaries' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbmtsNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbmtsMaxResults' - The maximum number of results to return at one time. The default is 25.
+-- 'nextToken', 'getBehaviorModelTrainingSummaries_nextToken' - The token for the next set of results.
 --
--- * 'gbmtsSecurityProfileName' - The name of the security profile.
-getBehaviorModelTrainingSummaries ::
+-- 'maxResults', 'getBehaviorModelTrainingSummaries_maxResults' - The maximum number of results to return at one time. The default is 25.
+--
+-- 'securityProfileName', 'getBehaviorModelTrainingSummaries_securityProfileName' - The name of the security profile.
+newGetBehaviorModelTrainingSummaries ::
   GetBehaviorModelTrainingSummaries
-getBehaviorModelTrainingSummaries =
+newGetBehaviorModelTrainingSummaries =
   GetBehaviorModelTrainingSummaries'
-    { _gbmtsNextToken =
-        Nothing,
-      _gbmtsMaxResults = Nothing,
-      _gbmtsSecurityProfileName = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      securityProfileName = Prelude.Nothing
     }
 
 -- | The token for the next set of results.
-gbmtsNextToken :: Lens' GetBehaviorModelTrainingSummaries (Maybe Text)
-gbmtsNextToken = lens _gbmtsNextToken (\s a -> s {_gbmtsNextToken = a})
+getBehaviorModelTrainingSummaries_nextToken :: Lens.Lens' GetBehaviorModelTrainingSummaries (Prelude.Maybe Prelude.Text)
+getBehaviorModelTrainingSummaries_nextToken = Lens.lens (\GetBehaviorModelTrainingSummaries' {nextToken} -> nextToken) (\s@GetBehaviorModelTrainingSummaries' {} a -> s {nextToken = a} :: GetBehaviorModelTrainingSummaries)
 
 -- | The maximum number of results to return at one time. The default is 25.
-gbmtsMaxResults :: Lens' GetBehaviorModelTrainingSummaries (Maybe Natural)
-gbmtsMaxResults = lens _gbmtsMaxResults (\s a -> s {_gbmtsMaxResults = a}) . mapping _Nat
+getBehaviorModelTrainingSummaries_maxResults :: Lens.Lens' GetBehaviorModelTrainingSummaries (Prelude.Maybe Prelude.Natural)
+getBehaviorModelTrainingSummaries_maxResults = Lens.lens (\GetBehaviorModelTrainingSummaries' {maxResults} -> maxResults) (\s@GetBehaviorModelTrainingSummaries' {} a -> s {maxResults = a} :: GetBehaviorModelTrainingSummaries) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the security profile.
-gbmtsSecurityProfileName :: Lens' GetBehaviorModelTrainingSummaries (Maybe Text)
-gbmtsSecurityProfileName = lens _gbmtsSecurityProfileName (\s a -> s {_gbmtsSecurityProfileName = a})
+getBehaviorModelTrainingSummaries_securityProfileName :: Lens.Lens' GetBehaviorModelTrainingSummaries (Prelude.Maybe Prelude.Text)
+getBehaviorModelTrainingSummaries_securityProfileName = Lens.lens (\GetBehaviorModelTrainingSummaries' {securityProfileName} -> securityProfileName) (\s@GetBehaviorModelTrainingSummaries' {} a -> s {securityProfileName = a} :: GetBehaviorModelTrainingSummaries)
 
-instance AWSPager GetBehaviorModelTrainingSummaries where
+instance
+  Pager.AWSPager
+    GetBehaviorModelTrainingSummaries
+  where
   page rq rs
-    | stop (rs ^. gbmtsrrsNextToken) = Nothing
-    | stop (rs ^. gbmtsrrsSummaries) = Nothing
-    | otherwise =
-      Just $ rq & gbmtsNextToken .~ rs ^. gbmtsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getBehaviorModelTrainingSummariesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getBehaviorModelTrainingSummariesResponse_summaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getBehaviorModelTrainingSummaries_nextToken
+          Lens..~ rs
+          Lens.^? getBehaviorModelTrainingSummariesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetBehaviorModelTrainingSummaries where
+instance
+  Prelude.AWSRequest
+    GetBehaviorModelTrainingSummaries
+  where
   type
     Rs GetBehaviorModelTrainingSummaries =
       GetBehaviorModelTrainingSummariesResponse
-  request = get ioT
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetBehaviorModelTrainingSummariesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "summaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+              Prelude.<*> ( x Prelude..?> "summaries"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBehaviorModelTrainingSummaries
-
-instance NFData GetBehaviorModelTrainingSummaries
-
-instance ToHeaders GetBehaviorModelTrainingSummaries where
-  toHeaders = const mempty
-
-instance ToPath GetBehaviorModelTrainingSummaries where
-  toPath = const "/behavior-model-training/summaries"
-
-instance ToQuery GetBehaviorModelTrainingSummaries where
-  toQuery GetBehaviorModelTrainingSummaries' {..} =
-    mconcat
-      [ "nextToken" =: _gbmtsNextToken,
-        "maxResults" =: _gbmtsMaxResults,
-        "securityProfileName" =: _gbmtsSecurityProfileName
-      ]
-
--- | /See:/ 'getBehaviorModelTrainingSummariesResponse' smart constructor.
-data GetBehaviorModelTrainingSummariesResponse = GetBehaviorModelTrainingSummariesResponse'
-  { _gbmtsrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gbmtsrrsSummaries ::
-      !( Maybe
-           [BehaviorModelTrainingSummary]
-       ),
-    _gbmtsrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'GetBehaviorModelTrainingSummariesResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'gbmtsrrsNextToken' - A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
---
--- * 'gbmtsrrsSummaries' - A list of all ML Detect behaviors and their model status for a given Security Profile.
---
--- * 'gbmtsrrsResponseStatus' - -- | The response status code.
-getBehaviorModelTrainingSummariesResponse ::
-  -- | 'gbmtsrrsResponseStatus'
-  Int ->
-  GetBehaviorModelTrainingSummariesResponse
-getBehaviorModelTrainingSummariesResponse
-  pResponseStatus_ =
-    GetBehaviorModelTrainingSummariesResponse'
-      { _gbmtsrrsNextToken =
-          Nothing,
-        _gbmtsrrsSummaries = Nothing,
-        _gbmtsrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | A token that can be used to retrieve the next set of results, or @null@ if there are no additional results.
-gbmtsrrsNextToken :: Lens' GetBehaviorModelTrainingSummariesResponse (Maybe Text)
-gbmtsrrsNextToken = lens _gbmtsrrsNextToken (\s a -> s {_gbmtsrrsNextToken = a})
-
--- | A list of all ML Detect behaviors and their model status for a given Security Profile.
-gbmtsrrsSummaries :: Lens' GetBehaviorModelTrainingSummariesResponse [BehaviorModelTrainingSummary]
-gbmtsrrsSummaries = lens _gbmtsrrsSummaries (\s a -> s {_gbmtsrrsSummaries = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-gbmtsrrsResponseStatus :: Lens' GetBehaviorModelTrainingSummariesResponse Int
-gbmtsrrsResponseStatus = lens _gbmtsrrsResponseStatus (\s a -> s {_gbmtsrrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    GetBehaviorModelTrainingSummaries
 
 instance
-  NFData
+  Prelude.NFData
+    GetBehaviorModelTrainingSummaries
+
+instance
+  Prelude.ToHeaders
+    GetBehaviorModelTrainingSummaries
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    GetBehaviorModelTrainingSummaries
+  where
+  toPath =
+    Prelude.const "/behavior-model-training/summaries"
+
+instance
+  Prelude.ToQuery
+    GetBehaviorModelTrainingSummaries
+  where
+  toQuery GetBehaviorModelTrainingSummaries' {..} =
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "securityProfileName" Prelude.=: securityProfileName
+      ]
+
+-- | /See:/ 'newGetBehaviorModelTrainingSummariesResponse' smart constructor.
+data GetBehaviorModelTrainingSummariesResponse = GetBehaviorModelTrainingSummariesResponse'
+  { -- | A token that can be used to retrieve the next set of results, or @null@
+    -- if there are no additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of all ML Detect behaviors and their model status for a given
+    -- Security Profile.
+    summaries :: Prelude.Maybe [BehaviorModelTrainingSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'GetBehaviorModelTrainingSummariesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'getBehaviorModelTrainingSummariesResponse_nextToken' - A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
+--
+-- 'summaries', 'getBehaviorModelTrainingSummariesResponse_summaries' - A list of all ML Detect behaviors and their model status for a given
+-- Security Profile.
+--
+-- 'httpStatus', 'getBehaviorModelTrainingSummariesResponse_httpStatus' - The response's http status code.
+newGetBehaviorModelTrainingSummariesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  GetBehaviorModelTrainingSummariesResponse
+newGetBehaviorModelTrainingSummariesResponse
+  pHttpStatus_ =
+    GetBehaviorModelTrainingSummariesResponse'
+      { nextToken =
+          Prelude.Nothing,
+        summaries = Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | A token that can be used to retrieve the next set of results, or @null@
+-- if there are no additional results.
+getBehaviorModelTrainingSummariesResponse_nextToken :: Lens.Lens' GetBehaviorModelTrainingSummariesResponse (Prelude.Maybe Prelude.Text)
+getBehaviorModelTrainingSummariesResponse_nextToken = Lens.lens (\GetBehaviorModelTrainingSummariesResponse' {nextToken} -> nextToken) (\s@GetBehaviorModelTrainingSummariesResponse' {} a -> s {nextToken = a} :: GetBehaviorModelTrainingSummariesResponse)
+
+-- | A list of all ML Detect behaviors and their model status for a given
+-- Security Profile.
+getBehaviorModelTrainingSummariesResponse_summaries :: Lens.Lens' GetBehaviorModelTrainingSummariesResponse (Prelude.Maybe [BehaviorModelTrainingSummary])
+getBehaviorModelTrainingSummariesResponse_summaries = Lens.lens (\GetBehaviorModelTrainingSummariesResponse' {summaries} -> summaries) (\s@GetBehaviorModelTrainingSummariesResponse' {} a -> s {summaries = a} :: GetBehaviorModelTrainingSummariesResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+getBehaviorModelTrainingSummariesResponse_httpStatus :: Lens.Lens' GetBehaviorModelTrainingSummariesResponse Prelude.Int
+getBehaviorModelTrainingSummariesResponse_httpStatus = Lens.lens (\GetBehaviorModelTrainingSummariesResponse' {httpStatus} -> httpStatus) (\s@GetBehaviorModelTrainingSummariesResponse' {} a -> s {httpStatus = a} :: GetBehaviorModelTrainingSummariesResponse)
+
+instance
+  Prelude.NFData
     GetBehaviorModelTrainingSummariesResponse

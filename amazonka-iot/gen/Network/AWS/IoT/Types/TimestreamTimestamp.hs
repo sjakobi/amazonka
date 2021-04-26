@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoT.Types.TimestreamTimestamp where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes how to interpret an application-defined timestamp value from an MQTT message payload and the precision of that value.
+-- | Describes how to interpret an application-defined timestamp value from
+-- an MQTT message payload and the precision of that value.
 --
---
---
--- /See:/ 'timestreamTimestamp' smart constructor.
+-- /See:/ 'newTimestreamTimestamp' smart constructor.
 data TimestreamTimestamp = TimestreamTimestamp'
-  { _ttValue ::
-      !Text,
-    _ttUnit :: !Text
+  { -- | An expression that returns a long epoch time value.
+    value :: Prelude.Text,
+    -- | The precision of the timestamp value that results from the expression
+    -- described in @value@.
+    --
+    -- Valid values: @SECONDS@ | @MILLISECONDS@ | @MICROSECONDS@ |
+    -- @NANOSECONDS@. The default is @MILLISECONDS@.
+    unit :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimestreamTimestamp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimestreamTimestamp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ttValue' - An expression that returns a long epoch time value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ttUnit' - The precision of the timestamp value that results from the expression described in @value@ . Valid values: @SECONDS@ | @MILLISECONDS@ | @MICROSECONDS@ | @NANOSECONDS@ . The default is @MILLISECONDS@ .
-timestreamTimestamp ::
-  -- | 'ttValue'
-  Text ->
-  -- | 'ttUnit'
-  Text ->
+-- 'value', 'timestreamTimestamp_value' - An expression that returns a long epoch time value.
+--
+-- 'unit', 'timestreamTimestamp_unit' - The precision of the timestamp value that results from the expression
+-- described in @value@.
+--
+-- Valid values: @SECONDS@ | @MILLISECONDS@ | @MICROSECONDS@ |
+-- @NANOSECONDS@. The default is @MILLISECONDS@.
+newTimestreamTimestamp ::
+  -- | 'value'
+  Prelude.Text ->
+  -- | 'unit'
+  Prelude.Text ->
   TimestreamTimestamp
-timestreamTimestamp pValue_ pUnit_ =
+newTimestreamTimestamp pValue_ pUnit_ =
   TimestreamTimestamp'
-    { _ttValue = pValue_,
-      _ttUnit = pUnit_
+    { value = pValue_,
+      unit = pUnit_
     }
 
 -- | An expression that returns a long epoch time value.
-ttValue :: Lens' TimestreamTimestamp Text
-ttValue = lens _ttValue (\s a -> s {_ttValue = a})
+timestreamTimestamp_value :: Lens.Lens' TimestreamTimestamp Prelude.Text
+timestreamTimestamp_value = Lens.lens (\TimestreamTimestamp' {value} -> value) (\s@TimestreamTimestamp' {} a -> s {value = a} :: TimestreamTimestamp)
 
--- | The precision of the timestamp value that results from the expression described in @value@ . Valid values: @SECONDS@ | @MILLISECONDS@ | @MICROSECONDS@ | @NANOSECONDS@ . The default is @MILLISECONDS@ .
-ttUnit :: Lens' TimestreamTimestamp Text
-ttUnit = lens _ttUnit (\s a -> s {_ttUnit = a})
+-- | The precision of the timestamp value that results from the expression
+-- described in @value@.
+--
+-- Valid values: @SECONDS@ | @MILLISECONDS@ | @MICROSECONDS@ |
+-- @NANOSECONDS@. The default is @MILLISECONDS@.
+timestreamTimestamp_unit :: Lens.Lens' TimestreamTimestamp Prelude.Text
+timestreamTimestamp_unit = Lens.lens (\TimestreamTimestamp' {unit} -> unit) (\s@TimestreamTimestamp' {} a -> s {unit = a} :: TimestreamTimestamp)
 
-instance FromJSON TimestreamTimestamp where
+instance Prelude.FromJSON TimestreamTimestamp where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimestreamTimestamp"
       ( \x ->
           TimestreamTimestamp'
-            <$> (x .: "value") <*> (x .: "unit")
+            Prelude.<$> (x Prelude..: "value")
+            Prelude.<*> (x Prelude..: "unit")
       )
 
-instance Hashable TimestreamTimestamp
+instance Prelude.Hashable TimestreamTimestamp
 
-instance NFData TimestreamTimestamp
+instance Prelude.NFData TimestreamTimestamp
 
-instance ToJSON TimestreamTimestamp where
+instance Prelude.ToJSON TimestreamTimestamp where
   toJSON TimestreamTimestamp' {..} =
-    object
-      ( catMaybes
-          [ Just ("value" .= _ttValue),
-            Just ("unit" .= _ttUnit)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("value" Prelude..= value),
+            Prelude.Just ("unit" Prelude..= unit)
           ]
       )
