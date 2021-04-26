@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,49 @@
 module Network.AWS.CloudWatch.Types.ScanBy
   ( ScanBy
       ( ..,
-        TimestampAscending,
-        TimestampDescending
+        ScanByTimestampAscending,
+        ScanByTimestampDescending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScanBy = ScanBy' (CI Text)
+newtype ScanBy = ScanBy' {fromScanBy :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TimestampAscending :: ScanBy
-pattern TimestampAscending = ScanBy' "TimestampAscending"
+pattern ScanByTimestampAscending :: ScanBy
+pattern ScanByTimestampAscending = ScanBy' "TimestampAscending"
 
-pattern TimestampDescending :: ScanBy
-pattern TimestampDescending = ScanBy' "TimestampDescending"
+pattern ScanByTimestampDescending :: ScanBy
+pattern ScanByTimestampDescending = ScanBy' "TimestampDescending"
 
 {-# COMPLETE
-  TimestampAscending,
-  TimestampDescending,
+  ScanByTimestampAscending,
+  ScanByTimestampDescending,
   ScanBy'
   #-}
 
-instance FromText ScanBy where
-  parser = (ScanBy' . mk) <$> takeText
+instance Prelude.FromText ScanBy where
+  parser = ScanBy' Prelude.<$> Prelude.takeText
 
-instance ToText ScanBy where
-  toText (ScanBy' ci) = original ci
+instance Prelude.ToText ScanBy where
+  toText (ScanBy' x) = x
 
-instance Hashable ScanBy
+instance Prelude.Hashable ScanBy
 
-instance NFData ScanBy
+instance Prelude.NFData ScanBy
 
-instance ToByteString ScanBy
+instance Prelude.ToByteString ScanBy
 
-instance ToQuery ScanBy
+instance Prelude.ToQuery ScanBy
 
-instance ToHeader ScanBy
+instance Prelude.ToHeader ScanBy

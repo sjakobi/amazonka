@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatch.Types.DimensionFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents filters for a dimension.
 --
---
---
--- /See:/ 'dimensionFilter' smart constructor.
+-- /See:/ 'newDimensionFilter' smart constructor.
 data DimensionFilter = DimensionFilter'
-  { _dfValue ::
-      !(Maybe Text),
-    _dfName :: !Text
+  { -- | The value of the dimension to be matched.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The dimension name to be matched.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DimensionFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DimensionFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfValue' - The value of the dimension to be matched.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfName' - The dimension name to be matched.
-dimensionFilter ::
-  -- | 'dfName'
-  Text ->
+-- 'value', 'dimensionFilter_value' - The value of the dimension to be matched.
+--
+-- 'name', 'dimensionFilter_name' - The dimension name to be matched.
+newDimensionFilter ::
+  -- | 'name'
+  Prelude.Text ->
   DimensionFilter
-dimensionFilter pName_ =
+newDimensionFilter pName_ =
   DimensionFilter'
-    { _dfValue = Nothing,
-      _dfName = pName_
+    { value = Prelude.Nothing,
+      name = pName_
     }
 
 -- | The value of the dimension to be matched.
-dfValue :: Lens' DimensionFilter (Maybe Text)
-dfValue = lens _dfValue (\s a -> s {_dfValue = a})
+dimensionFilter_value :: Lens.Lens' DimensionFilter (Prelude.Maybe Prelude.Text)
+dimensionFilter_value = Lens.lens (\DimensionFilter' {value} -> value) (\s@DimensionFilter' {} a -> s {value = a} :: DimensionFilter)
 
 -- | The dimension name to be matched.
-dfName :: Lens' DimensionFilter Text
-dfName = lens _dfName (\s a -> s {_dfName = a})
+dimensionFilter_name :: Lens.Lens' DimensionFilter Prelude.Text
+dimensionFilter_name = Lens.lens (\DimensionFilter' {name} -> name) (\s@DimensionFilter' {} a -> s {name = a} :: DimensionFilter)
 
-instance Hashable DimensionFilter
+instance Prelude.Hashable DimensionFilter
 
-instance NFData DimensionFilter
+instance Prelude.NFData DimensionFilter
 
-instance ToQuery DimensionFilter where
+instance Prelude.ToQuery DimensionFilter where
   toQuery DimensionFilter' {..} =
-    mconcat ["Value" =: _dfValue, "Name" =: _dfName]
+    Prelude.mconcat
+      ["Value" Prelude.=: value, "Name" Prelude.=: name]

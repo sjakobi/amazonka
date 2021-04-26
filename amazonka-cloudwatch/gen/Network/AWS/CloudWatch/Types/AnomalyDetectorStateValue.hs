@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.CloudWatch.Types.AnomalyDetectorStateValue
   ( AnomalyDetectorStateValue
       ( ..,
-        PendingTraining,
-        Trained,
-        TrainedInsufficientData
+        AnomalyDetectorStateValuePENDINGTRAINING,
+        AnomalyDetectorStateValueTRAINED,
+        AnomalyDetectorStateValueTRAINEDINSUFFICIENTDATA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AnomalyDetectorStateValue
-  = AnomalyDetectorStateValue'
-      ( CI
-          Text
-      )
+newtype AnomalyDetectorStateValue = AnomalyDetectorStateValue'
+  { fromAnomalyDetectorStateValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PendingTraining :: AnomalyDetectorStateValue
-pattern PendingTraining = AnomalyDetectorStateValue' "PENDING_TRAINING"
+pattern AnomalyDetectorStateValuePENDINGTRAINING :: AnomalyDetectorStateValue
+pattern AnomalyDetectorStateValuePENDINGTRAINING = AnomalyDetectorStateValue' "PENDING_TRAINING"
 
-pattern Trained :: AnomalyDetectorStateValue
-pattern Trained = AnomalyDetectorStateValue' "TRAINED"
+pattern AnomalyDetectorStateValueTRAINED :: AnomalyDetectorStateValue
+pattern AnomalyDetectorStateValueTRAINED = AnomalyDetectorStateValue' "TRAINED"
 
-pattern TrainedInsufficientData :: AnomalyDetectorStateValue
-pattern TrainedInsufficientData = AnomalyDetectorStateValue' "TRAINED_INSUFFICIENT_DATA"
+pattern AnomalyDetectorStateValueTRAINEDINSUFFICIENTDATA :: AnomalyDetectorStateValue
+pattern AnomalyDetectorStateValueTRAINEDINSUFFICIENTDATA = AnomalyDetectorStateValue' "TRAINED_INSUFFICIENT_DATA"
 
 {-# COMPLETE
-  PendingTraining,
-  Trained,
-  TrainedInsufficientData,
+  AnomalyDetectorStateValuePENDINGTRAINING,
+  AnomalyDetectorStateValueTRAINED,
+  AnomalyDetectorStateValueTRAINEDINSUFFICIENTDATA,
   AnomalyDetectorStateValue'
   #-}
 
-instance FromText AnomalyDetectorStateValue where
-  parser = (AnomalyDetectorStateValue' . mk) <$> takeText
+instance Prelude.FromText AnomalyDetectorStateValue where
+  parser = AnomalyDetectorStateValue' Prelude.<$> Prelude.takeText
 
-instance ToText AnomalyDetectorStateValue where
-  toText (AnomalyDetectorStateValue' ci) = original ci
+instance Prelude.ToText AnomalyDetectorStateValue where
+  toText (AnomalyDetectorStateValue' x) = x
 
-instance Hashable AnomalyDetectorStateValue
+instance Prelude.Hashable AnomalyDetectorStateValue
 
-instance NFData AnomalyDetectorStateValue
+instance Prelude.NFData AnomalyDetectorStateValue
 
-instance ToByteString AnomalyDetectorStateValue
+instance Prelude.ToByteString AnomalyDetectorStateValue
 
-instance ToQuery AnomalyDetectorStateValue
+instance Prelude.ToQuery AnomalyDetectorStateValue
 
-instance ToHeader AnomalyDetectorStateValue
+instance Prelude.ToHeader AnomalyDetectorStateValue
 
-instance FromXML AnomalyDetectorStateValue where
-  parseXML = parseXMLText "AnomalyDetectorStateValue"
+instance Prelude.FromXML AnomalyDetectorStateValue where
+  parseXML = Prelude.parseXMLText "AnomalyDetectorStateValue"

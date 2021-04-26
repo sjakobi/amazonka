@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Publishes metric data points to Amazon CloudWatch. CloudWatch associates the data points with the specified metric. If the specified metric does not exist, CloudWatch creates the metric. When CloudWatch creates a metric, it can take up to fifteen minutes for the metric to appear in calls to <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html ListMetrics> .
+-- Publishes metric data points to Amazon CloudWatch. CloudWatch associates
+-- the data points with the specified metric. If the specified metric does
+-- not exist, CloudWatch creates the metric. When CloudWatch creates a
+-- metric, it can take up to fifteen minutes for the metric to appear in
+-- calls to
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html ListMetrics>.
 --
+-- You can publish either individual data points in the @Value@ field, or
+-- arrays of values and the number of times each value occurred during the
+-- period by using the @Values@ and @Counts@ fields in the @MetricDatum@
+-- structure. Using the @Values@ and @Counts@ method enables you to publish
+-- up to 150 values per metric with one @PutMetricData@ request, and
+-- supports retrieving percentile statistics on this data.
 --
--- You can publish either individual data points in the @Value@ field, or arrays of values and the number of times each value occurred during the period by using the @Values@ and @Counts@ fields in the @MetricDatum@ structure. Using the @Values@ and @Counts@ method enables you to publish up to 150 values per metric with one @PutMetricData@ request, and supports retrieving percentile statistics on this data.
+-- Each @PutMetricData@ request is limited to 40 KB in size for HTTP POST
+-- requests. You can send a payload compressed by gzip. Each request is
+-- also limited to no more than 20 different metrics.
 --
--- Each @PutMetricData@ request is limited to 40 KB in size for HTTP POST requests. You can send a payload compressed by gzip. Each request is also limited to no more than 20 different metrics.
+-- Although the @Value@ parameter accepts numbers of type @Double@,
+-- CloudWatch rejects values that are either too small or too large. Values
+-- must be in the range of -2^360 to 2^360. In addition, special values
+-- (for example, NaN, +Infinity, -Infinity) are not supported.
 --
--- Although the @Value@ parameter accepts numbers of type @Double@ , CloudWatch rejects values that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
+-- You can use up to 10 dimensions per metric to further clarify what data
+-- the metric collects. Each dimension consists of a Name and Value pair.
+-- For more information about specifying dimensions, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html Publishing Metrics>
+-- in the /Amazon CloudWatch User Guide/.
 --
--- You can use up to 10 dimensions per metric to further clarify what data the metric collects. Each dimension consists of a Name and Value pair. For more information about specifying dimensions, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html Publishing Metrics> in the /Amazon CloudWatch User Guide/ .
+-- You specify the time stamp to be associated with each data point. You
+-- can specify time stamps that are as much as two weeks before the current
+-- date, and as much as 2 hours after the current day and time.
 --
--- You specify the time stamp to be associated with each data point. You can specify time stamps that are as much as two weeks before the current date, and as much as 2 hours after the current day and time.
+-- Data points with time stamps from 24 hours ago or longer can take at
+-- least 48 hours to become available for
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html GetMetricData>
+-- or
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html GetMetricStatistics>
+-- from the time they are submitted. Data points with time stamps between 3
+-- and 24 hours ago can take as much as 2 hours to become available for for
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html GetMetricData>
+-- or
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html GetMetricStatistics>.
 --
--- Data points with time stamps from 24 hours ago or longer can take at least 48 hours to become available for <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html GetMetricData> or <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html GetMetricStatistics> from the time they are submitted. Data points with time stamps between 3 and 24 hours ago can take as much as 2 hours to become available for for <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html GetMetricData> or <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html GetMetricStatistics> .
+-- CloudWatch needs raw data points to calculate percentile statistics. If
+-- you publish data using a statistic set instead, you can only retrieve
+-- percentile statistics for this data if one of the following conditions
+-- is true:
 --
--- CloudWatch needs raw data points to calculate percentile statistics. If you publish data using a statistic set instead, you can only retrieve percentile statistics for this data if one of the following conditions is true:
+-- -   The @SampleCount@ value of the statistic set is 1 and @Min@, @Max@,
+--     and @Sum@ are all equal.
 --
---     * The @SampleCount@ value of the statistic set is 1 and @Min@ , @Max@ , and @Sum@ are all equal.
---
---     * The @Min@ and @Max@ are equal, and @Sum@ is equal to @Min@ multiplied by @SampleCount@ .
+-- -   The @Min@ and @Max@ are equal, and @Sum@ is equal to @Min@
+--     multiplied by @SampleCount@.
 module Network.AWS.CloudWatch.PutMetricData
   ( -- * Creating a Request
-    putMetricData,
-    PutMetricData,
+    PutMetricData (..),
+    newPutMetricData,
 
     -- * Request Lenses
-    pmdNamespace,
-    pmdMetricData,
+    putMetricData_namespace,
+    putMetricData_metricData,
 
     -- * Destructuring the Response
-    putMetricDataResponse,
-    PutMetricDataResponse,
+    PutMetricDataResponse (..),
+    newPutMetricDataResponse,
   )
 where
 
 import Network.AWS.CloudWatch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putMetricData' smart constructor.
+-- | /See:/ 'newPutMetricData' smart constructor.
 data PutMetricData = PutMetricData'
-  { _pmdNamespace ::
-      !Text,
-    _pmdMetricData :: ![MetricDatum]
+  { -- | The namespace for the metric data.
+    --
+    -- To avoid conflicts with AWS service namespaces, you should not specify a
+    -- namespace that begins with @AWS\/@
+    namespace :: Prelude.Text,
+    -- | The data for the metric. The array can include no more than 20 metrics
+    -- per call.
+    metricData :: [MetricDatum]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutMetricData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutMetricData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pmdNamespace' - The namespace for the metric data. To avoid conflicts with AWS service namespaces, you should not specify a namespace that begins with @AWS/@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pmdMetricData' - The data for the metric. The array can include no more than 20 metrics per call.
-putMetricData ::
-  -- | 'pmdNamespace'
-  Text ->
+-- 'namespace', 'putMetricData_namespace' - The namespace for the metric data.
+--
+-- To avoid conflicts with AWS service namespaces, you should not specify a
+-- namespace that begins with @AWS\/@
+--
+-- 'metricData', 'putMetricData_metricData' - The data for the metric. The array can include no more than 20 metrics
+-- per call.
+newPutMetricData ::
+  -- | 'namespace'
+  Prelude.Text ->
   PutMetricData
-putMetricData pNamespace_ =
+newPutMetricData pNamespace_ =
   PutMetricData'
-    { _pmdNamespace = pNamespace_,
-      _pmdMetricData = mempty
+    { namespace = pNamespace_,
+      metricData = Prelude.mempty
     }
 
--- | The namespace for the metric data. To avoid conflicts with AWS service namespaces, you should not specify a namespace that begins with @AWS/@
-pmdNamespace :: Lens' PutMetricData Text
-pmdNamespace = lens _pmdNamespace (\s a -> s {_pmdNamespace = a})
+-- | The namespace for the metric data.
+--
+-- To avoid conflicts with AWS service namespaces, you should not specify a
+-- namespace that begins with @AWS\/@
+putMetricData_namespace :: Lens.Lens' PutMetricData Prelude.Text
+putMetricData_namespace = Lens.lens (\PutMetricData' {namespace} -> namespace) (\s@PutMetricData' {} a -> s {namespace = a} :: PutMetricData)
 
--- | The data for the metric. The array can include no more than 20 metrics per call.
-pmdMetricData :: Lens' PutMetricData [MetricDatum]
-pmdMetricData = lens _pmdMetricData (\s a -> s {_pmdMetricData = a}) . _Coerce
+-- | The data for the metric. The array can include no more than 20 metrics
+-- per call.
+putMetricData_metricData :: Lens.Lens' PutMetricData [MetricDatum]
+putMetricData_metricData = Lens.lens (\PutMetricData' {metricData} -> metricData) (\s@PutMetricData' {} a -> s {metricData = a} :: PutMetricData) Prelude.. Prelude._Coerce
 
-instance AWSRequest PutMetricData where
+instance Prelude.AWSRequest PutMetricData where
   type Rs PutMetricData = PutMetricDataResponse
-  request = postQuery cloudWatch
-  response = receiveNull PutMetricDataResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull PutMetricDataResponse'
 
-instance Hashable PutMetricData
+instance Prelude.Hashable PutMetricData
 
-instance NFData PutMetricData
+instance Prelude.NFData PutMetricData
 
-instance ToHeaders PutMetricData where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PutMetricData where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath PutMetricData where
-  toPath = const "/"
+instance Prelude.ToPath PutMetricData where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutMetricData where
+instance Prelude.ToQuery PutMetricData where
   toQuery PutMetricData' {..} =
-    mconcat
-      [ "Action" =: ("PutMetricData" :: ByteString),
-        "Version" =: ("2010-08-01" :: ByteString),
-        "Namespace" =: _pmdNamespace,
-        "MetricData" =: toQueryList "member" _pmdMetricData
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("PutMetricData" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-08-01" :: Prelude.ByteString),
+        "Namespace" Prelude.=: namespace,
+        "MetricData"
+          Prelude.=: Prelude.toQueryList "member" metricData
       ]
 
--- | /See:/ 'putMetricDataResponse' smart constructor.
+-- | /See:/ 'newPutMetricDataResponse' smart constructor.
 data PutMetricDataResponse = PutMetricDataResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutMetricDataResponse' with the minimum fields required to make a request.
-putMetricDataResponse ::
+-- |
+-- Create a value of 'PutMetricDataResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPutMetricDataResponse ::
   PutMetricDataResponse
-putMetricDataResponse = PutMetricDataResponse'
+newPutMetricDataResponse = PutMetricDataResponse'
 
-instance NFData PutMetricDataResponse
+instance Prelude.NFData PutMetricDataResponse

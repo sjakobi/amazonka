@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,93 +21,133 @@ module Network.AWS.CloudWatch.Types.MetricDataResult where
 
 import Network.AWS.CloudWatch.Types.MessageData
 import Network.AWS.CloudWatch.Types.StatusCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A @GetMetricData@ call returns an array of @MetricDataResult@ structures. Each of these structures includes the data points for that metric, along with the timestamps of those data points and other identifying information.
+-- | A @GetMetricData@ call returns an array of @MetricDataResult@
+-- structures. Each of these structures includes the data points for that
+-- metric, along with the timestamps of those data points and other
+-- identifying information.
 --
---
---
--- /See:/ 'metricDataResult' smart constructor.
+-- /See:/ 'newMetricDataResult' smart constructor.
 data MetricDataResult = MetricDataResult'
-  { _mdrValues ::
-      !(Maybe [Double]),
-    _mdrId :: !(Maybe Text),
-    _mdrTimestamps :: !(Maybe [ISO8601]),
-    _mdrStatusCode :: !(Maybe StatusCode),
-    _mdrLabel :: !(Maybe Text),
-    _mdrMessages ::
-      !(Maybe [MessageData])
+  { -- | The data points for the metric corresponding to @Timestamps@. The number
+    -- of values always matches the number of timestamps and the timestamp for
+    -- Values[x] is Timestamps[x].
+    values :: Prelude.Maybe [Prelude.Double],
+    -- | The short name you specified to represent this metric.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The timestamps for the data points, formatted in Unix timestamp format.
+    -- The number of timestamps always matches the number of values and the
+    -- value for Timestamps[x] is Values[x].
+    timestamps :: Prelude.Maybe [Prelude.ISO8601],
+    -- | The status of the returned data. @Complete@ indicates that all data
+    -- points in the requested time range were returned. @PartialData@ means
+    -- that an incomplete set of data points were returned. You can use the
+    -- @NextToken@ value that was returned and repeat your request to get more
+    -- data points. @NextToken@ is not returned if you are performing a math
+    -- expression. @InternalError@ indicates that an error occurred. Retry your
+    -- request using @NextToken@, if present.
+    statusCode :: Prelude.Maybe StatusCode,
+    -- | The human-readable label associated with the data.
+    label :: Prelude.Maybe Prelude.Text,
+    -- | A list of messages with additional information about the data returned.
+    messages :: Prelude.Maybe [MessageData]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricDataResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricDataResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdrValues' - The data points for the metric corresponding to @Timestamps@ . The number of values always matches the number of timestamps and the timestamp for Values[x] is Timestamps[x].
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdrId' - The short name you specified to represent this metric.
+-- 'values', 'metricDataResult_values' - The data points for the metric corresponding to @Timestamps@. The number
+-- of values always matches the number of timestamps and the timestamp for
+-- Values[x] is Timestamps[x].
 --
--- * 'mdrTimestamps' - The timestamps for the data points, formatted in Unix timestamp format. The number of timestamps always matches the number of values and the value for Timestamps[x] is Values[x].
+-- 'id', 'metricDataResult_id' - The short name you specified to represent this metric.
 --
--- * 'mdrStatusCode' - The status of the returned data. @Complete@ indicates that all data points in the requested time range were returned. @PartialData@ means that an incomplete set of data points were returned. You can use the @NextToken@ value that was returned and repeat your request to get more data points. @NextToken@ is not returned if you are performing a math expression. @InternalError@ indicates that an error occurred. Retry your request using @NextToken@ , if present.
+-- 'timestamps', 'metricDataResult_timestamps' - The timestamps for the data points, formatted in Unix timestamp format.
+-- The number of timestamps always matches the number of values and the
+-- value for Timestamps[x] is Values[x].
 --
--- * 'mdrLabel' - The human-readable label associated with the data.
+-- 'statusCode', 'metricDataResult_statusCode' - The status of the returned data. @Complete@ indicates that all data
+-- points in the requested time range were returned. @PartialData@ means
+-- that an incomplete set of data points were returned. You can use the
+-- @NextToken@ value that was returned and repeat your request to get more
+-- data points. @NextToken@ is not returned if you are performing a math
+-- expression. @InternalError@ indicates that an error occurred. Retry your
+-- request using @NextToken@, if present.
 --
--- * 'mdrMessages' - A list of messages with additional information about the data returned.
-metricDataResult ::
+-- 'label', 'metricDataResult_label' - The human-readable label associated with the data.
+--
+-- 'messages', 'metricDataResult_messages' - A list of messages with additional information about the data returned.
+newMetricDataResult ::
   MetricDataResult
-metricDataResult =
+newMetricDataResult =
   MetricDataResult'
-    { _mdrValues = Nothing,
-      _mdrId = Nothing,
-      _mdrTimestamps = Nothing,
-      _mdrStatusCode = Nothing,
-      _mdrLabel = Nothing,
-      _mdrMessages = Nothing
+    { values = Prelude.Nothing,
+      id = Prelude.Nothing,
+      timestamps = Prelude.Nothing,
+      statusCode = Prelude.Nothing,
+      label = Prelude.Nothing,
+      messages = Prelude.Nothing
     }
 
--- | The data points for the metric corresponding to @Timestamps@ . The number of values always matches the number of timestamps and the timestamp for Values[x] is Timestamps[x].
-mdrValues :: Lens' MetricDataResult [Double]
-mdrValues = lens _mdrValues (\s a -> s {_mdrValues = a}) . _Default . _Coerce
+-- | The data points for the metric corresponding to @Timestamps@. The number
+-- of values always matches the number of timestamps and the timestamp for
+-- Values[x] is Timestamps[x].
+metricDataResult_values :: Lens.Lens' MetricDataResult (Prelude.Maybe [Prelude.Double])
+metricDataResult_values = Lens.lens (\MetricDataResult' {values} -> values) (\s@MetricDataResult' {} a -> s {values = a} :: MetricDataResult) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The short name you specified to represent this metric.
-mdrId :: Lens' MetricDataResult (Maybe Text)
-mdrId = lens _mdrId (\s a -> s {_mdrId = a})
+metricDataResult_id :: Lens.Lens' MetricDataResult (Prelude.Maybe Prelude.Text)
+metricDataResult_id = Lens.lens (\MetricDataResult' {id} -> id) (\s@MetricDataResult' {} a -> s {id = a} :: MetricDataResult)
 
--- | The timestamps for the data points, formatted in Unix timestamp format. The number of timestamps always matches the number of values and the value for Timestamps[x] is Values[x].
-mdrTimestamps :: Lens' MetricDataResult [UTCTime]
-mdrTimestamps = lens _mdrTimestamps (\s a -> s {_mdrTimestamps = a}) . _Default . _Coerce
+-- | The timestamps for the data points, formatted in Unix timestamp format.
+-- The number of timestamps always matches the number of values and the
+-- value for Timestamps[x] is Values[x].
+metricDataResult_timestamps :: Lens.Lens' MetricDataResult (Prelude.Maybe [Prelude.UTCTime])
+metricDataResult_timestamps = Lens.lens (\MetricDataResult' {timestamps} -> timestamps) (\s@MetricDataResult' {} a -> s {timestamps = a} :: MetricDataResult) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The status of the returned data. @Complete@ indicates that all data points in the requested time range were returned. @PartialData@ means that an incomplete set of data points were returned. You can use the @NextToken@ value that was returned and repeat your request to get more data points. @NextToken@ is not returned if you are performing a math expression. @InternalError@ indicates that an error occurred. Retry your request using @NextToken@ , if present.
-mdrStatusCode :: Lens' MetricDataResult (Maybe StatusCode)
-mdrStatusCode = lens _mdrStatusCode (\s a -> s {_mdrStatusCode = a})
+-- | The status of the returned data. @Complete@ indicates that all data
+-- points in the requested time range were returned. @PartialData@ means
+-- that an incomplete set of data points were returned. You can use the
+-- @NextToken@ value that was returned and repeat your request to get more
+-- data points. @NextToken@ is not returned if you are performing a math
+-- expression. @InternalError@ indicates that an error occurred. Retry your
+-- request using @NextToken@, if present.
+metricDataResult_statusCode :: Lens.Lens' MetricDataResult (Prelude.Maybe StatusCode)
+metricDataResult_statusCode = Lens.lens (\MetricDataResult' {statusCode} -> statusCode) (\s@MetricDataResult' {} a -> s {statusCode = a} :: MetricDataResult)
 
 -- | The human-readable label associated with the data.
-mdrLabel :: Lens' MetricDataResult (Maybe Text)
-mdrLabel = lens _mdrLabel (\s a -> s {_mdrLabel = a})
+metricDataResult_label :: Lens.Lens' MetricDataResult (Prelude.Maybe Prelude.Text)
+metricDataResult_label = Lens.lens (\MetricDataResult' {label} -> label) (\s@MetricDataResult' {} a -> s {label = a} :: MetricDataResult)
 
 -- | A list of messages with additional information about the data returned.
-mdrMessages :: Lens' MetricDataResult [MessageData]
-mdrMessages = lens _mdrMessages (\s a -> s {_mdrMessages = a}) . _Default . _Coerce
+metricDataResult_messages :: Lens.Lens' MetricDataResult (Prelude.Maybe [MessageData])
+metricDataResult_messages = Lens.lens (\MetricDataResult' {messages} -> messages) (\s@MetricDataResult' {} a -> s {messages = a} :: MetricDataResult) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML MetricDataResult where
+instance Prelude.FromXML MetricDataResult where
   parseXML x =
     MetricDataResult'
-      <$> ( x .@? "Values" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Id")
-      <*> ( x .@? "Timestamps" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "StatusCode")
-      <*> (x .@? "Label")
-      <*> ( x .@? "Messages" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> ( x Prelude..@? "Values" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Id")
+      Prelude.<*> ( x Prelude..@? "Timestamps"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "StatusCode")
+      Prelude.<*> (x Prelude..@? "Label")
+      Prelude.<*> ( x Prelude..@? "Messages" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable MetricDataResult
+instance Prelude.Hashable MetricDataResult
 
-instance NFData MetricDataResult
+instance Prelude.NFData MetricDataResult

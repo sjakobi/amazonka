@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatch.Types.DashboardEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a specific dashboard.
 --
---
---
--- /See:/ 'dashboardEntry' smart constructor.
+-- /See:/ 'newDashboardEntry' smart constructor.
 data DashboardEntry = DashboardEntry'
-  { _deDashboardARN ::
-      !(Maybe Text),
-    _deLastModified :: !(Maybe ISO8601),
-    _deDashboardName :: !(Maybe Text),
-    _deSize :: !(Maybe Integer)
+  { -- | The Amazon Resource Name (ARN) of the dashboard.
+    dashboardArn :: Prelude.Maybe Prelude.Text,
+    -- | The time stamp of when the dashboard was last modified, either by an API
+    -- call or through the console. This number is expressed as the number of
+    -- milliseconds since Jan 1, 1970 00:00:00 UTC.
+    lastModified :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the dashboard.
+    dashboardName :: Prelude.Maybe Prelude.Text,
+    -- | The size of the dashboard, in bytes.
+    size :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DashboardEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DashboardEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deDashboardARN' - The Amazon Resource Name (ARN) of the dashboard.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deLastModified' - The time stamp of when the dashboard was last modified, either by an API call or through the console. This number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC.
+-- 'dashboardArn', 'dashboardEntry_dashboardArn' - The Amazon Resource Name (ARN) of the dashboard.
 --
--- * 'deDashboardName' - The name of the dashboard.
+-- 'lastModified', 'dashboardEntry_lastModified' - The time stamp of when the dashboard was last modified, either by an API
+-- call or through the console. This number is expressed as the number of
+-- milliseconds since Jan 1, 1970 00:00:00 UTC.
 --
--- * 'deSize' - The size of the dashboard, in bytes.
-dashboardEntry ::
+-- 'dashboardName', 'dashboardEntry_dashboardName' - The name of the dashboard.
+--
+-- 'size', 'dashboardEntry_size' - The size of the dashboard, in bytes.
+newDashboardEntry ::
   DashboardEntry
-dashboardEntry =
+newDashboardEntry =
   DashboardEntry'
-    { _deDashboardARN = Nothing,
-      _deLastModified = Nothing,
-      _deDashboardName = Nothing,
-      _deSize = Nothing
+    { dashboardArn = Prelude.Nothing,
+      lastModified = Prelude.Nothing,
+      dashboardName = Prelude.Nothing,
+      size = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the dashboard.
-deDashboardARN :: Lens' DashboardEntry (Maybe Text)
-deDashboardARN = lens _deDashboardARN (\s a -> s {_deDashboardARN = a})
+dashboardEntry_dashboardArn :: Lens.Lens' DashboardEntry (Prelude.Maybe Prelude.Text)
+dashboardEntry_dashboardArn = Lens.lens (\DashboardEntry' {dashboardArn} -> dashboardArn) (\s@DashboardEntry' {} a -> s {dashboardArn = a} :: DashboardEntry)
 
--- | The time stamp of when the dashboard was last modified, either by an API call or through the console. This number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC.
-deLastModified :: Lens' DashboardEntry (Maybe UTCTime)
-deLastModified = lens _deLastModified (\s a -> s {_deLastModified = a}) . mapping _Time
+-- | The time stamp of when the dashboard was last modified, either by an API
+-- call or through the console. This number is expressed as the number of
+-- milliseconds since Jan 1, 1970 00:00:00 UTC.
+dashboardEntry_lastModified :: Lens.Lens' DashboardEntry (Prelude.Maybe Prelude.UTCTime)
+dashboardEntry_lastModified = Lens.lens (\DashboardEntry' {lastModified} -> lastModified) (\s@DashboardEntry' {} a -> s {lastModified = a} :: DashboardEntry) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the dashboard.
-deDashboardName :: Lens' DashboardEntry (Maybe Text)
-deDashboardName = lens _deDashboardName (\s a -> s {_deDashboardName = a})
+dashboardEntry_dashboardName :: Lens.Lens' DashboardEntry (Prelude.Maybe Prelude.Text)
+dashboardEntry_dashboardName = Lens.lens (\DashboardEntry' {dashboardName} -> dashboardName) (\s@DashboardEntry' {} a -> s {dashboardName = a} :: DashboardEntry)
 
 -- | The size of the dashboard, in bytes.
-deSize :: Lens' DashboardEntry (Maybe Integer)
-deSize = lens _deSize (\s a -> s {_deSize = a})
+dashboardEntry_size :: Lens.Lens' DashboardEntry (Prelude.Maybe Prelude.Integer)
+dashboardEntry_size = Lens.lens (\DashboardEntry' {size} -> size) (\s@DashboardEntry' {} a -> s {size = a} :: DashboardEntry)
 
-instance FromXML DashboardEntry where
+instance Prelude.FromXML DashboardEntry where
   parseXML x =
     DashboardEntry'
-      <$> (x .@? "DashboardArn")
-      <*> (x .@? "LastModified")
-      <*> (x .@? "DashboardName")
-      <*> (x .@? "Size")
+      Prelude.<$> (x Prelude..@? "DashboardArn")
+      Prelude.<*> (x Prelude..@? "LastModified")
+      Prelude.<*> (x Prelude..@? "DashboardName")
+      Prelude.<*> (x Prelude..@? "Size")
 
-instance Hashable DashboardEntry
+instance Prelude.Hashable DashboardEntry
 
-instance NFData DashboardEntry
+instance Prelude.NFData DashboardEntry

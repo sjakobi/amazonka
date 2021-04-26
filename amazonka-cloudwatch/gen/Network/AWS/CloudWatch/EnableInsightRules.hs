@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,135 +21,141 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables the specified Contributor Insights rules. When rules are enabled, they immediately begin analyzing log data.
+-- Enables the specified Contributor Insights rules. When rules are
+-- enabled, they immediately begin analyzing log data.
 module Network.AWS.CloudWatch.EnableInsightRules
   ( -- * Creating a Request
-    enableInsightRules,
-    EnableInsightRules,
+    EnableInsightRules (..),
+    newEnableInsightRules,
 
     -- * Request Lenses
-    eirRuleNames,
+    enableInsightRules_ruleNames,
 
     -- * Destructuring the Response
-    enableInsightRulesResponse,
-    EnableInsightRulesResponse,
+    EnableInsightRulesResponse (..),
+    newEnableInsightRulesResponse,
 
     -- * Response Lenses
-    eirrrsFailures,
-    eirrrsResponseStatus,
+    enableInsightRulesResponse_failures,
+    enableInsightRulesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatch.Types.PartialFailure
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableInsightRules' smart constructor.
-newtype EnableInsightRules = EnableInsightRules'
-  { _eirRuleNames ::
-      [Text]
+-- | /See:/ 'newEnableInsightRules' smart constructor.
+data EnableInsightRules = EnableInsightRules'
+  { -- | An array of the rule names to enable. If you need to find out the names
+    -- of your rules, use
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules>.
+    ruleNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableInsightRules' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableInsightRules' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eirRuleNames' - An array of the rule names to enable. If you need to find out the names of your rules, use <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules> .
-enableInsightRules ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ruleNames', 'enableInsightRules_ruleNames' - An array of the rule names to enable. If you need to find out the names
+-- of your rules, use
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules>.
+newEnableInsightRules ::
   EnableInsightRules
-enableInsightRules =
-  EnableInsightRules' {_eirRuleNames = mempty}
+newEnableInsightRules =
+  EnableInsightRules' {ruleNames = Prelude.mempty}
 
--- | An array of the rule names to enable. If you need to find out the names of your rules, use <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules> .
-eirRuleNames :: Lens' EnableInsightRules [Text]
-eirRuleNames = lens _eirRuleNames (\s a -> s {_eirRuleNames = a}) . _Coerce
+-- | An array of the rule names to enable. If you need to find out the names
+-- of your rules, use
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules>.
+enableInsightRules_ruleNames :: Lens.Lens' EnableInsightRules [Prelude.Text]
+enableInsightRules_ruleNames = Lens.lens (\EnableInsightRules' {ruleNames} -> ruleNames) (\s@EnableInsightRules' {} a -> s {ruleNames = a} :: EnableInsightRules) Prelude.. Prelude._Coerce
 
-instance AWSRequest EnableInsightRules where
+instance Prelude.AWSRequest EnableInsightRules where
   type
     Rs EnableInsightRules =
       EnableInsightRulesResponse
-  request = postQuery cloudWatch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "EnableInsightRulesResult"
       ( \s h x ->
           EnableInsightRulesResponse'
-            <$> ( x .@? "Failures" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Failures" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnableInsightRules
+instance Prelude.Hashable EnableInsightRules
 
-instance NFData EnableInsightRules
+instance Prelude.NFData EnableInsightRules
 
-instance ToHeaders EnableInsightRules where
-  toHeaders = const mempty
+instance Prelude.ToHeaders EnableInsightRules where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath EnableInsightRules where
-  toPath = const "/"
+instance Prelude.ToPath EnableInsightRules where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableInsightRules where
+instance Prelude.ToQuery EnableInsightRules where
   toQuery EnableInsightRules' {..} =
-    mconcat
-      [ "Action" =: ("EnableInsightRules" :: ByteString),
-        "Version" =: ("2010-08-01" :: ByteString),
-        "RuleNames" =: toQueryList "member" _eirRuleNames
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("EnableInsightRules" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-08-01" :: Prelude.ByteString),
+        "RuleNames"
+          Prelude.=: Prelude.toQueryList "member" ruleNames
       ]
 
--- | /See:/ 'enableInsightRulesResponse' smart constructor.
+-- | /See:/ 'newEnableInsightRulesResponse' smart constructor.
 data EnableInsightRulesResponse = EnableInsightRulesResponse'
-  { _eirrrsFailures ::
-      !( Maybe
-           [PartialFailure]
-       ),
-    _eirrrsResponseStatus ::
-      !Int
+  { -- | An array listing the rules that could not be enabled. You cannot disable
+    -- or enable built-in rules.
+    failures :: Prelude.Maybe [PartialFailure],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableInsightRulesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableInsightRulesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eirrrsFailures' - An array listing the rules that could not be enabled. You cannot disable or enable built-in rules.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eirrrsResponseStatus' - -- | The response status code.
-enableInsightRulesResponse ::
-  -- | 'eirrrsResponseStatus'
-  Int ->
+-- 'failures', 'enableInsightRulesResponse_failures' - An array listing the rules that could not be enabled. You cannot disable
+-- or enable built-in rules.
+--
+-- 'httpStatus', 'enableInsightRulesResponse_httpStatus' - The response's http status code.
+newEnableInsightRulesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   EnableInsightRulesResponse
-enableInsightRulesResponse pResponseStatus_ =
+newEnableInsightRulesResponse pHttpStatus_ =
   EnableInsightRulesResponse'
-    { _eirrrsFailures =
-        Nothing,
-      _eirrrsResponseStatus = pResponseStatus_
+    { failures =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array listing the rules that could not be enabled. You cannot disable or enable built-in rules.
-eirrrsFailures :: Lens' EnableInsightRulesResponse [PartialFailure]
-eirrrsFailures = lens _eirrrsFailures (\s a -> s {_eirrrsFailures = a}) . _Default . _Coerce
+-- | An array listing the rules that could not be enabled. You cannot disable
+-- or enable built-in rules.
+enableInsightRulesResponse_failures :: Lens.Lens' EnableInsightRulesResponse (Prelude.Maybe [PartialFailure])
+enableInsightRulesResponse_failures = Lens.lens (\EnableInsightRulesResponse' {failures} -> failures) (\s@EnableInsightRulesResponse' {} a -> s {failures = a} :: EnableInsightRulesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-eirrrsResponseStatus :: Lens' EnableInsightRulesResponse Int
-eirrrsResponseStatus = lens _eirrrsResponseStatus (\s a -> s {_eirrrsResponseStatus = a})
+-- | The response's http status code.
+enableInsightRulesResponse_httpStatus :: Lens.Lens' EnableInsightRulesResponse Prelude.Int
+enableInsightRulesResponse_httpStatus = Lens.lens (\EnableInsightRulesResponse' {httpStatus} -> httpStatus) (\s@EnableInsightRulesResponse' {} a -> s {httpStatus = a} :: EnableInsightRulesResponse)
 
-instance NFData EnableInsightRulesResponse
+instance Prelude.NFData EnableInsightRulesResponse

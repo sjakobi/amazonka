@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatch.Types
   ( -- * Service Configuration
-    cloudWatch,
+    defaultService,
 
     -- * Errors
     _DashboardNotFoundError,
@@ -60,235 +63,103 @@ module Network.AWS.CloudWatch.Types
 
     -- * AlarmHistoryItem
     AlarmHistoryItem (..),
-    alarmHistoryItem,
-    ahiHistorySummary,
-    ahiHistoryItemType,
-    ahiAlarmName,
-    ahiTimestamp,
-    ahiAlarmType,
-    ahiHistoryData,
+    newAlarmHistoryItem,
 
     -- * AnomalyDetector
     AnomalyDetector (..),
-    anomalyDetector,
-    adMetricName,
-    adConfiguration,
-    adStateValue,
-    adDimensions,
-    adNamespace,
-    adStat,
+    newAnomalyDetector,
 
     -- * AnomalyDetectorConfiguration
     AnomalyDetectorConfiguration (..),
-    anomalyDetectorConfiguration,
-    adcMetricTimezone,
-    adcExcludedTimeRanges,
+    newAnomalyDetectorConfiguration,
 
     -- * CompositeAlarm
     CompositeAlarm (..),
-    compositeAlarm,
-    caAlarmARN,
-    caAlarmActions,
-    caStateReason,
-    caStateReasonData,
-    caInsufficientDataActions,
-    caAlarmRule,
-    caStateUpdatedTimestamp,
-    caStateValue,
-    caAlarmName,
-    caOKActions,
-    caActionsEnabled,
-    caAlarmConfigurationUpdatedTimestamp,
-    caAlarmDescription,
+    newCompositeAlarm,
 
     -- * DashboardEntry
     DashboardEntry (..),
-    dashboardEntry,
-    deDashboardARN,
-    deLastModified,
-    deDashboardName,
-    deSize,
+    newDashboardEntry,
 
     -- * DashboardValidationMessage
     DashboardValidationMessage (..),
-    dashboardValidationMessage,
-    dvmMessage,
-    dvmDataPath,
+    newDashboardValidationMessage,
 
     -- * Datapoint
     Datapoint (..),
-    datapoint,
-    dUnit,
-    dMinimum,
-    dSum,
-    dSampleCount,
-    dTimestamp,
-    dAverage,
-    dMaximum,
-    dExtendedStatistics,
+    newDatapoint,
 
     -- * Dimension
     Dimension (..),
-    dimension,
-    dName,
-    dValue,
+    newDimension,
 
     -- * DimensionFilter
     DimensionFilter (..),
-    dimensionFilter,
-    dfValue,
-    dfName,
+    newDimensionFilter,
 
     -- * InsightRule
     InsightRule (..),
-    insightRule,
-    irName,
-    irState,
-    irSchema,
-    irDefinition,
+    newInsightRule,
 
     -- * InsightRuleContributor
     InsightRuleContributor (..),
-    insightRuleContributor,
-    ircKeys,
-    ircApproximateAggregateValue,
-    ircDatapoints,
+    newInsightRuleContributor,
 
     -- * InsightRuleContributorDatapoint
     InsightRuleContributorDatapoint (..),
-    insightRuleContributorDatapoint,
-    ircdTimestamp,
-    ircdApproximateValue,
+    newInsightRuleContributorDatapoint,
 
     -- * InsightRuleMetricDatapoint
     InsightRuleMetricDatapoint (..),
-    insightRuleMetricDatapoint,
-    irmdMinimum,
-    irmdSum,
-    irmdSampleCount,
-    irmdMaxContributorValue,
-    irmdAverage,
-    irmdUniqueContributors,
-    irmdMaximum,
-    irmdTimestamp,
+    newInsightRuleMetricDatapoint,
 
     -- * LabelOptions
     LabelOptions (..),
-    labelOptions,
-    loTimezone,
+    newLabelOptions,
 
     -- * MessageData
     MessageData (..),
-    messageData,
-    mdCode,
-    mdValue,
+    newMessageData,
 
     -- * Metric
     Metric (..),
-    metric,
-    mMetricName,
-    mDimensions,
-    mNamespace,
+    newMetric,
 
     -- * MetricAlarm
     MetricAlarm (..),
-    metricAlarm,
-    maThreshold,
-    maDatapointsToAlarm,
-    maEvaluateLowSampleCountPercentile,
-    maComparisonOperator,
-    maExtendedStatistic,
-    maAlarmARN,
-    maAlarmActions,
-    maUnit,
-    maThresholdMetricId,
-    maStateReason,
-    maStateReasonData,
-    maMetricName,
-    maInsufficientDataActions,
-    maTreatMissingData,
-    maMetrics,
-    maStateUpdatedTimestamp,
-    maStateValue,
-    maAlarmName,
-    maOKActions,
-    maStatistic,
-    maDimensions,
-    maNamespace,
-    maEvaluationPeriods,
-    maActionsEnabled,
-    maAlarmConfigurationUpdatedTimestamp,
-    maAlarmDescription,
-    maPeriod,
+    newMetricAlarm,
 
     -- * MetricDataQuery
     MetricDataQuery (..),
-    metricDataQuery,
-    mdqMetricStat,
-    mdqReturnData,
-    mdqLabel,
-    mdqPeriod,
-    mdqExpression,
-    mdqId,
+    newMetricDataQuery,
 
     -- * MetricDataResult
     MetricDataResult (..),
-    metricDataResult,
-    mdrValues,
-    mdrId,
-    mdrTimestamps,
-    mdrStatusCode,
-    mdrLabel,
-    mdrMessages,
+    newMetricDataResult,
 
     -- * MetricDatum
     MetricDatum (..),
-    metricDatum,
-    metStorageResolution,
-    metUnit,
-    metValues,
-    metCounts,
-    metTimestamp,
-    metStatisticValues,
-    metValue,
-    metDimensions,
-    metMetricName,
+    newMetricDatum,
 
     -- * MetricStat
     MetricStat (..),
-    metricStat,
-    msUnit,
-    msMetric,
-    msPeriod,
-    msStat,
+    newMetricStat,
 
     -- * PartialFailure
     PartialFailure (..),
-    partialFailure,
-    pfExceptionType,
-    pfFailureCode,
-    pfFailureDescription,
-    pfFailureResource,
+    newPartialFailure,
 
     -- * Range
     Range (..),
-    range,
-    rStartTime,
-    rEndTime,
+    newRange,
 
     -- * StatisticSet
     StatisticSet (..),
-    statisticSet,
-    ssSampleCount,
-    ssSum,
-    ssMinimum,
-    ssMaximum,
+    newStatisticSet,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
   )
 where
 
@@ -327,149 +198,181 @@ import Network.AWS.CloudWatch.Types.Statistic
 import Network.AWS.CloudWatch.Types.StatisticSet
 import Network.AWS.CloudWatch.Types.StatusCode
 import Network.AWS.CloudWatch.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2010-08-01@ of the Amazon CloudWatch SDK configuration.
-cloudWatch :: Service
-cloudWatch =
-  Service
-    { _svcAbbrev = "CloudWatch",
-      _svcSigner = v4,
-      _svcPrefix = "monitoring",
-      _svcVersion = "2010-08-01",
-      _svcEndpoint = defaultEndpoint cloudWatch,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseXMLError "CloudWatch",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "CloudWatch",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "monitoring",
+      Prelude._svcVersion = "2010-08-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseXMLError "CloudWatch",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The specified dashboard does not exist.
-_DashboardNotFoundError :: AsError a => Getting (First ServiceError) a ServiceError
+_DashboardNotFoundError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DashboardNotFoundError =
-  _MatchServiceError cloudWatch "ResourceNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceNotFound"
+    Prelude.. Prelude.hasStatus 404
 
 -- | The quota for alarms for this customer has already been reached.
-_LimitExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededFault =
-  _MatchServiceError cloudWatch "LimitExceeded"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "LimitExceeded"
+    Prelude.. Prelude.hasStatus 400
 
 -- | Parameters were used together that cannot be used together.
-_InvalidParameterCombinationException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterCombinationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterCombinationException =
-  _MatchServiceError
-    cloudWatch
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterCombination"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | An input parameter that is required is missing.
-_MissingRequiredParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+_MissingRequiredParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MissingRequiredParameterException =
-  _MatchServiceError cloudWatch "MissingParameter"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "MissingParameter"
+    Prelude.. Prelude.hasStatus 400
 
 -- | Some part of the dashboard data is invalid.
-_DashboardInvalidInputError :: AsError a => Getting (First ServiceError) a ServiceError
+_DashboardInvalidInputError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DashboardInvalidInputError =
-  _MatchServiceError
-    cloudWatch
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterInput"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Request processing has failed due to some unknown error, exception, or failure.
-_InternalServiceFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Request processing has failed due to some unknown error, exception, or
+-- failure.
+_InternalServiceFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServiceFault =
-  _MatchServiceError
-    cloudWatch
+  Prelude._MatchServiceError
+    defaultService
     "InternalServiceError"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
 -- | More than one process tried to modify a resource at the same time.
-_ConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentModificationException =
-  _MatchServiceError
-    cloudWatch
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentModificationException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
 
 -- | The value of an input parameter is bad or out-of-range.
-_InvalidParameterValueException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterValueException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterValueException =
-  _MatchServiceError
-    cloudWatch
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterValue"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The operation exceeded one or more limits.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    cloudWatch
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The named resource does not exist.
-_ResourceNotFound :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFound :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFound =
-  _MatchServiceError cloudWatch "ResourceNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceNotFound"
+    Prelude.. Prelude.hasStatus 404
 
 -- | The named resource does not exist.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    cloudWatch
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
 -- | Data was not syntactically valid JSON.
-_InvalidFormatFault :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidFormatFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidFormatFault =
-  _MatchServiceError cloudWatch "InvalidFormat"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidFormat"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The next token specified is invalid.
-_InvalidNextToken :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidNextToken :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidNextToken =
-  _MatchServiceError cloudWatch "InvalidNextToken"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidNextToken"
+    Prelude.. Prelude.hasStatus 400

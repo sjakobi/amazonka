@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatch.Types.StatisticSet where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a set of statistics that describes a specific metric.
 --
---
---
--- /See:/ 'statisticSet' smart constructor.
+-- /See:/ 'newStatisticSet' smart constructor.
 data StatisticSet = StatisticSet'
-  { _ssSampleCount ::
-      !Double,
-    _ssSum :: !Double,
-    _ssMinimum :: !Double,
-    _ssMaximum :: !Double
+  { -- | The number of samples used for the statistic set.
+    sampleCount :: Prelude.Double,
+    -- | The sum of values for the sample set.
+    sum :: Prelude.Double,
+    -- | The minimum value of the sample set.
+    minimum :: Prelude.Double,
+    -- | The maximum value of the sample set.
+    maximum :: Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StatisticSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StatisticSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssSampleCount' - The number of samples used for the statistic set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssSum' - The sum of values for the sample set.
+-- 'sampleCount', 'statisticSet_sampleCount' - The number of samples used for the statistic set.
 --
--- * 'ssMinimum' - The minimum value of the sample set.
+-- 'sum', 'statisticSet_sum' - The sum of values for the sample set.
 --
--- * 'ssMaximum' - The maximum value of the sample set.
-statisticSet ::
-  -- | 'ssSampleCount'
-  Double ->
-  -- | 'ssSum'
-  Double ->
-  -- | 'ssMinimum'
-  Double ->
-  -- | 'ssMaximum'
-  Double ->
+-- 'minimum', 'statisticSet_minimum' - The minimum value of the sample set.
+--
+-- 'maximum', 'statisticSet_maximum' - The maximum value of the sample set.
+newStatisticSet ::
+  -- | 'sampleCount'
+  Prelude.Double ->
+  -- | 'sum'
+  Prelude.Double ->
+  -- | 'minimum'
+  Prelude.Double ->
+  -- | 'maximum'
+  Prelude.Double ->
   StatisticSet
-statisticSet pSampleCount_ pSum_ pMinimum_ pMaximum_ =
-  StatisticSet'
-    { _ssSampleCount = pSampleCount_,
-      _ssSum = pSum_,
-      _ssMinimum = pMinimum_,
-      _ssMaximum = pMaximum_
-    }
+newStatisticSet
+  pSampleCount_
+  pSum_
+  pMinimum_
+  pMaximum_ =
+    StatisticSet'
+      { sampleCount = pSampleCount_,
+        sum = pSum_,
+        minimum = pMinimum_,
+        maximum = pMaximum_
+      }
 
 -- | The number of samples used for the statistic set.
-ssSampleCount :: Lens' StatisticSet Double
-ssSampleCount = lens _ssSampleCount (\s a -> s {_ssSampleCount = a})
+statisticSet_sampleCount :: Lens.Lens' StatisticSet Prelude.Double
+statisticSet_sampleCount = Lens.lens (\StatisticSet' {sampleCount} -> sampleCount) (\s@StatisticSet' {} a -> s {sampleCount = a} :: StatisticSet)
 
 -- | The sum of values for the sample set.
-ssSum :: Lens' StatisticSet Double
-ssSum = lens _ssSum (\s a -> s {_ssSum = a})
+statisticSet_sum :: Lens.Lens' StatisticSet Prelude.Double
+statisticSet_sum = Lens.lens (\StatisticSet' {sum} -> sum) (\s@StatisticSet' {} a -> s {sum = a} :: StatisticSet)
 
 -- | The minimum value of the sample set.
-ssMinimum :: Lens' StatisticSet Double
-ssMinimum = lens _ssMinimum (\s a -> s {_ssMinimum = a})
+statisticSet_minimum :: Lens.Lens' StatisticSet Prelude.Double
+statisticSet_minimum = Lens.lens (\StatisticSet' {minimum} -> minimum) (\s@StatisticSet' {} a -> s {minimum = a} :: StatisticSet)
 
 -- | The maximum value of the sample set.
-ssMaximum :: Lens' StatisticSet Double
-ssMaximum = lens _ssMaximum (\s a -> s {_ssMaximum = a})
+statisticSet_maximum :: Lens.Lens' StatisticSet Prelude.Double
+statisticSet_maximum = Lens.lens (\StatisticSet' {maximum} -> maximum) (\s@StatisticSet' {} a -> s {maximum = a} :: StatisticSet)
 
-instance Hashable StatisticSet
+instance Prelude.Hashable StatisticSet
 
-instance NFData StatisticSet
+instance Prelude.NFData StatisticSet
 
-instance ToQuery StatisticSet where
+instance Prelude.ToQuery StatisticSet where
   toQuery StatisticSet' {..} =
-    mconcat
-      [ "SampleCount" =: _ssSampleCount,
-        "Sum" =: _ssSum,
-        "Minimum" =: _ssMinimum,
-        "Maximum" =: _ssMaximum
+    Prelude.mconcat
+      [ "SampleCount" Prelude.=: sampleCount,
+        "Sum" Prelude.=: sum,
+        "Minimum" Prelude.=: minimum,
+        "Maximum" Prelude.=: maximum
       ]

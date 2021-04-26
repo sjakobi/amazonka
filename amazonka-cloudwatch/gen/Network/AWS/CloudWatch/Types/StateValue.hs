@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CloudWatch.Types.StateValue
   ( StateValue
       ( ..,
-        Alarm,
-        InsufficientData,
-        OK
+        StateValueALARM,
+        StateValueINSUFFICIENTDATA,
+        StateValueOK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StateValue = StateValue' (CI Text)
+newtype StateValue = StateValue'
+  { fromStateValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Alarm :: StateValue
-pattern Alarm = StateValue' "ALARM"
+pattern StateValueALARM :: StateValue
+pattern StateValueALARM = StateValue' "ALARM"
 
-pattern InsufficientData :: StateValue
-pattern InsufficientData = StateValue' "INSUFFICIENT_DATA"
+pattern StateValueINSUFFICIENTDATA :: StateValue
+pattern StateValueINSUFFICIENTDATA = StateValue' "INSUFFICIENT_DATA"
 
-pattern OK :: StateValue
-pattern OK = StateValue' "OK"
+pattern StateValueOK :: StateValue
+pattern StateValueOK = StateValue' "OK"
 
 {-# COMPLETE
-  Alarm,
-  InsufficientData,
-  OK,
+  StateValueALARM,
+  StateValueINSUFFICIENTDATA,
+  StateValueOK,
   StateValue'
   #-}
 
-instance FromText StateValue where
-  parser = (StateValue' . mk) <$> takeText
+instance Prelude.FromText StateValue where
+  parser = StateValue' Prelude.<$> Prelude.takeText
 
-instance ToText StateValue where
-  toText (StateValue' ci) = original ci
+instance Prelude.ToText StateValue where
+  toText (StateValue' x) = x
 
-instance Hashable StateValue
+instance Prelude.Hashable StateValue
 
-instance NFData StateValue
+instance Prelude.NFData StateValue
 
-instance ToByteString StateValue
+instance Prelude.ToByteString StateValue
 
-instance ToQuery StateValue
+instance Prelude.ToQuery StateValue
 
-instance ToHeader StateValue
+instance Prelude.ToHeader StateValue
 
-instance FromXML StateValue where
-  parseXML = parseXMLText "StateValue"
+instance Prelude.FromXML StateValue where
+  parseXML = Prelude.parseXMLText "StateValue"

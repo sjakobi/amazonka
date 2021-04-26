@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,136 +23,142 @@
 --
 -- Permanently deletes the specified Contributor Insights rules.
 --
---
--- If you create a rule, delete it, and then re-create it with the same name, historical data from the first time the rule was created might not be available.
+-- If you create a rule, delete it, and then re-create it with the same
+-- name, historical data from the first time the rule was created might not
+-- be available.
 module Network.AWS.CloudWatch.DeleteInsightRules
   ( -- * Creating a Request
-    deleteInsightRules,
-    DeleteInsightRules,
+    DeleteInsightRules (..),
+    newDeleteInsightRules,
 
     -- * Request Lenses
-    dirRuleNames,
+    deleteInsightRules_ruleNames,
 
     -- * Destructuring the Response
-    deleteInsightRulesResponse,
-    DeleteInsightRulesResponse,
+    DeleteInsightRulesResponse (..),
+    newDeleteInsightRulesResponse,
 
     -- * Response Lenses
-    dirrrsFailures,
-    dirrrsResponseStatus,
+    deleteInsightRulesResponse_failures,
+    deleteInsightRulesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatch.Types.PartialFailure
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteInsightRules' smart constructor.
-newtype DeleteInsightRules = DeleteInsightRules'
-  { _dirRuleNames ::
-      [Text]
+-- | /See:/ 'newDeleteInsightRules' smart constructor.
+data DeleteInsightRules = DeleteInsightRules'
+  { -- | An array of the rule names to delete. If you need to find out the names
+    -- of your rules, use
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules>.
+    ruleNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInsightRules' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInsightRules' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dirRuleNames' - An array of the rule names to delete. If you need to find out the names of your rules, use <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules> .
-deleteInsightRules ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ruleNames', 'deleteInsightRules_ruleNames' - An array of the rule names to delete. If you need to find out the names
+-- of your rules, use
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules>.
+newDeleteInsightRules ::
   DeleteInsightRules
-deleteInsightRules =
-  DeleteInsightRules' {_dirRuleNames = mempty}
+newDeleteInsightRules =
+  DeleteInsightRules' {ruleNames = Prelude.mempty}
 
--- | An array of the rule names to delete. If you need to find out the names of your rules, use <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules> .
-dirRuleNames :: Lens' DeleteInsightRules [Text]
-dirRuleNames = lens _dirRuleNames (\s a -> s {_dirRuleNames = a}) . _Coerce
+-- | An array of the rule names to delete. If you need to find out the names
+-- of your rules, use
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules>.
+deleteInsightRules_ruleNames :: Lens.Lens' DeleteInsightRules [Prelude.Text]
+deleteInsightRules_ruleNames = Lens.lens (\DeleteInsightRules' {ruleNames} -> ruleNames) (\s@DeleteInsightRules' {} a -> s {ruleNames = a} :: DeleteInsightRules) Prelude.. Prelude._Coerce
 
-instance AWSRequest DeleteInsightRules where
+instance Prelude.AWSRequest DeleteInsightRules where
   type
     Rs DeleteInsightRules =
       DeleteInsightRulesResponse
-  request = postQuery cloudWatch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteInsightRulesResult"
       ( \s h x ->
           DeleteInsightRulesResponse'
-            <$> ( x .@? "Failures" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Failures" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteInsightRules
+instance Prelude.Hashable DeleteInsightRules
 
-instance NFData DeleteInsightRules
+instance Prelude.NFData DeleteInsightRules
 
-instance ToHeaders DeleteInsightRules where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteInsightRules where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteInsightRules where
-  toPath = const "/"
+instance Prelude.ToPath DeleteInsightRules where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteInsightRules where
+instance Prelude.ToQuery DeleteInsightRules where
   toQuery DeleteInsightRules' {..} =
-    mconcat
-      [ "Action" =: ("DeleteInsightRules" :: ByteString),
-        "Version" =: ("2010-08-01" :: ByteString),
-        "RuleNames" =: toQueryList "member" _dirRuleNames
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteInsightRules" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-08-01" :: Prelude.ByteString),
+        "RuleNames"
+          Prelude.=: Prelude.toQueryList "member" ruleNames
       ]
 
--- | /See:/ 'deleteInsightRulesResponse' smart constructor.
+-- | /See:/ 'newDeleteInsightRulesResponse' smart constructor.
 data DeleteInsightRulesResponse = DeleteInsightRulesResponse'
-  { _dirrrsFailures ::
-      !( Maybe
-           [PartialFailure]
-       ),
-    _dirrrsResponseStatus ::
-      !Int
+  { -- | An array listing the rules that could not be deleted. You cannot delete
+    -- built-in rules.
+    failures :: Prelude.Maybe [PartialFailure],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInsightRulesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInsightRulesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dirrrsFailures' - An array listing the rules that could not be deleted. You cannot delete built-in rules.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dirrrsResponseStatus' - -- | The response status code.
-deleteInsightRulesResponse ::
-  -- | 'dirrrsResponseStatus'
-  Int ->
+-- 'failures', 'deleteInsightRulesResponse_failures' - An array listing the rules that could not be deleted. You cannot delete
+-- built-in rules.
+--
+-- 'httpStatus', 'deleteInsightRulesResponse_httpStatus' - The response's http status code.
+newDeleteInsightRulesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteInsightRulesResponse
-deleteInsightRulesResponse pResponseStatus_ =
+newDeleteInsightRulesResponse pHttpStatus_ =
   DeleteInsightRulesResponse'
-    { _dirrrsFailures =
-        Nothing,
-      _dirrrsResponseStatus = pResponseStatus_
+    { failures =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array listing the rules that could not be deleted. You cannot delete built-in rules.
-dirrrsFailures :: Lens' DeleteInsightRulesResponse [PartialFailure]
-dirrrsFailures = lens _dirrrsFailures (\s a -> s {_dirrrsFailures = a}) . _Default . _Coerce
+-- | An array listing the rules that could not be deleted. You cannot delete
+-- built-in rules.
+deleteInsightRulesResponse_failures :: Lens.Lens' DeleteInsightRulesResponse (Prelude.Maybe [PartialFailure])
+deleteInsightRulesResponse_failures = Lens.lens (\DeleteInsightRulesResponse' {failures} -> failures) (\s@DeleteInsightRulesResponse' {} a -> s {failures = a} :: DeleteInsightRulesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dirrrsResponseStatus :: Lens' DeleteInsightRulesResponse Int
-dirrrsResponseStatus = lens _dirrrsResponseStatus (\s a -> s {_dirrrsResponseStatus = a})
+-- | The response's http status code.
+deleteInsightRulesResponse_httpStatus :: Lens.Lens' DeleteInsightRulesResponse Prelude.Int
+deleteInsightRulesResponse_httpStatus = Lens.lens (\DeleteInsightRulesResponse' {httpStatus} -> httpStatus) (\s@DeleteInsightRulesResponse' {} a -> s {httpStatus = a} :: DeleteInsightRulesResponse)
 
-instance NFData DeleteInsightRulesResponse
+instance Prelude.NFData DeleteInsightRulesResponse

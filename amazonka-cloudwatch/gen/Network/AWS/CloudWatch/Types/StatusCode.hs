@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CloudWatch.Types.StatusCode
   ( StatusCode
       ( ..,
-        Complete,
-        InternalError,
-        PartialData
+        StatusCodeComplete,
+        StatusCodeInternalError,
+        StatusCodePartialData
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StatusCode = StatusCode' (CI Text)
+newtype StatusCode = StatusCode'
+  { fromStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Complete :: StatusCode
-pattern Complete = StatusCode' "Complete"
+pattern StatusCodeComplete :: StatusCode
+pattern StatusCodeComplete = StatusCode' "Complete"
 
-pattern InternalError :: StatusCode
-pattern InternalError = StatusCode' "InternalError"
+pattern StatusCodeInternalError :: StatusCode
+pattern StatusCodeInternalError = StatusCode' "InternalError"
 
-pattern PartialData :: StatusCode
-pattern PartialData = StatusCode' "PartialData"
+pattern StatusCodePartialData :: StatusCode
+pattern StatusCodePartialData = StatusCode' "PartialData"
 
 {-# COMPLETE
-  Complete,
-  InternalError,
-  PartialData,
+  StatusCodeComplete,
+  StatusCodeInternalError,
+  StatusCodePartialData,
   StatusCode'
   #-}
 
-instance FromText StatusCode where
-  parser = (StatusCode' . mk) <$> takeText
+instance Prelude.FromText StatusCode where
+  parser = StatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText StatusCode where
-  toText (StatusCode' ci) = original ci
+instance Prelude.ToText StatusCode where
+  toText (StatusCode' x) = x
 
-instance Hashable StatusCode
+instance Prelude.Hashable StatusCode
 
-instance NFData StatusCode
+instance Prelude.NFData StatusCode
 
-instance ToByteString StatusCode
+instance Prelude.ToByteString StatusCode
 
-instance ToQuery StatusCode
+instance Prelude.ToQuery StatusCode
 
-instance ToHeader StatusCode
+instance Prelude.ToHeader StatusCode
 
-instance FromXML StatusCode where
-  parseXML = parseXMLText "StatusCode"
+instance Prelude.FromXML StatusCode where
+  parseXML = Prelude.parseXMLText "StatusCode"

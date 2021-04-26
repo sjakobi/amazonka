@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,288 +25,385 @@ import Network.AWS.CloudWatch.Types.MetricDataQuery
 import Network.AWS.CloudWatch.Types.StandardUnit
 import Network.AWS.CloudWatch.Types.StateValue
 import Network.AWS.CloudWatch.Types.Statistic
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details about a metric alarm.
 --
---
---
--- /See:/ 'metricAlarm' smart constructor.
+-- /See:/ 'newMetricAlarm' smart constructor.
 data MetricAlarm = MetricAlarm'
-  { _maThreshold ::
-      !(Maybe Double),
-    _maDatapointsToAlarm :: !(Maybe Nat),
-    _maEvaluateLowSampleCountPercentile ::
-      !(Maybe Text),
-    _maComparisonOperator ::
-      !(Maybe ComparisonOperator),
-    _maExtendedStatistic :: !(Maybe Text),
-    _maAlarmARN :: !(Maybe Text),
-    _maAlarmActions :: !(Maybe [Text]),
-    _maUnit :: !(Maybe StandardUnit),
-    _maThresholdMetricId :: !(Maybe Text),
-    _maStateReason :: !(Maybe Text),
-    _maStateReasonData :: !(Maybe Text),
-    _maMetricName :: !(Maybe Text),
-    _maInsufficientDataActions :: !(Maybe [Text]),
-    _maTreatMissingData :: !(Maybe Text),
-    _maMetrics :: !(Maybe [MetricDataQuery]),
-    _maStateUpdatedTimestamp :: !(Maybe ISO8601),
-    _maStateValue :: !(Maybe StateValue),
-    _maAlarmName :: !(Maybe Text),
-    _maOKActions :: !(Maybe [Text]),
-    _maStatistic :: !(Maybe Statistic),
-    _maDimensions :: !(Maybe [Dimension]),
-    _maNamespace :: !(Maybe Text),
-    _maEvaluationPeriods :: !(Maybe Nat),
-    _maActionsEnabled :: !(Maybe Bool),
-    _maAlarmConfigurationUpdatedTimestamp ::
-      !(Maybe ISO8601),
-    _maAlarmDescription :: !(Maybe Text),
-    _maPeriod :: !(Maybe Nat)
+  { -- | The value to compare with the specified statistic.
+    threshold :: Prelude.Maybe Prelude.Double,
+    -- | The number of data points that must be breaching to trigger the alarm.
+    datapointsToAlarm :: Prelude.Maybe Prelude.Nat,
+    -- | Used only for alarms based on percentiles. If @ignore@, the alarm state
+    -- does not change during periods with too few data points to be
+    -- statistically significant. If @evaluate@ or this parameter is not used,
+    -- the alarm is always evaluated and possibly changes state no matter how
+    -- many data points are available.
+    evaluateLowSampleCountPercentile :: Prelude.Maybe Prelude.Text,
+    -- | The arithmetic operation to use when comparing the specified statistic
+    -- and threshold. The specified statistic value is used as the first
+    -- operand.
+    comparisonOperator :: Prelude.Maybe ComparisonOperator,
+    -- | The percentile statistic for the metric associated with the alarm.
+    -- Specify a value between p0.0 and p100.
+    extendedStatistic :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the alarm.
+    alarmArn :: Prelude.Maybe Prelude.Text,
+    -- | The actions to execute when this alarm transitions to the @ALARM@ state
+    -- from any other state. Each action is specified as an Amazon Resource
+    -- Name (ARN).
+    alarmActions :: Prelude.Maybe [Prelude.Text],
+    -- | The unit of the metric associated with the alarm.
+    unit :: Prelude.Maybe StandardUnit,
+    -- | In an alarm based on an anomaly detection model, this is the ID of the
+    -- @ANOMALY_DETECTION_BAND@ function used as the threshold for the alarm.
+    thresholdMetricId :: Prelude.Maybe Prelude.Text,
+    -- | An explanation for the alarm state, in text format.
+    stateReason :: Prelude.Maybe Prelude.Text,
+    -- | An explanation for the alarm state, in JSON format.
+    stateReasonData :: Prelude.Maybe Prelude.Text,
+    -- | The name of the metric associated with the alarm, if this is an alarm
+    -- based on a single metric.
+    metricName :: Prelude.Maybe Prelude.Text,
+    -- | The actions to execute when this alarm transitions to the
+    -- @INSUFFICIENT_DATA@ state from any other state. Each action is specified
+    -- as an Amazon Resource Name (ARN).
+    insufficientDataActions :: Prelude.Maybe [Prelude.Text],
+    -- | Sets how this alarm is to handle missing data points. If this parameter
+    -- is omitted, the default behavior of @missing@ is used.
+    treatMissingData :: Prelude.Maybe Prelude.Text,
+    -- | An array of MetricDataQuery structures, used in an alarm based on a
+    -- metric math expression. Each structure either retrieves a metric or
+    -- performs a math expression. One item in the Metrics array is the math
+    -- expression that the alarm watches. This expression by designated by
+    -- having @ReturnData@ set to true.
+    metrics :: Prelude.Maybe [MetricDataQuery],
+    -- | The time stamp of the last update to the alarm state.
+    stateUpdatedTimestamp :: Prelude.Maybe Prelude.ISO8601,
+    -- | The state value for the alarm.
+    stateValue :: Prelude.Maybe StateValue,
+    -- | The name of the alarm.
+    alarmName :: Prelude.Maybe Prelude.Text,
+    -- | The actions to execute when this alarm transitions to the @OK@ state
+    -- from any other state. Each action is specified as an Amazon Resource
+    -- Name (ARN).
+    oKActions :: Prelude.Maybe [Prelude.Text],
+    -- | The statistic for the metric associated with the alarm, other than
+    -- percentile. For percentile statistics, use @ExtendedStatistic@.
+    statistic :: Prelude.Maybe Statistic,
+    -- | The dimensions for the metric associated with the alarm.
+    dimensions :: Prelude.Maybe [Dimension],
+    -- | The namespace of the metric associated with the alarm.
+    namespace :: Prelude.Maybe Prelude.Text,
+    -- | The number of periods over which data is compared to the specified
+    -- threshold.
+    evaluationPeriods :: Prelude.Maybe Prelude.Nat,
+    -- | Indicates whether actions should be executed during any changes to the
+    -- alarm state.
+    actionsEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The time stamp of the last update to the alarm configuration.
+    alarmConfigurationUpdatedTimestamp :: Prelude.Maybe Prelude.ISO8601,
+    -- | The description of the alarm.
+    alarmDescription :: Prelude.Maybe Prelude.Text,
+    -- | The period, in seconds, over which the statistic is applied.
+    period :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricAlarm' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricAlarm' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'maThreshold' - The value to compare with the specified statistic.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'maDatapointsToAlarm' - The number of data points that must be breaching to trigger the alarm.
+-- 'threshold', 'metricAlarm_threshold' - The value to compare with the specified statistic.
 --
--- * 'maEvaluateLowSampleCountPercentile' - Used only for alarms based on percentiles. If @ignore@ , the alarm state does not change during periods with too few data points to be statistically significant. If @evaluate@ or this parameter is not used, the alarm is always evaluated and possibly changes state no matter how many data points are available.
+-- 'datapointsToAlarm', 'metricAlarm_datapointsToAlarm' - The number of data points that must be breaching to trigger the alarm.
 --
--- * 'maComparisonOperator' - The arithmetic operation to use when comparing the specified statistic and threshold. The specified statistic value is used as the first operand.
+-- 'evaluateLowSampleCountPercentile', 'metricAlarm_evaluateLowSampleCountPercentile' - Used only for alarms based on percentiles. If @ignore@, the alarm state
+-- does not change during periods with too few data points to be
+-- statistically significant. If @evaluate@ or this parameter is not used,
+-- the alarm is always evaluated and possibly changes state no matter how
+-- many data points are available.
 --
--- * 'maExtendedStatistic' - The percentile statistic for the metric associated with the alarm. Specify a value between p0.0 and p100.
+-- 'comparisonOperator', 'metricAlarm_comparisonOperator' - The arithmetic operation to use when comparing the specified statistic
+-- and threshold. The specified statistic value is used as the first
+-- operand.
 --
--- * 'maAlarmARN' - The Amazon Resource Name (ARN) of the alarm.
+-- 'extendedStatistic', 'metricAlarm_extendedStatistic' - The percentile statistic for the metric associated with the alarm.
+-- Specify a value between p0.0 and p100.
 --
--- * 'maAlarmActions' - The actions to execute when this alarm transitions to the @ALARM@ state from any other state. Each action is specified as an Amazon Resource Name (ARN).
+-- 'alarmArn', 'metricAlarm_alarmArn' - The Amazon Resource Name (ARN) of the alarm.
 --
--- * 'maUnit' - The unit of the metric associated with the alarm.
+-- 'alarmActions', 'metricAlarm_alarmActions' - The actions to execute when this alarm transitions to the @ALARM@ state
+-- from any other state. Each action is specified as an Amazon Resource
+-- Name (ARN).
 --
--- * 'maThresholdMetricId' - In an alarm based on an anomaly detection model, this is the ID of the @ANOMALY_DETECTION_BAND@ function used as the threshold for the alarm.
+-- 'unit', 'metricAlarm_unit' - The unit of the metric associated with the alarm.
 --
--- * 'maStateReason' - An explanation for the alarm state, in text format.
+-- 'thresholdMetricId', 'metricAlarm_thresholdMetricId' - In an alarm based on an anomaly detection model, this is the ID of the
+-- @ANOMALY_DETECTION_BAND@ function used as the threshold for the alarm.
 --
--- * 'maStateReasonData' - An explanation for the alarm state, in JSON format.
+-- 'stateReason', 'metricAlarm_stateReason' - An explanation for the alarm state, in text format.
 --
--- * 'maMetricName' - The name of the metric associated with the alarm, if this is an alarm based on a single metric.
+-- 'stateReasonData', 'metricAlarm_stateReasonData' - An explanation for the alarm state, in JSON format.
 --
--- * 'maInsufficientDataActions' - The actions to execute when this alarm transitions to the @INSUFFICIENT_DATA@ state from any other state. Each action is specified as an Amazon Resource Name (ARN).
+-- 'metricName', 'metricAlarm_metricName' - The name of the metric associated with the alarm, if this is an alarm
+-- based on a single metric.
 --
--- * 'maTreatMissingData' - Sets how this alarm is to handle missing data points. If this parameter is omitted, the default behavior of @missing@ is used.
+-- 'insufficientDataActions', 'metricAlarm_insufficientDataActions' - The actions to execute when this alarm transitions to the
+-- @INSUFFICIENT_DATA@ state from any other state. Each action is specified
+-- as an Amazon Resource Name (ARN).
 --
--- * 'maMetrics' - An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each structure either retrieves a metric or performs a math expression. One item in the Metrics array is the math expression that the alarm watches. This expression by designated by having @ReturnData@ set to true.
+-- 'treatMissingData', 'metricAlarm_treatMissingData' - Sets how this alarm is to handle missing data points. If this parameter
+-- is omitted, the default behavior of @missing@ is used.
 --
--- * 'maStateUpdatedTimestamp' - The time stamp of the last update to the alarm state.
+-- 'metrics', 'metricAlarm_metrics' - An array of MetricDataQuery structures, used in an alarm based on a
+-- metric math expression. Each structure either retrieves a metric or
+-- performs a math expression. One item in the Metrics array is the math
+-- expression that the alarm watches. This expression by designated by
+-- having @ReturnData@ set to true.
 --
--- * 'maStateValue' - The state value for the alarm.
+-- 'stateUpdatedTimestamp', 'metricAlarm_stateUpdatedTimestamp' - The time stamp of the last update to the alarm state.
 --
--- * 'maAlarmName' - The name of the alarm.
+-- 'stateValue', 'metricAlarm_stateValue' - The state value for the alarm.
 --
--- * 'maOKActions' - The actions to execute when this alarm transitions to the @OK@ state from any other state. Each action is specified as an Amazon Resource Name (ARN).
+-- 'alarmName', 'metricAlarm_alarmName' - The name of the alarm.
 --
--- * 'maStatistic' - The statistic for the metric associated with the alarm, other than percentile. For percentile statistics, use @ExtendedStatistic@ .
+-- 'oKActions', 'metricAlarm_oKActions' - The actions to execute when this alarm transitions to the @OK@ state
+-- from any other state. Each action is specified as an Amazon Resource
+-- Name (ARN).
 --
--- * 'maDimensions' - The dimensions for the metric associated with the alarm.
+-- 'statistic', 'metricAlarm_statistic' - The statistic for the metric associated with the alarm, other than
+-- percentile. For percentile statistics, use @ExtendedStatistic@.
 --
--- * 'maNamespace' - The namespace of the metric associated with the alarm.
+-- 'dimensions', 'metricAlarm_dimensions' - The dimensions for the metric associated with the alarm.
 --
--- * 'maEvaluationPeriods' - The number of periods over which data is compared to the specified threshold.
+-- 'namespace', 'metricAlarm_namespace' - The namespace of the metric associated with the alarm.
 --
--- * 'maActionsEnabled' - Indicates whether actions should be executed during any changes to the alarm state.
+-- 'evaluationPeriods', 'metricAlarm_evaluationPeriods' - The number of periods over which data is compared to the specified
+-- threshold.
 --
--- * 'maAlarmConfigurationUpdatedTimestamp' - The time stamp of the last update to the alarm configuration.
+-- 'actionsEnabled', 'metricAlarm_actionsEnabled' - Indicates whether actions should be executed during any changes to the
+-- alarm state.
 --
--- * 'maAlarmDescription' - The description of the alarm.
+-- 'alarmConfigurationUpdatedTimestamp', 'metricAlarm_alarmConfigurationUpdatedTimestamp' - The time stamp of the last update to the alarm configuration.
 --
--- * 'maPeriod' - The period, in seconds, over which the statistic is applied.
-metricAlarm ::
+-- 'alarmDescription', 'metricAlarm_alarmDescription' - The description of the alarm.
+--
+-- 'period', 'metricAlarm_period' - The period, in seconds, over which the statistic is applied.
+newMetricAlarm ::
   MetricAlarm
-metricAlarm =
+newMetricAlarm =
   MetricAlarm'
-    { _maThreshold = Nothing,
-      _maDatapointsToAlarm = Nothing,
-      _maEvaluateLowSampleCountPercentile = Nothing,
-      _maComparisonOperator = Nothing,
-      _maExtendedStatistic = Nothing,
-      _maAlarmARN = Nothing,
-      _maAlarmActions = Nothing,
-      _maUnit = Nothing,
-      _maThresholdMetricId = Nothing,
-      _maStateReason = Nothing,
-      _maStateReasonData = Nothing,
-      _maMetricName = Nothing,
-      _maInsufficientDataActions = Nothing,
-      _maTreatMissingData = Nothing,
-      _maMetrics = Nothing,
-      _maStateUpdatedTimestamp = Nothing,
-      _maStateValue = Nothing,
-      _maAlarmName = Nothing,
-      _maOKActions = Nothing,
-      _maStatistic = Nothing,
-      _maDimensions = Nothing,
-      _maNamespace = Nothing,
-      _maEvaluationPeriods = Nothing,
-      _maActionsEnabled = Nothing,
-      _maAlarmConfigurationUpdatedTimestamp = Nothing,
-      _maAlarmDescription = Nothing,
-      _maPeriod = Nothing
+    { threshold = Prelude.Nothing,
+      datapointsToAlarm = Prelude.Nothing,
+      evaluateLowSampleCountPercentile = Prelude.Nothing,
+      comparisonOperator = Prelude.Nothing,
+      extendedStatistic = Prelude.Nothing,
+      alarmArn = Prelude.Nothing,
+      alarmActions = Prelude.Nothing,
+      unit = Prelude.Nothing,
+      thresholdMetricId = Prelude.Nothing,
+      stateReason = Prelude.Nothing,
+      stateReasonData = Prelude.Nothing,
+      metricName = Prelude.Nothing,
+      insufficientDataActions = Prelude.Nothing,
+      treatMissingData = Prelude.Nothing,
+      metrics = Prelude.Nothing,
+      stateUpdatedTimestamp = Prelude.Nothing,
+      stateValue = Prelude.Nothing,
+      alarmName = Prelude.Nothing,
+      oKActions = Prelude.Nothing,
+      statistic = Prelude.Nothing,
+      dimensions = Prelude.Nothing,
+      namespace = Prelude.Nothing,
+      evaluationPeriods = Prelude.Nothing,
+      actionsEnabled = Prelude.Nothing,
+      alarmConfigurationUpdatedTimestamp = Prelude.Nothing,
+      alarmDescription = Prelude.Nothing,
+      period = Prelude.Nothing
     }
 
 -- | The value to compare with the specified statistic.
-maThreshold :: Lens' MetricAlarm (Maybe Double)
-maThreshold = lens _maThreshold (\s a -> s {_maThreshold = a})
+metricAlarm_threshold :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Double)
+metricAlarm_threshold = Lens.lens (\MetricAlarm' {threshold} -> threshold) (\s@MetricAlarm' {} a -> s {threshold = a} :: MetricAlarm)
 
 -- | The number of data points that must be breaching to trigger the alarm.
-maDatapointsToAlarm :: Lens' MetricAlarm (Maybe Natural)
-maDatapointsToAlarm = lens _maDatapointsToAlarm (\s a -> s {_maDatapointsToAlarm = a}) . mapping _Nat
+metricAlarm_datapointsToAlarm :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Natural)
+metricAlarm_datapointsToAlarm = Lens.lens (\MetricAlarm' {datapointsToAlarm} -> datapointsToAlarm) (\s@MetricAlarm' {} a -> s {datapointsToAlarm = a} :: MetricAlarm) Prelude.. Lens.mapping Prelude._Nat
 
--- | Used only for alarms based on percentiles. If @ignore@ , the alarm state does not change during periods with too few data points to be statistically significant. If @evaluate@ or this parameter is not used, the alarm is always evaluated and possibly changes state no matter how many data points are available.
-maEvaluateLowSampleCountPercentile :: Lens' MetricAlarm (Maybe Text)
-maEvaluateLowSampleCountPercentile = lens _maEvaluateLowSampleCountPercentile (\s a -> s {_maEvaluateLowSampleCountPercentile = a})
+-- | Used only for alarms based on percentiles. If @ignore@, the alarm state
+-- does not change during periods with too few data points to be
+-- statistically significant. If @evaluate@ or this parameter is not used,
+-- the alarm is always evaluated and possibly changes state no matter how
+-- many data points are available.
+metricAlarm_evaluateLowSampleCountPercentile :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_evaluateLowSampleCountPercentile = Lens.lens (\MetricAlarm' {evaluateLowSampleCountPercentile} -> evaluateLowSampleCountPercentile) (\s@MetricAlarm' {} a -> s {evaluateLowSampleCountPercentile = a} :: MetricAlarm)
 
--- | The arithmetic operation to use when comparing the specified statistic and threshold. The specified statistic value is used as the first operand.
-maComparisonOperator :: Lens' MetricAlarm (Maybe ComparisonOperator)
-maComparisonOperator = lens _maComparisonOperator (\s a -> s {_maComparisonOperator = a})
+-- | The arithmetic operation to use when comparing the specified statistic
+-- and threshold. The specified statistic value is used as the first
+-- operand.
+metricAlarm_comparisonOperator :: Lens.Lens' MetricAlarm (Prelude.Maybe ComparisonOperator)
+metricAlarm_comparisonOperator = Lens.lens (\MetricAlarm' {comparisonOperator} -> comparisonOperator) (\s@MetricAlarm' {} a -> s {comparisonOperator = a} :: MetricAlarm)
 
--- | The percentile statistic for the metric associated with the alarm. Specify a value between p0.0 and p100.
-maExtendedStatistic :: Lens' MetricAlarm (Maybe Text)
-maExtendedStatistic = lens _maExtendedStatistic (\s a -> s {_maExtendedStatistic = a})
+-- | The percentile statistic for the metric associated with the alarm.
+-- Specify a value between p0.0 and p100.
+metricAlarm_extendedStatistic :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_extendedStatistic = Lens.lens (\MetricAlarm' {extendedStatistic} -> extendedStatistic) (\s@MetricAlarm' {} a -> s {extendedStatistic = a} :: MetricAlarm)
 
 -- | The Amazon Resource Name (ARN) of the alarm.
-maAlarmARN :: Lens' MetricAlarm (Maybe Text)
-maAlarmARN = lens _maAlarmARN (\s a -> s {_maAlarmARN = a})
+metricAlarm_alarmArn :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_alarmArn = Lens.lens (\MetricAlarm' {alarmArn} -> alarmArn) (\s@MetricAlarm' {} a -> s {alarmArn = a} :: MetricAlarm)
 
--- | The actions to execute when this alarm transitions to the @ALARM@ state from any other state. Each action is specified as an Amazon Resource Name (ARN).
-maAlarmActions :: Lens' MetricAlarm [Text]
-maAlarmActions = lens _maAlarmActions (\s a -> s {_maAlarmActions = a}) . _Default . _Coerce
+-- | The actions to execute when this alarm transitions to the @ALARM@ state
+-- from any other state. Each action is specified as an Amazon Resource
+-- Name (ARN).
+metricAlarm_alarmActions :: Lens.Lens' MetricAlarm (Prelude.Maybe [Prelude.Text])
+metricAlarm_alarmActions = Lens.lens (\MetricAlarm' {alarmActions} -> alarmActions) (\s@MetricAlarm' {} a -> s {alarmActions = a} :: MetricAlarm) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The unit of the metric associated with the alarm.
-maUnit :: Lens' MetricAlarm (Maybe StandardUnit)
-maUnit = lens _maUnit (\s a -> s {_maUnit = a})
+metricAlarm_unit :: Lens.Lens' MetricAlarm (Prelude.Maybe StandardUnit)
+metricAlarm_unit = Lens.lens (\MetricAlarm' {unit} -> unit) (\s@MetricAlarm' {} a -> s {unit = a} :: MetricAlarm)
 
--- | In an alarm based on an anomaly detection model, this is the ID of the @ANOMALY_DETECTION_BAND@ function used as the threshold for the alarm.
-maThresholdMetricId :: Lens' MetricAlarm (Maybe Text)
-maThresholdMetricId = lens _maThresholdMetricId (\s a -> s {_maThresholdMetricId = a})
+-- | In an alarm based on an anomaly detection model, this is the ID of the
+-- @ANOMALY_DETECTION_BAND@ function used as the threshold for the alarm.
+metricAlarm_thresholdMetricId :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_thresholdMetricId = Lens.lens (\MetricAlarm' {thresholdMetricId} -> thresholdMetricId) (\s@MetricAlarm' {} a -> s {thresholdMetricId = a} :: MetricAlarm)
 
 -- | An explanation for the alarm state, in text format.
-maStateReason :: Lens' MetricAlarm (Maybe Text)
-maStateReason = lens _maStateReason (\s a -> s {_maStateReason = a})
+metricAlarm_stateReason :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_stateReason = Lens.lens (\MetricAlarm' {stateReason} -> stateReason) (\s@MetricAlarm' {} a -> s {stateReason = a} :: MetricAlarm)
 
 -- | An explanation for the alarm state, in JSON format.
-maStateReasonData :: Lens' MetricAlarm (Maybe Text)
-maStateReasonData = lens _maStateReasonData (\s a -> s {_maStateReasonData = a})
+metricAlarm_stateReasonData :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_stateReasonData = Lens.lens (\MetricAlarm' {stateReasonData} -> stateReasonData) (\s@MetricAlarm' {} a -> s {stateReasonData = a} :: MetricAlarm)
 
--- | The name of the metric associated with the alarm, if this is an alarm based on a single metric.
-maMetricName :: Lens' MetricAlarm (Maybe Text)
-maMetricName = lens _maMetricName (\s a -> s {_maMetricName = a})
+-- | The name of the metric associated with the alarm, if this is an alarm
+-- based on a single metric.
+metricAlarm_metricName :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_metricName = Lens.lens (\MetricAlarm' {metricName} -> metricName) (\s@MetricAlarm' {} a -> s {metricName = a} :: MetricAlarm)
 
--- | The actions to execute when this alarm transitions to the @INSUFFICIENT_DATA@ state from any other state. Each action is specified as an Amazon Resource Name (ARN).
-maInsufficientDataActions :: Lens' MetricAlarm [Text]
-maInsufficientDataActions = lens _maInsufficientDataActions (\s a -> s {_maInsufficientDataActions = a}) . _Default . _Coerce
+-- | The actions to execute when this alarm transitions to the
+-- @INSUFFICIENT_DATA@ state from any other state. Each action is specified
+-- as an Amazon Resource Name (ARN).
+metricAlarm_insufficientDataActions :: Lens.Lens' MetricAlarm (Prelude.Maybe [Prelude.Text])
+metricAlarm_insufficientDataActions = Lens.lens (\MetricAlarm' {insufficientDataActions} -> insufficientDataActions) (\s@MetricAlarm' {} a -> s {insufficientDataActions = a} :: MetricAlarm) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Sets how this alarm is to handle missing data points. If this parameter is omitted, the default behavior of @missing@ is used.
-maTreatMissingData :: Lens' MetricAlarm (Maybe Text)
-maTreatMissingData = lens _maTreatMissingData (\s a -> s {_maTreatMissingData = a})
+-- | Sets how this alarm is to handle missing data points. If this parameter
+-- is omitted, the default behavior of @missing@ is used.
+metricAlarm_treatMissingData :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_treatMissingData = Lens.lens (\MetricAlarm' {treatMissingData} -> treatMissingData) (\s@MetricAlarm' {} a -> s {treatMissingData = a} :: MetricAlarm)
 
--- | An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each structure either retrieves a metric or performs a math expression. One item in the Metrics array is the math expression that the alarm watches. This expression by designated by having @ReturnData@ set to true.
-maMetrics :: Lens' MetricAlarm [MetricDataQuery]
-maMetrics = lens _maMetrics (\s a -> s {_maMetrics = a}) . _Default . _Coerce
+-- | An array of MetricDataQuery structures, used in an alarm based on a
+-- metric math expression. Each structure either retrieves a metric or
+-- performs a math expression. One item in the Metrics array is the math
+-- expression that the alarm watches. This expression by designated by
+-- having @ReturnData@ set to true.
+metricAlarm_metrics :: Lens.Lens' MetricAlarm (Prelude.Maybe [MetricDataQuery])
+metricAlarm_metrics = Lens.lens (\MetricAlarm' {metrics} -> metrics) (\s@MetricAlarm' {} a -> s {metrics = a} :: MetricAlarm) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time stamp of the last update to the alarm state.
-maStateUpdatedTimestamp :: Lens' MetricAlarm (Maybe UTCTime)
-maStateUpdatedTimestamp = lens _maStateUpdatedTimestamp (\s a -> s {_maStateUpdatedTimestamp = a}) . mapping _Time
+metricAlarm_stateUpdatedTimestamp :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.UTCTime)
+metricAlarm_stateUpdatedTimestamp = Lens.lens (\MetricAlarm' {stateUpdatedTimestamp} -> stateUpdatedTimestamp) (\s@MetricAlarm' {} a -> s {stateUpdatedTimestamp = a} :: MetricAlarm) Prelude.. Lens.mapping Prelude._Time
 
 -- | The state value for the alarm.
-maStateValue :: Lens' MetricAlarm (Maybe StateValue)
-maStateValue = lens _maStateValue (\s a -> s {_maStateValue = a})
+metricAlarm_stateValue :: Lens.Lens' MetricAlarm (Prelude.Maybe StateValue)
+metricAlarm_stateValue = Lens.lens (\MetricAlarm' {stateValue} -> stateValue) (\s@MetricAlarm' {} a -> s {stateValue = a} :: MetricAlarm)
 
 -- | The name of the alarm.
-maAlarmName :: Lens' MetricAlarm (Maybe Text)
-maAlarmName = lens _maAlarmName (\s a -> s {_maAlarmName = a})
+metricAlarm_alarmName :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_alarmName = Lens.lens (\MetricAlarm' {alarmName} -> alarmName) (\s@MetricAlarm' {} a -> s {alarmName = a} :: MetricAlarm)
 
--- | The actions to execute when this alarm transitions to the @OK@ state from any other state. Each action is specified as an Amazon Resource Name (ARN).
-maOKActions :: Lens' MetricAlarm [Text]
-maOKActions = lens _maOKActions (\s a -> s {_maOKActions = a}) . _Default . _Coerce
+-- | The actions to execute when this alarm transitions to the @OK@ state
+-- from any other state. Each action is specified as an Amazon Resource
+-- Name (ARN).
+metricAlarm_oKActions :: Lens.Lens' MetricAlarm (Prelude.Maybe [Prelude.Text])
+metricAlarm_oKActions = Lens.lens (\MetricAlarm' {oKActions} -> oKActions) (\s@MetricAlarm' {} a -> s {oKActions = a} :: MetricAlarm) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The statistic for the metric associated with the alarm, other than percentile. For percentile statistics, use @ExtendedStatistic@ .
-maStatistic :: Lens' MetricAlarm (Maybe Statistic)
-maStatistic = lens _maStatistic (\s a -> s {_maStatistic = a})
+-- | The statistic for the metric associated with the alarm, other than
+-- percentile. For percentile statistics, use @ExtendedStatistic@.
+metricAlarm_statistic :: Lens.Lens' MetricAlarm (Prelude.Maybe Statistic)
+metricAlarm_statistic = Lens.lens (\MetricAlarm' {statistic} -> statistic) (\s@MetricAlarm' {} a -> s {statistic = a} :: MetricAlarm)
 
 -- | The dimensions for the metric associated with the alarm.
-maDimensions :: Lens' MetricAlarm [Dimension]
-maDimensions = lens _maDimensions (\s a -> s {_maDimensions = a}) . _Default . _Coerce
+metricAlarm_dimensions :: Lens.Lens' MetricAlarm (Prelude.Maybe [Dimension])
+metricAlarm_dimensions = Lens.lens (\MetricAlarm' {dimensions} -> dimensions) (\s@MetricAlarm' {} a -> s {dimensions = a} :: MetricAlarm) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The namespace of the metric associated with the alarm.
-maNamespace :: Lens' MetricAlarm (Maybe Text)
-maNamespace = lens _maNamespace (\s a -> s {_maNamespace = a})
+metricAlarm_namespace :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_namespace = Lens.lens (\MetricAlarm' {namespace} -> namespace) (\s@MetricAlarm' {} a -> s {namespace = a} :: MetricAlarm)
 
--- | The number of periods over which data is compared to the specified threshold.
-maEvaluationPeriods :: Lens' MetricAlarm (Maybe Natural)
-maEvaluationPeriods = lens _maEvaluationPeriods (\s a -> s {_maEvaluationPeriods = a}) . mapping _Nat
+-- | The number of periods over which data is compared to the specified
+-- threshold.
+metricAlarm_evaluationPeriods :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Natural)
+metricAlarm_evaluationPeriods = Lens.lens (\MetricAlarm' {evaluationPeriods} -> evaluationPeriods) (\s@MetricAlarm' {} a -> s {evaluationPeriods = a} :: MetricAlarm) Prelude.. Lens.mapping Prelude._Nat
 
--- | Indicates whether actions should be executed during any changes to the alarm state.
-maActionsEnabled :: Lens' MetricAlarm (Maybe Bool)
-maActionsEnabled = lens _maActionsEnabled (\s a -> s {_maActionsEnabled = a})
+-- | Indicates whether actions should be executed during any changes to the
+-- alarm state.
+metricAlarm_actionsEnabled :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Bool)
+metricAlarm_actionsEnabled = Lens.lens (\MetricAlarm' {actionsEnabled} -> actionsEnabled) (\s@MetricAlarm' {} a -> s {actionsEnabled = a} :: MetricAlarm)
 
 -- | The time stamp of the last update to the alarm configuration.
-maAlarmConfigurationUpdatedTimestamp :: Lens' MetricAlarm (Maybe UTCTime)
-maAlarmConfigurationUpdatedTimestamp = lens _maAlarmConfigurationUpdatedTimestamp (\s a -> s {_maAlarmConfigurationUpdatedTimestamp = a}) . mapping _Time
+metricAlarm_alarmConfigurationUpdatedTimestamp :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.UTCTime)
+metricAlarm_alarmConfigurationUpdatedTimestamp = Lens.lens (\MetricAlarm' {alarmConfigurationUpdatedTimestamp} -> alarmConfigurationUpdatedTimestamp) (\s@MetricAlarm' {} a -> s {alarmConfigurationUpdatedTimestamp = a} :: MetricAlarm) Prelude.. Lens.mapping Prelude._Time
 
 -- | The description of the alarm.
-maAlarmDescription :: Lens' MetricAlarm (Maybe Text)
-maAlarmDescription = lens _maAlarmDescription (\s a -> s {_maAlarmDescription = a})
+metricAlarm_alarmDescription :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Text)
+metricAlarm_alarmDescription = Lens.lens (\MetricAlarm' {alarmDescription} -> alarmDescription) (\s@MetricAlarm' {} a -> s {alarmDescription = a} :: MetricAlarm)
 
 -- | The period, in seconds, over which the statistic is applied.
-maPeriod :: Lens' MetricAlarm (Maybe Natural)
-maPeriod = lens _maPeriod (\s a -> s {_maPeriod = a}) . mapping _Nat
+metricAlarm_period :: Lens.Lens' MetricAlarm (Prelude.Maybe Prelude.Natural)
+metricAlarm_period = Lens.lens (\MetricAlarm' {period} -> period) (\s@MetricAlarm' {} a -> s {period = a} :: MetricAlarm) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromXML MetricAlarm where
+instance Prelude.FromXML MetricAlarm where
   parseXML x =
     MetricAlarm'
-      <$> (x .@? "Threshold")
-      <*> (x .@? "DatapointsToAlarm")
-      <*> (x .@? "EvaluateLowSampleCountPercentile")
-      <*> (x .@? "ComparisonOperator")
-      <*> (x .@? "ExtendedStatistic")
-      <*> (x .@? "AlarmArn")
-      <*> ( x .@? "AlarmActions" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Unit")
-      <*> (x .@? "ThresholdMetricId")
-      <*> (x .@? "StateReason")
-      <*> (x .@? "StateReasonData")
-      <*> (x .@? "MetricName")
-      <*> ( x .@? "InsufficientDataActions" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "TreatMissingData")
-      <*> ( x .@? "Metrics" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "StateUpdatedTimestamp")
-      <*> (x .@? "StateValue")
-      <*> (x .@? "AlarmName")
-      <*> ( x .@? "OKActions" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Statistic")
-      <*> ( x .@? "Dimensions" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Namespace")
-      <*> (x .@? "EvaluationPeriods")
-      <*> (x .@? "ActionsEnabled")
-      <*> (x .@? "AlarmConfigurationUpdatedTimestamp")
-      <*> (x .@? "AlarmDescription")
-      <*> (x .@? "Period")
+      Prelude.<$> (x Prelude..@? "Threshold")
+      Prelude.<*> (x Prelude..@? "DatapointsToAlarm")
+      Prelude.<*> (x Prelude..@? "EvaluateLowSampleCountPercentile")
+      Prelude.<*> (x Prelude..@? "ComparisonOperator")
+      Prelude.<*> (x Prelude..@? "ExtendedStatistic")
+      Prelude.<*> (x Prelude..@? "AlarmArn")
+      Prelude.<*> ( x Prelude..@? "AlarmActions"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Unit")
+      Prelude.<*> (x Prelude..@? "ThresholdMetricId")
+      Prelude.<*> (x Prelude..@? "StateReason")
+      Prelude.<*> (x Prelude..@? "StateReasonData")
+      Prelude.<*> (x Prelude..@? "MetricName")
+      Prelude.<*> ( x Prelude..@? "InsufficientDataActions"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "TreatMissingData")
+      Prelude.<*> ( x Prelude..@? "Metrics" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "StateUpdatedTimestamp")
+      Prelude.<*> (x Prelude..@? "StateValue")
+      Prelude.<*> (x Prelude..@? "AlarmName")
+      Prelude.<*> ( x Prelude..@? "OKActions" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Statistic")
+      Prelude.<*> ( x Prelude..@? "Dimensions"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Namespace")
+      Prelude.<*> (x Prelude..@? "EvaluationPeriods")
+      Prelude.<*> (x Prelude..@? "ActionsEnabled")
+      Prelude.<*> (x Prelude..@? "AlarmConfigurationUpdatedTimestamp")
+      Prelude.<*> (x Prelude..@? "AlarmDescription")
+      Prelude.<*> (x Prelude..@? "Period")
 
-instance Hashable MetricAlarm
+instance Prelude.Hashable MetricAlarm
 
-instance NFData MetricAlarm
+instance Prelude.NFData MetricAlarm

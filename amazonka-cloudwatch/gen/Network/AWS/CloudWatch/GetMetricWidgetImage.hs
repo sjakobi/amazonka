@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,285 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- You can use the @GetMetricWidgetImage@ API to retrieve a snapshot graph of one or more Amazon CloudWatch metrics as a bitmap image. You can then embed this image into your services and products, such as wiki pages, reports, and documents. You could also retrieve images regularly, such as every minute, and create your own custom live dashboard.
+-- You can use the @GetMetricWidgetImage@ API to retrieve a snapshot graph
+-- of one or more Amazon CloudWatch metrics as a bitmap image. You can then
+-- embed this image into your services and products, such as wiki pages,
+-- reports, and documents. You could also retrieve images regularly, such
+-- as every minute, and create your own custom live dashboard.
 --
+-- The graph you retrieve can include all CloudWatch metric graph features,
+-- including metric math and horizontal and vertical annotations.
 --
--- The graph you retrieve can include all CloudWatch metric graph features, including metric math and horizontal and vertical annotations.
+-- There is a limit of 20 transactions per second for this API. Each
+-- @GetMetricWidgetImage@ action has the following limits:
 --
--- There is a limit of 20 transactions per second for this API. Each @GetMetricWidgetImage@ action has the following limits:
+-- -   As many as 100 metrics in the graph.
 --
---     * As many as 100 metrics in the graph.
---
---     * Up to 100 KB uncompressed payload.
+-- -   Up to 100 KB uncompressed payload.
 module Network.AWS.CloudWatch.GetMetricWidgetImage
   ( -- * Creating a Request
-    getMetricWidgetImage,
-    GetMetricWidgetImage,
+    GetMetricWidgetImage (..),
+    newGetMetricWidgetImage,
 
     -- * Request Lenses
-    gmwiOutputFormat,
-    gmwiMetricWidget,
+    getMetricWidgetImage_outputFormat,
+    getMetricWidgetImage_metricWidget,
 
     -- * Destructuring the Response
-    getMetricWidgetImageResponse,
-    GetMetricWidgetImageResponse,
+    GetMetricWidgetImageResponse (..),
+    newGetMetricWidgetImageResponse,
 
     -- * Response Lenses
-    gmwirrsMetricWidgetImage,
-    gmwirrsResponseStatus,
+    getMetricWidgetImageResponse_metricWidgetImage,
+    getMetricWidgetImageResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getMetricWidgetImage' smart constructor.
+-- | /See:/ 'newGetMetricWidgetImage' smart constructor.
 data GetMetricWidgetImage = GetMetricWidgetImage'
-  { _gmwiOutputFormat ::
-      !(Maybe Text),
-    _gmwiMetricWidget :: !Text
+  { -- | The format of the resulting image. Only PNG images are supported.
+    --
+    -- The default is @png@. If you specify @png@, the API returns an HTTP
+    -- response with the content-type set to @text\/xml@. The image data is in
+    -- a @MetricWidgetImage@ field. For example:
+    --
+    -- @ \<GetMetricWidgetImageResponse xmlns=\<URLstring>>@
+    --
+    -- @ \<GetMetricWidgetImageResult>@
+    --
+    -- @ \<MetricWidgetImage>@
+    --
+    -- @ iVBORw0KGgoAAAANSUhEUgAAAlgAAAGQEAYAAAAip...@
+    --
+    -- @ \<\/MetricWidgetImage>@
+    --
+    -- @ \<\/GetMetricWidgetImageResult>@
+    --
+    -- @ \<ResponseMetadata>@
+    --
+    -- @ \<RequestId>6f0d4192-4d42-11e8-82c1-f539a07e0e3b\<\/RequestId>@
+    --
+    -- @ \<\/ResponseMetadata>@
+    --
+    -- @\<\/GetMetricWidgetImageResponse>@
+    --
+    -- The @image\/png@ setting is intended only for custom HTTP requests. For
+    -- most use cases, and all actions using an AWS SDK, you should use @png@.
+    -- If you specify @image\/png@, the HTTP response has a content-type set to
+    -- @image\/png@, and the body of the response is a PNG image.
+    outputFormat :: Prelude.Maybe Prelude.Text,
+    -- | A JSON string that defines the bitmap graph to be retrieved. The string
+    -- includes the metrics to include in the graph, statistics, annotations,
+    -- title, axis limits, and so on. You can include only one @MetricWidget@
+    -- parameter in each @GetMetricWidgetImage@ call.
+    --
+    -- For more information about the syntax of @MetricWidget@ see
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html GetMetricWidgetImage: Metric Widget Structure and Syntax>.
+    --
+    -- If any metric on the graph could not load all the requested data points,
+    -- an orange triangle with an exclamation point appears next to the graph
+    -- legend.
+    metricWidget :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMetricWidgetImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMetricWidgetImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmwiOutputFormat' - The format of the resulting image. Only PNG images are supported. The default is @png@ . If you specify @png@ , the API returns an HTTP response with the content-type set to @text/xml@ . The image data is in a @MetricWidgetImage@ field. For example: @<GetMetricWidgetImageResponse xmlns=<URLstring>>@  @<GetMetricWidgetImageResult>@  @<MetricWidgetImage>@  @iVBORw0KGgoAAAANSUhEUgAAAlgAAAGQEAYAAAAip...@  @</MetricWidgetImage>@  @</GetMetricWidgetImageResult>@  @<ResponseMetadata>@  @<RequestId>6f0d4192-4d42-11e8-82c1-f539a07e0e3b</RequestId>@  @</ResponseMetadata>@  @</GetMetricWidgetImageResponse>@  The @image/png@ setting is intended only for custom HTTP requests. For most use cases, and all actions using an AWS SDK, you should use @png@ . If you specify @image/png@ , the HTTP response has a content-type set to @image/png@ , and the body of the response is a PNG image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmwiMetricWidget' - A JSON string that defines the bitmap graph to be retrieved. The string includes the metrics to include in the graph, statistics, annotations, title, axis limits, and so on. You can include only one @MetricWidget@ parameter in each @GetMetricWidgetImage@ call. For more information about the syntax of @MetricWidget@ see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html GetMetricWidgetImage: Metric Widget Structure and Syntax> . If any metric on the graph could not load all the requested data points, an orange triangle with an exclamation point appears next to the graph legend.
-getMetricWidgetImage ::
-  -- | 'gmwiMetricWidget'
-  Text ->
+-- 'outputFormat', 'getMetricWidgetImage_outputFormat' - The format of the resulting image. Only PNG images are supported.
+--
+-- The default is @png@. If you specify @png@, the API returns an HTTP
+-- response with the content-type set to @text\/xml@. The image data is in
+-- a @MetricWidgetImage@ field. For example:
+--
+-- @ \<GetMetricWidgetImageResponse xmlns=\<URLstring>>@
+--
+-- @ \<GetMetricWidgetImageResult>@
+--
+-- @ \<MetricWidgetImage>@
+--
+-- @ iVBORw0KGgoAAAANSUhEUgAAAlgAAAGQEAYAAAAip...@
+--
+-- @ \<\/MetricWidgetImage>@
+--
+-- @ \<\/GetMetricWidgetImageResult>@
+--
+-- @ \<ResponseMetadata>@
+--
+-- @ \<RequestId>6f0d4192-4d42-11e8-82c1-f539a07e0e3b\<\/RequestId>@
+--
+-- @ \<\/ResponseMetadata>@
+--
+-- @\<\/GetMetricWidgetImageResponse>@
+--
+-- The @image\/png@ setting is intended only for custom HTTP requests. For
+-- most use cases, and all actions using an AWS SDK, you should use @png@.
+-- If you specify @image\/png@, the HTTP response has a content-type set to
+-- @image\/png@, and the body of the response is a PNG image.
+--
+-- 'metricWidget', 'getMetricWidgetImage_metricWidget' - A JSON string that defines the bitmap graph to be retrieved. The string
+-- includes the metrics to include in the graph, statistics, annotations,
+-- title, axis limits, and so on. You can include only one @MetricWidget@
+-- parameter in each @GetMetricWidgetImage@ call.
+--
+-- For more information about the syntax of @MetricWidget@ see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html GetMetricWidgetImage: Metric Widget Structure and Syntax>.
+--
+-- If any metric on the graph could not load all the requested data points,
+-- an orange triangle with an exclamation point appears next to the graph
+-- legend.
+newGetMetricWidgetImage ::
+  -- | 'metricWidget'
+  Prelude.Text ->
   GetMetricWidgetImage
-getMetricWidgetImage pMetricWidget_ =
+newGetMetricWidgetImage pMetricWidget_ =
   GetMetricWidgetImage'
-    { _gmwiOutputFormat = Nothing,
-      _gmwiMetricWidget = pMetricWidget_
+    { outputFormat =
+        Prelude.Nothing,
+      metricWidget = pMetricWidget_
     }
 
--- | The format of the resulting image. Only PNG images are supported. The default is @png@ . If you specify @png@ , the API returns an HTTP response with the content-type set to @text/xml@ . The image data is in a @MetricWidgetImage@ field. For example: @<GetMetricWidgetImageResponse xmlns=<URLstring>>@  @<GetMetricWidgetImageResult>@  @<MetricWidgetImage>@  @iVBORw0KGgoAAAANSUhEUgAAAlgAAAGQEAYAAAAip...@  @</MetricWidgetImage>@  @</GetMetricWidgetImageResult>@  @<ResponseMetadata>@  @<RequestId>6f0d4192-4d42-11e8-82c1-f539a07e0e3b</RequestId>@  @</ResponseMetadata>@  @</GetMetricWidgetImageResponse>@  The @image/png@ setting is intended only for custom HTTP requests. For most use cases, and all actions using an AWS SDK, you should use @png@ . If you specify @image/png@ , the HTTP response has a content-type set to @image/png@ , and the body of the response is a PNG image.
-gmwiOutputFormat :: Lens' GetMetricWidgetImage (Maybe Text)
-gmwiOutputFormat = lens _gmwiOutputFormat (\s a -> s {_gmwiOutputFormat = a})
+-- | The format of the resulting image. Only PNG images are supported.
+--
+-- The default is @png@. If you specify @png@, the API returns an HTTP
+-- response with the content-type set to @text\/xml@. The image data is in
+-- a @MetricWidgetImage@ field. For example:
+--
+-- @ \<GetMetricWidgetImageResponse xmlns=\<URLstring>>@
+--
+-- @ \<GetMetricWidgetImageResult>@
+--
+-- @ \<MetricWidgetImage>@
+--
+-- @ iVBORw0KGgoAAAANSUhEUgAAAlgAAAGQEAYAAAAip...@
+--
+-- @ \<\/MetricWidgetImage>@
+--
+-- @ \<\/GetMetricWidgetImageResult>@
+--
+-- @ \<ResponseMetadata>@
+--
+-- @ \<RequestId>6f0d4192-4d42-11e8-82c1-f539a07e0e3b\<\/RequestId>@
+--
+-- @ \<\/ResponseMetadata>@
+--
+-- @\<\/GetMetricWidgetImageResponse>@
+--
+-- The @image\/png@ setting is intended only for custom HTTP requests. For
+-- most use cases, and all actions using an AWS SDK, you should use @png@.
+-- If you specify @image\/png@, the HTTP response has a content-type set to
+-- @image\/png@, and the body of the response is a PNG image.
+getMetricWidgetImage_outputFormat :: Lens.Lens' GetMetricWidgetImage (Prelude.Maybe Prelude.Text)
+getMetricWidgetImage_outputFormat = Lens.lens (\GetMetricWidgetImage' {outputFormat} -> outputFormat) (\s@GetMetricWidgetImage' {} a -> s {outputFormat = a} :: GetMetricWidgetImage)
 
--- | A JSON string that defines the bitmap graph to be retrieved. The string includes the metrics to include in the graph, statistics, annotations, title, axis limits, and so on. You can include only one @MetricWidget@ parameter in each @GetMetricWidgetImage@ call. For more information about the syntax of @MetricWidget@ see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html GetMetricWidgetImage: Metric Widget Structure and Syntax> . If any metric on the graph could not load all the requested data points, an orange triangle with an exclamation point appears next to the graph legend.
-gmwiMetricWidget :: Lens' GetMetricWidgetImage Text
-gmwiMetricWidget = lens _gmwiMetricWidget (\s a -> s {_gmwiMetricWidget = a})
+-- | A JSON string that defines the bitmap graph to be retrieved. The string
+-- includes the metrics to include in the graph, statistics, annotations,
+-- title, axis limits, and so on. You can include only one @MetricWidget@
+-- parameter in each @GetMetricWidgetImage@ call.
+--
+-- For more information about the syntax of @MetricWidget@ see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html GetMetricWidgetImage: Metric Widget Structure and Syntax>.
+--
+-- If any metric on the graph could not load all the requested data points,
+-- an orange triangle with an exclamation point appears next to the graph
+-- legend.
+getMetricWidgetImage_metricWidget :: Lens.Lens' GetMetricWidgetImage Prelude.Text
+getMetricWidgetImage_metricWidget = Lens.lens (\GetMetricWidgetImage' {metricWidget} -> metricWidget) (\s@GetMetricWidgetImage' {} a -> s {metricWidget = a} :: GetMetricWidgetImage)
 
-instance AWSRequest GetMetricWidgetImage where
+instance Prelude.AWSRequest GetMetricWidgetImage where
   type
     Rs GetMetricWidgetImage =
       GetMetricWidgetImageResponse
-  request = postQuery cloudWatch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetMetricWidgetImageResult"
       ( \s h x ->
           GetMetricWidgetImageResponse'
-            <$> (x .@? "MetricWidgetImage") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "MetricWidgetImage")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetMetricWidgetImage
+instance Prelude.Hashable GetMetricWidgetImage
 
-instance NFData GetMetricWidgetImage
+instance Prelude.NFData GetMetricWidgetImage
 
-instance ToHeaders GetMetricWidgetImage where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetMetricWidgetImage where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetMetricWidgetImage where
-  toPath = const "/"
+instance Prelude.ToPath GetMetricWidgetImage where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetMetricWidgetImage where
+instance Prelude.ToQuery GetMetricWidgetImage where
   toQuery GetMetricWidgetImage' {..} =
-    mconcat
-      [ "Action" =: ("GetMetricWidgetImage" :: ByteString),
-        "Version" =: ("2010-08-01" :: ByteString),
-        "OutputFormat" =: _gmwiOutputFormat,
-        "MetricWidget" =: _gmwiMetricWidget
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetMetricWidgetImage" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-08-01" :: Prelude.ByteString),
+        "OutputFormat" Prelude.=: outputFormat,
+        "MetricWidget" Prelude.=: metricWidget
       ]
 
--- | /See:/ 'getMetricWidgetImageResponse' smart constructor.
+-- | /See:/ 'newGetMetricWidgetImageResponse' smart constructor.
 data GetMetricWidgetImageResponse = GetMetricWidgetImageResponse'
-  { _gmwirrsMetricWidgetImage ::
-      !( Maybe
-           Base64
-       ),
-    _gmwirrsResponseStatus ::
-      !Int
+  { -- | The image of the graph, in the output format specified. The output is
+    -- base64-encoded.
+    metricWidgetImage :: Prelude.Maybe Prelude.Base64,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMetricWidgetImageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMetricWidgetImageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmwirrsMetricWidgetImage' - The image of the graph, in the output format specified. The output is base64-encoded.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmwirrsResponseStatus' - -- | The response status code.
-getMetricWidgetImageResponse ::
-  -- | 'gmwirrsResponseStatus'
-  Int ->
+-- 'metricWidgetImage', 'getMetricWidgetImageResponse_metricWidgetImage' - The image of the graph, in the output format specified. The output is
+-- base64-encoded.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+--
+-- 'httpStatus', 'getMetricWidgetImageResponse_httpStatus' - The response's http status code.
+newGetMetricWidgetImageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetMetricWidgetImageResponse
-getMetricWidgetImageResponse pResponseStatus_ =
+newGetMetricWidgetImageResponse pHttpStatus_ =
   GetMetricWidgetImageResponse'
-    { _gmwirrsMetricWidgetImage =
-        Nothing,
-      _gmwirrsResponseStatus = pResponseStatus_
+    { metricWidgetImage =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The image of the graph, in the output format specified. The output is base64-encoded.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-gmwirrsMetricWidgetImage :: Lens' GetMetricWidgetImageResponse (Maybe ByteString)
-gmwirrsMetricWidgetImage = lens _gmwirrsMetricWidgetImage (\s a -> s {_gmwirrsMetricWidgetImage = a}) . mapping _Base64
+-- | The image of the graph, in the output format specified. The output is
+-- base64-encoded.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+getMetricWidgetImageResponse_metricWidgetImage :: Lens.Lens' GetMetricWidgetImageResponse (Prelude.Maybe Prelude.ByteString)
+getMetricWidgetImageResponse_metricWidgetImage = Lens.lens (\GetMetricWidgetImageResponse' {metricWidgetImage} -> metricWidgetImage) (\s@GetMetricWidgetImageResponse' {} a -> s {metricWidgetImage = a} :: GetMetricWidgetImageResponse) Prelude.. Lens.mapping Prelude._Base64
 
--- | -- | The response status code.
-gmwirrsResponseStatus :: Lens' GetMetricWidgetImageResponse Int
-gmwirrsResponseStatus = lens _gmwirrsResponseStatus (\s a -> s {_gmwirrsResponseStatus = a})
+-- | The response's http status code.
+getMetricWidgetImageResponse_httpStatus :: Lens.Lens' GetMetricWidgetImageResponse Prelude.Int
+getMetricWidgetImageResponse_httpStatus = Lens.lens (\GetMetricWidgetImageResponse' {httpStatus} -> httpStatus) (\s@GetMetricWidgetImageResponse' {} a -> s {httpStatus = a} :: GetMetricWidgetImageResponse)
 
-instance NFData GetMetricWidgetImageResponse
+instance Prelude.NFData GetMetricWidgetImageResponse

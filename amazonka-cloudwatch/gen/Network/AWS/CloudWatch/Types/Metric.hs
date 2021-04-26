@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,69 +20,78 @@
 module Network.AWS.CloudWatch.Types.Metric where
 
 import Network.AWS.CloudWatch.Types.Dimension
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a specific metric.
 --
---
---
--- /See:/ 'metric' smart constructor.
+-- /See:/ 'newMetric' smart constructor.
 data Metric = Metric'
-  { _mMetricName :: !(Maybe Text),
-    _mDimensions :: !(Maybe [Dimension]),
-    _mNamespace :: !(Maybe Text)
+  { -- | The name of the metric. This is a required field.
+    metricName :: Prelude.Maybe Prelude.Text,
+    -- | The dimensions for the metric.
+    dimensions :: Prelude.Maybe [Dimension],
+    -- | The namespace of the metric.
+    namespace :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Metric' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Metric' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mMetricName' - The name of the metric. This is a required field.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mDimensions' - The dimensions for the metric.
+-- 'metricName', 'metric_metricName' - The name of the metric. This is a required field.
 --
--- * 'mNamespace' - The namespace of the metric.
-metric ::
+-- 'dimensions', 'metric_dimensions' - The dimensions for the metric.
+--
+-- 'namespace', 'metric_namespace' - The namespace of the metric.
+newMetric ::
   Metric
-metric =
+newMetric =
   Metric'
-    { _mMetricName = Nothing,
-      _mDimensions = Nothing,
-      _mNamespace = Nothing
+    { metricName = Prelude.Nothing,
+      dimensions = Prelude.Nothing,
+      namespace = Prelude.Nothing
     }
 
 -- | The name of the metric. This is a required field.
-mMetricName :: Lens' Metric (Maybe Text)
-mMetricName = lens _mMetricName (\s a -> s {_mMetricName = a})
+metric_metricName :: Lens.Lens' Metric (Prelude.Maybe Prelude.Text)
+metric_metricName = Lens.lens (\Metric' {metricName} -> metricName) (\s@Metric' {} a -> s {metricName = a} :: Metric)
 
 -- | The dimensions for the metric.
-mDimensions :: Lens' Metric [Dimension]
-mDimensions = lens _mDimensions (\s a -> s {_mDimensions = a}) . _Default . _Coerce
+metric_dimensions :: Lens.Lens' Metric (Prelude.Maybe [Dimension])
+metric_dimensions = Lens.lens (\Metric' {dimensions} -> dimensions) (\s@Metric' {} a -> s {dimensions = a} :: Metric) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The namespace of the metric.
-mNamespace :: Lens' Metric (Maybe Text)
-mNamespace = lens _mNamespace (\s a -> s {_mNamespace = a})
+metric_namespace :: Lens.Lens' Metric (Prelude.Maybe Prelude.Text)
+metric_namespace = Lens.lens (\Metric' {namespace} -> namespace) (\s@Metric' {} a -> s {namespace = a} :: Metric)
 
-instance FromXML Metric where
+instance Prelude.FromXML Metric where
   parseXML x =
     Metric'
-      <$> (x .@? "MetricName")
-      <*> ( x .@? "Dimensions" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Namespace")
+      Prelude.<$> (x Prelude..@? "MetricName")
+      Prelude.<*> ( x Prelude..@? "Dimensions"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Namespace")
 
-instance Hashable Metric
+instance Prelude.Hashable Metric
 
-instance NFData Metric
+instance Prelude.NFData Metric
 
-instance ToQuery Metric where
+instance Prelude.ToQuery Metric where
   toQuery Metric' {..} =
-    mconcat
-      [ "MetricName" =: _mMetricName,
+    Prelude.mconcat
+      [ "MetricName" Prelude.=: metricName,
         "Dimensions"
-          =: toQuery (toQueryList "member" <$> _mDimensions),
-        "Namespace" =: _mNamespace
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> dimensions
+            ),
+        "Namespace" Prelude.=: namespace
       ]

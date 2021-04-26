@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatch.Types.Range where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies one range of days or times to exclude from use for training an anomaly detection model.
+-- | Specifies one range of days or times to exclude from use for training an
+-- anomaly detection model.
 --
---
---
--- /See:/ 'range' smart constructor.
+-- /See:/ 'newRange' smart constructor.
 data Range = Range'
-  { _rStartTime :: !ISO8601,
-    _rEndTime :: !ISO8601
+  { -- | The start time of the range to exclude. The format is
+    -- @yyyy-MM-dd\'T\'HH:mm:ss@. For example, @2019-07-01T23:59:59@.
+    startTime :: Prelude.ISO8601,
+    -- | The end time of the range to exclude. The format is
+    -- @yyyy-MM-dd\'T\'HH:mm:ss@. For example, @2019-07-01T23:59:59@.
+    endTime :: Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Range' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Range' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rStartTime' - The start time of the range to exclude. The format is @yyyy-MM-dd'T'HH:mm:ss@ . For example, @2019-07-01T23:59:59@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rEndTime' - The end time of the range to exclude. The format is @yyyy-MM-dd'T'HH:mm:ss@ . For example, @2019-07-01T23:59:59@ .
-range ::
-  -- | 'rStartTime'
-  UTCTime ->
-  -- | 'rEndTime'
-  UTCTime ->
+-- 'startTime', 'range_startTime' - The start time of the range to exclude. The format is
+-- @yyyy-MM-dd\'T\'HH:mm:ss@. For example, @2019-07-01T23:59:59@.
+--
+-- 'endTime', 'range_endTime' - The end time of the range to exclude. The format is
+-- @yyyy-MM-dd\'T\'HH:mm:ss@. For example, @2019-07-01T23:59:59@.
+newRange ::
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
   Range
-range pStartTime_ pEndTime_ =
+newRange pStartTime_ pEndTime_ =
   Range'
-    { _rStartTime = _Time # pStartTime_,
-      _rEndTime = _Time # pEndTime_
+    { startTime =
+        Prelude._Time Lens.# pStartTime_,
+      endTime = Prelude._Time Lens.# pEndTime_
     }
 
--- | The start time of the range to exclude. The format is @yyyy-MM-dd'T'HH:mm:ss@ . For example, @2019-07-01T23:59:59@ .
-rStartTime :: Lens' Range UTCTime
-rStartTime = lens _rStartTime (\s a -> s {_rStartTime = a}) . _Time
+-- | The start time of the range to exclude. The format is
+-- @yyyy-MM-dd\'T\'HH:mm:ss@. For example, @2019-07-01T23:59:59@.
+range_startTime :: Lens.Lens' Range Prelude.UTCTime
+range_startTime = Lens.lens (\Range' {startTime} -> startTime) (\s@Range' {} a -> s {startTime = a} :: Range) Prelude.. Prelude._Time
 
--- | The end time of the range to exclude. The format is @yyyy-MM-dd'T'HH:mm:ss@ . For example, @2019-07-01T23:59:59@ .
-rEndTime :: Lens' Range UTCTime
-rEndTime = lens _rEndTime (\s a -> s {_rEndTime = a}) . _Time
+-- | The end time of the range to exclude. The format is
+-- @yyyy-MM-dd\'T\'HH:mm:ss@. For example, @2019-07-01T23:59:59@.
+range_endTime :: Lens.Lens' Range Prelude.UTCTime
+range_endTime = Lens.lens (\Range' {endTime} -> endTime) (\s@Range' {} a -> s {endTime = a} :: Range) Prelude.. Prelude._Time
 
-instance FromXML Range where
+instance Prelude.FromXML Range where
   parseXML x =
-    Range' <$> (x .@ "StartTime") <*> (x .@ "EndTime")
+    Range'
+      Prelude.<$> (x Prelude..@ "StartTime")
+      Prelude.<*> (x Prelude..@ "EndTime")
 
-instance Hashable Range
+instance Prelude.Hashable Range
 
-instance NFData Range
+instance Prelude.NFData Range
 
-instance ToQuery Range where
+instance Prelude.ToQuery Range where
   toQuery Range' {..} =
-    mconcat
-      ["StartTime" =: _rStartTime, "EndTime" =: _rEndTime]
+    Prelude.mconcat
+      [ "StartTime" Prelude.=: startTime,
+        "EndTime" Prelude.=: endTime
+      ]

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,187 +21,263 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- List the specified metrics. You can use the returned metrics with <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html GetMetricData> or <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html GetMetricStatistics> to obtain statistical data.
+-- List the specified metrics. You can use the returned metrics with
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html GetMetricData>
+-- or
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html GetMetricStatistics>
+-- to obtain statistical data.
 --
+-- Up to 500 results are returned for any one call. To retrieve additional
+-- results, use the returned token with subsequent calls.
 --
--- Up to 500 results are returned for any one call. To retrieve additional results, use the returned token with subsequent calls.
+-- After you create a metric, allow up to 15 minutes before the metric
+-- appears. You can see statistics about the metric sooner by using
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html GetMetricData>
+-- or
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html GetMetricStatistics>.
 --
--- After you create a metric, allow up to 15 minutes before the metric appears. You can see statistics about the metric sooner by using <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html GetMetricData> or <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html GetMetricStatistics> .
---
--- @ListMetrics@ doesn't return information about metrics if those metrics haven't reported data in the past two weeks. To retrieve those metrics, use <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html GetMetricData> or <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html GetMetricStatistics> .
---
+-- @ListMetrics@ doesn\'t return information about metrics if those metrics
+-- haven\'t reported data in the past two weeks. To retrieve those metrics,
+-- use
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html GetMetricData>
+-- or
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html GetMetricStatistics>.
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudWatch.ListMetrics
   ( -- * Creating a Request
-    listMetrics,
-    ListMetrics,
+    ListMetrics (..),
+    newListMetrics,
 
     -- * Request Lenses
-    lmNextToken,
-    lmMetricName,
-    lmDimensions,
-    lmNamespace,
-    lmRecentlyActive,
+    listMetrics_nextToken,
+    listMetrics_metricName,
+    listMetrics_dimensions,
+    listMetrics_namespace,
+    listMetrics_recentlyActive,
 
     -- * Destructuring the Response
-    listMetricsResponse,
-    ListMetricsResponse,
+    ListMetricsResponse (..),
+    newListMetricsResponse,
 
     -- * Response Lenses
-    lmrrsNextToken,
-    lmrrsMetrics,
-    lmrrsResponseStatus,
+    listMetricsResponse_nextToken,
+    listMetricsResponse_metrics,
+    listMetricsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatch.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatch.Types.Metric
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listMetrics' smart constructor.
+-- | /See:/ 'newListMetrics' smart constructor.
 data ListMetrics = ListMetrics'
-  { _lmNextToken ::
-      !(Maybe Text),
-    _lmMetricName :: !(Maybe Text),
-    _lmDimensions :: !(Maybe [DimensionFilter]),
-    _lmNamespace :: !(Maybe Text),
-    _lmRecentlyActive :: !(Maybe RecentlyActive)
+  { -- | The token returned by a previous call to indicate that there is more
+    -- data available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the metric to filter against. Only the metrics with names
+    -- that match exactly will be returned.
+    metricName :: Prelude.Maybe Prelude.Text,
+    -- | The dimensions to filter against. Only the dimensions that match exactly
+    -- will be returned.
+    dimensions :: Prelude.Maybe [DimensionFilter],
+    -- | The metric namespace to filter against. Only the namespace that matches
+    -- exactly will be returned.
+    namespace :: Prelude.Maybe Prelude.Text,
+    -- | To filter the results to show only metrics that have had data points
+    -- published in the past three hours, specify this parameter with a value
+    -- of @PT3H@. This is the only valid value for this parameter.
+    --
+    -- The results that are returned are an approximation of the value you
+    -- specify. There is a low probability that the returned results include
+    -- metrics with last published data as much as 40 minutes more than the
+    -- specified time interval.
+    recentlyActive :: Prelude.Maybe RecentlyActive
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMetrics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMetrics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmNextToken' - The token returned by a previous call to indicate that there is more data available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmMetricName' - The name of the metric to filter against. Only the metrics with names that match exactly will be returned.
+-- 'nextToken', 'listMetrics_nextToken' - The token returned by a previous call to indicate that there is more
+-- data available.
 --
--- * 'lmDimensions' - The dimensions to filter against. Only the dimensions that match exactly will be returned.
+-- 'metricName', 'listMetrics_metricName' - The name of the metric to filter against. Only the metrics with names
+-- that match exactly will be returned.
 --
--- * 'lmNamespace' - The metric namespace to filter against. Only the namespace that matches exactly will be returned.
+-- 'dimensions', 'listMetrics_dimensions' - The dimensions to filter against. Only the dimensions that match exactly
+-- will be returned.
 --
--- * 'lmRecentlyActive' - To filter the results to show only metrics that have had data points published in the past three hours, specify this parameter with a value of @PT3H@ . This is the only valid value for this parameter. The results that are returned are an approximation of the value you specify. There is a low probability that the returned results include metrics with last published data as much as 40 minutes more than the specified time interval.
-listMetrics ::
+-- 'namespace', 'listMetrics_namespace' - The metric namespace to filter against. Only the namespace that matches
+-- exactly will be returned.
+--
+-- 'recentlyActive', 'listMetrics_recentlyActive' - To filter the results to show only metrics that have had data points
+-- published in the past three hours, specify this parameter with a value
+-- of @PT3H@. This is the only valid value for this parameter.
+--
+-- The results that are returned are an approximation of the value you
+-- specify. There is a low probability that the returned results include
+-- metrics with last published data as much as 40 minutes more than the
+-- specified time interval.
+newListMetrics ::
   ListMetrics
-listMetrics =
+newListMetrics =
   ListMetrics'
-    { _lmNextToken = Nothing,
-      _lmMetricName = Nothing,
-      _lmDimensions = Nothing,
-      _lmNamespace = Nothing,
-      _lmRecentlyActive = Nothing
+    { nextToken = Prelude.Nothing,
+      metricName = Prelude.Nothing,
+      dimensions = Prelude.Nothing,
+      namespace = Prelude.Nothing,
+      recentlyActive = Prelude.Nothing
     }
 
--- | The token returned by a previous call to indicate that there is more data available.
-lmNextToken :: Lens' ListMetrics (Maybe Text)
-lmNextToken = lens _lmNextToken (\s a -> s {_lmNextToken = a})
+-- | The token returned by a previous call to indicate that there is more
+-- data available.
+listMetrics_nextToken :: Lens.Lens' ListMetrics (Prelude.Maybe Prelude.Text)
+listMetrics_nextToken = Lens.lens (\ListMetrics' {nextToken} -> nextToken) (\s@ListMetrics' {} a -> s {nextToken = a} :: ListMetrics)
 
--- | The name of the metric to filter against. Only the metrics with names that match exactly will be returned.
-lmMetricName :: Lens' ListMetrics (Maybe Text)
-lmMetricName = lens _lmMetricName (\s a -> s {_lmMetricName = a})
+-- | The name of the metric to filter against. Only the metrics with names
+-- that match exactly will be returned.
+listMetrics_metricName :: Lens.Lens' ListMetrics (Prelude.Maybe Prelude.Text)
+listMetrics_metricName = Lens.lens (\ListMetrics' {metricName} -> metricName) (\s@ListMetrics' {} a -> s {metricName = a} :: ListMetrics)
 
--- | The dimensions to filter against. Only the dimensions that match exactly will be returned.
-lmDimensions :: Lens' ListMetrics [DimensionFilter]
-lmDimensions = lens _lmDimensions (\s a -> s {_lmDimensions = a}) . _Default . _Coerce
+-- | The dimensions to filter against. Only the dimensions that match exactly
+-- will be returned.
+listMetrics_dimensions :: Lens.Lens' ListMetrics (Prelude.Maybe [DimensionFilter])
+listMetrics_dimensions = Lens.lens (\ListMetrics' {dimensions} -> dimensions) (\s@ListMetrics' {} a -> s {dimensions = a} :: ListMetrics) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The metric namespace to filter against. Only the namespace that matches exactly will be returned.
-lmNamespace :: Lens' ListMetrics (Maybe Text)
-lmNamespace = lens _lmNamespace (\s a -> s {_lmNamespace = a})
+-- | The metric namespace to filter against. Only the namespace that matches
+-- exactly will be returned.
+listMetrics_namespace :: Lens.Lens' ListMetrics (Prelude.Maybe Prelude.Text)
+listMetrics_namespace = Lens.lens (\ListMetrics' {namespace} -> namespace) (\s@ListMetrics' {} a -> s {namespace = a} :: ListMetrics)
 
--- | To filter the results to show only metrics that have had data points published in the past three hours, specify this parameter with a value of @PT3H@ . This is the only valid value for this parameter. The results that are returned are an approximation of the value you specify. There is a low probability that the returned results include metrics with last published data as much as 40 minutes more than the specified time interval.
-lmRecentlyActive :: Lens' ListMetrics (Maybe RecentlyActive)
-lmRecentlyActive = lens _lmRecentlyActive (\s a -> s {_lmRecentlyActive = a})
+-- | To filter the results to show only metrics that have had data points
+-- published in the past three hours, specify this parameter with a value
+-- of @PT3H@. This is the only valid value for this parameter.
+--
+-- The results that are returned are an approximation of the value you
+-- specify. There is a low probability that the returned results include
+-- metrics with last published data as much as 40 minutes more than the
+-- specified time interval.
+listMetrics_recentlyActive :: Lens.Lens' ListMetrics (Prelude.Maybe RecentlyActive)
+listMetrics_recentlyActive = Lens.lens (\ListMetrics' {recentlyActive} -> recentlyActive) (\s@ListMetrics' {} a -> s {recentlyActive = a} :: ListMetrics)
 
-instance AWSPager ListMetrics where
+instance Pager.AWSPager ListMetrics where
   page rq rs
-    | stop (rs ^. lmrrsNextToken) = Nothing
-    | stop (rs ^. lmrrsMetrics) = Nothing
-    | otherwise =
-      Just $ rq & lmNextToken .~ rs ^. lmrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listMetricsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listMetricsResponse_metrics Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listMetrics_nextToken
+          Lens..~ rs
+          Lens.^? listMetricsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListMetrics where
+instance Prelude.AWSRequest ListMetrics where
   type Rs ListMetrics = ListMetricsResponse
-  request = postQuery cloudWatch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListMetricsResult"
       ( \s h x ->
           ListMetricsResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "Metrics" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "Metrics" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListMetrics
+instance Prelude.Hashable ListMetrics
 
-instance NFData ListMetrics
+instance Prelude.NFData ListMetrics
 
-instance ToHeaders ListMetrics where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListMetrics where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListMetrics where
-  toPath = const "/"
+instance Prelude.ToPath ListMetrics where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListMetrics where
+instance Prelude.ToQuery ListMetrics where
   toQuery ListMetrics' {..} =
-    mconcat
-      [ "Action" =: ("ListMetrics" :: ByteString),
-        "Version" =: ("2010-08-01" :: ByteString),
-        "NextToken" =: _lmNextToken,
-        "MetricName" =: _lmMetricName,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListMetrics" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-08-01" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "MetricName" Prelude.=: metricName,
         "Dimensions"
-          =: toQuery (toQueryList "member" <$> _lmDimensions),
-        "Namespace" =: _lmNamespace,
-        "RecentlyActive" =: _lmRecentlyActive
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> dimensions
+            ),
+        "Namespace" Prelude.=: namespace,
+        "RecentlyActive" Prelude.=: recentlyActive
       ]
 
--- | /See:/ 'listMetricsResponse' smart constructor.
+-- | /See:/ 'newListMetricsResponse' smart constructor.
 data ListMetricsResponse = ListMetricsResponse'
-  { _lmrrsNextToken ::
-      !(Maybe Text),
-    _lmrrsMetrics ::
-      !(Maybe [Metric]),
-    _lmrrsResponseStatus :: !Int
+  { -- | The token that marks the start of the next batch of returned results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The metrics that match your request.
+    metrics :: Prelude.Maybe [Metric],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMetricsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMetricsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmrrsNextToken' - The token that marks the start of the next batch of returned results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmrrsMetrics' - The metrics that match your request.
+-- 'nextToken', 'listMetricsResponse_nextToken' - The token that marks the start of the next batch of returned results.
 --
--- * 'lmrrsResponseStatus' - -- | The response status code.
-listMetricsResponse ::
-  -- | 'lmrrsResponseStatus'
-  Int ->
+-- 'metrics', 'listMetricsResponse_metrics' - The metrics that match your request.
+--
+-- 'httpStatus', 'listMetricsResponse_httpStatus' - The response's http status code.
+newListMetricsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListMetricsResponse
-listMetricsResponse pResponseStatus_ =
+newListMetricsResponse pHttpStatus_ =
   ListMetricsResponse'
-    { _lmrrsNextToken = Nothing,
-      _lmrrsMetrics = Nothing,
-      _lmrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      metrics = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The token that marks the start of the next batch of returned results.
-lmrrsNextToken :: Lens' ListMetricsResponse (Maybe Text)
-lmrrsNextToken = lens _lmrrsNextToken (\s a -> s {_lmrrsNextToken = a})
+listMetricsResponse_nextToken :: Lens.Lens' ListMetricsResponse (Prelude.Maybe Prelude.Text)
+listMetricsResponse_nextToken = Lens.lens (\ListMetricsResponse' {nextToken} -> nextToken) (\s@ListMetricsResponse' {} a -> s {nextToken = a} :: ListMetricsResponse)
 
 -- | The metrics that match your request.
-lmrrsMetrics :: Lens' ListMetricsResponse [Metric]
-lmrrsMetrics = lens _lmrrsMetrics (\s a -> s {_lmrrsMetrics = a}) . _Default . _Coerce
+listMetricsResponse_metrics :: Lens.Lens' ListMetricsResponse (Prelude.Maybe [Metric])
+listMetricsResponse_metrics = Lens.lens (\ListMetricsResponse' {metrics} -> metrics) (\s@ListMetricsResponse' {} a -> s {metrics = a} :: ListMetricsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lmrrsResponseStatus :: Lens' ListMetricsResponse Int
-lmrrsResponseStatus = lens _lmrrsResponseStatus (\s a -> s {_lmrrsResponseStatus = a})
+-- | The response's http status code.
+listMetricsResponse_httpStatus :: Lens.Lens' ListMetricsResponse Prelude.Int
+listMetricsResponse_httpStatus = Lens.lens (\ListMetricsResponse' {httpStatus} -> httpStatus) (\s@ListMetricsResponse' {} a -> s {httpStatus = a} :: ListMetricsResponse)
 
-instance NFData ListMetricsResponse
+instance Prelude.NFData ListMetricsResponse

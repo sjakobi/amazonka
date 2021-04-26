@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.CloudWatch.Types.ComparisonOperator
   ( ComparisonOperator
       ( ..,
-        GreaterThanOrEqualToThreshold,
-        GreaterThanThreshold,
-        GreaterThanUpperThreshold,
-        LessThanLowerOrGreaterThanUpperThreshold,
-        LessThanLowerThreshold,
-        LessThanOrEqualToThreshold,
-        LessThanThreshold
+        ComparisonOperatorGreaterThanOrEqualToThreshold,
+        ComparisonOperatorGreaterThanThreshold,
+        ComparisonOperatorGreaterThanUpperThreshold,
+        ComparisonOperatorLessThanLowerOrGreaterThanUpperThreshold,
+        ComparisonOperatorLessThanLowerThreshold,
+        ComparisonOperatorLessThanOrEqualToThreshold,
+        ComparisonOperatorLessThanThreshold
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComparisonOperator
-  = ComparisonOperator'
-      ( CI
-          Text
-      )
+newtype ComparisonOperator = ComparisonOperator'
+  { fromComparisonOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GreaterThanOrEqualToThreshold :: ComparisonOperator
-pattern GreaterThanOrEqualToThreshold = ComparisonOperator' "GreaterThanOrEqualToThreshold"
+pattern ComparisonOperatorGreaterThanOrEqualToThreshold :: ComparisonOperator
+pattern ComparisonOperatorGreaterThanOrEqualToThreshold = ComparisonOperator' "GreaterThanOrEqualToThreshold"
 
-pattern GreaterThanThreshold :: ComparisonOperator
-pattern GreaterThanThreshold = ComparisonOperator' "GreaterThanThreshold"
+pattern ComparisonOperatorGreaterThanThreshold :: ComparisonOperator
+pattern ComparisonOperatorGreaterThanThreshold = ComparisonOperator' "GreaterThanThreshold"
 
-pattern GreaterThanUpperThreshold :: ComparisonOperator
-pattern GreaterThanUpperThreshold = ComparisonOperator' "GreaterThanUpperThreshold"
+pattern ComparisonOperatorGreaterThanUpperThreshold :: ComparisonOperator
+pattern ComparisonOperatorGreaterThanUpperThreshold = ComparisonOperator' "GreaterThanUpperThreshold"
 
-pattern LessThanLowerOrGreaterThanUpperThreshold :: ComparisonOperator
-pattern LessThanLowerOrGreaterThanUpperThreshold = ComparisonOperator' "LessThanLowerOrGreaterThanUpperThreshold"
+pattern ComparisonOperatorLessThanLowerOrGreaterThanUpperThreshold :: ComparisonOperator
+pattern ComparisonOperatorLessThanLowerOrGreaterThanUpperThreshold = ComparisonOperator' "LessThanLowerOrGreaterThanUpperThreshold"
 
-pattern LessThanLowerThreshold :: ComparisonOperator
-pattern LessThanLowerThreshold = ComparisonOperator' "LessThanLowerThreshold"
+pattern ComparisonOperatorLessThanLowerThreshold :: ComparisonOperator
+pattern ComparisonOperatorLessThanLowerThreshold = ComparisonOperator' "LessThanLowerThreshold"
 
-pattern LessThanOrEqualToThreshold :: ComparisonOperator
-pattern LessThanOrEqualToThreshold = ComparisonOperator' "LessThanOrEqualToThreshold"
+pattern ComparisonOperatorLessThanOrEqualToThreshold :: ComparisonOperator
+pattern ComparisonOperatorLessThanOrEqualToThreshold = ComparisonOperator' "LessThanOrEqualToThreshold"
 
-pattern LessThanThreshold :: ComparisonOperator
-pattern LessThanThreshold = ComparisonOperator' "LessThanThreshold"
+pattern ComparisonOperatorLessThanThreshold :: ComparisonOperator
+pattern ComparisonOperatorLessThanThreshold = ComparisonOperator' "LessThanThreshold"
 
 {-# COMPLETE
-  GreaterThanOrEqualToThreshold,
-  GreaterThanThreshold,
-  GreaterThanUpperThreshold,
-  LessThanLowerOrGreaterThanUpperThreshold,
-  LessThanLowerThreshold,
-  LessThanOrEqualToThreshold,
-  LessThanThreshold,
+  ComparisonOperatorGreaterThanOrEqualToThreshold,
+  ComparisonOperatorGreaterThanThreshold,
+  ComparisonOperatorGreaterThanUpperThreshold,
+  ComparisonOperatorLessThanLowerOrGreaterThanUpperThreshold,
+  ComparisonOperatorLessThanLowerThreshold,
+  ComparisonOperatorLessThanOrEqualToThreshold,
+  ComparisonOperatorLessThanThreshold,
   ComparisonOperator'
   #-}
 
-instance FromText ComparisonOperator where
-  parser = (ComparisonOperator' . mk) <$> takeText
+instance Prelude.FromText ComparisonOperator where
+  parser = ComparisonOperator' Prelude.<$> Prelude.takeText
 
-instance ToText ComparisonOperator where
-  toText (ComparisonOperator' ci) = original ci
+instance Prelude.ToText ComparisonOperator where
+  toText (ComparisonOperator' x) = x
 
-instance Hashable ComparisonOperator
+instance Prelude.Hashable ComparisonOperator
 
-instance NFData ComparisonOperator
+instance Prelude.NFData ComparisonOperator
 
-instance ToByteString ComparisonOperator
+instance Prelude.ToByteString ComparisonOperator
 
-instance ToQuery ComparisonOperator
+instance Prelude.ToQuery ComparisonOperator
 
-instance ToHeader ComparisonOperator
+instance Prelude.ToHeader ComparisonOperator
 
-instance FromXML ComparisonOperator where
-  parseXML = parseXMLText "ComparisonOperator"
+instance Prelude.FromXML ComparisonOperator where
+  parseXML = Prelude.parseXMLText "ComparisonOperator"

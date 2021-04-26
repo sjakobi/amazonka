@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,45 +19,47 @@
 module Network.AWS.CloudWatch.Types.RecentlyActive
   ( RecentlyActive
       ( ..,
-        PT3H
+        RecentlyActivePT3H
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecentlyActive = RecentlyActive' (CI Text)
+newtype RecentlyActive = RecentlyActive'
+  { fromRecentlyActive ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PT3H :: RecentlyActive
-pattern PT3H = RecentlyActive' "PT3H"
+pattern RecentlyActivePT3H :: RecentlyActive
+pattern RecentlyActivePT3H = RecentlyActive' "PT3H"
 
 {-# COMPLETE
-  PT3H,
+  RecentlyActivePT3H,
   RecentlyActive'
   #-}
 
-instance FromText RecentlyActive where
-  parser = (RecentlyActive' . mk) <$> takeText
+instance Prelude.FromText RecentlyActive where
+  parser = RecentlyActive' Prelude.<$> Prelude.takeText
 
-instance ToText RecentlyActive where
-  toText (RecentlyActive' ci) = original ci
+instance Prelude.ToText RecentlyActive where
+  toText (RecentlyActive' x) = x
 
-instance Hashable RecentlyActive
+instance Prelude.Hashable RecentlyActive
 
-instance NFData RecentlyActive
+instance Prelude.NFData RecentlyActive
 
-instance ToByteString RecentlyActive
+instance Prelude.ToByteString RecentlyActive
 
-instance ToQuery RecentlyActive
+instance Prelude.ToQuery RecentlyActive
 
-instance ToHeader RecentlyActive
+instance Prelude.ToHeader RecentlyActive

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,83 +21,179 @@ module Network.AWS.CloudWatch.Types.MetricStat where
 
 import Network.AWS.CloudWatch.Types.Metric
 import Network.AWS.CloudWatch.Types.StandardUnit
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This structure defines the metric to be returned, along with the statistics, period, and units.
+-- | This structure defines the metric to be returned, along with the
+-- statistics, period, and units.
 --
---
---
--- /See:/ 'metricStat' smart constructor.
+-- /See:/ 'newMetricStat' smart constructor.
 data MetricStat = MetricStat'
-  { _msUnit ::
-      !(Maybe StandardUnit),
-    _msMetric :: !Metric,
-    _msPeriod :: !Nat,
-    _msStat :: !Text
+  { -- | When you are using a @Put@ operation, this defines what unit you want to
+    -- use when storing the metric.
+    --
+    -- In a @Get@ operation, if you omit @Unit@ then all data that was
+    -- collected with any unit is returned, along with the corresponding units
+    -- that were specified when the data was reported to CloudWatch. If you
+    -- specify a unit, the operation returns only data that was collected with
+    -- that unit specified. If you specify a unit that does not match the data
+    -- collected, the results of the operation are null. CloudWatch does not
+    -- perform unit conversions.
+    unit :: Prelude.Maybe StandardUnit,
+    -- | The metric to return, including the metric name, namespace, and
+    -- dimensions.
+    metric :: Metric,
+    -- | The granularity, in seconds, of the returned data points. For metrics
+    -- with regular resolution, a period can be as short as one minute (60
+    -- seconds) and must be a multiple of 60. For high-resolution metrics that
+    -- are collected at intervals of less than one minute, the period can be 1,
+    -- 5, 10, 30, 60, or any multiple of 60. High-resolution metrics are those
+    -- metrics stored by a @PutMetricData@ call that includes a
+    -- @StorageResolution@ of 1 second.
+    --
+    -- If the @StartTime@ parameter specifies a time stamp that is greater than
+    -- 3 hours ago, you must specify the period as follows or no data points in
+    -- that time range is returned:
+    --
+    -- -   Start time between 3 hours and 15 days ago - Use a multiple of 60
+    --     seconds (1 minute).
+    --
+    -- -   Start time between 15 and 63 days ago - Use a multiple of 300
+    --     seconds (5 minutes).
+    --
+    -- -   Start time greater than 63 days ago - Use a multiple of 3600 seconds
+    --     (1 hour).
+    period :: Prelude.Nat,
+    -- | The statistic to return. It can include any CloudWatch statistic or
+    -- extended statistic.
+    stat :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricStat' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricStat' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msUnit' - When you are using a @Put@ operation, this defines what unit you want to use when storing the metric. In a @Get@ operation, if you omit @Unit@ then all data that was collected with any unit is returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you specify a unit, the operation returns only data that was collected with that unit specified. If you specify a unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform unit conversions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msMetric' - The metric to return, including the metric name, namespace, and dimensions.
+-- 'unit', 'metricStat_unit' - When you are using a @Put@ operation, this defines what unit you want to
+-- use when storing the metric.
 --
--- * 'msPeriod' - The granularity, in seconds, of the returned data points. For metrics with regular resolution, a period can be as short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that are collected at intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple of 60. High-resolution metrics are those metrics stored by a @PutMetricData@ call that includes a @StorageResolution@ of 1 second. If the @StartTime@ parameter specifies a time stamp that is greater than 3 hours ago, you must specify the period as follows or no data points in that time range is returned:     * Start time between 3 hours and 15 days ago - Use a multiple of 60 seconds (1 minute).     * Start time between 15 and 63 days ago - Use a multiple of 300 seconds (5 minutes).     * Start time greater than 63 days ago - Use a multiple of 3600 seconds (1 hour).
+-- In a @Get@ operation, if you omit @Unit@ then all data that was
+-- collected with any unit is returned, along with the corresponding units
+-- that were specified when the data was reported to CloudWatch. If you
+-- specify a unit, the operation returns only data that was collected with
+-- that unit specified. If you specify a unit that does not match the data
+-- collected, the results of the operation are null. CloudWatch does not
+-- perform unit conversions.
 --
--- * 'msStat' - The statistic to return. It can include any CloudWatch statistic or extended statistic.
-metricStat ::
-  -- | 'msMetric'
+-- 'metric', 'metricStat_metric' - The metric to return, including the metric name, namespace, and
+-- dimensions.
+--
+-- 'period', 'metricStat_period' - The granularity, in seconds, of the returned data points. For metrics
+-- with regular resolution, a period can be as short as one minute (60
+-- seconds) and must be a multiple of 60. For high-resolution metrics that
+-- are collected at intervals of less than one minute, the period can be 1,
+-- 5, 10, 30, 60, or any multiple of 60. High-resolution metrics are those
+-- metrics stored by a @PutMetricData@ call that includes a
+-- @StorageResolution@ of 1 second.
+--
+-- If the @StartTime@ parameter specifies a time stamp that is greater than
+-- 3 hours ago, you must specify the period as follows or no data points in
+-- that time range is returned:
+--
+-- -   Start time between 3 hours and 15 days ago - Use a multiple of 60
+--     seconds (1 minute).
+--
+-- -   Start time between 15 and 63 days ago - Use a multiple of 300
+--     seconds (5 minutes).
+--
+-- -   Start time greater than 63 days ago - Use a multiple of 3600 seconds
+--     (1 hour).
+--
+-- 'stat', 'metricStat_stat' - The statistic to return. It can include any CloudWatch statistic or
+-- extended statistic.
+newMetricStat ::
+  -- | 'metric'
   Metric ->
-  -- | 'msPeriod'
-  Natural ->
-  -- | 'msStat'
-  Text ->
+  -- | 'period'
+  Prelude.Natural ->
+  -- | 'stat'
+  Prelude.Text ->
   MetricStat
-metricStat pMetric_ pPeriod_ pStat_ =
+newMetricStat pMetric_ pPeriod_ pStat_ =
   MetricStat'
-    { _msUnit = Nothing,
-      _msMetric = pMetric_,
-      _msPeriod = _Nat # pPeriod_,
-      _msStat = pStat_
+    { unit = Prelude.Nothing,
+      metric = pMetric_,
+      period = Prelude._Nat Lens.# pPeriod_,
+      stat = pStat_
     }
 
--- | When you are using a @Put@ operation, this defines what unit you want to use when storing the metric. In a @Get@ operation, if you omit @Unit@ then all data that was collected with any unit is returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you specify a unit, the operation returns only data that was collected with that unit specified. If you specify a unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform unit conversions.
-msUnit :: Lens' MetricStat (Maybe StandardUnit)
-msUnit = lens _msUnit (\s a -> s {_msUnit = a})
+-- | When you are using a @Put@ operation, this defines what unit you want to
+-- use when storing the metric.
+--
+-- In a @Get@ operation, if you omit @Unit@ then all data that was
+-- collected with any unit is returned, along with the corresponding units
+-- that were specified when the data was reported to CloudWatch. If you
+-- specify a unit, the operation returns only data that was collected with
+-- that unit specified. If you specify a unit that does not match the data
+-- collected, the results of the operation are null. CloudWatch does not
+-- perform unit conversions.
+metricStat_unit :: Lens.Lens' MetricStat (Prelude.Maybe StandardUnit)
+metricStat_unit = Lens.lens (\MetricStat' {unit} -> unit) (\s@MetricStat' {} a -> s {unit = a} :: MetricStat)
 
--- | The metric to return, including the metric name, namespace, and dimensions.
-msMetric :: Lens' MetricStat Metric
-msMetric = lens _msMetric (\s a -> s {_msMetric = a})
+-- | The metric to return, including the metric name, namespace, and
+-- dimensions.
+metricStat_metric :: Lens.Lens' MetricStat Metric
+metricStat_metric = Lens.lens (\MetricStat' {metric} -> metric) (\s@MetricStat' {} a -> s {metric = a} :: MetricStat)
 
--- | The granularity, in seconds, of the returned data points. For metrics with regular resolution, a period can be as short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that are collected at intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple of 60. High-resolution metrics are those metrics stored by a @PutMetricData@ call that includes a @StorageResolution@ of 1 second. If the @StartTime@ parameter specifies a time stamp that is greater than 3 hours ago, you must specify the period as follows or no data points in that time range is returned:     * Start time between 3 hours and 15 days ago - Use a multiple of 60 seconds (1 minute).     * Start time between 15 and 63 days ago - Use a multiple of 300 seconds (5 minutes).     * Start time greater than 63 days ago - Use a multiple of 3600 seconds (1 hour).
-msPeriod :: Lens' MetricStat Natural
-msPeriod = lens _msPeriod (\s a -> s {_msPeriod = a}) . _Nat
+-- | The granularity, in seconds, of the returned data points. For metrics
+-- with regular resolution, a period can be as short as one minute (60
+-- seconds) and must be a multiple of 60. For high-resolution metrics that
+-- are collected at intervals of less than one minute, the period can be 1,
+-- 5, 10, 30, 60, or any multiple of 60. High-resolution metrics are those
+-- metrics stored by a @PutMetricData@ call that includes a
+-- @StorageResolution@ of 1 second.
+--
+-- If the @StartTime@ parameter specifies a time stamp that is greater than
+-- 3 hours ago, you must specify the period as follows or no data points in
+-- that time range is returned:
+--
+-- -   Start time between 3 hours and 15 days ago - Use a multiple of 60
+--     seconds (1 minute).
+--
+-- -   Start time between 15 and 63 days ago - Use a multiple of 300
+--     seconds (5 minutes).
+--
+-- -   Start time greater than 63 days ago - Use a multiple of 3600 seconds
+--     (1 hour).
+metricStat_period :: Lens.Lens' MetricStat Prelude.Natural
+metricStat_period = Lens.lens (\MetricStat' {period} -> period) (\s@MetricStat' {} a -> s {period = a} :: MetricStat) Prelude.. Prelude._Nat
 
--- | The statistic to return. It can include any CloudWatch statistic or extended statistic.
-msStat :: Lens' MetricStat Text
-msStat = lens _msStat (\s a -> s {_msStat = a})
+-- | The statistic to return. It can include any CloudWatch statistic or
+-- extended statistic.
+metricStat_stat :: Lens.Lens' MetricStat Prelude.Text
+metricStat_stat = Lens.lens (\MetricStat' {stat} -> stat) (\s@MetricStat' {} a -> s {stat = a} :: MetricStat)
 
-instance FromXML MetricStat where
+instance Prelude.FromXML MetricStat where
   parseXML x =
     MetricStat'
-      <$> (x .@? "Unit")
-      <*> (x .@ "Metric")
-      <*> (x .@ "Period")
-      <*> (x .@ "Stat")
+      Prelude.<$> (x Prelude..@? "Unit")
+      Prelude.<*> (x Prelude..@ "Metric")
+      Prelude.<*> (x Prelude..@ "Period")
+      Prelude.<*> (x Prelude..@ "Stat")
 
-instance Hashable MetricStat
+instance Prelude.Hashable MetricStat
 
-instance NFData MetricStat
+instance Prelude.NFData MetricStat
 
-instance ToQuery MetricStat where
+instance Prelude.ToQuery MetricStat where
   toQuery MetricStat' {..} =
-    mconcat
-      [ "Unit" =: _msUnit,
-        "Metric" =: _msMetric,
-        "Period" =: _msPeriod,
-        "Stat" =: _msStat
+    Prelude.mconcat
+      [ "Unit" Prelude.=: unit,
+        "Metric" Prelude.=: metric,
+        "Period" Prelude.=: period,
+        "Stat" Prelude.=: stat
       ]

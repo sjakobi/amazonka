@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatch.Types.Dimension where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A dimension is a name/value pair that is part of the identity of a metric. You can assign up to 10 dimensions to a metric. Because dimensions are part of the unique identifier for a metric, whenever you add a unique name/value pair to one of your metrics, you are creating a new variation of that metric.
+-- | A dimension is a name\/value pair that is part of the identity of a
+-- metric. You can assign up to 10 dimensions to a metric. Because
+-- dimensions are part of the unique identifier for a metric, whenever you
+-- add a unique name\/value pair to one of your metrics, you are creating a
+-- new variation of that metric.
 --
---
---
--- /See:/ 'dimension' smart constructor.
+-- /See:/ 'newDimension' smart constructor.
 data Dimension = Dimension'
-  { _dName :: !Text,
-    _dValue :: !Text
+  { -- | The name of the dimension. Dimension names cannot contain blank spaces
+    -- or non-ASCII characters.
+    name :: Prelude.Text,
+    -- | The value of the dimension. Dimension values cannot contain blank spaces
+    -- or non-ASCII characters.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Dimension' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Dimension' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dName' - The name of the dimension. Dimension names cannot contain blank spaces or non-ASCII characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dValue' - The value of the dimension. Dimension values cannot contain blank spaces or non-ASCII characters.
-dimension ::
-  -- | 'dName'
-  Text ->
-  -- | 'dValue'
-  Text ->
+-- 'name', 'dimension_name' - The name of the dimension. Dimension names cannot contain blank spaces
+-- or non-ASCII characters.
+--
+-- 'value', 'dimension_value' - The value of the dimension. Dimension values cannot contain blank spaces
+-- or non-ASCII characters.
+newDimension ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   Dimension
-dimension pName_ pValue_ =
-  Dimension' {_dName = pName_, _dValue = pValue_}
+newDimension pName_ pValue_ =
+  Dimension' {name = pName_, value = pValue_}
 
--- | The name of the dimension. Dimension names cannot contain blank spaces or non-ASCII characters.
-dName :: Lens' Dimension Text
-dName = lens _dName (\s a -> s {_dName = a})
+-- | The name of the dimension. Dimension names cannot contain blank spaces
+-- or non-ASCII characters.
+dimension_name :: Lens.Lens' Dimension Prelude.Text
+dimension_name = Lens.lens (\Dimension' {name} -> name) (\s@Dimension' {} a -> s {name = a} :: Dimension)
 
--- | The value of the dimension. Dimension values cannot contain blank spaces or non-ASCII characters.
-dValue :: Lens' Dimension Text
-dValue = lens _dValue (\s a -> s {_dValue = a})
+-- | The value of the dimension. Dimension values cannot contain blank spaces
+-- or non-ASCII characters.
+dimension_value :: Lens.Lens' Dimension Prelude.Text
+dimension_value = Lens.lens (\Dimension' {value} -> value) (\s@Dimension' {} a -> s {value = a} :: Dimension)
 
-instance FromXML Dimension where
+instance Prelude.FromXML Dimension where
   parseXML x =
-    Dimension' <$> (x .@ "Name") <*> (x .@ "Value")
+    Dimension'
+      Prelude.<$> (x Prelude..@ "Name")
+      Prelude.<*> (x Prelude..@ "Value")
 
-instance Hashable Dimension
+instance Prelude.Hashable Dimension
 
-instance NFData Dimension
+instance Prelude.NFData Dimension
 
-instance ToQuery Dimension where
+instance Prelude.ToQuery Dimension where
   toQuery Dimension' {..} =
-    mconcat ["Name" =: _dName, "Value" =: _dValue]
+    Prelude.mconcat
+      ["Name" Prelude.=: name, "Value" Prelude.=: value]

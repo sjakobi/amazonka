@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CloudWatch.Types.HistoryItemType
   ( HistoryItemType
       ( ..,
-        Action,
-        ConfigurationUpdate,
-        StateUpdate
+        HistoryItemTypeAction,
+        HistoryItemTypeConfigurationUpdate,
+        HistoryItemTypeStateUpdate
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HistoryItemType = HistoryItemType' (CI Text)
+newtype HistoryItemType = HistoryItemType'
+  { fromHistoryItemType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Action :: HistoryItemType
-pattern Action = HistoryItemType' "Action"
+pattern HistoryItemTypeAction :: HistoryItemType
+pattern HistoryItemTypeAction = HistoryItemType' "Action"
 
-pattern ConfigurationUpdate :: HistoryItemType
-pattern ConfigurationUpdate = HistoryItemType' "ConfigurationUpdate"
+pattern HistoryItemTypeConfigurationUpdate :: HistoryItemType
+pattern HistoryItemTypeConfigurationUpdate = HistoryItemType' "ConfigurationUpdate"
 
-pattern StateUpdate :: HistoryItemType
-pattern StateUpdate = HistoryItemType' "StateUpdate"
+pattern HistoryItemTypeStateUpdate :: HistoryItemType
+pattern HistoryItemTypeStateUpdate = HistoryItemType' "StateUpdate"
 
 {-# COMPLETE
-  Action,
-  ConfigurationUpdate,
-  StateUpdate,
+  HistoryItemTypeAction,
+  HistoryItemTypeConfigurationUpdate,
+  HistoryItemTypeStateUpdate,
   HistoryItemType'
   #-}
 
-instance FromText HistoryItemType where
-  parser = (HistoryItemType' . mk) <$> takeText
+instance Prelude.FromText HistoryItemType where
+  parser = HistoryItemType' Prelude.<$> Prelude.takeText
 
-instance ToText HistoryItemType where
-  toText (HistoryItemType' ci) = original ci
+instance Prelude.ToText HistoryItemType where
+  toText (HistoryItemType' x) = x
 
-instance Hashable HistoryItemType
+instance Prelude.Hashable HistoryItemType
 
-instance NFData HistoryItemType
+instance Prelude.NFData HistoryItemType
 
-instance ToByteString HistoryItemType
+instance Prelude.ToByteString HistoryItemType
 
-instance ToQuery HistoryItemType
+instance Prelude.ToQuery HistoryItemType
 
-instance ToHeader HistoryItemType
+instance Prelude.ToHeader HistoryItemType
 
-instance FromXML HistoryItemType where
-  parseXML = parseXMLText "HistoryItemType"
+instance Prelude.FromXML HistoryItemType where
+  parseXML = Prelude.parseXMLText "HistoryItemType"

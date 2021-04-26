@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,119 +22,240 @@ module Network.AWS.CloudWatch.Types.MetricDatum where
 import Network.AWS.CloudWatch.Types.Dimension
 import Network.AWS.CloudWatch.Types.StandardUnit
 import Network.AWS.CloudWatch.Types.StatisticSet
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Encapsulates the information sent to either create a metric or add new values to be aggregated into an existing metric.
+-- | Encapsulates the information sent to either create a metric or add new
+-- values to be aggregated into an existing metric.
 --
---
---
--- /See:/ 'metricDatum' smart constructor.
+-- /See:/ 'newMetricDatum' smart constructor.
 data MetricDatum = MetricDatum'
-  { _metStorageResolution ::
-      !(Maybe Nat),
-    _metUnit :: !(Maybe StandardUnit),
-    _metValues :: !(Maybe [Double]),
-    _metCounts :: !(Maybe [Double]),
-    _metTimestamp :: !(Maybe ISO8601),
-    _metStatisticValues :: !(Maybe StatisticSet),
-    _metValue :: !(Maybe Double),
-    _metDimensions :: !(Maybe [Dimension]),
-    _metMetricName :: !Text
+  { -- | Valid values are 1 and 60. Setting this to 1 specifies this metric as a
+    -- high-resolution metric, so that CloudWatch stores the metric with
+    -- sub-minute resolution down to one second. Setting this to 60 specifies
+    -- this metric as a regular-resolution metric, which CloudWatch stores at
+    -- 1-minute resolution. Currently, high resolution is available only for
+    -- custom metrics. For more information about high-resolution metrics, see
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#high-resolution-metrics High-Resolution Metrics>
+    -- in the /Amazon CloudWatch User Guide/.
+    --
+    -- This field is optional, if you do not specify it the default of 60 is
+    -- used.
+    storageResolution :: Prelude.Maybe Prelude.Nat,
+    -- | When you are using a @Put@ operation, this defines what unit you want to
+    -- use when storing the metric.
+    --
+    -- In a @Get@ operation, this displays the unit that is used for the
+    -- metric.
+    unit :: Prelude.Maybe StandardUnit,
+    -- | Array of numbers representing the values for the metric during the
+    -- period. Each unique value is listed just once in this array, and the
+    -- corresponding number in the @Counts@ array specifies the number of times
+    -- that value occurred during the period. You can include up to 150 unique
+    -- values in each @PutMetricData@ action that specifies a @Values@ array.
+    --
+    -- Although the @Values@ array accepts numbers of type @Double@, CloudWatch
+    -- rejects values that are either too small or too large. Values must be in
+    -- the range of -2^360 to 2^360. In addition, special values (for example,
+    -- NaN, +Infinity, -Infinity) are not supported.
+    values :: Prelude.Maybe [Prelude.Double],
+    -- | Array of numbers that is used along with the @Values@ array. Each number
+    -- in the @Count@ array is the number of times the corresponding value in
+    -- the @Values@ array occurred during the period.
+    --
+    -- If you omit the @Counts@ array, the default of 1 is used as the value
+    -- for each count. If you include a @Counts@ array, it must include the
+    -- same amount of values as the @Values@ array.
+    counts :: Prelude.Maybe [Prelude.Double],
+    -- | The time the metric data was received, expressed as the number of
+    -- milliseconds since Jan 1, 1970 00:00:00 UTC.
+    timestamp :: Prelude.Maybe Prelude.ISO8601,
+    -- | The statistical values for the metric.
+    statisticValues :: Prelude.Maybe StatisticSet,
+    -- | The value for the metric.
+    --
+    -- Although the parameter accepts numbers of type Double, CloudWatch
+    -- rejects values that are either too small or too large. Values must be in
+    -- the range of -2^360 to 2^360. In addition, special values (for example,
+    -- NaN, +Infinity, -Infinity) are not supported.
+    value :: Prelude.Maybe Prelude.Double,
+    -- | The dimensions associated with the metric.
+    dimensions :: Prelude.Maybe [Dimension],
+    -- | The name of the metric.
+    metricName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricDatum' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricDatum' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'metStorageResolution' - Valid values are 1 and 60. Setting this to 1 specifies this metric as a high-resolution metric, so that CloudWatch stores the metric with sub-minute resolution down to one second. Setting this to 60 specifies this metric as a regular-resolution metric, which CloudWatch stores at 1-minute resolution. Currently, high resolution is available only for custom metrics. For more information about high-resolution metrics, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#high-resolution-metrics High-Resolution Metrics> in the /Amazon CloudWatch User Guide/ .  This field is optional, if you do not specify it the default of 60 is used.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'metUnit' - When you are using a @Put@ operation, this defines what unit you want to use when storing the metric. In a @Get@ operation, this displays the unit that is used for the metric.
+-- 'storageResolution', 'metricDatum_storageResolution' - Valid values are 1 and 60. Setting this to 1 specifies this metric as a
+-- high-resolution metric, so that CloudWatch stores the metric with
+-- sub-minute resolution down to one second. Setting this to 60 specifies
+-- this metric as a regular-resolution metric, which CloudWatch stores at
+-- 1-minute resolution. Currently, high resolution is available only for
+-- custom metrics. For more information about high-resolution metrics, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#high-resolution-metrics High-Resolution Metrics>
+-- in the /Amazon CloudWatch User Guide/.
 --
--- * 'metValues' - Array of numbers representing the values for the metric during the period. Each unique value is listed just once in this array, and the corresponding number in the @Counts@ array specifies the number of times that value occurred during the period. You can include up to 150 unique values in each @PutMetricData@ action that specifies a @Values@ array. Although the @Values@ array accepts numbers of type @Double@ , CloudWatch rejects values that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
+-- This field is optional, if you do not specify it the default of 60 is
+-- used.
 --
--- * 'metCounts' - Array of numbers that is used along with the @Values@ array. Each number in the @Count@ array is the number of times the corresponding value in the @Values@ array occurred during the period.  If you omit the @Counts@ array, the default of 1 is used as the value for each count. If you include a @Counts@ array, it must include the same amount of values as the @Values@ array.
+-- 'unit', 'metricDatum_unit' - When you are using a @Put@ operation, this defines what unit you want to
+-- use when storing the metric.
 --
--- * 'metTimestamp' - The time the metric data was received, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC.
+-- In a @Get@ operation, this displays the unit that is used for the
+-- metric.
 --
--- * 'metStatisticValues' - The statistical values for the metric.
+-- 'values', 'metricDatum_values' - Array of numbers representing the values for the metric during the
+-- period. Each unique value is listed just once in this array, and the
+-- corresponding number in the @Counts@ array specifies the number of times
+-- that value occurred during the period. You can include up to 150 unique
+-- values in each @PutMetricData@ action that specifies a @Values@ array.
 --
--- * 'metValue' - The value for the metric. Although the parameter accepts numbers of type Double, CloudWatch rejects values that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
+-- Although the @Values@ array accepts numbers of type @Double@, CloudWatch
+-- rejects values that are either too small or too large. Values must be in
+-- the range of -2^360 to 2^360. In addition, special values (for example,
+-- NaN, +Infinity, -Infinity) are not supported.
 --
--- * 'metDimensions' - The dimensions associated with the metric.
+-- 'counts', 'metricDatum_counts' - Array of numbers that is used along with the @Values@ array. Each number
+-- in the @Count@ array is the number of times the corresponding value in
+-- the @Values@ array occurred during the period.
 --
--- * 'metMetricName' - The name of the metric.
-metricDatum ::
-  -- | 'metMetricName'
-  Text ->
+-- If you omit the @Counts@ array, the default of 1 is used as the value
+-- for each count. If you include a @Counts@ array, it must include the
+-- same amount of values as the @Values@ array.
+--
+-- 'timestamp', 'metricDatum_timestamp' - The time the metric data was received, expressed as the number of
+-- milliseconds since Jan 1, 1970 00:00:00 UTC.
+--
+-- 'statisticValues', 'metricDatum_statisticValues' - The statistical values for the metric.
+--
+-- 'value', 'metricDatum_value' - The value for the metric.
+--
+-- Although the parameter accepts numbers of type Double, CloudWatch
+-- rejects values that are either too small or too large. Values must be in
+-- the range of -2^360 to 2^360. In addition, special values (for example,
+-- NaN, +Infinity, -Infinity) are not supported.
+--
+-- 'dimensions', 'metricDatum_dimensions' - The dimensions associated with the metric.
+--
+-- 'metricName', 'metricDatum_metricName' - The name of the metric.
+newMetricDatum ::
+  -- | 'metricName'
+  Prelude.Text ->
   MetricDatum
-metricDatum pMetricName_ =
+newMetricDatum pMetricName_ =
   MetricDatum'
-    { _metStorageResolution = Nothing,
-      _metUnit = Nothing,
-      _metValues = Nothing,
-      _metCounts = Nothing,
-      _metTimestamp = Nothing,
-      _metStatisticValues = Nothing,
-      _metValue = Nothing,
-      _metDimensions = Nothing,
-      _metMetricName = pMetricName_
+    { storageResolution = Prelude.Nothing,
+      unit = Prelude.Nothing,
+      values = Prelude.Nothing,
+      counts = Prelude.Nothing,
+      timestamp = Prelude.Nothing,
+      statisticValues = Prelude.Nothing,
+      value = Prelude.Nothing,
+      dimensions = Prelude.Nothing,
+      metricName = pMetricName_
     }
 
--- | Valid values are 1 and 60. Setting this to 1 specifies this metric as a high-resolution metric, so that CloudWatch stores the metric with sub-minute resolution down to one second. Setting this to 60 specifies this metric as a regular-resolution metric, which CloudWatch stores at 1-minute resolution. Currently, high resolution is available only for custom metrics. For more information about high-resolution metrics, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#high-resolution-metrics High-Resolution Metrics> in the /Amazon CloudWatch User Guide/ .  This field is optional, if you do not specify it the default of 60 is used.
-metStorageResolution :: Lens' MetricDatum (Maybe Natural)
-metStorageResolution = lens _metStorageResolution (\s a -> s {_metStorageResolution = a}) . mapping _Nat
+-- | Valid values are 1 and 60. Setting this to 1 specifies this metric as a
+-- high-resolution metric, so that CloudWatch stores the metric with
+-- sub-minute resolution down to one second. Setting this to 60 specifies
+-- this metric as a regular-resolution metric, which CloudWatch stores at
+-- 1-minute resolution. Currently, high resolution is available only for
+-- custom metrics. For more information about high-resolution metrics, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#high-resolution-metrics High-Resolution Metrics>
+-- in the /Amazon CloudWatch User Guide/.
+--
+-- This field is optional, if you do not specify it the default of 60 is
+-- used.
+metricDatum_storageResolution :: Lens.Lens' MetricDatum (Prelude.Maybe Prelude.Natural)
+metricDatum_storageResolution = Lens.lens (\MetricDatum' {storageResolution} -> storageResolution) (\s@MetricDatum' {} a -> s {storageResolution = a} :: MetricDatum) Prelude.. Lens.mapping Prelude._Nat
 
--- | When you are using a @Put@ operation, this defines what unit you want to use when storing the metric. In a @Get@ operation, this displays the unit that is used for the metric.
-metUnit :: Lens' MetricDatum (Maybe StandardUnit)
-metUnit = lens _metUnit (\s a -> s {_metUnit = a})
+-- | When you are using a @Put@ operation, this defines what unit you want to
+-- use when storing the metric.
+--
+-- In a @Get@ operation, this displays the unit that is used for the
+-- metric.
+metricDatum_unit :: Lens.Lens' MetricDatum (Prelude.Maybe StandardUnit)
+metricDatum_unit = Lens.lens (\MetricDatum' {unit} -> unit) (\s@MetricDatum' {} a -> s {unit = a} :: MetricDatum)
 
--- | Array of numbers representing the values for the metric during the period. Each unique value is listed just once in this array, and the corresponding number in the @Counts@ array specifies the number of times that value occurred during the period. You can include up to 150 unique values in each @PutMetricData@ action that specifies a @Values@ array. Although the @Values@ array accepts numbers of type @Double@ , CloudWatch rejects values that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
-metValues :: Lens' MetricDatum [Double]
-metValues = lens _metValues (\s a -> s {_metValues = a}) . _Default . _Coerce
+-- | Array of numbers representing the values for the metric during the
+-- period. Each unique value is listed just once in this array, and the
+-- corresponding number in the @Counts@ array specifies the number of times
+-- that value occurred during the period. You can include up to 150 unique
+-- values in each @PutMetricData@ action that specifies a @Values@ array.
+--
+-- Although the @Values@ array accepts numbers of type @Double@, CloudWatch
+-- rejects values that are either too small or too large. Values must be in
+-- the range of -2^360 to 2^360. In addition, special values (for example,
+-- NaN, +Infinity, -Infinity) are not supported.
+metricDatum_values :: Lens.Lens' MetricDatum (Prelude.Maybe [Prelude.Double])
+metricDatum_values = Lens.lens (\MetricDatum' {values} -> values) (\s@MetricDatum' {} a -> s {values = a} :: MetricDatum) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Array of numbers that is used along with the @Values@ array. Each number in the @Count@ array is the number of times the corresponding value in the @Values@ array occurred during the period.  If you omit the @Counts@ array, the default of 1 is used as the value for each count. If you include a @Counts@ array, it must include the same amount of values as the @Values@ array.
-metCounts :: Lens' MetricDatum [Double]
-metCounts = lens _metCounts (\s a -> s {_metCounts = a}) . _Default . _Coerce
+-- | Array of numbers that is used along with the @Values@ array. Each number
+-- in the @Count@ array is the number of times the corresponding value in
+-- the @Values@ array occurred during the period.
+--
+-- If you omit the @Counts@ array, the default of 1 is used as the value
+-- for each count. If you include a @Counts@ array, it must include the
+-- same amount of values as the @Values@ array.
+metricDatum_counts :: Lens.Lens' MetricDatum (Prelude.Maybe [Prelude.Double])
+metricDatum_counts = Lens.lens (\MetricDatum' {counts} -> counts) (\s@MetricDatum' {} a -> s {counts = a} :: MetricDatum) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The time the metric data was received, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC.
-metTimestamp :: Lens' MetricDatum (Maybe UTCTime)
-metTimestamp = lens _metTimestamp (\s a -> s {_metTimestamp = a}) . mapping _Time
+-- | The time the metric data was received, expressed as the number of
+-- milliseconds since Jan 1, 1970 00:00:00 UTC.
+metricDatum_timestamp :: Lens.Lens' MetricDatum (Prelude.Maybe Prelude.UTCTime)
+metricDatum_timestamp = Lens.lens (\MetricDatum' {timestamp} -> timestamp) (\s@MetricDatum' {} a -> s {timestamp = a} :: MetricDatum) Prelude.. Lens.mapping Prelude._Time
 
 -- | The statistical values for the metric.
-metStatisticValues :: Lens' MetricDatum (Maybe StatisticSet)
-metStatisticValues = lens _metStatisticValues (\s a -> s {_metStatisticValues = a})
+metricDatum_statisticValues :: Lens.Lens' MetricDatum (Prelude.Maybe StatisticSet)
+metricDatum_statisticValues = Lens.lens (\MetricDatum' {statisticValues} -> statisticValues) (\s@MetricDatum' {} a -> s {statisticValues = a} :: MetricDatum)
 
--- | The value for the metric. Although the parameter accepts numbers of type Double, CloudWatch rejects values that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
-metValue :: Lens' MetricDatum (Maybe Double)
-metValue = lens _metValue (\s a -> s {_metValue = a})
+-- | The value for the metric.
+--
+-- Although the parameter accepts numbers of type Double, CloudWatch
+-- rejects values that are either too small or too large. Values must be in
+-- the range of -2^360 to 2^360. In addition, special values (for example,
+-- NaN, +Infinity, -Infinity) are not supported.
+metricDatum_value :: Lens.Lens' MetricDatum (Prelude.Maybe Prelude.Double)
+metricDatum_value = Lens.lens (\MetricDatum' {value} -> value) (\s@MetricDatum' {} a -> s {value = a} :: MetricDatum)
 
 -- | The dimensions associated with the metric.
-metDimensions :: Lens' MetricDatum [Dimension]
-metDimensions = lens _metDimensions (\s a -> s {_metDimensions = a}) . _Default . _Coerce
+metricDatum_dimensions :: Lens.Lens' MetricDatum (Prelude.Maybe [Dimension])
+metricDatum_dimensions = Lens.lens (\MetricDatum' {dimensions} -> dimensions) (\s@MetricDatum' {} a -> s {dimensions = a} :: MetricDatum) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the metric.
-metMetricName :: Lens' MetricDatum Text
-metMetricName = lens _metMetricName (\s a -> s {_metMetricName = a})
+metricDatum_metricName :: Lens.Lens' MetricDatum Prelude.Text
+metricDatum_metricName = Lens.lens (\MetricDatum' {metricName} -> metricName) (\s@MetricDatum' {} a -> s {metricName = a} :: MetricDatum)
 
-instance Hashable MetricDatum
+instance Prelude.Hashable MetricDatum
 
-instance NFData MetricDatum
+instance Prelude.NFData MetricDatum
 
-instance ToQuery MetricDatum where
+instance Prelude.ToQuery MetricDatum where
   toQuery MetricDatum' {..} =
-    mconcat
-      [ "StorageResolution" =: _metStorageResolution,
-        "Unit" =: _metUnit,
+    Prelude.mconcat
+      [ "StorageResolution" Prelude.=: storageResolution,
+        "Unit" Prelude.=: unit,
         "Values"
-          =: toQuery (toQueryList "member" <$> _metValues),
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> values),
         "Counts"
-          =: toQuery (toQueryList "member" <$> _metCounts),
-        "Timestamp" =: _metTimestamp,
-        "StatisticValues" =: _metStatisticValues,
-        "Value" =: _metValue,
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> counts),
+        "Timestamp" Prelude.=: timestamp,
+        "StatisticValues" Prelude.=: statisticValues,
+        "Value" Prelude.=: value,
         "Dimensions"
-          =: toQuery (toQueryList "member" <$> _metDimensions),
-        "MetricName" =: _metMetricName
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> dimensions
+            ),
+        "MetricName" Prelude.=: metricName
       ]

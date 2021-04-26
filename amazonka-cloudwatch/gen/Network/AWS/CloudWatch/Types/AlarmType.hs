@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudWatch.Types.AlarmType
   ( AlarmType
       ( ..,
-        CompositeAlarm,
-        MetricAlarm
+        AlarmTypeCompositeAlarm,
+        AlarmTypeMetricAlarm
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AlarmType = AlarmType' (CI Text)
+newtype AlarmType = AlarmType'
+  { fromAlarmType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CompositeAlarm :: AlarmType
-pattern CompositeAlarm = AlarmType' "CompositeAlarm"
+pattern AlarmTypeCompositeAlarm :: AlarmType
+pattern AlarmTypeCompositeAlarm = AlarmType' "CompositeAlarm"
 
-pattern MetricAlarm :: AlarmType
-pattern MetricAlarm = AlarmType' "MetricAlarm"
+pattern AlarmTypeMetricAlarm :: AlarmType
+pattern AlarmTypeMetricAlarm = AlarmType' "MetricAlarm"
 
 {-# COMPLETE
-  CompositeAlarm,
-  MetricAlarm,
+  AlarmTypeCompositeAlarm,
+  AlarmTypeMetricAlarm,
   AlarmType'
   #-}
 
-instance FromText AlarmType where
-  parser = (AlarmType' . mk) <$> takeText
+instance Prelude.FromText AlarmType where
+  parser = AlarmType' Prelude.<$> Prelude.takeText
 
-instance ToText AlarmType where
-  toText (AlarmType' ci) = original ci
+instance Prelude.ToText AlarmType where
+  toText (AlarmType' x) = x
 
-instance Hashable AlarmType
+instance Prelude.Hashable AlarmType
 
-instance NFData AlarmType
+instance Prelude.NFData AlarmType
 
-instance ToByteString AlarmType
+instance Prelude.ToByteString AlarmType
 
-instance ToQuery AlarmType
+instance Prelude.ToQuery AlarmType
 
-instance ToHeader AlarmType
+instance Prelude.ToHeader AlarmType
 
-instance FromXML AlarmType where
-  parseXML = parseXMLText "AlarmType"
+instance Prelude.FromXML AlarmType where
+  parseXML = Prelude.parseXMLText "AlarmType"

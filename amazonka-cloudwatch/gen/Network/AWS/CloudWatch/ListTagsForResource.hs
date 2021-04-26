@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Displays the tags associated with a CloudWatch resource. Currently, alarms and Contributor Insights rules support tagging.
+-- Displays the tags associated with a CloudWatch resource. Currently,
+-- alarms and Contributor Insights rules support tagging.
 module Network.AWS.CloudWatch.ListTagsForResource
   ( -- * Creating a Request
-    listTagsForResource,
-    ListTagsForResource,
+    ListTagsForResource (..),
+    newListTagsForResource,
 
     -- * Request Lenses
-    ltfrResourceARN,
+    listTagsForResource_resourceARN,
 
     -- * Destructuring the Response
-    listTagsForResourceResponse,
-    ListTagsForResourceResponse,
+    ListTagsForResourceResponse (..),
+    newListTagsForResourceResponse,
 
     -- * Response Lenses
-    ltfrrrsTags,
-    ltfrrrsResponseStatus,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatch.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTagsForResource' smart constructor.
-newtype ListTagsForResource = ListTagsForResource'
-  { _ltfrResourceARN ::
-      Text
+-- | /See:/ 'newListTagsForResource' smart constructor.
+data ListTagsForResource = ListTagsForResource'
+  { -- | The ARN of the CloudWatch resource that you want to view tags for.
+    --
+    -- The ARN format of an alarm is
+    -- @arn:aws:cloudwatch:Region:account-id:alarm:alarm-name @
+    --
+    -- The ARN format of a Contributor Insights rule is
+    -- @arn:aws:cloudwatch:Region:account-id:insight-rule:insight-rule-name @
+    --
+    -- For more information about ARN format, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies Resource Types Defined by Amazon CloudWatch>
+    -- in the /Amazon Web Services General Reference/.
+    resourceARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrResourceARN' - The ARN of the CloudWatch resource that you want to view tags for. The ARN format of an alarm is @arn:aws:cloudwatch:/Region/ :/account-id/ :alarm:/alarm-name/ @  The ARN format of a Contributor Insights rule is @arn:aws:cloudwatch:/Region/ :/account-id/ :insight-rule:/insight-rule-name/ @  For more information about ARN format, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies Resource Types Defined by Amazon CloudWatch> in the /Amazon Web Services General Reference/ .
-listTagsForResource ::
-  -- | 'ltfrResourceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceARN', 'listTagsForResource_resourceARN' - The ARN of the CloudWatch resource that you want to view tags for.
+--
+-- The ARN format of an alarm is
+-- @arn:aws:cloudwatch:Region:account-id:alarm:alarm-name @
+--
+-- The ARN format of a Contributor Insights rule is
+-- @arn:aws:cloudwatch:Region:account-id:insight-rule:insight-rule-name @
+--
+-- For more information about ARN format, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies Resource Types Defined by Amazon CloudWatch>
+-- in the /Amazon Web Services General Reference/.
+newListTagsForResource ::
+  -- | 'resourceARN'
+  Prelude.Text ->
   ListTagsForResource
-listTagsForResource pResourceARN_ =
-  ListTagsForResource'
-    { _ltfrResourceARN =
-        pResourceARN_
-    }
+newListTagsForResource pResourceARN_ =
+  ListTagsForResource' {resourceARN = pResourceARN_}
 
--- | The ARN of the CloudWatch resource that you want to view tags for. The ARN format of an alarm is @arn:aws:cloudwatch:/Region/ :/account-id/ :alarm:/alarm-name/ @  The ARN format of a Contributor Insights rule is @arn:aws:cloudwatch:/Region/ :/account-id/ :insight-rule:/insight-rule-name/ @  For more information about ARN format, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies Resource Types Defined by Amazon CloudWatch> in the /Amazon Web Services General Reference/ .
-ltfrResourceARN :: Lens' ListTagsForResource Text
-ltfrResourceARN = lens _ltfrResourceARN (\s a -> s {_ltfrResourceARN = a})
+-- | The ARN of the CloudWatch resource that you want to view tags for.
+--
+-- The ARN format of an alarm is
+-- @arn:aws:cloudwatch:Region:account-id:alarm:alarm-name @
+--
+-- The ARN format of a Contributor Insights rule is
+-- @arn:aws:cloudwatch:Region:account-id:insight-rule:insight-rule-name @
+--
+-- For more information about ARN format, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies Resource Types Defined by Amazon CloudWatch>
+-- in the /Amazon Web Services General Reference/.
+listTagsForResource_resourceARN :: Lens.Lens' ListTagsForResource Prelude.Text
+listTagsForResource_resourceARN = Lens.lens (\ListTagsForResource' {resourceARN} -> resourceARN) (\s@ListTagsForResource' {} a -> s {resourceARN = a} :: ListTagsForResource)
 
-instance AWSRequest ListTagsForResource where
+instance Prelude.AWSRequest ListTagsForResource where
   type
     Rs ListTagsForResource =
       ListTagsForResourceResponse
-  request = postQuery cloudWatch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListTagsForResourceResult"
       ( \s h x ->
           ListTagsForResourceResponse'
-            <$> ( x .@? "Tags" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTagsForResource
+instance Prelude.Hashable ListTagsForResource
 
-instance NFData ListTagsForResource
+instance Prelude.NFData ListTagsForResource
 
-instance ToHeaders ListTagsForResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListTagsForResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListTagsForResource where
-  toPath = const "/"
+instance Prelude.ToPath ListTagsForResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTagsForResource where
+instance Prelude.ToQuery ListTagsForResource where
   toQuery ListTagsForResource' {..} =
-    mconcat
-      [ "Action" =: ("ListTagsForResource" :: ByteString),
-        "Version" =: ("2010-08-01" :: ByteString),
-        "ResourceARN" =: _ltfrResourceARN
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListTagsForResource" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-08-01" :: Prelude.ByteString),
+        "ResourceARN" Prelude.=: resourceARN
       ]
 
--- | /See:/ 'listTagsForResourceResponse' smart constructor.
+-- | /See:/ 'newListTagsForResourceResponse' smart constructor.
 data ListTagsForResourceResponse = ListTagsForResourceResponse'
-  { _ltfrrrsTags ::
-      !(Maybe [Tag]),
-    _ltfrrrsResponseStatus ::
-      !Int
+  { -- | The list of tag keys and values associated with the resource you
+    -- specified.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrrrsTags' - The list of tag keys and values associated with the resource you specified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfrrrsResponseStatus' - -- | The response status code.
-listTagsForResourceResponse ::
-  -- | 'ltfrrrsResponseStatus'
-  Int ->
+-- 'tags', 'listTagsForResourceResponse_tags' - The list of tag keys and values associated with the resource you
+-- specified.
+--
+-- 'httpStatus', 'listTagsForResourceResponse_httpStatus' - The response's http status code.
+newListTagsForResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagsForResourceResponse
-listTagsForResourceResponse pResponseStatus_ =
+newListTagsForResourceResponse pHttpStatus_ =
   ListTagsForResourceResponse'
-    { _ltfrrrsTags =
-        Nothing,
-      _ltfrrrsResponseStatus = pResponseStatus_
+    { tags =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The list of tag keys and values associated with the resource you specified.
-ltfrrrsTags :: Lens' ListTagsForResourceResponse [Tag]
-ltfrrrsTags = lens _ltfrrrsTags (\s a -> s {_ltfrrrsTags = a}) . _Default . _Coerce
+-- | The list of tag keys and values associated with the resource you
+-- specified.
+listTagsForResourceResponse_tags :: Lens.Lens' ListTagsForResourceResponse (Prelude.Maybe [Tag])
+listTagsForResourceResponse_tags = Lens.lens (\ListTagsForResourceResponse' {tags} -> tags) (\s@ListTagsForResourceResponse' {} a -> s {tags = a} :: ListTagsForResourceResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltfrrrsResponseStatus :: Lens' ListTagsForResourceResponse Int
-ltfrrrsResponseStatus = lens _ltfrrrsResponseStatus (\s a -> s {_ltfrrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsForResourceResponse_httpStatus :: Lens.Lens' ListTagsForResourceResponse Prelude.Int
+listTagsForResourceResponse_httpStatus = Lens.lens (\ListTagsForResourceResponse' {httpStatus} -> httpStatus) (\s@ListTagsForResourceResponse' {} a -> s {httpStatus = a} :: ListTagsForResourceResponse)
 
-instance NFData ListTagsForResourceResponse
+instance Prelude.NFData ListTagsForResourceResponse

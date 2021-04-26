@@ -28,187 +28,187 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestEnableAlarmActions $
---             enableAlarmActions
+--             newEnableAlarmActions
 --
 --         , requestGetMetricStatistics $
---             getMetricStatistics
+--             newGetMetricStatistics
 --
 --         , requestPutInsightRule $
---             putInsightRule
+--             newPutInsightRule
 --
 --         , requestDeleteAlarms $
---             deleteAlarms
+--             newDeleteAlarms
 --
 --         , requestGetMetricWidgetImage $
---             getMetricWidgetImage
+--             newGetMetricWidgetImage
 --
 --         , requestDescribeInsightRules $
---             describeInsightRules
+--             newDescribeInsightRules
 --
 --         , requestPutMetricAlarm $
---             putMetricAlarm
+--             newPutMetricAlarm
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestGetInsightRuleReport $
---             getInsightRuleReport
+--             newGetInsightRuleReport
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestDescribeAnomalyDetectors $
---             describeAnomalyDetectors
+--             newDescribeAnomalyDetectors
 --
 --         , requestListMetrics $
---             listMetrics
+--             newListMetrics
 --
 --         , requestPutMetricData $
---             putMetricData
+--             newPutMetricData
 --
 --         , requestPutDashboard $
---             putDashboard
+--             newPutDashboard
 --
 --         , requestDescribeAlarmsForMetric $
---             describeAlarmsForMetric
+--             newDescribeAlarmsForMetric
 --
 --         , requestPutAnomalyDetector $
---             putAnomalyDetector
+--             newPutAnomalyDetector
 --
 --         , requestDeleteInsightRules $
---             deleteInsightRules
+--             newDeleteInsightRules
 --
 --         , requestDisableAlarmActions $
---             disableAlarmActions
+--             newDisableAlarmActions
 --
 --         , requestGetDashboard $
---             getDashboard
+--             newGetDashboard
 --
 --         , requestPutCompositeAlarm $
---             putCompositeAlarm
+--             newPutCompositeAlarm
 --
 --         , requestDisableInsightRules $
---             disableInsightRules
+--             newDisableInsightRules
 --
 --         , requestDescribeAlarmHistory $
---             describeAlarmHistory
+--             newDescribeAlarmHistory
 --
 --         , requestDeleteDashboards $
---             deleteDashboards
+--             newDeleteDashboards
 --
 --         , requestSetAlarmState $
---             setAlarmState
+--             newSetAlarmState
 --
 --         , requestListDashboards $
---             listDashboards
+--             newListDashboards
 --
 --         , requestDescribeAlarms $
---             describeAlarms
+--             newDescribeAlarms
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestDeleteAnomalyDetector $
---             deleteAnomalyDetector
+--             newDeleteAnomalyDetector
 --
 --         , requestEnableInsightRules $
---             enableInsightRules
+--             newEnableInsightRules
 --
 --         , requestGetMetricData $
---             getMetricData
+--             newGetMetricData
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseEnableAlarmActions $
---             enableAlarmActionsResponse
+--             newEnableAlarmActionsResponse
 --
 --         , responseGetMetricStatistics $
---             getMetricStatisticsResponse
+--             newGetMetricStatisticsResponse
 --
 --         , responsePutInsightRule $
---             putInsightRuleResponse
+--             newPutInsightRuleResponse
 --
 --         , responseDeleteAlarms $
---             deleteAlarmsResponse
+--             newDeleteAlarmsResponse
 --
 --         , responseGetMetricWidgetImage $
---             getMetricWidgetImageResponse
+--             newGetMetricWidgetImageResponse
 --
 --         , responseDescribeInsightRules $
---             describeInsightRulesResponse
+--             newDescribeInsightRulesResponse
 --
 --         , responsePutMetricAlarm $
---             putMetricAlarmResponse
+--             newPutMetricAlarmResponse
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseGetInsightRuleReport $
---             getInsightRuleReportResponse
+--             newGetInsightRuleReportResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseDescribeAnomalyDetectors $
---             describeAnomalyDetectorsResponse
+--             newDescribeAnomalyDetectorsResponse
 --
 --         , responseListMetrics $
---             listMetricsResponse
+--             newListMetricsResponse
 --
 --         , responsePutMetricData $
---             putMetricDataResponse
+--             newPutMetricDataResponse
 --
 --         , responsePutDashboard $
---             putDashboardResponse
+--             newPutDashboardResponse
 --
 --         , responseDescribeAlarmsForMetric $
---             describeAlarmsForMetricResponse
+--             newDescribeAlarmsForMetricResponse
 --
 --         , responsePutAnomalyDetector $
---             putAnomalyDetectorResponse
+--             newPutAnomalyDetectorResponse
 --
 --         , responseDeleteInsightRules $
---             deleteInsightRulesResponse
+--             newDeleteInsightRulesResponse
 --
 --         , responseDisableAlarmActions $
---             disableAlarmActionsResponse
+--             newDisableAlarmActionsResponse
 --
 --         , responseGetDashboard $
---             getDashboardResponse
+--             newGetDashboardResponse
 --
 --         , responsePutCompositeAlarm $
---             putCompositeAlarmResponse
+--             newPutCompositeAlarmResponse
 --
 --         , responseDisableInsightRules $
---             disableInsightRulesResponse
+--             newDisableInsightRulesResponse
 --
 --         , responseDescribeAlarmHistory $
---             describeAlarmHistoryResponse
+--             newDescribeAlarmHistoryResponse
 --
 --         , responseDeleteDashboards $
---             deleteDashboardsResponse
+--             newDeleteDashboardsResponse
 --
 --         , responseSetAlarmState $
---             setAlarmStateResponse
+--             newSetAlarmStateResponse
 --
 --         , responseListDashboards $
---             listDashboardsResponse
+--             newListDashboardsResponse
 --
 --         , responseDescribeAlarms $
---             describeAlarmsResponse
+--             newDescribeAlarmsResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseDeleteAnomalyDetector $
---             deleteAnomalyDetectorResponse
+--             newDeleteAnomalyDetectorResponse
 --
 --         , responseEnableInsightRules $
---             enableInsightRulesResponse
+--             newEnableInsightRulesResponse
 --
 --         , responseGetMetricData $
---             getMetricDataResponse
+--             newGetMetricDataResponse
 --
 --           ]
 --     ]
@@ -402,7 +402,7 @@ responseEnableAlarmActions =
   res
     "EnableAlarmActionsResponse"
     "fixture/EnableAlarmActionsResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy EnableAlarmActions)
 
 responseGetMetricStatistics :: GetMetricStatisticsResponse -> TestTree
@@ -410,7 +410,7 @@ responseGetMetricStatistics =
   res
     "GetMetricStatisticsResponse"
     "fixture/GetMetricStatisticsResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy GetMetricStatistics)
 
 responsePutInsightRule :: PutInsightRuleResponse -> TestTree
@@ -418,7 +418,7 @@ responsePutInsightRule =
   res
     "PutInsightRuleResponse"
     "fixture/PutInsightRuleResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy PutInsightRule)
 
 responseDeleteAlarms :: DeleteAlarmsResponse -> TestTree
@@ -426,7 +426,7 @@ responseDeleteAlarms =
   res
     "DeleteAlarmsResponse"
     "fixture/DeleteAlarmsResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DeleteAlarms)
 
 responseGetMetricWidgetImage :: GetMetricWidgetImageResponse -> TestTree
@@ -434,7 +434,7 @@ responseGetMetricWidgetImage =
   res
     "GetMetricWidgetImageResponse"
     "fixture/GetMetricWidgetImageResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy GetMetricWidgetImage)
 
 responseDescribeInsightRules :: DescribeInsightRulesResponse -> TestTree
@@ -442,7 +442,7 @@ responseDescribeInsightRules =
   res
     "DescribeInsightRulesResponse"
     "fixture/DescribeInsightRulesResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DescribeInsightRules)
 
 responsePutMetricAlarm :: PutMetricAlarmResponse -> TestTree
@@ -450,7 +450,7 @@ responsePutMetricAlarm =
   res
     "PutMetricAlarmResponse"
     "fixture/PutMetricAlarmResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy PutMetricAlarm)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -458,7 +458,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseGetInsightRuleReport :: GetInsightRuleReportResponse -> TestTree
@@ -466,7 +466,7 @@ responseGetInsightRuleReport =
   res
     "GetInsightRuleReportResponse"
     "fixture/GetInsightRuleReportResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy GetInsightRuleReport)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -474,7 +474,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseDescribeAnomalyDetectors :: DescribeAnomalyDetectorsResponse -> TestTree
@@ -482,7 +482,7 @@ responseDescribeAnomalyDetectors =
   res
     "DescribeAnomalyDetectorsResponse"
     "fixture/DescribeAnomalyDetectorsResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DescribeAnomalyDetectors)
 
 responseListMetrics :: ListMetricsResponse -> TestTree
@@ -490,7 +490,7 @@ responseListMetrics =
   res
     "ListMetricsResponse"
     "fixture/ListMetricsResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy ListMetrics)
 
 responsePutMetricData :: PutMetricDataResponse -> TestTree
@@ -498,7 +498,7 @@ responsePutMetricData =
   res
     "PutMetricDataResponse"
     "fixture/PutMetricDataResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy PutMetricData)
 
 responsePutDashboard :: PutDashboardResponse -> TestTree
@@ -506,7 +506,7 @@ responsePutDashboard =
   res
     "PutDashboardResponse"
     "fixture/PutDashboardResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy PutDashboard)
 
 responseDescribeAlarmsForMetric :: DescribeAlarmsForMetricResponse -> TestTree
@@ -514,7 +514,7 @@ responseDescribeAlarmsForMetric =
   res
     "DescribeAlarmsForMetricResponse"
     "fixture/DescribeAlarmsForMetricResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DescribeAlarmsForMetric)
 
 responsePutAnomalyDetector :: PutAnomalyDetectorResponse -> TestTree
@@ -522,7 +522,7 @@ responsePutAnomalyDetector =
   res
     "PutAnomalyDetectorResponse"
     "fixture/PutAnomalyDetectorResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy PutAnomalyDetector)
 
 responseDeleteInsightRules :: DeleteInsightRulesResponse -> TestTree
@@ -530,7 +530,7 @@ responseDeleteInsightRules =
   res
     "DeleteInsightRulesResponse"
     "fixture/DeleteInsightRulesResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DeleteInsightRules)
 
 responseDisableAlarmActions :: DisableAlarmActionsResponse -> TestTree
@@ -538,7 +538,7 @@ responseDisableAlarmActions =
   res
     "DisableAlarmActionsResponse"
     "fixture/DisableAlarmActionsResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DisableAlarmActions)
 
 responseGetDashboard :: GetDashboardResponse -> TestTree
@@ -546,7 +546,7 @@ responseGetDashboard =
   res
     "GetDashboardResponse"
     "fixture/GetDashboardResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy GetDashboard)
 
 responsePutCompositeAlarm :: PutCompositeAlarmResponse -> TestTree
@@ -554,7 +554,7 @@ responsePutCompositeAlarm =
   res
     "PutCompositeAlarmResponse"
     "fixture/PutCompositeAlarmResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy PutCompositeAlarm)
 
 responseDisableInsightRules :: DisableInsightRulesResponse -> TestTree
@@ -562,7 +562,7 @@ responseDisableInsightRules =
   res
     "DisableInsightRulesResponse"
     "fixture/DisableInsightRulesResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DisableInsightRules)
 
 responseDescribeAlarmHistory :: DescribeAlarmHistoryResponse -> TestTree
@@ -570,7 +570,7 @@ responseDescribeAlarmHistory =
   res
     "DescribeAlarmHistoryResponse"
     "fixture/DescribeAlarmHistoryResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DescribeAlarmHistory)
 
 responseDeleteDashboards :: DeleteDashboardsResponse -> TestTree
@@ -578,7 +578,7 @@ responseDeleteDashboards =
   res
     "DeleteDashboardsResponse"
     "fixture/DeleteDashboardsResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DeleteDashboards)
 
 responseSetAlarmState :: SetAlarmStateResponse -> TestTree
@@ -586,7 +586,7 @@ responseSetAlarmState =
   res
     "SetAlarmStateResponse"
     "fixture/SetAlarmStateResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy SetAlarmState)
 
 responseListDashboards :: ListDashboardsResponse -> TestTree
@@ -594,7 +594,7 @@ responseListDashboards =
   res
     "ListDashboardsResponse"
     "fixture/ListDashboardsResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy ListDashboards)
 
 responseDescribeAlarms :: DescribeAlarmsResponse -> TestTree
@@ -602,7 +602,7 @@ responseDescribeAlarms =
   res
     "DescribeAlarmsResponse"
     "fixture/DescribeAlarmsResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DescribeAlarms)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -610,7 +610,7 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseDeleteAnomalyDetector :: DeleteAnomalyDetectorResponse -> TestTree
@@ -618,7 +618,7 @@ responseDeleteAnomalyDetector =
   res
     "DeleteAnomalyDetectorResponse"
     "fixture/DeleteAnomalyDetectorResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy DeleteAnomalyDetector)
 
 responseEnableInsightRules :: EnableInsightRulesResponse -> TestTree
@@ -626,7 +626,7 @@ responseEnableInsightRules =
   res
     "EnableInsightRulesResponse"
     "fixture/EnableInsightRulesResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy EnableInsightRules)
 
 responseGetMetricData :: GetMetricDataResponse -> TestTree
@@ -634,5 +634,5 @@ responseGetMetricData =
   res
     "GetMetricDataResponse"
     "fixture/GetMetricDataResponse.proto"
-    cloudWatch
+    defaultService
     (Proxy :: Proxy GetMetricData)

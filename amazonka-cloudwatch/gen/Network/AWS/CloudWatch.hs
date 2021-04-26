@@ -11,15 +11,25 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon CloudWatch monitors your Amazon Web Services (AWS) resources and the applications you run on AWS in real time. You can use CloudWatch to collect and track metrics, which are the variables you want to measure for your resources and applications.
+-- Amazon CloudWatch monitors your Amazon Web Services (AWS) resources and
+-- the applications you run on AWS in real time. You can use CloudWatch to
+-- collect and track metrics, which are the variables you want to measure
+-- for your resources and applications.
 --
+-- CloudWatch alarms send notifications or automatically change the
+-- resources you are monitoring based on rules that you define. For
+-- example, you can monitor the CPU usage and disk reads and writes of your
+-- Amazon EC2 instances. Then, use this data to determine whether you
+-- should launch additional instances to handle increased load. You can
+-- also use this data to stop under-used instances to save money.
 --
--- CloudWatch alarms send notifications or automatically change the resources you are monitoring based on rules that you define. For example, you can monitor the CPU usage and disk reads and writes of your Amazon EC2 instances. Then, use this data to determine whether you should launch additional instances to handle increased load. You can also use this data to stop under-used instances to save money.
---
--- In addition to monitoring the built-in metrics that come with AWS, you can monitor your own custom metrics. With CloudWatch, you gain system-wide visibility into resource utilization, application performance, and operational health.
+-- In addition to monitoring the built-in metrics that come with AWS, you
+-- can monitor your own custom metrics. With CloudWatch, you gain
+-- system-wide visibility into resource utilization, application
+-- performance, and operational health.
 module Network.AWS.CloudWatch
   ( -- * Service Configuration
-    cloudWatch,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -67,103 +77,193 @@ module Network.AWS.CloudWatch
     -- $waiters
 
     -- ** AlarmExists
-    alarmExists,
+    newAlarmExists,
 
     -- ** CompositeAlarmExists
-    compositeAlarmExists,
+    newCompositeAlarmExists,
 
     -- * Operations
     -- $operations
 
     -- ** EnableAlarmActions
-    module Network.AWS.CloudWatch.EnableAlarmActions,
+    EnableAlarmActions (EnableAlarmActions'),
+    newEnableAlarmActions,
+    EnableAlarmActionsResponse (EnableAlarmActionsResponse'),
+    newEnableAlarmActionsResponse,
 
     -- ** GetMetricStatistics
-    module Network.AWS.CloudWatch.GetMetricStatistics,
+    GetMetricStatistics (GetMetricStatistics'),
+    newGetMetricStatistics,
+    GetMetricStatisticsResponse (GetMetricStatisticsResponse'),
+    newGetMetricStatisticsResponse,
 
     -- ** PutInsightRule
-    module Network.AWS.CloudWatch.PutInsightRule,
+    PutInsightRule (PutInsightRule'),
+    newPutInsightRule,
+    PutInsightRuleResponse (PutInsightRuleResponse'),
+    newPutInsightRuleResponse,
 
     -- ** DeleteAlarms
-    module Network.AWS.CloudWatch.DeleteAlarms,
+    DeleteAlarms (DeleteAlarms'),
+    newDeleteAlarms,
+    DeleteAlarmsResponse (DeleteAlarmsResponse'),
+    newDeleteAlarmsResponse,
 
     -- ** GetMetricWidgetImage
-    module Network.AWS.CloudWatch.GetMetricWidgetImage,
+    GetMetricWidgetImage (GetMetricWidgetImage'),
+    newGetMetricWidgetImage,
+    GetMetricWidgetImageResponse (GetMetricWidgetImageResponse'),
+    newGetMetricWidgetImageResponse,
 
     -- ** DescribeInsightRules
-    module Network.AWS.CloudWatch.DescribeInsightRules,
+    DescribeInsightRules (DescribeInsightRules'),
+    newDescribeInsightRules,
+    DescribeInsightRulesResponse (DescribeInsightRulesResponse'),
+    newDescribeInsightRulesResponse,
 
     -- ** PutMetricAlarm
-    module Network.AWS.CloudWatch.PutMetricAlarm,
+    PutMetricAlarm (PutMetricAlarm'),
+    newPutMetricAlarm,
+    PutMetricAlarmResponse (PutMetricAlarmResponse'),
+    newPutMetricAlarmResponse,
 
     -- ** UntagResource
-    module Network.AWS.CloudWatch.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** GetInsightRuleReport
-    module Network.AWS.CloudWatch.GetInsightRuleReport,
+    GetInsightRuleReport (GetInsightRuleReport'),
+    newGetInsightRuleReport,
+    GetInsightRuleReportResponse (GetInsightRuleReportResponse'),
+    newGetInsightRuleReportResponse,
 
     -- ** TagResource
-    module Network.AWS.CloudWatch.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** DescribeAnomalyDetectors
-    module Network.AWS.CloudWatch.DescribeAnomalyDetectors,
+    DescribeAnomalyDetectors (DescribeAnomalyDetectors'),
+    newDescribeAnomalyDetectors,
+    DescribeAnomalyDetectorsResponse (DescribeAnomalyDetectorsResponse'),
+    newDescribeAnomalyDetectorsResponse,
 
     -- ** ListMetrics (Paginated)
-    module Network.AWS.CloudWatch.ListMetrics,
+    ListMetrics (ListMetrics'),
+    newListMetrics,
+    ListMetricsResponse (ListMetricsResponse'),
+    newListMetricsResponse,
 
     -- ** PutMetricData
-    module Network.AWS.CloudWatch.PutMetricData,
+    PutMetricData (PutMetricData'),
+    newPutMetricData,
+    PutMetricDataResponse (PutMetricDataResponse'),
+    newPutMetricDataResponse,
 
     -- ** PutDashboard
-    module Network.AWS.CloudWatch.PutDashboard,
+    PutDashboard (PutDashboard'),
+    newPutDashboard,
+    PutDashboardResponse (PutDashboardResponse'),
+    newPutDashboardResponse,
 
     -- ** DescribeAlarmsForMetric
-    module Network.AWS.CloudWatch.DescribeAlarmsForMetric,
+    DescribeAlarmsForMetric (DescribeAlarmsForMetric'),
+    newDescribeAlarmsForMetric,
+    DescribeAlarmsForMetricResponse (DescribeAlarmsForMetricResponse'),
+    newDescribeAlarmsForMetricResponse,
 
     -- ** PutAnomalyDetector
-    module Network.AWS.CloudWatch.PutAnomalyDetector,
+    PutAnomalyDetector (PutAnomalyDetector'),
+    newPutAnomalyDetector,
+    PutAnomalyDetectorResponse (PutAnomalyDetectorResponse'),
+    newPutAnomalyDetectorResponse,
 
     -- ** DeleteInsightRules
-    module Network.AWS.CloudWatch.DeleteInsightRules,
+    DeleteInsightRules (DeleteInsightRules'),
+    newDeleteInsightRules,
+    DeleteInsightRulesResponse (DeleteInsightRulesResponse'),
+    newDeleteInsightRulesResponse,
 
     -- ** DisableAlarmActions
-    module Network.AWS.CloudWatch.DisableAlarmActions,
+    DisableAlarmActions (DisableAlarmActions'),
+    newDisableAlarmActions,
+    DisableAlarmActionsResponse (DisableAlarmActionsResponse'),
+    newDisableAlarmActionsResponse,
 
     -- ** GetDashboard
-    module Network.AWS.CloudWatch.GetDashboard,
+    GetDashboard (GetDashboard'),
+    newGetDashboard,
+    GetDashboardResponse (GetDashboardResponse'),
+    newGetDashboardResponse,
 
     -- ** PutCompositeAlarm
-    module Network.AWS.CloudWatch.PutCompositeAlarm,
+    PutCompositeAlarm (PutCompositeAlarm'),
+    newPutCompositeAlarm,
+    PutCompositeAlarmResponse (PutCompositeAlarmResponse'),
+    newPutCompositeAlarmResponse,
 
     -- ** DisableInsightRules
-    module Network.AWS.CloudWatch.DisableInsightRules,
+    DisableInsightRules (DisableInsightRules'),
+    newDisableInsightRules,
+    DisableInsightRulesResponse (DisableInsightRulesResponse'),
+    newDisableInsightRulesResponse,
 
     -- ** DescribeAlarmHistory (Paginated)
-    module Network.AWS.CloudWatch.DescribeAlarmHistory,
+    DescribeAlarmHistory (DescribeAlarmHistory'),
+    newDescribeAlarmHistory,
+    DescribeAlarmHistoryResponse (DescribeAlarmHistoryResponse'),
+    newDescribeAlarmHistoryResponse,
 
     -- ** DeleteDashboards
-    module Network.AWS.CloudWatch.DeleteDashboards,
+    DeleteDashboards (DeleteDashboards'),
+    newDeleteDashboards,
+    DeleteDashboardsResponse (DeleteDashboardsResponse'),
+    newDeleteDashboardsResponse,
 
     -- ** SetAlarmState
-    module Network.AWS.CloudWatch.SetAlarmState,
+    SetAlarmState (SetAlarmState'),
+    newSetAlarmState,
+    SetAlarmStateResponse (SetAlarmStateResponse'),
+    newSetAlarmStateResponse,
 
     -- ** ListDashboards (Paginated)
-    module Network.AWS.CloudWatch.ListDashboards,
+    ListDashboards (ListDashboards'),
+    newListDashboards,
+    ListDashboardsResponse (ListDashboardsResponse'),
+    newListDashboardsResponse,
 
     -- ** DescribeAlarms (Paginated)
-    module Network.AWS.CloudWatch.DescribeAlarms,
+    DescribeAlarms (DescribeAlarms'),
+    newDescribeAlarms,
+    DescribeAlarmsResponse (DescribeAlarmsResponse'),
+    newDescribeAlarmsResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.CloudWatch.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** DeleteAnomalyDetector
-    module Network.AWS.CloudWatch.DeleteAnomalyDetector,
+    DeleteAnomalyDetector (DeleteAnomalyDetector'),
+    newDeleteAnomalyDetector,
+    DeleteAnomalyDetectorResponse (DeleteAnomalyDetectorResponse'),
+    newDeleteAnomalyDetectorResponse,
 
     -- ** EnableInsightRules
-    module Network.AWS.CloudWatch.EnableInsightRules,
+    EnableInsightRules (EnableInsightRules'),
+    newEnableInsightRules,
+    EnableInsightRulesResponse (EnableInsightRulesResponse'),
+    newEnableInsightRulesResponse,
 
     -- ** GetMetricData (Paginated)
-    module Network.AWS.CloudWatch.GetMetricData,
+    GetMetricData (GetMetricData'),
+    newGetMetricData,
+    GetMetricDataResponse (GetMetricDataResponse'),
+    newGetMetricDataResponse,
 
     -- * Types
 
@@ -198,236 +298,104 @@ module Network.AWS.CloudWatch
     StatusCode (..),
 
     -- ** AlarmHistoryItem
-    AlarmHistoryItem,
-    alarmHistoryItem,
-    ahiHistorySummary,
-    ahiHistoryItemType,
-    ahiAlarmName,
-    ahiTimestamp,
-    ahiAlarmType,
-    ahiHistoryData,
+    AlarmHistoryItem (AlarmHistoryItem'),
+    newAlarmHistoryItem,
 
     -- ** AnomalyDetector
-    AnomalyDetector,
-    anomalyDetector,
-    adMetricName,
-    adConfiguration,
-    adStateValue,
-    adDimensions,
-    adNamespace,
-    adStat,
+    AnomalyDetector (AnomalyDetector'),
+    newAnomalyDetector,
 
     -- ** AnomalyDetectorConfiguration
-    AnomalyDetectorConfiguration,
-    anomalyDetectorConfiguration,
-    adcMetricTimezone,
-    adcExcludedTimeRanges,
+    AnomalyDetectorConfiguration (AnomalyDetectorConfiguration'),
+    newAnomalyDetectorConfiguration,
 
     -- ** CompositeAlarm
-    CompositeAlarm,
-    compositeAlarm,
-    caAlarmARN,
-    caAlarmActions,
-    caStateReason,
-    caStateReasonData,
-    caInsufficientDataActions,
-    caAlarmRule,
-    caStateUpdatedTimestamp,
-    caStateValue,
-    caAlarmName,
-    caOKActions,
-    caActionsEnabled,
-    caAlarmConfigurationUpdatedTimestamp,
-    caAlarmDescription,
+    CompositeAlarm (CompositeAlarm'),
+    newCompositeAlarm,
 
     -- ** DashboardEntry
-    DashboardEntry,
-    dashboardEntry,
-    deDashboardARN,
-    deLastModified,
-    deDashboardName,
-    deSize,
+    DashboardEntry (DashboardEntry'),
+    newDashboardEntry,
 
     -- ** DashboardValidationMessage
-    DashboardValidationMessage,
-    dashboardValidationMessage,
-    dvmMessage,
-    dvmDataPath,
+    DashboardValidationMessage (DashboardValidationMessage'),
+    newDashboardValidationMessage,
 
     -- ** Datapoint
-    Datapoint,
-    datapoint,
-    dUnit,
-    dMinimum,
-    dSum,
-    dSampleCount,
-    dTimestamp,
-    dAverage,
-    dMaximum,
-    dExtendedStatistics,
+    Datapoint (Datapoint'),
+    newDatapoint,
 
     -- ** Dimension
-    Dimension,
-    dimension,
-    dName,
-    dValue,
+    Dimension (Dimension'),
+    newDimension,
 
     -- ** DimensionFilter
-    DimensionFilter,
-    dimensionFilter,
-    dfValue,
-    dfName,
+    DimensionFilter (DimensionFilter'),
+    newDimensionFilter,
 
     -- ** InsightRule
-    InsightRule,
-    insightRule,
-    irName,
-    irState,
-    irSchema,
-    irDefinition,
+    InsightRule (InsightRule'),
+    newInsightRule,
 
     -- ** InsightRuleContributor
-    InsightRuleContributor,
-    insightRuleContributor,
-    ircKeys,
-    ircApproximateAggregateValue,
-    ircDatapoints,
+    InsightRuleContributor (InsightRuleContributor'),
+    newInsightRuleContributor,
 
     -- ** InsightRuleContributorDatapoint
-    InsightRuleContributorDatapoint,
-    insightRuleContributorDatapoint,
-    ircdTimestamp,
-    ircdApproximateValue,
+    InsightRuleContributorDatapoint (InsightRuleContributorDatapoint'),
+    newInsightRuleContributorDatapoint,
 
     -- ** InsightRuleMetricDatapoint
-    InsightRuleMetricDatapoint,
-    insightRuleMetricDatapoint,
-    irmdMinimum,
-    irmdSum,
-    irmdSampleCount,
-    irmdMaxContributorValue,
-    irmdAverage,
-    irmdUniqueContributors,
-    irmdMaximum,
-    irmdTimestamp,
+    InsightRuleMetricDatapoint (InsightRuleMetricDatapoint'),
+    newInsightRuleMetricDatapoint,
 
     -- ** LabelOptions
-    LabelOptions,
-    labelOptions,
-    loTimezone,
+    LabelOptions (LabelOptions'),
+    newLabelOptions,
 
     -- ** MessageData
-    MessageData,
-    messageData,
-    mdCode,
-    mdValue,
+    MessageData (MessageData'),
+    newMessageData,
 
     -- ** Metric
-    Metric,
-    metric,
-    mMetricName,
-    mDimensions,
-    mNamespace,
+    Metric (Metric'),
+    newMetric,
 
     -- ** MetricAlarm
-    MetricAlarm,
-    metricAlarm,
-    maThreshold,
-    maDatapointsToAlarm,
-    maEvaluateLowSampleCountPercentile,
-    maComparisonOperator,
-    maExtendedStatistic,
-    maAlarmARN,
-    maAlarmActions,
-    maUnit,
-    maThresholdMetricId,
-    maStateReason,
-    maStateReasonData,
-    maMetricName,
-    maInsufficientDataActions,
-    maTreatMissingData,
-    maMetrics,
-    maStateUpdatedTimestamp,
-    maStateValue,
-    maAlarmName,
-    maOKActions,
-    maStatistic,
-    maDimensions,
-    maNamespace,
-    maEvaluationPeriods,
-    maActionsEnabled,
-    maAlarmConfigurationUpdatedTimestamp,
-    maAlarmDescription,
-    maPeriod,
+    MetricAlarm (MetricAlarm'),
+    newMetricAlarm,
 
     -- ** MetricDataQuery
-    MetricDataQuery,
-    metricDataQuery,
-    mdqMetricStat,
-    mdqReturnData,
-    mdqLabel,
-    mdqPeriod,
-    mdqExpression,
-    mdqId,
+    MetricDataQuery (MetricDataQuery'),
+    newMetricDataQuery,
 
     -- ** MetricDataResult
-    MetricDataResult,
-    metricDataResult,
-    mdrValues,
-    mdrId,
-    mdrTimestamps,
-    mdrStatusCode,
-    mdrLabel,
-    mdrMessages,
+    MetricDataResult (MetricDataResult'),
+    newMetricDataResult,
 
     -- ** MetricDatum
-    MetricDatum,
-    metricDatum,
-    metStorageResolution,
-    metUnit,
-    metValues,
-    metCounts,
-    metTimestamp,
-    metStatisticValues,
-    metValue,
-    metDimensions,
-    metMetricName,
+    MetricDatum (MetricDatum'),
+    newMetricDatum,
 
     -- ** MetricStat
-    MetricStat,
-    metricStat,
-    msUnit,
-    msMetric,
-    msPeriod,
-    msStat,
+    MetricStat (MetricStat'),
+    newMetricStat,
 
     -- ** PartialFailure
-    PartialFailure,
-    partialFailure,
-    pfExceptionType,
-    pfFailureCode,
-    pfFailureDescription,
-    pfFailureResource,
+    PartialFailure (PartialFailure'),
+    newPartialFailure,
 
     -- ** Range
-    Range,
-    range,
-    rStartTime,
-    rEndTime,
+    Range (Range'),
+    newRange,
 
     -- ** StatisticSet
-    StatisticSet,
-    statisticSet,
-    ssSampleCount,
-    ssSum,
-    ssMinimum,
-    ssMaximum,
+    StatisticSet (StatisticSet'),
+    newStatisticSet,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -449,6 +417,7 @@ import Network.AWS.CloudWatch.GetInsightRuleReport
 import Network.AWS.CloudWatch.GetMetricData
 import Network.AWS.CloudWatch.GetMetricStatistics
 import Network.AWS.CloudWatch.GetMetricWidgetImage
+import Network.AWS.CloudWatch.Lens
 import Network.AWS.CloudWatch.ListDashboards
 import Network.AWS.CloudWatch.ListMetrics
 import Network.AWS.CloudWatch.ListTagsForResource

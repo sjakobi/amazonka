@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,135 +21,141 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables the specified Contributor Insights rules. When rules are disabled, they do not analyze log groups and do not incur costs.
+-- Disables the specified Contributor Insights rules. When rules are
+-- disabled, they do not analyze log groups and do not incur costs.
 module Network.AWS.CloudWatch.DisableInsightRules
   ( -- * Creating a Request
-    disableInsightRules,
-    DisableInsightRules,
+    DisableInsightRules (..),
+    newDisableInsightRules,
 
     -- * Request Lenses
-    dRuleNames,
+    disableInsightRules_ruleNames,
 
     -- * Destructuring the Response
-    disableInsightRulesResponse,
-    DisableInsightRulesResponse,
+    DisableInsightRulesResponse (..),
+    newDisableInsightRulesResponse,
 
     -- * Response Lenses
-    drsFailures,
-    drsResponseStatus,
+    disableInsightRulesResponse_failures,
+    disableInsightRulesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatch.Types.PartialFailure
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disableInsightRules' smart constructor.
-newtype DisableInsightRules = DisableInsightRules'
-  { _dRuleNames ::
-      [Text]
+-- | /See:/ 'newDisableInsightRules' smart constructor.
+data DisableInsightRules = DisableInsightRules'
+  { -- | An array of the rule names to disable. If you need to find out the names
+    -- of your rules, use
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules>.
+    ruleNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableInsightRules' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableInsightRules' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dRuleNames' - An array of the rule names to disable. If you need to find out the names of your rules, use <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules> .
-disableInsightRules ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ruleNames', 'disableInsightRules_ruleNames' - An array of the rule names to disable. If you need to find out the names
+-- of your rules, use
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules>.
+newDisableInsightRules ::
   DisableInsightRules
-disableInsightRules =
-  DisableInsightRules' {_dRuleNames = mempty}
+newDisableInsightRules =
+  DisableInsightRules' {ruleNames = Prelude.mempty}
 
--- | An array of the rule names to disable. If you need to find out the names of your rules, use <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules> .
-dRuleNames :: Lens' DisableInsightRules [Text]
-dRuleNames = lens _dRuleNames (\s a -> s {_dRuleNames = a}) . _Coerce
+-- | An array of the rule names to disable. If you need to find out the names
+-- of your rules, use
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html DescribeInsightRules>.
+disableInsightRules_ruleNames :: Lens.Lens' DisableInsightRules [Prelude.Text]
+disableInsightRules_ruleNames = Lens.lens (\DisableInsightRules' {ruleNames} -> ruleNames) (\s@DisableInsightRules' {} a -> s {ruleNames = a} :: DisableInsightRules) Prelude.. Prelude._Coerce
 
-instance AWSRequest DisableInsightRules where
+instance Prelude.AWSRequest DisableInsightRules where
   type
     Rs DisableInsightRules =
       DisableInsightRulesResponse
-  request = postQuery cloudWatch
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DisableInsightRulesResult"
       ( \s h x ->
           DisableInsightRulesResponse'
-            <$> ( x .@? "Failures" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Failures" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisableInsightRules
+instance Prelude.Hashable DisableInsightRules
 
-instance NFData DisableInsightRules
+instance Prelude.NFData DisableInsightRules
 
-instance ToHeaders DisableInsightRules where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DisableInsightRules where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DisableInsightRules where
-  toPath = const "/"
+instance Prelude.ToPath DisableInsightRules where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisableInsightRules where
+instance Prelude.ToQuery DisableInsightRules where
   toQuery DisableInsightRules' {..} =
-    mconcat
-      [ "Action" =: ("DisableInsightRules" :: ByteString),
-        "Version" =: ("2010-08-01" :: ByteString),
-        "RuleNames" =: toQueryList "member" _dRuleNames
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DisableInsightRules" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-08-01" :: Prelude.ByteString),
+        "RuleNames"
+          Prelude.=: Prelude.toQueryList "member" ruleNames
       ]
 
--- | /See:/ 'disableInsightRulesResponse' smart constructor.
+-- | /See:/ 'newDisableInsightRulesResponse' smart constructor.
 data DisableInsightRulesResponse = DisableInsightRulesResponse'
-  { _drsFailures ::
-      !( Maybe
-           [PartialFailure]
-       ),
-    _drsResponseStatus ::
-      !Int
+  { -- | An array listing the rules that could not be disabled. You cannot
+    -- disable built-in rules.
+    failures :: Prelude.Maybe [PartialFailure],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableInsightRulesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableInsightRulesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsFailures' - An array listing the rules that could not be disabled. You cannot disable built-in rules.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResponseStatus' - -- | The response status code.
-disableInsightRulesResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'failures', 'disableInsightRulesResponse_failures' - An array listing the rules that could not be disabled. You cannot
+-- disable built-in rules.
+--
+-- 'httpStatus', 'disableInsightRulesResponse_httpStatus' - The response's http status code.
+newDisableInsightRulesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisableInsightRulesResponse
-disableInsightRulesResponse pResponseStatus_ =
+newDisableInsightRulesResponse pHttpStatus_ =
   DisableInsightRulesResponse'
-    { _drsFailures =
-        Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { failures =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array listing the rules that could not be disabled. You cannot disable built-in rules.
-drsFailures :: Lens' DisableInsightRulesResponse [PartialFailure]
-drsFailures = lens _drsFailures (\s a -> s {_drsFailures = a}) . _Default . _Coerce
+-- | An array listing the rules that could not be disabled. You cannot
+-- disable built-in rules.
+disableInsightRulesResponse_failures :: Lens.Lens' DisableInsightRulesResponse (Prelude.Maybe [PartialFailure])
+disableInsightRulesResponse_failures = Lens.lens (\DisableInsightRulesResponse' {failures} -> failures) (\s@DisableInsightRulesResponse' {} a -> s {failures = a} :: DisableInsightRulesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DisableInsightRulesResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+disableInsightRulesResponse_httpStatus :: Lens.Lens' DisableInsightRulesResponse Prelude.Int
+disableInsightRulesResponse_httpStatus = Lens.lens (\DisableInsightRulesResponse' {httpStatus} -> httpStatus) (\s@DisableInsightRulesResponse' {} a -> s {httpStatus = a} :: DisableInsightRulesResponse)
 
-instance NFData DisableInsightRulesResponse
+instance Prelude.NFData DisableInsightRulesResponse
