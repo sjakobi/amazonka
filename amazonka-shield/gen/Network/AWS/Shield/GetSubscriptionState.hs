@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,120 +21,126 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the @SubscriptionState@ , either @Active@ or @Inactive@ .
+-- Returns the @SubscriptionState@, either @Active@ or @Inactive@.
 module Network.AWS.Shield.GetSubscriptionState
   ( -- * Creating a Request
-    getSubscriptionState,
-    GetSubscriptionState,
+    GetSubscriptionState (..),
+    newGetSubscriptionState,
 
     -- * Destructuring the Response
-    getSubscriptionStateResponse,
-    GetSubscriptionStateResponse,
+    GetSubscriptionStateResponse (..),
+    newGetSubscriptionStateResponse,
 
     -- * Response Lenses
-    gssrrsResponseStatus,
-    gssrrsSubscriptionState,
+    getSubscriptionStateResponse_httpStatus,
+    getSubscriptionStateResponse_subscriptionState,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
+import Network.AWS.Shield.Types.SubscriptionState
 
--- | /See:/ 'getSubscriptionState' smart constructor.
+-- | /See:/ 'newGetSubscriptionState' smart constructor.
 data GetSubscriptionState = GetSubscriptionState'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSubscriptionState' with the minimum fields required to make a request.
-getSubscriptionState ::
+-- |
+-- Create a value of 'GetSubscriptionState' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetSubscriptionState ::
   GetSubscriptionState
-getSubscriptionState = GetSubscriptionState'
+newGetSubscriptionState = GetSubscriptionState'
 
-instance AWSRequest GetSubscriptionState where
+instance Prelude.AWSRequest GetSubscriptionState where
   type
     Rs GetSubscriptionState =
       GetSubscriptionStateResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSubscriptionStateResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "SubscriptionState")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "SubscriptionState")
       )
 
-instance Hashable GetSubscriptionState
+instance Prelude.Hashable GetSubscriptionState
 
-instance NFData GetSubscriptionState
+instance Prelude.NFData GetSubscriptionState
 
-instance ToHeaders GetSubscriptionState where
+instance Prelude.ToHeaders GetSubscriptionState where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.GetSubscriptionState" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.GetSubscriptionState" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetSubscriptionState where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON GetSubscriptionState where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetSubscriptionState where
-  toPath = const "/"
+instance Prelude.ToPath GetSubscriptionState where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSubscriptionState where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSubscriptionState where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSubscriptionStateResponse' smart constructor.
+-- | /See:/ 'newGetSubscriptionStateResponse' smart constructor.
 data GetSubscriptionStateResponse = GetSubscriptionStateResponse'
-  { _gssrrsResponseStatus ::
-      !Int,
-    _gssrrsSubscriptionState ::
-      !SubscriptionState
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The status of the subscription.
+    subscriptionState :: SubscriptionState
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSubscriptionStateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSubscriptionStateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gssrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gssrrsSubscriptionState' - The status of the subscription.
-getSubscriptionStateResponse ::
-  -- | 'gssrrsResponseStatus'
-  Int ->
-  -- | 'gssrrsSubscriptionState'
+-- 'httpStatus', 'getSubscriptionStateResponse_httpStatus' - The response's http status code.
+--
+-- 'subscriptionState', 'getSubscriptionStateResponse_subscriptionState' - The status of the subscription.
+newGetSubscriptionStateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'subscriptionState'
   SubscriptionState ->
   GetSubscriptionStateResponse
-getSubscriptionStateResponse
-  pResponseStatus_
+newGetSubscriptionStateResponse
+  pHttpStatus_
   pSubscriptionState_ =
     GetSubscriptionStateResponse'
-      { _gssrrsResponseStatus =
-          pResponseStatus_,
-        _gssrrsSubscriptionState =
-          pSubscriptionState_
+      { httpStatus =
+          pHttpStatus_,
+        subscriptionState = pSubscriptionState_
       }
 
--- | -- | The response status code.
-gssrrsResponseStatus :: Lens' GetSubscriptionStateResponse Int
-gssrrsResponseStatus = lens _gssrrsResponseStatus (\s a -> s {_gssrrsResponseStatus = a})
+-- | The response's http status code.
+getSubscriptionStateResponse_httpStatus :: Lens.Lens' GetSubscriptionStateResponse Prelude.Int
+getSubscriptionStateResponse_httpStatus = Lens.lens (\GetSubscriptionStateResponse' {httpStatus} -> httpStatus) (\s@GetSubscriptionStateResponse' {} a -> s {httpStatus = a} :: GetSubscriptionStateResponse)
 
 -- | The status of the subscription.
-gssrrsSubscriptionState :: Lens' GetSubscriptionStateResponse SubscriptionState
-gssrrsSubscriptionState = lens _gssrrsSubscriptionState (\s a -> s {_gssrrsSubscriptionState = a})
+getSubscriptionStateResponse_subscriptionState :: Lens.Lens' GetSubscriptionStateResponse SubscriptionState
+getSubscriptionStateResponse_subscriptionState = Lens.lens (\GetSubscriptionStateResponse' {subscriptionState} -> subscriptionState) (\s@GetSubscriptionStateResponse' {} a -> s {subscriptionState = a} :: GetSubscriptionStateResponse)
 
-instance NFData GetSubscriptionStateResponse
+instance Prelude.NFData GetSubscriptionStateResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,128 +21,143 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the details of an existing subscription. Only enter values for parameters you want to change. Empty parameters are not updated.
+-- Updates the details of an existing subscription. Only enter values for
+-- parameters you want to change. Empty parameters are not updated.
 module Network.AWS.Shield.UpdateSubscription
   ( -- * Creating a Request
-    updateSubscription,
-    UpdateSubscription,
+    UpdateSubscription (..),
+    newUpdateSubscription,
 
     -- * Request Lenses
-    usAutoRenew,
+    updateSubscription_autoRenew,
 
     -- * Destructuring the Response
-    updateSubscriptionResponse,
-    UpdateSubscriptionResponse,
+    UpdateSubscriptionResponse (..),
+    newUpdateSubscriptionResponse,
 
     -- * Response Lenses
-    usrrsResponseStatus,
+    updateSubscriptionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
 
--- | /See:/ 'updateSubscription' smart constructor.
-newtype UpdateSubscription = UpdateSubscription'
-  { _usAutoRenew ::
-      Maybe AutoRenew
+-- | /See:/ 'newUpdateSubscription' smart constructor.
+data UpdateSubscription = UpdateSubscription'
+  { -- | When you initally create a subscription, @AutoRenew@ is set to
+    -- @ENABLED@. If @ENABLED@, the subscription will be automatically renewed
+    -- at the end of the existing subscription period. You can change this by
+    -- submitting an @UpdateSubscription@ request. If the @UpdateSubscription@
+    -- request does not included a value for @AutoRenew@, the existing value
+    -- for @AutoRenew@ remains unchanged.
+    autoRenew :: Prelude.Maybe AutoRenew
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usAutoRenew' - When you initally create a subscription, @AutoRenew@ is set to @ENABLED@ . If @ENABLED@ , the subscription will be automatically renewed at the end of the existing subscription period. You can change this by submitting an @UpdateSubscription@ request. If the @UpdateSubscription@ request does not included a value for @AutoRenew@ , the existing value for @AutoRenew@ remains unchanged.
-updateSubscription ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'autoRenew', 'updateSubscription_autoRenew' - When you initally create a subscription, @AutoRenew@ is set to
+-- @ENABLED@. If @ENABLED@, the subscription will be automatically renewed
+-- at the end of the existing subscription period. You can change this by
+-- submitting an @UpdateSubscription@ request. If the @UpdateSubscription@
+-- request does not included a value for @AutoRenew@, the existing value
+-- for @AutoRenew@ remains unchanged.
+newUpdateSubscription ::
   UpdateSubscription
-updateSubscription =
-  UpdateSubscription' {_usAutoRenew = Nothing}
+newUpdateSubscription =
+  UpdateSubscription' {autoRenew = Prelude.Nothing}
 
--- | When you initally create a subscription, @AutoRenew@ is set to @ENABLED@ . If @ENABLED@ , the subscription will be automatically renewed at the end of the existing subscription period. You can change this by submitting an @UpdateSubscription@ request. If the @UpdateSubscription@ request does not included a value for @AutoRenew@ , the existing value for @AutoRenew@ remains unchanged.
-usAutoRenew :: Lens' UpdateSubscription (Maybe AutoRenew)
-usAutoRenew = lens _usAutoRenew (\s a -> s {_usAutoRenew = a})
+-- | When you initally create a subscription, @AutoRenew@ is set to
+-- @ENABLED@. If @ENABLED@, the subscription will be automatically renewed
+-- at the end of the existing subscription period. You can change this by
+-- submitting an @UpdateSubscription@ request. If the @UpdateSubscription@
+-- request does not included a value for @AutoRenew@, the existing value
+-- for @AutoRenew@ remains unchanged.
+updateSubscription_autoRenew :: Lens.Lens' UpdateSubscription (Prelude.Maybe AutoRenew)
+updateSubscription_autoRenew = Lens.lens (\UpdateSubscription' {autoRenew} -> autoRenew) (\s@UpdateSubscription' {} a -> s {autoRenew = a} :: UpdateSubscription)
 
-instance AWSRequest UpdateSubscription where
+instance Prelude.AWSRequest UpdateSubscription where
   type
     Rs UpdateSubscription =
       UpdateSubscriptionResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateSubscriptionResponse' <$> (pure (fromEnum s))
+          UpdateSubscriptionResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateSubscription
+instance Prelude.Hashable UpdateSubscription
 
-instance NFData UpdateSubscription
+instance Prelude.NFData UpdateSubscription
 
-instance ToHeaders UpdateSubscription where
+instance Prelude.ToHeaders UpdateSubscription where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.UpdateSubscription" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.UpdateSubscription" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateSubscription where
+instance Prelude.ToJSON UpdateSubscription where
   toJSON UpdateSubscription' {..} =
-    object
-      (catMaybes [("AutoRenew" .=) <$> _usAutoRenew])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("AutoRenew" Prelude..=) Prelude.<$> autoRenew]
+      )
 
-instance ToPath UpdateSubscription where
-  toPath = const "/"
+instance Prelude.ToPath UpdateSubscription where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateSubscription where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateSubscription where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateSubscriptionResponse' smart constructor.
-newtype UpdateSubscriptionResponse = UpdateSubscriptionResponse'
-  { _usrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateSubscriptionResponse' smart constructor.
+data UpdateSubscriptionResponse = UpdateSubscriptionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usrrsResponseStatus' - -- | The response status code.
-updateSubscriptionResponse ::
-  -- | 'usrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateSubscriptionResponse_httpStatus' - The response's http status code.
+newUpdateSubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateSubscriptionResponse
-updateSubscriptionResponse pResponseStatus_ =
+newUpdateSubscriptionResponse pHttpStatus_ =
   UpdateSubscriptionResponse'
-    { _usrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-usrrsResponseStatus :: Lens' UpdateSubscriptionResponse Int
-usrrsResponseStatus = lens _usrrsResponseStatus (\s a -> s {_usrrsResponseStatus = a})
+-- | The response's http status code.
+updateSubscriptionResponse_httpStatus :: Lens.Lens' UpdateSubscriptionResponse Prelude.Int
+updateSubscriptionResponse_httpStatus = Lens.lens (\UpdateSubscriptionResponse' {httpStatus} -> httpStatus) (\s@UpdateSubscriptionResponse' {} a -> s {httpStatus = a} :: UpdateSubscriptionResponse)
 
-instance NFData UpdateSubscriptionResponse
+instance Prelude.NFData UpdateSubscriptionResponse

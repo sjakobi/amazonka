@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Authorizes the DDoS Response Team (DRT), using the specified role, to access your AWS account to assist with DDoS attack mitigation during potential attacks. This enables the DRT to inspect your AWS WAF configuration and create or update AWS WAF rules and web ACLs.
+-- Authorizes the DDoS Response Team (DRT), using the specified role, to
+-- access your AWS account to assist with DDoS attack mitigation during
+-- potential attacks. This enables the DRT to inspect your AWS WAF
+-- configuration and create or update AWS WAF rules and web ACLs.
 --
+-- You can associate only one @RoleArn@ with your subscription. If you
+-- submit an @AssociateDRTRole@ request for an account that already has an
+-- associated role, the new @RoleArn@ will replace the existing @RoleArn@.
 --
--- You can associate only one @RoleArn@ with your subscription. If you submit an @AssociateDRTRole@ request for an account that already has an associated role, the new @RoleArn@ will replace the existing @RoleArn@ .
+-- Prior to making the @AssociateDRTRole@ request, you must attach the
+-- <https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy AWSShieldDRTAccessPolicy>
+-- managed policy to the role you will specify in the request. For more
+-- information see
+-- <%20https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html Attaching and Detaching IAM Policies>.
+-- The role must also trust the service principal
+-- @ drt.shield.amazonaws.com@. For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html IAM JSON Policy Elements: Principal>.
 --
--- Prior to making the @AssociateDRTRole@ request, you must attach the <https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy AWSShieldDRTAccessPolicy> managed policy to the role you will specify in the request. For more information see < https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html Attaching and Detaching IAM Policies> . The role must also trust the service principal @drt.shield.amazonaws.com@ . For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html IAM JSON Policy Elements: Principal> .
+-- The DRT will have access only to your AWS WAF and Shield resources. By
+-- submitting this request, you authorize the DRT to inspect your AWS WAF
+-- and Shield configuration and create and update AWS WAF rules and web
+-- ACLs on your behalf. The DRT takes these actions only if explicitly
+-- authorized by you.
 --
--- The DRT will have access only to your AWS WAF and Shield resources. By submitting this request, you authorize the DRT to inspect your AWS WAF and Shield configuration and create and update AWS WAF rules and web ACLs on your behalf. The DRT takes these actions only if explicitly authorized by you.
+-- You must have the @iam:PassRole@ permission to make an
+-- @AssociateDRTRole@ request. For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html Granting a User Permissions to Pass a Role to an AWS Service>.
 --
--- You must have the @iam:PassRole@ permission to make an @AssociateDRTRole@ request. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html Granting a User Permissions to Pass a Role to an AWS Service> .
---
--- To use the services of the DRT and make an @AssociateDRTRole@ request, you must be subscribed to the <https://aws.amazon.com/premiumsupport/business-support/ Business Support plan> or the <https://aws.amazon.com/premiumsupport/enterprise-support/ Enterprise Support plan> .
+-- To use the services of the DRT and make an @AssociateDRTRole@ request,
+-- you must be subscribed to the
+-- <https://aws.amazon.com/premiumsupport/business-support/ Business Support plan>
+-- or the
+-- <https://aws.amazon.com/premiumsupport/enterprise-support/ Enterprise Support plan>.
 module Network.AWS.Shield.AssociateDRTRole
   ( -- * Creating a Request
-    associateDRTRole,
-    AssociateDRTRole,
+    AssociateDRTRole (..),
+    newAssociateDRTRole,
 
     -- * Request Lenses
-    adrtrRoleARN,
+    associateDRTRole_roleArn,
 
     -- * Destructuring the Response
-    associateDRTRoleResponse,
-    AssociateDRTRoleResponse,
+    AssociateDRTRoleResponse (..),
+    newAssociateDRTRoleResponse,
 
     -- * Response Lenses
-    adrtrrrsResponseStatus,
+    associateDRTRoleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
 
--- | /See:/ 'associateDRTRole' smart constructor.
-newtype AssociateDRTRole = AssociateDRTRole'
-  { _adrtrRoleARN ::
-      Text
+-- | /See:/ 'newAssociateDRTRole' smart constructor.
+data AssociateDRTRole = AssociateDRTRole'
+  { -- | The Amazon Resource Name (ARN) of the role the DRT will use to access
+    -- your AWS account.
+    --
+    -- Prior to making the @AssociateDRTRole@ request, you must attach the
+    -- <https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy AWSShieldDRTAccessPolicy>
+    -- managed policy to this role. For more information see
+    -- <%20https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html Attaching and Detaching IAM Policies>.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateDRTRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateDRTRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adrtrRoleARN' - The Amazon Resource Name (ARN) of the role the DRT will use to access your AWS account. Prior to making the @AssociateDRTRole@ request, you must attach the <https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy AWSShieldDRTAccessPolicy> managed policy to this role. For more information see < https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html Attaching and Detaching IAM Policies> .
-associateDRTRole ::
-  -- | 'adrtrRoleARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'roleArn', 'associateDRTRole_roleArn' - The Amazon Resource Name (ARN) of the role the DRT will use to access
+-- your AWS account.
+--
+-- Prior to making the @AssociateDRTRole@ request, you must attach the
+-- <https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy AWSShieldDRTAccessPolicy>
+-- managed policy to this role. For more information see
+-- <%20https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html Attaching and Detaching IAM Policies>.
+newAssociateDRTRole ::
+  -- | 'roleArn'
+  Prelude.Text ->
   AssociateDRTRole
-associateDRTRole pRoleARN_ =
-  AssociateDRTRole' {_adrtrRoleARN = pRoleARN_}
+newAssociateDRTRole pRoleArn_ =
+  AssociateDRTRole' {roleArn = pRoleArn_}
 
--- | The Amazon Resource Name (ARN) of the role the DRT will use to access your AWS account. Prior to making the @AssociateDRTRole@ request, you must attach the <https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy AWSShieldDRTAccessPolicy> managed policy to this role. For more information see < https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html Attaching and Detaching IAM Policies> .
-adrtrRoleARN :: Lens' AssociateDRTRole Text
-adrtrRoleARN = lens _adrtrRoleARN (\s a -> s {_adrtrRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the role the DRT will use to access
+-- your AWS account.
+--
+-- Prior to making the @AssociateDRTRole@ request, you must attach the
+-- <https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy AWSShieldDRTAccessPolicy>
+-- managed policy to this role. For more information see
+-- <%20https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html Attaching and Detaching IAM Policies>.
+associateDRTRole_roleArn :: Lens.Lens' AssociateDRTRole Prelude.Text
+associateDRTRole_roleArn = Lens.lens (\AssociateDRTRole' {roleArn} -> roleArn) (\s@AssociateDRTRole' {} a -> s {roleArn = a} :: AssociateDRTRole)
 
-instance AWSRequest AssociateDRTRole where
+instance Prelude.AWSRequest AssociateDRTRole where
   type Rs AssociateDRTRole = AssociateDRTRoleResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          AssociateDRTRoleResponse' <$> (pure (fromEnum s))
+          AssociateDRTRoleResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateDRTRole
+instance Prelude.Hashable AssociateDRTRole
 
-instance NFData AssociateDRTRole
+instance Prelude.NFData AssociateDRTRole
 
-instance ToHeaders AssociateDRTRole where
+instance Prelude.ToHeaders AssociateDRTRole where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.AssociateDRTRole" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.AssociateDRTRole" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateDRTRole where
+instance Prelude.ToJSON AssociateDRTRole where
   toJSON AssociateDRTRole' {..} =
-    object
-      (catMaybes [Just ("RoleArn" .= _adrtrRoleARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("RoleArn" Prelude..= roleArn)]
+      )
 
-instance ToPath AssociateDRTRole where
-  toPath = const "/"
+instance Prelude.ToPath AssociateDRTRole where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateDRTRole where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateDRTRole where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateDRTRoleResponse' smart constructor.
-newtype AssociateDRTRoleResponse = AssociateDRTRoleResponse'
-  { _adrtrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAssociateDRTRoleResponse' smart constructor.
+data AssociateDRTRoleResponse = AssociateDRTRoleResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateDRTRoleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateDRTRoleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adrtrrrsResponseStatus' - -- | The response status code.
-associateDRTRoleResponse ::
-  -- | 'adrtrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateDRTRoleResponse_httpStatus' - The response's http status code.
+newAssociateDRTRoleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateDRTRoleResponse
-associateDRTRoleResponse pResponseStatus_ =
+newAssociateDRTRoleResponse pHttpStatus_ =
   AssociateDRTRoleResponse'
-    { _adrtrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-adrtrrrsResponseStatus :: Lens' AssociateDRTRoleResponse Int
-adrtrrrsResponseStatus = lens _adrtrrrsResponseStatus (\s a -> s {_adrtrrrsResponseStatus = a})
+-- | The response's http status code.
+associateDRTRoleResponse_httpStatus :: Lens.Lens' AssociateDRTRoleResponse Prelude.Int
+associateDRTRoleResponse_httpStatus = Lens.lens (\AssociateDRTRoleResponse' {httpStatus} -> httpStatus) (\s@AssociateDRTRoleResponse' {} a -> s {httpStatus = a} :: AssociateDRTRoleResponse)
 
-instance NFData AssociateDRTRoleResponse
+instance Prelude.NFData AssociateDRTRoleResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the details of a 'Protection' object.
+-- Lists the details of a Protection object.
 module Network.AWS.Shield.DescribeProtection
   ( -- * Creating a Request
-    describeProtection,
-    DescribeProtection,
+    DescribeProtection (..),
+    newDescribeProtection,
 
     -- * Request Lenses
-    dpResourceARN,
-    dpProtectionId,
+    describeProtection_resourceArn,
+    describeProtection_protectionId,
 
     -- * Destructuring the Response
-    describeProtectionResponse,
-    DescribeProtectionResponse,
+    DescribeProtectionResponse (..),
+    newDescribeProtectionResponse,
 
     -- * Response Lenses
-    dprrsProtection,
-    dprrsResponseStatus,
+    describeProtectionResponse_protection,
+    describeProtectionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
+import Network.AWS.Shield.Types.Protection
 
--- | /See:/ 'describeProtection' smart constructor.
+-- | /See:/ 'newDescribeProtection' smart constructor.
 data DescribeProtection = DescribeProtection'
-  { _dpResourceARN ::
-      !(Maybe Text),
-    _dpProtectionId :: !(Maybe Text)
+  { -- | The ARN (Amazon Resource Name) of the AWS resource for the Protection
+    -- object that is described. When submitting the @DescribeProtection@
+    -- request you must provide either the @ResourceArn@ or the @ProtectionID@,
+    -- but not both.
+    resourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier (ID) for the Protection object that is described.
+    -- When submitting the @DescribeProtection@ request you must provide either
+    -- the @ResourceArn@ or the @ProtectionID@, but not both.
+    protectionId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeProtection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeProtection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpResourceARN' - The ARN (Amazon Resource Name) of the AWS resource for the 'Protection' object that is described. When submitting the @DescribeProtection@ request you must provide either the @ResourceArn@ or the @ProtectionID@ , but not both.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpProtectionId' - The unique identifier (ID) for the 'Protection' object that is described. When submitting the @DescribeProtection@ request you must provide either the @ResourceArn@ or the @ProtectionID@ , but not both.
-describeProtection ::
+-- 'resourceArn', 'describeProtection_resourceArn' - The ARN (Amazon Resource Name) of the AWS resource for the Protection
+-- object that is described. When submitting the @DescribeProtection@
+-- request you must provide either the @ResourceArn@ or the @ProtectionID@,
+-- but not both.
+--
+-- 'protectionId', 'describeProtection_protectionId' - The unique identifier (ID) for the Protection object that is described.
+-- When submitting the @DescribeProtection@ request you must provide either
+-- the @ResourceArn@ or the @ProtectionID@, but not both.
+newDescribeProtection ::
   DescribeProtection
-describeProtection =
+newDescribeProtection =
   DescribeProtection'
-    { _dpResourceARN = Nothing,
-      _dpProtectionId = Nothing
+    { resourceArn = Prelude.Nothing,
+      protectionId = Prelude.Nothing
     }
 
--- | The ARN (Amazon Resource Name) of the AWS resource for the 'Protection' object that is described. When submitting the @DescribeProtection@ request you must provide either the @ResourceArn@ or the @ProtectionID@ , but not both.
-dpResourceARN :: Lens' DescribeProtection (Maybe Text)
-dpResourceARN = lens _dpResourceARN (\s a -> s {_dpResourceARN = a})
+-- | The ARN (Amazon Resource Name) of the AWS resource for the Protection
+-- object that is described. When submitting the @DescribeProtection@
+-- request you must provide either the @ResourceArn@ or the @ProtectionID@,
+-- but not both.
+describeProtection_resourceArn :: Lens.Lens' DescribeProtection (Prelude.Maybe Prelude.Text)
+describeProtection_resourceArn = Lens.lens (\DescribeProtection' {resourceArn} -> resourceArn) (\s@DescribeProtection' {} a -> s {resourceArn = a} :: DescribeProtection)
 
--- | The unique identifier (ID) for the 'Protection' object that is described. When submitting the @DescribeProtection@ request you must provide either the @ResourceArn@ or the @ProtectionID@ , but not both.
-dpProtectionId :: Lens' DescribeProtection (Maybe Text)
-dpProtectionId = lens _dpProtectionId (\s a -> s {_dpProtectionId = a})
+-- | The unique identifier (ID) for the Protection object that is described.
+-- When submitting the @DescribeProtection@ request you must provide either
+-- the @ResourceArn@ or the @ProtectionID@, but not both.
+describeProtection_protectionId :: Lens.Lens' DescribeProtection (Prelude.Maybe Prelude.Text)
+describeProtection_protectionId = Lens.lens (\DescribeProtection' {protectionId} -> protectionId) (\s@DescribeProtection' {} a -> s {protectionId = a} :: DescribeProtection)
 
-instance AWSRequest DescribeProtection where
+instance Prelude.AWSRequest DescribeProtection where
   type
     Rs DescribeProtection =
       DescribeProtectionResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeProtectionResponse'
-            <$> (x .?> "Protection") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Protection")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeProtection
+instance Prelude.Hashable DescribeProtection
 
-instance NFData DescribeProtection
+instance Prelude.NFData DescribeProtection
 
-instance ToHeaders DescribeProtection where
+instance Prelude.ToHeaders DescribeProtection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.DescribeProtection" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.DescribeProtection" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeProtection where
+instance Prelude.ToJSON DescribeProtection where
   toJSON DescribeProtection' {..} =
-    object
-      ( catMaybes
-          [ ("ResourceArn" .=) <$> _dpResourceARN,
-            ("ProtectionId" .=) <$> _dpProtectionId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ResourceArn" Prelude..=) Prelude.<$> resourceArn,
+            ("ProtectionId" Prelude..=)
+              Prelude.<$> protectionId
           ]
       )
 
-instance ToPath DescribeProtection where
-  toPath = const "/"
+instance Prelude.ToPath DescribeProtection where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeProtection where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeProtection where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeProtectionResponse' smart constructor.
+-- | /See:/ 'newDescribeProtectionResponse' smart constructor.
 data DescribeProtectionResponse = DescribeProtectionResponse'
-  { _dprrsProtection ::
-      !( Maybe
-           Protection
-       ),
-    _dprrsResponseStatus ::
-      !Int
+  { -- | The Protection object that is described.
+    protection :: Prelude.Maybe Protection,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeProtectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeProtectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dprrsProtection' - The 'Protection' object that is described.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dprrsResponseStatus' - -- | The response status code.
-describeProtectionResponse ::
-  -- | 'dprrsResponseStatus'
-  Int ->
+-- 'protection', 'describeProtectionResponse_protection' - The Protection object that is described.
+--
+-- 'httpStatus', 'describeProtectionResponse_httpStatus' - The response's http status code.
+newDescribeProtectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeProtectionResponse
-describeProtectionResponse pResponseStatus_ =
+newDescribeProtectionResponse pHttpStatus_ =
   DescribeProtectionResponse'
-    { _dprrsProtection =
-        Nothing,
-      _dprrsResponseStatus = pResponseStatus_
+    { protection =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The 'Protection' object that is described.
-dprrsProtection :: Lens' DescribeProtectionResponse (Maybe Protection)
-dprrsProtection = lens _dprrsProtection (\s a -> s {_dprrsProtection = a})
+-- | The Protection object that is described.
+describeProtectionResponse_protection :: Lens.Lens' DescribeProtectionResponse (Prelude.Maybe Protection)
+describeProtectionResponse_protection = Lens.lens (\DescribeProtectionResponse' {protection} -> protection) (\s@DescribeProtectionResponse' {} a -> s {protection = a} :: DescribeProtectionResponse)
 
--- | -- | The response status code.
-dprrsResponseStatus :: Lens' DescribeProtectionResponse Int
-dprrsResponseStatus = lens _dprrsResponseStatus (\s a -> s {_dprrsResponseStatus = a})
+-- | The response's http status code.
+describeProtectionResponse_httpStatus :: Lens.Lens' DescribeProtectionResponse Prelude.Int
+describeProtectionResponse_httpStatus = Lens.lens (\DescribeProtectionResponse' {httpStatus} -> httpStatus) (\s@DescribeProtectionResponse' {} a -> s {httpStatus = a} :: DescribeProtectionResponse)
 
-instance NFData DescribeProtectionResponse
+instance Prelude.NFData DescribeProtectionResponse

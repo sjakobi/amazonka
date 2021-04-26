@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,143 +21,155 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides information about the number and type of attacks AWS Shield has detected in the last year for all resources that belong to your account, regardless of whether you've defined Shield protections for them. This operation is available to Shield customers as well as to Shield Advanced customers.
+-- Provides information about the number and type of attacks AWS Shield has
+-- detected in the last year for all resources that belong to your account,
+-- regardless of whether you\'ve defined Shield protections for them. This
+-- operation is available to Shield customers as well as to Shield Advanced
+-- customers.
 --
+-- The operation returns data for the time range of midnight UTC, one year
+-- ago, to midnight UTC, today. For example, if the current time is
+-- @2020-10-26 15:39:32 PDT@, equal to @2020-10-26 22:39:32 UTC@, then the
+-- time range for the attack data returned is from
+-- @2019-10-26 00:00:00 UTC@ to @2020-10-26 00:00:00 UTC@.
 --
--- The operation returns data for the time range of midnight UTC, one year ago, to midnight UTC, today. For example, if the current time is @2020-10-26 15:39:32 PDT@ , equal to @2020-10-26 22:39:32 UTC@ , then the time range for the attack data returned is from @2019-10-26 00:00:00 UTC@ to @2020-10-26 00:00:00 UTC@ .
---
--- The time range indicates the period covered by the attack statistics data items.
+-- The time range indicates the period covered by the attack statistics
+-- data items.
 module Network.AWS.Shield.DescribeAttackStatistics
   ( -- * Creating a Request
-    describeAttackStatistics,
-    DescribeAttackStatistics,
+    DescribeAttackStatistics (..),
+    newDescribeAttackStatistics,
 
     -- * Destructuring the Response
-    describeAttackStatisticsResponse,
-    DescribeAttackStatisticsResponse,
+    DescribeAttackStatisticsResponse (..),
+    newDescribeAttackStatisticsResponse,
 
     -- * Response Lenses
-    dasrrsResponseStatus,
-    dasrrsTimeRange,
-    dasrrsDataItems,
+    describeAttackStatisticsResponse_httpStatus,
+    describeAttackStatisticsResponse_timeRange,
+    describeAttackStatisticsResponse_dataItems,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
+import Network.AWS.Shield.Types.AttackStatisticsDataItem
+import Network.AWS.Shield.Types.TimeRange
 
--- | /See:/ 'describeAttackStatistics' smart constructor.
+-- | /See:/ 'newDescribeAttackStatistics' smart constructor.
 data DescribeAttackStatistics = DescribeAttackStatistics'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAttackStatistics' with the minimum fields required to make a request.
-describeAttackStatistics ::
+-- |
+-- Create a value of 'DescribeAttackStatistics' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeAttackStatistics ::
   DescribeAttackStatistics
-describeAttackStatistics = DescribeAttackStatistics'
+newDescribeAttackStatistics =
+  DescribeAttackStatistics'
 
-instance AWSRequest DescribeAttackStatistics where
+instance Prelude.AWSRequest DescribeAttackStatistics where
   type
     Rs DescribeAttackStatistics =
       DescribeAttackStatisticsResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAttackStatisticsResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "TimeRange")
-            <*> (x .?> "DataItems" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "TimeRange")
+            Prelude.<*> ( x Prelude..?> "DataItems"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable DescribeAttackStatistics
+instance Prelude.Hashable DescribeAttackStatistics
 
-instance NFData DescribeAttackStatistics
+instance Prelude.NFData DescribeAttackStatistics
 
-instance ToHeaders DescribeAttackStatistics where
+instance Prelude.ToHeaders DescribeAttackStatistics where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.DescribeAttackStatistics" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.DescribeAttackStatistics" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAttackStatistics where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DescribeAttackStatistics where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DescribeAttackStatistics where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAttackStatistics where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAttackStatistics where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAttackStatistics where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAttackStatisticsResponse' smart constructor.
+-- | /See:/ 'newDescribeAttackStatisticsResponse' smart constructor.
 data DescribeAttackStatisticsResponse = DescribeAttackStatisticsResponse'
-  { _dasrrsResponseStatus ::
-      !Int,
-    _dasrrsTimeRange ::
-      !TimeRange,
-    _dasrrsDataItems ::
-      ![AttackStatisticsDataItem]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    timeRange :: TimeRange,
+    -- | The data that describes the attacks detected during the time period.
+    dataItems :: [AttackStatisticsDataItem]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAttackStatisticsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAttackStatisticsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dasrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dasrrsTimeRange' - Undocumented member.
+-- 'httpStatus', 'describeAttackStatisticsResponse_httpStatus' - The response's http status code.
 --
--- * 'dasrrsDataItems' - The data that describes the attacks detected during the time period.
-describeAttackStatisticsResponse ::
-  -- | 'dasrrsResponseStatus'
-  Int ->
-  -- | 'dasrrsTimeRange'
+-- 'timeRange', 'describeAttackStatisticsResponse_timeRange' - Undocumented member.
+--
+-- 'dataItems', 'describeAttackStatisticsResponse_dataItems' - The data that describes the attacks detected during the time period.
+newDescribeAttackStatisticsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'timeRange'
   TimeRange ->
   DescribeAttackStatisticsResponse
-describeAttackStatisticsResponse
-  pResponseStatus_
+newDescribeAttackStatisticsResponse
+  pHttpStatus_
   pTimeRange_ =
     DescribeAttackStatisticsResponse'
-      { _dasrrsResponseStatus =
-          pResponseStatus_,
-        _dasrrsTimeRange = pTimeRange_,
-        _dasrrsDataItems = mempty
+      { httpStatus =
+          pHttpStatus_,
+        timeRange = pTimeRange_,
+        dataItems = Prelude.mempty
       }
 
--- | -- | The response status code.
-dasrrsResponseStatus :: Lens' DescribeAttackStatisticsResponse Int
-dasrrsResponseStatus = lens _dasrrsResponseStatus (\s a -> s {_dasrrsResponseStatus = a})
+-- | The response's http status code.
+describeAttackStatisticsResponse_httpStatus :: Lens.Lens' DescribeAttackStatisticsResponse Prelude.Int
+describeAttackStatisticsResponse_httpStatus = Lens.lens (\DescribeAttackStatisticsResponse' {httpStatus} -> httpStatus) (\s@DescribeAttackStatisticsResponse' {} a -> s {httpStatus = a} :: DescribeAttackStatisticsResponse)
 
 -- | Undocumented member.
-dasrrsTimeRange :: Lens' DescribeAttackStatisticsResponse TimeRange
-dasrrsTimeRange = lens _dasrrsTimeRange (\s a -> s {_dasrrsTimeRange = a})
+describeAttackStatisticsResponse_timeRange :: Lens.Lens' DescribeAttackStatisticsResponse TimeRange
+describeAttackStatisticsResponse_timeRange = Lens.lens (\DescribeAttackStatisticsResponse' {timeRange} -> timeRange) (\s@DescribeAttackStatisticsResponse' {} a -> s {timeRange = a} :: DescribeAttackStatisticsResponse)
 
 -- | The data that describes the attacks detected during the time period.
-dasrrsDataItems :: Lens' DescribeAttackStatisticsResponse [AttackStatisticsDataItem]
-dasrrsDataItems = lens _dasrrsDataItems (\s a -> s {_dasrrsDataItems = a}) . _Coerce
+describeAttackStatisticsResponse_dataItems :: Lens.Lens' DescribeAttackStatisticsResponse [AttackStatisticsDataItem]
+describeAttackStatisticsResponse_dataItems = Lens.lens (\DescribeAttackStatisticsResponse' {dataItems} -> dataItems) (\s@DescribeAttackStatisticsResponse' {} a -> s {dataItems = a} :: DescribeAttackStatisticsResponse) Prelude.. Prelude._Coerce
 
-instance NFData DescribeAttackStatisticsResponse
+instance
+  Prelude.NFData
+    DescribeAttackStatisticsResponse

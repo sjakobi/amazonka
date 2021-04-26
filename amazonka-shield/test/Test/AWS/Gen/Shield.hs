@@ -28,181 +28,181 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestCreateSubscription $
---             createSubscription
+--             newCreateSubscription
 --
 --         , requestDescribeEmergencyContactSettings $
---             describeEmergencyContactSettings
+--             newDescribeEmergencyContactSettings
 --
 --         , requestDescribeProtectionGroup $
---             describeProtectionGroup
+--             newDescribeProtectionGroup
 --
 --         , requestDescribeSubscription $
---             describeSubscription
+--             newDescribeSubscription
 --
 --         , requestAssociateHealthCheck $
---             associateHealthCheck
+--             newAssociateHealthCheck
 --
 --         , requestDescribeDRTAccess $
---             describeDRTAccess
+--             newDescribeDRTAccess
 --
 --         , requestListResourcesInProtectionGroup $
---             listResourcesInProtectionGroup
+--             newListResourcesInProtectionGroup
 --
 --         , requestDisableProactiveEngagement $
---             disableProactiveEngagement
+--             newDisableProactiveEngagement
 --
 --         , requestEnableProactiveEngagement $
---             enableProactiveEngagement
+--             newEnableProactiveEngagement
 --
 --         , requestDisassociateDRTLogBucket $
---             disassociateDRTLogBucket
+--             newDisassociateDRTLogBucket
 --
 --         , requestUpdateSubscription $
---             updateSubscription
+--             newUpdateSubscription
 --
 --         , requestAssociateDRTRole $
---             associateDRTRole
+--             newAssociateDRTRole
 --
 --         , requestCreateProtection $
---             createProtection
+--             newCreateProtection
 --
 --         , requestAssociateDRTLogBucket $
---             associateDRTLogBucket
+--             newAssociateDRTLogBucket
 --
 --         , requestDisassociateDRTRole $
---             disassociateDRTRole
+--             newDisassociateDRTRole
 --
 --         , requestListAttacks $
---             listAttacks
+--             newListAttacks
 --
 --         , requestDescribeProtection $
---             describeProtection
+--             newDescribeProtection
 --
 --         , requestDescribeAttackStatistics $
---             describeAttackStatistics
+--             newDescribeAttackStatistics
 --
 --         , requestDisassociateHealthCheck $
---             disassociateHealthCheck
+--             newDisassociateHealthCheck
 --
 --         , requestCreateProtectionGroup $
---             createProtectionGroup
+--             newCreateProtectionGroup
 --
 --         , requestListProtectionGroups $
---             listProtectionGroups
+--             newListProtectionGroups
 --
 --         , requestDescribeAttack $
---             describeAttack
+--             newDescribeAttack
 --
 --         , requestUpdateEmergencyContactSettings $
---             updateEmergencyContactSettings
+--             newUpdateEmergencyContactSettings
 --
 --         , requestDeleteProtectionGroup $
---             deleteProtectionGroup
+--             newDeleteProtectionGroup
 --
 --         , requestUpdateProtectionGroup $
---             updateProtectionGroup
+--             newUpdateProtectionGroup
 --
 --         , requestListProtections $
---             listProtections
+--             newListProtections
 --
 --         , requestDeleteProtection $
---             deleteProtection
+--             newDeleteProtection
 --
 --         , requestAssociateProactiveEngagementDetails $
---             associateProactiveEngagementDetails
+--             newAssociateProactiveEngagementDetails
 --
 --         , requestGetSubscriptionState $
---             getSubscriptionState
+--             newGetSubscriptionState
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseCreateSubscription $
---             createSubscriptionResponse
+--             newCreateSubscriptionResponse
 --
 --         , responseDescribeEmergencyContactSettings $
---             describeEmergencyContactSettingsResponse
+--             newDescribeEmergencyContactSettingsResponse
 --
 --         , responseDescribeProtectionGroup $
---             describeProtectionGroupResponse
+--             newDescribeProtectionGroupResponse
 --
 --         , responseDescribeSubscription $
---             describeSubscriptionResponse
+--             newDescribeSubscriptionResponse
 --
 --         , responseAssociateHealthCheck $
---             associateHealthCheckResponse
+--             newAssociateHealthCheckResponse
 --
 --         , responseDescribeDRTAccess $
---             describeDRTAccessResponse
+--             newDescribeDRTAccessResponse
 --
 --         , responseListResourcesInProtectionGroup $
---             listResourcesInProtectionGroupResponse
+--             newListResourcesInProtectionGroupResponse
 --
 --         , responseDisableProactiveEngagement $
---             disableProactiveEngagementResponse
+--             newDisableProactiveEngagementResponse
 --
 --         , responseEnableProactiveEngagement $
---             enableProactiveEngagementResponse
+--             newEnableProactiveEngagementResponse
 --
 --         , responseDisassociateDRTLogBucket $
---             disassociateDRTLogBucketResponse
+--             newDisassociateDRTLogBucketResponse
 --
 --         , responseUpdateSubscription $
---             updateSubscriptionResponse
+--             newUpdateSubscriptionResponse
 --
 --         , responseAssociateDRTRole $
---             associateDRTRoleResponse
+--             newAssociateDRTRoleResponse
 --
 --         , responseCreateProtection $
---             createProtectionResponse
+--             newCreateProtectionResponse
 --
 --         , responseAssociateDRTLogBucket $
---             associateDRTLogBucketResponse
+--             newAssociateDRTLogBucketResponse
 --
 --         , responseDisassociateDRTRole $
---             disassociateDRTRoleResponse
+--             newDisassociateDRTRoleResponse
 --
 --         , responseListAttacks $
---             listAttacksResponse
+--             newListAttacksResponse
 --
 --         , responseDescribeProtection $
---             describeProtectionResponse
+--             newDescribeProtectionResponse
 --
 --         , responseDescribeAttackStatistics $
---             describeAttackStatisticsResponse
+--             newDescribeAttackStatisticsResponse
 --
 --         , responseDisassociateHealthCheck $
---             disassociateHealthCheckResponse
+--             newDisassociateHealthCheckResponse
 --
 --         , responseCreateProtectionGroup $
---             createProtectionGroupResponse
+--             newCreateProtectionGroupResponse
 --
 --         , responseListProtectionGroups $
---             listProtectionGroupsResponse
+--             newListProtectionGroupsResponse
 --
 --         , responseDescribeAttack $
---             describeAttackResponse
+--             newDescribeAttackResponse
 --
 --         , responseUpdateEmergencyContactSettings $
---             updateEmergencyContactSettingsResponse
+--             newUpdateEmergencyContactSettingsResponse
 --
 --         , responseDeleteProtectionGroup $
---             deleteProtectionGroupResponse
+--             newDeleteProtectionGroupResponse
 --
 --         , responseUpdateProtectionGroup $
---             updateProtectionGroupResponse
+--             newUpdateProtectionGroupResponse
 --
 --         , responseListProtections $
---             listProtectionsResponse
+--             newListProtectionsResponse
 --
 --         , responseDeleteProtection $
---             deleteProtectionResponse
+--             newDeleteProtectionResponse
 --
 --         , responseAssociateProactiveEngagementDetails $
---             associateProactiveEngagementDetailsResponse
+--             newAssociateProactiveEngagementDetailsResponse
 --
 --         , responseGetSubscriptionState $
---             getSubscriptionStateResponse
+--             newGetSubscriptionStateResponse
 --
 --           ]
 --     ]
@@ -390,7 +390,7 @@ responseCreateSubscription =
   res
     "CreateSubscriptionResponse"
     "fixture/CreateSubscriptionResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy CreateSubscription)
 
 responseDescribeEmergencyContactSettings :: DescribeEmergencyContactSettingsResponse -> TestTree
@@ -398,7 +398,7 @@ responseDescribeEmergencyContactSettings =
   res
     "DescribeEmergencyContactSettingsResponse"
     "fixture/DescribeEmergencyContactSettingsResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DescribeEmergencyContactSettings)
 
 responseDescribeProtectionGroup :: DescribeProtectionGroupResponse -> TestTree
@@ -406,7 +406,7 @@ responseDescribeProtectionGroup =
   res
     "DescribeProtectionGroupResponse"
     "fixture/DescribeProtectionGroupResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DescribeProtectionGroup)
 
 responseDescribeSubscription :: DescribeSubscriptionResponse -> TestTree
@@ -414,7 +414,7 @@ responseDescribeSubscription =
   res
     "DescribeSubscriptionResponse"
     "fixture/DescribeSubscriptionResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DescribeSubscription)
 
 responseAssociateHealthCheck :: AssociateHealthCheckResponse -> TestTree
@@ -422,7 +422,7 @@ responseAssociateHealthCheck =
   res
     "AssociateHealthCheckResponse"
     "fixture/AssociateHealthCheckResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy AssociateHealthCheck)
 
 responseDescribeDRTAccess :: DescribeDRTAccessResponse -> TestTree
@@ -430,7 +430,7 @@ responseDescribeDRTAccess =
   res
     "DescribeDRTAccessResponse"
     "fixture/DescribeDRTAccessResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DescribeDRTAccess)
 
 responseListResourcesInProtectionGroup :: ListResourcesInProtectionGroupResponse -> TestTree
@@ -438,7 +438,7 @@ responseListResourcesInProtectionGroup =
   res
     "ListResourcesInProtectionGroupResponse"
     "fixture/ListResourcesInProtectionGroupResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy ListResourcesInProtectionGroup)
 
 responseDisableProactiveEngagement :: DisableProactiveEngagementResponse -> TestTree
@@ -446,7 +446,7 @@ responseDisableProactiveEngagement =
   res
     "DisableProactiveEngagementResponse"
     "fixture/DisableProactiveEngagementResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DisableProactiveEngagement)
 
 responseEnableProactiveEngagement :: EnableProactiveEngagementResponse -> TestTree
@@ -454,7 +454,7 @@ responseEnableProactiveEngagement =
   res
     "EnableProactiveEngagementResponse"
     "fixture/EnableProactiveEngagementResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy EnableProactiveEngagement)
 
 responseDisassociateDRTLogBucket :: DisassociateDRTLogBucketResponse -> TestTree
@@ -462,7 +462,7 @@ responseDisassociateDRTLogBucket =
   res
     "DisassociateDRTLogBucketResponse"
     "fixture/DisassociateDRTLogBucketResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DisassociateDRTLogBucket)
 
 responseUpdateSubscription :: UpdateSubscriptionResponse -> TestTree
@@ -470,7 +470,7 @@ responseUpdateSubscription =
   res
     "UpdateSubscriptionResponse"
     "fixture/UpdateSubscriptionResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy UpdateSubscription)
 
 responseAssociateDRTRole :: AssociateDRTRoleResponse -> TestTree
@@ -478,7 +478,7 @@ responseAssociateDRTRole =
   res
     "AssociateDRTRoleResponse"
     "fixture/AssociateDRTRoleResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy AssociateDRTRole)
 
 responseCreateProtection :: CreateProtectionResponse -> TestTree
@@ -486,7 +486,7 @@ responseCreateProtection =
   res
     "CreateProtectionResponse"
     "fixture/CreateProtectionResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy CreateProtection)
 
 responseAssociateDRTLogBucket :: AssociateDRTLogBucketResponse -> TestTree
@@ -494,7 +494,7 @@ responseAssociateDRTLogBucket =
   res
     "AssociateDRTLogBucketResponse"
     "fixture/AssociateDRTLogBucketResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy AssociateDRTLogBucket)
 
 responseDisassociateDRTRole :: DisassociateDRTRoleResponse -> TestTree
@@ -502,7 +502,7 @@ responseDisassociateDRTRole =
   res
     "DisassociateDRTRoleResponse"
     "fixture/DisassociateDRTRoleResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DisassociateDRTRole)
 
 responseListAttacks :: ListAttacksResponse -> TestTree
@@ -510,7 +510,7 @@ responseListAttacks =
   res
     "ListAttacksResponse"
     "fixture/ListAttacksResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy ListAttacks)
 
 responseDescribeProtection :: DescribeProtectionResponse -> TestTree
@@ -518,7 +518,7 @@ responseDescribeProtection =
   res
     "DescribeProtectionResponse"
     "fixture/DescribeProtectionResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DescribeProtection)
 
 responseDescribeAttackStatistics :: DescribeAttackStatisticsResponse -> TestTree
@@ -526,7 +526,7 @@ responseDescribeAttackStatistics =
   res
     "DescribeAttackStatisticsResponse"
     "fixture/DescribeAttackStatisticsResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DescribeAttackStatistics)
 
 responseDisassociateHealthCheck :: DisassociateHealthCheckResponse -> TestTree
@@ -534,7 +534,7 @@ responseDisassociateHealthCheck =
   res
     "DisassociateHealthCheckResponse"
     "fixture/DisassociateHealthCheckResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DisassociateHealthCheck)
 
 responseCreateProtectionGroup :: CreateProtectionGroupResponse -> TestTree
@@ -542,7 +542,7 @@ responseCreateProtectionGroup =
   res
     "CreateProtectionGroupResponse"
     "fixture/CreateProtectionGroupResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy CreateProtectionGroup)
 
 responseListProtectionGroups :: ListProtectionGroupsResponse -> TestTree
@@ -550,7 +550,7 @@ responseListProtectionGroups =
   res
     "ListProtectionGroupsResponse"
     "fixture/ListProtectionGroupsResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy ListProtectionGroups)
 
 responseDescribeAttack :: DescribeAttackResponse -> TestTree
@@ -558,7 +558,7 @@ responseDescribeAttack =
   res
     "DescribeAttackResponse"
     "fixture/DescribeAttackResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DescribeAttack)
 
 responseUpdateEmergencyContactSettings :: UpdateEmergencyContactSettingsResponse -> TestTree
@@ -566,7 +566,7 @@ responseUpdateEmergencyContactSettings =
   res
     "UpdateEmergencyContactSettingsResponse"
     "fixture/UpdateEmergencyContactSettingsResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy UpdateEmergencyContactSettings)
 
 responseDeleteProtectionGroup :: DeleteProtectionGroupResponse -> TestTree
@@ -574,7 +574,7 @@ responseDeleteProtectionGroup =
   res
     "DeleteProtectionGroupResponse"
     "fixture/DeleteProtectionGroupResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DeleteProtectionGroup)
 
 responseUpdateProtectionGroup :: UpdateProtectionGroupResponse -> TestTree
@@ -582,7 +582,7 @@ responseUpdateProtectionGroup =
   res
     "UpdateProtectionGroupResponse"
     "fixture/UpdateProtectionGroupResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy UpdateProtectionGroup)
 
 responseListProtections :: ListProtectionsResponse -> TestTree
@@ -590,7 +590,7 @@ responseListProtections =
   res
     "ListProtectionsResponse"
     "fixture/ListProtectionsResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy ListProtections)
 
 responseDeleteProtection :: DeleteProtectionResponse -> TestTree
@@ -598,7 +598,7 @@ responseDeleteProtection =
   res
     "DeleteProtectionResponse"
     "fixture/DeleteProtectionResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy DeleteProtection)
 
 responseAssociateProactiveEngagementDetails :: AssociateProactiveEngagementDetailsResponse -> TestTree
@@ -606,7 +606,7 @@ responseAssociateProactiveEngagementDetails =
   res
     "AssociateProactiveEngagementDetailsResponse"
     "fixture/AssociateProactiveEngagementDetailsResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy AssociateProactiveEngagementDetails)
 
 responseGetSubscriptionState :: GetSubscriptionStateResponse -> TestTree
@@ -614,5 +614,5 @@ responseGetSubscriptionState =
   res
     "GetSubscriptionStateResponse"
     "fixture/GetSubscriptionStateResponse.proto"
-    shield
+    defaultService
     (Proxy :: Proxy GetSubscriptionState)

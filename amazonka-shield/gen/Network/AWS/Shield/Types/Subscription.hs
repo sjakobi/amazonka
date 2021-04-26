@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.Subscription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Shield.Types.AutoRenew
 import Network.AWS.Shield.Types.Limit
 import Network.AWS.Shield.Types.ProactiveEngagementStatus
@@ -24,97 +28,158 @@ import Network.AWS.Shield.Types.SubscriptionLimits
 
 -- | Information about the AWS Shield Advanced subscription for an account.
 --
---
---
--- /See:/ 'subscription' smart constructor.
+-- /See:/ 'newSubscription' smart constructor.
 data Subscription = Subscription'
-  { _sAutoRenew ::
-      !(Maybe AutoRenew),
-    _sProactiveEngagementStatus ::
-      !(Maybe ProactiveEngagementStatus),
-    _sStartTime :: !(Maybe POSIX),
-    _sEndTime :: !(Maybe POSIX),
-    _sLimits :: !(Maybe [Limit]),
-    _sTimeCommitmentInSeconds :: !(Maybe Nat),
-    _sSubscriptionLimits :: !SubscriptionLimits
+  { -- | If @ENABLED@, the subscription will be automatically renewed at the end
+    -- of the existing subscription period.
+    --
+    -- When you initally create a subscription, @AutoRenew@ is set to
+    -- @ENABLED@. You can change this by submitting an @UpdateSubscription@
+    -- request. If the @UpdateSubscription@ request does not included a value
+    -- for @AutoRenew@, the existing value for @AutoRenew@ remains unchanged.
+    autoRenew :: Prelude.Maybe AutoRenew,
+    -- | If @ENABLED@, the DDoS Response Team (DRT) will use email and phone to
+    -- notify contacts about escalations to the DRT and to initiate proactive
+    -- customer support.
+    --
+    -- If @PENDING@, you have requested proactive engagement and the request is
+    -- pending. The status changes to @ENABLED@ when your request is fully
+    -- processed.
+    --
+    -- If @DISABLED@, the DRT will not proactively notify contacts about
+    -- escalations or to initiate proactive customer support.
+    proactiveEngagementStatus :: Prelude.Maybe ProactiveEngagementStatus,
+    -- | The start time of the subscription, in Unix time in seconds. For more
+    -- information see
+    -- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The date and time your subscription will end.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies how many protections of a given type you can create.
+    limits :: Prelude.Maybe [Limit],
+    -- | The length, in seconds, of the AWS Shield Advanced subscription for the
+    -- account.
+    timeCommitmentInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | Limits settings for your subscription.
+    subscriptionLimits :: SubscriptionLimits
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Subscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Subscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sAutoRenew' - If @ENABLED@ , the subscription will be automatically renewed at the end of the existing subscription period. When you initally create a subscription, @AutoRenew@ is set to @ENABLED@ . You can change this by submitting an @UpdateSubscription@ request. If the @UpdateSubscription@ request does not included a value for @AutoRenew@ , the existing value for @AutoRenew@ remains unchanged.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sProactiveEngagementStatus' - If @ENABLED@ , the DDoS Response Team (DRT) will use email and phone to notify contacts about escalations to the DRT and to initiate proactive customer support. If @PENDING@ , you have requested proactive engagement and the request is pending. The status changes to @ENABLED@ when your request is fully processed. If @DISABLED@ , the DRT will not proactively notify contacts about escalations or to initiate proactive customer support.
+-- 'autoRenew', 'subscription_autoRenew' - If @ENABLED@, the subscription will be automatically renewed at the end
+-- of the existing subscription period.
 --
--- * 'sStartTime' - The start time of the subscription, in Unix time in seconds. For more information see <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp> .
+-- When you initally create a subscription, @AutoRenew@ is set to
+-- @ENABLED@. You can change this by submitting an @UpdateSubscription@
+-- request. If the @UpdateSubscription@ request does not included a value
+-- for @AutoRenew@, the existing value for @AutoRenew@ remains unchanged.
 --
--- * 'sEndTime' - The date and time your subscription will end.
+-- 'proactiveEngagementStatus', 'subscription_proactiveEngagementStatus' - If @ENABLED@, the DDoS Response Team (DRT) will use email and phone to
+-- notify contacts about escalations to the DRT and to initiate proactive
+-- customer support.
 --
--- * 'sLimits' - Specifies how many protections of a given type you can create.
+-- If @PENDING@, you have requested proactive engagement and the request is
+-- pending. The status changes to @ENABLED@ when your request is fully
+-- processed.
 --
--- * 'sTimeCommitmentInSeconds' - The length, in seconds, of the AWS Shield Advanced subscription for the account.
+-- If @DISABLED@, the DRT will not proactively notify contacts about
+-- escalations or to initiate proactive customer support.
 --
--- * 'sSubscriptionLimits' - Limits settings for your subscription.
-subscription ::
-  -- | 'sSubscriptionLimits'
+-- 'startTime', 'subscription_startTime' - The start time of the subscription, in Unix time in seconds. For more
+-- information see
+-- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+--
+-- 'endTime', 'subscription_endTime' - The date and time your subscription will end.
+--
+-- 'limits', 'subscription_limits' - Specifies how many protections of a given type you can create.
+--
+-- 'timeCommitmentInSeconds', 'subscription_timeCommitmentInSeconds' - The length, in seconds, of the AWS Shield Advanced subscription for the
+-- account.
+--
+-- 'subscriptionLimits', 'subscription_subscriptionLimits' - Limits settings for your subscription.
+newSubscription ::
+  -- | 'subscriptionLimits'
   SubscriptionLimits ->
   Subscription
-subscription pSubscriptionLimits_ =
+newSubscription pSubscriptionLimits_ =
   Subscription'
-    { _sAutoRenew = Nothing,
-      _sProactiveEngagementStatus = Nothing,
-      _sStartTime = Nothing,
-      _sEndTime = Nothing,
-      _sLimits = Nothing,
-      _sTimeCommitmentInSeconds = Nothing,
-      _sSubscriptionLimits = pSubscriptionLimits_
+    { autoRenew = Prelude.Nothing,
+      proactiveEngagementStatus = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      limits = Prelude.Nothing,
+      timeCommitmentInSeconds = Prelude.Nothing,
+      subscriptionLimits = pSubscriptionLimits_
     }
 
--- | If @ENABLED@ , the subscription will be automatically renewed at the end of the existing subscription period. When you initally create a subscription, @AutoRenew@ is set to @ENABLED@ . You can change this by submitting an @UpdateSubscription@ request. If the @UpdateSubscription@ request does not included a value for @AutoRenew@ , the existing value for @AutoRenew@ remains unchanged.
-sAutoRenew :: Lens' Subscription (Maybe AutoRenew)
-sAutoRenew = lens _sAutoRenew (\s a -> s {_sAutoRenew = a})
+-- | If @ENABLED@, the subscription will be automatically renewed at the end
+-- of the existing subscription period.
+--
+-- When you initally create a subscription, @AutoRenew@ is set to
+-- @ENABLED@. You can change this by submitting an @UpdateSubscription@
+-- request. If the @UpdateSubscription@ request does not included a value
+-- for @AutoRenew@, the existing value for @AutoRenew@ remains unchanged.
+subscription_autoRenew :: Lens.Lens' Subscription (Prelude.Maybe AutoRenew)
+subscription_autoRenew = Lens.lens (\Subscription' {autoRenew} -> autoRenew) (\s@Subscription' {} a -> s {autoRenew = a} :: Subscription)
 
--- | If @ENABLED@ , the DDoS Response Team (DRT) will use email and phone to notify contacts about escalations to the DRT and to initiate proactive customer support. If @PENDING@ , you have requested proactive engagement and the request is pending. The status changes to @ENABLED@ when your request is fully processed. If @DISABLED@ , the DRT will not proactively notify contacts about escalations or to initiate proactive customer support.
-sProactiveEngagementStatus :: Lens' Subscription (Maybe ProactiveEngagementStatus)
-sProactiveEngagementStatus = lens _sProactiveEngagementStatus (\s a -> s {_sProactiveEngagementStatus = a})
+-- | If @ENABLED@, the DDoS Response Team (DRT) will use email and phone to
+-- notify contacts about escalations to the DRT and to initiate proactive
+-- customer support.
+--
+-- If @PENDING@, you have requested proactive engagement and the request is
+-- pending. The status changes to @ENABLED@ when your request is fully
+-- processed.
+--
+-- If @DISABLED@, the DRT will not proactively notify contacts about
+-- escalations or to initiate proactive customer support.
+subscription_proactiveEngagementStatus :: Lens.Lens' Subscription (Prelude.Maybe ProactiveEngagementStatus)
+subscription_proactiveEngagementStatus = Lens.lens (\Subscription' {proactiveEngagementStatus} -> proactiveEngagementStatus) (\s@Subscription' {} a -> s {proactiveEngagementStatus = a} :: Subscription)
 
--- | The start time of the subscription, in Unix time in seconds. For more information see <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp> .
-sStartTime :: Lens' Subscription (Maybe UTCTime)
-sStartTime = lens _sStartTime (\s a -> s {_sStartTime = a}) . mapping _Time
+-- | The start time of the subscription, in Unix time in seconds. For more
+-- information see
+-- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+subscription_startTime :: Lens.Lens' Subscription (Prelude.Maybe Prelude.UTCTime)
+subscription_startTime = Lens.lens (\Subscription' {startTime} -> startTime) (\s@Subscription' {} a -> s {startTime = a} :: Subscription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date and time your subscription will end.
-sEndTime :: Lens' Subscription (Maybe UTCTime)
-sEndTime = lens _sEndTime (\s a -> s {_sEndTime = a}) . mapping _Time
+subscription_endTime :: Lens.Lens' Subscription (Prelude.Maybe Prelude.UTCTime)
+subscription_endTime = Lens.lens (\Subscription' {endTime} -> endTime) (\s@Subscription' {} a -> s {endTime = a} :: Subscription) Prelude.. Lens.mapping Prelude._Time
 
 -- | Specifies how many protections of a given type you can create.
-sLimits :: Lens' Subscription [Limit]
-sLimits = lens _sLimits (\s a -> s {_sLimits = a}) . _Default . _Coerce
+subscription_limits :: Lens.Lens' Subscription (Prelude.Maybe [Limit])
+subscription_limits = Lens.lens (\Subscription' {limits} -> limits) (\s@Subscription' {} a -> s {limits = a} :: Subscription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The length, in seconds, of the AWS Shield Advanced subscription for the account.
-sTimeCommitmentInSeconds :: Lens' Subscription (Maybe Natural)
-sTimeCommitmentInSeconds = lens _sTimeCommitmentInSeconds (\s a -> s {_sTimeCommitmentInSeconds = a}) . mapping _Nat
+-- | The length, in seconds, of the AWS Shield Advanced subscription for the
+-- account.
+subscription_timeCommitmentInSeconds :: Lens.Lens' Subscription (Prelude.Maybe Prelude.Natural)
+subscription_timeCommitmentInSeconds = Lens.lens (\Subscription' {timeCommitmentInSeconds} -> timeCommitmentInSeconds) (\s@Subscription' {} a -> s {timeCommitmentInSeconds = a} :: Subscription) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Limits settings for your subscription.
-sSubscriptionLimits :: Lens' Subscription SubscriptionLimits
-sSubscriptionLimits = lens _sSubscriptionLimits (\s a -> s {_sSubscriptionLimits = a})
+subscription_subscriptionLimits :: Lens.Lens' Subscription SubscriptionLimits
+subscription_subscriptionLimits = Lens.lens (\Subscription' {subscriptionLimits} -> subscriptionLimits) (\s@Subscription' {} a -> s {subscriptionLimits = a} :: Subscription)
 
-instance FromJSON Subscription where
+instance Prelude.FromJSON Subscription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Subscription"
       ( \x ->
           Subscription'
-            <$> (x .:? "AutoRenew")
-            <*> (x .:? "ProactiveEngagementStatus")
-            <*> (x .:? "StartTime")
-            <*> (x .:? "EndTime")
-            <*> (x .:? "Limits" .!= mempty)
-            <*> (x .:? "TimeCommitmentInSeconds")
-            <*> (x .: "SubscriptionLimits")
+            Prelude.<$> (x Prelude..:? "AutoRenew")
+            Prelude.<*> (x Prelude..:? "ProactiveEngagementStatus")
+            Prelude.<*> (x Prelude..:? "StartTime")
+            Prelude.<*> (x Prelude..:? "EndTime")
+            Prelude.<*> (x Prelude..:? "Limits" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "TimeCommitmentInSeconds")
+            Prelude.<*> (x Prelude..: "SubscriptionLimits")
       )
 
-instance Hashable Subscription
+instance Prelude.Hashable Subscription
 
-instance NFData Subscription
+instance Prelude.NFData Subscription

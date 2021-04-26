@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Shield.Types.AttackLayer
   ( AttackLayer
       ( ..,
-        Application,
-        Network
+        AttackLayerAPPLICATION,
+        AttackLayerNETWORK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AttackLayer = AttackLayer' (CI Text)
+newtype AttackLayer = AttackLayer'
+  { fromAttackLayer ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Application :: AttackLayer
-pattern Application = AttackLayer' "APPLICATION"
+pattern AttackLayerAPPLICATION :: AttackLayer
+pattern AttackLayerAPPLICATION = AttackLayer' "APPLICATION"
 
-pattern Network :: AttackLayer
-pattern Network = AttackLayer' "NETWORK"
+pattern AttackLayerNETWORK :: AttackLayer
+pattern AttackLayerNETWORK = AttackLayer' "NETWORK"
 
 {-# COMPLETE
-  Application,
-  Network,
+  AttackLayerAPPLICATION,
+  AttackLayerNETWORK,
   AttackLayer'
   #-}
 
-instance FromText AttackLayer where
-  parser = (AttackLayer' . mk) <$> takeText
+instance Prelude.FromText AttackLayer where
+  parser = AttackLayer' Prelude.<$> Prelude.takeText
 
-instance ToText AttackLayer where
-  toText (AttackLayer' ci) = original ci
+instance Prelude.ToText AttackLayer where
+  toText (AttackLayer' x) = x
 
-instance Hashable AttackLayer
+instance Prelude.Hashable AttackLayer
 
-instance NFData AttackLayer
+instance Prelude.NFData AttackLayer
 
-instance ToByteString AttackLayer
+instance Prelude.ToByteString AttackLayer
 
-instance ToQuery AttackLayer
+instance Prelude.ToQuery AttackLayer
 
-instance ToHeader AttackLayer
+instance Prelude.ToHeader AttackLayer
 
-instance FromJSON AttackLayer where
-  parseJSON = parseJSONText "AttackLayer"
+instance Prelude.FromJSON AttackLayer where
+  parseJSON = Prelude.parseJSONText "AttackLayer"

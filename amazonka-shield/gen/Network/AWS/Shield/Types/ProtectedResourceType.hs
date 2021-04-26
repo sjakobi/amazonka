@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.Shield.Types.ProtectedResourceType
   ( ProtectedResourceType
       ( ..,
-        ApplicationLoadBalancer,
-        ClassicLoadBalancer,
-        CloudfrontDistribution,
-        ElasticIPAllocation,
-        GlobalAccelerator,
-        Route53HostedZone
+        ProtectedResourceTypeAPPLICATIONLOADBALANCER,
+        ProtectedResourceTypeCLASSICLOADBALANCER,
+        ProtectedResourceTypeCLOUDFRONTDISTRIBUTION,
+        ProtectedResourceTypeELASTICIPALLOCATION,
+        ProtectedResourceTypeGLOBALACCELERATOR,
+        ProtectedResourceTypeROUTE53HOSTEDZONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProtectedResourceType
-  = ProtectedResourceType'
-      ( CI
-          Text
-      )
+newtype ProtectedResourceType = ProtectedResourceType'
+  { fromProtectedResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ApplicationLoadBalancer :: ProtectedResourceType
-pattern ApplicationLoadBalancer = ProtectedResourceType' "APPLICATION_LOAD_BALANCER"
+pattern ProtectedResourceTypeAPPLICATIONLOADBALANCER :: ProtectedResourceType
+pattern ProtectedResourceTypeAPPLICATIONLOADBALANCER = ProtectedResourceType' "APPLICATION_LOAD_BALANCER"
 
-pattern ClassicLoadBalancer :: ProtectedResourceType
-pattern ClassicLoadBalancer = ProtectedResourceType' "CLASSIC_LOAD_BALANCER"
+pattern ProtectedResourceTypeCLASSICLOADBALANCER :: ProtectedResourceType
+pattern ProtectedResourceTypeCLASSICLOADBALANCER = ProtectedResourceType' "CLASSIC_LOAD_BALANCER"
 
-pattern CloudfrontDistribution :: ProtectedResourceType
-pattern CloudfrontDistribution = ProtectedResourceType' "CLOUDFRONT_DISTRIBUTION"
+pattern ProtectedResourceTypeCLOUDFRONTDISTRIBUTION :: ProtectedResourceType
+pattern ProtectedResourceTypeCLOUDFRONTDISTRIBUTION = ProtectedResourceType' "CLOUDFRONT_DISTRIBUTION"
 
-pattern ElasticIPAllocation :: ProtectedResourceType
-pattern ElasticIPAllocation = ProtectedResourceType' "ELASTIC_IP_ALLOCATION"
+pattern ProtectedResourceTypeELASTICIPALLOCATION :: ProtectedResourceType
+pattern ProtectedResourceTypeELASTICIPALLOCATION = ProtectedResourceType' "ELASTIC_IP_ALLOCATION"
 
-pattern GlobalAccelerator :: ProtectedResourceType
-pattern GlobalAccelerator = ProtectedResourceType' "GLOBAL_ACCELERATOR"
+pattern ProtectedResourceTypeGLOBALACCELERATOR :: ProtectedResourceType
+pattern ProtectedResourceTypeGLOBALACCELERATOR = ProtectedResourceType' "GLOBAL_ACCELERATOR"
 
-pattern Route53HostedZone :: ProtectedResourceType
-pattern Route53HostedZone = ProtectedResourceType' "ROUTE_53_HOSTED_ZONE"
+pattern ProtectedResourceTypeROUTE53HOSTEDZONE :: ProtectedResourceType
+pattern ProtectedResourceTypeROUTE53HOSTEDZONE = ProtectedResourceType' "ROUTE_53_HOSTED_ZONE"
 
 {-# COMPLETE
-  ApplicationLoadBalancer,
-  ClassicLoadBalancer,
-  CloudfrontDistribution,
-  ElasticIPAllocation,
-  GlobalAccelerator,
-  Route53HostedZone,
+  ProtectedResourceTypeAPPLICATIONLOADBALANCER,
+  ProtectedResourceTypeCLASSICLOADBALANCER,
+  ProtectedResourceTypeCLOUDFRONTDISTRIBUTION,
+  ProtectedResourceTypeELASTICIPALLOCATION,
+  ProtectedResourceTypeGLOBALACCELERATOR,
+  ProtectedResourceTypeROUTE53HOSTEDZONE,
   ProtectedResourceType'
   #-}
 
-instance FromText ProtectedResourceType where
-  parser = (ProtectedResourceType' . mk) <$> takeText
+instance Prelude.FromText ProtectedResourceType where
+  parser = ProtectedResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText ProtectedResourceType where
-  toText (ProtectedResourceType' ci) = original ci
+instance Prelude.ToText ProtectedResourceType where
+  toText (ProtectedResourceType' x) = x
 
-instance Hashable ProtectedResourceType
+instance Prelude.Hashable ProtectedResourceType
 
-instance NFData ProtectedResourceType
+instance Prelude.NFData ProtectedResourceType
 
-instance ToByteString ProtectedResourceType
+instance Prelude.ToByteString ProtectedResourceType
 
-instance ToQuery ProtectedResourceType
+instance Prelude.ToQuery ProtectedResourceType
 
-instance ToHeader ProtectedResourceType
+instance Prelude.ToHeader ProtectedResourceType
 
-instance ToJSON ProtectedResourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProtectedResourceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProtectedResourceType where
-  parseJSON = parseJSONText "ProtectedResourceType"
+instance Prelude.FromJSON ProtectedResourceType where
+  parseJSON = Prelude.parseJSONText "ProtectedResourceType"

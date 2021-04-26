@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types
   ( -- * Service Configuration
-    shield,
+    defaultService,
 
     -- * Errors
     _OptimisticLockException,
@@ -60,170 +63,100 @@ module Network.AWS.Shield.Types
 
     -- * AttackDetail
     AttackDetail (..),
-    attackDetail,
-    adResourceARN,
-    adAttackProperties,
-    adStartTime,
-    adEndTime,
-    adAttackCounters,
-    adMitigations,
-    adAttackId,
-    adSubResources,
+    newAttackDetail,
 
     -- * AttackProperty
     AttackProperty (..),
-    attackProperty,
-    apUnit,
-    apTotal,
-    apAttackPropertyIdentifier,
-    apAttackLayer,
-    apTopContributors,
+    newAttackProperty,
 
     -- * AttackStatisticsDataItem
     AttackStatisticsDataItem (..),
-    attackStatisticsDataItem,
-    asdiAttackVolume,
-    asdiAttackCount,
+    newAttackStatisticsDataItem,
 
     -- * AttackSummary
     AttackSummary (..),
-    attackSummary,
-    asResourceARN,
-    asStartTime,
-    asEndTime,
-    asAttackId,
-    asAttackVectors,
+    newAttackSummary,
 
     -- * AttackVectorDescription
     AttackVectorDescription (..),
-    attackVectorDescription,
-    avdVectorType,
+    newAttackVectorDescription,
 
     -- * AttackVolume
     AttackVolume (..),
-    attackVolume,
-    avPacketsPerSecond,
-    avBitsPerSecond,
-    avRequestsPerSecond,
+    newAttackVolume,
 
     -- * AttackVolumeStatistics
     AttackVolumeStatistics (..),
-    attackVolumeStatistics,
-    avsMax,
+    newAttackVolumeStatistics,
 
     -- * Contributor
     Contributor (..),
-    contributor,
-    cName,
-    cValue,
+    newContributor,
 
     -- * EmergencyContact
     EmergencyContact (..),
-    emergencyContact,
-    ecPhoneNumber,
-    ecContactNotes,
-    ecEmailAddress,
+    newEmergencyContact,
 
     -- * Limit
     Limit (..),
-    limit,
-    lMax,
-    lType,
+    newLimit,
 
     -- * Mitigation
     Mitigation (..),
-    mitigation,
-    mMitigationName,
+    newMitigation,
 
     -- * Protection
     Protection (..),
-    protection,
-    pResourceARN,
-    pId,
-    pName,
-    pHealthCheckIds,
+    newProtection,
 
     -- * ProtectionGroup
     ProtectionGroup (..),
-    protectionGroup,
-    pgResourceType,
-    pgProtectionGroupId,
-    pgAggregation,
-    pgPattern,
-    pgMembers,
+    newProtectionGroup,
 
     -- * ProtectionGroupArbitraryPatternLimits
     ProtectionGroupArbitraryPatternLimits (..),
-    protectionGroupArbitraryPatternLimits,
-    pgaplMaxMembers,
+    newProtectionGroupArbitraryPatternLimits,
 
     -- * ProtectionGroupLimits
     ProtectionGroupLimits (..),
-    protectionGroupLimits,
-    pglMaxProtectionGroups,
-    pglPatternTypeLimits,
+    newProtectionGroupLimits,
 
     -- * ProtectionGroupPatternTypeLimits
     ProtectionGroupPatternTypeLimits (..),
-    protectionGroupPatternTypeLimits,
-    pgptlArbitraryPatternLimits,
+    newProtectionGroupPatternTypeLimits,
 
     -- * ProtectionLimits
     ProtectionLimits (..),
-    protectionLimits,
-    plProtectedResourceTypeLimits,
+    newProtectionLimits,
 
     -- * SubResourceSummary
     SubResourceSummary (..),
-    subResourceSummary,
-    srsCounters,
-    srsId,
-    srsType,
-    srsAttackVectors,
+    newSubResourceSummary,
 
     -- * Subscription
     Subscription (..),
-    subscription,
-    sAutoRenew,
-    sProactiveEngagementStatus,
-    sStartTime,
-    sEndTime,
-    sLimits,
-    sTimeCommitmentInSeconds,
-    sSubscriptionLimits,
+    newSubscription,
 
     -- * SubscriptionLimits
     SubscriptionLimits (..),
-    subscriptionLimits,
-    slProtectionLimits,
-    slProtectionGroupLimits,
+    newSubscriptionLimits,
 
     -- * SummarizedAttackVector
     SummarizedAttackVector (..),
-    summarizedAttackVector,
-    savVectorCounters,
-    savVectorType,
+    newSummarizedAttackVector,
 
     -- * SummarizedCounter
     SummarizedCounter (..),
-    summarizedCounter,
-    scUnit,
-    scN,
-    scSum,
-    scName,
-    scMax,
-    scAverage,
+    newSummarizedCounter,
 
     -- * TimeRange
     TimeRange (..),
-    timeRange,
-    trFromInclusive,
-    trToExclusive,
+    newTimeRange,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Shield.Types.AttackDetail
 import Network.AWS.Shield.Types.AttackLayer
 import Network.AWS.Shield.Types.AttackProperty
@@ -257,143 +190,187 @@ import Network.AWS.Shield.Types.SummarizedAttackVector
 import Network.AWS.Shield.Types.SummarizedCounter
 import Network.AWS.Shield.Types.TimeRange
 import Network.AWS.Shield.Types.Unit
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-06-02@ of the Amazon Shield SDK configuration.
-shield :: Service
-shield =
-  Service
-    { _svcAbbrev = "Shield",
-      _svcSigner = v4,
-      _svcPrefix = "shield",
-      _svcVersion = "2016-06-02",
-      _svcEndpoint = defaultEndpoint shield,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Shield",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Shield",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "shield",
+      Prelude._svcVersion = "2016-06-02",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "Shield",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | Exception that indicates that the resource state has been modified by another client. Retrieve the resource and then retry your request.
-_OptimisticLockException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception that indicates that the resource state has been modified by
+-- another client. Retrieve the resource and then retry your request.
+_OptimisticLockException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OptimisticLockException =
-  _MatchServiceError shield "OptimisticLockException"
+  Prelude._MatchServiceError
+    defaultService
+    "OptimisticLockException"
 
--- | Exception that indicates that the resource is invalid. You might not have access to the resource, or the resource might not exist.
-_InvalidResourceException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception that indicates that the resource is invalid. You might not
+-- have access to the resource, or the resource might not exist.
+_InvalidResourceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidResourceException =
-  _MatchServiceError
-    shield
+  Prelude._MatchServiceError
+    defaultService
     "InvalidResourceException"
 
--- | Exception that indicates that the NextToken specified in the request is invalid. Submit the request using the NextToken value that was returned in the response.
-_InvalidPaginationTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception that indicates that the NextToken specified in the request is
+-- invalid. Submit the request using the NextToken value that was returned
+-- in the response.
+_InvalidPaginationTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidPaginationTokenException =
-  _MatchServiceError
-    shield
+  Prelude._MatchServiceError
+    defaultService
     "InvalidPaginationTokenException"
 
--- | Exception that indicates that the operation would not cause any change to occur.
-_InvalidOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception that indicates that the operation would not cause any change
+-- to occur.
+_InvalidOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidOperationException =
-  _MatchServiceError
-    shield
+  Prelude._MatchServiceError
+    defaultService
     "InvalidOperationException"
 
--- | Exception indicating the specified resource already exists. If available, this exception includes details in additional properties.
-_ResourceAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception indicating the specified resource already exists. If
+-- available, this exception includes details in additional properties.
+_ResourceAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAlreadyExistsException =
-  _MatchServiceError
-    shield
+  Prelude._MatchServiceError
+    defaultService
     "ResourceAlreadyExistsException"
 
--- | Exception that indicates that a problem occurred with the service infrastructure. You can retry the request.
-_InternalErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception that indicates that a problem occurred with the service
+-- infrastructure. You can retry the request.
+_InternalErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalErrorException =
-  _MatchServiceError shield "InternalErrorException"
+  Prelude._MatchServiceError
+    defaultService
+    "InternalErrorException"
 
 -- | The ARN of the role that you specifed does not exist.
-_NoAssociatedRoleException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoAssociatedRoleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoAssociatedRoleException =
-  _MatchServiceError
-    shield
+  Prelude._MatchServiceError
+    defaultService
     "NoAssociatedRoleException"
 
--- | Exception that indicates that the parameters passed to the API are invalid. If available, this exception includes details in additional properties.
-_InvalidParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception that indicates that the parameters passed to the API are
+-- invalid. If available, this exception includes details in additional
+-- properties.
+_InvalidParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterException =
-  _MatchServiceError
-    shield
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterException"
 
--- | Exception that indicates the specified @AttackId@ does not exist, or the requester does not have the appropriate permissions to access the @AttackId@ .
-_AccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception that indicates the specified @AttackId@ does not exist, or the
+-- requester does not have the appropriate permissions to access the
+-- @AttackId@.
+_AccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedException =
-  _MatchServiceError shield "AccessDeniedException"
+  Prelude._MatchServiceError
+    defaultService
+    "AccessDeniedException"
 
--- | You are trying to update a subscription that has not yet completed the 1-year commitment. You can change the @AutoRenew@ parameter during the last 30 days of your subscription. This exception indicates that you are attempting to change @AutoRenew@ prior to that period.
-_LockedSubscriptionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You are trying to update a subscription that has not yet completed the
+-- 1-year commitment. You can change the @AutoRenew@ parameter during the
+-- last 30 days of your subscription. This exception indicates that you are
+-- attempting to change @AutoRenew@ prior to that period.
+_LockedSubscriptionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LockedSubscriptionException =
-  _MatchServiceError
-    shield
+  Prelude._MatchServiceError
+    defaultService
     "LockedSubscriptionException"
 
--- | Exception indicating the specified resource does not exist. If available, this exception includes details in additional properties.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception indicating the specified resource does not exist. If
+-- available, this exception includes details in additional properties.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    shield
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
--- | In order to grant the necessary access to the DDoS Response Team (DRT), the user submitting the request must have the @iam:PassRole@ permission. This error indicates the user did not have the appropriate permissions. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html Granting a User Permissions to Pass a Role to an AWS Service> .
-_AccessDeniedForDependencyException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | In order to grant the necessary access to the DDoS Response Team (DRT),
+-- the user submitting the request must have the @iam:PassRole@ permission.
+-- This error indicates the user did not have the appropriate permissions.
+-- For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html Granting a User Permissions to Pass a Role to an AWS Service>.
+_AccessDeniedForDependencyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedForDependencyException =
-  _MatchServiceError
-    shield
+  Prelude._MatchServiceError
+    defaultService
     "AccessDeniedForDependencyException"
 
 -- | Exception that indicates that the operation would exceed a limit.
 --
---
 -- @Type@ is the type of limit that would be exceeded.
 --
 -- @Limit@ is the threshold that would be exceeded.
-_LimitsExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitsExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitsExceededException =
-  _MatchServiceError shield "LimitsExceededException"
+  Prelude._MatchServiceError
+    defaultService
+    "LimitsExceededException"

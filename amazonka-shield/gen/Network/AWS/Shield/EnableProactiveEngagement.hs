@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,113 +21,115 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Authorizes the DDoS Response Team (DRT) to use email and phone to notify contacts about escalations to the DRT and to initiate proactive customer support.
+-- Authorizes the DDoS Response Team (DRT) to use email and phone to notify
+-- contacts about escalations to the DRT and to initiate proactive customer
+-- support.
 module Network.AWS.Shield.EnableProactiveEngagement
   ( -- * Creating a Request
-    enableProactiveEngagement,
-    EnableProactiveEngagement,
+    EnableProactiveEngagement (..),
+    newEnableProactiveEngagement,
 
     -- * Destructuring the Response
-    enableProactiveEngagementResponse,
-    EnableProactiveEngagementResponse,
+    EnableProactiveEngagementResponse (..),
+    newEnableProactiveEngagementResponse,
 
     -- * Response Lenses
-    eperrsResponseStatus,
+    enableProactiveEngagementResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
 
--- | /See:/ 'enableProactiveEngagement' smart constructor.
+-- | /See:/ 'newEnableProactiveEngagement' smart constructor.
 data EnableProactiveEngagement = EnableProactiveEngagement'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableProactiveEngagement' with the minimum fields required to make a request.
-enableProactiveEngagement ::
+-- |
+-- Create a value of 'EnableProactiveEngagement' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newEnableProactiveEngagement ::
   EnableProactiveEngagement
-enableProactiveEngagement =
+newEnableProactiveEngagement =
   EnableProactiveEngagement'
 
-instance AWSRequest EnableProactiveEngagement where
+instance Prelude.AWSRequest EnableProactiveEngagement where
   type
     Rs EnableProactiveEngagement =
       EnableProactiveEngagementResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           EnableProactiveEngagementResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnableProactiveEngagement
+instance Prelude.Hashable EnableProactiveEngagement
 
-instance NFData EnableProactiveEngagement
+instance Prelude.NFData EnableProactiveEngagement
 
-instance ToHeaders EnableProactiveEngagement where
+instance Prelude.ToHeaders EnableProactiveEngagement where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.EnableProactiveEngagement" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.EnableProactiveEngagement" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableProactiveEngagement where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON EnableProactiveEngagement where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath EnableProactiveEngagement where
-  toPath = const "/"
+instance Prelude.ToPath EnableProactiveEngagement where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableProactiveEngagement where
-  toQuery = const mempty
+instance Prelude.ToQuery EnableProactiveEngagement where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enableProactiveEngagementResponse' smart constructor.
-newtype EnableProactiveEngagementResponse = EnableProactiveEngagementResponse'
-  { _eperrsResponseStatus ::
-      Int
+-- | /See:/ 'newEnableProactiveEngagementResponse' smart constructor.
+data EnableProactiveEngagementResponse = EnableProactiveEngagementResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableProactiveEngagementResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableProactiveEngagementResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eperrsResponseStatus' - -- | The response status code.
-enableProactiveEngagementResponse ::
-  -- | 'eperrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'enableProactiveEngagementResponse_httpStatus' - The response's http status code.
+newEnableProactiveEngagementResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   EnableProactiveEngagementResponse
-enableProactiveEngagementResponse pResponseStatus_ =
+newEnableProactiveEngagementResponse pHttpStatus_ =
   EnableProactiveEngagementResponse'
-    { _eperrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-eperrsResponseStatus :: Lens' EnableProactiveEngagementResponse Int
-eperrsResponseStatus = lens _eperrsResponseStatus (\s a -> s {_eperrsResponseStatus = a})
+-- | The response's http status code.
+enableProactiveEngagementResponse_httpStatus :: Lens.Lens' EnableProactiveEngagementResponse Prelude.Int
+enableProactiveEngagementResponse_httpStatus = Lens.lens (\EnableProactiveEngagementResponse' {httpStatus} -> httpStatus) (\s@EnableProactiveEngagementResponse' {} a -> s {httpStatus = a} :: EnableProactiveEngagementResponse)
 
-instance NFData EnableProactiveEngagementResponse
+instance
+  Prelude.NFData
+    EnableProactiveEngagementResponse

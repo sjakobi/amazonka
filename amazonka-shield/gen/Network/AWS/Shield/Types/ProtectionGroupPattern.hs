@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Shield.Types.ProtectionGroupPattern
   ( ProtectionGroupPattern
       ( ..,
-        All,
-        Arbitrary,
-        ByResourceType
+        ProtectionGroupPatternALL,
+        ProtectionGroupPatternARBITRARY,
+        ProtectionGroupPatternBYRESOURCETYPE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProtectionGroupPattern
-  = ProtectionGroupPattern'
-      ( CI
-          Text
-      )
+newtype ProtectionGroupPattern = ProtectionGroupPattern'
+  { fromProtectionGroupPattern ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: ProtectionGroupPattern
-pattern All = ProtectionGroupPattern' "ALL"
+pattern ProtectionGroupPatternALL :: ProtectionGroupPattern
+pattern ProtectionGroupPatternALL = ProtectionGroupPattern' "ALL"
 
-pattern Arbitrary :: ProtectionGroupPattern
-pattern Arbitrary = ProtectionGroupPattern' "ARBITRARY"
+pattern ProtectionGroupPatternARBITRARY :: ProtectionGroupPattern
+pattern ProtectionGroupPatternARBITRARY = ProtectionGroupPattern' "ARBITRARY"
 
-pattern ByResourceType :: ProtectionGroupPattern
-pattern ByResourceType = ProtectionGroupPattern' "BY_RESOURCE_TYPE"
+pattern ProtectionGroupPatternBYRESOURCETYPE :: ProtectionGroupPattern
+pattern ProtectionGroupPatternBYRESOURCETYPE = ProtectionGroupPattern' "BY_RESOURCE_TYPE"
 
 {-# COMPLETE
-  All,
-  Arbitrary,
-  ByResourceType,
+  ProtectionGroupPatternALL,
+  ProtectionGroupPatternARBITRARY,
+  ProtectionGroupPatternBYRESOURCETYPE,
   ProtectionGroupPattern'
   #-}
 
-instance FromText ProtectionGroupPattern where
-  parser = (ProtectionGroupPattern' . mk) <$> takeText
+instance Prelude.FromText ProtectionGroupPattern where
+  parser = ProtectionGroupPattern' Prelude.<$> Prelude.takeText
 
-instance ToText ProtectionGroupPattern where
-  toText (ProtectionGroupPattern' ci) = original ci
+instance Prelude.ToText ProtectionGroupPattern where
+  toText (ProtectionGroupPattern' x) = x
 
-instance Hashable ProtectionGroupPattern
+instance Prelude.Hashable ProtectionGroupPattern
 
-instance NFData ProtectionGroupPattern
+instance Prelude.NFData ProtectionGroupPattern
 
-instance ToByteString ProtectionGroupPattern
+instance Prelude.ToByteString ProtectionGroupPattern
 
-instance ToQuery ProtectionGroupPattern
+instance Prelude.ToQuery ProtectionGroupPattern
 
-instance ToHeader ProtectionGroupPattern
+instance Prelude.ToHeader ProtectionGroupPattern
 
-instance ToJSON ProtectionGroupPattern where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProtectionGroupPattern where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProtectionGroupPattern where
-  parseJSON = parseJSONText "ProtectionGroupPattern"
+instance Prelude.FromJSON ProtectionGroupPattern where
+  parseJSON = Prelude.parseJSONText "ProtectionGroupPattern"

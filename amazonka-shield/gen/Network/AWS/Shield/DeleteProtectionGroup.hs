@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,133 +24,137 @@
 -- Removes the specified protection group.
 module Network.AWS.Shield.DeleteProtectionGroup
   ( -- * Creating a Request
-    deleteProtectionGroup,
-    DeleteProtectionGroup,
+    DeleteProtectionGroup (..),
+    newDeleteProtectionGroup,
 
     -- * Request Lenses
-    dProtectionGroupId,
+    deleteProtectionGroup_protectionGroupId,
 
     -- * Destructuring the Response
-    deleteProtectionGroupResponse,
-    DeleteProtectionGroupResponse,
+    DeleteProtectionGroupResponse (..),
+    newDeleteProtectionGroupResponse,
 
     -- * Response Lenses
-    dpgrrsResponseStatus,
+    deleteProtectionGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
 
--- | /See:/ 'deleteProtectionGroup' smart constructor.
-newtype DeleteProtectionGroup = DeleteProtectionGroup'
-  { _dProtectionGroupId ::
-      Text
+-- | /See:/ 'newDeleteProtectionGroup' smart constructor.
+data DeleteProtectionGroup = DeleteProtectionGroup'
+  { -- | The name of the protection group. You use this to identify the
+    -- protection group in lists and to manage the protection group, for
+    -- example to update, delete, or describe it.
+    protectionGroupId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProtectionGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProtectionGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dProtectionGroupId' - The name of the protection group. You use this to identify the protection group in lists and to manage the protection group, for example to update, delete, or describe it.
-deleteProtectionGroup ::
-  -- | 'dProtectionGroupId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'protectionGroupId', 'deleteProtectionGroup_protectionGroupId' - The name of the protection group. You use this to identify the
+-- protection group in lists and to manage the protection group, for
+-- example to update, delete, or describe it.
+newDeleteProtectionGroup ::
+  -- | 'protectionGroupId'
+  Prelude.Text ->
   DeleteProtectionGroup
-deleteProtectionGroup pProtectionGroupId_ =
+newDeleteProtectionGroup pProtectionGroupId_ =
   DeleteProtectionGroup'
-    { _dProtectionGroupId =
+    { protectionGroupId =
         pProtectionGroupId_
     }
 
--- | The name of the protection group. You use this to identify the protection group in lists and to manage the protection group, for example to update, delete, or describe it.
-dProtectionGroupId :: Lens' DeleteProtectionGroup Text
-dProtectionGroupId = lens _dProtectionGroupId (\s a -> s {_dProtectionGroupId = a})
+-- | The name of the protection group. You use this to identify the
+-- protection group in lists and to manage the protection group, for
+-- example to update, delete, or describe it.
+deleteProtectionGroup_protectionGroupId :: Lens.Lens' DeleteProtectionGroup Prelude.Text
+deleteProtectionGroup_protectionGroupId = Lens.lens (\DeleteProtectionGroup' {protectionGroupId} -> protectionGroupId) (\s@DeleteProtectionGroup' {} a -> s {protectionGroupId = a} :: DeleteProtectionGroup)
 
-instance AWSRequest DeleteProtectionGroup where
+instance Prelude.AWSRequest DeleteProtectionGroup where
   type
     Rs DeleteProtectionGroup =
       DeleteProtectionGroupResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteProtectionGroupResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteProtectionGroup
+instance Prelude.Hashable DeleteProtectionGroup
 
-instance NFData DeleteProtectionGroup
+instance Prelude.NFData DeleteProtectionGroup
 
-instance ToHeaders DeleteProtectionGroup where
+instance Prelude.ToHeaders DeleteProtectionGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.DeleteProtectionGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.DeleteProtectionGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteProtectionGroup where
+instance Prelude.ToJSON DeleteProtectionGroup where
   toJSON DeleteProtectionGroup' {..} =
-    object
-      ( catMaybes
-          [Just ("ProtectionGroupId" .= _dProtectionGroupId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ProtectionGroupId" Prelude..= protectionGroupId)
+          ]
       )
 
-instance ToPath DeleteProtectionGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteProtectionGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteProtectionGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteProtectionGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteProtectionGroupResponse' smart constructor.
-newtype DeleteProtectionGroupResponse = DeleteProtectionGroupResponse'
-  { _dpgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteProtectionGroupResponse' smart constructor.
+data DeleteProtectionGroupResponse = DeleteProtectionGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProtectionGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProtectionGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpgrrsResponseStatus' - -- | The response status code.
-deleteProtectionGroupResponse ::
-  -- | 'dpgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteProtectionGroupResponse_httpStatus' - The response's http status code.
+newDeleteProtectionGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteProtectionGroupResponse
-deleteProtectionGroupResponse pResponseStatus_ =
+newDeleteProtectionGroupResponse pHttpStatus_ =
   DeleteProtectionGroupResponse'
-    { _dpgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dpgrrsResponseStatus :: Lens' DeleteProtectionGroupResponse Int
-dpgrrsResponseStatus = lens _dpgrrsResponseStatus (\s a -> s {_dpgrrsResponseStatus = a})
+-- | The response's http status code.
+deleteProtectionGroupResponse_httpStatus :: Lens.Lens' DeleteProtectionGroupResponse Prelude.Int
+deleteProtectionGroupResponse_httpStatus = Lens.lens (\DeleteProtectionGroupResponse' {httpStatus} -> httpStatus) (\s@DeleteProtectionGroupResponse' {} a -> s {httpStatus = a} :: DeleteProtectionGroupResponse)
 
-instance NFData DeleteProtectionGroupResponse
+instance Prelude.NFData DeleteProtectionGroupResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.TimeRange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The time range.
 --
---
---
--- /See:/ 'timeRange' smart constructor.
+-- /See:/ 'newTimeRange' smart constructor.
 data TimeRange = TimeRange'
-  { _trFromInclusive ::
-      !(Maybe POSIX),
-    _trToExclusive :: !(Maybe POSIX)
+  { -- | The start time, in Unix time in seconds. For more information see
+    -- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+    fromInclusive :: Prelude.Maybe Prelude.POSIX,
+    -- | The end time, in Unix time in seconds. For more information see
+    -- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+    toExclusive :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimeRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimeRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trFromInclusive' - The start time, in Unix time in seconds. For more information see <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trToExclusive' - The end time, in Unix time in seconds. For more information see <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp> .
-timeRange ::
+-- 'fromInclusive', 'timeRange_fromInclusive' - The start time, in Unix time in seconds. For more information see
+-- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+--
+-- 'toExclusive', 'timeRange_toExclusive' - The end time, in Unix time in seconds. For more information see
+-- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+newTimeRange ::
   TimeRange
-timeRange =
+newTimeRange =
   TimeRange'
-    { _trFromInclusive = Nothing,
-      _trToExclusive = Nothing
+    { fromInclusive = Prelude.Nothing,
+      toExclusive = Prelude.Nothing
     }
 
--- | The start time, in Unix time in seconds. For more information see <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp> .
-trFromInclusive :: Lens' TimeRange (Maybe UTCTime)
-trFromInclusive = lens _trFromInclusive (\s a -> s {_trFromInclusive = a}) . mapping _Time
+-- | The start time, in Unix time in seconds. For more information see
+-- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+timeRange_fromInclusive :: Lens.Lens' TimeRange (Prelude.Maybe Prelude.UTCTime)
+timeRange_fromInclusive = Lens.lens (\TimeRange' {fromInclusive} -> fromInclusive) (\s@TimeRange' {} a -> s {fromInclusive = a} :: TimeRange) Prelude.. Lens.mapping Prelude._Time
 
--- | The end time, in Unix time in seconds. For more information see <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp> .
-trToExclusive :: Lens' TimeRange (Maybe UTCTime)
-trToExclusive = lens _trToExclusive (\s a -> s {_trToExclusive = a}) . mapping _Time
+-- | The end time, in Unix time in seconds. For more information see
+-- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+timeRange_toExclusive :: Lens.Lens' TimeRange (Prelude.Maybe Prelude.UTCTime)
+timeRange_toExclusive = Lens.lens (\TimeRange' {toExclusive} -> toExclusive) (\s@TimeRange' {} a -> s {toExclusive = a} :: TimeRange) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON TimeRange where
+instance Prelude.FromJSON TimeRange where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimeRange"
       ( \x ->
           TimeRange'
-            <$> (x .:? "FromInclusive") <*> (x .:? "ToExclusive")
+            Prelude.<$> (x Prelude..:? "FromInclusive")
+            Prelude.<*> (x Prelude..:? "ToExclusive")
       )
 
-instance Hashable TimeRange
+instance Prelude.Hashable TimeRange
 
-instance NFData TimeRange
+instance Prelude.NFData TimeRange
 
-instance ToJSON TimeRange where
+instance Prelude.ToJSON TimeRange where
   toJSON TimeRange' {..} =
-    object
-      ( catMaybes
-          [ ("FromInclusive" .=) <$> _trFromInclusive,
-            ("ToExclusive" .=) <$> _trToExclusive
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FromInclusive" Prelude..=)
+              Prelude.<$> fromInclusive,
+            ("ToExclusive" Prelude..=) Prelude.<$> toExclusive
           ]
       )

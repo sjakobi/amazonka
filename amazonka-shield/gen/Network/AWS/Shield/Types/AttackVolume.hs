@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.AttackVolume where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Shield.Types.AttackVolumeStatistics
 
--- | Information about the volume of attacks during the time period, included in an 'AttackStatisticsDataItem' . If the accompanying @AttackCount@ in the statistics object is zero, this setting might be empty.
+-- | Information about the volume of attacks during the time period, included
+-- in an AttackStatisticsDataItem. If the accompanying @AttackCount@ in the
+-- statistics object is zero, this setting might be empty.
 --
---
---
--- /See:/ 'attackVolume' smart constructor.
+-- /See:/ 'newAttackVolume' smart constructor.
 data AttackVolume = AttackVolume'
-  { _avPacketsPerSecond ::
-      !(Maybe AttackVolumeStatistics),
-    _avBitsPerSecond ::
-      !(Maybe AttackVolumeStatistics),
-    _avRequestsPerSecond ::
-      !(Maybe AttackVolumeStatistics)
+  { -- | A statistics object that uses packets per second as the unit. This is
+    -- included for network level attacks.
+    packetsPerSecond :: Prelude.Maybe AttackVolumeStatistics,
+    -- | A statistics object that uses bits per second as the unit. This is
+    -- included for network level attacks.
+    bitsPerSecond :: Prelude.Maybe AttackVolumeStatistics,
+    -- | A statistics object that uses requests per second as the unit. This is
+    -- included for application level attacks, and is only available for
+    -- accounts that are subscribed to Shield Advanced.
+    requestsPerSecond :: Prelude.Maybe AttackVolumeStatistics
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttackVolume' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttackVolume' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avPacketsPerSecond' - A statistics object that uses packets per second as the unit. This is included for network level attacks.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avBitsPerSecond' - A statistics object that uses bits per second as the unit. This is included for network level attacks.
+-- 'packetsPerSecond', 'attackVolume_packetsPerSecond' - A statistics object that uses packets per second as the unit. This is
+-- included for network level attacks.
 --
--- * 'avRequestsPerSecond' - A statistics object that uses requests per second as the unit. This is included for application level attacks, and is only available for accounts that are subscribed to Shield Advanced.
-attackVolume ::
+-- 'bitsPerSecond', 'attackVolume_bitsPerSecond' - A statistics object that uses bits per second as the unit. This is
+-- included for network level attacks.
+--
+-- 'requestsPerSecond', 'attackVolume_requestsPerSecond' - A statistics object that uses requests per second as the unit. This is
+-- included for application level attacks, and is only available for
+-- accounts that are subscribed to Shield Advanced.
+newAttackVolume ::
   AttackVolume
-attackVolume =
+newAttackVolume =
   AttackVolume'
-    { _avPacketsPerSecond = Nothing,
-      _avBitsPerSecond = Nothing,
-      _avRequestsPerSecond = Nothing
+    { packetsPerSecond = Prelude.Nothing,
+      bitsPerSecond = Prelude.Nothing,
+      requestsPerSecond = Prelude.Nothing
     }
 
--- | A statistics object that uses packets per second as the unit. This is included for network level attacks.
-avPacketsPerSecond :: Lens' AttackVolume (Maybe AttackVolumeStatistics)
-avPacketsPerSecond = lens _avPacketsPerSecond (\s a -> s {_avPacketsPerSecond = a})
+-- | A statistics object that uses packets per second as the unit. This is
+-- included for network level attacks.
+attackVolume_packetsPerSecond :: Lens.Lens' AttackVolume (Prelude.Maybe AttackVolumeStatistics)
+attackVolume_packetsPerSecond = Lens.lens (\AttackVolume' {packetsPerSecond} -> packetsPerSecond) (\s@AttackVolume' {} a -> s {packetsPerSecond = a} :: AttackVolume)
 
--- | A statistics object that uses bits per second as the unit. This is included for network level attacks.
-avBitsPerSecond :: Lens' AttackVolume (Maybe AttackVolumeStatistics)
-avBitsPerSecond = lens _avBitsPerSecond (\s a -> s {_avBitsPerSecond = a})
+-- | A statistics object that uses bits per second as the unit. This is
+-- included for network level attacks.
+attackVolume_bitsPerSecond :: Lens.Lens' AttackVolume (Prelude.Maybe AttackVolumeStatistics)
+attackVolume_bitsPerSecond = Lens.lens (\AttackVolume' {bitsPerSecond} -> bitsPerSecond) (\s@AttackVolume' {} a -> s {bitsPerSecond = a} :: AttackVolume)
 
--- | A statistics object that uses requests per second as the unit. This is included for application level attacks, and is only available for accounts that are subscribed to Shield Advanced.
-avRequestsPerSecond :: Lens' AttackVolume (Maybe AttackVolumeStatistics)
-avRequestsPerSecond = lens _avRequestsPerSecond (\s a -> s {_avRequestsPerSecond = a})
+-- | A statistics object that uses requests per second as the unit. This is
+-- included for application level attacks, and is only available for
+-- accounts that are subscribed to Shield Advanced.
+attackVolume_requestsPerSecond :: Lens.Lens' AttackVolume (Prelude.Maybe AttackVolumeStatistics)
+attackVolume_requestsPerSecond = Lens.lens (\AttackVolume' {requestsPerSecond} -> requestsPerSecond) (\s@AttackVolume' {} a -> s {requestsPerSecond = a} :: AttackVolume)
 
-instance FromJSON AttackVolume where
+instance Prelude.FromJSON AttackVolume where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttackVolume"
       ( \x ->
           AttackVolume'
-            <$> (x .:? "PacketsPerSecond")
-            <*> (x .:? "BitsPerSecond")
-            <*> (x .:? "RequestsPerSecond")
+            Prelude.<$> (x Prelude..:? "PacketsPerSecond")
+            Prelude.<*> (x Prelude..:? "BitsPerSecond")
+            Prelude.<*> (x Prelude..:? "RequestsPerSecond")
       )
 
-instance Hashable AttackVolume
+instance Prelude.Hashable AttackVolume
 
-instance NFData AttackVolume
+instance Prelude.NFData AttackVolume

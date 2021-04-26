@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.EmergencyContact where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contact information that the DRT can use to contact you if you have proactive engagement enabled, for escalations to the DRT and to initiate proactive customer support.
+-- | Contact information that the DRT can use to contact you if you have
+-- proactive engagement enabled, for escalations to the DRT and to initiate
+-- proactive customer support.
 --
---
---
--- /See:/ 'emergencyContact' smart constructor.
+-- /See:/ 'newEmergencyContact' smart constructor.
 data EmergencyContact = EmergencyContact'
-  { _ecPhoneNumber ::
-      !(Maybe Text),
-    _ecContactNotes :: !(Maybe Text),
-    _ecEmailAddress :: !Text
+  { -- | The phone number for the contact.
+    phoneNumber :: Prelude.Maybe Prelude.Text,
+    -- | Additional notes regarding the contact.
+    contactNotes :: Prelude.Maybe Prelude.Text,
+    -- | The email address for the contact.
+    emailAddress :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EmergencyContact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EmergencyContact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecPhoneNumber' - The phone number for the contact.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ecContactNotes' - Additional notes regarding the contact.
+-- 'phoneNumber', 'emergencyContact_phoneNumber' - The phone number for the contact.
 --
--- * 'ecEmailAddress' - The email address for the contact.
-emergencyContact ::
-  -- | 'ecEmailAddress'
-  Text ->
+-- 'contactNotes', 'emergencyContact_contactNotes' - Additional notes regarding the contact.
+--
+-- 'emailAddress', 'emergencyContact_emailAddress' - The email address for the contact.
+newEmergencyContact ::
+  -- | 'emailAddress'
+  Prelude.Text ->
   EmergencyContact
-emergencyContact pEmailAddress_ =
+newEmergencyContact pEmailAddress_ =
   EmergencyContact'
-    { _ecPhoneNumber = Nothing,
-      _ecContactNotes = Nothing,
-      _ecEmailAddress = pEmailAddress_
+    { phoneNumber = Prelude.Nothing,
+      contactNotes = Prelude.Nothing,
+      emailAddress = pEmailAddress_
     }
 
 -- | The phone number for the contact.
-ecPhoneNumber :: Lens' EmergencyContact (Maybe Text)
-ecPhoneNumber = lens _ecPhoneNumber (\s a -> s {_ecPhoneNumber = a})
+emergencyContact_phoneNumber :: Lens.Lens' EmergencyContact (Prelude.Maybe Prelude.Text)
+emergencyContact_phoneNumber = Lens.lens (\EmergencyContact' {phoneNumber} -> phoneNumber) (\s@EmergencyContact' {} a -> s {phoneNumber = a} :: EmergencyContact)
 
 -- | Additional notes regarding the contact.
-ecContactNotes :: Lens' EmergencyContact (Maybe Text)
-ecContactNotes = lens _ecContactNotes (\s a -> s {_ecContactNotes = a})
+emergencyContact_contactNotes :: Lens.Lens' EmergencyContact (Prelude.Maybe Prelude.Text)
+emergencyContact_contactNotes = Lens.lens (\EmergencyContact' {contactNotes} -> contactNotes) (\s@EmergencyContact' {} a -> s {contactNotes = a} :: EmergencyContact)
 
 -- | The email address for the contact.
-ecEmailAddress :: Lens' EmergencyContact Text
-ecEmailAddress = lens _ecEmailAddress (\s a -> s {_ecEmailAddress = a})
+emergencyContact_emailAddress :: Lens.Lens' EmergencyContact Prelude.Text
+emergencyContact_emailAddress = Lens.lens (\EmergencyContact' {emailAddress} -> emailAddress) (\s@EmergencyContact' {} a -> s {emailAddress = a} :: EmergencyContact)
 
-instance FromJSON EmergencyContact where
+instance Prelude.FromJSON EmergencyContact where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EmergencyContact"
       ( \x ->
           EmergencyContact'
-            <$> (x .:? "PhoneNumber")
-            <*> (x .:? "ContactNotes")
-            <*> (x .: "EmailAddress")
+            Prelude.<$> (x Prelude..:? "PhoneNumber")
+            Prelude.<*> (x Prelude..:? "ContactNotes")
+            Prelude.<*> (x Prelude..: "EmailAddress")
       )
 
-instance Hashable EmergencyContact
+instance Prelude.Hashable EmergencyContact
 
-instance NFData EmergencyContact
+instance Prelude.NFData EmergencyContact
 
-instance ToJSON EmergencyContact where
+instance Prelude.ToJSON EmergencyContact where
   toJSON EmergencyContact' {..} =
-    object
-      ( catMaybes
-          [ ("PhoneNumber" .=) <$> _ecPhoneNumber,
-            ("ContactNotes" .=) <$> _ecContactNotes,
-            Just ("EmailAddress" .= _ecEmailAddress)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PhoneNumber" Prelude..=) Prelude.<$> phoneNumber,
+            ("ContactNotes" Prelude..=) Prelude.<$> contactNotes,
+            Prelude.Just
+              ("EmailAddress" Prelude..= emailAddress)
           ]
       )

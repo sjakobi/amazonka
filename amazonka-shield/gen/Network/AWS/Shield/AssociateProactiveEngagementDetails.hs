@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Initializes proactive engagement and sets the list of contacts for the DDoS Response Team (DRT) to use. You must provide at least one phone number in the emergency contact list.
+-- Initializes proactive engagement and sets the list of contacts for the
+-- DDoS Response Team (DRT) to use. You must provide at least one phone
+-- number in the emergency contact list.
 --
+-- After you have initialized proactive engagement using this call, to
+-- disable or enable proactive engagement, use the calls
+-- @DisableProactiveEngagement@ and @EnableProactiveEngagement@.
 --
--- After you have initialized proactive engagement using this call, to disable or enable proactive engagement, use the calls @DisableProactiveEngagement@ and @EnableProactiveEngagement@ .
+-- This call defines the list of email addresses and phone numbers that the
+-- DDoS Response Team (DRT) can use to contact you for escalations to the
+-- DRT and to initiate proactive customer support.
+--
+-- The contacts that you provide in the request replace any contacts that
+-- were already defined. If you already have contacts defined and want to
+-- use them, retrieve the list using @DescribeEmergencyContactSettings@ and
+-- then provide it to this call.
 module Network.AWS.Shield.AssociateProactiveEngagementDetails
   ( -- * Creating a Request
-    associateProactiveEngagementDetails,
-    AssociateProactiveEngagementDetails,
+    AssociateProactiveEngagementDetails (..),
+    newAssociateProactiveEngagementDetails,
 
     -- * Request Lenses
-    apedEmergencyContactList,
+    associateProactiveEngagementDetails_emergencyContactList,
 
     -- * Destructuring the Response
-    associateProactiveEngagementDetailsResponse,
-    AssociateProactiveEngagementDetailsResponse,
+    AssociateProactiveEngagementDetailsResponse (..),
+    newAssociateProactiveEngagementDetailsResponse,
 
     -- * Response Lenses
-    apedrrsResponseStatus,
+    associateProactiveEngagementDetailsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
 
--- | /See:/ 'associateProactiveEngagementDetails' smart constructor.
-newtype AssociateProactiveEngagementDetails = AssociateProactiveEngagementDetails'
-  { _apedEmergencyContactList ::
-      [EmergencyContact]
+-- | /See:/ 'newAssociateProactiveEngagementDetails' smart constructor.
+data AssociateProactiveEngagementDetails = AssociateProactiveEngagementDetails'
+  { -- | A list of email addresses and phone numbers that the DDoS Response Team
+    -- (DRT) can use to contact you for escalations to the DRT and to initiate
+    -- proactive customer support.
+    --
+    -- To enable proactive engagement, the contact list must include at least
+    -- one phone number.
+    --
+    -- The contacts that you provide here replace any contacts that were
+    -- already defined. If you already have contacts defined and want to use
+    -- them, retrieve the list using @DescribeEmergencyContactSettings@ and
+    -- then provide it here.
+    emergencyContactList :: [EmergencyContact]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateProactiveEngagementDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateProactiveEngagementDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apedEmergencyContactList' - A list of email addresses and phone numbers that the DDoS Response Team (DRT) can use to contact you for escalations to the DRT and to initiate proactive customer support.  To enable proactive engagement, the contact list must include at least one phone number.
-associateProactiveEngagementDetails ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'emergencyContactList', 'associateProactiveEngagementDetails_emergencyContactList' - A list of email addresses and phone numbers that the DDoS Response Team
+-- (DRT) can use to contact you for escalations to the DRT and to initiate
+-- proactive customer support.
+--
+-- To enable proactive engagement, the contact list must include at least
+-- one phone number.
+--
+-- The contacts that you provide here replace any contacts that were
+-- already defined. If you already have contacts defined and want to use
+-- them, retrieve the list using @DescribeEmergencyContactSettings@ and
+-- then provide it here.
+newAssociateProactiveEngagementDetails ::
   AssociateProactiveEngagementDetails
-associateProactiveEngagementDetails =
+newAssociateProactiveEngagementDetails =
   AssociateProactiveEngagementDetails'
-    { _apedEmergencyContactList =
-        mempty
+    { emergencyContactList =
+        Prelude.mempty
     }
 
--- | A list of email addresses and phone numbers that the DDoS Response Team (DRT) can use to contact you for escalations to the DRT and to initiate proactive customer support.  To enable proactive engagement, the contact list must include at least one phone number.
-apedEmergencyContactList :: Lens' AssociateProactiveEngagementDetails [EmergencyContact]
-apedEmergencyContactList = lens _apedEmergencyContactList (\s a -> s {_apedEmergencyContactList = a}) . _Coerce
+-- | A list of email addresses and phone numbers that the DDoS Response Team
+-- (DRT) can use to contact you for escalations to the DRT and to initiate
+-- proactive customer support.
+--
+-- To enable proactive engagement, the contact list must include at least
+-- one phone number.
+--
+-- The contacts that you provide here replace any contacts that were
+-- already defined. If you already have contacts defined and want to use
+-- them, retrieve the list using @DescribeEmergencyContactSettings@ and
+-- then provide it here.
+associateProactiveEngagementDetails_emergencyContactList :: Lens.Lens' AssociateProactiveEngagementDetails [EmergencyContact]
+associateProactiveEngagementDetails_emergencyContactList = Lens.lens (\AssociateProactiveEngagementDetails' {emergencyContactList} -> emergencyContactList) (\s@AssociateProactiveEngagementDetails' {} a -> s {emergencyContactList = a} :: AssociateProactiveEngagementDetails) Prelude.. Prelude._Coerce
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     AssociateProactiveEngagementDetails
   where
   type
     Rs AssociateProactiveEngagementDetails =
       AssociateProactiveEngagementDetailsResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateProactiveEngagementDetailsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateProactiveEngagementDetails
-
-instance NFData AssociateProactiveEngagementDetails
+instance
+  Prelude.Hashable
+    AssociateProactiveEngagementDetails
 
 instance
-  ToHeaders
+  Prelude.NFData
+    AssociateProactiveEngagementDetails
+
+instance
+  Prelude.ToHeaders
     AssociateProactiveEngagementDetails
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.AssociateProactiveEngagementDetails" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.AssociateProactiveEngagementDetails" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateProactiveEngagementDetails where
+instance
+  Prelude.ToJSON
+    AssociateProactiveEngagementDetails
+  where
   toJSON AssociateProactiveEngagementDetails' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "EmergencyContactList"
-                  .= _apedEmergencyContactList
+                  Prelude..= emergencyContactList
               )
           ]
       )
 
-instance ToPath AssociateProactiveEngagementDetails where
-  toPath = const "/"
-
-instance ToQuery AssociateProactiveEngagementDetails where
-  toQuery = const mempty
-
--- | /See:/ 'associateProactiveEngagementDetailsResponse' smart constructor.
-newtype AssociateProactiveEngagementDetailsResponse = AssociateProactiveEngagementDetailsResponse'
-  { _apedrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'AssociateProactiveEngagementDetailsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'apedrrsResponseStatus' - -- | The response status code.
-associateProactiveEngagementDetailsResponse ::
-  -- | 'apedrrsResponseStatus'
-  Int ->
-  AssociateProactiveEngagementDetailsResponse
-associateProactiveEngagementDetailsResponse
-  pResponseStatus_ =
-    AssociateProactiveEngagementDetailsResponse'
-      { _apedrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-apedrrsResponseStatus :: Lens' AssociateProactiveEngagementDetailsResponse Int
-apedrrsResponseStatus = lens _apedrrsResponseStatus (\s a -> s {_apedrrsResponseStatus = a})
+instance
+  Prelude.ToPath
+    AssociateProactiveEngagementDetails
+  where
+  toPath = Prelude.const "/"
 
 instance
-  NFData
+  Prelude.ToQuery
+    AssociateProactiveEngagementDetails
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newAssociateProactiveEngagementDetailsResponse' smart constructor.
+data AssociateProactiveEngagementDetailsResponse = AssociateProactiveEngagementDetailsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'AssociateProactiveEngagementDetailsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateProactiveEngagementDetailsResponse_httpStatus' - The response's http status code.
+newAssociateProactiveEngagementDetailsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  AssociateProactiveEngagementDetailsResponse
+newAssociateProactiveEngagementDetailsResponse
+  pHttpStatus_ =
+    AssociateProactiveEngagementDetailsResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+associateProactiveEngagementDetailsResponse_httpStatus :: Lens.Lens' AssociateProactiveEngagementDetailsResponse Prelude.Int
+associateProactiveEngagementDetailsResponse_httpStatus = Lens.lens (\AssociateProactiveEngagementDetailsResponse' {httpStatus} -> httpStatus) (\s@AssociateProactiveEngagementDetailsResponse' {} a -> s {httpStatus = a} :: AssociateProactiveEngagementDetailsResponse)
+
+instance
+  Prelude.NFData
     AssociateProactiveEngagementDetailsResponse

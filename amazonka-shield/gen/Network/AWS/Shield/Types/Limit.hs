@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,45 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.Limit where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies how many protections of a given type you can create.
 --
---
---
--- /See:/ 'limit' smart constructor.
+-- /See:/ 'newLimit' smart constructor.
 data Limit = Limit'
-  { _lMax :: !(Maybe Integer),
-    _lType :: !(Maybe Text)
+  { -- | The maximum number of protections that can be created for the specified
+    -- @Type@.
+    max :: Prelude.Maybe Prelude.Integer,
+    -- | The type of protection.
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Limit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Limit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lMax' - The maximum number of protections that can be created for the specified @Type@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lType' - The type of protection.
-limit ::
+-- 'max', 'limit_max' - The maximum number of protections that can be created for the specified
+-- @Type@.
+--
+-- 'type'', 'limit_type' - The type of protection.
+newLimit ::
   Limit
-limit = Limit' {_lMax = Nothing, _lType = Nothing}
+newLimit =
+  Limit'
+    { max = Prelude.Nothing,
+      type' = Prelude.Nothing
+    }
 
--- | The maximum number of protections that can be created for the specified @Type@ .
-lMax :: Lens' Limit (Maybe Integer)
-lMax = lens _lMax (\s a -> s {_lMax = a})
+-- | The maximum number of protections that can be created for the specified
+-- @Type@.
+limit_max :: Lens.Lens' Limit (Prelude.Maybe Prelude.Integer)
+limit_max = Lens.lens (\Limit' {max} -> max) (\s@Limit' {} a -> s {max = a} :: Limit)
 
 -- | The type of protection.
-lType :: Lens' Limit (Maybe Text)
-lType = lens _lType (\s a -> s {_lType = a})
+limit_type :: Lens.Lens' Limit (Prelude.Maybe Prelude.Text)
+limit_type = Lens.lens (\Limit' {type'} -> type') (\s@Limit' {} a -> s {type' = a} :: Limit)
 
-instance FromJSON Limit where
+instance Prelude.FromJSON Limit where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Limit"
-      (\x -> Limit' <$> (x .:? "Max") <*> (x .:? "Type"))
+      ( \x ->
+          Limit'
+            Prelude.<$> (x Prelude..:? "Max")
+            Prelude.<*> (x Prelude..:? "Type")
+      )
 
-instance Hashable Limit
+instance Prelude.Hashable Limit
 
-instance NFData Limit
+instance Prelude.NFData Limit

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.ProtectionGroupPatternTypeLimits where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Shield.Types.ProtectionGroupArbitraryPatternLimits
 
--- | Limits settings by pattern type in the protection groups for your subscription.
+-- | Limits settings by pattern type in the protection groups for your
+-- subscription.
 --
---
---
--- /See:/ 'protectionGroupPatternTypeLimits' smart constructor.
-newtype ProtectionGroupPatternTypeLimits = ProtectionGroupPatternTypeLimits'
-  { _pgptlArbitraryPatternLimits ::
-      ProtectionGroupArbitraryPatternLimits
+-- /See:/ 'newProtectionGroupPatternTypeLimits' smart constructor.
+data ProtectionGroupPatternTypeLimits = ProtectionGroupPatternTypeLimits'
+  { -- | Limits settings on protection groups with arbitrary pattern type.
+    arbitraryPatternLimits :: ProtectionGroupArbitraryPatternLimits
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProtectionGroupPatternTypeLimits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProtectionGroupPatternTypeLimits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pgptlArbitraryPatternLimits' - Limits settings on protection groups with arbitrary pattern type.
-protectionGroupPatternTypeLimits ::
-  -- | 'pgptlArbitraryPatternLimits'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arbitraryPatternLimits', 'protectionGroupPatternTypeLimits_arbitraryPatternLimits' - Limits settings on protection groups with arbitrary pattern type.
+newProtectionGroupPatternTypeLimits ::
+  -- | 'arbitraryPatternLimits'
   ProtectionGroupArbitraryPatternLimits ->
   ProtectionGroupPatternTypeLimits
-protectionGroupPatternTypeLimits
+newProtectionGroupPatternTypeLimits
   pArbitraryPatternLimits_ =
     ProtectionGroupPatternTypeLimits'
-      { _pgptlArbitraryPatternLimits =
+      { arbitraryPatternLimits =
           pArbitraryPatternLimits_
       }
 
 -- | Limits settings on protection groups with arbitrary pattern type.
-pgptlArbitraryPatternLimits :: Lens' ProtectionGroupPatternTypeLimits ProtectionGroupArbitraryPatternLimits
-pgptlArbitraryPatternLimits = lens _pgptlArbitraryPatternLimits (\s a -> s {_pgptlArbitraryPatternLimits = a})
+protectionGroupPatternTypeLimits_arbitraryPatternLimits :: Lens.Lens' ProtectionGroupPatternTypeLimits ProtectionGroupArbitraryPatternLimits
+protectionGroupPatternTypeLimits_arbitraryPatternLimits = Lens.lens (\ProtectionGroupPatternTypeLimits' {arbitraryPatternLimits} -> arbitraryPatternLimits) (\s@ProtectionGroupPatternTypeLimits' {} a -> s {arbitraryPatternLimits = a} :: ProtectionGroupPatternTypeLimits)
 
-instance FromJSON ProtectionGroupPatternTypeLimits where
+instance
+  Prelude.FromJSON
+    ProtectionGroupPatternTypeLimits
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProtectionGroupPatternTypeLimits"
       ( \x ->
           ProtectionGroupPatternTypeLimits'
-            <$> (x .: "ArbitraryPatternLimits")
+            Prelude.<$> (x Prelude..: "ArbitraryPatternLimits")
       )
 
-instance Hashable ProtectionGroupPatternTypeLimits
+instance
+  Prelude.Hashable
+    ProtectionGroupPatternTypeLimits
 
-instance NFData ProtectionGroupPatternTypeLimits
+instance
+  Prelude.NFData
+    ProtectionGroupPatternTypeLimits

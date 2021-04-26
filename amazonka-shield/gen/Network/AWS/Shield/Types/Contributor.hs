@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.Contributor where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A contributor to the attack and their contribution.
 --
---
---
--- /See:/ 'contributor' smart constructor.
+-- /See:/ 'newContributor' smart constructor.
 data Contributor = Contributor'
-  { _cName ::
-      !(Maybe Text),
-    _cValue :: !(Maybe Integer)
+  { -- | The name of the contributor. This is dependent on the
+    -- @AttackPropertyIdentifier@. For example, if the
+    -- @AttackPropertyIdentifier@ is @SOURCE_COUNTRY@, the @Name@ could be
+    -- @United States@.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The contribution of this contributor expressed in Protection units. For
+    -- example @10,000@.
+    value :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Contributor' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Contributor' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cName' - The name of the contributor. This is dependent on the @AttackPropertyIdentifier@ . For example, if the @AttackPropertyIdentifier@ is @SOURCE_COUNTRY@ , the @Name@ could be @United States@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cValue' - The contribution of this contributor expressed in 'Protection' units. For example @10,000@ .
-contributor ::
+-- 'name', 'contributor_name' - The name of the contributor. This is dependent on the
+-- @AttackPropertyIdentifier@. For example, if the
+-- @AttackPropertyIdentifier@ is @SOURCE_COUNTRY@, the @Name@ could be
+-- @United States@.
+--
+-- 'value', 'contributor_value' - The contribution of this contributor expressed in Protection units. For
+-- example @10,000@.
+newContributor ::
   Contributor
-contributor =
-  Contributor' {_cName = Nothing, _cValue = Nothing}
+newContributor =
+  Contributor'
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
 
--- | The name of the contributor. This is dependent on the @AttackPropertyIdentifier@ . For example, if the @AttackPropertyIdentifier@ is @SOURCE_COUNTRY@ , the @Name@ could be @United States@ .
-cName :: Lens' Contributor (Maybe Text)
-cName = lens _cName (\s a -> s {_cName = a})
+-- | The name of the contributor. This is dependent on the
+-- @AttackPropertyIdentifier@. For example, if the
+-- @AttackPropertyIdentifier@ is @SOURCE_COUNTRY@, the @Name@ could be
+-- @United States@.
+contributor_name :: Lens.Lens' Contributor (Prelude.Maybe Prelude.Text)
+contributor_name = Lens.lens (\Contributor' {name} -> name) (\s@Contributor' {} a -> s {name = a} :: Contributor)
 
--- | The contribution of this contributor expressed in 'Protection' units. For example @10,000@ .
-cValue :: Lens' Contributor (Maybe Integer)
-cValue = lens _cValue (\s a -> s {_cValue = a})
+-- | The contribution of this contributor expressed in Protection units. For
+-- example @10,000@.
+contributor_value :: Lens.Lens' Contributor (Prelude.Maybe Prelude.Integer)
+contributor_value = Lens.lens (\Contributor' {value} -> value) (\s@Contributor' {} a -> s {value = a} :: Contributor)
 
-instance FromJSON Contributor where
+instance Prelude.FromJSON Contributor where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Contributor"
       ( \x ->
-          Contributor' <$> (x .:? "Name") <*> (x .:? "Value")
+          Contributor'
+            Prelude.<$> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable Contributor
+instance Prelude.Hashable Contributor
 
-instance NFData Contributor
+instance Prelude.NFData Contributor

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,168 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes health-based detection from the Shield Advanced protection for a resource. Shield Advanced health-based detection uses the health of your AWS resource to improve responsiveness and accuracy in attack detection and mitigation.
+-- Removes health-based detection from the Shield Advanced protection for a
+-- resource. Shield Advanced health-based detection uses the health of your
+-- AWS resource to improve responsiveness and accuracy in attack detection
+-- and mitigation.
 --
---
--- You define the health check in Route 53 and then associate or disassociate it with your Shield Advanced protection. For more information, see <https://docs.aws.amazon.com/waf/latest/developerguide/ddos-overview.html#ddos-advanced-health-check-option Shield Advanced Health-Based Detection> in the <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF and AWS Shield Developer Guide> .
+-- You define the health check in Route 53 and then associate or
+-- disassociate it with your Shield Advanced protection. For more
+-- information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/ddos-overview.html#ddos-advanced-health-check-option Shield Advanced Health-Based Detection>
+-- in the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF and AWS Shield Developer Guide>.
 module Network.AWS.Shield.DisassociateHealthCheck
   ( -- * Creating a Request
-    disassociateHealthCheck,
-    DisassociateHealthCheck,
+    DisassociateHealthCheck (..),
+    newDisassociateHealthCheck,
 
     -- * Request Lenses
-    dhcProtectionId,
-    dhcHealthCheckARN,
+    disassociateHealthCheck_protectionId,
+    disassociateHealthCheck_healthCheckArn,
 
     -- * Destructuring the Response
-    disassociateHealthCheckResponse,
-    DisassociateHealthCheckResponse,
+    DisassociateHealthCheckResponse (..),
+    newDisassociateHealthCheckResponse,
 
     -- * Response Lenses
-    dhcrrsResponseStatus,
+    disassociateHealthCheckResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
 
--- | /See:/ 'disassociateHealthCheck' smart constructor.
+-- | /See:/ 'newDisassociateHealthCheck' smart constructor.
 data DisassociateHealthCheck = DisassociateHealthCheck'
-  { _dhcProtectionId ::
-      !Text,
-    _dhcHealthCheckARN ::
-      !Text
+  { -- | The unique identifier (ID) for the Protection object to remove the
+    -- health check association from.
+    protectionId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the health check that is associated
+    -- with the protection.
+    healthCheckArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateHealthCheck' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateHealthCheck' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhcProtectionId' - The unique identifier (ID) for the 'Protection' object to remove the health check association from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dhcHealthCheckARN' - The Amazon Resource Name (ARN) of the health check that is associated with the protection.
-disassociateHealthCheck ::
-  -- | 'dhcProtectionId'
-  Text ->
-  -- | 'dhcHealthCheckARN'
-  Text ->
+-- 'protectionId', 'disassociateHealthCheck_protectionId' - The unique identifier (ID) for the Protection object to remove the
+-- health check association from.
+--
+-- 'healthCheckArn', 'disassociateHealthCheck_healthCheckArn' - The Amazon Resource Name (ARN) of the health check that is associated
+-- with the protection.
+newDisassociateHealthCheck ::
+  -- | 'protectionId'
+  Prelude.Text ->
+  -- | 'healthCheckArn'
+  Prelude.Text ->
   DisassociateHealthCheck
-disassociateHealthCheck
+newDisassociateHealthCheck
   pProtectionId_
-  pHealthCheckARN_ =
+  pHealthCheckArn_ =
     DisassociateHealthCheck'
-      { _dhcProtectionId =
+      { protectionId =
           pProtectionId_,
-        _dhcHealthCheckARN = pHealthCheckARN_
+        healthCheckArn = pHealthCheckArn_
       }
 
--- | The unique identifier (ID) for the 'Protection' object to remove the health check association from.
-dhcProtectionId :: Lens' DisassociateHealthCheck Text
-dhcProtectionId = lens _dhcProtectionId (\s a -> s {_dhcProtectionId = a})
+-- | The unique identifier (ID) for the Protection object to remove the
+-- health check association from.
+disassociateHealthCheck_protectionId :: Lens.Lens' DisassociateHealthCheck Prelude.Text
+disassociateHealthCheck_protectionId = Lens.lens (\DisassociateHealthCheck' {protectionId} -> protectionId) (\s@DisassociateHealthCheck' {} a -> s {protectionId = a} :: DisassociateHealthCheck)
 
--- | The Amazon Resource Name (ARN) of the health check that is associated with the protection.
-dhcHealthCheckARN :: Lens' DisassociateHealthCheck Text
-dhcHealthCheckARN = lens _dhcHealthCheckARN (\s a -> s {_dhcHealthCheckARN = a})
+-- | The Amazon Resource Name (ARN) of the health check that is associated
+-- with the protection.
+disassociateHealthCheck_healthCheckArn :: Lens.Lens' DisassociateHealthCheck Prelude.Text
+disassociateHealthCheck_healthCheckArn = Lens.lens (\DisassociateHealthCheck' {healthCheckArn} -> healthCheckArn) (\s@DisassociateHealthCheck' {} a -> s {healthCheckArn = a} :: DisassociateHealthCheck)
 
-instance AWSRequest DisassociateHealthCheck where
+instance Prelude.AWSRequest DisassociateHealthCheck where
   type
     Rs DisassociateHealthCheck =
       DisassociateHealthCheckResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DisassociateHealthCheckResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisassociateHealthCheck
+instance Prelude.Hashable DisassociateHealthCheck
 
-instance NFData DisassociateHealthCheck
+instance Prelude.NFData DisassociateHealthCheck
 
-instance ToHeaders DisassociateHealthCheck where
+instance Prelude.ToHeaders DisassociateHealthCheck where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.DisassociateHealthCheck" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.DisassociateHealthCheck" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisassociateHealthCheck where
+instance Prelude.ToJSON DisassociateHealthCheck where
   toJSON DisassociateHealthCheck' {..} =
-    object
-      ( catMaybes
-          [ Just ("ProtectionId" .= _dhcProtectionId),
-            Just ("HealthCheckArn" .= _dhcHealthCheckARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ProtectionId" Prelude..= protectionId),
+            Prelude.Just
+              ("HealthCheckArn" Prelude..= healthCheckArn)
           ]
       )
 
-instance ToPath DisassociateHealthCheck where
-  toPath = const "/"
+instance Prelude.ToPath DisassociateHealthCheck where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisassociateHealthCheck where
-  toQuery = const mempty
+instance Prelude.ToQuery DisassociateHealthCheck where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disassociateHealthCheckResponse' smart constructor.
-newtype DisassociateHealthCheckResponse = DisassociateHealthCheckResponse'
-  { _dhcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDisassociateHealthCheckResponse' smart constructor.
+data DisassociateHealthCheckResponse = DisassociateHealthCheckResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateHealthCheckResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateHealthCheckResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhcrrsResponseStatus' - -- | The response status code.
-disassociateHealthCheckResponse ::
-  -- | 'dhcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'disassociateHealthCheckResponse_httpStatus' - The response's http status code.
+newDisassociateHealthCheckResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisassociateHealthCheckResponse
-disassociateHealthCheckResponse pResponseStatus_ =
+newDisassociateHealthCheckResponse pHttpStatus_ =
   DisassociateHealthCheckResponse'
-    { _dhcrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dhcrrsResponseStatus :: Lens' DisassociateHealthCheckResponse Int
-dhcrrsResponseStatus = lens _dhcrrsResponseStatus (\s a -> s {_dhcrrsResponseStatus = a})
+-- | The response's http status code.
+disassociateHealthCheckResponse_httpStatus :: Lens.Lens' DisassociateHealthCheckResponse Prelude.Int
+disassociateHealthCheckResponse_httpStatus = Lens.lens (\DisassociateHealthCheckResponse' {httpStatus} -> httpStatus) (\s@DisassociateHealthCheckResponse' {} a -> s {httpStatus = a} :: DisassociateHealthCheckResponse)
 
-instance NFData DisassociateHealthCheckResponse
+instance
+  Prelude.NFData
+    DisassociateHealthCheckResponse

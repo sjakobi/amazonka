@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,137 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Authorizes the DDoS Response Team (DRT) to access the specified Amazon S3 bucket containing your AWS WAF logs. You can associate up to 10 Amazon S3 buckets with your subscription.
+-- Authorizes the DDoS Response Team (DRT) to access the specified Amazon
+-- S3 bucket containing your AWS WAF logs. You can associate up to 10
+-- Amazon S3 buckets with your subscription.
 --
---
--- To use the services of the DRT and make an @AssociateDRTLogBucket@ request, you must be subscribed to the <https://aws.amazon.com/premiumsupport/business-support/ Business Support plan> or the <https://aws.amazon.com/premiumsupport/enterprise-support/ Enterprise Support plan> .
+-- To use the services of the DRT and make an @AssociateDRTLogBucket@
+-- request, you must be subscribed to the
+-- <https://aws.amazon.com/premiumsupport/business-support/ Business Support plan>
+-- or the
+-- <https://aws.amazon.com/premiumsupport/enterprise-support/ Enterprise Support plan>.
 module Network.AWS.Shield.AssociateDRTLogBucket
   ( -- * Creating a Request
-    associateDRTLogBucket,
-    AssociateDRTLogBucket,
+    AssociateDRTLogBucket (..),
+    newAssociateDRTLogBucket,
 
     -- * Request Lenses
-    adrtlbLogBucket,
+    associateDRTLogBucket_logBucket,
 
     -- * Destructuring the Response
-    associateDRTLogBucketResponse,
-    AssociateDRTLogBucketResponse,
+    AssociateDRTLogBucketResponse (..),
+    newAssociateDRTLogBucketResponse,
 
     -- * Response Lenses
-    adrtlbrrsResponseStatus,
+    associateDRTLogBucketResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
 
--- | /See:/ 'associateDRTLogBucket' smart constructor.
-newtype AssociateDRTLogBucket = AssociateDRTLogBucket'
-  { _adrtlbLogBucket ::
-      Text
+-- | /See:/ 'newAssociateDRTLogBucket' smart constructor.
+data AssociateDRTLogBucket = AssociateDRTLogBucket'
+  { -- | The Amazon S3 bucket that contains your AWS WAF logs.
+    logBucket :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateDRTLogBucket' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateDRTLogBucket' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adrtlbLogBucket' - The Amazon S3 bucket that contains your AWS WAF logs.
-associateDRTLogBucket ::
-  -- | 'adrtlbLogBucket'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'logBucket', 'associateDRTLogBucket_logBucket' - The Amazon S3 bucket that contains your AWS WAF logs.
+newAssociateDRTLogBucket ::
+  -- | 'logBucket'
+  Prelude.Text ->
   AssociateDRTLogBucket
-associateDRTLogBucket pLogBucket_ =
-  AssociateDRTLogBucket'
-    { _adrtlbLogBucket =
-        pLogBucket_
-    }
+newAssociateDRTLogBucket pLogBucket_ =
+  AssociateDRTLogBucket' {logBucket = pLogBucket_}
 
 -- | The Amazon S3 bucket that contains your AWS WAF logs.
-adrtlbLogBucket :: Lens' AssociateDRTLogBucket Text
-adrtlbLogBucket = lens _adrtlbLogBucket (\s a -> s {_adrtlbLogBucket = a})
+associateDRTLogBucket_logBucket :: Lens.Lens' AssociateDRTLogBucket Prelude.Text
+associateDRTLogBucket_logBucket = Lens.lens (\AssociateDRTLogBucket' {logBucket} -> logBucket) (\s@AssociateDRTLogBucket' {} a -> s {logBucket = a} :: AssociateDRTLogBucket)
 
-instance AWSRequest AssociateDRTLogBucket where
+instance Prelude.AWSRequest AssociateDRTLogBucket where
   type
     Rs AssociateDRTLogBucket =
       AssociateDRTLogBucketResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateDRTLogBucketResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateDRTLogBucket
+instance Prelude.Hashable AssociateDRTLogBucket
 
-instance NFData AssociateDRTLogBucket
+instance Prelude.NFData AssociateDRTLogBucket
 
-instance ToHeaders AssociateDRTLogBucket where
+instance Prelude.ToHeaders AssociateDRTLogBucket where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.AssociateDRTLogBucket" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.AssociateDRTLogBucket" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateDRTLogBucket where
+instance Prelude.ToJSON AssociateDRTLogBucket where
   toJSON AssociateDRTLogBucket' {..} =
-    object
-      (catMaybes [Just ("LogBucket" .= _adrtlbLogBucket)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("LogBucket" Prelude..= logBucket)]
+      )
 
-instance ToPath AssociateDRTLogBucket where
-  toPath = const "/"
+instance Prelude.ToPath AssociateDRTLogBucket where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateDRTLogBucket where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateDRTLogBucket where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateDRTLogBucketResponse' smart constructor.
-newtype AssociateDRTLogBucketResponse = AssociateDRTLogBucketResponse'
-  { _adrtlbrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAssociateDRTLogBucketResponse' smart constructor.
+data AssociateDRTLogBucketResponse = AssociateDRTLogBucketResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateDRTLogBucketResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateDRTLogBucketResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adrtlbrrsResponseStatus' - -- | The response status code.
-associateDRTLogBucketResponse ::
-  -- | 'adrtlbrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateDRTLogBucketResponse_httpStatus' - The response's http status code.
+newAssociateDRTLogBucketResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateDRTLogBucketResponse
-associateDRTLogBucketResponse pResponseStatus_ =
+newAssociateDRTLogBucketResponse pHttpStatus_ =
   AssociateDRTLogBucketResponse'
-    { _adrtlbrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-adrtlbrrsResponseStatus :: Lens' AssociateDRTLogBucketResponse Int
-adrtlbrrsResponseStatus = lens _adrtlbrrsResponseStatus (\s a -> s {_adrtlbrrsResponseStatus = a})
+-- | The response's http status code.
+associateDRTLogBucketResponse_httpStatus :: Lens.Lens' AssociateDRTLogBucketResponse Prelude.Int
+associateDRTLogBucketResponse_httpStatus = Lens.lens (\AssociateDRTLogBucketResponse' {httpStatus} -> httpStatus) (\s@AssociateDRTLogBucketResponse' {} a -> s {httpStatus = a} :: AssociateDRTLogBucketResponse)
 
-instance NFData AssociateDRTLogBucketResponse
+instance Prelude.NFData AssociateDRTLogBucketResponse

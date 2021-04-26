@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,125 +21,137 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the current role and list of Amazon S3 log buckets used by the DDoS Response Team (DRT) to access your AWS account while assisting with attack mitigation.
+-- Returns the current role and list of Amazon S3 log buckets used by the
+-- DDoS Response Team (DRT) to access your AWS account while assisting with
+-- attack mitigation.
 module Network.AWS.Shield.DescribeDRTAccess
   ( -- * Creating a Request
-    describeDRTAccess,
-    DescribeDRTAccess,
+    DescribeDRTAccess (..),
+    newDescribeDRTAccess,
 
     -- * Destructuring the Response
-    describeDRTAccessResponse,
-    DescribeDRTAccessResponse,
+    DescribeDRTAccessResponse (..),
+    newDescribeDRTAccessResponse,
 
     -- * Response Lenses
-    ddrtarrsRoleARN,
-    ddrtarrsLogBucketList,
-    ddrtarrsResponseStatus,
+    describeDRTAccessResponse_roleArn,
+    describeDRTAccessResponse_logBucketList,
+    describeDRTAccessResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
 
--- | /See:/ 'describeDRTAccess' smart constructor.
+-- | /See:/ 'newDescribeDRTAccess' smart constructor.
 data DescribeDRTAccess = DescribeDRTAccess'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDRTAccess' with the minimum fields required to make a request.
-describeDRTAccess ::
+-- |
+-- Create a value of 'DescribeDRTAccess' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeDRTAccess ::
   DescribeDRTAccess
-describeDRTAccess = DescribeDRTAccess'
+newDescribeDRTAccess = DescribeDRTAccess'
 
-instance AWSRequest DescribeDRTAccess where
+instance Prelude.AWSRequest DescribeDRTAccess where
   type Rs DescribeDRTAccess = DescribeDRTAccessResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDRTAccessResponse'
-            <$> (x .?> "RoleArn")
-            <*> (x .?> "LogBucketList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RoleArn")
+            Prelude.<*> ( x Prelude..?> "LogBucketList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDRTAccess
+instance Prelude.Hashable DescribeDRTAccess
 
-instance NFData DescribeDRTAccess
+instance Prelude.NFData DescribeDRTAccess
 
-instance ToHeaders DescribeDRTAccess where
+instance Prelude.ToHeaders DescribeDRTAccess where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.DescribeDRTAccess" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.DescribeDRTAccess" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeDRTAccess where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DescribeDRTAccess where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DescribeDRTAccess where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDRTAccess where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDRTAccess where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeDRTAccess where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeDRTAccessResponse' smart constructor.
+-- | /See:/ 'newDescribeDRTAccessResponse' smart constructor.
 data DescribeDRTAccessResponse = DescribeDRTAccessResponse'
-  { _ddrtarrsRoleARN ::
-      !(Maybe Text),
-    _ddrtarrsLogBucketList ::
-      !(Maybe [Text]),
-    _ddrtarrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the role the DRT used to access your
+    -- AWS account.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The list of Amazon S3 buckets accessed by the DRT.
+    logBucketList :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDRTAccessResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDRTAccessResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddrtarrsRoleARN' - The Amazon Resource Name (ARN) of the role the DRT used to access your AWS account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddrtarrsLogBucketList' - The list of Amazon S3 buckets accessed by the DRT.
+-- 'roleArn', 'describeDRTAccessResponse_roleArn' - The Amazon Resource Name (ARN) of the role the DRT used to access your
+-- AWS account.
 --
--- * 'ddrtarrsResponseStatus' - -- | The response status code.
-describeDRTAccessResponse ::
-  -- | 'ddrtarrsResponseStatus'
-  Int ->
+-- 'logBucketList', 'describeDRTAccessResponse_logBucketList' - The list of Amazon S3 buckets accessed by the DRT.
+--
+-- 'httpStatus', 'describeDRTAccessResponse_httpStatus' - The response's http status code.
+newDescribeDRTAccessResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDRTAccessResponse
-describeDRTAccessResponse pResponseStatus_ =
+newDescribeDRTAccessResponse pHttpStatus_ =
   DescribeDRTAccessResponse'
-    { _ddrtarrsRoleARN =
-        Nothing,
-      _ddrtarrsLogBucketList = Nothing,
-      _ddrtarrsResponseStatus = pResponseStatus_
+    { roleArn =
+        Prelude.Nothing,
+      logBucketList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) of the role the DRT used to access your AWS account.
-ddrtarrsRoleARN :: Lens' DescribeDRTAccessResponse (Maybe Text)
-ddrtarrsRoleARN = lens _ddrtarrsRoleARN (\s a -> s {_ddrtarrsRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the role the DRT used to access your
+-- AWS account.
+describeDRTAccessResponse_roleArn :: Lens.Lens' DescribeDRTAccessResponse (Prelude.Maybe Prelude.Text)
+describeDRTAccessResponse_roleArn = Lens.lens (\DescribeDRTAccessResponse' {roleArn} -> roleArn) (\s@DescribeDRTAccessResponse' {} a -> s {roleArn = a} :: DescribeDRTAccessResponse)
 
 -- | The list of Amazon S3 buckets accessed by the DRT.
-ddrtarrsLogBucketList :: Lens' DescribeDRTAccessResponse [Text]
-ddrtarrsLogBucketList = lens _ddrtarrsLogBucketList (\s a -> s {_ddrtarrsLogBucketList = a}) . _Default . _Coerce
+describeDRTAccessResponse_logBucketList :: Lens.Lens' DescribeDRTAccessResponse (Prelude.Maybe [Prelude.Text])
+describeDRTAccessResponse_logBucketList = Lens.lens (\DescribeDRTAccessResponse' {logBucketList} -> logBucketList) (\s@DescribeDRTAccessResponse' {} a -> s {logBucketList = a} :: DescribeDRTAccessResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ddrtarrsResponseStatus :: Lens' DescribeDRTAccessResponse Int
-ddrtarrsResponseStatus = lens _ddrtarrsResponseStatus (\s a -> s {_ddrtarrsResponseStatus = a})
+-- | The response's http status code.
+describeDRTAccessResponse_httpStatus :: Lens.Lens' DescribeDRTAccessResponse Prelude.Int
+describeDRTAccessResponse_httpStatus = Lens.lens (\DescribeDRTAccessResponse' {httpStatus} -> httpStatus) (\s@DescribeDRTAccessResponse' {} a -> s {httpStatus = a} :: DescribeDRTAccessResponse)
 
-instance NFData DescribeDRTAccessResponse
+instance Prelude.NFData DescribeDRTAccessResponse

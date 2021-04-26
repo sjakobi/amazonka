@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Shield.Types.ProtectionGroupAggregation
   ( ProtectionGroupAggregation
       ( ..,
-        Max,
-        Mean,
-        Sum
+        ProtectionGroupAggregationMAX,
+        ProtectionGroupAggregationMEAN,
+        ProtectionGroupAggregationSUM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProtectionGroupAggregation
-  = ProtectionGroupAggregation'
-      ( CI
-          Text
-      )
+newtype ProtectionGroupAggregation = ProtectionGroupAggregation'
+  { fromProtectionGroupAggregation ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Max :: ProtectionGroupAggregation
-pattern Max = ProtectionGroupAggregation' "MAX"
+pattern ProtectionGroupAggregationMAX :: ProtectionGroupAggregation
+pattern ProtectionGroupAggregationMAX = ProtectionGroupAggregation' "MAX"
 
-pattern Mean :: ProtectionGroupAggregation
-pattern Mean = ProtectionGroupAggregation' "MEAN"
+pattern ProtectionGroupAggregationMEAN :: ProtectionGroupAggregation
+pattern ProtectionGroupAggregationMEAN = ProtectionGroupAggregation' "MEAN"
 
-pattern Sum :: ProtectionGroupAggregation
-pattern Sum = ProtectionGroupAggregation' "SUM"
+pattern ProtectionGroupAggregationSUM :: ProtectionGroupAggregation
+pattern ProtectionGroupAggregationSUM = ProtectionGroupAggregation' "SUM"
 
 {-# COMPLETE
-  Max,
-  Mean,
-  Sum,
+  ProtectionGroupAggregationMAX,
+  ProtectionGroupAggregationMEAN,
+  ProtectionGroupAggregationSUM,
   ProtectionGroupAggregation'
   #-}
 
-instance FromText ProtectionGroupAggregation where
-  parser = (ProtectionGroupAggregation' . mk) <$> takeText
+instance Prelude.FromText ProtectionGroupAggregation where
+  parser = ProtectionGroupAggregation' Prelude.<$> Prelude.takeText
 
-instance ToText ProtectionGroupAggregation where
-  toText (ProtectionGroupAggregation' ci) = original ci
+instance Prelude.ToText ProtectionGroupAggregation where
+  toText (ProtectionGroupAggregation' x) = x
 
-instance Hashable ProtectionGroupAggregation
+instance Prelude.Hashable ProtectionGroupAggregation
 
-instance NFData ProtectionGroupAggregation
+instance Prelude.NFData ProtectionGroupAggregation
 
-instance ToByteString ProtectionGroupAggregation
+instance Prelude.ToByteString ProtectionGroupAggregation
 
-instance ToQuery ProtectionGroupAggregation
+instance Prelude.ToQuery ProtectionGroupAggregation
 
-instance ToHeader ProtectionGroupAggregation
+instance Prelude.ToHeader ProtectionGroupAggregation
 
-instance ToJSON ProtectionGroupAggregation where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProtectionGroupAggregation where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProtectionGroupAggregation where
-  parseJSON = parseJSONText "ProtectionGroupAggregation"
+instance Prelude.FromJSON ProtectionGroupAggregation where
+  parseJSON = Prelude.parseJSONText "ProtectionGroupAggregation"

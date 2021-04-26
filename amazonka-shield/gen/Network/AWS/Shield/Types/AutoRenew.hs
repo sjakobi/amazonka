@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Shield.Types.AutoRenew
   ( AutoRenew
       ( ..,
-        Disabled,
-        Enabled
+        AutoRenewDISABLED,
+        AutoRenewENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoRenew = AutoRenew' (CI Text)
+newtype AutoRenew = AutoRenew'
+  { fromAutoRenew ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: AutoRenew
-pattern Disabled = AutoRenew' "DISABLED"
+pattern AutoRenewDISABLED :: AutoRenew
+pattern AutoRenewDISABLED = AutoRenew' "DISABLED"
 
-pattern Enabled :: AutoRenew
-pattern Enabled = AutoRenew' "ENABLED"
+pattern AutoRenewENABLED :: AutoRenew
+pattern AutoRenewENABLED = AutoRenew' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  AutoRenewDISABLED,
+  AutoRenewENABLED,
   AutoRenew'
   #-}
 
-instance FromText AutoRenew where
-  parser = (AutoRenew' . mk) <$> takeText
+instance Prelude.FromText AutoRenew where
+  parser = AutoRenew' Prelude.<$> Prelude.takeText
 
-instance ToText AutoRenew where
-  toText (AutoRenew' ci) = original ci
+instance Prelude.ToText AutoRenew where
+  toText (AutoRenew' x) = x
 
-instance Hashable AutoRenew
+instance Prelude.Hashable AutoRenew
 
-instance NFData AutoRenew
+instance Prelude.NFData AutoRenew
 
-instance ToByteString AutoRenew
+instance Prelude.ToByteString AutoRenew
 
-instance ToQuery AutoRenew
+instance Prelude.ToQuery AutoRenew
 
-instance ToHeader AutoRenew
+instance Prelude.ToHeader AutoRenew
 
-instance ToJSON AutoRenew where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutoRenew where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AutoRenew where
-  parseJSON = parseJSONText "AutoRenew"
+instance Prelude.FromJSON AutoRenew where
+  parseJSON = Prelude.parseJSONText "AutoRenew"

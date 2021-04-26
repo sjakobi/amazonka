@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.SubscriptionLimits where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Shield.Types.ProtectionGroupLimits
 import Network.AWS.Shield.Types.ProtectionLimits
 
 -- | Limits settings for your subscription.
 --
---
---
--- /See:/ 'subscriptionLimits' smart constructor.
+-- /See:/ 'newSubscriptionLimits' smart constructor.
 data SubscriptionLimits = SubscriptionLimits'
-  { _slProtectionLimits ::
-      !ProtectionLimits,
-    _slProtectionGroupLimits ::
-      !ProtectionGroupLimits
+  { -- | Limits settings on protections for your subscription.
+    protectionLimits :: ProtectionLimits,
+    -- | Limits settings on protection groups for your subscription.
+    protectionGroupLimits :: ProtectionGroupLimits
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubscriptionLimits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubscriptionLimits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slProtectionLimits' - Limits settings on protections for your subscription.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'slProtectionGroupLimits' - Limits settings on protection groups for your subscription.
-subscriptionLimits ::
-  -- | 'slProtectionLimits'
+-- 'protectionLimits', 'subscriptionLimits_protectionLimits' - Limits settings on protections for your subscription.
+--
+-- 'protectionGroupLimits', 'subscriptionLimits_protectionGroupLimits' - Limits settings on protection groups for your subscription.
+newSubscriptionLimits ::
+  -- | 'protectionLimits'
   ProtectionLimits ->
-  -- | 'slProtectionGroupLimits'
+  -- | 'protectionGroupLimits'
   ProtectionGroupLimits ->
   SubscriptionLimits
-subscriptionLimits
+newSubscriptionLimits
   pProtectionLimits_
   pProtectionGroupLimits_ =
     SubscriptionLimits'
-      { _slProtectionLimits =
+      { protectionLimits =
           pProtectionLimits_,
-        _slProtectionGroupLimits = pProtectionGroupLimits_
+        protectionGroupLimits = pProtectionGroupLimits_
       }
 
 -- | Limits settings on protections for your subscription.
-slProtectionLimits :: Lens' SubscriptionLimits ProtectionLimits
-slProtectionLimits = lens _slProtectionLimits (\s a -> s {_slProtectionLimits = a})
+subscriptionLimits_protectionLimits :: Lens.Lens' SubscriptionLimits ProtectionLimits
+subscriptionLimits_protectionLimits = Lens.lens (\SubscriptionLimits' {protectionLimits} -> protectionLimits) (\s@SubscriptionLimits' {} a -> s {protectionLimits = a} :: SubscriptionLimits)
 
 -- | Limits settings on protection groups for your subscription.
-slProtectionGroupLimits :: Lens' SubscriptionLimits ProtectionGroupLimits
-slProtectionGroupLimits = lens _slProtectionGroupLimits (\s a -> s {_slProtectionGroupLimits = a})
+subscriptionLimits_protectionGroupLimits :: Lens.Lens' SubscriptionLimits ProtectionGroupLimits
+subscriptionLimits_protectionGroupLimits = Lens.lens (\SubscriptionLimits' {protectionGroupLimits} -> protectionGroupLimits) (\s@SubscriptionLimits' {} a -> s {protectionGroupLimits = a} :: SubscriptionLimits)
 
-instance FromJSON SubscriptionLimits where
+instance Prelude.FromJSON SubscriptionLimits where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SubscriptionLimits"
       ( \x ->
           SubscriptionLimits'
-            <$> (x .: "ProtectionLimits")
-            <*> (x .: "ProtectionGroupLimits")
+            Prelude.<$> (x Prelude..: "ProtectionLimits")
+            Prelude.<*> (x Prelude..: "ProtectionGroupLimits")
       )
 
-instance Hashable SubscriptionLimits
+instance Prelude.Hashable SubscriptionLimits
 
-instance NFData SubscriptionLimits
+instance Prelude.NFData SubscriptionLimits

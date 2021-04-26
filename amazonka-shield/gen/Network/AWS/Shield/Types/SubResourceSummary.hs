@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.SubResourceSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Shield.Types.SubResourceType
 import Network.AWS.Shield.Types.SummarizedAttackVector
 import Network.AWS.Shield.Types.SummarizedCounter
 
 -- | The attack information for the specified SubResource.
 --
---
---
--- /See:/ 'subResourceSummary' smart constructor.
+-- /See:/ 'newSubResourceSummary' smart constructor.
 data SubResourceSummary = SubResourceSummary'
-  { _srsCounters ::
-      !(Maybe [SummarizedCounter]),
-    _srsId :: !(Maybe Text),
-    _srsType ::
-      !(Maybe SubResourceType),
-    _srsAttackVectors ::
-      !(Maybe [SummarizedAttackVector])
+  { -- | The counters that describe the details of the attack.
+    counters :: Prelude.Maybe [SummarizedCounter],
+    -- | The unique identifier (ID) of the @SubResource@.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The @SubResource@ type.
+    type' :: Prelude.Maybe SubResourceType,
+    -- | The list of attack types and associated counters.
+    attackVectors :: Prelude.Maybe [SummarizedAttackVector]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubResourceSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubResourceSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsCounters' - The counters that describe the details of the attack.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srsId' - The unique identifier (ID) of the @SubResource@ .
+-- 'counters', 'subResourceSummary_counters' - The counters that describe the details of the attack.
 --
--- * 'srsType' - The @SubResource@ type.
+-- 'id', 'subResourceSummary_id' - The unique identifier (ID) of the @SubResource@.
 --
--- * 'srsAttackVectors' - The list of attack types and associated counters.
-subResourceSummary ::
+-- 'type'', 'subResourceSummary_type' - The @SubResource@ type.
+--
+-- 'attackVectors', 'subResourceSummary_attackVectors' - The list of attack types and associated counters.
+newSubResourceSummary ::
   SubResourceSummary
-subResourceSummary =
+newSubResourceSummary =
   SubResourceSummary'
-    { _srsCounters = Nothing,
-      _srsId = Nothing,
-      _srsType = Nothing,
-      _srsAttackVectors = Nothing
+    { counters = Prelude.Nothing,
+      id = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      attackVectors = Prelude.Nothing
     }
 
 -- | The counters that describe the details of the attack.
-srsCounters :: Lens' SubResourceSummary [SummarizedCounter]
-srsCounters = lens _srsCounters (\s a -> s {_srsCounters = a}) . _Default . _Coerce
+subResourceSummary_counters :: Lens.Lens' SubResourceSummary (Prelude.Maybe [SummarizedCounter])
+subResourceSummary_counters = Lens.lens (\SubResourceSummary' {counters} -> counters) (\s@SubResourceSummary' {} a -> s {counters = a} :: SubResourceSummary) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The unique identifier (ID) of the @SubResource@ .
-srsId :: Lens' SubResourceSummary (Maybe Text)
-srsId = lens _srsId (\s a -> s {_srsId = a})
+-- | The unique identifier (ID) of the @SubResource@.
+subResourceSummary_id :: Lens.Lens' SubResourceSummary (Prelude.Maybe Prelude.Text)
+subResourceSummary_id = Lens.lens (\SubResourceSummary' {id} -> id) (\s@SubResourceSummary' {} a -> s {id = a} :: SubResourceSummary)
 
 -- | The @SubResource@ type.
-srsType :: Lens' SubResourceSummary (Maybe SubResourceType)
-srsType = lens _srsType (\s a -> s {_srsType = a})
+subResourceSummary_type :: Lens.Lens' SubResourceSummary (Prelude.Maybe SubResourceType)
+subResourceSummary_type = Lens.lens (\SubResourceSummary' {type'} -> type') (\s@SubResourceSummary' {} a -> s {type' = a} :: SubResourceSummary)
 
 -- | The list of attack types and associated counters.
-srsAttackVectors :: Lens' SubResourceSummary [SummarizedAttackVector]
-srsAttackVectors = lens _srsAttackVectors (\s a -> s {_srsAttackVectors = a}) . _Default . _Coerce
+subResourceSummary_attackVectors :: Lens.Lens' SubResourceSummary (Prelude.Maybe [SummarizedAttackVector])
+subResourceSummary_attackVectors = Lens.lens (\SubResourceSummary' {attackVectors} -> attackVectors) (\s@SubResourceSummary' {} a -> s {attackVectors = a} :: SubResourceSummary) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON SubResourceSummary where
+instance Prelude.FromJSON SubResourceSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SubResourceSummary"
       ( \x ->
           SubResourceSummary'
-            <$> (x .:? "Counters" .!= mempty)
-            <*> (x .:? "Id")
-            <*> (x .:? "Type")
-            <*> (x .:? "AttackVectors" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Counters" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> ( x Prelude..:? "AttackVectors"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable SubResourceSummary
+instance Prelude.Hashable SubResourceSummary
 
-instance NFData SubResourceSummary
+instance Prelude.NFData SubResourceSummary

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,189 +21,261 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing protection group. A protection group is a grouping of protected resources so they can be handled as a collective. This resource grouping improves the accuracy of detection and reduces false positives.
+-- Updates an existing protection group. A protection group is a grouping
+-- of protected resources so they can be handled as a collective. This
+-- resource grouping improves the accuracy of detection and reduces false
+-- positives.
 module Network.AWS.Shield.UpdateProtectionGroup
   ( -- * Creating a Request
-    updateProtectionGroup,
-    UpdateProtectionGroup,
+    UpdateProtectionGroup (..),
+    newUpdateProtectionGroup,
 
     -- * Request Lenses
-    upgResourceType,
-    upgMembers,
-    upgProtectionGroupId,
-    upgAggregation,
-    upgPattern,
+    updateProtectionGroup_resourceType,
+    updateProtectionGroup_members,
+    updateProtectionGroup_protectionGroupId,
+    updateProtectionGroup_aggregation,
+    updateProtectionGroup_pattern,
 
     -- * Destructuring the Response
-    updateProtectionGroupResponse,
-    UpdateProtectionGroupResponse,
+    UpdateProtectionGroupResponse (..),
+    newUpdateProtectionGroupResponse,
 
     -- * Response Lenses
-    upgrrsResponseStatus,
+    updateProtectionGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Shield.Types
 
--- | /See:/ 'updateProtectionGroup' smart constructor.
+-- | /See:/ 'newUpdateProtectionGroup' smart constructor.
 data UpdateProtectionGroup = UpdateProtectionGroup'
-  { _upgResourceType ::
-      !( Maybe
-           ProtectedResourceType
-       ),
-    _upgMembers ::
-      !(Maybe [Text]),
-    _upgProtectionGroupId ::
-      !Text,
-    _upgAggregation ::
-      !ProtectionGroupAggregation,
-    _upgPattern ::
-      !ProtectionGroupPattern
+  { -- | The resource type to include in the protection group. All protected
+    -- resources of this type are included in the protection group. You must
+    -- set this when you set @Pattern@ to @BY_RESOURCE_TYPE@ and you must not
+    -- set it for any other @Pattern@ setting.
+    resourceType :: Prelude.Maybe ProtectedResourceType,
+    -- | The Amazon Resource Names (ARNs) of the resources to include in the
+    -- protection group. You must set this when you set @Pattern@ to
+    -- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
+    members :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the protection group. You use this to identify the
+    -- protection group in lists and to manage the protection group, for
+    -- example to update, delete, or describe it.
+    protectionGroupId :: Prelude.Text,
+    -- | Defines how AWS Shield combines resource data for the group in order to
+    -- detect, mitigate, and report events.
+    --
+    -- -   Sum - Use the total traffic across the group. This is a good choice
+    --     for most cases. Examples include Elastic IP addresses for EC2
+    --     instances that scale manually or automatically.
+    --
+    -- -   Mean - Use the average of the traffic across the group. This is a
+    --     good choice for resources that share traffic uniformly. Examples
+    --     include accelerators and load balancers.
+    --
+    -- -   Max - Use the highest traffic from each resource. This is useful for
+    --     resources that don\'t share traffic and for resources that share
+    --     that traffic in a non-uniform way. Examples include CloudFront
+    --     distributions and origin resources for CloudFront distributions.
+    aggregation :: ProtectionGroupAggregation,
+    -- | The criteria to use to choose the protected resources for inclusion in
+    -- the group. You can include all resources that have protections, provide
+    -- a list of resource Amazon Resource Names (ARNs), or include all
+    -- resources of a specified resource type.
+    pattern' :: ProtectionGroupPattern
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateProtectionGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateProtectionGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upgResourceType' - The resource type to include in the protection group. All protected resources of this type are included in the protection group. You must set this when you set @Pattern@ to @BY_RESOURCE_TYPE@ and you must not set it for any other @Pattern@ setting.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upgMembers' - The Amazon Resource Names (ARNs) of the resources to include in the protection group. You must set this when you set @Pattern@ to @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
+-- 'resourceType', 'updateProtectionGroup_resourceType' - The resource type to include in the protection group. All protected
+-- resources of this type are included in the protection group. You must
+-- set this when you set @Pattern@ to @BY_RESOURCE_TYPE@ and you must not
+-- set it for any other @Pattern@ setting.
 --
--- * 'upgProtectionGroupId' - The name of the protection group. You use this to identify the protection group in lists and to manage the protection group, for example to update, delete, or describe it.
+-- 'members', 'updateProtectionGroup_members' - The Amazon Resource Names (ARNs) of the resources to include in the
+-- protection group. You must set this when you set @Pattern@ to
+-- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
 --
--- * 'upgAggregation' - Defines how AWS Shield combines resource data for the group in order to detect, mitigate, and report events.     * Sum - Use the total traffic across the group. This is a good choice for most cases. Examples include Elastic IP addresses for EC2 instances that scale manually or automatically.     * Mean - Use the average of the traffic across the group. This is a good choice for resources that share traffic uniformly. Examples include accelerators and load balancers.     * Max - Use the highest traffic from each resource. This is useful for resources that don't share traffic and for resources that share that traffic in a non-uniform way. Examples include CloudFront distributions and origin resources for CloudFront distributions.
+-- 'protectionGroupId', 'updateProtectionGroup_protectionGroupId' - The name of the protection group. You use this to identify the
+-- protection group in lists and to manage the protection group, for
+-- example to update, delete, or describe it.
 --
--- * 'upgPattern' - The criteria to use to choose the protected resources for inclusion in the group. You can include all resources that have protections, provide a list of resource Amazon Resource Names (ARNs), or include all resources of a specified resource type.
-updateProtectionGroup ::
-  -- | 'upgProtectionGroupId'
-  Text ->
-  -- | 'upgAggregation'
+-- 'aggregation', 'updateProtectionGroup_aggregation' - Defines how AWS Shield combines resource data for the group in order to
+-- detect, mitigate, and report events.
+--
+-- -   Sum - Use the total traffic across the group. This is a good choice
+--     for most cases. Examples include Elastic IP addresses for EC2
+--     instances that scale manually or automatically.
+--
+-- -   Mean - Use the average of the traffic across the group. This is a
+--     good choice for resources that share traffic uniformly. Examples
+--     include accelerators and load balancers.
+--
+-- -   Max - Use the highest traffic from each resource. This is useful for
+--     resources that don\'t share traffic and for resources that share
+--     that traffic in a non-uniform way. Examples include CloudFront
+--     distributions and origin resources for CloudFront distributions.
+--
+-- 'pattern'', 'updateProtectionGroup_pattern' - The criteria to use to choose the protected resources for inclusion in
+-- the group. You can include all resources that have protections, provide
+-- a list of resource Amazon Resource Names (ARNs), or include all
+-- resources of a specified resource type.
+newUpdateProtectionGroup ::
+  -- | 'protectionGroupId'
+  Prelude.Text ->
+  -- | 'aggregation'
   ProtectionGroupAggregation ->
-  -- | 'upgPattern'
+  -- | 'pattern''
   ProtectionGroupPattern ->
   UpdateProtectionGroup
-updateProtectionGroup
+newUpdateProtectionGroup
   pProtectionGroupId_
   pAggregation_
   pPattern_ =
     UpdateProtectionGroup'
-      { _upgResourceType = Nothing,
-        _upgMembers = Nothing,
-        _upgProtectionGroupId = pProtectionGroupId_,
-        _upgAggregation = pAggregation_,
-        _upgPattern = pPattern_
+      { resourceType =
+          Prelude.Nothing,
+        members = Prelude.Nothing,
+        protectionGroupId = pProtectionGroupId_,
+        aggregation = pAggregation_,
+        pattern' = pPattern_
       }
 
--- | The resource type to include in the protection group. All protected resources of this type are included in the protection group. You must set this when you set @Pattern@ to @BY_RESOURCE_TYPE@ and you must not set it for any other @Pattern@ setting.
-upgResourceType :: Lens' UpdateProtectionGroup (Maybe ProtectedResourceType)
-upgResourceType = lens _upgResourceType (\s a -> s {_upgResourceType = a})
+-- | The resource type to include in the protection group. All protected
+-- resources of this type are included in the protection group. You must
+-- set this when you set @Pattern@ to @BY_RESOURCE_TYPE@ and you must not
+-- set it for any other @Pattern@ setting.
+updateProtectionGroup_resourceType :: Lens.Lens' UpdateProtectionGroup (Prelude.Maybe ProtectedResourceType)
+updateProtectionGroup_resourceType = Lens.lens (\UpdateProtectionGroup' {resourceType} -> resourceType) (\s@UpdateProtectionGroup' {} a -> s {resourceType = a} :: UpdateProtectionGroup)
 
--- | The Amazon Resource Names (ARNs) of the resources to include in the protection group. You must set this when you set @Pattern@ to @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
-upgMembers :: Lens' UpdateProtectionGroup [Text]
-upgMembers = lens _upgMembers (\s a -> s {_upgMembers = a}) . _Default . _Coerce
+-- | The Amazon Resource Names (ARNs) of the resources to include in the
+-- protection group. You must set this when you set @Pattern@ to
+-- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
+updateProtectionGroup_members :: Lens.Lens' UpdateProtectionGroup (Prelude.Maybe [Prelude.Text])
+updateProtectionGroup_members = Lens.lens (\UpdateProtectionGroup' {members} -> members) (\s@UpdateProtectionGroup' {} a -> s {members = a} :: UpdateProtectionGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the protection group. You use this to identify the protection group in lists and to manage the protection group, for example to update, delete, or describe it.
-upgProtectionGroupId :: Lens' UpdateProtectionGroup Text
-upgProtectionGroupId = lens _upgProtectionGroupId (\s a -> s {_upgProtectionGroupId = a})
+-- | The name of the protection group. You use this to identify the
+-- protection group in lists and to manage the protection group, for
+-- example to update, delete, or describe it.
+updateProtectionGroup_protectionGroupId :: Lens.Lens' UpdateProtectionGroup Prelude.Text
+updateProtectionGroup_protectionGroupId = Lens.lens (\UpdateProtectionGroup' {protectionGroupId} -> protectionGroupId) (\s@UpdateProtectionGroup' {} a -> s {protectionGroupId = a} :: UpdateProtectionGroup)
 
--- | Defines how AWS Shield combines resource data for the group in order to detect, mitigate, and report events.     * Sum - Use the total traffic across the group. This is a good choice for most cases. Examples include Elastic IP addresses for EC2 instances that scale manually or automatically.     * Mean - Use the average of the traffic across the group. This is a good choice for resources that share traffic uniformly. Examples include accelerators and load balancers.     * Max - Use the highest traffic from each resource. This is useful for resources that don't share traffic and for resources that share that traffic in a non-uniform way. Examples include CloudFront distributions and origin resources for CloudFront distributions.
-upgAggregation :: Lens' UpdateProtectionGroup ProtectionGroupAggregation
-upgAggregation = lens _upgAggregation (\s a -> s {_upgAggregation = a})
+-- | Defines how AWS Shield combines resource data for the group in order to
+-- detect, mitigate, and report events.
+--
+-- -   Sum - Use the total traffic across the group. This is a good choice
+--     for most cases. Examples include Elastic IP addresses for EC2
+--     instances that scale manually or automatically.
+--
+-- -   Mean - Use the average of the traffic across the group. This is a
+--     good choice for resources that share traffic uniformly. Examples
+--     include accelerators and load balancers.
+--
+-- -   Max - Use the highest traffic from each resource. This is useful for
+--     resources that don\'t share traffic and for resources that share
+--     that traffic in a non-uniform way. Examples include CloudFront
+--     distributions and origin resources for CloudFront distributions.
+updateProtectionGroup_aggregation :: Lens.Lens' UpdateProtectionGroup ProtectionGroupAggregation
+updateProtectionGroup_aggregation = Lens.lens (\UpdateProtectionGroup' {aggregation} -> aggregation) (\s@UpdateProtectionGroup' {} a -> s {aggregation = a} :: UpdateProtectionGroup)
 
--- | The criteria to use to choose the protected resources for inclusion in the group. You can include all resources that have protections, provide a list of resource Amazon Resource Names (ARNs), or include all resources of a specified resource type.
-upgPattern :: Lens' UpdateProtectionGroup ProtectionGroupPattern
-upgPattern = lens _upgPattern (\s a -> s {_upgPattern = a})
+-- | The criteria to use to choose the protected resources for inclusion in
+-- the group. You can include all resources that have protections, provide
+-- a list of resource Amazon Resource Names (ARNs), or include all
+-- resources of a specified resource type.
+updateProtectionGroup_pattern :: Lens.Lens' UpdateProtectionGroup ProtectionGroupPattern
+updateProtectionGroup_pattern = Lens.lens (\UpdateProtectionGroup' {pattern'} -> pattern') (\s@UpdateProtectionGroup' {} a -> s {pattern' = a} :: UpdateProtectionGroup)
 
-instance AWSRequest UpdateProtectionGroup where
+instance Prelude.AWSRequest UpdateProtectionGroup where
   type
     Rs UpdateProtectionGroup =
       UpdateProtectionGroupResponse
-  request = postJSON shield
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateProtectionGroupResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateProtectionGroup
+instance Prelude.Hashable UpdateProtectionGroup
 
-instance NFData UpdateProtectionGroup
+instance Prelude.NFData UpdateProtectionGroup
 
-instance ToHeaders UpdateProtectionGroup where
+instance Prelude.ToHeaders UpdateProtectionGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShield_20160616.UpdateProtectionGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShield_20160616.UpdateProtectionGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateProtectionGroup where
+instance Prelude.ToJSON UpdateProtectionGroup where
   toJSON UpdateProtectionGroup' {..} =
-    object
-      ( catMaybes
-          [ ("ResourceType" .=) <$> _upgResourceType,
-            ("Members" .=) <$> _upgMembers,
-            Just ("ProtectionGroupId" .= _upgProtectionGroupId),
-            Just ("Aggregation" .= _upgAggregation),
-            Just ("Pattern" .= _upgPattern)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ResourceType" Prelude..=)
+              Prelude.<$> resourceType,
+            ("Members" Prelude..=) Prelude.<$> members,
+            Prelude.Just
+              ("ProtectionGroupId" Prelude..= protectionGroupId),
+            Prelude.Just ("Aggregation" Prelude..= aggregation),
+            Prelude.Just ("Pattern" Prelude..= pattern')
           ]
       )
 
-instance ToPath UpdateProtectionGroup where
-  toPath = const "/"
+instance Prelude.ToPath UpdateProtectionGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateProtectionGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateProtectionGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateProtectionGroupResponse' smart constructor.
-newtype UpdateProtectionGroupResponse = UpdateProtectionGroupResponse'
-  { _upgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateProtectionGroupResponse' smart constructor.
+data UpdateProtectionGroupResponse = UpdateProtectionGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateProtectionGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateProtectionGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upgrrsResponseStatus' - -- | The response status code.
-updateProtectionGroupResponse ::
-  -- | 'upgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateProtectionGroupResponse_httpStatus' - The response's http status code.
+newUpdateProtectionGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateProtectionGroupResponse
-updateProtectionGroupResponse pResponseStatus_ =
+newUpdateProtectionGroupResponse pHttpStatus_ =
   UpdateProtectionGroupResponse'
-    { _upgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-upgrrsResponseStatus :: Lens' UpdateProtectionGroupResponse Int
-upgrrsResponseStatus = lens _upgrrsResponseStatus (\s a -> s {_upgrrsResponseStatus = a})
+-- | The response's http status code.
+updateProtectionGroupResponse_httpStatus :: Lens.Lens' UpdateProtectionGroupResponse Prelude.Int
+updateProtectionGroupResponse_httpStatus = Lens.lens (\UpdateProtectionGroupResponse' {httpStatus} -> httpStatus) (\s@UpdateProtectionGroupResponse' {} a -> s {httpStatus = a} :: UpdateProtectionGroupResponse)
 
-instance NFData UpdateProtectionGroupResponse
+instance Prelude.NFData UpdateProtectionGroupResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Shield.Types.ProactiveEngagementStatus
   ( ProactiveEngagementStatus
       ( ..,
-        PESDisabled,
-        PESEnabled,
-        PESPending
+        ProactiveEngagementStatusDISABLED,
+        ProactiveEngagementStatusENABLED,
+        ProactiveEngagementStatusPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProactiveEngagementStatus
-  = ProactiveEngagementStatus'
-      ( CI
-          Text
-      )
+newtype ProactiveEngagementStatus = ProactiveEngagementStatus'
+  { fromProactiveEngagementStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PESDisabled :: ProactiveEngagementStatus
-pattern PESDisabled = ProactiveEngagementStatus' "DISABLED"
+pattern ProactiveEngagementStatusDISABLED :: ProactiveEngagementStatus
+pattern ProactiveEngagementStatusDISABLED = ProactiveEngagementStatus' "DISABLED"
 
-pattern PESEnabled :: ProactiveEngagementStatus
-pattern PESEnabled = ProactiveEngagementStatus' "ENABLED"
+pattern ProactiveEngagementStatusENABLED :: ProactiveEngagementStatus
+pattern ProactiveEngagementStatusENABLED = ProactiveEngagementStatus' "ENABLED"
 
-pattern PESPending :: ProactiveEngagementStatus
-pattern PESPending = ProactiveEngagementStatus' "PENDING"
+pattern ProactiveEngagementStatusPENDING :: ProactiveEngagementStatus
+pattern ProactiveEngagementStatusPENDING = ProactiveEngagementStatus' "PENDING"
 
 {-# COMPLETE
-  PESDisabled,
-  PESEnabled,
-  PESPending,
+  ProactiveEngagementStatusDISABLED,
+  ProactiveEngagementStatusENABLED,
+  ProactiveEngagementStatusPENDING,
   ProactiveEngagementStatus'
   #-}
 
-instance FromText ProactiveEngagementStatus where
-  parser = (ProactiveEngagementStatus' . mk) <$> takeText
+instance Prelude.FromText ProactiveEngagementStatus where
+  parser = ProactiveEngagementStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ProactiveEngagementStatus where
-  toText (ProactiveEngagementStatus' ci) = original ci
+instance Prelude.ToText ProactiveEngagementStatus where
+  toText (ProactiveEngagementStatus' x) = x
 
-instance Hashable ProactiveEngagementStatus
+instance Prelude.Hashable ProactiveEngagementStatus
 
-instance NFData ProactiveEngagementStatus
+instance Prelude.NFData ProactiveEngagementStatus
 
-instance ToByteString ProactiveEngagementStatus
+instance Prelude.ToByteString ProactiveEngagementStatus
 
-instance ToQuery ProactiveEngagementStatus
+instance Prelude.ToQuery ProactiveEngagementStatus
 
-instance ToHeader ProactiveEngagementStatus
+instance Prelude.ToHeader ProactiveEngagementStatus
 
-instance FromJSON ProactiveEngagementStatus where
-  parseJSON = parseJSONText "ProactiveEngagementStatus"
+instance Prelude.FromJSON ProactiveEngagementStatus where
+  parseJSON = Prelude.parseJSONText "ProactiveEngagementStatus"

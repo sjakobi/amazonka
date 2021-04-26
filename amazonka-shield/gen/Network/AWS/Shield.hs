@@ -11,12 +11,17 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Shield Advanced__
+-- AWS Shield Advanced
 --
--- This is the /AWS Shield Advanced API Reference/ . This guide is for developers who need detailed information about the AWS Shield Advanced API actions, data types, and errors. For detailed information about AWS WAF and AWS Shield Advanced features and an overview of how to use the AWS WAF and AWS Shield Advanced APIs, see the <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF and AWS Shield Developer Guide> .
+-- This is the /AWS Shield Advanced API Reference/. This guide is for
+-- developers who need detailed information about the AWS Shield Advanced
+-- API actions, data types, and errors. For detailed information about AWS
+-- WAF and AWS Shield Advanced features and an overview of how to use the
+-- AWS WAF and AWS Shield Advanced APIs, see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF and AWS Shield Developer Guide>.
 module Network.AWS.Shield
   ( -- * Service Configuration
-    shield,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -67,91 +72,178 @@ module Network.AWS.Shield
     -- $operations
 
     -- ** CreateSubscription
-    module Network.AWS.Shield.CreateSubscription,
+    CreateSubscription (CreateSubscription'),
+    newCreateSubscription,
+    CreateSubscriptionResponse (CreateSubscriptionResponse'),
+    newCreateSubscriptionResponse,
 
     -- ** DescribeEmergencyContactSettings
-    module Network.AWS.Shield.DescribeEmergencyContactSettings,
+    DescribeEmergencyContactSettings (DescribeEmergencyContactSettings'),
+    newDescribeEmergencyContactSettings,
+    DescribeEmergencyContactSettingsResponse (DescribeEmergencyContactSettingsResponse'),
+    newDescribeEmergencyContactSettingsResponse,
 
     -- ** DescribeProtectionGroup
-    module Network.AWS.Shield.DescribeProtectionGroup,
+    DescribeProtectionGroup (DescribeProtectionGroup'),
+    newDescribeProtectionGroup,
+    DescribeProtectionGroupResponse (DescribeProtectionGroupResponse'),
+    newDescribeProtectionGroupResponse,
 
     -- ** DescribeSubscription
-    module Network.AWS.Shield.DescribeSubscription,
+    DescribeSubscription (DescribeSubscription'),
+    newDescribeSubscription,
+    DescribeSubscriptionResponse (DescribeSubscriptionResponse'),
+    newDescribeSubscriptionResponse,
 
     -- ** AssociateHealthCheck
-    module Network.AWS.Shield.AssociateHealthCheck,
+    AssociateHealthCheck (AssociateHealthCheck'),
+    newAssociateHealthCheck,
+    AssociateHealthCheckResponse (AssociateHealthCheckResponse'),
+    newAssociateHealthCheckResponse,
 
     -- ** DescribeDRTAccess
-    module Network.AWS.Shield.DescribeDRTAccess,
+    DescribeDRTAccess (DescribeDRTAccess'),
+    newDescribeDRTAccess,
+    DescribeDRTAccessResponse (DescribeDRTAccessResponse'),
+    newDescribeDRTAccessResponse,
 
     -- ** ListResourcesInProtectionGroup
-    module Network.AWS.Shield.ListResourcesInProtectionGroup,
+    ListResourcesInProtectionGroup (ListResourcesInProtectionGroup'),
+    newListResourcesInProtectionGroup,
+    ListResourcesInProtectionGroupResponse (ListResourcesInProtectionGroupResponse'),
+    newListResourcesInProtectionGroupResponse,
 
     -- ** DisableProactiveEngagement
-    module Network.AWS.Shield.DisableProactiveEngagement,
+    DisableProactiveEngagement (DisableProactiveEngagement'),
+    newDisableProactiveEngagement,
+    DisableProactiveEngagementResponse (DisableProactiveEngagementResponse'),
+    newDisableProactiveEngagementResponse,
 
     -- ** EnableProactiveEngagement
-    module Network.AWS.Shield.EnableProactiveEngagement,
+    EnableProactiveEngagement (EnableProactiveEngagement'),
+    newEnableProactiveEngagement,
+    EnableProactiveEngagementResponse (EnableProactiveEngagementResponse'),
+    newEnableProactiveEngagementResponse,
 
     -- ** DisassociateDRTLogBucket
-    module Network.AWS.Shield.DisassociateDRTLogBucket,
+    DisassociateDRTLogBucket (DisassociateDRTLogBucket'),
+    newDisassociateDRTLogBucket,
+    DisassociateDRTLogBucketResponse (DisassociateDRTLogBucketResponse'),
+    newDisassociateDRTLogBucketResponse,
 
     -- ** UpdateSubscription
-    module Network.AWS.Shield.UpdateSubscription,
+    UpdateSubscription (UpdateSubscription'),
+    newUpdateSubscription,
+    UpdateSubscriptionResponse (UpdateSubscriptionResponse'),
+    newUpdateSubscriptionResponse,
 
     -- ** AssociateDRTRole
-    module Network.AWS.Shield.AssociateDRTRole,
+    AssociateDRTRole (AssociateDRTRole'),
+    newAssociateDRTRole,
+    AssociateDRTRoleResponse (AssociateDRTRoleResponse'),
+    newAssociateDRTRoleResponse,
 
     -- ** CreateProtection
-    module Network.AWS.Shield.CreateProtection,
+    CreateProtection (CreateProtection'),
+    newCreateProtection,
+    CreateProtectionResponse (CreateProtectionResponse'),
+    newCreateProtectionResponse,
 
     -- ** AssociateDRTLogBucket
-    module Network.AWS.Shield.AssociateDRTLogBucket,
+    AssociateDRTLogBucket (AssociateDRTLogBucket'),
+    newAssociateDRTLogBucket,
+    AssociateDRTLogBucketResponse (AssociateDRTLogBucketResponse'),
+    newAssociateDRTLogBucketResponse,
 
     -- ** DisassociateDRTRole
-    module Network.AWS.Shield.DisassociateDRTRole,
+    DisassociateDRTRole (DisassociateDRTRole'),
+    newDisassociateDRTRole,
+    DisassociateDRTRoleResponse (DisassociateDRTRoleResponse'),
+    newDisassociateDRTRoleResponse,
 
     -- ** ListAttacks (Paginated)
-    module Network.AWS.Shield.ListAttacks,
+    ListAttacks (ListAttacks'),
+    newListAttacks,
+    ListAttacksResponse (ListAttacksResponse'),
+    newListAttacksResponse,
 
     -- ** DescribeProtection
-    module Network.AWS.Shield.DescribeProtection,
+    DescribeProtection (DescribeProtection'),
+    newDescribeProtection,
+    DescribeProtectionResponse (DescribeProtectionResponse'),
+    newDescribeProtectionResponse,
 
     -- ** DescribeAttackStatistics
-    module Network.AWS.Shield.DescribeAttackStatistics,
+    DescribeAttackStatistics (DescribeAttackStatistics'),
+    newDescribeAttackStatistics,
+    DescribeAttackStatisticsResponse (DescribeAttackStatisticsResponse'),
+    newDescribeAttackStatisticsResponse,
 
     -- ** DisassociateHealthCheck
-    module Network.AWS.Shield.DisassociateHealthCheck,
+    DisassociateHealthCheck (DisassociateHealthCheck'),
+    newDisassociateHealthCheck,
+    DisassociateHealthCheckResponse (DisassociateHealthCheckResponse'),
+    newDisassociateHealthCheckResponse,
 
     -- ** CreateProtectionGroup
-    module Network.AWS.Shield.CreateProtectionGroup,
+    CreateProtectionGroup (CreateProtectionGroup'),
+    newCreateProtectionGroup,
+    CreateProtectionGroupResponse (CreateProtectionGroupResponse'),
+    newCreateProtectionGroupResponse,
 
     -- ** ListProtectionGroups
-    module Network.AWS.Shield.ListProtectionGroups,
+    ListProtectionGroups (ListProtectionGroups'),
+    newListProtectionGroups,
+    ListProtectionGroupsResponse (ListProtectionGroupsResponse'),
+    newListProtectionGroupsResponse,
 
     -- ** DescribeAttack
-    module Network.AWS.Shield.DescribeAttack,
+    DescribeAttack (DescribeAttack'),
+    newDescribeAttack,
+    DescribeAttackResponse (DescribeAttackResponse'),
+    newDescribeAttackResponse,
 
     -- ** UpdateEmergencyContactSettings
-    module Network.AWS.Shield.UpdateEmergencyContactSettings,
+    UpdateEmergencyContactSettings (UpdateEmergencyContactSettings'),
+    newUpdateEmergencyContactSettings,
+    UpdateEmergencyContactSettingsResponse (UpdateEmergencyContactSettingsResponse'),
+    newUpdateEmergencyContactSettingsResponse,
 
     -- ** DeleteProtectionGroup
-    module Network.AWS.Shield.DeleteProtectionGroup,
+    DeleteProtectionGroup (DeleteProtectionGroup'),
+    newDeleteProtectionGroup,
+    DeleteProtectionGroupResponse (DeleteProtectionGroupResponse'),
+    newDeleteProtectionGroupResponse,
 
     -- ** UpdateProtectionGroup
-    module Network.AWS.Shield.UpdateProtectionGroup,
+    UpdateProtectionGroup (UpdateProtectionGroup'),
+    newUpdateProtectionGroup,
+    UpdateProtectionGroupResponse (UpdateProtectionGroupResponse'),
+    newUpdateProtectionGroupResponse,
 
     -- ** ListProtections (Paginated)
-    module Network.AWS.Shield.ListProtections,
+    ListProtections (ListProtections'),
+    newListProtections,
+    ListProtectionsResponse (ListProtectionsResponse'),
+    newListProtectionsResponse,
 
     -- ** DeleteProtection
-    module Network.AWS.Shield.DeleteProtection,
+    DeleteProtection (DeleteProtection'),
+    newDeleteProtection,
+    DeleteProtectionResponse (DeleteProtectionResponse'),
+    newDeleteProtectionResponse,
 
     -- ** AssociateProactiveEngagementDetails
-    module Network.AWS.Shield.AssociateProactiveEngagementDetails,
+    AssociateProactiveEngagementDetails (AssociateProactiveEngagementDetails'),
+    newAssociateProactiveEngagementDetails,
+    AssociateProactiveEngagementDetailsResponse (AssociateProactiveEngagementDetailsResponse'),
+    newAssociateProactiveEngagementDetailsResponse,
 
     -- ** GetSubscriptionState
-    module Network.AWS.Shield.GetSubscriptionState,
+    GetSubscriptionState (GetSubscriptionState'),
+    newGetSubscriptionState,
+    GetSubscriptionStateResponse (GetSubscriptionStateResponse'),
+    newGetSubscriptionStateResponse,
 
     -- * Types
 
@@ -186,166 +278,96 @@ module Network.AWS.Shield
     Unit (..),
 
     -- ** AttackDetail
-    AttackDetail,
-    attackDetail,
-    adResourceARN,
-    adAttackProperties,
-    adStartTime,
-    adEndTime,
-    adAttackCounters,
-    adMitigations,
-    adAttackId,
-    adSubResources,
+    AttackDetail (AttackDetail'),
+    newAttackDetail,
 
     -- ** AttackProperty
-    AttackProperty,
-    attackProperty,
-    apUnit,
-    apTotal,
-    apAttackPropertyIdentifier,
-    apAttackLayer,
-    apTopContributors,
+    AttackProperty (AttackProperty'),
+    newAttackProperty,
 
     -- ** AttackStatisticsDataItem
-    AttackStatisticsDataItem,
-    attackStatisticsDataItem,
-    asdiAttackVolume,
-    asdiAttackCount,
+    AttackStatisticsDataItem (AttackStatisticsDataItem'),
+    newAttackStatisticsDataItem,
 
     -- ** AttackSummary
-    AttackSummary,
-    attackSummary,
-    asResourceARN,
-    asStartTime,
-    asEndTime,
-    asAttackId,
-    asAttackVectors,
+    AttackSummary (AttackSummary'),
+    newAttackSummary,
 
     -- ** AttackVectorDescription
-    AttackVectorDescription,
-    attackVectorDescription,
-    avdVectorType,
+    AttackVectorDescription (AttackVectorDescription'),
+    newAttackVectorDescription,
 
     -- ** AttackVolume
-    AttackVolume,
-    attackVolume,
-    avPacketsPerSecond,
-    avBitsPerSecond,
-    avRequestsPerSecond,
+    AttackVolume (AttackVolume'),
+    newAttackVolume,
 
     -- ** AttackVolumeStatistics
-    AttackVolumeStatistics,
-    attackVolumeStatistics,
-    avsMax,
+    AttackVolumeStatistics (AttackVolumeStatistics'),
+    newAttackVolumeStatistics,
 
     -- ** Contributor
-    Contributor,
-    contributor,
-    cName,
-    cValue,
+    Contributor (Contributor'),
+    newContributor,
 
     -- ** EmergencyContact
-    EmergencyContact,
-    emergencyContact,
-    ecPhoneNumber,
-    ecContactNotes,
-    ecEmailAddress,
+    EmergencyContact (EmergencyContact'),
+    newEmergencyContact,
 
     -- ** Limit
-    Limit,
-    limit,
-    lMax,
-    lType,
+    Limit (Limit'),
+    newLimit,
 
     -- ** Mitigation
-    Mitigation,
-    mitigation,
-    mMitigationName,
+    Mitigation (Mitigation'),
+    newMitigation,
 
     -- ** Protection
-    Protection,
-    protection,
-    pResourceARN,
-    pId,
-    pName,
-    pHealthCheckIds,
+    Protection (Protection'),
+    newProtection,
 
     -- ** ProtectionGroup
-    ProtectionGroup,
-    protectionGroup,
-    pgResourceType,
-    pgProtectionGroupId,
-    pgAggregation,
-    pgPattern,
-    pgMembers,
+    ProtectionGroup (ProtectionGroup'),
+    newProtectionGroup,
 
     -- ** ProtectionGroupArbitraryPatternLimits
-    ProtectionGroupArbitraryPatternLimits,
-    protectionGroupArbitraryPatternLimits,
-    pgaplMaxMembers,
+    ProtectionGroupArbitraryPatternLimits (ProtectionGroupArbitraryPatternLimits'),
+    newProtectionGroupArbitraryPatternLimits,
 
     -- ** ProtectionGroupLimits
-    ProtectionGroupLimits,
-    protectionGroupLimits,
-    pglMaxProtectionGroups,
-    pglPatternTypeLimits,
+    ProtectionGroupLimits (ProtectionGroupLimits'),
+    newProtectionGroupLimits,
 
     -- ** ProtectionGroupPatternTypeLimits
-    ProtectionGroupPatternTypeLimits,
-    protectionGroupPatternTypeLimits,
-    pgptlArbitraryPatternLimits,
+    ProtectionGroupPatternTypeLimits (ProtectionGroupPatternTypeLimits'),
+    newProtectionGroupPatternTypeLimits,
 
     -- ** ProtectionLimits
-    ProtectionLimits,
-    protectionLimits,
-    plProtectedResourceTypeLimits,
+    ProtectionLimits (ProtectionLimits'),
+    newProtectionLimits,
 
     -- ** SubResourceSummary
-    SubResourceSummary,
-    subResourceSummary,
-    srsCounters,
-    srsId,
-    srsType,
-    srsAttackVectors,
+    SubResourceSummary (SubResourceSummary'),
+    newSubResourceSummary,
 
     -- ** Subscription
-    Subscription,
-    subscription,
-    sAutoRenew,
-    sProactiveEngagementStatus,
-    sStartTime,
-    sEndTime,
-    sLimits,
-    sTimeCommitmentInSeconds,
-    sSubscriptionLimits,
+    Subscription (Subscription'),
+    newSubscription,
 
     -- ** SubscriptionLimits
-    SubscriptionLimits,
-    subscriptionLimits,
-    slProtectionLimits,
-    slProtectionGroupLimits,
+    SubscriptionLimits (SubscriptionLimits'),
+    newSubscriptionLimits,
 
     -- ** SummarizedAttackVector
-    SummarizedAttackVector,
-    summarizedAttackVector,
-    savVectorCounters,
-    savVectorType,
+    SummarizedAttackVector (SummarizedAttackVector'),
+    newSummarizedAttackVector,
 
     -- ** SummarizedCounter
-    SummarizedCounter,
-    summarizedCounter,
-    scUnit,
-    scN,
-    scSum,
-    scName,
-    scMax,
-    scAverage,
+    SummarizedCounter (SummarizedCounter'),
+    newSummarizedCounter,
 
     -- ** TimeRange
-    TimeRange,
-    timeRange,
-    trFromInclusive,
-    trToExclusive,
+    TimeRange (TimeRange'),
+    newTimeRange,
   )
 where
 
@@ -371,6 +393,7 @@ import Network.AWS.Shield.DisassociateDRTRole
 import Network.AWS.Shield.DisassociateHealthCheck
 import Network.AWS.Shield.EnableProactiveEngagement
 import Network.AWS.Shield.GetSubscriptionState
+import Network.AWS.Shield.Lens
 import Network.AWS.Shield.ListAttacks
 import Network.AWS.Shield.ListProtectionGroups
 import Network.AWS.Shield.ListProtections

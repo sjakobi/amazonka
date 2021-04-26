@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.SummarizedAttackVector where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Shield.Types.SummarizedCounter
 
 -- | A summary of information about the attack.
 --
---
---
--- /See:/ 'summarizedAttackVector' smart constructor.
+-- /See:/ 'newSummarizedAttackVector' smart constructor.
 data SummarizedAttackVector = SummarizedAttackVector'
-  { _savVectorCounters ::
-      !( Maybe
-           [SummarizedCounter]
-       ),
-    _savVectorType :: !Text
+  { -- | The list of counters that describe the details of the attack.
+    vectorCounters :: Prelude.Maybe [SummarizedCounter],
+    -- | The attack type, for example, SNMP reflection or SYN flood.
+    vectorType :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SummarizedAttackVector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SummarizedAttackVector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'savVectorCounters' - The list of counters that describe the details of the attack.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'savVectorType' - The attack type, for example, SNMP reflection or SYN flood.
-summarizedAttackVector ::
-  -- | 'savVectorType'
-  Text ->
+-- 'vectorCounters', 'summarizedAttackVector_vectorCounters' - The list of counters that describe the details of the attack.
+--
+-- 'vectorType', 'summarizedAttackVector_vectorType' - The attack type, for example, SNMP reflection or SYN flood.
+newSummarizedAttackVector ::
+  -- | 'vectorType'
+  Prelude.Text ->
   SummarizedAttackVector
-summarizedAttackVector pVectorType_ =
+newSummarizedAttackVector pVectorType_ =
   SummarizedAttackVector'
-    { _savVectorCounters =
-        Nothing,
-      _savVectorType = pVectorType_
+    { vectorCounters =
+        Prelude.Nothing,
+      vectorType = pVectorType_
     }
 
 -- | The list of counters that describe the details of the attack.
-savVectorCounters :: Lens' SummarizedAttackVector [SummarizedCounter]
-savVectorCounters = lens _savVectorCounters (\s a -> s {_savVectorCounters = a}) . _Default . _Coerce
+summarizedAttackVector_vectorCounters :: Lens.Lens' SummarizedAttackVector (Prelude.Maybe [SummarizedCounter])
+summarizedAttackVector_vectorCounters = Lens.lens (\SummarizedAttackVector' {vectorCounters} -> vectorCounters) (\s@SummarizedAttackVector' {} a -> s {vectorCounters = a} :: SummarizedAttackVector) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The attack type, for example, SNMP reflection or SYN flood.
-savVectorType :: Lens' SummarizedAttackVector Text
-savVectorType = lens _savVectorType (\s a -> s {_savVectorType = a})
+summarizedAttackVector_vectorType :: Lens.Lens' SummarizedAttackVector Prelude.Text
+summarizedAttackVector_vectorType = Lens.lens (\SummarizedAttackVector' {vectorType} -> vectorType) (\s@SummarizedAttackVector' {} a -> s {vectorType = a} :: SummarizedAttackVector)
 
-instance FromJSON SummarizedAttackVector where
+instance Prelude.FromJSON SummarizedAttackVector where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SummarizedAttackVector"
       ( \x ->
           SummarizedAttackVector'
-            <$> (x .:? "VectorCounters" .!= mempty)
-            <*> (x .: "VectorType")
+            Prelude.<$> ( x Prelude..:? "VectorCounters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "VectorType")
       )
 
-instance Hashable SummarizedAttackVector
+instance Prelude.Hashable SummarizedAttackVector
 
-instance NFData SummarizedAttackVector
+instance Prelude.NFData SummarizedAttackVector

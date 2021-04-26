@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.ProtectionGroupLimits where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Shield.Types.ProtectionGroupPatternTypeLimits
 
 -- | Limits settings on protection groups for your subscription.
 --
---
---
--- /See:/ 'protectionGroupLimits' smart constructor.
+-- /See:/ 'newProtectionGroupLimits' smart constructor.
 data ProtectionGroupLimits = ProtectionGroupLimits'
-  { _pglMaxProtectionGroups ::
-      !Integer,
-    _pglPatternTypeLimits ::
-      !ProtectionGroupPatternTypeLimits
+  { -- | The maximum number of protection groups that you can have at one time.
+    maxProtectionGroups :: Prelude.Integer,
+    -- | Limits settings by pattern type in the protection groups for your
+    -- subscription.
+    patternTypeLimits :: ProtectionGroupPatternTypeLimits
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProtectionGroupLimits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProtectionGroupLimits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pglMaxProtectionGroups' - The maximum number of protection groups that you can have at one time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pglPatternTypeLimits' - Limits settings by pattern type in the protection groups for your subscription.
-protectionGroupLimits ::
-  -- | 'pglMaxProtectionGroups'
-  Integer ->
-  -- | 'pglPatternTypeLimits'
+-- 'maxProtectionGroups', 'protectionGroupLimits_maxProtectionGroups' - The maximum number of protection groups that you can have at one time.
+--
+-- 'patternTypeLimits', 'protectionGroupLimits_patternTypeLimits' - Limits settings by pattern type in the protection groups for your
+-- subscription.
+newProtectionGroupLimits ::
+  -- | 'maxProtectionGroups'
+  Prelude.Integer ->
+  -- | 'patternTypeLimits'
   ProtectionGroupPatternTypeLimits ->
   ProtectionGroupLimits
-protectionGroupLimits
+newProtectionGroupLimits
   pMaxProtectionGroups_
   pPatternTypeLimits_ =
     ProtectionGroupLimits'
-      { _pglMaxProtectionGroups =
+      { maxProtectionGroups =
           pMaxProtectionGroups_,
-        _pglPatternTypeLimits = pPatternTypeLimits_
+        patternTypeLimits = pPatternTypeLimits_
       }
 
 -- | The maximum number of protection groups that you can have at one time.
-pglMaxProtectionGroups :: Lens' ProtectionGroupLimits Integer
-pglMaxProtectionGroups = lens _pglMaxProtectionGroups (\s a -> s {_pglMaxProtectionGroups = a})
+protectionGroupLimits_maxProtectionGroups :: Lens.Lens' ProtectionGroupLimits Prelude.Integer
+protectionGroupLimits_maxProtectionGroups = Lens.lens (\ProtectionGroupLimits' {maxProtectionGroups} -> maxProtectionGroups) (\s@ProtectionGroupLimits' {} a -> s {maxProtectionGroups = a} :: ProtectionGroupLimits)
 
--- | Limits settings by pattern type in the protection groups for your subscription.
-pglPatternTypeLimits :: Lens' ProtectionGroupLimits ProtectionGroupPatternTypeLimits
-pglPatternTypeLimits = lens _pglPatternTypeLimits (\s a -> s {_pglPatternTypeLimits = a})
+-- | Limits settings by pattern type in the protection groups for your
+-- subscription.
+protectionGroupLimits_patternTypeLimits :: Lens.Lens' ProtectionGroupLimits ProtectionGroupPatternTypeLimits
+protectionGroupLimits_patternTypeLimits = Lens.lens (\ProtectionGroupLimits' {patternTypeLimits} -> patternTypeLimits) (\s@ProtectionGroupLimits' {} a -> s {patternTypeLimits = a} :: ProtectionGroupLimits)
 
-instance FromJSON ProtectionGroupLimits where
+instance Prelude.FromJSON ProtectionGroupLimits where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProtectionGroupLimits"
       ( \x ->
           ProtectionGroupLimits'
-            <$> (x .: "MaxProtectionGroups")
-            <*> (x .: "PatternTypeLimits")
+            Prelude.<$> (x Prelude..: "MaxProtectionGroups")
+            Prelude.<*> (x Prelude..: "PatternTypeLimits")
       )
 
-instance Hashable ProtectionGroupLimits
+instance Prelude.Hashable ProtectionGroupLimits
 
-instance NFData ProtectionGroupLimits
+instance Prelude.NFData ProtectionGroupLimits

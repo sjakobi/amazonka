@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.Shield.Types.AttackPropertyIdentifier
   ( AttackPropertyIdentifier
       ( ..,
-        DestinationURL,
-        Referrer,
-        SourceASN,
-        SourceCountry,
-        SourceIPAddress,
-        SourceUserAgent,
-        WordpressPingbackReflector,
-        WordpressPingbackSource
+        AttackPropertyIdentifierDESTINATIONURL,
+        AttackPropertyIdentifierREFERRER,
+        AttackPropertyIdentifierSOURCEASN,
+        AttackPropertyIdentifierSOURCECOUNTRY,
+        AttackPropertyIdentifierSOURCEIPADDRESS,
+        AttackPropertyIdentifierSOURCEUSERAGENT,
+        AttackPropertyIdentifierWORDPRESSPINGBACKREFLECTOR,
+        AttackPropertyIdentifierWORDPRESSPINGBACKSOURCE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AttackPropertyIdentifier
-  = AttackPropertyIdentifier'
-      ( CI
-          Text
-      )
+newtype AttackPropertyIdentifier = AttackPropertyIdentifier'
+  { fromAttackPropertyIdentifier ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DestinationURL :: AttackPropertyIdentifier
-pattern DestinationURL = AttackPropertyIdentifier' "DESTINATION_URL"
+pattern AttackPropertyIdentifierDESTINATIONURL :: AttackPropertyIdentifier
+pattern AttackPropertyIdentifierDESTINATIONURL = AttackPropertyIdentifier' "DESTINATION_URL"
 
-pattern Referrer :: AttackPropertyIdentifier
-pattern Referrer = AttackPropertyIdentifier' "REFERRER"
+pattern AttackPropertyIdentifierREFERRER :: AttackPropertyIdentifier
+pattern AttackPropertyIdentifierREFERRER = AttackPropertyIdentifier' "REFERRER"
 
-pattern SourceASN :: AttackPropertyIdentifier
-pattern SourceASN = AttackPropertyIdentifier' "SOURCE_ASN"
+pattern AttackPropertyIdentifierSOURCEASN :: AttackPropertyIdentifier
+pattern AttackPropertyIdentifierSOURCEASN = AttackPropertyIdentifier' "SOURCE_ASN"
 
-pattern SourceCountry :: AttackPropertyIdentifier
-pattern SourceCountry = AttackPropertyIdentifier' "SOURCE_COUNTRY"
+pattern AttackPropertyIdentifierSOURCECOUNTRY :: AttackPropertyIdentifier
+pattern AttackPropertyIdentifierSOURCECOUNTRY = AttackPropertyIdentifier' "SOURCE_COUNTRY"
 
-pattern SourceIPAddress :: AttackPropertyIdentifier
-pattern SourceIPAddress = AttackPropertyIdentifier' "SOURCE_IP_ADDRESS"
+pattern AttackPropertyIdentifierSOURCEIPADDRESS :: AttackPropertyIdentifier
+pattern AttackPropertyIdentifierSOURCEIPADDRESS = AttackPropertyIdentifier' "SOURCE_IP_ADDRESS"
 
-pattern SourceUserAgent :: AttackPropertyIdentifier
-pattern SourceUserAgent = AttackPropertyIdentifier' "SOURCE_USER_AGENT"
+pattern AttackPropertyIdentifierSOURCEUSERAGENT :: AttackPropertyIdentifier
+pattern AttackPropertyIdentifierSOURCEUSERAGENT = AttackPropertyIdentifier' "SOURCE_USER_AGENT"
 
-pattern WordpressPingbackReflector :: AttackPropertyIdentifier
-pattern WordpressPingbackReflector = AttackPropertyIdentifier' "WORDPRESS_PINGBACK_REFLECTOR"
+pattern AttackPropertyIdentifierWORDPRESSPINGBACKREFLECTOR :: AttackPropertyIdentifier
+pattern AttackPropertyIdentifierWORDPRESSPINGBACKREFLECTOR = AttackPropertyIdentifier' "WORDPRESS_PINGBACK_REFLECTOR"
 
-pattern WordpressPingbackSource :: AttackPropertyIdentifier
-pattern WordpressPingbackSource = AttackPropertyIdentifier' "WORDPRESS_PINGBACK_SOURCE"
+pattern AttackPropertyIdentifierWORDPRESSPINGBACKSOURCE :: AttackPropertyIdentifier
+pattern AttackPropertyIdentifierWORDPRESSPINGBACKSOURCE = AttackPropertyIdentifier' "WORDPRESS_PINGBACK_SOURCE"
 
 {-# COMPLETE
-  DestinationURL,
-  Referrer,
-  SourceASN,
-  SourceCountry,
-  SourceIPAddress,
-  SourceUserAgent,
-  WordpressPingbackReflector,
-  WordpressPingbackSource,
+  AttackPropertyIdentifierDESTINATIONURL,
+  AttackPropertyIdentifierREFERRER,
+  AttackPropertyIdentifierSOURCEASN,
+  AttackPropertyIdentifierSOURCECOUNTRY,
+  AttackPropertyIdentifierSOURCEIPADDRESS,
+  AttackPropertyIdentifierSOURCEUSERAGENT,
+  AttackPropertyIdentifierWORDPRESSPINGBACKREFLECTOR,
+  AttackPropertyIdentifierWORDPRESSPINGBACKSOURCE,
   AttackPropertyIdentifier'
   #-}
 
-instance FromText AttackPropertyIdentifier where
-  parser = (AttackPropertyIdentifier' . mk) <$> takeText
+instance Prelude.FromText AttackPropertyIdentifier where
+  parser = AttackPropertyIdentifier' Prelude.<$> Prelude.takeText
 
-instance ToText AttackPropertyIdentifier where
-  toText (AttackPropertyIdentifier' ci) = original ci
+instance Prelude.ToText AttackPropertyIdentifier where
+  toText (AttackPropertyIdentifier' x) = x
 
-instance Hashable AttackPropertyIdentifier
+instance Prelude.Hashable AttackPropertyIdentifier
 
-instance NFData AttackPropertyIdentifier
+instance Prelude.NFData AttackPropertyIdentifier
 
-instance ToByteString AttackPropertyIdentifier
+instance Prelude.ToByteString AttackPropertyIdentifier
 
-instance ToQuery AttackPropertyIdentifier
+instance Prelude.ToQuery AttackPropertyIdentifier
 
-instance ToHeader AttackPropertyIdentifier
+instance Prelude.ToHeader AttackPropertyIdentifier
 
-instance FromJSON AttackPropertyIdentifier where
-  parseJSON = parseJSONText "AttackPropertyIdentifier"
+instance Prelude.FromJSON AttackPropertyIdentifier where
+  parseJSON = Prelude.parseJSONText "AttackPropertyIdentifier"

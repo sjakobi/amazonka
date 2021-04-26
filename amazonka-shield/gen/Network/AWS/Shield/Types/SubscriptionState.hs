@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Shield.Types.SubscriptionState
   ( SubscriptionState
       ( ..,
-        Active,
-        Inactive
+        SubscriptionStateACTIVE,
+        SubscriptionStateINACTIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SubscriptionState = SubscriptionState' (CI Text)
+newtype SubscriptionState = SubscriptionState'
+  { fromSubscriptionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: SubscriptionState
-pattern Active = SubscriptionState' "ACTIVE"
+pattern SubscriptionStateACTIVE :: SubscriptionState
+pattern SubscriptionStateACTIVE = SubscriptionState' "ACTIVE"
 
-pattern Inactive :: SubscriptionState
-pattern Inactive = SubscriptionState' "INACTIVE"
+pattern SubscriptionStateINACTIVE :: SubscriptionState
+pattern SubscriptionStateINACTIVE = SubscriptionState' "INACTIVE"
 
 {-# COMPLETE
-  Active,
-  Inactive,
+  SubscriptionStateACTIVE,
+  SubscriptionStateINACTIVE,
   SubscriptionState'
   #-}
 
-instance FromText SubscriptionState where
-  parser = (SubscriptionState' . mk) <$> takeText
+instance Prelude.FromText SubscriptionState where
+  parser = SubscriptionState' Prelude.<$> Prelude.takeText
 
-instance ToText SubscriptionState where
-  toText (SubscriptionState' ci) = original ci
+instance Prelude.ToText SubscriptionState where
+  toText (SubscriptionState' x) = x
 
-instance Hashable SubscriptionState
+instance Prelude.Hashable SubscriptionState
 
-instance NFData SubscriptionState
+instance Prelude.NFData SubscriptionState
 
-instance ToByteString SubscriptionState
+instance Prelude.ToByteString SubscriptionState
 
-instance ToQuery SubscriptionState
+instance Prelude.ToQuery SubscriptionState
 
-instance ToHeader SubscriptionState
+instance Prelude.ToHeader SubscriptionState
 
-instance FromJSON SubscriptionState where
-  parseJSON = parseJSONText "SubscriptionState"
+instance Prelude.FromJSON SubscriptionState where
+  parseJSON = Prelude.parseJSONText "SubscriptionState"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Shield.Types.SummarizedCounter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The counter that describes a DDoS attack.
 --
---
---
--- /See:/ 'summarizedCounter' smart constructor.
+-- /See:/ 'newSummarizedCounter' smart constructor.
 data SummarizedCounter = SummarizedCounter'
-  { _scUnit ::
-      !(Maybe Text),
-    _scN :: !(Maybe Int),
-    _scSum :: !(Maybe Double),
-    _scName :: !(Maybe Text),
-    _scMax :: !(Maybe Double),
-    _scAverage :: !(Maybe Double)
+  { -- | The unit of the counters.
+    unit :: Prelude.Maybe Prelude.Text,
+    -- | The number of counters for a specified time period.
+    n :: Prelude.Maybe Prelude.Int,
+    -- | The total of counter values for a specified time period.
+    sum :: Prelude.Maybe Prelude.Double,
+    -- | The counter name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The maximum value of the counter for a specified time period.
+    max :: Prelude.Maybe Prelude.Double,
+    -- | The average value of the counter for a specified time period.
+    average :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SummarizedCounter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SummarizedCounter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scUnit' - The unit of the counters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scN' - The number of counters for a specified time period.
+-- 'unit', 'summarizedCounter_unit' - The unit of the counters.
 --
--- * 'scSum' - The total of counter values for a specified time period.
+-- 'n', 'summarizedCounter_n' - The number of counters for a specified time period.
 --
--- * 'scName' - The counter name.
+-- 'sum', 'summarizedCounter_sum' - The total of counter values for a specified time period.
 --
--- * 'scMax' - The maximum value of the counter for a specified time period.
+-- 'name', 'summarizedCounter_name' - The counter name.
 --
--- * 'scAverage' - The average value of the counter for a specified time period.
-summarizedCounter ::
+-- 'max', 'summarizedCounter_max' - The maximum value of the counter for a specified time period.
+--
+-- 'average', 'summarizedCounter_average' - The average value of the counter for a specified time period.
+newSummarizedCounter ::
   SummarizedCounter
-summarizedCounter =
+newSummarizedCounter =
   SummarizedCounter'
-    { _scUnit = Nothing,
-      _scN = Nothing,
-      _scSum = Nothing,
-      _scName = Nothing,
-      _scMax = Nothing,
-      _scAverage = Nothing
+    { unit = Prelude.Nothing,
+      n = Prelude.Nothing,
+      sum = Prelude.Nothing,
+      name = Prelude.Nothing,
+      max = Prelude.Nothing,
+      average = Prelude.Nothing
     }
 
 -- | The unit of the counters.
-scUnit :: Lens' SummarizedCounter (Maybe Text)
-scUnit = lens _scUnit (\s a -> s {_scUnit = a})
+summarizedCounter_unit :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Text)
+summarizedCounter_unit = Lens.lens (\SummarizedCounter' {unit} -> unit) (\s@SummarizedCounter' {} a -> s {unit = a} :: SummarizedCounter)
 
 -- | The number of counters for a specified time period.
-scN :: Lens' SummarizedCounter (Maybe Int)
-scN = lens _scN (\s a -> s {_scN = a})
+summarizedCounter_n :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Int)
+summarizedCounter_n = Lens.lens (\SummarizedCounter' {n} -> n) (\s@SummarizedCounter' {} a -> s {n = a} :: SummarizedCounter)
 
 -- | The total of counter values for a specified time period.
-scSum :: Lens' SummarizedCounter (Maybe Double)
-scSum = lens _scSum (\s a -> s {_scSum = a})
+summarizedCounter_sum :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Double)
+summarizedCounter_sum = Lens.lens (\SummarizedCounter' {sum} -> sum) (\s@SummarizedCounter' {} a -> s {sum = a} :: SummarizedCounter)
 
 -- | The counter name.
-scName :: Lens' SummarizedCounter (Maybe Text)
-scName = lens _scName (\s a -> s {_scName = a})
+summarizedCounter_name :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Text)
+summarizedCounter_name = Lens.lens (\SummarizedCounter' {name} -> name) (\s@SummarizedCounter' {} a -> s {name = a} :: SummarizedCounter)
 
 -- | The maximum value of the counter for a specified time period.
-scMax :: Lens' SummarizedCounter (Maybe Double)
-scMax = lens _scMax (\s a -> s {_scMax = a})
+summarizedCounter_max :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Double)
+summarizedCounter_max = Lens.lens (\SummarizedCounter' {max} -> max) (\s@SummarizedCounter' {} a -> s {max = a} :: SummarizedCounter)
 
 -- | The average value of the counter for a specified time period.
-scAverage :: Lens' SummarizedCounter (Maybe Double)
-scAverage = lens _scAverage (\s a -> s {_scAverage = a})
+summarizedCounter_average :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Double)
+summarizedCounter_average = Lens.lens (\SummarizedCounter' {average} -> average) (\s@SummarizedCounter' {} a -> s {average = a} :: SummarizedCounter)
 
-instance FromJSON SummarizedCounter where
+instance Prelude.FromJSON SummarizedCounter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SummarizedCounter"
       ( \x ->
           SummarizedCounter'
-            <$> (x .:? "Unit")
-            <*> (x .:? "N")
-            <*> (x .:? "Sum")
-            <*> (x .:? "Name")
-            <*> (x .:? "Max")
-            <*> (x .:? "Average")
+            Prelude.<$> (x Prelude..:? "Unit")
+            Prelude.<*> (x Prelude..:? "N")
+            Prelude.<*> (x Prelude..:? "Sum")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Max")
+            Prelude.<*> (x Prelude..:? "Average")
       )
 
-instance Hashable SummarizedCounter
+instance Prelude.Hashable SummarizedCounter
 
-instance NFData SummarizedCounter
+instance Prelude.NFData SummarizedCounter
