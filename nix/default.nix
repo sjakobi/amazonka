@@ -25,8 +25,7 @@ let
     # Add top-level `.sources` attribute.
     (_final: _prev: { sources = finalSources; })
 
-    (import ./overlays/haskell.nix)
-    (import ./overlays/cabal-project.nix { inherit ghcVersion; })
+    (import ./overlays/haskell.nix { inherit ghcVersion; })
   ] ++ overlays;
 
   pkgs = import haskellNix.sources.nixpkgs-2009 (haskellNix.nixpkgsArgs // {
