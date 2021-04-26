@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,240 +23,249 @@
 --
 -- Describes a budget action history detail.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Budgets.DescribeBudgetActionHistories
   ( -- * Creating a Request
-    describeBudgetActionHistories,
-    DescribeBudgetActionHistories,
+    DescribeBudgetActionHistories (..),
+    newDescribeBudgetActionHistories,
 
     -- * Request Lenses
-    dbahNextToken,
-    dbahMaxResults,
-    dbahTimePeriod,
-    dbahAccountId,
-    dbahBudgetName,
-    dbahActionId,
+    describeBudgetActionHistories_nextToken,
+    describeBudgetActionHistories_maxResults,
+    describeBudgetActionHistories_timePeriod,
+    describeBudgetActionHistories_accountId,
+    describeBudgetActionHistories_budgetName,
+    describeBudgetActionHistories_actionId,
 
     -- * Destructuring the Response
-    describeBudgetActionHistoriesResponse,
-    DescribeBudgetActionHistoriesResponse,
+    DescribeBudgetActionHistoriesResponse (..),
+    newDescribeBudgetActionHistoriesResponse,
 
     -- * Response Lenses
-    dbahrrsNextToken,
-    dbahrrsResponseStatus,
-    dbahrrsActionHistories,
+    describeBudgetActionHistoriesResponse_nextToken,
+    describeBudgetActionHistoriesResponse_httpStatus,
+    describeBudgetActionHistoriesResponse_actionHistories,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Budgets.Types.ActionHistory
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeBudgetActionHistories' smart constructor.
+-- | /See:/ 'newDescribeBudgetActionHistories' smart constructor.
 data DescribeBudgetActionHistories = DescribeBudgetActionHistories'
-  { _dbahNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dbahMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dbahTimePeriod ::
-      !( Maybe
-           TimePeriod
-       ),
-    _dbahAccountId ::
-      !Text,
-    _dbahBudgetName ::
-      !Text,
-    _dbahActionId ::
-      !Text
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    timePeriod :: Prelude.Maybe TimePeriod,
+    accountId :: Prelude.Text,
+    budgetName :: Prelude.Text,
+    -- | A system-generated universally unique identifier (UUID) for the action.
+    actionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBudgetActionHistories' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBudgetActionHistories' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbahNextToken' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbahMaxResults' - Undocumented member.
+-- 'nextToken', 'describeBudgetActionHistories_nextToken' - Undocumented member.
 --
--- * 'dbahTimePeriod' - Undocumented member.
+-- 'maxResults', 'describeBudgetActionHistories_maxResults' - Undocumented member.
 --
--- * 'dbahAccountId' - Undocumented member.
+-- 'timePeriod', 'describeBudgetActionHistories_timePeriod' - Undocumented member.
 --
--- * 'dbahBudgetName' - Undocumented member.
+-- 'accountId', 'describeBudgetActionHistories_accountId' - Undocumented member.
 --
--- * 'dbahActionId' - A system-generated universally unique identifier (UUID) for the action.
-describeBudgetActionHistories ::
-  -- | 'dbahAccountId'
-  Text ->
-  -- | 'dbahBudgetName'
-  Text ->
-  -- | 'dbahActionId'
-  Text ->
+-- 'budgetName', 'describeBudgetActionHistories_budgetName' - Undocumented member.
+--
+-- 'actionId', 'describeBudgetActionHistories_actionId' - A system-generated universally unique identifier (UUID) for the action.
+newDescribeBudgetActionHistories ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'actionId'
+  Prelude.Text ->
   DescribeBudgetActionHistories
-describeBudgetActionHistories
+newDescribeBudgetActionHistories
   pAccountId_
   pBudgetName_
   pActionId_ =
     DescribeBudgetActionHistories'
-      { _dbahNextToken =
-          Nothing,
-        _dbahMaxResults = Nothing,
-        _dbahTimePeriod = Nothing,
-        _dbahAccountId = pAccountId_,
-        _dbahBudgetName = pBudgetName_,
-        _dbahActionId = pActionId_
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        timePeriod = Prelude.Nothing,
+        accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        actionId = pActionId_
       }
 
 -- | Undocumented member.
-dbahNextToken :: Lens' DescribeBudgetActionHistories (Maybe Text)
-dbahNextToken = lens _dbahNextToken (\s a -> s {_dbahNextToken = a})
+describeBudgetActionHistories_nextToken :: Lens.Lens' DescribeBudgetActionHistories (Prelude.Maybe Prelude.Text)
+describeBudgetActionHistories_nextToken = Lens.lens (\DescribeBudgetActionHistories' {nextToken} -> nextToken) (\s@DescribeBudgetActionHistories' {} a -> s {nextToken = a} :: DescribeBudgetActionHistories)
 
 -- | Undocumented member.
-dbahMaxResults :: Lens' DescribeBudgetActionHistories (Maybe Natural)
-dbahMaxResults = lens _dbahMaxResults (\s a -> s {_dbahMaxResults = a}) . mapping _Nat
+describeBudgetActionHistories_maxResults :: Lens.Lens' DescribeBudgetActionHistories (Prelude.Maybe Prelude.Natural)
+describeBudgetActionHistories_maxResults = Lens.lens (\DescribeBudgetActionHistories' {maxResults} -> maxResults) (\s@DescribeBudgetActionHistories' {} a -> s {maxResults = a} :: DescribeBudgetActionHistories) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Undocumented member.
-dbahTimePeriod :: Lens' DescribeBudgetActionHistories (Maybe TimePeriod)
-dbahTimePeriod = lens _dbahTimePeriod (\s a -> s {_dbahTimePeriod = a})
+describeBudgetActionHistories_timePeriod :: Lens.Lens' DescribeBudgetActionHistories (Prelude.Maybe TimePeriod)
+describeBudgetActionHistories_timePeriod = Lens.lens (\DescribeBudgetActionHistories' {timePeriod} -> timePeriod) (\s@DescribeBudgetActionHistories' {} a -> s {timePeriod = a} :: DescribeBudgetActionHistories)
 
 -- | Undocumented member.
-dbahAccountId :: Lens' DescribeBudgetActionHistories Text
-dbahAccountId = lens _dbahAccountId (\s a -> s {_dbahAccountId = a})
+describeBudgetActionHistories_accountId :: Lens.Lens' DescribeBudgetActionHistories Prelude.Text
+describeBudgetActionHistories_accountId = Lens.lens (\DescribeBudgetActionHistories' {accountId} -> accountId) (\s@DescribeBudgetActionHistories' {} a -> s {accountId = a} :: DescribeBudgetActionHistories)
 
 -- | Undocumented member.
-dbahBudgetName :: Lens' DescribeBudgetActionHistories Text
-dbahBudgetName = lens _dbahBudgetName (\s a -> s {_dbahBudgetName = a})
+describeBudgetActionHistories_budgetName :: Lens.Lens' DescribeBudgetActionHistories Prelude.Text
+describeBudgetActionHistories_budgetName = Lens.lens (\DescribeBudgetActionHistories' {budgetName} -> budgetName) (\s@DescribeBudgetActionHistories' {} a -> s {budgetName = a} :: DescribeBudgetActionHistories)
 
 -- | A system-generated universally unique identifier (UUID) for the action.
-dbahActionId :: Lens' DescribeBudgetActionHistories Text
-dbahActionId = lens _dbahActionId (\s a -> s {_dbahActionId = a})
+describeBudgetActionHistories_actionId :: Lens.Lens' DescribeBudgetActionHistories Prelude.Text
+describeBudgetActionHistories_actionId = Lens.lens (\DescribeBudgetActionHistories' {actionId} -> actionId) (\s@DescribeBudgetActionHistories' {} a -> s {actionId = a} :: DescribeBudgetActionHistories)
 
-instance AWSPager DescribeBudgetActionHistories where
+instance Pager.AWSPager DescribeBudgetActionHistories where
   page rq rs
-    | stop (rs ^. dbahrrsNextToken) = Nothing
-    | stop (rs ^. dbahrrsActionHistories) = Nothing
-    | otherwise =
-      Just $ rq & dbahNextToken .~ rs ^. dbahrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeBudgetActionHistoriesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. describeBudgetActionHistoriesResponse_actionHistories
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeBudgetActionHistories_nextToken
+          Lens..~ rs
+          Lens.^? describeBudgetActionHistoriesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeBudgetActionHistories where
+instance
+  Prelude.AWSRequest
+    DescribeBudgetActionHistories
+  where
   type
     Rs DescribeBudgetActionHistories =
       DescribeBudgetActionHistoriesResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeBudgetActionHistoriesResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "ActionHistories" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "ActionHistories"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable DescribeBudgetActionHistories
+instance
+  Prelude.Hashable
+    DescribeBudgetActionHistories
 
-instance NFData DescribeBudgetActionHistories
+instance Prelude.NFData DescribeBudgetActionHistories
 
-instance ToHeaders DescribeBudgetActionHistories where
+instance
+  Prelude.ToHeaders
+    DescribeBudgetActionHistories
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.DescribeBudgetActionHistories" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.DescribeBudgetActionHistories" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeBudgetActionHistories where
+instance Prelude.ToJSON DescribeBudgetActionHistories where
   toJSON DescribeBudgetActionHistories' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dbahNextToken,
-            ("MaxResults" .=) <$> _dbahMaxResults,
-            ("TimePeriod" .=) <$> _dbahTimePeriod,
-            Just ("AccountId" .= _dbahAccountId),
-            Just ("BudgetName" .= _dbahBudgetName),
-            Just ("ActionId" .= _dbahActionId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("TimePeriod" Prelude..=) Prelude.<$> timePeriod,
+            Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("BudgetName" Prelude..= budgetName),
+            Prelude.Just ("ActionId" Prelude..= actionId)
           ]
       )
 
-instance ToPath DescribeBudgetActionHistories where
-  toPath = const "/"
+instance Prelude.ToPath DescribeBudgetActionHistories where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeBudgetActionHistories where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeBudgetActionHistories
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeBudgetActionHistoriesResponse' smart constructor.
+-- | /See:/ 'newDescribeBudgetActionHistoriesResponse' smart constructor.
 data DescribeBudgetActionHistoriesResponse = DescribeBudgetActionHistoriesResponse'
-  { _dbahrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dbahrrsResponseStatus ::
-      !Int,
-    _dbahrrsActionHistories ::
-      ![ActionHistory]
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The historical record of the budget action resource.
+    actionHistories :: [ActionHistory]
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBudgetActionHistoriesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBudgetActionHistoriesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbahrrsNextToken' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbahrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'describeBudgetActionHistoriesResponse_nextToken' - Undocumented member.
 --
--- * 'dbahrrsActionHistories' - The historical record of the budget action resource.
-describeBudgetActionHistoriesResponse ::
-  -- | 'dbahrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'describeBudgetActionHistoriesResponse_httpStatus' - The response's http status code.
+--
+-- 'actionHistories', 'describeBudgetActionHistoriesResponse_actionHistories' - The historical record of the budget action resource.
+newDescribeBudgetActionHistoriesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeBudgetActionHistoriesResponse
-describeBudgetActionHistoriesResponse
-  pResponseStatus_ =
-    DescribeBudgetActionHistoriesResponse'
-      { _dbahrrsNextToken =
-          Nothing,
-        _dbahrrsResponseStatus =
-          pResponseStatus_,
-        _dbahrrsActionHistories = mempty
-      }
+newDescribeBudgetActionHistoriesResponse pHttpStatus_ =
+  DescribeBudgetActionHistoriesResponse'
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      actionHistories = Prelude.mempty
+    }
 
 -- | Undocumented member.
-dbahrrsNextToken :: Lens' DescribeBudgetActionHistoriesResponse (Maybe Text)
-dbahrrsNextToken = lens _dbahrrsNextToken (\s a -> s {_dbahrrsNextToken = a})
+describeBudgetActionHistoriesResponse_nextToken :: Lens.Lens' DescribeBudgetActionHistoriesResponse (Prelude.Maybe Prelude.Text)
+describeBudgetActionHistoriesResponse_nextToken = Lens.lens (\DescribeBudgetActionHistoriesResponse' {nextToken} -> nextToken) (\s@DescribeBudgetActionHistoriesResponse' {} a -> s {nextToken = a} :: DescribeBudgetActionHistoriesResponse)
 
--- | -- | The response status code.
-dbahrrsResponseStatus :: Lens' DescribeBudgetActionHistoriesResponse Int
-dbahrrsResponseStatus = lens _dbahrrsResponseStatus (\s a -> s {_dbahrrsResponseStatus = a})
+-- | The response's http status code.
+describeBudgetActionHistoriesResponse_httpStatus :: Lens.Lens' DescribeBudgetActionHistoriesResponse Prelude.Int
+describeBudgetActionHistoriesResponse_httpStatus = Lens.lens (\DescribeBudgetActionHistoriesResponse' {httpStatus} -> httpStatus) (\s@DescribeBudgetActionHistoriesResponse' {} a -> s {httpStatus = a} :: DescribeBudgetActionHistoriesResponse)
 
 -- | The historical record of the budget action resource.
-dbahrrsActionHistories :: Lens' DescribeBudgetActionHistoriesResponse [ActionHistory]
-dbahrrsActionHistories = lens _dbahrrsActionHistories (\s a -> s {_dbahrrsActionHistories = a}) . _Coerce
+describeBudgetActionHistoriesResponse_actionHistories :: Lens.Lens' DescribeBudgetActionHistoriesResponse [ActionHistory]
+describeBudgetActionHistoriesResponse_actionHistories = Lens.lens (\DescribeBudgetActionHistoriesResponse' {actionHistories} -> actionHistories) (\s@DescribeBudgetActionHistoriesResponse' {} a -> s {actionHistories = a} :: DescribeBudgetActionHistoriesResponse) Prelude.. Prelude._Coerce
 
-instance NFData DescribeBudgetActionHistoriesResponse
+instance
+  Prelude.NFData
+    DescribeBudgetActionHistoriesResponse

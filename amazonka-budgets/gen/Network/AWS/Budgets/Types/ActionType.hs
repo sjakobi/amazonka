@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Budgets.Types.ActionType
   ( ActionType
       ( ..,
-        ApplyIAMPolicy,
-        ApplyScpPolicy,
-        RunSsmDocuments
+        ActionTypeAPPLYIAMPOLICY,
+        ActionTypeAPPLYSCPPOLICY,
+        ActionTypeRUNSSMDOCUMENTS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionType = ActionType' (CI Text)
+newtype ActionType = ActionType'
+  { fromActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ApplyIAMPolicy :: ActionType
-pattern ApplyIAMPolicy = ActionType' "APPLY_IAM_POLICY"
+pattern ActionTypeAPPLYIAMPOLICY :: ActionType
+pattern ActionTypeAPPLYIAMPOLICY = ActionType' "APPLY_IAM_POLICY"
 
-pattern ApplyScpPolicy :: ActionType
-pattern ApplyScpPolicy = ActionType' "APPLY_SCP_POLICY"
+pattern ActionTypeAPPLYSCPPOLICY :: ActionType
+pattern ActionTypeAPPLYSCPPOLICY = ActionType' "APPLY_SCP_POLICY"
 
-pattern RunSsmDocuments :: ActionType
-pattern RunSsmDocuments = ActionType' "RUN_SSM_DOCUMENTS"
+pattern ActionTypeRUNSSMDOCUMENTS :: ActionType
+pattern ActionTypeRUNSSMDOCUMENTS = ActionType' "RUN_SSM_DOCUMENTS"
 
 {-# COMPLETE
-  ApplyIAMPolicy,
-  ApplyScpPolicy,
-  RunSsmDocuments,
+  ActionTypeAPPLYIAMPOLICY,
+  ActionTypeAPPLYSCPPOLICY,
+  ActionTypeRUNSSMDOCUMENTS,
   ActionType'
   #-}
 
-instance FromText ActionType where
-  parser = (ActionType' . mk) <$> takeText
+instance Prelude.FromText ActionType where
+  parser = ActionType' Prelude.<$> Prelude.takeText
 
-instance ToText ActionType where
-  toText (ActionType' ci) = original ci
+instance Prelude.ToText ActionType where
+  toText (ActionType' x) = x
 
-instance Hashable ActionType
+instance Prelude.Hashable ActionType
 
-instance NFData ActionType
+instance Prelude.NFData ActionType
 
-instance ToByteString ActionType
+instance Prelude.ToByteString ActionType
 
-instance ToQuery ActionType
+instance Prelude.ToQuery ActionType
 
-instance ToHeader ActionType
+instance Prelude.ToHeader ActionType
 
-instance ToJSON ActionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ActionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ActionType where
-  parseJSON = parseJSONText "ActionType"
+instance Prelude.FromJSON ActionType where
+  parseJSON = Prelude.parseJSONText "ActionType"

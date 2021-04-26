@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,147 +23,148 @@
 --
 -- Deletes a budget. You can delete your budget at any time.
 --
---
--- /Important:/ Deleting a budget also deletes the notifications and subscribers that are associated with that budget.
+-- Deleting a budget also deletes the notifications and subscribers that
+-- are associated with that budget.
 module Network.AWS.Budgets.DeleteBudget
   ( -- * Creating a Request
-    deleteBudget,
-    DeleteBudget,
+    DeleteBudget (..),
+    newDeleteBudget,
 
     -- * Request Lenses
-    dbAccountId,
-    dbBudgetName,
+    deleteBudget_accountId,
+    deleteBudget_budgetName,
 
     -- * Destructuring the Response
-    deleteBudgetResponse,
-    DeleteBudgetResponse,
+    DeleteBudgetResponse (..),
+    newDeleteBudgetResponse,
 
     -- * Response Lenses
-    dbrrsResponseStatus,
+    deleteBudgetResponse_httpStatus,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request of DeleteBudget
 --
---
---
--- /See:/ 'deleteBudget' smart constructor.
+-- /See:/ 'newDeleteBudget' smart constructor.
 data DeleteBudget = DeleteBudget'
-  { _dbAccountId ::
-      !Text,
-    _dbBudgetName :: !Text
+  { -- | The @accountId@ that is associated with the budget that you want to
+    -- delete.
+    accountId :: Prelude.Text,
+    -- | The name of the budget that you want to delete.
+    budgetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBudget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBudget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbAccountId' - The @accountId@ that is associated with the budget that you want to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbBudgetName' - The name of the budget that you want to delete.
-deleteBudget ::
-  -- | 'dbAccountId'
-  Text ->
-  -- | 'dbBudgetName'
-  Text ->
+-- 'accountId', 'deleteBudget_accountId' - The @accountId@ that is associated with the budget that you want to
+-- delete.
+--
+-- 'budgetName', 'deleteBudget_budgetName' - The name of the budget that you want to delete.
+newDeleteBudget ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
   DeleteBudget
-deleteBudget pAccountId_ pBudgetName_ =
+newDeleteBudget pAccountId_ pBudgetName_ =
   DeleteBudget'
-    { _dbAccountId = pAccountId_,
-      _dbBudgetName = pBudgetName_
+    { accountId = pAccountId_,
+      budgetName = pBudgetName_
     }
 
--- | The @accountId@ that is associated with the budget that you want to delete.
-dbAccountId :: Lens' DeleteBudget Text
-dbAccountId = lens _dbAccountId (\s a -> s {_dbAccountId = a})
+-- | The @accountId@ that is associated with the budget that you want to
+-- delete.
+deleteBudget_accountId :: Lens.Lens' DeleteBudget Prelude.Text
+deleteBudget_accountId = Lens.lens (\DeleteBudget' {accountId} -> accountId) (\s@DeleteBudget' {} a -> s {accountId = a} :: DeleteBudget)
 
 -- | The name of the budget that you want to delete.
-dbBudgetName :: Lens' DeleteBudget Text
-dbBudgetName = lens _dbBudgetName (\s a -> s {_dbBudgetName = a})
+deleteBudget_budgetName :: Lens.Lens' DeleteBudget Prelude.Text
+deleteBudget_budgetName = Lens.lens (\DeleteBudget' {budgetName} -> budgetName) (\s@DeleteBudget' {} a -> s {budgetName = a} :: DeleteBudget)
 
-instance AWSRequest DeleteBudget where
+instance Prelude.AWSRequest DeleteBudget where
   type Rs DeleteBudget = DeleteBudgetResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteBudgetResponse' <$> (pure (fromEnum s))
+          DeleteBudgetResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteBudget
+instance Prelude.Hashable DeleteBudget
 
-instance NFData DeleteBudget
+instance Prelude.NFData DeleteBudget
 
-instance ToHeaders DeleteBudget where
+instance Prelude.ToHeaders DeleteBudget where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.DeleteBudget" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.DeleteBudget" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteBudget where
+instance Prelude.ToJSON DeleteBudget where
   toJSON DeleteBudget' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountId" .= _dbAccountId),
-            Just ("BudgetName" .= _dbBudgetName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("BudgetName" Prelude..= budgetName)
           ]
       )
 
-instance ToPath DeleteBudget where
-  toPath = const "/"
+instance Prelude.ToPath DeleteBudget where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteBudget where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteBudget where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Response of DeleteBudget
 --
---
---
--- /See:/ 'deleteBudgetResponse' smart constructor.
-newtype DeleteBudgetResponse = DeleteBudgetResponse'
-  { _dbrrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteBudgetResponse' smart constructor.
+data DeleteBudgetResponse = DeleteBudgetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBudgetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBudgetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbrrsResponseStatus' - -- | The response status code.
-deleteBudgetResponse ::
-  -- | 'dbrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteBudgetResponse_httpStatus' - The response's http status code.
+newDeleteBudgetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteBudgetResponse
-deleteBudgetResponse pResponseStatus_ =
-  DeleteBudgetResponse'
-    { _dbrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteBudgetResponse pHttpStatus_ =
+  DeleteBudgetResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dbrrsResponseStatus :: Lens' DeleteBudgetResponse Int
-dbrrsResponseStatus = lens _dbrrsResponseStatus (\s a -> s {_dbrrsResponseStatus = a})
+-- | The response's http status code.
+deleteBudgetResponse_httpStatus :: Lens.Lens' DeleteBudgetResponse Prelude.Int
+deleteBudgetResponse_httpStatus = Lens.lens (\DeleteBudgetResponse' {httpStatus} -> httpStatus) (\s@DeleteBudgetResponse' {} a -> s {httpStatus = a} :: DeleteBudgetResponse)
 
-instance NFData DeleteBudgetResponse
+instance Prelude.NFData DeleteBudgetResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,157 +19,246 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Budgets.Types.CostTypes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The types of cost that are included in a @COST@ budget, such as tax and subscriptions.
+-- | The types of cost that are included in a @COST@ budget, such as tax and
+-- subscriptions.
 --
+-- @USAGE@, @RI_UTILIZATION@, @RI_COVERAGE@, @SAVINGS_PLANS_UTILIZATION@,
+-- and @SAVINGS_PLANS_COVERAGE@ budgets do not have @CostTypes@.
 --
--- @USAGE@ , @RI_UTILIZATION@ , @RI_COVERAGE@ , @SAVINGS_PLANS_UTILIZATION@ , and @SAVINGS_PLANS_COVERAGE@ budgets do not have @CostTypes@ .
---
---
--- /See:/ 'costTypes' smart constructor.
+-- /See:/ 'newCostTypes' smart constructor.
 data CostTypes = CostTypes'
-  { _ctIncludeSubscription ::
-      !(Maybe Bool),
-    _ctUseAmortized :: !(Maybe Bool),
-    _ctIncludeCredit :: !(Maybe Bool),
-    _ctUseBlended :: !(Maybe Bool),
-    _ctIncludeSupport :: !(Maybe Bool),
-    _ctIncludeRefund :: !(Maybe Bool),
-    _ctIncludeTax :: !(Maybe Bool),
-    _ctIncludeDiscount :: !(Maybe Bool),
-    _ctIncludeOtherSubscription :: !(Maybe Bool),
-    _ctIncludeUpfront :: !(Maybe Bool),
-    _ctIncludeRecurring :: !(Maybe Bool)
+  { -- | Specifies whether a budget includes subscriptions.
+    --
+    -- The default value is @true@.
+    includeSubscription :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether a budget uses the amortized rate.
+    --
+    -- The default value is @false@.
+    useAmortized :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether a budget includes credits.
+    --
+    -- The default value is @true@.
+    includeCredit :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether a budget uses a blended rate.
+    --
+    -- The default value is @false@.
+    useBlended :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether a budget includes support subscription fees.
+    --
+    -- The default value is @true@.
+    includeSupport :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether a budget includes refunds.
+    --
+    -- The default value is @true@.
+    includeRefund :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether a budget includes taxes.
+    --
+    -- The default value is @true@.
+    includeTax :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether a budget includes discounts.
+    --
+    -- The default value is @true@.
+    includeDiscount :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether a budget includes non-RI subscription costs.
+    --
+    -- The default value is @true@.
+    includeOtherSubscription :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether a budget includes upfront RI costs.
+    --
+    -- The default value is @true@.
+    includeUpfront :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether a budget includes recurring fees such as monthly RI
+    -- fees.
+    --
+    -- The default value is @true@.
+    includeRecurring :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CostTypes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CostTypes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctIncludeSubscription' - Specifies whether a budget includes subscriptions. The default value is @true@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctUseAmortized' - Specifies whether a budget uses the amortized rate. The default value is @false@ .
+-- 'includeSubscription', 'costTypes_includeSubscription' - Specifies whether a budget includes subscriptions.
 --
--- * 'ctIncludeCredit' - Specifies whether a budget includes credits. The default value is @true@ .
+-- The default value is @true@.
 --
--- * 'ctUseBlended' - Specifies whether a budget uses a blended rate. The default value is @false@ .
+-- 'useAmortized', 'costTypes_useAmortized' - Specifies whether a budget uses the amortized rate.
 --
--- * 'ctIncludeSupport' - Specifies whether a budget includes support subscription fees. The default value is @true@ .
+-- The default value is @false@.
 --
--- * 'ctIncludeRefund' - Specifies whether a budget includes refunds. The default value is @true@ .
+-- 'includeCredit', 'costTypes_includeCredit' - Specifies whether a budget includes credits.
 --
--- * 'ctIncludeTax' - Specifies whether a budget includes taxes. The default value is @true@ .
+-- The default value is @true@.
 --
--- * 'ctIncludeDiscount' - Specifies whether a budget includes discounts. The default value is @true@ .
+-- 'useBlended', 'costTypes_useBlended' - Specifies whether a budget uses a blended rate.
 --
--- * 'ctIncludeOtherSubscription' - Specifies whether a budget includes non-RI subscription costs. The default value is @true@ .
+-- The default value is @false@.
 --
--- * 'ctIncludeUpfront' - Specifies whether a budget includes upfront RI costs. The default value is @true@ .
+-- 'includeSupport', 'costTypes_includeSupport' - Specifies whether a budget includes support subscription fees.
 --
--- * 'ctIncludeRecurring' - Specifies whether a budget includes recurring fees such as monthly RI fees. The default value is @true@ .
-costTypes ::
+-- The default value is @true@.
+--
+-- 'includeRefund', 'costTypes_includeRefund' - Specifies whether a budget includes refunds.
+--
+-- The default value is @true@.
+--
+-- 'includeTax', 'costTypes_includeTax' - Specifies whether a budget includes taxes.
+--
+-- The default value is @true@.
+--
+-- 'includeDiscount', 'costTypes_includeDiscount' - Specifies whether a budget includes discounts.
+--
+-- The default value is @true@.
+--
+-- 'includeOtherSubscription', 'costTypes_includeOtherSubscription' - Specifies whether a budget includes non-RI subscription costs.
+--
+-- The default value is @true@.
+--
+-- 'includeUpfront', 'costTypes_includeUpfront' - Specifies whether a budget includes upfront RI costs.
+--
+-- The default value is @true@.
+--
+-- 'includeRecurring', 'costTypes_includeRecurring' - Specifies whether a budget includes recurring fees such as monthly RI
+-- fees.
+--
+-- The default value is @true@.
+newCostTypes ::
   CostTypes
-costTypes =
+newCostTypes =
   CostTypes'
-    { _ctIncludeSubscription = Nothing,
-      _ctUseAmortized = Nothing,
-      _ctIncludeCredit = Nothing,
-      _ctUseBlended = Nothing,
-      _ctIncludeSupport = Nothing,
-      _ctIncludeRefund = Nothing,
-      _ctIncludeTax = Nothing,
-      _ctIncludeDiscount = Nothing,
-      _ctIncludeOtherSubscription = Nothing,
-      _ctIncludeUpfront = Nothing,
-      _ctIncludeRecurring = Nothing
+    { includeSubscription = Prelude.Nothing,
+      useAmortized = Prelude.Nothing,
+      includeCredit = Prelude.Nothing,
+      useBlended = Prelude.Nothing,
+      includeSupport = Prelude.Nothing,
+      includeRefund = Prelude.Nothing,
+      includeTax = Prelude.Nothing,
+      includeDiscount = Prelude.Nothing,
+      includeOtherSubscription = Prelude.Nothing,
+      includeUpfront = Prelude.Nothing,
+      includeRecurring = Prelude.Nothing
     }
 
--- | Specifies whether a budget includes subscriptions. The default value is @true@ .
-ctIncludeSubscription :: Lens' CostTypes (Maybe Bool)
-ctIncludeSubscription = lens _ctIncludeSubscription (\s a -> s {_ctIncludeSubscription = a})
+-- | Specifies whether a budget includes subscriptions.
+--
+-- The default value is @true@.
+costTypes_includeSubscription :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_includeSubscription = Lens.lens (\CostTypes' {includeSubscription} -> includeSubscription) (\s@CostTypes' {} a -> s {includeSubscription = a} :: CostTypes)
 
--- | Specifies whether a budget uses the amortized rate. The default value is @false@ .
-ctUseAmortized :: Lens' CostTypes (Maybe Bool)
-ctUseAmortized = lens _ctUseAmortized (\s a -> s {_ctUseAmortized = a})
+-- | Specifies whether a budget uses the amortized rate.
+--
+-- The default value is @false@.
+costTypes_useAmortized :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_useAmortized = Lens.lens (\CostTypes' {useAmortized} -> useAmortized) (\s@CostTypes' {} a -> s {useAmortized = a} :: CostTypes)
 
--- | Specifies whether a budget includes credits. The default value is @true@ .
-ctIncludeCredit :: Lens' CostTypes (Maybe Bool)
-ctIncludeCredit = lens _ctIncludeCredit (\s a -> s {_ctIncludeCredit = a})
+-- | Specifies whether a budget includes credits.
+--
+-- The default value is @true@.
+costTypes_includeCredit :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_includeCredit = Lens.lens (\CostTypes' {includeCredit} -> includeCredit) (\s@CostTypes' {} a -> s {includeCredit = a} :: CostTypes)
 
--- | Specifies whether a budget uses a blended rate. The default value is @false@ .
-ctUseBlended :: Lens' CostTypes (Maybe Bool)
-ctUseBlended = lens _ctUseBlended (\s a -> s {_ctUseBlended = a})
+-- | Specifies whether a budget uses a blended rate.
+--
+-- The default value is @false@.
+costTypes_useBlended :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_useBlended = Lens.lens (\CostTypes' {useBlended} -> useBlended) (\s@CostTypes' {} a -> s {useBlended = a} :: CostTypes)
 
--- | Specifies whether a budget includes support subscription fees. The default value is @true@ .
-ctIncludeSupport :: Lens' CostTypes (Maybe Bool)
-ctIncludeSupport = lens _ctIncludeSupport (\s a -> s {_ctIncludeSupport = a})
+-- | Specifies whether a budget includes support subscription fees.
+--
+-- The default value is @true@.
+costTypes_includeSupport :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_includeSupport = Lens.lens (\CostTypes' {includeSupport} -> includeSupport) (\s@CostTypes' {} a -> s {includeSupport = a} :: CostTypes)
 
--- | Specifies whether a budget includes refunds. The default value is @true@ .
-ctIncludeRefund :: Lens' CostTypes (Maybe Bool)
-ctIncludeRefund = lens _ctIncludeRefund (\s a -> s {_ctIncludeRefund = a})
+-- | Specifies whether a budget includes refunds.
+--
+-- The default value is @true@.
+costTypes_includeRefund :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_includeRefund = Lens.lens (\CostTypes' {includeRefund} -> includeRefund) (\s@CostTypes' {} a -> s {includeRefund = a} :: CostTypes)
 
--- | Specifies whether a budget includes taxes. The default value is @true@ .
-ctIncludeTax :: Lens' CostTypes (Maybe Bool)
-ctIncludeTax = lens _ctIncludeTax (\s a -> s {_ctIncludeTax = a})
+-- | Specifies whether a budget includes taxes.
+--
+-- The default value is @true@.
+costTypes_includeTax :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_includeTax = Lens.lens (\CostTypes' {includeTax} -> includeTax) (\s@CostTypes' {} a -> s {includeTax = a} :: CostTypes)
 
--- | Specifies whether a budget includes discounts. The default value is @true@ .
-ctIncludeDiscount :: Lens' CostTypes (Maybe Bool)
-ctIncludeDiscount = lens _ctIncludeDiscount (\s a -> s {_ctIncludeDiscount = a})
+-- | Specifies whether a budget includes discounts.
+--
+-- The default value is @true@.
+costTypes_includeDiscount :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_includeDiscount = Lens.lens (\CostTypes' {includeDiscount} -> includeDiscount) (\s@CostTypes' {} a -> s {includeDiscount = a} :: CostTypes)
 
--- | Specifies whether a budget includes non-RI subscription costs. The default value is @true@ .
-ctIncludeOtherSubscription :: Lens' CostTypes (Maybe Bool)
-ctIncludeOtherSubscription = lens _ctIncludeOtherSubscription (\s a -> s {_ctIncludeOtherSubscription = a})
+-- | Specifies whether a budget includes non-RI subscription costs.
+--
+-- The default value is @true@.
+costTypes_includeOtherSubscription :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_includeOtherSubscription = Lens.lens (\CostTypes' {includeOtherSubscription} -> includeOtherSubscription) (\s@CostTypes' {} a -> s {includeOtherSubscription = a} :: CostTypes)
 
--- | Specifies whether a budget includes upfront RI costs. The default value is @true@ .
-ctIncludeUpfront :: Lens' CostTypes (Maybe Bool)
-ctIncludeUpfront = lens _ctIncludeUpfront (\s a -> s {_ctIncludeUpfront = a})
+-- | Specifies whether a budget includes upfront RI costs.
+--
+-- The default value is @true@.
+costTypes_includeUpfront :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_includeUpfront = Lens.lens (\CostTypes' {includeUpfront} -> includeUpfront) (\s@CostTypes' {} a -> s {includeUpfront = a} :: CostTypes)
 
--- | Specifies whether a budget includes recurring fees such as monthly RI fees. The default value is @true@ .
-ctIncludeRecurring :: Lens' CostTypes (Maybe Bool)
-ctIncludeRecurring = lens _ctIncludeRecurring (\s a -> s {_ctIncludeRecurring = a})
+-- | Specifies whether a budget includes recurring fees such as monthly RI
+-- fees.
+--
+-- The default value is @true@.
+costTypes_includeRecurring :: Lens.Lens' CostTypes (Prelude.Maybe Prelude.Bool)
+costTypes_includeRecurring = Lens.lens (\CostTypes' {includeRecurring} -> includeRecurring) (\s@CostTypes' {} a -> s {includeRecurring = a} :: CostTypes)
 
-instance FromJSON CostTypes where
+instance Prelude.FromJSON CostTypes where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CostTypes"
       ( \x ->
           CostTypes'
-            <$> (x .:? "IncludeSubscription")
-            <*> (x .:? "UseAmortized")
-            <*> (x .:? "IncludeCredit")
-            <*> (x .:? "UseBlended")
-            <*> (x .:? "IncludeSupport")
-            <*> (x .:? "IncludeRefund")
-            <*> (x .:? "IncludeTax")
-            <*> (x .:? "IncludeDiscount")
-            <*> (x .:? "IncludeOtherSubscription")
-            <*> (x .:? "IncludeUpfront")
-            <*> (x .:? "IncludeRecurring")
+            Prelude.<$> (x Prelude..:? "IncludeSubscription")
+            Prelude.<*> (x Prelude..:? "UseAmortized")
+            Prelude.<*> (x Prelude..:? "IncludeCredit")
+            Prelude.<*> (x Prelude..:? "UseBlended")
+            Prelude.<*> (x Prelude..:? "IncludeSupport")
+            Prelude.<*> (x Prelude..:? "IncludeRefund")
+            Prelude.<*> (x Prelude..:? "IncludeTax")
+            Prelude.<*> (x Prelude..:? "IncludeDiscount")
+            Prelude.<*> (x Prelude..:? "IncludeOtherSubscription")
+            Prelude.<*> (x Prelude..:? "IncludeUpfront")
+            Prelude.<*> (x Prelude..:? "IncludeRecurring")
       )
 
-instance Hashable CostTypes
+instance Prelude.Hashable CostTypes
 
-instance NFData CostTypes
+instance Prelude.NFData CostTypes
 
-instance ToJSON CostTypes where
+instance Prelude.ToJSON CostTypes where
   toJSON CostTypes' {..} =
-    object
-      ( catMaybes
-          [ ("IncludeSubscription" .=)
-              <$> _ctIncludeSubscription,
-            ("UseAmortized" .=) <$> _ctUseAmortized,
-            ("IncludeCredit" .=) <$> _ctIncludeCredit,
-            ("UseBlended" .=) <$> _ctUseBlended,
-            ("IncludeSupport" .=) <$> _ctIncludeSupport,
-            ("IncludeRefund" .=) <$> _ctIncludeRefund,
-            ("IncludeTax" .=) <$> _ctIncludeTax,
-            ("IncludeDiscount" .=) <$> _ctIncludeDiscount,
-            ("IncludeOtherSubscription" .=)
-              <$> _ctIncludeOtherSubscription,
-            ("IncludeUpfront" .=) <$> _ctIncludeUpfront,
-            ("IncludeRecurring" .=) <$> _ctIncludeRecurring
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IncludeSubscription" Prelude..=)
+              Prelude.<$> includeSubscription,
+            ("UseAmortized" Prelude..=) Prelude.<$> useAmortized,
+            ("IncludeCredit" Prelude..=)
+              Prelude.<$> includeCredit,
+            ("UseBlended" Prelude..=) Prelude.<$> useBlended,
+            ("IncludeSupport" Prelude..=)
+              Prelude.<$> includeSupport,
+            ("IncludeRefund" Prelude..=)
+              Prelude.<$> includeRefund,
+            ("IncludeTax" Prelude..=) Prelude.<$> includeTax,
+            ("IncludeDiscount" Prelude..=)
+              Prelude.<$> includeDiscount,
+            ("IncludeOtherSubscription" Prelude..=)
+              Prelude.<$> includeOtherSubscription,
+            ("IncludeUpfront" Prelude..=)
+              Prelude.<$> includeUpfront,
+            ("IncludeRecurring" Prelude..=)
+              Prelude.<$> includeRecurring
           ]
       )

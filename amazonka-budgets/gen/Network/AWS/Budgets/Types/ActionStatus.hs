@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,93 +19,95 @@
 module Network.AWS.Budgets.Types.ActionStatus
   ( ActionStatus
       ( ..,
-        ExecutionFailure,
-        ExecutionInProgress,
-        ExecutionSuccess,
-        Pending,
-        ResetFailure,
-        ResetInProgress,
-        ReverseFailure,
-        ReverseInProgress,
-        ReverseSuccess,
-        Standby
+        ActionStatusEXECUTIONFAILURE,
+        ActionStatusEXECUTIONINPROGRESS,
+        ActionStatusEXECUTIONSUCCESS,
+        ActionStatusPENDING,
+        ActionStatusRESETFAILURE,
+        ActionStatusRESETINPROGRESS,
+        ActionStatusREVERSEFAILURE,
+        ActionStatusREVERSEINPROGRESS,
+        ActionStatusREVERSESUCCESS,
+        ActionStatusSTANDBY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionStatus = ActionStatus' (CI Text)
+newtype ActionStatus = ActionStatus'
+  { fromActionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ExecutionFailure :: ActionStatus
-pattern ExecutionFailure = ActionStatus' "EXECUTION_FAILURE"
+pattern ActionStatusEXECUTIONFAILURE :: ActionStatus
+pattern ActionStatusEXECUTIONFAILURE = ActionStatus' "EXECUTION_FAILURE"
 
-pattern ExecutionInProgress :: ActionStatus
-pattern ExecutionInProgress = ActionStatus' "EXECUTION_IN_PROGRESS"
+pattern ActionStatusEXECUTIONINPROGRESS :: ActionStatus
+pattern ActionStatusEXECUTIONINPROGRESS = ActionStatus' "EXECUTION_IN_PROGRESS"
 
-pattern ExecutionSuccess :: ActionStatus
-pattern ExecutionSuccess = ActionStatus' "EXECUTION_SUCCESS"
+pattern ActionStatusEXECUTIONSUCCESS :: ActionStatus
+pattern ActionStatusEXECUTIONSUCCESS = ActionStatus' "EXECUTION_SUCCESS"
 
-pattern Pending :: ActionStatus
-pattern Pending = ActionStatus' "PENDING"
+pattern ActionStatusPENDING :: ActionStatus
+pattern ActionStatusPENDING = ActionStatus' "PENDING"
 
-pattern ResetFailure :: ActionStatus
-pattern ResetFailure = ActionStatus' "RESET_FAILURE"
+pattern ActionStatusRESETFAILURE :: ActionStatus
+pattern ActionStatusRESETFAILURE = ActionStatus' "RESET_FAILURE"
 
-pattern ResetInProgress :: ActionStatus
-pattern ResetInProgress = ActionStatus' "RESET_IN_PROGRESS"
+pattern ActionStatusRESETINPROGRESS :: ActionStatus
+pattern ActionStatusRESETINPROGRESS = ActionStatus' "RESET_IN_PROGRESS"
 
-pattern ReverseFailure :: ActionStatus
-pattern ReverseFailure = ActionStatus' "REVERSE_FAILURE"
+pattern ActionStatusREVERSEFAILURE :: ActionStatus
+pattern ActionStatusREVERSEFAILURE = ActionStatus' "REVERSE_FAILURE"
 
-pattern ReverseInProgress :: ActionStatus
-pattern ReverseInProgress = ActionStatus' "REVERSE_IN_PROGRESS"
+pattern ActionStatusREVERSEINPROGRESS :: ActionStatus
+pattern ActionStatusREVERSEINPROGRESS = ActionStatus' "REVERSE_IN_PROGRESS"
 
-pattern ReverseSuccess :: ActionStatus
-pattern ReverseSuccess = ActionStatus' "REVERSE_SUCCESS"
+pattern ActionStatusREVERSESUCCESS :: ActionStatus
+pattern ActionStatusREVERSESUCCESS = ActionStatus' "REVERSE_SUCCESS"
 
-pattern Standby :: ActionStatus
-pattern Standby = ActionStatus' "STANDBY"
+pattern ActionStatusSTANDBY :: ActionStatus
+pattern ActionStatusSTANDBY = ActionStatus' "STANDBY"
 
 {-# COMPLETE
-  ExecutionFailure,
-  ExecutionInProgress,
-  ExecutionSuccess,
-  Pending,
-  ResetFailure,
-  ResetInProgress,
-  ReverseFailure,
-  ReverseInProgress,
-  ReverseSuccess,
-  Standby,
+  ActionStatusEXECUTIONFAILURE,
+  ActionStatusEXECUTIONINPROGRESS,
+  ActionStatusEXECUTIONSUCCESS,
+  ActionStatusPENDING,
+  ActionStatusRESETFAILURE,
+  ActionStatusRESETINPROGRESS,
+  ActionStatusREVERSEFAILURE,
+  ActionStatusREVERSEINPROGRESS,
+  ActionStatusREVERSESUCCESS,
+  ActionStatusSTANDBY,
   ActionStatus'
   #-}
 
-instance FromText ActionStatus where
-  parser = (ActionStatus' . mk) <$> takeText
+instance Prelude.FromText ActionStatus where
+  parser = ActionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ActionStatus where
-  toText (ActionStatus' ci) = original ci
+instance Prelude.ToText ActionStatus where
+  toText (ActionStatus' x) = x
 
-instance Hashable ActionStatus
+instance Prelude.Hashable ActionStatus
 
-instance NFData ActionStatus
+instance Prelude.NFData ActionStatus
 
-instance ToByteString ActionStatus
+instance Prelude.ToByteString ActionStatus
 
-instance ToQuery ActionStatus
+instance Prelude.ToQuery ActionStatus
 
-instance ToHeader ActionStatus
+instance Prelude.ToHeader ActionStatus
 
-instance FromJSON ActionStatus where
-  parseJSON = parseJSONText "ActionStatus"
+instance Prelude.FromJSON ActionStatus where
+  parseJSON = Prelude.parseJSONText "ActionStatus"

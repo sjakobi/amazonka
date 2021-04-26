@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,184 +24,194 @@
 -- Updates a subscriber.
 module Network.AWS.Budgets.UpdateSubscriber
   ( -- * Creating a Request
-    updateSubscriber,
-    UpdateSubscriber,
+    UpdateSubscriber (..),
+    newUpdateSubscriber,
 
     -- * Request Lenses
-    usAccountId,
-    usBudgetName,
-    usNotification,
-    usOldSubscriber,
-    usNewSubscriber,
+    updateSubscriber_accountId,
+    updateSubscriber_budgetName,
+    updateSubscriber_notification,
+    updateSubscriber_oldSubscriber,
+    updateSubscriber_newSubscriber,
 
     -- * Destructuring the Response
-    updateSubscriberResponse,
-    UpdateSubscriberResponse,
+    UpdateSubscriberResponse (..),
+    newUpdateSubscriberResponse,
 
     -- * Response Lenses
-    usrrsResponseStatus,
+    updateSubscriberResponse_httpStatus,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request of UpdateSubscriber
 --
---
---
--- /See:/ 'updateSubscriber' smart constructor.
+-- /See:/ 'newUpdateSubscriber' smart constructor.
 data UpdateSubscriber = UpdateSubscriber'
-  { _usAccountId ::
-      !Text,
-    _usBudgetName :: !Text,
-    _usNotification :: !Notification,
-    _usOldSubscriber :: !Subscriber,
-    _usNewSubscriber :: !Subscriber
+  { -- | The @accountId@ that is associated with the budget whose subscriber you
+    -- want to update.
+    accountId :: Prelude.Text,
+    -- | The name of the budget whose subscriber you want to update.
+    budgetName :: Prelude.Text,
+    -- | The notification whose subscriber you want to update.
+    notification :: Notification,
+    -- | The previous subscriber that is associated with a budget notification.
+    oldSubscriber :: Subscriber,
+    -- | The updated subscriber that is associated with a budget notification.
+    newSubscriber' :: Subscriber
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSubscriber' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSubscriber' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usAccountId' - The @accountId@ that is associated with the budget whose subscriber you want to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usBudgetName' - The name of the budget whose subscriber you want to update.
+-- 'accountId', 'updateSubscriber_accountId' - The @accountId@ that is associated with the budget whose subscriber you
+-- want to update.
 --
--- * 'usNotification' - The notification whose subscriber you want to update.
+-- 'budgetName', 'updateSubscriber_budgetName' - The name of the budget whose subscriber you want to update.
 --
--- * 'usOldSubscriber' - The previous subscriber that is associated with a budget notification.
+-- 'notification', 'updateSubscriber_notification' - The notification whose subscriber you want to update.
 --
--- * 'usNewSubscriber' - The updated subscriber that is associated with a budget notification.
-updateSubscriber ::
-  -- | 'usAccountId'
-  Text ->
-  -- | 'usBudgetName'
-  Text ->
-  -- | 'usNotification'
+-- 'oldSubscriber', 'updateSubscriber_oldSubscriber' - The previous subscriber that is associated with a budget notification.
+--
+-- 'newSubscriber'', 'updateSubscriber_newSubscriber' - The updated subscriber that is associated with a budget notification.
+newUpdateSubscriber ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'notification'
   Notification ->
-  -- | 'usOldSubscriber'
+  -- | 'oldSubscriber'
   Subscriber ->
-  -- | 'usNewSubscriber'
+  -- | 'newSubscriber''
   Subscriber ->
   UpdateSubscriber
-updateSubscriber
+newUpdateSubscriber
   pAccountId_
   pBudgetName_
   pNotification_
   pOldSubscriber_
   pNewSubscriber_ =
     UpdateSubscriber'
-      { _usAccountId = pAccountId_,
-        _usBudgetName = pBudgetName_,
-        _usNotification = pNotification_,
-        _usOldSubscriber = pOldSubscriber_,
-        _usNewSubscriber = pNewSubscriber_
+      { accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        notification = pNotification_,
+        oldSubscriber = pOldSubscriber_,
+        newSubscriber' = pNewSubscriber_
       }
 
--- | The @accountId@ that is associated with the budget whose subscriber you want to update.
-usAccountId :: Lens' UpdateSubscriber Text
-usAccountId = lens _usAccountId (\s a -> s {_usAccountId = a})
+-- | The @accountId@ that is associated with the budget whose subscriber you
+-- want to update.
+updateSubscriber_accountId :: Lens.Lens' UpdateSubscriber Prelude.Text
+updateSubscriber_accountId = Lens.lens (\UpdateSubscriber' {accountId} -> accountId) (\s@UpdateSubscriber' {} a -> s {accountId = a} :: UpdateSubscriber)
 
 -- | The name of the budget whose subscriber you want to update.
-usBudgetName :: Lens' UpdateSubscriber Text
-usBudgetName = lens _usBudgetName (\s a -> s {_usBudgetName = a})
+updateSubscriber_budgetName :: Lens.Lens' UpdateSubscriber Prelude.Text
+updateSubscriber_budgetName = Lens.lens (\UpdateSubscriber' {budgetName} -> budgetName) (\s@UpdateSubscriber' {} a -> s {budgetName = a} :: UpdateSubscriber)
 
 -- | The notification whose subscriber you want to update.
-usNotification :: Lens' UpdateSubscriber Notification
-usNotification = lens _usNotification (\s a -> s {_usNotification = a})
+updateSubscriber_notification :: Lens.Lens' UpdateSubscriber Notification
+updateSubscriber_notification = Lens.lens (\UpdateSubscriber' {notification} -> notification) (\s@UpdateSubscriber' {} a -> s {notification = a} :: UpdateSubscriber)
 
 -- | The previous subscriber that is associated with a budget notification.
-usOldSubscriber :: Lens' UpdateSubscriber Subscriber
-usOldSubscriber = lens _usOldSubscriber (\s a -> s {_usOldSubscriber = a})
+updateSubscriber_oldSubscriber :: Lens.Lens' UpdateSubscriber Subscriber
+updateSubscriber_oldSubscriber = Lens.lens (\UpdateSubscriber' {oldSubscriber} -> oldSubscriber) (\s@UpdateSubscriber' {} a -> s {oldSubscriber = a} :: UpdateSubscriber)
 
 -- | The updated subscriber that is associated with a budget notification.
-usNewSubscriber :: Lens' UpdateSubscriber Subscriber
-usNewSubscriber = lens _usNewSubscriber (\s a -> s {_usNewSubscriber = a})
+updateSubscriber_newSubscriber :: Lens.Lens' UpdateSubscriber Subscriber
+updateSubscriber_newSubscriber = Lens.lens (\UpdateSubscriber' {newSubscriber'} -> newSubscriber') (\s@UpdateSubscriber' {} a -> s {newSubscriber' = a} :: UpdateSubscriber)
 
-instance AWSRequest UpdateSubscriber where
+instance Prelude.AWSRequest UpdateSubscriber where
   type Rs UpdateSubscriber = UpdateSubscriberResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateSubscriberResponse' <$> (pure (fromEnum s))
+          UpdateSubscriberResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateSubscriber
+instance Prelude.Hashable UpdateSubscriber
 
-instance NFData UpdateSubscriber
+instance Prelude.NFData UpdateSubscriber
 
-instance ToHeaders UpdateSubscriber where
+instance Prelude.ToHeaders UpdateSubscriber where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.UpdateSubscriber" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.UpdateSubscriber" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateSubscriber where
+instance Prelude.ToJSON UpdateSubscriber where
   toJSON UpdateSubscriber' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountId" .= _usAccountId),
-            Just ("BudgetName" .= _usBudgetName),
-            Just ("Notification" .= _usNotification),
-            Just ("OldSubscriber" .= _usOldSubscriber),
-            Just ("NewSubscriber" .= _usNewSubscriber)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("BudgetName" Prelude..= budgetName),
+            Prelude.Just
+              ("Notification" Prelude..= notification),
+            Prelude.Just
+              ("OldSubscriber" Prelude..= oldSubscriber),
+            Prelude.Just
+              ("NewSubscriber" Prelude..= newSubscriber')
           ]
       )
 
-instance ToPath UpdateSubscriber where
-  toPath = const "/"
+instance Prelude.ToPath UpdateSubscriber where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateSubscriber where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateSubscriber where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Response of UpdateSubscriber
 --
---
---
--- /See:/ 'updateSubscriberResponse' smart constructor.
-newtype UpdateSubscriberResponse = UpdateSubscriberResponse'
-  { _usrrsResponseStatus ::
-      Int
+-- /See:/ 'newUpdateSubscriberResponse' smart constructor.
+data UpdateSubscriberResponse = UpdateSubscriberResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSubscriberResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSubscriberResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usrrsResponseStatus' - -- | The response status code.
-updateSubscriberResponse ::
-  -- | 'usrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateSubscriberResponse_httpStatus' - The response's http status code.
+newUpdateSubscriberResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateSubscriberResponse
-updateSubscriberResponse pResponseStatus_ =
+newUpdateSubscriberResponse pHttpStatus_ =
   UpdateSubscriberResponse'
-    { _usrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-usrrsResponseStatus :: Lens' UpdateSubscriberResponse Int
-usrrsResponseStatus = lens _usrrsResponseStatus (\s a -> s {_usrrsResponseStatus = a})
+-- | The response's http status code.
+updateSubscriberResponse_httpStatus :: Lens.Lens' UpdateSubscriberResponse Prelude.Int
+updateSubscriberResponse_httpStatus = Lens.lens (\UpdateSubscriberResponse' {httpStatus} -> httpStatus) (\s@UpdateSubscriberResponse' {} a -> s {httpStatus = a} :: UpdateSubscriberResponse)
 
-instance NFData UpdateSubscriberResponse
+instance Prelude.NFData UpdateSubscriberResponse

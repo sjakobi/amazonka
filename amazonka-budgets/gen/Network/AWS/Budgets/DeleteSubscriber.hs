@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,175 +23,182 @@
 --
 -- Deletes a subscriber.
 --
---
--- /Important:/ Deleting the last subscriber to a notification also deletes the notification.
+-- Deleting the last subscriber to a notification also deletes the
+-- notification.
 module Network.AWS.Budgets.DeleteSubscriber
   ( -- * Creating a Request
-    deleteSubscriber,
-    DeleteSubscriber,
+    DeleteSubscriber (..),
+    newDeleteSubscriber,
 
     -- * Request Lenses
-    dsAccountId,
-    dsBudgetName,
-    dsNotification,
-    dsSubscriber,
+    deleteSubscriber_accountId,
+    deleteSubscriber_budgetName,
+    deleteSubscriber_notification,
+    deleteSubscriber_subscriber,
 
     -- * Destructuring the Response
-    deleteSubscriberResponse,
-    DeleteSubscriberResponse,
+    DeleteSubscriberResponse (..),
+    newDeleteSubscriberResponse,
 
     -- * Response Lenses
-    dsrrsResponseStatus,
+    deleteSubscriberResponse_httpStatus,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request of DeleteSubscriber
 --
---
---
--- /See:/ 'deleteSubscriber' smart constructor.
+-- /See:/ 'newDeleteSubscriber' smart constructor.
 data DeleteSubscriber = DeleteSubscriber'
-  { _dsAccountId ::
-      !Text,
-    _dsBudgetName :: !Text,
-    _dsNotification :: !Notification,
-    _dsSubscriber :: !Subscriber
+  { -- | The @accountId@ that is associated with the budget whose subscriber you
+    -- want to delete.
+    accountId :: Prelude.Text,
+    -- | The name of the budget whose subscriber you want to delete.
+    budgetName :: Prelude.Text,
+    -- | The notification whose subscriber you want to delete.
+    notification :: Notification,
+    -- | The subscriber that you want to delete.
+    subscriber :: Subscriber
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSubscriber' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSubscriber' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsAccountId' - The @accountId@ that is associated with the budget whose subscriber you want to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsBudgetName' - The name of the budget whose subscriber you want to delete.
+-- 'accountId', 'deleteSubscriber_accountId' - The @accountId@ that is associated with the budget whose subscriber you
+-- want to delete.
 --
--- * 'dsNotification' - The notification whose subscriber you want to delete.
+-- 'budgetName', 'deleteSubscriber_budgetName' - The name of the budget whose subscriber you want to delete.
 --
--- * 'dsSubscriber' - The subscriber that you want to delete.
-deleteSubscriber ::
-  -- | 'dsAccountId'
-  Text ->
-  -- | 'dsBudgetName'
-  Text ->
-  -- | 'dsNotification'
+-- 'notification', 'deleteSubscriber_notification' - The notification whose subscriber you want to delete.
+--
+-- 'subscriber', 'deleteSubscriber_subscriber' - The subscriber that you want to delete.
+newDeleteSubscriber ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'notification'
   Notification ->
-  -- | 'dsSubscriber'
+  -- | 'subscriber'
   Subscriber ->
   DeleteSubscriber
-deleteSubscriber
+newDeleteSubscriber
   pAccountId_
   pBudgetName_
   pNotification_
   pSubscriber_ =
     DeleteSubscriber'
-      { _dsAccountId = pAccountId_,
-        _dsBudgetName = pBudgetName_,
-        _dsNotification = pNotification_,
-        _dsSubscriber = pSubscriber_
+      { accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        notification = pNotification_,
+        subscriber = pSubscriber_
       }
 
--- | The @accountId@ that is associated with the budget whose subscriber you want to delete.
-dsAccountId :: Lens' DeleteSubscriber Text
-dsAccountId = lens _dsAccountId (\s a -> s {_dsAccountId = a})
+-- | The @accountId@ that is associated with the budget whose subscriber you
+-- want to delete.
+deleteSubscriber_accountId :: Lens.Lens' DeleteSubscriber Prelude.Text
+deleteSubscriber_accountId = Lens.lens (\DeleteSubscriber' {accountId} -> accountId) (\s@DeleteSubscriber' {} a -> s {accountId = a} :: DeleteSubscriber)
 
 -- | The name of the budget whose subscriber you want to delete.
-dsBudgetName :: Lens' DeleteSubscriber Text
-dsBudgetName = lens _dsBudgetName (\s a -> s {_dsBudgetName = a})
+deleteSubscriber_budgetName :: Lens.Lens' DeleteSubscriber Prelude.Text
+deleteSubscriber_budgetName = Lens.lens (\DeleteSubscriber' {budgetName} -> budgetName) (\s@DeleteSubscriber' {} a -> s {budgetName = a} :: DeleteSubscriber)
 
 -- | The notification whose subscriber you want to delete.
-dsNotification :: Lens' DeleteSubscriber Notification
-dsNotification = lens _dsNotification (\s a -> s {_dsNotification = a})
+deleteSubscriber_notification :: Lens.Lens' DeleteSubscriber Notification
+deleteSubscriber_notification = Lens.lens (\DeleteSubscriber' {notification} -> notification) (\s@DeleteSubscriber' {} a -> s {notification = a} :: DeleteSubscriber)
 
 -- | The subscriber that you want to delete.
-dsSubscriber :: Lens' DeleteSubscriber Subscriber
-dsSubscriber = lens _dsSubscriber (\s a -> s {_dsSubscriber = a})
+deleteSubscriber_subscriber :: Lens.Lens' DeleteSubscriber Subscriber
+deleteSubscriber_subscriber = Lens.lens (\DeleteSubscriber' {subscriber} -> subscriber) (\s@DeleteSubscriber' {} a -> s {subscriber = a} :: DeleteSubscriber)
 
-instance AWSRequest DeleteSubscriber where
+instance Prelude.AWSRequest DeleteSubscriber where
   type Rs DeleteSubscriber = DeleteSubscriberResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteSubscriberResponse' <$> (pure (fromEnum s))
+          DeleteSubscriberResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSubscriber
+instance Prelude.Hashable DeleteSubscriber
 
-instance NFData DeleteSubscriber
+instance Prelude.NFData DeleteSubscriber
 
-instance ToHeaders DeleteSubscriber where
+instance Prelude.ToHeaders DeleteSubscriber where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.DeleteSubscriber" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.DeleteSubscriber" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteSubscriber where
+instance Prelude.ToJSON DeleteSubscriber where
   toJSON DeleteSubscriber' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountId" .= _dsAccountId),
-            Just ("BudgetName" .= _dsBudgetName),
-            Just ("Notification" .= _dsNotification),
-            Just ("Subscriber" .= _dsSubscriber)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("BudgetName" Prelude..= budgetName),
+            Prelude.Just
+              ("Notification" Prelude..= notification),
+            Prelude.Just ("Subscriber" Prelude..= subscriber)
           ]
       )
 
-instance ToPath DeleteSubscriber where
-  toPath = const "/"
+instance Prelude.ToPath DeleteSubscriber where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteSubscriber where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSubscriber where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Response of DeleteSubscriber
 --
---
---
--- /See:/ 'deleteSubscriberResponse' smart constructor.
-newtype DeleteSubscriberResponse = DeleteSubscriberResponse'
-  { _dsrrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteSubscriberResponse' smart constructor.
+data DeleteSubscriberResponse = DeleteSubscriberResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSubscriberResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSubscriberResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-deleteSubscriberResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteSubscriberResponse_httpStatus' - The response's http status code.
+newDeleteSubscriberResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSubscriberResponse
-deleteSubscriberResponse pResponseStatus_ =
+newDeleteSubscriberResponse pHttpStatus_ =
   DeleteSubscriberResponse'
-    { _dsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DeleteSubscriberResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSubscriberResponse_httpStatus :: Lens.Lens' DeleteSubscriberResponse Prelude.Int
+deleteSubscriberResponse_httpStatus = Lens.lens (\DeleteSubscriberResponse' {httpStatus} -> httpStatus) (\s@DeleteSubscriberResponse' {} a -> s {httpStatus = a} :: DeleteSubscriberResponse)
 
-instance NFData DeleteSubscriberResponse
+instance Prelude.NFData DeleteSubscriberResponse

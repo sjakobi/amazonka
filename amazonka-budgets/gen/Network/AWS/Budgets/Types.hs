@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Budgets.Types
   ( -- * Service Configuration
-    budgets,
+    defaultService,
 
     -- * Errors
     _ResourceLockedException,
@@ -65,150 +68,75 @@ module Network.AWS.Budgets.Types
 
     -- * Action
     Action (..),
-    action,
-    aActionId,
-    aBudgetName,
-    aNotificationType,
-    aActionType,
-    aActionThreshold,
-    aDefinition,
-    aExecutionRoleARN,
-    aApprovalModel,
-    aStatus,
-    aSubscribers,
+    newAction,
 
     -- * ActionHistory
     ActionHistory (..),
-    actionHistory,
-    ahTimestamp,
-    ahStatus,
-    ahEventType,
-    ahActionHistoryDetails,
+    newActionHistory,
 
     -- * ActionHistoryDetails
     ActionHistoryDetails (..),
-    actionHistoryDetails,
-    ahdMessage,
-    ahdAction,
+    newActionHistoryDetails,
 
     -- * ActionThreshold
     ActionThreshold (..),
-    actionThreshold,
-    atActionThresholdValue,
-    atActionThresholdType,
+    newActionThreshold,
 
     -- * Budget
     Budget (..),
-    budget,
-    bCostFilters,
-    bTimePeriod,
-    bCostTypes,
-    bPlannedBudgetLimits,
-    bCalculatedSpend,
-    bBudgetLimit,
-    bLastUpdatedTime,
-    bBudgetName,
-    bTimeUnit,
-    bBudgetType,
+    newBudget,
 
     -- * BudgetPerformanceHistory
     BudgetPerformanceHistory (..),
-    budgetPerformanceHistory,
-    bphBudgetedAndActualAmountsList,
-    bphTimeUnit,
-    bphCostFilters,
-    bphCostTypes,
-    bphBudgetType,
-    bphBudgetName,
+    newBudgetPerformanceHistory,
 
     -- * BudgetedAndActualAmounts
     BudgetedAndActualAmounts (..),
-    budgetedAndActualAmounts,
-    baaaTimePeriod,
-    baaaBudgetedAmount,
-    baaaActualAmount,
+    newBudgetedAndActualAmounts,
 
     -- * CalculatedSpend
     CalculatedSpend (..),
-    calculatedSpend,
-    csForecastedSpend,
-    csActualSpend,
+    newCalculatedSpend,
 
     -- * CostTypes
     CostTypes (..),
-    costTypes,
-    ctIncludeSubscription,
-    ctUseAmortized,
-    ctIncludeCredit,
-    ctUseBlended,
-    ctIncludeSupport,
-    ctIncludeRefund,
-    ctIncludeTax,
-    ctIncludeDiscount,
-    ctIncludeOtherSubscription,
-    ctIncludeUpfront,
-    ctIncludeRecurring,
+    newCostTypes,
 
     -- * Definition
     Definition (..),
-    definition,
-    dIAMActionDefinition,
-    dSsmActionDefinition,
-    dScpActionDefinition,
+    newDefinition,
 
-    -- * IAMActionDefinition
-    IAMActionDefinition (..),
-    iamActionDefinition,
-    iadGroups,
-    iadRoles,
-    iadUsers,
-    iadPolicyARN,
+    -- * IamActionDefinition
+    IamActionDefinition (..),
+    newIamActionDefinition,
 
     -- * Notification
     Notification (..),
-    notification,
-    nNotificationState,
-    nThresholdType,
-    nNotificationType,
-    nComparisonOperator,
-    nThreshold,
+    newNotification,
 
     -- * NotificationWithSubscribers
     NotificationWithSubscribers (..),
-    notificationWithSubscribers,
-    nwsNotification,
-    nwsSubscribers,
+    newNotificationWithSubscribers,
 
     -- * ScpActionDefinition
     ScpActionDefinition (..),
-    scpActionDefinition,
-    sadPolicyId,
-    sadTargetIds,
+    newScpActionDefinition,
 
     -- * Spend
     Spend (..),
-    spend,
-    sAmount,
-    sUnit,
+    newSpend,
 
     -- * SsmActionDefinition
     SsmActionDefinition (..),
-    ssmActionDefinition,
-    sadActionSubType,
-    sadRegion,
-    sadInstanceIds,
+    newSsmActionDefinition,
 
     -- * Subscriber
     Subscriber (..),
-    subscriber,
-    sSubscriptionType,
-    sAddress,
+    newSubscriber,
 
     -- * TimePeriod
     TimePeriod (..),
-    timePeriod,
-    tpEnd,
-    tpStart,
+    newTimePeriod,
   )
 where
 
@@ -230,7 +158,7 @@ import Network.AWS.Budgets.Types.CostTypes
 import Network.AWS.Budgets.Types.Definition
 import Network.AWS.Budgets.Types.EventType
 import Network.AWS.Budgets.Types.ExecutionType
-import Network.AWS.Budgets.Types.IAMActionDefinition
+import Network.AWS.Budgets.Types.IamActionDefinition
 import Network.AWS.Budgets.Types.Notification
 import Network.AWS.Budgets.Types.NotificationState
 import Network.AWS.Budgets.Types.NotificationType
@@ -243,114 +171,142 @@ import Network.AWS.Budgets.Types.SubscriptionType
 import Network.AWS.Budgets.Types.ThresholdType
 import Network.AWS.Budgets.Types.TimePeriod
 import Network.AWS.Budgets.Types.TimeUnit
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-10-20@ of the Amazon Budgets SDK configuration.
-budgets :: Service
-budgets =
-  Service
-    { _svcAbbrev = "Budgets",
-      _svcSigner = v4,
-      _svcPrefix = "budgets",
-      _svcVersion = "2016-10-20",
-      _svcEndpoint = defaultEndpoint budgets,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Budgets",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Budgets",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "budgets",
+      Prelude._svcVersion = "2016-10-20",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "Budgets",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The request was received and recognized by the server, but the server rejected that particular method for the requested resource.
-_ResourceLockedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request was received and recognized by the server, but the server
+-- rejected that particular method for the requested resource.
+_ResourceLockedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceLockedException =
-  _MatchServiceError
-    budgets
+  Prelude._MatchServiceError
+    defaultService
     "ResourceLockedException"
 
 -- | We can’t locate the resource that you specified.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError budgets "NotFoundException"
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
 
 -- | The pagination token expired.
-_ExpiredNextTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_ExpiredNextTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ExpiredNextTokenException =
-  _MatchServiceError
-    budgets
+  Prelude._MatchServiceError
+    defaultService
     "ExpiredNextTokenException"
 
--- | An error on the server occurred during the processing of your request. Try again later.
-_InternalErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An error on the server occurred during the processing of your request.
+-- Try again later.
+_InternalErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalErrorException =
-  _MatchServiceError budgets "InternalErrorException"
+  Prelude._MatchServiceError
+    defaultService
+    "InternalErrorException"
 
--- | The budget name already exists. Budget names must be unique within an account.
-_DuplicateRecordException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The budget name already exists. Budget names must be unique within an
+-- account.
+_DuplicateRecordException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DuplicateRecordException =
-  _MatchServiceError
-    budgets
+  Prelude._MatchServiceError
+    defaultService
     "DuplicateRecordException"
 
 -- | The pagination token is invalid.
-_InvalidNextTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidNextTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidNextTokenException =
-  _MatchServiceError
-    budgets
+  Prelude._MatchServiceError
+    defaultService
     "InvalidNextTokenException"
 
--- | An error on the client occurred. Typically, the cause is an invalid input value.
-_InvalidParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An error on the client occurred. Typically, the cause is an invalid
+-- input value.
+_InvalidParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterException =
-  _MatchServiceError
-    budgets
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterException"
 
 -- | You are not authorized to use this operation with the given parameters.
-_AccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+_AccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedException =
-  _MatchServiceError budgets "AccessDeniedException"
+  Prelude._MatchServiceError
+    defaultService
+    "AccessDeniedException"
 
--- | You've exceeded the notification or subscriber limit.
-_CreationLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You\'ve exceeded the notification or subscriber limit.
+_CreationLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CreationLimitExceededException =
-  _MatchServiceError
-    budgets
+  Prelude._MatchServiceError
+    defaultService
     "CreationLimitExceededException"

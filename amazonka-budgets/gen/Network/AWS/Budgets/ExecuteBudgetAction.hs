@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,224 +24,227 @@
 -- Executes a budget action.
 module Network.AWS.Budgets.ExecuteBudgetAction
   ( -- * Creating a Request
-    executeBudgetAction,
-    ExecuteBudgetAction,
+    ExecuteBudgetAction (..),
+    newExecuteBudgetAction,
 
     -- * Request Lenses
-    ebaAccountId,
-    ebaBudgetName,
-    ebaActionId,
-    ebaExecutionType,
+    executeBudgetAction_accountId,
+    executeBudgetAction_budgetName,
+    executeBudgetAction_actionId,
+    executeBudgetAction_executionType,
 
     -- * Destructuring the Response
-    executeBudgetActionResponse,
-    ExecuteBudgetActionResponse,
+    ExecuteBudgetActionResponse (..),
+    newExecuteBudgetActionResponse,
 
     -- * Response Lenses
-    ebarrsResponseStatus,
-    ebarrsAccountId,
-    ebarrsBudgetName,
-    ebarrsActionId,
-    ebarrsExecutionType,
+    executeBudgetActionResponse_httpStatus,
+    executeBudgetActionResponse_accountId,
+    executeBudgetActionResponse_budgetName,
+    executeBudgetActionResponse_actionId,
+    executeBudgetActionResponse_executionType,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Budgets.Types.ExecutionType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'executeBudgetAction' smart constructor.
+-- | /See:/ 'newExecuteBudgetAction' smart constructor.
 data ExecuteBudgetAction = ExecuteBudgetAction'
-  { _ebaAccountId ::
-      !Text,
-    _ebaBudgetName :: !Text,
-    _ebaActionId :: !Text,
-    _ebaExecutionType ::
-      !ExecutionType
+  { accountId :: Prelude.Text,
+    budgetName :: Prelude.Text,
+    -- | A system-generated universally unique identifier (UUID) for the action.
+    actionId :: Prelude.Text,
+    -- | The type of execution.
+    executionType :: ExecutionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExecuteBudgetAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExecuteBudgetAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ebaAccountId' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ebaBudgetName' - Undocumented member.
+-- 'accountId', 'executeBudgetAction_accountId' - Undocumented member.
 --
--- * 'ebaActionId' - A system-generated universally unique identifier (UUID) for the action.
+-- 'budgetName', 'executeBudgetAction_budgetName' - Undocumented member.
 --
--- * 'ebaExecutionType' - The type of execution.
-executeBudgetAction ::
-  -- | 'ebaAccountId'
-  Text ->
-  -- | 'ebaBudgetName'
-  Text ->
-  -- | 'ebaActionId'
-  Text ->
-  -- | 'ebaExecutionType'
+-- 'actionId', 'executeBudgetAction_actionId' - A system-generated universally unique identifier (UUID) for the action.
+--
+-- 'executionType', 'executeBudgetAction_executionType' - The type of execution.
+newExecuteBudgetAction ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'actionId'
+  Prelude.Text ->
+  -- | 'executionType'
   ExecutionType ->
   ExecuteBudgetAction
-executeBudgetAction
+newExecuteBudgetAction
   pAccountId_
   pBudgetName_
   pActionId_
   pExecutionType_ =
     ExecuteBudgetAction'
-      { _ebaAccountId = pAccountId_,
-        _ebaBudgetName = pBudgetName_,
-        _ebaActionId = pActionId_,
-        _ebaExecutionType = pExecutionType_
+      { accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        actionId = pActionId_,
+        executionType = pExecutionType_
       }
 
 -- | Undocumented member.
-ebaAccountId :: Lens' ExecuteBudgetAction Text
-ebaAccountId = lens _ebaAccountId (\s a -> s {_ebaAccountId = a})
+executeBudgetAction_accountId :: Lens.Lens' ExecuteBudgetAction Prelude.Text
+executeBudgetAction_accountId = Lens.lens (\ExecuteBudgetAction' {accountId} -> accountId) (\s@ExecuteBudgetAction' {} a -> s {accountId = a} :: ExecuteBudgetAction)
 
 -- | Undocumented member.
-ebaBudgetName :: Lens' ExecuteBudgetAction Text
-ebaBudgetName = lens _ebaBudgetName (\s a -> s {_ebaBudgetName = a})
+executeBudgetAction_budgetName :: Lens.Lens' ExecuteBudgetAction Prelude.Text
+executeBudgetAction_budgetName = Lens.lens (\ExecuteBudgetAction' {budgetName} -> budgetName) (\s@ExecuteBudgetAction' {} a -> s {budgetName = a} :: ExecuteBudgetAction)
 
 -- | A system-generated universally unique identifier (UUID) for the action.
-ebaActionId :: Lens' ExecuteBudgetAction Text
-ebaActionId = lens _ebaActionId (\s a -> s {_ebaActionId = a})
+executeBudgetAction_actionId :: Lens.Lens' ExecuteBudgetAction Prelude.Text
+executeBudgetAction_actionId = Lens.lens (\ExecuteBudgetAction' {actionId} -> actionId) (\s@ExecuteBudgetAction' {} a -> s {actionId = a} :: ExecuteBudgetAction)
 
 -- | The type of execution.
-ebaExecutionType :: Lens' ExecuteBudgetAction ExecutionType
-ebaExecutionType = lens _ebaExecutionType (\s a -> s {_ebaExecutionType = a})
+executeBudgetAction_executionType :: Lens.Lens' ExecuteBudgetAction ExecutionType
+executeBudgetAction_executionType = Lens.lens (\ExecuteBudgetAction' {executionType} -> executionType) (\s@ExecuteBudgetAction' {} a -> s {executionType = a} :: ExecuteBudgetAction)
 
-instance AWSRequest ExecuteBudgetAction where
+instance Prelude.AWSRequest ExecuteBudgetAction where
   type
     Rs ExecuteBudgetAction =
       ExecuteBudgetActionResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ExecuteBudgetActionResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "AccountId")
-            <*> (x .:> "BudgetName")
-            <*> (x .:> "ActionId")
-            <*> (x .:> "ExecutionType")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "AccountId")
+            Prelude.<*> (x Prelude..:> "BudgetName")
+            Prelude.<*> (x Prelude..:> "ActionId")
+            Prelude.<*> (x Prelude..:> "ExecutionType")
       )
 
-instance Hashable ExecuteBudgetAction
+instance Prelude.Hashable ExecuteBudgetAction
 
-instance NFData ExecuteBudgetAction
+instance Prelude.NFData ExecuteBudgetAction
 
-instance ToHeaders ExecuteBudgetAction where
+instance Prelude.ToHeaders ExecuteBudgetAction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.ExecuteBudgetAction" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.ExecuteBudgetAction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ExecuteBudgetAction where
+instance Prelude.ToJSON ExecuteBudgetAction where
   toJSON ExecuteBudgetAction' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountId" .= _ebaAccountId),
-            Just ("BudgetName" .= _ebaBudgetName),
-            Just ("ActionId" .= _ebaActionId),
-            Just ("ExecutionType" .= _ebaExecutionType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("BudgetName" Prelude..= budgetName),
+            Prelude.Just ("ActionId" Prelude..= actionId),
+            Prelude.Just
+              ("ExecutionType" Prelude..= executionType)
           ]
       )
 
-instance ToPath ExecuteBudgetAction where
-  toPath = const "/"
+instance Prelude.ToPath ExecuteBudgetAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery ExecuteBudgetAction where
-  toQuery = const mempty
+instance Prelude.ToQuery ExecuteBudgetAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'executeBudgetActionResponse' smart constructor.
+-- | /See:/ 'newExecuteBudgetActionResponse' smart constructor.
 data ExecuteBudgetActionResponse = ExecuteBudgetActionResponse'
-  { _ebarrsResponseStatus ::
-      !Int,
-    _ebarrsAccountId ::
-      !Text,
-    _ebarrsBudgetName ::
-      !Text,
-    _ebarrsActionId ::
-      !Text,
-    _ebarrsExecutionType ::
-      !ExecutionType
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    accountId :: Prelude.Text,
+    budgetName :: Prelude.Text,
+    -- | A system-generated universally unique identifier (UUID) for the action.
+    actionId :: Prelude.Text,
+    -- | The type of execution.
+    executionType :: ExecutionType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExecuteBudgetActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExecuteBudgetActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ebarrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ebarrsAccountId' - Undocumented member.
+-- 'httpStatus', 'executeBudgetActionResponse_httpStatus' - The response's http status code.
 --
--- * 'ebarrsBudgetName' - Undocumented member.
+-- 'accountId', 'executeBudgetActionResponse_accountId' - Undocumented member.
 --
--- * 'ebarrsActionId' - A system-generated universally unique identifier (UUID) for the action.
+-- 'budgetName', 'executeBudgetActionResponse_budgetName' - Undocumented member.
 --
--- * 'ebarrsExecutionType' - The type of execution.
-executeBudgetActionResponse ::
-  -- | 'ebarrsResponseStatus'
-  Int ->
-  -- | 'ebarrsAccountId'
-  Text ->
-  -- | 'ebarrsBudgetName'
-  Text ->
-  -- | 'ebarrsActionId'
-  Text ->
-  -- | 'ebarrsExecutionType'
+-- 'actionId', 'executeBudgetActionResponse_actionId' - A system-generated universally unique identifier (UUID) for the action.
+--
+-- 'executionType', 'executeBudgetActionResponse_executionType' - The type of execution.
+newExecuteBudgetActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'actionId'
+  Prelude.Text ->
+  -- | 'executionType'
   ExecutionType ->
   ExecuteBudgetActionResponse
-executeBudgetActionResponse
-  pResponseStatus_
+newExecuteBudgetActionResponse
+  pHttpStatus_
   pAccountId_
   pBudgetName_
   pActionId_
   pExecutionType_ =
     ExecuteBudgetActionResponse'
-      { _ebarrsResponseStatus =
-          pResponseStatus_,
-        _ebarrsAccountId = pAccountId_,
-        _ebarrsBudgetName = pBudgetName_,
-        _ebarrsActionId = pActionId_,
-        _ebarrsExecutionType = pExecutionType_
+      { httpStatus =
+          pHttpStatus_,
+        accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        actionId = pActionId_,
+        executionType = pExecutionType_
       }
 
--- | -- | The response status code.
-ebarrsResponseStatus :: Lens' ExecuteBudgetActionResponse Int
-ebarrsResponseStatus = lens _ebarrsResponseStatus (\s a -> s {_ebarrsResponseStatus = a})
+-- | The response's http status code.
+executeBudgetActionResponse_httpStatus :: Lens.Lens' ExecuteBudgetActionResponse Prelude.Int
+executeBudgetActionResponse_httpStatus = Lens.lens (\ExecuteBudgetActionResponse' {httpStatus} -> httpStatus) (\s@ExecuteBudgetActionResponse' {} a -> s {httpStatus = a} :: ExecuteBudgetActionResponse)
 
 -- | Undocumented member.
-ebarrsAccountId :: Lens' ExecuteBudgetActionResponse Text
-ebarrsAccountId = lens _ebarrsAccountId (\s a -> s {_ebarrsAccountId = a})
+executeBudgetActionResponse_accountId :: Lens.Lens' ExecuteBudgetActionResponse Prelude.Text
+executeBudgetActionResponse_accountId = Lens.lens (\ExecuteBudgetActionResponse' {accountId} -> accountId) (\s@ExecuteBudgetActionResponse' {} a -> s {accountId = a} :: ExecuteBudgetActionResponse)
 
 -- | Undocumented member.
-ebarrsBudgetName :: Lens' ExecuteBudgetActionResponse Text
-ebarrsBudgetName = lens _ebarrsBudgetName (\s a -> s {_ebarrsBudgetName = a})
+executeBudgetActionResponse_budgetName :: Lens.Lens' ExecuteBudgetActionResponse Prelude.Text
+executeBudgetActionResponse_budgetName = Lens.lens (\ExecuteBudgetActionResponse' {budgetName} -> budgetName) (\s@ExecuteBudgetActionResponse' {} a -> s {budgetName = a} :: ExecuteBudgetActionResponse)
 
 -- | A system-generated universally unique identifier (UUID) for the action.
-ebarrsActionId :: Lens' ExecuteBudgetActionResponse Text
-ebarrsActionId = lens _ebarrsActionId (\s a -> s {_ebarrsActionId = a})
+executeBudgetActionResponse_actionId :: Lens.Lens' ExecuteBudgetActionResponse Prelude.Text
+executeBudgetActionResponse_actionId = Lens.lens (\ExecuteBudgetActionResponse' {actionId} -> actionId) (\s@ExecuteBudgetActionResponse' {} a -> s {actionId = a} :: ExecuteBudgetActionResponse)
 
 -- | The type of execution.
-ebarrsExecutionType :: Lens' ExecuteBudgetActionResponse ExecutionType
-ebarrsExecutionType = lens _ebarrsExecutionType (\s a -> s {_ebarrsExecutionType = a})
+executeBudgetActionResponse_executionType :: Lens.Lens' ExecuteBudgetActionResponse ExecutionType
+executeBudgetActionResponse_executionType = Lens.lens (\ExecuteBudgetActionResponse' {executionType} -> executionType) (\s@ExecuteBudgetActionResponse' {} a -> s {executionType = a} :: ExecuteBudgetActionResponse)
 
-instance NFData ExecuteBudgetActionResponse
+instance Prelude.NFData ExecuteBudgetActionResponse

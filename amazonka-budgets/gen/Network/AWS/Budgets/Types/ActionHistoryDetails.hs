@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,57 +20,60 @@
 module Network.AWS.Budgets.Types.ActionHistoryDetails where
 
 import Network.AWS.Budgets.Types.Action
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The description of details of the event.
 --
---
---
--- /See:/ 'actionHistoryDetails' smart constructor.
+-- /See:/ 'newActionHistoryDetails' smart constructor.
 data ActionHistoryDetails = ActionHistoryDetails'
-  { _ahdMessage ::
-      !Text,
-    _ahdAction :: !Action
+  { message :: Prelude.Text,
+    -- | The budget action resource.
+    action :: Action
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionHistoryDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionHistoryDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ahdMessage' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ahdAction' - The budget action resource.
-actionHistoryDetails ::
-  -- | 'ahdMessage'
-  Text ->
-  -- | 'ahdAction'
+-- 'message', 'actionHistoryDetails_message' - Undocumented member.
+--
+-- 'action', 'actionHistoryDetails_action' - The budget action resource.
+newActionHistoryDetails ::
+  -- | 'message'
+  Prelude.Text ->
+  -- | 'action'
   Action ->
   ActionHistoryDetails
-actionHistoryDetails pMessage_ pAction_ =
+newActionHistoryDetails pMessage_ pAction_ =
   ActionHistoryDetails'
-    { _ahdMessage = pMessage_,
-      _ahdAction = pAction_
+    { message = pMessage_,
+      action = pAction_
     }
 
 -- | Undocumented member.
-ahdMessage :: Lens' ActionHistoryDetails Text
-ahdMessage = lens _ahdMessage (\s a -> s {_ahdMessage = a})
+actionHistoryDetails_message :: Lens.Lens' ActionHistoryDetails Prelude.Text
+actionHistoryDetails_message = Lens.lens (\ActionHistoryDetails' {message} -> message) (\s@ActionHistoryDetails' {} a -> s {message = a} :: ActionHistoryDetails)
 
 -- | The budget action resource.
-ahdAction :: Lens' ActionHistoryDetails Action
-ahdAction = lens _ahdAction (\s a -> s {_ahdAction = a})
+actionHistoryDetails_action :: Lens.Lens' ActionHistoryDetails Action
+actionHistoryDetails_action = Lens.lens (\ActionHistoryDetails' {action} -> action) (\s@ActionHistoryDetails' {} a -> s {action = a} :: ActionHistoryDetails)
 
-instance FromJSON ActionHistoryDetails where
+instance Prelude.FromJSON ActionHistoryDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionHistoryDetails"
       ( \x ->
           ActionHistoryDetails'
-            <$> (x .: "Message") <*> (x .: "Action")
+            Prelude.<$> (x Prelude..: "Message")
+            Prelude.<*> (x Prelude..: "Action")
       )
 
-instance Hashable ActionHistoryDetails
+instance Prelude.Hashable ActionHistoryDetails
 
-instance NFData ActionHistoryDetails
+instance Prelude.NFData ActionHistoryDetails

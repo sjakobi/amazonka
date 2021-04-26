@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Budgets.Types.Definition where
 
-import Network.AWS.Budgets.Types.IAMActionDefinition
+import Network.AWS.Budgets.Types.IamActionDefinition
 import Network.AWS.Budgets.Types.ScpActionDefinition
 import Network.AWS.Budgets.Types.SsmActionDefinition
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies all of the type-specific parameters.
 --
---
---
--- /See:/ 'definition' smart constructor.
+-- /See:/ 'newDefinition' smart constructor.
 data Definition = Definition'
-  { _dIAMActionDefinition ::
-      !(Maybe IAMActionDefinition),
-    _dSsmActionDefinition ::
-      !(Maybe SsmActionDefinition),
-    _dScpActionDefinition ::
-      !(Maybe ScpActionDefinition)
+  { -- | The AWS Identity and Access Management (IAM) action definition details.
+    iamActionDefinition :: Prelude.Maybe IamActionDefinition,
+    -- | The AWS Systems Manager (SSM) action definition details.
+    ssmActionDefinition :: Prelude.Maybe SsmActionDefinition,
+    -- | The service control policies (SCPs) action definition details.
+    scpActionDefinition :: Prelude.Maybe ScpActionDefinition
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Definition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Definition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dIAMActionDefinition' - The AWS Identity and Access Management (IAM) action definition details.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dSsmActionDefinition' - The AWS Systems Manager (SSM) action definition details.
+-- 'iamActionDefinition', 'definition_iamActionDefinition' - The AWS Identity and Access Management (IAM) action definition details.
 --
--- * 'dScpActionDefinition' - The service control policies (SCPs) action definition details.
-definition ::
+-- 'ssmActionDefinition', 'definition_ssmActionDefinition' - The AWS Systems Manager (SSM) action definition details.
+--
+-- 'scpActionDefinition', 'definition_scpActionDefinition' - The service control policies (SCPs) action definition details.
+newDefinition ::
   Definition
-definition =
+newDefinition =
   Definition'
-    { _dIAMActionDefinition = Nothing,
-      _dSsmActionDefinition = Nothing,
-      _dScpActionDefinition = Nothing
+    { iamActionDefinition = Prelude.Nothing,
+      ssmActionDefinition = Prelude.Nothing,
+      scpActionDefinition = Prelude.Nothing
     }
 
 -- | The AWS Identity and Access Management (IAM) action definition details.
-dIAMActionDefinition :: Lens' Definition (Maybe IAMActionDefinition)
-dIAMActionDefinition = lens _dIAMActionDefinition (\s a -> s {_dIAMActionDefinition = a})
+definition_iamActionDefinition :: Lens.Lens' Definition (Prelude.Maybe IamActionDefinition)
+definition_iamActionDefinition = Lens.lens (\Definition' {iamActionDefinition} -> iamActionDefinition) (\s@Definition' {} a -> s {iamActionDefinition = a} :: Definition)
 
 -- | The AWS Systems Manager (SSM) action definition details.
-dSsmActionDefinition :: Lens' Definition (Maybe SsmActionDefinition)
-dSsmActionDefinition = lens _dSsmActionDefinition (\s a -> s {_dSsmActionDefinition = a})
+definition_ssmActionDefinition :: Lens.Lens' Definition (Prelude.Maybe SsmActionDefinition)
+definition_ssmActionDefinition = Lens.lens (\Definition' {ssmActionDefinition} -> ssmActionDefinition) (\s@Definition' {} a -> s {ssmActionDefinition = a} :: Definition)
 
 -- | The service control policies (SCPs) action definition details.
-dScpActionDefinition :: Lens' Definition (Maybe ScpActionDefinition)
-dScpActionDefinition = lens _dScpActionDefinition (\s a -> s {_dScpActionDefinition = a})
+definition_scpActionDefinition :: Lens.Lens' Definition (Prelude.Maybe ScpActionDefinition)
+definition_scpActionDefinition = Lens.lens (\Definition' {scpActionDefinition} -> scpActionDefinition) (\s@Definition' {} a -> s {scpActionDefinition = a} :: Definition)
 
-instance FromJSON Definition where
+instance Prelude.FromJSON Definition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Definition"
       ( \x ->
           Definition'
-            <$> (x .:? "IamActionDefinition")
-            <*> (x .:? "SsmActionDefinition")
-            <*> (x .:? "ScpActionDefinition")
+            Prelude.<$> (x Prelude..:? "IamActionDefinition")
+            Prelude.<*> (x Prelude..:? "SsmActionDefinition")
+            Prelude.<*> (x Prelude..:? "ScpActionDefinition")
       )
 
-instance Hashable Definition
+instance Prelude.Hashable Definition
 
-instance NFData Definition
+instance Prelude.NFData Definition
 
-instance ToJSON Definition where
+instance Prelude.ToJSON Definition where
   toJSON Definition' {..} =
-    object
-      ( catMaybes
-          [ ("IamActionDefinition" .=)
-              <$> _dIAMActionDefinition,
-            ("SsmActionDefinition" .=) <$> _dSsmActionDefinition,
-            ("ScpActionDefinition" .=)
-              <$> _dScpActionDefinition
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IamActionDefinition" Prelude..=)
+              Prelude.<$> iamActionDefinition,
+            ("SsmActionDefinition" Prelude..=)
+              Prelude.<$> ssmActionDefinition,
+            ("ScpActionDefinition" Prelude..=)
+              Prelude.<$> scpActionDefinition
           ]
       )

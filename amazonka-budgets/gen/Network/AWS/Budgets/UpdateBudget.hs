@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a budget. You can change every part of a budget except for the @budgetName@ and the @calculatedSpend@ . When you modify a budget, the @calculatedSpend@ drops to zero until AWS has new usage data to use for forecasting.
+-- Updates a budget. You can change every part of a budget except for the
+-- @budgetName@ and the @calculatedSpend@. When you modify a budget, the
+-- @calculatedSpend@ drops to zero until AWS has new usage data to use for
+-- forecasting.
 --
---
--- /Important:/ Only one of @BudgetLimit@ or @PlannedBudgetLimits@ can be present in the syntax at one time. Use the syntax that matches your case. The Request Syntax section shows the @BudgetLimit@ syntax. For @PlannedBudgetLimits@ , see the <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_budgets_UpdateBudget.html#API_UpdateBudget_Examples Examples> section.
+-- Only one of @BudgetLimit@ or @PlannedBudgetLimits@ can be present in the
+-- syntax at one time. Use the syntax that matches your case. The Request
+-- Syntax section shows the @BudgetLimit@ syntax. For
+-- @PlannedBudgetLimits@, see the
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_budgets_UpdateBudget.html#API_UpdateBudget_Examples Examples>
+-- section.
 module Network.AWS.Budgets.UpdateBudget
   ( -- * Creating a Request
-    updateBudget,
-    UpdateBudget,
+    UpdateBudget (..),
+    newUpdateBudget,
 
     -- * Request Lenses
-    ubAccountId,
-    ubNewBudget,
+    updateBudget_accountId,
+    updateBudget_newBudget,
 
     -- * Destructuring the Response
-    updateBudgetResponse,
-    UpdateBudgetResponse,
+    UpdateBudgetResponse (..),
+    newUpdateBudgetResponse,
 
     -- * Response Lenses
-    ubrrsResponseStatus,
+    updateBudgetResponse_httpStatus,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request of UpdateBudget
 --
---
---
--- /See:/ 'updateBudget' smart constructor.
+-- /See:/ 'newUpdateBudget' smart constructor.
 data UpdateBudget = UpdateBudget'
-  { _ubAccountId ::
-      !Text,
-    _ubNewBudget :: !Budget
+  { -- | The @accountId@ that is associated with the budget that you want to
+    -- update.
+    accountId :: Prelude.Text,
+    -- | The budget that you want to update your budget to.
+    newBudget' :: Budget
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBudget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBudget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubAccountId' - The @accountId@ that is associated with the budget that you want to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubNewBudget' - The budget that you want to update your budget to.
-updateBudget ::
-  -- | 'ubAccountId'
-  Text ->
-  -- | 'ubNewBudget'
+-- 'accountId', 'updateBudget_accountId' - The @accountId@ that is associated with the budget that you want to
+-- update.
+--
+-- 'newBudget'', 'updateBudget_newBudget' - The budget that you want to update your budget to.
+newUpdateBudget ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'newBudget''
   Budget ->
   UpdateBudget
-updateBudget pAccountId_ pNewBudget_ =
+newUpdateBudget pAccountId_ pNewBudget_ =
   UpdateBudget'
-    { _ubAccountId = pAccountId_,
-      _ubNewBudget = pNewBudget_
+    { accountId = pAccountId_,
+      newBudget' = pNewBudget_
     }
 
--- | The @accountId@ that is associated with the budget that you want to update.
-ubAccountId :: Lens' UpdateBudget Text
-ubAccountId = lens _ubAccountId (\s a -> s {_ubAccountId = a})
+-- | The @accountId@ that is associated with the budget that you want to
+-- update.
+updateBudget_accountId :: Lens.Lens' UpdateBudget Prelude.Text
+updateBudget_accountId = Lens.lens (\UpdateBudget' {accountId} -> accountId) (\s@UpdateBudget' {} a -> s {accountId = a} :: UpdateBudget)
 
 -- | The budget that you want to update your budget to.
-ubNewBudget :: Lens' UpdateBudget Budget
-ubNewBudget = lens _ubNewBudget (\s a -> s {_ubNewBudget = a})
+updateBudget_newBudget :: Lens.Lens' UpdateBudget Budget
+updateBudget_newBudget = Lens.lens (\UpdateBudget' {newBudget'} -> newBudget') (\s@UpdateBudget' {} a -> s {newBudget' = a} :: UpdateBudget)
 
-instance AWSRequest UpdateBudget where
+instance Prelude.AWSRequest UpdateBudget where
   type Rs UpdateBudget = UpdateBudgetResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateBudgetResponse' <$> (pure (fromEnum s))
+          UpdateBudgetResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateBudget
+instance Prelude.Hashable UpdateBudget
 
-instance NFData UpdateBudget
+instance Prelude.NFData UpdateBudget
 
-instance ToHeaders UpdateBudget where
+instance Prelude.ToHeaders UpdateBudget where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.UpdateBudget" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.UpdateBudget" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateBudget where
+instance Prelude.ToJSON UpdateBudget where
   toJSON UpdateBudget' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountId" .= _ubAccountId),
-            Just ("NewBudget" .= _ubNewBudget)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("NewBudget" Prelude..= newBudget')
           ]
       )
 
-instance ToPath UpdateBudget where
-  toPath = const "/"
+instance Prelude.ToPath UpdateBudget where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateBudget where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateBudget where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Response of UpdateBudget
 --
---
---
--- /See:/ 'updateBudgetResponse' smart constructor.
-newtype UpdateBudgetResponse = UpdateBudgetResponse'
-  { _ubrrsResponseStatus ::
-      Int
+-- /See:/ 'newUpdateBudgetResponse' smart constructor.
+data UpdateBudgetResponse = UpdateBudgetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBudgetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBudgetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubrrsResponseStatus' - -- | The response status code.
-updateBudgetResponse ::
-  -- | 'ubrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateBudgetResponse_httpStatus' - The response's http status code.
+newUpdateBudgetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateBudgetResponse
-updateBudgetResponse pResponseStatus_ =
-  UpdateBudgetResponse'
-    { _ubrrsResponseStatus =
-        pResponseStatus_
-    }
+newUpdateBudgetResponse pHttpStatus_ =
+  UpdateBudgetResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ubrrsResponseStatus :: Lens' UpdateBudgetResponse Int
-ubrrsResponseStatus = lens _ubrrsResponseStatus (\s a -> s {_ubrrsResponseStatus = a})
+-- | The response's http status code.
+updateBudgetResponse_httpStatus :: Lens.Lens' UpdateBudgetResponse Prelude.Int
+updateBudgetResponse_httpStatus = Lens.lens (\UpdateBudgetResponse' {httpStatus} -> httpStatus) (\s@UpdateBudgetResponse' {} a -> s {httpStatus = a} :: UpdateBudgetResponse)
 
-instance NFData UpdateBudgetResponse
+instance Prelude.NFData UpdateBudgetResponse

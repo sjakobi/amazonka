@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Budgets.Types.ApprovalModel
   ( ApprovalModel
       ( ..,
-        Automatic,
-        Manual
+        ApprovalModelAUTOMATIC,
+        ApprovalModelMANUAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ApprovalModel = ApprovalModel' (CI Text)
+newtype ApprovalModel = ApprovalModel'
+  { fromApprovalModel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Automatic :: ApprovalModel
-pattern Automatic = ApprovalModel' "AUTOMATIC"
+pattern ApprovalModelAUTOMATIC :: ApprovalModel
+pattern ApprovalModelAUTOMATIC = ApprovalModel' "AUTOMATIC"
 
-pattern Manual :: ApprovalModel
-pattern Manual = ApprovalModel' "MANUAL"
+pattern ApprovalModelMANUAL :: ApprovalModel
+pattern ApprovalModelMANUAL = ApprovalModel' "MANUAL"
 
 {-# COMPLETE
-  Automatic,
-  Manual,
+  ApprovalModelAUTOMATIC,
+  ApprovalModelMANUAL,
   ApprovalModel'
   #-}
 
-instance FromText ApprovalModel where
-  parser = (ApprovalModel' . mk) <$> takeText
+instance Prelude.FromText ApprovalModel where
+  parser = ApprovalModel' Prelude.<$> Prelude.takeText
 
-instance ToText ApprovalModel where
-  toText (ApprovalModel' ci) = original ci
+instance Prelude.ToText ApprovalModel where
+  toText (ApprovalModel' x) = x
 
-instance Hashable ApprovalModel
+instance Prelude.Hashable ApprovalModel
 
-instance NFData ApprovalModel
+instance Prelude.NFData ApprovalModel
 
-instance ToByteString ApprovalModel
+instance Prelude.ToByteString ApprovalModel
 
-instance ToQuery ApprovalModel
+instance Prelude.ToQuery ApprovalModel
 
-instance ToHeader ApprovalModel
+instance Prelude.ToHeader ApprovalModel
 
-instance ToJSON ApprovalModel where
-  toJSON = toJSONText
+instance Prelude.ToJSON ApprovalModel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ApprovalModel where
-  parseJSON = parseJSONText "ApprovalModel"
+instance Prelude.FromJSON ApprovalModel where
+  parseJSON = Prelude.parseJSONText "ApprovalModel"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,268 +24,281 @@
 -- Updates a budget action.
 module Network.AWS.Budgets.UpdateBudgetAction
   ( -- * Creating a Request
-    updateBudgetAction,
-    UpdateBudgetAction,
+    UpdateBudgetAction (..),
+    newUpdateBudgetAction,
 
     -- * Request Lenses
-    ubaSubscribers,
-    ubaExecutionRoleARN,
-    ubaApprovalModel,
-    ubaNotificationType,
-    ubaActionThreshold,
-    ubaDefinition,
-    ubaAccountId,
-    ubaBudgetName,
-    ubaActionId,
+    updateBudgetAction_subscribers,
+    updateBudgetAction_executionRoleArn,
+    updateBudgetAction_approvalModel,
+    updateBudgetAction_notificationType,
+    updateBudgetAction_actionThreshold,
+    updateBudgetAction_definition,
+    updateBudgetAction_accountId,
+    updateBudgetAction_budgetName,
+    updateBudgetAction_actionId,
 
     -- * Destructuring the Response
-    updateBudgetActionResponse,
-    UpdateBudgetActionResponse,
+    UpdateBudgetActionResponse (..),
+    newUpdateBudgetActionResponse,
 
     -- * Response Lenses
-    ubarrsResponseStatus,
-    ubarrsAccountId,
-    ubarrsBudgetName,
-    ubarrsOldAction,
-    ubarrsNewAction,
+    updateBudgetActionResponse_httpStatus,
+    updateBudgetActionResponse_accountId,
+    updateBudgetActionResponse_budgetName,
+    updateBudgetActionResponse_oldAction,
+    updateBudgetActionResponse_newAction,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Budgets.Types.Action
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateBudgetAction' smart constructor.
+-- | /See:/ 'newUpdateBudgetAction' smart constructor.
 data UpdateBudgetAction = UpdateBudgetAction'
-  { _ubaSubscribers ::
-      !(Maybe (List1 Subscriber)),
-    _ubaExecutionRoleARN ::
-      !(Maybe Text),
-    _ubaApprovalModel ::
-      !(Maybe ApprovalModel),
-    _ubaNotificationType ::
-      !(Maybe NotificationType),
-    _ubaActionThreshold ::
-      !(Maybe ActionThreshold),
-    _ubaDefinition ::
-      !(Maybe Definition),
-    _ubaAccountId :: !Text,
-    _ubaBudgetName :: !Text,
-    _ubaActionId :: !Text
+  { subscribers :: Prelude.Maybe (Prelude.List1 Subscriber),
+    -- | The role passed for action execution and reversion. Roles and actions
+    -- must be in the same account.
+    executionRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | This specifies if the action needs manual or automatic approval.
+    approvalModel :: Prelude.Maybe ApprovalModel,
+    notificationType :: Prelude.Maybe NotificationType,
+    actionThreshold :: Prelude.Maybe ActionThreshold,
+    definition :: Prelude.Maybe Definition,
+    accountId :: Prelude.Text,
+    budgetName :: Prelude.Text,
+    -- | A system-generated universally unique identifier (UUID) for the action.
+    actionId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBudgetAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBudgetAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubaSubscribers' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubaExecutionRoleARN' - The role passed for action execution and reversion. Roles and actions must be in the same account.
+-- 'subscribers', 'updateBudgetAction_subscribers' - Undocumented member.
 --
--- * 'ubaApprovalModel' - This specifies if the action needs manual or automatic approval.
+-- 'executionRoleArn', 'updateBudgetAction_executionRoleArn' - The role passed for action execution and reversion. Roles and actions
+-- must be in the same account.
 --
--- * 'ubaNotificationType' - Undocumented member.
+-- 'approvalModel', 'updateBudgetAction_approvalModel' - This specifies if the action needs manual or automatic approval.
 --
--- * 'ubaActionThreshold' - Undocumented member.
+-- 'notificationType', 'updateBudgetAction_notificationType' - Undocumented member.
 --
--- * 'ubaDefinition' - Undocumented member.
+-- 'actionThreshold', 'updateBudgetAction_actionThreshold' - Undocumented member.
 --
--- * 'ubaAccountId' - Undocumented member.
+-- 'definition', 'updateBudgetAction_definition' - Undocumented member.
 --
--- * 'ubaBudgetName' - Undocumented member.
+-- 'accountId', 'updateBudgetAction_accountId' - Undocumented member.
 --
--- * 'ubaActionId' - A system-generated universally unique identifier (UUID) for the action.
-updateBudgetAction ::
-  -- | 'ubaAccountId'
-  Text ->
-  -- | 'ubaBudgetName'
-  Text ->
-  -- | 'ubaActionId'
-  Text ->
+-- 'budgetName', 'updateBudgetAction_budgetName' - Undocumented member.
+--
+-- 'actionId', 'updateBudgetAction_actionId' - A system-generated universally unique identifier (UUID) for the action.
+newUpdateBudgetAction ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'actionId'
+  Prelude.Text ->
   UpdateBudgetAction
-updateBudgetAction
+newUpdateBudgetAction
   pAccountId_
   pBudgetName_
   pActionId_ =
     UpdateBudgetAction'
-      { _ubaSubscribers = Nothing,
-        _ubaExecutionRoleARN = Nothing,
-        _ubaApprovalModel = Nothing,
-        _ubaNotificationType = Nothing,
-        _ubaActionThreshold = Nothing,
-        _ubaDefinition = Nothing,
-        _ubaAccountId = pAccountId_,
-        _ubaBudgetName = pBudgetName_,
-        _ubaActionId = pActionId_
+      { subscribers = Prelude.Nothing,
+        executionRoleArn = Prelude.Nothing,
+        approvalModel = Prelude.Nothing,
+        notificationType = Prelude.Nothing,
+        actionThreshold = Prelude.Nothing,
+        definition = Prelude.Nothing,
+        accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        actionId = pActionId_
       }
 
 -- | Undocumented member.
-ubaSubscribers :: Lens' UpdateBudgetAction (Maybe (NonEmpty Subscriber))
-ubaSubscribers = lens _ubaSubscribers (\s a -> s {_ubaSubscribers = a}) . mapping _List1
+updateBudgetAction_subscribers :: Lens.Lens' UpdateBudgetAction (Prelude.Maybe (Prelude.NonEmpty Subscriber))
+updateBudgetAction_subscribers = Lens.lens (\UpdateBudgetAction' {subscribers} -> subscribers) (\s@UpdateBudgetAction' {} a -> s {subscribers = a} :: UpdateBudgetAction) Prelude.. Lens.mapping Prelude._List1
 
--- | The role passed for action execution and reversion. Roles and actions must be in the same account.
-ubaExecutionRoleARN :: Lens' UpdateBudgetAction (Maybe Text)
-ubaExecutionRoleARN = lens _ubaExecutionRoleARN (\s a -> s {_ubaExecutionRoleARN = a})
+-- | The role passed for action execution and reversion. Roles and actions
+-- must be in the same account.
+updateBudgetAction_executionRoleArn :: Lens.Lens' UpdateBudgetAction (Prelude.Maybe Prelude.Text)
+updateBudgetAction_executionRoleArn = Lens.lens (\UpdateBudgetAction' {executionRoleArn} -> executionRoleArn) (\s@UpdateBudgetAction' {} a -> s {executionRoleArn = a} :: UpdateBudgetAction)
 
 -- | This specifies if the action needs manual or automatic approval.
-ubaApprovalModel :: Lens' UpdateBudgetAction (Maybe ApprovalModel)
-ubaApprovalModel = lens _ubaApprovalModel (\s a -> s {_ubaApprovalModel = a})
+updateBudgetAction_approvalModel :: Lens.Lens' UpdateBudgetAction (Prelude.Maybe ApprovalModel)
+updateBudgetAction_approvalModel = Lens.lens (\UpdateBudgetAction' {approvalModel} -> approvalModel) (\s@UpdateBudgetAction' {} a -> s {approvalModel = a} :: UpdateBudgetAction)
 
 -- | Undocumented member.
-ubaNotificationType :: Lens' UpdateBudgetAction (Maybe NotificationType)
-ubaNotificationType = lens _ubaNotificationType (\s a -> s {_ubaNotificationType = a})
+updateBudgetAction_notificationType :: Lens.Lens' UpdateBudgetAction (Prelude.Maybe NotificationType)
+updateBudgetAction_notificationType = Lens.lens (\UpdateBudgetAction' {notificationType} -> notificationType) (\s@UpdateBudgetAction' {} a -> s {notificationType = a} :: UpdateBudgetAction)
 
 -- | Undocumented member.
-ubaActionThreshold :: Lens' UpdateBudgetAction (Maybe ActionThreshold)
-ubaActionThreshold = lens _ubaActionThreshold (\s a -> s {_ubaActionThreshold = a})
+updateBudgetAction_actionThreshold :: Lens.Lens' UpdateBudgetAction (Prelude.Maybe ActionThreshold)
+updateBudgetAction_actionThreshold = Lens.lens (\UpdateBudgetAction' {actionThreshold} -> actionThreshold) (\s@UpdateBudgetAction' {} a -> s {actionThreshold = a} :: UpdateBudgetAction)
 
 -- | Undocumented member.
-ubaDefinition :: Lens' UpdateBudgetAction (Maybe Definition)
-ubaDefinition = lens _ubaDefinition (\s a -> s {_ubaDefinition = a})
+updateBudgetAction_definition :: Lens.Lens' UpdateBudgetAction (Prelude.Maybe Definition)
+updateBudgetAction_definition = Lens.lens (\UpdateBudgetAction' {definition} -> definition) (\s@UpdateBudgetAction' {} a -> s {definition = a} :: UpdateBudgetAction)
 
 -- | Undocumented member.
-ubaAccountId :: Lens' UpdateBudgetAction Text
-ubaAccountId = lens _ubaAccountId (\s a -> s {_ubaAccountId = a})
+updateBudgetAction_accountId :: Lens.Lens' UpdateBudgetAction Prelude.Text
+updateBudgetAction_accountId = Lens.lens (\UpdateBudgetAction' {accountId} -> accountId) (\s@UpdateBudgetAction' {} a -> s {accountId = a} :: UpdateBudgetAction)
 
 -- | Undocumented member.
-ubaBudgetName :: Lens' UpdateBudgetAction Text
-ubaBudgetName = lens _ubaBudgetName (\s a -> s {_ubaBudgetName = a})
+updateBudgetAction_budgetName :: Lens.Lens' UpdateBudgetAction Prelude.Text
+updateBudgetAction_budgetName = Lens.lens (\UpdateBudgetAction' {budgetName} -> budgetName) (\s@UpdateBudgetAction' {} a -> s {budgetName = a} :: UpdateBudgetAction)
 
 -- | A system-generated universally unique identifier (UUID) for the action.
-ubaActionId :: Lens' UpdateBudgetAction Text
-ubaActionId = lens _ubaActionId (\s a -> s {_ubaActionId = a})
+updateBudgetAction_actionId :: Lens.Lens' UpdateBudgetAction Prelude.Text
+updateBudgetAction_actionId = Lens.lens (\UpdateBudgetAction' {actionId} -> actionId) (\s@UpdateBudgetAction' {} a -> s {actionId = a} :: UpdateBudgetAction)
 
-instance AWSRequest UpdateBudgetAction where
+instance Prelude.AWSRequest UpdateBudgetAction where
   type
     Rs UpdateBudgetAction =
       UpdateBudgetActionResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateBudgetActionResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "AccountId")
-            <*> (x .:> "BudgetName")
-            <*> (x .:> "OldAction")
-            <*> (x .:> "NewAction")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "AccountId")
+            Prelude.<*> (x Prelude..:> "BudgetName")
+            Prelude.<*> (x Prelude..:> "OldAction")
+            Prelude.<*> (x Prelude..:> "NewAction")
       )
 
-instance Hashable UpdateBudgetAction
+instance Prelude.Hashable UpdateBudgetAction
 
-instance NFData UpdateBudgetAction
+instance Prelude.NFData UpdateBudgetAction
 
-instance ToHeaders UpdateBudgetAction where
+instance Prelude.ToHeaders UpdateBudgetAction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.UpdateBudgetAction" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.UpdateBudgetAction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateBudgetAction where
+instance Prelude.ToJSON UpdateBudgetAction where
   toJSON UpdateBudgetAction' {..} =
-    object
-      ( catMaybes
-          [ ("Subscribers" .=) <$> _ubaSubscribers,
-            ("ExecutionRoleArn" .=) <$> _ubaExecutionRoleARN,
-            ("ApprovalModel" .=) <$> _ubaApprovalModel,
-            ("NotificationType" .=) <$> _ubaNotificationType,
-            ("ActionThreshold" .=) <$> _ubaActionThreshold,
-            ("Definition" .=) <$> _ubaDefinition,
-            Just ("AccountId" .= _ubaAccountId),
-            Just ("BudgetName" .= _ubaBudgetName),
-            Just ("ActionId" .= _ubaActionId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Subscribers" Prelude..=) Prelude.<$> subscribers,
+            ("ExecutionRoleArn" Prelude..=)
+              Prelude.<$> executionRoleArn,
+            ("ApprovalModel" Prelude..=)
+              Prelude.<$> approvalModel,
+            ("NotificationType" Prelude..=)
+              Prelude.<$> notificationType,
+            ("ActionThreshold" Prelude..=)
+              Prelude.<$> actionThreshold,
+            ("Definition" Prelude..=) Prelude.<$> definition,
+            Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("BudgetName" Prelude..= budgetName),
+            Prelude.Just ("ActionId" Prelude..= actionId)
           ]
       )
 
-instance ToPath UpdateBudgetAction where
-  toPath = const "/"
+instance Prelude.ToPath UpdateBudgetAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateBudgetAction where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateBudgetAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateBudgetActionResponse' smart constructor.
+-- | /See:/ 'newUpdateBudgetActionResponse' smart constructor.
 data UpdateBudgetActionResponse = UpdateBudgetActionResponse'
-  { _ubarrsResponseStatus ::
-      !Int,
-    _ubarrsAccountId ::
-      !Text,
-    _ubarrsBudgetName ::
-      !Text,
-    _ubarrsOldAction ::
-      !Action,
-    _ubarrsNewAction ::
-      !Action
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    accountId :: Prelude.Text,
+    budgetName :: Prelude.Text,
+    -- | The previous action resource information.
+    oldAction :: Action,
+    -- | The updated action resource information.
+    newAction' :: Action
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBudgetActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBudgetActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubarrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubarrsAccountId' - Undocumented member.
+-- 'httpStatus', 'updateBudgetActionResponse_httpStatus' - The response's http status code.
 --
--- * 'ubarrsBudgetName' - Undocumented member.
+-- 'accountId', 'updateBudgetActionResponse_accountId' - Undocumented member.
 --
--- * 'ubarrsOldAction' - The previous action resource information.
+-- 'budgetName', 'updateBudgetActionResponse_budgetName' - Undocumented member.
 --
--- * 'ubarrsNewAction' - The updated action resource information.
-updateBudgetActionResponse ::
-  -- | 'ubarrsResponseStatus'
-  Int ->
-  -- | 'ubarrsAccountId'
-  Text ->
-  -- | 'ubarrsBudgetName'
-  Text ->
-  -- | 'ubarrsOldAction'
+-- 'oldAction', 'updateBudgetActionResponse_oldAction' - The previous action resource information.
+--
+-- 'newAction'', 'updateBudgetActionResponse_newAction' - The updated action resource information.
+newUpdateBudgetActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'oldAction'
   Action ->
-  -- | 'ubarrsNewAction'
+  -- | 'newAction''
   Action ->
   UpdateBudgetActionResponse
-updateBudgetActionResponse
-  pResponseStatus_
+newUpdateBudgetActionResponse
+  pHttpStatus_
   pAccountId_
   pBudgetName_
   pOldAction_
   pNewAction_ =
     UpdateBudgetActionResponse'
-      { _ubarrsResponseStatus =
-          pResponseStatus_,
-        _ubarrsAccountId = pAccountId_,
-        _ubarrsBudgetName = pBudgetName_,
-        _ubarrsOldAction = pOldAction_,
-        _ubarrsNewAction = pNewAction_
+      { httpStatus =
+          pHttpStatus_,
+        accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        oldAction = pOldAction_,
+        newAction' = pNewAction_
       }
 
--- | -- | The response status code.
-ubarrsResponseStatus :: Lens' UpdateBudgetActionResponse Int
-ubarrsResponseStatus = lens _ubarrsResponseStatus (\s a -> s {_ubarrsResponseStatus = a})
+-- | The response's http status code.
+updateBudgetActionResponse_httpStatus :: Lens.Lens' UpdateBudgetActionResponse Prelude.Int
+updateBudgetActionResponse_httpStatus = Lens.lens (\UpdateBudgetActionResponse' {httpStatus} -> httpStatus) (\s@UpdateBudgetActionResponse' {} a -> s {httpStatus = a} :: UpdateBudgetActionResponse)
 
 -- | Undocumented member.
-ubarrsAccountId :: Lens' UpdateBudgetActionResponse Text
-ubarrsAccountId = lens _ubarrsAccountId (\s a -> s {_ubarrsAccountId = a})
+updateBudgetActionResponse_accountId :: Lens.Lens' UpdateBudgetActionResponse Prelude.Text
+updateBudgetActionResponse_accountId = Lens.lens (\UpdateBudgetActionResponse' {accountId} -> accountId) (\s@UpdateBudgetActionResponse' {} a -> s {accountId = a} :: UpdateBudgetActionResponse)
 
 -- | Undocumented member.
-ubarrsBudgetName :: Lens' UpdateBudgetActionResponse Text
-ubarrsBudgetName = lens _ubarrsBudgetName (\s a -> s {_ubarrsBudgetName = a})
+updateBudgetActionResponse_budgetName :: Lens.Lens' UpdateBudgetActionResponse Prelude.Text
+updateBudgetActionResponse_budgetName = Lens.lens (\UpdateBudgetActionResponse' {budgetName} -> budgetName) (\s@UpdateBudgetActionResponse' {} a -> s {budgetName = a} :: UpdateBudgetActionResponse)
 
 -- | The previous action resource information.
-ubarrsOldAction :: Lens' UpdateBudgetActionResponse Action
-ubarrsOldAction = lens _ubarrsOldAction (\s a -> s {_ubarrsOldAction = a})
+updateBudgetActionResponse_oldAction :: Lens.Lens' UpdateBudgetActionResponse Action
+updateBudgetActionResponse_oldAction = Lens.lens (\UpdateBudgetActionResponse' {oldAction} -> oldAction) (\s@UpdateBudgetActionResponse' {} a -> s {oldAction = a} :: UpdateBudgetActionResponse)
 
 -- | The updated action resource information.
-ubarrsNewAction :: Lens' UpdateBudgetActionResponse Action
-ubarrsNewAction = lens _ubarrsNewAction (\s a -> s {_ubarrsNewAction = a})
+updateBudgetActionResponse_newAction :: Lens.Lens' UpdateBudgetActionResponse Action
+updateBudgetActionResponse_newAction = Lens.lens (\UpdateBudgetActionResponse' {newAction'} -> newAction') (\s@UpdateBudgetActionResponse' {} a -> s {newAction' = a} :: UpdateBudgetActionResponse)
 
-instance NFData UpdateBudgetActionResponse
+instance Prelude.NFData UpdateBudgetActionResponse

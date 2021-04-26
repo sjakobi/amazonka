@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,84 +20,88 @@
 module Network.AWS.Budgets.Types.SsmActionDefinition where
 
 import Network.AWS.Budgets.Types.ActionSubType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The AWS Systems Manager (SSM) action definition details.
 --
---
---
--- /See:/ 'ssmActionDefinition' smart constructor.
+-- /See:/ 'newSsmActionDefinition' smart constructor.
 data SsmActionDefinition = SsmActionDefinition'
-  { _sadActionSubType ::
-      !ActionSubType,
-    _sadRegion :: !Text,
-    _sadInstanceIds ::
-      !(List1 Text)
+  { -- | The action subType.
+    actionSubType :: ActionSubType,
+    -- | The Region to run the SSM document.
+    region :: Prelude.Text,
+    -- | The EC2 and RDS instance IDs.
+    instanceIds :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SsmActionDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SsmActionDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sadActionSubType' - The action subType.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sadRegion' - The Region to run the SSM document.
+-- 'actionSubType', 'ssmActionDefinition_actionSubType' - The action subType.
 --
--- * 'sadInstanceIds' - The EC2 and RDS instance IDs.
-ssmActionDefinition ::
-  -- | 'sadActionSubType'
+-- 'region', 'ssmActionDefinition_region' - The Region to run the SSM document.
+--
+-- 'instanceIds', 'ssmActionDefinition_instanceIds' - The EC2 and RDS instance IDs.
+newSsmActionDefinition ::
+  -- | 'actionSubType'
   ActionSubType ->
-  -- | 'sadRegion'
-  Text ->
-  -- | 'sadInstanceIds'
-  NonEmpty Text ->
+  -- | 'region'
+  Prelude.Text ->
+  -- | 'instanceIds'
+  Prelude.NonEmpty Prelude.Text ->
   SsmActionDefinition
-ssmActionDefinition
+newSsmActionDefinition
   pActionSubType_
   pRegion_
   pInstanceIds_ =
     SsmActionDefinition'
-      { _sadActionSubType =
+      { actionSubType =
           pActionSubType_,
-        _sadRegion = pRegion_,
-        _sadInstanceIds = _List1 # pInstanceIds_
+        region = pRegion_,
+        instanceIds = Prelude._List1 Lens.# pInstanceIds_
       }
 
 -- | The action subType.
-sadActionSubType :: Lens' SsmActionDefinition ActionSubType
-sadActionSubType = lens _sadActionSubType (\s a -> s {_sadActionSubType = a})
+ssmActionDefinition_actionSubType :: Lens.Lens' SsmActionDefinition ActionSubType
+ssmActionDefinition_actionSubType = Lens.lens (\SsmActionDefinition' {actionSubType} -> actionSubType) (\s@SsmActionDefinition' {} a -> s {actionSubType = a} :: SsmActionDefinition)
 
 -- | The Region to run the SSM document.
-sadRegion :: Lens' SsmActionDefinition Text
-sadRegion = lens _sadRegion (\s a -> s {_sadRegion = a})
+ssmActionDefinition_region :: Lens.Lens' SsmActionDefinition Prelude.Text
+ssmActionDefinition_region = Lens.lens (\SsmActionDefinition' {region} -> region) (\s@SsmActionDefinition' {} a -> s {region = a} :: SsmActionDefinition)
 
 -- | The EC2 and RDS instance IDs.
-sadInstanceIds :: Lens' SsmActionDefinition (NonEmpty Text)
-sadInstanceIds = lens _sadInstanceIds (\s a -> s {_sadInstanceIds = a}) . _List1
+ssmActionDefinition_instanceIds :: Lens.Lens' SsmActionDefinition (Prelude.NonEmpty Prelude.Text)
+ssmActionDefinition_instanceIds = Lens.lens (\SsmActionDefinition' {instanceIds} -> instanceIds) (\s@SsmActionDefinition' {} a -> s {instanceIds = a} :: SsmActionDefinition) Prelude.. Prelude._List1
 
-instance FromJSON SsmActionDefinition where
+instance Prelude.FromJSON SsmActionDefinition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SsmActionDefinition"
       ( \x ->
           SsmActionDefinition'
-            <$> (x .: "ActionSubType")
-            <*> (x .: "Region")
-            <*> (x .: "InstanceIds")
+            Prelude.<$> (x Prelude..: "ActionSubType")
+            Prelude.<*> (x Prelude..: "Region")
+            Prelude.<*> (x Prelude..: "InstanceIds")
       )
 
-instance Hashable SsmActionDefinition
+instance Prelude.Hashable SsmActionDefinition
 
-instance NFData SsmActionDefinition
+instance Prelude.NFData SsmActionDefinition
 
-instance ToJSON SsmActionDefinition where
+instance Prelude.ToJSON SsmActionDefinition where
   toJSON SsmActionDefinition' {..} =
-    object
-      ( catMaybes
-          [ Just ("ActionSubType" .= _sadActionSubType),
-            Just ("Region" .= _sadRegion),
-            Just ("InstanceIds" .= _sadInstanceIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ActionSubType" Prelude..= actionSubType),
+            Prelude.Just ("Region" Prelude..= region),
+            Prelude.Just ("InstanceIds" Prelude..= instanceIds)
           ]
       )

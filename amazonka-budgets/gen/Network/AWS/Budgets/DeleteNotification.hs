@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,164 +23,170 @@
 --
 -- Deletes a notification.
 --
---
--- /Important:/ Deleting a notification also deletes the subscribers that are associated with the notification.
+-- Deleting a notification also deletes the subscribers that are associated
+-- with the notification.
 module Network.AWS.Budgets.DeleteNotification
   ( -- * Creating a Request
-    deleteNotification,
-    DeleteNotification,
+    DeleteNotification (..),
+    newDeleteNotification,
 
     -- * Request Lenses
-    dnAccountId,
-    dnBudgetName,
-    dnNotification,
+    deleteNotification_accountId,
+    deleteNotification_budgetName,
+    deleteNotification_notification,
 
     -- * Destructuring the Response
-    deleteNotificationResponse,
-    DeleteNotificationResponse,
+    DeleteNotificationResponse (..),
+    newDeleteNotificationResponse,
 
     -- * Response Lenses
-    dnrrsResponseStatus,
+    deleteNotificationResponse_httpStatus,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request of DeleteNotification
 --
---
---
--- /See:/ 'deleteNotification' smart constructor.
+-- /See:/ 'newDeleteNotification' smart constructor.
 data DeleteNotification = DeleteNotification'
-  { _dnAccountId ::
-      !Text,
-    _dnBudgetName :: !Text,
-    _dnNotification :: !Notification
+  { -- | The @accountId@ that is associated with the budget whose notification
+    -- you want to delete.
+    accountId :: Prelude.Text,
+    -- | The name of the budget whose notification you want to delete.
+    budgetName :: Prelude.Text,
+    -- | The notification that you want to delete.
+    notification :: Notification
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteNotification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteNotification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnAccountId' - The @accountId@ that is associated with the budget whose notification you want to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dnBudgetName' - The name of the budget whose notification you want to delete.
+-- 'accountId', 'deleteNotification_accountId' - The @accountId@ that is associated with the budget whose notification
+-- you want to delete.
 --
--- * 'dnNotification' - The notification that you want to delete.
-deleteNotification ::
-  -- | 'dnAccountId'
-  Text ->
-  -- | 'dnBudgetName'
-  Text ->
-  -- | 'dnNotification'
+-- 'budgetName', 'deleteNotification_budgetName' - The name of the budget whose notification you want to delete.
+--
+-- 'notification', 'deleteNotification_notification' - The notification that you want to delete.
+newDeleteNotification ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'notification'
   Notification ->
   DeleteNotification
-deleteNotification
+newDeleteNotification
   pAccountId_
   pBudgetName_
   pNotification_ =
     DeleteNotification'
-      { _dnAccountId = pAccountId_,
-        _dnBudgetName = pBudgetName_,
-        _dnNotification = pNotification_
+      { accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        notification = pNotification_
       }
 
--- | The @accountId@ that is associated with the budget whose notification you want to delete.
-dnAccountId :: Lens' DeleteNotification Text
-dnAccountId = lens _dnAccountId (\s a -> s {_dnAccountId = a})
+-- | The @accountId@ that is associated with the budget whose notification
+-- you want to delete.
+deleteNotification_accountId :: Lens.Lens' DeleteNotification Prelude.Text
+deleteNotification_accountId = Lens.lens (\DeleteNotification' {accountId} -> accountId) (\s@DeleteNotification' {} a -> s {accountId = a} :: DeleteNotification)
 
 -- | The name of the budget whose notification you want to delete.
-dnBudgetName :: Lens' DeleteNotification Text
-dnBudgetName = lens _dnBudgetName (\s a -> s {_dnBudgetName = a})
+deleteNotification_budgetName :: Lens.Lens' DeleteNotification Prelude.Text
+deleteNotification_budgetName = Lens.lens (\DeleteNotification' {budgetName} -> budgetName) (\s@DeleteNotification' {} a -> s {budgetName = a} :: DeleteNotification)
 
 -- | The notification that you want to delete.
-dnNotification :: Lens' DeleteNotification Notification
-dnNotification = lens _dnNotification (\s a -> s {_dnNotification = a})
+deleteNotification_notification :: Lens.Lens' DeleteNotification Notification
+deleteNotification_notification = Lens.lens (\DeleteNotification' {notification} -> notification) (\s@DeleteNotification' {} a -> s {notification = a} :: DeleteNotification)
 
-instance AWSRequest DeleteNotification where
+instance Prelude.AWSRequest DeleteNotification where
   type
     Rs DeleteNotification =
       DeleteNotificationResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteNotificationResponse' <$> (pure (fromEnum s))
+          DeleteNotificationResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteNotification
+instance Prelude.Hashable DeleteNotification
 
-instance NFData DeleteNotification
+instance Prelude.NFData DeleteNotification
 
-instance ToHeaders DeleteNotification where
+instance Prelude.ToHeaders DeleteNotification where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.DeleteNotification" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.DeleteNotification" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteNotification where
+instance Prelude.ToJSON DeleteNotification where
   toJSON DeleteNotification' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountId" .= _dnAccountId),
-            Just ("BudgetName" .= _dnBudgetName),
-            Just ("Notification" .= _dnNotification)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("BudgetName" Prelude..= budgetName),
+            Prelude.Just
+              ("Notification" Prelude..= notification)
           ]
       )
 
-instance ToPath DeleteNotification where
-  toPath = const "/"
+instance Prelude.ToPath DeleteNotification where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteNotification where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteNotification where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Response of DeleteNotification
 --
---
---
--- /See:/ 'deleteNotificationResponse' smart constructor.
-newtype DeleteNotificationResponse = DeleteNotificationResponse'
-  { _dnrrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteNotificationResponse' smart constructor.
+data DeleteNotificationResponse = DeleteNotificationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteNotificationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteNotificationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnrrsResponseStatus' - -- | The response status code.
-deleteNotificationResponse ::
-  -- | 'dnrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteNotificationResponse_httpStatus' - The response's http status code.
+newDeleteNotificationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteNotificationResponse
-deleteNotificationResponse pResponseStatus_ =
+newDeleteNotificationResponse pHttpStatus_ =
   DeleteNotificationResponse'
-    { _dnrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dnrrsResponseStatus :: Lens' DeleteNotificationResponse Int
-dnrrsResponseStatus = lens _dnrrsResponseStatus (\s a -> s {_dnrrsResponseStatus = a})
+-- | The response's http status code.
+deleteNotificationResponse_httpStatus :: Lens.Lens' DeleteNotificationResponse Prelude.Int
+deleteNotificationResponse_httpStatus = Lens.lens (\DeleteNotificationResponse' {httpStatus} -> httpStatus) (\s@DeleteNotificationResponse' {} a -> s {httpStatus = a} :: DeleteNotificationResponse)
 
-instance NFData DeleteNotificationResponse
+instance Prelude.NFData DeleteNotificationResponse

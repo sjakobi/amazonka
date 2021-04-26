@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,110 +23,109 @@ import Network.AWS.Budgets.Types.BudgetType
 import Network.AWS.Budgets.Types.BudgetedAndActualAmounts
 import Network.AWS.Budgets.Types.CostTypes
 import Network.AWS.Budgets.Types.TimeUnit
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A history of the state of a budget at the end of the budget's specified time period.
+-- | A history of the state of a budget at the end of the budget\'s specified
+-- time period.
 --
---
---
--- /See:/ 'budgetPerformanceHistory' smart constructor.
+-- /See:/ 'newBudgetPerformanceHistory' smart constructor.
 data BudgetPerformanceHistory = BudgetPerformanceHistory'
-  { _bphBudgetedAndActualAmountsList ::
-      !( Maybe
-           [BudgetedAndActualAmounts]
-       ),
-    _bphTimeUnit ::
-      !(Maybe TimeUnit),
-    _bphCostFilters ::
-      !( Maybe
-           ( Map
-               Text
-               [Text]
-           )
-       ),
-    _bphCostTypes ::
-      !(Maybe CostTypes),
-    _bphBudgetType ::
-      !(Maybe BudgetType),
-    _bphBudgetName ::
-      !(Maybe Text)
+  { -- | A list of amounts of cost or usage that you created budgets for,
+    -- compared to your actual costs or usage.
+    budgetedAndActualAmountsList :: Prelude.Maybe [BudgetedAndActualAmounts],
+    timeUnit :: Prelude.Maybe TimeUnit,
+    -- | The history of the cost filters for a budget during the specified time
+    -- period.
+    costFilters :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The history of the cost types for a budget during the specified time
+    -- period.
+    costTypes :: Prelude.Maybe CostTypes,
+    budgetType :: Prelude.Maybe BudgetType,
+    budgetName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BudgetPerformanceHistory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BudgetPerformanceHistory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bphBudgetedAndActualAmountsList' - A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bphTimeUnit' - Undocumented member.
+-- 'budgetedAndActualAmountsList', 'budgetPerformanceHistory_budgetedAndActualAmountsList' - A list of amounts of cost or usage that you created budgets for,
+-- compared to your actual costs or usage.
 --
--- * 'bphCostFilters' - The history of the cost filters for a budget during the specified time period.
+-- 'timeUnit', 'budgetPerformanceHistory_timeUnit' - Undocumented member.
 --
--- * 'bphCostTypes' - The history of the cost types for a budget during the specified time period.
+-- 'costFilters', 'budgetPerformanceHistory_costFilters' - The history of the cost filters for a budget during the specified time
+-- period.
 --
--- * 'bphBudgetType' - Undocumented member.
+-- 'costTypes', 'budgetPerformanceHistory_costTypes' - The history of the cost types for a budget during the specified time
+-- period.
 --
--- * 'bphBudgetName' - Undocumented member.
-budgetPerformanceHistory ::
+-- 'budgetType', 'budgetPerformanceHistory_budgetType' - Undocumented member.
+--
+-- 'budgetName', 'budgetPerformanceHistory_budgetName' - Undocumented member.
+newBudgetPerformanceHistory ::
   BudgetPerformanceHistory
-budgetPerformanceHistory =
+newBudgetPerformanceHistory =
   BudgetPerformanceHistory'
-    { _bphBudgetedAndActualAmountsList =
-        Nothing,
-      _bphTimeUnit = Nothing,
-      _bphCostFilters = Nothing,
-      _bphCostTypes = Nothing,
-      _bphBudgetType = Nothing,
-      _bphBudgetName = Nothing
+    { budgetedAndActualAmountsList =
+        Prelude.Nothing,
+      timeUnit = Prelude.Nothing,
+      costFilters = Prelude.Nothing,
+      costTypes = Prelude.Nothing,
+      budgetType = Prelude.Nothing,
+      budgetName = Prelude.Nothing
     }
 
--- | A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
-bphBudgetedAndActualAmountsList :: Lens' BudgetPerformanceHistory [BudgetedAndActualAmounts]
-bphBudgetedAndActualAmountsList = lens _bphBudgetedAndActualAmountsList (\s a -> s {_bphBudgetedAndActualAmountsList = a}) . _Default . _Coerce
+-- | A list of amounts of cost or usage that you created budgets for,
+-- compared to your actual costs or usage.
+budgetPerformanceHistory_budgetedAndActualAmountsList :: Lens.Lens' BudgetPerformanceHistory (Prelude.Maybe [BudgetedAndActualAmounts])
+budgetPerformanceHistory_budgetedAndActualAmountsList = Lens.lens (\BudgetPerformanceHistory' {budgetedAndActualAmountsList} -> budgetedAndActualAmountsList) (\s@BudgetPerformanceHistory' {} a -> s {budgetedAndActualAmountsList = a} :: BudgetPerformanceHistory) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-bphTimeUnit :: Lens' BudgetPerformanceHistory (Maybe TimeUnit)
-bphTimeUnit = lens _bphTimeUnit (\s a -> s {_bphTimeUnit = a})
+budgetPerformanceHistory_timeUnit :: Lens.Lens' BudgetPerformanceHistory (Prelude.Maybe TimeUnit)
+budgetPerformanceHistory_timeUnit = Lens.lens (\BudgetPerformanceHistory' {timeUnit} -> timeUnit) (\s@BudgetPerformanceHistory' {} a -> s {timeUnit = a} :: BudgetPerformanceHistory)
 
--- | The history of the cost filters for a budget during the specified time period.
-bphCostFilters :: Lens' BudgetPerformanceHistory (HashMap Text [Text])
-bphCostFilters = lens _bphCostFilters (\s a -> s {_bphCostFilters = a}) . _Default . _Map
+-- | The history of the cost filters for a budget during the specified time
+-- period.
+budgetPerformanceHistory_costFilters :: Lens.Lens' BudgetPerformanceHistory (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+budgetPerformanceHistory_costFilters = Lens.lens (\BudgetPerformanceHistory' {costFilters} -> costFilters) (\s@BudgetPerformanceHistory' {} a -> s {costFilters = a} :: BudgetPerformanceHistory) Prelude.. Lens.mapping Prelude._Map
 
--- | The history of the cost types for a budget during the specified time period.
-bphCostTypes :: Lens' BudgetPerformanceHistory (Maybe CostTypes)
-bphCostTypes = lens _bphCostTypes (\s a -> s {_bphCostTypes = a})
-
--- | Undocumented member.
-bphBudgetType :: Lens' BudgetPerformanceHistory (Maybe BudgetType)
-bphBudgetType = lens _bphBudgetType (\s a -> s {_bphBudgetType = a})
+-- | The history of the cost types for a budget during the specified time
+-- period.
+budgetPerformanceHistory_costTypes :: Lens.Lens' BudgetPerformanceHistory (Prelude.Maybe CostTypes)
+budgetPerformanceHistory_costTypes = Lens.lens (\BudgetPerformanceHistory' {costTypes} -> costTypes) (\s@BudgetPerformanceHistory' {} a -> s {costTypes = a} :: BudgetPerformanceHistory)
 
 -- | Undocumented member.
-bphBudgetName :: Lens' BudgetPerformanceHistory (Maybe Text)
-bphBudgetName = lens _bphBudgetName (\s a -> s {_bphBudgetName = a})
+budgetPerformanceHistory_budgetType :: Lens.Lens' BudgetPerformanceHistory (Prelude.Maybe BudgetType)
+budgetPerformanceHistory_budgetType = Lens.lens (\BudgetPerformanceHistory' {budgetType} -> budgetType) (\s@BudgetPerformanceHistory' {} a -> s {budgetType = a} :: BudgetPerformanceHistory)
 
-instance FromJSON BudgetPerformanceHistory where
+-- | Undocumented member.
+budgetPerformanceHistory_budgetName :: Lens.Lens' BudgetPerformanceHistory (Prelude.Maybe Prelude.Text)
+budgetPerformanceHistory_budgetName = Lens.lens (\BudgetPerformanceHistory' {budgetName} -> budgetName) (\s@BudgetPerformanceHistory' {} a -> s {budgetName = a} :: BudgetPerformanceHistory)
+
+instance Prelude.FromJSON BudgetPerformanceHistory where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BudgetPerformanceHistory"
       ( \x ->
           BudgetPerformanceHistory'
-            <$> (x .:? "BudgetedAndActualAmountsList" .!= mempty)
-            <*> (x .:? "TimeUnit")
-            <*> (x .:? "CostFilters" .!= mempty)
-            <*> (x .:? "CostTypes")
-            <*> (x .:? "BudgetType")
-            <*> (x .:? "BudgetName")
+            Prelude.<$> ( x Prelude..:? "BudgetedAndActualAmountsList"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "TimeUnit")
+            Prelude.<*> ( x Prelude..:? "CostFilters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "CostTypes")
+            Prelude.<*> (x Prelude..:? "BudgetType")
+            Prelude.<*> (x Prelude..:? "BudgetName")
       )
 
-instance Hashable BudgetPerformanceHistory
+instance Prelude.Hashable BudgetPerformanceHistory
 
-instance NFData BudgetPerformanceHistory
+instance Prelude.NFData BudgetPerformanceHistory

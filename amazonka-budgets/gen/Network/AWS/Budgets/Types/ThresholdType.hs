@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.Budgets.Types.ThresholdType
   ( ThresholdType
       ( ..,
-        AbsoluteValue,
-        Percentage
+        ThresholdTypeABSOLUTEVALUE,
+        ThresholdTypePERCENTAGE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The type of threshold for a notification.
-data ThresholdType = ThresholdType' (CI Text)
+newtype ThresholdType = ThresholdType'
+  { fromThresholdType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AbsoluteValue :: ThresholdType
-pattern AbsoluteValue = ThresholdType' "ABSOLUTE_VALUE"
+pattern ThresholdTypeABSOLUTEVALUE :: ThresholdType
+pattern ThresholdTypeABSOLUTEVALUE = ThresholdType' "ABSOLUTE_VALUE"
 
-pattern Percentage :: ThresholdType
-pattern Percentage = ThresholdType' "PERCENTAGE"
+pattern ThresholdTypePERCENTAGE :: ThresholdType
+pattern ThresholdTypePERCENTAGE = ThresholdType' "PERCENTAGE"
 
 {-# COMPLETE
-  AbsoluteValue,
-  Percentage,
+  ThresholdTypeABSOLUTEVALUE,
+  ThresholdTypePERCENTAGE,
   ThresholdType'
   #-}
 
-instance FromText ThresholdType where
-  parser = (ThresholdType' . mk) <$> takeText
+instance Prelude.FromText ThresholdType where
+  parser = ThresholdType' Prelude.<$> Prelude.takeText
 
-instance ToText ThresholdType where
-  toText (ThresholdType' ci) = original ci
+instance Prelude.ToText ThresholdType where
+  toText (ThresholdType' x) = x
 
-instance Hashable ThresholdType
+instance Prelude.Hashable ThresholdType
 
-instance NFData ThresholdType
+instance Prelude.NFData ThresholdType
 
-instance ToByteString ThresholdType
+instance Prelude.ToByteString ThresholdType
 
-instance ToQuery ThresholdType
+instance Prelude.ToQuery ThresholdType
 
-instance ToHeader ThresholdType
+instance Prelude.ToHeader ThresholdType
 
-instance ToJSON ThresholdType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ThresholdType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ThresholdType where
-  parseJSON = parseJSONText "ThresholdType"
+instance Prelude.FromJSON ThresholdType where
+  parseJSON = Prelude.parseJSONText "ThresholdType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +21,67 @@ module Network.AWS.Budgets.Types.NotificationWithSubscribers where
 
 import Network.AWS.Budgets.Types.Notification
 import Network.AWS.Budgets.Types.Subscriber
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A notification with subscribers. A notification can have one SNS subscriber and up to 10 email subscribers, for a total of 11 subscribers.
+-- | A notification with subscribers. A notification can have one SNS
+-- subscriber and up to 10 email subscribers, for a total of 11
+-- subscribers.
 --
---
---
--- /See:/ 'notificationWithSubscribers' smart constructor.
+-- /See:/ 'newNotificationWithSubscribers' smart constructor.
 data NotificationWithSubscribers = NotificationWithSubscribers'
-  { _nwsNotification ::
-      !Notification,
-    _nwsSubscribers ::
-      !( List1
-           Subscriber
-       )
+  { -- | The notification that is associated with a budget.
+    notification :: Notification,
+    -- | A list of subscribers who are subscribed to this notification.
+    subscribers :: Prelude.List1 Subscriber
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotificationWithSubscribers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotificationWithSubscribers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nwsNotification' - The notification that is associated with a budget.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nwsSubscribers' - A list of subscribers who are subscribed to this notification.
-notificationWithSubscribers ::
-  -- | 'nwsNotification'
+-- 'notification', 'notificationWithSubscribers_notification' - The notification that is associated with a budget.
+--
+-- 'subscribers', 'notificationWithSubscribers_subscribers' - A list of subscribers who are subscribed to this notification.
+newNotificationWithSubscribers ::
+  -- | 'notification'
   Notification ->
-  -- | 'nwsSubscribers'
-  NonEmpty Subscriber ->
+  -- | 'subscribers'
+  Prelude.NonEmpty Subscriber ->
   NotificationWithSubscribers
-notificationWithSubscribers
+newNotificationWithSubscribers
   pNotification_
   pSubscribers_ =
     NotificationWithSubscribers'
-      { _nwsNotification =
+      { notification =
           pNotification_,
-        _nwsSubscribers = _List1 # pSubscribers_
+        subscribers =
+          Prelude._List1 Lens.# pSubscribers_
       }
 
 -- | The notification that is associated with a budget.
-nwsNotification :: Lens' NotificationWithSubscribers Notification
-nwsNotification = lens _nwsNotification (\s a -> s {_nwsNotification = a})
+notificationWithSubscribers_notification :: Lens.Lens' NotificationWithSubscribers Notification
+notificationWithSubscribers_notification = Lens.lens (\NotificationWithSubscribers' {notification} -> notification) (\s@NotificationWithSubscribers' {} a -> s {notification = a} :: NotificationWithSubscribers)
 
 -- | A list of subscribers who are subscribed to this notification.
-nwsSubscribers :: Lens' NotificationWithSubscribers (NonEmpty Subscriber)
-nwsSubscribers = lens _nwsSubscribers (\s a -> s {_nwsSubscribers = a}) . _List1
+notificationWithSubscribers_subscribers :: Lens.Lens' NotificationWithSubscribers (Prelude.NonEmpty Subscriber)
+notificationWithSubscribers_subscribers = Lens.lens (\NotificationWithSubscribers' {subscribers} -> subscribers) (\s@NotificationWithSubscribers' {} a -> s {subscribers = a} :: NotificationWithSubscribers) Prelude.. Prelude._List1
 
-instance Hashable NotificationWithSubscribers
+instance Prelude.Hashable NotificationWithSubscribers
 
-instance NFData NotificationWithSubscribers
+instance Prelude.NFData NotificationWithSubscribers
 
-instance ToJSON NotificationWithSubscribers where
+instance Prelude.ToJSON NotificationWithSubscribers where
   toJSON NotificationWithSubscribers' {..} =
-    object
-      ( catMaybes
-          [ Just ("Notification" .= _nwsNotification),
-            Just ("Subscribers" .= _nwsSubscribers)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("Notification" Prelude..= notification),
+            Prelude.Just ("Subscribers" Prelude..= subscribers)
           ]
       )

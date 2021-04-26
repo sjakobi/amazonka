@@ -11,45 +11,54 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The AWS Budgets API enables you to use AWS Budgets to plan your service usage, service costs, and instance reservations. The API reference provides descriptions, syntax, and usage examples for each of the actions and data types for AWS Budgets.
---
+-- The AWS Budgets API enables you to use AWS Budgets to plan your service
+-- usage, service costs, and instance reservations. The API reference
+-- provides descriptions, syntax, and usage examples for each of the
+-- actions and data types for AWS Budgets.
 --
 -- Budgets provide you with a way to see the following information:
 --
---     * How close your plan is to your budgeted amount or to the free tier limits
+-- -   How close your plan is to your budgeted amount or to the free tier
+--     limits
 --
---     * Your usage-to-date, including how much you've used of your Reserved Instances (RIs)
+-- -   Your usage-to-date, including how much you\'ve used of your Reserved
+--     Instances (RIs)
 --
---     * Your current estimated charges from AWS, and how much your predicted usage will accrue in charges by the end of the month
+-- -   Your current estimated charges from AWS, and how much your predicted
+--     usage will accrue in charges by the end of the month
 --
---     * How much of your budget has been used
+-- -   How much of your budget has been used
 --
+-- AWS updates your budget status several times a day. Budgets track your
+-- unblended costs, subscriptions, refunds, and RIs. You can create the
+-- following types of budgets:
 --
+-- -   __Cost budgets__ - Plan how much you want to spend on a service.
 --
--- AWS updates your budget status several times a day. Budgets track your unblended costs, subscriptions, refunds, and RIs. You can create the following types of budgets:
+-- -   __Usage budgets__ - Plan how much you want to use one or more
+--     services.
 --
---     * __Cost budgets__ - Plan how much you want to spend on a service.
+-- -   __RI utilization budgets__ - Define a utilization threshold, and
+--     receive alerts when your RI usage falls below that threshold. This
+--     lets you see if your RIs are unused or under-utilized.
 --
---     * __Usage budgets__ - Plan how much you want to use one or more services.
---
---     * __RI utilization budgets__ - Define a utilization threshold, and receive alerts when your RI usage falls below that threshold. This lets you see if your RIs are unused or under-utilized.
---
---     * __RI coverage budgets__ - Define a coverage threshold, and receive alerts when the number of your instance hours that are covered by RIs fall below that threshold. This lets you see how much of your instance usage is covered by a reservation.
---
---
+-- -   __RI coverage budgets__ - Define a coverage threshold, and receive
+--     alerts when the number of your instance hours that are covered by
+--     RIs fall below that threshold. This lets you see how much of your
+--     instance usage is covered by a reservation.
 --
 -- Service Endpoint
 --
 -- The AWS Budgets API provides the following endpoint:
 --
---     * https://budgets.amazonaws.com
+-- -   https:\/\/budgets.amazonaws.com
 --
---
---
--- For information about costs that are associated with the AWS Budgets API, see <https://aws.amazon.com/aws-cost-management/pricing/ AWS Cost Management Pricing> .
+-- For information about costs that are associated with the AWS Budgets
+-- API, see
+-- <https://aws.amazon.com/aws-cost-management/pricing/ AWS Cost Management Pricing>.
 module Network.AWS.Budgets
   ( -- * Service Configuration
-    budgets,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -88,70 +97,136 @@ module Network.AWS.Budgets
     -- $operations
 
     -- ** CreateBudgetAction
-    module Network.AWS.Budgets.CreateBudgetAction,
+    CreateBudgetAction (CreateBudgetAction'),
+    newCreateBudgetAction,
+    CreateBudgetActionResponse (CreateBudgetActionResponse'),
+    newCreateBudgetActionResponse,
 
     -- ** DescribeBudgetActionsForAccount (Paginated)
-    module Network.AWS.Budgets.DescribeBudgetActionsForAccount,
+    DescribeBudgetActionsForAccount (DescribeBudgetActionsForAccount'),
+    newDescribeBudgetActionsForAccount,
+    DescribeBudgetActionsForAccountResponse (DescribeBudgetActionsForAccountResponse'),
+    newDescribeBudgetActionsForAccountResponse,
 
     -- ** ExecuteBudgetAction
-    module Network.AWS.Budgets.ExecuteBudgetAction,
+    ExecuteBudgetAction (ExecuteBudgetAction'),
+    newExecuteBudgetAction,
+    ExecuteBudgetActionResponse (ExecuteBudgetActionResponse'),
+    newExecuteBudgetActionResponse,
 
     -- ** DescribeBudgetAction
-    module Network.AWS.Budgets.DescribeBudgetAction,
+    DescribeBudgetAction (DescribeBudgetAction'),
+    newDescribeBudgetAction,
+    DescribeBudgetActionResponse (DescribeBudgetActionResponse'),
+    newDescribeBudgetActionResponse,
 
     -- ** DescribeBudgetActionHistories (Paginated)
-    module Network.AWS.Budgets.DescribeBudgetActionHistories,
+    DescribeBudgetActionHistories (DescribeBudgetActionHistories'),
+    newDescribeBudgetActionHistories,
+    DescribeBudgetActionHistoriesResponse (DescribeBudgetActionHistoriesResponse'),
+    newDescribeBudgetActionHistoriesResponse,
 
     -- ** DeleteBudgetAction
-    module Network.AWS.Budgets.DeleteBudgetAction,
+    DeleteBudgetAction (DeleteBudgetAction'),
+    newDeleteBudgetAction,
+    DeleteBudgetActionResponse (DeleteBudgetActionResponse'),
+    newDeleteBudgetActionResponse,
 
     -- ** UpdateBudgetAction
-    module Network.AWS.Budgets.UpdateBudgetAction,
+    UpdateBudgetAction (UpdateBudgetAction'),
+    newUpdateBudgetAction,
+    UpdateBudgetActionResponse (UpdateBudgetActionResponse'),
+    newUpdateBudgetActionResponse,
 
     -- ** DescribeSubscribersForNotification (Paginated)
-    module Network.AWS.Budgets.DescribeSubscribersForNotification,
+    DescribeSubscribersForNotification (DescribeSubscribersForNotification'),
+    newDescribeSubscribersForNotification,
+    DescribeSubscribersForNotificationResponse (DescribeSubscribersForNotificationResponse'),
+    newDescribeSubscribersForNotificationResponse,
 
     -- ** UpdateBudget
-    module Network.AWS.Budgets.UpdateBudget,
+    UpdateBudget (UpdateBudget'),
+    newUpdateBudget,
+    UpdateBudgetResponse (UpdateBudgetResponse'),
+    newUpdateBudgetResponse,
 
     -- ** DeleteBudget
-    module Network.AWS.Budgets.DeleteBudget,
+    DeleteBudget (DeleteBudget'),
+    newDeleteBudget,
+    DeleteBudgetResponse (DeleteBudgetResponse'),
+    newDeleteBudgetResponse,
 
     -- ** UpdateNotification
-    module Network.AWS.Budgets.UpdateNotification,
+    UpdateNotification (UpdateNotification'),
+    newUpdateNotification,
+    UpdateNotificationResponse (UpdateNotificationResponse'),
+    newUpdateNotificationResponse,
 
     -- ** DeleteNotification
-    module Network.AWS.Budgets.DeleteNotification,
+    DeleteNotification (DeleteNotification'),
+    newDeleteNotification,
+    DeleteNotificationResponse (DeleteNotificationResponse'),
+    newDeleteNotificationResponse,
 
     -- ** CreateNotification
-    module Network.AWS.Budgets.CreateNotification,
+    CreateNotification (CreateNotification'),
+    newCreateNotification,
+    CreateNotificationResponse (CreateNotificationResponse'),
+    newCreateNotificationResponse,
 
     -- ** CreateBudget
-    module Network.AWS.Budgets.CreateBudget,
+    CreateBudget (CreateBudget'),
+    newCreateBudget,
+    CreateBudgetResponse (CreateBudgetResponse'),
+    newCreateBudgetResponse,
 
     -- ** CreateSubscriber
-    module Network.AWS.Budgets.CreateSubscriber,
+    CreateSubscriber (CreateSubscriber'),
+    newCreateSubscriber,
+    CreateSubscriberResponse (CreateSubscriberResponse'),
+    newCreateSubscriberResponse,
 
     -- ** UpdateSubscriber
-    module Network.AWS.Budgets.UpdateSubscriber,
+    UpdateSubscriber (UpdateSubscriber'),
+    newUpdateSubscriber,
+    UpdateSubscriberResponse (UpdateSubscriberResponse'),
+    newUpdateSubscriberResponse,
 
     -- ** DeleteSubscriber
-    module Network.AWS.Budgets.DeleteSubscriber,
+    DeleteSubscriber (DeleteSubscriber'),
+    newDeleteSubscriber,
+    DeleteSubscriberResponse (DeleteSubscriberResponse'),
+    newDeleteSubscriberResponse,
 
     -- ** DescribeBudgetActionsForBudget (Paginated)
-    module Network.AWS.Budgets.DescribeBudgetActionsForBudget,
+    DescribeBudgetActionsForBudget (DescribeBudgetActionsForBudget'),
+    newDescribeBudgetActionsForBudget,
+    DescribeBudgetActionsForBudgetResponse (DescribeBudgetActionsForBudgetResponse'),
+    newDescribeBudgetActionsForBudgetResponse,
 
     -- ** DescribeBudgets (Paginated)
-    module Network.AWS.Budgets.DescribeBudgets,
+    DescribeBudgets (DescribeBudgets'),
+    newDescribeBudgets,
+    DescribeBudgetsResponse (DescribeBudgetsResponse'),
+    newDescribeBudgetsResponse,
 
     -- ** DescribeBudget
-    module Network.AWS.Budgets.DescribeBudget,
+    DescribeBudget (DescribeBudget'),
+    newDescribeBudget,
+    DescribeBudgetResponse (DescribeBudgetResponse'),
+    newDescribeBudgetResponse,
 
     -- ** DescribeNotificationsForBudget (Paginated)
-    module Network.AWS.Budgets.DescribeNotificationsForBudget,
+    DescribeNotificationsForBudget (DescribeNotificationsForBudget'),
+    newDescribeNotificationsForBudget,
+    DescribeNotificationsForBudgetResponse (DescribeNotificationsForBudgetResponse'),
+    newDescribeNotificationsForBudgetResponse,
 
     -- ** DescribeBudgetPerformanceHistory (Paginated)
-    module Network.AWS.Budgets.DescribeBudgetPerformanceHistory,
+    DescribeBudgetPerformanceHistory (DescribeBudgetPerformanceHistory'),
+    newDescribeBudgetPerformanceHistory,
+    DescribeBudgetPerformanceHistoryResponse (DescribeBudgetPerformanceHistoryResponse'),
+    newDescribeBudgetPerformanceHistoryResponse,
 
     -- * Types
 
@@ -195,151 +270,76 @@ module Network.AWS.Budgets
     TimeUnit (..),
 
     -- ** Action
-    Action,
-    action,
-    aActionId,
-    aBudgetName,
-    aNotificationType,
-    aActionType,
-    aActionThreshold,
-    aDefinition,
-    aExecutionRoleARN,
-    aApprovalModel,
-    aStatus,
-    aSubscribers,
+    Action (Action'),
+    newAction,
 
     -- ** ActionHistory
-    ActionHistory,
-    actionHistory,
-    ahTimestamp,
-    ahStatus,
-    ahEventType,
-    ahActionHistoryDetails,
+    ActionHistory (ActionHistory'),
+    newActionHistory,
 
     -- ** ActionHistoryDetails
-    ActionHistoryDetails,
-    actionHistoryDetails,
-    ahdMessage,
-    ahdAction,
+    ActionHistoryDetails (ActionHistoryDetails'),
+    newActionHistoryDetails,
 
     -- ** ActionThreshold
-    ActionThreshold,
-    actionThreshold,
-    atActionThresholdValue,
-    atActionThresholdType,
+    ActionThreshold (ActionThreshold'),
+    newActionThreshold,
 
     -- ** Budget
-    Budget,
-    budget,
-    bCostFilters,
-    bTimePeriod,
-    bCostTypes,
-    bPlannedBudgetLimits,
-    bCalculatedSpend,
-    bBudgetLimit,
-    bLastUpdatedTime,
-    bBudgetName,
-    bTimeUnit,
-    bBudgetType,
+    Budget (Budget'),
+    newBudget,
 
     -- ** BudgetPerformanceHistory
-    BudgetPerformanceHistory,
-    budgetPerformanceHistory,
-    bphBudgetedAndActualAmountsList,
-    bphTimeUnit,
-    bphCostFilters,
-    bphCostTypes,
-    bphBudgetType,
-    bphBudgetName,
+    BudgetPerformanceHistory (BudgetPerformanceHistory'),
+    newBudgetPerformanceHistory,
 
     -- ** BudgetedAndActualAmounts
-    BudgetedAndActualAmounts,
-    budgetedAndActualAmounts,
-    baaaTimePeriod,
-    baaaBudgetedAmount,
-    baaaActualAmount,
+    BudgetedAndActualAmounts (BudgetedAndActualAmounts'),
+    newBudgetedAndActualAmounts,
 
     -- ** CalculatedSpend
-    CalculatedSpend,
-    calculatedSpend,
-    csForecastedSpend,
-    csActualSpend,
+    CalculatedSpend (CalculatedSpend'),
+    newCalculatedSpend,
 
     -- ** CostTypes
-    CostTypes,
-    costTypes,
-    ctIncludeSubscription,
-    ctUseAmortized,
-    ctIncludeCredit,
-    ctUseBlended,
-    ctIncludeSupport,
-    ctIncludeRefund,
-    ctIncludeTax,
-    ctIncludeDiscount,
-    ctIncludeOtherSubscription,
-    ctIncludeUpfront,
-    ctIncludeRecurring,
+    CostTypes (CostTypes'),
+    newCostTypes,
 
     -- ** Definition
-    Definition,
-    definition,
-    dIAMActionDefinition,
-    dSsmActionDefinition,
-    dScpActionDefinition,
+    Definition (Definition'),
+    newDefinition,
 
-    -- ** IAMActionDefinition
-    IAMActionDefinition,
-    iamActionDefinition,
-    iadGroups,
-    iadRoles,
-    iadUsers,
-    iadPolicyARN,
+    -- ** IamActionDefinition
+    IamActionDefinition (IamActionDefinition'),
+    newIamActionDefinition,
 
     -- ** Notification
-    Notification,
-    notification,
-    nNotificationState,
-    nThresholdType,
-    nNotificationType,
-    nComparisonOperator,
-    nThreshold,
+    Notification (Notification'),
+    newNotification,
 
     -- ** NotificationWithSubscribers
-    NotificationWithSubscribers,
-    notificationWithSubscribers,
-    nwsNotification,
-    nwsSubscribers,
+    NotificationWithSubscribers (NotificationWithSubscribers'),
+    newNotificationWithSubscribers,
 
     -- ** ScpActionDefinition
-    ScpActionDefinition,
-    scpActionDefinition,
-    sadPolicyId,
-    sadTargetIds,
+    ScpActionDefinition (ScpActionDefinition'),
+    newScpActionDefinition,
 
     -- ** Spend
-    Spend,
-    spend,
-    sAmount,
-    sUnit,
+    Spend (Spend'),
+    newSpend,
 
     -- ** SsmActionDefinition
-    SsmActionDefinition,
-    ssmActionDefinition,
-    sadActionSubType,
-    sadRegion,
-    sadInstanceIds,
+    SsmActionDefinition (SsmActionDefinition'),
+    newSsmActionDefinition,
 
     -- ** Subscriber
-    Subscriber,
-    subscriber,
-    sSubscriptionType,
-    sAddress,
+    Subscriber (Subscriber'),
+    newSubscriber,
 
     -- ** TimePeriod
-    TimePeriod,
-    timePeriod,
-    tpEnd,
-    tpStart,
+    TimePeriod (TimePeriod'),
+    newTimePeriod,
   )
 where
 
@@ -361,6 +361,7 @@ import Network.AWS.Budgets.DescribeBudgets
 import Network.AWS.Budgets.DescribeNotificationsForBudget
 import Network.AWS.Budgets.DescribeSubscribersForNotification
 import Network.AWS.Budgets.ExecuteBudgetAction
+import Network.AWS.Budgets.Lens
 import Network.AWS.Budgets.Types
 import Network.AWS.Budgets.UpdateBudget
 import Network.AWS.Budgets.UpdateBudgetAction

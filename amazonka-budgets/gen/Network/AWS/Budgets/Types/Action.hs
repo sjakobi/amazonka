@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -22,155 +26,173 @@ import Network.AWS.Budgets.Types.ApprovalModel
 import Network.AWS.Budgets.Types.Definition
 import Network.AWS.Budgets.Types.NotificationType
 import Network.AWS.Budgets.Types.Subscriber
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A budget action resource.
 --
---
---
--- /See:/ 'action' smart constructor.
+-- /See:/ 'newAction' smart constructor.
 data Action = Action'
-  { _aActionId :: !Text,
-    _aBudgetName :: !Text,
-    _aNotificationType :: !NotificationType,
-    _aActionType :: !ActionType,
-    _aActionThreshold :: !ActionThreshold,
-    _aDefinition :: !Definition,
-    _aExecutionRoleARN :: !Text,
-    _aApprovalModel :: !ApprovalModel,
-    _aStatus :: !ActionStatus,
-    _aSubscribers :: !(List1 Subscriber)
+  { -- | A system-generated universally unique identifier (UUID) for the action.
+    actionId :: Prelude.Text,
+    budgetName :: Prelude.Text,
+    notificationType :: NotificationType,
+    -- | The type of action. This defines the type of tasks that can be carried
+    -- out by this action. This field also determines the format for
+    -- definition.
+    actionType :: ActionType,
+    -- | The trigger threshold of the action.
+    actionThreshold :: ActionThreshold,
+    -- | Where you specify all of the type-specific parameters.
+    definition :: Definition,
+    -- | The role passed for action execution and reversion. Roles and actions
+    -- must be in the same account.
+    executionRoleArn :: Prelude.Text,
+    -- | This specifies if the action needs manual or automatic approval.
+    approvalModel :: ApprovalModel,
+    -- | The status of action.
+    status :: ActionStatus,
+    subscribers :: Prelude.List1 Subscriber
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Action' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Action' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aActionId' - A system-generated universally unique identifier (UUID) for the action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aBudgetName' - Undocumented member.
+-- 'actionId', 'action_actionId' - A system-generated universally unique identifier (UUID) for the action.
 --
--- * 'aNotificationType' - Undocumented member.
+-- 'budgetName', 'action_budgetName' - Undocumented member.
 --
--- * 'aActionType' - The type of action. This defines the type of tasks that can be carried out by this action. This field also determines the format for definition.
+-- 'notificationType', 'action_notificationType' - Undocumented member.
 --
--- * 'aActionThreshold' - The trigger threshold of the action.
+-- 'actionType', 'action_actionType' - The type of action. This defines the type of tasks that can be carried
+-- out by this action. This field also determines the format for
+-- definition.
 --
--- * 'aDefinition' - Where you specify all of the type-specific parameters.
+-- 'actionThreshold', 'action_actionThreshold' - The trigger threshold of the action.
 --
--- * 'aExecutionRoleARN' - The role passed for action execution and reversion. Roles and actions must be in the same account.
+-- 'definition', 'action_definition' - Where you specify all of the type-specific parameters.
 --
--- * 'aApprovalModel' - This specifies if the action needs manual or automatic approval.
+-- 'executionRoleArn', 'action_executionRoleArn' - The role passed for action execution and reversion. Roles and actions
+-- must be in the same account.
 --
--- * 'aStatus' - The status of action.
+-- 'approvalModel', 'action_approvalModel' - This specifies if the action needs manual or automatic approval.
 --
--- * 'aSubscribers' - Undocumented member.
-action ::
-  -- | 'aActionId'
-  Text ->
-  -- | 'aBudgetName'
-  Text ->
-  -- | 'aNotificationType'
+-- 'status', 'action_status' - The status of action.
+--
+-- 'subscribers', 'action_subscribers' - Undocumented member.
+newAction ::
+  -- | 'actionId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'notificationType'
   NotificationType ->
-  -- | 'aActionType'
+  -- | 'actionType'
   ActionType ->
-  -- | 'aActionThreshold'
+  -- | 'actionThreshold'
   ActionThreshold ->
-  -- | 'aDefinition'
+  -- | 'definition'
   Definition ->
-  -- | 'aExecutionRoleARN'
-  Text ->
-  -- | 'aApprovalModel'
+  -- | 'executionRoleArn'
+  Prelude.Text ->
+  -- | 'approvalModel'
   ApprovalModel ->
-  -- | 'aStatus'
+  -- | 'status'
   ActionStatus ->
-  -- | 'aSubscribers'
-  NonEmpty Subscriber ->
+  -- | 'subscribers'
+  Prelude.NonEmpty Subscriber ->
   Action
-action
+newAction
   pActionId_
   pBudgetName_
   pNotificationType_
   pActionType_
   pActionThreshold_
   pDefinition_
-  pExecutionRoleARN_
+  pExecutionRoleArn_
   pApprovalModel_
   pStatus_
   pSubscribers_ =
     Action'
-      { _aActionId = pActionId_,
-        _aBudgetName = pBudgetName_,
-        _aNotificationType = pNotificationType_,
-        _aActionType = pActionType_,
-        _aActionThreshold = pActionThreshold_,
-        _aDefinition = pDefinition_,
-        _aExecutionRoleARN = pExecutionRoleARN_,
-        _aApprovalModel = pApprovalModel_,
-        _aStatus = pStatus_,
-        _aSubscribers = _List1 # pSubscribers_
+      { actionId = pActionId_,
+        budgetName = pBudgetName_,
+        notificationType = pNotificationType_,
+        actionType = pActionType_,
+        actionThreshold = pActionThreshold_,
+        definition = pDefinition_,
+        executionRoleArn = pExecutionRoleArn_,
+        approvalModel = pApprovalModel_,
+        status = pStatus_,
+        subscribers = Prelude._List1 Lens.# pSubscribers_
       }
 
 -- | A system-generated universally unique identifier (UUID) for the action.
-aActionId :: Lens' Action Text
-aActionId = lens _aActionId (\s a -> s {_aActionId = a})
+action_actionId :: Lens.Lens' Action Prelude.Text
+action_actionId = Lens.lens (\Action' {actionId} -> actionId) (\s@Action' {} a -> s {actionId = a} :: Action)
 
 -- | Undocumented member.
-aBudgetName :: Lens' Action Text
-aBudgetName = lens _aBudgetName (\s a -> s {_aBudgetName = a})
+action_budgetName :: Lens.Lens' Action Prelude.Text
+action_budgetName = Lens.lens (\Action' {budgetName} -> budgetName) (\s@Action' {} a -> s {budgetName = a} :: Action)
 
 -- | Undocumented member.
-aNotificationType :: Lens' Action NotificationType
-aNotificationType = lens _aNotificationType (\s a -> s {_aNotificationType = a})
+action_notificationType :: Lens.Lens' Action NotificationType
+action_notificationType = Lens.lens (\Action' {notificationType} -> notificationType) (\s@Action' {} a -> s {notificationType = a} :: Action)
 
--- | The type of action. This defines the type of tasks that can be carried out by this action. This field also determines the format for definition.
-aActionType :: Lens' Action ActionType
-aActionType = lens _aActionType (\s a -> s {_aActionType = a})
+-- | The type of action. This defines the type of tasks that can be carried
+-- out by this action. This field also determines the format for
+-- definition.
+action_actionType :: Lens.Lens' Action ActionType
+action_actionType = Lens.lens (\Action' {actionType} -> actionType) (\s@Action' {} a -> s {actionType = a} :: Action)
 
 -- | The trigger threshold of the action.
-aActionThreshold :: Lens' Action ActionThreshold
-aActionThreshold = lens _aActionThreshold (\s a -> s {_aActionThreshold = a})
+action_actionThreshold :: Lens.Lens' Action ActionThreshold
+action_actionThreshold = Lens.lens (\Action' {actionThreshold} -> actionThreshold) (\s@Action' {} a -> s {actionThreshold = a} :: Action)
 
 -- | Where you specify all of the type-specific parameters.
-aDefinition :: Lens' Action Definition
-aDefinition = lens _aDefinition (\s a -> s {_aDefinition = a})
+action_definition :: Lens.Lens' Action Definition
+action_definition = Lens.lens (\Action' {definition} -> definition) (\s@Action' {} a -> s {definition = a} :: Action)
 
--- | The role passed for action execution and reversion. Roles and actions must be in the same account.
-aExecutionRoleARN :: Lens' Action Text
-aExecutionRoleARN = lens _aExecutionRoleARN (\s a -> s {_aExecutionRoleARN = a})
+-- | The role passed for action execution and reversion. Roles and actions
+-- must be in the same account.
+action_executionRoleArn :: Lens.Lens' Action Prelude.Text
+action_executionRoleArn = Lens.lens (\Action' {executionRoleArn} -> executionRoleArn) (\s@Action' {} a -> s {executionRoleArn = a} :: Action)
 
 -- | This specifies if the action needs manual or automatic approval.
-aApprovalModel :: Lens' Action ApprovalModel
-aApprovalModel = lens _aApprovalModel (\s a -> s {_aApprovalModel = a})
+action_approvalModel :: Lens.Lens' Action ApprovalModel
+action_approvalModel = Lens.lens (\Action' {approvalModel} -> approvalModel) (\s@Action' {} a -> s {approvalModel = a} :: Action)
 
 -- | The status of action.
-aStatus :: Lens' Action ActionStatus
-aStatus = lens _aStatus (\s a -> s {_aStatus = a})
+action_status :: Lens.Lens' Action ActionStatus
+action_status = Lens.lens (\Action' {status} -> status) (\s@Action' {} a -> s {status = a} :: Action)
 
 -- | Undocumented member.
-aSubscribers :: Lens' Action (NonEmpty Subscriber)
-aSubscribers = lens _aSubscribers (\s a -> s {_aSubscribers = a}) . _List1
+action_subscribers :: Lens.Lens' Action (Prelude.NonEmpty Subscriber)
+action_subscribers = Lens.lens (\Action' {subscribers} -> subscribers) (\s@Action' {} a -> s {subscribers = a} :: Action) Prelude.. Prelude._List1
 
-instance FromJSON Action where
+instance Prelude.FromJSON Action where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Action"
       ( \x ->
           Action'
-            <$> (x .: "ActionId")
-            <*> (x .: "BudgetName")
-            <*> (x .: "NotificationType")
-            <*> (x .: "ActionType")
-            <*> (x .: "ActionThreshold")
-            <*> (x .: "Definition")
-            <*> (x .: "ExecutionRoleArn")
-            <*> (x .: "ApprovalModel")
-            <*> (x .: "Status")
-            <*> (x .: "Subscribers")
+            Prelude.<$> (x Prelude..: "ActionId")
+            Prelude.<*> (x Prelude..: "BudgetName")
+            Prelude.<*> (x Prelude..: "NotificationType")
+            Prelude.<*> (x Prelude..: "ActionType")
+            Prelude.<*> (x Prelude..: "ActionThreshold")
+            Prelude.<*> (x Prelude..: "Definition")
+            Prelude.<*> (x Prelude..: "ExecutionRoleArn")
+            Prelude.<*> (x Prelude..: "ApprovalModel")
+            Prelude.<*> (x Prelude..: "Status")
+            Prelude.<*> (x Prelude..: "Subscribers")
       )
 
-instance Hashable Action
+instance Prelude.Hashable Action
 
-instance NFData Action
+instance Prelude.NFData Action

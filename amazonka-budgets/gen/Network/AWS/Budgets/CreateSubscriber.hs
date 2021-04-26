@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a subscriber. You must create the associated budget and notification before you create the subscriber.
+-- Creates a subscriber. You must create the associated budget and
+-- notification before you create the subscriber.
 module Network.AWS.Budgets.CreateSubscriber
   ( -- * Creating a Request
-    createSubscriber,
-    CreateSubscriber,
+    CreateSubscriber (..),
+    newCreateSubscriber,
 
     -- * Request Lenses
-    csAccountId,
-    csBudgetName,
-    csNotification,
-    csSubscriber,
+    createSubscriber_accountId,
+    createSubscriber_budgetName,
+    createSubscriber_notification,
+    createSubscriber_subscriber,
 
     -- * Destructuring the Response
-    createSubscriberResponse,
-    CreateSubscriberResponse,
+    CreateSubscriberResponse (..),
+    newCreateSubscriberResponse,
 
     -- * Response Lenses
-    csrrsResponseStatus,
+    createSubscriberResponse_httpStatus,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request of CreateSubscriber
 --
---
---
--- /See:/ 'createSubscriber' smart constructor.
+-- /See:/ 'newCreateSubscriber' smart constructor.
 data CreateSubscriber = CreateSubscriber'
-  { _csAccountId ::
-      !Text,
-    _csBudgetName :: !Text,
-    _csNotification :: !Notification,
-    _csSubscriber :: !Subscriber
+  { -- | The @accountId@ that is associated with the budget that you want to
+    -- create a subscriber for.
+    accountId :: Prelude.Text,
+    -- | The name of the budget that you want to subscribe to. Budget names must
+    -- be unique within an account.
+    budgetName :: Prelude.Text,
+    -- | The notification that you want to create a subscriber for.
+    notification :: Notification,
+    -- | The subscriber that you want to associate with a budget notification.
+    subscriber :: Subscriber
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSubscriber' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSubscriber' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csAccountId' - The @accountId@ that is associated with the budget that you want to create a subscriber for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csBudgetName' - The name of the budget that you want to subscribe to. Budget names must be unique within an account.
+-- 'accountId', 'createSubscriber_accountId' - The @accountId@ that is associated with the budget that you want to
+-- create a subscriber for.
 --
--- * 'csNotification' - The notification that you want to create a subscriber for.
+-- 'budgetName', 'createSubscriber_budgetName' - The name of the budget that you want to subscribe to. Budget names must
+-- be unique within an account.
 --
--- * 'csSubscriber' - The subscriber that you want to associate with a budget notification.
-createSubscriber ::
-  -- | 'csAccountId'
-  Text ->
-  -- | 'csBudgetName'
-  Text ->
-  -- | 'csNotification'
+-- 'notification', 'createSubscriber_notification' - The notification that you want to create a subscriber for.
+--
+-- 'subscriber', 'createSubscriber_subscriber' - The subscriber that you want to associate with a budget notification.
+newCreateSubscriber ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'notification'
   Notification ->
-  -- | 'csSubscriber'
+  -- | 'subscriber'
   Subscriber ->
   CreateSubscriber
-createSubscriber
+newCreateSubscriber
   pAccountId_
   pBudgetName_
   pNotification_
   pSubscriber_ =
     CreateSubscriber'
-      { _csAccountId = pAccountId_,
-        _csBudgetName = pBudgetName_,
-        _csNotification = pNotification_,
-        _csSubscriber = pSubscriber_
+      { accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        notification = pNotification_,
+        subscriber = pSubscriber_
       }
 
--- | The @accountId@ that is associated with the budget that you want to create a subscriber for.
-csAccountId :: Lens' CreateSubscriber Text
-csAccountId = lens _csAccountId (\s a -> s {_csAccountId = a})
+-- | The @accountId@ that is associated with the budget that you want to
+-- create a subscriber for.
+createSubscriber_accountId :: Lens.Lens' CreateSubscriber Prelude.Text
+createSubscriber_accountId = Lens.lens (\CreateSubscriber' {accountId} -> accountId) (\s@CreateSubscriber' {} a -> s {accountId = a} :: CreateSubscriber)
 
--- | The name of the budget that you want to subscribe to. Budget names must be unique within an account.
-csBudgetName :: Lens' CreateSubscriber Text
-csBudgetName = lens _csBudgetName (\s a -> s {_csBudgetName = a})
+-- | The name of the budget that you want to subscribe to. Budget names must
+-- be unique within an account.
+createSubscriber_budgetName :: Lens.Lens' CreateSubscriber Prelude.Text
+createSubscriber_budgetName = Lens.lens (\CreateSubscriber' {budgetName} -> budgetName) (\s@CreateSubscriber' {} a -> s {budgetName = a} :: CreateSubscriber)
 
 -- | The notification that you want to create a subscriber for.
-csNotification :: Lens' CreateSubscriber Notification
-csNotification = lens _csNotification (\s a -> s {_csNotification = a})
+createSubscriber_notification :: Lens.Lens' CreateSubscriber Notification
+createSubscriber_notification = Lens.lens (\CreateSubscriber' {notification} -> notification) (\s@CreateSubscriber' {} a -> s {notification = a} :: CreateSubscriber)
 
 -- | The subscriber that you want to associate with a budget notification.
-csSubscriber :: Lens' CreateSubscriber Subscriber
-csSubscriber = lens _csSubscriber (\s a -> s {_csSubscriber = a})
+createSubscriber_subscriber :: Lens.Lens' CreateSubscriber Subscriber
+createSubscriber_subscriber = Lens.lens (\CreateSubscriber' {subscriber} -> subscriber) (\s@CreateSubscriber' {} a -> s {subscriber = a} :: CreateSubscriber)
 
-instance AWSRequest CreateSubscriber where
+instance Prelude.AWSRequest CreateSubscriber where
   type Rs CreateSubscriber = CreateSubscriberResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CreateSubscriberResponse' <$> (pure (fromEnum s))
+          CreateSubscriberResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSubscriber
+instance Prelude.Hashable CreateSubscriber
 
-instance NFData CreateSubscriber
+instance Prelude.NFData CreateSubscriber
 
-instance ToHeaders CreateSubscriber where
+instance Prelude.ToHeaders CreateSubscriber where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.CreateSubscriber" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.CreateSubscriber" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateSubscriber where
+instance Prelude.ToJSON CreateSubscriber where
   toJSON CreateSubscriber' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountId" .= _csAccountId),
-            Just ("BudgetName" .= _csBudgetName),
-            Just ("Notification" .= _csNotification),
-            Just ("Subscriber" .= _csSubscriber)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("BudgetName" Prelude..= budgetName),
+            Prelude.Just
+              ("Notification" Prelude..= notification),
+            Prelude.Just ("Subscriber" Prelude..= subscriber)
           ]
       )
 
-instance ToPath CreateSubscriber where
-  toPath = const "/"
+instance Prelude.ToPath CreateSubscriber where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateSubscriber where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateSubscriber where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Response of CreateSubscriber
 --
---
---
--- /See:/ 'createSubscriberResponse' smart constructor.
-newtype CreateSubscriberResponse = CreateSubscriberResponse'
-  { _csrrsResponseStatus ::
-      Int
+-- /See:/ 'newCreateSubscriberResponse' smart constructor.
+data CreateSubscriberResponse = CreateSubscriberResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSubscriberResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSubscriberResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csrrsResponseStatus' - -- | The response status code.
-createSubscriberResponse ::
-  -- | 'csrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createSubscriberResponse_httpStatus' - The response's http status code.
+newCreateSubscriberResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSubscriberResponse
-createSubscriberResponse pResponseStatus_ =
+newCreateSubscriberResponse pHttpStatus_ =
   CreateSubscriberResponse'
-    { _csrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-csrrsResponseStatus :: Lens' CreateSubscriberResponse Int
-csrrsResponseStatus = lens _csrrsResponseStatus (\s a -> s {_csrrsResponseStatus = a})
+-- | The response's http status code.
+createSubscriberResponse_httpStatus :: Lens.Lens' CreateSubscriberResponse Prelude.Int
+createSubscriberResponse_httpStatus = Lens.lens (\CreateSubscriberResponse' {httpStatus} -> httpStatus) (\s@CreateSubscriberResponse' {} a -> s {httpStatus = a} :: CreateSubscriberResponse)
 
-instance NFData CreateSubscriberResponse
+instance Prelude.NFData CreateSubscriberResponse

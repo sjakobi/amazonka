@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,189 +24,197 @@
 -- Deletes a budget action.
 module Network.AWS.Budgets.DeleteBudgetAction
   ( -- * Creating a Request
-    deleteBudgetAction,
-    DeleteBudgetAction,
+    DeleteBudgetAction (..),
+    newDeleteBudgetAction,
 
     -- * Request Lenses
-    dAccountId,
-    dBudgetName,
-    dActionId,
+    deleteBudgetAction_accountId,
+    deleteBudgetAction_budgetName,
+    deleteBudgetAction_actionId,
 
     -- * Destructuring the Response
-    deleteBudgetActionResponse,
-    DeleteBudgetActionResponse,
+    DeleteBudgetActionResponse (..),
+    newDeleteBudgetActionResponse,
 
     -- * Response Lenses
-    dbarrsResponseStatus,
-    dbarrsAccountId,
-    dbarrsBudgetName,
-    dbarrsAction,
+    deleteBudgetActionResponse_httpStatus,
+    deleteBudgetActionResponse_accountId,
+    deleteBudgetActionResponse_budgetName,
+    deleteBudgetActionResponse_action,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Budgets.Types.Action
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteBudgetAction' smart constructor.
+-- | /See:/ 'newDeleteBudgetAction' smart constructor.
 data DeleteBudgetAction = DeleteBudgetAction'
-  { _dAccountId ::
-      !Text,
-    _dBudgetName :: !Text,
-    _dActionId :: !Text
+  { accountId :: Prelude.Text,
+    budgetName :: Prelude.Text,
+    -- | A system-generated universally unique identifier (UUID) for the action.
+    actionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBudgetAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBudgetAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dAccountId' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dBudgetName' - Undocumented member.
+-- 'accountId', 'deleteBudgetAction_accountId' - Undocumented member.
 --
--- * 'dActionId' - A system-generated universally unique identifier (UUID) for the action.
-deleteBudgetAction ::
-  -- | 'dAccountId'
-  Text ->
-  -- | 'dBudgetName'
-  Text ->
-  -- | 'dActionId'
-  Text ->
+-- 'budgetName', 'deleteBudgetAction_budgetName' - Undocumented member.
+--
+-- 'actionId', 'deleteBudgetAction_actionId' - A system-generated universally unique identifier (UUID) for the action.
+newDeleteBudgetAction ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'actionId'
+  Prelude.Text ->
   DeleteBudgetAction
-deleteBudgetAction
+newDeleteBudgetAction
   pAccountId_
   pBudgetName_
   pActionId_ =
     DeleteBudgetAction'
-      { _dAccountId = pAccountId_,
-        _dBudgetName = pBudgetName_,
-        _dActionId = pActionId_
+      { accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        actionId = pActionId_
       }
 
 -- | Undocumented member.
-dAccountId :: Lens' DeleteBudgetAction Text
-dAccountId = lens _dAccountId (\s a -> s {_dAccountId = a})
+deleteBudgetAction_accountId :: Lens.Lens' DeleteBudgetAction Prelude.Text
+deleteBudgetAction_accountId = Lens.lens (\DeleteBudgetAction' {accountId} -> accountId) (\s@DeleteBudgetAction' {} a -> s {accountId = a} :: DeleteBudgetAction)
 
 -- | Undocumented member.
-dBudgetName :: Lens' DeleteBudgetAction Text
-dBudgetName = lens _dBudgetName (\s a -> s {_dBudgetName = a})
+deleteBudgetAction_budgetName :: Lens.Lens' DeleteBudgetAction Prelude.Text
+deleteBudgetAction_budgetName = Lens.lens (\DeleteBudgetAction' {budgetName} -> budgetName) (\s@DeleteBudgetAction' {} a -> s {budgetName = a} :: DeleteBudgetAction)
 
 -- | A system-generated universally unique identifier (UUID) for the action.
-dActionId :: Lens' DeleteBudgetAction Text
-dActionId = lens _dActionId (\s a -> s {_dActionId = a})
+deleteBudgetAction_actionId :: Lens.Lens' DeleteBudgetAction Prelude.Text
+deleteBudgetAction_actionId = Lens.lens (\DeleteBudgetAction' {actionId} -> actionId) (\s@DeleteBudgetAction' {} a -> s {actionId = a} :: DeleteBudgetAction)
 
-instance AWSRequest DeleteBudgetAction where
+instance Prelude.AWSRequest DeleteBudgetAction where
   type
     Rs DeleteBudgetAction =
       DeleteBudgetActionResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteBudgetActionResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "AccountId")
-            <*> (x .:> "BudgetName")
-            <*> (x .:> "Action")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "AccountId")
+            Prelude.<*> (x Prelude..:> "BudgetName")
+            Prelude.<*> (x Prelude..:> "Action")
       )
 
-instance Hashable DeleteBudgetAction
+instance Prelude.Hashable DeleteBudgetAction
 
-instance NFData DeleteBudgetAction
+instance Prelude.NFData DeleteBudgetAction
 
-instance ToHeaders DeleteBudgetAction where
+instance Prelude.ToHeaders DeleteBudgetAction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.DeleteBudgetAction" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.DeleteBudgetAction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteBudgetAction where
+instance Prelude.ToJSON DeleteBudgetAction where
   toJSON DeleteBudgetAction' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountId" .= _dAccountId),
-            Just ("BudgetName" .= _dBudgetName),
-            Just ("ActionId" .= _dActionId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("BudgetName" Prelude..= budgetName),
+            Prelude.Just ("ActionId" Prelude..= actionId)
           ]
       )
 
-instance ToPath DeleteBudgetAction where
-  toPath = const "/"
+instance Prelude.ToPath DeleteBudgetAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteBudgetAction where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteBudgetAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteBudgetActionResponse' smart constructor.
+-- | /See:/ 'newDeleteBudgetActionResponse' smart constructor.
 data DeleteBudgetActionResponse = DeleteBudgetActionResponse'
-  { _dbarrsResponseStatus ::
-      !Int,
-    _dbarrsAccountId ::
-      !Text,
-    _dbarrsBudgetName ::
-      !Text,
-    _dbarrsAction ::
-      !Action
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    accountId :: Prelude.Text,
+    budgetName :: Prelude.Text,
+    action :: Action
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBudgetActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBudgetActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbarrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbarrsAccountId' - Undocumented member.
+-- 'httpStatus', 'deleteBudgetActionResponse_httpStatus' - The response's http status code.
 --
--- * 'dbarrsBudgetName' - Undocumented member.
+-- 'accountId', 'deleteBudgetActionResponse_accountId' - Undocumented member.
 --
--- * 'dbarrsAction' - Undocumented member.
-deleteBudgetActionResponse ::
-  -- | 'dbarrsResponseStatus'
-  Int ->
-  -- | 'dbarrsAccountId'
-  Text ->
-  -- | 'dbarrsBudgetName'
-  Text ->
-  -- | 'dbarrsAction'
+-- 'budgetName', 'deleteBudgetActionResponse_budgetName' - Undocumented member.
+--
+-- 'action', 'deleteBudgetActionResponse_action' - Undocumented member.
+newDeleteBudgetActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'action'
   Action ->
   DeleteBudgetActionResponse
-deleteBudgetActionResponse
-  pResponseStatus_
+newDeleteBudgetActionResponse
+  pHttpStatus_
   pAccountId_
   pBudgetName_
   pAction_ =
     DeleteBudgetActionResponse'
-      { _dbarrsResponseStatus =
-          pResponseStatus_,
-        _dbarrsAccountId = pAccountId_,
-        _dbarrsBudgetName = pBudgetName_,
-        _dbarrsAction = pAction_
+      { httpStatus =
+          pHttpStatus_,
+        accountId = pAccountId_,
+        budgetName = pBudgetName_,
+        action = pAction_
       }
 
--- | -- | The response status code.
-dbarrsResponseStatus :: Lens' DeleteBudgetActionResponse Int
-dbarrsResponseStatus = lens _dbarrsResponseStatus (\s a -> s {_dbarrsResponseStatus = a})
+-- | The response's http status code.
+deleteBudgetActionResponse_httpStatus :: Lens.Lens' DeleteBudgetActionResponse Prelude.Int
+deleteBudgetActionResponse_httpStatus = Lens.lens (\DeleteBudgetActionResponse' {httpStatus} -> httpStatus) (\s@DeleteBudgetActionResponse' {} a -> s {httpStatus = a} :: DeleteBudgetActionResponse)
 
 -- | Undocumented member.
-dbarrsAccountId :: Lens' DeleteBudgetActionResponse Text
-dbarrsAccountId = lens _dbarrsAccountId (\s a -> s {_dbarrsAccountId = a})
+deleteBudgetActionResponse_accountId :: Lens.Lens' DeleteBudgetActionResponse Prelude.Text
+deleteBudgetActionResponse_accountId = Lens.lens (\DeleteBudgetActionResponse' {accountId} -> accountId) (\s@DeleteBudgetActionResponse' {} a -> s {accountId = a} :: DeleteBudgetActionResponse)
 
 -- | Undocumented member.
-dbarrsBudgetName :: Lens' DeleteBudgetActionResponse Text
-dbarrsBudgetName = lens _dbarrsBudgetName (\s a -> s {_dbarrsBudgetName = a})
+deleteBudgetActionResponse_budgetName :: Lens.Lens' DeleteBudgetActionResponse Prelude.Text
+deleteBudgetActionResponse_budgetName = Lens.lens (\DeleteBudgetActionResponse' {budgetName} -> budgetName) (\s@DeleteBudgetActionResponse' {} a -> s {budgetName = a} :: DeleteBudgetActionResponse)
 
 -- | Undocumented member.
-dbarrsAction :: Lens' DeleteBudgetActionResponse Action
-dbarrsAction = lens _dbarrsAction (\s a -> s {_dbarrsAction = a})
+deleteBudgetActionResponse_action :: Lens.Lens' DeleteBudgetActionResponse Action
+deleteBudgetActionResponse_action = Lens.lens (\DeleteBudgetActionResponse' {action} -> action) (\s@DeleteBudgetActionResponse' {} a -> s {action = a} :: DeleteBudgetActionResponse)
 
-instance NFData DeleteBudgetActionResponse
+instance Prelude.NFData DeleteBudgetActionResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,188 +23,218 @@
 --
 -- Lists the budgets that are associated with an account.
 --
---
--- /Important:/ The Request Syntax section shows the @BudgetLimit@ syntax. For @PlannedBudgetLimits@ , see the <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_budgets_DescribeBudgets.html#API_DescribeBudgets_Examples Examples> section.
---
+-- The Request Syntax section shows the @BudgetLimit@ syntax. For
+-- @PlannedBudgetLimits@, see the
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_budgets_DescribeBudgets.html#API_DescribeBudgets_Examples Examples>
+-- section.
 --
 -- This operation returns paginated results.
 module Network.AWS.Budgets.DescribeBudgets
   ( -- * Creating a Request
-    describeBudgets,
-    DescribeBudgets,
+    DescribeBudgets (..),
+    newDescribeBudgets,
 
     -- * Request Lenses
-    dbsNextToken,
-    dbsMaxResults,
-    dbsAccountId,
+    describeBudgets_nextToken,
+    describeBudgets_maxResults,
+    describeBudgets_accountId,
 
     -- * Destructuring the Response
-    describeBudgetsResponse,
-    DescribeBudgetsResponse,
+    DescribeBudgetsResponse (..),
+    newDescribeBudgetsResponse,
 
     -- * Response Lenses
-    desrsNextToken,
-    desrsBudgets,
-    desrsResponseStatus,
+    describeBudgetsResponse_nextToken,
+    describeBudgetsResponse_budgets,
+    describeBudgetsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Budgets.Types.Budget
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request of DescribeBudgets
 --
---
---
--- /See:/ 'describeBudgets' smart constructor.
+-- /See:/ 'newDescribeBudgets' smart constructor.
 data DescribeBudgets = DescribeBudgets'
-  { _dbsNextToken ::
-      !(Maybe Text),
-    _dbsMaxResults :: !(Maybe Nat),
-    _dbsAccountId :: !Text
+  { -- | The pagination token that you include in your request to indicate the
+    -- next set of results that you want to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An optional integer that represents how many entries a paginated
+    -- response contains. The maximum is 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The @accountId@ that is associated with the budgets that you want
+    -- descriptions of.
+    accountId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBudgets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBudgets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbsNextToken' - The pagination token that you include in your request to indicate the next set of results that you want to retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbsMaxResults' - An optional integer that represents how many entries a paginated response contains. The maximum is 100.
+-- 'nextToken', 'describeBudgets_nextToken' - The pagination token that you include in your request to indicate the
+-- next set of results that you want to retrieve.
 --
--- * 'dbsAccountId' - The @accountId@ that is associated with the budgets that you want descriptions of.
-describeBudgets ::
-  -- | 'dbsAccountId'
-  Text ->
+-- 'maxResults', 'describeBudgets_maxResults' - An optional integer that represents how many entries a paginated
+-- response contains. The maximum is 100.
+--
+-- 'accountId', 'describeBudgets_accountId' - The @accountId@ that is associated with the budgets that you want
+-- descriptions of.
+newDescribeBudgets ::
+  -- | 'accountId'
+  Prelude.Text ->
   DescribeBudgets
-describeBudgets pAccountId_ =
+newDescribeBudgets pAccountId_ =
   DescribeBudgets'
-    { _dbsNextToken = Nothing,
-      _dbsMaxResults = Nothing,
-      _dbsAccountId = pAccountId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      accountId = pAccountId_
     }
 
--- | The pagination token that you include in your request to indicate the next set of results that you want to retrieve.
-dbsNextToken :: Lens' DescribeBudgets (Maybe Text)
-dbsNextToken = lens _dbsNextToken (\s a -> s {_dbsNextToken = a})
+-- | The pagination token that you include in your request to indicate the
+-- next set of results that you want to retrieve.
+describeBudgets_nextToken :: Lens.Lens' DescribeBudgets (Prelude.Maybe Prelude.Text)
+describeBudgets_nextToken = Lens.lens (\DescribeBudgets' {nextToken} -> nextToken) (\s@DescribeBudgets' {} a -> s {nextToken = a} :: DescribeBudgets)
 
--- | An optional integer that represents how many entries a paginated response contains. The maximum is 100.
-dbsMaxResults :: Lens' DescribeBudgets (Maybe Natural)
-dbsMaxResults = lens _dbsMaxResults (\s a -> s {_dbsMaxResults = a}) . mapping _Nat
+-- | An optional integer that represents how many entries a paginated
+-- response contains. The maximum is 100.
+describeBudgets_maxResults :: Lens.Lens' DescribeBudgets (Prelude.Maybe Prelude.Natural)
+describeBudgets_maxResults = Lens.lens (\DescribeBudgets' {maxResults} -> maxResults) (\s@DescribeBudgets' {} a -> s {maxResults = a} :: DescribeBudgets) Prelude.. Lens.mapping Prelude._Nat
 
--- | The @accountId@ that is associated with the budgets that you want descriptions of.
-dbsAccountId :: Lens' DescribeBudgets Text
-dbsAccountId = lens _dbsAccountId (\s a -> s {_dbsAccountId = a})
+-- | The @accountId@ that is associated with the budgets that you want
+-- descriptions of.
+describeBudgets_accountId :: Lens.Lens' DescribeBudgets Prelude.Text
+describeBudgets_accountId = Lens.lens (\DescribeBudgets' {accountId} -> accountId) (\s@DescribeBudgets' {} a -> s {accountId = a} :: DescribeBudgets)
 
-instance AWSPager DescribeBudgets where
+instance Pager.AWSPager DescribeBudgets where
   page rq rs
-    | stop (rs ^. desrsNextToken) = Nothing
-    | stop (rs ^. desrsBudgets) = Nothing
-    | otherwise =
-      Just $ rq & dbsNextToken .~ rs ^. desrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeBudgetsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeBudgetsResponse_budgets Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeBudgets_nextToken
+          Lens..~ rs
+          Lens.^? describeBudgetsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeBudgets where
+instance Prelude.AWSRequest DescribeBudgets where
   type Rs DescribeBudgets = DescribeBudgetsResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeBudgetsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Budgets" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Budgets" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeBudgets
+instance Prelude.Hashable DescribeBudgets
 
-instance NFData DescribeBudgets
+instance Prelude.NFData DescribeBudgets
 
-instance ToHeaders DescribeBudgets where
+instance Prelude.ToHeaders DescribeBudgets where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.DescribeBudgets" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.DescribeBudgets" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeBudgets where
+instance Prelude.ToJSON DescribeBudgets where
   toJSON DescribeBudgets' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dbsNextToken,
-            ("MaxResults" .=) <$> _dbsMaxResults,
-            Just ("AccountId" .= _dbsAccountId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("AccountId" Prelude..= accountId)
           ]
       )
 
-instance ToPath DescribeBudgets where
-  toPath = const "/"
+instance Prelude.ToPath DescribeBudgets where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeBudgets where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeBudgets where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Response of DescribeBudgets
 --
---
---
--- /See:/ 'describeBudgetsResponse' smart constructor.
+-- /See:/ 'newDescribeBudgetsResponse' smart constructor.
 data DescribeBudgetsResponse = DescribeBudgetsResponse'
-  { _desrsNextToken ::
-      !(Maybe Text),
-    _desrsBudgets ::
-      !(Maybe [Budget]),
-    _desrsResponseStatus ::
-      !Int
+  { -- | The pagination token in the service response that indicates the next set
+    -- of results that you can retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of budgets.
+    budgets :: Prelude.Maybe [Budget],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBudgetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBudgetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsNextToken' - The pagination token in the service response that indicates the next set of results that you can retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsBudgets' - A list of budgets.
+-- 'nextToken', 'describeBudgetsResponse_nextToken' - The pagination token in the service response that indicates the next set
+-- of results that you can retrieve.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeBudgetsResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
+-- 'budgets', 'describeBudgetsResponse_budgets' - A list of budgets.
+--
+-- 'httpStatus', 'describeBudgetsResponse_httpStatus' - The response's http status code.
+newDescribeBudgetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeBudgetsResponse
-describeBudgetsResponse pResponseStatus_ =
+newDescribeBudgetsResponse pHttpStatus_ =
   DescribeBudgetsResponse'
-    { _desrsNextToken = Nothing,
-      _desrsBudgets = Nothing,
-      _desrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      budgets = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The pagination token in the service response that indicates the next set of results that you can retrieve.
-desrsNextToken :: Lens' DescribeBudgetsResponse (Maybe Text)
-desrsNextToken = lens _desrsNextToken (\s a -> s {_desrsNextToken = a})
+-- | The pagination token in the service response that indicates the next set
+-- of results that you can retrieve.
+describeBudgetsResponse_nextToken :: Lens.Lens' DescribeBudgetsResponse (Prelude.Maybe Prelude.Text)
+describeBudgetsResponse_nextToken = Lens.lens (\DescribeBudgetsResponse' {nextToken} -> nextToken) (\s@DescribeBudgetsResponse' {} a -> s {nextToken = a} :: DescribeBudgetsResponse)
 
 -- | A list of budgets.
-desrsBudgets :: Lens' DescribeBudgetsResponse [Budget]
-desrsBudgets = lens _desrsBudgets (\s a -> s {_desrsBudgets = a}) . _Default . _Coerce
+describeBudgetsResponse_budgets :: Lens.Lens' DescribeBudgetsResponse (Prelude.Maybe [Budget])
+describeBudgetsResponse_budgets = Lens.lens (\DescribeBudgetsResponse' {budgets} -> budgets) (\s@DescribeBudgetsResponse' {} a -> s {budgets = a} :: DescribeBudgetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeBudgetsResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeBudgetsResponse_httpStatus :: Lens.Lens' DescribeBudgetsResponse Prelude.Int
+describeBudgetsResponse_httpStatus = Lens.lens (\DescribeBudgetsResponse' {httpStatus} -> httpStatus) (\s@DescribeBudgetsResponse' {} a -> s {httpStatus = a} :: DescribeBudgetsResponse)
 
-instance NFData DescribeBudgetsResponse
+instance Prelude.NFData DescribeBudgetsResponse

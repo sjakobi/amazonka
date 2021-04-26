@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Budgets.Types.ActionSubType
   ( ActionSubType
       ( ..,
-        StopEC2Instances,
-        StopRDSInstances
+        ActionSubTypeSTOPEC2INSTANCES,
+        ActionSubTypeSTOPRDSINSTANCES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionSubType = ActionSubType' (CI Text)
+newtype ActionSubType = ActionSubType'
+  { fromActionSubType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern StopEC2Instances :: ActionSubType
-pattern StopEC2Instances = ActionSubType' "STOP_EC2_INSTANCES"
+pattern ActionSubTypeSTOPEC2INSTANCES :: ActionSubType
+pattern ActionSubTypeSTOPEC2INSTANCES = ActionSubType' "STOP_EC2_INSTANCES"
 
-pattern StopRDSInstances :: ActionSubType
-pattern StopRDSInstances = ActionSubType' "STOP_RDS_INSTANCES"
+pattern ActionSubTypeSTOPRDSINSTANCES :: ActionSubType
+pattern ActionSubTypeSTOPRDSINSTANCES = ActionSubType' "STOP_RDS_INSTANCES"
 
 {-# COMPLETE
-  StopEC2Instances,
-  StopRDSInstances,
+  ActionSubTypeSTOPEC2INSTANCES,
+  ActionSubTypeSTOPRDSINSTANCES,
   ActionSubType'
   #-}
 
-instance FromText ActionSubType where
-  parser = (ActionSubType' . mk) <$> takeText
+instance Prelude.FromText ActionSubType where
+  parser = ActionSubType' Prelude.<$> Prelude.takeText
 
-instance ToText ActionSubType where
-  toText (ActionSubType' ci) = original ci
+instance Prelude.ToText ActionSubType where
+  toText (ActionSubType' x) = x
 
-instance Hashable ActionSubType
+instance Prelude.Hashable ActionSubType
 
-instance NFData ActionSubType
+instance Prelude.NFData ActionSubType
 
-instance ToByteString ActionSubType
+instance Prelude.ToByteString ActionSubType
 
-instance ToQuery ActionSubType
+instance Prelude.ToQuery ActionSubType
 
-instance ToHeader ActionSubType
+instance Prelude.ToHeader ActionSubType
 
-instance ToJSON ActionSubType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ActionSubType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ActionSubType where
-  parseJSON = parseJSONText "ActionSubType"
+instance Prelude.FromJSON ActionSubType where
+  parseJSON = Prelude.parseJSONText "ActionSubType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,67 @@
 module Network.AWS.Budgets.Types.ComparisonOperator
   ( ComparisonOperator
       ( ..,
-        EqualTo,
-        GreaterThan,
-        LessThan
+        ComparisonOperatorEQUALTO,
+        ComparisonOperatorGREATERTHAN,
+        ComparisonOperatorLESSTHAN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The comparison operator of a notification. Currently the service supports the following operators:
+-- | The comparison operator of a notification. Currently the service
+-- supports the following operators:
 --
---
--- @GREATER_THAN@ , @LESS_THAN@ , @EQUAL_TO@
-data ComparisonOperator
-  = ComparisonOperator'
-      ( CI
-          Text
-      )
+-- @GREATER_THAN@, @LESS_THAN@, @EQUAL_TO@
+newtype ComparisonOperator = ComparisonOperator'
+  { fromComparisonOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EqualTo :: ComparisonOperator
-pattern EqualTo = ComparisonOperator' "EQUAL_TO"
+pattern ComparisonOperatorEQUALTO :: ComparisonOperator
+pattern ComparisonOperatorEQUALTO = ComparisonOperator' "EQUAL_TO"
 
-pattern GreaterThan :: ComparisonOperator
-pattern GreaterThan = ComparisonOperator' "GREATER_THAN"
+pattern ComparisonOperatorGREATERTHAN :: ComparisonOperator
+pattern ComparisonOperatorGREATERTHAN = ComparisonOperator' "GREATER_THAN"
 
-pattern LessThan :: ComparisonOperator
-pattern LessThan = ComparisonOperator' "LESS_THAN"
+pattern ComparisonOperatorLESSTHAN :: ComparisonOperator
+pattern ComparisonOperatorLESSTHAN = ComparisonOperator' "LESS_THAN"
 
 {-# COMPLETE
-  EqualTo,
-  GreaterThan,
-  LessThan,
+  ComparisonOperatorEQUALTO,
+  ComparisonOperatorGREATERTHAN,
+  ComparisonOperatorLESSTHAN,
   ComparisonOperator'
   #-}
 
-instance FromText ComparisonOperator where
-  parser = (ComparisonOperator' . mk) <$> takeText
+instance Prelude.FromText ComparisonOperator where
+  parser = ComparisonOperator' Prelude.<$> Prelude.takeText
 
-instance ToText ComparisonOperator where
-  toText (ComparisonOperator' ci) = original ci
+instance Prelude.ToText ComparisonOperator where
+  toText (ComparisonOperator' x) = x
 
-instance Hashable ComparisonOperator
+instance Prelude.Hashable ComparisonOperator
 
-instance NFData ComparisonOperator
+instance Prelude.NFData ComparisonOperator
 
-instance ToByteString ComparisonOperator
+instance Prelude.ToByteString ComparisonOperator
 
-instance ToQuery ComparisonOperator
+instance Prelude.ToQuery ComparisonOperator
 
-instance ToHeader ComparisonOperator
+instance Prelude.ToHeader ComparisonOperator
 
-instance ToJSON ComparisonOperator where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComparisonOperator where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ComparisonOperator where
-  parseJSON = parseJSONText "ComparisonOperator"
+instance Prelude.FromJSON ComparisonOperator where
+  parseJSON = Prelude.parseJSONText "ComparisonOperator"

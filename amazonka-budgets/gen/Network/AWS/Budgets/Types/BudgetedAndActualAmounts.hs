@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +21,69 @@ module Network.AWS.Budgets.Types.BudgetedAndActualAmounts where
 
 import Network.AWS.Budgets.Types.Spend
 import Network.AWS.Budgets.Types.TimePeriod
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The amount of cost or usage that you created the budget for, compared to your actual costs or usage.
+-- | The amount of cost or usage that you created the budget for, compared to
+-- your actual costs or usage.
 --
---
---
--- /See:/ 'budgetedAndActualAmounts' smart constructor.
+-- /See:/ 'newBudgetedAndActualAmounts' smart constructor.
 data BudgetedAndActualAmounts = BudgetedAndActualAmounts'
-  { _baaaTimePeriod ::
-      !(Maybe TimePeriod),
-    _baaaBudgetedAmount ::
-      !(Maybe Spend),
-    _baaaActualAmount ::
-      !(Maybe Spend)
+  { -- | The time period covered by this budget comparison.
+    timePeriod :: Prelude.Maybe TimePeriod,
+    -- | The amount of cost or usage that you created the budget for.
+    budgetedAmount :: Prelude.Maybe Spend,
+    -- | Your actual costs or usage for a budget period.
+    actualAmount :: Prelude.Maybe Spend
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BudgetedAndActualAmounts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BudgetedAndActualAmounts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'baaaTimePeriod' - The time period covered by this budget comparison.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'baaaBudgetedAmount' - The amount of cost or usage that you created the budget for.
+-- 'timePeriod', 'budgetedAndActualAmounts_timePeriod' - The time period covered by this budget comparison.
 --
--- * 'baaaActualAmount' - Your actual costs or usage for a budget period.
-budgetedAndActualAmounts ::
+-- 'budgetedAmount', 'budgetedAndActualAmounts_budgetedAmount' - The amount of cost or usage that you created the budget for.
+--
+-- 'actualAmount', 'budgetedAndActualAmounts_actualAmount' - Your actual costs or usage for a budget period.
+newBudgetedAndActualAmounts ::
   BudgetedAndActualAmounts
-budgetedAndActualAmounts =
+newBudgetedAndActualAmounts =
   BudgetedAndActualAmounts'
-    { _baaaTimePeriod =
-        Nothing,
-      _baaaBudgetedAmount = Nothing,
-      _baaaActualAmount = Nothing
+    { timePeriod =
+        Prelude.Nothing,
+      budgetedAmount = Prelude.Nothing,
+      actualAmount = Prelude.Nothing
     }
 
 -- | The time period covered by this budget comparison.
-baaaTimePeriod :: Lens' BudgetedAndActualAmounts (Maybe TimePeriod)
-baaaTimePeriod = lens _baaaTimePeriod (\s a -> s {_baaaTimePeriod = a})
+budgetedAndActualAmounts_timePeriod :: Lens.Lens' BudgetedAndActualAmounts (Prelude.Maybe TimePeriod)
+budgetedAndActualAmounts_timePeriod = Lens.lens (\BudgetedAndActualAmounts' {timePeriod} -> timePeriod) (\s@BudgetedAndActualAmounts' {} a -> s {timePeriod = a} :: BudgetedAndActualAmounts)
 
 -- | The amount of cost or usage that you created the budget for.
-baaaBudgetedAmount :: Lens' BudgetedAndActualAmounts (Maybe Spend)
-baaaBudgetedAmount = lens _baaaBudgetedAmount (\s a -> s {_baaaBudgetedAmount = a})
+budgetedAndActualAmounts_budgetedAmount :: Lens.Lens' BudgetedAndActualAmounts (Prelude.Maybe Spend)
+budgetedAndActualAmounts_budgetedAmount = Lens.lens (\BudgetedAndActualAmounts' {budgetedAmount} -> budgetedAmount) (\s@BudgetedAndActualAmounts' {} a -> s {budgetedAmount = a} :: BudgetedAndActualAmounts)
 
 -- | Your actual costs or usage for a budget period.
-baaaActualAmount :: Lens' BudgetedAndActualAmounts (Maybe Spend)
-baaaActualAmount = lens _baaaActualAmount (\s a -> s {_baaaActualAmount = a})
+budgetedAndActualAmounts_actualAmount :: Lens.Lens' BudgetedAndActualAmounts (Prelude.Maybe Spend)
+budgetedAndActualAmounts_actualAmount = Lens.lens (\BudgetedAndActualAmounts' {actualAmount} -> actualAmount) (\s@BudgetedAndActualAmounts' {} a -> s {actualAmount = a} :: BudgetedAndActualAmounts)
 
-instance FromJSON BudgetedAndActualAmounts where
+instance Prelude.FromJSON BudgetedAndActualAmounts where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BudgetedAndActualAmounts"
       ( \x ->
           BudgetedAndActualAmounts'
-            <$> (x .:? "TimePeriod")
-            <*> (x .:? "BudgetedAmount")
-            <*> (x .:? "ActualAmount")
+            Prelude.<$> (x Prelude..:? "TimePeriod")
+            Prelude.<*> (x Prelude..:? "BudgetedAmount")
+            Prelude.<*> (x Prelude..:? "ActualAmount")
       )
 
-instance Hashable BudgetedAndActualAmounts
+instance Prelude.Hashable BudgetedAndActualAmounts
 
-instance NFData BudgetedAndActualAmounts
+instance Prelude.NFData BudgetedAndActualAmounts

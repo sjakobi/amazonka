@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,215 +23,235 @@
 --
 -- Describes all of the budget actions for a budget.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Budgets.DescribeBudgetActionsForBudget
   ( -- * Creating a Request
-    describeBudgetActionsForBudget,
-    DescribeBudgetActionsForBudget,
+    DescribeBudgetActionsForBudget (..),
+    newDescribeBudgetActionsForBudget,
 
     -- * Request Lenses
-    dbafbNextToken,
-    dbafbMaxResults,
-    dbafbAccountId,
-    dbafbBudgetName,
+    describeBudgetActionsForBudget_nextToken,
+    describeBudgetActionsForBudget_maxResults,
+    describeBudgetActionsForBudget_accountId,
+    describeBudgetActionsForBudget_budgetName,
 
     -- * Destructuring the Response
-    describeBudgetActionsForBudgetResponse,
-    DescribeBudgetActionsForBudgetResponse,
+    DescribeBudgetActionsForBudgetResponse (..),
+    newDescribeBudgetActionsForBudgetResponse,
 
     -- * Response Lenses
-    dbafbrrsNextToken,
-    dbafbrrsResponseStatus,
-    dbafbrrsActions,
+    describeBudgetActionsForBudgetResponse_nextToken,
+    describeBudgetActionsForBudgetResponse_httpStatus,
+    describeBudgetActionsForBudgetResponse_actions,
   )
 where
 
 import Network.AWS.Budgets.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Budgets.Types.Action
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeBudgetActionsForBudget' smart constructor.
+-- | /See:/ 'newDescribeBudgetActionsForBudget' smart constructor.
 data DescribeBudgetActionsForBudget = DescribeBudgetActionsForBudget'
-  { _dbafbNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dbafbMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dbafbAccountId ::
-      !Text,
-    _dbafbBudgetName ::
-      !Text
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    accountId :: Prelude.Text,
+    budgetName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBudgetActionsForBudget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBudgetActionsForBudget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbafbNextToken' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbafbMaxResults' - Undocumented member.
+-- 'nextToken', 'describeBudgetActionsForBudget_nextToken' - Undocumented member.
 --
--- * 'dbafbAccountId' - Undocumented member.
+-- 'maxResults', 'describeBudgetActionsForBudget_maxResults' - Undocumented member.
 --
--- * 'dbafbBudgetName' - Undocumented member.
-describeBudgetActionsForBudget ::
-  -- | 'dbafbAccountId'
-  Text ->
-  -- | 'dbafbBudgetName'
-  Text ->
+-- 'accountId', 'describeBudgetActionsForBudget_accountId' - Undocumented member.
+--
+-- 'budgetName', 'describeBudgetActionsForBudget_budgetName' - Undocumented member.
+newDescribeBudgetActionsForBudget ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'budgetName'
+  Prelude.Text ->
   DescribeBudgetActionsForBudget
-describeBudgetActionsForBudget
+newDescribeBudgetActionsForBudget
   pAccountId_
   pBudgetName_ =
     DescribeBudgetActionsForBudget'
-      { _dbafbNextToken =
-          Nothing,
-        _dbafbMaxResults = Nothing,
-        _dbafbAccountId = pAccountId_,
-        _dbafbBudgetName = pBudgetName_
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        accountId = pAccountId_,
+        budgetName = pBudgetName_
       }
 
 -- | Undocumented member.
-dbafbNextToken :: Lens' DescribeBudgetActionsForBudget (Maybe Text)
-dbafbNextToken = lens _dbafbNextToken (\s a -> s {_dbafbNextToken = a})
+describeBudgetActionsForBudget_nextToken :: Lens.Lens' DescribeBudgetActionsForBudget (Prelude.Maybe Prelude.Text)
+describeBudgetActionsForBudget_nextToken = Lens.lens (\DescribeBudgetActionsForBudget' {nextToken} -> nextToken) (\s@DescribeBudgetActionsForBudget' {} a -> s {nextToken = a} :: DescribeBudgetActionsForBudget)
 
 -- | Undocumented member.
-dbafbMaxResults :: Lens' DescribeBudgetActionsForBudget (Maybe Natural)
-dbafbMaxResults = lens _dbafbMaxResults (\s a -> s {_dbafbMaxResults = a}) . mapping _Nat
+describeBudgetActionsForBudget_maxResults :: Lens.Lens' DescribeBudgetActionsForBudget (Prelude.Maybe Prelude.Natural)
+describeBudgetActionsForBudget_maxResults = Lens.lens (\DescribeBudgetActionsForBudget' {maxResults} -> maxResults) (\s@DescribeBudgetActionsForBudget' {} a -> s {maxResults = a} :: DescribeBudgetActionsForBudget) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Undocumented member.
-dbafbAccountId :: Lens' DescribeBudgetActionsForBudget Text
-dbafbAccountId = lens _dbafbAccountId (\s a -> s {_dbafbAccountId = a})
+describeBudgetActionsForBudget_accountId :: Lens.Lens' DescribeBudgetActionsForBudget Prelude.Text
+describeBudgetActionsForBudget_accountId = Lens.lens (\DescribeBudgetActionsForBudget' {accountId} -> accountId) (\s@DescribeBudgetActionsForBudget' {} a -> s {accountId = a} :: DescribeBudgetActionsForBudget)
 
 -- | Undocumented member.
-dbafbBudgetName :: Lens' DescribeBudgetActionsForBudget Text
-dbafbBudgetName = lens _dbafbBudgetName (\s a -> s {_dbafbBudgetName = a})
+describeBudgetActionsForBudget_budgetName :: Lens.Lens' DescribeBudgetActionsForBudget Prelude.Text
+describeBudgetActionsForBudget_budgetName = Lens.lens (\DescribeBudgetActionsForBudget' {budgetName} -> budgetName) (\s@DescribeBudgetActionsForBudget' {} a -> s {budgetName = a} :: DescribeBudgetActionsForBudget)
 
-instance AWSPager DescribeBudgetActionsForBudget where
+instance
+  Pager.AWSPager
+    DescribeBudgetActionsForBudget
+  where
   page rq rs
-    | stop (rs ^. dbafbrrsNextToken) = Nothing
-    | stop (rs ^. dbafbrrsActions) = Nothing
-    | otherwise =
-      Just $ rq & dbafbNextToken .~ rs ^. dbafbrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeBudgetActionsForBudgetResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. describeBudgetActionsForBudgetResponse_actions
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeBudgetActionsForBudget_nextToken
+          Lens..~ rs
+          Lens.^? describeBudgetActionsForBudgetResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeBudgetActionsForBudget where
+instance
+  Prelude.AWSRequest
+    DescribeBudgetActionsForBudget
+  where
   type
     Rs DescribeBudgetActionsForBudget =
       DescribeBudgetActionsForBudgetResponse
-  request = postJSON budgets
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeBudgetActionsForBudgetResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "Actions" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..?> "Actions" Prelude..!@ Prelude.mempty)
       )
 
-instance Hashable DescribeBudgetActionsForBudget
+instance
+  Prelude.Hashable
+    DescribeBudgetActionsForBudget
 
-instance NFData DescribeBudgetActionsForBudget
+instance
+  Prelude.NFData
+    DescribeBudgetActionsForBudget
 
-instance ToHeaders DescribeBudgetActionsForBudget where
+instance
+  Prelude.ToHeaders
+    DescribeBudgetActionsForBudget
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSBudgetServiceGateway.DescribeBudgetActionsForBudget" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSBudgetServiceGateway.DescribeBudgetActionsForBudget" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeBudgetActionsForBudget where
+instance
+  Prelude.ToJSON
+    DescribeBudgetActionsForBudget
+  where
   toJSON DescribeBudgetActionsForBudget' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dbafbNextToken,
-            ("MaxResults" .=) <$> _dbafbMaxResults,
-            Just ("AccountId" .= _dbafbAccountId),
-            Just ("BudgetName" .= _dbafbBudgetName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just ("BudgetName" Prelude..= budgetName)
           ]
       )
 
-instance ToPath DescribeBudgetActionsForBudget where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeBudgetActionsForBudget
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeBudgetActionsForBudget where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeBudgetActionsForBudget
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeBudgetActionsForBudgetResponse' smart constructor.
+-- | /See:/ 'newDescribeBudgetActionsForBudgetResponse' smart constructor.
 data DescribeBudgetActionsForBudgetResponse = DescribeBudgetActionsForBudgetResponse'
-  { _dbafbrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dbafbrrsResponseStatus ::
-      !Int,
-    _dbafbrrsActions ::
-      ![Action]
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of the budget action resources information.
+    actions :: [Action]
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBudgetActionsForBudgetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBudgetActionsForBudgetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbafbrrsNextToken' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbafbrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'describeBudgetActionsForBudgetResponse_nextToken' - Undocumented member.
 --
--- * 'dbafbrrsActions' - A list of the budget action resources information.
-describeBudgetActionsForBudgetResponse ::
-  -- | 'dbafbrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'describeBudgetActionsForBudgetResponse_httpStatus' - The response's http status code.
+--
+-- 'actions', 'describeBudgetActionsForBudgetResponse_actions' - A list of the budget action resources information.
+newDescribeBudgetActionsForBudgetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeBudgetActionsForBudgetResponse
-describeBudgetActionsForBudgetResponse
-  pResponseStatus_ =
+newDescribeBudgetActionsForBudgetResponse
+  pHttpStatus_ =
     DescribeBudgetActionsForBudgetResponse'
-      { _dbafbrrsNextToken =
-          Nothing,
-        _dbafbrrsResponseStatus =
-          pResponseStatus_,
-        _dbafbrrsActions = mempty
+      { nextToken =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        actions = Prelude.mempty
       }
 
 -- | Undocumented member.
-dbafbrrsNextToken :: Lens' DescribeBudgetActionsForBudgetResponse (Maybe Text)
-dbafbrrsNextToken = lens _dbafbrrsNextToken (\s a -> s {_dbafbrrsNextToken = a})
+describeBudgetActionsForBudgetResponse_nextToken :: Lens.Lens' DescribeBudgetActionsForBudgetResponse (Prelude.Maybe Prelude.Text)
+describeBudgetActionsForBudgetResponse_nextToken = Lens.lens (\DescribeBudgetActionsForBudgetResponse' {nextToken} -> nextToken) (\s@DescribeBudgetActionsForBudgetResponse' {} a -> s {nextToken = a} :: DescribeBudgetActionsForBudgetResponse)
 
--- | -- | The response status code.
-dbafbrrsResponseStatus :: Lens' DescribeBudgetActionsForBudgetResponse Int
-dbafbrrsResponseStatus = lens _dbafbrrsResponseStatus (\s a -> s {_dbafbrrsResponseStatus = a})
+-- | The response's http status code.
+describeBudgetActionsForBudgetResponse_httpStatus :: Lens.Lens' DescribeBudgetActionsForBudgetResponse Prelude.Int
+describeBudgetActionsForBudgetResponse_httpStatus = Lens.lens (\DescribeBudgetActionsForBudgetResponse' {httpStatus} -> httpStatus) (\s@DescribeBudgetActionsForBudgetResponse' {} a -> s {httpStatus = a} :: DescribeBudgetActionsForBudgetResponse)
 
 -- | A list of the budget action resources information.
-dbafbrrsActions :: Lens' DescribeBudgetActionsForBudgetResponse [Action]
-dbafbrrsActions = lens _dbafbrrsActions (\s a -> s {_dbafbrrsActions = a}) . _Coerce
+describeBudgetActionsForBudgetResponse_actions :: Lens.Lens' DescribeBudgetActionsForBudgetResponse [Action]
+describeBudgetActionsForBudgetResponse_actions = Lens.lens (\DescribeBudgetActionsForBudgetResponse' {actions} -> actions) (\s@DescribeBudgetActionsForBudgetResponse' {} a -> s {actions = a} :: DescribeBudgetActionsForBudgetResponse) Prelude.. Prelude._Coerce
 
 instance
-  NFData
+  Prelude.NFData
     DescribeBudgetActionsForBudgetResponse

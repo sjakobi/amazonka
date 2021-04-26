@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,82 @@
 module Network.AWS.Budgets.Types.BudgetType
   ( BudgetType
       ( ..,
-        Cost,
-        RiCoverage,
-        RiUtilization,
-        SavingsPlansCoverage,
-        SavingsPlansUtilization,
-        Usage
+        BudgetTypeCOST,
+        BudgetTypeRICOVERAGE,
+        BudgetTypeRIUTILIZATION,
+        BudgetTypeSAVINGSPLANSCOVERAGE,
+        BudgetTypeSAVINGSPLANSUTILIZATION,
+        BudgetTypeUSAGE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The type of a budget. It must be one of the following types:
 --
---
--- @COST@ , @USAGE@ , @RI_UTILIZATION@ , @RI_COVERAGE@ , @SAVINGS_PLANS_UTILIZATION@ , or @SAVINGS_PLANS_COVERAGE@ .
-data BudgetType = BudgetType' (CI Text)
+-- @COST@, @USAGE@, @RI_UTILIZATION@, @RI_COVERAGE@,
+-- @SAVINGS_PLANS_UTILIZATION@, or @SAVINGS_PLANS_COVERAGE@.
+newtype BudgetType = BudgetType'
+  { fromBudgetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cost :: BudgetType
-pattern Cost = BudgetType' "COST"
+pattern BudgetTypeCOST :: BudgetType
+pattern BudgetTypeCOST = BudgetType' "COST"
 
-pattern RiCoverage :: BudgetType
-pattern RiCoverage = BudgetType' "RI_COVERAGE"
+pattern BudgetTypeRICOVERAGE :: BudgetType
+pattern BudgetTypeRICOVERAGE = BudgetType' "RI_COVERAGE"
 
-pattern RiUtilization :: BudgetType
-pattern RiUtilization = BudgetType' "RI_UTILIZATION"
+pattern BudgetTypeRIUTILIZATION :: BudgetType
+pattern BudgetTypeRIUTILIZATION = BudgetType' "RI_UTILIZATION"
 
-pattern SavingsPlansCoverage :: BudgetType
-pattern SavingsPlansCoverage = BudgetType' "SAVINGS_PLANS_COVERAGE"
+pattern BudgetTypeSAVINGSPLANSCOVERAGE :: BudgetType
+pattern BudgetTypeSAVINGSPLANSCOVERAGE = BudgetType' "SAVINGS_PLANS_COVERAGE"
 
-pattern SavingsPlansUtilization :: BudgetType
-pattern SavingsPlansUtilization = BudgetType' "SAVINGS_PLANS_UTILIZATION"
+pattern BudgetTypeSAVINGSPLANSUTILIZATION :: BudgetType
+pattern BudgetTypeSAVINGSPLANSUTILIZATION = BudgetType' "SAVINGS_PLANS_UTILIZATION"
 
-pattern Usage :: BudgetType
-pattern Usage = BudgetType' "USAGE"
+pattern BudgetTypeUSAGE :: BudgetType
+pattern BudgetTypeUSAGE = BudgetType' "USAGE"
 
 {-# COMPLETE
-  Cost,
-  RiCoverage,
-  RiUtilization,
-  SavingsPlansCoverage,
-  SavingsPlansUtilization,
-  Usage,
+  BudgetTypeCOST,
+  BudgetTypeRICOVERAGE,
+  BudgetTypeRIUTILIZATION,
+  BudgetTypeSAVINGSPLANSCOVERAGE,
+  BudgetTypeSAVINGSPLANSUTILIZATION,
+  BudgetTypeUSAGE,
   BudgetType'
   #-}
 
-instance FromText BudgetType where
-  parser = (BudgetType' . mk) <$> takeText
+instance Prelude.FromText BudgetType where
+  parser = BudgetType' Prelude.<$> Prelude.takeText
 
-instance ToText BudgetType where
-  toText (BudgetType' ci) = original ci
+instance Prelude.ToText BudgetType where
+  toText (BudgetType' x) = x
 
-instance Hashable BudgetType
+instance Prelude.Hashable BudgetType
 
-instance NFData BudgetType
+instance Prelude.NFData BudgetType
 
-instance ToByteString BudgetType
+instance Prelude.ToByteString BudgetType
 
-instance ToQuery BudgetType
+instance Prelude.ToQuery BudgetType
 
-instance ToHeader BudgetType
+instance Prelude.ToHeader BudgetType
 
-instance ToJSON BudgetType where
-  toJSON = toJSONText
+instance Prelude.ToJSON BudgetType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BudgetType where
-  parseJSON = parseJSONText "BudgetType"
+instance Prelude.FromJSON BudgetType where
+  parseJSON = Prelude.parseJSONText "BudgetType"

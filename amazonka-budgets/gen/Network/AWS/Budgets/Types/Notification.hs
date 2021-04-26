@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,116 +23,162 @@ import Network.AWS.Budgets.Types.ComparisonOperator
 import Network.AWS.Budgets.Types.NotificationState
 import Network.AWS.Budgets.Types.NotificationType
 import Network.AWS.Budgets.Types.ThresholdType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A notification that is associated with a budget. A budget can have up to ten notifications.
+-- | A notification that is associated with a budget. A budget can have up to
+-- ten notifications.
 --
+-- Each notification must have at least one subscriber. A notification can
+-- have one SNS subscriber and up to 10 email subscribers, for a total of
+-- 11 subscribers.
 --
--- Each notification must have at least one subscriber. A notification can have one SNS subscriber and up to 10 email subscribers, for a total of 11 subscribers.
+-- For example, if you have a budget for 200 dollars and you want to be
+-- notified when you go over 160 dollars, create a notification with the
+-- following parameters:
 --
--- For example, if you have a budget for 200 dollars and you want to be notified when you go over 160 dollars, create a notification with the following parameters:
+-- -   A notificationType of @ACTUAL@
 --
---     * A notificationType of @ACTUAL@
+-- -   A @thresholdType@ of @PERCENTAGE@
 --
---     * A @thresholdType@ of @PERCENTAGE@
+-- -   A @comparisonOperator@ of @GREATER_THAN@
 --
---     * A @comparisonOperator@ of @GREATER_THAN@
+-- -   A notification @threshold@ of @80@
 --
---     * A notification @threshold@ of @80@
---
---
---
---
--- /See:/ 'notification' smart constructor.
+-- /See:/ 'newNotification' smart constructor.
 data Notification = Notification'
-  { _nNotificationState ::
-      !(Maybe NotificationState),
-    _nThresholdType :: !(Maybe ThresholdType),
-    _nNotificationType :: !NotificationType,
-    _nComparisonOperator :: !ComparisonOperator,
-    _nThreshold :: !Double
+  { -- | Whether this notification is in alarm. If a budget notification is in
+    -- the @ALARM@ state, you have passed the set threshold for the budget.
+    notificationState :: Prelude.Maybe NotificationState,
+    -- | The type of threshold for a notification. For @ABSOLUTE_VALUE@
+    -- thresholds, AWS notifies you when you go over or are forecasted to go
+    -- over your total cost threshold. For @PERCENTAGE@ thresholds, AWS
+    -- notifies you when you go over or are forecasted to go over a certain
+    -- percentage of your forecasted spend. For example, if you have a budget
+    -- for 200 dollars and you have a @PERCENTAGE@ threshold of 80%, AWS
+    -- notifies you when you go over 160 dollars.
+    thresholdType :: Prelude.Maybe ThresholdType,
+    -- | Whether the notification is for how much you have spent (@ACTUAL@) or
+    -- for how much you\'re forecasted to spend (@FORECASTED@).
+    notificationType :: NotificationType,
+    -- | The comparison that is used for this notification.
+    comparisonOperator :: ComparisonOperator,
+    -- | The threshold that is associated with a notification. Thresholds are
+    -- always a percentage, and many customers find value being alerted between
+    -- 50% - 200% of the budgeted amount. The maximum limit for your threshold
+    -- is 1,000,000% above the budgeted amount.
+    threshold :: Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Notification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Notification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nNotificationState' - Whether this notification is in alarm. If a budget notification is in the @ALARM@ state, you have passed the set threshold for the budget.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nThresholdType' - The type of threshold for a notification. For @ABSOLUTE_VALUE@ thresholds, AWS notifies you when you go over or are forecasted to go over your total cost threshold. For @PERCENTAGE@ thresholds, AWS notifies you when you go over or are forecasted to go over a certain percentage of your forecasted spend. For example, if you have a budget for 200 dollars and you have a @PERCENTAGE@ threshold of 80%, AWS notifies you when you go over 160 dollars.
+-- 'notificationState', 'notification_notificationState' - Whether this notification is in alarm. If a budget notification is in
+-- the @ALARM@ state, you have passed the set threshold for the budget.
 --
--- * 'nNotificationType' - Whether the notification is for how much you have spent (@ACTUAL@ ) or for how much you're forecasted to spend (@FORECASTED@ ).
+-- 'thresholdType', 'notification_thresholdType' - The type of threshold for a notification. For @ABSOLUTE_VALUE@
+-- thresholds, AWS notifies you when you go over or are forecasted to go
+-- over your total cost threshold. For @PERCENTAGE@ thresholds, AWS
+-- notifies you when you go over or are forecasted to go over a certain
+-- percentage of your forecasted spend. For example, if you have a budget
+-- for 200 dollars and you have a @PERCENTAGE@ threshold of 80%, AWS
+-- notifies you when you go over 160 dollars.
 --
--- * 'nComparisonOperator' - The comparison that is used for this notification.
+-- 'notificationType', 'notification_notificationType' - Whether the notification is for how much you have spent (@ACTUAL@) or
+-- for how much you\'re forecasted to spend (@FORECASTED@).
 --
--- * 'nThreshold' - The threshold that is associated with a notification. Thresholds are always a percentage, and many customers find value being alerted between 50% - 200% of the budgeted amount. The maximum limit for your threshold is 1,000,000% above the budgeted amount.
-notification ::
-  -- | 'nNotificationType'
+-- 'comparisonOperator', 'notification_comparisonOperator' - The comparison that is used for this notification.
+--
+-- 'threshold', 'notification_threshold' - The threshold that is associated with a notification. Thresholds are
+-- always a percentage, and many customers find value being alerted between
+-- 50% - 200% of the budgeted amount. The maximum limit for your threshold
+-- is 1,000,000% above the budgeted amount.
+newNotification ::
+  -- | 'notificationType'
   NotificationType ->
-  -- | 'nComparisonOperator'
+  -- | 'comparisonOperator'
   ComparisonOperator ->
-  -- | 'nThreshold'
-  Double ->
+  -- | 'threshold'
+  Prelude.Double ->
   Notification
-notification
+newNotification
   pNotificationType_
   pComparisonOperator_
   pThreshold_ =
     Notification'
-      { _nNotificationState = Nothing,
-        _nThresholdType = Nothing,
-        _nNotificationType = pNotificationType_,
-        _nComparisonOperator = pComparisonOperator_,
-        _nThreshold = pThreshold_
+      { notificationState = Prelude.Nothing,
+        thresholdType = Prelude.Nothing,
+        notificationType = pNotificationType_,
+        comparisonOperator = pComparisonOperator_,
+        threshold = pThreshold_
       }
 
--- | Whether this notification is in alarm. If a budget notification is in the @ALARM@ state, you have passed the set threshold for the budget.
-nNotificationState :: Lens' Notification (Maybe NotificationState)
-nNotificationState = lens _nNotificationState (\s a -> s {_nNotificationState = a})
+-- | Whether this notification is in alarm. If a budget notification is in
+-- the @ALARM@ state, you have passed the set threshold for the budget.
+notification_notificationState :: Lens.Lens' Notification (Prelude.Maybe NotificationState)
+notification_notificationState = Lens.lens (\Notification' {notificationState} -> notificationState) (\s@Notification' {} a -> s {notificationState = a} :: Notification)
 
--- | The type of threshold for a notification. For @ABSOLUTE_VALUE@ thresholds, AWS notifies you when you go over or are forecasted to go over your total cost threshold. For @PERCENTAGE@ thresholds, AWS notifies you when you go over or are forecasted to go over a certain percentage of your forecasted spend. For example, if you have a budget for 200 dollars and you have a @PERCENTAGE@ threshold of 80%, AWS notifies you when you go over 160 dollars.
-nThresholdType :: Lens' Notification (Maybe ThresholdType)
-nThresholdType = lens _nThresholdType (\s a -> s {_nThresholdType = a})
+-- | The type of threshold for a notification. For @ABSOLUTE_VALUE@
+-- thresholds, AWS notifies you when you go over or are forecasted to go
+-- over your total cost threshold. For @PERCENTAGE@ thresholds, AWS
+-- notifies you when you go over or are forecasted to go over a certain
+-- percentage of your forecasted spend. For example, if you have a budget
+-- for 200 dollars and you have a @PERCENTAGE@ threshold of 80%, AWS
+-- notifies you when you go over 160 dollars.
+notification_thresholdType :: Lens.Lens' Notification (Prelude.Maybe ThresholdType)
+notification_thresholdType = Lens.lens (\Notification' {thresholdType} -> thresholdType) (\s@Notification' {} a -> s {thresholdType = a} :: Notification)
 
--- | Whether the notification is for how much you have spent (@ACTUAL@ ) or for how much you're forecasted to spend (@FORECASTED@ ).
-nNotificationType :: Lens' Notification NotificationType
-nNotificationType = lens _nNotificationType (\s a -> s {_nNotificationType = a})
+-- | Whether the notification is for how much you have spent (@ACTUAL@) or
+-- for how much you\'re forecasted to spend (@FORECASTED@).
+notification_notificationType :: Lens.Lens' Notification NotificationType
+notification_notificationType = Lens.lens (\Notification' {notificationType} -> notificationType) (\s@Notification' {} a -> s {notificationType = a} :: Notification)
 
 -- | The comparison that is used for this notification.
-nComparisonOperator :: Lens' Notification ComparisonOperator
-nComparisonOperator = lens _nComparisonOperator (\s a -> s {_nComparisonOperator = a})
+notification_comparisonOperator :: Lens.Lens' Notification ComparisonOperator
+notification_comparisonOperator = Lens.lens (\Notification' {comparisonOperator} -> comparisonOperator) (\s@Notification' {} a -> s {comparisonOperator = a} :: Notification)
 
--- | The threshold that is associated with a notification. Thresholds are always a percentage, and many customers find value being alerted between 50% - 200% of the budgeted amount. The maximum limit for your threshold is 1,000,000% above the budgeted amount.
-nThreshold :: Lens' Notification Double
-nThreshold = lens _nThreshold (\s a -> s {_nThreshold = a})
+-- | The threshold that is associated with a notification. Thresholds are
+-- always a percentage, and many customers find value being alerted between
+-- 50% - 200% of the budgeted amount. The maximum limit for your threshold
+-- is 1,000,000% above the budgeted amount.
+notification_threshold :: Lens.Lens' Notification Prelude.Double
+notification_threshold = Lens.lens (\Notification' {threshold} -> threshold) (\s@Notification' {} a -> s {threshold = a} :: Notification)
 
-instance FromJSON Notification where
+instance Prelude.FromJSON Notification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Notification"
       ( \x ->
           Notification'
-            <$> (x .:? "NotificationState")
-            <*> (x .:? "ThresholdType")
-            <*> (x .: "NotificationType")
-            <*> (x .: "ComparisonOperator")
-            <*> (x .: "Threshold")
+            Prelude.<$> (x Prelude..:? "NotificationState")
+            Prelude.<*> (x Prelude..:? "ThresholdType")
+            Prelude.<*> (x Prelude..: "NotificationType")
+            Prelude.<*> (x Prelude..: "ComparisonOperator")
+            Prelude.<*> (x Prelude..: "Threshold")
       )
 
-instance Hashable Notification
+instance Prelude.Hashable Notification
 
-instance NFData Notification
+instance Prelude.NFData Notification
 
-instance ToJSON Notification where
+instance Prelude.ToJSON Notification where
   toJSON Notification' {..} =
-    object
-      ( catMaybes
-          [ ("NotificationState" .=) <$> _nNotificationState,
-            ("ThresholdType" .=) <$> _nThresholdType,
-            Just ("NotificationType" .= _nNotificationType),
-            Just ("ComparisonOperator" .= _nComparisonOperator),
-            Just ("Threshold" .= _nThreshold)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NotificationState" Prelude..=)
+              Prelude.<$> notificationState,
+            ("ThresholdType" Prelude..=)
+              Prelude.<$> thresholdType,
+            Prelude.Just
+              ("NotificationType" Prelude..= notificationType),
+            Prelude.Just
+              ("ComparisonOperator" Prelude..= comparisonOperator),
+            Prelude.Just ("Threshold" Prelude..= threshold)
           ]
       )

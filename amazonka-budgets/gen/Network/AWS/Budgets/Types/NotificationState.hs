@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Budgets.Types.NotificationState
   ( NotificationState
       ( ..,
-        Alarm,
-        OK
+        NotificationStateALARM,
+        NotificationStateOK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotificationState = NotificationState' (CI Text)
+newtype NotificationState = NotificationState'
+  { fromNotificationState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Alarm :: NotificationState
-pattern Alarm = NotificationState' "ALARM"
+pattern NotificationStateALARM :: NotificationState
+pattern NotificationStateALARM = NotificationState' "ALARM"
 
-pattern OK :: NotificationState
-pattern OK = NotificationState' "OK"
+pattern NotificationStateOK :: NotificationState
+pattern NotificationStateOK = NotificationState' "OK"
 
 {-# COMPLETE
-  Alarm,
-  OK,
+  NotificationStateALARM,
+  NotificationStateOK,
   NotificationState'
   #-}
 
-instance FromText NotificationState where
-  parser = (NotificationState' . mk) <$> takeText
+instance Prelude.FromText NotificationState where
+  parser = NotificationState' Prelude.<$> Prelude.takeText
 
-instance ToText NotificationState where
-  toText (NotificationState' ci) = original ci
+instance Prelude.ToText NotificationState where
+  toText (NotificationState' x) = x
 
-instance Hashable NotificationState
+instance Prelude.Hashable NotificationState
 
-instance NFData NotificationState
+instance Prelude.NFData NotificationState
 
-instance ToByteString NotificationState
+instance Prelude.ToByteString NotificationState
 
-instance ToQuery NotificationState
+instance Prelude.ToQuery NotificationState
 
-instance ToHeader NotificationState
+instance Prelude.ToHeader NotificationState
 
-instance ToJSON NotificationState where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotificationState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NotificationState where
-  parseJSON = parseJSONText "NotificationState"
+instance Prelude.FromJSON NotificationState where
+  parseJSON = Prelude.parseJSONText "NotificationState"
