@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,197 +21,237 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of attribute values. Attibutes are similar to the details in a Price List API offer file. For a list of available attributes, see <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/reading-an-offer.html#pps-defs Offer File Definitions> in the <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-what-is.html AWS Billing and Cost Management User Guide> .
---
---
+-- Returns a list of attribute values. Attibutes are similar to the details
+-- in a Price List API offer file. For a list of available attributes, see
+-- <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/reading-an-offer.html#pps-defs Offer File Definitions>
+-- in the
+-- <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-what-is.html AWS Billing and Cost Management User Guide>.
 --
 -- This operation returns paginated results.
 module Network.AWS.Pricing.GetAttributeValues
   ( -- * Creating a Request
-    getAttributeValues,
-    GetAttributeValues,
+    GetAttributeValues (..),
+    newGetAttributeValues,
 
     -- * Request Lenses
-    gavNextToken,
-    gavMaxResults,
-    gavServiceCode,
-    gavAttributeName,
+    getAttributeValues_nextToken,
+    getAttributeValues_maxResults,
+    getAttributeValues_serviceCode,
+    getAttributeValues_attributeName,
 
     -- * Destructuring the Response
-    getAttributeValuesResponse,
-    GetAttributeValuesResponse,
+    GetAttributeValuesResponse (..),
+    newGetAttributeValuesResponse,
 
     -- * Response Lenses
-    gavrrsNextToken,
-    gavrrsAttributeValues,
-    gavrrsResponseStatus,
+    getAttributeValuesResponse_nextToken,
+    getAttributeValuesResponse_attributeValues,
+    getAttributeValuesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Pricing.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pricing.Types.AttributeValue
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAttributeValues' smart constructor.
+-- | /See:/ 'newGetAttributeValues' smart constructor.
 data GetAttributeValues = GetAttributeValues'
-  { _gavNextToken ::
-      !(Maybe Text),
-    _gavMaxResults :: !(Maybe Nat),
-    _gavServiceCode :: !Text,
-    _gavAttributeName :: !Text
+  { -- | The pagination token that indicates the next set of results that you
+    -- want to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The service code for the service whose attributes you want to retrieve.
+    -- For example, if you want the retrieve an EC2 attribute, use @AmazonEC2@.
+    serviceCode :: Prelude.Text,
+    -- | The name of the attribute that you want to retrieve the values for, such
+    -- as @volumeType@.
+    attributeName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAttributeValues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAttributeValues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gavNextToken' - The pagination token that indicates the next set of results that you want to retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gavMaxResults' - The maximum number of results to return in response.
+-- 'nextToken', 'getAttributeValues_nextToken' - The pagination token that indicates the next set of results that you
+-- want to retrieve.
 --
--- * 'gavServiceCode' - The service code for the service whose attributes you want to retrieve. For example, if you want the retrieve an EC2 attribute, use @AmazonEC2@ .
+-- 'maxResults', 'getAttributeValues_maxResults' - The maximum number of results to return in response.
 --
--- * 'gavAttributeName' - The name of the attribute that you want to retrieve the values for, such as @volumeType@ .
-getAttributeValues ::
-  -- | 'gavServiceCode'
-  Text ->
-  -- | 'gavAttributeName'
-  Text ->
+-- 'serviceCode', 'getAttributeValues_serviceCode' - The service code for the service whose attributes you want to retrieve.
+-- For example, if you want the retrieve an EC2 attribute, use @AmazonEC2@.
+--
+-- 'attributeName', 'getAttributeValues_attributeName' - The name of the attribute that you want to retrieve the values for, such
+-- as @volumeType@.
+newGetAttributeValues ::
+  -- | 'serviceCode'
+  Prelude.Text ->
+  -- | 'attributeName'
+  Prelude.Text ->
   GetAttributeValues
-getAttributeValues pServiceCode_ pAttributeName_ =
+newGetAttributeValues pServiceCode_ pAttributeName_ =
   GetAttributeValues'
-    { _gavNextToken = Nothing,
-      _gavMaxResults = Nothing,
-      _gavServiceCode = pServiceCode_,
-      _gavAttributeName = pAttributeName_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      serviceCode = pServiceCode_,
+      attributeName = pAttributeName_
     }
 
--- | The pagination token that indicates the next set of results that you want to retrieve.
-gavNextToken :: Lens' GetAttributeValues (Maybe Text)
-gavNextToken = lens _gavNextToken (\s a -> s {_gavNextToken = a})
+-- | The pagination token that indicates the next set of results that you
+-- want to retrieve.
+getAttributeValues_nextToken :: Lens.Lens' GetAttributeValues (Prelude.Maybe Prelude.Text)
+getAttributeValues_nextToken = Lens.lens (\GetAttributeValues' {nextToken} -> nextToken) (\s@GetAttributeValues' {} a -> s {nextToken = a} :: GetAttributeValues)
 
 -- | The maximum number of results to return in response.
-gavMaxResults :: Lens' GetAttributeValues (Maybe Natural)
-gavMaxResults = lens _gavMaxResults (\s a -> s {_gavMaxResults = a}) . mapping _Nat
+getAttributeValues_maxResults :: Lens.Lens' GetAttributeValues (Prelude.Maybe Prelude.Natural)
+getAttributeValues_maxResults = Lens.lens (\GetAttributeValues' {maxResults} -> maxResults) (\s@GetAttributeValues' {} a -> s {maxResults = a} :: GetAttributeValues) Prelude.. Lens.mapping Prelude._Nat
 
--- | The service code for the service whose attributes you want to retrieve. For example, if you want the retrieve an EC2 attribute, use @AmazonEC2@ .
-gavServiceCode :: Lens' GetAttributeValues Text
-gavServiceCode = lens _gavServiceCode (\s a -> s {_gavServiceCode = a})
+-- | The service code for the service whose attributes you want to retrieve.
+-- For example, if you want the retrieve an EC2 attribute, use @AmazonEC2@.
+getAttributeValues_serviceCode :: Lens.Lens' GetAttributeValues Prelude.Text
+getAttributeValues_serviceCode = Lens.lens (\GetAttributeValues' {serviceCode} -> serviceCode) (\s@GetAttributeValues' {} a -> s {serviceCode = a} :: GetAttributeValues)
 
--- | The name of the attribute that you want to retrieve the values for, such as @volumeType@ .
-gavAttributeName :: Lens' GetAttributeValues Text
-gavAttributeName = lens _gavAttributeName (\s a -> s {_gavAttributeName = a})
+-- | The name of the attribute that you want to retrieve the values for, such
+-- as @volumeType@.
+getAttributeValues_attributeName :: Lens.Lens' GetAttributeValues Prelude.Text
+getAttributeValues_attributeName = Lens.lens (\GetAttributeValues' {attributeName} -> attributeName) (\s@GetAttributeValues' {} a -> s {attributeName = a} :: GetAttributeValues)
 
-instance AWSPager GetAttributeValues where
+instance Pager.AWSPager GetAttributeValues where
   page rq rs
-    | stop (rs ^. gavrrsNextToken) = Nothing
-    | stop (rs ^. gavrrsAttributeValues) = Nothing
-    | otherwise =
-      Just $ rq & gavNextToken .~ rs ^. gavrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getAttributeValuesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getAttributeValuesResponse_attributeValues
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getAttributeValues_nextToken
+          Lens..~ rs
+          Lens.^? getAttributeValuesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetAttributeValues where
+instance Prelude.AWSRequest GetAttributeValues where
   type
     Rs GetAttributeValues =
       GetAttributeValuesResponse
-  request = postJSON pricing
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAttributeValuesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "AttributeValues" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "AttributeValues"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAttributeValues
+instance Prelude.Hashable GetAttributeValues
 
-instance NFData GetAttributeValues
+instance Prelude.NFData GetAttributeValues
 
-instance ToHeaders GetAttributeValues where
+instance Prelude.ToHeaders GetAttributeValues where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSPriceListService.GetAttributeValues" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSPriceListService.GetAttributeValues" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAttributeValues where
+instance Prelude.ToJSON GetAttributeValues where
   toJSON GetAttributeValues' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gavNextToken,
-            ("MaxResults" .=) <$> _gavMaxResults,
-            Just ("ServiceCode" .= _gavServiceCode),
-            Just ("AttributeName" .= _gavAttributeName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("ServiceCode" Prelude..= serviceCode),
+            Prelude.Just
+              ("AttributeName" Prelude..= attributeName)
           ]
       )
 
-instance ToPath GetAttributeValues where
-  toPath = const "/"
+instance Prelude.ToPath GetAttributeValues where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAttributeValues where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAttributeValues where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAttributeValuesResponse' smart constructor.
+-- | /See:/ 'newGetAttributeValuesResponse' smart constructor.
 data GetAttributeValuesResponse = GetAttributeValuesResponse'
-  { _gavrrsNextToken ::
-      !(Maybe Text),
-    _gavrrsAttributeValues ::
-      !( Maybe
-           [AttributeValue]
-       ),
-    _gavrrsResponseStatus ::
-      !Int
+  { -- | The pagination token that indicates the next set of results to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of values for an attribute. For example,
+    -- @Throughput Optimized HDD@ and @Provisioned IOPS@ are two available
+    -- values for the @AmazonEC2@ @volumeType@.
+    attributeValues :: Prelude.Maybe [AttributeValue],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAttributeValuesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAttributeValuesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gavrrsNextToken' - The pagination token that indicates the next set of results to retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gavrrsAttributeValues' - The list of values for an attribute. For example, @Throughput Optimized HDD@ and @Provisioned IOPS@ are two available values for the @AmazonEC2@ @volumeType@ .
+-- 'nextToken', 'getAttributeValuesResponse_nextToken' - The pagination token that indicates the next set of results to retrieve.
 --
--- * 'gavrrsResponseStatus' - -- | The response status code.
-getAttributeValuesResponse ::
-  -- | 'gavrrsResponseStatus'
-  Int ->
+-- 'attributeValues', 'getAttributeValuesResponse_attributeValues' - The list of values for an attribute. For example,
+-- @Throughput Optimized HDD@ and @Provisioned IOPS@ are two available
+-- values for the @AmazonEC2@ @volumeType@.
+--
+-- 'httpStatus', 'getAttributeValuesResponse_httpStatus' - The response's http status code.
+newGetAttributeValuesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAttributeValuesResponse
-getAttributeValuesResponse pResponseStatus_ =
+newGetAttributeValuesResponse pHttpStatus_ =
   GetAttributeValuesResponse'
-    { _gavrrsNextToken =
-        Nothing,
-      _gavrrsAttributeValues = Nothing,
-      _gavrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      attributeValues = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The pagination token that indicates the next set of results to retrieve.
-gavrrsNextToken :: Lens' GetAttributeValuesResponse (Maybe Text)
-gavrrsNextToken = lens _gavrrsNextToken (\s a -> s {_gavrrsNextToken = a})
+getAttributeValuesResponse_nextToken :: Lens.Lens' GetAttributeValuesResponse (Prelude.Maybe Prelude.Text)
+getAttributeValuesResponse_nextToken = Lens.lens (\GetAttributeValuesResponse' {nextToken} -> nextToken) (\s@GetAttributeValuesResponse' {} a -> s {nextToken = a} :: GetAttributeValuesResponse)
 
--- | The list of values for an attribute. For example, @Throughput Optimized HDD@ and @Provisioned IOPS@ are two available values for the @AmazonEC2@ @volumeType@ .
-gavrrsAttributeValues :: Lens' GetAttributeValuesResponse [AttributeValue]
-gavrrsAttributeValues = lens _gavrrsAttributeValues (\s a -> s {_gavrrsAttributeValues = a}) . _Default . _Coerce
+-- | The list of values for an attribute. For example,
+-- @Throughput Optimized HDD@ and @Provisioned IOPS@ are two available
+-- values for the @AmazonEC2@ @volumeType@.
+getAttributeValuesResponse_attributeValues :: Lens.Lens' GetAttributeValuesResponse (Prelude.Maybe [AttributeValue])
+getAttributeValuesResponse_attributeValues = Lens.lens (\GetAttributeValuesResponse' {attributeValues} -> attributeValues) (\s@GetAttributeValuesResponse' {} a -> s {attributeValues = a} :: GetAttributeValuesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gavrrsResponseStatus :: Lens' GetAttributeValuesResponse Int
-gavrrsResponseStatus = lens _gavrrsResponseStatus (\s a -> s {_gavrrsResponseStatus = a})
+-- | The response's http status code.
+getAttributeValuesResponse_httpStatus :: Lens.Lens' GetAttributeValuesResponse Prelude.Int
+getAttributeValuesResponse_httpStatus = Lens.lens (\GetAttributeValuesResponse' {httpStatus} -> httpStatus) (\s@GetAttributeValuesResponse' {} a -> s {httpStatus = a} :: GetAttributeValuesResponse)
 
-instance NFData GetAttributeValuesResponse
+instance Prelude.NFData GetAttributeValuesResponse

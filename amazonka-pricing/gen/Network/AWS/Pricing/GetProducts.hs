@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,197 +23,242 @@
 --
 -- Returns a list of all products that match the filter criteria.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Pricing.GetProducts
   ( -- * Creating a Request
-    getProducts,
-    GetProducts,
+    GetProducts (..),
+    newGetProducts,
 
     -- * Request Lenses
-    gpNextToken,
-    gpMaxResults,
-    gpServiceCode,
-    gpFormatVersion,
-    gpFilters,
+    getProducts_nextToken,
+    getProducts_maxResults,
+    getProducts_serviceCode,
+    getProducts_formatVersion,
+    getProducts_filters,
 
     -- * Destructuring the Response
-    getProductsResponse,
-    GetProductsResponse,
+    GetProductsResponse (..),
+    newGetProductsResponse,
 
     -- * Response Lenses
-    gprrsPriceList,
-    gprrsNextToken,
-    gprrsFormatVersion,
-    gprrsResponseStatus,
+    getProductsResponse_priceList,
+    getProductsResponse_nextToken,
+    getProductsResponse_formatVersion,
+    getProductsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Pricing.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getProducts' smart constructor.
+-- | /See:/ 'newGetProducts' smart constructor.
 data GetProducts = GetProducts'
-  { _gpNextToken ::
-      !(Maybe Text),
-    _gpMaxResults :: !(Maybe Nat),
-    _gpServiceCode :: !(Maybe Text),
-    _gpFormatVersion :: !(Maybe Text),
-    _gpFilters :: !(Maybe [Filter])
+  { -- | The pagination token that indicates the next set of results that you
+    -- want to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The code for the service whose products you want to retrieve.
+    serviceCode :: Prelude.Maybe Prelude.Text,
+    -- | The format version that you want the response to be in.
+    --
+    -- Valid values are: @aws_v1@
+    formatVersion :: Prelude.Maybe Prelude.Text,
+    -- | The list of filters that limit the returned products. only products that
+    -- match all filters are returned.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetProducts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetProducts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpNextToken' - The pagination token that indicates the next set of results that you want to retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpMaxResults' - The maximum number of results to return in the response.
+-- 'nextToken', 'getProducts_nextToken' - The pagination token that indicates the next set of results that you
+-- want to retrieve.
 --
--- * 'gpServiceCode' - The code for the service whose products you want to retrieve.
+-- 'maxResults', 'getProducts_maxResults' - The maximum number of results to return in the response.
 --
--- * 'gpFormatVersion' - The format version that you want the response to be in. Valid values are: @aws_v1@
+-- 'serviceCode', 'getProducts_serviceCode' - The code for the service whose products you want to retrieve.
 --
--- * 'gpFilters' - The list of filters that limit the returned products. only products that match all filters are returned.
-getProducts ::
+-- 'formatVersion', 'getProducts_formatVersion' - The format version that you want the response to be in.
+--
+-- Valid values are: @aws_v1@
+--
+-- 'filters', 'getProducts_filters' - The list of filters that limit the returned products. only products that
+-- match all filters are returned.
+newGetProducts ::
   GetProducts
-getProducts =
+newGetProducts =
   GetProducts'
-    { _gpNextToken = Nothing,
-      _gpMaxResults = Nothing,
-      _gpServiceCode = Nothing,
-      _gpFormatVersion = Nothing,
-      _gpFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      serviceCode = Prelude.Nothing,
+      formatVersion = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | The pagination token that indicates the next set of results that you want to retrieve.
-gpNextToken :: Lens' GetProducts (Maybe Text)
-gpNextToken = lens _gpNextToken (\s a -> s {_gpNextToken = a})
+-- | The pagination token that indicates the next set of results that you
+-- want to retrieve.
+getProducts_nextToken :: Lens.Lens' GetProducts (Prelude.Maybe Prelude.Text)
+getProducts_nextToken = Lens.lens (\GetProducts' {nextToken} -> nextToken) (\s@GetProducts' {} a -> s {nextToken = a} :: GetProducts)
 
 -- | The maximum number of results to return in the response.
-gpMaxResults :: Lens' GetProducts (Maybe Natural)
-gpMaxResults = lens _gpMaxResults (\s a -> s {_gpMaxResults = a}) . mapping _Nat
+getProducts_maxResults :: Lens.Lens' GetProducts (Prelude.Maybe Prelude.Natural)
+getProducts_maxResults = Lens.lens (\GetProducts' {maxResults} -> maxResults) (\s@GetProducts' {} a -> s {maxResults = a} :: GetProducts) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The code for the service whose products you want to retrieve.
-gpServiceCode :: Lens' GetProducts (Maybe Text)
-gpServiceCode = lens _gpServiceCode (\s a -> s {_gpServiceCode = a})
+getProducts_serviceCode :: Lens.Lens' GetProducts (Prelude.Maybe Prelude.Text)
+getProducts_serviceCode = Lens.lens (\GetProducts' {serviceCode} -> serviceCode) (\s@GetProducts' {} a -> s {serviceCode = a} :: GetProducts)
 
--- | The format version that you want the response to be in. Valid values are: @aws_v1@
-gpFormatVersion :: Lens' GetProducts (Maybe Text)
-gpFormatVersion = lens _gpFormatVersion (\s a -> s {_gpFormatVersion = a})
+-- | The format version that you want the response to be in.
+--
+-- Valid values are: @aws_v1@
+getProducts_formatVersion :: Lens.Lens' GetProducts (Prelude.Maybe Prelude.Text)
+getProducts_formatVersion = Lens.lens (\GetProducts' {formatVersion} -> formatVersion) (\s@GetProducts' {} a -> s {formatVersion = a} :: GetProducts)
 
--- | The list of filters that limit the returned products. only products that match all filters are returned.
-gpFilters :: Lens' GetProducts [Filter]
-gpFilters = lens _gpFilters (\s a -> s {_gpFilters = a}) . _Default . _Coerce
+-- | The list of filters that limit the returned products. only products that
+-- match all filters are returned.
+getProducts_filters :: Lens.Lens' GetProducts (Prelude.Maybe [Filter])
+getProducts_filters = Lens.lens (\GetProducts' {filters} -> filters) (\s@GetProducts' {} a -> s {filters = a} :: GetProducts) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager GetProducts where
+instance Pager.AWSPager GetProducts where
   page rq rs
-    | stop (rs ^. gprrsNextToken) = Nothing
-    | stop (rs ^. gprrsPriceList) = Nothing
-    | otherwise =
-      Just $ rq & gpNextToken .~ rs ^. gprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getProductsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getProductsResponse_priceList Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getProducts_nextToken
+          Lens..~ rs
+          Lens.^? getProductsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest GetProducts where
+instance Prelude.AWSRequest GetProducts where
   type Rs GetProducts = GetProductsResponse
-  request = postJSON pricing
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetProductsResponse'
-            <$> (x .?> "PriceList" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (x .?> "FormatVersion")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "PriceList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "FormatVersion")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetProducts
+instance Prelude.Hashable GetProducts
 
-instance NFData GetProducts
+instance Prelude.NFData GetProducts
 
-instance ToHeaders GetProducts where
+instance Prelude.ToHeaders GetProducts where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSPriceListService.GetProducts" :: ByteString),
+              Prelude.=# ( "AWSPriceListService.GetProducts" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetProducts where
+instance Prelude.ToJSON GetProducts where
   toJSON GetProducts' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gpNextToken,
-            ("MaxResults" .=) <$> _gpMaxResults,
-            ("ServiceCode" .=) <$> _gpServiceCode,
-            ("FormatVersion" .=) <$> _gpFormatVersion,
-            ("Filters" .=) <$> _gpFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("ServiceCode" Prelude..=) Prelude.<$> serviceCode,
+            ("FormatVersion" Prelude..=)
+              Prelude.<$> formatVersion,
+            ("Filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath GetProducts where
-  toPath = const "/"
+instance Prelude.ToPath GetProducts where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetProducts where
-  toQuery = const mempty
+instance Prelude.ToQuery GetProducts where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getProductsResponse' smart constructor.
+-- | /See:/ 'newGetProductsResponse' smart constructor.
 data GetProductsResponse = GetProductsResponse'
-  { _gprrsPriceList ::
-      !(Maybe [Text]),
-    _gprrsNextToken ::
-      !(Maybe Text),
-    _gprrsFormatVersion ::
-      !(Maybe Text),
-    _gprrsResponseStatus :: !Int
+  { -- | The list of products that match your filters. The list contains both the
+    -- product metadata and the price information.
+    priceList :: Prelude.Maybe [Prelude.Text],
+    -- | The pagination token that indicates the next set of results to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The format version of the response. For example, aws_v1.
+    formatVersion :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetProductsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetProductsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gprrsPriceList' - The list of products that match your filters. The list contains both the product metadata and the price information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gprrsNextToken' - The pagination token that indicates the next set of results to retrieve.
+-- 'priceList', 'getProductsResponse_priceList' - The list of products that match your filters. The list contains both the
+-- product metadata and the price information.
 --
--- * 'gprrsFormatVersion' - The format version of the response. For example, aws_v1.
+-- 'nextToken', 'getProductsResponse_nextToken' - The pagination token that indicates the next set of results to retrieve.
 --
--- * 'gprrsResponseStatus' - -- | The response status code.
-getProductsResponse ::
-  -- | 'gprrsResponseStatus'
-  Int ->
+-- 'formatVersion', 'getProductsResponse_formatVersion' - The format version of the response. For example, aws_v1.
+--
+-- 'httpStatus', 'getProductsResponse_httpStatus' - The response's http status code.
+newGetProductsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetProductsResponse
-getProductsResponse pResponseStatus_ =
+newGetProductsResponse pHttpStatus_ =
   GetProductsResponse'
-    { _gprrsPriceList = Nothing,
-      _gprrsNextToken = Nothing,
-      _gprrsFormatVersion = Nothing,
-      _gprrsResponseStatus = pResponseStatus_
+    { priceList = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      formatVersion = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The list of products that match your filters. The list contains both the product metadata and the price information.
-gprrsPriceList :: Lens' GetProductsResponse [Text]
-gprrsPriceList = lens _gprrsPriceList (\s a -> s {_gprrsPriceList = a}) . _Default . _Coerce
+-- | The list of products that match your filters. The list contains both the
+-- product metadata and the price information.
+getProductsResponse_priceList :: Lens.Lens' GetProductsResponse (Prelude.Maybe [Prelude.Text])
+getProductsResponse_priceList = Lens.lens (\GetProductsResponse' {priceList} -> priceList) (\s@GetProductsResponse' {} a -> s {priceList = a} :: GetProductsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The pagination token that indicates the next set of results to retrieve.
-gprrsNextToken :: Lens' GetProductsResponse (Maybe Text)
-gprrsNextToken = lens _gprrsNextToken (\s a -> s {_gprrsNextToken = a})
+getProductsResponse_nextToken :: Lens.Lens' GetProductsResponse (Prelude.Maybe Prelude.Text)
+getProductsResponse_nextToken = Lens.lens (\GetProductsResponse' {nextToken} -> nextToken) (\s@GetProductsResponse' {} a -> s {nextToken = a} :: GetProductsResponse)
 
 -- | The format version of the response. For example, aws_v1.
-gprrsFormatVersion :: Lens' GetProductsResponse (Maybe Text)
-gprrsFormatVersion = lens _gprrsFormatVersion (\s a -> s {_gprrsFormatVersion = a})
+getProductsResponse_formatVersion :: Lens.Lens' GetProductsResponse (Prelude.Maybe Prelude.Text)
+getProductsResponse_formatVersion = Lens.lens (\GetProductsResponse' {formatVersion} -> formatVersion) (\s@GetProductsResponse' {} a -> s {formatVersion = a} :: GetProductsResponse)
 
--- | -- | The response status code.
-gprrsResponseStatus :: Lens' GetProductsResponse Int
-gprrsResponseStatus = lens _gprrsResponseStatus (\s a -> s {_gprrsResponseStatus = a})
+-- | The response's http status code.
+getProductsResponse_httpStatus :: Lens.Lens' GetProductsResponse Prelude.Int
+getProductsResponse_httpStatus = Lens.lens (\GetProductsResponse' {httpStatus} -> httpStatus) (\s@GetProductsResponse' {} a -> s {httpStatus = a} :: GetProductsResponse)
 
-instance NFData GetProductsResponse
+instance Prelude.NFData GetProductsResponse

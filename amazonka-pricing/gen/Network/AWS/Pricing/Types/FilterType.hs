@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.Pricing.Types.FilterType
   ( FilterType
       ( ..,
-        TermMatch
+        FilterTypeTERMMATCH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FilterType = FilterType' (CI Text)
+newtype FilterType = FilterType'
+  { fromFilterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TermMatch :: FilterType
-pattern TermMatch = FilterType' "TERM_MATCH"
+pattern FilterTypeTERMMATCH :: FilterType
+pattern FilterTypeTERMMATCH = FilterType' "TERM_MATCH"
 
 {-# COMPLETE
-  TermMatch,
+  FilterTypeTERMMATCH,
   FilterType'
   #-}
 
-instance FromText FilterType where
-  parser = (FilterType' . mk) <$> takeText
+instance Prelude.FromText FilterType where
+  parser = FilterType' Prelude.<$> Prelude.takeText
 
-instance ToText FilterType where
-  toText (FilterType' ci) = original ci
+instance Prelude.ToText FilterType where
+  toText (FilterType' x) = x
 
-instance Hashable FilterType
+instance Prelude.Hashable FilterType
 
-instance NFData FilterType
+instance Prelude.NFData FilterType
 
-instance ToByteString FilterType
+instance Prelude.ToByteString FilterType
 
-instance ToQuery FilterType
+instance Prelude.ToQuery FilterType
 
-instance ToHeader FilterType
+instance Prelude.ToHeader FilterType
 
-instance ToJSON FilterType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FilterType where
+  toJSON = Prelude.toJSONText

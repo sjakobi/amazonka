@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pricing.Types.PricingService where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The metadata for a service, such as the service code and available attribute names.
+-- | The metadata for a service, such as the service code and available
+-- attribute names.
 --
---
---
--- /See:/ 'pricingService' smart constructor.
+-- /See:/ 'newPricingService' smart constructor.
 data PricingService = PricingService'
-  { _psServiceCode ::
-      !(Maybe Text),
-    _psAttributeNames :: !(Maybe [Text])
+  { -- | The code for the AWS service.
+    serviceCode :: Prelude.Maybe Prelude.Text,
+    -- | The attributes that are available for this service.
+    attributeNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PricingService' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PricingService' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psServiceCode' - The code for the AWS service.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psAttributeNames' - The attributes that are available for this service.
-pricingService ::
+-- 'serviceCode', 'pricingService_serviceCode' - The code for the AWS service.
+--
+-- 'attributeNames', 'pricingService_attributeNames' - The attributes that are available for this service.
+newPricingService ::
   PricingService
-pricingService =
+newPricingService =
   PricingService'
-    { _psServiceCode = Nothing,
-      _psAttributeNames = Nothing
+    { serviceCode = Prelude.Nothing,
+      attributeNames = Prelude.Nothing
     }
 
 -- | The code for the AWS service.
-psServiceCode :: Lens' PricingService (Maybe Text)
-psServiceCode = lens _psServiceCode (\s a -> s {_psServiceCode = a})
+pricingService_serviceCode :: Lens.Lens' PricingService (Prelude.Maybe Prelude.Text)
+pricingService_serviceCode = Lens.lens (\PricingService' {serviceCode} -> serviceCode) (\s@PricingService' {} a -> s {serviceCode = a} :: PricingService)
 
 -- | The attributes that are available for this service.
-psAttributeNames :: Lens' PricingService [Text]
-psAttributeNames = lens _psAttributeNames (\s a -> s {_psAttributeNames = a}) . _Default . _Coerce
+pricingService_attributeNames :: Lens.Lens' PricingService (Prelude.Maybe [Prelude.Text])
+pricingService_attributeNames = Lens.lens (\PricingService' {attributeNames} -> attributeNames) (\s@PricingService' {} a -> s {attributeNames = a} :: PricingService) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON PricingService where
+instance Prelude.FromJSON PricingService where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PricingService"
       ( \x ->
           PricingService'
-            <$> (x .:? "ServiceCode")
-            <*> (x .:? "AttributeNames" .!= mempty)
+            Prelude.<$> (x Prelude..:? "ServiceCode")
+            Prelude.<*> ( x Prelude..:? "AttributeNames"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable PricingService
+instance Prelude.Hashable PricingService
 
-instance NFData PricingService
+instance Prelude.NFData PricingService
