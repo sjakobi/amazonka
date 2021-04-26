@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.KinesisVideoMedia.Types.StartSelectorType
   ( StartSelectorType
       ( ..,
-        ContinuationToken,
-        Earliest,
-        FragmentNumber,
-        Now,
-        ProducerTimestamp,
-        ServerTimestamp
+        StartSelectorTypeCONTINUATIONTOKEN,
+        StartSelectorTypeEARLIEST,
+        StartSelectorTypeFRAGMENTNUMBER,
+        StartSelectorTypeNOW,
+        StartSelectorTypePRODUCERTIMESTAMP,
+        StartSelectorTypeSERVERTIMESTAMP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StartSelectorType = StartSelectorType' (CI Text)
+newtype StartSelectorType = StartSelectorType'
+  { fromStartSelectorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ContinuationToken :: StartSelectorType
-pattern ContinuationToken = StartSelectorType' "CONTINUATION_TOKEN"
+pattern StartSelectorTypeCONTINUATIONTOKEN :: StartSelectorType
+pattern StartSelectorTypeCONTINUATIONTOKEN = StartSelectorType' "CONTINUATION_TOKEN"
 
-pattern Earliest :: StartSelectorType
-pattern Earliest = StartSelectorType' "EARLIEST"
+pattern StartSelectorTypeEARLIEST :: StartSelectorType
+pattern StartSelectorTypeEARLIEST = StartSelectorType' "EARLIEST"
 
-pattern FragmentNumber :: StartSelectorType
-pattern FragmentNumber = StartSelectorType' "FRAGMENT_NUMBER"
+pattern StartSelectorTypeFRAGMENTNUMBER :: StartSelectorType
+pattern StartSelectorTypeFRAGMENTNUMBER = StartSelectorType' "FRAGMENT_NUMBER"
 
-pattern Now :: StartSelectorType
-pattern Now = StartSelectorType' "NOW"
+pattern StartSelectorTypeNOW :: StartSelectorType
+pattern StartSelectorTypeNOW = StartSelectorType' "NOW"
 
-pattern ProducerTimestamp :: StartSelectorType
-pattern ProducerTimestamp = StartSelectorType' "PRODUCER_TIMESTAMP"
+pattern StartSelectorTypePRODUCERTIMESTAMP :: StartSelectorType
+pattern StartSelectorTypePRODUCERTIMESTAMP = StartSelectorType' "PRODUCER_TIMESTAMP"
 
-pattern ServerTimestamp :: StartSelectorType
-pattern ServerTimestamp = StartSelectorType' "SERVER_TIMESTAMP"
+pattern StartSelectorTypeSERVERTIMESTAMP :: StartSelectorType
+pattern StartSelectorTypeSERVERTIMESTAMP = StartSelectorType' "SERVER_TIMESTAMP"
 
 {-# COMPLETE
-  ContinuationToken,
-  Earliest,
-  FragmentNumber,
-  Now,
-  ProducerTimestamp,
-  ServerTimestamp,
+  StartSelectorTypeCONTINUATIONTOKEN,
+  StartSelectorTypeEARLIEST,
+  StartSelectorTypeFRAGMENTNUMBER,
+  StartSelectorTypeNOW,
+  StartSelectorTypePRODUCERTIMESTAMP,
+  StartSelectorTypeSERVERTIMESTAMP,
   StartSelectorType'
   #-}
 
-instance FromText StartSelectorType where
-  parser = (StartSelectorType' . mk) <$> takeText
+instance Prelude.FromText StartSelectorType where
+  parser = StartSelectorType' Prelude.<$> Prelude.takeText
 
-instance ToText StartSelectorType where
-  toText (StartSelectorType' ci) = original ci
+instance Prelude.ToText StartSelectorType where
+  toText (StartSelectorType' x) = x
 
-instance Hashable StartSelectorType
+instance Prelude.Hashable StartSelectorType
 
-instance NFData StartSelectorType
+instance Prelude.NFData StartSelectorType
 
-instance ToByteString StartSelectorType
+instance Prelude.ToByteString StartSelectorType
 
-instance ToQuery StartSelectorType
+instance Prelude.ToQuery StartSelectorType
 
-instance ToHeader StartSelectorType
+instance Prelude.ToHeader StartSelectorType
 
-instance ToJSON StartSelectorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON StartSelectorType where
+  toJSON = Prelude.toJSONText

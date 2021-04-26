@@ -12,7 +12,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisVideoMedia
   ( -- * Service Configuration
-    kinesisVideoMedia,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -42,7 +42,10 @@ module Network.AWS.KinesisVideoMedia
     -- $operations
 
     -- ** GetMedia
-    module Network.AWS.KinesisVideoMedia.GetMedia,
+    GetMedia (GetMedia'),
+    newGetMedia,
+    GetMediaResponse (GetMediaResponse'),
+    newGetMediaResponse,
 
     -- * Types
 
@@ -50,16 +53,13 @@ module Network.AWS.KinesisVideoMedia
     StartSelectorType (..),
 
     -- ** StartSelector
-    StartSelector,
-    startSelector,
-    ssAfterFragmentNumber,
-    ssStartTimestamp,
-    ssContinuationToken,
-    ssStartSelectorType,
+    StartSelector (StartSelector'),
+    newStartSelector,
   )
 where
 
 import Network.AWS.KinesisVideoMedia.GetMedia
+import Network.AWS.KinesisVideoMedia.Lens
 import Network.AWS.KinesisVideoMedia.Types
 import Network.AWS.KinesisVideoMedia.Waiters
 

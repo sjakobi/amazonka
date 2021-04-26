@@ -28,13 +28,13 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestGetMedia $
---             getMedia
+--             newGetMedia
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseGetMedia $
---             getMediaResponse
+--             newGetMediaResponse
 --
 --           ]
 --     ]
