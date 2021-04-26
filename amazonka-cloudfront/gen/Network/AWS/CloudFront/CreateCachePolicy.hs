@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,161 +23,171 @@
 --
 -- Creates a cache policy.
 --
+-- After you create a cache policy, you can attach it to one or more cache
+-- behaviors. When it’s attached to a cache behavior, the cache policy
+-- determines the following:
 --
--- After you create a cache policy, you can attach it to one or more cache behaviors. When it’s attached to a cache behavior, the cache policy determines the following:
+-- -   The values that CloudFront includes in the /cache key/. These values
+--     can include HTTP headers, cookies, and URL query strings. CloudFront
+--     uses the cache key to find an object in its cache that it can return
+--     to the viewer.
 --
---     * The values that CloudFront includes in the /cache key/ . These values can include HTTP headers, cookies, and URL query strings. CloudFront uses the cache key to find an object in its cache that it can return to the viewer.
+-- -   The default, minimum, and maximum time to live (TTL) values that you
+--     want objects to stay in the CloudFront cache.
 --
---     * The default, minimum, and maximum time to live (TTL) values that you want objects to stay in the CloudFront cache.
+-- The headers, cookies, and query strings that are included in the cache
+-- key are automatically included in requests that CloudFront sends to the
+-- origin. CloudFront sends a request when it can’t find an object in its
+-- cache that matches the request’s cache key. If you want to send values
+-- to the origin but /not/ include them in the cache key, use
+-- @OriginRequestPolicy@.
 --
---
---
--- The headers, cookies, and query strings that are included in the cache key are automatically included in requests that CloudFront sends to the origin. CloudFront sends a request when it can’t find an object in its cache that matches the request’s cache key. If you want to send values to the origin but /not/ include them in the cache key, use @OriginRequestPolicy@ .
---
--- For more information about cache policies, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html Controlling the cache key> in the /Amazon CloudFront Developer Guide/ .
+-- For more information about cache policies, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html Controlling the cache key>
+-- in the /Amazon CloudFront Developer Guide/.
 module Network.AWS.CloudFront.CreateCachePolicy
   ( -- * Creating a Request
-    createCachePolicy,
-    CreateCachePolicy,
+    CreateCachePolicy (..),
+    newCreateCachePolicy,
 
     -- * Request Lenses
-    ccpCachePolicyConfig,
+    createCachePolicy_cachePolicyConfig,
 
     -- * Destructuring the Response
-    createCachePolicyResponse,
-    CreateCachePolicyResponse,
+    CreateCachePolicyResponse (..),
+    newCreateCachePolicyResponse,
 
     -- * Response Lenses
-    ccprrsETag,
-    ccprrsCachePolicy,
-    ccprrsLocation,
-    ccprrsResponseStatus,
+    createCachePolicyResponse_eTag,
+    createCachePolicyResponse_cachePolicy,
+    createCachePolicyResponse_location,
+    createCachePolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.CachePolicy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createCachePolicy' smart constructor.
-newtype CreateCachePolicy = CreateCachePolicy'
-  { _ccpCachePolicyConfig ::
-      CachePolicyConfig
+-- | /See:/ 'newCreateCachePolicy' smart constructor.
+data CreateCachePolicy = CreateCachePolicy'
+  { -- | A cache policy configuration.
+    cachePolicyConfig :: CachePolicyConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCachePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCachePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccpCachePolicyConfig' - A cache policy configuration.
-createCachePolicy ::
-  -- | 'ccpCachePolicyConfig'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'cachePolicyConfig', 'createCachePolicy_cachePolicyConfig' - A cache policy configuration.
+newCreateCachePolicy ::
+  -- | 'cachePolicyConfig'
   CachePolicyConfig ->
   CreateCachePolicy
-createCachePolicy pCachePolicyConfig_ =
+newCreateCachePolicy pCachePolicyConfig_ =
   CreateCachePolicy'
-    { _ccpCachePolicyConfig =
+    { cachePolicyConfig =
         pCachePolicyConfig_
     }
 
 -- | A cache policy configuration.
-ccpCachePolicyConfig :: Lens' CreateCachePolicy CachePolicyConfig
-ccpCachePolicyConfig = lens _ccpCachePolicyConfig (\s a -> s {_ccpCachePolicyConfig = a})
+createCachePolicy_cachePolicyConfig :: Lens.Lens' CreateCachePolicy CachePolicyConfig
+createCachePolicy_cachePolicyConfig = Lens.lens (\CreateCachePolicy' {cachePolicyConfig} -> cachePolicyConfig) (\s@CreateCachePolicy' {} a -> s {cachePolicyConfig = a} :: CreateCachePolicy)
 
-instance AWSRequest CreateCachePolicy where
+instance Prelude.AWSRequest CreateCachePolicy where
   type Rs CreateCachePolicy = CreateCachePolicyResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateCachePolicyResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (h .#? "Location")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (h Prelude..#? "Location")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateCachePolicy
+instance Prelude.Hashable CreateCachePolicy
 
-instance NFData CreateCachePolicy
+instance Prelude.NFData CreateCachePolicy
 
-instance ToElement CreateCachePolicy where
-  toElement =
-    mkElement
+instance Prelude.ToElement CreateCachePolicy where
+  toElement CreateCachePolicy' {..} =
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}CachePolicyConfig"
-      . _ccpCachePolicyConfig
+      cachePolicyConfig
 
-instance ToHeaders CreateCachePolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateCachePolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateCachePolicy where
-  toPath = const "/2020-05-31/cache-policy"
+instance Prelude.ToPath CreateCachePolicy where
+  toPath = Prelude.const "/2020-05-31/cache-policy"
 
-instance ToQuery CreateCachePolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateCachePolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createCachePolicyResponse' smart constructor.
+-- | /See:/ 'newCreateCachePolicyResponse' smart constructor.
 data CreateCachePolicyResponse = CreateCachePolicyResponse'
-  { _ccprrsETag ::
-      !(Maybe Text),
-    _ccprrsCachePolicy ::
-      !( Maybe
-           CachePolicy
-       ),
-    _ccprrsLocation ::
-      !(Maybe Text),
-    _ccprrsResponseStatus ::
-      !Int
+  { -- | The current version of the cache policy.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | A cache policy.
+    cachePolicy :: Prelude.Maybe CachePolicy,
+    -- | The fully qualified URI of the cache policy just created.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCachePolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCachePolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccprrsETag' - The current version of the cache policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccprrsCachePolicy' - A cache policy.
+-- 'eTag', 'createCachePolicyResponse_eTag' - The current version of the cache policy.
 --
--- * 'ccprrsLocation' - The fully qualified URI of the cache policy just created.
+-- 'cachePolicy', 'createCachePolicyResponse_cachePolicy' - A cache policy.
 --
--- * 'ccprrsResponseStatus' - -- | The response status code.
-createCachePolicyResponse ::
-  -- | 'ccprrsResponseStatus'
-  Int ->
+-- 'location', 'createCachePolicyResponse_location' - The fully qualified URI of the cache policy just created.
+--
+-- 'httpStatus', 'createCachePolicyResponse_httpStatus' - The response's http status code.
+newCreateCachePolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateCachePolicyResponse
-createCachePolicyResponse pResponseStatus_ =
+newCreateCachePolicyResponse pHttpStatus_ =
   CreateCachePolicyResponse'
-    { _ccprrsETag = Nothing,
-      _ccprrsCachePolicy = Nothing,
-      _ccprrsLocation = Nothing,
-      _ccprrsResponseStatus = pResponseStatus_
+    { eTag = Prelude.Nothing,
+      cachePolicy = Prelude.Nothing,
+      location = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current version of the cache policy.
-ccprrsETag :: Lens' CreateCachePolicyResponse (Maybe Text)
-ccprrsETag = lens _ccprrsETag (\s a -> s {_ccprrsETag = a})
+createCachePolicyResponse_eTag :: Lens.Lens' CreateCachePolicyResponse (Prelude.Maybe Prelude.Text)
+createCachePolicyResponse_eTag = Lens.lens (\CreateCachePolicyResponse' {eTag} -> eTag) (\s@CreateCachePolicyResponse' {} a -> s {eTag = a} :: CreateCachePolicyResponse)
 
 -- | A cache policy.
-ccprrsCachePolicy :: Lens' CreateCachePolicyResponse (Maybe CachePolicy)
-ccprrsCachePolicy = lens _ccprrsCachePolicy (\s a -> s {_ccprrsCachePolicy = a})
+createCachePolicyResponse_cachePolicy :: Lens.Lens' CreateCachePolicyResponse (Prelude.Maybe CachePolicy)
+createCachePolicyResponse_cachePolicy = Lens.lens (\CreateCachePolicyResponse' {cachePolicy} -> cachePolicy) (\s@CreateCachePolicyResponse' {} a -> s {cachePolicy = a} :: CreateCachePolicyResponse)
 
 -- | The fully qualified URI of the cache policy just created.
-ccprrsLocation :: Lens' CreateCachePolicyResponse (Maybe Text)
-ccprrsLocation = lens _ccprrsLocation (\s a -> s {_ccprrsLocation = a})
+createCachePolicyResponse_location :: Lens.Lens' CreateCachePolicyResponse (Prelude.Maybe Prelude.Text)
+createCachePolicyResponse_location = Lens.lens (\CreateCachePolicyResponse' {location} -> location) (\s@CreateCachePolicyResponse' {} a -> s {location = a} :: CreateCachePolicyResponse)
 
--- | -- | The response status code.
-ccprrsResponseStatus :: Lens' CreateCachePolicyResponse Int
-ccprrsResponseStatus = lens _ccprrsResponseStatus (\s a -> s {_ccprrsResponseStatus = a})
+-- | The response's http status code.
+createCachePolicyResponse_httpStatus :: Lens.Lens' CreateCachePolicyResponse Prelude.Int
+createCachePolicyResponse_httpStatus = Lens.lens (\CreateCachePolicyResponse' {httpStatus} -> httpStatus) (\s@CreateCachePolicyResponse' {} a -> s {httpStatus = a} :: CreateCachePolicyResponse)
 
-instance NFData CreateCachePolicyResponse
+instance Prelude.NFData CreateCachePolicyResponse

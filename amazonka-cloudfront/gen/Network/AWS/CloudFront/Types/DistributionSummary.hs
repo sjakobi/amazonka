@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,133 +24,202 @@ import Network.AWS.CloudFront.Types.Aliases
 import Network.AWS.CloudFront.Types.CacheBehaviors
 import Network.AWS.CloudFront.Types.CustomErrorResponses
 import Network.AWS.CloudFront.Types.DefaultCacheBehavior
-import Network.AWS.CloudFront.Types.HTTPVersion
+import Network.AWS.CloudFront.Types.HttpVersion
 import Network.AWS.CloudFront.Types.OriginGroups
 import Network.AWS.CloudFront.Types.Origins
 import Network.AWS.CloudFront.Types.PriceClass
 import Network.AWS.CloudFront.Types.Restrictions
 import Network.AWS.CloudFront.Types.ViewerCertificate
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A summary of the information about a CloudFront distribution.
 --
---
---
--- /See:/ 'distributionSummary' smart constructor.
+-- /See:/ 'newDistributionSummary' smart constructor.
 data DistributionSummary = DistributionSummary'
-  { _dsAliasICPRecordals ::
-      !(Maybe [AliasICPRecordal]),
-    _dsOriginGroups ::
-      !(Maybe OriginGroups),
-    _dsId :: !Text,
-    _dsARN :: !Text,
-    _dsStatus :: !Text,
-    _dsLastModifiedTime :: !ISO8601,
-    _dsDomainName :: !Text,
-    _dsAliases :: !Aliases,
-    _dsOrigins :: !Origins,
-    _dsDefaultCacheBehavior ::
-      !DefaultCacheBehavior,
-    _dsCacheBehaviors ::
-      !CacheBehaviors,
-    _dsCustomErrorResponses ::
-      !CustomErrorResponses,
-    _dsComment :: !Text,
-    _dsPriceClass :: !PriceClass,
-    _dsEnabled :: !Bool,
-    _dsViewerCertificate ::
-      !ViewerCertificate,
-    _dsRestrictions ::
-      !Restrictions,
-    _dsWebACLId :: !Text,
-    _dsHTTPVersion :: !HTTPVersion,
-    _dsIsIPV6Enabled :: !Bool
+  { -- | AWS services in China customers must file for an Internet Content
+    -- Provider (ICP) recordal if they want to serve content publicly on an
+    -- alternate domain name, also known as a CNAME, that they\'ve added to
+    -- CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs
+    -- associated with distributions.
+    --
+    -- For more information about ICP recordals, see
+    -- <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials>
+    -- in /Getting Started with AWS services in China/.
+    aliasICPRecordals :: Prelude.Maybe [AliasICPRecordal],
+    -- | A complex type that contains information about origin groups for this
+    -- distribution.
+    originGroups :: Prelude.Maybe OriginGroups,
+    -- | The identifier for the distribution. For example: @EDFDVBD632BHDS5@.
+    id :: Prelude.Text,
+    -- | The ARN (Amazon Resource Name) for the distribution. For example:
+    -- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
+    -- @123456789012@ is your AWS account ID.
+    aRN :: Prelude.Text,
+    -- | The current status of the distribution. When the status is @Deployed@,
+    -- the distribution\'s information is propagated to all CloudFront edge
+    -- locations.
+    status :: Prelude.Text,
+    -- | The date and time the distribution was last modified.
+    lastModifiedTime :: Prelude.ISO8601,
+    -- | The domain name that corresponds to the distribution, for example,
+    -- @d111111abcdef8.cloudfront.net@.
+    domainName :: Prelude.Text,
+    -- | A complex type that contains information about CNAMEs (alternate domain
+    -- names), if any, for this distribution.
+    aliases :: Aliases,
+    -- | A complex type that contains information about origins for this
+    -- distribution.
+    origins :: Origins,
+    -- | A complex type that describes the default cache behavior if you don\'t
+    -- specify a @CacheBehavior@ element or if files don\'t match any of the
+    -- values of @PathPattern@ in @CacheBehavior@ elements. You must create
+    -- exactly one default cache behavior.
+    defaultCacheBehavior :: DefaultCacheBehavior,
+    -- | A complex type that contains zero or more @CacheBehavior@ elements.
+    cacheBehaviors :: CacheBehaviors,
+    -- | A complex type that contains zero or more @CustomErrorResponses@
+    -- elements.
+    customErrorResponses :: CustomErrorResponses,
+    -- | The comment originally specified when this distribution was created.
+    comment :: Prelude.Text,
+    -- | A complex type that contains information about price class for this
+    -- streaming distribution.
+    priceClass :: PriceClass,
+    -- | Whether the distribution is enabled to accept user requests for content.
+    enabled :: Prelude.Bool,
+    -- | A complex type that determines the distribution’s SSL\/TLS configuration
+    -- for communicating with viewers.
+    viewerCertificate :: ViewerCertificate,
+    -- | A complex type that identifies ways in which you want to restrict
+    -- distribution of your content.
+    restrictions :: Restrictions,
+    -- | The Web ACL Id (if any) associated with the distribution.
+    webACLId :: Prelude.Text,
+    -- | Specify the maximum HTTP version that you want viewers to use to
+    -- communicate with CloudFront. The default value for new web distributions
+    -- is @http2@. Viewers that don\'t support @HTTP\/2@ will automatically use
+    -- an earlier version.
+    httpVersion :: HttpVersion,
+    -- | Whether CloudFront responds to IPv6 DNS requests with an IPv6 address
+    -- for your distribution.
+    isIPV6Enabled :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DistributionSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DistributionSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsAliasICPRecordals' - AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions. For more information about ICP recordals, see <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials> in /Getting Started with AWS services in China/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsOriginGroups' - A complex type that contains information about origin groups for this distribution.
+-- 'aliasICPRecordals', 'distributionSummary_aliasICPRecordals' - AWS services in China customers must file for an Internet Content
+-- Provider (ICP) recordal if they want to serve content publicly on an
+-- alternate domain name, also known as a CNAME, that they\'ve added to
+-- CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs
+-- associated with distributions.
 --
--- * 'dsId' - The identifier for the distribution. For example: @EDFDVBD632BHDS5@ .
+-- For more information about ICP recordals, see
+-- <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials>
+-- in /Getting Started with AWS services in China/.
 --
--- * 'dsARN' - The ARN (Amazon Resource Name) for the distribution. For example: @arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5@ , where @123456789012@ is your AWS account ID.
+-- 'originGroups', 'distributionSummary_originGroups' - A complex type that contains information about origin groups for this
+-- distribution.
 --
--- * 'dsStatus' - The current status of the distribution. When the status is @Deployed@ , the distribution's information is propagated to all CloudFront edge locations.
+-- 'id', 'distributionSummary_id' - The identifier for the distribution. For example: @EDFDVBD632BHDS5@.
 --
--- * 'dsLastModifiedTime' - The date and time the distribution was last modified.
+-- 'aRN', 'distributionSummary_aRN' - The ARN (Amazon Resource Name) for the distribution. For example:
+-- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
+-- @123456789012@ is your AWS account ID.
 --
--- * 'dsDomainName' - The domain name that corresponds to the distribution, for example, @d111111abcdef8.cloudfront.net@ .
+-- 'status', 'distributionSummary_status' - The current status of the distribution. When the status is @Deployed@,
+-- the distribution\'s information is propagated to all CloudFront edge
+-- locations.
 --
--- * 'dsAliases' - A complex type that contains information about CNAMEs (alternate domain names), if any, for this distribution.
+-- 'lastModifiedTime', 'distributionSummary_lastModifiedTime' - The date and time the distribution was last modified.
 --
--- * 'dsOrigins' - A complex type that contains information about origins for this distribution.
+-- 'domainName', 'distributionSummary_domainName' - The domain name that corresponds to the distribution, for example,
+-- @d111111abcdef8.cloudfront.net@.
 --
--- * 'dsDefaultCacheBehavior' - A complex type that describes the default cache behavior if you don't specify a @CacheBehavior@ element or if files don't match any of the values of @PathPattern@ in @CacheBehavior@ elements. You must create exactly one default cache behavior.
+-- 'aliases', 'distributionSummary_aliases' - A complex type that contains information about CNAMEs (alternate domain
+-- names), if any, for this distribution.
 --
--- * 'dsCacheBehaviors' - A complex type that contains zero or more @CacheBehavior@ elements.
+-- 'origins', 'distributionSummary_origins' - A complex type that contains information about origins for this
+-- distribution.
 --
--- * 'dsCustomErrorResponses' - A complex type that contains zero or more @CustomErrorResponses@ elements.
+-- 'defaultCacheBehavior', 'distributionSummary_defaultCacheBehavior' - A complex type that describes the default cache behavior if you don\'t
+-- specify a @CacheBehavior@ element or if files don\'t match any of the
+-- values of @PathPattern@ in @CacheBehavior@ elements. You must create
+-- exactly one default cache behavior.
 --
--- * 'dsComment' - The comment originally specified when this distribution was created.
+-- 'cacheBehaviors', 'distributionSummary_cacheBehaviors' - A complex type that contains zero or more @CacheBehavior@ elements.
 --
--- * 'dsPriceClass' - A complex type that contains information about price class for this streaming distribution.
+-- 'customErrorResponses', 'distributionSummary_customErrorResponses' - A complex type that contains zero or more @CustomErrorResponses@
+-- elements.
 --
--- * 'dsEnabled' - Whether the distribution is enabled to accept user requests for content.
+-- 'comment', 'distributionSummary_comment' - The comment originally specified when this distribution was created.
 --
--- * 'dsViewerCertificate' - A complex type that determines the distribution’s SSL/TLS configuration for communicating with viewers.
+-- 'priceClass', 'distributionSummary_priceClass' - A complex type that contains information about price class for this
+-- streaming distribution.
 --
--- * 'dsRestrictions' - A complex type that identifies ways in which you want to restrict distribution of your content.
+-- 'enabled', 'distributionSummary_enabled' - Whether the distribution is enabled to accept user requests for content.
 --
--- * 'dsWebACLId' - The Web ACL Id (if any) associated with the distribution.
+-- 'viewerCertificate', 'distributionSummary_viewerCertificate' - A complex type that determines the distribution’s SSL\/TLS configuration
+-- for communicating with viewers.
 --
--- * 'dsHTTPVersion' - Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. The default value for new web distributions is @http2@ . Viewers that don't support @HTTP/2@ will automatically use an earlier version.
+-- 'restrictions', 'distributionSummary_restrictions' - A complex type that identifies ways in which you want to restrict
+-- distribution of your content.
 --
--- * 'dsIsIPV6Enabled' - Whether CloudFront responds to IPv6 DNS requests with an IPv6 address for your distribution.
-distributionSummary ::
-  -- | 'dsId'
-  Text ->
-  -- | 'dsARN'
-  Text ->
-  -- | 'dsStatus'
-  Text ->
-  -- | 'dsLastModifiedTime'
-  UTCTime ->
-  -- | 'dsDomainName'
-  Text ->
-  -- | 'dsAliases'
+-- 'webACLId', 'distributionSummary_webACLId' - The Web ACL Id (if any) associated with the distribution.
+--
+-- 'httpVersion', 'distributionSummary_httpVersion' - Specify the maximum HTTP version that you want viewers to use to
+-- communicate with CloudFront. The default value for new web distributions
+-- is @http2@. Viewers that don\'t support @HTTP\/2@ will automatically use
+-- an earlier version.
+--
+-- 'isIPV6Enabled', 'distributionSummary_isIPV6Enabled' - Whether CloudFront responds to IPv6 DNS requests with an IPv6 address
+-- for your distribution.
+newDistributionSummary ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'aRN'
+  Prelude.Text ->
+  -- | 'status'
+  Prelude.Text ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'aliases'
   Aliases ->
-  -- | 'dsOrigins'
+  -- | 'origins'
   Origins ->
-  -- | 'dsDefaultCacheBehavior'
+  -- | 'defaultCacheBehavior'
   DefaultCacheBehavior ->
-  -- | 'dsCacheBehaviors'
+  -- | 'cacheBehaviors'
   CacheBehaviors ->
-  -- | 'dsCustomErrorResponses'
+  -- | 'customErrorResponses'
   CustomErrorResponses ->
-  -- | 'dsComment'
-  Text ->
-  -- | 'dsPriceClass'
+  -- | 'comment'
+  Prelude.Text ->
+  -- | 'priceClass'
   PriceClass ->
-  -- | 'dsEnabled'
-  Bool ->
-  -- | 'dsViewerCertificate'
+  -- | 'enabled'
+  Prelude.Bool ->
+  -- | 'viewerCertificate'
   ViewerCertificate ->
-  -- | 'dsRestrictions'
+  -- | 'restrictions'
   Restrictions ->
-  -- | 'dsWebACLId'
-  Text ->
-  -- | 'dsHTTPVersion'
-  HTTPVersion ->
-  -- | 'dsIsIPV6Enabled'
-  Bool ->
+  -- | 'webACLId'
+  Prelude.Text ->
+  -- | 'httpVersion'
+  HttpVersion ->
+  -- | 'isIPV6Enabled'
+  Prelude.Bool ->
   DistributionSummary
-distributionSummary
+newDistributionSummary
   pId_
   pARN_
   pStatus_
@@ -163,138 +236,168 @@ distributionSummary
   pViewerCertificate_
   pRestrictions_
   pWebACLId_
-  pHTTPVersion_
+  pHttpVersion_
   pIsIPV6Enabled_ =
     DistributionSummary'
-      { _dsAliasICPRecordals =
-          Nothing,
-        _dsOriginGroups = Nothing,
-        _dsId = pId_,
-        _dsARN = pARN_,
-        _dsStatus = pStatus_,
-        _dsLastModifiedTime = _Time # pLastModifiedTime_,
-        _dsDomainName = pDomainName_,
-        _dsAliases = pAliases_,
-        _dsOrigins = pOrigins_,
-        _dsDefaultCacheBehavior = pDefaultCacheBehavior_,
-        _dsCacheBehaviors = pCacheBehaviors_,
-        _dsCustomErrorResponses = pCustomErrorResponses_,
-        _dsComment = pComment_,
-        _dsPriceClass = pPriceClass_,
-        _dsEnabled = pEnabled_,
-        _dsViewerCertificate = pViewerCertificate_,
-        _dsRestrictions = pRestrictions_,
-        _dsWebACLId = pWebACLId_,
-        _dsHTTPVersion = pHTTPVersion_,
-        _dsIsIPV6Enabled = pIsIPV6Enabled_
+      { aliasICPRecordals =
+          Prelude.Nothing,
+        originGroups = Prelude.Nothing,
+        id = pId_,
+        aRN = pARN_,
+        status = pStatus_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_,
+        domainName = pDomainName_,
+        aliases = pAliases_,
+        origins = pOrigins_,
+        defaultCacheBehavior = pDefaultCacheBehavior_,
+        cacheBehaviors = pCacheBehaviors_,
+        customErrorResponses = pCustomErrorResponses_,
+        comment = pComment_,
+        priceClass = pPriceClass_,
+        enabled = pEnabled_,
+        viewerCertificate = pViewerCertificate_,
+        restrictions = pRestrictions_,
+        webACLId = pWebACLId_,
+        httpVersion = pHttpVersion_,
+        isIPV6Enabled = pIsIPV6Enabled_
       }
 
--- | AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions. For more information about ICP recordals, see <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials> in /Getting Started with AWS services in China/ .
-dsAliasICPRecordals :: Lens' DistributionSummary [AliasICPRecordal]
-dsAliasICPRecordals = lens _dsAliasICPRecordals (\s a -> s {_dsAliasICPRecordals = a}) . _Default . _Coerce
+-- | AWS services in China customers must file for an Internet Content
+-- Provider (ICP) recordal if they want to serve content publicly on an
+-- alternate domain name, also known as a CNAME, that they\'ve added to
+-- CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs
+-- associated with distributions.
+--
+-- For more information about ICP recordals, see
+-- <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials>
+-- in /Getting Started with AWS services in China/.
+distributionSummary_aliasICPRecordals :: Lens.Lens' DistributionSummary (Prelude.Maybe [AliasICPRecordal])
+distributionSummary_aliasICPRecordals = Lens.lens (\DistributionSummary' {aliasICPRecordals} -> aliasICPRecordals) (\s@DistributionSummary' {} a -> s {aliasICPRecordals = a} :: DistributionSummary) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A complex type that contains information about origin groups for this distribution.
-dsOriginGroups :: Lens' DistributionSummary (Maybe OriginGroups)
-dsOriginGroups = lens _dsOriginGroups (\s a -> s {_dsOriginGroups = a})
+-- | A complex type that contains information about origin groups for this
+-- distribution.
+distributionSummary_originGroups :: Lens.Lens' DistributionSummary (Prelude.Maybe OriginGroups)
+distributionSummary_originGroups = Lens.lens (\DistributionSummary' {originGroups} -> originGroups) (\s@DistributionSummary' {} a -> s {originGroups = a} :: DistributionSummary)
 
--- | The identifier for the distribution. For example: @EDFDVBD632BHDS5@ .
-dsId :: Lens' DistributionSummary Text
-dsId = lens _dsId (\s a -> s {_dsId = a})
+-- | The identifier for the distribution. For example: @EDFDVBD632BHDS5@.
+distributionSummary_id :: Lens.Lens' DistributionSummary Prelude.Text
+distributionSummary_id = Lens.lens (\DistributionSummary' {id} -> id) (\s@DistributionSummary' {} a -> s {id = a} :: DistributionSummary)
 
--- | The ARN (Amazon Resource Name) for the distribution. For example: @arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5@ , where @123456789012@ is your AWS account ID.
-dsARN :: Lens' DistributionSummary Text
-dsARN = lens _dsARN (\s a -> s {_dsARN = a})
+-- | The ARN (Amazon Resource Name) for the distribution. For example:
+-- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
+-- @123456789012@ is your AWS account ID.
+distributionSummary_aRN :: Lens.Lens' DistributionSummary Prelude.Text
+distributionSummary_aRN = Lens.lens (\DistributionSummary' {aRN} -> aRN) (\s@DistributionSummary' {} a -> s {aRN = a} :: DistributionSummary)
 
--- | The current status of the distribution. When the status is @Deployed@ , the distribution's information is propagated to all CloudFront edge locations.
-dsStatus :: Lens' DistributionSummary Text
-dsStatus = lens _dsStatus (\s a -> s {_dsStatus = a})
+-- | The current status of the distribution. When the status is @Deployed@,
+-- the distribution\'s information is propagated to all CloudFront edge
+-- locations.
+distributionSummary_status :: Lens.Lens' DistributionSummary Prelude.Text
+distributionSummary_status = Lens.lens (\DistributionSummary' {status} -> status) (\s@DistributionSummary' {} a -> s {status = a} :: DistributionSummary)
 
 -- | The date and time the distribution was last modified.
-dsLastModifiedTime :: Lens' DistributionSummary UTCTime
-dsLastModifiedTime = lens _dsLastModifiedTime (\s a -> s {_dsLastModifiedTime = a}) . _Time
+distributionSummary_lastModifiedTime :: Lens.Lens' DistributionSummary Prelude.UTCTime
+distributionSummary_lastModifiedTime = Lens.lens (\DistributionSummary' {lastModifiedTime} -> lastModifiedTime) (\s@DistributionSummary' {} a -> s {lastModifiedTime = a} :: DistributionSummary) Prelude.. Prelude._Time
 
--- | The domain name that corresponds to the distribution, for example, @d111111abcdef8.cloudfront.net@ .
-dsDomainName :: Lens' DistributionSummary Text
-dsDomainName = lens _dsDomainName (\s a -> s {_dsDomainName = a})
+-- | The domain name that corresponds to the distribution, for example,
+-- @d111111abcdef8.cloudfront.net@.
+distributionSummary_domainName :: Lens.Lens' DistributionSummary Prelude.Text
+distributionSummary_domainName = Lens.lens (\DistributionSummary' {domainName} -> domainName) (\s@DistributionSummary' {} a -> s {domainName = a} :: DistributionSummary)
 
--- | A complex type that contains information about CNAMEs (alternate domain names), if any, for this distribution.
-dsAliases :: Lens' DistributionSummary Aliases
-dsAliases = lens _dsAliases (\s a -> s {_dsAliases = a})
+-- | A complex type that contains information about CNAMEs (alternate domain
+-- names), if any, for this distribution.
+distributionSummary_aliases :: Lens.Lens' DistributionSummary Aliases
+distributionSummary_aliases = Lens.lens (\DistributionSummary' {aliases} -> aliases) (\s@DistributionSummary' {} a -> s {aliases = a} :: DistributionSummary)
 
--- | A complex type that contains information about origins for this distribution.
-dsOrigins :: Lens' DistributionSummary Origins
-dsOrigins = lens _dsOrigins (\s a -> s {_dsOrigins = a})
+-- | A complex type that contains information about origins for this
+-- distribution.
+distributionSummary_origins :: Lens.Lens' DistributionSummary Origins
+distributionSummary_origins = Lens.lens (\DistributionSummary' {origins} -> origins) (\s@DistributionSummary' {} a -> s {origins = a} :: DistributionSummary)
 
--- | A complex type that describes the default cache behavior if you don't specify a @CacheBehavior@ element or if files don't match any of the values of @PathPattern@ in @CacheBehavior@ elements. You must create exactly one default cache behavior.
-dsDefaultCacheBehavior :: Lens' DistributionSummary DefaultCacheBehavior
-dsDefaultCacheBehavior = lens _dsDefaultCacheBehavior (\s a -> s {_dsDefaultCacheBehavior = a})
+-- | A complex type that describes the default cache behavior if you don\'t
+-- specify a @CacheBehavior@ element or if files don\'t match any of the
+-- values of @PathPattern@ in @CacheBehavior@ elements. You must create
+-- exactly one default cache behavior.
+distributionSummary_defaultCacheBehavior :: Lens.Lens' DistributionSummary DefaultCacheBehavior
+distributionSummary_defaultCacheBehavior = Lens.lens (\DistributionSummary' {defaultCacheBehavior} -> defaultCacheBehavior) (\s@DistributionSummary' {} a -> s {defaultCacheBehavior = a} :: DistributionSummary)
 
 -- | A complex type that contains zero or more @CacheBehavior@ elements.
-dsCacheBehaviors :: Lens' DistributionSummary CacheBehaviors
-dsCacheBehaviors = lens _dsCacheBehaviors (\s a -> s {_dsCacheBehaviors = a})
+distributionSummary_cacheBehaviors :: Lens.Lens' DistributionSummary CacheBehaviors
+distributionSummary_cacheBehaviors = Lens.lens (\DistributionSummary' {cacheBehaviors} -> cacheBehaviors) (\s@DistributionSummary' {} a -> s {cacheBehaviors = a} :: DistributionSummary)
 
--- | A complex type that contains zero or more @CustomErrorResponses@ elements.
-dsCustomErrorResponses :: Lens' DistributionSummary CustomErrorResponses
-dsCustomErrorResponses = lens _dsCustomErrorResponses (\s a -> s {_dsCustomErrorResponses = a})
+-- | A complex type that contains zero or more @CustomErrorResponses@
+-- elements.
+distributionSummary_customErrorResponses :: Lens.Lens' DistributionSummary CustomErrorResponses
+distributionSummary_customErrorResponses = Lens.lens (\DistributionSummary' {customErrorResponses} -> customErrorResponses) (\s@DistributionSummary' {} a -> s {customErrorResponses = a} :: DistributionSummary)
 
 -- | The comment originally specified when this distribution was created.
-dsComment :: Lens' DistributionSummary Text
-dsComment = lens _dsComment (\s a -> s {_dsComment = a})
+distributionSummary_comment :: Lens.Lens' DistributionSummary Prelude.Text
+distributionSummary_comment = Lens.lens (\DistributionSummary' {comment} -> comment) (\s@DistributionSummary' {} a -> s {comment = a} :: DistributionSummary)
 
--- | A complex type that contains information about price class for this streaming distribution.
-dsPriceClass :: Lens' DistributionSummary PriceClass
-dsPriceClass = lens _dsPriceClass (\s a -> s {_dsPriceClass = a})
+-- | A complex type that contains information about price class for this
+-- streaming distribution.
+distributionSummary_priceClass :: Lens.Lens' DistributionSummary PriceClass
+distributionSummary_priceClass = Lens.lens (\DistributionSummary' {priceClass} -> priceClass) (\s@DistributionSummary' {} a -> s {priceClass = a} :: DistributionSummary)
 
 -- | Whether the distribution is enabled to accept user requests for content.
-dsEnabled :: Lens' DistributionSummary Bool
-dsEnabled = lens _dsEnabled (\s a -> s {_dsEnabled = a})
+distributionSummary_enabled :: Lens.Lens' DistributionSummary Prelude.Bool
+distributionSummary_enabled = Lens.lens (\DistributionSummary' {enabled} -> enabled) (\s@DistributionSummary' {} a -> s {enabled = a} :: DistributionSummary)
 
--- | A complex type that determines the distribution’s SSL/TLS configuration for communicating with viewers.
-dsViewerCertificate :: Lens' DistributionSummary ViewerCertificate
-dsViewerCertificate = lens _dsViewerCertificate (\s a -> s {_dsViewerCertificate = a})
+-- | A complex type that determines the distribution’s SSL\/TLS configuration
+-- for communicating with viewers.
+distributionSummary_viewerCertificate :: Lens.Lens' DistributionSummary ViewerCertificate
+distributionSummary_viewerCertificate = Lens.lens (\DistributionSummary' {viewerCertificate} -> viewerCertificate) (\s@DistributionSummary' {} a -> s {viewerCertificate = a} :: DistributionSummary)
 
--- | A complex type that identifies ways in which you want to restrict distribution of your content.
-dsRestrictions :: Lens' DistributionSummary Restrictions
-dsRestrictions = lens _dsRestrictions (\s a -> s {_dsRestrictions = a})
+-- | A complex type that identifies ways in which you want to restrict
+-- distribution of your content.
+distributionSummary_restrictions :: Lens.Lens' DistributionSummary Restrictions
+distributionSummary_restrictions = Lens.lens (\DistributionSummary' {restrictions} -> restrictions) (\s@DistributionSummary' {} a -> s {restrictions = a} :: DistributionSummary)
 
 -- | The Web ACL Id (if any) associated with the distribution.
-dsWebACLId :: Lens' DistributionSummary Text
-dsWebACLId = lens _dsWebACLId (\s a -> s {_dsWebACLId = a})
+distributionSummary_webACLId :: Lens.Lens' DistributionSummary Prelude.Text
+distributionSummary_webACLId = Lens.lens (\DistributionSummary' {webACLId} -> webACLId) (\s@DistributionSummary' {} a -> s {webACLId = a} :: DistributionSummary)
 
--- | Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. The default value for new web distributions is @http2@ . Viewers that don't support @HTTP/2@ will automatically use an earlier version.
-dsHTTPVersion :: Lens' DistributionSummary HTTPVersion
-dsHTTPVersion = lens _dsHTTPVersion (\s a -> s {_dsHTTPVersion = a})
+-- | Specify the maximum HTTP version that you want viewers to use to
+-- communicate with CloudFront. The default value for new web distributions
+-- is @http2@. Viewers that don\'t support @HTTP\/2@ will automatically use
+-- an earlier version.
+distributionSummary_httpVersion :: Lens.Lens' DistributionSummary HttpVersion
+distributionSummary_httpVersion = Lens.lens (\DistributionSummary' {httpVersion} -> httpVersion) (\s@DistributionSummary' {} a -> s {httpVersion = a} :: DistributionSummary)
 
--- | Whether CloudFront responds to IPv6 DNS requests with an IPv6 address for your distribution.
-dsIsIPV6Enabled :: Lens' DistributionSummary Bool
-dsIsIPV6Enabled = lens _dsIsIPV6Enabled (\s a -> s {_dsIsIPV6Enabled = a})
+-- | Whether CloudFront responds to IPv6 DNS requests with an IPv6 address
+-- for your distribution.
+distributionSummary_isIPV6Enabled :: Lens.Lens' DistributionSummary Prelude.Bool
+distributionSummary_isIPV6Enabled = Lens.lens (\DistributionSummary' {isIPV6Enabled} -> isIPV6Enabled) (\s@DistributionSummary' {} a -> s {isIPV6Enabled = a} :: DistributionSummary)
 
-instance FromXML DistributionSummary where
+instance Prelude.FromXML DistributionSummary where
   parseXML x =
     DistributionSummary'
-      <$> ( x .@? "AliasICPRecordals" .!@ mempty
-              >>= may (parseXMLList "AliasICPRecordal")
-          )
-      <*> (x .@? "OriginGroups")
-      <*> (x .@ "Id")
-      <*> (x .@ "ARN")
-      <*> (x .@ "Status")
-      <*> (x .@ "LastModifiedTime")
-      <*> (x .@ "DomainName")
-      <*> (x .@ "Aliases")
-      <*> (x .@ "Origins")
-      <*> (x .@ "DefaultCacheBehavior")
-      <*> (x .@ "CacheBehaviors")
-      <*> (x .@ "CustomErrorResponses")
-      <*> (x .@ "Comment")
-      <*> (x .@ "PriceClass")
-      <*> (x .@ "Enabled")
-      <*> (x .@ "ViewerCertificate")
-      <*> (x .@ "Restrictions")
-      <*> (x .@ "WebACLId")
-      <*> (x .@ "HttpVersion")
-      <*> (x .@ "IsIPV6Enabled")
+      Prelude.<$> ( x Prelude..@? "AliasICPRecordals"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "AliasICPRecordal")
+                  )
+      Prelude.<*> (x Prelude..@? "OriginGroups")
+      Prelude.<*> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "ARN")
+      Prelude.<*> (x Prelude..@ "Status")
+      Prelude.<*> (x Prelude..@ "LastModifiedTime")
+      Prelude.<*> (x Prelude..@ "DomainName")
+      Prelude.<*> (x Prelude..@ "Aliases")
+      Prelude.<*> (x Prelude..@ "Origins")
+      Prelude.<*> (x Prelude..@ "DefaultCacheBehavior")
+      Prelude.<*> (x Prelude..@ "CacheBehaviors")
+      Prelude.<*> (x Prelude..@ "CustomErrorResponses")
+      Prelude.<*> (x Prelude..@ "Comment")
+      Prelude.<*> (x Prelude..@ "PriceClass")
+      Prelude.<*> (x Prelude..@ "Enabled")
+      Prelude.<*> (x Prelude..@ "ViewerCertificate")
+      Prelude.<*> (x Prelude..@ "Restrictions")
+      Prelude.<*> (x Prelude..@ "WebACLId")
+      Prelude.<*> (x Prelude..@ "HttpVersion")
+      Prelude.<*> (x Prelude..@ "IsIPV6Enabled")
 
-instance Hashable DistributionSummary
+instance Prelude.Hashable DistributionSummary
 
-instance NFData DistributionSummary
+instance Prelude.NFData DistributionSummary

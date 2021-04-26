@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CloudFront.Types.CachePolicyType
   ( CachePolicyType
       ( ..,
-        Custom,
-        Managed
+        CachePolicyTypeCustom,
+        CachePolicyTypeManaged
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CachePolicyType = CachePolicyType' (CI Text)
+newtype CachePolicyType = CachePolicyType'
+  { fromCachePolicyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Custom :: CachePolicyType
-pattern Custom = CachePolicyType' "custom"
+pattern CachePolicyTypeCustom :: CachePolicyType
+pattern CachePolicyTypeCustom = CachePolicyType' "custom"
 
-pattern Managed :: CachePolicyType
-pattern Managed = CachePolicyType' "managed"
+pattern CachePolicyTypeManaged :: CachePolicyType
+pattern CachePolicyTypeManaged = CachePolicyType' "managed"
 
 {-# COMPLETE
-  Custom,
-  Managed,
+  CachePolicyTypeCustom,
+  CachePolicyTypeManaged,
   CachePolicyType'
   #-}
 
-instance FromText CachePolicyType where
-  parser = (CachePolicyType' . mk) <$> takeText
+instance Prelude.FromText CachePolicyType where
+  parser = CachePolicyType' Prelude.<$> Prelude.takeText
 
-instance ToText CachePolicyType where
-  toText (CachePolicyType' ci) = original ci
+instance Prelude.ToText CachePolicyType where
+  toText (CachePolicyType' x) = x
 
-instance Hashable CachePolicyType
+instance Prelude.Hashable CachePolicyType
 
-instance NFData CachePolicyType
+instance Prelude.NFData CachePolicyType
 
-instance ToByteString CachePolicyType
+instance Prelude.ToByteString CachePolicyType
 
-instance ToQuery CachePolicyType
+instance Prelude.ToQuery CachePolicyType
 
-instance ToHeader CachePolicyType
+instance Prelude.ToHeader CachePolicyType
 
-instance FromXML CachePolicyType where
-  parseXML = parseXMLText "CachePolicyType"
+instance Prelude.FromXML CachePolicyType where
+  parseXML = Prelude.parseXMLText "CachePolicyType"
 
-instance ToXML CachePolicyType where
-  toXML = toXMLText
+instance Prelude.ToXML CachePolicyType where
+  toXML = Prelude.toXMLText

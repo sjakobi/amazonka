@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.Aliases where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A complex type that contains information about CNAMEs (alternate domain names), if any, for this distribution.
+-- | A complex type that contains information about CNAMEs (alternate domain
+-- names), if any, for this distribution.
 --
---
---
--- /See:/ 'aliases' smart constructor.
+-- /See:/ 'newAliases' smart constructor.
 data Aliases = Aliases'
-  { _aItems :: !(Maybe [Text]),
-    _aQuantity :: !Int
+  { -- | A complex type that contains the CNAME aliases, if any, that you want to
+    -- associate with this distribution.
+    items :: Prelude.Maybe [Prelude.Text],
+    -- | The number of CNAME aliases, if any, that you want to associate with
+    -- this distribution.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Aliases' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Aliases' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aItems' - A complex type that contains the CNAME aliases, if any, that you want to associate with this distribution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aQuantity' - The number of CNAME aliases, if any, that you want to associate with this distribution.
-aliases ::
-  -- | 'aQuantity'
-  Int ->
+-- 'items', 'aliases_items' - A complex type that contains the CNAME aliases, if any, that you want to
+-- associate with this distribution.
+--
+-- 'quantity', 'aliases_quantity' - The number of CNAME aliases, if any, that you want to associate with
+-- this distribution.
+newAliases ::
+  -- | 'quantity'
+  Prelude.Int ->
   Aliases
-aliases pQuantity_ =
+newAliases pQuantity_ =
   Aliases'
-    { _aItems = Nothing,
-      _aQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
     }
 
--- | A complex type that contains the CNAME aliases, if any, that you want to associate with this distribution.
-aItems :: Lens' Aliases [Text]
-aItems = lens _aItems (\s a -> s {_aItems = a}) . _Default . _Coerce
+-- | A complex type that contains the CNAME aliases, if any, that you want to
+-- associate with this distribution.
+aliases_items :: Lens.Lens' Aliases (Prelude.Maybe [Prelude.Text])
+aliases_items = Lens.lens (\Aliases' {items} -> items) (\s@Aliases' {} a -> s {items = a} :: Aliases) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of CNAME aliases, if any, that you want to associate with this distribution.
-aQuantity :: Lens' Aliases Int
-aQuantity = lens _aQuantity (\s a -> s {_aQuantity = a})
+-- | The number of CNAME aliases, if any, that you want to associate with
+-- this distribution.
+aliases_quantity :: Lens.Lens' Aliases Prelude.Int
+aliases_quantity = Lens.lens (\Aliases' {quantity} -> quantity) (\s@Aliases' {} a -> s {quantity = a} :: Aliases)
 
-instance FromXML Aliases where
+instance Prelude.FromXML Aliases where
   parseXML x =
     Aliases'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "CNAME")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "CNAME")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable Aliases
+instance Prelude.Hashable Aliases
 
-instance NFData Aliases
+instance Prelude.NFData Aliases
 
-instance ToXML Aliases where
+instance Prelude.ToXML Aliases where
   toXML Aliases' {..} =
-    mconcat
-      [ "Items" @= toXML (toXMLList "CNAME" <$> _aItems),
-        "Quantity" @= _aQuantity
+    Prelude.mconcat
+      [ "Items"
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "CNAME" Prelude.<$> items),
+        "Quantity" Prelude.@= quantity
       ]

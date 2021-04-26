@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CloudFront.Types.RealtimeMetricsSubscriptionStatus
   ( RealtimeMetricsSubscriptionStatus
       ( ..,
-        Disabled,
-        Enabled
+        RealtimeMetricsSubscriptionStatusDisabled,
+        RealtimeMetricsSubscriptionStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RealtimeMetricsSubscriptionStatus
-  = RealtimeMetricsSubscriptionStatus'
-      ( CI
-          Text
-      )
+newtype RealtimeMetricsSubscriptionStatus = RealtimeMetricsSubscriptionStatus'
+  { fromRealtimeMetricsSubscriptionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: RealtimeMetricsSubscriptionStatus
-pattern Disabled = RealtimeMetricsSubscriptionStatus' "Disabled"
+pattern RealtimeMetricsSubscriptionStatusDisabled :: RealtimeMetricsSubscriptionStatus
+pattern RealtimeMetricsSubscriptionStatusDisabled = RealtimeMetricsSubscriptionStatus' "Disabled"
 
-pattern Enabled :: RealtimeMetricsSubscriptionStatus
-pattern Enabled = RealtimeMetricsSubscriptionStatus' "Enabled"
+pattern RealtimeMetricsSubscriptionStatusEnabled :: RealtimeMetricsSubscriptionStatus
+pattern RealtimeMetricsSubscriptionStatusEnabled = RealtimeMetricsSubscriptionStatus' "Enabled"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  RealtimeMetricsSubscriptionStatusDisabled,
+  RealtimeMetricsSubscriptionStatusEnabled,
   RealtimeMetricsSubscriptionStatus'
   #-}
 
-instance FromText RealtimeMetricsSubscriptionStatus where
-  parser = (RealtimeMetricsSubscriptionStatus' . mk) <$> takeText
+instance Prelude.FromText RealtimeMetricsSubscriptionStatus where
+  parser = RealtimeMetricsSubscriptionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText RealtimeMetricsSubscriptionStatus where
-  toText (RealtimeMetricsSubscriptionStatus' ci) = original ci
+instance Prelude.ToText RealtimeMetricsSubscriptionStatus where
+  toText (RealtimeMetricsSubscriptionStatus' x) = x
 
-instance Hashable RealtimeMetricsSubscriptionStatus
+instance Prelude.Hashable RealtimeMetricsSubscriptionStatus
 
-instance NFData RealtimeMetricsSubscriptionStatus
+instance Prelude.NFData RealtimeMetricsSubscriptionStatus
 
-instance ToByteString RealtimeMetricsSubscriptionStatus
+instance Prelude.ToByteString RealtimeMetricsSubscriptionStatus
 
-instance ToQuery RealtimeMetricsSubscriptionStatus
+instance Prelude.ToQuery RealtimeMetricsSubscriptionStatus
 
-instance ToHeader RealtimeMetricsSubscriptionStatus
+instance Prelude.ToHeader RealtimeMetricsSubscriptionStatus
 
-instance FromXML RealtimeMetricsSubscriptionStatus where
-  parseXML = parseXMLText "RealtimeMetricsSubscriptionStatus"
+instance Prelude.FromXML RealtimeMetricsSubscriptionStatus where
+  parseXML = Prelude.parseXMLText "RealtimeMetricsSubscriptionStatus"
 
-instance ToXML RealtimeMetricsSubscriptionStatus where
-  toXML = toXMLText
+instance Prelude.ToXML RealtimeMetricsSubscriptionStatus where
+  toXML = Prelude.toXMLText

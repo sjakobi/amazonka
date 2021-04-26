@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,83 @@
 module Network.AWS.CloudFront.Types.ActiveTrustedSigners where
 
 import Network.AWS.CloudFront.Types.Signer
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of AWS accounts and the active CloudFront key pairs in each account that CloudFront can use to verify the signatures of signed URLs and signed cookies.
+-- | A list of AWS accounts and the active CloudFront key pairs in each
+-- account that CloudFront can use to verify the signatures of signed URLs
+-- and signed cookies.
 --
---
---
--- /See:/ 'activeTrustedSigners' smart constructor.
+-- /See:/ 'newActiveTrustedSigners' smart constructor.
 data ActiveTrustedSigners = ActiveTrustedSigners'
-  { _atsItems ::
-      !(Maybe [Signer]),
-    _atsEnabled :: !Bool,
-    _atsQuantity :: !Int
+  { -- | A list of AWS accounts and the identifiers of active CloudFront key
+    -- pairs in each account that CloudFront can use to verify the signatures
+    -- of signed URLs and signed cookies.
+    items :: Prelude.Maybe [Signer],
+    -- | This field is @true@ if any of the AWS accounts in the list have active
+    -- CloudFront key pairs that CloudFront can use to verify the signatures of
+    -- signed URLs and signed cookies. If not, this field is @false@.
+    enabled :: Prelude.Bool,
+    -- | The number of AWS accounts in the list.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActiveTrustedSigners' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActiveTrustedSigners' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atsItems' - A list of AWS accounts and the identifiers of active CloudFront key pairs in each account that CloudFront can use to verify the signatures of signed URLs and signed cookies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atsEnabled' - This field is @true@ if any of the AWS accounts in the list have active CloudFront key pairs that CloudFront can use to verify the signatures of signed URLs and signed cookies. If not, this field is @false@ .
+-- 'items', 'activeTrustedSigners_items' - A list of AWS accounts and the identifiers of active CloudFront key
+-- pairs in each account that CloudFront can use to verify the signatures
+-- of signed URLs and signed cookies.
 --
--- * 'atsQuantity' - The number of AWS accounts in the list.
-activeTrustedSigners ::
-  -- | 'atsEnabled'
-  Bool ->
-  -- | 'atsQuantity'
-  Int ->
+-- 'enabled', 'activeTrustedSigners_enabled' - This field is @true@ if any of the AWS accounts in the list have active
+-- CloudFront key pairs that CloudFront can use to verify the signatures of
+-- signed URLs and signed cookies. If not, this field is @false@.
+--
+-- 'quantity', 'activeTrustedSigners_quantity' - The number of AWS accounts in the list.
+newActiveTrustedSigners ::
+  -- | 'enabled'
+  Prelude.Bool ->
+  -- | 'quantity'
+  Prelude.Int ->
   ActiveTrustedSigners
-activeTrustedSigners pEnabled_ pQuantity_ =
+newActiveTrustedSigners pEnabled_ pQuantity_ =
   ActiveTrustedSigners'
-    { _atsItems = Nothing,
-      _atsEnabled = pEnabled_,
-      _atsQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      enabled = pEnabled_,
+      quantity = pQuantity_
     }
 
--- | A list of AWS accounts and the identifiers of active CloudFront key pairs in each account that CloudFront can use to verify the signatures of signed URLs and signed cookies.
-atsItems :: Lens' ActiveTrustedSigners [Signer]
-atsItems = lens _atsItems (\s a -> s {_atsItems = a}) . _Default . _Coerce
+-- | A list of AWS accounts and the identifiers of active CloudFront key
+-- pairs in each account that CloudFront can use to verify the signatures
+-- of signed URLs and signed cookies.
+activeTrustedSigners_items :: Lens.Lens' ActiveTrustedSigners (Prelude.Maybe [Signer])
+activeTrustedSigners_items = Lens.lens (\ActiveTrustedSigners' {items} -> items) (\s@ActiveTrustedSigners' {} a -> s {items = a} :: ActiveTrustedSigners) Prelude.. Lens.mapping Prelude._Coerce
 
--- | This field is @true@ if any of the AWS accounts in the list have active CloudFront key pairs that CloudFront can use to verify the signatures of signed URLs and signed cookies. If not, this field is @false@ .
-atsEnabled :: Lens' ActiveTrustedSigners Bool
-atsEnabled = lens _atsEnabled (\s a -> s {_atsEnabled = a})
+-- | This field is @true@ if any of the AWS accounts in the list have active
+-- CloudFront key pairs that CloudFront can use to verify the signatures of
+-- signed URLs and signed cookies. If not, this field is @false@.
+activeTrustedSigners_enabled :: Lens.Lens' ActiveTrustedSigners Prelude.Bool
+activeTrustedSigners_enabled = Lens.lens (\ActiveTrustedSigners' {enabled} -> enabled) (\s@ActiveTrustedSigners' {} a -> s {enabled = a} :: ActiveTrustedSigners)
 
 -- | The number of AWS accounts in the list.
-atsQuantity :: Lens' ActiveTrustedSigners Int
-atsQuantity = lens _atsQuantity (\s a -> s {_atsQuantity = a})
+activeTrustedSigners_quantity :: Lens.Lens' ActiveTrustedSigners Prelude.Int
+activeTrustedSigners_quantity = Lens.lens (\ActiveTrustedSigners' {quantity} -> quantity) (\s@ActiveTrustedSigners' {} a -> s {quantity = a} :: ActiveTrustedSigners)
 
-instance FromXML ActiveTrustedSigners where
+instance Prelude.FromXML ActiveTrustedSigners where
   parseXML x =
     ActiveTrustedSigners'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "Signer")
-          )
-      <*> (x .@ "Enabled")
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Signer")
+                  )
+      Prelude.<*> (x Prelude..@ "Enabled")
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable ActiveTrustedSigners
+instance Prelude.Hashable ActiveTrustedSigners
 
-instance NFData ActiveTrustedSigners
+instance Prelude.NFData ActiveTrustedSigners

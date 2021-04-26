@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,71 +20,81 @@
 module Network.AWS.CloudFront.Types.ContentTypeProfile where
 
 import Network.AWS.CloudFront.Types.Format
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A field-level encryption content type profile.
 --
---
---
--- /See:/ 'contentTypeProfile' smart constructor.
+-- /See:/ 'newContentTypeProfile' smart constructor.
 data ContentTypeProfile = ContentTypeProfile'
-  { _ctpProfileId ::
-      !(Maybe Text),
-    _ctpFormat :: !Format,
-    _ctpContentType :: !Text
+  { -- | The profile ID for a field-level encryption content type-profile
+    -- mapping.
+    profileId :: Prelude.Maybe Prelude.Text,
+    -- | The format for a field-level encryption content type-profile mapping.
+    format :: Format,
+    -- | The content type for a field-level encryption content type-profile
+    -- mapping.
+    contentType :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContentTypeProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContentTypeProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctpProfileId' - The profile ID for a field-level encryption content type-profile mapping.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctpFormat' - The format for a field-level encryption content type-profile mapping.
+-- 'profileId', 'contentTypeProfile_profileId' - The profile ID for a field-level encryption content type-profile
+-- mapping.
 --
--- * 'ctpContentType' - The content type for a field-level encryption content type-profile mapping.
-contentTypeProfile ::
-  -- | 'ctpFormat'
+-- 'format', 'contentTypeProfile_format' - The format for a field-level encryption content type-profile mapping.
+--
+-- 'contentType', 'contentTypeProfile_contentType' - The content type for a field-level encryption content type-profile
+-- mapping.
+newContentTypeProfile ::
+  -- | 'format'
   Format ->
-  -- | 'ctpContentType'
-  Text ->
+  -- | 'contentType'
+  Prelude.Text ->
   ContentTypeProfile
-contentTypeProfile pFormat_ pContentType_ =
+newContentTypeProfile pFormat_ pContentType_ =
   ContentTypeProfile'
-    { _ctpProfileId = Nothing,
-      _ctpFormat = pFormat_,
-      _ctpContentType = pContentType_
+    { profileId = Prelude.Nothing,
+      format = pFormat_,
+      contentType = pContentType_
     }
 
--- | The profile ID for a field-level encryption content type-profile mapping.
-ctpProfileId :: Lens' ContentTypeProfile (Maybe Text)
-ctpProfileId = lens _ctpProfileId (\s a -> s {_ctpProfileId = a})
+-- | The profile ID for a field-level encryption content type-profile
+-- mapping.
+contentTypeProfile_profileId :: Lens.Lens' ContentTypeProfile (Prelude.Maybe Prelude.Text)
+contentTypeProfile_profileId = Lens.lens (\ContentTypeProfile' {profileId} -> profileId) (\s@ContentTypeProfile' {} a -> s {profileId = a} :: ContentTypeProfile)
 
 -- | The format for a field-level encryption content type-profile mapping.
-ctpFormat :: Lens' ContentTypeProfile Format
-ctpFormat = lens _ctpFormat (\s a -> s {_ctpFormat = a})
+contentTypeProfile_format :: Lens.Lens' ContentTypeProfile Format
+contentTypeProfile_format = Lens.lens (\ContentTypeProfile' {format} -> format) (\s@ContentTypeProfile' {} a -> s {format = a} :: ContentTypeProfile)
 
--- | The content type for a field-level encryption content type-profile mapping.
-ctpContentType :: Lens' ContentTypeProfile Text
-ctpContentType = lens _ctpContentType (\s a -> s {_ctpContentType = a})
+-- | The content type for a field-level encryption content type-profile
+-- mapping.
+contentTypeProfile_contentType :: Lens.Lens' ContentTypeProfile Prelude.Text
+contentTypeProfile_contentType = Lens.lens (\ContentTypeProfile' {contentType} -> contentType) (\s@ContentTypeProfile' {} a -> s {contentType = a} :: ContentTypeProfile)
 
-instance FromXML ContentTypeProfile where
+instance Prelude.FromXML ContentTypeProfile where
   parseXML x =
     ContentTypeProfile'
-      <$> (x .@? "ProfileId")
-      <*> (x .@ "Format")
-      <*> (x .@ "ContentType")
+      Prelude.<$> (x Prelude..@? "ProfileId")
+      Prelude.<*> (x Prelude..@ "Format")
+      Prelude.<*> (x Prelude..@ "ContentType")
 
-instance Hashable ContentTypeProfile
+instance Prelude.Hashable ContentTypeProfile
 
-instance NFData ContentTypeProfile
+instance Prelude.NFData ContentTypeProfile
 
-instance ToXML ContentTypeProfile where
+instance Prelude.ToXML ContentTypeProfile where
   toXML ContentTypeProfile' {..} =
-    mconcat
-      [ "ProfileId" @= _ctpProfileId,
-        "Format" @= _ctpFormat,
-        "ContentType" @= _ctpContentType
+    Prelude.mconcat
+      [ "ProfileId" Prelude.@= profileId,
+        "Format" Prelude.@= format,
+        "ContentType" Prelude.@= contentType
       ]

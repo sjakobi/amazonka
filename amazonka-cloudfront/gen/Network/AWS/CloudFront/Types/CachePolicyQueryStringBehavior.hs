@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.CloudFront.Types.CachePolicyQueryStringBehavior
   ( CachePolicyQueryStringBehavior
       ( ..,
-        CPQSBAll,
-        CPQSBAllExcept,
-        CPQSBNone,
-        CPQSBWhitelist
+        CachePolicyQueryStringBehaviorAll,
+        CachePolicyQueryStringBehaviorAllExcept,
+        CachePolicyQueryStringBehaviorNone,
+        CachePolicyQueryStringBehaviorWhitelist
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CachePolicyQueryStringBehavior
-  = CachePolicyQueryStringBehavior'
-      ( CI
-          Text
-      )
+newtype CachePolicyQueryStringBehavior = CachePolicyQueryStringBehavior'
+  { fromCachePolicyQueryStringBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CPQSBAll :: CachePolicyQueryStringBehavior
-pattern CPQSBAll = CachePolicyQueryStringBehavior' "all"
+pattern CachePolicyQueryStringBehaviorAll :: CachePolicyQueryStringBehavior
+pattern CachePolicyQueryStringBehaviorAll = CachePolicyQueryStringBehavior' "all"
 
-pattern CPQSBAllExcept :: CachePolicyQueryStringBehavior
-pattern CPQSBAllExcept = CachePolicyQueryStringBehavior' "allExcept"
+pattern CachePolicyQueryStringBehaviorAllExcept :: CachePolicyQueryStringBehavior
+pattern CachePolicyQueryStringBehaviorAllExcept = CachePolicyQueryStringBehavior' "allExcept"
 
-pattern CPQSBNone :: CachePolicyQueryStringBehavior
-pattern CPQSBNone = CachePolicyQueryStringBehavior' "none"
+pattern CachePolicyQueryStringBehaviorNone :: CachePolicyQueryStringBehavior
+pattern CachePolicyQueryStringBehaviorNone = CachePolicyQueryStringBehavior' "none"
 
-pattern CPQSBWhitelist :: CachePolicyQueryStringBehavior
-pattern CPQSBWhitelist = CachePolicyQueryStringBehavior' "whitelist"
+pattern CachePolicyQueryStringBehaviorWhitelist :: CachePolicyQueryStringBehavior
+pattern CachePolicyQueryStringBehaviorWhitelist = CachePolicyQueryStringBehavior' "whitelist"
 
 {-# COMPLETE
-  CPQSBAll,
-  CPQSBAllExcept,
-  CPQSBNone,
-  CPQSBWhitelist,
+  CachePolicyQueryStringBehaviorAll,
+  CachePolicyQueryStringBehaviorAllExcept,
+  CachePolicyQueryStringBehaviorNone,
+  CachePolicyQueryStringBehaviorWhitelist,
   CachePolicyQueryStringBehavior'
   #-}
 
-instance FromText CachePolicyQueryStringBehavior where
-  parser = (CachePolicyQueryStringBehavior' . mk) <$> takeText
+instance Prelude.FromText CachePolicyQueryStringBehavior where
+  parser = CachePolicyQueryStringBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText CachePolicyQueryStringBehavior where
-  toText (CachePolicyQueryStringBehavior' ci) = original ci
+instance Prelude.ToText CachePolicyQueryStringBehavior where
+  toText (CachePolicyQueryStringBehavior' x) = x
 
-instance Hashable CachePolicyQueryStringBehavior
+instance Prelude.Hashable CachePolicyQueryStringBehavior
 
-instance NFData CachePolicyQueryStringBehavior
+instance Prelude.NFData CachePolicyQueryStringBehavior
 
-instance ToByteString CachePolicyQueryStringBehavior
+instance Prelude.ToByteString CachePolicyQueryStringBehavior
 
-instance ToQuery CachePolicyQueryStringBehavior
+instance Prelude.ToQuery CachePolicyQueryStringBehavior
 
-instance ToHeader CachePolicyQueryStringBehavior
+instance Prelude.ToHeader CachePolicyQueryStringBehavior
 
-instance FromXML CachePolicyQueryStringBehavior where
-  parseXML = parseXMLText "CachePolicyQueryStringBehavior"
+instance Prelude.FromXML CachePolicyQueryStringBehavior where
+  parseXML = Prelude.parseXMLText "CachePolicyQueryStringBehavior"
 
-instance ToXML CachePolicyQueryStringBehavior where
-  toXML = toXMLText
+instance Prelude.ToXML CachePolicyQueryStringBehavior where
+  toXML = Prelude.toXMLText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,66 @@
 module Network.AWS.CloudFront.Types.OriginGroups where
 
 import Network.AWS.CloudFront.Types.OriginGroup
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A complex data type for the origin groups specified for a distribution.
 --
---
---
--- /See:/ 'originGroups' smart constructor.
+-- /See:/ 'newOriginGroups' smart constructor.
 data OriginGroups = OriginGroups'
-  { _ogItems ::
-      !(Maybe [OriginGroup]),
-    _ogQuantity :: !Int
+  { -- | The items (origin groups) in a distribution.
+    items :: Prelude.Maybe [OriginGroup],
+    -- | The number of origin groups.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OriginGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OriginGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ogItems' - The items (origin groups) in a distribution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ogQuantity' - The number of origin groups.
-originGroups ::
-  -- | 'ogQuantity'
-  Int ->
+-- 'items', 'originGroups_items' - The items (origin groups) in a distribution.
+--
+-- 'quantity', 'originGroups_quantity' - The number of origin groups.
+newOriginGroups ::
+  -- | 'quantity'
+  Prelude.Int ->
   OriginGroups
-originGroups pQuantity_ =
+newOriginGroups pQuantity_ =
   OriginGroups'
-    { _ogItems = Nothing,
-      _ogQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
     }
 
 -- | The items (origin groups) in a distribution.
-ogItems :: Lens' OriginGroups [OriginGroup]
-ogItems = lens _ogItems (\s a -> s {_ogItems = a}) . _Default . _Coerce
+originGroups_items :: Lens.Lens' OriginGroups (Prelude.Maybe [OriginGroup])
+originGroups_items = Lens.lens (\OriginGroups' {items} -> items) (\s@OriginGroups' {} a -> s {items = a} :: OriginGroups) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of origin groups.
-ogQuantity :: Lens' OriginGroups Int
-ogQuantity = lens _ogQuantity (\s a -> s {_ogQuantity = a})
+originGroups_quantity :: Lens.Lens' OriginGroups Prelude.Int
+originGroups_quantity = Lens.lens (\OriginGroups' {quantity} -> quantity) (\s@OriginGroups' {} a -> s {quantity = a} :: OriginGroups)
 
-instance FromXML OriginGroups where
+instance Prelude.FromXML OriginGroups where
   parseXML x =
     OriginGroups'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "OriginGroup")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "OriginGroup")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable OriginGroups
+instance Prelude.Hashable OriginGroups
 
-instance NFData OriginGroups
+instance Prelude.NFData OriginGroups
 
-instance ToXML OriginGroups where
+instance Prelude.ToXML OriginGroups where
   toXML OriginGroups' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Items"
-          @= toXML (toXMLList "OriginGroup" <$> _ogItems),
-        "Quantity" @= _ogQuantity
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "OriginGroup" Prelude.<$> items),
+        "Quantity" Prelude.@= quantity
       ]

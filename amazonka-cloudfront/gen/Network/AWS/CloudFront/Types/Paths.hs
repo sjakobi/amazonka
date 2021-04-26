@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.Paths where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A complex type that contains information about the objects that you want to invalidate. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects Specifying the Objects to Invalidate> in the /Amazon CloudFront Developer Guide/ .
+-- | A complex type that contains information about the objects that you want
+-- to invalidate. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects Specifying the Objects to Invalidate>
+-- in the /Amazon CloudFront Developer Guide/.
 --
---
---
--- /See:/ 'paths' smart constructor.
+-- /See:/ 'newPaths' smart constructor.
 data Paths = Paths'
-  { _pItems :: !(Maybe [Text]),
-    _pQuantity :: !Int
+  { -- | A complex type that contains a list of the paths that you want to
+    -- invalidate.
+    items :: Prelude.Maybe [Prelude.Text],
+    -- | The number of invalidation paths specified for the objects that you want
+    -- to invalidate.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Paths' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Paths' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pItems' - A complex type that contains a list of the paths that you want to invalidate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pQuantity' - The number of invalidation paths specified for the objects that you want to invalidate.
-paths ::
-  -- | 'pQuantity'
-  Int ->
+-- 'items', 'paths_items' - A complex type that contains a list of the paths that you want to
+-- invalidate.
+--
+-- 'quantity', 'paths_quantity' - The number of invalidation paths specified for the objects that you want
+-- to invalidate.
+newPaths ::
+  -- | 'quantity'
+  Prelude.Int ->
   Paths
-paths pQuantity_ =
-  Paths' {_pItems = Nothing, _pQuantity = pQuantity_}
+newPaths pQuantity_ =
+  Paths'
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
+    }
 
--- | A complex type that contains a list of the paths that you want to invalidate.
-pItems :: Lens' Paths [Text]
-pItems = lens _pItems (\s a -> s {_pItems = a}) . _Default . _Coerce
+-- | A complex type that contains a list of the paths that you want to
+-- invalidate.
+paths_items :: Lens.Lens' Paths (Prelude.Maybe [Prelude.Text])
+paths_items = Lens.lens (\Paths' {items} -> items) (\s@Paths' {} a -> s {items = a} :: Paths) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of invalidation paths specified for the objects that you want to invalidate.
-pQuantity :: Lens' Paths Int
-pQuantity = lens _pQuantity (\s a -> s {_pQuantity = a})
+-- | The number of invalidation paths specified for the objects that you want
+-- to invalidate.
+paths_quantity :: Lens.Lens' Paths Prelude.Int
+paths_quantity = Lens.lens (\Paths' {quantity} -> quantity) (\s@Paths' {} a -> s {quantity = a} :: Paths)
 
-instance FromXML Paths where
+instance Prelude.FromXML Paths where
   parseXML x =
     Paths'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "Path")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Path")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable Paths
+instance Prelude.Hashable Paths
 
-instance NFData Paths
+instance Prelude.NFData Paths
 
-instance ToXML Paths where
+instance Prelude.ToXML Paths where
   toXML Paths' {..} =
-    mconcat
-      [ "Items" @= toXML (toXMLList "Path" <$> _pItems),
-        "Quantity" @= _pQuantity
+    Prelude.mconcat
+      [ "Items"
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "Path" Prelude.<$> items),
+        "Quantity" Prelude.@= quantity
       ]

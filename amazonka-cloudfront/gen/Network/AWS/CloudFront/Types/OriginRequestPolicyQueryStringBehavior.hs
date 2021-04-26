@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CloudFront.Types.OriginRequestPolicyQueryStringBehavior
   ( OriginRequestPolicyQueryStringBehavior
       ( ..,
-        ORPQSBAll,
-        ORPQSBNone,
-        ORPQSBWhitelist
+        OriginRequestPolicyQueryStringBehaviorAll,
+        OriginRequestPolicyQueryStringBehaviorNone,
+        OriginRequestPolicyQueryStringBehaviorWhitelist
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OriginRequestPolicyQueryStringBehavior
-  = OriginRequestPolicyQueryStringBehavior'
-      ( CI
-          Text
-      )
+newtype OriginRequestPolicyQueryStringBehavior = OriginRequestPolicyQueryStringBehavior'
+  { fromOriginRequestPolicyQueryStringBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ORPQSBAll :: OriginRequestPolicyQueryStringBehavior
-pattern ORPQSBAll = OriginRequestPolicyQueryStringBehavior' "all"
+pattern OriginRequestPolicyQueryStringBehaviorAll :: OriginRequestPolicyQueryStringBehavior
+pattern OriginRequestPolicyQueryStringBehaviorAll = OriginRequestPolicyQueryStringBehavior' "all"
 
-pattern ORPQSBNone :: OriginRequestPolicyQueryStringBehavior
-pattern ORPQSBNone = OriginRequestPolicyQueryStringBehavior' "none"
+pattern OriginRequestPolicyQueryStringBehaviorNone :: OriginRequestPolicyQueryStringBehavior
+pattern OriginRequestPolicyQueryStringBehaviorNone = OriginRequestPolicyQueryStringBehavior' "none"
 
-pattern ORPQSBWhitelist :: OriginRequestPolicyQueryStringBehavior
-pattern ORPQSBWhitelist = OriginRequestPolicyQueryStringBehavior' "whitelist"
+pattern OriginRequestPolicyQueryStringBehaviorWhitelist :: OriginRequestPolicyQueryStringBehavior
+pattern OriginRequestPolicyQueryStringBehaviorWhitelist = OriginRequestPolicyQueryStringBehavior' "whitelist"
 
 {-# COMPLETE
-  ORPQSBAll,
-  ORPQSBNone,
-  ORPQSBWhitelist,
+  OriginRequestPolicyQueryStringBehaviorAll,
+  OriginRequestPolicyQueryStringBehaviorNone,
+  OriginRequestPolicyQueryStringBehaviorWhitelist,
   OriginRequestPolicyQueryStringBehavior'
   #-}
 
-instance FromText OriginRequestPolicyQueryStringBehavior where
-  parser = (OriginRequestPolicyQueryStringBehavior' . mk) <$> takeText
+instance Prelude.FromText OriginRequestPolicyQueryStringBehavior where
+  parser = OriginRequestPolicyQueryStringBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText OriginRequestPolicyQueryStringBehavior where
-  toText (OriginRequestPolicyQueryStringBehavior' ci) = original ci
+instance Prelude.ToText OriginRequestPolicyQueryStringBehavior where
+  toText (OriginRequestPolicyQueryStringBehavior' x) = x
 
-instance Hashable OriginRequestPolicyQueryStringBehavior
+instance Prelude.Hashable OriginRequestPolicyQueryStringBehavior
 
-instance NFData OriginRequestPolicyQueryStringBehavior
+instance Prelude.NFData OriginRequestPolicyQueryStringBehavior
 
-instance ToByteString OriginRequestPolicyQueryStringBehavior
+instance Prelude.ToByteString OriginRequestPolicyQueryStringBehavior
 
-instance ToQuery OriginRequestPolicyQueryStringBehavior
+instance Prelude.ToQuery OriginRequestPolicyQueryStringBehavior
 
-instance ToHeader OriginRequestPolicyQueryStringBehavior
+instance Prelude.ToHeader OriginRequestPolicyQueryStringBehavior
 
-instance FromXML OriginRequestPolicyQueryStringBehavior where
-  parseXML = parseXMLText "OriginRequestPolicyQueryStringBehavior"
+instance Prelude.FromXML OriginRequestPolicyQueryStringBehavior where
+  parseXML = Prelude.parseXMLText "OriginRequestPolicyQueryStringBehavior"
 
-instance ToXML OriginRequestPolicyQueryStringBehavior where
-  toXML = toXMLText
+instance Prelude.ToXML OriginRequestPolicyQueryStringBehavior where
+  toXML = Prelude.toXMLText

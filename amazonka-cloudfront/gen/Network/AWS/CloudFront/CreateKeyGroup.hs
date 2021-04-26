@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,160 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a key group that you can use with <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html CloudFront signed URLs and signed cookies> .
+-- Creates a key group that you can use with
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html CloudFront signed URLs and signed cookies>.
 --
---
--- To create a key group, you must specify at least one public key for the key group. After you create a key group, you can reference it from one or more cache behaviors. When you reference a key group in a cache behavior, CloudFront requires signed URLs or signed cookies for all requests that match the cache behavior. The URLs or cookies must be signed with a private key whose corresponding public key is in the key group. The signed URL or cookie contains information about which public key CloudFront should use to verify the signature. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving private content> in the /Amazon CloudFront Developer Guide/ .
+-- To create a key group, you must specify at least one public key for the
+-- key group. After you create a key group, you can reference it from one
+-- or more cache behaviors. When you reference a key group in a cache
+-- behavior, CloudFront requires signed URLs or signed cookies for all
+-- requests that match the cache behavior. The URLs or cookies must be
+-- signed with a private key whose corresponding public key is in the key
+-- group. The signed URL or cookie contains information about which public
+-- key CloudFront should use to verify the signature. For more information,
+-- see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving private content>
+-- in the /Amazon CloudFront Developer Guide/.
 module Network.AWS.CloudFront.CreateKeyGroup
   ( -- * Creating a Request
-    createKeyGroup,
-    CreateKeyGroup,
+    CreateKeyGroup (..),
+    newCreateKeyGroup,
 
     -- * Request Lenses
-    ckgKeyGroupConfig,
+    createKeyGroup_keyGroupConfig,
 
     -- * Destructuring the Response
-    createKeyGroupResponse,
-    CreateKeyGroupResponse,
+    CreateKeyGroupResponse (..),
+    newCreateKeyGroupResponse,
 
     -- * Response Lenses
-    ckgrrsETag,
-    ckgrrsKeyGroup,
-    ckgrrsLocation,
-    ckgrrsResponseStatus,
+    createKeyGroupResponse_eTag,
+    createKeyGroupResponse_keyGroup,
+    createKeyGroupResponse_location,
+    createKeyGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.KeyGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createKeyGroup' smart constructor.
-newtype CreateKeyGroup = CreateKeyGroup'
-  { _ckgKeyGroupConfig ::
-      KeyGroupConfig
+-- | /See:/ 'newCreateKeyGroup' smart constructor.
+data CreateKeyGroup = CreateKeyGroup'
+  { -- | A key group configuration.
+    keyGroupConfig :: KeyGroupConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateKeyGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateKeyGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ckgKeyGroupConfig' - A key group configuration.
-createKeyGroup ::
-  -- | 'ckgKeyGroupConfig'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'keyGroupConfig', 'createKeyGroup_keyGroupConfig' - A key group configuration.
+newCreateKeyGroup ::
+  -- | 'keyGroupConfig'
   KeyGroupConfig ->
   CreateKeyGroup
-createKeyGroup pKeyGroupConfig_ =
-  CreateKeyGroup'
-    { _ckgKeyGroupConfig =
-        pKeyGroupConfig_
-    }
+newCreateKeyGroup pKeyGroupConfig_ =
+  CreateKeyGroup' {keyGroupConfig = pKeyGroupConfig_}
 
 -- | A key group configuration.
-ckgKeyGroupConfig :: Lens' CreateKeyGroup KeyGroupConfig
-ckgKeyGroupConfig = lens _ckgKeyGroupConfig (\s a -> s {_ckgKeyGroupConfig = a})
+createKeyGroup_keyGroupConfig :: Lens.Lens' CreateKeyGroup KeyGroupConfig
+createKeyGroup_keyGroupConfig = Lens.lens (\CreateKeyGroup' {keyGroupConfig} -> keyGroupConfig) (\s@CreateKeyGroup' {} a -> s {keyGroupConfig = a} :: CreateKeyGroup)
 
-instance AWSRequest CreateKeyGroup where
+instance Prelude.AWSRequest CreateKeyGroup where
   type Rs CreateKeyGroup = CreateKeyGroupResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateKeyGroupResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (h .#? "Location")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (h Prelude..#? "Location")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateKeyGroup
+instance Prelude.Hashable CreateKeyGroup
 
-instance NFData CreateKeyGroup
+instance Prelude.NFData CreateKeyGroup
 
-instance ToElement CreateKeyGroup where
-  toElement =
-    mkElement
+instance Prelude.ToElement CreateKeyGroup where
+  toElement CreateKeyGroup' {..} =
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}KeyGroupConfig"
-      . _ckgKeyGroupConfig
+      keyGroupConfig
 
-instance ToHeaders CreateKeyGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateKeyGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateKeyGroup where
-  toPath = const "/2020-05-31/key-group"
+instance Prelude.ToPath CreateKeyGroup where
+  toPath = Prelude.const "/2020-05-31/key-group"
 
-instance ToQuery CreateKeyGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateKeyGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createKeyGroupResponse' smart constructor.
+-- | /See:/ 'newCreateKeyGroupResponse' smart constructor.
 data CreateKeyGroupResponse = CreateKeyGroupResponse'
-  { _ckgrrsETag ::
-      !(Maybe Text),
-    _ckgrrsKeyGroup ::
-      !(Maybe KeyGroup),
-    _ckgrrsLocation ::
-      !(Maybe Text),
-    _ckgrrsResponseStatus ::
-      !Int
+  { -- | The identifier for this version of the key group.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | The key group that was just created.
+    keyGroup :: Prelude.Maybe KeyGroup,
+    -- | The URL of the key group.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateKeyGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateKeyGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ckgrrsETag' - The identifier for this version of the key group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ckgrrsKeyGroup' - The key group that was just created.
+-- 'eTag', 'createKeyGroupResponse_eTag' - The identifier for this version of the key group.
 --
--- * 'ckgrrsLocation' - The URL of the key group.
+-- 'keyGroup', 'createKeyGroupResponse_keyGroup' - The key group that was just created.
 --
--- * 'ckgrrsResponseStatus' - -- | The response status code.
-createKeyGroupResponse ::
-  -- | 'ckgrrsResponseStatus'
-  Int ->
+-- 'location', 'createKeyGroupResponse_location' - The URL of the key group.
+--
+-- 'httpStatus', 'createKeyGroupResponse_httpStatus' - The response's http status code.
+newCreateKeyGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateKeyGroupResponse
-createKeyGroupResponse pResponseStatus_ =
+newCreateKeyGroupResponse pHttpStatus_ =
   CreateKeyGroupResponse'
-    { _ckgrrsETag = Nothing,
-      _ckgrrsKeyGroup = Nothing,
-      _ckgrrsLocation = Nothing,
-      _ckgrrsResponseStatus = pResponseStatus_
+    { eTag = Prelude.Nothing,
+      keyGroup = Prelude.Nothing,
+      location = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier for this version of the key group.
-ckgrrsETag :: Lens' CreateKeyGroupResponse (Maybe Text)
-ckgrrsETag = lens _ckgrrsETag (\s a -> s {_ckgrrsETag = a})
+createKeyGroupResponse_eTag :: Lens.Lens' CreateKeyGroupResponse (Prelude.Maybe Prelude.Text)
+createKeyGroupResponse_eTag = Lens.lens (\CreateKeyGroupResponse' {eTag} -> eTag) (\s@CreateKeyGroupResponse' {} a -> s {eTag = a} :: CreateKeyGroupResponse)
 
 -- | The key group that was just created.
-ckgrrsKeyGroup :: Lens' CreateKeyGroupResponse (Maybe KeyGroup)
-ckgrrsKeyGroup = lens _ckgrrsKeyGroup (\s a -> s {_ckgrrsKeyGroup = a})
+createKeyGroupResponse_keyGroup :: Lens.Lens' CreateKeyGroupResponse (Prelude.Maybe KeyGroup)
+createKeyGroupResponse_keyGroup = Lens.lens (\CreateKeyGroupResponse' {keyGroup} -> keyGroup) (\s@CreateKeyGroupResponse' {} a -> s {keyGroup = a} :: CreateKeyGroupResponse)
 
 -- | The URL of the key group.
-ckgrrsLocation :: Lens' CreateKeyGroupResponse (Maybe Text)
-ckgrrsLocation = lens _ckgrrsLocation (\s a -> s {_ckgrrsLocation = a})
+createKeyGroupResponse_location :: Lens.Lens' CreateKeyGroupResponse (Prelude.Maybe Prelude.Text)
+createKeyGroupResponse_location = Lens.lens (\CreateKeyGroupResponse' {location} -> location) (\s@CreateKeyGroupResponse' {} a -> s {location = a} :: CreateKeyGroupResponse)
 
--- | -- | The response status code.
-ckgrrsResponseStatus :: Lens' CreateKeyGroupResponse Int
-ckgrrsResponseStatus = lens _ckgrrsResponseStatus (\s a -> s {_ckgrrsResponseStatus = a})
+-- | The response's http status code.
+createKeyGroupResponse_httpStatus :: Lens.Lens' CreateKeyGroupResponse Prelude.Int
+createKeyGroupResponse_httpStatus = Lens.lens (\CreateKeyGroupResponse' {httpStatus} -> httpStatus) (\s@CreateKeyGroupResponse' {} a -> s {httpStatus = a} :: CreateKeyGroupResponse)
 
-instance NFData CreateKeyGroupResponse
+instance Prelude.NFData CreateKeyGroupResponse

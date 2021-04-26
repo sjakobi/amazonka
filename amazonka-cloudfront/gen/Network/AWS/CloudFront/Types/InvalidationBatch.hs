@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,60 +20,124 @@
 module Network.AWS.CloudFront.Types.InvalidationBatch where
 
 import Network.AWS.CloudFront.Types.Paths
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An invalidation batch.
 --
---
---
--- /See:/ 'invalidationBatch' smart constructor.
+-- /See:/ 'newInvalidationBatch' smart constructor.
 data InvalidationBatch = InvalidationBatch'
-  { _ibPaths ::
-      !Paths,
-    _ibCallerReference :: !Text
+  { -- | A complex type that contains information about the objects that you want
+    -- to invalidate. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects Specifying the Objects to Invalidate>
+    -- in the /Amazon CloudFront Developer Guide/.
+    paths :: Paths,
+    -- | A value that you specify to uniquely identify an invalidation request.
+    -- CloudFront uses the value to prevent you from accidentally resubmitting
+    -- an identical request. Whenever you create a new invalidation request,
+    -- you must specify a new value for @CallerReference@ and change other
+    -- values in the request as applicable. One way to ensure that the value of
+    -- @CallerReference@ is unique is to use a @timestamp@, for example,
+    -- @20120301090000@.
+    --
+    -- If you make a second invalidation request with the same value for
+    -- @CallerReference@, and if the rest of the request is the same,
+    -- CloudFront doesn\'t create a new invalidation request. Instead,
+    -- CloudFront returns information about the invalidation request that you
+    -- previously created with the same @CallerReference@.
+    --
+    -- If @CallerReference@ is a value you already sent in a previous
+    -- invalidation batch request but the content of any @Path@ is different
+    -- from the original request, CloudFront returns an
+    -- @InvalidationBatchAlreadyExists@ error.
+    callerReference :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InvalidationBatch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InvalidationBatch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ibPaths' - A complex type that contains information about the objects that you want to invalidate. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects Specifying the Objects to Invalidate> in the /Amazon CloudFront Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ibCallerReference' - A value that you specify to uniquely identify an invalidation request. CloudFront uses the value to prevent you from accidentally resubmitting an identical request. Whenever you create a new invalidation request, you must specify a new value for @CallerReference@ and change other values in the request as applicable. One way to ensure that the value of @CallerReference@ is unique is to use a @timestamp@ , for example, @20120301090000@ . If you make a second invalidation request with the same value for @CallerReference@ , and if the rest of the request is the same, CloudFront doesn't create a new invalidation request. Instead, CloudFront returns information about the invalidation request that you previously created with the same @CallerReference@ . If @CallerReference@ is a value you already sent in a previous invalidation batch request but the content of any @Path@ is different from the original request, CloudFront returns an @InvalidationBatchAlreadyExists@ error.
-invalidationBatch ::
-  -- | 'ibPaths'
+-- 'paths', 'invalidationBatch_paths' - A complex type that contains information about the objects that you want
+-- to invalidate. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects Specifying the Objects to Invalidate>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- 'callerReference', 'invalidationBatch_callerReference' - A value that you specify to uniquely identify an invalidation request.
+-- CloudFront uses the value to prevent you from accidentally resubmitting
+-- an identical request. Whenever you create a new invalidation request,
+-- you must specify a new value for @CallerReference@ and change other
+-- values in the request as applicable. One way to ensure that the value of
+-- @CallerReference@ is unique is to use a @timestamp@, for example,
+-- @20120301090000@.
+--
+-- If you make a second invalidation request with the same value for
+-- @CallerReference@, and if the rest of the request is the same,
+-- CloudFront doesn\'t create a new invalidation request. Instead,
+-- CloudFront returns information about the invalidation request that you
+-- previously created with the same @CallerReference@.
+--
+-- If @CallerReference@ is a value you already sent in a previous
+-- invalidation batch request but the content of any @Path@ is different
+-- from the original request, CloudFront returns an
+-- @InvalidationBatchAlreadyExists@ error.
+newInvalidationBatch ::
+  -- | 'paths'
   Paths ->
-  -- | 'ibCallerReference'
-  Text ->
+  -- | 'callerReference'
+  Prelude.Text ->
   InvalidationBatch
-invalidationBatch pPaths_ pCallerReference_ =
+newInvalidationBatch pPaths_ pCallerReference_ =
   InvalidationBatch'
-    { _ibPaths = pPaths_,
-      _ibCallerReference = pCallerReference_
+    { paths = pPaths_,
+      callerReference = pCallerReference_
     }
 
--- | A complex type that contains information about the objects that you want to invalidate. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects Specifying the Objects to Invalidate> in the /Amazon CloudFront Developer Guide/ .
-ibPaths :: Lens' InvalidationBatch Paths
-ibPaths = lens _ibPaths (\s a -> s {_ibPaths = a})
+-- | A complex type that contains information about the objects that you want
+-- to invalidate. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects Specifying the Objects to Invalidate>
+-- in the /Amazon CloudFront Developer Guide/.
+invalidationBatch_paths :: Lens.Lens' InvalidationBatch Paths
+invalidationBatch_paths = Lens.lens (\InvalidationBatch' {paths} -> paths) (\s@InvalidationBatch' {} a -> s {paths = a} :: InvalidationBatch)
 
--- | A value that you specify to uniquely identify an invalidation request. CloudFront uses the value to prevent you from accidentally resubmitting an identical request. Whenever you create a new invalidation request, you must specify a new value for @CallerReference@ and change other values in the request as applicable. One way to ensure that the value of @CallerReference@ is unique is to use a @timestamp@ , for example, @20120301090000@ . If you make a second invalidation request with the same value for @CallerReference@ , and if the rest of the request is the same, CloudFront doesn't create a new invalidation request. Instead, CloudFront returns information about the invalidation request that you previously created with the same @CallerReference@ . If @CallerReference@ is a value you already sent in a previous invalidation batch request but the content of any @Path@ is different from the original request, CloudFront returns an @InvalidationBatchAlreadyExists@ error.
-ibCallerReference :: Lens' InvalidationBatch Text
-ibCallerReference = lens _ibCallerReference (\s a -> s {_ibCallerReference = a})
+-- | A value that you specify to uniquely identify an invalidation request.
+-- CloudFront uses the value to prevent you from accidentally resubmitting
+-- an identical request. Whenever you create a new invalidation request,
+-- you must specify a new value for @CallerReference@ and change other
+-- values in the request as applicable. One way to ensure that the value of
+-- @CallerReference@ is unique is to use a @timestamp@, for example,
+-- @20120301090000@.
+--
+-- If you make a second invalidation request with the same value for
+-- @CallerReference@, and if the rest of the request is the same,
+-- CloudFront doesn\'t create a new invalidation request. Instead,
+-- CloudFront returns information about the invalidation request that you
+-- previously created with the same @CallerReference@.
+--
+-- If @CallerReference@ is a value you already sent in a previous
+-- invalidation batch request but the content of any @Path@ is different
+-- from the original request, CloudFront returns an
+-- @InvalidationBatchAlreadyExists@ error.
+invalidationBatch_callerReference :: Lens.Lens' InvalidationBatch Prelude.Text
+invalidationBatch_callerReference = Lens.lens (\InvalidationBatch' {callerReference} -> callerReference) (\s@InvalidationBatch' {} a -> s {callerReference = a} :: InvalidationBatch)
 
-instance FromXML InvalidationBatch where
+instance Prelude.FromXML InvalidationBatch where
   parseXML x =
     InvalidationBatch'
-      <$> (x .@ "Paths") <*> (x .@ "CallerReference")
+      Prelude.<$> (x Prelude..@ "Paths")
+      Prelude.<*> (x Prelude..@ "CallerReference")
 
-instance Hashable InvalidationBatch
+instance Prelude.Hashable InvalidationBatch
 
-instance NFData InvalidationBatch
+instance Prelude.NFData InvalidationBatch
 
-instance ToXML InvalidationBatch where
+instance Prelude.ToXML InvalidationBatch where
   toXML InvalidationBatch' {..} =
-    mconcat
-      [ "Paths" @= _ibPaths,
-        "CallerReference" @= _ibCallerReference
+    Prelude.mconcat
+      [ "Paths" Prelude.@= paths,
+        "CallerReference" Prelude.@= callerReference
       ]

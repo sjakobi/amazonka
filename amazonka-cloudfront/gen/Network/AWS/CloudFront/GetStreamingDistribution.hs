@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about a specified RTMP distribution, including the distribution configuration.
+-- Gets information about a specified RTMP distribution, including the
+-- distribution configuration.
 module Network.AWS.CloudFront.GetStreamingDistribution
   ( -- * Creating a Request
-    getStreamingDistribution,
-    GetStreamingDistribution,
+    GetStreamingDistribution (..),
+    newGetStreamingDistribution,
 
     -- * Request Lenses
-    gsdId,
+    getStreamingDistribution_id,
 
     -- * Destructuring the Response
-    getStreamingDistributionResponse,
-    GetStreamingDistributionResponse,
+    GetStreamingDistributionResponse (..),
+    newGetStreamingDistributionResponse,
 
     -- * Response Lenses
-    gsdrrsETag,
-    gsdrrsStreamingDistribution,
-    gsdrrsResponseStatus,
+    getStreamingDistributionResponse_eTag,
+    getStreamingDistributionResponse_streamingDistribution,
+    getStreamingDistributionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.StreamingDistribution
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The request to get a streaming distribution's information.
+-- | The request to get a streaming distribution\'s information.
 --
---
---
--- /See:/ 'getStreamingDistribution' smart constructor.
-newtype GetStreamingDistribution = GetStreamingDistribution'
-  { _gsdId ::
-      Text
+-- /See:/ 'newGetStreamingDistribution' smart constructor.
+data GetStreamingDistribution = GetStreamingDistribution'
+  { -- | The streaming distribution\'s ID.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStreamingDistribution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStreamingDistribution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsdId' - The streaming distribution's ID.
-getStreamingDistribution ::
-  -- | 'gsdId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'getStreamingDistribution_id' - The streaming distribution\'s ID.
+newGetStreamingDistribution ::
+  -- | 'id'
+  Prelude.Text ->
   GetStreamingDistribution
-getStreamingDistribution pId_ =
-  GetStreamingDistribution' {_gsdId = pId_}
+newGetStreamingDistribution pId_ =
+  GetStreamingDistribution' {id = pId_}
 
--- | The streaming distribution's ID.
-gsdId :: Lens' GetStreamingDistribution Text
-gsdId = lens _gsdId (\s a -> s {_gsdId = a})
+-- | The streaming distribution\'s ID.
+getStreamingDistribution_id :: Lens.Lens' GetStreamingDistribution Prelude.Text
+getStreamingDistribution_id = Lens.lens (\GetStreamingDistribution' {id} -> id) (\s@GetStreamingDistribution' {} a -> s {id = a} :: GetStreamingDistribution)
 
-instance AWSRequest GetStreamingDistribution where
+instance Prelude.AWSRequest GetStreamingDistribution where
   type
     Rs GetStreamingDistribution =
       GetStreamingDistributionResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetStreamingDistributionResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetStreamingDistribution
+instance Prelude.Hashable GetStreamingDistribution
 
-instance NFData GetStreamingDistribution
+instance Prelude.NFData GetStreamingDistribution
 
-instance ToHeaders GetStreamingDistribution where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetStreamingDistribution where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetStreamingDistribution where
+instance Prelude.ToPath GetStreamingDistribution where
   toPath GetStreamingDistribution' {..} =
-    mconcat
-      ["/2020-05-31/streaming-distribution/", toBS _gsdId]
+    Prelude.mconcat
+      [ "/2020-05-31/streaming-distribution/",
+        Prelude.toBS id
+      ]
 
-instance ToQuery GetStreamingDistribution where
-  toQuery = const mempty
+instance Prelude.ToQuery GetStreamingDistribution where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The returned result of the corresponding request.
 --
---
---
--- /See:/ 'getStreamingDistributionResponse' smart constructor.
+-- /See:/ 'newGetStreamingDistributionResponse' smart constructor.
 data GetStreamingDistributionResponse = GetStreamingDistributionResponse'
-  { _gsdrrsETag ::
-      !( Maybe
-           Text
-       ),
-    _gsdrrsStreamingDistribution ::
-      !( Maybe
-           StreamingDistribution
-       ),
-    _gsdrrsResponseStatus ::
-      !Int
+  { -- | The current version of the streaming distribution\'s information. For
+    -- example: @E2QWRUHAPOMQZL@.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | The streaming distribution\'s information.
+    streamingDistribution :: Prelude.Maybe StreamingDistribution,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStreamingDistributionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStreamingDistributionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsdrrsETag' - The current version of the streaming distribution's information. For example: @E2QWRUHAPOMQZL@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsdrrsStreamingDistribution' - The streaming distribution's information.
+-- 'eTag', 'getStreamingDistributionResponse_eTag' - The current version of the streaming distribution\'s information. For
+-- example: @E2QWRUHAPOMQZL@.
 --
--- * 'gsdrrsResponseStatus' - -- | The response status code.
-getStreamingDistributionResponse ::
-  -- | 'gsdrrsResponseStatus'
-  Int ->
+-- 'streamingDistribution', 'getStreamingDistributionResponse_streamingDistribution' - The streaming distribution\'s information.
+--
+-- 'httpStatus', 'getStreamingDistributionResponse_httpStatus' - The response's http status code.
+newGetStreamingDistributionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetStreamingDistributionResponse
-getStreamingDistributionResponse pResponseStatus_ =
+newGetStreamingDistributionResponse pHttpStatus_ =
   GetStreamingDistributionResponse'
-    { _gsdrrsETag =
-        Nothing,
-      _gsdrrsStreamingDistribution = Nothing,
-      _gsdrrsResponseStatus = pResponseStatus_
+    { eTag =
+        Prelude.Nothing,
+      streamingDistribution = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The current version of the streaming distribution's information. For example: @E2QWRUHAPOMQZL@ .
-gsdrrsETag :: Lens' GetStreamingDistributionResponse (Maybe Text)
-gsdrrsETag = lens _gsdrrsETag (\s a -> s {_gsdrrsETag = a})
+-- | The current version of the streaming distribution\'s information. For
+-- example: @E2QWRUHAPOMQZL@.
+getStreamingDistributionResponse_eTag :: Lens.Lens' GetStreamingDistributionResponse (Prelude.Maybe Prelude.Text)
+getStreamingDistributionResponse_eTag = Lens.lens (\GetStreamingDistributionResponse' {eTag} -> eTag) (\s@GetStreamingDistributionResponse' {} a -> s {eTag = a} :: GetStreamingDistributionResponse)
 
--- | The streaming distribution's information.
-gsdrrsStreamingDistribution :: Lens' GetStreamingDistributionResponse (Maybe StreamingDistribution)
-gsdrrsStreamingDistribution = lens _gsdrrsStreamingDistribution (\s a -> s {_gsdrrsStreamingDistribution = a})
+-- | The streaming distribution\'s information.
+getStreamingDistributionResponse_streamingDistribution :: Lens.Lens' GetStreamingDistributionResponse (Prelude.Maybe StreamingDistribution)
+getStreamingDistributionResponse_streamingDistribution = Lens.lens (\GetStreamingDistributionResponse' {streamingDistribution} -> streamingDistribution) (\s@GetStreamingDistributionResponse' {} a -> s {streamingDistribution = a} :: GetStreamingDistributionResponse)
 
--- | -- | The response status code.
-gsdrrsResponseStatus :: Lens' GetStreamingDistributionResponse Int
-gsdrrsResponseStatus = lens _gsdrrsResponseStatus (\s a -> s {_gsdrrsResponseStatus = a})
+-- | The response's http status code.
+getStreamingDistributionResponse_httpStatus :: Lens.Lens' GetStreamingDistributionResponse Prelude.Int
+getStreamingDistributionResponse_httpStatus = Lens.lens (\GetStreamingDistributionResponse' {httpStatus} -> httpStatus) (\s@GetStreamingDistributionResponse' {} a -> s {httpStatus = a} :: GetStreamingDistributionResponse)
 
-instance NFData GetStreamingDistributionResponse
+instance
+  Prelude.NFData
+    GetStreamingDistributionResponse

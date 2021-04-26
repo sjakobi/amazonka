@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Request a list of field-level encryption profiles that have been created in CloudFront for this account.
+-- Request a list of field-level encryption profiles that have been created
+-- in CloudFront for this account.
 module Network.AWS.CloudFront.ListFieldLevelEncryptionProfiles
   ( -- * Creating a Request
-    listFieldLevelEncryptionProfiles,
-    ListFieldLevelEncryptionProfiles,
+    ListFieldLevelEncryptionProfiles (..),
+    newListFieldLevelEncryptionProfiles,
 
     -- * Request Lenses
-    lflepMaxItems,
-    lflepMarker,
+    listFieldLevelEncryptionProfiles_maxItems,
+    listFieldLevelEncryptionProfiles_marker,
 
     -- * Destructuring the Response
-    listFieldLevelEncryptionProfilesResponse,
-    ListFieldLevelEncryptionProfilesResponse,
+    ListFieldLevelEncryptionProfilesResponse (..),
+    newListFieldLevelEncryptionProfilesResponse,
 
     -- * Response Lenses
-    lfleprrsFieldLevelEncryptionProfileList,
-    lfleprrsResponseStatus,
+    listFieldLevelEncryptionProfilesResponse_fieldLevelEncryptionProfileList,
+    listFieldLevelEncryptionProfilesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.FieldLevelEncryptionProfileList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listFieldLevelEncryptionProfiles' smart constructor.
+-- | /See:/ 'newListFieldLevelEncryptionProfiles' smart constructor.
 data ListFieldLevelEncryptionProfiles = ListFieldLevelEncryptionProfiles'
-  { _lflepMaxItems ::
-      !( Maybe
-           Text
-       ),
-    _lflepMarker ::
-      !( Maybe
-           Text
-       )
+  { -- | The maximum number of field-level encryption profiles you want in the
+    -- response body.
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | Use this when paginating results to indicate where to begin in your list
+    -- of profiles. The results include profiles in the list that occur after
+    -- the marker. To get the next page of results, set the @Marker@ to the
+    -- value of the @NextMarker@ from the current page\'s response (which is
+    -- also the ID of the last profile on that page).
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListFieldLevelEncryptionProfiles' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListFieldLevelEncryptionProfiles' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lflepMaxItems' - The maximum number of field-level encryption profiles you want in the response body.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lflepMarker' - Use this when paginating results to indicate where to begin in your list of profiles. The results include profiles in the list that occur after the marker. To get the next page of results, set the @Marker@ to the value of the @NextMarker@ from the current page's response (which is also the ID of the last profile on that page).
-listFieldLevelEncryptionProfiles ::
+-- 'maxItems', 'listFieldLevelEncryptionProfiles_maxItems' - The maximum number of field-level encryption profiles you want in the
+-- response body.
+--
+-- 'marker', 'listFieldLevelEncryptionProfiles_marker' - Use this when paginating results to indicate where to begin in your list
+-- of profiles. The results include profiles in the list that occur after
+-- the marker. To get the next page of results, set the @Marker@ to the
+-- value of the @NextMarker@ from the current page\'s response (which is
+-- also the ID of the last profile on that page).
+newListFieldLevelEncryptionProfiles ::
   ListFieldLevelEncryptionProfiles
-listFieldLevelEncryptionProfiles =
+newListFieldLevelEncryptionProfiles =
   ListFieldLevelEncryptionProfiles'
-    { _lflepMaxItems =
-        Nothing,
-      _lflepMarker = Nothing
+    { maxItems =
+        Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The maximum number of field-level encryption profiles you want in the response body.
-lflepMaxItems :: Lens' ListFieldLevelEncryptionProfiles (Maybe Text)
-lflepMaxItems = lens _lflepMaxItems (\s a -> s {_lflepMaxItems = a})
+-- | The maximum number of field-level encryption profiles you want in the
+-- response body.
+listFieldLevelEncryptionProfiles_maxItems :: Lens.Lens' ListFieldLevelEncryptionProfiles (Prelude.Maybe Prelude.Text)
+listFieldLevelEncryptionProfiles_maxItems = Lens.lens (\ListFieldLevelEncryptionProfiles' {maxItems} -> maxItems) (\s@ListFieldLevelEncryptionProfiles' {} a -> s {maxItems = a} :: ListFieldLevelEncryptionProfiles)
 
--- | Use this when paginating results to indicate where to begin in your list of profiles. The results include profiles in the list that occur after the marker. To get the next page of results, set the @Marker@ to the value of the @NextMarker@ from the current page's response (which is also the ID of the last profile on that page).
-lflepMarker :: Lens' ListFieldLevelEncryptionProfiles (Maybe Text)
-lflepMarker = lens _lflepMarker (\s a -> s {_lflepMarker = a})
+-- | Use this when paginating results to indicate where to begin in your list
+-- of profiles. The results include profiles in the list that occur after
+-- the marker. To get the next page of results, set the @Marker@ to the
+-- value of the @NextMarker@ from the current page\'s response (which is
+-- also the ID of the last profile on that page).
+listFieldLevelEncryptionProfiles_marker :: Lens.Lens' ListFieldLevelEncryptionProfiles (Prelude.Maybe Prelude.Text)
+listFieldLevelEncryptionProfiles_marker = Lens.lens (\ListFieldLevelEncryptionProfiles' {marker} -> marker) (\s@ListFieldLevelEncryptionProfiles' {} a -> s {marker = a} :: ListFieldLevelEncryptionProfiles)
 
-instance AWSRequest ListFieldLevelEncryptionProfiles where
+instance
+  Prelude.AWSRequest
+    ListFieldLevelEncryptionProfiles
+  where
   type
     Rs ListFieldLevelEncryptionProfiles =
       ListFieldLevelEncryptionProfilesResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListFieldLevelEncryptionProfilesResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListFieldLevelEncryptionProfiles
-
-instance NFData ListFieldLevelEncryptionProfiles
-
-instance ToHeaders ListFieldLevelEncryptionProfiles where
-  toHeaders = const mempty
-
-instance ToPath ListFieldLevelEncryptionProfiles where
-  toPath =
-    const "/2020-05-31/field-level-encryption-profile"
-
-instance ToQuery ListFieldLevelEncryptionProfiles where
-  toQuery ListFieldLevelEncryptionProfiles' {..} =
-    mconcat
-      [ "MaxItems" =: _lflepMaxItems,
-        "Marker" =: _lflepMarker
-      ]
-
--- | /See:/ 'listFieldLevelEncryptionProfilesResponse' smart constructor.
-data ListFieldLevelEncryptionProfilesResponse = ListFieldLevelEncryptionProfilesResponse'
-  { _lfleprrsFieldLevelEncryptionProfileList ::
-      !( Maybe
-           FieldLevelEncryptionProfileList
-       ),
-    _lfleprrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'ListFieldLevelEncryptionProfilesResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'lfleprrsFieldLevelEncryptionProfileList' - Returns a list of the field-level encryption profiles that have been created in CloudFront for this account.
---
--- * 'lfleprrsResponseStatus' - -- | The response status code.
-listFieldLevelEncryptionProfilesResponse ::
-  -- | 'lfleprrsResponseStatus'
-  Int ->
-  ListFieldLevelEncryptionProfilesResponse
-listFieldLevelEncryptionProfilesResponse
-  pResponseStatus_ =
-    ListFieldLevelEncryptionProfilesResponse'
-      { _lfleprrsFieldLevelEncryptionProfileList =
-          Nothing,
-        _lfleprrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | Returns a list of the field-level encryption profiles that have been created in CloudFront for this account.
-lfleprrsFieldLevelEncryptionProfileList :: Lens' ListFieldLevelEncryptionProfilesResponse (Maybe FieldLevelEncryptionProfileList)
-lfleprrsFieldLevelEncryptionProfileList = lens _lfleprrsFieldLevelEncryptionProfileList (\s a -> s {_lfleprrsFieldLevelEncryptionProfileList = a})
-
--- | -- | The response status code.
-lfleprrsResponseStatus :: Lens' ListFieldLevelEncryptionProfilesResponse Int
-lfleprrsResponseStatus = lens _lfleprrsResponseStatus (\s a -> s {_lfleprrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    ListFieldLevelEncryptionProfiles
 
 instance
-  NFData
+  Prelude.NFData
+    ListFieldLevelEncryptionProfiles
+
+instance
+  Prelude.ToHeaders
+    ListFieldLevelEncryptionProfiles
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    ListFieldLevelEncryptionProfiles
+  where
+  toPath =
+    Prelude.const
+      "/2020-05-31/field-level-encryption-profile"
+
+instance
+  Prelude.ToQuery
+    ListFieldLevelEncryptionProfiles
+  where
+  toQuery ListFieldLevelEncryptionProfiles' {..} =
+    Prelude.mconcat
+      [ "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
+      ]
+
+-- | /See:/ 'newListFieldLevelEncryptionProfilesResponse' smart constructor.
+data ListFieldLevelEncryptionProfilesResponse = ListFieldLevelEncryptionProfilesResponse'
+  { -- | Returns a list of the field-level encryption profiles that have been
+    -- created in CloudFront for this account.
+    fieldLevelEncryptionProfileList :: Prelude.Maybe FieldLevelEncryptionProfileList,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ListFieldLevelEncryptionProfilesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'fieldLevelEncryptionProfileList', 'listFieldLevelEncryptionProfilesResponse_fieldLevelEncryptionProfileList' - Returns a list of the field-level encryption profiles that have been
+-- created in CloudFront for this account.
+--
+-- 'httpStatus', 'listFieldLevelEncryptionProfilesResponse_httpStatus' - The response's http status code.
+newListFieldLevelEncryptionProfilesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  ListFieldLevelEncryptionProfilesResponse
+newListFieldLevelEncryptionProfilesResponse
+  pHttpStatus_ =
+    ListFieldLevelEncryptionProfilesResponse'
+      { fieldLevelEncryptionProfileList =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | Returns a list of the field-level encryption profiles that have been
+-- created in CloudFront for this account.
+listFieldLevelEncryptionProfilesResponse_fieldLevelEncryptionProfileList :: Lens.Lens' ListFieldLevelEncryptionProfilesResponse (Prelude.Maybe FieldLevelEncryptionProfileList)
+listFieldLevelEncryptionProfilesResponse_fieldLevelEncryptionProfileList = Lens.lens (\ListFieldLevelEncryptionProfilesResponse' {fieldLevelEncryptionProfileList} -> fieldLevelEncryptionProfileList) (\s@ListFieldLevelEncryptionProfilesResponse' {} a -> s {fieldLevelEncryptionProfileList = a} :: ListFieldLevelEncryptionProfilesResponse)
+
+-- | The response's http status code.
+listFieldLevelEncryptionProfilesResponse_httpStatus :: Lens.Lens' ListFieldLevelEncryptionProfilesResponse Prelude.Int
+listFieldLevelEncryptionProfilesResponse_httpStatus = Lens.lens (\ListFieldLevelEncryptionProfilesResponse' {httpStatus} -> httpStatus) (\s@ListFieldLevelEncryptionProfilesResponse' {} a -> s {httpStatus = a} :: ListFieldLevelEncryptionProfilesResponse)
+
+instance
+  Prelude.NFData
     ListFieldLevelEncryptionProfilesResponse

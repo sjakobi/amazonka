@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,85 @@
 module Network.AWS.CloudFront.Types.KeyGroupList where
 
 import Network.AWS.CloudFront.Types.KeyGroupSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A list of key groups.
 --
---
---
--- /See:/ 'keyGroupList' smart constructor.
+-- /See:/ 'newKeyGroupList' smart constructor.
 data KeyGroupList = KeyGroupList'
-  { _kglItems ::
-      !(Maybe [KeyGroupSummary]),
-    _kglNextMarker :: !(Maybe Text),
-    _kglMaxItems :: !Int,
-    _kglQuantity :: !Int
+  { -- | A list of key groups.
+    items :: Prelude.Maybe [KeyGroupSummary],
+    -- | If there are more items in the list than are in this response, this
+    -- element is present. It contains the value that you should use in the
+    -- @Marker@ field of a subsequent request to continue listing key groups.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of key groups requested.
+    maxItems :: Prelude.Int,
+    -- | The number of key groups returned in the response.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyGroupList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyGroupList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kglItems' - A list of key groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kglNextMarker' - If there are more items in the list than are in this response, this element is present. It contains the value that you should use in the @Marker@ field of a subsequent request to continue listing key groups.
+-- 'items', 'keyGroupList_items' - A list of key groups.
 --
--- * 'kglMaxItems' - The maximum number of key groups requested.
+-- 'nextMarker', 'keyGroupList_nextMarker' - If there are more items in the list than are in this response, this
+-- element is present. It contains the value that you should use in the
+-- @Marker@ field of a subsequent request to continue listing key groups.
 --
--- * 'kglQuantity' - The number of key groups returned in the response.
-keyGroupList ::
-  -- | 'kglMaxItems'
-  Int ->
-  -- | 'kglQuantity'
-  Int ->
+-- 'maxItems', 'keyGroupList_maxItems' - The maximum number of key groups requested.
+--
+-- 'quantity', 'keyGroupList_quantity' - The number of key groups returned in the response.
+newKeyGroupList ::
+  -- | 'maxItems'
+  Prelude.Int ->
+  -- | 'quantity'
+  Prelude.Int ->
   KeyGroupList
-keyGroupList pMaxItems_ pQuantity_ =
+newKeyGroupList pMaxItems_ pQuantity_ =
   KeyGroupList'
-    { _kglItems = Nothing,
-      _kglNextMarker = Nothing,
-      _kglMaxItems = pMaxItems_,
-      _kglQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      maxItems = pMaxItems_,
+      quantity = pQuantity_
     }
 
 -- | A list of key groups.
-kglItems :: Lens' KeyGroupList [KeyGroupSummary]
-kglItems = lens _kglItems (\s a -> s {_kglItems = a}) . _Default . _Coerce
+keyGroupList_items :: Lens.Lens' KeyGroupList (Prelude.Maybe [KeyGroupSummary])
+keyGroupList_items = Lens.lens (\KeyGroupList' {items} -> items) (\s@KeyGroupList' {} a -> s {items = a} :: KeyGroupList) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If there are more items in the list than are in this response, this element is present. It contains the value that you should use in the @Marker@ field of a subsequent request to continue listing key groups.
-kglNextMarker :: Lens' KeyGroupList (Maybe Text)
-kglNextMarker = lens _kglNextMarker (\s a -> s {_kglNextMarker = a})
+-- | If there are more items in the list than are in this response, this
+-- element is present. It contains the value that you should use in the
+-- @Marker@ field of a subsequent request to continue listing key groups.
+keyGroupList_nextMarker :: Lens.Lens' KeyGroupList (Prelude.Maybe Prelude.Text)
+keyGroupList_nextMarker = Lens.lens (\KeyGroupList' {nextMarker} -> nextMarker) (\s@KeyGroupList' {} a -> s {nextMarker = a} :: KeyGroupList)
 
 -- | The maximum number of key groups requested.
-kglMaxItems :: Lens' KeyGroupList Int
-kglMaxItems = lens _kglMaxItems (\s a -> s {_kglMaxItems = a})
+keyGroupList_maxItems :: Lens.Lens' KeyGroupList Prelude.Int
+keyGroupList_maxItems = Lens.lens (\KeyGroupList' {maxItems} -> maxItems) (\s@KeyGroupList' {} a -> s {maxItems = a} :: KeyGroupList)
 
 -- | The number of key groups returned in the response.
-kglQuantity :: Lens' KeyGroupList Int
-kglQuantity = lens _kglQuantity (\s a -> s {_kglQuantity = a})
+keyGroupList_quantity :: Lens.Lens' KeyGroupList Prelude.Int
+keyGroupList_quantity = Lens.lens (\KeyGroupList' {quantity} -> quantity) (\s@KeyGroupList' {} a -> s {quantity = a} :: KeyGroupList)
 
-instance FromXML KeyGroupList where
+instance Prelude.FromXML KeyGroupList where
   parseXML x =
     KeyGroupList'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "KeyGroupSummary")
-          )
-      <*> (x .@? "NextMarker")
-      <*> (x .@ "MaxItems")
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "KeyGroupSummary")
+                  )
+      Prelude.<*> (x Prelude..@? "NextMarker")
+      Prelude.<*> (x Prelude..@ "MaxItems")
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable KeyGroupList
+instance Prelude.Hashable KeyGroupList
 
-instance NFData KeyGroupList
+instance Prelude.NFData KeyGroupList

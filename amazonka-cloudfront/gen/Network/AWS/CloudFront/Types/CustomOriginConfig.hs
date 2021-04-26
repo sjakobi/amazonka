@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,112 +20,210 @@
 module Network.AWS.CloudFront.Types.CustomOriginConfig where
 
 import Network.AWS.CloudFront.Types.OriginProtocolPolicy
-import Network.AWS.CloudFront.Types.OriginSSLProtocols
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.CloudFront.Types.OriginSslProtocols
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A custom origin. A custom origin is any origin that is /not/ an Amazon S3 bucket, with one exception. An Amazon S3 bucket that is <https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html configured with static website hosting> /is/ a custom origin.
+-- | A custom origin. A custom origin is any origin that is /not/ an Amazon
+-- S3 bucket, with one exception. An Amazon S3 bucket that is
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html configured with static website hosting>
+-- /is/ a custom origin.
 --
---
---
--- /See:/ 'customOriginConfig' smart constructor.
+-- /See:/ 'newCustomOriginConfig' smart constructor.
 data CustomOriginConfig = CustomOriginConfig'
-  { _cocOriginKeepaliveTimeout ::
-      !(Maybe Int),
-    _cocOriginSSLProtocols ::
-      !(Maybe OriginSSLProtocols),
-    _cocOriginReadTimeout ::
-      !(Maybe Int),
-    _cocHTTPPort :: !Int,
-    _cocHTTPSPort :: !Int,
-    _cocOriginProtocolPolicy ::
-      !OriginProtocolPolicy
+  { -- | Specifies how long, in seconds, CloudFront persists its connection to
+    -- the origin. The minimum timeout is 1 second, the maximum is 60 seconds,
+    -- and the default (if you don’t specify otherwise) is 5 seconds.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginKeepaliveTimeout Origin Keep-alive Timeout>
+    -- in the /Amazon CloudFront Developer Guide/.
+    originKeepaliveTimeout :: Prelude.Maybe Prelude.Int,
+    -- | Specifies the minimum SSL\/TLS protocol that CloudFront uses when
+    -- connecting to your origin over HTTPS. Valid values include @SSLv3@,
+    -- @TLSv1@, @TLSv1.1@, and @TLSv1.2@.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginSSLProtocols Minimum Origin SSL Protocol>
+    -- in the /Amazon CloudFront Developer Guide/.
+    originSslProtocols :: Prelude.Maybe OriginSslProtocols,
+    -- | Specifies how long, in seconds, CloudFront waits for a response from the
+    -- origin. This is also known as the /origin response timeout/. The minimum
+    -- timeout is 1 second, the maximum is 60 seconds, and the default (if you
+    -- don’t specify otherwise) is 30 seconds.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginResponseTimeout Origin Response Timeout>
+    -- in the /Amazon CloudFront Developer Guide/.
+    originReadTimeout :: Prelude.Maybe Prelude.Int,
+    -- | The HTTP port that CloudFront uses to connect to the origin. Specify the
+    -- HTTP port that the origin listens on.
+    hTTPPort :: Prelude.Int,
+    -- | The HTTPS port that CloudFront uses to connect to the origin. Specify
+    -- the HTTPS port that the origin listens on.
+    hTTPSPort :: Prelude.Int,
+    -- | Specifies the protocol (HTTP or HTTPS) that CloudFront uses to connect
+    -- to the origin. Valid values are:
+    --
+    -- -   @http-only@ – CloudFront always uses HTTP to connect to the origin.
+    --
+    -- -   @match-viewer@ – CloudFront connects to the origin using the same
+    --     protocol that the viewer used to connect to CloudFront.
+    --
+    -- -   @https-only@ – CloudFront always uses HTTPS to connect to the
+    --     origin.
+    originProtocolPolicy :: OriginProtocolPolicy
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomOriginConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomOriginConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cocOriginKeepaliveTimeout' - Specifies how long, in seconds, CloudFront persists its connection to the origin. The minimum timeout is 1 second, the maximum is 60 seconds, and the default (if you don’t specify otherwise) is 5 seconds. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginKeepaliveTimeout Origin Keep-alive Timeout> in the /Amazon CloudFront Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cocOriginSSLProtocols' - Specifies the minimum SSL/TLS protocol that CloudFront uses when connecting to your origin over HTTPS. Valid values include @SSLv3@ , @TLSv1@ , @TLSv1.1@ , and @TLSv1.2@ . For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginSSLProtocols Minimum Origin SSL Protocol> in the /Amazon CloudFront Developer Guide/ .
+-- 'originKeepaliveTimeout', 'customOriginConfig_originKeepaliveTimeout' - Specifies how long, in seconds, CloudFront persists its connection to
+-- the origin. The minimum timeout is 1 second, the maximum is 60 seconds,
+-- and the default (if you don’t specify otherwise) is 5 seconds.
 --
--- * 'cocOriginReadTimeout' - Specifies how long, in seconds, CloudFront waits for a response from the origin. This is also known as the /origin response timeout/ . The minimum timeout is 1 second, the maximum is 60 seconds, and the default (if you don’t specify otherwise) is 30 seconds. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginResponseTimeout Origin Response Timeout> in the /Amazon CloudFront Developer Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginKeepaliveTimeout Origin Keep-alive Timeout>
+-- in the /Amazon CloudFront Developer Guide/.
 --
--- * 'cocHTTPPort' - The HTTP port that CloudFront uses to connect to the origin. Specify the HTTP port that the origin listens on.
+-- 'originSslProtocols', 'customOriginConfig_originSslProtocols' - Specifies the minimum SSL\/TLS protocol that CloudFront uses when
+-- connecting to your origin over HTTPS. Valid values include @SSLv3@,
+-- @TLSv1@, @TLSv1.1@, and @TLSv1.2@.
 --
--- * 'cocHTTPSPort' - The HTTPS port that CloudFront uses to connect to the origin. Specify the HTTPS port that the origin listens on.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginSSLProtocols Minimum Origin SSL Protocol>
+-- in the /Amazon CloudFront Developer Guide/.
 --
--- * 'cocOriginProtocolPolicy' - Specifies the protocol (HTTP or HTTPS) that CloudFront uses to connect to the origin. Valid values are:     * @http-only@ – CloudFront always uses HTTP to connect to the origin.     * @match-viewer@ – CloudFront connects to the origin using the same protocol that the viewer used to connect to CloudFront.     * @https-only@ – CloudFront always uses HTTPS to connect to the origin.
-customOriginConfig ::
-  -- | 'cocHTTPPort'
-  Int ->
-  -- | 'cocHTTPSPort'
-  Int ->
-  -- | 'cocOriginProtocolPolicy'
+-- 'originReadTimeout', 'customOriginConfig_originReadTimeout' - Specifies how long, in seconds, CloudFront waits for a response from the
+-- origin. This is also known as the /origin response timeout/. The minimum
+-- timeout is 1 second, the maximum is 60 seconds, and the default (if you
+-- don’t specify otherwise) is 30 seconds.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginResponseTimeout Origin Response Timeout>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- 'hTTPPort', 'customOriginConfig_hTTPPort' - The HTTP port that CloudFront uses to connect to the origin. Specify the
+-- HTTP port that the origin listens on.
+--
+-- 'hTTPSPort', 'customOriginConfig_hTTPSPort' - The HTTPS port that CloudFront uses to connect to the origin. Specify
+-- the HTTPS port that the origin listens on.
+--
+-- 'originProtocolPolicy', 'customOriginConfig_originProtocolPolicy' - Specifies the protocol (HTTP or HTTPS) that CloudFront uses to connect
+-- to the origin. Valid values are:
+--
+-- -   @http-only@ – CloudFront always uses HTTP to connect to the origin.
+--
+-- -   @match-viewer@ – CloudFront connects to the origin using the same
+--     protocol that the viewer used to connect to CloudFront.
+--
+-- -   @https-only@ – CloudFront always uses HTTPS to connect to the
+--     origin.
+newCustomOriginConfig ::
+  -- | 'hTTPPort'
+  Prelude.Int ->
+  -- | 'hTTPSPort'
+  Prelude.Int ->
+  -- | 'originProtocolPolicy'
   OriginProtocolPolicy ->
   CustomOriginConfig
-customOriginConfig
+newCustomOriginConfig
   pHTTPPort_
   pHTTPSPort_
   pOriginProtocolPolicy_ =
     CustomOriginConfig'
-      { _cocOriginKeepaliveTimeout =
-          Nothing,
-        _cocOriginSSLProtocols = Nothing,
-        _cocOriginReadTimeout = Nothing,
-        _cocHTTPPort = pHTTPPort_,
-        _cocHTTPSPort = pHTTPSPort_,
-        _cocOriginProtocolPolicy = pOriginProtocolPolicy_
+      { originKeepaliveTimeout =
+          Prelude.Nothing,
+        originSslProtocols = Prelude.Nothing,
+        originReadTimeout = Prelude.Nothing,
+        hTTPPort = pHTTPPort_,
+        hTTPSPort = pHTTPSPort_,
+        originProtocolPolicy = pOriginProtocolPolicy_
       }
 
--- | Specifies how long, in seconds, CloudFront persists its connection to the origin. The minimum timeout is 1 second, the maximum is 60 seconds, and the default (if you don’t specify otherwise) is 5 seconds. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginKeepaliveTimeout Origin Keep-alive Timeout> in the /Amazon CloudFront Developer Guide/ .
-cocOriginKeepaliveTimeout :: Lens' CustomOriginConfig (Maybe Int)
-cocOriginKeepaliveTimeout = lens _cocOriginKeepaliveTimeout (\s a -> s {_cocOriginKeepaliveTimeout = a})
+-- | Specifies how long, in seconds, CloudFront persists its connection to
+-- the origin. The minimum timeout is 1 second, the maximum is 60 seconds,
+-- and the default (if you don’t specify otherwise) is 5 seconds.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginKeepaliveTimeout Origin Keep-alive Timeout>
+-- in the /Amazon CloudFront Developer Guide/.
+customOriginConfig_originKeepaliveTimeout :: Lens.Lens' CustomOriginConfig (Prelude.Maybe Prelude.Int)
+customOriginConfig_originKeepaliveTimeout = Lens.lens (\CustomOriginConfig' {originKeepaliveTimeout} -> originKeepaliveTimeout) (\s@CustomOriginConfig' {} a -> s {originKeepaliveTimeout = a} :: CustomOriginConfig)
 
--- | Specifies the minimum SSL/TLS protocol that CloudFront uses when connecting to your origin over HTTPS. Valid values include @SSLv3@ , @TLSv1@ , @TLSv1.1@ , and @TLSv1.2@ . For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginSSLProtocols Minimum Origin SSL Protocol> in the /Amazon CloudFront Developer Guide/ .
-cocOriginSSLProtocols :: Lens' CustomOriginConfig (Maybe OriginSSLProtocols)
-cocOriginSSLProtocols = lens _cocOriginSSLProtocols (\s a -> s {_cocOriginSSLProtocols = a})
+-- | Specifies the minimum SSL\/TLS protocol that CloudFront uses when
+-- connecting to your origin over HTTPS. Valid values include @SSLv3@,
+-- @TLSv1@, @TLSv1.1@, and @TLSv1.2@.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginSSLProtocols Minimum Origin SSL Protocol>
+-- in the /Amazon CloudFront Developer Guide/.
+customOriginConfig_originSslProtocols :: Lens.Lens' CustomOriginConfig (Prelude.Maybe OriginSslProtocols)
+customOriginConfig_originSslProtocols = Lens.lens (\CustomOriginConfig' {originSslProtocols} -> originSslProtocols) (\s@CustomOriginConfig' {} a -> s {originSslProtocols = a} :: CustomOriginConfig)
 
--- | Specifies how long, in seconds, CloudFront waits for a response from the origin. This is also known as the /origin response timeout/ . The minimum timeout is 1 second, the maximum is 60 seconds, and the default (if you don’t specify otherwise) is 30 seconds. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginResponseTimeout Origin Response Timeout> in the /Amazon CloudFront Developer Guide/ .
-cocOriginReadTimeout :: Lens' CustomOriginConfig (Maybe Int)
-cocOriginReadTimeout = lens _cocOriginReadTimeout (\s a -> s {_cocOriginReadTimeout = a})
+-- | Specifies how long, in seconds, CloudFront waits for a response from the
+-- origin. This is also known as the /origin response timeout/. The minimum
+-- timeout is 1 second, the maximum is 60 seconds, and the default (if you
+-- don’t specify otherwise) is 30 seconds.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginResponseTimeout Origin Response Timeout>
+-- in the /Amazon CloudFront Developer Guide/.
+customOriginConfig_originReadTimeout :: Lens.Lens' CustomOriginConfig (Prelude.Maybe Prelude.Int)
+customOriginConfig_originReadTimeout = Lens.lens (\CustomOriginConfig' {originReadTimeout} -> originReadTimeout) (\s@CustomOriginConfig' {} a -> s {originReadTimeout = a} :: CustomOriginConfig)
 
--- | The HTTP port that CloudFront uses to connect to the origin. Specify the HTTP port that the origin listens on.
-cocHTTPPort :: Lens' CustomOriginConfig Int
-cocHTTPPort = lens _cocHTTPPort (\s a -> s {_cocHTTPPort = a})
+-- | The HTTP port that CloudFront uses to connect to the origin. Specify the
+-- HTTP port that the origin listens on.
+customOriginConfig_hTTPPort :: Lens.Lens' CustomOriginConfig Prelude.Int
+customOriginConfig_hTTPPort = Lens.lens (\CustomOriginConfig' {hTTPPort} -> hTTPPort) (\s@CustomOriginConfig' {} a -> s {hTTPPort = a} :: CustomOriginConfig)
 
--- | The HTTPS port that CloudFront uses to connect to the origin. Specify the HTTPS port that the origin listens on.
-cocHTTPSPort :: Lens' CustomOriginConfig Int
-cocHTTPSPort = lens _cocHTTPSPort (\s a -> s {_cocHTTPSPort = a})
+-- | The HTTPS port that CloudFront uses to connect to the origin. Specify
+-- the HTTPS port that the origin listens on.
+customOriginConfig_hTTPSPort :: Lens.Lens' CustomOriginConfig Prelude.Int
+customOriginConfig_hTTPSPort = Lens.lens (\CustomOriginConfig' {hTTPSPort} -> hTTPSPort) (\s@CustomOriginConfig' {} a -> s {hTTPSPort = a} :: CustomOriginConfig)
 
--- | Specifies the protocol (HTTP or HTTPS) that CloudFront uses to connect to the origin. Valid values are:     * @http-only@ – CloudFront always uses HTTP to connect to the origin.     * @match-viewer@ – CloudFront connects to the origin using the same protocol that the viewer used to connect to CloudFront.     * @https-only@ – CloudFront always uses HTTPS to connect to the origin.
-cocOriginProtocolPolicy :: Lens' CustomOriginConfig OriginProtocolPolicy
-cocOriginProtocolPolicy = lens _cocOriginProtocolPolicy (\s a -> s {_cocOriginProtocolPolicy = a})
+-- | Specifies the protocol (HTTP or HTTPS) that CloudFront uses to connect
+-- to the origin. Valid values are:
+--
+-- -   @http-only@ – CloudFront always uses HTTP to connect to the origin.
+--
+-- -   @match-viewer@ – CloudFront connects to the origin using the same
+--     protocol that the viewer used to connect to CloudFront.
+--
+-- -   @https-only@ – CloudFront always uses HTTPS to connect to the
+--     origin.
+customOriginConfig_originProtocolPolicy :: Lens.Lens' CustomOriginConfig OriginProtocolPolicy
+customOriginConfig_originProtocolPolicy = Lens.lens (\CustomOriginConfig' {originProtocolPolicy} -> originProtocolPolicy) (\s@CustomOriginConfig' {} a -> s {originProtocolPolicy = a} :: CustomOriginConfig)
 
-instance FromXML CustomOriginConfig where
+instance Prelude.FromXML CustomOriginConfig where
   parseXML x =
     CustomOriginConfig'
-      <$> (x .@? "OriginKeepaliveTimeout")
-      <*> (x .@? "OriginSslProtocols")
-      <*> (x .@? "OriginReadTimeout")
-      <*> (x .@ "HTTPPort")
-      <*> (x .@ "HTTPSPort")
-      <*> (x .@ "OriginProtocolPolicy")
+      Prelude.<$> (x Prelude..@? "OriginKeepaliveTimeout")
+      Prelude.<*> (x Prelude..@? "OriginSslProtocols")
+      Prelude.<*> (x Prelude..@? "OriginReadTimeout")
+      Prelude.<*> (x Prelude..@ "HTTPPort")
+      Prelude.<*> (x Prelude..@ "HTTPSPort")
+      Prelude.<*> (x Prelude..@ "OriginProtocolPolicy")
 
-instance Hashable CustomOriginConfig
+instance Prelude.Hashable CustomOriginConfig
 
-instance NFData CustomOriginConfig
+instance Prelude.NFData CustomOriginConfig
 
-instance ToXML CustomOriginConfig where
+instance Prelude.ToXML CustomOriginConfig where
   toXML CustomOriginConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "OriginKeepaliveTimeout"
-          @= _cocOriginKeepaliveTimeout,
-        "OriginSslProtocols" @= _cocOriginSSLProtocols,
-        "OriginReadTimeout" @= _cocOriginReadTimeout,
-        "HTTPPort" @= _cocHTTPPort,
-        "HTTPSPort" @= _cocHTTPSPort,
-        "OriginProtocolPolicy" @= _cocOriginProtocolPolicy
+          Prelude.@= originKeepaliveTimeout,
+        "OriginSslProtocols" Prelude.@= originSslProtocols,
+        "OriginReadTimeout" Prelude.@= originReadTimeout,
+        "HTTPPort" Prelude.@= hTTPPort,
+        "HTTPSPort" Prelude.@= hTTPSPort,
+        "OriginProtocolPolicy"
+          Prelude.@= originProtocolPolicy
       ]

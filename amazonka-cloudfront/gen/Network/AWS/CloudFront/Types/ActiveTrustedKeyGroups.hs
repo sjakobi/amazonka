@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,83 @@
 module Network.AWS.CloudFront.Types.ActiveTrustedKeyGroups where
 
 import Network.AWS.CloudFront.Types.KGKeyPairIds
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of key groups, and the public keys in each key group, that CloudFront can use to verify the signatures of signed URLs and signed cookies.
+-- | A list of key groups, and the public keys in each key group, that
+-- CloudFront can use to verify the signatures of signed URLs and signed
+-- cookies.
 --
---
---
--- /See:/ 'activeTrustedKeyGroups' smart constructor.
+-- /See:/ 'newActiveTrustedKeyGroups' smart constructor.
 data ActiveTrustedKeyGroups = ActiveTrustedKeyGroups'
-  { _atkgItems ::
-      !(Maybe [KGKeyPairIds]),
-    _atkgEnabled :: !Bool,
-    _atkgQuantity :: !Int
+  { -- | A list of key groups, including the identifiers of the public keys in
+    -- each key group that CloudFront can use to verify the signatures of
+    -- signed URLs and signed cookies.
+    items :: Prelude.Maybe [KGKeyPairIds],
+    -- | This field is @true@ if any of the key groups have public keys that
+    -- CloudFront can use to verify the signatures of signed URLs and signed
+    -- cookies. If not, this field is @false@.
+    enabled :: Prelude.Bool,
+    -- | The number of key groups in the list.
+    quantity :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActiveTrustedKeyGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActiveTrustedKeyGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atkgItems' - A list of key groups, including the identifiers of the public keys in each key group that CloudFront can use to verify the signatures of signed URLs and signed cookies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atkgEnabled' - This field is @true@ if any of the key groups have public keys that CloudFront can use to verify the signatures of signed URLs and signed cookies. If not, this field is @false@ .
+-- 'items', 'activeTrustedKeyGroups_items' - A list of key groups, including the identifiers of the public keys in
+-- each key group that CloudFront can use to verify the signatures of
+-- signed URLs and signed cookies.
 --
--- * 'atkgQuantity' - The number of key groups in the list.
-activeTrustedKeyGroups ::
-  -- | 'atkgEnabled'
-  Bool ->
-  -- | 'atkgQuantity'
-  Int ->
+-- 'enabled', 'activeTrustedKeyGroups_enabled' - This field is @true@ if any of the key groups have public keys that
+-- CloudFront can use to verify the signatures of signed URLs and signed
+-- cookies. If not, this field is @false@.
+--
+-- 'quantity', 'activeTrustedKeyGroups_quantity' - The number of key groups in the list.
+newActiveTrustedKeyGroups ::
+  -- | 'enabled'
+  Prelude.Bool ->
+  -- | 'quantity'
+  Prelude.Int ->
   ActiveTrustedKeyGroups
-activeTrustedKeyGroups pEnabled_ pQuantity_ =
+newActiveTrustedKeyGroups pEnabled_ pQuantity_ =
   ActiveTrustedKeyGroups'
-    { _atkgItems = Nothing,
-      _atkgEnabled = pEnabled_,
-      _atkgQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      enabled = pEnabled_,
+      quantity = pQuantity_
     }
 
--- | A list of key groups, including the identifiers of the public keys in each key group that CloudFront can use to verify the signatures of signed URLs and signed cookies.
-atkgItems :: Lens' ActiveTrustedKeyGroups [KGKeyPairIds]
-atkgItems = lens _atkgItems (\s a -> s {_atkgItems = a}) . _Default . _Coerce
+-- | A list of key groups, including the identifiers of the public keys in
+-- each key group that CloudFront can use to verify the signatures of
+-- signed URLs and signed cookies.
+activeTrustedKeyGroups_items :: Lens.Lens' ActiveTrustedKeyGroups (Prelude.Maybe [KGKeyPairIds])
+activeTrustedKeyGroups_items = Lens.lens (\ActiveTrustedKeyGroups' {items} -> items) (\s@ActiveTrustedKeyGroups' {} a -> s {items = a} :: ActiveTrustedKeyGroups) Prelude.. Lens.mapping Prelude._Coerce
 
--- | This field is @true@ if any of the key groups have public keys that CloudFront can use to verify the signatures of signed URLs and signed cookies. If not, this field is @false@ .
-atkgEnabled :: Lens' ActiveTrustedKeyGroups Bool
-atkgEnabled = lens _atkgEnabled (\s a -> s {_atkgEnabled = a})
+-- | This field is @true@ if any of the key groups have public keys that
+-- CloudFront can use to verify the signatures of signed URLs and signed
+-- cookies. If not, this field is @false@.
+activeTrustedKeyGroups_enabled :: Lens.Lens' ActiveTrustedKeyGroups Prelude.Bool
+activeTrustedKeyGroups_enabled = Lens.lens (\ActiveTrustedKeyGroups' {enabled} -> enabled) (\s@ActiveTrustedKeyGroups' {} a -> s {enabled = a} :: ActiveTrustedKeyGroups)
 
 -- | The number of key groups in the list.
-atkgQuantity :: Lens' ActiveTrustedKeyGroups Int
-atkgQuantity = lens _atkgQuantity (\s a -> s {_atkgQuantity = a})
+activeTrustedKeyGroups_quantity :: Lens.Lens' ActiveTrustedKeyGroups Prelude.Int
+activeTrustedKeyGroups_quantity = Lens.lens (\ActiveTrustedKeyGroups' {quantity} -> quantity) (\s@ActiveTrustedKeyGroups' {} a -> s {quantity = a} :: ActiveTrustedKeyGroups)
 
-instance FromXML ActiveTrustedKeyGroups where
+instance Prelude.FromXML ActiveTrustedKeyGroups where
   parseXML x =
     ActiveTrustedKeyGroups'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "KeyGroup")
-          )
-      <*> (x .@ "Enabled")
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "KeyGroup")
+                  )
+      Prelude.<*> (x Prelude..@ "Enabled")
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable ActiveTrustedKeyGroups
+instance Prelude.Hashable ActiveTrustedKeyGroups
 
-instance NFData ActiveTrustedKeyGroups
+instance Prelude.NFData ActiveTrustedKeyGroups

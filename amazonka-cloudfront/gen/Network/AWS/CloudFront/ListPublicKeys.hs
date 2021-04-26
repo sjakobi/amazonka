@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,128 +21,150 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- List all public keys that have been added to CloudFront for this account.
+-- List all public keys that have been added to CloudFront for this
+-- account.
 module Network.AWS.CloudFront.ListPublicKeys
   ( -- * Creating a Request
-    listPublicKeys,
-    ListPublicKeys,
+    ListPublicKeys (..),
+    newListPublicKeys,
 
     -- * Request Lenses
-    lpkMaxItems,
-    lpkMarker,
+    listPublicKeys_maxItems,
+    listPublicKeys_marker,
 
     -- * Destructuring the Response
-    listPublicKeysResponse,
-    ListPublicKeysResponse,
+    ListPublicKeysResponse (..),
+    newListPublicKeysResponse,
 
     -- * Response Lenses
-    lpkrrsPublicKeyList,
-    lpkrrsResponseStatus,
+    listPublicKeysResponse_publicKeyList,
+    listPublicKeysResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.PublicKeyList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listPublicKeys' smart constructor.
+-- | /See:/ 'newListPublicKeys' smart constructor.
 data ListPublicKeys = ListPublicKeys'
-  { _lpkMaxItems ::
-      !(Maybe Text),
-    _lpkMarker :: !(Maybe Text)
+  { -- | The maximum number of public keys you want in the response body.
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | Use this when paginating results to indicate where to begin in your list
+    -- of public keys. The results include public keys in the list that occur
+    -- after the marker. To get the next page of results, set the @Marker@ to
+    -- the value of the @NextMarker@ from the current page\'s response (which
+    -- is also the ID of the last public key on that page).
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPublicKeys' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPublicKeys' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpkMaxItems' - The maximum number of public keys you want in the response body.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpkMarker' - Use this when paginating results to indicate where to begin in your list of public keys. The results include public keys in the list that occur after the marker. To get the next page of results, set the @Marker@ to the value of the @NextMarker@ from the current page's response (which is also the ID of the last public key on that page).
-listPublicKeys ::
+-- 'maxItems', 'listPublicKeys_maxItems' - The maximum number of public keys you want in the response body.
+--
+-- 'marker', 'listPublicKeys_marker' - Use this when paginating results to indicate where to begin in your list
+-- of public keys. The results include public keys in the list that occur
+-- after the marker. To get the next page of results, set the @Marker@ to
+-- the value of the @NextMarker@ from the current page\'s response (which
+-- is also the ID of the last public key on that page).
+newListPublicKeys ::
   ListPublicKeys
-listPublicKeys =
+newListPublicKeys =
   ListPublicKeys'
-    { _lpkMaxItems = Nothing,
-      _lpkMarker = Nothing
+    { maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The maximum number of public keys you want in the response body.
-lpkMaxItems :: Lens' ListPublicKeys (Maybe Text)
-lpkMaxItems = lens _lpkMaxItems (\s a -> s {_lpkMaxItems = a})
+listPublicKeys_maxItems :: Lens.Lens' ListPublicKeys (Prelude.Maybe Prelude.Text)
+listPublicKeys_maxItems = Lens.lens (\ListPublicKeys' {maxItems} -> maxItems) (\s@ListPublicKeys' {} a -> s {maxItems = a} :: ListPublicKeys)
 
--- | Use this when paginating results to indicate where to begin in your list of public keys. The results include public keys in the list that occur after the marker. To get the next page of results, set the @Marker@ to the value of the @NextMarker@ from the current page's response (which is also the ID of the last public key on that page).
-lpkMarker :: Lens' ListPublicKeys (Maybe Text)
-lpkMarker = lens _lpkMarker (\s a -> s {_lpkMarker = a})
+-- | Use this when paginating results to indicate where to begin in your list
+-- of public keys. The results include public keys in the list that occur
+-- after the marker. To get the next page of results, set the @Marker@ to
+-- the value of the @NextMarker@ from the current page\'s response (which
+-- is also the ID of the last public key on that page).
+listPublicKeys_marker :: Lens.Lens' ListPublicKeys (Prelude.Maybe Prelude.Text)
+listPublicKeys_marker = Lens.lens (\ListPublicKeys' {marker} -> marker) (\s@ListPublicKeys' {} a -> s {marker = a} :: ListPublicKeys)
 
-instance AWSRequest ListPublicKeys where
+instance Prelude.AWSRequest ListPublicKeys where
   type Rs ListPublicKeys = ListPublicKeysResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListPublicKeysResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPublicKeys
+instance Prelude.Hashable ListPublicKeys
 
-instance NFData ListPublicKeys
+instance Prelude.NFData ListPublicKeys
 
-instance ToHeaders ListPublicKeys where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListPublicKeys where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListPublicKeys where
-  toPath = const "/2020-05-31/public-key"
+instance Prelude.ToPath ListPublicKeys where
+  toPath = Prelude.const "/2020-05-31/public-key"
 
-instance ToQuery ListPublicKeys where
+instance Prelude.ToQuery ListPublicKeys where
   toQuery ListPublicKeys' {..} =
-    mconcat
-      ["MaxItems" =: _lpkMaxItems, "Marker" =: _lpkMarker]
+    Prelude.mconcat
+      [ "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
+      ]
 
--- | /See:/ 'listPublicKeysResponse' smart constructor.
+-- | /See:/ 'newListPublicKeysResponse' smart constructor.
 data ListPublicKeysResponse = ListPublicKeysResponse'
-  { _lpkrrsPublicKeyList ::
-      !(Maybe PublicKeyList),
-    _lpkrrsResponseStatus ::
-      !Int
+  { -- | Returns a list of all public keys that have been added to CloudFront for
+    -- this account.
+    publicKeyList :: Prelude.Maybe PublicKeyList,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPublicKeysResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPublicKeysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpkrrsPublicKeyList' - Returns a list of all public keys that have been added to CloudFront for this account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpkrrsResponseStatus' - -- | The response status code.
-listPublicKeysResponse ::
-  -- | 'lpkrrsResponseStatus'
-  Int ->
+-- 'publicKeyList', 'listPublicKeysResponse_publicKeyList' - Returns a list of all public keys that have been added to CloudFront for
+-- this account.
+--
+-- 'httpStatus', 'listPublicKeysResponse_httpStatus' - The response's http status code.
+newListPublicKeysResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPublicKeysResponse
-listPublicKeysResponse pResponseStatus_ =
+newListPublicKeysResponse pHttpStatus_ =
   ListPublicKeysResponse'
-    { _lpkrrsPublicKeyList =
-        Nothing,
-      _lpkrrsResponseStatus = pResponseStatus_
+    { publicKeyList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Returns a list of all public keys that have been added to CloudFront for this account.
-lpkrrsPublicKeyList :: Lens' ListPublicKeysResponse (Maybe PublicKeyList)
-lpkrrsPublicKeyList = lens _lpkrrsPublicKeyList (\s a -> s {_lpkrrsPublicKeyList = a})
+-- | Returns a list of all public keys that have been added to CloudFront for
+-- this account.
+listPublicKeysResponse_publicKeyList :: Lens.Lens' ListPublicKeysResponse (Prelude.Maybe PublicKeyList)
+listPublicKeysResponse_publicKeyList = Lens.lens (\ListPublicKeysResponse' {publicKeyList} -> publicKeyList) (\s@ListPublicKeysResponse' {} a -> s {publicKeyList = a} :: ListPublicKeysResponse)
 
--- | -- | The response status code.
-lpkrrsResponseStatus :: Lens' ListPublicKeysResponse Int
-lpkrrsResponseStatus = lens _lpkrrsResponseStatus (\s a -> s {_lpkrrsResponseStatus = a})
+-- | The response's http status code.
+listPublicKeysResponse_httpStatus :: Lens.Lens' ListPublicKeysResponse Prelude.Int
+listPublicKeysResponse_httpStatus = Lens.lens (\ListPublicKeysResponse' {httpStatus} -> httpStatus) (\s@ListPublicKeysResponse' {} a -> s {httpStatus = a} :: ListPublicKeysResponse)
 
-instance NFData ListPublicKeysResponse
+instance Prelude.NFData ListPublicKeysResponse

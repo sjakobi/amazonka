@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,187 +21,190 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is deprecated. Amazon CloudFront is deprecating real-time messaging protocol (RTMP) distributions on December 31, 2020. For more information, <http://forums.aws.amazon.com/ann.jspa?annID=7356 read the announcement> on the Amazon CloudFront discussion forum.
+-- This API is deprecated. Amazon CloudFront is deprecating real-time
+-- messaging protocol (RTMP) distributions on December 31, 2020. For more
+-- information,
+-- <http://forums.aws.amazon.com/ann.jspa?annID=7356 read the announcement>
+-- on the Amazon CloudFront discussion forum.
 module Network.AWS.CloudFront.CreateStreamingDistributionWithTags
   ( -- * Creating a Request
-    createStreamingDistributionWithTags,
-    CreateStreamingDistributionWithTags,
+    CreateStreamingDistributionWithTags (..),
+    newCreateStreamingDistributionWithTags,
 
     -- * Request Lenses
-    csdwtStreamingDistributionConfigWithTags,
+    createStreamingDistributionWithTags_streamingDistributionConfigWithTags,
 
     -- * Destructuring the Response
-    createStreamingDistributionWithTagsResponse,
-    CreateStreamingDistributionWithTagsResponse,
+    CreateStreamingDistributionWithTagsResponse (..),
+    newCreateStreamingDistributionWithTagsResponse,
 
     -- * Response Lenses
-    csdwtrrsETag,
-    csdwtrrsStreamingDistribution,
-    csdwtrrsLocation,
-    csdwtrrsResponseStatus,
+    createStreamingDistributionWithTagsResponse_eTag,
+    createStreamingDistributionWithTagsResponse_streamingDistribution,
+    createStreamingDistributionWithTagsResponse_location,
+    createStreamingDistributionWithTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.StreamingDistribution
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The request to create a new streaming distribution with tags.
 --
---
---
--- /See:/ 'createStreamingDistributionWithTags' smart constructor.
-newtype CreateStreamingDistributionWithTags = CreateStreamingDistributionWithTags'
-  { _csdwtStreamingDistributionConfigWithTags ::
-      StreamingDistributionConfigWithTags
+-- /See:/ 'newCreateStreamingDistributionWithTags' smart constructor.
+data CreateStreamingDistributionWithTags = CreateStreamingDistributionWithTags'
+  { -- | The streaming distribution\'s configuration information.
+    streamingDistributionConfigWithTags :: StreamingDistributionConfigWithTags
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStreamingDistributionWithTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStreamingDistributionWithTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csdwtStreamingDistributionConfigWithTags' - The streaming distribution's configuration information.
-createStreamingDistributionWithTags ::
-  -- | 'csdwtStreamingDistributionConfigWithTags'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'streamingDistributionConfigWithTags', 'createStreamingDistributionWithTags_streamingDistributionConfigWithTags' - The streaming distribution\'s configuration information.
+newCreateStreamingDistributionWithTags ::
+  -- | 'streamingDistributionConfigWithTags'
   StreamingDistributionConfigWithTags ->
   CreateStreamingDistributionWithTags
-createStreamingDistributionWithTags
+newCreateStreamingDistributionWithTags
   pStreamingDistributionConfigWithTags_ =
     CreateStreamingDistributionWithTags'
-      { _csdwtStreamingDistributionConfigWithTags =
+      { streamingDistributionConfigWithTags =
           pStreamingDistributionConfigWithTags_
       }
 
--- | The streaming distribution's configuration information.
-csdwtStreamingDistributionConfigWithTags :: Lens' CreateStreamingDistributionWithTags StreamingDistributionConfigWithTags
-csdwtStreamingDistributionConfigWithTags = lens _csdwtStreamingDistributionConfigWithTags (\s a -> s {_csdwtStreamingDistributionConfigWithTags = a})
+-- | The streaming distribution\'s configuration information.
+createStreamingDistributionWithTags_streamingDistributionConfigWithTags :: Lens.Lens' CreateStreamingDistributionWithTags StreamingDistributionConfigWithTags
+createStreamingDistributionWithTags_streamingDistributionConfigWithTags = Lens.lens (\CreateStreamingDistributionWithTags' {streamingDistributionConfigWithTags} -> streamingDistributionConfigWithTags) (\s@CreateStreamingDistributionWithTags' {} a -> s {streamingDistributionConfigWithTags = a} :: CreateStreamingDistributionWithTags)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CreateStreamingDistributionWithTags
   where
   type
     Rs CreateStreamingDistributionWithTags =
       CreateStreamingDistributionWithTagsResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateStreamingDistributionWithTagsResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (h .#? "Location")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+              Prelude.<*> (Prelude.parseXML x)
+              Prelude.<*> (h Prelude..#? "Location")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateStreamingDistributionWithTags
-
-instance NFData CreateStreamingDistributionWithTags
+instance
+  Prelude.Hashable
+    CreateStreamingDistributionWithTags
 
 instance
-  ToElement
+  Prelude.NFData
+    CreateStreamingDistributionWithTags
+
+instance
+  Prelude.ToElement
     CreateStreamingDistributionWithTags
   where
-  toElement =
-    mkElement
+  toElement CreateStreamingDistributionWithTags' {..} =
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}StreamingDistributionConfigWithTags"
-      . _csdwtStreamingDistributionConfigWithTags
+      streamingDistributionConfigWithTags
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     CreateStreamingDistributionWithTags
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateStreamingDistributionWithTags where
-  toPath = const "/2020-05-31/streaming-distribution"
+instance
+  Prelude.ToPath
+    CreateStreamingDistributionWithTags
+  where
+  toPath =
+    Prelude.const "/2020-05-31/streaming-distribution"
 
-instance ToQuery CreateStreamingDistributionWithTags where
-  toQuery = const (mconcat ["WithTags"])
+instance
+  Prelude.ToQuery
+    CreateStreamingDistributionWithTags
+  where
+  toQuery =
+    Prelude.const (Prelude.mconcat ["WithTags"])
 
 -- | The returned result of the corresponding request.
 --
---
---
--- /See:/ 'createStreamingDistributionWithTagsResponse' smart constructor.
+-- /See:/ 'newCreateStreamingDistributionWithTagsResponse' smart constructor.
 data CreateStreamingDistributionWithTagsResponse = CreateStreamingDistributionWithTagsResponse'
-  { _csdwtrrsETag ::
-      !( Maybe
-           Text
-       ),
-    _csdwtrrsStreamingDistribution ::
-      !( Maybe
-           StreamingDistribution
-       ),
-    _csdwtrrsLocation ::
-      !( Maybe
-           Text
-       ),
-    _csdwtrrsResponseStatus ::
-      !Int
+  { -- | The current version of the distribution created.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | The streaming distribution\'s information.
+    streamingDistribution :: Prelude.Maybe StreamingDistribution,
+    -- | The fully qualified URI of the new streaming distribution resource just
+    -- created.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStreamingDistributionWithTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStreamingDistributionWithTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csdwtrrsETag' - The current version of the distribution created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csdwtrrsStreamingDistribution' - The streaming distribution's information.
+-- 'eTag', 'createStreamingDistributionWithTagsResponse_eTag' - The current version of the distribution created.
 --
--- * 'csdwtrrsLocation' - The fully qualified URI of the new streaming distribution resource just created.
+-- 'streamingDistribution', 'createStreamingDistributionWithTagsResponse_streamingDistribution' - The streaming distribution\'s information.
 --
--- * 'csdwtrrsResponseStatus' - -- | The response status code.
-createStreamingDistributionWithTagsResponse ::
-  -- | 'csdwtrrsResponseStatus'
-  Int ->
+-- 'location', 'createStreamingDistributionWithTagsResponse_location' - The fully qualified URI of the new streaming distribution resource just
+-- created.
+--
+-- 'httpStatus', 'createStreamingDistributionWithTagsResponse_httpStatus' - The response's http status code.
+newCreateStreamingDistributionWithTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateStreamingDistributionWithTagsResponse
-createStreamingDistributionWithTagsResponse
-  pResponseStatus_ =
+newCreateStreamingDistributionWithTagsResponse
+  pHttpStatus_ =
     CreateStreamingDistributionWithTagsResponse'
-      { _csdwtrrsETag =
-          Nothing,
-        _csdwtrrsStreamingDistribution =
-          Nothing,
-        _csdwtrrsLocation = Nothing,
-        _csdwtrrsResponseStatus =
-          pResponseStatus_
+      { eTag =
+          Prelude.Nothing,
+        streamingDistribution =
+          Prelude.Nothing,
+        location = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The current version of the distribution created.
-csdwtrrsETag :: Lens' CreateStreamingDistributionWithTagsResponse (Maybe Text)
-csdwtrrsETag = lens _csdwtrrsETag (\s a -> s {_csdwtrrsETag = a})
+createStreamingDistributionWithTagsResponse_eTag :: Lens.Lens' CreateStreamingDistributionWithTagsResponse (Prelude.Maybe Prelude.Text)
+createStreamingDistributionWithTagsResponse_eTag = Lens.lens (\CreateStreamingDistributionWithTagsResponse' {eTag} -> eTag) (\s@CreateStreamingDistributionWithTagsResponse' {} a -> s {eTag = a} :: CreateStreamingDistributionWithTagsResponse)
 
--- | The streaming distribution's information.
-csdwtrrsStreamingDistribution :: Lens' CreateStreamingDistributionWithTagsResponse (Maybe StreamingDistribution)
-csdwtrrsStreamingDistribution = lens _csdwtrrsStreamingDistribution (\s a -> s {_csdwtrrsStreamingDistribution = a})
+-- | The streaming distribution\'s information.
+createStreamingDistributionWithTagsResponse_streamingDistribution :: Lens.Lens' CreateStreamingDistributionWithTagsResponse (Prelude.Maybe StreamingDistribution)
+createStreamingDistributionWithTagsResponse_streamingDistribution = Lens.lens (\CreateStreamingDistributionWithTagsResponse' {streamingDistribution} -> streamingDistribution) (\s@CreateStreamingDistributionWithTagsResponse' {} a -> s {streamingDistribution = a} :: CreateStreamingDistributionWithTagsResponse)
 
--- | The fully qualified URI of the new streaming distribution resource just created.
-csdwtrrsLocation :: Lens' CreateStreamingDistributionWithTagsResponse (Maybe Text)
-csdwtrrsLocation = lens _csdwtrrsLocation (\s a -> s {_csdwtrrsLocation = a})
+-- | The fully qualified URI of the new streaming distribution resource just
+-- created.
+createStreamingDistributionWithTagsResponse_location :: Lens.Lens' CreateStreamingDistributionWithTagsResponse (Prelude.Maybe Prelude.Text)
+createStreamingDistributionWithTagsResponse_location = Lens.lens (\CreateStreamingDistributionWithTagsResponse' {location} -> location) (\s@CreateStreamingDistributionWithTagsResponse' {} a -> s {location = a} :: CreateStreamingDistributionWithTagsResponse)
 
--- | -- | The response status code.
-csdwtrrsResponseStatus :: Lens' CreateStreamingDistributionWithTagsResponse Int
-csdwtrrsResponseStatus = lens _csdwtrrsResponseStatus (\s a -> s {_csdwtrrsResponseStatus = a})
+-- | The response's http status code.
+createStreamingDistributionWithTagsResponse_httpStatus :: Lens.Lens' CreateStreamingDistributionWithTagsResponse Prelude.Int
+createStreamingDistributionWithTagsResponse_httpStatus = Lens.lens (\CreateStreamingDistributionWithTagsResponse' {httpStatus} -> httpStatus) (\s@CreateStreamingDistributionWithTagsResponse' {} a -> s {httpStatus = a} :: CreateStreamingDistributionWithTagsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateStreamingDistributionWithTagsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CloudFront.Types.ICPRecordalStatus
   ( ICPRecordalStatus
       ( ..,
-        Approved,
-        Pending,
-        Suspended
+        ICPRecordalStatusAPPROVED,
+        ICPRecordalStatusPENDING,
+        ICPRecordalStatusSUSPENDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ICPRecordalStatus = ICPRecordalStatus' (CI Text)
+newtype ICPRecordalStatus = ICPRecordalStatus'
+  { fromICPRecordalStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Approved :: ICPRecordalStatus
-pattern Approved = ICPRecordalStatus' "APPROVED"
+pattern ICPRecordalStatusAPPROVED :: ICPRecordalStatus
+pattern ICPRecordalStatusAPPROVED = ICPRecordalStatus' "APPROVED"
 
-pattern Pending :: ICPRecordalStatus
-pattern Pending = ICPRecordalStatus' "PENDING"
+pattern ICPRecordalStatusPENDING :: ICPRecordalStatus
+pattern ICPRecordalStatusPENDING = ICPRecordalStatus' "PENDING"
 
-pattern Suspended :: ICPRecordalStatus
-pattern Suspended = ICPRecordalStatus' "SUSPENDED"
+pattern ICPRecordalStatusSUSPENDED :: ICPRecordalStatus
+pattern ICPRecordalStatusSUSPENDED = ICPRecordalStatus' "SUSPENDED"
 
 {-# COMPLETE
-  Approved,
-  Pending,
-  Suspended,
+  ICPRecordalStatusAPPROVED,
+  ICPRecordalStatusPENDING,
+  ICPRecordalStatusSUSPENDED,
   ICPRecordalStatus'
   #-}
 
-instance FromText ICPRecordalStatus where
-  parser = (ICPRecordalStatus' . mk) <$> takeText
+instance Prelude.FromText ICPRecordalStatus where
+  parser = ICPRecordalStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ICPRecordalStatus where
-  toText (ICPRecordalStatus' ci) = original ci
+instance Prelude.ToText ICPRecordalStatus where
+  toText (ICPRecordalStatus' x) = x
 
-instance Hashable ICPRecordalStatus
+instance Prelude.Hashable ICPRecordalStatus
 
-instance NFData ICPRecordalStatus
+instance Prelude.NFData ICPRecordalStatus
 
-instance ToByteString ICPRecordalStatus
+instance Prelude.ToByteString ICPRecordalStatus
 
-instance ToQuery ICPRecordalStatus
+instance Prelude.ToQuery ICPRecordalStatus
 
-instance ToHeader ICPRecordalStatus
+instance Prelude.ToHeader ICPRecordalStatus
 
-instance FromXML ICPRecordalStatus where
-  parseXML = parseXMLText "ICPRecordalStatus"
+instance Prelude.FromXML ICPRecordalStatus where
+  parseXML = Prelude.parseXMLText "ICPRecordalStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +21,62 @@ module Network.AWS.CloudFront.Types.OriginRequestPolicySummary where
 
 import Network.AWS.CloudFront.Types.OriginRequestPolicy
 import Network.AWS.CloudFront.Types.OriginRequestPolicyType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains an origin request policy.
 --
---
---
--- /See:/ 'originRequestPolicySummary' smart constructor.
+-- /See:/ 'newOriginRequestPolicySummary' smart constructor.
 data OriginRequestPolicySummary = OriginRequestPolicySummary'
-  { _orpsType ::
-      !OriginRequestPolicyType,
-    _orpsOriginRequestPolicy ::
-      !OriginRequestPolicy
+  { -- | The type of origin request policy, either @managed@ (created by AWS) or
+    -- @custom@ (created in this AWS account).
+    type' :: OriginRequestPolicyType,
+    -- | The origin request policy.
+    originRequestPolicy :: OriginRequestPolicy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OriginRequestPolicySummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OriginRequestPolicySummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'orpsType' - The type of origin request policy, either @managed@ (created by AWS) or @custom@ (created in this AWS account).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'orpsOriginRequestPolicy' - The origin request policy.
-originRequestPolicySummary ::
-  -- | 'orpsType'
+-- 'type'', 'originRequestPolicySummary_type' - The type of origin request policy, either @managed@ (created by AWS) or
+-- @custom@ (created in this AWS account).
+--
+-- 'originRequestPolicy', 'originRequestPolicySummary_originRequestPolicy' - The origin request policy.
+newOriginRequestPolicySummary ::
+  -- | 'type''
   OriginRequestPolicyType ->
-  -- | 'orpsOriginRequestPolicy'
+  -- | 'originRequestPolicy'
   OriginRequestPolicy ->
   OriginRequestPolicySummary
-originRequestPolicySummary
+newOriginRequestPolicySummary
   pType_
   pOriginRequestPolicy_ =
     OriginRequestPolicySummary'
-      { _orpsType = pType_,
-        _orpsOriginRequestPolicy =
-          pOriginRequestPolicy_
+      { type' = pType_,
+        originRequestPolicy = pOriginRequestPolicy_
       }
 
--- | The type of origin request policy, either @managed@ (created by AWS) or @custom@ (created in this AWS account).
-orpsType :: Lens' OriginRequestPolicySummary OriginRequestPolicyType
-orpsType = lens _orpsType (\s a -> s {_orpsType = a})
+-- | The type of origin request policy, either @managed@ (created by AWS) or
+-- @custom@ (created in this AWS account).
+originRequestPolicySummary_type :: Lens.Lens' OriginRequestPolicySummary OriginRequestPolicyType
+originRequestPolicySummary_type = Lens.lens (\OriginRequestPolicySummary' {type'} -> type') (\s@OriginRequestPolicySummary' {} a -> s {type' = a} :: OriginRequestPolicySummary)
 
 -- | The origin request policy.
-orpsOriginRequestPolicy :: Lens' OriginRequestPolicySummary OriginRequestPolicy
-orpsOriginRequestPolicy = lens _orpsOriginRequestPolicy (\s a -> s {_orpsOriginRequestPolicy = a})
+originRequestPolicySummary_originRequestPolicy :: Lens.Lens' OriginRequestPolicySummary OriginRequestPolicy
+originRequestPolicySummary_originRequestPolicy = Lens.lens (\OriginRequestPolicySummary' {originRequestPolicy} -> originRequestPolicy) (\s@OriginRequestPolicySummary' {} a -> s {originRequestPolicy = a} :: OriginRequestPolicySummary)
 
-instance FromXML OriginRequestPolicySummary where
+instance Prelude.FromXML OriginRequestPolicySummary where
   parseXML x =
     OriginRequestPolicySummary'
-      <$> (x .@ "Type") <*> (x .@ "OriginRequestPolicy")
+      Prelude.<$> (x Prelude..@ "Type")
+      Prelude.<*> (x Prelude..@ "OriginRequestPolicy")
 
-instance Hashable OriginRequestPolicySummary
+instance Prelude.Hashable OriginRequestPolicySummary
 
-instance NFData OriginRequestPolicySummary
+instance Prelude.NFData OriginRequestPolicySummary

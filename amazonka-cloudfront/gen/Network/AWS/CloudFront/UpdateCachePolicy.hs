@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,168 +23,186 @@
 --
 -- Updates a cache policy configuration.
 --
+-- When you update a cache policy configuration, all the fields are updated
+-- with the values provided in the request. You cannot update some fields
+-- independent of others. To update a cache policy configuration:
 --
--- When you update a cache policy configuration, all the fields are updated with the values provided in the request. You cannot update some fields independent of others. To update a cache policy configuration:
+-- 1.  Use @GetCachePolicyConfig@ to get the current configuration.
 --
---     * Use @GetCachePolicyConfig@ to get the current configuration.
+-- 2.  Locally modify the fields in the cache policy configuration that you
+--     want to update.
 --
---     * Locally modify the fields in the cache policy configuration that you want to update.
---
---     * Call @UpdateCachePolicy@ by providing the entire cache policy configuration, including the fields that you modified and those that you didn’t.
+-- 3.  Call @UpdateCachePolicy@ by providing the entire cache policy
+--     configuration, including the fields that you modified and those that
+--     you didn’t.
 module Network.AWS.CloudFront.UpdateCachePolicy
   ( -- * Creating a Request
-    updateCachePolicy,
-    UpdateCachePolicy,
+    UpdateCachePolicy (..),
+    newUpdateCachePolicy,
 
     -- * Request Lenses
-    ucpIfMatch,
-    ucpCachePolicyConfig,
-    ucpId,
+    updateCachePolicy_ifMatch,
+    updateCachePolicy_cachePolicyConfig,
+    updateCachePolicy_id,
 
     -- * Destructuring the Response
-    updateCachePolicyResponse,
-    UpdateCachePolicyResponse,
+    UpdateCachePolicyResponse (..),
+    newUpdateCachePolicyResponse,
 
     -- * Response Lenses
-    ucprrsETag,
-    ucprrsCachePolicy,
-    ucprrsResponseStatus,
+    updateCachePolicyResponse_eTag,
+    updateCachePolicyResponse_cachePolicy,
+    updateCachePolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.CachePolicy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateCachePolicy' smart constructor.
+-- | /See:/ 'newUpdateCachePolicy' smart constructor.
 data UpdateCachePolicy = UpdateCachePolicy'
-  { _ucpIfMatch ::
-      !(Maybe Text),
-    _ucpCachePolicyConfig ::
-      !CachePolicyConfig,
-    _ucpId :: !Text
+  { -- | The version of the cache policy that you are updating. The version is
+    -- returned in the cache policy’s @ETag@ field in the response to
+    -- @GetCachePolicyConfig@.
+    ifMatch :: Prelude.Maybe Prelude.Text,
+    -- | A cache policy configuration.
+    cachePolicyConfig :: CachePolicyConfig,
+    -- | The unique identifier for the cache policy that you are updating. The
+    -- identifier is returned in a cache behavior’s @CachePolicyId@ field in
+    -- the response to @GetDistributionConfig@.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCachePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateCachePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucpIfMatch' - The version of the cache policy that you are updating. The version is returned in the cache policy’s @ETag@ field in the response to @GetCachePolicyConfig@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucpCachePolicyConfig' - A cache policy configuration.
+-- 'ifMatch', 'updateCachePolicy_ifMatch' - The version of the cache policy that you are updating. The version is
+-- returned in the cache policy’s @ETag@ field in the response to
+-- @GetCachePolicyConfig@.
 --
--- * 'ucpId' - The unique identifier for the cache policy that you are updating. The identifier is returned in a cache behavior’s @CachePolicyId@ field in the response to @GetDistributionConfig@ .
-updateCachePolicy ::
-  -- | 'ucpCachePolicyConfig'
+-- 'cachePolicyConfig', 'updateCachePolicy_cachePolicyConfig' - A cache policy configuration.
+--
+-- 'id', 'updateCachePolicy_id' - The unique identifier for the cache policy that you are updating. The
+-- identifier is returned in a cache behavior’s @CachePolicyId@ field in
+-- the response to @GetDistributionConfig@.
+newUpdateCachePolicy ::
+  -- | 'cachePolicyConfig'
   CachePolicyConfig ->
-  -- | 'ucpId'
-  Text ->
+  -- | 'id'
+  Prelude.Text ->
   UpdateCachePolicy
-updateCachePolicy pCachePolicyConfig_ pId_ =
+newUpdateCachePolicy pCachePolicyConfig_ pId_ =
   UpdateCachePolicy'
-    { _ucpIfMatch = Nothing,
-      _ucpCachePolicyConfig = pCachePolicyConfig_,
-      _ucpId = pId_
+    { ifMatch = Prelude.Nothing,
+      cachePolicyConfig = pCachePolicyConfig_,
+      id = pId_
     }
 
--- | The version of the cache policy that you are updating. The version is returned in the cache policy’s @ETag@ field in the response to @GetCachePolicyConfig@ .
-ucpIfMatch :: Lens' UpdateCachePolicy (Maybe Text)
-ucpIfMatch = lens _ucpIfMatch (\s a -> s {_ucpIfMatch = a})
+-- | The version of the cache policy that you are updating. The version is
+-- returned in the cache policy’s @ETag@ field in the response to
+-- @GetCachePolicyConfig@.
+updateCachePolicy_ifMatch :: Lens.Lens' UpdateCachePolicy (Prelude.Maybe Prelude.Text)
+updateCachePolicy_ifMatch = Lens.lens (\UpdateCachePolicy' {ifMatch} -> ifMatch) (\s@UpdateCachePolicy' {} a -> s {ifMatch = a} :: UpdateCachePolicy)
 
 -- | A cache policy configuration.
-ucpCachePolicyConfig :: Lens' UpdateCachePolicy CachePolicyConfig
-ucpCachePolicyConfig = lens _ucpCachePolicyConfig (\s a -> s {_ucpCachePolicyConfig = a})
+updateCachePolicy_cachePolicyConfig :: Lens.Lens' UpdateCachePolicy CachePolicyConfig
+updateCachePolicy_cachePolicyConfig = Lens.lens (\UpdateCachePolicy' {cachePolicyConfig} -> cachePolicyConfig) (\s@UpdateCachePolicy' {} a -> s {cachePolicyConfig = a} :: UpdateCachePolicy)
 
--- | The unique identifier for the cache policy that you are updating. The identifier is returned in a cache behavior’s @CachePolicyId@ field in the response to @GetDistributionConfig@ .
-ucpId :: Lens' UpdateCachePolicy Text
-ucpId = lens _ucpId (\s a -> s {_ucpId = a})
+-- | The unique identifier for the cache policy that you are updating. The
+-- identifier is returned in a cache behavior’s @CachePolicyId@ field in
+-- the response to @GetDistributionConfig@.
+updateCachePolicy_id :: Lens.Lens' UpdateCachePolicy Prelude.Text
+updateCachePolicy_id = Lens.lens (\UpdateCachePolicy' {id} -> id) (\s@UpdateCachePolicy' {} a -> s {id = a} :: UpdateCachePolicy)
 
-instance AWSRequest UpdateCachePolicy where
+instance Prelude.AWSRequest UpdateCachePolicy where
   type Rs UpdateCachePolicy = UpdateCachePolicyResponse
-  request = putXML cloudFront
+  request = Request.putXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           UpdateCachePolicyResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateCachePolicy
+instance Prelude.Hashable UpdateCachePolicy
 
-instance NFData UpdateCachePolicy
+instance Prelude.NFData UpdateCachePolicy
 
-instance ToElement UpdateCachePolicy where
-  toElement =
-    mkElement
+instance Prelude.ToElement UpdateCachePolicy where
+  toElement UpdateCachePolicy' {..} =
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}CachePolicyConfig"
-      . _ucpCachePolicyConfig
+      cachePolicyConfig
 
-instance ToHeaders UpdateCachePolicy where
+instance Prelude.ToHeaders UpdateCachePolicy where
   toHeaders UpdateCachePolicy' {..} =
-    mconcat ["If-Match" =# _ucpIfMatch]
+    Prelude.mconcat ["If-Match" Prelude.=# ifMatch]
 
-instance ToPath UpdateCachePolicy where
+instance Prelude.ToPath UpdateCachePolicy where
   toPath UpdateCachePolicy' {..} =
-    mconcat ["/2020-05-31/cache-policy/", toBS _ucpId]
+    Prelude.mconcat
+      ["/2020-05-31/cache-policy/", Prelude.toBS id]
 
-instance ToQuery UpdateCachePolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateCachePolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateCachePolicyResponse' smart constructor.
+-- | /See:/ 'newUpdateCachePolicyResponse' smart constructor.
 data UpdateCachePolicyResponse = UpdateCachePolicyResponse'
-  { _ucprrsETag ::
-      !(Maybe Text),
-    _ucprrsCachePolicy ::
-      !( Maybe
-           CachePolicy
-       ),
-    _ucprrsResponseStatus ::
-      !Int
+  { -- | The current version of the cache policy.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | A cache policy.
+    cachePolicy :: Prelude.Maybe CachePolicy,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCachePolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateCachePolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucprrsETag' - The current version of the cache policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucprrsCachePolicy' - A cache policy.
+-- 'eTag', 'updateCachePolicyResponse_eTag' - The current version of the cache policy.
 --
--- * 'ucprrsResponseStatus' - -- | The response status code.
-updateCachePolicyResponse ::
-  -- | 'ucprrsResponseStatus'
-  Int ->
+-- 'cachePolicy', 'updateCachePolicyResponse_cachePolicy' - A cache policy.
+--
+-- 'httpStatus', 'updateCachePolicyResponse_httpStatus' - The response's http status code.
+newUpdateCachePolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateCachePolicyResponse
-updateCachePolicyResponse pResponseStatus_ =
+newUpdateCachePolicyResponse pHttpStatus_ =
   UpdateCachePolicyResponse'
-    { _ucprrsETag = Nothing,
-      _ucprrsCachePolicy = Nothing,
-      _ucprrsResponseStatus = pResponseStatus_
+    { eTag = Prelude.Nothing,
+      cachePolicy = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current version of the cache policy.
-ucprrsETag :: Lens' UpdateCachePolicyResponse (Maybe Text)
-ucprrsETag = lens _ucprrsETag (\s a -> s {_ucprrsETag = a})
+updateCachePolicyResponse_eTag :: Lens.Lens' UpdateCachePolicyResponse (Prelude.Maybe Prelude.Text)
+updateCachePolicyResponse_eTag = Lens.lens (\UpdateCachePolicyResponse' {eTag} -> eTag) (\s@UpdateCachePolicyResponse' {} a -> s {eTag = a} :: UpdateCachePolicyResponse)
 
 -- | A cache policy.
-ucprrsCachePolicy :: Lens' UpdateCachePolicyResponse (Maybe CachePolicy)
-ucprrsCachePolicy = lens _ucprrsCachePolicy (\s a -> s {_ucprrsCachePolicy = a})
+updateCachePolicyResponse_cachePolicy :: Lens.Lens' UpdateCachePolicyResponse (Prelude.Maybe CachePolicy)
+updateCachePolicyResponse_cachePolicy = Lens.lens (\UpdateCachePolicyResponse' {cachePolicy} -> cachePolicy) (\s@UpdateCachePolicyResponse' {} a -> s {cachePolicy = a} :: UpdateCachePolicyResponse)
 
--- | -- | The response status code.
-ucprrsResponseStatus :: Lens' UpdateCachePolicyResponse Int
-ucprrsResponseStatus = lens _ucprrsResponseStatus (\s a -> s {_ucprrsResponseStatus = a})
+-- | The response's http status code.
+updateCachePolicyResponse_httpStatus :: Lens.Lens' UpdateCachePolicyResponse Prelude.Int
+updateCachePolicyResponse_httpStatus = Lens.lens (\UpdateCachePolicyResponse' {httpStatus} -> httpStatus) (\s@UpdateCachePolicyResponse' {} a -> s {httpStatus = a} :: UpdateCachePolicyResponse)
 
-instance NFData UpdateCachePolicyResponse
+instance Prelude.NFData UpdateCachePolicyResponse

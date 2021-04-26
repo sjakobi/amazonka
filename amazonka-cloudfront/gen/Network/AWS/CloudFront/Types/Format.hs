@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,50 @@
 module Network.AWS.CloudFront.Types.Format
   ( Format
       ( ..,
-        URLEncoded
+        FormatURLEncoded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Format = Format' (CI Text)
+newtype Format = Format' {fromFormat :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern URLEncoded :: Format
-pattern URLEncoded = Format' "URLEncoded"
+pattern FormatURLEncoded :: Format
+pattern FormatURLEncoded = Format' "URLEncoded"
 
 {-# COMPLETE
-  URLEncoded,
+  FormatURLEncoded,
   Format'
   #-}
 
-instance FromText Format where
-  parser = (Format' . mk) <$> takeText
+instance Prelude.FromText Format where
+  parser = Format' Prelude.<$> Prelude.takeText
 
-instance ToText Format where
-  toText (Format' ci) = original ci
+instance Prelude.ToText Format where
+  toText (Format' x) = x
 
-instance Hashable Format
+instance Prelude.Hashable Format
 
-instance NFData Format
+instance Prelude.NFData Format
 
-instance ToByteString Format
+instance Prelude.ToByteString Format
 
-instance ToQuery Format
+instance Prelude.ToQuery Format
 
-instance ToHeader Format
+instance Prelude.ToHeader Format
 
-instance FromXML Format where
-  parseXML = parseXMLText "Format"
+instance Prelude.FromXML Format where
+  parseXML = Prelude.parseXMLText "Format"
 
-instance ToXML Format where
-  toXML = toXMLText
+instance Prelude.ToXML Format where
+  toXML = Prelude.toXMLText

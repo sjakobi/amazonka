@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,92 +24,100 @@
 -- Remove a public key you previously added to CloudFront.
 module Network.AWS.CloudFront.DeletePublicKey
   ( -- * Creating a Request
-    deletePublicKey,
-    DeletePublicKey,
+    DeletePublicKey (..),
+    newDeletePublicKey,
 
     -- * Request Lenses
-    dpkIfMatch,
-    dpkId,
+    deletePublicKey_ifMatch,
+    deletePublicKey_id,
 
     -- * Destructuring the Response
-    deletePublicKeyResponse,
-    DeletePublicKeyResponse,
+    DeletePublicKeyResponse (..),
+    newDeletePublicKeyResponse,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deletePublicKey' smart constructor.
+-- | /See:/ 'newDeletePublicKey' smart constructor.
 data DeletePublicKey = DeletePublicKey'
-  { _dpkIfMatch ::
-      !(Maybe Text),
-    _dpkId :: !Text
+  { -- | The value of the @ETag@ header that you received when retrieving the
+    -- public key identity to delete. For example: @E2QWRUHAPOMQZL@.
+    ifMatch :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the public key you want to remove from CloudFront.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePublicKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePublicKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpkIfMatch' - The value of the @ETag@ header that you received when retrieving the public key identity to delete. For example: @E2QWRUHAPOMQZL@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpkId' - The ID of the public key you want to remove from CloudFront.
-deletePublicKey ::
-  -- | 'dpkId'
-  Text ->
+-- 'ifMatch', 'deletePublicKey_ifMatch' - The value of the @ETag@ header that you received when retrieving the
+-- public key identity to delete. For example: @E2QWRUHAPOMQZL@.
+--
+-- 'id', 'deletePublicKey_id' - The ID of the public key you want to remove from CloudFront.
+newDeletePublicKey ::
+  -- | 'id'
+  Prelude.Text ->
   DeletePublicKey
-deletePublicKey pId_ =
+newDeletePublicKey pId_ =
   DeletePublicKey'
-    { _dpkIfMatch = Nothing,
-      _dpkId = pId_
+    { ifMatch = Prelude.Nothing,
+      id = pId_
     }
 
--- | The value of the @ETag@ header that you received when retrieving the public key identity to delete. For example: @E2QWRUHAPOMQZL@ .
-dpkIfMatch :: Lens' DeletePublicKey (Maybe Text)
-dpkIfMatch = lens _dpkIfMatch (\s a -> s {_dpkIfMatch = a})
+-- | The value of the @ETag@ header that you received when retrieving the
+-- public key identity to delete. For example: @E2QWRUHAPOMQZL@.
+deletePublicKey_ifMatch :: Lens.Lens' DeletePublicKey (Prelude.Maybe Prelude.Text)
+deletePublicKey_ifMatch = Lens.lens (\DeletePublicKey' {ifMatch} -> ifMatch) (\s@DeletePublicKey' {} a -> s {ifMatch = a} :: DeletePublicKey)
 
 -- | The ID of the public key you want to remove from CloudFront.
-dpkId :: Lens' DeletePublicKey Text
-dpkId = lens _dpkId (\s a -> s {_dpkId = a})
+deletePublicKey_id :: Lens.Lens' DeletePublicKey Prelude.Text
+deletePublicKey_id = Lens.lens (\DeletePublicKey' {id} -> id) (\s@DeletePublicKey' {} a -> s {id = a} :: DeletePublicKey)
 
-instance AWSRequest DeletePublicKey where
+instance Prelude.AWSRequest DeletePublicKey where
   type Rs DeletePublicKey = DeletePublicKeyResponse
-  request = delete cloudFront
-  response = receiveNull DeletePublicKeyResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeletePublicKeyResponse'
 
-instance Hashable DeletePublicKey
+instance Prelude.Hashable DeletePublicKey
 
-instance NFData DeletePublicKey
+instance Prelude.NFData DeletePublicKey
 
-instance ToHeaders DeletePublicKey where
+instance Prelude.ToHeaders DeletePublicKey where
   toHeaders DeletePublicKey' {..} =
-    mconcat ["If-Match" =# _dpkIfMatch]
+    Prelude.mconcat ["If-Match" Prelude.=# ifMatch]
 
-instance ToPath DeletePublicKey where
+instance Prelude.ToPath DeletePublicKey where
   toPath DeletePublicKey' {..} =
-    mconcat ["/2020-05-31/public-key/", toBS _dpkId]
+    Prelude.mconcat
+      ["/2020-05-31/public-key/", Prelude.toBS id]
 
-instance ToQuery DeletePublicKey where
-  toQuery = const mempty
+instance Prelude.ToQuery DeletePublicKey where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deletePublicKeyResponse' smart constructor.
+-- | /See:/ 'newDeletePublicKeyResponse' smart constructor.
 data DeletePublicKeyResponse = DeletePublicKeyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePublicKeyResponse' with the minimum fields required to make a request.
-deletePublicKeyResponse ::
+-- |
+-- Create a value of 'DeletePublicKeyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeletePublicKeyResponse ::
   DeletePublicKeyResponse
-deletePublicKeyResponse = DeletePublicKeyResponse'
+newDeletePublicKeyResponse = DeletePublicKeyResponse'
 
-instance NFData DeletePublicKeyResponse
+instance Prelude.NFData DeletePublicKeyResponse

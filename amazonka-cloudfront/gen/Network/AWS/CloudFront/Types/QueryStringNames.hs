@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.QueryStringNames where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains a list of query string names.
 --
---
---
--- /See:/ 'queryStringNames' smart constructor.
+-- /See:/ 'newQueryStringNames' smart constructor.
 data QueryStringNames = QueryStringNames'
-  { _qsnItems ::
-      !(Maybe [Text]),
-    _qsnQuantity :: !Int
+  { -- | A list of query string names.
+    items :: Prelude.Maybe [Prelude.Text],
+    -- | The number of query string names in the @Items@ list.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryStringNames' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryStringNames' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qsnItems' - A list of query string names.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qsnQuantity' - The number of query string names in the @Items@ list.
-queryStringNames ::
-  -- | 'qsnQuantity'
-  Int ->
+-- 'items', 'queryStringNames_items' - A list of query string names.
+--
+-- 'quantity', 'queryStringNames_quantity' - The number of query string names in the @Items@ list.
+newQueryStringNames ::
+  -- | 'quantity'
+  Prelude.Int ->
   QueryStringNames
-queryStringNames pQuantity_ =
+newQueryStringNames pQuantity_ =
   QueryStringNames'
-    { _qsnItems = Nothing,
-      _qsnQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
     }
 
 -- | A list of query string names.
-qsnItems :: Lens' QueryStringNames [Text]
-qsnItems = lens _qsnItems (\s a -> s {_qsnItems = a}) . _Default . _Coerce
+queryStringNames_items :: Lens.Lens' QueryStringNames (Prelude.Maybe [Prelude.Text])
+queryStringNames_items = Lens.lens (\QueryStringNames' {items} -> items) (\s@QueryStringNames' {} a -> s {items = a} :: QueryStringNames) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of query string names in the @Items@ list.
-qsnQuantity :: Lens' QueryStringNames Int
-qsnQuantity = lens _qsnQuantity (\s a -> s {_qsnQuantity = a})
+queryStringNames_quantity :: Lens.Lens' QueryStringNames Prelude.Int
+queryStringNames_quantity = Lens.lens (\QueryStringNames' {quantity} -> quantity) (\s@QueryStringNames' {} a -> s {quantity = a} :: QueryStringNames)
 
-instance FromXML QueryStringNames where
+instance Prelude.FromXML QueryStringNames where
   parseXML x =
     QueryStringNames'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "Name")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Name")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable QueryStringNames
+instance Prelude.Hashable QueryStringNames
 
-instance NFData QueryStringNames
+instance Prelude.NFData QueryStringNames
 
-instance ToXML QueryStringNames where
+instance Prelude.ToXML QueryStringNames where
   toXML QueryStringNames' {..} =
-    mconcat
-      [ "Items" @= toXML (toXMLList "Name" <$> _qsnItems),
-        "Quantity" @= _qsnQuantity
+    Prelude.mconcat
+      [ "Items"
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "Name" Prelude.<$> items),
+        "Quantity" Prelude.@= quantity
       ]

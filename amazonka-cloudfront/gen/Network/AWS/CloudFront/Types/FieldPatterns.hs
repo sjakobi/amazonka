@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.FieldPatterns where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A complex data type that includes the field patterns to match for field-level encryption.
+-- | A complex data type that includes the field patterns to match for
+-- field-level encryption.
 --
---
---
--- /See:/ 'fieldPatterns' smart constructor.
+-- /See:/ 'newFieldPatterns' smart constructor.
 data FieldPatterns = FieldPatterns'
-  { _fpItems ::
-      !(Maybe [Text]),
-    _fpQuantity :: !Int
+  { -- | An array of the field-level encryption field patterns.
+    items :: Prelude.Maybe [Prelude.Text],
+    -- | The number of field-level encryption field patterns.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FieldPatterns' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FieldPatterns' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fpItems' - An array of the field-level encryption field patterns.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fpQuantity' - The number of field-level encryption field patterns.
-fieldPatterns ::
-  -- | 'fpQuantity'
-  Int ->
+-- 'items', 'fieldPatterns_items' - An array of the field-level encryption field patterns.
+--
+-- 'quantity', 'fieldPatterns_quantity' - The number of field-level encryption field patterns.
+newFieldPatterns ::
+  -- | 'quantity'
+  Prelude.Int ->
   FieldPatterns
-fieldPatterns pQuantity_ =
+newFieldPatterns pQuantity_ =
   FieldPatterns'
-    { _fpItems = Nothing,
-      _fpQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
     }
 
 -- | An array of the field-level encryption field patterns.
-fpItems :: Lens' FieldPatterns [Text]
-fpItems = lens _fpItems (\s a -> s {_fpItems = a}) . _Default . _Coerce
+fieldPatterns_items :: Lens.Lens' FieldPatterns (Prelude.Maybe [Prelude.Text])
+fieldPatterns_items = Lens.lens (\FieldPatterns' {items} -> items) (\s@FieldPatterns' {} a -> s {items = a} :: FieldPatterns) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of field-level encryption field patterns.
-fpQuantity :: Lens' FieldPatterns Int
-fpQuantity = lens _fpQuantity (\s a -> s {_fpQuantity = a})
+fieldPatterns_quantity :: Lens.Lens' FieldPatterns Prelude.Int
+fieldPatterns_quantity = Lens.lens (\FieldPatterns' {quantity} -> quantity) (\s@FieldPatterns' {} a -> s {quantity = a} :: FieldPatterns)
 
-instance FromXML FieldPatterns where
+instance Prelude.FromXML FieldPatterns where
   parseXML x =
     FieldPatterns'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "FieldPattern")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "FieldPattern")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable FieldPatterns
+instance Prelude.Hashable FieldPatterns
 
-instance NFData FieldPatterns
+instance Prelude.NFData FieldPatterns
 
-instance ToXML FieldPatterns where
+instance Prelude.ToXML FieldPatterns where
   toXML FieldPatterns' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Items"
-          @= toXML (toXMLList "FieldPattern" <$> _fpItems),
-        "Quantity" @= _fpQuantity
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "FieldPattern" Prelude.<$> items),
+        "Quantity" Prelude.@= quantity
       ]

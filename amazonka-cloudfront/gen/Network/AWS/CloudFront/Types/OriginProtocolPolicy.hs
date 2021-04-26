@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CloudFront.Types.OriginProtocolPolicy
   ( OriginProtocolPolicy
       ( ..,
-        HTTPOnly,
-        HTTPSOnly,
-        MatchViewer
+        OriginProtocolPolicyHttpOnly,
+        OriginProtocolPolicyHttpsOnly,
+        OriginProtocolPolicyMatchViewer
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OriginProtocolPolicy
-  = OriginProtocolPolicy'
-      ( CI
-          Text
-      )
+newtype OriginProtocolPolicy = OriginProtocolPolicy'
+  { fromOriginProtocolPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTTPOnly :: OriginProtocolPolicy
-pattern HTTPOnly = OriginProtocolPolicy' "http-only"
+pattern OriginProtocolPolicyHttpOnly :: OriginProtocolPolicy
+pattern OriginProtocolPolicyHttpOnly = OriginProtocolPolicy' "http-only"
 
-pattern HTTPSOnly :: OriginProtocolPolicy
-pattern HTTPSOnly = OriginProtocolPolicy' "https-only"
+pattern OriginProtocolPolicyHttpsOnly :: OriginProtocolPolicy
+pattern OriginProtocolPolicyHttpsOnly = OriginProtocolPolicy' "https-only"
 
-pattern MatchViewer :: OriginProtocolPolicy
-pattern MatchViewer = OriginProtocolPolicy' "match-viewer"
+pattern OriginProtocolPolicyMatchViewer :: OriginProtocolPolicy
+pattern OriginProtocolPolicyMatchViewer = OriginProtocolPolicy' "match-viewer"
 
 {-# COMPLETE
-  HTTPOnly,
-  HTTPSOnly,
-  MatchViewer,
+  OriginProtocolPolicyHttpOnly,
+  OriginProtocolPolicyHttpsOnly,
+  OriginProtocolPolicyMatchViewer,
   OriginProtocolPolicy'
   #-}
 
-instance FromText OriginProtocolPolicy where
-  parser = (OriginProtocolPolicy' . mk) <$> takeText
+instance Prelude.FromText OriginProtocolPolicy where
+  parser = OriginProtocolPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText OriginProtocolPolicy where
-  toText (OriginProtocolPolicy' ci) = original ci
+instance Prelude.ToText OriginProtocolPolicy where
+  toText (OriginProtocolPolicy' x) = x
 
-instance Hashable OriginProtocolPolicy
+instance Prelude.Hashable OriginProtocolPolicy
 
-instance NFData OriginProtocolPolicy
+instance Prelude.NFData OriginProtocolPolicy
 
-instance ToByteString OriginProtocolPolicy
+instance Prelude.ToByteString OriginProtocolPolicy
 
-instance ToQuery OriginProtocolPolicy
+instance Prelude.ToQuery OriginProtocolPolicy
 
-instance ToHeader OriginProtocolPolicy
+instance Prelude.ToHeader OriginProtocolPolicy
 
-instance FromXML OriginProtocolPolicy where
-  parseXML = parseXMLText "OriginProtocolPolicy"
+instance Prelude.FromXML OriginProtocolPolicy where
+  parseXML = Prelude.parseXMLText "OriginProtocolPolicy"
 
-instance ToXML OriginProtocolPolicy where
-  toXML = toXMLText
+instance Prelude.ToXML OriginProtocolPolicy where
+  toXML = Prelude.toXMLText

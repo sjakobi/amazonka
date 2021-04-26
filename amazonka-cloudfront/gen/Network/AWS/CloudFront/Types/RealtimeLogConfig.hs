@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,85 +20,123 @@
 module Network.AWS.CloudFront.Types.RealtimeLogConfig where
 
 import Network.AWS.CloudFront.Types.EndPoint
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A real-time log configuration.
 --
---
---
--- /See:/ 'realtimeLogConfig' smart constructor.
+-- /See:/ 'newRealtimeLogConfig' smart constructor.
 data RealtimeLogConfig = RealtimeLogConfig'
-  { _rlcARN ::
-      !Text,
-    _rlcName :: !Text,
-    _rlcSamplingRate :: !Integer,
-    _rlcEndPoints :: ![EndPoint],
-    _rlcFields :: ![Text]
+  { -- | The Amazon Resource Name (ARN) of this real-time log configuration.
+    aRN :: Prelude.Text,
+    -- | The unique name of this real-time log configuration.
+    name :: Prelude.Text,
+    -- | The sampling rate for this real-time log configuration. The sampling
+    -- rate determines the percentage of viewer requests that are represented
+    -- in the real-time log data. The sampling rate is an integer between 1 and
+    -- 100, inclusive.
+    samplingRate :: Prelude.Integer,
+    -- | Contains information about the Amazon Kinesis data stream where you are
+    -- sending real-time log data for this real-time log configuration.
+    endPoints :: [EndPoint],
+    -- | A list of fields that are included in each real-time log record. In an
+    -- API response, the fields are provided in the same order in which they
+    -- are sent to the Amazon Kinesis data stream.
+    --
+    -- For more information about fields, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields Real-time log configuration fields>
+    -- in the /Amazon CloudFront Developer Guide/.
+    fields :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RealtimeLogConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RealtimeLogConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rlcARN' - The Amazon Resource Name (ARN) of this real-time log configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rlcName' - The unique name of this real-time log configuration.
+-- 'aRN', 'realtimeLogConfig_aRN' - The Amazon Resource Name (ARN) of this real-time log configuration.
 --
--- * 'rlcSamplingRate' - The sampling rate for this real-time log configuration. The sampling rate determines the percentage of viewer requests that are represented in the real-time log data. The sampling rate is an integer between 1 and 100, inclusive.
+-- 'name', 'realtimeLogConfig_name' - The unique name of this real-time log configuration.
 --
--- * 'rlcEndPoints' - Contains information about the Amazon Kinesis data stream where you are sending real-time log data for this real-time log configuration.
+-- 'samplingRate', 'realtimeLogConfig_samplingRate' - The sampling rate for this real-time log configuration. The sampling
+-- rate determines the percentage of viewer requests that are represented
+-- in the real-time log data. The sampling rate is an integer between 1 and
+-- 100, inclusive.
 --
--- * 'rlcFields' - A list of fields that are included in each real-time log record. In an API response, the fields are provided in the same order in which they are sent to the Amazon Kinesis data stream. For more information about fields, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields Real-time log configuration fields> in the /Amazon CloudFront Developer Guide/ .
-realtimeLogConfig ::
-  -- | 'rlcARN'
-  Text ->
-  -- | 'rlcName'
-  Text ->
-  -- | 'rlcSamplingRate'
-  Integer ->
+-- 'endPoints', 'realtimeLogConfig_endPoints' - Contains information about the Amazon Kinesis data stream where you are
+-- sending real-time log data for this real-time log configuration.
+--
+-- 'fields', 'realtimeLogConfig_fields' - A list of fields that are included in each real-time log record. In an
+-- API response, the fields are provided in the same order in which they
+-- are sent to the Amazon Kinesis data stream.
+--
+-- For more information about fields, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields Real-time log configuration fields>
+-- in the /Amazon CloudFront Developer Guide/.
+newRealtimeLogConfig ::
+  -- | 'aRN'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'samplingRate'
+  Prelude.Integer ->
   RealtimeLogConfig
-realtimeLogConfig pARN_ pName_ pSamplingRate_ =
+newRealtimeLogConfig pARN_ pName_ pSamplingRate_ =
   RealtimeLogConfig'
-    { _rlcARN = pARN_,
-      _rlcName = pName_,
-      _rlcSamplingRate = pSamplingRate_,
-      _rlcEndPoints = mempty,
-      _rlcFields = mempty
+    { aRN = pARN_,
+      name = pName_,
+      samplingRate = pSamplingRate_,
+      endPoints = Prelude.mempty,
+      fields = Prelude.mempty
     }
 
 -- | The Amazon Resource Name (ARN) of this real-time log configuration.
-rlcARN :: Lens' RealtimeLogConfig Text
-rlcARN = lens _rlcARN (\s a -> s {_rlcARN = a})
+realtimeLogConfig_aRN :: Lens.Lens' RealtimeLogConfig Prelude.Text
+realtimeLogConfig_aRN = Lens.lens (\RealtimeLogConfig' {aRN} -> aRN) (\s@RealtimeLogConfig' {} a -> s {aRN = a} :: RealtimeLogConfig)
 
 -- | The unique name of this real-time log configuration.
-rlcName :: Lens' RealtimeLogConfig Text
-rlcName = lens _rlcName (\s a -> s {_rlcName = a})
+realtimeLogConfig_name :: Lens.Lens' RealtimeLogConfig Prelude.Text
+realtimeLogConfig_name = Lens.lens (\RealtimeLogConfig' {name} -> name) (\s@RealtimeLogConfig' {} a -> s {name = a} :: RealtimeLogConfig)
 
--- | The sampling rate for this real-time log configuration. The sampling rate determines the percentage of viewer requests that are represented in the real-time log data. The sampling rate is an integer between 1 and 100, inclusive.
-rlcSamplingRate :: Lens' RealtimeLogConfig Integer
-rlcSamplingRate = lens _rlcSamplingRate (\s a -> s {_rlcSamplingRate = a})
+-- | The sampling rate for this real-time log configuration. The sampling
+-- rate determines the percentage of viewer requests that are represented
+-- in the real-time log data. The sampling rate is an integer between 1 and
+-- 100, inclusive.
+realtimeLogConfig_samplingRate :: Lens.Lens' RealtimeLogConfig Prelude.Integer
+realtimeLogConfig_samplingRate = Lens.lens (\RealtimeLogConfig' {samplingRate} -> samplingRate) (\s@RealtimeLogConfig' {} a -> s {samplingRate = a} :: RealtimeLogConfig)
 
--- | Contains information about the Amazon Kinesis data stream where you are sending real-time log data for this real-time log configuration.
-rlcEndPoints :: Lens' RealtimeLogConfig [EndPoint]
-rlcEndPoints = lens _rlcEndPoints (\s a -> s {_rlcEndPoints = a}) . _Coerce
+-- | Contains information about the Amazon Kinesis data stream where you are
+-- sending real-time log data for this real-time log configuration.
+realtimeLogConfig_endPoints :: Lens.Lens' RealtimeLogConfig [EndPoint]
+realtimeLogConfig_endPoints = Lens.lens (\RealtimeLogConfig' {endPoints} -> endPoints) (\s@RealtimeLogConfig' {} a -> s {endPoints = a} :: RealtimeLogConfig) Prelude.. Prelude._Coerce
 
--- | A list of fields that are included in each real-time log record. In an API response, the fields are provided in the same order in which they are sent to the Amazon Kinesis data stream. For more information about fields, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields Real-time log configuration fields> in the /Amazon CloudFront Developer Guide/ .
-rlcFields :: Lens' RealtimeLogConfig [Text]
-rlcFields = lens _rlcFields (\s a -> s {_rlcFields = a}) . _Coerce
+-- | A list of fields that are included in each real-time log record. In an
+-- API response, the fields are provided in the same order in which they
+-- are sent to the Amazon Kinesis data stream.
+--
+-- For more information about fields, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields Real-time log configuration fields>
+-- in the /Amazon CloudFront Developer Guide/.
+realtimeLogConfig_fields :: Lens.Lens' RealtimeLogConfig [Prelude.Text]
+realtimeLogConfig_fields = Lens.lens (\RealtimeLogConfig' {fields} -> fields) (\s@RealtimeLogConfig' {} a -> s {fields = a} :: RealtimeLogConfig) Prelude.. Prelude._Coerce
 
-instance FromXML RealtimeLogConfig where
+instance Prelude.FromXML RealtimeLogConfig where
   parseXML x =
     RealtimeLogConfig'
-      <$> (x .@ "ARN")
-      <*> (x .@ "Name")
-      <*> (x .@ "SamplingRate")
-      <*> ( x .@? "EndPoints" .!@ mempty
-              >>= parseXMLList "member"
-          )
-      <*> (x .@? "Fields" .!@ mempty >>= parseXMLList "Field")
+      Prelude.<$> (x Prelude..@ "ARN")
+      Prelude.<*> (x Prelude..@ "Name")
+      Prelude.<*> (x Prelude..@ "SamplingRate")
+      Prelude.<*> ( x Prelude..@? "EndPoints" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.parseXMLList "member"
+                  )
+      Prelude.<*> ( x Prelude..@? "Fields" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.parseXMLList "Field"
+                  )
 
-instance Hashable RealtimeLogConfig
+instance Prelude.Hashable RealtimeLogConfig
 
-instance NFData RealtimeLogConfig
+instance Prelude.NFData RealtimeLogConfig

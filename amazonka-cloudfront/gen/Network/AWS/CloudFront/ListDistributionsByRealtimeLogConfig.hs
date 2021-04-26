@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,205 +21,227 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of distributions that have a cache behavior that’s associated with the specified real-time log configuration.
+-- Gets a list of distributions that have a cache behavior that’s
+-- associated with the specified real-time log configuration.
 --
+-- You can specify the real-time log configuration by its name or its
+-- Amazon Resource Name (ARN). You must provide at least one. If you
+-- provide both, CloudFront uses the name to identify the real-time log
+-- configuration to list distributions for.
 --
--- You can specify the real-time log configuration by its name or its Amazon Resource Name (ARN). You must provide at least one. If you provide both, CloudFront uses the name to identify the real-time log configuration to list distributions for.
---
--- You can optionally specify the maximum number of items to receive in the response. If the total number of items in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the next page of items, send a subsequent request that specifies the @NextMarker@ value from the current response as the @Marker@ value in the subsequent request.
+-- You can optionally specify the maximum number of items to receive in the
+-- response. If the total number of items in the list exceeds the maximum
+-- that you specify, or the default maximum, the response is paginated. To
+-- get the next page of items, send a subsequent request that specifies the
+-- @NextMarker@ value from the current response as the @Marker@ value in
+-- the subsequent request.
 module Network.AWS.CloudFront.ListDistributionsByRealtimeLogConfig
   ( -- * Creating a Request
-    listDistributionsByRealtimeLogConfig,
-    ListDistributionsByRealtimeLogConfig,
+    ListDistributionsByRealtimeLogConfig (..),
+    newListDistributionsByRealtimeLogConfig,
 
     -- * Request Lenses
-    ldbrlcRealtimeLogConfigName,
-    ldbrlcRealtimeLogConfigARN,
-    ldbrlcMaxItems,
-    ldbrlcMarker,
+    listDistributionsByRealtimeLogConfig_realtimeLogConfigName,
+    listDistributionsByRealtimeLogConfig_realtimeLogConfigArn,
+    listDistributionsByRealtimeLogConfig_maxItems,
+    listDistributionsByRealtimeLogConfig_marker,
 
     -- * Destructuring the Response
-    listDistributionsByRealtimeLogConfigResponse,
-    ListDistributionsByRealtimeLogConfigResponse,
+    ListDistributionsByRealtimeLogConfigResponse (..),
+    newListDistributionsByRealtimeLogConfigResponse,
 
     -- * Response Lenses
-    ldbrlcrrsDistributionList,
-    ldbrlcrrsResponseStatus,
+    listDistributionsByRealtimeLogConfigResponse_distributionList,
+    listDistributionsByRealtimeLogConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.DistributionList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDistributionsByRealtimeLogConfig' smart constructor.
+-- | /See:/ 'newListDistributionsByRealtimeLogConfig' smart constructor.
 data ListDistributionsByRealtimeLogConfig = ListDistributionsByRealtimeLogConfig'
-  { _ldbrlcRealtimeLogConfigName ::
-      !( Maybe
-           Text
-       ),
-    _ldbrlcRealtimeLogConfigARN ::
-      !( Maybe
-           Text
-       ),
-    _ldbrlcMaxItems ::
-      !( Maybe
-           Text
-       ),
-    _ldbrlcMarker ::
-      !( Maybe
-           Text
-       )
+  { -- | The name of the real-time log configuration whose associated
+    -- distributions you want to list.
+    realtimeLogConfigName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the real-time log configuration whose
+    -- associated distributions you want to list.
+    realtimeLogConfigArn :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of distributions that you want in the response.
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | Use this field when paginating results to indicate where to begin in
+    -- your list of distributions. The response includes distributions in the
+    -- list that occur after the marker. To get the next page of the list, set
+    -- this field’s value to the value of @NextMarker@ from the current page’s
+    -- response.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDistributionsByRealtimeLogConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDistributionsByRealtimeLogConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldbrlcRealtimeLogConfigName' - The name of the real-time log configuration whose associated distributions you want to list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldbrlcRealtimeLogConfigARN' - The Amazon Resource Name (ARN) of the real-time log configuration whose associated distributions you want to list.
+-- 'realtimeLogConfigName', 'listDistributionsByRealtimeLogConfig_realtimeLogConfigName' - The name of the real-time log configuration whose associated
+-- distributions you want to list.
 --
--- * 'ldbrlcMaxItems' - The maximum number of distributions that you want in the response.
+-- 'realtimeLogConfigArn', 'listDistributionsByRealtimeLogConfig_realtimeLogConfigArn' - The Amazon Resource Name (ARN) of the real-time log configuration whose
+-- associated distributions you want to list.
 --
--- * 'ldbrlcMarker' - Use this field when paginating results to indicate where to begin in your list of distributions. The response includes distributions in the list that occur after the marker. To get the next page of the list, set this field’s value to the value of @NextMarker@ from the current page’s response.
-listDistributionsByRealtimeLogConfig ::
+-- 'maxItems', 'listDistributionsByRealtimeLogConfig_maxItems' - The maximum number of distributions that you want in the response.
+--
+-- 'marker', 'listDistributionsByRealtimeLogConfig_marker' - Use this field when paginating results to indicate where to begin in
+-- your list of distributions. The response includes distributions in the
+-- list that occur after the marker. To get the next page of the list, set
+-- this field’s value to the value of @NextMarker@ from the current page’s
+-- response.
+newListDistributionsByRealtimeLogConfig ::
   ListDistributionsByRealtimeLogConfig
-listDistributionsByRealtimeLogConfig =
+newListDistributionsByRealtimeLogConfig =
   ListDistributionsByRealtimeLogConfig'
-    { _ldbrlcRealtimeLogConfigName =
-        Nothing,
-      _ldbrlcRealtimeLogConfigARN = Nothing,
-      _ldbrlcMaxItems = Nothing,
-      _ldbrlcMarker = Nothing
+    { realtimeLogConfigName =
+        Prelude.Nothing,
+      realtimeLogConfigArn =
+        Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The name of the real-time log configuration whose associated distributions you want to list.
-ldbrlcRealtimeLogConfigName :: Lens' ListDistributionsByRealtimeLogConfig (Maybe Text)
-ldbrlcRealtimeLogConfigName = lens _ldbrlcRealtimeLogConfigName (\s a -> s {_ldbrlcRealtimeLogConfigName = a})
+-- | The name of the real-time log configuration whose associated
+-- distributions you want to list.
+listDistributionsByRealtimeLogConfig_realtimeLogConfigName :: Lens.Lens' ListDistributionsByRealtimeLogConfig (Prelude.Maybe Prelude.Text)
+listDistributionsByRealtimeLogConfig_realtimeLogConfigName = Lens.lens (\ListDistributionsByRealtimeLogConfig' {realtimeLogConfigName} -> realtimeLogConfigName) (\s@ListDistributionsByRealtimeLogConfig' {} a -> s {realtimeLogConfigName = a} :: ListDistributionsByRealtimeLogConfig)
 
--- | The Amazon Resource Name (ARN) of the real-time log configuration whose associated distributions you want to list.
-ldbrlcRealtimeLogConfigARN :: Lens' ListDistributionsByRealtimeLogConfig (Maybe Text)
-ldbrlcRealtimeLogConfigARN = lens _ldbrlcRealtimeLogConfigARN (\s a -> s {_ldbrlcRealtimeLogConfigARN = a})
+-- | The Amazon Resource Name (ARN) of the real-time log configuration whose
+-- associated distributions you want to list.
+listDistributionsByRealtimeLogConfig_realtimeLogConfigArn :: Lens.Lens' ListDistributionsByRealtimeLogConfig (Prelude.Maybe Prelude.Text)
+listDistributionsByRealtimeLogConfig_realtimeLogConfigArn = Lens.lens (\ListDistributionsByRealtimeLogConfig' {realtimeLogConfigArn} -> realtimeLogConfigArn) (\s@ListDistributionsByRealtimeLogConfig' {} a -> s {realtimeLogConfigArn = a} :: ListDistributionsByRealtimeLogConfig)
 
 -- | The maximum number of distributions that you want in the response.
-ldbrlcMaxItems :: Lens' ListDistributionsByRealtimeLogConfig (Maybe Text)
-ldbrlcMaxItems = lens _ldbrlcMaxItems (\s a -> s {_ldbrlcMaxItems = a})
+listDistributionsByRealtimeLogConfig_maxItems :: Lens.Lens' ListDistributionsByRealtimeLogConfig (Prelude.Maybe Prelude.Text)
+listDistributionsByRealtimeLogConfig_maxItems = Lens.lens (\ListDistributionsByRealtimeLogConfig' {maxItems} -> maxItems) (\s@ListDistributionsByRealtimeLogConfig' {} a -> s {maxItems = a} :: ListDistributionsByRealtimeLogConfig)
 
--- | Use this field when paginating results to indicate where to begin in your list of distributions. The response includes distributions in the list that occur after the marker. To get the next page of the list, set this field’s value to the value of @NextMarker@ from the current page’s response.
-ldbrlcMarker :: Lens' ListDistributionsByRealtimeLogConfig (Maybe Text)
-ldbrlcMarker = lens _ldbrlcMarker (\s a -> s {_ldbrlcMarker = a})
+-- | Use this field when paginating results to indicate where to begin in
+-- your list of distributions. The response includes distributions in the
+-- list that occur after the marker. To get the next page of the list, set
+-- this field’s value to the value of @NextMarker@ from the current page’s
+-- response.
+listDistributionsByRealtimeLogConfig_marker :: Lens.Lens' ListDistributionsByRealtimeLogConfig (Prelude.Maybe Prelude.Text)
+listDistributionsByRealtimeLogConfig_marker = Lens.lens (\ListDistributionsByRealtimeLogConfig' {marker} -> marker) (\s@ListDistributionsByRealtimeLogConfig' {} a -> s {marker = a} :: ListDistributionsByRealtimeLogConfig)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     ListDistributionsByRealtimeLogConfig
   where
   type
     Rs ListDistributionsByRealtimeLogConfig =
       ListDistributionsByRealtimeLogConfigResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListDistributionsByRealtimeLogConfigResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ListDistributionsByRealtimeLogConfig
 
-instance NFData ListDistributionsByRealtimeLogConfig
+instance
+  Prelude.NFData
+    ListDistributionsByRealtimeLogConfig
 
 instance
-  ToElement
+  Prelude.ToElement
     ListDistributionsByRealtimeLogConfig
   where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}ListDistributionsByRealtimeLogConfigRequest"
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     ListDistributionsByRealtimeLogConfig
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListDistributionsByRealtimeLogConfig where
+instance
+  Prelude.ToPath
+    ListDistributionsByRealtimeLogConfig
+  where
   toPath =
-    const
+    Prelude.const
       "/2020-05-31/distributionsByRealtimeLogConfig/"
 
-instance ToQuery ListDistributionsByRealtimeLogConfig where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    ListDistributionsByRealtimeLogConfig
+  where
+  toQuery = Prelude.const Prelude.mempty
 
-instance ToXML ListDistributionsByRealtimeLogConfig where
+instance
+  Prelude.ToXML
+    ListDistributionsByRealtimeLogConfig
+  where
   toXML ListDistributionsByRealtimeLogConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "RealtimeLogConfigName"
-          @= _ldbrlcRealtimeLogConfigName,
+          Prelude.@= realtimeLogConfigName,
         "RealtimeLogConfigArn"
-          @= _ldbrlcRealtimeLogConfigARN,
-        "MaxItems" @= _ldbrlcMaxItems,
-        "Marker" @= _ldbrlcMarker
+          Prelude.@= realtimeLogConfigArn,
+        "MaxItems" Prelude.@= maxItems,
+        "Marker" Prelude.@= marker
       ]
 
--- | /See:/ 'listDistributionsByRealtimeLogConfigResponse' smart constructor.
+-- | /See:/ 'newListDistributionsByRealtimeLogConfigResponse' smart constructor.
 data ListDistributionsByRealtimeLogConfigResponse = ListDistributionsByRealtimeLogConfigResponse'
-  { _ldbrlcrrsDistributionList ::
-      !( Maybe
-           DistributionList
-       ),
-    _ldbrlcrrsResponseStatus ::
-      !Int
+  { distributionList :: Prelude.Maybe DistributionList,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDistributionsByRealtimeLogConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDistributionsByRealtimeLogConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldbrlcrrsDistributionList' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldbrlcrrsResponseStatus' - -- | The response status code.
-listDistributionsByRealtimeLogConfigResponse ::
-  -- | 'ldbrlcrrsResponseStatus'
-  Int ->
+-- 'distributionList', 'listDistributionsByRealtimeLogConfigResponse_distributionList' - Undocumented member.
+--
+-- 'httpStatus', 'listDistributionsByRealtimeLogConfigResponse_httpStatus' - The response's http status code.
+newListDistributionsByRealtimeLogConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDistributionsByRealtimeLogConfigResponse
-listDistributionsByRealtimeLogConfigResponse
-  pResponseStatus_ =
+newListDistributionsByRealtimeLogConfigResponse
+  pHttpStatus_ =
     ListDistributionsByRealtimeLogConfigResponse'
-      { _ldbrlcrrsDistributionList =
-          Nothing,
-        _ldbrlcrrsResponseStatus =
-          pResponseStatus_
+      { distributionList =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-ldbrlcrrsDistributionList :: Lens' ListDistributionsByRealtimeLogConfigResponse (Maybe DistributionList)
-ldbrlcrrsDistributionList = lens _ldbrlcrrsDistributionList (\s a -> s {_ldbrlcrrsDistributionList = a})
+listDistributionsByRealtimeLogConfigResponse_distributionList :: Lens.Lens' ListDistributionsByRealtimeLogConfigResponse (Prelude.Maybe DistributionList)
+listDistributionsByRealtimeLogConfigResponse_distributionList = Lens.lens (\ListDistributionsByRealtimeLogConfigResponse' {distributionList} -> distributionList) (\s@ListDistributionsByRealtimeLogConfigResponse' {} a -> s {distributionList = a} :: ListDistributionsByRealtimeLogConfigResponse)
 
--- | -- | The response status code.
-ldbrlcrrsResponseStatus :: Lens' ListDistributionsByRealtimeLogConfigResponse Int
-ldbrlcrrsResponseStatus = lens _ldbrlcrrsResponseStatus (\s a -> s {_ldbrlcrrsResponseStatus = a})
+-- | The response's http status code.
+listDistributionsByRealtimeLogConfigResponse_httpStatus :: Lens.Lens' ListDistributionsByRealtimeLogConfigResponse Prelude.Int
+listDistributionsByRealtimeLogConfigResponse_httpStatus = Lens.lens (\ListDistributionsByRealtimeLogConfigResponse' {httpStatus} -> httpStatus) (\s@ListDistributionsByRealtimeLogConfigResponse' {} a -> s {httpStatus = a} :: ListDistributionsByRealtimeLogConfigResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListDistributionsByRealtimeLogConfigResponse

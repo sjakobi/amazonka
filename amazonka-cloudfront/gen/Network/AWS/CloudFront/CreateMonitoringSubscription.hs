@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,180 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables additional CloudWatch metrics for the specified CloudFront distribution. The additional metrics incur an additional cost.
+-- Enables additional CloudWatch metrics for the specified CloudFront
+-- distribution. The additional metrics incur an additional cost.
 --
---
--- For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/viewing-cloudfront-metrics.html#monitoring-console.distributions-additional Viewing additional CloudFront distribution metrics> in the /Amazon CloudFront Developer Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/viewing-cloudfront-metrics.html#monitoring-console.distributions-additional Viewing additional CloudFront distribution metrics>
+-- in the /Amazon CloudFront Developer Guide/.
 module Network.AWS.CloudFront.CreateMonitoringSubscription
   ( -- * Creating a Request
-    createMonitoringSubscription,
-    CreateMonitoringSubscription,
+    CreateMonitoringSubscription (..),
+    newCreateMonitoringSubscription,
 
     -- * Request Lenses
-    cmsMonitoringSubscription,
-    cmsDistributionId,
+    createMonitoringSubscription_monitoringSubscription,
+    createMonitoringSubscription_distributionId,
 
     -- * Destructuring the Response
-    createMonitoringSubscriptionResponse,
-    CreateMonitoringSubscriptionResponse,
+    CreateMonitoringSubscriptionResponse (..),
+    newCreateMonitoringSubscriptionResponse,
 
     -- * Response Lenses
-    cmsrrsMonitoringSubscription,
-    cmsrrsResponseStatus,
+    createMonitoringSubscriptionResponse_monitoringSubscription,
+    createMonitoringSubscriptionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.MonitoringSubscription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createMonitoringSubscription' smart constructor.
+-- | /See:/ 'newCreateMonitoringSubscription' smart constructor.
 data CreateMonitoringSubscription = CreateMonitoringSubscription'
-  { _cmsMonitoringSubscription ::
-      !MonitoringSubscription,
-    _cmsDistributionId ::
-      !Text
+  { -- | A monitoring subscription. This structure contains information about
+    -- whether additional CloudWatch metrics are enabled for a given CloudFront
+    -- distribution.
+    monitoringSubscription :: MonitoringSubscription,
+    -- | The ID of the distribution that you are enabling metrics for.
+    distributionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateMonitoringSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateMonitoringSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmsMonitoringSubscription' - A monitoring subscription. This structure contains information about whether additional CloudWatch metrics are enabled for a given CloudFront distribution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmsDistributionId' - The ID of the distribution that you are enabling metrics for.
-createMonitoringSubscription ::
-  -- | 'cmsMonitoringSubscription'
+-- 'monitoringSubscription', 'createMonitoringSubscription_monitoringSubscription' - A monitoring subscription. This structure contains information about
+-- whether additional CloudWatch metrics are enabled for a given CloudFront
+-- distribution.
+--
+-- 'distributionId', 'createMonitoringSubscription_distributionId' - The ID of the distribution that you are enabling metrics for.
+newCreateMonitoringSubscription ::
+  -- | 'monitoringSubscription'
   MonitoringSubscription ->
-  -- | 'cmsDistributionId'
-  Text ->
+  -- | 'distributionId'
+  Prelude.Text ->
   CreateMonitoringSubscription
-createMonitoringSubscription
+newCreateMonitoringSubscription
   pMonitoringSubscription_
   pDistributionId_ =
     CreateMonitoringSubscription'
-      { _cmsMonitoringSubscription =
+      { monitoringSubscription =
           pMonitoringSubscription_,
-        _cmsDistributionId = pDistributionId_
+        distributionId = pDistributionId_
       }
 
--- | A monitoring subscription. This structure contains information about whether additional CloudWatch metrics are enabled for a given CloudFront distribution.
-cmsMonitoringSubscription :: Lens' CreateMonitoringSubscription MonitoringSubscription
-cmsMonitoringSubscription = lens _cmsMonitoringSubscription (\s a -> s {_cmsMonitoringSubscription = a})
+-- | A monitoring subscription. This structure contains information about
+-- whether additional CloudWatch metrics are enabled for a given CloudFront
+-- distribution.
+createMonitoringSubscription_monitoringSubscription :: Lens.Lens' CreateMonitoringSubscription MonitoringSubscription
+createMonitoringSubscription_monitoringSubscription = Lens.lens (\CreateMonitoringSubscription' {monitoringSubscription} -> monitoringSubscription) (\s@CreateMonitoringSubscription' {} a -> s {monitoringSubscription = a} :: CreateMonitoringSubscription)
 
 -- | The ID of the distribution that you are enabling metrics for.
-cmsDistributionId :: Lens' CreateMonitoringSubscription Text
-cmsDistributionId = lens _cmsDistributionId (\s a -> s {_cmsDistributionId = a})
+createMonitoringSubscription_distributionId :: Lens.Lens' CreateMonitoringSubscription Prelude.Text
+createMonitoringSubscription_distributionId = Lens.lens (\CreateMonitoringSubscription' {distributionId} -> distributionId) (\s@CreateMonitoringSubscription' {} a -> s {distributionId = a} :: CreateMonitoringSubscription)
 
-instance AWSRequest CreateMonitoringSubscription where
+instance
+  Prelude.AWSRequest
+    CreateMonitoringSubscription
+  where
   type
     Rs CreateMonitoringSubscription =
       CreateMonitoringSubscriptionResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateMonitoringSubscriptionResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateMonitoringSubscription
+instance
+  Prelude.Hashable
+    CreateMonitoringSubscription
 
-instance NFData CreateMonitoringSubscription
+instance Prelude.NFData CreateMonitoringSubscription
 
-instance ToElement CreateMonitoringSubscription where
-  toElement =
-    mkElement
+instance
+  Prelude.ToElement
+    CreateMonitoringSubscription
+  where
+  toElement CreateMonitoringSubscription' {..} =
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}MonitoringSubscription"
-      . _cmsMonitoringSubscription
+      monitoringSubscription
 
-instance ToHeaders CreateMonitoringSubscription where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CreateMonitoringSubscription
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateMonitoringSubscription where
+instance Prelude.ToPath CreateMonitoringSubscription where
   toPath CreateMonitoringSubscription' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2020-05-31/distributions/",
-        toBS _cmsDistributionId,
+        Prelude.toBS distributionId,
         "/monitoring-subscription"
       ]
 
-instance ToQuery CreateMonitoringSubscription where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateMonitoringSubscription where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createMonitoringSubscriptionResponse' smart constructor.
+-- | /See:/ 'newCreateMonitoringSubscriptionResponse' smart constructor.
 data CreateMonitoringSubscriptionResponse = CreateMonitoringSubscriptionResponse'
-  { _cmsrrsMonitoringSubscription ::
-      !( Maybe
-           MonitoringSubscription
-       ),
-    _cmsrrsResponseStatus ::
-      !Int
+  { -- | A monitoring subscription. This structure contains information about
+    -- whether additional CloudWatch metrics are enabled for a given CloudFront
+    -- distribution.
+    monitoringSubscription :: Prelude.Maybe MonitoringSubscription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateMonitoringSubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateMonitoringSubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmsrrsMonitoringSubscription' - A monitoring subscription. This structure contains information about whether additional CloudWatch metrics are enabled for a given CloudFront distribution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmsrrsResponseStatus' - -- | The response status code.
-createMonitoringSubscriptionResponse ::
-  -- | 'cmsrrsResponseStatus'
-  Int ->
+-- 'monitoringSubscription', 'createMonitoringSubscriptionResponse_monitoringSubscription' - A monitoring subscription. This structure contains information about
+-- whether additional CloudWatch metrics are enabled for a given CloudFront
+-- distribution.
+--
+-- 'httpStatus', 'createMonitoringSubscriptionResponse_httpStatus' - The response's http status code.
+newCreateMonitoringSubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateMonitoringSubscriptionResponse
-createMonitoringSubscriptionResponse pResponseStatus_ =
+newCreateMonitoringSubscriptionResponse pHttpStatus_ =
   CreateMonitoringSubscriptionResponse'
-    { _cmsrrsMonitoringSubscription =
-        Nothing,
-      _cmsrrsResponseStatus =
-        pResponseStatus_
+    { monitoringSubscription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A monitoring subscription. This structure contains information about whether additional CloudWatch metrics are enabled for a given CloudFront distribution.
-cmsrrsMonitoringSubscription :: Lens' CreateMonitoringSubscriptionResponse (Maybe MonitoringSubscription)
-cmsrrsMonitoringSubscription = lens _cmsrrsMonitoringSubscription (\s a -> s {_cmsrrsMonitoringSubscription = a})
+-- | A monitoring subscription. This structure contains information about
+-- whether additional CloudWatch metrics are enabled for a given CloudFront
+-- distribution.
+createMonitoringSubscriptionResponse_monitoringSubscription :: Lens.Lens' CreateMonitoringSubscriptionResponse (Prelude.Maybe MonitoringSubscription)
+createMonitoringSubscriptionResponse_monitoringSubscription = Lens.lens (\CreateMonitoringSubscriptionResponse' {monitoringSubscription} -> monitoringSubscription) (\s@CreateMonitoringSubscriptionResponse' {} a -> s {monitoringSubscription = a} :: CreateMonitoringSubscriptionResponse)
 
--- | -- | The response status code.
-cmsrrsResponseStatus :: Lens' CreateMonitoringSubscriptionResponse Int
-cmsrrsResponseStatus = lens _cmsrrsResponseStatus (\s a -> s {_cmsrrsResponseStatus = a})
+-- | The response's http status code.
+createMonitoringSubscriptionResponse_httpStatus :: Lens.Lens' CreateMonitoringSubscriptionResponse Prelude.Int
+createMonitoringSubscriptionResponse_httpStatus = Lens.lens (\CreateMonitoringSubscriptionResponse' {httpStatus} -> httpStatus) (\s@CreateMonitoringSubscriptionResponse' {} a -> s {httpStatus = a} :: CreateMonitoringSubscriptionResponse)
 
-instance NFData CreateMonitoringSubscriptionResponse
+instance
+  Prelude.NFData
+    CreateMonitoringSubscriptionResponse

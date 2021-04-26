@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,168 +24,179 @@
 -- Create a field-level encryption profile.
 module Network.AWS.CloudFront.CreateFieldLevelEncryptionProfile
   ( -- * Creating a Request
-    createFieldLevelEncryptionProfile,
-    CreateFieldLevelEncryptionProfile,
+    CreateFieldLevelEncryptionProfile (..),
+    newCreateFieldLevelEncryptionProfile,
 
     -- * Request Lenses
-    cflepFieldLevelEncryptionProfileConfig,
+    createFieldLevelEncryptionProfile_fieldLevelEncryptionProfileConfig,
 
     -- * Destructuring the Response
-    createFieldLevelEncryptionProfileResponse,
-    CreateFieldLevelEncryptionProfileResponse,
+    CreateFieldLevelEncryptionProfileResponse (..),
+    newCreateFieldLevelEncryptionProfileResponse,
 
     -- * Response Lenses
-    cfleprrsETag,
-    cfleprrsFieldLevelEncryptionProfile,
-    cfleprrsLocation,
-    cfleprrsResponseStatus,
+    createFieldLevelEncryptionProfileResponse_eTag,
+    createFieldLevelEncryptionProfileResponse_fieldLevelEncryptionProfile,
+    createFieldLevelEncryptionProfileResponse_location,
+    createFieldLevelEncryptionProfileResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.FieldLevelEncryptionProfile
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createFieldLevelEncryptionProfile' smart constructor.
-newtype CreateFieldLevelEncryptionProfile = CreateFieldLevelEncryptionProfile'
-  { _cflepFieldLevelEncryptionProfileConfig ::
-      FieldLevelEncryptionProfileConfig
+-- | /See:/ 'newCreateFieldLevelEncryptionProfile' smart constructor.
+data CreateFieldLevelEncryptionProfile = CreateFieldLevelEncryptionProfile'
+  { -- | The request to create a field-level encryption profile.
+    fieldLevelEncryptionProfileConfig :: FieldLevelEncryptionProfileConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFieldLevelEncryptionProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFieldLevelEncryptionProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cflepFieldLevelEncryptionProfileConfig' - The request to create a field-level encryption profile.
-createFieldLevelEncryptionProfile ::
-  -- | 'cflepFieldLevelEncryptionProfileConfig'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'fieldLevelEncryptionProfileConfig', 'createFieldLevelEncryptionProfile_fieldLevelEncryptionProfileConfig' - The request to create a field-level encryption profile.
+newCreateFieldLevelEncryptionProfile ::
+  -- | 'fieldLevelEncryptionProfileConfig'
   FieldLevelEncryptionProfileConfig ->
   CreateFieldLevelEncryptionProfile
-createFieldLevelEncryptionProfile
+newCreateFieldLevelEncryptionProfile
   pFieldLevelEncryptionProfileConfig_ =
     CreateFieldLevelEncryptionProfile'
-      { _cflepFieldLevelEncryptionProfileConfig =
+      { fieldLevelEncryptionProfileConfig =
           pFieldLevelEncryptionProfileConfig_
       }
 
 -- | The request to create a field-level encryption profile.
-cflepFieldLevelEncryptionProfileConfig :: Lens' CreateFieldLevelEncryptionProfile FieldLevelEncryptionProfileConfig
-cflepFieldLevelEncryptionProfileConfig = lens _cflepFieldLevelEncryptionProfileConfig (\s a -> s {_cflepFieldLevelEncryptionProfileConfig = a})
+createFieldLevelEncryptionProfile_fieldLevelEncryptionProfileConfig :: Lens.Lens' CreateFieldLevelEncryptionProfile FieldLevelEncryptionProfileConfig
+createFieldLevelEncryptionProfile_fieldLevelEncryptionProfileConfig = Lens.lens (\CreateFieldLevelEncryptionProfile' {fieldLevelEncryptionProfileConfig} -> fieldLevelEncryptionProfileConfig) (\s@CreateFieldLevelEncryptionProfile' {} a -> s {fieldLevelEncryptionProfileConfig = a} :: CreateFieldLevelEncryptionProfile)
 
-instance AWSRequest CreateFieldLevelEncryptionProfile where
+instance
+  Prelude.AWSRequest
+    CreateFieldLevelEncryptionProfile
+  where
   type
     Rs CreateFieldLevelEncryptionProfile =
       CreateFieldLevelEncryptionProfileResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateFieldLevelEncryptionProfileResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (h .#? "Location")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+              Prelude.<*> (Prelude.parseXML x)
+              Prelude.<*> (h Prelude..#? "Location")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateFieldLevelEncryptionProfile
-
-instance NFData CreateFieldLevelEncryptionProfile
-
-instance ToElement CreateFieldLevelEncryptionProfile where
-  toElement =
-    mkElement
-      "{http://cloudfront.amazonaws.com/doc/2020-05-31/}FieldLevelEncryptionProfileConfig"
-      . _cflepFieldLevelEncryptionProfileConfig
-
-instance ToHeaders CreateFieldLevelEncryptionProfile where
-  toHeaders = const mempty
-
-instance ToPath CreateFieldLevelEncryptionProfile where
-  toPath =
-    const "/2020-05-31/field-level-encryption-profile"
-
-instance ToQuery CreateFieldLevelEncryptionProfile where
-  toQuery = const mempty
-
--- | /See:/ 'createFieldLevelEncryptionProfileResponse' smart constructor.
-data CreateFieldLevelEncryptionProfileResponse = CreateFieldLevelEncryptionProfileResponse'
-  { _cfleprrsETag ::
-      !( Maybe
-           Text
-       ),
-    _cfleprrsFieldLevelEncryptionProfile ::
-      !( Maybe
-           FieldLevelEncryptionProfile
-       ),
-    _cfleprrsLocation ::
-      !( Maybe
-           Text
-       ),
-    _cfleprrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'CreateFieldLevelEncryptionProfileResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'cfleprrsETag' - The current version of the field level encryption profile. For example: @E2QWRUHAPOMQZL@ .
---
--- * 'cfleprrsFieldLevelEncryptionProfile' - Returned when you create a new field-level encryption profile.
---
--- * 'cfleprrsLocation' - The fully qualified URI of the new profile resource just created.
---
--- * 'cfleprrsResponseStatus' - -- | The response status code.
-createFieldLevelEncryptionProfileResponse ::
-  -- | 'cfleprrsResponseStatus'
-  Int ->
-  CreateFieldLevelEncryptionProfileResponse
-createFieldLevelEncryptionProfileResponse
-  pResponseStatus_ =
-    CreateFieldLevelEncryptionProfileResponse'
-      { _cfleprrsETag =
-          Nothing,
-        _cfleprrsFieldLevelEncryptionProfile =
-          Nothing,
-        _cfleprrsLocation = Nothing,
-        _cfleprrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The current version of the field level encryption profile. For example: @E2QWRUHAPOMQZL@ .
-cfleprrsETag :: Lens' CreateFieldLevelEncryptionProfileResponse (Maybe Text)
-cfleprrsETag = lens _cfleprrsETag (\s a -> s {_cfleprrsETag = a})
-
--- | Returned when you create a new field-level encryption profile.
-cfleprrsFieldLevelEncryptionProfile :: Lens' CreateFieldLevelEncryptionProfileResponse (Maybe FieldLevelEncryptionProfile)
-cfleprrsFieldLevelEncryptionProfile = lens _cfleprrsFieldLevelEncryptionProfile (\s a -> s {_cfleprrsFieldLevelEncryptionProfile = a})
-
--- | The fully qualified URI of the new profile resource just created.
-cfleprrsLocation :: Lens' CreateFieldLevelEncryptionProfileResponse (Maybe Text)
-cfleprrsLocation = lens _cfleprrsLocation (\s a -> s {_cfleprrsLocation = a})
-
--- | -- | The response status code.
-cfleprrsResponseStatus :: Lens' CreateFieldLevelEncryptionProfileResponse Int
-cfleprrsResponseStatus = lens _cfleprrsResponseStatus (\s a -> s {_cfleprrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    CreateFieldLevelEncryptionProfile
 
 instance
-  NFData
+  Prelude.NFData
+    CreateFieldLevelEncryptionProfile
+
+instance
+  Prelude.ToElement
+    CreateFieldLevelEncryptionProfile
+  where
+  toElement CreateFieldLevelEncryptionProfile' {..} =
+    Prelude.mkElement
+      "{http://cloudfront.amazonaws.com/doc/2020-05-31/}FieldLevelEncryptionProfileConfig"
+      fieldLevelEncryptionProfileConfig
+
+instance
+  Prelude.ToHeaders
+    CreateFieldLevelEncryptionProfile
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    CreateFieldLevelEncryptionProfile
+  where
+  toPath =
+    Prelude.const
+      "/2020-05-31/field-level-encryption-profile"
+
+instance
+  Prelude.ToQuery
+    CreateFieldLevelEncryptionProfile
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newCreateFieldLevelEncryptionProfileResponse' smart constructor.
+data CreateFieldLevelEncryptionProfileResponse = CreateFieldLevelEncryptionProfileResponse'
+  { -- | The current version of the field level encryption profile. For example:
+    -- @E2QWRUHAPOMQZL@.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | Returned when you create a new field-level encryption profile.
+    fieldLevelEncryptionProfile :: Prelude.Maybe FieldLevelEncryptionProfile,
+    -- | The fully qualified URI of the new profile resource just created.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'CreateFieldLevelEncryptionProfileResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'eTag', 'createFieldLevelEncryptionProfileResponse_eTag' - The current version of the field level encryption profile. For example:
+-- @E2QWRUHAPOMQZL@.
+--
+-- 'fieldLevelEncryptionProfile', 'createFieldLevelEncryptionProfileResponse_fieldLevelEncryptionProfile' - Returned when you create a new field-level encryption profile.
+--
+-- 'location', 'createFieldLevelEncryptionProfileResponse_location' - The fully qualified URI of the new profile resource just created.
+--
+-- 'httpStatus', 'createFieldLevelEncryptionProfileResponse_httpStatus' - The response's http status code.
+newCreateFieldLevelEncryptionProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  CreateFieldLevelEncryptionProfileResponse
+newCreateFieldLevelEncryptionProfileResponse
+  pHttpStatus_ =
+    CreateFieldLevelEncryptionProfileResponse'
+      { eTag =
+          Prelude.Nothing,
+        fieldLevelEncryptionProfile =
+          Prelude.Nothing,
+        location = Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The current version of the field level encryption profile. For example:
+-- @E2QWRUHAPOMQZL@.
+createFieldLevelEncryptionProfileResponse_eTag :: Lens.Lens' CreateFieldLevelEncryptionProfileResponse (Prelude.Maybe Prelude.Text)
+createFieldLevelEncryptionProfileResponse_eTag = Lens.lens (\CreateFieldLevelEncryptionProfileResponse' {eTag} -> eTag) (\s@CreateFieldLevelEncryptionProfileResponse' {} a -> s {eTag = a} :: CreateFieldLevelEncryptionProfileResponse)
+
+-- | Returned when you create a new field-level encryption profile.
+createFieldLevelEncryptionProfileResponse_fieldLevelEncryptionProfile :: Lens.Lens' CreateFieldLevelEncryptionProfileResponse (Prelude.Maybe FieldLevelEncryptionProfile)
+createFieldLevelEncryptionProfileResponse_fieldLevelEncryptionProfile = Lens.lens (\CreateFieldLevelEncryptionProfileResponse' {fieldLevelEncryptionProfile} -> fieldLevelEncryptionProfile) (\s@CreateFieldLevelEncryptionProfileResponse' {} a -> s {fieldLevelEncryptionProfile = a} :: CreateFieldLevelEncryptionProfileResponse)
+
+-- | The fully qualified URI of the new profile resource just created.
+createFieldLevelEncryptionProfileResponse_location :: Lens.Lens' CreateFieldLevelEncryptionProfileResponse (Prelude.Maybe Prelude.Text)
+createFieldLevelEncryptionProfileResponse_location = Lens.lens (\CreateFieldLevelEncryptionProfileResponse' {location} -> location) (\s@CreateFieldLevelEncryptionProfileResponse' {} a -> s {location = a} :: CreateFieldLevelEncryptionProfileResponse)
+
+-- | The response's http status code.
+createFieldLevelEncryptionProfileResponse_httpStatus :: Lens.Lens' CreateFieldLevelEncryptionProfileResponse Prelude.Int
+createFieldLevelEncryptionProfileResponse_httpStatus = Lens.lens (\CreateFieldLevelEncryptionProfileResponse' {httpStatus} -> httpStatus) (\s@CreateFieldLevelEncryptionProfileResponse' {} a -> s {httpStatus = a} :: CreateFieldLevelEncryptionProfileResponse)
+
+instance
+  Prelude.NFData
     CreateFieldLevelEncryptionProfileResponse

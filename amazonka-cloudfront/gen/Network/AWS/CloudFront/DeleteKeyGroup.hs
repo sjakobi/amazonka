@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,98 +23,115 @@
 --
 -- Deletes a key group.
 --
+-- You cannot delete a key group that is referenced in a cache behavior.
+-- First update your distributions to remove the key group from all cache
+-- behaviors, then delete the key group.
 --
--- You cannot delete a key group that is referenced in a cache behavior. First update your distributions to remove the key group from all cache behaviors, then delete the key group.
---
--- To delete a key group, you must provide the key group’s identifier and version. To get these values, use @ListKeyGroups@ followed by @GetKeyGroup@ or @GetKeyGroupConfig@ .
+-- To delete a key group, you must provide the key group’s identifier and
+-- version. To get these values, use @ListKeyGroups@ followed by
+-- @GetKeyGroup@ or @GetKeyGroupConfig@.
 module Network.AWS.CloudFront.DeleteKeyGroup
   ( -- * Creating a Request
-    deleteKeyGroup,
-    DeleteKeyGroup,
+    DeleteKeyGroup (..),
+    newDeleteKeyGroup,
 
     -- * Request Lenses
-    dkgIfMatch,
-    dkgId,
+    deleteKeyGroup_ifMatch,
+    deleteKeyGroup_id,
 
     -- * Destructuring the Response
-    deleteKeyGroupResponse,
-    DeleteKeyGroupResponse,
+    DeleteKeyGroupResponse (..),
+    newDeleteKeyGroupResponse,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteKeyGroup' smart constructor.
+-- | /See:/ 'newDeleteKeyGroup' smart constructor.
 data DeleteKeyGroup = DeleteKeyGroup'
-  { _dkgIfMatch ::
-      !(Maybe Text),
-    _dkgId :: !Text
+  { -- | The version of the key group that you are deleting. The version is the
+    -- key group’s @ETag@ value. To get the @ETag@, use @GetKeyGroup@ or
+    -- @GetKeyGroupConfig@.
+    ifMatch :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the key group that you are deleting. To get the
+    -- identifier, use @ListKeyGroups@.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteKeyGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteKeyGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dkgIfMatch' - The version of the key group that you are deleting. The version is the key group’s @ETag@ value. To get the @ETag@ , use @GetKeyGroup@ or @GetKeyGroupConfig@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dkgId' - The identifier of the key group that you are deleting. To get the identifier, use @ListKeyGroups@ .
-deleteKeyGroup ::
-  -- | 'dkgId'
-  Text ->
+-- 'ifMatch', 'deleteKeyGroup_ifMatch' - The version of the key group that you are deleting. The version is the
+-- key group’s @ETag@ value. To get the @ETag@, use @GetKeyGroup@ or
+-- @GetKeyGroupConfig@.
+--
+-- 'id', 'deleteKeyGroup_id' - The identifier of the key group that you are deleting. To get the
+-- identifier, use @ListKeyGroups@.
+newDeleteKeyGroup ::
+  -- | 'id'
+  Prelude.Text ->
   DeleteKeyGroup
-deleteKeyGroup pId_ =
+newDeleteKeyGroup pId_ =
   DeleteKeyGroup'
-    { _dkgIfMatch = Nothing,
-      _dkgId = pId_
+    { ifMatch = Prelude.Nothing,
+      id = pId_
     }
 
--- | The version of the key group that you are deleting. The version is the key group’s @ETag@ value. To get the @ETag@ , use @GetKeyGroup@ or @GetKeyGroupConfig@ .
-dkgIfMatch :: Lens' DeleteKeyGroup (Maybe Text)
-dkgIfMatch = lens _dkgIfMatch (\s a -> s {_dkgIfMatch = a})
+-- | The version of the key group that you are deleting. The version is the
+-- key group’s @ETag@ value. To get the @ETag@, use @GetKeyGroup@ or
+-- @GetKeyGroupConfig@.
+deleteKeyGroup_ifMatch :: Lens.Lens' DeleteKeyGroup (Prelude.Maybe Prelude.Text)
+deleteKeyGroup_ifMatch = Lens.lens (\DeleteKeyGroup' {ifMatch} -> ifMatch) (\s@DeleteKeyGroup' {} a -> s {ifMatch = a} :: DeleteKeyGroup)
 
--- | The identifier of the key group that you are deleting. To get the identifier, use @ListKeyGroups@ .
-dkgId :: Lens' DeleteKeyGroup Text
-dkgId = lens _dkgId (\s a -> s {_dkgId = a})
+-- | The identifier of the key group that you are deleting. To get the
+-- identifier, use @ListKeyGroups@.
+deleteKeyGroup_id :: Lens.Lens' DeleteKeyGroup Prelude.Text
+deleteKeyGroup_id = Lens.lens (\DeleteKeyGroup' {id} -> id) (\s@DeleteKeyGroup' {} a -> s {id = a} :: DeleteKeyGroup)
 
-instance AWSRequest DeleteKeyGroup where
+instance Prelude.AWSRequest DeleteKeyGroup where
   type Rs DeleteKeyGroup = DeleteKeyGroupResponse
-  request = delete cloudFront
-  response = receiveNull DeleteKeyGroupResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteKeyGroupResponse'
 
-instance Hashable DeleteKeyGroup
+instance Prelude.Hashable DeleteKeyGroup
 
-instance NFData DeleteKeyGroup
+instance Prelude.NFData DeleteKeyGroup
 
-instance ToHeaders DeleteKeyGroup where
+instance Prelude.ToHeaders DeleteKeyGroup where
   toHeaders DeleteKeyGroup' {..} =
-    mconcat ["If-Match" =# _dkgIfMatch]
+    Prelude.mconcat ["If-Match" Prelude.=# ifMatch]
 
-instance ToPath DeleteKeyGroup where
+instance Prelude.ToPath DeleteKeyGroup where
   toPath DeleteKeyGroup' {..} =
-    mconcat ["/2020-05-31/key-group/", toBS _dkgId]
+    Prelude.mconcat
+      ["/2020-05-31/key-group/", Prelude.toBS id]
 
-instance ToQuery DeleteKeyGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteKeyGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteKeyGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteKeyGroupResponse' smart constructor.
 data DeleteKeyGroupResponse = DeleteKeyGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteKeyGroupResponse' with the minimum fields required to make a request.
-deleteKeyGroupResponse ::
+-- |
+-- Create a value of 'DeleteKeyGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteKeyGroupResponse ::
   DeleteKeyGroupResponse
-deleteKeyGroupResponse = DeleteKeyGroupResponse'
+newDeleteKeyGroupResponse = DeleteKeyGroupResponse'
 
-instance NFData DeleteKeyGroupResponse
+instance Prelude.NFData DeleteKeyGroupResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.CloudFront.Types.EventType
   ( EventType
       ( ..,
-        OriginRequest,
-        OriginResponse,
-        ViewerRequest,
-        ViewerResponse
+        EventTypeOriginRequest,
+        EventTypeOriginResponse,
+        EventTypeViewerRequest,
+        EventTypeViewerResponse
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventType = EventType' (CI Text)
+newtype EventType = EventType'
+  { fromEventType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OriginRequest :: EventType
-pattern OriginRequest = EventType' "origin-request"
+pattern EventTypeOriginRequest :: EventType
+pattern EventTypeOriginRequest = EventType' "origin-request"
 
-pattern OriginResponse :: EventType
-pattern OriginResponse = EventType' "origin-response"
+pattern EventTypeOriginResponse :: EventType
+pattern EventTypeOriginResponse = EventType' "origin-response"
 
-pattern ViewerRequest :: EventType
-pattern ViewerRequest = EventType' "viewer-request"
+pattern EventTypeViewerRequest :: EventType
+pattern EventTypeViewerRequest = EventType' "viewer-request"
 
-pattern ViewerResponse :: EventType
-pattern ViewerResponse = EventType' "viewer-response"
+pattern EventTypeViewerResponse :: EventType
+pattern EventTypeViewerResponse = EventType' "viewer-response"
 
 {-# COMPLETE
-  OriginRequest,
-  OriginResponse,
-  ViewerRequest,
-  ViewerResponse,
+  EventTypeOriginRequest,
+  EventTypeOriginResponse,
+  EventTypeViewerRequest,
+  EventTypeViewerResponse,
   EventType'
   #-}
 
-instance FromText EventType where
-  parser = (EventType' . mk) <$> takeText
+instance Prelude.FromText EventType where
+  parser = EventType' Prelude.<$> Prelude.takeText
 
-instance ToText EventType where
-  toText (EventType' ci) = original ci
+instance Prelude.ToText EventType where
+  toText (EventType' x) = x
 
-instance Hashable EventType
+instance Prelude.Hashable EventType
 
-instance NFData EventType
+instance Prelude.NFData EventType
 
-instance ToByteString EventType
+instance Prelude.ToByteString EventType
 
-instance ToQuery EventType
+instance Prelude.ToQuery EventType
 
-instance ToHeader EventType
+instance Prelude.ToHeader EventType
 
-instance FromXML EventType where
-  parseXML = parseXMLText "EventType"
+instance Prelude.FromXML EventType where
+  parseXML = Prelude.parseXMLText "EventType"
 
-instance ToXML EventType where
-  toXML = toXMLText
+instance Prelude.ToXML EventType where
+  toXML = Prelude.toXMLText

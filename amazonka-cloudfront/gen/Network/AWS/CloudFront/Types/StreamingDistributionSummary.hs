@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,97 +23,140 @@ import Network.AWS.CloudFront.Types.Aliases
 import Network.AWS.CloudFront.Types.PriceClass
 import Network.AWS.CloudFront.Types.S3Origin
 import Network.AWS.CloudFront.Types.TrustedSigners
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A summary of the information for a CloudFront streaming distribution.
 --
---
---
--- /See:/ 'streamingDistributionSummary' smart constructor.
+-- /See:/ 'newStreamingDistributionSummary' smart constructor.
 data StreamingDistributionSummary = StreamingDistributionSummary'
-  { _sdsId ::
-      !Text,
-    _sdsARN ::
-      !Text,
-    _sdsStatus ::
-      !Text,
-    _sdsLastModifiedTime ::
-      !ISO8601,
-    _sdsDomainName ::
-      !Text,
-    _sdsS3Origin ::
-      !S3Origin,
-    _sdsAliases ::
-      !Aliases,
-    _sdsTrustedSigners ::
-      !TrustedSigners,
-    _sdsComment ::
-      !Text,
-    _sdsPriceClass ::
-      !PriceClass,
-    _sdsEnabled ::
-      !Bool
+  { -- | The identifier for the distribution, for example, @EDFDVBD632BHDS5@.
+    id :: Prelude.Text,
+    -- | The ARN (Amazon Resource Name) for the streaming distribution. For
+    -- example:
+    -- @arn:aws:cloudfront::123456789012:streaming-distribution\/EDFDVBD632BHDS5@,
+    -- where @123456789012@ is your AWS account ID.
+    aRN :: Prelude.Text,
+    -- | Indicates the current status of the distribution. When the status is
+    -- @Deployed@, the distribution\'s information is fully propagated
+    -- throughout the Amazon CloudFront system.
+    status :: Prelude.Text,
+    -- | The date and time the distribution was last modified.
+    lastModifiedTime :: Prelude.ISO8601,
+    -- | The domain name corresponding to the distribution, for example,
+    -- @d111111abcdef8.cloudfront.net@.
+    domainName :: Prelude.Text,
+    -- | A complex type that contains information about the Amazon S3 bucket from
+    -- which you want CloudFront to get your media files for distribution.
+    s3Origin :: S3Origin,
+    -- | A complex type that contains information about CNAMEs (alternate domain
+    -- names), if any, for this streaming distribution.
+    aliases :: Aliases,
+    -- | A complex type that specifies the AWS accounts, if any, that you want to
+    -- allow to create signed URLs for private content. If you want to require
+    -- signed URLs in requests for objects in the target origin that match the
+    -- @PathPattern@ for this cache behavior, specify @true@ for @Enabled@, and
+    -- specify the applicable values for @Quantity@ and @Items@.If you don\'t
+    -- want to require signed URLs in requests for objects that match
+    -- @PathPattern@, specify @false@ for @Enabled@ and @0@ for @Quantity@.
+    -- Omit @Items@. To add, change, or remove one or more trusted signers,
+    -- change @Enabled@ to @true@ (if it\'s currently @false@), change
+    -- @Quantity@ as applicable, and specify all of the trusted signers that
+    -- you want to include in the updated distribution.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
+    -- in the /Amazon CloudFront Developer Guide/.
+    trustedSigners :: TrustedSigners,
+    -- | The comment originally specified when this distribution was created.
+    comment :: Prelude.Text,
+    -- | A complex type that contains information about price class for this
+    -- streaming distribution.
+    priceClass :: PriceClass,
+    -- | Whether the distribution is enabled to accept end user requests for
+    -- content.
+    enabled :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StreamingDistributionSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StreamingDistributionSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdsId' - The identifier for the distribution, for example, @EDFDVBD632BHDS5@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdsARN' - The ARN (Amazon Resource Name) for the streaming distribution. For example: @arn:aws:cloudfront::123456789012:streaming-distribution/EDFDVBD632BHDS5@ , where @123456789012@ is your AWS account ID.
+-- 'id', 'streamingDistributionSummary_id' - The identifier for the distribution, for example, @EDFDVBD632BHDS5@.
 --
--- * 'sdsStatus' - Indicates the current status of the distribution. When the status is @Deployed@ , the distribution's information is fully propagated throughout the Amazon CloudFront system.
+-- 'aRN', 'streamingDistributionSummary_aRN' - The ARN (Amazon Resource Name) for the streaming distribution. For
+-- example:
+-- @arn:aws:cloudfront::123456789012:streaming-distribution\/EDFDVBD632BHDS5@,
+-- where @123456789012@ is your AWS account ID.
 --
--- * 'sdsLastModifiedTime' - The date and time the distribution was last modified.
+-- 'status', 'streamingDistributionSummary_status' - Indicates the current status of the distribution. When the status is
+-- @Deployed@, the distribution\'s information is fully propagated
+-- throughout the Amazon CloudFront system.
 --
--- * 'sdsDomainName' - The domain name corresponding to the distribution, for example, @d111111abcdef8.cloudfront.net@ .
+-- 'lastModifiedTime', 'streamingDistributionSummary_lastModifiedTime' - The date and time the distribution was last modified.
 --
--- * 'sdsS3Origin' - A complex type that contains information about the Amazon S3 bucket from which you want CloudFront to get your media files for distribution.
+-- 'domainName', 'streamingDistributionSummary_domainName' - The domain name corresponding to the distribution, for example,
+-- @d111111abcdef8.cloudfront.net@.
 --
--- * 'sdsAliases' - A complex type that contains information about CNAMEs (alternate domain names), if any, for this streaming distribution.
+-- 's3Origin', 'streamingDistributionSummary_s3Origin' - A complex type that contains information about the Amazon S3 bucket from
+-- which you want CloudFront to get your media files for distribution.
 --
--- * 'sdsTrustedSigners' - A complex type that specifies the AWS accounts, if any, that you want to allow to create signed URLs for private content. If you want to require signed URLs in requests for objects in the target origin that match the @PathPattern@ for this cache behavior, specify @true@ for @Enabled@ , and specify the applicable values for @Quantity@ and @Items@ .If you don't want to require signed URLs in requests for objects that match @PathPattern@ , specify @false@ for @Enabled@ and @0@ for @Quantity@ . Omit @Items@ . To add, change, or remove one or more trusted signers, change @Enabled@ to @true@ (if it's currently @false@ ), change @Quantity@ as applicable, and specify all of the trusted signers that you want to include in the updated distribution. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront> in the /Amazon CloudFront Developer Guide/ .
+-- 'aliases', 'streamingDistributionSummary_aliases' - A complex type that contains information about CNAMEs (alternate domain
+-- names), if any, for this streaming distribution.
 --
--- * 'sdsComment' - The comment originally specified when this distribution was created.
+-- 'trustedSigners', 'streamingDistributionSummary_trustedSigners' - A complex type that specifies the AWS accounts, if any, that you want to
+-- allow to create signed URLs for private content. If you want to require
+-- signed URLs in requests for objects in the target origin that match the
+-- @PathPattern@ for this cache behavior, specify @true@ for @Enabled@, and
+-- specify the applicable values for @Quantity@ and @Items@.If you don\'t
+-- want to require signed URLs in requests for objects that match
+-- @PathPattern@, specify @false@ for @Enabled@ and @0@ for @Quantity@.
+-- Omit @Items@. To add, change, or remove one or more trusted signers,
+-- change @Enabled@ to @true@ (if it\'s currently @false@), change
+-- @Quantity@ as applicable, and specify all of the trusted signers that
+-- you want to include in the updated distribution.
 --
--- * 'sdsPriceClass' - A complex type that contains information about price class for this streaming distribution.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
+-- in the /Amazon CloudFront Developer Guide/.
 --
--- * 'sdsEnabled' - Whether the distribution is enabled to accept end user requests for content.
-streamingDistributionSummary ::
-  -- | 'sdsId'
-  Text ->
-  -- | 'sdsARN'
-  Text ->
-  -- | 'sdsStatus'
-  Text ->
-  -- | 'sdsLastModifiedTime'
-  UTCTime ->
-  -- | 'sdsDomainName'
-  Text ->
-  -- | 'sdsS3Origin'
+-- 'comment', 'streamingDistributionSummary_comment' - The comment originally specified when this distribution was created.
+--
+-- 'priceClass', 'streamingDistributionSummary_priceClass' - A complex type that contains information about price class for this
+-- streaming distribution.
+--
+-- 'enabled', 'streamingDistributionSummary_enabled' - Whether the distribution is enabled to accept end user requests for
+-- content.
+newStreamingDistributionSummary ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'aRN'
+  Prelude.Text ->
+  -- | 'status'
+  Prelude.Text ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 's3Origin'
   S3Origin ->
-  -- | 'sdsAliases'
+  -- | 'aliases'
   Aliases ->
-  -- | 'sdsTrustedSigners'
+  -- | 'trustedSigners'
   TrustedSigners ->
-  -- | 'sdsComment'
-  Text ->
-  -- | 'sdsPriceClass'
+  -- | 'comment'
+  Prelude.Text ->
+  -- | 'priceClass'
   PriceClass ->
-  -- | 'sdsEnabled'
-  Bool ->
+  -- | 'enabled'
+  Prelude.Bool ->
   StreamingDistributionSummary
-streamingDistributionSummary
+newStreamingDistributionSummary
   pId_
   pARN_
   pStatus_
@@ -122,79 +169,105 @@ streamingDistributionSummary
   pPriceClass_
   pEnabled_ =
     StreamingDistributionSummary'
-      { _sdsId = pId_,
-        _sdsARN = pARN_,
-        _sdsStatus = pStatus_,
-        _sdsLastModifiedTime =
-          _Time # pLastModifiedTime_,
-        _sdsDomainName = pDomainName_,
-        _sdsS3Origin = pS3Origin_,
-        _sdsAliases = pAliases_,
-        _sdsTrustedSigners = pTrustedSigners_,
-        _sdsComment = pComment_,
-        _sdsPriceClass = pPriceClass_,
-        _sdsEnabled = pEnabled_
+      { id = pId_,
+        aRN = pARN_,
+        status = pStatus_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_,
+        domainName = pDomainName_,
+        s3Origin = pS3Origin_,
+        aliases = pAliases_,
+        trustedSigners = pTrustedSigners_,
+        comment = pComment_,
+        priceClass = pPriceClass_,
+        enabled = pEnabled_
       }
 
--- | The identifier for the distribution, for example, @EDFDVBD632BHDS5@ .
-sdsId :: Lens' StreamingDistributionSummary Text
-sdsId = lens _sdsId (\s a -> s {_sdsId = a})
+-- | The identifier for the distribution, for example, @EDFDVBD632BHDS5@.
+streamingDistributionSummary_id :: Lens.Lens' StreamingDistributionSummary Prelude.Text
+streamingDistributionSummary_id = Lens.lens (\StreamingDistributionSummary' {id} -> id) (\s@StreamingDistributionSummary' {} a -> s {id = a} :: StreamingDistributionSummary)
 
--- | The ARN (Amazon Resource Name) for the streaming distribution. For example: @arn:aws:cloudfront::123456789012:streaming-distribution/EDFDVBD632BHDS5@ , where @123456789012@ is your AWS account ID.
-sdsARN :: Lens' StreamingDistributionSummary Text
-sdsARN = lens _sdsARN (\s a -> s {_sdsARN = a})
+-- | The ARN (Amazon Resource Name) for the streaming distribution. For
+-- example:
+-- @arn:aws:cloudfront::123456789012:streaming-distribution\/EDFDVBD632BHDS5@,
+-- where @123456789012@ is your AWS account ID.
+streamingDistributionSummary_aRN :: Lens.Lens' StreamingDistributionSummary Prelude.Text
+streamingDistributionSummary_aRN = Lens.lens (\StreamingDistributionSummary' {aRN} -> aRN) (\s@StreamingDistributionSummary' {} a -> s {aRN = a} :: StreamingDistributionSummary)
 
--- | Indicates the current status of the distribution. When the status is @Deployed@ , the distribution's information is fully propagated throughout the Amazon CloudFront system.
-sdsStatus :: Lens' StreamingDistributionSummary Text
-sdsStatus = lens _sdsStatus (\s a -> s {_sdsStatus = a})
+-- | Indicates the current status of the distribution. When the status is
+-- @Deployed@, the distribution\'s information is fully propagated
+-- throughout the Amazon CloudFront system.
+streamingDistributionSummary_status :: Lens.Lens' StreamingDistributionSummary Prelude.Text
+streamingDistributionSummary_status = Lens.lens (\StreamingDistributionSummary' {status} -> status) (\s@StreamingDistributionSummary' {} a -> s {status = a} :: StreamingDistributionSummary)
 
 -- | The date and time the distribution was last modified.
-sdsLastModifiedTime :: Lens' StreamingDistributionSummary UTCTime
-sdsLastModifiedTime = lens _sdsLastModifiedTime (\s a -> s {_sdsLastModifiedTime = a}) . _Time
+streamingDistributionSummary_lastModifiedTime :: Lens.Lens' StreamingDistributionSummary Prelude.UTCTime
+streamingDistributionSummary_lastModifiedTime = Lens.lens (\StreamingDistributionSummary' {lastModifiedTime} -> lastModifiedTime) (\s@StreamingDistributionSummary' {} a -> s {lastModifiedTime = a} :: StreamingDistributionSummary) Prelude.. Prelude._Time
 
--- | The domain name corresponding to the distribution, for example, @d111111abcdef8.cloudfront.net@ .
-sdsDomainName :: Lens' StreamingDistributionSummary Text
-sdsDomainName = lens _sdsDomainName (\s a -> s {_sdsDomainName = a})
+-- | The domain name corresponding to the distribution, for example,
+-- @d111111abcdef8.cloudfront.net@.
+streamingDistributionSummary_domainName :: Lens.Lens' StreamingDistributionSummary Prelude.Text
+streamingDistributionSummary_domainName = Lens.lens (\StreamingDistributionSummary' {domainName} -> domainName) (\s@StreamingDistributionSummary' {} a -> s {domainName = a} :: StreamingDistributionSummary)
 
--- | A complex type that contains information about the Amazon S3 bucket from which you want CloudFront to get your media files for distribution.
-sdsS3Origin :: Lens' StreamingDistributionSummary S3Origin
-sdsS3Origin = lens _sdsS3Origin (\s a -> s {_sdsS3Origin = a})
+-- | A complex type that contains information about the Amazon S3 bucket from
+-- which you want CloudFront to get your media files for distribution.
+streamingDistributionSummary_s3Origin :: Lens.Lens' StreamingDistributionSummary S3Origin
+streamingDistributionSummary_s3Origin = Lens.lens (\StreamingDistributionSummary' {s3Origin} -> s3Origin) (\s@StreamingDistributionSummary' {} a -> s {s3Origin = a} :: StreamingDistributionSummary)
 
--- | A complex type that contains information about CNAMEs (alternate domain names), if any, for this streaming distribution.
-sdsAliases :: Lens' StreamingDistributionSummary Aliases
-sdsAliases = lens _sdsAliases (\s a -> s {_sdsAliases = a})
+-- | A complex type that contains information about CNAMEs (alternate domain
+-- names), if any, for this streaming distribution.
+streamingDistributionSummary_aliases :: Lens.Lens' StreamingDistributionSummary Aliases
+streamingDistributionSummary_aliases = Lens.lens (\StreamingDistributionSummary' {aliases} -> aliases) (\s@StreamingDistributionSummary' {} a -> s {aliases = a} :: StreamingDistributionSummary)
 
--- | A complex type that specifies the AWS accounts, if any, that you want to allow to create signed URLs for private content. If you want to require signed URLs in requests for objects in the target origin that match the @PathPattern@ for this cache behavior, specify @true@ for @Enabled@ , and specify the applicable values for @Quantity@ and @Items@ .If you don't want to require signed URLs in requests for objects that match @PathPattern@ , specify @false@ for @Enabled@ and @0@ for @Quantity@ . Omit @Items@ . To add, change, or remove one or more trusted signers, change @Enabled@ to @true@ (if it's currently @false@ ), change @Quantity@ as applicable, and specify all of the trusted signers that you want to include in the updated distribution. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront> in the /Amazon CloudFront Developer Guide/ .
-sdsTrustedSigners :: Lens' StreamingDistributionSummary TrustedSigners
-sdsTrustedSigners = lens _sdsTrustedSigners (\s a -> s {_sdsTrustedSigners = a})
+-- | A complex type that specifies the AWS accounts, if any, that you want to
+-- allow to create signed URLs for private content. If you want to require
+-- signed URLs in requests for objects in the target origin that match the
+-- @PathPattern@ for this cache behavior, specify @true@ for @Enabled@, and
+-- specify the applicable values for @Quantity@ and @Items@.If you don\'t
+-- want to require signed URLs in requests for objects that match
+-- @PathPattern@, specify @false@ for @Enabled@ and @0@ for @Quantity@.
+-- Omit @Items@. To add, change, or remove one or more trusted signers,
+-- change @Enabled@ to @true@ (if it\'s currently @false@), change
+-- @Quantity@ as applicable, and specify all of the trusted signers that
+-- you want to include in the updated distribution.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
+-- in the /Amazon CloudFront Developer Guide/.
+streamingDistributionSummary_trustedSigners :: Lens.Lens' StreamingDistributionSummary TrustedSigners
+streamingDistributionSummary_trustedSigners = Lens.lens (\StreamingDistributionSummary' {trustedSigners} -> trustedSigners) (\s@StreamingDistributionSummary' {} a -> s {trustedSigners = a} :: StreamingDistributionSummary)
 
 -- | The comment originally specified when this distribution was created.
-sdsComment :: Lens' StreamingDistributionSummary Text
-sdsComment = lens _sdsComment (\s a -> s {_sdsComment = a})
+streamingDistributionSummary_comment :: Lens.Lens' StreamingDistributionSummary Prelude.Text
+streamingDistributionSummary_comment = Lens.lens (\StreamingDistributionSummary' {comment} -> comment) (\s@StreamingDistributionSummary' {} a -> s {comment = a} :: StreamingDistributionSummary)
 
--- | A complex type that contains information about price class for this streaming distribution.
-sdsPriceClass :: Lens' StreamingDistributionSummary PriceClass
-sdsPriceClass = lens _sdsPriceClass (\s a -> s {_sdsPriceClass = a})
+-- | A complex type that contains information about price class for this
+-- streaming distribution.
+streamingDistributionSummary_priceClass :: Lens.Lens' StreamingDistributionSummary PriceClass
+streamingDistributionSummary_priceClass = Lens.lens (\StreamingDistributionSummary' {priceClass} -> priceClass) (\s@StreamingDistributionSummary' {} a -> s {priceClass = a} :: StreamingDistributionSummary)
 
--- | Whether the distribution is enabled to accept end user requests for content.
-sdsEnabled :: Lens' StreamingDistributionSummary Bool
-sdsEnabled = lens _sdsEnabled (\s a -> s {_sdsEnabled = a})
+-- | Whether the distribution is enabled to accept end user requests for
+-- content.
+streamingDistributionSummary_enabled :: Lens.Lens' StreamingDistributionSummary Prelude.Bool
+streamingDistributionSummary_enabled = Lens.lens (\StreamingDistributionSummary' {enabled} -> enabled) (\s@StreamingDistributionSummary' {} a -> s {enabled = a} :: StreamingDistributionSummary)
 
-instance FromXML StreamingDistributionSummary where
+instance Prelude.FromXML StreamingDistributionSummary where
   parseXML x =
     StreamingDistributionSummary'
-      <$> (x .@ "Id")
-      <*> (x .@ "ARN")
-      <*> (x .@ "Status")
-      <*> (x .@ "LastModifiedTime")
-      <*> (x .@ "DomainName")
-      <*> (x .@ "S3Origin")
-      <*> (x .@ "Aliases")
-      <*> (x .@ "TrustedSigners")
-      <*> (x .@ "Comment")
-      <*> (x .@ "PriceClass")
-      <*> (x .@ "Enabled")
+      Prelude.<$> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "ARN")
+      Prelude.<*> (x Prelude..@ "Status")
+      Prelude.<*> (x Prelude..@ "LastModifiedTime")
+      Prelude.<*> (x Prelude..@ "DomainName")
+      Prelude.<*> (x Prelude..@ "S3Origin")
+      Prelude.<*> (x Prelude..@ "Aliases")
+      Prelude.<*> (x Prelude..@ "TrustedSigners")
+      Prelude.<*> (x Prelude..@ "Comment")
+      Prelude.<*> (x Prelude..@ "PriceClass")
+      Prelude.<*> (x Prelude..@ "Enabled")
 
-instance Hashable StreamingDistributionSummary
+instance
+  Prelude.Hashable
+    StreamingDistributionSummary
 
-instance NFData StreamingDistributionSummary
+instance Prelude.NFData StreamingDistributionSummary

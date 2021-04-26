@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,76 +20,102 @@
 module Network.AWS.CloudFront.Types.EncryptionEntity where
 
 import Network.AWS.CloudFront.Types.FieldPatterns
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Complex data type for field-level encryption profiles that includes the encryption key and field pattern specifications.
+-- | Complex data type for field-level encryption profiles that includes the
+-- encryption key and field pattern specifications.
 --
---
---
--- /See:/ 'encryptionEntity' smart constructor.
+-- /See:/ 'newEncryptionEntity' smart constructor.
 data EncryptionEntity = EncryptionEntity'
-  { _eePublicKeyId ::
-      !Text,
-    _eeProviderId :: !Text,
-    _eeFieldPatterns :: !FieldPatterns
+  { -- | The public key associated with a set of field-level encryption patterns,
+    -- to be used when encrypting the fields that match the patterns.
+    publicKeyId :: Prelude.Text,
+    -- | The provider associated with the public key being used for encryption.
+    -- This value must also be provided with the private key for applications
+    -- to be able to decrypt data.
+    providerId :: Prelude.Text,
+    -- | Field patterns in a field-level encryption content type profile specify
+    -- the fields that you want to be encrypted. You can provide the full field
+    -- name, or any beginning characters followed by a wildcard (*). You can\'t
+    -- overlap field patterns. For example, you can\'t have both ABC* and AB*.
+    -- Note that field patterns are case-sensitive.
+    fieldPatterns :: FieldPatterns
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EncryptionEntity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EncryptionEntity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eePublicKeyId' - The public key associated with a set of field-level encryption patterns, to be used when encrypting the fields that match the patterns.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eeProviderId' - The provider associated with the public key being used for encryption. This value must also be provided with the private key for applications to be able to decrypt data.
+-- 'publicKeyId', 'encryptionEntity_publicKeyId' - The public key associated with a set of field-level encryption patterns,
+-- to be used when encrypting the fields that match the patterns.
 --
--- * 'eeFieldPatterns' - Field patterns in a field-level encryption content type profile specify the fields that you want to be encrypted. You can provide the full field name, or any beginning characters followed by a wildcard (*). You can't overlap field patterns. For example, you can't have both ABC* and AB*. Note that field patterns are case-sensitive.
-encryptionEntity ::
-  -- | 'eePublicKeyId'
-  Text ->
-  -- | 'eeProviderId'
-  Text ->
-  -- | 'eeFieldPatterns'
+-- 'providerId', 'encryptionEntity_providerId' - The provider associated with the public key being used for encryption.
+-- This value must also be provided with the private key for applications
+-- to be able to decrypt data.
+--
+-- 'fieldPatterns', 'encryptionEntity_fieldPatterns' - Field patterns in a field-level encryption content type profile specify
+-- the fields that you want to be encrypted. You can provide the full field
+-- name, or any beginning characters followed by a wildcard (*). You can\'t
+-- overlap field patterns. For example, you can\'t have both ABC* and AB*.
+-- Note that field patterns are case-sensitive.
+newEncryptionEntity ::
+  -- | 'publicKeyId'
+  Prelude.Text ->
+  -- | 'providerId'
+  Prelude.Text ->
+  -- | 'fieldPatterns'
   FieldPatterns ->
   EncryptionEntity
-encryptionEntity
+newEncryptionEntity
   pPublicKeyId_
   pProviderId_
   pFieldPatterns_ =
     EncryptionEntity'
-      { _eePublicKeyId = pPublicKeyId_,
-        _eeProviderId = pProviderId_,
-        _eeFieldPatterns = pFieldPatterns_
+      { publicKeyId = pPublicKeyId_,
+        providerId = pProviderId_,
+        fieldPatterns = pFieldPatterns_
       }
 
--- | The public key associated with a set of field-level encryption patterns, to be used when encrypting the fields that match the patterns.
-eePublicKeyId :: Lens' EncryptionEntity Text
-eePublicKeyId = lens _eePublicKeyId (\s a -> s {_eePublicKeyId = a})
+-- | The public key associated with a set of field-level encryption patterns,
+-- to be used when encrypting the fields that match the patterns.
+encryptionEntity_publicKeyId :: Lens.Lens' EncryptionEntity Prelude.Text
+encryptionEntity_publicKeyId = Lens.lens (\EncryptionEntity' {publicKeyId} -> publicKeyId) (\s@EncryptionEntity' {} a -> s {publicKeyId = a} :: EncryptionEntity)
 
--- | The provider associated with the public key being used for encryption. This value must also be provided with the private key for applications to be able to decrypt data.
-eeProviderId :: Lens' EncryptionEntity Text
-eeProviderId = lens _eeProviderId (\s a -> s {_eeProviderId = a})
+-- | The provider associated with the public key being used for encryption.
+-- This value must also be provided with the private key for applications
+-- to be able to decrypt data.
+encryptionEntity_providerId :: Lens.Lens' EncryptionEntity Prelude.Text
+encryptionEntity_providerId = Lens.lens (\EncryptionEntity' {providerId} -> providerId) (\s@EncryptionEntity' {} a -> s {providerId = a} :: EncryptionEntity)
 
--- | Field patterns in a field-level encryption content type profile specify the fields that you want to be encrypted. You can provide the full field name, or any beginning characters followed by a wildcard (*). You can't overlap field patterns. For example, you can't have both ABC* and AB*. Note that field patterns are case-sensitive.
-eeFieldPatterns :: Lens' EncryptionEntity FieldPatterns
-eeFieldPatterns = lens _eeFieldPatterns (\s a -> s {_eeFieldPatterns = a})
+-- | Field patterns in a field-level encryption content type profile specify
+-- the fields that you want to be encrypted. You can provide the full field
+-- name, or any beginning characters followed by a wildcard (*). You can\'t
+-- overlap field patterns. For example, you can\'t have both ABC* and AB*.
+-- Note that field patterns are case-sensitive.
+encryptionEntity_fieldPatterns :: Lens.Lens' EncryptionEntity FieldPatterns
+encryptionEntity_fieldPatterns = Lens.lens (\EncryptionEntity' {fieldPatterns} -> fieldPatterns) (\s@EncryptionEntity' {} a -> s {fieldPatterns = a} :: EncryptionEntity)
 
-instance FromXML EncryptionEntity where
+instance Prelude.FromXML EncryptionEntity where
   parseXML x =
     EncryptionEntity'
-      <$> (x .@ "PublicKeyId")
-      <*> (x .@ "ProviderId")
-      <*> (x .@ "FieldPatterns")
+      Prelude.<$> (x Prelude..@ "PublicKeyId")
+      Prelude.<*> (x Prelude..@ "ProviderId")
+      Prelude.<*> (x Prelude..@ "FieldPatterns")
 
-instance Hashable EncryptionEntity
+instance Prelude.Hashable EncryptionEntity
 
-instance NFData EncryptionEntity
+instance Prelude.NFData EncryptionEntity
 
-instance ToXML EncryptionEntity where
+instance Prelude.ToXML EncryptionEntity where
   toXML EncryptionEntity' {..} =
-    mconcat
-      [ "PublicKeyId" @= _eePublicKeyId,
-        "ProviderId" @= _eeProviderId,
-        "FieldPatterns" @= _eeFieldPatterns
+    Prelude.mconcat
+      [ "PublicKeyId" Prelude.@= publicKeyId,
+        "ProviderId" Prelude.@= providerId,
+        "FieldPatterns" Prelude.@= fieldPatterns
       ]

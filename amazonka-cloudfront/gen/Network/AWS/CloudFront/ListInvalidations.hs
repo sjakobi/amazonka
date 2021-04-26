@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,172 +23,205 @@
 --
 -- Lists invalidation batches.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CloudFront.ListInvalidations
   ( -- * Creating a Request
-    listInvalidations,
-    ListInvalidations,
+    ListInvalidations (..),
+    newListInvalidations,
 
     -- * Request Lenses
-    liMaxItems,
-    liMarker,
-    liDistributionId,
+    listInvalidations_maxItems,
+    listInvalidations_marker,
+    listInvalidations_distributionId,
 
     -- * Destructuring the Response
-    listInvalidationsResponse,
-    ListInvalidationsResponse,
+    ListInvalidationsResponse (..),
+    newListInvalidationsResponse,
 
     -- * Response Lenses
-    lirrsResponseStatus,
-    lirrsInvalidationList,
+    listInvalidationsResponse_httpStatus,
+    listInvalidationsResponse_invalidationList,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.InvalidationList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The request to list invalidations.
 --
---
---
--- /See:/ 'listInvalidations' smart constructor.
+-- /See:/ 'newListInvalidations' smart constructor.
 data ListInvalidations = ListInvalidations'
-  { _liMaxItems ::
-      !(Maybe Text),
-    _liMarker :: !(Maybe Text),
-    _liDistributionId :: !Text
+  { -- | The maximum number of invalidation batches that you want in the response
+    -- body.
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | Use this parameter when paginating results to indicate where to begin in
+    -- your list of invalidation batches. Because the results are returned in
+    -- decreasing order from most recent to oldest, the most recent results are
+    -- on the first page, the second page will contain earlier results, and so
+    -- on. To get the next page of results, set @Marker@ to the value of the
+    -- @NextMarker@ from the current page\'s response. This value is the same
+    -- as the ID of the last invalidation batch on that page.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The distribution\'s ID.
+    distributionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInvalidations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInvalidations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'liMaxItems' - The maximum number of invalidation batches that you want in the response body.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'liMarker' - Use this parameter when paginating results to indicate where to begin in your list of invalidation batches. Because the results are returned in decreasing order from most recent to oldest, the most recent results are on the first page, the second page will contain earlier results, and so on. To get the next page of results, set @Marker@ to the value of the @NextMarker@ from the current page's response. This value is the same as the ID of the last invalidation batch on that page.
+-- 'maxItems', 'listInvalidations_maxItems' - The maximum number of invalidation batches that you want in the response
+-- body.
 --
--- * 'liDistributionId' - The distribution's ID.
-listInvalidations ::
-  -- | 'liDistributionId'
-  Text ->
+-- 'marker', 'listInvalidations_marker' - Use this parameter when paginating results to indicate where to begin in
+-- your list of invalidation batches. Because the results are returned in
+-- decreasing order from most recent to oldest, the most recent results are
+-- on the first page, the second page will contain earlier results, and so
+-- on. To get the next page of results, set @Marker@ to the value of the
+-- @NextMarker@ from the current page\'s response. This value is the same
+-- as the ID of the last invalidation batch on that page.
+--
+-- 'distributionId', 'listInvalidations_distributionId' - The distribution\'s ID.
+newListInvalidations ::
+  -- | 'distributionId'
+  Prelude.Text ->
   ListInvalidations
-listInvalidations pDistributionId_ =
+newListInvalidations pDistributionId_ =
   ListInvalidations'
-    { _liMaxItems = Nothing,
-      _liMarker = Nothing,
-      _liDistributionId = pDistributionId_
+    { maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      distributionId = pDistributionId_
     }
 
--- | The maximum number of invalidation batches that you want in the response body.
-liMaxItems :: Lens' ListInvalidations (Maybe Text)
-liMaxItems = lens _liMaxItems (\s a -> s {_liMaxItems = a})
+-- | The maximum number of invalidation batches that you want in the response
+-- body.
+listInvalidations_maxItems :: Lens.Lens' ListInvalidations (Prelude.Maybe Prelude.Text)
+listInvalidations_maxItems = Lens.lens (\ListInvalidations' {maxItems} -> maxItems) (\s@ListInvalidations' {} a -> s {maxItems = a} :: ListInvalidations)
 
--- | Use this parameter when paginating results to indicate where to begin in your list of invalidation batches. Because the results are returned in decreasing order from most recent to oldest, the most recent results are on the first page, the second page will contain earlier results, and so on. To get the next page of results, set @Marker@ to the value of the @NextMarker@ from the current page's response. This value is the same as the ID of the last invalidation batch on that page.
-liMarker :: Lens' ListInvalidations (Maybe Text)
-liMarker = lens _liMarker (\s a -> s {_liMarker = a})
+-- | Use this parameter when paginating results to indicate where to begin in
+-- your list of invalidation batches. Because the results are returned in
+-- decreasing order from most recent to oldest, the most recent results are
+-- on the first page, the second page will contain earlier results, and so
+-- on. To get the next page of results, set @Marker@ to the value of the
+-- @NextMarker@ from the current page\'s response. This value is the same
+-- as the ID of the last invalidation batch on that page.
+listInvalidations_marker :: Lens.Lens' ListInvalidations (Prelude.Maybe Prelude.Text)
+listInvalidations_marker = Lens.lens (\ListInvalidations' {marker} -> marker) (\s@ListInvalidations' {} a -> s {marker = a} :: ListInvalidations)
 
--- | The distribution's ID.
-liDistributionId :: Lens' ListInvalidations Text
-liDistributionId = lens _liDistributionId (\s a -> s {_liDistributionId = a})
+-- | The distribution\'s ID.
+listInvalidations_distributionId :: Lens.Lens' ListInvalidations Prelude.Text
+listInvalidations_distributionId = Lens.lens (\ListInvalidations' {distributionId} -> distributionId) (\s@ListInvalidations' {} a -> s {distributionId = a} :: ListInvalidations)
 
-instance AWSPager ListInvalidations where
+instance Pager.AWSPager ListInvalidations where
   page rq rs
-    | stop (rs ^. lirrsInvalidationList . ilIsTruncated) =
-      Nothing
-    | isNothing
-        (rs ^? lirrsInvalidationList . ilNextMarker . _Just) =
-      Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^. listInvalidationsResponse_invalidationList
+              Prelude.. invalidationList_isTruncated
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listInvalidationsResponse_invalidationList
+              Prelude.. invalidationList_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & liMarker
-          .~ rs ^? lirrsInvalidationList . ilNextMarker . _Just
+          Lens.& listInvalidations_marker
+          Lens..~ rs
+          Lens.^? listInvalidationsResponse_invalidationList
+            Prelude.. invalidationList_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListInvalidations where
+instance Prelude.AWSRequest ListInvalidations where
   type Rs ListInvalidations = ListInvalidationsResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListInvalidationsResponse'
-            <$> (pure (fromEnum s)) <*> (parseXML x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.parseXML x)
       )
 
-instance Hashable ListInvalidations
+instance Prelude.Hashable ListInvalidations
 
-instance NFData ListInvalidations
+instance Prelude.NFData ListInvalidations
 
-instance ToHeaders ListInvalidations where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListInvalidations where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListInvalidations where
+instance Prelude.ToPath ListInvalidations where
   toPath ListInvalidations' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2020-05-31/distribution/",
-        toBS _liDistributionId,
+        Prelude.toBS distributionId,
         "/invalidation"
       ]
 
-instance ToQuery ListInvalidations where
+instance Prelude.ToQuery ListInvalidations where
   toQuery ListInvalidations' {..} =
-    mconcat
-      ["MaxItems" =: _liMaxItems, "Marker" =: _liMarker]
+    Prelude.mconcat
+      [ "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
+      ]
 
 -- | The returned result of the corresponding request.
 --
---
---
--- /See:/ 'listInvalidationsResponse' smart constructor.
+-- /See:/ 'newListInvalidationsResponse' smart constructor.
 data ListInvalidationsResponse = ListInvalidationsResponse'
-  { _lirrsResponseStatus ::
-      !Int,
-    _lirrsInvalidationList ::
-      !InvalidationList
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Information about invalidation batches.
+    invalidationList :: InvalidationList
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInvalidationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInvalidationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lirrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lirrsInvalidationList' - Information about invalidation batches.
-listInvalidationsResponse ::
-  -- | 'lirrsResponseStatus'
-  Int ->
-  -- | 'lirrsInvalidationList'
+-- 'httpStatus', 'listInvalidationsResponse_httpStatus' - The response's http status code.
+--
+-- 'invalidationList', 'listInvalidationsResponse_invalidationList' - Information about invalidation batches.
+newListInvalidationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'invalidationList'
   InvalidationList ->
   ListInvalidationsResponse
-listInvalidationsResponse
-  pResponseStatus_
+newListInvalidationsResponse
+  pHttpStatus_
   pInvalidationList_ =
     ListInvalidationsResponse'
-      { _lirrsResponseStatus =
-          pResponseStatus_,
-        _lirrsInvalidationList = pInvalidationList_
+      { httpStatus =
+          pHttpStatus_,
+        invalidationList = pInvalidationList_
       }
 
--- | -- | The response status code.
-lirrsResponseStatus :: Lens' ListInvalidationsResponse Int
-lirrsResponseStatus = lens _lirrsResponseStatus (\s a -> s {_lirrsResponseStatus = a})
+-- | The response's http status code.
+listInvalidationsResponse_httpStatus :: Lens.Lens' ListInvalidationsResponse Prelude.Int
+listInvalidationsResponse_httpStatus = Lens.lens (\ListInvalidationsResponse' {httpStatus} -> httpStatus) (\s@ListInvalidationsResponse' {} a -> s {httpStatus = a} :: ListInvalidationsResponse)
 
 -- | Information about invalidation batches.
-lirrsInvalidationList :: Lens' ListInvalidationsResponse InvalidationList
-lirrsInvalidationList = lens _lirrsInvalidationList (\s a -> s {_lirrsInvalidationList = a})
+listInvalidationsResponse_invalidationList :: Lens.Lens' ListInvalidationsResponse InvalidationList
+listInvalidationsResponse_invalidationList = Lens.lens (\ListInvalidationsResponse' {invalidationList} -> invalidationList) (\s@ListInvalidationsResponse' {} a -> s {invalidationList = a} :: ListInvalidationsResponse)
 
-instance NFData ListInvalidationsResponse
+instance Prelude.NFData ListInvalidationsResponse

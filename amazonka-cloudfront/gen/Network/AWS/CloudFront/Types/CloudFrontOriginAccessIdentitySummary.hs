@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,84 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.CloudFrontOriginAccessIdentitySummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary of the information about a CloudFront origin access identity.
 --
---
---
--- /See:/ 'cloudFrontOriginAccessIdentitySummary' smart constructor.
+-- /See:/ 'newCloudFrontOriginAccessIdentitySummary' smart constructor.
 data CloudFrontOriginAccessIdentitySummary = CloudFrontOriginAccessIdentitySummary'
-  { _cfoaisId ::
-      !Text,
-    _cfoaisS3CanonicalUserId ::
-      !Text,
-    _cfoaisComment ::
-      !Text
+  { -- | The ID for the origin access identity. For example: @E74FTE3AJFJ256A@.
+    id :: Prelude.Text,
+    -- | The Amazon S3 canonical user ID for the origin access identity, which
+    -- you use when giving the origin access identity read permission to an
+    -- object in Amazon S3.
+    s3CanonicalUserId :: Prelude.Text,
+    -- | The comment for this origin access identity, as originally specified
+    -- when created.
+    comment :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloudFrontOriginAccessIdentitySummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloudFrontOriginAccessIdentitySummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfoaisId' - The ID for the origin access identity. For example: @E74FTE3AJFJ256A@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfoaisS3CanonicalUserId' - The Amazon S3 canonical user ID for the origin access identity, which you use when giving the origin access identity read permission to an object in Amazon S3.
+-- 'id', 'cloudFrontOriginAccessIdentitySummary_id' - The ID for the origin access identity. For example: @E74FTE3AJFJ256A@.
 --
--- * 'cfoaisComment' - The comment for this origin access identity, as originally specified when created.
-cloudFrontOriginAccessIdentitySummary ::
-  -- | 'cfoaisId'
-  Text ->
-  -- | 'cfoaisS3CanonicalUserId'
-  Text ->
-  -- | 'cfoaisComment'
-  Text ->
+-- 's3CanonicalUserId', 'cloudFrontOriginAccessIdentitySummary_s3CanonicalUserId' - The Amazon S3 canonical user ID for the origin access identity, which
+-- you use when giving the origin access identity read permission to an
+-- object in Amazon S3.
+--
+-- 'comment', 'cloudFrontOriginAccessIdentitySummary_comment' - The comment for this origin access identity, as originally specified
+-- when created.
+newCloudFrontOriginAccessIdentitySummary ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 's3CanonicalUserId'
+  Prelude.Text ->
+  -- | 'comment'
+  Prelude.Text ->
   CloudFrontOriginAccessIdentitySummary
-cloudFrontOriginAccessIdentitySummary
+newCloudFrontOriginAccessIdentitySummary
   pId_
   pS3CanonicalUserId_
   pComment_ =
     CloudFrontOriginAccessIdentitySummary'
-      { _cfoaisId =
-          pId_,
-        _cfoaisS3CanonicalUserId =
+      { id = pId_,
+        s3CanonicalUserId =
           pS3CanonicalUserId_,
-        _cfoaisComment = pComment_
+        comment = pComment_
       }
 
--- | The ID for the origin access identity. For example: @E74FTE3AJFJ256A@ .
-cfoaisId :: Lens' CloudFrontOriginAccessIdentitySummary Text
-cfoaisId = lens _cfoaisId (\s a -> s {_cfoaisId = a})
+-- | The ID for the origin access identity. For example: @E74FTE3AJFJ256A@.
+cloudFrontOriginAccessIdentitySummary_id :: Lens.Lens' CloudFrontOriginAccessIdentitySummary Prelude.Text
+cloudFrontOriginAccessIdentitySummary_id = Lens.lens (\CloudFrontOriginAccessIdentitySummary' {id} -> id) (\s@CloudFrontOriginAccessIdentitySummary' {} a -> s {id = a} :: CloudFrontOriginAccessIdentitySummary)
 
--- | The Amazon S3 canonical user ID for the origin access identity, which you use when giving the origin access identity read permission to an object in Amazon S3.
-cfoaisS3CanonicalUserId :: Lens' CloudFrontOriginAccessIdentitySummary Text
-cfoaisS3CanonicalUserId = lens _cfoaisS3CanonicalUserId (\s a -> s {_cfoaisS3CanonicalUserId = a})
+-- | The Amazon S3 canonical user ID for the origin access identity, which
+-- you use when giving the origin access identity read permission to an
+-- object in Amazon S3.
+cloudFrontOriginAccessIdentitySummary_s3CanonicalUserId :: Lens.Lens' CloudFrontOriginAccessIdentitySummary Prelude.Text
+cloudFrontOriginAccessIdentitySummary_s3CanonicalUserId = Lens.lens (\CloudFrontOriginAccessIdentitySummary' {s3CanonicalUserId} -> s3CanonicalUserId) (\s@CloudFrontOriginAccessIdentitySummary' {} a -> s {s3CanonicalUserId = a} :: CloudFrontOriginAccessIdentitySummary)
 
--- | The comment for this origin access identity, as originally specified when created.
-cfoaisComment :: Lens' CloudFrontOriginAccessIdentitySummary Text
-cfoaisComment = lens _cfoaisComment (\s a -> s {_cfoaisComment = a})
+-- | The comment for this origin access identity, as originally specified
+-- when created.
+cloudFrontOriginAccessIdentitySummary_comment :: Lens.Lens' CloudFrontOriginAccessIdentitySummary Prelude.Text
+cloudFrontOriginAccessIdentitySummary_comment = Lens.lens (\CloudFrontOriginAccessIdentitySummary' {comment} -> comment) (\s@CloudFrontOriginAccessIdentitySummary' {} a -> s {comment = a} :: CloudFrontOriginAccessIdentitySummary)
 
 instance
-  FromXML
+  Prelude.FromXML
     CloudFrontOriginAccessIdentitySummary
   where
   parseXML x =
     CloudFrontOriginAccessIdentitySummary'
-      <$> (x .@ "Id")
-      <*> (x .@ "S3CanonicalUserId")
-      <*> (x .@ "Comment")
+      Prelude.<$> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "S3CanonicalUserId")
+      Prelude.<*> (x Prelude..@ "Comment")
 
 instance
-  Hashable
+  Prelude.Hashable
     CloudFrontOriginAccessIdentitySummary
 
-instance NFData CloudFrontOriginAccessIdentitySummary
+instance
+  Prelude.NFData
+    CloudFrontOriginAccessIdentitySummary

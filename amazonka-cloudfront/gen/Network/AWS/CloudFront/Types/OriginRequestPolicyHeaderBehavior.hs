@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.CloudFront.Types.OriginRequestPolicyHeaderBehavior
   ( OriginRequestPolicyHeaderBehavior
       ( ..,
-        ORPHBAllViewer,
-        ORPHBAllViewerAndWhitelistCloudFront,
-        ORPHBNone,
-        ORPHBWhitelist
+        OriginRequestPolicyHeaderBehaviorAllViewer,
+        OriginRequestPolicyHeaderBehaviorAllViewerAndWhitelistCloudFront,
+        OriginRequestPolicyHeaderBehaviorNone,
+        OriginRequestPolicyHeaderBehaviorWhitelist
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OriginRequestPolicyHeaderBehavior
-  = OriginRequestPolicyHeaderBehavior'
-      ( CI
-          Text
-      )
+newtype OriginRequestPolicyHeaderBehavior = OriginRequestPolicyHeaderBehavior'
+  { fromOriginRequestPolicyHeaderBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ORPHBAllViewer :: OriginRequestPolicyHeaderBehavior
-pattern ORPHBAllViewer = OriginRequestPolicyHeaderBehavior' "allViewer"
+pattern OriginRequestPolicyHeaderBehaviorAllViewer :: OriginRequestPolicyHeaderBehavior
+pattern OriginRequestPolicyHeaderBehaviorAllViewer = OriginRequestPolicyHeaderBehavior' "allViewer"
 
-pattern ORPHBAllViewerAndWhitelistCloudFront :: OriginRequestPolicyHeaderBehavior
-pattern ORPHBAllViewerAndWhitelistCloudFront = OriginRequestPolicyHeaderBehavior' "allViewerAndWhitelistCloudFront"
+pattern OriginRequestPolicyHeaderBehaviorAllViewerAndWhitelistCloudFront :: OriginRequestPolicyHeaderBehavior
+pattern OriginRequestPolicyHeaderBehaviorAllViewerAndWhitelistCloudFront = OriginRequestPolicyHeaderBehavior' "allViewerAndWhitelistCloudFront"
 
-pattern ORPHBNone :: OriginRequestPolicyHeaderBehavior
-pattern ORPHBNone = OriginRequestPolicyHeaderBehavior' "none"
+pattern OriginRequestPolicyHeaderBehaviorNone :: OriginRequestPolicyHeaderBehavior
+pattern OriginRequestPolicyHeaderBehaviorNone = OriginRequestPolicyHeaderBehavior' "none"
 
-pattern ORPHBWhitelist :: OriginRequestPolicyHeaderBehavior
-pattern ORPHBWhitelist = OriginRequestPolicyHeaderBehavior' "whitelist"
+pattern OriginRequestPolicyHeaderBehaviorWhitelist :: OriginRequestPolicyHeaderBehavior
+pattern OriginRequestPolicyHeaderBehaviorWhitelist = OriginRequestPolicyHeaderBehavior' "whitelist"
 
 {-# COMPLETE
-  ORPHBAllViewer,
-  ORPHBAllViewerAndWhitelistCloudFront,
-  ORPHBNone,
-  ORPHBWhitelist,
+  OriginRequestPolicyHeaderBehaviorAllViewer,
+  OriginRequestPolicyHeaderBehaviorAllViewerAndWhitelistCloudFront,
+  OriginRequestPolicyHeaderBehaviorNone,
+  OriginRequestPolicyHeaderBehaviorWhitelist,
   OriginRequestPolicyHeaderBehavior'
   #-}
 
-instance FromText OriginRequestPolicyHeaderBehavior where
-  parser = (OriginRequestPolicyHeaderBehavior' . mk) <$> takeText
+instance Prelude.FromText OriginRequestPolicyHeaderBehavior where
+  parser = OriginRequestPolicyHeaderBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText OriginRequestPolicyHeaderBehavior where
-  toText (OriginRequestPolicyHeaderBehavior' ci) = original ci
+instance Prelude.ToText OriginRequestPolicyHeaderBehavior where
+  toText (OriginRequestPolicyHeaderBehavior' x) = x
 
-instance Hashable OriginRequestPolicyHeaderBehavior
+instance Prelude.Hashable OriginRequestPolicyHeaderBehavior
 
-instance NFData OriginRequestPolicyHeaderBehavior
+instance Prelude.NFData OriginRequestPolicyHeaderBehavior
 
-instance ToByteString OriginRequestPolicyHeaderBehavior
+instance Prelude.ToByteString OriginRequestPolicyHeaderBehavior
 
-instance ToQuery OriginRequestPolicyHeaderBehavior
+instance Prelude.ToQuery OriginRequestPolicyHeaderBehavior
 
-instance ToHeader OriginRequestPolicyHeaderBehavior
+instance Prelude.ToHeader OriginRequestPolicyHeaderBehavior
 
-instance FromXML OriginRequestPolicyHeaderBehavior where
-  parseXML = parseXMLText "OriginRequestPolicyHeaderBehavior"
+instance Prelude.FromXML OriginRequestPolicyHeaderBehavior where
+  parseXML = Prelude.parseXMLText "OriginRequestPolicyHeaderBehavior"
 
-instance ToXML OriginRequestPolicyHeaderBehavior where
-  toXML = toXMLText
+instance Prelude.ToXML OriginRequestPolicyHeaderBehavior where
+  toXML = Prelude.toXMLText

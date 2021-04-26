@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,44 +20,55 @@
 module Network.AWS.CloudFront.Types.Restrictions where
 
 import Network.AWS.CloudFront.Types.GeoRestriction
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A complex type that identifies ways in which you want to restrict distribution of your content.
+-- | A complex type that identifies ways in which you want to restrict
+-- distribution of your content.
 --
---
---
--- /See:/ 'restrictions' smart constructor.
-newtype Restrictions = Restrictions'
-  { _rGeoRestriction ::
-      GeoRestriction
+-- /See:/ 'newRestrictions' smart constructor.
+data Restrictions = Restrictions'
+  { -- | A complex type that controls the countries in which your content is
+    -- distributed. CloudFront determines the location of your users using
+    -- @MaxMind@ GeoIP databases.
+    geoRestriction :: GeoRestriction
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Restrictions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Restrictions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rGeoRestriction' - A complex type that controls the countries in which your content is distributed. CloudFront determines the location of your users using @MaxMind@ GeoIP databases.
-restrictions ::
-  -- | 'rGeoRestriction'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'geoRestriction', 'restrictions_geoRestriction' - A complex type that controls the countries in which your content is
+-- distributed. CloudFront determines the location of your users using
+-- @MaxMind@ GeoIP databases.
+newRestrictions ::
+  -- | 'geoRestriction'
   GeoRestriction ->
   Restrictions
-restrictions pGeoRestriction_ =
-  Restrictions' {_rGeoRestriction = pGeoRestriction_}
+newRestrictions pGeoRestriction_ =
+  Restrictions' {geoRestriction = pGeoRestriction_}
 
--- | A complex type that controls the countries in which your content is distributed. CloudFront determines the location of your users using @MaxMind@ GeoIP databases.
-rGeoRestriction :: Lens' Restrictions GeoRestriction
-rGeoRestriction = lens _rGeoRestriction (\s a -> s {_rGeoRestriction = a})
+-- | A complex type that controls the countries in which your content is
+-- distributed. CloudFront determines the location of your users using
+-- @MaxMind@ GeoIP databases.
+restrictions_geoRestriction :: Lens.Lens' Restrictions GeoRestriction
+restrictions_geoRestriction = Lens.lens (\Restrictions' {geoRestriction} -> geoRestriction) (\s@Restrictions' {} a -> s {geoRestriction = a} :: Restrictions)
 
-instance FromXML Restrictions where
+instance Prelude.FromXML Restrictions where
   parseXML x =
-    Restrictions' <$> (x .@ "GeoRestriction")
+    Restrictions'
+      Prelude.<$> (x Prelude..@ "GeoRestriction")
 
-instance Hashable Restrictions
+instance Prelude.Hashable Restrictions
 
-instance NFData Restrictions
+instance Prelude.NFData Restrictions
 
-instance ToXML Restrictions where
+instance Prelude.ToXML Restrictions where
   toXML Restrictions' {..} =
-    mconcat ["GeoRestriction" @= _rGeoRestriction]
+    Prelude.mconcat
+      ["GeoRestriction" Prelude.@= geoRestriction]

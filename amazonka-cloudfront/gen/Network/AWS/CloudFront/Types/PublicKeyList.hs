@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,89 @@
 module Network.AWS.CloudFront.Types.PublicKeyList where
 
 import Network.AWS.CloudFront.Types.PublicKeySummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of public keys that you can use with <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html signed URLs and signed cookies> , or with <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html field-level encryption> .
+-- | A list of public keys that you can use with
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html signed URLs and signed cookies>,
+-- or with
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html field-level encryption>.
 --
---
---
--- /See:/ 'publicKeyList' smart constructor.
+-- /See:/ 'newPublicKeyList' smart constructor.
 data PublicKeyList = PublicKeyList'
-  { _pklItems ::
-      !(Maybe [PublicKeySummary]),
-    _pklNextMarker :: !(Maybe Text),
-    _pklMaxItems :: !Int,
-    _pklQuantity :: !Int
+  { -- | A list of public keys.
+    items :: Prelude.Maybe [PublicKeySummary],
+    -- | If there are more elements to be listed, this element is present and
+    -- contains the value that you can use for the @Marker@ request parameter
+    -- to continue listing your public keys where you left off.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of public keys you want in the response.
+    maxItems :: Prelude.Int,
+    -- | The number of public keys in the list.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PublicKeyList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PublicKeyList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pklItems' - A list of public keys.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pklNextMarker' - If there are more elements to be listed, this element is present and contains the value that you can use for the @Marker@ request parameter to continue listing your public keys where you left off.
+-- 'items', 'publicKeyList_items' - A list of public keys.
 --
--- * 'pklMaxItems' - The maximum number of public keys you want in the response.
+-- 'nextMarker', 'publicKeyList_nextMarker' - If there are more elements to be listed, this element is present and
+-- contains the value that you can use for the @Marker@ request parameter
+-- to continue listing your public keys where you left off.
 --
--- * 'pklQuantity' - The number of public keys in the list.
-publicKeyList ::
-  -- | 'pklMaxItems'
-  Int ->
-  -- | 'pklQuantity'
-  Int ->
+-- 'maxItems', 'publicKeyList_maxItems' - The maximum number of public keys you want in the response.
+--
+-- 'quantity', 'publicKeyList_quantity' - The number of public keys in the list.
+newPublicKeyList ::
+  -- | 'maxItems'
+  Prelude.Int ->
+  -- | 'quantity'
+  Prelude.Int ->
   PublicKeyList
-publicKeyList pMaxItems_ pQuantity_ =
+newPublicKeyList pMaxItems_ pQuantity_ =
   PublicKeyList'
-    { _pklItems = Nothing,
-      _pklNextMarker = Nothing,
-      _pklMaxItems = pMaxItems_,
-      _pklQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      maxItems = pMaxItems_,
+      quantity = pQuantity_
     }
 
 -- | A list of public keys.
-pklItems :: Lens' PublicKeyList [PublicKeySummary]
-pklItems = lens _pklItems (\s a -> s {_pklItems = a}) . _Default . _Coerce
+publicKeyList_items :: Lens.Lens' PublicKeyList (Prelude.Maybe [PublicKeySummary])
+publicKeyList_items = Lens.lens (\PublicKeyList' {items} -> items) (\s@PublicKeyList' {} a -> s {items = a} :: PublicKeyList) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If there are more elements to be listed, this element is present and contains the value that you can use for the @Marker@ request parameter to continue listing your public keys where you left off.
-pklNextMarker :: Lens' PublicKeyList (Maybe Text)
-pklNextMarker = lens _pklNextMarker (\s a -> s {_pklNextMarker = a})
+-- | If there are more elements to be listed, this element is present and
+-- contains the value that you can use for the @Marker@ request parameter
+-- to continue listing your public keys where you left off.
+publicKeyList_nextMarker :: Lens.Lens' PublicKeyList (Prelude.Maybe Prelude.Text)
+publicKeyList_nextMarker = Lens.lens (\PublicKeyList' {nextMarker} -> nextMarker) (\s@PublicKeyList' {} a -> s {nextMarker = a} :: PublicKeyList)
 
 -- | The maximum number of public keys you want in the response.
-pklMaxItems :: Lens' PublicKeyList Int
-pklMaxItems = lens _pklMaxItems (\s a -> s {_pklMaxItems = a})
+publicKeyList_maxItems :: Lens.Lens' PublicKeyList Prelude.Int
+publicKeyList_maxItems = Lens.lens (\PublicKeyList' {maxItems} -> maxItems) (\s@PublicKeyList' {} a -> s {maxItems = a} :: PublicKeyList)
 
 -- | The number of public keys in the list.
-pklQuantity :: Lens' PublicKeyList Int
-pklQuantity = lens _pklQuantity (\s a -> s {_pklQuantity = a})
+publicKeyList_quantity :: Lens.Lens' PublicKeyList Prelude.Int
+publicKeyList_quantity = Lens.lens (\PublicKeyList' {quantity} -> quantity) (\s@PublicKeyList' {} a -> s {quantity = a} :: PublicKeyList)
 
-instance FromXML PublicKeyList where
+instance Prelude.FromXML PublicKeyList where
   parseXML x =
     PublicKeyList'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "PublicKeySummary")
-          )
-      <*> (x .@? "NextMarker")
-      <*> (x .@ "MaxItems")
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "PublicKeySummary")
+                  )
+      Prelude.<*> (x Prelude..@? "NextMarker")
+      Prelude.<*> (x Prelude..@ "MaxItems")
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable PublicKeyList
+instance Prelude.Hashable PublicKeyList
 
-instance NFData PublicKeyList
+instance Prelude.NFData PublicKeyList

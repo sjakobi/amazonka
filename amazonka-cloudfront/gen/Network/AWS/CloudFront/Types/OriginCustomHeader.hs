@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.OriginCustomHeader where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A complex type that contains @HeaderName@ and @HeaderValue@ elements, if any, for this distribution.
+-- | A complex type that contains @HeaderName@ and @HeaderValue@ elements, if
+-- any, for this distribution.
 --
---
---
--- /See:/ 'originCustomHeader' smart constructor.
+-- /See:/ 'newOriginCustomHeader' smart constructor.
 data OriginCustomHeader = OriginCustomHeader'
-  { _ochHeaderName ::
-      !Text,
-    _ochHeaderValue :: !Text
+  { -- | The name of a header that you want CloudFront to send to your origin.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/forward-custom-headers.html Adding Custom Headers to Origin Requests>
+    -- in the /Amazon CloudFront Developer Guide/.
+    headerName :: Prelude.Text,
+    -- | The value for the header that you specified in the @HeaderName@ field.
+    headerValue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OriginCustomHeader' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OriginCustomHeader' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ochHeaderName' - The name of a header that you want CloudFront to send to your origin. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/forward-custom-headers.html Adding Custom Headers to Origin Requests> in the /Amazon CloudFront Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ochHeaderValue' - The value for the header that you specified in the @HeaderName@ field.
-originCustomHeader ::
-  -- | 'ochHeaderName'
-  Text ->
-  -- | 'ochHeaderValue'
-  Text ->
+-- 'headerName', 'originCustomHeader_headerName' - The name of a header that you want CloudFront to send to your origin.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/forward-custom-headers.html Adding Custom Headers to Origin Requests>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- 'headerValue', 'originCustomHeader_headerValue' - The value for the header that you specified in the @HeaderName@ field.
+newOriginCustomHeader ::
+  -- | 'headerName'
+  Prelude.Text ->
+  -- | 'headerValue'
+  Prelude.Text ->
   OriginCustomHeader
-originCustomHeader pHeaderName_ pHeaderValue_ =
+newOriginCustomHeader pHeaderName_ pHeaderValue_ =
   OriginCustomHeader'
-    { _ochHeaderName = pHeaderName_,
-      _ochHeaderValue = pHeaderValue_
+    { headerName = pHeaderName_,
+      headerValue = pHeaderValue_
     }
 
--- | The name of a header that you want CloudFront to send to your origin. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/forward-custom-headers.html Adding Custom Headers to Origin Requests> in the /Amazon CloudFront Developer Guide/ .
-ochHeaderName :: Lens' OriginCustomHeader Text
-ochHeaderName = lens _ochHeaderName (\s a -> s {_ochHeaderName = a})
+-- | The name of a header that you want CloudFront to send to your origin.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/forward-custom-headers.html Adding Custom Headers to Origin Requests>
+-- in the /Amazon CloudFront Developer Guide/.
+originCustomHeader_headerName :: Lens.Lens' OriginCustomHeader Prelude.Text
+originCustomHeader_headerName = Lens.lens (\OriginCustomHeader' {headerName} -> headerName) (\s@OriginCustomHeader' {} a -> s {headerName = a} :: OriginCustomHeader)
 
 -- | The value for the header that you specified in the @HeaderName@ field.
-ochHeaderValue :: Lens' OriginCustomHeader Text
-ochHeaderValue = lens _ochHeaderValue (\s a -> s {_ochHeaderValue = a})
+originCustomHeader_headerValue :: Lens.Lens' OriginCustomHeader Prelude.Text
+originCustomHeader_headerValue = Lens.lens (\OriginCustomHeader' {headerValue} -> headerValue) (\s@OriginCustomHeader' {} a -> s {headerValue = a} :: OriginCustomHeader)
 
-instance FromXML OriginCustomHeader where
+instance Prelude.FromXML OriginCustomHeader where
   parseXML x =
     OriginCustomHeader'
-      <$> (x .@ "HeaderName") <*> (x .@ "HeaderValue")
+      Prelude.<$> (x Prelude..@ "HeaderName")
+      Prelude.<*> (x Prelude..@ "HeaderValue")
 
-instance Hashable OriginCustomHeader
+instance Prelude.Hashable OriginCustomHeader
 
-instance NFData OriginCustomHeader
+instance Prelude.NFData OriginCustomHeader
 
-instance ToXML OriginCustomHeader where
+instance Prelude.ToXML OriginCustomHeader where
   toXML OriginCustomHeader' {..} =
-    mconcat
-      [ "HeaderName" @= _ochHeaderName,
-        "HeaderValue" @= _ochHeaderValue
+    Prelude.mconcat
+      [ "HeaderName" Prelude.@= headerName,
+        "HeaderValue" Prelude.@= headerValue
       ]

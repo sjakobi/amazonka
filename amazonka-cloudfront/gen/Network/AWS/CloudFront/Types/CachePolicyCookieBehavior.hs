@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.CloudFront.Types.CachePolicyCookieBehavior
   ( CachePolicyCookieBehavior
       ( ..,
-        CPCBAll,
-        CPCBAllExcept,
-        CPCBNone,
-        CPCBWhitelist
+        CachePolicyCookieBehaviorAll,
+        CachePolicyCookieBehaviorAllExcept,
+        CachePolicyCookieBehaviorNone,
+        CachePolicyCookieBehaviorWhitelist
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CachePolicyCookieBehavior
-  = CachePolicyCookieBehavior'
-      ( CI
-          Text
-      )
+newtype CachePolicyCookieBehavior = CachePolicyCookieBehavior'
+  { fromCachePolicyCookieBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CPCBAll :: CachePolicyCookieBehavior
-pattern CPCBAll = CachePolicyCookieBehavior' "all"
+pattern CachePolicyCookieBehaviorAll :: CachePolicyCookieBehavior
+pattern CachePolicyCookieBehaviorAll = CachePolicyCookieBehavior' "all"
 
-pattern CPCBAllExcept :: CachePolicyCookieBehavior
-pattern CPCBAllExcept = CachePolicyCookieBehavior' "allExcept"
+pattern CachePolicyCookieBehaviorAllExcept :: CachePolicyCookieBehavior
+pattern CachePolicyCookieBehaviorAllExcept = CachePolicyCookieBehavior' "allExcept"
 
-pattern CPCBNone :: CachePolicyCookieBehavior
-pattern CPCBNone = CachePolicyCookieBehavior' "none"
+pattern CachePolicyCookieBehaviorNone :: CachePolicyCookieBehavior
+pattern CachePolicyCookieBehaviorNone = CachePolicyCookieBehavior' "none"
 
-pattern CPCBWhitelist :: CachePolicyCookieBehavior
-pattern CPCBWhitelist = CachePolicyCookieBehavior' "whitelist"
+pattern CachePolicyCookieBehaviorWhitelist :: CachePolicyCookieBehavior
+pattern CachePolicyCookieBehaviorWhitelist = CachePolicyCookieBehavior' "whitelist"
 
 {-# COMPLETE
-  CPCBAll,
-  CPCBAllExcept,
-  CPCBNone,
-  CPCBWhitelist,
+  CachePolicyCookieBehaviorAll,
+  CachePolicyCookieBehaviorAllExcept,
+  CachePolicyCookieBehaviorNone,
+  CachePolicyCookieBehaviorWhitelist,
   CachePolicyCookieBehavior'
   #-}
 
-instance FromText CachePolicyCookieBehavior where
-  parser = (CachePolicyCookieBehavior' . mk) <$> takeText
+instance Prelude.FromText CachePolicyCookieBehavior where
+  parser = CachePolicyCookieBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText CachePolicyCookieBehavior where
-  toText (CachePolicyCookieBehavior' ci) = original ci
+instance Prelude.ToText CachePolicyCookieBehavior where
+  toText (CachePolicyCookieBehavior' x) = x
 
-instance Hashable CachePolicyCookieBehavior
+instance Prelude.Hashable CachePolicyCookieBehavior
 
-instance NFData CachePolicyCookieBehavior
+instance Prelude.NFData CachePolicyCookieBehavior
 
-instance ToByteString CachePolicyCookieBehavior
+instance Prelude.ToByteString CachePolicyCookieBehavior
 
-instance ToQuery CachePolicyCookieBehavior
+instance Prelude.ToQuery CachePolicyCookieBehavior
 
-instance ToHeader CachePolicyCookieBehavior
+instance Prelude.ToHeader CachePolicyCookieBehavior
 
-instance FromXML CachePolicyCookieBehavior where
-  parseXML = parseXMLText "CachePolicyCookieBehavior"
+instance Prelude.FromXML CachePolicyCookieBehavior where
+  parseXML = Prelude.parseXMLText "CachePolicyCookieBehavior"
 
-instance ToXML CachePolicyCookieBehavior where
-  toXML = toXMLText
+instance Prelude.ToXML CachePolicyCookieBehavior where
+  toXML = Prelude.toXMLText

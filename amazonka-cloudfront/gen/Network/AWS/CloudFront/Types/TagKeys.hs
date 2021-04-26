@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,35 +19,43 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.TagKeys where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A complex type that contains zero or more @Tag@ elements.
 --
---
---
--- /See:/ 'tagKeys' smart constructor.
-newtype TagKeys = TagKeys' {_tkItems :: Maybe [Text]}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newTagKeys' smart constructor.
+data TagKeys = TagKeys'
+  { -- | A complex type that contains @Tag@ key elements.
+    items :: Prelude.Maybe [Prelude.Text]
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagKeys' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagKeys' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tkItems' - A complex type that contains @Tag@ key elements.
-tagKeys ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'items', 'tagKeys_items' - A complex type that contains @Tag@ key elements.
+newTagKeys ::
   TagKeys
-tagKeys = TagKeys' {_tkItems = Nothing}
+newTagKeys = TagKeys' {items = Prelude.Nothing}
 
 -- | A complex type that contains @Tag@ key elements.
-tkItems :: Lens' TagKeys [Text]
-tkItems = lens _tkItems (\s a -> s {_tkItems = a}) . _Default . _Coerce
+tagKeys_items :: Lens.Lens' TagKeys (Prelude.Maybe [Prelude.Text])
+tagKeys_items = Lens.lens (\TagKeys' {items} -> items) (\s@TagKeys' {} a -> s {items = a} :: TagKeys) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable TagKeys
+instance Prelude.Hashable TagKeys
 
-instance NFData TagKeys
+instance Prelude.NFData TagKeys
 
-instance ToXML TagKeys where
+instance Prelude.ToXML TagKeys where
   toXML TagKeys' {..} =
-    mconcat
-      ["Items" @= toXML (toXMLList "Key" <$> _tkItems)]
+    Prelude.mconcat
+      [ "Items"
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "Key" Prelude.<$> items)
+      ]

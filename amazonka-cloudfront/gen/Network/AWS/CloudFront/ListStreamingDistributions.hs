@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,177 +23,177 @@
 --
 -- List streaming distributions.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CloudFront.ListStreamingDistributions
   ( -- * Creating a Request
-    listStreamingDistributions,
-    ListStreamingDistributions,
+    ListStreamingDistributions (..),
+    newListStreamingDistributions,
 
     -- * Request Lenses
-    lsdMaxItems,
-    lsdMarker,
+    listStreamingDistributions_maxItems,
+    listStreamingDistributions_marker,
 
     -- * Destructuring the Response
-    listStreamingDistributionsResponse,
-    ListStreamingDistributionsResponse,
+    ListStreamingDistributionsResponse (..),
+    newListStreamingDistributionsResponse,
 
     -- * Response Lenses
-    lsdrrsResponseStatus,
-    lsdrrsStreamingDistributionList,
+    listStreamingDistributionsResponse_httpStatus,
+    listStreamingDistributionsResponse_streamingDistributionList,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.StreamingDistributionList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The request to list your streaming distributions.
 --
---
---
--- /See:/ 'listStreamingDistributions' smart constructor.
+-- /See:/ 'newListStreamingDistributions' smart constructor.
 data ListStreamingDistributions = ListStreamingDistributions'
-  { _lsdMaxItems ::
-      !(Maybe Text),
-    _lsdMarker ::
-      !(Maybe Text)
+  { -- | The value that you provided for the @MaxItems@ request parameter.
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | The value that you provided for the @Marker@ request parameter.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListStreamingDistributions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListStreamingDistributions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsdMaxItems' - The value that you provided for the @MaxItems@ request parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsdMarker' - The value that you provided for the @Marker@ request parameter.
-listStreamingDistributions ::
+-- 'maxItems', 'listStreamingDistributions_maxItems' - The value that you provided for the @MaxItems@ request parameter.
+--
+-- 'marker', 'listStreamingDistributions_marker' - The value that you provided for the @Marker@ request parameter.
+newListStreamingDistributions ::
   ListStreamingDistributions
-listStreamingDistributions =
+newListStreamingDistributions =
   ListStreamingDistributions'
-    { _lsdMaxItems = Nothing,
-      _lsdMarker = Nothing
+    { maxItems =
+        Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The value that you provided for the @MaxItems@ request parameter.
-lsdMaxItems :: Lens' ListStreamingDistributions (Maybe Text)
-lsdMaxItems = lens _lsdMaxItems (\s a -> s {_lsdMaxItems = a})
+listStreamingDistributions_maxItems :: Lens.Lens' ListStreamingDistributions (Prelude.Maybe Prelude.Text)
+listStreamingDistributions_maxItems = Lens.lens (\ListStreamingDistributions' {maxItems} -> maxItems) (\s@ListStreamingDistributions' {} a -> s {maxItems = a} :: ListStreamingDistributions)
 
 -- | The value that you provided for the @Marker@ request parameter.
-lsdMarker :: Lens' ListStreamingDistributions (Maybe Text)
-lsdMarker = lens _lsdMarker (\s a -> s {_lsdMarker = a})
+listStreamingDistributions_marker :: Lens.Lens' ListStreamingDistributions (Prelude.Maybe Prelude.Text)
+listStreamingDistributions_marker = Lens.lens (\ListStreamingDistributions' {marker} -> marker) (\s@ListStreamingDistributions' {} a -> s {marker = a} :: ListStreamingDistributions)
 
-instance AWSPager ListStreamingDistributions where
+instance Pager.AWSPager ListStreamingDistributions where
   page rq rs
-    | stop
+    | Pager.stop
         ( rs
-            ^. lsdrrsStreamingDistributionList . sdlIsTruncated
+            Lens.^. listStreamingDistributionsResponse_streamingDistributionList
+              Prelude.. streamingDistributionList_isTruncated
         ) =
-      Nothing
-    | isNothing
+      Prelude.Nothing
+    | Prelude.isNothing
         ( rs
-            ^? lsdrrsStreamingDistributionList
-              . sdlNextMarker
-              . _Just
+            Lens.^? listStreamingDistributionsResponse_streamingDistributionList
+              Prelude.. streamingDistributionList_nextMarker
+              Prelude.. Lens._Just
         ) =
-      Nothing
-    | otherwise =
-      Just $
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & lsdMarker
-          .~ rs
-          ^? lsdrrsStreamingDistributionList
-            . sdlNextMarker
-            . _Just
+          Lens.& listStreamingDistributions_marker
+          Lens..~ rs
+          Lens.^? listStreamingDistributionsResponse_streamingDistributionList
+            Prelude.. streamingDistributionList_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListStreamingDistributions where
+instance
+  Prelude.AWSRequest
+    ListStreamingDistributions
+  where
   type
     Rs ListStreamingDistributions =
       ListStreamingDistributionsResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListStreamingDistributionsResponse'
-            <$> (pure (fromEnum s)) <*> (parseXML x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.parseXML x)
       )
 
-instance Hashable ListStreamingDistributions
+instance Prelude.Hashable ListStreamingDistributions
 
-instance NFData ListStreamingDistributions
+instance Prelude.NFData ListStreamingDistributions
 
-instance ToHeaders ListStreamingDistributions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListStreamingDistributions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListStreamingDistributions where
-  toPath = const "/2020-05-31/streaming-distribution"
+instance Prelude.ToPath ListStreamingDistributions where
+  toPath =
+    Prelude.const "/2020-05-31/streaming-distribution"
 
-instance ToQuery ListStreamingDistributions where
+instance Prelude.ToQuery ListStreamingDistributions where
   toQuery ListStreamingDistributions' {..} =
-    mconcat
-      ["MaxItems" =: _lsdMaxItems, "Marker" =: _lsdMarker]
+    Prelude.mconcat
+      [ "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
+      ]
 
 -- | The returned result of the corresponding request.
 --
---
---
--- /See:/ 'listStreamingDistributionsResponse' smart constructor.
+-- /See:/ 'newListStreamingDistributionsResponse' smart constructor.
 data ListStreamingDistributionsResponse = ListStreamingDistributionsResponse'
-  { _lsdrrsResponseStatus ::
-      !Int,
-    _lsdrrsStreamingDistributionList ::
-      !StreamingDistributionList
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The @StreamingDistributionList@ type.
+    streamingDistributionList :: StreamingDistributionList
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListStreamingDistributionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListStreamingDistributionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsdrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsdrrsStreamingDistributionList' - The @StreamingDistributionList@ type.
-listStreamingDistributionsResponse ::
-  -- | 'lsdrrsResponseStatus'
-  Int ->
-  -- | 'lsdrrsStreamingDistributionList'
+-- 'httpStatus', 'listStreamingDistributionsResponse_httpStatus' - The response's http status code.
+--
+-- 'streamingDistributionList', 'listStreamingDistributionsResponse_streamingDistributionList' - The @StreamingDistributionList@ type.
+newListStreamingDistributionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'streamingDistributionList'
   StreamingDistributionList ->
   ListStreamingDistributionsResponse
-listStreamingDistributionsResponse
-  pResponseStatus_
+newListStreamingDistributionsResponse
+  pHttpStatus_
   pStreamingDistributionList_ =
     ListStreamingDistributionsResponse'
-      { _lsdrrsResponseStatus =
-          pResponseStatus_,
-        _lsdrrsStreamingDistributionList =
+      { httpStatus =
+          pHttpStatus_,
+        streamingDistributionList =
           pStreamingDistributionList_
       }
 
--- | -- | The response status code.
-lsdrrsResponseStatus :: Lens' ListStreamingDistributionsResponse Int
-lsdrrsResponseStatus = lens _lsdrrsResponseStatus (\s a -> s {_lsdrrsResponseStatus = a})
+-- | The response's http status code.
+listStreamingDistributionsResponse_httpStatus :: Lens.Lens' ListStreamingDistributionsResponse Prelude.Int
+listStreamingDistributionsResponse_httpStatus = Lens.lens (\ListStreamingDistributionsResponse' {httpStatus} -> httpStatus) (\s@ListStreamingDistributionsResponse' {} a -> s {httpStatus = a} :: ListStreamingDistributionsResponse)
 
 -- | The @StreamingDistributionList@ type.
-lsdrrsStreamingDistributionList :: Lens' ListStreamingDistributionsResponse StreamingDistributionList
-lsdrrsStreamingDistributionList = lens _lsdrrsStreamingDistributionList (\s a -> s {_lsdrrsStreamingDistributionList = a})
+listStreamingDistributionsResponse_streamingDistributionList :: Lens.Lens' ListStreamingDistributionsResponse StreamingDistributionList
+listStreamingDistributionsResponse_streamingDistributionList = Lens.lens (\ListStreamingDistributionsResponse' {streamingDistributionList} -> streamingDistributionList) (\s@ListStreamingDistributionsResponse' {} a -> s {streamingDistributionList = a} :: ListStreamingDistributionsResponse)
 
-instance NFData ListStreamingDistributionsResponse
+instance
+  Prelude.NFData
+    ListStreamingDistributionsResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,83 +20,94 @@
 module Network.AWS.CloudFront.Types.OriginRequestPolicy where
 
 import Network.AWS.CloudFront.Types.OriginRequestPolicyConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An origin request policy.
 --
+-- When it’s attached to a cache behavior, the origin request policy
+-- determines the values that CloudFront includes in requests that it sends
+-- to the origin. Each request that CloudFront sends to the origin includes
+-- the following:
 --
--- When it’s attached to a cache behavior, the origin request policy determines the values that CloudFront includes in requests that it sends to the origin. Each request that CloudFront sends to the origin includes the following:
+-- -   The request body and the URL path (without the domain name) from the
+--     viewer request.
 --
---     * The request body and the URL path (without the domain name) from the viewer request.
+-- -   The headers that CloudFront automatically includes in every origin
+--     request, including @Host@, @User-Agent@, and @X-Amz-Cf-Id@.
 --
---     * The headers that CloudFront automatically includes in every origin request, including @Host@ , @User-Agent@ , and @X-Amz-Cf-Id@ .
+-- -   All HTTP headers, cookies, and URL query strings that are specified
+--     in the cache policy or the origin request policy. These can include
+--     items from the viewer request and, in the case of headers,
+--     additional ones that are added by CloudFront.
 --
---     * All HTTP headers, cookies, and URL query strings that are specified in the cache policy or the origin request policy. These can include items from the viewer request and, in the case of headers, additional ones that are added by CloudFront.
+-- CloudFront sends a request when it can’t find an object in its cache
+-- that matches the request. If you want to send values to the origin and
+-- also include them in the cache key, use @CachePolicy@.
 --
---
---
--- CloudFront sends a request when it can’t find an object in its cache that matches the request. If you want to send values to the origin and also include them in the cache key, use @CachePolicy@ .
---
---
--- /See:/ 'originRequestPolicy' smart constructor.
+-- /See:/ 'newOriginRequestPolicy' smart constructor.
 data OriginRequestPolicy = OriginRequestPolicy'
-  { _orpId ::
-      !Text,
-    _orpLastModifiedTime ::
-      !ISO8601,
-    _orpOriginRequestPolicyConfig ::
-      !OriginRequestPolicyConfig
+  { -- | The unique identifier for the origin request policy.
+    id :: Prelude.Text,
+    -- | The date and time when the origin request policy was last modified.
+    lastModifiedTime :: Prelude.ISO8601,
+    -- | The origin request policy configuration.
+    originRequestPolicyConfig :: OriginRequestPolicyConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OriginRequestPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OriginRequestPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'orpId' - The unique identifier for the origin request policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'orpLastModifiedTime' - The date and time when the origin request policy was last modified.
+-- 'id', 'originRequestPolicy_id' - The unique identifier for the origin request policy.
 --
--- * 'orpOriginRequestPolicyConfig' - The origin request policy configuration.
-originRequestPolicy ::
-  -- | 'orpId'
-  Text ->
-  -- | 'orpLastModifiedTime'
-  UTCTime ->
-  -- | 'orpOriginRequestPolicyConfig'
+-- 'lastModifiedTime', 'originRequestPolicy_lastModifiedTime' - The date and time when the origin request policy was last modified.
+--
+-- 'originRequestPolicyConfig', 'originRequestPolicy_originRequestPolicyConfig' - The origin request policy configuration.
+newOriginRequestPolicy ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
+  -- | 'originRequestPolicyConfig'
   OriginRequestPolicyConfig ->
   OriginRequestPolicy
-originRequestPolicy
+newOriginRequestPolicy
   pId_
   pLastModifiedTime_
   pOriginRequestPolicyConfig_ =
     OriginRequestPolicy'
-      { _orpId = pId_,
-        _orpLastModifiedTime = _Time # pLastModifiedTime_,
-        _orpOriginRequestPolicyConfig =
+      { id = pId_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_,
+        originRequestPolicyConfig =
           pOriginRequestPolicyConfig_
       }
 
 -- | The unique identifier for the origin request policy.
-orpId :: Lens' OriginRequestPolicy Text
-orpId = lens _orpId (\s a -> s {_orpId = a})
+originRequestPolicy_id :: Lens.Lens' OriginRequestPolicy Prelude.Text
+originRequestPolicy_id = Lens.lens (\OriginRequestPolicy' {id} -> id) (\s@OriginRequestPolicy' {} a -> s {id = a} :: OriginRequestPolicy)
 
 -- | The date and time when the origin request policy was last modified.
-orpLastModifiedTime :: Lens' OriginRequestPolicy UTCTime
-orpLastModifiedTime = lens _orpLastModifiedTime (\s a -> s {_orpLastModifiedTime = a}) . _Time
+originRequestPolicy_lastModifiedTime :: Lens.Lens' OriginRequestPolicy Prelude.UTCTime
+originRequestPolicy_lastModifiedTime = Lens.lens (\OriginRequestPolicy' {lastModifiedTime} -> lastModifiedTime) (\s@OriginRequestPolicy' {} a -> s {lastModifiedTime = a} :: OriginRequestPolicy) Prelude.. Prelude._Time
 
 -- | The origin request policy configuration.
-orpOriginRequestPolicyConfig :: Lens' OriginRequestPolicy OriginRequestPolicyConfig
-orpOriginRequestPolicyConfig = lens _orpOriginRequestPolicyConfig (\s a -> s {_orpOriginRequestPolicyConfig = a})
+originRequestPolicy_originRequestPolicyConfig :: Lens.Lens' OriginRequestPolicy OriginRequestPolicyConfig
+originRequestPolicy_originRequestPolicyConfig = Lens.lens (\OriginRequestPolicy' {originRequestPolicyConfig} -> originRequestPolicyConfig) (\s@OriginRequestPolicy' {} a -> s {originRequestPolicyConfig = a} :: OriginRequestPolicy)
 
-instance FromXML OriginRequestPolicy where
+instance Prelude.FromXML OriginRequestPolicy where
   parseXML x =
     OriginRequestPolicy'
-      <$> (x .@ "Id")
-      <*> (x .@ "LastModifiedTime")
-      <*> (x .@ "OriginRequestPolicyConfig")
+      Prelude.<$> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "LastModifiedTime")
+      Prelude.<*> (x Prelude..@ "OriginRequestPolicyConfig")
 
-instance Hashable OriginRequestPolicy
+instance Prelude.Hashable OriginRequestPolicy
 
-instance NFData OriginRequestPolicy
+instance Prelude.NFData OriginRequestPolicy

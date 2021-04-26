@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CloudFront.Types.OriginRequestPolicyCookieBehavior
   ( OriginRequestPolicyCookieBehavior
       ( ..,
-        ORPCBAll,
-        ORPCBNone,
-        ORPCBWhitelist
+        OriginRequestPolicyCookieBehaviorAll,
+        OriginRequestPolicyCookieBehaviorNone,
+        OriginRequestPolicyCookieBehaviorWhitelist
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OriginRequestPolicyCookieBehavior
-  = OriginRequestPolicyCookieBehavior'
-      ( CI
-          Text
-      )
+newtype OriginRequestPolicyCookieBehavior = OriginRequestPolicyCookieBehavior'
+  { fromOriginRequestPolicyCookieBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ORPCBAll :: OriginRequestPolicyCookieBehavior
-pattern ORPCBAll = OriginRequestPolicyCookieBehavior' "all"
+pattern OriginRequestPolicyCookieBehaviorAll :: OriginRequestPolicyCookieBehavior
+pattern OriginRequestPolicyCookieBehaviorAll = OriginRequestPolicyCookieBehavior' "all"
 
-pattern ORPCBNone :: OriginRequestPolicyCookieBehavior
-pattern ORPCBNone = OriginRequestPolicyCookieBehavior' "none"
+pattern OriginRequestPolicyCookieBehaviorNone :: OriginRequestPolicyCookieBehavior
+pattern OriginRequestPolicyCookieBehaviorNone = OriginRequestPolicyCookieBehavior' "none"
 
-pattern ORPCBWhitelist :: OriginRequestPolicyCookieBehavior
-pattern ORPCBWhitelist = OriginRequestPolicyCookieBehavior' "whitelist"
+pattern OriginRequestPolicyCookieBehaviorWhitelist :: OriginRequestPolicyCookieBehavior
+pattern OriginRequestPolicyCookieBehaviorWhitelist = OriginRequestPolicyCookieBehavior' "whitelist"
 
 {-# COMPLETE
-  ORPCBAll,
-  ORPCBNone,
-  ORPCBWhitelist,
+  OriginRequestPolicyCookieBehaviorAll,
+  OriginRequestPolicyCookieBehaviorNone,
+  OriginRequestPolicyCookieBehaviorWhitelist,
   OriginRequestPolicyCookieBehavior'
   #-}
 
-instance FromText OriginRequestPolicyCookieBehavior where
-  parser = (OriginRequestPolicyCookieBehavior' . mk) <$> takeText
+instance Prelude.FromText OriginRequestPolicyCookieBehavior where
+  parser = OriginRequestPolicyCookieBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText OriginRequestPolicyCookieBehavior where
-  toText (OriginRequestPolicyCookieBehavior' ci) = original ci
+instance Prelude.ToText OriginRequestPolicyCookieBehavior where
+  toText (OriginRequestPolicyCookieBehavior' x) = x
 
-instance Hashable OriginRequestPolicyCookieBehavior
+instance Prelude.Hashable OriginRequestPolicyCookieBehavior
 
-instance NFData OriginRequestPolicyCookieBehavior
+instance Prelude.NFData OriginRequestPolicyCookieBehavior
 
-instance ToByteString OriginRequestPolicyCookieBehavior
+instance Prelude.ToByteString OriginRequestPolicyCookieBehavior
 
-instance ToQuery OriginRequestPolicyCookieBehavior
+instance Prelude.ToQuery OriginRequestPolicyCookieBehavior
 
-instance ToHeader OriginRequestPolicyCookieBehavior
+instance Prelude.ToHeader OriginRequestPolicyCookieBehavior
 
-instance FromXML OriginRequestPolicyCookieBehavior where
-  parseXML = parseXMLText "OriginRequestPolicyCookieBehavior"
+instance Prelude.FromXML OriginRequestPolicyCookieBehavior where
+  parseXML = Prelude.parseXMLText "OriginRequestPolicyCookieBehavior"
 
-instance ToXML OriginRequestPolicyCookieBehavior where
-  toXML = toXMLText
+instance Prelude.ToXML OriginRequestPolicyCookieBehavior where
+  toXML = Prelude.toXMLText

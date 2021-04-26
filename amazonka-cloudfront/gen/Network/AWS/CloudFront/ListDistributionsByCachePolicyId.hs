@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of distribution IDs for distributions that have a cache behavior that’s associated with the specified cache policy.
+-- Gets a list of distribution IDs for distributions that have a cache
+-- behavior that’s associated with the specified cache policy.
 --
---
--- You can optionally specify the maximum number of items to receive in the response. If the total number of items in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the next page of items, send a subsequent request that specifies the @NextMarker@ value from the current response as the @Marker@ value in the subsequent request.
+-- You can optionally specify the maximum number of items to receive in the
+-- response. If the total number of items in the list exceeds the maximum
+-- that you specify, or the default maximum, the response is paginated. To
+-- get the next page of items, send a subsequent request that specifies the
+-- @NextMarker@ value from the current response as the @Marker@ value in
+-- the subsequent request.
 module Network.AWS.CloudFront.ListDistributionsByCachePolicyId
   ( -- * Creating a Request
-    listDistributionsByCachePolicyId,
-    ListDistributionsByCachePolicyId,
+    ListDistributionsByCachePolicyId (..),
+    newListDistributionsByCachePolicyId,
 
     -- * Request Lenses
-    ldbcpiMaxItems,
-    ldbcpiMarker,
-    ldbcpiCachePolicyId,
+    listDistributionsByCachePolicyId_maxItems,
+    listDistributionsByCachePolicyId_marker,
+    listDistributionsByCachePolicyId_cachePolicyId,
 
     -- * Destructuring the Response
-    listDistributionsByCachePolicyIdResponse,
-    ListDistributionsByCachePolicyIdResponse,
+    ListDistributionsByCachePolicyIdResponse (..),
+    newListDistributionsByCachePolicyIdResponse,
 
     -- * Response Lenses
-    ldbcpirrsDistributionIdList,
-    ldbcpirrsResponseStatus,
+    listDistributionsByCachePolicyIdResponse_distributionIdList,
+    listDistributionsByCachePolicyIdResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.DistributionIdList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDistributionsByCachePolicyId' smart constructor.
+-- | /See:/ 'newListDistributionsByCachePolicyId' smart constructor.
 data ListDistributionsByCachePolicyId = ListDistributionsByCachePolicyId'
-  { _ldbcpiMaxItems ::
-      !( Maybe
-           Text
-       ),
-    _ldbcpiMarker ::
-      !( Maybe
-           Text
-       ),
-    _ldbcpiCachePolicyId ::
-      !Text
+  { -- | The maximum number of distribution IDs that you want in the response.
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | Use this field when paginating results to indicate where to begin in
+    -- your list of distribution IDs. The response includes distribution IDs in
+    -- the list that occur after the marker. To get the next page of the list,
+    -- set this field’s value to the value of @NextMarker@ from the current
+    -- page’s response.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the cache policy whose associated distribution IDs you want to
+    -- list.
+    cachePolicyId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDistributionsByCachePolicyId' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDistributionsByCachePolicyId' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldbcpiMaxItems' - The maximum number of distribution IDs that you want in the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldbcpiMarker' - Use this field when paginating results to indicate where to begin in your list of distribution IDs. The response includes distribution IDs in the list that occur after the marker. To get the next page of the list, set this field’s value to the value of @NextMarker@ from the current page’s response.
+-- 'maxItems', 'listDistributionsByCachePolicyId_maxItems' - The maximum number of distribution IDs that you want in the response.
 --
--- * 'ldbcpiCachePolicyId' - The ID of the cache policy whose associated distribution IDs you want to list.
-listDistributionsByCachePolicyId ::
-  -- | 'ldbcpiCachePolicyId'
-  Text ->
+-- 'marker', 'listDistributionsByCachePolicyId_marker' - Use this field when paginating results to indicate where to begin in
+-- your list of distribution IDs. The response includes distribution IDs in
+-- the list that occur after the marker. To get the next page of the list,
+-- set this field’s value to the value of @NextMarker@ from the current
+-- page’s response.
+--
+-- 'cachePolicyId', 'listDistributionsByCachePolicyId_cachePolicyId' - The ID of the cache policy whose associated distribution IDs you want to
+-- list.
+newListDistributionsByCachePolicyId ::
+  -- | 'cachePolicyId'
+  Prelude.Text ->
   ListDistributionsByCachePolicyId
-listDistributionsByCachePolicyId pCachePolicyId_ =
+newListDistributionsByCachePolicyId pCachePolicyId_ =
   ListDistributionsByCachePolicyId'
-    { _ldbcpiMaxItems =
-        Nothing,
-      _ldbcpiMarker = Nothing,
-      _ldbcpiCachePolicyId = pCachePolicyId_
+    { maxItems =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      cachePolicyId = pCachePolicyId_
     }
 
 -- | The maximum number of distribution IDs that you want in the response.
-ldbcpiMaxItems :: Lens' ListDistributionsByCachePolicyId (Maybe Text)
-ldbcpiMaxItems = lens _ldbcpiMaxItems (\s a -> s {_ldbcpiMaxItems = a})
+listDistributionsByCachePolicyId_maxItems :: Lens.Lens' ListDistributionsByCachePolicyId (Prelude.Maybe Prelude.Text)
+listDistributionsByCachePolicyId_maxItems = Lens.lens (\ListDistributionsByCachePolicyId' {maxItems} -> maxItems) (\s@ListDistributionsByCachePolicyId' {} a -> s {maxItems = a} :: ListDistributionsByCachePolicyId)
 
--- | Use this field when paginating results to indicate where to begin in your list of distribution IDs. The response includes distribution IDs in the list that occur after the marker. To get the next page of the list, set this field’s value to the value of @NextMarker@ from the current page’s response.
-ldbcpiMarker :: Lens' ListDistributionsByCachePolicyId (Maybe Text)
-ldbcpiMarker = lens _ldbcpiMarker (\s a -> s {_ldbcpiMarker = a})
+-- | Use this field when paginating results to indicate where to begin in
+-- your list of distribution IDs. The response includes distribution IDs in
+-- the list that occur after the marker. To get the next page of the list,
+-- set this field’s value to the value of @NextMarker@ from the current
+-- page’s response.
+listDistributionsByCachePolicyId_marker :: Lens.Lens' ListDistributionsByCachePolicyId (Prelude.Maybe Prelude.Text)
+listDistributionsByCachePolicyId_marker = Lens.lens (\ListDistributionsByCachePolicyId' {marker} -> marker) (\s@ListDistributionsByCachePolicyId' {} a -> s {marker = a} :: ListDistributionsByCachePolicyId)
 
--- | The ID of the cache policy whose associated distribution IDs you want to list.
-ldbcpiCachePolicyId :: Lens' ListDistributionsByCachePolicyId Text
-ldbcpiCachePolicyId = lens _ldbcpiCachePolicyId (\s a -> s {_ldbcpiCachePolicyId = a})
+-- | The ID of the cache policy whose associated distribution IDs you want to
+-- list.
+listDistributionsByCachePolicyId_cachePolicyId :: Lens.Lens' ListDistributionsByCachePolicyId Prelude.Text
+listDistributionsByCachePolicyId_cachePolicyId = Lens.lens (\ListDistributionsByCachePolicyId' {cachePolicyId} -> cachePolicyId) (\s@ListDistributionsByCachePolicyId' {} a -> s {cachePolicyId = a} :: ListDistributionsByCachePolicyId)
 
-instance AWSRequest ListDistributionsByCachePolicyId where
+instance
+  Prelude.AWSRequest
+    ListDistributionsByCachePolicyId
+  where
   type
     Rs ListDistributionsByCachePolicyId =
       ListDistributionsByCachePolicyIdResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListDistributionsByCachePolicyIdResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDistributionsByCachePolicyId
+instance
+  Prelude.Hashable
+    ListDistributionsByCachePolicyId
 
-instance NFData ListDistributionsByCachePolicyId
+instance
+  Prelude.NFData
+    ListDistributionsByCachePolicyId
 
-instance ToHeaders ListDistributionsByCachePolicyId where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ListDistributionsByCachePolicyId
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListDistributionsByCachePolicyId where
+instance
+  Prelude.ToPath
+    ListDistributionsByCachePolicyId
+  where
   toPath ListDistributionsByCachePolicyId' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2020-05-31/distributionsByCachePolicyId/",
-        toBS _ldbcpiCachePolicyId
+        Prelude.toBS cachePolicyId
       ]
 
-instance ToQuery ListDistributionsByCachePolicyId where
+instance
+  Prelude.ToQuery
+    ListDistributionsByCachePolicyId
+  where
   toQuery ListDistributionsByCachePolicyId' {..} =
-    mconcat
-      [ "MaxItems" =: _ldbcpiMaxItems,
-        "Marker" =: _ldbcpiMarker
+    Prelude.mconcat
+      [ "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
       ]
 
--- | /See:/ 'listDistributionsByCachePolicyIdResponse' smart constructor.
+-- | /See:/ 'newListDistributionsByCachePolicyIdResponse' smart constructor.
 data ListDistributionsByCachePolicyIdResponse = ListDistributionsByCachePolicyIdResponse'
-  { _ldbcpirrsDistributionIdList ::
-      !( Maybe
-           DistributionIdList
-       ),
-    _ldbcpirrsResponseStatus ::
-      !Int
+  { -- | A list of distribution IDs.
+    distributionIdList :: Prelude.Maybe DistributionIdList,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDistributionsByCachePolicyIdResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDistributionsByCachePolicyIdResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldbcpirrsDistributionIdList' - A list of distribution IDs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldbcpirrsResponseStatus' - -- | The response status code.
-listDistributionsByCachePolicyIdResponse ::
-  -- | 'ldbcpirrsResponseStatus'
-  Int ->
+-- 'distributionIdList', 'listDistributionsByCachePolicyIdResponse_distributionIdList' - A list of distribution IDs.
+--
+-- 'httpStatus', 'listDistributionsByCachePolicyIdResponse_httpStatus' - The response's http status code.
+newListDistributionsByCachePolicyIdResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDistributionsByCachePolicyIdResponse
-listDistributionsByCachePolicyIdResponse
-  pResponseStatus_ =
+newListDistributionsByCachePolicyIdResponse
+  pHttpStatus_ =
     ListDistributionsByCachePolicyIdResponse'
-      { _ldbcpirrsDistributionIdList =
-          Nothing,
-        _ldbcpirrsResponseStatus =
-          pResponseStatus_
+      { distributionIdList =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A list of distribution IDs.
-ldbcpirrsDistributionIdList :: Lens' ListDistributionsByCachePolicyIdResponse (Maybe DistributionIdList)
-ldbcpirrsDistributionIdList = lens _ldbcpirrsDistributionIdList (\s a -> s {_ldbcpirrsDistributionIdList = a})
+listDistributionsByCachePolicyIdResponse_distributionIdList :: Lens.Lens' ListDistributionsByCachePolicyIdResponse (Prelude.Maybe DistributionIdList)
+listDistributionsByCachePolicyIdResponse_distributionIdList = Lens.lens (\ListDistributionsByCachePolicyIdResponse' {distributionIdList} -> distributionIdList) (\s@ListDistributionsByCachePolicyIdResponse' {} a -> s {distributionIdList = a} :: ListDistributionsByCachePolicyIdResponse)
 
--- | -- | The response status code.
-ldbcpirrsResponseStatus :: Lens' ListDistributionsByCachePolicyIdResponse Int
-ldbcpirrsResponseStatus = lens _ldbcpirrsResponseStatus (\s a -> s {_ldbcpirrsResponseStatus = a})
+-- | The response's http status code.
+listDistributionsByCachePolicyIdResponse_httpStatus :: Lens.Lens' ListDistributionsByCachePolicyIdResponse Prelude.Int
+listDistributionsByCachePolicyIdResponse_httpStatus = Lens.lens (\ListDistributionsByCachePolicyIdResponse' {httpStatus} -> httpStatus) (\s@ListDistributionsByCachePolicyIdResponse' {} a -> s {httpStatus = a} :: ListDistributionsByCachePolicyIdResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListDistributionsByCachePolicyIdResponse

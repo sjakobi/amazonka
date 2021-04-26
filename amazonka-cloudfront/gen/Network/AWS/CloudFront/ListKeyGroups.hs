@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,129 +23,151 @@
 --
 -- Gets a list of key groups.
 --
---
--- You can optionally specify the maximum number of items to receive in the response. If the total number of items in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the next page of items, send a subsequent request that specifies the @NextMarker@ value from the current response as the @Marker@ value in the subsequent request.
+-- You can optionally specify the maximum number of items to receive in the
+-- response. If the total number of items in the list exceeds the maximum
+-- that you specify, or the default maximum, the response is paginated. To
+-- get the next page of items, send a subsequent request that specifies the
+-- @NextMarker@ value from the current response as the @Marker@ value in
+-- the subsequent request.
 module Network.AWS.CloudFront.ListKeyGroups
   ( -- * Creating a Request
-    listKeyGroups,
-    ListKeyGroups,
+    ListKeyGroups (..),
+    newListKeyGroups,
 
     -- * Request Lenses
-    lkgMaxItems,
-    lkgMarker,
+    listKeyGroups_maxItems,
+    listKeyGroups_marker,
 
     -- * Destructuring the Response
-    listKeyGroupsResponse,
-    ListKeyGroupsResponse,
+    ListKeyGroupsResponse (..),
+    newListKeyGroupsResponse,
 
     -- * Response Lenses
-    lkgrrsKeyGroupList,
-    lkgrrsResponseStatus,
+    listKeyGroupsResponse_keyGroupList,
+    listKeyGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.KeyGroupList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listKeyGroups' smart constructor.
+-- | /See:/ 'newListKeyGroups' smart constructor.
 data ListKeyGroups = ListKeyGroups'
-  { _lkgMaxItems ::
-      !(Maybe Text),
-    _lkgMarker :: !(Maybe Text)
+  { -- | The maximum number of key groups that you want in the response.
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | Use this field when paginating results to indicate where to begin in
+    -- your list of key groups. The response includes key groups in the list
+    -- that occur after the marker. To get the next page of the list, set this
+    -- field’s value to the value of @NextMarker@ from the current page’s
+    -- response.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListKeyGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListKeyGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lkgMaxItems' - The maximum number of key groups that you want in the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lkgMarker' - Use this field when paginating results to indicate where to begin in your list of key groups. The response includes key groups in the list that occur after the marker. To get the next page of the list, set this field’s value to the value of @NextMarker@ from the current page’s response.
-listKeyGroups ::
+-- 'maxItems', 'listKeyGroups_maxItems' - The maximum number of key groups that you want in the response.
+--
+-- 'marker', 'listKeyGroups_marker' - Use this field when paginating results to indicate where to begin in
+-- your list of key groups. The response includes key groups in the list
+-- that occur after the marker. To get the next page of the list, set this
+-- field’s value to the value of @NextMarker@ from the current page’s
+-- response.
+newListKeyGroups ::
   ListKeyGroups
-listKeyGroups =
+newListKeyGroups =
   ListKeyGroups'
-    { _lkgMaxItems = Nothing,
-      _lkgMarker = Nothing
+    { maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The maximum number of key groups that you want in the response.
-lkgMaxItems :: Lens' ListKeyGroups (Maybe Text)
-lkgMaxItems = lens _lkgMaxItems (\s a -> s {_lkgMaxItems = a})
+listKeyGroups_maxItems :: Lens.Lens' ListKeyGroups (Prelude.Maybe Prelude.Text)
+listKeyGroups_maxItems = Lens.lens (\ListKeyGroups' {maxItems} -> maxItems) (\s@ListKeyGroups' {} a -> s {maxItems = a} :: ListKeyGroups)
 
--- | Use this field when paginating results to indicate where to begin in your list of key groups. The response includes key groups in the list that occur after the marker. To get the next page of the list, set this field’s value to the value of @NextMarker@ from the current page’s response.
-lkgMarker :: Lens' ListKeyGroups (Maybe Text)
-lkgMarker = lens _lkgMarker (\s a -> s {_lkgMarker = a})
+-- | Use this field when paginating results to indicate where to begin in
+-- your list of key groups. The response includes key groups in the list
+-- that occur after the marker. To get the next page of the list, set this
+-- field’s value to the value of @NextMarker@ from the current page’s
+-- response.
+listKeyGroups_marker :: Lens.Lens' ListKeyGroups (Prelude.Maybe Prelude.Text)
+listKeyGroups_marker = Lens.lens (\ListKeyGroups' {marker} -> marker) (\s@ListKeyGroups' {} a -> s {marker = a} :: ListKeyGroups)
 
-instance AWSRequest ListKeyGroups where
+instance Prelude.AWSRequest ListKeyGroups where
   type Rs ListKeyGroups = ListKeyGroupsResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListKeyGroupsResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListKeyGroups
+instance Prelude.Hashable ListKeyGroups
 
-instance NFData ListKeyGroups
+instance Prelude.NFData ListKeyGroups
 
-instance ToHeaders ListKeyGroups where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListKeyGroups where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListKeyGroups where
-  toPath = const "/2020-05-31/key-group"
+instance Prelude.ToPath ListKeyGroups where
+  toPath = Prelude.const "/2020-05-31/key-group"
 
-instance ToQuery ListKeyGroups where
+instance Prelude.ToQuery ListKeyGroups where
   toQuery ListKeyGroups' {..} =
-    mconcat
-      ["MaxItems" =: _lkgMaxItems, "Marker" =: _lkgMarker]
+    Prelude.mconcat
+      [ "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
+      ]
 
--- | /See:/ 'listKeyGroupsResponse' smart constructor.
+-- | /See:/ 'newListKeyGroupsResponse' smart constructor.
 data ListKeyGroupsResponse = ListKeyGroupsResponse'
-  { _lkgrrsKeyGroupList ::
-      !(Maybe KeyGroupList),
-    _lkgrrsResponseStatus ::
-      !Int
+  { -- | A list of key groups.
+    keyGroupList :: Prelude.Maybe KeyGroupList,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListKeyGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListKeyGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lkgrrsKeyGroupList' - A list of key groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lkgrrsResponseStatus' - -- | The response status code.
-listKeyGroupsResponse ::
-  -- | 'lkgrrsResponseStatus'
-  Int ->
+-- 'keyGroupList', 'listKeyGroupsResponse_keyGroupList' - A list of key groups.
+--
+-- 'httpStatus', 'listKeyGroupsResponse_httpStatus' - The response's http status code.
+newListKeyGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListKeyGroupsResponse
-listKeyGroupsResponse pResponseStatus_ =
+newListKeyGroupsResponse pHttpStatus_ =
   ListKeyGroupsResponse'
-    { _lkgrrsKeyGroupList =
-        Nothing,
-      _lkgrrsResponseStatus = pResponseStatus_
+    { keyGroupList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of key groups.
-lkgrrsKeyGroupList :: Lens' ListKeyGroupsResponse (Maybe KeyGroupList)
-lkgrrsKeyGroupList = lens _lkgrrsKeyGroupList (\s a -> s {_lkgrrsKeyGroupList = a})
+listKeyGroupsResponse_keyGroupList :: Lens.Lens' ListKeyGroupsResponse (Prelude.Maybe KeyGroupList)
+listKeyGroupsResponse_keyGroupList = Lens.lens (\ListKeyGroupsResponse' {keyGroupList} -> keyGroupList) (\s@ListKeyGroupsResponse' {} a -> s {keyGroupList = a} :: ListKeyGroupsResponse)
 
--- | -- | The response status code.
-lkgrrsResponseStatus :: Lens' ListKeyGroupsResponse Int
-lkgrrsResponseStatus = lens _lkgrrsResponseStatus (\s a -> s {_lkgrrsResponseStatus = a})
+-- | The response's http status code.
+listKeyGroupsResponse_httpStatus :: Lens.Lens' ListKeyGroupsResponse Prelude.Int
+listKeyGroupsResponse_httpStatus = Lens.lens (\ListKeyGroupsResponse' {httpStatus} -> httpStatus) (\s@ListKeyGroupsResponse' {} a -> s {httpStatus = a} :: ListKeyGroupsResponse)
 
-instance NFData ListKeyGroupsResponse
+instance Prelude.NFData ListKeyGroupsResponse

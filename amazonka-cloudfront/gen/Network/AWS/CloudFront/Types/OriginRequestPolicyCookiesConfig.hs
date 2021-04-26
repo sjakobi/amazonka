@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +21,113 @@ module Network.AWS.CloudFront.Types.OriginRequestPolicyCookiesConfig where
 
 import Network.AWS.CloudFront.Types.CookieNames
 import Network.AWS.CloudFront.Types.OriginRequestPolicyCookieBehavior
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object that determines whether any cookies in viewer requests (and if so, which cookies) are included in requests that CloudFront sends to the origin.
+-- | An object that determines whether any cookies in viewer requests (and if
+-- so, which cookies) are included in requests that CloudFront sends to the
+-- origin.
 --
---
---
--- /See:/ 'originRequestPolicyCookiesConfig' smart constructor.
+-- /See:/ 'newOriginRequestPolicyCookiesConfig' smart constructor.
 data OriginRequestPolicyCookiesConfig = OriginRequestPolicyCookiesConfig'
-  { _orpccCookies ::
-      !( Maybe
-           CookieNames
-       ),
-    _orpccCookieBehavior ::
-      !OriginRequestPolicyCookieBehavior
+  { cookies :: Prelude.Maybe CookieNames,
+    -- | Determines whether cookies in viewer requests are included in requests
+    -- that CloudFront sends to the origin. Valid values are:
+    --
+    -- -   @none@ – Cookies in viewer requests are not included in requests
+    --     that CloudFront sends to the origin. Even when this field is set to
+    --     @none@, any cookies that are listed in a @CachePolicy@ /are/
+    --     included in origin requests.
+    --
+    -- -   @whitelist@ – The cookies in viewer requests that are listed in the
+    --     @CookieNames@ type are included in requests that CloudFront sends to
+    --     the origin.
+    --
+    -- -   @all@ – All cookies in viewer requests are included in requests that
+    --     CloudFront sends to the origin.
+    cookieBehavior :: OriginRequestPolicyCookieBehavior
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OriginRequestPolicyCookiesConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OriginRequestPolicyCookiesConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'orpccCookies' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'orpccCookieBehavior' - Determines whether cookies in viewer requests are included in requests that CloudFront sends to the origin. Valid values are:     * @none@ – Cookies in viewer requests are not included in requests that CloudFront sends to the origin. Even when this field is set to @none@ , any cookies that are listed in a @CachePolicy@ /are/ included in origin requests.     * @whitelist@ – The cookies in viewer requests that are listed in the @CookieNames@ type are included in requests that CloudFront sends to the origin.     * @all@ – All cookies in viewer requests are included in requests that CloudFront sends to the origin.
-originRequestPolicyCookiesConfig ::
-  -- | 'orpccCookieBehavior'
+-- 'cookies', 'originRequestPolicyCookiesConfig_cookies' - Undocumented member.
+--
+-- 'cookieBehavior', 'originRequestPolicyCookiesConfig_cookieBehavior' - Determines whether cookies in viewer requests are included in requests
+-- that CloudFront sends to the origin. Valid values are:
+--
+-- -   @none@ – Cookies in viewer requests are not included in requests
+--     that CloudFront sends to the origin. Even when this field is set to
+--     @none@, any cookies that are listed in a @CachePolicy@ /are/
+--     included in origin requests.
+--
+-- -   @whitelist@ – The cookies in viewer requests that are listed in the
+--     @CookieNames@ type are included in requests that CloudFront sends to
+--     the origin.
+--
+-- -   @all@ – All cookies in viewer requests are included in requests that
+--     CloudFront sends to the origin.
+newOriginRequestPolicyCookiesConfig ::
+  -- | 'cookieBehavior'
   OriginRequestPolicyCookieBehavior ->
   OriginRequestPolicyCookiesConfig
-originRequestPolicyCookiesConfig pCookieBehavior_ =
+newOriginRequestPolicyCookiesConfig pCookieBehavior_ =
   OriginRequestPolicyCookiesConfig'
-    { _orpccCookies =
-        Nothing,
-      _orpccCookieBehavior = pCookieBehavior_
+    { cookies =
+        Prelude.Nothing,
+      cookieBehavior = pCookieBehavior_
     }
 
 -- | Undocumented member.
-orpccCookies :: Lens' OriginRequestPolicyCookiesConfig (Maybe CookieNames)
-orpccCookies = lens _orpccCookies (\s a -> s {_orpccCookies = a})
+originRequestPolicyCookiesConfig_cookies :: Lens.Lens' OriginRequestPolicyCookiesConfig (Prelude.Maybe CookieNames)
+originRequestPolicyCookiesConfig_cookies = Lens.lens (\OriginRequestPolicyCookiesConfig' {cookies} -> cookies) (\s@OriginRequestPolicyCookiesConfig' {} a -> s {cookies = a} :: OriginRequestPolicyCookiesConfig)
 
--- | Determines whether cookies in viewer requests are included in requests that CloudFront sends to the origin. Valid values are:     * @none@ – Cookies in viewer requests are not included in requests that CloudFront sends to the origin. Even when this field is set to @none@ , any cookies that are listed in a @CachePolicy@ /are/ included in origin requests.     * @whitelist@ – The cookies in viewer requests that are listed in the @CookieNames@ type are included in requests that CloudFront sends to the origin.     * @all@ – All cookies in viewer requests are included in requests that CloudFront sends to the origin.
-orpccCookieBehavior :: Lens' OriginRequestPolicyCookiesConfig OriginRequestPolicyCookieBehavior
-orpccCookieBehavior = lens _orpccCookieBehavior (\s a -> s {_orpccCookieBehavior = a})
+-- | Determines whether cookies in viewer requests are included in requests
+-- that CloudFront sends to the origin. Valid values are:
+--
+-- -   @none@ – Cookies in viewer requests are not included in requests
+--     that CloudFront sends to the origin. Even when this field is set to
+--     @none@, any cookies that are listed in a @CachePolicy@ /are/
+--     included in origin requests.
+--
+-- -   @whitelist@ – The cookies in viewer requests that are listed in the
+--     @CookieNames@ type are included in requests that CloudFront sends to
+--     the origin.
+--
+-- -   @all@ – All cookies in viewer requests are included in requests that
+--     CloudFront sends to the origin.
+originRequestPolicyCookiesConfig_cookieBehavior :: Lens.Lens' OriginRequestPolicyCookiesConfig OriginRequestPolicyCookieBehavior
+originRequestPolicyCookiesConfig_cookieBehavior = Lens.lens (\OriginRequestPolicyCookiesConfig' {cookieBehavior} -> cookieBehavior) (\s@OriginRequestPolicyCookiesConfig' {} a -> s {cookieBehavior = a} :: OriginRequestPolicyCookiesConfig)
 
-instance FromXML OriginRequestPolicyCookiesConfig where
+instance
+  Prelude.FromXML
+    OriginRequestPolicyCookiesConfig
+  where
   parseXML x =
     OriginRequestPolicyCookiesConfig'
-      <$> (x .@? "Cookies") <*> (x .@ "CookieBehavior")
+      Prelude.<$> (x Prelude..@? "Cookies")
+      Prelude.<*> (x Prelude..@ "CookieBehavior")
 
-instance Hashable OriginRequestPolicyCookiesConfig
+instance
+  Prelude.Hashable
+    OriginRequestPolicyCookiesConfig
 
-instance NFData OriginRequestPolicyCookiesConfig
+instance
+  Prelude.NFData
+    OriginRequestPolicyCookiesConfig
 
-instance ToXML OriginRequestPolicyCookiesConfig where
+instance
+  Prelude.ToXML
+    OriginRequestPolicyCookiesConfig
+  where
   toXML OriginRequestPolicyCookiesConfig' {..} =
-    mconcat
-      [ "Cookies" @= _orpccCookies,
-        "CookieBehavior" @= _orpccCookieBehavior
+    Prelude.mconcat
+      [ "Cookies" Prelude.@= cookies,
+        "CookieBehavior" Prelude.@= cookieBehavior
       ]

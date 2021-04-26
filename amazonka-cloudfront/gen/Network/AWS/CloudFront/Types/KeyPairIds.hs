@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.KeyPairIds where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A list of CloudFront key pair identifiers.
 --
---
---
--- /See:/ 'keyPairIds' smart constructor.
+-- /See:/ 'newKeyPairIds' smart constructor.
 data KeyPairIds = KeyPairIds'
-  { _kpiItems ::
-      !(Maybe [Text]),
-    _kpiQuantity :: !Int
+  { -- | A list of CloudFront key pair identifiers.
+    items :: Prelude.Maybe [Prelude.Text],
+    -- | The number of key pair identifiers in the list.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyPairIds' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyPairIds' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kpiItems' - A list of CloudFront key pair identifiers.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kpiQuantity' - The number of key pair identifiers in the list.
-keyPairIds ::
-  -- | 'kpiQuantity'
-  Int ->
+-- 'items', 'keyPairIds_items' - A list of CloudFront key pair identifiers.
+--
+-- 'quantity', 'keyPairIds_quantity' - The number of key pair identifiers in the list.
+newKeyPairIds ::
+  -- | 'quantity'
+  Prelude.Int ->
   KeyPairIds
-keyPairIds pQuantity_ =
+newKeyPairIds pQuantity_ =
   KeyPairIds'
-    { _kpiItems = Nothing,
-      _kpiQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
     }
 
 -- | A list of CloudFront key pair identifiers.
-kpiItems :: Lens' KeyPairIds [Text]
-kpiItems = lens _kpiItems (\s a -> s {_kpiItems = a}) . _Default . _Coerce
+keyPairIds_items :: Lens.Lens' KeyPairIds (Prelude.Maybe [Prelude.Text])
+keyPairIds_items = Lens.lens (\KeyPairIds' {items} -> items) (\s@KeyPairIds' {} a -> s {items = a} :: KeyPairIds) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of key pair identifiers in the list.
-kpiQuantity :: Lens' KeyPairIds Int
-kpiQuantity = lens _kpiQuantity (\s a -> s {_kpiQuantity = a})
+keyPairIds_quantity :: Lens.Lens' KeyPairIds Prelude.Int
+keyPairIds_quantity = Lens.lens (\KeyPairIds' {quantity} -> quantity) (\s@KeyPairIds' {} a -> s {quantity = a} :: KeyPairIds)
 
-instance FromXML KeyPairIds where
+instance Prelude.FromXML KeyPairIds where
   parseXML x =
     KeyPairIds'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "KeyPairId")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "KeyPairId")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable KeyPairIds
+instance Prelude.Hashable KeyPairIds
 
-instance NFData KeyPairIds
+instance Prelude.NFData KeyPairIds

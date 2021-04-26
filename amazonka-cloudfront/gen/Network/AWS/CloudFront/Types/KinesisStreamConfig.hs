@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.KinesisStreamConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the Amazon Kinesis data stream where you are sending real-time log data.
+-- | Contains information about the Amazon Kinesis data stream where you are
+-- sending real-time log data.
 --
---
---
--- /See:/ 'kinesisStreamConfig' smart constructor.
+-- /See:/ 'newKinesisStreamConfig' smart constructor.
 data KinesisStreamConfig = KinesisStreamConfig'
-  { _kscRoleARN ::
-      !Text,
-    _kscStreamARN :: !Text
+  { -- | The Amazon Resource Name (ARN) of an AWS Identity and Access Management
+    -- (IAM) role that CloudFront can use to send real-time log data to your
+    -- Kinesis data stream.
+    --
+    -- For more information the IAM role, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-iam-role Real-time log configuration IAM role>
+    -- in the /Amazon CloudFront Developer Guide/.
+    roleARN :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Kinesis data stream where you are
+    -- sending real-time log data.
+    streamARN :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KinesisStreamConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KinesisStreamConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kscRoleARN' - The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that CloudFront can use to send real-time log data to your Kinesis data stream. For more information the IAM role, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-iam-role Real-time log configuration IAM role> in the /Amazon CloudFront Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kscStreamARN' - The Amazon Resource Name (ARN) of the Kinesis data stream where you are sending real-time log data.
-kinesisStreamConfig ::
-  -- | 'kscRoleARN'
-  Text ->
-  -- | 'kscStreamARN'
-  Text ->
+-- 'roleARN', 'kinesisStreamConfig_roleARN' - The Amazon Resource Name (ARN) of an AWS Identity and Access Management
+-- (IAM) role that CloudFront can use to send real-time log data to your
+-- Kinesis data stream.
+--
+-- For more information the IAM role, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-iam-role Real-time log configuration IAM role>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- 'streamARN', 'kinesisStreamConfig_streamARN' - The Amazon Resource Name (ARN) of the Kinesis data stream where you are
+-- sending real-time log data.
+newKinesisStreamConfig ::
+  -- | 'roleARN'
+  Prelude.Text ->
+  -- | 'streamARN'
+  Prelude.Text ->
   KinesisStreamConfig
-kinesisStreamConfig pRoleARN_ pStreamARN_ =
+newKinesisStreamConfig pRoleARN_ pStreamARN_ =
   KinesisStreamConfig'
-    { _kscRoleARN = pRoleARN_,
-      _kscStreamARN = pStreamARN_
+    { roleARN = pRoleARN_,
+      streamARN = pStreamARN_
     }
 
--- | The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that CloudFront can use to send real-time log data to your Kinesis data stream. For more information the IAM role, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-iam-role Real-time log configuration IAM role> in the /Amazon CloudFront Developer Guide/ .
-kscRoleARN :: Lens' KinesisStreamConfig Text
-kscRoleARN = lens _kscRoleARN (\s a -> s {_kscRoleARN = a})
+-- | The Amazon Resource Name (ARN) of an AWS Identity and Access Management
+-- (IAM) role that CloudFront can use to send real-time log data to your
+-- Kinesis data stream.
+--
+-- For more information the IAM role, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-iam-role Real-time log configuration IAM role>
+-- in the /Amazon CloudFront Developer Guide/.
+kinesisStreamConfig_roleARN :: Lens.Lens' KinesisStreamConfig Prelude.Text
+kinesisStreamConfig_roleARN = Lens.lens (\KinesisStreamConfig' {roleARN} -> roleARN) (\s@KinesisStreamConfig' {} a -> s {roleARN = a} :: KinesisStreamConfig)
 
--- | The Amazon Resource Name (ARN) of the Kinesis data stream where you are sending real-time log data.
-kscStreamARN :: Lens' KinesisStreamConfig Text
-kscStreamARN = lens _kscStreamARN (\s a -> s {_kscStreamARN = a})
+-- | The Amazon Resource Name (ARN) of the Kinesis data stream where you are
+-- sending real-time log data.
+kinesisStreamConfig_streamARN :: Lens.Lens' KinesisStreamConfig Prelude.Text
+kinesisStreamConfig_streamARN = Lens.lens (\KinesisStreamConfig' {streamARN} -> streamARN) (\s@KinesisStreamConfig' {} a -> s {streamARN = a} :: KinesisStreamConfig)
 
-instance FromXML KinesisStreamConfig where
+instance Prelude.FromXML KinesisStreamConfig where
   parseXML x =
     KinesisStreamConfig'
-      <$> (x .@ "RoleARN") <*> (x .@ "StreamARN")
+      Prelude.<$> (x Prelude..@ "RoleARN")
+      Prelude.<*> (x Prelude..@ "StreamARN")
 
-instance Hashable KinesisStreamConfig
+instance Prelude.Hashable KinesisStreamConfig
 
-instance NFData KinesisStreamConfig
+instance Prelude.NFData KinesisStreamConfig
 
-instance ToXML KinesisStreamConfig where
+instance Prelude.ToXML KinesisStreamConfig where
   toXML KinesisStreamConfig' {..} =
-    mconcat
-      [ "RoleARN" @= _kscRoleARN,
-        "StreamARN" @= _kscStreamARN
+    Prelude.mconcat
+      [ "RoleARN" Prelude.@= roleARN,
+        "StreamARN" Prelude.@= streamARN
       ]

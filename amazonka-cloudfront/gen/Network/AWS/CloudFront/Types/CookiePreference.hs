@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +21,215 @@ module Network.AWS.CloudFront.Types.CookiePreference where
 
 import Network.AWS.CloudFront.Types.CookieNames
 import Network.AWS.CloudFront.Types.ItemSelection
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This field is deprecated. We recommend that you use a cache policy or an origin request policy instead of this field.
+-- | This field is deprecated. We recommend that you use a cache policy or an
+-- origin request policy instead of this field.
 --
+-- If you want to include cookies in the cache key, use @CookiesConfig@ in
+-- a cache policy. See @CachePolicy@.
 --
--- If you want to include cookies in the cache key, use @CookiesConfig@ in a cache policy. See @CachePolicy@ .
+-- If you want to send cookies to the origin but not include them in the
+-- cache key, use @CookiesConfig@ in an origin request policy. See
+-- @OriginRequestPolicy@.
 --
--- If you want to send cookies to the origin but not include them in the cache key, use @CookiesConfig@ in an origin request policy. See @OriginRequestPolicy@ .
+-- A complex type that specifies whether you want CloudFront to forward
+-- cookies to the origin and, if so, which ones. For more information about
+-- forwarding cookies to the origin, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Cookies.html Caching Content Based on Cookies>
+-- in the /Amazon CloudFront Developer Guide/.
 --
--- A complex type that specifies whether you want CloudFront to forward cookies to the origin and, if so, which ones. For more information about forwarding cookies to the origin, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Cookies.html Caching Content Based on Cookies> in the /Amazon CloudFront Developer Guide/ .
---
---
--- /See:/ 'cookiePreference' smart constructor.
+-- /See:/ 'newCookiePreference' smart constructor.
 data CookiePreference = CookiePreference'
-  { _cpWhitelistedNames ::
-      !(Maybe CookieNames),
-    _cpForward :: !ItemSelection
+  { -- | This field is deprecated. We recommend that you use a cache policy or an
+    -- origin request policy instead of this field.
+    --
+    -- If you want to include cookies in the cache key, use a cache policy. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html#cache-key-create-cache-policy Creating cache policies>
+    -- in the /Amazon CloudFront Developer Guide/.
+    --
+    -- If you want to send cookies to the origin but not include them in the
+    -- cache key, use an origin request policy. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html#origin-request-create-origin-request-policy Creating origin request policies>
+    -- in the /Amazon CloudFront Developer Guide/.
+    --
+    -- Required if you specify @whitelist@ for the value of @Forward@. A
+    -- complex type that specifies how many different cookies you want
+    -- CloudFront to forward to the origin for this cache behavior and, if you
+    -- want to forward selected cookies, the names of those cookies.
+    --
+    -- If you specify @all@ or @none@ for the value of @Forward@, omit
+    -- @WhitelistedNames@. If you change the value of @Forward@ from
+    -- @whitelist@ to @all@ or @none@ and you don\'t delete the
+    -- @WhitelistedNames@ element and its child elements, CloudFront deletes
+    -- them automatically.
+    --
+    -- For the current limit on the number of cookie names that you can
+    -- whitelist for each cache behavior, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/xrefaws_service_limits.html#limits_cloudfront CloudFront Limits>
+    -- in the /AWS General Reference/.
+    whitelistedNames :: Prelude.Maybe CookieNames,
+    -- | This field is deprecated. We recommend that you use a cache policy or an
+    -- origin request policy instead of this field.
+    --
+    -- If you want to include cookies in the cache key, use a cache policy. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html#cache-key-create-cache-policy Creating cache policies>
+    -- in the /Amazon CloudFront Developer Guide/.
+    --
+    -- If you want to send cookies to the origin but not include them in the
+    -- cache key, use origin request policy. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html#origin-request-create-origin-request-policy Creating origin request policies>
+    -- in the /Amazon CloudFront Developer Guide/.
+    --
+    -- Specifies which cookies to forward to the origin for this cache
+    -- behavior: all, none, or the list of cookies specified in the
+    -- @WhitelistedNames@ complex type.
+    --
+    -- Amazon S3 doesn\'t process cookies. When the cache behavior is
+    -- forwarding requests to an Amazon S3 origin, specify none for the
+    -- @Forward@ element.
+    forward :: ItemSelection
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CookiePreference' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CookiePreference' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpWhitelistedNames' - This field is deprecated. We recommend that you use a cache policy or an origin request policy instead of this field. If you want to include cookies in the cache key, use a cache policy. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html#cache-key-create-cache-policy Creating cache policies> in the /Amazon CloudFront Developer Guide/ . If you want to send cookies to the origin but not include them in the cache key, use an origin request policy. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html#origin-request-create-origin-request-policy Creating origin request policies> in the /Amazon CloudFront Developer Guide/ . Required if you specify @whitelist@ for the value of @Forward@ . A complex type that specifies how many different cookies you want CloudFront to forward to the origin for this cache behavior and, if you want to forward selected cookies, the names of those cookies. If you specify @all@ or @none@ for the value of @Forward@ , omit @WhitelistedNames@ . If you change the value of @Forward@ from @whitelist@ to @all@ or @none@ and you don't delete the @WhitelistedNames@ element and its child elements, CloudFront deletes them automatically. For the current limit on the number of cookie names that you can whitelist for each cache behavior, see <https://docs.aws.amazon.com/general/latest/gr/xrefaws_service_limits.html#limits_cloudfront CloudFront Limits> in the /AWS General Reference/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpForward' - This field is deprecated. We recommend that you use a cache policy or an origin request policy instead of this field. If you want to include cookies in the cache key, use a cache policy. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html#cache-key-create-cache-policy Creating cache policies> in the /Amazon CloudFront Developer Guide/ . If you want to send cookies to the origin but not include them in the cache key, use origin request policy. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html#origin-request-create-origin-request-policy Creating origin request policies> in the /Amazon CloudFront Developer Guide/ . Specifies which cookies to forward to the origin for this cache behavior: all, none, or the list of cookies specified in the @WhitelistedNames@ complex type. Amazon S3 doesn't process cookies. When the cache behavior is forwarding requests to an Amazon S3 origin, specify none for the @Forward@ element.
-cookiePreference ::
-  -- | 'cpForward'
+-- 'whitelistedNames', 'cookiePreference_whitelistedNames' - This field is deprecated. We recommend that you use a cache policy or an
+-- origin request policy instead of this field.
+--
+-- If you want to include cookies in the cache key, use a cache policy. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html#cache-key-create-cache-policy Creating cache policies>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- If you want to send cookies to the origin but not include them in the
+-- cache key, use an origin request policy. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html#origin-request-create-origin-request-policy Creating origin request policies>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- Required if you specify @whitelist@ for the value of @Forward@. A
+-- complex type that specifies how many different cookies you want
+-- CloudFront to forward to the origin for this cache behavior and, if you
+-- want to forward selected cookies, the names of those cookies.
+--
+-- If you specify @all@ or @none@ for the value of @Forward@, omit
+-- @WhitelistedNames@. If you change the value of @Forward@ from
+-- @whitelist@ to @all@ or @none@ and you don\'t delete the
+-- @WhitelistedNames@ element and its child elements, CloudFront deletes
+-- them automatically.
+--
+-- For the current limit on the number of cookie names that you can
+-- whitelist for each cache behavior, see
+-- <https://docs.aws.amazon.com/general/latest/gr/xrefaws_service_limits.html#limits_cloudfront CloudFront Limits>
+-- in the /AWS General Reference/.
+--
+-- 'forward', 'cookiePreference_forward' - This field is deprecated. We recommend that you use a cache policy or an
+-- origin request policy instead of this field.
+--
+-- If you want to include cookies in the cache key, use a cache policy. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html#cache-key-create-cache-policy Creating cache policies>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- If you want to send cookies to the origin but not include them in the
+-- cache key, use origin request policy. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html#origin-request-create-origin-request-policy Creating origin request policies>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- Specifies which cookies to forward to the origin for this cache
+-- behavior: all, none, or the list of cookies specified in the
+-- @WhitelistedNames@ complex type.
+--
+-- Amazon S3 doesn\'t process cookies. When the cache behavior is
+-- forwarding requests to an Amazon S3 origin, specify none for the
+-- @Forward@ element.
+newCookiePreference ::
+  -- | 'forward'
   ItemSelection ->
   CookiePreference
-cookiePreference pForward_ =
+newCookiePreference pForward_ =
   CookiePreference'
-    { _cpWhitelistedNames = Nothing,
-      _cpForward = pForward_
+    { whitelistedNames =
+        Prelude.Nothing,
+      forward = pForward_
     }
 
--- | This field is deprecated. We recommend that you use a cache policy or an origin request policy instead of this field. If you want to include cookies in the cache key, use a cache policy. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html#cache-key-create-cache-policy Creating cache policies> in the /Amazon CloudFront Developer Guide/ . If you want to send cookies to the origin but not include them in the cache key, use an origin request policy. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html#origin-request-create-origin-request-policy Creating origin request policies> in the /Amazon CloudFront Developer Guide/ . Required if you specify @whitelist@ for the value of @Forward@ . A complex type that specifies how many different cookies you want CloudFront to forward to the origin for this cache behavior and, if you want to forward selected cookies, the names of those cookies. If you specify @all@ or @none@ for the value of @Forward@ , omit @WhitelistedNames@ . If you change the value of @Forward@ from @whitelist@ to @all@ or @none@ and you don't delete the @WhitelistedNames@ element and its child elements, CloudFront deletes them automatically. For the current limit on the number of cookie names that you can whitelist for each cache behavior, see <https://docs.aws.amazon.com/general/latest/gr/xrefaws_service_limits.html#limits_cloudfront CloudFront Limits> in the /AWS General Reference/ .
-cpWhitelistedNames :: Lens' CookiePreference (Maybe CookieNames)
-cpWhitelistedNames = lens _cpWhitelistedNames (\s a -> s {_cpWhitelistedNames = a})
+-- | This field is deprecated. We recommend that you use a cache policy or an
+-- origin request policy instead of this field.
+--
+-- If you want to include cookies in the cache key, use a cache policy. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html#cache-key-create-cache-policy Creating cache policies>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- If you want to send cookies to the origin but not include them in the
+-- cache key, use an origin request policy. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html#origin-request-create-origin-request-policy Creating origin request policies>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- Required if you specify @whitelist@ for the value of @Forward@. A
+-- complex type that specifies how many different cookies you want
+-- CloudFront to forward to the origin for this cache behavior and, if you
+-- want to forward selected cookies, the names of those cookies.
+--
+-- If you specify @all@ or @none@ for the value of @Forward@, omit
+-- @WhitelistedNames@. If you change the value of @Forward@ from
+-- @whitelist@ to @all@ or @none@ and you don\'t delete the
+-- @WhitelistedNames@ element and its child elements, CloudFront deletes
+-- them automatically.
+--
+-- For the current limit on the number of cookie names that you can
+-- whitelist for each cache behavior, see
+-- <https://docs.aws.amazon.com/general/latest/gr/xrefaws_service_limits.html#limits_cloudfront CloudFront Limits>
+-- in the /AWS General Reference/.
+cookiePreference_whitelistedNames :: Lens.Lens' CookiePreference (Prelude.Maybe CookieNames)
+cookiePreference_whitelistedNames = Lens.lens (\CookiePreference' {whitelistedNames} -> whitelistedNames) (\s@CookiePreference' {} a -> s {whitelistedNames = a} :: CookiePreference)
 
--- | This field is deprecated. We recommend that you use a cache policy or an origin request policy instead of this field. If you want to include cookies in the cache key, use a cache policy. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html#cache-key-create-cache-policy Creating cache policies> in the /Amazon CloudFront Developer Guide/ . If you want to send cookies to the origin but not include them in the cache key, use origin request policy. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html#origin-request-create-origin-request-policy Creating origin request policies> in the /Amazon CloudFront Developer Guide/ . Specifies which cookies to forward to the origin for this cache behavior: all, none, or the list of cookies specified in the @WhitelistedNames@ complex type. Amazon S3 doesn't process cookies. When the cache behavior is forwarding requests to an Amazon S3 origin, specify none for the @Forward@ element.
-cpForward :: Lens' CookiePreference ItemSelection
-cpForward = lens _cpForward (\s a -> s {_cpForward = a})
+-- | This field is deprecated. We recommend that you use a cache policy or an
+-- origin request policy instead of this field.
+--
+-- If you want to include cookies in the cache key, use a cache policy. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html#cache-key-create-cache-policy Creating cache policies>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- If you want to send cookies to the origin but not include them in the
+-- cache key, use origin request policy. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html#origin-request-create-origin-request-policy Creating origin request policies>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- Specifies which cookies to forward to the origin for this cache
+-- behavior: all, none, or the list of cookies specified in the
+-- @WhitelistedNames@ complex type.
+--
+-- Amazon S3 doesn\'t process cookies. When the cache behavior is
+-- forwarding requests to an Amazon S3 origin, specify none for the
+-- @Forward@ element.
+cookiePreference_forward :: Lens.Lens' CookiePreference ItemSelection
+cookiePreference_forward = Lens.lens (\CookiePreference' {forward} -> forward) (\s@CookiePreference' {} a -> s {forward = a} :: CookiePreference)
 
-instance FromXML CookiePreference where
+instance Prelude.FromXML CookiePreference where
   parseXML x =
     CookiePreference'
-      <$> (x .@? "WhitelistedNames") <*> (x .@ "Forward")
+      Prelude.<$> (x Prelude..@? "WhitelistedNames")
+      Prelude.<*> (x Prelude..@ "Forward")
 
-instance Hashable CookiePreference
+instance Prelude.Hashable CookiePreference
 
-instance NFData CookiePreference
+instance Prelude.NFData CookiePreference
 
-instance ToXML CookiePreference where
+instance Prelude.ToXML CookiePreference where
   toXML CookiePreference' {..} =
-    mconcat
-      [ "WhitelistedNames" @= _cpWhitelistedNames,
-        "Forward" @= _cpForward
+    Prelude.mconcat
+      [ "WhitelistedNames" Prelude.@= whitelistedNames,
+        "Forward" Prelude.@= forward
       ]

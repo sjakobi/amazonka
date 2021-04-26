@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.KeyGroupConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A key group configuration.
 --
+-- A key group contains a list of public keys that you can use with
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html CloudFront signed URLs and signed cookies>.
 --
--- A key group contains a list of public keys that you can use with <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html CloudFront signed URLs and signed cookies> .
---
---
--- /See:/ 'keyGroupConfig' smart constructor.
+-- /See:/ 'newKeyGroupConfig' smart constructor.
 data KeyGroupConfig = KeyGroupConfig'
-  { _kgcComment ::
-      !(Maybe Text),
-    _kgcName :: !Text,
-    _kgcItems :: ![Text]
+  { -- | A comment to describe the key group.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | A name to identify the key group.
+    name :: Prelude.Text,
+    -- | A list of the identifiers of the public keys in the key group.
+    items :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyGroupConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyGroupConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kgcComment' - A comment to describe the key group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kgcName' - A name to identify the key group.
+-- 'comment', 'keyGroupConfig_comment' - A comment to describe the key group.
 --
--- * 'kgcItems' - A list of the identifiers of the public keys in the key group.
-keyGroupConfig ::
-  -- | 'kgcName'
-  Text ->
+-- 'name', 'keyGroupConfig_name' - A name to identify the key group.
+--
+-- 'items', 'keyGroupConfig_items' - A list of the identifiers of the public keys in the key group.
+newKeyGroupConfig ::
+  -- | 'name'
+  Prelude.Text ->
   KeyGroupConfig
-keyGroupConfig pName_ =
+newKeyGroupConfig pName_ =
   KeyGroupConfig'
-    { _kgcComment = Nothing,
-      _kgcName = pName_,
-      _kgcItems = mempty
+    { comment = Prelude.Nothing,
+      name = pName_,
+      items = Prelude.mempty
     }
 
 -- | A comment to describe the key group.
-kgcComment :: Lens' KeyGroupConfig (Maybe Text)
-kgcComment = lens _kgcComment (\s a -> s {_kgcComment = a})
+keyGroupConfig_comment :: Lens.Lens' KeyGroupConfig (Prelude.Maybe Prelude.Text)
+keyGroupConfig_comment = Lens.lens (\KeyGroupConfig' {comment} -> comment) (\s@KeyGroupConfig' {} a -> s {comment = a} :: KeyGroupConfig)
 
 -- | A name to identify the key group.
-kgcName :: Lens' KeyGroupConfig Text
-kgcName = lens _kgcName (\s a -> s {_kgcName = a})
+keyGroupConfig_name :: Lens.Lens' KeyGroupConfig Prelude.Text
+keyGroupConfig_name = Lens.lens (\KeyGroupConfig' {name} -> name) (\s@KeyGroupConfig' {} a -> s {name = a} :: KeyGroupConfig)
 
 -- | A list of the identifiers of the public keys in the key group.
-kgcItems :: Lens' KeyGroupConfig [Text]
-kgcItems = lens _kgcItems (\s a -> s {_kgcItems = a}) . _Coerce
+keyGroupConfig_items :: Lens.Lens' KeyGroupConfig [Prelude.Text]
+keyGroupConfig_items = Lens.lens (\KeyGroupConfig' {items} -> items) (\s@KeyGroupConfig' {} a -> s {items = a} :: KeyGroupConfig) Prelude.. Prelude._Coerce
 
-instance FromXML KeyGroupConfig where
+instance Prelude.FromXML KeyGroupConfig where
   parseXML x =
     KeyGroupConfig'
-      <$> (x .@? "Comment")
-      <*> (x .@ "Name")
-      <*> ( x .@? "Items" .!@ mempty
-              >>= parseXMLList "PublicKey"
-          )
+      Prelude.<$> (x Prelude..@? "Comment")
+      Prelude.<*> (x Prelude..@ "Name")
+      Prelude.<*> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.parseXMLList "PublicKey"
+                  )
 
-instance Hashable KeyGroupConfig
+instance Prelude.Hashable KeyGroupConfig
 
-instance NFData KeyGroupConfig
+instance Prelude.NFData KeyGroupConfig
 
-instance ToXML KeyGroupConfig where
+instance Prelude.ToXML KeyGroupConfig where
   toXML KeyGroupConfig' {..} =
-    mconcat
-      [ "Comment" @= _kgcComment,
-        "Name" @= _kgcName,
-        "Items" @= toXMLList "PublicKey" _kgcItems
+    Prelude.mconcat
+      [ "Comment" Prelude.@= comment,
+        "Name" Prelude.@= name,
+        "Items"
+          Prelude.@= Prelude.toXMLList "PublicKey" items
       ]

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,75 @@
 module Network.AWS.CloudFront.Types.CustomHeaders where
 
 import Network.AWS.CloudFront.Types.OriginCustomHeader
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A complex type that contains the list of Custom Headers for each origin.
 --
---
---
--- /See:/ 'customHeaders' smart constructor.
+-- /See:/ 'newCustomHeaders' smart constructor.
 data CustomHeaders = CustomHeaders'
-  { _chItems ::
-      !(Maybe [OriginCustomHeader]),
-    _chQuantity :: !Int
+  { -- | __Optional__: A list that contains one @OriginCustomHeader@ element for
+    -- each custom header that you want CloudFront to forward to the origin. If
+    -- Quantity is @0@, omit @Items@.
+    items :: Prelude.Maybe [OriginCustomHeader],
+    -- | The number of custom headers, if any, for this distribution.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomHeaders' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomHeaders' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chItems' - __Optional__ : A list that contains one @OriginCustomHeader@ element for each custom header that you want CloudFront to forward to the origin. If Quantity is @0@ , omit @Items@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'chQuantity' - The number of custom headers, if any, for this distribution.
-customHeaders ::
-  -- | 'chQuantity'
-  Int ->
+-- 'items', 'customHeaders_items' - __Optional__: A list that contains one @OriginCustomHeader@ element for
+-- each custom header that you want CloudFront to forward to the origin. If
+-- Quantity is @0@, omit @Items@.
+--
+-- 'quantity', 'customHeaders_quantity' - The number of custom headers, if any, for this distribution.
+newCustomHeaders ::
+  -- | 'quantity'
+  Prelude.Int ->
   CustomHeaders
-customHeaders pQuantity_ =
+newCustomHeaders pQuantity_ =
   CustomHeaders'
-    { _chItems = Nothing,
-      _chQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
     }
 
--- | __Optional__ : A list that contains one @OriginCustomHeader@ element for each custom header that you want CloudFront to forward to the origin. If Quantity is @0@ , omit @Items@ .
-chItems :: Lens' CustomHeaders [OriginCustomHeader]
-chItems = lens _chItems (\s a -> s {_chItems = a}) . _Default . _Coerce
+-- | __Optional__: A list that contains one @OriginCustomHeader@ element for
+-- each custom header that you want CloudFront to forward to the origin. If
+-- Quantity is @0@, omit @Items@.
+customHeaders_items :: Lens.Lens' CustomHeaders (Prelude.Maybe [OriginCustomHeader])
+customHeaders_items = Lens.lens (\CustomHeaders' {items} -> items) (\s@CustomHeaders' {} a -> s {items = a} :: CustomHeaders) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of custom headers, if any, for this distribution.
-chQuantity :: Lens' CustomHeaders Int
-chQuantity = lens _chQuantity (\s a -> s {_chQuantity = a})
+customHeaders_quantity :: Lens.Lens' CustomHeaders Prelude.Int
+customHeaders_quantity = Lens.lens (\CustomHeaders' {quantity} -> quantity) (\s@CustomHeaders' {} a -> s {quantity = a} :: CustomHeaders)
 
-instance FromXML CustomHeaders where
+instance Prelude.FromXML CustomHeaders where
   parseXML x =
     CustomHeaders'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "OriginCustomHeader")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "OriginCustomHeader")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable CustomHeaders
+instance Prelude.Hashable CustomHeaders
 
-instance NFData CustomHeaders
+instance Prelude.NFData CustomHeaders
 
-instance ToXML CustomHeaders where
+instance Prelude.ToXML CustomHeaders where
   toXML CustomHeaders' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Items"
-          @= toXML (toXMLList "OriginCustomHeader" <$> _chItems),
-        "Quantity" @= _chQuantity
+          Prelude.@= Prelude.toXML
+            ( Prelude.toXMLList "OriginCustomHeader"
+                Prelude.<$> items
+            ),
+        "Quantity" Prelude.@= quantity
       ]

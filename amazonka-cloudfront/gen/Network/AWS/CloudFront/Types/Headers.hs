@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.Headers where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains a list of HTTP header names.
 --
---
---
--- /See:/ 'headers' smart constructor.
+-- /See:/ 'newHeaders' smart constructor.
 data Headers = Headers'
-  { _hItems :: !(Maybe [Text]),
-    _hQuantity :: !Int
+  { -- | A list of HTTP header names.
+    items :: Prelude.Maybe [Prelude.Text],
+    -- | The number of header names in the @Items@ list.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Headers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Headers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hItems' - A list of HTTP header names.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hQuantity' - The number of header names in the @Items@ list.
-headers ::
-  -- | 'hQuantity'
-  Int ->
+-- 'items', 'headers_items' - A list of HTTP header names.
+--
+-- 'quantity', 'headers_quantity' - The number of header names in the @Items@ list.
+newHeaders ::
+  -- | 'quantity'
+  Prelude.Int ->
   Headers
-headers pQuantity_ =
+newHeaders pQuantity_ =
   Headers'
-    { _hItems = Nothing,
-      _hQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
     }
 
 -- | A list of HTTP header names.
-hItems :: Lens' Headers [Text]
-hItems = lens _hItems (\s a -> s {_hItems = a}) . _Default . _Coerce
+headers_items :: Lens.Lens' Headers (Prelude.Maybe [Prelude.Text])
+headers_items = Lens.lens (\Headers' {items} -> items) (\s@Headers' {} a -> s {items = a} :: Headers) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of header names in the @Items@ list.
-hQuantity :: Lens' Headers Int
-hQuantity = lens _hQuantity (\s a -> s {_hQuantity = a})
+headers_quantity :: Lens.Lens' Headers Prelude.Int
+headers_quantity = Lens.lens (\Headers' {quantity} -> quantity) (\s@Headers' {} a -> s {quantity = a} :: Headers)
 
-instance FromXML Headers where
+instance Prelude.FromXML Headers where
   parseXML x =
     Headers'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "Name")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Name")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable Headers
+instance Prelude.Hashable Headers
 
-instance NFData Headers
+instance Prelude.NFData Headers
 
-instance ToXML Headers where
+instance Prelude.ToXML Headers where
   toXML Headers' {..} =
-    mconcat
-      [ "Items" @= toXML (toXMLList "Name" <$> _hItems),
-        "Quantity" @= _hQuantity
+    Prelude.mconcat
+      [ "Items"
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "Name" Prelude.<$> items),
+        "Quantity" Prelude.@= quantity
       ]

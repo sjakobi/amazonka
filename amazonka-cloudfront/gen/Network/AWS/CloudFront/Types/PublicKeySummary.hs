@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,89 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.PublicKeySummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a public key.
 --
---
---
--- /See:/ 'publicKeySummary' smart constructor.
+-- /See:/ 'newPublicKeySummary' smart constructor.
 data PublicKeySummary = PublicKeySummary'
-  { _pksComment ::
-      !(Maybe Text),
-    _pksId :: !Text,
-    _pksName :: !Text,
-    _pksCreatedTime :: !ISO8601,
-    _pksEncodedKey :: !Text
+  { -- | A comment to describe the public key.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the public key.
+    id :: Prelude.Text,
+    -- | A name to help identify the public key.
+    name :: Prelude.Text,
+    -- | The date and time when the public key was uploaded.
+    createdTime :: Prelude.ISO8601,
+    -- | The public key.
+    encodedKey :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PublicKeySummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PublicKeySummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pksComment' - A comment to describe the public key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pksId' - The identifier of the public key.
+-- 'comment', 'publicKeySummary_comment' - A comment to describe the public key.
 --
--- * 'pksName' - A name to help identify the public key.
+-- 'id', 'publicKeySummary_id' - The identifier of the public key.
 --
--- * 'pksCreatedTime' - The date and time when the public key was uploaded.
+-- 'name', 'publicKeySummary_name' - A name to help identify the public key.
 --
--- * 'pksEncodedKey' - The public key.
-publicKeySummary ::
-  -- | 'pksId'
-  Text ->
-  -- | 'pksName'
-  Text ->
-  -- | 'pksCreatedTime'
-  UTCTime ->
-  -- | 'pksEncodedKey'
-  Text ->
+-- 'createdTime', 'publicKeySummary_createdTime' - The date and time when the public key was uploaded.
+--
+-- 'encodedKey', 'publicKeySummary_encodedKey' - The public key.
+newPublicKeySummary ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'createdTime'
+  Prelude.UTCTime ->
+  -- | 'encodedKey'
+  Prelude.Text ->
   PublicKeySummary
-publicKeySummary
+newPublicKeySummary
   pId_
   pName_
   pCreatedTime_
   pEncodedKey_ =
     PublicKeySummary'
-      { _pksComment = Nothing,
-        _pksId = pId_,
-        _pksName = pName_,
-        _pksCreatedTime = _Time # pCreatedTime_,
-        _pksEncodedKey = pEncodedKey_
+      { comment = Prelude.Nothing,
+        id = pId_,
+        name = pName_,
+        createdTime = Prelude._Time Lens.# pCreatedTime_,
+        encodedKey = pEncodedKey_
       }
 
 -- | A comment to describe the public key.
-pksComment :: Lens' PublicKeySummary (Maybe Text)
-pksComment = lens _pksComment (\s a -> s {_pksComment = a})
+publicKeySummary_comment :: Lens.Lens' PublicKeySummary (Prelude.Maybe Prelude.Text)
+publicKeySummary_comment = Lens.lens (\PublicKeySummary' {comment} -> comment) (\s@PublicKeySummary' {} a -> s {comment = a} :: PublicKeySummary)
 
 -- | The identifier of the public key.
-pksId :: Lens' PublicKeySummary Text
-pksId = lens _pksId (\s a -> s {_pksId = a})
+publicKeySummary_id :: Lens.Lens' PublicKeySummary Prelude.Text
+publicKeySummary_id = Lens.lens (\PublicKeySummary' {id} -> id) (\s@PublicKeySummary' {} a -> s {id = a} :: PublicKeySummary)
 
 -- | A name to help identify the public key.
-pksName :: Lens' PublicKeySummary Text
-pksName = lens _pksName (\s a -> s {_pksName = a})
+publicKeySummary_name :: Lens.Lens' PublicKeySummary Prelude.Text
+publicKeySummary_name = Lens.lens (\PublicKeySummary' {name} -> name) (\s@PublicKeySummary' {} a -> s {name = a} :: PublicKeySummary)
 
 -- | The date and time when the public key was uploaded.
-pksCreatedTime :: Lens' PublicKeySummary UTCTime
-pksCreatedTime = lens _pksCreatedTime (\s a -> s {_pksCreatedTime = a}) . _Time
+publicKeySummary_createdTime :: Lens.Lens' PublicKeySummary Prelude.UTCTime
+publicKeySummary_createdTime = Lens.lens (\PublicKeySummary' {createdTime} -> createdTime) (\s@PublicKeySummary' {} a -> s {createdTime = a} :: PublicKeySummary) Prelude.. Prelude._Time
 
 -- | The public key.
-pksEncodedKey :: Lens' PublicKeySummary Text
-pksEncodedKey = lens _pksEncodedKey (\s a -> s {_pksEncodedKey = a})
+publicKeySummary_encodedKey :: Lens.Lens' PublicKeySummary Prelude.Text
+publicKeySummary_encodedKey = Lens.lens (\PublicKeySummary' {encodedKey} -> encodedKey) (\s@PublicKeySummary' {} a -> s {encodedKey = a} :: PublicKeySummary)
 
-instance FromXML PublicKeySummary where
+instance Prelude.FromXML PublicKeySummary where
   parseXML x =
     PublicKeySummary'
-      <$> (x .@? "Comment")
-      <*> (x .@ "Id")
-      <*> (x .@ "Name")
-      <*> (x .@ "CreatedTime")
-      <*> (x .@ "EncodedKey")
+      Prelude.<$> (x Prelude..@? "Comment")
+      Prelude.<*> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "Name")
+      Prelude.<*> (x Prelude..@ "CreatedTime")
+      Prelude.<*> (x Prelude..@ "EncodedKey")
 
-instance Hashable PublicKeySummary
+instance Prelude.Hashable PublicKeySummary
 
-instance NFData PublicKeySummary
+instance Prelude.NFData PublicKeySummary

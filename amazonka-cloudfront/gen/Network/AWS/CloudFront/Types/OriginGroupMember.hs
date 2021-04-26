@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,43 +19,47 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.OriginGroupMember where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An origin in an origin group.
 --
---
---
--- /See:/ 'originGroupMember' smart constructor.
-newtype OriginGroupMember = OriginGroupMember'
-  { _ogmOriginId ::
-      Text
+-- /See:/ 'newOriginGroupMember' smart constructor.
+data OriginGroupMember = OriginGroupMember'
+  { -- | The ID for an origin in an origin group.
+    originId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OriginGroupMember' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OriginGroupMember' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ogmOriginId' - The ID for an origin in an origin group.
-originGroupMember ::
-  -- | 'ogmOriginId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'originId', 'originGroupMember_originId' - The ID for an origin in an origin group.
+newOriginGroupMember ::
+  -- | 'originId'
+  Prelude.Text ->
   OriginGroupMember
-originGroupMember pOriginId_ =
-  OriginGroupMember' {_ogmOriginId = pOriginId_}
+newOriginGroupMember pOriginId_ =
+  OriginGroupMember' {originId = pOriginId_}
 
 -- | The ID for an origin in an origin group.
-ogmOriginId :: Lens' OriginGroupMember Text
-ogmOriginId = lens _ogmOriginId (\s a -> s {_ogmOriginId = a})
+originGroupMember_originId :: Lens.Lens' OriginGroupMember Prelude.Text
+originGroupMember_originId = Lens.lens (\OriginGroupMember' {originId} -> originId) (\s@OriginGroupMember' {} a -> s {originId = a} :: OriginGroupMember)
 
-instance FromXML OriginGroupMember where
-  parseXML x = OriginGroupMember' <$> (x .@ "OriginId")
+instance Prelude.FromXML OriginGroupMember where
+  parseXML x =
+    OriginGroupMember'
+      Prelude.<$> (x Prelude..@ "OriginId")
 
-instance Hashable OriginGroupMember
+instance Prelude.Hashable OriginGroupMember
 
-instance NFData OriginGroupMember
+instance Prelude.NFData OriginGroupMember
 
-instance ToXML OriginGroupMember where
+instance Prelude.ToXML OriginGroupMember where
   toXML OriginGroupMember' {..} =
-    mconcat ["OriginId" @= _ogmOriginId]
+    Prelude.mconcat ["OriginId" Prelude.@= originId]

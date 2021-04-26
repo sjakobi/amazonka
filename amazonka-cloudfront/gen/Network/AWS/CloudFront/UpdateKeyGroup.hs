@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,165 +23,176 @@
 --
 -- Updates a key group.
 --
+-- When you update a key group, all the fields are updated with the values
+-- provided in the request. You cannot update some fields independent of
+-- others. To update a key group:
 --
--- When you update a key group, all the fields are updated with the values provided in the request. You cannot update some fields independent of others. To update a key group:
+-- 1.  Get the current key group with @GetKeyGroup@ or @GetKeyGroupConfig@.
 --
---     * Get the current key group with @GetKeyGroup@ or @GetKeyGroupConfig@ .
+-- 2.  Locally modify the fields in the key group that you want to update.
+--     For example, add or remove public key IDs.
 --
---     * Locally modify the fields in the key group that you want to update. For example, add or remove public key IDs.
---
---     * Call @UpdateKeyGroup@ with the entire key group object, including the fields that you modified and those that you didn’t.
+-- 3.  Call @UpdateKeyGroup@ with the entire key group object, including
+--     the fields that you modified and those that you didn’t.
 module Network.AWS.CloudFront.UpdateKeyGroup
   ( -- * Creating a Request
-    updateKeyGroup,
-    UpdateKeyGroup,
+    UpdateKeyGroup (..),
+    newUpdateKeyGroup,
 
     -- * Request Lenses
-    ukgIfMatch,
-    ukgKeyGroupConfig,
-    ukgId,
+    updateKeyGroup_ifMatch,
+    updateKeyGroup_keyGroupConfig,
+    updateKeyGroup_id,
 
     -- * Destructuring the Response
-    updateKeyGroupResponse,
-    UpdateKeyGroupResponse,
+    UpdateKeyGroupResponse (..),
+    newUpdateKeyGroupResponse,
 
     -- * Response Lenses
-    ukgrrsETag,
-    ukgrrsKeyGroup,
-    ukgrrsResponseStatus,
+    updateKeyGroupResponse_eTag,
+    updateKeyGroupResponse_keyGroup,
+    updateKeyGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.KeyGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateKeyGroup' smart constructor.
+-- | /See:/ 'newUpdateKeyGroup' smart constructor.
 data UpdateKeyGroup = UpdateKeyGroup'
-  { _ukgIfMatch ::
-      !(Maybe Text),
-    _ukgKeyGroupConfig :: !KeyGroupConfig,
-    _ukgId :: !Text
+  { -- | The version of the key group that you are updating. The version is the
+    -- key group’s @ETag@ value.
+    ifMatch :: Prelude.Maybe Prelude.Text,
+    -- | The key group configuration.
+    keyGroupConfig :: KeyGroupConfig,
+    -- | The identifier of the key group that you are updating.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateKeyGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateKeyGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ukgIfMatch' - The version of the key group that you are updating. The version is the key group’s @ETag@ value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ukgKeyGroupConfig' - The key group configuration.
+-- 'ifMatch', 'updateKeyGroup_ifMatch' - The version of the key group that you are updating. The version is the
+-- key group’s @ETag@ value.
 --
--- * 'ukgId' - The identifier of the key group that you are updating.
-updateKeyGroup ::
-  -- | 'ukgKeyGroupConfig'
+-- 'keyGroupConfig', 'updateKeyGroup_keyGroupConfig' - The key group configuration.
+--
+-- 'id', 'updateKeyGroup_id' - The identifier of the key group that you are updating.
+newUpdateKeyGroup ::
+  -- | 'keyGroupConfig'
   KeyGroupConfig ->
-  -- | 'ukgId'
-  Text ->
+  -- | 'id'
+  Prelude.Text ->
   UpdateKeyGroup
-updateKeyGroup pKeyGroupConfig_ pId_ =
+newUpdateKeyGroup pKeyGroupConfig_ pId_ =
   UpdateKeyGroup'
-    { _ukgIfMatch = Nothing,
-      _ukgKeyGroupConfig = pKeyGroupConfig_,
-      _ukgId = pId_
+    { ifMatch = Prelude.Nothing,
+      keyGroupConfig = pKeyGroupConfig_,
+      id = pId_
     }
 
--- | The version of the key group that you are updating. The version is the key group’s @ETag@ value.
-ukgIfMatch :: Lens' UpdateKeyGroup (Maybe Text)
-ukgIfMatch = lens _ukgIfMatch (\s a -> s {_ukgIfMatch = a})
+-- | The version of the key group that you are updating. The version is the
+-- key group’s @ETag@ value.
+updateKeyGroup_ifMatch :: Lens.Lens' UpdateKeyGroup (Prelude.Maybe Prelude.Text)
+updateKeyGroup_ifMatch = Lens.lens (\UpdateKeyGroup' {ifMatch} -> ifMatch) (\s@UpdateKeyGroup' {} a -> s {ifMatch = a} :: UpdateKeyGroup)
 
 -- | The key group configuration.
-ukgKeyGroupConfig :: Lens' UpdateKeyGroup KeyGroupConfig
-ukgKeyGroupConfig = lens _ukgKeyGroupConfig (\s a -> s {_ukgKeyGroupConfig = a})
+updateKeyGroup_keyGroupConfig :: Lens.Lens' UpdateKeyGroup KeyGroupConfig
+updateKeyGroup_keyGroupConfig = Lens.lens (\UpdateKeyGroup' {keyGroupConfig} -> keyGroupConfig) (\s@UpdateKeyGroup' {} a -> s {keyGroupConfig = a} :: UpdateKeyGroup)
 
 -- | The identifier of the key group that you are updating.
-ukgId :: Lens' UpdateKeyGroup Text
-ukgId = lens _ukgId (\s a -> s {_ukgId = a})
+updateKeyGroup_id :: Lens.Lens' UpdateKeyGroup Prelude.Text
+updateKeyGroup_id = Lens.lens (\UpdateKeyGroup' {id} -> id) (\s@UpdateKeyGroup' {} a -> s {id = a} :: UpdateKeyGroup)
 
-instance AWSRequest UpdateKeyGroup where
+instance Prelude.AWSRequest UpdateKeyGroup where
   type Rs UpdateKeyGroup = UpdateKeyGroupResponse
-  request = putXML cloudFront
+  request = Request.putXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           UpdateKeyGroupResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateKeyGroup
+instance Prelude.Hashable UpdateKeyGroup
 
-instance NFData UpdateKeyGroup
+instance Prelude.NFData UpdateKeyGroup
 
-instance ToElement UpdateKeyGroup where
-  toElement =
-    mkElement
+instance Prelude.ToElement UpdateKeyGroup where
+  toElement UpdateKeyGroup' {..} =
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}KeyGroupConfig"
-      . _ukgKeyGroupConfig
+      keyGroupConfig
 
-instance ToHeaders UpdateKeyGroup where
+instance Prelude.ToHeaders UpdateKeyGroup where
   toHeaders UpdateKeyGroup' {..} =
-    mconcat ["If-Match" =# _ukgIfMatch]
+    Prelude.mconcat ["If-Match" Prelude.=# ifMatch]
 
-instance ToPath UpdateKeyGroup where
+instance Prelude.ToPath UpdateKeyGroup where
   toPath UpdateKeyGroup' {..} =
-    mconcat ["/2020-05-31/key-group/", toBS _ukgId]
+    Prelude.mconcat
+      ["/2020-05-31/key-group/", Prelude.toBS id]
 
-instance ToQuery UpdateKeyGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateKeyGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateKeyGroupResponse' smart constructor.
+-- | /See:/ 'newUpdateKeyGroupResponse' smart constructor.
 data UpdateKeyGroupResponse = UpdateKeyGroupResponse'
-  { _ukgrrsETag ::
-      !(Maybe Text),
-    _ukgrrsKeyGroup ::
-      !(Maybe KeyGroup),
-    _ukgrrsResponseStatus ::
-      !Int
+  { -- | The identifier for this version of the key group.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | The key group that was just updated.
+    keyGroup :: Prelude.Maybe KeyGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateKeyGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateKeyGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ukgrrsETag' - The identifier for this version of the key group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ukgrrsKeyGroup' - The key group that was just updated.
+-- 'eTag', 'updateKeyGroupResponse_eTag' - The identifier for this version of the key group.
 --
--- * 'ukgrrsResponseStatus' - -- | The response status code.
-updateKeyGroupResponse ::
-  -- | 'ukgrrsResponseStatus'
-  Int ->
+-- 'keyGroup', 'updateKeyGroupResponse_keyGroup' - The key group that was just updated.
+--
+-- 'httpStatus', 'updateKeyGroupResponse_httpStatus' - The response's http status code.
+newUpdateKeyGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateKeyGroupResponse
-updateKeyGroupResponse pResponseStatus_ =
+newUpdateKeyGroupResponse pHttpStatus_ =
   UpdateKeyGroupResponse'
-    { _ukgrrsETag = Nothing,
-      _ukgrrsKeyGroup = Nothing,
-      _ukgrrsResponseStatus = pResponseStatus_
+    { eTag = Prelude.Nothing,
+      keyGroup = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier for this version of the key group.
-ukgrrsETag :: Lens' UpdateKeyGroupResponse (Maybe Text)
-ukgrrsETag = lens _ukgrrsETag (\s a -> s {_ukgrrsETag = a})
+updateKeyGroupResponse_eTag :: Lens.Lens' UpdateKeyGroupResponse (Prelude.Maybe Prelude.Text)
+updateKeyGroupResponse_eTag = Lens.lens (\UpdateKeyGroupResponse' {eTag} -> eTag) (\s@UpdateKeyGroupResponse' {} a -> s {eTag = a} :: UpdateKeyGroupResponse)
 
 -- | The key group that was just updated.
-ukgrrsKeyGroup :: Lens' UpdateKeyGroupResponse (Maybe KeyGroup)
-ukgrrsKeyGroup = lens _ukgrrsKeyGroup (\s a -> s {_ukgrrsKeyGroup = a})
+updateKeyGroupResponse_keyGroup :: Lens.Lens' UpdateKeyGroupResponse (Prelude.Maybe KeyGroup)
+updateKeyGroupResponse_keyGroup = Lens.lens (\UpdateKeyGroupResponse' {keyGroup} -> keyGroup) (\s@UpdateKeyGroupResponse' {} a -> s {keyGroup = a} :: UpdateKeyGroupResponse)
 
--- | -- | The response status code.
-ukgrrsResponseStatus :: Lens' UpdateKeyGroupResponse Int
-ukgrrsResponseStatus = lens _ukgrrsResponseStatus (\s a -> s {_ukgrrsResponseStatus = a})
+-- | The response's http status code.
+updateKeyGroupResponse_httpStatus :: Lens.Lens' UpdateKeyGroupResponse Prelude.Int
+updateKeyGroupResponse_httpStatus = Lens.lens (\UpdateKeyGroupResponse' {httpStatus} -> httpStatus) (\s@UpdateKeyGroupResponse' {} a -> s {httpStatus = a} :: UpdateKeyGroupResponse)
 
-instance NFData UpdateKeyGroupResponse
+instance Prelude.NFData UpdateKeyGroupResponse

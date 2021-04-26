@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CloudFront.Types.CertificateSource
   ( CertificateSource
       ( ..,
-        Acm,
-        Cloudfront,
-        IAM
+        CertificateSourceAcm,
+        CertificateSourceCloudfront,
+        CertificateSourceIam
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CertificateSource = CertificateSource' (CI Text)
+newtype CertificateSource = CertificateSource'
+  { fromCertificateSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Acm :: CertificateSource
-pattern Acm = CertificateSource' "acm"
+pattern CertificateSourceAcm :: CertificateSource
+pattern CertificateSourceAcm = CertificateSource' "acm"
 
-pattern Cloudfront :: CertificateSource
-pattern Cloudfront = CertificateSource' "cloudfront"
+pattern CertificateSourceCloudfront :: CertificateSource
+pattern CertificateSourceCloudfront = CertificateSource' "cloudfront"
 
-pattern IAM :: CertificateSource
-pattern IAM = CertificateSource' "iam"
+pattern CertificateSourceIam :: CertificateSource
+pattern CertificateSourceIam = CertificateSource' "iam"
 
 {-# COMPLETE
-  Acm,
-  Cloudfront,
-  IAM,
+  CertificateSourceAcm,
+  CertificateSourceCloudfront,
+  CertificateSourceIam,
   CertificateSource'
   #-}
 
-instance FromText CertificateSource where
-  parser = (CertificateSource' . mk) <$> takeText
+instance Prelude.FromText CertificateSource where
+  parser = CertificateSource' Prelude.<$> Prelude.takeText
 
-instance ToText CertificateSource where
-  toText (CertificateSource' ci) = original ci
+instance Prelude.ToText CertificateSource where
+  toText (CertificateSource' x) = x
 
-instance Hashable CertificateSource
+instance Prelude.Hashable CertificateSource
 
-instance NFData CertificateSource
+instance Prelude.NFData CertificateSource
 
-instance ToByteString CertificateSource
+instance Prelude.ToByteString CertificateSource
 
-instance ToQuery CertificateSource
+instance Prelude.ToQuery CertificateSource
 
-instance ToHeader CertificateSource
+instance Prelude.ToHeader CertificateSource
 
-instance FromXML CertificateSource where
-  parseXML = parseXMLText "CertificateSource"
+instance Prelude.FromXML CertificateSource where
+  parseXML = Prelude.parseXMLText "CertificateSource"
 
-instance ToXML CertificateSource where
-  toXML = toXMLText
+instance Prelude.ToXML CertificateSource where
+  toXML = Prelude.toXMLText

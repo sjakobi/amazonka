@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,114 +24,128 @@
 -- Gets a public key.
 module Network.AWS.CloudFront.GetPublicKey
   ( -- * Creating a Request
-    getPublicKey,
-    GetPublicKey,
+    GetPublicKey (..),
+    newGetPublicKey,
 
     -- * Request Lenses
-    gpkId,
+    getPublicKey_id,
 
     -- * Destructuring the Response
-    getPublicKeyResponse,
-    GetPublicKeyResponse,
+    GetPublicKeyResponse (..),
+    newGetPublicKeyResponse,
 
     -- * Response Lenses
-    gpkrrsETag,
-    gpkrrsPublicKey,
-    gpkrrsResponseStatus,
+    getPublicKeyResponse_eTag,
+    getPublicKeyResponse_publicKey,
+    getPublicKeyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.PublicKey
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getPublicKey' smart constructor.
-newtype GetPublicKey = GetPublicKey' {_gpkId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetPublicKey' smart constructor.
+data GetPublicKey = GetPublicKey'
+  { -- | The identifier of the public key you are getting.
+    id :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPublicKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPublicKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpkId' - The identifier of the public key you are getting.
-getPublicKey ::
-  -- | 'gpkId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'getPublicKey_id' - The identifier of the public key you are getting.
+newGetPublicKey ::
+  -- | 'id'
+  Prelude.Text ->
   GetPublicKey
-getPublicKey pId_ = GetPublicKey' {_gpkId = pId_}
+newGetPublicKey pId_ = GetPublicKey' {id = pId_}
 
 -- | The identifier of the public key you are getting.
-gpkId :: Lens' GetPublicKey Text
-gpkId = lens _gpkId (\s a -> s {_gpkId = a})
+getPublicKey_id :: Lens.Lens' GetPublicKey Prelude.Text
+getPublicKey_id = Lens.lens (\GetPublicKey' {id} -> id) (\s@GetPublicKey' {} a -> s {id = a} :: GetPublicKey)
 
-instance AWSRequest GetPublicKey where
+instance Prelude.AWSRequest GetPublicKey where
   type Rs GetPublicKey = GetPublicKeyResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetPublicKeyResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetPublicKey
+instance Prelude.Hashable GetPublicKey
 
-instance NFData GetPublicKey
+instance Prelude.NFData GetPublicKey
 
-instance ToHeaders GetPublicKey where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetPublicKey where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetPublicKey where
+instance Prelude.ToPath GetPublicKey where
   toPath GetPublicKey' {..} =
-    mconcat ["/2020-05-31/public-key/", toBS _gpkId]
+    Prelude.mconcat
+      ["/2020-05-31/public-key/", Prelude.toBS id]
 
-instance ToQuery GetPublicKey where
-  toQuery = const mempty
+instance Prelude.ToQuery GetPublicKey where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getPublicKeyResponse' smart constructor.
+-- | /See:/ 'newGetPublicKeyResponse' smart constructor.
 data GetPublicKeyResponse = GetPublicKeyResponse'
-  { _gpkrrsETag ::
-      !(Maybe Text),
-    _gpkrrsPublicKey ::
-      !(Maybe PublicKey),
-    _gpkrrsResponseStatus :: !Int
+  { -- | The identifier for this version of the public key.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | The public key.
+    publicKey :: Prelude.Maybe PublicKey,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPublicKeyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPublicKeyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpkrrsETag' - The identifier for this version of the public key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpkrrsPublicKey' - The public key.
+-- 'eTag', 'getPublicKeyResponse_eTag' - The identifier for this version of the public key.
 --
--- * 'gpkrrsResponseStatus' - -- | The response status code.
-getPublicKeyResponse ::
-  -- | 'gpkrrsResponseStatus'
-  Int ->
+-- 'publicKey', 'getPublicKeyResponse_publicKey' - The public key.
+--
+-- 'httpStatus', 'getPublicKeyResponse_httpStatus' - The response's http status code.
+newGetPublicKeyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetPublicKeyResponse
-getPublicKeyResponse pResponseStatus_ =
+newGetPublicKeyResponse pHttpStatus_ =
   GetPublicKeyResponse'
-    { _gpkrrsETag = Nothing,
-      _gpkrrsPublicKey = Nothing,
-      _gpkrrsResponseStatus = pResponseStatus_
+    { eTag = Prelude.Nothing,
+      publicKey = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier for this version of the public key.
-gpkrrsETag :: Lens' GetPublicKeyResponse (Maybe Text)
-gpkrrsETag = lens _gpkrrsETag (\s a -> s {_gpkrrsETag = a})
+getPublicKeyResponse_eTag :: Lens.Lens' GetPublicKeyResponse (Prelude.Maybe Prelude.Text)
+getPublicKeyResponse_eTag = Lens.lens (\GetPublicKeyResponse' {eTag} -> eTag) (\s@GetPublicKeyResponse' {} a -> s {eTag = a} :: GetPublicKeyResponse)
 
 -- | The public key.
-gpkrrsPublicKey :: Lens' GetPublicKeyResponse (Maybe PublicKey)
-gpkrrsPublicKey = lens _gpkrrsPublicKey (\s a -> s {_gpkrrsPublicKey = a})
+getPublicKeyResponse_publicKey :: Lens.Lens' GetPublicKeyResponse (Prelude.Maybe PublicKey)
+getPublicKeyResponse_publicKey = Lens.lens (\GetPublicKeyResponse' {publicKey} -> publicKey) (\s@GetPublicKeyResponse' {} a -> s {publicKey = a} :: GetPublicKeyResponse)
 
--- | -- | The response status code.
-gpkrrsResponseStatus :: Lens' GetPublicKeyResponse Int
-gpkrrsResponseStatus = lens _gpkrrsResponseStatus (\s a -> s {_gpkrrsResponseStatus = a})
+-- | The response's http status code.
+getPublicKeyResponse_httpStatus :: Lens.Lens' GetPublicKeyResponse Prelude.Int
+getPublicKeyResponse_httpStatus = Lens.lens (\GetPublicKeyResponse' {httpStatus} -> httpStatus) (\s@GetPublicKeyResponse' {} a -> s {httpStatus = a} :: GetPublicKeyResponse)
 
-instance NFData GetPublicKeyResponse
+instance Prelude.NFData GetPublicKeyResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,79 +20,87 @@
 module Network.AWS.CloudFront.Types.LambdaFunctionAssociations where
 
 import Network.AWS.CloudFront.Types.LambdaFunctionAssociation
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A complex type that specifies a list of Lambda functions associations for a cache behavior.
+-- | A complex type that specifies a list of Lambda functions associations
+-- for a cache behavior.
 --
+-- If you want to invoke one or more Lambda functions triggered by requests
+-- that match the @PathPattern@ of the cache behavior, specify the
+-- applicable values for @Quantity@ and @Items@. Note that there can be up
+-- to 4 @LambdaFunctionAssociation@ items in this list (one for each
+-- possible value of @EventType@) and each @EventType@ can be associated
+-- with the Lambda function only once.
 --
--- If you want to invoke one or more Lambda functions triggered by requests that match the @PathPattern@ of the cache behavior, specify the applicable values for @Quantity@ and @Items@ . Note that there can be up to 4 @LambdaFunctionAssociation@ items in this list (one for each possible value of @EventType@ ) and each @EventType@ can be associated with the Lambda function only once.
+-- If you don\'t want to invoke any Lambda functions for the requests that
+-- match @PathPattern@, specify @0@ for @Quantity@ and omit @Items@.
 --
--- If you don't want to invoke any Lambda functions for the requests that match @PathPattern@ , specify @0@ for @Quantity@ and omit @Items@ .
---
---
--- /See:/ 'lambdaFunctionAssociations' smart constructor.
+-- /See:/ 'newLambdaFunctionAssociations' smart constructor.
 data LambdaFunctionAssociations = LambdaFunctionAssociations'
-  { _lfaItems ::
-      !( Maybe
-           [LambdaFunctionAssociation]
-       ),
-    _lfaQuantity ::
-      !Int
+  { -- | __Optional__: A complex type that contains @LambdaFunctionAssociation@
+    -- items for this cache behavior. If @Quantity@ is @0@, you can omit
+    -- @Items@.
+    items :: Prelude.Maybe [LambdaFunctionAssociation],
+    -- | The number of Lambda function associations for this cache behavior.
+    quantity :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaFunctionAssociations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaFunctionAssociations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfaItems' - __Optional__ : A complex type that contains @LambdaFunctionAssociation@ items for this cache behavior. If @Quantity@ is @0@ , you can omit @Items@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lfaQuantity' - The number of Lambda function associations for this cache behavior.
-lambdaFunctionAssociations ::
-  -- | 'lfaQuantity'
-  Int ->
+-- 'items', 'lambdaFunctionAssociations_items' - __Optional__: A complex type that contains @LambdaFunctionAssociation@
+-- items for this cache behavior. If @Quantity@ is @0@, you can omit
+-- @Items@.
+--
+-- 'quantity', 'lambdaFunctionAssociations_quantity' - The number of Lambda function associations for this cache behavior.
+newLambdaFunctionAssociations ::
+  -- | 'quantity'
+  Prelude.Int ->
   LambdaFunctionAssociations
-lambdaFunctionAssociations pQuantity_ =
+newLambdaFunctionAssociations pQuantity_ =
   LambdaFunctionAssociations'
-    { _lfaItems = Nothing,
-      _lfaQuantity = pQuantity_
+    { items =
+        Prelude.Nothing,
+      quantity = pQuantity_
     }
 
--- | __Optional__ : A complex type that contains @LambdaFunctionAssociation@ items for this cache behavior. If @Quantity@ is @0@ , you can omit @Items@ .
-lfaItems :: Lens' LambdaFunctionAssociations [LambdaFunctionAssociation]
-lfaItems = lens _lfaItems (\s a -> s {_lfaItems = a}) . _Default . _Coerce
+-- | __Optional__: A complex type that contains @LambdaFunctionAssociation@
+-- items for this cache behavior. If @Quantity@ is @0@, you can omit
+-- @Items@.
+lambdaFunctionAssociations_items :: Lens.Lens' LambdaFunctionAssociations (Prelude.Maybe [LambdaFunctionAssociation])
+lambdaFunctionAssociations_items = Lens.lens (\LambdaFunctionAssociations' {items} -> items) (\s@LambdaFunctionAssociations' {} a -> s {items = a} :: LambdaFunctionAssociations) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of Lambda function associations for this cache behavior.
-lfaQuantity :: Lens' LambdaFunctionAssociations Int
-lfaQuantity = lens _lfaQuantity (\s a -> s {_lfaQuantity = a})
+lambdaFunctionAssociations_quantity :: Lens.Lens' LambdaFunctionAssociations Prelude.Int
+lambdaFunctionAssociations_quantity = Lens.lens (\LambdaFunctionAssociations' {quantity} -> quantity) (\s@LambdaFunctionAssociations' {} a -> s {quantity = a} :: LambdaFunctionAssociations)
 
-instance FromXML LambdaFunctionAssociations where
+instance Prelude.FromXML LambdaFunctionAssociations where
   parseXML x =
     LambdaFunctionAssociations'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "LambdaFunctionAssociation")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "LambdaFunctionAssociation")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable LambdaFunctionAssociations
+instance Prelude.Hashable LambdaFunctionAssociations
 
-instance NFData LambdaFunctionAssociations
+instance Prelude.NFData LambdaFunctionAssociations
 
-instance ToXML LambdaFunctionAssociations where
+instance Prelude.ToXML LambdaFunctionAssociations where
   toXML LambdaFunctionAssociations' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Items"
-          @= toXML
-            ( toXMLList "LambdaFunctionAssociation"
-                <$> _lfaItems
+          Prelude.@= Prelude.toXML
+            ( Prelude.toXMLList "LambdaFunctionAssociation"
+                Prelude.<$> items
             ),
-        "Quantity" @= _lfaQuantity
+        "Quantity" Prelude.@= quantity
       ]

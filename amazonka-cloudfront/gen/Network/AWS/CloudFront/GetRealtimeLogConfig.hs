@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,140 +23,150 @@
 --
 -- Gets a real-time log configuration.
 --
---
--- To get a real-time log configuration, you can provide the configuration’s name or its Amazon Resource Name (ARN). You must provide at least one. If you provide both, CloudFront uses the name to identify the real-time log configuration to get.
+-- To get a real-time log configuration, you can provide the
+-- configuration’s name or its Amazon Resource Name (ARN). You must provide
+-- at least one. If you provide both, CloudFront uses the name to identify
+-- the real-time log configuration to get.
 module Network.AWS.CloudFront.GetRealtimeLogConfig
   ( -- * Creating a Request
-    getRealtimeLogConfig,
-    GetRealtimeLogConfig,
+    GetRealtimeLogConfig (..),
+    newGetRealtimeLogConfig,
 
     -- * Request Lenses
-    grlcARN,
-    grlcName,
+    getRealtimeLogConfig_aRN,
+    getRealtimeLogConfig_name,
 
     -- * Destructuring the Response
-    getRealtimeLogConfigResponse,
-    GetRealtimeLogConfigResponse,
+    GetRealtimeLogConfigResponse (..),
+    newGetRealtimeLogConfigResponse,
 
     -- * Response Lenses
-    grlcrrsRealtimeLogConfig,
-    grlcrrsResponseStatus,
+    getRealtimeLogConfigResponse_realtimeLogConfig,
+    getRealtimeLogConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.RealtimeLogConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getRealtimeLogConfig' smart constructor.
+-- | /See:/ 'newGetRealtimeLogConfig' smart constructor.
 data GetRealtimeLogConfig = GetRealtimeLogConfig'
-  { _grlcARN ::
-      !(Maybe Text),
-    _grlcName :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the real-time log configuration to
+    -- get.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the real-time log configuration to get.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRealtimeLogConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRealtimeLogConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grlcARN' - The Amazon Resource Name (ARN) of the real-time log configuration to get.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grlcName' - The name of the real-time log configuration to get.
-getRealtimeLogConfig ::
+-- 'aRN', 'getRealtimeLogConfig_aRN' - The Amazon Resource Name (ARN) of the real-time log configuration to
+-- get.
+--
+-- 'name', 'getRealtimeLogConfig_name' - The name of the real-time log configuration to get.
+newGetRealtimeLogConfig ::
   GetRealtimeLogConfig
-getRealtimeLogConfig =
+newGetRealtimeLogConfig =
   GetRealtimeLogConfig'
-    { _grlcARN = Nothing,
-      _grlcName = Nothing
+    { aRN = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the real-time log configuration to get.
-grlcARN :: Lens' GetRealtimeLogConfig (Maybe Text)
-grlcARN = lens _grlcARN (\s a -> s {_grlcARN = a})
+-- | The Amazon Resource Name (ARN) of the real-time log configuration to
+-- get.
+getRealtimeLogConfig_aRN :: Lens.Lens' GetRealtimeLogConfig (Prelude.Maybe Prelude.Text)
+getRealtimeLogConfig_aRN = Lens.lens (\GetRealtimeLogConfig' {aRN} -> aRN) (\s@GetRealtimeLogConfig' {} a -> s {aRN = a} :: GetRealtimeLogConfig)
 
 -- | The name of the real-time log configuration to get.
-grlcName :: Lens' GetRealtimeLogConfig (Maybe Text)
-grlcName = lens _grlcName (\s a -> s {_grlcName = a})
+getRealtimeLogConfig_name :: Lens.Lens' GetRealtimeLogConfig (Prelude.Maybe Prelude.Text)
+getRealtimeLogConfig_name = Lens.lens (\GetRealtimeLogConfig' {name} -> name) (\s@GetRealtimeLogConfig' {} a -> s {name = a} :: GetRealtimeLogConfig)
 
-instance AWSRequest GetRealtimeLogConfig where
+instance Prelude.AWSRequest GetRealtimeLogConfig where
   type
     Rs GetRealtimeLogConfig =
       GetRealtimeLogConfigResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetRealtimeLogConfigResponse'
-            <$> (x .@? "RealtimeLogConfig") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "RealtimeLogConfig")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetRealtimeLogConfig
+instance Prelude.Hashable GetRealtimeLogConfig
 
-instance NFData GetRealtimeLogConfig
+instance Prelude.NFData GetRealtimeLogConfig
 
-instance ToElement GetRealtimeLogConfig where
+instance Prelude.ToElement GetRealtimeLogConfig where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}GetRealtimeLogConfigRequest"
 
-instance ToHeaders GetRealtimeLogConfig where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetRealtimeLogConfig where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetRealtimeLogConfig where
-  toPath = const "/2020-05-31/get-realtime-log-config/"
+instance Prelude.ToPath GetRealtimeLogConfig where
+  toPath =
+    Prelude.const
+      "/2020-05-31/get-realtime-log-config/"
 
-instance ToQuery GetRealtimeLogConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery GetRealtimeLogConfig where
+  toQuery = Prelude.const Prelude.mempty
 
-instance ToXML GetRealtimeLogConfig where
+instance Prelude.ToXML GetRealtimeLogConfig where
   toXML GetRealtimeLogConfig' {..} =
-    mconcat ["ARN" @= _grlcARN, "Name" @= _grlcName]
+    Prelude.mconcat
+      ["ARN" Prelude.@= aRN, "Name" Prelude.@= name]
 
--- | /See:/ 'getRealtimeLogConfigResponse' smart constructor.
+-- | /See:/ 'newGetRealtimeLogConfigResponse' smart constructor.
 data GetRealtimeLogConfigResponse = GetRealtimeLogConfigResponse'
-  { _grlcrrsRealtimeLogConfig ::
-      !( Maybe
-           RealtimeLogConfig
-       ),
-    _grlcrrsResponseStatus ::
-      !Int
+  { -- | A real-time log configuration.
+    realtimeLogConfig :: Prelude.Maybe RealtimeLogConfig,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRealtimeLogConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRealtimeLogConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grlcrrsRealtimeLogConfig' - A real-time log configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grlcrrsResponseStatus' - -- | The response status code.
-getRealtimeLogConfigResponse ::
-  -- | 'grlcrrsResponseStatus'
-  Int ->
+-- 'realtimeLogConfig', 'getRealtimeLogConfigResponse_realtimeLogConfig' - A real-time log configuration.
+--
+-- 'httpStatus', 'getRealtimeLogConfigResponse_httpStatus' - The response's http status code.
+newGetRealtimeLogConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetRealtimeLogConfigResponse
-getRealtimeLogConfigResponse pResponseStatus_ =
+newGetRealtimeLogConfigResponse pHttpStatus_ =
   GetRealtimeLogConfigResponse'
-    { _grlcrrsRealtimeLogConfig =
-        Nothing,
-      _grlcrrsResponseStatus = pResponseStatus_
+    { realtimeLogConfig =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A real-time log configuration.
-grlcrrsRealtimeLogConfig :: Lens' GetRealtimeLogConfigResponse (Maybe RealtimeLogConfig)
-grlcrrsRealtimeLogConfig = lens _grlcrrsRealtimeLogConfig (\s a -> s {_grlcrrsRealtimeLogConfig = a})
+getRealtimeLogConfigResponse_realtimeLogConfig :: Lens.Lens' GetRealtimeLogConfigResponse (Prelude.Maybe RealtimeLogConfig)
+getRealtimeLogConfigResponse_realtimeLogConfig = Lens.lens (\GetRealtimeLogConfigResponse' {realtimeLogConfig} -> realtimeLogConfig) (\s@GetRealtimeLogConfigResponse' {} a -> s {realtimeLogConfig = a} :: GetRealtimeLogConfigResponse)
 
--- | -- | The response status code.
-grlcrrsResponseStatus :: Lens' GetRealtimeLogConfigResponse Int
-grlcrrsResponseStatus = lens _grlcrrsResponseStatus (\s a -> s {_grlcrrsResponseStatus = a})
+-- | The response's http status code.
+getRealtimeLogConfigResponse_httpStatus :: Lens.Lens' GetRealtimeLogConfigResponse Prelude.Int
+getRealtimeLogConfigResponse_httpStatus = Lens.lens (\GetRealtimeLogConfigResponse' {httpStatus} -> httpStatus) (\s@GetRealtimeLogConfigResponse' {} a -> s {httpStatus = a} :: GetRealtimeLogConfigResponse)
 
-instance NFData GetRealtimeLogConfigResponse
+instance Prelude.NFData GetRealtimeLogConfigResponse

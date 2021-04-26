@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,89 @@
 module Network.AWS.CloudFront.Types.CachePolicyList where
 
 import Network.AWS.CloudFront.Types.CachePolicySummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A list of cache policies.
 --
---
---
--- /See:/ 'cachePolicyList' smart constructor.
+-- /See:/ 'newCachePolicyList' smart constructor.
 data CachePolicyList = CachePolicyList'
-  { _cplItems ::
-      !(Maybe [CachePolicySummary]),
-    _cplNextMarker :: !(Maybe Text),
-    _cplMaxItems :: !Int,
-    _cplQuantity :: !Int
+  { -- | Contains the cache policies in the list.
+    items :: Prelude.Maybe [CachePolicySummary],
+    -- | If there are more items in the list than are in this response, this
+    -- element is present. It contains the value that you should use in the
+    -- @Marker@ field of a subsequent request to continue listing cache
+    -- policies where you left off.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of cache policies requested.
+    maxItems :: Prelude.Int,
+    -- | The total number of cache policies returned in the response.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CachePolicyList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CachePolicyList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cplItems' - Contains the cache policies in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cplNextMarker' - If there are more items in the list than are in this response, this element is present. It contains the value that you should use in the @Marker@ field of a subsequent request to continue listing cache policies where you left off.
+-- 'items', 'cachePolicyList_items' - Contains the cache policies in the list.
 --
--- * 'cplMaxItems' - The maximum number of cache policies requested.
+-- 'nextMarker', 'cachePolicyList_nextMarker' - If there are more items in the list than are in this response, this
+-- element is present. It contains the value that you should use in the
+-- @Marker@ field of a subsequent request to continue listing cache
+-- policies where you left off.
 --
--- * 'cplQuantity' - The total number of cache policies returned in the response.
-cachePolicyList ::
-  -- | 'cplMaxItems'
-  Int ->
-  -- | 'cplQuantity'
-  Int ->
+-- 'maxItems', 'cachePolicyList_maxItems' - The maximum number of cache policies requested.
+--
+-- 'quantity', 'cachePolicyList_quantity' - The total number of cache policies returned in the response.
+newCachePolicyList ::
+  -- | 'maxItems'
+  Prelude.Int ->
+  -- | 'quantity'
+  Prelude.Int ->
   CachePolicyList
-cachePolicyList pMaxItems_ pQuantity_ =
+newCachePolicyList pMaxItems_ pQuantity_ =
   CachePolicyList'
-    { _cplItems = Nothing,
-      _cplNextMarker = Nothing,
-      _cplMaxItems = pMaxItems_,
-      _cplQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      maxItems = pMaxItems_,
+      quantity = pQuantity_
     }
 
 -- | Contains the cache policies in the list.
-cplItems :: Lens' CachePolicyList [CachePolicySummary]
-cplItems = lens _cplItems (\s a -> s {_cplItems = a}) . _Default . _Coerce
+cachePolicyList_items :: Lens.Lens' CachePolicyList (Prelude.Maybe [CachePolicySummary])
+cachePolicyList_items = Lens.lens (\CachePolicyList' {items} -> items) (\s@CachePolicyList' {} a -> s {items = a} :: CachePolicyList) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If there are more items in the list than are in this response, this element is present. It contains the value that you should use in the @Marker@ field of a subsequent request to continue listing cache policies where you left off.
-cplNextMarker :: Lens' CachePolicyList (Maybe Text)
-cplNextMarker = lens _cplNextMarker (\s a -> s {_cplNextMarker = a})
+-- | If there are more items in the list than are in this response, this
+-- element is present. It contains the value that you should use in the
+-- @Marker@ field of a subsequent request to continue listing cache
+-- policies where you left off.
+cachePolicyList_nextMarker :: Lens.Lens' CachePolicyList (Prelude.Maybe Prelude.Text)
+cachePolicyList_nextMarker = Lens.lens (\CachePolicyList' {nextMarker} -> nextMarker) (\s@CachePolicyList' {} a -> s {nextMarker = a} :: CachePolicyList)
 
 -- | The maximum number of cache policies requested.
-cplMaxItems :: Lens' CachePolicyList Int
-cplMaxItems = lens _cplMaxItems (\s a -> s {_cplMaxItems = a})
+cachePolicyList_maxItems :: Lens.Lens' CachePolicyList Prelude.Int
+cachePolicyList_maxItems = Lens.lens (\CachePolicyList' {maxItems} -> maxItems) (\s@CachePolicyList' {} a -> s {maxItems = a} :: CachePolicyList)
 
 -- | The total number of cache policies returned in the response.
-cplQuantity :: Lens' CachePolicyList Int
-cplQuantity = lens _cplQuantity (\s a -> s {_cplQuantity = a})
+cachePolicyList_quantity :: Lens.Lens' CachePolicyList Prelude.Int
+cachePolicyList_quantity = Lens.lens (\CachePolicyList' {quantity} -> quantity) (\s@CachePolicyList' {} a -> s {quantity = a} :: CachePolicyList)
 
-instance FromXML CachePolicyList where
+instance Prelude.FromXML CachePolicyList where
   parseXML x =
     CachePolicyList'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "CachePolicySummary")
-          )
-      <*> (x .@? "NextMarker")
-      <*> (x .@ "MaxItems")
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "CachePolicySummary")
+                  )
+      Prelude.<*> (x Prelude..@? "NextMarker")
+      Prelude.<*> (x Prelude..@ "MaxItems")
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable CachePolicyList
+instance Prelude.Hashable CachePolicyList
 
-instance NFData CachePolicyList
+instance Prelude.NFData CachePolicyList

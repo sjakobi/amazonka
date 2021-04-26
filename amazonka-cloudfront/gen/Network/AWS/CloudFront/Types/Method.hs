@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,80 @@
 module Network.AWS.CloudFront.Types.Method
   ( Method
       ( ..,
-        Delete,
-        Get,
-        Head,
-        Options,
-        Patch,
-        Post,
-        Put
+        MethodDELETE,
+        MethodGET,
+        MethodHEAD,
+        MethodOPTIONS,
+        MethodPATCH,
+        MethodPOST,
+        MethodPUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Method = Method' (CI Text)
+newtype Method = Method' {fromMethod :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Delete :: Method
-pattern Delete = Method' "DELETE"
+pattern MethodDELETE :: Method
+pattern MethodDELETE = Method' "DELETE"
 
-pattern Get :: Method
-pattern Get = Method' "GET"
+pattern MethodGET :: Method
+pattern MethodGET = Method' "GET"
 
-pattern Head :: Method
-pattern Head = Method' "HEAD"
+pattern MethodHEAD :: Method
+pattern MethodHEAD = Method' "HEAD"
 
-pattern Options :: Method
-pattern Options = Method' "OPTIONS"
+pattern MethodOPTIONS :: Method
+pattern MethodOPTIONS = Method' "OPTIONS"
 
-pattern Patch :: Method
-pattern Patch = Method' "PATCH"
+pattern MethodPATCH :: Method
+pattern MethodPATCH = Method' "PATCH"
 
-pattern Post :: Method
-pattern Post = Method' "POST"
+pattern MethodPOST :: Method
+pattern MethodPOST = Method' "POST"
 
-pattern Put :: Method
-pattern Put = Method' "PUT"
+pattern MethodPUT :: Method
+pattern MethodPUT = Method' "PUT"
 
 {-# COMPLETE
-  Delete,
-  Get,
-  Head,
-  Options,
-  Patch,
-  Post,
-  Put,
+  MethodDELETE,
+  MethodGET,
+  MethodHEAD,
+  MethodOPTIONS,
+  MethodPATCH,
+  MethodPOST,
+  MethodPUT,
   Method'
   #-}
 
-instance FromText Method where
-  parser = (Method' . mk) <$> takeText
+instance Prelude.FromText Method where
+  parser = Method' Prelude.<$> Prelude.takeText
 
-instance ToText Method where
-  toText (Method' ci) = original ci
+instance Prelude.ToText Method where
+  toText (Method' x) = x
 
-instance Hashable Method
+instance Prelude.Hashable Method
 
-instance NFData Method
+instance Prelude.NFData Method
 
-instance ToByteString Method
+instance Prelude.ToByteString Method
 
-instance ToQuery Method
+instance Prelude.ToQuery Method
 
-instance ToHeader Method
+instance Prelude.ToHeader Method
 
-instance FromXML Method where
-  parseXML = parseXMLText "Method"
+instance Prelude.FromXML Method where
+  parseXML = Prelude.parseXMLText "Method"
 
-instance ToXML Method where
-  toXML = toXMLText
+instance Prelude.ToXML Method where
+  toXML = Prelude.toXMLText

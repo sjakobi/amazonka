@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,177 +23,205 @@
 --
 -- Creates a real-time log configuration.
 --
+-- After you create a real-time log configuration, you can attach it to one
+-- or more cache behaviors to send real-time log data to the specified
+-- Amazon Kinesis data stream.
 --
--- After you create a real-time log configuration, you can attach it to one or more cache behaviors to send real-time log data to the specified Amazon Kinesis data stream.
---
--- For more information about real-time log configurations, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html Real-time logs> in the /Amazon CloudFront Developer Guide/ .
+-- For more information about real-time log configurations, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html Real-time logs>
+-- in the /Amazon CloudFront Developer Guide/.
 module Network.AWS.CloudFront.CreateRealtimeLogConfig
   ( -- * Creating a Request
-    createRealtimeLogConfig,
-    CreateRealtimeLogConfig,
+    CreateRealtimeLogConfig (..),
+    newCreateRealtimeLogConfig,
 
     -- * Request Lenses
-    crlcEndPoints,
-    crlcFields,
-    crlcName,
-    crlcSamplingRate,
+    createRealtimeLogConfig_endPoints,
+    createRealtimeLogConfig_fields,
+    createRealtimeLogConfig_name,
+    createRealtimeLogConfig_samplingRate,
 
     -- * Destructuring the Response
-    createRealtimeLogConfigResponse,
-    CreateRealtimeLogConfigResponse,
+    CreateRealtimeLogConfigResponse (..),
+    newCreateRealtimeLogConfigResponse,
 
     -- * Response Lenses
-    crlcrrsRealtimeLogConfig,
-    crlcrrsResponseStatus,
+    createRealtimeLogConfigResponse_realtimeLogConfig,
+    createRealtimeLogConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.RealtimeLogConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createRealtimeLogConfig' smart constructor.
+-- | /See:/ 'newCreateRealtimeLogConfig' smart constructor.
 data CreateRealtimeLogConfig = CreateRealtimeLogConfig'
-  { _crlcEndPoints ::
-      ![EndPoint],
-    _crlcFields :: ![Text],
-    _crlcName :: !Text,
-    _crlcSamplingRate ::
-      !Integer
+  { -- | Contains information about the Amazon Kinesis data stream where you are
+    -- sending real-time log data.
+    endPoints :: [EndPoint],
+    -- | A list of fields to include in each real-time log record.
+    --
+    -- For more information about fields, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields Real-time log configuration fields>
+    -- in the /Amazon CloudFront Developer Guide/.
+    fields :: [Prelude.Text],
+    -- | A unique name to identify this real-time log configuration.
+    name :: Prelude.Text,
+    -- | The sampling rate for this real-time log configuration. The sampling
+    -- rate determines the percentage of viewer requests that are represented
+    -- in the real-time log data. You must provide an integer between 1 and
+    -- 100, inclusive.
+    samplingRate :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRealtimeLogConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRealtimeLogConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crlcEndPoints' - Contains information about the Amazon Kinesis data stream where you are sending real-time log data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crlcFields' - A list of fields to include in each real-time log record. For more information about fields, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields Real-time log configuration fields> in the /Amazon CloudFront Developer Guide/ .
+-- 'endPoints', 'createRealtimeLogConfig_endPoints' - Contains information about the Amazon Kinesis data stream where you are
+-- sending real-time log data.
 --
--- * 'crlcName' - A unique name to identify this real-time log configuration.
+-- 'fields', 'createRealtimeLogConfig_fields' - A list of fields to include in each real-time log record.
 --
--- * 'crlcSamplingRate' - The sampling rate for this real-time log configuration. The sampling rate determines the percentage of viewer requests that are represented in the real-time log data. You must provide an integer between 1 and 100, inclusive.
-createRealtimeLogConfig ::
-  -- | 'crlcName'
-  Text ->
-  -- | 'crlcSamplingRate'
-  Integer ->
+-- For more information about fields, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields Real-time log configuration fields>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- 'name', 'createRealtimeLogConfig_name' - A unique name to identify this real-time log configuration.
+--
+-- 'samplingRate', 'createRealtimeLogConfig_samplingRate' - The sampling rate for this real-time log configuration. The sampling
+-- rate determines the percentage of viewer requests that are represented
+-- in the real-time log data. You must provide an integer between 1 and
+-- 100, inclusive.
+newCreateRealtimeLogConfig ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'samplingRate'
+  Prelude.Integer ->
   CreateRealtimeLogConfig
-createRealtimeLogConfig pName_ pSamplingRate_ =
+newCreateRealtimeLogConfig pName_ pSamplingRate_ =
   CreateRealtimeLogConfig'
-    { _crlcEndPoints = mempty,
-      _crlcFields = mempty,
-      _crlcName = pName_,
-      _crlcSamplingRate = pSamplingRate_
+    { endPoints =
+        Prelude.mempty,
+      fields = Prelude.mempty,
+      name = pName_,
+      samplingRate = pSamplingRate_
     }
 
--- | Contains information about the Amazon Kinesis data stream where you are sending real-time log data.
-crlcEndPoints :: Lens' CreateRealtimeLogConfig [EndPoint]
-crlcEndPoints = lens _crlcEndPoints (\s a -> s {_crlcEndPoints = a}) . _Coerce
+-- | Contains information about the Amazon Kinesis data stream where you are
+-- sending real-time log data.
+createRealtimeLogConfig_endPoints :: Lens.Lens' CreateRealtimeLogConfig [EndPoint]
+createRealtimeLogConfig_endPoints = Lens.lens (\CreateRealtimeLogConfig' {endPoints} -> endPoints) (\s@CreateRealtimeLogConfig' {} a -> s {endPoints = a} :: CreateRealtimeLogConfig) Prelude.. Prelude._Coerce
 
--- | A list of fields to include in each real-time log record. For more information about fields, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields Real-time log configuration fields> in the /Amazon CloudFront Developer Guide/ .
-crlcFields :: Lens' CreateRealtimeLogConfig [Text]
-crlcFields = lens _crlcFields (\s a -> s {_crlcFields = a}) . _Coerce
+-- | A list of fields to include in each real-time log record.
+--
+-- For more information about fields, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields Real-time log configuration fields>
+-- in the /Amazon CloudFront Developer Guide/.
+createRealtimeLogConfig_fields :: Lens.Lens' CreateRealtimeLogConfig [Prelude.Text]
+createRealtimeLogConfig_fields = Lens.lens (\CreateRealtimeLogConfig' {fields} -> fields) (\s@CreateRealtimeLogConfig' {} a -> s {fields = a} :: CreateRealtimeLogConfig) Prelude.. Prelude._Coerce
 
 -- | A unique name to identify this real-time log configuration.
-crlcName :: Lens' CreateRealtimeLogConfig Text
-crlcName = lens _crlcName (\s a -> s {_crlcName = a})
+createRealtimeLogConfig_name :: Lens.Lens' CreateRealtimeLogConfig Prelude.Text
+createRealtimeLogConfig_name = Lens.lens (\CreateRealtimeLogConfig' {name} -> name) (\s@CreateRealtimeLogConfig' {} a -> s {name = a} :: CreateRealtimeLogConfig)
 
--- | The sampling rate for this real-time log configuration. The sampling rate determines the percentage of viewer requests that are represented in the real-time log data. You must provide an integer between 1 and 100, inclusive.
-crlcSamplingRate :: Lens' CreateRealtimeLogConfig Integer
-crlcSamplingRate = lens _crlcSamplingRate (\s a -> s {_crlcSamplingRate = a})
+-- | The sampling rate for this real-time log configuration. The sampling
+-- rate determines the percentage of viewer requests that are represented
+-- in the real-time log data. You must provide an integer between 1 and
+-- 100, inclusive.
+createRealtimeLogConfig_samplingRate :: Lens.Lens' CreateRealtimeLogConfig Prelude.Integer
+createRealtimeLogConfig_samplingRate = Lens.lens (\CreateRealtimeLogConfig' {samplingRate} -> samplingRate) (\s@CreateRealtimeLogConfig' {} a -> s {samplingRate = a} :: CreateRealtimeLogConfig)
 
-instance AWSRequest CreateRealtimeLogConfig where
+instance Prelude.AWSRequest CreateRealtimeLogConfig where
   type
     Rs CreateRealtimeLogConfig =
       CreateRealtimeLogConfigResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateRealtimeLogConfigResponse'
-            <$> (x .@? "RealtimeLogConfig") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "RealtimeLogConfig")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateRealtimeLogConfig
+instance Prelude.Hashable CreateRealtimeLogConfig
 
-instance NFData CreateRealtimeLogConfig
+instance Prelude.NFData CreateRealtimeLogConfig
 
-instance ToElement CreateRealtimeLogConfig where
+instance Prelude.ToElement CreateRealtimeLogConfig where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}CreateRealtimeLogConfigRequest"
 
-instance ToHeaders CreateRealtimeLogConfig where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateRealtimeLogConfig where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateRealtimeLogConfig where
-  toPath = const "/2020-05-31/realtime-log-config"
+instance Prelude.ToPath CreateRealtimeLogConfig where
+  toPath =
+    Prelude.const "/2020-05-31/realtime-log-config"
 
-instance ToQuery CreateRealtimeLogConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateRealtimeLogConfig where
+  toQuery = Prelude.const Prelude.mempty
 
-instance ToXML CreateRealtimeLogConfig where
+instance Prelude.ToXML CreateRealtimeLogConfig where
   toXML CreateRealtimeLogConfig' {..} =
-    mconcat
-      [ "EndPoints" @= toXMLList "member" _crlcEndPoints,
-        "Fields" @= toXMLList "Field" _crlcFields,
-        "Name" @= _crlcName,
-        "SamplingRate" @= _crlcSamplingRate
+    Prelude.mconcat
+      [ "EndPoints"
+          Prelude.@= Prelude.toXMLList "member" endPoints,
+        "Fields" Prelude.@= Prelude.toXMLList "Field" fields,
+        "Name" Prelude.@= name,
+        "SamplingRate" Prelude.@= samplingRate
       ]
 
--- | /See:/ 'createRealtimeLogConfigResponse' smart constructor.
+-- | /See:/ 'newCreateRealtimeLogConfigResponse' smart constructor.
 data CreateRealtimeLogConfigResponse = CreateRealtimeLogConfigResponse'
-  { _crlcrrsRealtimeLogConfig ::
-      !( Maybe
-           RealtimeLogConfig
-       ),
-    _crlcrrsResponseStatus ::
-      !Int
+  { -- | A real-time log configuration.
+    realtimeLogConfig :: Prelude.Maybe RealtimeLogConfig,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRealtimeLogConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRealtimeLogConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crlcrrsRealtimeLogConfig' - A real-time log configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crlcrrsResponseStatus' - -- | The response status code.
-createRealtimeLogConfigResponse ::
-  -- | 'crlcrrsResponseStatus'
-  Int ->
+-- 'realtimeLogConfig', 'createRealtimeLogConfigResponse_realtimeLogConfig' - A real-time log configuration.
+--
+-- 'httpStatus', 'createRealtimeLogConfigResponse_httpStatus' - The response's http status code.
+newCreateRealtimeLogConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateRealtimeLogConfigResponse
-createRealtimeLogConfigResponse pResponseStatus_ =
+newCreateRealtimeLogConfigResponse pHttpStatus_ =
   CreateRealtimeLogConfigResponse'
-    { _crlcrrsRealtimeLogConfig =
-        Nothing,
-      _crlcrrsResponseStatus = pResponseStatus_
+    { realtimeLogConfig =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A real-time log configuration.
-crlcrrsRealtimeLogConfig :: Lens' CreateRealtimeLogConfigResponse (Maybe RealtimeLogConfig)
-crlcrrsRealtimeLogConfig = lens _crlcrrsRealtimeLogConfig (\s a -> s {_crlcrrsRealtimeLogConfig = a})
+createRealtimeLogConfigResponse_realtimeLogConfig :: Lens.Lens' CreateRealtimeLogConfigResponse (Prelude.Maybe RealtimeLogConfig)
+createRealtimeLogConfigResponse_realtimeLogConfig = Lens.lens (\CreateRealtimeLogConfigResponse' {realtimeLogConfig} -> realtimeLogConfig) (\s@CreateRealtimeLogConfigResponse' {} a -> s {realtimeLogConfig = a} :: CreateRealtimeLogConfigResponse)
 
--- | -- | The response status code.
-crlcrrsResponseStatus :: Lens' CreateRealtimeLogConfigResponse Int
-crlcrrsResponseStatus = lens _crlcrrsResponseStatus (\s a -> s {_crlcrrsResponseStatus = a})
+-- | The response's http status code.
+createRealtimeLogConfigResponse_httpStatus :: Lens.Lens' CreateRealtimeLogConfigResponse Prelude.Int
+createRealtimeLogConfigResponse_httpStatus = Lens.lens (\CreateRealtimeLogConfigResponse' {httpStatus} -> httpStatus) (\s@CreateRealtimeLogConfigResponse' {} a -> s {httpStatus = a} :: CreateRealtimeLogConfigResponse)
 
-instance NFData CreateRealtimeLogConfigResponse
+instance
+  Prelude.NFData
+    CreateRealtimeLogConfigResponse

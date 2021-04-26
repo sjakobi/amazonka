@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,178 +23,180 @@
 --
 -- Creates an origin request policy.
 --
+-- After you create an origin request policy, you can attach it to one or
+-- more cache behaviors. When it’s attached to a cache behavior, the origin
+-- request policy determines the values that CloudFront includes in
+-- requests that it sends to the origin. Each request that CloudFront sends
+-- to the origin includes the following:
 --
--- After you create an origin request policy, you can attach it to one or more cache behaviors. When it’s attached to a cache behavior, the origin request policy determines the values that CloudFront includes in requests that it sends to the origin. Each request that CloudFront sends to the origin includes the following:
+-- -   The request body and the URL path (without the domain name) from the
+--     viewer request.
 --
---     * The request body and the URL path (without the domain name) from the viewer request.
+-- -   The headers that CloudFront automatically includes in every origin
+--     request, including @Host@, @User-Agent@, and @X-Amz-Cf-Id@.
 --
---     * The headers that CloudFront automatically includes in every origin request, including @Host@ , @User-Agent@ , and @X-Amz-Cf-Id@ .
+-- -   All HTTP headers, cookies, and URL query strings that are specified
+--     in the cache policy or the origin request policy. These can include
+--     items from the viewer request and, in the case of headers,
+--     additional ones that are added by CloudFront.
 --
---     * All HTTP headers, cookies, and URL query strings that are specified in the cache policy or the origin request policy. These can include items from the viewer request and, in the case of headers, additional ones that are added by CloudFront.
+-- CloudFront sends a request when it can’t find a valid object in its
+-- cache that matches the request. If you want to send values to the origin
+-- and also include them in the cache key, use @CachePolicy@.
 --
---
---
--- CloudFront sends a request when it can’t find a valid object in its cache that matches the request. If you want to send values to the origin and also include them in the cache key, use @CachePolicy@ .
---
--- For more information about origin request policies, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html Controlling origin requests> in the /Amazon CloudFront Developer Guide/ .
+-- For more information about origin request policies, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html Controlling origin requests>
+-- in the /Amazon CloudFront Developer Guide/.
 module Network.AWS.CloudFront.CreateOriginRequestPolicy
   ( -- * Creating a Request
-    createOriginRequestPolicy,
-    CreateOriginRequestPolicy,
+    CreateOriginRequestPolicy (..),
+    newCreateOriginRequestPolicy,
 
     -- * Request Lenses
-    corpOriginRequestPolicyConfig,
+    createOriginRequestPolicy_originRequestPolicyConfig,
 
     -- * Destructuring the Response
-    createOriginRequestPolicyResponse,
-    CreateOriginRequestPolicyResponse,
+    CreateOriginRequestPolicyResponse (..),
+    newCreateOriginRequestPolicyResponse,
 
     -- * Response Lenses
-    corprrsETag,
-    corprrsOriginRequestPolicy,
-    corprrsLocation,
-    corprrsResponseStatus,
+    createOriginRequestPolicyResponse_eTag,
+    createOriginRequestPolicyResponse_originRequestPolicy,
+    createOriginRequestPolicyResponse_location,
+    createOriginRequestPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.OriginRequestPolicy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createOriginRequestPolicy' smart constructor.
-newtype CreateOriginRequestPolicy = CreateOriginRequestPolicy'
-  { _corpOriginRequestPolicyConfig ::
-      OriginRequestPolicyConfig
+-- | /See:/ 'newCreateOriginRequestPolicy' smart constructor.
+data CreateOriginRequestPolicy = CreateOriginRequestPolicy'
+  { -- | An origin request policy configuration.
+    originRequestPolicyConfig :: OriginRequestPolicyConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateOriginRequestPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateOriginRequestPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'corpOriginRequestPolicyConfig' - An origin request policy configuration.
-createOriginRequestPolicy ::
-  -- | 'corpOriginRequestPolicyConfig'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'originRequestPolicyConfig', 'createOriginRequestPolicy_originRequestPolicyConfig' - An origin request policy configuration.
+newCreateOriginRequestPolicy ::
+  -- | 'originRequestPolicyConfig'
   OriginRequestPolicyConfig ->
   CreateOriginRequestPolicy
-createOriginRequestPolicy pOriginRequestPolicyConfig_ =
-  CreateOriginRequestPolicy'
-    { _corpOriginRequestPolicyConfig =
-        pOriginRequestPolicyConfig_
-    }
+newCreateOriginRequestPolicy
+  pOriginRequestPolicyConfig_ =
+    CreateOriginRequestPolicy'
+      { originRequestPolicyConfig =
+          pOriginRequestPolicyConfig_
+      }
 
 -- | An origin request policy configuration.
-corpOriginRequestPolicyConfig :: Lens' CreateOriginRequestPolicy OriginRequestPolicyConfig
-corpOriginRequestPolicyConfig = lens _corpOriginRequestPolicyConfig (\s a -> s {_corpOriginRequestPolicyConfig = a})
+createOriginRequestPolicy_originRequestPolicyConfig :: Lens.Lens' CreateOriginRequestPolicy OriginRequestPolicyConfig
+createOriginRequestPolicy_originRequestPolicyConfig = Lens.lens (\CreateOriginRequestPolicy' {originRequestPolicyConfig} -> originRequestPolicyConfig) (\s@CreateOriginRequestPolicy' {} a -> s {originRequestPolicyConfig = a} :: CreateOriginRequestPolicy)
 
-instance AWSRequest CreateOriginRequestPolicy where
+instance Prelude.AWSRequest CreateOriginRequestPolicy where
   type
     Rs CreateOriginRequestPolicy =
       CreateOriginRequestPolicyResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateOriginRequestPolicyResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (h .#? "Location")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (h Prelude..#? "Location")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateOriginRequestPolicy
+instance Prelude.Hashable CreateOriginRequestPolicy
 
-instance NFData CreateOriginRequestPolicy
+instance Prelude.NFData CreateOriginRequestPolicy
 
-instance ToElement CreateOriginRequestPolicy where
-  toElement =
-    mkElement
+instance Prelude.ToElement CreateOriginRequestPolicy where
+  toElement CreateOriginRequestPolicy' {..} =
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}OriginRequestPolicyConfig"
-      . _corpOriginRequestPolicyConfig
+      originRequestPolicyConfig
 
-instance ToHeaders CreateOriginRequestPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateOriginRequestPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateOriginRequestPolicy where
-  toPath = const "/2020-05-31/origin-request-policy"
+instance Prelude.ToPath CreateOriginRequestPolicy where
+  toPath =
+    Prelude.const "/2020-05-31/origin-request-policy"
 
-instance ToQuery CreateOriginRequestPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateOriginRequestPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createOriginRequestPolicyResponse' smart constructor.
+-- | /See:/ 'newCreateOriginRequestPolicyResponse' smart constructor.
 data CreateOriginRequestPolicyResponse = CreateOriginRequestPolicyResponse'
-  { _corprrsETag ::
-      !( Maybe
-           Text
-       ),
-    _corprrsOriginRequestPolicy ::
-      !( Maybe
-           OriginRequestPolicy
-       ),
-    _corprrsLocation ::
-      !( Maybe
-           Text
-       ),
-    _corprrsResponseStatus ::
-      !Int
+  { -- | The current version of the origin request policy.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | An origin request policy.
+    originRequestPolicy :: Prelude.Maybe OriginRequestPolicy,
+    -- | The fully qualified URI of the origin request policy just created.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateOriginRequestPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateOriginRequestPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'corprrsETag' - The current version of the origin request policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'corprrsOriginRequestPolicy' - An origin request policy.
+-- 'eTag', 'createOriginRequestPolicyResponse_eTag' - The current version of the origin request policy.
 --
--- * 'corprrsLocation' - The fully qualified URI of the origin request policy just created.
+-- 'originRequestPolicy', 'createOriginRequestPolicyResponse_originRequestPolicy' - An origin request policy.
 --
--- * 'corprrsResponseStatus' - -- | The response status code.
-createOriginRequestPolicyResponse ::
-  -- | 'corprrsResponseStatus'
-  Int ->
+-- 'location', 'createOriginRequestPolicyResponse_location' - The fully qualified URI of the origin request policy just created.
+--
+-- 'httpStatus', 'createOriginRequestPolicyResponse_httpStatus' - The response's http status code.
+newCreateOriginRequestPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateOriginRequestPolicyResponse
-createOriginRequestPolicyResponse pResponseStatus_ =
+newCreateOriginRequestPolicyResponse pHttpStatus_ =
   CreateOriginRequestPolicyResponse'
-    { _corprrsETag =
-        Nothing,
-      _corprrsOriginRequestPolicy = Nothing,
-      _corprrsLocation = Nothing,
-      _corprrsResponseStatus =
-        pResponseStatus_
+    { eTag =
+        Prelude.Nothing,
+      originRequestPolicy = Prelude.Nothing,
+      location = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current version of the origin request policy.
-corprrsETag :: Lens' CreateOriginRequestPolicyResponse (Maybe Text)
-corprrsETag = lens _corprrsETag (\s a -> s {_corprrsETag = a})
+createOriginRequestPolicyResponse_eTag :: Lens.Lens' CreateOriginRequestPolicyResponse (Prelude.Maybe Prelude.Text)
+createOriginRequestPolicyResponse_eTag = Lens.lens (\CreateOriginRequestPolicyResponse' {eTag} -> eTag) (\s@CreateOriginRequestPolicyResponse' {} a -> s {eTag = a} :: CreateOriginRequestPolicyResponse)
 
 -- | An origin request policy.
-corprrsOriginRequestPolicy :: Lens' CreateOriginRequestPolicyResponse (Maybe OriginRequestPolicy)
-corprrsOriginRequestPolicy = lens _corprrsOriginRequestPolicy (\s a -> s {_corprrsOriginRequestPolicy = a})
+createOriginRequestPolicyResponse_originRequestPolicy :: Lens.Lens' CreateOriginRequestPolicyResponse (Prelude.Maybe OriginRequestPolicy)
+createOriginRequestPolicyResponse_originRequestPolicy = Lens.lens (\CreateOriginRequestPolicyResponse' {originRequestPolicy} -> originRequestPolicy) (\s@CreateOriginRequestPolicyResponse' {} a -> s {originRequestPolicy = a} :: CreateOriginRequestPolicyResponse)
 
 -- | The fully qualified URI of the origin request policy just created.
-corprrsLocation :: Lens' CreateOriginRequestPolicyResponse (Maybe Text)
-corprrsLocation = lens _corprrsLocation (\s a -> s {_corprrsLocation = a})
+createOriginRequestPolicyResponse_location :: Lens.Lens' CreateOriginRequestPolicyResponse (Prelude.Maybe Prelude.Text)
+createOriginRequestPolicyResponse_location = Lens.lens (\CreateOriginRequestPolicyResponse' {location} -> location) (\s@CreateOriginRequestPolicyResponse' {} a -> s {location = a} :: CreateOriginRequestPolicyResponse)
 
--- | -- | The response status code.
-corprrsResponseStatus :: Lens' CreateOriginRequestPolicyResponse Int
-corprrsResponseStatus = lens _corprrsResponseStatus (\s a -> s {_corprrsResponseStatus = a})
+-- | The response's http status code.
+createOriginRequestPolicyResponse_httpStatus :: Lens.Lens' CreateOriginRequestPolicyResponse Prelude.Int
+createOriginRequestPolicyResponse_httpStatus = Lens.lens (\CreateOriginRequestPolicyResponse' {httpStatus} -> httpStatus) (\s@CreateOriginRequestPolicyResponse' {} a -> s {httpStatus = a} :: CreateOriginRequestPolicyResponse)
 
-instance NFData CreateOriginRequestPolicyResponse
+instance
+  Prelude.NFData
+    CreateOriginRequestPolicyResponse

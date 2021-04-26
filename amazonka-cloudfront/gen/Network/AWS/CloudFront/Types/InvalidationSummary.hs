@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.InvalidationSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A summary of an invalidation request.
 --
---
---
--- /See:/ 'invalidationSummary' smart constructor.
+-- /See:/ 'newInvalidationSummary' smart constructor.
 data InvalidationSummary = InvalidationSummary'
-  { _isId ::
-      !Text,
-    _isCreateTime :: !ISO8601,
-    _isStatus :: !Text
+  { -- | The unique ID for an invalidation request.
+    id :: Prelude.Text,
+    -- | The time that an invalidation request was created.
+    createTime :: Prelude.ISO8601,
+    -- | The status of an invalidation request.
+    status :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InvalidationSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InvalidationSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isId' - The unique ID for an invalidation request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isCreateTime' - The time that an invalidation request was created.
+-- 'id', 'invalidationSummary_id' - The unique ID for an invalidation request.
 --
--- * 'isStatus' - The status of an invalidation request.
-invalidationSummary ::
-  -- | 'isId'
-  Text ->
-  -- | 'isCreateTime'
-  UTCTime ->
-  -- | 'isStatus'
-  Text ->
+-- 'createTime', 'invalidationSummary_createTime' - The time that an invalidation request was created.
+--
+-- 'status', 'invalidationSummary_status' - The status of an invalidation request.
+newInvalidationSummary ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'createTime'
+  Prelude.UTCTime ->
+  -- | 'status'
+  Prelude.Text ->
   InvalidationSummary
-invalidationSummary pId_ pCreateTime_ pStatus_ =
+newInvalidationSummary pId_ pCreateTime_ pStatus_ =
   InvalidationSummary'
-    { _isId = pId_,
-      _isCreateTime = _Time # pCreateTime_,
-      _isStatus = pStatus_
+    { id = pId_,
+      createTime = Prelude._Time Lens.# pCreateTime_,
+      status = pStatus_
     }
 
 -- | The unique ID for an invalidation request.
-isId :: Lens' InvalidationSummary Text
-isId = lens _isId (\s a -> s {_isId = a})
+invalidationSummary_id :: Lens.Lens' InvalidationSummary Prelude.Text
+invalidationSummary_id = Lens.lens (\InvalidationSummary' {id} -> id) (\s@InvalidationSummary' {} a -> s {id = a} :: InvalidationSummary)
 
 -- | The time that an invalidation request was created.
-isCreateTime :: Lens' InvalidationSummary UTCTime
-isCreateTime = lens _isCreateTime (\s a -> s {_isCreateTime = a}) . _Time
+invalidationSummary_createTime :: Lens.Lens' InvalidationSummary Prelude.UTCTime
+invalidationSummary_createTime = Lens.lens (\InvalidationSummary' {createTime} -> createTime) (\s@InvalidationSummary' {} a -> s {createTime = a} :: InvalidationSummary) Prelude.. Prelude._Time
 
 -- | The status of an invalidation request.
-isStatus :: Lens' InvalidationSummary Text
-isStatus = lens _isStatus (\s a -> s {_isStatus = a})
+invalidationSummary_status :: Lens.Lens' InvalidationSummary Prelude.Text
+invalidationSummary_status = Lens.lens (\InvalidationSummary' {status} -> status) (\s@InvalidationSummary' {} a -> s {status = a} :: InvalidationSummary)
 
-instance FromXML InvalidationSummary where
+instance Prelude.FromXML InvalidationSummary where
   parseXML x =
     InvalidationSummary'
-      <$> (x .@ "Id")
-      <*> (x .@ "CreateTime")
-      <*> (x .@ "Status")
+      Prelude.<$> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "CreateTime")
+      Prelude.<*> (x Prelude..@ "Status")
 
-instance Hashable InvalidationSummary
+instance Prelude.Hashable InvalidationSummary
 
-instance NFData InvalidationSummary
+instance Prelude.NFData InvalidationSummary

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,134 +24,126 @@
 -- List tags for a CloudFront resource.
 module Network.AWS.CloudFront.ListTagsForResource
   ( -- * Creating a Request
-    listTagsForResource,
-    ListTagsForResource,
+    ListTagsForResource (..),
+    newListTagsForResource,
 
     -- * Request Lenses
-    ltfrResource,
+    listTagsForResource_resource,
 
     -- * Destructuring the Response
-    listTagsForResourceResponse,
-    ListTagsForResourceResponse,
+    ListTagsForResourceResponse (..),
+    newListTagsForResourceResponse,
 
     -- * Response Lenses
-    ltfrrrsResponseStatus,
-    ltfrrrsTags,
+    listTagsForResourceResponse_httpStatus,
+    listTagsForResourceResponse_tags,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.Tags
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The request to list tags for a CloudFront resource.
 --
---
---
--- /See:/ 'listTagsForResource' smart constructor.
-newtype ListTagsForResource = ListTagsForResource'
-  { _ltfrResource ::
-      Text
+-- /See:/ 'newListTagsForResource' smart constructor.
+data ListTagsForResource = ListTagsForResource'
+  { -- | An ARN of a CloudFront resource.
+    resource :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrResource' - An ARN of a CloudFront resource.
-listTagsForResource ::
-  -- | 'ltfrResource'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resource', 'listTagsForResource_resource' - An ARN of a CloudFront resource.
+newListTagsForResource ::
+  -- | 'resource'
+  Prelude.Text ->
   ListTagsForResource
-listTagsForResource pResource_ =
-  ListTagsForResource' {_ltfrResource = pResource_}
+newListTagsForResource pResource_ =
+  ListTagsForResource' {resource = pResource_}
 
 -- | An ARN of a CloudFront resource.
-ltfrResource :: Lens' ListTagsForResource Text
-ltfrResource = lens _ltfrResource (\s a -> s {_ltfrResource = a})
+listTagsForResource_resource :: Lens.Lens' ListTagsForResource Prelude.Text
+listTagsForResource_resource = Lens.lens (\ListTagsForResource' {resource} -> resource) (\s@ListTagsForResource' {} a -> s {resource = a} :: ListTagsForResource)
 
-instance AWSRequest ListTagsForResource where
+instance Prelude.AWSRequest ListTagsForResource where
   type
     Rs ListTagsForResource =
       ListTagsForResourceResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListTagsForResourceResponse'
-            <$> (pure (fromEnum s)) <*> (parseXML x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.parseXML x)
       )
 
-instance Hashable ListTagsForResource
+instance Prelude.Hashable ListTagsForResource
 
-instance NFData ListTagsForResource
+instance Prelude.NFData ListTagsForResource
 
-instance ToHeaders ListTagsForResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListTagsForResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListTagsForResource where
-  toPath = const "/2020-05-31/tagging"
+instance Prelude.ToPath ListTagsForResource where
+  toPath = Prelude.const "/2020-05-31/tagging"
 
-instance ToQuery ListTagsForResource where
+instance Prelude.ToQuery ListTagsForResource where
   toQuery ListTagsForResource' {..} =
-    mconcat ["Resource" =: _ltfrResource]
+    Prelude.mconcat ["Resource" Prelude.=: resource]
 
 -- | The returned result of the corresponding request.
 --
---
---
--- /See:/ 'listTagsForResourceResponse' smart constructor.
+-- /See:/ 'newListTagsForResourceResponse' smart constructor.
 data ListTagsForResourceResponse = ListTagsForResourceResponse'
-  { _ltfrrrsResponseStatus ::
-      !Int,
-    _ltfrrrsTags ::
-      !Tags
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A complex type that contains zero or more @Tag@ elements.
+    tags :: Tags
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfrrrsTags' - A complex type that contains zero or more @Tag@ elements.
-listTagsForResourceResponse ::
-  -- | 'ltfrrrsResponseStatus'
-  Int ->
-  -- | 'ltfrrrsTags'
+-- 'httpStatus', 'listTagsForResourceResponse_httpStatus' - The response's http status code.
+--
+-- 'tags', 'listTagsForResourceResponse_tags' - A complex type that contains zero or more @Tag@ elements.
+newListTagsForResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'tags'
   Tags ->
   ListTagsForResourceResponse
-listTagsForResourceResponse pResponseStatus_ pTags_ =
+newListTagsForResourceResponse pHttpStatus_ pTags_ =
   ListTagsForResourceResponse'
-    { _ltfrrrsResponseStatus =
-        pResponseStatus_,
-      _ltfrrrsTags = pTags_
+    { httpStatus =
+        pHttpStatus_,
+      tags = pTags_
     }
 
--- | -- | The response status code.
-ltfrrrsResponseStatus :: Lens' ListTagsForResourceResponse Int
-ltfrrrsResponseStatus = lens _ltfrrrsResponseStatus (\s a -> s {_ltfrrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsForResourceResponse_httpStatus :: Lens.Lens' ListTagsForResourceResponse Prelude.Int
+listTagsForResourceResponse_httpStatus = Lens.lens (\ListTagsForResourceResponse' {httpStatus} -> httpStatus) (\s@ListTagsForResourceResponse' {} a -> s {httpStatus = a} :: ListTagsForResourceResponse)
 
 -- | A complex type that contains zero or more @Tag@ elements.
-ltfrrrsTags :: Lens' ListTagsForResourceResponse Tags
-ltfrrrsTags = lens _ltfrrrsTags (\s a -> s {_ltfrrrsTags = a})
+listTagsForResourceResponse_tags :: Lens.Lens' ListTagsForResourceResponse Tags
+listTagsForResourceResponse_tags = Lens.lens (\ListTagsForResourceResponse' {tags} -> tags) (\s@ListTagsForResourceResponse' {} a -> s {tags = a} :: ListTagsForResourceResponse)
 
-instance NFData ListTagsForResourceResponse
+instance Prelude.NFData ListTagsForResourceResponse

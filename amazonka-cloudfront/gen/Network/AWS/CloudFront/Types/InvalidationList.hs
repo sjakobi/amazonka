@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,100 +20,132 @@
 module Network.AWS.CloudFront.Types.InvalidationList where
 
 import Network.AWS.CloudFront.Types.InvalidationSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The @InvalidationList@ complex type describes the list of invalidation objects. For more information about invalidation, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html Invalidating Objects (Web Distributions Only)> in the /Amazon CloudFront Developer Guide/ .
+-- | The @InvalidationList@ complex type describes the list of invalidation
+-- objects. For more information about invalidation, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html Invalidating Objects (Web Distributions Only)>
+-- in the /Amazon CloudFront Developer Guide/.
 --
---
---
--- /See:/ 'invalidationList' smart constructor.
+-- /See:/ 'newInvalidationList' smart constructor.
 data InvalidationList = InvalidationList'
-  { _ilItems ::
-      !(Maybe [InvalidationSummary]),
-    _ilNextMarker :: !(Maybe Text),
-    _ilMarker :: !Text,
-    _ilMaxItems :: !Int,
-    _ilIsTruncated :: !Bool,
-    _ilQuantity :: !Int
+  { -- | A complex type that contains one @InvalidationSummary@ element for each
+    -- invalidation batch created by the current AWS account.
+    items :: Prelude.Maybe [InvalidationSummary],
+    -- | If @IsTruncated@ is @true@, this element is present and contains the
+    -- value that you can use for the @Marker@ request parameter to continue
+    -- listing your invalidation batches where they left off.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The value that you provided for the @Marker@ request parameter.
+    marker :: Prelude.Text,
+    -- | The value that you provided for the @MaxItems@ request parameter.
+    maxItems :: Prelude.Int,
+    -- | A flag that indicates whether more invalidation batch requests remain to
+    -- be listed. If your results were truncated, you can make a follow-up
+    -- pagination request using the @Marker@ request parameter to retrieve more
+    -- invalidation batches in the list.
+    isTruncated :: Prelude.Bool,
+    -- | The number of invalidation batches that were created by the current AWS
+    -- account.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InvalidationList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InvalidationList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ilItems' - A complex type that contains one @InvalidationSummary@ element for each invalidation batch created by the current AWS account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ilNextMarker' - If @IsTruncated@ is @true@ , this element is present and contains the value that you can use for the @Marker@ request parameter to continue listing your invalidation batches where they left off.
+-- 'items', 'invalidationList_items' - A complex type that contains one @InvalidationSummary@ element for each
+-- invalidation batch created by the current AWS account.
 --
--- * 'ilMarker' - The value that you provided for the @Marker@ request parameter.
+-- 'nextMarker', 'invalidationList_nextMarker' - If @IsTruncated@ is @true@, this element is present and contains the
+-- value that you can use for the @Marker@ request parameter to continue
+-- listing your invalidation batches where they left off.
 --
--- * 'ilMaxItems' - The value that you provided for the @MaxItems@ request parameter.
+-- 'marker', 'invalidationList_marker' - The value that you provided for the @Marker@ request parameter.
 --
--- * 'ilIsTruncated' - A flag that indicates whether more invalidation batch requests remain to be listed. If your results were truncated, you can make a follow-up pagination request using the @Marker@ request parameter to retrieve more invalidation batches in the list.
+-- 'maxItems', 'invalidationList_maxItems' - The value that you provided for the @MaxItems@ request parameter.
 --
--- * 'ilQuantity' - The number of invalidation batches that were created by the current AWS account.
-invalidationList ::
-  -- | 'ilMarker'
-  Text ->
-  -- | 'ilMaxItems'
-  Int ->
-  -- | 'ilIsTruncated'
-  Bool ->
-  -- | 'ilQuantity'
-  Int ->
+-- 'isTruncated', 'invalidationList_isTruncated' - A flag that indicates whether more invalidation batch requests remain to
+-- be listed. If your results were truncated, you can make a follow-up
+-- pagination request using the @Marker@ request parameter to retrieve more
+-- invalidation batches in the list.
+--
+-- 'quantity', 'invalidationList_quantity' - The number of invalidation batches that were created by the current AWS
+-- account.
+newInvalidationList ::
+  -- | 'marker'
+  Prelude.Text ->
+  -- | 'maxItems'
+  Prelude.Int ->
+  -- | 'isTruncated'
+  Prelude.Bool ->
+  -- | 'quantity'
+  Prelude.Int ->
   InvalidationList
-invalidationList
+newInvalidationList
   pMarker_
   pMaxItems_
   pIsTruncated_
   pQuantity_ =
     InvalidationList'
-      { _ilItems = Nothing,
-        _ilNextMarker = Nothing,
-        _ilMarker = pMarker_,
-        _ilMaxItems = pMaxItems_,
-        _ilIsTruncated = pIsTruncated_,
-        _ilQuantity = pQuantity_
+      { items = Prelude.Nothing,
+        nextMarker = Prelude.Nothing,
+        marker = pMarker_,
+        maxItems = pMaxItems_,
+        isTruncated = pIsTruncated_,
+        quantity = pQuantity_
       }
 
--- | A complex type that contains one @InvalidationSummary@ element for each invalidation batch created by the current AWS account.
-ilItems :: Lens' InvalidationList [InvalidationSummary]
-ilItems = lens _ilItems (\s a -> s {_ilItems = a}) . _Default . _Coerce
+-- | A complex type that contains one @InvalidationSummary@ element for each
+-- invalidation batch created by the current AWS account.
+invalidationList_items :: Lens.Lens' InvalidationList (Prelude.Maybe [InvalidationSummary])
+invalidationList_items = Lens.lens (\InvalidationList' {items} -> items) (\s@InvalidationList' {} a -> s {items = a} :: InvalidationList) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If @IsTruncated@ is @true@ , this element is present and contains the value that you can use for the @Marker@ request parameter to continue listing your invalidation batches where they left off.
-ilNextMarker :: Lens' InvalidationList (Maybe Text)
-ilNextMarker = lens _ilNextMarker (\s a -> s {_ilNextMarker = a})
+-- | If @IsTruncated@ is @true@, this element is present and contains the
+-- value that you can use for the @Marker@ request parameter to continue
+-- listing your invalidation batches where they left off.
+invalidationList_nextMarker :: Lens.Lens' InvalidationList (Prelude.Maybe Prelude.Text)
+invalidationList_nextMarker = Lens.lens (\InvalidationList' {nextMarker} -> nextMarker) (\s@InvalidationList' {} a -> s {nextMarker = a} :: InvalidationList)
 
 -- | The value that you provided for the @Marker@ request parameter.
-ilMarker :: Lens' InvalidationList Text
-ilMarker = lens _ilMarker (\s a -> s {_ilMarker = a})
+invalidationList_marker :: Lens.Lens' InvalidationList Prelude.Text
+invalidationList_marker = Lens.lens (\InvalidationList' {marker} -> marker) (\s@InvalidationList' {} a -> s {marker = a} :: InvalidationList)
 
 -- | The value that you provided for the @MaxItems@ request parameter.
-ilMaxItems :: Lens' InvalidationList Int
-ilMaxItems = lens _ilMaxItems (\s a -> s {_ilMaxItems = a})
+invalidationList_maxItems :: Lens.Lens' InvalidationList Prelude.Int
+invalidationList_maxItems = Lens.lens (\InvalidationList' {maxItems} -> maxItems) (\s@InvalidationList' {} a -> s {maxItems = a} :: InvalidationList)
 
--- | A flag that indicates whether more invalidation batch requests remain to be listed. If your results were truncated, you can make a follow-up pagination request using the @Marker@ request parameter to retrieve more invalidation batches in the list.
-ilIsTruncated :: Lens' InvalidationList Bool
-ilIsTruncated = lens _ilIsTruncated (\s a -> s {_ilIsTruncated = a})
+-- | A flag that indicates whether more invalidation batch requests remain to
+-- be listed. If your results were truncated, you can make a follow-up
+-- pagination request using the @Marker@ request parameter to retrieve more
+-- invalidation batches in the list.
+invalidationList_isTruncated :: Lens.Lens' InvalidationList Prelude.Bool
+invalidationList_isTruncated = Lens.lens (\InvalidationList' {isTruncated} -> isTruncated) (\s@InvalidationList' {} a -> s {isTruncated = a} :: InvalidationList)
 
--- | The number of invalidation batches that were created by the current AWS account.
-ilQuantity :: Lens' InvalidationList Int
-ilQuantity = lens _ilQuantity (\s a -> s {_ilQuantity = a})
+-- | The number of invalidation batches that were created by the current AWS
+-- account.
+invalidationList_quantity :: Lens.Lens' InvalidationList Prelude.Int
+invalidationList_quantity = Lens.lens (\InvalidationList' {quantity} -> quantity) (\s@InvalidationList' {} a -> s {quantity = a} :: InvalidationList)
 
-instance FromXML InvalidationList where
+instance Prelude.FromXML InvalidationList where
   parseXML x =
     InvalidationList'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "InvalidationSummary")
-          )
-      <*> (x .@? "NextMarker")
-      <*> (x .@ "Marker")
-      <*> (x .@ "MaxItems")
-      <*> (x .@ "IsTruncated")
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "InvalidationSummary")
+                  )
+      Prelude.<*> (x Prelude..@? "NextMarker")
+      Prelude.<*> (x Prelude..@ "Marker")
+      Prelude.<*> (x Prelude..@ "MaxItems")
+      Prelude.<*> (x Prelude..@ "IsTruncated")
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable InvalidationList
+instance Prelude.Hashable InvalidationList
 
-instance NFData InvalidationList
+instance Prelude.NFData InvalidationList

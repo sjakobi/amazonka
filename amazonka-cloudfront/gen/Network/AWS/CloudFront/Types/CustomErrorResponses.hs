@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,92 @@
 module Network.AWS.CloudFront.Types.CustomErrorResponses where
 
 import Network.AWS.CloudFront.Types.CustomErrorResponse
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A complex type that controls:
 --
+-- -   Whether CloudFront replaces HTTP status codes in the 4xx and 5xx
+--     range with custom error messages before returning the response to
+--     the viewer.
 --
---     * Whether CloudFront replaces HTTP status codes in the 4xx and 5xx range with custom error messages before returning the response to the viewer.
+-- -   How long CloudFront caches HTTP status codes in the 4xx and 5xx
+--     range.
 --
---     * How long CloudFront caches HTTP status codes in the 4xx and 5xx range.
+-- For more information about custom error pages, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html Customizing Error Responses>
+-- in the /Amazon CloudFront Developer Guide/.
 --
---
---
--- For more information about custom error pages, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html Customizing Error Responses> in the /Amazon CloudFront Developer Guide/ .
---
---
--- /See:/ 'customErrorResponses' smart constructor.
+-- /See:/ 'newCustomErrorResponses' smart constructor.
 data CustomErrorResponses = CustomErrorResponses'
-  { _cerItems ::
-      !( Maybe
-           [CustomErrorResponse]
-       ),
-    _cerQuantity :: !Int
+  { -- | A complex type that contains a @CustomErrorResponse@ element for each
+    -- HTTP status code for which you want to specify a custom error page
+    -- and\/or a caching duration.
+    items :: Prelude.Maybe [CustomErrorResponse],
+    -- | The number of HTTP status codes for which you want to specify a custom
+    -- error page and\/or a caching duration. If @Quantity@ is @0@, you can
+    -- omit @Items@.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomErrorResponses' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomErrorResponses' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cerItems' - A complex type that contains a @CustomErrorResponse@ element for each HTTP status code for which you want to specify a custom error page and/or a caching duration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cerQuantity' - The number of HTTP status codes for which you want to specify a custom error page and/or a caching duration. If @Quantity@ is @0@ , you can omit @Items@ .
-customErrorResponses ::
-  -- | 'cerQuantity'
-  Int ->
+-- 'items', 'customErrorResponses_items' - A complex type that contains a @CustomErrorResponse@ element for each
+-- HTTP status code for which you want to specify a custom error page
+-- and\/or a caching duration.
+--
+-- 'quantity', 'customErrorResponses_quantity' - The number of HTTP status codes for which you want to specify a custom
+-- error page and\/or a caching duration. If @Quantity@ is @0@, you can
+-- omit @Items@.
+newCustomErrorResponses ::
+  -- | 'quantity'
+  Prelude.Int ->
   CustomErrorResponses
-customErrorResponses pQuantity_ =
+newCustomErrorResponses pQuantity_ =
   CustomErrorResponses'
-    { _cerItems = Nothing,
-      _cerQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
     }
 
--- | A complex type that contains a @CustomErrorResponse@ element for each HTTP status code for which you want to specify a custom error page and/or a caching duration.
-cerItems :: Lens' CustomErrorResponses [CustomErrorResponse]
-cerItems = lens _cerItems (\s a -> s {_cerItems = a}) . _Default . _Coerce
+-- | A complex type that contains a @CustomErrorResponse@ element for each
+-- HTTP status code for which you want to specify a custom error page
+-- and\/or a caching duration.
+customErrorResponses_items :: Lens.Lens' CustomErrorResponses (Prelude.Maybe [CustomErrorResponse])
+customErrorResponses_items = Lens.lens (\CustomErrorResponses' {items} -> items) (\s@CustomErrorResponses' {} a -> s {items = a} :: CustomErrorResponses) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of HTTP status codes for which you want to specify a custom error page and/or a caching duration. If @Quantity@ is @0@ , you can omit @Items@ .
-cerQuantity :: Lens' CustomErrorResponses Int
-cerQuantity = lens _cerQuantity (\s a -> s {_cerQuantity = a})
+-- | The number of HTTP status codes for which you want to specify a custom
+-- error page and\/or a caching duration. If @Quantity@ is @0@, you can
+-- omit @Items@.
+customErrorResponses_quantity :: Lens.Lens' CustomErrorResponses Prelude.Int
+customErrorResponses_quantity = Lens.lens (\CustomErrorResponses' {quantity} -> quantity) (\s@CustomErrorResponses' {} a -> s {quantity = a} :: CustomErrorResponses)
 
-instance FromXML CustomErrorResponses where
+instance Prelude.FromXML CustomErrorResponses where
   parseXML x =
     CustomErrorResponses'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "CustomErrorResponse")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "CustomErrorResponse")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable CustomErrorResponses
+instance Prelude.Hashable CustomErrorResponses
 
-instance NFData CustomErrorResponses
+instance Prelude.NFData CustomErrorResponses
 
-instance ToXML CustomErrorResponses where
+instance Prelude.ToXML CustomErrorResponses where
   toXML CustomErrorResponses' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Items"
-          @= toXML
-            (toXMLList "CustomErrorResponse" <$> _cerItems),
-        "Quantity" @= _cerQuantity
+          Prelude.@= Prelude.toXML
+            ( Prelude.toXMLList "CustomErrorResponse"
+                Prelude.<$> items
+            ),
+        "Quantity" Prelude.@= quantity
       ]

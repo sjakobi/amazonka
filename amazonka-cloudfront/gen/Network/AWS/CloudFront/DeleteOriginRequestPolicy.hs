@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,110 +23,130 @@
 --
 -- Deletes an origin request policy.
 --
+-- You cannot delete an origin request policy if it’s attached to any cache
+-- behaviors. First update your distributions to remove the origin request
+-- policy from all cache behaviors, then delete the origin request policy.
 --
--- You cannot delete an origin request policy if it’s attached to any cache behaviors. First update your distributions to remove the origin request policy from all cache behaviors, then delete the origin request policy.
---
--- To delete an origin request policy, you must provide the policy’s identifier and version. To get the identifier, you can use @ListOriginRequestPolicies@ or @GetOriginRequestPolicy@ .
+-- To delete an origin request policy, you must provide the policy’s
+-- identifier and version. To get the identifier, you can use
+-- @ListOriginRequestPolicies@ or @GetOriginRequestPolicy@.
 module Network.AWS.CloudFront.DeleteOriginRequestPolicy
   ( -- * Creating a Request
-    deleteOriginRequestPolicy,
-    DeleteOriginRequestPolicy,
+    DeleteOriginRequestPolicy (..),
+    newDeleteOriginRequestPolicy,
 
     -- * Request Lenses
-    dorpIfMatch,
-    dorpId,
+    deleteOriginRequestPolicy_ifMatch,
+    deleteOriginRequestPolicy_id,
 
     -- * Destructuring the Response
-    deleteOriginRequestPolicyResponse,
-    DeleteOriginRequestPolicyResponse,
+    DeleteOriginRequestPolicyResponse (..),
+    newDeleteOriginRequestPolicyResponse,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteOriginRequestPolicy' smart constructor.
+-- | /See:/ 'newDeleteOriginRequestPolicy' smart constructor.
 data DeleteOriginRequestPolicy = DeleteOriginRequestPolicy'
-  { _dorpIfMatch ::
-      !(Maybe Text),
-    _dorpId :: !Text
+  { -- | The version of the origin request policy that you are deleting. The
+    -- version is the origin request policy’s @ETag@ value, which you can get
+    -- using @ListOriginRequestPolicies@, @GetOriginRequestPolicy@, or
+    -- @GetOriginRequestPolicyConfig@.
+    ifMatch :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the origin request policy that you are
+    -- deleting. To get the identifier, you can use
+    -- @ListOriginRequestPolicies@.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOriginRequestPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteOriginRequestPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dorpIfMatch' - The version of the origin request policy that you are deleting. The version is the origin request policy’s @ETag@ value, which you can get using @ListOriginRequestPolicies@ , @GetOriginRequestPolicy@ , or @GetOriginRequestPolicyConfig@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dorpId' - The unique identifier for the origin request policy that you are deleting. To get the identifier, you can use @ListOriginRequestPolicies@ .
-deleteOriginRequestPolicy ::
-  -- | 'dorpId'
-  Text ->
+-- 'ifMatch', 'deleteOriginRequestPolicy_ifMatch' - The version of the origin request policy that you are deleting. The
+-- version is the origin request policy’s @ETag@ value, which you can get
+-- using @ListOriginRequestPolicies@, @GetOriginRequestPolicy@, or
+-- @GetOriginRequestPolicyConfig@.
+--
+-- 'id', 'deleteOriginRequestPolicy_id' - The unique identifier for the origin request policy that you are
+-- deleting. To get the identifier, you can use
+-- @ListOriginRequestPolicies@.
+newDeleteOriginRequestPolicy ::
+  -- | 'id'
+  Prelude.Text ->
   DeleteOriginRequestPolicy
-deleteOriginRequestPolicy pId_ =
+newDeleteOriginRequestPolicy pId_ =
   DeleteOriginRequestPolicy'
-    { _dorpIfMatch = Nothing,
-      _dorpId = pId_
+    { ifMatch =
+        Prelude.Nothing,
+      id = pId_
     }
 
--- | The version of the origin request policy that you are deleting. The version is the origin request policy’s @ETag@ value, which you can get using @ListOriginRequestPolicies@ , @GetOriginRequestPolicy@ , or @GetOriginRequestPolicyConfig@ .
-dorpIfMatch :: Lens' DeleteOriginRequestPolicy (Maybe Text)
-dorpIfMatch = lens _dorpIfMatch (\s a -> s {_dorpIfMatch = a})
+-- | The version of the origin request policy that you are deleting. The
+-- version is the origin request policy’s @ETag@ value, which you can get
+-- using @ListOriginRequestPolicies@, @GetOriginRequestPolicy@, or
+-- @GetOriginRequestPolicyConfig@.
+deleteOriginRequestPolicy_ifMatch :: Lens.Lens' DeleteOriginRequestPolicy (Prelude.Maybe Prelude.Text)
+deleteOriginRequestPolicy_ifMatch = Lens.lens (\DeleteOriginRequestPolicy' {ifMatch} -> ifMatch) (\s@DeleteOriginRequestPolicy' {} a -> s {ifMatch = a} :: DeleteOriginRequestPolicy)
 
--- | The unique identifier for the origin request policy that you are deleting. To get the identifier, you can use @ListOriginRequestPolicies@ .
-dorpId :: Lens' DeleteOriginRequestPolicy Text
-dorpId = lens _dorpId (\s a -> s {_dorpId = a})
+-- | The unique identifier for the origin request policy that you are
+-- deleting. To get the identifier, you can use
+-- @ListOriginRequestPolicies@.
+deleteOriginRequestPolicy_id :: Lens.Lens' DeleteOriginRequestPolicy Prelude.Text
+deleteOriginRequestPolicy_id = Lens.lens (\DeleteOriginRequestPolicy' {id} -> id) (\s@DeleteOriginRequestPolicy' {} a -> s {id = a} :: DeleteOriginRequestPolicy)
 
-instance AWSRequest DeleteOriginRequestPolicy where
+instance Prelude.AWSRequest DeleteOriginRequestPolicy where
   type
     Rs DeleteOriginRequestPolicy =
       DeleteOriginRequestPolicyResponse
-  request = delete cloudFront
+  request = Request.delete defaultService
   response =
-    receiveNull DeleteOriginRequestPolicyResponse'
+    Response.receiveNull
+      DeleteOriginRequestPolicyResponse'
 
-instance Hashable DeleteOriginRequestPolicy
+instance Prelude.Hashable DeleteOriginRequestPolicy
 
-instance NFData DeleteOriginRequestPolicy
+instance Prelude.NFData DeleteOriginRequestPolicy
 
-instance ToHeaders DeleteOriginRequestPolicy where
+instance Prelude.ToHeaders DeleteOriginRequestPolicy where
   toHeaders DeleteOriginRequestPolicy' {..} =
-    mconcat ["If-Match" =# _dorpIfMatch]
+    Prelude.mconcat ["If-Match" Prelude.=# ifMatch]
 
-instance ToPath DeleteOriginRequestPolicy where
+instance Prelude.ToPath DeleteOriginRequestPolicy where
   toPath DeleteOriginRequestPolicy' {..} =
-    mconcat
-      ["/2020-05-31/origin-request-policy/", toBS _dorpId]
+    Prelude.mconcat
+      [ "/2020-05-31/origin-request-policy/",
+        Prelude.toBS id
+      ]
 
-instance ToQuery DeleteOriginRequestPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteOriginRequestPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteOriginRequestPolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteOriginRequestPolicyResponse' smart constructor.
 data DeleteOriginRequestPolicyResponse = DeleteOriginRequestPolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOriginRequestPolicyResponse' with the minimum fields required to make a request.
-deleteOriginRequestPolicyResponse ::
+-- |
+-- Create a value of 'DeleteOriginRequestPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteOriginRequestPolicyResponse ::
   DeleteOriginRequestPolicyResponse
-deleteOriginRequestPolicyResponse =
+newDeleteOriginRequestPolicyResponse =
   DeleteOriginRequestPolicyResponse'
 
-instance NFData DeleteOriginRequestPolicyResponse
+instance
+  Prelude.NFData
+    DeleteOriginRequestPolicyResponse

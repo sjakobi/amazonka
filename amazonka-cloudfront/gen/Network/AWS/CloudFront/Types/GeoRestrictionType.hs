@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CloudFront.Types.GeoRestrictionType
   ( GeoRestrictionType
       ( ..,
-        Blacklist,
-        None,
-        Whitelist
+        GeoRestrictionTypeBlacklist,
+        GeoRestrictionTypeNone,
+        GeoRestrictionTypeWhitelist
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GeoRestrictionType
-  = GeoRestrictionType'
-      ( CI
-          Text
-      )
+newtype GeoRestrictionType = GeoRestrictionType'
+  { fromGeoRestrictionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Blacklist :: GeoRestrictionType
-pattern Blacklist = GeoRestrictionType' "blacklist"
+pattern GeoRestrictionTypeBlacklist :: GeoRestrictionType
+pattern GeoRestrictionTypeBlacklist = GeoRestrictionType' "blacklist"
 
-pattern None :: GeoRestrictionType
-pattern None = GeoRestrictionType' "none"
+pattern GeoRestrictionTypeNone :: GeoRestrictionType
+pattern GeoRestrictionTypeNone = GeoRestrictionType' "none"
 
-pattern Whitelist :: GeoRestrictionType
-pattern Whitelist = GeoRestrictionType' "whitelist"
+pattern GeoRestrictionTypeWhitelist :: GeoRestrictionType
+pattern GeoRestrictionTypeWhitelist = GeoRestrictionType' "whitelist"
 
 {-# COMPLETE
-  Blacklist,
-  None,
-  Whitelist,
+  GeoRestrictionTypeBlacklist,
+  GeoRestrictionTypeNone,
+  GeoRestrictionTypeWhitelist,
   GeoRestrictionType'
   #-}
 
-instance FromText GeoRestrictionType where
-  parser = (GeoRestrictionType' . mk) <$> takeText
+instance Prelude.FromText GeoRestrictionType where
+  parser = GeoRestrictionType' Prelude.<$> Prelude.takeText
 
-instance ToText GeoRestrictionType where
-  toText (GeoRestrictionType' ci) = original ci
+instance Prelude.ToText GeoRestrictionType where
+  toText (GeoRestrictionType' x) = x
 
-instance Hashable GeoRestrictionType
+instance Prelude.Hashable GeoRestrictionType
 
-instance NFData GeoRestrictionType
+instance Prelude.NFData GeoRestrictionType
 
-instance ToByteString GeoRestrictionType
+instance Prelude.ToByteString GeoRestrictionType
 
-instance ToQuery GeoRestrictionType
+instance Prelude.ToQuery GeoRestrictionType
 
-instance ToHeader GeoRestrictionType
+instance Prelude.ToHeader GeoRestrictionType
 
-instance FromXML GeoRestrictionType where
-  parseXML = parseXMLText "GeoRestrictionType"
+instance Prelude.FromXML GeoRestrictionType where
+  parseXML = Prelude.parseXMLText "GeoRestrictionType"
 
-instance ToXML GeoRestrictionType where
-  toXML = toXMLText
+instance Prelude.ToXML GeoRestrictionType where
+  toXML = Prelude.toXMLText

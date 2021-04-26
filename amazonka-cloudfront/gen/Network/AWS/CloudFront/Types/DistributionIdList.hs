@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,100 +19,122 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.DistributionIdList where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A list of distribution IDs.
 --
---
---
--- /See:/ 'distributionIdList' smart constructor.
+-- /See:/ 'newDistributionIdList' smart constructor.
 data DistributionIdList = DistributionIdList'
-  { _dilItems ::
-      !(Maybe [Text]),
-    _dilNextMarker :: !(Maybe Text),
-    _dilMarker :: !Text,
-    _dilMaxItems :: !Int,
-    _dilIsTruncated :: !Bool,
-    _dilQuantity :: !Int
+  { -- | Contains the distribution IDs in the list.
+    items :: Prelude.Maybe [Prelude.Text],
+    -- | Contains the value that you should use in the @Marker@ field of a
+    -- subsequent request to continue listing distribution IDs where you left
+    -- off.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The value provided in the @Marker@ request field.
+    marker :: Prelude.Text,
+    -- | The maximum number of distribution IDs requested.
+    maxItems :: Prelude.Int,
+    -- | A flag that indicates whether more distribution IDs remain to be listed.
+    -- If your results were truncated, you can make a subsequent request using
+    -- the @Marker@ request field to retrieve more distribution IDs in the
+    -- list.
+    isTruncated :: Prelude.Bool,
+    -- | The total number of distribution IDs returned in the response.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DistributionIdList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DistributionIdList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dilItems' - Contains the distribution IDs in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dilNextMarker' - Contains the value that you should use in the @Marker@ field of a subsequent request to continue listing distribution IDs where you left off.
+-- 'items', 'distributionIdList_items' - Contains the distribution IDs in the list.
 --
--- * 'dilMarker' - The value provided in the @Marker@ request field.
+-- 'nextMarker', 'distributionIdList_nextMarker' - Contains the value that you should use in the @Marker@ field of a
+-- subsequent request to continue listing distribution IDs where you left
+-- off.
 --
--- * 'dilMaxItems' - The maximum number of distribution IDs requested.
+-- 'marker', 'distributionIdList_marker' - The value provided in the @Marker@ request field.
 --
--- * 'dilIsTruncated' - A flag that indicates whether more distribution IDs remain to be listed. If your results were truncated, you can make a subsequent request using the @Marker@ request field to retrieve more distribution IDs in the list.
+-- 'maxItems', 'distributionIdList_maxItems' - The maximum number of distribution IDs requested.
 --
--- * 'dilQuantity' - The total number of distribution IDs returned in the response.
-distributionIdList ::
-  -- | 'dilMarker'
-  Text ->
-  -- | 'dilMaxItems'
-  Int ->
-  -- | 'dilIsTruncated'
-  Bool ->
-  -- | 'dilQuantity'
-  Int ->
+-- 'isTruncated', 'distributionIdList_isTruncated' - A flag that indicates whether more distribution IDs remain to be listed.
+-- If your results were truncated, you can make a subsequent request using
+-- the @Marker@ request field to retrieve more distribution IDs in the
+-- list.
+--
+-- 'quantity', 'distributionIdList_quantity' - The total number of distribution IDs returned in the response.
+newDistributionIdList ::
+  -- | 'marker'
+  Prelude.Text ->
+  -- | 'maxItems'
+  Prelude.Int ->
+  -- | 'isTruncated'
+  Prelude.Bool ->
+  -- | 'quantity'
+  Prelude.Int ->
   DistributionIdList
-distributionIdList
+newDistributionIdList
   pMarker_
   pMaxItems_
   pIsTruncated_
   pQuantity_ =
     DistributionIdList'
-      { _dilItems = Nothing,
-        _dilNextMarker = Nothing,
-        _dilMarker = pMarker_,
-        _dilMaxItems = pMaxItems_,
-        _dilIsTruncated = pIsTruncated_,
-        _dilQuantity = pQuantity_
+      { items = Prelude.Nothing,
+        nextMarker = Prelude.Nothing,
+        marker = pMarker_,
+        maxItems = pMaxItems_,
+        isTruncated = pIsTruncated_,
+        quantity = pQuantity_
       }
 
 -- | Contains the distribution IDs in the list.
-dilItems :: Lens' DistributionIdList [Text]
-dilItems = lens _dilItems (\s a -> s {_dilItems = a}) . _Default . _Coerce
+distributionIdList_items :: Lens.Lens' DistributionIdList (Prelude.Maybe [Prelude.Text])
+distributionIdList_items = Lens.lens (\DistributionIdList' {items} -> items) (\s@DistributionIdList' {} a -> s {items = a} :: DistributionIdList) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Contains the value that you should use in the @Marker@ field of a subsequent request to continue listing distribution IDs where you left off.
-dilNextMarker :: Lens' DistributionIdList (Maybe Text)
-dilNextMarker = lens _dilNextMarker (\s a -> s {_dilNextMarker = a})
+-- | Contains the value that you should use in the @Marker@ field of a
+-- subsequent request to continue listing distribution IDs where you left
+-- off.
+distributionIdList_nextMarker :: Lens.Lens' DistributionIdList (Prelude.Maybe Prelude.Text)
+distributionIdList_nextMarker = Lens.lens (\DistributionIdList' {nextMarker} -> nextMarker) (\s@DistributionIdList' {} a -> s {nextMarker = a} :: DistributionIdList)
 
 -- | The value provided in the @Marker@ request field.
-dilMarker :: Lens' DistributionIdList Text
-dilMarker = lens _dilMarker (\s a -> s {_dilMarker = a})
+distributionIdList_marker :: Lens.Lens' DistributionIdList Prelude.Text
+distributionIdList_marker = Lens.lens (\DistributionIdList' {marker} -> marker) (\s@DistributionIdList' {} a -> s {marker = a} :: DistributionIdList)
 
 -- | The maximum number of distribution IDs requested.
-dilMaxItems :: Lens' DistributionIdList Int
-dilMaxItems = lens _dilMaxItems (\s a -> s {_dilMaxItems = a})
+distributionIdList_maxItems :: Lens.Lens' DistributionIdList Prelude.Int
+distributionIdList_maxItems = Lens.lens (\DistributionIdList' {maxItems} -> maxItems) (\s@DistributionIdList' {} a -> s {maxItems = a} :: DistributionIdList)
 
--- | A flag that indicates whether more distribution IDs remain to be listed. If your results were truncated, you can make a subsequent request using the @Marker@ request field to retrieve more distribution IDs in the list.
-dilIsTruncated :: Lens' DistributionIdList Bool
-dilIsTruncated = lens _dilIsTruncated (\s a -> s {_dilIsTruncated = a})
+-- | A flag that indicates whether more distribution IDs remain to be listed.
+-- If your results were truncated, you can make a subsequent request using
+-- the @Marker@ request field to retrieve more distribution IDs in the
+-- list.
+distributionIdList_isTruncated :: Lens.Lens' DistributionIdList Prelude.Bool
+distributionIdList_isTruncated = Lens.lens (\DistributionIdList' {isTruncated} -> isTruncated) (\s@DistributionIdList' {} a -> s {isTruncated = a} :: DistributionIdList)
 
 -- | The total number of distribution IDs returned in the response.
-dilQuantity :: Lens' DistributionIdList Int
-dilQuantity = lens _dilQuantity (\s a -> s {_dilQuantity = a})
+distributionIdList_quantity :: Lens.Lens' DistributionIdList Prelude.Int
+distributionIdList_quantity = Lens.lens (\DistributionIdList' {quantity} -> quantity) (\s@DistributionIdList' {} a -> s {quantity = a} :: DistributionIdList)
 
-instance FromXML DistributionIdList where
+instance Prelude.FromXML DistributionIdList where
   parseXML x =
     DistributionIdList'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "DistributionId")
-          )
-      <*> (x .@? "NextMarker")
-      <*> (x .@ "Marker")
-      <*> (x .@ "MaxItems")
-      <*> (x .@ "IsTruncated")
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "DistributionId")
+                  )
+      Prelude.<*> (x Prelude..@? "NextMarker")
+      Prelude.<*> (x Prelude..@ "Marker")
+      Prelude.<*> (x Prelude..@ "MaxItems")
+      Prelude.<*> (x Prelude..@ "IsTruncated")
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable DistributionIdList
+instance Prelude.Hashable DistributionIdList
 
-instance NFData DistributionIdList
+instance Prelude.NFData DistributionIdList

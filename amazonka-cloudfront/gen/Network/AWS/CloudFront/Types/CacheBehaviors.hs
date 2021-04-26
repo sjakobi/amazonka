@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,71 @@
 module Network.AWS.CloudFront.Types.CacheBehaviors where
 
 import Network.AWS.CloudFront.Types.CacheBehavior
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A complex type that contains zero or more @CacheBehavior@ elements.
 --
---
---
--- /See:/ 'cacheBehaviors' smart constructor.
+-- /See:/ 'newCacheBehaviors' smart constructor.
 data CacheBehaviors = CacheBehaviors'
-  { _cbItems ::
-      !(Maybe [CacheBehavior]),
-    _cbQuantity :: !Int
+  { -- | Optional: A complex type that contains cache behaviors for this
+    -- distribution. If @Quantity@ is @0@, you can omit @Items@.
+    items :: Prelude.Maybe [CacheBehavior],
+    -- | The number of cache behaviors for this distribution.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CacheBehaviors' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CacheBehaviors' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbItems' - Optional: A complex type that contains cache behaviors for this distribution. If @Quantity@ is @0@ , you can omit @Items@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbQuantity' - The number of cache behaviors for this distribution.
-cacheBehaviors ::
-  -- | 'cbQuantity'
-  Int ->
+-- 'items', 'cacheBehaviors_items' - Optional: A complex type that contains cache behaviors for this
+-- distribution. If @Quantity@ is @0@, you can omit @Items@.
+--
+-- 'quantity', 'cacheBehaviors_quantity' - The number of cache behaviors for this distribution.
+newCacheBehaviors ::
+  -- | 'quantity'
+  Prelude.Int ->
   CacheBehaviors
-cacheBehaviors pQuantity_ =
+newCacheBehaviors pQuantity_ =
   CacheBehaviors'
-    { _cbItems = Nothing,
-      _cbQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
     }
 
--- | Optional: A complex type that contains cache behaviors for this distribution. If @Quantity@ is @0@ , you can omit @Items@ .
-cbItems :: Lens' CacheBehaviors [CacheBehavior]
-cbItems = lens _cbItems (\s a -> s {_cbItems = a}) . _Default . _Coerce
+-- | Optional: A complex type that contains cache behaviors for this
+-- distribution. If @Quantity@ is @0@, you can omit @Items@.
+cacheBehaviors_items :: Lens.Lens' CacheBehaviors (Prelude.Maybe [CacheBehavior])
+cacheBehaviors_items = Lens.lens (\CacheBehaviors' {items} -> items) (\s@CacheBehaviors' {} a -> s {items = a} :: CacheBehaviors) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of cache behaviors for this distribution.
-cbQuantity :: Lens' CacheBehaviors Int
-cbQuantity = lens _cbQuantity (\s a -> s {_cbQuantity = a})
+cacheBehaviors_quantity :: Lens.Lens' CacheBehaviors Prelude.Int
+cacheBehaviors_quantity = Lens.lens (\CacheBehaviors' {quantity} -> quantity) (\s@CacheBehaviors' {} a -> s {quantity = a} :: CacheBehaviors)
 
-instance FromXML CacheBehaviors where
+instance Prelude.FromXML CacheBehaviors where
   parseXML x =
     CacheBehaviors'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "CacheBehavior")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "CacheBehavior")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable CacheBehaviors
+instance Prelude.Hashable CacheBehaviors
 
-instance NFData CacheBehaviors
+instance Prelude.NFData CacheBehaviors
 
-instance ToXML CacheBehaviors where
+instance Prelude.ToXML CacheBehaviors where
   toXML CacheBehaviors' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Items"
-          @= toXML (toXMLList "CacheBehavior" <$> _cbItems),
-        "Quantity" @= _cbQuantity
+          Prelude.@= Prelude.toXML
+            ( Prelude.toXMLList "CacheBehavior"
+                Prelude.<$> items
+            ),
+        "Quantity" Prelude.@= quantity
       ]

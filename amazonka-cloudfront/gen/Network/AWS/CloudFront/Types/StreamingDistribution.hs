@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +21,108 @@ module Network.AWS.CloudFront.Types.StreamingDistribution where
 
 import Network.AWS.CloudFront.Types.ActiveTrustedSigners
 import Network.AWS.CloudFront.Types.StreamingDistributionConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A streaming distribution tells CloudFront where you want RTMP content to be delivered from, and the details about how to track and manage content delivery.
+-- | A streaming distribution tells CloudFront where you want RTMP content to
+-- be delivered from, and the details about how to track and manage content
+-- delivery.
 --
---
---
--- /See:/ 'streamingDistribution' smart constructor.
+-- /See:/ 'newStreamingDistribution' smart constructor.
 data StreamingDistribution = StreamingDistribution'
-  { _sdLastModifiedTime ::
-      !(Maybe ISO8601),
-    _sdId :: !Text,
-    _sdARN :: !Text,
-    _sdStatus :: !Text,
-    _sdDomainName :: !Text,
-    _sdActiveTrustedSigners ::
-      !ActiveTrustedSigners,
-    _sdStreamingDistributionConfig ::
-      !StreamingDistributionConfig
+  { -- | The date and time that the distribution was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The identifier for the RTMP distribution. For example:
+    -- @EGTXBD79EXAMPLE@.
+    id :: Prelude.Text,
+    -- | The ARN (Amazon Resource Name) for the distribution. For example:
+    -- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
+    -- @123456789012@ is your AWS account ID.
+    aRN :: Prelude.Text,
+    -- | The current status of the RTMP distribution. When the status is
+    -- @Deployed@, the distribution\'s information is propagated to all
+    -- CloudFront edge locations.
+    status :: Prelude.Text,
+    -- | The domain name that corresponds to the streaming distribution, for
+    -- example, @s5c39gqb8ow64r.cloudfront.net@.
+    domainName :: Prelude.Text,
+    -- | A complex type that lists the AWS accounts, if any, that you included in
+    -- the @TrustedSigners@ complex type for this distribution. These are the
+    -- accounts that you want to allow to create signed URLs for private
+    -- content.
+    --
+    -- The @Signer@ complex type lists the AWS account number of the trusted
+    -- signer or @self@ if the signer is the AWS account that created the
+    -- distribution. The @Signer@ element also includes the IDs of any active
+    -- CloudFront key pairs that are associated with the trusted signer\'s AWS
+    -- account. If no @KeyPairId@ element appears for a @Signer@, that signer
+    -- can\'t create signed URLs.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
+    -- in the /Amazon CloudFront Developer Guide/.
+    activeTrustedSigners :: ActiveTrustedSigners,
+    -- | The current configuration information for the RTMP distribution.
+    streamingDistributionConfig :: StreamingDistributionConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StreamingDistribution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StreamingDistribution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdLastModifiedTime' - The date and time that the distribution was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdId' - The identifier for the RTMP distribution. For example: @EGTXBD79EXAMPLE@ .
+-- 'lastModifiedTime', 'streamingDistribution_lastModifiedTime' - The date and time that the distribution was last modified.
 --
--- * 'sdARN' - The ARN (Amazon Resource Name) for the distribution. For example: @arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5@ , where @123456789012@ is your AWS account ID.
+-- 'id', 'streamingDistribution_id' - The identifier for the RTMP distribution. For example:
+-- @EGTXBD79EXAMPLE@.
 --
--- * 'sdStatus' - The current status of the RTMP distribution. When the status is @Deployed@ , the distribution's information is propagated to all CloudFront edge locations.
+-- 'aRN', 'streamingDistribution_aRN' - The ARN (Amazon Resource Name) for the distribution. For example:
+-- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
+-- @123456789012@ is your AWS account ID.
 --
--- * 'sdDomainName' - The domain name that corresponds to the streaming distribution, for example, @s5c39gqb8ow64r.cloudfront.net@ .
+-- 'status', 'streamingDistribution_status' - The current status of the RTMP distribution. When the status is
+-- @Deployed@, the distribution\'s information is propagated to all
+-- CloudFront edge locations.
 --
--- * 'sdActiveTrustedSigners' - A complex type that lists the AWS accounts, if any, that you included in the @TrustedSigners@ complex type for this distribution. These are the accounts that you want to allow to create signed URLs for private content. The @Signer@ complex type lists the AWS account number of the trusted signer or @self@ if the signer is the AWS account that created the distribution. The @Signer@ element also includes the IDs of any active CloudFront key pairs that are associated with the trusted signer's AWS account. If no @KeyPairId@ element appears for a @Signer@ , that signer can't create signed URLs. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront> in the /Amazon CloudFront Developer Guide/ .
+-- 'domainName', 'streamingDistribution_domainName' - The domain name that corresponds to the streaming distribution, for
+-- example, @s5c39gqb8ow64r.cloudfront.net@.
 --
--- * 'sdStreamingDistributionConfig' - The current configuration information for the RTMP distribution.
-streamingDistribution ::
-  -- | 'sdId'
-  Text ->
-  -- | 'sdARN'
-  Text ->
-  -- | 'sdStatus'
-  Text ->
-  -- | 'sdDomainName'
-  Text ->
-  -- | 'sdActiveTrustedSigners'
+-- 'activeTrustedSigners', 'streamingDistribution_activeTrustedSigners' - A complex type that lists the AWS accounts, if any, that you included in
+-- the @TrustedSigners@ complex type for this distribution. These are the
+-- accounts that you want to allow to create signed URLs for private
+-- content.
+--
+-- The @Signer@ complex type lists the AWS account number of the trusted
+-- signer or @self@ if the signer is the AWS account that created the
+-- distribution. The @Signer@ element also includes the IDs of any active
+-- CloudFront key pairs that are associated with the trusted signer\'s AWS
+-- account. If no @KeyPairId@ element appears for a @Signer@, that signer
+-- can\'t create signed URLs.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
+-- in the /Amazon CloudFront Developer Guide/.
+--
+-- 'streamingDistributionConfig', 'streamingDistribution_streamingDistributionConfig' - The current configuration information for the RTMP distribution.
+newStreamingDistribution ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'aRN'
+  Prelude.Text ->
+  -- | 'status'
+  Prelude.Text ->
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'activeTrustedSigners'
   ActiveTrustedSigners ->
-  -- | 'sdStreamingDistributionConfig'
+  -- | 'streamingDistributionConfig'
   StreamingDistributionConfig ->
   StreamingDistribution
-streamingDistribution
+newStreamingDistribution
   pId_
   pARN_
   pStatus_
@@ -85,56 +130,76 @@ streamingDistribution
   pActiveTrustedSigners_
   pStreamingDistributionConfig_ =
     StreamingDistribution'
-      { _sdLastModifiedTime =
-          Nothing,
-        _sdId = pId_,
-        _sdARN = pARN_,
-        _sdStatus = pStatus_,
-        _sdDomainName = pDomainName_,
-        _sdActiveTrustedSigners = pActiveTrustedSigners_,
-        _sdStreamingDistributionConfig =
+      { lastModifiedTime =
+          Prelude.Nothing,
+        id = pId_,
+        aRN = pARN_,
+        status = pStatus_,
+        domainName = pDomainName_,
+        activeTrustedSigners = pActiveTrustedSigners_,
+        streamingDistributionConfig =
           pStreamingDistributionConfig_
       }
 
 -- | The date and time that the distribution was last modified.
-sdLastModifiedTime :: Lens' StreamingDistribution (Maybe UTCTime)
-sdLastModifiedTime = lens _sdLastModifiedTime (\s a -> s {_sdLastModifiedTime = a}) . mapping _Time
+streamingDistribution_lastModifiedTime :: Lens.Lens' StreamingDistribution (Prelude.Maybe Prelude.UTCTime)
+streamingDistribution_lastModifiedTime = Lens.lens (\StreamingDistribution' {lastModifiedTime} -> lastModifiedTime) (\s@StreamingDistribution' {} a -> s {lastModifiedTime = a} :: StreamingDistribution) Prelude.. Lens.mapping Prelude._Time
 
--- | The identifier for the RTMP distribution. For example: @EGTXBD79EXAMPLE@ .
-sdId :: Lens' StreamingDistribution Text
-sdId = lens _sdId (\s a -> s {_sdId = a})
+-- | The identifier for the RTMP distribution. For example:
+-- @EGTXBD79EXAMPLE@.
+streamingDistribution_id :: Lens.Lens' StreamingDistribution Prelude.Text
+streamingDistribution_id = Lens.lens (\StreamingDistribution' {id} -> id) (\s@StreamingDistribution' {} a -> s {id = a} :: StreamingDistribution)
 
--- | The ARN (Amazon Resource Name) for the distribution. For example: @arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5@ , where @123456789012@ is your AWS account ID.
-sdARN :: Lens' StreamingDistribution Text
-sdARN = lens _sdARN (\s a -> s {_sdARN = a})
+-- | The ARN (Amazon Resource Name) for the distribution. For example:
+-- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
+-- @123456789012@ is your AWS account ID.
+streamingDistribution_aRN :: Lens.Lens' StreamingDistribution Prelude.Text
+streamingDistribution_aRN = Lens.lens (\StreamingDistribution' {aRN} -> aRN) (\s@StreamingDistribution' {} a -> s {aRN = a} :: StreamingDistribution)
 
--- | The current status of the RTMP distribution. When the status is @Deployed@ , the distribution's information is propagated to all CloudFront edge locations.
-sdStatus :: Lens' StreamingDistribution Text
-sdStatus = lens _sdStatus (\s a -> s {_sdStatus = a})
+-- | The current status of the RTMP distribution. When the status is
+-- @Deployed@, the distribution\'s information is propagated to all
+-- CloudFront edge locations.
+streamingDistribution_status :: Lens.Lens' StreamingDistribution Prelude.Text
+streamingDistribution_status = Lens.lens (\StreamingDistribution' {status} -> status) (\s@StreamingDistribution' {} a -> s {status = a} :: StreamingDistribution)
 
--- | The domain name that corresponds to the streaming distribution, for example, @s5c39gqb8ow64r.cloudfront.net@ .
-sdDomainName :: Lens' StreamingDistribution Text
-sdDomainName = lens _sdDomainName (\s a -> s {_sdDomainName = a})
+-- | The domain name that corresponds to the streaming distribution, for
+-- example, @s5c39gqb8ow64r.cloudfront.net@.
+streamingDistribution_domainName :: Lens.Lens' StreamingDistribution Prelude.Text
+streamingDistribution_domainName = Lens.lens (\StreamingDistribution' {domainName} -> domainName) (\s@StreamingDistribution' {} a -> s {domainName = a} :: StreamingDistribution)
 
--- | A complex type that lists the AWS accounts, if any, that you included in the @TrustedSigners@ complex type for this distribution. These are the accounts that you want to allow to create signed URLs for private content. The @Signer@ complex type lists the AWS account number of the trusted signer or @self@ if the signer is the AWS account that created the distribution. The @Signer@ element also includes the IDs of any active CloudFront key pairs that are associated with the trusted signer's AWS account. If no @KeyPairId@ element appears for a @Signer@ , that signer can't create signed URLs. For more information, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront> in the /Amazon CloudFront Developer Guide/ .
-sdActiveTrustedSigners :: Lens' StreamingDistribution ActiveTrustedSigners
-sdActiveTrustedSigners = lens _sdActiveTrustedSigners (\s a -> s {_sdActiveTrustedSigners = a})
+-- | A complex type that lists the AWS accounts, if any, that you included in
+-- the @TrustedSigners@ complex type for this distribution. These are the
+-- accounts that you want to allow to create signed URLs for private
+-- content.
+--
+-- The @Signer@ complex type lists the AWS account number of the trusted
+-- signer or @self@ if the signer is the AWS account that created the
+-- distribution. The @Signer@ element also includes the IDs of any active
+-- CloudFront key pairs that are associated with the trusted signer\'s AWS
+-- account. If no @KeyPairId@ element appears for a @Signer@, that signer
+-- can\'t create signed URLs.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
+-- in the /Amazon CloudFront Developer Guide/.
+streamingDistribution_activeTrustedSigners :: Lens.Lens' StreamingDistribution ActiveTrustedSigners
+streamingDistribution_activeTrustedSigners = Lens.lens (\StreamingDistribution' {activeTrustedSigners} -> activeTrustedSigners) (\s@StreamingDistribution' {} a -> s {activeTrustedSigners = a} :: StreamingDistribution)
 
 -- | The current configuration information for the RTMP distribution.
-sdStreamingDistributionConfig :: Lens' StreamingDistribution StreamingDistributionConfig
-sdStreamingDistributionConfig = lens _sdStreamingDistributionConfig (\s a -> s {_sdStreamingDistributionConfig = a})
+streamingDistribution_streamingDistributionConfig :: Lens.Lens' StreamingDistribution StreamingDistributionConfig
+streamingDistribution_streamingDistributionConfig = Lens.lens (\StreamingDistribution' {streamingDistributionConfig} -> streamingDistributionConfig) (\s@StreamingDistribution' {} a -> s {streamingDistributionConfig = a} :: StreamingDistribution)
 
-instance FromXML StreamingDistribution where
+instance Prelude.FromXML StreamingDistribution where
   parseXML x =
     StreamingDistribution'
-      <$> (x .@? "LastModifiedTime")
-      <*> (x .@ "Id")
-      <*> (x .@ "ARN")
-      <*> (x .@ "Status")
-      <*> (x .@ "DomainName")
-      <*> (x .@ "ActiveTrustedSigners")
-      <*> (x .@ "StreamingDistributionConfig")
+      Prelude.<$> (x Prelude..@? "LastModifiedTime")
+      Prelude.<*> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "ARN")
+      Prelude.<*> (x Prelude..@ "Status")
+      Prelude.<*> (x Prelude..@ "DomainName")
+      Prelude.<*> (x Prelude..@ "ActiveTrustedSigners")
+      Prelude.<*> (x Prelude..@ "StreamingDistributionConfig")
 
-instance Hashable StreamingDistribution
+instance Prelude.Hashable StreamingDistribution
 
-instance NFData StreamingDistribution
+instance Prelude.NFData StreamingDistribution

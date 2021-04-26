@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,73 @@
 module Network.AWS.CloudFront.Types.KeyGroup where
 
 import Network.AWS.CloudFront.Types.KeyGroupConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A key group.
 --
+-- A key group contains a list of public keys that you can use with
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html CloudFront signed URLs and signed cookies>.
 --
--- A key group contains a list of public keys that you can use with <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html CloudFront signed URLs and signed cookies> .
---
---
--- /See:/ 'keyGroup' smart constructor.
+-- /See:/ 'newKeyGroup' smart constructor.
 data KeyGroup = KeyGroup'
-  { _kgId :: !Text,
-    _kgLastModifiedTime :: !ISO8601,
-    _kgKeyGroupConfig :: !KeyGroupConfig
+  { -- | The identifier for the key group.
+    id :: Prelude.Text,
+    -- | The date and time when the key group was last modified.
+    lastModifiedTime :: Prelude.ISO8601,
+    -- | The key group configuration.
+    keyGroupConfig :: KeyGroupConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kgId' - The identifier for the key group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kgLastModifiedTime' - The date and time when the key group was last modified.
+-- 'id', 'keyGroup_id' - The identifier for the key group.
 --
--- * 'kgKeyGroupConfig' - The key group configuration.
-keyGroup ::
-  -- | 'kgId'
-  Text ->
-  -- | 'kgLastModifiedTime'
-  UTCTime ->
-  -- | 'kgKeyGroupConfig'
+-- 'lastModifiedTime', 'keyGroup_lastModifiedTime' - The date and time when the key group was last modified.
+--
+-- 'keyGroupConfig', 'keyGroup_keyGroupConfig' - The key group configuration.
+newKeyGroup ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
+  -- | 'keyGroupConfig'
   KeyGroupConfig ->
   KeyGroup
-keyGroup pId_ pLastModifiedTime_ pKeyGroupConfig_ =
+newKeyGroup pId_ pLastModifiedTime_ pKeyGroupConfig_ =
   KeyGroup'
-    { _kgId = pId_,
-      _kgLastModifiedTime = _Time # pLastModifiedTime_,
-      _kgKeyGroupConfig = pKeyGroupConfig_
+    { id = pId_,
+      lastModifiedTime =
+        Prelude._Time Lens.# pLastModifiedTime_,
+      keyGroupConfig = pKeyGroupConfig_
     }
 
 -- | The identifier for the key group.
-kgId :: Lens' KeyGroup Text
-kgId = lens _kgId (\s a -> s {_kgId = a})
+keyGroup_id :: Lens.Lens' KeyGroup Prelude.Text
+keyGroup_id = Lens.lens (\KeyGroup' {id} -> id) (\s@KeyGroup' {} a -> s {id = a} :: KeyGroup)
 
 -- | The date and time when the key group was last modified.
-kgLastModifiedTime :: Lens' KeyGroup UTCTime
-kgLastModifiedTime = lens _kgLastModifiedTime (\s a -> s {_kgLastModifiedTime = a}) . _Time
+keyGroup_lastModifiedTime :: Lens.Lens' KeyGroup Prelude.UTCTime
+keyGroup_lastModifiedTime = Lens.lens (\KeyGroup' {lastModifiedTime} -> lastModifiedTime) (\s@KeyGroup' {} a -> s {lastModifiedTime = a} :: KeyGroup) Prelude.. Prelude._Time
 
 -- | The key group configuration.
-kgKeyGroupConfig :: Lens' KeyGroup KeyGroupConfig
-kgKeyGroupConfig = lens _kgKeyGroupConfig (\s a -> s {_kgKeyGroupConfig = a})
+keyGroup_keyGroupConfig :: Lens.Lens' KeyGroup KeyGroupConfig
+keyGroup_keyGroupConfig = Lens.lens (\KeyGroup' {keyGroupConfig} -> keyGroupConfig) (\s@KeyGroup' {} a -> s {keyGroupConfig = a} :: KeyGroup)
 
-instance FromXML KeyGroup where
+instance Prelude.FromXML KeyGroup where
   parseXML x =
     KeyGroup'
-      <$> (x .@ "Id")
-      <*> (x .@ "LastModifiedTime")
-      <*> (x .@ "KeyGroupConfig")
+      Prelude.<$> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "LastModifiedTime")
+      Prelude.<*> (x Prelude..@ "KeyGroupConfig")
 
-instance Hashable KeyGroup
+instance Prelude.Hashable KeyGroup
 
-instance NFData KeyGroup
+instance Prelude.NFData KeyGroup

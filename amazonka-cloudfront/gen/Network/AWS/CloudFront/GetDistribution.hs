@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,126 +24,138 @@
 -- Get the information about a distribution.
 module Network.AWS.CloudFront.GetDistribution
   ( -- * Creating a Request
-    getDistribution,
-    GetDistribution,
+    GetDistribution (..),
+    newGetDistribution,
 
     -- * Request Lenses
-    gdId,
+    getDistribution_id,
 
     -- * Destructuring the Response
-    getDistributionResponse,
-    GetDistributionResponse,
+    GetDistributionResponse (..),
+    newGetDistributionResponse,
 
     -- * Response Lenses
-    gdrrsETag,
-    gdrrsDistribution,
-    gdrrsResponseStatus,
+    getDistributionResponse_eTag,
+    getDistributionResponse_distribution,
+    getDistributionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.Distribution
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The request to get a distribution's information.
+-- | The request to get a distribution\'s information.
 --
---
---
--- /See:/ 'getDistribution' smart constructor.
-newtype GetDistribution = GetDistribution'
-  { _gdId ::
-      Text
+-- /See:/ 'newGetDistribution' smart constructor.
+data GetDistribution = GetDistribution'
+  { -- | The distribution\'s ID. If the ID is empty, an empty distribution
+    -- configuration is returned.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDistribution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDistribution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdId' - The distribution's ID. If the ID is empty, an empty distribution configuration is returned.
-getDistribution ::
-  -- | 'gdId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'getDistribution_id' - The distribution\'s ID. If the ID is empty, an empty distribution
+-- configuration is returned.
+newGetDistribution ::
+  -- | 'id'
+  Prelude.Text ->
   GetDistribution
-getDistribution pId_ = GetDistribution' {_gdId = pId_}
+newGetDistribution pId_ = GetDistribution' {id = pId_}
 
--- | The distribution's ID. If the ID is empty, an empty distribution configuration is returned.
-gdId :: Lens' GetDistribution Text
-gdId = lens _gdId (\s a -> s {_gdId = a})
+-- | The distribution\'s ID. If the ID is empty, an empty distribution
+-- configuration is returned.
+getDistribution_id :: Lens.Lens' GetDistribution Prelude.Text
+getDistribution_id = Lens.lens (\GetDistribution' {id} -> id) (\s@GetDistribution' {} a -> s {id = a} :: GetDistribution)
 
-instance AWSRequest GetDistribution where
+instance Prelude.AWSRequest GetDistribution where
   type Rs GetDistribution = GetDistributionResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetDistributionResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDistribution
+instance Prelude.Hashable GetDistribution
 
-instance NFData GetDistribution
+instance Prelude.NFData GetDistribution
 
-instance ToHeaders GetDistribution where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetDistribution where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetDistribution where
+instance Prelude.ToPath GetDistribution where
   toPath GetDistribution' {..} =
-    mconcat ["/2020-05-31/distribution/", toBS _gdId]
+    Prelude.mconcat
+      ["/2020-05-31/distribution/", Prelude.toBS id]
 
-instance ToQuery GetDistribution where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDistribution where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The returned result of the corresponding request.
 --
---
---
--- /See:/ 'getDistributionResponse' smart constructor.
+-- /See:/ 'newGetDistributionResponse' smart constructor.
 data GetDistributionResponse = GetDistributionResponse'
-  { _gdrrsETag ::
-      !(Maybe Text),
-    _gdrrsDistribution ::
-      !(Maybe Distribution),
-    _gdrrsResponseStatus ::
-      !Int
+  { -- | The current version of the distribution\'s information. For example:
+    -- @E2QWRUHAPOMQZL@.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | The distribution\'s information.
+    distribution :: Prelude.Maybe Distribution,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDistributionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDistributionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdrrsETag' - The current version of the distribution's information. For example: @E2QWRUHAPOMQZL@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdrrsDistribution' - The distribution's information.
+-- 'eTag', 'getDistributionResponse_eTag' - The current version of the distribution\'s information. For example:
+-- @E2QWRUHAPOMQZL@.
 --
--- * 'gdrrsResponseStatus' - -- | The response status code.
-getDistributionResponse ::
-  -- | 'gdrrsResponseStatus'
-  Int ->
+-- 'distribution', 'getDistributionResponse_distribution' - The distribution\'s information.
+--
+-- 'httpStatus', 'getDistributionResponse_httpStatus' - The response's http status code.
+newGetDistributionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDistributionResponse
-getDistributionResponse pResponseStatus_ =
+newGetDistributionResponse pHttpStatus_ =
   GetDistributionResponse'
-    { _gdrrsETag = Nothing,
-      _gdrrsDistribution = Nothing,
-      _gdrrsResponseStatus = pResponseStatus_
+    { eTag = Prelude.Nothing,
+      distribution = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The current version of the distribution's information. For example: @E2QWRUHAPOMQZL@ .
-gdrrsETag :: Lens' GetDistributionResponse (Maybe Text)
-gdrrsETag = lens _gdrrsETag (\s a -> s {_gdrrsETag = a})
+-- | The current version of the distribution\'s information. For example:
+-- @E2QWRUHAPOMQZL@.
+getDistributionResponse_eTag :: Lens.Lens' GetDistributionResponse (Prelude.Maybe Prelude.Text)
+getDistributionResponse_eTag = Lens.lens (\GetDistributionResponse' {eTag} -> eTag) (\s@GetDistributionResponse' {} a -> s {eTag = a} :: GetDistributionResponse)
 
--- | The distribution's information.
-gdrrsDistribution :: Lens' GetDistributionResponse (Maybe Distribution)
-gdrrsDistribution = lens _gdrrsDistribution (\s a -> s {_gdrrsDistribution = a})
+-- | The distribution\'s information.
+getDistributionResponse_distribution :: Lens.Lens' GetDistributionResponse (Prelude.Maybe Distribution)
+getDistributionResponse_distribution = Lens.lens (\GetDistributionResponse' {distribution} -> distribution) (\s@GetDistributionResponse' {} a -> s {distribution = a} :: GetDistributionResponse)
 
--- | -- | The response status code.
-gdrrsResponseStatus :: Lens' GetDistributionResponse Int
-gdrrsResponseStatus = lens _gdrrsResponseStatus (\s a -> s {_gdrrsResponseStatus = a})
+-- | The response's http status code.
+getDistributionResponse_httpStatus :: Lens.Lens' GetDistributionResponse Prelude.Int
+getDistributionResponse_httpStatus = Lens.lens (\GetDistributionResponse' {httpStatus} -> httpStatus) (\s@GetDistributionResponse' {} a -> s {httpStatus = a} :: GetDistributionResponse)
 
-instance NFData GetDistributionResponse
+instance Prelude.NFData GetDistributionResponse

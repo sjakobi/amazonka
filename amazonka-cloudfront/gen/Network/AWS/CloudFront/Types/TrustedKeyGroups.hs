@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.TrustedKeyGroups where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of key groups whose public keys CloudFront can use to verify the signatures of signed URLs and signed cookies.
+-- | A list of key groups whose public keys CloudFront can use to verify the
+-- signatures of signed URLs and signed cookies.
 --
---
---
--- /See:/ 'trustedKeyGroups' smart constructor.
+-- /See:/ 'newTrustedKeyGroups' smart constructor.
 data TrustedKeyGroups = TrustedKeyGroups'
-  { _tkgItems ::
-      !(Maybe [Text]),
-    _tkgEnabled :: !Bool,
-    _tkgQuantity :: !Int
+  { -- | A list of key groups identifiers.
+    items :: Prelude.Maybe [Prelude.Text],
+    -- | This field is @true@ if any of the key groups in the list have public
+    -- keys that CloudFront can use to verify the signatures of signed URLs and
+    -- signed cookies. If not, this field is @false@.
+    enabled :: Prelude.Bool,
+    -- | The number of key groups in the list.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrustedKeyGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrustedKeyGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tkgItems' - A list of key groups identifiers.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tkgEnabled' - This field is @true@ if any of the key groups in the list have public keys that CloudFront can use to verify the signatures of signed URLs and signed cookies. If not, this field is @false@ .
+-- 'items', 'trustedKeyGroups_items' - A list of key groups identifiers.
 --
--- * 'tkgQuantity' - The number of key groups in the list.
-trustedKeyGroups ::
-  -- | 'tkgEnabled'
-  Bool ->
-  -- | 'tkgQuantity'
-  Int ->
+-- 'enabled', 'trustedKeyGroups_enabled' - This field is @true@ if any of the key groups in the list have public
+-- keys that CloudFront can use to verify the signatures of signed URLs and
+-- signed cookies. If not, this field is @false@.
+--
+-- 'quantity', 'trustedKeyGroups_quantity' - The number of key groups in the list.
+newTrustedKeyGroups ::
+  -- | 'enabled'
+  Prelude.Bool ->
+  -- | 'quantity'
+  Prelude.Int ->
   TrustedKeyGroups
-trustedKeyGroups pEnabled_ pQuantity_ =
+newTrustedKeyGroups pEnabled_ pQuantity_ =
   TrustedKeyGroups'
-    { _tkgItems = Nothing,
-      _tkgEnabled = pEnabled_,
-      _tkgQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      enabled = pEnabled_,
+      quantity = pQuantity_
     }
 
 -- | A list of key groups identifiers.
-tkgItems :: Lens' TrustedKeyGroups [Text]
-tkgItems = lens _tkgItems (\s a -> s {_tkgItems = a}) . _Default . _Coerce
+trustedKeyGroups_items :: Lens.Lens' TrustedKeyGroups (Prelude.Maybe [Prelude.Text])
+trustedKeyGroups_items = Lens.lens (\TrustedKeyGroups' {items} -> items) (\s@TrustedKeyGroups' {} a -> s {items = a} :: TrustedKeyGroups) Prelude.. Lens.mapping Prelude._Coerce
 
--- | This field is @true@ if any of the key groups in the list have public keys that CloudFront can use to verify the signatures of signed URLs and signed cookies. If not, this field is @false@ .
-tkgEnabled :: Lens' TrustedKeyGroups Bool
-tkgEnabled = lens _tkgEnabled (\s a -> s {_tkgEnabled = a})
+-- | This field is @true@ if any of the key groups in the list have public
+-- keys that CloudFront can use to verify the signatures of signed URLs and
+-- signed cookies. If not, this field is @false@.
+trustedKeyGroups_enabled :: Lens.Lens' TrustedKeyGroups Prelude.Bool
+trustedKeyGroups_enabled = Lens.lens (\TrustedKeyGroups' {enabled} -> enabled) (\s@TrustedKeyGroups' {} a -> s {enabled = a} :: TrustedKeyGroups)
 
 -- | The number of key groups in the list.
-tkgQuantity :: Lens' TrustedKeyGroups Int
-tkgQuantity = lens _tkgQuantity (\s a -> s {_tkgQuantity = a})
+trustedKeyGroups_quantity :: Lens.Lens' TrustedKeyGroups Prelude.Int
+trustedKeyGroups_quantity = Lens.lens (\TrustedKeyGroups' {quantity} -> quantity) (\s@TrustedKeyGroups' {} a -> s {quantity = a} :: TrustedKeyGroups)
 
-instance FromXML TrustedKeyGroups where
+instance Prelude.FromXML TrustedKeyGroups where
   parseXML x =
     TrustedKeyGroups'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "KeyGroup")
-          )
-      <*> (x .@ "Enabled")
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "KeyGroup")
+                  )
+      Prelude.<*> (x Prelude..@ "Enabled")
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable TrustedKeyGroups
+instance Prelude.Hashable TrustedKeyGroups
 
-instance NFData TrustedKeyGroups
+instance Prelude.NFData TrustedKeyGroups
 
-instance ToXML TrustedKeyGroups where
+instance Prelude.ToXML TrustedKeyGroups where
   toXML TrustedKeyGroups' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Items"
-          @= toXML (toXMLList "KeyGroup" <$> _tkgItems),
-        "Enabled" @= _tkgEnabled,
-        "Quantity" @= _tkgQuantity
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "KeyGroup" Prelude.<$> items),
+        "Enabled" Prelude.@= enabled,
+        "Quantity" Prelude.@= quantity
       ]

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,67 @@
 module Network.AWS.CloudFront.Types.OriginGroupMembers where
 
 import Network.AWS.CloudFront.Types.OriginGroupMember
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A complex data type for the origins included in an origin group.
 --
---
---
--- /See:/ 'originGroupMembers' smart constructor.
+-- /See:/ 'newOriginGroupMembers' smart constructor.
 data OriginGroupMembers = OriginGroupMembers'
-  { _ogmQuantity ::
-      !Int,
-    _ogmItems ::
-      !(List1 OriginGroupMember)
+  { -- | The number of origins in an origin group.
+    quantity :: Prelude.Int,
+    -- | Items (origins) in an origin group.
+    items :: Prelude.List1 OriginGroupMember
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OriginGroupMembers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OriginGroupMembers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ogmQuantity' - The number of origins in an origin group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ogmItems' - Items (origins) in an origin group.
-originGroupMembers ::
-  -- | 'ogmQuantity'
-  Int ->
-  -- | 'ogmItems'
-  NonEmpty OriginGroupMember ->
+-- 'quantity', 'originGroupMembers_quantity' - The number of origins in an origin group.
+--
+-- 'items', 'originGroupMembers_items' - Items (origins) in an origin group.
+newOriginGroupMembers ::
+  -- | 'quantity'
+  Prelude.Int ->
+  -- | 'items'
+  Prelude.NonEmpty OriginGroupMember ->
   OriginGroupMembers
-originGroupMembers pQuantity_ pItems_ =
+newOriginGroupMembers pQuantity_ pItems_ =
   OriginGroupMembers'
-    { _ogmQuantity = pQuantity_,
-      _ogmItems = _List1 # pItems_
+    { quantity = pQuantity_,
+      items = Prelude._List1 Lens.# pItems_
     }
 
 -- | The number of origins in an origin group.
-ogmQuantity :: Lens' OriginGroupMembers Int
-ogmQuantity = lens _ogmQuantity (\s a -> s {_ogmQuantity = a})
+originGroupMembers_quantity :: Lens.Lens' OriginGroupMembers Prelude.Int
+originGroupMembers_quantity = Lens.lens (\OriginGroupMembers' {quantity} -> quantity) (\s@OriginGroupMembers' {} a -> s {quantity = a} :: OriginGroupMembers)
 
 -- | Items (origins) in an origin group.
-ogmItems :: Lens' OriginGroupMembers (NonEmpty OriginGroupMember)
-ogmItems = lens _ogmItems (\s a -> s {_ogmItems = a}) . _List1
+originGroupMembers_items :: Lens.Lens' OriginGroupMembers (Prelude.NonEmpty OriginGroupMember)
+originGroupMembers_items = Lens.lens (\OriginGroupMembers' {items} -> items) (\s@OriginGroupMembers' {} a -> s {items = a} :: OriginGroupMembers) Prelude.. Prelude._List1
 
-instance FromXML OriginGroupMembers where
+instance Prelude.FromXML OriginGroupMembers where
   parseXML x =
     OriginGroupMembers'
-      <$> (x .@ "Quantity")
-      <*> ( x .@? "Items" .!@ mempty
-              >>= parseXMLList1 "OriginGroupMember"
-          )
+      Prelude.<$> (x Prelude..@ "Quantity")
+      Prelude.<*> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.parseXMLList1 "OriginGroupMember"
+                  )
 
-instance Hashable OriginGroupMembers
+instance Prelude.Hashable OriginGroupMembers
 
-instance NFData OriginGroupMembers
+instance Prelude.NFData OriginGroupMembers
 
-instance ToXML OriginGroupMembers where
+instance Prelude.ToXML OriginGroupMembers where
   toXML OriginGroupMembers' {..} =
-    mconcat
-      [ "Quantity" @= _ogmQuantity,
-        "Items" @= toXMLList "OriginGroupMember" _ogmItems
+    Prelude.mconcat
+      [ "Quantity" Prelude.@= quantity,
+        "Items"
+          Prelude.@= Prelude.toXMLList "OriginGroupMember" items
       ]

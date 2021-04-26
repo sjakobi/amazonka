@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,157 +24,159 @@
 -- Get the configuration information about a streaming distribution.
 module Network.AWS.CloudFront.GetStreamingDistributionConfig
   ( -- * Creating a Request
-    getStreamingDistributionConfig,
-    GetStreamingDistributionConfig,
+    GetStreamingDistributionConfig (..),
+    newGetStreamingDistributionConfig,
 
     -- * Request Lenses
-    gsdcId,
+    getStreamingDistributionConfig_id,
 
     -- * Destructuring the Response
-    getStreamingDistributionConfigResponse,
-    GetStreamingDistributionConfigResponse,
+    GetStreamingDistributionConfigResponse (..),
+    newGetStreamingDistributionConfigResponse,
 
     -- * Response Lenses
-    gsdcrrsETag,
-    gsdcrrsStreamingDistributionConfig,
-    gsdcrrsResponseStatus,
+    getStreamingDistributionConfigResponse_eTag,
+    getStreamingDistributionConfigResponse_streamingDistributionConfig,
+    getStreamingDistributionConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.StreamingDistributionConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | To request to get a streaming distribution configuration.
 --
---
---
--- /See:/ 'getStreamingDistributionConfig' smart constructor.
-newtype GetStreamingDistributionConfig = GetStreamingDistributionConfig'
-  { _gsdcId ::
-      Text
+-- /See:/ 'newGetStreamingDistributionConfig' smart constructor.
+data GetStreamingDistributionConfig = GetStreamingDistributionConfig'
+  { -- | The streaming distribution\'s ID.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStreamingDistributionConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStreamingDistributionConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsdcId' - The streaming distribution's ID.
-getStreamingDistributionConfig ::
-  -- | 'gsdcId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'getStreamingDistributionConfig_id' - The streaming distribution\'s ID.
+newGetStreamingDistributionConfig ::
+  -- | 'id'
+  Prelude.Text ->
   GetStreamingDistributionConfig
-getStreamingDistributionConfig pId_ =
-  GetStreamingDistributionConfig' {_gsdcId = pId_}
+newGetStreamingDistributionConfig pId_ =
+  GetStreamingDistributionConfig' {id = pId_}
 
--- | The streaming distribution's ID.
-gsdcId :: Lens' GetStreamingDistributionConfig Text
-gsdcId = lens _gsdcId (\s a -> s {_gsdcId = a})
+-- | The streaming distribution\'s ID.
+getStreamingDistributionConfig_id :: Lens.Lens' GetStreamingDistributionConfig Prelude.Text
+getStreamingDistributionConfig_id = Lens.lens (\GetStreamingDistributionConfig' {id} -> id) (\s@GetStreamingDistributionConfig' {} a -> s {id = a} :: GetStreamingDistributionConfig)
 
-instance AWSRequest GetStreamingDistributionConfig where
+instance
+  Prelude.AWSRequest
+    GetStreamingDistributionConfig
+  where
   type
     Rs GetStreamingDistributionConfig =
       GetStreamingDistributionConfigResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetStreamingDistributionConfigResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetStreamingDistributionConfig
+instance
+  Prelude.Hashable
+    GetStreamingDistributionConfig
 
-instance NFData GetStreamingDistributionConfig
+instance
+  Prelude.NFData
+    GetStreamingDistributionConfig
 
-instance ToHeaders GetStreamingDistributionConfig where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    GetStreamingDistributionConfig
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetStreamingDistributionConfig where
+instance
+  Prelude.ToPath
+    GetStreamingDistributionConfig
+  where
   toPath GetStreamingDistributionConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2020-05-31/streaming-distribution/",
-        toBS _gsdcId,
+        Prelude.toBS id,
         "/config"
       ]
 
-instance ToQuery GetStreamingDistributionConfig where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetStreamingDistributionConfig
+  where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The returned result of the corresponding request.
 --
---
---
--- /See:/ 'getStreamingDistributionConfigResponse' smart constructor.
+-- /See:/ 'newGetStreamingDistributionConfigResponse' smart constructor.
 data GetStreamingDistributionConfigResponse = GetStreamingDistributionConfigResponse'
-  { _gsdcrrsETag ::
-      !( Maybe
-           Text
-       ),
-    _gsdcrrsStreamingDistributionConfig ::
-      !( Maybe
-           StreamingDistributionConfig
-       ),
-    _gsdcrrsResponseStatus ::
-      !Int
+  { -- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | The streaming distribution\'s configuration information.
+    streamingDistributionConfig :: Prelude.Maybe StreamingDistributionConfig,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStreamingDistributionConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStreamingDistributionConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsdcrrsETag' - The current version of the configuration. For example: @E2QWRUHAPOMQZL@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsdcrrsStreamingDistributionConfig' - The streaming distribution's configuration information.
+-- 'eTag', 'getStreamingDistributionConfigResponse_eTag' - The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
 --
--- * 'gsdcrrsResponseStatus' - -- | The response status code.
-getStreamingDistributionConfigResponse ::
-  -- | 'gsdcrrsResponseStatus'
-  Int ->
+-- 'streamingDistributionConfig', 'getStreamingDistributionConfigResponse_streamingDistributionConfig' - The streaming distribution\'s configuration information.
+--
+-- 'httpStatus', 'getStreamingDistributionConfigResponse_httpStatus' - The response's http status code.
+newGetStreamingDistributionConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetStreamingDistributionConfigResponse
-getStreamingDistributionConfigResponse
-  pResponseStatus_ =
+newGetStreamingDistributionConfigResponse
+  pHttpStatus_ =
     GetStreamingDistributionConfigResponse'
-      { _gsdcrrsETag =
-          Nothing,
-        _gsdcrrsStreamingDistributionConfig =
-          Nothing,
-        _gsdcrrsResponseStatus =
-          pResponseStatus_
+      { eTag =
+          Prelude.Nothing,
+        streamingDistributionConfig =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@ .
-gsdcrrsETag :: Lens' GetStreamingDistributionConfigResponse (Maybe Text)
-gsdcrrsETag = lens _gsdcrrsETag (\s a -> s {_gsdcrrsETag = a})
+-- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
+getStreamingDistributionConfigResponse_eTag :: Lens.Lens' GetStreamingDistributionConfigResponse (Prelude.Maybe Prelude.Text)
+getStreamingDistributionConfigResponse_eTag = Lens.lens (\GetStreamingDistributionConfigResponse' {eTag} -> eTag) (\s@GetStreamingDistributionConfigResponse' {} a -> s {eTag = a} :: GetStreamingDistributionConfigResponse)
 
--- | The streaming distribution's configuration information.
-gsdcrrsStreamingDistributionConfig :: Lens' GetStreamingDistributionConfigResponse (Maybe StreamingDistributionConfig)
-gsdcrrsStreamingDistributionConfig = lens _gsdcrrsStreamingDistributionConfig (\s a -> s {_gsdcrrsStreamingDistributionConfig = a})
+-- | The streaming distribution\'s configuration information.
+getStreamingDistributionConfigResponse_streamingDistributionConfig :: Lens.Lens' GetStreamingDistributionConfigResponse (Prelude.Maybe StreamingDistributionConfig)
+getStreamingDistributionConfigResponse_streamingDistributionConfig = Lens.lens (\GetStreamingDistributionConfigResponse' {streamingDistributionConfig} -> streamingDistributionConfig) (\s@GetStreamingDistributionConfigResponse' {} a -> s {streamingDistributionConfig = a} :: GetStreamingDistributionConfigResponse)
 
--- | -- | The response status code.
-gsdcrrsResponseStatus :: Lens' GetStreamingDistributionConfigResponse Int
-gsdcrrsResponseStatus = lens _gsdcrrsResponseStatus (\s a -> s {_gsdcrrsResponseStatus = a})
+-- | The response's http status code.
+getStreamingDistributionConfigResponse_httpStatus :: Lens.Lens' GetStreamingDistributionConfigResponse Prelude.Int
+getStreamingDistributionConfigResponse_httpStatus = Lens.lens (\GetStreamingDistributionConfigResponse' {httpStatus} -> httpStatus) (\s@GetStreamingDistributionConfigResponse' {} a -> s {httpStatus = a} :: GetStreamingDistributionConfigResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetStreamingDistributionConfigResponse

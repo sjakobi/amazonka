@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,59 +20,67 @@
 module Network.AWS.CloudFront.Types.RealtimeMetricsSubscriptionConfig where
 
 import Network.AWS.CloudFront.Types.RealtimeMetricsSubscriptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A subscription configuration for additional CloudWatch metrics.
 --
---
---
--- /See:/ 'realtimeMetricsSubscriptionConfig' smart constructor.
-newtype RealtimeMetricsSubscriptionConfig = RealtimeMetricsSubscriptionConfig'
-  { _rmscRealtimeMetricsSubscriptionStatus ::
-      RealtimeMetricsSubscriptionStatus
+-- /See:/ 'newRealtimeMetricsSubscriptionConfig' smart constructor.
+data RealtimeMetricsSubscriptionConfig = RealtimeMetricsSubscriptionConfig'
+  { -- | A flag that indicates whether additional CloudWatch metrics are enabled
+    -- for a given CloudFront distribution.
+    realtimeMetricsSubscriptionStatus :: RealtimeMetricsSubscriptionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RealtimeMetricsSubscriptionConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RealtimeMetricsSubscriptionConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rmscRealtimeMetricsSubscriptionStatus' - A flag that indicates whether additional CloudWatch metrics are enabled for a given CloudFront distribution.
-realtimeMetricsSubscriptionConfig ::
-  -- | 'rmscRealtimeMetricsSubscriptionStatus'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'realtimeMetricsSubscriptionStatus', 'realtimeMetricsSubscriptionConfig_realtimeMetricsSubscriptionStatus' - A flag that indicates whether additional CloudWatch metrics are enabled
+-- for a given CloudFront distribution.
+newRealtimeMetricsSubscriptionConfig ::
+  -- | 'realtimeMetricsSubscriptionStatus'
   RealtimeMetricsSubscriptionStatus ->
   RealtimeMetricsSubscriptionConfig
-realtimeMetricsSubscriptionConfig
+newRealtimeMetricsSubscriptionConfig
   pRealtimeMetricsSubscriptionStatus_ =
     RealtimeMetricsSubscriptionConfig'
-      { _rmscRealtimeMetricsSubscriptionStatus =
+      { realtimeMetricsSubscriptionStatus =
           pRealtimeMetricsSubscriptionStatus_
       }
 
--- | A flag that indicates whether additional CloudWatch metrics are enabled for a given CloudFront distribution.
-rmscRealtimeMetricsSubscriptionStatus :: Lens' RealtimeMetricsSubscriptionConfig RealtimeMetricsSubscriptionStatus
-rmscRealtimeMetricsSubscriptionStatus = lens _rmscRealtimeMetricsSubscriptionStatus (\s a -> s {_rmscRealtimeMetricsSubscriptionStatus = a})
+-- | A flag that indicates whether additional CloudWatch metrics are enabled
+-- for a given CloudFront distribution.
+realtimeMetricsSubscriptionConfig_realtimeMetricsSubscriptionStatus :: Lens.Lens' RealtimeMetricsSubscriptionConfig RealtimeMetricsSubscriptionStatus
+realtimeMetricsSubscriptionConfig_realtimeMetricsSubscriptionStatus = Lens.lens (\RealtimeMetricsSubscriptionConfig' {realtimeMetricsSubscriptionStatus} -> realtimeMetricsSubscriptionStatus) (\s@RealtimeMetricsSubscriptionConfig' {} a -> s {realtimeMetricsSubscriptionStatus = a} :: RealtimeMetricsSubscriptionConfig)
 
-instance FromXML RealtimeMetricsSubscriptionConfig where
+instance
+  Prelude.FromXML
+    RealtimeMetricsSubscriptionConfig
+  where
   parseXML x =
     RealtimeMetricsSubscriptionConfig'
-      <$> (x .@ "RealtimeMetricsSubscriptionStatus")
+      Prelude.<$> (x Prelude..@ "RealtimeMetricsSubscriptionStatus")
 
-instance Hashable RealtimeMetricsSubscriptionConfig
+instance
+  Prelude.Hashable
+    RealtimeMetricsSubscriptionConfig
 
-instance NFData RealtimeMetricsSubscriptionConfig
+instance
+  Prelude.NFData
+    RealtimeMetricsSubscriptionConfig
 
-instance ToXML RealtimeMetricsSubscriptionConfig where
+instance
+  Prelude.ToXML
+    RealtimeMetricsSubscriptionConfig
+  where
   toXML RealtimeMetricsSubscriptionConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "RealtimeMetricsSubscriptionStatus"
-          @= _rmscRealtimeMetricsSubscriptionStatus
+          Prelude.@= realtimeMetricsSubscriptionStatus
       ]

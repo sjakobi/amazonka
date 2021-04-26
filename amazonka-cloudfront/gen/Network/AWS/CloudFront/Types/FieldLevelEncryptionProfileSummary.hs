@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,105 +20,115 @@
 module Network.AWS.CloudFront.Types.FieldLevelEncryptionProfileSummary where
 
 import Network.AWS.CloudFront.Types.EncryptionEntities
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The field-level encryption profile summary.
 --
---
---
--- /See:/ 'fieldLevelEncryptionProfileSummary' smart constructor.
+-- /See:/ 'newFieldLevelEncryptionProfileSummary' smart constructor.
 data FieldLevelEncryptionProfileSummary = FieldLevelEncryptionProfileSummary'
-  { _flepsComment ::
-      !( Maybe
-           Text
-       ),
-    _flepsId ::
-      !Text,
-    _flepsLastModifiedTime ::
-      !ISO8601,
-    _flepsName ::
-      !Text,
-    _flepsEncryptionEntities ::
-      !EncryptionEntities
+  { -- | An optional comment for the field-level encryption profile summary.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | ID for the field-level encryption profile summary.
+    id :: Prelude.Text,
+    -- | The time when the the field-level encryption profile summary was last
+    -- updated.
+    lastModifiedTime :: Prelude.ISO8601,
+    -- | Name for the field-level encryption profile summary.
+    name :: Prelude.Text,
+    -- | A complex data type of encryption entities for the field-level
+    -- encryption profile that include the public key ID, provider, and field
+    -- patterns for specifying which fields to encrypt with this key.
+    encryptionEntities :: EncryptionEntities
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FieldLevelEncryptionProfileSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FieldLevelEncryptionProfileSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'flepsComment' - An optional comment for the field-level encryption profile summary.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'flepsId' - ID for the field-level encryption profile summary.
+-- 'comment', 'fieldLevelEncryptionProfileSummary_comment' - An optional comment for the field-level encryption profile summary.
 --
--- * 'flepsLastModifiedTime' - The time when the the field-level encryption profile summary was last updated.
+-- 'id', 'fieldLevelEncryptionProfileSummary_id' - ID for the field-level encryption profile summary.
 --
--- * 'flepsName' - Name for the field-level encryption profile summary.
+-- 'lastModifiedTime', 'fieldLevelEncryptionProfileSummary_lastModifiedTime' - The time when the the field-level encryption profile summary was last
+-- updated.
 --
--- * 'flepsEncryptionEntities' - A complex data type of encryption entities for the field-level encryption profile that include the public key ID, provider, and field patterns for specifying which fields to encrypt with this key.
-fieldLevelEncryptionProfileSummary ::
-  -- | 'flepsId'
-  Text ->
-  -- | 'flepsLastModifiedTime'
-  UTCTime ->
-  -- | 'flepsName'
-  Text ->
-  -- | 'flepsEncryptionEntities'
+-- 'name', 'fieldLevelEncryptionProfileSummary_name' - Name for the field-level encryption profile summary.
+--
+-- 'encryptionEntities', 'fieldLevelEncryptionProfileSummary_encryptionEntities' - A complex data type of encryption entities for the field-level
+-- encryption profile that include the public key ID, provider, and field
+-- patterns for specifying which fields to encrypt with this key.
+newFieldLevelEncryptionProfileSummary ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'encryptionEntities'
   EncryptionEntities ->
   FieldLevelEncryptionProfileSummary
-fieldLevelEncryptionProfileSummary
+newFieldLevelEncryptionProfileSummary
   pId_
   pLastModifiedTime_
   pName_
   pEncryptionEntities_ =
     FieldLevelEncryptionProfileSummary'
-      { _flepsComment =
-          Nothing,
-        _flepsId = pId_,
-        _flepsLastModifiedTime =
-          _Time # pLastModifiedTime_,
-        _flepsName = pName_,
-        _flepsEncryptionEntities =
+      { comment =
+          Prelude.Nothing,
+        id = pId_,
+        lastModifiedTime =
+          Prelude._Time
+            Lens.# pLastModifiedTime_,
+        name = pName_,
+        encryptionEntities =
           pEncryptionEntities_
       }
 
 -- | An optional comment for the field-level encryption profile summary.
-flepsComment :: Lens' FieldLevelEncryptionProfileSummary (Maybe Text)
-flepsComment = lens _flepsComment (\s a -> s {_flepsComment = a})
+fieldLevelEncryptionProfileSummary_comment :: Lens.Lens' FieldLevelEncryptionProfileSummary (Prelude.Maybe Prelude.Text)
+fieldLevelEncryptionProfileSummary_comment = Lens.lens (\FieldLevelEncryptionProfileSummary' {comment} -> comment) (\s@FieldLevelEncryptionProfileSummary' {} a -> s {comment = a} :: FieldLevelEncryptionProfileSummary)
 
 -- | ID for the field-level encryption profile summary.
-flepsId :: Lens' FieldLevelEncryptionProfileSummary Text
-flepsId = lens _flepsId (\s a -> s {_flepsId = a})
+fieldLevelEncryptionProfileSummary_id :: Lens.Lens' FieldLevelEncryptionProfileSummary Prelude.Text
+fieldLevelEncryptionProfileSummary_id = Lens.lens (\FieldLevelEncryptionProfileSummary' {id} -> id) (\s@FieldLevelEncryptionProfileSummary' {} a -> s {id = a} :: FieldLevelEncryptionProfileSummary)
 
--- | The time when the the field-level encryption profile summary was last updated.
-flepsLastModifiedTime :: Lens' FieldLevelEncryptionProfileSummary UTCTime
-flepsLastModifiedTime = lens _flepsLastModifiedTime (\s a -> s {_flepsLastModifiedTime = a}) . _Time
+-- | The time when the the field-level encryption profile summary was last
+-- updated.
+fieldLevelEncryptionProfileSummary_lastModifiedTime :: Lens.Lens' FieldLevelEncryptionProfileSummary Prelude.UTCTime
+fieldLevelEncryptionProfileSummary_lastModifiedTime = Lens.lens (\FieldLevelEncryptionProfileSummary' {lastModifiedTime} -> lastModifiedTime) (\s@FieldLevelEncryptionProfileSummary' {} a -> s {lastModifiedTime = a} :: FieldLevelEncryptionProfileSummary) Prelude.. Prelude._Time
 
 -- | Name for the field-level encryption profile summary.
-flepsName :: Lens' FieldLevelEncryptionProfileSummary Text
-flepsName = lens _flepsName (\s a -> s {_flepsName = a})
+fieldLevelEncryptionProfileSummary_name :: Lens.Lens' FieldLevelEncryptionProfileSummary Prelude.Text
+fieldLevelEncryptionProfileSummary_name = Lens.lens (\FieldLevelEncryptionProfileSummary' {name} -> name) (\s@FieldLevelEncryptionProfileSummary' {} a -> s {name = a} :: FieldLevelEncryptionProfileSummary)
 
--- | A complex data type of encryption entities for the field-level encryption profile that include the public key ID, provider, and field patterns for specifying which fields to encrypt with this key.
-flepsEncryptionEntities :: Lens' FieldLevelEncryptionProfileSummary EncryptionEntities
-flepsEncryptionEntities = lens _flepsEncryptionEntities (\s a -> s {_flepsEncryptionEntities = a})
+-- | A complex data type of encryption entities for the field-level
+-- encryption profile that include the public key ID, provider, and field
+-- patterns for specifying which fields to encrypt with this key.
+fieldLevelEncryptionProfileSummary_encryptionEntities :: Lens.Lens' FieldLevelEncryptionProfileSummary EncryptionEntities
+fieldLevelEncryptionProfileSummary_encryptionEntities = Lens.lens (\FieldLevelEncryptionProfileSummary' {encryptionEntities} -> encryptionEntities) (\s@FieldLevelEncryptionProfileSummary' {} a -> s {encryptionEntities = a} :: FieldLevelEncryptionProfileSummary)
 
-instance FromXML FieldLevelEncryptionProfileSummary where
+instance
+  Prelude.FromXML
+    FieldLevelEncryptionProfileSummary
+  where
   parseXML x =
     FieldLevelEncryptionProfileSummary'
-      <$> (x .@? "Comment")
-      <*> (x .@ "Id")
-      <*> (x .@ "LastModifiedTime")
-      <*> (x .@ "Name")
-      <*> (x .@ "EncryptionEntities")
+      Prelude.<$> (x Prelude..@? "Comment")
+      Prelude.<*> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "LastModifiedTime")
+      Prelude.<*> (x Prelude..@ "Name")
+      Prelude.<*> (x Prelude..@ "EncryptionEntities")
 
-instance Hashable FieldLevelEncryptionProfileSummary
+instance
+  Prelude.Hashable
+    FieldLevelEncryptionProfileSummary
 
-instance NFData FieldLevelEncryptionProfileSummary
+instance
+  Prelude.NFData
+    FieldLevelEncryptionProfileSummary

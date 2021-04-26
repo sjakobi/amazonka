@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,143 +23,159 @@
 --
 -- Gets a list of real-time log configurations.
 --
---
--- You can optionally specify the maximum number of items to receive in the response. If the total number of items in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the next page of items, send a subsequent request that specifies the @NextMarker@ value from the current response as the @Marker@ value in the subsequent request.
+-- You can optionally specify the maximum number of items to receive in the
+-- response. If the total number of items in the list exceeds the maximum
+-- that you specify, or the default maximum, the response is paginated. To
+-- get the next page of items, send a subsequent request that specifies the
+-- @NextMarker@ value from the current response as the @Marker@ value in
+-- the subsequent request.
 module Network.AWS.CloudFront.ListRealtimeLogConfigs
   ( -- * Creating a Request
-    listRealtimeLogConfigs,
-    ListRealtimeLogConfigs,
+    ListRealtimeLogConfigs (..),
+    newListRealtimeLogConfigs,
 
     -- * Request Lenses
-    lrlcMaxItems,
-    lrlcMarker,
+    listRealtimeLogConfigs_maxItems,
+    listRealtimeLogConfigs_marker,
 
     -- * Destructuring the Response
-    listRealtimeLogConfigsResponse,
-    ListRealtimeLogConfigsResponse,
+    ListRealtimeLogConfigsResponse (..),
+    newListRealtimeLogConfigsResponse,
 
     -- * Response Lenses
-    lrlcrrsRealtimeLogConfigs,
-    lrlcrrsResponseStatus,
+    listRealtimeLogConfigsResponse_realtimeLogConfigs,
+    listRealtimeLogConfigsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.RealtimeLogConfigs
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listRealtimeLogConfigs' smart constructor.
+-- | /See:/ 'newListRealtimeLogConfigs' smart constructor.
 data ListRealtimeLogConfigs = ListRealtimeLogConfigs'
-  { _lrlcMaxItems ::
-      !(Maybe Text),
-    _lrlcMarker ::
-      !(Maybe Text)
+  { -- | The maximum number of real-time log configurations that you want in the
+    -- response.
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | Use this field when paginating results to indicate where to begin in
+    -- your list of real-time log configurations. The response includes
+    -- real-time log configurations in the list that occur after the marker. To
+    -- get the next page of the list, set this field’s value to the value of
+    -- @NextMarker@ from the current page’s response.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRealtimeLogConfigs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRealtimeLogConfigs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrlcMaxItems' - The maximum number of real-time log configurations that you want in the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrlcMarker' - Use this field when paginating results to indicate where to begin in your list of real-time log configurations. The response includes real-time log configurations in the list that occur after the marker. To get the next page of the list, set this field’s value to the value of @NextMarker@ from the current page’s response.
-listRealtimeLogConfigs ::
+-- 'maxItems', 'listRealtimeLogConfigs_maxItems' - The maximum number of real-time log configurations that you want in the
+-- response.
+--
+-- 'marker', 'listRealtimeLogConfigs_marker' - Use this field when paginating results to indicate where to begin in
+-- your list of real-time log configurations. The response includes
+-- real-time log configurations in the list that occur after the marker. To
+-- get the next page of the list, set this field’s value to the value of
+-- @NextMarker@ from the current page’s response.
+newListRealtimeLogConfigs ::
   ListRealtimeLogConfigs
-listRealtimeLogConfigs =
+newListRealtimeLogConfigs =
   ListRealtimeLogConfigs'
-    { _lrlcMaxItems = Nothing,
-      _lrlcMarker = Nothing
+    { maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The maximum number of real-time log configurations that you want in the response.
-lrlcMaxItems :: Lens' ListRealtimeLogConfigs (Maybe Text)
-lrlcMaxItems = lens _lrlcMaxItems (\s a -> s {_lrlcMaxItems = a})
+-- | The maximum number of real-time log configurations that you want in the
+-- response.
+listRealtimeLogConfigs_maxItems :: Lens.Lens' ListRealtimeLogConfigs (Prelude.Maybe Prelude.Text)
+listRealtimeLogConfigs_maxItems = Lens.lens (\ListRealtimeLogConfigs' {maxItems} -> maxItems) (\s@ListRealtimeLogConfigs' {} a -> s {maxItems = a} :: ListRealtimeLogConfigs)
 
--- | Use this field when paginating results to indicate where to begin in your list of real-time log configurations. The response includes real-time log configurations in the list that occur after the marker. To get the next page of the list, set this field’s value to the value of @NextMarker@ from the current page’s response.
-lrlcMarker :: Lens' ListRealtimeLogConfigs (Maybe Text)
-lrlcMarker = lens _lrlcMarker (\s a -> s {_lrlcMarker = a})
+-- | Use this field when paginating results to indicate where to begin in
+-- your list of real-time log configurations. The response includes
+-- real-time log configurations in the list that occur after the marker. To
+-- get the next page of the list, set this field’s value to the value of
+-- @NextMarker@ from the current page’s response.
+listRealtimeLogConfigs_marker :: Lens.Lens' ListRealtimeLogConfigs (Prelude.Maybe Prelude.Text)
+listRealtimeLogConfigs_marker = Lens.lens (\ListRealtimeLogConfigs' {marker} -> marker) (\s@ListRealtimeLogConfigs' {} a -> s {marker = a} :: ListRealtimeLogConfigs)
 
-instance AWSRequest ListRealtimeLogConfigs where
+instance Prelude.AWSRequest ListRealtimeLogConfigs where
   type
     Rs ListRealtimeLogConfigs =
       ListRealtimeLogConfigsResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListRealtimeLogConfigsResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListRealtimeLogConfigs
+instance Prelude.Hashable ListRealtimeLogConfigs
 
-instance NFData ListRealtimeLogConfigs
+instance Prelude.NFData ListRealtimeLogConfigs
 
-instance ToHeaders ListRealtimeLogConfigs where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListRealtimeLogConfigs where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListRealtimeLogConfigs where
-  toPath = const "/2020-05-31/realtime-log-config"
+instance Prelude.ToPath ListRealtimeLogConfigs where
+  toPath =
+    Prelude.const "/2020-05-31/realtime-log-config"
 
-instance ToQuery ListRealtimeLogConfigs where
+instance Prelude.ToQuery ListRealtimeLogConfigs where
   toQuery ListRealtimeLogConfigs' {..} =
-    mconcat
-      [ "MaxItems" =: _lrlcMaxItems,
-        "Marker" =: _lrlcMarker
+    Prelude.mconcat
+      [ "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
       ]
 
--- | /See:/ 'listRealtimeLogConfigsResponse' smart constructor.
+-- | /See:/ 'newListRealtimeLogConfigsResponse' smart constructor.
 data ListRealtimeLogConfigsResponse = ListRealtimeLogConfigsResponse'
-  { _lrlcrrsRealtimeLogConfigs ::
-      !( Maybe
-           RealtimeLogConfigs
-       ),
-    _lrlcrrsResponseStatus ::
-      !Int
+  { -- | A list of real-time log configurations.
+    realtimeLogConfigs :: Prelude.Maybe RealtimeLogConfigs,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRealtimeLogConfigsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRealtimeLogConfigsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrlcrrsRealtimeLogConfigs' - A list of real-time log configurations.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrlcrrsResponseStatus' - -- | The response status code.
-listRealtimeLogConfigsResponse ::
-  -- | 'lrlcrrsResponseStatus'
-  Int ->
+-- 'realtimeLogConfigs', 'listRealtimeLogConfigsResponse_realtimeLogConfigs' - A list of real-time log configurations.
+--
+-- 'httpStatus', 'listRealtimeLogConfigsResponse_httpStatus' - The response's http status code.
+newListRealtimeLogConfigsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListRealtimeLogConfigsResponse
-listRealtimeLogConfigsResponse pResponseStatus_ =
+newListRealtimeLogConfigsResponse pHttpStatus_ =
   ListRealtimeLogConfigsResponse'
-    { _lrlcrrsRealtimeLogConfigs =
-        Nothing,
-      _lrlcrrsResponseStatus = pResponseStatus_
+    { realtimeLogConfigs =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of real-time log configurations.
-lrlcrrsRealtimeLogConfigs :: Lens' ListRealtimeLogConfigsResponse (Maybe RealtimeLogConfigs)
-lrlcrrsRealtimeLogConfigs = lens _lrlcrrsRealtimeLogConfigs (\s a -> s {_lrlcrrsRealtimeLogConfigs = a})
+listRealtimeLogConfigsResponse_realtimeLogConfigs :: Lens.Lens' ListRealtimeLogConfigsResponse (Prelude.Maybe RealtimeLogConfigs)
+listRealtimeLogConfigsResponse_realtimeLogConfigs = Lens.lens (\ListRealtimeLogConfigsResponse' {realtimeLogConfigs} -> realtimeLogConfigs) (\s@ListRealtimeLogConfigsResponse' {} a -> s {realtimeLogConfigs = a} :: ListRealtimeLogConfigsResponse)
 
--- | -- | The response status code.
-lrlcrrsResponseStatus :: Lens' ListRealtimeLogConfigsResponse Int
-lrlcrrsResponseStatus = lens _lrlcrrsResponseStatus (\s a -> s {_lrlcrrsResponseStatus = a})
+-- | The response's http status code.
+listRealtimeLogConfigsResponse_httpStatus :: Lens.Lens' ListRealtimeLogConfigsResponse Prelude.Int
+listRealtimeLogConfigsResponse_httpStatus = Lens.lens (\ListRealtimeLogConfigsResponse' {httpStatus} -> httpStatus) (\s@ListRealtimeLogConfigsResponse' {} a -> s {httpStatus = a} :: ListRealtimeLogConfigsResponse)
 
-instance NFData ListRealtimeLogConfigsResponse
+instance
+  Prelude.NFData
+    ListRealtimeLogConfigsResponse

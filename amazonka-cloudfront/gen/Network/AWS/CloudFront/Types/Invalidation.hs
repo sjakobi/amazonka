@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,79 +20,91 @@
 module Network.AWS.CloudFront.Types.Invalidation where
 
 import Network.AWS.CloudFront.Types.InvalidationBatch
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An invalidation.
 --
---
---
--- /See:/ 'invalidation' smart constructor.
+-- /See:/ 'newInvalidation' smart constructor.
 data Invalidation = Invalidation'
-  { _iId :: !Text,
-    _iStatus :: !Text,
-    _iCreateTime :: !ISO8601,
-    _iInvalidationBatch :: !InvalidationBatch
+  { -- | The identifier for the invalidation request. For example:
+    -- @IDFDVBD632BHDS5@.
+    id :: Prelude.Text,
+    -- | The status of the invalidation request. When the invalidation batch is
+    -- finished, the status is @Completed@.
+    status :: Prelude.Text,
+    -- | The date and time the invalidation request was first made.
+    createTime :: Prelude.ISO8601,
+    -- | The current invalidation information for the batch request.
+    invalidationBatch :: InvalidationBatch
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Invalidation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Invalidation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iId' - The identifier for the invalidation request. For example: @IDFDVBD632BHDS5@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iStatus' - The status of the invalidation request. When the invalidation batch is finished, the status is @Completed@ .
+-- 'id', 'invalidation_id' - The identifier for the invalidation request. For example:
+-- @IDFDVBD632BHDS5@.
 --
--- * 'iCreateTime' - The date and time the invalidation request was first made.
+-- 'status', 'invalidation_status' - The status of the invalidation request. When the invalidation batch is
+-- finished, the status is @Completed@.
 --
--- * 'iInvalidationBatch' - The current invalidation information for the batch request.
-invalidation ::
-  -- | 'iId'
-  Text ->
-  -- | 'iStatus'
-  Text ->
-  -- | 'iCreateTime'
-  UTCTime ->
-  -- | 'iInvalidationBatch'
+-- 'createTime', 'invalidation_createTime' - The date and time the invalidation request was first made.
+--
+-- 'invalidationBatch', 'invalidation_invalidationBatch' - The current invalidation information for the batch request.
+newInvalidation ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'status'
+  Prelude.Text ->
+  -- | 'createTime'
+  Prelude.UTCTime ->
+  -- | 'invalidationBatch'
   InvalidationBatch ->
   Invalidation
-invalidation
+newInvalidation
   pId_
   pStatus_
   pCreateTime_
   pInvalidationBatch_ =
     Invalidation'
-      { _iId = pId_,
-        _iStatus = pStatus_,
-        _iCreateTime = _Time # pCreateTime_,
-        _iInvalidationBatch = pInvalidationBatch_
+      { id = pId_,
+        status = pStatus_,
+        createTime = Prelude._Time Lens.# pCreateTime_,
+        invalidationBatch = pInvalidationBatch_
       }
 
--- | The identifier for the invalidation request. For example: @IDFDVBD632BHDS5@ .
-iId :: Lens' Invalidation Text
-iId = lens _iId (\s a -> s {_iId = a})
+-- | The identifier for the invalidation request. For example:
+-- @IDFDVBD632BHDS5@.
+invalidation_id :: Lens.Lens' Invalidation Prelude.Text
+invalidation_id = Lens.lens (\Invalidation' {id} -> id) (\s@Invalidation' {} a -> s {id = a} :: Invalidation)
 
--- | The status of the invalidation request. When the invalidation batch is finished, the status is @Completed@ .
-iStatus :: Lens' Invalidation Text
-iStatus = lens _iStatus (\s a -> s {_iStatus = a})
+-- | The status of the invalidation request. When the invalidation batch is
+-- finished, the status is @Completed@.
+invalidation_status :: Lens.Lens' Invalidation Prelude.Text
+invalidation_status = Lens.lens (\Invalidation' {status} -> status) (\s@Invalidation' {} a -> s {status = a} :: Invalidation)
 
 -- | The date and time the invalidation request was first made.
-iCreateTime :: Lens' Invalidation UTCTime
-iCreateTime = lens _iCreateTime (\s a -> s {_iCreateTime = a}) . _Time
+invalidation_createTime :: Lens.Lens' Invalidation Prelude.UTCTime
+invalidation_createTime = Lens.lens (\Invalidation' {createTime} -> createTime) (\s@Invalidation' {} a -> s {createTime = a} :: Invalidation) Prelude.. Prelude._Time
 
 -- | The current invalidation information for the batch request.
-iInvalidationBatch :: Lens' Invalidation InvalidationBatch
-iInvalidationBatch = lens _iInvalidationBatch (\s a -> s {_iInvalidationBatch = a})
+invalidation_invalidationBatch :: Lens.Lens' Invalidation InvalidationBatch
+invalidation_invalidationBatch = Lens.lens (\Invalidation' {invalidationBatch} -> invalidationBatch) (\s@Invalidation' {} a -> s {invalidationBatch = a} :: Invalidation)
 
-instance FromXML Invalidation where
+instance Prelude.FromXML Invalidation where
   parseXML x =
     Invalidation'
-      <$> (x .@ "Id")
-      <*> (x .@ "Status")
-      <*> (x .@ "CreateTime")
-      <*> (x .@ "InvalidationBatch")
+      Prelude.<$> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "Status")
+      Prelude.<*> (x Prelude..@ "CreateTime")
+      Prelude.<*> (x Prelude..@ "InvalidationBatch")
 
-instance Hashable Invalidation
+instance Prelude.Hashable Invalidation
 
-instance NFData Invalidation
+instance Prelude.NFData Invalidation

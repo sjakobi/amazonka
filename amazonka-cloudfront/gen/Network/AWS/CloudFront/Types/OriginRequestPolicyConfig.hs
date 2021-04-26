@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,121 +22,131 @@ module Network.AWS.CloudFront.Types.OriginRequestPolicyConfig where
 import Network.AWS.CloudFront.Types.OriginRequestPolicyCookiesConfig
 import Network.AWS.CloudFront.Types.OriginRequestPolicyHeadersConfig
 import Network.AWS.CloudFront.Types.OriginRequestPolicyQueryStringsConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An origin request policy configuration.
 --
+-- This configuration determines the values that CloudFront includes in
+-- requests that it sends to the origin. Each request that CloudFront sends
+-- to the origin includes the following:
 --
--- This configuration determines the values that CloudFront includes in requests that it sends to the origin. Each request that CloudFront sends to the origin includes the following:
+-- -   The request body and the URL path (without the domain name) from the
+--     viewer request.
 --
---     * The request body and the URL path (without the domain name) from the viewer request.
+-- -   The headers that CloudFront automatically includes in every origin
+--     request, including @Host@, @User-Agent@, and @X-Amz-Cf-Id@.
 --
---     * The headers that CloudFront automatically includes in every origin request, including @Host@ , @User-Agent@ , and @X-Amz-Cf-Id@ .
+-- -   All HTTP headers, cookies, and URL query strings that are specified
+--     in the cache policy or the origin request policy. These can include
+--     items from the viewer request and, in the case of headers,
+--     additional ones that are added by CloudFront.
 --
---     * All HTTP headers, cookies, and URL query strings that are specified in the cache policy or the origin request policy. These can include items from the viewer request and, in the case of headers, additional ones that are added by CloudFront.
+-- CloudFront sends a request when it can’t find an object in its cache
+-- that matches the request. If you want to send values to the origin and
+-- also include them in the cache key, use @CachePolicy@.
 --
---
---
--- CloudFront sends a request when it can’t find an object in its cache that matches the request. If you want to send values to the origin and also include them in the cache key, use @CachePolicy@ .
---
---
--- /See:/ 'originRequestPolicyConfig' smart constructor.
+-- /See:/ 'newOriginRequestPolicyConfig' smart constructor.
 data OriginRequestPolicyConfig = OriginRequestPolicyConfig'
-  { _orpcComment ::
-      !(Maybe Text),
-    _orpcName :: !Text,
-    _orpcHeadersConfig ::
-      !OriginRequestPolicyHeadersConfig,
-    _orpcCookiesConfig ::
-      !OriginRequestPolicyCookiesConfig,
-    _orpcQueryStringsConfig ::
-      !OriginRequestPolicyQueryStringsConfig
+  { -- | A comment to describe the origin request policy.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | A unique name to identify the origin request policy.
+    name :: Prelude.Text,
+    -- | The HTTP headers to include in origin requests. These can include
+    -- headers from viewer requests and additional headers added by CloudFront.
+    headersConfig :: OriginRequestPolicyHeadersConfig,
+    -- | The cookies from viewer requests to include in origin requests.
+    cookiesConfig :: OriginRequestPolicyCookiesConfig,
+    -- | The URL query strings from viewer requests to include in origin
+    -- requests.
+    queryStringsConfig :: OriginRequestPolicyQueryStringsConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OriginRequestPolicyConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OriginRequestPolicyConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'orpcComment' - A comment to describe the origin request policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'orpcName' - A unique name to identify the origin request policy.
+-- 'comment', 'originRequestPolicyConfig_comment' - A comment to describe the origin request policy.
 --
--- * 'orpcHeadersConfig' - The HTTP headers to include in origin requests. These can include headers from viewer requests and additional headers added by CloudFront.
+-- 'name', 'originRequestPolicyConfig_name' - A unique name to identify the origin request policy.
 --
--- * 'orpcCookiesConfig' - The cookies from viewer requests to include in origin requests.
+-- 'headersConfig', 'originRequestPolicyConfig_headersConfig' - The HTTP headers to include in origin requests. These can include
+-- headers from viewer requests and additional headers added by CloudFront.
 --
--- * 'orpcQueryStringsConfig' - The URL query strings from viewer requests to include in origin requests.
-originRequestPolicyConfig ::
-  -- | 'orpcName'
-  Text ->
-  -- | 'orpcHeadersConfig'
+-- 'cookiesConfig', 'originRequestPolicyConfig_cookiesConfig' - The cookies from viewer requests to include in origin requests.
+--
+-- 'queryStringsConfig', 'originRequestPolicyConfig_queryStringsConfig' - The URL query strings from viewer requests to include in origin
+-- requests.
+newOriginRequestPolicyConfig ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'headersConfig'
   OriginRequestPolicyHeadersConfig ->
-  -- | 'orpcCookiesConfig'
+  -- | 'cookiesConfig'
   OriginRequestPolicyCookiesConfig ->
-  -- | 'orpcQueryStringsConfig'
+  -- | 'queryStringsConfig'
   OriginRequestPolicyQueryStringsConfig ->
   OriginRequestPolicyConfig
-originRequestPolicyConfig
+newOriginRequestPolicyConfig
   pName_
   pHeadersConfig_
   pCookiesConfig_
   pQueryStringsConfig_ =
     OriginRequestPolicyConfig'
-      { _orpcComment = Nothing,
-        _orpcName = pName_,
-        _orpcHeadersConfig = pHeadersConfig_,
-        _orpcCookiesConfig = pCookiesConfig_,
-        _orpcQueryStringsConfig = pQueryStringsConfig_
+      { comment =
+          Prelude.Nothing,
+        name = pName_,
+        headersConfig = pHeadersConfig_,
+        cookiesConfig = pCookiesConfig_,
+        queryStringsConfig = pQueryStringsConfig_
       }
 
 -- | A comment to describe the origin request policy.
-orpcComment :: Lens' OriginRequestPolicyConfig (Maybe Text)
-orpcComment = lens _orpcComment (\s a -> s {_orpcComment = a})
+originRequestPolicyConfig_comment :: Lens.Lens' OriginRequestPolicyConfig (Prelude.Maybe Prelude.Text)
+originRequestPolicyConfig_comment = Lens.lens (\OriginRequestPolicyConfig' {comment} -> comment) (\s@OriginRequestPolicyConfig' {} a -> s {comment = a} :: OriginRequestPolicyConfig)
 
 -- | A unique name to identify the origin request policy.
-orpcName :: Lens' OriginRequestPolicyConfig Text
-orpcName = lens _orpcName (\s a -> s {_orpcName = a})
+originRequestPolicyConfig_name :: Lens.Lens' OriginRequestPolicyConfig Prelude.Text
+originRequestPolicyConfig_name = Lens.lens (\OriginRequestPolicyConfig' {name} -> name) (\s@OriginRequestPolicyConfig' {} a -> s {name = a} :: OriginRequestPolicyConfig)
 
--- | The HTTP headers to include in origin requests. These can include headers from viewer requests and additional headers added by CloudFront.
-orpcHeadersConfig :: Lens' OriginRequestPolicyConfig OriginRequestPolicyHeadersConfig
-orpcHeadersConfig = lens _orpcHeadersConfig (\s a -> s {_orpcHeadersConfig = a})
+-- | The HTTP headers to include in origin requests. These can include
+-- headers from viewer requests and additional headers added by CloudFront.
+originRequestPolicyConfig_headersConfig :: Lens.Lens' OriginRequestPolicyConfig OriginRequestPolicyHeadersConfig
+originRequestPolicyConfig_headersConfig = Lens.lens (\OriginRequestPolicyConfig' {headersConfig} -> headersConfig) (\s@OriginRequestPolicyConfig' {} a -> s {headersConfig = a} :: OriginRequestPolicyConfig)
 
 -- | The cookies from viewer requests to include in origin requests.
-orpcCookiesConfig :: Lens' OriginRequestPolicyConfig OriginRequestPolicyCookiesConfig
-orpcCookiesConfig = lens _orpcCookiesConfig (\s a -> s {_orpcCookiesConfig = a})
+originRequestPolicyConfig_cookiesConfig :: Lens.Lens' OriginRequestPolicyConfig OriginRequestPolicyCookiesConfig
+originRequestPolicyConfig_cookiesConfig = Lens.lens (\OriginRequestPolicyConfig' {cookiesConfig} -> cookiesConfig) (\s@OriginRequestPolicyConfig' {} a -> s {cookiesConfig = a} :: OriginRequestPolicyConfig)
 
--- | The URL query strings from viewer requests to include in origin requests.
-orpcQueryStringsConfig :: Lens' OriginRequestPolicyConfig OriginRequestPolicyQueryStringsConfig
-orpcQueryStringsConfig = lens _orpcQueryStringsConfig (\s a -> s {_orpcQueryStringsConfig = a})
+-- | The URL query strings from viewer requests to include in origin
+-- requests.
+originRequestPolicyConfig_queryStringsConfig :: Lens.Lens' OriginRequestPolicyConfig OriginRequestPolicyQueryStringsConfig
+originRequestPolicyConfig_queryStringsConfig = Lens.lens (\OriginRequestPolicyConfig' {queryStringsConfig} -> queryStringsConfig) (\s@OriginRequestPolicyConfig' {} a -> s {queryStringsConfig = a} :: OriginRequestPolicyConfig)
 
-instance FromXML OriginRequestPolicyConfig where
+instance Prelude.FromXML OriginRequestPolicyConfig where
   parseXML x =
     OriginRequestPolicyConfig'
-      <$> (x .@? "Comment")
-      <*> (x .@ "Name")
-      <*> (x .@ "HeadersConfig")
-      <*> (x .@ "CookiesConfig")
-      <*> (x .@ "QueryStringsConfig")
+      Prelude.<$> (x Prelude..@? "Comment")
+      Prelude.<*> (x Prelude..@ "Name")
+      Prelude.<*> (x Prelude..@ "HeadersConfig")
+      Prelude.<*> (x Prelude..@ "CookiesConfig")
+      Prelude.<*> (x Prelude..@ "QueryStringsConfig")
 
-instance Hashable OriginRequestPolicyConfig
+instance Prelude.Hashable OriginRequestPolicyConfig
 
-instance NFData OriginRequestPolicyConfig
+instance Prelude.NFData OriginRequestPolicyConfig
 
-instance ToXML OriginRequestPolicyConfig where
+instance Prelude.ToXML OriginRequestPolicyConfig where
   toXML OriginRequestPolicyConfig' {..} =
-    mconcat
-      [ "Comment" @= _orpcComment,
-        "Name" @= _orpcName,
-        "HeadersConfig" @= _orpcHeadersConfig,
-        "CookiesConfig" @= _orpcCookiesConfig,
-        "QueryStringsConfig" @= _orpcQueryStringsConfig
+    Prelude.mconcat
+      [ "Comment" Prelude.@= comment,
+        "Name" Prelude.@= name,
+        "HeadersConfig" Prelude.@= headersConfig,
+        "CookiesConfig" Prelude.@= cookiesConfig,
+        "QueryStringsConfig" Prelude.@= queryStringsConfig
       ]

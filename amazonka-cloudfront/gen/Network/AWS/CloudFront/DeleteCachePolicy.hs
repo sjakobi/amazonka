@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,99 +23,116 @@
 --
 -- Deletes a cache policy.
 --
+-- You cannot delete a cache policy if it’s attached to a cache behavior.
+-- First update your distributions to remove the cache policy from all
+-- cache behaviors, then delete the cache policy.
 --
--- You cannot delete a cache policy if it’s attached to a cache behavior. First update your distributions to remove the cache policy from all cache behaviors, then delete the cache policy.
---
--- To delete a cache policy, you must provide the policy’s identifier and version. To get these values, you can use @ListCachePolicies@ or @GetCachePolicy@ .
+-- To delete a cache policy, you must provide the policy’s identifier and
+-- version. To get these values, you can use @ListCachePolicies@ or
+-- @GetCachePolicy@.
 module Network.AWS.CloudFront.DeleteCachePolicy
   ( -- * Creating a Request
-    deleteCachePolicy,
-    DeleteCachePolicy,
+    DeleteCachePolicy (..),
+    newDeleteCachePolicy,
 
     -- * Request Lenses
-    dcpIfMatch,
-    dcpId,
+    deleteCachePolicy_ifMatch,
+    deleteCachePolicy_id,
 
     -- * Destructuring the Response
-    deleteCachePolicyResponse,
-    DeleteCachePolicyResponse,
+    DeleteCachePolicyResponse (..),
+    newDeleteCachePolicyResponse,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteCachePolicy' smart constructor.
+-- | /See:/ 'newDeleteCachePolicy' smart constructor.
 data DeleteCachePolicy = DeleteCachePolicy'
-  { _dcpIfMatch ::
-      !(Maybe Text),
-    _dcpId :: !Text
+  { -- | The version of the cache policy that you are deleting. The version is
+    -- the cache policy’s @ETag@ value, which you can get using
+    -- @ListCachePolicies@, @GetCachePolicy@, or @GetCachePolicyConfig@.
+    ifMatch :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the cache policy that you are deleting. To get
+    -- the identifier, you can use @ListCachePolicies@.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCachePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCachePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpIfMatch' - The version of the cache policy that you are deleting. The version is the cache policy’s @ETag@ value, which you can get using @ListCachePolicies@ , @GetCachePolicy@ , or @GetCachePolicyConfig@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcpId' - The unique identifier for the cache policy that you are deleting. To get the identifier, you can use @ListCachePolicies@ .
-deleteCachePolicy ::
-  -- | 'dcpId'
-  Text ->
+-- 'ifMatch', 'deleteCachePolicy_ifMatch' - The version of the cache policy that you are deleting. The version is
+-- the cache policy’s @ETag@ value, which you can get using
+-- @ListCachePolicies@, @GetCachePolicy@, or @GetCachePolicyConfig@.
+--
+-- 'id', 'deleteCachePolicy_id' - The unique identifier for the cache policy that you are deleting. To get
+-- the identifier, you can use @ListCachePolicies@.
+newDeleteCachePolicy ::
+  -- | 'id'
+  Prelude.Text ->
   DeleteCachePolicy
-deleteCachePolicy pId_ =
+newDeleteCachePolicy pId_ =
   DeleteCachePolicy'
-    { _dcpIfMatch = Nothing,
-      _dcpId = pId_
+    { ifMatch = Prelude.Nothing,
+      id = pId_
     }
 
--- | The version of the cache policy that you are deleting. The version is the cache policy’s @ETag@ value, which you can get using @ListCachePolicies@ , @GetCachePolicy@ , or @GetCachePolicyConfig@ .
-dcpIfMatch :: Lens' DeleteCachePolicy (Maybe Text)
-dcpIfMatch = lens _dcpIfMatch (\s a -> s {_dcpIfMatch = a})
+-- | The version of the cache policy that you are deleting. The version is
+-- the cache policy’s @ETag@ value, which you can get using
+-- @ListCachePolicies@, @GetCachePolicy@, or @GetCachePolicyConfig@.
+deleteCachePolicy_ifMatch :: Lens.Lens' DeleteCachePolicy (Prelude.Maybe Prelude.Text)
+deleteCachePolicy_ifMatch = Lens.lens (\DeleteCachePolicy' {ifMatch} -> ifMatch) (\s@DeleteCachePolicy' {} a -> s {ifMatch = a} :: DeleteCachePolicy)
 
--- | The unique identifier for the cache policy that you are deleting. To get the identifier, you can use @ListCachePolicies@ .
-dcpId :: Lens' DeleteCachePolicy Text
-dcpId = lens _dcpId (\s a -> s {_dcpId = a})
+-- | The unique identifier for the cache policy that you are deleting. To get
+-- the identifier, you can use @ListCachePolicies@.
+deleteCachePolicy_id :: Lens.Lens' DeleteCachePolicy Prelude.Text
+deleteCachePolicy_id = Lens.lens (\DeleteCachePolicy' {id} -> id) (\s@DeleteCachePolicy' {} a -> s {id = a} :: DeleteCachePolicy)
 
-instance AWSRequest DeleteCachePolicy where
+instance Prelude.AWSRequest DeleteCachePolicy where
   type Rs DeleteCachePolicy = DeleteCachePolicyResponse
-  request = delete cloudFront
-  response = receiveNull DeleteCachePolicyResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteCachePolicyResponse'
 
-instance Hashable DeleteCachePolicy
+instance Prelude.Hashable DeleteCachePolicy
 
-instance NFData DeleteCachePolicy
+instance Prelude.NFData DeleteCachePolicy
 
-instance ToHeaders DeleteCachePolicy where
+instance Prelude.ToHeaders DeleteCachePolicy where
   toHeaders DeleteCachePolicy' {..} =
-    mconcat ["If-Match" =# _dcpIfMatch]
+    Prelude.mconcat ["If-Match" Prelude.=# ifMatch]
 
-instance ToPath DeleteCachePolicy where
+instance Prelude.ToPath DeleteCachePolicy where
   toPath DeleteCachePolicy' {..} =
-    mconcat ["/2020-05-31/cache-policy/", toBS _dcpId]
+    Prelude.mconcat
+      ["/2020-05-31/cache-policy/", Prelude.toBS id]
 
-instance ToQuery DeleteCachePolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteCachePolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteCachePolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteCachePolicyResponse' smart constructor.
 data DeleteCachePolicyResponse = DeleteCachePolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCachePolicyResponse' with the minimum fields required to make a request.
-deleteCachePolicyResponse ::
+-- |
+-- Create a value of 'DeleteCachePolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteCachePolicyResponse ::
   DeleteCachePolicyResponse
-deleteCachePolicyResponse =
+newDeleteCachePolicyResponse =
   DeleteCachePolicyResponse'
 
-instance NFData DeleteCachePolicyResponse
+instance Prelude.NFData DeleteCachePolicyResponse

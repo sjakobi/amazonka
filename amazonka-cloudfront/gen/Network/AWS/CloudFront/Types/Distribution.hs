@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,71 +23,131 @@ import Network.AWS.CloudFront.Types.ActiveTrustedKeyGroups
 import Network.AWS.CloudFront.Types.ActiveTrustedSigners
 import Network.AWS.CloudFront.Types.AliasICPRecordal
 import Network.AWS.CloudFront.Types.DistributionConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A distribution tells CloudFront where you want content to be delivered from, and the details about how to track and manage content delivery.
+-- | A distribution tells CloudFront where you want content to be delivered
+-- from, and the details about how to track and manage content delivery.
 --
---
---
--- /See:/ 'distribution' smart constructor.
+-- /See:/ 'newDistribution' smart constructor.
 data Distribution = Distribution'
-  { _dAliasICPRecordals ::
-      !(Maybe [AliasICPRecordal]),
-    _dActiveTrustedSigners ::
-      !(Maybe ActiveTrustedSigners),
-    _dActiveTrustedKeyGroups ::
-      !(Maybe ActiveTrustedKeyGroups),
-    _dId :: !Text,
-    _dARN :: !Text,
-    _dStatus :: !Text,
-    _dLastModifiedTime :: !ISO8601,
-    _dInProgressInvalidationBatches :: !Int,
-    _dDomainName :: !Text,
-    _dDistributionConfig :: !DistributionConfig
+  { -- | AWS services in China customers must file for an Internet Content
+    -- Provider (ICP) recordal if they want to serve content publicly on an
+    -- alternate domain name, also known as a CNAME, that they\'ve added to
+    -- CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs
+    -- associated with distributions.
+    --
+    -- For more information about ICP recordals, see
+    -- <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials>
+    -- in /Getting Started with AWS services in China/.
+    aliasICPRecordals :: Prelude.Maybe [AliasICPRecordal],
+    -- | We recommend using @TrustedKeyGroups@ instead of @TrustedSigners@.
+    --
+    -- CloudFront automatically adds this field to the response if you’ve
+    -- configured a cache behavior in this distribution to serve private
+    -- content using trusted signers. This field contains a list of AWS account
+    -- IDs and the active CloudFront key pairs in each account that CloudFront
+    -- can use to verify the signatures of signed URLs or signed cookies.
+    activeTrustedSigners :: Prelude.Maybe ActiveTrustedSigners,
+    -- | CloudFront automatically adds this field to the response if you’ve
+    -- configured a cache behavior in this distribution to serve private
+    -- content using key groups. This field contains a list of key groups and
+    -- the public keys in each key group that CloudFront can use to verify the
+    -- signatures of signed URLs or signed cookies.
+    activeTrustedKeyGroups :: Prelude.Maybe ActiveTrustedKeyGroups,
+    -- | The identifier for the distribution. For example: @EDFDVBD632BHDS5@.
+    id :: Prelude.Text,
+    -- | The ARN (Amazon Resource Name) for the distribution. For example:
+    -- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
+    -- @123456789012@ is your AWS account ID.
+    aRN :: Prelude.Text,
+    -- | This response element indicates the current status of the distribution.
+    -- When the status is @Deployed@, the distribution\'s information is fully
+    -- propagated to all CloudFront edge locations.
+    status :: Prelude.Text,
+    -- | The date and time the distribution was last modified.
+    lastModifiedTime :: Prelude.ISO8601,
+    -- | The number of invalidation batches currently in progress.
+    inProgressInvalidationBatches :: Prelude.Int,
+    -- | The domain name corresponding to the distribution, for example,
+    -- @d111111abcdef8.cloudfront.net@.
+    domainName :: Prelude.Text,
+    -- | The current configuration information for the distribution. Send a @GET@
+    -- request to the @\/CloudFront API version\/distribution ID\/config@
+    -- resource.
+    distributionConfig :: DistributionConfig
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Distribution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Distribution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dAliasICPRecordals' - AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions. For more information about ICP recordals, see <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials> in /Getting Started with AWS services in China/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dActiveTrustedSigners' - /Important:/ We recommend using @TrustedKeyGroups@ instead of @TrustedSigners@ . CloudFront automatically adds this field to the response if you’ve configured a cache behavior in this distribution to serve private content using trusted signers. This field contains a list of AWS account IDs and the active CloudFront key pairs in each account that CloudFront can use to verify the signatures of signed URLs or signed cookies.
+-- 'aliasICPRecordals', 'distribution_aliasICPRecordals' - AWS services in China customers must file for an Internet Content
+-- Provider (ICP) recordal if they want to serve content publicly on an
+-- alternate domain name, also known as a CNAME, that they\'ve added to
+-- CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs
+-- associated with distributions.
 --
--- * 'dActiveTrustedKeyGroups' - CloudFront automatically adds this field to the response if you’ve configured a cache behavior in this distribution to serve private content using key groups. This field contains a list of key groups and the public keys in each key group that CloudFront can use to verify the signatures of signed URLs or signed cookies.
+-- For more information about ICP recordals, see
+-- <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials>
+-- in /Getting Started with AWS services in China/.
 --
--- * 'dId' - The identifier for the distribution. For example: @EDFDVBD632BHDS5@ .
+-- 'activeTrustedSigners', 'distribution_activeTrustedSigners' - We recommend using @TrustedKeyGroups@ instead of @TrustedSigners@.
 --
--- * 'dARN' - The ARN (Amazon Resource Name) for the distribution. For example: @arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5@ , where @123456789012@ is your AWS account ID.
+-- CloudFront automatically adds this field to the response if you’ve
+-- configured a cache behavior in this distribution to serve private
+-- content using trusted signers. This field contains a list of AWS account
+-- IDs and the active CloudFront key pairs in each account that CloudFront
+-- can use to verify the signatures of signed URLs or signed cookies.
 --
--- * 'dStatus' - This response element indicates the current status of the distribution. When the status is @Deployed@ , the distribution's information is fully propagated to all CloudFront edge locations.
+-- 'activeTrustedKeyGroups', 'distribution_activeTrustedKeyGroups' - CloudFront automatically adds this field to the response if you’ve
+-- configured a cache behavior in this distribution to serve private
+-- content using key groups. This field contains a list of key groups and
+-- the public keys in each key group that CloudFront can use to verify the
+-- signatures of signed URLs or signed cookies.
 --
--- * 'dLastModifiedTime' - The date and time the distribution was last modified.
+-- 'id', 'distribution_id' - The identifier for the distribution. For example: @EDFDVBD632BHDS5@.
 --
--- * 'dInProgressInvalidationBatches' - The number of invalidation batches currently in progress.
+-- 'aRN', 'distribution_aRN' - The ARN (Amazon Resource Name) for the distribution. For example:
+-- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
+-- @123456789012@ is your AWS account ID.
 --
--- * 'dDomainName' - The domain name corresponding to the distribution, for example, @d111111abcdef8.cloudfront.net@ .
+-- 'status', 'distribution_status' - This response element indicates the current status of the distribution.
+-- When the status is @Deployed@, the distribution\'s information is fully
+-- propagated to all CloudFront edge locations.
 --
--- * 'dDistributionConfig' - The current configuration information for the distribution. Send a @GET@ request to the @//CloudFront API version/ /distribution ID/config@ resource.
-distribution ::
-  -- | 'dId'
-  Text ->
-  -- | 'dARN'
-  Text ->
-  -- | 'dStatus'
-  Text ->
-  -- | 'dLastModifiedTime'
-  UTCTime ->
-  -- | 'dInProgressInvalidationBatches'
-  Int ->
-  -- | 'dDomainName'
-  Text ->
-  -- | 'dDistributionConfig'
+-- 'lastModifiedTime', 'distribution_lastModifiedTime' - The date and time the distribution was last modified.
+--
+-- 'inProgressInvalidationBatches', 'distribution_inProgressInvalidationBatches' - The number of invalidation batches currently in progress.
+--
+-- 'domainName', 'distribution_domainName' - The domain name corresponding to the distribution, for example,
+-- @d111111abcdef8.cloudfront.net@.
+--
+-- 'distributionConfig', 'distribution_distributionConfig' - The current configuration information for the distribution. Send a @GET@
+-- request to the @\/CloudFront API version\/distribution ID\/config@
+-- resource.
+newDistribution ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'aRN'
+  Prelude.Text ->
+  -- | 'status'
+  Prelude.Text ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
+  -- | 'inProgressInvalidationBatches'
+  Prelude.Int ->
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'distributionConfig'
   DistributionConfig ->
   Distribution
-distribution
+newDistribution
   pId_
   pARN_
   pStatus_
@@ -92,75 +156,103 @@ distribution
   pDomainName_
   pDistributionConfig_ =
     Distribution'
-      { _dAliasICPRecordals = Nothing,
-        _dActiveTrustedSigners = Nothing,
-        _dActiveTrustedKeyGroups = Nothing,
-        _dId = pId_,
-        _dARN = pARN_,
-        _dStatus = pStatus_,
-        _dLastModifiedTime = _Time # pLastModifiedTime_,
-        _dInProgressInvalidationBatches =
+      { aliasICPRecordals = Prelude.Nothing,
+        activeTrustedSigners = Prelude.Nothing,
+        activeTrustedKeyGroups = Prelude.Nothing,
+        id = pId_,
+        aRN = pARN_,
+        status = pStatus_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_,
+        inProgressInvalidationBatches =
           pInProgressInvalidationBatches_,
-        _dDomainName = pDomainName_,
-        _dDistributionConfig = pDistributionConfig_
+        domainName = pDomainName_,
+        distributionConfig = pDistributionConfig_
       }
 
--- | AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions. For more information about ICP recordals, see <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials> in /Getting Started with AWS services in China/ .
-dAliasICPRecordals :: Lens' Distribution [AliasICPRecordal]
-dAliasICPRecordals = lens _dAliasICPRecordals (\s a -> s {_dAliasICPRecordals = a}) . _Default . _Coerce
+-- | AWS services in China customers must file for an Internet Content
+-- Provider (ICP) recordal if they want to serve content publicly on an
+-- alternate domain name, also known as a CNAME, that they\'ve added to
+-- CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs
+-- associated with distributions.
+--
+-- For more information about ICP recordals, see
+-- <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials>
+-- in /Getting Started with AWS services in China/.
+distribution_aliasICPRecordals :: Lens.Lens' Distribution (Prelude.Maybe [AliasICPRecordal])
+distribution_aliasICPRecordals = Lens.lens (\Distribution' {aliasICPRecordals} -> aliasICPRecordals) (\s@Distribution' {} a -> s {aliasICPRecordals = a} :: Distribution) Prelude.. Lens.mapping Prelude._Coerce
 
--- | /Important:/ We recommend using @TrustedKeyGroups@ instead of @TrustedSigners@ . CloudFront automatically adds this field to the response if you’ve configured a cache behavior in this distribution to serve private content using trusted signers. This field contains a list of AWS account IDs and the active CloudFront key pairs in each account that CloudFront can use to verify the signatures of signed URLs or signed cookies.
-dActiveTrustedSigners :: Lens' Distribution (Maybe ActiveTrustedSigners)
-dActiveTrustedSigners = lens _dActiveTrustedSigners (\s a -> s {_dActiveTrustedSigners = a})
+-- | We recommend using @TrustedKeyGroups@ instead of @TrustedSigners@.
+--
+-- CloudFront automatically adds this field to the response if you’ve
+-- configured a cache behavior in this distribution to serve private
+-- content using trusted signers. This field contains a list of AWS account
+-- IDs and the active CloudFront key pairs in each account that CloudFront
+-- can use to verify the signatures of signed URLs or signed cookies.
+distribution_activeTrustedSigners :: Lens.Lens' Distribution (Prelude.Maybe ActiveTrustedSigners)
+distribution_activeTrustedSigners = Lens.lens (\Distribution' {activeTrustedSigners} -> activeTrustedSigners) (\s@Distribution' {} a -> s {activeTrustedSigners = a} :: Distribution)
 
--- | CloudFront automatically adds this field to the response if you’ve configured a cache behavior in this distribution to serve private content using key groups. This field contains a list of key groups and the public keys in each key group that CloudFront can use to verify the signatures of signed URLs or signed cookies.
-dActiveTrustedKeyGroups :: Lens' Distribution (Maybe ActiveTrustedKeyGroups)
-dActiveTrustedKeyGroups = lens _dActiveTrustedKeyGroups (\s a -> s {_dActiveTrustedKeyGroups = a})
+-- | CloudFront automatically adds this field to the response if you’ve
+-- configured a cache behavior in this distribution to serve private
+-- content using key groups. This field contains a list of key groups and
+-- the public keys in each key group that CloudFront can use to verify the
+-- signatures of signed URLs or signed cookies.
+distribution_activeTrustedKeyGroups :: Lens.Lens' Distribution (Prelude.Maybe ActiveTrustedKeyGroups)
+distribution_activeTrustedKeyGroups = Lens.lens (\Distribution' {activeTrustedKeyGroups} -> activeTrustedKeyGroups) (\s@Distribution' {} a -> s {activeTrustedKeyGroups = a} :: Distribution)
 
--- | The identifier for the distribution. For example: @EDFDVBD632BHDS5@ .
-dId :: Lens' Distribution Text
-dId = lens _dId (\s a -> s {_dId = a})
+-- | The identifier for the distribution. For example: @EDFDVBD632BHDS5@.
+distribution_id :: Lens.Lens' Distribution Prelude.Text
+distribution_id = Lens.lens (\Distribution' {id} -> id) (\s@Distribution' {} a -> s {id = a} :: Distribution)
 
--- | The ARN (Amazon Resource Name) for the distribution. For example: @arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5@ , where @123456789012@ is your AWS account ID.
-dARN :: Lens' Distribution Text
-dARN = lens _dARN (\s a -> s {_dARN = a})
+-- | The ARN (Amazon Resource Name) for the distribution. For example:
+-- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
+-- @123456789012@ is your AWS account ID.
+distribution_aRN :: Lens.Lens' Distribution Prelude.Text
+distribution_aRN = Lens.lens (\Distribution' {aRN} -> aRN) (\s@Distribution' {} a -> s {aRN = a} :: Distribution)
 
--- | This response element indicates the current status of the distribution. When the status is @Deployed@ , the distribution's information is fully propagated to all CloudFront edge locations.
-dStatus :: Lens' Distribution Text
-dStatus = lens _dStatus (\s a -> s {_dStatus = a})
+-- | This response element indicates the current status of the distribution.
+-- When the status is @Deployed@, the distribution\'s information is fully
+-- propagated to all CloudFront edge locations.
+distribution_status :: Lens.Lens' Distribution Prelude.Text
+distribution_status = Lens.lens (\Distribution' {status} -> status) (\s@Distribution' {} a -> s {status = a} :: Distribution)
 
 -- | The date and time the distribution was last modified.
-dLastModifiedTime :: Lens' Distribution UTCTime
-dLastModifiedTime = lens _dLastModifiedTime (\s a -> s {_dLastModifiedTime = a}) . _Time
+distribution_lastModifiedTime :: Lens.Lens' Distribution Prelude.UTCTime
+distribution_lastModifiedTime = Lens.lens (\Distribution' {lastModifiedTime} -> lastModifiedTime) (\s@Distribution' {} a -> s {lastModifiedTime = a} :: Distribution) Prelude.. Prelude._Time
 
 -- | The number of invalidation batches currently in progress.
-dInProgressInvalidationBatches :: Lens' Distribution Int
-dInProgressInvalidationBatches = lens _dInProgressInvalidationBatches (\s a -> s {_dInProgressInvalidationBatches = a})
+distribution_inProgressInvalidationBatches :: Lens.Lens' Distribution Prelude.Int
+distribution_inProgressInvalidationBatches = Lens.lens (\Distribution' {inProgressInvalidationBatches} -> inProgressInvalidationBatches) (\s@Distribution' {} a -> s {inProgressInvalidationBatches = a} :: Distribution)
 
--- | The domain name corresponding to the distribution, for example, @d111111abcdef8.cloudfront.net@ .
-dDomainName :: Lens' Distribution Text
-dDomainName = lens _dDomainName (\s a -> s {_dDomainName = a})
+-- | The domain name corresponding to the distribution, for example,
+-- @d111111abcdef8.cloudfront.net@.
+distribution_domainName :: Lens.Lens' Distribution Prelude.Text
+distribution_domainName = Lens.lens (\Distribution' {domainName} -> domainName) (\s@Distribution' {} a -> s {domainName = a} :: Distribution)
 
--- | The current configuration information for the distribution. Send a @GET@ request to the @//CloudFront API version/ /distribution ID/config@ resource.
-dDistributionConfig :: Lens' Distribution DistributionConfig
-dDistributionConfig = lens _dDistributionConfig (\s a -> s {_dDistributionConfig = a})
+-- | The current configuration information for the distribution. Send a @GET@
+-- request to the @\/CloudFront API version\/distribution ID\/config@
+-- resource.
+distribution_distributionConfig :: Lens.Lens' Distribution DistributionConfig
+distribution_distributionConfig = Lens.lens (\Distribution' {distributionConfig} -> distributionConfig) (\s@Distribution' {} a -> s {distributionConfig = a} :: Distribution)
 
-instance FromXML Distribution where
+instance Prelude.FromXML Distribution where
   parseXML x =
     Distribution'
-      <$> ( x .@? "AliasICPRecordals" .!@ mempty
-              >>= may (parseXMLList "AliasICPRecordal")
-          )
-      <*> (x .@? "ActiveTrustedSigners")
-      <*> (x .@? "ActiveTrustedKeyGroups")
-      <*> (x .@ "Id")
-      <*> (x .@ "ARN")
-      <*> (x .@ "Status")
-      <*> (x .@ "LastModifiedTime")
-      <*> (x .@ "InProgressInvalidationBatches")
-      <*> (x .@ "DomainName")
-      <*> (x .@ "DistributionConfig")
+      Prelude.<$> ( x Prelude..@? "AliasICPRecordals"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "AliasICPRecordal")
+                  )
+      Prelude.<*> (x Prelude..@? "ActiveTrustedSigners")
+      Prelude.<*> (x Prelude..@? "ActiveTrustedKeyGroups")
+      Prelude.<*> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "ARN")
+      Prelude.<*> (x Prelude..@ "Status")
+      Prelude.<*> (x Prelude..@ "LastModifiedTime")
+      Prelude.<*> (x Prelude..@ "InProgressInvalidationBatches")
+      Prelude.<*> (x Prelude..@ "DomainName")
+      Prelude.<*> (x Prelude..@ "DistributionConfig")
 
-instance Hashable Distribution
+instance Prelude.Hashable Distribution
 
-instance NFData Distribution
+instance Prelude.NFData Distribution

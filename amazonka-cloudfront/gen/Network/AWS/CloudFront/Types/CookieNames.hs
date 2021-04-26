@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudFront.Types.CookieNames where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains a list of cookie names.
 --
---
---
--- /See:/ 'cookieNames' smart constructor.
+-- /See:/ 'newCookieNames' smart constructor.
 data CookieNames = CookieNames'
-  { _cnItems ::
-      !(Maybe [Text]),
-    _cnQuantity :: !Int
+  { -- | A list of cookie names.
+    items :: Prelude.Maybe [Prelude.Text],
+    -- | The number of cookie names in the @Items@ list.
+    quantity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CookieNames' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CookieNames' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cnItems' - A list of cookie names.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cnQuantity' - The number of cookie names in the @Items@ list.
-cookieNames ::
-  -- | 'cnQuantity'
-  Int ->
+-- 'items', 'cookieNames_items' - A list of cookie names.
+--
+-- 'quantity', 'cookieNames_quantity' - The number of cookie names in the @Items@ list.
+newCookieNames ::
+  -- | 'quantity'
+  Prelude.Int ->
   CookieNames
-cookieNames pQuantity_ =
+newCookieNames pQuantity_ =
   CookieNames'
-    { _cnItems = Nothing,
-      _cnQuantity = pQuantity_
+    { items = Prelude.Nothing,
+      quantity = pQuantity_
     }
 
 -- | A list of cookie names.
-cnItems :: Lens' CookieNames [Text]
-cnItems = lens _cnItems (\s a -> s {_cnItems = a}) . _Default . _Coerce
+cookieNames_items :: Lens.Lens' CookieNames (Prelude.Maybe [Prelude.Text])
+cookieNames_items = Lens.lens (\CookieNames' {items} -> items) (\s@CookieNames' {} a -> s {items = a} :: CookieNames) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of cookie names in the @Items@ list.
-cnQuantity :: Lens' CookieNames Int
-cnQuantity = lens _cnQuantity (\s a -> s {_cnQuantity = a})
+cookieNames_quantity :: Lens.Lens' CookieNames Prelude.Int
+cookieNames_quantity = Lens.lens (\CookieNames' {quantity} -> quantity) (\s@CookieNames' {} a -> s {quantity = a} :: CookieNames)
 
-instance FromXML CookieNames where
+instance Prelude.FromXML CookieNames where
   parseXML x =
     CookieNames'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "Name")
-          )
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Name")
+                  )
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable CookieNames
+instance Prelude.Hashable CookieNames
 
-instance NFData CookieNames
+instance Prelude.NFData CookieNames
 
-instance ToXML CookieNames where
+instance Prelude.ToXML CookieNames where
   toXML CookieNames' {..} =
-    mconcat
-      [ "Items" @= toXML (toXMLList "Name" <$> _cnItems),
-        "Quantity" @= _cnQuantity
+    Prelude.mconcat
+      [ "Items"
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "Name" Prelude.<$> items),
+        "Quantity" Prelude.@= quantity
       ]

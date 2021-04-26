@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,116 +23,124 @@
 --
 -- Deletes a real-time log configuration.
 --
+-- You cannot delete a real-time log configuration if it’s attached to a
+-- cache behavior. First update your distributions to remove the real-time
+-- log configuration from all cache behaviors, then delete the real-time
+-- log configuration.
 --
--- You cannot delete a real-time log configuration if it’s attached to a cache behavior. First update your distributions to remove the real-time log configuration from all cache behaviors, then delete the real-time log configuration.
---
--- To delete a real-time log configuration, you can provide the configuration’s name or its Amazon Resource Name (ARN). You must provide at least one. If you provide both, CloudFront uses the name to identify the real-time log configuration to delete.
+-- To delete a real-time log configuration, you can provide the
+-- configuration’s name or its Amazon Resource Name (ARN). You must provide
+-- at least one. If you provide both, CloudFront uses the name to identify
+-- the real-time log configuration to delete.
 module Network.AWS.CloudFront.DeleteRealtimeLogConfig
   ( -- * Creating a Request
-    deleteRealtimeLogConfig,
-    DeleteRealtimeLogConfig,
+    DeleteRealtimeLogConfig (..),
+    newDeleteRealtimeLogConfig,
 
     -- * Request Lenses
-    drlcARN,
-    drlcName,
+    deleteRealtimeLogConfig_aRN,
+    deleteRealtimeLogConfig_name,
 
     -- * Destructuring the Response
-    deleteRealtimeLogConfigResponse,
-    DeleteRealtimeLogConfigResponse,
+    DeleteRealtimeLogConfigResponse (..),
+    newDeleteRealtimeLogConfigResponse,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteRealtimeLogConfig' smart constructor.
+-- | /See:/ 'newDeleteRealtimeLogConfig' smart constructor.
 data DeleteRealtimeLogConfig = DeleteRealtimeLogConfig'
-  { _drlcARN ::
-      !(Maybe Text),
-    _drlcName ::
-      !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the real-time log configuration to
+    -- delete.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the real-time log configuration to delete.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRealtimeLogConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRealtimeLogConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drlcARN' - The Amazon Resource Name (ARN) of the real-time log configuration to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drlcName' - The name of the real-time log configuration to delete.
-deleteRealtimeLogConfig ::
+-- 'aRN', 'deleteRealtimeLogConfig_aRN' - The Amazon Resource Name (ARN) of the real-time log configuration to
+-- delete.
+--
+-- 'name', 'deleteRealtimeLogConfig_name' - The name of the real-time log configuration to delete.
+newDeleteRealtimeLogConfig ::
   DeleteRealtimeLogConfig
-deleteRealtimeLogConfig =
+newDeleteRealtimeLogConfig =
   DeleteRealtimeLogConfig'
-    { _drlcARN = Nothing,
-      _drlcName = Nothing
+    { aRN = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the real-time log configuration to delete.
-drlcARN :: Lens' DeleteRealtimeLogConfig (Maybe Text)
-drlcARN = lens _drlcARN (\s a -> s {_drlcARN = a})
+-- | The Amazon Resource Name (ARN) of the real-time log configuration to
+-- delete.
+deleteRealtimeLogConfig_aRN :: Lens.Lens' DeleteRealtimeLogConfig (Prelude.Maybe Prelude.Text)
+deleteRealtimeLogConfig_aRN = Lens.lens (\DeleteRealtimeLogConfig' {aRN} -> aRN) (\s@DeleteRealtimeLogConfig' {} a -> s {aRN = a} :: DeleteRealtimeLogConfig)
 
 -- | The name of the real-time log configuration to delete.
-drlcName :: Lens' DeleteRealtimeLogConfig (Maybe Text)
-drlcName = lens _drlcName (\s a -> s {_drlcName = a})
+deleteRealtimeLogConfig_name :: Lens.Lens' DeleteRealtimeLogConfig (Prelude.Maybe Prelude.Text)
+deleteRealtimeLogConfig_name = Lens.lens (\DeleteRealtimeLogConfig' {name} -> name) (\s@DeleteRealtimeLogConfig' {} a -> s {name = a} :: DeleteRealtimeLogConfig)
 
-instance AWSRequest DeleteRealtimeLogConfig where
+instance Prelude.AWSRequest DeleteRealtimeLogConfig where
   type
     Rs DeleteRealtimeLogConfig =
       DeleteRealtimeLogConfigResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveNull DeleteRealtimeLogConfigResponse'
+    Response.receiveNull
+      DeleteRealtimeLogConfigResponse'
 
-instance Hashable DeleteRealtimeLogConfig
+instance Prelude.Hashable DeleteRealtimeLogConfig
 
-instance NFData DeleteRealtimeLogConfig
+instance Prelude.NFData DeleteRealtimeLogConfig
 
-instance ToElement DeleteRealtimeLogConfig where
+instance Prelude.ToElement DeleteRealtimeLogConfig where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}DeleteRealtimeLogConfigRequest"
 
-instance ToHeaders DeleteRealtimeLogConfig where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteRealtimeLogConfig where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteRealtimeLogConfig where
+instance Prelude.ToPath DeleteRealtimeLogConfig where
   toPath =
-    const "/2020-05-31/delete-realtime-log-config/"
+    Prelude.const
+      "/2020-05-31/delete-realtime-log-config/"
 
-instance ToQuery DeleteRealtimeLogConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteRealtimeLogConfig where
+  toQuery = Prelude.const Prelude.mempty
 
-instance ToXML DeleteRealtimeLogConfig where
+instance Prelude.ToXML DeleteRealtimeLogConfig where
   toXML DeleteRealtimeLogConfig' {..} =
-    mconcat ["ARN" @= _drlcARN, "Name" @= _drlcName]
+    Prelude.mconcat
+      ["ARN" Prelude.@= aRN, "Name" Prelude.@= name]
 
--- | /See:/ 'deleteRealtimeLogConfigResponse' smart constructor.
+-- | /See:/ 'newDeleteRealtimeLogConfigResponse' smart constructor.
 data DeleteRealtimeLogConfigResponse = DeleteRealtimeLogConfigResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRealtimeLogConfigResponse' with the minimum fields required to make a request.
-deleteRealtimeLogConfigResponse ::
+-- |
+-- Create a value of 'DeleteRealtimeLogConfigResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteRealtimeLogConfigResponse ::
   DeleteRealtimeLogConfigResponse
-deleteRealtimeLogConfigResponse =
+newDeleteRealtimeLogConfigResponse =
   DeleteRealtimeLogConfigResponse'
 
-instance NFData DeleteRealtimeLogConfigResponse
+instance
+  Prelude.NFData
+    DeleteRealtimeLogConfigResponse

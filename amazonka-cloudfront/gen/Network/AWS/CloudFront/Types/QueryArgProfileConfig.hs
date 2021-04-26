@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,71 +20,76 @@
 module Network.AWS.CloudFront.Types.QueryArgProfileConfig where
 
 import Network.AWS.CloudFront.Types.QueryArgProfiles
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration for query argument-profile mapping for field-level encryption.
+-- | Configuration for query argument-profile mapping for field-level
+-- encryption.
 --
---
---
--- /See:/ 'queryArgProfileConfig' smart constructor.
+-- /See:/ 'newQueryArgProfileConfig' smart constructor.
 data QueryArgProfileConfig = QueryArgProfileConfig'
-  { _qapcQueryArgProfiles ::
-      !(Maybe QueryArgProfiles),
-    _qapcForwardWhenQueryArgProfileIsUnknown ::
-      !Bool
+  { -- | Profiles specified for query argument-profile mapping for field-level
+    -- encryption.
+    queryArgProfiles :: Prelude.Maybe QueryArgProfiles,
+    -- | Flag to set if you want a request to be forwarded to the origin even if
+    -- the profile specified by the field-level encryption query argument,
+    -- fle-profile, is unknown.
+    forwardWhenQueryArgProfileIsUnknown :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryArgProfileConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryArgProfileConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qapcQueryArgProfiles' - Profiles specified for query argument-profile mapping for field-level encryption.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qapcForwardWhenQueryArgProfileIsUnknown' - Flag to set if you want a request to be forwarded to the origin even if the profile specified by the field-level encryption query argument, fle-profile, is unknown.
-queryArgProfileConfig ::
-  -- | 'qapcForwardWhenQueryArgProfileIsUnknown'
-  Bool ->
+-- 'queryArgProfiles', 'queryArgProfileConfig_queryArgProfiles' - Profiles specified for query argument-profile mapping for field-level
+-- encryption.
+--
+-- 'forwardWhenQueryArgProfileIsUnknown', 'queryArgProfileConfig_forwardWhenQueryArgProfileIsUnknown' - Flag to set if you want a request to be forwarded to the origin even if
+-- the profile specified by the field-level encryption query argument,
+-- fle-profile, is unknown.
+newQueryArgProfileConfig ::
+  -- | 'forwardWhenQueryArgProfileIsUnknown'
+  Prelude.Bool ->
   QueryArgProfileConfig
-queryArgProfileConfig
+newQueryArgProfileConfig
   pForwardWhenQueryArgProfileIsUnknown_ =
     QueryArgProfileConfig'
-      { _qapcQueryArgProfiles =
-          Nothing,
-        _qapcForwardWhenQueryArgProfileIsUnknown =
+      { queryArgProfiles =
+          Prelude.Nothing,
+        forwardWhenQueryArgProfileIsUnknown =
           pForwardWhenQueryArgProfileIsUnknown_
       }
 
--- | Profiles specified for query argument-profile mapping for field-level encryption.
-qapcQueryArgProfiles :: Lens' QueryArgProfileConfig (Maybe QueryArgProfiles)
-qapcQueryArgProfiles = lens _qapcQueryArgProfiles (\s a -> s {_qapcQueryArgProfiles = a})
+-- | Profiles specified for query argument-profile mapping for field-level
+-- encryption.
+queryArgProfileConfig_queryArgProfiles :: Lens.Lens' QueryArgProfileConfig (Prelude.Maybe QueryArgProfiles)
+queryArgProfileConfig_queryArgProfiles = Lens.lens (\QueryArgProfileConfig' {queryArgProfiles} -> queryArgProfiles) (\s@QueryArgProfileConfig' {} a -> s {queryArgProfiles = a} :: QueryArgProfileConfig)
 
--- | Flag to set if you want a request to be forwarded to the origin even if the profile specified by the field-level encryption query argument, fle-profile, is unknown.
-qapcForwardWhenQueryArgProfileIsUnknown :: Lens' QueryArgProfileConfig Bool
-qapcForwardWhenQueryArgProfileIsUnknown = lens _qapcForwardWhenQueryArgProfileIsUnknown (\s a -> s {_qapcForwardWhenQueryArgProfileIsUnknown = a})
+-- | Flag to set if you want a request to be forwarded to the origin even if
+-- the profile specified by the field-level encryption query argument,
+-- fle-profile, is unknown.
+queryArgProfileConfig_forwardWhenQueryArgProfileIsUnknown :: Lens.Lens' QueryArgProfileConfig Prelude.Bool
+queryArgProfileConfig_forwardWhenQueryArgProfileIsUnknown = Lens.lens (\QueryArgProfileConfig' {forwardWhenQueryArgProfileIsUnknown} -> forwardWhenQueryArgProfileIsUnknown) (\s@QueryArgProfileConfig' {} a -> s {forwardWhenQueryArgProfileIsUnknown = a} :: QueryArgProfileConfig)
 
-instance FromXML QueryArgProfileConfig where
+instance Prelude.FromXML QueryArgProfileConfig where
   parseXML x =
     QueryArgProfileConfig'
-      <$> (x .@? "QueryArgProfiles")
-      <*> (x .@ "ForwardWhenQueryArgProfileIsUnknown")
+      Prelude.<$> (x Prelude..@? "QueryArgProfiles")
+      Prelude.<*> (x Prelude..@ "ForwardWhenQueryArgProfileIsUnknown")
 
-instance Hashable QueryArgProfileConfig
+instance Prelude.Hashable QueryArgProfileConfig
 
-instance NFData QueryArgProfileConfig
+instance Prelude.NFData QueryArgProfileConfig
 
-instance ToXML QueryArgProfileConfig where
+instance Prelude.ToXML QueryArgProfileConfig where
   toXML QueryArgProfileConfig' {..} =
-    mconcat
-      [ "QueryArgProfiles" @= _qapcQueryArgProfiles,
+    Prelude.mconcat
+      [ "QueryArgProfiles" Prelude.@= queryArgProfiles,
         "ForwardWhenQueryArgProfileIsUnknown"
-          @= _qapcForwardWhenQueryArgProfileIsUnknown
+          Prelude.@= forwardWhenQueryArgProfileIsUnknown
       ]

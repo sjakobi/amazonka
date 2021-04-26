@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CloudFront.Types.CachePolicyHeaderBehavior
   ( CachePolicyHeaderBehavior
       ( ..,
-        CPHBNone,
-        CPHBWhitelist
+        CachePolicyHeaderBehaviorNone,
+        CachePolicyHeaderBehaviorWhitelist
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CachePolicyHeaderBehavior
-  = CachePolicyHeaderBehavior'
-      ( CI
-          Text
-      )
+newtype CachePolicyHeaderBehavior = CachePolicyHeaderBehavior'
+  { fromCachePolicyHeaderBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CPHBNone :: CachePolicyHeaderBehavior
-pattern CPHBNone = CachePolicyHeaderBehavior' "none"
+pattern CachePolicyHeaderBehaviorNone :: CachePolicyHeaderBehavior
+pattern CachePolicyHeaderBehaviorNone = CachePolicyHeaderBehavior' "none"
 
-pattern CPHBWhitelist :: CachePolicyHeaderBehavior
-pattern CPHBWhitelist = CachePolicyHeaderBehavior' "whitelist"
+pattern CachePolicyHeaderBehaviorWhitelist :: CachePolicyHeaderBehavior
+pattern CachePolicyHeaderBehaviorWhitelist = CachePolicyHeaderBehavior' "whitelist"
 
 {-# COMPLETE
-  CPHBNone,
-  CPHBWhitelist,
+  CachePolicyHeaderBehaviorNone,
+  CachePolicyHeaderBehaviorWhitelist,
   CachePolicyHeaderBehavior'
   #-}
 
-instance FromText CachePolicyHeaderBehavior where
-  parser = (CachePolicyHeaderBehavior' . mk) <$> takeText
+instance Prelude.FromText CachePolicyHeaderBehavior where
+  parser = CachePolicyHeaderBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText CachePolicyHeaderBehavior where
-  toText (CachePolicyHeaderBehavior' ci) = original ci
+instance Prelude.ToText CachePolicyHeaderBehavior where
+  toText (CachePolicyHeaderBehavior' x) = x
 
-instance Hashable CachePolicyHeaderBehavior
+instance Prelude.Hashable CachePolicyHeaderBehavior
 
-instance NFData CachePolicyHeaderBehavior
+instance Prelude.NFData CachePolicyHeaderBehavior
 
-instance ToByteString CachePolicyHeaderBehavior
+instance Prelude.ToByteString CachePolicyHeaderBehavior
 
-instance ToQuery CachePolicyHeaderBehavior
+instance Prelude.ToQuery CachePolicyHeaderBehavior
 
-instance ToHeader CachePolicyHeaderBehavior
+instance Prelude.ToHeader CachePolicyHeaderBehavior
 
-instance FromXML CachePolicyHeaderBehavior where
-  parseXML = parseXMLText "CachePolicyHeaderBehavior"
+instance Prelude.FromXML CachePolicyHeaderBehavior where
+  parseXML = Prelude.parseXMLText "CachePolicyHeaderBehavior"
 
-instance ToXML CachePolicyHeaderBehavior where
-  toXML = toXMLText
+instance Prelude.ToXML CachePolicyHeaderBehavior where
+  toXML = Prelude.toXMLText

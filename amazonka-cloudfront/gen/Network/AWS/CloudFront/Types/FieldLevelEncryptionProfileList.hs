@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,90 +20,101 @@
 module Network.AWS.CloudFront.Types.FieldLevelEncryptionProfileList where
 
 import Network.AWS.CloudFront.Types.FieldLevelEncryptionProfileSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | List of field-level encryption profiles.
 --
---
---
--- /See:/ 'fieldLevelEncryptionProfileList' smart constructor.
+-- /See:/ 'newFieldLevelEncryptionProfileList' smart constructor.
 data FieldLevelEncryptionProfileList = FieldLevelEncryptionProfileList'
-  { _fleplItems ::
-      !( Maybe
-           [FieldLevelEncryptionProfileSummary]
-       ),
-    _fleplNextMarker ::
-      !( Maybe
-           Text
-       ),
-    _fleplMaxItems ::
-      !Int,
-    _fleplQuantity ::
-      !Int
+  { -- | The field-level encryption profile items.
+    items :: Prelude.Maybe [FieldLevelEncryptionProfileSummary],
+    -- | If there are more elements to be listed, this element is present and
+    -- contains the value that you can use for the @Marker@ request parameter
+    -- to continue listing your profiles where you left off.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of field-level encryption profiles you want in the
+    -- response body.
+    maxItems :: Prelude.Int,
+    -- | The number of field-level encryption profiles.
+    quantity :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FieldLevelEncryptionProfileList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FieldLevelEncryptionProfileList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fleplItems' - The field-level encryption profile items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fleplNextMarker' - If there are more elements to be listed, this element is present and contains the value that you can use for the @Marker@ request parameter to continue listing your profiles where you left off.
+-- 'items', 'fieldLevelEncryptionProfileList_items' - The field-level encryption profile items.
 --
--- * 'fleplMaxItems' - The maximum number of field-level encryption profiles you want in the response body.
+-- 'nextMarker', 'fieldLevelEncryptionProfileList_nextMarker' - If there are more elements to be listed, this element is present and
+-- contains the value that you can use for the @Marker@ request parameter
+-- to continue listing your profiles where you left off.
 --
--- * 'fleplQuantity' - The number of field-level encryption profiles.
-fieldLevelEncryptionProfileList ::
-  -- | 'fleplMaxItems'
-  Int ->
-  -- | 'fleplQuantity'
-  Int ->
+-- 'maxItems', 'fieldLevelEncryptionProfileList_maxItems' - The maximum number of field-level encryption profiles you want in the
+-- response body.
+--
+-- 'quantity', 'fieldLevelEncryptionProfileList_quantity' - The number of field-level encryption profiles.
+newFieldLevelEncryptionProfileList ::
+  -- | 'maxItems'
+  Prelude.Int ->
+  -- | 'quantity'
+  Prelude.Int ->
   FieldLevelEncryptionProfileList
-fieldLevelEncryptionProfileList pMaxItems_ pQuantity_ =
-  FieldLevelEncryptionProfileList'
-    { _fleplItems =
-        Nothing,
-      _fleplNextMarker = Nothing,
-      _fleplMaxItems = pMaxItems_,
-      _fleplQuantity = pQuantity_
-    }
+newFieldLevelEncryptionProfileList
+  pMaxItems_
+  pQuantity_ =
+    FieldLevelEncryptionProfileList'
+      { items =
+          Prelude.Nothing,
+        nextMarker = Prelude.Nothing,
+        maxItems = pMaxItems_,
+        quantity = pQuantity_
+      }
 
 -- | The field-level encryption profile items.
-fleplItems :: Lens' FieldLevelEncryptionProfileList [FieldLevelEncryptionProfileSummary]
-fleplItems = lens _fleplItems (\s a -> s {_fleplItems = a}) . _Default . _Coerce
+fieldLevelEncryptionProfileList_items :: Lens.Lens' FieldLevelEncryptionProfileList (Prelude.Maybe [FieldLevelEncryptionProfileSummary])
+fieldLevelEncryptionProfileList_items = Lens.lens (\FieldLevelEncryptionProfileList' {items} -> items) (\s@FieldLevelEncryptionProfileList' {} a -> s {items = a} :: FieldLevelEncryptionProfileList) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If there are more elements to be listed, this element is present and contains the value that you can use for the @Marker@ request parameter to continue listing your profiles where you left off.
-fleplNextMarker :: Lens' FieldLevelEncryptionProfileList (Maybe Text)
-fleplNextMarker = lens _fleplNextMarker (\s a -> s {_fleplNextMarker = a})
+-- | If there are more elements to be listed, this element is present and
+-- contains the value that you can use for the @Marker@ request parameter
+-- to continue listing your profiles where you left off.
+fieldLevelEncryptionProfileList_nextMarker :: Lens.Lens' FieldLevelEncryptionProfileList (Prelude.Maybe Prelude.Text)
+fieldLevelEncryptionProfileList_nextMarker = Lens.lens (\FieldLevelEncryptionProfileList' {nextMarker} -> nextMarker) (\s@FieldLevelEncryptionProfileList' {} a -> s {nextMarker = a} :: FieldLevelEncryptionProfileList)
 
--- | The maximum number of field-level encryption profiles you want in the response body.
-fleplMaxItems :: Lens' FieldLevelEncryptionProfileList Int
-fleplMaxItems = lens _fleplMaxItems (\s a -> s {_fleplMaxItems = a})
+-- | The maximum number of field-level encryption profiles you want in the
+-- response body.
+fieldLevelEncryptionProfileList_maxItems :: Lens.Lens' FieldLevelEncryptionProfileList Prelude.Int
+fieldLevelEncryptionProfileList_maxItems = Lens.lens (\FieldLevelEncryptionProfileList' {maxItems} -> maxItems) (\s@FieldLevelEncryptionProfileList' {} a -> s {maxItems = a} :: FieldLevelEncryptionProfileList)
 
 -- | The number of field-level encryption profiles.
-fleplQuantity :: Lens' FieldLevelEncryptionProfileList Int
-fleplQuantity = lens _fleplQuantity (\s a -> s {_fleplQuantity = a})
+fieldLevelEncryptionProfileList_quantity :: Lens.Lens' FieldLevelEncryptionProfileList Prelude.Int
+fieldLevelEncryptionProfileList_quantity = Lens.lens (\FieldLevelEncryptionProfileList' {quantity} -> quantity) (\s@FieldLevelEncryptionProfileList' {} a -> s {quantity = a} :: FieldLevelEncryptionProfileList)
 
-instance FromXML FieldLevelEncryptionProfileList where
+instance
+  Prelude.FromXML
+    FieldLevelEncryptionProfileList
+  where
   parseXML x =
     FieldLevelEncryptionProfileList'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may
-                (parseXMLList "FieldLevelEncryptionProfileSummary")
-          )
-      <*> (x .@? "NextMarker")
-      <*> (x .@ "MaxItems")
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        ( Prelude.parseXMLList
+                            "FieldLevelEncryptionProfileSummary"
+                        )
+                  )
+      Prelude.<*> (x Prelude..@? "NextMarker")
+      Prelude.<*> (x Prelude..@ "MaxItems")
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable FieldLevelEncryptionProfileList
+instance
+  Prelude.Hashable
+    FieldLevelEncryptionProfileList
 
-instance NFData FieldLevelEncryptionProfileList
+instance
+  Prelude.NFData
+    FieldLevelEncryptionProfileList

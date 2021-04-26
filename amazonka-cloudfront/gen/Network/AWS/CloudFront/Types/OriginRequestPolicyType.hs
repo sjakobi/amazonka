@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CloudFront.Types.OriginRequestPolicyType
   ( OriginRequestPolicyType
       ( ..,
-        ORPTCustom,
-        ORPTManaged
+        OriginRequestPolicyTypeCustom,
+        OriginRequestPolicyTypeManaged
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OriginRequestPolicyType
-  = OriginRequestPolicyType'
-      ( CI
-          Text
-      )
+newtype OriginRequestPolicyType = OriginRequestPolicyType'
+  { fromOriginRequestPolicyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ORPTCustom :: OriginRequestPolicyType
-pattern ORPTCustom = OriginRequestPolicyType' "custom"
+pattern OriginRequestPolicyTypeCustom :: OriginRequestPolicyType
+pattern OriginRequestPolicyTypeCustom = OriginRequestPolicyType' "custom"
 
-pattern ORPTManaged :: OriginRequestPolicyType
-pattern ORPTManaged = OriginRequestPolicyType' "managed"
+pattern OriginRequestPolicyTypeManaged :: OriginRequestPolicyType
+pattern OriginRequestPolicyTypeManaged = OriginRequestPolicyType' "managed"
 
 {-# COMPLETE
-  ORPTCustom,
-  ORPTManaged,
+  OriginRequestPolicyTypeCustom,
+  OriginRequestPolicyTypeManaged,
   OriginRequestPolicyType'
   #-}
 
-instance FromText OriginRequestPolicyType where
-  parser = (OriginRequestPolicyType' . mk) <$> takeText
+instance Prelude.FromText OriginRequestPolicyType where
+  parser = OriginRequestPolicyType' Prelude.<$> Prelude.takeText
 
-instance ToText OriginRequestPolicyType where
-  toText (OriginRequestPolicyType' ci) = original ci
+instance Prelude.ToText OriginRequestPolicyType where
+  toText (OriginRequestPolicyType' x) = x
 
-instance Hashable OriginRequestPolicyType
+instance Prelude.Hashable OriginRequestPolicyType
 
-instance NFData OriginRequestPolicyType
+instance Prelude.NFData OriginRequestPolicyType
 
-instance ToByteString OriginRequestPolicyType
+instance Prelude.ToByteString OriginRequestPolicyType
 
-instance ToQuery OriginRequestPolicyType
+instance Prelude.ToQuery OriginRequestPolicyType
 
-instance ToHeader OriginRequestPolicyType
+instance Prelude.ToHeader OriginRequestPolicyType
 
-instance FromXML OriginRequestPolicyType where
-  parseXML = parseXMLText "OriginRequestPolicyType"
+instance Prelude.FromXML OriginRequestPolicyType where
+  parseXML = Prelude.parseXMLText "OriginRequestPolicyType"
 
-instance ToXML OriginRequestPolicyType where
-  toXML = toXMLText
+instance Prelude.ToXML OriginRequestPolicyType where
+  toXML = Prelude.toXMLText

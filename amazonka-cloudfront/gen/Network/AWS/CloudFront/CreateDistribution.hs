@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new web distribution. You create a CloudFront distribution to tell CloudFront where you want content to be delivered from, and the details about how to track and manage content delivery. Send a @POST@ request to the @//CloudFront API version/ /distribution@ /@distribution ID@ resource.
+-- Creates a new web distribution. You create a CloudFront distribution to
+-- tell CloudFront where you want content to be delivered from, and the
+-- details about how to track and manage content delivery. Send a @POST@
+-- request to the
+-- @\/CloudFront API version\/distribution@\/@distribution ID@ resource.
 --
---
--- /Important:/ When you update a distribution, there are more required fields than when you create a distribution. When you update your distribution by using <https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html UpdateDistribution> , follow the steps included in the documentation to get the current configuration and then make your updates. This helps to make sure that you include all of the required fields. To view a summary, see <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html Required Fields for Create Distribution and Update Distribution> in the /Amazon CloudFront Developer Guide/ .
+-- When you update a distribution, there are more required fields than when
+-- you create a distribution. When you update your distribution by using
+-- <https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html UpdateDistribution>,
+-- follow the steps included in the documentation to get the current
+-- configuration and then make your updates. This helps to make sure that
+-- you include all of the required fields. To view a summary, see
+-- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html Required Fields for Create Distribution and Update Distribution>
+-- in the /Amazon CloudFront Developer Guide/.
 module Network.AWS.CloudFront.CreateDistribution
   ( -- * Creating a Request
-    createDistribution,
-    CreateDistribution,
+    CreateDistribution (..),
+    newCreateDistribution,
 
     -- * Request Lenses
-    cdDistributionConfig,
+    createDistribution_distributionConfig,
 
     -- * Destructuring the Response
-    createDistributionResponse,
-    CreateDistributionResponse,
+    CreateDistributionResponse (..),
+    newCreateDistributionResponse,
 
     -- * Response Lenses
-    cdrrsETag,
-    cdrrsDistribution,
-    cdrrsLocation,
-    cdrrsResponseStatus,
+    createDistributionResponse_eTag,
+    createDistributionResponse_distribution,
+    createDistributionResponse_location,
+    createDistributionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.Distribution
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The request to create a new distribution.
 --
---
---
--- /See:/ 'createDistribution' smart constructor.
-newtype CreateDistribution = CreateDistribution'
-  { _cdDistributionConfig ::
-      DistributionConfig
+-- /See:/ 'newCreateDistribution' smart constructor.
+data CreateDistribution = CreateDistribution'
+  { -- | The distribution\'s configuration information.
+    distributionConfig :: DistributionConfig
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDistribution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDistribution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdDistributionConfig' - The distribution's configuration information.
-createDistribution ::
-  -- | 'cdDistributionConfig'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'distributionConfig', 'createDistribution_distributionConfig' - The distribution\'s configuration information.
+newCreateDistribution ::
+  -- | 'distributionConfig'
   DistributionConfig ->
   CreateDistribution
-createDistribution pDistributionConfig_ =
+newCreateDistribution pDistributionConfig_ =
   CreateDistribution'
-    { _cdDistributionConfig =
+    { distributionConfig =
         pDistributionConfig_
     }
 
--- | The distribution's configuration information.
-cdDistributionConfig :: Lens' CreateDistribution DistributionConfig
-cdDistributionConfig = lens _cdDistributionConfig (\s a -> s {_cdDistributionConfig = a})
+-- | The distribution\'s configuration information.
+createDistribution_distributionConfig :: Lens.Lens' CreateDistribution DistributionConfig
+createDistribution_distributionConfig = Lens.lens (\CreateDistribution' {distributionConfig} -> distributionConfig) (\s@CreateDistribution' {} a -> s {distributionConfig = a} :: CreateDistribution)
 
-instance AWSRequest CreateDistribution where
+instance Prelude.AWSRequest CreateDistribution where
   type
     Rs CreateDistribution =
       CreateDistributionResponse
-  request = postXML cloudFront
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateDistributionResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (h .#? "Location")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (h Prelude..#? "Location")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDistribution
+instance Prelude.Hashable CreateDistribution
 
-instance NFData CreateDistribution
+instance Prelude.NFData CreateDistribution
 
-instance ToElement CreateDistribution where
-  toElement =
-    mkElement
+instance Prelude.ToElement CreateDistribution where
+  toElement CreateDistribution' {..} =
+    Prelude.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}DistributionConfig"
-      . _cdDistributionConfig
+      distributionConfig
 
-instance ToHeaders CreateDistribution where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateDistribution where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateDistribution where
-  toPath = const "/2020-05-31/distribution"
+instance Prelude.ToPath CreateDistribution where
+  toPath = Prelude.const "/2020-05-31/distribution"
 
-instance ToQuery CreateDistribution where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDistribution where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The returned result of the corresponding request.
 --
---
---
--- /See:/ 'createDistributionResponse' smart constructor.
+-- /See:/ 'newCreateDistributionResponse' smart constructor.
 data CreateDistributionResponse = CreateDistributionResponse'
-  { _cdrrsETag ::
-      !(Maybe Text),
-    _cdrrsDistribution ::
-      !( Maybe
-           Distribution
-       ),
-    _cdrrsLocation ::
-      !(Maybe Text),
-    _cdrrsResponseStatus ::
-      !Int
+  { -- | The current version of the distribution created.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | The distribution\'s information.
+    distribution :: Prelude.Maybe Distribution,
+    -- | The fully qualified URI of the new distribution resource just created.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDistributionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDistributionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdrrsETag' - The current version of the distribution created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdrrsDistribution' - The distribution's information.
+-- 'eTag', 'createDistributionResponse_eTag' - The current version of the distribution created.
 --
--- * 'cdrrsLocation' - The fully qualified URI of the new distribution resource just created.
+-- 'distribution', 'createDistributionResponse_distribution' - The distribution\'s information.
 --
--- * 'cdrrsResponseStatus' - -- | The response status code.
-createDistributionResponse ::
-  -- | 'cdrrsResponseStatus'
-  Int ->
+-- 'location', 'createDistributionResponse_location' - The fully qualified URI of the new distribution resource just created.
+--
+-- 'httpStatus', 'createDistributionResponse_httpStatus' - The response's http status code.
+newCreateDistributionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDistributionResponse
-createDistributionResponse pResponseStatus_ =
+newCreateDistributionResponse pHttpStatus_ =
   CreateDistributionResponse'
-    { _cdrrsETag = Nothing,
-      _cdrrsDistribution = Nothing,
-      _cdrrsLocation = Nothing,
-      _cdrrsResponseStatus = pResponseStatus_
+    { eTag = Prelude.Nothing,
+      distribution = Prelude.Nothing,
+      location = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current version of the distribution created.
-cdrrsETag :: Lens' CreateDistributionResponse (Maybe Text)
-cdrrsETag = lens _cdrrsETag (\s a -> s {_cdrrsETag = a})
+createDistributionResponse_eTag :: Lens.Lens' CreateDistributionResponse (Prelude.Maybe Prelude.Text)
+createDistributionResponse_eTag = Lens.lens (\CreateDistributionResponse' {eTag} -> eTag) (\s@CreateDistributionResponse' {} a -> s {eTag = a} :: CreateDistributionResponse)
 
--- | The distribution's information.
-cdrrsDistribution :: Lens' CreateDistributionResponse (Maybe Distribution)
-cdrrsDistribution = lens _cdrrsDistribution (\s a -> s {_cdrrsDistribution = a})
+-- | The distribution\'s information.
+createDistributionResponse_distribution :: Lens.Lens' CreateDistributionResponse (Prelude.Maybe Distribution)
+createDistributionResponse_distribution = Lens.lens (\CreateDistributionResponse' {distribution} -> distribution) (\s@CreateDistributionResponse' {} a -> s {distribution = a} :: CreateDistributionResponse)
 
 -- | The fully qualified URI of the new distribution resource just created.
-cdrrsLocation :: Lens' CreateDistributionResponse (Maybe Text)
-cdrrsLocation = lens _cdrrsLocation (\s a -> s {_cdrrsLocation = a})
+createDistributionResponse_location :: Lens.Lens' CreateDistributionResponse (Prelude.Maybe Prelude.Text)
+createDistributionResponse_location = Lens.lens (\CreateDistributionResponse' {location} -> location) (\s@CreateDistributionResponse' {} a -> s {location = a} :: CreateDistributionResponse)
 
--- | -- | The response status code.
-cdrrsResponseStatus :: Lens' CreateDistributionResponse Int
-cdrrsResponseStatus = lens _cdrrsResponseStatus (\s a -> s {_cdrrsResponseStatus = a})
+-- | The response's http status code.
+createDistributionResponse_httpStatus :: Lens.Lens' CreateDistributionResponse Prelude.Int
+createDistributionResponse_httpStatus = Lens.lens (\CreateDistributionResponse' {httpStatus} -> httpStatus) (\s@CreateDistributionResponse' {} a -> s {httpStatus = a} :: CreateDistributionResponse)
 
-instance NFData CreateDistributionResponse
+instance Prelude.NFData CreateDistributionResponse

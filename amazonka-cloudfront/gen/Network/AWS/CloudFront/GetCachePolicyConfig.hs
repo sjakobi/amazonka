@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,146 +23,154 @@
 --
 -- Gets a cache policy configuration.
 --
---
--- To get a cache policy configuration, you must provide the policy’s identifier. If the cache policy is attached to a distribution’s cache behavior, you can get the policy’s identifier using @ListDistributions@ or @GetDistribution@ . If the cache policy is not attached to a cache behavior, you can get the identifier using @ListCachePolicies@ .
+-- To get a cache policy configuration, you must provide the policy’s
+-- identifier. If the cache policy is attached to a distribution’s cache
+-- behavior, you can get the policy’s identifier using @ListDistributions@
+-- or @GetDistribution@. If the cache policy is not attached to a cache
+-- behavior, you can get the identifier using @ListCachePolicies@.
 module Network.AWS.CloudFront.GetCachePolicyConfig
   ( -- * Creating a Request
-    getCachePolicyConfig,
-    GetCachePolicyConfig,
+    GetCachePolicyConfig (..),
+    newGetCachePolicyConfig,
 
     -- * Request Lenses
-    gcpcId,
+    getCachePolicyConfig_id,
 
     -- * Destructuring the Response
-    getCachePolicyConfigResponse,
-    GetCachePolicyConfigResponse,
+    GetCachePolicyConfigResponse (..),
+    newGetCachePolicyConfigResponse,
 
     -- * Response Lenses
-    gcpcrrsETag,
-    gcpcrrsCachePolicyConfig,
-    gcpcrrsResponseStatus,
+    getCachePolicyConfigResponse_eTag,
+    getCachePolicyConfigResponse_cachePolicyConfig,
+    getCachePolicyConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.CachePolicyConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getCachePolicyConfig' smart constructor.
-newtype GetCachePolicyConfig = GetCachePolicyConfig'
-  { _gcpcId ::
-      Text
+-- | /See:/ 'newGetCachePolicyConfig' smart constructor.
+data GetCachePolicyConfig = GetCachePolicyConfig'
+  { -- | The unique identifier for the cache policy. If the cache policy is
+    -- attached to a distribution’s cache behavior, you can get the policy’s
+    -- identifier using @ListDistributions@ or @GetDistribution@. If the cache
+    -- policy is not attached to a cache behavior, you can get the identifier
+    -- using @ListCachePolicies@.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCachePolicyConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCachePolicyConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcpcId' - The unique identifier for the cache policy. If the cache policy is attached to a distribution’s cache behavior, you can get the policy’s identifier using @ListDistributions@ or @GetDistribution@ . If the cache policy is not attached to a cache behavior, you can get the identifier using @ListCachePolicies@ .
-getCachePolicyConfig ::
-  -- | 'gcpcId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'getCachePolicyConfig_id' - The unique identifier for the cache policy. If the cache policy is
+-- attached to a distribution’s cache behavior, you can get the policy’s
+-- identifier using @ListDistributions@ or @GetDistribution@. If the cache
+-- policy is not attached to a cache behavior, you can get the identifier
+-- using @ListCachePolicies@.
+newGetCachePolicyConfig ::
+  -- | 'id'
+  Prelude.Text ->
   GetCachePolicyConfig
-getCachePolicyConfig pId_ =
-  GetCachePolicyConfig' {_gcpcId = pId_}
+newGetCachePolicyConfig pId_ =
+  GetCachePolicyConfig' {id = pId_}
 
--- | The unique identifier for the cache policy. If the cache policy is attached to a distribution’s cache behavior, you can get the policy’s identifier using @ListDistributions@ or @GetDistribution@ . If the cache policy is not attached to a cache behavior, you can get the identifier using @ListCachePolicies@ .
-gcpcId :: Lens' GetCachePolicyConfig Text
-gcpcId = lens _gcpcId (\s a -> s {_gcpcId = a})
+-- | The unique identifier for the cache policy. If the cache policy is
+-- attached to a distribution’s cache behavior, you can get the policy’s
+-- identifier using @ListDistributions@ or @GetDistribution@. If the cache
+-- policy is not attached to a cache behavior, you can get the identifier
+-- using @ListCachePolicies@.
+getCachePolicyConfig_id :: Lens.Lens' GetCachePolicyConfig Prelude.Text
+getCachePolicyConfig_id = Lens.lens (\GetCachePolicyConfig' {id} -> id) (\s@GetCachePolicyConfig' {} a -> s {id = a} :: GetCachePolicyConfig)
 
-instance AWSRequest GetCachePolicyConfig where
+instance Prelude.AWSRequest GetCachePolicyConfig where
   type
     Rs GetCachePolicyConfig =
       GetCachePolicyConfigResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetCachePolicyConfigResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCachePolicyConfig
+instance Prelude.Hashable GetCachePolicyConfig
 
-instance NFData GetCachePolicyConfig
+instance Prelude.NFData GetCachePolicyConfig
 
-instance ToHeaders GetCachePolicyConfig where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetCachePolicyConfig where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetCachePolicyConfig where
+instance Prelude.ToPath GetCachePolicyConfig where
   toPath GetCachePolicyConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2020-05-31/cache-policy/",
-        toBS _gcpcId,
+        Prelude.toBS id,
         "/config"
       ]
 
-instance ToQuery GetCachePolicyConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCachePolicyConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCachePolicyConfigResponse' smart constructor.
+-- | /See:/ 'newGetCachePolicyConfigResponse' smart constructor.
 data GetCachePolicyConfigResponse = GetCachePolicyConfigResponse'
-  { _gcpcrrsETag ::
-      !(Maybe Text),
-    _gcpcrrsCachePolicyConfig ::
-      !( Maybe
-           CachePolicyConfig
-       ),
-    _gcpcrrsResponseStatus ::
-      !Int
+  { -- | The current version of the cache policy.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | The cache policy configuration.
+    cachePolicyConfig :: Prelude.Maybe CachePolicyConfig,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCachePolicyConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCachePolicyConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcpcrrsETag' - The current version of the cache policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcpcrrsCachePolicyConfig' - The cache policy configuration.
+-- 'eTag', 'getCachePolicyConfigResponse_eTag' - The current version of the cache policy.
 --
--- * 'gcpcrrsResponseStatus' - -- | The response status code.
-getCachePolicyConfigResponse ::
-  -- | 'gcpcrrsResponseStatus'
-  Int ->
+-- 'cachePolicyConfig', 'getCachePolicyConfigResponse_cachePolicyConfig' - The cache policy configuration.
+--
+-- 'httpStatus', 'getCachePolicyConfigResponse_httpStatus' - The response's http status code.
+newGetCachePolicyConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCachePolicyConfigResponse
-getCachePolicyConfigResponse pResponseStatus_ =
+newGetCachePolicyConfigResponse pHttpStatus_ =
   GetCachePolicyConfigResponse'
-    { _gcpcrrsETag =
-        Nothing,
-      _gcpcrrsCachePolicyConfig = Nothing,
-      _gcpcrrsResponseStatus = pResponseStatus_
+    { eTag =
+        Prelude.Nothing,
+      cachePolicyConfig = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current version of the cache policy.
-gcpcrrsETag :: Lens' GetCachePolicyConfigResponse (Maybe Text)
-gcpcrrsETag = lens _gcpcrrsETag (\s a -> s {_gcpcrrsETag = a})
+getCachePolicyConfigResponse_eTag :: Lens.Lens' GetCachePolicyConfigResponse (Prelude.Maybe Prelude.Text)
+getCachePolicyConfigResponse_eTag = Lens.lens (\GetCachePolicyConfigResponse' {eTag} -> eTag) (\s@GetCachePolicyConfigResponse' {} a -> s {eTag = a} :: GetCachePolicyConfigResponse)
 
 -- | The cache policy configuration.
-gcpcrrsCachePolicyConfig :: Lens' GetCachePolicyConfigResponse (Maybe CachePolicyConfig)
-gcpcrrsCachePolicyConfig = lens _gcpcrrsCachePolicyConfig (\s a -> s {_gcpcrrsCachePolicyConfig = a})
+getCachePolicyConfigResponse_cachePolicyConfig :: Lens.Lens' GetCachePolicyConfigResponse (Prelude.Maybe CachePolicyConfig)
+getCachePolicyConfigResponse_cachePolicyConfig = Lens.lens (\GetCachePolicyConfigResponse' {cachePolicyConfig} -> cachePolicyConfig) (\s@GetCachePolicyConfigResponse' {} a -> s {cachePolicyConfig = a} :: GetCachePolicyConfigResponse)
 
--- | -- | The response status code.
-gcpcrrsResponseStatus :: Lens' GetCachePolicyConfigResponse Int
-gcpcrrsResponseStatus = lens _gcpcrrsResponseStatus (\s a -> s {_gcpcrrsResponseStatus = a})
+-- | The response's http status code.
+getCachePolicyConfigResponse_httpStatus :: Lens.Lens' GetCachePolicyConfigResponse Prelude.Int
+getCachePolicyConfigResponse_httpStatus = Lens.lens (\GetCachePolicyConfigResponse' {httpStatus} -> httpStatus) (\s@GetCachePolicyConfigResponse' {} a -> s {httpStatus = a} :: GetCachePolicyConfigResponse)
 
-instance NFData GetCachePolicyConfigResponse
+instance Prelude.NFData GetCachePolicyConfigResponse

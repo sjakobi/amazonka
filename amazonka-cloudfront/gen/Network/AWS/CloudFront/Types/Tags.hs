@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,42 +20,50 @@
 module Network.AWS.CloudFront.Types.Tags where
 
 import Network.AWS.CloudFront.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A complex type that contains zero or more @Tag@ elements.
 --
---
---
--- /See:/ 'tags' smart constructor.
-newtype Tags = Tags' {_tItems :: Maybe [Tag]}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newTags' smart constructor.
+data Tags = Tags'
+  { -- | A complex type that contains @Tag@ elements.
+    items :: Prelude.Maybe [Tag]
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tItems' - A complex type that contains @Tag@ elements.
-tags ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'items', 'tags_items' - A complex type that contains @Tag@ elements.
+newTags ::
   Tags
-tags = Tags' {_tItems = Nothing}
+newTags = Tags' {items = Prelude.Nothing}
 
 -- | A complex type that contains @Tag@ elements.
-tItems :: Lens' Tags [Tag]
-tItems = lens _tItems (\s a -> s {_tItems = a}) . _Default . _Coerce
+tags_items :: Lens.Lens' Tags (Prelude.Maybe [Tag])
+tags_items = Lens.lens (\Tags' {items} -> items) (\s@Tags' {} a -> s {items = a} :: Tags) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML Tags where
+instance Prelude.FromXML Tags where
   parseXML x =
     Tags'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "Tag")
-          )
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Tag")
+                  )
 
-instance Hashable Tags
+instance Prelude.Hashable Tags
 
-instance NFData Tags
+instance Prelude.NFData Tags
 
-instance ToXML Tags where
+instance Prelude.ToXML Tags where
   toXML Tags' {..} =
-    mconcat
-      ["Items" @= toXML (toXMLList "Tag" <$> _tItems)]
+    Prelude.mconcat
+      [ "Items"
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "Tag" Prelude.<$> items)
+      ]

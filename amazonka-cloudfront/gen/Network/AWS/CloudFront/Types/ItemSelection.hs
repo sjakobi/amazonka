@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CloudFront.Types.ItemSelection
   ( ItemSelection
       ( ..,
-        ISAll,
-        ISNone,
-        ISWhitelist
+        ItemSelectionAll,
+        ItemSelectionNone,
+        ItemSelectionWhitelist
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ItemSelection = ItemSelection' (CI Text)
+newtype ItemSelection = ItemSelection'
+  { fromItemSelection ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISAll :: ItemSelection
-pattern ISAll = ItemSelection' "all"
+pattern ItemSelectionAll :: ItemSelection
+pattern ItemSelectionAll = ItemSelection' "all"
 
-pattern ISNone :: ItemSelection
-pattern ISNone = ItemSelection' "none"
+pattern ItemSelectionNone :: ItemSelection
+pattern ItemSelectionNone = ItemSelection' "none"
 
-pattern ISWhitelist :: ItemSelection
-pattern ISWhitelist = ItemSelection' "whitelist"
+pattern ItemSelectionWhitelist :: ItemSelection
+pattern ItemSelectionWhitelist = ItemSelection' "whitelist"
 
 {-# COMPLETE
-  ISAll,
-  ISNone,
-  ISWhitelist,
+  ItemSelectionAll,
+  ItemSelectionNone,
+  ItemSelectionWhitelist,
   ItemSelection'
   #-}
 
-instance FromText ItemSelection where
-  parser = (ItemSelection' . mk) <$> takeText
+instance Prelude.FromText ItemSelection where
+  parser = ItemSelection' Prelude.<$> Prelude.takeText
 
-instance ToText ItemSelection where
-  toText (ItemSelection' ci) = original ci
+instance Prelude.ToText ItemSelection where
+  toText (ItemSelection' x) = x
 
-instance Hashable ItemSelection
+instance Prelude.Hashable ItemSelection
 
-instance NFData ItemSelection
+instance Prelude.NFData ItemSelection
 
-instance ToByteString ItemSelection
+instance Prelude.ToByteString ItemSelection
 
-instance ToQuery ItemSelection
+instance Prelude.ToQuery ItemSelection
 
-instance ToHeader ItemSelection
+instance Prelude.ToHeader ItemSelection
 
-instance FromXML ItemSelection where
-  parseXML = parseXMLText "ItemSelection"
+instance Prelude.FromXML ItemSelection where
+  parseXML = Prelude.parseXMLText "ItemSelection"
 
-instance ToXML ItemSelection where
-  toXML = toXMLText
+instance Prelude.ToXML ItemSelection where
+  toXML = Prelude.toXMLText

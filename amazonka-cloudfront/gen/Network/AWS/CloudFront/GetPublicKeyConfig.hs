@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,138 +24,134 @@
 -- Gets a public key configuration.
 module Network.AWS.CloudFront.GetPublicKeyConfig
   ( -- * Creating a Request
-    getPublicKeyConfig,
-    GetPublicKeyConfig,
+    GetPublicKeyConfig (..),
+    newGetPublicKeyConfig,
 
     -- * Request Lenses
-    gpkcId,
+    getPublicKeyConfig_id,
 
     -- * Destructuring the Response
-    getPublicKeyConfigResponse,
-    GetPublicKeyConfigResponse,
+    GetPublicKeyConfigResponse (..),
+    newGetPublicKeyConfigResponse,
 
     -- * Response Lenses
-    gpkcrrsETag,
-    gpkcrrsPublicKeyConfig,
-    gpkcrrsResponseStatus,
+    getPublicKeyConfigResponse_eTag,
+    getPublicKeyConfigResponse_publicKeyConfig,
+    getPublicKeyConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.PublicKeyConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getPublicKeyConfig' smart constructor.
-newtype GetPublicKeyConfig = GetPublicKeyConfig'
-  { _gpkcId ::
-      Text
+-- | /See:/ 'newGetPublicKeyConfig' smart constructor.
+data GetPublicKeyConfig = GetPublicKeyConfig'
+  { -- | The identifier of the public key whose configuration you are getting.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPublicKeyConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPublicKeyConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpkcId' - The identifier of the public key whose configuration you are getting.
-getPublicKeyConfig ::
-  -- | 'gpkcId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'getPublicKeyConfig_id' - The identifier of the public key whose configuration you are getting.
+newGetPublicKeyConfig ::
+  -- | 'id'
+  Prelude.Text ->
   GetPublicKeyConfig
-getPublicKeyConfig pId_ =
-  GetPublicKeyConfig' {_gpkcId = pId_}
+newGetPublicKeyConfig pId_ =
+  GetPublicKeyConfig' {id = pId_}
 
 -- | The identifier of the public key whose configuration you are getting.
-gpkcId :: Lens' GetPublicKeyConfig Text
-gpkcId = lens _gpkcId (\s a -> s {_gpkcId = a})
+getPublicKeyConfig_id :: Lens.Lens' GetPublicKeyConfig Prelude.Text
+getPublicKeyConfig_id = Lens.lens (\GetPublicKeyConfig' {id} -> id) (\s@GetPublicKeyConfig' {} a -> s {id = a} :: GetPublicKeyConfig)
 
-instance AWSRequest GetPublicKeyConfig where
+instance Prelude.AWSRequest GetPublicKeyConfig where
   type
     Rs GetPublicKeyConfig =
       GetPublicKeyConfigResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetPublicKeyConfigResponse'
-            <$> (h .#? "ETag")
-            <*> (parseXML x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetPublicKeyConfig
+instance Prelude.Hashable GetPublicKeyConfig
 
-instance NFData GetPublicKeyConfig
+instance Prelude.NFData GetPublicKeyConfig
 
-instance ToHeaders GetPublicKeyConfig where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetPublicKeyConfig where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetPublicKeyConfig where
+instance Prelude.ToPath GetPublicKeyConfig where
   toPath GetPublicKeyConfig' {..} =
-    mconcat
-      ["/2020-05-31/public-key/", toBS _gpkcId, "/config"]
+    Prelude.mconcat
+      [ "/2020-05-31/public-key/",
+        Prelude.toBS id,
+        "/config"
+      ]
 
-instance ToQuery GetPublicKeyConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery GetPublicKeyConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getPublicKeyConfigResponse' smart constructor.
+-- | /See:/ 'newGetPublicKeyConfigResponse' smart constructor.
 data GetPublicKeyConfigResponse = GetPublicKeyConfigResponse'
-  { _gpkcrrsETag ::
-      !(Maybe Text),
-    _gpkcrrsPublicKeyConfig ::
-      !( Maybe
-           PublicKeyConfig
-       ),
-    _gpkcrrsResponseStatus ::
-      !Int
+  { -- | The identifier for this version of the public key configuration.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | A public key configuration.
+    publicKeyConfig :: Prelude.Maybe PublicKeyConfig,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPublicKeyConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPublicKeyConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpkcrrsETag' - The identifier for this version of the public key configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpkcrrsPublicKeyConfig' - A public key configuration.
+-- 'eTag', 'getPublicKeyConfigResponse_eTag' - The identifier for this version of the public key configuration.
 --
--- * 'gpkcrrsResponseStatus' - -- | The response status code.
-getPublicKeyConfigResponse ::
-  -- | 'gpkcrrsResponseStatus'
-  Int ->
+-- 'publicKeyConfig', 'getPublicKeyConfigResponse_publicKeyConfig' - A public key configuration.
+--
+-- 'httpStatus', 'getPublicKeyConfigResponse_httpStatus' - The response's http status code.
+newGetPublicKeyConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetPublicKeyConfigResponse
-getPublicKeyConfigResponse pResponseStatus_ =
+newGetPublicKeyConfigResponse pHttpStatus_ =
   GetPublicKeyConfigResponse'
-    { _gpkcrrsETag = Nothing,
-      _gpkcrrsPublicKeyConfig = Nothing,
-      _gpkcrrsResponseStatus = pResponseStatus_
+    { eTag = Prelude.Nothing,
+      publicKeyConfig = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier for this version of the public key configuration.
-gpkcrrsETag :: Lens' GetPublicKeyConfigResponse (Maybe Text)
-gpkcrrsETag = lens _gpkcrrsETag (\s a -> s {_gpkcrrsETag = a})
+getPublicKeyConfigResponse_eTag :: Lens.Lens' GetPublicKeyConfigResponse (Prelude.Maybe Prelude.Text)
+getPublicKeyConfigResponse_eTag = Lens.lens (\GetPublicKeyConfigResponse' {eTag} -> eTag) (\s@GetPublicKeyConfigResponse' {} a -> s {eTag = a} :: GetPublicKeyConfigResponse)
 
 -- | A public key configuration.
-gpkcrrsPublicKeyConfig :: Lens' GetPublicKeyConfigResponse (Maybe PublicKeyConfig)
-gpkcrrsPublicKeyConfig = lens _gpkcrrsPublicKeyConfig (\s a -> s {_gpkcrrsPublicKeyConfig = a})
+getPublicKeyConfigResponse_publicKeyConfig :: Lens.Lens' GetPublicKeyConfigResponse (Prelude.Maybe PublicKeyConfig)
+getPublicKeyConfigResponse_publicKeyConfig = Lens.lens (\GetPublicKeyConfigResponse' {publicKeyConfig} -> publicKeyConfig) (\s@GetPublicKeyConfigResponse' {} a -> s {publicKeyConfig = a} :: GetPublicKeyConfigResponse)
 
--- | -- | The response status code.
-gpkcrrsResponseStatus :: Lens' GetPublicKeyConfigResponse Int
-gpkcrrsResponseStatus = lens _gpkcrrsResponseStatus (\s a -> s {_gpkcrrsResponseStatus = a})
+-- | The response's http status code.
+getPublicKeyConfigResponse_httpStatus :: Lens.Lens' GetPublicKeyConfigResponse Prelude.Int
+getPublicKeyConfigResponse_httpStatus = Lens.lens (\GetPublicKeyConfigResponse' {httpStatus} -> httpStatus) (\s@GetPublicKeyConfigResponse' {} a -> s {httpStatus = a} :: GetPublicKeyConfigResponse)
 
-instance NFData GetPublicKeyConfigResponse
+instance Prelude.NFData GetPublicKeyConfigResponse

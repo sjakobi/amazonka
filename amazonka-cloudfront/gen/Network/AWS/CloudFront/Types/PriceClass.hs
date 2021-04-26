@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CloudFront.Types.PriceClass
   ( PriceClass
       ( ..,
-        PriceClass100,
-        PriceClass200,
-        PriceClassAll
+        PriceClassPriceClass100,
+        PriceClassPriceClass200,
+        PriceClassPriceClassAll
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PriceClass = PriceClass' (CI Text)
+newtype PriceClass = PriceClass'
+  { fromPriceClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PriceClass100 :: PriceClass
-pattern PriceClass100 = PriceClass' "PriceClass_100"
+pattern PriceClassPriceClass100 :: PriceClass
+pattern PriceClassPriceClass100 = PriceClass' "PriceClass_100"
 
-pattern PriceClass200 :: PriceClass
-pattern PriceClass200 = PriceClass' "PriceClass_200"
+pattern PriceClassPriceClass200 :: PriceClass
+pattern PriceClassPriceClass200 = PriceClass' "PriceClass_200"
 
-pattern PriceClassAll :: PriceClass
-pattern PriceClassAll = PriceClass' "PriceClass_All"
+pattern PriceClassPriceClassAll :: PriceClass
+pattern PriceClassPriceClassAll = PriceClass' "PriceClass_All"
 
 {-# COMPLETE
-  PriceClass100,
-  PriceClass200,
-  PriceClassAll,
+  PriceClassPriceClass100,
+  PriceClassPriceClass200,
+  PriceClassPriceClassAll,
   PriceClass'
   #-}
 
-instance FromText PriceClass where
-  parser = (PriceClass' . mk) <$> takeText
+instance Prelude.FromText PriceClass where
+  parser = PriceClass' Prelude.<$> Prelude.takeText
 
-instance ToText PriceClass where
-  toText (PriceClass' ci) = original ci
+instance Prelude.ToText PriceClass where
+  toText (PriceClass' x) = x
 
-instance Hashable PriceClass
+instance Prelude.Hashable PriceClass
 
-instance NFData PriceClass
+instance Prelude.NFData PriceClass
 
-instance ToByteString PriceClass
+instance Prelude.ToByteString PriceClass
 
-instance ToQuery PriceClass
+instance Prelude.ToQuery PriceClass
 
-instance ToHeader PriceClass
+instance Prelude.ToHeader PriceClass
 
-instance FromXML PriceClass where
-  parseXML = parseXMLText "PriceClass"
+instance Prelude.FromXML PriceClass where
+  parseXML = Prelude.parseXMLText "PriceClass"
 
-instance ToXML PriceClass where
-  toXML = toXMLText
+instance Prelude.ToXML PriceClass where
+  toXML = Prelude.toXMLText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,60 +20,66 @@
 module Network.AWS.CloudFront.Types.Origins where
 
 import Network.AWS.CloudFront.Types.Origin
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the origins for this distribution.
 --
---
---
--- /See:/ 'origins' smart constructor.
+-- /See:/ 'newOrigins' smart constructor.
 data Origins = Origins'
-  { _oQuantity :: !Int,
-    _oItems :: !(List1 Origin)
+  { -- | The number of origins for this distribution.
+    quantity :: Prelude.Int,
+    -- | A list of origins.
+    items :: Prelude.List1 Origin
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Origins' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Origins' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oQuantity' - The number of origins for this distribution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oItems' - A list of origins.
-origins ::
-  -- | 'oQuantity'
-  Int ->
-  -- | 'oItems'
-  NonEmpty Origin ->
+-- 'quantity', 'origins_quantity' - The number of origins for this distribution.
+--
+-- 'items', 'origins_items' - A list of origins.
+newOrigins ::
+  -- | 'quantity'
+  Prelude.Int ->
+  -- | 'items'
+  Prelude.NonEmpty Origin ->
   Origins
-origins pQuantity_ pItems_ =
+newOrigins pQuantity_ pItems_ =
   Origins'
-    { _oQuantity = pQuantity_,
-      _oItems = _List1 # pItems_
+    { quantity = pQuantity_,
+      items = Prelude._List1 Lens.# pItems_
     }
 
 -- | The number of origins for this distribution.
-oQuantity :: Lens' Origins Int
-oQuantity = lens _oQuantity (\s a -> s {_oQuantity = a})
+origins_quantity :: Lens.Lens' Origins Prelude.Int
+origins_quantity = Lens.lens (\Origins' {quantity} -> quantity) (\s@Origins' {} a -> s {quantity = a} :: Origins)
 
 -- | A list of origins.
-oItems :: Lens' Origins (NonEmpty Origin)
-oItems = lens _oItems (\s a -> s {_oItems = a}) . _List1
+origins_items :: Lens.Lens' Origins (Prelude.NonEmpty Origin)
+origins_items = Lens.lens (\Origins' {items} -> items) (\s@Origins' {} a -> s {items = a} :: Origins) Prelude.. Prelude._List1
 
-instance FromXML Origins where
+instance Prelude.FromXML Origins where
   parseXML x =
     Origins'
-      <$> (x .@ "Quantity")
-      <*> (x .@? "Items" .!@ mempty >>= parseXMLList1 "Origin")
+      Prelude.<$> (x Prelude..@ "Quantity")
+      Prelude.<*> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.parseXMLList1 "Origin"
+                  )
 
-instance Hashable Origins
+instance Prelude.Hashable Origins
 
-instance NFData Origins
+instance Prelude.NFData Origins
 
-instance ToXML Origins where
+instance Prelude.ToXML Origins where
   toXML Origins' {..} =
-    mconcat
-      [ "Quantity" @= _oQuantity,
-        "Items" @= toXMLList "Origin" _oItems
+    Prelude.mconcat
+      [ "Quantity" Prelude.@= quantity,
+        "Items" Prelude.@= Prelude.toXMLList "Origin" items
       ]

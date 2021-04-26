@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +21,60 @@ module Network.AWS.CloudFront.Types.CachePolicySummary where
 
 import Network.AWS.CloudFront.Types.CachePolicy
 import Network.AWS.CloudFront.Types.CachePolicyType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains a cache policy.
 --
---
---
--- /See:/ 'cachePolicySummary' smart constructor.
+-- /See:/ 'newCachePolicySummary' smart constructor.
 data CachePolicySummary = CachePolicySummary'
-  { _cpsType ::
-      !CachePolicyType,
-    _cpsCachePolicy :: !CachePolicy
+  { -- | The type of cache policy, either @managed@ (created by AWS) or @custom@
+    -- (created in this AWS account).
+    type' :: CachePolicyType,
+    -- | The cache policy.
+    cachePolicy :: CachePolicy
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CachePolicySummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CachePolicySummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpsType' - The type of cache policy, either @managed@ (created by AWS) or @custom@ (created in this AWS account).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpsCachePolicy' - The cache policy.
-cachePolicySummary ::
-  -- | 'cpsType'
+-- 'type'', 'cachePolicySummary_type' - The type of cache policy, either @managed@ (created by AWS) or @custom@
+-- (created in this AWS account).
+--
+-- 'cachePolicy', 'cachePolicySummary_cachePolicy' - The cache policy.
+newCachePolicySummary ::
+  -- | 'type''
   CachePolicyType ->
-  -- | 'cpsCachePolicy'
+  -- | 'cachePolicy'
   CachePolicy ->
   CachePolicySummary
-cachePolicySummary pType_ pCachePolicy_ =
+newCachePolicySummary pType_ pCachePolicy_ =
   CachePolicySummary'
-    { _cpsType = pType_,
-      _cpsCachePolicy = pCachePolicy_
+    { type' = pType_,
+      cachePolicy = pCachePolicy_
     }
 
--- | The type of cache policy, either @managed@ (created by AWS) or @custom@ (created in this AWS account).
-cpsType :: Lens' CachePolicySummary CachePolicyType
-cpsType = lens _cpsType (\s a -> s {_cpsType = a})
+-- | The type of cache policy, either @managed@ (created by AWS) or @custom@
+-- (created in this AWS account).
+cachePolicySummary_type :: Lens.Lens' CachePolicySummary CachePolicyType
+cachePolicySummary_type = Lens.lens (\CachePolicySummary' {type'} -> type') (\s@CachePolicySummary' {} a -> s {type' = a} :: CachePolicySummary)
 
 -- | The cache policy.
-cpsCachePolicy :: Lens' CachePolicySummary CachePolicy
-cpsCachePolicy = lens _cpsCachePolicy (\s a -> s {_cpsCachePolicy = a})
+cachePolicySummary_cachePolicy :: Lens.Lens' CachePolicySummary CachePolicy
+cachePolicySummary_cachePolicy = Lens.lens (\CachePolicySummary' {cachePolicy} -> cachePolicy) (\s@CachePolicySummary' {} a -> s {cachePolicy = a} :: CachePolicySummary)
 
-instance FromXML CachePolicySummary where
+instance Prelude.FromXML CachePolicySummary where
   parseXML x =
     CachePolicySummary'
-      <$> (x .@ "Type") <*> (x .@ "CachePolicy")
+      Prelude.<$> (x Prelude..@ "Type")
+      Prelude.<*> (x Prelude..@ "CachePolicy")
 
-instance Hashable CachePolicySummary
+instance Prelude.Hashable CachePolicySummary
 
-instance NFData CachePolicySummary
+instance Prelude.NFData CachePolicySummary

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,113 +20,131 @@
 module Network.AWS.CloudFront.Types.StreamingDistributionList where
 
 import Network.AWS.CloudFront.Types.StreamingDistributionSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A streaming distribution list.
 --
---
---
--- /See:/ 'streamingDistributionList' smart constructor.
+-- /See:/ 'newStreamingDistributionList' smart constructor.
 data StreamingDistributionList = StreamingDistributionList'
-  { _sdlItems ::
-      !( Maybe
-           [StreamingDistributionSummary]
-       ),
-    _sdlNextMarker ::
-      !(Maybe Text),
-    _sdlMarker :: !Text,
-    _sdlMaxItems ::
-      !Int,
-    _sdlIsTruncated ::
-      !Bool,
-    _sdlQuantity ::
-      !Int
+  { -- | A complex type that contains one @StreamingDistributionSummary@ element
+    -- for each distribution that was created by the current AWS account.
+    items :: Prelude.Maybe [StreamingDistributionSummary],
+    -- | If @IsTruncated@ is @true@, this element is present and contains the
+    -- value you can use for the @Marker@ request parameter to continue listing
+    -- your RTMP distributions where they left off.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The value you provided for the @Marker@ request parameter.
+    marker :: Prelude.Text,
+    -- | The value you provided for the @MaxItems@ request parameter.
+    maxItems :: Prelude.Int,
+    -- | A flag that indicates whether more streaming distributions remain to be
+    -- listed. If your results were truncated, you can make a follow-up
+    -- pagination request using the @Marker@ request parameter to retrieve more
+    -- distributions in the list.
+    isTruncated :: Prelude.Bool,
+    -- | The number of streaming distributions that were created by the current
+    -- AWS account.
+    quantity :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StreamingDistributionList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StreamingDistributionList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdlItems' - A complex type that contains one @StreamingDistributionSummary@ element for each distribution that was created by the current AWS account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdlNextMarker' - If @IsTruncated@ is @true@ , this element is present and contains the value you can use for the @Marker@ request parameter to continue listing your RTMP distributions where they left off.
+-- 'items', 'streamingDistributionList_items' - A complex type that contains one @StreamingDistributionSummary@ element
+-- for each distribution that was created by the current AWS account.
 --
--- * 'sdlMarker' - The value you provided for the @Marker@ request parameter.
+-- 'nextMarker', 'streamingDistributionList_nextMarker' - If @IsTruncated@ is @true@, this element is present and contains the
+-- value you can use for the @Marker@ request parameter to continue listing
+-- your RTMP distributions where they left off.
 --
--- * 'sdlMaxItems' - The value you provided for the @MaxItems@ request parameter.
+-- 'marker', 'streamingDistributionList_marker' - The value you provided for the @Marker@ request parameter.
 --
--- * 'sdlIsTruncated' - A flag that indicates whether more streaming distributions remain to be listed. If your results were truncated, you can make a follow-up pagination request using the @Marker@ request parameter to retrieve more distributions in the list.
+-- 'maxItems', 'streamingDistributionList_maxItems' - The value you provided for the @MaxItems@ request parameter.
 --
--- * 'sdlQuantity' - The number of streaming distributions that were created by the current AWS account.
-streamingDistributionList ::
-  -- | 'sdlMarker'
-  Text ->
-  -- | 'sdlMaxItems'
-  Int ->
-  -- | 'sdlIsTruncated'
-  Bool ->
-  -- | 'sdlQuantity'
-  Int ->
+-- 'isTruncated', 'streamingDistributionList_isTruncated' - A flag that indicates whether more streaming distributions remain to be
+-- listed. If your results were truncated, you can make a follow-up
+-- pagination request using the @Marker@ request parameter to retrieve more
+-- distributions in the list.
+--
+-- 'quantity', 'streamingDistributionList_quantity' - The number of streaming distributions that were created by the current
+-- AWS account.
+newStreamingDistributionList ::
+  -- | 'marker'
+  Prelude.Text ->
+  -- | 'maxItems'
+  Prelude.Int ->
+  -- | 'isTruncated'
+  Prelude.Bool ->
+  -- | 'quantity'
+  Prelude.Int ->
   StreamingDistributionList
-streamingDistributionList
+newStreamingDistributionList
   pMarker_
   pMaxItems_
   pIsTruncated_
   pQuantity_ =
     StreamingDistributionList'
-      { _sdlItems = Nothing,
-        _sdlNextMarker = Nothing,
-        _sdlMarker = pMarker_,
-        _sdlMaxItems = pMaxItems_,
-        _sdlIsTruncated = pIsTruncated_,
-        _sdlQuantity = pQuantity_
+      { items = Prelude.Nothing,
+        nextMarker = Prelude.Nothing,
+        marker = pMarker_,
+        maxItems = pMaxItems_,
+        isTruncated = pIsTruncated_,
+        quantity = pQuantity_
       }
 
--- | A complex type that contains one @StreamingDistributionSummary@ element for each distribution that was created by the current AWS account.
-sdlItems :: Lens' StreamingDistributionList [StreamingDistributionSummary]
-sdlItems = lens _sdlItems (\s a -> s {_sdlItems = a}) . _Default . _Coerce
+-- | A complex type that contains one @StreamingDistributionSummary@ element
+-- for each distribution that was created by the current AWS account.
+streamingDistributionList_items :: Lens.Lens' StreamingDistributionList (Prelude.Maybe [StreamingDistributionSummary])
+streamingDistributionList_items = Lens.lens (\StreamingDistributionList' {items} -> items) (\s@StreamingDistributionList' {} a -> s {items = a} :: StreamingDistributionList) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If @IsTruncated@ is @true@ , this element is present and contains the value you can use for the @Marker@ request parameter to continue listing your RTMP distributions where they left off.
-sdlNextMarker :: Lens' StreamingDistributionList (Maybe Text)
-sdlNextMarker = lens _sdlNextMarker (\s a -> s {_sdlNextMarker = a})
+-- | If @IsTruncated@ is @true@, this element is present and contains the
+-- value you can use for the @Marker@ request parameter to continue listing
+-- your RTMP distributions where they left off.
+streamingDistributionList_nextMarker :: Lens.Lens' StreamingDistributionList (Prelude.Maybe Prelude.Text)
+streamingDistributionList_nextMarker = Lens.lens (\StreamingDistributionList' {nextMarker} -> nextMarker) (\s@StreamingDistributionList' {} a -> s {nextMarker = a} :: StreamingDistributionList)
 
 -- | The value you provided for the @Marker@ request parameter.
-sdlMarker :: Lens' StreamingDistributionList Text
-sdlMarker = lens _sdlMarker (\s a -> s {_sdlMarker = a})
+streamingDistributionList_marker :: Lens.Lens' StreamingDistributionList Prelude.Text
+streamingDistributionList_marker = Lens.lens (\StreamingDistributionList' {marker} -> marker) (\s@StreamingDistributionList' {} a -> s {marker = a} :: StreamingDistributionList)
 
 -- | The value you provided for the @MaxItems@ request parameter.
-sdlMaxItems :: Lens' StreamingDistributionList Int
-sdlMaxItems = lens _sdlMaxItems (\s a -> s {_sdlMaxItems = a})
+streamingDistributionList_maxItems :: Lens.Lens' StreamingDistributionList Prelude.Int
+streamingDistributionList_maxItems = Lens.lens (\StreamingDistributionList' {maxItems} -> maxItems) (\s@StreamingDistributionList' {} a -> s {maxItems = a} :: StreamingDistributionList)
 
--- | A flag that indicates whether more streaming distributions remain to be listed. If your results were truncated, you can make a follow-up pagination request using the @Marker@ request parameter to retrieve more distributions in the list.
-sdlIsTruncated :: Lens' StreamingDistributionList Bool
-sdlIsTruncated = lens _sdlIsTruncated (\s a -> s {_sdlIsTruncated = a})
+-- | A flag that indicates whether more streaming distributions remain to be
+-- listed. If your results were truncated, you can make a follow-up
+-- pagination request using the @Marker@ request parameter to retrieve more
+-- distributions in the list.
+streamingDistributionList_isTruncated :: Lens.Lens' StreamingDistributionList Prelude.Bool
+streamingDistributionList_isTruncated = Lens.lens (\StreamingDistributionList' {isTruncated} -> isTruncated) (\s@StreamingDistributionList' {} a -> s {isTruncated = a} :: StreamingDistributionList)
 
--- | The number of streaming distributions that were created by the current AWS account.
-sdlQuantity :: Lens' StreamingDistributionList Int
-sdlQuantity = lens _sdlQuantity (\s a -> s {_sdlQuantity = a})
+-- | The number of streaming distributions that were created by the current
+-- AWS account.
+streamingDistributionList_quantity :: Lens.Lens' StreamingDistributionList Prelude.Int
+streamingDistributionList_quantity = Lens.lens (\StreamingDistributionList' {quantity} -> quantity) (\s@StreamingDistributionList' {} a -> s {quantity = a} :: StreamingDistributionList)
 
-instance FromXML StreamingDistributionList where
+instance Prelude.FromXML StreamingDistributionList where
   parseXML x =
     StreamingDistributionList'
-      <$> ( x .@? "Items" .!@ mempty
-              >>= may (parseXMLList "StreamingDistributionSummary")
-          )
-      <*> (x .@? "NextMarker")
-      <*> (x .@ "Marker")
-      <*> (x .@ "MaxItems")
-      <*> (x .@ "IsTruncated")
-      <*> (x .@ "Quantity")
+      Prelude.<$> ( x Prelude..@? "Items" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        ( Prelude.parseXMLList
+                            "StreamingDistributionSummary"
+                        )
+                  )
+      Prelude.<*> (x Prelude..@? "NextMarker")
+      Prelude.<*> (x Prelude..@ "Marker")
+      Prelude.<*> (x Prelude..@ "MaxItems")
+      Prelude.<*> (x Prelude..@ "IsTruncated")
+      Prelude.<*> (x Prelude..@ "Quantity")
 
-instance Hashable StreamingDistributionList
+instance Prelude.Hashable StreamingDistributionList
 
-instance NFData StreamingDistributionList
+instance Prelude.NFData StreamingDistributionList

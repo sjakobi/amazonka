@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,159 +23,191 @@
 --
 -- Gets a list of origin request policies.
 --
+-- You can optionally apply a filter to return only the managed policies
+-- created by AWS, or only the custom policies created in your AWS account.
 --
--- You can optionally apply a filter to return only the managed policies created by AWS, or only the custom policies created in your AWS account.
---
--- You can optionally specify the maximum number of items to receive in the response. If the total number of items in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the next page of items, send a subsequent request that specifies the @NextMarker@ value from the current response as the @Marker@ value in the subsequent request.
+-- You can optionally specify the maximum number of items to receive in the
+-- response. If the total number of items in the list exceeds the maximum
+-- that you specify, or the default maximum, the response is paginated. To
+-- get the next page of items, send a subsequent request that specifies the
+-- @NextMarker@ value from the current response as the @Marker@ value in
+-- the subsequent request.
 module Network.AWS.CloudFront.ListOriginRequestPolicies
   ( -- * Creating a Request
-    listOriginRequestPolicies,
-    ListOriginRequestPolicies,
+    ListOriginRequestPolicies (..),
+    newListOriginRequestPolicies,
 
     -- * Request Lenses
-    lorpType,
-    lorpMaxItems,
-    lorpMarker,
+    listOriginRequestPolicies_type,
+    listOriginRequestPolicies_maxItems,
+    listOriginRequestPolicies_marker,
 
     -- * Destructuring the Response
-    listOriginRequestPoliciesResponse,
-    ListOriginRequestPoliciesResponse,
+    ListOriginRequestPoliciesResponse (..),
+    newListOriginRequestPoliciesResponse,
 
     -- * Response Lenses
-    lorprrsOriginRequestPolicyList,
-    lorprrsResponseStatus,
+    listOriginRequestPoliciesResponse_originRequestPolicyList,
+    listOriginRequestPoliciesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudFront.Types.OriginRequestPolicyList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listOriginRequestPolicies' smart constructor.
+-- | /See:/ 'newListOriginRequestPolicies' smart constructor.
 data ListOriginRequestPolicies = ListOriginRequestPolicies'
-  { _lorpType ::
-      !( Maybe
-           OriginRequestPolicyType
-       ),
-    _lorpMaxItems ::
-      !(Maybe Text),
-    _lorpMarker ::
-      !(Maybe Text)
+  { -- | A filter to return only the specified kinds of origin request policies.
+    -- Valid values are:
+    --
+    -- -   @managed@ – Returns only the managed policies created by AWS.
+    --
+    -- -   @custom@ – Returns only the custom policies created in your AWS
+    --     account.
+    type' :: Prelude.Maybe OriginRequestPolicyType,
+    -- | The maximum number of origin request policies that you want in the
+    -- response.
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | Use this field when paginating results to indicate where to begin in
+    -- your list of origin request policies. The response includes origin
+    -- request policies in the list that occur after the marker. To get the
+    -- next page of the list, set this field’s value to the value of
+    -- @NextMarker@ from the current page’s response.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOriginRequestPolicies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOriginRequestPolicies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lorpType' - A filter to return only the specified kinds of origin request policies. Valid values are:     * @managed@ – Returns only the managed policies created by AWS.     * @custom@ – Returns only the custom policies created in your AWS account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lorpMaxItems' - The maximum number of origin request policies that you want in the response.
+-- 'type'', 'listOriginRequestPolicies_type' - A filter to return only the specified kinds of origin request policies.
+-- Valid values are:
 --
--- * 'lorpMarker' - Use this field when paginating results to indicate where to begin in your list of origin request policies. The response includes origin request policies in the list that occur after the marker. To get the next page of the list, set this field’s value to the value of @NextMarker@ from the current page’s response.
-listOriginRequestPolicies ::
+-- -   @managed@ – Returns only the managed policies created by AWS.
+--
+-- -   @custom@ – Returns only the custom policies created in your AWS
+--     account.
+--
+-- 'maxItems', 'listOriginRequestPolicies_maxItems' - The maximum number of origin request policies that you want in the
+-- response.
+--
+-- 'marker', 'listOriginRequestPolicies_marker' - Use this field when paginating results to indicate where to begin in
+-- your list of origin request policies. The response includes origin
+-- request policies in the list that occur after the marker. To get the
+-- next page of the list, set this field’s value to the value of
+-- @NextMarker@ from the current page’s response.
+newListOriginRequestPolicies ::
   ListOriginRequestPolicies
-listOriginRequestPolicies =
+newListOriginRequestPolicies =
   ListOriginRequestPolicies'
-    { _lorpType = Nothing,
-      _lorpMaxItems = Nothing,
-      _lorpMarker = Nothing
+    { type' = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | A filter to return only the specified kinds of origin request policies. Valid values are:     * @managed@ – Returns only the managed policies created by AWS.     * @custom@ – Returns only the custom policies created in your AWS account.
-lorpType :: Lens' ListOriginRequestPolicies (Maybe OriginRequestPolicyType)
-lorpType = lens _lorpType (\s a -> s {_lorpType = a})
+-- | A filter to return only the specified kinds of origin request policies.
+-- Valid values are:
+--
+-- -   @managed@ – Returns only the managed policies created by AWS.
+--
+-- -   @custom@ – Returns only the custom policies created in your AWS
+--     account.
+listOriginRequestPolicies_type :: Lens.Lens' ListOriginRequestPolicies (Prelude.Maybe OriginRequestPolicyType)
+listOriginRequestPolicies_type = Lens.lens (\ListOriginRequestPolicies' {type'} -> type') (\s@ListOriginRequestPolicies' {} a -> s {type' = a} :: ListOriginRequestPolicies)
 
--- | The maximum number of origin request policies that you want in the response.
-lorpMaxItems :: Lens' ListOriginRequestPolicies (Maybe Text)
-lorpMaxItems = lens _lorpMaxItems (\s a -> s {_lorpMaxItems = a})
+-- | The maximum number of origin request policies that you want in the
+-- response.
+listOriginRequestPolicies_maxItems :: Lens.Lens' ListOriginRequestPolicies (Prelude.Maybe Prelude.Text)
+listOriginRequestPolicies_maxItems = Lens.lens (\ListOriginRequestPolicies' {maxItems} -> maxItems) (\s@ListOriginRequestPolicies' {} a -> s {maxItems = a} :: ListOriginRequestPolicies)
 
--- | Use this field when paginating results to indicate where to begin in your list of origin request policies. The response includes origin request policies in the list that occur after the marker. To get the next page of the list, set this field’s value to the value of @NextMarker@ from the current page’s response.
-lorpMarker :: Lens' ListOriginRequestPolicies (Maybe Text)
-lorpMarker = lens _lorpMarker (\s a -> s {_lorpMarker = a})
+-- | Use this field when paginating results to indicate where to begin in
+-- your list of origin request policies. The response includes origin
+-- request policies in the list that occur after the marker. To get the
+-- next page of the list, set this field’s value to the value of
+-- @NextMarker@ from the current page’s response.
+listOriginRequestPolicies_marker :: Lens.Lens' ListOriginRequestPolicies (Prelude.Maybe Prelude.Text)
+listOriginRequestPolicies_marker = Lens.lens (\ListOriginRequestPolicies' {marker} -> marker) (\s@ListOriginRequestPolicies' {} a -> s {marker = a} :: ListOriginRequestPolicies)
 
-instance AWSRequest ListOriginRequestPolicies where
+instance Prelude.AWSRequest ListOriginRequestPolicies where
   type
     Rs ListOriginRequestPolicies =
       ListOriginRequestPoliciesResponse
-  request = get cloudFront
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListOriginRequestPoliciesResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListOriginRequestPolicies
+instance Prelude.Hashable ListOriginRequestPolicies
 
-instance NFData ListOriginRequestPolicies
+instance Prelude.NFData ListOriginRequestPolicies
 
-instance ToHeaders ListOriginRequestPolicies where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListOriginRequestPolicies where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListOriginRequestPolicies where
-  toPath = const "/2020-05-31/origin-request-policy"
+instance Prelude.ToPath ListOriginRequestPolicies where
+  toPath =
+    Prelude.const "/2020-05-31/origin-request-policy"
 
-instance ToQuery ListOriginRequestPolicies where
+instance Prelude.ToQuery ListOriginRequestPolicies where
   toQuery ListOriginRequestPolicies' {..} =
-    mconcat
-      [ "Type" =: _lorpType,
-        "MaxItems" =: _lorpMaxItems,
-        "Marker" =: _lorpMarker
+    Prelude.mconcat
+      [ "Type" Prelude.=: type',
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
       ]
 
--- | /See:/ 'listOriginRequestPoliciesResponse' smart constructor.
+-- | /See:/ 'newListOriginRequestPoliciesResponse' smart constructor.
 data ListOriginRequestPoliciesResponse = ListOriginRequestPoliciesResponse'
-  { _lorprrsOriginRequestPolicyList ::
-      !( Maybe
-           OriginRequestPolicyList
-       ),
-    _lorprrsResponseStatus ::
-      !Int
+  { -- | A list of origin request policies.
+    originRequestPolicyList :: Prelude.Maybe OriginRequestPolicyList,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOriginRequestPoliciesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOriginRequestPoliciesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lorprrsOriginRequestPolicyList' - A list of origin request policies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lorprrsResponseStatus' - -- | The response status code.
-listOriginRequestPoliciesResponse ::
-  -- | 'lorprrsResponseStatus'
-  Int ->
+-- 'originRequestPolicyList', 'listOriginRequestPoliciesResponse_originRequestPolicyList' - A list of origin request policies.
+--
+-- 'httpStatus', 'listOriginRequestPoliciesResponse_httpStatus' - The response's http status code.
+newListOriginRequestPoliciesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListOriginRequestPoliciesResponse
-listOriginRequestPoliciesResponse pResponseStatus_ =
+newListOriginRequestPoliciesResponse pHttpStatus_ =
   ListOriginRequestPoliciesResponse'
-    { _lorprrsOriginRequestPolicyList =
-        Nothing,
-      _lorprrsResponseStatus =
-        pResponseStatus_
+    { originRequestPolicyList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of origin request policies.
-lorprrsOriginRequestPolicyList :: Lens' ListOriginRequestPoliciesResponse (Maybe OriginRequestPolicyList)
-lorprrsOriginRequestPolicyList = lens _lorprrsOriginRequestPolicyList (\s a -> s {_lorprrsOriginRequestPolicyList = a})
+listOriginRequestPoliciesResponse_originRequestPolicyList :: Lens.Lens' ListOriginRequestPoliciesResponse (Prelude.Maybe OriginRequestPolicyList)
+listOriginRequestPoliciesResponse_originRequestPolicyList = Lens.lens (\ListOriginRequestPoliciesResponse' {originRequestPolicyList} -> originRequestPolicyList) (\s@ListOriginRequestPoliciesResponse' {} a -> s {originRequestPolicyList = a} :: ListOriginRequestPoliciesResponse)
 
--- | -- | The response status code.
-lorprrsResponseStatus :: Lens' ListOriginRequestPoliciesResponse Int
-lorprrsResponseStatus = lens _lorprrsResponseStatus (\s a -> s {_lorprrsResponseStatus = a})
+-- | The response's http status code.
+listOriginRequestPoliciesResponse_httpStatus :: Lens.Lens' ListOriginRequestPoliciesResponse Prelude.Int
+listOriginRequestPoliciesResponse_httpStatus = Lens.lens (\ListOriginRequestPoliciesResponse' {httpStatus} -> httpStatus) (\s@ListOriginRequestPoliciesResponse' {} a -> s {httpStatus = a} :: ListOriginRequestPoliciesResponse)
 
-instance NFData ListOriginRequestPoliciesResponse
+instance
+  Prelude.NFData
+    ListOriginRequestPoliciesResponse
