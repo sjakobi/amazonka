@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,77 @@
 module Network.AWS.CognitoIdentityProvider.Types.ResourceServerType where
 
 import Network.AWS.CognitoIdentityProvider.Types.ResourceServerScopeType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A container for information about a resource server for a user pool.
 --
---
---
--- /See:/ 'resourceServerType' smart constructor.
+-- /See:/ 'newResourceServerType' smart constructor.
 data ResourceServerType = ResourceServerType'
-  { _rstScopes ::
-      !( Maybe
-           [ResourceServerScopeType]
-       ),
-    _rstIdentifier :: !(Maybe Text),
-    _rstUserPoolId :: !(Maybe Text),
-    _rstName :: !(Maybe Text)
+  { -- | A list of scopes that are defined for the resource server.
+    scopes :: Prelude.Maybe [ResourceServerScopeType],
+    -- | The identifier for the resource server.
+    identifier :: Prelude.Maybe Prelude.Text,
+    -- | The user pool ID for the user pool that hosts the resource server.
+    userPoolId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the resource server.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceServerType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceServerType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rstScopes' - A list of scopes that are defined for the resource server.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rstIdentifier' - The identifier for the resource server.
+-- 'scopes', 'resourceServerType_scopes' - A list of scopes that are defined for the resource server.
 --
--- * 'rstUserPoolId' - The user pool ID for the user pool that hosts the resource server.
+-- 'identifier', 'resourceServerType_identifier' - The identifier for the resource server.
 --
--- * 'rstName' - The name of the resource server.
-resourceServerType ::
+-- 'userPoolId', 'resourceServerType_userPoolId' - The user pool ID for the user pool that hosts the resource server.
+--
+-- 'name', 'resourceServerType_name' - The name of the resource server.
+newResourceServerType ::
   ResourceServerType
-resourceServerType =
+newResourceServerType =
   ResourceServerType'
-    { _rstScopes = Nothing,
-      _rstIdentifier = Nothing,
-      _rstUserPoolId = Nothing,
-      _rstName = Nothing
+    { scopes = Prelude.Nothing,
+      identifier = Prelude.Nothing,
+      userPoolId = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | A list of scopes that are defined for the resource server.
-rstScopes :: Lens' ResourceServerType [ResourceServerScopeType]
-rstScopes = lens _rstScopes (\s a -> s {_rstScopes = a}) . _Default . _Coerce
+resourceServerType_scopes :: Lens.Lens' ResourceServerType (Prelude.Maybe [ResourceServerScopeType])
+resourceServerType_scopes = Lens.lens (\ResourceServerType' {scopes} -> scopes) (\s@ResourceServerType' {} a -> s {scopes = a} :: ResourceServerType) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The identifier for the resource server.
-rstIdentifier :: Lens' ResourceServerType (Maybe Text)
-rstIdentifier = lens _rstIdentifier (\s a -> s {_rstIdentifier = a})
+resourceServerType_identifier :: Lens.Lens' ResourceServerType (Prelude.Maybe Prelude.Text)
+resourceServerType_identifier = Lens.lens (\ResourceServerType' {identifier} -> identifier) (\s@ResourceServerType' {} a -> s {identifier = a} :: ResourceServerType)
 
 -- | The user pool ID for the user pool that hosts the resource server.
-rstUserPoolId :: Lens' ResourceServerType (Maybe Text)
-rstUserPoolId = lens _rstUserPoolId (\s a -> s {_rstUserPoolId = a})
+resourceServerType_userPoolId :: Lens.Lens' ResourceServerType (Prelude.Maybe Prelude.Text)
+resourceServerType_userPoolId = Lens.lens (\ResourceServerType' {userPoolId} -> userPoolId) (\s@ResourceServerType' {} a -> s {userPoolId = a} :: ResourceServerType)
 
 -- | The name of the resource server.
-rstName :: Lens' ResourceServerType (Maybe Text)
-rstName = lens _rstName (\s a -> s {_rstName = a})
+resourceServerType_name :: Lens.Lens' ResourceServerType (Prelude.Maybe Prelude.Text)
+resourceServerType_name = Lens.lens (\ResourceServerType' {name} -> name) (\s@ResourceServerType' {} a -> s {name = a} :: ResourceServerType)
 
-instance FromJSON ResourceServerType where
+instance Prelude.FromJSON ResourceServerType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceServerType"
       ( \x ->
           ResourceServerType'
-            <$> (x .:? "Scopes" .!= mempty)
-            <*> (x .:? "Identifier")
-            <*> (x .:? "UserPoolId")
-            <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Scopes" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Identifier")
+            Prelude.<*> (x Prelude..:? "UserPoolId")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable ResourceServerType
+instance Prelude.Hashable ResourceServerType
 
-instance NFData ResourceServerType
+instance Prelude.NFData ResourceServerType

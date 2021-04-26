@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,229 +21,341 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Allows a user to enter a confirmation code to reset a forgotten password.
+-- Allows a user to enter a confirmation code to reset a forgotten
+-- password.
 module Network.AWS.CognitoIdentityProvider.ConfirmForgotPassword
   ( -- * Creating a Request
-    confirmForgotPassword,
-    ConfirmForgotPassword,
+    ConfirmForgotPassword (..),
+    newConfirmForgotPassword,
 
     -- * Request Lenses
-    cfpClientMetadata,
-    cfpUserContextData,
-    cfpSecretHash,
-    cfpAnalyticsMetadata,
-    cfpClientId,
-    cfpUsername,
-    cfpConfirmationCode,
-    cfpPassword,
+    confirmForgotPassword_clientMetadata,
+    confirmForgotPassword_userContextData,
+    confirmForgotPassword_secretHash,
+    confirmForgotPassword_analyticsMetadata,
+    confirmForgotPassword_clientId,
+    confirmForgotPassword_username,
+    confirmForgotPassword_confirmationCode,
+    confirmForgotPassword_password,
 
     -- * Destructuring the Response
-    confirmForgotPasswordResponse,
-    ConfirmForgotPasswordResponse,
+    ConfirmForgotPasswordResponse (..),
+    newConfirmForgotPasswordResponse,
 
     -- * Response Lenses
-    cfprrsResponseStatus,
+    confirmForgotPasswordResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The request representing the confirmation for a password reset.
 --
---
---
--- /See:/ 'confirmForgotPassword' smart constructor.
+-- /See:/ 'newConfirmForgotPassword' smart constructor.
 data ConfirmForgotPassword = ConfirmForgotPassword'
-  { _cfpClientMetadata ::
-      !(Maybe (Map Text Text)),
-    _cfpUserContextData ::
-      !( Maybe
-           UserContextDataType
-       ),
-    _cfpSecretHash ::
-      !(Maybe (Sensitive Text)),
-    _cfpAnalyticsMetadata ::
-      !( Maybe
-           AnalyticsMetadataType
-       ),
-    _cfpClientId ::
-      !(Sensitive Text),
-    _cfpUsername ::
-      !(Sensitive Text),
-    _cfpConfirmationCode ::
-      !Text,
-    _cfpPassword ::
-      !(Sensitive Text)
+  { -- | A map of custom key-value pairs that you can provide as input for any
+    -- custom workflows that this action triggers.
+    --
+    -- You create custom workflows by assigning AWS Lambda functions to user
+    -- pool triggers. When you use the ConfirmForgotPassword API action, Amazon
+    -- Cognito invokes the function that is assigned to the /post confirmation/
+    -- trigger. When Amazon Cognito invokes this function, it passes a JSON
+    -- payload, which the function receives as input. This payload contains a
+    -- @clientMetadata@ attribute, which provides the data that you assigned to
+    -- the ClientMetadata parameter in your ConfirmForgotPassword request. In
+    -- your function code in AWS Lambda, you can process the @clientMetadata@
+    -- value to enhance your workflow for your specific needs.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+    -- in the /Amazon Cognito Developer Guide/.
+    --
+    -- Take the following limitations into consideration when you use the
+    -- ClientMetadata parameter:
+    --
+    -- -   Amazon Cognito does not store the ClientMetadata value. This data is
+    --     available only to AWS Lambda triggers that are assigned to a user
+    --     pool to support custom workflows. If your user pool configuration
+    --     does not include triggers, the ClientMetadata parameter serves no
+    --     purpose.
+    --
+    -- -   Amazon Cognito does not validate the ClientMetadata value.
+    --
+    -- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+    --     don\'t use it to provide sensitive information.
+    clientMetadata :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Contextual data such as the user\'s device fingerprint, IP address, or
+    -- location used for evaluating the risk of an unexpected event by Amazon
+    -- Cognito advanced security.
+    userContextData :: Prelude.Maybe UserContextDataType,
+    -- | A keyed-hash message authentication code (HMAC) calculated using the
+    -- secret key of a user pool client and username plus the client ID in the
+    -- message.
+    secretHash :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The Amazon Pinpoint analytics metadata for collecting metrics for
+    -- @ConfirmForgotPassword@ calls.
+    analyticsMetadata :: Prelude.Maybe AnalyticsMetadataType,
+    -- | The app client ID of the app associated with the user pool.
+    clientId :: Prelude.Sensitive Prelude.Text,
+    -- | The user name of the user for whom you want to enter a code to retrieve
+    -- a forgotten password.
+    username :: Prelude.Sensitive Prelude.Text,
+    -- | The confirmation code sent by a user\'s request to retrieve a forgotten
+    -- password. For more information, see
+    -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html ForgotPassword>.
+    confirmationCode :: Prelude.Text,
+    -- | The password sent by a user\'s request to retrieve a forgotten password.
+    password :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfirmForgotPassword' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfirmForgotPassword' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfpClientMetadata' - A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.  You create custom workflows by assigning AWS Lambda functions to user pool triggers. When you use the ConfirmForgotPassword API action, Amazon Cognito invokes the function that is assigned to the /post confirmation/ trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function receives as input. This payload contains a @clientMetadata@ attribute, which provides the data that you assigned to the ClientMetadata parameter in your ConfirmForgotPassword request. In your function code in AWS Lambda, you can process the @clientMetadata@ value to enhance your workflow for your specific needs. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers> in the /Amazon Cognito Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfpUserContextData' - Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+-- 'clientMetadata', 'confirmForgotPassword_clientMetadata' - A map of custom key-value pairs that you can provide as input for any
+-- custom workflows that this action triggers.
 --
--- * 'cfpSecretHash' - A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
+-- You create custom workflows by assigning AWS Lambda functions to user
+-- pool triggers. When you use the ConfirmForgotPassword API action, Amazon
+-- Cognito invokes the function that is assigned to the /post confirmation/
+-- trigger. When Amazon Cognito invokes this function, it passes a JSON
+-- payload, which the function receives as input. This payload contains a
+-- @clientMetadata@ attribute, which provides the data that you assigned to
+-- the ClientMetadata parameter in your ConfirmForgotPassword request. In
+-- your function code in AWS Lambda, you can process the @clientMetadata@
+-- value to enhance your workflow for your specific needs.
 --
--- * 'cfpAnalyticsMetadata' - The Amazon Pinpoint analytics metadata for collecting metrics for @ConfirmForgotPassword@ calls.
+-- For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- in the /Amazon Cognito Developer Guide/.
 --
--- * 'cfpClientId' - The app client ID of the app associated with the user pool.
+-- Take the following limitations into consideration when you use the
+-- ClientMetadata parameter:
 --
--- * 'cfpUsername' - The user name of the user for whom you want to enter a code to retrieve a forgotten password.
+-- -   Amazon Cognito does not store the ClientMetadata value. This data is
+--     available only to AWS Lambda triggers that are assigned to a user
+--     pool to support custom workflows. If your user pool configuration
+--     does not include triggers, the ClientMetadata parameter serves no
+--     purpose.
 --
--- * 'cfpConfirmationCode' - The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html ForgotPassword> .
+-- -   Amazon Cognito does not validate the ClientMetadata value.
 --
--- * 'cfpPassword' - The password sent by a user's request to retrieve a forgotten password.
-confirmForgotPassword ::
-  -- | 'cfpClientId'
-  Text ->
-  -- | 'cfpUsername'
-  Text ->
-  -- | 'cfpConfirmationCode'
-  Text ->
-  -- | 'cfpPassword'
-  Text ->
+-- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+--     don\'t use it to provide sensitive information.
+--
+-- 'userContextData', 'confirmForgotPassword_userContextData' - Contextual data such as the user\'s device fingerprint, IP address, or
+-- location used for evaluating the risk of an unexpected event by Amazon
+-- Cognito advanced security.
+--
+-- 'secretHash', 'confirmForgotPassword_secretHash' - A keyed-hash message authentication code (HMAC) calculated using the
+-- secret key of a user pool client and username plus the client ID in the
+-- message.
+--
+-- 'analyticsMetadata', 'confirmForgotPassword_analyticsMetadata' - The Amazon Pinpoint analytics metadata for collecting metrics for
+-- @ConfirmForgotPassword@ calls.
+--
+-- 'clientId', 'confirmForgotPassword_clientId' - The app client ID of the app associated with the user pool.
+--
+-- 'username', 'confirmForgotPassword_username' - The user name of the user for whom you want to enter a code to retrieve
+-- a forgotten password.
+--
+-- 'confirmationCode', 'confirmForgotPassword_confirmationCode' - The confirmation code sent by a user\'s request to retrieve a forgotten
+-- password. For more information, see
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html ForgotPassword>.
+--
+-- 'password', 'confirmForgotPassword_password' - The password sent by a user\'s request to retrieve a forgotten password.
+newConfirmForgotPassword ::
+  -- | 'clientId'
+  Prelude.Text ->
+  -- | 'username'
+  Prelude.Text ->
+  -- | 'confirmationCode'
+  Prelude.Text ->
+  -- | 'password'
+  Prelude.Text ->
   ConfirmForgotPassword
-confirmForgotPassword
+newConfirmForgotPassword
   pClientId_
   pUsername_
   pConfirmationCode_
   pPassword_ =
     ConfirmForgotPassword'
-      { _cfpClientMetadata =
-          Nothing,
-        _cfpUserContextData = Nothing,
-        _cfpSecretHash = Nothing,
-        _cfpAnalyticsMetadata = Nothing,
-        _cfpClientId = _Sensitive # pClientId_,
-        _cfpUsername = _Sensitive # pUsername_,
-        _cfpConfirmationCode = pConfirmationCode_,
-        _cfpPassword = _Sensitive # pPassword_
+      { clientMetadata =
+          Prelude.Nothing,
+        userContextData = Prelude.Nothing,
+        secretHash = Prelude.Nothing,
+        analyticsMetadata = Prelude.Nothing,
+        clientId = Prelude._Sensitive Lens.# pClientId_,
+        username = Prelude._Sensitive Lens.# pUsername_,
+        confirmationCode = pConfirmationCode_,
+        password = Prelude._Sensitive Lens.# pPassword_
       }
 
--- | A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.  You create custom workflows by assigning AWS Lambda functions to user pool triggers. When you use the ConfirmForgotPassword API action, Amazon Cognito invokes the function that is assigned to the /post confirmation/ trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function receives as input. This payload contains a @clientMetadata@ attribute, which provides the data that you assigned to the ClientMetadata parameter in your ConfirmForgotPassword request. In your function code in AWS Lambda, you can process the @clientMetadata@ value to enhance your workflow for your specific needs. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers> in the /Amazon Cognito Developer Guide/ .
-cfpClientMetadata :: Lens' ConfirmForgotPassword (HashMap Text Text)
-cfpClientMetadata = lens _cfpClientMetadata (\s a -> s {_cfpClientMetadata = a}) . _Default . _Map
+-- | A map of custom key-value pairs that you can provide as input for any
+-- custom workflows that this action triggers.
+--
+-- You create custom workflows by assigning AWS Lambda functions to user
+-- pool triggers. When you use the ConfirmForgotPassword API action, Amazon
+-- Cognito invokes the function that is assigned to the /post confirmation/
+-- trigger. When Amazon Cognito invokes this function, it passes a JSON
+-- payload, which the function receives as input. This payload contains a
+-- @clientMetadata@ attribute, which provides the data that you assigned to
+-- the ClientMetadata parameter in your ConfirmForgotPassword request. In
+-- your function code in AWS Lambda, you can process the @clientMetadata@
+-- value to enhance your workflow for your specific needs.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- in the /Amazon Cognito Developer Guide/.
+--
+-- Take the following limitations into consideration when you use the
+-- ClientMetadata parameter:
+--
+-- -   Amazon Cognito does not store the ClientMetadata value. This data is
+--     available only to AWS Lambda triggers that are assigned to a user
+--     pool to support custom workflows. If your user pool configuration
+--     does not include triggers, the ClientMetadata parameter serves no
+--     purpose.
+--
+-- -   Amazon Cognito does not validate the ClientMetadata value.
+--
+-- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+--     don\'t use it to provide sensitive information.
+confirmForgotPassword_clientMetadata :: Lens.Lens' ConfirmForgotPassword (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+confirmForgotPassword_clientMetadata = Lens.lens (\ConfirmForgotPassword' {clientMetadata} -> clientMetadata) (\s@ConfirmForgotPassword' {} a -> s {clientMetadata = a} :: ConfirmForgotPassword) Prelude.. Lens.mapping Prelude._Map
 
--- | Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
-cfpUserContextData :: Lens' ConfirmForgotPassword (Maybe UserContextDataType)
-cfpUserContextData = lens _cfpUserContextData (\s a -> s {_cfpUserContextData = a})
+-- | Contextual data such as the user\'s device fingerprint, IP address, or
+-- location used for evaluating the risk of an unexpected event by Amazon
+-- Cognito advanced security.
+confirmForgotPassword_userContextData :: Lens.Lens' ConfirmForgotPassword (Prelude.Maybe UserContextDataType)
+confirmForgotPassword_userContextData = Lens.lens (\ConfirmForgotPassword' {userContextData} -> userContextData) (\s@ConfirmForgotPassword' {} a -> s {userContextData = a} :: ConfirmForgotPassword)
 
--- | A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
-cfpSecretHash :: Lens' ConfirmForgotPassword (Maybe Text)
-cfpSecretHash = lens _cfpSecretHash (\s a -> s {_cfpSecretHash = a}) . mapping _Sensitive
+-- | A keyed-hash message authentication code (HMAC) calculated using the
+-- secret key of a user pool client and username plus the client ID in the
+-- message.
+confirmForgotPassword_secretHash :: Lens.Lens' ConfirmForgotPassword (Prelude.Maybe Prelude.Text)
+confirmForgotPassword_secretHash = Lens.lens (\ConfirmForgotPassword' {secretHash} -> secretHash) (\s@ConfirmForgotPassword' {} a -> s {secretHash = a} :: ConfirmForgotPassword) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The Amazon Pinpoint analytics metadata for collecting metrics for @ConfirmForgotPassword@ calls.
-cfpAnalyticsMetadata :: Lens' ConfirmForgotPassword (Maybe AnalyticsMetadataType)
-cfpAnalyticsMetadata = lens _cfpAnalyticsMetadata (\s a -> s {_cfpAnalyticsMetadata = a})
+-- | The Amazon Pinpoint analytics metadata for collecting metrics for
+-- @ConfirmForgotPassword@ calls.
+confirmForgotPassword_analyticsMetadata :: Lens.Lens' ConfirmForgotPassword (Prelude.Maybe AnalyticsMetadataType)
+confirmForgotPassword_analyticsMetadata = Lens.lens (\ConfirmForgotPassword' {analyticsMetadata} -> analyticsMetadata) (\s@ConfirmForgotPassword' {} a -> s {analyticsMetadata = a} :: ConfirmForgotPassword)
 
 -- | The app client ID of the app associated with the user pool.
-cfpClientId :: Lens' ConfirmForgotPassword Text
-cfpClientId = lens _cfpClientId (\s a -> s {_cfpClientId = a}) . _Sensitive
+confirmForgotPassword_clientId :: Lens.Lens' ConfirmForgotPassword Prelude.Text
+confirmForgotPassword_clientId = Lens.lens (\ConfirmForgotPassword' {clientId} -> clientId) (\s@ConfirmForgotPassword' {} a -> s {clientId = a} :: ConfirmForgotPassword) Prelude.. Prelude._Sensitive
 
--- | The user name of the user for whom you want to enter a code to retrieve a forgotten password.
-cfpUsername :: Lens' ConfirmForgotPassword Text
-cfpUsername = lens _cfpUsername (\s a -> s {_cfpUsername = a}) . _Sensitive
+-- | The user name of the user for whom you want to enter a code to retrieve
+-- a forgotten password.
+confirmForgotPassword_username :: Lens.Lens' ConfirmForgotPassword Prelude.Text
+confirmForgotPassword_username = Lens.lens (\ConfirmForgotPassword' {username} -> username) (\s@ConfirmForgotPassword' {} a -> s {username = a} :: ConfirmForgotPassword) Prelude.. Prelude._Sensitive
 
--- | The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html ForgotPassword> .
-cfpConfirmationCode :: Lens' ConfirmForgotPassword Text
-cfpConfirmationCode = lens _cfpConfirmationCode (\s a -> s {_cfpConfirmationCode = a})
+-- | The confirmation code sent by a user\'s request to retrieve a forgotten
+-- password. For more information, see
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html ForgotPassword>.
+confirmForgotPassword_confirmationCode :: Lens.Lens' ConfirmForgotPassword Prelude.Text
+confirmForgotPassword_confirmationCode = Lens.lens (\ConfirmForgotPassword' {confirmationCode} -> confirmationCode) (\s@ConfirmForgotPassword' {} a -> s {confirmationCode = a} :: ConfirmForgotPassword)
 
--- | The password sent by a user's request to retrieve a forgotten password.
-cfpPassword :: Lens' ConfirmForgotPassword Text
-cfpPassword = lens _cfpPassword (\s a -> s {_cfpPassword = a}) . _Sensitive
+-- | The password sent by a user\'s request to retrieve a forgotten password.
+confirmForgotPassword_password :: Lens.Lens' ConfirmForgotPassword Prelude.Text
+confirmForgotPassword_password = Lens.lens (\ConfirmForgotPassword' {password} -> password) (\s@ConfirmForgotPassword' {} a -> s {password = a} :: ConfirmForgotPassword) Prelude.. Prelude._Sensitive
 
-instance AWSRequest ConfirmForgotPassword where
+instance Prelude.AWSRequest ConfirmForgotPassword where
   type
     Rs ConfirmForgotPassword =
       ConfirmForgotPasswordResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ConfirmForgotPasswordResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ConfirmForgotPassword
+instance Prelude.Hashable ConfirmForgotPassword
 
-instance NFData ConfirmForgotPassword
+instance Prelude.NFData ConfirmForgotPassword
 
-instance ToHeaders ConfirmForgotPassword where
+instance Prelude.ToHeaders ConfirmForgotPassword where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.ConfirmForgotPassword" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.ConfirmForgotPassword" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ConfirmForgotPassword where
+instance Prelude.ToJSON ConfirmForgotPassword where
   toJSON ConfirmForgotPassword' {..} =
-    object
-      ( catMaybes
-          [ ("ClientMetadata" .=) <$> _cfpClientMetadata,
-            ("UserContextData" .=) <$> _cfpUserContextData,
-            ("SecretHash" .=) <$> _cfpSecretHash,
-            ("AnalyticsMetadata" .=) <$> _cfpAnalyticsMetadata,
-            Just ("ClientId" .= _cfpClientId),
-            Just ("Username" .= _cfpUsername),
-            Just ("ConfirmationCode" .= _cfpConfirmationCode),
-            Just ("Password" .= _cfpPassword)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ClientMetadata" Prelude..=)
+              Prelude.<$> clientMetadata,
+            ("UserContextData" Prelude..=)
+              Prelude.<$> userContextData,
+            ("SecretHash" Prelude..=) Prelude.<$> secretHash,
+            ("AnalyticsMetadata" Prelude..=)
+              Prelude.<$> analyticsMetadata,
+            Prelude.Just ("ClientId" Prelude..= clientId),
+            Prelude.Just ("Username" Prelude..= username),
+            Prelude.Just
+              ("ConfirmationCode" Prelude..= confirmationCode),
+            Prelude.Just ("Password" Prelude..= password)
           ]
       )
 
-instance ToPath ConfirmForgotPassword where
-  toPath = const "/"
+instance Prelude.ToPath ConfirmForgotPassword where
+  toPath = Prelude.const "/"
 
-instance ToQuery ConfirmForgotPassword where
-  toQuery = const mempty
+instance Prelude.ToQuery ConfirmForgotPassword where
+  toQuery = Prelude.const Prelude.mempty
 
--- | The response from the server that results from a user's request to retrieve a forgotten password.
+-- | The response from the server that results from a user\'s request to
+-- retrieve a forgotten password.
 --
---
---
--- /See:/ 'confirmForgotPasswordResponse' smart constructor.
-newtype ConfirmForgotPasswordResponse = ConfirmForgotPasswordResponse'
-  { _cfprrsResponseStatus ::
-      Int
+-- /See:/ 'newConfirmForgotPasswordResponse' smart constructor.
+data ConfirmForgotPasswordResponse = ConfirmForgotPasswordResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfirmForgotPasswordResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfirmForgotPasswordResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfprrsResponseStatus' - -- | The response status code.
-confirmForgotPasswordResponse ::
-  -- | 'cfprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'confirmForgotPasswordResponse_httpStatus' - The response's http status code.
+newConfirmForgotPasswordResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ConfirmForgotPasswordResponse
-confirmForgotPasswordResponse pResponseStatus_ =
+newConfirmForgotPasswordResponse pHttpStatus_ =
   ConfirmForgotPasswordResponse'
-    { _cfprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-cfprrsResponseStatus :: Lens' ConfirmForgotPasswordResponse Int
-cfprrsResponseStatus = lens _cfprrsResponseStatus (\s a -> s {_cfprrsResponseStatus = a})
+-- | The response's http status code.
+confirmForgotPasswordResponse_httpStatus :: Lens.Lens' ConfirmForgotPasswordResponse Prelude.Int
+confirmForgotPasswordResponse_httpStatus = Lens.lens (\ConfirmForgotPasswordResponse' {httpStatus} -> httpStatus) (\s@ConfirmForgotPasswordResponse' {} a -> s {httpStatus = a} :: ConfirmForgotPasswordResponse)
 
-instance NFData ConfirmForgotPasswordResponse
+instance Prelude.NFData ConfirmForgotPasswordResponse

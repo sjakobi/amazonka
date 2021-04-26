@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.CognitoIdentityProvider.Types.DomainStatusType
   ( DomainStatusType
       ( ..,
-        DSTActive,
-        DSTCreating,
-        DSTDeleting,
-        DSTFailed,
-        DSTUpdating
+        DomainStatusTypeACTIVE,
+        DomainStatusTypeCREATING,
+        DomainStatusTypeDELETING,
+        DomainStatusTypeFAILED,
+        DomainStatusTypeUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DomainStatusType = DomainStatusType' (CI Text)
+newtype DomainStatusType = DomainStatusType'
+  { fromDomainStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSTActive :: DomainStatusType
-pattern DSTActive = DomainStatusType' "ACTIVE"
+pattern DomainStatusTypeACTIVE :: DomainStatusType
+pattern DomainStatusTypeACTIVE = DomainStatusType' "ACTIVE"
 
-pattern DSTCreating :: DomainStatusType
-pattern DSTCreating = DomainStatusType' "CREATING"
+pattern DomainStatusTypeCREATING :: DomainStatusType
+pattern DomainStatusTypeCREATING = DomainStatusType' "CREATING"
 
-pattern DSTDeleting :: DomainStatusType
-pattern DSTDeleting = DomainStatusType' "DELETING"
+pattern DomainStatusTypeDELETING :: DomainStatusType
+pattern DomainStatusTypeDELETING = DomainStatusType' "DELETING"
 
-pattern DSTFailed :: DomainStatusType
-pattern DSTFailed = DomainStatusType' "FAILED"
+pattern DomainStatusTypeFAILED :: DomainStatusType
+pattern DomainStatusTypeFAILED = DomainStatusType' "FAILED"
 
-pattern DSTUpdating :: DomainStatusType
-pattern DSTUpdating = DomainStatusType' "UPDATING"
+pattern DomainStatusTypeUPDATING :: DomainStatusType
+pattern DomainStatusTypeUPDATING = DomainStatusType' "UPDATING"
 
 {-# COMPLETE
-  DSTActive,
-  DSTCreating,
-  DSTDeleting,
-  DSTFailed,
-  DSTUpdating,
+  DomainStatusTypeACTIVE,
+  DomainStatusTypeCREATING,
+  DomainStatusTypeDELETING,
+  DomainStatusTypeFAILED,
+  DomainStatusTypeUPDATING,
   DomainStatusType'
   #-}
 
-instance FromText DomainStatusType where
-  parser = (DomainStatusType' . mk) <$> takeText
+instance Prelude.FromText DomainStatusType where
+  parser = DomainStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText DomainStatusType where
-  toText (DomainStatusType' ci) = original ci
+instance Prelude.ToText DomainStatusType where
+  toText (DomainStatusType' x) = x
 
-instance Hashable DomainStatusType
+instance Prelude.Hashable DomainStatusType
 
-instance NFData DomainStatusType
+instance Prelude.NFData DomainStatusType
 
-instance ToByteString DomainStatusType
+instance Prelude.ToByteString DomainStatusType
 
-instance ToQuery DomainStatusType
+instance Prelude.ToQuery DomainStatusType
 
-instance ToHeader DomainStatusType
+instance Prelude.ToHeader DomainStatusType
 
-instance FromJSON DomainStatusType where
-  parseJSON = parseJSONText "DomainStatusType"
+instance Prelude.FromJSON DomainStatusType where
+  parseJSON = Prelude.parseJSONText "DomainStatusType"

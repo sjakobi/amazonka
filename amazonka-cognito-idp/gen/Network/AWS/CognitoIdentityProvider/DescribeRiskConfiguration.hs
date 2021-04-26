@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,155 +24,159 @@
 -- Describes the risk configuration.
 module Network.AWS.CognitoIdentityProvider.DescribeRiskConfiguration
   ( -- * Creating a Request
-    describeRiskConfiguration,
-    DescribeRiskConfiguration,
+    DescribeRiskConfiguration (..),
+    newDescribeRiskConfiguration,
 
     -- * Request Lenses
-    drcClientId,
-    drcUserPoolId,
+    describeRiskConfiguration_clientId,
+    describeRiskConfiguration_userPoolId,
 
     -- * Destructuring the Response
-    describeRiskConfigurationResponse,
-    DescribeRiskConfigurationResponse,
+    DescribeRiskConfigurationResponse (..),
+    newDescribeRiskConfigurationResponse,
 
     -- * Response Lenses
-    drcrrsResponseStatus,
-    drcrrsRiskConfiguration,
+    describeRiskConfigurationResponse_httpStatus,
+    describeRiskConfigurationResponse_riskConfiguration,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.RiskConfigurationType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeRiskConfiguration' smart constructor.
+-- | /See:/ 'newDescribeRiskConfiguration' smart constructor.
 data DescribeRiskConfiguration = DescribeRiskConfiguration'
-  { _drcClientId ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _drcUserPoolId ::
-      !Text
+  { -- | The app client ID.
+    clientId :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The user pool ID.
+    userPoolId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRiskConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRiskConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcClientId' - The app client ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drcUserPoolId' - The user pool ID.
-describeRiskConfiguration ::
-  -- | 'drcUserPoolId'
-  Text ->
+-- 'clientId', 'describeRiskConfiguration_clientId' - The app client ID.
+--
+-- 'userPoolId', 'describeRiskConfiguration_userPoolId' - The user pool ID.
+newDescribeRiskConfiguration ::
+  -- | 'userPoolId'
+  Prelude.Text ->
   DescribeRiskConfiguration
-describeRiskConfiguration pUserPoolId_ =
+newDescribeRiskConfiguration pUserPoolId_ =
   DescribeRiskConfiguration'
-    { _drcClientId = Nothing,
-      _drcUserPoolId = pUserPoolId_
+    { clientId =
+        Prelude.Nothing,
+      userPoolId = pUserPoolId_
     }
 
 -- | The app client ID.
-drcClientId :: Lens' DescribeRiskConfiguration (Maybe Text)
-drcClientId = lens _drcClientId (\s a -> s {_drcClientId = a}) . mapping _Sensitive
+describeRiskConfiguration_clientId :: Lens.Lens' DescribeRiskConfiguration (Prelude.Maybe Prelude.Text)
+describeRiskConfiguration_clientId = Lens.lens (\DescribeRiskConfiguration' {clientId} -> clientId) (\s@DescribeRiskConfiguration' {} a -> s {clientId = a} :: DescribeRiskConfiguration) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The user pool ID.
-drcUserPoolId :: Lens' DescribeRiskConfiguration Text
-drcUserPoolId = lens _drcUserPoolId (\s a -> s {_drcUserPoolId = a})
+describeRiskConfiguration_userPoolId :: Lens.Lens' DescribeRiskConfiguration Prelude.Text
+describeRiskConfiguration_userPoolId = Lens.lens (\DescribeRiskConfiguration' {userPoolId} -> userPoolId) (\s@DescribeRiskConfiguration' {} a -> s {userPoolId = a} :: DescribeRiskConfiguration)
 
-instance AWSRequest DescribeRiskConfiguration where
+instance Prelude.AWSRequest DescribeRiskConfiguration where
   type
     Rs DescribeRiskConfiguration =
       DescribeRiskConfigurationResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeRiskConfigurationResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "RiskConfiguration")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "RiskConfiguration")
       )
 
-instance Hashable DescribeRiskConfiguration
+instance Prelude.Hashable DescribeRiskConfiguration
 
-instance NFData DescribeRiskConfiguration
+instance Prelude.NFData DescribeRiskConfiguration
 
-instance ToHeaders DescribeRiskConfiguration where
+instance Prelude.ToHeaders DescribeRiskConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.DescribeRiskConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.DescribeRiskConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeRiskConfiguration where
+instance Prelude.ToJSON DescribeRiskConfiguration where
   toJSON DescribeRiskConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("ClientId" .=) <$> _drcClientId,
-            Just ("UserPoolId" .= _drcUserPoolId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ClientId" Prelude..=) Prelude.<$> clientId,
+            Prelude.Just ("UserPoolId" Prelude..= userPoolId)
           ]
       )
 
-instance ToPath DescribeRiskConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath DescribeRiskConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeRiskConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeRiskConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeRiskConfigurationResponse' smart constructor.
+-- | /See:/ 'newDescribeRiskConfigurationResponse' smart constructor.
 data DescribeRiskConfigurationResponse = DescribeRiskConfigurationResponse'
-  { _drcrrsResponseStatus ::
-      !Int,
-    _drcrrsRiskConfiguration ::
-      !RiskConfigurationType
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The risk configuration.
+    riskConfiguration :: RiskConfigurationType
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRiskConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRiskConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drcrrsRiskConfiguration' - The risk configuration.
-describeRiskConfigurationResponse ::
-  -- | 'drcrrsResponseStatus'
-  Int ->
-  -- | 'drcrrsRiskConfiguration'
+-- 'httpStatus', 'describeRiskConfigurationResponse_httpStatus' - The response's http status code.
+--
+-- 'riskConfiguration', 'describeRiskConfigurationResponse_riskConfiguration' - The risk configuration.
+newDescribeRiskConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'riskConfiguration'
   RiskConfigurationType ->
   DescribeRiskConfigurationResponse
-describeRiskConfigurationResponse
-  pResponseStatus_
+newDescribeRiskConfigurationResponse
+  pHttpStatus_
   pRiskConfiguration_ =
     DescribeRiskConfigurationResponse'
-      { _drcrrsResponseStatus =
-          pResponseStatus_,
-        _drcrrsRiskConfiguration =
-          pRiskConfiguration_
+      { httpStatus =
+          pHttpStatus_,
+        riskConfiguration = pRiskConfiguration_
       }
 
--- | -- | The response status code.
-drcrrsResponseStatus :: Lens' DescribeRiskConfigurationResponse Int
-drcrrsResponseStatus = lens _drcrrsResponseStatus (\s a -> s {_drcrrsResponseStatus = a})
+-- | The response's http status code.
+describeRiskConfigurationResponse_httpStatus :: Lens.Lens' DescribeRiskConfigurationResponse Prelude.Int
+describeRiskConfigurationResponse_httpStatus = Lens.lens (\DescribeRiskConfigurationResponse' {httpStatus} -> httpStatus) (\s@DescribeRiskConfigurationResponse' {} a -> s {httpStatus = a} :: DescribeRiskConfigurationResponse)
 
 -- | The risk configuration.
-drcrrsRiskConfiguration :: Lens' DescribeRiskConfigurationResponse RiskConfigurationType
-drcrrsRiskConfiguration = lens _drcrrsRiskConfiguration (\s a -> s {_drcrrsRiskConfiguration = a})
+describeRiskConfigurationResponse_riskConfiguration :: Lens.Lens' DescribeRiskConfigurationResponse RiskConfigurationType
+describeRiskConfigurationResponse_riskConfiguration = Lens.lens (\DescribeRiskConfigurationResponse' {riskConfiguration} -> riskConfiguration) (\s@DescribeRiskConfigurationResponse' {} a -> s {riskConfiguration = a} :: DescribeRiskConfigurationResponse)
 
-instance NFData DescribeRiskConfigurationResponse
+instance
+  Prelude.NFData
+    DescribeRiskConfigurationResponse

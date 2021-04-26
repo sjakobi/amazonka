@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,169 +24,273 @@
 -- Allows a user to update a specific attribute (one at a time).
 module Network.AWS.CognitoIdentityProvider.UpdateUserAttributes
   ( -- * Creating a Request
-    updateUserAttributes,
-    UpdateUserAttributes,
+    UpdateUserAttributes (..),
+    newUpdateUserAttributes,
 
     -- * Request Lenses
-    uuaClientMetadata,
-    uuaUserAttributes,
-    uuaAccessToken,
+    updateUserAttributes_clientMetadata,
+    updateUserAttributes_userAttributes,
+    updateUserAttributes_accessToken,
 
     -- * Destructuring the Response
-    updateUserAttributesResponse,
-    UpdateUserAttributesResponse,
+    UpdateUserAttributesResponse (..),
+    newUpdateUserAttributesResponse,
 
     -- * Response Lenses
-    uuarrsCodeDeliveryDetailsList,
-    uuarrsResponseStatus,
+    updateUserAttributesResponse_codeDeliveryDetailsList,
+    updateUserAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.CodeDeliveryDetailsType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to update user attributes.
 --
---
---
--- /See:/ 'updateUserAttributes' smart constructor.
+-- /See:/ 'newUpdateUserAttributes' smart constructor.
 data UpdateUserAttributes = UpdateUserAttributes'
-  { _uuaClientMetadata ::
-      !(Maybe (Map Text Text)),
-    _uuaUserAttributes ::
-      ![AttributeType],
-    _uuaAccessToken ::
-      !(Sensitive Text)
+  { -- | A map of custom key-value pairs that you can provide as input for any
+    -- custom workflows that this action triggers.
+    --
+    -- You create custom workflows by assigning AWS Lambda functions to user
+    -- pool triggers. When you use the UpdateUserAttributes API action, Amazon
+    -- Cognito invokes the function that is assigned to the /custom message/
+    -- trigger. When Amazon Cognito invokes this function, it passes a JSON
+    -- payload, which the function receives as input. This payload contains a
+    -- @clientMetadata@ attribute, which provides the data that you assigned to
+    -- the ClientMetadata parameter in your UpdateUserAttributes request. In
+    -- your function code in AWS Lambda, you can process the @clientMetadata@
+    -- value to enhance your workflow for your specific needs.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+    -- in the /Amazon Cognito Developer Guide/.
+    --
+    -- Take the following limitations into consideration when you use the
+    -- ClientMetadata parameter:
+    --
+    -- -   Amazon Cognito does not store the ClientMetadata value. This data is
+    --     available only to AWS Lambda triggers that are assigned to a user
+    --     pool to support custom workflows. If your user pool configuration
+    --     does not include triggers, the ClientMetadata parameter serves no
+    --     purpose.
+    --
+    -- -   Amazon Cognito does not validate the ClientMetadata value.
+    --
+    -- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+    --     don\'t use it to provide sensitive information.
+    clientMetadata :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | An array of name-value pairs representing user attributes.
+    --
+    -- For custom attributes, you must prepend the @custom:@ prefix to the
+    -- attribute name.
+    userAttributes :: [AttributeType],
+    -- | The access token for the request to update user attributes.
+    accessToken :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uuaClientMetadata' - A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.  You create custom workflows by assigning AWS Lambda functions to user pool triggers. When you use the UpdateUserAttributes API action, Amazon Cognito invokes the function that is assigned to the /custom message/ trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function receives as input. This payload contains a @clientMetadata@ attribute, which provides the data that you assigned to the ClientMetadata parameter in your UpdateUserAttributes request. In your function code in AWS Lambda, you can process the @clientMetadata@ value to enhance your workflow for your specific needs. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers> in the /Amazon Cognito Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uuaUserAttributes' - An array of name-value pairs representing user attributes. For custom attributes, you must prepend the @custom:@ prefix to the attribute name.
+-- 'clientMetadata', 'updateUserAttributes_clientMetadata' - A map of custom key-value pairs that you can provide as input for any
+-- custom workflows that this action triggers.
 --
--- * 'uuaAccessToken' - The access token for the request to update user attributes.
-updateUserAttributes ::
-  -- | 'uuaAccessToken'
-  Text ->
+-- You create custom workflows by assigning AWS Lambda functions to user
+-- pool triggers. When you use the UpdateUserAttributes API action, Amazon
+-- Cognito invokes the function that is assigned to the /custom message/
+-- trigger. When Amazon Cognito invokes this function, it passes a JSON
+-- payload, which the function receives as input. This payload contains a
+-- @clientMetadata@ attribute, which provides the data that you assigned to
+-- the ClientMetadata parameter in your UpdateUserAttributes request. In
+-- your function code in AWS Lambda, you can process the @clientMetadata@
+-- value to enhance your workflow for your specific needs.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- in the /Amazon Cognito Developer Guide/.
+--
+-- Take the following limitations into consideration when you use the
+-- ClientMetadata parameter:
+--
+-- -   Amazon Cognito does not store the ClientMetadata value. This data is
+--     available only to AWS Lambda triggers that are assigned to a user
+--     pool to support custom workflows. If your user pool configuration
+--     does not include triggers, the ClientMetadata parameter serves no
+--     purpose.
+--
+-- -   Amazon Cognito does not validate the ClientMetadata value.
+--
+-- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+--     don\'t use it to provide sensitive information.
+--
+-- 'userAttributes', 'updateUserAttributes_userAttributes' - An array of name-value pairs representing user attributes.
+--
+-- For custom attributes, you must prepend the @custom:@ prefix to the
+-- attribute name.
+--
+-- 'accessToken', 'updateUserAttributes_accessToken' - The access token for the request to update user attributes.
+newUpdateUserAttributes ::
+  -- | 'accessToken'
+  Prelude.Text ->
   UpdateUserAttributes
-updateUserAttributes pAccessToken_ =
+newUpdateUserAttributes pAccessToken_ =
   UpdateUserAttributes'
-    { _uuaClientMetadata = Nothing,
-      _uuaUserAttributes = mempty,
-      _uuaAccessToken = _Sensitive # pAccessToken_
+    { clientMetadata =
+        Prelude.Nothing,
+      userAttributes = Prelude.mempty,
+      accessToken =
+        Prelude._Sensitive Lens.# pAccessToken_
     }
 
--- | A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.  You create custom workflows by assigning AWS Lambda functions to user pool triggers. When you use the UpdateUserAttributes API action, Amazon Cognito invokes the function that is assigned to the /custom message/ trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function receives as input. This payload contains a @clientMetadata@ attribute, which provides the data that you assigned to the ClientMetadata parameter in your UpdateUserAttributes request. In your function code in AWS Lambda, you can process the @clientMetadata@ value to enhance your workflow for your specific needs. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers> in the /Amazon Cognito Developer Guide/ .
-uuaClientMetadata :: Lens' UpdateUserAttributes (HashMap Text Text)
-uuaClientMetadata = lens _uuaClientMetadata (\s a -> s {_uuaClientMetadata = a}) . _Default . _Map
+-- | A map of custom key-value pairs that you can provide as input for any
+-- custom workflows that this action triggers.
+--
+-- You create custom workflows by assigning AWS Lambda functions to user
+-- pool triggers. When you use the UpdateUserAttributes API action, Amazon
+-- Cognito invokes the function that is assigned to the /custom message/
+-- trigger. When Amazon Cognito invokes this function, it passes a JSON
+-- payload, which the function receives as input. This payload contains a
+-- @clientMetadata@ attribute, which provides the data that you assigned to
+-- the ClientMetadata parameter in your UpdateUserAttributes request. In
+-- your function code in AWS Lambda, you can process the @clientMetadata@
+-- value to enhance your workflow for your specific needs.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- in the /Amazon Cognito Developer Guide/.
+--
+-- Take the following limitations into consideration when you use the
+-- ClientMetadata parameter:
+--
+-- -   Amazon Cognito does not store the ClientMetadata value. This data is
+--     available only to AWS Lambda triggers that are assigned to a user
+--     pool to support custom workflows. If your user pool configuration
+--     does not include triggers, the ClientMetadata parameter serves no
+--     purpose.
+--
+-- -   Amazon Cognito does not validate the ClientMetadata value.
+--
+-- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+--     don\'t use it to provide sensitive information.
+updateUserAttributes_clientMetadata :: Lens.Lens' UpdateUserAttributes (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+updateUserAttributes_clientMetadata = Lens.lens (\UpdateUserAttributes' {clientMetadata} -> clientMetadata) (\s@UpdateUserAttributes' {} a -> s {clientMetadata = a} :: UpdateUserAttributes) Prelude.. Lens.mapping Prelude._Map
 
--- | An array of name-value pairs representing user attributes. For custom attributes, you must prepend the @custom:@ prefix to the attribute name.
-uuaUserAttributes :: Lens' UpdateUserAttributes [AttributeType]
-uuaUserAttributes = lens _uuaUserAttributes (\s a -> s {_uuaUserAttributes = a}) . _Coerce
+-- | An array of name-value pairs representing user attributes.
+--
+-- For custom attributes, you must prepend the @custom:@ prefix to the
+-- attribute name.
+updateUserAttributes_userAttributes :: Lens.Lens' UpdateUserAttributes [AttributeType]
+updateUserAttributes_userAttributes = Lens.lens (\UpdateUserAttributes' {userAttributes} -> userAttributes) (\s@UpdateUserAttributes' {} a -> s {userAttributes = a} :: UpdateUserAttributes) Prelude.. Prelude._Coerce
 
 -- | The access token for the request to update user attributes.
-uuaAccessToken :: Lens' UpdateUserAttributes Text
-uuaAccessToken = lens _uuaAccessToken (\s a -> s {_uuaAccessToken = a}) . _Sensitive
+updateUserAttributes_accessToken :: Lens.Lens' UpdateUserAttributes Prelude.Text
+updateUserAttributes_accessToken = Lens.lens (\UpdateUserAttributes' {accessToken} -> accessToken) (\s@UpdateUserAttributes' {} a -> s {accessToken = a} :: UpdateUserAttributes) Prelude.. Prelude._Sensitive
 
-instance AWSRequest UpdateUserAttributes where
+instance Prelude.AWSRequest UpdateUserAttributes where
   type
     Rs UpdateUserAttributes =
       UpdateUserAttributesResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateUserAttributesResponse'
-            <$> (x .?> "CodeDeliveryDetailsList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "CodeDeliveryDetailsList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateUserAttributes
+instance Prelude.Hashable UpdateUserAttributes
 
-instance NFData UpdateUserAttributes
+instance Prelude.NFData UpdateUserAttributes
 
-instance ToHeaders UpdateUserAttributes where
+instance Prelude.ToHeaders UpdateUserAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.UpdateUserAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.UpdateUserAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateUserAttributes where
+instance Prelude.ToJSON UpdateUserAttributes where
   toJSON UpdateUserAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("ClientMetadata" .=) <$> _uuaClientMetadata,
-            Just ("UserAttributes" .= _uuaUserAttributes),
-            Just ("AccessToken" .= _uuaAccessToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ClientMetadata" Prelude..=)
+              Prelude.<$> clientMetadata,
+            Prelude.Just
+              ("UserAttributes" Prelude..= userAttributes),
+            Prelude.Just ("AccessToken" Prelude..= accessToken)
           ]
       )
 
-instance ToPath UpdateUserAttributes where
-  toPath = const "/"
+instance Prelude.ToPath UpdateUserAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateUserAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateUserAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the response from the server for the request to update user attributes.
+-- | Represents the response from the server for the request to update user
+-- attributes.
 --
---
---
--- /See:/ 'updateUserAttributesResponse' smart constructor.
+-- /See:/ 'newUpdateUserAttributesResponse' smart constructor.
 data UpdateUserAttributesResponse = UpdateUserAttributesResponse'
-  { _uuarrsCodeDeliveryDetailsList ::
-      !( Maybe
-           [CodeDeliveryDetailsType]
-       ),
-    _uuarrsResponseStatus ::
-      !Int
+  { -- | The code delivery details list from the server for the request to update
+    -- user attributes.
+    codeDeliveryDetailsList :: Prelude.Maybe [CodeDeliveryDetailsType],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uuarrsCodeDeliveryDetailsList' - The code delivery details list from the server for the request to update user attributes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uuarrsResponseStatus' - -- | The response status code.
-updateUserAttributesResponse ::
-  -- | 'uuarrsResponseStatus'
-  Int ->
+-- 'codeDeliveryDetailsList', 'updateUserAttributesResponse_codeDeliveryDetailsList' - The code delivery details list from the server for the request to update
+-- user attributes.
+--
+-- 'httpStatus', 'updateUserAttributesResponse_httpStatus' - The response's http status code.
+newUpdateUserAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateUserAttributesResponse
-updateUserAttributesResponse pResponseStatus_ =
+newUpdateUserAttributesResponse pHttpStatus_ =
   UpdateUserAttributesResponse'
-    { _uuarrsCodeDeliveryDetailsList =
-        Nothing,
-      _uuarrsResponseStatus = pResponseStatus_
+    { codeDeliveryDetailsList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The code delivery details list from the server for the request to update user attributes.
-uuarrsCodeDeliveryDetailsList :: Lens' UpdateUserAttributesResponse [CodeDeliveryDetailsType]
-uuarrsCodeDeliveryDetailsList = lens _uuarrsCodeDeliveryDetailsList (\s a -> s {_uuarrsCodeDeliveryDetailsList = a}) . _Default . _Coerce
+-- | The code delivery details list from the server for the request to update
+-- user attributes.
+updateUserAttributesResponse_codeDeliveryDetailsList :: Lens.Lens' UpdateUserAttributesResponse (Prelude.Maybe [CodeDeliveryDetailsType])
+updateUserAttributesResponse_codeDeliveryDetailsList = Lens.lens (\UpdateUserAttributesResponse' {codeDeliveryDetailsList} -> codeDeliveryDetailsList) (\s@UpdateUserAttributesResponse' {} a -> s {codeDeliveryDetailsList = a} :: UpdateUserAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-uuarrsResponseStatus :: Lens' UpdateUserAttributesResponse Int
-uuarrsResponseStatus = lens _uuarrsResponseStatus (\s a -> s {_uuarrsResponseStatus = a})
+-- | The response's http status code.
+updateUserAttributesResponse_httpStatus :: Lens.Lens' UpdateUserAttributesResponse Prelude.Int
+updateUserAttributesResponse_httpStatus = Lens.lens (\UpdateUserAttributesResponse' {httpStatus} -> httpStatus) (\s@UpdateUserAttributesResponse' {} a -> s {httpStatus = a} :: UpdateUserAttributesResponse)
 
-instance NFData UpdateUserAttributesResponse
+instance Prelude.NFData UpdateUserAttributesResponse

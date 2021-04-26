@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.ResourceServerScopeType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A resource server scope.
 --
---
---
--- /See:/ 'resourceServerScopeType' smart constructor.
+-- /See:/ 'newResourceServerScopeType' smart constructor.
 data ResourceServerScopeType = ResourceServerScopeType'
-  { _rsstScopeName ::
-      !Text,
-    _rsstScopeDescription ::
-      !Text
+  { -- | The name of the scope.
+    scopeName :: Prelude.Text,
+    -- | A description of the scope.
+    scopeDescription :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceServerScopeType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceServerScopeType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsstScopeName' - The name of the scope.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsstScopeDescription' - A description of the scope.
-resourceServerScopeType ::
-  -- | 'rsstScopeName'
-  Text ->
-  -- | 'rsstScopeDescription'
-  Text ->
+-- 'scopeName', 'resourceServerScopeType_scopeName' - The name of the scope.
+--
+-- 'scopeDescription', 'resourceServerScopeType_scopeDescription' - A description of the scope.
+newResourceServerScopeType ::
+  -- | 'scopeName'
+  Prelude.Text ->
+  -- | 'scopeDescription'
+  Prelude.Text ->
   ResourceServerScopeType
-resourceServerScopeType
+newResourceServerScopeType
   pScopeName_
   pScopeDescription_ =
     ResourceServerScopeType'
-      { _rsstScopeName =
-          pScopeName_,
-        _rsstScopeDescription = pScopeDescription_
+      { scopeName = pScopeName_,
+        scopeDescription = pScopeDescription_
       }
 
 -- | The name of the scope.
-rsstScopeName :: Lens' ResourceServerScopeType Text
-rsstScopeName = lens _rsstScopeName (\s a -> s {_rsstScopeName = a})
+resourceServerScopeType_scopeName :: Lens.Lens' ResourceServerScopeType Prelude.Text
+resourceServerScopeType_scopeName = Lens.lens (\ResourceServerScopeType' {scopeName} -> scopeName) (\s@ResourceServerScopeType' {} a -> s {scopeName = a} :: ResourceServerScopeType)
 
 -- | A description of the scope.
-rsstScopeDescription :: Lens' ResourceServerScopeType Text
-rsstScopeDescription = lens _rsstScopeDescription (\s a -> s {_rsstScopeDescription = a})
+resourceServerScopeType_scopeDescription :: Lens.Lens' ResourceServerScopeType Prelude.Text
+resourceServerScopeType_scopeDescription = Lens.lens (\ResourceServerScopeType' {scopeDescription} -> scopeDescription) (\s@ResourceServerScopeType' {} a -> s {scopeDescription = a} :: ResourceServerScopeType)
 
-instance FromJSON ResourceServerScopeType where
+instance Prelude.FromJSON ResourceServerScopeType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceServerScopeType"
       ( \x ->
           ResourceServerScopeType'
-            <$> (x .: "ScopeName") <*> (x .: "ScopeDescription")
+            Prelude.<$> (x Prelude..: "ScopeName")
+            Prelude.<*> (x Prelude..: "ScopeDescription")
       )
 
-instance Hashable ResourceServerScopeType
+instance Prelude.Hashable ResourceServerScopeType
 
-instance NFData ResourceServerScopeType
+instance Prelude.NFData ResourceServerScopeType
 
-instance ToJSON ResourceServerScopeType where
+instance Prelude.ToJSON ResourceServerScopeType where
   toJSON ResourceServerScopeType' {..} =
-    object
-      ( catMaybes
-          [ Just ("ScopeName" .= _rsstScopeName),
-            Just ("ScopeDescription" .= _rsstScopeDescription)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ScopeName" Prelude..= scopeName),
+            Prelude.Just
+              ("ScopeDescription" Prelude..= scopeDescription)
           ]
       )

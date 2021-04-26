@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.CognitoIdentityProvider.Types.CustomSMSSenderLambdaVersionType
   ( CustomSMSSenderLambdaVersionType
       ( ..,
-        CSMSSLVTV10
+        CustomSMSSenderLambdaVersionTypeV10
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CustomSMSSenderLambdaVersionType
-  = CustomSMSSenderLambdaVersionType'
-      ( CI
-          Text
-      )
+newtype CustomSMSSenderLambdaVersionType = CustomSMSSenderLambdaVersionType'
+  { fromCustomSMSSenderLambdaVersionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSMSSLVTV10 :: CustomSMSSenderLambdaVersionType
-pattern CSMSSLVTV10 = CustomSMSSenderLambdaVersionType' "V1_0"
+pattern CustomSMSSenderLambdaVersionTypeV10 :: CustomSMSSenderLambdaVersionType
+pattern CustomSMSSenderLambdaVersionTypeV10 = CustomSMSSenderLambdaVersionType' "V1_0"
 
 {-# COMPLETE
-  CSMSSLVTV10,
+  CustomSMSSenderLambdaVersionTypeV10,
   CustomSMSSenderLambdaVersionType'
   #-}
 
-instance FromText CustomSMSSenderLambdaVersionType where
-  parser = (CustomSMSSenderLambdaVersionType' . mk) <$> takeText
+instance Prelude.FromText CustomSMSSenderLambdaVersionType where
+  parser = CustomSMSSenderLambdaVersionType' Prelude.<$> Prelude.takeText
 
-instance ToText CustomSMSSenderLambdaVersionType where
-  toText (CustomSMSSenderLambdaVersionType' ci) = original ci
+instance Prelude.ToText CustomSMSSenderLambdaVersionType where
+  toText (CustomSMSSenderLambdaVersionType' x) = x
 
-instance Hashable CustomSMSSenderLambdaVersionType
+instance Prelude.Hashable CustomSMSSenderLambdaVersionType
 
-instance NFData CustomSMSSenderLambdaVersionType
+instance Prelude.NFData CustomSMSSenderLambdaVersionType
 
-instance ToByteString CustomSMSSenderLambdaVersionType
+instance Prelude.ToByteString CustomSMSSenderLambdaVersionType
 
-instance ToQuery CustomSMSSenderLambdaVersionType
+instance Prelude.ToQuery CustomSMSSenderLambdaVersionType
 
-instance ToHeader CustomSMSSenderLambdaVersionType
+instance Prelude.ToHeader CustomSMSSenderLambdaVersionType
 
-instance ToJSON CustomSMSSenderLambdaVersionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CustomSMSSenderLambdaVersionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CustomSMSSenderLambdaVersionType where
-  parseJSON = parseJSONText "CustomSMSSenderLambdaVersionType"
+instance Prelude.FromJSON CustomSMSSenderLambdaVersionType where
+  parseJSON = Prelude.parseJSONText "CustomSMSSenderLambdaVersionType"

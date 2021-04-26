@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.CognitoIdentityProvider.Types.IdentityProviderTypeType
   ( IdentityProviderTypeType
       ( ..,
-        Facebook,
-        Google,
-        LoginWithAmazon,
-        Oidc,
-        Saml,
-        SignInWithApple
+        IdentityProviderTypeTypeFacebook,
+        IdentityProviderTypeTypeGoogle,
+        IdentityProviderTypeTypeLoginWithAmazon,
+        IdentityProviderTypeTypeOIDC,
+        IdentityProviderTypeTypeSAML,
+        IdentityProviderTypeTypeSignInWithApple
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data IdentityProviderTypeType
-  = IdentityProviderTypeType'
-      ( CI
-          Text
-      )
+newtype IdentityProviderTypeType = IdentityProviderTypeType'
+  { fromIdentityProviderTypeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Facebook :: IdentityProviderTypeType
-pattern Facebook = IdentityProviderTypeType' "Facebook"
+pattern IdentityProviderTypeTypeFacebook :: IdentityProviderTypeType
+pattern IdentityProviderTypeTypeFacebook = IdentityProviderTypeType' "Facebook"
 
-pattern Google :: IdentityProviderTypeType
-pattern Google = IdentityProviderTypeType' "Google"
+pattern IdentityProviderTypeTypeGoogle :: IdentityProviderTypeType
+pattern IdentityProviderTypeTypeGoogle = IdentityProviderTypeType' "Google"
 
-pattern LoginWithAmazon :: IdentityProviderTypeType
-pattern LoginWithAmazon = IdentityProviderTypeType' "LoginWithAmazon"
+pattern IdentityProviderTypeTypeLoginWithAmazon :: IdentityProviderTypeType
+pattern IdentityProviderTypeTypeLoginWithAmazon = IdentityProviderTypeType' "LoginWithAmazon"
 
-pattern Oidc :: IdentityProviderTypeType
-pattern Oidc = IdentityProviderTypeType' "OIDC"
+pattern IdentityProviderTypeTypeOIDC :: IdentityProviderTypeType
+pattern IdentityProviderTypeTypeOIDC = IdentityProviderTypeType' "OIDC"
 
-pattern Saml :: IdentityProviderTypeType
-pattern Saml = IdentityProviderTypeType' "SAML"
+pattern IdentityProviderTypeTypeSAML :: IdentityProviderTypeType
+pattern IdentityProviderTypeTypeSAML = IdentityProviderTypeType' "SAML"
 
-pattern SignInWithApple :: IdentityProviderTypeType
-pattern SignInWithApple = IdentityProviderTypeType' "SignInWithApple"
+pattern IdentityProviderTypeTypeSignInWithApple :: IdentityProviderTypeType
+pattern IdentityProviderTypeTypeSignInWithApple = IdentityProviderTypeType' "SignInWithApple"
 
 {-# COMPLETE
-  Facebook,
-  Google,
-  LoginWithAmazon,
-  Oidc,
-  Saml,
-  SignInWithApple,
+  IdentityProviderTypeTypeFacebook,
+  IdentityProviderTypeTypeGoogle,
+  IdentityProviderTypeTypeLoginWithAmazon,
+  IdentityProviderTypeTypeOIDC,
+  IdentityProviderTypeTypeSAML,
+  IdentityProviderTypeTypeSignInWithApple,
   IdentityProviderTypeType'
   #-}
 
-instance FromText IdentityProviderTypeType where
-  parser = (IdentityProviderTypeType' . mk) <$> takeText
+instance Prelude.FromText IdentityProviderTypeType where
+  parser = IdentityProviderTypeType' Prelude.<$> Prelude.takeText
 
-instance ToText IdentityProviderTypeType where
-  toText (IdentityProviderTypeType' ci) = original ci
+instance Prelude.ToText IdentityProviderTypeType where
+  toText (IdentityProviderTypeType' x) = x
 
-instance Hashable IdentityProviderTypeType
+instance Prelude.Hashable IdentityProviderTypeType
 
-instance NFData IdentityProviderTypeType
+instance Prelude.NFData IdentityProviderTypeType
 
-instance ToByteString IdentityProviderTypeType
+instance Prelude.ToByteString IdentityProviderTypeType
 
-instance ToQuery IdentityProviderTypeType
+instance Prelude.ToQuery IdentityProviderTypeType
 
-instance ToHeader IdentityProviderTypeType
+instance Prelude.ToHeader IdentityProviderTypeType
 
-instance ToJSON IdentityProviderTypeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON IdentityProviderTypeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON IdentityProviderTypeType where
-  parseJSON = parseJSONText "IdentityProviderTypeType"
+instance Prelude.FromJSON IdentityProviderTypeType where
+  parseJSON = Prelude.parseJSONText "IdentityProviderTypeType"

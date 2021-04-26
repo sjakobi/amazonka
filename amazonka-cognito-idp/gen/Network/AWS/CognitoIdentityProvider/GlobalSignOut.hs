@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Signs out users from all devices. It also invalidates all refresh tokens issued to a user. The user's current access and Id tokens remain valid until their expiry. Access and Id tokens expire one hour after they are issued.
+-- Signs out users from all devices. It also invalidates all refresh tokens
+-- issued to a user. The user\'s current access and Id tokens remain valid
+-- until their expiry. Access and Id tokens expire one hour after they are
+-- issued.
 module Network.AWS.CognitoIdentityProvider.GlobalSignOut
   ( -- * Creating a Request
-    globalSignOut,
-    GlobalSignOut,
+    GlobalSignOut (..),
+    newGlobalSignOut,
 
     -- * Request Lenses
-    gsoAccessToken,
+    globalSignOut_accessToken,
 
     -- * Destructuring the Response
-    globalSignOutResponse,
-    GlobalSignOutResponse,
+    GlobalSignOutResponse (..),
+    newGlobalSignOutResponse,
 
     -- * Response Lenses
-    gsorrsResponseStatus,
+    globalSignOutResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to sign out all devices.
 --
---
---
--- /See:/ 'globalSignOut' smart constructor.
-newtype GlobalSignOut = GlobalSignOut'
-  { _gsoAccessToken ::
-      Sensitive Text
+-- /See:/ 'newGlobalSignOut' smart constructor.
+data GlobalSignOut = GlobalSignOut'
+  { -- | The access token.
+    accessToken :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GlobalSignOut' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GlobalSignOut' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsoAccessToken' - The access token.
-globalSignOut ::
-  -- | 'gsoAccessToken'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'accessToken', 'globalSignOut_accessToken' - The access token.
+newGlobalSignOut ::
+  -- | 'accessToken'
+  Prelude.Text ->
   GlobalSignOut
-globalSignOut pAccessToken_ =
+newGlobalSignOut pAccessToken_ =
   GlobalSignOut'
-    { _gsoAccessToken =
-        _Sensitive # pAccessToken_
+    { accessToken =
+        Prelude._Sensitive Lens.# pAccessToken_
     }
 
 -- | The access token.
-gsoAccessToken :: Lens' GlobalSignOut Text
-gsoAccessToken = lens _gsoAccessToken (\s a -> s {_gsoAccessToken = a}) . _Sensitive
+globalSignOut_accessToken :: Lens.Lens' GlobalSignOut Prelude.Text
+globalSignOut_accessToken = Lens.lens (\GlobalSignOut' {accessToken} -> accessToken) (\s@GlobalSignOut' {} a -> s {accessToken = a} :: GlobalSignOut) Prelude.. Prelude._Sensitive
 
-instance AWSRequest GlobalSignOut where
+instance Prelude.AWSRequest GlobalSignOut where
   type Rs GlobalSignOut = GlobalSignOutResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          GlobalSignOutResponse' <$> (pure (fromEnum s))
+          GlobalSignOutResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GlobalSignOut
+instance Prelude.Hashable GlobalSignOut
 
-instance NFData GlobalSignOut
+instance Prelude.NFData GlobalSignOut
 
-instance ToHeaders GlobalSignOut where
+instance Prelude.ToHeaders GlobalSignOut where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.GlobalSignOut" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.GlobalSignOut" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GlobalSignOut where
+instance Prelude.ToJSON GlobalSignOut where
   toJSON GlobalSignOut' {..} =
-    object
-      (catMaybes [Just ("AccessToken" .= _gsoAccessToken)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("AccessToken" Prelude..= accessToken)
+          ]
+      )
 
-instance ToPath GlobalSignOut where
-  toPath = const "/"
+instance Prelude.ToPath GlobalSignOut where
+  toPath = Prelude.const "/"
 
-instance ToQuery GlobalSignOut where
-  toQuery = const mempty
+instance Prelude.ToQuery GlobalSignOut where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The response to the request to sign out all devices.
 --
---
---
--- /See:/ 'globalSignOutResponse' smart constructor.
-newtype GlobalSignOutResponse = GlobalSignOutResponse'
-  { _gsorrsResponseStatus ::
-      Int
+-- /See:/ 'newGlobalSignOutResponse' smart constructor.
+data GlobalSignOutResponse = GlobalSignOutResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GlobalSignOutResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GlobalSignOutResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsorrsResponseStatus' - -- | The response status code.
-globalSignOutResponse ::
-  -- | 'gsorrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'globalSignOutResponse_httpStatus' - The response's http status code.
+newGlobalSignOutResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GlobalSignOutResponse
-globalSignOutResponse pResponseStatus_ =
-  GlobalSignOutResponse'
-    { _gsorrsResponseStatus =
-        pResponseStatus_
-    }
+newGlobalSignOutResponse pHttpStatus_ =
+  GlobalSignOutResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-gsorrsResponseStatus :: Lens' GlobalSignOutResponse Int
-gsorrsResponseStatus = lens _gsorrsResponseStatus (\s a -> s {_gsorrsResponseStatus = a})
+-- | The response's http status code.
+globalSignOutResponse_httpStatus :: Lens.Lens' GlobalSignOutResponse Prelude.Int
+globalSignOutResponse_httpStatus = Lens.lens (\GlobalSignOutResponse' {httpStatus} -> httpStatus) (\s@GlobalSignOutResponse' {} a -> s {httpStatus = a} :: GlobalSignOutResponse)
 
-instance NFData GlobalSignOutResponse
+instance Prelude.NFData GlobalSignOutResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,188 +21,208 @@ module Network.AWS.CognitoIdentityProvider.Types.LambdaConfigType where
 
 import Network.AWS.CognitoIdentityProvider.Types.CustomEmailLambdaVersionConfigType
 import Network.AWS.CognitoIdentityProvider.Types.CustomSMSLambdaVersionConfigType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the configuration for AWS Lambda triggers.
 --
---
---
--- /See:/ 'lambdaConfigType' smart constructor.
+-- /See:/ 'newLambdaConfigType' smart constructor.
 data LambdaConfigType = LambdaConfigType'
-  { _lctCustomEmailSender ::
-      !( Maybe
-           CustomEmailLambdaVersionConfigType
-       ),
-    _lctPreSignUp :: !(Maybe Text),
-    _lctDefineAuthChallenge ::
-      !(Maybe Text),
-    _lctPostAuthentication ::
-      !(Maybe Text),
-    _lctCustomSMSSender ::
-      !( Maybe
-           CustomSMSLambdaVersionConfigType
-       ),
-    _lctCreateAuthChallenge ::
-      !(Maybe Text),
-    _lctPostConfirmation :: !(Maybe Text),
-    _lctPreAuthentication ::
-      !(Maybe Text),
-    _lctKMSKeyId :: !(Maybe Text),
-    _lctVerifyAuthChallengeResponse ::
-      !(Maybe Text),
-    _lctCustomMessage :: !(Maybe Text),
-    _lctUserMigration :: !(Maybe Text),
-    _lctPreTokenGeneration ::
-      !(Maybe Text)
+  { -- | A custom email sender AWS Lambda trigger.
+    customEmailSender :: Prelude.Maybe CustomEmailLambdaVersionConfigType,
+    -- | A pre-registration AWS Lambda trigger.
+    preSignUp :: Prelude.Maybe Prelude.Text,
+    -- | Defines the authentication challenge.
+    defineAuthChallenge :: Prelude.Maybe Prelude.Text,
+    -- | A post-authentication AWS Lambda trigger.
+    postAuthentication :: Prelude.Maybe Prelude.Text,
+    -- | A custom SMS sender AWS Lambda trigger.
+    customSMSSender :: Prelude.Maybe CustomSMSLambdaVersionConfigType,
+    -- | Creates an authentication challenge.
+    createAuthChallenge :: Prelude.Maybe Prelude.Text,
+    -- | A post-confirmation AWS Lambda trigger.
+    postConfirmation :: Prelude.Maybe Prelude.Text,
+    -- | A pre-authentication AWS Lambda trigger.
+    preAuthentication :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name of Key Management Service
+    -- </kms/latest/developerguide/concepts.html#master_keys Customer master keys>
+    -- . Amazon Cognito uses the key to encrypt codes and temporary passwords
+    -- sent to @CustomEmailSender@ and @CustomSMSSender@.
+    kMSKeyID :: Prelude.Maybe Prelude.Text,
+    -- | Verifies the authentication challenge response.
+    verifyAuthChallengeResponse :: Prelude.Maybe Prelude.Text,
+    -- | A custom Message AWS Lambda trigger.
+    customMessage :: Prelude.Maybe Prelude.Text,
+    -- | The user migration Lambda config type.
+    userMigration :: Prelude.Maybe Prelude.Text,
+    -- | A Lambda trigger that is invoked before token generation.
+    preTokenGeneration :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaConfigType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaConfigType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lctCustomEmailSender' - A custom email sender AWS Lambda trigger.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lctPreSignUp' - A pre-registration AWS Lambda trigger.
+-- 'customEmailSender', 'lambdaConfigType_customEmailSender' - A custom email sender AWS Lambda trigger.
 --
--- * 'lctDefineAuthChallenge' - Defines the authentication challenge.
+-- 'preSignUp', 'lambdaConfigType_preSignUp' - A pre-registration AWS Lambda trigger.
 --
--- * 'lctPostAuthentication' - A post-authentication AWS Lambda trigger.
+-- 'defineAuthChallenge', 'lambdaConfigType_defineAuthChallenge' - Defines the authentication challenge.
 --
--- * 'lctCustomSMSSender' - A custom SMS sender AWS Lambda trigger.
+-- 'postAuthentication', 'lambdaConfigType_postAuthentication' - A post-authentication AWS Lambda trigger.
 --
--- * 'lctCreateAuthChallenge' - Creates an authentication challenge.
+-- 'customSMSSender', 'lambdaConfigType_customSMSSender' - A custom SMS sender AWS Lambda trigger.
 --
--- * 'lctPostConfirmation' - A post-confirmation AWS Lambda trigger.
+-- 'createAuthChallenge', 'lambdaConfigType_createAuthChallenge' - Creates an authentication challenge.
 --
--- * 'lctPreAuthentication' - A pre-authentication AWS Lambda trigger.
+-- 'postConfirmation', 'lambdaConfigType_postConfirmation' - A post-confirmation AWS Lambda trigger.
 --
--- * 'lctKMSKeyId' - The Amazon Resource Name of Key Management Service </kms/latest/developerguide/concepts.html#master_keys Customer master keys> . Amazon Cognito uses the key to encrypt codes and temporary passwords sent to @CustomEmailSender@ and @CustomSMSSender@ .
+-- 'preAuthentication', 'lambdaConfigType_preAuthentication' - A pre-authentication AWS Lambda trigger.
 --
--- * 'lctVerifyAuthChallengeResponse' - Verifies the authentication challenge response.
+-- 'kMSKeyID', 'lambdaConfigType_kMSKeyID' - The Amazon Resource Name of Key Management Service
+-- </kms/latest/developerguide/concepts.html#master_keys Customer master keys>
+-- . Amazon Cognito uses the key to encrypt codes and temporary passwords
+-- sent to @CustomEmailSender@ and @CustomSMSSender@.
 --
--- * 'lctCustomMessage' - A custom Message AWS Lambda trigger.
+-- 'verifyAuthChallengeResponse', 'lambdaConfigType_verifyAuthChallengeResponse' - Verifies the authentication challenge response.
 --
--- * 'lctUserMigration' - The user migration Lambda config type.
+-- 'customMessage', 'lambdaConfigType_customMessage' - A custom Message AWS Lambda trigger.
 --
--- * 'lctPreTokenGeneration' - A Lambda trigger that is invoked before token generation.
-lambdaConfigType ::
+-- 'userMigration', 'lambdaConfigType_userMigration' - The user migration Lambda config type.
+--
+-- 'preTokenGeneration', 'lambdaConfigType_preTokenGeneration' - A Lambda trigger that is invoked before token generation.
+newLambdaConfigType ::
   LambdaConfigType
-lambdaConfigType =
+newLambdaConfigType =
   LambdaConfigType'
-    { _lctCustomEmailSender = Nothing,
-      _lctPreSignUp = Nothing,
-      _lctDefineAuthChallenge = Nothing,
-      _lctPostAuthentication = Nothing,
-      _lctCustomSMSSender = Nothing,
-      _lctCreateAuthChallenge = Nothing,
-      _lctPostConfirmation = Nothing,
-      _lctPreAuthentication = Nothing,
-      _lctKMSKeyId = Nothing,
-      _lctVerifyAuthChallengeResponse = Nothing,
-      _lctCustomMessage = Nothing,
-      _lctUserMigration = Nothing,
-      _lctPreTokenGeneration = Nothing
+    { customEmailSender =
+        Prelude.Nothing,
+      preSignUp = Prelude.Nothing,
+      defineAuthChallenge = Prelude.Nothing,
+      postAuthentication = Prelude.Nothing,
+      customSMSSender = Prelude.Nothing,
+      createAuthChallenge = Prelude.Nothing,
+      postConfirmation = Prelude.Nothing,
+      preAuthentication = Prelude.Nothing,
+      kMSKeyID = Prelude.Nothing,
+      verifyAuthChallengeResponse = Prelude.Nothing,
+      customMessage = Prelude.Nothing,
+      userMigration = Prelude.Nothing,
+      preTokenGeneration = Prelude.Nothing
     }
 
 -- | A custom email sender AWS Lambda trigger.
-lctCustomEmailSender :: Lens' LambdaConfigType (Maybe CustomEmailLambdaVersionConfigType)
-lctCustomEmailSender = lens _lctCustomEmailSender (\s a -> s {_lctCustomEmailSender = a})
+lambdaConfigType_customEmailSender :: Lens.Lens' LambdaConfigType (Prelude.Maybe CustomEmailLambdaVersionConfigType)
+lambdaConfigType_customEmailSender = Lens.lens (\LambdaConfigType' {customEmailSender} -> customEmailSender) (\s@LambdaConfigType' {} a -> s {customEmailSender = a} :: LambdaConfigType)
 
 -- | A pre-registration AWS Lambda trigger.
-lctPreSignUp :: Lens' LambdaConfigType (Maybe Text)
-lctPreSignUp = lens _lctPreSignUp (\s a -> s {_lctPreSignUp = a})
+lambdaConfigType_preSignUp :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_preSignUp = Lens.lens (\LambdaConfigType' {preSignUp} -> preSignUp) (\s@LambdaConfigType' {} a -> s {preSignUp = a} :: LambdaConfigType)
 
 -- | Defines the authentication challenge.
-lctDefineAuthChallenge :: Lens' LambdaConfigType (Maybe Text)
-lctDefineAuthChallenge = lens _lctDefineAuthChallenge (\s a -> s {_lctDefineAuthChallenge = a})
+lambdaConfigType_defineAuthChallenge :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_defineAuthChallenge = Lens.lens (\LambdaConfigType' {defineAuthChallenge} -> defineAuthChallenge) (\s@LambdaConfigType' {} a -> s {defineAuthChallenge = a} :: LambdaConfigType)
 
 -- | A post-authentication AWS Lambda trigger.
-lctPostAuthentication :: Lens' LambdaConfigType (Maybe Text)
-lctPostAuthentication = lens _lctPostAuthentication (\s a -> s {_lctPostAuthentication = a})
+lambdaConfigType_postAuthentication :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_postAuthentication = Lens.lens (\LambdaConfigType' {postAuthentication} -> postAuthentication) (\s@LambdaConfigType' {} a -> s {postAuthentication = a} :: LambdaConfigType)
 
 -- | A custom SMS sender AWS Lambda trigger.
-lctCustomSMSSender :: Lens' LambdaConfigType (Maybe CustomSMSLambdaVersionConfigType)
-lctCustomSMSSender = lens _lctCustomSMSSender (\s a -> s {_lctCustomSMSSender = a})
+lambdaConfigType_customSMSSender :: Lens.Lens' LambdaConfigType (Prelude.Maybe CustomSMSLambdaVersionConfigType)
+lambdaConfigType_customSMSSender = Lens.lens (\LambdaConfigType' {customSMSSender} -> customSMSSender) (\s@LambdaConfigType' {} a -> s {customSMSSender = a} :: LambdaConfigType)
 
 -- | Creates an authentication challenge.
-lctCreateAuthChallenge :: Lens' LambdaConfigType (Maybe Text)
-lctCreateAuthChallenge = lens _lctCreateAuthChallenge (\s a -> s {_lctCreateAuthChallenge = a})
+lambdaConfigType_createAuthChallenge :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_createAuthChallenge = Lens.lens (\LambdaConfigType' {createAuthChallenge} -> createAuthChallenge) (\s@LambdaConfigType' {} a -> s {createAuthChallenge = a} :: LambdaConfigType)
 
 -- | A post-confirmation AWS Lambda trigger.
-lctPostConfirmation :: Lens' LambdaConfigType (Maybe Text)
-lctPostConfirmation = lens _lctPostConfirmation (\s a -> s {_lctPostConfirmation = a})
+lambdaConfigType_postConfirmation :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_postConfirmation = Lens.lens (\LambdaConfigType' {postConfirmation} -> postConfirmation) (\s@LambdaConfigType' {} a -> s {postConfirmation = a} :: LambdaConfigType)
 
 -- | A pre-authentication AWS Lambda trigger.
-lctPreAuthentication :: Lens' LambdaConfigType (Maybe Text)
-lctPreAuthentication = lens _lctPreAuthentication (\s a -> s {_lctPreAuthentication = a})
+lambdaConfigType_preAuthentication :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_preAuthentication = Lens.lens (\LambdaConfigType' {preAuthentication} -> preAuthentication) (\s@LambdaConfigType' {} a -> s {preAuthentication = a} :: LambdaConfigType)
 
--- | The Amazon Resource Name of Key Management Service </kms/latest/developerguide/concepts.html#master_keys Customer master keys> . Amazon Cognito uses the key to encrypt codes and temporary passwords sent to @CustomEmailSender@ and @CustomSMSSender@ .
-lctKMSKeyId :: Lens' LambdaConfigType (Maybe Text)
-lctKMSKeyId = lens _lctKMSKeyId (\s a -> s {_lctKMSKeyId = a})
+-- | The Amazon Resource Name of Key Management Service
+-- </kms/latest/developerguide/concepts.html#master_keys Customer master keys>
+-- . Amazon Cognito uses the key to encrypt codes and temporary passwords
+-- sent to @CustomEmailSender@ and @CustomSMSSender@.
+lambdaConfigType_kMSKeyID :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_kMSKeyID = Lens.lens (\LambdaConfigType' {kMSKeyID} -> kMSKeyID) (\s@LambdaConfigType' {} a -> s {kMSKeyID = a} :: LambdaConfigType)
 
 -- | Verifies the authentication challenge response.
-lctVerifyAuthChallengeResponse :: Lens' LambdaConfigType (Maybe Text)
-lctVerifyAuthChallengeResponse = lens _lctVerifyAuthChallengeResponse (\s a -> s {_lctVerifyAuthChallengeResponse = a})
+lambdaConfigType_verifyAuthChallengeResponse :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_verifyAuthChallengeResponse = Lens.lens (\LambdaConfigType' {verifyAuthChallengeResponse} -> verifyAuthChallengeResponse) (\s@LambdaConfigType' {} a -> s {verifyAuthChallengeResponse = a} :: LambdaConfigType)
 
 -- | A custom Message AWS Lambda trigger.
-lctCustomMessage :: Lens' LambdaConfigType (Maybe Text)
-lctCustomMessage = lens _lctCustomMessage (\s a -> s {_lctCustomMessage = a})
+lambdaConfigType_customMessage :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_customMessage = Lens.lens (\LambdaConfigType' {customMessage} -> customMessage) (\s@LambdaConfigType' {} a -> s {customMessage = a} :: LambdaConfigType)
 
 -- | The user migration Lambda config type.
-lctUserMigration :: Lens' LambdaConfigType (Maybe Text)
-lctUserMigration = lens _lctUserMigration (\s a -> s {_lctUserMigration = a})
+lambdaConfigType_userMigration :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_userMigration = Lens.lens (\LambdaConfigType' {userMigration} -> userMigration) (\s@LambdaConfigType' {} a -> s {userMigration = a} :: LambdaConfigType)
 
 -- | A Lambda trigger that is invoked before token generation.
-lctPreTokenGeneration :: Lens' LambdaConfigType (Maybe Text)
-lctPreTokenGeneration = lens _lctPreTokenGeneration (\s a -> s {_lctPreTokenGeneration = a})
+lambdaConfigType_preTokenGeneration :: Lens.Lens' LambdaConfigType (Prelude.Maybe Prelude.Text)
+lambdaConfigType_preTokenGeneration = Lens.lens (\LambdaConfigType' {preTokenGeneration} -> preTokenGeneration) (\s@LambdaConfigType' {} a -> s {preTokenGeneration = a} :: LambdaConfigType)
 
-instance FromJSON LambdaConfigType where
+instance Prelude.FromJSON LambdaConfigType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LambdaConfigType"
       ( \x ->
           LambdaConfigType'
-            <$> (x .:? "CustomEmailSender")
-            <*> (x .:? "PreSignUp")
-            <*> (x .:? "DefineAuthChallenge")
-            <*> (x .:? "PostAuthentication")
-            <*> (x .:? "CustomSMSSender")
-            <*> (x .:? "CreateAuthChallenge")
-            <*> (x .:? "PostConfirmation")
-            <*> (x .:? "PreAuthentication")
-            <*> (x .:? "KMSKeyID")
-            <*> (x .:? "VerifyAuthChallengeResponse")
-            <*> (x .:? "CustomMessage")
-            <*> (x .:? "UserMigration")
-            <*> (x .:? "PreTokenGeneration")
+            Prelude.<$> (x Prelude..:? "CustomEmailSender")
+            Prelude.<*> (x Prelude..:? "PreSignUp")
+            Prelude.<*> (x Prelude..:? "DefineAuthChallenge")
+            Prelude.<*> (x Prelude..:? "PostAuthentication")
+            Prelude.<*> (x Prelude..:? "CustomSMSSender")
+            Prelude.<*> (x Prelude..:? "CreateAuthChallenge")
+            Prelude.<*> (x Prelude..:? "PostConfirmation")
+            Prelude.<*> (x Prelude..:? "PreAuthentication")
+            Prelude.<*> (x Prelude..:? "KMSKeyID")
+            Prelude.<*> (x Prelude..:? "VerifyAuthChallengeResponse")
+            Prelude.<*> (x Prelude..:? "CustomMessage")
+            Prelude.<*> (x Prelude..:? "UserMigration")
+            Prelude.<*> (x Prelude..:? "PreTokenGeneration")
       )
 
-instance Hashable LambdaConfigType
+instance Prelude.Hashable LambdaConfigType
 
-instance NFData LambdaConfigType
+instance Prelude.NFData LambdaConfigType
 
-instance ToJSON LambdaConfigType where
+instance Prelude.ToJSON LambdaConfigType where
   toJSON LambdaConfigType' {..} =
-    object
-      ( catMaybes
-          [ ("CustomEmailSender" .=) <$> _lctCustomEmailSender,
-            ("PreSignUp" .=) <$> _lctPreSignUp,
-            ("DefineAuthChallenge" .=)
-              <$> _lctDefineAuthChallenge,
-            ("PostAuthentication" .=) <$> _lctPostAuthentication,
-            ("CustomSMSSender" .=) <$> _lctCustomSMSSender,
-            ("CreateAuthChallenge" .=)
-              <$> _lctCreateAuthChallenge,
-            ("PostConfirmation" .=) <$> _lctPostConfirmation,
-            ("PreAuthentication" .=) <$> _lctPreAuthentication,
-            ("KMSKeyID" .=) <$> _lctKMSKeyId,
-            ("VerifyAuthChallengeResponse" .=)
-              <$> _lctVerifyAuthChallengeResponse,
-            ("CustomMessage" .=) <$> _lctCustomMessage,
-            ("UserMigration" .=) <$> _lctUserMigration,
-            ("PreTokenGeneration" .=)
-              <$> _lctPreTokenGeneration
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CustomEmailSender" Prelude..=)
+              Prelude.<$> customEmailSender,
+            ("PreSignUp" Prelude..=) Prelude.<$> preSignUp,
+            ("DefineAuthChallenge" Prelude..=)
+              Prelude.<$> defineAuthChallenge,
+            ("PostAuthentication" Prelude..=)
+              Prelude.<$> postAuthentication,
+            ("CustomSMSSender" Prelude..=)
+              Prelude.<$> customSMSSender,
+            ("CreateAuthChallenge" Prelude..=)
+              Prelude.<$> createAuthChallenge,
+            ("PostConfirmation" Prelude..=)
+              Prelude.<$> postConfirmation,
+            ("PreAuthentication" Prelude..=)
+              Prelude.<$> preAuthentication,
+            ("KMSKeyID" Prelude..=) Prelude.<$> kMSKeyID,
+            ("VerifyAuthChallengeResponse" Prelude..=)
+              Prelude.<$> verifyAuthChallengeResponse,
+            ("CustomMessage" Prelude..=)
+              Prelude.<$> customMessage,
+            ("UserMigration" Prelude..=)
+              Prelude.<$> userMigration,
+            ("PreTokenGeneration" Prelude..=)
+              Prelude.<$> preTokenGeneration
           ]
       )

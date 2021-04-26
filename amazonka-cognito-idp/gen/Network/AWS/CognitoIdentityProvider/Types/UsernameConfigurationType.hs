@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.UsernameConfigurationType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The username configuration type.
 --
---
---
--- /See:/ 'usernameConfigurationType' smart constructor.
-newtype UsernameConfigurationType = UsernameConfigurationType'
-  { _uctCaseSensitive ::
-      Bool
+-- /See:/ 'newUsernameConfigurationType' smart constructor.
+data UsernameConfigurationType = UsernameConfigurationType'
+  { -- | Specifies whether username case sensitivity will be applied for all
+    -- users in the user pool through Cognito APIs.
+    --
+    -- Valid values include:
+    --
+    -- -   __@True@__ : Enables case sensitivity for all username input. When
+    --     this option is set to @True@, users must sign in using the exact
+    --     capitalization of their given username. For example, “UserName”.
+    --     This is the default value.
+    --
+    -- -   __@False@__ : Enables case insensitivity for all username input. For
+    --     example, when this option is set to @False@, users will be able to
+    --     sign in using either \"username\" or \"Username\". This option also
+    --     enables both @preferred_username@ and @email@ alias to be case
+    --     insensitive, in addition to the @username@ attribute.
+    caseSensitive :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UsernameConfigurationType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UsernameConfigurationType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uctCaseSensitive' - Specifies whether username case sensitivity will be applied for all users in the user pool through Cognito APIs. Valid values include:     * __@True@ __ : Enables case sensitivity for all username input. When this option is set to @True@ , users must sign in using the exact capitalization of their given username. For example, “UserName”. This is the default value.     * __@False@ __ : Enables case insensitivity for all username input. For example, when this option is set to @False@ , users will be able to sign in using either "username" or "Username". This option also enables both @preferred_username@ and @email@ alias to be case insensitive, in addition to the @username@ attribute.
-usernameConfigurationType ::
-  -- | 'uctCaseSensitive'
-  Bool ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'caseSensitive', 'usernameConfigurationType_caseSensitive' - Specifies whether username case sensitivity will be applied for all
+-- users in the user pool through Cognito APIs.
+--
+-- Valid values include:
+--
+-- -   __@True@__ : Enables case sensitivity for all username input. When
+--     this option is set to @True@, users must sign in using the exact
+--     capitalization of their given username. For example, “UserName”.
+--     This is the default value.
+--
+-- -   __@False@__ : Enables case insensitivity for all username input. For
+--     example, when this option is set to @False@, users will be able to
+--     sign in using either \"username\" or \"Username\". This option also
+--     enables both @preferred_username@ and @email@ alias to be case
+--     insensitive, in addition to the @username@ attribute.
+newUsernameConfigurationType ::
+  -- | 'caseSensitive'
+  Prelude.Bool ->
   UsernameConfigurationType
-usernameConfigurationType pCaseSensitive_ =
+newUsernameConfigurationType pCaseSensitive_ =
   UsernameConfigurationType'
-    { _uctCaseSensitive =
+    { caseSensitive =
         pCaseSensitive_
     }
 
--- | Specifies whether username case sensitivity will be applied for all users in the user pool through Cognito APIs. Valid values include:     * __@True@ __ : Enables case sensitivity for all username input. When this option is set to @True@ , users must sign in using the exact capitalization of their given username. For example, “UserName”. This is the default value.     * __@False@ __ : Enables case insensitivity for all username input. For example, when this option is set to @False@ , users will be able to sign in using either "username" or "Username". This option also enables both @preferred_username@ and @email@ alias to be case insensitive, in addition to the @username@ attribute.
-uctCaseSensitive :: Lens' UsernameConfigurationType Bool
-uctCaseSensitive = lens _uctCaseSensitive (\s a -> s {_uctCaseSensitive = a})
+-- | Specifies whether username case sensitivity will be applied for all
+-- users in the user pool through Cognito APIs.
+--
+-- Valid values include:
+--
+-- -   __@True@__ : Enables case sensitivity for all username input. When
+--     this option is set to @True@, users must sign in using the exact
+--     capitalization of their given username. For example, “UserName”.
+--     This is the default value.
+--
+-- -   __@False@__ : Enables case insensitivity for all username input. For
+--     example, when this option is set to @False@, users will be able to
+--     sign in using either \"username\" or \"Username\". This option also
+--     enables both @preferred_username@ and @email@ alias to be case
+--     insensitive, in addition to the @username@ attribute.
+usernameConfigurationType_caseSensitive :: Lens.Lens' UsernameConfigurationType Prelude.Bool
+usernameConfigurationType_caseSensitive = Lens.lens (\UsernameConfigurationType' {caseSensitive} -> caseSensitive) (\s@UsernameConfigurationType' {} a -> s {caseSensitive = a} :: UsernameConfigurationType)
 
-instance FromJSON UsernameConfigurationType where
+instance Prelude.FromJSON UsernameConfigurationType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UsernameConfigurationType"
       ( \x ->
           UsernameConfigurationType'
-            <$> (x .: "CaseSensitive")
+            Prelude.<$> (x Prelude..: "CaseSensitive")
       )
 
-instance Hashable UsernameConfigurationType
+instance Prelude.Hashable UsernameConfigurationType
 
-instance NFData UsernameConfigurationType
+instance Prelude.NFData UsernameConfigurationType
 
-instance ToJSON UsernameConfigurationType where
+instance Prelude.ToJSON UsernameConfigurationType where
   toJSON UsernameConfigurationType' {..} =
-    object
-      ( catMaybes
-          [Just ("CaseSensitive" .= _uctCaseSensitive)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CaseSensitive" Prelude..= caseSensitive)
+          ]
       )

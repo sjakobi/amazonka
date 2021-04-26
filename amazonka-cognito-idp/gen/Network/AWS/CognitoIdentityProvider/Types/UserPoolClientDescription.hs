@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.UserPoolClientDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The description of the user pool client.
 --
---
---
--- /See:/ 'userPoolClientDescription' smart constructor.
+-- /See:/ 'newUserPoolClientDescription' smart constructor.
 data UserPoolClientDescription = UserPoolClientDescription'
-  { _upcdClientId ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _upcdClientName ::
-      !(Maybe Text),
-    _upcdUserPoolId ::
-      !(Maybe Text)
+  { -- | The ID of the client associated with the user pool.
+    clientId :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The client name from the user pool client description.
+    clientName :: Prelude.Maybe Prelude.Text,
+    -- | The user pool ID for the user pool where you want to describe the user
+    -- pool client.
+    userPoolId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserPoolClientDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserPoolClientDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upcdClientId' - The ID of the client associated with the user pool.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upcdClientName' - The client name from the user pool client description.
+-- 'clientId', 'userPoolClientDescription_clientId' - The ID of the client associated with the user pool.
 --
--- * 'upcdUserPoolId' - The user pool ID for the user pool where you want to describe the user pool client.
-userPoolClientDescription ::
+-- 'clientName', 'userPoolClientDescription_clientName' - The client name from the user pool client description.
+--
+-- 'userPoolId', 'userPoolClientDescription_userPoolId' - The user pool ID for the user pool where you want to describe the user
+-- pool client.
+newUserPoolClientDescription ::
   UserPoolClientDescription
-userPoolClientDescription =
+newUserPoolClientDescription =
   UserPoolClientDescription'
-    { _upcdClientId = Nothing,
-      _upcdClientName = Nothing,
-      _upcdUserPoolId = Nothing
+    { clientId =
+        Prelude.Nothing,
+      clientName = Prelude.Nothing,
+      userPoolId = Prelude.Nothing
     }
 
 -- | The ID of the client associated with the user pool.
-upcdClientId :: Lens' UserPoolClientDescription (Maybe Text)
-upcdClientId = lens _upcdClientId (\s a -> s {_upcdClientId = a}) . mapping _Sensitive
+userPoolClientDescription_clientId :: Lens.Lens' UserPoolClientDescription (Prelude.Maybe Prelude.Text)
+userPoolClientDescription_clientId = Lens.lens (\UserPoolClientDescription' {clientId} -> clientId) (\s@UserPoolClientDescription' {} a -> s {clientId = a} :: UserPoolClientDescription) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The client name from the user pool client description.
-upcdClientName :: Lens' UserPoolClientDescription (Maybe Text)
-upcdClientName = lens _upcdClientName (\s a -> s {_upcdClientName = a})
+userPoolClientDescription_clientName :: Lens.Lens' UserPoolClientDescription (Prelude.Maybe Prelude.Text)
+userPoolClientDescription_clientName = Lens.lens (\UserPoolClientDescription' {clientName} -> clientName) (\s@UserPoolClientDescription' {} a -> s {clientName = a} :: UserPoolClientDescription)
 
--- | The user pool ID for the user pool where you want to describe the user pool client.
-upcdUserPoolId :: Lens' UserPoolClientDescription (Maybe Text)
-upcdUserPoolId = lens _upcdUserPoolId (\s a -> s {_upcdUserPoolId = a})
+-- | The user pool ID for the user pool where you want to describe the user
+-- pool client.
+userPoolClientDescription_userPoolId :: Lens.Lens' UserPoolClientDescription (Prelude.Maybe Prelude.Text)
+userPoolClientDescription_userPoolId = Lens.lens (\UserPoolClientDescription' {userPoolId} -> userPoolId) (\s@UserPoolClientDescription' {} a -> s {userPoolId = a} :: UserPoolClientDescription)
 
-instance FromJSON UserPoolClientDescription where
+instance Prelude.FromJSON UserPoolClientDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserPoolClientDescription"
       ( \x ->
           UserPoolClientDescription'
-            <$> (x .:? "ClientId")
-            <*> (x .:? "ClientName")
-            <*> (x .:? "UserPoolId")
+            Prelude.<$> (x Prelude..:? "ClientId")
+            Prelude.<*> (x Prelude..:? "ClientName")
+            Prelude.<*> (x Prelude..:? "UserPoolId")
       )
 
-instance Hashable UserPoolClientDescription
+instance Prelude.Hashable UserPoolClientDescription
 
-instance NFData UserPoolClientDescription
+instance Prelude.NFData UserPoolClientDescription

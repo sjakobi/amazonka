@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,75 +20,68 @@
 module Network.AWS.CognitoIdentityProvider.Types.CodeDeliveryDetailsType where
 
 import Network.AWS.CognitoIdentityProvider.Types.DeliveryMediumType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The code delivery details being returned from the server.
 --
---
---
--- /See:/ 'codeDeliveryDetailsType' smart constructor.
+-- /See:/ 'newCodeDeliveryDetailsType' smart constructor.
 data CodeDeliveryDetailsType = CodeDeliveryDetailsType'
-  { _cddtDeliveryMedium ::
-      !( Maybe
-           DeliveryMediumType
-       ),
-    _cddtAttributeName ::
-      !(Maybe Text),
-    _cddtDestination ::
-      !(Maybe Text)
+  { -- | The delivery medium (email message or phone number).
+    deliveryMedium :: Prelude.Maybe DeliveryMediumType,
+    -- | The attribute name.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | The destination for the code delivery details.
+    destination :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CodeDeliveryDetailsType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CodeDeliveryDetailsType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cddtDeliveryMedium' - The delivery medium (email message or phone number).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cddtAttributeName' - The attribute name.
+-- 'deliveryMedium', 'codeDeliveryDetailsType_deliveryMedium' - The delivery medium (email message or phone number).
 --
--- * 'cddtDestination' - The destination for the code delivery details.
-codeDeliveryDetailsType ::
+-- 'attributeName', 'codeDeliveryDetailsType_attributeName' - The attribute name.
+--
+-- 'destination', 'codeDeliveryDetailsType_destination' - The destination for the code delivery details.
+newCodeDeliveryDetailsType ::
   CodeDeliveryDetailsType
-codeDeliveryDetailsType =
+newCodeDeliveryDetailsType =
   CodeDeliveryDetailsType'
-    { _cddtDeliveryMedium =
-        Nothing,
-      _cddtAttributeName = Nothing,
-      _cddtDestination = Nothing
+    { deliveryMedium =
+        Prelude.Nothing,
+      attributeName = Prelude.Nothing,
+      destination = Prelude.Nothing
     }
 
 -- | The delivery medium (email message or phone number).
-cddtDeliveryMedium :: Lens' CodeDeliveryDetailsType (Maybe DeliveryMediumType)
-cddtDeliveryMedium = lens _cddtDeliveryMedium (\s a -> s {_cddtDeliveryMedium = a})
+codeDeliveryDetailsType_deliveryMedium :: Lens.Lens' CodeDeliveryDetailsType (Prelude.Maybe DeliveryMediumType)
+codeDeliveryDetailsType_deliveryMedium = Lens.lens (\CodeDeliveryDetailsType' {deliveryMedium} -> deliveryMedium) (\s@CodeDeliveryDetailsType' {} a -> s {deliveryMedium = a} :: CodeDeliveryDetailsType)
 
 -- | The attribute name.
-cddtAttributeName :: Lens' CodeDeliveryDetailsType (Maybe Text)
-cddtAttributeName = lens _cddtAttributeName (\s a -> s {_cddtAttributeName = a})
+codeDeliveryDetailsType_attributeName :: Lens.Lens' CodeDeliveryDetailsType (Prelude.Maybe Prelude.Text)
+codeDeliveryDetailsType_attributeName = Lens.lens (\CodeDeliveryDetailsType' {attributeName} -> attributeName) (\s@CodeDeliveryDetailsType' {} a -> s {attributeName = a} :: CodeDeliveryDetailsType)
 
 -- | The destination for the code delivery details.
-cddtDestination :: Lens' CodeDeliveryDetailsType (Maybe Text)
-cddtDestination = lens _cddtDestination (\s a -> s {_cddtDestination = a})
+codeDeliveryDetailsType_destination :: Lens.Lens' CodeDeliveryDetailsType (Prelude.Maybe Prelude.Text)
+codeDeliveryDetailsType_destination = Lens.lens (\CodeDeliveryDetailsType' {destination} -> destination) (\s@CodeDeliveryDetailsType' {} a -> s {destination = a} :: CodeDeliveryDetailsType)
 
-instance FromJSON CodeDeliveryDetailsType where
+instance Prelude.FromJSON CodeDeliveryDetailsType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CodeDeliveryDetailsType"
       ( \x ->
           CodeDeliveryDetailsType'
-            <$> (x .:? "DeliveryMedium")
-            <*> (x .:? "AttributeName")
-            <*> (x .:? "Destination")
+            Prelude.<$> (x Prelude..:? "DeliveryMedium")
+            Prelude.<*> (x Prelude..:? "AttributeName")
+            Prelude.<*> (x Prelude..:? "Destination")
       )
 
-instance Hashable CodeDeliveryDetailsType
+instance Prelude.Hashable CodeDeliveryDetailsType
 
-instance NFData CodeDeliveryDetailsType
+instance Prelude.NFData CodeDeliveryDetailsType

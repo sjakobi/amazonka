@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CognitoIdentityProvider.Types.AliasAttributeType
   ( AliasAttributeType
       ( ..,
-        AATEmail,
-        AATPhoneNumber,
-        AATPreferredUsername
+        AliasAttributeTypeEmail,
+        AliasAttributeTypePhoneNumber,
+        AliasAttributeTypePreferredUsername
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AliasAttributeType
-  = AliasAttributeType'
-      ( CI
-          Text
-      )
+newtype AliasAttributeType = AliasAttributeType'
+  { fromAliasAttributeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AATEmail :: AliasAttributeType
-pattern AATEmail = AliasAttributeType' "email"
+pattern AliasAttributeTypeEmail :: AliasAttributeType
+pattern AliasAttributeTypeEmail = AliasAttributeType' "email"
 
-pattern AATPhoneNumber :: AliasAttributeType
-pattern AATPhoneNumber = AliasAttributeType' "phone_number"
+pattern AliasAttributeTypePhoneNumber :: AliasAttributeType
+pattern AliasAttributeTypePhoneNumber = AliasAttributeType' "phone_number"
 
-pattern AATPreferredUsername :: AliasAttributeType
-pattern AATPreferredUsername = AliasAttributeType' "preferred_username"
+pattern AliasAttributeTypePreferredUsername :: AliasAttributeType
+pattern AliasAttributeTypePreferredUsername = AliasAttributeType' "preferred_username"
 
 {-# COMPLETE
-  AATEmail,
-  AATPhoneNumber,
-  AATPreferredUsername,
+  AliasAttributeTypeEmail,
+  AliasAttributeTypePhoneNumber,
+  AliasAttributeTypePreferredUsername,
   AliasAttributeType'
   #-}
 
-instance FromText AliasAttributeType where
-  parser = (AliasAttributeType' . mk) <$> takeText
+instance Prelude.FromText AliasAttributeType where
+  parser = AliasAttributeType' Prelude.<$> Prelude.takeText
 
-instance ToText AliasAttributeType where
-  toText (AliasAttributeType' ci) = original ci
+instance Prelude.ToText AliasAttributeType where
+  toText (AliasAttributeType' x) = x
 
-instance Hashable AliasAttributeType
+instance Prelude.Hashable AliasAttributeType
 
-instance NFData AliasAttributeType
+instance Prelude.NFData AliasAttributeType
 
-instance ToByteString AliasAttributeType
+instance Prelude.ToByteString AliasAttributeType
 
-instance ToQuery AliasAttributeType
+instance Prelude.ToQuery AliasAttributeType
 
-instance ToHeader AliasAttributeType
+instance Prelude.ToHeader AliasAttributeType
 
-instance ToJSON AliasAttributeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AliasAttributeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AliasAttributeType where
-  parseJSON = parseJSONText "AliasAttributeType"
+instance Prelude.FromJSON AliasAttributeType where
+  parseJSON = Prelude.parseJSONText "AliasAttributeType"

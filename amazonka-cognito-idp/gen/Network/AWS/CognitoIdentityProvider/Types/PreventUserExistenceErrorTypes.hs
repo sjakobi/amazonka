@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CognitoIdentityProvider.Types.PreventUserExistenceErrorTypes
   ( PreventUserExistenceErrorTypes
       ( ..,
-        PUEETEnabled,
-        PUEETLegacy
+        PreventUserExistenceErrorTypesENABLED,
+        PreventUserExistenceErrorTypesLEGACY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PreventUserExistenceErrorTypes
-  = PreventUserExistenceErrorTypes'
-      ( CI
-          Text
-      )
+newtype PreventUserExistenceErrorTypes = PreventUserExistenceErrorTypes'
+  { fromPreventUserExistenceErrorTypes ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PUEETEnabled :: PreventUserExistenceErrorTypes
-pattern PUEETEnabled = PreventUserExistenceErrorTypes' "ENABLED"
+pattern PreventUserExistenceErrorTypesENABLED :: PreventUserExistenceErrorTypes
+pattern PreventUserExistenceErrorTypesENABLED = PreventUserExistenceErrorTypes' "ENABLED"
 
-pattern PUEETLegacy :: PreventUserExistenceErrorTypes
-pattern PUEETLegacy = PreventUserExistenceErrorTypes' "LEGACY"
+pattern PreventUserExistenceErrorTypesLEGACY :: PreventUserExistenceErrorTypes
+pattern PreventUserExistenceErrorTypesLEGACY = PreventUserExistenceErrorTypes' "LEGACY"
 
 {-# COMPLETE
-  PUEETEnabled,
-  PUEETLegacy,
+  PreventUserExistenceErrorTypesENABLED,
+  PreventUserExistenceErrorTypesLEGACY,
   PreventUserExistenceErrorTypes'
   #-}
 
-instance FromText PreventUserExistenceErrorTypes where
-  parser = (PreventUserExistenceErrorTypes' . mk) <$> takeText
+instance Prelude.FromText PreventUserExistenceErrorTypes where
+  parser = PreventUserExistenceErrorTypes' Prelude.<$> Prelude.takeText
 
-instance ToText PreventUserExistenceErrorTypes where
-  toText (PreventUserExistenceErrorTypes' ci) = original ci
+instance Prelude.ToText PreventUserExistenceErrorTypes where
+  toText (PreventUserExistenceErrorTypes' x) = x
 
-instance Hashable PreventUserExistenceErrorTypes
+instance Prelude.Hashable PreventUserExistenceErrorTypes
 
-instance NFData PreventUserExistenceErrorTypes
+instance Prelude.NFData PreventUserExistenceErrorTypes
 
-instance ToByteString PreventUserExistenceErrorTypes
+instance Prelude.ToByteString PreventUserExistenceErrorTypes
 
-instance ToQuery PreventUserExistenceErrorTypes
+instance Prelude.ToQuery PreventUserExistenceErrorTypes
 
-instance ToHeader PreventUserExistenceErrorTypes
+instance Prelude.ToHeader PreventUserExistenceErrorTypes
 
-instance ToJSON PreventUserExistenceErrorTypes where
-  toJSON = toJSONText
+instance Prelude.ToJSON PreventUserExistenceErrorTypes where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PreventUserExistenceErrorTypes where
-  parseJSON = parseJSONText "PreventUserExistenceErrorTypes"
+instance Prelude.FromJSON PreventUserExistenceErrorTypes where
+  parseJSON = Prelude.parseJSONText "PreventUserExistenceErrorTypes"

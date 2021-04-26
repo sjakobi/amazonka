@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.CognitoIdentityProvider.Types.AttributeDataType
   ( AttributeDataType
       ( ..,
-        Boolean,
-        DateTime,
-        Number,
-        String
+        AttributeDataTypeBoolean,
+        AttributeDataTypeDateTime,
+        AttributeDataTypeNumber,
+        AttributeDataTypeString
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AttributeDataType = AttributeDataType' (CI Text)
+newtype AttributeDataType = AttributeDataType'
+  { fromAttributeDataType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Boolean :: AttributeDataType
-pattern Boolean = AttributeDataType' "Boolean"
+pattern AttributeDataTypeBoolean :: AttributeDataType
+pattern AttributeDataTypeBoolean = AttributeDataType' "Boolean"
 
-pattern DateTime :: AttributeDataType
-pattern DateTime = AttributeDataType' "DateTime"
+pattern AttributeDataTypeDateTime :: AttributeDataType
+pattern AttributeDataTypeDateTime = AttributeDataType' "DateTime"
 
-pattern Number :: AttributeDataType
-pattern Number = AttributeDataType' "Number"
+pattern AttributeDataTypeNumber :: AttributeDataType
+pattern AttributeDataTypeNumber = AttributeDataType' "Number"
 
-pattern String :: AttributeDataType
-pattern String = AttributeDataType' "String"
+pattern AttributeDataTypeString :: AttributeDataType
+pattern AttributeDataTypeString = AttributeDataType' "String"
 
 {-# COMPLETE
-  Boolean,
-  DateTime,
-  Number,
-  String,
+  AttributeDataTypeBoolean,
+  AttributeDataTypeDateTime,
+  AttributeDataTypeNumber,
+  AttributeDataTypeString,
   AttributeDataType'
   #-}
 
-instance FromText AttributeDataType where
-  parser = (AttributeDataType' . mk) <$> takeText
+instance Prelude.FromText AttributeDataType where
+  parser = AttributeDataType' Prelude.<$> Prelude.takeText
 
-instance ToText AttributeDataType where
-  toText (AttributeDataType' ci) = original ci
+instance Prelude.ToText AttributeDataType where
+  toText (AttributeDataType' x) = x
 
-instance Hashable AttributeDataType
+instance Prelude.Hashable AttributeDataType
 
-instance NFData AttributeDataType
+instance Prelude.NFData AttributeDataType
 
-instance ToByteString AttributeDataType
+instance Prelude.ToByteString AttributeDataType
 
-instance ToQuery AttributeDataType
+instance Prelude.ToQuery AttributeDataType
 
-instance ToHeader AttributeDataType
+instance Prelude.ToHeader AttributeDataType
 
-instance ToJSON AttributeDataType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AttributeDataType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AttributeDataType where
-  parseJSON = parseJSONText "AttributeDataType"
+instance Prelude.FromJSON AttributeDataType where
+  parseJSON = Prelude.parseJSONText "AttributeDataType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,105 +21,98 @@ module Network.AWS.CognitoIdentityProvider.Types.UserPoolDescriptionType where
 
 import Network.AWS.CognitoIdentityProvider.Types.LambdaConfigType
 import Network.AWS.CognitoIdentityProvider.Types.StatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A user pool description.
 --
---
---
--- /See:/ 'userPoolDescriptionType' smart constructor.
+-- /See:/ 'newUserPoolDescriptionType' smart constructor.
 data UserPoolDescriptionType = UserPoolDescriptionType'
-  { _updtLastModifiedDate ::
-      !(Maybe POSIX),
-    _updtStatus ::
-      !(Maybe StatusType),
-    _updtId ::
-      !(Maybe Text),
-    _updtCreationDate ::
-      !(Maybe POSIX),
-    _updtLambdaConfig ::
-      !( Maybe
-           LambdaConfigType
-       ),
-    _updtName ::
-      !(Maybe Text)
+  { -- | The date the user pool description was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The user pool status in a user pool description.
+    status :: Prelude.Maybe StatusType,
+    -- | The ID in a user pool description.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The date the user pool description was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The AWS Lambda configuration information in a user pool description.
+    lambdaConfig :: Prelude.Maybe LambdaConfigType,
+    -- | The name in a user pool description.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserPoolDescriptionType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserPoolDescriptionType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'updtLastModifiedDate' - The date the user pool description was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'updtStatus' - The user pool status in a user pool description.
+-- 'lastModifiedDate', 'userPoolDescriptionType_lastModifiedDate' - The date the user pool description was last modified.
 --
--- * 'updtId' - The ID in a user pool description.
+-- 'status', 'userPoolDescriptionType_status' - The user pool status in a user pool description.
 --
--- * 'updtCreationDate' - The date the user pool description was created.
+-- 'id', 'userPoolDescriptionType_id' - The ID in a user pool description.
 --
--- * 'updtLambdaConfig' - The AWS Lambda configuration information in a user pool description.
+-- 'creationDate', 'userPoolDescriptionType_creationDate' - The date the user pool description was created.
 --
--- * 'updtName' - The name in a user pool description.
-userPoolDescriptionType ::
+-- 'lambdaConfig', 'userPoolDescriptionType_lambdaConfig' - The AWS Lambda configuration information in a user pool description.
+--
+-- 'name', 'userPoolDescriptionType_name' - The name in a user pool description.
+newUserPoolDescriptionType ::
   UserPoolDescriptionType
-userPoolDescriptionType =
+newUserPoolDescriptionType =
   UserPoolDescriptionType'
-    { _updtLastModifiedDate =
-        Nothing,
-      _updtStatus = Nothing,
-      _updtId = Nothing,
-      _updtCreationDate = Nothing,
-      _updtLambdaConfig = Nothing,
-      _updtName = Nothing
+    { lastModifiedDate =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      id = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      lambdaConfig = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The date the user pool description was last modified.
-updtLastModifiedDate :: Lens' UserPoolDescriptionType (Maybe UTCTime)
-updtLastModifiedDate = lens _updtLastModifiedDate (\s a -> s {_updtLastModifiedDate = a}) . mapping _Time
+userPoolDescriptionType_lastModifiedDate :: Lens.Lens' UserPoolDescriptionType (Prelude.Maybe Prelude.UTCTime)
+userPoolDescriptionType_lastModifiedDate = Lens.lens (\UserPoolDescriptionType' {lastModifiedDate} -> lastModifiedDate) (\s@UserPoolDescriptionType' {} a -> s {lastModifiedDate = a} :: UserPoolDescriptionType) Prelude.. Lens.mapping Prelude._Time
 
 -- | The user pool status in a user pool description.
-updtStatus :: Lens' UserPoolDescriptionType (Maybe StatusType)
-updtStatus = lens _updtStatus (\s a -> s {_updtStatus = a})
+userPoolDescriptionType_status :: Lens.Lens' UserPoolDescriptionType (Prelude.Maybe StatusType)
+userPoolDescriptionType_status = Lens.lens (\UserPoolDescriptionType' {status} -> status) (\s@UserPoolDescriptionType' {} a -> s {status = a} :: UserPoolDescriptionType)
 
 -- | The ID in a user pool description.
-updtId :: Lens' UserPoolDescriptionType (Maybe Text)
-updtId = lens _updtId (\s a -> s {_updtId = a})
+userPoolDescriptionType_id :: Lens.Lens' UserPoolDescriptionType (Prelude.Maybe Prelude.Text)
+userPoolDescriptionType_id = Lens.lens (\UserPoolDescriptionType' {id} -> id) (\s@UserPoolDescriptionType' {} a -> s {id = a} :: UserPoolDescriptionType)
 
 -- | The date the user pool description was created.
-updtCreationDate :: Lens' UserPoolDescriptionType (Maybe UTCTime)
-updtCreationDate = lens _updtCreationDate (\s a -> s {_updtCreationDate = a}) . mapping _Time
+userPoolDescriptionType_creationDate :: Lens.Lens' UserPoolDescriptionType (Prelude.Maybe Prelude.UTCTime)
+userPoolDescriptionType_creationDate = Lens.lens (\UserPoolDescriptionType' {creationDate} -> creationDate) (\s@UserPoolDescriptionType' {} a -> s {creationDate = a} :: UserPoolDescriptionType) Prelude.. Lens.mapping Prelude._Time
 
 -- | The AWS Lambda configuration information in a user pool description.
-updtLambdaConfig :: Lens' UserPoolDescriptionType (Maybe LambdaConfigType)
-updtLambdaConfig = lens _updtLambdaConfig (\s a -> s {_updtLambdaConfig = a})
+userPoolDescriptionType_lambdaConfig :: Lens.Lens' UserPoolDescriptionType (Prelude.Maybe LambdaConfigType)
+userPoolDescriptionType_lambdaConfig = Lens.lens (\UserPoolDescriptionType' {lambdaConfig} -> lambdaConfig) (\s@UserPoolDescriptionType' {} a -> s {lambdaConfig = a} :: UserPoolDescriptionType)
 
 -- | The name in a user pool description.
-updtName :: Lens' UserPoolDescriptionType (Maybe Text)
-updtName = lens _updtName (\s a -> s {_updtName = a})
+userPoolDescriptionType_name :: Lens.Lens' UserPoolDescriptionType (Prelude.Maybe Prelude.Text)
+userPoolDescriptionType_name = Lens.lens (\UserPoolDescriptionType' {name} -> name) (\s@UserPoolDescriptionType' {} a -> s {name = a} :: UserPoolDescriptionType)
 
-instance FromJSON UserPoolDescriptionType where
+instance Prelude.FromJSON UserPoolDescriptionType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserPoolDescriptionType"
       ( \x ->
           UserPoolDescriptionType'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "Status")
-            <*> (x .:? "Id")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "LambdaConfig")
-            <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "LambdaConfig")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable UserPoolDescriptionType
+instance Prelude.Hashable UserPoolDescriptionType
 
-instance NFData UserPoolDescriptionType
+instance Prelude.NFData UserPoolDescriptionType

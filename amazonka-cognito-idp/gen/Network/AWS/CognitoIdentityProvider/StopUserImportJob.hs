@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,156 +24,160 @@
 -- Stops the user import job.
 module Network.AWS.CognitoIdentityProvider.StopUserImportJob
   ( -- * Creating a Request
-    stopUserImportJob,
-    StopUserImportJob,
+    StopUserImportJob (..),
+    newStopUserImportJob,
 
     -- * Request Lenses
-    suijUserPoolId,
-    suijJobId,
+    stopUserImportJob_userPoolId,
+    stopUserImportJob_jobId,
 
     -- * Destructuring the Response
-    stopUserImportJobResponse,
-    StopUserImportJobResponse,
+    StopUserImportJobResponse (..),
+    newStopUserImportJobResponse,
 
     -- * Response Lenses
-    suijrrsUserImportJob,
-    suijrrsResponseStatus,
+    stopUserImportJobResponse_userImportJob,
+    stopUserImportJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.UserImportJobType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to stop the user import job.
 --
---
---
--- /See:/ 'stopUserImportJob' smart constructor.
+-- /See:/ 'newStopUserImportJob' smart constructor.
 data StopUserImportJob = StopUserImportJob'
-  { _suijUserPoolId ::
-      !Text,
-    _suijJobId :: !Text
+  { -- | The user pool ID for the user pool that the users are being imported
+    -- into.
+    userPoolId :: Prelude.Text,
+    -- | The job ID for the user import job.
+    jobId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopUserImportJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopUserImportJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'suijUserPoolId' - The user pool ID for the user pool that the users are being imported into.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'suijJobId' - The job ID for the user import job.
-stopUserImportJob ::
-  -- | 'suijUserPoolId'
-  Text ->
-  -- | 'suijJobId'
-  Text ->
+-- 'userPoolId', 'stopUserImportJob_userPoolId' - The user pool ID for the user pool that the users are being imported
+-- into.
+--
+-- 'jobId', 'stopUserImportJob_jobId' - The job ID for the user import job.
+newStopUserImportJob ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'jobId'
+  Prelude.Text ->
   StopUserImportJob
-stopUserImportJob pUserPoolId_ pJobId_ =
+newStopUserImportJob pUserPoolId_ pJobId_ =
   StopUserImportJob'
-    { _suijUserPoolId = pUserPoolId_,
-      _suijJobId = pJobId_
+    { userPoolId = pUserPoolId_,
+      jobId = pJobId_
     }
 
--- | The user pool ID for the user pool that the users are being imported into.
-suijUserPoolId :: Lens' StopUserImportJob Text
-suijUserPoolId = lens _suijUserPoolId (\s a -> s {_suijUserPoolId = a})
+-- | The user pool ID for the user pool that the users are being imported
+-- into.
+stopUserImportJob_userPoolId :: Lens.Lens' StopUserImportJob Prelude.Text
+stopUserImportJob_userPoolId = Lens.lens (\StopUserImportJob' {userPoolId} -> userPoolId) (\s@StopUserImportJob' {} a -> s {userPoolId = a} :: StopUserImportJob)
 
 -- | The job ID for the user import job.
-suijJobId :: Lens' StopUserImportJob Text
-suijJobId = lens _suijJobId (\s a -> s {_suijJobId = a})
+stopUserImportJob_jobId :: Lens.Lens' StopUserImportJob Prelude.Text
+stopUserImportJob_jobId = Lens.lens (\StopUserImportJob' {jobId} -> jobId) (\s@StopUserImportJob' {} a -> s {jobId = a} :: StopUserImportJob)
 
-instance AWSRequest StopUserImportJob where
+instance Prelude.AWSRequest StopUserImportJob where
   type Rs StopUserImportJob = StopUserImportJobResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopUserImportJobResponse'
-            <$> (x .?> "UserImportJob") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "UserImportJob")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopUserImportJob
+instance Prelude.Hashable StopUserImportJob
 
-instance NFData StopUserImportJob
+instance Prelude.NFData StopUserImportJob
 
-instance ToHeaders StopUserImportJob where
+instance Prelude.ToHeaders StopUserImportJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.StopUserImportJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.StopUserImportJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopUserImportJob where
+instance Prelude.ToJSON StopUserImportJob where
   toJSON StopUserImportJob' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserPoolId" .= _suijUserPoolId),
-            Just ("JobId" .= _suijJobId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserPoolId" Prelude..= userPoolId),
+            Prelude.Just ("JobId" Prelude..= jobId)
           ]
       )
 
-instance ToPath StopUserImportJob where
-  toPath = const "/"
+instance Prelude.ToPath StopUserImportJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopUserImportJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopUserImportJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the response from the server to the request to stop the user import job.
+-- | Represents the response from the server to the request to stop the user
+-- import job.
 --
---
---
--- /See:/ 'stopUserImportJobResponse' smart constructor.
+-- /See:/ 'newStopUserImportJobResponse' smart constructor.
 data StopUserImportJobResponse = StopUserImportJobResponse'
-  { _suijrrsUserImportJob ::
-      !( Maybe
-           UserImportJobType
-       ),
-    _suijrrsResponseStatus ::
-      !Int
+  { -- | The job object that represents the user import job.
+    userImportJob :: Prelude.Maybe UserImportJobType,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopUserImportJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopUserImportJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'suijrrsUserImportJob' - The job object that represents the user import job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'suijrrsResponseStatus' - -- | The response status code.
-stopUserImportJobResponse ::
-  -- | 'suijrrsResponseStatus'
-  Int ->
+-- 'userImportJob', 'stopUserImportJobResponse_userImportJob' - The job object that represents the user import job.
+--
+-- 'httpStatus', 'stopUserImportJobResponse_httpStatus' - The response's http status code.
+newStopUserImportJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopUserImportJobResponse
-stopUserImportJobResponse pResponseStatus_ =
+newStopUserImportJobResponse pHttpStatus_ =
   StopUserImportJobResponse'
-    { _suijrrsUserImportJob =
-        Nothing,
-      _suijrrsResponseStatus = pResponseStatus_
+    { userImportJob =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The job object that represents the user import job.
-suijrrsUserImportJob :: Lens' StopUserImportJobResponse (Maybe UserImportJobType)
-suijrrsUserImportJob = lens _suijrrsUserImportJob (\s a -> s {_suijrrsUserImportJob = a})
+stopUserImportJobResponse_userImportJob :: Lens.Lens' StopUserImportJobResponse (Prelude.Maybe UserImportJobType)
+stopUserImportJobResponse_userImportJob = Lens.lens (\StopUserImportJobResponse' {userImportJob} -> userImportJob) (\s@StopUserImportJobResponse' {} a -> s {userImportJob = a} :: StopUserImportJobResponse)
 
--- | -- | The response status code.
-suijrrsResponseStatus :: Lens' StopUserImportJobResponse Int
-suijrrsResponseStatus = lens _suijrrsResponseStatus (\s a -> s {_suijrrsResponseStatus = a})
+-- | The response's http status code.
+stopUserImportJobResponse_httpStatus :: Lens.Lens' StopUserImportJobResponse Prelude.Int
+stopUserImportJobResponse_httpStatus = Lens.lens (\StopUserImportJobResponse' {httpStatus} -> httpStatus) (\s@StopUserImportJobResponse' {} a -> s {httpStatus = a} :: StopUserImportJobResponse)
 
-instance NFData StopUserImportJobResponse
+instance Prelude.NFData StopUserImportJobResponse

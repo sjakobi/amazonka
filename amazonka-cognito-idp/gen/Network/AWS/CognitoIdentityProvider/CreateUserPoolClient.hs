@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,361 +24,700 @@
 -- Creates the user pool client.
 module Network.AWS.CognitoIdentityProvider.CreateUserPoolClient
   ( -- * Creating a Request
-    createUserPoolClient,
-    CreateUserPoolClient,
+    CreateUserPoolClient (..),
+    newCreateUserPoolClient,
 
     -- * Request Lenses
-    cupcRefreshTokenValidity,
-    cupcIdTokenValidity,
-    cupcAllowedOAuthScopes,
-    cupcAnalyticsConfiguration,
-    cupcReadAttributes,
-    cupcLogoutURLs,
-    cupcWriteAttributes,
-    cupcSupportedIdentityProviders,
-    cupcExplicitAuthFlows,
-    cupcDefaultRedirectURI,
-    cupcTokenValidityUnits,
-    cupcCallbackURLs,
-    cupcAllowedOAuthFlows,
-    cupcAccessTokenValidity,
-    cupcGenerateSecret,
-    cupcPreventUserExistenceErrors,
-    cupcAllowedOAuthFlowsUserPoolClient,
-    cupcUserPoolId,
-    cupcClientName,
+    createUserPoolClient_refreshTokenValidity,
+    createUserPoolClient_idTokenValidity,
+    createUserPoolClient_allowedOAuthScopes,
+    createUserPoolClient_analyticsConfiguration,
+    createUserPoolClient_readAttributes,
+    createUserPoolClient_logoutURLs,
+    createUserPoolClient_writeAttributes,
+    createUserPoolClient_supportedIdentityProviders,
+    createUserPoolClient_explicitAuthFlows,
+    createUserPoolClient_defaultRedirectURI,
+    createUserPoolClient_tokenValidityUnits,
+    createUserPoolClient_callbackURLs,
+    createUserPoolClient_allowedOAuthFlows,
+    createUserPoolClient_accessTokenValidity,
+    createUserPoolClient_generateSecret,
+    createUserPoolClient_preventUserExistenceErrors,
+    createUserPoolClient_allowedOAuthFlowsUserPoolClient,
+    createUserPoolClient_userPoolId,
+    createUserPoolClient_clientName,
 
     -- * Destructuring the Response
-    createUserPoolClientResponse,
-    CreateUserPoolClientResponse,
+    CreateUserPoolClientResponse (..),
+    newCreateUserPoolClientResponse,
 
     -- * Response Lenses
-    cupcrrsUserPoolClient,
-    cupcrrsResponseStatus,
+    createUserPoolClientResponse_userPoolClient,
+    createUserPoolClientResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.UserPoolClientType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to create a user pool client.
 --
---
---
--- /See:/ 'createUserPoolClient' smart constructor.
+-- /See:/ 'newCreateUserPoolClient' smart constructor.
 data CreateUserPoolClient = CreateUserPoolClient'
-  { _cupcRefreshTokenValidity ::
-      !(Maybe Nat),
-    _cupcIdTokenValidity ::
-      !(Maybe Nat),
-    _cupcAllowedOAuthScopes ::
-      !(Maybe [Text]),
-    _cupcAnalyticsConfiguration ::
-      !( Maybe
-           AnalyticsConfigurationType
-       ),
-    _cupcReadAttributes ::
-      !(Maybe [Text]),
-    _cupcLogoutURLs ::
-      !(Maybe [Text]),
-    _cupcWriteAttributes ::
-      !(Maybe [Text]),
-    _cupcSupportedIdentityProviders ::
-      !(Maybe [Text]),
-    _cupcExplicitAuthFlows ::
-      !( Maybe
-           [ExplicitAuthFlowsType]
-       ),
-    _cupcDefaultRedirectURI ::
-      !(Maybe Text),
-    _cupcTokenValidityUnits ::
-      !( Maybe
-           TokenValidityUnitsType
-       ),
-    _cupcCallbackURLs ::
-      !(Maybe [Text]),
-    _cupcAllowedOAuthFlows ::
-      !(Maybe [OAuthFlowType]),
-    _cupcAccessTokenValidity ::
-      !(Maybe Nat),
-    _cupcGenerateSecret ::
-      !(Maybe Bool),
-    _cupcPreventUserExistenceErrors ::
-      !( Maybe
-           PreventUserExistenceErrorTypes
-       ),
-    _cupcAllowedOAuthFlowsUserPoolClient ::
-      !(Maybe Bool),
-    _cupcUserPoolId :: !Text,
-    _cupcClientName :: !Text
+  { -- | The time limit, in days, after which the refresh token is no longer
+    -- valid and cannot be used.
+    refreshTokenValidity :: Prelude.Maybe Prelude.Nat,
+    -- | The time limit, between 5 minutes and 1 day, after which the ID token is
+    -- no longer valid and cannot be used. This value will be overridden if you
+    -- have entered a value in TokenValidityUnits.
+    idTokenValidity :: Prelude.Maybe Prelude.Nat,
+    -- | The allowed OAuth scopes. Possible values provided by OAuth are:
+    -- @phone@, @email@, @openid@, and @profile@. Possible values provided by
+    -- AWS are: @aws.cognito.signin.user.admin@. Custom scopes created in
+    -- Resource Servers are also supported.
+    allowedOAuthScopes :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon Pinpoint analytics configuration for collecting metrics for
+    -- this user pool.
+    --
+    -- In regions where Pinpoint is not available, Cognito User Pools only
+    -- supports sending events to Amazon Pinpoint projects in us-east-1. In
+    -- regions where Pinpoint is available, Cognito User Pools will support
+    -- sending events to Amazon Pinpoint projects within that same region.
+    analyticsConfiguration :: Prelude.Maybe AnalyticsConfigurationType,
+    -- | The read attributes.
+    readAttributes :: Prelude.Maybe [Prelude.Text],
+    -- | A list of allowed logout URLs for the identity providers.
+    logoutURLs :: Prelude.Maybe [Prelude.Text],
+    -- | The user pool attributes that the app client can write to.
+    --
+    -- If your app client allows users to sign in through an identity provider,
+    -- this array must include all attributes that are mapped to identity
+    -- provider attributes. Amazon Cognito updates mapped attributes when users
+    -- sign in to your application through an identity provider. If your app
+    -- client lacks write access to a mapped attribute, Amazon Cognito throws
+    -- an error when it attempts to update the attribute. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html Specifying Identity Provider Attribute Mappings for Your User Pool>.
+    writeAttributes :: Prelude.Maybe [Prelude.Text],
+    -- | A list of provider names for the identity providers that are supported
+    -- on this client. The following are supported: @COGNITO@, @Facebook@,
+    -- @Google@ and @LoginWithAmazon@.
+    supportedIdentityProviders :: Prelude.Maybe [Prelude.Text],
+    -- | The authentication flows that are supported by the user pool clients.
+    -- Flow names without the @ALLOW_@ prefix are deprecated in favor of new
+    -- names with the @ALLOW_@ prefix. Note that values with @ALLOW_@ prefix
+    -- cannot be used along with values without @ALLOW_@ prefix.
+    --
+    -- Valid values include:
+    --
+    -- -   @ALLOW_ADMIN_USER_PASSWORD_AUTH@: Enable admin based user password
+    --     authentication flow @ADMIN_USER_PASSWORD_AUTH@. This setting
+    --     replaces the @ADMIN_NO_SRP_AUTH@ setting. With this authentication
+    --     flow, Cognito receives the password in the request instead of using
+    --     the SRP (Secure Remote Password protocol) protocol to verify
+    --     passwords.
+    --
+    -- -   @ALLOW_CUSTOM_AUTH@: Enable Lambda trigger based authentication.
+    --
+    -- -   @ALLOW_USER_PASSWORD_AUTH@: Enable user password-based
+    --     authentication. In this flow, Cognito receives the password in the
+    --     request instead of using the SRP protocol to verify passwords.
+    --
+    -- -   @ALLOW_USER_SRP_AUTH@: Enable SRP based authentication.
+    --
+    -- -   @ALLOW_REFRESH_TOKEN_AUTH@: Enable authflow to refresh tokens.
+    explicitAuthFlows :: Prelude.Maybe [ExplicitAuthFlowsType],
+    -- | The default redirect URI. Must be in the @CallbackURLs@ list.
+    --
+    -- A redirect URI must:
+    --
+    -- -   Be an absolute URI.
+    --
+    -- -   Be registered with the authorization server.
+    --
+    -- -   Not include a fragment component.
+    --
+    -- See
+    -- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+    --
+    -- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+    -- for testing purposes only.
+    --
+    -- App callback URLs such as myapp:\/\/example are also supported.
+    defaultRedirectURI :: Prelude.Maybe Prelude.Text,
+    -- | The units in which the validity times are represented in. Default for
+    -- RefreshToken is days, and default for ID and access tokens are hours.
+    tokenValidityUnits :: Prelude.Maybe TokenValidityUnitsType,
+    -- | A list of allowed redirect (callback) URLs for the identity providers.
+    --
+    -- A redirect URI must:
+    --
+    -- -   Be an absolute URI.
+    --
+    -- -   Be registered with the authorization server.
+    --
+    -- -   Not include a fragment component.
+    --
+    -- See
+    -- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+    --
+    -- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+    -- for testing purposes only.
+    --
+    -- App callback URLs such as myapp:\/\/example are also supported.
+    callbackURLs :: Prelude.Maybe [Prelude.Text],
+    -- | The allowed OAuth flows.
+    --
+    -- Set to @code@ to initiate a code grant flow, which provides an
+    -- authorization code as the response. This code can be exchanged for
+    -- access tokens with the token endpoint.
+    --
+    -- Set to @implicit@ to specify that the client should get the access token
+    -- (and, optionally, ID token, based on scopes) directly.
+    --
+    -- Set to @client_credentials@ to specify that the client should get the
+    -- access token (and, optionally, ID token, based on scopes) from the token
+    -- endpoint using a combination of client and client_secret.
+    allowedOAuthFlows :: Prelude.Maybe [OAuthFlowType],
+    -- | The time limit, between 5 minutes and 1 day, after which the access
+    -- token is no longer valid and cannot be used. This value will be
+    -- overridden if you have entered a value in TokenValidityUnits.
+    accessTokenValidity :: Prelude.Maybe Prelude.Nat,
+    -- | Boolean to specify whether you want to generate a secret for the user
+    -- pool client being created.
+    generateSecret :: Prelude.Maybe Prelude.Bool,
+    -- | Use this setting to choose which errors and responses are returned by
+    -- Cognito APIs during authentication, account confirmation, and password
+    -- recovery when the user does not exist in the user pool. When set to
+    -- @ENABLED@ and the user does not exist, authentication returns an error
+    -- indicating either the username or password was incorrect, and account
+    -- confirmation and password recovery return a response indicating a code
+    -- was sent to a simulated destination. When set to @LEGACY@, those APIs
+    -- will return a @UserNotFoundException@ exception if the user does not
+    -- exist in the user pool.
+    --
+    -- Valid values include:
+    --
+    -- -   @ENABLED@ - This prevents user existence-related errors.
+    --
+    -- -   @LEGACY@ - This represents the old behavior of Cognito where user
+    --     existence related errors are not prevented.
+    --
+    -- After February 15th 2020, the value of @PreventUserExistenceErrors@ will
+    -- default to @ENABLED@ for newly created user pool clients if no value is
+    -- provided.
+    preventUserExistenceErrors :: Prelude.Maybe PreventUserExistenceErrorTypes,
+    -- | Set to true if the client is allowed to follow the OAuth protocol when
+    -- interacting with Cognito user pools.
+    allowedOAuthFlowsUserPoolClient :: Prelude.Maybe Prelude.Bool,
+    -- | The user pool ID for the user pool where you want to create a user pool
+    -- client.
+    userPoolId :: Prelude.Text,
+    -- | The client name for the user pool client you would like to create.
+    clientName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserPoolClient' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserPoolClient' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cupcRefreshTokenValidity' - The time limit, in days, after which the refresh token is no longer valid and cannot be used.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cupcIdTokenValidity' - The time limit, between 5 minutes and 1 day, after which the ID token is no longer valid and cannot be used. This value will be overridden if you have entered a value in TokenValidityUnits.
+-- 'refreshTokenValidity', 'createUserPoolClient_refreshTokenValidity' - The time limit, in days, after which the refresh token is no longer
+-- valid and cannot be used.
 --
--- * 'cupcAllowedOAuthScopes' - The allowed OAuth scopes. Possible values provided by OAuth are: @phone@ , @email@ , @openid@ , and @profile@ . Possible values provided by AWS are: @aws.cognito.signin.user.admin@ . Custom scopes created in Resource Servers are also supported.
+-- 'idTokenValidity', 'createUserPoolClient_idTokenValidity' - The time limit, between 5 minutes and 1 day, after which the ID token is
+-- no longer valid and cannot be used. This value will be overridden if you
+-- have entered a value in TokenValidityUnits.
 --
--- * 'cupcAnalyticsConfiguration' - The Amazon Pinpoint analytics configuration for collecting metrics for this user pool.
+-- 'allowedOAuthScopes', 'createUserPoolClient_allowedOAuthScopes' - The allowed OAuth scopes. Possible values provided by OAuth are:
+-- @phone@, @email@, @openid@, and @profile@. Possible values provided by
+-- AWS are: @aws.cognito.signin.user.admin@. Custom scopes created in
+-- Resource Servers are also supported.
 --
--- * 'cupcReadAttributes' - The read attributes.
+-- 'analyticsConfiguration', 'createUserPoolClient_analyticsConfiguration' - The Amazon Pinpoint analytics configuration for collecting metrics for
+-- this user pool.
 --
--- * 'cupcLogoutURLs' - A list of allowed logout URLs for the identity providers.
+-- In regions where Pinpoint is not available, Cognito User Pools only
+-- supports sending events to Amazon Pinpoint projects in us-east-1. In
+-- regions where Pinpoint is available, Cognito User Pools will support
+-- sending events to Amazon Pinpoint projects within that same region.
 --
--- * 'cupcWriteAttributes' - The user pool attributes that the app client can write to. If your app client allows users to sign in through an identity provider, this array must include all attributes that are mapped to identity provider attributes. Amazon Cognito updates mapped attributes when users sign in to your application through an identity provider. If your app client lacks write access to a mapped attribute, Amazon Cognito throws an error when it attempts to update the attribute. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html Specifying Identity Provider Attribute Mappings for Your User Pool> .
+-- 'readAttributes', 'createUserPoolClient_readAttributes' - The read attributes.
 --
--- * 'cupcSupportedIdentityProviders' - A list of provider names for the identity providers that are supported on this client. The following are supported: @COGNITO@ , @Facebook@ , @Google@ and @LoginWithAmazon@ .
+-- 'logoutURLs', 'createUserPoolClient_logoutURLs' - A list of allowed logout URLs for the identity providers.
 --
--- * 'cupcExplicitAuthFlows' - The authentication flows that are supported by the user pool clients. Flow names without the @ALLOW_@ prefix are deprecated in favor of new names with the @ALLOW_@ prefix. Note that values with @ALLOW_@ prefix cannot be used along with values without @ALLOW_@ prefix. Valid values include:     * @ALLOW_ADMIN_USER_PASSWORD_AUTH@ : Enable admin based user password authentication flow @ADMIN_USER_PASSWORD_AUTH@ . This setting replaces the @ADMIN_NO_SRP_AUTH@ setting. With this authentication flow, Cognito receives the password in the request instead of using the SRP (Secure Remote Password protocol) protocol to verify passwords.     * @ALLOW_CUSTOM_AUTH@ : Enable Lambda trigger based authentication.     * @ALLOW_USER_PASSWORD_AUTH@ : Enable user password-based authentication. In this flow, Cognito receives the password in the request instead of using the SRP protocol to verify passwords.     * @ALLOW_USER_SRP_AUTH@ : Enable SRP based authentication.     * @ALLOW_REFRESH_TOKEN_AUTH@ : Enable authflow to refresh tokens.
+-- 'writeAttributes', 'createUserPoolClient_writeAttributes' - The user pool attributes that the app client can write to.
 --
--- * 'cupcDefaultRedirectURI' - The default redirect URI. Must be in the @CallbackURLs@ list. A redirect URI must:     * Be an absolute URI.     * Be registered with the authorization server.     * Not include a fragment component. See <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint> . Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only. App callback URLs such as myapp://example are also supported.
+-- If your app client allows users to sign in through an identity provider,
+-- this array must include all attributes that are mapped to identity
+-- provider attributes. Amazon Cognito updates mapped attributes when users
+-- sign in to your application through an identity provider. If your app
+-- client lacks write access to a mapped attribute, Amazon Cognito throws
+-- an error when it attempts to update the attribute. For more information,
+-- see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html Specifying Identity Provider Attribute Mappings for Your User Pool>.
 --
--- * 'cupcTokenValidityUnits' - The units in which the validity times are represented in. Default for RefreshToken is days, and default for ID and access tokens are hours.
+-- 'supportedIdentityProviders', 'createUserPoolClient_supportedIdentityProviders' - A list of provider names for the identity providers that are supported
+-- on this client. The following are supported: @COGNITO@, @Facebook@,
+-- @Google@ and @LoginWithAmazon@.
 --
--- * 'cupcCallbackURLs' - A list of allowed redirect (callback) URLs for the identity providers. A redirect URI must:     * Be an absolute URI.     * Be registered with the authorization server.     * Not include a fragment component. See <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint> . Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only. App callback URLs such as myapp://example are also supported.
+-- 'explicitAuthFlows', 'createUserPoolClient_explicitAuthFlows' - The authentication flows that are supported by the user pool clients.
+-- Flow names without the @ALLOW_@ prefix are deprecated in favor of new
+-- names with the @ALLOW_@ prefix. Note that values with @ALLOW_@ prefix
+-- cannot be used along with values without @ALLOW_@ prefix.
 --
--- * 'cupcAllowedOAuthFlows' - The allowed OAuth flows. Set to @code@ to initiate a code grant flow, which provides an authorization code as the response. This code can be exchanged for access tokens with the token endpoint. Set to @implicit@ to specify that the client should get the access token (and, optionally, ID token, based on scopes) directly. Set to @client_credentials@ to specify that the client should get the access token (and, optionally, ID token, based on scopes) from the token endpoint using a combination of client and client_secret.
+-- Valid values include:
 --
--- * 'cupcAccessTokenValidity' - The time limit, between 5 minutes and 1 day, after which the access token is no longer valid and cannot be used. This value will be overridden if you have entered a value in TokenValidityUnits.
+-- -   @ALLOW_ADMIN_USER_PASSWORD_AUTH@: Enable admin based user password
+--     authentication flow @ADMIN_USER_PASSWORD_AUTH@. This setting
+--     replaces the @ADMIN_NO_SRP_AUTH@ setting. With this authentication
+--     flow, Cognito receives the password in the request instead of using
+--     the SRP (Secure Remote Password protocol) protocol to verify
+--     passwords.
 --
--- * 'cupcGenerateSecret' - Boolean to specify whether you want to generate a secret for the user pool client being created.
+-- -   @ALLOW_CUSTOM_AUTH@: Enable Lambda trigger based authentication.
 --
--- * 'cupcPreventUserExistenceErrors' - Use this setting to choose which errors and responses are returned by Cognito APIs during authentication, account confirmation, and password recovery when the user does not exist in the user pool. When set to @ENABLED@ and the user does not exist, authentication returns an error indicating either the username or password was incorrect, and account confirmation and password recovery return a response indicating a code was sent to a simulated destination. When set to @LEGACY@ , those APIs will return a @UserNotFoundException@ exception if the user does not exist in the user pool. Valid values include:     * @ENABLED@ - This prevents user existence-related errors.     * @LEGACY@ - This represents the old behavior of Cognito where user existence related errors are not prevented.
+-- -   @ALLOW_USER_PASSWORD_AUTH@: Enable user password-based
+--     authentication. In this flow, Cognito receives the password in the
+--     request instead of using the SRP protocol to verify passwords.
 --
--- * 'cupcAllowedOAuthFlowsUserPoolClient' - Set to true if the client is allowed to follow the OAuth protocol when interacting with Cognito user pools.
+-- -   @ALLOW_USER_SRP_AUTH@: Enable SRP based authentication.
 --
--- * 'cupcUserPoolId' - The user pool ID for the user pool where you want to create a user pool client.
+-- -   @ALLOW_REFRESH_TOKEN_AUTH@: Enable authflow to refresh tokens.
 --
--- * 'cupcClientName' - The client name for the user pool client you would like to create.
-createUserPoolClient ::
-  -- | 'cupcUserPoolId'
-  Text ->
-  -- | 'cupcClientName'
-  Text ->
+-- 'defaultRedirectURI', 'createUserPoolClient_defaultRedirectURI' - The default redirect URI. Must be in the @CallbackURLs@ list.
+--
+-- A redirect URI must:
+--
+-- -   Be an absolute URI.
+--
+-- -   Be registered with the authorization server.
+--
+-- -   Not include a fragment component.
+--
+-- See
+-- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+--
+-- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+-- for testing purposes only.
+--
+-- App callback URLs such as myapp:\/\/example are also supported.
+--
+-- 'tokenValidityUnits', 'createUserPoolClient_tokenValidityUnits' - The units in which the validity times are represented in. Default for
+-- RefreshToken is days, and default for ID and access tokens are hours.
+--
+-- 'callbackURLs', 'createUserPoolClient_callbackURLs' - A list of allowed redirect (callback) URLs for the identity providers.
+--
+-- A redirect URI must:
+--
+-- -   Be an absolute URI.
+--
+-- -   Be registered with the authorization server.
+--
+-- -   Not include a fragment component.
+--
+-- See
+-- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+--
+-- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+-- for testing purposes only.
+--
+-- App callback URLs such as myapp:\/\/example are also supported.
+--
+-- 'allowedOAuthFlows', 'createUserPoolClient_allowedOAuthFlows' - The allowed OAuth flows.
+--
+-- Set to @code@ to initiate a code grant flow, which provides an
+-- authorization code as the response. This code can be exchanged for
+-- access tokens with the token endpoint.
+--
+-- Set to @implicit@ to specify that the client should get the access token
+-- (and, optionally, ID token, based on scopes) directly.
+--
+-- Set to @client_credentials@ to specify that the client should get the
+-- access token (and, optionally, ID token, based on scopes) from the token
+-- endpoint using a combination of client and client_secret.
+--
+-- 'accessTokenValidity', 'createUserPoolClient_accessTokenValidity' - The time limit, between 5 minutes and 1 day, after which the access
+-- token is no longer valid and cannot be used. This value will be
+-- overridden if you have entered a value in TokenValidityUnits.
+--
+-- 'generateSecret', 'createUserPoolClient_generateSecret' - Boolean to specify whether you want to generate a secret for the user
+-- pool client being created.
+--
+-- 'preventUserExistenceErrors', 'createUserPoolClient_preventUserExistenceErrors' - Use this setting to choose which errors and responses are returned by
+-- Cognito APIs during authentication, account confirmation, and password
+-- recovery when the user does not exist in the user pool. When set to
+-- @ENABLED@ and the user does not exist, authentication returns an error
+-- indicating either the username or password was incorrect, and account
+-- confirmation and password recovery return a response indicating a code
+-- was sent to a simulated destination. When set to @LEGACY@, those APIs
+-- will return a @UserNotFoundException@ exception if the user does not
+-- exist in the user pool.
+--
+-- Valid values include:
+--
+-- -   @ENABLED@ - This prevents user existence-related errors.
+--
+-- -   @LEGACY@ - This represents the old behavior of Cognito where user
+--     existence related errors are not prevented.
+--
+-- After February 15th 2020, the value of @PreventUserExistenceErrors@ will
+-- default to @ENABLED@ for newly created user pool clients if no value is
+-- provided.
+--
+-- 'allowedOAuthFlowsUserPoolClient', 'createUserPoolClient_allowedOAuthFlowsUserPoolClient' - Set to true if the client is allowed to follow the OAuth protocol when
+-- interacting with Cognito user pools.
+--
+-- 'userPoolId', 'createUserPoolClient_userPoolId' - The user pool ID for the user pool where you want to create a user pool
+-- client.
+--
+-- 'clientName', 'createUserPoolClient_clientName' - The client name for the user pool client you would like to create.
+newCreateUserPoolClient ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'clientName'
+  Prelude.Text ->
   CreateUserPoolClient
-createUserPoolClient pUserPoolId_ pClientName_ =
+newCreateUserPoolClient pUserPoolId_ pClientName_ =
   CreateUserPoolClient'
-    { _cupcRefreshTokenValidity =
-        Nothing,
-      _cupcIdTokenValidity = Nothing,
-      _cupcAllowedOAuthScopes = Nothing,
-      _cupcAnalyticsConfiguration = Nothing,
-      _cupcReadAttributes = Nothing,
-      _cupcLogoutURLs = Nothing,
-      _cupcWriteAttributes = Nothing,
-      _cupcSupportedIdentityProviders = Nothing,
-      _cupcExplicitAuthFlows = Nothing,
-      _cupcDefaultRedirectURI = Nothing,
-      _cupcTokenValidityUnits = Nothing,
-      _cupcCallbackURLs = Nothing,
-      _cupcAllowedOAuthFlows = Nothing,
-      _cupcAccessTokenValidity = Nothing,
-      _cupcGenerateSecret = Nothing,
-      _cupcPreventUserExistenceErrors = Nothing,
-      _cupcAllowedOAuthFlowsUserPoolClient = Nothing,
-      _cupcUserPoolId = pUserPoolId_,
-      _cupcClientName = pClientName_
+    { refreshTokenValidity =
+        Prelude.Nothing,
+      idTokenValidity = Prelude.Nothing,
+      allowedOAuthScopes = Prelude.Nothing,
+      analyticsConfiguration = Prelude.Nothing,
+      readAttributes = Prelude.Nothing,
+      logoutURLs = Prelude.Nothing,
+      writeAttributes = Prelude.Nothing,
+      supportedIdentityProviders = Prelude.Nothing,
+      explicitAuthFlows = Prelude.Nothing,
+      defaultRedirectURI = Prelude.Nothing,
+      tokenValidityUnits = Prelude.Nothing,
+      callbackURLs = Prelude.Nothing,
+      allowedOAuthFlows = Prelude.Nothing,
+      accessTokenValidity = Prelude.Nothing,
+      generateSecret = Prelude.Nothing,
+      preventUserExistenceErrors = Prelude.Nothing,
+      allowedOAuthFlowsUserPoolClient = Prelude.Nothing,
+      userPoolId = pUserPoolId_,
+      clientName = pClientName_
     }
 
--- | The time limit, in days, after which the refresh token is no longer valid and cannot be used.
-cupcRefreshTokenValidity :: Lens' CreateUserPoolClient (Maybe Natural)
-cupcRefreshTokenValidity = lens _cupcRefreshTokenValidity (\s a -> s {_cupcRefreshTokenValidity = a}) . mapping _Nat
+-- | The time limit, in days, after which the refresh token is no longer
+-- valid and cannot be used.
+createUserPoolClient_refreshTokenValidity :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe Prelude.Natural)
+createUserPoolClient_refreshTokenValidity = Lens.lens (\CreateUserPoolClient' {refreshTokenValidity} -> refreshTokenValidity) (\s@CreateUserPoolClient' {} a -> s {refreshTokenValidity = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Nat
 
--- | The time limit, between 5 minutes and 1 day, after which the ID token is no longer valid and cannot be used. This value will be overridden if you have entered a value in TokenValidityUnits.
-cupcIdTokenValidity :: Lens' CreateUserPoolClient (Maybe Natural)
-cupcIdTokenValidity = lens _cupcIdTokenValidity (\s a -> s {_cupcIdTokenValidity = a}) . mapping _Nat
+-- | The time limit, between 5 minutes and 1 day, after which the ID token is
+-- no longer valid and cannot be used. This value will be overridden if you
+-- have entered a value in TokenValidityUnits.
+createUserPoolClient_idTokenValidity :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe Prelude.Natural)
+createUserPoolClient_idTokenValidity = Lens.lens (\CreateUserPoolClient' {idTokenValidity} -> idTokenValidity) (\s@CreateUserPoolClient' {} a -> s {idTokenValidity = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Nat
 
--- | The allowed OAuth scopes. Possible values provided by OAuth are: @phone@ , @email@ , @openid@ , and @profile@ . Possible values provided by AWS are: @aws.cognito.signin.user.admin@ . Custom scopes created in Resource Servers are also supported.
-cupcAllowedOAuthScopes :: Lens' CreateUserPoolClient [Text]
-cupcAllowedOAuthScopes = lens _cupcAllowedOAuthScopes (\s a -> s {_cupcAllowedOAuthScopes = a}) . _Default . _Coerce
+-- | The allowed OAuth scopes. Possible values provided by OAuth are:
+-- @phone@, @email@, @openid@, and @profile@. Possible values provided by
+-- AWS are: @aws.cognito.signin.user.admin@. Custom scopes created in
+-- Resource Servers are also supported.
+createUserPoolClient_allowedOAuthScopes :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe [Prelude.Text])
+createUserPoolClient_allowedOAuthScopes = Lens.lens (\CreateUserPoolClient' {allowedOAuthScopes} -> allowedOAuthScopes) (\s@CreateUserPoolClient' {} a -> s {allowedOAuthScopes = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon Pinpoint analytics configuration for collecting metrics for this user pool.
-cupcAnalyticsConfiguration :: Lens' CreateUserPoolClient (Maybe AnalyticsConfigurationType)
-cupcAnalyticsConfiguration = lens _cupcAnalyticsConfiguration (\s a -> s {_cupcAnalyticsConfiguration = a})
+-- | The Amazon Pinpoint analytics configuration for collecting metrics for
+-- this user pool.
+--
+-- In regions where Pinpoint is not available, Cognito User Pools only
+-- supports sending events to Amazon Pinpoint projects in us-east-1. In
+-- regions where Pinpoint is available, Cognito User Pools will support
+-- sending events to Amazon Pinpoint projects within that same region.
+createUserPoolClient_analyticsConfiguration :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe AnalyticsConfigurationType)
+createUserPoolClient_analyticsConfiguration = Lens.lens (\CreateUserPoolClient' {analyticsConfiguration} -> analyticsConfiguration) (\s@CreateUserPoolClient' {} a -> s {analyticsConfiguration = a} :: CreateUserPoolClient)
 
 -- | The read attributes.
-cupcReadAttributes :: Lens' CreateUserPoolClient [Text]
-cupcReadAttributes = lens _cupcReadAttributes (\s a -> s {_cupcReadAttributes = a}) . _Default . _Coerce
+createUserPoolClient_readAttributes :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe [Prelude.Text])
+createUserPoolClient_readAttributes = Lens.lens (\CreateUserPoolClient' {readAttributes} -> readAttributes) (\s@CreateUserPoolClient' {} a -> s {readAttributes = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of allowed logout URLs for the identity providers.
-cupcLogoutURLs :: Lens' CreateUserPoolClient [Text]
-cupcLogoutURLs = lens _cupcLogoutURLs (\s a -> s {_cupcLogoutURLs = a}) . _Default . _Coerce
+createUserPoolClient_logoutURLs :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe [Prelude.Text])
+createUserPoolClient_logoutURLs = Lens.lens (\CreateUserPoolClient' {logoutURLs} -> logoutURLs) (\s@CreateUserPoolClient' {} a -> s {logoutURLs = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The user pool attributes that the app client can write to. If your app client allows users to sign in through an identity provider, this array must include all attributes that are mapped to identity provider attributes. Amazon Cognito updates mapped attributes when users sign in to your application through an identity provider. If your app client lacks write access to a mapped attribute, Amazon Cognito throws an error when it attempts to update the attribute. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html Specifying Identity Provider Attribute Mappings for Your User Pool> .
-cupcWriteAttributes :: Lens' CreateUserPoolClient [Text]
-cupcWriteAttributes = lens _cupcWriteAttributes (\s a -> s {_cupcWriteAttributes = a}) . _Default . _Coerce
+-- | The user pool attributes that the app client can write to.
+--
+-- If your app client allows users to sign in through an identity provider,
+-- this array must include all attributes that are mapped to identity
+-- provider attributes. Amazon Cognito updates mapped attributes when users
+-- sign in to your application through an identity provider. If your app
+-- client lacks write access to a mapped attribute, Amazon Cognito throws
+-- an error when it attempts to update the attribute. For more information,
+-- see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html Specifying Identity Provider Attribute Mappings for Your User Pool>.
+createUserPoolClient_writeAttributes :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe [Prelude.Text])
+createUserPoolClient_writeAttributes = Lens.lens (\CreateUserPoolClient' {writeAttributes} -> writeAttributes) (\s@CreateUserPoolClient' {} a -> s {writeAttributes = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of provider names for the identity providers that are supported on this client. The following are supported: @COGNITO@ , @Facebook@ , @Google@ and @LoginWithAmazon@ .
-cupcSupportedIdentityProviders :: Lens' CreateUserPoolClient [Text]
-cupcSupportedIdentityProviders = lens _cupcSupportedIdentityProviders (\s a -> s {_cupcSupportedIdentityProviders = a}) . _Default . _Coerce
+-- | A list of provider names for the identity providers that are supported
+-- on this client. The following are supported: @COGNITO@, @Facebook@,
+-- @Google@ and @LoginWithAmazon@.
+createUserPoolClient_supportedIdentityProviders :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe [Prelude.Text])
+createUserPoolClient_supportedIdentityProviders = Lens.lens (\CreateUserPoolClient' {supportedIdentityProviders} -> supportedIdentityProviders) (\s@CreateUserPoolClient' {} a -> s {supportedIdentityProviders = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The authentication flows that are supported by the user pool clients. Flow names without the @ALLOW_@ prefix are deprecated in favor of new names with the @ALLOW_@ prefix. Note that values with @ALLOW_@ prefix cannot be used along with values without @ALLOW_@ prefix. Valid values include:     * @ALLOW_ADMIN_USER_PASSWORD_AUTH@ : Enable admin based user password authentication flow @ADMIN_USER_PASSWORD_AUTH@ . This setting replaces the @ADMIN_NO_SRP_AUTH@ setting. With this authentication flow, Cognito receives the password in the request instead of using the SRP (Secure Remote Password protocol) protocol to verify passwords.     * @ALLOW_CUSTOM_AUTH@ : Enable Lambda trigger based authentication.     * @ALLOW_USER_PASSWORD_AUTH@ : Enable user password-based authentication. In this flow, Cognito receives the password in the request instead of using the SRP protocol to verify passwords.     * @ALLOW_USER_SRP_AUTH@ : Enable SRP based authentication.     * @ALLOW_REFRESH_TOKEN_AUTH@ : Enable authflow to refresh tokens.
-cupcExplicitAuthFlows :: Lens' CreateUserPoolClient [ExplicitAuthFlowsType]
-cupcExplicitAuthFlows = lens _cupcExplicitAuthFlows (\s a -> s {_cupcExplicitAuthFlows = a}) . _Default . _Coerce
+-- | The authentication flows that are supported by the user pool clients.
+-- Flow names without the @ALLOW_@ prefix are deprecated in favor of new
+-- names with the @ALLOW_@ prefix. Note that values with @ALLOW_@ prefix
+-- cannot be used along with values without @ALLOW_@ prefix.
+--
+-- Valid values include:
+--
+-- -   @ALLOW_ADMIN_USER_PASSWORD_AUTH@: Enable admin based user password
+--     authentication flow @ADMIN_USER_PASSWORD_AUTH@. This setting
+--     replaces the @ADMIN_NO_SRP_AUTH@ setting. With this authentication
+--     flow, Cognito receives the password in the request instead of using
+--     the SRP (Secure Remote Password protocol) protocol to verify
+--     passwords.
+--
+-- -   @ALLOW_CUSTOM_AUTH@: Enable Lambda trigger based authentication.
+--
+-- -   @ALLOW_USER_PASSWORD_AUTH@: Enable user password-based
+--     authentication. In this flow, Cognito receives the password in the
+--     request instead of using the SRP protocol to verify passwords.
+--
+-- -   @ALLOW_USER_SRP_AUTH@: Enable SRP based authentication.
+--
+-- -   @ALLOW_REFRESH_TOKEN_AUTH@: Enable authflow to refresh tokens.
+createUserPoolClient_explicitAuthFlows :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe [ExplicitAuthFlowsType])
+createUserPoolClient_explicitAuthFlows = Lens.lens (\CreateUserPoolClient' {explicitAuthFlows} -> explicitAuthFlows) (\s@CreateUserPoolClient' {} a -> s {explicitAuthFlows = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The default redirect URI. Must be in the @CallbackURLs@ list. A redirect URI must:     * Be an absolute URI.     * Be registered with the authorization server.     * Not include a fragment component. See <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint> . Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only. App callback URLs such as myapp://example are also supported.
-cupcDefaultRedirectURI :: Lens' CreateUserPoolClient (Maybe Text)
-cupcDefaultRedirectURI = lens _cupcDefaultRedirectURI (\s a -> s {_cupcDefaultRedirectURI = a})
+-- | The default redirect URI. Must be in the @CallbackURLs@ list.
+--
+-- A redirect URI must:
+--
+-- -   Be an absolute URI.
+--
+-- -   Be registered with the authorization server.
+--
+-- -   Not include a fragment component.
+--
+-- See
+-- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+--
+-- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+-- for testing purposes only.
+--
+-- App callback URLs such as myapp:\/\/example are also supported.
+createUserPoolClient_defaultRedirectURI :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe Prelude.Text)
+createUserPoolClient_defaultRedirectURI = Lens.lens (\CreateUserPoolClient' {defaultRedirectURI} -> defaultRedirectURI) (\s@CreateUserPoolClient' {} a -> s {defaultRedirectURI = a} :: CreateUserPoolClient)
 
--- | The units in which the validity times are represented in. Default for RefreshToken is days, and default for ID and access tokens are hours.
-cupcTokenValidityUnits :: Lens' CreateUserPoolClient (Maybe TokenValidityUnitsType)
-cupcTokenValidityUnits = lens _cupcTokenValidityUnits (\s a -> s {_cupcTokenValidityUnits = a})
+-- | The units in which the validity times are represented in. Default for
+-- RefreshToken is days, and default for ID and access tokens are hours.
+createUserPoolClient_tokenValidityUnits :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe TokenValidityUnitsType)
+createUserPoolClient_tokenValidityUnits = Lens.lens (\CreateUserPoolClient' {tokenValidityUnits} -> tokenValidityUnits) (\s@CreateUserPoolClient' {} a -> s {tokenValidityUnits = a} :: CreateUserPoolClient)
 
--- | A list of allowed redirect (callback) URLs for the identity providers. A redirect URI must:     * Be an absolute URI.     * Be registered with the authorization server.     * Not include a fragment component. See <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint> . Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only. App callback URLs such as myapp://example are also supported.
-cupcCallbackURLs :: Lens' CreateUserPoolClient [Text]
-cupcCallbackURLs = lens _cupcCallbackURLs (\s a -> s {_cupcCallbackURLs = a}) . _Default . _Coerce
+-- | A list of allowed redirect (callback) URLs for the identity providers.
+--
+-- A redirect URI must:
+--
+-- -   Be an absolute URI.
+--
+-- -   Be registered with the authorization server.
+--
+-- -   Not include a fragment component.
+--
+-- See
+-- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+--
+-- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+-- for testing purposes only.
+--
+-- App callback URLs such as myapp:\/\/example are also supported.
+createUserPoolClient_callbackURLs :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe [Prelude.Text])
+createUserPoolClient_callbackURLs = Lens.lens (\CreateUserPoolClient' {callbackURLs} -> callbackURLs) (\s@CreateUserPoolClient' {} a -> s {callbackURLs = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The allowed OAuth flows. Set to @code@ to initiate a code grant flow, which provides an authorization code as the response. This code can be exchanged for access tokens with the token endpoint. Set to @implicit@ to specify that the client should get the access token (and, optionally, ID token, based on scopes) directly. Set to @client_credentials@ to specify that the client should get the access token (and, optionally, ID token, based on scopes) from the token endpoint using a combination of client and client_secret.
-cupcAllowedOAuthFlows :: Lens' CreateUserPoolClient [OAuthFlowType]
-cupcAllowedOAuthFlows = lens _cupcAllowedOAuthFlows (\s a -> s {_cupcAllowedOAuthFlows = a}) . _Default . _Coerce
+-- | The allowed OAuth flows.
+--
+-- Set to @code@ to initiate a code grant flow, which provides an
+-- authorization code as the response. This code can be exchanged for
+-- access tokens with the token endpoint.
+--
+-- Set to @implicit@ to specify that the client should get the access token
+-- (and, optionally, ID token, based on scopes) directly.
+--
+-- Set to @client_credentials@ to specify that the client should get the
+-- access token (and, optionally, ID token, based on scopes) from the token
+-- endpoint using a combination of client and client_secret.
+createUserPoolClient_allowedOAuthFlows :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe [OAuthFlowType])
+createUserPoolClient_allowedOAuthFlows = Lens.lens (\CreateUserPoolClient' {allowedOAuthFlows} -> allowedOAuthFlows) (\s@CreateUserPoolClient' {} a -> s {allowedOAuthFlows = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The time limit, between 5 minutes and 1 day, after which the access token is no longer valid and cannot be used. This value will be overridden if you have entered a value in TokenValidityUnits.
-cupcAccessTokenValidity :: Lens' CreateUserPoolClient (Maybe Natural)
-cupcAccessTokenValidity = lens _cupcAccessTokenValidity (\s a -> s {_cupcAccessTokenValidity = a}) . mapping _Nat
+-- | The time limit, between 5 minutes and 1 day, after which the access
+-- token is no longer valid and cannot be used. This value will be
+-- overridden if you have entered a value in TokenValidityUnits.
+createUserPoolClient_accessTokenValidity :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe Prelude.Natural)
+createUserPoolClient_accessTokenValidity = Lens.lens (\CreateUserPoolClient' {accessTokenValidity} -> accessTokenValidity) (\s@CreateUserPoolClient' {} a -> s {accessTokenValidity = a} :: CreateUserPoolClient) Prelude.. Lens.mapping Prelude._Nat
 
--- | Boolean to specify whether you want to generate a secret for the user pool client being created.
-cupcGenerateSecret :: Lens' CreateUserPoolClient (Maybe Bool)
-cupcGenerateSecret = lens _cupcGenerateSecret (\s a -> s {_cupcGenerateSecret = a})
+-- | Boolean to specify whether you want to generate a secret for the user
+-- pool client being created.
+createUserPoolClient_generateSecret :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe Prelude.Bool)
+createUserPoolClient_generateSecret = Lens.lens (\CreateUserPoolClient' {generateSecret} -> generateSecret) (\s@CreateUserPoolClient' {} a -> s {generateSecret = a} :: CreateUserPoolClient)
 
--- | Use this setting to choose which errors and responses are returned by Cognito APIs during authentication, account confirmation, and password recovery when the user does not exist in the user pool. When set to @ENABLED@ and the user does not exist, authentication returns an error indicating either the username or password was incorrect, and account confirmation and password recovery return a response indicating a code was sent to a simulated destination. When set to @LEGACY@ , those APIs will return a @UserNotFoundException@ exception if the user does not exist in the user pool. Valid values include:     * @ENABLED@ - This prevents user existence-related errors.     * @LEGACY@ - This represents the old behavior of Cognito where user existence related errors are not prevented.
-cupcPreventUserExistenceErrors :: Lens' CreateUserPoolClient (Maybe PreventUserExistenceErrorTypes)
-cupcPreventUserExistenceErrors = lens _cupcPreventUserExistenceErrors (\s a -> s {_cupcPreventUserExistenceErrors = a})
+-- | Use this setting to choose which errors and responses are returned by
+-- Cognito APIs during authentication, account confirmation, and password
+-- recovery when the user does not exist in the user pool. When set to
+-- @ENABLED@ and the user does not exist, authentication returns an error
+-- indicating either the username or password was incorrect, and account
+-- confirmation and password recovery return a response indicating a code
+-- was sent to a simulated destination. When set to @LEGACY@, those APIs
+-- will return a @UserNotFoundException@ exception if the user does not
+-- exist in the user pool.
+--
+-- Valid values include:
+--
+-- -   @ENABLED@ - This prevents user existence-related errors.
+--
+-- -   @LEGACY@ - This represents the old behavior of Cognito where user
+--     existence related errors are not prevented.
+--
+-- After February 15th 2020, the value of @PreventUserExistenceErrors@ will
+-- default to @ENABLED@ for newly created user pool clients if no value is
+-- provided.
+createUserPoolClient_preventUserExistenceErrors :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe PreventUserExistenceErrorTypes)
+createUserPoolClient_preventUserExistenceErrors = Lens.lens (\CreateUserPoolClient' {preventUserExistenceErrors} -> preventUserExistenceErrors) (\s@CreateUserPoolClient' {} a -> s {preventUserExistenceErrors = a} :: CreateUserPoolClient)
 
--- | Set to true if the client is allowed to follow the OAuth protocol when interacting with Cognito user pools.
-cupcAllowedOAuthFlowsUserPoolClient :: Lens' CreateUserPoolClient (Maybe Bool)
-cupcAllowedOAuthFlowsUserPoolClient = lens _cupcAllowedOAuthFlowsUserPoolClient (\s a -> s {_cupcAllowedOAuthFlowsUserPoolClient = a})
+-- | Set to true if the client is allowed to follow the OAuth protocol when
+-- interacting with Cognito user pools.
+createUserPoolClient_allowedOAuthFlowsUserPoolClient :: Lens.Lens' CreateUserPoolClient (Prelude.Maybe Prelude.Bool)
+createUserPoolClient_allowedOAuthFlowsUserPoolClient = Lens.lens (\CreateUserPoolClient' {allowedOAuthFlowsUserPoolClient} -> allowedOAuthFlowsUserPoolClient) (\s@CreateUserPoolClient' {} a -> s {allowedOAuthFlowsUserPoolClient = a} :: CreateUserPoolClient)
 
--- | The user pool ID for the user pool where you want to create a user pool client.
-cupcUserPoolId :: Lens' CreateUserPoolClient Text
-cupcUserPoolId = lens _cupcUserPoolId (\s a -> s {_cupcUserPoolId = a})
+-- | The user pool ID for the user pool where you want to create a user pool
+-- client.
+createUserPoolClient_userPoolId :: Lens.Lens' CreateUserPoolClient Prelude.Text
+createUserPoolClient_userPoolId = Lens.lens (\CreateUserPoolClient' {userPoolId} -> userPoolId) (\s@CreateUserPoolClient' {} a -> s {userPoolId = a} :: CreateUserPoolClient)
 
 -- | The client name for the user pool client you would like to create.
-cupcClientName :: Lens' CreateUserPoolClient Text
-cupcClientName = lens _cupcClientName (\s a -> s {_cupcClientName = a})
+createUserPoolClient_clientName :: Lens.Lens' CreateUserPoolClient Prelude.Text
+createUserPoolClient_clientName = Lens.lens (\CreateUserPoolClient' {clientName} -> clientName) (\s@CreateUserPoolClient' {} a -> s {clientName = a} :: CreateUserPoolClient)
 
-instance AWSRequest CreateUserPoolClient where
+instance Prelude.AWSRequest CreateUserPoolClient where
   type
     Rs CreateUserPoolClient =
       CreateUserPoolClientResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateUserPoolClientResponse'
-            <$> (x .?> "UserPoolClient") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "UserPoolClient")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateUserPoolClient
+instance Prelude.Hashable CreateUserPoolClient
 
-instance NFData CreateUserPoolClient
+instance Prelude.NFData CreateUserPoolClient
 
-instance ToHeaders CreateUserPoolClient where
+instance Prelude.ToHeaders CreateUserPoolClient where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.CreateUserPoolClient" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.CreateUserPoolClient" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateUserPoolClient where
+instance Prelude.ToJSON CreateUserPoolClient where
   toJSON CreateUserPoolClient' {..} =
-    object
-      ( catMaybes
-          [ ("RefreshTokenValidity" .=)
-              <$> _cupcRefreshTokenValidity,
-            ("IdTokenValidity" .=) <$> _cupcIdTokenValidity,
-            ("AllowedOAuthScopes" .=)
-              <$> _cupcAllowedOAuthScopes,
-            ("AnalyticsConfiguration" .=)
-              <$> _cupcAnalyticsConfiguration,
-            ("ReadAttributes" .=) <$> _cupcReadAttributes,
-            ("LogoutURLs" .=) <$> _cupcLogoutURLs,
-            ("WriteAttributes" .=) <$> _cupcWriteAttributes,
-            ("SupportedIdentityProviders" .=)
-              <$> _cupcSupportedIdentityProviders,
-            ("ExplicitAuthFlows" .=) <$> _cupcExplicitAuthFlows,
-            ("DefaultRedirectURI" .=)
-              <$> _cupcDefaultRedirectURI,
-            ("TokenValidityUnits" .=)
-              <$> _cupcTokenValidityUnits,
-            ("CallbackURLs" .=) <$> _cupcCallbackURLs,
-            ("AllowedOAuthFlows" .=) <$> _cupcAllowedOAuthFlows,
-            ("AccessTokenValidity" .=)
-              <$> _cupcAccessTokenValidity,
-            ("GenerateSecret" .=) <$> _cupcGenerateSecret,
-            ("PreventUserExistenceErrors" .=)
-              <$> _cupcPreventUserExistenceErrors,
-            ("AllowedOAuthFlowsUserPoolClient" .=)
-              <$> _cupcAllowedOAuthFlowsUserPoolClient,
-            Just ("UserPoolId" .= _cupcUserPoolId),
-            Just ("ClientName" .= _cupcClientName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RefreshTokenValidity" Prelude..=)
+              Prelude.<$> refreshTokenValidity,
+            ("IdTokenValidity" Prelude..=)
+              Prelude.<$> idTokenValidity,
+            ("AllowedOAuthScopes" Prelude..=)
+              Prelude.<$> allowedOAuthScopes,
+            ("AnalyticsConfiguration" Prelude..=)
+              Prelude.<$> analyticsConfiguration,
+            ("ReadAttributes" Prelude..=)
+              Prelude.<$> readAttributes,
+            ("LogoutURLs" Prelude..=) Prelude.<$> logoutURLs,
+            ("WriteAttributes" Prelude..=)
+              Prelude.<$> writeAttributes,
+            ("SupportedIdentityProviders" Prelude..=)
+              Prelude.<$> supportedIdentityProviders,
+            ("ExplicitAuthFlows" Prelude..=)
+              Prelude.<$> explicitAuthFlows,
+            ("DefaultRedirectURI" Prelude..=)
+              Prelude.<$> defaultRedirectURI,
+            ("TokenValidityUnits" Prelude..=)
+              Prelude.<$> tokenValidityUnits,
+            ("CallbackURLs" Prelude..=) Prelude.<$> callbackURLs,
+            ("AllowedOAuthFlows" Prelude..=)
+              Prelude.<$> allowedOAuthFlows,
+            ("AccessTokenValidity" Prelude..=)
+              Prelude.<$> accessTokenValidity,
+            ("GenerateSecret" Prelude..=)
+              Prelude.<$> generateSecret,
+            ("PreventUserExistenceErrors" Prelude..=)
+              Prelude.<$> preventUserExistenceErrors,
+            ("AllowedOAuthFlowsUserPoolClient" Prelude..=)
+              Prelude.<$> allowedOAuthFlowsUserPoolClient,
+            Prelude.Just ("UserPoolId" Prelude..= userPoolId),
+            Prelude.Just ("ClientName" Prelude..= clientName)
           ]
       )
 
-instance ToPath CreateUserPoolClient where
-  toPath = const "/"
+instance Prelude.ToPath CreateUserPoolClient where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateUserPoolClient where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateUserPoolClient where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server to create a user pool client.
 --
---
---
--- /See:/ 'createUserPoolClientResponse' smart constructor.
+-- /See:/ 'newCreateUserPoolClientResponse' smart constructor.
 data CreateUserPoolClientResponse = CreateUserPoolClientResponse'
-  { _cupcrrsUserPoolClient ::
-      !( Maybe
-           UserPoolClientType
-       ),
-    _cupcrrsResponseStatus ::
-      !Int
+  { -- | The user pool client that was just created.
+    userPoolClient :: Prelude.Maybe UserPoolClientType,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserPoolClientResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserPoolClientResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cupcrrsUserPoolClient' - The user pool client that was just created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cupcrrsResponseStatus' - -- | The response status code.
-createUserPoolClientResponse ::
-  -- | 'cupcrrsResponseStatus'
-  Int ->
+-- 'userPoolClient', 'createUserPoolClientResponse_userPoolClient' - The user pool client that was just created.
+--
+-- 'httpStatus', 'createUserPoolClientResponse_httpStatus' - The response's http status code.
+newCreateUserPoolClientResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateUserPoolClientResponse
-createUserPoolClientResponse pResponseStatus_ =
+newCreateUserPoolClientResponse pHttpStatus_ =
   CreateUserPoolClientResponse'
-    { _cupcrrsUserPoolClient =
-        Nothing,
-      _cupcrrsResponseStatus = pResponseStatus_
+    { userPoolClient =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The user pool client that was just created.
-cupcrrsUserPoolClient :: Lens' CreateUserPoolClientResponse (Maybe UserPoolClientType)
-cupcrrsUserPoolClient = lens _cupcrrsUserPoolClient (\s a -> s {_cupcrrsUserPoolClient = a})
+createUserPoolClientResponse_userPoolClient :: Lens.Lens' CreateUserPoolClientResponse (Prelude.Maybe UserPoolClientType)
+createUserPoolClientResponse_userPoolClient = Lens.lens (\CreateUserPoolClientResponse' {userPoolClient} -> userPoolClient) (\s@CreateUserPoolClientResponse' {} a -> s {userPoolClient = a} :: CreateUserPoolClientResponse)
 
--- | -- | The response status code.
-cupcrrsResponseStatus :: Lens' CreateUserPoolClientResponse Int
-cupcrrsResponseStatus = lens _cupcrrsResponseStatus (\s a -> s {_cupcrrsResponseStatus = a})
+-- | The response's http status code.
+createUserPoolClientResponse_httpStatus :: Lens.Lens' CreateUserPoolClientResponse Prelude.Int
+createUserPoolClientResponse_httpStatus = Lens.lens (\CreateUserPoolClientResponse' {httpStatus} -> httpStatus) (\s@CreateUserPoolClientResponse' {} a -> s {httpStatus = a} :: CreateUserPoolClientResponse)
 
-instance NFData CreateUserPoolClientResponse
+instance Prelude.NFData CreateUserPoolClientResponse

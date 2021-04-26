@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CognitoIdentityProvider.Types.RiskDecisionType
   ( RiskDecisionType
       ( ..,
-        AccountTakeover,
-        Block,
-        NoRisk
+        RiskDecisionTypeAccountTakeover,
+        RiskDecisionTypeBlock,
+        RiskDecisionTypeNoRisk
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RiskDecisionType = RiskDecisionType' (CI Text)
+newtype RiskDecisionType = RiskDecisionType'
+  { fromRiskDecisionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccountTakeover :: RiskDecisionType
-pattern AccountTakeover = RiskDecisionType' "AccountTakeover"
+pattern RiskDecisionTypeAccountTakeover :: RiskDecisionType
+pattern RiskDecisionTypeAccountTakeover = RiskDecisionType' "AccountTakeover"
 
-pattern Block :: RiskDecisionType
-pattern Block = RiskDecisionType' "Block"
+pattern RiskDecisionTypeBlock :: RiskDecisionType
+pattern RiskDecisionTypeBlock = RiskDecisionType' "Block"
 
-pattern NoRisk :: RiskDecisionType
-pattern NoRisk = RiskDecisionType' "NoRisk"
+pattern RiskDecisionTypeNoRisk :: RiskDecisionType
+pattern RiskDecisionTypeNoRisk = RiskDecisionType' "NoRisk"
 
 {-# COMPLETE
-  AccountTakeover,
-  Block,
-  NoRisk,
+  RiskDecisionTypeAccountTakeover,
+  RiskDecisionTypeBlock,
+  RiskDecisionTypeNoRisk,
   RiskDecisionType'
   #-}
 
-instance FromText RiskDecisionType where
-  parser = (RiskDecisionType' . mk) <$> takeText
+instance Prelude.FromText RiskDecisionType where
+  parser = RiskDecisionType' Prelude.<$> Prelude.takeText
 
-instance ToText RiskDecisionType where
-  toText (RiskDecisionType' ci) = original ci
+instance Prelude.ToText RiskDecisionType where
+  toText (RiskDecisionType' x) = x
 
-instance Hashable RiskDecisionType
+instance Prelude.Hashable RiskDecisionType
 
-instance NFData RiskDecisionType
+instance Prelude.NFData RiskDecisionType
 
-instance ToByteString RiskDecisionType
+instance Prelude.ToByteString RiskDecisionType
 
-instance ToQuery RiskDecisionType
+instance Prelude.ToQuery RiskDecisionType
 
-instance ToHeader RiskDecisionType
+instance Prelude.ToHeader RiskDecisionType
 
-instance FromJSON RiskDecisionType where
-  parseJSON = parseJSONText "RiskDecisionType"
+instance Prelude.FromJSON RiskDecisionType where
+  parseJSON = Prelude.parseJSONText "RiskDecisionType"

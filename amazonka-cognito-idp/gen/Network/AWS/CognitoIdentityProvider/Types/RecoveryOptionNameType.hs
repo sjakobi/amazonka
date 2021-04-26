@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CognitoIdentityProvider.Types.RecoveryOptionNameType
   ( RecoveryOptionNameType
       ( ..,
-        AdminOnly,
-        VerifiedEmail,
-        VerifiedPhoneNumber
+        RecoveryOptionNameTypeAdminOnly,
+        RecoveryOptionNameTypeVerifiedEmail,
+        RecoveryOptionNameTypeVerifiedPhoneNumber
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecoveryOptionNameType
-  = RecoveryOptionNameType'
-      ( CI
-          Text
-      )
+newtype RecoveryOptionNameType = RecoveryOptionNameType'
+  { fromRecoveryOptionNameType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AdminOnly :: RecoveryOptionNameType
-pattern AdminOnly = RecoveryOptionNameType' "admin_only"
+pattern RecoveryOptionNameTypeAdminOnly :: RecoveryOptionNameType
+pattern RecoveryOptionNameTypeAdminOnly = RecoveryOptionNameType' "admin_only"
 
-pattern VerifiedEmail :: RecoveryOptionNameType
-pattern VerifiedEmail = RecoveryOptionNameType' "verified_email"
+pattern RecoveryOptionNameTypeVerifiedEmail :: RecoveryOptionNameType
+pattern RecoveryOptionNameTypeVerifiedEmail = RecoveryOptionNameType' "verified_email"
 
-pattern VerifiedPhoneNumber :: RecoveryOptionNameType
-pattern VerifiedPhoneNumber = RecoveryOptionNameType' "verified_phone_number"
+pattern RecoveryOptionNameTypeVerifiedPhoneNumber :: RecoveryOptionNameType
+pattern RecoveryOptionNameTypeVerifiedPhoneNumber = RecoveryOptionNameType' "verified_phone_number"
 
 {-# COMPLETE
-  AdminOnly,
-  VerifiedEmail,
-  VerifiedPhoneNumber,
+  RecoveryOptionNameTypeAdminOnly,
+  RecoveryOptionNameTypeVerifiedEmail,
+  RecoveryOptionNameTypeVerifiedPhoneNumber,
   RecoveryOptionNameType'
   #-}
 
-instance FromText RecoveryOptionNameType where
-  parser = (RecoveryOptionNameType' . mk) <$> takeText
+instance Prelude.FromText RecoveryOptionNameType where
+  parser = RecoveryOptionNameType' Prelude.<$> Prelude.takeText
 
-instance ToText RecoveryOptionNameType where
-  toText (RecoveryOptionNameType' ci) = original ci
+instance Prelude.ToText RecoveryOptionNameType where
+  toText (RecoveryOptionNameType' x) = x
 
-instance Hashable RecoveryOptionNameType
+instance Prelude.Hashable RecoveryOptionNameType
 
-instance NFData RecoveryOptionNameType
+instance Prelude.NFData RecoveryOptionNameType
 
-instance ToByteString RecoveryOptionNameType
+instance Prelude.ToByteString RecoveryOptionNameType
 
-instance ToQuery RecoveryOptionNameType
+instance Prelude.ToQuery RecoveryOptionNameType
 
-instance ToHeader RecoveryOptionNameType
+instance Prelude.ToHeader RecoveryOptionNameType
 
-instance ToJSON RecoveryOptionNameType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RecoveryOptionNameType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RecoveryOptionNameType where
-  parseJSON = parseJSONText "RecoveryOptionNameType"
+instance Prelude.FromJSON RecoveryOptionNameType where
+  parseJSON = Prelude.parseJSONText "RecoveryOptionNameType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,195 +21,301 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the user attribute verification code for the specified attribute name.
+-- Gets the user attribute verification code for the specified attribute
+-- name.
 module Network.AWS.CognitoIdentityProvider.GetUserAttributeVerificationCode
   ( -- * Creating a Request
-    getUserAttributeVerificationCode,
-    GetUserAttributeVerificationCode,
+    GetUserAttributeVerificationCode (..),
+    newGetUserAttributeVerificationCode,
 
     -- * Request Lenses
-    guavcClientMetadata,
-    guavcAccessToken,
-    guavcAttributeName,
+    getUserAttributeVerificationCode_clientMetadata,
+    getUserAttributeVerificationCode_accessToken,
+    getUserAttributeVerificationCode_attributeName,
 
     -- * Destructuring the Response
-    getUserAttributeVerificationCodeResponse,
-    GetUserAttributeVerificationCodeResponse,
+    GetUserAttributeVerificationCodeResponse (..),
+    newGetUserAttributeVerificationCodeResponse,
 
     -- * Response Lenses
-    guavcrrsCodeDeliveryDetails,
-    guavcrrsResponseStatus,
+    getUserAttributeVerificationCodeResponse_codeDeliveryDetails,
+    getUserAttributeVerificationCodeResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.CodeDeliveryDetailsType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to get user attribute verification.
 --
---
---
--- /See:/ 'getUserAttributeVerificationCode' smart constructor.
+-- /See:/ 'newGetUserAttributeVerificationCode' smart constructor.
 data GetUserAttributeVerificationCode = GetUserAttributeVerificationCode'
-  { _guavcClientMetadata ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _guavcAccessToken ::
-      !( Sensitive
-           Text
-       ),
-    _guavcAttributeName ::
-      !Text
+  { -- | A map of custom key-value pairs that you can provide as input for any
+    -- custom workflows that this action triggers.
+    --
+    -- You create custom workflows by assigning AWS Lambda functions to user
+    -- pool triggers. When you use the GetUserAttributeVerificationCode API
+    -- action, Amazon Cognito invokes the function that is assigned to the
+    -- /custom message/ trigger. When Amazon Cognito invokes this function, it
+    -- passes a JSON payload, which the function receives as input. This
+    -- payload contains a @clientMetadata@ attribute, which provides the data
+    -- that you assigned to the ClientMetadata parameter in your
+    -- GetUserAttributeVerificationCode request. In your function code in AWS
+    -- Lambda, you can process the @clientMetadata@ value to enhance your
+    -- workflow for your specific needs.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+    -- in the /Amazon Cognito Developer Guide/.
+    --
+    -- Take the following limitations into consideration when you use the
+    -- ClientMetadata parameter:
+    --
+    -- -   Amazon Cognito does not store the ClientMetadata value. This data is
+    --     available only to AWS Lambda triggers that are assigned to a user
+    --     pool to support custom workflows. If your user pool configuration
+    --     does not include triggers, the ClientMetadata parameter serves no
+    --     purpose.
+    --
+    -- -   Amazon Cognito does not validate the ClientMetadata value.
+    --
+    -- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+    --     don\'t use it to provide sensitive information.
+    clientMetadata :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The access token returned by the server response to get the user
+    -- attribute verification code.
+    accessToken :: Prelude.Sensitive Prelude.Text,
+    -- | The attribute name returned by the server response to get the user
+    -- attribute verification code.
+    attributeName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUserAttributeVerificationCode' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUserAttributeVerificationCode' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'guavcClientMetadata' - A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.  You create custom workflows by assigning AWS Lambda functions to user pool triggers. When you use the GetUserAttributeVerificationCode API action, Amazon Cognito invokes the function that is assigned to the /custom message/ trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function receives as input. This payload contains a @clientMetadata@ attribute, which provides the data that you assigned to the ClientMetadata parameter in your GetUserAttributeVerificationCode request. In your function code in AWS Lambda, you can process the @clientMetadata@ value to enhance your workflow for your specific needs. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers> in the /Amazon Cognito Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'guavcAccessToken' - The access token returned by the server response to get the user attribute verification code.
+-- 'clientMetadata', 'getUserAttributeVerificationCode_clientMetadata' - A map of custom key-value pairs that you can provide as input for any
+-- custom workflows that this action triggers.
 --
--- * 'guavcAttributeName' - The attribute name returned by the server response to get the user attribute verification code.
-getUserAttributeVerificationCode ::
-  -- | 'guavcAccessToken'
-  Text ->
-  -- | 'guavcAttributeName'
-  Text ->
+-- You create custom workflows by assigning AWS Lambda functions to user
+-- pool triggers. When you use the GetUserAttributeVerificationCode API
+-- action, Amazon Cognito invokes the function that is assigned to the
+-- /custom message/ trigger. When Amazon Cognito invokes this function, it
+-- passes a JSON payload, which the function receives as input. This
+-- payload contains a @clientMetadata@ attribute, which provides the data
+-- that you assigned to the ClientMetadata parameter in your
+-- GetUserAttributeVerificationCode request. In your function code in AWS
+-- Lambda, you can process the @clientMetadata@ value to enhance your
+-- workflow for your specific needs.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- in the /Amazon Cognito Developer Guide/.
+--
+-- Take the following limitations into consideration when you use the
+-- ClientMetadata parameter:
+--
+-- -   Amazon Cognito does not store the ClientMetadata value. This data is
+--     available only to AWS Lambda triggers that are assigned to a user
+--     pool to support custom workflows. If your user pool configuration
+--     does not include triggers, the ClientMetadata parameter serves no
+--     purpose.
+--
+-- -   Amazon Cognito does not validate the ClientMetadata value.
+--
+-- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+--     don\'t use it to provide sensitive information.
+--
+-- 'accessToken', 'getUserAttributeVerificationCode_accessToken' - The access token returned by the server response to get the user
+-- attribute verification code.
+--
+-- 'attributeName', 'getUserAttributeVerificationCode_attributeName' - The attribute name returned by the server response to get the user
+-- attribute verification code.
+newGetUserAttributeVerificationCode ::
+  -- | 'accessToken'
+  Prelude.Text ->
+  -- | 'attributeName'
+  Prelude.Text ->
   GetUserAttributeVerificationCode
-getUserAttributeVerificationCode
+newGetUserAttributeVerificationCode
   pAccessToken_
   pAttributeName_ =
     GetUserAttributeVerificationCode'
-      { _guavcClientMetadata =
-          Nothing,
-        _guavcAccessToken =
-          _Sensitive # pAccessToken_,
-        _guavcAttributeName = pAttributeName_
+      { clientMetadata =
+          Prelude.Nothing,
+        accessToken =
+          Prelude._Sensitive Lens.# pAccessToken_,
+        attributeName = pAttributeName_
       }
 
--- | A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.  You create custom workflows by assigning AWS Lambda functions to user pool triggers. When you use the GetUserAttributeVerificationCode API action, Amazon Cognito invokes the function that is assigned to the /custom message/ trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function receives as input. This payload contains a @clientMetadata@ attribute, which provides the data that you assigned to the ClientMetadata parameter in your GetUserAttributeVerificationCode request. In your function code in AWS Lambda, you can process the @clientMetadata@ value to enhance your workflow for your specific needs. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers> in the /Amazon Cognito Developer Guide/ .
-guavcClientMetadata :: Lens' GetUserAttributeVerificationCode (HashMap Text Text)
-guavcClientMetadata = lens _guavcClientMetadata (\s a -> s {_guavcClientMetadata = a}) . _Default . _Map
+-- | A map of custom key-value pairs that you can provide as input for any
+-- custom workflows that this action triggers.
+--
+-- You create custom workflows by assigning AWS Lambda functions to user
+-- pool triggers. When you use the GetUserAttributeVerificationCode API
+-- action, Amazon Cognito invokes the function that is assigned to the
+-- /custom message/ trigger. When Amazon Cognito invokes this function, it
+-- passes a JSON payload, which the function receives as input. This
+-- payload contains a @clientMetadata@ attribute, which provides the data
+-- that you assigned to the ClientMetadata parameter in your
+-- GetUserAttributeVerificationCode request. In your function code in AWS
+-- Lambda, you can process the @clientMetadata@ value to enhance your
+-- workflow for your specific needs.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- in the /Amazon Cognito Developer Guide/.
+--
+-- Take the following limitations into consideration when you use the
+-- ClientMetadata parameter:
+--
+-- -   Amazon Cognito does not store the ClientMetadata value. This data is
+--     available only to AWS Lambda triggers that are assigned to a user
+--     pool to support custom workflows. If your user pool configuration
+--     does not include triggers, the ClientMetadata parameter serves no
+--     purpose.
+--
+-- -   Amazon Cognito does not validate the ClientMetadata value.
+--
+-- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+--     don\'t use it to provide sensitive information.
+getUserAttributeVerificationCode_clientMetadata :: Lens.Lens' GetUserAttributeVerificationCode (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getUserAttributeVerificationCode_clientMetadata = Lens.lens (\GetUserAttributeVerificationCode' {clientMetadata} -> clientMetadata) (\s@GetUserAttributeVerificationCode' {} a -> s {clientMetadata = a} :: GetUserAttributeVerificationCode) Prelude.. Lens.mapping Prelude._Map
 
--- | The access token returned by the server response to get the user attribute verification code.
-guavcAccessToken :: Lens' GetUserAttributeVerificationCode Text
-guavcAccessToken = lens _guavcAccessToken (\s a -> s {_guavcAccessToken = a}) . _Sensitive
+-- | The access token returned by the server response to get the user
+-- attribute verification code.
+getUserAttributeVerificationCode_accessToken :: Lens.Lens' GetUserAttributeVerificationCode Prelude.Text
+getUserAttributeVerificationCode_accessToken = Lens.lens (\GetUserAttributeVerificationCode' {accessToken} -> accessToken) (\s@GetUserAttributeVerificationCode' {} a -> s {accessToken = a} :: GetUserAttributeVerificationCode) Prelude.. Prelude._Sensitive
 
--- | The attribute name returned by the server response to get the user attribute verification code.
-guavcAttributeName :: Lens' GetUserAttributeVerificationCode Text
-guavcAttributeName = lens _guavcAttributeName (\s a -> s {_guavcAttributeName = a})
+-- | The attribute name returned by the server response to get the user
+-- attribute verification code.
+getUserAttributeVerificationCode_attributeName :: Lens.Lens' GetUserAttributeVerificationCode Prelude.Text
+getUserAttributeVerificationCode_attributeName = Lens.lens (\GetUserAttributeVerificationCode' {attributeName} -> attributeName) (\s@GetUserAttributeVerificationCode' {} a -> s {attributeName = a} :: GetUserAttributeVerificationCode)
 
-instance AWSRequest GetUserAttributeVerificationCode where
+instance
+  Prelude.AWSRequest
+    GetUserAttributeVerificationCode
+  where
   type
     Rs GetUserAttributeVerificationCode =
       GetUserAttributeVerificationCodeResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetUserAttributeVerificationCodeResponse'
-            <$> (x .?> "CodeDeliveryDetails")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CodeDeliveryDetails")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable GetUserAttributeVerificationCode
-
-instance NFData GetUserAttributeVerificationCode
-
-instance ToHeaders GetUserAttributeVerificationCode where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON GetUserAttributeVerificationCode where
-  toJSON GetUserAttributeVerificationCode' {..} =
-    object
-      ( catMaybes
-          [ ("ClientMetadata" .=) <$> _guavcClientMetadata,
-            Just ("AccessToken" .= _guavcAccessToken),
-            Just ("AttributeName" .= _guavcAttributeName)
-          ]
-      )
-
-instance ToPath GetUserAttributeVerificationCode where
-  toPath = const "/"
-
-instance ToQuery GetUserAttributeVerificationCode where
-  toQuery = const mempty
-
--- | The verification code response returned by the server response to get the user attribute verification code.
---
---
---
--- /See:/ 'getUserAttributeVerificationCodeResponse' smart constructor.
-data GetUserAttributeVerificationCodeResponse = GetUserAttributeVerificationCodeResponse'
-  { _guavcrrsCodeDeliveryDetails ::
-      !( Maybe
-           CodeDeliveryDetailsType
-       ),
-    _guavcrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'GetUserAttributeVerificationCodeResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'guavcrrsCodeDeliveryDetails' - The code delivery details returned by the server in response to the request to get the user attribute verification code.
---
--- * 'guavcrrsResponseStatus' - -- | The response status code.
-getUserAttributeVerificationCodeResponse ::
-  -- | 'guavcrrsResponseStatus'
-  Int ->
-  GetUserAttributeVerificationCodeResponse
-getUserAttributeVerificationCodeResponse
-  pResponseStatus_ =
-    GetUserAttributeVerificationCodeResponse'
-      { _guavcrrsCodeDeliveryDetails =
-          Nothing,
-        _guavcrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The code delivery details returned by the server in response to the request to get the user attribute verification code.
-guavcrrsCodeDeliveryDetails :: Lens' GetUserAttributeVerificationCodeResponse (Maybe CodeDeliveryDetailsType)
-guavcrrsCodeDeliveryDetails = lens _guavcrrsCodeDeliveryDetails (\s a -> s {_guavcrrsCodeDeliveryDetails = a})
-
--- | -- | The response status code.
-guavcrrsResponseStatus :: Lens' GetUserAttributeVerificationCodeResponse Int
-guavcrrsResponseStatus = lens _guavcrrsResponseStatus (\s a -> s {_guavcrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    GetUserAttributeVerificationCode
+
+instance
+  Prelude.NFData
+    GetUserAttributeVerificationCode
+
+instance
+  Prelude.ToHeaders
+    GetUserAttributeVerificationCode
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    GetUserAttributeVerificationCode
+  where
+  toJSON GetUserAttributeVerificationCode' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ClientMetadata" Prelude..=)
+              Prelude.<$> clientMetadata,
+            Prelude.Just ("AccessToken" Prelude..= accessToken),
+            Prelude.Just
+              ("AttributeName" Prelude..= attributeName)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    GetUserAttributeVerificationCode
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    GetUserAttributeVerificationCode
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | The verification code response returned by the server response to get
+-- the user attribute verification code.
+--
+-- /See:/ 'newGetUserAttributeVerificationCodeResponse' smart constructor.
+data GetUserAttributeVerificationCodeResponse = GetUserAttributeVerificationCodeResponse'
+  { -- | The code delivery details returned by the server in response to the
+    -- request to get the user attribute verification code.
+    codeDeliveryDetails :: Prelude.Maybe CodeDeliveryDetailsType,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'GetUserAttributeVerificationCodeResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'codeDeliveryDetails', 'getUserAttributeVerificationCodeResponse_codeDeliveryDetails' - The code delivery details returned by the server in response to the
+-- request to get the user attribute verification code.
+--
+-- 'httpStatus', 'getUserAttributeVerificationCodeResponse_httpStatus' - The response's http status code.
+newGetUserAttributeVerificationCodeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  GetUserAttributeVerificationCodeResponse
+newGetUserAttributeVerificationCodeResponse
+  pHttpStatus_ =
+    GetUserAttributeVerificationCodeResponse'
+      { codeDeliveryDetails =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The code delivery details returned by the server in response to the
+-- request to get the user attribute verification code.
+getUserAttributeVerificationCodeResponse_codeDeliveryDetails :: Lens.Lens' GetUserAttributeVerificationCodeResponse (Prelude.Maybe CodeDeliveryDetailsType)
+getUserAttributeVerificationCodeResponse_codeDeliveryDetails = Lens.lens (\GetUserAttributeVerificationCodeResponse' {codeDeliveryDetails} -> codeDeliveryDetails) (\s@GetUserAttributeVerificationCodeResponse' {} a -> s {codeDeliveryDetails = a} :: GetUserAttributeVerificationCodeResponse)
+
+-- | The response's http status code.
+getUserAttributeVerificationCodeResponse_httpStatus :: Lens.Lens' GetUserAttributeVerificationCodeResponse Prelude.Int
+getUserAttributeVerificationCodeResponse_httpStatus = Lens.lens (\GetUserAttributeVerificationCodeResponse' {httpStatus} -> httpStatus) (\s@GetUserAttributeVerificationCodeResponse' {} a -> s {httpStatus = a} :: GetUserAttributeVerificationCodeResponse)
+
+instance
+  Prelude.NFData
     GetUserAttributeVerificationCodeResponse

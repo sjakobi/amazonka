@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,77 +20,93 @@
 module Network.AWS.CognitoIdentityProvider.Types.CustomSMSLambdaVersionConfigType where
 
 import Network.AWS.CognitoIdentityProvider.Types.CustomSMSSenderLambdaVersionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A custom SMS sender Lambda configuration type.
 --
---
---
--- /See:/ 'customSMSLambdaVersionConfigType' smart constructor.
+-- /See:/ 'newCustomSMSLambdaVersionConfigType' smart constructor.
 data CustomSMSLambdaVersionConfigType = CustomSMSLambdaVersionConfigType'
-  { _csmslvctLambdaVersion ::
-      !CustomSMSSenderLambdaVersionType,
-    _csmslvctLambdaARN ::
-      !Text
+  { -- | The Lambda version represents the signature of the \"request\" attribute
+    -- in the \"event\" information Amazon Cognito passes to your custom SMS
+    -- Lambda function. The only supported value is @V1_0@.
+    lambdaVersion :: CustomSMSSenderLambdaVersionType,
+    -- | The Lambda Amazon Resource Name of the Lambda function that Amazon
+    -- Cognito triggers to send SMS notifications to users.
+    lambdaArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomSMSLambdaVersionConfigType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomSMSLambdaVersionConfigType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csmslvctLambdaVersion' - The Lambda version represents the signature of the "request" attribute in the "event" information Amazon Cognito passes to your custom SMS Lambda function. The only supported value is @V1_0@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csmslvctLambdaARN' - The Lambda Amazon Resource Name of the Lambda function that Amazon Cognito triggers to send SMS notifications to users.
-customSMSLambdaVersionConfigType ::
-  -- | 'csmslvctLambdaVersion'
+-- 'lambdaVersion', 'customSMSLambdaVersionConfigType_lambdaVersion' - The Lambda version represents the signature of the \"request\" attribute
+-- in the \"event\" information Amazon Cognito passes to your custom SMS
+-- Lambda function. The only supported value is @V1_0@.
+--
+-- 'lambdaArn', 'customSMSLambdaVersionConfigType_lambdaArn' - The Lambda Amazon Resource Name of the Lambda function that Amazon
+-- Cognito triggers to send SMS notifications to users.
+newCustomSMSLambdaVersionConfigType ::
+  -- | 'lambdaVersion'
   CustomSMSSenderLambdaVersionType ->
-  -- | 'csmslvctLambdaARN'
-  Text ->
+  -- | 'lambdaArn'
+  Prelude.Text ->
   CustomSMSLambdaVersionConfigType
-customSMSLambdaVersionConfigType
+newCustomSMSLambdaVersionConfigType
   pLambdaVersion_
-  pLambdaARN_ =
+  pLambdaArn_ =
     CustomSMSLambdaVersionConfigType'
-      { _csmslvctLambdaVersion =
+      { lambdaVersion =
           pLambdaVersion_,
-        _csmslvctLambdaARN = pLambdaARN_
+        lambdaArn = pLambdaArn_
       }
 
--- | The Lambda version represents the signature of the "request" attribute in the "event" information Amazon Cognito passes to your custom SMS Lambda function. The only supported value is @V1_0@ .
-csmslvctLambdaVersion :: Lens' CustomSMSLambdaVersionConfigType CustomSMSSenderLambdaVersionType
-csmslvctLambdaVersion = lens _csmslvctLambdaVersion (\s a -> s {_csmslvctLambdaVersion = a})
+-- | The Lambda version represents the signature of the \"request\" attribute
+-- in the \"event\" information Amazon Cognito passes to your custom SMS
+-- Lambda function. The only supported value is @V1_0@.
+customSMSLambdaVersionConfigType_lambdaVersion :: Lens.Lens' CustomSMSLambdaVersionConfigType CustomSMSSenderLambdaVersionType
+customSMSLambdaVersionConfigType_lambdaVersion = Lens.lens (\CustomSMSLambdaVersionConfigType' {lambdaVersion} -> lambdaVersion) (\s@CustomSMSLambdaVersionConfigType' {} a -> s {lambdaVersion = a} :: CustomSMSLambdaVersionConfigType)
 
--- | The Lambda Amazon Resource Name of the Lambda function that Amazon Cognito triggers to send SMS notifications to users.
-csmslvctLambdaARN :: Lens' CustomSMSLambdaVersionConfigType Text
-csmslvctLambdaARN = lens _csmslvctLambdaARN (\s a -> s {_csmslvctLambdaARN = a})
+-- | The Lambda Amazon Resource Name of the Lambda function that Amazon
+-- Cognito triggers to send SMS notifications to users.
+customSMSLambdaVersionConfigType_lambdaArn :: Lens.Lens' CustomSMSLambdaVersionConfigType Prelude.Text
+customSMSLambdaVersionConfigType_lambdaArn = Lens.lens (\CustomSMSLambdaVersionConfigType' {lambdaArn} -> lambdaArn) (\s@CustomSMSLambdaVersionConfigType' {} a -> s {lambdaArn = a} :: CustomSMSLambdaVersionConfigType)
 
-instance FromJSON CustomSMSLambdaVersionConfigType where
+instance
+  Prelude.FromJSON
+    CustomSMSLambdaVersionConfigType
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CustomSMSLambdaVersionConfigType"
       ( \x ->
           CustomSMSLambdaVersionConfigType'
-            <$> (x .: "LambdaVersion") <*> (x .: "LambdaArn")
+            Prelude.<$> (x Prelude..: "LambdaVersion")
+            Prelude.<*> (x Prelude..: "LambdaArn")
       )
 
-instance Hashable CustomSMSLambdaVersionConfigType
+instance
+  Prelude.Hashable
+    CustomSMSLambdaVersionConfigType
 
-instance NFData CustomSMSLambdaVersionConfigType
+instance
+  Prelude.NFData
+    CustomSMSLambdaVersionConfigType
 
-instance ToJSON CustomSMSLambdaVersionConfigType where
+instance
+  Prelude.ToJSON
+    CustomSMSLambdaVersionConfigType
+  where
   toJSON CustomSMSLambdaVersionConfigType' {..} =
-    object
-      ( catMaybes
-          [ Just ("LambdaVersion" .= _csmslvctLambdaVersion),
-            Just ("LambdaArn" .= _csmslvctLambdaARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("LambdaVersion" Prelude..= lambdaVersion),
+            Prelude.Just ("LambdaArn" Prelude..= lambdaArn)
           ]
       )

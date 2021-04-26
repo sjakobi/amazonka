@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,258 +24,565 @@ import Network.AWS.CognitoIdentityProvider.Types.ExplicitAuthFlowsType
 import Network.AWS.CognitoIdentityProvider.Types.OAuthFlowType
 import Network.AWS.CognitoIdentityProvider.Types.PreventUserExistenceErrorTypes
 import Network.AWS.CognitoIdentityProvider.Types.TokenValidityUnitsType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a user pool client.
 --
---
---
--- /See:/ 'userPoolClientType' smart constructor.
+-- /See:/ 'newUserPoolClientType' smart constructor.
 data UserPoolClientType = UserPoolClientType'
-  { _upctLastModifiedDate ::
-      !(Maybe POSIX),
-    _upctClientSecret ::
-      !(Maybe (Sensitive Text)),
-    _upctRefreshTokenValidity ::
-      !(Maybe Nat),
-    _upctClientId ::
-      !(Maybe (Sensitive Text)),
-    _upctIdTokenValidity ::
-      !(Maybe Nat),
-    _upctAllowedOAuthScopes ::
-      !(Maybe [Text]),
-    _upctClientName :: !(Maybe Text),
-    _upctAnalyticsConfiguration ::
-      !( Maybe
-           AnalyticsConfigurationType
-       ),
-    _upctUserPoolId :: !(Maybe Text),
-    _upctReadAttributes ::
-      !(Maybe [Text]),
-    _upctCreationDate ::
-      !(Maybe POSIX),
-    _upctLogoutURLs ::
-      !(Maybe [Text]),
-    _upctWriteAttributes ::
-      !(Maybe [Text]),
-    _upctSupportedIdentityProviders ::
-      !(Maybe [Text]),
-    _upctExplicitAuthFlows ::
-      !(Maybe [ExplicitAuthFlowsType]),
-    _upctDefaultRedirectURI ::
-      !(Maybe Text),
-    _upctTokenValidityUnits ::
-      !(Maybe TokenValidityUnitsType),
-    _upctCallbackURLs ::
-      !(Maybe [Text]),
-    _upctAllowedOAuthFlows ::
-      !(Maybe [OAuthFlowType]),
-    _upctAccessTokenValidity ::
-      !(Maybe Nat),
-    _upctPreventUserExistenceErrors ::
-      !( Maybe
-           PreventUserExistenceErrorTypes
-       ),
-    _upctAllowedOAuthFlowsUserPoolClient ::
-      !(Maybe Bool)
+  { -- | The date the user pool client was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The client secret from the user pool request of the client type.
+    clientSecret :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The time limit, in days, after which the refresh token is no longer
+    -- valid and cannot be used.
+    refreshTokenValidity :: Prelude.Maybe Prelude.Nat,
+    -- | The ID of the client associated with the user pool.
+    clientId :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The time limit, specified by tokenValidityUnits, defaulting to hours,
+    -- after which the refresh token is no longer valid and cannot be used.
+    idTokenValidity :: Prelude.Maybe Prelude.Nat,
+    -- | The allowed OAuth scopes. Possible values provided by OAuth are:
+    -- @phone@, @email@, @openid@, and @profile@. Possible values provided by
+    -- AWS are: @aws.cognito.signin.user.admin@. Custom scopes created in
+    -- Resource Servers are also supported.
+    allowedOAuthScopes :: Prelude.Maybe [Prelude.Text],
+    -- | The client name from the user pool request of the client type.
+    clientName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Pinpoint analytics configuration for the user pool client.
+    --
+    -- Cognito User Pools only supports sending events to Amazon Pinpoint
+    -- projects in the US East (N. Virginia) us-east-1 Region, regardless of
+    -- the region in which the user pool resides.
+    analyticsConfiguration :: Prelude.Maybe AnalyticsConfigurationType,
+    -- | The user pool ID for the user pool client.
+    userPoolId :: Prelude.Maybe Prelude.Text,
+    -- | The Read-only attributes.
+    readAttributes :: Prelude.Maybe [Prelude.Text],
+    -- | The date the user pool client was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | A list of allowed logout URLs for the identity providers.
+    logoutURLs :: Prelude.Maybe [Prelude.Text],
+    -- | The writeable attributes.
+    writeAttributes :: Prelude.Maybe [Prelude.Text],
+    -- | A list of provider names for the identity providers that are supported
+    -- on this client.
+    supportedIdentityProviders :: Prelude.Maybe [Prelude.Text],
+    -- | The authentication flows that are supported by the user pool clients.
+    -- Flow names without the @ALLOW_@ prefix are deprecated in favor of new
+    -- names with the @ALLOW_@ prefix. Note that values with @ALLOW_@ prefix
+    -- cannot be used along with values without @ALLOW_@ prefix.
+    --
+    -- Valid values include:
+    --
+    -- -   @ALLOW_ADMIN_USER_PASSWORD_AUTH@: Enable admin based user password
+    --     authentication flow @ADMIN_USER_PASSWORD_AUTH@. This setting
+    --     replaces the @ADMIN_NO_SRP_AUTH@ setting. With this authentication
+    --     flow, Cognito receives the password in the request instead of using
+    --     the SRP (Secure Remote Password protocol) protocol to verify
+    --     passwords.
+    --
+    -- -   @ALLOW_CUSTOM_AUTH@: Enable Lambda trigger based authentication.
+    --
+    -- -   @ALLOW_USER_PASSWORD_AUTH@: Enable user password-based
+    --     authentication. In this flow, Cognito receives the password in the
+    --     request instead of using the SRP protocol to verify passwords.
+    --
+    -- -   @ALLOW_USER_SRP_AUTH@: Enable SRP based authentication.
+    --
+    -- -   @ALLOW_REFRESH_TOKEN_AUTH@: Enable authflow to refresh tokens.
+    explicitAuthFlows :: Prelude.Maybe [ExplicitAuthFlowsType],
+    -- | The default redirect URI. Must be in the @CallbackURLs@ list.
+    --
+    -- A redirect URI must:
+    --
+    -- -   Be an absolute URI.
+    --
+    -- -   Be registered with the authorization server.
+    --
+    -- -   Not include a fragment component.
+    --
+    -- See
+    -- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+    --
+    -- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+    -- for testing purposes only.
+    --
+    -- App callback URLs such as myapp:\/\/example are also supported.
+    defaultRedirectURI :: Prelude.Maybe Prelude.Text,
+    -- | The time units used to specify the token validity times of their
+    -- respective token.
+    tokenValidityUnits :: Prelude.Maybe TokenValidityUnitsType,
+    -- | A list of allowed redirect (callback) URLs for the identity providers.
+    --
+    -- A redirect URI must:
+    --
+    -- -   Be an absolute URI.
+    --
+    -- -   Be registered with the authorization server.
+    --
+    -- -   Not include a fragment component.
+    --
+    -- See
+    -- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+    --
+    -- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+    -- for testing purposes only.
+    --
+    -- App callback URLs such as myapp:\/\/example are also supported.
+    callbackURLs :: Prelude.Maybe [Prelude.Text],
+    -- | The allowed OAuth flows.
+    --
+    -- Set to @code@ to initiate a code grant flow, which provides an
+    -- authorization code as the response. This code can be exchanged for
+    -- access tokens with the token endpoint.
+    --
+    -- Set to @implicit@ to specify that the client should get the access token
+    -- (and, optionally, ID token, based on scopes) directly.
+    --
+    -- Set to @client_credentials@ to specify that the client should get the
+    -- access token (and, optionally, ID token, based on scopes) from the token
+    -- endpoint using a combination of client and client_secret.
+    allowedOAuthFlows :: Prelude.Maybe [OAuthFlowType],
+    -- | The time limit, specified by tokenValidityUnits, defaulting to hours,
+    -- after which the access token is no longer valid and cannot be used.
+    accessTokenValidity :: Prelude.Maybe Prelude.Nat,
+    -- | Use this setting to choose which errors and responses are returned by
+    -- Cognito APIs during authentication, account confirmation, and password
+    -- recovery when the user does not exist in the user pool. When set to
+    -- @ENABLED@ and the user does not exist, authentication returns an error
+    -- indicating either the username or password was incorrect, and account
+    -- confirmation and password recovery return a response indicating a code
+    -- was sent to a simulated destination. When set to @LEGACY@, those APIs
+    -- will return a @UserNotFoundException@ exception if the user does not
+    -- exist in the user pool.
+    --
+    -- Valid values include:
+    --
+    -- -   @ENABLED@ - This prevents user existence-related errors.
+    --
+    -- -   @LEGACY@ - This represents the old behavior of Cognito where user
+    --     existence related errors are not prevented.
+    --
+    -- After February 15th 2020, the value of @PreventUserExistenceErrors@ will
+    -- default to @ENABLED@ for newly created user pool clients if no value is
+    -- provided.
+    preventUserExistenceErrors :: Prelude.Maybe PreventUserExistenceErrorTypes,
+    -- | Set to true if the client is allowed to follow the OAuth protocol when
+    -- interacting with Cognito user pools.
+    allowedOAuthFlowsUserPoolClient :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserPoolClientType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserPoolClientType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upctLastModifiedDate' - The date the user pool client was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upctClientSecret' - The client secret from the user pool request of the client type.
+-- 'lastModifiedDate', 'userPoolClientType_lastModifiedDate' - The date the user pool client was last modified.
 --
--- * 'upctRefreshTokenValidity' - The time limit, in days, after which the refresh token is no longer valid and cannot be used.
+-- 'clientSecret', 'userPoolClientType_clientSecret' - The client secret from the user pool request of the client type.
 --
--- * 'upctClientId' - The ID of the client associated with the user pool.
+-- 'refreshTokenValidity', 'userPoolClientType_refreshTokenValidity' - The time limit, in days, after which the refresh token is no longer
+-- valid and cannot be used.
 --
--- * 'upctIdTokenValidity' - The time limit, specified by tokenValidityUnits, defaulting to hours, after which the refresh token is no longer valid and cannot be used.
+-- 'clientId', 'userPoolClientType_clientId' - The ID of the client associated with the user pool.
 --
--- * 'upctAllowedOAuthScopes' - The allowed OAuth scopes. Possible values provided by OAuth are: @phone@ , @email@ , @openid@ , and @profile@ . Possible values provided by AWS are: @aws.cognito.signin.user.admin@ . Custom scopes created in Resource Servers are also supported.
+-- 'idTokenValidity', 'userPoolClientType_idTokenValidity' - The time limit, specified by tokenValidityUnits, defaulting to hours,
+-- after which the refresh token is no longer valid and cannot be used.
 --
--- * 'upctClientName' - The client name from the user pool request of the client type.
+-- 'allowedOAuthScopes', 'userPoolClientType_allowedOAuthScopes' - The allowed OAuth scopes. Possible values provided by OAuth are:
+-- @phone@, @email@, @openid@, and @profile@. Possible values provided by
+-- AWS are: @aws.cognito.signin.user.admin@. Custom scopes created in
+-- Resource Servers are also supported.
 --
--- * 'upctAnalyticsConfiguration' - The Amazon Pinpoint analytics configuration for the user pool client.
+-- 'clientName', 'userPoolClientType_clientName' - The client name from the user pool request of the client type.
 --
--- * 'upctUserPoolId' - The user pool ID for the user pool client.
+-- 'analyticsConfiguration', 'userPoolClientType_analyticsConfiguration' - The Amazon Pinpoint analytics configuration for the user pool client.
 --
--- * 'upctReadAttributes' - The Read-only attributes.
+-- Cognito User Pools only supports sending events to Amazon Pinpoint
+-- projects in the US East (N. Virginia) us-east-1 Region, regardless of
+-- the region in which the user pool resides.
 --
--- * 'upctCreationDate' - The date the user pool client was created.
+-- 'userPoolId', 'userPoolClientType_userPoolId' - The user pool ID for the user pool client.
 --
--- * 'upctLogoutURLs' - A list of allowed logout URLs for the identity providers.
+-- 'readAttributes', 'userPoolClientType_readAttributes' - The Read-only attributes.
 --
--- * 'upctWriteAttributes' - The writeable attributes.
+-- 'creationDate', 'userPoolClientType_creationDate' - The date the user pool client was created.
 --
--- * 'upctSupportedIdentityProviders' - A list of provider names for the identity providers that are supported on this client.
+-- 'logoutURLs', 'userPoolClientType_logoutURLs' - A list of allowed logout URLs for the identity providers.
 --
--- * 'upctExplicitAuthFlows' - The authentication flows that are supported by the user pool clients. Flow names without the @ALLOW_@ prefix are deprecated in favor of new names with the @ALLOW_@ prefix. Note that values with @ALLOW_@ prefix cannot be used along with values without @ALLOW_@ prefix. Valid values include:     * @ALLOW_ADMIN_USER_PASSWORD_AUTH@ : Enable admin based user password authentication flow @ADMIN_USER_PASSWORD_AUTH@ . This setting replaces the @ADMIN_NO_SRP_AUTH@ setting. With this authentication flow, Cognito receives the password in the request instead of using the SRP (Secure Remote Password protocol) protocol to verify passwords.     * @ALLOW_CUSTOM_AUTH@ : Enable Lambda trigger based authentication.     * @ALLOW_USER_PASSWORD_AUTH@ : Enable user password-based authentication. In this flow, Cognito receives the password in the request instead of using the SRP protocol to verify passwords.     * @ALLOW_USER_SRP_AUTH@ : Enable SRP based authentication.     * @ALLOW_REFRESH_TOKEN_AUTH@ : Enable authflow to refresh tokens.
+-- 'writeAttributes', 'userPoolClientType_writeAttributes' - The writeable attributes.
 --
--- * 'upctDefaultRedirectURI' - The default redirect URI. Must be in the @CallbackURLs@ list. A redirect URI must:     * Be an absolute URI.     * Be registered with the authorization server.     * Not include a fragment component. See <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint> . Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only. App callback URLs such as myapp://example are also supported.
+-- 'supportedIdentityProviders', 'userPoolClientType_supportedIdentityProviders' - A list of provider names for the identity providers that are supported
+-- on this client.
 --
--- * 'upctTokenValidityUnits' - The time units used to specify the token validity times of their respective token.
+-- 'explicitAuthFlows', 'userPoolClientType_explicitAuthFlows' - The authentication flows that are supported by the user pool clients.
+-- Flow names without the @ALLOW_@ prefix are deprecated in favor of new
+-- names with the @ALLOW_@ prefix. Note that values with @ALLOW_@ prefix
+-- cannot be used along with values without @ALLOW_@ prefix.
 --
--- * 'upctCallbackURLs' - A list of allowed redirect (callback) URLs for the identity providers. A redirect URI must:     * Be an absolute URI.     * Be registered with the authorization server.     * Not include a fragment component. See <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint> . Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only. App callback URLs such as myapp://example are also supported.
+-- Valid values include:
 --
--- * 'upctAllowedOAuthFlows' - The allowed OAuth flows. Set to @code@ to initiate a code grant flow, which provides an authorization code as the response. This code can be exchanged for access tokens with the token endpoint. Set to @implicit@ to specify that the client should get the access token (and, optionally, ID token, based on scopes) directly. Set to @client_credentials@ to specify that the client should get the access token (and, optionally, ID token, based on scopes) from the token endpoint using a combination of client and client_secret.
+-- -   @ALLOW_ADMIN_USER_PASSWORD_AUTH@: Enable admin based user password
+--     authentication flow @ADMIN_USER_PASSWORD_AUTH@. This setting
+--     replaces the @ADMIN_NO_SRP_AUTH@ setting. With this authentication
+--     flow, Cognito receives the password in the request instead of using
+--     the SRP (Secure Remote Password protocol) protocol to verify
+--     passwords.
 --
--- * 'upctAccessTokenValidity' - The time limit, specified by tokenValidityUnits, defaulting to hours, after which the access token is no longer valid and cannot be used.
+-- -   @ALLOW_CUSTOM_AUTH@: Enable Lambda trigger based authentication.
 --
--- * 'upctPreventUserExistenceErrors' - Use this setting to choose which errors and responses are returned by Cognito APIs during authentication, account confirmation, and password recovery when the user does not exist in the user pool. When set to @ENABLED@ and the user does not exist, authentication returns an error indicating either the username or password was incorrect, and account confirmation and password recovery return a response indicating a code was sent to a simulated destination. When set to @LEGACY@ , those APIs will return a @UserNotFoundException@ exception if the user does not exist in the user pool. Valid values include:     * @ENABLED@ - This prevents user existence-related errors.     * @LEGACY@ - This represents the old behavior of Cognito where user existence related errors are not prevented.
+-- -   @ALLOW_USER_PASSWORD_AUTH@: Enable user password-based
+--     authentication. In this flow, Cognito receives the password in the
+--     request instead of using the SRP protocol to verify passwords.
 --
--- * 'upctAllowedOAuthFlowsUserPoolClient' - Set to true if the client is allowed to follow the OAuth protocol when interacting with Cognito user pools.
-userPoolClientType ::
+-- -   @ALLOW_USER_SRP_AUTH@: Enable SRP based authentication.
+--
+-- -   @ALLOW_REFRESH_TOKEN_AUTH@: Enable authflow to refresh tokens.
+--
+-- 'defaultRedirectURI', 'userPoolClientType_defaultRedirectURI' - The default redirect URI. Must be in the @CallbackURLs@ list.
+--
+-- A redirect URI must:
+--
+-- -   Be an absolute URI.
+--
+-- -   Be registered with the authorization server.
+--
+-- -   Not include a fragment component.
+--
+-- See
+-- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+--
+-- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+-- for testing purposes only.
+--
+-- App callback URLs such as myapp:\/\/example are also supported.
+--
+-- 'tokenValidityUnits', 'userPoolClientType_tokenValidityUnits' - The time units used to specify the token validity times of their
+-- respective token.
+--
+-- 'callbackURLs', 'userPoolClientType_callbackURLs' - A list of allowed redirect (callback) URLs for the identity providers.
+--
+-- A redirect URI must:
+--
+-- -   Be an absolute URI.
+--
+-- -   Be registered with the authorization server.
+--
+-- -   Not include a fragment component.
+--
+-- See
+-- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+--
+-- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+-- for testing purposes only.
+--
+-- App callback URLs such as myapp:\/\/example are also supported.
+--
+-- 'allowedOAuthFlows', 'userPoolClientType_allowedOAuthFlows' - The allowed OAuth flows.
+--
+-- Set to @code@ to initiate a code grant flow, which provides an
+-- authorization code as the response. This code can be exchanged for
+-- access tokens with the token endpoint.
+--
+-- Set to @implicit@ to specify that the client should get the access token
+-- (and, optionally, ID token, based on scopes) directly.
+--
+-- Set to @client_credentials@ to specify that the client should get the
+-- access token (and, optionally, ID token, based on scopes) from the token
+-- endpoint using a combination of client and client_secret.
+--
+-- 'accessTokenValidity', 'userPoolClientType_accessTokenValidity' - The time limit, specified by tokenValidityUnits, defaulting to hours,
+-- after which the access token is no longer valid and cannot be used.
+--
+-- 'preventUserExistenceErrors', 'userPoolClientType_preventUserExistenceErrors' - Use this setting to choose which errors and responses are returned by
+-- Cognito APIs during authentication, account confirmation, and password
+-- recovery when the user does not exist in the user pool. When set to
+-- @ENABLED@ and the user does not exist, authentication returns an error
+-- indicating either the username or password was incorrect, and account
+-- confirmation and password recovery return a response indicating a code
+-- was sent to a simulated destination. When set to @LEGACY@, those APIs
+-- will return a @UserNotFoundException@ exception if the user does not
+-- exist in the user pool.
+--
+-- Valid values include:
+--
+-- -   @ENABLED@ - This prevents user existence-related errors.
+--
+-- -   @LEGACY@ - This represents the old behavior of Cognito where user
+--     existence related errors are not prevented.
+--
+-- After February 15th 2020, the value of @PreventUserExistenceErrors@ will
+-- default to @ENABLED@ for newly created user pool clients if no value is
+-- provided.
+--
+-- 'allowedOAuthFlowsUserPoolClient', 'userPoolClientType_allowedOAuthFlowsUserPoolClient' - Set to true if the client is allowed to follow the OAuth protocol when
+-- interacting with Cognito user pools.
+newUserPoolClientType ::
   UserPoolClientType
-userPoolClientType =
+newUserPoolClientType =
   UserPoolClientType'
-    { _upctLastModifiedDate =
-        Nothing,
-      _upctClientSecret = Nothing,
-      _upctRefreshTokenValidity = Nothing,
-      _upctClientId = Nothing,
-      _upctIdTokenValidity = Nothing,
-      _upctAllowedOAuthScopes = Nothing,
-      _upctClientName = Nothing,
-      _upctAnalyticsConfiguration = Nothing,
-      _upctUserPoolId = Nothing,
-      _upctReadAttributes = Nothing,
-      _upctCreationDate = Nothing,
-      _upctLogoutURLs = Nothing,
-      _upctWriteAttributes = Nothing,
-      _upctSupportedIdentityProviders = Nothing,
-      _upctExplicitAuthFlows = Nothing,
-      _upctDefaultRedirectURI = Nothing,
-      _upctTokenValidityUnits = Nothing,
-      _upctCallbackURLs = Nothing,
-      _upctAllowedOAuthFlows = Nothing,
-      _upctAccessTokenValidity = Nothing,
-      _upctPreventUserExistenceErrors = Nothing,
-      _upctAllowedOAuthFlowsUserPoolClient = Nothing
+    { lastModifiedDate =
+        Prelude.Nothing,
+      clientSecret = Prelude.Nothing,
+      refreshTokenValidity = Prelude.Nothing,
+      clientId = Prelude.Nothing,
+      idTokenValidity = Prelude.Nothing,
+      allowedOAuthScopes = Prelude.Nothing,
+      clientName = Prelude.Nothing,
+      analyticsConfiguration = Prelude.Nothing,
+      userPoolId = Prelude.Nothing,
+      readAttributes = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      logoutURLs = Prelude.Nothing,
+      writeAttributes = Prelude.Nothing,
+      supportedIdentityProviders = Prelude.Nothing,
+      explicitAuthFlows = Prelude.Nothing,
+      defaultRedirectURI = Prelude.Nothing,
+      tokenValidityUnits = Prelude.Nothing,
+      callbackURLs = Prelude.Nothing,
+      allowedOAuthFlows = Prelude.Nothing,
+      accessTokenValidity = Prelude.Nothing,
+      preventUserExistenceErrors = Prelude.Nothing,
+      allowedOAuthFlowsUserPoolClient = Prelude.Nothing
     }
 
 -- | The date the user pool client was last modified.
-upctLastModifiedDate :: Lens' UserPoolClientType (Maybe UTCTime)
-upctLastModifiedDate = lens _upctLastModifiedDate (\s a -> s {_upctLastModifiedDate = a}) . mapping _Time
+userPoolClientType_lastModifiedDate :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.UTCTime)
+userPoolClientType_lastModifiedDate = Lens.lens (\UserPoolClientType' {lastModifiedDate} -> lastModifiedDate) (\s@UserPoolClientType' {} a -> s {lastModifiedDate = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Time
 
 -- | The client secret from the user pool request of the client type.
-upctClientSecret :: Lens' UserPoolClientType (Maybe Text)
-upctClientSecret = lens _upctClientSecret (\s a -> s {_upctClientSecret = a}) . mapping _Sensitive
+userPoolClientType_clientSecret :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.Text)
+userPoolClientType_clientSecret = Lens.lens (\UserPoolClientType' {clientSecret} -> clientSecret) (\s@UserPoolClientType' {} a -> s {clientSecret = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The time limit, in days, after which the refresh token is no longer valid and cannot be used.
-upctRefreshTokenValidity :: Lens' UserPoolClientType (Maybe Natural)
-upctRefreshTokenValidity = lens _upctRefreshTokenValidity (\s a -> s {_upctRefreshTokenValidity = a}) . mapping _Nat
+-- | The time limit, in days, after which the refresh token is no longer
+-- valid and cannot be used.
+userPoolClientType_refreshTokenValidity :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.Natural)
+userPoolClientType_refreshTokenValidity = Lens.lens (\UserPoolClientType' {refreshTokenValidity} -> refreshTokenValidity) (\s@UserPoolClientType' {} a -> s {refreshTokenValidity = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ID of the client associated with the user pool.
-upctClientId :: Lens' UserPoolClientType (Maybe Text)
-upctClientId = lens _upctClientId (\s a -> s {_upctClientId = a}) . mapping _Sensitive
+userPoolClientType_clientId :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.Text)
+userPoolClientType_clientId = Lens.lens (\UserPoolClientType' {clientId} -> clientId) (\s@UserPoolClientType' {} a -> s {clientId = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The time limit, specified by tokenValidityUnits, defaulting to hours, after which the refresh token is no longer valid and cannot be used.
-upctIdTokenValidity :: Lens' UserPoolClientType (Maybe Natural)
-upctIdTokenValidity = lens _upctIdTokenValidity (\s a -> s {_upctIdTokenValidity = a}) . mapping _Nat
+-- | The time limit, specified by tokenValidityUnits, defaulting to hours,
+-- after which the refresh token is no longer valid and cannot be used.
+userPoolClientType_idTokenValidity :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.Natural)
+userPoolClientType_idTokenValidity = Lens.lens (\UserPoolClientType' {idTokenValidity} -> idTokenValidity) (\s@UserPoolClientType' {} a -> s {idTokenValidity = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Nat
 
--- | The allowed OAuth scopes. Possible values provided by OAuth are: @phone@ , @email@ , @openid@ , and @profile@ . Possible values provided by AWS are: @aws.cognito.signin.user.admin@ . Custom scopes created in Resource Servers are also supported.
-upctAllowedOAuthScopes :: Lens' UserPoolClientType [Text]
-upctAllowedOAuthScopes = lens _upctAllowedOAuthScopes (\s a -> s {_upctAllowedOAuthScopes = a}) . _Default . _Coerce
+-- | The allowed OAuth scopes. Possible values provided by OAuth are:
+-- @phone@, @email@, @openid@, and @profile@. Possible values provided by
+-- AWS are: @aws.cognito.signin.user.admin@. Custom scopes created in
+-- Resource Servers are also supported.
+userPoolClientType_allowedOAuthScopes :: Lens.Lens' UserPoolClientType (Prelude.Maybe [Prelude.Text])
+userPoolClientType_allowedOAuthScopes = Lens.lens (\UserPoolClientType' {allowedOAuthScopes} -> allowedOAuthScopes) (\s@UserPoolClientType' {} a -> s {allowedOAuthScopes = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The client name from the user pool request of the client type.
-upctClientName :: Lens' UserPoolClientType (Maybe Text)
-upctClientName = lens _upctClientName (\s a -> s {_upctClientName = a})
+userPoolClientType_clientName :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.Text)
+userPoolClientType_clientName = Lens.lens (\UserPoolClientType' {clientName} -> clientName) (\s@UserPoolClientType' {} a -> s {clientName = a} :: UserPoolClientType)
 
 -- | The Amazon Pinpoint analytics configuration for the user pool client.
-upctAnalyticsConfiguration :: Lens' UserPoolClientType (Maybe AnalyticsConfigurationType)
-upctAnalyticsConfiguration = lens _upctAnalyticsConfiguration (\s a -> s {_upctAnalyticsConfiguration = a})
+--
+-- Cognito User Pools only supports sending events to Amazon Pinpoint
+-- projects in the US East (N. Virginia) us-east-1 Region, regardless of
+-- the region in which the user pool resides.
+userPoolClientType_analyticsConfiguration :: Lens.Lens' UserPoolClientType (Prelude.Maybe AnalyticsConfigurationType)
+userPoolClientType_analyticsConfiguration = Lens.lens (\UserPoolClientType' {analyticsConfiguration} -> analyticsConfiguration) (\s@UserPoolClientType' {} a -> s {analyticsConfiguration = a} :: UserPoolClientType)
 
 -- | The user pool ID for the user pool client.
-upctUserPoolId :: Lens' UserPoolClientType (Maybe Text)
-upctUserPoolId = lens _upctUserPoolId (\s a -> s {_upctUserPoolId = a})
+userPoolClientType_userPoolId :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.Text)
+userPoolClientType_userPoolId = Lens.lens (\UserPoolClientType' {userPoolId} -> userPoolId) (\s@UserPoolClientType' {} a -> s {userPoolId = a} :: UserPoolClientType)
 
 -- | The Read-only attributes.
-upctReadAttributes :: Lens' UserPoolClientType [Text]
-upctReadAttributes = lens _upctReadAttributes (\s a -> s {_upctReadAttributes = a}) . _Default . _Coerce
+userPoolClientType_readAttributes :: Lens.Lens' UserPoolClientType (Prelude.Maybe [Prelude.Text])
+userPoolClientType_readAttributes = Lens.lens (\UserPoolClientType' {readAttributes} -> readAttributes) (\s@UserPoolClientType' {} a -> s {readAttributes = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date the user pool client was created.
-upctCreationDate :: Lens' UserPoolClientType (Maybe UTCTime)
-upctCreationDate = lens _upctCreationDate (\s a -> s {_upctCreationDate = a}) . mapping _Time
+userPoolClientType_creationDate :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.UTCTime)
+userPoolClientType_creationDate = Lens.lens (\UserPoolClientType' {creationDate} -> creationDate) (\s@UserPoolClientType' {} a -> s {creationDate = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Time
 
 -- | A list of allowed logout URLs for the identity providers.
-upctLogoutURLs :: Lens' UserPoolClientType [Text]
-upctLogoutURLs = lens _upctLogoutURLs (\s a -> s {_upctLogoutURLs = a}) . _Default . _Coerce
+userPoolClientType_logoutURLs :: Lens.Lens' UserPoolClientType (Prelude.Maybe [Prelude.Text])
+userPoolClientType_logoutURLs = Lens.lens (\UserPoolClientType' {logoutURLs} -> logoutURLs) (\s@UserPoolClientType' {} a -> s {logoutURLs = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The writeable attributes.
-upctWriteAttributes :: Lens' UserPoolClientType [Text]
-upctWriteAttributes = lens _upctWriteAttributes (\s a -> s {_upctWriteAttributes = a}) . _Default . _Coerce
+userPoolClientType_writeAttributes :: Lens.Lens' UserPoolClientType (Prelude.Maybe [Prelude.Text])
+userPoolClientType_writeAttributes = Lens.lens (\UserPoolClientType' {writeAttributes} -> writeAttributes) (\s@UserPoolClientType' {} a -> s {writeAttributes = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of provider names for the identity providers that are supported on this client.
-upctSupportedIdentityProviders :: Lens' UserPoolClientType [Text]
-upctSupportedIdentityProviders = lens _upctSupportedIdentityProviders (\s a -> s {_upctSupportedIdentityProviders = a}) . _Default . _Coerce
+-- | A list of provider names for the identity providers that are supported
+-- on this client.
+userPoolClientType_supportedIdentityProviders :: Lens.Lens' UserPoolClientType (Prelude.Maybe [Prelude.Text])
+userPoolClientType_supportedIdentityProviders = Lens.lens (\UserPoolClientType' {supportedIdentityProviders} -> supportedIdentityProviders) (\s@UserPoolClientType' {} a -> s {supportedIdentityProviders = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The authentication flows that are supported by the user pool clients. Flow names without the @ALLOW_@ prefix are deprecated in favor of new names with the @ALLOW_@ prefix. Note that values with @ALLOW_@ prefix cannot be used along with values without @ALLOW_@ prefix. Valid values include:     * @ALLOW_ADMIN_USER_PASSWORD_AUTH@ : Enable admin based user password authentication flow @ADMIN_USER_PASSWORD_AUTH@ . This setting replaces the @ADMIN_NO_SRP_AUTH@ setting. With this authentication flow, Cognito receives the password in the request instead of using the SRP (Secure Remote Password protocol) protocol to verify passwords.     * @ALLOW_CUSTOM_AUTH@ : Enable Lambda trigger based authentication.     * @ALLOW_USER_PASSWORD_AUTH@ : Enable user password-based authentication. In this flow, Cognito receives the password in the request instead of using the SRP protocol to verify passwords.     * @ALLOW_USER_SRP_AUTH@ : Enable SRP based authentication.     * @ALLOW_REFRESH_TOKEN_AUTH@ : Enable authflow to refresh tokens.
-upctExplicitAuthFlows :: Lens' UserPoolClientType [ExplicitAuthFlowsType]
-upctExplicitAuthFlows = lens _upctExplicitAuthFlows (\s a -> s {_upctExplicitAuthFlows = a}) . _Default . _Coerce
+-- | The authentication flows that are supported by the user pool clients.
+-- Flow names without the @ALLOW_@ prefix are deprecated in favor of new
+-- names with the @ALLOW_@ prefix. Note that values with @ALLOW_@ prefix
+-- cannot be used along with values without @ALLOW_@ prefix.
+--
+-- Valid values include:
+--
+-- -   @ALLOW_ADMIN_USER_PASSWORD_AUTH@: Enable admin based user password
+--     authentication flow @ADMIN_USER_PASSWORD_AUTH@. This setting
+--     replaces the @ADMIN_NO_SRP_AUTH@ setting. With this authentication
+--     flow, Cognito receives the password in the request instead of using
+--     the SRP (Secure Remote Password protocol) protocol to verify
+--     passwords.
+--
+-- -   @ALLOW_CUSTOM_AUTH@: Enable Lambda trigger based authentication.
+--
+-- -   @ALLOW_USER_PASSWORD_AUTH@: Enable user password-based
+--     authentication. In this flow, Cognito receives the password in the
+--     request instead of using the SRP protocol to verify passwords.
+--
+-- -   @ALLOW_USER_SRP_AUTH@: Enable SRP based authentication.
+--
+-- -   @ALLOW_REFRESH_TOKEN_AUTH@: Enable authflow to refresh tokens.
+userPoolClientType_explicitAuthFlows :: Lens.Lens' UserPoolClientType (Prelude.Maybe [ExplicitAuthFlowsType])
+userPoolClientType_explicitAuthFlows = Lens.lens (\UserPoolClientType' {explicitAuthFlows} -> explicitAuthFlows) (\s@UserPoolClientType' {} a -> s {explicitAuthFlows = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The default redirect URI. Must be in the @CallbackURLs@ list. A redirect URI must:     * Be an absolute URI.     * Be registered with the authorization server.     * Not include a fragment component. See <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint> . Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only. App callback URLs such as myapp://example are also supported.
-upctDefaultRedirectURI :: Lens' UserPoolClientType (Maybe Text)
-upctDefaultRedirectURI = lens _upctDefaultRedirectURI (\s a -> s {_upctDefaultRedirectURI = a})
+-- | The default redirect URI. Must be in the @CallbackURLs@ list.
+--
+-- A redirect URI must:
+--
+-- -   Be an absolute URI.
+--
+-- -   Be registered with the authorization server.
+--
+-- -   Not include a fragment component.
+--
+-- See
+-- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+--
+-- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+-- for testing purposes only.
+--
+-- App callback URLs such as myapp:\/\/example are also supported.
+userPoolClientType_defaultRedirectURI :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.Text)
+userPoolClientType_defaultRedirectURI = Lens.lens (\UserPoolClientType' {defaultRedirectURI} -> defaultRedirectURI) (\s@UserPoolClientType' {} a -> s {defaultRedirectURI = a} :: UserPoolClientType)
 
--- | The time units used to specify the token validity times of their respective token.
-upctTokenValidityUnits :: Lens' UserPoolClientType (Maybe TokenValidityUnitsType)
-upctTokenValidityUnits = lens _upctTokenValidityUnits (\s a -> s {_upctTokenValidityUnits = a})
+-- | The time units used to specify the token validity times of their
+-- respective token.
+userPoolClientType_tokenValidityUnits :: Lens.Lens' UserPoolClientType (Prelude.Maybe TokenValidityUnitsType)
+userPoolClientType_tokenValidityUnits = Lens.lens (\UserPoolClientType' {tokenValidityUnits} -> tokenValidityUnits) (\s@UserPoolClientType' {} a -> s {tokenValidityUnits = a} :: UserPoolClientType)
 
--- | A list of allowed redirect (callback) URLs for the identity providers. A redirect URI must:     * Be an absolute URI.     * Be registered with the authorization server.     * Not include a fragment component. See <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint> . Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only. App callback URLs such as myapp://example are also supported.
-upctCallbackURLs :: Lens' UserPoolClientType [Text]
-upctCallbackURLs = lens _upctCallbackURLs (\s a -> s {_upctCallbackURLs = a}) . _Default . _Coerce
+-- | A list of allowed redirect (callback) URLs for the identity providers.
+--
+-- A redirect URI must:
+--
+-- -   Be an absolute URI.
+--
+-- -   Be registered with the authorization server.
+--
+-- -   Not include a fragment component.
+--
+-- See
+-- <https://tools.ietf.org/html/rfc6749#section-3.1.2 OAuth 2.0 - Redirection Endpoint>.
+--
+-- Amazon Cognito requires HTTPS over HTTP except for http:\/\/localhost
+-- for testing purposes only.
+--
+-- App callback URLs such as myapp:\/\/example are also supported.
+userPoolClientType_callbackURLs :: Lens.Lens' UserPoolClientType (Prelude.Maybe [Prelude.Text])
+userPoolClientType_callbackURLs = Lens.lens (\UserPoolClientType' {callbackURLs} -> callbackURLs) (\s@UserPoolClientType' {} a -> s {callbackURLs = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The allowed OAuth flows. Set to @code@ to initiate a code grant flow, which provides an authorization code as the response. This code can be exchanged for access tokens with the token endpoint. Set to @implicit@ to specify that the client should get the access token (and, optionally, ID token, based on scopes) directly. Set to @client_credentials@ to specify that the client should get the access token (and, optionally, ID token, based on scopes) from the token endpoint using a combination of client and client_secret.
-upctAllowedOAuthFlows :: Lens' UserPoolClientType [OAuthFlowType]
-upctAllowedOAuthFlows = lens _upctAllowedOAuthFlows (\s a -> s {_upctAllowedOAuthFlows = a}) . _Default . _Coerce
+-- | The allowed OAuth flows.
+--
+-- Set to @code@ to initiate a code grant flow, which provides an
+-- authorization code as the response. This code can be exchanged for
+-- access tokens with the token endpoint.
+--
+-- Set to @implicit@ to specify that the client should get the access token
+-- (and, optionally, ID token, based on scopes) directly.
+--
+-- Set to @client_credentials@ to specify that the client should get the
+-- access token (and, optionally, ID token, based on scopes) from the token
+-- endpoint using a combination of client and client_secret.
+userPoolClientType_allowedOAuthFlows :: Lens.Lens' UserPoolClientType (Prelude.Maybe [OAuthFlowType])
+userPoolClientType_allowedOAuthFlows = Lens.lens (\UserPoolClientType' {allowedOAuthFlows} -> allowedOAuthFlows) (\s@UserPoolClientType' {} a -> s {allowedOAuthFlows = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The time limit, specified by tokenValidityUnits, defaulting to hours, after which the access token is no longer valid and cannot be used.
-upctAccessTokenValidity :: Lens' UserPoolClientType (Maybe Natural)
-upctAccessTokenValidity = lens _upctAccessTokenValidity (\s a -> s {_upctAccessTokenValidity = a}) . mapping _Nat
+-- | The time limit, specified by tokenValidityUnits, defaulting to hours,
+-- after which the access token is no longer valid and cannot be used.
+userPoolClientType_accessTokenValidity :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.Natural)
+userPoolClientType_accessTokenValidity = Lens.lens (\UserPoolClientType' {accessTokenValidity} -> accessTokenValidity) (\s@UserPoolClientType' {} a -> s {accessTokenValidity = a} :: UserPoolClientType) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this setting to choose which errors and responses are returned by Cognito APIs during authentication, account confirmation, and password recovery when the user does not exist in the user pool. When set to @ENABLED@ and the user does not exist, authentication returns an error indicating either the username or password was incorrect, and account confirmation and password recovery return a response indicating a code was sent to a simulated destination. When set to @LEGACY@ , those APIs will return a @UserNotFoundException@ exception if the user does not exist in the user pool. Valid values include:     * @ENABLED@ - This prevents user existence-related errors.     * @LEGACY@ - This represents the old behavior of Cognito where user existence related errors are not prevented.
-upctPreventUserExistenceErrors :: Lens' UserPoolClientType (Maybe PreventUserExistenceErrorTypes)
-upctPreventUserExistenceErrors = lens _upctPreventUserExistenceErrors (\s a -> s {_upctPreventUserExistenceErrors = a})
+-- | Use this setting to choose which errors and responses are returned by
+-- Cognito APIs during authentication, account confirmation, and password
+-- recovery when the user does not exist in the user pool. When set to
+-- @ENABLED@ and the user does not exist, authentication returns an error
+-- indicating either the username or password was incorrect, and account
+-- confirmation and password recovery return a response indicating a code
+-- was sent to a simulated destination. When set to @LEGACY@, those APIs
+-- will return a @UserNotFoundException@ exception if the user does not
+-- exist in the user pool.
+--
+-- Valid values include:
+--
+-- -   @ENABLED@ - This prevents user existence-related errors.
+--
+-- -   @LEGACY@ - This represents the old behavior of Cognito where user
+--     existence related errors are not prevented.
+--
+-- After February 15th 2020, the value of @PreventUserExistenceErrors@ will
+-- default to @ENABLED@ for newly created user pool clients if no value is
+-- provided.
+userPoolClientType_preventUserExistenceErrors :: Lens.Lens' UserPoolClientType (Prelude.Maybe PreventUserExistenceErrorTypes)
+userPoolClientType_preventUserExistenceErrors = Lens.lens (\UserPoolClientType' {preventUserExistenceErrors} -> preventUserExistenceErrors) (\s@UserPoolClientType' {} a -> s {preventUserExistenceErrors = a} :: UserPoolClientType)
 
--- | Set to true if the client is allowed to follow the OAuth protocol when interacting with Cognito user pools.
-upctAllowedOAuthFlowsUserPoolClient :: Lens' UserPoolClientType (Maybe Bool)
-upctAllowedOAuthFlowsUserPoolClient = lens _upctAllowedOAuthFlowsUserPoolClient (\s a -> s {_upctAllowedOAuthFlowsUserPoolClient = a})
+-- | Set to true if the client is allowed to follow the OAuth protocol when
+-- interacting with Cognito user pools.
+userPoolClientType_allowedOAuthFlowsUserPoolClient :: Lens.Lens' UserPoolClientType (Prelude.Maybe Prelude.Bool)
+userPoolClientType_allowedOAuthFlowsUserPoolClient = Lens.lens (\UserPoolClientType' {allowedOAuthFlowsUserPoolClient} -> allowedOAuthFlowsUserPoolClient) (\s@UserPoolClientType' {} a -> s {allowedOAuthFlowsUserPoolClient = a} :: UserPoolClientType)
 
-instance FromJSON UserPoolClientType where
+instance Prelude.FromJSON UserPoolClientType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserPoolClientType"
       ( \x ->
           UserPoolClientType'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "ClientSecret")
-            <*> (x .:? "RefreshTokenValidity")
-            <*> (x .:? "ClientId")
-            <*> (x .:? "IdTokenValidity")
-            <*> (x .:? "AllowedOAuthScopes" .!= mempty)
-            <*> (x .:? "ClientName")
-            <*> (x .:? "AnalyticsConfiguration")
-            <*> (x .:? "UserPoolId")
-            <*> (x .:? "ReadAttributes" .!= mempty)
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "LogoutURLs" .!= mempty)
-            <*> (x .:? "WriteAttributes" .!= mempty)
-            <*> (x .:? "SupportedIdentityProviders" .!= mempty)
-            <*> (x .:? "ExplicitAuthFlows" .!= mempty)
-            <*> (x .:? "DefaultRedirectURI")
-            <*> (x .:? "TokenValidityUnits")
-            <*> (x .:? "CallbackURLs" .!= mempty)
-            <*> (x .:? "AllowedOAuthFlows" .!= mempty)
-            <*> (x .:? "AccessTokenValidity")
-            <*> (x .:? "PreventUserExistenceErrors")
-            <*> (x .:? "AllowedOAuthFlowsUserPoolClient")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "ClientSecret")
+            Prelude.<*> (x Prelude..:? "RefreshTokenValidity")
+            Prelude.<*> (x Prelude..:? "ClientId")
+            Prelude.<*> (x Prelude..:? "IdTokenValidity")
+            Prelude.<*> ( x Prelude..:? "AllowedOAuthScopes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ClientName")
+            Prelude.<*> (x Prelude..:? "AnalyticsConfiguration")
+            Prelude.<*> (x Prelude..:? "UserPoolId")
+            Prelude.<*> ( x Prelude..:? "ReadAttributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> ( x Prelude..:? "LogoutURLs"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "WriteAttributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "SupportedIdentityProviders"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "ExplicitAuthFlows"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "DefaultRedirectURI")
+            Prelude.<*> (x Prelude..:? "TokenValidityUnits")
+            Prelude.<*> ( x Prelude..:? "CallbackURLs"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "AllowedOAuthFlows"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "AccessTokenValidity")
+            Prelude.<*> (x Prelude..:? "PreventUserExistenceErrors")
+            Prelude.<*> (x Prelude..:? "AllowedOAuthFlowsUserPoolClient")
       )
 
-instance Hashable UserPoolClientType
+instance Prelude.Hashable UserPoolClientType
 
-instance NFData UserPoolClientType
+instance Prelude.NFData UserPoolClientType

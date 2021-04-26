@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,200 +21,222 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Configures actions on detected risks. To delete the risk configuration for @UserPoolId@ or @ClientId@ , pass null values for all four configuration types.
+-- Configures actions on detected risks. To delete the risk configuration
+-- for @UserPoolId@ or @ClientId@, pass null values for all four
+-- configuration types.
 --
---
--- To enable Amazon Cognito advanced security features, update the user pool to include the @UserPoolAddOns@ key@AdvancedSecurityMode@ .
+-- To enable Amazon Cognito advanced security features, update the user
+-- pool to include the @UserPoolAddOns@ key@AdvancedSecurityMode@.
 module Network.AWS.CognitoIdentityProvider.SetRiskConfiguration
   ( -- * Creating a Request
-    setRiskConfiguration,
-    SetRiskConfiguration,
+    SetRiskConfiguration (..),
+    newSetRiskConfiguration,
 
     -- * Request Lenses
-    srcAccountTakeoverRiskConfiguration,
-    srcClientId,
-    srcRiskExceptionConfiguration,
-    srcCompromisedCredentialsRiskConfiguration,
-    srcUserPoolId,
+    setRiskConfiguration_accountTakeoverRiskConfiguration,
+    setRiskConfiguration_clientId,
+    setRiskConfiguration_riskExceptionConfiguration,
+    setRiskConfiguration_compromisedCredentialsRiskConfiguration,
+    setRiskConfiguration_userPoolId,
 
     -- * Destructuring the Response
-    setRiskConfigurationResponse,
-    SetRiskConfigurationResponse,
+    SetRiskConfigurationResponse (..),
+    newSetRiskConfigurationResponse,
 
     -- * Response Lenses
-    srcrrsResponseStatus,
-    srcrrsRiskConfiguration,
+    setRiskConfigurationResponse_httpStatus,
+    setRiskConfigurationResponse_riskConfiguration,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.RiskConfigurationType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'setRiskConfiguration' smart constructor.
+-- | /See:/ 'newSetRiskConfiguration' smart constructor.
 data SetRiskConfiguration = SetRiskConfiguration'
-  { _srcAccountTakeoverRiskConfiguration ::
-      !( Maybe
-           AccountTakeoverRiskConfigurationType
-       ),
-    _srcClientId ::
-      !(Maybe (Sensitive Text)),
-    _srcRiskExceptionConfiguration ::
-      !( Maybe
-           RiskExceptionConfigurationType
-       ),
-    _srcCompromisedCredentialsRiskConfiguration ::
-      !( Maybe
-           CompromisedCredentialsRiskConfigurationType
-       ),
-    _srcUserPoolId :: !Text
+  { -- | The account takeover risk configuration.
+    accountTakeoverRiskConfiguration :: Prelude.Maybe AccountTakeoverRiskConfigurationType,
+    -- | The app client ID. If @ClientId@ is null, then the risk configuration is
+    -- mapped to @userPoolId@. When the client ID is null, the same risk
+    -- configuration is applied to all the clients in the userPool.
+    --
+    -- Otherwise, @ClientId@ is mapped to the client. When the client ID is not
+    -- null, the user pool configuration is overridden and the risk
+    -- configuration for the client is used instead.
+    clientId :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The configuration to override the risk decision.
+    riskExceptionConfiguration :: Prelude.Maybe RiskExceptionConfigurationType,
+    -- | The compromised credentials risk configuration.
+    compromisedCredentialsRiskConfiguration :: Prelude.Maybe CompromisedCredentialsRiskConfigurationType,
+    -- | The user pool ID.
+    userPoolId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetRiskConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetRiskConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srcAccountTakeoverRiskConfiguration' - The account takeover risk configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srcClientId' - The app client ID. If @ClientId@ is null, then the risk configuration is mapped to @userPoolId@ . When the client ID is null, the same risk configuration is applied to all the clients in the userPool. Otherwise, @ClientId@ is mapped to the client. When the client ID is not null, the user pool configuration is overridden and the risk configuration for the client is used instead.
+-- 'accountTakeoverRiskConfiguration', 'setRiskConfiguration_accountTakeoverRiskConfiguration' - The account takeover risk configuration.
 --
--- * 'srcRiskExceptionConfiguration' - The configuration to override the risk decision.
+-- 'clientId', 'setRiskConfiguration_clientId' - The app client ID. If @ClientId@ is null, then the risk configuration is
+-- mapped to @userPoolId@. When the client ID is null, the same risk
+-- configuration is applied to all the clients in the userPool.
 --
--- * 'srcCompromisedCredentialsRiskConfiguration' - The compromised credentials risk configuration.
+-- Otherwise, @ClientId@ is mapped to the client. When the client ID is not
+-- null, the user pool configuration is overridden and the risk
+-- configuration for the client is used instead.
 --
--- * 'srcUserPoolId' - The user pool ID.
-setRiskConfiguration ::
-  -- | 'srcUserPoolId'
-  Text ->
+-- 'riskExceptionConfiguration', 'setRiskConfiguration_riskExceptionConfiguration' - The configuration to override the risk decision.
+--
+-- 'compromisedCredentialsRiskConfiguration', 'setRiskConfiguration_compromisedCredentialsRiskConfiguration' - The compromised credentials risk configuration.
+--
+-- 'userPoolId', 'setRiskConfiguration_userPoolId' - The user pool ID.
+newSetRiskConfiguration ::
+  -- | 'userPoolId'
+  Prelude.Text ->
   SetRiskConfiguration
-setRiskConfiguration pUserPoolId_ =
+newSetRiskConfiguration pUserPoolId_ =
   SetRiskConfiguration'
-    { _srcAccountTakeoverRiskConfiguration =
-        Nothing,
-      _srcClientId = Nothing,
-      _srcRiskExceptionConfiguration = Nothing,
-      _srcCompromisedCredentialsRiskConfiguration =
-        Nothing,
-      _srcUserPoolId = pUserPoolId_
+    { accountTakeoverRiskConfiguration =
+        Prelude.Nothing,
+      clientId = Prelude.Nothing,
+      riskExceptionConfiguration = Prelude.Nothing,
+      compromisedCredentialsRiskConfiguration =
+        Prelude.Nothing,
+      userPoolId = pUserPoolId_
     }
 
 -- | The account takeover risk configuration.
-srcAccountTakeoverRiskConfiguration :: Lens' SetRiskConfiguration (Maybe AccountTakeoverRiskConfigurationType)
-srcAccountTakeoverRiskConfiguration = lens _srcAccountTakeoverRiskConfiguration (\s a -> s {_srcAccountTakeoverRiskConfiguration = a})
+setRiskConfiguration_accountTakeoverRiskConfiguration :: Lens.Lens' SetRiskConfiguration (Prelude.Maybe AccountTakeoverRiskConfigurationType)
+setRiskConfiguration_accountTakeoverRiskConfiguration = Lens.lens (\SetRiskConfiguration' {accountTakeoverRiskConfiguration} -> accountTakeoverRiskConfiguration) (\s@SetRiskConfiguration' {} a -> s {accountTakeoverRiskConfiguration = a} :: SetRiskConfiguration)
 
--- | The app client ID. If @ClientId@ is null, then the risk configuration is mapped to @userPoolId@ . When the client ID is null, the same risk configuration is applied to all the clients in the userPool. Otherwise, @ClientId@ is mapped to the client. When the client ID is not null, the user pool configuration is overridden and the risk configuration for the client is used instead.
-srcClientId :: Lens' SetRiskConfiguration (Maybe Text)
-srcClientId = lens _srcClientId (\s a -> s {_srcClientId = a}) . mapping _Sensitive
+-- | The app client ID. If @ClientId@ is null, then the risk configuration is
+-- mapped to @userPoolId@. When the client ID is null, the same risk
+-- configuration is applied to all the clients in the userPool.
+--
+-- Otherwise, @ClientId@ is mapped to the client. When the client ID is not
+-- null, the user pool configuration is overridden and the risk
+-- configuration for the client is used instead.
+setRiskConfiguration_clientId :: Lens.Lens' SetRiskConfiguration (Prelude.Maybe Prelude.Text)
+setRiskConfiguration_clientId = Lens.lens (\SetRiskConfiguration' {clientId} -> clientId) (\s@SetRiskConfiguration' {} a -> s {clientId = a} :: SetRiskConfiguration) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The configuration to override the risk decision.
-srcRiskExceptionConfiguration :: Lens' SetRiskConfiguration (Maybe RiskExceptionConfigurationType)
-srcRiskExceptionConfiguration = lens _srcRiskExceptionConfiguration (\s a -> s {_srcRiskExceptionConfiguration = a})
+setRiskConfiguration_riskExceptionConfiguration :: Lens.Lens' SetRiskConfiguration (Prelude.Maybe RiskExceptionConfigurationType)
+setRiskConfiguration_riskExceptionConfiguration = Lens.lens (\SetRiskConfiguration' {riskExceptionConfiguration} -> riskExceptionConfiguration) (\s@SetRiskConfiguration' {} a -> s {riskExceptionConfiguration = a} :: SetRiskConfiguration)
 
 -- | The compromised credentials risk configuration.
-srcCompromisedCredentialsRiskConfiguration :: Lens' SetRiskConfiguration (Maybe CompromisedCredentialsRiskConfigurationType)
-srcCompromisedCredentialsRiskConfiguration = lens _srcCompromisedCredentialsRiskConfiguration (\s a -> s {_srcCompromisedCredentialsRiskConfiguration = a})
+setRiskConfiguration_compromisedCredentialsRiskConfiguration :: Lens.Lens' SetRiskConfiguration (Prelude.Maybe CompromisedCredentialsRiskConfigurationType)
+setRiskConfiguration_compromisedCredentialsRiskConfiguration = Lens.lens (\SetRiskConfiguration' {compromisedCredentialsRiskConfiguration} -> compromisedCredentialsRiskConfiguration) (\s@SetRiskConfiguration' {} a -> s {compromisedCredentialsRiskConfiguration = a} :: SetRiskConfiguration)
 
 -- | The user pool ID.
-srcUserPoolId :: Lens' SetRiskConfiguration Text
-srcUserPoolId = lens _srcUserPoolId (\s a -> s {_srcUserPoolId = a})
+setRiskConfiguration_userPoolId :: Lens.Lens' SetRiskConfiguration Prelude.Text
+setRiskConfiguration_userPoolId = Lens.lens (\SetRiskConfiguration' {userPoolId} -> userPoolId) (\s@SetRiskConfiguration' {} a -> s {userPoolId = a} :: SetRiskConfiguration)
 
-instance AWSRequest SetRiskConfiguration where
+instance Prelude.AWSRequest SetRiskConfiguration where
   type
     Rs SetRiskConfiguration =
       SetRiskConfigurationResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SetRiskConfigurationResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "RiskConfiguration")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "RiskConfiguration")
       )
 
-instance Hashable SetRiskConfiguration
+instance Prelude.Hashable SetRiskConfiguration
 
-instance NFData SetRiskConfiguration
+instance Prelude.NFData SetRiskConfiguration
 
-instance ToHeaders SetRiskConfiguration where
+instance Prelude.ToHeaders SetRiskConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.SetRiskConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.SetRiskConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SetRiskConfiguration where
+instance Prelude.ToJSON SetRiskConfiguration where
   toJSON SetRiskConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("AccountTakeoverRiskConfiguration" .=)
-              <$> _srcAccountTakeoverRiskConfiguration,
-            ("ClientId" .=) <$> _srcClientId,
-            ("RiskExceptionConfiguration" .=)
-              <$> _srcRiskExceptionConfiguration,
-            ("CompromisedCredentialsRiskConfiguration" .=)
-              <$> _srcCompromisedCredentialsRiskConfiguration,
-            Just ("UserPoolId" .= _srcUserPoolId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AccountTakeoverRiskConfiguration" Prelude..=)
+              Prelude.<$> accountTakeoverRiskConfiguration,
+            ("ClientId" Prelude..=) Prelude.<$> clientId,
+            ("RiskExceptionConfiguration" Prelude..=)
+              Prelude.<$> riskExceptionConfiguration,
+            ( "CompromisedCredentialsRiskConfiguration"
+                Prelude..=
+            )
+              Prelude.<$> compromisedCredentialsRiskConfiguration,
+            Prelude.Just ("UserPoolId" Prelude..= userPoolId)
           ]
       )
 
-instance ToPath SetRiskConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath SetRiskConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetRiskConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery SetRiskConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'setRiskConfigurationResponse' smart constructor.
+-- | /See:/ 'newSetRiskConfigurationResponse' smart constructor.
 data SetRiskConfigurationResponse = SetRiskConfigurationResponse'
-  { _srcrrsResponseStatus ::
-      !Int,
-    _srcrrsRiskConfiguration ::
-      !RiskConfigurationType
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The risk configuration.
+    riskConfiguration :: RiskConfigurationType
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetRiskConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetRiskConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srcrrsRiskConfiguration' - The risk configuration.
-setRiskConfigurationResponse ::
-  -- | 'srcrrsResponseStatus'
-  Int ->
-  -- | 'srcrrsRiskConfiguration'
+-- 'httpStatus', 'setRiskConfigurationResponse_httpStatus' - The response's http status code.
+--
+-- 'riskConfiguration', 'setRiskConfigurationResponse_riskConfiguration' - The risk configuration.
+newSetRiskConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'riskConfiguration'
   RiskConfigurationType ->
   SetRiskConfigurationResponse
-setRiskConfigurationResponse
-  pResponseStatus_
+newSetRiskConfigurationResponse
+  pHttpStatus_
   pRiskConfiguration_ =
     SetRiskConfigurationResponse'
-      { _srcrrsResponseStatus =
-          pResponseStatus_,
-        _srcrrsRiskConfiguration =
-          pRiskConfiguration_
+      { httpStatus =
+          pHttpStatus_,
+        riskConfiguration = pRiskConfiguration_
       }
 
--- | -- | The response status code.
-srcrrsResponseStatus :: Lens' SetRiskConfigurationResponse Int
-srcrrsResponseStatus = lens _srcrrsResponseStatus (\s a -> s {_srcrrsResponseStatus = a})
+-- | The response's http status code.
+setRiskConfigurationResponse_httpStatus :: Lens.Lens' SetRiskConfigurationResponse Prelude.Int
+setRiskConfigurationResponse_httpStatus = Lens.lens (\SetRiskConfigurationResponse' {httpStatus} -> httpStatus) (\s@SetRiskConfigurationResponse' {} a -> s {httpStatus = a} :: SetRiskConfigurationResponse)
 
 -- | The risk configuration.
-srcrrsRiskConfiguration :: Lens' SetRiskConfigurationResponse RiskConfigurationType
-srcrrsRiskConfiguration = lens _srcrrsRiskConfiguration (\s a -> s {_srcrrsRiskConfiguration = a})
+setRiskConfigurationResponse_riskConfiguration :: Lens.Lens' SetRiskConfigurationResponse RiskConfigurationType
+setRiskConfigurationResponse_riskConfiguration = Lens.lens (\SetRiskConfigurationResponse' {riskConfiguration} -> riskConfiguration) (\s@SetRiskConfigurationResponse' {} a -> s {riskConfiguration = a} :: SetRiskConfigurationResponse)
 
-instance NFData SetRiskConfigurationResponse
+instance Prelude.NFData SetRiskConfigurationResponse

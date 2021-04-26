@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,82 +20,89 @@
 module Network.AWS.CognitoIdentityProvider.Types.TokenValidityUnitsType where
 
 import Network.AWS.CognitoIdentityProvider.Types.TimeUnitsType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The data type for TokenValidityUnits that specifics the time measurements for token validity.
+-- | The data type for TokenValidityUnits that specifics the time
+-- measurements for token validity.
 --
---
---
--- /See:/ 'tokenValidityUnitsType' smart constructor.
+-- /See:/ 'newTokenValidityUnitsType' smart constructor.
 data TokenValidityUnitsType = TokenValidityUnitsType'
-  { _tvutAccessToken ::
-      !(Maybe TimeUnitsType),
-    _tvutIdToken ::
-      !(Maybe TimeUnitsType),
-    _tvutRefreshToken ::
-      !(Maybe TimeUnitsType)
+  { -- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
+    -- AccessTokenValidity, defaults to hours.
+    accessToken :: Prelude.Maybe TimeUnitsType,
+    -- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
+    -- IdTokenValidity, defaults to hours.
+    idToken :: Prelude.Maybe TimeUnitsType,
+    -- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
+    -- RefreshTokenValidity, defaults to days.
+    refreshToken :: Prelude.Maybe TimeUnitsType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TokenValidityUnitsType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TokenValidityUnitsType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tvutAccessToken' - A time unit in “seconds”, “minutes”, “hours” or “days” for the value in AccessTokenValidity, defaults to hours.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tvutIdToken' - A time unit in “seconds”, “minutes”, “hours” or “days” for the value in IdTokenValidity, defaults to hours.
+-- 'accessToken', 'tokenValidityUnitsType_accessToken' - A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
+-- AccessTokenValidity, defaults to hours.
 --
--- * 'tvutRefreshToken' - A time unit in “seconds”, “minutes”, “hours” or “days” for the value in RefreshTokenValidity, defaults to days.
-tokenValidityUnitsType ::
+-- 'idToken', 'tokenValidityUnitsType_idToken' - A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
+-- IdTokenValidity, defaults to hours.
+--
+-- 'refreshToken', 'tokenValidityUnitsType_refreshToken' - A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
+-- RefreshTokenValidity, defaults to days.
+newTokenValidityUnitsType ::
   TokenValidityUnitsType
-tokenValidityUnitsType =
+newTokenValidityUnitsType =
   TokenValidityUnitsType'
-    { _tvutAccessToken = Nothing,
-      _tvutIdToken = Nothing,
-      _tvutRefreshToken = Nothing
+    { accessToken =
+        Prelude.Nothing,
+      idToken = Prelude.Nothing,
+      refreshToken = Prelude.Nothing
     }
 
--- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in AccessTokenValidity, defaults to hours.
-tvutAccessToken :: Lens' TokenValidityUnitsType (Maybe TimeUnitsType)
-tvutAccessToken = lens _tvutAccessToken (\s a -> s {_tvutAccessToken = a})
+-- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
+-- AccessTokenValidity, defaults to hours.
+tokenValidityUnitsType_accessToken :: Lens.Lens' TokenValidityUnitsType (Prelude.Maybe TimeUnitsType)
+tokenValidityUnitsType_accessToken = Lens.lens (\TokenValidityUnitsType' {accessToken} -> accessToken) (\s@TokenValidityUnitsType' {} a -> s {accessToken = a} :: TokenValidityUnitsType)
 
--- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in IdTokenValidity, defaults to hours.
-tvutIdToken :: Lens' TokenValidityUnitsType (Maybe TimeUnitsType)
-tvutIdToken = lens _tvutIdToken (\s a -> s {_tvutIdToken = a})
+-- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
+-- IdTokenValidity, defaults to hours.
+tokenValidityUnitsType_idToken :: Lens.Lens' TokenValidityUnitsType (Prelude.Maybe TimeUnitsType)
+tokenValidityUnitsType_idToken = Lens.lens (\TokenValidityUnitsType' {idToken} -> idToken) (\s@TokenValidityUnitsType' {} a -> s {idToken = a} :: TokenValidityUnitsType)
 
--- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in RefreshTokenValidity, defaults to days.
-tvutRefreshToken :: Lens' TokenValidityUnitsType (Maybe TimeUnitsType)
-tvutRefreshToken = lens _tvutRefreshToken (\s a -> s {_tvutRefreshToken = a})
+-- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
+-- RefreshTokenValidity, defaults to days.
+tokenValidityUnitsType_refreshToken :: Lens.Lens' TokenValidityUnitsType (Prelude.Maybe TimeUnitsType)
+tokenValidityUnitsType_refreshToken = Lens.lens (\TokenValidityUnitsType' {refreshToken} -> refreshToken) (\s@TokenValidityUnitsType' {} a -> s {refreshToken = a} :: TokenValidityUnitsType)
 
-instance FromJSON TokenValidityUnitsType where
+instance Prelude.FromJSON TokenValidityUnitsType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TokenValidityUnitsType"
       ( \x ->
           TokenValidityUnitsType'
-            <$> (x .:? "AccessToken")
-            <*> (x .:? "IdToken")
-            <*> (x .:? "RefreshToken")
+            Prelude.<$> (x Prelude..:? "AccessToken")
+            Prelude.<*> (x Prelude..:? "IdToken")
+            Prelude.<*> (x Prelude..:? "RefreshToken")
       )
 
-instance Hashable TokenValidityUnitsType
+instance Prelude.Hashable TokenValidityUnitsType
 
-instance NFData TokenValidityUnitsType
+instance Prelude.NFData TokenValidityUnitsType
 
-instance ToJSON TokenValidityUnitsType where
+instance Prelude.ToJSON TokenValidityUnitsType where
   toJSON TokenValidityUnitsType' {..} =
-    object
-      ( catMaybes
-          [ ("AccessToken" .=) <$> _tvutAccessToken,
-            ("IdToken" .=) <$> _tvutIdToken,
-            ("RefreshToken" .=) <$> _tvutRefreshToken
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AccessToken" Prelude..=) Prelude.<$> accessToken,
+            ("IdToken" Prelude..=) Prelude.<$> idToken,
+            ("RefreshToken" Prelude..=)
+              Prelude.<$> refreshToken
           ]
       )

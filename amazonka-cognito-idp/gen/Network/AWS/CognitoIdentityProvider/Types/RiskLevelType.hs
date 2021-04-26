@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CognitoIdentityProvider.Types.RiskLevelType
   ( RiskLevelType
       ( ..,
-        High,
-        Low,
-        Medium
+        RiskLevelTypeHigh,
+        RiskLevelTypeLow,
+        RiskLevelTypeMedium
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RiskLevelType = RiskLevelType' (CI Text)
+newtype RiskLevelType = RiskLevelType'
+  { fromRiskLevelType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern High :: RiskLevelType
-pattern High = RiskLevelType' "High"
+pattern RiskLevelTypeHigh :: RiskLevelType
+pattern RiskLevelTypeHigh = RiskLevelType' "High"
 
-pattern Low :: RiskLevelType
-pattern Low = RiskLevelType' "Low"
+pattern RiskLevelTypeLow :: RiskLevelType
+pattern RiskLevelTypeLow = RiskLevelType' "Low"
 
-pattern Medium :: RiskLevelType
-pattern Medium = RiskLevelType' "Medium"
+pattern RiskLevelTypeMedium :: RiskLevelType
+pattern RiskLevelTypeMedium = RiskLevelType' "Medium"
 
 {-# COMPLETE
-  High,
-  Low,
-  Medium,
+  RiskLevelTypeHigh,
+  RiskLevelTypeLow,
+  RiskLevelTypeMedium,
   RiskLevelType'
   #-}
 
-instance FromText RiskLevelType where
-  parser = (RiskLevelType' . mk) <$> takeText
+instance Prelude.FromText RiskLevelType where
+  parser = RiskLevelType' Prelude.<$> Prelude.takeText
 
-instance ToText RiskLevelType where
-  toText (RiskLevelType' ci) = original ci
+instance Prelude.ToText RiskLevelType where
+  toText (RiskLevelType' x) = x
 
-instance Hashable RiskLevelType
+instance Prelude.Hashable RiskLevelType
 
-instance NFData RiskLevelType
+instance Prelude.NFData RiskLevelType
 
-instance ToByteString RiskLevelType
+instance Prelude.ToByteString RiskLevelType
 
-instance ToQuery RiskLevelType
+instance Prelude.ToQuery RiskLevelType
 
-instance ToHeader RiskLevelType
+instance Prelude.ToHeader RiskLevelType
 
-instance FromJSON RiskLevelType where
-  parseJSON = parseJSONText "RiskLevelType"
+instance Prelude.FromJSON RiskLevelType where
+  parseJSON = Prelude.parseJSONText "RiskLevelType"

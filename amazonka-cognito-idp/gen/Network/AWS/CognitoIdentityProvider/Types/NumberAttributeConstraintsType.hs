@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.NumberAttributeConstraintsType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The minimum and maximum value of an attribute that is of the number data type.
+-- | The minimum and maximum value of an attribute that is of the number data
+-- type.
 --
---
---
--- /See:/ 'numberAttributeConstraintsType' smart constructor.
+-- /See:/ 'newNumberAttributeConstraintsType' smart constructor.
 data NumberAttributeConstraintsType = NumberAttributeConstraintsType'
-  { _nactMaxValue ::
-      !( Maybe
-           Text
-       ),
-    _nactMinValue ::
-      !( Maybe
-           Text
-       )
+  { -- | The maximum value of an attribute that is of the number data type.
+    maxValue :: Prelude.Maybe Prelude.Text,
+    -- | The minimum value of an attribute that is of the number data type.
+    minValue :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NumberAttributeConstraintsType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NumberAttributeConstraintsType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nactMaxValue' - The maximum value of an attribute that is of the number data type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nactMinValue' - The minimum value of an attribute that is of the number data type.
-numberAttributeConstraintsType ::
+-- 'maxValue', 'numberAttributeConstraintsType_maxValue' - The maximum value of an attribute that is of the number data type.
+--
+-- 'minValue', 'numberAttributeConstraintsType_minValue' - The minimum value of an attribute that is of the number data type.
+newNumberAttributeConstraintsType ::
   NumberAttributeConstraintsType
-numberAttributeConstraintsType =
+newNumberAttributeConstraintsType =
   NumberAttributeConstraintsType'
-    { _nactMaxValue =
-        Nothing,
-      _nactMinValue = Nothing
+    { maxValue =
+        Prelude.Nothing,
+      minValue = Prelude.Nothing
     }
 
 -- | The maximum value of an attribute that is of the number data type.
-nactMaxValue :: Lens' NumberAttributeConstraintsType (Maybe Text)
-nactMaxValue = lens _nactMaxValue (\s a -> s {_nactMaxValue = a})
+numberAttributeConstraintsType_maxValue :: Lens.Lens' NumberAttributeConstraintsType (Prelude.Maybe Prelude.Text)
+numberAttributeConstraintsType_maxValue = Lens.lens (\NumberAttributeConstraintsType' {maxValue} -> maxValue) (\s@NumberAttributeConstraintsType' {} a -> s {maxValue = a} :: NumberAttributeConstraintsType)
 
 -- | The minimum value of an attribute that is of the number data type.
-nactMinValue :: Lens' NumberAttributeConstraintsType (Maybe Text)
-nactMinValue = lens _nactMinValue (\s a -> s {_nactMinValue = a})
+numberAttributeConstraintsType_minValue :: Lens.Lens' NumberAttributeConstraintsType (Prelude.Maybe Prelude.Text)
+numberAttributeConstraintsType_minValue = Lens.lens (\NumberAttributeConstraintsType' {minValue} -> minValue) (\s@NumberAttributeConstraintsType' {} a -> s {minValue = a} :: NumberAttributeConstraintsType)
 
-instance FromJSON NumberAttributeConstraintsType where
+instance
+  Prelude.FromJSON
+    NumberAttributeConstraintsType
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NumberAttributeConstraintsType"
       ( \x ->
           NumberAttributeConstraintsType'
-            <$> (x .:? "MaxValue") <*> (x .:? "MinValue")
+            Prelude.<$> (x Prelude..:? "MaxValue")
+            Prelude.<*> (x Prelude..:? "MinValue")
       )
 
-instance Hashable NumberAttributeConstraintsType
+instance
+  Prelude.Hashable
+    NumberAttributeConstraintsType
 
-instance NFData NumberAttributeConstraintsType
+instance
+  Prelude.NFData
+    NumberAttributeConstraintsType
 
-instance ToJSON NumberAttributeConstraintsType where
+instance
+  Prelude.ToJSON
+    NumberAttributeConstraintsType
+  where
   toJSON NumberAttributeConstraintsType' {..} =
-    object
-      ( catMaybes
-          [ ("MaxValue" .=) <$> _nactMaxValue,
-            ("MinValue" .=) <$> _nactMinValue
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxValue" Prelude..=) Prelude.<$> maxValue,
+            ("MinValue" Prelude..=) Prelude.<$> minValue
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.EventContextDataType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the user context data captured at the time of an event request.
+-- | Specifies the user context data captured at the time of an event
+-- request.
 --
---
---
--- /See:/ 'eventContextDataType' smart constructor.
+-- /See:/ 'newEventContextDataType' smart constructor.
 data EventContextDataType = EventContextDataType'
-  { _ecdtIPAddress ::
-      !(Maybe Text),
-    _ecdtCity :: !(Maybe Text),
-    _ecdtDeviceName ::
-      !(Maybe Text),
-    _ecdtTimezone ::
-      !(Maybe Text),
-    _ecdtCountry :: !(Maybe Text)
+  { -- | The user\'s IP address.
+    ipAddress :: Prelude.Maybe Prelude.Text,
+    -- | The user\'s city.
+    city :: Prelude.Maybe Prelude.Text,
+    -- | The user\'s device name.
+    deviceName :: Prelude.Maybe Prelude.Text,
+    -- | The user\'s time zone.
+    timezone :: Prelude.Maybe Prelude.Text,
+    -- | The user\'s country.
+    country :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventContextDataType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventContextDataType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecdtIPAddress' - The user's IP address.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ecdtCity' - The user's city.
+-- 'ipAddress', 'eventContextDataType_ipAddress' - The user\'s IP address.
 --
--- * 'ecdtDeviceName' - The user's device name.
+-- 'city', 'eventContextDataType_city' - The user\'s city.
 --
--- * 'ecdtTimezone' - The user's time zone.
+-- 'deviceName', 'eventContextDataType_deviceName' - The user\'s device name.
 --
--- * 'ecdtCountry' - The user's country.
-eventContextDataType ::
+-- 'timezone', 'eventContextDataType_timezone' - The user\'s time zone.
+--
+-- 'country', 'eventContextDataType_country' - The user\'s country.
+newEventContextDataType ::
   EventContextDataType
-eventContextDataType =
+newEventContextDataType =
   EventContextDataType'
-    { _ecdtIPAddress = Nothing,
-      _ecdtCity = Nothing,
-      _ecdtDeviceName = Nothing,
-      _ecdtTimezone = Nothing,
-      _ecdtCountry = Nothing
+    { ipAddress = Prelude.Nothing,
+      city = Prelude.Nothing,
+      deviceName = Prelude.Nothing,
+      timezone = Prelude.Nothing,
+      country = Prelude.Nothing
     }
 
--- | The user's IP address.
-ecdtIPAddress :: Lens' EventContextDataType (Maybe Text)
-ecdtIPAddress = lens _ecdtIPAddress (\s a -> s {_ecdtIPAddress = a})
+-- | The user\'s IP address.
+eventContextDataType_ipAddress :: Lens.Lens' EventContextDataType (Prelude.Maybe Prelude.Text)
+eventContextDataType_ipAddress = Lens.lens (\EventContextDataType' {ipAddress} -> ipAddress) (\s@EventContextDataType' {} a -> s {ipAddress = a} :: EventContextDataType)
 
--- | The user's city.
-ecdtCity :: Lens' EventContextDataType (Maybe Text)
-ecdtCity = lens _ecdtCity (\s a -> s {_ecdtCity = a})
+-- | The user\'s city.
+eventContextDataType_city :: Lens.Lens' EventContextDataType (Prelude.Maybe Prelude.Text)
+eventContextDataType_city = Lens.lens (\EventContextDataType' {city} -> city) (\s@EventContextDataType' {} a -> s {city = a} :: EventContextDataType)
 
--- | The user's device name.
-ecdtDeviceName :: Lens' EventContextDataType (Maybe Text)
-ecdtDeviceName = lens _ecdtDeviceName (\s a -> s {_ecdtDeviceName = a})
+-- | The user\'s device name.
+eventContextDataType_deviceName :: Lens.Lens' EventContextDataType (Prelude.Maybe Prelude.Text)
+eventContextDataType_deviceName = Lens.lens (\EventContextDataType' {deviceName} -> deviceName) (\s@EventContextDataType' {} a -> s {deviceName = a} :: EventContextDataType)
 
--- | The user's time zone.
-ecdtTimezone :: Lens' EventContextDataType (Maybe Text)
-ecdtTimezone = lens _ecdtTimezone (\s a -> s {_ecdtTimezone = a})
+-- | The user\'s time zone.
+eventContextDataType_timezone :: Lens.Lens' EventContextDataType (Prelude.Maybe Prelude.Text)
+eventContextDataType_timezone = Lens.lens (\EventContextDataType' {timezone} -> timezone) (\s@EventContextDataType' {} a -> s {timezone = a} :: EventContextDataType)
 
--- | The user's country.
-ecdtCountry :: Lens' EventContextDataType (Maybe Text)
-ecdtCountry = lens _ecdtCountry (\s a -> s {_ecdtCountry = a})
+-- | The user\'s country.
+eventContextDataType_country :: Lens.Lens' EventContextDataType (Prelude.Maybe Prelude.Text)
+eventContextDataType_country = Lens.lens (\EventContextDataType' {country} -> country) (\s@EventContextDataType' {} a -> s {country = a} :: EventContextDataType)
 
-instance FromJSON EventContextDataType where
+instance Prelude.FromJSON EventContextDataType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventContextDataType"
       ( \x ->
           EventContextDataType'
-            <$> (x .:? "IpAddress")
-            <*> (x .:? "City")
-            <*> (x .:? "DeviceName")
-            <*> (x .:? "Timezone")
-            <*> (x .:? "Country")
+            Prelude.<$> (x Prelude..:? "IpAddress")
+            Prelude.<*> (x Prelude..:? "City")
+            Prelude.<*> (x Prelude..:? "DeviceName")
+            Prelude.<*> (x Prelude..:? "Timezone")
+            Prelude.<*> (x Prelude..:? "Country")
       )
 
-instance Hashable EventContextDataType
+instance Prelude.Hashable EventContextDataType
 
-instance NFData EventContextDataType
+instance Prelude.NFData EventContextDataType

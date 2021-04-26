@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,109 +19,150 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.PasswordPolicyType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The password policy type.
 --
---
---
--- /See:/ 'passwordPolicyType' smart constructor.
+-- /See:/ 'newPasswordPolicyType' smart constructor.
 data PasswordPolicyType = PasswordPolicyType'
-  { _pptTemporaryPasswordValidityDays ::
-      !(Maybe Nat),
-    _pptRequireUppercase ::
-      !(Maybe Bool),
-    _pptMinimumLength :: !(Maybe Nat),
-    _pptRequireSymbols ::
-      !(Maybe Bool),
-    _pptRequireNumbers ::
-      !(Maybe Bool),
-    _pptRequireLowercase ::
-      !(Maybe Bool)
+  { -- | In the password policy you have set, refers to the number of days a
+    -- temporary password is valid. If the user does not sign-in during this
+    -- time, their password will need to be reset by an administrator.
+    --
+    -- When you set @TemporaryPasswordValidityDays@ for a user pool, you will
+    -- no longer be able to set the deprecated @UnusedAccountValidityDays@
+    -- value for that user pool.
+    temporaryPasswordValidityDays :: Prelude.Maybe Prelude.Nat,
+    -- | In the password policy that you have set, refers to whether you have
+    -- required users to use at least one uppercase letter in their password.
+    requireUppercase :: Prelude.Maybe Prelude.Bool,
+    -- | The minimum length of the password policy that you have set. Cannot be
+    -- less than 6.
+    minimumLength :: Prelude.Maybe Prelude.Nat,
+    -- | In the password policy that you have set, refers to whether you have
+    -- required users to use at least one symbol in their password.
+    requireSymbols :: Prelude.Maybe Prelude.Bool,
+    -- | In the password policy that you have set, refers to whether you have
+    -- required users to use at least one number in their password.
+    requireNumbers :: Prelude.Maybe Prelude.Bool,
+    -- | In the password policy that you have set, refers to whether you have
+    -- required users to use at least one lowercase letter in their password.
+    requireLowercase :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PasswordPolicyType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PasswordPolicyType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pptTemporaryPasswordValidityDays' - In the password policy you have set, refers to the number of days a temporary password is valid. If the user does not sign-in during this time, their password will need to be reset by an administrator.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pptRequireUppercase' - In the password policy that you have set, refers to whether you have required users to use at least one uppercase letter in their password.
+-- 'temporaryPasswordValidityDays', 'passwordPolicyType_temporaryPasswordValidityDays' - In the password policy you have set, refers to the number of days a
+-- temporary password is valid. If the user does not sign-in during this
+-- time, their password will need to be reset by an administrator.
 --
--- * 'pptMinimumLength' - The minimum length of the password policy that you have set. Cannot be less than 6.
+-- When you set @TemporaryPasswordValidityDays@ for a user pool, you will
+-- no longer be able to set the deprecated @UnusedAccountValidityDays@
+-- value for that user pool.
 --
--- * 'pptRequireSymbols' - In the password policy that you have set, refers to whether you have required users to use at least one symbol in their password.
+-- 'requireUppercase', 'passwordPolicyType_requireUppercase' - In the password policy that you have set, refers to whether you have
+-- required users to use at least one uppercase letter in their password.
 --
--- * 'pptRequireNumbers' - In the password policy that you have set, refers to whether you have required users to use at least one number in their password.
+-- 'minimumLength', 'passwordPolicyType_minimumLength' - The minimum length of the password policy that you have set. Cannot be
+-- less than 6.
 --
--- * 'pptRequireLowercase' - In the password policy that you have set, refers to whether you have required users to use at least one lowercase letter in their password.
-passwordPolicyType ::
+-- 'requireSymbols', 'passwordPolicyType_requireSymbols' - In the password policy that you have set, refers to whether you have
+-- required users to use at least one symbol in their password.
+--
+-- 'requireNumbers', 'passwordPolicyType_requireNumbers' - In the password policy that you have set, refers to whether you have
+-- required users to use at least one number in their password.
+--
+-- 'requireLowercase', 'passwordPolicyType_requireLowercase' - In the password policy that you have set, refers to whether you have
+-- required users to use at least one lowercase letter in their password.
+newPasswordPolicyType ::
   PasswordPolicyType
-passwordPolicyType =
+newPasswordPolicyType =
   PasswordPolicyType'
-    { _pptTemporaryPasswordValidityDays =
-        Nothing,
-      _pptRequireUppercase = Nothing,
-      _pptMinimumLength = Nothing,
-      _pptRequireSymbols = Nothing,
-      _pptRequireNumbers = Nothing,
-      _pptRequireLowercase = Nothing
+    { temporaryPasswordValidityDays =
+        Prelude.Nothing,
+      requireUppercase = Prelude.Nothing,
+      minimumLength = Prelude.Nothing,
+      requireSymbols = Prelude.Nothing,
+      requireNumbers = Prelude.Nothing,
+      requireLowercase = Prelude.Nothing
     }
 
--- | In the password policy you have set, refers to the number of days a temporary password is valid. If the user does not sign-in during this time, their password will need to be reset by an administrator.
-pptTemporaryPasswordValidityDays :: Lens' PasswordPolicyType (Maybe Natural)
-pptTemporaryPasswordValidityDays = lens _pptTemporaryPasswordValidityDays (\s a -> s {_pptTemporaryPasswordValidityDays = a}) . mapping _Nat
+-- | In the password policy you have set, refers to the number of days a
+-- temporary password is valid. If the user does not sign-in during this
+-- time, their password will need to be reset by an administrator.
+--
+-- When you set @TemporaryPasswordValidityDays@ for a user pool, you will
+-- no longer be able to set the deprecated @UnusedAccountValidityDays@
+-- value for that user pool.
+passwordPolicyType_temporaryPasswordValidityDays :: Lens.Lens' PasswordPolicyType (Prelude.Maybe Prelude.Natural)
+passwordPolicyType_temporaryPasswordValidityDays = Lens.lens (\PasswordPolicyType' {temporaryPasswordValidityDays} -> temporaryPasswordValidityDays) (\s@PasswordPolicyType' {} a -> s {temporaryPasswordValidityDays = a} :: PasswordPolicyType) Prelude.. Lens.mapping Prelude._Nat
 
--- | In the password policy that you have set, refers to whether you have required users to use at least one uppercase letter in their password.
-pptRequireUppercase :: Lens' PasswordPolicyType (Maybe Bool)
-pptRequireUppercase = lens _pptRequireUppercase (\s a -> s {_pptRequireUppercase = a})
+-- | In the password policy that you have set, refers to whether you have
+-- required users to use at least one uppercase letter in their password.
+passwordPolicyType_requireUppercase :: Lens.Lens' PasswordPolicyType (Prelude.Maybe Prelude.Bool)
+passwordPolicyType_requireUppercase = Lens.lens (\PasswordPolicyType' {requireUppercase} -> requireUppercase) (\s@PasswordPolicyType' {} a -> s {requireUppercase = a} :: PasswordPolicyType)
 
--- | The minimum length of the password policy that you have set. Cannot be less than 6.
-pptMinimumLength :: Lens' PasswordPolicyType (Maybe Natural)
-pptMinimumLength = lens _pptMinimumLength (\s a -> s {_pptMinimumLength = a}) . mapping _Nat
+-- | The minimum length of the password policy that you have set. Cannot be
+-- less than 6.
+passwordPolicyType_minimumLength :: Lens.Lens' PasswordPolicyType (Prelude.Maybe Prelude.Natural)
+passwordPolicyType_minimumLength = Lens.lens (\PasswordPolicyType' {minimumLength} -> minimumLength) (\s@PasswordPolicyType' {} a -> s {minimumLength = a} :: PasswordPolicyType) Prelude.. Lens.mapping Prelude._Nat
 
--- | In the password policy that you have set, refers to whether you have required users to use at least one symbol in their password.
-pptRequireSymbols :: Lens' PasswordPolicyType (Maybe Bool)
-pptRequireSymbols = lens _pptRequireSymbols (\s a -> s {_pptRequireSymbols = a})
+-- | In the password policy that you have set, refers to whether you have
+-- required users to use at least one symbol in their password.
+passwordPolicyType_requireSymbols :: Lens.Lens' PasswordPolicyType (Prelude.Maybe Prelude.Bool)
+passwordPolicyType_requireSymbols = Lens.lens (\PasswordPolicyType' {requireSymbols} -> requireSymbols) (\s@PasswordPolicyType' {} a -> s {requireSymbols = a} :: PasswordPolicyType)
 
--- | In the password policy that you have set, refers to whether you have required users to use at least one number in their password.
-pptRequireNumbers :: Lens' PasswordPolicyType (Maybe Bool)
-pptRequireNumbers = lens _pptRequireNumbers (\s a -> s {_pptRequireNumbers = a})
+-- | In the password policy that you have set, refers to whether you have
+-- required users to use at least one number in their password.
+passwordPolicyType_requireNumbers :: Lens.Lens' PasswordPolicyType (Prelude.Maybe Prelude.Bool)
+passwordPolicyType_requireNumbers = Lens.lens (\PasswordPolicyType' {requireNumbers} -> requireNumbers) (\s@PasswordPolicyType' {} a -> s {requireNumbers = a} :: PasswordPolicyType)
 
--- | In the password policy that you have set, refers to whether you have required users to use at least one lowercase letter in their password.
-pptRequireLowercase :: Lens' PasswordPolicyType (Maybe Bool)
-pptRequireLowercase = lens _pptRequireLowercase (\s a -> s {_pptRequireLowercase = a})
+-- | In the password policy that you have set, refers to whether you have
+-- required users to use at least one lowercase letter in their password.
+passwordPolicyType_requireLowercase :: Lens.Lens' PasswordPolicyType (Prelude.Maybe Prelude.Bool)
+passwordPolicyType_requireLowercase = Lens.lens (\PasswordPolicyType' {requireLowercase} -> requireLowercase) (\s@PasswordPolicyType' {} a -> s {requireLowercase = a} :: PasswordPolicyType)
 
-instance FromJSON PasswordPolicyType where
+instance Prelude.FromJSON PasswordPolicyType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PasswordPolicyType"
       ( \x ->
           PasswordPolicyType'
-            <$> (x .:? "TemporaryPasswordValidityDays")
-            <*> (x .:? "RequireUppercase")
-            <*> (x .:? "MinimumLength")
-            <*> (x .:? "RequireSymbols")
-            <*> (x .:? "RequireNumbers")
-            <*> (x .:? "RequireLowercase")
+            Prelude.<$> (x Prelude..:? "TemporaryPasswordValidityDays")
+            Prelude.<*> (x Prelude..:? "RequireUppercase")
+            Prelude.<*> (x Prelude..:? "MinimumLength")
+            Prelude.<*> (x Prelude..:? "RequireSymbols")
+            Prelude.<*> (x Prelude..:? "RequireNumbers")
+            Prelude.<*> (x Prelude..:? "RequireLowercase")
       )
 
-instance Hashable PasswordPolicyType
+instance Prelude.Hashable PasswordPolicyType
 
-instance NFData PasswordPolicyType
+instance Prelude.NFData PasswordPolicyType
 
-instance ToJSON PasswordPolicyType where
+instance Prelude.ToJSON PasswordPolicyType where
   toJSON PasswordPolicyType' {..} =
-    object
-      ( catMaybes
-          [ ("TemporaryPasswordValidityDays" .=)
-              <$> _pptTemporaryPasswordValidityDays,
-            ("RequireUppercase" .=) <$> _pptRequireUppercase,
-            ("MinimumLength" .=) <$> _pptMinimumLength,
-            ("RequireSymbols" .=) <$> _pptRequireSymbols,
-            ("RequireNumbers" .=) <$> _pptRequireNumbers,
-            ("RequireLowercase" .=) <$> _pptRequireLowercase
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TemporaryPasswordValidityDays" Prelude..=)
+              Prelude.<$> temporaryPasswordValidityDays,
+            ("RequireUppercase" Prelude..=)
+              Prelude.<$> requireUppercase,
+            ("MinimumLength" Prelude..=)
+              Prelude.<$> minimumLength,
+            ("RequireSymbols" Prelude..=)
+              Prelude.<$> requireSymbols,
+            ("RequireNumbers" Prelude..=)
+              Prelude.<$> requireNumbers,
+            ("RequireLowercase" Prelude..=)
+              Prelude.<$> requireLowercase
           ]
       )

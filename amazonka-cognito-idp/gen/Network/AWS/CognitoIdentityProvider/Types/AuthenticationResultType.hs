@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,103 +20,98 @@
 module Network.AWS.CognitoIdentityProvider.Types.AuthenticationResultType where
 
 import Network.AWS.CognitoIdentityProvider.Types.NewDeviceMetadataType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The authentication result.
 --
---
---
--- /See:/ 'authenticationResultType' smart constructor.
+-- /See:/ 'newAuthenticationResultType' smart constructor.
 data AuthenticationResultType = AuthenticationResultType'
-  { _artExpiresIn ::
-      !(Maybe Int),
-    _artTokenType ::
-      !(Maybe Text),
-    _artAccessToken ::
-      !( Maybe
-           (Sensitive Text)
-       ),
-    _artNewDeviceMetadata ::
-      !( Maybe
-           NewDeviceMetadataType
-       ),
-    _artIdToken ::
-      !( Maybe
-           (Sensitive Text)
-       ),
-    _artRefreshToken ::
-      !( Maybe
-           (Sensitive Text)
-       )
+  { -- | The expiration period of the authentication result in seconds.
+    expiresIn :: Prelude.Maybe Prelude.Int,
+    -- | The token type.
+    tokenType :: Prelude.Maybe Prelude.Text,
+    -- | The access token.
+    accessToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The new device metadata from an authentication result.
+    newDeviceMetadata' :: Prelude.Maybe NewDeviceMetadataType,
+    -- | The ID token.
+    idToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The refresh token.
+    refreshToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text)
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuthenticationResultType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuthenticationResultType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'artExpiresIn' - The expiration period of the authentication result in seconds.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'artTokenType' - The token type.
+-- 'expiresIn', 'authenticationResultType_expiresIn' - The expiration period of the authentication result in seconds.
 --
--- * 'artAccessToken' - The access token.
+-- 'tokenType', 'authenticationResultType_tokenType' - The token type.
 --
--- * 'artNewDeviceMetadata' - The new device metadata from an authentication result.
+-- 'accessToken', 'authenticationResultType_accessToken' - The access token.
 --
--- * 'artIdToken' - The ID token.
+-- 'newDeviceMetadata'', 'authenticationResultType_newDeviceMetadata' - The new device metadata from an authentication result.
 --
--- * 'artRefreshToken' - The refresh token.
-authenticationResultType ::
+-- 'idToken', 'authenticationResultType_idToken' - The ID token.
+--
+-- 'refreshToken', 'authenticationResultType_refreshToken' - The refresh token.
+newAuthenticationResultType ::
   AuthenticationResultType
-authenticationResultType =
+newAuthenticationResultType =
   AuthenticationResultType'
-    { _artExpiresIn = Nothing,
-      _artTokenType = Nothing,
-      _artAccessToken = Nothing,
-      _artNewDeviceMetadata = Nothing,
-      _artIdToken = Nothing,
-      _artRefreshToken = Nothing
+    { expiresIn =
+        Prelude.Nothing,
+      tokenType = Prelude.Nothing,
+      accessToken = Prelude.Nothing,
+      newDeviceMetadata' = Prelude.Nothing,
+      idToken = Prelude.Nothing,
+      refreshToken = Prelude.Nothing
     }
 
 -- | The expiration period of the authentication result in seconds.
-artExpiresIn :: Lens' AuthenticationResultType (Maybe Int)
-artExpiresIn = lens _artExpiresIn (\s a -> s {_artExpiresIn = a})
+authenticationResultType_expiresIn :: Lens.Lens' AuthenticationResultType (Prelude.Maybe Prelude.Int)
+authenticationResultType_expiresIn = Lens.lens (\AuthenticationResultType' {expiresIn} -> expiresIn) (\s@AuthenticationResultType' {} a -> s {expiresIn = a} :: AuthenticationResultType)
 
 -- | The token type.
-artTokenType :: Lens' AuthenticationResultType (Maybe Text)
-artTokenType = lens _artTokenType (\s a -> s {_artTokenType = a})
+authenticationResultType_tokenType :: Lens.Lens' AuthenticationResultType (Prelude.Maybe Prelude.Text)
+authenticationResultType_tokenType = Lens.lens (\AuthenticationResultType' {tokenType} -> tokenType) (\s@AuthenticationResultType' {} a -> s {tokenType = a} :: AuthenticationResultType)
 
 -- | The access token.
-artAccessToken :: Lens' AuthenticationResultType (Maybe Text)
-artAccessToken = lens _artAccessToken (\s a -> s {_artAccessToken = a}) . mapping _Sensitive
+authenticationResultType_accessToken :: Lens.Lens' AuthenticationResultType (Prelude.Maybe Prelude.Text)
+authenticationResultType_accessToken = Lens.lens (\AuthenticationResultType' {accessToken} -> accessToken) (\s@AuthenticationResultType' {} a -> s {accessToken = a} :: AuthenticationResultType) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The new device metadata from an authentication result.
-artNewDeviceMetadata :: Lens' AuthenticationResultType (Maybe NewDeviceMetadataType)
-artNewDeviceMetadata = lens _artNewDeviceMetadata (\s a -> s {_artNewDeviceMetadata = a})
+authenticationResultType_newDeviceMetadata :: Lens.Lens' AuthenticationResultType (Prelude.Maybe NewDeviceMetadataType)
+authenticationResultType_newDeviceMetadata = Lens.lens (\AuthenticationResultType' {newDeviceMetadata'} -> newDeviceMetadata') (\s@AuthenticationResultType' {} a -> s {newDeviceMetadata' = a} :: AuthenticationResultType)
 
 -- | The ID token.
-artIdToken :: Lens' AuthenticationResultType (Maybe Text)
-artIdToken = lens _artIdToken (\s a -> s {_artIdToken = a}) . mapping _Sensitive
+authenticationResultType_idToken :: Lens.Lens' AuthenticationResultType (Prelude.Maybe Prelude.Text)
+authenticationResultType_idToken = Lens.lens (\AuthenticationResultType' {idToken} -> idToken) (\s@AuthenticationResultType' {} a -> s {idToken = a} :: AuthenticationResultType) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The refresh token.
-artRefreshToken :: Lens' AuthenticationResultType (Maybe Text)
-artRefreshToken = lens _artRefreshToken (\s a -> s {_artRefreshToken = a}) . mapping _Sensitive
+authenticationResultType_refreshToken :: Lens.Lens' AuthenticationResultType (Prelude.Maybe Prelude.Text)
+authenticationResultType_refreshToken = Lens.lens (\AuthenticationResultType' {refreshToken} -> refreshToken) (\s@AuthenticationResultType' {} a -> s {refreshToken = a} :: AuthenticationResultType) Prelude.. Lens.mapping Prelude._Sensitive
 
-instance FromJSON AuthenticationResultType where
+instance Prelude.FromJSON AuthenticationResultType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuthenticationResultType"
       ( \x ->
           AuthenticationResultType'
-            <$> (x .:? "ExpiresIn")
-            <*> (x .:? "TokenType")
-            <*> (x .:? "AccessToken")
-            <*> (x .:? "NewDeviceMetadata")
-            <*> (x .:? "IdToken")
-            <*> (x .:? "RefreshToken")
+            Prelude.<$> (x Prelude..:? "ExpiresIn")
+            Prelude.<*> (x Prelude..:? "TokenType")
+            Prelude.<*> (x Prelude..:? "AccessToken")
+            Prelude.<*> (x Prelude..:? "NewDeviceMetadata")
+            Prelude.<*> (x Prelude..:? "IdToken")
+            Prelude.<*> (x Prelude..:? "RefreshToken")
       )
 
-instance Hashable AuthenticationResultType
+instance Prelude.Hashable AuthenticationResultType
 
-instance NFData AuthenticationResultType
+instance Prelude.NFData AuthenticationResultType

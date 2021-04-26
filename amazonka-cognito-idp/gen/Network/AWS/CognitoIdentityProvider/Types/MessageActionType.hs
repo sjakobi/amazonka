@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CognitoIdentityProvider.Types.MessageActionType
   ( MessageActionType
       ( ..,
-        Resend,
-        Suppress
+        MessageActionTypeRESEND,
+        MessageActionTypeSUPPRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MessageActionType = MessageActionType' (CI Text)
+newtype MessageActionType = MessageActionType'
+  { fromMessageActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Resend :: MessageActionType
-pattern Resend = MessageActionType' "RESEND"
+pattern MessageActionTypeRESEND :: MessageActionType
+pattern MessageActionTypeRESEND = MessageActionType' "RESEND"
 
-pattern Suppress :: MessageActionType
-pattern Suppress = MessageActionType' "SUPPRESS"
+pattern MessageActionTypeSUPPRESS :: MessageActionType
+pattern MessageActionTypeSUPPRESS = MessageActionType' "SUPPRESS"
 
 {-# COMPLETE
-  Resend,
-  Suppress,
+  MessageActionTypeRESEND,
+  MessageActionTypeSUPPRESS,
   MessageActionType'
   #-}
 
-instance FromText MessageActionType where
-  parser = (MessageActionType' . mk) <$> takeText
+instance Prelude.FromText MessageActionType where
+  parser = MessageActionType' Prelude.<$> Prelude.takeText
 
-instance ToText MessageActionType where
-  toText (MessageActionType' ci) = original ci
+instance Prelude.ToText MessageActionType where
+  toText (MessageActionType' x) = x
 
-instance Hashable MessageActionType
+instance Prelude.Hashable MessageActionType
 
-instance NFData MessageActionType
+instance Prelude.NFData MessageActionType
 
-instance ToByteString MessageActionType
+instance Prelude.ToByteString MessageActionType
 
-instance ToQuery MessageActionType
+instance Prelude.ToQuery MessageActionType
 
-instance ToHeader MessageActionType
+instance Prelude.ToHeader MessageActionType
 
-instance ToJSON MessageActionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MessageActionType where
+  toJSON = Prelude.toJSONText

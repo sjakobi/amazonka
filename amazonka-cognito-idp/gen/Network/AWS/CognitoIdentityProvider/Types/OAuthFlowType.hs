@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CognitoIdentityProvider.Types.OAuthFlowType
   ( OAuthFlowType
       ( ..,
-        ClientCredentials,
-        Code,
-        Implicit
+        OAuthFlowTypeClientCredentials,
+        OAuthFlowTypeCode,
+        OAuthFlowTypeImplicit
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OAuthFlowType = OAuthFlowType' (CI Text)
+newtype OAuthFlowType = OAuthFlowType'
+  { fromOAuthFlowType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ClientCredentials :: OAuthFlowType
-pattern ClientCredentials = OAuthFlowType' "client_credentials"
+pattern OAuthFlowTypeClientCredentials :: OAuthFlowType
+pattern OAuthFlowTypeClientCredentials = OAuthFlowType' "client_credentials"
 
-pattern Code :: OAuthFlowType
-pattern Code = OAuthFlowType' "code"
+pattern OAuthFlowTypeCode :: OAuthFlowType
+pattern OAuthFlowTypeCode = OAuthFlowType' "code"
 
-pattern Implicit :: OAuthFlowType
-pattern Implicit = OAuthFlowType' "implicit"
+pattern OAuthFlowTypeImplicit :: OAuthFlowType
+pattern OAuthFlowTypeImplicit = OAuthFlowType' "implicit"
 
 {-# COMPLETE
-  ClientCredentials,
-  Code,
-  Implicit,
+  OAuthFlowTypeClientCredentials,
+  OAuthFlowTypeCode,
+  OAuthFlowTypeImplicit,
   OAuthFlowType'
   #-}
 
-instance FromText OAuthFlowType where
-  parser = (OAuthFlowType' . mk) <$> takeText
+instance Prelude.FromText OAuthFlowType where
+  parser = OAuthFlowType' Prelude.<$> Prelude.takeText
 
-instance ToText OAuthFlowType where
-  toText (OAuthFlowType' ci) = original ci
+instance Prelude.ToText OAuthFlowType where
+  toText (OAuthFlowType' x) = x
 
-instance Hashable OAuthFlowType
+instance Prelude.Hashable OAuthFlowType
 
-instance NFData OAuthFlowType
+instance Prelude.NFData OAuthFlowType
 
-instance ToByteString OAuthFlowType
+instance Prelude.ToByteString OAuthFlowType
 
-instance ToQuery OAuthFlowType
+instance Prelude.ToQuery OAuthFlowType
 
-instance ToHeader OAuthFlowType
+instance Prelude.ToHeader OAuthFlowType
 
-instance ToJSON OAuthFlowType where
-  toJSON = toJSONText
+instance Prelude.ToJSON OAuthFlowType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OAuthFlowType where
-  parseJSON = parseJSONText "OAuthFlowType"
+instance Prelude.FromJSON OAuthFlowType where
+  parseJSON = Prelude.parseJSONText "OAuthFlowType"

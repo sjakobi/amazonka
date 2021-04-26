@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,160 +24,160 @@
 -- Updates the device status.
 module Network.AWS.CognitoIdentityProvider.UpdateDeviceStatus
   ( -- * Creating a Request
-    updateDeviceStatus,
-    UpdateDeviceStatus,
+    UpdateDeviceStatus (..),
+    newUpdateDeviceStatus,
 
     -- * Request Lenses
-    udsDeviceRememberedStatus,
-    udsAccessToken,
-    udsDeviceKey,
+    updateDeviceStatus_deviceRememberedStatus,
+    updateDeviceStatus_accessToken,
+    updateDeviceStatus_deviceKey,
 
     -- * Destructuring the Response
-    updateDeviceStatusResponse,
-    UpdateDeviceStatusResponse,
+    UpdateDeviceStatusResponse (..),
+    newUpdateDeviceStatusResponse,
 
     -- * Response Lenses
-    udsrrsResponseStatus,
+    updateDeviceStatusResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to update the device status.
 --
---
---
--- /See:/ 'updateDeviceStatus' smart constructor.
+-- /See:/ 'newUpdateDeviceStatus' smart constructor.
 data UpdateDeviceStatus = UpdateDeviceStatus'
-  { _udsDeviceRememberedStatus ::
-      !( Maybe
-           DeviceRememberedStatusType
-       ),
-    _udsAccessToken ::
-      !(Sensitive Text),
-    _udsDeviceKey :: !Text
+  { -- | The status of whether a device is remembered.
+    deviceRememberedStatus :: Prelude.Maybe DeviceRememberedStatusType,
+    -- | The access token.
+    accessToken :: Prelude.Sensitive Prelude.Text,
+    -- | The device key.
+    deviceKey :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDeviceStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDeviceStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udsDeviceRememberedStatus' - The status of whether a device is remembered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udsAccessToken' - The access token.
+-- 'deviceRememberedStatus', 'updateDeviceStatus_deviceRememberedStatus' - The status of whether a device is remembered.
 --
--- * 'udsDeviceKey' - The device key.
-updateDeviceStatus ::
-  -- | 'udsAccessToken'
-  Text ->
-  -- | 'udsDeviceKey'
-  Text ->
+-- 'accessToken', 'updateDeviceStatus_accessToken' - The access token.
+--
+-- 'deviceKey', 'updateDeviceStatus_deviceKey' - The device key.
+newUpdateDeviceStatus ::
+  -- | 'accessToken'
+  Prelude.Text ->
+  -- | 'deviceKey'
+  Prelude.Text ->
   UpdateDeviceStatus
-updateDeviceStatus pAccessToken_ pDeviceKey_ =
+newUpdateDeviceStatus pAccessToken_ pDeviceKey_ =
   UpdateDeviceStatus'
-    { _udsDeviceRememberedStatus =
-        Nothing,
-      _udsAccessToken = _Sensitive # pAccessToken_,
-      _udsDeviceKey = pDeviceKey_
+    { deviceRememberedStatus =
+        Prelude.Nothing,
+      accessToken =
+        Prelude._Sensitive Lens.# pAccessToken_,
+      deviceKey = pDeviceKey_
     }
 
 -- | The status of whether a device is remembered.
-udsDeviceRememberedStatus :: Lens' UpdateDeviceStatus (Maybe DeviceRememberedStatusType)
-udsDeviceRememberedStatus = lens _udsDeviceRememberedStatus (\s a -> s {_udsDeviceRememberedStatus = a})
+updateDeviceStatus_deviceRememberedStatus :: Lens.Lens' UpdateDeviceStatus (Prelude.Maybe DeviceRememberedStatusType)
+updateDeviceStatus_deviceRememberedStatus = Lens.lens (\UpdateDeviceStatus' {deviceRememberedStatus} -> deviceRememberedStatus) (\s@UpdateDeviceStatus' {} a -> s {deviceRememberedStatus = a} :: UpdateDeviceStatus)
 
 -- | The access token.
-udsAccessToken :: Lens' UpdateDeviceStatus Text
-udsAccessToken = lens _udsAccessToken (\s a -> s {_udsAccessToken = a}) . _Sensitive
+updateDeviceStatus_accessToken :: Lens.Lens' UpdateDeviceStatus Prelude.Text
+updateDeviceStatus_accessToken = Lens.lens (\UpdateDeviceStatus' {accessToken} -> accessToken) (\s@UpdateDeviceStatus' {} a -> s {accessToken = a} :: UpdateDeviceStatus) Prelude.. Prelude._Sensitive
 
 -- | The device key.
-udsDeviceKey :: Lens' UpdateDeviceStatus Text
-udsDeviceKey = lens _udsDeviceKey (\s a -> s {_udsDeviceKey = a})
+updateDeviceStatus_deviceKey :: Lens.Lens' UpdateDeviceStatus Prelude.Text
+updateDeviceStatus_deviceKey = Lens.lens (\UpdateDeviceStatus' {deviceKey} -> deviceKey) (\s@UpdateDeviceStatus' {} a -> s {deviceKey = a} :: UpdateDeviceStatus)
 
-instance AWSRequest UpdateDeviceStatus where
+instance Prelude.AWSRequest UpdateDeviceStatus where
   type
     Rs UpdateDeviceStatus =
       UpdateDeviceStatusResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateDeviceStatusResponse' <$> (pure (fromEnum s))
+          UpdateDeviceStatusResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateDeviceStatus
+instance Prelude.Hashable UpdateDeviceStatus
 
-instance NFData UpdateDeviceStatus
+instance Prelude.NFData UpdateDeviceStatus
 
-instance ToHeaders UpdateDeviceStatus where
+instance Prelude.ToHeaders UpdateDeviceStatus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.UpdateDeviceStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.UpdateDeviceStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateDeviceStatus where
+instance Prelude.ToJSON UpdateDeviceStatus where
   toJSON UpdateDeviceStatus' {..} =
-    object
-      ( catMaybes
-          [ ("DeviceRememberedStatus" .=)
-              <$> _udsDeviceRememberedStatus,
-            Just ("AccessToken" .= _udsAccessToken),
-            Just ("DeviceKey" .= _udsDeviceKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DeviceRememberedStatus" Prelude..=)
+              Prelude.<$> deviceRememberedStatus,
+            Prelude.Just ("AccessToken" Prelude..= accessToken),
+            Prelude.Just ("DeviceKey" Prelude..= deviceKey)
           ]
       )
 
-instance ToPath UpdateDeviceStatus where
-  toPath = const "/"
+instance Prelude.ToPath UpdateDeviceStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateDeviceStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDeviceStatus where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The response to the request to update the device status.
 --
---
---
--- /See:/ 'updateDeviceStatusResponse' smart constructor.
-newtype UpdateDeviceStatusResponse = UpdateDeviceStatusResponse'
-  { _udsrrsResponseStatus ::
-      Int
+-- /See:/ 'newUpdateDeviceStatusResponse' smart constructor.
+data UpdateDeviceStatusResponse = UpdateDeviceStatusResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDeviceStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDeviceStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udsrrsResponseStatus' - -- | The response status code.
-updateDeviceStatusResponse ::
-  -- | 'udsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateDeviceStatusResponse_httpStatus' - The response's http status code.
+newUpdateDeviceStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDeviceStatusResponse
-updateDeviceStatusResponse pResponseStatus_ =
+newUpdateDeviceStatusResponse pHttpStatus_ =
   UpdateDeviceStatusResponse'
-    { _udsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-udsrrsResponseStatus :: Lens' UpdateDeviceStatusResponse Int
-udsrrsResponseStatus = lens _udsrrsResponseStatus (\s a -> s {_udsrrsResponseStatus = a})
+-- | The response's http status code.
+updateDeviceStatusResponse_httpStatus :: Lens.Lens' UpdateDeviceStatusResponse Prelude.Int
+updateDeviceStatusResponse_httpStatus = Lens.lens (\UpdateDeviceStatusResponse' {httpStatus} -> httpStatus) (\s@UpdateDeviceStatusResponse' {} a -> s {httpStatus = a} :: UpdateDeviceStatusResponse)
 
-instance NFData UpdateDeviceStatusResponse
+instance Prelude.NFData UpdateDeviceStatusResponse

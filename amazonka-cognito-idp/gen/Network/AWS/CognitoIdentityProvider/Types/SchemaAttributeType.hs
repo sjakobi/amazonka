@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,124 +22,183 @@ module Network.AWS.CognitoIdentityProvider.Types.SchemaAttributeType where
 import Network.AWS.CognitoIdentityProvider.Types.AttributeDataType
 import Network.AWS.CognitoIdentityProvider.Types.NumberAttributeConstraintsType
 import Network.AWS.CognitoIdentityProvider.Types.StringAttributeConstraintsType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the schema attribute.
 --
---
---
--- /See:/ 'schemaAttributeType' smart constructor.
+-- /See:/ 'newSchemaAttributeType' smart constructor.
 data SchemaAttributeType = SchemaAttributeType'
-  { _satAttributeDataType ::
-      !(Maybe AttributeDataType),
-    _satRequired :: !(Maybe Bool),
-    _satNumberAttributeConstraints ::
-      !( Maybe
-           NumberAttributeConstraintsType
-       ),
-    _satDeveloperOnlyAttribute ::
-      !(Maybe Bool),
-    _satStringAttributeConstraints ::
-      !( Maybe
-           StringAttributeConstraintsType
-       ),
-    _satName :: !(Maybe Text),
-    _satMutable :: !(Maybe Bool)
+  { -- | The attribute data type.
+    attributeDataType :: Prelude.Maybe AttributeDataType,
+    -- | Specifies whether a user pool attribute is required. If the attribute is
+    -- required and the user does not provide a value, registration or sign-in
+    -- will fail.
+    required :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the constraints for an attribute of the number type.
+    numberAttributeConstraints :: Prelude.Maybe NumberAttributeConstraintsType,
+    -- | We recommend that you use
+    -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserPoolClientType.html#CognitoUserPools-Type-UserPoolClientType-WriteAttributes WriteAttributes>
+    -- in the user pool client to control how attributes can be mutated for new
+    -- use cases instead of using @DeveloperOnlyAttribute@.
+    --
+    -- Specifies whether the attribute type is developer only. This attribute
+    -- can only be modified by an administrator. Users will not be able to
+    -- modify this attribute using their access token. For example,
+    -- @DeveloperOnlyAttribute@ can be modified using AdminUpdateUserAttributes
+    -- but cannot be updated using UpdateUserAttributes.
+    developerOnlyAttribute :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the constraints for an attribute of the string type.
+    stringAttributeConstraints :: Prelude.Maybe StringAttributeConstraintsType,
+    -- | A schema attribute of the name type.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the value of the attribute can be changed.
+    --
+    -- For any user pool attribute that\'s mapped to an identity provider
+    -- attribute, you must set this parameter to @true@. Amazon Cognito updates
+    -- mapped attributes when users sign in to your application through an
+    -- identity provider. If an attribute is immutable, Amazon Cognito throws
+    -- an error when it attempts to update the attribute. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html Specifying Identity Provider Attribute Mappings for Your User Pool>.
+    mutable :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SchemaAttributeType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SchemaAttributeType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'satAttributeDataType' - The attribute data type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'satRequired' - Specifies whether a user pool attribute is required. If the attribute is required and the user does not provide a value, registration or sign-in will fail.
+-- 'attributeDataType', 'schemaAttributeType_attributeDataType' - The attribute data type.
 --
--- * 'satNumberAttributeConstraints' - Specifies the constraints for an attribute of the number type.
+-- 'required', 'schemaAttributeType_required' - Specifies whether a user pool attribute is required. If the attribute is
+-- required and the user does not provide a value, registration or sign-in
+-- will fail.
 --
--- * 'satDeveloperOnlyAttribute' - Specifies whether the attribute type is developer only. This attribute can only be modified by an administrator. Users will not be able to modify this attribute using their access token. For example, @DeveloperOnlyAttribute@ can be modified using AdminUpdateUserAttributes but cannot be updated using UpdateUserAttributes.
+-- 'numberAttributeConstraints', 'schemaAttributeType_numberAttributeConstraints' - Specifies the constraints for an attribute of the number type.
 --
--- * 'satStringAttributeConstraints' - Specifies the constraints for an attribute of the string type.
+-- 'developerOnlyAttribute', 'schemaAttributeType_developerOnlyAttribute' - We recommend that you use
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserPoolClientType.html#CognitoUserPools-Type-UserPoolClientType-WriteAttributes WriteAttributes>
+-- in the user pool client to control how attributes can be mutated for new
+-- use cases instead of using @DeveloperOnlyAttribute@.
 --
--- * 'satName' - A schema attribute of the name type.
+-- Specifies whether the attribute type is developer only. This attribute
+-- can only be modified by an administrator. Users will not be able to
+-- modify this attribute using their access token. For example,
+-- @DeveloperOnlyAttribute@ can be modified using AdminUpdateUserAttributes
+-- but cannot be updated using UpdateUserAttributes.
 --
--- * 'satMutable' - Specifies whether the value of the attribute can be changed. For any user pool attribute that's mapped to an identity provider attribute, you must set this parameter to @true@ . Amazon Cognito updates mapped attributes when users sign in to your application through an identity provider. If an attribute is immutable, Amazon Cognito throws an error when it attempts to update the attribute. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html Specifying Identity Provider Attribute Mappings for Your User Pool> .
-schemaAttributeType ::
+-- 'stringAttributeConstraints', 'schemaAttributeType_stringAttributeConstraints' - Specifies the constraints for an attribute of the string type.
+--
+-- 'name', 'schemaAttributeType_name' - A schema attribute of the name type.
+--
+-- 'mutable', 'schemaAttributeType_mutable' - Specifies whether the value of the attribute can be changed.
+--
+-- For any user pool attribute that\'s mapped to an identity provider
+-- attribute, you must set this parameter to @true@. Amazon Cognito updates
+-- mapped attributes when users sign in to your application through an
+-- identity provider. If an attribute is immutable, Amazon Cognito throws
+-- an error when it attempts to update the attribute. For more information,
+-- see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html Specifying Identity Provider Attribute Mappings for Your User Pool>.
+newSchemaAttributeType ::
   SchemaAttributeType
-schemaAttributeType =
+newSchemaAttributeType =
   SchemaAttributeType'
-    { _satAttributeDataType =
-        Nothing,
-      _satRequired = Nothing,
-      _satNumberAttributeConstraints = Nothing,
-      _satDeveloperOnlyAttribute = Nothing,
-      _satStringAttributeConstraints = Nothing,
-      _satName = Nothing,
-      _satMutable = Nothing
+    { attributeDataType =
+        Prelude.Nothing,
+      required = Prelude.Nothing,
+      numberAttributeConstraints = Prelude.Nothing,
+      developerOnlyAttribute = Prelude.Nothing,
+      stringAttributeConstraints = Prelude.Nothing,
+      name = Prelude.Nothing,
+      mutable = Prelude.Nothing
     }
 
 -- | The attribute data type.
-satAttributeDataType :: Lens' SchemaAttributeType (Maybe AttributeDataType)
-satAttributeDataType = lens _satAttributeDataType (\s a -> s {_satAttributeDataType = a})
+schemaAttributeType_attributeDataType :: Lens.Lens' SchemaAttributeType (Prelude.Maybe AttributeDataType)
+schemaAttributeType_attributeDataType = Lens.lens (\SchemaAttributeType' {attributeDataType} -> attributeDataType) (\s@SchemaAttributeType' {} a -> s {attributeDataType = a} :: SchemaAttributeType)
 
--- | Specifies whether a user pool attribute is required. If the attribute is required and the user does not provide a value, registration or sign-in will fail.
-satRequired :: Lens' SchemaAttributeType (Maybe Bool)
-satRequired = lens _satRequired (\s a -> s {_satRequired = a})
+-- | Specifies whether a user pool attribute is required. If the attribute is
+-- required and the user does not provide a value, registration or sign-in
+-- will fail.
+schemaAttributeType_required :: Lens.Lens' SchemaAttributeType (Prelude.Maybe Prelude.Bool)
+schemaAttributeType_required = Lens.lens (\SchemaAttributeType' {required} -> required) (\s@SchemaAttributeType' {} a -> s {required = a} :: SchemaAttributeType)
 
 -- | Specifies the constraints for an attribute of the number type.
-satNumberAttributeConstraints :: Lens' SchemaAttributeType (Maybe NumberAttributeConstraintsType)
-satNumberAttributeConstraints = lens _satNumberAttributeConstraints (\s a -> s {_satNumberAttributeConstraints = a})
+schemaAttributeType_numberAttributeConstraints :: Lens.Lens' SchemaAttributeType (Prelude.Maybe NumberAttributeConstraintsType)
+schemaAttributeType_numberAttributeConstraints = Lens.lens (\SchemaAttributeType' {numberAttributeConstraints} -> numberAttributeConstraints) (\s@SchemaAttributeType' {} a -> s {numberAttributeConstraints = a} :: SchemaAttributeType)
 
--- | Specifies whether the attribute type is developer only. This attribute can only be modified by an administrator. Users will not be able to modify this attribute using their access token. For example, @DeveloperOnlyAttribute@ can be modified using AdminUpdateUserAttributes but cannot be updated using UpdateUserAttributes.
-satDeveloperOnlyAttribute :: Lens' SchemaAttributeType (Maybe Bool)
-satDeveloperOnlyAttribute = lens _satDeveloperOnlyAttribute (\s a -> s {_satDeveloperOnlyAttribute = a})
+-- | We recommend that you use
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserPoolClientType.html#CognitoUserPools-Type-UserPoolClientType-WriteAttributes WriteAttributes>
+-- in the user pool client to control how attributes can be mutated for new
+-- use cases instead of using @DeveloperOnlyAttribute@.
+--
+-- Specifies whether the attribute type is developer only. This attribute
+-- can only be modified by an administrator. Users will not be able to
+-- modify this attribute using their access token. For example,
+-- @DeveloperOnlyAttribute@ can be modified using AdminUpdateUserAttributes
+-- but cannot be updated using UpdateUserAttributes.
+schemaAttributeType_developerOnlyAttribute :: Lens.Lens' SchemaAttributeType (Prelude.Maybe Prelude.Bool)
+schemaAttributeType_developerOnlyAttribute = Lens.lens (\SchemaAttributeType' {developerOnlyAttribute} -> developerOnlyAttribute) (\s@SchemaAttributeType' {} a -> s {developerOnlyAttribute = a} :: SchemaAttributeType)
 
 -- | Specifies the constraints for an attribute of the string type.
-satStringAttributeConstraints :: Lens' SchemaAttributeType (Maybe StringAttributeConstraintsType)
-satStringAttributeConstraints = lens _satStringAttributeConstraints (\s a -> s {_satStringAttributeConstraints = a})
+schemaAttributeType_stringAttributeConstraints :: Lens.Lens' SchemaAttributeType (Prelude.Maybe StringAttributeConstraintsType)
+schemaAttributeType_stringAttributeConstraints = Lens.lens (\SchemaAttributeType' {stringAttributeConstraints} -> stringAttributeConstraints) (\s@SchemaAttributeType' {} a -> s {stringAttributeConstraints = a} :: SchemaAttributeType)
 
 -- | A schema attribute of the name type.
-satName :: Lens' SchemaAttributeType (Maybe Text)
-satName = lens _satName (\s a -> s {_satName = a})
+schemaAttributeType_name :: Lens.Lens' SchemaAttributeType (Prelude.Maybe Prelude.Text)
+schemaAttributeType_name = Lens.lens (\SchemaAttributeType' {name} -> name) (\s@SchemaAttributeType' {} a -> s {name = a} :: SchemaAttributeType)
 
--- | Specifies whether the value of the attribute can be changed. For any user pool attribute that's mapped to an identity provider attribute, you must set this parameter to @true@ . Amazon Cognito updates mapped attributes when users sign in to your application through an identity provider. If an attribute is immutable, Amazon Cognito throws an error when it attempts to update the attribute. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html Specifying Identity Provider Attribute Mappings for Your User Pool> .
-satMutable :: Lens' SchemaAttributeType (Maybe Bool)
-satMutable = lens _satMutable (\s a -> s {_satMutable = a})
+-- | Specifies whether the value of the attribute can be changed.
+--
+-- For any user pool attribute that\'s mapped to an identity provider
+-- attribute, you must set this parameter to @true@. Amazon Cognito updates
+-- mapped attributes when users sign in to your application through an
+-- identity provider. If an attribute is immutable, Amazon Cognito throws
+-- an error when it attempts to update the attribute. For more information,
+-- see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html Specifying Identity Provider Attribute Mappings for Your User Pool>.
+schemaAttributeType_mutable :: Lens.Lens' SchemaAttributeType (Prelude.Maybe Prelude.Bool)
+schemaAttributeType_mutable = Lens.lens (\SchemaAttributeType' {mutable} -> mutable) (\s@SchemaAttributeType' {} a -> s {mutable = a} :: SchemaAttributeType)
 
-instance FromJSON SchemaAttributeType where
+instance Prelude.FromJSON SchemaAttributeType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SchemaAttributeType"
       ( \x ->
           SchemaAttributeType'
-            <$> (x .:? "AttributeDataType")
-            <*> (x .:? "Required")
-            <*> (x .:? "NumberAttributeConstraints")
-            <*> (x .:? "DeveloperOnlyAttribute")
-            <*> (x .:? "StringAttributeConstraints")
-            <*> (x .:? "Name")
-            <*> (x .:? "Mutable")
+            Prelude.<$> (x Prelude..:? "AttributeDataType")
+            Prelude.<*> (x Prelude..:? "Required")
+            Prelude.<*> (x Prelude..:? "NumberAttributeConstraints")
+            Prelude.<*> (x Prelude..:? "DeveloperOnlyAttribute")
+            Prelude.<*> (x Prelude..:? "StringAttributeConstraints")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Mutable")
       )
 
-instance Hashable SchemaAttributeType
+instance Prelude.Hashable SchemaAttributeType
 
-instance NFData SchemaAttributeType
+instance Prelude.NFData SchemaAttributeType
 
-instance ToJSON SchemaAttributeType where
+instance Prelude.ToJSON SchemaAttributeType where
   toJSON SchemaAttributeType' {..} =
-    object
-      ( catMaybes
-          [ ("AttributeDataType" .=) <$> _satAttributeDataType,
-            ("Required" .=) <$> _satRequired,
-            ("NumberAttributeConstraints" .=)
-              <$> _satNumberAttributeConstraints,
-            ("DeveloperOnlyAttribute" .=)
-              <$> _satDeveloperOnlyAttribute,
-            ("StringAttributeConstraints" .=)
-              <$> _satStringAttributeConstraints,
-            ("Name" .=) <$> _satName,
-            ("Mutable" .=) <$> _satMutable
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AttributeDataType" Prelude..=)
+              Prelude.<$> attributeDataType,
+            ("Required" Prelude..=) Prelude.<$> required,
+            ("NumberAttributeConstraints" Prelude..=)
+              Prelude.<$> numberAttributeConstraints,
+            ("DeveloperOnlyAttribute" Prelude..=)
+              Prelude.<$> developerOnlyAttribute,
+            ("StringAttributeConstraints" Prelude..=)
+              Prelude.<$> stringAttributeConstraints,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("Mutable" Prelude..=) Prelude.<$> mutable
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +21,81 @@ module Network.AWS.CognitoIdentityProvider.Types.AccountTakeoverRiskConfiguratio
 
 import Network.AWS.CognitoIdentityProvider.Types.AccountTakeoverActionsType
 import Network.AWS.CognitoIdentityProvider.Types.NotifyConfigurationType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration for mitigation actions and notification for different levels of risk detected for a potential account takeover.
+-- | Configuration for mitigation actions and notification for different
+-- levels of risk detected for a potential account takeover.
 --
---
---
--- /See:/ 'accountTakeoverRiskConfigurationType' smart constructor.
+-- /See:/ 'newAccountTakeoverRiskConfigurationType' smart constructor.
 data AccountTakeoverRiskConfigurationType = AccountTakeoverRiskConfigurationType'
-  { _atrctNotifyConfiguration ::
-      !( Maybe
-           NotifyConfigurationType
-       ),
-    _atrctActions ::
-      !AccountTakeoverActionsType
+  { -- | The notify configuration used to construct email notifications.
+    notifyConfiguration :: Prelude.Maybe NotifyConfigurationType,
+    -- | Account takeover risk configuration actions
+    actions :: AccountTakeoverActionsType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountTakeoverRiskConfigurationType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountTakeoverRiskConfigurationType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atrctNotifyConfiguration' - The notify configuration used to construct email notifications.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atrctActions' - Account takeover risk configuration actions
-accountTakeoverRiskConfigurationType ::
-  -- | 'atrctActions'
+-- 'notifyConfiguration', 'accountTakeoverRiskConfigurationType_notifyConfiguration' - The notify configuration used to construct email notifications.
+--
+-- 'actions', 'accountTakeoverRiskConfigurationType_actions' - Account takeover risk configuration actions
+newAccountTakeoverRiskConfigurationType ::
+  -- | 'actions'
   AccountTakeoverActionsType ->
   AccountTakeoverRiskConfigurationType
-accountTakeoverRiskConfigurationType pActions_ =
+newAccountTakeoverRiskConfigurationType pActions_ =
   AccountTakeoverRiskConfigurationType'
-    { _atrctNotifyConfiguration =
-        Nothing,
-      _atrctActions = pActions_
+    { notifyConfiguration =
+        Prelude.Nothing,
+      actions = pActions_
     }
 
 -- | The notify configuration used to construct email notifications.
-atrctNotifyConfiguration :: Lens' AccountTakeoverRiskConfigurationType (Maybe NotifyConfigurationType)
-atrctNotifyConfiguration = lens _atrctNotifyConfiguration (\s a -> s {_atrctNotifyConfiguration = a})
+accountTakeoverRiskConfigurationType_notifyConfiguration :: Lens.Lens' AccountTakeoverRiskConfigurationType (Prelude.Maybe NotifyConfigurationType)
+accountTakeoverRiskConfigurationType_notifyConfiguration = Lens.lens (\AccountTakeoverRiskConfigurationType' {notifyConfiguration} -> notifyConfiguration) (\s@AccountTakeoverRiskConfigurationType' {} a -> s {notifyConfiguration = a} :: AccountTakeoverRiskConfigurationType)
 
 -- | Account takeover risk configuration actions
-atrctActions :: Lens' AccountTakeoverRiskConfigurationType AccountTakeoverActionsType
-atrctActions = lens _atrctActions (\s a -> s {_atrctActions = a})
+accountTakeoverRiskConfigurationType_actions :: Lens.Lens' AccountTakeoverRiskConfigurationType AccountTakeoverActionsType
+accountTakeoverRiskConfigurationType_actions = Lens.lens (\AccountTakeoverRiskConfigurationType' {actions} -> actions) (\s@AccountTakeoverRiskConfigurationType' {} a -> s {actions = a} :: AccountTakeoverRiskConfigurationType)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     AccountTakeoverRiskConfigurationType
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccountTakeoverRiskConfigurationType"
       ( \x ->
           AccountTakeoverRiskConfigurationType'
-            <$> (x .:? "NotifyConfiguration") <*> (x .: "Actions")
+            Prelude.<$> (x Prelude..:? "NotifyConfiguration")
+            Prelude.<*> (x Prelude..: "Actions")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     AccountTakeoverRiskConfigurationType
 
-instance NFData AccountTakeoverRiskConfigurationType
+instance
+  Prelude.NFData
+    AccountTakeoverRiskConfigurationType
 
-instance ToJSON AccountTakeoverRiskConfigurationType where
+instance
+  Prelude.ToJSON
+    AccountTakeoverRiskConfigurationType
+  where
   toJSON AccountTakeoverRiskConfigurationType' {..} =
-    object
-      ( catMaybes
-          [ ("NotifyConfiguration" .=)
-              <$> _atrctNotifyConfiguration,
-            Just ("Actions" .= _atrctActions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NotifyConfiguration" Prelude..=)
+              Prelude.<$> notifyConfiguration,
+            Prelude.Just ("Actions" Prelude..= actions)
           ]
       )

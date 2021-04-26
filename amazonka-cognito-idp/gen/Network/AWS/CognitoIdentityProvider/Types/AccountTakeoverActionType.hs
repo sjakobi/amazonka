@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,100 @@
 module Network.AWS.CognitoIdentityProvider.Types.AccountTakeoverActionType where
 
 import Network.AWS.CognitoIdentityProvider.Types.AccountTakeoverEventActionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Account takeover action type.
 --
---
---
--- /See:/ 'accountTakeoverActionType' smart constructor.
+-- /See:/ 'newAccountTakeoverActionType' smart constructor.
 data AccountTakeoverActionType = AccountTakeoverActionType'
-  { _atatNotify ::
-      !Bool,
-    _atatEventAction ::
-      !AccountTakeoverEventActionType
+  { -- | Flag specifying whether to send a notification.
+    notify :: Prelude.Bool,
+    -- | The event action.
+    --
+    -- -   @BLOCK@ Choosing this action will block the request.
+    --
+    -- -   @MFA_IF_CONFIGURED@ Throw MFA challenge if user has configured it,
+    --     else allow the request.
+    --
+    -- -   @MFA_REQUIRED@ Throw MFA challenge if user has configured it, else
+    --     block the request.
+    --
+    -- -   @NO_ACTION@ Allow the user sign-in.
+    eventAction :: AccountTakeoverEventActionType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountTakeoverActionType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountTakeoverActionType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atatNotify' - Flag specifying whether to send a notification.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atatEventAction' - The event action.     * @BLOCK@ Choosing this action will block the request.     * @MFA_IF_CONFIGURED@ Throw MFA challenge if user has configured it, else allow the request.     * @MFA_REQUIRED@ Throw MFA challenge if user has configured it, else block the request.     * @NO_ACTION@ Allow the user sign-in.
-accountTakeoverActionType ::
-  -- | 'atatNotify'
-  Bool ->
-  -- | 'atatEventAction'
+-- 'notify', 'accountTakeoverActionType_notify' - Flag specifying whether to send a notification.
+--
+-- 'eventAction', 'accountTakeoverActionType_eventAction' - The event action.
+--
+-- -   @BLOCK@ Choosing this action will block the request.
+--
+-- -   @MFA_IF_CONFIGURED@ Throw MFA challenge if user has configured it,
+--     else allow the request.
+--
+-- -   @MFA_REQUIRED@ Throw MFA challenge if user has configured it, else
+--     block the request.
+--
+-- -   @NO_ACTION@ Allow the user sign-in.
+newAccountTakeoverActionType ::
+  -- | 'notify'
+  Prelude.Bool ->
+  -- | 'eventAction'
   AccountTakeoverEventActionType ->
   AccountTakeoverActionType
-accountTakeoverActionType pNotify_ pEventAction_ =
+newAccountTakeoverActionType pNotify_ pEventAction_ =
   AccountTakeoverActionType'
-    { _atatNotify = pNotify_,
-      _atatEventAction = pEventAction_
+    { notify = pNotify_,
+      eventAction = pEventAction_
     }
 
 -- | Flag specifying whether to send a notification.
-atatNotify :: Lens' AccountTakeoverActionType Bool
-atatNotify = lens _atatNotify (\s a -> s {_atatNotify = a})
+accountTakeoverActionType_notify :: Lens.Lens' AccountTakeoverActionType Prelude.Bool
+accountTakeoverActionType_notify = Lens.lens (\AccountTakeoverActionType' {notify} -> notify) (\s@AccountTakeoverActionType' {} a -> s {notify = a} :: AccountTakeoverActionType)
 
--- | The event action.     * @BLOCK@ Choosing this action will block the request.     * @MFA_IF_CONFIGURED@ Throw MFA challenge if user has configured it, else allow the request.     * @MFA_REQUIRED@ Throw MFA challenge if user has configured it, else block the request.     * @NO_ACTION@ Allow the user sign-in.
-atatEventAction :: Lens' AccountTakeoverActionType AccountTakeoverEventActionType
-atatEventAction = lens _atatEventAction (\s a -> s {_atatEventAction = a})
+-- | The event action.
+--
+-- -   @BLOCK@ Choosing this action will block the request.
+--
+-- -   @MFA_IF_CONFIGURED@ Throw MFA challenge if user has configured it,
+--     else allow the request.
+--
+-- -   @MFA_REQUIRED@ Throw MFA challenge if user has configured it, else
+--     block the request.
+--
+-- -   @NO_ACTION@ Allow the user sign-in.
+accountTakeoverActionType_eventAction :: Lens.Lens' AccountTakeoverActionType AccountTakeoverEventActionType
+accountTakeoverActionType_eventAction = Lens.lens (\AccountTakeoverActionType' {eventAction} -> eventAction) (\s@AccountTakeoverActionType' {} a -> s {eventAction = a} :: AccountTakeoverActionType)
 
-instance FromJSON AccountTakeoverActionType where
+instance Prelude.FromJSON AccountTakeoverActionType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccountTakeoverActionType"
       ( \x ->
           AccountTakeoverActionType'
-            <$> (x .: "Notify") <*> (x .: "EventAction")
+            Prelude.<$> (x Prelude..: "Notify")
+            Prelude.<*> (x Prelude..: "EventAction")
       )
 
-instance Hashable AccountTakeoverActionType
+instance Prelude.Hashable AccountTakeoverActionType
 
-instance NFData AccountTakeoverActionType
+instance Prelude.NFData AccountTakeoverActionType
 
-instance ToJSON AccountTakeoverActionType where
+instance Prelude.ToJSON AccountTakeoverActionType where
   toJSON AccountTakeoverActionType' {..} =
-    object
-      ( catMaybes
-          [ Just ("Notify" .= _atatNotify),
-            Just ("EventAction" .= _atatEventAction)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Notify" Prelude..= notify),
+            Prelude.Just ("EventAction" Prelude..= eventAction)
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.CognitoIdentityProvider.Types.DeviceRememberedStatusType
   ( DeviceRememberedStatusType
       ( ..,
-        NotRemembered,
-        Remembered
+        DeviceRememberedStatusTypeNotRemembered,
+        DeviceRememberedStatusTypeRemembered
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceRememberedStatusType
-  = DeviceRememberedStatusType'
-      ( CI
-          Text
-      )
+newtype DeviceRememberedStatusType = DeviceRememberedStatusType'
+  { fromDeviceRememberedStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NotRemembered :: DeviceRememberedStatusType
-pattern NotRemembered = DeviceRememberedStatusType' "not_remembered"
+pattern DeviceRememberedStatusTypeNotRemembered :: DeviceRememberedStatusType
+pattern DeviceRememberedStatusTypeNotRemembered = DeviceRememberedStatusType' "not_remembered"
 
-pattern Remembered :: DeviceRememberedStatusType
-pattern Remembered = DeviceRememberedStatusType' "remembered"
+pattern DeviceRememberedStatusTypeRemembered :: DeviceRememberedStatusType
+pattern DeviceRememberedStatusTypeRemembered = DeviceRememberedStatusType' "remembered"
 
 {-# COMPLETE
-  NotRemembered,
-  Remembered,
+  DeviceRememberedStatusTypeNotRemembered,
+  DeviceRememberedStatusTypeRemembered,
   DeviceRememberedStatusType'
   #-}
 
-instance FromText DeviceRememberedStatusType where
-  parser = (DeviceRememberedStatusType' . mk) <$> takeText
+instance Prelude.FromText DeviceRememberedStatusType where
+  parser = DeviceRememberedStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceRememberedStatusType where
-  toText (DeviceRememberedStatusType' ci) = original ci
+instance Prelude.ToText DeviceRememberedStatusType where
+  toText (DeviceRememberedStatusType' x) = x
 
-instance Hashable DeviceRememberedStatusType
+instance Prelude.Hashable DeviceRememberedStatusType
 
-instance NFData DeviceRememberedStatusType
+instance Prelude.NFData DeviceRememberedStatusType
 
-instance ToByteString DeviceRememberedStatusType
+instance Prelude.ToByteString DeviceRememberedStatusType
 
-instance ToQuery DeviceRememberedStatusType
+instance Prelude.ToQuery DeviceRememberedStatusType
 
-instance ToHeader DeviceRememberedStatusType
+instance Prelude.ToHeader DeviceRememberedStatusType
 
-instance ToJSON DeviceRememberedStatusType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeviceRememberedStatusType where
+  toJSON = Prelude.toJSONText

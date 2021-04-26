@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,171 +23,235 @@
 --
 -- Creates a new group in the specified user pool.
 --
---
 -- Calling this action requires developer credentials.
 module Network.AWS.CognitoIdentityProvider.CreateGroup
   ( -- * Creating a Request
-    createGroup,
-    CreateGroup,
+    CreateGroup (..),
+    newCreateGroup,
 
     -- * Request Lenses
-    cgRoleARN,
-    cgDescription,
-    cgPrecedence,
-    cgGroupName,
-    cgUserPoolId,
+    createGroup_roleArn,
+    createGroup_description,
+    createGroup_precedence,
+    createGroup_groupName,
+    createGroup_userPoolId,
 
     -- * Destructuring the Response
-    createGroupResponse,
-    CreateGroupResponse,
+    CreateGroupResponse (..),
+    newCreateGroupResponse,
 
     -- * Response Lenses
-    cgrrsGroup,
-    cgrrsResponseStatus,
+    createGroupResponse_group,
+    createGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.GroupType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createGroup' smart constructor.
+-- | /See:/ 'newCreateGroup' smart constructor.
 data CreateGroup = CreateGroup'
-  { _cgRoleARN ::
-      !(Maybe Text),
-    _cgDescription :: !(Maybe Text),
-    _cgPrecedence :: !(Maybe Nat),
-    _cgGroupName :: !Text,
-    _cgUserPoolId :: !Text
+  { -- | The role ARN for the group.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | A string containing the description of the group.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A nonnegative integer value that specifies the precedence of this group
+    -- relative to the other groups that a user can belong to in the user pool.
+    -- Zero is the highest precedence value. Groups with lower @Precedence@
+    -- values take precedence over groups with higher or null @Precedence@
+    -- values. If a user belongs to two or more groups, it is the group with
+    -- the lowest precedence value whose role ARN will be used in the
+    -- @cognito:roles@ and @cognito:preferred_role@ claims in the user\'s
+    -- tokens.
+    --
+    -- Two groups can have the same @Precedence@ value. If this happens,
+    -- neither group takes precedence over the other. If two groups with the
+    -- same @Precedence@ have the same role ARN, that role is used in the
+    -- @cognito:preferred_role@ claim in tokens for users in each group. If the
+    -- two groups have different role ARNs, the @cognito:preferred_role@ claim
+    -- is not set in users\' tokens.
+    --
+    -- The default @Precedence@ value is null.
+    precedence :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the group. Must be unique.
+    groupName :: Prelude.Text,
+    -- | The user pool ID for the user pool.
+    userPoolId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgRoleARN' - The role ARN for the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgDescription' - A string containing the description of the group.
+-- 'roleArn', 'createGroup_roleArn' - The role ARN for the group.
 --
--- * 'cgPrecedence' - A nonnegative integer value that specifies the precedence of this group relative to the other groups that a user can belong to in the user pool. Zero is the highest precedence value. Groups with lower @Precedence@ values take precedence over groups with higher or null @Precedence@ values. If a user belongs to two or more groups, it is the group with the lowest precedence value whose role ARN will be used in the @cognito:roles@ and @cognito:preferred_role@ claims in the user's tokens. Two groups can have the same @Precedence@ value. If this happens, neither group takes precedence over the other. If two groups with the same @Precedence@ have the same role ARN, that role is used in the @cognito:preferred_role@ claim in tokens for users in each group. If the two groups have different role ARNs, the @cognito:preferred_role@ claim is not set in users' tokens. The default @Precedence@ value is null.
+-- 'description', 'createGroup_description' - A string containing the description of the group.
 --
--- * 'cgGroupName' - The name of the group. Must be unique.
+-- 'precedence', 'createGroup_precedence' - A nonnegative integer value that specifies the precedence of this group
+-- relative to the other groups that a user can belong to in the user pool.
+-- Zero is the highest precedence value. Groups with lower @Precedence@
+-- values take precedence over groups with higher or null @Precedence@
+-- values. If a user belongs to two or more groups, it is the group with
+-- the lowest precedence value whose role ARN will be used in the
+-- @cognito:roles@ and @cognito:preferred_role@ claims in the user\'s
+-- tokens.
 --
--- * 'cgUserPoolId' - The user pool ID for the user pool.
-createGroup ::
-  -- | 'cgGroupName'
-  Text ->
-  -- | 'cgUserPoolId'
-  Text ->
+-- Two groups can have the same @Precedence@ value. If this happens,
+-- neither group takes precedence over the other. If two groups with the
+-- same @Precedence@ have the same role ARN, that role is used in the
+-- @cognito:preferred_role@ claim in tokens for users in each group. If the
+-- two groups have different role ARNs, the @cognito:preferred_role@ claim
+-- is not set in users\' tokens.
+--
+-- The default @Precedence@ value is null.
+--
+-- 'groupName', 'createGroup_groupName' - The name of the group. Must be unique.
+--
+-- 'userPoolId', 'createGroup_userPoolId' - The user pool ID for the user pool.
+newCreateGroup ::
+  -- | 'groupName'
+  Prelude.Text ->
+  -- | 'userPoolId'
+  Prelude.Text ->
   CreateGroup
-createGroup pGroupName_ pUserPoolId_ =
+newCreateGroup pGroupName_ pUserPoolId_ =
   CreateGroup'
-    { _cgRoleARN = Nothing,
-      _cgDescription = Nothing,
-      _cgPrecedence = Nothing,
-      _cgGroupName = pGroupName_,
-      _cgUserPoolId = pUserPoolId_
+    { roleArn = Prelude.Nothing,
+      description = Prelude.Nothing,
+      precedence = Prelude.Nothing,
+      groupName = pGroupName_,
+      userPoolId = pUserPoolId_
     }
 
 -- | The role ARN for the group.
-cgRoleARN :: Lens' CreateGroup (Maybe Text)
-cgRoleARN = lens _cgRoleARN (\s a -> s {_cgRoleARN = a})
+createGroup_roleArn :: Lens.Lens' CreateGroup (Prelude.Maybe Prelude.Text)
+createGroup_roleArn = Lens.lens (\CreateGroup' {roleArn} -> roleArn) (\s@CreateGroup' {} a -> s {roleArn = a} :: CreateGroup)
 
 -- | A string containing the description of the group.
-cgDescription :: Lens' CreateGroup (Maybe Text)
-cgDescription = lens _cgDescription (\s a -> s {_cgDescription = a})
+createGroup_description :: Lens.Lens' CreateGroup (Prelude.Maybe Prelude.Text)
+createGroup_description = Lens.lens (\CreateGroup' {description} -> description) (\s@CreateGroup' {} a -> s {description = a} :: CreateGroup)
 
--- | A nonnegative integer value that specifies the precedence of this group relative to the other groups that a user can belong to in the user pool. Zero is the highest precedence value. Groups with lower @Precedence@ values take precedence over groups with higher or null @Precedence@ values. If a user belongs to two or more groups, it is the group with the lowest precedence value whose role ARN will be used in the @cognito:roles@ and @cognito:preferred_role@ claims in the user's tokens. Two groups can have the same @Precedence@ value. If this happens, neither group takes precedence over the other. If two groups with the same @Precedence@ have the same role ARN, that role is used in the @cognito:preferred_role@ claim in tokens for users in each group. If the two groups have different role ARNs, the @cognito:preferred_role@ claim is not set in users' tokens. The default @Precedence@ value is null.
-cgPrecedence :: Lens' CreateGroup (Maybe Natural)
-cgPrecedence = lens _cgPrecedence (\s a -> s {_cgPrecedence = a}) . mapping _Nat
+-- | A nonnegative integer value that specifies the precedence of this group
+-- relative to the other groups that a user can belong to in the user pool.
+-- Zero is the highest precedence value. Groups with lower @Precedence@
+-- values take precedence over groups with higher or null @Precedence@
+-- values. If a user belongs to two or more groups, it is the group with
+-- the lowest precedence value whose role ARN will be used in the
+-- @cognito:roles@ and @cognito:preferred_role@ claims in the user\'s
+-- tokens.
+--
+-- Two groups can have the same @Precedence@ value. If this happens,
+-- neither group takes precedence over the other. If two groups with the
+-- same @Precedence@ have the same role ARN, that role is used in the
+-- @cognito:preferred_role@ claim in tokens for users in each group. If the
+-- two groups have different role ARNs, the @cognito:preferred_role@ claim
+-- is not set in users\' tokens.
+--
+-- The default @Precedence@ value is null.
+createGroup_precedence :: Lens.Lens' CreateGroup (Prelude.Maybe Prelude.Natural)
+createGroup_precedence = Lens.lens (\CreateGroup' {precedence} -> precedence) (\s@CreateGroup' {} a -> s {precedence = a} :: CreateGroup) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the group. Must be unique.
-cgGroupName :: Lens' CreateGroup Text
-cgGroupName = lens _cgGroupName (\s a -> s {_cgGroupName = a})
+createGroup_groupName :: Lens.Lens' CreateGroup Prelude.Text
+createGroup_groupName = Lens.lens (\CreateGroup' {groupName} -> groupName) (\s@CreateGroup' {} a -> s {groupName = a} :: CreateGroup)
 
 -- | The user pool ID for the user pool.
-cgUserPoolId :: Lens' CreateGroup Text
-cgUserPoolId = lens _cgUserPoolId (\s a -> s {_cgUserPoolId = a})
+createGroup_userPoolId :: Lens.Lens' CreateGroup Prelude.Text
+createGroup_userPoolId = Lens.lens (\CreateGroup' {userPoolId} -> userPoolId) (\s@CreateGroup' {} a -> s {userPoolId = a} :: CreateGroup)
 
-instance AWSRequest CreateGroup where
+instance Prelude.AWSRequest CreateGroup where
   type Rs CreateGroup = CreateGroupResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateGroupResponse'
-            <$> (x .?> "Group") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Group")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateGroup
+instance Prelude.Hashable CreateGroup
 
-instance NFData CreateGroup
+instance Prelude.NFData CreateGroup
 
-instance ToHeaders CreateGroup where
+instance Prelude.ToHeaders CreateGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.CreateGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.CreateGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateGroup where
+instance Prelude.ToJSON CreateGroup where
   toJSON CreateGroup' {..} =
-    object
-      ( catMaybes
-          [ ("RoleArn" .=) <$> _cgRoleARN,
-            ("Description" .=) <$> _cgDescription,
-            ("Precedence" .=) <$> _cgPrecedence,
-            Just ("GroupName" .= _cgGroupName),
-            Just ("UserPoolId" .= _cgUserPoolId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoleArn" Prelude..=) Prelude.<$> roleArn,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("Precedence" Prelude..=) Prelude.<$> precedence,
+            Prelude.Just ("GroupName" Prelude..= groupName),
+            Prelude.Just ("UserPoolId" Prelude..= userPoolId)
           ]
       )
 
-instance ToPath CreateGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createGroupResponse' smart constructor.
+-- | /See:/ 'newCreateGroupResponse' smart constructor.
 data CreateGroupResponse = CreateGroupResponse'
-  { _cgrrsGroup ::
-      !(Maybe GroupType),
-    _cgrrsResponseStatus :: !Int
+  { -- | The group object for the group.
+    group' :: Prelude.Maybe GroupType,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgrrsGroup' - The group object for the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgrrsResponseStatus' - -- | The response status code.
-createGroupResponse ::
-  -- | 'cgrrsResponseStatus'
-  Int ->
+-- 'group'', 'createGroupResponse_group' - The group object for the group.
+--
+-- 'httpStatus', 'createGroupResponse_httpStatus' - The response's http status code.
+newCreateGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateGroupResponse
-createGroupResponse pResponseStatus_ =
+newCreateGroupResponse pHttpStatus_ =
   CreateGroupResponse'
-    { _cgrrsGroup = Nothing,
-      _cgrrsResponseStatus = pResponseStatus_
+    { group' = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The group object for the group.
-cgrrsGroup :: Lens' CreateGroupResponse (Maybe GroupType)
-cgrrsGroup = lens _cgrrsGroup (\s a -> s {_cgrrsGroup = a})
+createGroupResponse_group :: Lens.Lens' CreateGroupResponse (Prelude.Maybe GroupType)
+createGroupResponse_group = Lens.lens (\CreateGroupResponse' {group'} -> group') (\s@CreateGroupResponse' {} a -> s {group' = a} :: CreateGroupResponse)
 
--- | -- | The response status code.
-cgrrsResponseStatus :: Lens' CreateGroupResponse Int
-cgrrsResponseStatus = lens _cgrrsResponseStatus (\s a -> s {_cgrrsResponseStatus = a})
+-- | The response's http status code.
+createGroupResponse_httpStatus :: Lens.Lens' CreateGroupResponse Prelude.Int
+createGroupResponse_httpStatus = Lens.lens (\CreateGroupResponse' {httpStatus} -> httpStatus) (\s@CreateGroupResponse' {} a -> s {httpStatus = a} :: CreateGroupResponse)
 
-instance NFData CreateGroupResponse
+instance Prelude.NFData CreateGroupResponse

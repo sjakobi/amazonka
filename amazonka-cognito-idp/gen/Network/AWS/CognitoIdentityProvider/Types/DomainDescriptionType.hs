@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,123 +21,120 @@ module Network.AWS.CognitoIdentityProvider.Types.DomainDescriptionType where
 
 import Network.AWS.CognitoIdentityProvider.Types.CustomDomainConfigType
 import Network.AWS.CognitoIdentityProvider.Types.DomainStatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A container for information about a domain.
 --
---
---
--- /See:/ 'domainDescriptionType' smart constructor.
+-- /See:/ 'newDomainDescriptionType' smart constructor.
 data DomainDescriptionType = DomainDescriptionType'
-  { _ddtStatus ::
-      !(Maybe DomainStatusType),
-    _ddtCustomDomainConfig ::
-      !( Maybe
-           CustomDomainConfigType
-       ),
-    _ddtAWSAccountId ::
-      !(Maybe Text),
-    _ddtS3Bucket ::
-      !(Maybe Text),
-    _ddtUserPoolId ::
-      !(Maybe Text),
-    _ddtDomain :: !(Maybe Text),
-    _ddtCloudFrontDistribution ::
-      !(Maybe Text),
-    _ddtVersion ::
-      !(Maybe Text)
+  { -- | The domain status.
+    status :: Prelude.Maybe DomainStatusType,
+    -- | The configuration for a custom domain that hosts the sign-up and sign-in
+    -- webpages for your application.
+    customDomainConfig :: Prelude.Maybe CustomDomainConfigType,
+    -- | The AWS account ID for the user pool owner.
+    aWSAccountId :: Prelude.Maybe Prelude.Text,
+    -- | The S3 bucket where the static files for this domain are stored.
+    s3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The user pool ID.
+    userPoolId :: Prelude.Maybe Prelude.Text,
+    -- | The domain string.
+    domain :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the CloudFront distribution.
+    cloudFrontDistribution :: Prelude.Maybe Prelude.Text,
+    -- | The app version.
+    version :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainDescriptionType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainDescriptionType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddtStatus' - The domain status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddtCustomDomainConfig' - The configuration for a custom domain that hosts the sign-up and sign-in webpages for your application.
+-- 'status', 'domainDescriptionType_status' - The domain status.
 --
--- * 'ddtAWSAccountId' - The AWS account ID for the user pool owner.
+-- 'customDomainConfig', 'domainDescriptionType_customDomainConfig' - The configuration for a custom domain that hosts the sign-up and sign-in
+-- webpages for your application.
 --
--- * 'ddtS3Bucket' - The S3 bucket where the static files for this domain are stored.
+-- 'aWSAccountId', 'domainDescriptionType_aWSAccountId' - The AWS account ID for the user pool owner.
 --
--- * 'ddtUserPoolId' - The user pool ID.
+-- 's3Bucket', 'domainDescriptionType_s3Bucket' - The S3 bucket where the static files for this domain are stored.
 --
--- * 'ddtDomain' - The domain string.
+-- 'userPoolId', 'domainDescriptionType_userPoolId' - The user pool ID.
 --
--- * 'ddtCloudFrontDistribution' - The ARN of the CloudFront distribution.
+-- 'domain', 'domainDescriptionType_domain' - The domain string.
 --
--- * 'ddtVersion' - The app version.
-domainDescriptionType ::
+-- 'cloudFrontDistribution', 'domainDescriptionType_cloudFrontDistribution' - The ARN of the CloudFront distribution.
+--
+-- 'version', 'domainDescriptionType_version' - The app version.
+newDomainDescriptionType ::
   DomainDescriptionType
-domainDescriptionType =
+newDomainDescriptionType =
   DomainDescriptionType'
-    { _ddtStatus = Nothing,
-      _ddtCustomDomainConfig = Nothing,
-      _ddtAWSAccountId = Nothing,
-      _ddtS3Bucket = Nothing,
-      _ddtUserPoolId = Nothing,
-      _ddtDomain = Nothing,
-      _ddtCloudFrontDistribution = Nothing,
-      _ddtVersion = Nothing
+    { status = Prelude.Nothing,
+      customDomainConfig = Prelude.Nothing,
+      aWSAccountId = Prelude.Nothing,
+      s3Bucket = Prelude.Nothing,
+      userPoolId = Prelude.Nothing,
+      domain = Prelude.Nothing,
+      cloudFrontDistribution = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
 -- | The domain status.
-ddtStatus :: Lens' DomainDescriptionType (Maybe DomainStatusType)
-ddtStatus = lens _ddtStatus (\s a -> s {_ddtStatus = a})
+domainDescriptionType_status :: Lens.Lens' DomainDescriptionType (Prelude.Maybe DomainStatusType)
+domainDescriptionType_status = Lens.lens (\DomainDescriptionType' {status} -> status) (\s@DomainDescriptionType' {} a -> s {status = a} :: DomainDescriptionType)
 
--- | The configuration for a custom domain that hosts the sign-up and sign-in webpages for your application.
-ddtCustomDomainConfig :: Lens' DomainDescriptionType (Maybe CustomDomainConfigType)
-ddtCustomDomainConfig = lens _ddtCustomDomainConfig (\s a -> s {_ddtCustomDomainConfig = a})
+-- | The configuration for a custom domain that hosts the sign-up and sign-in
+-- webpages for your application.
+domainDescriptionType_customDomainConfig :: Lens.Lens' DomainDescriptionType (Prelude.Maybe CustomDomainConfigType)
+domainDescriptionType_customDomainConfig = Lens.lens (\DomainDescriptionType' {customDomainConfig} -> customDomainConfig) (\s@DomainDescriptionType' {} a -> s {customDomainConfig = a} :: DomainDescriptionType)
 
 -- | The AWS account ID for the user pool owner.
-ddtAWSAccountId :: Lens' DomainDescriptionType (Maybe Text)
-ddtAWSAccountId = lens _ddtAWSAccountId (\s a -> s {_ddtAWSAccountId = a})
+domainDescriptionType_aWSAccountId :: Lens.Lens' DomainDescriptionType (Prelude.Maybe Prelude.Text)
+domainDescriptionType_aWSAccountId = Lens.lens (\DomainDescriptionType' {aWSAccountId} -> aWSAccountId) (\s@DomainDescriptionType' {} a -> s {aWSAccountId = a} :: DomainDescriptionType)
 
 -- | The S3 bucket where the static files for this domain are stored.
-ddtS3Bucket :: Lens' DomainDescriptionType (Maybe Text)
-ddtS3Bucket = lens _ddtS3Bucket (\s a -> s {_ddtS3Bucket = a})
+domainDescriptionType_s3Bucket :: Lens.Lens' DomainDescriptionType (Prelude.Maybe Prelude.Text)
+domainDescriptionType_s3Bucket = Lens.lens (\DomainDescriptionType' {s3Bucket} -> s3Bucket) (\s@DomainDescriptionType' {} a -> s {s3Bucket = a} :: DomainDescriptionType)
 
 -- | The user pool ID.
-ddtUserPoolId :: Lens' DomainDescriptionType (Maybe Text)
-ddtUserPoolId = lens _ddtUserPoolId (\s a -> s {_ddtUserPoolId = a})
+domainDescriptionType_userPoolId :: Lens.Lens' DomainDescriptionType (Prelude.Maybe Prelude.Text)
+domainDescriptionType_userPoolId = Lens.lens (\DomainDescriptionType' {userPoolId} -> userPoolId) (\s@DomainDescriptionType' {} a -> s {userPoolId = a} :: DomainDescriptionType)
 
 -- | The domain string.
-ddtDomain :: Lens' DomainDescriptionType (Maybe Text)
-ddtDomain = lens _ddtDomain (\s a -> s {_ddtDomain = a})
+domainDescriptionType_domain :: Lens.Lens' DomainDescriptionType (Prelude.Maybe Prelude.Text)
+domainDescriptionType_domain = Lens.lens (\DomainDescriptionType' {domain} -> domain) (\s@DomainDescriptionType' {} a -> s {domain = a} :: DomainDescriptionType)
 
 -- | The ARN of the CloudFront distribution.
-ddtCloudFrontDistribution :: Lens' DomainDescriptionType (Maybe Text)
-ddtCloudFrontDistribution = lens _ddtCloudFrontDistribution (\s a -> s {_ddtCloudFrontDistribution = a})
+domainDescriptionType_cloudFrontDistribution :: Lens.Lens' DomainDescriptionType (Prelude.Maybe Prelude.Text)
+domainDescriptionType_cloudFrontDistribution = Lens.lens (\DomainDescriptionType' {cloudFrontDistribution} -> cloudFrontDistribution) (\s@DomainDescriptionType' {} a -> s {cloudFrontDistribution = a} :: DomainDescriptionType)
 
 -- | The app version.
-ddtVersion :: Lens' DomainDescriptionType (Maybe Text)
-ddtVersion = lens _ddtVersion (\s a -> s {_ddtVersion = a})
+domainDescriptionType_version :: Lens.Lens' DomainDescriptionType (Prelude.Maybe Prelude.Text)
+domainDescriptionType_version = Lens.lens (\DomainDescriptionType' {version} -> version) (\s@DomainDescriptionType' {} a -> s {version = a} :: DomainDescriptionType)
 
-instance FromJSON DomainDescriptionType where
+instance Prelude.FromJSON DomainDescriptionType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainDescriptionType"
       ( \x ->
           DomainDescriptionType'
-            <$> (x .:? "Status")
-            <*> (x .:? "CustomDomainConfig")
-            <*> (x .:? "AWSAccountId")
-            <*> (x .:? "S3Bucket")
-            <*> (x .:? "UserPoolId")
-            <*> (x .:? "Domain")
-            <*> (x .:? "CloudFrontDistribution")
-            <*> (x .:? "Version")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "CustomDomainConfig")
+            Prelude.<*> (x Prelude..:? "AWSAccountId")
+            Prelude.<*> (x Prelude..:? "S3Bucket")
+            Prelude.<*> (x Prelude..:? "UserPoolId")
+            Prelude.<*> (x Prelude..:? "Domain")
+            Prelude.<*> (x Prelude..:? "CloudFrontDistribution")
+            Prelude.<*> (x Prelude..:? "Version")
       )
 
-instance Hashable DomainDescriptionType
+instance Prelude.Hashable DomainDescriptionType
 
-instance NFData DomainDescriptionType
+instance Prelude.NFData DomainDescriptionType

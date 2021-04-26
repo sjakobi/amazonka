@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CognitoIdentityProvider.Types.FeedbackValueType
   ( FeedbackValueType
       ( ..,
-        Invalid,
-        Valid
+        FeedbackValueTypeInvalid,
+        FeedbackValueTypeValid
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FeedbackValueType = FeedbackValueType' (CI Text)
+newtype FeedbackValueType = FeedbackValueType'
+  { fromFeedbackValueType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Invalid :: FeedbackValueType
-pattern Invalid = FeedbackValueType' "Invalid"
+pattern FeedbackValueTypeInvalid :: FeedbackValueType
+pattern FeedbackValueTypeInvalid = FeedbackValueType' "Invalid"
 
-pattern Valid :: FeedbackValueType
-pattern Valid = FeedbackValueType' "Valid"
+pattern FeedbackValueTypeValid :: FeedbackValueType
+pattern FeedbackValueTypeValid = FeedbackValueType' "Valid"
 
 {-# COMPLETE
-  Invalid,
-  Valid,
+  FeedbackValueTypeInvalid,
+  FeedbackValueTypeValid,
   FeedbackValueType'
   #-}
 
-instance FromText FeedbackValueType where
-  parser = (FeedbackValueType' . mk) <$> takeText
+instance Prelude.FromText FeedbackValueType where
+  parser = FeedbackValueType' Prelude.<$> Prelude.takeText
 
-instance ToText FeedbackValueType where
-  toText (FeedbackValueType' ci) = original ci
+instance Prelude.ToText FeedbackValueType where
+  toText (FeedbackValueType' x) = x
 
-instance Hashable FeedbackValueType
+instance Prelude.Hashable FeedbackValueType
 
-instance NFData FeedbackValueType
+instance Prelude.NFData FeedbackValueType
 
-instance ToByteString FeedbackValueType
+instance Prelude.ToByteString FeedbackValueType
 
-instance ToQuery FeedbackValueType
+instance Prelude.ToQuery FeedbackValueType
 
-instance ToHeader FeedbackValueType
+instance Prelude.ToHeader FeedbackValueType
 
-instance ToJSON FeedbackValueType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FeedbackValueType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FeedbackValueType where
-  parseJSON = parseJSONText "FeedbackValueType"
+instance Prelude.FromJSON FeedbackValueType where
+  parseJSON = Prelude.parseJSONText "FeedbackValueType"

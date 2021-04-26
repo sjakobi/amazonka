@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CognitoIdentityProvider.Types.DeliveryMediumType
   ( DeliveryMediumType
       ( ..,
-        Email,
-        Sms
+        DeliveryMediumTypeEMAIL,
+        DeliveryMediumTypeSMS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeliveryMediumType
-  = DeliveryMediumType'
-      ( CI
-          Text
-      )
+newtype DeliveryMediumType = DeliveryMediumType'
+  { fromDeliveryMediumType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Email :: DeliveryMediumType
-pattern Email = DeliveryMediumType' "EMAIL"
+pattern DeliveryMediumTypeEMAIL :: DeliveryMediumType
+pattern DeliveryMediumTypeEMAIL = DeliveryMediumType' "EMAIL"
 
-pattern Sms :: DeliveryMediumType
-pattern Sms = DeliveryMediumType' "SMS"
+pattern DeliveryMediumTypeSMS :: DeliveryMediumType
+pattern DeliveryMediumTypeSMS = DeliveryMediumType' "SMS"
 
 {-# COMPLETE
-  Email,
-  Sms,
+  DeliveryMediumTypeEMAIL,
+  DeliveryMediumTypeSMS,
   DeliveryMediumType'
   #-}
 
-instance FromText DeliveryMediumType where
-  parser = (DeliveryMediumType' . mk) <$> takeText
+instance Prelude.FromText DeliveryMediumType where
+  parser = DeliveryMediumType' Prelude.<$> Prelude.takeText
 
-instance ToText DeliveryMediumType where
-  toText (DeliveryMediumType' ci) = original ci
+instance Prelude.ToText DeliveryMediumType where
+  toText (DeliveryMediumType' x) = x
 
-instance Hashable DeliveryMediumType
+instance Prelude.Hashable DeliveryMediumType
 
-instance NFData DeliveryMediumType
+instance Prelude.NFData DeliveryMediumType
 
-instance ToByteString DeliveryMediumType
+instance Prelude.ToByteString DeliveryMediumType
 
-instance ToQuery DeliveryMediumType
+instance Prelude.ToQuery DeliveryMediumType
 
-instance ToHeader DeliveryMediumType
+instance Prelude.ToHeader DeliveryMediumType
 
-instance ToJSON DeliveryMediumType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeliveryMediumType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeliveryMediumType where
-  parseJSON = parseJSONText "DeliveryMediumType"
+instance Prelude.FromJSON DeliveryMediumType where
+  parseJSON = Prelude.parseJSONText "DeliveryMediumType"

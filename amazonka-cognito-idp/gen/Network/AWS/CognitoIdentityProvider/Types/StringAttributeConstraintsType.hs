@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.StringAttributeConstraintsType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The constraints associated with a string attribute.
 --
---
---
--- /See:/ 'stringAttributeConstraintsType' smart constructor.
+-- /See:/ 'newStringAttributeConstraintsType' smart constructor.
 data StringAttributeConstraintsType = StringAttributeConstraintsType'
-  { _sactMinLength ::
-      !( Maybe
-           Text
-       ),
-    _sactMaxLength ::
-      !( Maybe
-           Text
-       )
+  { -- | The minimum length.
+    minLength :: Prelude.Maybe Prelude.Text,
+    -- | The maximum length.
+    maxLength :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StringAttributeConstraintsType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StringAttributeConstraintsType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sactMinLength' - The minimum length.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sactMaxLength' - The maximum length.
-stringAttributeConstraintsType ::
+-- 'minLength', 'stringAttributeConstraintsType_minLength' - The minimum length.
+--
+-- 'maxLength', 'stringAttributeConstraintsType_maxLength' - The maximum length.
+newStringAttributeConstraintsType ::
   StringAttributeConstraintsType
-stringAttributeConstraintsType =
+newStringAttributeConstraintsType =
   StringAttributeConstraintsType'
-    { _sactMinLength =
-        Nothing,
-      _sactMaxLength = Nothing
+    { minLength =
+        Prelude.Nothing,
+      maxLength = Prelude.Nothing
     }
 
 -- | The minimum length.
-sactMinLength :: Lens' StringAttributeConstraintsType (Maybe Text)
-sactMinLength = lens _sactMinLength (\s a -> s {_sactMinLength = a})
+stringAttributeConstraintsType_minLength :: Lens.Lens' StringAttributeConstraintsType (Prelude.Maybe Prelude.Text)
+stringAttributeConstraintsType_minLength = Lens.lens (\StringAttributeConstraintsType' {minLength} -> minLength) (\s@StringAttributeConstraintsType' {} a -> s {minLength = a} :: StringAttributeConstraintsType)
 
 -- | The maximum length.
-sactMaxLength :: Lens' StringAttributeConstraintsType (Maybe Text)
-sactMaxLength = lens _sactMaxLength (\s a -> s {_sactMaxLength = a})
+stringAttributeConstraintsType_maxLength :: Lens.Lens' StringAttributeConstraintsType (Prelude.Maybe Prelude.Text)
+stringAttributeConstraintsType_maxLength = Lens.lens (\StringAttributeConstraintsType' {maxLength} -> maxLength) (\s@StringAttributeConstraintsType' {} a -> s {maxLength = a} :: StringAttributeConstraintsType)
 
-instance FromJSON StringAttributeConstraintsType where
+instance
+  Prelude.FromJSON
+    StringAttributeConstraintsType
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StringAttributeConstraintsType"
       ( \x ->
           StringAttributeConstraintsType'
-            <$> (x .:? "MinLength") <*> (x .:? "MaxLength")
+            Prelude.<$> (x Prelude..:? "MinLength")
+            Prelude.<*> (x Prelude..:? "MaxLength")
       )
 
-instance Hashable StringAttributeConstraintsType
+instance
+  Prelude.Hashable
+    StringAttributeConstraintsType
 
-instance NFData StringAttributeConstraintsType
+instance
+  Prelude.NFData
+    StringAttributeConstraintsType
 
-instance ToJSON StringAttributeConstraintsType where
+instance
+  Prelude.ToJSON
+    StringAttributeConstraintsType
+  where
   toJSON StringAttributeConstraintsType' {..} =
-    object
-      ( catMaybes
-          [ ("MinLength" .=) <$> _sactMinLength,
-            ("MaxLength" .=) <$> _sactMaxLength
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MinLength" Prelude..=) Prelude.<$> minLength,
+            ("MaxLength" Prelude..=) Prelude.<$> maxLength
           ]
       )

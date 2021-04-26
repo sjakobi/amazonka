@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,202 +21,224 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists a history of user activity and any risks detected as part of Amazon Cognito advanced security.
---
---
+-- Lists a history of user activity and any risks detected as part of
+-- Amazon Cognito advanced security.
 --
 -- This operation returns paginated results.
 module Network.AWS.CognitoIdentityProvider.AdminListUserAuthEvents
   ( -- * Creating a Request
-    adminListUserAuthEvents,
-    AdminListUserAuthEvents,
+    AdminListUserAuthEvents (..),
+    newAdminListUserAuthEvents,
 
     -- * Request Lenses
-    aluaeNextToken,
-    aluaeMaxResults,
-    aluaeUserPoolId,
-    aluaeUsername,
+    adminListUserAuthEvents_nextToken,
+    adminListUserAuthEvents_maxResults,
+    adminListUserAuthEvents_userPoolId,
+    adminListUserAuthEvents_username,
 
     -- * Destructuring the Response
-    adminListUserAuthEventsResponse,
-    AdminListUserAuthEventsResponse,
+    AdminListUserAuthEventsResponse (..),
+    newAdminListUserAuthEventsResponse,
 
     -- * Response Lenses
-    aluaerrsNextToken,
-    aluaerrsAuthEvents,
-    aluaerrsResponseStatus,
+    adminListUserAuthEventsResponse_nextToken,
+    adminListUserAuthEventsResponse_authEvents,
+    adminListUserAuthEventsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.AuthEventType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'adminListUserAuthEvents' smart constructor.
+-- | /See:/ 'newAdminListUserAuthEvents' smart constructor.
 data AdminListUserAuthEvents = AdminListUserAuthEvents'
-  { _aluaeNextToken ::
-      !(Maybe Text),
-    _aluaeMaxResults ::
-      !(Maybe Nat),
-    _aluaeUserPoolId ::
-      !Text,
-    _aluaeUsername ::
-      !(Sensitive Text)
+  { -- | A pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of authentication events to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The user pool ID.
+    userPoolId :: Prelude.Text,
+    -- | The user pool username or an alias.
+    username :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdminListUserAuthEvents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdminListUserAuthEvents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aluaeNextToken' - A pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aluaeMaxResults' - The maximum number of authentication events to return.
+-- 'nextToken', 'adminListUserAuthEvents_nextToken' - A pagination token.
 --
--- * 'aluaeUserPoolId' - The user pool ID.
+-- 'maxResults', 'adminListUserAuthEvents_maxResults' - The maximum number of authentication events to return.
 --
--- * 'aluaeUsername' - The user pool username or an alias.
-adminListUserAuthEvents ::
-  -- | 'aluaeUserPoolId'
-  Text ->
-  -- | 'aluaeUsername'
-  Text ->
+-- 'userPoolId', 'adminListUserAuthEvents_userPoolId' - The user pool ID.
+--
+-- 'username', 'adminListUserAuthEvents_username' - The user pool username or an alias.
+newAdminListUserAuthEvents ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'username'
+  Prelude.Text ->
   AdminListUserAuthEvents
-adminListUserAuthEvents pUserPoolId_ pUsername_ =
+newAdminListUserAuthEvents pUserPoolId_ pUsername_ =
   AdminListUserAuthEvents'
-    { _aluaeNextToken = Nothing,
-      _aluaeMaxResults = Nothing,
-      _aluaeUserPoolId = pUserPoolId_,
-      _aluaeUsername = _Sensitive # pUsername_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      userPoolId = pUserPoolId_,
+      username = Prelude._Sensitive Lens.# pUsername_
     }
 
 -- | A pagination token.
-aluaeNextToken :: Lens' AdminListUserAuthEvents (Maybe Text)
-aluaeNextToken = lens _aluaeNextToken (\s a -> s {_aluaeNextToken = a})
+adminListUserAuthEvents_nextToken :: Lens.Lens' AdminListUserAuthEvents (Prelude.Maybe Prelude.Text)
+adminListUserAuthEvents_nextToken = Lens.lens (\AdminListUserAuthEvents' {nextToken} -> nextToken) (\s@AdminListUserAuthEvents' {} a -> s {nextToken = a} :: AdminListUserAuthEvents)
 
 -- | The maximum number of authentication events to return.
-aluaeMaxResults :: Lens' AdminListUserAuthEvents (Maybe Natural)
-aluaeMaxResults = lens _aluaeMaxResults (\s a -> s {_aluaeMaxResults = a}) . mapping _Nat
+adminListUserAuthEvents_maxResults :: Lens.Lens' AdminListUserAuthEvents (Prelude.Maybe Prelude.Natural)
+adminListUserAuthEvents_maxResults = Lens.lens (\AdminListUserAuthEvents' {maxResults} -> maxResults) (\s@AdminListUserAuthEvents' {} a -> s {maxResults = a} :: AdminListUserAuthEvents) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The user pool ID.
-aluaeUserPoolId :: Lens' AdminListUserAuthEvents Text
-aluaeUserPoolId = lens _aluaeUserPoolId (\s a -> s {_aluaeUserPoolId = a})
+adminListUserAuthEvents_userPoolId :: Lens.Lens' AdminListUserAuthEvents Prelude.Text
+adminListUserAuthEvents_userPoolId = Lens.lens (\AdminListUserAuthEvents' {userPoolId} -> userPoolId) (\s@AdminListUserAuthEvents' {} a -> s {userPoolId = a} :: AdminListUserAuthEvents)
 
 -- | The user pool username or an alias.
-aluaeUsername :: Lens' AdminListUserAuthEvents Text
-aluaeUsername = lens _aluaeUsername (\s a -> s {_aluaeUsername = a}) . _Sensitive
+adminListUserAuthEvents_username :: Lens.Lens' AdminListUserAuthEvents Prelude.Text
+adminListUserAuthEvents_username = Lens.lens (\AdminListUserAuthEvents' {username} -> username) (\s@AdminListUserAuthEvents' {} a -> s {username = a} :: AdminListUserAuthEvents) Prelude.. Prelude._Sensitive
 
-instance AWSPager AdminListUserAuthEvents where
+instance Pager.AWSPager AdminListUserAuthEvents where
   page rq rs
-    | stop (rs ^. aluaerrsNextToken) = Nothing
-    | stop (rs ^. aluaerrsAuthEvents) = Nothing
-    | otherwise =
-      Just $ rq & aluaeNextToken .~ rs ^. aluaerrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? adminListUserAuthEventsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? adminListUserAuthEventsResponse_authEvents
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& adminListUserAuthEvents_nextToken
+          Lens..~ rs
+          Lens.^? adminListUserAuthEventsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest AdminListUserAuthEvents where
+instance Prelude.AWSRequest AdminListUserAuthEvents where
   type
     Rs AdminListUserAuthEvents =
       AdminListUserAuthEventsResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AdminListUserAuthEventsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "AuthEvents" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "AuthEvents"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AdminListUserAuthEvents
+instance Prelude.Hashable AdminListUserAuthEvents
 
-instance NFData AdminListUserAuthEvents
+instance Prelude.NFData AdminListUserAuthEvents
 
-instance ToHeaders AdminListUserAuthEvents where
+instance Prelude.ToHeaders AdminListUserAuthEvents where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.AdminListUserAuthEvents" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.AdminListUserAuthEvents" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AdminListUserAuthEvents where
+instance Prelude.ToJSON AdminListUserAuthEvents where
   toJSON AdminListUserAuthEvents' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _aluaeNextToken,
-            ("MaxResults" .=) <$> _aluaeMaxResults,
-            Just ("UserPoolId" .= _aluaeUserPoolId),
-            Just ("Username" .= _aluaeUsername)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("UserPoolId" Prelude..= userPoolId),
+            Prelude.Just ("Username" Prelude..= username)
           ]
       )
 
-instance ToPath AdminListUserAuthEvents where
-  toPath = const "/"
+instance Prelude.ToPath AdminListUserAuthEvents where
+  toPath = Prelude.const "/"
 
-instance ToQuery AdminListUserAuthEvents where
-  toQuery = const mempty
+instance Prelude.ToQuery AdminListUserAuthEvents where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'adminListUserAuthEventsResponse' smart constructor.
+-- | /See:/ 'newAdminListUserAuthEventsResponse' smart constructor.
 data AdminListUserAuthEventsResponse = AdminListUserAuthEventsResponse'
-  { _aluaerrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _aluaerrsAuthEvents ::
-      !( Maybe
-           [AuthEventType]
-       ),
-    _aluaerrsResponseStatus ::
-      !Int
+  { -- | A pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response object. It includes the @EventID@, @EventType@,
+    -- @CreationDate@, @EventRisk@, and @EventResponse@.
+    authEvents :: Prelude.Maybe [AuthEventType],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdminListUserAuthEventsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdminListUserAuthEventsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aluaerrsNextToken' - A pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aluaerrsAuthEvents' - The response object. It includes the @EventID@ , @EventType@ , @CreationDate@ , @EventRisk@ , and @EventResponse@ .
+-- 'nextToken', 'adminListUserAuthEventsResponse_nextToken' - A pagination token.
 --
--- * 'aluaerrsResponseStatus' - -- | The response status code.
-adminListUserAuthEventsResponse ::
-  -- | 'aluaerrsResponseStatus'
-  Int ->
+-- 'authEvents', 'adminListUserAuthEventsResponse_authEvents' - The response object. It includes the @EventID@, @EventType@,
+-- @CreationDate@, @EventRisk@, and @EventResponse@.
+--
+-- 'httpStatus', 'adminListUserAuthEventsResponse_httpStatus' - The response's http status code.
+newAdminListUserAuthEventsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AdminListUserAuthEventsResponse
-adminListUserAuthEventsResponse pResponseStatus_ =
+newAdminListUserAuthEventsResponse pHttpStatus_ =
   AdminListUserAuthEventsResponse'
-    { _aluaerrsNextToken =
-        Nothing,
-      _aluaerrsAuthEvents = Nothing,
-      _aluaerrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      authEvents = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A pagination token.
-aluaerrsNextToken :: Lens' AdminListUserAuthEventsResponse (Maybe Text)
-aluaerrsNextToken = lens _aluaerrsNextToken (\s a -> s {_aluaerrsNextToken = a})
+adminListUserAuthEventsResponse_nextToken :: Lens.Lens' AdminListUserAuthEventsResponse (Prelude.Maybe Prelude.Text)
+adminListUserAuthEventsResponse_nextToken = Lens.lens (\AdminListUserAuthEventsResponse' {nextToken} -> nextToken) (\s@AdminListUserAuthEventsResponse' {} a -> s {nextToken = a} :: AdminListUserAuthEventsResponse)
 
--- | The response object. It includes the @EventID@ , @EventType@ , @CreationDate@ , @EventRisk@ , and @EventResponse@ .
-aluaerrsAuthEvents :: Lens' AdminListUserAuthEventsResponse [AuthEventType]
-aluaerrsAuthEvents = lens _aluaerrsAuthEvents (\s a -> s {_aluaerrsAuthEvents = a}) . _Default . _Coerce
+-- | The response object. It includes the @EventID@, @EventType@,
+-- @CreationDate@, @EventRisk@, and @EventResponse@.
+adminListUserAuthEventsResponse_authEvents :: Lens.Lens' AdminListUserAuthEventsResponse (Prelude.Maybe [AuthEventType])
+adminListUserAuthEventsResponse_authEvents = Lens.lens (\AdminListUserAuthEventsResponse' {authEvents} -> authEvents) (\s@AdminListUserAuthEventsResponse' {} a -> s {authEvents = a} :: AdminListUserAuthEventsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-aluaerrsResponseStatus :: Lens' AdminListUserAuthEventsResponse Int
-aluaerrsResponseStatus = lens _aluaerrsResponseStatus (\s a -> s {_aluaerrsResponseStatus = a})
+-- | The response's http status code.
+adminListUserAuthEventsResponse_httpStatus :: Lens.Lens' AdminListUserAuthEventsResponse Prelude.Int
+adminListUserAuthEventsResponse_httpStatus = Lens.lens (\AdminListUserAuthEventsResponse' {httpStatus} -> httpStatus) (\s@AdminListUserAuthEventsResponse' {} a -> s {httpStatus = a} :: AdminListUserAuthEventsResponse)
 
-instance NFData AdminListUserAuthEventsResponse
+instance
+  Prelude.NFData
+    AdminListUserAuthEventsResponse

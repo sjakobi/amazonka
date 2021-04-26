@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CognitoIdentityProvider.Types.VerifiedAttributeType
   ( VerifiedAttributeType
       ( ..,
-        VATEmail,
-        VATPhoneNumber
+        VerifiedAttributeTypeEmail,
+        VerifiedAttributeTypePhoneNumber
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VerifiedAttributeType
-  = VerifiedAttributeType'
-      ( CI
-          Text
-      )
+newtype VerifiedAttributeType = VerifiedAttributeType'
+  { fromVerifiedAttributeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VATEmail :: VerifiedAttributeType
-pattern VATEmail = VerifiedAttributeType' "email"
+pattern VerifiedAttributeTypeEmail :: VerifiedAttributeType
+pattern VerifiedAttributeTypeEmail = VerifiedAttributeType' "email"
 
-pattern VATPhoneNumber :: VerifiedAttributeType
-pattern VATPhoneNumber = VerifiedAttributeType' "phone_number"
+pattern VerifiedAttributeTypePhoneNumber :: VerifiedAttributeType
+pattern VerifiedAttributeTypePhoneNumber = VerifiedAttributeType' "phone_number"
 
 {-# COMPLETE
-  VATEmail,
-  VATPhoneNumber,
+  VerifiedAttributeTypeEmail,
+  VerifiedAttributeTypePhoneNumber,
   VerifiedAttributeType'
   #-}
 
-instance FromText VerifiedAttributeType where
-  parser = (VerifiedAttributeType' . mk) <$> takeText
+instance Prelude.FromText VerifiedAttributeType where
+  parser = VerifiedAttributeType' Prelude.<$> Prelude.takeText
 
-instance ToText VerifiedAttributeType where
-  toText (VerifiedAttributeType' ci) = original ci
+instance Prelude.ToText VerifiedAttributeType where
+  toText (VerifiedAttributeType' x) = x
 
-instance Hashable VerifiedAttributeType
+instance Prelude.Hashable VerifiedAttributeType
 
-instance NFData VerifiedAttributeType
+instance Prelude.NFData VerifiedAttributeType
 
-instance ToByteString VerifiedAttributeType
+instance Prelude.ToByteString VerifiedAttributeType
 
-instance ToQuery VerifiedAttributeType
+instance Prelude.ToQuery VerifiedAttributeType
 
-instance ToHeader VerifiedAttributeType
+instance Prelude.ToHeader VerifiedAttributeType
 
-instance ToJSON VerifiedAttributeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON VerifiedAttributeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON VerifiedAttributeType where
-  parseJSON = parseJSONText "VerifiedAttributeType"
+instance Prelude.FromJSON VerifiedAttributeType where
+  parseJSON = Prelude.parseJSONText "VerifiedAttributeType"

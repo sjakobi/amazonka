@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,69 @@
 module Network.AWS.CognitoIdentityProvider.Types.CompromisedCredentialsActionsType where
 
 import Network.AWS.CognitoIdentityProvider.Types.CompromisedCredentialsEventActionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The compromised credentials actions type
 --
---
---
--- /See:/ 'compromisedCredentialsActionsType' smart constructor.
-newtype CompromisedCredentialsActionsType = CompromisedCredentialsActionsType'
-  { _ccatEventAction ::
-      CompromisedCredentialsEventActionType
+-- /See:/ 'newCompromisedCredentialsActionsType' smart constructor.
+data CompromisedCredentialsActionsType = CompromisedCredentialsActionsType'
+  { -- | The event action.
+    eventAction :: CompromisedCredentialsEventActionType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompromisedCredentialsActionsType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompromisedCredentialsActionsType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccatEventAction' - The event action.
-compromisedCredentialsActionsType ::
-  -- | 'ccatEventAction'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'eventAction', 'compromisedCredentialsActionsType_eventAction' - The event action.
+newCompromisedCredentialsActionsType ::
+  -- | 'eventAction'
   CompromisedCredentialsEventActionType ->
   CompromisedCredentialsActionsType
-compromisedCredentialsActionsType pEventAction_ =
+newCompromisedCredentialsActionsType pEventAction_ =
   CompromisedCredentialsActionsType'
-    { _ccatEventAction =
+    { eventAction =
         pEventAction_
     }
 
 -- | The event action.
-ccatEventAction :: Lens' CompromisedCredentialsActionsType CompromisedCredentialsEventActionType
-ccatEventAction = lens _ccatEventAction (\s a -> s {_ccatEventAction = a})
+compromisedCredentialsActionsType_eventAction :: Lens.Lens' CompromisedCredentialsActionsType CompromisedCredentialsEventActionType
+compromisedCredentialsActionsType_eventAction = Lens.lens (\CompromisedCredentialsActionsType' {eventAction} -> eventAction) (\s@CompromisedCredentialsActionsType' {} a -> s {eventAction = a} :: CompromisedCredentialsActionsType)
 
-instance FromJSON CompromisedCredentialsActionsType where
+instance
+  Prelude.FromJSON
+    CompromisedCredentialsActionsType
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CompromisedCredentialsActionsType"
       ( \x ->
           CompromisedCredentialsActionsType'
-            <$> (x .: "EventAction")
+            Prelude.<$> (x Prelude..: "EventAction")
       )
 
-instance Hashable CompromisedCredentialsActionsType
+instance
+  Prelude.Hashable
+    CompromisedCredentialsActionsType
 
-instance NFData CompromisedCredentialsActionsType
+instance
+  Prelude.NFData
+    CompromisedCredentialsActionsType
 
-instance ToJSON CompromisedCredentialsActionsType where
+instance
+  Prelude.ToJSON
+    CompromisedCredentialsActionsType
+  where
   toJSON CompromisedCredentialsActionsType' {..} =
-    object
-      ( catMaybes
-          [Just ("EventAction" .= _ccatEventAction)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("EventAction" Prelude..= eventAction)
+          ]
       )

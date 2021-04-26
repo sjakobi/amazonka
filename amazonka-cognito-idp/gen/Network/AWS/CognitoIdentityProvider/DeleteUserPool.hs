@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,98 +24,103 @@
 -- Deletes the specified Amazon Cognito user pool.
 module Network.AWS.CognitoIdentityProvider.DeleteUserPool
   ( -- * Creating a Request
-    deleteUserPool,
-    DeleteUserPool,
+    DeleteUserPool (..),
+    newDeleteUserPool,
 
     -- * Request Lenses
-    dupUserPoolId,
+    deleteUserPool_userPoolId,
 
     -- * Destructuring the Response
-    deleteUserPoolResponse,
-    DeleteUserPoolResponse,
+    DeleteUserPoolResponse (..),
+    newDeleteUserPoolResponse,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to delete a user pool.
 --
---
---
--- /See:/ 'deleteUserPool' smart constructor.
-newtype DeleteUserPool = DeleteUserPool'
-  { _dupUserPoolId ::
-      Text
+-- /See:/ 'newDeleteUserPool' smart constructor.
+data DeleteUserPool = DeleteUserPool'
+  { -- | The user pool ID for the user pool you want to delete.
+    userPoolId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserPool' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserPool' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dupUserPoolId' - The user pool ID for the user pool you want to delete.
-deleteUserPool ::
-  -- | 'dupUserPoolId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userPoolId', 'deleteUserPool_userPoolId' - The user pool ID for the user pool you want to delete.
+newDeleteUserPool ::
+  -- | 'userPoolId'
+  Prelude.Text ->
   DeleteUserPool
-deleteUserPool pUserPoolId_ =
-  DeleteUserPool' {_dupUserPoolId = pUserPoolId_}
+newDeleteUserPool pUserPoolId_ =
+  DeleteUserPool' {userPoolId = pUserPoolId_}
 
 -- | The user pool ID for the user pool you want to delete.
-dupUserPoolId :: Lens' DeleteUserPool Text
-dupUserPoolId = lens _dupUserPoolId (\s a -> s {_dupUserPoolId = a})
+deleteUserPool_userPoolId :: Lens.Lens' DeleteUserPool Prelude.Text
+deleteUserPool_userPoolId = Lens.lens (\DeleteUserPool' {userPoolId} -> userPoolId) (\s@DeleteUserPool' {} a -> s {userPoolId = a} :: DeleteUserPool)
 
-instance AWSRequest DeleteUserPool where
+instance Prelude.AWSRequest DeleteUserPool where
   type Rs DeleteUserPool = DeleteUserPoolResponse
-  request = postJSON cognitoIdentityProvider
-  response = receiveNull DeleteUserPoolResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteUserPoolResponse'
 
-instance Hashable DeleteUserPool
+instance Prelude.Hashable DeleteUserPool
 
-instance NFData DeleteUserPool
+instance Prelude.NFData DeleteUserPool
 
-instance ToHeaders DeleteUserPool where
+instance Prelude.ToHeaders DeleteUserPool where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.DeleteUserPool" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.DeleteUserPool" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteUserPool where
+instance Prelude.ToJSON DeleteUserPool where
   toJSON DeleteUserPool' {..} =
-    object
-      (catMaybes [Just ("UserPoolId" .= _dupUserPoolId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("UserPoolId" Prelude..= userPoolId)]
+      )
 
-instance ToPath DeleteUserPool where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUserPool where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUserPool where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUserPool where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteUserPoolResponse' smart constructor.
+-- | /See:/ 'newDeleteUserPoolResponse' smart constructor.
 data DeleteUserPoolResponse = DeleteUserPoolResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserPoolResponse' with the minimum fields required to make a request.
-deleteUserPoolResponse ::
+-- |
+-- Create a value of 'DeleteUserPoolResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteUserPoolResponse ::
   DeleteUserPoolResponse
-deleteUserPoolResponse = DeleteUserPoolResponse'
+newDeleteUserPoolResponse = DeleteUserPoolResponse'
 
-instance NFData DeleteUserPoolResponse
+instance Prelude.NFData DeleteUserPoolResponse

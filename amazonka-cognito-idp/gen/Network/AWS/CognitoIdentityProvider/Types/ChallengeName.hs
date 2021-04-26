@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CognitoIdentityProvider.Types.ChallengeName
   ( ChallengeName
       ( ..,
-        MFA,
-        Password
+        ChallengeNameMfa,
+        ChallengeNamePassword
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChallengeName = ChallengeName' (CI Text)
+newtype ChallengeName = ChallengeName'
+  { fromChallengeName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MFA :: ChallengeName
-pattern MFA = ChallengeName' "Mfa"
+pattern ChallengeNameMfa :: ChallengeName
+pattern ChallengeNameMfa = ChallengeName' "Mfa"
 
-pattern Password :: ChallengeName
-pattern Password = ChallengeName' "Password"
+pattern ChallengeNamePassword :: ChallengeName
+pattern ChallengeNamePassword = ChallengeName' "Password"
 
 {-# COMPLETE
-  MFA,
-  Password,
+  ChallengeNameMfa,
+  ChallengeNamePassword,
   ChallengeName'
   #-}
 
-instance FromText ChallengeName where
-  parser = (ChallengeName' . mk) <$> takeText
+instance Prelude.FromText ChallengeName where
+  parser = ChallengeName' Prelude.<$> Prelude.takeText
 
-instance ToText ChallengeName where
-  toText (ChallengeName' ci) = original ci
+instance Prelude.ToText ChallengeName where
+  toText (ChallengeName' x) = x
 
-instance Hashable ChallengeName
+instance Prelude.Hashable ChallengeName
 
-instance NFData ChallengeName
+instance Prelude.NFData ChallengeName
 
-instance ToByteString ChallengeName
+instance Prelude.ToByteString ChallengeName
 
-instance ToQuery ChallengeName
+instance Prelude.ToQuery ChallengeName
 
-instance ToHeader ChallengeName
+instance Prelude.ToHeader ChallengeName
 
-instance FromJSON ChallengeName where
-  parseJSON = parseJSONText "ChallengeName"
+instance Prelude.FromJSON ChallengeName where
+  parseJSON = Prelude.parseJSONText "ChallengeName"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +21,86 @@ module Network.AWS.CognitoIdentityProvider.Types.CompromisedCredentialsRiskConfi
 
 import Network.AWS.CognitoIdentityProvider.Types.CompromisedCredentialsActionsType
 import Network.AWS.CognitoIdentityProvider.Types.EventFilterType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The compromised credentials risk configuration type.
 --
---
---
--- /See:/ 'compromisedCredentialsRiskConfigurationType' smart constructor.
+-- /See:/ 'newCompromisedCredentialsRiskConfigurationType' smart constructor.
 data CompromisedCredentialsRiskConfigurationType = CompromisedCredentialsRiskConfigurationType'
-  { _ccrctEventFilter ::
-      !( Maybe
-           [EventFilterType]
-       ),
-    _ccrctActions ::
-      !CompromisedCredentialsActionsType
+  { -- | Perform the action for these events. The default is to perform all
+    -- events if no event filter is specified.
+    eventFilter :: Prelude.Maybe [EventFilterType],
+    -- | The compromised credentials risk configuration actions.
+    actions :: CompromisedCredentialsActionsType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompromisedCredentialsRiskConfigurationType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompromisedCredentialsRiskConfigurationType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrctEventFilter' - Perform the action for these events. The default is to perform all events if no event filter is specified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrctActions' - The compromised credentials risk configuration actions.
-compromisedCredentialsRiskConfigurationType ::
-  -- | 'ccrctActions'
+-- 'eventFilter', 'compromisedCredentialsRiskConfigurationType_eventFilter' - Perform the action for these events. The default is to perform all
+-- events if no event filter is specified.
+--
+-- 'actions', 'compromisedCredentialsRiskConfigurationType_actions' - The compromised credentials risk configuration actions.
+newCompromisedCredentialsRiskConfigurationType ::
+  -- | 'actions'
   CompromisedCredentialsActionsType ->
   CompromisedCredentialsRiskConfigurationType
-compromisedCredentialsRiskConfigurationType pActions_ =
-  CompromisedCredentialsRiskConfigurationType'
-    { _ccrctEventFilter =
-        Nothing,
-      _ccrctActions = pActions_
-    }
+newCompromisedCredentialsRiskConfigurationType
+  pActions_ =
+    CompromisedCredentialsRiskConfigurationType'
+      { eventFilter =
+          Prelude.Nothing,
+        actions = pActions_
+      }
 
--- | Perform the action for these events. The default is to perform all events if no event filter is specified.
-ccrctEventFilter :: Lens' CompromisedCredentialsRiskConfigurationType [EventFilterType]
-ccrctEventFilter = lens _ccrctEventFilter (\s a -> s {_ccrctEventFilter = a}) . _Default . _Coerce
+-- | Perform the action for these events. The default is to perform all
+-- events if no event filter is specified.
+compromisedCredentialsRiskConfigurationType_eventFilter :: Lens.Lens' CompromisedCredentialsRiskConfigurationType (Prelude.Maybe [EventFilterType])
+compromisedCredentialsRiskConfigurationType_eventFilter = Lens.lens (\CompromisedCredentialsRiskConfigurationType' {eventFilter} -> eventFilter) (\s@CompromisedCredentialsRiskConfigurationType' {} a -> s {eventFilter = a} :: CompromisedCredentialsRiskConfigurationType) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The compromised credentials risk configuration actions.
-ccrctActions :: Lens' CompromisedCredentialsRiskConfigurationType CompromisedCredentialsActionsType
-ccrctActions = lens _ccrctActions (\s a -> s {_ccrctActions = a})
+compromisedCredentialsRiskConfigurationType_actions :: Lens.Lens' CompromisedCredentialsRiskConfigurationType CompromisedCredentialsActionsType
+compromisedCredentialsRiskConfigurationType_actions = Lens.lens (\CompromisedCredentialsRiskConfigurationType' {actions} -> actions) (\s@CompromisedCredentialsRiskConfigurationType' {} a -> s {actions = a} :: CompromisedCredentialsRiskConfigurationType)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     CompromisedCredentialsRiskConfigurationType
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CompromisedCredentialsRiskConfigurationType"
       ( \x ->
           CompromisedCredentialsRiskConfigurationType'
-            <$> (x .:? "EventFilter" .!= mempty)
-            <*> (x .: "Actions")
+            Prelude.<$> ( x Prelude..:? "EventFilter"
+                            Prelude..!= Prelude.mempty
+                        )
+              Prelude.<*> (x Prelude..: "Actions")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CompromisedCredentialsRiskConfigurationType
 
 instance
-  NFData
+  Prelude.NFData
     CompromisedCredentialsRiskConfigurationType
 
 instance
-  ToJSON
+  Prelude.ToJSON
     CompromisedCredentialsRiskConfigurationType
   where
   toJSON
     CompromisedCredentialsRiskConfigurationType' {..} =
-      object
-        ( catMaybes
-            [ ("EventFilter" .=) <$> _ccrctEventFilter,
-              Just ("Actions" .= _ccrctActions)
+      Prelude.object
+        ( Prelude.catMaybes
+            [ ("EventFilter" Prelude..=) Prelude.<$> eventFilter,
+              Prelude.Just ("Actions" Prelude..= actions)
             ]
         )

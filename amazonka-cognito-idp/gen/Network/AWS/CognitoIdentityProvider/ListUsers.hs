@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,199 +23,387 @@
 --
 -- Lists the users in the Amazon Cognito user pool.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CognitoIdentityProvider.ListUsers
   ( -- * Creating a Request
-    listUsers,
-    ListUsers,
+    ListUsers (..),
+    newListUsers,
 
     -- * Request Lenses
-    luPaginationToken,
-    luFilter,
-    luLimit,
-    luAttributesToGet,
-    luUserPoolId,
+    listUsers_paginationToken,
+    listUsers_filter,
+    listUsers_limit,
+    listUsers_attributesToGet,
+    listUsers_userPoolId,
 
     -- * Destructuring the Response
-    listUsersResponse,
-    ListUsersResponse,
+    ListUsersResponse (..),
+    newListUsersResponse,
 
     -- * Response Lenses
-    lurrsPaginationToken,
-    lurrsUsers,
-    lurrsResponseStatus,
+    listUsersResponse_paginationToken,
+    listUsersResponse_users,
+    listUsersResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.UserType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to list users.
 --
---
---
--- /See:/ 'listUsers' smart constructor.
+-- /See:/ 'newListUsers' smart constructor.
 data ListUsers = ListUsers'
-  { _luPaginationToken ::
-      !(Maybe Text),
-    _luFilter :: !(Maybe Text),
-    _luLimit :: !(Maybe Nat),
-    _luAttributesToGet :: !(Maybe [Text]),
-    _luUserPoolId :: !Text
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    paginationToken :: Prelude.Maybe Prelude.Text,
+    -- | A filter string of the form \"/AttributeName/ /Filter-Type/
+    -- \"/AttributeValue/\"\". Quotation marks within the filter string must be
+    -- escaped using the backslash (\\) character. For example, \"@family_name@
+    -- = \\\"Reddy\\\"\".
+    --
+    -- -   /AttributeName/: The name of the attribute to search for. You can
+    --     only search for one attribute at a time.
+    --
+    -- -   /Filter-Type/: For an exact match, use =, for example,
+    --     \"@given_name@ = \\\"Jon\\\"\". For a prefix (\"starts with\")
+    --     match, use ^=, for example, \"@given_name@ ^= \\\"Jon\\\"\".
+    --
+    -- -   /AttributeValue/: The attribute value that must be matched for each
+    --     user.
+    --
+    -- If the filter string is empty, @ListUsers@ returns all users in the user
+    -- pool.
+    --
+    -- You can only search for the following standard attributes:
+    --
+    -- -   @username@ (case-sensitive)
+    --
+    -- -   @email@
+    --
+    -- -   @phone_number@
+    --
+    -- -   @name@
+    --
+    -- -   @given_name@
+    --
+    -- -   @family_name@
+    --
+    -- -   @preferred_username@
+    --
+    -- -   @cognito:user_status@ (called __Status__ in the Console)
+    --     (case-insensitive)
+    --
+    -- -   @status (called Enabled in the Console) (case-sensitive)@
+    --
+    -- -   @sub@
+    --
+    -- Custom attributes are not searchable.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-using-listusers-api Searching for Users Using the ListUsers API>
+    -- and
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-listusers-api-examples Examples of Using the ListUsers API>
+    -- in the /Amazon Cognito Developer Guide/.
+    filter' :: Prelude.Maybe Prelude.Text,
+    -- | Maximum number of users to be returned.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | An array of strings, where each string is the name of a user attribute
+    -- to be returned for each user in the search results. If the array is
+    -- null, all attributes are returned.
+    attributesToGet :: Prelude.Maybe [Prelude.Text],
+    -- | The user pool ID for the user pool on which the search should be
+    -- performed.
+    userPoolId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUsers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUsers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'luPaginationToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'luFilter' - A filter string of the form "/AttributeName/ /Filter-Type/ "/AttributeValue/ "". Quotation marks within the filter string must be escaped using the backslash (\) character. For example, "@family_name@ = \"Reddy\"".     * /AttributeName/ : The name of the attribute to search for. You can only search for one attribute at a time.     * /Filter-Type/ : For an exact match, use =, for example, "@given_name@ = \"Jon\"". For a prefix ("starts with") match, use ^=, for example, "@given_name@ ^= \"Jon\"".      * /AttributeValue/ : The attribute value that must be matched for each user. If the filter string is empty, @ListUsers@ returns all users in the user pool. You can only search for the following standard attributes:     * @username@ (case-sensitive)     * @email@      * @phone_number@      * @name@      * @given_name@      * @family_name@      * @preferred_username@      * @cognito:user_status@ (called __Status__ in the Console) (case-insensitive)     * @status (called __Enabled__ in the Console) (case-sensitive)@      * @sub@  Custom attributes are not searchable. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-using-listusers-api Searching for Users Using the ListUsers API> and <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-listusers-api-examples Examples of Using the ListUsers API> in the /Amazon Cognito Developer Guide/ .
+-- 'paginationToken', 'listUsers_paginationToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
 --
--- * 'luLimit' - Maximum number of users to be returned.
+-- 'filter'', 'listUsers_filter' - A filter string of the form \"/AttributeName/ /Filter-Type/
+-- \"/AttributeValue/\"\". Quotation marks within the filter string must be
+-- escaped using the backslash (\\) character. For example, \"@family_name@
+-- = \\\"Reddy\\\"\".
 --
--- * 'luAttributesToGet' - An array of strings, where each string is the name of a user attribute to be returned for each user in the search results. If the array is null, all attributes are returned.
+-- -   /AttributeName/: The name of the attribute to search for. You can
+--     only search for one attribute at a time.
 --
--- * 'luUserPoolId' - The user pool ID for the user pool on which the search should be performed.
-listUsers ::
-  -- | 'luUserPoolId'
-  Text ->
+-- -   /Filter-Type/: For an exact match, use =, for example,
+--     \"@given_name@ = \\\"Jon\\\"\". For a prefix (\"starts with\")
+--     match, use ^=, for example, \"@given_name@ ^= \\\"Jon\\\"\".
+--
+-- -   /AttributeValue/: The attribute value that must be matched for each
+--     user.
+--
+-- If the filter string is empty, @ListUsers@ returns all users in the user
+-- pool.
+--
+-- You can only search for the following standard attributes:
+--
+-- -   @username@ (case-sensitive)
+--
+-- -   @email@
+--
+-- -   @phone_number@
+--
+-- -   @name@
+--
+-- -   @given_name@
+--
+-- -   @family_name@
+--
+-- -   @preferred_username@
+--
+-- -   @cognito:user_status@ (called __Status__ in the Console)
+--     (case-insensitive)
+--
+-- -   @status (called Enabled in the Console) (case-sensitive)@
+--
+-- -   @sub@
+--
+-- Custom attributes are not searchable.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-using-listusers-api Searching for Users Using the ListUsers API>
+-- and
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-listusers-api-examples Examples of Using the ListUsers API>
+-- in the /Amazon Cognito Developer Guide/.
+--
+-- 'limit', 'listUsers_limit' - Maximum number of users to be returned.
+--
+-- 'attributesToGet', 'listUsers_attributesToGet' - An array of strings, where each string is the name of a user attribute
+-- to be returned for each user in the search results. If the array is
+-- null, all attributes are returned.
+--
+-- 'userPoolId', 'listUsers_userPoolId' - The user pool ID for the user pool on which the search should be
+-- performed.
+newListUsers ::
+  -- | 'userPoolId'
+  Prelude.Text ->
   ListUsers
-listUsers pUserPoolId_ =
+newListUsers pUserPoolId_ =
   ListUsers'
-    { _luPaginationToken = Nothing,
-      _luFilter = Nothing,
-      _luLimit = Nothing,
-      _luAttributesToGet = Nothing,
-      _luUserPoolId = pUserPoolId_
+    { paginationToken = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      attributesToGet = Prelude.Nothing,
+      userPoolId = pUserPoolId_
     }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-luPaginationToken :: Lens' ListUsers (Maybe Text)
-luPaginationToken = lens _luPaginationToken (\s a -> s {_luPaginationToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listUsers_paginationToken :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Text)
+listUsers_paginationToken = Lens.lens (\ListUsers' {paginationToken} -> paginationToken) (\s@ListUsers' {} a -> s {paginationToken = a} :: ListUsers)
 
--- | A filter string of the form "/AttributeName/ /Filter-Type/ "/AttributeValue/ "". Quotation marks within the filter string must be escaped using the backslash (\) character. For example, "@family_name@ = \"Reddy\"".     * /AttributeName/ : The name of the attribute to search for. You can only search for one attribute at a time.     * /Filter-Type/ : For an exact match, use =, for example, "@given_name@ = \"Jon\"". For a prefix ("starts with") match, use ^=, for example, "@given_name@ ^= \"Jon\"".      * /AttributeValue/ : The attribute value that must be matched for each user. If the filter string is empty, @ListUsers@ returns all users in the user pool. You can only search for the following standard attributes:     * @username@ (case-sensitive)     * @email@      * @phone_number@      * @name@      * @given_name@      * @family_name@      * @preferred_username@      * @cognito:user_status@ (called __Status__ in the Console) (case-insensitive)     * @status (called __Enabled__ in the Console) (case-sensitive)@      * @sub@  Custom attributes are not searchable. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-using-listusers-api Searching for Users Using the ListUsers API> and <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-listusers-api-examples Examples of Using the ListUsers API> in the /Amazon Cognito Developer Guide/ .
-luFilter :: Lens' ListUsers (Maybe Text)
-luFilter = lens _luFilter (\s a -> s {_luFilter = a})
+-- | A filter string of the form \"/AttributeName/ /Filter-Type/
+-- \"/AttributeValue/\"\". Quotation marks within the filter string must be
+-- escaped using the backslash (\\) character. For example, \"@family_name@
+-- = \\\"Reddy\\\"\".
+--
+-- -   /AttributeName/: The name of the attribute to search for. You can
+--     only search for one attribute at a time.
+--
+-- -   /Filter-Type/: For an exact match, use =, for example,
+--     \"@given_name@ = \\\"Jon\\\"\". For a prefix (\"starts with\")
+--     match, use ^=, for example, \"@given_name@ ^= \\\"Jon\\\"\".
+--
+-- -   /AttributeValue/: The attribute value that must be matched for each
+--     user.
+--
+-- If the filter string is empty, @ListUsers@ returns all users in the user
+-- pool.
+--
+-- You can only search for the following standard attributes:
+--
+-- -   @username@ (case-sensitive)
+--
+-- -   @email@
+--
+-- -   @phone_number@
+--
+-- -   @name@
+--
+-- -   @given_name@
+--
+-- -   @family_name@
+--
+-- -   @preferred_username@
+--
+-- -   @cognito:user_status@ (called __Status__ in the Console)
+--     (case-insensitive)
+--
+-- -   @status (called Enabled in the Console) (case-sensitive)@
+--
+-- -   @sub@
+--
+-- Custom attributes are not searchable.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-using-listusers-api Searching for Users Using the ListUsers API>
+-- and
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-listusers-api-examples Examples of Using the ListUsers API>
+-- in the /Amazon Cognito Developer Guide/.
+listUsers_filter :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Text)
+listUsers_filter = Lens.lens (\ListUsers' {filter'} -> filter') (\s@ListUsers' {} a -> s {filter' = a} :: ListUsers)
 
 -- | Maximum number of users to be returned.
-luLimit :: Lens' ListUsers (Maybe Natural)
-luLimit = lens _luLimit (\s a -> s {_luLimit = a}) . mapping _Nat
+listUsers_limit :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Natural)
+listUsers_limit = Lens.lens (\ListUsers' {limit} -> limit) (\s@ListUsers' {} a -> s {limit = a} :: ListUsers) Prelude.. Lens.mapping Prelude._Nat
 
--- | An array of strings, where each string is the name of a user attribute to be returned for each user in the search results. If the array is null, all attributes are returned.
-luAttributesToGet :: Lens' ListUsers [Text]
-luAttributesToGet = lens _luAttributesToGet (\s a -> s {_luAttributesToGet = a}) . _Default . _Coerce
+-- | An array of strings, where each string is the name of a user attribute
+-- to be returned for each user in the search results. If the array is
+-- null, all attributes are returned.
+listUsers_attributesToGet :: Lens.Lens' ListUsers (Prelude.Maybe [Prelude.Text])
+listUsers_attributesToGet = Lens.lens (\ListUsers' {attributesToGet} -> attributesToGet) (\s@ListUsers' {} a -> s {attributesToGet = a} :: ListUsers) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The user pool ID for the user pool on which the search should be performed.
-luUserPoolId :: Lens' ListUsers Text
-luUserPoolId = lens _luUserPoolId (\s a -> s {_luUserPoolId = a})
+-- | The user pool ID for the user pool on which the search should be
+-- performed.
+listUsers_userPoolId :: Lens.Lens' ListUsers Prelude.Text
+listUsers_userPoolId = Lens.lens (\ListUsers' {userPoolId} -> userPoolId) (\s@ListUsers' {} a -> s {userPoolId = a} :: ListUsers)
 
-instance AWSPager ListUsers where
+instance Pager.AWSPager ListUsers where
   page rq rs
-    | stop (rs ^. lurrsPaginationToken) = Nothing
-    | stop (rs ^. lurrsUsers) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? listUsersResponse_paginationToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listUsersResponse_users Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & luPaginationToken .~ rs ^. lurrsPaginationToken
+          Lens.& listUsers_paginationToken
+          Lens..~ rs
+          Lens.^? listUsersResponse_paginationToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListUsers where
+instance Prelude.AWSRequest ListUsers where
   type Rs ListUsers = ListUsersResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListUsersResponse'
-            <$> (x .?> "PaginationToken")
-            <*> (x .?> "Users" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PaginationToken")
+            Prelude.<*> (x Prelude..?> "Users" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListUsers
+instance Prelude.Hashable ListUsers
 
-instance NFData ListUsers
+instance Prelude.NFData ListUsers
 
-instance ToHeaders ListUsers where
+instance Prelude.ToHeaders ListUsers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.ListUsers" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.ListUsers" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListUsers where
+instance Prelude.ToJSON ListUsers where
   toJSON ListUsers' {..} =
-    object
-      ( catMaybes
-          [ ("PaginationToken" .=) <$> _luPaginationToken,
-            ("Filter" .=) <$> _luFilter,
-            ("Limit" .=) <$> _luLimit,
-            ("AttributesToGet" .=) <$> _luAttributesToGet,
-            Just ("UserPoolId" .= _luUserPoolId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PaginationToken" Prelude..=)
+              Prelude.<$> paginationToken,
+            ("Filter" Prelude..=) Prelude.<$> filter',
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            ("AttributesToGet" Prelude..=)
+              Prelude.<$> attributesToGet,
+            Prelude.Just ("UserPoolId" Prelude..= userPoolId)
           ]
       )
 
-instance ToPath ListUsers where
-  toPath = const "/"
+instance Prelude.ToPath ListUsers where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListUsers where
-  toQuery = const mempty
+instance Prelude.ToQuery ListUsers where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The response from the request to list users.
 --
---
---
--- /See:/ 'listUsersResponse' smart constructor.
+-- /See:/ 'newListUsersResponse' smart constructor.
 data ListUsersResponse = ListUsersResponse'
-  { _lurrsPaginationToken ::
-      !(Maybe Text),
-    _lurrsUsers :: !(Maybe [UserType]),
-    _lurrsResponseStatus :: !Int
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    paginationToken :: Prelude.Maybe Prelude.Text,
+    -- | The users returned in the request to list users.
+    users :: Prelude.Maybe [UserType],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUsersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUsersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lurrsPaginationToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lurrsUsers' - The users returned in the request to list users.
+-- 'paginationToken', 'listUsersResponse_paginationToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
 --
--- * 'lurrsResponseStatus' - -- | The response status code.
-listUsersResponse ::
-  -- | 'lurrsResponseStatus'
-  Int ->
+-- 'users', 'listUsersResponse_users' - The users returned in the request to list users.
+--
+-- 'httpStatus', 'listUsersResponse_httpStatus' - The response's http status code.
+newListUsersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListUsersResponse
-listUsersResponse pResponseStatus_ =
+newListUsersResponse pHttpStatus_ =
   ListUsersResponse'
-    { _lurrsPaginationToken = Nothing,
-      _lurrsUsers = Nothing,
-      _lurrsResponseStatus = pResponseStatus_
+    { paginationToken =
+        Prelude.Nothing,
+      users = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-lurrsPaginationToken :: Lens' ListUsersResponse (Maybe Text)
-lurrsPaginationToken = lens _lurrsPaginationToken (\s a -> s {_lurrsPaginationToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listUsersResponse_paginationToken :: Lens.Lens' ListUsersResponse (Prelude.Maybe Prelude.Text)
+listUsersResponse_paginationToken = Lens.lens (\ListUsersResponse' {paginationToken} -> paginationToken) (\s@ListUsersResponse' {} a -> s {paginationToken = a} :: ListUsersResponse)
 
 -- | The users returned in the request to list users.
-lurrsUsers :: Lens' ListUsersResponse [UserType]
-lurrsUsers = lens _lurrsUsers (\s a -> s {_lurrsUsers = a}) . _Default . _Coerce
+listUsersResponse_users :: Lens.Lens' ListUsersResponse (Prelude.Maybe [UserType])
+listUsersResponse_users = Lens.lens (\ListUsersResponse' {users} -> users) (\s@ListUsersResponse' {} a -> s {users = a} :: ListUsersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lurrsResponseStatus :: Lens' ListUsersResponse Int
-lurrsResponseStatus = lens _lurrsResponseStatus (\s a -> s {_lurrsResponseStatus = a})
+-- | The response's http status code.
+listUsersResponse_httpStatus :: Lens.Lens' ListUsersResponse Prelude.Int
+listUsersResponse_httpStatus = Lens.lens (\ListUsersResponse' {httpStatus} -> httpStatus) (\s@ListUsersResponse' {} a -> s {httpStatus = a} :: ListUsersResponse)
 
-instance NFData ListUsersResponse
+instance Prelude.NFData ListUsersResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.CognitoIdentityProvider.Types.UserStatusType
   ( UserStatusType
       ( ..,
-        Archived,
-        Compromised,
-        Confirmed,
-        ForceChangePassword,
-        ResetRequired,
-        Unconfirmed,
-        Unknown
+        UserStatusTypeARCHIVED,
+        UserStatusTypeCOMPROMISED,
+        UserStatusTypeCONFIRMED,
+        UserStatusTypeFORCECHANGEPASSWORD,
+        UserStatusTypeRESETREQUIRED,
+        UserStatusTypeUNCONFIRMED,
+        UserStatusTypeUNKNOWN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UserStatusType = UserStatusType' (CI Text)
+newtype UserStatusType = UserStatusType'
+  { fromUserStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Archived :: UserStatusType
-pattern Archived = UserStatusType' "ARCHIVED"
+pattern UserStatusTypeARCHIVED :: UserStatusType
+pattern UserStatusTypeARCHIVED = UserStatusType' "ARCHIVED"
 
-pattern Compromised :: UserStatusType
-pattern Compromised = UserStatusType' "COMPROMISED"
+pattern UserStatusTypeCOMPROMISED :: UserStatusType
+pattern UserStatusTypeCOMPROMISED = UserStatusType' "COMPROMISED"
 
-pattern Confirmed :: UserStatusType
-pattern Confirmed = UserStatusType' "CONFIRMED"
+pattern UserStatusTypeCONFIRMED :: UserStatusType
+pattern UserStatusTypeCONFIRMED = UserStatusType' "CONFIRMED"
 
-pattern ForceChangePassword :: UserStatusType
-pattern ForceChangePassword = UserStatusType' "FORCE_CHANGE_PASSWORD"
+pattern UserStatusTypeFORCECHANGEPASSWORD :: UserStatusType
+pattern UserStatusTypeFORCECHANGEPASSWORD = UserStatusType' "FORCE_CHANGE_PASSWORD"
 
-pattern ResetRequired :: UserStatusType
-pattern ResetRequired = UserStatusType' "RESET_REQUIRED"
+pattern UserStatusTypeRESETREQUIRED :: UserStatusType
+pattern UserStatusTypeRESETREQUIRED = UserStatusType' "RESET_REQUIRED"
 
-pattern Unconfirmed :: UserStatusType
-pattern Unconfirmed = UserStatusType' "UNCONFIRMED"
+pattern UserStatusTypeUNCONFIRMED :: UserStatusType
+pattern UserStatusTypeUNCONFIRMED = UserStatusType' "UNCONFIRMED"
 
-pattern Unknown :: UserStatusType
-pattern Unknown = UserStatusType' "UNKNOWN"
+pattern UserStatusTypeUNKNOWN :: UserStatusType
+pattern UserStatusTypeUNKNOWN = UserStatusType' "UNKNOWN"
 
 {-# COMPLETE
-  Archived,
-  Compromised,
-  Confirmed,
-  ForceChangePassword,
-  ResetRequired,
-  Unconfirmed,
-  Unknown,
+  UserStatusTypeARCHIVED,
+  UserStatusTypeCOMPROMISED,
+  UserStatusTypeCONFIRMED,
+  UserStatusTypeFORCECHANGEPASSWORD,
+  UserStatusTypeRESETREQUIRED,
+  UserStatusTypeUNCONFIRMED,
+  UserStatusTypeUNKNOWN,
   UserStatusType'
   #-}
 
-instance FromText UserStatusType where
-  parser = (UserStatusType' . mk) <$> takeText
+instance Prelude.FromText UserStatusType where
+  parser = UserStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText UserStatusType where
-  toText (UserStatusType' ci) = original ci
+instance Prelude.ToText UserStatusType where
+  toText (UserStatusType' x) = x
 
-instance Hashable UserStatusType
+instance Prelude.Hashable UserStatusType
 
-instance NFData UserStatusType
+instance Prelude.NFData UserStatusType
 
-instance ToByteString UserStatusType
+instance Prelude.ToByteString UserStatusType
 
-instance ToQuery UserStatusType
+instance Prelude.ToQuery UserStatusType
 
-instance ToHeader UserStatusType
+instance Prelude.ToHeader UserStatusType
 
-instance FromJSON UserStatusType where
-  parseJSON = parseJSONText "UserStatusType"
+instance Prelude.FromJSON UserStatusType where
+  parseJSON = Prelude.parseJSONText "UserStatusType"

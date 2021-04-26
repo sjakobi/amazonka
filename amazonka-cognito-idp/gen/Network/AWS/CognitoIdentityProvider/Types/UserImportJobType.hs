@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,160 +20,240 @@
 module Network.AWS.CognitoIdentityProvider.Types.UserImportJobType where
 
 import Network.AWS.CognitoIdentityProvider.Types.UserImportJobStatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The user import job type.
 --
---
---
--- /See:/ 'userImportJobType' smart constructor.
+-- /See:/ 'newUserImportJobType' smart constructor.
 data UserImportJobType = UserImportJobType'
-  { _uijtCompletionMessage ::
-      !(Maybe Text),
-    _uijtStatus ::
-      !(Maybe UserImportJobStatusType),
-    _uijtStartDate :: !(Maybe POSIX),
-    _uijtUserPoolId :: !(Maybe Text),
-    _uijtCreationDate :: !(Maybe POSIX),
-    _uijtSkippedUsers ::
-      !(Maybe Integer),
-    _uijtFailedUsers ::
-      !(Maybe Integer),
-    _uijtImportedUsers ::
-      !(Maybe Integer),
-    _uijtCloudWatchLogsRoleARN ::
-      !(Maybe Text),
-    _uijtPreSignedURL :: !(Maybe Text),
-    _uijtCompletionDate ::
-      !(Maybe POSIX),
-    _uijtJobName :: !(Maybe Text),
-    _uijtJobId :: !(Maybe Text)
+  { -- | The message returned when the user import job is completed.
+    completionMessage :: Prelude.Maybe Prelude.Text,
+    -- | The status of the user import job. One of the following:
+    --
+    -- -   @Created@ - The job was created but not started.
+    --
+    -- -   @Pending@ - A transition state. You have started the job, but it has
+    --     not begun importing users yet.
+    --
+    -- -   @InProgress@ - The job has started, and users are being imported.
+    --
+    -- -   @Stopping@ - You have stopped the job, but the job has not stopped
+    --     importing users yet.
+    --
+    -- -   @Stopped@ - You have stopped the job, and the job has stopped
+    --     importing users.
+    --
+    -- -   @Succeeded@ - The job has completed successfully.
+    --
+    -- -   @Failed@ - The job has stopped due to an error.
+    --
+    -- -   @Expired@ - You created a job, but did not start the job within
+    --     24-48 hours. All data associated with the job was deleted, and the
+    --     job cannot be started.
+    status :: Prelude.Maybe UserImportJobStatusType,
+    -- | The date when the user import job was started.
+    startDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The user pool ID for the user pool that the users are being imported
+    -- into.
+    userPoolId :: Prelude.Maybe Prelude.Text,
+    -- | The date the user import job was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The number of users that were skipped.
+    skippedUsers :: Prelude.Maybe Prelude.Integer,
+    -- | The number of users that could not be imported.
+    failedUsers :: Prelude.Maybe Prelude.Integer,
+    -- | The number of users that were successfully imported.
+    importedUsers :: Prelude.Maybe Prelude.Integer,
+    -- | The role ARN for the Amazon CloudWatch Logging role for the user import
+    -- job. For more information, see \"Creating the CloudWatch Logs IAM Role\"
+    -- in the Amazon Cognito Developer Guide.
+    cloudWatchLogsRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The pre-signed URL to be used to upload the @.csv@ file.
+    preSignedUrl :: Prelude.Maybe Prelude.Text,
+    -- | The date when the user import job was completed.
+    completionDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The job name for the user import job.
+    jobName :: Prelude.Maybe Prelude.Text,
+    -- | The job ID for the user import job.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserImportJobType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserImportJobType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uijtCompletionMessage' - The message returned when the user import job is completed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uijtStatus' - The status of the user import job. One of the following:     * @Created@ - The job was created but not started.     * @Pending@ - A transition state. You have started the job, but it has not begun importing users yet.     * @InProgress@ - The job has started, and users are being imported.     * @Stopping@ - You have stopped the job, but the job has not stopped importing users yet.     * @Stopped@ - You have stopped the job, and the job has stopped importing users.     * @Succeeded@ - The job has completed successfully.     * @Failed@ - The job has stopped due to an error.     * @Expired@ - You created a job, but did not start the job within 24-48 hours. All data associated with the job was deleted, and the job cannot be started.
+-- 'completionMessage', 'userImportJobType_completionMessage' - The message returned when the user import job is completed.
 --
--- * 'uijtStartDate' - The date when the user import job was started.
+-- 'status', 'userImportJobType_status' - The status of the user import job. One of the following:
 --
--- * 'uijtUserPoolId' - The user pool ID for the user pool that the users are being imported into.
+-- -   @Created@ - The job was created but not started.
 --
--- * 'uijtCreationDate' - The date the user import job was created.
+-- -   @Pending@ - A transition state. You have started the job, but it has
+--     not begun importing users yet.
 --
--- * 'uijtSkippedUsers' - The number of users that were skipped.
+-- -   @InProgress@ - The job has started, and users are being imported.
 --
--- * 'uijtFailedUsers' - The number of users that could not be imported.
+-- -   @Stopping@ - You have stopped the job, but the job has not stopped
+--     importing users yet.
 --
--- * 'uijtImportedUsers' - The number of users that were successfully imported.
+-- -   @Stopped@ - You have stopped the job, and the job has stopped
+--     importing users.
 --
--- * 'uijtCloudWatchLogsRoleARN' - The role ARN for the Amazon CloudWatch Logging role for the user import job. For more information, see "Creating the CloudWatch Logs IAM Role" in the Amazon Cognito Developer Guide.
+-- -   @Succeeded@ - The job has completed successfully.
 --
--- * 'uijtPreSignedURL' - The pre-signed URL to be used to upload the @.csv@ file.
+-- -   @Failed@ - The job has stopped due to an error.
 --
--- * 'uijtCompletionDate' - The date when the user import job was completed.
+-- -   @Expired@ - You created a job, but did not start the job within
+--     24-48 hours. All data associated with the job was deleted, and the
+--     job cannot be started.
 --
--- * 'uijtJobName' - The job name for the user import job.
+-- 'startDate', 'userImportJobType_startDate' - The date when the user import job was started.
 --
--- * 'uijtJobId' - The job ID for the user import job.
-userImportJobType ::
+-- 'userPoolId', 'userImportJobType_userPoolId' - The user pool ID for the user pool that the users are being imported
+-- into.
+--
+-- 'creationDate', 'userImportJobType_creationDate' - The date the user import job was created.
+--
+-- 'skippedUsers', 'userImportJobType_skippedUsers' - The number of users that were skipped.
+--
+-- 'failedUsers', 'userImportJobType_failedUsers' - The number of users that could not be imported.
+--
+-- 'importedUsers', 'userImportJobType_importedUsers' - The number of users that were successfully imported.
+--
+-- 'cloudWatchLogsRoleArn', 'userImportJobType_cloudWatchLogsRoleArn' - The role ARN for the Amazon CloudWatch Logging role for the user import
+-- job. For more information, see \"Creating the CloudWatch Logs IAM Role\"
+-- in the Amazon Cognito Developer Guide.
+--
+-- 'preSignedUrl', 'userImportJobType_preSignedUrl' - The pre-signed URL to be used to upload the @.csv@ file.
+--
+-- 'completionDate', 'userImportJobType_completionDate' - The date when the user import job was completed.
+--
+-- 'jobName', 'userImportJobType_jobName' - The job name for the user import job.
+--
+-- 'jobId', 'userImportJobType_jobId' - The job ID for the user import job.
+newUserImportJobType ::
   UserImportJobType
-userImportJobType =
+newUserImportJobType =
   UserImportJobType'
-    { _uijtCompletionMessage =
-        Nothing,
-      _uijtStatus = Nothing,
-      _uijtStartDate = Nothing,
-      _uijtUserPoolId = Nothing,
-      _uijtCreationDate = Nothing,
-      _uijtSkippedUsers = Nothing,
-      _uijtFailedUsers = Nothing,
-      _uijtImportedUsers = Nothing,
-      _uijtCloudWatchLogsRoleARN = Nothing,
-      _uijtPreSignedURL = Nothing,
-      _uijtCompletionDate = Nothing,
-      _uijtJobName = Nothing,
-      _uijtJobId = Nothing
+    { completionMessage =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      startDate = Prelude.Nothing,
+      userPoolId = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      skippedUsers = Prelude.Nothing,
+      failedUsers = Prelude.Nothing,
+      importedUsers = Prelude.Nothing,
+      cloudWatchLogsRoleArn = Prelude.Nothing,
+      preSignedUrl = Prelude.Nothing,
+      completionDate = Prelude.Nothing,
+      jobName = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
 -- | The message returned when the user import job is completed.
-uijtCompletionMessage :: Lens' UserImportJobType (Maybe Text)
-uijtCompletionMessage = lens _uijtCompletionMessage (\s a -> s {_uijtCompletionMessage = a})
+userImportJobType_completionMessage :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.Text)
+userImportJobType_completionMessage = Lens.lens (\UserImportJobType' {completionMessage} -> completionMessage) (\s@UserImportJobType' {} a -> s {completionMessage = a} :: UserImportJobType)
 
--- | The status of the user import job. One of the following:     * @Created@ - The job was created but not started.     * @Pending@ - A transition state. You have started the job, but it has not begun importing users yet.     * @InProgress@ - The job has started, and users are being imported.     * @Stopping@ - You have stopped the job, but the job has not stopped importing users yet.     * @Stopped@ - You have stopped the job, and the job has stopped importing users.     * @Succeeded@ - The job has completed successfully.     * @Failed@ - The job has stopped due to an error.     * @Expired@ - You created a job, but did not start the job within 24-48 hours. All data associated with the job was deleted, and the job cannot be started.
-uijtStatus :: Lens' UserImportJobType (Maybe UserImportJobStatusType)
-uijtStatus = lens _uijtStatus (\s a -> s {_uijtStatus = a})
+-- | The status of the user import job. One of the following:
+--
+-- -   @Created@ - The job was created but not started.
+--
+-- -   @Pending@ - A transition state. You have started the job, but it has
+--     not begun importing users yet.
+--
+-- -   @InProgress@ - The job has started, and users are being imported.
+--
+-- -   @Stopping@ - You have stopped the job, but the job has not stopped
+--     importing users yet.
+--
+-- -   @Stopped@ - You have stopped the job, and the job has stopped
+--     importing users.
+--
+-- -   @Succeeded@ - The job has completed successfully.
+--
+-- -   @Failed@ - The job has stopped due to an error.
+--
+-- -   @Expired@ - You created a job, but did not start the job within
+--     24-48 hours. All data associated with the job was deleted, and the
+--     job cannot be started.
+userImportJobType_status :: Lens.Lens' UserImportJobType (Prelude.Maybe UserImportJobStatusType)
+userImportJobType_status = Lens.lens (\UserImportJobType' {status} -> status) (\s@UserImportJobType' {} a -> s {status = a} :: UserImportJobType)
 
 -- | The date when the user import job was started.
-uijtStartDate :: Lens' UserImportJobType (Maybe UTCTime)
-uijtStartDate = lens _uijtStartDate (\s a -> s {_uijtStartDate = a}) . mapping _Time
+userImportJobType_startDate :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.UTCTime)
+userImportJobType_startDate = Lens.lens (\UserImportJobType' {startDate} -> startDate) (\s@UserImportJobType' {} a -> s {startDate = a} :: UserImportJobType) Prelude.. Lens.mapping Prelude._Time
 
--- | The user pool ID for the user pool that the users are being imported into.
-uijtUserPoolId :: Lens' UserImportJobType (Maybe Text)
-uijtUserPoolId = lens _uijtUserPoolId (\s a -> s {_uijtUserPoolId = a})
+-- | The user pool ID for the user pool that the users are being imported
+-- into.
+userImportJobType_userPoolId :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.Text)
+userImportJobType_userPoolId = Lens.lens (\UserImportJobType' {userPoolId} -> userPoolId) (\s@UserImportJobType' {} a -> s {userPoolId = a} :: UserImportJobType)
 
 -- | The date the user import job was created.
-uijtCreationDate :: Lens' UserImportJobType (Maybe UTCTime)
-uijtCreationDate = lens _uijtCreationDate (\s a -> s {_uijtCreationDate = a}) . mapping _Time
+userImportJobType_creationDate :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.UTCTime)
+userImportJobType_creationDate = Lens.lens (\UserImportJobType' {creationDate} -> creationDate) (\s@UserImportJobType' {} a -> s {creationDate = a} :: UserImportJobType) Prelude.. Lens.mapping Prelude._Time
 
 -- | The number of users that were skipped.
-uijtSkippedUsers :: Lens' UserImportJobType (Maybe Integer)
-uijtSkippedUsers = lens _uijtSkippedUsers (\s a -> s {_uijtSkippedUsers = a})
+userImportJobType_skippedUsers :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.Integer)
+userImportJobType_skippedUsers = Lens.lens (\UserImportJobType' {skippedUsers} -> skippedUsers) (\s@UserImportJobType' {} a -> s {skippedUsers = a} :: UserImportJobType)
 
 -- | The number of users that could not be imported.
-uijtFailedUsers :: Lens' UserImportJobType (Maybe Integer)
-uijtFailedUsers = lens _uijtFailedUsers (\s a -> s {_uijtFailedUsers = a})
+userImportJobType_failedUsers :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.Integer)
+userImportJobType_failedUsers = Lens.lens (\UserImportJobType' {failedUsers} -> failedUsers) (\s@UserImportJobType' {} a -> s {failedUsers = a} :: UserImportJobType)
 
 -- | The number of users that were successfully imported.
-uijtImportedUsers :: Lens' UserImportJobType (Maybe Integer)
-uijtImportedUsers = lens _uijtImportedUsers (\s a -> s {_uijtImportedUsers = a})
+userImportJobType_importedUsers :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.Integer)
+userImportJobType_importedUsers = Lens.lens (\UserImportJobType' {importedUsers} -> importedUsers) (\s@UserImportJobType' {} a -> s {importedUsers = a} :: UserImportJobType)
 
--- | The role ARN for the Amazon CloudWatch Logging role for the user import job. For more information, see "Creating the CloudWatch Logs IAM Role" in the Amazon Cognito Developer Guide.
-uijtCloudWatchLogsRoleARN :: Lens' UserImportJobType (Maybe Text)
-uijtCloudWatchLogsRoleARN = lens _uijtCloudWatchLogsRoleARN (\s a -> s {_uijtCloudWatchLogsRoleARN = a})
+-- | The role ARN for the Amazon CloudWatch Logging role for the user import
+-- job. For more information, see \"Creating the CloudWatch Logs IAM Role\"
+-- in the Amazon Cognito Developer Guide.
+userImportJobType_cloudWatchLogsRoleArn :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.Text)
+userImportJobType_cloudWatchLogsRoleArn = Lens.lens (\UserImportJobType' {cloudWatchLogsRoleArn} -> cloudWatchLogsRoleArn) (\s@UserImportJobType' {} a -> s {cloudWatchLogsRoleArn = a} :: UserImportJobType)
 
 -- | The pre-signed URL to be used to upload the @.csv@ file.
-uijtPreSignedURL :: Lens' UserImportJobType (Maybe Text)
-uijtPreSignedURL = lens _uijtPreSignedURL (\s a -> s {_uijtPreSignedURL = a})
+userImportJobType_preSignedUrl :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.Text)
+userImportJobType_preSignedUrl = Lens.lens (\UserImportJobType' {preSignedUrl} -> preSignedUrl) (\s@UserImportJobType' {} a -> s {preSignedUrl = a} :: UserImportJobType)
 
 -- | The date when the user import job was completed.
-uijtCompletionDate :: Lens' UserImportJobType (Maybe UTCTime)
-uijtCompletionDate = lens _uijtCompletionDate (\s a -> s {_uijtCompletionDate = a}) . mapping _Time
+userImportJobType_completionDate :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.UTCTime)
+userImportJobType_completionDate = Lens.lens (\UserImportJobType' {completionDate} -> completionDate) (\s@UserImportJobType' {} a -> s {completionDate = a} :: UserImportJobType) Prelude.. Lens.mapping Prelude._Time
 
 -- | The job name for the user import job.
-uijtJobName :: Lens' UserImportJobType (Maybe Text)
-uijtJobName = lens _uijtJobName (\s a -> s {_uijtJobName = a})
+userImportJobType_jobName :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.Text)
+userImportJobType_jobName = Lens.lens (\UserImportJobType' {jobName} -> jobName) (\s@UserImportJobType' {} a -> s {jobName = a} :: UserImportJobType)
 
 -- | The job ID for the user import job.
-uijtJobId :: Lens' UserImportJobType (Maybe Text)
-uijtJobId = lens _uijtJobId (\s a -> s {_uijtJobId = a})
+userImportJobType_jobId :: Lens.Lens' UserImportJobType (Prelude.Maybe Prelude.Text)
+userImportJobType_jobId = Lens.lens (\UserImportJobType' {jobId} -> jobId) (\s@UserImportJobType' {} a -> s {jobId = a} :: UserImportJobType)
 
-instance FromJSON UserImportJobType where
+instance Prelude.FromJSON UserImportJobType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserImportJobType"
       ( \x ->
           UserImportJobType'
-            <$> (x .:? "CompletionMessage")
-            <*> (x .:? "Status")
-            <*> (x .:? "StartDate")
-            <*> (x .:? "UserPoolId")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "SkippedUsers")
-            <*> (x .:? "FailedUsers")
-            <*> (x .:? "ImportedUsers")
-            <*> (x .:? "CloudWatchLogsRoleArn")
-            <*> (x .:? "PreSignedUrl")
-            <*> (x .:? "CompletionDate")
-            <*> (x .:? "JobName")
-            <*> (x .:? "JobId")
+            Prelude.<$> (x Prelude..:? "CompletionMessage")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "StartDate")
+            Prelude.<*> (x Prelude..:? "UserPoolId")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "SkippedUsers")
+            Prelude.<*> (x Prelude..:? "FailedUsers")
+            Prelude.<*> (x Prelude..:? "ImportedUsers")
+            Prelude.<*> (x Prelude..:? "CloudWatchLogsRoleArn")
+            Prelude.<*> (x Prelude..:? "PreSignedUrl")
+            Prelude.<*> (x Prelude..:? "CompletionDate")
+            Prelude.<*> (x Prelude..:? "JobName")
+            Prelude.<*> (x Prelude..:? "JobId")
       )
 
-instance Hashable UserImportJobType
+instance Prelude.Hashable UserImportJobType
 
-instance NFData UserImportJobType
+instance Prelude.NFData UserImportJobType

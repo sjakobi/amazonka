@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,100 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.ContextDataType where
 
-import Network.AWS.CognitoIdentityProvider.Types.HTTPHeader
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.CognitoIdentityProvider.Types.HttpHeader
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contextual user data type used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+-- | Contextual user data type used for evaluating the risk of an unexpected
+-- event by Amazon Cognito advanced security.
 --
---
---
--- /See:/ 'contextDataType' smart constructor.
+-- /See:/ 'newContextDataType' smart constructor.
 data ContextDataType = ContextDataType'
-  { _cdtEncodedData ::
-      !(Maybe Text),
-    _cdtIPAddress :: !Text,
-    _cdtServerName :: !Text,
-    _cdtServerPath :: !Text,
-    _cdtHTTPHeaders :: ![HTTPHeader]
+  { -- | Encoded data containing device fingerprinting details, collected using
+    -- the Amazon Cognito context data collection library.
+    encodedData :: Prelude.Maybe Prelude.Text,
+    -- | Source IP address of your user.
+    ipAddress :: Prelude.Text,
+    -- | Your server endpoint where this API is invoked.
+    serverName :: Prelude.Text,
+    -- | Your server path where this API is invoked.
+    serverPath :: Prelude.Text,
+    -- | HttpHeaders received on your server in same order.
+    httpHeaders :: [HttpHeader]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContextDataType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContextDataType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdtEncodedData' - Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data collection library.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdtIPAddress' - Source IP address of your user.
+-- 'encodedData', 'contextDataType_encodedData' - Encoded data containing device fingerprinting details, collected using
+-- the Amazon Cognito context data collection library.
 --
--- * 'cdtServerName' - Your server endpoint where this API is invoked.
+-- 'ipAddress', 'contextDataType_ipAddress' - Source IP address of your user.
 --
--- * 'cdtServerPath' - Your server path where this API is invoked.
+-- 'serverName', 'contextDataType_serverName' - Your server endpoint where this API is invoked.
 --
--- * 'cdtHTTPHeaders' - HttpHeaders received on your server in same order.
-contextDataType ::
-  -- | 'cdtIPAddress'
-  Text ->
-  -- | 'cdtServerName'
-  Text ->
-  -- | 'cdtServerPath'
-  Text ->
+-- 'serverPath', 'contextDataType_serverPath' - Your server path where this API is invoked.
+--
+-- 'httpHeaders', 'contextDataType_httpHeaders' - HttpHeaders received on your server in same order.
+newContextDataType ::
+  -- | 'ipAddress'
+  Prelude.Text ->
+  -- | 'serverName'
+  Prelude.Text ->
+  -- | 'serverPath'
+  Prelude.Text ->
   ContextDataType
-contextDataType pIPAddress_ pServerName_ pServerPath_ =
-  ContextDataType'
-    { _cdtEncodedData = Nothing,
-      _cdtIPAddress = pIPAddress_,
-      _cdtServerName = pServerName_,
-      _cdtServerPath = pServerPath_,
-      _cdtHTTPHeaders = mempty
-    }
+newContextDataType
+  pIpAddress_
+  pServerName_
+  pServerPath_ =
+    ContextDataType'
+      { encodedData = Prelude.Nothing,
+        ipAddress = pIpAddress_,
+        serverName = pServerName_,
+        serverPath = pServerPath_,
+        httpHeaders = Prelude.mempty
+      }
 
--- | Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data collection library.
-cdtEncodedData :: Lens' ContextDataType (Maybe Text)
-cdtEncodedData = lens _cdtEncodedData (\s a -> s {_cdtEncodedData = a})
+-- | Encoded data containing device fingerprinting details, collected using
+-- the Amazon Cognito context data collection library.
+contextDataType_encodedData :: Lens.Lens' ContextDataType (Prelude.Maybe Prelude.Text)
+contextDataType_encodedData = Lens.lens (\ContextDataType' {encodedData} -> encodedData) (\s@ContextDataType' {} a -> s {encodedData = a} :: ContextDataType)
 
 -- | Source IP address of your user.
-cdtIPAddress :: Lens' ContextDataType Text
-cdtIPAddress = lens _cdtIPAddress (\s a -> s {_cdtIPAddress = a})
+contextDataType_ipAddress :: Lens.Lens' ContextDataType Prelude.Text
+contextDataType_ipAddress = Lens.lens (\ContextDataType' {ipAddress} -> ipAddress) (\s@ContextDataType' {} a -> s {ipAddress = a} :: ContextDataType)
 
 -- | Your server endpoint where this API is invoked.
-cdtServerName :: Lens' ContextDataType Text
-cdtServerName = lens _cdtServerName (\s a -> s {_cdtServerName = a})
+contextDataType_serverName :: Lens.Lens' ContextDataType Prelude.Text
+contextDataType_serverName = Lens.lens (\ContextDataType' {serverName} -> serverName) (\s@ContextDataType' {} a -> s {serverName = a} :: ContextDataType)
 
 -- | Your server path where this API is invoked.
-cdtServerPath :: Lens' ContextDataType Text
-cdtServerPath = lens _cdtServerPath (\s a -> s {_cdtServerPath = a})
+contextDataType_serverPath :: Lens.Lens' ContextDataType Prelude.Text
+contextDataType_serverPath = Lens.lens (\ContextDataType' {serverPath} -> serverPath) (\s@ContextDataType' {} a -> s {serverPath = a} :: ContextDataType)
 
 -- | HttpHeaders received on your server in same order.
-cdtHTTPHeaders :: Lens' ContextDataType [HTTPHeader]
-cdtHTTPHeaders = lens _cdtHTTPHeaders (\s a -> s {_cdtHTTPHeaders = a}) . _Coerce
+contextDataType_httpHeaders :: Lens.Lens' ContextDataType [HttpHeader]
+contextDataType_httpHeaders = Lens.lens (\ContextDataType' {httpHeaders} -> httpHeaders) (\s@ContextDataType' {} a -> s {httpHeaders = a} :: ContextDataType) Prelude.. Prelude._Coerce
 
-instance Hashable ContextDataType
+instance Prelude.Hashable ContextDataType
 
-instance NFData ContextDataType
+instance Prelude.NFData ContextDataType
 
-instance ToJSON ContextDataType where
+instance Prelude.ToJSON ContextDataType where
   toJSON ContextDataType' {..} =
-    object
-      ( catMaybes
-          [ ("EncodedData" .=) <$> _cdtEncodedData,
-            Just ("IpAddress" .= _cdtIPAddress),
-            Just ("ServerName" .= _cdtServerName),
-            Just ("ServerPath" .= _cdtServerPath),
-            Just ("HttpHeaders" .= _cdtHTTPHeaders)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EncodedData" Prelude..=) Prelude.<$> encodedData,
+            Prelude.Just ("IpAddress" Prelude..= ipAddress),
+            Prelude.Just ("ServerName" Prelude..= serverName),
+            Prelude.Just ("ServerPath" Prelude..= serverPath),
+            Prelude.Just ("HttpHeaders" Prelude..= httpHeaders)
           ]
       )

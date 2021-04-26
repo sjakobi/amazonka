@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,166 +24,162 @@
 -- Describes the user import job.
 module Network.AWS.CognitoIdentityProvider.DescribeUserImportJob
   ( -- * Creating a Request
-    describeUserImportJob,
-    DescribeUserImportJob,
+    DescribeUserImportJob (..),
+    newDescribeUserImportJob,
 
     -- * Request Lenses
-    duijUserPoolId,
-    duijJobId,
+    describeUserImportJob_userPoolId,
+    describeUserImportJob_jobId,
 
     -- * Destructuring the Response
-    describeUserImportJobResponse,
-    DescribeUserImportJobResponse,
+    DescribeUserImportJobResponse (..),
+    newDescribeUserImportJobResponse,
 
     -- * Response Lenses
-    duijrrsUserImportJob,
-    duijrrsResponseStatus,
+    describeUserImportJobResponse_userImportJob,
+    describeUserImportJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.UserImportJobType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to describe the user import job.
 --
---
---
--- /See:/ 'describeUserImportJob' smart constructor.
+-- /See:/ 'newDescribeUserImportJob' smart constructor.
 data DescribeUserImportJob = DescribeUserImportJob'
-  { _duijUserPoolId ::
-      !Text,
-    _duijJobId :: !Text
+  { -- | The user pool ID for the user pool that the users are being imported
+    -- into.
+    userPoolId :: Prelude.Text,
+    -- | The job ID for the user import job.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserImportJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserImportJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duijUserPoolId' - The user pool ID for the user pool that the users are being imported into.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duijJobId' - The job ID for the user import job.
-describeUserImportJob ::
-  -- | 'duijUserPoolId'
-  Text ->
-  -- | 'duijJobId'
-  Text ->
+-- 'userPoolId', 'describeUserImportJob_userPoolId' - The user pool ID for the user pool that the users are being imported
+-- into.
+--
+-- 'jobId', 'describeUserImportJob_jobId' - The job ID for the user import job.
+newDescribeUserImportJob ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'jobId'
+  Prelude.Text ->
   DescribeUserImportJob
-describeUserImportJob pUserPoolId_ pJobId_ =
+newDescribeUserImportJob pUserPoolId_ pJobId_ =
   DescribeUserImportJob'
-    { _duijUserPoolId =
-        pUserPoolId_,
-      _duijJobId = pJobId_
+    { userPoolId = pUserPoolId_,
+      jobId = pJobId_
     }
 
--- | The user pool ID for the user pool that the users are being imported into.
-duijUserPoolId :: Lens' DescribeUserImportJob Text
-duijUserPoolId = lens _duijUserPoolId (\s a -> s {_duijUserPoolId = a})
+-- | The user pool ID for the user pool that the users are being imported
+-- into.
+describeUserImportJob_userPoolId :: Lens.Lens' DescribeUserImportJob Prelude.Text
+describeUserImportJob_userPoolId = Lens.lens (\DescribeUserImportJob' {userPoolId} -> userPoolId) (\s@DescribeUserImportJob' {} a -> s {userPoolId = a} :: DescribeUserImportJob)
 
 -- | The job ID for the user import job.
-duijJobId :: Lens' DescribeUserImportJob Text
-duijJobId = lens _duijJobId (\s a -> s {_duijJobId = a})
+describeUserImportJob_jobId :: Lens.Lens' DescribeUserImportJob Prelude.Text
+describeUserImportJob_jobId = Lens.lens (\DescribeUserImportJob' {jobId} -> jobId) (\s@DescribeUserImportJob' {} a -> s {jobId = a} :: DescribeUserImportJob)
 
-instance AWSRequest DescribeUserImportJob where
+instance Prelude.AWSRequest DescribeUserImportJob where
   type
     Rs DescribeUserImportJob =
       DescribeUserImportJobResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeUserImportJobResponse'
-            <$> (x .?> "UserImportJob") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "UserImportJob")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeUserImportJob
+instance Prelude.Hashable DescribeUserImportJob
 
-instance NFData DescribeUserImportJob
+instance Prelude.NFData DescribeUserImportJob
 
-instance ToHeaders DescribeUserImportJob where
+instance Prelude.ToHeaders DescribeUserImportJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.DescribeUserImportJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.DescribeUserImportJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeUserImportJob where
+instance Prelude.ToJSON DescribeUserImportJob where
   toJSON DescribeUserImportJob' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserPoolId" .= _duijUserPoolId),
-            Just ("JobId" .= _duijJobId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserPoolId" Prelude..= userPoolId),
+            Prelude.Just ("JobId" Prelude..= jobId)
           ]
       )
 
-instance ToPath DescribeUserImportJob where
-  toPath = const "/"
+instance Prelude.ToPath DescribeUserImportJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeUserImportJob where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeUserImportJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the response from the server to the request to describe the user import job.
+-- | Represents the response from the server to the request to describe the
+-- user import job.
 --
---
---
--- /See:/ 'describeUserImportJobResponse' smart constructor.
+-- /See:/ 'newDescribeUserImportJobResponse' smart constructor.
 data DescribeUserImportJobResponse = DescribeUserImportJobResponse'
-  { _duijrrsUserImportJob ::
-      !( Maybe
-           UserImportJobType
-       ),
-    _duijrrsResponseStatus ::
-      !Int
+  { -- | The job object that represents the user import job.
+    userImportJob :: Prelude.Maybe UserImportJobType,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserImportJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserImportJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duijrrsUserImportJob' - The job object that represents the user import job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duijrrsResponseStatus' - -- | The response status code.
-describeUserImportJobResponse ::
-  -- | 'duijrrsResponseStatus'
-  Int ->
+-- 'userImportJob', 'describeUserImportJobResponse_userImportJob' - The job object that represents the user import job.
+--
+-- 'httpStatus', 'describeUserImportJobResponse_httpStatus' - The response's http status code.
+newDescribeUserImportJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeUserImportJobResponse
-describeUserImportJobResponse pResponseStatus_ =
+newDescribeUserImportJobResponse pHttpStatus_ =
   DescribeUserImportJobResponse'
-    { _duijrrsUserImportJob =
-        Nothing,
-      _duijrrsResponseStatus = pResponseStatus_
+    { userImportJob =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The job object that represents the user import job.
-duijrrsUserImportJob :: Lens' DescribeUserImportJobResponse (Maybe UserImportJobType)
-duijrrsUserImportJob = lens _duijrrsUserImportJob (\s a -> s {_duijrrsUserImportJob = a})
+describeUserImportJobResponse_userImportJob :: Lens.Lens' DescribeUserImportJobResponse (Prelude.Maybe UserImportJobType)
+describeUserImportJobResponse_userImportJob = Lens.lens (\DescribeUserImportJobResponse' {userImportJob} -> userImportJob) (\s@DescribeUserImportJobResponse' {} a -> s {userImportJob = a} :: DescribeUserImportJobResponse)
 
--- | -- | The response status code.
-duijrrsResponseStatus :: Lens' DescribeUserImportJobResponse Int
-duijrrsResponseStatus = lens _duijrrsResponseStatus (\s a -> s {_duijrrsResponseStatus = a})
+-- | The response's http status code.
+describeUserImportJobResponse_httpStatus :: Lens.Lens' DescribeUserImportJobResponse Prelude.Int
+describeUserImportJobResponse_httpStatus = Lens.lens (\DescribeUserImportJobResponse' {httpStatus} -> httpStatus) (\s@DescribeUserImportJobResponse' {} a -> s {httpStatus = a} :: DescribeUserImportJobResponse)
 
-instance NFData DescribeUserImportJobResponse
+instance Prelude.NFData DescribeUserImportJobResponse

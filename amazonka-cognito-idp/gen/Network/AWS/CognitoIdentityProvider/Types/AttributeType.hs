@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.AttributeType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies whether the attribute is standard or custom.
 --
---
---
--- /See:/ 'attributeType' smart constructor.
+-- /See:/ 'newAttributeType' smart constructor.
 data AttributeType = AttributeType'
-  { _atValue ::
-      !(Maybe (Sensitive Text)),
-    _atName :: !Text
+  { -- | The value of the attribute.
+    value :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The name of the attribute.
+    name :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttributeType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttributeType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atValue' - The value of the attribute.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atName' - The name of the attribute.
-attributeType ::
-  -- | 'atName'
-  Text ->
+-- 'value', 'attributeType_value' - The value of the attribute.
+--
+-- 'name', 'attributeType_name' - The name of the attribute.
+newAttributeType ::
+  -- | 'name'
+  Prelude.Text ->
   AttributeType
-attributeType pName_ =
+newAttributeType pName_ =
   AttributeType'
-    { _atValue = Nothing,
-      _atName = pName_
+    { value = Prelude.Nothing,
+      name = pName_
     }
 
 -- | The value of the attribute.
-atValue :: Lens' AttributeType (Maybe Text)
-atValue = lens _atValue (\s a -> s {_atValue = a}) . mapping _Sensitive
+attributeType_value :: Lens.Lens' AttributeType (Prelude.Maybe Prelude.Text)
+attributeType_value = Lens.lens (\AttributeType' {value} -> value) (\s@AttributeType' {} a -> s {value = a} :: AttributeType) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The name of the attribute.
-atName :: Lens' AttributeType Text
-atName = lens _atName (\s a -> s {_atName = a})
+attributeType_name :: Lens.Lens' AttributeType Prelude.Text
+attributeType_name = Lens.lens (\AttributeType' {name} -> name) (\s@AttributeType' {} a -> s {name = a} :: AttributeType)
 
-instance FromJSON AttributeType where
+instance Prelude.FromJSON AttributeType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttributeType"
       ( \x ->
-          AttributeType' <$> (x .:? "Value") <*> (x .: "Name")
+          AttributeType'
+            Prelude.<$> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable AttributeType
+instance Prelude.Hashable AttributeType
 
-instance NFData AttributeType
+instance Prelude.NFData AttributeType
 
-instance ToJSON AttributeType where
+instance Prelude.ToJSON AttributeType where
   toJSON AttributeType' {..} =
-    object
-      ( catMaybes
-          [ ("Value" .=) <$> _atValue,
-            Just ("Name" .= _atName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Value" Prelude..=) Prelude.<$> value,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

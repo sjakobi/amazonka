@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.CognitoIdentityProvider.Types.AccountTakeoverEventActionType
   ( AccountTakeoverEventActionType
       ( ..,
-        ATEATBlock,
-        ATEATMFAIfConfigured,
-        ATEATMFARequired,
-        ATEATNoAction
+        AccountTakeoverEventActionTypeBLOCK,
+        AccountTakeoverEventActionTypeMFAIFCONFIGURED,
+        AccountTakeoverEventActionTypeMFAREQUIRED,
+        AccountTakeoverEventActionTypeNOACTION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccountTakeoverEventActionType
-  = AccountTakeoverEventActionType'
-      ( CI
-          Text
-      )
+newtype AccountTakeoverEventActionType = AccountTakeoverEventActionType'
+  { fromAccountTakeoverEventActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ATEATBlock :: AccountTakeoverEventActionType
-pattern ATEATBlock = AccountTakeoverEventActionType' "BLOCK"
+pattern AccountTakeoverEventActionTypeBLOCK :: AccountTakeoverEventActionType
+pattern AccountTakeoverEventActionTypeBLOCK = AccountTakeoverEventActionType' "BLOCK"
 
-pattern ATEATMFAIfConfigured :: AccountTakeoverEventActionType
-pattern ATEATMFAIfConfigured = AccountTakeoverEventActionType' "MFA_IF_CONFIGURED"
+pattern AccountTakeoverEventActionTypeMFAIFCONFIGURED :: AccountTakeoverEventActionType
+pattern AccountTakeoverEventActionTypeMFAIFCONFIGURED = AccountTakeoverEventActionType' "MFA_IF_CONFIGURED"
 
-pattern ATEATMFARequired :: AccountTakeoverEventActionType
-pattern ATEATMFARequired = AccountTakeoverEventActionType' "MFA_REQUIRED"
+pattern AccountTakeoverEventActionTypeMFAREQUIRED :: AccountTakeoverEventActionType
+pattern AccountTakeoverEventActionTypeMFAREQUIRED = AccountTakeoverEventActionType' "MFA_REQUIRED"
 
-pattern ATEATNoAction :: AccountTakeoverEventActionType
-pattern ATEATNoAction = AccountTakeoverEventActionType' "NO_ACTION"
+pattern AccountTakeoverEventActionTypeNOACTION :: AccountTakeoverEventActionType
+pattern AccountTakeoverEventActionTypeNOACTION = AccountTakeoverEventActionType' "NO_ACTION"
 
 {-# COMPLETE
-  ATEATBlock,
-  ATEATMFAIfConfigured,
-  ATEATMFARequired,
-  ATEATNoAction,
+  AccountTakeoverEventActionTypeBLOCK,
+  AccountTakeoverEventActionTypeMFAIFCONFIGURED,
+  AccountTakeoverEventActionTypeMFAREQUIRED,
+  AccountTakeoverEventActionTypeNOACTION,
   AccountTakeoverEventActionType'
   #-}
 
-instance FromText AccountTakeoverEventActionType where
-  parser = (AccountTakeoverEventActionType' . mk) <$> takeText
+instance Prelude.FromText AccountTakeoverEventActionType where
+  parser = AccountTakeoverEventActionType' Prelude.<$> Prelude.takeText
 
-instance ToText AccountTakeoverEventActionType where
-  toText (AccountTakeoverEventActionType' ci) = original ci
+instance Prelude.ToText AccountTakeoverEventActionType where
+  toText (AccountTakeoverEventActionType' x) = x
 
-instance Hashable AccountTakeoverEventActionType
+instance Prelude.Hashable AccountTakeoverEventActionType
 
-instance NFData AccountTakeoverEventActionType
+instance Prelude.NFData AccountTakeoverEventActionType
 
-instance ToByteString AccountTakeoverEventActionType
+instance Prelude.ToByteString AccountTakeoverEventActionType
 
-instance ToQuery AccountTakeoverEventActionType
+instance Prelude.ToQuery AccountTakeoverEventActionType
 
-instance ToHeader AccountTakeoverEventActionType
+instance Prelude.ToHeader AccountTakeoverEventActionType
 
-instance ToJSON AccountTakeoverEventActionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AccountTakeoverEventActionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AccountTakeoverEventActionType where
-  parseJSON = parseJSONText "AccountTakeoverEventActionType"
+instance Prelude.FromJSON AccountTakeoverEventActionType where
+  parseJSON = Prelude.parseJSONText "AccountTakeoverEventActionType"

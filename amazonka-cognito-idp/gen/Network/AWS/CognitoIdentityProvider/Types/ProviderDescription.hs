@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,77 +20,78 @@
 module Network.AWS.CognitoIdentityProvider.Types.ProviderDescription where
 
 import Network.AWS.CognitoIdentityProvider.Types.IdentityProviderTypeType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A container for identity provider details.
 --
---
---
--- /See:/ 'providerDescription' smart constructor.
+-- /See:/ 'newProviderDescription' smart constructor.
 data ProviderDescription = ProviderDescription'
-  { _pdLastModifiedDate ::
-      !(Maybe POSIX),
-    _pdProviderType ::
-      !( Maybe
-           IdentityProviderTypeType
-       ),
-    _pdProviderName ::
-      !(Maybe Text),
-    _pdCreationDate ::
-      !(Maybe POSIX)
+  { -- | The date the provider was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The identity provider type.
+    providerType :: Prelude.Maybe IdentityProviderTypeType,
+    -- | The identity provider name.
+    providerName :: Prelude.Maybe Prelude.Text,
+    -- | The date the provider was added to the user pool.
+    creationDate :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProviderDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProviderDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdLastModifiedDate' - The date the provider was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdProviderType' - The identity provider type.
+-- 'lastModifiedDate', 'providerDescription_lastModifiedDate' - The date the provider was last modified.
 --
--- * 'pdProviderName' - The identity provider name.
+-- 'providerType', 'providerDescription_providerType' - The identity provider type.
 --
--- * 'pdCreationDate' - The date the provider was added to the user pool.
-providerDescription ::
+-- 'providerName', 'providerDescription_providerName' - The identity provider name.
+--
+-- 'creationDate', 'providerDescription_creationDate' - The date the provider was added to the user pool.
+newProviderDescription ::
   ProviderDescription
-providerDescription =
+newProviderDescription =
   ProviderDescription'
-    { _pdLastModifiedDate = Nothing,
-      _pdProviderType = Nothing,
-      _pdProviderName = Nothing,
-      _pdCreationDate = Nothing
+    { lastModifiedDate =
+        Prelude.Nothing,
+      providerType = Prelude.Nothing,
+      providerName = Prelude.Nothing,
+      creationDate = Prelude.Nothing
     }
 
 -- | The date the provider was last modified.
-pdLastModifiedDate :: Lens' ProviderDescription (Maybe UTCTime)
-pdLastModifiedDate = lens _pdLastModifiedDate (\s a -> s {_pdLastModifiedDate = a}) . mapping _Time
+providerDescription_lastModifiedDate :: Lens.Lens' ProviderDescription (Prelude.Maybe Prelude.UTCTime)
+providerDescription_lastModifiedDate = Lens.lens (\ProviderDescription' {lastModifiedDate} -> lastModifiedDate) (\s@ProviderDescription' {} a -> s {lastModifiedDate = a} :: ProviderDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The identity provider type.
-pdProviderType :: Lens' ProviderDescription (Maybe IdentityProviderTypeType)
-pdProviderType = lens _pdProviderType (\s a -> s {_pdProviderType = a})
+providerDescription_providerType :: Lens.Lens' ProviderDescription (Prelude.Maybe IdentityProviderTypeType)
+providerDescription_providerType = Lens.lens (\ProviderDescription' {providerType} -> providerType) (\s@ProviderDescription' {} a -> s {providerType = a} :: ProviderDescription)
 
 -- | The identity provider name.
-pdProviderName :: Lens' ProviderDescription (Maybe Text)
-pdProviderName = lens _pdProviderName (\s a -> s {_pdProviderName = a})
+providerDescription_providerName :: Lens.Lens' ProviderDescription (Prelude.Maybe Prelude.Text)
+providerDescription_providerName = Lens.lens (\ProviderDescription' {providerName} -> providerName) (\s@ProviderDescription' {} a -> s {providerName = a} :: ProviderDescription)
 
 -- | The date the provider was added to the user pool.
-pdCreationDate :: Lens' ProviderDescription (Maybe UTCTime)
-pdCreationDate = lens _pdCreationDate (\s a -> s {_pdCreationDate = a}) . mapping _Time
+providerDescription_creationDate :: Lens.Lens' ProviderDescription (Prelude.Maybe Prelude.UTCTime)
+providerDescription_creationDate = Lens.lens (\ProviderDescription' {creationDate} -> creationDate) (\s@ProviderDescription' {} a -> s {creationDate = a} :: ProviderDescription) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON ProviderDescription where
+instance Prelude.FromJSON ProviderDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProviderDescription"
       ( \x ->
           ProviderDescription'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "ProviderType")
-            <*> (x .:? "ProviderName")
-            <*> (x .:? "CreationDate")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "ProviderType")
+            Prelude.<*> (x Prelude..:? "ProviderName")
+            Prelude.<*> (x Prelude..:? "CreationDate")
       )
 
-instance Hashable ProviderDescription
+instance Prelude.Hashable ProviderDescription
 
-instance NFData ProviderDescription
+instance Prelude.NFData ProviderDescription

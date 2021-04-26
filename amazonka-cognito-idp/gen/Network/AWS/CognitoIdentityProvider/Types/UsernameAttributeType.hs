@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CognitoIdentityProvider.Types.UsernameAttributeType
   ( UsernameAttributeType
       ( ..,
-        UATEmail,
-        UATPhoneNumber
+        UsernameAttributeTypeEmail,
+        UsernameAttributeTypePhoneNumber
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UsernameAttributeType
-  = UsernameAttributeType'
-      ( CI
-          Text
-      )
+newtype UsernameAttributeType = UsernameAttributeType'
+  { fromUsernameAttributeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UATEmail :: UsernameAttributeType
-pattern UATEmail = UsernameAttributeType' "email"
+pattern UsernameAttributeTypeEmail :: UsernameAttributeType
+pattern UsernameAttributeTypeEmail = UsernameAttributeType' "email"
 
-pattern UATPhoneNumber :: UsernameAttributeType
-pattern UATPhoneNumber = UsernameAttributeType' "phone_number"
+pattern UsernameAttributeTypePhoneNumber :: UsernameAttributeType
+pattern UsernameAttributeTypePhoneNumber = UsernameAttributeType' "phone_number"
 
 {-# COMPLETE
-  UATEmail,
-  UATPhoneNumber,
+  UsernameAttributeTypeEmail,
+  UsernameAttributeTypePhoneNumber,
   UsernameAttributeType'
   #-}
 
-instance FromText UsernameAttributeType where
-  parser = (UsernameAttributeType' . mk) <$> takeText
+instance Prelude.FromText UsernameAttributeType where
+  parser = UsernameAttributeType' Prelude.<$> Prelude.takeText
 
-instance ToText UsernameAttributeType where
-  toText (UsernameAttributeType' ci) = original ci
+instance Prelude.ToText UsernameAttributeType where
+  toText (UsernameAttributeType' x) = x
 
-instance Hashable UsernameAttributeType
+instance Prelude.Hashable UsernameAttributeType
 
-instance NFData UsernameAttributeType
+instance Prelude.NFData UsernameAttributeType
 
-instance ToByteString UsernameAttributeType
+instance Prelude.ToByteString UsernameAttributeType
 
-instance ToQuery UsernameAttributeType
+instance Prelude.ToQuery UsernameAttributeType
 
-instance ToHeader UsernameAttributeType
+instance Prelude.ToHeader UsernameAttributeType
 
-instance ToJSON UsernameAttributeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON UsernameAttributeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON UsernameAttributeType where
-  parseJSON = parseJSONText "UsernameAttributeType"
+instance Prelude.FromJSON UsernameAttributeType where
+  parseJSON = Prelude.parseJSONText "UsernameAttributeType"

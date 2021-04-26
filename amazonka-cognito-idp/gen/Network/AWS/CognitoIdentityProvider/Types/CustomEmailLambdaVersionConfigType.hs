@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,77 +20,93 @@
 module Network.AWS.CognitoIdentityProvider.Types.CustomEmailLambdaVersionConfigType where
 
 import Network.AWS.CognitoIdentityProvider.Types.CustomEmailSenderLambdaVersionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A custom email sender Lambda configuration type.
 --
---
---
--- /See:/ 'customEmailLambdaVersionConfigType' smart constructor.
+-- /See:/ 'newCustomEmailLambdaVersionConfigType' smart constructor.
 data CustomEmailLambdaVersionConfigType = CustomEmailLambdaVersionConfigType'
-  { _celvctLambdaVersion ::
-      !CustomEmailSenderLambdaVersionType,
-    _celvctLambdaARN ::
-      !Text
+  { -- | The Lambda version represents the signature of the \"request\" attribute
+    -- in the \"event\" information Amazon Cognito passes to your custom email
+    -- Lambda function. The only supported value is @V1_0@.
+    lambdaVersion :: CustomEmailSenderLambdaVersionType,
+    -- | The Lambda Amazon Resource Name of the Lambda function that Amazon
+    -- Cognito triggers to send email notifications to users.
+    lambdaArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomEmailLambdaVersionConfigType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomEmailLambdaVersionConfigType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'celvctLambdaVersion' - The Lambda version represents the signature of the "request" attribute in the "event" information Amazon Cognito passes to your custom email Lambda function. The only supported value is @V1_0@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'celvctLambdaARN' - The Lambda Amazon Resource Name of the Lambda function that Amazon Cognito triggers to send email notifications to users.
-customEmailLambdaVersionConfigType ::
-  -- | 'celvctLambdaVersion'
+-- 'lambdaVersion', 'customEmailLambdaVersionConfigType_lambdaVersion' - The Lambda version represents the signature of the \"request\" attribute
+-- in the \"event\" information Amazon Cognito passes to your custom email
+-- Lambda function. The only supported value is @V1_0@.
+--
+-- 'lambdaArn', 'customEmailLambdaVersionConfigType_lambdaArn' - The Lambda Amazon Resource Name of the Lambda function that Amazon
+-- Cognito triggers to send email notifications to users.
+newCustomEmailLambdaVersionConfigType ::
+  -- | 'lambdaVersion'
   CustomEmailSenderLambdaVersionType ->
-  -- | 'celvctLambdaARN'
-  Text ->
+  -- | 'lambdaArn'
+  Prelude.Text ->
   CustomEmailLambdaVersionConfigType
-customEmailLambdaVersionConfigType
+newCustomEmailLambdaVersionConfigType
   pLambdaVersion_
-  pLambdaARN_ =
+  pLambdaArn_ =
     CustomEmailLambdaVersionConfigType'
-      { _celvctLambdaVersion =
+      { lambdaVersion =
           pLambdaVersion_,
-        _celvctLambdaARN = pLambdaARN_
+        lambdaArn = pLambdaArn_
       }
 
--- | The Lambda version represents the signature of the "request" attribute in the "event" information Amazon Cognito passes to your custom email Lambda function. The only supported value is @V1_0@ .
-celvctLambdaVersion :: Lens' CustomEmailLambdaVersionConfigType CustomEmailSenderLambdaVersionType
-celvctLambdaVersion = lens _celvctLambdaVersion (\s a -> s {_celvctLambdaVersion = a})
+-- | The Lambda version represents the signature of the \"request\" attribute
+-- in the \"event\" information Amazon Cognito passes to your custom email
+-- Lambda function. The only supported value is @V1_0@.
+customEmailLambdaVersionConfigType_lambdaVersion :: Lens.Lens' CustomEmailLambdaVersionConfigType CustomEmailSenderLambdaVersionType
+customEmailLambdaVersionConfigType_lambdaVersion = Lens.lens (\CustomEmailLambdaVersionConfigType' {lambdaVersion} -> lambdaVersion) (\s@CustomEmailLambdaVersionConfigType' {} a -> s {lambdaVersion = a} :: CustomEmailLambdaVersionConfigType)
 
--- | The Lambda Amazon Resource Name of the Lambda function that Amazon Cognito triggers to send email notifications to users.
-celvctLambdaARN :: Lens' CustomEmailLambdaVersionConfigType Text
-celvctLambdaARN = lens _celvctLambdaARN (\s a -> s {_celvctLambdaARN = a})
+-- | The Lambda Amazon Resource Name of the Lambda function that Amazon
+-- Cognito triggers to send email notifications to users.
+customEmailLambdaVersionConfigType_lambdaArn :: Lens.Lens' CustomEmailLambdaVersionConfigType Prelude.Text
+customEmailLambdaVersionConfigType_lambdaArn = Lens.lens (\CustomEmailLambdaVersionConfigType' {lambdaArn} -> lambdaArn) (\s@CustomEmailLambdaVersionConfigType' {} a -> s {lambdaArn = a} :: CustomEmailLambdaVersionConfigType)
 
-instance FromJSON CustomEmailLambdaVersionConfigType where
+instance
+  Prelude.FromJSON
+    CustomEmailLambdaVersionConfigType
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CustomEmailLambdaVersionConfigType"
       ( \x ->
           CustomEmailLambdaVersionConfigType'
-            <$> (x .: "LambdaVersion") <*> (x .: "LambdaArn")
+            Prelude.<$> (x Prelude..: "LambdaVersion")
+            Prelude.<*> (x Prelude..: "LambdaArn")
       )
 
-instance Hashable CustomEmailLambdaVersionConfigType
+instance
+  Prelude.Hashable
+    CustomEmailLambdaVersionConfigType
 
-instance NFData CustomEmailLambdaVersionConfigType
+instance
+  Prelude.NFData
+    CustomEmailLambdaVersionConfigType
 
-instance ToJSON CustomEmailLambdaVersionConfigType where
+instance
+  Prelude.ToJSON
+    CustomEmailLambdaVersionConfigType
+  where
   toJSON CustomEmailLambdaVersionConfigType' {..} =
-    object
-      ( catMaybes
-          [ Just ("LambdaVersion" .= _celvctLambdaVersion),
-            Just ("LambdaArn" .= _celvctLambdaARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("LambdaVersion" Prelude..= lambdaVersion),
+            Prelude.Just ("LambdaArn" Prelude..= lambdaArn)
           ]
       )

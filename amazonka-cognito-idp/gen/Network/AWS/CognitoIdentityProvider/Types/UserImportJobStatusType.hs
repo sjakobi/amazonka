@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.CognitoIdentityProvider.Types.UserImportJobStatusType
   ( UserImportJobStatusType
       ( ..,
-        Created,
-        Expired,
-        Failed,
-        InProgress,
-        Pending,
-        Stopped,
-        Stopping,
-        Succeeded
+        UserImportJobStatusTypeCreated,
+        UserImportJobStatusTypeExpired,
+        UserImportJobStatusTypeFailed,
+        UserImportJobStatusTypeInProgress,
+        UserImportJobStatusTypePending,
+        UserImportJobStatusTypeStopped,
+        UserImportJobStatusTypeStopping,
+        UserImportJobStatusTypeSucceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UserImportJobStatusType
-  = UserImportJobStatusType'
-      ( CI
-          Text
-      )
+newtype UserImportJobStatusType = UserImportJobStatusType'
+  { fromUserImportJobStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Created :: UserImportJobStatusType
-pattern Created = UserImportJobStatusType' "Created"
+pattern UserImportJobStatusTypeCreated :: UserImportJobStatusType
+pattern UserImportJobStatusTypeCreated = UserImportJobStatusType' "Created"
 
-pattern Expired :: UserImportJobStatusType
-pattern Expired = UserImportJobStatusType' "Expired"
+pattern UserImportJobStatusTypeExpired :: UserImportJobStatusType
+pattern UserImportJobStatusTypeExpired = UserImportJobStatusType' "Expired"
 
-pattern Failed :: UserImportJobStatusType
-pattern Failed = UserImportJobStatusType' "Failed"
+pattern UserImportJobStatusTypeFailed :: UserImportJobStatusType
+pattern UserImportJobStatusTypeFailed = UserImportJobStatusType' "Failed"
 
-pattern InProgress :: UserImportJobStatusType
-pattern InProgress = UserImportJobStatusType' "InProgress"
+pattern UserImportJobStatusTypeInProgress :: UserImportJobStatusType
+pattern UserImportJobStatusTypeInProgress = UserImportJobStatusType' "InProgress"
 
-pattern Pending :: UserImportJobStatusType
-pattern Pending = UserImportJobStatusType' "Pending"
+pattern UserImportJobStatusTypePending :: UserImportJobStatusType
+pattern UserImportJobStatusTypePending = UserImportJobStatusType' "Pending"
 
-pattern Stopped :: UserImportJobStatusType
-pattern Stopped = UserImportJobStatusType' "Stopped"
+pattern UserImportJobStatusTypeStopped :: UserImportJobStatusType
+pattern UserImportJobStatusTypeStopped = UserImportJobStatusType' "Stopped"
 
-pattern Stopping :: UserImportJobStatusType
-pattern Stopping = UserImportJobStatusType' "Stopping"
+pattern UserImportJobStatusTypeStopping :: UserImportJobStatusType
+pattern UserImportJobStatusTypeStopping = UserImportJobStatusType' "Stopping"
 
-pattern Succeeded :: UserImportJobStatusType
-pattern Succeeded = UserImportJobStatusType' "Succeeded"
+pattern UserImportJobStatusTypeSucceeded :: UserImportJobStatusType
+pattern UserImportJobStatusTypeSucceeded = UserImportJobStatusType' "Succeeded"
 
 {-# COMPLETE
-  Created,
-  Expired,
-  Failed,
-  InProgress,
-  Pending,
-  Stopped,
-  Stopping,
-  Succeeded,
+  UserImportJobStatusTypeCreated,
+  UserImportJobStatusTypeExpired,
+  UserImportJobStatusTypeFailed,
+  UserImportJobStatusTypeInProgress,
+  UserImportJobStatusTypePending,
+  UserImportJobStatusTypeStopped,
+  UserImportJobStatusTypeStopping,
+  UserImportJobStatusTypeSucceeded,
   UserImportJobStatusType'
   #-}
 
-instance FromText UserImportJobStatusType where
-  parser = (UserImportJobStatusType' . mk) <$> takeText
+instance Prelude.FromText UserImportJobStatusType where
+  parser = UserImportJobStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText UserImportJobStatusType where
-  toText (UserImportJobStatusType' ci) = original ci
+instance Prelude.ToText UserImportJobStatusType where
+  toText (UserImportJobStatusType' x) = x
 
-instance Hashable UserImportJobStatusType
+instance Prelude.Hashable UserImportJobStatusType
 
-instance NFData UserImportJobStatusType
+instance Prelude.NFData UserImportJobStatusType
 
-instance ToByteString UserImportJobStatusType
+instance Prelude.ToByteString UserImportJobStatusType
 
-instance ToQuery UserImportJobStatusType
+instance Prelude.ToQuery UserImportJobStatusType
 
-instance ToHeader UserImportJobStatusType
+instance Prelude.ToHeader UserImportJobStatusType
 
-instance FromJSON UserImportJobStatusType where
-  parseJSON = parseJSONText "UserImportJobStatusType"
+instance Prelude.FromJSON UserImportJobStatusType where
+  parseJSON = Prelude.parseJSONText "UserImportJobStatusType"

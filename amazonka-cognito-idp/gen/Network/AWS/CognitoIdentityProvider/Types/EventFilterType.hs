@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CognitoIdentityProvider.Types.EventFilterType
   ( EventFilterType
       ( ..,
-        EFTPasswordChange,
-        EFTSignIn,
-        EFTSignUp
+        EventFilterTypePASSWORDCHANGE,
+        EventFilterTypeSIGNIN,
+        EventFilterTypeSIGNUP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventFilterType = EventFilterType' (CI Text)
+newtype EventFilterType = EventFilterType'
+  { fromEventFilterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EFTPasswordChange :: EventFilterType
-pattern EFTPasswordChange = EventFilterType' "PASSWORD_CHANGE"
+pattern EventFilterTypePASSWORDCHANGE :: EventFilterType
+pattern EventFilterTypePASSWORDCHANGE = EventFilterType' "PASSWORD_CHANGE"
 
-pattern EFTSignIn :: EventFilterType
-pattern EFTSignIn = EventFilterType' "SIGN_IN"
+pattern EventFilterTypeSIGNIN :: EventFilterType
+pattern EventFilterTypeSIGNIN = EventFilterType' "SIGN_IN"
 
-pattern EFTSignUp :: EventFilterType
-pattern EFTSignUp = EventFilterType' "SIGN_UP"
+pattern EventFilterTypeSIGNUP :: EventFilterType
+pattern EventFilterTypeSIGNUP = EventFilterType' "SIGN_UP"
 
 {-# COMPLETE
-  EFTPasswordChange,
-  EFTSignIn,
-  EFTSignUp,
+  EventFilterTypePASSWORDCHANGE,
+  EventFilterTypeSIGNIN,
+  EventFilterTypeSIGNUP,
   EventFilterType'
   #-}
 
-instance FromText EventFilterType where
-  parser = (EventFilterType' . mk) <$> takeText
+instance Prelude.FromText EventFilterType where
+  parser = EventFilterType' Prelude.<$> Prelude.takeText
 
-instance ToText EventFilterType where
-  toText (EventFilterType' ci) = original ci
+instance Prelude.ToText EventFilterType where
+  toText (EventFilterType' x) = x
 
-instance Hashable EventFilterType
+instance Prelude.Hashable EventFilterType
 
-instance NFData EventFilterType
+instance Prelude.NFData EventFilterType
 
-instance ToByteString EventFilterType
+instance Prelude.ToByteString EventFilterType
 
-instance ToQuery EventFilterType
+instance Prelude.ToQuery EventFilterType
 
-instance ToHeader EventFilterType
+instance Prelude.ToHeader EventFilterType
 
-instance ToJSON EventFilterType where
-  toJSON = toJSONText
+instance Prelude.ToJSON EventFilterType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EventFilterType where
-  parseJSON = parseJSONText "EventFilterType"
+instance Prelude.FromJSON EventFilterType where
+  parseJSON = Prelude.parseJSONText "EventFilterType"

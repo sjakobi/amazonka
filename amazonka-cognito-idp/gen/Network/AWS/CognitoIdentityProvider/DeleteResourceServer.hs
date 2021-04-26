@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,115 +24,120 @@
 -- Deletes a resource server.
 module Network.AWS.CognitoIdentityProvider.DeleteResourceServer
   ( -- * Creating a Request
-    deleteResourceServer,
-    DeleteResourceServer,
+    DeleteResourceServer (..),
+    newDeleteResourceServer,
 
     -- * Request Lenses
-    drsUserPoolId,
-    drsIdentifier,
+    deleteResourceServer_userPoolId,
+    deleteResourceServer_identifier,
 
     -- * Destructuring the Response
-    deleteResourceServerResponse,
-    DeleteResourceServerResponse,
+    DeleteResourceServerResponse (..),
+    newDeleteResourceServerResponse,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteResourceServer' smart constructor.
+-- | /See:/ 'newDeleteResourceServer' smart constructor.
 data DeleteResourceServer = DeleteResourceServer'
-  { _drsUserPoolId ::
-      !Text,
-    _drsIdentifier :: !Text
+  { -- | The user pool ID for the user pool that hosts the resource server.
+    userPoolId :: Prelude.Text,
+    -- | The identifier for the resource server.
+    identifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourceServer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteResourceServer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsUserPoolId' - The user pool ID for the user pool that hosts the resource server.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsIdentifier' - The identifier for the resource server.
-deleteResourceServer ::
-  -- | 'drsUserPoolId'
-  Text ->
-  -- | 'drsIdentifier'
-  Text ->
+-- 'userPoolId', 'deleteResourceServer_userPoolId' - The user pool ID for the user pool that hosts the resource server.
+--
+-- 'identifier', 'deleteResourceServer_identifier' - The identifier for the resource server.
+newDeleteResourceServer ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'identifier'
+  Prelude.Text ->
   DeleteResourceServer
-deleteResourceServer pUserPoolId_ pIdentifier_ =
+newDeleteResourceServer pUserPoolId_ pIdentifier_ =
   DeleteResourceServer'
-    { _drsUserPoolId =
-        pUserPoolId_,
-      _drsIdentifier = pIdentifier_
+    { userPoolId = pUserPoolId_,
+      identifier = pIdentifier_
     }
 
 -- | The user pool ID for the user pool that hosts the resource server.
-drsUserPoolId :: Lens' DeleteResourceServer Text
-drsUserPoolId = lens _drsUserPoolId (\s a -> s {_drsUserPoolId = a})
+deleteResourceServer_userPoolId :: Lens.Lens' DeleteResourceServer Prelude.Text
+deleteResourceServer_userPoolId = Lens.lens (\DeleteResourceServer' {userPoolId} -> userPoolId) (\s@DeleteResourceServer' {} a -> s {userPoolId = a} :: DeleteResourceServer)
 
 -- | The identifier for the resource server.
-drsIdentifier :: Lens' DeleteResourceServer Text
-drsIdentifier = lens _drsIdentifier (\s a -> s {_drsIdentifier = a})
+deleteResourceServer_identifier :: Lens.Lens' DeleteResourceServer Prelude.Text
+deleteResourceServer_identifier = Lens.lens (\DeleteResourceServer' {identifier} -> identifier) (\s@DeleteResourceServer' {} a -> s {identifier = a} :: DeleteResourceServer)
 
-instance AWSRequest DeleteResourceServer where
+instance Prelude.AWSRequest DeleteResourceServer where
   type
     Rs DeleteResourceServer =
       DeleteResourceServerResponse
-  request = postJSON cognitoIdentityProvider
-  response = receiveNull DeleteResourceServerResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteResourceServerResponse'
 
-instance Hashable DeleteResourceServer
+instance Prelude.Hashable DeleteResourceServer
 
-instance NFData DeleteResourceServer
+instance Prelude.NFData DeleteResourceServer
 
-instance ToHeaders DeleteResourceServer where
+instance Prelude.ToHeaders DeleteResourceServer where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.DeleteResourceServer" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.DeleteResourceServer" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteResourceServer where
+instance Prelude.ToJSON DeleteResourceServer where
   toJSON DeleteResourceServer' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserPoolId" .= _drsUserPoolId),
-            Just ("Identifier" .= _drsIdentifier)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserPoolId" Prelude..= userPoolId),
+            Prelude.Just ("Identifier" Prelude..= identifier)
           ]
       )
 
-instance ToPath DeleteResourceServer where
-  toPath = const "/"
+instance Prelude.ToPath DeleteResourceServer where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteResourceServer where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteResourceServer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteResourceServerResponse' smart constructor.
+-- | /See:/ 'newDeleteResourceServerResponse' smart constructor.
 data DeleteResourceServerResponse = DeleteResourceServerResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourceServerResponse' with the minimum fields required to make a request.
-deleteResourceServerResponse ::
+-- |
+-- Create a value of 'DeleteResourceServerResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteResourceServerResponse ::
   DeleteResourceServerResponse
-deleteResourceServerResponse =
+newDeleteResourceServerResponse =
   DeleteResourceServerResponse'
 
-instance NFData DeleteResourceServerResponse
+instance Prelude.NFData DeleteResourceServerResponse

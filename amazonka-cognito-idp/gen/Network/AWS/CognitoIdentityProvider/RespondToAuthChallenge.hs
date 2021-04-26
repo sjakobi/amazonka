@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,262 +24,461 @@
 -- Responds to the authentication challenge.
 module Network.AWS.CognitoIdentityProvider.RespondToAuthChallenge
   ( -- * Creating a Request
-    respondToAuthChallenge,
-    RespondToAuthChallenge,
+    RespondToAuthChallenge (..),
+    newRespondToAuthChallenge,
 
     -- * Request Lenses
-    rtacClientMetadata,
-    rtacUserContextData,
-    rtacChallengeResponses,
-    rtacSession,
-    rtacAnalyticsMetadata,
-    rtacClientId,
-    rtacChallengeName,
+    respondToAuthChallenge_clientMetadata,
+    respondToAuthChallenge_userContextData,
+    respondToAuthChallenge_challengeResponses,
+    respondToAuthChallenge_session,
+    respondToAuthChallenge_analyticsMetadata,
+    respondToAuthChallenge_clientId,
+    respondToAuthChallenge_challengeName,
 
     -- * Destructuring the Response
-    respondToAuthChallengeResponse,
-    RespondToAuthChallengeResponse,
+    RespondToAuthChallengeResponse (..),
+    newRespondToAuthChallengeResponse,
 
     -- * Response Lenses
-    rtacrrsAuthenticationResult,
-    rtacrrsChallengeName,
-    rtacrrsChallengeParameters,
-    rtacrrsSession,
-    rtacrrsResponseStatus,
+    respondToAuthChallengeResponse_authenticationResult,
+    respondToAuthChallengeResponse_challengeName,
+    respondToAuthChallengeResponse_challengeParameters,
+    respondToAuthChallengeResponse_session,
+    respondToAuthChallengeResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.AuthenticationResultType
+import Network.AWS.CognitoIdentityProvider.Types.ChallengeNameType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The request to respond to an authentication challenge.
 --
---
---
--- /See:/ 'respondToAuthChallenge' smart constructor.
+-- /See:/ 'newRespondToAuthChallenge' smart constructor.
 data RespondToAuthChallenge = RespondToAuthChallenge'
-  { _rtacClientMetadata ::
-      !(Maybe (Map Text Text)),
-    _rtacUserContextData ::
-      !( Maybe
-           UserContextDataType
-       ),
-    _rtacChallengeResponses ::
-      !(Maybe (Map Text Text)),
-    _rtacSession ::
-      !(Maybe Text),
-    _rtacAnalyticsMetadata ::
-      !( Maybe
-           AnalyticsMetadataType
-       ),
-    _rtacClientId ::
-      !(Sensitive Text),
-    _rtacChallengeName ::
-      !ChallengeNameType
+  { -- | A map of custom key-value pairs that you can provide as input for any
+    -- custom workflows that this action triggers.
+    --
+    -- You create custom workflows by assigning AWS Lambda functions to user
+    -- pool triggers. When you use the RespondToAuthChallenge API action,
+    -- Amazon Cognito invokes any functions that are assigned to the following
+    -- triggers: /post authentication/, /pre token generation/, /define auth
+    -- challenge/, /create auth challenge/, and /verify auth challenge/. When
+    -- Amazon Cognito invokes any of these functions, it passes a JSON payload,
+    -- which the function receives as input. This payload contains a
+    -- @clientMetadata@ attribute, which provides the data that you assigned to
+    -- the ClientMetadata parameter in your RespondToAuthChallenge request. In
+    -- your function code in AWS Lambda, you can process the @clientMetadata@
+    -- value to enhance your workflow for your specific needs.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+    -- in the /Amazon Cognito Developer Guide/.
+    --
+    -- Take the following limitations into consideration when you use the
+    -- ClientMetadata parameter:
+    --
+    -- -   Amazon Cognito does not store the ClientMetadata value. This data is
+    --     available only to AWS Lambda triggers that are assigned to a user
+    --     pool to support custom workflows. If your user pool configuration
+    --     does not include triggers, the ClientMetadata parameter serves no
+    --     purpose.
+    --
+    -- -   Amazon Cognito does not validate the ClientMetadata value.
+    --
+    -- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+    --     don\'t use it to provide sensitive information.
+    clientMetadata :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Contextual data such as the user\'s device fingerprint, IP address, or
+    -- location used for evaluating the risk of an unexpected event by Amazon
+    -- Cognito advanced security.
+    userContextData :: Prelude.Maybe UserContextDataType,
+    -- | The challenge responses. These are inputs corresponding to the value of
+    -- @ChallengeName@, for example:
+    --
+    -- @SECRET_HASH@ (if app client is configured with client secret) applies
+    -- to all inputs below (including @SOFTWARE_TOKEN_MFA@).
+    --
+    -- -   @SMS_MFA@: @SMS_MFA_CODE@, @USERNAME@.
+    --
+    -- -   @PASSWORD_VERIFIER@: @PASSWORD_CLAIM_SIGNATURE@,
+    --     @PASSWORD_CLAIM_SECRET_BLOCK@, @TIMESTAMP@, @USERNAME@.
+    --
+    -- -   @NEW_PASSWORD_REQUIRED@: @NEW_PASSWORD@, any other required
+    --     attributes, @USERNAME@.
+    --
+    -- -   @SOFTWARE_TOKEN_MFA@: @USERNAME@ and @SOFTWARE_TOKEN_MFA_CODE@ are
+    --     required attributes.
+    --
+    -- -   @DEVICE_SRP_AUTH@ requires @USERNAME@, @DEVICE_KEY@, @SRP_A@ (and
+    --     @SECRET_HASH@).
+    --
+    -- -   @DEVICE_PASSWORD_VERIFIER@ requires everything that
+    --     @PASSWORD_VERIFIER@ requires plus @DEVICE_KEY@.
+    challengeResponses :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The session which should be passed both ways in challenge-response calls
+    -- to the service. If @InitiateAuth@ or @RespondToAuthChallenge@ API call
+    -- determines that the caller needs to go through another challenge, they
+    -- return a session with other challenge parameters. This session should be
+    -- passed as it is to the next @RespondToAuthChallenge@ API call.
+    session :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Pinpoint analytics metadata for collecting metrics for
+    -- @RespondToAuthChallenge@ calls.
+    analyticsMetadata :: Prelude.Maybe AnalyticsMetadataType,
+    -- | The app client ID.
+    clientId :: Prelude.Sensitive Prelude.Text,
+    -- | The challenge name. For more information, see
+    -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth>.
+    --
+    -- @ADMIN_NO_SRP_AUTH@ is not a valid value.
+    challengeName :: ChallengeNameType
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RespondToAuthChallenge' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RespondToAuthChallenge' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtacClientMetadata' - A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.  You create custom workflows by assigning AWS Lambda functions to user pool triggers. When you use the RespondToAuthChallenge API action, Amazon Cognito invokes any functions that are assigned to the following triggers: /post authentication/ , /pre token generation/ , /define auth challenge/ , /create auth challenge/ , and /verify auth challenge/ . When Amazon Cognito invokes any of these functions, it passes a JSON payload, which the function receives as input. This payload contains a @clientMetadata@ attribute, which provides the data that you assigned to the ClientMetadata parameter in your RespondToAuthChallenge request. In your function code in AWS Lambda, you can process the @clientMetadata@ value to enhance your workflow for your specific needs. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers> in the /Amazon Cognito Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtacUserContextData' - Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+-- 'clientMetadata', 'respondToAuthChallenge_clientMetadata' - A map of custom key-value pairs that you can provide as input for any
+-- custom workflows that this action triggers.
 --
--- * 'rtacChallengeResponses' - The challenge responses. These are inputs corresponding to the value of @ChallengeName@ , for example:     * @SMS_MFA@ : @SMS_MFA_CODE@ , @USERNAME@ .     * @PASSWORD_VERIFIER@ : @PASSWORD_CLAIM_SIGNATURE@ , @PASSWORD_CLAIM_SECRET_BLOCK@ , @TIMESTAMP@ , @USERNAME@ .     * @NEW_PASSWORD_REQUIRED@ : @NEW_PASSWORD@ , any other required attributes, @USERNAME@ .      * @SOFTWARE_TOKEN_MFA@ : @USERNAME@ and @SOFTWARE_TOKEN_MFA_CODE@ are required attributes.     * @DEVICE_SRP_AUTH@ requires @USERNAME@ , @DEVICE_KEY@ , @SRP_A@ (and @SECRET_HASH@ ).     * @DEVICE_PASSWORD_VERIFIER@ requires everything that @PASSWORD_VERIFIER@ requires plus @DEVICE_KEY@ .
+-- You create custom workflows by assigning AWS Lambda functions to user
+-- pool triggers. When you use the RespondToAuthChallenge API action,
+-- Amazon Cognito invokes any functions that are assigned to the following
+-- triggers: /post authentication/, /pre token generation/, /define auth
+-- challenge/, /create auth challenge/, and /verify auth challenge/. When
+-- Amazon Cognito invokes any of these functions, it passes a JSON payload,
+-- which the function receives as input. This payload contains a
+-- @clientMetadata@ attribute, which provides the data that you assigned to
+-- the ClientMetadata parameter in your RespondToAuthChallenge request. In
+-- your function code in AWS Lambda, you can process the @clientMetadata@
+-- value to enhance your workflow for your specific needs.
 --
--- * 'rtacSession' - The session which should be passed both ways in challenge-response calls to the service. If @InitiateAuth@ or @RespondToAuthChallenge@ API call determines that the caller needs to go through another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next @RespondToAuthChallenge@ API call.
+-- For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- in the /Amazon Cognito Developer Guide/.
 --
--- * 'rtacAnalyticsMetadata' - The Amazon Pinpoint analytics metadata for collecting metrics for @RespondToAuthChallenge@ calls.
+-- Take the following limitations into consideration when you use the
+-- ClientMetadata parameter:
 --
--- * 'rtacClientId' - The app client ID.
+-- -   Amazon Cognito does not store the ClientMetadata value. This data is
+--     available only to AWS Lambda triggers that are assigned to a user
+--     pool to support custom workflows. If your user pool configuration
+--     does not include triggers, the ClientMetadata parameter serves no
+--     purpose.
 --
--- * 'rtacChallengeName' - The challenge name. For more information, see <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth> . @ADMIN_NO_SRP_AUTH@ is not a valid value.
-respondToAuthChallenge ::
-  -- | 'rtacClientId'
-  Text ->
-  -- | 'rtacChallengeName'
+-- -   Amazon Cognito does not validate the ClientMetadata value.
+--
+-- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+--     don\'t use it to provide sensitive information.
+--
+-- 'userContextData', 'respondToAuthChallenge_userContextData' - Contextual data such as the user\'s device fingerprint, IP address, or
+-- location used for evaluating the risk of an unexpected event by Amazon
+-- Cognito advanced security.
+--
+-- 'challengeResponses', 'respondToAuthChallenge_challengeResponses' - The challenge responses. These are inputs corresponding to the value of
+-- @ChallengeName@, for example:
+--
+-- @SECRET_HASH@ (if app client is configured with client secret) applies
+-- to all inputs below (including @SOFTWARE_TOKEN_MFA@).
+--
+-- -   @SMS_MFA@: @SMS_MFA_CODE@, @USERNAME@.
+--
+-- -   @PASSWORD_VERIFIER@: @PASSWORD_CLAIM_SIGNATURE@,
+--     @PASSWORD_CLAIM_SECRET_BLOCK@, @TIMESTAMP@, @USERNAME@.
+--
+-- -   @NEW_PASSWORD_REQUIRED@: @NEW_PASSWORD@, any other required
+--     attributes, @USERNAME@.
+--
+-- -   @SOFTWARE_TOKEN_MFA@: @USERNAME@ and @SOFTWARE_TOKEN_MFA_CODE@ are
+--     required attributes.
+--
+-- -   @DEVICE_SRP_AUTH@ requires @USERNAME@, @DEVICE_KEY@, @SRP_A@ (and
+--     @SECRET_HASH@).
+--
+-- -   @DEVICE_PASSWORD_VERIFIER@ requires everything that
+--     @PASSWORD_VERIFIER@ requires plus @DEVICE_KEY@.
+--
+-- 'session', 'respondToAuthChallenge_session' - The session which should be passed both ways in challenge-response calls
+-- to the service. If @InitiateAuth@ or @RespondToAuthChallenge@ API call
+-- determines that the caller needs to go through another challenge, they
+-- return a session with other challenge parameters. This session should be
+-- passed as it is to the next @RespondToAuthChallenge@ API call.
+--
+-- 'analyticsMetadata', 'respondToAuthChallenge_analyticsMetadata' - The Amazon Pinpoint analytics metadata for collecting metrics for
+-- @RespondToAuthChallenge@ calls.
+--
+-- 'clientId', 'respondToAuthChallenge_clientId' - The app client ID.
+--
+-- 'challengeName', 'respondToAuthChallenge_challengeName' - The challenge name. For more information, see
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth>.
+--
+-- @ADMIN_NO_SRP_AUTH@ is not a valid value.
+newRespondToAuthChallenge ::
+  -- | 'clientId'
+  Prelude.Text ->
+  -- | 'challengeName'
   ChallengeNameType ->
   RespondToAuthChallenge
-respondToAuthChallenge pClientId_ pChallengeName_ =
+newRespondToAuthChallenge pClientId_ pChallengeName_ =
   RespondToAuthChallenge'
-    { _rtacClientMetadata =
-        Nothing,
-      _rtacUserContextData = Nothing,
-      _rtacChallengeResponses = Nothing,
-      _rtacSession = Nothing,
-      _rtacAnalyticsMetadata = Nothing,
-      _rtacClientId = _Sensitive # pClientId_,
-      _rtacChallengeName = pChallengeName_
+    { clientMetadata =
+        Prelude.Nothing,
+      userContextData = Prelude.Nothing,
+      challengeResponses = Prelude.Nothing,
+      session = Prelude.Nothing,
+      analyticsMetadata = Prelude.Nothing,
+      clientId = Prelude._Sensitive Lens.# pClientId_,
+      challengeName = pChallengeName_
     }
 
--- | A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.  You create custom workflows by assigning AWS Lambda functions to user pool triggers. When you use the RespondToAuthChallenge API action, Amazon Cognito invokes any functions that are assigned to the following triggers: /post authentication/ , /pre token generation/ , /define auth challenge/ , /create auth challenge/ , and /verify auth challenge/ . When Amazon Cognito invokes any of these functions, it passes a JSON payload, which the function receives as input. This payload contains a @clientMetadata@ attribute, which provides the data that you assigned to the ClientMetadata parameter in your RespondToAuthChallenge request. In your function code in AWS Lambda, you can process the @clientMetadata@ value to enhance your workflow for your specific needs. For more information, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers> in the /Amazon Cognito Developer Guide/ .
-rtacClientMetadata :: Lens' RespondToAuthChallenge (HashMap Text Text)
-rtacClientMetadata = lens _rtacClientMetadata (\s a -> s {_rtacClientMetadata = a}) . _Default . _Map
+-- | A map of custom key-value pairs that you can provide as input for any
+-- custom workflows that this action triggers.
+--
+-- You create custom workflows by assigning AWS Lambda functions to user
+-- pool triggers. When you use the RespondToAuthChallenge API action,
+-- Amazon Cognito invokes any functions that are assigned to the following
+-- triggers: /post authentication/, /pre token generation/, /define auth
+-- challenge/, /create auth challenge/, and /verify auth challenge/. When
+-- Amazon Cognito invokes any of these functions, it passes a JSON payload,
+-- which the function receives as input. This payload contains a
+-- @clientMetadata@ attribute, which provides the data that you assigned to
+-- the ClientMetadata parameter in your RespondToAuthChallenge request. In
+-- your function code in AWS Lambda, you can process the @clientMetadata@
+-- value to enhance your workflow for your specific needs.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- in the /Amazon Cognito Developer Guide/.
+--
+-- Take the following limitations into consideration when you use the
+-- ClientMetadata parameter:
+--
+-- -   Amazon Cognito does not store the ClientMetadata value. This data is
+--     available only to AWS Lambda triggers that are assigned to a user
+--     pool to support custom workflows. If your user pool configuration
+--     does not include triggers, the ClientMetadata parameter serves no
+--     purpose.
+--
+-- -   Amazon Cognito does not validate the ClientMetadata value.
+--
+-- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
+--     don\'t use it to provide sensitive information.
+respondToAuthChallenge_clientMetadata :: Lens.Lens' RespondToAuthChallenge (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+respondToAuthChallenge_clientMetadata = Lens.lens (\RespondToAuthChallenge' {clientMetadata} -> clientMetadata) (\s@RespondToAuthChallenge' {} a -> s {clientMetadata = a} :: RespondToAuthChallenge) Prelude.. Lens.mapping Prelude._Map
 
--- | Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
-rtacUserContextData :: Lens' RespondToAuthChallenge (Maybe UserContextDataType)
-rtacUserContextData = lens _rtacUserContextData (\s a -> s {_rtacUserContextData = a})
+-- | Contextual data such as the user\'s device fingerprint, IP address, or
+-- location used for evaluating the risk of an unexpected event by Amazon
+-- Cognito advanced security.
+respondToAuthChallenge_userContextData :: Lens.Lens' RespondToAuthChallenge (Prelude.Maybe UserContextDataType)
+respondToAuthChallenge_userContextData = Lens.lens (\RespondToAuthChallenge' {userContextData} -> userContextData) (\s@RespondToAuthChallenge' {} a -> s {userContextData = a} :: RespondToAuthChallenge)
 
--- | The challenge responses. These are inputs corresponding to the value of @ChallengeName@ , for example:     * @SMS_MFA@ : @SMS_MFA_CODE@ , @USERNAME@ .     * @PASSWORD_VERIFIER@ : @PASSWORD_CLAIM_SIGNATURE@ , @PASSWORD_CLAIM_SECRET_BLOCK@ , @TIMESTAMP@ , @USERNAME@ .     * @NEW_PASSWORD_REQUIRED@ : @NEW_PASSWORD@ , any other required attributes, @USERNAME@ .      * @SOFTWARE_TOKEN_MFA@ : @USERNAME@ and @SOFTWARE_TOKEN_MFA_CODE@ are required attributes.     * @DEVICE_SRP_AUTH@ requires @USERNAME@ , @DEVICE_KEY@ , @SRP_A@ (and @SECRET_HASH@ ).     * @DEVICE_PASSWORD_VERIFIER@ requires everything that @PASSWORD_VERIFIER@ requires plus @DEVICE_KEY@ .
-rtacChallengeResponses :: Lens' RespondToAuthChallenge (HashMap Text Text)
-rtacChallengeResponses = lens _rtacChallengeResponses (\s a -> s {_rtacChallengeResponses = a}) . _Default . _Map
+-- | The challenge responses. These are inputs corresponding to the value of
+-- @ChallengeName@, for example:
+--
+-- @SECRET_HASH@ (if app client is configured with client secret) applies
+-- to all inputs below (including @SOFTWARE_TOKEN_MFA@).
+--
+-- -   @SMS_MFA@: @SMS_MFA_CODE@, @USERNAME@.
+--
+-- -   @PASSWORD_VERIFIER@: @PASSWORD_CLAIM_SIGNATURE@,
+--     @PASSWORD_CLAIM_SECRET_BLOCK@, @TIMESTAMP@, @USERNAME@.
+--
+-- -   @NEW_PASSWORD_REQUIRED@: @NEW_PASSWORD@, any other required
+--     attributes, @USERNAME@.
+--
+-- -   @SOFTWARE_TOKEN_MFA@: @USERNAME@ and @SOFTWARE_TOKEN_MFA_CODE@ are
+--     required attributes.
+--
+-- -   @DEVICE_SRP_AUTH@ requires @USERNAME@, @DEVICE_KEY@, @SRP_A@ (and
+--     @SECRET_HASH@).
+--
+-- -   @DEVICE_PASSWORD_VERIFIER@ requires everything that
+--     @PASSWORD_VERIFIER@ requires plus @DEVICE_KEY@.
+respondToAuthChallenge_challengeResponses :: Lens.Lens' RespondToAuthChallenge (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+respondToAuthChallenge_challengeResponses = Lens.lens (\RespondToAuthChallenge' {challengeResponses} -> challengeResponses) (\s@RespondToAuthChallenge' {} a -> s {challengeResponses = a} :: RespondToAuthChallenge) Prelude.. Lens.mapping Prelude._Map
 
--- | The session which should be passed both ways in challenge-response calls to the service. If @InitiateAuth@ or @RespondToAuthChallenge@ API call determines that the caller needs to go through another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next @RespondToAuthChallenge@ API call.
-rtacSession :: Lens' RespondToAuthChallenge (Maybe Text)
-rtacSession = lens _rtacSession (\s a -> s {_rtacSession = a})
+-- | The session which should be passed both ways in challenge-response calls
+-- to the service. If @InitiateAuth@ or @RespondToAuthChallenge@ API call
+-- determines that the caller needs to go through another challenge, they
+-- return a session with other challenge parameters. This session should be
+-- passed as it is to the next @RespondToAuthChallenge@ API call.
+respondToAuthChallenge_session :: Lens.Lens' RespondToAuthChallenge (Prelude.Maybe Prelude.Text)
+respondToAuthChallenge_session = Lens.lens (\RespondToAuthChallenge' {session} -> session) (\s@RespondToAuthChallenge' {} a -> s {session = a} :: RespondToAuthChallenge)
 
--- | The Amazon Pinpoint analytics metadata for collecting metrics for @RespondToAuthChallenge@ calls.
-rtacAnalyticsMetadata :: Lens' RespondToAuthChallenge (Maybe AnalyticsMetadataType)
-rtacAnalyticsMetadata = lens _rtacAnalyticsMetadata (\s a -> s {_rtacAnalyticsMetadata = a})
+-- | The Amazon Pinpoint analytics metadata for collecting metrics for
+-- @RespondToAuthChallenge@ calls.
+respondToAuthChallenge_analyticsMetadata :: Lens.Lens' RespondToAuthChallenge (Prelude.Maybe AnalyticsMetadataType)
+respondToAuthChallenge_analyticsMetadata = Lens.lens (\RespondToAuthChallenge' {analyticsMetadata} -> analyticsMetadata) (\s@RespondToAuthChallenge' {} a -> s {analyticsMetadata = a} :: RespondToAuthChallenge)
 
 -- | The app client ID.
-rtacClientId :: Lens' RespondToAuthChallenge Text
-rtacClientId = lens _rtacClientId (\s a -> s {_rtacClientId = a}) . _Sensitive
+respondToAuthChallenge_clientId :: Lens.Lens' RespondToAuthChallenge Prelude.Text
+respondToAuthChallenge_clientId = Lens.lens (\RespondToAuthChallenge' {clientId} -> clientId) (\s@RespondToAuthChallenge' {} a -> s {clientId = a} :: RespondToAuthChallenge) Prelude.. Prelude._Sensitive
 
--- | The challenge name. For more information, see <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth> . @ADMIN_NO_SRP_AUTH@ is not a valid value.
-rtacChallengeName :: Lens' RespondToAuthChallenge ChallengeNameType
-rtacChallengeName = lens _rtacChallengeName (\s a -> s {_rtacChallengeName = a})
+-- | The challenge name. For more information, see
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth>.
+--
+-- @ADMIN_NO_SRP_AUTH@ is not a valid value.
+respondToAuthChallenge_challengeName :: Lens.Lens' RespondToAuthChallenge ChallengeNameType
+respondToAuthChallenge_challengeName = Lens.lens (\RespondToAuthChallenge' {challengeName} -> challengeName) (\s@RespondToAuthChallenge' {} a -> s {challengeName = a} :: RespondToAuthChallenge)
 
-instance AWSRequest RespondToAuthChallenge where
+instance Prelude.AWSRequest RespondToAuthChallenge where
   type
     Rs RespondToAuthChallenge =
       RespondToAuthChallengeResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RespondToAuthChallengeResponse'
-            <$> (x .?> "AuthenticationResult")
-            <*> (x .?> "ChallengeName")
-            <*> (x .?> "ChallengeParameters" .!@ mempty)
-            <*> (x .?> "Session")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AuthenticationResult")
+            Prelude.<*> (x Prelude..?> "ChallengeName")
+            Prelude.<*> ( x Prelude..?> "ChallengeParameters"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Session")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RespondToAuthChallenge
+instance Prelude.Hashable RespondToAuthChallenge
 
-instance NFData RespondToAuthChallenge
+instance Prelude.NFData RespondToAuthChallenge
 
-instance ToHeaders RespondToAuthChallenge where
+instance Prelude.ToHeaders RespondToAuthChallenge where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.RespondToAuthChallenge" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.RespondToAuthChallenge" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RespondToAuthChallenge where
+instance Prelude.ToJSON RespondToAuthChallenge where
   toJSON RespondToAuthChallenge' {..} =
-    object
-      ( catMaybes
-          [ ("ClientMetadata" .=) <$> _rtacClientMetadata,
-            ("UserContextData" .=) <$> _rtacUserContextData,
-            ("ChallengeResponses" .=)
-              <$> _rtacChallengeResponses,
-            ("Session" .=) <$> _rtacSession,
-            ("AnalyticsMetadata" .=) <$> _rtacAnalyticsMetadata,
-            Just ("ClientId" .= _rtacClientId),
-            Just ("ChallengeName" .= _rtacChallengeName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ClientMetadata" Prelude..=)
+              Prelude.<$> clientMetadata,
+            ("UserContextData" Prelude..=)
+              Prelude.<$> userContextData,
+            ("ChallengeResponses" Prelude..=)
+              Prelude.<$> challengeResponses,
+            ("Session" Prelude..=) Prelude.<$> session,
+            ("AnalyticsMetadata" Prelude..=)
+              Prelude.<$> analyticsMetadata,
+            Prelude.Just ("ClientId" Prelude..= clientId),
+            Prelude.Just
+              ("ChallengeName" Prelude..= challengeName)
           ]
       )
 
-instance ToPath RespondToAuthChallenge where
-  toPath = const "/"
+instance Prelude.ToPath RespondToAuthChallenge where
+  toPath = Prelude.const "/"
 
-instance ToQuery RespondToAuthChallenge where
-  toQuery = const mempty
+instance Prelude.ToQuery RespondToAuthChallenge where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The response to respond to the authentication challenge.
 --
---
---
--- /See:/ 'respondToAuthChallengeResponse' smart constructor.
+-- /See:/ 'newRespondToAuthChallengeResponse' smart constructor.
 data RespondToAuthChallengeResponse = RespondToAuthChallengeResponse'
-  { _rtacrrsAuthenticationResult ::
-      !( Maybe
-           AuthenticationResultType
-       ),
-    _rtacrrsChallengeName ::
-      !( Maybe
-           ChallengeNameType
-       ),
-    _rtacrrsChallengeParameters ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _rtacrrsSession ::
-      !( Maybe
-           Text
-       ),
-    _rtacrrsResponseStatus ::
-      !Int
+  { -- | The result returned by the server in response to the request to respond
+    -- to the authentication challenge.
+    authenticationResult :: Prelude.Maybe AuthenticationResultType,
+    -- | The challenge name. For more information, see
+    -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth>.
+    challengeName :: Prelude.Maybe ChallengeNameType,
+    -- | The challenge parameters. For more information, see
+    -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth>.
+    challengeParameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The session which should be passed both ways in challenge-response calls
+    -- to the service. If the caller needs to go through another challenge,
+    -- they return a session with other challenge parameters. This session
+    -- should be passed as it is to the next @RespondToAuthChallenge@ API call.
+    session :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RespondToAuthChallengeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RespondToAuthChallengeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtacrrsAuthenticationResult' - The result returned by the server in response to the request to respond to the authentication challenge.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtacrrsChallengeName' - The challenge name. For more information, see <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth> .
+-- 'authenticationResult', 'respondToAuthChallengeResponse_authenticationResult' - The result returned by the server in response to the request to respond
+-- to the authentication challenge.
 --
--- * 'rtacrrsChallengeParameters' - The challenge parameters. For more information, see <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth> .
+-- 'challengeName', 'respondToAuthChallengeResponse_challengeName' - The challenge name. For more information, see
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth>.
 --
--- * 'rtacrrsSession' - The session which should be passed both ways in challenge-response calls to the service. If the caller needs to go through another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next @RespondToAuthChallenge@ API call.
+-- 'challengeParameters', 'respondToAuthChallengeResponse_challengeParameters' - The challenge parameters. For more information, see
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth>.
 --
--- * 'rtacrrsResponseStatus' - -- | The response status code.
-respondToAuthChallengeResponse ::
-  -- | 'rtacrrsResponseStatus'
-  Int ->
+-- 'session', 'respondToAuthChallengeResponse_session' - The session which should be passed both ways in challenge-response calls
+-- to the service. If the caller needs to go through another challenge,
+-- they return a session with other challenge parameters. This session
+-- should be passed as it is to the next @RespondToAuthChallenge@ API call.
+--
+-- 'httpStatus', 'respondToAuthChallengeResponse_httpStatus' - The response's http status code.
+newRespondToAuthChallengeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RespondToAuthChallengeResponse
-respondToAuthChallengeResponse pResponseStatus_ =
+newRespondToAuthChallengeResponse pHttpStatus_ =
   RespondToAuthChallengeResponse'
-    { _rtacrrsAuthenticationResult =
-        Nothing,
-      _rtacrrsChallengeName = Nothing,
-      _rtacrrsChallengeParameters = Nothing,
-      _rtacrrsSession = Nothing,
-      _rtacrrsResponseStatus = pResponseStatus_
+    { authenticationResult =
+        Prelude.Nothing,
+      challengeName = Prelude.Nothing,
+      challengeParameters = Prelude.Nothing,
+      session = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The result returned by the server in response to the request to respond to the authentication challenge.
-rtacrrsAuthenticationResult :: Lens' RespondToAuthChallengeResponse (Maybe AuthenticationResultType)
-rtacrrsAuthenticationResult = lens _rtacrrsAuthenticationResult (\s a -> s {_rtacrrsAuthenticationResult = a})
+-- | The result returned by the server in response to the request to respond
+-- to the authentication challenge.
+respondToAuthChallengeResponse_authenticationResult :: Lens.Lens' RespondToAuthChallengeResponse (Prelude.Maybe AuthenticationResultType)
+respondToAuthChallengeResponse_authenticationResult = Lens.lens (\RespondToAuthChallengeResponse' {authenticationResult} -> authenticationResult) (\s@RespondToAuthChallengeResponse' {} a -> s {authenticationResult = a} :: RespondToAuthChallengeResponse)
 
--- | The challenge name. For more information, see <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth> .
-rtacrrsChallengeName :: Lens' RespondToAuthChallengeResponse (Maybe ChallengeNameType)
-rtacrrsChallengeName = lens _rtacrrsChallengeName (\s a -> s {_rtacrrsChallengeName = a})
+-- | The challenge name. For more information, see
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth>.
+respondToAuthChallengeResponse_challengeName :: Lens.Lens' RespondToAuthChallengeResponse (Prelude.Maybe ChallengeNameType)
+respondToAuthChallengeResponse_challengeName = Lens.lens (\RespondToAuthChallengeResponse' {challengeName} -> challengeName) (\s@RespondToAuthChallengeResponse' {} a -> s {challengeName = a} :: RespondToAuthChallengeResponse)
 
--- | The challenge parameters. For more information, see <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth> .
-rtacrrsChallengeParameters :: Lens' RespondToAuthChallengeResponse (HashMap Text Text)
-rtacrrsChallengeParameters = lens _rtacrrsChallengeParameters (\s a -> s {_rtacrrsChallengeParameters = a}) . _Default . _Map
+-- | The challenge parameters. For more information, see
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html InitiateAuth>.
+respondToAuthChallengeResponse_challengeParameters :: Lens.Lens' RespondToAuthChallengeResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+respondToAuthChallengeResponse_challengeParameters = Lens.lens (\RespondToAuthChallengeResponse' {challengeParameters} -> challengeParameters) (\s@RespondToAuthChallengeResponse' {} a -> s {challengeParameters = a} :: RespondToAuthChallengeResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | The session which should be passed both ways in challenge-response calls to the service. If the caller needs to go through another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next @RespondToAuthChallenge@ API call.
-rtacrrsSession :: Lens' RespondToAuthChallengeResponse (Maybe Text)
-rtacrrsSession = lens _rtacrrsSession (\s a -> s {_rtacrrsSession = a})
+-- | The session which should be passed both ways in challenge-response calls
+-- to the service. If the caller needs to go through another challenge,
+-- they return a session with other challenge parameters. This session
+-- should be passed as it is to the next @RespondToAuthChallenge@ API call.
+respondToAuthChallengeResponse_session :: Lens.Lens' RespondToAuthChallengeResponse (Prelude.Maybe Prelude.Text)
+respondToAuthChallengeResponse_session = Lens.lens (\RespondToAuthChallengeResponse' {session} -> session) (\s@RespondToAuthChallengeResponse' {} a -> s {session = a} :: RespondToAuthChallengeResponse)
 
--- | -- | The response status code.
-rtacrrsResponseStatus :: Lens' RespondToAuthChallengeResponse Int
-rtacrrsResponseStatus = lens _rtacrrsResponseStatus (\s a -> s {_rtacrrsResponseStatus = a})
+-- | The response's http status code.
+respondToAuthChallengeResponse_httpStatus :: Lens.Lens' RespondToAuthChallengeResponse Prelude.Int
+respondToAuthChallengeResponse_httpStatus = Lens.lens (\RespondToAuthChallengeResponse' {httpStatus} -> httpStatus) (\s@RespondToAuthChallengeResponse' {} a -> s {httpStatus = a} :: RespondToAuthChallengeResponse)
 
-instance NFData RespondToAuthChallengeResponse
+instance
+  Prelude.NFData
+    RespondToAuthChallengeResponse

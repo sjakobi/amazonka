@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the user attributes in a user pool as an administrator. Works on any user.
---
+-- Deletes the user attributes in a user pool as an administrator. Works on
+-- any user.
 --
 -- Calling this action requires developer credentials.
 module Network.AWS.CognitoIdentityProvider.AdminDeleteUserAttributes
   ( -- * Creating a Request
-    adminDeleteUserAttributes,
-    AdminDeleteUserAttributes,
+    AdminDeleteUserAttributes (..),
+    newAdminDeleteUserAttributes,
 
     -- * Request Lenses
-    aduaUserPoolId,
-    aduaUsername,
-    aduaUserAttributeNames,
+    adminDeleteUserAttributes_userPoolId,
+    adminDeleteUserAttributes_username,
+    adminDeleteUserAttributes_userAttributeNames,
 
     -- * Destructuring the Response
-    adminDeleteUserAttributesResponse,
-    AdminDeleteUserAttributesResponse,
+    AdminDeleteUserAttributesResponse (..),
+    newAdminDeleteUserAttributesResponse,
 
     -- * Response Lenses
-    aduarrsResponseStatus,
+    adminDeleteUserAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to delete user attributes as an administrator.
 --
---
---
--- /See:/ 'adminDeleteUserAttributes' smart constructor.
+-- /See:/ 'newAdminDeleteUserAttributes' smart constructor.
 data AdminDeleteUserAttributes = AdminDeleteUserAttributes'
-  { _aduaUserPoolId ::
-      !Text,
-    _aduaUsername ::
-      !(Sensitive Text),
-    _aduaUserAttributeNames ::
-      ![Text]
+  { -- | The user pool ID for the user pool where you want to delete user
+    -- attributes.
+    userPoolId :: Prelude.Text,
+    -- | The user name of the user from which you would like to delete
+    -- attributes.
+    username :: Prelude.Sensitive Prelude.Text,
+    -- | An array of strings representing the user attribute names you wish to
+    -- delete.
+    --
+    -- For custom attributes, you must prepend the @custom:@ prefix to the
+    -- attribute name.
+    userAttributeNames :: [Prelude.Text]
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdminDeleteUserAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdminDeleteUserAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aduaUserPoolId' - The user pool ID for the user pool where you want to delete user attributes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aduaUsername' - The user name of the user from which you would like to delete attributes.
+-- 'userPoolId', 'adminDeleteUserAttributes_userPoolId' - The user pool ID for the user pool where you want to delete user
+-- attributes.
 --
--- * 'aduaUserAttributeNames' - An array of strings representing the user attribute names you wish to delete. For custom attributes, you must prepend the @custom:@ prefix to the attribute name.
-adminDeleteUserAttributes ::
-  -- | 'aduaUserPoolId'
-  Text ->
-  -- | 'aduaUsername'
-  Text ->
+-- 'username', 'adminDeleteUserAttributes_username' - The user name of the user from which you would like to delete
+-- attributes.
+--
+-- 'userAttributeNames', 'adminDeleteUserAttributes_userAttributeNames' - An array of strings representing the user attribute names you wish to
+-- delete.
+--
+-- For custom attributes, you must prepend the @custom:@ prefix to the
+-- attribute name.
+newAdminDeleteUserAttributes ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'username'
+  Prelude.Text ->
   AdminDeleteUserAttributes
-adminDeleteUserAttributes pUserPoolId_ pUsername_ =
+newAdminDeleteUserAttributes pUserPoolId_ pUsername_ =
   AdminDeleteUserAttributes'
-    { _aduaUserPoolId =
+    { userPoolId =
         pUserPoolId_,
-      _aduaUsername = _Sensitive # pUsername_,
-      _aduaUserAttributeNames = mempty
+      username = Prelude._Sensitive Lens.# pUsername_,
+      userAttributeNames = Prelude.mempty
     }
 
--- | The user pool ID for the user pool where you want to delete user attributes.
-aduaUserPoolId :: Lens' AdminDeleteUserAttributes Text
-aduaUserPoolId = lens _aduaUserPoolId (\s a -> s {_aduaUserPoolId = a})
+-- | The user pool ID for the user pool where you want to delete user
+-- attributes.
+adminDeleteUserAttributes_userPoolId :: Lens.Lens' AdminDeleteUserAttributes Prelude.Text
+adminDeleteUserAttributes_userPoolId = Lens.lens (\AdminDeleteUserAttributes' {userPoolId} -> userPoolId) (\s@AdminDeleteUserAttributes' {} a -> s {userPoolId = a} :: AdminDeleteUserAttributes)
 
--- | The user name of the user from which you would like to delete attributes.
-aduaUsername :: Lens' AdminDeleteUserAttributes Text
-aduaUsername = lens _aduaUsername (\s a -> s {_aduaUsername = a}) . _Sensitive
+-- | The user name of the user from which you would like to delete
+-- attributes.
+adminDeleteUserAttributes_username :: Lens.Lens' AdminDeleteUserAttributes Prelude.Text
+adminDeleteUserAttributes_username = Lens.lens (\AdminDeleteUserAttributes' {username} -> username) (\s@AdminDeleteUserAttributes' {} a -> s {username = a} :: AdminDeleteUserAttributes) Prelude.. Prelude._Sensitive
 
--- | An array of strings representing the user attribute names you wish to delete. For custom attributes, you must prepend the @custom:@ prefix to the attribute name.
-aduaUserAttributeNames :: Lens' AdminDeleteUserAttributes [Text]
-aduaUserAttributeNames = lens _aduaUserAttributeNames (\s a -> s {_aduaUserAttributeNames = a}) . _Coerce
+-- | An array of strings representing the user attribute names you wish to
+-- delete.
+--
+-- For custom attributes, you must prepend the @custom:@ prefix to the
+-- attribute name.
+adminDeleteUserAttributes_userAttributeNames :: Lens.Lens' AdminDeleteUserAttributes [Prelude.Text]
+adminDeleteUserAttributes_userAttributeNames = Lens.lens (\AdminDeleteUserAttributes' {userAttributeNames} -> userAttributeNames) (\s@AdminDeleteUserAttributes' {} a -> s {userAttributeNames = a} :: AdminDeleteUserAttributes) Prelude.. Prelude._Coerce
 
-instance AWSRequest AdminDeleteUserAttributes where
+instance Prelude.AWSRequest AdminDeleteUserAttributes where
   type
     Rs AdminDeleteUserAttributes =
       AdminDeleteUserAttributesResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AdminDeleteUserAttributesResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AdminDeleteUserAttributes
+instance Prelude.Hashable AdminDeleteUserAttributes
 
-instance NFData AdminDeleteUserAttributes
+instance Prelude.NFData AdminDeleteUserAttributes
 
-instance ToHeaders AdminDeleteUserAttributes where
+instance Prelude.ToHeaders AdminDeleteUserAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.AdminDeleteUserAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.AdminDeleteUserAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AdminDeleteUserAttributes where
+instance Prelude.ToJSON AdminDeleteUserAttributes where
   toJSON AdminDeleteUserAttributes' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserPoolId" .= _aduaUserPoolId),
-            Just ("Username" .= _aduaUsername),
-            Just
-              ("UserAttributeNames" .= _aduaUserAttributeNames)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserPoolId" Prelude..= userPoolId),
+            Prelude.Just ("Username" Prelude..= username),
+            Prelude.Just
+              ( "UserAttributeNames"
+                  Prelude..= userAttributeNames
+              )
           ]
       )
 
-instance ToPath AdminDeleteUserAttributes where
-  toPath = const "/"
+instance Prelude.ToPath AdminDeleteUserAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery AdminDeleteUserAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery AdminDeleteUserAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the response received from the server for a request to delete user attributes.
+-- | Represents the response received from the server for a request to delete
+-- user attributes.
 --
---
---
--- /See:/ 'adminDeleteUserAttributesResponse' smart constructor.
-newtype AdminDeleteUserAttributesResponse = AdminDeleteUserAttributesResponse'
-  { _aduarrsResponseStatus ::
-      Int
+-- /See:/ 'newAdminDeleteUserAttributesResponse' smart constructor.
+data AdminDeleteUserAttributesResponse = AdminDeleteUserAttributesResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdminDeleteUserAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdminDeleteUserAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aduarrsResponseStatus' - -- | The response status code.
-adminDeleteUserAttributesResponse ::
-  -- | 'aduarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'adminDeleteUserAttributesResponse_httpStatus' - The response's http status code.
+newAdminDeleteUserAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AdminDeleteUserAttributesResponse
-adminDeleteUserAttributesResponse pResponseStatus_ =
+newAdminDeleteUserAttributesResponse pHttpStatus_ =
   AdminDeleteUserAttributesResponse'
-    { _aduarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-aduarrsResponseStatus :: Lens' AdminDeleteUserAttributesResponse Int
-aduarrsResponseStatus = lens _aduarrsResponseStatus (\s a -> s {_aduarrsResponseStatus = a})
+-- | The response's http status code.
+adminDeleteUserAttributesResponse_httpStatus :: Lens.Lens' AdminDeleteUserAttributesResponse Prelude.Int
+adminDeleteUserAttributesResponse_httpStatus = Lens.lens (\AdminDeleteUserAttributesResponse' {httpStatus} -> httpStatus) (\s@AdminDeleteUserAttributesResponse' {} a -> s {httpStatus = a} :: AdminDeleteUserAttributesResponse)
 
-instance NFData AdminDeleteUserAttributesResponse
+instance
+  Prelude.NFData
+    AdminDeleteUserAttributesResponse

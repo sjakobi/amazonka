@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.MessageTemplateType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The message template structure.
 --
---
---
--- /See:/ 'messageTemplateType' smart constructor.
+-- /See:/ 'newMessageTemplateType' smart constructor.
 data MessageTemplateType = MessageTemplateType'
-  { _mttEmailSubject ::
-      !(Maybe Text),
-    _mttEmailMessage ::
-      !(Maybe Text),
-    _mttSMSMessage :: !(Maybe Text)
+  { -- | The subject line for email messages. EmailSubject is allowed only if
+    -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount EmailSendingAccount>
+    -- is DEVELOPER.
+    emailSubject :: Prelude.Maybe Prelude.Text,
+    -- | The message template for email messages. EmailMessage is allowed only if
+    -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount EmailSendingAccount>
+    -- is DEVELOPER.
+    emailMessage :: Prelude.Maybe Prelude.Text,
+    -- | The message template for SMS messages.
+    sMSMessage :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MessageTemplateType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MessageTemplateType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mttEmailSubject' - The subject line for email messages. EmailSubject is allowed only if <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount EmailSendingAccount> is DEVELOPER.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mttEmailMessage' - The message template for email messages. EmailMessage is allowed only if <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount EmailSendingAccount> is DEVELOPER.
+-- 'emailSubject', 'messageTemplateType_emailSubject' - The subject line for email messages. EmailSubject is allowed only if
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount EmailSendingAccount>
+-- is DEVELOPER.
 --
--- * 'mttSMSMessage' - The message template for SMS messages.
-messageTemplateType ::
+-- 'emailMessage', 'messageTemplateType_emailMessage' - The message template for email messages. EmailMessage is allowed only if
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount EmailSendingAccount>
+-- is DEVELOPER.
+--
+-- 'sMSMessage', 'messageTemplateType_sMSMessage' - The message template for SMS messages.
+newMessageTemplateType ::
   MessageTemplateType
-messageTemplateType =
+newMessageTemplateType =
   MessageTemplateType'
-    { _mttEmailSubject = Nothing,
-      _mttEmailMessage = Nothing,
-      _mttSMSMessage = Nothing
+    { emailSubject =
+        Prelude.Nothing,
+      emailMessage = Prelude.Nothing,
+      sMSMessage = Prelude.Nothing
     }
 
--- | The subject line for email messages. EmailSubject is allowed only if <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount EmailSendingAccount> is DEVELOPER.
-mttEmailSubject :: Lens' MessageTemplateType (Maybe Text)
-mttEmailSubject = lens _mttEmailSubject (\s a -> s {_mttEmailSubject = a})
+-- | The subject line for email messages. EmailSubject is allowed only if
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount EmailSendingAccount>
+-- is DEVELOPER.
+messageTemplateType_emailSubject :: Lens.Lens' MessageTemplateType (Prelude.Maybe Prelude.Text)
+messageTemplateType_emailSubject = Lens.lens (\MessageTemplateType' {emailSubject} -> emailSubject) (\s@MessageTemplateType' {} a -> s {emailSubject = a} :: MessageTemplateType)
 
--- | The message template for email messages. EmailMessage is allowed only if <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount EmailSendingAccount> is DEVELOPER.
-mttEmailMessage :: Lens' MessageTemplateType (Maybe Text)
-mttEmailMessage = lens _mttEmailMessage (\s a -> s {_mttEmailMessage = a})
+-- | The message template for email messages. EmailMessage is allowed only if
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount EmailSendingAccount>
+-- is DEVELOPER.
+messageTemplateType_emailMessage :: Lens.Lens' MessageTemplateType (Prelude.Maybe Prelude.Text)
+messageTemplateType_emailMessage = Lens.lens (\MessageTemplateType' {emailMessage} -> emailMessage) (\s@MessageTemplateType' {} a -> s {emailMessage = a} :: MessageTemplateType)
 
 -- | The message template for SMS messages.
-mttSMSMessage :: Lens' MessageTemplateType (Maybe Text)
-mttSMSMessage = lens _mttSMSMessage (\s a -> s {_mttSMSMessage = a})
+messageTemplateType_sMSMessage :: Lens.Lens' MessageTemplateType (Prelude.Maybe Prelude.Text)
+messageTemplateType_sMSMessage = Lens.lens (\MessageTemplateType' {sMSMessage} -> sMSMessage) (\s@MessageTemplateType' {} a -> s {sMSMessage = a} :: MessageTemplateType)
 
-instance FromJSON MessageTemplateType where
+instance Prelude.FromJSON MessageTemplateType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MessageTemplateType"
       ( \x ->
           MessageTemplateType'
-            <$> (x .:? "EmailSubject")
-            <*> (x .:? "EmailMessage")
-            <*> (x .:? "SMSMessage")
+            Prelude.<$> (x Prelude..:? "EmailSubject")
+            Prelude.<*> (x Prelude..:? "EmailMessage")
+            Prelude.<*> (x Prelude..:? "SMSMessage")
       )
 
-instance Hashable MessageTemplateType
+instance Prelude.Hashable MessageTemplateType
 
-instance NFData MessageTemplateType
+instance Prelude.NFData MessageTemplateType
 
-instance ToJSON MessageTemplateType where
+instance Prelude.ToJSON MessageTemplateType where
   toJSON MessageTemplateType' {..} =
-    object
-      ( catMaybes
-          [ ("EmailSubject" .=) <$> _mttEmailSubject,
-            ("EmailMessage" .=) <$> _mttEmailMessage,
-            ("SMSMessage" .=) <$> _mttSMSMessage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EmailSubject" Prelude..=)
+              Prelude.<$> emailSubject,
+            ("EmailMessage" Prelude..=) Prelude.<$> emailMessage,
+            ("SMSMessage" Prelude..=) Prelude.<$> sMSMessage
           ]
       )

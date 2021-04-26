@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,161 +24,165 @@
 -- Verifies the specified user attributes in the user pool.
 module Network.AWS.CognitoIdentityProvider.VerifyUserAttribute
   ( -- * Creating a Request
-    verifyUserAttribute,
-    VerifyUserAttribute,
+    VerifyUserAttribute (..),
+    newVerifyUserAttribute,
 
     -- * Request Lenses
-    vuaAccessToken,
-    vuaAttributeName,
-    vuaCode,
+    verifyUserAttribute_accessToken,
+    verifyUserAttribute_attributeName,
+    verifyUserAttribute_code,
 
     -- * Destructuring the Response
-    verifyUserAttributeResponse,
-    VerifyUserAttributeResponse,
+    VerifyUserAttributeResponse (..),
+    newVerifyUserAttributeResponse,
 
     -- * Response Lenses
-    vuarrsResponseStatus,
+    verifyUserAttributeResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to verify user attributes.
 --
---
---
--- /See:/ 'verifyUserAttribute' smart constructor.
+-- /See:/ 'newVerifyUserAttribute' smart constructor.
 data VerifyUserAttribute = VerifyUserAttribute'
-  { _vuaAccessToken ::
-      !(Sensitive Text),
-    _vuaAttributeName :: !Text,
-    _vuaCode :: !Text
+  { -- | Represents the access token of the request to verify user attributes.
+    accessToken :: Prelude.Sensitive Prelude.Text,
+    -- | The attribute name in the request to verify user attributes.
+    attributeName :: Prelude.Text,
+    -- | The verification code in the request to verify user attributes.
+    code :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VerifyUserAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VerifyUserAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vuaAccessToken' - Represents the access token of the request to verify user attributes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vuaAttributeName' - The attribute name in the request to verify user attributes.
+-- 'accessToken', 'verifyUserAttribute_accessToken' - Represents the access token of the request to verify user attributes.
 --
--- * 'vuaCode' - The verification code in the request to verify user attributes.
-verifyUserAttribute ::
-  -- | 'vuaAccessToken'
-  Text ->
-  -- | 'vuaAttributeName'
-  Text ->
-  -- | 'vuaCode'
-  Text ->
+-- 'attributeName', 'verifyUserAttribute_attributeName' - The attribute name in the request to verify user attributes.
+--
+-- 'code', 'verifyUserAttribute_code' - The verification code in the request to verify user attributes.
+newVerifyUserAttribute ::
+  -- | 'accessToken'
+  Prelude.Text ->
+  -- | 'attributeName'
+  Prelude.Text ->
+  -- | 'code'
+  Prelude.Text ->
   VerifyUserAttribute
-verifyUserAttribute
+newVerifyUserAttribute
   pAccessToken_
   pAttributeName_
   pCode_ =
     VerifyUserAttribute'
-      { _vuaAccessToken =
-          _Sensitive # pAccessToken_,
-        _vuaAttributeName = pAttributeName_,
-        _vuaCode = pCode_
+      { accessToken =
+          Prelude._Sensitive Lens.# pAccessToken_,
+        attributeName = pAttributeName_,
+        code = pCode_
       }
 
 -- | Represents the access token of the request to verify user attributes.
-vuaAccessToken :: Lens' VerifyUserAttribute Text
-vuaAccessToken = lens _vuaAccessToken (\s a -> s {_vuaAccessToken = a}) . _Sensitive
+verifyUserAttribute_accessToken :: Lens.Lens' VerifyUserAttribute Prelude.Text
+verifyUserAttribute_accessToken = Lens.lens (\VerifyUserAttribute' {accessToken} -> accessToken) (\s@VerifyUserAttribute' {} a -> s {accessToken = a} :: VerifyUserAttribute) Prelude.. Prelude._Sensitive
 
 -- | The attribute name in the request to verify user attributes.
-vuaAttributeName :: Lens' VerifyUserAttribute Text
-vuaAttributeName = lens _vuaAttributeName (\s a -> s {_vuaAttributeName = a})
+verifyUserAttribute_attributeName :: Lens.Lens' VerifyUserAttribute Prelude.Text
+verifyUserAttribute_attributeName = Lens.lens (\VerifyUserAttribute' {attributeName} -> attributeName) (\s@VerifyUserAttribute' {} a -> s {attributeName = a} :: VerifyUserAttribute)
 
 -- | The verification code in the request to verify user attributes.
-vuaCode :: Lens' VerifyUserAttribute Text
-vuaCode = lens _vuaCode (\s a -> s {_vuaCode = a})
+verifyUserAttribute_code :: Lens.Lens' VerifyUserAttribute Prelude.Text
+verifyUserAttribute_code = Lens.lens (\VerifyUserAttribute' {code} -> code) (\s@VerifyUserAttribute' {} a -> s {code = a} :: VerifyUserAttribute)
 
-instance AWSRequest VerifyUserAttribute where
+instance Prelude.AWSRequest VerifyUserAttribute where
   type
     Rs VerifyUserAttribute =
       VerifyUserAttributeResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          VerifyUserAttributeResponse' <$> (pure (fromEnum s))
+          VerifyUserAttributeResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable VerifyUserAttribute
+instance Prelude.Hashable VerifyUserAttribute
 
-instance NFData VerifyUserAttribute
+instance Prelude.NFData VerifyUserAttribute
 
-instance ToHeaders VerifyUserAttribute where
+instance Prelude.ToHeaders VerifyUserAttribute where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.VerifyUserAttribute" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.VerifyUserAttribute" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON VerifyUserAttribute where
+instance Prelude.ToJSON VerifyUserAttribute where
   toJSON VerifyUserAttribute' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccessToken" .= _vuaAccessToken),
-            Just ("AttributeName" .= _vuaAttributeName),
-            Just ("Code" .= _vuaCode)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccessToken" Prelude..= accessToken),
+            Prelude.Just
+              ("AttributeName" Prelude..= attributeName),
+            Prelude.Just ("Code" Prelude..= code)
           ]
       )
 
-instance ToPath VerifyUserAttribute where
-  toPath = const "/"
+instance Prelude.ToPath VerifyUserAttribute where
+  toPath = Prelude.const "/"
 
-instance ToQuery VerifyUserAttribute where
-  toQuery = const mempty
+instance Prelude.ToQuery VerifyUserAttribute where
+  toQuery = Prelude.const Prelude.mempty
 
--- | A container representing the response from the server from the request to verify user attributes.
+-- | A container representing the response from the server from the request
+-- to verify user attributes.
 --
---
---
--- /See:/ 'verifyUserAttributeResponse' smart constructor.
-newtype VerifyUserAttributeResponse = VerifyUserAttributeResponse'
-  { _vuarrsResponseStatus ::
-      Int
+-- /See:/ 'newVerifyUserAttributeResponse' smart constructor.
+data VerifyUserAttributeResponse = VerifyUserAttributeResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VerifyUserAttributeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VerifyUserAttributeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vuarrsResponseStatus' - -- | The response status code.
-verifyUserAttributeResponse ::
-  -- | 'vuarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'verifyUserAttributeResponse_httpStatus' - The response's http status code.
+newVerifyUserAttributeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   VerifyUserAttributeResponse
-verifyUserAttributeResponse pResponseStatus_ =
+newVerifyUserAttributeResponse pHttpStatus_ =
   VerifyUserAttributeResponse'
-    { _vuarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-vuarrsResponseStatus :: Lens' VerifyUserAttributeResponse Int
-vuarrsResponseStatus = lens _vuarrsResponseStatus (\s a -> s {_vuarrsResponseStatus = a})
+-- | The response's http status code.
+verifyUserAttributeResponse_httpStatus :: Lens.Lens' VerifyUserAttributeResponse Prelude.Int
+verifyUserAttributeResponse_httpStatus = Lens.lens (\VerifyUserAttributeResponse' {httpStatus} -> httpStatus) (\s@VerifyUserAttributeResponse' {} a -> s {httpStatus = a} :: VerifyUserAttributeResponse)
 
-instance NFData VerifyUserAttributeResponse
+instance Prelude.NFData VerifyUserAttributeResponse

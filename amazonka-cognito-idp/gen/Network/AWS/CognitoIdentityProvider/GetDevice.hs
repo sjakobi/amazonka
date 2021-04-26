@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,146 +24,155 @@
 -- Gets the device.
 module Network.AWS.CognitoIdentityProvider.GetDevice
   ( -- * Creating a Request
-    getDevice,
-    GetDevice,
+    GetDevice (..),
+    newGetDevice,
 
     -- * Request Lenses
-    gdAccessToken,
-    gdDeviceKey,
+    getDevice_accessToken,
+    getDevice_deviceKey,
 
     -- * Destructuring the Response
-    getDeviceResponse,
-    GetDeviceResponse,
+    GetDeviceResponse (..),
+    newGetDeviceResponse,
 
     -- * Response Lenses
-    gdrrsResponseStatus,
-    gdrrsDevice,
+    getDeviceResponse_httpStatus,
+    getDeviceResponse_device,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.DeviceType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to get the device.
 --
---
---
--- /See:/ 'getDevice' smart constructor.
+-- /See:/ 'newGetDevice' smart constructor.
 data GetDevice = GetDevice'
-  { _gdAccessToken ::
-      !(Maybe (Sensitive Text)),
-    _gdDeviceKey :: !Text
+  { -- | The access token.
+    accessToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The device key.
+    deviceKey :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDevice' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDevice' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdAccessToken' - The access token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdDeviceKey' - The device key.
-getDevice ::
-  -- | 'gdDeviceKey'
-  Text ->
+-- 'accessToken', 'getDevice_accessToken' - The access token.
+--
+-- 'deviceKey', 'getDevice_deviceKey' - The device key.
+newGetDevice ::
+  -- | 'deviceKey'
+  Prelude.Text ->
   GetDevice
-getDevice pDeviceKey_ =
+newGetDevice pDeviceKey_ =
   GetDevice'
-    { _gdAccessToken = Nothing,
-      _gdDeviceKey = pDeviceKey_
+    { accessToken = Prelude.Nothing,
+      deviceKey = pDeviceKey_
     }
 
 -- | The access token.
-gdAccessToken :: Lens' GetDevice (Maybe Text)
-gdAccessToken = lens _gdAccessToken (\s a -> s {_gdAccessToken = a}) . mapping _Sensitive
+getDevice_accessToken :: Lens.Lens' GetDevice (Prelude.Maybe Prelude.Text)
+getDevice_accessToken = Lens.lens (\GetDevice' {accessToken} -> accessToken) (\s@GetDevice' {} a -> s {accessToken = a} :: GetDevice) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The device key.
-gdDeviceKey :: Lens' GetDevice Text
-gdDeviceKey = lens _gdDeviceKey (\s a -> s {_gdDeviceKey = a})
+getDevice_deviceKey :: Lens.Lens' GetDevice Prelude.Text
+getDevice_deviceKey = Lens.lens (\GetDevice' {deviceKey} -> deviceKey) (\s@GetDevice' {} a -> s {deviceKey = a} :: GetDevice)
 
-instance AWSRequest GetDevice where
+instance Prelude.AWSRequest GetDevice where
   type Rs GetDevice = GetDeviceResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDeviceResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "Device")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Device")
       )
 
-instance Hashable GetDevice
+instance Prelude.Hashable GetDevice
 
-instance NFData GetDevice
+instance Prelude.NFData GetDevice
 
-instance ToHeaders GetDevice where
+instance Prelude.ToHeaders GetDevice where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.GetDevice" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.GetDevice" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDevice where
+instance Prelude.ToJSON GetDevice where
   toJSON GetDevice' {..} =
-    object
-      ( catMaybes
-          [ ("AccessToken" .=) <$> _gdAccessToken,
-            Just ("DeviceKey" .= _gdDeviceKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AccessToken" Prelude..=) Prelude.<$> accessToken,
+            Prelude.Just ("DeviceKey" Prelude..= deviceKey)
           ]
       )
 
-instance ToPath GetDevice where
-  toPath = const "/"
+instance Prelude.ToPath GetDevice where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDevice where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDevice where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Gets the device response.
 --
---
---
--- /See:/ 'getDeviceResponse' smart constructor.
+-- /See:/ 'newGetDeviceResponse' smart constructor.
 data GetDeviceResponse = GetDeviceResponse'
-  { _gdrrsResponseStatus ::
-      !Int,
-    _gdrrsDevice :: !DeviceType
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The device.
+    device :: DeviceType
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeviceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeviceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdrrsDevice' - The device.
-getDeviceResponse ::
-  -- | 'gdrrsResponseStatus'
-  Int ->
-  -- | 'gdrrsDevice'
+-- 'httpStatus', 'getDeviceResponse_httpStatus' - The response's http status code.
+--
+-- 'device', 'getDeviceResponse_device' - The device.
+newGetDeviceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'device'
   DeviceType ->
   GetDeviceResponse
-getDeviceResponse pResponseStatus_ pDevice_ =
+newGetDeviceResponse pHttpStatus_ pDevice_ =
   GetDeviceResponse'
-    { _gdrrsResponseStatus =
-        pResponseStatus_,
-      _gdrrsDevice = pDevice_
+    { httpStatus = pHttpStatus_,
+      device = pDevice_
     }
 
--- | -- | The response status code.
-gdrrsResponseStatus :: Lens' GetDeviceResponse Int
-gdrrsResponseStatus = lens _gdrrsResponseStatus (\s a -> s {_gdrrsResponseStatus = a})
+-- | The response's http status code.
+getDeviceResponse_httpStatus :: Lens.Lens' GetDeviceResponse Prelude.Int
+getDeviceResponse_httpStatus = Lens.lens (\GetDeviceResponse' {httpStatus} -> httpStatus) (\s@GetDeviceResponse' {} a -> s {httpStatus = a} :: GetDeviceResponse)
 
 -- | The device.
-gdrrsDevice :: Lens' GetDeviceResponse DeviceType
-gdrrsDevice = lens _gdrrsDevice (\s a -> s {_gdrrsDevice = a})
+getDeviceResponse_device :: Lens.Lens' GetDeviceResponse DeviceType
+getDeviceResponse_device = Lens.lens (\GetDeviceResponse' {device} -> device) (\s@GetDeviceResponse' {} a -> s {device = a} :: GetDeviceResponse)
 
-instance NFData GetDeviceResponse
+instance Prelude.NFData GetDeviceResponse

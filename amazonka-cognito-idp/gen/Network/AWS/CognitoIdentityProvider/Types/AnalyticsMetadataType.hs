@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,55 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.AnalyticsMetadataType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An Amazon Pinpoint analytics endpoint.
 --
+-- An endpoint uniquely identifies a mobile device, email address, or phone
+-- number that can receive messages from Amazon Pinpoint analytics.
 --
--- An endpoint uniquely identifies a mobile device, email address, or phone number that can receive messages from Amazon Pinpoint analytics.
+-- Cognito User Pools only supports sending events to Amazon Pinpoint
+-- projects in the US East (N. Virginia) us-east-1 Region, regardless of
+-- the region in which the user pool resides.
 --
---
--- /See:/ 'analyticsMetadataType' smart constructor.
-newtype AnalyticsMetadataType = AnalyticsMetadataType'
-  { _amtAnalyticsEndpointId ::
-      Maybe Text
+-- /See:/ 'newAnalyticsMetadataType' smart constructor.
+data AnalyticsMetadataType = AnalyticsMetadataType'
+  { -- | The endpoint ID.
+    analyticsEndpointId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnalyticsMetadataType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnalyticsMetadataType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amtAnalyticsEndpointId' - The endpoint ID.
-analyticsMetadataType ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'analyticsEndpointId', 'analyticsMetadataType_analyticsEndpointId' - The endpoint ID.
+newAnalyticsMetadataType ::
   AnalyticsMetadataType
-analyticsMetadataType =
+newAnalyticsMetadataType =
   AnalyticsMetadataType'
-    { _amtAnalyticsEndpointId =
-        Nothing
+    { analyticsEndpointId =
+        Prelude.Nothing
     }
 
 -- | The endpoint ID.
-amtAnalyticsEndpointId :: Lens' AnalyticsMetadataType (Maybe Text)
-amtAnalyticsEndpointId = lens _amtAnalyticsEndpointId (\s a -> s {_amtAnalyticsEndpointId = a})
+analyticsMetadataType_analyticsEndpointId :: Lens.Lens' AnalyticsMetadataType (Prelude.Maybe Prelude.Text)
+analyticsMetadataType_analyticsEndpointId = Lens.lens (\AnalyticsMetadataType' {analyticsEndpointId} -> analyticsEndpointId) (\s@AnalyticsMetadataType' {} a -> s {analyticsEndpointId = a} :: AnalyticsMetadataType)
 
-instance Hashable AnalyticsMetadataType
+instance Prelude.Hashable AnalyticsMetadataType
 
-instance NFData AnalyticsMetadataType
+instance Prelude.NFData AnalyticsMetadataType
 
-instance ToJSON AnalyticsMetadataType where
+instance Prelude.ToJSON AnalyticsMetadataType where
   toJSON AnalyticsMetadataType' {..} =
-    object
-      ( catMaybes
-          [ ("AnalyticsEndpointId" .=)
-              <$> _amtAnalyticsEndpointId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AnalyticsEndpointId" Prelude..=)
+              Prelude.<$> analyticsEndpointId
           ]
       )

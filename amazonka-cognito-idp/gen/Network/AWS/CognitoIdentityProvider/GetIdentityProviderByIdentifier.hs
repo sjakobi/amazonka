@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,166 +24,184 @@
 -- Gets the specified identity provider.
 module Network.AWS.CognitoIdentityProvider.GetIdentityProviderByIdentifier
   ( -- * Creating a Request
-    getIdentityProviderByIdentifier,
-    GetIdentityProviderByIdentifier,
+    GetIdentityProviderByIdentifier (..),
+    newGetIdentityProviderByIdentifier,
 
     -- * Request Lenses
-    gipbiUserPoolId,
-    gipbiIdpIdentifier,
+    getIdentityProviderByIdentifier_userPoolId,
+    getIdentityProviderByIdentifier_idpIdentifier,
 
     -- * Destructuring the Response
-    getIdentityProviderByIdentifierResponse,
-    GetIdentityProviderByIdentifierResponse,
+    GetIdentityProviderByIdentifierResponse (..),
+    newGetIdentityProviderByIdentifierResponse,
 
     -- * Response Lenses
-    gipbirrsResponseStatus,
-    gipbirrsIdentityProvider,
+    getIdentityProviderByIdentifierResponse_httpStatus,
+    getIdentityProviderByIdentifierResponse_identityProvider,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.IdentityProviderType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getIdentityProviderByIdentifier' smart constructor.
+-- | /See:/ 'newGetIdentityProviderByIdentifier' smart constructor.
 data GetIdentityProviderByIdentifier = GetIdentityProviderByIdentifier'
-  { _gipbiUserPoolId ::
-      !Text,
-    _gipbiIdpIdentifier ::
-      !Text
+  { -- | The user pool ID.
+    userPoolId :: Prelude.Text,
+    -- | The identity provider ID.
+    idpIdentifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetIdentityProviderByIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetIdentityProviderByIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gipbiUserPoolId' - The user pool ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gipbiIdpIdentifier' - The identity provider ID.
-getIdentityProviderByIdentifier ::
-  -- | 'gipbiUserPoolId'
-  Text ->
-  -- | 'gipbiIdpIdentifier'
-  Text ->
+-- 'userPoolId', 'getIdentityProviderByIdentifier_userPoolId' - The user pool ID.
+--
+-- 'idpIdentifier', 'getIdentityProviderByIdentifier_idpIdentifier' - The identity provider ID.
+newGetIdentityProviderByIdentifier ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'idpIdentifier'
+  Prelude.Text ->
   GetIdentityProviderByIdentifier
-getIdentityProviderByIdentifier
+newGetIdentityProviderByIdentifier
   pUserPoolId_
   pIdpIdentifier_ =
     GetIdentityProviderByIdentifier'
-      { _gipbiUserPoolId =
+      { userPoolId =
           pUserPoolId_,
-        _gipbiIdpIdentifier = pIdpIdentifier_
+        idpIdentifier = pIdpIdentifier_
       }
 
 -- | The user pool ID.
-gipbiUserPoolId :: Lens' GetIdentityProviderByIdentifier Text
-gipbiUserPoolId = lens _gipbiUserPoolId (\s a -> s {_gipbiUserPoolId = a})
+getIdentityProviderByIdentifier_userPoolId :: Lens.Lens' GetIdentityProviderByIdentifier Prelude.Text
+getIdentityProviderByIdentifier_userPoolId = Lens.lens (\GetIdentityProviderByIdentifier' {userPoolId} -> userPoolId) (\s@GetIdentityProviderByIdentifier' {} a -> s {userPoolId = a} :: GetIdentityProviderByIdentifier)
 
 -- | The identity provider ID.
-gipbiIdpIdentifier :: Lens' GetIdentityProviderByIdentifier Text
-gipbiIdpIdentifier = lens _gipbiIdpIdentifier (\s a -> s {_gipbiIdpIdentifier = a})
+getIdentityProviderByIdentifier_idpIdentifier :: Lens.Lens' GetIdentityProviderByIdentifier Prelude.Text
+getIdentityProviderByIdentifier_idpIdentifier = Lens.lens (\GetIdentityProviderByIdentifier' {idpIdentifier} -> idpIdentifier) (\s@GetIdentityProviderByIdentifier' {} a -> s {idpIdentifier = a} :: GetIdentityProviderByIdentifier)
 
-instance AWSRequest GetIdentityProviderByIdentifier where
+instance
+  Prelude.AWSRequest
+    GetIdentityProviderByIdentifier
+  where
   type
     Rs GetIdentityProviderByIdentifier =
       GetIdentityProviderByIdentifierResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetIdentityProviderByIdentifierResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "IdentityProvider")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "IdentityProvider")
       )
 
-instance Hashable GetIdentityProviderByIdentifier
+instance
+  Prelude.Hashable
+    GetIdentityProviderByIdentifier
 
-instance NFData GetIdentityProviderByIdentifier
+instance
+  Prelude.NFData
+    GetIdentityProviderByIdentifier
 
-instance ToHeaders GetIdentityProviderByIdentifier where
+instance
+  Prelude.ToHeaders
+    GetIdentityProviderByIdentifier
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.GetIdentityProviderByIdentifier" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.GetIdentityProviderByIdentifier" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetIdentityProviderByIdentifier where
+instance
+  Prelude.ToJSON
+    GetIdentityProviderByIdentifier
+  where
   toJSON GetIdentityProviderByIdentifier' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserPoolId" .= _gipbiUserPoolId),
-            Just ("IdpIdentifier" .= _gipbiIdpIdentifier)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserPoolId" Prelude..= userPoolId),
+            Prelude.Just
+              ("IdpIdentifier" Prelude..= idpIdentifier)
           ]
       )
 
-instance ToPath GetIdentityProviderByIdentifier where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    GetIdentityProviderByIdentifier
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetIdentityProviderByIdentifier where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetIdentityProviderByIdentifier
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getIdentityProviderByIdentifierResponse' smart constructor.
+-- | /See:/ 'newGetIdentityProviderByIdentifierResponse' smart constructor.
 data GetIdentityProviderByIdentifierResponse = GetIdentityProviderByIdentifierResponse'
-  { _gipbirrsResponseStatus ::
-      !Int,
-    _gipbirrsIdentityProvider ::
-      !IdentityProviderType
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The identity provider object.
+    identityProvider :: IdentityProviderType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetIdentityProviderByIdentifierResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetIdentityProviderByIdentifierResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gipbirrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gipbirrsIdentityProvider' - The identity provider object.
-getIdentityProviderByIdentifierResponse ::
-  -- | 'gipbirrsResponseStatus'
-  Int ->
-  -- | 'gipbirrsIdentityProvider'
+-- 'httpStatus', 'getIdentityProviderByIdentifierResponse_httpStatus' - The response's http status code.
+--
+-- 'identityProvider', 'getIdentityProviderByIdentifierResponse_identityProvider' - The identity provider object.
+newGetIdentityProviderByIdentifierResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'identityProvider'
   IdentityProviderType ->
   GetIdentityProviderByIdentifierResponse
-getIdentityProviderByIdentifierResponse
-  pResponseStatus_
+newGetIdentityProviderByIdentifierResponse
+  pHttpStatus_
   pIdentityProvider_ =
     GetIdentityProviderByIdentifierResponse'
-      { _gipbirrsResponseStatus =
-          pResponseStatus_,
-        _gipbirrsIdentityProvider =
+      { httpStatus =
+          pHttpStatus_,
+        identityProvider =
           pIdentityProvider_
       }
 
--- | -- | The response status code.
-gipbirrsResponseStatus :: Lens' GetIdentityProviderByIdentifierResponse Int
-gipbirrsResponseStatus = lens _gipbirrsResponseStatus (\s a -> s {_gipbirrsResponseStatus = a})
+-- | The response's http status code.
+getIdentityProviderByIdentifierResponse_httpStatus :: Lens.Lens' GetIdentityProviderByIdentifierResponse Prelude.Int
+getIdentityProviderByIdentifierResponse_httpStatus = Lens.lens (\GetIdentityProviderByIdentifierResponse' {httpStatus} -> httpStatus) (\s@GetIdentityProviderByIdentifierResponse' {} a -> s {httpStatus = a} :: GetIdentityProviderByIdentifierResponse)
 
 -- | The identity provider object.
-gipbirrsIdentityProvider :: Lens' GetIdentityProviderByIdentifierResponse IdentityProviderType
-gipbirrsIdentityProvider = lens _gipbirrsIdentityProvider (\s a -> s {_gipbirrsIdentityProvider = a})
+getIdentityProviderByIdentifierResponse_identityProvider :: Lens.Lens' GetIdentityProviderByIdentifierResponse IdentityProviderType
+getIdentityProviderByIdentifierResponse_identityProvider = Lens.lens (\GetIdentityProviderByIdentifierResponse' {identityProvider} -> identityProvider) (\s@GetIdentityProviderByIdentifierResponse' {} a -> s {identityProvider = a} :: GetIdentityProviderByIdentifierResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetIdentityProviderByIdentifierResponse

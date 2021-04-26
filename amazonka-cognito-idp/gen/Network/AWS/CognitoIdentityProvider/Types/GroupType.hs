@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,99 +19,152 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.GroupType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The group type.
 --
---
---
--- /See:/ 'groupType' smart constructor.
+-- /See:/ 'newGroupType' smart constructor.
 data GroupType = GroupType'
-  { _gtLastModifiedDate ::
-      !(Maybe POSIX),
-    _gtRoleARN :: !(Maybe Text),
-    _gtGroupName :: !(Maybe Text),
-    _gtUserPoolId :: !(Maybe Text),
-    _gtCreationDate :: !(Maybe POSIX),
-    _gtDescription :: !(Maybe Text),
-    _gtPrecedence :: !(Maybe Nat)
+  { -- | The date the group was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The role ARN for the group.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the group.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The user pool ID for the user pool.
+    userPoolId :: Prelude.Maybe Prelude.Text,
+    -- | The date the group was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | A string containing the description of the group.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A nonnegative integer value that specifies the precedence of this group
+    -- relative to the other groups that a user can belong to in the user pool.
+    -- If a user belongs to two or more groups, it is the group with the
+    -- highest precedence whose role ARN will be used in the @cognito:roles@
+    -- and @cognito:preferred_role@ claims in the user\'s tokens. Groups with
+    -- higher @Precedence@ values take precedence over groups with lower
+    -- @Precedence@ values or with null @Precedence@ values.
+    --
+    -- Two groups can have the same @Precedence@ value. If this happens,
+    -- neither group takes precedence over the other. If two groups with the
+    -- same @Precedence@ have the same role ARN, that role is used in the
+    -- @cognito:preferred_role@ claim in tokens for users in each group. If the
+    -- two groups have different role ARNs, the @cognito:preferred_role@ claim
+    -- is not set in users\' tokens.
+    --
+    -- The default @Precedence@ value is null.
+    precedence :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GroupType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GroupType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtLastModifiedDate' - The date the group was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtRoleARN' - The role ARN for the group.
+-- 'lastModifiedDate', 'groupType_lastModifiedDate' - The date the group was last modified.
 --
--- * 'gtGroupName' - The name of the group.
+-- 'roleArn', 'groupType_roleArn' - The role ARN for the group.
 --
--- * 'gtUserPoolId' - The user pool ID for the user pool.
+-- 'groupName', 'groupType_groupName' - The name of the group.
 --
--- * 'gtCreationDate' - The date the group was created.
+-- 'userPoolId', 'groupType_userPoolId' - The user pool ID for the user pool.
 --
--- * 'gtDescription' - A string containing the description of the group.
+-- 'creationDate', 'groupType_creationDate' - The date the group was created.
 --
--- * 'gtPrecedence' - A nonnegative integer value that specifies the precedence of this group relative to the other groups that a user can belong to in the user pool. If a user belongs to two or more groups, it is the group with the highest precedence whose role ARN will be used in the @cognito:roles@ and @cognito:preferred_role@ claims in the user's tokens. Groups with higher @Precedence@ values take precedence over groups with lower @Precedence@ values or with null @Precedence@ values. Two groups can have the same @Precedence@ value. If this happens, neither group takes precedence over the other. If two groups with the same @Precedence@ have the same role ARN, that role is used in the @cognito:preferred_role@ claim in tokens for users in each group. If the two groups have different role ARNs, the @cognito:preferred_role@ claim is not set in users' tokens. The default @Precedence@ value is null.
-groupType ::
+-- 'description', 'groupType_description' - A string containing the description of the group.
+--
+-- 'precedence', 'groupType_precedence' - A nonnegative integer value that specifies the precedence of this group
+-- relative to the other groups that a user can belong to in the user pool.
+-- If a user belongs to two or more groups, it is the group with the
+-- highest precedence whose role ARN will be used in the @cognito:roles@
+-- and @cognito:preferred_role@ claims in the user\'s tokens. Groups with
+-- higher @Precedence@ values take precedence over groups with lower
+-- @Precedence@ values or with null @Precedence@ values.
+--
+-- Two groups can have the same @Precedence@ value. If this happens,
+-- neither group takes precedence over the other. If two groups with the
+-- same @Precedence@ have the same role ARN, that role is used in the
+-- @cognito:preferred_role@ claim in tokens for users in each group. If the
+-- two groups have different role ARNs, the @cognito:preferred_role@ claim
+-- is not set in users\' tokens.
+--
+-- The default @Precedence@ value is null.
+newGroupType ::
   GroupType
-groupType =
+newGroupType =
   GroupType'
-    { _gtLastModifiedDate = Nothing,
-      _gtRoleARN = Nothing,
-      _gtGroupName = Nothing,
-      _gtUserPoolId = Nothing,
-      _gtCreationDate = Nothing,
-      _gtDescription = Nothing,
-      _gtPrecedence = Nothing
+    { lastModifiedDate = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      groupName = Prelude.Nothing,
+      userPoolId = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      description = Prelude.Nothing,
+      precedence = Prelude.Nothing
     }
 
 -- | The date the group was last modified.
-gtLastModifiedDate :: Lens' GroupType (Maybe UTCTime)
-gtLastModifiedDate = lens _gtLastModifiedDate (\s a -> s {_gtLastModifiedDate = a}) . mapping _Time
+groupType_lastModifiedDate :: Lens.Lens' GroupType (Prelude.Maybe Prelude.UTCTime)
+groupType_lastModifiedDate = Lens.lens (\GroupType' {lastModifiedDate} -> lastModifiedDate) (\s@GroupType' {} a -> s {lastModifiedDate = a} :: GroupType) Prelude.. Lens.mapping Prelude._Time
 
 -- | The role ARN for the group.
-gtRoleARN :: Lens' GroupType (Maybe Text)
-gtRoleARN = lens _gtRoleARN (\s a -> s {_gtRoleARN = a})
+groupType_roleArn :: Lens.Lens' GroupType (Prelude.Maybe Prelude.Text)
+groupType_roleArn = Lens.lens (\GroupType' {roleArn} -> roleArn) (\s@GroupType' {} a -> s {roleArn = a} :: GroupType)
 
 -- | The name of the group.
-gtGroupName :: Lens' GroupType (Maybe Text)
-gtGroupName = lens _gtGroupName (\s a -> s {_gtGroupName = a})
+groupType_groupName :: Lens.Lens' GroupType (Prelude.Maybe Prelude.Text)
+groupType_groupName = Lens.lens (\GroupType' {groupName} -> groupName) (\s@GroupType' {} a -> s {groupName = a} :: GroupType)
 
 -- | The user pool ID for the user pool.
-gtUserPoolId :: Lens' GroupType (Maybe Text)
-gtUserPoolId = lens _gtUserPoolId (\s a -> s {_gtUserPoolId = a})
+groupType_userPoolId :: Lens.Lens' GroupType (Prelude.Maybe Prelude.Text)
+groupType_userPoolId = Lens.lens (\GroupType' {userPoolId} -> userPoolId) (\s@GroupType' {} a -> s {userPoolId = a} :: GroupType)
 
 -- | The date the group was created.
-gtCreationDate :: Lens' GroupType (Maybe UTCTime)
-gtCreationDate = lens _gtCreationDate (\s a -> s {_gtCreationDate = a}) . mapping _Time
+groupType_creationDate :: Lens.Lens' GroupType (Prelude.Maybe Prelude.UTCTime)
+groupType_creationDate = Lens.lens (\GroupType' {creationDate} -> creationDate) (\s@GroupType' {} a -> s {creationDate = a} :: GroupType) Prelude.. Lens.mapping Prelude._Time
 
 -- | A string containing the description of the group.
-gtDescription :: Lens' GroupType (Maybe Text)
-gtDescription = lens _gtDescription (\s a -> s {_gtDescription = a})
+groupType_description :: Lens.Lens' GroupType (Prelude.Maybe Prelude.Text)
+groupType_description = Lens.lens (\GroupType' {description} -> description) (\s@GroupType' {} a -> s {description = a} :: GroupType)
 
--- | A nonnegative integer value that specifies the precedence of this group relative to the other groups that a user can belong to in the user pool. If a user belongs to two or more groups, it is the group with the highest precedence whose role ARN will be used in the @cognito:roles@ and @cognito:preferred_role@ claims in the user's tokens. Groups with higher @Precedence@ values take precedence over groups with lower @Precedence@ values or with null @Precedence@ values. Two groups can have the same @Precedence@ value. If this happens, neither group takes precedence over the other. If two groups with the same @Precedence@ have the same role ARN, that role is used in the @cognito:preferred_role@ claim in tokens for users in each group. If the two groups have different role ARNs, the @cognito:preferred_role@ claim is not set in users' tokens. The default @Precedence@ value is null.
-gtPrecedence :: Lens' GroupType (Maybe Natural)
-gtPrecedence = lens _gtPrecedence (\s a -> s {_gtPrecedence = a}) . mapping _Nat
+-- | A nonnegative integer value that specifies the precedence of this group
+-- relative to the other groups that a user can belong to in the user pool.
+-- If a user belongs to two or more groups, it is the group with the
+-- highest precedence whose role ARN will be used in the @cognito:roles@
+-- and @cognito:preferred_role@ claims in the user\'s tokens. Groups with
+-- higher @Precedence@ values take precedence over groups with lower
+-- @Precedence@ values or with null @Precedence@ values.
+--
+-- Two groups can have the same @Precedence@ value. If this happens,
+-- neither group takes precedence over the other. If two groups with the
+-- same @Precedence@ have the same role ARN, that role is used in the
+-- @cognito:preferred_role@ claim in tokens for users in each group. If the
+-- two groups have different role ARNs, the @cognito:preferred_role@ claim
+-- is not set in users\' tokens.
+--
+-- The default @Precedence@ value is null.
+groupType_precedence :: Lens.Lens' GroupType (Prelude.Maybe Prelude.Natural)
+groupType_precedence = Lens.lens (\GroupType' {precedence} -> precedence) (\s@GroupType' {} a -> s {precedence = a} :: GroupType) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON GroupType where
+instance Prelude.FromJSON GroupType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GroupType"
       ( \x ->
           GroupType'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "RoleArn")
-            <*> (x .:? "GroupName")
-            <*> (x .:? "UserPoolId")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "Description")
-            <*> (x .:? "Precedence")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "RoleArn")
+            Prelude.<*> (x Prelude..:? "GroupName")
+            Prelude.<*> (x Prelude..:? "UserPoolId")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Precedence")
       )
 
-instance Hashable GroupType
+instance Prelude.Hashable GroupType
 
-instance NFData GroupType
+instance Prelude.NFData GroupType

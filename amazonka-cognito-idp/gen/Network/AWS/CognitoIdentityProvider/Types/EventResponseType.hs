@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CognitoIdentityProvider.Types.EventResponseType
   ( EventResponseType
       ( ..,
-        ERTFailure,
-        ERTSuccess
+        EventResponseTypeFailure,
+        EventResponseTypeSuccess
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventResponseType = EventResponseType' (CI Text)
+newtype EventResponseType = EventResponseType'
+  { fromEventResponseType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ERTFailure :: EventResponseType
-pattern ERTFailure = EventResponseType' "Failure"
+pattern EventResponseTypeFailure :: EventResponseType
+pattern EventResponseTypeFailure = EventResponseType' "Failure"
 
-pattern ERTSuccess :: EventResponseType
-pattern ERTSuccess = EventResponseType' "Success"
+pattern EventResponseTypeSuccess :: EventResponseType
+pattern EventResponseTypeSuccess = EventResponseType' "Success"
 
 {-# COMPLETE
-  ERTFailure,
-  ERTSuccess,
+  EventResponseTypeFailure,
+  EventResponseTypeSuccess,
   EventResponseType'
   #-}
 
-instance FromText EventResponseType where
-  parser = (EventResponseType' . mk) <$> takeText
+instance Prelude.FromText EventResponseType where
+  parser = EventResponseType' Prelude.<$> Prelude.takeText
 
-instance ToText EventResponseType where
-  toText (EventResponseType' ci) = original ci
+instance Prelude.ToText EventResponseType where
+  toText (EventResponseType' x) = x
 
-instance Hashable EventResponseType
+instance Prelude.Hashable EventResponseType
 
-instance NFData EventResponseType
+instance Prelude.NFData EventResponseType
 
-instance ToByteString EventResponseType
+instance Prelude.ToByteString EventResponseType
 
-instance ToQuery EventResponseType
+instance Prelude.ToQuery EventResponseType
 
-instance ToHeader EventResponseType
+instance Prelude.ToHeader EventResponseType
 
-instance FromJSON EventResponseType where
-  parseJSON = parseJSONText "EventResponseType"
+instance Prelude.FromJSON EventResponseType where
+  parseJSON = Prelude.parseJSONText "EventResponseType"

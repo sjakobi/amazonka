@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,321 +21,387 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the specified user pool with the specified attributes. You can get a list of the current user pool settings using <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DescribeUserPool.html DescribeUserPool> .
+-- Updates the specified user pool with the specified attributes. You can
+-- get a list of the current user pool settings using
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DescribeUserPool.html DescribeUserPool>.
 --
---
--- /Important:/ If you don't provide a value for an attribute, it will be set to the default value.
+-- If you don\'t provide a value for an attribute, it will be set to the
+-- default value.
 module Network.AWS.CognitoIdentityProvider.UpdateUserPool
   ( -- * Creating a Request
-    updateUserPool,
-    UpdateUserPool,
+    UpdateUserPool (..),
+    newUpdateUserPool,
 
     -- * Request Lenses
-    uupUserPoolTags,
-    uupEmailVerificationSubject,
-    uupAutoVerifiedAttributes,
-    uupPolicies,
-    uupAdminCreateUserConfig,
-    uupDeviceConfiguration,
-    uupSmsConfiguration,
-    uupLambdaConfig,
-    uupSmsVerificationMessage,
-    uupAccountRecoverySetting,
-    uupEmailConfiguration,
-    uupEmailVerificationMessage,
-    uupUserPoolAddOns,
-    uupSmsAuthenticationMessage,
-    uupMFAConfiguration,
-    uupVerificationMessageTemplate,
-    uupUserPoolId,
+    updateUserPool_userPoolTags,
+    updateUserPool_emailVerificationSubject,
+    updateUserPool_autoVerifiedAttributes,
+    updateUserPool_policies,
+    updateUserPool_adminCreateUserConfig,
+    updateUserPool_deviceConfiguration,
+    updateUserPool_smsConfiguration,
+    updateUserPool_lambdaConfig,
+    updateUserPool_smsVerificationMessage,
+    updateUserPool_accountRecoverySetting,
+    updateUserPool_emailConfiguration,
+    updateUserPool_emailVerificationMessage,
+    updateUserPool_userPoolAddOns,
+    updateUserPool_smsAuthenticationMessage,
+    updateUserPool_mfaConfiguration,
+    updateUserPool_verificationMessageTemplate,
+    updateUserPool_userPoolId,
 
     -- * Destructuring the Response
-    updateUserPoolResponse,
-    UpdateUserPoolResponse,
+    UpdateUserPoolResponse (..),
+    newUpdateUserPoolResponse,
 
     -- * Response Lenses
-    uuprrsResponseStatus,
+    updateUserPoolResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to update the user pool.
 --
---
---
--- /See:/ 'updateUserPool' smart constructor.
+-- /See:/ 'newUpdateUserPool' smart constructor.
 data UpdateUserPool = UpdateUserPool'
-  { _uupUserPoolTags ::
-      !(Maybe (Map Text Text)),
-    _uupEmailVerificationSubject ::
-      !(Maybe Text),
-    _uupAutoVerifiedAttributes ::
-      !(Maybe [VerifiedAttributeType]),
-    _uupPolicies ::
-      !(Maybe UserPoolPolicyType),
-    _uupAdminCreateUserConfig ::
-      !(Maybe AdminCreateUserConfigType),
-    _uupDeviceConfiguration ::
-      !(Maybe DeviceConfigurationType),
-    _uupSmsConfiguration ::
-      !(Maybe SmsConfigurationType),
-    _uupLambdaConfig ::
-      !(Maybe LambdaConfigType),
-    _uupSmsVerificationMessage ::
-      !(Maybe Text),
-    _uupAccountRecoverySetting ::
-      !(Maybe AccountRecoverySettingType),
-    _uupEmailConfiguration ::
-      !(Maybe EmailConfigurationType),
-    _uupEmailVerificationMessage ::
-      !(Maybe Text),
-    _uupUserPoolAddOns ::
-      !(Maybe UserPoolAddOnsType),
-    _uupSmsAuthenticationMessage ::
-      !(Maybe Text),
-    _uupMFAConfiguration ::
-      !(Maybe UserPoolMFAType),
-    _uupVerificationMessageTemplate ::
-      !(Maybe VerificationMessageTemplateType),
-    _uupUserPoolId :: !Text
+  { -- | The tag keys and values to assign to the user pool. A tag is a label
+    -- that you can use to categorize and manage user pools in different ways,
+    -- such as by purpose, owner, environment, or other criteria.
+    userPoolTags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The subject of the email verification message.
+    emailVerificationSubject :: Prelude.Maybe Prelude.Text,
+    -- | The attributes that are automatically verified when the Amazon Cognito
+    -- service makes a request to update user pools.
+    autoVerifiedAttributes :: Prelude.Maybe [VerifiedAttributeType],
+    -- | A container with the policies you wish to update in a user pool.
+    policies :: Prelude.Maybe UserPoolPolicyType,
+    -- | The configuration for @AdminCreateUser@ requests.
+    adminCreateUserConfig :: Prelude.Maybe AdminCreateUserConfigType,
+    -- | Device configuration.
+    deviceConfiguration :: Prelude.Maybe DeviceConfigurationType,
+    -- | SMS configuration.
+    smsConfiguration :: Prelude.Maybe SmsConfigurationType,
+    -- | The AWS Lambda configuration information from the request to update the
+    -- user pool.
+    lambdaConfig :: Prelude.Maybe LambdaConfigType,
+    -- | A container with information about the SMS verification message.
+    smsVerificationMessage :: Prelude.Maybe Prelude.Text,
+    -- | Use this setting to define which verified available method a user can
+    -- use to recover their password when they call @ForgotPassword@. It allows
+    -- you to define a preferred method when a user has more than one method
+    -- available. With this setting, SMS does not qualify for a valid password
+    -- recovery mechanism if the user also has SMS MFA enabled. In the absence
+    -- of this setting, Cognito uses the legacy behavior to determine the
+    -- recovery method where SMS is preferred over email.
+    accountRecoverySetting :: Prelude.Maybe AccountRecoverySettingType,
+    -- | Email configuration.
+    emailConfiguration :: Prelude.Maybe EmailConfigurationType,
+    -- | The contents of the email verification message.
+    emailVerificationMessage :: Prelude.Maybe Prelude.Text,
+    -- | Used to enable advanced security risk detection. Set the key
+    -- @AdvancedSecurityMode@ to the value \"AUDIT\".
+    userPoolAddOns :: Prelude.Maybe UserPoolAddOnsType,
+    -- | The contents of the SMS authentication message.
+    smsAuthenticationMessage :: Prelude.Maybe Prelude.Text,
+    -- | Can be one of the following values:
+    --
+    -- -   @OFF@ - MFA tokens are not required and cannot be specified during
+    --     user registration.
+    --
+    -- -   @ON@ - MFA tokens are required for all user registrations. You can
+    --     only specify required when you are initially creating a user pool.
+    --
+    -- -   @OPTIONAL@ - Users have the option when registering to create an MFA
+    --     token.
+    mfaConfiguration :: Prelude.Maybe UserPoolMfaType,
+    -- | The template for verification messages.
+    verificationMessageTemplate :: Prelude.Maybe VerificationMessageTemplateType,
+    -- | The user pool ID for the user pool you want to update.
+    userPoolId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserPool' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserPool' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uupUserPoolTags' - The tag keys and values to assign to the user pool. A tag is a label that you can use to categorize and manage user pools in different ways, such as by purpose, owner, environment, or other criteria.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uupEmailVerificationSubject' - The subject of the email verification message.
+-- 'userPoolTags', 'updateUserPool_userPoolTags' - The tag keys and values to assign to the user pool. A tag is a label
+-- that you can use to categorize and manage user pools in different ways,
+-- such as by purpose, owner, environment, or other criteria.
 --
--- * 'uupAutoVerifiedAttributes' - The attributes that are automatically verified when the Amazon Cognito service makes a request to update user pools.
+-- 'emailVerificationSubject', 'updateUserPool_emailVerificationSubject' - The subject of the email verification message.
 --
--- * 'uupPolicies' - A container with the policies you wish to update in a user pool.
+-- 'autoVerifiedAttributes', 'updateUserPool_autoVerifiedAttributes' - The attributes that are automatically verified when the Amazon Cognito
+-- service makes a request to update user pools.
 --
--- * 'uupAdminCreateUserConfig' - The configuration for @AdminCreateUser@ requests.
+-- 'policies', 'updateUserPool_policies' - A container with the policies you wish to update in a user pool.
 --
--- * 'uupDeviceConfiguration' - Device configuration.
+-- 'adminCreateUserConfig', 'updateUserPool_adminCreateUserConfig' - The configuration for @AdminCreateUser@ requests.
 --
--- * 'uupSmsConfiguration' - SMS configuration.
+-- 'deviceConfiguration', 'updateUserPool_deviceConfiguration' - Device configuration.
 --
--- * 'uupLambdaConfig' - The AWS Lambda configuration information from the request to update the user pool.
+-- 'smsConfiguration', 'updateUserPool_smsConfiguration' - SMS configuration.
 --
--- * 'uupSmsVerificationMessage' - A container with information about the SMS verification message.
+-- 'lambdaConfig', 'updateUserPool_lambdaConfig' - The AWS Lambda configuration information from the request to update the
+-- user pool.
 --
--- * 'uupAccountRecoverySetting' - Use this setting to define which verified available method a user can use to recover their password when they call @ForgotPassword@ . It allows you to define a preferred method when a user has more than one method available. With this setting, SMS does not qualify for a valid password recovery mechanism if the user also has SMS MFA enabled. In the absence of this setting, Cognito uses the legacy behavior to determine the recovery method where SMS is preferred over email.
+-- 'smsVerificationMessage', 'updateUserPool_smsVerificationMessage' - A container with information about the SMS verification message.
 --
--- * 'uupEmailConfiguration' - Email configuration.
+-- 'accountRecoverySetting', 'updateUserPool_accountRecoverySetting' - Use this setting to define which verified available method a user can
+-- use to recover their password when they call @ForgotPassword@. It allows
+-- you to define a preferred method when a user has more than one method
+-- available. With this setting, SMS does not qualify for a valid password
+-- recovery mechanism if the user also has SMS MFA enabled. In the absence
+-- of this setting, Cognito uses the legacy behavior to determine the
+-- recovery method where SMS is preferred over email.
 --
--- * 'uupEmailVerificationMessage' - The contents of the email verification message.
+-- 'emailConfiguration', 'updateUserPool_emailConfiguration' - Email configuration.
 --
--- * 'uupUserPoolAddOns' - Used to enable advanced security risk detection. Set the key @AdvancedSecurityMode@ to the value "AUDIT".
+-- 'emailVerificationMessage', 'updateUserPool_emailVerificationMessage' - The contents of the email verification message.
 --
--- * 'uupSmsAuthenticationMessage' - The contents of the SMS authentication message.
+-- 'userPoolAddOns', 'updateUserPool_userPoolAddOns' - Used to enable advanced security risk detection. Set the key
+-- @AdvancedSecurityMode@ to the value \"AUDIT\".
 --
--- * 'uupMFAConfiguration' - Can be one of the following values:     * @OFF@ - MFA tokens are not required and cannot be specified during user registration.     * @ON@ - MFA tokens are required for all user registrations. You can only specify required when you are initially creating a user pool.     * @OPTIONAL@ - Users have the option when registering to create an MFA token.
+-- 'smsAuthenticationMessage', 'updateUserPool_smsAuthenticationMessage' - The contents of the SMS authentication message.
 --
--- * 'uupVerificationMessageTemplate' - The template for verification messages.
+-- 'mfaConfiguration', 'updateUserPool_mfaConfiguration' - Can be one of the following values:
 --
--- * 'uupUserPoolId' - The user pool ID for the user pool you want to update.
-updateUserPool ::
-  -- | 'uupUserPoolId'
-  Text ->
+-- -   @OFF@ - MFA tokens are not required and cannot be specified during
+--     user registration.
+--
+-- -   @ON@ - MFA tokens are required for all user registrations. You can
+--     only specify required when you are initially creating a user pool.
+--
+-- -   @OPTIONAL@ - Users have the option when registering to create an MFA
+--     token.
+--
+-- 'verificationMessageTemplate', 'updateUserPool_verificationMessageTemplate' - The template for verification messages.
+--
+-- 'userPoolId', 'updateUserPool_userPoolId' - The user pool ID for the user pool you want to update.
+newUpdateUserPool ::
+  -- | 'userPoolId'
+  Prelude.Text ->
   UpdateUserPool
-updateUserPool pUserPoolId_ =
+newUpdateUserPool pUserPoolId_ =
   UpdateUserPool'
-    { _uupUserPoolTags = Nothing,
-      _uupEmailVerificationSubject = Nothing,
-      _uupAutoVerifiedAttributes = Nothing,
-      _uupPolicies = Nothing,
-      _uupAdminCreateUserConfig = Nothing,
-      _uupDeviceConfiguration = Nothing,
-      _uupSmsConfiguration = Nothing,
-      _uupLambdaConfig = Nothing,
-      _uupSmsVerificationMessage = Nothing,
-      _uupAccountRecoverySetting = Nothing,
-      _uupEmailConfiguration = Nothing,
-      _uupEmailVerificationMessage = Nothing,
-      _uupUserPoolAddOns = Nothing,
-      _uupSmsAuthenticationMessage = Nothing,
-      _uupMFAConfiguration = Nothing,
-      _uupVerificationMessageTemplate = Nothing,
-      _uupUserPoolId = pUserPoolId_
+    { userPoolTags = Prelude.Nothing,
+      emailVerificationSubject = Prelude.Nothing,
+      autoVerifiedAttributes = Prelude.Nothing,
+      policies = Prelude.Nothing,
+      adminCreateUserConfig = Prelude.Nothing,
+      deviceConfiguration = Prelude.Nothing,
+      smsConfiguration = Prelude.Nothing,
+      lambdaConfig = Prelude.Nothing,
+      smsVerificationMessage = Prelude.Nothing,
+      accountRecoverySetting = Prelude.Nothing,
+      emailConfiguration = Prelude.Nothing,
+      emailVerificationMessage = Prelude.Nothing,
+      userPoolAddOns = Prelude.Nothing,
+      smsAuthenticationMessage = Prelude.Nothing,
+      mfaConfiguration = Prelude.Nothing,
+      verificationMessageTemplate = Prelude.Nothing,
+      userPoolId = pUserPoolId_
     }
 
--- | The tag keys and values to assign to the user pool. A tag is a label that you can use to categorize and manage user pools in different ways, such as by purpose, owner, environment, or other criteria.
-uupUserPoolTags :: Lens' UpdateUserPool (HashMap Text Text)
-uupUserPoolTags = lens _uupUserPoolTags (\s a -> s {_uupUserPoolTags = a}) . _Default . _Map
+-- | The tag keys and values to assign to the user pool. A tag is a label
+-- that you can use to categorize and manage user pools in different ways,
+-- such as by purpose, owner, environment, or other criteria.
+updateUserPool_userPoolTags :: Lens.Lens' UpdateUserPool (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+updateUserPool_userPoolTags = Lens.lens (\UpdateUserPool' {userPoolTags} -> userPoolTags) (\s@UpdateUserPool' {} a -> s {userPoolTags = a} :: UpdateUserPool) Prelude.. Lens.mapping Prelude._Map
 
 -- | The subject of the email verification message.
-uupEmailVerificationSubject :: Lens' UpdateUserPool (Maybe Text)
-uupEmailVerificationSubject = lens _uupEmailVerificationSubject (\s a -> s {_uupEmailVerificationSubject = a})
+updateUserPool_emailVerificationSubject :: Lens.Lens' UpdateUserPool (Prelude.Maybe Prelude.Text)
+updateUserPool_emailVerificationSubject = Lens.lens (\UpdateUserPool' {emailVerificationSubject} -> emailVerificationSubject) (\s@UpdateUserPool' {} a -> s {emailVerificationSubject = a} :: UpdateUserPool)
 
--- | The attributes that are automatically verified when the Amazon Cognito service makes a request to update user pools.
-uupAutoVerifiedAttributes :: Lens' UpdateUserPool [VerifiedAttributeType]
-uupAutoVerifiedAttributes = lens _uupAutoVerifiedAttributes (\s a -> s {_uupAutoVerifiedAttributes = a}) . _Default . _Coerce
+-- | The attributes that are automatically verified when the Amazon Cognito
+-- service makes a request to update user pools.
+updateUserPool_autoVerifiedAttributes :: Lens.Lens' UpdateUserPool (Prelude.Maybe [VerifiedAttributeType])
+updateUserPool_autoVerifiedAttributes = Lens.lens (\UpdateUserPool' {autoVerifiedAttributes} -> autoVerifiedAttributes) (\s@UpdateUserPool' {} a -> s {autoVerifiedAttributes = a} :: UpdateUserPool) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A container with the policies you wish to update in a user pool.
-uupPolicies :: Lens' UpdateUserPool (Maybe UserPoolPolicyType)
-uupPolicies = lens _uupPolicies (\s a -> s {_uupPolicies = a})
+updateUserPool_policies :: Lens.Lens' UpdateUserPool (Prelude.Maybe UserPoolPolicyType)
+updateUserPool_policies = Lens.lens (\UpdateUserPool' {policies} -> policies) (\s@UpdateUserPool' {} a -> s {policies = a} :: UpdateUserPool)
 
 -- | The configuration for @AdminCreateUser@ requests.
-uupAdminCreateUserConfig :: Lens' UpdateUserPool (Maybe AdminCreateUserConfigType)
-uupAdminCreateUserConfig = lens _uupAdminCreateUserConfig (\s a -> s {_uupAdminCreateUserConfig = a})
+updateUserPool_adminCreateUserConfig :: Lens.Lens' UpdateUserPool (Prelude.Maybe AdminCreateUserConfigType)
+updateUserPool_adminCreateUserConfig = Lens.lens (\UpdateUserPool' {adminCreateUserConfig} -> adminCreateUserConfig) (\s@UpdateUserPool' {} a -> s {adminCreateUserConfig = a} :: UpdateUserPool)
 
 -- | Device configuration.
-uupDeviceConfiguration :: Lens' UpdateUserPool (Maybe DeviceConfigurationType)
-uupDeviceConfiguration = lens _uupDeviceConfiguration (\s a -> s {_uupDeviceConfiguration = a})
+updateUserPool_deviceConfiguration :: Lens.Lens' UpdateUserPool (Prelude.Maybe DeviceConfigurationType)
+updateUserPool_deviceConfiguration = Lens.lens (\UpdateUserPool' {deviceConfiguration} -> deviceConfiguration) (\s@UpdateUserPool' {} a -> s {deviceConfiguration = a} :: UpdateUserPool)
 
 -- | SMS configuration.
-uupSmsConfiguration :: Lens' UpdateUserPool (Maybe SmsConfigurationType)
-uupSmsConfiguration = lens _uupSmsConfiguration (\s a -> s {_uupSmsConfiguration = a})
+updateUserPool_smsConfiguration :: Lens.Lens' UpdateUserPool (Prelude.Maybe SmsConfigurationType)
+updateUserPool_smsConfiguration = Lens.lens (\UpdateUserPool' {smsConfiguration} -> smsConfiguration) (\s@UpdateUserPool' {} a -> s {smsConfiguration = a} :: UpdateUserPool)
 
--- | The AWS Lambda configuration information from the request to update the user pool.
-uupLambdaConfig :: Lens' UpdateUserPool (Maybe LambdaConfigType)
-uupLambdaConfig = lens _uupLambdaConfig (\s a -> s {_uupLambdaConfig = a})
+-- | The AWS Lambda configuration information from the request to update the
+-- user pool.
+updateUserPool_lambdaConfig :: Lens.Lens' UpdateUserPool (Prelude.Maybe LambdaConfigType)
+updateUserPool_lambdaConfig = Lens.lens (\UpdateUserPool' {lambdaConfig} -> lambdaConfig) (\s@UpdateUserPool' {} a -> s {lambdaConfig = a} :: UpdateUserPool)
 
 -- | A container with information about the SMS verification message.
-uupSmsVerificationMessage :: Lens' UpdateUserPool (Maybe Text)
-uupSmsVerificationMessage = lens _uupSmsVerificationMessage (\s a -> s {_uupSmsVerificationMessage = a})
+updateUserPool_smsVerificationMessage :: Lens.Lens' UpdateUserPool (Prelude.Maybe Prelude.Text)
+updateUserPool_smsVerificationMessage = Lens.lens (\UpdateUserPool' {smsVerificationMessage} -> smsVerificationMessage) (\s@UpdateUserPool' {} a -> s {smsVerificationMessage = a} :: UpdateUserPool)
 
--- | Use this setting to define which verified available method a user can use to recover their password when they call @ForgotPassword@ . It allows you to define a preferred method when a user has more than one method available. With this setting, SMS does not qualify for a valid password recovery mechanism if the user also has SMS MFA enabled. In the absence of this setting, Cognito uses the legacy behavior to determine the recovery method where SMS is preferred over email.
-uupAccountRecoverySetting :: Lens' UpdateUserPool (Maybe AccountRecoverySettingType)
-uupAccountRecoverySetting = lens _uupAccountRecoverySetting (\s a -> s {_uupAccountRecoverySetting = a})
+-- | Use this setting to define which verified available method a user can
+-- use to recover their password when they call @ForgotPassword@. It allows
+-- you to define a preferred method when a user has more than one method
+-- available. With this setting, SMS does not qualify for a valid password
+-- recovery mechanism if the user also has SMS MFA enabled. In the absence
+-- of this setting, Cognito uses the legacy behavior to determine the
+-- recovery method where SMS is preferred over email.
+updateUserPool_accountRecoverySetting :: Lens.Lens' UpdateUserPool (Prelude.Maybe AccountRecoverySettingType)
+updateUserPool_accountRecoverySetting = Lens.lens (\UpdateUserPool' {accountRecoverySetting} -> accountRecoverySetting) (\s@UpdateUserPool' {} a -> s {accountRecoverySetting = a} :: UpdateUserPool)
 
 -- | Email configuration.
-uupEmailConfiguration :: Lens' UpdateUserPool (Maybe EmailConfigurationType)
-uupEmailConfiguration = lens _uupEmailConfiguration (\s a -> s {_uupEmailConfiguration = a})
+updateUserPool_emailConfiguration :: Lens.Lens' UpdateUserPool (Prelude.Maybe EmailConfigurationType)
+updateUserPool_emailConfiguration = Lens.lens (\UpdateUserPool' {emailConfiguration} -> emailConfiguration) (\s@UpdateUserPool' {} a -> s {emailConfiguration = a} :: UpdateUserPool)
 
 -- | The contents of the email verification message.
-uupEmailVerificationMessage :: Lens' UpdateUserPool (Maybe Text)
-uupEmailVerificationMessage = lens _uupEmailVerificationMessage (\s a -> s {_uupEmailVerificationMessage = a})
+updateUserPool_emailVerificationMessage :: Lens.Lens' UpdateUserPool (Prelude.Maybe Prelude.Text)
+updateUserPool_emailVerificationMessage = Lens.lens (\UpdateUserPool' {emailVerificationMessage} -> emailVerificationMessage) (\s@UpdateUserPool' {} a -> s {emailVerificationMessage = a} :: UpdateUserPool)
 
--- | Used to enable advanced security risk detection. Set the key @AdvancedSecurityMode@ to the value "AUDIT".
-uupUserPoolAddOns :: Lens' UpdateUserPool (Maybe UserPoolAddOnsType)
-uupUserPoolAddOns = lens _uupUserPoolAddOns (\s a -> s {_uupUserPoolAddOns = a})
+-- | Used to enable advanced security risk detection. Set the key
+-- @AdvancedSecurityMode@ to the value \"AUDIT\".
+updateUserPool_userPoolAddOns :: Lens.Lens' UpdateUserPool (Prelude.Maybe UserPoolAddOnsType)
+updateUserPool_userPoolAddOns = Lens.lens (\UpdateUserPool' {userPoolAddOns} -> userPoolAddOns) (\s@UpdateUserPool' {} a -> s {userPoolAddOns = a} :: UpdateUserPool)
 
 -- | The contents of the SMS authentication message.
-uupSmsAuthenticationMessage :: Lens' UpdateUserPool (Maybe Text)
-uupSmsAuthenticationMessage = lens _uupSmsAuthenticationMessage (\s a -> s {_uupSmsAuthenticationMessage = a})
+updateUserPool_smsAuthenticationMessage :: Lens.Lens' UpdateUserPool (Prelude.Maybe Prelude.Text)
+updateUserPool_smsAuthenticationMessage = Lens.lens (\UpdateUserPool' {smsAuthenticationMessage} -> smsAuthenticationMessage) (\s@UpdateUserPool' {} a -> s {smsAuthenticationMessage = a} :: UpdateUserPool)
 
--- | Can be one of the following values:     * @OFF@ - MFA tokens are not required and cannot be specified during user registration.     * @ON@ - MFA tokens are required for all user registrations. You can only specify required when you are initially creating a user pool.     * @OPTIONAL@ - Users have the option when registering to create an MFA token.
-uupMFAConfiguration :: Lens' UpdateUserPool (Maybe UserPoolMFAType)
-uupMFAConfiguration = lens _uupMFAConfiguration (\s a -> s {_uupMFAConfiguration = a})
+-- | Can be one of the following values:
+--
+-- -   @OFF@ - MFA tokens are not required and cannot be specified during
+--     user registration.
+--
+-- -   @ON@ - MFA tokens are required for all user registrations. You can
+--     only specify required when you are initially creating a user pool.
+--
+-- -   @OPTIONAL@ - Users have the option when registering to create an MFA
+--     token.
+updateUserPool_mfaConfiguration :: Lens.Lens' UpdateUserPool (Prelude.Maybe UserPoolMfaType)
+updateUserPool_mfaConfiguration = Lens.lens (\UpdateUserPool' {mfaConfiguration} -> mfaConfiguration) (\s@UpdateUserPool' {} a -> s {mfaConfiguration = a} :: UpdateUserPool)
 
 -- | The template for verification messages.
-uupVerificationMessageTemplate :: Lens' UpdateUserPool (Maybe VerificationMessageTemplateType)
-uupVerificationMessageTemplate = lens _uupVerificationMessageTemplate (\s a -> s {_uupVerificationMessageTemplate = a})
+updateUserPool_verificationMessageTemplate :: Lens.Lens' UpdateUserPool (Prelude.Maybe VerificationMessageTemplateType)
+updateUserPool_verificationMessageTemplate = Lens.lens (\UpdateUserPool' {verificationMessageTemplate} -> verificationMessageTemplate) (\s@UpdateUserPool' {} a -> s {verificationMessageTemplate = a} :: UpdateUserPool)
 
 -- | The user pool ID for the user pool you want to update.
-uupUserPoolId :: Lens' UpdateUserPool Text
-uupUserPoolId = lens _uupUserPoolId (\s a -> s {_uupUserPoolId = a})
+updateUserPool_userPoolId :: Lens.Lens' UpdateUserPool Prelude.Text
+updateUserPool_userPoolId = Lens.lens (\UpdateUserPool' {userPoolId} -> userPoolId) (\s@UpdateUserPool' {} a -> s {userPoolId = a} :: UpdateUserPool)
 
-instance AWSRequest UpdateUserPool where
+instance Prelude.AWSRequest UpdateUserPool where
   type Rs UpdateUserPool = UpdateUserPoolResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateUserPoolResponse' <$> (pure (fromEnum s))
+          UpdateUserPoolResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateUserPool
+instance Prelude.Hashable UpdateUserPool
 
-instance NFData UpdateUserPool
+instance Prelude.NFData UpdateUserPool
 
-instance ToHeaders UpdateUserPool where
+instance Prelude.ToHeaders UpdateUserPool where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.UpdateUserPool" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.UpdateUserPool" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateUserPool where
+instance Prelude.ToJSON UpdateUserPool where
   toJSON UpdateUserPool' {..} =
-    object
-      ( catMaybes
-          [ ("UserPoolTags" .=) <$> _uupUserPoolTags,
-            ("EmailVerificationSubject" .=)
-              <$> _uupEmailVerificationSubject,
-            ("AutoVerifiedAttributes" .=)
-              <$> _uupAutoVerifiedAttributes,
-            ("Policies" .=) <$> _uupPolicies,
-            ("AdminCreateUserConfig" .=)
-              <$> _uupAdminCreateUserConfig,
-            ("DeviceConfiguration" .=)
-              <$> _uupDeviceConfiguration,
-            ("SmsConfiguration" .=) <$> _uupSmsConfiguration,
-            ("LambdaConfig" .=) <$> _uupLambdaConfig,
-            ("SmsVerificationMessage" .=)
-              <$> _uupSmsVerificationMessage,
-            ("AccountRecoverySetting" .=)
-              <$> _uupAccountRecoverySetting,
-            ("EmailConfiguration" .=) <$> _uupEmailConfiguration,
-            ("EmailVerificationMessage" .=)
-              <$> _uupEmailVerificationMessage,
-            ("UserPoolAddOns" .=) <$> _uupUserPoolAddOns,
-            ("SmsAuthenticationMessage" .=)
-              <$> _uupSmsAuthenticationMessage,
-            ("MfaConfiguration" .=) <$> _uupMFAConfiguration,
-            ("VerificationMessageTemplate" .=)
-              <$> _uupVerificationMessageTemplate,
-            Just ("UserPoolId" .= _uupUserPoolId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("UserPoolTags" Prelude..=)
+              Prelude.<$> userPoolTags,
+            ("EmailVerificationSubject" Prelude..=)
+              Prelude.<$> emailVerificationSubject,
+            ("AutoVerifiedAttributes" Prelude..=)
+              Prelude.<$> autoVerifiedAttributes,
+            ("Policies" Prelude..=) Prelude.<$> policies,
+            ("AdminCreateUserConfig" Prelude..=)
+              Prelude.<$> adminCreateUserConfig,
+            ("DeviceConfiguration" Prelude..=)
+              Prelude.<$> deviceConfiguration,
+            ("SmsConfiguration" Prelude..=)
+              Prelude.<$> smsConfiguration,
+            ("LambdaConfig" Prelude..=) Prelude.<$> lambdaConfig,
+            ("SmsVerificationMessage" Prelude..=)
+              Prelude.<$> smsVerificationMessage,
+            ("AccountRecoverySetting" Prelude..=)
+              Prelude.<$> accountRecoverySetting,
+            ("EmailConfiguration" Prelude..=)
+              Prelude.<$> emailConfiguration,
+            ("EmailVerificationMessage" Prelude..=)
+              Prelude.<$> emailVerificationMessage,
+            ("UserPoolAddOns" Prelude..=)
+              Prelude.<$> userPoolAddOns,
+            ("SmsAuthenticationMessage" Prelude..=)
+              Prelude.<$> smsAuthenticationMessage,
+            ("MfaConfiguration" Prelude..=)
+              Prelude.<$> mfaConfiguration,
+            ("VerificationMessageTemplate" Prelude..=)
+              Prelude.<$> verificationMessageTemplate,
+            Prelude.Just ("UserPoolId" Prelude..= userPoolId)
           ]
       )
 
-instance ToPath UpdateUserPool where
-  toPath = const "/"
+instance Prelude.ToPath UpdateUserPool where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateUserPool where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateUserPool where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the response from the server when you make a request to update the user pool.
+-- | Represents the response from the server when you make a request to
+-- update the user pool.
 --
---
---
--- /See:/ 'updateUserPoolResponse' smart constructor.
-newtype UpdateUserPoolResponse = UpdateUserPoolResponse'
-  { _uuprrsResponseStatus ::
-      Int
+-- /See:/ 'newUpdateUserPoolResponse' smart constructor.
+data UpdateUserPoolResponse = UpdateUserPoolResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserPoolResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserPoolResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uuprrsResponseStatus' - -- | The response status code.
-updateUserPoolResponse ::
-  -- | 'uuprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateUserPoolResponse_httpStatus' - The response's http status code.
+newUpdateUserPoolResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateUserPoolResponse
-updateUserPoolResponse pResponseStatus_ =
-  UpdateUserPoolResponse'
-    { _uuprrsResponseStatus =
-        pResponseStatus_
-    }
+newUpdateUserPoolResponse pHttpStatus_ =
+  UpdateUserPoolResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-uuprrsResponseStatus :: Lens' UpdateUserPoolResponse Int
-uuprrsResponseStatus = lens _uuprrsResponseStatus (\s a -> s {_uuprrsResponseStatus = a})
+-- | The response's http status code.
+updateUserPoolResponse_httpStatus :: Lens.Lens' UpdateUserPoolResponse Prelude.Int
+updateUserPoolResponse_httpStatus = Lens.lens (\UpdateUserPoolResponse' {httpStatus} -> httpStatus) (\s@UpdateUserPoolResponse' {} a -> s {httpStatus = a} :: UpdateUserPoolResponse)
 
-instance NFData UpdateUserPoolResponse
+instance Prelude.NFData UpdateUserPoolResponse

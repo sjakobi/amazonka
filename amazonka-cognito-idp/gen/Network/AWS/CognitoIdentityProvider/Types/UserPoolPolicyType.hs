@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,56 +20,57 @@
 module Network.AWS.CognitoIdentityProvider.Types.UserPoolPolicyType where
 
 import Network.AWS.CognitoIdentityProvider.Types.PasswordPolicyType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The policy associated with a user pool.
 --
---
---
--- /See:/ 'userPoolPolicyType' smart constructor.
-newtype UserPoolPolicyType = UserPoolPolicyType'
-  { _upptPasswordPolicy ::
-      Maybe PasswordPolicyType
+-- /See:/ 'newUserPoolPolicyType' smart constructor.
+data UserPoolPolicyType = UserPoolPolicyType'
+  { -- | The password policy.
+    passwordPolicy :: Prelude.Maybe PasswordPolicyType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserPoolPolicyType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserPoolPolicyType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upptPasswordPolicy' - The password policy.
-userPoolPolicyType ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'passwordPolicy', 'userPoolPolicyType_passwordPolicy' - The password policy.
+newUserPoolPolicyType ::
   UserPoolPolicyType
-userPoolPolicyType =
-  UserPoolPolicyType' {_upptPasswordPolicy = Nothing}
+newUserPoolPolicyType =
+  UserPoolPolicyType'
+    { passwordPolicy =
+        Prelude.Nothing
+    }
 
 -- | The password policy.
-upptPasswordPolicy :: Lens' UserPoolPolicyType (Maybe PasswordPolicyType)
-upptPasswordPolicy = lens _upptPasswordPolicy (\s a -> s {_upptPasswordPolicy = a})
+userPoolPolicyType_passwordPolicy :: Lens.Lens' UserPoolPolicyType (Prelude.Maybe PasswordPolicyType)
+userPoolPolicyType_passwordPolicy = Lens.lens (\UserPoolPolicyType' {passwordPolicy} -> passwordPolicy) (\s@UserPoolPolicyType' {} a -> s {passwordPolicy = a} :: UserPoolPolicyType)
 
-instance FromJSON UserPoolPolicyType where
+instance Prelude.FromJSON UserPoolPolicyType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserPoolPolicyType"
       ( \x ->
-          UserPoolPolicyType' <$> (x .:? "PasswordPolicy")
+          UserPoolPolicyType'
+            Prelude.<$> (x Prelude..:? "PasswordPolicy")
       )
 
-instance Hashable UserPoolPolicyType
+instance Prelude.Hashable UserPoolPolicyType
 
-instance NFData UserPoolPolicyType
+instance Prelude.NFData UserPoolPolicyType
 
-instance ToJSON UserPoolPolicyType where
+instance Prelude.ToJSON UserPoolPolicyType where
   toJSON UserPoolPolicyType' {..} =
-    object
-      ( catMaybes
-          [("PasswordPolicy" .=) <$> _upptPasswordPolicy]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PasswordPolicy" Prelude..=)
+              Prelude.<$> passwordPolicy
+          ]
       )

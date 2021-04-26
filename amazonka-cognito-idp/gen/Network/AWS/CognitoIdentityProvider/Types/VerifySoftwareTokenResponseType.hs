@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.CognitoIdentityProvider.Types.VerifySoftwareTokenResponseType
   ( VerifySoftwareTokenResponseType
       ( ..,
-        VSTRTError',
-        VSTRTSuccess
+        VerifySoftwareTokenResponseTypeERROR,
+        VerifySoftwareTokenResponseTypeSUCCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VerifySoftwareTokenResponseType
-  = VerifySoftwareTokenResponseType'
-      ( CI
-          Text
-      )
+newtype VerifySoftwareTokenResponseType = VerifySoftwareTokenResponseType'
+  { fromVerifySoftwareTokenResponseType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VSTRTError' :: VerifySoftwareTokenResponseType
-pattern VSTRTError' = VerifySoftwareTokenResponseType' "ERROR"
+pattern VerifySoftwareTokenResponseTypeERROR :: VerifySoftwareTokenResponseType
+pattern VerifySoftwareTokenResponseTypeERROR = VerifySoftwareTokenResponseType' "ERROR"
 
-pattern VSTRTSuccess :: VerifySoftwareTokenResponseType
-pattern VSTRTSuccess = VerifySoftwareTokenResponseType' "SUCCESS"
+pattern VerifySoftwareTokenResponseTypeSUCCESS :: VerifySoftwareTokenResponseType
+pattern VerifySoftwareTokenResponseTypeSUCCESS = VerifySoftwareTokenResponseType' "SUCCESS"
 
 {-# COMPLETE
-  VSTRTError',
-  VSTRTSuccess,
+  VerifySoftwareTokenResponseTypeERROR,
+  VerifySoftwareTokenResponseTypeSUCCESS,
   VerifySoftwareTokenResponseType'
   #-}
 
-instance FromText VerifySoftwareTokenResponseType where
-  parser = (VerifySoftwareTokenResponseType' . mk) <$> takeText
+instance Prelude.FromText VerifySoftwareTokenResponseType where
+  parser = VerifySoftwareTokenResponseType' Prelude.<$> Prelude.takeText
 
-instance ToText VerifySoftwareTokenResponseType where
-  toText (VerifySoftwareTokenResponseType' ci) = original ci
+instance Prelude.ToText VerifySoftwareTokenResponseType where
+  toText (VerifySoftwareTokenResponseType' x) = x
 
-instance Hashable VerifySoftwareTokenResponseType
+instance Prelude.Hashable VerifySoftwareTokenResponseType
 
-instance NFData VerifySoftwareTokenResponseType
+instance Prelude.NFData VerifySoftwareTokenResponseType
 
-instance ToByteString VerifySoftwareTokenResponseType
+instance Prelude.ToByteString VerifySoftwareTokenResponseType
 
-instance ToQuery VerifySoftwareTokenResponseType
+instance Prelude.ToQuery VerifySoftwareTokenResponseType
 
-instance ToHeader VerifySoftwareTokenResponseType
+instance Prelude.ToHeader VerifySoftwareTokenResponseType
 
-instance FromJSON VerifySoftwareTokenResponseType where
-  parseJSON = parseJSONText "VerifySoftwareTokenResponseType"
+instance Prelude.FromJSON VerifySoftwareTokenResponseType where
+  parseJSON = Prelude.parseJSONText "VerifySoftwareTokenResponseType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.NewDeviceMetadataType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The new device metadata type.
 --
---
---
--- /See:/ 'newDeviceMetadataType' smart constructor.
+-- /See:/ 'newNewDeviceMetadataType' smart constructor.
 data NewDeviceMetadataType = NewDeviceMetadataType'
-  { _ndmtDeviceKey ::
-      !(Maybe Text),
-    _ndmtDeviceGroupKey ::
-      !(Maybe Text)
+  { -- | The device key.
+    deviceKey :: Prelude.Maybe Prelude.Text,
+    -- | The device group key.
+    deviceGroupKey :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NewDeviceMetadataType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NewDeviceMetadataType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ndmtDeviceKey' - The device key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ndmtDeviceGroupKey' - The device group key.
-newDeviceMetadataType ::
+-- 'deviceKey', 'newDeviceMetadataType_deviceKey' - The device key.
+--
+-- 'deviceGroupKey', 'newDeviceMetadataType_deviceGroupKey' - The device group key.
+newNewDeviceMetadataType ::
   NewDeviceMetadataType
-newDeviceMetadataType =
+newNewDeviceMetadataType =
   NewDeviceMetadataType'
-    { _ndmtDeviceKey = Nothing,
-      _ndmtDeviceGroupKey = Nothing
+    { deviceKey = Prelude.Nothing,
+      deviceGroupKey = Prelude.Nothing
     }
 
 -- | The device key.
-ndmtDeviceKey :: Lens' NewDeviceMetadataType (Maybe Text)
-ndmtDeviceKey = lens _ndmtDeviceKey (\s a -> s {_ndmtDeviceKey = a})
+newDeviceMetadataType_deviceKey :: Lens.Lens' NewDeviceMetadataType (Prelude.Maybe Prelude.Text)
+newDeviceMetadataType_deviceKey = Lens.lens (\NewDeviceMetadataType' {deviceKey} -> deviceKey) (\s@NewDeviceMetadataType' {} a -> s {deviceKey = a} :: NewDeviceMetadataType)
 
 -- | The device group key.
-ndmtDeviceGroupKey :: Lens' NewDeviceMetadataType (Maybe Text)
-ndmtDeviceGroupKey = lens _ndmtDeviceGroupKey (\s a -> s {_ndmtDeviceGroupKey = a})
+newDeviceMetadataType_deviceGroupKey :: Lens.Lens' NewDeviceMetadataType (Prelude.Maybe Prelude.Text)
+newDeviceMetadataType_deviceGroupKey = Lens.lens (\NewDeviceMetadataType' {deviceGroupKey} -> deviceGroupKey) (\s@NewDeviceMetadataType' {} a -> s {deviceGroupKey = a} :: NewDeviceMetadataType)
 
-instance FromJSON NewDeviceMetadataType where
+instance Prelude.FromJSON NewDeviceMetadataType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NewDeviceMetadataType"
       ( \x ->
           NewDeviceMetadataType'
-            <$> (x .:? "DeviceKey") <*> (x .:? "DeviceGroupKey")
+            Prelude.<$> (x Prelude..:? "DeviceKey")
+            Prelude.<*> (x Prelude..:? "DeviceGroupKey")
       )
 
-instance Hashable NewDeviceMetadataType
+instance Prelude.Hashable NewDeviceMetadataType
 
-instance NFData NewDeviceMetadataType
+instance Prelude.NFData NewDeviceMetadataType

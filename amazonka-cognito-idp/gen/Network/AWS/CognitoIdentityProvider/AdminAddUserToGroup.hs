@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,135 +23,139 @@
 --
 -- Adds the specified user to the specified group.
 --
---
 -- Calling this action requires developer credentials.
 module Network.AWS.CognitoIdentityProvider.AdminAddUserToGroup
   ( -- * Creating a Request
-    adminAddUserToGroup,
-    AdminAddUserToGroup,
+    AdminAddUserToGroup (..),
+    newAdminAddUserToGroup,
 
     -- * Request Lenses
-    aautgUserPoolId,
-    aautgUsername,
-    aautgGroupName,
+    adminAddUserToGroup_userPoolId,
+    adminAddUserToGroup_username,
+    adminAddUserToGroup_groupName,
 
     -- * Destructuring the Response
-    adminAddUserToGroupResponse,
-    AdminAddUserToGroupResponse,
+    AdminAddUserToGroupResponse (..),
+    newAdminAddUserToGroupResponse,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'adminAddUserToGroup' smart constructor.
+-- | /See:/ 'newAdminAddUserToGroup' smart constructor.
 data AdminAddUserToGroup = AdminAddUserToGroup'
-  { _aautgUserPoolId ::
-      !Text,
-    _aautgUsername ::
-      !(Sensitive Text),
-    _aautgGroupName :: !Text
+  { -- | The user pool ID for the user pool.
+    userPoolId :: Prelude.Text,
+    -- | The username for the user.
+    username :: Prelude.Sensitive Prelude.Text,
+    -- | The group name.
+    groupName :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdminAddUserToGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdminAddUserToGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aautgUserPoolId' - The user pool ID for the user pool.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aautgUsername' - The username for the user.
+-- 'userPoolId', 'adminAddUserToGroup_userPoolId' - The user pool ID for the user pool.
 --
--- * 'aautgGroupName' - The group name.
-adminAddUserToGroup ::
-  -- | 'aautgUserPoolId'
-  Text ->
-  -- | 'aautgUsername'
-  Text ->
-  -- | 'aautgGroupName'
-  Text ->
+-- 'username', 'adminAddUserToGroup_username' - The username for the user.
+--
+-- 'groupName', 'adminAddUserToGroup_groupName' - The group name.
+newAdminAddUserToGroup ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'username'
+  Prelude.Text ->
+  -- | 'groupName'
+  Prelude.Text ->
   AdminAddUserToGroup
-adminAddUserToGroup
+newAdminAddUserToGroup
   pUserPoolId_
   pUsername_
   pGroupName_ =
     AdminAddUserToGroup'
-      { _aautgUserPoolId =
-          pUserPoolId_,
-        _aautgUsername = _Sensitive # pUsername_,
-        _aautgGroupName = pGroupName_
+      { userPoolId = pUserPoolId_,
+        username = Prelude._Sensitive Lens.# pUsername_,
+        groupName = pGroupName_
       }
 
 -- | The user pool ID for the user pool.
-aautgUserPoolId :: Lens' AdminAddUserToGroup Text
-aautgUserPoolId = lens _aautgUserPoolId (\s a -> s {_aautgUserPoolId = a})
+adminAddUserToGroup_userPoolId :: Lens.Lens' AdminAddUserToGroup Prelude.Text
+adminAddUserToGroup_userPoolId = Lens.lens (\AdminAddUserToGroup' {userPoolId} -> userPoolId) (\s@AdminAddUserToGroup' {} a -> s {userPoolId = a} :: AdminAddUserToGroup)
 
 -- | The username for the user.
-aautgUsername :: Lens' AdminAddUserToGroup Text
-aautgUsername = lens _aautgUsername (\s a -> s {_aautgUsername = a}) . _Sensitive
+adminAddUserToGroup_username :: Lens.Lens' AdminAddUserToGroup Prelude.Text
+adminAddUserToGroup_username = Lens.lens (\AdminAddUserToGroup' {username} -> username) (\s@AdminAddUserToGroup' {} a -> s {username = a} :: AdminAddUserToGroup) Prelude.. Prelude._Sensitive
 
 -- | The group name.
-aautgGroupName :: Lens' AdminAddUserToGroup Text
-aautgGroupName = lens _aautgGroupName (\s a -> s {_aautgGroupName = a})
+adminAddUserToGroup_groupName :: Lens.Lens' AdminAddUserToGroup Prelude.Text
+adminAddUserToGroup_groupName = Lens.lens (\AdminAddUserToGroup' {groupName} -> groupName) (\s@AdminAddUserToGroup' {} a -> s {groupName = a} :: AdminAddUserToGroup)
 
-instance AWSRequest AdminAddUserToGroup where
+instance Prelude.AWSRequest AdminAddUserToGroup where
   type
     Rs AdminAddUserToGroup =
       AdminAddUserToGroupResponse
-  request = postJSON cognitoIdentityProvider
-  response = receiveNull AdminAddUserToGroupResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull AdminAddUserToGroupResponse'
 
-instance Hashable AdminAddUserToGroup
+instance Prelude.Hashable AdminAddUserToGroup
 
-instance NFData AdminAddUserToGroup
+instance Prelude.NFData AdminAddUserToGroup
 
-instance ToHeaders AdminAddUserToGroup where
+instance Prelude.ToHeaders AdminAddUserToGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.AdminAddUserToGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.AdminAddUserToGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AdminAddUserToGroup where
+instance Prelude.ToJSON AdminAddUserToGroup where
   toJSON AdminAddUserToGroup' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserPoolId" .= _aautgUserPoolId),
-            Just ("Username" .= _aautgUsername),
-            Just ("GroupName" .= _aautgGroupName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserPoolId" Prelude..= userPoolId),
+            Prelude.Just ("Username" Prelude..= username),
+            Prelude.Just ("GroupName" Prelude..= groupName)
           ]
       )
 
-instance ToPath AdminAddUserToGroup where
-  toPath = const "/"
+instance Prelude.ToPath AdminAddUserToGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery AdminAddUserToGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery AdminAddUserToGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'adminAddUserToGroupResponse' smart constructor.
+-- | /See:/ 'newAdminAddUserToGroupResponse' smart constructor.
 data AdminAddUserToGroupResponse = AdminAddUserToGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdminAddUserToGroupResponse' with the minimum fields required to make a request.
-adminAddUserToGroupResponse ::
+-- |
+-- Create a value of 'AdminAddUserToGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAdminAddUserToGroupResponse ::
   AdminAddUserToGroupResponse
-adminAddUserToGroupResponse =
+newAdminAddUserToGroupResponse =
   AdminAddUserToGroupResponse'
 
-instance NFData AdminAddUserToGroupResponse
+instance Prelude.NFData AdminAddUserToGroupResponse

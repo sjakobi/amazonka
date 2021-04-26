@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,150 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- /This action is no longer supported./ You can use it to configure only SMS MFA. You can't use it to configure TOTP software token MFA. To configure either type of MFA, use <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserMFAPreference.html SetUserMFAPreference> instead.
+-- /This action is no longer supported./ You can use it to configure only
+-- SMS MFA. You can\'t use it to configure TOTP software token MFA. To
+-- configure either type of MFA, use
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserMFAPreference.html SetUserMFAPreference>
+-- instead.
 module Network.AWS.CognitoIdentityProvider.SetUserSettings
   ( -- * Creating a Request
-    setUserSettings,
-    SetUserSettings,
+    SetUserSettings (..),
+    newSetUserSettings,
 
     -- * Request Lenses
-    susAccessToken,
-    susMFAOptions,
+    setUserSettings_accessToken,
+    setUserSettings_mFAOptions,
 
     -- * Destructuring the Response
-    setUserSettingsResponse,
-    SetUserSettingsResponse,
+    SetUserSettingsResponse (..),
+    newSetUserSettingsResponse,
 
     -- * Response Lenses
-    susrrsResponseStatus,
+    setUserSettingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to set user settings.
 --
---
---
--- /See:/ 'setUserSettings' smart constructor.
+-- /See:/ 'newSetUserSettings' smart constructor.
 data SetUserSettings = SetUserSettings'
-  { _susAccessToken ::
-      !(Sensitive Text),
-    _susMFAOptions :: ![MFAOptionType]
+  { -- | The access token for the set user settings request.
+    accessToken :: Prelude.Sensitive Prelude.Text,
+    -- | You can use this parameter only to set an SMS configuration that uses
+    -- SMS for delivery.
+    mFAOptions :: [MFAOptionType]
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetUserSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetUserSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'susAccessToken' - The access token for the set user settings request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'susMFAOptions' - You can use this parameter only to set an SMS configuration that uses SMS for delivery.
-setUserSettings ::
-  -- | 'susAccessToken'
-  Text ->
+-- 'accessToken', 'setUserSettings_accessToken' - The access token for the set user settings request.
+--
+-- 'mFAOptions', 'setUserSettings_mFAOptions' - You can use this parameter only to set an SMS configuration that uses
+-- SMS for delivery.
+newSetUserSettings ::
+  -- | 'accessToken'
+  Prelude.Text ->
   SetUserSettings
-setUserSettings pAccessToken_ =
+newSetUserSettings pAccessToken_ =
   SetUserSettings'
-    { _susAccessToken =
-        _Sensitive # pAccessToken_,
-      _susMFAOptions = mempty
+    { accessToken =
+        Prelude._Sensitive Lens.# pAccessToken_,
+      mFAOptions = Prelude.mempty
     }
 
 -- | The access token for the set user settings request.
-susAccessToken :: Lens' SetUserSettings Text
-susAccessToken = lens _susAccessToken (\s a -> s {_susAccessToken = a}) . _Sensitive
+setUserSettings_accessToken :: Lens.Lens' SetUserSettings Prelude.Text
+setUserSettings_accessToken = Lens.lens (\SetUserSettings' {accessToken} -> accessToken) (\s@SetUserSettings' {} a -> s {accessToken = a} :: SetUserSettings) Prelude.. Prelude._Sensitive
 
--- | You can use this parameter only to set an SMS configuration that uses SMS for delivery.
-susMFAOptions :: Lens' SetUserSettings [MFAOptionType]
-susMFAOptions = lens _susMFAOptions (\s a -> s {_susMFAOptions = a}) . _Coerce
+-- | You can use this parameter only to set an SMS configuration that uses
+-- SMS for delivery.
+setUserSettings_mFAOptions :: Lens.Lens' SetUserSettings [MFAOptionType]
+setUserSettings_mFAOptions = Lens.lens (\SetUserSettings' {mFAOptions} -> mFAOptions) (\s@SetUserSettings' {} a -> s {mFAOptions = a} :: SetUserSettings) Prelude.. Prelude._Coerce
 
-instance AWSRequest SetUserSettings where
+instance Prelude.AWSRequest SetUserSettings where
   type Rs SetUserSettings = SetUserSettingsResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          SetUserSettingsResponse' <$> (pure (fromEnum s))
+          SetUserSettingsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SetUserSettings
+instance Prelude.Hashable SetUserSettings
 
-instance NFData SetUserSettings
+instance Prelude.NFData SetUserSettings
 
-instance ToHeaders SetUserSettings where
+instance Prelude.ToHeaders SetUserSettings where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.SetUserSettings" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.SetUserSettings" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SetUserSettings where
+instance Prelude.ToJSON SetUserSettings where
   toJSON SetUserSettings' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccessToken" .= _susAccessToken),
-            Just ("MFAOptions" .= _susMFAOptions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccessToken" Prelude..= accessToken),
+            Prelude.Just ("MFAOptions" Prelude..= mFAOptions)
           ]
       )
 
-instance ToPath SetUserSettings where
-  toPath = const "/"
+instance Prelude.ToPath SetUserSettings where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetUserSettings where
-  toQuery = const mempty
+instance Prelude.ToQuery SetUserSettings where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The response from the server for a set user settings request.
 --
---
---
--- /See:/ 'setUserSettingsResponse' smart constructor.
-newtype SetUserSettingsResponse = SetUserSettingsResponse'
-  { _susrrsResponseStatus ::
-      Int
+-- /See:/ 'newSetUserSettingsResponse' smart constructor.
+data SetUserSettingsResponse = SetUserSettingsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetUserSettingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetUserSettingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'susrrsResponseStatus' - -- | The response status code.
-setUserSettingsResponse ::
-  -- | 'susrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'setUserSettingsResponse_httpStatus' - The response's http status code.
+newSetUserSettingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SetUserSettingsResponse
-setUserSettingsResponse pResponseStatus_ =
-  SetUserSettingsResponse'
-    { _susrrsResponseStatus =
-        pResponseStatus_
-    }
+newSetUserSettingsResponse pHttpStatus_ =
+  SetUserSettingsResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-susrrsResponseStatus :: Lens' SetUserSettingsResponse Int
-susrrsResponseStatus = lens _susrrsResponseStatus (\s a -> s {_susrrsResponseStatus = a})
+-- | The response's http status code.
+setUserSettingsResponse_httpStatus :: Lens.Lens' SetUserSettingsResponse Prelude.Int
+setUserSettingsResponse_httpStatus = Lens.lens (\SetUserSettingsResponse' {httpStatus} -> httpStatus) (\s@SetUserSettingsResponse' {} a -> s {httpStatus = a} :: SetUserSettingsResponse)
 
-instance NFData SetUserSettingsResponse
+instance Prelude.NFData SetUserSettingsResponse

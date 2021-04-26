@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.CognitoIdentityProvider" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.CognitoIdentityProvider.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.CognitoIdentityProvider" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,8 +37,8 @@ source-repository head
   subdir:   amazonka-cognito-idp
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
@@ -111,9 +109,10 @@ library
     Network.AWS.CognitoIdentityProvider.GetUICustomization
     Network.AWS.CognitoIdentityProvider.GetUser
     Network.AWS.CognitoIdentityProvider.GetUserAttributeVerificationCode
-    Network.AWS.CognitoIdentityProvider.GetUserPoolMFAConfig
+    Network.AWS.CognitoIdentityProvider.GetUserPoolMfaConfig
     Network.AWS.CognitoIdentityProvider.GlobalSignOut
     Network.AWS.CognitoIdentityProvider.InitiateAuth
+    Network.AWS.CognitoIdentityProvider.Lens
     Network.AWS.CognitoIdentityProvider.ListDevices
     Network.AWS.CognitoIdentityProvider.ListGroups
     Network.AWS.CognitoIdentityProvider.ListIdentityProviders
@@ -129,28 +128,13 @@ library
     Network.AWS.CognitoIdentityProvider.SetRiskConfiguration
     Network.AWS.CognitoIdentityProvider.SetUICustomization
     Network.AWS.CognitoIdentityProvider.SetUserMFAPreference
-    Network.AWS.CognitoIdentityProvider.SetUserPoolMFAConfig
+    Network.AWS.CognitoIdentityProvider.SetUserPoolMfaConfig
     Network.AWS.CognitoIdentityProvider.SetUserSettings
     Network.AWS.CognitoIdentityProvider.SignUp
     Network.AWS.CognitoIdentityProvider.StartUserImportJob
     Network.AWS.CognitoIdentityProvider.StopUserImportJob
     Network.AWS.CognitoIdentityProvider.TagResource
     Network.AWS.CognitoIdentityProvider.Types
-    Network.AWS.CognitoIdentityProvider.UntagResource
-    Network.AWS.CognitoIdentityProvider.UpdateAuthEventFeedback
-    Network.AWS.CognitoIdentityProvider.UpdateDeviceStatus
-    Network.AWS.CognitoIdentityProvider.UpdateGroup
-    Network.AWS.CognitoIdentityProvider.UpdateIdentityProvider
-    Network.AWS.CognitoIdentityProvider.UpdateResourceServer
-    Network.AWS.CognitoIdentityProvider.UpdateUserAttributes
-    Network.AWS.CognitoIdentityProvider.UpdateUserPool
-    Network.AWS.CognitoIdentityProvider.UpdateUserPoolClient
-    Network.AWS.CognitoIdentityProvider.UpdateUserPoolDomain
-    Network.AWS.CognitoIdentityProvider.VerifySoftwareToken
-    Network.AWS.CognitoIdentityProvider.VerifyUserAttribute
-    Network.AWS.CognitoIdentityProvider.Waiters
-
-  other-modules:
     Network.AWS.CognitoIdentityProvider.Types.AccountRecoverySettingType
     Network.AWS.CognitoIdentityProvider.Types.AccountTakeoverActionsType
     Network.AWS.CognitoIdentityProvider.Types.AccountTakeoverActionType
@@ -199,7 +183,7 @@ library
     Network.AWS.CognitoIdentityProvider.Types.ExplicitAuthFlowsType
     Network.AWS.CognitoIdentityProvider.Types.FeedbackValueType
     Network.AWS.CognitoIdentityProvider.Types.GroupType
-    Network.AWS.CognitoIdentityProvider.Types.HTTPHeader
+    Network.AWS.CognitoIdentityProvider.Types.HttpHeader
     Network.AWS.CognitoIdentityProvider.Types.IdentityProviderType
     Network.AWS.CognitoIdentityProvider.Types.IdentityProviderTypeType
     Network.AWS.CognitoIdentityProvider.Types.LambdaConfigType
@@ -225,10 +209,10 @@ library
     Network.AWS.CognitoIdentityProvider.Types.RiskLevelType
     Network.AWS.CognitoIdentityProvider.Types.SchemaAttributeType
     Network.AWS.CognitoIdentityProvider.Types.SmsConfigurationType
-    Network.AWS.CognitoIdentityProvider.Types.SmsMFAConfigType
-    Network.AWS.CognitoIdentityProvider.Types.SMSMFASettingsType
-    Network.AWS.CognitoIdentityProvider.Types.SoftwareTokenMFAConfigType
-    Network.AWS.CognitoIdentityProvider.Types.SoftwareTokenMFASettingsType
+    Network.AWS.CognitoIdentityProvider.Types.SmsMfaConfigType
+    Network.AWS.CognitoIdentityProvider.Types.SMSMfaSettingsType
+    Network.AWS.CognitoIdentityProvider.Types.SoftwareTokenMfaConfigType
+    Network.AWS.CognitoIdentityProvider.Types.SoftwareTokenMfaSettingsType
     Network.AWS.CognitoIdentityProvider.Types.StatusType
     Network.AWS.CognitoIdentityProvider.Types.StringAttributeConstraintsType
     Network.AWS.CognitoIdentityProvider.Types.TimeUnitsType
@@ -243,7 +227,7 @@ library
     Network.AWS.CognitoIdentityProvider.Types.UserPoolClientDescription
     Network.AWS.CognitoIdentityProvider.Types.UserPoolClientType
     Network.AWS.CognitoIdentityProvider.Types.UserPoolDescriptionType
-    Network.AWS.CognitoIdentityProvider.Types.UserPoolMFAType
+    Network.AWS.CognitoIdentityProvider.Types.UserPoolMfaType
     Network.AWS.CognitoIdentityProvider.Types.UserPoolPolicyType
     Network.AWS.CognitoIdentityProvider.Types.UserPoolType
     Network.AWS.CognitoIdentityProvider.Types.UserStatusType
@@ -251,11 +235,24 @@ library
     Network.AWS.CognitoIdentityProvider.Types.VerificationMessageTemplateType
     Network.AWS.CognitoIdentityProvider.Types.VerifiedAttributeType
     Network.AWS.CognitoIdentityProvider.Types.VerifySoftwareTokenResponseType
+    Network.AWS.CognitoIdentityProvider.UntagResource
+    Network.AWS.CognitoIdentityProvider.UpdateAuthEventFeedback
+    Network.AWS.CognitoIdentityProvider.UpdateDeviceStatus
+    Network.AWS.CognitoIdentityProvider.UpdateGroup
+    Network.AWS.CognitoIdentityProvider.UpdateIdentityProvider
+    Network.AWS.CognitoIdentityProvider.UpdateResourceServer
+    Network.AWS.CognitoIdentityProvider.UpdateUserAttributes
+    Network.AWS.CognitoIdentityProvider.UpdateUserPool
+    Network.AWS.CognitoIdentityProvider.UpdateUserPoolClient
+    Network.AWS.CognitoIdentityProvider.UpdateUserPoolDomain
+    Network.AWS.CognitoIdentityProvider.VerifySoftwareToken
+    Network.AWS.CognitoIdentityProvider.VerifyUserAttribute
+    Network.AWS.CognitoIdentityProvider.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-cognito-idp-test
   type:             exitcode-stdio-1.0

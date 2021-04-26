@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,112 +25,128 @@ import Network.AWS.CognitoIdentityProvider.Types.EventFeedbackType
 import Network.AWS.CognitoIdentityProvider.Types.EventResponseType
 import Network.AWS.CognitoIdentityProvider.Types.EventRiskType
 import Network.AWS.CognitoIdentityProvider.Types.EventType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The authentication event type.
 --
---
---
--- /See:/ 'authEventType' smart constructor.
+-- /See:/ 'newAuthEventType' smart constructor.
 data AuthEventType = AuthEventType'
-  { _aetEventType ::
-      !(Maybe EventType),
-    _aetEventId :: !(Maybe Text),
-    _aetChallengeResponses ::
-      !(Maybe [ChallengeResponseType]),
-    _aetEventContextData ::
-      !(Maybe EventContextDataType),
-    _aetCreationDate :: !(Maybe POSIX),
-    _aetEventRisk :: !(Maybe EventRiskType),
-    _aetEventResponse ::
-      !(Maybe EventResponseType),
-    _aetEventFeedback ::
-      !(Maybe EventFeedbackType)
+  { -- | The event type.
+    eventType :: Prelude.Maybe EventType,
+    -- | The event ID.
+    eventId :: Prelude.Maybe Prelude.Text,
+    -- | The challenge responses.
+    challengeResponses :: Prelude.Maybe [ChallengeResponseType],
+    -- | The user context data captured at the time of an event request. It
+    -- provides additional information about the client from which event the
+    -- request is received.
+    eventContextData :: Prelude.Maybe EventContextDataType,
+    -- | The creation date
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The event risk.
+    eventRisk :: Prelude.Maybe EventRiskType,
+    -- | The event response.
+    eventResponse :: Prelude.Maybe EventResponseType,
+    -- | A flag specifying the user feedback captured at the time of an event
+    -- request is good or bad.
+    eventFeedback :: Prelude.Maybe EventFeedbackType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuthEventType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuthEventType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aetEventType' - The event type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aetEventId' - The event ID.
+-- 'eventType', 'authEventType_eventType' - The event type.
 --
--- * 'aetChallengeResponses' - The challenge responses.
+-- 'eventId', 'authEventType_eventId' - The event ID.
 --
--- * 'aetEventContextData' - The user context data captured at the time of an event request. It provides additional information about the client from which event the request is received.
+-- 'challengeResponses', 'authEventType_challengeResponses' - The challenge responses.
 --
--- * 'aetCreationDate' - The creation date
+-- 'eventContextData', 'authEventType_eventContextData' - The user context data captured at the time of an event request. It
+-- provides additional information about the client from which event the
+-- request is received.
 --
--- * 'aetEventRisk' - The event risk.
+-- 'creationDate', 'authEventType_creationDate' - The creation date
 --
--- * 'aetEventResponse' - The event response.
+-- 'eventRisk', 'authEventType_eventRisk' - The event risk.
 --
--- * 'aetEventFeedback' - A flag specifying the user feedback captured at the time of an event request is good or bad.
-authEventType ::
+-- 'eventResponse', 'authEventType_eventResponse' - The event response.
+--
+-- 'eventFeedback', 'authEventType_eventFeedback' - A flag specifying the user feedback captured at the time of an event
+-- request is good or bad.
+newAuthEventType ::
   AuthEventType
-authEventType =
+newAuthEventType =
   AuthEventType'
-    { _aetEventType = Nothing,
-      _aetEventId = Nothing,
-      _aetChallengeResponses = Nothing,
-      _aetEventContextData = Nothing,
-      _aetCreationDate = Nothing,
-      _aetEventRisk = Nothing,
-      _aetEventResponse = Nothing,
-      _aetEventFeedback = Nothing
+    { eventType = Prelude.Nothing,
+      eventId = Prelude.Nothing,
+      challengeResponses = Prelude.Nothing,
+      eventContextData = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      eventRisk = Prelude.Nothing,
+      eventResponse = Prelude.Nothing,
+      eventFeedback = Prelude.Nothing
     }
 
 -- | The event type.
-aetEventType :: Lens' AuthEventType (Maybe EventType)
-aetEventType = lens _aetEventType (\s a -> s {_aetEventType = a})
+authEventType_eventType :: Lens.Lens' AuthEventType (Prelude.Maybe EventType)
+authEventType_eventType = Lens.lens (\AuthEventType' {eventType} -> eventType) (\s@AuthEventType' {} a -> s {eventType = a} :: AuthEventType)
 
 -- | The event ID.
-aetEventId :: Lens' AuthEventType (Maybe Text)
-aetEventId = lens _aetEventId (\s a -> s {_aetEventId = a})
+authEventType_eventId :: Lens.Lens' AuthEventType (Prelude.Maybe Prelude.Text)
+authEventType_eventId = Lens.lens (\AuthEventType' {eventId} -> eventId) (\s@AuthEventType' {} a -> s {eventId = a} :: AuthEventType)
 
 -- | The challenge responses.
-aetChallengeResponses :: Lens' AuthEventType [ChallengeResponseType]
-aetChallengeResponses = lens _aetChallengeResponses (\s a -> s {_aetChallengeResponses = a}) . _Default . _Coerce
+authEventType_challengeResponses :: Lens.Lens' AuthEventType (Prelude.Maybe [ChallengeResponseType])
+authEventType_challengeResponses = Lens.lens (\AuthEventType' {challengeResponses} -> challengeResponses) (\s@AuthEventType' {} a -> s {challengeResponses = a} :: AuthEventType) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The user context data captured at the time of an event request. It provides additional information about the client from which event the request is received.
-aetEventContextData :: Lens' AuthEventType (Maybe EventContextDataType)
-aetEventContextData = lens _aetEventContextData (\s a -> s {_aetEventContextData = a})
+-- | The user context data captured at the time of an event request. It
+-- provides additional information about the client from which event the
+-- request is received.
+authEventType_eventContextData :: Lens.Lens' AuthEventType (Prelude.Maybe EventContextDataType)
+authEventType_eventContextData = Lens.lens (\AuthEventType' {eventContextData} -> eventContextData) (\s@AuthEventType' {} a -> s {eventContextData = a} :: AuthEventType)
 
 -- | The creation date
-aetCreationDate :: Lens' AuthEventType (Maybe UTCTime)
-aetCreationDate = lens _aetCreationDate (\s a -> s {_aetCreationDate = a}) . mapping _Time
+authEventType_creationDate :: Lens.Lens' AuthEventType (Prelude.Maybe Prelude.UTCTime)
+authEventType_creationDate = Lens.lens (\AuthEventType' {creationDate} -> creationDate) (\s@AuthEventType' {} a -> s {creationDate = a} :: AuthEventType) Prelude.. Lens.mapping Prelude._Time
 
 -- | The event risk.
-aetEventRisk :: Lens' AuthEventType (Maybe EventRiskType)
-aetEventRisk = lens _aetEventRisk (\s a -> s {_aetEventRisk = a})
+authEventType_eventRisk :: Lens.Lens' AuthEventType (Prelude.Maybe EventRiskType)
+authEventType_eventRisk = Lens.lens (\AuthEventType' {eventRisk} -> eventRisk) (\s@AuthEventType' {} a -> s {eventRisk = a} :: AuthEventType)
 
 -- | The event response.
-aetEventResponse :: Lens' AuthEventType (Maybe EventResponseType)
-aetEventResponse = lens _aetEventResponse (\s a -> s {_aetEventResponse = a})
+authEventType_eventResponse :: Lens.Lens' AuthEventType (Prelude.Maybe EventResponseType)
+authEventType_eventResponse = Lens.lens (\AuthEventType' {eventResponse} -> eventResponse) (\s@AuthEventType' {} a -> s {eventResponse = a} :: AuthEventType)
 
--- | A flag specifying the user feedback captured at the time of an event request is good or bad.
-aetEventFeedback :: Lens' AuthEventType (Maybe EventFeedbackType)
-aetEventFeedback = lens _aetEventFeedback (\s a -> s {_aetEventFeedback = a})
+-- | A flag specifying the user feedback captured at the time of an event
+-- request is good or bad.
+authEventType_eventFeedback :: Lens.Lens' AuthEventType (Prelude.Maybe EventFeedbackType)
+authEventType_eventFeedback = Lens.lens (\AuthEventType' {eventFeedback} -> eventFeedback) (\s@AuthEventType' {} a -> s {eventFeedback = a} :: AuthEventType)
 
-instance FromJSON AuthEventType where
+instance Prelude.FromJSON AuthEventType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AuthEventType"
       ( \x ->
           AuthEventType'
-            <$> (x .:? "EventType")
-            <*> (x .:? "EventId")
-            <*> (x .:? "ChallengeResponses" .!= mempty)
-            <*> (x .:? "EventContextData")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "EventRisk")
-            <*> (x .:? "EventResponse")
-            <*> (x .:? "EventFeedback")
+            Prelude.<$> (x Prelude..:? "EventType")
+            Prelude.<*> (x Prelude..:? "EventId")
+            Prelude.<*> ( x Prelude..:? "ChallengeResponses"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "EventContextData")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "EventRisk")
+            Prelude.<*> (x Prelude..:? "EventResponse")
+            Prelude.<*> (x Prelude..:? "EventFeedback")
       )
 
-instance Hashable AuthEventType
+instance Prelude.Hashable AuthEventType
 
-instance NFData AuthEventType
+instance Prelude.NFData AuthEventType

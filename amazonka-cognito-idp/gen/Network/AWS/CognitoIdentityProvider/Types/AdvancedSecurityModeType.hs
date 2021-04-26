@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CognitoIdentityProvider.Types.AdvancedSecurityModeType
   ( AdvancedSecurityModeType
       ( ..,
-        ASMTAudit,
-        ASMTEnforced,
-        ASMTOff
+        AdvancedSecurityModeTypeAUDIT,
+        AdvancedSecurityModeTypeENFORCED,
+        AdvancedSecurityModeTypeOFF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AdvancedSecurityModeType
-  = AdvancedSecurityModeType'
-      ( CI
-          Text
-      )
+newtype AdvancedSecurityModeType = AdvancedSecurityModeType'
+  { fromAdvancedSecurityModeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASMTAudit :: AdvancedSecurityModeType
-pattern ASMTAudit = AdvancedSecurityModeType' "AUDIT"
+pattern AdvancedSecurityModeTypeAUDIT :: AdvancedSecurityModeType
+pattern AdvancedSecurityModeTypeAUDIT = AdvancedSecurityModeType' "AUDIT"
 
-pattern ASMTEnforced :: AdvancedSecurityModeType
-pattern ASMTEnforced = AdvancedSecurityModeType' "ENFORCED"
+pattern AdvancedSecurityModeTypeENFORCED :: AdvancedSecurityModeType
+pattern AdvancedSecurityModeTypeENFORCED = AdvancedSecurityModeType' "ENFORCED"
 
-pattern ASMTOff :: AdvancedSecurityModeType
-pattern ASMTOff = AdvancedSecurityModeType' "OFF"
+pattern AdvancedSecurityModeTypeOFF :: AdvancedSecurityModeType
+pattern AdvancedSecurityModeTypeOFF = AdvancedSecurityModeType' "OFF"
 
 {-# COMPLETE
-  ASMTAudit,
-  ASMTEnforced,
-  ASMTOff,
+  AdvancedSecurityModeTypeAUDIT,
+  AdvancedSecurityModeTypeENFORCED,
+  AdvancedSecurityModeTypeOFF,
   AdvancedSecurityModeType'
   #-}
 
-instance FromText AdvancedSecurityModeType where
-  parser = (AdvancedSecurityModeType' . mk) <$> takeText
+instance Prelude.FromText AdvancedSecurityModeType where
+  parser = AdvancedSecurityModeType' Prelude.<$> Prelude.takeText
 
-instance ToText AdvancedSecurityModeType where
-  toText (AdvancedSecurityModeType' ci) = original ci
+instance Prelude.ToText AdvancedSecurityModeType where
+  toText (AdvancedSecurityModeType' x) = x
 
-instance Hashable AdvancedSecurityModeType
+instance Prelude.Hashable AdvancedSecurityModeType
 
-instance NFData AdvancedSecurityModeType
+instance Prelude.NFData AdvancedSecurityModeType
 
-instance ToByteString AdvancedSecurityModeType
+instance Prelude.ToByteString AdvancedSecurityModeType
 
-instance ToQuery AdvancedSecurityModeType
+instance Prelude.ToQuery AdvancedSecurityModeType
 
-instance ToHeader AdvancedSecurityModeType
+instance Prelude.ToHeader AdvancedSecurityModeType
 
-instance ToJSON AdvancedSecurityModeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AdvancedSecurityModeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AdvancedSecurityModeType where
-  parseJSON = parseJSONText "AdvancedSecurityModeType"
+instance Prelude.FromJSON AdvancedSecurityModeType where
+  parseJSON = Prelude.parseJSONText "AdvancedSecurityModeType"

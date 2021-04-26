@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,132 +23,139 @@
 --
 -- Forgets the device, as an administrator.
 --
---
 -- Calling this action requires developer credentials.
 module Network.AWS.CognitoIdentityProvider.AdminForgetDevice
   ( -- * Creating a Request
-    adminForgetDevice,
-    AdminForgetDevice,
+    AdminForgetDevice (..),
+    newAdminForgetDevice,
 
     -- * Request Lenses
-    afdUserPoolId,
-    afdUsername,
-    afdDeviceKey,
+    adminForgetDevice_userPoolId,
+    adminForgetDevice_username,
+    adminForgetDevice_deviceKey,
 
     -- * Destructuring the Response
-    adminForgetDeviceResponse,
-    AdminForgetDeviceResponse,
+    AdminForgetDeviceResponse (..),
+    newAdminForgetDeviceResponse,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Sends the forgot device request, as an administrator.
 --
---
---
--- /See:/ 'adminForgetDevice' smart constructor.
+-- /See:/ 'newAdminForgetDevice' smart constructor.
 data AdminForgetDevice = AdminForgetDevice'
-  { _afdUserPoolId ::
-      !Text,
-    _afdUsername :: !(Sensitive Text),
-    _afdDeviceKey :: !Text
+  { -- | The user pool ID.
+    userPoolId :: Prelude.Text,
+    -- | The user name.
+    username :: Prelude.Sensitive Prelude.Text,
+    -- | The device key.
+    deviceKey :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdminForgetDevice' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdminForgetDevice' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'afdUserPoolId' - The user pool ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'afdUsername' - The user name.
+-- 'userPoolId', 'adminForgetDevice_userPoolId' - The user pool ID.
 --
--- * 'afdDeviceKey' - The device key.
-adminForgetDevice ::
-  -- | 'afdUserPoolId'
-  Text ->
-  -- | 'afdUsername'
-  Text ->
-  -- | 'afdDeviceKey'
-  Text ->
+-- 'username', 'adminForgetDevice_username' - The user name.
+--
+-- 'deviceKey', 'adminForgetDevice_deviceKey' - The device key.
+newAdminForgetDevice ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'username'
+  Prelude.Text ->
+  -- | 'deviceKey'
+  Prelude.Text ->
   AdminForgetDevice
-adminForgetDevice pUserPoolId_ pUsername_ pDeviceKey_ =
-  AdminForgetDevice'
-    { _afdUserPoolId = pUserPoolId_,
-      _afdUsername = _Sensitive # pUsername_,
-      _afdDeviceKey = pDeviceKey_
-    }
+newAdminForgetDevice
+  pUserPoolId_
+  pUsername_
+  pDeviceKey_ =
+    AdminForgetDevice'
+      { userPoolId = pUserPoolId_,
+        username = Prelude._Sensitive Lens.# pUsername_,
+        deviceKey = pDeviceKey_
+      }
 
 -- | The user pool ID.
-afdUserPoolId :: Lens' AdminForgetDevice Text
-afdUserPoolId = lens _afdUserPoolId (\s a -> s {_afdUserPoolId = a})
+adminForgetDevice_userPoolId :: Lens.Lens' AdminForgetDevice Prelude.Text
+adminForgetDevice_userPoolId = Lens.lens (\AdminForgetDevice' {userPoolId} -> userPoolId) (\s@AdminForgetDevice' {} a -> s {userPoolId = a} :: AdminForgetDevice)
 
 -- | The user name.
-afdUsername :: Lens' AdminForgetDevice Text
-afdUsername = lens _afdUsername (\s a -> s {_afdUsername = a}) . _Sensitive
+adminForgetDevice_username :: Lens.Lens' AdminForgetDevice Prelude.Text
+adminForgetDevice_username = Lens.lens (\AdminForgetDevice' {username} -> username) (\s@AdminForgetDevice' {} a -> s {username = a} :: AdminForgetDevice) Prelude.. Prelude._Sensitive
 
 -- | The device key.
-afdDeviceKey :: Lens' AdminForgetDevice Text
-afdDeviceKey = lens _afdDeviceKey (\s a -> s {_afdDeviceKey = a})
+adminForgetDevice_deviceKey :: Lens.Lens' AdminForgetDevice Prelude.Text
+adminForgetDevice_deviceKey = Lens.lens (\AdminForgetDevice' {deviceKey} -> deviceKey) (\s@AdminForgetDevice' {} a -> s {deviceKey = a} :: AdminForgetDevice)
 
-instance AWSRequest AdminForgetDevice where
+instance Prelude.AWSRequest AdminForgetDevice where
   type Rs AdminForgetDevice = AdminForgetDeviceResponse
-  request = postJSON cognitoIdentityProvider
-  response = receiveNull AdminForgetDeviceResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull AdminForgetDeviceResponse'
 
-instance Hashable AdminForgetDevice
+instance Prelude.Hashable AdminForgetDevice
 
-instance NFData AdminForgetDevice
+instance Prelude.NFData AdminForgetDevice
 
-instance ToHeaders AdminForgetDevice where
+instance Prelude.ToHeaders AdminForgetDevice where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.AdminForgetDevice" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.AdminForgetDevice" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AdminForgetDevice where
+instance Prelude.ToJSON AdminForgetDevice where
   toJSON AdminForgetDevice' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserPoolId" .= _afdUserPoolId),
-            Just ("Username" .= _afdUsername),
-            Just ("DeviceKey" .= _afdDeviceKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserPoolId" Prelude..= userPoolId),
+            Prelude.Just ("Username" Prelude..= username),
+            Prelude.Just ("DeviceKey" Prelude..= deviceKey)
           ]
       )
 
-instance ToPath AdminForgetDevice where
-  toPath = const "/"
+instance Prelude.ToPath AdminForgetDevice where
+  toPath = Prelude.const "/"
 
-instance ToQuery AdminForgetDevice where
-  toQuery = const mempty
+instance Prelude.ToQuery AdminForgetDevice where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'adminForgetDeviceResponse' smart constructor.
+-- | /See:/ 'newAdminForgetDeviceResponse' smart constructor.
 data AdminForgetDeviceResponse = AdminForgetDeviceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdminForgetDeviceResponse' with the minimum fields required to make a request.
-adminForgetDeviceResponse ::
+-- |
+-- Create a value of 'AdminForgetDeviceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAdminForgetDeviceResponse ::
   AdminForgetDeviceResponse
-adminForgetDeviceResponse =
+newAdminForgetDeviceResponse =
   AdminForgetDeviceResponse'
 
-instance NFData AdminForgetDeviceResponse
+instance Prelude.NFData AdminForgetDeviceResponse

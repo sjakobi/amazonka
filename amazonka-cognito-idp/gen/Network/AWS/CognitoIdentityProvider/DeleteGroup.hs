@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,108 +23,119 @@
 --
 -- Deletes a group. Currently only groups with no members can be deleted.
 --
---
 -- Calling this action requires developer credentials.
 module Network.AWS.CognitoIdentityProvider.DeleteGroup
   ( -- * Creating a Request
-    deleteGroup,
-    DeleteGroup,
+    DeleteGroup (..),
+    newDeleteGroup,
 
     -- * Request Lenses
-    dgGroupName,
-    dgUserPoolId,
+    deleteGroup_groupName,
+    deleteGroup_userPoolId,
 
     -- * Destructuring the Response
-    deleteGroupResponse,
-    DeleteGroupResponse,
+    DeleteGroupResponse (..),
+    newDeleteGroupResponse,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteGroup' smart constructor.
+-- | /See:/ 'newDeleteGroup' smart constructor.
 data DeleteGroup = DeleteGroup'
-  { _dgGroupName ::
-      !Text,
-    _dgUserPoolId :: !Text
+  { -- | The name of the group.
+    groupName :: Prelude.Text,
+    -- | The user pool ID for the user pool.
+    userPoolId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgGroupName' - The name of the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgUserPoolId' - The user pool ID for the user pool.
-deleteGroup ::
-  -- | 'dgGroupName'
-  Text ->
-  -- | 'dgUserPoolId'
-  Text ->
+-- 'groupName', 'deleteGroup_groupName' - The name of the group.
+--
+-- 'userPoolId', 'deleteGroup_userPoolId' - The user pool ID for the user pool.
+newDeleteGroup ::
+  -- | 'groupName'
+  Prelude.Text ->
+  -- | 'userPoolId'
+  Prelude.Text ->
   DeleteGroup
-deleteGroup pGroupName_ pUserPoolId_ =
+newDeleteGroup pGroupName_ pUserPoolId_ =
   DeleteGroup'
-    { _dgGroupName = pGroupName_,
-      _dgUserPoolId = pUserPoolId_
+    { groupName = pGroupName_,
+      userPoolId = pUserPoolId_
     }
 
 -- | The name of the group.
-dgGroupName :: Lens' DeleteGroup Text
-dgGroupName = lens _dgGroupName (\s a -> s {_dgGroupName = a})
+deleteGroup_groupName :: Lens.Lens' DeleteGroup Prelude.Text
+deleteGroup_groupName = Lens.lens (\DeleteGroup' {groupName} -> groupName) (\s@DeleteGroup' {} a -> s {groupName = a} :: DeleteGroup)
 
 -- | The user pool ID for the user pool.
-dgUserPoolId :: Lens' DeleteGroup Text
-dgUserPoolId = lens _dgUserPoolId (\s a -> s {_dgUserPoolId = a})
+deleteGroup_userPoolId :: Lens.Lens' DeleteGroup Prelude.Text
+deleteGroup_userPoolId = Lens.lens (\DeleteGroup' {userPoolId} -> userPoolId) (\s@DeleteGroup' {} a -> s {userPoolId = a} :: DeleteGroup)
 
-instance AWSRequest DeleteGroup where
+instance Prelude.AWSRequest DeleteGroup where
   type Rs DeleteGroup = DeleteGroupResponse
-  request = postJSON cognitoIdentityProvider
-  response = receiveNull DeleteGroupResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull DeleteGroupResponse'
 
-instance Hashable DeleteGroup
+instance Prelude.Hashable DeleteGroup
 
-instance NFData DeleteGroup
+instance Prelude.NFData DeleteGroup
 
-instance ToHeaders DeleteGroup where
+instance Prelude.ToHeaders DeleteGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.DeleteGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.DeleteGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteGroup where
+instance Prelude.ToJSON DeleteGroup where
   toJSON DeleteGroup' {..} =
-    object
-      ( catMaybes
-          [ Just ("GroupName" .= _dgGroupName),
-            Just ("UserPoolId" .= _dgUserPoolId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("GroupName" Prelude..= groupName),
+            Prelude.Just ("UserPoolId" Prelude..= userPoolId)
           ]
       )
 
-instance ToPath DeleteGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteGroupResponse' smart constructor.
 data DeleteGroupResponse = DeleteGroupResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGroupResponse' with the minimum fields required to make a request.
-deleteGroupResponse ::
+-- |
+-- Create a value of 'DeleteGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteGroupResponse ::
   DeleteGroupResponse
-deleteGroupResponse = DeleteGroupResponse'
+newDeleteGroupResponse = DeleteGroupResponse'
 
-instance NFData DeleteGroupResponse
+instance Prelude.NFData DeleteGroupResponse

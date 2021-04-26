@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,201 +23,230 @@
 --
 -- Lists the groups that the user belongs to.
 --
---
 -- Calling this action requires developer credentials.
---
 --
 -- This operation returns paginated results.
 module Network.AWS.CognitoIdentityProvider.AdminListGroupsForUser
   ( -- * Creating a Request
-    adminListGroupsForUser,
-    AdminListGroupsForUser,
+    AdminListGroupsForUser (..),
+    newAdminListGroupsForUser,
 
     -- * Request Lenses
-    algfuNextToken,
-    algfuLimit,
-    algfuUsername,
-    algfuUserPoolId,
+    adminListGroupsForUser_nextToken,
+    adminListGroupsForUser_limit,
+    adminListGroupsForUser_username,
+    adminListGroupsForUser_userPoolId,
 
     -- * Destructuring the Response
-    adminListGroupsForUserResponse,
-    AdminListGroupsForUserResponse,
+    AdminListGroupsForUserResponse (..),
+    newAdminListGroupsForUserResponse,
 
     -- * Response Lenses
-    algfurrsGroups,
-    algfurrsNextToken,
-    algfurrsResponseStatus,
+    adminListGroupsForUserResponse_groups,
+    adminListGroupsForUserResponse_nextToken,
+    adminListGroupsForUserResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoIdentityProvider.Types.GroupType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'adminListGroupsForUser' smart constructor.
+-- | /See:/ 'newAdminListGroupsForUser' smart constructor.
 data AdminListGroupsForUser = AdminListGroupsForUser'
-  { _algfuNextToken ::
-      !(Maybe Text),
-    _algfuLimit ::
-      !(Maybe Nat),
-    _algfuUsername ::
-      !(Sensitive Text),
-    _algfuUserPoolId :: !Text
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The limit of the request to list groups.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The username for the user.
+    username :: Prelude.Sensitive Prelude.Text,
+    -- | The user pool ID for the user pool.
+    userPoolId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdminListGroupsForUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdminListGroupsForUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'algfuNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'algfuLimit' - The limit of the request to list groups.
+-- 'nextToken', 'adminListGroupsForUser_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
 --
--- * 'algfuUsername' - The username for the user.
+-- 'limit', 'adminListGroupsForUser_limit' - The limit of the request to list groups.
 --
--- * 'algfuUserPoolId' - The user pool ID for the user pool.
-adminListGroupsForUser ::
-  -- | 'algfuUsername'
-  Text ->
-  -- | 'algfuUserPoolId'
-  Text ->
+-- 'username', 'adminListGroupsForUser_username' - The username for the user.
+--
+-- 'userPoolId', 'adminListGroupsForUser_userPoolId' - The user pool ID for the user pool.
+newAdminListGroupsForUser ::
+  -- | 'username'
+  Prelude.Text ->
+  -- | 'userPoolId'
+  Prelude.Text ->
   AdminListGroupsForUser
-adminListGroupsForUser pUsername_ pUserPoolId_ =
+newAdminListGroupsForUser pUsername_ pUserPoolId_ =
   AdminListGroupsForUser'
-    { _algfuNextToken = Nothing,
-      _algfuLimit = Nothing,
-      _algfuUsername = _Sensitive # pUsername_,
-      _algfuUserPoolId = pUserPoolId_
+    { nextToken =
+        Prelude.Nothing,
+      limit = Prelude.Nothing,
+      username = Prelude._Sensitive Lens.# pUsername_,
+      userPoolId = pUserPoolId_
     }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-algfuNextToken :: Lens' AdminListGroupsForUser (Maybe Text)
-algfuNextToken = lens _algfuNextToken (\s a -> s {_algfuNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+adminListGroupsForUser_nextToken :: Lens.Lens' AdminListGroupsForUser (Prelude.Maybe Prelude.Text)
+adminListGroupsForUser_nextToken = Lens.lens (\AdminListGroupsForUser' {nextToken} -> nextToken) (\s@AdminListGroupsForUser' {} a -> s {nextToken = a} :: AdminListGroupsForUser)
 
 -- | The limit of the request to list groups.
-algfuLimit :: Lens' AdminListGroupsForUser (Maybe Natural)
-algfuLimit = lens _algfuLimit (\s a -> s {_algfuLimit = a}) . mapping _Nat
+adminListGroupsForUser_limit :: Lens.Lens' AdminListGroupsForUser (Prelude.Maybe Prelude.Natural)
+adminListGroupsForUser_limit = Lens.lens (\AdminListGroupsForUser' {limit} -> limit) (\s@AdminListGroupsForUser' {} a -> s {limit = a} :: AdminListGroupsForUser) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The username for the user.
-algfuUsername :: Lens' AdminListGroupsForUser Text
-algfuUsername = lens _algfuUsername (\s a -> s {_algfuUsername = a}) . _Sensitive
+adminListGroupsForUser_username :: Lens.Lens' AdminListGroupsForUser Prelude.Text
+adminListGroupsForUser_username = Lens.lens (\AdminListGroupsForUser' {username} -> username) (\s@AdminListGroupsForUser' {} a -> s {username = a} :: AdminListGroupsForUser) Prelude.. Prelude._Sensitive
 
 -- | The user pool ID for the user pool.
-algfuUserPoolId :: Lens' AdminListGroupsForUser Text
-algfuUserPoolId = lens _algfuUserPoolId (\s a -> s {_algfuUserPoolId = a})
+adminListGroupsForUser_userPoolId :: Lens.Lens' AdminListGroupsForUser Prelude.Text
+adminListGroupsForUser_userPoolId = Lens.lens (\AdminListGroupsForUser' {userPoolId} -> userPoolId) (\s@AdminListGroupsForUser' {} a -> s {userPoolId = a} :: AdminListGroupsForUser)
 
-instance AWSPager AdminListGroupsForUser where
+instance Pager.AWSPager AdminListGroupsForUser where
   page rq rs
-    | stop (rs ^. algfurrsNextToken) = Nothing
-    | stop (rs ^. algfurrsGroups) = Nothing
-    | otherwise =
-      Just $ rq & algfuNextToken .~ rs ^. algfurrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? adminListGroupsForUserResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? adminListGroupsForUserResponse_groups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& adminListGroupsForUser_nextToken
+          Lens..~ rs
+          Lens.^? adminListGroupsForUserResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest AdminListGroupsForUser where
+instance Prelude.AWSRequest AdminListGroupsForUser where
   type
     Rs AdminListGroupsForUser =
       AdminListGroupsForUserResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AdminListGroupsForUserResponse'
-            <$> (x .?> "Groups" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Groups" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AdminListGroupsForUser
+instance Prelude.Hashable AdminListGroupsForUser
 
-instance NFData AdminListGroupsForUser
+instance Prelude.NFData AdminListGroupsForUser
 
-instance ToHeaders AdminListGroupsForUser where
+instance Prelude.ToHeaders AdminListGroupsForUser where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.AdminListGroupsForUser" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.AdminListGroupsForUser" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AdminListGroupsForUser where
+instance Prelude.ToJSON AdminListGroupsForUser where
   toJSON AdminListGroupsForUser' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _algfuNextToken,
-            ("Limit" .=) <$> _algfuLimit,
-            Just ("Username" .= _algfuUsername),
-            Just ("UserPoolId" .= _algfuUserPoolId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just ("Username" Prelude..= username),
+            Prelude.Just ("UserPoolId" Prelude..= userPoolId)
           ]
       )
 
-instance ToPath AdminListGroupsForUser where
-  toPath = const "/"
+instance Prelude.ToPath AdminListGroupsForUser where
+  toPath = Prelude.const "/"
 
-instance ToQuery AdminListGroupsForUser where
-  toQuery = const mempty
+instance Prelude.ToQuery AdminListGroupsForUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'adminListGroupsForUserResponse' smart constructor.
+-- | /See:/ 'newAdminListGroupsForUserResponse' smart constructor.
 data AdminListGroupsForUserResponse = AdminListGroupsForUserResponse'
-  { _algfurrsGroups ::
-      !( Maybe
-           [GroupType]
-       ),
-    _algfurrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _algfurrsResponseStatus ::
-      !Int
+  { -- | The groups that the user belongs to.
+    groups :: Prelude.Maybe [GroupType],
+    -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdminListGroupsForUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdminListGroupsForUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'algfurrsGroups' - The groups that the user belongs to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'algfurrsNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- 'groups', 'adminListGroupsForUserResponse_groups' - The groups that the user belongs to.
 --
--- * 'algfurrsResponseStatus' - -- | The response status code.
-adminListGroupsForUserResponse ::
-  -- | 'algfurrsResponseStatus'
-  Int ->
+-- 'nextToken', 'adminListGroupsForUserResponse_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+--
+-- 'httpStatus', 'adminListGroupsForUserResponse_httpStatus' - The response's http status code.
+newAdminListGroupsForUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AdminListGroupsForUserResponse
-adminListGroupsForUserResponse pResponseStatus_ =
+newAdminListGroupsForUserResponse pHttpStatus_ =
   AdminListGroupsForUserResponse'
-    { _algfurrsGroups =
-        Nothing,
-      _algfurrsNextToken = Nothing,
-      _algfurrsResponseStatus = pResponseStatus_
+    { groups =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The groups that the user belongs to.
-algfurrsGroups :: Lens' AdminListGroupsForUserResponse [GroupType]
-algfurrsGroups = lens _algfurrsGroups (\s a -> s {_algfurrsGroups = a}) . _Default . _Coerce
+adminListGroupsForUserResponse_groups :: Lens.Lens' AdminListGroupsForUserResponse (Prelude.Maybe [GroupType])
+adminListGroupsForUserResponse_groups = Lens.lens (\AdminListGroupsForUserResponse' {groups} -> groups) (\s@AdminListGroupsForUserResponse' {} a -> s {groups = a} :: AdminListGroupsForUserResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-algfurrsNextToken :: Lens' AdminListGroupsForUserResponse (Maybe Text)
-algfurrsNextToken = lens _algfurrsNextToken (\s a -> s {_algfurrsNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+adminListGroupsForUserResponse_nextToken :: Lens.Lens' AdminListGroupsForUserResponse (Prelude.Maybe Prelude.Text)
+adminListGroupsForUserResponse_nextToken = Lens.lens (\AdminListGroupsForUserResponse' {nextToken} -> nextToken) (\s@AdminListGroupsForUserResponse' {} a -> s {nextToken = a} :: AdminListGroupsForUserResponse)
 
--- | -- | The response status code.
-algfurrsResponseStatus :: Lens' AdminListGroupsForUserResponse Int
-algfurrsResponseStatus = lens _algfurrsResponseStatus (\s a -> s {_algfurrsResponseStatus = a})
+-- | The response's http status code.
+adminListGroupsForUserResponse_httpStatus :: Lens.Lens' AdminListGroupsForUserResponse Prelude.Int
+adminListGroupsForUserResponse_httpStatus = Lens.lens (\AdminListGroupsForUserResponse' {httpStatus} -> httpStatus) (\s@AdminListGroupsForUserResponse' {} a -> s {httpStatus = a} :: AdminListGroupsForUserResponse)
 
-instance NFData AdminListGroupsForUserResponse
+instance
+  Prelude.NFData
+    AdminListGroupsForUserResponse

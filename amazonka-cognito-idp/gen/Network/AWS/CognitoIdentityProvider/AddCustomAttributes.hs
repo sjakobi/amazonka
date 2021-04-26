@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,146 +24,154 @@
 -- Adds additional user attributes to the user pool schema.
 module Network.AWS.CognitoIdentityProvider.AddCustomAttributes
   ( -- * Creating a Request
-    addCustomAttributes,
-    AddCustomAttributes,
+    AddCustomAttributes (..),
+    newAddCustomAttributes,
 
     -- * Request Lenses
-    acaUserPoolId,
-    acaCustomAttributes,
+    addCustomAttributes_userPoolId,
+    addCustomAttributes_customAttributes,
 
     -- * Destructuring the Response
-    addCustomAttributesResponse,
-    AddCustomAttributesResponse,
+    AddCustomAttributesResponse (..),
+    newAddCustomAttributesResponse,
 
     -- * Response Lenses
-    acarrsResponseStatus,
+    addCustomAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to add custom attributes.
 --
---
---
--- /See:/ 'addCustomAttributes' smart constructor.
+-- /See:/ 'newAddCustomAttributes' smart constructor.
 data AddCustomAttributes = AddCustomAttributes'
-  { _acaUserPoolId ::
-      !Text,
-    _acaCustomAttributes ::
-      !(List1 SchemaAttributeType)
+  { -- | The user pool ID for the user pool where you want to add custom
+    -- attributes.
+    userPoolId :: Prelude.Text,
+    -- | An array of custom attributes, such as Mutable and Name.
+    customAttributes :: Prelude.List1 SchemaAttributeType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddCustomAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddCustomAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acaUserPoolId' - The user pool ID for the user pool where you want to add custom attributes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acaCustomAttributes' - An array of custom attributes, such as Mutable and Name.
-addCustomAttributes ::
-  -- | 'acaUserPoolId'
-  Text ->
-  -- | 'acaCustomAttributes'
-  NonEmpty SchemaAttributeType ->
+-- 'userPoolId', 'addCustomAttributes_userPoolId' - The user pool ID for the user pool where you want to add custom
+-- attributes.
+--
+-- 'customAttributes', 'addCustomAttributes_customAttributes' - An array of custom attributes, such as Mutable and Name.
+newAddCustomAttributes ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'customAttributes'
+  Prelude.NonEmpty SchemaAttributeType ->
   AddCustomAttributes
-addCustomAttributes pUserPoolId_ pCustomAttributes_ =
-  AddCustomAttributes'
-    { _acaUserPoolId = pUserPoolId_,
-      _acaCustomAttributes = _List1 # pCustomAttributes_
-    }
+newAddCustomAttributes
+  pUserPoolId_
+  pCustomAttributes_ =
+    AddCustomAttributes'
+      { userPoolId = pUserPoolId_,
+        customAttributes =
+          Prelude._List1 Lens.# pCustomAttributes_
+      }
 
--- | The user pool ID for the user pool where you want to add custom attributes.
-acaUserPoolId :: Lens' AddCustomAttributes Text
-acaUserPoolId = lens _acaUserPoolId (\s a -> s {_acaUserPoolId = a})
+-- | The user pool ID for the user pool where you want to add custom
+-- attributes.
+addCustomAttributes_userPoolId :: Lens.Lens' AddCustomAttributes Prelude.Text
+addCustomAttributes_userPoolId = Lens.lens (\AddCustomAttributes' {userPoolId} -> userPoolId) (\s@AddCustomAttributes' {} a -> s {userPoolId = a} :: AddCustomAttributes)
 
 -- | An array of custom attributes, such as Mutable and Name.
-acaCustomAttributes :: Lens' AddCustomAttributes (NonEmpty SchemaAttributeType)
-acaCustomAttributes = lens _acaCustomAttributes (\s a -> s {_acaCustomAttributes = a}) . _List1
+addCustomAttributes_customAttributes :: Lens.Lens' AddCustomAttributes (Prelude.NonEmpty SchemaAttributeType)
+addCustomAttributes_customAttributes = Lens.lens (\AddCustomAttributes' {customAttributes} -> customAttributes) (\s@AddCustomAttributes' {} a -> s {customAttributes = a} :: AddCustomAttributes) Prelude.. Prelude._List1
 
-instance AWSRequest AddCustomAttributes where
+instance Prelude.AWSRequest AddCustomAttributes where
   type
     Rs AddCustomAttributes =
       AddCustomAttributesResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          AddCustomAttributesResponse' <$> (pure (fromEnum s))
+          AddCustomAttributesResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AddCustomAttributes
+instance Prelude.Hashable AddCustomAttributes
 
-instance NFData AddCustomAttributes
+instance Prelude.NFData AddCustomAttributes
 
-instance ToHeaders AddCustomAttributes where
+instance Prelude.ToHeaders AddCustomAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.AddCustomAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.AddCustomAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AddCustomAttributes where
+instance Prelude.ToJSON AddCustomAttributes where
   toJSON AddCustomAttributes' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserPoolId" .= _acaUserPoolId),
-            Just ("CustomAttributes" .= _acaCustomAttributes)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserPoolId" Prelude..= userPoolId),
+            Prelude.Just
+              ("CustomAttributes" Prelude..= customAttributes)
           ]
       )
 
-instance ToPath AddCustomAttributes where
-  toPath = const "/"
+instance Prelude.ToPath AddCustomAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddCustomAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery AddCustomAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the response from the server for the request to add custom attributes.
+-- | Represents the response from the server for the request to add custom
+-- attributes.
 --
---
---
--- /See:/ 'addCustomAttributesResponse' smart constructor.
-newtype AddCustomAttributesResponse = AddCustomAttributesResponse'
-  { _acarrsResponseStatus ::
-      Int
+-- /See:/ 'newAddCustomAttributesResponse' smart constructor.
+data AddCustomAttributesResponse = AddCustomAttributesResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddCustomAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddCustomAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acarrsResponseStatus' - -- | The response status code.
-addCustomAttributesResponse ::
-  -- | 'acarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'addCustomAttributesResponse_httpStatus' - The response's http status code.
+newAddCustomAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddCustomAttributesResponse
-addCustomAttributesResponse pResponseStatus_ =
+newAddCustomAttributesResponse pHttpStatus_ =
   AddCustomAttributesResponse'
-    { _acarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-acarrsResponseStatus :: Lens' AddCustomAttributesResponse Int
-acarrsResponseStatus = lens _acarrsResponseStatus (\s a -> s {_acarrsResponseStatus = a})
+-- | The response's http status code.
+addCustomAttributesResponse_httpStatus :: Lens.Lens' AddCustomAttributesResponse Prelude.Int
+addCustomAttributesResponse_httpStatus = Lens.lens (\AddCustomAttributesResponse' {httpStatus} -> httpStatus) (\s@AddCustomAttributesResponse' {} a -> s {httpStatus = a} :: AddCustomAttributesResponse)
 
-instance NFData AddCustomAttributesResponse
+instance Prelude.NFData AddCustomAttributesResponse

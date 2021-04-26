@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,68 +20,71 @@
 module Network.AWS.CognitoIdentityProvider.Types.EventFeedbackType where
 
 import Network.AWS.CognitoIdentityProvider.Types.FeedbackValueType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the event feedback type.
 --
---
---
--- /See:/ 'eventFeedbackType' smart constructor.
+-- /See:/ 'newEventFeedbackType' smart constructor.
 data EventFeedbackType = EventFeedbackType'
-  { _eftFeedbackDate ::
-      !(Maybe POSIX),
-    _eftFeedbackValue ::
-      !FeedbackValueType,
-    _eftProvider :: !Text
+  { -- | The event feedback date.
+    feedbackDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The event feedback value.
+    feedbackValue :: FeedbackValueType,
+    -- | The provider.
+    provider :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventFeedbackType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventFeedbackType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eftFeedbackDate' - The event feedback date.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eftFeedbackValue' - The event feedback value.
+-- 'feedbackDate', 'eventFeedbackType_feedbackDate' - The event feedback date.
 --
--- * 'eftProvider' - The provider.
-eventFeedbackType ::
-  -- | 'eftFeedbackValue'
+-- 'feedbackValue', 'eventFeedbackType_feedbackValue' - The event feedback value.
+--
+-- 'provider', 'eventFeedbackType_provider' - The provider.
+newEventFeedbackType ::
+  -- | 'feedbackValue'
   FeedbackValueType ->
-  -- | 'eftProvider'
-  Text ->
+  -- | 'provider'
+  Prelude.Text ->
   EventFeedbackType
-eventFeedbackType pFeedbackValue_ pProvider_ =
+newEventFeedbackType pFeedbackValue_ pProvider_ =
   EventFeedbackType'
-    { _eftFeedbackDate = Nothing,
-      _eftFeedbackValue = pFeedbackValue_,
-      _eftProvider = pProvider_
+    { feedbackDate = Prelude.Nothing,
+      feedbackValue = pFeedbackValue_,
+      provider = pProvider_
     }
 
 -- | The event feedback date.
-eftFeedbackDate :: Lens' EventFeedbackType (Maybe UTCTime)
-eftFeedbackDate = lens _eftFeedbackDate (\s a -> s {_eftFeedbackDate = a}) . mapping _Time
+eventFeedbackType_feedbackDate :: Lens.Lens' EventFeedbackType (Prelude.Maybe Prelude.UTCTime)
+eventFeedbackType_feedbackDate = Lens.lens (\EventFeedbackType' {feedbackDate} -> feedbackDate) (\s@EventFeedbackType' {} a -> s {feedbackDate = a} :: EventFeedbackType) Prelude.. Lens.mapping Prelude._Time
 
 -- | The event feedback value.
-eftFeedbackValue :: Lens' EventFeedbackType FeedbackValueType
-eftFeedbackValue = lens _eftFeedbackValue (\s a -> s {_eftFeedbackValue = a})
+eventFeedbackType_feedbackValue :: Lens.Lens' EventFeedbackType FeedbackValueType
+eventFeedbackType_feedbackValue = Lens.lens (\EventFeedbackType' {feedbackValue} -> feedbackValue) (\s@EventFeedbackType' {} a -> s {feedbackValue = a} :: EventFeedbackType)
 
 -- | The provider.
-eftProvider :: Lens' EventFeedbackType Text
-eftProvider = lens _eftProvider (\s a -> s {_eftProvider = a})
+eventFeedbackType_provider :: Lens.Lens' EventFeedbackType Prelude.Text
+eventFeedbackType_provider = Lens.lens (\EventFeedbackType' {provider} -> provider) (\s@EventFeedbackType' {} a -> s {provider = a} :: EventFeedbackType)
 
-instance FromJSON EventFeedbackType where
+instance Prelude.FromJSON EventFeedbackType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventFeedbackType"
       ( \x ->
           EventFeedbackType'
-            <$> (x .:? "FeedbackDate")
-            <*> (x .: "FeedbackValue")
-            <*> (x .: "Provider")
+            Prelude.<$> (x Prelude..:? "FeedbackDate")
+            Prelude.<*> (x Prelude..: "FeedbackValue")
+            Prelude.<*> (x Prelude..: "Provider")
       )
 
-instance Hashable EventFeedbackType
+instance Prelude.Hashable EventFeedbackType
 
-instance NFData EventFeedbackType
+instance Prelude.NFData EventFeedbackType

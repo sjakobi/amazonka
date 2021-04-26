@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CognitoIdentityProvider.Types.ChallengeResponse
   ( ChallengeResponse
       ( ..,
-        Failure,
-        Success
+        ChallengeResponseFailure,
+        ChallengeResponseSuccess
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChallengeResponse = ChallengeResponse' (CI Text)
+newtype ChallengeResponse = ChallengeResponse'
+  { fromChallengeResponse ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failure :: ChallengeResponse
-pattern Failure = ChallengeResponse' "Failure"
+pattern ChallengeResponseFailure :: ChallengeResponse
+pattern ChallengeResponseFailure = ChallengeResponse' "Failure"
 
-pattern Success :: ChallengeResponse
-pattern Success = ChallengeResponse' "Success"
+pattern ChallengeResponseSuccess :: ChallengeResponse
+pattern ChallengeResponseSuccess = ChallengeResponse' "Success"
 
 {-# COMPLETE
-  Failure,
-  Success,
+  ChallengeResponseFailure,
+  ChallengeResponseSuccess,
   ChallengeResponse'
   #-}
 
-instance FromText ChallengeResponse where
-  parser = (ChallengeResponse' . mk) <$> takeText
+instance Prelude.FromText ChallengeResponse where
+  parser = ChallengeResponse' Prelude.<$> Prelude.takeText
 
-instance ToText ChallengeResponse where
-  toText (ChallengeResponse' ci) = original ci
+instance Prelude.ToText ChallengeResponse where
+  toText (ChallengeResponse' x) = x
 
-instance Hashable ChallengeResponse
+instance Prelude.Hashable ChallengeResponse
 
-instance NFData ChallengeResponse
+instance Prelude.NFData ChallengeResponse
 
-instance ToByteString ChallengeResponse
+instance Prelude.ToByteString ChallengeResponse
 
-instance ToQuery ChallengeResponse
+instance Prelude.ToQuery ChallengeResponse
 
-instance ToHeader ChallengeResponse
+instance Prelude.ToHeader ChallengeResponse
 
-instance FromJSON ChallengeResponse where
-  parseJSON = parseJSONText "ChallengeResponse"
+instance Prelude.FromJSON ChallengeResponse where
+  parseJSON = Prelude.parseJSONText "ChallengeResponse"

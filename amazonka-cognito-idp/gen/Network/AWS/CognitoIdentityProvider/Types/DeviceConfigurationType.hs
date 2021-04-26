@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoIdentityProvider.Types.DeviceConfigurationType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The configuration for the user pool's device tracking.
+-- | The configuration for the user pool\'s device tracking.
 --
---
---
--- /See:/ 'deviceConfigurationType' smart constructor.
+-- /See:/ 'newDeviceConfigurationType' smart constructor.
 data DeviceConfigurationType = DeviceConfigurationType'
-  { _dctChallengeRequiredOnNewDevice ::
-      !(Maybe Bool),
-    _dctDeviceOnlyRememberedOnUserPrompt ::
-      !(Maybe Bool)
+  { -- | Indicates whether a challenge is required on a new device. Only
+    -- applicable to a new device.
+    challengeRequiredOnNewDevice :: Prelude.Maybe Prelude.Bool,
+    -- | If true, a device is only remembered on user prompt.
+    deviceOnlyRememberedOnUserPrompt :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceConfigurationType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceConfigurationType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dctChallengeRequiredOnNewDevice' - Indicates whether a challenge is required on a new device. Only applicable to a new device.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dctDeviceOnlyRememberedOnUserPrompt' - If true, a device is only remembered on user prompt.
-deviceConfigurationType ::
+-- 'challengeRequiredOnNewDevice', 'deviceConfigurationType_challengeRequiredOnNewDevice' - Indicates whether a challenge is required on a new device. Only
+-- applicable to a new device.
+--
+-- 'deviceOnlyRememberedOnUserPrompt', 'deviceConfigurationType_deviceOnlyRememberedOnUserPrompt' - If true, a device is only remembered on user prompt.
+newDeviceConfigurationType ::
   DeviceConfigurationType
-deviceConfigurationType =
+newDeviceConfigurationType =
   DeviceConfigurationType'
-    { _dctChallengeRequiredOnNewDevice =
-        Nothing,
-      _dctDeviceOnlyRememberedOnUserPrompt = Nothing
+    { challengeRequiredOnNewDevice =
+        Prelude.Nothing,
+      deviceOnlyRememberedOnUserPrompt = Prelude.Nothing
     }
 
--- | Indicates whether a challenge is required on a new device. Only applicable to a new device.
-dctChallengeRequiredOnNewDevice :: Lens' DeviceConfigurationType (Maybe Bool)
-dctChallengeRequiredOnNewDevice = lens _dctChallengeRequiredOnNewDevice (\s a -> s {_dctChallengeRequiredOnNewDevice = a})
+-- | Indicates whether a challenge is required on a new device. Only
+-- applicable to a new device.
+deviceConfigurationType_challengeRequiredOnNewDevice :: Lens.Lens' DeviceConfigurationType (Prelude.Maybe Prelude.Bool)
+deviceConfigurationType_challengeRequiredOnNewDevice = Lens.lens (\DeviceConfigurationType' {challengeRequiredOnNewDevice} -> challengeRequiredOnNewDevice) (\s@DeviceConfigurationType' {} a -> s {challengeRequiredOnNewDevice = a} :: DeviceConfigurationType)
 
 -- | If true, a device is only remembered on user prompt.
-dctDeviceOnlyRememberedOnUserPrompt :: Lens' DeviceConfigurationType (Maybe Bool)
-dctDeviceOnlyRememberedOnUserPrompt = lens _dctDeviceOnlyRememberedOnUserPrompt (\s a -> s {_dctDeviceOnlyRememberedOnUserPrompt = a})
+deviceConfigurationType_deviceOnlyRememberedOnUserPrompt :: Lens.Lens' DeviceConfigurationType (Prelude.Maybe Prelude.Bool)
+deviceConfigurationType_deviceOnlyRememberedOnUserPrompt = Lens.lens (\DeviceConfigurationType' {deviceOnlyRememberedOnUserPrompt} -> deviceOnlyRememberedOnUserPrompt) (\s@DeviceConfigurationType' {} a -> s {deviceOnlyRememberedOnUserPrompt = a} :: DeviceConfigurationType)
 
-instance FromJSON DeviceConfigurationType where
+instance Prelude.FromJSON DeviceConfigurationType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceConfigurationType"
       ( \x ->
           DeviceConfigurationType'
-            <$> (x .:? "ChallengeRequiredOnNewDevice")
-            <*> (x .:? "DeviceOnlyRememberedOnUserPrompt")
+            Prelude.<$> (x Prelude..:? "ChallengeRequiredOnNewDevice")
+            Prelude.<*> (x Prelude..:? "DeviceOnlyRememberedOnUserPrompt")
       )
 
-instance Hashable DeviceConfigurationType
+instance Prelude.Hashable DeviceConfigurationType
 
-instance NFData DeviceConfigurationType
+instance Prelude.NFData DeviceConfigurationType
 
-instance ToJSON DeviceConfigurationType where
+instance Prelude.ToJSON DeviceConfigurationType where
   toJSON DeviceConfigurationType' {..} =
-    object
-      ( catMaybes
-          [ ("ChallengeRequiredOnNewDevice" .=)
-              <$> _dctChallengeRequiredOnNewDevice,
-            ("DeviceOnlyRememberedOnUserPrompt" .=)
-              <$> _dctDeviceOnlyRememberedOnUserPrompt
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ChallengeRequiredOnNewDevice" Prelude..=)
+              Prelude.<$> challengeRequiredOnNewDevice,
+            ("DeviceOnlyRememberedOnUserPrompt" Prelude..=)
+              Prelude.<$> deviceOnlyRememberedOnUserPrompt
           ]
       )

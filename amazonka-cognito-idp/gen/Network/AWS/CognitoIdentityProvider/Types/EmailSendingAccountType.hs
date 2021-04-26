@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CognitoIdentityProvider.Types.EmailSendingAccountType
   ( EmailSendingAccountType
       ( ..,
-        CognitoDefault,
-        Developer
+        EmailSendingAccountTypeCOGNITODEFAULT,
+        EmailSendingAccountTypeDEVELOPER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EmailSendingAccountType
-  = EmailSendingAccountType'
-      ( CI
-          Text
-      )
+newtype EmailSendingAccountType = EmailSendingAccountType'
+  { fromEmailSendingAccountType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CognitoDefault :: EmailSendingAccountType
-pattern CognitoDefault = EmailSendingAccountType' "COGNITO_DEFAULT"
+pattern EmailSendingAccountTypeCOGNITODEFAULT :: EmailSendingAccountType
+pattern EmailSendingAccountTypeCOGNITODEFAULT = EmailSendingAccountType' "COGNITO_DEFAULT"
 
-pattern Developer :: EmailSendingAccountType
-pattern Developer = EmailSendingAccountType' "DEVELOPER"
+pattern EmailSendingAccountTypeDEVELOPER :: EmailSendingAccountType
+pattern EmailSendingAccountTypeDEVELOPER = EmailSendingAccountType' "DEVELOPER"
 
 {-# COMPLETE
-  CognitoDefault,
-  Developer,
+  EmailSendingAccountTypeCOGNITODEFAULT,
+  EmailSendingAccountTypeDEVELOPER,
   EmailSendingAccountType'
   #-}
 
-instance FromText EmailSendingAccountType where
-  parser = (EmailSendingAccountType' . mk) <$> takeText
+instance Prelude.FromText EmailSendingAccountType where
+  parser = EmailSendingAccountType' Prelude.<$> Prelude.takeText
 
-instance ToText EmailSendingAccountType where
-  toText (EmailSendingAccountType' ci) = original ci
+instance Prelude.ToText EmailSendingAccountType where
+  toText (EmailSendingAccountType' x) = x
 
-instance Hashable EmailSendingAccountType
+instance Prelude.Hashable EmailSendingAccountType
 
-instance NFData EmailSendingAccountType
+instance Prelude.NFData EmailSendingAccountType
 
-instance ToByteString EmailSendingAccountType
+instance Prelude.ToByteString EmailSendingAccountType
 
-instance ToQuery EmailSendingAccountType
+instance Prelude.ToQuery EmailSendingAccountType
 
-instance ToHeader EmailSendingAccountType
+instance Prelude.ToHeader EmailSendingAccountType
 
-instance ToJSON EmailSendingAccountType where
-  toJSON = toJSONText
+instance Prelude.ToJSON EmailSendingAccountType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EmailSendingAccountType where
-  parseJSON = parseJSONText "EmailSendingAccountType"
+instance Prelude.FromJSON EmailSendingAccountType where
+  parseJSON = Prelude.parseJSONText "EmailSendingAccountType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.CognitoIdentityProvider.Types.TimeUnitsType
   ( TimeUnitsType
       ( ..,
-        Days,
-        Hours,
-        Minutes,
-        Seconds
+        TimeUnitsTypeDays,
+        TimeUnitsTypeHours,
+        TimeUnitsTypeMinutes,
+        TimeUnitsTypeSeconds
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TimeUnitsType = TimeUnitsType' (CI Text)
+newtype TimeUnitsType = TimeUnitsType'
+  { fromTimeUnitsType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Days :: TimeUnitsType
-pattern Days = TimeUnitsType' "days"
+pattern TimeUnitsTypeDays :: TimeUnitsType
+pattern TimeUnitsTypeDays = TimeUnitsType' "days"
 
-pattern Hours :: TimeUnitsType
-pattern Hours = TimeUnitsType' "hours"
+pattern TimeUnitsTypeHours :: TimeUnitsType
+pattern TimeUnitsTypeHours = TimeUnitsType' "hours"
 
-pattern Minutes :: TimeUnitsType
-pattern Minutes = TimeUnitsType' "minutes"
+pattern TimeUnitsTypeMinutes :: TimeUnitsType
+pattern TimeUnitsTypeMinutes = TimeUnitsType' "minutes"
 
-pattern Seconds :: TimeUnitsType
-pattern Seconds = TimeUnitsType' "seconds"
+pattern TimeUnitsTypeSeconds :: TimeUnitsType
+pattern TimeUnitsTypeSeconds = TimeUnitsType' "seconds"
 
 {-# COMPLETE
-  Days,
-  Hours,
-  Minutes,
-  Seconds,
+  TimeUnitsTypeDays,
+  TimeUnitsTypeHours,
+  TimeUnitsTypeMinutes,
+  TimeUnitsTypeSeconds,
   TimeUnitsType'
   #-}
 
-instance FromText TimeUnitsType where
-  parser = (TimeUnitsType' . mk) <$> takeText
+instance Prelude.FromText TimeUnitsType where
+  parser = TimeUnitsType' Prelude.<$> Prelude.takeText
 
-instance ToText TimeUnitsType where
-  toText (TimeUnitsType' ci) = original ci
+instance Prelude.ToText TimeUnitsType where
+  toText (TimeUnitsType' x) = x
 
-instance Hashable TimeUnitsType
+instance Prelude.Hashable TimeUnitsType
 
-instance NFData TimeUnitsType
+instance Prelude.NFData TimeUnitsType
 
-instance ToByteString TimeUnitsType
+instance Prelude.ToByteString TimeUnitsType
 
-instance ToQuery TimeUnitsType
+instance Prelude.ToQuery TimeUnitsType
 
-instance ToHeader TimeUnitsType
+instance Prelude.ToHeader TimeUnitsType
 
-instance ToJSON TimeUnitsType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TimeUnitsType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TimeUnitsType where
-  parseJSON = parseJSONText "TimeUnitsType"
+instance Prelude.FromJSON TimeUnitsType where
+  parseJSON = Prelude.parseJSONText "TimeUnitsType"

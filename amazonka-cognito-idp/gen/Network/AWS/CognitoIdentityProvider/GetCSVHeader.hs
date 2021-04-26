@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,143 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the header information for the .csv file to be used as input for the user import job.
+-- Gets the header information for the .csv file to be used as input for
+-- the user import job.
 module Network.AWS.CognitoIdentityProvider.GetCSVHeader
   ( -- * Creating a Request
-    getCSVHeader,
-    GetCSVHeader,
+    GetCSVHeader (..),
+    newGetCSVHeader,
 
     -- * Request Lenses
-    gchUserPoolId,
+    getCSVHeader_userPoolId,
 
     -- * Destructuring the Response
-    getCSVHeaderResponse,
-    GetCSVHeaderResponse,
+    GetCSVHeaderResponse (..),
+    newGetCSVHeaderResponse,
 
     -- * Response Lenses
-    gchrrsUserPoolId,
-    gchrrsCSVHeader,
-    gchrrsResponseStatus,
+    getCSVHeaderResponse_userPoolId,
+    getCSVHeaderResponse_cSVHeader,
+    getCSVHeaderResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Represents the request to get the header information for the .csv file for the user import job.
+-- | Represents the request to get the header information for the .csv file
+-- for the user import job.
 --
---
---
--- /See:/ 'getCSVHeader' smart constructor.
-newtype GetCSVHeader = GetCSVHeader'
-  { _gchUserPoolId ::
-      Text
+-- /See:/ 'newGetCSVHeader' smart constructor.
+data GetCSVHeader = GetCSVHeader'
+  { -- | The user pool ID for the user pool that the users are to be imported
+    -- into.
+    userPoolId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCSVHeader' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCSVHeader' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gchUserPoolId' - The user pool ID for the user pool that the users are to be imported into.
-getCSVHeader ::
-  -- | 'gchUserPoolId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userPoolId', 'getCSVHeader_userPoolId' - The user pool ID for the user pool that the users are to be imported
+-- into.
+newGetCSVHeader ::
+  -- | 'userPoolId'
+  Prelude.Text ->
   GetCSVHeader
-getCSVHeader pUserPoolId_ =
-  GetCSVHeader' {_gchUserPoolId = pUserPoolId_}
+newGetCSVHeader pUserPoolId_ =
+  GetCSVHeader' {userPoolId = pUserPoolId_}
 
--- | The user pool ID for the user pool that the users are to be imported into.
-gchUserPoolId :: Lens' GetCSVHeader Text
-gchUserPoolId = lens _gchUserPoolId (\s a -> s {_gchUserPoolId = a})
+-- | The user pool ID for the user pool that the users are to be imported
+-- into.
+getCSVHeader_userPoolId :: Lens.Lens' GetCSVHeader Prelude.Text
+getCSVHeader_userPoolId = Lens.lens (\GetCSVHeader' {userPoolId} -> userPoolId) (\s@GetCSVHeader' {} a -> s {userPoolId = a} :: GetCSVHeader)
 
-instance AWSRequest GetCSVHeader where
+instance Prelude.AWSRequest GetCSVHeader where
   type Rs GetCSVHeader = GetCSVHeaderResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCSVHeaderResponse'
-            <$> (x .?> "UserPoolId")
-            <*> (x .?> "CSVHeader" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "UserPoolId")
+            Prelude.<*> ( x Prelude..?> "CSVHeader"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCSVHeader
+instance Prelude.Hashable GetCSVHeader
 
-instance NFData GetCSVHeader
+instance Prelude.NFData GetCSVHeader
 
-instance ToHeaders GetCSVHeader where
+instance Prelude.ToHeaders GetCSVHeader where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.GetCSVHeader" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.GetCSVHeader" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetCSVHeader where
+instance Prelude.ToJSON GetCSVHeader where
   toJSON GetCSVHeader' {..} =
-    object
-      (catMaybes [Just ("UserPoolId" .= _gchUserPoolId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("UserPoolId" Prelude..= userPoolId)]
+      )
 
-instance ToPath GetCSVHeader where
-  toPath = const "/"
+instance Prelude.ToPath GetCSVHeader where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetCSVHeader where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCSVHeader where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the response from the server to the request to get the header information for the .csv file for the user import job.
+-- | Represents the response from the server to the request to get the header
+-- information for the .csv file for the user import job.
 --
---
---
--- /See:/ 'getCSVHeaderResponse' smart constructor.
+-- /See:/ 'newGetCSVHeaderResponse' smart constructor.
 data GetCSVHeaderResponse = GetCSVHeaderResponse'
-  { _gchrrsUserPoolId ::
-      !(Maybe Text),
-    _gchrrsCSVHeader ::
-      !(Maybe [Text]),
-    _gchrrsResponseStatus :: !Int
+  { -- | The user pool ID for the user pool that the users are to be imported
+    -- into.
+    userPoolId :: Prelude.Maybe Prelude.Text,
+    -- | The header information for the .csv file for the user import job.
+    cSVHeader :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCSVHeaderResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCSVHeaderResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gchrrsUserPoolId' - The user pool ID for the user pool that the users are to be imported into.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gchrrsCSVHeader' - The header information for the .csv file for the user import job.
+-- 'userPoolId', 'getCSVHeaderResponse_userPoolId' - The user pool ID for the user pool that the users are to be imported
+-- into.
 --
--- * 'gchrrsResponseStatus' - -- | The response status code.
-getCSVHeaderResponse ::
-  -- | 'gchrrsResponseStatus'
-  Int ->
+-- 'cSVHeader', 'getCSVHeaderResponse_cSVHeader' - The header information for the .csv file for the user import job.
+--
+-- 'httpStatus', 'getCSVHeaderResponse_httpStatus' - The response's http status code.
+newGetCSVHeaderResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCSVHeaderResponse
-getCSVHeaderResponse pResponseStatus_ =
+newGetCSVHeaderResponse pHttpStatus_ =
   GetCSVHeaderResponse'
-    { _gchrrsUserPoolId = Nothing,
-      _gchrrsCSVHeader = Nothing,
-      _gchrrsResponseStatus = pResponseStatus_
+    { userPoolId = Prelude.Nothing,
+      cSVHeader = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The user pool ID for the user pool that the users are to be imported into.
-gchrrsUserPoolId :: Lens' GetCSVHeaderResponse (Maybe Text)
-gchrrsUserPoolId = lens _gchrrsUserPoolId (\s a -> s {_gchrrsUserPoolId = a})
+-- | The user pool ID for the user pool that the users are to be imported
+-- into.
+getCSVHeaderResponse_userPoolId :: Lens.Lens' GetCSVHeaderResponse (Prelude.Maybe Prelude.Text)
+getCSVHeaderResponse_userPoolId = Lens.lens (\GetCSVHeaderResponse' {userPoolId} -> userPoolId) (\s@GetCSVHeaderResponse' {} a -> s {userPoolId = a} :: GetCSVHeaderResponse)
 
 -- | The header information for the .csv file for the user import job.
-gchrrsCSVHeader :: Lens' GetCSVHeaderResponse [Text]
-gchrrsCSVHeader = lens _gchrrsCSVHeader (\s a -> s {_gchrrsCSVHeader = a}) . _Default . _Coerce
+getCSVHeaderResponse_cSVHeader :: Lens.Lens' GetCSVHeaderResponse (Prelude.Maybe [Prelude.Text])
+getCSVHeaderResponse_cSVHeader = Lens.lens (\GetCSVHeaderResponse' {cSVHeader} -> cSVHeader) (\s@GetCSVHeaderResponse' {} a -> s {cSVHeader = a} :: GetCSVHeaderResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gchrrsResponseStatus :: Lens' GetCSVHeaderResponse Int
-gchrrsResponseStatus = lens _gchrrsResponseStatus (\s a -> s {_gchrrsResponseStatus = a})
+-- | The response's http status code.
+getCSVHeaderResponse_httpStatus :: Lens.Lens' GetCSVHeaderResponse Prelude.Int
+getCSVHeaderResponse_httpStatus = Lens.lens (\GetCSVHeaderResponse' {httpStatus} -> httpStatus) (\s@GetCSVHeaderResponse' {} a -> s {httpStatus = a} :: GetCSVHeaderResponse)
 
-instance NFData GetCSVHeaderResponse
+instance Prelude.NFData GetCSVHeaderResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,122 +20,129 @@
 module Network.AWS.CognitoIdentityProvider.Types.NotifyConfigurationType where
 
 import Network.AWS.CognitoIdentityProvider.Types.NotifyEmailType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The notify configuration type.
 --
---
---
--- /See:/ 'notifyConfigurationType' smart constructor.
+-- /See:/ 'newNotifyConfigurationType' smart constructor.
 data NotifyConfigurationType = NotifyConfigurationType'
-  { _nctMFAEmail ::
-      !( Maybe
-           NotifyEmailType
-       ),
-    _nctBlockEmail ::
-      !( Maybe
-           NotifyEmailType
-       ),
-    _nctReplyTo ::
-      !(Maybe Text),
-    _nctFrom ::
-      !(Maybe Text),
-    _nctNoActionEmail ::
-      !( Maybe
-           NotifyEmailType
-       ),
-    _nctSourceARN :: !Text
+  { -- | The MFA email template used when MFA is challenged as part of a detected
+    -- risk.
+    mfaEmail :: Prelude.Maybe NotifyEmailType,
+    -- | Email template used when a detected risk event is blocked.
+    blockEmail :: Prelude.Maybe NotifyEmailType,
+    -- | The destination to which the receiver of an email should reply to.
+    replyTo :: Prelude.Maybe Prelude.Text,
+    -- | The email address that is sending the email. It must be either
+    -- individually verified with Amazon SES, or from a domain that has been
+    -- verified with Amazon SES.
+    from :: Prelude.Maybe Prelude.Text,
+    -- | The email template used when a detected risk event is allowed.
+    noActionEmail :: Prelude.Maybe NotifyEmailType,
+    -- | The Amazon Resource Name (ARN) of the identity that is associated with
+    -- the sending authorization policy. It permits Amazon Cognito to send for
+    -- the email address specified in the @From@ parameter.
+    sourceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotifyConfigurationType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotifyConfigurationType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nctMFAEmail' - The MFA email template used when MFA is challenged as part of a detected risk.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nctBlockEmail' - Email template used when a detected risk event is blocked.
+-- 'mfaEmail', 'notifyConfigurationType_mfaEmail' - The MFA email template used when MFA is challenged as part of a detected
+-- risk.
 --
--- * 'nctReplyTo' - The destination to which the receiver of an email should reply to.
+-- 'blockEmail', 'notifyConfigurationType_blockEmail' - Email template used when a detected risk event is blocked.
 --
--- * 'nctFrom' - The email address that is sending the email. It must be either individually verified with Amazon SES, or from a domain that has been verified with Amazon SES.
+-- 'replyTo', 'notifyConfigurationType_replyTo' - The destination to which the receiver of an email should reply to.
 --
--- * 'nctNoActionEmail' - The email template used when a detected risk event is allowed.
+-- 'from', 'notifyConfigurationType_from' - The email address that is sending the email. It must be either
+-- individually verified with Amazon SES, or from a domain that has been
+-- verified with Amazon SES.
 --
--- * 'nctSourceARN' - The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy. It permits Amazon Cognito to send for the email address specified in the @From@ parameter.
-notifyConfigurationType ::
-  -- | 'nctSourceARN'
-  Text ->
+-- 'noActionEmail', 'notifyConfigurationType_noActionEmail' - The email template used when a detected risk event is allowed.
+--
+-- 'sourceArn', 'notifyConfigurationType_sourceArn' - The Amazon Resource Name (ARN) of the identity that is associated with
+-- the sending authorization policy. It permits Amazon Cognito to send for
+-- the email address specified in the @From@ parameter.
+newNotifyConfigurationType ::
+  -- | 'sourceArn'
+  Prelude.Text ->
   NotifyConfigurationType
-notifyConfigurationType pSourceARN_ =
+newNotifyConfigurationType pSourceArn_ =
   NotifyConfigurationType'
-    { _nctMFAEmail = Nothing,
-      _nctBlockEmail = Nothing,
-      _nctReplyTo = Nothing,
-      _nctFrom = Nothing,
-      _nctNoActionEmail = Nothing,
-      _nctSourceARN = pSourceARN_
+    { mfaEmail =
+        Prelude.Nothing,
+      blockEmail = Prelude.Nothing,
+      replyTo = Prelude.Nothing,
+      from = Prelude.Nothing,
+      noActionEmail = Prelude.Nothing,
+      sourceArn = pSourceArn_
     }
 
--- | The MFA email template used when MFA is challenged as part of a detected risk.
-nctMFAEmail :: Lens' NotifyConfigurationType (Maybe NotifyEmailType)
-nctMFAEmail = lens _nctMFAEmail (\s a -> s {_nctMFAEmail = a})
+-- | The MFA email template used when MFA is challenged as part of a detected
+-- risk.
+notifyConfigurationType_mfaEmail :: Lens.Lens' NotifyConfigurationType (Prelude.Maybe NotifyEmailType)
+notifyConfigurationType_mfaEmail = Lens.lens (\NotifyConfigurationType' {mfaEmail} -> mfaEmail) (\s@NotifyConfigurationType' {} a -> s {mfaEmail = a} :: NotifyConfigurationType)
 
 -- | Email template used when a detected risk event is blocked.
-nctBlockEmail :: Lens' NotifyConfigurationType (Maybe NotifyEmailType)
-nctBlockEmail = lens _nctBlockEmail (\s a -> s {_nctBlockEmail = a})
+notifyConfigurationType_blockEmail :: Lens.Lens' NotifyConfigurationType (Prelude.Maybe NotifyEmailType)
+notifyConfigurationType_blockEmail = Lens.lens (\NotifyConfigurationType' {blockEmail} -> blockEmail) (\s@NotifyConfigurationType' {} a -> s {blockEmail = a} :: NotifyConfigurationType)
 
 -- | The destination to which the receiver of an email should reply to.
-nctReplyTo :: Lens' NotifyConfigurationType (Maybe Text)
-nctReplyTo = lens _nctReplyTo (\s a -> s {_nctReplyTo = a})
+notifyConfigurationType_replyTo :: Lens.Lens' NotifyConfigurationType (Prelude.Maybe Prelude.Text)
+notifyConfigurationType_replyTo = Lens.lens (\NotifyConfigurationType' {replyTo} -> replyTo) (\s@NotifyConfigurationType' {} a -> s {replyTo = a} :: NotifyConfigurationType)
 
--- | The email address that is sending the email. It must be either individually verified with Amazon SES, or from a domain that has been verified with Amazon SES.
-nctFrom :: Lens' NotifyConfigurationType (Maybe Text)
-nctFrom = lens _nctFrom (\s a -> s {_nctFrom = a})
+-- | The email address that is sending the email. It must be either
+-- individually verified with Amazon SES, or from a domain that has been
+-- verified with Amazon SES.
+notifyConfigurationType_from :: Lens.Lens' NotifyConfigurationType (Prelude.Maybe Prelude.Text)
+notifyConfigurationType_from = Lens.lens (\NotifyConfigurationType' {from} -> from) (\s@NotifyConfigurationType' {} a -> s {from = a} :: NotifyConfigurationType)
 
 -- | The email template used when a detected risk event is allowed.
-nctNoActionEmail :: Lens' NotifyConfigurationType (Maybe NotifyEmailType)
-nctNoActionEmail = lens _nctNoActionEmail (\s a -> s {_nctNoActionEmail = a})
+notifyConfigurationType_noActionEmail :: Lens.Lens' NotifyConfigurationType (Prelude.Maybe NotifyEmailType)
+notifyConfigurationType_noActionEmail = Lens.lens (\NotifyConfigurationType' {noActionEmail} -> noActionEmail) (\s@NotifyConfigurationType' {} a -> s {noActionEmail = a} :: NotifyConfigurationType)
 
--- | The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy. It permits Amazon Cognito to send for the email address specified in the @From@ parameter.
-nctSourceARN :: Lens' NotifyConfigurationType Text
-nctSourceARN = lens _nctSourceARN (\s a -> s {_nctSourceARN = a})
+-- | The Amazon Resource Name (ARN) of the identity that is associated with
+-- the sending authorization policy. It permits Amazon Cognito to send for
+-- the email address specified in the @From@ parameter.
+notifyConfigurationType_sourceArn :: Lens.Lens' NotifyConfigurationType Prelude.Text
+notifyConfigurationType_sourceArn = Lens.lens (\NotifyConfigurationType' {sourceArn} -> sourceArn) (\s@NotifyConfigurationType' {} a -> s {sourceArn = a} :: NotifyConfigurationType)
 
-instance FromJSON NotifyConfigurationType where
+instance Prelude.FromJSON NotifyConfigurationType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NotifyConfigurationType"
       ( \x ->
           NotifyConfigurationType'
-            <$> (x .:? "MfaEmail")
-            <*> (x .:? "BlockEmail")
-            <*> (x .:? "ReplyTo")
-            <*> (x .:? "From")
-            <*> (x .:? "NoActionEmail")
-            <*> (x .: "SourceArn")
+            Prelude.<$> (x Prelude..:? "MfaEmail")
+            Prelude.<*> (x Prelude..:? "BlockEmail")
+            Prelude.<*> (x Prelude..:? "ReplyTo")
+            Prelude.<*> (x Prelude..:? "From")
+            Prelude.<*> (x Prelude..:? "NoActionEmail")
+            Prelude.<*> (x Prelude..: "SourceArn")
       )
 
-instance Hashable NotifyConfigurationType
+instance Prelude.Hashable NotifyConfigurationType
 
-instance NFData NotifyConfigurationType
+instance Prelude.NFData NotifyConfigurationType
 
-instance ToJSON NotifyConfigurationType where
+instance Prelude.ToJSON NotifyConfigurationType where
   toJSON NotifyConfigurationType' {..} =
-    object
-      ( catMaybes
-          [ ("MfaEmail" .=) <$> _nctMFAEmail,
-            ("BlockEmail" .=) <$> _nctBlockEmail,
-            ("ReplyTo" .=) <$> _nctReplyTo,
-            ("From" .=) <$> _nctFrom,
-            ("NoActionEmail" .=) <$> _nctNoActionEmail,
-            Just ("SourceArn" .= _nctSourceARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MfaEmail" Prelude..=) Prelude.<$> mfaEmail,
+            ("BlockEmail" Prelude..=) Prelude.<$> blockEmail,
+            ("ReplyTo" Prelude..=) Prelude.<$> replyTo,
+            ("From" Prelude..=) Prelude.<$> from,
+            ("NoActionEmail" Prelude..=)
+              Prelude.<$> noActionEmail,
+            Prelude.Just ("SourceArn" Prelude..= sourceArn)
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,147 +24,159 @@
 -- Deletes the attributes for a user.
 module Network.AWS.CognitoIdentityProvider.DeleteUserAttributes
   ( -- * Creating a Request
-    deleteUserAttributes,
-    DeleteUserAttributes,
+    DeleteUserAttributes (..),
+    newDeleteUserAttributes,
 
     -- * Request Lenses
-    duaUserAttributeNames,
-    duaAccessToken,
+    deleteUserAttributes_userAttributeNames,
+    deleteUserAttributes_accessToken,
 
     -- * Destructuring the Response
-    deleteUserAttributesResponse,
-    DeleteUserAttributesResponse,
+    DeleteUserAttributesResponse (..),
+    newDeleteUserAttributesResponse,
 
     -- * Response Lenses
-    duarrsResponseStatus,
+    deleteUserAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to delete user attributes.
 --
---
---
--- /See:/ 'deleteUserAttributes' smart constructor.
+-- /See:/ 'newDeleteUserAttributes' smart constructor.
 data DeleteUserAttributes = DeleteUserAttributes'
-  { _duaUserAttributeNames ::
-      ![Text],
-    _duaAccessToken ::
-      !(Sensitive Text)
+  { -- | An array of strings representing the user attribute names you wish to
+    -- delete.
+    --
+    -- For custom attributes, you must prepend the @custom:@ prefix to the
+    -- attribute name.
+    userAttributeNames :: [Prelude.Text],
+    -- | The access token used in the request to delete user attributes.
+    accessToken :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duaUserAttributeNames' - An array of strings representing the user attribute names you wish to delete. For custom attributes, you must prepend the @custom:@ prefix to the attribute name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duaAccessToken' - The access token used in the request to delete user attributes.
-deleteUserAttributes ::
-  -- | 'duaAccessToken'
-  Text ->
+-- 'userAttributeNames', 'deleteUserAttributes_userAttributeNames' - An array of strings representing the user attribute names you wish to
+-- delete.
+--
+-- For custom attributes, you must prepend the @custom:@ prefix to the
+-- attribute name.
+--
+-- 'accessToken', 'deleteUserAttributes_accessToken' - The access token used in the request to delete user attributes.
+newDeleteUserAttributes ::
+  -- | 'accessToken'
+  Prelude.Text ->
   DeleteUserAttributes
-deleteUserAttributes pAccessToken_ =
+newDeleteUserAttributes pAccessToken_ =
   DeleteUserAttributes'
-    { _duaUserAttributeNames =
-        mempty,
-      _duaAccessToken = _Sensitive # pAccessToken_
+    { userAttributeNames =
+        Prelude.mempty,
+      accessToken =
+        Prelude._Sensitive Lens.# pAccessToken_
     }
 
--- | An array of strings representing the user attribute names you wish to delete. For custom attributes, you must prepend the @custom:@ prefix to the attribute name.
-duaUserAttributeNames :: Lens' DeleteUserAttributes [Text]
-duaUserAttributeNames = lens _duaUserAttributeNames (\s a -> s {_duaUserAttributeNames = a}) . _Coerce
+-- | An array of strings representing the user attribute names you wish to
+-- delete.
+--
+-- For custom attributes, you must prepend the @custom:@ prefix to the
+-- attribute name.
+deleteUserAttributes_userAttributeNames :: Lens.Lens' DeleteUserAttributes [Prelude.Text]
+deleteUserAttributes_userAttributeNames = Lens.lens (\DeleteUserAttributes' {userAttributeNames} -> userAttributeNames) (\s@DeleteUserAttributes' {} a -> s {userAttributeNames = a} :: DeleteUserAttributes) Prelude.. Prelude._Coerce
 
 -- | The access token used in the request to delete user attributes.
-duaAccessToken :: Lens' DeleteUserAttributes Text
-duaAccessToken = lens _duaAccessToken (\s a -> s {_duaAccessToken = a}) . _Sensitive
+deleteUserAttributes_accessToken :: Lens.Lens' DeleteUserAttributes Prelude.Text
+deleteUserAttributes_accessToken = Lens.lens (\DeleteUserAttributes' {accessToken} -> accessToken) (\s@DeleteUserAttributes' {} a -> s {accessToken = a} :: DeleteUserAttributes) Prelude.. Prelude._Sensitive
 
-instance AWSRequest DeleteUserAttributes where
+instance Prelude.AWSRequest DeleteUserAttributes where
   type
     Rs DeleteUserAttributes =
       DeleteUserAttributesResponse
-  request = postJSON cognitoIdentityProvider
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteUserAttributesResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteUserAttributes
+instance Prelude.Hashable DeleteUserAttributes
 
-instance NFData DeleteUserAttributes
+instance Prelude.NFData DeleteUserAttributes
 
-instance ToHeaders DeleteUserAttributes where
+instance Prelude.ToHeaders DeleteUserAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCognitoIdentityProviderService.DeleteUserAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCognitoIdentityProviderService.DeleteUserAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteUserAttributes where
+instance Prelude.ToJSON DeleteUserAttributes where
   toJSON DeleteUserAttributes' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("UserAttributeNames" .= _duaUserAttributeNames),
-            Just ("AccessToken" .= _duaAccessToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("UserAttributeNames" Prelude..= userAttributeNames),
+            Prelude.Just ("AccessToken" Prelude..= accessToken)
           ]
       )
 
-instance ToPath DeleteUserAttributes where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUserAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUserAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUserAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server to delete user attributes.
 --
---
---
--- /See:/ 'deleteUserAttributesResponse' smart constructor.
-newtype DeleteUserAttributesResponse = DeleteUserAttributesResponse'
-  { _duarrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteUserAttributesResponse' smart constructor.
+data DeleteUserAttributesResponse = DeleteUserAttributesResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duarrsResponseStatus' - -- | The response status code.
-deleteUserAttributesResponse ::
-  -- | 'duarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteUserAttributesResponse_httpStatus' - The response's http status code.
+newDeleteUserAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteUserAttributesResponse
-deleteUserAttributesResponse pResponseStatus_ =
+newDeleteUserAttributesResponse pHttpStatus_ =
   DeleteUserAttributesResponse'
-    { _duarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-duarrsResponseStatus :: Lens' DeleteUserAttributesResponse Int
-duarrsResponseStatus = lens _duarrsResponseStatus (\s a -> s {_duarrsResponseStatus = a})
+-- | The response's http status code.
+deleteUserAttributesResponse_httpStatus :: Lens.Lens' DeleteUserAttributesResponse Prelude.Int
+deleteUserAttributesResponse_httpStatus = Lens.lens (\DeleteUserAttributesResponse' {httpStatus} -> httpStatus) (\s@DeleteUserAttributesResponse' {} a -> s {httpStatus = a} :: DeleteUserAttributesResponse)
 
-instance NFData DeleteUserAttributesResponse
+instance Prelude.NFData DeleteUserAttributesResponse

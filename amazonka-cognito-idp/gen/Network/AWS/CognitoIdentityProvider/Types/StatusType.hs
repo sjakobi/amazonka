@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CognitoIdentityProvider.Types.StatusType
   ( StatusType
       ( ..,
-        Disabled,
-        Enabled
+        StatusTypeDisabled,
+        StatusTypeEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StatusType = StatusType' (CI Text)
+newtype StatusType = StatusType'
+  { fromStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: StatusType
-pattern Disabled = StatusType' "Disabled"
+pattern StatusTypeDisabled :: StatusType
+pattern StatusTypeDisabled = StatusType' "Disabled"
 
-pattern Enabled :: StatusType
-pattern Enabled = StatusType' "Enabled"
+pattern StatusTypeEnabled :: StatusType
+pattern StatusTypeEnabled = StatusType' "Enabled"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  StatusTypeDisabled,
+  StatusTypeEnabled,
   StatusType'
   #-}
 
-instance FromText StatusType where
-  parser = (StatusType' . mk) <$> takeText
+instance Prelude.FromText StatusType where
+  parser = StatusType' Prelude.<$> Prelude.takeText
 
-instance ToText StatusType where
-  toText (StatusType' ci) = original ci
+instance Prelude.ToText StatusType where
+  toText (StatusType' x) = x
 
-instance Hashable StatusType
+instance Prelude.Hashable StatusType
 
-instance NFData StatusType
+instance Prelude.NFData StatusType
 
-instance ToByteString StatusType
+instance Prelude.ToByteString StatusType
 
-instance ToQuery StatusType
+instance Prelude.ToQuery StatusType
 
-instance ToHeader StatusType
+instance Prelude.ToHeader StatusType
 
-instance FromJSON StatusType where
-  parseJSON = parseJSONText "StatusType"
+instance Prelude.FromJSON StatusType where
+  parseJSON = Prelude.parseJSONText "StatusType"

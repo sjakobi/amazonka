@@ -11,15 +11,17 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Using the Amazon Cognito User Pools API, you can create a user pool to manage directories and users. You can authenticate a user to obtain tokens related to user identity and access policies.
+-- Using the Amazon Cognito User Pools API, you can create a user pool to
+-- manage directories and users. You can authenticate a user to obtain
+-- tokens related to user identity and access policies.
 --
---
--- This API reference provides information about user pools in Amazon Cognito User Pools.
+-- This API reference provides information about user pools in Amazon
+-- Cognito User Pools.
 --
 -- For more information, see the Amazon Cognito Documentation.
 module Network.AWS.CognitoIdentityProvider
   ( -- * Service Configuration
-    cognitoIdentityProvider,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -142,304 +144,604 @@ module Network.AWS.CognitoIdentityProvider
     -- $operations
 
     -- ** GetUserAttributeVerificationCode
-    module Network.AWS.CognitoIdentityProvider.GetUserAttributeVerificationCode,
+    GetUserAttributeVerificationCode (GetUserAttributeVerificationCode'),
+    newGetUserAttributeVerificationCode,
+    GetUserAttributeVerificationCodeResponse (GetUserAttributeVerificationCodeResponse'),
+    newGetUserAttributeVerificationCodeResponse,
 
     -- ** AdminDeleteUser
-    module Network.AWS.CognitoIdentityProvider.AdminDeleteUser,
+    AdminDeleteUser (AdminDeleteUser'),
+    newAdminDeleteUser,
+    AdminDeleteUserResponse (AdminDeleteUserResponse'),
+    newAdminDeleteUserResponse,
 
     -- ** CreateUserImportJob
-    module Network.AWS.CognitoIdentityProvider.CreateUserImportJob,
+    CreateUserImportJob (CreateUserImportJob'),
+    newCreateUserImportJob,
+    CreateUserImportJobResponse (CreateUserImportJobResponse'),
+    newCreateUserImportJobResponse,
 
     -- ** GetUser
-    module Network.AWS.CognitoIdentityProvider.GetUser,
+    GetUser (GetUser'),
+    newGetUser,
+    GetUserResponse (GetUserResponse'),
+    newGetUserResponse,
 
-    -- ** SetUserPoolMFAConfig
-    module Network.AWS.CognitoIdentityProvider.SetUserPoolMFAConfig,
+    -- ** SetUserPoolMfaConfig
+    SetUserPoolMfaConfig (SetUserPoolMfaConfig'),
+    newSetUserPoolMfaConfig,
+    SetUserPoolMfaConfigResponse (SetUserPoolMfaConfigResponse'),
+    newSetUserPoolMfaConfigResponse,
 
     -- ** UpdateUserAttributes
-    module Network.AWS.CognitoIdentityProvider.UpdateUserAttributes,
+    UpdateUserAttributes (UpdateUserAttributes'),
+    newUpdateUserAttributes,
+    UpdateUserAttributesResponse (UpdateUserAttributesResponse'),
+    newUpdateUserAttributesResponse,
 
     -- ** DeleteUserAttributes
-    module Network.AWS.CognitoIdentityProvider.DeleteUserAttributes,
+    DeleteUserAttributes (DeleteUserAttributes'),
+    newDeleteUserAttributes,
+    DeleteUserAttributesResponse (DeleteUserAttributesResponse'),
+    newDeleteUserAttributesResponse,
 
     -- ** UpdateAuthEventFeedback
-    module Network.AWS.CognitoIdentityProvider.UpdateAuthEventFeedback,
+    UpdateAuthEventFeedback (UpdateAuthEventFeedback'),
+    newUpdateAuthEventFeedback,
+    UpdateAuthEventFeedbackResponse (UpdateAuthEventFeedbackResponse'),
+    newUpdateAuthEventFeedbackResponse,
 
     -- ** ListUserPools (Paginated)
-    module Network.AWS.CognitoIdentityProvider.ListUserPools,
+    ListUserPools (ListUserPools'),
+    newListUserPools,
+    ListUserPoolsResponse (ListUserPoolsResponse'),
+    newListUserPoolsResponse,
 
     -- ** ConfirmSignUp
-    module Network.AWS.CognitoIdentityProvider.ConfirmSignUp,
+    ConfirmSignUp (ConfirmSignUp'),
+    newConfirmSignUp,
+    ConfirmSignUpResponse (ConfirmSignUpResponse'),
+    newConfirmSignUpResponse,
 
     -- ** AdminLinkProviderForUser
-    module Network.AWS.CognitoIdentityProvider.AdminLinkProviderForUser,
+    AdminLinkProviderForUser (AdminLinkProviderForUser'),
+    newAdminLinkProviderForUser,
+    AdminLinkProviderForUserResponse (AdminLinkProviderForUserResponse'),
+    newAdminLinkProviderForUserResponse,
 
     -- ** UpdateUserPool
-    module Network.AWS.CognitoIdentityProvider.UpdateUserPool,
+    UpdateUserPool (UpdateUserPool'),
+    newUpdateUserPool,
+    UpdateUserPoolResponse (UpdateUserPoolResponse'),
+    newUpdateUserPoolResponse,
 
     -- ** DeleteUserPool
-    module Network.AWS.CognitoIdentityProvider.DeleteUserPool,
+    DeleteUserPool (DeleteUserPool'),
+    newDeleteUserPool,
+    DeleteUserPoolResponse (DeleteUserPoolResponse'),
+    newDeleteUserPoolResponse,
 
     -- ** UpdateUserPoolDomain
-    module Network.AWS.CognitoIdentityProvider.UpdateUserPoolDomain,
+    UpdateUserPoolDomain (UpdateUserPoolDomain'),
+    newUpdateUserPoolDomain,
+    UpdateUserPoolDomainResponse (UpdateUserPoolDomainResponse'),
+    newUpdateUserPoolDomainResponse,
 
     -- ** DeleteUserPoolDomain
-    module Network.AWS.CognitoIdentityProvider.DeleteUserPoolDomain,
+    DeleteUserPoolDomain (DeleteUserPoolDomain'),
+    newDeleteUserPoolDomain,
+    DeleteUserPoolDomainResponse (DeleteUserPoolDomainResponse'),
+    newDeleteUserPoolDomainResponse,
 
     -- ** CreateUserPoolDomain
-    module Network.AWS.CognitoIdentityProvider.CreateUserPoolDomain,
+    CreateUserPoolDomain (CreateUserPoolDomain'),
+    newCreateUserPoolDomain,
+    CreateUserPoolDomainResponse (CreateUserPoolDomainResponse'),
+    newCreateUserPoolDomainResponse,
 
     -- ** ChangePassword
-    module Network.AWS.CognitoIdentityProvider.ChangePassword,
+    ChangePassword (ChangePassword'),
+    newChangePassword,
+    ChangePasswordResponse (ChangePasswordResponse'),
+    newChangePasswordResponse,
 
     -- ** RespondToAuthChallenge
-    module Network.AWS.CognitoIdentityProvider.RespondToAuthChallenge,
+    RespondToAuthChallenge (RespondToAuthChallenge'),
+    newRespondToAuthChallenge,
+    RespondToAuthChallengeResponse (RespondToAuthChallengeResponse'),
+    newRespondToAuthChallengeResponse,
 
     -- ** ListDevices
-    module Network.AWS.CognitoIdentityProvider.ListDevices,
+    ListDevices (ListDevices'),
+    newListDevices,
+    ListDevicesResponse (ListDevicesResponse'),
+    newListDevicesResponse,
 
     -- ** AdminGetDevice
-    module Network.AWS.CognitoIdentityProvider.AdminGetDevice,
+    AdminGetDevice (AdminGetDevice'),
+    newAdminGetDevice,
+    AdminGetDeviceResponse (AdminGetDeviceResponse'),
+    newAdminGetDeviceResponse,
 
     -- ** CreateUserPool
-    module Network.AWS.CognitoIdentityProvider.CreateUserPool,
+    CreateUserPool (CreateUserPool'),
+    newCreateUserPool,
+    CreateUserPoolResponse (CreateUserPoolResponse'),
+    newCreateUserPoolResponse,
 
     -- ** AdminRemoveUserFromGroup
-    module Network.AWS.CognitoIdentityProvider.AdminRemoveUserFromGroup,
+    AdminRemoveUserFromGroup (AdminRemoveUserFromGroup'),
+    newAdminRemoveUserFromGroup,
+    AdminRemoveUserFromGroupResponse (AdminRemoveUserFromGroupResponse'),
+    newAdminRemoveUserFromGroupResponse,
 
     -- ** SetRiskConfiguration
-    module Network.AWS.CognitoIdentityProvider.SetRiskConfiguration,
+    SetRiskConfiguration (SetRiskConfiguration'),
+    newSetRiskConfiguration,
+    SetRiskConfigurationResponse (SetRiskConfigurationResponse'),
+    newSetRiskConfigurationResponse,
 
     -- ** ListGroups (Paginated)
-    module Network.AWS.CognitoIdentityProvider.ListGroups,
+    ListGroups (ListGroups'),
+    newListGroups,
+    ListGroupsResponse (ListGroupsResponse'),
+    newListGroupsResponse,
 
     -- ** UpdateIdentityProvider
-    module Network.AWS.CognitoIdentityProvider.UpdateIdentityProvider,
+    UpdateIdentityProvider (UpdateIdentityProvider'),
+    newUpdateIdentityProvider,
+    UpdateIdentityProviderResponse (UpdateIdentityProviderResponse'),
+    newUpdateIdentityProviderResponse,
 
     -- ** ListIdentityProviders (Paginated)
-    module Network.AWS.CognitoIdentityProvider.ListIdentityProviders,
+    ListIdentityProviders (ListIdentityProviders'),
+    newListIdentityProviders,
+    ListIdentityProvidersResponse (ListIdentityProvidersResponse'),
+    newListIdentityProvidersResponse,
 
     -- ** GetDevice
-    module Network.AWS.CognitoIdentityProvider.GetDevice,
+    GetDevice (GetDevice'),
+    newGetDevice,
+    GetDeviceResponse (GetDeviceResponse'),
+    newGetDeviceResponse,
 
     -- ** DeleteIdentityProvider
-    module Network.AWS.CognitoIdentityProvider.DeleteIdentityProvider,
+    DeleteIdentityProvider (DeleteIdentityProvider'),
+    newDeleteIdentityProvider,
+    DeleteIdentityProviderResponse (DeleteIdentityProviderResponse'),
+    newDeleteIdentityProviderResponse,
 
     -- ** AdminListDevices
-    module Network.AWS.CognitoIdentityProvider.AdminListDevices,
+    AdminListDevices (AdminListDevices'),
+    newAdminListDevices,
+    AdminListDevicesResponse (AdminListDevicesResponse'),
+    newAdminListDevicesResponse,
 
     -- ** AdminConfirmSignUp
-    module Network.AWS.CognitoIdentityProvider.AdminConfirmSignUp,
+    AdminConfirmSignUp (AdminConfirmSignUp'),
+    newAdminConfirmSignUp,
+    AdminConfirmSignUpResponse (AdminConfirmSignUpResponse'),
+    newAdminConfirmSignUpResponse,
 
     -- ** SetUICustomization
-    module Network.AWS.CognitoIdentityProvider.SetUICustomization,
+    SetUICustomization (SetUICustomization'),
+    newSetUICustomization,
+    SetUICustomizationResponse (SetUICustomizationResponse'),
+    newSetUICustomizationResponse,
 
     -- ** AdminListUserAuthEvents (Paginated)
-    module Network.AWS.CognitoIdentityProvider.AdminListUserAuthEvents,
+    AdminListUserAuthEvents (AdminListUserAuthEvents'),
+    newAdminListUserAuthEvents,
+    AdminListUserAuthEventsResponse (AdminListUserAuthEventsResponse'),
+    newAdminListUserAuthEventsResponse,
 
     -- ** AdminAddUserToGroup
-    module Network.AWS.CognitoIdentityProvider.AdminAddUserToGroup,
+    AdminAddUserToGroup (AdminAddUserToGroup'),
+    newAdminAddUserToGroup,
+    AdminAddUserToGroupResponse (AdminAddUserToGroupResponse'),
+    newAdminAddUserToGroupResponse,
 
     -- ** VerifySoftwareToken
-    module Network.AWS.CognitoIdentityProvider.VerifySoftwareToken,
+    VerifySoftwareToken (VerifySoftwareToken'),
+    newVerifySoftwareToken,
+    VerifySoftwareTokenResponse (VerifySoftwareTokenResponse'),
+    newVerifySoftwareTokenResponse,
 
     -- ** StopUserImportJob
-    module Network.AWS.CognitoIdentityProvider.StopUserImportJob,
+    StopUserImportJob (StopUserImportJob'),
+    newStopUserImportJob,
+    StopUserImportJobResponse (StopUserImportJobResponse'),
+    newStopUserImportJobResponse,
 
     -- ** CreateIdentityProvider
-    module Network.AWS.CognitoIdentityProvider.CreateIdentityProvider,
+    CreateIdentityProvider (CreateIdentityProvider'),
+    newCreateIdentityProvider,
+    CreateIdentityProviderResponse (CreateIdentityProviderResponse'),
+    newCreateIdentityProviderResponse,
 
     -- ** InitiateAuth
-    module Network.AWS.CognitoIdentityProvider.InitiateAuth,
+    InitiateAuth (InitiateAuth'),
+    newInitiateAuth,
+    InitiateAuthResponse (InitiateAuthResponse'),
+    newInitiateAuthResponse,
 
     -- ** AdminSetUserPassword
-    module Network.AWS.CognitoIdentityProvider.AdminSetUserPassword,
+    AdminSetUserPassword (AdminSetUserPassword'),
+    newAdminSetUserPassword,
+    AdminSetUserPasswordResponse (AdminSetUserPasswordResponse'),
+    newAdminSetUserPasswordResponse,
 
     -- ** UntagResource
-    module Network.AWS.CognitoIdentityProvider.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** AdminListGroupsForUser (Paginated)
-    module Network.AWS.CognitoIdentityProvider.AdminListGroupsForUser,
+    AdminListGroupsForUser (AdminListGroupsForUser'),
+    newAdminListGroupsForUser,
+    AdminListGroupsForUserResponse (AdminListGroupsForUserResponse'),
+    newAdminListGroupsForUserResponse,
 
     -- ** AdminUpdateAuthEventFeedback
-    module Network.AWS.CognitoIdentityProvider.AdminUpdateAuthEventFeedback,
+    AdminUpdateAuthEventFeedback (AdminUpdateAuthEventFeedback'),
+    newAdminUpdateAuthEventFeedback,
+    AdminUpdateAuthEventFeedbackResponse (AdminUpdateAuthEventFeedbackResponse'),
+    newAdminUpdateAuthEventFeedbackResponse,
 
     -- ** CreateGroup
-    module Network.AWS.CognitoIdentityProvider.CreateGroup,
+    CreateGroup (CreateGroup'),
+    newCreateGroup,
+    CreateGroupResponse (CreateGroupResponse'),
+    newCreateGroupResponse,
 
     -- ** StartUserImportJob
-    module Network.AWS.CognitoIdentityProvider.StartUserImportJob,
+    StartUserImportJob (StartUserImportJob'),
+    newStartUserImportJob,
+    StartUserImportJobResponse (StartUserImportJobResponse'),
+    newStartUserImportJobResponse,
 
     -- ** DescribeUserPoolDomain
-    module Network.AWS.CognitoIdentityProvider.DescribeUserPoolDomain,
+    DescribeUserPoolDomain (DescribeUserPoolDomain'),
+    newDescribeUserPoolDomain,
+    DescribeUserPoolDomainResponse (DescribeUserPoolDomainResponse'),
+    newDescribeUserPoolDomainResponse,
 
     -- ** ListUsersInGroup (Paginated)
-    module Network.AWS.CognitoIdentityProvider.ListUsersInGroup,
+    ListUsersInGroup (ListUsersInGroup'),
+    newListUsersInGroup,
+    ListUsersInGroupResponse (ListUsersInGroupResponse'),
+    newListUsersInGroupResponse,
 
     -- ** AdminUserGlobalSignOut
-    module Network.AWS.CognitoIdentityProvider.AdminUserGlobalSignOut,
+    AdminUserGlobalSignOut (AdminUserGlobalSignOut'),
+    newAdminUserGlobalSignOut,
+    AdminUserGlobalSignOutResponse (AdminUserGlobalSignOutResponse'),
+    newAdminUserGlobalSignOutResponse,
 
     -- ** DescribeUserPool
-    module Network.AWS.CognitoIdentityProvider.DescribeUserPool,
+    DescribeUserPool (DescribeUserPool'),
+    newDescribeUserPool,
+    DescribeUserPoolResponse (DescribeUserPoolResponse'),
+    newDescribeUserPoolResponse,
 
     -- ** AdminGetUser
-    module Network.AWS.CognitoIdentityProvider.AdminGetUser,
+    AdminGetUser (AdminGetUser'),
+    newAdminGetUser,
+    AdminGetUserResponse (AdminGetUserResponse'),
+    newAdminGetUserResponse,
 
     -- ** GetSigningCertificate
-    module Network.AWS.CognitoIdentityProvider.GetSigningCertificate,
+    GetSigningCertificate (GetSigningCertificate'),
+    newGetSigningCertificate,
+    GetSigningCertificateResponse (GetSigningCertificateResponse'),
+    newGetSigningCertificateResponse,
 
     -- ** TagResource
-    module Network.AWS.CognitoIdentityProvider.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** AssociateSoftwareToken
-    module Network.AWS.CognitoIdentityProvider.AssociateSoftwareToken,
+    AssociateSoftwareToken (AssociateSoftwareToken'),
+    newAssociateSoftwareToken,
+    AssociateSoftwareTokenResponse (AssociateSoftwareTokenResponse'),
+    newAssociateSoftwareTokenResponse,
 
     -- ** ForgotPassword
-    module Network.AWS.CognitoIdentityProvider.ForgotPassword,
+    ForgotPassword (ForgotPassword'),
+    newForgotPassword,
+    ForgotPasswordResponse (ForgotPasswordResponse'),
+    newForgotPasswordResponse,
 
     -- ** UpdateDeviceStatus
-    module Network.AWS.CognitoIdentityProvider.UpdateDeviceStatus,
+    UpdateDeviceStatus (UpdateDeviceStatus'),
+    newUpdateDeviceStatus,
+    UpdateDeviceStatusResponse (UpdateDeviceStatusResponse'),
+    newUpdateDeviceStatusResponse,
 
     -- ** DeleteUserPoolClient
-    module Network.AWS.CognitoIdentityProvider.DeleteUserPoolClient,
+    DeleteUserPoolClient (DeleteUserPoolClient'),
+    newDeleteUserPoolClient,
+    DeleteUserPoolClientResponse (DeleteUserPoolClientResponse'),
+    newDeleteUserPoolClientResponse,
 
     -- ** UpdateUserPoolClient
-    module Network.AWS.CognitoIdentityProvider.UpdateUserPoolClient,
+    UpdateUserPoolClient (UpdateUserPoolClient'),
+    newUpdateUserPoolClient,
+    UpdateUserPoolClientResponse (UpdateUserPoolClientResponse'),
+    newUpdateUserPoolClientResponse,
 
     -- ** ForgetDevice
-    module Network.AWS.CognitoIdentityProvider.ForgetDevice,
+    ForgetDevice (ForgetDevice'),
+    newForgetDevice,
+    ForgetDeviceResponse (ForgetDeviceResponse'),
+    newForgetDeviceResponse,
 
     -- ** AdminDisableUser
-    module Network.AWS.CognitoIdentityProvider.AdminDisableUser,
+    AdminDisableUser (AdminDisableUser'),
+    newAdminDisableUser,
+    AdminDisableUserResponse (AdminDisableUserResponse'),
+    newAdminDisableUserResponse,
 
     -- ** AdminCreateUser
-    module Network.AWS.CognitoIdentityProvider.AdminCreateUser,
+    AdminCreateUser (AdminCreateUser'),
+    newAdminCreateUser,
+    AdminCreateUserResponse (AdminCreateUserResponse'),
+    newAdminCreateUserResponse,
 
     -- ** AdminUpdateDeviceStatus
-    module Network.AWS.CognitoIdentityProvider.AdminUpdateDeviceStatus,
+    AdminUpdateDeviceStatus (AdminUpdateDeviceStatus'),
+    newAdminUpdateDeviceStatus,
+    AdminUpdateDeviceStatusResponse (AdminUpdateDeviceStatusResponse'),
+    newAdminUpdateDeviceStatusResponse,
 
     -- ** AdminForgetDevice
-    module Network.AWS.CognitoIdentityProvider.AdminForgetDevice,
+    AdminForgetDevice (AdminForgetDevice'),
+    newAdminForgetDevice,
+    AdminForgetDeviceResponse (AdminForgetDeviceResponse'),
+    newAdminForgetDeviceResponse,
 
     -- ** DescribeIdentityProvider
-    module Network.AWS.CognitoIdentityProvider.DescribeIdentityProvider,
+    DescribeIdentityProvider (DescribeIdentityProvider'),
+    newDescribeIdentityProvider,
+    DescribeIdentityProviderResponse (DescribeIdentityProviderResponse'),
+    newDescribeIdentityProviderResponse,
 
     -- ** ListUserImportJobs
-    module Network.AWS.CognitoIdentityProvider.ListUserImportJobs,
+    ListUserImportJobs (ListUserImportJobs'),
+    newListUserImportJobs,
+    ListUserImportJobsResponse (ListUserImportJobsResponse'),
+    newListUserImportJobsResponse,
 
     -- ** GetUICustomization
-    module Network.AWS.CognitoIdentityProvider.GetUICustomization,
+    GetUICustomization (GetUICustomization'),
+    newGetUICustomization,
+    GetUICustomizationResponse (GetUICustomizationResponse'),
+    newGetUICustomizationResponse,
 
     -- ** GetCSVHeader
-    module Network.AWS.CognitoIdentityProvider.GetCSVHeader,
+    GetCSVHeader (GetCSVHeader'),
+    newGetCSVHeader,
+    GetCSVHeaderResponse (GetCSVHeaderResponse'),
+    newGetCSVHeaderResponse,
 
     -- ** AdminEnableUser
-    module Network.AWS.CognitoIdentityProvider.AdminEnableUser,
+    AdminEnableUser (AdminEnableUser'),
+    newAdminEnableUser,
+    AdminEnableUserResponse (AdminEnableUserResponse'),
+    newAdminEnableUserResponse,
 
     -- ** AdminInitiateAuth
-    module Network.AWS.CognitoIdentityProvider.AdminInitiateAuth,
+    AdminInitiateAuth (AdminInitiateAuth'),
+    newAdminInitiateAuth,
+    AdminInitiateAuthResponse (AdminInitiateAuthResponse'),
+    newAdminInitiateAuthResponse,
 
     -- ** AdminResetUserPassword
-    module Network.AWS.CognitoIdentityProvider.AdminResetUserPassword,
+    AdminResetUserPassword (AdminResetUserPassword'),
+    newAdminResetUserPassword,
+    AdminResetUserPasswordResponse (AdminResetUserPasswordResponse'),
+    newAdminResetUserPasswordResponse,
 
     -- ** GetIdentityProviderByIdentifier
-    module Network.AWS.CognitoIdentityProvider.GetIdentityProviderByIdentifier,
+    GetIdentityProviderByIdentifier (GetIdentityProviderByIdentifier'),
+    newGetIdentityProviderByIdentifier,
+    GetIdentityProviderByIdentifierResponse (GetIdentityProviderByIdentifierResponse'),
+    newGetIdentityProviderByIdentifierResponse,
 
     -- ** AdminSetUserSettings
-    module Network.AWS.CognitoIdentityProvider.AdminSetUserSettings,
+    AdminSetUserSettings (AdminSetUserSettings'),
+    newAdminSetUserSettings,
+    AdminSetUserSettingsResponse (AdminSetUserSettingsResponse'),
+    newAdminSetUserSettingsResponse,
 
     -- ** DescribeUserPoolClient
-    module Network.AWS.CognitoIdentityProvider.DescribeUserPoolClient,
+    DescribeUserPoolClient (DescribeUserPoolClient'),
+    newDescribeUserPoolClient,
+    DescribeUserPoolClientResponse (DescribeUserPoolClientResponse'),
+    newDescribeUserPoolClientResponse,
 
     -- ** GetGroup
-    module Network.AWS.CognitoIdentityProvider.GetGroup,
+    GetGroup (GetGroup'),
+    newGetGroup,
+    GetGroupResponse (GetGroupResponse'),
+    newGetGroupResponse,
 
     -- ** ResendConfirmationCode
-    module Network.AWS.CognitoIdentityProvider.ResendConfirmationCode,
+    ResendConfirmationCode (ResendConfirmationCode'),
+    newResendConfirmationCode,
+    ResendConfirmationCodeResponse (ResendConfirmationCodeResponse'),
+    newResendConfirmationCodeResponse,
 
     -- ** AdminRespondToAuthChallenge
-    module Network.AWS.CognitoIdentityProvider.AdminRespondToAuthChallenge,
+    AdminRespondToAuthChallenge (AdminRespondToAuthChallenge'),
+    newAdminRespondToAuthChallenge,
+    AdminRespondToAuthChallengeResponse (AdminRespondToAuthChallengeResponse'),
+    newAdminRespondToAuthChallengeResponse,
 
     -- ** SignUp
-    module Network.AWS.CognitoIdentityProvider.SignUp,
+    SignUp (SignUp'),
+    newSignUp,
+    SignUpResponse (SignUpResponse'),
+    newSignUpResponse,
 
     -- ** DescribeUserImportJob
-    module Network.AWS.CognitoIdentityProvider.DescribeUserImportJob,
+    DescribeUserImportJob (DescribeUserImportJob'),
+    newDescribeUserImportJob,
+    DescribeUserImportJobResponse (DescribeUserImportJobResponse'),
+    newDescribeUserImportJobResponse,
 
     -- ** UpdateGroup
-    module Network.AWS.CognitoIdentityProvider.UpdateGroup,
+    UpdateGroup (UpdateGroup'),
+    newUpdateGroup,
+    UpdateGroupResponse (UpdateGroupResponse'),
+    newUpdateGroupResponse,
 
     -- ** UpdateResourceServer
-    module Network.AWS.CognitoIdentityProvider.UpdateResourceServer,
+    UpdateResourceServer (UpdateResourceServer'),
+    newUpdateResourceServer,
+    UpdateResourceServerResponse (UpdateResourceServerResponse'),
+    newUpdateResourceServerResponse,
 
     -- ** DeleteGroup
-    module Network.AWS.CognitoIdentityProvider.DeleteGroup,
+    DeleteGroup (DeleteGroup'),
+    newDeleteGroup,
+    DeleteGroupResponse (DeleteGroupResponse'),
+    newDeleteGroupResponse,
 
     -- ** SetUserSettings
-    module Network.AWS.CognitoIdentityProvider.SetUserSettings,
+    SetUserSettings (SetUserSettings'),
+    newSetUserSettings,
+    SetUserSettingsResponse (SetUserSettingsResponse'),
+    newSetUserSettingsResponse,
 
     -- ** ListResourceServers (Paginated)
-    module Network.AWS.CognitoIdentityProvider.ListResourceServers,
+    ListResourceServers (ListResourceServers'),
+    newListResourceServers,
+    ListResourceServersResponse (ListResourceServersResponse'),
+    newListResourceServersResponse,
 
     -- ** DeleteResourceServer
-    module Network.AWS.CognitoIdentityProvider.DeleteResourceServer,
+    DeleteResourceServer (DeleteResourceServer'),
+    newDeleteResourceServer,
+    DeleteResourceServerResponse (DeleteResourceServerResponse'),
+    newDeleteResourceServerResponse,
 
     -- ** DescribeRiskConfiguration
-    module Network.AWS.CognitoIdentityProvider.DescribeRiskConfiguration,
+    DescribeRiskConfiguration (DescribeRiskConfiguration'),
+    newDescribeRiskConfiguration,
+    DescribeRiskConfigurationResponse (DescribeRiskConfigurationResponse'),
+    newDescribeRiskConfigurationResponse,
 
     -- ** GlobalSignOut
-    module Network.AWS.CognitoIdentityProvider.GlobalSignOut,
+    GlobalSignOut (GlobalSignOut'),
+    newGlobalSignOut,
+    GlobalSignOutResponse (GlobalSignOutResponse'),
+    newGlobalSignOutResponse,
 
-    -- ** GetUserPoolMFAConfig
-    module Network.AWS.CognitoIdentityProvider.GetUserPoolMFAConfig,
+    -- ** GetUserPoolMfaConfig
+    GetUserPoolMfaConfig (GetUserPoolMfaConfig'),
+    newGetUserPoolMfaConfig,
+    GetUserPoolMfaConfigResponse (GetUserPoolMfaConfigResponse'),
+    newGetUserPoolMfaConfigResponse,
 
     -- ** CreateResourceServer
-    module Network.AWS.CognitoIdentityProvider.CreateResourceServer,
+    CreateResourceServer (CreateResourceServer'),
+    newCreateResourceServer,
+    CreateResourceServerResponse (CreateResourceServerResponse'),
+    newCreateResourceServerResponse,
 
     -- ** AdminUpdateUserAttributes
-    module Network.AWS.CognitoIdentityProvider.AdminUpdateUserAttributes,
+    AdminUpdateUserAttributes (AdminUpdateUserAttributes'),
+    newAdminUpdateUserAttributes,
+    AdminUpdateUserAttributesResponse (AdminUpdateUserAttributesResponse'),
+    newAdminUpdateUserAttributesResponse,
 
     -- ** DeleteUser
-    module Network.AWS.CognitoIdentityProvider.DeleteUser,
+    DeleteUser (DeleteUser'),
+    newDeleteUser,
+    DeleteUserResponse (DeleteUserResponse'),
+    newDeleteUserResponse,
 
     -- ** AdminDeleteUserAttributes
-    module Network.AWS.CognitoIdentityProvider.AdminDeleteUserAttributes,
+    AdminDeleteUserAttributes (AdminDeleteUserAttributes'),
+    newAdminDeleteUserAttributes,
+    AdminDeleteUserAttributesResponse (AdminDeleteUserAttributesResponse'),
+    newAdminDeleteUserAttributesResponse,
 
     -- ** ListUsers (Paginated)
-    module Network.AWS.CognitoIdentityProvider.ListUsers,
+    ListUsers (ListUsers'),
+    newListUsers,
+    ListUsersResponse (ListUsersResponse'),
+    newListUsersResponse,
 
     -- ** AdminDisableProviderForUser
-    module Network.AWS.CognitoIdentityProvider.AdminDisableProviderForUser,
+    AdminDisableProviderForUser (AdminDisableProviderForUser'),
+    newAdminDisableProviderForUser,
+    AdminDisableProviderForUserResponse (AdminDisableProviderForUserResponse'),
+    newAdminDisableProviderForUserResponse,
 
     -- ** CreateUserPoolClient
-    module Network.AWS.CognitoIdentityProvider.CreateUserPoolClient,
+    CreateUserPoolClient (CreateUserPoolClient'),
+    newCreateUserPoolClient,
+    CreateUserPoolClientResponse (CreateUserPoolClientResponse'),
+    newCreateUserPoolClientResponse,
 
     -- ** ListUserPoolClients (Paginated)
-    module Network.AWS.CognitoIdentityProvider.ListUserPoolClients,
+    ListUserPoolClients (ListUserPoolClients'),
+    newListUserPoolClients,
+    ListUserPoolClientsResponse (ListUserPoolClientsResponse'),
+    newListUserPoolClientsResponse,
 
     -- ** AddCustomAttributes
-    module Network.AWS.CognitoIdentityProvider.AddCustomAttributes,
+    AddCustomAttributes (AddCustomAttributes'),
+    newAddCustomAttributes,
+    AddCustomAttributesResponse (AddCustomAttributesResponse'),
+    newAddCustomAttributesResponse,
 
     -- ** AdminSetUserMFAPreference
-    module Network.AWS.CognitoIdentityProvider.AdminSetUserMFAPreference,
+    AdminSetUserMFAPreference (AdminSetUserMFAPreference'),
+    newAdminSetUserMFAPreference,
+    AdminSetUserMFAPreferenceResponse (AdminSetUserMFAPreferenceResponse'),
+    newAdminSetUserMFAPreferenceResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.CognitoIdentityProvider.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** ConfirmForgotPassword
-    module Network.AWS.CognitoIdentityProvider.ConfirmForgotPassword,
+    ConfirmForgotPassword (ConfirmForgotPassword'),
+    newConfirmForgotPassword,
+    ConfirmForgotPasswordResponse (ConfirmForgotPasswordResponse'),
+    newConfirmForgotPasswordResponse,
 
     -- ** SetUserMFAPreference
-    module Network.AWS.CognitoIdentityProvider.SetUserMFAPreference,
+    SetUserMFAPreference (SetUserMFAPreference'),
+    newSetUserMFAPreference,
+    SetUserMFAPreferenceResponse (SetUserMFAPreferenceResponse'),
+    newSetUserMFAPreferenceResponse,
 
     -- ** VerifyUserAttribute
-    module Network.AWS.CognitoIdentityProvider.VerifyUserAttribute,
+    VerifyUserAttribute (VerifyUserAttribute'),
+    newVerifyUserAttribute,
+    VerifyUserAttributeResponse (VerifyUserAttributeResponse'),
+    newVerifyUserAttributeResponse,
 
     -- ** ConfirmDevice
-    module Network.AWS.CognitoIdentityProvider.ConfirmDevice,
+    ConfirmDevice (ConfirmDevice'),
+    newConfirmDevice,
+    ConfirmDeviceResponse (ConfirmDeviceResponse'),
+    newConfirmDeviceResponse,
 
     -- ** DescribeResourceServer
-    module Network.AWS.CognitoIdentityProvider.DescribeResourceServer,
+    DescribeResourceServer (DescribeResourceServer'),
+    newDescribeResourceServer,
+    DescribeResourceServerResponse (DescribeResourceServerResponse'),
+    newDescribeResourceServerResponse,
 
     -- * Types
 
@@ -536,8 +838,8 @@ module Network.AWS.CognitoIdentityProvider
     -- ** UserImportJobStatusType
     UserImportJobStatusType (..),
 
-    -- ** UserPoolMFAType
-    UserPoolMFAType (..),
+    -- ** UserPoolMfaType
+    UserPoolMfaType (..),
 
     -- ** UserStatusType
     UserStatusType (..),
@@ -552,541 +854,260 @@ module Network.AWS.CognitoIdentityProvider
     VerifySoftwareTokenResponseType (..),
 
     -- ** AccountRecoverySettingType
-    AccountRecoverySettingType,
-    accountRecoverySettingType,
-    arstRecoveryMechanisms,
+    AccountRecoverySettingType (AccountRecoverySettingType'),
+    newAccountRecoverySettingType,
 
     -- ** AccountTakeoverActionType
-    AccountTakeoverActionType,
-    accountTakeoverActionType,
-    atatNotify,
-    atatEventAction,
+    AccountTakeoverActionType (AccountTakeoverActionType'),
+    newAccountTakeoverActionType,
 
     -- ** AccountTakeoverActionsType
-    AccountTakeoverActionsType,
-    accountTakeoverActionsType,
-    atatLowAction,
-    atatMediumAction,
-    atatHighAction,
+    AccountTakeoverActionsType (AccountTakeoverActionsType'),
+    newAccountTakeoverActionsType,
 
     -- ** AccountTakeoverRiskConfigurationType
-    AccountTakeoverRiskConfigurationType,
-    accountTakeoverRiskConfigurationType,
-    atrctNotifyConfiguration,
-    atrctActions,
+    AccountTakeoverRiskConfigurationType (AccountTakeoverRiskConfigurationType'),
+    newAccountTakeoverRiskConfigurationType,
 
     -- ** AdminCreateUserConfigType
-    AdminCreateUserConfigType,
-    adminCreateUserConfigType,
-    acuctAllowAdminCreateUserOnly,
-    acuctInviteMessageTemplate,
-    acuctUnusedAccountValidityDays,
+    AdminCreateUserConfigType (AdminCreateUserConfigType'),
+    newAdminCreateUserConfigType,
 
     -- ** AnalyticsConfigurationType
-    AnalyticsConfigurationType,
-    analyticsConfigurationType,
-    actApplicationARN,
-    actApplicationId,
-    actRoleARN,
-    actUserDataShared,
-    actExternalId,
+    AnalyticsConfigurationType (AnalyticsConfigurationType'),
+    newAnalyticsConfigurationType,
 
     -- ** AnalyticsMetadataType
-    AnalyticsMetadataType,
-    analyticsMetadataType,
-    amtAnalyticsEndpointId,
+    AnalyticsMetadataType (AnalyticsMetadataType'),
+    newAnalyticsMetadataType,
 
     -- ** AttributeType
-    AttributeType,
-    attributeType,
-    atValue,
-    atName,
+    AttributeType (AttributeType'),
+    newAttributeType,
 
     -- ** AuthEventType
-    AuthEventType,
-    authEventType,
-    aetEventType,
-    aetEventId,
-    aetChallengeResponses,
-    aetEventContextData,
-    aetCreationDate,
-    aetEventRisk,
-    aetEventResponse,
-    aetEventFeedback,
+    AuthEventType (AuthEventType'),
+    newAuthEventType,
 
     -- ** AuthenticationResultType
-    AuthenticationResultType,
-    authenticationResultType,
-    artExpiresIn,
-    artTokenType,
-    artAccessToken,
-    artNewDeviceMetadata,
-    artIdToken,
-    artRefreshToken,
+    AuthenticationResultType (AuthenticationResultType'),
+    newAuthenticationResultType,
 
     -- ** ChallengeResponseType
-    ChallengeResponseType,
-    challengeResponseType,
-    crtChallengeResponse,
-    crtChallengeName,
+    ChallengeResponseType (ChallengeResponseType'),
+    newChallengeResponseType,
 
     -- ** CodeDeliveryDetailsType
-    CodeDeliveryDetailsType,
-    codeDeliveryDetailsType,
-    cddtDeliveryMedium,
-    cddtAttributeName,
-    cddtDestination,
+    CodeDeliveryDetailsType (CodeDeliveryDetailsType'),
+    newCodeDeliveryDetailsType,
 
     -- ** CompromisedCredentialsActionsType
-    CompromisedCredentialsActionsType,
-    compromisedCredentialsActionsType,
-    ccatEventAction,
+    CompromisedCredentialsActionsType (CompromisedCredentialsActionsType'),
+    newCompromisedCredentialsActionsType,
 
     -- ** CompromisedCredentialsRiskConfigurationType
-    CompromisedCredentialsRiskConfigurationType,
-    compromisedCredentialsRiskConfigurationType,
-    ccrctEventFilter,
-    ccrctActions,
+    CompromisedCredentialsRiskConfigurationType (CompromisedCredentialsRiskConfigurationType'),
+    newCompromisedCredentialsRiskConfigurationType,
 
     -- ** ContextDataType
-    ContextDataType,
-    contextDataType,
-    cdtEncodedData,
-    cdtIPAddress,
-    cdtServerName,
-    cdtServerPath,
-    cdtHTTPHeaders,
+    ContextDataType (ContextDataType'),
+    newContextDataType,
 
     -- ** CustomDomainConfigType
-    CustomDomainConfigType,
-    customDomainConfigType,
-    cdctCertificateARN,
+    CustomDomainConfigType (CustomDomainConfigType'),
+    newCustomDomainConfigType,
 
     -- ** CustomEmailLambdaVersionConfigType
-    CustomEmailLambdaVersionConfigType,
-    customEmailLambdaVersionConfigType,
-    celvctLambdaVersion,
-    celvctLambdaARN,
+    CustomEmailLambdaVersionConfigType (CustomEmailLambdaVersionConfigType'),
+    newCustomEmailLambdaVersionConfigType,
 
     -- ** CustomSMSLambdaVersionConfigType
-    CustomSMSLambdaVersionConfigType,
-    customSMSLambdaVersionConfigType,
-    csmslvctLambdaVersion,
-    csmslvctLambdaARN,
+    CustomSMSLambdaVersionConfigType (CustomSMSLambdaVersionConfigType'),
+    newCustomSMSLambdaVersionConfigType,
 
     -- ** DeviceConfigurationType
-    DeviceConfigurationType,
-    deviceConfigurationType,
-    dctChallengeRequiredOnNewDevice,
-    dctDeviceOnlyRememberedOnUserPrompt,
+    DeviceConfigurationType (DeviceConfigurationType'),
+    newDeviceConfigurationType,
 
     -- ** DeviceSecretVerifierConfigType
-    DeviceSecretVerifierConfigType,
-    deviceSecretVerifierConfigType,
-    dsvctPasswordVerifier,
-    dsvctSalt,
+    DeviceSecretVerifierConfigType (DeviceSecretVerifierConfigType'),
+    newDeviceSecretVerifierConfigType,
 
     -- ** DeviceType
-    DeviceType,
-    deviceType,
-    dtDeviceLastModifiedDate,
-    dtDeviceKey,
-    dtDeviceLastAuthenticatedDate,
-    dtDeviceCreateDate,
-    dtDeviceAttributes,
+    DeviceType (DeviceType'),
+    newDeviceType,
 
     -- ** DomainDescriptionType
-    DomainDescriptionType,
-    domainDescriptionType,
-    ddtStatus,
-    ddtCustomDomainConfig,
-    ddtAWSAccountId,
-    ddtS3Bucket,
-    ddtUserPoolId,
-    ddtDomain,
-    ddtCloudFrontDistribution,
-    ddtVersion,
+    DomainDescriptionType (DomainDescriptionType'),
+    newDomainDescriptionType,
 
     -- ** EmailConfigurationType
-    EmailConfigurationType,
-    emailConfigurationType,
-    ectEmailSendingAccount,
-    ectReplyToEmailAddress,
-    ectFrom,
-    ectSourceARN,
-    ectConfigurationSet,
+    EmailConfigurationType (EmailConfigurationType'),
+    newEmailConfigurationType,
 
     -- ** EventContextDataType
-    EventContextDataType,
-    eventContextDataType,
-    ecdtIPAddress,
-    ecdtCity,
-    ecdtDeviceName,
-    ecdtTimezone,
-    ecdtCountry,
+    EventContextDataType (EventContextDataType'),
+    newEventContextDataType,
 
     -- ** EventFeedbackType
-    EventFeedbackType,
-    eventFeedbackType,
-    eftFeedbackDate,
-    eftFeedbackValue,
-    eftProvider,
+    EventFeedbackType (EventFeedbackType'),
+    newEventFeedbackType,
 
     -- ** EventRiskType
-    EventRiskType,
-    eventRiskType,
-    ertCompromisedCredentialsDetected,
-    ertRiskDecision,
-    ertRiskLevel,
+    EventRiskType (EventRiskType'),
+    newEventRiskType,
 
     -- ** GroupType
-    GroupType,
-    groupType,
-    gtLastModifiedDate,
-    gtRoleARN,
-    gtGroupName,
-    gtUserPoolId,
-    gtCreationDate,
-    gtDescription,
-    gtPrecedence,
+    GroupType (GroupType'),
+    newGroupType,
 
-    -- ** HTTPHeader
-    HTTPHeader,
-    hTTPHeader,
-    httphHeaderName,
-    httphHeaderValue,
+    -- ** HttpHeader
+    HttpHeader (HttpHeader'),
+    newHttpHeader,
 
     -- ** IdentityProviderType
-    IdentityProviderType,
-    identityProviderType,
-    iptLastModifiedDate,
-    iptProviderType,
-    iptProviderName,
-    iptProviderDetails,
-    iptUserPoolId,
-    iptCreationDate,
-    iptIdpIdentifiers,
-    iptAttributeMapping,
+    IdentityProviderType (IdentityProviderType'),
+    newIdentityProviderType,
 
     -- ** LambdaConfigType
-    LambdaConfigType,
-    lambdaConfigType,
-    lctCustomEmailSender,
-    lctPreSignUp,
-    lctDefineAuthChallenge,
-    lctPostAuthentication,
-    lctCustomSMSSender,
-    lctCreateAuthChallenge,
-    lctPostConfirmation,
-    lctPreAuthentication,
-    lctKMSKeyId,
-    lctVerifyAuthChallengeResponse,
-    lctCustomMessage,
-    lctUserMigration,
-    lctPreTokenGeneration,
+    LambdaConfigType (LambdaConfigType'),
+    newLambdaConfigType,
 
     -- ** MFAOptionType
-    MFAOptionType,
-    mfaOptionType,
-    motDeliveryMedium,
-    motAttributeName,
+    MFAOptionType (MFAOptionType'),
+    newMFAOptionType,
 
     -- ** MessageTemplateType
-    MessageTemplateType,
-    messageTemplateType,
-    mttEmailSubject,
-    mttEmailMessage,
-    mttSMSMessage,
+    MessageTemplateType (MessageTemplateType'),
+    newMessageTemplateType,
 
     -- ** NewDeviceMetadataType
-    NewDeviceMetadataType,
-    newDeviceMetadataType,
-    ndmtDeviceKey,
-    ndmtDeviceGroupKey,
+    NewDeviceMetadataType (NewDeviceMetadataType'),
+    newNewDeviceMetadataType,
 
     -- ** NotifyConfigurationType
-    NotifyConfigurationType,
-    notifyConfigurationType,
-    nctMFAEmail,
-    nctBlockEmail,
-    nctReplyTo,
-    nctFrom,
-    nctNoActionEmail,
-    nctSourceARN,
+    NotifyConfigurationType (NotifyConfigurationType'),
+    newNotifyConfigurationType,
 
     -- ** NotifyEmailType
-    NotifyEmailType,
-    notifyEmailType,
-    netHTMLBody,
-    netTextBody,
-    netSubject,
+    NotifyEmailType (NotifyEmailType'),
+    newNotifyEmailType,
 
     -- ** NumberAttributeConstraintsType
-    NumberAttributeConstraintsType,
-    numberAttributeConstraintsType,
-    nactMaxValue,
-    nactMinValue,
+    NumberAttributeConstraintsType (NumberAttributeConstraintsType'),
+    newNumberAttributeConstraintsType,
 
     -- ** PasswordPolicyType
-    PasswordPolicyType,
-    passwordPolicyType,
-    pptTemporaryPasswordValidityDays,
-    pptRequireUppercase,
-    pptMinimumLength,
-    pptRequireSymbols,
-    pptRequireNumbers,
-    pptRequireLowercase,
+    PasswordPolicyType (PasswordPolicyType'),
+    newPasswordPolicyType,
 
     -- ** ProviderDescription
-    ProviderDescription,
-    providerDescription,
-    pdLastModifiedDate,
-    pdProviderType,
-    pdProviderName,
-    pdCreationDate,
+    ProviderDescription (ProviderDescription'),
+    newProviderDescription,
 
     -- ** ProviderUserIdentifierType
-    ProviderUserIdentifierType,
-    providerUserIdentifierType,
-    puitProviderName,
-    puitProviderAttributeName,
-    puitProviderAttributeValue,
+    ProviderUserIdentifierType (ProviderUserIdentifierType'),
+    newProviderUserIdentifierType,
 
     -- ** RecoveryOptionType
-    RecoveryOptionType,
-    recoveryOptionType,
-    rotPriority,
-    rotName,
+    RecoveryOptionType (RecoveryOptionType'),
+    newRecoveryOptionType,
 
     -- ** ResourceServerScopeType
-    ResourceServerScopeType,
-    resourceServerScopeType,
-    rsstScopeName,
-    rsstScopeDescription,
+    ResourceServerScopeType (ResourceServerScopeType'),
+    newResourceServerScopeType,
 
     -- ** ResourceServerType
-    ResourceServerType,
-    resourceServerType,
-    rstScopes,
-    rstIdentifier,
-    rstUserPoolId,
-    rstName,
+    ResourceServerType (ResourceServerType'),
+    newResourceServerType,
 
     -- ** RiskConfigurationType
-    RiskConfigurationType,
-    riskConfigurationType,
-    rctAccountTakeoverRiskConfiguration,
-    rctLastModifiedDate,
-    rctClientId,
-    rctRiskExceptionConfiguration,
-    rctUserPoolId,
-    rctCompromisedCredentialsRiskConfiguration,
+    RiskConfigurationType (RiskConfigurationType'),
+    newRiskConfigurationType,
 
     -- ** RiskExceptionConfigurationType
-    RiskExceptionConfigurationType,
-    riskExceptionConfigurationType,
-    rectSkippedIPRangeList,
-    rectBlockedIPRangeList,
+    RiskExceptionConfigurationType (RiskExceptionConfigurationType'),
+    newRiskExceptionConfigurationType,
 
-    -- ** SMSMFASettingsType
-    SMSMFASettingsType,
-    sMSMFASettingsType,
-    smsmstEnabled,
-    smsmstPreferredMFA,
+    -- ** SMSMfaSettingsType
+    SMSMfaSettingsType (SMSMfaSettingsType'),
+    newSMSMfaSettingsType,
 
     -- ** SchemaAttributeType
-    SchemaAttributeType,
-    schemaAttributeType,
-    satAttributeDataType,
-    satRequired,
-    satNumberAttributeConstraints,
-    satDeveloperOnlyAttribute,
-    satStringAttributeConstraints,
-    satName,
-    satMutable,
+    SchemaAttributeType (SchemaAttributeType'),
+    newSchemaAttributeType,
 
     -- ** SmsConfigurationType
-    SmsConfigurationType,
-    smsConfigurationType,
-    sctExternalId,
-    sctSNSCallerARN,
+    SmsConfigurationType (SmsConfigurationType'),
+    newSmsConfigurationType,
 
-    -- ** SmsMFAConfigType
-    SmsMFAConfigType,
-    smsMFAConfigType,
-    smctSmsConfiguration,
-    smctSmsAuthenticationMessage,
+    -- ** SmsMfaConfigType
+    SmsMfaConfigType (SmsMfaConfigType'),
+    newSmsMfaConfigType,
 
-    -- ** SoftwareTokenMFAConfigType
-    SoftwareTokenMFAConfigType,
-    softwareTokenMFAConfigType,
-    stmctEnabled,
+    -- ** SoftwareTokenMfaConfigType
+    SoftwareTokenMfaConfigType (SoftwareTokenMfaConfigType'),
+    newSoftwareTokenMfaConfigType,
 
-    -- ** SoftwareTokenMFASettingsType
-    SoftwareTokenMFASettingsType,
-    softwareTokenMFASettingsType,
-    stmstEnabled,
-    stmstPreferredMFA,
+    -- ** SoftwareTokenMfaSettingsType
+    SoftwareTokenMfaSettingsType (SoftwareTokenMfaSettingsType'),
+    newSoftwareTokenMfaSettingsType,
 
     -- ** StringAttributeConstraintsType
-    StringAttributeConstraintsType,
-    stringAttributeConstraintsType,
-    sactMinLength,
-    sactMaxLength,
+    StringAttributeConstraintsType (StringAttributeConstraintsType'),
+    newStringAttributeConstraintsType,
 
     -- ** TokenValidityUnitsType
-    TokenValidityUnitsType,
-    tokenValidityUnitsType,
-    tvutAccessToken,
-    tvutIdToken,
-    tvutRefreshToken,
+    TokenValidityUnitsType (TokenValidityUnitsType'),
+    newTokenValidityUnitsType,
 
     -- ** UICustomizationType
-    UICustomizationType,
-    uICustomizationType,
-    uictLastModifiedDate,
-    uictClientId,
-    uictCSSVersion,
-    uictUserPoolId,
-    uictCreationDate,
-    uictImageURL,
-    uictCSS,
+    UICustomizationType (UICustomizationType'),
+    newUICustomizationType,
 
     -- ** UserContextDataType
-    UserContextDataType,
-    userContextDataType,
-    ucdtEncodedData,
+    UserContextDataType (UserContextDataType'),
+    newUserContextDataType,
 
     -- ** UserImportJobType
-    UserImportJobType,
-    userImportJobType,
-    uijtCompletionMessage,
-    uijtStatus,
-    uijtStartDate,
-    uijtUserPoolId,
-    uijtCreationDate,
-    uijtSkippedUsers,
-    uijtFailedUsers,
-    uijtImportedUsers,
-    uijtCloudWatchLogsRoleARN,
-    uijtPreSignedURL,
-    uijtCompletionDate,
-    uijtJobName,
-    uijtJobId,
+    UserImportJobType (UserImportJobType'),
+    newUserImportJobType,
 
     -- ** UserPoolAddOnsType
-    UserPoolAddOnsType,
-    userPoolAddOnsType,
-    upaotAdvancedSecurityMode,
+    UserPoolAddOnsType (UserPoolAddOnsType'),
+    newUserPoolAddOnsType,
 
     -- ** UserPoolClientDescription
-    UserPoolClientDescription,
-    userPoolClientDescription,
-    upcdClientId,
-    upcdClientName,
-    upcdUserPoolId,
+    UserPoolClientDescription (UserPoolClientDescription'),
+    newUserPoolClientDescription,
 
     -- ** UserPoolClientType
-    UserPoolClientType,
-    userPoolClientType,
-    upctLastModifiedDate,
-    upctClientSecret,
-    upctRefreshTokenValidity,
-    upctClientId,
-    upctIdTokenValidity,
-    upctAllowedOAuthScopes,
-    upctClientName,
-    upctAnalyticsConfiguration,
-    upctUserPoolId,
-    upctReadAttributes,
-    upctCreationDate,
-    upctLogoutURLs,
-    upctWriteAttributes,
-    upctSupportedIdentityProviders,
-    upctExplicitAuthFlows,
-    upctDefaultRedirectURI,
-    upctTokenValidityUnits,
-    upctCallbackURLs,
-    upctAllowedOAuthFlows,
-    upctAccessTokenValidity,
-    upctPreventUserExistenceErrors,
-    upctAllowedOAuthFlowsUserPoolClient,
+    UserPoolClientType (UserPoolClientType'),
+    newUserPoolClientType,
 
     -- ** UserPoolDescriptionType
-    UserPoolDescriptionType,
-    userPoolDescriptionType,
-    updtLastModifiedDate,
-    updtStatus,
-    updtId,
-    updtCreationDate,
-    updtLambdaConfig,
-    updtName,
+    UserPoolDescriptionType (UserPoolDescriptionType'),
+    newUserPoolDescriptionType,
 
     -- ** UserPoolPolicyType
-    UserPoolPolicyType,
-    userPoolPolicyType,
-    upptPasswordPolicy,
+    UserPoolPolicyType (UserPoolPolicyType'),
+    newUserPoolPolicyType,
 
     -- ** UserPoolType
-    UserPoolType,
-    userPoolType,
-    uptLastModifiedDate,
-    uptUserPoolTags,
-    uptStatus,
-    uptUsernameAttributes,
-    uptEmailVerificationSubject,
-    uptAutoVerifiedAttributes,
-    uptPolicies,
-    uptCustomDomain,
-    uptDomain,
-    uptAdminCreateUserConfig,
-    uptDeviceConfiguration,
-    uptARN,
-    uptId,
-    uptCreationDate,
-    uptSmsConfiguration,
-    uptLambdaConfig,
-    uptEstimatedNumberOfUsers,
-    uptSmsVerificationMessage,
-    uptName,
-    uptAccountRecoverySetting,
-    uptEmailConfiguration,
-    uptEmailConfigurationFailure,
-    uptAliasAttributes,
-    uptEmailVerificationMessage,
-    uptUserPoolAddOns,
-    uptUsernameConfiguration,
-    uptSmsAuthenticationMessage,
-    uptSchemaAttributes,
-    uptSmsConfigurationFailure,
-    uptMFAConfiguration,
-    uptVerificationMessageTemplate,
+    UserPoolType (UserPoolType'),
+    newUserPoolType,
 
     -- ** UserType
-    UserType,
-    userType,
-    utUserCreateDate,
-    utUserLastModifiedDate,
-    utEnabled,
-    utAttributes,
-    utUsername,
-    utUserStatus,
-    utMFAOptions,
+    UserType (UserType'),
+    newUserType,
 
     -- ** UsernameConfigurationType
-    UsernameConfigurationType,
-    usernameConfigurationType,
-    uctCaseSensitive,
+    UsernameConfigurationType (UsernameConfigurationType'),
+    newUsernameConfigurationType,
 
     -- ** VerificationMessageTemplateType
-    VerificationMessageTemplateType,
-    verificationMessageTemplateType,
-    vmttDefaultEmailOption,
-    vmttEmailSubjectByLink,
-    vmttEmailSubject,
-    vmttEmailMessage,
-    vmttEmailMessageByLink,
-    vmttSmsMessage,
+    VerificationMessageTemplateType (VerificationMessageTemplateType'),
+    newVerificationMessageTemplateType,
   )
 where
 
@@ -1154,9 +1175,10 @@ import Network.AWS.CognitoIdentityProvider.GetSigningCertificate
 import Network.AWS.CognitoIdentityProvider.GetUICustomization
 import Network.AWS.CognitoIdentityProvider.GetUser
 import Network.AWS.CognitoIdentityProvider.GetUserAttributeVerificationCode
-import Network.AWS.CognitoIdentityProvider.GetUserPoolMFAConfig
+import Network.AWS.CognitoIdentityProvider.GetUserPoolMfaConfig
 import Network.AWS.CognitoIdentityProvider.GlobalSignOut
 import Network.AWS.CognitoIdentityProvider.InitiateAuth
+import Network.AWS.CognitoIdentityProvider.Lens
 import Network.AWS.CognitoIdentityProvider.ListDevices
 import Network.AWS.CognitoIdentityProvider.ListGroups
 import Network.AWS.CognitoIdentityProvider.ListIdentityProviders
@@ -1172,7 +1194,7 @@ import Network.AWS.CognitoIdentityProvider.RespondToAuthChallenge
 import Network.AWS.CognitoIdentityProvider.SetRiskConfiguration
 import Network.AWS.CognitoIdentityProvider.SetUICustomization
 import Network.AWS.CognitoIdentityProvider.SetUserMFAPreference
-import Network.AWS.CognitoIdentityProvider.SetUserPoolMFAConfig
+import Network.AWS.CognitoIdentityProvider.SetUserPoolMfaConfig
 import Network.AWS.CognitoIdentityProvider.SetUserSettings
 import Network.AWS.CognitoIdentityProvider.SignUp
 import Network.AWS.CognitoIdentityProvider.StartUserImportJob
